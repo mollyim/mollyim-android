@@ -64,14 +64,14 @@ public class KeyCachingService extends Service {
 
   public static final int SERVICE_RUNNING_ID = 4141;
 
-  public  static final String KEY_PERMISSION           = "org.thoughtcrime.securesms.ACCESS_SECRETS";
-  public  static final String NEW_KEY_EVENT            = "org.thoughtcrime.securesms.service.action.NEW_KEY_EVENT";
-  public  static final String CLEAR_KEY_EVENT          = "org.thoughtcrime.securesms.service.action.CLEAR_KEY_EVENT";
-  public  static final String LOCK_TOGGLED_EVENT       = "org.thoughtcrime.securesms.service.action.LOCK_ENABLED_EVENT";
-  private static final String PASSPHRASE_EXPIRED_EVENT = "org.thoughtcrime.securesms.service.action.PASSPHRASE_EXPIRED_EVENT";
-  public  static final String CLEAR_KEY_ACTION         = "org.thoughtcrime.securesms.service.action.CLEAR_KEY";
-  public  static final String DISABLE_ACTION           = "org.thoughtcrime.securesms.service.action.DISABLE";
-  public  static final String LOCALE_CHANGE_EVENT      = "org.thoughtcrime.securesms.service.action.LOCALE_CHANGE_EVENT";
+  public  static final String KEY_PERMISSION           = "com.github.sigx.sig4a.ACCESS_SECRETS";
+  public  static final String NEW_KEY_EVENT            = "com.github.sigx.sig4a.service.action.NEW_KEY_EVENT";
+  public  static final String CLEAR_KEY_EVENT          = "com.github.sigx.sig4a.service.action.CLEAR_KEY_EVENT";
+  public  static final String LOCK_TOGGLED_EVENT       = "com.github.sigx.sig4a.service.action.LOCK_ENABLED_EVENT";
+  private static final String PASSPHRASE_EXPIRED_EVENT = "com.github.sigx.sig4a.service.action.PASSPHRASE_EXPIRED_EVENT";
+  public  static final String CLEAR_KEY_ACTION         = "com.github.sigx.sig4a.service.action.CLEAR_KEY";
+  public  static final String DISABLE_ACTION           = "com.github.sigx.sig4a.service.action.DISABLE";
+  public  static final String LOCALE_CHANGE_EVENT      = "com.github.sigx.sig4a.service.action.LOCALE_CHANGE_EVENT";
 
   private DynamicLanguage dynamicLanguage = new DynamicLanguage();
 

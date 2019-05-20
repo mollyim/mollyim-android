@@ -21,7 +21,7 @@ public class StorageUtil {
       throw new NoExternalStorageException();
     }
 
-    File signal = new File(storage, "Signal");
+    File signal = new File(storage, "sig4a");
     File backups = new File(signal, "Backups");
 
     if (!backups.exists()) {

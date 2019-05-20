@@ -71,7 +71,7 @@ public class LocalBackupJob extends BaseJob {
       String backupPassword  = BackupPassphrase.get(context);
       File   backupDirectory = StorageUtil.getBackupDirectory();
       String timestamp       = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss", Locale.US).format(new Date());
-      String fileName        = String.format("signal-%s.backup", timestamp);
+      String fileName        = String.format("%s-%s.backup", context.getString(R.string.app_name), timestamp);
       File   backupFile      = new File(backupDirectory, fileName);
 
       if (backupFile.exists()) {
