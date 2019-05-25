@@ -12,17 +12,11 @@ android:
 
 cache:
   directories:
-    # Gradle deps (see https://guides.gradle.org/executing-gradle-builds-on-travisci/)
-    - "$HOME/.gradle/caches/"
     - "$HOME/.gradle/wrapper/"
-
-    # Android build cache
-    - "$HOME/.android/build-cache/"
 
 script:
   - export GRADLE_OPTS="-Xmx2048m"
   - ./gradlew
-      -Pci
       --no-daemon
       --exclude-task signProductionWebsiteRelease
       assembleWebsite
