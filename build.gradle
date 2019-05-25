@@ -22,31 +22,31 @@ repositories {
     maven {
         url "https://raw.github.com/signalapp/maven/master/photoview/releases/"
         content {
-            includeGroupByRegex "com\\.github\\.chrisbanes.*"
+            includeModule 'com.github.chrisbanes', 'PhotoView'
         }
     }
     maven {
         url "https://raw.github.com/signalapp/maven/master/shortcutbadger/releases/"
         content {
-            includeGroupByRegex "me\\.leolin.*"
+            includeModule 'me.leolin', 'ShortcutBadger'
         }
     }
     maven {
         url "https://raw.github.com/signalapp/maven/master/circular-progress-button/releases/"
         content {
-            includeGroupByRegex "com\\.github\\.dmytrodanylyk\\.circular-progress-button\\.*"
+            includeModule 'com.github.dmytrodanylyk.circular-progress-button', 'library'
         }
     }
     maven {
         url "https://raw.github.com/signalapp/maven/master/sqlcipher/release/"
         content {
-            includeGroupByRegex "org\\.signal.*"
+            includeModule 'org.signal', 'android-database-sqlcipher'
         }
     }
-    maven { // textdrawable
+    maven {
         url 'https://dl.bintray.com/amulyakhare/maven'
         content {
-            includeGroupByRegex "com\\.amulyakhare.*"
+            includeModule 'com.amulyakhare:com.amulyakhare', 'textdrawable'
         }
     }
     google()
