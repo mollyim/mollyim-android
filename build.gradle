@@ -389,13 +389,6 @@ android {
     }
 
     productFlavors {
-        play {
-            dimension "none"
-            ext.websiteUpdateUrl = "null"
-            buildConfigField "boolean", "PLAY_STORE_DISABLED", "false"
-            buildConfigField "String", "NOPLAY_UPDATE_URL", "$ext.websiteUpdateUrl"
-        }
-
         website {
             dimension "none"
             ext.websiteUpdateUrl = "https://updates.signal.org/android"
