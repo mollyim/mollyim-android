@@ -286,6 +286,10 @@ dependencyVerification {
     ]
 }
 
+ext {
+    commitTag = "git describe --tags --exact-match".execute().text.trim() ?: "untagged"
+    commitTimestamp = "git log -1 --pretty=format:%ct".execute().text.trim() + "000"
+}
 
 android {
     flavorDimensions "none"
@@ -300,6 +304,7 @@ android {
     defaultConfig {
         versionCode 486
         versionName "4.40.3"
+        versionName project.hasProperty('ci') ? commitTag : versionName
 
         minSdkVersion 19
         targetSdkVersion 26
@@ -312,7 +317,7 @@ android {
 
         vectorDrawables.useSupportLibrary = true
 
-        buildConfigField "long", "BUILD_TIMESTAMP", getLastCommitTimestamp() + "L"
+        buildConfigField "long", "BUILD_TIMESTAMP", "${commitTimestamp}L"
         buildConfigField "String", "SIGNAL_URL", "\"https://textsecure-service-staging.whispersystems.org\""
         buildConfigField "String", "SIGNAL_CDN_URL", "\"https://cdn-staging.signal.org\""
         buildConfigField "String", "SIGNAL_CONTACT_DISCOVERY_URL", "\" https://api-staging.directory.signal.org\""
@@ -330,15 +335,6 @@ android {
         }
 
         resConfigs autoResConfig()
-
-        splits {
-            abi {
-                enable true
-                reset()
-                include 'armeabi-v7a', 'x86'
-                universalApk true
-            }
-        }
     }
 
     compileOptions {
@@ -399,7 +395,10 @@ android {
 
     android.applicationVariants.all { variant ->
         variant.outputs.all {
-            outputFileName = outputFileName.replace(".apk", "-${variant.versionName}.apk")
+            outputFileName = "HereBeDragons-${appName}-${buildType.name}"
+            if (!buildType.signingConfig)
+                outputFileName += "-unsigned"
+            outputFileName += "-${variant.versionName}.apk"
         }
     }
 
@@ -492,28 +491,6 @@ task signProductionWebsiteRelease {
         def  variant       = android.applicationVariants.find { (it.name == 'websiteRelease') }
         File signedRelease = signProductionRelease(variant).find { it.name.contains('universal') }
         assembleWebsiteDescriptor(variant, signedRelease)
-    }
-}
-
-tasks.whenTaskAdded { task ->
-    if (task.name.equals("assemblePlayRelease")) {
-        task.finalizedBy signProductionPlayRelease
-    }
-
-    if (task.name.equals("assembleWebsiteRelease")) {
-        task.finalizedBy signProductionWebsiteRelease
-    }
-}
-
-def getLastCommitTimestamp() {
-    new ByteArrayOutputStream().withStream { os ->
-        def result = exec {
-            executable = 'git'
-            args = ['log', '-1', '--pretty=format:%ct']
-            standardOutput = os
-        }
-
-        return os.toString() + "000"
     }
 }
 

@@ -18,6 +18,19 @@ script:
   - export GRADLE_OPTS="-Xmx2048m"
   - ./gradlew
       --no-daemon
-      --exclude-task signProductionWebsiteRelease
+      -Pci
       assembleWebsite
       testWebsiteReleaseUnitTest
+
+deploy:
+  provider: releases
+  api_key: $GITHUB_TOKEN
+  file_glob: true
+  file:
+    - build/outputs/apk/website/*/*.apk
+  skip_cleanup: true
+  draft: true
+  overwrite: true
+  on:
+    condition: $GITHUB_TOKEN
+    tags: true
