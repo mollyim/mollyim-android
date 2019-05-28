@@ -395,10 +395,9 @@ android {
 
     android.applicationVariants.all { variant ->
         variant.outputs.all {
-            outputFileName = "HereBeDragons-${appName}-${buildType.name}"
-            if (!buildType.signingConfig)
-                outputFileName += "-unsigned"
-            outputFileName += "-${variant.versionName}.apk"
+            def ver = "${versionName}-${buildType.name}"
+            ver += buildType.signingConfig ? "" : "-unsigned"
+            outputFileName = "HereBeDragons-${appName}-${ver}.apk"
         }
     }
 
