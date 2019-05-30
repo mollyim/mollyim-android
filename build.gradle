@@ -11,7 +11,6 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.3.2'
-        classpath files('libs/gradle-witness.jar')
     }
 }
 
@@ -93,7 +92,7 @@ dependencies {
     compile 'org.conscrypt:conscrypt-android:2.0.0'
     compile 'org.signal:aesgcmprovider:0.0.3'
 
-    compile 'com.github.sigx.libsigsvc4j:signal-service-android:2.13.1'
+    compile 'com.github.sigx.libsigsvc4j:signal-service-android:2.13.2-x1pre1'
 
     compile 'org.whispersystems:webrtc-android:M74'
 
@@ -168,6 +167,7 @@ dependencies {
 }
 
 dependencyVerification {
+    configuration = '(play|website)(Debug|Release)RuntimeClasspath'
     verify = [
         'com.android.support:design:7874ad1904eedc74aa41cffffb7f759d8990056f3bbbc9264911651c67c42f5f',
         'com.android.support:preference-v14:8133c6e19233fa51e036a341e6d3f4adeead3375cebf777efced0fe154c3267e',
@@ -291,6 +291,16 @@ ext {
     commitTimestamp = "git log -1 --pretty=format:%ct".execute().text.trim() + "000"
 }
 
+def canonicalVersionCode = 488
+def canonicalVersionName = "4.41.0"
+
+def postFixSize = 10
+def abiPostFix = ['armeabi-v7a' : 1,
+                  'arm64-v8a'   : 2,
+                  'x86'         : 3,
+                  'x86_64'      : 4,
+                  'universal'   : 5]
+
 android {
     flavorDimensions "none"
     compileSdkVersion 28
@@ -302,9 +312,8 @@ android {
     }
 
     defaultConfig {
-        versionCode 486
-        versionName "4.40.3"
-        versionName project.hasProperty('ci') ? commitTag : versionName
+        versionCode canonicalVersionCode * postFixSize
+        versionName project.hasProperty('ci') ? commitTag : canonicalVersionName
 
         minSdkVersion 19
         targetSdkVersion 26
@@ -329,9 +338,10 @@ android {
         buildConfigField "String", "MRENCLAVE", "\"cd6cfc342937b23b1bdd3bbf9721aa5615ac9ff50a75c5527d441cd3276826c9\""
         buildConfigField "String", "UNIDENTIFIED_SENDER_TRUST_ROOT", "\"BXu6QIKVz5MA8gstzfOgRQGqyLqOwNKHL6INkv3IHWMF\""
         buildConfigField "String[]", "LANGUAGES", "new String[]{\"" + autoResConfig().collect { s -> s.replace('-r', '_') }.join('", "') + '"}'
+        buildConfigField "int", "CANONICAL_VERSION_CODE", "$canonicalVersionCode"
 
         ndk {
-            abiFilters 'armeabi-v7a', 'x86'
+            abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
         }
 
         resConfigs autoResConfig()
@@ -433,8 +443,9 @@ android {
         website.manifest.srcFile 'website/AndroidManifest.xml'
     }
 
-     lintOptions {
-        abortOnError false
+    lintOptions {
+        abortOnError true
+        baseline file("lint-baseline.xml")
     }
 
     testOptions {
@@ -460,8 +471,8 @@ def assembleWebsiteDescriptor = { variant, file ->
         String apkName = file.getName()
 
         String descriptor = "{" +
-                "\"versionCode\" : $project.android.defaultConfig.versionCode," +
-                "\"versionName\" : \"$project.android.defaultConfig.versionName\"," +
+                "\"versionCode\" : $canonicalVersionCode," +
+                "\"versionName\" : \"$canonicalVersionName\"," +
                 "\"sha256sum\" : \"$digest\"," +
                 "\"url\" : \"$url/$apkName\"" +
                 "}"
@@ -519,5 +530,5 @@ static def autoResConfig() {
 task qa {
   group 'Verification'
   description 'Quality Assurance. Run before pushing.'
-  dependsOn ':testPlayReleaseUnitTest', ':assemblePlayDebug'
+  dependsOn ':testPlayReleaseUnitTest', ':lintPlayRelease', ':assemblePlayDebug'
 }
