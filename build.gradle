@@ -6,16 +6,24 @@ buildscript {
     repositories {
         google()
         maven {
-            url "https://repo1.maven.org/maven2"
+            url 'https://plugins.gradle.org/m2/'
         }
     }
     dependencies {
+        classpath 'com.gradle:build-scan-plugin:2.3'
         classpath 'com.android.tools.build:gradle:3.3.2'
     }
 }
 
+apply plugin: 'com.gradle.build-scan'
 apply plugin: 'com.android.application'
 apply plugin: 'witness'
+
+buildScan {
+    termsOfServiceUrl = 'https://gradle.com/terms-of-service'
+    termsOfServiceAgree = 'yes'
+    publishAlwaysIf(System.getenv('BUILD_SCAN') != null)
+}
 
 repositories {
     maven {
