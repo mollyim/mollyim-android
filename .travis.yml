@@ -2,23 +2,12 @@ language: android
 
 android:
   components:
-    - tools
-    - platform-tools
-    - build-tools-28.0.3
-    - android-28
-    - extra-google-m2repository
-    - extra-android-m2repository
+    - tools,platform-tools,build-tools-28.0.3,android-28
+    - extra-google-m2repository,extra-android-m2repository
     - extra-android-support
 
-cache:
-  directories:
-    - "$HOME/.gradle/wrapper/"
-
 script:
-  - export GRADLE_OPTS="-Xmx2048m"
-  - ./gradlew
-      --no-daemon
-      -Pci
+  - ./gradlew -Pci
       assembleWebsite
       testWebsiteReleaseUnitTest
 
