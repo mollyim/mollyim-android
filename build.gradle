@@ -459,6 +459,13 @@ tasks.withType(JavaCompile) {
     options.compilerArgs << "-Xmaxerrs" << "1000"
 }
 
+tasks.withType(Test) {
+    testLogging {
+        events "skipped", "passed", "failed"
+        showStandardStreams true
+    }
+}
+
 def assembleWebsiteDescriptor = { variant, file ->
     if (file.exists()) {
         MessageDigest md = MessageDigest.getInstance("SHA-256");
