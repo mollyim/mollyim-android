@@ -100,7 +100,7 @@ dependencies {
     compile 'org.conscrypt:conscrypt-android:2.0.0'
     compile 'org.signal:aesgcmprovider:0.0.3'
 
-    compile 'com.github.sigx.libsigsvc4j:signal-service-android:2.13.3-x1pre1'
+    compile ('com.github.sigx.libsigsvc4j:signal-service-android:2.13.3-x1pre1') { changing = true }
 
     compile 'org.whispersystems:webrtc-android:M74'
 
@@ -172,6 +172,12 @@ dependencies {
     }
     testImplementation 'org.robolectric:robolectric:4.2'
     testImplementation 'org.robolectric:shadows-multidex:4.2'
+}
+
+configurations.all {
+    resolutionStrategy {
+        cacheChangingModulesFor 0, 'seconds'
+    }
 }
 
 dependencyVerification {
