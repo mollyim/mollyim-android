@@ -250,7 +250,7 @@ public class DirectoryHelper {
 
   private static Optional<AccountHolder> getOrCreateAccount(Context context) {
     AccountManager accountManager = AccountManager.get(context);
-    Account[]      accounts       = accountManager.getAccountsByType("org.thoughtcrime.securesms");
+    Account[]      accounts       = accountManager.getAccountsByType(BuildConfig.APPLICATION_ID);
 
     Optional<AccountHolder> account;
 
@@ -266,7 +266,7 @@ public class DirectoryHelper {
 
   private static Optional<AccountHolder> createAccount(Context context) {
     AccountManager accountManager = AccountManager.get(context);
-    Account        account        = new Account(context.getString(R.string.app_name), "org.thoughtcrime.securesms");
+    Account        account        = new Account(context.getString(R.string.app_name), BuildConfig.APPLICATION_ID);
 
     if (accountManager.addAccountExplicitly(account, null, null)) {
       Log.i(TAG, "Created new account...");
