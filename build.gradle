@@ -350,7 +350,7 @@ android {
         buildConfigField "String", "USER_AGENT", "\"OWA\""
         buildConfigField "boolean", "DEV_BUILD", "false"
         buildConfigField "String", "MRENCLAVE", "\"cd6cfc342937b23b1bdd3bbf9721aa5615ac9ff50a75c5527d441cd3276826c9\""
-        buildConfigField "String", "UNIDENTIFIED_SENDER_TRUST_ROOT", "\"BXu6QIKVz5MA8gstzfOgRQGqyLqOwNKHL6INkv3IHWMF\""
+        buildConfigField "String", "UNIDENTIFIED_SENDER_TRUST_ROOT", "\"BbqY1DzohE4NUZoVF+L18oUPrK3kILllLEJh2UnPSsEx\""
         buildConfigField "String[]", "LANGUAGES", "new String[]{\"" + autoResConfig().collect { s -> s.replace('-r', '_') }.join('", "') + '"}'
         buildConfigField "int", "CANONICAL_VERSION_CODE", "$canonicalVersionCode"
 
