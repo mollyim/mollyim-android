@@ -470,7 +470,7 @@ public class TextSecurePreferences {
   }
 
   public static boolean isRatingEnabled(Context context) {
-    return getBooleanPreference(context, RATING_ENABLED_PREF, true);
+    return getBooleanPreference(context, RATING_ENABLED_PREF, false);
   }
 
   public static void setRatingEnabled(Context context, boolean enabled) {
