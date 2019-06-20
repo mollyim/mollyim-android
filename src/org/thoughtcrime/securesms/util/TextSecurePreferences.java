@@ -870,7 +870,7 @@ public class TextSecurePreferences {
   }
 
   public static boolean hasPromptedDefaultSmsProvider(Context context) {
-    return getBooleanPreference(context, PROMPTED_DEFAULT_SMS_PREF, false);
+    return getBooleanPreference(context, PROMPTED_DEFAULT_SMS_PREF, true);
   }
 
   public static void setPromptedDefaultSmsProvider(Context context, boolean value) {
