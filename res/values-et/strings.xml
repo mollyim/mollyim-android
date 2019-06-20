@@ -230,6 +230,8 @@
   <string name="ConversationListItem_key_exchange_message">Võtmevahetussõnum</string>
   <!--ConversationListItemAction-->
   <string name="ConversationListItemAction_archived_conversations_d">Arhiveeritud vestlused (%d)</string>
+  <!--ConversationTitleView-->
+  <string name="ConversationTitleView_verified">Kontrollitud</string>
   <!--CreateProfileActivity-->
   <string name="CreateProfileActivity_your_profile_info">Sinu profiiliinfo</string>
   <string name="CreateProfileActivity_error_setting_profile_photo">Profiilipildi seadmisel tekkis viga</string>
@@ -572,9 +574,7 @@
   <string name="SmsMessageRecord_secure_session_reset">Sa lähtestasid turvalise sessiooni.</string>
   <string name="SmsMessageRecord_secure_session_reset_s">%s lähtestas turvalise sessiooni.</string>
   <string name="SmsMessageRecord_duplicate_message">Duplikaatsõnum.</string>
-  <string name="SmsMessageRecord_this_message_could_not_be_processed_because_it_was_sent_from_a_newer_version">
-        Seda sõnumit ei saanud töödelda, kuna see saadeti Signali uuemast versioonist. Sa võid paluda oma kontaktil see sõnum uuesti saata, kui oled ise rakendust uuendanud.
-    </string>
+  <string name="SmsMessageRecord_this_message_could_not_be_processed_because_it_was_sent_from_a_newer_version">Seda sõnumit ei saanud töödelda, kuna see saadeti Signali uuemast versioonist. Sa võid paluda oma kontaktil see sõnum uuesti saata, kui oled ise rakendust uuendanud.</string>
   <!--StickerManagementActivity-->
   <string name="StickerManagementActivity_stickers">Kleepsud</string>
   <!--StickerManagementAdapter-->
@@ -678,8 +678,6 @@
   <string name="MessageNotifier_reply">Vasta</string>
   <string name="MessageNotifier_signal_message">Signali sõnum</string>
   <string name="MessageNotifier_unsecured_sms">Turvamata SMS</string>
-  <string name="MessageNotifier_pending_signal_messages">Ootel Signali sõnumid</string>
-  <string name="MessageNotifier_you_have_pending_signal_messages">Sul on ootel Signali sõnumeid, koputa vaatamiseks</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">Kontakt</string>
   <!--Notification Channels-->

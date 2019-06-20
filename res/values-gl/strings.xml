@@ -230,6 +230,8 @@
   <string name="ConversationListItem_key_exchange_message">Mensaxe de intercambio de chaves</string>
   <!--ConversationListItemAction-->
   <string name="ConversationListItemAction_archived_conversations_d">Conversas arquivadas (%d)</string>
+  <!--ConversationTitleView-->
+  <string name="ConversationTitleView_verified">Verificado</string>
   <!--CreateProfileActivity-->
   <string name="CreateProfileActivity_your_profile_info">A información do teu perfil</string>
   <string name="CreateProfileActivity_error_setting_profile_photo">Erro ao establecer a fotografía do perfil</string>
@@ -572,9 +574,6 @@
   <string name="SmsMessageRecord_secure_session_reset">Restableciches a sesión segura.</string>
   <string name="SmsMessageRecord_secure_session_reset_s">%s restableceu a conexión segura.</string>
   <string name="SmsMessageRecord_duplicate_message">Mensaxe duplicada.</string>
-  <string name="SmsMessageRecord_this_message_could_not_be_processed_because_it_was_sent_from_a_newer_version">
-        Non se puido procesar esta mensaxe porque foi enviada desde unha versión de Signal máis nova. Podes pedirlle ao teu contacto que a volva enviar logo de actualizares.
-    </string>
   <!--StickerManagementActivity-->
   <string name="StickerManagementActivity_stickers">Adhesivos</string>
   <!--StickerManagementAdapter-->
@@ -678,8 +677,6 @@
   <string name="MessageNotifier_reply">Responder</string>
   <string name="MessageNotifier_signal_message">Mensaxe de Signal</string>
   <string name="MessageNotifier_unsecured_sms">SMS insegura</string>
-  <string name="MessageNotifier_pending_signal_messages">Mensaxes de Signal pendentes</string>
-  <string name="MessageNotifier_you_have_pending_signal_messages">Tes mensaxes de Signal pendentes, toca para abrir e recuperalas</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">Contacto</string>
   <!--Notification Channels-->

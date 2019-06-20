@@ -26,9 +26,7 @@ import android.net.Uri;
 import android.os.MemoryFile;
 import android.os.ParcelFileDescriptor;
 import android.provider.OpenableColumns;
-import android.support.annotation.NonNull;
-
-import org.thoughtcrime.securesms.BuildConfig;
+import androidx.annotation.NonNull;
 import org.thoughtcrime.securesms.logging.Log;
 
 import org.thoughtcrime.securesms.attachments.AttachmentId;
@@ -43,6 +41,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+
+import org.thoughtcrime.securesms.BuildConfig;
 
 public class PartProvider extends ContentProvider {
 

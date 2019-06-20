@@ -49,18 +49,18 @@
   </plurals>
   <!--DraftDatabase-->
   <string name="DraftDatabase_Draft_image_snippet">(image)</string>
-  <string name="DraftDatabase_Draft_audio_snippet">(audio)</string>
+  <string name="DraftDatabase_Draft_audio_snippet">(son)</string>
   <string name="DraftDatabase_Draft_video_snippet">(vidéo)</string>
   <string name="DraftDatabase_Draft_location_snippet">(position)</string>
   <string name="DraftDatabase_Draft_quote_snippet">(réponse)</string>
   <!--AttchmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">Impossible de trouver une appli pour sélectionner le média.</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signal exige l’autorisation Stockage afin de joindre des photos, des vidéos ou du contenu audio, mais elle a été refusée définitivement. Veuillez accéder au menu des paramètres des applis, sélectionner « Autorisations » et activer « Stockage ».</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signal exige l’autorisation Stockage afin de joindre des photos, des vidéos ou du son, mais elle a été refusée définitivement. Veuillez accéder au menu des paramètres des applis, sélectionner « Autorisations » et activer « Stockage ».</string>
   <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Signal exige l’autorisation Contacts afin de joindre des renseignements de contact, mais elle a été refusée définitivement. Veuillez accéder au menu des paramètres des applis, sélectionner « Autorisations » et activer « Contacts ».</string>
   <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Signal exige l’autorisation Position afin de joindre une position géographique, mais elle a été refusée définitivement. Veuillez accéder au menu des paramètres des applis, sélectionner « Autorisations » et activer « Position ».</string>
   <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">Signal exige l’autorisation « Appareil photo » afin de prendre des photos, mais elle a été refusée définitivement. Veuillez accéder au menu des paramètres des applis, sélectionner « Autorisations » et activer « Appareil photo ».</string>
   <!--AudioSlidePlayer-->
-  <string name="AudioSlidePlayer_error_playing_audio">Erreur de lecture du fichier audio !</string>
+  <string name="AudioSlidePlayer_error_playing_audio">Erreur de lecture du son !</string>
   <!--BlockedContactsActivity-->
   <string name="BlockedContactsActivity_blocked_contacts">Contacts bloqués</string>
   <!--BucketedThreadMedia-->
@@ -146,7 +146,7 @@
   <string name="ConversationActivity_unblock">Débloquer</string>
   <string name="ConversationActivity_attachment_exceeds_size_limits">La pièce jointe dépasse la limite de taille pour le type de message que vous envoyé.</string>
   <string name="ConversationActivity_quick_camera_unavailable">L’appareil photo n’est pas disponible</string>
-  <string name="ConversationActivity_unable_to_record_audio">Impossible d’enregistrer l’audio !</string>
+  <string name="ConversationActivity_unable_to_record_audio">Impossible d’enregistrer le son !</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">Il n’y a aucune appli pour gérer ce lien sur votre appareil.</string>
   <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Pour envoyer des messages audio, autorisez Signal à accéder à votre microphone.</string>
   <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Signal exige l’autorisation Microphone afin d’envoyer des messages audio, mais elle a été refusée définitivement. Veuillez accéder au menu des paramètres des applis, sélectionner « Autorisations » et activer « Microphone ».</string>
@@ -230,6 +230,8 @@
   <string name="ConversationListItem_key_exchange_message">Message d’échange de clés</string>
   <!--ConversationListItemAction-->
   <string name="ConversationListItemAction_archived_conversations_d">Conversations archivées (%d)</string>
+  <!--ConversationTitleView-->
+  <string name="ConversationTitleView_verified">Vérifié</string>
   <!--CreateProfileActivity-->
   <string name="CreateProfileActivity_your_profile_info">Vos renseignements de profil</string>
   <string name="CreateProfileActivity_error_setting_profile_photo">Erreur de définition de la photo de profil</string>
@@ -238,7 +240,7 @@
   <string name="CreateProfileActivity_too_long">Trop long</string>
   <string name="CreateProfileActivity_profile_name">Nom de profil</string>
   <string name="CreateProfileActivity_set_up_your_profile">Configurez votre profil</string>
-  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">Les profils de Signal sont chiffrés de bout en bout et le service Signal n’a jamais accès à ces renseignements.</string>
+  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">Les profils Signal sont chiffrés de bout en bout et le service Signal n’a jamais accès à ces renseignements.</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Personnalisé : %s</string>
   <string name="CustomDefaultPreference_using_default">Utilisation par défaut : %s</string>
@@ -251,7 +253,7 @@
   <!--DeliveryStatus-->
   <string name="DeliveryStatus_sending">Envoi</string>
   <string name="DeliveryStatus_sent">Envoyé</string>
-  <string name="DeliveryStatus_delivered">Transmis</string>
+  <string name="DeliveryStatus_delivered">Remis</string>
   <string name="DeliveryStatus_read">Lu</string>
   <!--DeviceListActivity-->
   <string name="DeviceListActivity_unlink_s">Annuler le lien avec « %s » ?</string>
@@ -285,7 +287,7 @@
   <string name="ExperienceUpgradeActivity_signal_now_supports_secure_video_calling_long">Signal prend désormais en charge les appels vidéo sécurisés. Touchez pour explorer.</string>
   <string name="ExperienceUpgradeActivity_ready_for_your_closeup">Prêt pour votre gros plan ?</string>
   <string name="ExperienceUpgradeActivity_now_you_can_share_a_profile_photo_and_name_with_friends_on_signal">Vous pouvez maintenant partager une photo de profil et un nom avec des amis sur Signal</string>
-  <string name="ExperienceUpgradeActivity_signal_profiles_are_here">Les profils de Signal sont arrivés</string>
+  <string name="ExperienceUpgradeActivity_signal_profiles_are_here">Les profils Signal sont arrivés</string>
   <string name="ExperienceUpgradeActivity_introducing_typing_indicators">Les indicateurs de saisie sont arrivés</string>
   <string name="ExperienceUpgradeActivity_now_you_can_optionally_see_and_share_when_messages_are_being_typed">Vous pouvez maintenant facultativement voir et faire savoir que des messages sont en cours de saisie.</string>
   <string name="ExperienceUpgradeActivity_would_you_like_to_enable_them_now">Souhaitez-vous les activer maintenant ?</string>
@@ -567,9 +569,7 @@ Vous avez reçu un message d’échange de clés pour une version de protocole i
   <string name="SmsMessageRecord_secure_session_reset">Vous avez réinitialisé la session sécurisée.</string>
   <string name="SmsMessageRecord_secure_session_reset_s">%s a réinitialisé la session sécurisée.</string>
   <string name="SmsMessageRecord_duplicate_message">Message en double.</string>
-  <string name="SmsMessageRecord_this_message_could_not_be_processed_because_it_was_sent_from_a_newer_version">
-        Ce message n’a pas pu être traité, car il a été envoyé à partir d’une version plus récente de Signal. Vous pourrez demander à votre contact de renvoyer ce message une fois que vous aurez mis Signal à jour.
-</string>
+  <string name="SmsMessageRecord_this_message_could_not_be_processed_because_it_was_sent_from_a_newer_version">Ce message n’a pas pu être traité, car il a été envoyé à partir d’une version plus récente de Signal. Vous pourrez demander à votre contact de renvoyer ce message une fois que vous aurez mis Signal à jour.</string>
   <!--StickerManagementActivity-->
   <string name="StickerManagementActivity_stickers">Autocollants</string>
   <!--StickerManagementAdapter-->
@@ -664,8 +664,8 @@ Vous avez reçu un message d’échange de clés pour une version de protocole i
   <string name="MessageNotifier_locked_message">Message verrouillé</string>
   <string name="MessageNotifier_media_message_with_text">Message multimédia : %s</string>
   <string name="MessageNotifier_message_delivery_failed">La transmission du message a échoué.</string>
-  <string name="MessageNotifier_failed_to_deliver_message">Échec de transmission du message.</string>
-  <string name="MessageNotifier_error_delivering_message">Erreur de transmission du message.</string>
+  <string name="MessageNotifier_failed_to_deliver_message">Échec de remise du message.</string>
+  <string name="MessageNotifier_error_delivering_message">Erreur de remise du message.</string>
   <string name="MessageNotifier_mark_all_as_read">Tout marquer comme lu</string>
   <string name="MessageNotifier_mark_read">Marquer comme lu</string>
   <string name="MessageNotifier_media_message">Message multimédia</string>
@@ -673,8 +673,6 @@ Vous avez reçu un message d’échange de clés pour une version de protocole i
   <string name="MessageNotifier_reply">Répondre</string>
   <string name="MessageNotifier_signal_message">Message Signal</string>
   <string name="MessageNotifier_unsecured_sms">Texto non sécurisé</string>
-  <string name="MessageNotifier_pending_signal_messages">Messages Signal en attente</string>
-  <string name="MessageNotifier_you_have_pending_signal_messages">Vous avez des messages Signal en attente. Touchez pour ouvrir et les récupérer</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">Contact</string>
   <!--Notification Channels-->
@@ -724,7 +722,7 @@ Vous avez reçu un message d’échange de clés pour une version de protocole i
   <string name="WebRtcCallControls_tap_to_enable_your_video">Touchez pour activer votre vidéo</string>
   <!--attachment_type_selector-->
   <string name="attachment_type_selector__audio">Son</string>
-  <string name="attachment_type_selector__audio_description">Fichiers audios</string>
+  <string name="attachment_type_selector__audio_description">Son</string>
   <string name="attachment_type_selector__contact">Contact</string>
   <string name="attachment_type_selector__contact_description">Contact</string>
   <string name="attachment_type_selector__camera">Appareil photo</string>
@@ -768,8 +766,8 @@ Vous avez reçu un message d’échange de clés pour une version de protocole i
   <string name="conversation_activity__emoji_toggle_description">Afficher, masquer le clavier des émojis</string>
   <string name="conversation_activity__attachment_thumbnail">Imagette de pièces jointes</string>
   <string name="conversation_activity__quick_attachment_drawer_toggle_camera_description">Afficher, masquer le tiroir permettant de lancer l’appareil photo à basse résolution</string>
-  <string name="conversation_activity__quick_attachment_drawer_record_and_send_audio_description">Enregistrer et envoyer une pièce jointe audio</string>
-  <string name="conversation_activity__quick_attachment_drawer_lock_record_description">Verrouiller l’enregistrement de pièces jointes audio</string>
+  <string name="conversation_activity__quick_attachment_drawer_record_and_send_audio_description">Enregistrer et envoyer une pièce jointe son</string>
+  <string name="conversation_activity__quick_attachment_drawer_lock_record_description">Verrouiller l’enregistrement de pièces jointes son</string>
   <string name="conversation_activity__enable_signal_for_sms">Gérer les textos avec Signal</string>
   <!--conversation_input_panel-->
   <string name="conversation_input_panel__slide_to_cancel">Faire glisser pour annuler</string>
@@ -780,7 +778,7 @@ Vous avez reçu un message d’échange de clés pour une version de protocole i
   <!--conversation_item_sent-->
   <string name="conversation_item_sent__send_failed_indicator_description">Échec d’envoi</string>
   <string name="conversation_item_sent__pending_approval_description">En attente d’approbation</string>
-  <string name="conversation_item_sent__delivered_description">Transmis</string>
+  <string name="conversation_item_sent__delivered_description">Remis</string>
   <string name="conversation_item_sent__message_read">Message lu</string>
   <!--conversation_item_received-->
   <string name="conversation_item_received__contact_photo_description">Photo du contact</string>
@@ -789,7 +787,7 @@ Vous avez reçu un message d’échange de clés pour une version de protocole i
   <string name="audio_view__pause_accessibility_description">Mettre en pause</string>
   <string name="audio_view__download_accessibility_description">Télécharger</string>
   <!--QuoteView-->
-  <string name="QuoteView_audio">Contenu audio</string>
+  <string name="QuoteView_audio">Son</string>
   <string name="QuoteView_video">Vidéo</string>
   <string name="QuoteView_photo">Photo</string>
   <string name="QuoteView_sticker">Autocollant</string>
@@ -909,7 +907,7 @@ Vous avez reçu un message d’échange de clés pour une version de protocole i
   <!--prompt_passphrase_activity-->
   <string name="prompt_passphrase_activity__unlock">Déverrouiller</string>
   <!--prompt_mms_activity-->
-  <string name="prompt_mms_activity__signal_requires_mms_settings_to_deliver_media_and_group_messages">Signal exige les paramètres de messages multimédias (MMS) pour transmettre les messages multimédias et de groupe en utilisant votre opérateur sans fil. Votre appareil n’offre pas ces renseignements, ce qui arrive parfois pour les appareils verrouillés ou autres configurations restrictives.</string>
+  <string name="prompt_mms_activity__signal_requires_mms_settings_to_deliver_media_and_group_messages">Signal exige que les paramètres de messages multimédias (MMS) remettent les messages multimédias et de groupe en utilisant votre opérateur sans fil. Votre appareil n’offre pas ces renseignements, ce qui arrive parfois pour les appareils verrouillés ou autres configurations restrictives.</string>
   <string name="prompt_mms_activity__to_send_media_and_group_messages_tap_ok">Pour envoyer des messages multimédias ou de groupe, touchez Valider et remplissez les champs demandés. Les paramètres de messages multimédias (MMS) pour votre opérateur peuvent habituellement être trouvés en cherchant l’APN (nom du point d’accès) de votre opérateur. Vous n’aurez à le faire qu’une seule fois.</string>
   <!--profile_create_activity-->
   <string name="profile_create_activity__set_later">Définir plus tard</string>
@@ -1118,7 +1116,7 @@ Vous avez reçu un message d’échange de clés pour une version de protocole i
   <string name="preferences_notifications__priority">Priorité</string>
   <string name="preferences_communication__category_sealed_sender">Expéditeur scellé</string>
   <string name="preferences_communication__sealed_sender_display_indicators">Afficher les indicateurs</string>
-  <string name="preferences_communication__sealed_sender_display_indicators_description">Afficher une icône d’état quand vous sélectionnez « Détails du message » pour les messages qui ont été distribués avec l’option « expéditeur scellé ».</string>
+  <string name="preferences_communication__sealed_sender_display_indicators_description">Afficher une icône d’état quand vous sélectionnez « Détails du message » pour les messages qui ont été remis avec l’option « expéditeur scellé ».</string>
   <string name="preferences_communication__sealed_sender_allow_from_anyone">Autoriser de n’importe qui</string>
   <string name="preferences_communication__sealed_sender_allow_from_anyone_description">Activez l’option « expéditeur scellé » pour les messages entrants provenant d’expéditeurs qui ne sont pas dans vos contacts et de personnes avec qui vous n’avez pas partagé votre profil.</string>
   <string name="preferences_communication__sealed_sender_learn_more">En apprendre davantage</string>

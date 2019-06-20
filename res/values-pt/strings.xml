@@ -230,6 +230,8 @@
   <string name="ConversationListItem_key_exchange_message">Mensagem de intercâmbio de chaves</string>
   <!--ConversationListItemAction-->
   <string name="ConversationListItemAction_archived_conversations_d">Conversas arquivadas (%d)</string>
+  <!--ConversationTitleView-->
+  <string name="ConversationTitleView_verified">Verificado</string>
   <!--CreateProfileActivity-->
   <string name="CreateProfileActivity_your_profile_info">A sua informação de prefil</string>
   <string name="CreateProfileActivity_error_setting_profile_photo">Erro a definir a foto de perfil</string>
@@ -568,9 +570,7 @@ Mensagem de troca de chaves inválida para esta versão do protocolo.
   <string name="SmsMessageRecord_secure_session_reset">Reiniciou a sessão segura.</string>
   <string name="SmsMessageRecord_secure_session_reset_s">%s reiniciou a sessão segura.</string>
   <string name="SmsMessageRecord_duplicate_message">Mensagem duplicada.</string>
-  <string name="SmsMessageRecord_this_message_could_not_be_processed_because_it_was_sent_from_a_newer_version">
-        Esta mensagem não pode ser processada porque foi enviada a partir de uma versão mais recente do Signal. Peça ao seu contacto para lhe reenviar novamente esta mensagem após você proceder à atualização do Signal.
-    </string>
+  <string name="SmsMessageRecord_this_message_could_not_be_processed_because_it_was_sent_from_a_newer_version">Não foi possível processar esta mensagem porque foi enviada a partir de uma versão mais recente do Signal. Peça ao seu contacto para lhe reenviar novamente esta mensagem após você ter feito a atualização do Signal.</string>
   <!--StickerManagementActivity-->
   <string name="StickerManagementActivity_stickers">Autocolantes</string>
   <!--StickerManagementAdapter-->
@@ -674,8 +674,6 @@ Mensagem de troca de chaves inválida para esta versão do protocolo.
   <string name="MessageNotifier_reply">Responder</string>
   <string name="MessageNotifier_signal_message">Mensagem do Signal</string>
   <string name="MessageNotifier_unsecured_sms">SMS inseguro</string>
-  <string name="MessageNotifier_pending_signal_messages">Mensagens do Signal pendentes</string>
-  <string name="MessageNotifier_you_have_pending_signal_messages">Tem mensagens do Signal pendentes, toque para abrir e obter</string>
   <string name="MessageNotifier_contact_message">%1$s%2$s</string>
   <string name="MessageNotifier_unknown_contact_message">Contacto</string>
   <!--Notification Channels-->

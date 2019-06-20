@@ -231,6 +231,8 @@
   <string name="ConversationListItem_key_exchange_message">پیام تبادل کلید</string>
   <!--ConversationListItemAction-->
   <string name="ConversationListItemAction_archived_conversations_d">گفتگوهای آرشیو شده (%d)</string>
+  <!--ConversationTitleView-->
+  <string name="ConversationTitleView_verified">تائید شده</string>
   <!--CreateProfileActivity-->
   <string name="CreateProfileActivity_your_profile_info">مشخصات پروفایل شما</string>
   <string name="CreateProfileActivity_error_setting_profile_photo">خطا در تنظیم عکس پروفایل</string>
@@ -568,8 +570,6 @@
   <string name="SmsMessageRecord_secure_session_reset">شما نشست امن را ریست نموده اید.</string>
   <string name="SmsMessageRecord_secure_session_reset_s">%s نشست امن را ریست نمود.</string>
   <string name="SmsMessageRecord_duplicate_message">تکثیر پیام.</string>
-  <string name="SmsMessageRecord_this_message_could_not_be_processed_because_it_was_sent_from_a_newer_version">
-این پیام قابل پردازش نیست چون که با یک نسخه‌ی جدیدتر از Signal فرستاده شده. می‌توانید بعد از به‌روز‌رسانی از مخاطبتان بخواهید که دوباره این پیام را بفرستد.</string>
   <!--StickerManagementActivity-->
   <string name="StickerManagementActivity_stickers">استیکر ها</string>
   <!--StickerManagementAdapter-->
@@ -673,8 +673,6 @@
   <string name="MessageNotifier_reply">پاسخ</string>
   <string name="MessageNotifier_signal_message">پیام Signal</string>
   <string name="MessageNotifier_unsecured_sms">پیامک ناامن</string>
-  <string name="MessageNotifier_pending_signal_messages">پیام در انتظار Signal</string>
-  <string name="MessageNotifier_you_have_pending_signal_messages">شما در Signal پیام در انتظار دارید، برای مشاهده و بازیابی پیام اینجا ضربه بزنید</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">مخاطب</string>
   <!--Notification Channels-->

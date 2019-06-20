@@ -55,7 +55,7 @@
   <string name="DraftDatabase_Draft_quote_snippet">(reactie)</string>
   <!--AttchmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">Geen app gevonden om media te selecteren.</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signal heeft toegang nodig tot de externe opslagruimte om foto\'s, video\'s of audio te kunnen verzenden, maar deze toestemming is pertinent geweigerd. Ga naar de instellingen, selecteer  ‘Toestemmingen’ en schakel ‘Opslagruimte’ in.</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signal heeft toegang nodig tot de externe opslagruimte om foto\'s, video\'s of audio te kunnen verzenden, maar deze toestemming is permanent geweigerd. Ga naar de instellingen, selecteer  ‘Machtigingen’ en schakel ‘Opslagruimte’ in.</string>
   <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Signal heeft toegang nodig tot de contacten om contactinformatie in Signal weer te geven, maar deze toestemming is pertinent geweigerd. Ga naar de instellingen, selecteer ‘Toestemmingen’ en schakel ‘Contacten’ in.</string>
   <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Signal heeft toegang nodig tot de locatie om locaties te kunnen verzenden aan je gesprekspartners, maar deze toestemming is pertinent geweigerd. Ga naar de instellingen, selecteer ‘Toestemmingen’ en schakel ‘Locatie’ in.</string>
   <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">Signal heeft toegang nodig tot de camera om foto\'s te kunnen maken, maar deze toegang is pertinent geweigerd. Ga naar de instellingen, selecteer ‘Toestemmingen’ en schakel ‘Camera’ in.</string>
@@ -161,8 +161,8 @@
   <string name="ConversationActivity_no">Nee</string>
   <string name="ConversationActivity_search_position">%1$d van %2$d</string>
   <string name="ConversationActivity_no_results">Geen resultaten</string>
-  <string name="ConversationActivity_sticker_pack_installed">Stikkerpakket geïnstalleerd</string>
-  <string name="ConversationActivity_new_say_it_with_stickers">Nieuw: zeg het met stikkers</string>
+  <string name="ConversationActivity_sticker_pack_installed">Stickerpakket geïnstalleerd</string>
+  <string name="ConversationActivity_new_say_it_with_stickers">Nieuw: zeg het met stickers</string>
   <!--ConversationAdapter-->
   <plurals name="ConversationAdapter_n_unread_messages">
     <item quantity="one">%d ongelezen bericht</item>
@@ -230,6 +230,8 @@
   <string name="ConversationListItem_key_exchange_message">Sleuteluitwisselingsbericht</string>
   <!--ConversationListItemAction-->
   <string name="ConversationListItemAction_archived_conversations_d">Gearchiveerde gesprekken (%d)</string>
+  <!--ConversationTitleView-->
+  <string name="ConversationTitleView_verified">Ik heb deze contactpersoon geverifieerd</string>
   <!--CreateProfileActivity-->
   <string name="CreateProfileActivity_your_profile_info">Jouw profielinformatie</string>
   <string name="CreateProfileActivity_error_setting_profile_photo">Fout bij instellen van profielfoto</string>
@@ -365,7 +367,7 @@ weergaven.</string>
   <string name="LongMessageActivity_your_message">Je bericht</string>
   <!--MessageRetrievalService-->
   <string name="MessageRetrievalService_signal">Signal</string>
-  <string name="MessageRetrievalService_background_connection_enabled">Achtergrondverbinding tot stand gebracht</string>
+  <string name="MessageRetrievalService_background_connection_enabled">Berichten ontvangen in de achtergrond is actief</string>
   <!--MmsDownloader-->
   <string name="MmsDownloader_error_reading_mms_settings">Fout bij het lezen van de mms-instellingen van de provider</string>
   <!--MediaOverviewActivity-->
@@ -560,7 +562,7 @@ Signal heeft ook toegang nodig tot de media op je apparaat, om bestanden bij te 
   <string name="SharedContactView_message">Signal-bericht</string>
   <!--Slide-->
   <string name="Slide_image">Afbeelding</string>
-  <string name="Slide_sticker">Stikker</string>
+  <string name="Slide_sticker">Sticker</string>
   <string name="Slide_audio">Audio</string>
   <string name="Slide_video">Video</string>
   <!--SmsMessageRecord-->
@@ -574,26 +576,24 @@ Signal heeft ook toegang nodig tot de media op je apparaat, om bestanden bij te 
   <string name="SmsMessageRecord_secure_session_reset">Je hebt de beveiligde sessie opnieuw ingesteld.</string>
   <string name="SmsMessageRecord_secure_session_reset_s">%s heeft de beveiligde sessie opnieuw ingesteld.</string>
   <string name="SmsMessageRecord_duplicate_message">Gedupliceerd bericht.</string>
-  <string name="SmsMessageRecord_this_message_could_not_be_processed_because_it_was_sent_from_a_newer_version">
-        Dit bericht kon niet worden verwerkt omdat het is verzonden vanuit een nieuwere versie van Signal. Je kunt je gesprekspartner vragen om dit bericht opnieuw te verzenden nadat je jouw Signal app hebt bijwerkt naar een nieuwere versie.
-    </string>
+  <string name="SmsMessageRecord_this_message_could_not_be_processed_because_it_was_sent_from_a_newer_version">Dit bericht kon niet worden verwerkt omdat het is verzonden vanuit een nieuwere versie van Signal. Je kunt je gesprekspartner vragen om dit bericht opnieuw te verzenden nadat je jouw Signal-app hebt bijgewerkt naar een nieuwere versie.</string>
   <!--StickerManagementActivity-->
-  <string name="StickerManagementActivity_stickers">Stikkers</string>
+  <string name="StickerManagementActivity_stickers">Stickers</string>
   <!--StickerManagementAdapter-->
-  <string name="StickerManagementAdapter_installed_stickers">Geïnstalleerde stikkers</string>
-  <string name="StickerManagementAdapter_stickers_you_received">Door jou ontvangen stikkers</string>
+  <string name="StickerManagementAdapter_installed_stickers">Geïnstalleerde stickers</string>
+  <string name="StickerManagementAdapter_stickers_you_received">Ontvangen stickers</string>
   <string name="StickerManagementAdapter_signal_artist_series">Signal-kunstenaarserie</string>
-  <string name="StickerManagementAdapter_no_stickers_installed">Geen stikkers geïnstalleerd</string>
-  <string name="StickerManagementAdapter_stickers_from_incoming_messages_will_appear_here">Stikkers uit binnenkomende berichten zullen hier verschijnen</string>
+  <string name="StickerManagementAdapter_no_stickers_installed">Geen stickers geïnstalleerd</string>
+  <string name="StickerManagementAdapter_stickers_from_incoming_messages_will_appear_here">Stickers uit binnenkomende berichten zullen hier verschijnen</string>
   <string name="StickerManagementAdapter_untitled">Zonder titel</string>
   <string name="StickerManagementAdapter_unknown">Onbekend</string>
   <!--StickerPackPreviewActivity-->
   <string name="StickerPackPreviewActivity_untitled">Zonder titel</string>
   <string name="StickerPackPreviewActivity_unknown">Onbekend</string>
-  <string name="StickerPackPreviewActivity_install">Installeer</string>
+  <string name="StickerPackPreviewActivity_install">Installeren</string>
   <string name="StickerPackPreviewActivity_remove">Verwijderen</string>
-  <string name="StickerPackPreviewActivity_stickers">Stikkers</string>
-  <string name="StickerPackPreviewActivity_failed_to_load_sticker_pack">Laden van stikkerpakket mislukt</string>
+  <string name="StickerPackPreviewActivity_stickers">Stickers</string>
+  <string name="StickerPackPreviewActivity_failed_to_load_sticker_pack">Laden van stickerpakket mislukt</string>
   <!--ThreadRecord-->
   <string name="ThreadRecord_group_updated">Groep aangepast</string>
   <string name="ThreadRecord_left_the_group">Heeft de groep verlaten</string>
@@ -676,12 +676,12 @@ Signal heeft ook toegang nodig tot de media op je apparaat, om bestanden bij te 
   <string name="MessageNotifier_mark_all_as_read">Alles markeren als gelezen</string>
   <string name="MessageNotifier_mark_read">Markeren als gelezen</string>
   <string name="MessageNotifier_media_message">Mediabericht</string>
-  <string name="MessageNotifier_sticker">Stikker</string>
+  <string name="MessageNotifier_sticker">Sticker</string>
   <string name="MessageNotifier_reply">Reageren</string>
   <string name="MessageNotifier_signal_message">Signal-bericht</string>
   <string name="MessageNotifier_unsecured_sms">Onbeveiligde sms</string>
-  <string name="MessageNotifier_pending_signal_messages">Signal-berichten in wachtrij</string>
-  <string name="MessageNotifier_you_have_pending_signal_messages">Er staan Signal-berichten in de wachtrij, tik om Signal te openen en om ze op te halen</string>
+  <string name="MessageNotifier_you_may_have_new_messages">Je hebt mogelijk nieuwe berichten</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Open Signal om te zien of er recente meldingen zijn.</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">Contactpersoon</string>
   <!--Notification Channels-->
@@ -799,7 +799,7 @@ Signal heeft ook toegang nodig tot de media op je apparaat, om bestanden bij te 
   <string name="QuoteView_audio">Audio</string>
   <string name="QuoteView_video">Video</string>
   <string name="QuoteView_photo">Foto</string>
-  <string name="QuoteView_sticker">Stikker</string>
+  <string name="QuoteView_sticker">Sticker</string>
   <string name="QuoteView_document">Document</string>
   <string name="QuoteView_you">Jij</string>
   <string name="QuoteView_original_missing">Oorspronkelijk bericht niet gevonden</string>
@@ -862,7 +862,7 @@ Signal heeft ook toegang nodig tot de media op je apparaat, om bestanden bij te 
     <item quantity="other">%d anderen</item>
   </plurals>
   <!--giphy_activity-->
-  <string name="giphy_activity_toolbar__search_gifs_and_stickers">GIFs en stikkers zoeken</string>
+  <string name="giphy_activity_toolbar__search_gifs_and_stickers">GIFs en stickers zoeken</string>
   <!--giphy_fragment-->
   <string name="giphy_fragment__nothing_found">Niets gevonden</string>
   <!--log_submit_activity-->
@@ -877,15 +877,15 @@ Signal heeft ook toegang nodig tot de media op je apparaat, om bestanden bij te 
   <string name="log_submit_activity__this_log_will_be_posted_online">Dit logbestand wordt publiekelijk beschikbaar gesteld op internet zodat de ontwikkelaars en vrijwilligers het kunnen bestuderen. Je kunt het bekijken en aanpassen voor je het verzendt.</string>
   <string name="log_submit_activity__loading_logs">Logbestanden inladen…</string>
   <string name="log_submit_activity__uploading_logs">Logbestanden aan het uploaden…</string>
-  <string name="log_submit_activity__success">Succesvol verzonden!</string>
-  <string name="log_submit_activity__copy_this_url_and_add_it_to_your_issue">Kopieer deze URL en voeg deze toe aan het foutrapport of aan een e-mail naar de helpdesk:\n\n<b>%1$s</b>\n</string>
+  <string name="log_submit_activity__success">Succesvol geüpload!</string>
+  <string name="log_submit_activity__copy_this_url_and_add_it_to_your_issue">Nog één stap om je foutrapport in te dienen: kopieer deze URL en voeg deze toe aan een foutrapport op GitHub (https://github.com/signalapp/Signal-Android/issues) of aan een e-mail naar de helpdesk (support@signal.org). Dit is de URL die je moet toevoegen:\n\n<b>%1$s</b>\n</string>
   <string name="log_submit_activity__copied_to_clipboard">Gekopieerd naar klembord</string>
   <string name="log_submit_activity__choose_email_app">Kies e-mail-app</string>
   <string name="log_submit_activity__please_review_this_log_from_my_app">Gelieve dit logbestand van mijn app te bestuderen: %1$s</string>
   <string name="log_submit_activity__network_failure">Netwerkfout. Probeer het opnieuw.</string>
   <!--database_migration_activity-->
-  <string name="database_migration_activity__would_you_like_to_import_your_existing_text_messages">Wil je je sms- en mmsberichten importeren naar de versleutelde databank van Signal?</string>
-  <string name="database_migration_activity__the_default_system_database_will_not_be_modified">De standaard systeemdatabank zal op geen enkele wijze worden gewijzigd of aangepast.</string>
+  <string name="database_migration_activity__would_you_like_to_import_your_existing_text_messages">Wil je je sms- en mms-berichten importeren naar de versleutelde databank van Signal?</string>
+  <string name="database_migration_activity__the_default_system_database_will_not_be_modified">De standaardsysteemdatabank zal op geen enkele wijze worden gewijzigd of aangepast.</string>
   <string name="database_migration_activity__skip">Overslaan</string>
   <string name="database_migration_activity__import">Importeren</string>
   <string name="database_migration_activity__this_could_take_a_moment_please_be_patient">Dit kan even duren. Even geduld, we zullen je melden wanneer het importeren voltooid is.</string>
@@ -1119,7 +1119,7 @@ Signal heeft ook toegang nodig tot de media op je apparaat, om bestanden bij te 
   <string name="preferences_notifications__calls">Oproepen</string>
   <string name="preferences_notifications__ringtone">Beltoon</string>
   <string name="preferences_chats__show_invitation_prompts">Uitnodigingsvoorstel tonen</string>
-  <string name="preferences_chats__display_invitation_prompts_for_contacts_without_signal">Toon een suggestie om je gesprekspartner uit te nodigen op Signal, boven sms gesprekken met gesprekspartners die niet op Signal zitten.</string>
+  <string name="preferences_chats__display_invitation_prompts_for_contacts_without_signal">Toon boven sms-gesprekken met gesprekspartners die niet op Signal zitten een suggestie om je gesprekspartner uit te nodigen op Signal.</string>
   <string name="preferences_chats__message_text_size">Tekstgrootte voor berichten</string>
   <string name="preferences_events__contact_joined_signal">Contactpersoon gebruikt nu Signal</string>
   <string name="preferences_notifications__priority">Belangrijkheid</string>

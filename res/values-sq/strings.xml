@@ -230,6 +230,8 @@
   <string name="ConversationListItem_key_exchange_message">Mesazh shkëmbimi kyçesh</string>
   <!--ConversationListItemAction-->
   <string name="ConversationListItemAction_archived_conversations_d">Biseda të arkivuara (%d)</string>
+  <!--ConversationTitleView-->
+  <string name="ConversationTitleView_verified">U verifikua</string>
   <!--CreateProfileActivity-->
   <string name="CreateProfileActivity_your_profile_info">Të dhëna të profilit tuaj</string>
   <string name="CreateProfileActivity_error_setting_profile_photo">Gabim në caktim fotoje profili</string>
@@ -568,9 +570,7 @@
   <string name="SmsMessageRecord_secure_session_reset">E kthyet te parazgjedhjet sesionin e sigurt.</string>
   <string name="SmsMessageRecord_secure_session_reset_s">%s e ktheu te parazgjedhjet sesionin e sigurt.</string>
   <string name="SmsMessageRecord_duplicate_message">Mesazh i përsëdytur.</string>
-  <string name="SmsMessageRecord_this_message_could_not_be_processed_because_it_was_sent_from_a_newer_version">
-        Ky mesazh s’u përpunua dot, ngaqë qe dërguar prej një versioni më të ri Signal-i. Mund t’i kërkoni kontaktit tuaj ta ridërgojë këtë mesazh, pasi ta përditësoni.
-    </string>
+  <string name="SmsMessageRecord_this_message_could_not_be_processed_because_it_was_sent_from_a_newer_version">Ky mesazh s’u përpunua dot, ngaqë qe dërguar prej një versioni më të ri Signal-i. Mund t’i kërkoni kontaktit tuaj ta ridërgojë këtë mesazh, pasi ta përditësoni.</string>
   <!--StickerManagementActivity-->
   <string name="StickerManagementActivity_stickers">Ngjitëse</string>
   <!--StickerManagementAdapter-->
@@ -674,8 +674,6 @@
   <string name="MessageNotifier_reply">Përgjigju</string>
   <string name="MessageNotifier_signal_message">Mesazhe Signal</string>
   <string name="MessageNotifier_unsecured_sms">SMS e pasiguruar</string>
-  <string name="MessageNotifier_pending_signal_messages">Mesazhe Signal pezull</string>
-  <string name="MessageNotifier_you_have_pending_signal_messages">Keni mesazhe Signal pezull, prekeni për t\’ia hapur dhe rimarrë</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">Kontakt</string>
   <!--Notification Channels-->

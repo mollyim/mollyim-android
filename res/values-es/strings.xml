@@ -230,6 +230,8 @@
   <string name="ConversationListItem_key_exchange_message">Mensaje de intercambio de claves</string>
   <!--ConversationListItemAction-->
   <string name="ConversationListItemAction_archived_conversations_d">Chats archivados (%d)</string>
+  <!--ConversationTitleView-->
+  <string name="ConversationTitleView_verified">Verificado</string>
   <!--CreateProfileActivity-->
   <string name="CreateProfileActivity_your_profile_info">Información de perfil</string>
   <string name="CreateProfileActivity_error_setting_profile_photo">Fallo al establecer la foto de perfil</string>
@@ -572,8 +574,7 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="SmsMessageRecord_secure_session_reset">Has reiniciado la sesión segura.</string>
   <string name="SmsMessageRecord_secure_session_reset_s">%s reinició la sesión segura.</string>
   <string name="SmsMessageRecord_duplicate_message">Duplicar mensaje.</string>
-  <string name="SmsMessageRecord_this_message_could_not_be_processed_because_it_was_sent_from_a_newer_version">
-Fallo al procesar el mensaje, ya que ha sido enviado con una versión más actual de Signal. Puedes pedir a tu contacto que vuelva a enviar el mensaje tras haber actualizado tu versión de Signal.</string>
+  <string name="SmsMessageRecord_this_message_could_not_be_processed_because_it_was_sent_from_a_newer_version">Fallo al procesar el mensaje, ya que ha sido enviado con una versión más actual de Signal. Puedes pedir a tu contacto que vuelva a enviar el mensaje tras haber actualizado tu versión de Signal.</string>
   <!--StickerManagementActivity-->
   <string name="StickerManagementActivity_stickers">Cromos</string>
   <!--StickerManagementAdapter-->
@@ -677,8 +678,8 @@ Fallo al procesar el mensaje, ya que ha sido enviado con una versión más actua
   <string name="MessageNotifier_reply">Responder</string>
   <string name="MessageNotifier_signal_message">Mensaje de Signal</string>
   <string name="MessageNotifier_unsecured_sms">SMS no cifrado</string>
-  <string name="MessageNotifier_pending_signal_messages">Mensajes de Signal pendientes</string>
-  <string name="MessageNotifier_you_have_pending_signal_messages">Tienes mensajes de Signal pendientes, toca para abrir y descargar</string>
+  <string name="MessageNotifier_you_may_have_new_messages">Tienes nuevos mensajes</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Abre Signal para comprobar las últimas notificaciones.</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">Contacto</string>
   <!--Notification Channels-->

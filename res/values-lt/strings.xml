@@ -257,6 +257,8 @@
   <string name="ConversationListItem_key_exchange_message">Šifro apsikeitimo žinutė</string>
   <!--ConversationListItemAction-->
   <string name="ConversationListItemAction_archived_conversations_d">Archyvuoti pokalbiai (%d)</string>
+  <!--ConversationTitleView-->
+  <string name="ConversationTitleView_verified">Patvirtinta(-s)</string>
   <!--CreateProfileActivity-->
   <string name="CreateProfileActivity_your_profile_info">Jūsų profilio informacija</string>
   <string name="CreateProfileActivity_error_setting_profile_photo">Klaida, nustatant profilio nuotrauką</string>
@@ -611,9 +613,7 @@
   <string name="SmsMessageRecord_secure_session_reset">Jūs atstatėte saugųjį seansą.</string>
   <string name="SmsMessageRecord_secure_session_reset_s">%s atstatė saugųjį seansą.</string>
   <string name="SmsMessageRecord_duplicate_message">Dviguba žinutė.</string>
-  <string name="SmsMessageRecord_this_message_could_not_be_processed_because_it_was_sent_from_a_newer_version">
-        Šios žinutės nepavyko apdoroti, nes ji buvo išsiųsta, naudojant naujesnę Signal versiją. Kai atsinaujinsite programėlę, galite paprašyti adresato, kad išsiųstų jums šią žinutę dar kartą.
-    </string>
+  <string name="SmsMessageRecord_this_message_could_not_be_processed_because_it_was_sent_from_a_newer_version">Šios žinutės nepavyko apdoroti, nes ji buvo išsiųsta, naudojant naujesnę Signal versiją. Kai atsinaujinsite programėlę, galite paprašyti adresato, kad išsiųstų jums šią žinutę dar kartą.</string>
   <!--StickerManagementActivity-->
   <string name="StickerManagementActivity_stickers">Lipdukai</string>
   <!--StickerManagementAdapter-->
@@ -717,8 +717,8 @@
   <string name="MessageNotifier_reply">Atsakyti</string>
   <string name="MessageNotifier_signal_message">Signal žinutė</string>
   <string name="MessageNotifier_unsecured_sms">Neapsaugota SMS</string>
-  <string name="MessageNotifier_pending_signal_messages">Laukiančios Signal žinutės</string>
-  <string name="MessageNotifier_you_have_pending_signal_messages">Jūs turite laukiančių Signal žinučių, bakstelėkite, norėdami atverti ir jas gauti</string>
+  <string name="MessageNotifier_you_may_have_new_messages">Gali būti, kad gavote naujų žinučių</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Atverkite Signal, norėdami patikrinti paskiausius pranešimus.</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">Adresatas</string>
   <!--Notification Channels-->

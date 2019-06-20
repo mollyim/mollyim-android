@@ -1,8 +1,8 @@
 package org.thoughtcrime.securesms.stickers;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -265,9 +265,10 @@ final class StickerManagementAdapter extends RecyclerView.Adapter {
         actionButtonImage.setImageResource(R.drawable.ic_x);
         actionButton.setOnClickListener(v -> eventListener.onStickerPackUninstallClicked(stickerPack.getPackId(), stickerPack.getPackKey()));
 
-        shareButton.setVisibility(View.VISIBLE);
-        shareButtonImage.setVisibility(View.VISIBLE);
-        shareButton.setOnClickListener(v -> eventListener.onStickerPackShareClicked(stickerPack.getPackId(), stickerPack.getPackKey()));
+        // TODO [Stickers]: Re-enable later
+//        shareButton.setVisibility(View.VISIBLE);
+//        shareButtonImage.setVisibility(View.VISIBLE);
+//        shareButton.setOnClickListener(v -> eventListener.onStickerPackShareClicked(stickerPack.getPackId(), stickerPack.getPackKey()));
       } else {
         actionButtonImage.setImageResource(R.drawable.ic_arrow_down);
         actionButton.setOnClickListener(v -> eventListener.onStickerPackInstallClicked(stickerPack.getPackId(), stickerPack.getPackKey()));
@@ -276,6 +277,10 @@ final class StickerManagementAdapter extends RecyclerView.Adapter {
         shareButtonImage.setVisibility(View.GONE);
         shareButton.setOnClickListener(null);
       }
+
+      // TODO [Stickers]: Delete later
+      shareButton.setVisibility(View.GONE);
+      shareButtonImage.setVisibility(View.GONE);
 
       itemView.setOnClickListener(v -> eventListener.onStickerPackClicked(stickerPack.getPackId(), stickerPack.getPackKey()));
     }

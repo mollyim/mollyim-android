@@ -31,10 +31,10 @@ import android.os.Build;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.ClipboardManager;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
@@ -466,11 +466,11 @@ public class SubmitLogFragment extends Fragment {
   }
 
   public static String getMemoryUsage(Context context) {
-    Runtime info = Runtime.getRuntime();
-    info.totalMemory();
+    Runtime info        = Runtime.getRuntime();
+    long    totalMemory = info.totalMemory();
     return String.format(Locale.ENGLISH, "%dM (%.2f%% free, %dM max)",
-                         asMegs(info.totalMemory()),
-                         (float)info.freeMemory() / info.totalMemory() * 100f,
+                         asMegs(totalMemory),
+                         (float)info.freeMemory() / totalMemory * 100f,
                          asMegs(info.maxMemory()));
   }
 

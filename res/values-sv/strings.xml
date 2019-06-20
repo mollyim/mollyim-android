@@ -77,6 +77,7 @@
   <string name="ClearProfileActivity_remove_profile_photo">Ta bort profilbild?</string>
   <!--CommunicationActions-->
   <string name="CommunicationActions_no_browser_found">Ingen webbläsare hittades.</string>
+  <string name="CommunicationActions_a_cellular_call_is_already_in_progress">Ett mobilsamtal pågår redan.</string>
   <!--ConfirmIdentityDialog-->
   <string name="ConfirmIdentityDialog_your_safety_number_with_s_has_changed">Ditt säkerhetsnummer med %1$s har ändrats. Detta kan antingen betyda att någon försöker avlyssna er kommunikation, eller att %2$s helt enkelt ominstallerat Signal.</string>
   <string name="ConfirmIdentityDialog_you_may_wish_to_verify_your_safety_number_with_this_contact">Du kan vilja verifiera ditt säkerhetsnummer med denna kontakt.</string>
@@ -161,6 +162,7 @@
   <string name="ConversationActivity_search_position">%1$d av %2$d</string>
   <string name="ConversationActivity_no_results">Inga resultat</string>
   <string name="ConversationActivity_sticker_pack_installed">Klistermärkepaket installerat</string>
+  <string name="ConversationActivity_new_say_it_with_stickers">Nytt! Säg det med klistermärken</string>
   <!--ConversationAdapter-->
   <plurals name="ConversationAdapter_n_unread_messages">
     <item quantity="one">%d oläst meddelande</item>
@@ -228,6 +230,8 @@
   <string name="ConversationListItem_key_exchange_message">Nyckelutbytesmeddelande</string>
   <!--ConversationListItemAction-->
   <string name="ConversationListItemAction_archived_conversations_d">Arkiverade konversationer (%d)</string>
+  <!--ConversationTitleView-->
+  <string name="ConversationTitleView_verified">Verifierat</string>
   <!--CreateProfileActivity-->
   <string name="CreateProfileActivity_your_profile_info">Din profilinfo</string>
   <string name="CreateProfileActivity_error_setting_profile_photo">Gick ej att välja profilbild</string>
@@ -236,7 +240,7 @@
   <string name="CreateProfileActivity_too_long">För långt</string>
   <string name="CreateProfileActivity_profile_name">Profilnamn</string>
   <string name="CreateProfileActivity_set_up_your_profile">Ställ in din profil</string>
-  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">Signal-profiler är end-to-end krypterade och Signal-tjänsten har aldrig tillgång till denna information.</string>
+  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">Signal-profiler är end-to-end-krypterade och Signal-tjänsten har aldrig tillgång till denna information.</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Använder anpassade: %s</string>
   <string name="CustomDefaultPreference_using_default">Använder standard: %s</string>
@@ -422,7 +426,7 @@
   <string name="MessageRecord_you_disabled_disappearing_messages">Du stängde av att meddelanden försvinner.</string>
   <string name="MessageRecord_s_disabled_disappearing_messages">%1$s stängde av att meddelanden försvinner.</string>
   <string name="MessageRecord_you_set_disappearing_message_time_to_s">Du satte tid innan meddelanden försvinner till %1$s.</string>
-  <string name="MessageRecord_s_set_disappearing_message_time_to_s">%1$ssatte tid innan meddelanden försvinner till %2$s. </string>
+  <string name="MessageRecord_s_set_disappearing_message_time_to_s">%1$s satte tid innan meddelanden försvinner till %2$s. </string>
   <string name="MessageRecord_your_safety_number_with_s_has_changed">Ditt säkerhetsnummer med %s har ändrats.</string>
   <string name="MessageRecord_you_marked_your_safety_number_with_s_verified">Du markerade ditt säkerhetsnummer med %s verifierad</string>
   <string name="MessageRecord_you_marked_your_safety_number_with_s_verified_from_another_device">Du markerade ditt säkerhetsnummer med %s verifierad från en annan enhet</string>
@@ -564,6 +568,7 @@ Tog emot meddelande för nyckelutbyte för ogiltig protokollversion.</string>
   <string name="SmsMessageRecord_secure_session_reset">Du startar om den säkra sessionen.</string>
   <string name="SmsMessageRecord_secure_session_reset_s">%s startar om den säkra sessionen.</string>
   <string name="SmsMessageRecord_duplicate_message">Duplicerat meddelande.</string>
+  <string name="SmsMessageRecord_this_message_could_not_be_processed_because_it_was_sent_from_a_newer_version">Det här meddelandet kunde inte behandlas eftersom det skickades från en nyare version av Signal. Du kan be din kontakt att skicka det här meddelandet igen när du har uppdaterat.</string>
   <!--StickerManagementActivity-->
   <string name="StickerManagementActivity_stickers">Stickers</string>
   <!--StickerManagementAdapter-->
@@ -572,12 +577,15 @@ Tog emot meddelande för nyckelutbyte för ogiltig protokollversion.</string>
   <string name="StickerManagementAdapter_signal_artist_series">Signal Artist Serier</string>
   <string name="StickerManagementAdapter_no_stickers_installed">Inga klistermärken installerade</string>
   <string name="StickerManagementAdapter_stickers_from_incoming_messages_will_appear_here">Klistermärken från inkommande meddelanden visas här</string>
+  <string name="StickerManagementAdapter_untitled">Utan titel</string>
   <string name="StickerManagementAdapter_unknown">Okänt</string>
   <!--StickerPackPreviewActivity-->
+  <string name="StickerPackPreviewActivity_untitled">Utan titel</string>
   <string name="StickerPackPreviewActivity_unknown">Okänt</string>
   <string name="StickerPackPreviewActivity_install">Installera</string>
   <string name="StickerPackPreviewActivity_remove">Ta bort</string>
   <string name="StickerPackPreviewActivity_stickers">Stickers</string>
+  <string name="StickerPackPreviewActivity_failed_to_load_sticker_pack">Det gick inte att läsa in klistermärkepaketet</string>
   <!--ThreadRecord-->
   <string name="ThreadRecord_group_updated">Grupp uppdaterad</string>
   <string name="ThreadRecord_left_the_group">Lämnade gruppen</string>
@@ -594,6 +602,7 @@ Tog emot meddelande för nyckelutbyte för ogiltig protokollversion.</string>
   <string name="ThreadRecord_your_safety_number_with_s_has_changed">Ditt säkerhetsnummer med %s har ändrats.</string>
   <string name="ThreadRecord_you_marked_verified">Du markerade verifierad</string>
   <string name="ThreadRecord_you_marked_unverified">Du markerade overifierad</string>
+  <string name="ThreadRecord_message_could_not_be_processed">Meddelandet kunde inte behandlas</string>
   <!--UpdateApkReadyListener-->
   <string name="UpdateApkReadyListener_Signal_update">Signal-uppdatering</string>
   <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">En ny version av Signal finns tillgänglig, tryck för att uppdatera</string>
@@ -663,8 +672,8 @@ Tog emot meddelande för nyckelutbyte för ogiltig protokollversion.</string>
   <string name="MessageNotifier_reply">Svara</string>
   <string name="MessageNotifier_signal_message">Signal-meddelande</string>
   <string name="MessageNotifier_unsecured_sms">Osäkert SMS</string>
-  <string name="MessageNotifier_pending_signal_messages">Väntande Signal-meddelanden</string>
-  <string name="MessageNotifier_you_have_pending_signal_messages">Du har väntande Signal-meddelanden, tryck för att öppna och hämta</string>
+  <string name="MessageNotifier_you_may_have_new_messages">Du kan ha nya meddelanden</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Öppna Signal för att kontrollera efter senaste aviseringar.</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">Kontakt</string>
   <!--Notification Channels-->
@@ -1008,7 +1017,7 @@ Tog emot meddelande för nyckelutbyte för ogiltig protokollversion.</string>
   <string name="preferences__use_signal_for_viewing_and_storing_all_incoming_multimedia_messages">Använd Signal för alla inkommande multimedia-meddelanden</string>
   <string name="preferences__pref_enter_sends_title">Entertangenten skickar</string>
   <string name="preferences__pressing_the_enter_key_will_send_text_messages">Entertangenten skickar textmeddelanden</string>
-  <string name="preferences__send_link_previews">Sicka länkförhandsvisning</string>
+  <string name="preferences__send_link_previews">Skicka länkförhandsvisning</string>
   <string name="preferences__previews_are_supported_for">Förhandsvisningar stöds för Imgur-, Instagram-, Pinterest-, Reddit- och YouTube-länkar.</string>
   <string name="preferences__choose_identity">Välj identitet</string>
   <string name="preferences__choose_your_contact_entry_from_the_contacts_list">Välj din kontakt från kontaktlistan.</string>

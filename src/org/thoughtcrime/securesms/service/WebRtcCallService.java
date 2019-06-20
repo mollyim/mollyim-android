@@ -15,9 +15,9 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.ResultReceiver;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.WorkerThread;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.WorkerThread;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Pair;
@@ -735,7 +735,7 @@ public class WebRtcCallService extends Service implements InjectableType,
     DatabaseFactory.getSmsDatabase(this).insertReceivedCall(recipient.getAddress());
 
     this.peerConnection.setAudioEnabled(true);
-    this.peerConnection.setVideoEnabled(true);
+    this.peerConnection.setVideoEnabled(false);
     this.dataChannel.send(new DataChannel.Buffer(ByteBuffer.wrap(Data.newBuilder().setConnected(Connected.newBuilder().setId(this.callId)).build().toByteArray()), false));
 
     intent.putExtra(EXTRA_CALL_ID, callId);
