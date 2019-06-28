@@ -312,8 +312,14 @@ def abiPostFix = ['armeabi-v7a' : 1,
                   'universal'   : 5]
 
 ext {
-    commitTag = "git describe --tags --exact-match".execute().text.trim() ?: "untagged"
-    commitTimestamp = "git log -1 --pretty=format:%ct".execute().text.trim() + "000"
+    try {
+        commitTag = "git describe --tags --exact-match".execute().text.trim() ?: "untagged"
+        commitTimestamp = "git log -1 --pretty=format:%ct000".execute().text.trim()
+    } catch (all) {
+        commitTag = null
+        commitTimestamp = null
+    }
+    buildTimestamp = commitTimestamp ?: new Date().getTime()
 }
 
 android {
@@ -341,7 +347,7 @@ android {
 
         vectorDrawables.useSupportLibrary = true
 
-        buildConfigField "long", "BUILD_TIMESTAMP", "${commitTimestamp}L"
+        buildConfigField "long", "BUILD_TIMESTAMP", "${buildTimestamp}L"
         buildConfigField "String", "SIGNAL_URL", "\"https://textsecure-service-staging.whispersystems.org\""
         buildConfigField "String", "SIGNAL_CDN_URL", "\"https://cdn-staging.signal.org\""
         buildConfigField "String", "SIGNAL_CONTACT_DISCOVERY_URL", "\" https://api-staging.directory.signal.org\""
