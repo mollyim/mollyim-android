@@ -3,7 +3,7 @@
           xmlns:tools="http://schemas.android.com/tools"
           package="org.thoughtcrime.securesms">
 
-    <uses-sdk tools:overrideLibrary="com.amulyakhare.textdrawable,com.astuetz.pagerslidingtabstrip,pl.tajchert.waitingdots,com.h6ah4i.android.multiselectlistpreferencecompat,android.support.v13,com.davemorrissey.labs.subscaleview,com.tomergoldst.tooltips,com.klinker.android.send_message,com.takisoft.colorpicker,android.support.v14.preference"/>
+    <uses-sdk tools:overrideLibrary="androidx.camera.core,androidx.camera.camera2"/>
 
     <permission android:name="${applicationId}.ACCESS_SECRETS"
                 android:label="Access to TextSecure Secrets"
@@ -58,6 +58,7 @@
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
@@ -86,6 +87,7 @@
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.RAISED_THREAD_PRIORITY" />
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT"/>
 
     <application android:name=".ApplicationContext"
                  android:icon="@mipmap/ic_launcher"
@@ -94,7 +96,8 @@
                  tools:replace="android:allowBackup"
                  android:allowBackup="false"
                  android:theme="@style/TextSecure.LightTheme"
-                 android:largeHeap="true">
+                 android:largeHeap="true"
+                 android:networkSecurityConfig="@xml/local_audio_server_config">
 
     <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -457,6 +460,11 @@
               android:exported="true"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
 
+    <activity
+            android:name=".maps.PlacePickerActivity"
+            android:label="@string/PlacePickerActivity_title"
+            android:theme="@style/TextSecure.LightNoActionBar" />
+
     <service android:enabled="true" android:name="org.thoughtcrime.securesms.service.WebRtcCallService"/>
     <service android:enabled="true" android:name=".service.ApplicationMigrationService"/>
     <service android:enabled="true" android:exported="false" android:name=".service.KeyCachingService"/>
@@ -609,6 +617,11 @@
               android:authorities="${applicationId}.database.stickerpack"
               android:exported="false" />
 
+    <provider android:name="androidx.camera.camera2.impl.Camera2Initializer"
+              android:authorities="${applicationId}.camerax-init"
+              android:exported="false"
+              android:enabled="false" />
+
     <receiver android:name=".service.BootReceiver">
         <intent-filter>
             <action android:name="android.intent.action.BOOT_COMPLETED"/>
@@ -711,6 +724,8 @@
             <action android:name="android.intent.action.BOOT_COMPLETED" />
         </intent-filter>
     </receiver>
+
+    <uses-library android:name="org.apache.http.legacy" android:required="false"/>
 
     <uses-library android:name="com.sec.android.app.multiwindow" android:required="false"/>
     <meta-data android:name="com.sec.android.support.multiwindow" android:value="true" />
