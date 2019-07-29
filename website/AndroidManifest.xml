@@ -4,13 +4,13 @@
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
 
     <application>
-        <receiver android:name=".service.UpdateApkRefreshListener">
+        <receiver android:name="org.thoughtcrime.securesms.service.UpdateApkRefreshListener">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".service.UpdateApkReadyListener">
+        <receiver android:name="org.thoughtcrime.securesms.service.UpdateApkReadyListener">
             <intent-filter>
                 <action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>
             </intent-filter>
