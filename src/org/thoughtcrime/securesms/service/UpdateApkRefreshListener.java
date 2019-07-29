@@ -27,7 +27,7 @@ public class UpdateApkRefreshListener extends PersistentAlarmManagerListener {
   protected long onAlarm(Context context, long scheduledTime) {
     Log.i(TAG, "onAlarm...");
 
-    if (scheduledTime != 0 && BuildConfig.PLAY_STORE_DISABLED) {
+    if (scheduledTime != 0 && BuildConfig.AUTOMATIC_UPDATES) {
       Log.i(TAG, "Queueing APK update job...");
       ApplicationContext.getInstance(context)
                         .getJobManager()

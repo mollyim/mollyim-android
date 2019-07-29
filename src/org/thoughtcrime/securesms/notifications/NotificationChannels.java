@@ -444,7 +444,7 @@ public class NotificationChannels {
 
     notificationManager.createNotificationChannels(Arrays.asList(messages, calls, failures, backups, lockedStatus, other));
 
-    if (BuildConfig.PLAY_STORE_DISABLED) {
+    if (BuildConfig.AUTOMATIC_UPDATES) {
       NotificationChannel appUpdates = new NotificationChannel(APP_UPDATES, context.getString(R.string.NotificationChannel_app_updates), NotificationManager.IMPORTANCE_HIGH);
       notificationManager.createNotificationChannel(appUpdates);
     } else {

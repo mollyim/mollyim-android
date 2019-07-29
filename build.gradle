@@ -439,7 +439,7 @@ android {
         website {
             dimension "none"
             ext.websiteUpdateUrl = "https://updates.signal.org/android"
-            buildConfigField "boolean", "PLAY_STORE_DISABLED", "true"
+            buildConfigField "boolean", "AUTOMATIC_UPDATES", "false"
             buildConfigField "String", "NOPLAY_UPDATE_URL", "\"$ext.websiteUpdateUrl\""
         }
     }

@@ -63,7 +63,7 @@ public class UpdateApkJob extends BaseJob {
 
   @Override
   public void onRun() throws IOException, PackageManager.NameNotFoundException {
-    if (!BuildConfig.PLAY_STORE_DISABLED) return;
+    if (!BuildConfig.AUTOMATIC_UPDATES) return;
 
     Log.i(TAG, "Checking for APK update...");
 

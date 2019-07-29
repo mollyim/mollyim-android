@@ -272,7 +272,7 @@ public class ApplicationContext extends MultiDexApplication implements Dependenc
     LocalBackupListener.schedule(this);
     RotateSenderCertificateListener.schedule(this);
 
-    if (BuildConfig.PLAY_STORE_DISABLED) {
+    if (BuildConfig.AUTOMATIC_UPDATES) {
       UpdateApkRefreshListener.schedule(this);
     }
   }
