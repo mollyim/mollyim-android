@@ -1,12 +1,13 @@
 #! /usr/bin/env python3
 
 import sys
+import fnmatch
 from zipfile import ZipFile
 
 class ApkDiff:
     # resources.arsc is ignored due to https://issuetracker.google.com/issues/110237303
     # May be fixed in Android Gradle Plugin 3.4
-    IGNORE_FILES = ["META-INF/MANIFEST.MF", "META-INF/SIGNAL_S.RSA", "META-INF/SIGNAL_S.SF", "resources.arsc"]
+    IGNORE_FILES = ["META-INF/MANIFEST.MF", "META-INF/*.RSA", "META-INF/*.SF", "resources.arsc"]
 
     def compare(self, sourceApk, destinationApk):
         sourceZip      = ZipFile(sourceApk, 'r')
@@ -17,13 +18,15 @@ class ApkDiff:
         else:
             print("APKs don't match!")
 
-    def compareManifests(self, sourceZip, destinationZip):
-        sourceEntrySortedList      = sorted(sourceZip.namelist())
-        destinationEntrySortedList = sorted(destinationZip.namelist())
-
+    def isIncluded(self, filepath):
         for ignoreFile in self.IGNORE_FILES:
-            while ignoreFile in sourceEntrySortedList: sourceEntrySortedList.remove(ignoreFile)
-            while ignoreFile in destinationEntrySortedList: destinationEntrySortedList.remove(ignoreFile)
+            if fnmatch.fnmatchcase(filepath, ignoreFile):
+                return False
+        return True
+
+    def compareManifests(self, sourceZip, destinationZip):
+        sourceEntrySortedList      = sorted(n for n in sourceZip.namelist() if self.isIncluded(n))
+        destinationEntrySortedList = sorted(n for n in destinationZip.namelist() if self.isIncluded(n))
 
         if len(sourceEntrySortedList) != len(destinationEntrySortedList):
             print("Manifest lengths differ!")
@@ -36,8 +39,8 @@ class ApkDiff:
         return True
 
     def compareEntries(self, sourceZip, destinationZip):
-        sourceInfoList      = list(filter(lambda sourceInfo: sourceInfo.filename not in self.IGNORE_FILES, sourceZip.infolist()))
-        destinationInfoList = list(filter(lambda destinationInfo: destinationInfo.filename not in self.IGNORE_FILES, destinationZip.infolist()))
+        sourceInfoList      = list(filter(lambda sourceInfo: self.isIncluded(sourceInfo.filename), sourceZip.infolist()))
+        destinationInfoList = list(filter(lambda destinationInfo: self.isIncluded(destinationInfo.filename), destinationZip.infolist()))
 
         if len(sourceInfoList) != len(destinationInfoList):
             print("APK info lists of different length!")
