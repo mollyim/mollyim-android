@@ -11,6 +11,9 @@ script:
       assembleWebsite
       testWebsiteReleaseUnitTest
 
+before_deploy:
+  - sha256sum --tag build/outputs/apk/website/*/*.apk
+
 deploy:
   provider: releases
   api_key: $GITHUB_TOKEN
