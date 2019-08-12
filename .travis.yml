@@ -26,3 +26,4 @@ deploy:
   on:
     condition: $GITHUB_TOKEN
     tags: true
+    all_branches: true
