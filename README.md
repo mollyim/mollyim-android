@@ -32,6 +32,12 @@ Be sure to be set `GITHUB_TOKEN`  environment variable in Travis CI to grant wri
 
 To enable [build scans](https://scans.gradle.com/) for your builds, set `BUILD_SCAN=1` as an environment variable in Travis CI.
 
+## Reproducible Builds
+
+Since x3, reproducible builds are supported. Follow the instructions to reproduce, byte for byte, every release of the APK:
+
+https://github.com/sigx/sig4a/wiki/Reproducible-Builds
+
 ## Bugs
 
 Report bugs in sig4a itself to [Issues](https://github.com/sigx/sig4a/issues).

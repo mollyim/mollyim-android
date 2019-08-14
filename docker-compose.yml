@@ -1,0 +1,11 @@
+version: '3.2'
+services:
+  ci-build:
+    build: .
+    command: ./gradlew -Pci assembleWebsite
+    environment:
+      - ORG_GRADLE_PROJECT_appName: ${APPNAME:-sig4a}
+    volumes:
+      - type: bind
+        source: ./build
+        target: /sig4a/build
