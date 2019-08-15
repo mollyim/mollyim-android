@@ -1,6 +1,5 @@
-FROM travisci/ci-amethyst:packer-1513010293-3f2fb39
+FROM openjdk:8u162
 
-# SDK-tools version is pinned here
 ENV ANDROID_API_LEVELS android-28
 ENV ANDROID_TOOLS_VERSION 25.2.5
 ENV ANDROID_BUILD_TOOLS_VERSION 28.0.3

@@ -34,7 +34,7 @@ To enable [build scans](https://scans.gradle.com/) for your builds, set `BUILD_S
 
 ## Reproducible Builds
 
-Since sigGesT x3, reproducible builds are supported. Follow the instructions to reproduce, byte for byte, every release of the APK:
+Since sigGesT x3, reproducible builds are supported. Follow the instructions given in the wiki to reproduce, byte for byte, every release of the APK:
 
 https://github.com/sigx/sig4a/wiki/Reproducible-Builds
 
