@@ -17,14 +17,9 @@ import org.thoughtcrime.securesms.jobmanager.Data;
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
 import org.thoughtcrime.securesms.logging.Log;
-import org.thoughtcrime.securesms.mms.MediaConstraints;
-import org.thoughtcrime.securesms.mms.MediaStream;
-import org.thoughtcrime.securesms.mms.MmsException;
 import org.thoughtcrime.securesms.mms.PartAuthority;
 import org.thoughtcrime.securesms.service.GenericForegroundService;
 import org.thoughtcrime.securesms.service.NotificationController;
-import org.thoughtcrime.securesms.transport.UndeliverableMessageException;
-import org.thoughtcrime.securesms.util.MediaUtil;
 import org.whispersystems.libsignal.util.guava.Optional;
 import org.whispersystems.signalservice.api.SignalServiceMessageSender;
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachment;
@@ -34,11 +29,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
 
-public class AttachmentUploadJob extends BaseJob {
+/**
+ * Uploads an attachment without alteration.
+ * <p>
+ * Queue {@link AttachmentCompressionJob} before to compress.
+ */
+public final class AttachmentUploadJob extends BaseJob {
 
-  public static final String KEY = "AttachmentUploadJob";
+  public static final String KEY = "AttachmentUploadJobV2";
 
-  private static final String TAG = AttachmentUploadJob.class.getSimpleName();
+  @SuppressWarnings("unused")
+  private static final String TAG = Log.tag(AttachmentUploadJob.class);
 
   private static final String KEY_ROW_ID    = "row_id";
   private static final String KEY_UNIQUE_ID = "unique_id";
@@ -48,7 +49,7 @@ public class AttachmentUploadJob extends BaseJob {
    */
   private static final int FOREGROUND_LIMIT = 10 * 1024 * 1024;
 
-  private AttachmentId attachmentId;
+  private final AttachmentId attachmentId;
 
   public AttachmentUploadJob(AttachmentId attachmentId) {
     this(new Job.Parameters.Builder()
@@ -83,14 +84,11 @@ public class AttachmentUploadJob extends BaseJob {
     DatabaseAttachment         databaseAttachment = database.getAttachment(attachmentId);
 
     if (databaseAttachment == null) {
-      throw new IllegalStateException("Cannot find the specified attachment.");
+      throw new InvalidAttachmentException("Cannot find the specified attachment.");
     }
 
-    MediaConstraints mediaConstraints = MediaConstraints.getPushMediaConstraints();
-    Attachment       scaledAttachment = scaleAndStripExif(database, mediaConstraints, databaseAttachment);
-
-    try (NotificationController notification = getNotificationForAttachment(scaledAttachment)) {
-      SignalServiceAttachment        localAttachment  = getAttachmentFor(scaledAttachment, notification);
+    try (NotificationController notification = getNotificationForAttachment(databaseAttachment)) {
+      SignalServiceAttachment        localAttachment  = getAttachmentFor(databaseAttachment, notification);
       SignalServiceAttachmentPointer remoteAttachment = messageSender.uploadAttachment(localAttachment.asStream(), databaseAttachment.isSticker());
       Attachment                     attachment       = PointerAttachment.forPointer(Optional.of(remoteAttachment), null, databaseAttachment.getFastPreflightId()).get();
 
@@ -114,7 +112,7 @@ public class AttachmentUploadJob extends BaseJob {
     return exception instanceof IOException;
   }
 
-  private SignalServiceAttachment getAttachmentFor(Attachment attachment, @Nullable NotificationController notification) {
+  private @NonNull SignalServiceAttachment getAttachmentFor(Attachment attachment, @Nullable NotificationController notification) throws InvalidAttachmentException {
     try {
       if (attachment.getDataUri() == null || attachment.getSize() == 0) throw new IOException("Assertion failed, outgoing attachment has no data!");
       InputStream is = PartAuthority.getAttachmentStream(context, attachment.getDataUri());
@@ -128,39 +126,24 @@ public class AttachmentUploadJob extends BaseJob {
                                     .withHeight(attachment.getHeight())
                                     .withCaption(attachment.getCaption())
                                     .withListener((total, progress) -> {
-                                      EventBus.getDefault().postSticky(new PartProgressEvent(attachment, total, progress));
+                                      EventBus.getDefault().postSticky(new PartProgressEvent(attachment, PartProgressEvent.Type.NETWORK, total, progress));
                                       if (notification != null) {
                                         notification.setProgress(total, progress);
                                       }
                                     })
                                     .build();
     } catch (IOException ioe) {
-      Log.w(TAG, "Couldn't open attachment", ioe);
+      throw new InvalidAttachmentException(ioe);
     }
-    return null;
   }
 
-  private Attachment scaleAndStripExif(@NonNull AttachmentDatabase attachmentDatabase,
-                                       @NonNull MediaConstraints constraints,
-                                       @NonNull Attachment attachment)
-      throws UndeliverableMessageException
-  {
-    try {
-      if (constraints.isSatisfied(context, attachment)) {
-        if (MediaUtil.isJpeg(attachment)) {
-          MediaStream stripped = constraints.getResizedMedia(context, attachment);
-          return attachmentDatabase.updateAttachmentData(attachment, stripped);
-        } else {
-          return attachment;
-        }
-      } else if (constraints.canResize(attachment)) {
-        MediaStream resized = constraints.getResizedMedia(context, attachment);
-        return attachmentDatabase.updateAttachmentData(attachment, resized);
-      } else {
-        throw new UndeliverableMessageException("Size constraints could not be met!");
-      }
-    } catch (IOException | MmsException e) {
-      throw new UndeliverableMessageException(e);
+  private class InvalidAttachmentException extends Exception {
+    InvalidAttachmentException(String message) {
+      super(message);
+    }
+
+    InvalidAttachmentException(Exception e) {
+      super(e);
     }
   }
 

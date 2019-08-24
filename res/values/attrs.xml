@@ -16,6 +16,8 @@
     <attr name="conversation_list_item_divider" format="reference"/>
     <attr name="conversation_list_toolbar_background" format="reference"/>
     <attr name="conversation_list_typing_tint" format="color"/>
+    <attr name="conversation_list_camera_icon_tint" format="color"/>
+    <attr name="conversation_list_camera_button_background" format="color"/>
 
     <attr name="conversation_sent_card_background" format="reference|color"/>
     <attr name="conversation_group_member_name" format="reference|color"/>
@@ -349,7 +351,7 @@
         <attr name="labeledEditText_textLayout" format="reference" />
     </declare-styleable>
 
-    <declare-styleable name="RevealableMessageView">
+    <declare-styleable name="ViewOnceMessageView">
         <attr name="revealable_unopenedForegroundColor" format="color" />
         <attr name="revealable_openedForegroundColor" format="color" />
     </declare-styleable>

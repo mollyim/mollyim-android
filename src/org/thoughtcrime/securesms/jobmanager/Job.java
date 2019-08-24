@@ -125,14 +125,83 @@ public abstract class Job {
     @NonNull T create(@NonNull Parameters parameters, @NonNull Data data);
   }
 
-  public enum Result {
-    SUCCESS, FAILURE, RETRY
+  public static final class Result {
+
+    private static final Result SUCCESS = new Result(ResultType.SUCCESS, null);
+    private static final Result RETRY   = new Result(ResultType.RETRY, null);
+    private static final Result FAILURE = new Result(ResultType.FAILURE, null);
+
+    private final ResultType       resultType;
+    private final RuntimeException runtimeException;
+
+    private Result(@NonNull ResultType resultType, @Nullable RuntimeException runtimeException) {
+      this.resultType       = resultType;
+      this.runtimeException = runtimeException;
+    }
+
+    /** Job completed successfully. */
+    public static Result success() {
+      return SUCCESS;
+    }
+
+    /** Job did not complete successfully, but it can be retried later. */
+    public static Result retry() {
+      return RETRY;
+    }
+
+    /** Job did not complete successfully and should not be tried again. Dependent jobs will also be failed.*/
+    public static Result failure() {
+      return FAILURE;
+    }
+
+    /** Same as {@link #failure()}, except the app should also crash with the provided exception. */
+    public static Result fatalFailure(@NonNull RuntimeException runtimeException) {
+      return new Result(ResultType.FAILURE, runtimeException);
+    }
+
+    boolean isSuccess() {
+      return resultType == ResultType.SUCCESS;
+    }
+
+    boolean isRetry() {
+      return resultType == ResultType.RETRY;
+    }
+
+    boolean isFailure() {
+      return resultType == ResultType.FAILURE;
+    }
+
+    @Nullable RuntimeException getException() {
+      return runtimeException;
+    }
+
+    @Override
+    public @NonNull String toString() {
+      switch (resultType) {
+        case SUCCESS:
+        case RETRY:
+          return resultType.toString();
+        case FAILURE:
+          if (runtimeException == null) {
+            return resultType.toString();
+          } else {
+            return "FATAL_FAILURE";
+          }
+      }
+
+      return "UNKNOWN?";
+    }
+
+    private enum ResultType {
+      SUCCESS, FAILURE, RETRY
+    }
   }
 
   public static final class Parameters {
 
-    public static final int IMMORTAL  = -1;
-    public static final int UNLIMITED = -1;
+    public static final String MIGRATION_QUEUE_KEY = "MIGRATION";
+    public static final int    IMMORTAL            = -1;
+    public static final int    UNLIMITED           = -1;
 
     private final long         createTime;
     private final long         lifespan;
@@ -187,16 +256,41 @@ public abstract class Job {
       return constraintKeys;
     }
 
+    public Builder toBuilder() {
+      return new Builder(createTime, maxBackoff, lifespan, maxAttempts, maxInstances, queue, constraintKeys);
+    }
+
 
     public static final class Builder {
 
-      private long         createTime     = System.currentTimeMillis();
-      private long         maxBackoff     = TimeUnit.SECONDS.toMillis(30);
-      private long         lifespan       = IMMORTAL;
-      private int          maxAttempts    = 1;
-      private int          maxInstances   = UNLIMITED;
-      private String       queue          = null;
-      private List<String> constraintKeys = new LinkedList<>();
+      private long         createTime;
+      private long         maxBackoff;
+      private long         lifespan;
+      private int          maxAttempts;
+      private int          maxInstances;
+      private String       queue;
+      private List<String> constraintKeys;
+
+      public Builder() {
+        this(System.currentTimeMillis(), TimeUnit.SECONDS.toMillis(30), IMMORTAL, 1, UNLIMITED, null, new LinkedList<>());
+      }
+
+      private Builder(long createTime,
+                      long maxBackoff,
+                      long lifespan,
+                      int maxAttempts,
+                      int maxInstances,
+                      @Nullable String queue,
+                      @NonNull List<String> constraintKeys)
+      {
+        this.createTime     = createTime;
+        this.maxBackoff     = maxBackoff;
+        this.lifespan       = lifespan;
+        this.maxAttempts    = maxAttempts;
+        this.maxInstances   = maxInstances;
+        this.queue          = queue;
+        this.constraintKeys = constraintKeys;
+      }
 
       /** Should only be invoked by {@link JobController} */
       Builder setCreateTime(long createTime) {
