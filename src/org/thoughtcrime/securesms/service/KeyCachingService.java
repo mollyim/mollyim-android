@@ -32,6 +32,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
 import org.thoughtcrime.securesms.ApplicationContext;
+import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.logging.Log;
 
 import org.thoughtcrime.securesms.ConversationListActivity;
@@ -60,15 +61,14 @@ public class KeyCachingService extends Service {
   private static final String TAG = KeyCachingService.class.getSimpleName();
 
   public static final int SERVICE_RUNNING_ID = 4141;
-
-  public  static final String KEY_PERMISSION           = "com.github.sigx.sig4a.ACCESS_SECRETS";
-  public  static final String NEW_KEY_EVENT            = "com.github.sigx.sig4a.service.action.NEW_KEY_EVENT";
-  public  static final String CLEAR_KEY_EVENT          = "com.github.sigx.sig4a.service.action.CLEAR_KEY_EVENT";
-  public  static final String LOCK_TOGGLED_EVENT       = "com.github.sigx.sig4a.service.action.LOCK_ENABLED_EVENT";
-  private static final String PASSPHRASE_EXPIRED_EVENT = "com.github.sigx.sig4a.service.action.PASSPHRASE_EXPIRED_EVENT";
-  public  static final String CLEAR_KEY_ACTION         = "com.github.sigx.sig4a.service.action.CLEAR_KEY";
-  public  static final String DISABLE_ACTION           = "com.github.sigx.sig4a.service.action.DISABLE";
-  public  static final String LOCALE_CHANGE_EVENT      = "com.github.sigx.sig4a.service.action.LOCALE_CHANGE_EVENT";
+  public  static final String KEY_PERMISSION           = BuildConfig.APPLICATION_ID + ".ACCESS_SECRETS";
+  public  static final String NEW_KEY_EVENT            = BuildConfig.APPLICATION_ID + ".service.action.NEW_KEY_EVENT";
+  public  static final String CLEAR_KEY_EVENT          = BuildConfig.APPLICATION_ID + ".service.action.CLEAR_KEY_EVENT";
+  public  static final String LOCK_TOGGLED_EVENT       = BuildConfig.APPLICATION_ID + ".service.action.LOCK_ENABLED_EVENT";
+  private static final String PASSPHRASE_EXPIRED_EVENT = BuildConfig.APPLICATION_ID + ".service.action.PASSPHRASE_EXPIRED_EVENT";
+  public  static final String CLEAR_KEY_ACTION         = BuildConfig.APPLICATION_ID + ".service.action.CLEAR_KEY";
+  public  static final String DISABLE_ACTION           = BuildConfig.APPLICATION_ID + ".service.action.DISABLE";
+  public  static final String LOCALE_CHANGE_EVENT      = BuildConfig.APPLICATION_ID + ".service.action.LOCALE_CHANGE_EVENT";
 
   private DynamicLanguage dynamicLanguage = new DynamicLanguage();
 
