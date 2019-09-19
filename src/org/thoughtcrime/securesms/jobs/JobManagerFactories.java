@@ -13,19 +13,12 @@ import org.thoughtcrime.securesms.jobmanager.impl.CellServiceConstraintObserver;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraintObserver;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkOrCellServiceConstraint;
-import org.thoughtcrime.securesms.jobmanager.impl.SqlCipherMigrationConstraint;
-import org.thoughtcrime.securesms.jobmanager.impl.SqlCipherMigrationConstraintObserver;
 import org.thoughtcrime.securesms.jobmanager.migrations.RecipientIdFollowUpJobMigration;
 import org.thoughtcrime.securesms.jobmanager.migrations.RecipientIdFollowUpJobMigration2;
 import org.thoughtcrime.securesms.jobmanager.migrations.RecipientIdJobMigration;
-import org.thoughtcrime.securesms.migrations.AvatarMigrationJob;
-import org.thoughtcrime.securesms.migrations.CachedAttachmentsMigrationJob;
 import org.thoughtcrime.securesms.migrations.DatabaseMigrationJob;
-import org.thoughtcrime.securesms.migrations.LegacyMigrationJob;
 import org.thoughtcrime.securesms.migrations.MigrationCompleteJob;
-import org.thoughtcrime.securesms.migrations.RecipientSearchMigrationJob;
 import org.thoughtcrime.securesms.migrations.RegistrationPinV2MigrationJob;
-import org.thoughtcrime.securesms.migrations.UuidMigrationJob;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -93,13 +86,8 @@ public final class JobManagerFactories {
       put(UpdateApkJob.KEY,                          new UpdateApkJob.Factory());
 
       // Migrations
-      put(AvatarMigrationJob.KEY,                    new AvatarMigrationJob.Factory());
       put(DatabaseMigrationJob.KEY,                  new DatabaseMigrationJob.Factory());
-      put(LegacyMigrationJob.KEY,                    new LegacyMigrationJob.Factory());
       put(MigrationCompleteJob.KEY,                  new MigrationCompleteJob.Factory());
-      put(RecipientSearchMigrationJob.KEY,           new RecipientSearchMigrationJob.Factory());
-      put(UuidMigrationJob.KEY,                      new UuidMigrationJob.Factory());
-      put(CachedAttachmentsMigrationJob.KEY,         new CachedAttachmentsMigrationJob.Factory());
       put(RegistrationPinV2MigrationJob.KEY,         new RegistrationPinV2MigrationJob.Factory());
 
       // Dead jobs
@@ -115,14 +103,12 @@ public final class JobManagerFactories {
       put(CellServiceConstraint.KEY,          new CellServiceConstraint.Factory(application));
       put(NetworkConstraint.KEY,              new NetworkConstraint.Factory(application));
       put(NetworkOrCellServiceConstraint.KEY, new NetworkOrCellServiceConstraint.Factory(application));
-      put(SqlCipherMigrationConstraint.KEY,   new SqlCipherMigrationConstraint.Factory(application));
     }};
   }
 
   public static List<ConstraintObserver> getConstraintObservers(@NonNull Application application) {
     return Arrays.asList(CellServiceConstraintObserver.getInstance(application),
-                         new NetworkConstraintObserver(application),
-                         new SqlCipherMigrationConstraintObserver());
+                         new NetworkConstraintObserver(application));
   }
 
   public static List<JobMigration> getJobMigrations(@NonNull Application application) {

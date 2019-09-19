@@ -188,11 +188,6 @@ public class MasterSecretUtil {
     }
   }
 
-  public static boolean hasAsymmericMasterSecret(Context context) {
-    SharedPreferences settings = context.getSharedPreferences(PREFERENCES_NAME, 0);
-    return settings.contains(ASYMMETRIC_LOCAL_PUBLIC_DJB);
-  }
-
   public static boolean isPassphraseInitialized(Context context) {
     SharedPreferences preferences = context.getSharedPreferences(PREFERENCES_NAME, 0);
     return preferences.getBoolean("passphrase_initialized", false);

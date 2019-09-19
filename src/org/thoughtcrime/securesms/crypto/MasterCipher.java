@@ -20,13 +20,10 @@ package org.thoughtcrime.securesms.crypto;
 import androidx.annotation.NonNull;
 import org.thoughtcrime.securesms.logging.Log;
 
-import org.thoughtcrime.securesms.util.Base64;
-import org.thoughtcrime.securesms.util.Hex;
 import org.whispersystems.libsignal.InvalidMessageException;
 import org.whispersystems.libsignal.ecc.Curve;
 import org.whispersystems.libsignal.ecc.ECPrivateKey;
 
-import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
@@ -77,14 +74,6 @@ public class MasterCipher {
     return encryptBytes(privateKey.serialize());
   }
 
-  public String encryptBody(@NonNull  String body)  {
-    return encryptAndEncodeBytes(body.getBytes());
-  }
-	
-  public String decryptBody(String body) throws InvalidMessageException {
-    return new String(decodeAndDecryptBytes(body));
-  }
-	
   public ECPrivateKey decryptKey(byte[] key)
       throws org.whispersystems.libsignal.InvalidKeyException
   {
@@ -123,37 +112,6 @@ public class MasterCipher {
       return null;
     }	
 		
-  }
-	
-  public boolean verifyMacFor(String content, byte[] theirMac) {
-    byte[] ourMac = getMacFor(content);
-    Log.i(TAG, "Our Mac: " + Hex.toString(ourMac));
-    Log.i(TAG, "Thr Mac: " + Hex.toString(theirMac));
-    return Arrays.equals(ourMac, theirMac);
-  }
-	
-  public byte[] getMacFor(String content) {
-    Log.w(TAG, "Macing: " + content);
-    try {
-      Mac mac = getMac(masterSecret.getMacKey());
-      return mac.doFinal(content.getBytes());
-    } catch (GeneralSecurityException ike) {
-      throw new AssertionError(ike);
-    }
-  }
-
-  private byte[] decodeAndDecryptBytes(String body) throws InvalidMessageException {
-    try {
-      byte[] decodedBody = Base64.decode(body);
-      return decryptBytes(decodedBody);
-    } catch (IOException e) {
-      throw new InvalidMessageException("Bad Base64 Encoding...", e);
-    }
-  }
-	
-  private String encryptAndEncodeBytes(@NonNull  byte[] bytes) {
-    byte[] encryptedAndMacBody = encryptBytes(bytes);
-    return Base64.encodeBytes(encryptedAndMacBody);
   }
 	
   private byte[] verifyMacBody(@NonNull Mac hmac, @NonNull byte[] encryptedAndMac) throws InvalidMessageException {

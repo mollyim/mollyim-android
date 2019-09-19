@@ -56,10 +56,6 @@ public class StorageUtil {
     return storage.canWrite();
   }
 
-  public static File getLegacyBackupDirectory() throws NoExternalStorageException {
-    return getSignalStorageDir();
-  }
-
   public static File getVideoDir() throws NoExternalStorageException {
     return new File(getSignalStorageDir(), Environment.DIRECTORY_MOVIES);
   }

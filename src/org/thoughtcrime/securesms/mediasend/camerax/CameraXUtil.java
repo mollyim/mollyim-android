@@ -26,7 +26,6 @@ import androidx.camera.core.ImageProxy;
 
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.mediasend.LegacyCameraModels;
-import org.thoughtcrime.securesms.migrations.LegacyMigrationJob;
 import org.thoughtcrime.securesms.util.Stopwatch;
 
 import java.io.ByteArrayOutputStream;

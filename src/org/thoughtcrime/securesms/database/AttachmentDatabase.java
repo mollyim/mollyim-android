@@ -265,32 +265,6 @@ public class AttachmentDatabase extends Database {
     }
   }
 
-  public boolean hasAttachmentFilesForMessage(long mmsId) {
-    String   selection = MMS_ID + " = ? AND (" + DATA + " NOT NULL OR " + TRANSFER_STATE + " != ?)";
-    String[] args      = new String[] { String.valueOf(mmsId), String.valueOf(TRANSFER_PROGRESS_DONE) };
-
-    try (Cursor cursor = databaseHelper.getReadableDatabase().query(TABLE_NAME, null, selection, args, null, null, "1")) {
-      return cursor != null && cursor.moveToFirst();
-    }
-  }
-
-  public @NonNull List<DatabaseAttachment> getPendingAttachments() {
-    final SQLiteDatabase           database    = databaseHelper.getReadableDatabase();
-    final List<DatabaseAttachment> attachments = new LinkedList<>();
-
-    Cursor cursor = null;
-    try {
-      cursor = database.query(TABLE_NAME, PROJECTION, TRANSFER_STATE + " = ?", new String[] {String.valueOf(TRANSFER_PROGRESS_STARTED)}, null, null, null);
-      while (cursor != null && cursor.moveToNext()) {
-        attachments.addAll(getAttachment(cursor));
-      }
-    } finally {
-      if (cursor != null) cursor.close();
-    }
-
-    return attachments;
-  }
-
   @SuppressWarnings("ResultOfMethodCallIgnored")
   public void deleteAttachmentsForMessage(long mmsId) {
     Log.d(TAG, "[deleteAttachmentsForMessage] mmsId: " + mmsId);
@@ -646,17 +620,6 @@ public class AttachmentDatabase extends Database {
                     new String[]{oldHash});
   }
 
-  public void updateAttachmentFileName(@NonNull AttachmentId attachmentId,
-                                       @Nullable String fileName)
-  {
-    SQLiteDatabase database = databaseHelper.getWritableDatabase();
-
-    ContentValues contentValues = new ContentValues(1);
-    contentValues.put(FILE_NAME, StorageUtil.getCleanFileName(fileName));
-
-    database.update(TABLE_NAME, contentValues, PART_ID_WHERE, attachmentId.toStrings());
-  }
-
   public void markAttachmentUploaded(long messageId, Attachment attachment) {
     ContentValues  values   = new ContentValues(1);
     SQLiteDatabase database = databaseHelper.getWritableDatabase();
@@ -665,14 +628,6 @@ public class AttachmentDatabase extends Database {
     database.update(TABLE_NAME, values, PART_ID_WHERE, ((DatabaseAttachment)attachment).getAttachmentId().toStrings());
 
     notifyConversationListeners(DatabaseFactory.getMmsDatabase(context).getThreadIdForMessage(messageId));
-  }
-
-  public void setTransferState(long messageId, @NonNull Attachment attachment, int transferState) {
-    if (!(attachment instanceof DatabaseAttachment)) {
-      throw new AssertionError("Attempt to update attachment that doesn't belong to DB!");
-    }
-
-    setTransferState(messageId, ((DatabaseAttachment) attachment).getAttachmentId(), transferState);
   }
 
   public void setTransferState(long messageId, @NonNull AttachmentId attachmentId, int transferState) {

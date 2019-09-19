@@ -311,7 +311,7 @@ class DirectoryHelperV1 {
           ApplicationDependencies.getJobManager().add(new MultiDeviceContactUpdateJob());
         }
 
-        if (!activeUser && systemContact && !TextSecurePreferences.getNeedsSqlCipherMigration(context)) {
+        if (!activeUser && systemContact) {
           notifyNewUsers(context, Collections.singletonList(recipient.getId()));
         }
 

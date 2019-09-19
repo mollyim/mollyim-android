@@ -14,9 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
-import org.greenrobot.eventbus.EventBus;
 import org.thoughtcrime.securesms.R;
-import org.thoughtcrime.securesms.jobmanager.impl.SqlCipherMigrationConstraintObserver;
 import org.thoughtcrime.securesms.lock.RegistrationLockReminders;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.preferences.widgets.NotificationPrivacyPreference;
@@ -114,7 +112,6 @@ public class TextSecurePreferences {
   public  static final String NOTIFICATION_PRIVACY_PREF        = "pref_notification_privacy";
   public  static final String NOTIFICATION_PRIORITY_PREF       = "pref_notification_priority";
   public  static final String NEW_CONTACTS_NOTIFICATIONS       = "pref_enable_new_contacts_notifications";
-  public  static final String WEBRTC_CALLING_PREF              = "pref_webrtc_calling";
 
   public  static final String MEDIA_DOWNLOAD_MOBILE_PREF       = "pref_media_download_mobile";
   public  static final String MEDIA_DOWNLOAD_WIFI_PREF         = "pref_media_download_wifi";
@@ -136,7 +133,6 @@ public class TextSecurePreferences {
   private static final String DATABASE_UNENCRYPTED_SECRET   = "pref_database_unencrypted_secret";
   private static final String ATTACHMENT_ENCRYPTED_SECRET   = "pref_attachment_encrypted_secret";
   private static final String ATTACHMENT_UNENCRYPTED_SECRET = "pref_attachment_unencrypted_secret";
-  private static final String NEEDS_SQLCIPHER_MIGRATION     = "pref_needs_sql_cipher_migration";
 
   public static final String CALL_NOTIFICATIONS_PREF = "pref_call_notifications";
   public static final String CALL_RINGTONE_PREF      = "pref_call_ringtone";
@@ -426,15 +422,6 @@ public class TextSecurePreferences {
     setIntegerPrefrence(context, ACTIVE_SIGNED_PRE_KEY_ID, value);;
   }
 
-  public static void setNeedsSqlCipherMigration(@NonNull Context context, boolean value) {
-    setBooleanPreference(context, NEEDS_SQLCIPHER_MIGRATION, value);
-    EventBus.getDefault().post(new SqlCipherMigrationConstraintObserver.SqlCipherNeedsMigrationEvent());
-  }
-
-  public static boolean getNeedsSqlCipherMigration(@NonNull Context context) {
-    return getBooleanPreference(context, NEEDS_SQLCIPHER_MIGRATION, false);
-  }
-
   public static void setAttachmentEncryptedSecret(@NonNull Context context, @NonNull String secret) {
     setStringPreference(context, ATTACHMENT_ENCRYPTED_SECRET, secret);
   }
@@ -561,14 +548,6 @@ public class TextSecurePreferences {
 
   public static void setFcmDisabled(Context context, boolean disabled) {
     setBooleanPreference(context, GCM_DISABLED_PREF, disabled);
-  }
-
-  public static boolean isWebrtcCallingEnabled(Context context) {
-    return getBooleanPreference(context, WEBRTC_CALLING_PREF, false);
-  }
-
-  public static void setWebrtcCallingEnabled(Context context, boolean enabled) {
-    setBooleanPreference(context, WEBRTC_CALLING_PREF, enabled);
   }
 
   public static void setDirectCaptureCameraId(Context context, int value) {

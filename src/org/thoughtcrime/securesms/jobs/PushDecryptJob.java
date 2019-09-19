@@ -182,12 +182,6 @@ public class PushDecryptJob extends BaseJob {
 
   @Override
   public void onRun() throws NoSuchMessageException, RetryLaterException {
-    if (needsMigration()) {
-      Log.w(TAG, "Migration is still needed.");
-      postMigrationNotification();
-      throw new RetryLaterException();
-    }
-
     PushDatabase          database             = DatabaseFactory.getPushDatabase(context);
     SignalServiceEnvelope envelope             = database.get(messageId);
     Optional<Long>        optionalSmsMessageId = smsMessageId > 0 ? Optional.of(smsMessageId) : Optional.absent();
@@ -203,25 +197,6 @@ public class PushDecryptJob extends BaseJob {
 
   @Override
   public void onCanceled() {
-  }
-
-  private boolean needsMigration() {
-    return !IdentityKeyUtil.hasIdentityKey(context) || TextSecurePreferences.getNeedsSqlCipherMigration(context);
-  }
-
-  private void postMigrationNotification() {
-    // TODO [greyson] Navigation
-    NotificationManagerCompat.from(context).notify(494949,
-                                                   new NotificationCompat.Builder(context, NotificationChannels.getMessagesChannel(context))
-                                                                         .setSmallIcon(R.drawable.icon_notification)
-                                                                         .setPriority(NotificationCompat.PRIORITY_HIGH)
-                                                                         .setCategory(NotificationCompat.CATEGORY_MESSAGE)
-                                                                         .setContentTitle(context.getString(R.string.PushDecryptJob_new_locked_message))
-                                                                         .setContentText(context.getString(R.string.PushDecryptJob_unlock_to_view_pending_messages))
-                                                                         .setContentIntent(PendingIntent.getActivity(context, 0, new Intent(context, MainActivity.class), 0))
-                                                                         .setDefaults(NotificationCompat.DEFAULT_SOUND | NotificationCompat.DEFAULT_VIBRATE)
-                                                                         .build());
-
   }
 
   private void handleMessage(@NonNull SignalServiceEnvelope envelope, @NonNull Optional<Long> smsMessageId) {

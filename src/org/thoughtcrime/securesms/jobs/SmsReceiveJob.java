@@ -6,7 +6,6 @@ import android.telephony.SmsMessage;
 
 import org.thoughtcrime.securesms.jobmanager.Data;
 import org.thoughtcrime.securesms.jobmanager.Job;
-import org.thoughtcrime.securesms.jobmanager.impl.SqlCipherMigrationConstraint;
 import org.thoughtcrime.securesms.logging.Log;
 
 import org.thoughtcrime.securesms.database.DatabaseFactory;
@@ -38,7 +37,6 @@ public class SmsReceiveJob extends BaseJob {
 
   public SmsReceiveJob(@Nullable Object[] pdus, int subscriptionId) {
     this(new Job.Parameters.Builder()
-                           .addConstraint(SqlCipherMigrationConstraint.KEY)
                            .setMaxAttempts(25)
                            .build(),
          pdus,
@@ -110,10 +108,6 @@ public class SmsReceiveJob extends BaseJob {
   private Optional<InsertResult> storeMessage(IncomingTextMessage message) throws MigrationPendingException {
     SmsDatabase database = DatabaseFactory.getSmsDatabase(context);
     database.ensureMigration();
-
-    if (TextSecurePreferences.getNeedsSqlCipherMigration(context)) {
-      throw new MigrationPendingException();
-    }
 
     if (message.isSecureMessage()) {
       IncomingTextMessage    placeholder  = new IncomingTextMessage(message, "");

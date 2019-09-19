@@ -971,30 +971,6 @@ public class RecipientDatabase extends Database {
     return results;
   }
 
-  public void updateSystemContactColors(@NonNull ColorUpdater updater) {
-    SQLiteDatabase                  db      = databaseHelper.getReadableDatabase();
-    Map<RecipientId, MaterialColor> updates = new HashMap<>();
-
-    db.beginTransaction();
-    try (Cursor cursor = db.query(TABLE_NAME, new String[] {ID, COLOR, SYSTEM_DISPLAY_NAME}, SYSTEM_DISPLAY_NAME + " IS NOT NULL AND " + SYSTEM_DISPLAY_NAME + " != \"\"", null, null, null, null)) {
-      while (cursor != null && cursor.moveToNext()) {
-        long          id       = cursor.getLong(cursor.getColumnIndexOrThrow(ID));
-        MaterialColor newColor = updater.update(cursor.getString(cursor.getColumnIndexOrThrow(SYSTEM_DISPLAY_NAME)),
-                                                cursor.getString(cursor.getColumnIndexOrThrow(COLOR)));
-
-        ContentValues contentValues = new ContentValues(1);
-        contentValues.put(COLOR, newColor.serialize());
-        db.update(TABLE_NAME, contentValues, ID + " = ?", new String[] { String.valueOf(id) });
-
-        updates.put(RecipientId.from(id), newColor);
-      }
-    } finally {
-      db.setTransactionSuccessful();
-      db.endTransaction();
-
-      Stream.of(updates.entrySet()).forEach(entry -> Recipient.live(entry.getKey()).refresh());
-    }
-  }
   public @Nullable Cursor getSignalContacts() {
     String   selection = BLOCKED         + " = ? AND " +
                          REGISTERED      + " = ? AND " +
