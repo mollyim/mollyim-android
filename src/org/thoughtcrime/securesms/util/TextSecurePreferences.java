@@ -108,8 +108,6 @@ public class TextSecurePreferences {
   private static final String GCM_REGISTRATION_ID_VERSION_PREF = "pref_gcm_registration_id_version";
   private static final String GCM_REGISTRATION_ID_TIME_PREF    = "pref_gcm_registration_id_last_set_time";
   private static final String WEBSOCKET_REGISTERED_PREF        = "pref_websocket_registered";
-  private static final String RATING_LATER_PREF                = "pref_rating_later";
-  private static final String RATING_ENABLED_PREF              = "pref_rating_enabled";
   private static final String SIGNED_PREKEY_FAILURE_COUNT_PREF = "pref_signed_prekey_failure_count";
 
   public  static final String REPEAT_ALERTS_PREF               = "pref_repeat_alerts";
@@ -604,22 +602,6 @@ public class TextSecurePreferences {
 
   public static boolean isNewContactsNotificationEnabled(Context context) {
     return getBooleanPreference(context, NEW_CONTACTS_NOTIFICATIONS, true);
-  }
-
-  public static long getRatingLaterTimestamp(Context context) {
-    return getLongPreference(context, RATING_LATER_PREF, 0);
-  }
-
-  public static void setRatingLaterTimestamp(Context context, long timestamp) {
-    setLongPreference(context, RATING_LATER_PREF, timestamp);
-  }
-
-  public static boolean isRatingEnabled(Context context) {
-    return getBooleanPreference(context, RATING_ENABLED_PREF, false);
-  }
-
-  public static void setRatingEnabled(Context context, boolean enabled) {
-    setBooleanPreference(context, RATING_ENABLED_PREF, enabled);
   }
 
   public static boolean isWebsocketRegistered(Context context) {
