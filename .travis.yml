@@ -6,9 +6,6 @@ android:
     - platform-tools,build-tools-28.0.3,android-28
     - extra-google-m2repository,extra-android-m2repository,extra-android-support
 
-env:
-  - ORG_GRADLE_PROJECT_appName=${APPNAME:-sig4a}
-
 script:
   - ./gradlew -Pci
       assembleWebsiteProduction

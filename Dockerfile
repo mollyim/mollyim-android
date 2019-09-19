@@ -13,5 +13,5 @@ RUN unzip -q -d ${ANDROID_HOME} sdk.zip && rm sdk.zip
 RUN echo y | android update sdk --no-ui --all --filter platform-tools,build-tools-${ANDROID_BUILD_TOOLS_VERSION},${ANDROID_API_LEVELS}
 RUN echo y | android update sdk --no-ui --all --filter extra-google-m2repository,extra-android-m2repository,extra-android-support
 
-COPY . /sig4a
-WORKDIR /sig4a
+COPY . /src
+WORKDIR /src

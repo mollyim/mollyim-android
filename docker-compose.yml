@@ -3,7 +3,5 @@ services:
   ci-build:
     build: .
     command: ./gradlew -Pci assembleWebsite
-    environment:
-      - ORG_GRADLE_PROJECT_appName=${APPNAME:-sig4a}
     volumes:
-      - ./ci-build:/sig4a/build
+      - ./ci-build:/src/build

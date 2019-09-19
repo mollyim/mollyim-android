@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Environment;
 import androidx.annotation.Nullable;
 
+import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.database.NoExternalStorageException;
 
 import java.io.File;
@@ -17,7 +18,7 @@ public class StorageUtil {
       throw new NoExternalStorageException();
     }
 
-    File signal = new File(storage, "sig4a");
+    File signal = new File(storage, BuildConfig.BACKUP_DIRECTORY);
     File backups = new File(signal, "Backups");
 
     if (!backups.exists()) {

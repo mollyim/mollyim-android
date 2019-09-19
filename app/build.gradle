@@ -194,12 +194,6 @@ dependencies {
     testImplementation 'org.robolectric:shadows-multidex:4.2'
 }
 
-configurations.all {
-    resolutionStrategy {
-        cacheChangingModulesFor 0, 'seconds'
-    }
-}
-
 dependencyVerification {
     configuration = '(website)(Staging|Production)(Debug|Release)RuntimeClasspath'
 }
@@ -243,13 +237,14 @@ android {
         targetSdkVersion 28
         multiDexEnabled true
 
-        applicationId "com.github.sigx.${appName.toLowerCase()}"
+        applicationId packageId
 
-        resValue 'string', 'package_name', applicationId
         resValue 'string', 'app_name', appName
+        resValue 'string', 'install_url', installUrl
 
         vectorDrawables.useSupportLibrary = true
 
+        buildConfigField "String", "BACKUP_DIRECTORY", "\"$appName\""
         buildConfigField "long", "BUILD_TIMESTAMP", "${buildTimestamp}L"
         buildConfigField "String", "SIGNAL_SERVICE_STATUS_URL", "\"uptime.signal.org\""
         buildConfigField "String", "CONTENT_PROXY_HOST", "\"contentproxy.signal.org\""
@@ -332,6 +327,9 @@ android {
         }
         staging {
             dimension "environment"
+            applicationIdSuffix ".staging"
+            resValue 'string', 'app_name', "$appName Staging"
+            buildConfigField "String", "BACKUP_DIRECTORY", "\"$appName Staging\""
             buildConfigField "String", "SIGNAL_URL", "\"https://textsecure-service-staging.whispersystems.org\""
             buildConfigField "String", "STORAGE_URL", "\"https://storage-staging.signal.org\""
             buildConfigField "String", "SIGNAL_CDN_URL", "\"https://cdn-staging.signal.org\""
@@ -352,6 +350,10 @@ android {
             buildConfigField "String", "KEY_BACKUP_ENCLAVE_NAME", "\"f2e2a5004794a6c1bac5c4949eadbc243dd02e02d1a93f10fe24584fb70815d8\""
             buildConfigField "String", "UNIDENTIFIED_SENDER_TRUST_ROOT", "\"BXu6QIKVz5MA8gstzfOgRQGqyLqOwNKHL6INkv3IHWMF\""
         }
+    }
+
+    applicationVariants.all { variant ->
+        variant.resValue "string", "package_name", variant.applicationId
     }
 
     android.applicationVariants.all { variant ->
