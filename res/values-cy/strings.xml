@@ -11,6 +11,7 @@
   <!--AlbumThumbnailView-->
   <string name="AlbumThumbnailView_plus">\+%d</string>
   <!--ApplicationMigrationActivity-->
+  <string name="ApplicationMigrationActivity__signal_is_updating">Mae Signal yn diweddaru...</string>
   <!--ApplicationPreferencesActivity-->
   <string name="ApplicationPreferencesActivity_currently_s">Yn gyfredol: %s</string>
   <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">Nid ydych wedi gosod cyfrinymadrodd eto!</string>
@@ -836,6 +837,7 @@ Send neges heb ei ddiogelu?</string>
   <string name="change_passphrase_activity__repeat_new_passphrase">Aildeipio\'r cyfrinair newydd</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">Rhowch enw neu rif</string>
+  <string name="contact_selection_activity__invite_to_signal">Gwahodd i Signal</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">Clirio\'r testun</string>
   <string name="contact_filter_toolbar__show_keyboard_description">Dangos bysellfwrdd</string>
@@ -881,8 +883,7 @@ Send neges heb ei ddiogelu?</string>
   <!--conversation_item_received-->
   <string name="conversation_item_received__contact_photo_description">Llun cyswllt</string>
   <!--audio_view-->
-  <string name="audio_view__play_accessibility_description">Chwarae</string>
-  <string name="audio_view__pause_accessibility_description">Oedi</string>
+  <string name="audio_view__play_pause_accessibility_description">Chwarae ... Oedi</string>
   <string name="audio_view__download_accessibility_description">Llwytho i lawr</string>
   <!--QuoteView-->
   <string name="QuoteView_audio">Sain</string>

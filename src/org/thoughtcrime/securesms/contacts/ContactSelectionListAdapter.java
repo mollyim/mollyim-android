@@ -20,23 +20,24 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.provider.ContactsContract;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.Spanned;
-import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
+
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.components.RecyclerViewFastScroller.FastScrollAdapter;
 import org.thoughtcrime.securesms.contacts.ContactSelectionListAdapter.HeaderViewHolder;
 import org.thoughtcrime.securesms.contacts.ContactSelectionListAdapter.ViewHolder;
 import org.thoughtcrime.securesms.database.CursorRecyclerViewAdapter;
+import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.mms.GlideRequests;
 import org.thoughtcrime.securesms.util.StickyHeaderDecoration.StickyHeaderAdapter;
 import org.thoughtcrime.securesms.util.Util;
@@ -53,7 +54,8 @@ public class ContactSelectionListAdapter extends CursorRecyclerViewAdapter<ViewH
                                          implements FastScrollAdapter,
                                                     StickyHeaderAdapter<HeaderViewHolder>
 {
-  private final static String TAG = ContactSelectionListAdapter.class.getSimpleName();
+  @SuppressWarnings("unused")
+  private final static String TAG = Log.tag(ContactSelectionListAdapter.class);
 
   private static final int VIEW_TYPE_CONTACT = 0;
   private static final int VIEW_TYPE_DIVIDER = 1;
@@ -198,7 +200,7 @@ public class ContactSelectionListAdapter extends CursorRecyclerViewAdapter<ViewH
 
 
   @Override
-  public HeaderViewHolder onCreateHeaderViewHolder(ViewGroup parent) {
+  public HeaderViewHolder onCreateHeaderViewHolder(ViewGroup parent, int position) {
     return new HeaderViewHolder(LayoutInflater.from(getContext()).inflate(R.layout.contact_selection_recyclerview_header, parent, false));
   }
 
@@ -242,10 +244,13 @@ public class ContactSelectionListAdapter extends CursorRecyclerViewAdapter<ViewH
     Cursor cursor = getCursorAtPositionOrThrow(position);
     String letter = cursor.getString(cursor.getColumnIndexOrThrow(ContactsDatabase.NAME_COLUMN));
 
-    if (!TextUtils.isEmpty(letter)) {
-      String firstChar = letter.trim().substring(0, 1).toUpperCase();
-      if (Character.isLetterOrDigit(firstChar.codePointAt(0))) {
-        return firstChar;
+    if (letter != null) {
+      letter = letter.trim();
+      if (letter.length() > 0) {
+        char firstChar = letter.charAt(0);
+        if (Character.isLetterOrDigit(firstChar)) {
+          return String.valueOf(Character.toUpperCase(firstChar));
+        }
       }
     }
 

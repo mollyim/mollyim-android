@@ -102,7 +102,7 @@ dependencies {
 
     implementation ('com.github.sigx.libsigsvc4j:signal-service-android:2.13.7-x4pre1') { changing = true }
 
-    implementation 'org.whispersystems:webrtc-android:M75'
+    implementation 'org.whispersystems:webrtc-android:M77'
 
     implementation "me.leolin:ShortcutBadger:1.1.16"
     implementation 'se.emilsjolander:stickylistheaders:2.7.0'
@@ -140,6 +140,9 @@ dependencies {
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'com.android.support', module: 'recyclerview-v7'
     }
+
+    implementation 'com.airbnb.android:lottie:3.0.7'
+
     implementation 'com.codewaves.stickyheadergrid:stickyheadergrid:0.9.4'
     implementation 'com.github.dmytrodanylyk.circular-progress-button:library:1.1.3-S2'
     implementation 'org.signal:android-database-sqlcipher:3.5.9-S3'
@@ -191,6 +194,7 @@ dependencyVerification {
         'cn.carbswang.android:NumberPickerView:18b3c316d62c7c277978a8d4ed57a5b8f4e943762264960f579a8a549c756729',
         'com.tomergoldst.android:tooltips:4c56697dd1ad64b8066535c61f961a6d901e7ae5d97ae27084ba40ad620349b6',
         'com.takisoft.fix:colorpicker:f5d0dbabe406a1800498ca9c1faf34db36e021d8488bf10360f29961fe3ab0d1',
+        'com.airbnb.android:lottie:6819ff968eb768096133c7873d63351705fd4ac424a0917d86c4145f5035097d',
         'com.codewaves.stickyheadergrid:stickyheadergrid:5b4aa6a52a957cfd55f60f4220c11c0c371385a3cb9786cae03c260dcdef5794',
         'androidx.appcompat:appcompat:49ad229add44f822fcb3c8405c3fddbd72660da6a839ce29e13158f5980514fd',
         'com.melnykov:floatingactionbutton:15d58d4fac0f7a288d0e5301bbaf501a146f5b3f5921277811bf99bd3b397263',
@@ -213,7 +217,7 @@ dependencyVerification {
         'com.google.android.exoplayer:exoplayer-core:b6ab34abac36bc2bc6934b7a50008162feca2c0fde91aaf1e8c1c22f2c16e2c0',
         'org.conscrypt:conscrypt-android:400ca559a49b860a82862b22cee0e3110764bdcf7ee7c79e7479895c25cdfc09',
         'org.signal:aesgcmprovider:6eb4422e8a618b3b76cb2096a3619d251f9e27989dc68307a1e5414c3710f2d1',
-        'org.whispersystems:webrtc-android:f8231bb57923afb243760213dc58924e85cce42f2f3cc8cb33a6d883672a921a',
+        'org.whispersystems:webrtc-android:c1254d6d8871c8a5a0e02f682626d0fc0ba1633587334c43edc75119f6977ac2',
         'me.leolin:ShortcutBadger:e3cb3e7625892129b0c92dd5e4bc649faffdd526d5af26d9c45ee31ff8851774',
         'se.emilsjolander:stickylistheaders:a08ca948aa6b220f09d82f16bbbac395f6b78897e9eeac6a9f0b0ba755928eeb',
         'com.jpardogo.materialtabstrip:library:c6ef812fba4f74be7dc4a905faa4c2908cba261a94c13d4f96d5e67e4aad4aaa',
@@ -289,6 +293,7 @@ dependencyVerification {
         'com.nineoldandroids:library:68025a14e3e7673d6ad2f95e4b46d78d7d068343aa99256b686fe59de1b3163a',
         'com.klinkerapps:logger:177e325259a8b111ad6745ec10db5861723c99f402222b80629f576f49408541',
         'com.google.android:flexbox:a9989fd13ae2ee42765dfc515fe362edf4f326e74925d02a10369df8092a4935',
+        'com.squareup.okio:okio:d78fac588458fc099e6c82e91fe5f0375c67434626451a3a77772c65d9eee85b',
         'org.jsoup:jsoup:abeaf34795a4de70f72aed6de5966d2955ec7eb348eeb813324f23c999575473',
         'org.whispersystems:signal-protocol-android:c80aac5f93114da2810e2e89437831f79fcbc8bece652f64aeab313a651cba85',
         'org.signal:signal-metadata-java:2ce71cc4ec5dacfbaef4a265fceef61b8a09696b541994106a22a946762cbdcc',
@@ -301,13 +306,12 @@ dependencyVerification {
         'org.whispersystems:curve25519-android:b502bcf83efe001f09a7a9efda6f0fa772c43ed5924e97816296ed3503caa092',
         'com.fasterxml.jackson.core:jackson-annotations:45d32ac61ef8a744b464c54c2b3414be571016dd46bfc2bec226761cf7ae457a',
         'com.fasterxml.jackson.core:jackson-core:3083079be6088db2ed0a0c6ff92204e0aa48fa1de9db5b59c468f35acf882c2c',
-        'com.squareup.okio:okio:693fa319a7e8843300602b204023b7674f106ebcb577f2dd5807212b66118bd2',
         'org.whispersystems:curve25519-java:0aadd43cf01d11e9b58f867b3c4f25c3194e8b0623d1953d32dfbfbee009e38d',
     ]
 }
 
-def canonicalVersionCode = 521
-def canonicalVersionName = "4.46.2"
+def canonicalVersionCode = 528
+def canonicalVersionName = "4.47.6"
 
 def postFixSize = 10
 def abiPostFix = ['armeabi-v7a' : 1,
