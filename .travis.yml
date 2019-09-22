@@ -11,8 +11,8 @@ env:
 
 script:
   - ./gradlew -Pci
-      assembleWebsite
-      testWebsiteReleaseUnitTest
+      assembleWebsiteProduction
+      testWebsiteProductionReleaseUnitTest
 
 before_deploy:
   - sha256sum --tag build/outputs/apk/website/*/*.apk
