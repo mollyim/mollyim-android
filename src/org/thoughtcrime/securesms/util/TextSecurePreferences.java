@@ -168,6 +168,7 @@ public class TextSecurePreferences {
   private static final String LAST_FULL_CONTACT_SYNC_TIME = "pref_last_full_contact_sync_time";
   private static final String NEEDS_FULL_CONTACT_SYNC     = "pref_needs_full_contact_sync";
 
+  public  static final String LOG_ENABLED            = "pref_log_enabled";
   private static final String LOG_ENCRYPTED_SECRET   = "pref_log_encrypted_secret";
   private static final String LOG_UNENCRYPTED_SECRET = "pref_log_unencrypted_secret";
 
@@ -1176,6 +1177,14 @@ public class TextSecurePreferences {
 
   public static void setNeedsFullContactSync(Context context, boolean needsSync) {
     setBooleanPreference(context, NEEDS_FULL_CONTACT_SYNC, needsSync);
+  }
+
+  public static void setLogEnabled(Context context, boolean enabled) {
+    setBooleanPreference(context, LOG_ENABLED, enabled);
+  }
+
+  public static boolean isLogEnabled(Context context) {
+    return getBooleanPreference(context, LOG_ENABLED, true);
   }
 
   public static void setLogEncryptedSecret(Context context, String base64Secret) {

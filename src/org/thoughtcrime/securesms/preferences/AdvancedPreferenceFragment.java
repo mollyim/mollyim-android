@@ -22,11 +22,13 @@ import org.thoughtcrime.securesms.logging.Log;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 
+import org.thoughtcrime.securesms.ApplicationContext;
 import org.thoughtcrime.securesms.ApplicationPreferencesActivity;
 import org.thoughtcrime.securesms.LogSubmitActivity;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.contacts.ContactAccessor;
 import org.thoughtcrime.securesms.contacts.ContactIdentityManager;
+import org.thoughtcrime.securesms.logging.LogManager;
 import org.thoughtcrime.securesms.registration.RegistrationNavigationActivity;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.task.ProgressDialogAsyncTask;
@@ -53,6 +55,10 @@ public class AdvancedPreferenceFragment extends CorrectedPreferenceFragment {
     Preference submitDebugLog = this.findPreference(SUBMIT_DEBUG_LOG_PREF);
     submitDebugLog.setOnPreferenceClickListener(new SubmitDebugLogListener());
     submitDebugLog.setSummary(getVersion(getActivity()));
+    submitDebugLog.setEnabled(TextSecurePreferences.isLogEnabled(getContext()));
+
+    findPreference(TextSecurePreferences.LOG_ENABLED)
+      .setOnPreferenceChangeListener(new EnableLogClickListener());
   }
 
   @Override
@@ -226,6 +232,25 @@ public class AdvancedPreferenceFragment extends CorrectedPreferenceFragment {
       }
 
       return false;
+    }
+  }
+
+  private class EnableLogClickListener implements Preference.OnPreferenceChangeListener {
+    @Override
+    public boolean onPreferenceChange(final Preference preference, Object newValue) {
+      final Context context = preference.getContext();
+
+      boolean enabled = (boolean) newValue;
+
+      LogManager logManager = ApplicationContext.getInstance(context).getLogManager();
+      logManager.setLogging(enabled);
+      if (!enabled) {
+        logManager.wipeLogs();
+      }
+
+      findPreference(SUBMIT_DEBUG_LOG_PREF).setEnabled(enabled);
+
+      return true;
     }
   }
 }

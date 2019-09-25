@@ -11,6 +11,11 @@
                 android:title="@string/preferences__choose_identity"
                 android:summary="@string/preferences__choose_your_contact_entry_from_the_contacts_list"/>
 
+    <org.thoughtcrime.securesms.components.SwitchPreferenceCompat
+                android:defaultValue="true"
+                android:key="pref_log_enabled"
+                android:title="@string/preferences__enable_debug_log"/>
+
     <Preference android:key="pref_submit_debug_logs"
                 android:title="@string/preferences__submit_debug_log"/>
 </PreferenceScreen>

@@ -1,5 +1,9 @@
 package org.thoughtcrime.securesms.logging;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 public class AndroidLogger extends Log.Logger {
 
   @Override
@@ -34,5 +38,27 @@ public class AndroidLogger extends Log.Logger {
 
   @Override
   public void blockUntilAllWritesFinished() {
+  }
+
+  @Override
+  public void clear() {
+    try {
+      Runtime.getRuntime().exec("logcat -c");
+    } catch (IOException ignored) {}
+  }
+
+  @Override
+  public String getLog() throws IOException {
+    final Process         process        = Runtime.getRuntime().exec("logcat -d");
+    final BufferedReader  bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+    final StringBuilder   log            = new StringBuilder();
+    final String          separator      = System.getProperty("line.separator");
+
+    String line;
+    while ((line = bufferedReader.readLine()) != null) {
+      log.append(line);
+      log.append(separator);
+    }
+    return log.toString();
   }
 }

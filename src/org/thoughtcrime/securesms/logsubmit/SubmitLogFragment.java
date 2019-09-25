@@ -54,11 +54,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.thoughtcrime.securesms.ApplicationContext;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.contactshare.SimpleTextWatcher;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.logging.Log;
+import org.thoughtcrime.securesms.logging.LogManager;
 import org.thoughtcrime.securesms.logsubmit.util.Scrubber;
 import org.thoughtcrime.securesms.util.BucketInfo;
 import org.thoughtcrime.securesms.util.FrameRateTracker;
@@ -234,25 +234,6 @@ public class SubmitLogFragment extends Fragment {
     new PopulateLogcatAsyncTask(getActivity()).execute();
   }
 
-  private static String grabLogcat() {
-    try {
-      final Process         process        = Runtime.getRuntime().exec("logcat -d");
-      final BufferedReader  bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-      final StringBuilder   log            = new StringBuilder();
-      final String          separator      = System.getProperty("line.separator");
-
-      String line;
-      while ((line = bufferedReader.readLine()) != null) {
-        log.append(line);
-        log.append(separator);
-      }
-      return log.toString();
-    } catch (IOException ioe) {
-      Log.w(TAG, "IOException when trying to read logcat.", ioe);
-      return null;
-    }
-  }
-
   private Intent getIntentForSupportEmail(String logUrl) {
     Intent emailSendIntent = new Intent(Intent.ACTION_SEND);
 
@@ -368,25 +349,30 @@ public class SubmitLogFragment extends Fragment {
       CharSequence newLogs;
       try {
         long t1 = System.currentTimeMillis();
-        String logs = ApplicationContext.getInstance(context).getPersistentLogger().getLogs().get();
+        String logs = LogManager.getPersistentLogger().getLog();
         Log.i(TAG, "Fetch our logs : " + (System.currentTimeMillis() - t1) + " ms");
 
         long t2 = System.currentTimeMillis();
         newLogs = Scrubber.scrub(logs);
         Log.i(TAG, "Scrub our logs: " + (System.currentTimeMillis() - t2) + " ms");
-      } catch (InterruptedException | ExecutionException e) {
+      } catch (IOException e) {
         Log.w(TAG, "Failed to retrieve new logs.", e);
         newLogs = "Failed to retrieve logs.";
       }
 
-      long t3 = System.currentTimeMillis();
-      String logcat = grabLogcat();
-      Log.i(TAG, "Fetch logcat: " + (System.currentTimeMillis() - t3) + " ms");
+      CharSequence scrubbedLogcat;
+      try {
+        long t3 = System.currentTimeMillis();
+        String logcat = LogManager.getAndroidLogger().getLog();
+        Log.i(TAG, "Fetch logcat: " + (System.currentTimeMillis() - t3) + " ms");
 
-      long t4 = System.currentTimeMillis();
-      CharSequence scrubbedLogcat = Scrubber.scrub(logcat);
-      Log.i(TAG, "Scrub logcat: " + (System.currentTimeMillis() - t4) + " ms");
-
+        long t4 = System.currentTimeMillis();
+        scrubbedLogcat = Scrubber.scrub(logcat);
+        Log.i(TAG, "Scrub logcat: " + (System.currentTimeMillis() - t4) + " ms");
+      } catch (IOException e) {
+        Log.w(TAG, "IOException when trying to read logcat.", e);
+        scrubbedLogcat = "Failed to retrieve logs.";
+      }
 
       StringBuilder stringBuilder = new StringBuilder();
 

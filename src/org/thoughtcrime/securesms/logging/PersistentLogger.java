@@ -5,6 +5,7 @@ import androidx.annotation.AnyThread;
 import androidx.annotation.WorkerThread;
 
 import org.thoughtcrime.securesms.database.NoExternalStorageException;
+import org.thoughtcrime.securesms.util.StorageUtil;
 import org.thoughtcrime.securesms.util.concurrent.ListenableFuture;
 import org.thoughtcrime.securesms.util.concurrent.SettableFuture;
 
@@ -18,6 +19,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -32,7 +34,6 @@ public class PersistentLogger extends Log.Logger {
   private static final String LOG_E   = "E";
   private static final String LOG_WTF = "A";
 
-  private static final String           LOG_DIRECTORY   = "log";
   private static final String           FILENAME_PREFIX = "log-";
   private static final int              MAX_LOG_FILES   = 7;
   private static final int              MAX_LOG_SIZE    = 300 * 1024;
@@ -44,6 +45,8 @@ public class PersistentLogger extends Log.Logger {
 
   private LogFile.Writer writer;
 
+  private boolean initialized;
+
   public PersistentLogger(Context context) {
     this.context  = context.getApplicationContext();
     this.secret   = LogSecretProvider.getOrCreateAttachmentSecret(context);
@@ -52,8 +55,6 @@ public class PersistentLogger extends Log.Logger {
       thread.setPriority(Thread.MIN_PRIORITY);
       return thread;
     });
-
-    executor.execute(this::initializeWriter);
   }
 
   @Override
@@ -99,8 +100,26 @@ public class PersistentLogger extends Log.Logger {
     }
   }
 
+  @Override
+  public void clear() {
+    executor.execute(() -> {
+      writer.close();
+      initialized = false;
+      deleteAllLogs();
+    });
+  }
+
+  @Override
+  public String getLog() throws IOException {
+    try {
+      return getLogs().get();
+    } catch (InterruptedException | ExecutionException e) {
+      throw new IOException(e);
+    }
+  }
+
   @WorkerThread
-  public ListenableFuture<String> getLogs() {
+  private ListenableFuture<String> getLogs() {
     final SettableFuture<String> future = new SettableFuture<>();
 
     executor.execute(() -> {
@@ -129,17 +148,21 @@ public class PersistentLogger extends Log.Logger {
 
   @WorkerThread
   private void initializeWriter() {
+    writer = null;
     try {
       writer = new LogFile.Writer(secret, getOrCreateActiveLogFile());
     } catch (NoExternalStorageException | IOException e) {
       android.util.Log.e(TAG, "Failed to initialize writer.", e);
     }
+    initialized = true;
   }
 
   @AnyThread
   private void write(String level, String tag, String message, Throwable t) {
     executor.execute(() -> {
       try {
+        if (!initialized) initializeWriter();
+
         if (writer == null) {
           return;
         }
@@ -179,6 +202,7 @@ public class PersistentLogger extends Log.Logger {
       for (File log : logs) {
         log.delete();
       }
+      deleteLogDirectory();
     } catch (NoExternalStorageException e) {
       android.util.Log.w(TAG, "Was unable to delete logs.", e);
     }
@@ -207,12 +231,20 @@ public class PersistentLogger extends Log.Logger {
   }
 
   private File getOrCreateLogDirectory() throws NoExternalStorageException {
-    File logDir = new File(context.getCacheDir(), LOG_DIRECTORY);
+    File logDir = StorageUtil.getLogCacheDirectory(context);
     if (!logDir.exists() && !logDir.mkdir()) {
       throw new NoExternalStorageException("Unable to create log directory.");
     }
 
     return logDir;
+  }
+
+  private void deleteLogDirectory() {
+    File logDir = StorageUtil.getLogCacheDirectory(context);
+    if (!logDir.exists() || !logDir.isDirectory()) {
+      return;
+    }
+    logDir.delete();
   }
 
   private List<String> buildLogEntries(String level, String tag, String message, Throwable t) {

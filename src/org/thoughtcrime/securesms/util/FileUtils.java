@@ -34,7 +34,7 @@ public final class FileUtils {
     }
   }
 
-  public static void deleteDirectoryContents(File directory) throws IOException {
+  public static void deleteDirectoryContents(File directory) {
     if (directory == null || !directory.exists() || !directory.isDirectory()) return;
 
     File[] files = directory.listFiles();
@@ -47,13 +47,13 @@ public final class FileUtils {
     }
   }
 
-  public static void deleteDirectory(File directory) throws IOException {
+  public static boolean deleteDirectory(File directory) {
     if (directory == null || !directory.exists() || !directory.isDirectory()) {
-      return;
+      return false;
     }
 
     deleteDirectoryContents(directory);
 
-    directory.delete();
+    return directory.delete();
   }
 }

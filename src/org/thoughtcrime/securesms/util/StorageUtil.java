@@ -2,6 +2,7 @@ package org.thoughtcrime.securesms.util;
 
 import android.content.Context;
 import android.os.Environment;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.thoughtcrime.securesms.BuildConfig;
@@ -10,6 +11,8 @@ import org.thoughtcrime.securesms.database.NoExternalStorageException;
 import java.io.File;
 
 public class StorageUtil {
+
+  public static final String LOG_CACHE_DIRECTORY = "log";
 
   public static File getBackupDirectory() throws NoExternalStorageException {
     File storage = Environment.getExternalStorageDirectory();
@@ -42,6 +45,10 @@ public class StorageUtil {
     }
 
     return storage;
+  }
+
+  public static File getLogCacheDirectory(@NonNull Context context) {
+    return new File(context.getCacheDir(), LOG_CACHE_DIRECTORY);
   }
 
   public static boolean canWriteInSignalStorageDir() {

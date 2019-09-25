@@ -47,10 +47,9 @@ import org.thoughtcrime.securesms.jobs.CreateSignedPreKeyJob;
 import org.thoughtcrime.securesms.jobs.FcmRefreshJob;
 import org.thoughtcrime.securesms.jobs.MultiDeviceContactUpdateJob;
 import org.thoughtcrime.securesms.jobs.PushNotificationReceiveJob;
-import org.thoughtcrime.securesms.logging.AndroidLogger;
 import org.thoughtcrime.securesms.logging.CustomSignalProtocolLogger;
 import org.thoughtcrime.securesms.logging.Log;
-import org.thoughtcrime.securesms.logging.PersistentLogger;
+import org.thoughtcrime.securesms.logging.LogManager;
 import org.thoughtcrime.securesms.logging.UncaughtExceptionLogger;
 import org.thoughtcrime.securesms.mediasend.camerax.CameraXUtil;
 import org.thoughtcrime.securesms.migrations.ApplicationMigrations;
@@ -97,7 +96,7 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
   private TypingStatusRepository   typingStatusRepository;
   private TypingStatusSender       typingStatusSender;
   private IncomingMessageObserver  incomingMessageObserver;
-  private PersistentLogger         persistentLogger;
+  private LogManager               logManager;
 
   private volatile boolean isAppVisible;
 
@@ -177,8 +176,8 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
     return isAppVisible;
   }
 
-  public PersistentLogger getPersistentLogger() {
-    return persistentLogger;
+  public LogManager getLogManager() {
+    return logManager;
   }
 
   private void initializeSecurityProvider() {
@@ -206,8 +205,8 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
   }
 
   private void initializeLogging() {
-    persistentLogger = new PersistentLogger(this);
-    org.thoughtcrime.securesms.logging.Log.initialize(new AndroidLogger(), persistentLogger);
+    logManager = new LogManager(this);
+    logManager.setLogging(TextSecurePreferences.isLogEnabled(this));
 
     SignalProtocolLoggerProvider.setProvider(new CustomSignalProtocolLogger());
   }

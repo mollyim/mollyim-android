@@ -2,13 +2,13 @@ package org.thoughtcrime.securesms.logging;
 
 import androidx.annotation.MainThread;
 
-public class Log {
+import java.io.IOException;
 
-  private static Logger[] loggers;
+public class Log {
 
   @MainThread
   public static void initialize(Logger... loggers) {
-    Log.loggers = loggers;
+    LogManager.setLoggers(loggers);
   }
 
   public static void v(String tag, String message) {
@@ -60,62 +60,38 @@ public class Log {
   }
 
   public static void v(String tag, String message, Throwable t) {
-    if (loggers != null) {
-      for (Logger logger : loggers) {
-        logger.v(tag, message, t);
-      }
-    } else {
-      android.util.Log.v(tag, message, t);
+    for (Logger logger : LogManager.getLoggers()) {
+      logger.v(tag, message, t);
     }
   }
 
   public static void d(String tag, String message, Throwable t) {
-    if (loggers != null) {
-      for (Logger logger : loggers) {
-        logger.d(tag, message, t);
-      }
-    } else {
-      android.util.Log.d(tag, message, t);
+    for (Logger logger : LogManager.getLoggers()) {
+      logger.d(tag, message, t);
     }
   }
 
   public static void i(String tag, String message, Throwable t) {
-    if (loggers != null) {
-      for (Logger logger : loggers) {
-        logger.i(tag, message, t);
-      }
-    } else {
-      android.util.Log.i(tag, message, t);
+    for (Logger logger : LogManager.getLoggers()) {
+      logger.i(tag, message, t);
     }
   }
 
   public static void w(String tag, String message, Throwable t) {
-    if (loggers != null) {
-      for (Logger logger : loggers) {
-        logger.w(tag, message, t);
-      }
-    } else {
-      android.util.Log.w(tag, message, t);
+    for (Logger logger : LogManager.getLoggers()) {
+      logger.w(tag, message, t);
     }
   }
 
   public static void e(String tag, String message, Throwable t) {
-    if (loggers != null) {
-      for (Logger logger : loggers) {
-        logger.e(tag, message, t);
-      }
-    } else {
-      android.util.Log.e(tag, message, t);
+    for (Logger logger : LogManager.getLoggers()) {
+      logger.e(tag, message, t);
     }
   }
 
   public static void wtf(String tag, String message, Throwable t) {
-    if (loggers != null) {
-      for (Logger logger : loggers) {
-        logger.wtf(tag, message, t);
-      }
-    } else {
-      android.util.Log.wtf(tag, message, t);
+    for (Logger logger : LogManager.getLoggers()) {
+      logger.wtf(tag, message, t);
     }
   }
 
@@ -128,10 +104,8 @@ public class Log {
   }
 
   public static void blockUntilAllWritesFinished() {
-    if (loggers != null) {
-      for (Logger logger : loggers) {
-        logger.blockUntilAllWritesFinished();
-      }
+    for (Logger logger : LogManager.getLoggers()) {
+      logger.blockUntilAllWritesFinished();
     }
   }
 
@@ -143,5 +117,7 @@ public class Log {
     public abstract void e(String tag, String message, Throwable t);
     public abstract void wtf(String tag, String message, Throwable t);
     public abstract void blockUntilAllWritesFinished();
+    public abstract void clear();
+    public abstract String getLog() throws IOException;
   }
 }
