@@ -2,6 +2,9 @@ package org.thoughtcrime.securesms.logging;
 
 import androidx.annotation.MainThread;
 
+import org.thoughtcrime.securesms.BuildConfig;
+import org.thoughtcrime.securesms.logsubmit.util.Scrubber;
+
 import java.io.IOException;
 
 public class Log {
@@ -60,38 +63,44 @@ public class Log {
   }
 
   public static void v(String tag, String message, Throwable t) {
+    String censored = redact(message);
     for (Logger logger : LogManager.getLoggers()) {
-      logger.v(tag, message, t);
+      logger.v(tag, censored, t);
     }
   }
 
   public static void d(String tag, String message, Throwable t) {
+    String censored = redact(message);
     for (Logger logger : LogManager.getLoggers()) {
-      logger.d(tag, message, t);
+      logger.d(tag, censored, t);
     }
   }
 
   public static void i(String tag, String message, Throwable t) {
+    String censored = redact(message);
     for (Logger logger : LogManager.getLoggers()) {
-      logger.i(tag, message, t);
+      logger.i(tag, censored, t);
     }
   }
 
   public static void w(String tag, String message, Throwable t) {
+    String censored = redact(message);
     for (Logger logger : LogManager.getLoggers()) {
-      logger.w(tag, message, t);
+      logger.w(tag, censored, t);
     }
   }
 
   public static void e(String tag, String message, Throwable t) {
+    String censored = redact(message);
     for (Logger logger : LogManager.getLoggers()) {
-      logger.e(tag, message, t);
+      logger.e(tag, censored, t);
     }
   }
 
   public static void wtf(String tag, String message, Throwable t) {
+    String censored = redact(message);
     for (Logger logger : LogManager.getLoggers()) {
-      logger.wtf(tag, message, t);
+      logger.wtf(tag, censored, t);
     }
   }
 
@@ -107,6 +116,13 @@ public class Log {
     for (Logger logger : LogManager.getLoggers()) {
       logger.blockUntilAllWritesFinished();
     }
+  }
+
+  private static String redact(final String message) {
+    if (!BuildConfig.DEBUG)
+      return Scrubber.scrub(message).toString();
+    else
+      return message;
   }
 
   public static abstract class Logger {
