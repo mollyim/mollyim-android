@@ -16,19 +16,13 @@
  */
 package org.thoughtcrime.securesms;
 
-import android.animation.Animator;
 import android.annotation.SuppressLint;
-import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.PorterDuff;
-import android.os.Build;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import androidx.core.hardware.fingerprint.FingerprintManagerCompat;
-import androidx.core.os.CancellationSignal;
 import androidx.appcompat.widget.Toolbar;
-import android.text.Editable;
-import android.text.InputType;
+import android.os.CountDownTimer;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.RelativeSizeSpan;
@@ -39,24 +33,22 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.BounceInterpolator;
 import android.view.animation.TranslateAnimation;
+import android.view.inputmethod.InputMethodManager;
+
+import com.dd.CircularProgressButton;
+import com.google.android.material.textfield.TextInputLayout;
+
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.thoughtcrime.securesms.animation.AnimationCompleteListener;
-import org.thoughtcrime.securesms.components.AnimatingToggle;
 import org.thoughtcrime.securesms.crypto.InvalidPassphraseException;
 import org.thoughtcrime.securesms.crypto.MasterSecret;
 import org.thoughtcrime.securesms.crypto.MasterSecretUtil;
 import org.thoughtcrime.securesms.util.DynamicIntroTheme;
 import org.thoughtcrime.securesms.util.DynamicLanguage;
+import org.thoughtcrime.securesms.util.ServiceUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
 /**
@@ -71,29 +63,16 @@ public class PassphrasePromptActivity extends PassphraseActivity {
   private DynamicIntroTheme dynamicTheme    = new DynamicIntroTheme();
   private DynamicLanguage   dynamicLanguage = new DynamicLanguage();
 
-  private View            passphraseAuthContainer;
-  private ImageView       fingerprintPrompt;
-  private TextView        lockScreenButton;
-
-  private EditText        passphraseText;
-  private ImageButton     showButton;
-  private ImageButton     hideButton;
-  private AnimatingToggle visibilityToggle;
-
-  private FingerprintManagerCompat fingerprintManager;
-  private CancellationSignal       fingerprintCancellationSignal;
-  private FingerprintListener      fingerprintListener;
-
-  private boolean authenticated;
-  private boolean failure;
+  private View                   passphraseAuthContainer;
+  private TextInputLayout        passphraseLayout;
+  private EditText               passphraseInput;
+  private CircularProgressButton okButton;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
     Log.i(TAG, "onCreate()");
     dynamicTheme.onCreate(this);
     dynamicLanguage.onCreate(this);
-    getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-    getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
     super.onCreate(savedInstanceState);
 
     setContentView(R.layout.prompt_passphrase_activity);
@@ -106,28 +85,13 @@ public class PassphrasePromptActivity extends PassphraseActivity {
     dynamicTheme.onResume(this);
     dynamicLanguage.onResume(this);
 
-    setLockTypeVisibility();
-
-    if (TextSecurePreferences.isScreenLockEnabled(this) && !authenticated && !failure) {
-      resumeScreenLock();
-    }
-
-    failure = false;
+    setPassphraseVisibility(true);
   }
 
   @Override
-  public void onPause() {
-    super.onPause();
-
-    if (TextSecurePreferences.isScreenLockEnabled(this)) {
-      pauseScreenLock();
-    }
-  }
-
-  @Override
-  protected void onNewIntent(Intent intent) {
-    super.onNewIntent(intent);
-    setIntent(intent);
+  public void onStop() {
+    super.onStop();
+    passphraseInput.setText("");
   }
 
   @Override
@@ -150,144 +114,57 @@ public class PassphrasePromptActivity extends PassphraseActivity {
     return false;
   }
 
-  @Override
-  @SuppressLint("MissingSuperCall") // no fragments to dispatch to
-  public void onActivityResult(int requestCode, int resultcode, Intent data) {
-    if (requestCode != 1) return;
-
-    if (resultcode == RESULT_OK) {
-      handleAuthenticated();
-    } else {
-      Log.w(TAG, "Authentication failed");
-      failure = true;
-    }
-  }
-
   private void handleLogSubmit() {
     Intent intent = new Intent(this, LogSubmitActivity.class);
     startActivity(intent);
   }
 
   private void handlePassphrase() {
-    try {
-      Editable text             = passphraseText.getText();
-      String passphrase         = (text == null ? "" : text.toString());
-      MasterSecret masterSecret = MasterSecretUtil.getMasterSecret(this, passphrase);
-
-      setMasterSecret(masterSecret);
-    } catch (InvalidPassphraseException ipe) {
-      passphraseText.setText("");
-      passphraseText.setError(
-              getString(R.string.PassphrasePromptActivity_invalid_passphrase_exclamation));
-    }
-  }
-
-  private void handleAuthenticated() {
-    try {
-      authenticated = true;
-      
-      MasterSecret masterSecret = MasterSecretUtil.getMasterSecret(this, MasterSecretUtil.UNENCRYPTED_PASSPHRASE);
-      setMasterSecret(masterSecret);
-    } catch (InvalidPassphraseException e) {
-      throw new AssertionError(e);
-    }
-  }
-
-  private void setPassphraseVisibility(boolean visibility) {
-    int cursorPosition = passphraseText.getSelectionStart();
-    if (visibility) {
-      passphraseText.setInputType(InputType.TYPE_CLASS_TEXT |
-                                  InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+    String passphrase = getEnteredPassphrase(passphraseInput);
+    if (passphrase.length() > 0) {
+      SetMasterSecretTask task = new SetMasterSecretTask(passphrase);
+      task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     } else {
-      passphraseText.setInputType(InputType.TYPE_CLASS_TEXT |
-                                  InputType.TYPE_TEXT_VARIATION_PASSWORD);
+      showFailure();
     }
-    passphraseText.setSelection(cursorPosition);
+  }
+
+  private String getEnteredPassphrase(final EditText editText) {
+    return editText.getText() != null ? editText.getText().toString() : "";
   }
 
   private void initializeResources() {
-
-    ImageButton okButton = findViewById(R.id.ok_button);
     Toolbar     toolbar  = findViewById(R.id.toolbar);
 
-    showButton                    = findViewById(R.id.passphrase_visibility);
-    hideButton                    = findViewById(R.id.passphrase_visibility_off);
-    visibilityToggle              = findViewById(R.id.button_toggle);
-    passphraseText                = findViewById(R.id.passphrase_edit);
-    passphraseAuthContainer       = findViewById(R.id.password_auth_container);
-    fingerprintPrompt             = findViewById(R.id.fingerprint_auth_container);
-    lockScreenButton              = findViewById(R.id.lock_screen_auth_container);
-    fingerprintManager            = FingerprintManagerCompat.from(this);
-    fingerprintCancellationSignal = new CancellationSignal();
-    fingerprintListener           = new FingerprintListener();
+    passphraseAuthContainer = findViewById(R.id.password_auth_container);
+    passphraseLayout        = findViewById(R.id.passphrase_layout);
+    passphraseInput         = findViewById(R.id.passphrase_input);
+    okButton                = findViewById(R.id.ok_button);
 
     setSupportActionBar(toolbar);
     getSupportActionBar().setTitle("");
 
-    SpannableString hint = new SpannableString("  " + getString(R.string.PassphrasePromptActivity_enter_passphrase));
+    SpannableString hint = new SpannableString(getString(R.string.PassphrasePromptActivity_enter_passphrase));
     hint.setSpan(new RelativeSizeSpan(0.9f), 0, hint.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
-    hint.setSpan(new TypefaceSpan("sans-serif"), 0, hint.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+    hint.setSpan(new TypefaceSpan("sans-serif-light"), 0, hint.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-    passphraseText.setHint(hint);
-    okButton.setOnClickListener(new OkButtonClickListener());
-    showButton.setOnClickListener(new ShowButtonOnClickListener());
-    hideButton.setOnClickListener(new HideButtonOnClickListener());
-    passphraseText.setOnEditorActionListener(new PassphraseActionListener());
-    passphraseText.setImeActionLabel(getString(R.string.prompt_passphrase_activity__unlock),
-                                     EditorInfo.IME_ACTION_DONE);
+    passphraseInput.setHint(hint);
+    passphraseInput.setOnEditorActionListener(new PassphraseActionListener());
 
-    fingerprintPrompt.setImageResource(R.drawable.ic_fingerprint_white_48dp);
-    fingerprintPrompt.getBackground().setColorFilter(getResources().getColor(R.color.signal_primary), PorterDuff.Mode.SRC_IN);
-
-    lockScreenButton.setOnClickListener(v -> resumeScreenLock());
+    okButton.setOnClickListener(v -> handlePassphrase());
   }
 
-  private void setLockTypeVisibility() {
-    if (TextSecurePreferences.isScreenLockEnabled(this)) {
-      passphraseAuthContainer.setVisibility(View.GONE);
-
-      if (fingerprintManager.isHardwareDetected() && fingerprintManager.hasEnrolledFingerprints()) {
-        fingerprintPrompt.setVisibility(View.VISIBLE);
-        lockScreenButton.setVisibility(View.GONE);
-      } else {
-        fingerprintPrompt.setVisibility(View.GONE);
-        lockScreenButton.setVisibility(View.VISIBLE);
-      }
-    } else {
+  private void setPassphraseVisibility(boolean visibility) {
+    if (visibility) {
       passphraseAuthContainer.setVisibility(View.VISIBLE);
-      fingerprintPrompt.setVisibility(View.GONE);
-      lockScreenButton.setVisibility(View.GONE);
-    }
-  }
-
-  private void resumeScreenLock() {
-    KeyguardManager keyguardManager = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
-
-    assert keyguardManager != null;
-
-    if (!keyguardManager.isKeyguardSecure()) {
-      Log.w(TAG ,"Keyguard not secure...");
-      handleAuthenticated();
-      return;
-    }
-
-    if (fingerprintManager.isHardwareDetected() && fingerprintManager.hasEnrolledFingerprints()) {
-      Log.i(TAG, "Listening for fingerprints...");
-      fingerprintCancellationSignal = new CancellationSignal();
-      fingerprintManager.authenticate(null, 0, fingerprintCancellationSignal, fingerprintListener, null);
-    } else if (Build.VERSION.SDK_INT >= 21){
-      Log.i(TAG, "firing intent...");
-      Intent intent = keyguardManager.createConfirmDeviceCredentialIntent(getString(R.string.PassphrasePromptActivity_unlock_signal), "");
-      startActivityForResult(intent, 1);
+      passphraseInput.requestFocus();
     } else {
-      Log.w(TAG, "Not compatible...");
-      handleAuthenticated();
-    }
-  }
-
-  private void pauseScreenLock() {
-    if (fingerprintCancellationSignal != null) {
-      fingerprintCancellationSignal.cancel();
+      View view = getCurrentFocus();
+      if (view != null) {
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+      }
+      passphraseAuthContainer.setVisibility(View.GONE);
     }
   }
 
@@ -296,99 +173,89 @@ public class PassphrasePromptActivity extends PassphraseActivity {
     public boolean onEditorAction(TextView exampleView, int actionId, KeyEvent keyEvent) {
       if ((keyEvent == null && actionId == EditorInfo.IME_ACTION_DONE) ||
           (keyEvent != null && keyEvent.getAction() == KeyEvent.ACTION_DOWN &&
-              (actionId == EditorInfo.IME_NULL)))
-      {
-        handlePassphrase();
-        return true;
-      } else if (keyEvent != null && keyEvent.getAction() == KeyEvent.ACTION_UP &&
-                 actionId == EditorInfo.IME_NULL)
-      {
+           (actionId == EditorInfo.IME_NULL))) {
+        if (okButton.isClickable()) {
+          okButton.performClick();
+        }
         return true;
       }
-
-      return false;
+      return keyEvent != null && keyEvent.getAction() == KeyEvent.ACTION_UP
+              && actionId == EditorInfo.IME_NULL;
     }
   }
 
-  private class OkButtonClickListener implements OnClickListener {
-    @Override
-    public void onClick(View v) {
-      handlePassphrase();
+  private void showProgress(double x) {
+    double y = 1 + Math.pow(1 - x, 3) * -1;
+    okButton.setProgress((int) (y * 100));
+  }
+
+  private void showFailure() {
+    if (passphraseInput.requestFocus()) {
+      InputMethodManager imm = ServiceUtil.getInputMethodManager(this);
+      imm.showSoftInput(passphraseInput, InputMethodManager.SHOW_IMPLICIT);
     }
+    passphraseInput.selectAll();
+
+    TranslateAnimation shake = new TranslateAnimation(0, 30, 0, 0);
+    shake.setDuration(50);
+    shake.setRepeatCount(7);
+    passphraseAuthContainer.startAnimation(shake);
   }
 
-  private class ShowButtonOnClickListener implements OnClickListener {
-    @Override
-    public void onClick(View v) {
-      visibilityToggle.display(hideButton);
-      setPassphraseVisibility(true);
-    }
-  }
+  @SuppressLint("StaticFieldLeak")
+  private class SetMasterSecretTask extends AsyncTask<Void, Double, MasterSecret> {
 
-  private class HideButtonOnClickListener implements OnClickListener {
-    @Override
-    public void onClick(View v) {
-      visibilityToggle.display(showButton);
-      setPassphraseVisibility(false);
-    }
-  }
+    private final String passphrase;
 
-  @Override
-  protected void cleanup() {
-    this.passphraseText.setText("");
-    System.gc();
-  }
+    private CountDownTimer progressTimer;
 
-  private class FingerprintListener extends FingerprintManagerCompat.AuthenticationCallback {
-    @Override
-    public void onAuthenticationError(int errMsgId, CharSequence errString) {
-      Log.w(TAG, "Authentication error: " + errMsgId + " " + errString);
-      onAuthenticationFailed();
+    SetMasterSecretTask(String passphrase) {
+      this.passphrase = passphrase;
     }
 
     @Override
-    public void onAuthenticationSucceeded(FingerprintManagerCompat.AuthenticationResult result) {
-      Log.i(TAG, "onAuthenticationSucceeded");
-      fingerprintPrompt.setImageResource(R.drawable.ic_check_white_48dp);
-      fingerprintPrompt.getBackground().setColorFilter(getResources().getColor(R.color.green_500), PorterDuff.Mode.SRC_IN);
-      fingerprintPrompt.animate().setInterpolator(new BounceInterpolator()).scaleX(1.1f).scaleY(1.1f).setDuration(500).setListener(new AnimationCompleteListener() {
+    protected void onPreExecute() {
+      passphraseLayout.setEnabled(false);
+      passphraseLayout.setPasswordVisibilityToggleEnabled(false);
+      okButton.setClickable(false);
+      progressTimer = new CountDownTimer(3300, 120) {
         @Override
-        public void onAnimationEnd(Animator animation) {
-          handleAuthenticated();
-
-          fingerprintPrompt.setImageResource(R.drawable.ic_fingerprint_white_48dp);
-          fingerprintPrompt.getBackground().setColorFilter(getResources().getColor(R.color.signal_primary), PorterDuff.Mode.SRC_IN);
-        }
-      }).start();
-    }
-
-    @Override
-    public void onAuthenticationFailed() {
-      Log.w(TAG, "onAuthenticatoinFailed()");
-      FingerprintManagerCompat.AuthenticationCallback callback = this;
-
-      fingerprintPrompt.setImageResource(R.drawable.ic_close_white_48dp);
-      fingerprintPrompt.getBackground().setColorFilter(getResources().getColor(R.color.red_500), PorterDuff.Mode.SRC_IN);
-
-      TranslateAnimation shake = new TranslateAnimation(0, 30, 0, 0);
-      shake.setDuration(50);
-      shake.setRepeatCount(7);
-      shake.setAnimationListener(new Animation.AnimationListener() {
-        @Override
-        public void onAnimationStart(Animation animation) {}
-
-        @Override
-        public void onAnimationEnd(Animation animation) {
-          fingerprintPrompt.setImageResource(R.drawable.ic_fingerprint_white_48dp);
-          fingerprintPrompt.getBackground().setColorFilter(getResources().getColor(R.color.signal_primary), PorterDuff.Mode.SRC_IN);
+        public void onTick(long millisUntilFinished) {
+          publishProgress(1 - (millisUntilFinished / (double) 3300));
         }
 
         @Override
-        public void onAnimationRepeat(Animation animation) {}
-      });
-
-      fingerprintPrompt.startAnimation(shake);
+        public void onFinish() {}
+      };
     }
 
+    @Override
+    protected MasterSecret doInBackground(Void... voids) {
+      progressTimer.start();
+      try {
+        return MasterSecretUtil.getMasterSecret(getApplicationContext(), passphrase);
+      } catch (InvalidPassphraseException e) {
+        progressTimer.cancel();
+        publishProgress(0.0);
+        return null;
+      }
+    }
+
+    @Override
+    protected void onProgressUpdate(Double... values) {
+      showProgress(values[0]);
+    }
+
+    @Override
+    protected void onPostExecute(MasterSecret masterSecret) {
+      if (masterSecret != null) {
+        setMasterSecret(masterSecret);
+      } else {
+        passphraseLayout.setEnabled(true);
+        passphraseLayout.setPasswordVisibilityToggleEnabled(true);
+        okButton.setClickable(true);
+        showFailure();
+      }
+    }
   }
 }

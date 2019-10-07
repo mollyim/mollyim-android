@@ -269,6 +269,18 @@
 
   <string-array name="pref_media_download_roaming_default" />
 
+  <string-array name="pref_passphrase_lock_trigger_entries">
+      <item>timeout</item>
+  </string-array>
+
+  <string-array name="pref_passphrase_lock_trigger_values">
+      <item>@string/arrays__on_inactivity_timeout</item>
+  </string-array>
+
+  <string-array name="pref_passphrase_lock_trigger_default">
+      <item>timeout</item>
+  </string-array>
+
     <!-- RedPhone -->
 
     <integer-array name="expiration_times">

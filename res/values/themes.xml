@@ -92,6 +92,8 @@
         <item name="windowNoTitle">true</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="colorAccent">@color/signal_primary</item>
+        <item name="colorPrimary">@color/textsecure_primary</item>
+        <item name="colorPrimaryDark">@color/textsecure_primary_dark</item>
 
         <item name="android:textColorHint">#cc000000</item>
         <item name="centered_app_title_color">#55000000</item>
@@ -104,6 +106,7 @@
         <item name="login_top_background">@color/signal_primary</item>
         <item name="login_floating_background">@drawable/rounded_rectangle_white</item>
 
+        <item name="dialog_alert_icon">@drawable/ic_warning_light</item>
     </style>
 
     <style name="TextSecure.DarkIntroTheme" parent="@style/Theme.AppCompat">
@@ -111,6 +114,8 @@
         <item name="windowNoTitle">true</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="colorAccent">@color/signal_primary_dark</item>
+        <item name="colorPrimary">@color/textsecure_primary</item>
+        <item name="colorPrimaryDark">@color/textsecure_primary_dark</item>
 
         <item name="android:textColorHint">@color/white</item>
         <item name="centered_app_title_color">@color/core_grey_25</item>
@@ -122,6 +127,8 @@
 
         <item name="login_top_background">@color/black</item>
         <item name="login_floating_background">@drawable/rounded_rectangle_dark</item>
+
+        <item name="dialog_alert_icon">@drawable/ic_warning_dark</item>
     </style>
 
     <style name="PopupAnimation" parent="@android:style/Animation">

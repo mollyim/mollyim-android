@@ -1,27 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/signal_primary">
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/prompt_layout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/signal_primary">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/blurb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center_horizontal"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="@string/preferences__passphrase_lock"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/white"
+            android:textIsSelectable="false"
+            android:textSize="@dimen/onboarding_title_size" />
 
-  <ProgressBar android:id="@+id/passphrase_edit"
-               android:layout_width="75dp"
-               android:layout_height="75dp"
-               android:indeterminate="true"
-               android:padding="10dp"
-               android:layout_centerInParent="true"
-               style="?android:attr/progressBarStyleLargeInverse"/>
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp">
 
-  <ImageView android:id="@+id/watermark"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_centerHorizontal="true"
-             android:layout_marginBottom="20dp"
-             android:layout_above="@id/passphrase_edit"
-             android:src="@drawable/icon_transparent"
-             android:contentDescription="@string/PassphrasePromptActivity_watermark_content_description"/>
+            <ImageView
+                android:layout_width="170dp"
+                android:layout_height="170dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/circle_tintable" />
 
-</RelativeLayout>
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:tint="@color/signal_primary"
+                app:srcCompat="@drawable/ic_lock" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/subblurb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center_horizontal"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="@string/create_passphrase_activity__now_you_can_set_a_passphrase_to_encrypt_the_database"
+            android:textColor="@color/core_white"
+            android:textIsSelectable="false"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center_horizontal"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="@string/create_passphrase_activity__require_passphrase_to_unlock_molly"
+            android:textColor="@color/core_white"
+            android:textIsSelectable="false"
+            android:textSize="18sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/yes_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:text="@string/create_passphrase_activity__turn_on_database_encryption"
+            android:textColor="@color/core_blue"
+            app:backgroundTint="@color/core_white" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/no_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:text="@string/ExperienceUpgradeActivity_no_thanks"
+            android:textColor="@color/core_white"
+            app:backgroundTint="@color/conversation_blue" />
+
+    </LinearLayout>
+</ScrollView>

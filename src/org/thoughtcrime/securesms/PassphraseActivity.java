@@ -36,42 +36,36 @@ public abstract class PassphraseActivity extends BaseActionBarActivity {
 
   private static final String TAG = PassphraseActivity.class.getSimpleName();
 
-  private KeyCachingService keyCachingService;
-  private MasterSecret masterSecret;
-
-  protected void setMasterSecret(MasterSecret masterSecret) {
-    this.masterSecret = masterSecret;
-    Intent bindIntent = new Intent(this, KeyCachingService.class);
-    startService(bindIntent);
-    bindService(bindIntent, serviceConnection, Context.BIND_AUTO_CREATE);
-  }
-
-  protected abstract void cleanup();
-
-  private ServiceConnection serviceConnection = new ServiceConnection() {
+  public void setMasterSecret(final MasterSecret masterSecret) {
+    final ServiceConnection serviceConnection = new ServiceConnection() {
       @Override
       public void onServiceConnected(ComponentName className, IBinder service) {
-        keyCachingService = ((KeyCachingService.KeySetBinder)service).getService();
+        Log.d(TAG, "onServiceConnected() called");
+        KeyCachingService keyCachingService = ((KeyCachingService.KeySetBinder)service).getService();
         keyCachingService.setMasterSecret(masterSecret);
 
-        PassphraseActivity.this.unbindService(PassphraseActivity.this.serviceConnection);
-
-        masterSecret = null;
-        cleanup();
+        unbindService(this);
 
         Intent nextIntent = getIntent().getParcelableExtra("next_intent");
         if (nextIntent != null) {
-            try {
-                startActivity(nextIntent);
-            } catch (java.lang.SecurityException e) {
-                Log.w(TAG, "Access permission not passed from PassphraseActivity, retry sharing.");
-            }
+          try {
+            startActivity(nextIntent);
+          } catch (java.lang.SecurityException e) {
+            Log.w(TAG, "Access permission not passed from PassphraseActivity, retry sharing.");
+          }
+          finish();
         }
-        finish();
       }
+
       @Override
-      public void onServiceDisconnected(ComponentName name) {
-        keyCachingService = null;
+      public void onServiceDisconnected(ComponentName componentName) {
+        Log.e(TAG, "onServiceDisconnected() called");
+        unbindService(this);
       }
-  };
+    };
+
+    final Intent bindIntent = new Intent(this, KeyCachingService.class);
+    startService(bindIntent);
+    bindService(bindIntent, serviceConnection, Context.BIND_AUTO_CREATE);
+  }
 }

@@ -18,6 +18,7 @@ import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.lock.RegistrationLockReminders;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.preferences.widgets.NotificationPrivacyPreference;
+import org.thoughtcrime.securesms.preferences.widgets.PassphraseLockTriggerPreference;
 import org.whispersystems.libsignal.util.Medium;
 import org.whispersystems.signalservice.api.RegistrationLockData;
 import org.whispersystems.signalservice.api.util.UuidUtil;
@@ -38,7 +39,6 @@ public class TextSecurePreferences {
 
   public  static final String IDENTITY_PREF                    = "pref_choose_identity";
   public  static final String CHANGE_PASSPHRASE_PREF           = "pref_change_passphrase";
-  public  static final String DISABLE_PASSPHRASE_PREF          = "pref_disable_passphrase";
   public  static final String THEME_PREF                       = "pref_theme";
   public  static final String LANGUAGE_PREF                    = "pref_language";
   private static final String MMSC_CUSTOM_HOST_PREF            = "pref_apn_mmsc_custom_host";
@@ -66,8 +66,6 @@ public class TextSecurePreferences {
   private static final String LED_BLINK_PREF_CUSTOM            = "pref_led_blink_custom";
   public  static final String ALL_MMS_PREF                     = "pref_all_mms";
   public  static final String ALL_SMS_PREF                     = "pref_all_sms";
-  public  static final String PASSPHRASE_TIMEOUT_INTERVAL_PREF = "pref_timeout_interval";
-  public  static final String PASSPHRASE_TIMEOUT_PREF          = "pref_timeout_passphrase";
   public  static final String SCREEN_SECURITY_PREF             = "pref_screen_security";
   private static final String ENTER_SENDS_PREF                 = "pref_enter_sends";
   private static final String ENTER_PRESENT_PREF               = "pref_enter_key";
@@ -148,8 +146,9 @@ public class TextSecurePreferences {
   private static final String BACKUP_TIME                 = "pref_backup_next_time";
   public  static final String BACKUP_NOW                  = "pref_backup_create";
 
-  public static final String SCREEN_LOCK         = "pref_android_screen_lock";
-  public static final String SCREEN_LOCK_TIMEOUT = "pref_android_screen_lock_timeout";
+  public  static final String PASSPHRASE_LOCK         = "pref_passphrase_lock";
+  public  static final String PASSPHRASE_LOCK_TIMEOUT = "pref_passphrase_lock_timeout";
+  public  static final String PASSPHRASE_LOCK_TRIGGER = "pref_passphrase_lock_trigger";
 
   public static final  String REGISTRATION_LOCK_PREF                   = "pref_registration_lock";
   private static final String REGISTRATION_LOCK_PIN_PREF               = "pref_registration_lock_pin";
@@ -211,19 +210,29 @@ public class TextSecurePreferences {
   private static final String STORAGE_MANIFEST_VERSION = "pref_storage_manifest_version";
 
   public static boolean isScreenLockEnabled(@NonNull Context context) {
-    return getBooleanPreference(context, SCREEN_LOCK, false);
+    return isPassphraseLockEnabled(context);
   }
 
-  public static void setScreenLockEnabled(@NonNull Context context, boolean value) {
-    setBooleanPreference(context, SCREEN_LOCK, value);
+  public static boolean isPassphraseLockEnabled(@NonNull Context context) {
+    return getBooleanPreference(context, PASSPHRASE_LOCK, false);
   }
 
-  public static long getScreenLockTimeout(@NonNull Context context) {
-    return getLongPreference(context, SCREEN_LOCK_TIMEOUT, 0);
+  public static void setPassphraseLockEnabled(@NonNull Context context, boolean value) {
+    setBooleanPreference(context, PASSPHRASE_LOCK, value);
   }
 
-  public static void setScreenLockTimeout(@NonNull Context context, long value) {
-    setLongPreference(context, SCREEN_LOCK_TIMEOUT, value);
+  public static PassphraseLockTriggerPreference getPassphraseLockTrigger(@NonNull Context context) {
+    return new PassphraseLockTriggerPreference(getStringSetPreference(context,
+            PASSPHRASE_LOCK_TRIGGER,
+            new HashSet<>(Arrays.asList(context.getResources().getStringArray(R.array.pref_passphrase_lock_trigger_default)))));
+  }
+
+  public static long getPassphraseLockTimeout(@NonNull Context context) {
+    return getLongPreference(context, PASSPHRASE_LOCK_TIMEOUT, 0);
+  }
+
+  public static void setPassphraseLockTimeout(@NonNull Context context, long value) {
+    setLongPreference(context, PASSPHRASE_LOCK_TIMEOUT, value);
   }
 
   public static boolean isRegistrationLockEnabled(@NonNull Context context) {
@@ -796,14 +805,6 @@ public class TextSecurePreferences {
     return getBooleanPreference(context, ENTER_SENDS_PREF, false);
   }
 
-  public static boolean isPasswordDisabled(Context context) {
-    return getBooleanPreference(context, DISABLE_PASSPHRASE_PREF, false);
-  }
-
-  public static void setPasswordDisabled(Context context, boolean disabled) {
-    setBooleanPreference(context, DISABLE_PASSPHRASE_PREF, disabled);
-  }
-
   public static boolean getUseCustomMmsc(Context context) {
     boolean legacy = TextSecurePreferences.isLegacyUseLocalApnsEnabled(context);
     return getBooleanPreference(context, MMSC_CUSTOM_HOST_PREF, legacy);
@@ -965,18 +966,6 @@ public class TextSecurePreferences {
 
   public static boolean isShowInviteReminders(Context context) {
     return getBooleanPreference(context, SHOW_INVITE_REMINDER_PREF, true);
-  }
-
-  public static boolean isPassphraseTimeoutEnabled(Context context) {
-    return getBooleanPreference(context, PASSPHRASE_TIMEOUT_PREF, false);
-  }
-
-  public static int getPassphraseTimeoutInterval(Context context) {
-    return getIntegerPreference(context, PASSPHRASE_TIMEOUT_INTERVAL_PREF, 5 * 60);
-  }
-
-  public static void setPassphraseTimeoutInterval(Context context, int interval) {
-    setIntegerPrefrence(context, PASSPHRASE_TIMEOUT_INTERVAL_PREF, interval);
   }
 
   public static String getLanguage(Context context) {

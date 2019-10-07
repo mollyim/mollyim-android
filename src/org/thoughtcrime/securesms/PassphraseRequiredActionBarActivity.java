@@ -24,7 +24,7 @@ import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
 import java.util.Locale;
 
-public abstract class PassphraseRequiredActionBarActivity extends BaseActionBarActivity implements MasterSecretListener {
+public abstract class PassphraseRequiredActionBarActivity extends PassphraseActivity implements MasterSecretListener {
   private static final String TAG = PassphraseRequiredActionBarActivity.class.getSimpleName();
 
   public static final String LOCALE_EXTRA = "locale_extra";

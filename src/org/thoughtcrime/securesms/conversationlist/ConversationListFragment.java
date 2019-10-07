@@ -268,7 +268,7 @@ public class ConversationListFragment extends MainFragment implements LoaderMana
     inflater.inflate(R.menu.text_secure_normal, menu);
 
     menu.findItem(R.id.menu_insights).setVisible(TextSecurePreferences.isSmsEnabled(requireContext()));
-    menu.findItem(R.id.menu_clear_passphrase).setVisible(!TextSecurePreferences.isPasswordDisabled(requireContext()));
+    menu.findItem(R.id.menu_clear_passphrase).setVisible(TextSecurePreferences.isPassphraseLockEnabled(requireContext()));
   }
 
   @Override

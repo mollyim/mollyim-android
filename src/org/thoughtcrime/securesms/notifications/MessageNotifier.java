@@ -302,6 +302,16 @@ public class MessageNotifier {
     }
   }
 
+  public static void clearNotifications(@NonNull Context context,
+                                        boolean clearDelayed)
+  {
+    if (clearDelayed) cancelDelayedNotifications();
+
+    cancelActiveNotifications(context);
+    updateBadge(context, 0);
+    clearReminder(context);
+  }
+
   private static void sendSingleThreadNotification(@NonNull  Context context,
                                                    @NonNull  NotificationState notificationState,
                                                    boolean signal, boolean bundled)

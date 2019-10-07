@@ -263,9 +263,7 @@ public class ExperienceUpgradeActivity extends BaseActionBarActivity implements 
       if (Intent.ACTION_MY_PACKAGE_REPLACED.equals(intent.getAction()) &&
           intent.getData().getSchemeSpecificPart().equals(context.getPackageName()))
       {
-        if (TextSecurePreferences.getLastExperienceVersionCode(context) < 339 &&
-            !TextSecurePreferences.isPasswordDisabled(context))
-        {
+        if (TextSecurePreferences.isPassphraseLockEnabled(context)) {
           Notification notification = new NotificationCompat.Builder(context, NotificationChannels.OTHER)
               .setSmallIcon(R.drawable.icon_notification)
               .setColor(context.getResources().getColor(R.color.signal_primary))

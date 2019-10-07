@@ -1,32 +1,28 @@
 package org.thoughtcrime.securesms.preferences;
 
-import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.preference.CheckBoxPreference;
 import androidx.preference.Preference;
 
-import org.thoughtcrime.securesms.ApplicationContext;
-import org.thoughtcrime.securesms.ApplicationPreferencesActivity;
-import org.thoughtcrime.securesms.BlockedContactsActivity;
-import org.thoughtcrime.securesms.PassphraseChangeActivity;
-import org.thoughtcrime.securesms.R;
+import org.thoughtcrime.securesms.*;
 import org.thoughtcrime.securesms.components.SwitchPreferenceCompat;
-import org.thoughtcrime.securesms.crypto.MasterSecretUtil;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.jobs.MultiDeviceConfigurationUpdateJob;
 import org.thoughtcrime.securesms.jobs.RefreshAttributesJob;
 import org.thoughtcrime.securesms.lock.RegistrationLockDialog;
-import org.thoughtcrime.securesms.service.KeyCachingService;
+import org.thoughtcrime.securesms.preferences.widgets.PassphraseLockTriggerPreference;
 import org.thoughtcrime.securesms.util.CommunicationActions;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import mobi.upod.timedurationpicker.TimeDurationPickerDialog;
@@ -36,20 +32,15 @@ public class AppProtectionPreferenceFragment extends CorrectedPreferenceFragment
   private static final String PREFERENCE_CATEGORY_BLOCKED        = "preference_category_blocked";
   private static final String PREFERENCE_UNIDENTIFIED_LEARN_MORE = "pref_unidentified_learn_more";
 
-  private CheckBoxPreference disablePassphrase;
-
   @Override
   public void onCreate(Bundle paramBundle) {
     super.onCreate(paramBundle);
 
-    disablePassphrase = (CheckBoxPreference) this.findPreference("pref_enable_passphrase_temporary");
-
     this.findPreference(TextSecurePreferences.REGISTRATION_LOCK_PREF).setOnPreferenceClickListener(new AccountLockClickListener());
-    this.findPreference(TextSecurePreferences.SCREEN_LOCK).setOnPreferenceChangeListener(new ScreenLockListener());
-    this.findPreference(TextSecurePreferences.SCREEN_LOCK_TIMEOUT).setOnPreferenceClickListener(new ScreenLockTimeoutListener());
-
+    this.findPreference(TextSecurePreferences.PASSPHRASE_LOCK).setOnPreferenceChangeListener(new PassphraseLockListener());
+    this.findPreference(TextSecurePreferences.PASSPHRASE_LOCK_TRIGGER).setOnPreferenceChangeListener(new PassphraseLockTriggerChangeListener());
+    this.findPreference(TextSecurePreferences.PASSPHRASE_LOCK_TIMEOUT).setOnPreferenceClickListener(new PassphraseLockTimeoutListener());
     this.findPreference(TextSecurePreferences.CHANGE_PASSPHRASE_PREF).setOnPreferenceClickListener(new ChangePassphraseClickListener());
-    this.findPreference(TextSecurePreferences.PASSPHRASE_TIMEOUT_INTERVAL_PREF).setOnPreferenceClickListener(new PassphraseIntervalClickListener());
     this.findPreference(TextSecurePreferences.READ_RECEIPTS_PREF).setOnPreferenceChangeListener(new ReadReceiptToggleListener());
     this.findPreference(TextSecurePreferences.TYPING_INDICATORS).setOnPreferenceChangeListener(new TypingIndicatorsToggleListener());
     this.findPreference(TextSecurePreferences.LINK_PREVIEWS).setOnPreferenceChangeListener(new LinkPreviewToggleListener());
@@ -57,7 +48,6 @@ public class AppProtectionPreferenceFragment extends CorrectedPreferenceFragment
     this.findPreference(TextSecurePreferences.SHOW_UNIDENTIFIED_DELIVERY_INDICATORS).setOnPreferenceChangeListener(new ShowUnidentifiedDeliveryIndicatorsChangedListener());
     this.findPreference(TextSecurePreferences.UNIVERSAL_UNIDENTIFIED_ACCESS).setOnPreferenceChangeListener(new UniversalUnidentifiedAccessChangedListener());
     this.findPreference(PREFERENCE_UNIDENTIFIED_LEARN_MORE).setOnPreferenceClickListener(new UnidentifiedLearnMoreClickListener());
-    disablePassphrase.setOnPreferenceChangeListener(new DisablePassphraseClickListener());
 
     initializeVisibility();
   }
@@ -72,74 +62,115 @@ public class AppProtectionPreferenceFragment extends CorrectedPreferenceFragment
     super.onResume();
     ((ApplicationPreferencesActivity) getActivity()).getSupportActionBar().setTitle(R.string.preferences__privacy);
 
-    if (!TextSecurePreferences.isPasswordDisabled(getContext())) initializePassphraseTimeoutSummary();
-    else                                                         initializeScreenLockTimeoutSummary();
+    initializePassphraseLockTriggerSummary();
+    initializePassphraseTimeoutSummary();
+  }
 
-    disablePassphrase.setChecked(!TextSecurePreferences.isPasswordDisabled(getActivity()));
+  private void initializePassphraseLockTriggerSummary() {
+    findPreference(TextSecurePreferences.PASSPHRASE_LOCK_TRIGGER)
+            .setSummary(getSummaryForPassphraseLockTrigger(TextSecurePreferences.getPassphraseLockTrigger(getContext()).getTriggers()));
   }
 
   private void initializePassphraseTimeoutSummary() {
-    int timeoutMinutes = TextSecurePreferences.getPassphraseTimeoutInterval(getActivity());
-    this.findPreference(TextSecurePreferences.PASSPHRASE_TIMEOUT_INTERVAL_PREF)
-        .setSummary(getResources().getQuantityString(R.plurals.AppProtectionPreferenceFragment_minutes, timeoutMinutes, timeoutMinutes));
+    findPreference(TextSecurePreferences.PASSPHRASE_LOCK_TIMEOUT)
+            .setSummary(getLockTimeoutSummary(TextSecurePreferences.getPassphraseLockTimeout(getContext())));
   }
 
-  private void initializeScreenLockTimeoutSummary() {
-    long timeoutSeconds = TextSecurePreferences.getScreenLockTimeout(getContext());
-    long hours          = TimeUnit.SECONDS.toHours(timeoutSeconds);
-    long minutes        = TimeUnit.SECONDS.toMinutes(timeoutSeconds) - (TimeUnit.SECONDS.toHours(timeoutSeconds) * 60  );
-    long seconds        = TimeUnit.SECONDS.toSeconds(timeoutSeconds) - (TimeUnit.SECONDS.toMinutes(timeoutSeconds) * 60);
+  private String getLockTimeoutSummary(long timeoutSeconds) {
+    if (timeoutSeconds <= 0) return getString(R.string.AppProtectionPreferenceFragment_none);
 
-    findPreference(TextSecurePreferences.SCREEN_LOCK_TIMEOUT)
-        .setSummary(timeoutSeconds <= 0 ? getString(R.string.AppProtectionPreferenceFragment_none) :
-                                          String.format(Locale.getDefault(), "%02d:%02d:%02d", hours, minutes, seconds));
+    long hours   = TimeUnit.SECONDS.toHours(timeoutSeconds);
+    long minutes = TimeUnit.SECONDS.toMinutes(timeoutSeconds) - (TimeUnit.SECONDS.toHours(timeoutSeconds) * 60  );
+    long seconds = TimeUnit.SECONDS.toSeconds(timeoutSeconds) - (TimeUnit.SECONDS.toMinutes(timeoutSeconds) * 60);
+
+    return String.format(Locale.getDefault(), "%02d:%02d:%02d", hours, minutes, seconds);
   }
 
   private void initializeVisibility() {
-    if (TextSecurePreferences.isPasswordDisabled(getContext())) {
-      findPreference("pref_enable_passphrase_temporary").setVisible(false);
-      findPreference(TextSecurePreferences.CHANGE_PASSPHRASE_PREF).setVisible(false);
-      findPreference(TextSecurePreferences.PASSPHRASE_TIMEOUT_INTERVAL_PREF).setVisible(false);
-      findPreference(TextSecurePreferences.PASSPHRASE_TIMEOUT_PREF).setVisible(false);
-
-      KeyguardManager keyguardManager = (KeyguardManager)getContext().getSystemService(Context.KEYGUARD_SERVICE);
-      if (!keyguardManager.isKeyguardSecure()) {
-        ((SwitchPreferenceCompat)findPreference(TextSecurePreferences.SCREEN_LOCK)).setChecked(false);
-        findPreference(TextSecurePreferences.SCREEN_LOCK).setEnabled(false);
-      }
-    } else {
-      findPreference(TextSecurePreferences.SCREEN_LOCK).setVisible(false);
-      findPreference(TextSecurePreferences.SCREEN_LOCK_TIMEOUT).setVisible(false);
-    }
+    findPreference(TextSecurePreferences.PASSPHRASE_LOCK_TIMEOUT)
+            .setEnabled(TextSecurePreferences.getPassphraseLockTrigger(requireContext()).isTimeoutEnabled());
   }
 
-  private class ScreenLockListener implements Preference.OnPreferenceChangeListener {
+  private CharSequence getSummaryForPassphraseLockTrigger(Set<String> triggers) {
+    String[]     keys      = getResources().getStringArray(R.array.pref_passphrase_lock_trigger_entries);
+    String[]     values    = getResources().getStringArray(R.array.pref_passphrase_lock_trigger_values);
+    List<String> outValues = new ArrayList<>(triggers.size());
+
+    for (int i=0; i < keys.length; i++) {
+      if (triggers.contains(keys[i])) outValues.add(values[i]);
+    }
+
+    return outValues.isEmpty() ? getResources().getString(R.string.preferences__none)
+            : TextUtils.join(", ", outValues);
+  }
+
+  private class PassphraseLockListener implements Preference.OnPreferenceChangeListener {
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
       boolean enabled = (Boolean)newValue;
-      TextSecurePreferences.setScreenLockEnabled(getContext(), enabled);
 
-      Intent intent = new Intent(getContext(), KeyCachingService.class);
-      intent.setAction(KeyCachingService.LOCK_TOGGLED_EVENT);
-      getContext().startService(intent);
+      int mode = enabled ? ChangePassphraseDialogFragment.MODE_ENABLE : ChangePassphraseDialogFragment.MODE_DISABLE;
+
+      ChangePassphraseDialogFragment dialog = ChangePassphraseDialogFragment.newInstance(mode);
+
+      dialog.setMasterSecretChangedListener(masterSecret -> {
+        ((SwitchPreferenceCompat) preference).setChecked(enabled);
+        ((ApplicationPreferencesActivity) requireContext()).setMasterSecret(masterSecret);
+      });
+      dialog.show(requireFragmentManager(), "ChangePassphraseDialogFragment");
+
+      return false;
+    }
+  }
+
+  private class PassphraseLockTimeoutListener implements Preference.OnPreferenceClickListener {
+    @Override
+    public boolean onPreferenceClick(Preference preference) {
+      new TimeDurationPickerDialog(requireContext(), (view, duration) -> {
+        long timeoutSeconds = 0;
+
+        if (duration > 0) {
+          timeoutSeconds = Math.max(TimeUnit.MILLISECONDS.toSeconds(duration), 5);
+        }
+
+        TextSecurePreferences.setPassphraseLockTimeout(getContext(), timeoutSeconds);
+        preference.setSummary(getLockTimeoutSummary(timeoutSeconds));
+      }, 0).show();
+
       return true;
     }
   }
 
-  private class ScreenLockTimeoutListener implements Preference.OnPreferenceClickListener {
-
+  private class ChangePassphraseClickListener implements Preference.OnPreferenceClickListener {
     @Override
     public boolean onPreferenceClick(Preference preference) {
-      new TimeDurationPickerDialog(getContext(), (view, duration) -> {
-        if (duration == 0) {
-          TextSecurePreferences.setScreenLockTimeout(getContext(), 0);
-        } else {
-          long timeoutSeconds = Math.max(TimeUnit.MILLISECONDS.toSeconds(duration), 60);
-          TextSecurePreferences.setScreenLockTimeout(getContext(), timeoutSeconds);
-        }
+      if (TextSecurePreferences.isPassphraseLockEnabled(getContext())) {
+        ChangePassphraseDialogFragment dialog = ChangePassphraseDialogFragment.newInstance();
 
-        initializeScreenLockTimeoutSummary();
-      }, 0).show();
+        dialog.setMasterSecretChangedListener(masterSecret -> {
+          Toast.makeText(getActivity(),
+                         R.string.preferences__passphrase_changed,
+                         Toast.LENGTH_LONG).show();
+        });
+        dialog.show(requireFragmentManager(), "ChangePassphraseDialogFragment");
+      } else {
+        Toast.makeText(getActivity(),
+                       R.string.ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet,
+                       Toast.LENGTH_LONG).show();
+      }
+
+      return true;
+    }
+  }
+
+  private class PassphraseLockTriggerChangeListener implements Preference.OnPreferenceChangeListener {
+    @SuppressWarnings("unchecked")
+    @Override
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
+      PassphraseLockTriggerPreference trigger = new PassphraseLockTriggerPreference((Set<String>)newValue);
+
+      preference.setSummary(getSummaryForPassphraseLockTrigger(trigger.getTriggers()));
+      findPreference(TextSecurePreferences.PASSPHRASE_LOCK_TIMEOUT).setEnabled(trigger.isTimeoutEnabled());
 
       return true;
     }
@@ -211,11 +242,11 @@ public class AppProtectionPreferenceFragment extends CorrectedPreferenceFragment
   }
 
   public static CharSequence getSummary(Context context) {
-    final int    privacySummaryResId = R.string.ApplicationPreferencesActivity_privacy_summary;
+    final int    privacySummaryResId = R.string.ApplicationPreferencesActivity_protection_summary;
     final String onRes               = context.getString(R.string.ApplicationPreferencesActivity_on);
     final String offRes              = context.getString(R.string.ApplicationPreferencesActivity_off);
 
-    if (TextSecurePreferences.isPasswordDisabled(context) && !TextSecurePreferences.isScreenLockEnabled(context)) {
+    if (!TextSecurePreferences.isPassphraseLockEnabled(context)) {
       if (TextSecurePreferences.isRegistrationLockEnabled(context)) {
         return context.getString(privacySummaryResId, offRes, onRes);
       } else {
@@ -227,74 +258,6 @@ public class AppProtectionPreferenceFragment extends CorrectedPreferenceFragment
       } else {
         return context.getString(privacySummaryResId, onRes, offRes);
       }
-    }
-  }
-
-  // Derecated
-
-  private class ChangePassphraseClickListener implements Preference.OnPreferenceClickListener {
-    @Override
-    public boolean onPreferenceClick(Preference preference) {
-      if (MasterSecretUtil.isPassphraseInitialized(getActivity())) {
-        startActivity(new Intent(getActivity(), PassphraseChangeActivity.class));
-      } else {
-        Toast.makeText(getActivity(),
-                       R.string.ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet,
-                       Toast.LENGTH_LONG).show();
-      }
-
-      return true;
-    }
-  }
-
-  private class PassphraseIntervalClickListener implements Preference.OnPreferenceClickListener {
-
-    @Override
-    public boolean onPreferenceClick(Preference preference) {
-      new TimeDurationPickerDialog(getContext(), (view, duration) -> {
-        int timeoutMinutes = Math.max((int)TimeUnit.MILLISECONDS.toMinutes(duration), 1);
-
-        TextSecurePreferences.setPassphraseTimeoutInterval(getActivity(), timeoutMinutes);
-
-        initializePassphraseTimeoutSummary();
-
-      }, 0).show();
-
-      return true;
-    }
-  }
-
-  private class DisablePassphraseClickListener implements Preference.OnPreferenceChangeListener {
-
-    @Override
-    public boolean onPreferenceChange(final Preference preference, Object newValue) {
-      if (((CheckBoxPreference)preference).isChecked()) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(R.string.ApplicationPreferencesActivity_disable_passphrase);
-        builder.setMessage(R.string.ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications);
-        builder.setIconAttribute(R.attr.dialog_alert_icon);
-        builder.setPositiveButton(R.string.ApplicationPreferencesActivity_disable, (dialog, which) -> {
-          MasterSecretUtil.changeMasterSecretPassphrase(getActivity(),
-                                                        KeyCachingService.getMasterSecret(getContext()),
-                                                        MasterSecretUtil.UNENCRYPTED_PASSPHRASE);
-
-          TextSecurePreferences.setPasswordDisabled(getActivity(), true);
-          ((CheckBoxPreference)preference).setChecked(false);
-
-          Intent intent = new Intent(getActivity(), KeyCachingService.class);
-          intent.setAction(KeyCachingService.DISABLE_ACTION);
-          getActivity().startService(intent);
-
-          initializeVisibility();
-        });
-        builder.setNegativeButton(android.R.string.cancel, null);
-        builder.show();
-      } else {
-        Intent intent = new Intent(getActivity(), PassphraseChangeActivity.class);
-        startActivity(intent);
-      }
-
-      return false;
     }
   }
 
