@@ -26,11 +26,11 @@ import java.util.Arrays;
  * When a user first initializes TextSecure, a few secrets
  * are generated.  These are:
  *
- * 1) A 128bit symmetric encryption key.
- * 2) A 160bit symmetric MAC key.
+ * 1) A 256bit symmetric encryption key.
+ * 2) A 256bit symmetric MAC key.
  * 3) An ECC keypair.
  *
- * The first two, along with the ECC keypair's private key, are
+ * The first two, along with the identity ECC keypair, are
  * then encrypted on disk using PBE.
  *
  * This class represents 1 and 2.
@@ -68,7 +68,7 @@ public class MasterSecret implements Cloneable, Destroyable, AutoCloseable {
     in.readByteArray(macKeyBytes);
 
     this.encryptionKey = new SecureSecretKeySpec(encryptionKeyBytes, "AES");
-    this.macKey        = new SecureSecretKeySpec(macKeyBytes, "HmacSHA1");
+    this.macKey        = new SecureSecretKeySpec(macKeyBytes, "HmacSHA256");
 
     // SecretKeySpec does an internal copy in its constructor.
     Arrays.fill(encryptionKeyBytes, (byte) 0x00);

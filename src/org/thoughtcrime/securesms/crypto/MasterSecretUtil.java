@@ -109,11 +109,11 @@ public class MasterSecretUtil {
       byte[] encryptedMasterSecret        = verifyMac(macSalt, iterations, encryptedAndMacdMasterSecret, passphrase);
       byte[] encryptionSalt               = retrieve(context, "encryption_salt");
       byte[] combinedSecrets              = decryptWithPassphrase(encryptionSalt, iterations, encryptedMasterSecret, passphrase);
-      byte[] encryptionSecret             = Util.split(combinedSecrets, 16, 20)[0];
-      byte[] macSecret                    = Util.split(combinedSecrets, 16, 20)[1];
+      byte[] encryptionSecret             = Util.split(combinedSecrets, 32, 32)[0];
+      byte[] macSecret                    = Util.split(combinedSecrets, 32, 32)[1];
 
       return new MasterSecret(new SecureSecretKeySpec(encryptionSecret, "AES"),
-                              new SecureSecretKeySpec(macSecret, "HmacSHA1"));
+                              new SecureSecretKeySpec(macSecret, "HmacSHA256"));
     } catch (GeneralSecurityException e) {
       Log.w("keyutil", e);
       return null; //XXX
@@ -181,7 +181,7 @@ public class MasterSecretUtil {
       save(context, "passphrase_initialized", true);
 
       return new MasterSecret(new SecureSecretKeySpec(encryptionSecret, "AES"),
-                              new SecureSecretKeySpec(macSecret, "HmacSHA1"));
+                              new SecureSecretKeySpec(macSecret, "HmacSHA256"));
     } catch (GeneralSecurityException e) {
       Log.w("keyutil", e);
       return null;
@@ -239,20 +239,22 @@ public class MasterSecretUtil {
   private static byte[] generateEncryptionSecret() {
     try {
       KeyGenerator generator = KeyGenerator.getInstance("AES");
-      generator.init(128);
+      generator.init(256);
 
       SecretKey key = generator.generateKey();
       return key.getEncoded();
-    } catch (NoSuchAlgorithmException ex) {
-      Log.w("keyutil", ex);
+    } catch (NoSuchAlgorithmException e) {
+      Log.w("keyutil", e);
       return null;
     }
   }
 
   private static byte[] generateMacSecret() {
     try {
-      KeyGenerator generator = KeyGenerator.getInstance("HmacSHA1");
-      return generator.generateKey().getEncoded();
+      KeyGenerator generator = KeyGenerator.getInstance("HmacSHA256");
+
+      SecretKey key = generator.generateKey();
+      return key.getEncoded();
     } catch (NoSuchAlgorithmException e) {
       Log.w("keyutil", e);
       return null;
@@ -261,7 +263,7 @@ public class MasterSecretUtil {
 
   private static byte[] generateSalt() {
     SecureRandom random = new SecureRandom();
-    byte[] salt         = new byte[16];
+    byte[] salt         = new byte[32];
     random.nextBytes(salt);
 
     return salt;
@@ -274,7 +276,7 @@ public class MasterSecretUtil {
 
     try {
       PBEKeySpec       keyspec = new PBEKeySpec(passphrase.toCharArray(), salt, BENCHMARK_ITERATION_COUNT);
-      SecretKeyFactory skf     = SecretKeyFactory.getInstance("PBEWITHSHA1AND128BITAES-CBC-BC");
+      SecretKeyFactory skf     = SecretKeyFactory.getInstance("PBEWITHSHA256AND256BITAES-CBC-BC");
 
       long startTime = System.currentTimeMillis();
       skf.generateSecret(keyspec);
@@ -297,7 +299,7 @@ public class MasterSecretUtil {
       throws GeneralSecurityException
   {
     PBEKeySpec keyspec    = new PBEKeySpec(passphrase.toCharArray(), salt, iterations);
-    SecretKeyFactory skf  = SecretKeyFactory.getInstance("PBEWITHSHA1AND128BITAES-CBC-BC");
+    SecretKeyFactory skf  = SecretKeyFactory.getInstance("PBEWITHSHA256AND256BITAES-CBC-BC");
     return skf.generateSecret(keyspec);
   }
 
@@ -330,8 +332,8 @@ public class MasterSecretUtil {
   {
     SecretKey     key     = getKeyFromPassphrase(passphrase, salt, iterations);
     byte[]        pbkdf2  = key.getEncoded();
-    SecretKeySpec hmacKey = new SecretKeySpec(pbkdf2, "HmacSHA1");
-    Mac           hmac    = Mac.getInstance("HmacSHA1");
+    SecretKeySpec hmacKey = new SecretKeySpec(pbkdf2, "HmacSHA256");
+    Mac           hmac    = Mac.getInstance("HmacSHA256");
     hmac.init(hmacKey);
 
     return hmac;

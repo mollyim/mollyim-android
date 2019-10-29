@@ -111,19 +111,11 @@ public class AsymmetricMasterCipher {
   }
 
   private SecureSecretKeySpec deriveMacKey(byte[] secretBytes) {
-    byte[] digestedBytes = getDigestedBytes(secretBytes, 1);
-    byte[] macKeyBytes   = new byte[20];
-
-    System.arraycopy(digestedBytes, 0, macKeyBytes, 0, macKeyBytes.length);
-    return new SecureSecretKeySpec(macKeyBytes, "HmacSHA1");
+    return new SecureSecretKeySpec(getDigestedBytes(secretBytes, 1), "HmacSHA256");
   }
 
   private SecureSecretKeySpec deriveCipherKey(byte[] secretBytes) {
-    byte[] digestedBytes  = getDigestedBytes(secretBytes, 0);
-    byte[] cipherKeyBytes = new byte[16];
-
-    System.arraycopy(digestedBytes, 0, cipherKeyBytes, 0, cipherKeyBytes.length);
-    return new SecureSecretKeySpec(cipherKeyBytes, "AES");
+    return new SecureSecretKeySpec(getDigestedBytes(secretBytes, 0), "AES");
   }
 
   private byte[] getDigestedBytes(byte[] secretBytes, int iteration) {

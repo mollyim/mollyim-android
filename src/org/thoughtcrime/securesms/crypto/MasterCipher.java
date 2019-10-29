@@ -44,7 +44,7 @@ import javax.crypto.spec.IvParameterSpec;
  * 
  * 1) 16 byte random IV.
  * 2) AES-CBC(plaintext)
- * 3) HMAC-SHA1 of 1 and 2
+ * 3) HMAC-SHA256 of 1 and 2
  * 
  * @author Moxie Marlinspike
  */
@@ -57,13 +57,13 @@ public class MasterCipher {
   private final Cipher encryptingCipher;
   private final Cipher decryptingCipher;
   private final Mac hmac;
-	
+
   public MasterCipher(MasterSecret masterSecret) {
     try {
-      this.masterSecret = masterSecret;		
+      this.masterSecret     = masterSecret;
       this.encryptingCipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
       this.decryptingCipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-      this.hmac             = Mac.getInstance("HmacSHA1");
+      this.hmac             = Mac.getInstance("HmacSHA256");
     } catch (NoSuchPaddingException | NoSuchAlgorithmException nspe) {
       throw new AssertionError(nspe);
     }
@@ -148,7 +148,6 @@ public class MasterCipher {
   }
 	
   private Mac getMac(SecureSecretKeySpec key) throws InvalidKeyException {
-    //		Mac hmac = Mac.getInstance("HmacSHA1");
     hmac.init(key);
 
     return hmac;
@@ -165,7 +164,6 @@ public class MasterCipher {
   }
 	
   private Cipher getDecryptingCipher(SecureSecretKeySpec key, byte[] encryptedBody) throws InvalidKeyException, InvalidAlgorithmParameterException {
-    //		Cipher cipher      = Cipher.getInstance("AES/CBC/PKCS5Padding");
     IvParameterSpec iv = new IvParameterSpec(encryptedBody, 0, decryptingCipher.getBlockSize());
     decryptingCipher.init(Cipher.DECRYPT_MODE, key, iv);
 		
@@ -173,9 +171,8 @@ public class MasterCipher {
   }
 	
   private Cipher getEncryptingCipher(SecureSecretKeySpec key) throws InvalidKeyException {
-    //		Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
     encryptingCipher.init(Cipher.ENCRYPT_MODE, key);
-		
+
     return encryptingCipher;
   }
 	

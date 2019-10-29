@@ -24,10 +24,10 @@ import org.whispersystems.libsignal.ecc.ECPublicKey;
  * When a user first initializes TextSecure, a few secrets
  * are generated.  These are:
  * 
- * 1) A 128bit symmetric encryption key.
- * 2) A 160bit symmetric MAC key.
+ * 1) A 256bit symmetric encryption key.
+ * 2) A 256bit symmetric MAC key.
  * 3) An ECC keypair.
- * 
+ *
  * The first two, along with the ECC keypair's private key, are
  * then encrypted on disk using PBE.
  * 
