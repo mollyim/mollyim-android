@@ -98,7 +98,7 @@ public class KeyCachingService extends Service {
       }
     }
 
-    return masterSecret;
+    return masterSecret.clone();
   }
 
   public static void onAppForegrounded(@NonNull Context context) {
@@ -126,6 +126,27 @@ public class KeyCachingService extends Service {
           if (!ApplicationMigrations.isUpdate(KeyCachingService.this)) {
             MessageNotifier.updateNotification(KeyCachingService.this);
           }
+          return null;
+        }
+      }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+  }
+
+  @SuppressLint("StaticFieldLeak")
+  public void clearMasterSecret() {
+    synchronized (KeyCachingService.class) {
+      if (masterSecret != null) {
+        masterSecret.close();
+        masterSecret = null;
+      }
+
+      stopForeground(true);
+      sendPackageBroadcast(CLEAR_KEY_EVENT);
+
+      new AsyncTask<Void, Void, Void>() {
+        @Override
+        protected Void doInBackground(Void... params) {
+          MessageNotifier.clearNotifications(KeyCachingService.this, true);
           return null;
         }
       }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -181,21 +202,9 @@ public class KeyCachingService extends Service {
     startActivity(intent);
   }
 
-  @SuppressLint("StaticFieldLeak")
   private void handleClearKey() {
     Log.i(TAG, "handleClearKey()");
-    KeyCachingService.masterSecret = null;
-    stopForeground(true);
-
-    sendPackageBroadcast(CLEAR_KEY_EVENT);
-
-    new AsyncTask<Void, Void, Void>() {
-      @Override
-      protected Void doInBackground(Void... params) {
-        MessageNotifier.clearNotifications(KeyCachingService.this, true);
-        return null;
-      }
-    }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    clearMasterSecret();
   }
 
   private void handleLocaleChanged() {
