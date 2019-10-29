@@ -97,7 +97,7 @@ public class PassphraseCreateActivity extends PassphraseActivity {
     @Override
     protected Void doInBackground(Void... params) {
       MasterSecretUtil.generateAsymmetricMasterSecret(PassphraseCreateActivity.this, masterSecret);
-      IdentityKeyUtil.generateIdentityKeys(PassphraseCreateActivity.this);
+      IdentityKeyUtil.generateIdentityKeys(PassphraseCreateActivity.this, masterSecret);
       VersionTracker.updateLastSeenVersion(PassphraseCreateActivity.this);
 
       TextSecurePreferences.setLastExperienceVersionCode(PassphraseCreateActivity.this, Util.getCanonicalVersionCode());

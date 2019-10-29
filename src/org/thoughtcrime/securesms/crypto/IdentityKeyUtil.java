@@ -24,12 +24,14 @@ import androidx.annotation.NonNull;
 
 import org.thoughtcrime.securesms.backup.BackupProtos;
 import org.thoughtcrime.securesms.util.Base64;
+import org.thoughtcrime.securesms.service.KeyCachingService;
 import org.whispersystems.libsignal.IdentityKey;
 import org.whispersystems.libsignal.IdentityKeyPair;
 import org.whispersystems.libsignal.InvalidKeyException;
 import org.whispersystems.libsignal.ecc.Curve;
 import org.whispersystems.libsignal.ecc.ECKeyPair;
 import org.whispersystems.libsignal.ecc.ECPrivateKey;
+import org.whispersystems.libsignal.ecc.ECPublicKey;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -57,37 +59,54 @@ public class IdentityKeyUtil {
         preferences.contains(IDENTITY_PRIVATE_KEY_PREF);
   }
 
-  public static @NonNull IdentityKey getIdentityKey(@NonNull Context context) {
+  public static @NonNull IdentityKey getIdentityKey(@NonNull Context context, @NonNull MasterSecret masterSecret) {
     if (!hasIdentityKey(context)) throw new AssertionError("There isn't one!");
 
     try {
-      byte[] publicKeyBytes = Base64.decode(retrieve(context, IDENTITY_PUBLIC_KEY_PREF));
-      return new IdentityKey(publicKeyBytes, 0);
+      byte[] publicKeyBytes     = Base64.decode(retrieve(context, IDENTITY_PUBLIC_KEY_PREF));
+      MasterCipher masterCipher = new MasterCipher(masterSecret);
+      ECPublicKey  publicKey    = masterCipher.decryptPublicKey(publicKeyBytes);
+      return new IdentityKey(publicKey);
     } catch (IOException | InvalidKeyException e) {
-      throw new AssertionError(e);
+      throw new SecurityException(e);
+    }
+  }
+
+  public static @NonNull IdentityKeyPair getIdentityKeyPair(@NonNull Context context, @NonNull MasterSecret masterSecret) {
+    if (!hasIdentityKey(context)) throw new AssertionError("There isn't one!");
+
+    try {
+      byte[] privateKeyBytes    = Base64.decode(retrieve(context, IDENTITY_PRIVATE_KEY_PREF));
+      IdentityKey  identityKey  = getIdentityKey(context, masterSecret);
+      MasterCipher masterCipher = new MasterCipher(masterSecret);
+      ECPrivateKey privateKey   = masterCipher.decryptPrivateKey(privateKeyBytes);
+      return new IdentityKeyPair(identityKey, privateKey);
+    } catch (IOException | InvalidKeyException e) {
+      throw new SecurityException(e);
+    }
+  }
+
+  public static @NonNull IdentityKey getIdentityKey(@NonNull Context context) {
+    try (MasterSecret masterSecret = KeyCachingService.getMasterSecret(context)) {
+      return getIdentityKey(context, masterSecret);
     }
   }
 
   public static @NonNull IdentityKeyPair getIdentityKeyPair(@NonNull Context context) {
-    if (!hasIdentityKey(context)) throw new AssertionError("There isn't one!");
-
-    try {
-      IdentityKey  publicKey  = getIdentityKey(context);
-      ECPrivateKey privateKey = Curve.decodePrivatePoint(Base64.decode(retrieve(context, IDENTITY_PRIVATE_KEY_PREF)));
-
-      return new IdentityKeyPair(publicKey, privateKey);
-    } catch (IOException e) {
-      throw new AssertionError(e);
+    try (MasterSecret masterSecret = KeyCachingService.getMasterSecret(context)) {
+      return getIdentityKeyPair(context, masterSecret);
     }
   }
 
-  public static void generateIdentityKeys(Context context) {
-    ECKeyPair    djbKeyPair     = Curve.generateKeyPair();
-    IdentityKey  djbIdentityKey = new IdentityKey(djbKeyPair.getPublicKey());
-    ECPrivateKey djbPrivateKey  = djbKeyPair.getPrivateKey();
+  public static void generateIdentityKeys(@NonNull Context context, @NonNull MasterSecret masterSecret) {
+    ECKeyPair    identityKeyPair = Curve.generateKeyPair();
+    ECPublicKey  publicKey       = identityKeyPair.getPublicKey();
+    ECPrivateKey privateKey      = identityKeyPair.getPrivateKey();
 
-    save(context, IDENTITY_PUBLIC_KEY_PREF, Base64.encodeBytes(djbIdentityKey.serialize()));
-    save(context, IDENTITY_PRIVATE_KEY_PREF, Base64.encodeBytes(djbPrivateKey.serialize()));
+    MasterCipher masterCipher    = new MasterCipher(masterSecret);
+
+    save(context, IDENTITY_PUBLIC_KEY_PREF, Base64.encodeBytes(masterCipher.encryptPublicKey(publicKey)));
+    save(context, IDENTITY_PRIVATE_KEY_PREF, Base64.encodeBytes(masterCipher.encryptPrivateKey(privateKey)));
   }
 
   public static List<BackupProtos.SharedPreference> getBackupRecord(@NonNull Context context) {

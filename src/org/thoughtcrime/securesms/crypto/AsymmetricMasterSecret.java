@@ -28,7 +28,7 @@ import org.whispersystems.libsignal.ecc.ECPublicKey;
  * 2) A 256bit symmetric MAC key.
  * 3) An ECC keypair.
  *
- * The first two, along with the ECC keypair's private key, are
+ * The first two, along with the identity ECC keypair, are
  * then encrypted on disk using PBE.
  * 
  * This class represents the ECC keypair.

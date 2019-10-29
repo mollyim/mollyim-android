@@ -130,20 +130,9 @@ public class MasterSecretUtil {
       byte[] djbPublicBytes   = retrieve(context, ASYMMETRIC_LOCAL_PUBLIC_DJB);
       byte[] djbPrivateBytes  = retrieve(context, ASYMMETRIC_LOCAL_PRIVATE_DJB);
 
-      ECPublicKey  djbPublicKey  = null;
-      ECPrivateKey djbPrivateKey = null;
-
-      if (djbPublicBytes != null) {
-        djbPublicKey = Curve.decodePoint(djbPublicBytes, 0);
-      }
-
-      if (masterSecret != null) {
-        MasterCipher masterCipher = new MasterCipher(masterSecret);
-
-        if (djbPrivateBytes != null) {
-          djbPrivateKey = masterCipher.decryptKey(djbPrivateBytes);
-        }
-      }
+      MasterCipher masterCipher  = new MasterCipher(masterSecret);
+      ECPublicKey  djbPublicKey  = masterCipher.decryptPublicKey(djbPublicBytes);
+      ECPrivateKey djbPrivateKey = masterCipher.decryptPrivateKey(djbPrivateBytes);
 
       return new AsymmetricMasterSecret(djbPublicKey, djbPrivateKey);
     } catch (InvalidKeyException | IOException ike) {
@@ -157,8 +146,8 @@ public class MasterSecretUtil {
     MasterCipher masterCipher = new MasterCipher(masterSecret);
     ECKeyPair    keyPair      = Curve.generateKeyPair();
 
-    save(context, ASYMMETRIC_LOCAL_PUBLIC_DJB, keyPair.getPublicKey().serialize());
-    save(context, ASYMMETRIC_LOCAL_PRIVATE_DJB, masterCipher.encryptKey(keyPair.getPrivateKey()));
+    save(context, ASYMMETRIC_LOCAL_PUBLIC_DJB, masterCipher.encryptPublicKey(keyPair.getPublicKey()));
+    save(context, ASYMMETRIC_LOCAL_PRIVATE_DJB, masterCipher.encryptPrivateKey(keyPair.getPrivateKey()));
 
     return new AsymmetricMasterSecret(keyPair.getPublicKey(), keyPair.getPrivateKey());
   }

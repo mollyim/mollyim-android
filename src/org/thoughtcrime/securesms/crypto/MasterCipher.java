@@ -23,6 +23,7 @@ import org.thoughtcrime.securesms.logging.Log;
 import org.whispersystems.libsignal.InvalidMessageException;
 import org.whispersystems.libsignal.ecc.Curve;
 import org.whispersystems.libsignal.ecc.ECPrivateKey;
+import org.whispersystems.libsignal.ecc.ECPublicKey;
 
 import java.security.GeneralSecurityException;
 import java.security.InvalidAlgorithmParameterException;
@@ -58,7 +59,7 @@ public class MasterCipher {
   private final Cipher decryptingCipher;
   private final Mac hmac;
 
-  public MasterCipher(MasterSecret masterSecret) {
+  public MasterCipher(@NonNull MasterSecret masterSecret) {
     try {
       this.masterSecret     = masterSecret;
       this.encryptingCipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
@@ -69,11 +70,15 @@ public class MasterCipher {
     }
   }
 
-  public byte[] encryptKey(ECPrivateKey privateKey) {
+  public byte[] encryptPrivateKey(ECPrivateKey privateKey) {
     return encryptBytes(privateKey.serialize());
   }
 
-  public ECPrivateKey decryptKey(byte[] key)
+  public byte[] encryptPublicKey(ECPublicKey publicKey) {
+    return encryptBytes(publicKey.serialize());
+  }
+
+  public ECPrivateKey decryptPrivateKey(byte[] key)
       throws org.whispersystems.libsignal.InvalidKeyException
   {
     try {
@@ -82,7 +87,17 @@ public class MasterCipher {
       throw new org.whispersystems.libsignal.InvalidKeyException(ime);
     }
   }
-	
+
+  public ECPublicKey decryptPublicKey(byte[] key)
+       throws org.whispersystems.libsignal.InvalidKeyException
+  {
+    try {
+      return Curve.decodePoint(decryptBytes(key), 0);
+    } catch (InvalidMessageException ime) {
+      throw new org.whispersystems.libsignal.InvalidKeyException(ime);
+    }
+  }
+
   public byte[] decryptBytes(@NonNull byte[] decodedBody) throws InvalidMessageException {
     try {
       Mac mac              = getMac(masterSecret.getMacKey());
@@ -96,7 +111,7 @@ public class MasterCipher {
       throw new InvalidMessageException(ge);
     }
   }
-	
+
   public byte[] encryptBytes(byte[] body) {
     try {
       Cipher cipher              = getEncryptingCipher(masterSecret.getEncryptionKey());
