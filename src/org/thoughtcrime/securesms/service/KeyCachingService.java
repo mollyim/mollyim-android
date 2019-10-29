@@ -25,6 +25,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Binder;
+import android.os.Build;
 import android.os.IBinder;
 import android.os.SystemClock;
 import androidx.annotation.NonNull;
@@ -221,7 +222,11 @@ public class KeyCachingService extends Service {
 
     AlarmManager alarmManager = ServiceUtil.getAlarmManager(context);
     alarmManager.cancel(operation);
-    alarmManager.set(AlarmManager.ELAPSED_REALTIME, at, operation);
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+      alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, at, operation);
+    } else {
+      alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, at, operation);
+    }
   }
 
   private void foregroundService() {
