@@ -320,6 +320,12 @@ android {
         }
     }
 
+    externalNativeBuild {
+        ndkBuild {
+            path file("$rootDir/jni/Android.mk")
+        }
+    }
+
     productFlavors {
         website {
             dimension "none"
