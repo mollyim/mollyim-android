@@ -491,6 +491,15 @@ public class Util {
            activityManager.getLargeMemoryClass() <= 64;
   }
 
+  public static long getAvailMemory(@NonNull Context context) {
+    ActivityManager activityManager = ServiceUtil.getActivityManager(context);
+
+    ActivityManager.MemoryInfo memoryInfo = new ActivityManager.MemoryInfo();
+    activityManager.getMemoryInfo(memoryInfo);
+
+    return memoryInfo.availMem - memoryInfo.threshold;
+  }
+
   public static int clamp(int value, int min, int max) {
     return Math.min(Math.max(value, min), max);
   }

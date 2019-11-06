@@ -103,19 +103,17 @@ public class AsymmetricMasterCipher {
   }
 
   private MasterCipher getMasterCipherForSecret(byte[] secretBytes) {
-    SecureSecretKeySpec cipherKey = deriveCipherKey(secretBytes);
-    SecureSecretKeySpec macKey    = deriveMacKey(secretBytes);
-    MasterSecret masterSecret = new MasterSecret(cipherKey, macKey);
+    MasterSecret masterSecret = new MasterSecret(deriveCipherKey(secretBytes), deriveMacKey(secretBytes));
 
     return new MasterCipher(masterSecret);
   }
 
-  private SecureSecretKeySpec deriveMacKey(byte[] secretBytes) {
-    return new SecureSecretKeySpec(getDigestedBytes(secretBytes, 1), "HmacSHA256");
+  private byte[] deriveMacKey(byte[] secretBytes) {
+    return getDigestedBytes(secretBytes, 1);
   }
 
-  private SecureSecretKeySpec deriveCipherKey(byte[] secretBytes) {
-    return new SecureSecretKeySpec(getDigestedBytes(secretBytes, 0), "AES");
+  private byte[] deriveCipherKey(byte[] secretBytes) {
+    return getDigestedBytes(secretBytes, 0);
   }
 
   private byte[] getDigestedBytes(byte[] secretBytes, int iteration) {

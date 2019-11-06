@@ -44,6 +44,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import org.thoughtcrime.securesms.crypto.InvalidPassphraseException;
+import org.thoughtcrime.securesms.crypto.UnrecoverableKeyException;
 import org.thoughtcrime.securesms.crypto.MasterSecret;
 import org.thoughtcrime.securesms.crypto.MasterSecretUtil;
 import org.thoughtcrime.securesms.util.DynamicIntroTheme;
@@ -120,8 +121,8 @@ public class PassphrasePromptActivity extends PassphraseActivity {
   }
 
   private void handlePassphrase() {
-    String passphrase = getEnteredPassphrase(passphraseInput);
-    if (passphrase.length() > 0) {
+    char[] passphrase = getEnteredPassphrase(passphraseInput);
+    if (passphrase.length > 0) {
       SetMasterSecretTask task = new SetMasterSecretTask(passphrase);
       task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     } else {
@@ -129,8 +130,13 @@ public class PassphrasePromptActivity extends PassphraseActivity {
     }
   }
 
-  private String getEnteredPassphrase(final EditText editText) {
-    return editText.getText() != null ? editText.getText().toString() : "";
+  private char[] getEnteredPassphrase(final EditText editText) {
+    int len = editText.length();
+    char[] passphrase = new char[len];
+    if (editText.getText() != null) {
+      editText.getText().getChars(0, len, passphrase, 0);
+    }
+    return passphrase;
   }
 
   private void initializeResources() {
@@ -205,11 +211,11 @@ public class PassphrasePromptActivity extends PassphraseActivity {
   @SuppressLint("StaticFieldLeak")
   private class SetMasterSecretTask extends AsyncTask<Void, Double, MasterSecret> {
 
-    private final String passphrase;
+    private final char[] passphrase;
 
     private CountDownTimer progressTimer;
 
-    SetMasterSecretTask(String passphrase) {
+    SetMasterSecretTask(char[] passphrase) {
       this.passphrase = passphrase;
     }
 
@@ -234,7 +240,7 @@ public class PassphrasePromptActivity extends PassphraseActivity {
       progressTimer.start();
       try {
         return MasterSecretUtil.getMasterSecret(getApplicationContext(), passphrase);
-      } catch (InvalidPassphraseException e) {
+      } catch (InvalidPassphraseException | UnrecoverableKeyException e) {
         progressTimer.cancel();
         publishProgress(0.0);
         return null;

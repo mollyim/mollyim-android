@@ -23,8 +23,11 @@ import org.thoughtcrime.securesms.crypto.InvalidPassphraseException;
 import org.thoughtcrime.securesms.crypto.MasterSecret;
 import org.thoughtcrime.securesms.crypto.MasterSecretUtil;
 import org.thoughtcrime.securesms.crypto.PassphraseValidator;
+import org.thoughtcrime.securesms.crypto.UnrecoverableKeyException;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.util.ServiceUtil;
+
+import java.util.Arrays;
 
 public class ChangePassphraseDialogFragment extends DialogFragment {
 
@@ -231,9 +234,9 @@ public class ChangePassphraseDialogFragment extends DialogFragment {
   }
 
   private void handleChange() {
-    final String oldPassphrase = getEnteredPassphrase(passphraseInput);
+    final char[] oldPassphrase = getEnteredPassphrase(passphraseInput);
 
-    if (oldPassphrase.isEmpty()) {
+    if (oldPassphrase.length == 0) {
       setError(R.string.PassphrasePromptActivity_invalid_passphrase_exclamation, passphraseLayout);
       return;
     }
@@ -245,14 +248,14 @@ public class ChangePassphraseDialogFragment extends DialogFragment {
     disablePassphrase();
   }
 
-  private void changePassphrase(final String oldPassphrase) {
-    final String newPassphrase    = getEnteredPassphrase(newPassphraseInput);
-    final String repeatPassphrase = getEnteredPassphrase(repeatPassphraseInput);
+  private void changePassphrase(final char[] oldPassphrase) {
+    final char[] newPassphrase    = getEnteredPassphrase(newPassphraseInput);
+    final char[] repeatPassphrase = getEnteredPassphrase(repeatPassphraseInput);
 
-    if (newPassphrase.isEmpty()) {
+    if (newPassphrase.length == 0) {
       showPopup(R.string.PassphraseChangeActivity_enter_new_passphrase_exclamation);
       return;
-    } else if (!newPassphrase.equals(repeatPassphrase)) {
+    } else if (!Arrays.equals(newPassphrase, repeatPassphrase)) {
       showPopup(R.string.PassphraseChangeActivity_passphrases_dont_match_exclamation);
       return;
     }
@@ -276,13 +279,18 @@ public class ChangePassphraseDialogFragment extends DialogFragment {
     changeMasterSecret(MasterSecretUtil.UNENCRYPTED_PASSPHRASE, getEnteredPassphrase(passphraseInput));
   }
 
-  private void changeMasterSecret(String newPassphrase, String oldPassphrase) {
+  private void changeMasterSecret(char[] newPassphrase, char[] oldPassphrase) {
     ChangeMasterSecretTask task = new ChangeMasterSecretTask(newPassphrase, oldPassphrase);
     masterSecretTask = task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
   }
 
-  private String getEnteredPassphrase(final EditText editText) {
-    return editText.getText() != null ? editText.getText().toString() : "";
+  private char[] getEnteredPassphrase(final EditText editText) {
+    int len = editText.length();
+    char[] passphrase = new char[len];
+    if (editText.getText() != null) {
+      editText.getText().getChars(0, len, passphrase, 0);
+    }
+    return passphrase;
   }
 
   public interface MasterSecretChangedListener {
@@ -293,10 +301,10 @@ public class ChangePassphraseDialogFragment extends DialogFragment {
   private class ChangeMasterSecretTask extends AsyncTask<Void, Void, MasterSecret> {
 
     private final Context context;
-    private final String  newPassphrase;
-    private final String  oldPassphrase;
+    private final char[]  newPassphrase;
+    private final char[]  oldPassphrase;
 
-    ChangeMasterSecretTask(String newPassphrase, String oldPassphrase) {
+    ChangeMasterSecretTask(char[] newPassphrase, char[] oldPassphrase) {
       this.context       = requireContext().getApplicationContext();
       this.newPassphrase = newPassphrase;
       this.oldPassphrase = oldPassphrase;
@@ -322,8 +330,10 @@ public class ChangePassphraseDialogFragment extends DialogFragment {
         } else {
           return MasterSecretUtil.changeMasterSecretPassphrase(context, oldPassphrase, newPassphrase);
         }
-      } catch (InvalidPassphraseException ipe) {
-        if (mode == MODE_ENABLE) throw new AssertionError(ipe);
+      } catch (InvalidPassphraseException | UnrecoverableKeyException e) {
+        if (mode == MODE_ENABLE) {
+          throw new AssertionError(e);
+        }
         return null;
       }
     }

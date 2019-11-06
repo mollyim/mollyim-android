@@ -15,8 +15,8 @@ public class PassphraseValidator {
     this.nbvcxz = new Nbvcxz();
   }
 
-  public Strength estimate(final String passphrase) {
-    return new Strength(nbvcxz.estimate(passphrase));
+  public Strength estimate(final char[] passphrase) {
+    return new Strength(nbvcxz.estimate(new String(passphrase)));
   }
 
   public class Strength {
@@ -32,6 +32,7 @@ public class PassphraseValidator {
     }
 
     public String getTimeToCrack() {
+      // TODO: add specific estimate for argon2
       return TimeEstimate.getTimeToCrackFormatted(result, "OFFLINE_BCRYPT_12");
     }
 

@@ -158,6 +158,8 @@ public class MasterCipher {
     byte[] ivAndBody = new byte[iv.length + encrypted.length];
     System.arraycopy(iv, 0, ivAndBody, 0, iv.length);
     System.arraycopy(encrypted, 0, ivAndBody, iv.length, encrypted.length);
+
+    Arrays.fill(encrypted, (byte) 0);
 		
     return ivAndBody;
   }

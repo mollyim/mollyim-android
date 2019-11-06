@@ -42,6 +42,7 @@ public class KeyStoreHelper {
 
   private static final String ANDROID_KEY_STORE = "AndroidKeyStore";
   private static final String KEY_ALIAS         = "SignalSecret";
+  private static final String KEY_ALIAS_HMAC    = "MollySecret";
 
   @RequiresApi(Build.VERSION_CODES.M)
   public static SealedData seal(@NonNull byte[] input) {
@@ -116,6 +117,37 @@ public class KeyStoreHelper {
       ks.load(null);
 
       return ks.containsAlias(KEY_ALIAS) && ks.entryInstanceOf(KEY_ALIAS, KeyStore.SecretKeyEntry.class);
+    } catch (KeyStoreException | IOException | NoSuchAlgorithmException | CertificateException e) {
+      throw new AssertionError(e);
+    }
+  }
+
+  @RequiresApi(Build.VERSION_CODES.M)
+  public static SecretKey createKeyStoreEntryHmac() {
+    try {
+      KeyGenerator keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_HMAC_SHA256, ANDROID_KEY_STORE);
+
+      KeyGenParameterSpec.Builder keySpecBuilder = new KeyGenParameterSpec.Builder(KEY_ALIAS_HMAC, KeyProperties.PURPOSE_SIGN);
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+        keySpecBuilder.setUnlockedDeviceRequired(true);
+      }
+      KeyGenParameterSpec keyGenParameterSpec = keySpecBuilder.build();
+
+      keyGenerator.init(keyGenParameterSpec);
+
+      return keyGenerator.generateKey();
+    } catch (NoSuchAlgorithmException | NoSuchProviderException | InvalidAlgorithmParameterException e) {
+      throw new AssertionError(e);
+    }
+  }
+
+  @RequiresApi(Build.VERSION_CODES.M)
+  public static SecretKey getKeyStoreEntryHmac() throws UnrecoverableEntryException {
+    try {
+      KeyStore keyStore = KeyStore.getInstance(ANDROID_KEY_STORE);
+      keyStore.load(null);
+
+      return ((KeyStore.SecretKeyEntry) keyStore.getEntry(KEY_ALIAS_HMAC, null)).getSecretKey();
     } catch (KeyStoreException | IOException | NoSuchAlgorithmException | CertificateException e) {
       throw new AssertionError(e);
     }

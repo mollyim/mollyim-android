@@ -35,6 +35,7 @@ import androidx.core.app.NotificationCompat;
 import org.thoughtcrime.securesms.ApplicationContext;
 import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.MainActivity;
+import org.thoughtcrime.securesms.crypto.UnrecoverableKeyException;
 import org.thoughtcrime.securesms.logging.Log;
 
 import org.thoughtcrime.securesms.DummyActivity;
@@ -85,8 +86,8 @@ public class KeyCachingService extends Service {
     if (!TextSecurePreferences.isPassphraseLockEnabled(context)) {
       try {
         return MasterSecretUtil.getMasterSecret(context, MasterSecretUtil.UNENCRYPTED_PASSPHRASE);
-      } catch (InvalidPassphraseException ipe) {
-        throw new AssertionError(ipe);
+      } catch (InvalidPassphraseException | UnrecoverableKeyException e) {
+        throw new AssertionError(e);
       }
     }
 
@@ -178,8 +179,8 @@ public class KeyCachingService extends Service {
       try {
         MasterSecret masterSecret = MasterSecretUtil.getMasterSecret(this, MasterSecretUtil.UNENCRYPTED_PASSPHRASE);
         setMasterSecret(masterSecret);
-      } catch (InvalidPassphraseException e) {
-        Log.w(TAG, e);
+      } catch (InvalidPassphraseException | UnrecoverableKeyException e) {
+        // TODO
       }
     }
   }

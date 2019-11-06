@@ -16,9 +16,6 @@
  */
 package org.thoughtcrime.securesms.crypto;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import javax.security.auth.Destroyable;
 import java.util.Arrays;
 
@@ -43,30 +40,7 @@ public class MasterSecret implements Cloneable, Destroyable, AutoCloseable {
   private SecureSecretKeySpec encryptionKey;
   private SecureSecretKeySpec macKey;
 
-  public static final Parcelable.Creator<MasterSecret> CREATOR = new Parcelable.Creator<MasterSecret>() {
-    @Override
-    public MasterSecret createFromParcel(Parcel in) {
-      return new MasterSecret(in);
-    }
-
-    @Override
-    public MasterSecret[] newArray(int size) {
-      return new MasterSecret[size];
-    }
-  };
-
-  public MasterSecret(SecureSecretKeySpec encryptionKey, SecureSecretKeySpec macKey) {
-    this.encryptionKey = encryptionKey;
-    this.macKey        = macKey;
-  }
-
-  private MasterSecret(Parcel in) {
-    byte[] encryptionKeyBytes = new byte[in.readInt()];
-    in.readByteArray(encryptionKeyBytes);
-
-    byte[] macKeyBytes = new byte[in.readInt()];
-    in.readByteArray(macKeyBytes);
-
+  public MasterSecret(byte[] encryptionKeyBytes, byte[] macKeyBytes) {
     this.encryptionKey = new SecureSecretKeySpec(encryptionKeyBytes, "AES");
     this.macKey        = new SecureSecretKeySpec(macKeyBytes, "HmacSHA256");
 
