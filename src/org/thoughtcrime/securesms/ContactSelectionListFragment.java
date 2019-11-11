@@ -254,7 +254,7 @@ public final class ContactSelectionListFragment extends    Fragment
   }
 
   @Override
-  public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
+  public void onLoadFinished(@NonNull Loader<Cursor> loader, @Nullable Cursor data) {
     swipeRefresh.setVisibility(View.VISIBLE);
     showContactsLayout.setVisibility(View.GONE);
 
@@ -265,7 +265,7 @@ public final class ContactSelectionListFragment extends    Fragment
     }
 
     emptyText.setText(R.string.contact_selection_group_activity__no_contacts);
-    boolean useFastScroller = data.getCount() > 20;
+    boolean useFastScroller = data != null && data.getCount() > 20;
     recyclerView.setVerticalScrollBarEnabled(!useFastScroller);
     if (useFastScroller) {
       fastScroller.setVisibility(View.VISIBLE);
@@ -284,6 +284,8 @@ public final class ContactSelectionListFragment extends    Fragment
 
   @SuppressLint("StaticFieldLeak")
   private void handleContactPermissionGranted() {
+    final Context context = requireContext();
+
     new AsyncTask<Void, Void, Boolean>() {
       @Override
       protected void onPreExecute() {
@@ -298,7 +300,7 @@ public final class ContactSelectionListFragment extends    Fragment
       @Override
       protected Boolean doInBackground(Void... voids) {
         try {
-          DirectoryHelper.refreshDirectory(getContext(), false);
+          DirectoryHelper.refreshDirectory(context, false);
           return true;
         } catch (IOException e) {
           Log.w(TAG, e);

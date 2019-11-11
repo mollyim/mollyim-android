@@ -11,7 +11,7 @@
   <!--AlbumThumbnailView-->
   <string name="AlbumThumbnailView_plus">\+%d</string>
   <!--ApplicationMigrationActivity-->
-  <string name="ApplicationMigrationActivity__signal_is_updating">Signal 正在更新...</string>
+  <string name="ApplicationMigrationActivity__signal_is_updating">Signal 正在更新…</string>
   <!--ApplicationPreferencesActivity-->
   <string name="ApplicationPreferencesActivity_currently_s">当前：%s</string>
   <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">您尚未设置密码！</string>
@@ -59,8 +59,8 @@
   <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Signal 需要\"位置信息\"权限才能发送位置信息，但是该权限已被永久禁用。请转到系统的应用设置菜单，找到权限设置，选择 Signal 应用，并启用\"位置信息\"权限。</string>
   <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">Signal 需要\"相机\"权限才能拍照并发送相片，但是该权限已被永久禁用。请转到系统的应用设置菜单，找到权限设置，选择 Signal 应用，并启用\"相机\"权限。</string>
   <!--AttachmentUploadJob-->
-  <string name="AttachmentUploadJob_uploading_media">上传媒体中...</string>
-  <string name="AttachmentUploadJob_compressing_video_start">正在压缩视频...</string>
+  <string name="AttachmentUploadJob_uploading_media">上传媒体中…</string>
+  <string name="AttachmentUploadJob_compressing_video_start">正在压缩视频…</string>
   <!--AudioSlidePlayer-->
   <string name="AudioSlidePlayer_error_playing_audio">播放音频时出现错误！</string>
   <!--BlockedContactsActivity-->
@@ -75,6 +75,7 @@
   <!--CameraActivity-->
   <string name="CameraActivity_image_save_failure">未能保存图像。</string>
   <!--CameraXFragment-->
+  <string name="CameraXFragment_tap_for_photo_hold_for_video">单击拍照，长按录像</string>
   <string name="CameraXFragment_capture_description">拍摄</string>
   <string name="CameraXFragment_change_camera_description">切换摄像头</string>
   <string name="CameraXFragment_open_gallery_description">打开相册</string>
@@ -172,6 +173,9 @@
   <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">要拍照或录像，请允许 Signal 访问相机。</string>
   <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signal 需要相机权限来拍摄照片或录制视频。但是该权限已经被永久拒绝，请进入应用程序设置，点击权限，并启用“相机”。</string>
   <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signal 需要相机权限以拍摄照片或视频</string>
+  <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">开启麦克风权限以录制有声视频。</string>
+  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signal 需要麦克风权限以录制视频 ，但是该权限已被拒绝。请进入应用程序设置，点击权限，并启用“麦克风”和“相机”。</string>
+  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signal 需要麦克风权限以录制视频。</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s%2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">Signal不能发送短信/彩信，因为它不是您默认的短信应用。您是否想在安卓设置里修改？</string>
   <string name="ConversationActivity_yes">是</string>
@@ -214,6 +218,8 @@
   <string name="ConversationFragment_quoted_message_not_found">没有找到原信息</string>
   <string name="ConversationFragment_quoted_message_no_longer_available">原信息已不存在</string>
   <string name="ConversationFragment_failed_to_open_message">打开消息失败</string>
+  <string name="ConversationFragment_you_can_swipe_to_the_right_reply">您可以在任何消息上右滑以快速回复</string>
+  <string name="ConversationFragment_you_can_swipe_to_the_left_reply">您可以在任何消息上左滑以快速回复</string>
   <!--ConversationListActivity-->
   <string name="ConversationListActivity_there_is_no_browser_installed_on_your_device">您的设备上无浏览器</string>
   <!--ConversationListFragment-->
@@ -255,7 +261,7 @@
   <string name="CustomDefaultPreference_none">没有</string>
   <!--DateUtils-->
   <string name="DateUtils_just_now">现在</string>
-  <string name="DateUtils_minutes_ago">%d 分钟</string>
+  <string name="DateUtils_minutes_ago">%d 分</string>
   <string name="DateUtils_today">今天</string>
   <string name="DateUtils_yesterday">昨天</string>
   <!--DeliveryStatus-->
@@ -406,7 +412,7 @@
   <!--MediaPickerItemFragment-->
   <string name="MediaPickerItemFragment_tap_to_select">点击以选择</string>
   <!--MediaSendActivity-->
-  <string name="MediaSendActivity_add_a_caption">添加注释...</string>
+  <string name="MediaSendActivity_add_a_caption">添加注释…</string>
   <string name="MediaSendActivity_an_item_was_removed_because_it_exceeded_the_size_limit">一个附件已被移除，因为它超过了文件大小限制。</string>
   <string name="MediaSendActivity_camera_unavailable">摄像头不可用。</string>
   <string name="MediaSendActivity_message_to_s">发送给 %s 的消息</string>
@@ -551,11 +557,14 @@
   <string name="RegistrationActivity_you_will_receive_a_verification_code">您会收到一条验证码。运营商可能会收取费用。
 </string>
   <string name="RegistrationActivity_enter_the_code_we_sent_to_s">请输入我们发送到%s的验证码</string>
+  <string name="RegistrationActivity_phone_number_description">手机号码</string>
+  <string name="RegistrationActivity_country_code_description">国家码</string>
   <string name="RegistrationActivity_call">拨号</string>
   <!--RevealableMessageView-->
-  <string name="RevealableMessageView_view_photo">查看照片</string>
-  <string name="RevealableMessageView_viewed">已阅</string>
   <string name="RevealableMessageView_photo">图片</string>
+  <string name="RevealableMessageView_video">视频</string>
+  <string name="RevealableMessageView_viewed">已阅</string>
+  <string name="RevealableMessageView_outgoing_media">媒体</string>
   <!--ScribbleActivity-->
   <string name="ScribbleActivity_save_failure">无法保存图像更改</string>
   <!--Search-->
@@ -615,6 +624,7 @@
   <string name="ThreadRecord_media_message">多媒体信息</string>
   <string name="ThreadRecord_sticker">表情</string>
   <string name="ThreadRecord_disappearing_photo">闪照</string>
+  <string name="ThreadRecord_disappearing_video">自毁视频</string>
   <string name="ThreadRecord_s_is_on_signal">%s 在 Signal 上！</string>
   <string name="ThreadRecord_disappearing_messages_disabled">阅后即焚功能已关闭</string>
   <string name="ThreadRecord_disappearing_message_time_updated_to_s">信息销毁时间设置为 %s</string>
@@ -649,6 +659,7 @@
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">剪切板中没有安全代码进行比较</string>
   <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Signal 需要相机权限以扫描 QR 码，但是该权限已经被永久拒绝，请进入应用程序设置，点击权限，并启用“相机”。</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">无法在没有访问相机的权限时扫描 QR 二维码</string>
+  <!--ViewOnceMessageActivity-->
   <!--MessageDisplayHelper-->
   <string name="MessageDisplayHelper_bad_encrypted_message">已损坏的加密消息</string>
   <string name="MessageDisplayHelper_message_encrypted_for_non_existing_session">已为不存在的会话加密其中的信息</string>
@@ -690,6 +701,7 @@
   <string name="MessageNotifier_media_message">媒体信息</string>
   <string name="MessageNotifier_sticker">表情包</string>
   <string name="MessageNotifier_disappearing_photo">闪照</string>
+  <string name="MessageNotifier_disappearing_video">自毁视频</string>
   <string name="MessageNotifier_reply">回复</string>
   <string name="MessageNotifier_signal_message">Signal 消息</string>
   <string name="MessageNotifier_unsecured_sms">未加密的短信</string>
@@ -818,11 +830,13 @@
   <!--conversation_item_received-->
   <string name="conversation_item_received__contact_photo_description">联系人照片</string>
   <!--audio_view-->
+  <string name="audio_view__play_pause_accessibility_description">播放 … 暂停</string>
   <string name="audio_view__download_accessibility_description">下载</string>
   <!--QuoteView-->
   <string name="QuoteView_audio">音频</string>
   <string name="QuoteView_video">视频</string>
   <string name="QuoteView_photo">图片</string>
+  <string name="QuoteView_media">附件信息</string>
   <string name="QuoteView_sticker">表情包</string>
   <string name="QuoteView_document">文档</string>
   <string name="QuoteView_you">您</string>
@@ -830,7 +844,7 @@
   <!--conversation_fragment-->
   <string name="conversation_fragment__scroll_to_the_bottom_content_description">滚动到底部</string>
   <!--country_selection_fragment-->
-  <string name="country_selection_fragment__loading_countries">正在读取国家列表...</string>
+  <string name="country_selection_fragment__loading_countries">正在读取国家列表…</string>
   <string name="country_selection_fragment__search">搜索</string>
   <!--device_add_fragment-->
   <string name="device_add_fragment__scan_the_qr_code_displayed_on_the_device_to_link">扫描设备上显示的二维码以便连接</string>
@@ -1098,6 +1112,7 @@
   <string name="preferences__linked_devices">已连接的设备</string>
   <string name="preferences__light_theme">明亮</string>
   <string name="preferences__dark_theme">黑暗</string>
+  <string name="preferences__system_theme">系统</string>
   <string name="preferences__appearance">外观</string>
   <string name="preferences__theme">主题</string>
   <string name="preferences__default">默认</string>
@@ -1280,7 +1295,7 @@
   <string name="RegistrationActivity_restore">还原</string>
   <string name="RegistrationActivity_backup_failure_downgrade">不能导入来自新版本的 Signal 备份。</string>
   <string name="RegistrationActivity_incorrect_backup_passphrase">备份密码错误</string>
-  <string name="RegistrationActivity_checking">检查中...</string>
+  <string name="RegistrationActivity_checking">检查中…</string>
   <string name="RegistrationActivity_d_messages_so_far">已处理 %d 条消息…</string>
   <string name="RegistrationActivity_restore_from_backup">从备份还原吗？</string>
   <string name="RegistrationActivity_restore_your_messages_and_media_from_a_local_backup">从本地备份恢复您的聊天信息和媒体信息。如果您现在不恢复，您将没有机会恢复。</string>
@@ -1301,6 +1316,9 @@
   <string name="RegistrationActivity_please_enter_the_verification_code_sent_to_s">请输入发送到 %s 的验证码。</string>
   <string name="RegistrationActivity_wrong_number">号码错误</string>
   <string name="RegistrationActivity_call_me_instead_available_in">打电话给我 \n （%1$02d:%2$02d后可用）</string>
+  <string name="RegistrationActivity_contact_signal_support">联系 Signal 支持</string>
+  <string name="RegistrationActivity_code_support_subject">Signal 注册 - 安卓验证码</string>
+  <string name="RegistrationActivity_code_support_body">主题：Signal 注册 - 安卓验证码\n设备信息：%1$s\n安卓版本：%2$s\nSignal 版本：%3$s\n地区：%4$s</string>
   <string name="BackupUtil_never">永不</string>
   <string name="BackupUtil_unknown">未知</string>
   <string name="preferences_app_protection__screen_lock">锁屏</string>

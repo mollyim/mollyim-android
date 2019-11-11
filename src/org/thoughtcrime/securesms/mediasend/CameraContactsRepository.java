@@ -7,16 +7,16 @@ import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.annotation.WorkerThread;
 
-import org.thoughtcrime.securesms.contacts.ContactsDatabase;
-import org.thoughtcrime.securesms.database.Address;
+import org.thoughtcrime.securesms.contacts.ContactRepository;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.database.GroupDatabase;
+import org.thoughtcrime.securesms.database.RecipientDatabase;
 import org.thoughtcrime.securesms.database.ThreadDatabase;
 import org.thoughtcrime.securesms.database.model.ThreadRecord;
 import org.thoughtcrime.securesms.recipients.Recipient;
+import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.util.concurrent.SignalExecutors;
 
-import java.net.CookieHandler;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -31,13 +31,15 @@ class CameraContactsRepository {
   private final Context           context;
   private final ThreadDatabase    threadDatabase;
   private final GroupDatabase     groupDatabase;
-  private final ContactsDatabase  contactsDatabase;
+  private final RecipientDatabase recipientDatabase;
+  private final ContactRepository contactRepository;
 
   CameraContactsRepository(@NonNull Context context) {
     this.context           = context.getApplicationContext();
     this.threadDatabase    = DatabaseFactory.getThreadDatabase(context);
     this.groupDatabase     = DatabaseFactory.getGroupDatabase(context);
-    this.contactsDatabase  = DatabaseFactory.getContactsDatabase(context);
+    this.recipientDatabase = DatabaseFactory.getRecipientDatabase(context);
+    this.contactRepository = new ContactRepository(context);
   }
 
   void getCameraContacts(@NonNull Callback<CameraContacts> callback) {
@@ -63,10 +65,10 @@ class CameraContactsRepository {
 
     List<Recipient> recipients = new ArrayList<>(RECENT_MAX);
 
-    try (ThreadDatabase.Reader threadReader = threadDatabase.readerFor(threadDatabase.getRecentPushConversationList(RECENT_MAX))) {
+    try (ThreadDatabase.Reader threadReader = threadDatabase.readerFor(threadDatabase.getRecentPushConversationList(RECENT_MAX, false))) {
       ThreadRecord threadRecord;
       while ((threadRecord = threadReader.getNext()) != null) {
-        recipients.add(threadRecord.getRecipient());
+        recipients.add(threadRecord.getRecipient().resolve());
       }
     }
 
@@ -77,10 +79,11 @@ class CameraContactsRepository {
   private @NonNull List<Recipient> getContacts(@NonNull String query) {
     List<Recipient> recipients = new ArrayList<>();
 
-    try (Cursor cursor = contactsDatabase.queryTextSecureContacts(query)) {
+    try (Cursor cursor = contactRepository.querySignalContacts(query)) {
       while (cursor.moveToNext()) {
-        Address address = Address.fromExternal(context, cursor.getString(1));
-        recipients.add(Recipient.from(context, address, false));
+        RecipientId id        = RecipientId.from(cursor.getLong(cursor.getColumnIndexOrThrow(ContactRepository.ID_COLUMN)));
+        Recipient   recipient = Recipient.resolved(id);
+        recipients.add(recipient);
       }
     }
 
@@ -95,10 +98,11 @@ class CameraContactsRepository {
 
     List<Recipient> recipients = new ArrayList<>();
 
-    try (GroupDatabase.Reader reader = groupDatabase.getGroupsFilteredByTitle(query)) {
+    try (GroupDatabase.Reader reader = groupDatabase.getGroupsFilteredByTitle(query, false)) {
       GroupDatabase.GroupRecord groupRecord;
       while ((groupRecord = reader.getNext()) != null) {
-        recipients.add(Recipient.from(context, Address.fromSerialized(groupRecord.getEncodedId()), false));
+        RecipientId recipientId = recipientDatabase.getOrInsertFromGroupId(groupRecord.getEncodedId());
+        recipients.add(Recipient.resolved(recipientId));
       }
     }
 

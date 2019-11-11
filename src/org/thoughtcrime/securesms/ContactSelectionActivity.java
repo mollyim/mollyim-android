@@ -20,6 +20,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import org.thoughtcrime.securesms.logging.Log;
 
 import org.thoughtcrime.securesms.components.ContactFilterToolbar;
@@ -63,7 +64,7 @@ public abstract class ContactSelectionActivity extends PassphraseRequiredActionB
   protected void onCreate(Bundle icicle, boolean ready) {
     if (!getIntent().hasExtra(ContactSelectionListFragment.DISPLAY_MODE)) {
       int displayMode = TextSecurePreferences.isSmsEnabled(this) ? DisplayMode.FLAG_ALL
-                                                                 : DisplayMode.FLAG_PUSH | DisplayMode.FLAG_GROUPS;
+                                                                 : DisplayMode.FLAG_PUSH | DisplayMode.FLAG_ACTIVE_GROUPS | DisplayMode.FLAG_INACTIVE_GROUPS;
       getIntent().putExtra(ContactSelectionListFragment.DISPLAY_MODE, displayMode);
     }
 
@@ -127,7 +128,6 @@ public abstract class ContactSelectionActivity extends PassphraseRequiredActionB
 
     @Override
     protected Void doInBackground(Context... params) {
-
       try {
         DirectoryHelper.refreshDirectory(params[0], true);
       } catch (IOException e) {
