@@ -12,7 +12,6 @@ import android.webkit.MimeTypeMap;
 
 import org.thoughtcrime.securesms.crypto.AttachmentSecret;
 import org.thoughtcrime.securesms.crypto.AttachmentSecretProvider;
-import org.thoughtcrime.securesms.crypto.ClassicDecryptingPartInputStream;
 import org.thoughtcrime.securesms.crypto.ModernDecryptingPartInputStream;
 import org.thoughtcrime.securesms.util.FileProviderUtil;
 
@@ -97,8 +96,7 @@ public class DeprecatedPersistentBlobProvider {
   public @NonNull InputStream getStream(@NonNull Context context, long id) throws IOException {
     FileData fileData = getFile(context, id);
 
-    if (fileData.modern) return ModernDecryptingPartInputStream.createFor(attachmentSecret, fileData.file, 0);
-    else                 return ClassicDecryptingPartInputStream.createFor(attachmentSecret, fileData.file);
+    return ModernDecryptingPartInputStream.createFor(attachmentSecret, fileData.file, 0);
   }
 
   private FileData getFile(@NonNull Context context, long id) {

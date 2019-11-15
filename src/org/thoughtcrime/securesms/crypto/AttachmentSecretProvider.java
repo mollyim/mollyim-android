@@ -45,16 +45,6 @@ public class AttachmentSecretProvider {
     return attachmentSecret;
   }
 
-  public synchronized AttachmentSecret setClassicKey(@NonNull Context context, @NonNull byte[] classicCipherKey, @NonNull byte[] classicMacKey) {
-    AttachmentSecret currentSecret    = getOrCreateAttachmentSecret();
-    currentSecret.setClassicCipherKey(classicCipherKey);
-    currentSecret.setClassicMacKey(classicMacKey);
-
-    storeAttachmentSecret(context, attachmentSecret);
-
-    return attachmentSecret;
-  }
-
   private AttachmentSecret getUnencryptedAttachmentSecret(@NonNull Context context, @NonNull String unencryptedSecret)
   {
     AttachmentSecret attachmentSecret = AttachmentSecret.fromString(unencryptedSecret);
