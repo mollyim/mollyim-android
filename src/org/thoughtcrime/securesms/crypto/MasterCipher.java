@@ -18,16 +18,15 @@
 package org.thoughtcrime.securesms.crypto;
 
 import androidx.annotation.NonNull;
-import org.thoughtcrime.securesms.logging.Log;
+import androidx.annotation.Nullable;
 
-import org.whispersystems.libsignal.InvalidMessageException;
+import org.whispersystems.libsignal.InvalidKeyException;
 import org.whispersystems.libsignal.ecc.Curve;
 import org.whispersystems.libsignal.ecc.ECPrivateKey;
 import org.whispersystems.libsignal.ecc.ECPublicKey;
 
 import java.security.GeneralSecurityException;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
@@ -71,66 +70,69 @@ public class MasterCipher {
   }
 
   public byte[] encryptPrivateKey(ECPrivateKey privateKey) {
-    return encryptBytes(privateKey.serialize());
+    return encrypt(privateKey.serialize(), "ECPrivateKey".getBytes());
   }
 
   public byte[] encryptPublicKey(ECPublicKey publicKey) {
-    return encryptBytes(publicKey.serialize());
+    return encrypt(publicKey.serialize(), "ECPublicKey".getBytes());
   }
 
-  public ECPrivateKey decryptPrivateKey(byte[] key)
-      throws org.whispersystems.libsignal.InvalidKeyException
-  {
+  public ECPrivateKey decryptPrivateKey(byte[] key) throws InvalidKeyException {
     try {
-      return Curve.decodePrivatePoint(decryptBytes(key));
-    } catch (InvalidMessageException ime) {
-      throw new org.whispersystems.libsignal.InvalidKeyException(ime);
-    }
-  }
-
-  public ECPublicKey decryptPublicKey(byte[] key)
-       throws org.whispersystems.libsignal.InvalidKeyException
-  {
-    try {
-      return Curve.decodePoint(decryptBytes(key), 0);
-    } catch (InvalidMessageException ime) {
-      throw new org.whispersystems.libsignal.InvalidKeyException(ime);
-    }
-  }
-
-  public byte[] decryptBytes(@NonNull byte[] decodedBody) throws InvalidMessageException {
-    try {
-      Mac mac              = getMac(masterSecret.getMacKey());
-      byte[] encryptedBody = verifyMacBody(mac, decodedBody);
-			
-      Cipher cipher        = getDecryptingCipher(masterSecret.getEncryptionKey(), encryptedBody);
-      byte[] encrypted     = getDecryptedBody(cipher, encryptedBody);
-			
-      return encrypted;
+      return Curve.decodePrivatePoint(decrypt(key, "ECPrivateKey".getBytes()));
     } catch (GeneralSecurityException ge) {
-      throw new InvalidMessageException(ge);
+      throw new InvalidKeyException(ge);
     }
   }
 
-  public byte[] encryptBytes(byte[] body) {
+  public ECPublicKey decryptPublicKey(byte[] key) throws InvalidKeyException {
     try {
-      Cipher cipher              = getEncryptingCipher(masterSecret.getEncryptionKey());
-      Mac    mac                 = getMac(masterSecret.getMacKey());
-		
+      return Curve.decodePoint(decrypt(key, "ECPublicKey".getBytes()), 0);
+    } catch (GeneralSecurityException ge) {
+      throw new InvalidKeyException(ge);
+    }
+  }
+
+  public byte[] decrypt(@NonNull byte[] body) throws GeneralSecurityException {
+    return decrypt(body, null);
+  }
+
+  public byte[] decrypt(@NonNull byte[] body, @Nullable byte[] ad) throws GeneralSecurityException {
+    Mac mac = getMac(masterSecret.getMacKey());
+
+    mac.update(ad);
+
+    byte[] encryptedBody = verifyMacBody(mac, body);
+
+    Cipher cipher    = getDecryptingCipher(masterSecret.getEncryptionKey(), encryptedBody);
+    byte[] encrypted = getDecryptedBody(cipher, encryptedBody);
+
+    return encrypted;
+  }
+
+  public byte[] encrypt(byte[] body) {
+    return encrypt(body, null);
+  }
+
+  public byte[] encrypt(@NonNull byte[] body, @Nullable byte[] ad) {
+    try {
+      Cipher cipher = getEncryptingCipher(masterSecret.getEncryptionKey());
+      Mac    mac    = getMac(masterSecret.getMacKey());
+
+      mac.update(ad);
+
       byte[] encryptedBody       = getEncryptedBody(cipher, body);
       byte[] encryptedAndMacBody = getMacBody(mac, encryptedBody);
-		
+
       return encryptedAndMacBody;
     } catch (GeneralSecurityException ge) {
-      Log.w("bodycipher", ge);
-      return null;
-    }	
-		
+      throw new AssertionError(ge);
+    }
   }
-	
-  private byte[] verifyMacBody(@NonNull Mac hmac, @NonNull byte[] encryptedAndMac) throws InvalidMessageException {
+
+  private byte[] verifyMacBody(@NonNull Mac hmac, @NonNull byte[] encryptedAndMac) throws GeneralSecurityException {
     if (encryptedAndMac.length < hmac.getMacLength()) {
-      throw new InvalidMessageException("length(encrypted body + MAC) < length(MAC)");
+      throw new GeneralSecurityException("length(encrypted body + MAC) < length(MAC)");
     }
 
     byte[] encrypted = new byte[encryptedAndMac.length - hmac.getMacLength()];
@@ -140,9 +142,10 @@ public class MasterCipher {
     System.arraycopy(encryptedAndMac, encryptedAndMac.length - remoteMac.length, remoteMac, 0, remoteMac.length);
 		
     byte[] localMac  = hmac.doFinal(encrypted);
-		
-    if (!Arrays.equals(remoteMac, localMac))
-      throw new InvalidMessageException("MAC doesen't match.");
+
+    if (!MessageDigest.isEqual(remoteMac, localMac)) {
+      throw new GeneralSecurityException("MAC doesen't match.");
+    }
 		
     return encrypted;
   }
@@ -164,7 +167,7 @@ public class MasterCipher {
     return ivAndBody;
   }
 	
-  private Mac getMac(SecureSecretKeySpec key) throws InvalidKeyException {
+  private Mac getMac(SecureSecretKeySpec key) throws GeneralSecurityException {
     hmac.init(key);
 
     return hmac;
@@ -179,15 +182,15 @@ public class MasterCipher {
 		
     return encryptedAndMac;
   }
-	
-  private Cipher getDecryptingCipher(SecureSecretKeySpec key, byte[] encryptedBody) throws InvalidKeyException, InvalidAlgorithmParameterException {
+
+  private Cipher getDecryptingCipher(SecureSecretKeySpec key, byte[] encryptedBody) throws GeneralSecurityException {
     IvParameterSpec iv = new IvParameterSpec(encryptedBody, 0, decryptingCipher.getBlockSize());
     decryptingCipher.init(Cipher.DECRYPT_MODE, key, iv);
 		
     return decryptingCipher;
   }
 	
-  private Cipher getEncryptingCipher(SecureSecretKeySpec key) throws InvalidKeyException {
+  private Cipher getEncryptingCipher(SecureSecretKeySpec key) throws GeneralSecurityException {
     encryptingCipher.init(Cipher.ENCRYPT_MODE, key);
 
     return encryptingCipher;

@@ -87,13 +87,13 @@ public class IdentityKeyUtil {
   }
 
   public static @NonNull IdentityKey getIdentityKey(@NonNull Context context) {
-    try (MasterSecret masterSecret = KeyCachingService.getMasterSecret(context)) {
+    try (MasterSecret masterSecret = KeyCachingService.getMasterSecret()) {
       return getIdentityKey(context, masterSecret);
     }
   }
 
   public static @NonNull IdentityKeyPair getIdentityKeyPair(@NonNull Context context) {
-    try (MasterSecret masterSecret = KeyCachingService.getMasterSecret(context)) {
+    try (MasterSecret masterSecret = KeyCachingService.getMasterSecret()) {
       return getIdentityKeyPair(context, masterSecret);
     }
   }

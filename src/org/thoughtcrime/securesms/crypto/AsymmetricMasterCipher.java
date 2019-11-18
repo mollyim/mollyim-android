@@ -28,6 +28,7 @@ import org.whispersystems.libsignal.ecc.ECPublicKey;
 import org.thoughtcrime.securesms.util.Conversions;
 
 import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.security.NoSuchAlgorithmException;
 
 import javax.crypto.Mac;
@@ -67,7 +68,7 @@ public class AsymmetricMasterCipher {
       ECKeyPair    ourKeyPair         = Curve.generateKeyPair();
       byte[]       secret             = Curve.calculateAgreement(theirPublic, ourKeyPair.getPrivateKey());
       MasterCipher masterCipher       = getMasterCipherForSecret(secret);
-      byte[]       encryptedBodyBytes = masterCipher.encryptBytes(body);
+      byte[]       encryptedBodyBytes = masterCipher.encrypt(body);
 
       PublicKey    ourPublicKey       = new PublicKey(31337, ourKeyPair.getPublicKey());
       byte[]       publicKeyBytes     = ourPublicKey.serialize();
@@ -87,8 +88,8 @@ public class AsymmetricMasterCipher {
       byte[]       secret        = Curve.calculateAgreement(theirPublicKey.getKey(), ourPrivateKey);
       MasterCipher masterCipher  = getMasterCipherForSecret(secret);
 
-      return masterCipher.decryptBytes(parts[1]);
-    } catch (InvalidKeyException e) {
+      return masterCipher.decrypt(parts[1]);
+    } catch (InvalidKeyException | GeneralSecurityException e) {
       throw new InvalidMessageException(e);
     }
   }
