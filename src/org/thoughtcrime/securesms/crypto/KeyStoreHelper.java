@@ -76,7 +76,7 @@ public class KeyStoreHelper {
   }
 
   @RequiresApi(Build.VERSION_CODES.M)
-  private static SecretKey getOrCreateKeyStoreEntry() {
+  private synchronized static SecretKey getOrCreateKeyStoreEntry() {
     if (hasKeyStoreEntry()) return getKeyStoreEntry();
     else                    return createKeyStoreEntry();
   }
