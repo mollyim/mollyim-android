@@ -7,6 +7,7 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/utils
 LOCAL_CFLAGS     += -Wall
 
 LOCAL_SRC_FILES := utils/org_thoughtcrime_securesms_util_FileUtils.cpp
+LOCAL_SRC_FILES += utils/org_thoughtcrime_securesms_service_WipeMemoryService.c
 
 include $(BUILD_SHARED_LIBRARY)
 
