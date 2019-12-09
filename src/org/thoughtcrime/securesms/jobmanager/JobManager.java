@@ -22,10 +22,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.Callable;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
+import java.util.concurrent.RejectedExecutionException;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Allows the scheduling of durable jobs that will be run as early as possible.
@@ -60,7 +63,7 @@ public class JobManager implements ConstraintObserver.Notifier {
                                            new Debouncer(500),
                                            this::onEmptyQueue);
 
-    executor.execute(() -> {
+    executeTask(() -> {
       if (WorkManagerMigrator.needsMigration(application)) {
         Log.i(TAG, "Detected an old WorkManager database. Migrating.");
         WorkManagerMigrator.migrate(application, configuration.getJobStorage(), configuration.getDataSerializer());
@@ -88,12 +91,27 @@ public class JobManager implements ConstraintObserver.Notifier {
    * Begins the execution of jobs.
    */
   public void beginJobLoop() {
-    executor.execute(() -> {
+    executeTask(() -> {
       for (int i = 0; i < configuration.getJobThreadCount(); i++) {
         new JobRunner(application, i + 1, jobController).start();
       }
       wakeUp();
     });
+  }
+
+  public void shutdown(long timeoutMillis) {
+    executor.shutdown();
+    try {
+      if (!executor.awaitTermination(timeoutMillis, TimeUnit.MILLISECONDS)) {
+        Log.w(TAG, "Gave up waiting for executor to shut down.");
+      }
+    } catch (InterruptedException ie) {
+      Log.w(TAG, ie);
+    }
+
+    if (Build.VERSION.SDK_INT < 26) {
+      application.stopService(new Intent(application, KeepAliveService.class));
+    }
   }
 
   /**
@@ -143,7 +161,7 @@ public class JobManager implements ConstraintObserver.Notifier {
     Future<String> result = executor.submit(jobController::getDebugInfo);
     try {
       return result.get();
-    } catch (ExecutionException | InterruptedException e) {
+    } catch (ExecutionException | InterruptedException | RejectedExecutionException e) {
       Log.w(TAG, "Failed to retrieve Job info.", e);
       return "Failed to retrieve Job info.";
     }
@@ -153,7 +171,7 @@ public class JobManager implements ConstraintObserver.Notifier {
    * Adds a listener that will be notified when the job queue has been drained.
    */
   void addOnEmptyQueueListener(@NonNull EmptyQueueListener listener) {
-    executor.execute(() -> {
+    executeTask(() -> {
       emptyQueueListeners.add(listener);
     });
   }
@@ -162,7 +180,7 @@ public class JobManager implements ConstraintObserver.Notifier {
    * Removes a listener that was added via {@link #addOnEmptyQueueListener(EmptyQueueListener)}.
    */
   void removeOnEmptyQueueListener(@NonNull EmptyQueueListener listener) {
-    executor.execute(() -> {
+    executeTask(() -> {
       emptyQueueListeners.remove(listener);
     });
   }
@@ -177,7 +195,15 @@ public class JobManager implements ConstraintObserver.Notifier {
    * Pokes the system to take another pass at the job queue.
    */
   void wakeUp() {
-    executor.execute(jobController::wakeUp);
+    executeTask(jobController::wakeUp);
+  }
+
+  private void executeTask(Runnable task) {
+    try {
+      executor.execute(task);
+    } catch (RejectedExecutionException e) {
+      Log.w(TAG, "Task " + task.toString() + " rejected for execution.");
+    }
   }
 
   private void enqueueChain(@NonNull Chain chain) {
@@ -187,14 +213,14 @@ public class JobManager implements ConstraintObserver.Notifier {
       }
     }
 
-    executor.execute(() -> {
+    executeTask(() -> {
       jobController.submitNewJobChain(chain.getJobListChain());
       wakeUp();
     });
   }
 
   private void onEmptyQueue() {
-    executor.execute(() -> {
+    executeTask(() -> {
       for (EmptyQueueListener listener : emptyQueueListeners) {
         listener.onQueueEmpty();
       }

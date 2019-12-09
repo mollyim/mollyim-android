@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.IdRes;
@@ -96,9 +97,12 @@ public abstract class PassphraseRequiredActionBarActivity extends PassphraseActi
 
   @Override
   public void onMasterSecretCleared() {
-    Log.d(TAG, "onMasterSecretCleared()");
-    if (ApplicationContext.getInstance(this).isAppVisible()) routeApplicationState(true);
-    else                                                     finish();
+    Log.d(TAG, "[" + Log.tag(getClass()) + "] onMasterSecretCleared()");
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+      finishAndRemoveTask();
+    } else {
+      finish();
+    }
   }
 
   protected <T extends Fragment> T initFragment(@IdRes int target,

@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
 import org.thoughtcrime.securesms.ApplicationContext;
+import org.thoughtcrime.securesms.crypto.EncryptedPreferences;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.logging.Log;
 
@@ -22,7 +23,7 @@ public class JobSchedulerScheduler implements Scheduler {
 
   private static final String TAG = JobSchedulerScheduler.class.getSimpleName();
 
-  private static final String PREF_NAME    = "JobSchedulerScheduler_prefs";
+  private static final String PREF_NAME    = "JobSchedulerScheduler";
   private static final String PREF_NEXT_ID = "pref_next_id";
 
   private static final int MAX_ID = 20;
@@ -50,7 +51,7 @@ public class JobSchedulerScheduler implements Scheduler {
   }
 
   private int getNextId() {
-    SharedPreferences prefs      = application.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+    SharedPreferences prefs      = EncryptedPreferences.create(application, PREF_NAME);
     int               returnedId = prefs.getInt(PREF_NEXT_ID, 0);
     int               nextId     = returnedId + 1 > MAX_ID ? 0 : returnedId + 1;
 

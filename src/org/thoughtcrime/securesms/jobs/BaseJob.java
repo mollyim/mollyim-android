@@ -7,7 +7,7 @@ import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobmanager.JobLogger;
 import org.thoughtcrime.securesms.logging.Log;
 
-public abstract class BaseJob extends Job {
+public abstract class BaseJob extends MasterSecretJob {
 
   private static final String TAG = BaseJob.class.getSimpleName();
 

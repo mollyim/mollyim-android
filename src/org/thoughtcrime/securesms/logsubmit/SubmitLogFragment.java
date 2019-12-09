@@ -374,6 +374,11 @@ public class SubmitLogFragment extends Fragment {
         scrubbedLogcat = "Failed to retrieve logs.";
       }
 
+      CharSequence scrubbedJobs = "None";
+      try {
+        scrubbedJobs = Scrubber.scrub(ApplicationDependencies.getJobManager().getDebugInfo());
+      } catch (IllegalStateException ignored) {}
+
       StringBuilder stringBuilder = new StringBuilder();
 
       stringBuilder.append(HEADER_SYSINFO)
@@ -382,7 +387,7 @@ public class SubmitLogFragment extends Fragment {
                    .append("\n\n\n")
                    .append(HEADER_JOBS)
                    .append("\n\n")
-                   .append(Scrubber.scrub(ApplicationDependencies.getJobManager().getDebugInfo()))
+                   .append(scrubbedJobs)
                    .append("\n\n\n");
 
       if (VERSION.SDK_INT >= 28) {
@@ -521,6 +526,11 @@ public class SubmitLogFragment extends Fragment {
     final PackageManager pm      = context.getPackageManager();
     final StringBuilder  builder = new StringBuilder();
 
+    double averageFps = 0;
+    try {
+      averageFps = ApplicationDependencies.getFrameRateTracker().getRunningAverageFps();
+    } catch (IllegalStateException ignored) {}
+
     builder.append("Time         : ").append(System.currentTimeMillis()).append('\n');
     builder.append("Device       : ").append(Build.MANUFACTURER).append(" ")
                                      .append(Build.MODEL).append(" (")
@@ -533,7 +543,7 @@ public class SubmitLogFragment extends Fragment {
     builder.append("Memclass     : ").append(getMemoryClass(context)).append("\n");
     builder.append("OS Host      : ").append(Build.HOST).append("\n");
     builder.append("Refresh Rate : ").append(String.format(Locale.ENGLISH, "%.2f", FrameRateTracker.getDisplayRefreshRate(context))).append(" hz").append("\n");
-    builder.append("Average FPS  : ").append(String.format(Locale.ENGLISH, "%.2f", ApplicationDependencies.getFrameRateTracker().getRunningAverageFps())).append("\n");
+    builder.append("Average FPS  : ").append(String.format(Locale.ENGLISH, "%.2f", averageFps)).append("\n");
     builder.append("First Version: ").append(TextSecurePreferences.getFirstInstallVersion(context)).append("\n");
     builder.append("App          : ");
     try {

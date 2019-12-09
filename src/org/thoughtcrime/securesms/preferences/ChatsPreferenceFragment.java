@@ -59,7 +59,7 @@ public class ChatsPreferenceFragment extends ListSummaryPreferenceFragment {
   }
 
   @Override
-  public void onCreatePreferences(@Nullable Bundle savedInstanceState, String rootKey) {
+  public void onCreateEncryptedPreferences(@Nullable Bundle savedInstanceState, String rootKey) {
     addPreferencesFromResource(R.xml.preferences_chats);
   }
 

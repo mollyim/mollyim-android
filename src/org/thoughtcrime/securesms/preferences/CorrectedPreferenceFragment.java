@@ -7,6 +7,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.core.view.ViewCompat;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
+import androidx.preference.PreferenceDataStore;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceGroupAdapter;
 import androidx.preference.PreferenceScreen;
@@ -19,6 +20,7 @@ import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.components.CustomDefaultPreference;
 import org.thoughtcrime.securesms.preferences.widgets.ColorPickerPreference;
 import org.thoughtcrime.securesms.preferences.widgets.ColorPickerPreferenceDialogFragmentCompat;
+import org.thoughtcrime.securesms.util.SecurePreferenceManager;
 
 public abstract class CorrectedPreferenceFragment extends PreferenceFragmentCompat {
 
@@ -26,6 +28,16 @@ public abstract class CorrectedPreferenceFragment extends PreferenceFragmentComp
   public void onCreate(Bundle icicle) {
     super.onCreate(icicle);
   }
+
+  @Override
+  public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+    PreferenceDataStore dataStore = new SharedPreferencesDataStore(
+            SecurePreferenceManager.getSecurePreferences(getContext()));
+    getPreferenceManager().setPreferenceDataStore(dataStore);
+    onCreateEncryptedPreferences(savedInstanceState, rootKey);
+  }
+
+  protected abstract void onCreateEncryptedPreferences(Bundle savedInstanceState, String rootKey);
 
   @Override
   public void onActivityCreated(Bundle savedInstanceState) {

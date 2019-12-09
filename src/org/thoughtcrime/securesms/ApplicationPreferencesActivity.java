@@ -18,7 +18,6 @@
 package org.thoughtcrime.securesms;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
@@ -38,7 +37,6 @@ import org.thoughtcrime.securesms.preferences.NotificationsPreferenceFragment;
 import org.thoughtcrime.securesms.preferences.SmsMmsPreferenceFragment;
 import org.thoughtcrime.securesms.preferences.StoragePreferenceFragment;
 import org.thoughtcrime.securesms.preferences.widgets.ProfilePreference;
-import org.thoughtcrime.securesms.service.KeyCachingService;
 import org.thoughtcrime.securesms.usernames.ProfileEditActivityV2;
 import org.thoughtcrime.securesms.util.DynamicLanguage;
 import org.thoughtcrime.securesms.util.DynamicTheme;
@@ -54,7 +52,6 @@ import org.thoughtcrime.securesms.util.ThemeUtil;
  */
 
 public class ApplicationPreferencesActivity extends PassphraseRequiredActionBarActivity
-    implements SharedPreferences.OnSharedPreferenceChangeListener
 {
   @SuppressWarnings("unused")
   private static final String TAG = ApplicationPreferencesActivity.class.getSimpleName();
@@ -120,19 +117,6 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActionBarA
     return true;
   }
 
-  @Override
-  public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-    if (key.equals(TextSecurePreferences.THEME_PREF)) {
-      recreate();
-    } else if (key.equals(TextSecurePreferences.LANGUAGE_PREF)) {
-      recreate();
-
-      Intent intent = new Intent(this, KeyCachingService.class);
-      intent.setAction(KeyCachingService.LOCALE_CHANGE_EVENT);
-      startService(intent);
-    }
-  }
-
   public static class ApplicationPreferenceFragment extends CorrectedPreferenceFragment {
 
     @Override
@@ -169,7 +153,7 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActionBarA
     }
 
     @Override
-    public void onCreatePreferences(@Nullable Bundle savedInstanceState, String rootKey) {
+    public void onCreateEncryptedPreferences(@Nullable Bundle savedInstanceState, String rootKey) {
       addPreferencesFromResource(R.xml.preferences);
     }
 

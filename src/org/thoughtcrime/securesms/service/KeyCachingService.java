@@ -29,20 +29,16 @@ import android.os.Build;
 import android.os.IBinder;
 import android.os.SystemClock;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
 import org.thoughtcrime.securesms.ApplicationContext;
 import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.MainActivity;
-import org.thoughtcrime.securesms.crypto.UnrecoverableKeyException;
 import org.thoughtcrime.securesms.logging.Log;
 
 import org.thoughtcrime.securesms.DummyActivity;
 import org.thoughtcrime.securesms.R;
-import org.thoughtcrime.securesms.crypto.InvalidPassphraseException;
 import org.thoughtcrime.securesms.crypto.MasterSecret;
-import org.thoughtcrime.securesms.crypto.MasterSecretUtil;
 import org.thoughtcrime.securesms.migrations.ApplicationMigrations;
 import org.thoughtcrime.securesms.notifications.MessageNotifier;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
@@ -76,21 +72,19 @@ public class KeyCachingService extends Service {
 
   private static MasterSecret masterSecret;
 
+  private static volatile boolean locking;
+
   public KeyCachingService() {}
 
-  public static synchronized boolean isLocked(Context context) {
-    return masterSecret == null && TextSecurePreferences.isPassphraseLockEnabled(context);
+  public static boolean isLocked(Context context) {
+    return isLocked();
   }
 
-  public static synchronized MasterSecret getMasterSecret(Context context) {
-    if (!TextSecurePreferences.isPassphraseLockEnabled(context)) {
-      try {
-        return MasterSecretUtil.getMasterSecret(context, MasterSecretUtil.UNENCRYPTED_PASSPHRASE);
-      } catch (InvalidPassphraseException | UnrecoverableKeyException e) {
-        throw new AssertionError(e);
-      }
-    }
+  public static synchronized boolean isLocked() {
+    return masterSecret == null || locking;
+  }
 
+  public static synchronized MasterSecret getMasterSecret() {
     while (masterSecret == null) {
       try {
         KeyCachingService.class.wait();
@@ -100,6 +94,14 @@ public class KeyCachingService extends Service {
     }
 
     return masterSecret.clone();
+  }
+
+  public static synchronized void clearMasterSecret() {
+    if (masterSecret != null) {
+      masterSecret.close();
+      masterSecret = null;
+    }
+    locking = false;
   }
 
   public static void onAppForegrounded(@NonNull Context context) {
@@ -114,7 +116,6 @@ public class KeyCachingService extends Service {
   public void setMasterSecret(final MasterSecret masterSecret) {
     synchronized (KeyCachingService.class) {
       KeyCachingService.masterSecret = masterSecret;
-
       KeyCachingService.class.notifyAll();
 
       foregroundService();
@@ -127,27 +128,6 @@ public class KeyCachingService extends Service {
           if (!ApplicationMigrations.isUpdate(KeyCachingService.this)) {
             MessageNotifier.updateNotification(KeyCachingService.this);
           }
-          return null;
-        }
-      }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-    }
-  }
-
-  @SuppressLint("StaticFieldLeak")
-  public void clearMasterSecret() {
-    synchronized (KeyCachingService.class) {
-      if (masterSecret != null) {
-        masterSecret.close();
-        masterSecret = null;
-      }
-
-      stopForeground(true);
-      sendPackageBroadcast(CLEAR_KEY_EVENT);
-
-      new AsyncTask<Void, Void, Void>() {
-        @Override
-        protected Void doInBackground(Void... params) {
-          MessageNotifier.clearNotifications(KeyCachingService.this, true);
           return null;
         }
       }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -174,22 +154,13 @@ public class KeyCachingService extends Service {
   public void onCreate() {
     Log.i(TAG, "onCreate()");
     super.onCreate();
-
-    if (!TextSecurePreferences.isPassphraseLockEnabled(this)) {
-      try {
-        MasterSecret masterSecret = MasterSecretUtil.getMasterSecret(this, MasterSecretUtil.UNENCRYPTED_PASSPHRASE);
-        setMasterSecret(masterSecret);
-      } catch (InvalidPassphraseException | UnrecoverableKeyException e) {
-        // TODO
-      }
-    }
   }
 
   @Override
   public void onDestroy() {
     super.onDestroy();
     Log.w(TAG, "KCS Is Being Destroyed!");
-    handleClearKey();
+    if (locking) clearMasterSecret();
   }
 
   /**
@@ -203,9 +174,27 @@ public class KeyCachingService extends Service {
     startActivity(intent);
   }
 
+  @SuppressLint("StaticFieldLeak")
   private void handleClearKey() {
     Log.i(TAG, "handleClearKey()");
-    clearMasterSecret();
+
+    if (ApplicationMigrations.isUpdate(this)) {
+      Log.w(TAG, "Cannot clear key during update.");
+      return;
+    }
+
+    KeyCachingService.locking = true;
+    stopSelf();
+
+    sendPackageBroadcast(CLEAR_KEY_EVENT);
+
+    new AsyncTask<Void, Void, Void>() {
+      @Override
+      protected Void doInBackground(Void... params) {
+        MessageNotifier.clearNotifications(KeyCachingService.this, true);
+        return null;
+      }
+    }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
   }
 
   private void handleLocaleChanged() {
@@ -215,7 +204,7 @@ public class KeyCachingService extends Service {
 
   private static void startTimeoutIfAppropriate(@NonNull Context context) {
     if (!ApplicationContext.getInstance(context).isAppVisible()
-        && !KeyCachingService.isLocked(context)
+        && !KeyCachingService.isLocked()
         && TextSecurePreferences.isPassphraseLockEnabled(context)
         && TextSecurePreferences.getPassphraseLockTrigger(context).isTimeoutEnabled()) {
       long lockTimeoutSeconds = TextSecurePreferences.getPassphraseLockTimeout(context);
@@ -246,6 +235,7 @@ public class KeyCachingService extends Service {
     }
 
     Log.i(TAG, "foregrounding KCS");
+    NotificationChannels.create(this);
     NotificationCompat.Builder builder = new NotificationCompat.Builder(this, NotificationChannels.LOCKED_STATUS);
 
     builder.setContentTitle(getString(R.string.KeyCachingService_passphrase_cached));

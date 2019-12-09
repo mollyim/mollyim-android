@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat;
 import org.thoughtcrime.securesms.IncomingMessageProcessor.Processor;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.jobmanager.ConstraintObserver;
+import org.thoughtcrime.securesms.jobmanager.impl.MasterSecretConstraint;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraintObserver;
 import org.thoughtcrime.securesms.logging.Log;
@@ -42,6 +43,7 @@ public class IncomingMessageObserver implements ConstraintObserver.Notifier {
   private static SignalServiceMessagePipe unidentifiedPipe = null;
 
   private final Context                      context;
+  private final MasterSecretConstraint       masterSecretConstraint;
   private final NetworkConstraint            networkConstraint;
   private final SignalServiceNetworkAccess   networkAccess;
 
@@ -52,6 +54,8 @@ public class IncomingMessageObserver implements ConstraintObserver.Notifier {
     this.context           = context;
     this.networkConstraint = new NetworkConstraint.Factory(ApplicationContext.getInstance(context)).create();
     this.networkAccess     = ApplicationDependencies.getSignalServiceNetworkAccess();
+
+    this.masterSecretConstraint = new MasterSecretConstraint.Factory(ApplicationContext.getInstance(context)).create();
 
     new NetworkConstraintObserver(ApplicationContext.getInstance(context)).register(this);
     new MessageRetrievalThread().start();
@@ -71,6 +75,10 @@ public class IncomingMessageObserver implements ConstraintObserver.Notifier {
         onAppBackgrounded();
       }
     });
+  }
+
+  public void quit() {
+    context.stopService(new Intent(context, ForegroundService.class));
   }
 
   @Override
@@ -100,6 +108,7 @@ public class IncomingMessageObserver implements ConstraintObserver.Notifier {
            TextSecurePreferences.isWebsocketRegistered(context) &&
            (appVisible || isGcmDisabled)                        &&
            networkConstraint.isMet()                       &&
+           masterSecretConstraint.isMet()                       &&
            !networkAccess.isCensored(context);
   }
 

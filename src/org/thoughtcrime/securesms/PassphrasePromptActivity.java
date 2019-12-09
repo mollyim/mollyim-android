@@ -86,7 +86,18 @@ public class PassphrasePromptActivity extends PassphraseActivity {
     dynamicTheme.onResume(this);
     dynamicLanguage.onResume(this);
 
-    setPassphraseVisibility(true);
+    boolean passphraseEnabled = false;
+
+    try {
+      MasterSecret masterSecret = MasterSecretUtil.getMasterSecret(this, MasterSecretUtil.UNENCRYPTED_PASSPHRASE);
+      setMasterSecret(masterSecret);
+    } catch (InvalidPassphraseException | UnrecoverableKeyException e) {
+      Log.d(TAG, "Passphrase lock is enabled.");
+      passphraseEnabled = true;
+    }
+
+    TextSecurePreferences.setPassphraseLockEnabled(this, passphraseEnabled);
+    setPassphraseVisibility(passphraseEnabled);
   }
 
   @Override

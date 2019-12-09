@@ -10,6 +10,8 @@ import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobmanager.JobMigration;
 import org.thoughtcrime.securesms.jobmanager.impl.CellServiceConstraint;
 import org.thoughtcrime.securesms.jobmanager.impl.CellServiceConstraintObserver;
+import org.thoughtcrime.securesms.jobmanager.impl.MasterSecretConstraint;
+import org.thoughtcrime.securesms.jobmanager.impl.MasterSecretConstraintObserver;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraintObserver;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkOrCellServiceConstraint;
@@ -101,6 +103,7 @@ public final class JobManagerFactories {
   public static Map<String, Constraint.Factory> getConstraintFactories(@NonNull Application application) {
     return new HashMap<String, Constraint.Factory>() {{
       put(CellServiceConstraint.KEY,          new CellServiceConstraint.Factory(application));
+      put(MasterSecretConstraint.KEY,         new MasterSecretConstraint.Factory(application));
       put(NetworkConstraint.KEY,              new NetworkConstraint.Factory(application));
       put(NetworkOrCellServiceConstraint.KEY, new NetworkOrCellServiceConstraint.Factory(application));
     }};
@@ -108,7 +111,8 @@ public final class JobManagerFactories {
 
   public static List<ConstraintObserver> getConstraintObservers(@NonNull Application application) {
     return Arrays.asList(CellServiceConstraintObserver.getInstance(application),
-                         new NetworkConstraintObserver(application));
+                         new NetworkConstraintObserver(application),
+                         new MasterSecretConstraintObserver(application));
   }
 
   public static List<JobMigration> getJobMigrations(@NonNull Application application) {

@@ -16,18 +16,14 @@
  */
 package org.thoughtcrime.securesms;
 
-import android.annotation.SuppressLint;
-import android.os.AsyncTask;
 import android.os.Bundle;
 
 import android.view.View;
-import org.thoughtcrime.securesms.crypto.IdentityKeyUtil;
+
 import org.thoughtcrime.securesms.crypto.MasterSecret;
 import org.thoughtcrime.securesms.crypto.MasterSecretUtil;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
-import org.thoughtcrime.securesms.util.Util;
-import org.thoughtcrime.securesms.util.VersionTracker;
 import org.thoughtcrime.securesms.util.ViewUtil;
 
 /**
@@ -39,6 +35,9 @@ import org.thoughtcrime.securesms.util.ViewUtil;
 public class PassphraseCreateActivity extends PassphraseActivity {
 
   private static final String TAG = Log.tag(PassphraseCreateActivity.class);
+
+  private View yesButton;
+  private View noButton;
 
   public PassphraseCreateActivity() { }
 
@@ -53,8 +52,8 @@ public class PassphraseCreateActivity extends PassphraseActivity {
   }
 
   private void initializeResources() {
-    View yesButton = ViewUtil.findById(this,R.id.yes_button);
-    View noButton  = ViewUtil.findById(this,R.id.no_button);
+    yesButton = ViewUtil.findById(this,R.id.yes_button);
+    noButton  = ViewUtil.findById(this,R.id.no_button);
 
     yesButton.setOnClickListener(v -> onButtonClicked(true));
     noButton.setOnClickListener(v -> onButtonClicked(false));
@@ -69,48 +68,23 @@ public class PassphraseCreateActivity extends PassphraseActivity {
     if (passphraseEnabled) {
       ChangePassphraseDialogFragment dialog = ChangePassphraseDialogFragment.newInstance(ChangePassphraseDialogFragment.MODE_ENABLE);
 
-      dialog.setMasterSecretChangedListener(masterSecret -> {
-        TextSecurePreferences.setPassphraseLockEnabled(this, true);
-        new SecretGenerator(masterSecret).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-      });
-
+      dialog.setMasterSecretChangedListener(this::generateSecrets);
       dialog.show(getSupportFragmentManager(), "ChangePassphraseDialogFragment");
     } else {
-      MasterSecret masterSecret = MasterSecretUtil.generateMasterSecret(this, MasterSecretUtil.UNENCRYPTED_PASSPHRASE);
-
-      new SecretGenerator(masterSecret).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+      generateSecrets(MasterSecretUtil.generateMasterSecret(this, MasterSecretUtil.UNENCRYPTED_PASSPHRASE));
     }
+
+    TextSecurePreferences.setPassphraseLockEnabled(this, passphraseEnabled);
   }
 
-  @SuppressLint("StaticFieldLeak")
-  private class SecretGenerator extends AsyncTask<Void, Void, Void> {
-    private final MasterSecret masterSecret;
+  private void generateSecrets(MasterSecret masterSecret) {
+    disableButtons();
+    MasterSecretUtil.generateAsymmetricMasterSecret(PassphraseCreateActivity.this, masterSecret);
+    setMasterSecret(masterSecret);
+  }
 
-    SecretGenerator(MasterSecret masterSecret) {
-      this.masterSecret = masterSecret;
-    }
-
-    @Override
-    protected void onPreExecute() {
-    }
-
-    @Override
-    protected Void doInBackground(Void... params) {
-      MasterSecretUtil.generateAsymmetricMasterSecret(PassphraseCreateActivity.this, masterSecret);
-      IdentityKeyUtil.generateIdentityKeys(PassphraseCreateActivity.this, masterSecret);
-      VersionTracker.updateLastSeenVersion(PassphraseCreateActivity.this);
-
-      TextSecurePreferences.setLastExperienceVersionCode(PassphraseCreateActivity.this, Util.getCanonicalVersionCode());
-      TextSecurePreferences.setReadReceiptsEnabled(PassphraseCreateActivity.this, true);
-      TextSecurePreferences.setTypingIndicatorsEnabled(PassphraseCreateActivity.this, true);
-      TextSecurePreferences.setHasSeenWelcomeScreen(PassphraseCreateActivity.this, false);
-
-      return null;
-    }
-
-    @Override
-    protected void onPostExecute(Void param) {
-      setMasterSecret(masterSecret);
-    }
+  private void disableButtons() {
+    yesButton.setEnabled(false);
+    noButton.setEnabled(false);
   }
 }

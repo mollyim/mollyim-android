@@ -15,6 +15,7 @@ import org.mockito.stubbing.Answer;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+import org.thoughtcrime.securesms.util.SecurePreferenceManager;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyBoolean;
@@ -27,7 +28,7 @@ import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({ Log.class, Handler.class, Looper.class, TextUtils.class, PreferenceManager.class })
+@PrepareForTest({ Log.class, Handler.class, Looper.class, TextUtils.class, PreferenceManager.class, SecurePreferenceManager.class })
 public abstract class BaseUnitTest {
 
   protected Context           context           = mock(Context.class);
@@ -40,8 +41,10 @@ public abstract class BaseUnitTest {
     mockStatic(Handler.class);
     mockStatic(TextUtils.class);
     mockStatic(PreferenceManager.class);
+    mockStatic(SecurePreferenceManager.class);
 
     when(PreferenceManager.getDefaultSharedPreferences(any(Context.class))).thenReturn(sharedPreferences);
+    when(SecurePreferenceManager.getSecurePreferences(any(Context.class))).thenReturn(sharedPreferences);
     when(Looper.getMainLooper()).thenReturn(null);
     PowerMockito.whenNew(Handler.class).withAnyArguments().thenReturn(null);
 

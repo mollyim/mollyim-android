@@ -21,7 +21,7 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Build.VERSION_CODES;
-import android.preference.PreferenceManager;
+
 import androidx.appcompat.widget.LinearLayoutCompat;
 import android.util.AttributeSet;
 import org.thoughtcrime.securesms.logging.Log;
@@ -29,6 +29,7 @@ import android.view.Surface;
 import android.view.View;
 
 import org.thoughtcrime.securesms.R;
+import org.thoughtcrime.securesms.util.SecurePreferenceManager;
 import org.thoughtcrime.securesms.util.ServiceUtil;
 import org.thoughtcrime.securesms.util.Util;
 
@@ -180,24 +181,24 @@ public class KeyboardAwareLinearLayout extends LinearLayoutCompat {
   }
 
   private int getKeyboardLandscapeHeight() {
-    int keyboardHeight = PreferenceManager.getDefaultSharedPreferences(getContext())
+    int keyboardHeight = SecurePreferenceManager.getSecurePreferences(getContext())
                                           .getInt("keyboard_height_landscape", defaultCustomKeyboardSize);
     return Util.clamp(keyboardHeight, minCustomKeyboardSize, getRootView().getHeight() - minCustomKeyboardTopMarginLandscape);
   }
 
   private int getKeyboardPortraitHeight() {
-    int keyboardHeight = PreferenceManager.getDefaultSharedPreferences(getContext())
+    int keyboardHeight = SecurePreferenceManager.getSecurePreferences(getContext())
                                           .getInt("keyboard_height_portrait", defaultCustomKeyboardSize);
     return Util.clamp(keyboardHeight, minCustomKeyboardSize, getRootView().getHeight() - minCustomKeyboardTopMarginPortrait);
   }
 
   private void setKeyboardPortraitHeight(int height) {
-    PreferenceManager.getDefaultSharedPreferences(getContext())
+    SecurePreferenceManager.getSecurePreferences(getContext())
                      .edit().putInt("keyboard_height_portrait", height).apply();
   }
 
   private void setKeyboardLandscapeHeight(int height) {
-    PreferenceManager.getDefaultSharedPreferences(getContext())
+    SecurePreferenceManager.getSecurePreferences(getContext())
                      .edit().putInt("keyboard_height_landscape", height).apply();
   }
 

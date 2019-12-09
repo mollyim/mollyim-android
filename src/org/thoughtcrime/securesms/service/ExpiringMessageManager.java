@@ -10,7 +10,7 @@ import org.thoughtcrime.securesms.database.model.MessageRecord;
 
 import java.util.Comparator;
 import java.util.TreeSet;
-import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class ExpiringMessageManager {
@@ -18,7 +18,7 @@ public class ExpiringMessageManager {
   private static final String TAG = ExpiringMessageManager.class.getSimpleName();
 
   private final TreeSet<ExpiringMessageReference> expiringMessageReferences = new TreeSet<>(new ExpiringMessageComparator());
-  private final Executor                          executor                  = Executors.newSingleThreadExecutor();
+  private final ExecutorService                   executor                  = Executors.newSingleThreadExecutor();
 
   private final SmsDatabase smsDatabase;
   private final MmsDatabase mmsDatabase;
@@ -31,6 +31,10 @@ public class ExpiringMessageManager {
 
     executor.execute(new LoadTask());
     executor.execute(new ProcessTask());
+  }
+
+  public void quit() {
+    executor.shutdownNow();
   }
 
   public void scheduleDeletion(long id, boolean mms, long expiresInMillis) {
@@ -76,7 +80,6 @@ public class ExpiringMessageManager {
     }
   }
 
-  @SuppressWarnings("InfiniteLoopStatement")
   private class ProcessTask implements Runnable {
     public void run() {
       while (true) {
@@ -98,7 +101,9 @@ public class ExpiringMessageManager {
             }
 
           } catch (InterruptedException e) {
-            Log.w(TAG, e);
+            Log.i(TAG, "Interrupted.");
+            ExpirationListener.cancelAlarm(context);
+            break;
           }
         }
 

@@ -19,6 +19,7 @@ import org.thoughtcrime.securesms.backup.BackupProtos.SharedPreference;
 import org.thoughtcrime.securesms.backup.BackupProtos.SqlStatement;
 import org.thoughtcrime.securesms.backup.BackupProtos.Sticker;
 import org.thoughtcrime.securesms.crypto.AttachmentSecret;
+import org.thoughtcrime.securesms.crypto.EncryptedPreferences;
 import org.thoughtcrime.securesms.crypto.ModernEncryptingPartOutputStream;
 import org.thoughtcrime.securesms.database.AttachmentDatabase;
 import org.thoughtcrime.securesms.database.SearchDatabase;
@@ -193,7 +194,7 @@ public class FullBackupImporter extends FullBackupBase {
 
   @SuppressLint("ApplySharedPref")
   private static void processPreference(@NonNull Context context, SharedPreference preference) {
-    SharedPreferences preferences = context.getSharedPreferences(preference.getFile(), 0);
+    SharedPreferences preferences = EncryptedPreferences.create(context, preference.getFile());
     preferences.edit().putString(preference.getKey(), preference.getValue()).commit();
   }
 

@@ -18,13 +18,17 @@ package org.thoughtcrime.securesms;
 
 import android.annotation.SuppressLint;
 
+import androidx.annotation.MainThread;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.camera.camera2.Camera2AppConfig;
 import androidx.camera.core.CameraX;
 import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ProcessLifecycleOwner;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Build;
 import androidx.annotation.NonNull;
@@ -37,6 +41,7 @@ import org.signal.aesgcmprovider.AesGcmProvider;
 import org.signal.ringrtc.CallConnectionFactory;
 import org.thoughtcrime.securesms.components.TypingStatusRepository;
 import org.thoughtcrime.securesms.components.TypingStatusSender;
+import org.thoughtcrime.securesms.crypto.IdentityKeyUtil;
 import org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencyProvider;
@@ -64,11 +69,13 @@ import org.thoughtcrime.securesms.service.IncomingMessageObserver;
 import org.thoughtcrime.securesms.service.KeyCachingService;
 import org.thoughtcrime.securesms.service.LocalBackupListener;
 import org.thoughtcrime.securesms.revealable.ViewOnceMessageManager;
+import org.thoughtcrime.securesms.service.WipeMemoryService;
 import org.thoughtcrime.securesms.service.RotateSenderCertificateListener;
 import org.thoughtcrime.securesms.service.RotateSignedPreKeyListener;
 import org.thoughtcrime.securesms.service.UpdateApkRefreshListener;
 import org.thoughtcrime.securesms.util.FrameRateTracker;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
+import org.thoughtcrime.securesms.util.Util;
 import org.thoughtcrime.securesms.util.dynamiclanguage.DynamicLanguageContextWrapper;
 import org.webrtc.voiceengine.WebRtcAudioManager;
 import org.webrtc.voiceengine.WebRtcAudioUtils;
@@ -99,6 +106,7 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
   private LogManager               logManager;
 
   private volatile boolean isAppVisible;
+  private volatile boolean isAppInitialized;
 
   public static ApplicationContext getInstance(Context context) {
     return (ApplicationContext)context.getApplicationContext();
@@ -109,42 +117,71 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
     super.onCreate();
     Log.i(TAG, "onCreate()");
     initializeSecurityProvider();
-    initializeLogging();
-    initializeCrashHandling();
-    initializeFirstEverAppLaunch();
-    initializeAppDependencies();
-    initializeApplicationMigrations();
-    initializeMessageRetrieval();
-    initializeExpiringMessageManager();
-    initializeRevealableMessageManager();
     initializeTypingStatusRepository();
     initializeTypingStatusSender();
-    initializeGcmCheck();
-    initializeSignedPreKeyCheck();
-    initializePeriodicTasks();
-    initializeCircumvention();
     initializeRingRtc();
-    initializePendingMessages();
     initializeBlobProvider();
     initializeCameraX();
-    NotificationChannels.create(this);
     ProcessLifecycleOwner.get().getLifecycle().addObserver(this);
 
     if (Build.VERSION.SDK_INT < 21) {
       AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
+  }
 
+  @MainThread
+  public void onUnlock() {
+    Log.i(TAG, "onUnlock()");
+
+    if (isAppInitialized) return;
+
+    initializeFirstEverAppLaunch();
+    initializeAppDependencies();
+    initializeLogging();
+    initializeCrashHandling();
+    initializeApplicationMigrations();
+    initializeMessageRetrieval();
+    initializeExpiringMessageManager();
+    initializeRevealableMessageManager();
+    initializeGcmCheck();
+    initializeSignedPreKeyCheck();
+    initializePeriodicTasks();
+    initializeCircumvention();
+    initializePendingMessages();
+    NotificationChannels.create(this);
     ApplicationDependencies.getJobManager().beginJobLoop();
+    ApplicationDependencies.getRecipientCache().warmUp();
+    executePendingContactSync();
+    registerKeyEventReceiver();
+
+    isAppInitialized = true;
+  }
+
+  @MainThread
+  public void onLock() {
+    Log.i(TAG, "onLock()");
+
+    finalizeRevealableMessageManager();
+    finalizeExpiringMessageManager();
+    finalizeMessageRetrieval();
+    unregisterKeyEventReceiver();
+
+    Util.runOnMainDelayed(() -> {
+      ApplicationDependencies.getJobManager().shutdown(TimeUnit.SECONDS.toMillis(10));
+      KeyCachingService.clearMasterSecret();
+      WipeMemoryService.run(this, true);
+    }, TimeUnit.SECONDS.toMillis(1));
   }
 
   @Override
   public void onStart(@NonNull LifecycleOwner owner) {
     isAppVisible = true;
     Log.i(TAG, "App is now visible.");
-    ApplicationDependencies.getRecipientCache().warmUp();
-    executePendingContactSync();
     KeyCachingService.onAppForegrounded(this);
-    ApplicationDependencies.getFrameRateTracker().begin();
+    if (!KeyCachingService.isLocked()) {
+      executePendingContactSync();
+      ApplicationDependencies.getFrameRateTracker().begin();
+    }
   }
 
   @Override
@@ -152,8 +189,10 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
     isAppVisible = false;
     Log.i(TAG, "App is no longer visible.");
     KeyCachingService.onAppBackgrounded(this);
-    MessageNotifier.setVisibleThread(-1);
-    ApplicationDependencies.getFrameRateTracker().end();
+    if (!KeyCachingService.isLocked()) {
+      MessageNotifier.setVisibleThread(-1);
+      ApplicationDependencies.getFrameRateTracker().end();
+    }
   }
 
   public ExpiringMessageManager getExpiringMessageManager() {
@@ -224,6 +263,10 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
     this.incomingMessageObserver = new IncomingMessageObserver(this);
   }
 
+  public void finalizeMessageRetrieval() {
+    this.incomingMessageObserver.quit();
+  }
+
   private void initializeAppDependencies() {
     ApplicationDependencies.init(this, new ApplicationDependencyProvider(this, new SignalServiceNetworkAccess(this)));
   }
@@ -238,8 +281,13 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
         TextSecurePreferences.setJobManagerVersion(this, JobManager.CURRENT_VERSION);
       }
 
-      Log.i(TAG, "Setting first install version to " + BuildConfig.CANONICAL_VERSION_CODE);
-      TextSecurePreferences.setFirstInstallVersion(this, BuildConfig.CANONICAL_VERSION_CODE);
+      Log.i(TAG, "Generating new identity keys...");
+      IdentityKeyUtil.generateIdentityKeys(this);
+
+      Log.i(TAG, "Setting first install version to " + Util.getCanonicalVersionCode());
+      TextSecurePreferences.setFirstInstallVersion(this, Util.getCanonicalVersionCode());
+      TextSecurePreferences.setLastExperienceVersionCode(this, Util.getCanonicalVersionCode());
+      TextSecurePreferences.setHasSeenWelcomeScreen(this, false);
     }
   }
 
@@ -263,8 +311,16 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
     this.expiringMessageManager = new ExpiringMessageManager(this);
   }
 
+  private void finalizeExpiringMessageManager() {
+    this.expiringMessageManager.quit();
+  }
+
   private void initializeRevealableMessageManager() {
     this.viewOnceMessageManager = new ViewOnceMessageManager(this);
+  }
+
+  private void finalizeRevealableMessageManager() {
+    this.viewOnceMessageManager.quit();
   }
 
   private void initializeTypingStatusRepository() {
@@ -341,7 +397,7 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
   }
 
   private void executePendingContactSync() {
-    if (TextSecurePreferences.needsFullContactSync(this)) {
+    if (isAppInitialized && TextSecurePreferences.needsFullContactSync(this)) {
       ApplicationDependencies.getJobManager().add(new MultiDeviceContactUpdateJob(true));
     }
   }
@@ -362,6 +418,24 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
     AsyncTask.THREAD_POOL_EXECUTOR.execute(() -> {
       BlobProvider.getInstance().onSessionStart(this);
     });
+  }
+
+  private final BroadcastReceiver keyEventReceiver = new BroadcastReceiver() {
+    @Override
+    public void onReceive(Context context, Intent intent) {
+      onLock();
+    }
+  };
+
+  private void registerKeyEventReceiver() {
+    IntentFilter filter = new IntentFilter();
+    filter.addAction(KeyCachingService.CLEAR_KEY_EVENT);
+
+    registerReceiver(keyEventReceiver, filter, KeyCachingService.KEY_PERMISSION, null);
+  }
+
+  private void unregisterKeyEventReceiver() {
+    unregisterReceiver(keyEventReceiver);
   }
 
   @SuppressLint("RestrictedApi")

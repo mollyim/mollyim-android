@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.hardware.Camera.CameraInfo;
 import android.net.Uri;
 import android.os.Build;
-import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.text.TextUtils;
 
@@ -201,7 +200,7 @@ public class TextSecurePreferences {
 
   private static final String APP_MIGRATION_VERSION = "pref_app_migration_version";
 
-  private static final String FIRST_INSTALL_VERSION = "pref_first_install_version";
+  public  static final String FIRST_INSTALL_VERSION = "pref_first_install_version";
 
   private static final String HAS_SEEN_SWIPE_TO_REPLY = "pref_has_seen_swipe_to_reply";
 
@@ -214,7 +213,7 @@ public class TextSecurePreferences {
   }
 
   public static boolean isPassphraseLockEnabled(@NonNull Context context) {
-    return getBooleanPreference(context, PASSPHRASE_LOCK, false);
+    return getBooleanPreference(context, PASSPHRASE_LOCK, true);
   }
 
   public static void setPassphraseLockEnabled(@NonNull Context context, boolean value) {
@@ -257,7 +256,7 @@ public class TextSecurePreferences {
   }
 
   public static void clearOldRegistrationLockPin(@NonNull Context context) {
-    PreferenceManager.getDefaultSharedPreferences(context)
+    SecurePreferenceManager.getSecurePreferences(context)
                      .edit()
                      .remove(REGISTRATION_LOCK_PIN_PREF)
                      .apply();
@@ -273,7 +272,7 @@ public class TextSecurePreferences {
 
   /** Clears old pin preference at same time if non-null */
   public static void setRegistrationLockMasterKey(@NonNull Context context, @Nullable RegistrationLockData registrationLockData, long time) {
-    SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context)
+    SharedPreferences.Editor editor = SecurePreferenceManager.getSecurePreferences(context)
             .edit()
             .putBoolean(REGISTRATION_LOCK_SERVER_CONSISTENT, true)
             .putLong(REGISTRATION_LOCK_SERVER_CONSISTENT_TIME, time);
@@ -316,7 +315,7 @@ public class TextSecurePreferences {
   }
 
   public static void setRegistrationLockServerConsistent(@NonNull Context context, boolean consistent, long time) {
-    PreferenceManager.getDefaultSharedPreferences(context)
+    SecurePreferenceManager.getSecurePreferences(context)
                      .edit()
                      .putBoolean(REGISTRATION_LOCK_SERVER_CONSISTENT, consistent)
                      .putLong(REGISTRATION_LOCK_SERVER_CONSISTENT_TIME, time)
@@ -485,7 +484,7 @@ public class TextSecurePreferences {
   }
 
   public static boolean isReadReceiptsEnabled(Context context) {
-    return getBooleanPreference(context, READ_RECEIPTS_PREF, false);
+    return getBooleanPreference(context, READ_RECEIPTS_PREF, true);
   }
 
   public static void setReadReceiptsEnabled(Context context, boolean enabled) {
@@ -493,7 +492,7 @@ public class TextSecurePreferences {
   }
 
   public static boolean isTypingIndicatorsEnabled(Context context) {
-    return getBooleanPreference(context, TYPING_INDICATORS, false);
+    return getBooleanPreference(context, TYPING_INDICATORS, true);
   }
 
   public static void setTypingIndicatorsEnabled(Context context, boolean enabled) {
@@ -1298,47 +1297,47 @@ public class TextSecurePreferences {
   }
 
   public static void setBooleanPreference(Context context, String key, boolean value) {
-    PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean(key, value).apply();
+    SecurePreferenceManager.getSecurePreferences(context).edit().putBoolean(key, value).apply();
   }
 
   public static boolean getBooleanPreference(Context context, String key, boolean defaultValue) {
-    return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(key, defaultValue);
+    return SecurePreferenceManager.getSecurePreferences(context).getBoolean(key, defaultValue);
   }
 
   public static void setStringPreference(Context context, String key, String value) {
-    PreferenceManager.getDefaultSharedPreferences(context).edit().putString(key, value).apply();
+    SecurePreferenceManager.getSecurePreferences(context).edit().putString(key, value).apply();
   }
 
   public static String getStringPreference(Context context, String key, String defaultValue) {
-    return PreferenceManager.getDefaultSharedPreferences(context).getString(key, defaultValue);
+    return SecurePreferenceManager.getSecurePreferences(context).getString(key, defaultValue);
   }
 
   private static int getIntegerPreference(Context context, String key, int defaultValue) {
-    return PreferenceManager.getDefaultSharedPreferences(context).getInt(key, defaultValue);
+    return SecurePreferenceManager.getSecurePreferences(context).getInt(key, defaultValue);
   }
 
   private static void setIntegerPrefrence(Context context, String key, int value) {
-    PreferenceManager.getDefaultSharedPreferences(context).edit().putInt(key, value).apply();
+    SecurePreferenceManager.getSecurePreferences(context).edit().putInt(key, value).apply();
   }
 
   private static boolean setIntegerPrefrenceBlocking(Context context, String key, int value) {
-    return PreferenceManager.getDefaultSharedPreferences(context).edit().putInt(key, value).commit();
+    return SecurePreferenceManager.getSecurePreferences(context).edit().putInt(key, value).commit();
   }
 
   private static long getLongPreference(Context context, String key, long defaultValue) {
-    return PreferenceManager.getDefaultSharedPreferences(context).getLong(key, defaultValue);
+    return SecurePreferenceManager.getSecurePreferences(context).getLong(key, defaultValue);
   }
 
   private static void setLongPreference(Context context, String key, long value) {
-    PreferenceManager.getDefaultSharedPreferences(context).edit().putLong(key, value).apply();
+    SecurePreferenceManager.getSecurePreferences(context).edit().putLong(key, value).apply();
   }
 
   private static void removePreference(Context context, String key) {
-    PreferenceManager.getDefaultSharedPreferences(context).edit().remove(key).apply();
+    SecurePreferenceManager.getSecurePreferences(context).edit().remove(key).apply();
   }
 
   private static Set<String> getStringSetPreference(Context context, String key, Set<String> defaultValues) {
-    final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+    final SharedPreferences prefs = SecurePreferenceManager.getSecurePreferences(context);
     if (prefs.contains(key)) {
       return prefs.getStringSet(key, Collections.<String>emptySet());
     } else {
