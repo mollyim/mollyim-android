@@ -1,3 +1,13 @@
+plugins {
+    id "com.gradle.build-scan" version "3.1"
+}
+
+buildScan {
+    termsOfServiceUrl = 'https://gradle.com/terms-of-service'
+    termsOfServiceAgree = 'yes'
+    publishAlwaysIf(System.getenv('BUILD_SCAN') != null)
+}
+
 wrapper {
     distributionType = Wrapper.DistributionType.ALL
 }

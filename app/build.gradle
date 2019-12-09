@@ -5,9 +5,7 @@ import java.security.MessageDigest
 buildscript {
     repositories {
         google()
-        maven {
-            url 'https://plugins.gradle.org/m2/'
-        }
+        mavenCentral()
         jcenter {
             content {
                 includeVersion 'org.jetbrains.trove4j', 'trove4j', '20160824'
@@ -15,26 +13,18 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.gradle:build-scan-plugin:2.3'
         classpath 'com.android.tools.build:gradle:3.5.1'
         classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.1.0'
         classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.10'
     }
 }
 
-apply plugin: 'com.gradle.build-scan'
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.protobuf'
 apply plugin: 'androidx.navigation.safeargs'
 apply plugin: 'witness'
 apply from: 'translations.gradle'
 apply from: 'witness-verifications.gradle'
-
-buildScan {
-    termsOfServiceUrl = 'https://gradle.com/terms-of-service'
-    termsOfServiceAgree = 'yes'
-    publishAlwaysIf(System.getenv('BUILD_SCAN') != null)
-}
 
 repositories {
     maven {
@@ -473,10 +463,4 @@ task signProductionWebsiteRelease {
         File signedRelease = signProductionRelease(variant).find { it.name.contains('universal') }
         assembleWebsiteDescriptor(variant, signedRelease)
     }
-}
-
-task qa {
-  group 'Verification'
-  description 'Quality Assurance. Run before pushing.'
-  dependsOn ':testPlayReleaseUnitTest', ':lintPlayRelease', ':assemblePlayDebug'
 }
