@@ -216,7 +216,7 @@ class DirectoryHelperV1 {
 
   private static Optional<AccountHolder> getOrCreateAccount(Context context) {
     AccountManager accountManager = AccountManager.get(context);
-    Account[]      accounts       = accountManager.getAccountsByType(BuildConfig.APPLICATION_ID);
+    Account[]      accounts       = accountManager.getAccountsByType(context.getPackageName());
 
     Optional<AccountHolder> account;
 
@@ -232,7 +232,7 @@ class DirectoryHelperV1 {
 
   private static Optional<AccountHolder> createAccount(Context context) {
     AccountManager accountManager = AccountManager.get(context);
-    Account        account        = new Account(context.getString(R.string.app_name), BuildConfig.APPLICATION_ID);
+    Account        account        = new Account(context.getString(R.string.app_name), context.getPackageName());
 
     if (accountManager.addAccountExplicitly(account, null, null)) {
       Log.i(TAG, "Created new account...");
