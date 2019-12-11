@@ -26,8 +26,10 @@ import org.thoughtcrime.securesms.crypto.PassphraseValidator;
 import org.thoughtcrime.securesms.crypto.UnrecoverableKeyException;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.util.ServiceUtil;
+import org.thoughtcrime.securesms.util.concurrent.SignalExecutors;
 
 import java.util.Arrays;
+import java.util.concurrent.CountDownLatch;
 
 public class ChangePassphraseDialogFragment extends DialogFragment {
 
@@ -46,6 +48,7 @@ public class ChangePassphraseDialogFragment extends DialogFragment {
   private MasterSecretChangedListener listener;
 
   private PassphraseValidator validator;
+  private CountDownLatch      validatorReady;
 
   private TextInputLayout passphraseLayout;
   private EditText        passphraseInput;
@@ -83,7 +86,7 @@ public class ChangePassphraseDialogFragment extends DialogFragment {
     }
 
     if (mode == MODE_ENABLE || mode == MODE_CHANGE) {
-      validator = new PassphraseValidator();
+      initializePassphraseValidator();
     }
 
     int positiveButtonResId = android.R.string.ok;
@@ -143,6 +146,25 @@ public class ChangePassphraseDialogFragment extends DialogFragment {
     } else if (mode == MODE_DISABLE) {
       handleDisable();
     }
+  }
+
+  private void initializePassphraseValidator() {
+    validatorReady = new CountDownLatch(1);
+
+    SignalExecutors.BOUNDED.execute(() -> {
+      validator = new PassphraseValidator();
+      validatorReady.countDown();
+    });
+  }
+
+  private boolean isPassphraseValidatorReady() {
+    try {
+      validatorReady.await();
+    } catch (InterruptedException ie) {
+      Log.w(TAG, ie);
+      return false;
+    }
+    return true;
   }
 
   private View setLayout(int layoutResId) {
@@ -259,6 +281,8 @@ public class ChangePassphraseDialogFragment extends DialogFragment {
       showPopup(R.string.PassphraseChangeActivity_passphrases_dont_match_exclamation);
       return;
     }
+
+    if (!isPassphraseValidatorReady()) return;
 
     PassphraseValidator.Strength strength = validator.estimate(newPassphrase);
     if (!strength.isValid()) {
