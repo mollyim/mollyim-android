@@ -79,7 +79,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="8dp"
             android:text="@string/create_passphrase_activity__turn_on_database_encryption"
-            android:textColor="@color/core_blue"
+            android:textColor="@color/signal_primary"
             app:backgroundTint="@color/core_white" />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -89,8 +89,8 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="8dp"
             android:text="@string/ExperienceUpgradeActivity_no_thanks"
-            android:textColor="@color/core_white"
-            app:backgroundTint="@color/conversation_blue" />
+            android:textColor="@color/transparent_white_80"
+            app:backgroundTint="@color/signal_primary_dark" />
 
     </LinearLayout>
 </ScrollView>
