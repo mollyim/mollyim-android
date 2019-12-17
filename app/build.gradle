@@ -197,7 +197,7 @@ dependencies {
 }
 
 dependencyVerification {
-    configuration = '(website)(Staging|Production)(Debug|Release)RuntimeClasspath'
+    configuration = '(staging|production)(Debug|Release)RuntimeClasspath'
 }
 
 def canonicalVersionCode = 579
@@ -222,7 +222,7 @@ ext {
 }
 
 android {
-    flavorDimensions 'none', 'environment'
+    flavorDimensions 'environment'
     compileSdkVersion 28
     buildToolsVersion '28.0.3'
     useLibrary 'org.apache.http.legacy'
@@ -246,6 +246,8 @@ android {
 
         vectorDrawables.useSupportLibrary = true
 
+        buildConfigField "boolean", "AUTOMATIC_UPDATES", "false"
+        buildConfigField "String", "NOPLAY_UPDATE_URL", "\"https://updates.signal.org/android\""
         buildConfigField "String", "BACKUP_DIRECTORY", "\"$appName\""
         buildConfigField "long", "BUILD_TIMESTAMP", "${buildTimestamp}L"
         buildConfigField "String", "SIGNAL_SERVICE_STATUS_URL", "\"uptime.signal.org\""
@@ -327,12 +329,6 @@ android {
     }
 
     productFlavors {
-        website {
-            dimension "none"
-            ext.websiteUpdateUrl = "https://updates.signal.org/android"
-            buildConfigField "boolean", "AUTOMATIC_UPDATES", "false"
-            buildConfigField "String", "NOPLAY_UPDATE_URL", "\"$ext.websiteUpdateUrl\""
-        }
         staging {
             dimension "environment"
             applicationIdSuffix ".staging"
@@ -366,9 +362,8 @@ android {
 
     android.applicationVariants.all { variant ->
         variant.outputs.all {
-            def ver = "${versionName}-${buildType.name}"
-            ver += buildType.signingConfig ? "" : "-unsigned"
-            outputFileName = "HereBeDragons-${appName}-${ver}.apk"
+            def flavor = variant.baseName + (buildType.signingConfig ? "" : "-unsigned")
+            outputFileName = "${appName}-${flavor}-${versionName}.apk"
         }
     }
 
@@ -394,8 +389,6 @@ android {
         staging {
             res.srcDirs = ['../staging/res']
         }
-
-        website.manifest.srcFile '../website/AndroidManifest.xml'
     }
 
     lintOptions {
@@ -420,54 +413,5 @@ tasks.withType(Test) {
     testLogging {
         events "skipped", "passed", "failed"
         showStandardStreams true
-    }
-}
-
-def assembleWebsiteDescriptor = { variant, file ->
-    if (file.exists()) {
-        MessageDigest md = MessageDigest.getInstance("SHA-256");
-        file.eachByte 4096, {bytes, size ->
-            md.update(bytes, 0, size);
-        }
-
-        String digest  = md.digest().collect {String.format "%02x", it}.join();
-        String url     = variant.productFlavors.get(0).ext.websiteUpdateUrl
-        String apkName = file.getName()
-
-        String descriptor = "{" +
-                "\"versionCode\" : ${canonicalVersionCode * postFixSize + abiPostFix['universal']}," +
-                "\"versionName\" : \"$canonicalVersionName\"," +
-                "\"sha256sum\" : \"$digest\"," +
-                "\"url\" : \"$url/$apkName\"" +
-                "}"
-
-        File descriptorFile = new File(file.getParent(), apkName.replace(".apk", ".json"))
-
-        descriptorFile.write(descriptor)
-    }
-}
-
-def signProductionRelease = { variant ->
-    variant.outputs.collect { output ->
-        String apkName    = output.outputFile.name
-        File   inputFile  = new File(output.outputFile.path)
-        File   outputFile = new File(output.outputFile.parent, apkName.replace('-unsigned', ''))
-
-        new ApkSignerUtil('sun.security.pkcs11.SunPKCS11',
-                          'pkcs11.config',
-                          'PKCS11',
-                          'file:pkcs11.password').calculateSignature(inputFile.getAbsolutePath(),
-                                                                     outputFile.getAbsolutePath())
-
-        inputFile.delete()
-        outputFile
-    }
-}
-
-task signProductionWebsiteRelease {
-    doLast {
-        def  variant       = android.applicationVariants.find { (it.name == 'websiteRelease') }
-        File signedRelease = signProductionRelease(variant).find { it.name.contains('universal') }
-        assembleWebsiteDescriptor(variant, signedRelease)
     }
 }

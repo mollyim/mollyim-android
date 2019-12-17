@@ -1,6 +1,6 @@
 # sig4a
 
-[![Build Status](https://travis-ci.com/sigx/sig4a.svg?branch=master)](https://travis-ci.com/sigx/sig4a)
+![ci status](https://github.com/mollyim/mollyim-android/workflows/Tests/badge.svg)
 
 > sig4a is a staging-version of [Signal](https://github.com/signalapp/Signal-Android) for Android, the fast simple secure private-messenger app by [Signal Foundation](https://signal.org).
 

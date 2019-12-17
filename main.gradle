@@ -29,8 +29,9 @@ subprojects {
 task qa {
     group 'Verification'
     description 'Quality Assurance. Run before pushing.'
-    dependsOn ':mollyim-android:testPlayReleaseUnitTest',
-            ':mollyim-android:lintPlayRelease',
-            ':libsignal-service:test',
-            ':mollyim-android:assemblePlayDebug'
+    dependsOn (
+        ':libsignal-service:test',
+        ':mollyim-android:testProductionReleaseUnitTest',
+        ':mollyim-android:lintProductionRelease',
+        ':mollyim-android:assemble' )
 }
