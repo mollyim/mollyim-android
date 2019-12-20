@@ -34,6 +34,10 @@ public class Argon2Benchmark {
     return new Argon2Params(iterations, memory);
   }
 
+  public long getElapsedTime() {
+    return ms;
+  }
+
   public Argon2Params findParameters(long targetTimeMillis) {
     iterations = minIterations;
     memory     = minMemory;

@@ -14,9 +14,9 @@ public class PassphraseBasedKdf {
   private static final int ARGON2_MINIMUM_ITERATIONS = 4;
   private static final int ARGON2_MINIMUM_MEMORY     = 65536;
 
-
   private SecretKey    secretKey;
   private Argon2Params params;
+  private long         elapsedMillis;
 
   public void setSecretKey(SecretKey secretKey) {
     this.secretKey = secretKey;
@@ -30,6 +30,10 @@ public class PassphraseBasedKdf {
     return params.serialize();
   }
 
+  public long getElapsedTimeMillis() {
+    return elapsedMillis;
+  }
+
   public void setParameters(String serialized) {
     this.params = Argon2Params.deserialize(serialized);
   }
@@ -37,6 +41,7 @@ public class PassphraseBasedKdf {
   public void findParameters(long maxMemory) {
     Argon2Benchmark argon2Benchmark = new Argon2Benchmark(ARGON2_MINIMUM_ITERATIONS, ARGON2_MINIMUM_MEMORY, maxMemory);
     params = argon2Benchmark.findParameters(ARGON2_TIME_COST);
+    elapsedMillis = argon2Benchmark.getElapsedTime();
   }
 
   public SecureSecretKeySpec deriveKey(byte[] salt, char[] passphrase) {

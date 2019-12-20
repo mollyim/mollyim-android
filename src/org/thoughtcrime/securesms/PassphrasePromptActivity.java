@@ -17,7 +17,6 @@
 package org.thoughtcrime.securesms;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -201,6 +200,17 @@ public class PassphrasePromptActivity extends PassphraseActivity {
     }
   }
 
+  private void setInputEnabled(boolean enabled) {
+    if (enabled) {
+      passphraseInput.selectAll();
+    } else {
+      passphraseInput.clearFocus();
+    }
+    passphraseLayout.setEnabled(enabled);
+    passphraseLayout.setPasswordVisibilityToggleEnabled(enabled);
+    okButton.setClickable(enabled);
+  }
+
   private void showProgress(double x) {
     double y = 1 + Math.pow(1 - x, 3) * -1;
     okButton.setProgress((int) (y * 100));
@@ -211,7 +221,6 @@ public class PassphrasePromptActivity extends PassphraseActivity {
       InputMethodManager imm = ServiceUtil.getInputMethodManager(this);
       imm.showSoftInput(passphraseInput, InputMethodManager.SHOW_IMPLICIT);
     }
-    passphraseInput.selectAll();
 
     TranslateAnimation shake = new TranslateAnimation(0, 30, 0, 0);
     shake.setDuration(50);
@@ -232,18 +241,8 @@ public class PassphrasePromptActivity extends PassphraseActivity {
 
     @Override
     protected void onPreExecute() {
-      passphraseLayout.setEnabled(false);
-      passphraseLayout.setPasswordVisibilityToggleEnabled(false);
-      okButton.setClickable(false);
-      progressTimer = new CountDownTimer(3300, 120) {
-        @Override
-        public void onTick(long millisUntilFinished) {
-          publishProgress(1 - (millisUntilFinished / (double) 3300));
-        }
-
-        @Override
-        public void onFinish() {}
-      };
+      setInputEnabled(false);
+      initializeProgressTimer();
     }
 
     @Override
@@ -268,11 +267,23 @@ public class PassphrasePromptActivity extends PassphraseActivity {
       if (masterSecret != null) {
         setMasterSecret(masterSecret);
       } else {
-        passphraseLayout.setEnabled(true);
-        passphraseLayout.setPasswordVisibilityToggleEnabled(true);
-        okButton.setClickable(true);
+        setInputEnabled(true);
         showFailure();
       }
+    }
+
+    private void initializeProgressTimer() {
+      long countdown = MasterSecretUtil.getKdfElapsedTimeMillis(getApplicationContext()) + 200;
+
+      progressTimer = new CountDownTimer(countdown, 120) {
+        @Override
+        public void onTick(long millisUntilFinished) {
+          publishProgress(1 - (millisUntilFinished / (double) countdown));
+        }
+
+        @Override
+        public void onFinish() {}
+      };
     }
   }
 }

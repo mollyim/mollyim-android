@@ -82,6 +82,7 @@ public class MasterSecretUtil {
       if (!context.getSharedPreferences(PREFERENCES_NAME, 0).edit()
           .putString("passphrase_salt", Base64.encodeBytes(passphraseSalt))
           .putString("kdf_parameters", kdf.getParameters())
+          .putLong("kdf_elapsed", kdf.getElapsedTimeMillis())
           .putBoolean("keystore_initialized", kdf.getSecretKey() != null)
           .commit()) {
         throw new AssertionError("failed to save preferences in MasterSecretUtil");
@@ -241,9 +242,17 @@ public class MasterSecretUtil {
     return settings.getBoolean(key, defaultValue);
   }
 
+  private static long retrieve(Context context, String key, long defaultValue) {
+    SharedPreferences settings = context.getSharedPreferences(PREFERENCES_NAME, 0);
+    return settings.getLong(key, defaultValue);
+  }
+
+  public static long getKdfElapsedTimeMillis(Context context) {
+    return retrieve(context, "kdf_elapsed", 0);
+  }
+
   public static boolean isPassphraseInitialized(Context context) {
-    SharedPreferences preferences = context.getSharedPreferences(PREFERENCES_NAME, 0);
-    return preferences.getBoolean("passphrase_initialized", false);
+    return retrieve(context, "passphrase_initialized", false);
   }
 
   private static boolean isDeviceSecure(Context context) {
