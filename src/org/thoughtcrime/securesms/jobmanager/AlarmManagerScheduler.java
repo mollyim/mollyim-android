@@ -14,6 +14,7 @@ import org.thoughtcrime.securesms.ApplicationContext;
 import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.logging.Log;
+import org.thoughtcrime.securesms.service.KeyCachingService;
 
 import java.util.List;
 import java.util.UUID;
@@ -62,6 +63,12 @@ public class AlarmManagerScheduler implements Scheduler {
     @Override
     public void onReceive(Context context, Intent intent) {
       Log.i(TAG, "Received an alarm to retry a job.");
+
+      if (KeyCachingService.isLocked()) {
+        Log.d(TAG, "JobManager will not wake up: app is locked.");
+        return;
+      }
+
       ApplicationDependencies.getJobManager().wakeUp();
     }
   }

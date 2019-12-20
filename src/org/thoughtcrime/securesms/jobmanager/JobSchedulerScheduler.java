@@ -15,6 +15,7 @@ import org.thoughtcrime.securesms.ApplicationContext;
 import org.thoughtcrime.securesms.crypto.EncryptedPreferences;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.logging.Log;
+import org.thoughtcrime.securesms.service.KeyCachingService;
 
 import java.util.List;
 
@@ -66,6 +67,11 @@ public class JobSchedulerScheduler implements Scheduler {
     @Override
     public boolean onStartJob(JobParameters params) {
       Log.d(TAG, "onStartJob()");
+
+      if (KeyCachingService.isLocked()) {
+        Log.d(TAG, "JobManager will not wake up: app is locked.");
+        return false;
+      }
 
       JobManager jobManager = ApplicationDependencies.getJobManager();
 
