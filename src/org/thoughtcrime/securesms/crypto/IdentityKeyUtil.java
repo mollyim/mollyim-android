@@ -23,7 +23,6 @@ import android.content.SharedPreferences.Editor;
 import androidx.annotation.NonNull;
 
 import org.thoughtcrime.securesms.backup.BackupProtos;
-import org.thoughtcrime.securesms.util.SecurePreferenceManager;
 import org.thoughtcrime.securesms.util.Base64;
 import org.whispersystems.libsignal.IdentityKey;
 import org.whispersystems.libsignal.IdentityKeyPair;
@@ -47,11 +46,13 @@ public class IdentityKeyUtil {
   @SuppressWarnings("unused")
   private static final String TAG = IdentityKeyUtil.class.getSimpleName();
 
+  private static final String IDENTITY_SHARED_PREFERENCES_NAME = "SecureSMS-Preferences";
+
   private static final String IDENTITY_PUBLIC_KEY_PREF                    = "pref_identity_public_v3";
   private static final String IDENTITY_PRIVATE_KEY_PREF                   = "pref_identity_private_v3";
 
   public static boolean hasIdentityKey(Context context) {
-    SharedPreferences preferences = SecurePreferenceManager.getSecurePreferences(context);
+    SharedPreferences preferences = getIdentitySharedPreferences(context);
 
     return
         preferences.contains(IDENTITY_PUBLIC_KEY_PREF) &&
@@ -92,16 +93,16 @@ public class IdentityKeyUtil {
   }
 
   public static List<BackupProtos.SharedPreference> getBackupRecord(@NonNull Context context) {
-    SharedPreferences preferences = SecurePreferenceManager.getSecurePreferences(context);
+    SharedPreferences preferences = getIdentitySharedPreferences(context);
 
     return new LinkedList<BackupProtos.SharedPreference>() {{
       add(BackupProtos.SharedPreference.newBuilder()
-                                       .setFile(SecurePreferenceManager.getSecurePreferencesName(context))
+                                       .setFile(IDENTITY_SHARED_PREFERENCES_NAME)
                                        .setKey(IDENTITY_PUBLIC_KEY_PREF)
                                        .setValue(preferences.getString(IDENTITY_PUBLIC_KEY_PREF, null))
                                        .build());
       add(BackupProtos.SharedPreference.newBuilder()
-                                       .setFile(SecurePreferenceManager.getSecurePreferencesName(context))
+                                       .setFile(IDENTITY_SHARED_PREFERENCES_NAME)
                                        .setKey(IDENTITY_PRIVATE_KEY_PREF)
                                        .setValue(preferences.getString(IDENTITY_PRIVATE_KEY_PREF, null))
                                        .build());
@@ -109,16 +110,19 @@ public class IdentityKeyUtil {
   }
 
   private static String retrieve(Context context, String key) {
-    SharedPreferences preferences = SecurePreferenceManager.getSecurePreferences(context);
+    SharedPreferences preferences = getIdentitySharedPreferences(context);
     return preferences.getString(key, null);
   }
 
   private static void save(Context context, String key, String value) {
-    SharedPreferences preferences   = SecurePreferenceManager.getSecurePreferences(context);
+    SharedPreferences preferences   = getIdentitySharedPreferences(context);
     Editor preferencesEditor        = preferences.edit();
 
     preferencesEditor.putString(key, value);
     if (!preferencesEditor.commit()) throw new AssertionError("failed to save identity key/value to shared preferences");
   }
 
+  private static SharedPreferences getIdentitySharedPreferences(Context context) {
+    return EncryptedPreferences.create(context, IDENTITY_SHARED_PREFERENCES_NAME);
+  }
 }

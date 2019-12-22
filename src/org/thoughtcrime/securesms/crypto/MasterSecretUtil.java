@@ -56,8 +56,9 @@ public class MasterSecretUtil {
 
   private static final String TAG = Log.tag(MasterSecretUtil.class);
 
-  public static final char[] UNENCRYPTED_PASSPHRASE  = "unencrypted".toCharArray();
-  public static final String PREFERENCES_NAME        = "MasterKeys";
+  public static final char[] UNENCRYPTED_PASSPHRASE = "unencrypted".toCharArray();
+
+  private static final String PREFERENCES_NAME = "MasterKeys";
 
   private static final String ASYMMETRIC_LOCAL_PUBLIC_DJB   = "asymmetric_master_secret_curve25519_public";
   private static final String ASYMMETRIC_LOCAL_PRIVATE_DJB  = "asymmetric_master_secret_curve25519_private";
