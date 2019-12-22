@@ -76,6 +76,7 @@ import org.thoughtcrime.securesms.MainFragment;
 import org.thoughtcrime.securesms.MainNavigator;
 import org.thoughtcrime.securesms.NewConversationActivity;
 import org.thoughtcrime.securesms.R;
+import org.thoughtcrime.securesms.components.reminder.ScreenLockNeedReminder;
 import org.thoughtcrime.securesms.conversationlist.ConversationListAdapter.ItemClickListener;
 import org.thoughtcrime.securesms.color.MaterialColor;
 import org.thoughtcrime.securesms.components.SearchToolbar;
@@ -440,6 +441,8 @@ public class ConversationListFragment extends MainFragment implements LoaderMana
         return Optional.of(new ShareReminder(context));
       } else if (DozeReminder.isEligible(context)) {
         return Optional.of(new DozeReminder(context));
+      } else if (ScreenLockNeedReminder.isEligible(context)) {
+        return Optional.of(new ScreenLockNeedReminder(context));
       } else {
         return Optional.<Reminder>absent();
       }

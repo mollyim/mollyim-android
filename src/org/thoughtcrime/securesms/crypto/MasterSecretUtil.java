@@ -255,6 +255,10 @@ public class MasterSecretUtil {
     return retrieve(context, "passphrase_initialized", false);
   }
 
+  public static boolean isKeyStoreInitialized(Context context) {
+    return retrieve(context, "keystore_initialized", false);
+  }
+
   private static boolean isDeviceSecure(Context context) {
     return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
             && ServiceUtil.getKeyguardManager(context).isDeviceSecure();
