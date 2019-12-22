@@ -2,8 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:focusableInTouchMode="true"
     android:orientation="vertical"
     android:padding="15dp"
     android:paddingStart="25dp"
@@ -31,14 +33,5 @@
             android:hint="@string/ChangePassphraseDialogFragment_passphrase"
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
-
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:indeterminateOnly="true"
-        android:visibility="gone"
-        tools:visibility="visible" />
 
 </LinearLayout>

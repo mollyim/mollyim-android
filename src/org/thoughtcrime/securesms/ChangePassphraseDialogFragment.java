@@ -192,12 +192,12 @@ public class ChangePassphraseDialogFragment extends DialogFragment {
   }
 
   private void setError(int resId, final TextInputLayout layout) {
-    layout.setError(getString(resId));
+    if (layout == null) return;
 
-    EditText editText = layout.getEditText();
-    if (editText != null) {
-      editText.selectAll();
-      editText.requestFocus();
+    if (resId != 0) {
+      layout.setError(getString(resId));
+    } else {
+      layout.setError(null);
     }
   }
 
@@ -231,24 +231,20 @@ public class ChangePassphraseDialogFragment extends DialogFragment {
   }
 
   private void showProgress(boolean show) {
-    int progress, content;
-
-    if (show) {
-      progress = View.VISIBLE;
-      content  = View.GONE;
-    } else {
-      progress = View.GONE;
-      content  = View.VISIBLE;
-    }
+    dialog.setTitle(show ? R.string.please_wait : titleResId);
 
     if (progressView != null) {
-      progressView.setVisibility(progress);
-      contentView.setVisibility(content);
-      dialog.setTitle(show ? R.string.please_wait : titleResId);
+      getOkButton().setVisibility(show ? View.GONE : View.VISIBLE);
+      getCancelButton().setVisibility(show ? View.GONE : View.VISIBLE);
+      contentView.setVisibility(show ? View.GONE : View.VISIBLE);
+      progressView.setVisibility(show ? View.VISIBLE : View.GONE);
+    } else {
+      passphraseLayout.clearFocus();
+      passphraseLayout.setEnabled(!show);
+      passphraseLayout.setPasswordVisibilityToggleEnabled(!show);
+      getOkButton().setEnabled(!show);
+      getCancelButton().setEnabled(!show);
     }
-
-    getOkButton().setVisibility(content);
-    getCancelButton().setVisibility(content);
   }
 
   private void handleEnable() {
@@ -258,16 +254,21 @@ public class ChangePassphraseDialogFragment extends DialogFragment {
   private void handleChange() {
     final char[] oldPassphrase = getEnteredPassphrase(passphraseInput);
 
-    if (oldPassphrase.length == 0) {
+    if (oldPassphrase.length > 0) {
+      changePassphrase(oldPassphrase);
+    } else {
       setError(R.string.PassphrasePromptActivity_invalid_passphrase_exclamation, passphraseLayout);
-      return;
     }
-
-    changePassphrase(oldPassphrase);
   }
 
   private void handleDisable() {
-    disablePassphrase();
+    final char[] oldPassphrase = getEnteredPassphrase(passphraseInput);
+
+    if (oldPassphrase.length > 0) {
+      changeMasterSecret(MasterSecretUtil.UNENCRYPTED_PASSPHRASE, oldPassphrase);
+    } else {
+      setError(R.string.PassphrasePromptActivity_invalid_passphrase_exclamation, passphraseLayout);
+    }
   }
 
   private void changePassphrase(final char[] oldPassphrase) {
@@ -297,10 +298,6 @@ public class ChangePassphraseDialogFragment extends DialogFragment {
     }
 
     changeMasterSecret(newPassphrase, oldPassphrase);
-  }
-
-  private void disablePassphrase() {
-    changeMasterSecret(MasterSecretUtil.UNENCRYPTED_PASSPHRASE, getEnteredPassphrase(passphraseInput));
   }
 
   private void changeMasterSecret(char[] newPassphrase, char[] oldPassphrase) {
@@ -336,6 +333,7 @@ public class ChangePassphraseDialogFragment extends DialogFragment {
 
     @Override
     protected void onPreExecute() {
+      setError(0, passphraseLayout);
       showProgress(true);
     }
 
@@ -348,31 +346,27 @@ public class ChangePassphraseDialogFragment extends DialogFragment {
         return null;
       }
 
+      if (!MasterSecretUtil.isPassphraseInitialized(context)) {
+        return MasterSecretUtil.generateMasterSecret(context, newPassphrase);
+      }
+
       try {
-        if (!MasterSecretUtil.isPassphraseInitialized(context)) {
-          return MasterSecretUtil.generateMasterSecret(context, newPassphrase);
-        } else {
-          return MasterSecretUtil.changeMasterSecretPassphrase(context, oldPassphrase, newPassphrase);
-        }
+        return MasterSecretUtil.changeMasterSecretPassphrase(context, oldPassphrase, newPassphrase);
       } catch (InvalidPassphraseException | UnrecoverableKeyException e) {
-        if (mode == MODE_ENABLE) {
-          throw new AssertionError(e);
-        }
         return null;
       }
     }
 
     @Override
     protected void onPostExecute(MasterSecret masterSecret) {
-      setCancelable(true);
-      showProgress(false);
-
       if (masterSecret != null) {
         if (listener != null) {
           listener.onMasterSecretChanged(masterSecret);
         }
         dismissAllowingStateLoss();
       } else {
+        showProgress(false);
+        setCancelable(true);
         setError(R.string.PassphrasePromptActivity_invalid_passphrase_exclamation, passphraseLayout);
       }
     }
