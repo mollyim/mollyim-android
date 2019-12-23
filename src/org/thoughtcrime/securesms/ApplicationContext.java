@@ -52,6 +52,7 @@ import org.thoughtcrime.securesms.jobs.CreateSignedPreKeyJob;
 import org.thoughtcrime.securesms.jobs.FcmRefreshJob;
 import org.thoughtcrime.securesms.jobs.MultiDeviceContactUpdateJob;
 import org.thoughtcrime.securesms.jobs.PushNotificationReceiveJob;
+import org.thoughtcrime.securesms.jobs.StickerPackDownloadJob;
 import org.thoughtcrime.securesms.logging.CustomSignalProtocolLogger;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.logging.LogManager;
@@ -73,6 +74,7 @@ import org.thoughtcrime.securesms.service.WipeMemoryService;
 import org.thoughtcrime.securesms.service.RotateSenderCertificateListener;
 import org.thoughtcrime.securesms.service.RotateSignedPreKeyListener;
 import org.thoughtcrime.securesms.service.UpdateApkRefreshListener;
+import org.thoughtcrime.securesms.stickers.BlessedPacks;
 import org.thoughtcrime.securesms.util.FrameRateTracker;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.Util;
@@ -135,10 +137,10 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
 
     if (isAppInitialized) return;
 
-    initializeFirstEverAppLaunch();
-    initializeAppDependencies();
     initializeLogging();
     initializeCrashHandling();
+    initializeAppDependencies();
+    initializeFirstEverAppLaunch();
     initializeApplicationMigrations();
     initializeMessageRetrieval();
     initializeExpiringMessageManager();
@@ -279,15 +281,17 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
         InsightsOptOut.userRequestedOptOut(this);
         TextSecurePreferences.setAppMigrationVersion(this, ApplicationMigrations.CURRENT_VERSION);
         TextSecurePreferences.setJobManagerVersion(this, JobManager.CURRENT_VERSION);
+        ApplicationDependencies.getJobManager().add(StickerPackDownloadJob.forInstall(BlessedPacks.ZOZO.getPackId(), BlessedPacks.ZOZO.getPackKey(), false));
+        ApplicationDependencies.getJobManager().add(StickerPackDownloadJob.forInstall(BlessedPacks.BANDIT.getPackId(), BlessedPacks.BANDIT.getPackKey(), false));
       }
 
-      Log.i(TAG, "Generating new identity keys...");
-      IdentityKeyUtil.generateIdentityKeys(this);
+      if (!IdentityKeyUtil.hasIdentityKey(this)) {
+        Log.i(TAG, "Generating new identity keys...");
+        IdentityKeyUtil.generateIdentityKeys(this);
+      }
 
       Log.i(TAG, "Setting first install version to " + Util.getCanonicalVersionCode());
       TextSecurePreferences.setFirstInstallVersion(this, Util.getCanonicalVersionCode());
-      TextSecurePreferences.setLastExperienceVersionCode(this, Util.getCanonicalVersionCode());
-      TextSecurePreferences.setHasSeenWelcomeScreen(this, false);
     }
   }
 

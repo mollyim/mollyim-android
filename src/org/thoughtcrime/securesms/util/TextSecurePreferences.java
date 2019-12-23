@@ -78,7 +78,6 @@ public class TextSecurePreferences {
   private static final String VERIFYING_STATE_PREF             = "pref_verifying";
   public  static final String REGISTERED_GCM_PREF              = "pref_gcm_registered";
   private static final String GCM_PASSWORD_PREF                = "pref_gcm_password";
-  private static final String SEEN_WELCOME_SCREEN_PREF         = "pref_seen_welcome_screen";
   private static final String PROMPTED_PUSH_REGISTRATION_PREF  = "pref_prompted_push_registration";
   private static final String PROMPTED_DEFAULT_SMS_PREF        = "pref_prompted_default_sms";
   private static final String PROMPTED_OPTIMIZE_DOZE_PREF      = "pref_prompted_optimize_doze";
@@ -190,8 +189,6 @@ public class TextSecurePreferences {
   public static final String LINK_PREVIEWS = "pref_link_previews";
 
   private static final String GIF_GRID_LAYOUT = "pref_gif_grid_layout";
-
-  private static final String SEEN_STICKER_INTRO_TOOLTIP = "pref_seen_sticker_intro_tooltip";
 
   private static final String MEDIA_KEYBOARD_MODE = "pref_media_keyboard_mode";
 
@@ -946,7 +943,7 @@ public class TextSecurePreferences {
   }
 
   public static int getLastExperienceVersionCode(Context context) {
-    return getIntegerPreference(context, LAST_EXPERIENCE_VERSION_PREF, 0);
+    return getIntegerPreference(context, LAST_EXPERIENCE_VERSION_PREF, Util.getCanonicalVersionCode());
   }
 
   public static void setLastExperienceVersionCode(Context context, int versionCode) {
@@ -996,14 +993,6 @@ public class TextSecurePreferences {
 
   public static boolean isSmsDeliveryReportsEnabled(Context context) {
     return getBooleanPreference(context, SMS_DELIVERY_REPORT_PREF, false);
-  }
-
-  public static boolean hasSeenWelcomeScreen(Context context) {
-    return getBooleanPreference(context, SEEN_WELCOME_SCREEN_PREF, true);
-  }
-
-  public static void setHasSeenWelcomeScreen(Context context, boolean value) {
-    setBooleanPreference(context, SEEN_WELCOME_SCREEN_PREF, value);
   }
 
   public static boolean hasPromptedPushRegistration(Context context) {
@@ -1235,12 +1224,10 @@ public class TextSecurePreferences {
   }
 
   public static boolean hasSeenStickerIntroTooltip(Context context) {
-    return getBooleanPreference(context, SEEN_STICKER_INTRO_TOOLTIP, false);
+    return true;
   }
 
-  public static void setHasSeenStickerIntroTooltip(Context context, boolean seenStickerTooltip) {
-    setBooleanPreference(context, SEEN_STICKER_INTRO_TOOLTIP, seenStickerTooltip);
-  }
+  public static void setHasSeenStickerIntroTooltip(Context context, boolean seenStickerTooltip) {}
 
   public static void setMediaKeyboardMode(Context context, MediaKeyboardMode mode) {
     setStringPreference(context, MEDIA_KEYBOARD_MODE, mode.name());

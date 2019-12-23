@@ -540,7 +540,7 @@ public class PushDecryptJob extends BaseJob {
 
         switch (operation.getType().get()) {
           case INSTALL:
-            jobManager.add(new StickerPackDownloadJob(packId, packKey, false));
+            jobManager.add(StickerPackDownloadJob.forInstall(packId, packKey, false));
             break;
           case REMOVE:
             DatabaseFactory.getStickerDatabase(context).uninstallPack(packId);

@@ -110,8 +110,6 @@ public final class WelcomeFragment extends BaseRegistrationFragment {
         return;
       }
 
-      TextSecurePreferences.setHasSeenWelcomeScreen(requireContext(), true);
-
       initializeNumber();
 
       cancelSpinning(continueButton);

@@ -335,6 +335,10 @@
   <string name="ExperienceUpgradeActivity_optional_link_previews_are_now_supported">Le anteprime facoltative dei link sono ora supportate per alcuni dei siti internet più famosi.</string>
   <string name="ExperienceUpgradeActivity_you_can_disable_or_enable_this_feature_link_previews">Puoi disattivare o attivare questa funzione in qualsiasi momento nelle impostazioni di Signal (Privacy &gt; Invia anteprime dei link).</string>
   <string name="ExperienceUpgradeActivity_got_it">Capito</string>
+  <string name="ExperienceUpgradeActivity_introducing_stickers">Ti presentiamo gli adesivi</string>
+  <string name="ExperienceUpgradeActivity_why_use_words_when_you_can_use_stickers">Perché usare le parole quando puoi utilizzare gli adesivi?</string>
+  <string name="ExperienceUpgradeActivity_why_use_words_when_you_can_use_stickers_tap_this_icon">Perché usare le parole quando puoi utilizzare gli adesivi? Tocca questa icona sulla tua tastiera:</string>
+  <string name="ExperienceUpgradeActivity_lets_go">Cominciamo</string>
   <!--GcmBroadcastReceiver-->
   <string name="GcmBroadcastReceiver_retrieving_a_message">Recupero di un messaggio…</string>
   <!--GcmRefreshJob-->
@@ -968,22 +972,22 @@ Ricevuto un messaggio di scambio chiavi per una versione di protocollo non valid
     <item quantity="one">%d minuto</item>
     <item quantity="other">%d minuti</item>
   </plurals>
-  <string name="expiration_minutes_abbreviated">%dm</string>
+  <string name="expiration_minutes_abbreviated">%dmin</string>
   <plurals name="expiration_hours">
     <item quantity="one">%d ora</item>
     <item quantity="other">%d ore</item>
   </plurals>
-  <string name="expiration_hours_abbreviated">%dore</string>
+  <string name="expiration_hours_abbreviated">%dh</string>
   <plurals name="expiration_days">
     <item quantity="one">%d giorno</item>
     <item quantity="other">%d giorni</item>
   </plurals>
-  <string name="expiration_days_abbreviated">%dgiorni</string>
+  <string name="expiration_days_abbreviated">%dd</string>
   <plurals name="expiration_weeks">
     <item quantity="one">%d settimana</item>
     <item quantity="other">%d settimane</item>
   </plurals>
-  <string name="expiration_weeks_abbreviated">%dset.</string>
+  <string name="expiration_weeks_abbreviated">%dset</string>
   <!--unverified safety numbers-->
   <string name="IdentityUtil_unverified_banner_one">Il tuo codice di sicurezza con %s è cambiato e non è più verificato</string>
   <string name="IdentityUtil_unverified_banner_two">I codici di sicurezza con %1$s e %2$s non sono più verificati</string>
