@@ -21,12 +21,12 @@
   </plurals>
   <string name="ApplicationPreferencesActivity_delete">ลบ</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">ปิดใช้งานวลีรหัสผ่านหรือ</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">นี่จะปลดล็อก Signal และการแจ้งเตือนข้อความโดยถาวร</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">นี่จะปลดล็อก Molly และการแจ้งเตือนข้อความโดยถาวร</string>
   <string name="ApplicationPreferencesActivity_disable">ปิดใช้งาน</string>
   <string name="ApplicationPreferencesActivity_unregistering">ยกเลิกการลงทะเบียน</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">กำลังยกเลิกการลงทะเบียนการใช้งานข้อความและการโทร Signal</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">ปิดใช้งานข้อความและการโทร Signal หรือไม่</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">ปิดใช้งานข้อความและการโทร Signal ด้วยการยกเลิกการลงทะเบียนจากเซิร์ฟเวอร์ คุณจะต้องลงทะเบียนหมายเลขโทรศัพท์ใหม่หากต้องการกลับมาใช้งานอีกในอนาคต</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">กำลังยกเลิกการลงทะเบียนการใช้งานข้อความและการโทร Molly</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">ปิดใช้งานข้อความและการโทร Molly หรือไม่</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">ปิดใช้งานข้อความและการโทร Molly ด้วยการยกเลิกการลงทะเบียนจากเซิร์ฟเวอร์ คุณจะต้องลงทะเบียนหมายเลขโทรศัพท์ใหม่หากต้องการกลับมาใช้งานอีกในอนาคต</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">เปิดใช้งาน SMS</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">แตะเพื่อเปลี่ยนแอป SMS หลักของคุณ</string>
@@ -134,7 +134,7 @@
   <string name="ConversationActivity_transport_insecure_sms">SMS ที่ไม่ปลอดภัย</string>
   <string name="ConversationActivity_transport_insecure_mms">MMS ที่ไม่ปลอดภัย</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">เปลี่ยนมาใช้ Signal กันเถอะ %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">เปลี่ยนมาใช้ Molly กันเถอะ %1$s</string>
   <string name="ConversationActivity_error_leaving_group">เกิดข้อผิดพลาดระหว่างออกจากกลุ่ม</string>
   <string name="ConversationActivity_specify_recipient">โปรดเลือกผู้ติดต่อ</string>
   <string name="ConversationActivity_unblock_this_contact_question">เลิกปิดกั้นผู้ติดต่อนี้หรือไม่</string>
@@ -310,14 +310,14 @@
   <string name="InviteActivity_sending">กำลังส่ง…</string>
   <string name="InviteActivity_heart_content_description">หัวใจ</string>
   <string name="InviteActivity_invitations_sent">ส่งคำเชิญแล้ว</string>
-  <string name="InviteActivity_invite_to_signal">เชิญมาใช้ Signal</string>
+  <string name="InviteActivity_invite_to_signal">เชิญมาใช้ Molly</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="other">ส่ง SMS ให้เพื่อน %d คน</item>
   </plurals>
   <plurals name="InviteActivity_send_sms_invites">
     <item quantity="other">ส่งคำเชิญทาง %dSMS หรือไม่</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">เปลี่ยนมาใช้ Signal กัน: %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">เปลี่ยนมาใช้ Molly กัน: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">ดูเหมือนคุณไม่มีแอปอะไรที่จะแบ่งปันไปได้เลย</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">เพื่อนต้องไม่ยอมให้เพื่อนคุยกันโดยไม่มีการเข้ารหัส</string>
   <!--Job-->

@@ -25,12 +25,12 @@
   </plurals>
   <string name="ApplicationPreferencesActivity_delete">Eliminar</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">¿Desactivar clave de acceso?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Esto desbloqueará permanentemente Signal y las notificaciones por mensajes.</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Esto desbloqueará permanentemente Molly y las notificaciones por mensajes.</string>
   <string name="ApplicationPreferencesActivity_disable">Desactivar</string>
   <string name="ApplicationPreferencesActivity_unregistering">Desregistrándose</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Dándose de baja de mensajes y llamadas de Signal … </string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">¿Desactivar mensajes y llamadas de Signal?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Esto desactivará los mensajes de Signal eliminando tu número del servidor. Necesitarás volver a registrar tu número de teléfono para usar Signal de nuevo en el futuro.</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Dándose de baja de mensajes y llamadas de Molly …</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">¿Desactivar mensajes y llamadas de Molly?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Esto desactivará los mensajes de Molly eliminando tu número del servidor. Necesitarás volver a registrar tu número de teléfono para usar Signal de nuevo en el futuro.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">¡Fallo al conectarse al servidor!</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">SMS activados</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">Toca para cambiar la aplicación de SMS predeterminada</string>
@@ -165,7 +165,7 @@
   <string name="ConversationActivity_transport_insecure_sms">SMS no seguro</string>
   <string name="ConversationActivity_transport_insecure_mms">MMS no seguro</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">Pasémonos a Signal: %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">Pasémonos a Molly: %1$s</string>
   <string name="ConversationActivity_error_leaving_group">Fallo al abandonar el grupo</string>
   <string name="ConversationActivity_specify_recipient">Por favor, selecciona un contacto</string>
   <string name="ConversationActivity_unblock_this_contact_question">¿Desbloquear a este contacto?</string>
@@ -385,7 +385,7 @@
   <string name="InviteActivity_sending">Enviando …</string>
   <string name="InviteActivity_heart_content_description">Corazón</string>
   <string name="InviteActivity_invitations_sent">¡Invitaciones enviadas!</string>
-  <string name="InviteActivity_invite_to_signal">Invitar a Signal</string>
+  <string name="InviteActivity_invite_to_signal">Invitar a Molly</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">ENVIAR SMS A %d AMIG@</item>
     <item quantity="other">ENVIAR SMS A %d AMIGOS</item>
@@ -394,7 +394,7 @@
     <item quantity="one">¿Enviar %d invitación por SMS?</item>
     <item quantity="other">¿Enviar %d invitaciones por SMS?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">Pasémonos a Signal: %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">Pasémonos a Molly: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Parece que no hay ninguna aplicación con la que compartir.</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Los verdaderos amigos no dejan que sus amigos hablen sin cifrar.</string>
   <!--Job-->

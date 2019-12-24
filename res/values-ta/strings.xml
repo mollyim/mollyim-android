@@ -25,12 +25,12 @@
   </plurals>
   <string name="ApplicationPreferencesActivity_delete">நீக்கு</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">கடவுச்சொல்லை முடக்கு?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">இது நிரந்தரமாக Signal செய்தி அறிவிப்புகளைத் திறக்கும்.</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">இது நிரந்தரமாக Molly செய்தி அறிவிப்புகளைத் திறக்கும்.</string>
   <string name="ApplicationPreferencesActivity_disable">முடக்கு</string>
   <string name="ApplicationPreferencesActivity_unregistering">பதிவுநீக்குதல்</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Signal குறுஞ்செய்தி மற்றும் அழைப்பு பதிவுநீக்கப்படுகிறது …</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Signal குறுஞ்செய்தி மற்றும் அழைப்பை முடக்கு ?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">சேவையகத்திலிருந்து பதிவுசெய்வதன் மூலம் Signal செய்திகள் மற்றும் அழைப்புகளை முடக்கு. எதிர்காலத்தில் மீண்டும் அவற்றைப் பயன்படுத்த நீங்கள் உங்கள் தொலைபேசி எண்ணை மீண்டும் பதிவு செய்ய வேண்டும்.</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Molly குறுஞ்செய்தி மற்றும் அழைப்பு பதிவுநீக்கப்படுகிறது …</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Molly குறுஞ்செய்தி மற்றும் அழைப்பை முடக்கு ?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">சேவையகத்திலிருந்து பதிவுசெய்வதன் மூலம் Molly செய்திகள் மற்றும் அழைப்புகளை முடக்கு. எதிர்காலத்தில் மீண்டும் அவற்றைப் பயன்படுத்த நீங்கள் உங்கள் தொலைபேசி எண்ணை மீண்டும் பதிவு செய்ய வேண்டும்.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">சர்வருடன் இணைவதில் பிழை!</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">குறுஞ்செய்தி செயல்படுத்தப்பட்டது</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">இதை உங்கள் இயல்புநிலை SMS மென்பொருளாக்க தொடவும் </string>
@@ -162,7 +162,7 @@
   <string name="ConversationActivity_transport_insecure_sms">பாதுகாப்பற்ற SMS</string>
   <string name="ConversationActivity_transport_insecure_mms">பாதுகாப்பற்ற MMS</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">%1$s நாம் Signalக்கு மாறுவோம்</string>
+  <string name="ConversationActivity_lets_switch_to_signal">%1$s நாம் Mollyக்கு மாறுவோம்</string>
   <string name="ConversationActivity_error_leaving_group">குழுவிலிருந்து வெளியேறுவதில் பிழை</string>
   <string name="ConversationActivity_specify_recipient">தயவு செய்து ஒரு தொடர்பை தேர்ந்தெடு</string>
   <string name="ConversationActivity_unblock_this_contact_question">இந்தத் தொடர்பை விடுவிக்கவா?</string>
@@ -377,7 +377,7 @@
   <string name="InviteActivity_sending">அனுப்புகிறது …</string>
   <string name="InviteActivity_heart_content_description">இதயம்</string>
   <string name="InviteActivity_invitations_sent">அழைப்புகள் அனுப்பட்டது!</string>
-  <string name="InviteActivity_invite_to_signal">Signalக்கு அழை</string>
+  <string name="InviteActivity_invite_to_signal">Mollyக்கு அழை</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">%d நண்பருக்கு எஸ்எம்எஸ் அனுப்பவும்</item>
     <item quantity="other">%d  நண்பர்களுக்கு எஸ்எம்எஸ் அனுப்பவும்</item>
@@ -386,7 +386,7 @@
     <item quantity="one">%d  எஸ்எம்எஸ் அழைப்பை அனுப்பவா?</item>
     <item quantity="other">%d  எஸ்எம்எஸ் அழைப்புகளை அனுப்பவா?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">%1$s: நாம் Signalக்கு மாறுவோம்</string>
+  <string name="InviteActivity_lets_switch_to_signal">%1$s: நாம் Mollyக்கு மாறுவோம்</string>
   <string name="InviteActivity_no_app_to_share_to">உங்களிடம் பகிர எந்த பயன்பாடுகளும் இல்லை என்று தெரிகிறது.</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">மறைகுறியாக்கப்பட்ட அரட்டை செய்ய நண்பர்கள் நண்பர்களை அனுமதிக்க மாட்டார்கள்.</string>
   <!--Job-->

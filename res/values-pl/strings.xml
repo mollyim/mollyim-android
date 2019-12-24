@@ -29,12 +29,12 @@
   </plurals>
   <string name="ApplicationPreferencesActivity_delete">Usuń</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">Wyłączyć hasło?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">To spowoduje odblokowanie na stałe aplikacji Signal i powiadomień wiadomości.</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">To spowoduje odblokowanie na stałe aplikacji Molly i powiadomień wiadomości.</string>
   <string name="ApplicationPreferencesActivity_disable">Wyłącz</string>
   <string name="ApplicationPreferencesActivity_unregistering">Wyrejestrowanie </string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Wyrejestrowywanie z usług wiadomości i połączeń Signal…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Wyłączyć wiadomości i połączenia Signal?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Wyłącz wiadomości i połączenia telefoniczne Signal poprzez wyrejestrowanie z serwera. Będziesz musiał(a) ponownie zarejestrować swój numer telefonu, jeśli będziesz chciał(a) go używać w przyszłości.</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Wyrejestrowywanie z usług wiadomości i połączeń Molly…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Wyłączyć wiadomości i połączenia Molly?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Wyłącz wiadomości i połączenia telefoniczne Molly poprzez wyrejestrowanie z serwera. Będziesz musiał(a) ponownie zarejestrować swój numer telefonu, jeśli będziesz chciał(a) go używać w przyszłości.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">Błąd połączenia z serwerem!</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">SMS Włączone</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">Dotknij, aby zmienić swoją domyślną aplikację SMS</string>
@@ -171,7 +171,7 @@
   <string name="ConversationActivity_transport_insecure_sms">Nieszyfrowany SMS</string>
   <string name="ConversationActivity_transport_insecure_mms">Nieszyfrowany MMS</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">Zacznij używać Signal %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">Zacznij używać Molly %1$s</string>
   <string name="ConversationActivity_error_leaving_group">Błąd podczas opuszczania grupy</string>
   <string name="ConversationActivity_specify_recipient">Proszę wybierz kontakt</string>
   <string name="ConversationActivity_unblock_this_contact_question">Odblokować ten kontakt?</string>
@@ -413,7 +413,7 @@
   <string name="InviteActivity_sending">Wysyłanie…</string>
   <string name="InviteActivity_heart_content_description">Serce</string>
   <string name="InviteActivity_invitations_sent">Zaproszenie zostało wysłane!</string>
-  <string name="InviteActivity_invite_to_signal">Zaproś do używania Signal</string>
+  <string name="InviteActivity_invite_to_signal">Zaproś do używania Molly</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">WYŚLIJ SMS DO %d ZNAJOMEGO</item>
     <item quantity="few">WYŚLIJ SMS DO %d ZNAJOMYCH</item>
@@ -426,7 +426,7 @@
     <item quantity="many">Wysłać %d zaproszeń SMS?</item>
     <item quantity="other">Wysłać %d zaproszeń SMS?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">Zacznij używać Signal: %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">Zacznij używać Molly: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Wygląda na to, że nie masz żadnych aplikacji z którymi możesz się podzielić.</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Nie pozwól znajomym używać nieszyfrowanych połączeń.</string>
   <!--Job-->

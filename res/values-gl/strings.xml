@@ -25,12 +25,13 @@
   </plurals>
   <string name="ApplicationPreferencesActivity_delete">Borrar</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">Desactivar frase de acceso?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Isto desbloqueará de xeito permanente Signal e as notificacións de mensaxes.</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Isto desbloqueará de xeito permanente Molly e as notificacións de mensaxes.</string>
   <string name="ApplicationPreferencesActivity_disable">Desactivar</string>
   <string name="ApplicationPreferencesActivity_unregistering">Anulando o rexistro</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Anulando o rexistro de mensaxes e chamadas de Signal…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Desactivar as mensaxes e chamadas en Signal?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Desactiva as mensaxes e chamadas vía Signal anulando o rexistro no servidor. Necesitarás volver rexistrar o teu número en caso de querer volver usalo.</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Anulando o rexistro de mensaxes e chamadas de Molly…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Desactivar as mensaxes e chamadas en Molly?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Desactiva as mensaxes e chamadas vía Molly
+   anulando o rexistro no servidor. Necesitarás volver rexistrar o teu número en caso de querer volver usalo.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">Erro ao se conectar ao servidor!</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">SMS activadas</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">Toca para cambiar a túa app predefinida de SMS</string>
@@ -160,7 +161,7 @@
   <string name="ConversationActivity_transport_insecure_sms">SMS insegura</string>
   <string name="ConversationActivity_transport_insecure_mms">MMS insegura</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">Imos cambiar a Signal %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">Imos cambiar a Molly %1$s</string>
   <string name="ConversationActivity_error_leaving_group">Erro ao abandonar o grupo</string>
   <string name="ConversationActivity_specify_recipient">Por favor, elixe un contacto</string>
   <string name="ConversationActivity_unblock_this_contact_question">Desbloquear este contacto?</string>
@@ -373,7 +374,7 @@
   <string name="InviteActivity_sending">A enviar…</string>
   <string name="InviteActivity_heart_content_description">Corazón</string>
   <string name="InviteActivity_invitations_sent">Convites enviados!</string>
-  <string name="InviteActivity_invite_to_signal">Convidar a Signal</string>
+  <string name="InviteActivity_invite_to_signal">Convidar a Molly</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">ENVIAR SMS A %d AMIZADE</item>
     <item quantity="other">ENVIAR SMS A %d AMIZADES</item>
@@ -382,7 +383,7 @@
     <item quantity="one">Enviar %d SMS de convite?</item>
     <item quantity="other">Enviar %d SMS de convite?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">Imos cambiar a Signal: %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">Imos cambiar a Molly: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Semella que non hai ningunha que permita compartir.</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Non manteñas coas túas amizades conversas sen cifrar.</string>
   <!--Job-->

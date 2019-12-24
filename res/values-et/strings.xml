@@ -25,12 +25,13 @@
   </plurals>
   <string name="ApplicationPreferencesActivity_delete">Kustuta</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">Keelata salaväljend?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">See lukustab püsivalt lahti Signali ja sõnumiteated.</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">See lukustab püsivalt lahti Mollyi ja sõnumiteated.</string>
   <string name="ApplicationPreferencesActivity_disable">Keela</string>
   <string name="ApplicationPreferencesActivity_unregistering">Registreerimise tühistamine</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Tühistan Signali sõnumite ja kõnede registratsiooni…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Keelad Signali sõnumid ja kõned?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Keela Signali sõnumid ja kõned, tühistades serveris registratsioon. Sa pead oma telefoninumbri taas-registreerima, kui soovid neid tulevikus kasutada.</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Tühistan Mollyi sõnumite ja kõnede registratsiooni…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Keelad Mollyi sõnumid ja kõned?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Keela Molly
+  i sõnumid ja kõned, tühistades serveris registratsioon. Sa pead oma telefoninumbri taas-registreerima, kui soovid neid tulevikus kasutada.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">Serveriga ühendumisel tekkis viga!</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">SMS lubatud</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">Klõpsa, et vahetada SMSi vaikerakendust</string>
@@ -165,7 +166,7 @@
   <string name="ConversationActivity_transport_insecure_sms">Ebaturvaline SMS</string>
   <string name="ConversationActivity_transport_insecure_mms">Ebaturvaline MMS</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">Lähme Signalile üle %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">Lähme Mollyile üle %1$s</string>
   <string name="ConversationActivity_error_leaving_group">Grupist lahkumisel tekkis viga</string>
   <string name="ConversationActivity_specify_recipient">Palun vali kontakt</string>
   <string name="ConversationActivity_unblock_this_contact_question">Eemaldada kontakti blokeering?</string>
@@ -385,7 +386,7 @@
   <string name="InviteActivity_sending">Saatmine…</string>
   <string name="InviteActivity_heart_content_description">Süda</string>
   <string name="InviteActivity_invitations_sent">Kutsed saadetud!</string>
-  <string name="InviteActivity_invite_to_signal">Kutsu Signalisse</string>
+  <string name="InviteActivity_invite_to_signal">Kutsu Mollyisse</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">SAADA SMS %d SÕBRALE</item>
     <item quantity="other">SAADA SMS %d SÕBRALE</item>
@@ -394,7 +395,7 @@
     <item quantity="one">Saadad %d SMS-kutse?</item>
     <item quantity="other">Saadad %d SMS-kutset?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">Lähme Signalile üle: %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">Lähme Mollyile üle: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Tundub, et sul pole ühtegi rakendust, kuhu jagada.</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Sõbrad ei luba sõpradel krüptimata rääkida.</string>
   <!--Job-->

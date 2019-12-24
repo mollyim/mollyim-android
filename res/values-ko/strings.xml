@@ -22,12 +22,13 @@
   </plurals>
   <string name="ApplicationPreferencesActivity_delete">삭제</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">암호 사용 중지</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Signal이 잠금 해제되어 메시지 알림이 표시됩니다.</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Molly이 잠금 해제되어 메시지 알림이 표시됩니다.</string>
   <string name="ApplicationPreferencesActivity_disable">사용 중지</string>
-  <string name="ApplicationPreferencesActivity_unregistering">Signal 메시지 서비스 탈퇴</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Signal 메시지와 통화 서비스를 탈퇴 중…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Signal 메시지와 통화를 사용 중지하시겠습니까?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">서버에 탈퇴하여 Signal 메시지와 통화를 사용 중지합니다. 다시 사용하려면 전화번호를 입력해 재가입해야 합니다.</string>
+  <string name="ApplicationPreferencesActivity_unregistering">Molly 메시지 서비스 탈퇴</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Molly 메시지와 통화 서비스를 탈퇴 중…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Molly 메시지와 통화를 사용 중지하시겠습니까?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">서버에 탈퇴하여 Molly
+   메시지와 통화를 사용 중지합니다. 다시 사용하려면 전화번호를 입력해 재가입해야 합니다.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">서버에 연결할 수 없음</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">SMS 사용</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">기본 SMS 앱을 변경하려면 터치하세요</string>
@@ -141,7 +142,7 @@
   <string name="ConversationActivity_transport_insecure_sms">보안 해제된 SMS</string>
   <string name="ConversationActivity_transport_insecure_mms">보안 해제된 MMS</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">Signal로 같이 바꿔요~ %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">Molly로 같이 바꿔요~ %1$s</string>
   <string name="ConversationActivity_error_leaving_group">그룹에서 나가기 오류</string>
   <string name="ConversationActivity_specify_recipient">연락처를 선택하세요</string>
   <string name="ConversationActivity_unblock_this_contact_question">사용자를 차단 해제하시겠습니까?</string>
@@ -337,14 +338,14 @@
   <string name="InviteActivity_sending">보내는 중…</string>
   <string name="InviteActivity_heart_content_description">하트</string>
   <string name="InviteActivity_invitations_sent">초대 보냄</string>
-  <string name="InviteActivity_invite_to_signal">Signal로 초대</string>
+  <string name="InviteActivity_invite_to_signal">Molly로 초대</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="other">%d 명의 친구들에게 문자보내기</item>
   </plurals>
   <plurals name="InviteActivity_send_sms_invites">
     <item quantity="other">%d 개의  초청 문자 메시지를 보낼까요?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">Signal로 같이 바꿔요~ %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">Molly로 같이 바꿔요~ %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">친구 초대 위해 공유할 수 있는 앱 없음</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">좋은 친구라면 친구의 메시지도 암호화 해주세요~</string>
   <!--Job-->

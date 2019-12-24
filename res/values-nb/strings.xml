@@ -25,12 +25,12 @@
   </plurals>
   <string name="ApplicationPreferencesActivity_delete">Slett</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">Deaktiver passordfrase?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Dette vil låse opp Signal og meldingsvarsler permanent.</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Dette vil låse opp Molly og meldingsvarsler permanent.</string>
   <string name="ApplicationPreferencesActivity_disable">Deaktiver</string>
   <string name="ApplicationPreferencesActivity_unregistering">Avregistrerer</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Avregistrerer fra Signal-meldinger og samtaler…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Deaktiver Signal-meldinger og samtaler?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Deaktiver Signal-meldinger og samtaler ved å registrere deg fra serveren. Du må registrere ditt telefonnummer på nytt for å bruke dem igjen i fremtiden.</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Avregistrerer fra Molly-meldinger og samtaler…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Deaktiver Molly-meldinger og samtaler?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Deaktiver Molly-meldinger og samtaler ved å registrere deg fra serveren. Du må registrere ditt telefonnummer på nytt for å bruke dem igjen i fremtiden.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">Feil ved tilkobling til server!</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">SMS Aktivert</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">Trykk for å endre standard SMS-appen din</string>
@@ -165,7 +165,7 @@
   <string name="ConversationActivity_transport_insecure_sms">Usikker SMS</string>
   <string name="ConversationActivity_transport_insecure_mms">Usikker MMS</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">La oss bytte til Signal %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">La oss bytte til Molly %1$s</string>
   <string name="ConversationActivity_error_leaving_group">Feil ved forlatelse av gruppe</string>
   <string name="ConversationActivity_specify_recipient">Velg en kontakt</string>
   <string name="ConversationActivity_unblock_this_contact_question">Vil du fjerne blokkering av denne kontakten?</string>
@@ -383,7 +383,7 @@
   <string name="InviteActivity_sending">Sender…</string>
   <string name="InviteActivity_heart_content_description">Hjerte</string>
   <string name="InviteActivity_invitations_sent">Invitasjoner sendt.</string>
-  <string name="InviteActivity_invite_to_signal">Inviter til Signal</string>
+  <string name="InviteActivity_invite_to_signal">Inviter til Molly</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">SEND SMS TIL %dVENN</item>
     <item quantity="other">SEND SMS TIL %dVENNER</item>
@@ -392,7 +392,7 @@
     <item quantity="one">Vil du sende %d SMS-invitasjon?</item>
     <item quantity="other">Vil du sende %d SMS-invitasjoner?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">La oss bytte til Signal. %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">La oss bytte til Molly. %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Det ser ut som at du ikke har noen programmer å dele denne informasjonen med.</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Venner bør ikke prate ukryptert over nettet.</string>
   <!--Job-->

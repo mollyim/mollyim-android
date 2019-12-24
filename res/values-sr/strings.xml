@@ -27,12 +27,12 @@
   </plurals>
   <string name="ApplicationPreferencesActivity_delete">Обриши</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">Да искључим лозинку?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Ово ће трајно да откључа Сигнал и обавештења о порукама.</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Ово ће трајно да откључа Molly и обавештења о порукама.</string>
   <string name="ApplicationPreferencesActivity_disable">Искључи</string>
   <string name="ApplicationPreferencesActivity_unregistering">Одјављујем</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Одјављивање са Сигнал порука и пожива…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Онемогућити поруке и позиве преко Сигнала?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Онемогућите поруке и позиве преко Signal-a одјавом са сервера.
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Одјављивање са Molly порука и пожива…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Онемогућити поруке и позиве преко Molly-а?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Онемогућите поруке и позиве преко Molly-a одјавом са сервера.
 Мораћете поново да пријавите ваш број телефона да бисте опет их користили убудуће.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">Грешка повезивања на сервер!</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">СМС омогућен</string>
@@ -164,7 +164,7 @@
   <string name="ConversationActivity_transport_insecure_sms">Необезбеђени СМС</string>
   <string name="ConversationActivity_transport_insecure_mms">Необезбеђени ММС</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">Пребацимо се на Signal %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">Пребацимо се на Molly %1$s</string>
   <string name="ConversationActivity_error_leaving_group">Грешка при напуштању групе</string>
   <string name="ConversationActivity_specify_recipient">Одредите примаоца</string>
   <string name="ConversationActivity_unblock_this_contact_question">Одлокирати овај контакт?</string>
@@ -380,7 +380,7 @@
   <string name="InviteActivity_sending">Шаље се…</string>
   <string name="InviteActivity_heart_content_description">Срце</string>
   <string name="InviteActivity_invitations_sent">Позивнице послате!</string>
-  <string name="InviteActivity_invite_to_signal">Слање позивнице за Signal</string>
+  <string name="InviteActivity_invite_to_signal">Слање позивнице за Molly</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">ПОШАЉИ СМС ЗА %d ПРИЈАТЕЉА</item>
     <item quantity="few">ПОШАЉИ СМС ЗА %d ПРИЈАТЕЉА</item>
@@ -391,7 +391,7 @@
     <item quantity="few">Послати %d СМС позивнице?</item>
     <item quantity="other">Послати %d СМС позивница?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">Пребацимо се на Signal: %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">Пребацимо се на Molly: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Изгледа да немате ниједну апликацију преко које бисте могли да делите.</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Пријатељи не допуштају пријатељима да ћаскају небезбедно.</string>
   <!--Job-->

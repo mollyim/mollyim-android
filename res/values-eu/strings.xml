@@ -25,12 +25,13 @@
   </plurals>
   <string name="ApplicationPreferencesActivity_delete">Ezabatu</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">Desgaitu pasahitza?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Signal eta mezu jakinarazpenak iraunkorki desbloketuako dira.</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Molly eta mezu jakinarazpenak iraunkorki desbloketuako dira.</string>
   <string name="ApplicationPreferencesActivity_disable">Desgaitu</string>
   <string name="ApplicationPreferencesActivity_unregistering">Deserregistratzen</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Deserregistratzen Signal mezu eta deietatik…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Signal mezu eta deiak desgaitu?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Desgaitu Signal mezu eta deiak zerbitzaritik deserregistratuz. Zure telefono zenbakia bererregistratu beharko duzu mezu eta deiak berriro erabili ahal izateko.</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Deserregistratzen Molly mezu eta deietatik…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Molly mezu eta deiak desgaitu?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Desgaitu Molly
+   mezu eta deiak zerbitzaritik deserregistratuz. Zure telefono zenbakia bererregistratu beharko duzu mezu eta deiak berriro erabili ahal izateko.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">Errorea zerbitzariarekin konektatzerakoan!</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">SMS Gaituta</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">Ukitu zure SMS aplikazio lehenetsia aldatzeko</string>
@@ -160,7 +161,7 @@
   <string name="ConversationActivity_transport_insecure_sms">SMS ez segurua</string>
   <string name="ConversationActivity_transport_insecure_mms">MMS ez segurua</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">Signalera aldatu dezagun %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">Mollyera aldatu dezagun %1$s</string>
   <string name="ConversationActivity_error_leaving_group">Taldetik irteterakoan huts egin du</string>
   <string name="ConversationActivity_specify_recipient">Kontaktu bat aukeratu, mesedez</string>
   <string name="ConversationActivity_unblock_this_contact_question">Desblokeatu kontaktu hau?</string>
@@ -373,7 +374,7 @@
   <string name="InviteActivity_sending">Bidaltzen…</string>
   <string name="InviteActivity_heart_content_description">Bihotza</string>
   <string name="InviteActivity_invitations_sent">Gonbidapenak bidali dira!</string>
-  <string name="InviteActivity_invite_to_signal">Gonbidatu Signal erabiltzera</string>
+  <string name="InviteActivity_invite_to_signal">Gonbidatu Molly erabiltzera</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">BIDALI SMS MEZUA LAGUN %dI</item>
     <item quantity="other">BIDALI SMS MEZUA %d LAGUNI</item>
@@ -382,7 +383,7 @@
     <item quantity="one">Bidali SMS gonbidapen %d?</item>
     <item quantity="other">Bidali %d SMS gonbidapen?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">Signalera alda dezagun: %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">Mollyera alda dezagun: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Dirudienez ez duzu partekatzeko aplikazio bakar bat ere.</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Benetako lagunek ez diete beraien lagunei enkriptaziorik gabe txateatzen uzten.</string>
   <!--Job-->

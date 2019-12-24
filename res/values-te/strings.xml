@@ -25,12 +25,12 @@
   </plurals>
   <string name="ApplicationPreferencesActivity_delete">తొలగించండి</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">సంకేతపదమును ఆపివేయాలా?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">ఇది శాశ్వతంగా  Signal మరియు సందేశ ప్రకటనలను అన్లాక్ చేస్తుంది</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">ఇది శాశ్వతంగా Molly మరియు సందేశ ప్రకటనలను అన్లాక్ చేస్తుంది</string>
   <string name="ApplicationPreferencesActivity_disable">అచేతనించు</string>
   <string name="ApplicationPreferencesActivity_unregistering">నమోదు చేయలేనిది</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Signal సందేశాలు మరియు కాల్‌ల నుండి నమోదు చేయలేదు…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">   Signal సందేశాలు మరియు కాల్స్ ఆపివేయాలా?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">సర్వర్ నుండి నమోదుని తీసివేయడానికి ద్వారా Signal సందేశాలు మరియు కాల్స్ ఆపివేయి. మీరు భవిష్యత్తులో మళ్ళీ వాటిని ఉపయోగించడానికి మీ ఫోన్ నంబర్ తిరిగి నమోదు అవసరం.</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Molly సందేశాలు మరియు కాల్‌ల నుండి నమోదు చేయలేదు…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Molly సందేశాలు మరియు కాల్స్ ఆపివేయాలా?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">సర్వర్ నుండి నమోదుని తీసివేయడానికి ద్వారా Molly సందేశాలు మరియు కాల్స్ ఆపివేయి. మీరు భవిష్యత్తులో మళ్ళీ వాటిని ఉపయోగించడానికి మీ ఫోన్ నంబర్ తిరిగి నమోదు అవసరం.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server"> సర్వర్ కి కలిపినపుడు లోపం!</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">ఎస్సెమ్మెస్ చేతనం అయింది</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">మీ అప్రమేయ ఎస్సెమ్మెస్ అప్ మార్చడానికి తాకండి</string>
@@ -165,7 +165,7 @@
   <string name="ConversationActivity_transport_insecure_sms">అసురక్షిత సందేశం</string>
   <string name="ConversationActivity_transport_insecure_mms">అసురక్షిత ఎమ్మెమ్మెస్</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">మనం Signal %1$sకు మారుదాం</string>
+  <string name="ConversationActivity_lets_switch_to_signal">మనం Molly %1$sకు మారుదాం</string>
   <string name="ConversationActivity_error_leaving_group">సమూహం నుండి వైదొలగటంలో లోపం</string>
   <string name="ConversationActivity_specify_recipient">దయచేసి ఒక పరిచయం ఎంచుకోండి</string>
   <string name="ConversationActivity_unblock_this_contact_question">ఈ పరిచయం నిరోధించాలా?</string>
@@ -389,7 +389,7 @@
   <string name="InviteActivity_sending">పంపుతోంది …</string>
   <string name="InviteActivity_heart_content_description">హృదయం</string>
   <string name="InviteActivity_invitations_sent">ఆహ్వనం పంపబడింది!</string>
-  <string name="InviteActivity_invite_to_signal">Signal కు  ఆహ్వానించండి</string>
+  <string name="InviteActivity_invite_to_signal">Molly కు ఆహ్వానించండి</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">1%d స్నేహితులకు SMS పంపండి</item>
     <item quantity="other">%d స్నేహితులకు SMS పంపండి</item>
@@ -398,7 +398,7 @@
     <item quantity="one">1%d SMS ఆహ్వానాలను పంపాలా?</item>
     <item quantity="other">%d SMS ఆహ్వానాలను పంపాలా?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">మనం Signal కు మారుదాం: %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">మనం Molly కు మారుదాం: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">మీరు పంచుకొనడానికి మీ దగ్గర వేరే యాప్స్ లేనట్టు కనబడుతుంది.</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">స్నేహితులారా , ఎన్క్రిప్ట్ చేయకుండా స్నేహితులని సంభాషించనివ్వొద్దు.</string>
   <!--Job-->

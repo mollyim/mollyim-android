@@ -23,12 +23,12 @@
   </plurals>
   <string name="ApplicationPreferencesActivity_delete">Xóa</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">Tắt mật khẩu?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Thao tác này sẽ vĩnh viễn mở khóa Signal và thông báo tin nhắn.</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Thao tác này sẽ vĩnh viễn mở khóa Molly và thông báo tin nhắn.</string>
   <string name="ApplicationPreferencesActivity_disable">Tắt</string>
   <string name="ApplicationPreferencesActivity_unregistering">Huỷ đăng ký</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Đang hủy đăng ký khỏi Signal…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Tắt tin nhắn và cuộc gọi Signal?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Tắt Signal bằng cách hủy đăng ký khỏi máy chủ. Bạn sẽ cần phải đăng ký lại số điện thoại của bạn để sử dụng trong tương lai.</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Đang hủy đăng ký khỏi Molly…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Tắt tin nhắn và cuộc gọi Molly?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Tắt Molly bằng cách hủy đăng ký khỏi máy chủ. Bạn sẽ cần phải đăng ký lại số điện thoại của bạn để sử dụng trong tương lai.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">Lỗi kết nối đến máy chủ!</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">Đã bật SMS</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">Nhấn để đổi ứng dụng SMS mặc định</string>
@@ -162,7 +162,7 @@
   <string name="ConversationActivity_transport_insecure_sms">SMS không bảo mật</string>
   <string name="ConversationActivity_transport_insecure_mms">MMS không bảo mật</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">Hãy chuyển sang dùng Signal %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">Hãy chuyển sang dùng Molly %1$s</string>
   <string name="ConversationActivity_error_leaving_group">Lỗi khi rời nhóm</string>
   <string name="ConversationActivity_specify_recipient">Vui lòng chọn một liên lạc</string>
   <string name="ConversationActivity_unblock_this_contact_question">Bỏ chặn liên lạc này?</string>
@@ -369,14 +369,14 @@
   <string name="InviteActivity_sending">Đang gửi…</string>
   <string name="InviteActivity_heart_content_description">Thích</string>
   <string name="InviteActivity_invitations_sent">Đã gửi lời mời!</string>
-  <string name="InviteActivity_invite_to_signal">Mời dùng Signal</string>
+  <string name="InviteActivity_invite_to_signal">Mời dùng Molly</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="other">GỬI SMS ĐẾN %d BẠN</item>
   </plurals>
   <plurals name="InviteActivity_send_sms_invites">
     <item quantity="other">GỬI %d LỜI MỜI QUA SMS?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">Hãy chuyển sang dùng Signal: %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">Hãy chuyển sang dùng Molly: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Có vẻ như bạn không có bất kỳ ứng dụng nào để chia sẻ.</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Một người bạn tốt không để bạn mình nhắn tin không mã hoá.</string>
   <!--Job-->

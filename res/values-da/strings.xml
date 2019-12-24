@@ -28,9 +28,9 @@
   <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Dette vil permanent låse op for Signal og besked notifikationer</string>
   <string name="ApplicationPreferencesActivity_disable">Deaktivér</string>
   <string name="ApplicationPreferencesActivity_unregistering">Afmeld</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Afregistrerer fra Signal beskeder og opkald…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Deaktivér Signalbeskeder og -opkald?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Deaktivér Signalbeskeder og -opkald fra serveren ved afmelding. Du er nødt til igen at registrere dit telefonnummer, for at bruge det igen i fremtiden</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Afregistrerer fra Molly beskeder og opkald…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Deaktivér Mollybeskeder og -opkald?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Deaktivér Mollybeskeder og -opkald fra serveren ved afmelding. Du er nødt til igen at registrere dit telefonnummer, for at bruge det igen i fremtiden</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">Fejl ved oprettelse af forbindelse til serveren</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">SMS aktiveret</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">Tap for at ændre standard SMS applikation</string>
@@ -166,7 +166,7 @@
   <string name="ConversationActivity_transport_insecure_sms">Usikret SMS</string>
   <string name="ConversationActivity_transport_insecure_mms">Usikret MMS</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">Lad os bruge Signal %1$s?</string>
+  <string name="ConversationActivity_lets_switch_to_signal">Lad os bruge Molly %1$s?</string>
   <string name="ConversationActivity_error_leaving_group">Fejl ved forsøg på at forlade gruppen</string>
   <string name="ConversationActivity_specify_recipient">Vælg venligst en kontakt</string>
   <string name="ConversationActivity_unblock_this_contact_question">Fjern blokering af kontakten?</string>
@@ -386,7 +386,7 @@
   <string name="InviteActivity_sending">Sender…</string>
   <string name="InviteActivity_heart_content_description">Hjerte</string>
   <string name="InviteActivity_invitations_sent">Invitationer sendt!</string>
-  <string name="InviteActivity_invite_to_signal">Invitér til Signal</string>
+  <string name="InviteActivity_invite_to_signal">Invitér til Molly</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">SEND SMS TIL %d VENNER</item>
     <item quantity="other">SEND SMS TIL %d VENNER</item>
@@ -395,7 +395,7 @@
     <item quantity="one">Send %d SMS invitationer?</item>
     <item quantity="other">Send %d SMS invitationer?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">Lad os bruge Signal: %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">Lad os bruge Molly: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Det lader til at du ikke har nogle apps at dele til</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Venner lader ikke deres venner chatte ukrypteret</string>
   <!--Job-->

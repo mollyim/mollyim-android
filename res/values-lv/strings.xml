@@ -30,9 +30,9 @@
   <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Šī opcija permanenti atslēgs aplikāciju un paziņojumus par jaunām ziņām.</string>
   <string name="ApplicationPreferencesActivity_disable">Atspējot</string>
   <string name="ApplicationPreferencesActivity_unregistering">Atreģistrēties</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Atreģistrējos no Signal ziņām un zvaniem…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Atspējot Signal ziņas un zvanus?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Atreģistrējoties no servera, atspējot Signal ziņas un zvanus. Lai šīs opcijas atsāktu lietot, Jums nākotnē būs atkārtoti jāreģistrē savs tālruņa numurs.</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Atreģistrējos no Molly ziņām un zvaniem…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Atspējot Molly ziņas un zvanus?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Atreģistrējoties no servera, atspējot Molly ziņas un zvanus. Lai šīs opcijas atsāktu lietot, Jums nākotnē būs atkārtoti jāreģistrē savs tālruņa numurs.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">Nevarēja savienoties ar serveri!</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">SMS aktivizēts</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">Pieskarieties lai izvēlētos savu noklusējuma SMS aplikāciju</string>
@@ -162,7 +162,7 @@
   <string name="ConversationActivity_transport_insecure_sms">Nedroša īsziņa</string>
   <string name="ConversationActivity_transport_insecure_mms">Nedrošs MMS</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">Pārslēdzamies uz Signal %1$s!</string>
+  <string name="ConversationActivity_lets_switch_to_signal">Pārslēdzamies uz Molly %1$s!</string>
   <string name="ConversationActivity_error_leaving_group">Kļūda, pametot grupu</string>
   <string name="ConversationActivity_specify_recipient">Lūdzu, izvēlaties kontaktu!</string>
   <string name="ConversationActivity_unblock_this_contact_question">Atbloķēt šo kontaktu?</string>
@@ -381,7 +381,7 @@
   <string name="InviteActivity_sending">Sūta…</string>
   <string name="InviteActivity_heart_content_description">Sirds</string>
   <string name="InviteActivity_invitations_sent">Ielūgums nosutīts</string>
-  <string name="InviteActivity_invite_to_signal">Uzaicināt uz Signal</string>
+  <string name="InviteActivity_invite_to_signal">Uzaicināt uz Molly</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="zero">SŪTĪT SMS %d DRAUGIEM</item>
     <item quantity="one">SŪTĪT SMS %d DRAUGAM</item>
@@ -392,7 +392,7 @@
     <item quantity="one">Sūtīt %d SMS Ielūgumu?</item>
     <item quantity="other">Sūtīt %d SMS ielūgumus?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">Pārejam uz Signal: %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">Pārejam uz Molly: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Izkstās, ka tev nav nevienas aplikācijas, lai dalītos.</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Draugi neļauj draugiem sazināties bez šifrēšanas.</string>
   <!--Job-->

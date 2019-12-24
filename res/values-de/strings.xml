@@ -25,12 +25,13 @@
   </plurals>
   <string name="ApplicationPreferencesActivity_delete">Löschen</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">Passphrase deaktivieren?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Dies wird Signal und Benachrichtigungen über Nachrichten dauerhaft entsperren.</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Dies wird Molly und Benachrichtigungen über Nachrichten dauerhaft entsperren.</string>
   <string name="ApplicationPreferencesActivity_disable">Deaktivieren</string>
   <string name="ApplicationPreferencesActivity_unregistering">Deregistrieren</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Registrierung für Signal-Nachrichten und -Anrufe wird gelöscht …</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Signal-Nachrichten und -Anrufe deaktivieren?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Signal-Nachrichten und -Anrufe durch Löschen deiner Registrierung vom Server deaktivieren. Du wirst deine Rufnummer erneut registrieren müssen, um zukünftig wieder verschlüsselt zu kommunizieren.</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Registrierung für Molly-Nachrichten und -Anrufe wird gelöscht …</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Molly-Nachrichten und -Anrufe deaktivieren?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Molly
+  -Nachrichten und -Anrufe durch Löschen deiner Registrierung vom Server deaktivieren. Du wirst deine Rufnummer erneut registrieren müssen, um zukünftig wieder verschlüsselt zu kommunizieren.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">Fehler beim Verbinden mit Server!</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">SMS aktiviert</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">Antippen, um Standard-SMS-App zu ändern</string>
@@ -165,7 +166,7 @@
   <string name="ConversationActivity_transport_insecure_sms">Unsichere SMS</string>
   <string name="ConversationActivity_transport_insecure_mms">Unsichere MMS</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">Lass uns zu »Signal« wechseln: %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">Lass uns zu »Molly« wechseln: %1$s</string>
   <string name="ConversationActivity_error_leaving_group">Fehler beim Verlassen der Gruppe</string>
   <string name="ConversationActivity_specify_recipient">Bitte einen Kontakt auswählen</string>
   <string name="ConversationActivity_unblock_this_contact_question">Diesen Kontakt freigeben?</string>
@@ -385,7 +386,7 @@
   <string name="InviteActivity_sending">Wird gesendet …</string>
   <string name="InviteActivity_heart_content_description">Herz</string>
   <string name="InviteActivity_invitations_sent">Einladungen versendet!</string>
-  <string name="InviteActivity_invite_to_signal">Zu Signal einladen</string>
+  <string name="InviteActivity_invite_to_signal">Zu Molly einladen</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">SMS AN %d FREUND SENDEN</item>
     <item quantity="other">SMS AN %d FREUNDE SENDEN</item>
@@ -394,7 +395,7 @@
     <item quantity="one">%d SMS-Einladung senden?</item>
     <item quantity="other">%d SMS-Einladungen senden?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">Lass uns zu »Signal« wechseln: %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">Lass uns zu »Molly« wechseln: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Es sieht so aus, als hättest du keine zum Teilen geeignete Apps installiert.</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Freunde lassen Freunde nicht unverschlüsselt kommunizieren.</string>
   <!--Job-->

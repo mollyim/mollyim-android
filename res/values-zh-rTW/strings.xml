@@ -23,12 +23,12 @@
   </plurals>
   <string name="ApplicationPreferencesActivity_delete">刪除</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">停用密碼嗎？</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">這將會永久性地解鎖 Signal 與訊息通知。</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">這將會永久性地解鎖 Molly 與訊息通知。</string>
   <string name="ApplicationPreferencesActivity_disable">停用</string>
   <string name="ApplicationPreferencesActivity_unregistering">取消註冊</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">正在從Signal訊息和通話中註銷…    </string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">停用 Signal 訊息與通話？</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">這將會從伺服器上登出您的 Signal 並停用。 未來如果還想使用該功能，則需要再次註冊。</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">正在從Molly訊息和通話中註銷…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">停用 Molly 訊息與通話？</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">這將會從伺服器上登出您的 Molly 並停用。 未來如果還想使用該功能，則需要再次註冊。</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">與伺服器的連線發生錯誤！</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">簡訊功能已啟動</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">按此以變更您預設的簡訊應用程式</string>
@@ -162,7 +162,7 @@
   <string name="ConversationActivity_transport_insecure_sms">不安全的簡訊</string>
   <string name="ConversationActivity_transport_insecure_mms">不安全的多媒體訊息</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">我們要不要切換到 Signal %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">我們要不要切換到 Molly %1$s</string>
   <string name="ConversationActivity_error_leaving_group">離開群組時發生錯誤</string>
   <string name="ConversationActivity_specify_recipient">請選擇聯絡人</string>
   <string name="ConversationActivity_unblock_this_contact_question">解除封鎖此聯絡人？</string>
@@ -371,14 +371,14 @@
   <string name="InviteActivity_sending">傳送中…</string>
   <string name="InviteActivity_heart_content_description">心</string>
   <string name="InviteActivity_invitations_sent">邀請已傳送！</string>
-  <string name="InviteActivity_invite_to_signal">邀請至 Signal</string>
+  <string name="InviteActivity_invite_to_signal">邀請至 Molly</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="other">傳送簡訊給 %d 位朋友</item>
   </plurals>
   <plurals name="InviteActivity_send_sms_invites">
     <item quantity="other">傳送 %d 則簡訊邀請？</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">讓我們切換到 Signal：%1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">讓我們切換到 Molly：%1$s</string>
   <string name="InviteActivity_no_app_to_share_to">看起來您沒有任何可以分享的應用。</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">朋友不該讓朋友之間的聊天未經加密。</string>
   <!--Job-->

@@ -25,12 +25,12 @@
   </plurals>
   <string name="ApplicationPreferencesActivity_delete">Ta bort</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">Inaktivera lösenord?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Detta kommer permanent låsa upp Signal och meddelandeaviseringar.</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Detta kommer permanent låsa upp Molly och meddelandeaviseringar.</string>
   <string name="ApplicationPreferencesActivity_disable">Inaktivera</string>
   <string name="ApplicationPreferencesActivity_unregistering">Avregistrering</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Avregistrering från Signal-meddelanden och samtal…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Inaktivera Signal-meddelanden och -samtal?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Inaktivera Signal-meddelanden och -samtal genom att avregistrera dig från servern. Du kommer behöva återregistrera ditt telefonnummer för att använda dem igen senare.</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Avregistrering från Molly-meddelanden och samtal…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Inaktivera Molly-meddelanden och -samtal?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Inaktivera Molly-meddelanden och -samtal genom att avregistrera dig från servern. Du kommer behöva återregistrera ditt telefonnummer för att använda dem igen senare.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">Fel vid anslutning till server!</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">SMS aktiverat</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">Tryck för att ändra din standardapp för SMS</string>
@@ -165,7 +165,7 @@
   <string name="ConversationActivity_transport_insecure_sms">Osäkert SMS</string>
   <string name="ConversationActivity_transport_insecure_mms">Osäkert MMS</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">Låt oss byta till Signal %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">Låt oss byta till Molly %1$s</string>
   <string name="ConversationActivity_error_leaving_group">Fel vid lämnande av grupp</string>
   <string name="ConversationActivity_specify_recipient">Välj en kontakt</string>
   <string name="ConversationActivity_unblock_this_contact_question">Avblockera denna kontakt?</string>
@@ -385,7 +385,7 @@
   <string name="InviteActivity_sending">Skickar…</string>
   <string name="InviteActivity_heart_content_description">Hjärta</string>
   <string name="InviteActivity_invitations_sent">Inbjudningar skickade!</string>
-  <string name="InviteActivity_invite_to_signal">Bjud in till Signal</string>
+  <string name="InviteActivity_invite_to_signal">Bjud in till Molly</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">SKICKA SMS TILL %d VÄN</item>
     <item quantity="other">SKICKA SMS TILL %d VÄNNER</item>
@@ -394,7 +394,7 @@
     <item quantity="one">Skicka %d SMS-inbjudan?</item>
     <item quantity="other">Skicka %d SMS-inbjudningar?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">Låt oss byta till Signal: %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">Låt oss byta till Molly: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Verkar som att du inte har några appar att dela till.</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Vänner låter inte varandra prata okrypterat.</string>
   <!--Job-->

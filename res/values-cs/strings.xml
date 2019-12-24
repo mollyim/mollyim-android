@@ -29,12 +29,13 @@
   </plurals>
   <string name="ApplicationPreferencesActivity_delete">Smazat</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">Zakázat heslo?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Tímto trvale odemknete Signal a upozornění na zprávy.</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Tímto trvale odemknete Molly a upozornění na zprávy.</string>
   <string name="ApplicationPreferencesActivity_disable">Deaktivovat</string>
   <string name="ApplicationPreferencesActivity_unregistering">Rušení registrace</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Rušení registrace Signal zpráv a volání…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Zakázat Signal zprávy a volání?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Tímto zakážete Signal zprávy a volání odregistrací ze serveru. Abyste mohli používat Signal zprávy v budoucnosti, budete muset znovu registrovat svoje telefonní číslo.</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Rušení registrace Molly zpráv a volání…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Zakázat Molly zprávy a volání?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Tímto zakážete Molly
+   zprávy a volání odregistrací ze serveru. Abyste mohli používat Signal zprávy v budoucnosti, budete muset znovu registrovat svoje telefonní číslo.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">Chyba při připojování k serveru!</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">SMS povoleny</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">Dotykem nastavte výchozí aplikaci pro SMS</string>
@@ -171,7 +172,7 @@
   <string name="ConversationActivity_transport_insecure_sms">Nezabezpečená SMS</string>
   <string name="ConversationActivity_transport_insecure_mms">Nezabezpečená MMS</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">Pojďme přepnout na Signal: %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">Pojďme přepnout na Molly: %1$s</string>
   <string name="ConversationActivity_error_leaving_group">Chyba při opouštění skupiny</string>
   <string name="ConversationActivity_specify_recipient">Vyberte prosím kontakt</string>
   <string name="ConversationActivity_unblock_this_contact_question">Odblokovat tento kontakt?</string>
@@ -410,7 +411,7 @@
   <string name="InviteActivity_sending">Odesílaní…</string>
   <string name="InviteActivity_heart_content_description">Srdíčko</string>
   <string name="InviteActivity_invitations_sent">Pozvánka odeslána!</string>
-  <string name="InviteActivity_invite_to_signal">Pozvat do Signalu</string>
+  <string name="InviteActivity_invite_to_signal">Pozvat do Mollyu</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">POSLAT SMS %d PŘÍTELI</item>
     <item quantity="few">POSLAT SMS %d PŘÁTELŮM</item>
@@ -423,7 +424,7 @@
     <item quantity="many">Poslat %d SMS pozvánek?</item>
     <item quantity="other">Poslat %d SMS pozvánek?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">Pojďme přepnout na Signal: %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">Pojďme přepnout na Molly: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Zdá se, že nemáte žádnou aplikaci pro sdílení.</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Přátelé nenechávají přátele komunikovat nešifrovaně.</string>
   <!--Job-->

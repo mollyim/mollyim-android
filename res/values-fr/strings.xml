@@ -25,12 +25,13 @@
   </plurals>
   <string name="ApplicationPreferencesActivity_delete">Supprimer</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">Désactiver la phrase de passe ?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Signal et les notifications de message seront déverrouillés en permanence.</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Molly et les notifications de message seront déverrouillés en permanence.</string>
   <string name="ApplicationPreferencesActivity_disable">Désactiver</string>
   <string name="ApplicationPreferencesActivity_unregistering">Annulation de l’inscription</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Annulation de l’inscription aux messages et appels Signal…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Désactiver les messages et appels Signal ?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Désactiver les messages et appels Signal en vous désinscrivant du serveur. Vous devrez réinscrire votre numéro de téléphone pour les utiliser de nouveau à l’avenir.</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Annulation de l’inscription aux messages et appels Molly…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Désactiver les messages et appels Molly?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Désactiver les messages et appels Molly
+   en vous désinscrivant du serveur. Vous devrez réinscrire votre numéro de téléphone pour les utiliser de nouveau à l’avenir.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">Erreur de connexion au serveur !</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">Les textos sont activés</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">Touchez pour changer votre appli de texto par défaut</string>
@@ -162,7 +163,7 @@
   <string name="ConversationActivity_transport_insecure_sms">Texto non sécurisé</string>
   <string name="ConversationActivity_transport_insecure_mms">Message multimédia non sécurisé</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">Passons à Signal %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">Passons à Molly %1$s</string>
   <string name="ConversationActivity_error_leaving_group">Erreur en quittant le groupe</string>
   <string name="ConversationActivity_specify_recipient">Veuillez choisir un contact</string>
   <string name="ConversationActivity_unblock_this_contact_question">Débloquer ce contact ?</string>
@@ -372,7 +373,7 @@
   <string name="InviteActivity_sending">Envoi…</string>
   <string name="InviteActivity_heart_content_description">Cœur</string>
   <string name="InviteActivity_invitations_sent">L’invitation a été envoyée !</string>
-  <string name="InviteActivity_invite_to_signal">Inviter à Signal</string>
+  <string name="InviteActivity_invite_to_signal">Inviter à Molly</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">ENVOYER SMS À %d AMI</item>
     <item quantity="other">ENVOYER UN TEXTO À %d AMIS</item>
@@ -381,7 +382,7 @@
     <item quantity="one">Envoyer %d invitations par SMS ?</item>
     <item quantity="other">Envoyer %d textos d’invitations ?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">Passons à Signal : %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">Passons à Molly: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Vous semblez n’avoir aucune appli vers laquelle partager.</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Les amis ne laissent pas leur amis dialoguer sans chiffrement.</string>
   <!--Job-->

@@ -25,12 +25,13 @@
   </plurals>
   <string name="ApplicationPreferencesActivity_delete">মুছুন</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">পাসফ্রেজ নিষ্ক্রিয় করবেন?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">এটি স্থায়ীভাবে Signal এবং বার্তা বিজ্ঞপ্তিগুলি আনলক করবে।</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">এটি স্থায়ীভাবে Molly এবং বার্তা বিজ্ঞপ্তিগুলি আনলক করবে।</string>
   <string name="ApplicationPreferencesActivity_disable">নিষ্ক্রিয় করুন</string>
   <string name="ApplicationPreferencesActivity_unregistering">নিবন্ধন বাতিল করা হচ্ছে</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Signal এর বার্তা ও কল সমূহ থেকে নিবন্ধন বাতিল করা হচ্ছে…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Signal বার্তা ও কল বন্ধ করবেন?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Signal বার্তা ও কল সমূহ বন্ধ করতে সার্ভার থেকে নিবন্ধন বাতিল করুন। ভবিষ্যতে পুনরায় ব্যাবহার করতে হলে আপনাকে আপনার ফোন নাম্বার পুনঃ নিবন্ধন করতে হবে।</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Molly এর বার্তা ও কল সমূহ থেকে নিবন্ধন বাতিল করা হচ্ছে…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Molly বার্তা ও কল বন্ধ করবেন?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Molly
+   বার্তা ও কল সমূহ বন্ধ করতে সার্ভার থেকে নিবন্ধন বাতিল করুন। ভবিষ্যতে পুনরায় ব্যাবহার করতে হলে আপনাকে আপনার ফোন নাম্বার পুনঃ নিবন্ধন করতে হবে।</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">সার্ভারের সাথে সংযোগ স্থাপনে ব্যর্থ!</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">SMS সক্রিয়</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">আপনার স্বাভাবিক SMS অ্যাপ পরিবর্তন করতে স্পর্শ করুন</string>
@@ -162,7 +163,7 @@
   <string name="ConversationActivity_transport_insecure_sms">অনিরাপদ এসএমএস</string>
   <string name="ConversationActivity_transport_insecure_mms">অনিরাপদ এমএমএস</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">চলুন Signal এ যোগ দেই %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">চলুন Molly এ যোগ দেই %1$s</string>
   <string name="ConversationActivity_error_leaving_group">গ্রুপ ত্যাগ করতে সমস্যা হয়েছে</string>
   <string name="ConversationActivity_specify_recipient">দয়া করে একটি পরিচিতি চয়ন করুন</string>
   <string name="ConversationActivity_unblock_this_contact_question">এই পরিচিতিকে আনব্লক করতে চাচ্ছেন?</string>
@@ -377,7 +378,7 @@
   <string name="InviteActivity_sending">পাঠানো হচ্ছে</string>
   <string name="InviteActivity_heart_content_description">হৃদয়</string>
   <string name="InviteActivity_invitations_sent">আমন্ত্রণ পাঠানো হয়েছে!</string>
-  <string name="InviteActivity_invite_to_signal">Signal এ আমন্ত্রণ জানান</string>
+  <string name="InviteActivity_invite_to_signal">Molly এ আমন্ত্রণ জানান</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">%d বন্ধুদের এসএমএস পাঠান</item>
     <item quantity="other">%d বন্ধুদের এসএমএস পাঠান</item>
@@ -386,7 +387,7 @@
     <item quantity="one"> %d টি নিমন্ত্রন এসএমএস পাঠান?</item>
     <item quantity="other">%d টি নিমন্ত্রন এসএমএস পাঠান?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">চলুন Signal এ যোগ দেইঃ %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">চলুন Molly এ যোগ দেইঃ %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">আপনার কাছে শেয়ার করতে পারবেন এমন কোন অ্যাপ নেই।</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">বন্ধুরা কখনোই বন্ধুদের এনক্রিপ্ট না করে চ্যাট করতে দেয় না।</string>
   <!--Job-->

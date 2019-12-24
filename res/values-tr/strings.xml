@@ -25,12 +25,12 @@
   </plurals>
   <string name="ApplicationPreferencesActivity_delete">Sil</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">Parolayı devre dışı bırak?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Bu işlem Signal ve ileti bildirimlerinin kilidini kalıcı olarak açacaktır.</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Bu işlem Molly ve ileti bildirimlerinin kilidini kalıcı olarak açacaktır.</string>
   <string name="ApplicationPreferencesActivity_disable">Devre dışı bırak</string>
   <string name="ApplicationPreferencesActivity_unregistering">Kayıt siliniyor</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Signal ileti ve aramalarından kaydınız siliniyor…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Signal iletilerini ve aramalarını devre dışı bırak?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Sunucudaki kaydınızı silerek Signal iletilerini ve aramalarını devre dışı bırakın. Bu özellikleri gelecekte yeniden kullanabilmeniz için telefon numaranızı tekrar kaydetmeniz gerekir.</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Molly ileti ve aramalarından kaydınız siliniyor…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Molly iletilerini ve aramalarını devre dışı bırak?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Sunucudaki kaydınızı silerek Molly iletilerini ve aramalarını devre dışı bırakın. Bu özellikleri gelecekte yeniden kullanabilmeniz için telefon numaranızı tekrar kaydetmeniz gerekir.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">Sunucuya bağlanırken hata!</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">SMS Etkin</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">Varsayılan SMS uygulamanızı değiştirmek için dokunun</string>
@@ -165,7 +165,7 @@
   <string name="ConversationActivity_transport_insecure_sms">Şifresiz SMS</string>
   <string name="ConversationActivity_transport_insecure_mms">Şifresiz MMS</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">Signal uygulamasından konuşalım %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">Molly uygulamasından konuşalım %1$s</string>
   <string name="ConversationActivity_error_leaving_group">Gruptan ayrılırken hata</string>
   <string name="ConversationActivity_specify_recipient">Lütfen bir kişi seçin</string>
   <string name="ConversationActivity_unblock_this_contact_question">Bu kişinin engellemesini kaldır?</string>
@@ -385,7 +385,7 @@
   <string name="InviteActivity_sending">Gönderiliyor…</string>
   <string name="InviteActivity_heart_content_description">Erişilebilirlik</string>
   <string name="InviteActivity_invitations_sent">Davetler gönderildi!</string>
-  <string name="InviteActivity_invite_to_signal">Signal\'e davet et</string>
+  <string name="InviteActivity_invite_to_signal">Molly\'e davet et</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">%d ARKADAŞINA SMS GÖNDER</item>
     <item quantity="other">%d ARKADAŞINA SMS GÖNDER</item>
@@ -394,7 +394,7 @@
     <item quantity="one">%d SMS daveti gönderilsin mi?</item>
     <item quantity="other">%d SMS daveti gönderilsin mi?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">Hadi Signal\'e geçelim: %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">Hadi Molly\'e geçelim: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Paylaşmak için herhangi bir uygulamanız yok gibi görünüyor.</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Arkadaşlar, arkadaşlarının şifresiz sohbet etmesine izin vermez.</string>
   <!--Job-->

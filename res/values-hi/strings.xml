@@ -25,12 +25,13 @@
   </plurals>
   <string name="ApplicationPreferencesActivity_delete">हटाए </string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">पासफ़्रेज़ अक्षम करें?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">यह Signal और मेसेज नोटिफिकेशन को स्थायी रूप से अनलॉक करेगा</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">यह Molly और मेसेज नोटिफिकेशन को स्थायी रूप से अनलॉक करेगा</string>
   <string name="ApplicationPreferencesActivity_disable">अक्षम</string>
   <string name="ApplicationPreferencesActivity_unregistering">पंजीकरण रद्द करना</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Signal मेसेज और कॉल से अपंजीकृत करना</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Signal मेसेज और कॉल अक्षम करें?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">सर्वर से अपंजीकृत करके Signal मेसेजों और कॉलों को अक्षम करें। आपको भविष्य में फिर से उनका उपयोग करने के लिए अपना फोन नंबर फिर से पंजीकृत करना होगा</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Molly मेसेज और कॉल से अपंजीकृत करना</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Molly मेसेज और कॉल अक्षम करें?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">सर्वर से अपंजीकृत करके Molly
+   मेसेजों और कॉलों को अक्षम करें। आपको भविष्य में फिर से उनका उपयोग करने के लिए अपना फोन नंबर फिर से पंजीकृत करना होगा</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">सर्वर से कनेक्ट करने में त्रुटि!</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">SMS सक्षम</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">अपना डिफ़ॉल्ट SMS ऐप बदलने के लिए स्पर्श करें</string>
@@ -162,7 +163,7 @@
   <string name="ConversationActivity_transport_insecure_sms">असुरक्षित SMS</string>
   <string name="ConversationActivity_transport_insecure_mms">असुरक्षित MMS</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">%1$s चलो Signal पर स्विच करें</string>
+  <string name="ConversationActivity_lets_switch_to_signal">%1$s चलो Molly पर स्विच करें</string>
   <string name="ConversationActivity_error_leaving_group">समूह छोड़ने में त्रुटि</string>
   <string name="ConversationActivity_specify_recipient">कृपया एक संपर्क चुनें</string>
   <string name="ConversationActivity_unblock_this_contact_question">इस संपर्क को अनवरोधित करें?</string>
@@ -377,7 +378,7 @@
   <string name="InviteActivity_sending">भेजा जा रहा है…</string>
   <string name="InviteActivity_heart_content_description">दिल</string>
   <string name="InviteActivity_invitations_sent">आमंत्रण भेजा गया</string>
-  <string name="InviteActivity_invite_to_signal">Signal को आमंत्रित करें</string>
+  <string name="InviteActivity_invite_to_signal">Molly को आमंत्रित करें</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">%d दोस्तों को एसएमएस भेजें</item>
     <item quantity="other">%d दोस्तों को SMS भेजें</item>
@@ -386,7 +387,7 @@
     <item quantity="one">%d एसएमएस आमंत्रण भेजें?</item>
     <item quantity="other">%d SMS आमंत्रण भेजें? </item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">चलो Signal पर स्विच करें: %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">चलो Molly पर स्विच करें: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">ऐसा लगता है कि आपके पास साझा करने के लिए कोई ऐप नहीं है।</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">दोस्त अपने दोस्तों को अनएन्क्रिप्टेड चैट नहीं करने देते हैं।</string>
   <!--Job-->

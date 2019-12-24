@@ -25,12 +25,13 @@
   </plurals>
   <string name="ApplicationPreferencesActivity_delete">Törlés</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">Jelmondat letiltása?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Ez véglegesen fel fogja oldani a Signal-t és az üzenet értesítéseket.</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Ez véglegesen fel fogja oldani a Molly-t és az üzenet értesítéseket.</string>
   <string name="ApplicationPreferencesActivity_disable">Letiltás</string>
   <string name="ApplicationPreferencesActivity_unregistering">Leregisztrálás</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Leregisztrálás a Signal üzenetekről és hívásokról…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Letiltod a Signal üzeneteket és hívásokat?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Signal üzenetek és hívások letiltása a kiszolgálóról történő leregisztrálással. Ha a jövőben újra szeretnéd használni ezeket a szolgáltatásokat, akkor újra kell regisztrálnod telefonszámoddal.</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Leregisztrálás a Molly üzenetekről és hívásokról…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Letiltod a Molly üzeneteket és hívásokat?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Molly
+   üzenetek és hívások letiltása a kiszolgálóról történő leregisztrálással. Ha a jövőben újra szeretnéd használni ezeket a szolgáltatásokat, akkor újra kell regisztrálnod telefonszámoddal.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">Hiba történt a kiszolgálóhoz történő kapcsolódás során!</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">SMS engedélyezve</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">Koppints ide az alapértelmezett SMS alkalmazás megváltoztatásához</string>
@@ -166,7 +167,7 @@
   <string name="ConversationActivity_transport_insecure_sms">Titkosítatlan SMS</string>
   <string name="ConversationActivity_transport_insecure_mms">Titkosítatlan MMS</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">Váltsunk Signal-ra %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">Váltsunk Molly-ra %1$s</string>
   <string name="ConversationActivity_error_leaving_group">Hiba történt a csoport elhagyásakor</string>
   <string name="ConversationActivity_specify_recipient">Kérlek válassz egy kontaktot</string>
   <string name="ConversationActivity_unblock_this_contact_question">Feloldod ezt a kontaktot?</string>
@@ -386,7 +387,7 @@
   <string name="InviteActivity_sending">Küldés…</string>
   <string name="InviteActivity_heart_content_description">Szív</string>
   <string name="InviteActivity_invitations_sent">Meghívók elküldve!</string>
-  <string name="InviteActivity_invite_to_signal">Meghívás a Signal-ba</string>
+  <string name="InviteActivity_invite_to_signal">Meghívás a Molly-ba</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">SMS KÜLDÉSE %d BARÁTNAK</item>
     <item quantity="other">SMS KÜLDÉSE %d BARÁTNAK</item>
@@ -395,7 +396,7 @@
     <item quantity="one">Elküldesz %d SMS meghívót?</item>
     <item quantity="other">Elküldesz %d db SMS meghívót?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">Válts Signal-ra: %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">Válts Molly-ra: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Úgy néz ki, hogy egy alkalmazásod sincs a megosztás kezeléséhez.</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Az igaz barátok nem hagyják barátaiknak, hogy titkosítatlanul csevegjenek.</string>
   <!--Job-->

@@ -29,12 +29,12 @@
   </plurals>
   <string name="ApplicationPreferencesActivity_delete">Удалить</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">Отключить парольную фразу?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">После этого приложение Signal и его уведомления всегда будут видны без ввода пароля.</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">После этого приложение Molly и его уведомления всегда будут видны без ввода пароля.</string>
   <string name="ApplicationPreferencesActivity_disable">Отключить</string>
   <string name="ApplicationPreferencesActivity_unregistering">Отмена регистрации</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Отменяем регистрацию в Signal…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Отключить сообщения и звонки через Signal?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Отключить сообщения и звонки через Signal, отменив регистрацию на сервере. Вам нужно будет заново зарегистрировать свой номер телефона, чтобы воспользоваться ими в будущем.</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Отменяем регистрацию в Molly…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Отключить сообщения и звонки через Molly?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Отключить сообщения и звонки через Molly, отменив регистрацию на сервере. Вам нужно будет заново зарегистрировать свой номер телефона, чтобы воспользоваться ими в будущем.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">Ошибка подключения к серверу!</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">SMS включены</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">Нажмите, чтобы изменить приложение для SMS по умолчанию</string>
@@ -171,7 +171,7 @@
   <string name="ConversationActivity_transport_insecure_sms">Незащищённое SMS</string>
   <string name="ConversationActivity_transport_insecure_mms">Незащищённое MMS</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">Давайте перейдем на Signal %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">Давайте перейдем на Molly %1$s</string>
   <string name="ConversationActivity_error_leaving_group">Ошибка при выходе из группы</string>
   <string name="ConversationActivity_specify_recipient">Пожалуйста, выберите контакт</string>
   <string name="ConversationActivity_unblock_this_contact_question">Разблокировать этот контакт?</string>
@@ -413,7 +413,7 @@
   <string name="InviteActivity_sending">Отправляется…</string>
   <string name="InviteActivity_heart_content_description">Сердце</string>
   <string name="InviteActivity_invitations_sent">Приглашения отправлены!</string>
-  <string name="InviteActivity_invite_to_signal">Пригласить в Signal</string>
+  <string name="InviteActivity_invite_to_signal">Пригласить в Molly</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">ОТПРАВИТЬ SMS %d ДРУГУ</item>
     <item quantity="few">ОТПРАВИТЬ SMS %d ДРУЗЬЯМ</item>
@@ -426,7 +426,7 @@
     <item quantity="many">Отправить %d SMS-приглашений?</item>
     <item quantity="other">Отправить %d SMS-приглашений?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">Давайте перейдем на Signal: %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">Давайте перейдем на Molly: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Похоже, что у вас нет приложений, через которые можно поделиться.</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Друзья не позволяют друзьям общаться без шифрования.</string>
   <!--Job-->

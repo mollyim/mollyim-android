@@ -23,12 +23,13 @@
   </plurals>
   <string name="ApplicationPreferencesActivity_delete">លុប</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">បិទឃ្លាសម្ងាត់?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">វានឹងដោះសោរ Signal  និងសារជូនដំណឹងជាអចិន្ត្រៃយ៍។</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">វានឹងដោះសោរ Molly និងសារជូនដំណឹងជាអចិន្ត្រៃយ៍។</string>
   <string name="ApplicationPreferencesActivity_disable">បិទចោល</string>
   <string name="ApplicationPreferencesActivity_unregistering">កំពុងលុបការចុះឈ្មោះ</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">កំពុងលុបការចុះឈ្មោះចេញពីសារ​ និងការហៅចេញរបស់Signal</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">បិទសារ​ និងការហៅចេញរបស់Signal?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">បិទសារ និងការហៅចេញរបស់Signal ដោយលុបការចុះឈ្មោះពីម៉ាស៊ីនមេ។ អ្នកនឹងតម្រូវឲ្យចុះឈ្មោះជាមួយលេខទូរសព្ទម្តងទៀត ដើម្បីប្រើប្រាស់ឡើងវិញនៅពេលអនាគត។</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">កំពុងលុបការចុះឈ្មោះចេញពីសារ​ និងការហៅចេញរបស់Molly</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">បិទសារ​ និងការហៅចេញរបស់Molly?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">បិទសារ និងការហៅចេញរបស់Molly
+   ដោយលុបការចុះឈ្មោះពីម៉ាស៊ីនមេ។ អ្នកនឹងតម្រូវឲ្យចុះឈ្មោះជាមួយលេខទូរសព្ទម្តងទៀត ដើម្បីប្រើប្រាស់ឡើងវិញនៅពេលអនាគត។</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">បញ្ហាភ្ជាប់ទៅម៉ាស៊ីនមេ!</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">បានបើកប្រើសារ</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">ចុច ដើម្បីប្តូរកម្មវិធីផ្ញើសាររបស់អ្នក</string>
@@ -159,7 +160,7 @@
   <string name="ConversationActivity_transport_insecure_sms">សារ មិនមានសុវត្ថិភាព</string>
   <string name="ConversationActivity_transport_insecure_mms">MMS មិនមានសុវត្ថិភាព</string>
   <string name="ConversationActivity_transport_signal"> Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">តោះដូរទៅកាន់ Signal %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">តោះដូរទៅកាន់ Molly %1$s</string>
   <string name="ConversationActivity_error_leaving_group">បញ្ហាសម្រាប់ការចាកចេញពីក្រុម</string>
   <string name="ConversationActivity_specify_recipient">សូមជ្រើសរើសលេខទំនាក់ទំនង១</string>
   <string name="ConversationActivity_unblock_this_contact_question">បើកលេខទំនាក់ទំនងនេះ?</string>
@@ -363,14 +364,14 @@
   <string name="InviteActivity_sending">កំពុងផ្ញើ…</string>
   <string name="InviteActivity_heart_content_description">បេះដូង</string>
   <string name="InviteActivity_invitations_sent">លិខិតអញ្ជើញបានផ្ញើ!</string>
-  <string name="InviteActivity_invite_to_signal">អញ្ជើញចូលប្រើSignal</string>
+  <string name="InviteActivity_invite_to_signal">អញ្ជើញចូលប្រើMolly</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="other">ផ្ញើ SMS ទៅកាន់មិត្តភក្តិ​ %d</item>
   </plurals>
   <plurals name="InviteActivity_send_sms_invites">
     <item quantity="other">ផ្ញើសារ SMS អញ្ជើញ %d ?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">តោះដូរទៅប្រើSignal ៖ %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">តោះដូរទៅប្រើMolly ៖ %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">វាហាក់ដូចជាមិនមានកម្មវិធីណាមួយដើម្បីចែករំលែក។</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">មិត្តភក្តិមិនអោយមិត្តភក្តិជជែកដោយមិនកាណាល់កូដសម្ងាត់។</string>
   <!--Job-->

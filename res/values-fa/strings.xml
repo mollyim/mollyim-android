@@ -25,12 +25,12 @@
   </plurals>
   <string name="ApplicationPreferencesActivity_delete">حذف</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">گذرواژه غیرفعال شود؟</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">این گزینه Signal و اعلان پیام را بطور دائم از حالت قفل خارج می‌کند.</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">این گزینه Molly و اعلان پیام را بطور دائم از حالت قفل خارج می‌کند.</string>
   <string name="ApplicationPreferencesActivity_disable">غیرفعال کردن</string>
   <string name="ApplicationPreferencesActivity_unregistering">لغو عضویت</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">لغو ثبت‌نام برای پیام‌ها و تماس‌های Signal …</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">تماس‌ها و پیام‌های Signal غیرفعال شوند؟</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">غیرفعال کردن پیام‌ها و تماس‌های Signal از طریق لغو عضویت از سرور. در آینده برای استفاده از Signal نیاز به عضویت دوباره از طریق شماره‌تلفن خود خواهید داشت.</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">لغو ثبت‌نام برای پیام‌ها و تماس‌های Molly…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">تماس‌ها و پیام‌های Molly غیرفعال شوند؟</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">غیرفعال کردن پیام‌ها و تماس‌های Molly از طریق لغو عضویت از سرور. در آینده برای استفاده از Molly نیاز به عضویت دوباره از طریق شماره‌تلفن خود خواهید داشت.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">خطا در اتصال به سرور!</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">پیامک فعال شد</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">لمس کنید تا برنامهٔ پیش‌فرض پیامک را تغییر دهید</string>
@@ -165,7 +165,7 @@
   <string name="ConversationActivity_transport_insecure_sms">پیامک ناامن</string>
   <string name="ConversationActivity_transport_insecure_mms">پیام چندرسانه‌ای ناامن</string>
   <string name="ConversationActivity_transport_signal">سیگنال</string>
-  <string name="ConversationActivity_lets_switch_to_signal">بیاین از Signal استفاده کنیم: %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">بیاین از Molly استفاده کنیم: %1$s</string>
   <string name="ConversationActivity_error_leaving_group">خطا در ترک کردن گروه</string>
   <string name="ConversationActivity_specify_recipient">لطفاً یک مخاطب را انتخاب کنید</string>
   <string name="ConversationActivity_unblock_this_contact_question">رفع انسداد این تماس؟</string>
@@ -385,7 +385,7 @@
   <string name="InviteActivity_sending">در حال ارسال…</string>
   <string name="InviteActivity_heart_content_description">فلب</string>
   <string name="InviteActivity_invitations_sent">دعوت‌نامه ارسال شد!</string>
-  <string name="InviteActivity_invite_to_signal">دعوت به Signal</string>
+  <string name="InviteActivity_invite_to_signal">دعوت به Molly</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">ارسال SMS به %d دوست</item>
     <item quantity="other">ارسال SMS به %d دوست</item>
@@ -394,7 +394,7 @@
     <item quantity="one">ارسال %d دعوت SMS؟</item>
     <item quantity="other">ارسال %d دعوت SMS؟</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">بیایید از این برای Signal استفاده کنیم:  %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">بیایید از این برای Molly استفاده کنیم:  %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">به نظر می رسد شما هیچ برنامه ای برای اشتراک گذاری در آن ندارید.</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">دوستان نمی‌گذارند دوستان بدون رمزنگاری گفتگو کنند.</string>
   <!--Job-->

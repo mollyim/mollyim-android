@@ -23,12 +23,12 @@
   </plurals>
   <string name="ApplicationPreferencesActivity_delete">削除</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">パスワードを無効にしますか？</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Signalとメッセージ通知のロックを無効にします</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Mollyとメッセージ通知のロックを無効にします</string>
   <string name="ApplicationPreferencesActivity_disable">無効</string>
   <string name="ApplicationPreferencesActivity_unregistering">登録取り消し</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Signalの登録を解除します…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Signalでのメッセージ・通話を無効にしますか？</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">サーバーから登録を取消します。Signalを使ったメッセージのやり取りや通話はできなくなります。 再びSignalを使うためには、あなたの電話番号を再登録をする必要があります。</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Mollyの登録を解除します…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Mollyでのメッセージ・通話を無効にしますか？</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">サーバーから登録を取消します。Mollyを使ったメッセージのやり取りや通話はできなくなります。再びMollyを使うためには、あなたの電話番号を再登録をする必要があります。</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">サーバー接続中にエラーが発生しました！</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">SMS 有効</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">タッチしてデフォルトのSMSアプリを変更</string>
@@ -162,7 +162,7 @@
   <string name="ConversationActivity_transport_insecure_sms">暗号化されていないSMS</string>
   <string name="ConversationActivity_transport_insecure_mms">暗号化されていないMMS</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">チャットアプリをSignalに変えましょう。%1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">チャットアプリをMollyに変えましょう。%1$s</string>
   <string name="ConversationActivity_error_leaving_group">グループ脱退でエラー</string>
   <string name="ConversationActivity_specify_recipient">連絡先を選択してください</string>
   <string name="ConversationActivity_unblock_this_contact_question">この連絡先のブロックを解除しますか？</string>
@@ -368,14 +368,14 @@
   <string name="InviteActivity_sending">送信しています…</string>
   <string name="InviteActivity_heart_content_description">ハート</string>
   <string name="InviteActivity_invitations_sent">招待状を送りました</string>
-  <string name="InviteActivity_invite_to_signal">Signalに招待する</string>
+  <string name="InviteActivity_invite_to_signal">Mollyに招待する</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="other">SMSを友達%d人に送ります。</item>
   </plurals>
   <plurals name="InviteActivity_send_sms_invites">
     <item quantity="other">SMS招待%d個を送りしますか？</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">会話アプリをSignalに変更しましょう：%1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">会話アプリをMollyに変更しましょう：%1$s</string>
   <string name="InviteActivity_no_app_to_share_to">シェアするためのアプリがないようです。</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">友達とのチャットを暗号化しましょう。</string>
   <!--Job-->

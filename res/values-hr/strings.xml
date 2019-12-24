@@ -26,12 +26,13 @@
   </plurals>
   <string name="ApplicationPreferencesActivity_delete">Obriši</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">Onemogući lozinku?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Trajno ćete otključati Signal i obavijesti o porukama.</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Trajno ćete otključati Molly i obavijesti o porukama.</string>
   <string name="ApplicationPreferencesActivity_disable">Onemogući</string>
   <string name="ApplicationPreferencesActivity_unregistering">Uklanjanje registracije</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Uklanjanje registracije na Signal poruke i pozive…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Onemogući Signal poruke i pozive?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Onemogućite Signal poruke i pozive tako što će ukloniti registraciju s poslužitelja. Trebat ćete ponovno registrirati vaš broj telefona kako biste ih koristili u budućnosti.</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Uklanjanje registracije na Molly poruke i pozive…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Onemogući Molly poruke i pozive?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Onemogućite Molly
+   poruke i pozive tako što će ukloniti registraciju s poslužitelja. Trebat ćete ponovno registrirati vaš broj telefona kako biste ih koristili u budućnosti.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">Greška prilikom povezivanja na poslužitelj!</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">SMS omogućen</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">Pritisnite za promjenu zadane SMS aplikacije</string>
@@ -157,7 +158,7 @@
   <string name="ConversationActivity_transport_insecure_sms">Nesigurni SMS</string>
   <string name="ConversationActivity_transport_insecure_mms">Nesigurni MMS</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">Prebaci se na Signal %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">Prebaci se na Molly %1$s</string>
   <string name="ConversationActivity_error_leaving_group">Greška pri napuštanju grupe</string>
   <string name="ConversationActivity_specify_recipient">Odaberite kontakt</string>
   <string name="ConversationActivity_unblock_this_contact_question">Ukloni blokadu ovog kontakta?</string>
@@ -374,7 +375,7 @@
   <string name="InviteActivity_sending">Slanje…</string>
   <string name="InviteActivity_heart_content_description">Srce</string>
   <string name="InviteActivity_invitations_sent">Pozivnice poslane!</string>
-  <string name="InviteActivity_invite_to_signal">Pozovi u Signal</string>
+  <string name="InviteActivity_invite_to_signal">Pozovi u Molly</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">POŠALJI SMS %dPRIJATELJU</item>
     <item quantity="few">POŠALJI SMS %dPRIJATELJA</item>
@@ -385,7 +386,7 @@
     <item quantity="few">Pošalji %dSMS pozivnice?</item>
     <item quantity="other">Pošalji %dSMS pozivnica?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">Prebacimo se na Signal %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">Prebacimo se na Molly %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Izgleda da nemate aplikacije s kojima je moguće dijeljenje.</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Prijatelji paze da se njihovi prijatelji kriptirano dopisuju.</string>
   <!--Job-->

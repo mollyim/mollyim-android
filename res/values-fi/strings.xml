@@ -25,12 +25,12 @@
   </plurals>
   <string name="ApplicationPreferencesActivity_delete">Poista</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">Poista salalause käytöstä?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Tämä avaa Signalin ja viesti-ilmoitusten lukituksen pysyvästi.</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Tämä avaa Mollyin ja viesti-ilmoitusten lukituksen pysyvästi.</string>
   <string name="ApplicationPreferencesActivity_disable">Poista käytöstä</string>
   <string name="ApplicationPreferencesActivity_unregistering">Puretaan rekisteröintiä</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Puretaan rekisteröintiä Signal-viesteistä ja -puheluista…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Otetaanko Signal-viestit ja -puhelut pois käytöstä?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Tämä ottaa Signal-viestit ja -puhelut pois käytöstä  purkamalla rekisteröitymisesi palvelimelta. Jos haluat käyttää niitä jatkossa, täytyy sinun rekisteröityä puhelinnumerollasi uudelleen.</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Puretaan rekisteröintiä Molly-viesteistä ja -puheluista…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Otetaanko Molly-viestit ja -puhelut pois käytöstä?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Tämä ottaa Molly-viestit ja -puhelut pois käytöstä purkamalla rekisteröitymisesi palvelimelta. Jos haluat käyttää niitä jatkossa, täytyy sinun rekisteröityä puhelinnumerollasi uudelleen.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">Virhe yhdistettäessä palvelimeen!</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">Tekstiviestit käytössä</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">Kosketa, jos haluat vaihtaa oletustekstiviestisovellustasi</string>
@@ -165,7 +165,7 @@
   <string name="ConversationActivity_transport_insecure_sms">Salaamaton tekstiviesti</string>
   <string name="ConversationActivity_transport_insecure_mms">Salaamaton MMS-viesti</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">Hei, vaihdetaan Signaliin %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">Hei, vaihdetaan Mollyiin %1$s</string>
   <string name="ConversationActivity_error_leaving_group">Virhe ryhmästä lähtiessä</string>
   <string name="ConversationActivity_specify_recipient">Valitse yhteystieto</string>
   <string name="ConversationActivity_unblock_this_contact_question">Poista esto tältä yhteystiedolta?</string>
@@ -383,7 +383,7 @@
   <string name="InviteActivity_sending">Lähetetään…</string>
   <string name="InviteActivity_heart_content_description">Sydän</string>
   <string name="InviteActivity_invitations_sent">Kutsut lähetetty!</string>
-  <string name="InviteActivity_invite_to_signal">Kutsu Signaliin</string>
+  <string name="InviteActivity_invite_to_signal">Kutsu Mollyiin</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">LÄHETÄ TEKSTIVIESTI %d YSTÄVÄLLE</item>
     <item quantity="other">LÄHETÄ TEKSTIVIESTI %d YSTÄVÄLLE</item>
@@ -392,7 +392,7 @@
     <item quantity="one">Lähetetäänkö %d tekstiviestikutsu?</item>
     <item quantity="other">Lähetetäänkö %d tekstiviestikutsua?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">Hei, vaihdetaan Signaliin: %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">Hei, vaihdetaan Mollyiin: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Näyttää siltä, ettei sinulla ole yhtään sovellusta, johon jakaa.</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Kaveri ei anna kaverin keskustella ilman salausta.</string>
   <!--Job-->

@@ -25,12 +25,13 @@
   </plurals>
   <string name="ApplicationPreferencesActivity_delete">Suprimeix</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">Voleu inhabilitar la contrasenya?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">El Signal i les notificacions es desblocaran permanentment.</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Molly i les notificacions es desblocaran permanentment.</string>
   <string name="ApplicationPreferencesActivity_disable">Inhabilita</string>
   <string name="ApplicationPreferencesActivity_unregistering">Cancel·lació del registre</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Es cancel·la el registre per als missatges i les trucades del Signal…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Voleu inhabilitar els missatges i les trucades del Signal?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Inhabiliteu els missatges i les trucades del Signal cancel·lant el registre del servidor. Haureu de tornar a registrar el número de telèfon per usar-los de nou.</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Es cancel·la el registre per als missatges i les trucades de Molly…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Voleu inhabilitar els missatges i les trucades de Molly?</string>
+  <string 
+  name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Inhabiliteu els missatges i les trucades de Molly cancel·lant el registre del servidor. Haureu de tornar a registrar el número de telèfon per usar-los de nou.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">S\'ha produït un error en connectar amb el servidor.</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">SMS habilitats</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">Toqueu per a canviar l\'aplicació d\'SMS predeterminada</string>
@@ -165,7 +166,7 @@
   <string name="ConversationActivity_transport_insecure_sms">SMS no segur</string>
   <string name="ConversationActivity_transport_insecure_mms">MMS no segur</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">Canviem al Signal %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">Canviem al Molly %1$s</string>
   <string name="ConversationActivity_error_leaving_group">Error en abandonar el grup</string>
   <string name="ConversationActivity_specify_recipient">Trieu un contacte</string>
   <string name="ConversationActivity_unblock_this_contact_question">Voleu desblocar aquest contacte?</string>
@@ -385,7 +386,7 @@
   <string name="InviteActivity_sending">S\'envia…</string>
   <string name="InviteActivity_heart_content_description">Cor</string>
   <string name="InviteActivity_invitations_sent">Invitacions enviades!</string>
-  <string name="InviteActivity_invite_to_signal">Convida al Signal</string>
+  <string name="InviteActivity_invite_to_signal">Convida al Molly</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">ENVIA L\'SMS A %d AMISTAT</item>
     <item quantity="other">ENVIA L\'SMS A %d AMISTATS</item>
@@ -394,7 +395,7 @@
     <item quantity="one">Voleu enviar %d invitació SMS?</item>
     <item quantity="other">Voleu enviar %d invitacions SMS?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">Canviem al Signal: %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">Canviem al Molly: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Sembla que no teniu cap aplicació on compartir-ho.</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Les amistats no deixen que les seves amistats xerrin sense encriptació.</string>
   <!--Job-->

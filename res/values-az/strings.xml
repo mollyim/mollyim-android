@@ -24,12 +24,13 @@
   </plurals>
   <string name="ApplicationPreferencesActivity_delete">Sil</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">Açar sözü deaktivə edirsən?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Bu daimi olaraq Signal və mesaj xəbərdarlıqlarının kilidini açacaq.</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Bu daimi olaraq Molly və mesaj xəbərdarlıqlarının kilidini açacaq.</string>
   <string name="ApplicationPreferencesActivity_disable">Deaktivə et</string>
   <string name="ApplicationPreferencesActivity_unregistering">Qeydiyyatdan çıxarma</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Signal-a aid mesaj və zənglərin qeydiyyatından çıxmaq…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Signal mesajlarını və zənglərini deaktivə edirsən?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Server qeydiyyatından çıxmaqla Signal mesajları və zənglərini deaktivə et. Gələcəkdə istifadə etmək üçün telefon nömrəni bir daha qeydiyyatdan keçirməli olacaqsan.</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Molly-a aid mesaj və zənglərin qeydiyyatından çıxmaq…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Molly mesajlarını və zənglərini deaktivə edirsən?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Server qeydiyyatından çıxmaqla Molly
+   mesajları və zənglərini deaktivə et. Gələcəkdə istifadə etmək üçün telefon nömrəni bir daha qeydiyyatdan keçirməli olacaqsan.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">Serverə qoşulmada xəta var!</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">SMS Aktivləşdirildi</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">Mövcud SMS aplikasiyanı dəyişmək üçün kliklə</string>
@@ -143,7 +144,7 @@
   <string name="ConversationActivity_transport_insecure_sms">Zəmanətsiz SMS</string>
   <string name="ConversationActivity_transport_insecure_mms">Zəmanətsiz MMS</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">Gəl %1$s Signal-a keçək</string>
+  <string name="ConversationActivity_lets_switch_to_signal">Gəl %1$s Molly-a keçək</string>
   <string name="ConversationActivity_error_leaving_group">Qrupdan çıxarkən xəta</string>
   <string name="ConversationActivity_specify_recipient">Zəgmət olmasa əlaqəni seç</string>
   <string name="ConversationActivity_unblock_this_contact_question">Bi əlaqənin kilidini açırsan?</string>
@@ -349,7 +350,7 @@
   <string name="InviteActivity_sending">Göndərilir…</string>
   <string name="InviteActivity_heart_content_description">Ürək</string>
   <string name="InviteActivity_invitations_sent">Dəvətnamələr göndərildi!</string>
-  <string name="InviteActivity_invite_to_signal">Signal-a dəvət et</string>
+  <string name="InviteActivity_invite_to_signal">Molly-a dəvət et</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">%d DOSTUNA SMS GÖNDƏR</item>
     <item quantity="other">%d DOSTUNA SMS GÖNDƏR</item>
@@ -358,7 +359,7 @@
     <item quantity="one">%d SMS dəvətnaməsi göndərirsən?</item>
     <item quantity="other">%d SMS dəvətnaməsi göndərirsən?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">Gəl Signal-a keçid edək: %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">Gəl Molly-a keçid edək: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Elə görünür ki, paylaşa biləcəyin aplikasiya yoxdur.</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Dostlar dostlara şifrələnməmiş yazışmaya icazə vermir.</string>
   <!--Job-->

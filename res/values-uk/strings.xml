@@ -28,12 +28,12 @@
   </plurals>
   <string name="ApplicationPreferencesActivity_delete">Видалити</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">Вимкнути фразу-пароль?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Це назавжди розблокує Signal та сповіщення повідомлень.</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Це назавжди розблокує Molly та сповіщення повідомлень.</string>
   <string name="ApplicationPreferencesActivity_disable">Вимкнути</string>
   <string name="ApplicationPreferencesActivity_unregistering">Скасувати реєстрацію</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Скасування реєстрації на повідомлення та виклики Signal…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Вимкнути повідомлення та виклики Signal?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Скасування реєстрації на сервері вимкне повідомлення та виклики Signal. Вам знадобиться знову зареєструвати ваш номер телефону, щоб користуватися ними в майбутньому.</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Скасування реєстрації на повідомлення та виклики Molly…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Вимкнути повідомлення та виклики Molly?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Скасування реєстрації на сервері вимкне повідомлення та виклики Molly. Вам знадобиться знову зареєструвати ваш номер телефону, щоб користуватися ними в майбутньому.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">Помилка підключення до сервера!</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">SMS увімкнено</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">Торкніться, щоб змінити типову програму для SMS</string>
@@ -148,7 +148,7 @@
   <string name="ConversationActivity_transport_insecure_sms">Незахищене SMS</string>
   <string name="ConversationActivity_transport_insecure_mms">Незахищене MMS</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">Давай перейдемо у Signal %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">Давай перейдемо у Molly %1$s</string>
   <string name="ConversationActivity_error_leaving_group">Помилка при виході з групи</string>
   <string name="ConversationActivity_specify_recipient">Будь ласка, виберіть контакт</string>
   <string name="ConversationActivity_unblock_this_contact_question">Розблокувати цей контакт?</string>
@@ -366,7 +366,7 @@
   <string name="InviteActivity_sending">Надсилання…</string>
   <string name="InviteActivity_heart_content_description">Серце</string>
   <string name="InviteActivity_invitations_sent">Запрошення надіслано!</string>
-  <string name="InviteActivity_invite_to_signal">Запросити до Signal</string>
+  <string name="InviteActivity_invite_to_signal">Запросити до Molly</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">НАДІСЛАТИ SMS ДО %d ДРУГА</item>
     <item quantity="few">НАДІСЛАТИ SMS ДО %d ДРУЗІВ</item>
@@ -379,7 +379,7 @@
     <item quantity="many">Надіслати %d SMS запрошень?</item>
     <item quantity="other">Надіслати %d SMS запрошень?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">Давай перейдемо на Signal: %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">Давай перейдемо на Molly: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Схоже, що у вас немає програм, щоб поділитися.</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Друзі не мають дозволяти друзям незашифровано спілкуватися!</string>
   <!--Job-->

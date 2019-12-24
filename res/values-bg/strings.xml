@@ -24,12 +24,12 @@
   </plurals>
   <string name="ApplicationPreferencesActivity_delete">Изтрий</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">Изключи паролата?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Това ще отключи изцяло всички известия съобщения и Signal съобщения.</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Това ще отключи изцяло всички известия съобщения и Molly съобщения.</string>
   <string name="ApplicationPreferencesActivity_disable">Изключи</string>
   <string name="ApplicationPreferencesActivity_unregistering">Отписване</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Дерегистриране от Signal съобщения и обаждания…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Деактивирай Signal съобщения и обаждания?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Деактивирайте Signal съобщения и обаждания като се дерегистрирате от сървъра. Ще трябва да регистрирате своят номер отново, за да ползвате услугите в бъдеще.</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Дерегистриране от Molly съобщения и обаждания…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Деактивирай Molly съобщения и обаждания?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Деактивирайте Molly съобщения и обаждания като се дерегистрирате от сървъра. Ще трябва да регистрирате своят номер отново, за да ползвате услугите в бъдеще.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">Грешка при свързване със сървъра!</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">SMS-и активирани</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">Натисни, за да зададеш SMS програма по подразбиране</string>
@@ -144,7 +144,7 @@
   <string name="ConversationActivity_transport_insecure_sms">Некриптиран SMS</string>
   <string name="ConversationActivity_transport_insecure_mms">Некриптиран MMS</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">Да преминем към Signal %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">Да преминем към Molly %1$s</string>
   <string name="ConversationActivity_error_leaving_group">Грешка при напускане на групата</string>
   <string name="ConversationActivity_specify_recipient">Моля избери контакт</string>
   <string name="ConversationActivity_unblock_this_contact_question">Отблокирване на този контакт?</string>
@@ -350,7 +350,7 @@
   <string name="InviteActivity_sending">Изпращане…</string>
   <string name="InviteActivity_heart_content_description">Сърце</string>
   <string name="InviteActivity_invitations_sent">Поканите изпратени!</string>
-  <string name="InviteActivity_invite_to_signal">Покани в Signal</string>
+  <string name="InviteActivity_invite_to_signal">Покани в Molly</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">ИЗПРАЩАНЕ НА SMS НА %d ПРИЯТЕЛ</item>
     <item quantity="other">ИЗПРАЩАНЕ НА SMS НА %d ПРИТЯТЕЛЯ</item>
@@ -359,7 +359,7 @@
     <item quantity="one">Изпащане на %d SMS покана?</item>
     <item quantity="other">Изпащане на %d SMS покани?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">Да преминем към Signal %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">Да преминем към Molly %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Изглежда нямате приложения, с които да можете да сподялите.</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Приятелите не оставят приятелите си да чатят без криптиране.</string>
   <!--Job-->

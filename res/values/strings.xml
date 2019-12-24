@@ -30,12 +30,12 @@
     </plurals>
     <string name="ApplicationPreferencesActivity_delete">Delete</string>
     <string name="ApplicationPreferencesActivity_disable_passphrase">Disable passphrase?</string>
-    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">This will permanently unlock Signal and message notifications.</string>
+    <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">This will permanently unlock Molly and message notifications.</string>
     <string name="ApplicationPreferencesActivity_disable">Disable</string>
     <string name="ApplicationPreferencesActivity_unregistering">Unregistering</string>
-    <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Unregistering from Signal messages and calls…</string>
-    <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Disable Signal messages and calls?</string>
-    <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Disable Signal messages and calls by unregistering from the server. You will need to re-register your phone number to use them again in the future.</string>
+    <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Unregistering from Molly messages and calls…</string>
+    <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Disable Molly messages and calls?</string>
+    <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Disable Molly messages and calls by unregistering from the server. You will need to re-register your phone number to use them again in the future.</string>
     <string name="ApplicationPreferencesActivity_error_connecting_to_server">Error connecting to server!</string>
     <string name="ApplicationPreferencesActivity_sms_enabled">SMS Enabled</string>
     <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">Touch to change your default SMS app</string>
@@ -192,7 +192,7 @@
     <string name="ConversationActivity_transport_insecure_sms">Insecure SMS</string>
     <string name="ConversationActivity_transport_insecure_mms">Insecure MMS</string>
     <string name="ConversationActivity_transport_signal">Signal</string>
-    <string name="ConversationActivity_lets_switch_to_signal">Let\'s switch to Signal %1$s</string>
+    <string name="ConversationActivity_lets_switch_to_signal">Let\'s switch to Molly %1$s</string>
     <string name="ConversationActivity_error_leaving_group">Error leaving group</string>
     <string name="ConversationActivity_specify_recipient">Please choose a contact</string>
     <string name="ConversationActivity_unblock_this_contact_question">Unblock this contact?</string>
@@ -450,7 +450,7 @@
     <string name="InviteActivity_sending">Sending…</string>
     <string name="InviteActivity_heart_content_description">Heart</string>
     <string name="InviteActivity_invitations_sent">Invitations sent!</string>
-    <string name="InviteActivity_invite_to_signal">Invite to Signal</string>
+    <string name="InviteActivity_invite_to_signal">Invite to Molly</string>
     <plurals name="InviteActivity_send_sms_to_friends">
         <item quantity="one">SEND SMS TO %d FRIEND</item>
         <item quantity="other">SEND SMS TO %d FRIENDS</item>
@@ -459,7 +459,7 @@
         <item quantity="one">Send %d SMS invite?</item>
         <item quantity="other">Send %d SMS invites?</item>
     </plurals>
-    <string name="InviteActivity_lets_switch_to_signal">Let\'s switch to Signal: %1$s</string>
+    <string name="InviteActivity_lets_switch_to_signal">Let\'s switch to Molly: %1$s</string>
     <string name="InviteActivity_no_app_to_share_to">It looks like you don\'t have any apps to share to.</string>
     <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Friends don\'t let friends chat unencrypted.</string>
 

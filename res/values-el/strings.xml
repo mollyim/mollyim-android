@@ -24,12 +24,13 @@
   </plurals>
   <string name="ApplicationPreferencesActivity_delete">Διαγραφή</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">Απενεργοποίηση συνθηματικού;</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Αυτό θα ξεκλειδώσει μόνιμα το Signal και τις ειδοποιήσεις μηνυμάτων.</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Αυτό θα ξεκλειδώσει μόνιμα το Molly και τις ειδοποιήσεις μηνυμάτων.</string>
   <string name="ApplicationPreferencesActivity_disable">Απενεργοποίηση</string>
   <string name="ApplicationPreferencesActivity_unregistering">Απεγγραφή</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Απεγγραφή από τα μηνύματα και τις κλήσεις Signal…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Απενεργοποίηση των μηνυμάτων και των κλήσεων Signal;</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Απενεργοποίηση μηνυμάτων και κλήσεων του Signal με απεγγραφή από τον διακομιστή. Θα χρειαστεί να επανεγγράψετε τον αριθμό τηλεφώνου σας για να τα ξαναχρησιμοποιήσετε στο μέλλον.</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Απεγγραφή από τα μηνύματα και τις κλήσεις Molly…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Απενεργοποίηση των μηνυμάτων και των κλήσεων Molly;</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Απενεργοποίηση μηνυμάτων και κλήσεων του Molly
+   με απεγγραφή από τον διακομιστή. Θα χρειαστεί να επανεγγράψετε τον αριθμό τηλεφώνου σας για να τα ξαναχρησιμοποιήσετε στο μέλλον.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">Πρόβλημα κατά τη σύνδεση με τον διακομιστή!</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">SMS Ενεργοποιημένα</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">Πατήστε για να αλλάξετε την προεπιλεγμένη εφαρμογή για SMS</string>
@@ -156,7 +157,7 @@
   <string name="ConversationActivity_transport_insecure_sms">Μη ασφαλές μήνυμα SMS</string>
   <string name="ConversationActivity_transport_insecure_mms">Μη ασφαλές μήνυμα πολυμέσων MMS</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">Ας χρησιμοποιήσουμε το Signal %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">Ας χρησιμοποιήσουμε το Molly %1$s</string>
   <string name="ConversationActivity_error_leaving_group">Πρόβλημα κατά την αποχώρηση από την ομάδα</string>
   <string name="ConversationActivity_specify_recipient">Παρακαλώ επιλέξτε μια επαφή</string>
   <string name="ConversationActivity_unblock_this_contact_question">Ξεμπλοκάρισμα αυτής της επαφής;</string>
@@ -363,7 +364,7 @@
   <string name="InviteActivity_sending">Αποστέλλεται…</string>
   <string name="InviteActivity_heart_content_description">Καρδιά</string>
   <string name="InviteActivity_invitations_sent">Οι προσκλήσεις στάλθηκαν!</string>
-  <string name="InviteActivity_invite_to_signal">Πρόσκληση στο Signal</string>
+  <string name="InviteActivity_invite_to_signal">Πρόσκληση στο Molly</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">ΑΠΟΣΤΟΛΗ ΜΗΝΥΜΑΤΟΣ SMS ΣΕ %d ΦΙΛΟ/Η</item>
     <item quantity="other">ΑΠΟΣΤΟΛΗ ΜΗΝΥΜΑΤΩΝ SMS ΣΕ %d ΦΙΛΟΥΣ/ΕΣ</item>
@@ -372,7 +373,7 @@
     <item quantity="one">Αποστολή %d πρόσκλησης μέσω μηνύματος SMS;</item>
     <item quantity="other">Αποστολή %d προσκλήσεων μέσω μηνύματος SMS;</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">Ας χρησιμοποιήσουμε το Signal: %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">Ας χρησιμοποιήσουμε το Molly: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Φαίνεται πως δεν έχετε κάποια εφαρμογή στην οποία μπορείτε να μοιραστείτε.</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Οι φίλοι δεν αφήνουν τους φίλους να συνομιλούν χωρίς κρυπτογράφηση.</string>
   <!--Job-->

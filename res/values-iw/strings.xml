@@ -29,12 +29,12 @@
   </plurals>
   <string name="ApplicationPreferencesActivity_delete">מחק</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">להשבית משפט־סיסמה?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">זה יבטל באופן קבוע נעילה של Signal והתראות הודעה.</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">זה יבטל באופן קבוע נעילה של Molly והתראות הודעה.</string>
   <string name="ApplicationPreferencesActivity_disable">הַשְׁבֵּת</string>
   <string name="ApplicationPreferencesActivity_unregistering">מבטל רישום</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">מבטל רישום מהודעות ומשיחות של Signal…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">להשבית הודעות ושיחות של Signal?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">הַשְׁבֵּת הודעות ושיחות של Signal ע\"י ביטול רישום מהשרת. תצטרך לרשום מחדש את מספר הטלפון שלך כדי להשתמש בהם שוב בעתיד.</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">מבטל רישום מהודעות ומשיחות של Molly…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">להשבית הודעות ושיחות של Molly?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">הַשְׁבֵּת הודעות ושיחות של Molly ע\"י ביטול רישום מהשרת. תצטרך לרשום מחדש את מספר הטלפון שלך כדי להשתמש בהם שוב בעתיד.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">שגיאה בהתחברות לשרת!</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">מסרונים מאופשרים</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">גע כדי לשנות את יישום המסרונים ברירת המחדל שלך</string>
@@ -171,7 +171,7 @@
   <string name="ConversationActivity_transport_insecure_sms">מסרון בלתי מאובטח</string>
   <string name="ConversationActivity_transport_insecure_mms">MMS בלתי מאובטח</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">בוא נחליף אל Signal %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">בוא נחליף אל Molly %1$s</string>
   <string name="ConversationActivity_error_leaving_group">שגיאה בעזיבת קבוצה</string>
   <string name="ConversationActivity_specify_recipient">אנא בחר איש קשר</string>
   <string name="ConversationActivity_unblock_this_contact_question">לבטל חסימת איש קשר זה?</string>
@@ -413,7 +413,7 @@
   <string name="InviteActivity_sending">שולח…</string>
   <string name="InviteActivity_heart_content_description">לב</string>
   <string name="InviteActivity_invitations_sent">הזמנות נשלחו!</string>
-  <string name="InviteActivity_invite_to_signal">הזמן אל Signal</string>
+  <string name="InviteActivity_invite_to_signal">הזמן אל Molly</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">שלח מסרון אל חבר %d</item>
     <item quantity="two">שלח מסרון אל %d חברים</item>
@@ -426,7 +426,7 @@
     <item quantity="many">לשלוח %d הזמנות במסרון?</item>
     <item quantity="other">לשלוח %d הזמנות במסרון?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">בוא נחליף אל Signal: %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">בוא נחליף אל Molly: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">נראה שאין לך יישומים כלשהם לשתף בהם.</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">חברים לא נותנים לחברים להתכתב באופן לא מוצפן.</string>
   <!--Job-->
