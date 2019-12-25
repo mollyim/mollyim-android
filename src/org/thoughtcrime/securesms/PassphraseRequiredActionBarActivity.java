@@ -49,11 +49,12 @@ public abstract class PassphraseRequiredActionBarActivity extends PassphraseActi
     final boolean locked = KeyCachingService.isLocked(this);
     routeApplicationState(locked);
 
-    super.onCreate(savedInstanceState);
-
     if (!isFinishing()) {
+      super.onCreate(savedInstanceState);
       initializeClearKeyReceiver();
       onCreate(savedInstanceState, true);
+    } else {
+      super.onCreate(null);
     }
   }
 
