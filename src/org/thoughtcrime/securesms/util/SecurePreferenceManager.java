@@ -3,6 +3,7 @@ package org.thoughtcrime.securesms.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.crypto.EncryptedPreferences;
 import org.thoughtcrime.securesms.logging.Log;
 
@@ -12,7 +13,7 @@ public class SecurePreferenceManager {
 
   public static SharedPreferences getSecurePreferences(Context context) {
     EncryptedPreferences preferences = EncryptedPreferences.create(
-            context, getSecurePreferencesName(context));
+            context, getSecurePreferencesName());
     preferences.setEncryptionFilter((key) -> {
       switch (key) {
         case TextSecurePreferences.THEME_PREF:
@@ -30,7 +31,7 @@ public class SecurePreferenceManager {
     return preferences;
   }
 
-  public static String getSecurePreferencesName(Context context) {
-    return context.getPackageName() + "_secure_prefs";
+  public static String getSecurePreferencesName() {
+    return BuildConfig.APPLICATION_ID;
   }
 }
