@@ -34,7 +34,6 @@ import org.thoughtcrime.securesms.preferences.AppearancePreferenceFragment;
 import org.thoughtcrime.securesms.preferences.ChatsPreferenceFragment;
 import org.thoughtcrime.securesms.preferences.CorrectedPreferenceFragment;
 import org.thoughtcrime.securesms.preferences.NotificationsPreferenceFragment;
-import org.thoughtcrime.securesms.preferences.SmsMmsPreferenceFragment;
 import org.thoughtcrime.securesms.preferences.StoragePreferenceFragment;
 import org.thoughtcrime.securesms.preferences.widgets.ProfilePreference;
 import org.thoughtcrime.securesms.usernames.ProfileEditActivityV2;
@@ -57,7 +56,6 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActionBarA
   private static final String TAG = ApplicationPreferencesActivity.class.getSimpleName();
 
   private static final String PREFERENCE_CATEGORY_PROFILE        = "preference_category_profile";
-  private static final String PREFERENCE_CATEGORY_SMS_MMS        = "preference_category_sms_mms";
   private static final String PREFERENCE_CATEGORY_NOTIFICATIONS  = "preference_category_notifications";
   private static final String PREFERENCE_CATEGORY_APP_PROTECTION = "preference_category_app_protection";
   private static final String PREFERENCE_CATEGORY_APPEARANCE     = "preference_category_appearance";
@@ -125,8 +123,6 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActionBarA
 
       this.findPreference(PREFERENCE_CATEGORY_PROFILE)
           .setOnPreferenceClickListener(new ProfileClickListener());
-      this.findPreference(PREFERENCE_CATEGORY_SMS_MMS)
-        .setOnPreferenceClickListener(new CategoryClickListener(PREFERENCE_CATEGORY_SMS_MMS));
       this.findPreference(PREFERENCE_CATEGORY_NOTIFICATIONS)
         .setOnPreferenceClickListener(new CategoryClickListener(PREFERENCE_CATEGORY_NOTIFICATIONS));
       this.findPreference(PREFERENCE_CATEGORY_APP_PROTECTION)
@@ -147,9 +143,6 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActionBarA
 
     private void tintIcons() {
       if (Build.VERSION.SDK_INT >= 21) return;
-
-      Preference preference = this.findPreference(PREFERENCE_CATEGORY_SMS_MMS);
-      preference.getIcon().setColorFilter(ThemeUtil.getThemedColor(requireContext(), R.attr.icon_tint), PorterDuff.Mode.SRC_IN);
     }
 
     @Override
@@ -169,8 +162,6 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActionBarA
     private void setCategorySummaries() {
       ((ProfilePreference)this.findPreference(PREFERENCE_CATEGORY_PROFILE)).refresh();
 
-      this.findPreference(PREFERENCE_CATEGORY_SMS_MMS)
-          .setSummary(SmsMmsPreferenceFragment.getSummary(getActivity()));
       this.findPreference(PREFERENCE_CATEGORY_NOTIFICATIONS)
           .setSummary(NotificationsPreferenceFragment.getSummary(getActivity()));
       this.findPreference(PREFERENCE_CATEGORY_APP_PROTECTION)
@@ -200,9 +191,6 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActionBarA
         Fragment fragment = null;
 
         switch (category) {
-        case PREFERENCE_CATEGORY_SMS_MMS:
-          fragment = new SmsMmsPreferenceFragment();
-          break;
         case PREFERENCE_CATEGORY_NOTIFICATIONS:
           fragment = new NotificationsPreferenceFragment();
           break;

@@ -312,7 +312,6 @@ public class MediaSendActivity extends PassphraseRequiredActionBarActivity imple
     });
 
     sendButton.setTransport(transport);
-    sendButton.disableTransport(transport.getType() == TransportOption.Type.SMS ? TransportOption.Type.TEXTSECURE : TransportOption.Type.SMS);
 
     countButton.setOnClickListener(v -> navigateToMediaSend(Locale.getDefault()));
 

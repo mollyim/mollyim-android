@@ -61,6 +61,7 @@ public class ContactPreference extends Preference {
   public void setSecure(boolean secure) {
     this.secure = secure;
 
+    if (messageButton != null)     messageButton.setVisibility(secure ? View.VISIBLE : View.GONE);
     if (secureCallButton != null)  secureCallButton.setVisibility(secure ? View.VISIBLE : View.GONE);
     if (secureVideoButton != null) secureVideoButton.setVisibility(secure ? View.VISIBLE : View.GONE);
     if (callButton != null)        callButton.setVisibility(secure ? View.GONE : View.VISIBLE);

@@ -87,7 +87,6 @@ import org.thoughtcrime.securesms.GroupMembersDialog;
 import org.thoughtcrime.securesms.MainActivity;
 import org.thoughtcrime.securesms.MuteDialog;
 import org.thoughtcrime.securesms.PassphraseRequiredActionBarActivity;
-import org.thoughtcrime.securesms.PromptMmsActivity;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.RecipientPreferenceActivity;
 import org.thoughtcrime.securesms.ShortcutLauncherActivity;
@@ -302,7 +301,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
   private   TextView                   charactersLeft;
   private   ConversationFragment       fragment;
   private   Button                     unblockButton;
-  private   Button                     makeDefaultSmsButton;
+  private   Button                     inviteButton;
   private   Button                     registerButton;
   private   InputAwareLayout           container;
   private   View                       composePanel;
@@ -334,8 +333,8 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
   private int           distributionType;
   private boolean       archived;
   private boolean       isSecureText;
-  private boolean       isDefaultSms          = true;
-  private boolean       isMmsEnabled          = true;
+  private boolean       isDefaultSms          = false;
+  private boolean       isMmsEnabled          = false;
   private boolean       isSecurityInitialized = false;
 
   private final IdentityRecordList identityRecords = new IdentityRecordList();
@@ -789,7 +788,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
         searchView.setOnQueryTextListener(null);
         searchViewModel.onSearchClosed();
         searchNav.setVisibility(View.GONE);
-        inputPanel.setVisibility(View.VISIBLE);
+        setBlockedUserState(recipient.get(), isSecureText, isDefaultSms);
         fragment.onSearchQueryUpdated(null);
         invalidateOptionsMenu();
         return true;
@@ -938,13 +937,6 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
                        }
                      });
                    }).show();
-  }
-
-  @TargetApi(Build.VERSION_CODES.KITKAT)
-  private void handleMakeDefaultSms() {
-    Intent intent = new Intent(Telephony.Sms.Intents.ACTION_CHANGE_DEFAULT);
-    intent.putExtra(Telephony.Sms.Intents.EXTRA_PACKAGE_NAME, getPackageName());
-    startActivityForResult(intent, SMS_DEFAULT);
   }
 
   private void handleRegisterForSignal() {
@@ -1184,14 +1176,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
     }
   }
 
-  private void handleManualMmsRequired() {
-    Toast.makeText(this, R.string.MmsDownloader_error_reading_mms_settings, Toast.LENGTH_LONG).show();
-
-    Bundle extras = getIntent().getExtras();
-    Intent intent = new Intent(this, PromptMmsActivity.class);
-    if (extras != null) intent.putExtras(extras);
-    startActivity(intent);
-  }
+  private void handleManualMmsRequired() {}
 
   private void handleUnverifiedRecipients() {
     List<Recipient>      unverifiedRecipients = identityRecords.getUnverifiedRecipients(this);
@@ -1252,16 +1237,6 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
     boolean isMediaMessage = recipient.get().isMmsGroup() || attachmentManager.isAttachmentPresent();
 
     sendButton.resetAvailableTransports(isMediaMessage);
-
-    if (!isSecureText && !isPushGroupConversation()) sendButton.disableTransport(Type.TEXTSECURE);
-    if (recipient.get().isPushGroup())            sendButton.disableTransport(Type.SMS);
-
-    if (!recipient.get().isPushGroup() && recipient.get().isForceSmsSelection()) {
-      sendButton.setDefaultTransport(Type.SMS);
-    } else {
-      if (isSecureText || isPushGroupConversation()) sendButton.setDefaultTransport(Type.TEXTSECURE);
-      else                                           sendButton.setDefaultTransport(Type.SMS);
-    }
 
     calculateCharactersRemaining();
     supportInvalidateOptionsMenu();
@@ -1575,7 +1550,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
     charactersLeft         = ViewUtil.findById(this, R.id.space_left);
     emojiDrawerStub        = ViewUtil.findStubById(this, R.id.emoji_drawer_stub);
     unblockButton          = ViewUtil.findById(this, R.id.unblock_button);
-    makeDefaultSmsButton   = ViewUtil.findById(this, R.id.make_default_sms_button);
+    inviteButton           = ViewUtil.findById(this, R.id.invite_button);
     registerButton         = ViewUtil.findById(this, R.id.register_button);
     composePanel           = ViewUtil.findById(this, R.id.bottom_panel);
     container              = ViewUtil.findById(this, R.id.layout_container);
@@ -1624,7 +1599,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
     titleView.setOnClickListener(v -> handleConversationSettings());
     titleView.setOnLongClickListener(v -> handleDisplayQuickContact());
     unblockButton.setOnClickListener(v -> handleUnblock());
-    makeDefaultSmsButton.setOnClickListener(v -> handleMakeDefaultSms());
+    inviteButton.setOnClickListener(v -> handleInviteLink());
     registerButton.setOnClickListener(v -> handleRegisterForSignal());
 
     composeText.setOnKeyListener(composeKeyPressedListener);
@@ -2003,22 +1978,22 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
     if (recipient.isBlocked()) {
       unblockButton.setVisibility(View.VISIBLE);
       composePanel.setVisibility(View.GONE);
-      makeDefaultSmsButton.setVisibility(View.GONE);
+      inviteButton.setVisibility(View.GONE);
       registerButton.setVisibility(View.GONE);
     } else if (!isSecureText && isPushGroupConversation()) {
       unblockButton.setVisibility(View.GONE);
       composePanel.setVisibility(View.GONE);
-      makeDefaultSmsButton.setVisibility(View.GONE);
+      inviteButton.setVisibility(View.GONE);
       registerButton.setVisibility(View.VISIBLE);
     } else if (!isSecureText && !isDefaultSms) {
       unblockButton.setVisibility(View.GONE);
       composePanel.setVisibility(View.GONE);
-      makeDefaultSmsButton.setVisibility(View.VISIBLE);
+      inviteButton.setVisibility(TextSecurePreferences.isPushRegistered(this) ? View.VISIBLE : View.GONE);
       registerButton.setVisibility(View.GONE);
     } else {
       composePanel.setVisibility(View.VISIBLE);
       unblockButton.setVisibility(View.GONE);
-      makeDefaultSmsButton.setVisibility(View.GONE);
+      inviteButton.setVisibility(View.GONE);
       registerButton.setVisibility(View.GONE);
     }
   }
@@ -2375,13 +2350,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
                .execute();
   }
 
-  private void showDefaultSmsPrompt() {
-    new AlertDialog.Builder(this)
-                   .setMessage(R.string.ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app)
-                   .setNegativeButton(R.string.ConversationActivity_no, (dialog, which) -> dialog.dismiss())
-                   .setPositiveButton(R.string.ConversationActivity_yes, (dialog, which) -> handleMakeDefaultSms())
-                   .show();
-  }
+  private void showDefaultSmsPrompt() {}
 
   private void updateToggleButtonState() {
     if (inputPanel.isRecordingInLockedMode()) {

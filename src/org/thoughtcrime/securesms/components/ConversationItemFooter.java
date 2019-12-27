@@ -21,8 +21,6 @@ import org.thoughtcrime.securesms.database.model.MessageRecord;
 import org.thoughtcrime.securesms.permissions.Permissions;
 import org.thoughtcrime.securesms.service.ExpiringMessageManager;
 import org.thoughtcrime.securesms.util.DateUtils;
-import org.thoughtcrime.securesms.util.dualsim.SubscriptionInfoCompat;
-import org.thoughtcrime.securesms.util.dualsim.SubscriptionManagerCompat;
 import org.whispersystems.libsignal.util.guava.Optional;
 
 import java.util.Locale;
@@ -105,23 +103,7 @@ public class ConversationItemFooter extends LinearLayout {
   }
 
   private void presentSimInfo(@NonNull MessageRecord messageRecord) {
-    SubscriptionManagerCompat subscriptionManager = new SubscriptionManagerCompat(getContext());
-
-    if (messageRecord.isPush() || messageRecord.getSubscriptionId() == -1 || !Permissions.hasAll(getContext(), Manifest.permission.READ_PHONE_STATE) || !subscriptionManager.isMultiSim()) {
-      simView.setVisibility(View.GONE);
-    } else {
-      Optional<SubscriptionInfoCompat> subscriptionInfo = subscriptionManager.getActiveSubscriptionInfo(messageRecord.getSubscriptionId());
-
-      if (subscriptionInfo.isPresent() && messageRecord.isOutgoing()) {
-        simView.setText(getContext().getString(R.string.ConversationItem_from_s, subscriptionInfo.get().getDisplayName()));
-        simView.setVisibility(View.VISIBLE);
-      } else if (subscriptionInfo.isPresent()) {
-        simView.setText(getContext().getString(R.string.ConversationItem_to_s,  subscriptionInfo.get().getDisplayName()));
-        simView.setVisibility(View.VISIBLE);
-      } else {
-        simView.setVisibility(View.GONE);
-      }
-    }
+    simView.setVisibility(View.GONE);
   }
 
   @SuppressLint("StaticFieldLeak")

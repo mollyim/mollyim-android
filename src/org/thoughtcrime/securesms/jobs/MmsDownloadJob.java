@@ -19,11 +19,8 @@ import org.thoughtcrime.securesms.database.MmsDatabase;
 import org.thoughtcrime.securesms.jobmanager.Data;
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.logging.Log;
-import org.thoughtcrime.securesms.mms.ApnUnavailableException;
-import org.thoughtcrime.securesms.mms.CompatMmsConnection;
 import org.thoughtcrime.securesms.mms.IncomingMediaMessage;
 import org.thoughtcrime.securesms.mms.MmsException;
-import org.thoughtcrime.securesms.mms.MmsRadioException;
 import org.thoughtcrime.securesms.mms.PartParser;
 import org.thoughtcrime.securesms.notifications.MessageNotifier;
 import org.thoughtcrime.securesms.providers.BlobProvider;
@@ -33,14 +30,6 @@ import org.thoughtcrime.securesms.service.KeyCachingService;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.Util;
 import org.whispersystems.libsignal.util.guava.Optional;
-
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
 
 public class MmsDownloadJob extends BaseJob {
 
@@ -117,41 +106,12 @@ public class MmsDownloadJob extends BaseJob {
 
       database.markDownloadState(messageId, MmsDatabase.Status.DOWNLOAD_CONNECTING);
 
-      String contentLocation = notification.get().getContentLocation();
-      byte[] transactionId   = new byte[0];
+      throw new MmsException("Download disabled");
 
-      try {
-        if (notification.get().getTransactionId() != null) {
-          transactionId = notification.get().getTransactionId().getBytes(CharacterSets.MIMENAME_ISO_8859_1);
-        } else {
-          Log.w(TAG, "No transaction ID!");
-        }
-      } catch (UnsupportedEncodingException e) {
-        Log.w(TAG, e);
-      }
-
-      Log.i(TAG, "Downloading mms at " + Uri.parse(contentLocation).getHost() + ", subscription ID: " + notification.get().getSubscriptionId());
-
-      RetrieveConf retrieveConf = new CompatMmsConnection(context).retrieve(contentLocation, transactionId, notification.get().getSubscriptionId());
-
-      if (retrieveConf == null) {
-        throw new MmsException("RetrieveConf was null");
-      }
-
-      storeRetrievedMms(contentLocation, messageId, threadId, retrieveConf, notification.get().getSubscriptionId(), notification.get().getFrom());
-    } catch (ApnUnavailableException e) {
-      Log.w(TAG, e);
-      handleDownloadError(messageId, threadId, MmsDatabase.Status.DOWNLOAD_APN_UNAVAILABLE,
-                          automatic);
     } catch (MmsException e) {
       Log.w(TAG, e);
       handleDownloadError(messageId, threadId,
                           MmsDatabase.Status.DOWNLOAD_HARD_FAILURE,
-                          automatic);
-    } catch (MmsRadioException | IOException e) {
-      Log.w(TAG, e);
-      handleDownloadError(messageId, threadId,
-                          MmsDatabase.Status.DOWNLOAD_SOFT_FAILURE,
                           automatic);
     }
   }
@@ -170,76 +130,6 @@ public class MmsDownloadJob extends BaseJob {
   @Override
   public boolean onShouldRetry(@NonNull Exception exception) {
     return false;
-  }
-
-  private void storeRetrievedMms(String contentLocation,
-                                 long messageId, long threadId, RetrieveConf retrieved,
-                                 int subscriptionId, @Nullable RecipientId notificationFrom)
-      throws MmsException
-  {
-    MmsDatabase      database    = DatabaseFactory.getMmsDatabase(context);
-    Optional<String> group       = Optional.absent();
-    Set<RecipientId> members     = new HashSet<>();
-    String           body        = null;
-    List<Attachment> attachments = new LinkedList<>();
-
-    RecipientId from = null;
-
-    if (retrieved.getFrom() != null) {
-      from = Recipient.external(context, Util.toIsoString(retrieved.getFrom().getTextString())).getId();
-    } else if (notificationFrom != null) {
-      from = notificationFrom;
-    }
-
-    if (retrieved.getTo() != null) {
-      for (EncodedStringValue toValue : retrieved.getTo()) {
-        members.add(Recipient.external(context, Util.toIsoString(toValue.getTextString())).getId());
-      }
-    }
-
-    if (retrieved.getCc() != null) {
-      for (EncodedStringValue ccValue : retrieved.getCc()) {
-        members.add(Recipient.external(context, Util.toIsoString(ccValue.getTextString())).getId());
-      }
-    }
-
-    if (from != null) {
-      members.add(from);
-    }
-    members.add(Recipient.self().getId());
-
-    if (retrieved.getBody() != null) {
-      body = PartParser.getMessageText(retrieved.getBody());
-      PduBody media = PartParser.getSupportedMediaParts(retrieved.getBody());
-
-      for (int i=0;i<media.getPartsNum();i++) {
-        PduPart part = media.getPart(i);
-
-        if (part.getData() != null) {
-          Uri    uri  = BlobProvider.getInstance().forData(part.getData()).createForSingleUseInMemory();
-          String name = null;
-
-          if (part.getName() != null) name = Util.toIsoString(part.getName());
-
-          attachments.add(new UriAttachment(uri, Util.toIsoString(part.getContentType()),
-                                            AttachmentDatabase.TRANSFER_PROGRESS_DONE,
-                                            part.getData().length, name, false, false, null, null, null, null));
-        }
-      }
-    }
-
-    if (members.size() > 2) {
-      List<RecipientId> recipients = new ArrayList<>(members);
-      group = Optional.of(DatabaseFactory.getGroupDatabase(context).getOrCreateGroupForMembers(recipients, true));
-    }
-
-    IncomingMediaMessage   message      = new IncomingMediaMessage(from, group, body, retrieved.getDate() * 1000L, attachments, subscriptionId, 0, false, false, false);
-    Optional<InsertResult> insertResult = database.insertMessageInbox(message, contentLocation, threadId);
-
-    if (insertResult.isPresent()) {
-      database.delete(messageId);
-      MessageNotifier.updateNotification(context, insertResult.get().getThreadId());
-    }
   }
 
   private void handleDownloadError(long messageId, long threadId, int downloadStatus, boolean automatic)

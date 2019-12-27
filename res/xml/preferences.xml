@@ -5,10 +5,6 @@
     <org.thoughtcrime.securesms.preferences.widgets.ProfilePreference
             android:key="preference_category_profile"/>
 
-    <Preference android:key="preference_category_sms_mms"
-                android:title="@string/preferences__sms_mms"
-                android:icon="?attr/message_icon"/>
-
     <Preference android:key="preference_category_notifications"
                 android:title="@string/preferences__notifications"
                 android:icon="?attr/notifications_icon"/>

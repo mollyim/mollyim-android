@@ -40,19 +40,8 @@ public class TextSecurePreferences {
   public  static final String CHANGE_PASSPHRASE_PREF           = "pref_change_passphrase";
   public  static final String THEME_PREF                       = "pref_theme";
   public  static final String LANGUAGE_PREF                    = "pref_language";
-  private static final String MMSC_CUSTOM_HOST_PREF            = "pref_apn_mmsc_custom_host";
-  public  static final String MMSC_HOST_PREF                   = "pref_apn_mmsc_host";
-  private static final String MMSC_CUSTOM_PROXY_PREF           = "pref_apn_mms_custom_proxy";
-  public  static final String MMSC_PROXY_HOST_PREF             = "pref_apn_mms_proxy";
-  private static final String MMSC_CUSTOM_PROXY_PORT_PREF      = "pref_apn_mms_custom_proxy_port";
-  public  static final String MMSC_PROXY_PORT_PREF             = "pref_apn_mms_proxy_port";
-  private static final String MMSC_CUSTOM_USERNAME_PREF        = "pref_apn_mmsc_custom_username";
-  public  static final String MMSC_USERNAME_PREF               = "pref_apn_mmsc_username";
-  private static final String MMSC_CUSTOM_PASSWORD_PREF        = "pref_apn_mmsc_custom_password";
-  public  static final String MMSC_PASSWORD_PREF               = "pref_apn_mmsc_password";
   public  static final String THREAD_TRIM_LENGTH               = "pref_trim_length";
   public  static final String THREAD_TRIM_NOW                  = "pref_trim_now";
-  public  static final String ENABLE_MANUAL_MMS_PREF           = "pref_enable_manual_mms";
 
   private static final String LAST_VERSION_CODE_PREF           = "last_version_code";
   private static final String LAST_EXPERIENCE_VERSION_PREF     = "last_experience_version_code";
@@ -63,14 +52,9 @@ public class TextSecurePreferences {
   public  static final String LED_COLOR_PREF                   = "pref_led_color";
   public  static final String LED_BLINK_PREF                   = "pref_led_blink";
   private static final String LED_BLINK_PREF_CUSTOM            = "pref_led_blink_custom";
-  public  static final String ALL_MMS_PREF                     = "pref_all_mms";
-  public  static final String ALL_SMS_PREF                     = "pref_all_sms";
   public  static final String SCREEN_SECURITY_PREF             = "pref_screen_security";
   private static final String ENTER_SENDS_PREF                 = "pref_enter_sends";
   private static final String ENTER_PRESENT_PREF               = "pref_enter_key";
-  private static final String SMS_DELIVERY_REPORT_PREF         = "pref_delivery_report_sms";
-  public  static final String MMS_USER_AGENT                   = "pref_mms_user_agent";
-  private static final String MMS_CUSTOM_USER_AGENT            = "pref_custom_mms_user_agent";
   private static final String THREAD_TRIM_ENABLED              = "pref_trim_threads";
   private static final String LOCAL_NUMBER_PREF                = "pref_local_number";
   private static final String LOCAL_UUID_PREF                  = "pref_local_uuid";
@@ -79,7 +63,6 @@ public class TextSecurePreferences {
   public  static final String REGISTERED_GCM_PREF              = "pref_gcm_registered";
   private static final String GCM_PASSWORD_PREF                = "pref_gcm_password";
   private static final String PROMPTED_PUSH_REGISTRATION_PREF  = "pref_prompted_push_registration";
-  private static final String PROMPTED_DEFAULT_SMS_PREF        = "pref_prompted_default_sms";
   private static final String PROMPTED_OPTIMIZE_DOZE_PREF      = "pref_prompted_optimize_doze";
   private static final String PROMPTED_SHARE_PREF              = "pref_prompted_share";
   private static final String SIGNALING_KEY_PREF               = "pref_signaling_key";
@@ -95,7 +78,6 @@ public class TextSecurePreferences {
 
   private static final String LOCAL_REGISTRATION_ID_PREF       = "pref_local_registration_id";
   private static final String SIGNED_PREKEY_REGISTERED_PREF    = "pref_signed_prekey_registered";
-  private static final String WIFI_SMS_PREF                    = "pref_wifi_sms";
 
   private static final String GCM_DISABLED_PREF                = "pref_gcm_disabled";
   private static final String GCM_REGISTRATION_ID_PREF         = "pref_gcm_registration_id";
@@ -616,10 +598,6 @@ public class TextSecurePreferences {
     setBooleanPreference(context, WEBSOCKET_REGISTERED_PREF, registered);
   }
 
-  public static boolean isWifiSmsEnabled(Context context) {
-    return getBooleanPreference(context, WIFI_SMS_PREF, false);
-  }
-
   public static int getRepeatAlertsCount(Context context) {
     try {
       return Integer.parseInt(getStringPreference(context, REPEAT_ALERTS_PREF, "0"));
@@ -820,98 +798,6 @@ public class TextSecurePreferences {
     return getBooleanPreference(context, ENTER_SENDS_PREF, false);
   }
 
-  public static boolean getUseCustomMmsc(Context context) {
-    boolean legacy = TextSecurePreferences.isLegacyUseLocalApnsEnabled(context);
-    return getBooleanPreference(context, MMSC_CUSTOM_HOST_PREF, legacy);
-  }
-
-  public static void setUseCustomMmsc(Context context, boolean value) {
-    setBooleanPreference(context, MMSC_CUSTOM_HOST_PREF, value);
-  }
-
-  public static String getMmscUrl(Context context) {
-    return getStringPreference(context, MMSC_HOST_PREF, "");
-  }
-
-  public static void setMmscUrl(Context context, String mmsc) {
-    setStringPreference(context, MMSC_HOST_PREF, mmsc);
-  }
-
-  public static boolean getUseCustomMmscProxy(Context context) {
-    boolean legacy = TextSecurePreferences.isLegacyUseLocalApnsEnabled(context);
-    return getBooleanPreference(context, MMSC_CUSTOM_PROXY_PREF, legacy);
-  }
-
-  public static void setUseCustomMmscProxy(Context context, boolean value) {
-    setBooleanPreference(context, MMSC_CUSTOM_PROXY_PREF, value);
-  }
-
-  public static String getMmscProxy(Context context) {
-    return getStringPreference(context, MMSC_PROXY_HOST_PREF, "");
-  }
-
-  public static void setMmscProxy(Context context, String value) {
-    setStringPreference(context, MMSC_PROXY_HOST_PREF, value);
-  }
-
-  public static boolean getUseCustomMmscProxyPort(Context context) {
-    boolean legacy = TextSecurePreferences.isLegacyUseLocalApnsEnabled(context);
-    return getBooleanPreference(context, MMSC_CUSTOM_PROXY_PORT_PREF, legacy);
-  }
-
-  public static void setUseCustomMmscProxyPort(Context context, boolean value) {
-    setBooleanPreference(context, MMSC_CUSTOM_PROXY_PORT_PREF, value);
-  }
-
-  public static String getMmscProxyPort(Context context) {
-    return getStringPreference(context, MMSC_PROXY_PORT_PREF, "");
-  }
-
-  public static void setMmscProxyPort(Context context, String value) {
-    setStringPreference(context, MMSC_PROXY_PORT_PREF, value);
-  }
-
-  public static boolean getUseCustomMmscUsername(Context context) {
-    boolean legacy = TextSecurePreferences.isLegacyUseLocalApnsEnabled(context);
-    return getBooleanPreference(context, MMSC_CUSTOM_USERNAME_PREF, legacy);
-  }
-
-  public static void setUseCustomMmscUsername(Context context, boolean value) {
-    setBooleanPreference(context, MMSC_CUSTOM_USERNAME_PREF, value);
-  }
-
-  public static String getMmscUsername(Context context) {
-    return getStringPreference(context, MMSC_USERNAME_PREF, "");
-  }
-
-  public static void setMmscUsername(Context context, String value) {
-    setStringPreference(context, MMSC_USERNAME_PREF, value);
-  }
-
-  public static boolean getUseCustomMmscPassword(Context context) {
-    boolean legacy = TextSecurePreferences.isLegacyUseLocalApnsEnabled(context);
-    return getBooleanPreference(context, MMSC_CUSTOM_PASSWORD_PREF, legacy);
-  }
-
-  public static void setUseCustomMmscPassword(Context context, boolean value) {
-    setBooleanPreference(context, MMSC_CUSTOM_PASSWORD_PREF, value);
-  }
-
-  public static String getMmscPassword(Context context) {
-    return getStringPreference(context, MMSC_PASSWORD_PREF, "");
-  }
-
-  public static void setMmscPassword(Context context, String value) {
-    setStringPreference(context, MMSC_PASSWORD_PREF, value);
-  }
-
-  public static String getMmsUserAgent(Context context, String defaultUserAgent) {
-    boolean useCustom = getBooleanPreference(context, MMS_CUSTOM_USER_AGENT, false);
-
-    if (useCustom) return getStringPreference(context, MMS_USER_AGENT, defaultUserAgent);
-    else           return defaultUserAgent;
-  }
-
   public static String getIdentityContactUri(Context context) {
     return getStringPreference(context, IDENTITY_PREF, null);
   }
@@ -926,10 +812,6 @@ public class TextSecurePreferences {
 
   public static boolean isScreenSecurityEnabled(Context context) {
     return getBooleanPreference(context, SCREEN_SECURITY_PREF, true);
-  }
-
-  public static boolean isLegacyUseLocalApnsEnabled(Context context) {
-    return getBooleanPreference(context, ENABLE_MANUAL_MMS_PREF, false);
   }
 
   public static int getLastVersionCode(Context context) {
@@ -991,24 +873,12 @@ public class TextSecurePreferences {
     setStringPreference(context, LANGUAGE_PREF, language);
   }
 
-  public static boolean isSmsDeliveryReportsEnabled(Context context) {
-    return getBooleanPreference(context, SMS_DELIVERY_REPORT_PREF, false);
-  }
-
   public static boolean hasPromptedPushRegistration(Context context) {
     return getBooleanPreference(context, PROMPTED_PUSH_REGISTRATION_PREF, false);
   }
 
   public static void setPromptedPushRegistration(Context context, boolean value) {
     setBooleanPreference(context, PROMPTED_PUSH_REGISTRATION_PREF, value);
-  }
-
-  public static boolean hasPromptedDefaultSmsProvider(Context context) {
-    return getBooleanPreference(context, PROMPTED_DEFAULT_SMS_PREF, true);
-  }
-
-  public static void setPromptedDefaultSmsProvider(Context context, boolean value) {
-    setBooleanPreference(context, PROMPTED_DEFAULT_SMS_PREF, value);
   }
 
   public static void setPromptedOptimizeDoze(Context context, boolean value) {
@@ -1025,14 +895,6 @@ public class TextSecurePreferences {
 
   public static void setPromptedShare(Context context, boolean value) {
     setBooleanPreference(context, PROMPTED_SHARE_PREF, value);
-  }
-
-  public static boolean isInterceptAllMmsEnabled(Context context) {
-    return getBooleanPreference(context, ALL_MMS_PREF, true);
-  }
-
-  public static boolean isInterceptAllSmsEnabled(Context context) {
-    return getBooleanPreference(context, ALL_SMS_PREF, true);
   }
 
   public static boolean isNotificationsEnabled(Context context) {

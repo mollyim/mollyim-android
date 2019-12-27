@@ -60,6 +60,7 @@
                       android:inputType="textShortMessage|textMultiLine"/>
 
             <Button android:id="@+id/sms_button"
+                android:visibility="gone"
                 android:layout_gravity="center_horizontal"
                 android:text="@string/InviteActivity_share_with_contacts"
                 android:layout_marginTop="16dp"

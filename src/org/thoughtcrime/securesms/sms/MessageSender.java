@@ -46,12 +46,10 @@ import org.thoughtcrime.securesms.jobmanager.JobManager;
 import org.thoughtcrime.securesms.jobs.AttachmentCopyJob;
 import org.thoughtcrime.securesms.jobs.AttachmentCompressionJob;
 import org.thoughtcrime.securesms.jobs.AttachmentUploadJob;
-import org.thoughtcrime.securesms.jobs.MmsSendJob;
 import org.thoughtcrime.securesms.jobs.PushGroupSendJob;
 import org.thoughtcrime.securesms.jobs.PushMediaSendJob;
 import org.thoughtcrime.securesms.jobs.PushTextSendJob;
 import org.thoughtcrime.securesms.jobs.ReactionSendJob;
-import org.thoughtcrime.securesms.jobs.SmsSendJob;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.mms.MmsException;
 import org.thoughtcrime.securesms.mms.OutgoingMediaMessage;
@@ -316,15 +314,9 @@ public class MessageSender {
     PushGroupSendJob.enqueue(context, jobManager, messageId, recipient.getId(), filterRecipientId);
   }
 
-  private static void sendSms(Context context, Recipient recipient, long messageId) {
-    JobManager jobManager = ApplicationDependencies.getJobManager();
-    jobManager.add(new SmsSendJob(context, messageId, recipient));
-  }
+  private static void sendSms(Context context, Recipient recipient, long messageId) {}
 
-  private static void sendMms(Context context, long messageId) {
-    JobManager jobManager = ApplicationDependencies.getJobManager();
-    MmsSendJob.enqueue(context, jobManager, messageId);
-  }
+  private static void sendMms(Context context, long messageId) {}
 
   private static boolean isPushTextSend(Context context, Recipient recipient, boolean keyExchange) {
     if (!TextSecurePreferences.isPushRegistered(context)) {

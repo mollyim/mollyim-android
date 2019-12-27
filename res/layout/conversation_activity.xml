@@ -105,11 +105,11 @@
                 android:visibility="gone" />
 
             <Button
-                android:id="@+id/make_default_sms_button"
+                android:id="@+id/invite_button"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:padding="20dp"
-                android:text="@string/conversation_activity__enable_signal_for_sms"
+                android:text="@string/InviteActivity_invite_to_signal"
                 android:visibility="gone" />
 
             <TextView

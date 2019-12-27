@@ -48,7 +48,6 @@ import com.google.i18n.phonenumbers.Phonenumber;
 import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.components.ComposeText;
 import org.thoughtcrime.securesms.logging.Log;
-import org.thoughtcrime.securesms.mms.OutgoingLegacyMmsConnection;
 import org.whispersystems.libsignal.util.guava.Optional;
 
 import java.io.ByteArrayOutputStream;
@@ -367,7 +366,7 @@ public class Util {
 
   @SuppressLint("NewApi")
   public static boolean isDefaultSmsProvider(Context context){
-    return context.getPackageName().equals(Telephony.Sms.getDefaultSmsPackage(context));
+    return false;
   }
 
   /**
@@ -416,7 +415,7 @@ public class Util {
 
   @TargetApi(VERSION_CODES.LOLLIPOP)
   public static boolean isMmsCapable(Context context) {
-    return (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) || OutgoingLegacyMmsConnection.isConnectionPossible(context);
+    return false;
   }
 
   public static boolean isMainThread() {
