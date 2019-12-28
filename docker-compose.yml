@@ -2,6 +2,6 @@ version: '3.2'
 services:
   reproducible-build:
     build: .
-    command: ./gradlew -Pci assembleWebsite
+    command: ./gradlew -Pci assemble
     volumes:
-      - ./reproducible-build:/src/build
+      - ./reproducible-build:/src/app/build
