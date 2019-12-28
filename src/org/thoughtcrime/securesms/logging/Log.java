@@ -119,7 +119,7 @@ public class Log {
   }
 
   private static String redact(final String message) {
-    if (!BuildConfig.DEBUG)
+    if (!BuildConfig.DEBUG && message != null)
       return Scrubber.scrub(message).toString();
     else
       return message;
