@@ -21,6 +21,7 @@ public class SecurePreferenceManager {
         case TextSecurePreferences.PASSPHRASE_LOCK:
         case TextSecurePreferences.FIRST_INSTALL_VERSION:
         case TextSecurePreferences.SYSTEM_EMOJI_PREF:
+        case TextSecurePreferences.DIRECTORY_FRESH_TIME_PREF:
         case "keyboard_height_landscape":
         case "keyboard_height_portrait":
           return false;

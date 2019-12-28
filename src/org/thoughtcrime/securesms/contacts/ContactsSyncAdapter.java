@@ -10,6 +10,7 @@ import android.os.Bundle;
 import org.thoughtcrime.securesms.contacts.sync.DirectoryHelper;
 import org.thoughtcrime.securesms.logging.Log;
 
+import org.thoughtcrime.securesms.service.KeyCachingService;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
 import java.io.IOException;
@@ -28,12 +29,15 @@ public class ContactsSyncAdapter extends AbstractThreadedSyncAdapter {
   {
     Log.i(TAG, "onPerformSync(" + authority +")");
 
-    if (TextSecurePreferences.isPushRegistered(getContext())) {
+    if (TextSecurePreferences.isPushRegistered(getContext()) && !KeyCachingService.isLocked()) {
       try {
         DirectoryHelper.refreshDirectory(getContext(), true);
       } catch (IOException e) {
         Log.w(TAG, e);
       }
+    } else {
+      Log.i(TAG, "Scheduling directory refresh job at next startup...");
+      TextSecurePreferences.removeDirectoryRefreshTime(getContext());
     }
   }
 

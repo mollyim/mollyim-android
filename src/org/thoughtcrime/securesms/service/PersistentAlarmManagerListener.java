@@ -17,6 +17,8 @@ public abstract class PersistentAlarmManagerListener extends BroadcastReceiver {
 
   @Override
   public void onReceive(Context context, Intent intent) {
+    if (KeyCachingService.isLocked()) return;
+
     long          scheduledTime = getNextScheduledExecutionTime(context);
     AlarmManager  alarmManager  = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
     Intent        alarmIntent   = new Intent(context, getClass());

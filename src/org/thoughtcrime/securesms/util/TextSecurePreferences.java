@@ -66,7 +66,7 @@ public class TextSecurePreferences {
   private static final String PROMPTED_OPTIMIZE_DOZE_PREF      = "pref_prompted_optimize_doze";
   private static final String PROMPTED_SHARE_PREF              = "pref_prompted_share";
   private static final String SIGNALING_KEY_PREF               = "pref_signaling_key";
-  private static final String DIRECTORY_FRESH_TIME_PREF        = "pref_directory_refresh_time";
+  public  static final String DIRECTORY_FRESH_TIME_PREF        = "pref_directory_refresh_time";
   private static final String UPDATE_APK_REFRESH_TIME_PREF     = "pref_update_apk_refresh_time";
   private static final String UPDATE_APK_DOWNLOAD_ID           = "pref_update_apk_download_id";
   private static final String UPDATE_APK_DIGEST                = "pref_update_apk_digest";
@@ -728,6 +728,10 @@ public class TextSecurePreferences {
 
   public static void setDirectoryRefreshTime(Context context, long value) {
     setLongPreference(context, DIRECTORY_FRESH_TIME_PREF, value);
+  }
+
+  public static void removeDirectoryRefreshTime(Context context) {
+    removePreference(context, DIRECTORY_FRESH_TIME_PREF);
   }
 
   public static long getUpdateApkRefreshTime(Context context) {
