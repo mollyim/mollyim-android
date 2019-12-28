@@ -1,4 +1,4 @@
-name: Tests
+name: Android CI
 
 on: [push, pull_request]
 
@@ -15,3 +15,48 @@ jobs:
         java-version: 1.8
     - name: Run tests
       run: ./gradlew -Pci qa
+    - name: Upload APKs
+      uses: actions/upload-artifact@v1
+      with:
+        name: molly-apks
+        path: app/build/outputs/apk
+  release:
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Download release APKs
+      uses: actions/download-artifact@v1
+      with:
+        name: molly-apks
+    - name: Get the version
+      id: get-version
+      run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
+    - name: Create release
+      id: create-release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Molly Android ${{ steps.get-version.outputs.VERSION }}
+        draft: true
+        prerelease: false
+    - name: Upload APK staging
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create-release.outputs.upload_url }}
+        asset_path: ./molly-apks/staging/release/Molly-staging-release-unsigned-${{ steps.get-version.outputs.VERSION }}.apk
+        asset_name: Molly-staging-release-unsigned-${{ steps.get-version.outputs.VERSION }}.apk
+        asset_content_type: application/zip
+    - name: Upload APK production
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create-release.outputs.upload_url }}
+        asset_path: ./molly-apks/production/release/Molly-production-release-unsigned-${{ steps.get-version.outputs.VERSION }}.apk
+        asset_name: Molly-production-release-unsigned-${{ steps.get-version.outputs.VERSION }}.apk
+        asset_content_type: application/zip

@@ -1,6 +1,6 @@
 # Molly
 
-![ci status](https://github.com/mollyim/mollyim-android/workflows/Tests/badge.svg)
+![ci status](https://github.com/mollyim/mollyim-android/workflows/Android%20CI/badge.svg)
 
 > Molly is a hardened version of [Signal](https://github.com/signalapp/Signal-Android) for Android, the fast simple yet secure messaging app by [Signal Foundation](https://signal.org).
 
