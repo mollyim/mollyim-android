@@ -16,11 +16,7 @@
  */
 package org.thoughtcrime.securesms;
 
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
-import android.os.IBinder;
 import org.thoughtcrime.securesms.logging.Log;
 
 import org.thoughtcrime.securesms.crypto.MasterSecret;
@@ -37,36 +33,19 @@ public abstract class PassphraseActivity extends BaseActionBarActivity {
   private static final String TAG = PassphraseActivity.class.getSimpleName();
 
   public void setMasterSecret(final MasterSecret masterSecret) {
-    final ServiceConnection serviceConnection = new ServiceConnection() {
-      @Override
-      public void onServiceConnected(ComponentName className, IBinder service) {
-        Log.d(TAG, "onServiceConnected() called");
-        KeyCachingService keyCachingService = ((KeyCachingService.KeySetBinder)service).getService();
-        keyCachingService.setMasterSecret(masterSecret);
+    KeyCachingService.setMasterSecret(masterSecret);
+    startService(new Intent(this, KeyCachingService.class));
 
-        unbindService(this);
+    ApplicationContext.getInstance(this).onUnlock();
 
-        Intent nextIntent = getIntent().getParcelableExtra("next_intent");
-        if (nextIntent != null) {
-          ApplicationContext.getInstance(PassphraseActivity.this).onUnlock();
-          try {
-            startActivity(nextIntent);
-          } catch (java.lang.SecurityException e) {
-            Log.w(TAG, "Access permission not passed from PassphraseActivity, retry sharing.");
-          }
-          finish();
-        }
+    Intent nextIntent = getIntent().getParcelableExtra("next_intent");
+    if (nextIntent != null) {
+      try {
+        startActivity(nextIntent);
+      } catch (java.lang.SecurityException e) {
+        Log.w(TAG, "Access permission not passed from PassphraseActivity, retry sharing.");
       }
-
-      @Override
-      public void onServiceDisconnected(ComponentName componentName) {
-        Log.e(TAG, "onServiceDisconnected() called");
-        unbindService(this);
-      }
-    };
-
-    final Intent bindIntent = new Intent(this, KeyCachingService.class);
-    startService(bindIntent);
-    bindService(bindIntent, serviceConnection, Context.BIND_AUTO_CREATE);
+      finish();
+    }
   }
 }

@@ -25,7 +25,6 @@ public class MasterSecretConstraintObserver implements ConstraintObserver {
   public void register(@NonNull Notifier notifier) {
     IntentFilter filter = new IntentFilter();
 
-    filter.addAction(KeyCachingService.NEW_KEY_EVENT);
     filter.addAction(KeyCachingService.CLEAR_KEY_EVENT);
 
     application.registerReceiver(new BroadcastReceiver() {

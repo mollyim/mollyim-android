@@ -60,32 +60,25 @@ public class PassphraseCreateActivity extends PassphraseActivity {
     noButton.setOnClickListener(v -> onButtonClicked(false));
   }
 
-  private void onButtonClicked(boolean passphraseEnabled) {
+  private void onButtonClicked(boolean enabled) {
     if (MasterSecretUtil.isPassphraseInitialized(this)) {
       Log.w(TAG, "Passphrase already initialized!");
       return;
     }
 
-    if (passphraseEnabled) {
+    if (enabled) {
       ChangePassphraseDialogFragment dialog = ChangePassphraseDialogFragment.newInstance(ChangePassphraseDialogFragment.MODE_ENABLE);
-
       dialog.setMasterSecretChangedListener(this::generateSecrets);
       dialog.show(getSupportFragmentManager(), "ChangePassphraseDialogFragment");
     } else {
       generateSecrets(MasterSecretUtil.generateMasterSecret(this, MasterSecretUtil.UNENCRYPTED_PASSPHRASE));
     }
 
-    TextSecurePreferences.setPassphraseLockEnabled(this, passphraseEnabled);
+    TextSecurePreferences.setPassphraseLockEnabled(this, enabled);
   }
 
   private void generateSecrets(MasterSecret masterSecret) {
-    disableButtons();
     MasterSecretUtil.generateAsymmetricMasterSecret(PassphraseCreateActivity.this, masterSecret);
     setMasterSecret(masterSecret);
-  }
-
-  private void disableButtons() {
-    yesButton.setEnabled(false);
-    noButton.setEnabled(false);
   }
 }

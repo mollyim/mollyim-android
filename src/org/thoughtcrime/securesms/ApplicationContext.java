@@ -42,6 +42,9 @@ import org.signal.ringrtc.CallConnectionFactory;
 import org.thoughtcrime.securesms.components.TypingStatusRepository;
 import org.thoughtcrime.securesms.components.TypingStatusSender;
 import org.thoughtcrime.securesms.crypto.IdentityKeyUtil;
+import org.thoughtcrime.securesms.crypto.InvalidPassphraseException;
+import org.thoughtcrime.securesms.crypto.MasterSecretUtil;
+import org.thoughtcrime.securesms.crypto.UnrecoverableKeyException;
 import org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencyProvider;
@@ -129,6 +132,8 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
     if (Build.VERSION.SDK_INT < 21) {
       AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
+
+    initializePassphraseLock();
   }
 
   @MainThread
@@ -267,6 +272,19 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
 
   public void finalizeMessageRetrieval() {
     this.incomingMessageObserver.quit();
+  }
+
+  private void initializePassphraseLock() {
+    if (MasterSecretUtil.isPassphraseInitialized(this)) {
+      try {
+        KeyCachingService.setMasterSecret(MasterSecretUtil.getMasterSecret(this,
+                MasterSecretUtil.UNENCRYPTED_PASSPHRASE));
+        TextSecurePreferences.setPassphraseLockEnabled(this, false);
+        onUnlock();
+      } catch (InvalidPassphraseException | UnrecoverableKeyException e) {
+        TextSecurePreferences.setPassphraseLockEnabled(this, true);
+      }
+    }
   }
 
   private void initializeAppDependencies() {

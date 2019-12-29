@@ -49,7 +49,6 @@ import org.thoughtcrime.securesms.crypto.MasterSecretUtil;
 import org.thoughtcrime.securesms.util.DynamicIntroTheme;
 import org.thoughtcrime.securesms.util.DynamicLanguage;
 import org.thoughtcrime.securesms.util.ServiceUtil;
-import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
 /**
  * Activity that prompts for a user's passphrase.
@@ -84,19 +83,6 @@ public class PassphrasePromptActivity extends PassphraseActivity {
     super.onResume();
     dynamicTheme.onResume(this);
     dynamicLanguage.onResume(this);
-
-    boolean passphraseEnabled = false;
-
-    try {
-      MasterSecret masterSecret = MasterSecretUtil.getMasterSecret(this, MasterSecretUtil.UNENCRYPTED_PASSPHRASE);
-      setMasterSecret(masterSecret);
-    } catch (InvalidPassphraseException | UnrecoverableKeyException e) {
-      Log.d(TAG, "Passphrase lock is enabled.");
-      passphraseEnabled = true;
-    }
-
-    TextSecurePreferences.setPassphraseLockEnabled(this, passphraseEnabled);
-    setPassphraseVisibility(passphraseEnabled);
   }
 
   @Override
@@ -168,20 +154,6 @@ public class PassphrasePromptActivity extends PassphraseActivity {
     passphraseInput.setOnEditorActionListener(new PassphraseActionListener());
 
     okButton.setOnClickListener(v -> handlePassphrase());
-  }
-
-  private void setPassphraseVisibility(boolean visibility) {
-    if (visibility) {
-      passphraseAuthContainer.setVisibility(View.VISIBLE);
-      passphraseInput.requestFocus();
-    } else {
-      View view = getCurrentFocus();
-      if (view != null) {
-        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-      }
-      passphraseAuthContainer.setVisibility(View.GONE);
-    }
   }
 
   private class PassphraseActionListener implements TextView.OnEditorActionListener {

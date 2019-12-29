@@ -60,7 +60,6 @@ public class KeyCachingService extends Service {
 
   public static final int SERVICE_RUNNING_ID = 4141;
   public  static final String KEY_PERMISSION           = BuildConfig.APPLICATION_ID + ".ACCESS_SECRETS";
-  public  static final String NEW_KEY_EVENT            = BuildConfig.APPLICATION_ID + ".service.action.NEW_KEY_EVENT";
   public  static final String CLEAR_KEY_EVENT          = BuildConfig.APPLICATION_ID + ".service.action.CLEAR_KEY_EVENT";
   private static final String PASSPHRASE_EXPIRED_EVENT = BuildConfig.APPLICATION_ID + ".service.action.PASSPHRASE_EXPIRED_EVENT";
   public  static final String CLEAR_KEY_ACTION         = BuildConfig.APPLICATION_ID + ".service.action.CLEAR_KEY";
@@ -85,15 +84,11 @@ public class KeyCachingService extends Service {
   }
 
   public static synchronized MasterSecret getMasterSecret() {
-    while (masterSecret == null) {
-      try {
-        KeyCachingService.class.wait();
-      } catch (InterruptedException ie) {
-        Log.w(TAG, ie);
-      }
-    }
-
     return masterSecret.clone();
+  }
+
+  public static synchronized void setMasterSecret(final MasterSecret newMasterSecret) {
+    masterSecret = newMasterSecret;
   }
 
   public static synchronized void clearMasterSecret() {
@@ -112,28 +107,6 @@ public class KeyCachingService extends Service {
     startTimeoutIfAppropriate(context);
   }
 
-  @SuppressLint("StaticFieldLeak")
-  public void setMasterSecret(final MasterSecret masterSecret) {
-    synchronized (KeyCachingService.class) {
-      KeyCachingService.masterSecret = masterSecret;
-      KeyCachingService.class.notifyAll();
-
-      foregroundService();
-      broadcastNewSecret();
-      startTimeoutIfAppropriate(this);
-
-      new AsyncTask<Void, Void, Void>() {
-        @Override
-        protected Void doInBackground(Void... params) {
-          if (!ApplicationMigrations.isUpdate(KeyCachingService.this)) {
-            MessageNotifier.updateNotification(KeyCachingService.this);
-          }
-          return null;
-        }
-      }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-    }
-  }
-
   @Override
   public int onStartCommand(Intent intent, int flags, int startId) {
     if (intent == null) return START_NOT_STICKY;
@@ -145,6 +118,8 @@ public class KeyCachingService extends Service {
         case PASSPHRASE_EXPIRED_EVENT: handleClearKey();        break;
         case LOCALE_CHANGE_EVENT:      handleLocaleChanged();   break;
       }
+    } else {
+      handleCacheKey();
     }
 
     return START_NOT_STICKY;
@@ -172,6 +147,24 @@ public class KeyCachingService extends Service {
     Intent intent = new Intent(this, DummyActivity.class);
     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     startActivity(intent);
+  }
+
+  @SuppressLint("StaticFieldLeak")
+  public void handleCacheKey() {
+    Log.i(TAG, "handleCacheKey()");
+
+    foregroundService();
+    startTimeoutIfAppropriate(this);
+
+    new AsyncTask<Void, Void, Void>() {
+      @Override
+      protected Void doInBackground(Void... params) {
+        if (!ApplicationMigrations.isUpdate(KeyCachingService.this)) {
+          MessageNotifier.updateNotification(KeyCachingService.this);
+        }
+        return null;
+      }
+    }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
   }
 
   @SuppressLint("StaticFieldLeak")
@@ -249,10 +242,6 @@ public class KeyCachingService extends Service {
 
     stopForeground(true);
     startForeground(SERVICE_RUNNING_ID, builder.build());
-  }
-
-  private void broadcastNewSecret() {
-    sendPackageBroadcast(NEW_KEY_EVENT);
   }
 
   private void sendPackageBroadcast(String action) {
