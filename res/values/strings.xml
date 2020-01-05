@@ -38,9 +38,9 @@
     <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">No longer receive or send any Molly messages and calls by unregistering your phone number from the server. After using this option you will need to re-register to receive or send Molly messages and calls again in the future.</string>
     <string name="ApplicationPreferencesActivity_error_connecting_to_server">Error connecting to server!</string>
     <string name="ApplicationPreferencesActivity_sms_enabled">SMS Enabled</string>
-    <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">Tap here if you wish to change your default SMS app</string>
+    <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">Touch to change your default SMS app</string>
     <string name="ApplicationPreferencesActivity_sms_disabled">SMS Disabled</string>
-    <string name="ApplicationPreferencesActivity_touch_to_make_signal_your_default_sms_app">Tap here if you want to make Molly your default SMS app</string>
+    <string name="ApplicationPreferencesActivity_touch_to_make_signal_your_default_sms_app">Touch to make Signal your default SMS app</string>
     <string name="ApplicationPreferencesActivity_on">on</string>
     <string name="ApplicationPreferencesActivity_On">On</string>
     <string name="ApplicationPreferencesActivity_off">off</string>
@@ -372,11 +372,11 @@
     <string name="ExperienceUpgradeActivity_signal_now_supports_secure_video_calling_long">Signal now supports secure video calling. Tap to explore.</string>
 
     <string name="ExperienceUpgradeActivity_ready_for_your_closeup">Ready for your closeup?</string>
-    <string name="ExperienceUpgradeActivity_now_you_can_share_a_profile_photo_and_name_with_friends_on_signal">Now you can make a profile photo and name visible to your friends on Signal</string>
+    <string name="ExperienceUpgradeActivity_now_you_can_share_a_profile_photo_and_name_with_friends_on_signal">Now you can share a profile photo and name with friends on Signal</string>
     <string name="ExperienceUpgradeActivity_signal_profiles_are_here">Signal profiles are here</string>
 
     <string name="ExperienceUpgradeActivity_introducing_typing_indicators">Introducing typing indicators.</string>
-    <string name="ExperienceUpgradeActivity_now_you_can_optionally_see_and_share_when_messages_are_being_typed">From now on you can share with your contacts when you are typing a message. This feature is optional, you can switch it off at any time.</string>
+    <string name="ExperienceUpgradeActivity_now_you_can_optionally_see_and_share_when_messages_are_being_typed">Now you can optionally see and share when messages are being typed.</string>
     <string name="ExperienceUpgradeActivity_would_you_like_to_enable_them_now">Would you like to enable them now?</string>
     <string name="ExperienceUpgradeActivity_typing_ui_title">Typing indicators are here</string>
     <string name="ExperienceUpgradeActivity_enable_typing_indicators">Enable typing indicators</string>
@@ -384,8 +384,8 @@
     <string name="ExperienceUpgradeActivity_no_thanks">No thanks</string>
 
     <string name="ExperienceUpgradeActivity_introducing_link_previews">Introducing link previews.</string>
-    <string name="ExperienceUpgradeActivity_optional_link_previews_are_now_supported">Optional link previews are now supported for some of the most popular websites on the Internet.</string>
-    <string name="ExperienceUpgradeActivity_you_can_disable_or_enable_this_feature_link_previews">You can disable or enable this feature anytime in Signal\'s settings (Privacy &gt; Send link previews).</string>
+    <string name="ExperienceUpgradeActivity_optional_link_previews_are_now_supported">Optional link previews are now supported for some of the most popular sites on the Internet.</string>
+    <string name="ExperienceUpgradeActivity_you_can_disable_or_enable_this_feature_link_previews">You can disable or enable this feature anytime in your Signal settings (Privacy &gt; Send link previews).</string>
     <string name="ExperienceUpgradeActivity_got_it">Got it</string>
 
     <string name="ExperienceUpgradeActivity_introducing_stickers">Introducing stickers</string>
@@ -413,7 +413,7 @@
     <string name="GroupCreateActivity_actionbar_edit_title">Edit group</string>
     <string name="GroupCreateActivity_group_name_hint">Group name</string>
     <string name="GroupCreateActivity_actionbar_mms_title">New MMS group</string>
-    <string name="GroupCreateActivity_contacts_dont_support_push">You have selected one or more contacts that don\'t support Signal groups, so you will only be able to send and receive insecure MMS messages in this group. If you want to exchange secure Signal messages, you must remove any contact who doesn\'t support Signal groups.</string>
+    <string name="GroupCreateActivity_contacts_dont_support_push">You have selected a contact that doesn\'t support Signal groups, so this group will be MMS.</string>
     <string name="GroupCreateActivity_youre_not_registered_for_signal">You\'re not registered for Signal messages and calls, so Signal groups are disabled. Please try registering in Settings &gt; Advanced.</string>
     <string name="GroupCreateActivity_contacts_no_members">You need at least one person in your group!</string>
     <string name="GroupCreateActivity_contacts_invalid_number">One of the members of your group has a number that can\'t be read correctly. Please fix or remove that contact and try again.</string>
@@ -441,10 +441,10 @@
     <string name="InputPanel_tap_and_hold_to_record_a_voice_message_release_to_send">Tap and hold to record a voice message, release to send</string>
 
     <!-- InviteActivity -->
-    <string name="InviteActivity_share">Send using another app</string>
-    <string name="InviteActivity_choose_contacts">Choose contacts (SMS)</string>
-    <string name="InviteActivity_share_with_contacts">Choose contacts (SMS)</string>
-    <string name="InviteActivity_choose_how_to_share">Send using another app</string>
+    <string name="InviteActivity_share">Share</string>
+    <string name="InviteActivity_choose_contacts">Choose contacts</string>
+    <string name="InviteActivity_share_with_contacts">Share with contacts</string>
+    <string name="InviteActivity_choose_how_to_share">Choose how to share</string>
 
     <string name="InviteActivity_cancel">Cancel</string>
     <string name="InviteActivity_sending">Sending…</string>
@@ -653,7 +653,7 @@
     <!-- RatingManager -->
     <string name="RatingManager_rate_this_app">Rate this app</string>
     <string name="RatingManager_if_you_enjoy_using_this_app_please_take_a_moment">If you enjoy using this app, please take a moment to help us by rating it.</string>
-    <string name="RatingManager_rate_now">Rate now</string>
+    <string name="RatingManager_rate_now">Rate now!</string>
     <string name="RatingManager_no_thanks">No thanks</string>
     <string name="RatingManager_later">Later</string>
     <string name="RatingManager_whoops_the_play_store_app_does_not_appear_to_be_installed">Whoops, the Play Store app does not appear to be installed on your device.</string>
@@ -1204,15 +1204,15 @@
 
     <!-- database_migration_activity -->
     <string name="database_migration_activity__would_you_like_to_import_your_existing_text_messages">Would you like to import your existing text messages into Signal\'s encrypted database?</string>
-    <string name="database_migration_activity__the_default_system_database_will_not_be_modified">The default Android database will not be modified or altered in any way.</string>
+    <string name="database_migration_activity__the_default_system_database_will_not_be_modified">The default system database will not be modified or altered in any way.</string>
     <string name="database_migration_activity__skip">Skip</string>
     <string name="database_migration_activity__import">Import</string>
     <string name="database_migration_activity__this_could_take_a_moment_please_be_patient">This could take a moment. Please be patient, we\'ll notify you when the import is complete.</string>
     <string name="database_migration_activity__importing">IMPORTING</string>
 
 
-    <string name="import_fragment__import_system_sms_database">Import Android SMS database</string>
-    <string name="import_fragment__import_the_database_from_the_default_system">Import the database from the Android default messenger app</string>
+    <string name="import_fragment__import_system_sms_database">Import system SMS database</string>
+    <string name="import_fragment__import_the_database_from_the_default_system">Import the database from the default system messenger app</string>
     <string name="import_fragment__import_plaintext_backup">Import plaintext backup</string>
     <string name="import_fragment__import_a_plaintext_backup_file">Import a plaintext backup file. Compatible with \'SMS Backup &amp; Restore.\'</string>
 
@@ -1445,8 +1445,8 @@
     <string name="preferences__free_private_messages_and_calls">Free private messages and calls to Signal users</string>
     <string name="preferences__enable_debug_log">Enable debug log</string>
     <string name="preferences__submit_debug_log">Submit debug log</string>
-    <string name="preferences__support_wifi_calling">\'Wi-Fi Calling\' compatibility mode</string>
-    <string name="preferences__enable_if_your_device_supports_sms_mms_delivery_over_wifi">Enable if you wish to send and receive SMS/MMS over Wi-Fi (only enable this when \'Wi-Fi Calling\' is enabled on your device)</string>
+    <string name="preferences__support_wifi_calling">\'WiFi Calling\' compatibility mode</string>
+    <string name="preferences__enable_if_your_device_supports_sms_mms_delivery_over_wifi">Enable if your device uses SMS/MMS delivery over WiFi (only enable when \'WiFi Calling\' is enabled on your device)</string>
     <string name="preferences__incognito_keyboard">Incognito keyboard</string>
     <string name="preferences__read_receipts">Read receipts</string>
     <string name="preferences__if_read_receipts_are_disabled_you_wont_be_able_to_see_read_receipts">If read receipts are disabled, others won\'t be able to see if you read their messages, but you also won\'t be able to see if others have read your messages.</string>
@@ -1479,7 +1479,7 @@
     <string name="preferences_notifications__calls">Calls</string>
     <string name="preferences_notifications__ringtone">Ringtone</string>
     <string name="preferences_chats__show_invitation_prompts">Show invitation prompts</string>
-    <string name="preferences_chats__display_invitation_prompts_for_contacts_without_signal">Display a suggestion to invite your contact to Signal, above an SMS chat with a contact who is not on Signal.</string>
+    <string name="preferences_chats__display_invitation_prompts_for_contacts_without_signal">Display invitation prompts for contacts without Signal</string>
     <string name="preferences_chats__message_text_size">Message font size</string>
     <string name="preferences_events__contact_joined_signal">Contact now uses Signal</string>
     <string name="preferences_notifications__priority">Urgency</string>
@@ -1603,8 +1603,8 @@
     <string name="reminder_header_expired_build_details">Messages will no longer send successfully. Tap to update to the most recent version.</string>
     <string name="reminder_header_sms_default_title">Use as default SMS app</string>
     <string name="reminder_header_sms_default_text">Tap to make Signal your default SMS app.</string>
-    <string name="reminder_header_sms_import_title">Import Android SMS</string>
-    <string name="reminder_header_sms_import_text">Tap to copy SMS messages from the Android default SMS app into Signal\'s encrypted database.</string>
+    <string name="reminder_header_sms_import_title">Import system SMS</string>
+    <string name="reminder_header_sms_import_text">Tap to copy your phone\'s SMS messages into Signal\'s encrypted database.</string>
     <string name="reminder_header_push_title">Enable Signal messages and calls</string>
     <string name="reminder_header_push_text">Upgrade your communication experience.</string>
     <string name="reminder_header_invite_title">Invite to Signal</string>
