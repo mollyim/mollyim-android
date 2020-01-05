@@ -34,9 +34,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class ExperienceUpgradeActivity extends BaseActionBarActivity
-                                       implements TypingIndicatorIntroFragment.Controller,
-                                                  LinkPreviewsIntroFragment.Controller,
-                                                  StickersIntroFragment.Controller
+                                       implements StickersIntroFragment.Controller
 {
   private static final String TAG             = ExperienceUpgradeActivity.class.getSimpleName();
   private static final String DISMISS_ACTION  = "org.thoughtcrime.securesms.ExperienceUpgradeActivity.DISMISS_ACTION";
@@ -45,59 +43,6 @@ public class ExperienceUpgradeActivity extends BaseActionBarActivity
   private final DynamicTheme dynamicTheme = new DynamicNoActionBarTheme();
 
   private enum ExperienceUpgrade {
-    SIGNAL_REBRANDING(157,
-                      new IntroPage(0xFF2090EA,
-                                    BasicIntroFragment.newInstance(R.drawable.splash_logo,
-                                                                   R.string.ExperienceUpgradeActivity_welcome_to_signal_dgaf,
-                                                                   R.string.ExperienceUpgradeActivity_textsecure_is_now_called_signal)),
-                      R.string.ExperienceUpgradeActivity_welcome_to_signal_excited,
-                      R.string.ExperienceUpgradeActivity_textsecure_is_now_signal,
-                      R.string.ExperienceUpgradeActivity_textsecure_is_now_signal_long,
-                      null,
-                      false),
-    VIDEO_CALLS(245,
-                      new IntroPage(0xFF2090EA,
-                                    BasicIntroFragment.newInstance(R.drawable.video_splash,
-                                                                   R.string.ExperienceUpgradeActivity_say_hello_to_video_calls,
-                                                                   R.string.ExperienceUpgradeActivity_signal_now_supports_secure_video_calls)),
-                      R.string.ExperienceUpgradeActivity_say_hello_to_video_calls,
-                      R.string.ExperienceUpgradeActivity_signal_now_supports_secure_video_calling,
-                      R.string.ExperienceUpgradeActivity_signal_now_supports_secure_video_calling_long,
-                null,
-                false),
-    PROFILES(286,
-                 new IntroPage(0xFF2090EA,
-                               BasicIntroFragment.newInstance(R.drawable.profile_splash,
-                                                              R.string.ExperienceUpgradeActivity_ready_for_your_closeup,
-                                                              R.string.ExperienceUpgradeActivity_now_you_can_share_a_profile_photo_and_name_with_friends_on_signal)),
-             R.string.ExperienceUpgradeActivity_signal_profiles_are_here,
-             R.string.ExperienceUpgradeActivity_now_you_can_share_a_profile_photo_and_name_with_friends_on_signal,
-             R.string.ExperienceUpgradeActivity_now_you_can_share_a_profile_photo_and_name_with_friends_on_signal,
-             CreateProfileActivity.class,
-             false),
-    READ_RECEIPTS(299,
-                  new IntroPage(0xFF2090EA,
-                                ReadReceiptsIntroFragment.newInstance()),
-                  R.string.experience_upgrade_preference_fragment__read_receipts_are_here,
-                  R.string.experience_upgrade_preference_fragment__optionally_see_and_share_when_messages_have_been_read,
-                  R.string.experience_upgrade_preference_fragment__optionally_see_and_share_when_messages_have_been_read,
-                  null,
-                  false),
-    TYPING_INDICATORS(432,
-                      new IntroPage(0xFF2090EA,
-                                    TypingIndicatorIntroFragment.newInstance()),
-                      R.string.ExperienceUpgradeActivity_introducing_typing_indicators,
-                      R.string.ExperienceUpgradeActivity_now_you_can_optionally_see_and_share_when_messages_are_being_typed,
-                      R.string.ExperienceUpgradeActivity_now_you_can_optionally_see_and_share_when_messages_are_being_typed,
-                      null,
-                      true),
-    LINK_PREVIEWS(449,
-                  new IntroPage(0xFF2090EA, LinkPreviewsIntroFragment.newInstance()),
-                  R.string.ExperienceUpgradeActivity_introducing_link_previews,
-                  R.string.ExperienceUpgradeActivity_optional_link_previews_are_now_supported,
-                  R.string.ExperienceUpgradeActivity_optional_link_previews_are_now_supported,
-                  null,
-                  true),
     STICKERS(580,
              new IntroPage(0xFF2090EA, StickersIntroFragment.newInstance()),
              R.string.ExperienceUpgradeActivity_introducing_stickers,
@@ -243,16 +188,6 @@ public class ExperienceUpgradeActivity extends BaseActionBarActivity
     }
 
     return eligibleUpgrade;
-  }
-
-  @Override
-  public void onTypingIndicatorsFinished() {
-    onContinue(Optional.of(ExperienceUpgrade.TYPING_INDICATORS));
-  }
-
-  @Override
-  public void onLinkPreviewsFinished() {
-    onContinue(Optional.of(ExperienceUpgrade.LINK_PREVIEWS));
   }
 
   @Override
