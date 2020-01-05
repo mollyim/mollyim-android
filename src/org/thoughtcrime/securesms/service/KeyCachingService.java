@@ -177,7 +177,6 @@ public class KeyCachingService extends Service {
     }
 
     KeyCachingService.locking = true;
-    stopSelf();
 
     sendPackageBroadcast(CLEAR_KEY_EVENT);
 
