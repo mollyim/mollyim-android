@@ -12,6 +12,7 @@ public class DynamicTheme {
 
   public static final String DARK  = "dark";
   public static final String LIGHT = "light";
+  public static final String OLED = "oled";
 
   private int currentTheme;
 
@@ -36,7 +37,9 @@ public class DynamicTheme {
     if (theme.equals(DARK)) {
       return R.style.TextSecure_DarkTheme;
     }
-
+    else if (theme.equals(OLED)) {
+      return R.style.TextSecure_DarkThemeOled;
+    }
     return R.style.TextSecure_LightTheme;
   }
 

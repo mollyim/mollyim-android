@@ -10,6 +10,7 @@ public class DynamicNoActionBarInviteTheme extends DynamicTheme {
     String theme = TextSecurePreferences.getTheme(activity);
 
     if (theme.equals("dark")) return R.style.Signal_NoActionBar_Invite;
+    else if (theme.equals("oled")) return R.style.Signal_NoActionBar_Invite_Oled;
 
     return R.style.Signal_Light_NoActionBar_Invite;
   }

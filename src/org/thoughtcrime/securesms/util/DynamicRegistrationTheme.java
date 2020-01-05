@@ -10,6 +10,7 @@ public class DynamicRegistrationTheme extends DynamicTheme {
     String theme = TextSecurePreferences.getTheme(activity);
 
     if (theme.equals("dark")) return R.style.TextSecure_DarkRegistrationTheme;
+    else if (theme.equals("oled")) return R.style.TextSecure_DarkRegistrationThemeOled;
 
     return R.style.TextSecure_LightRegistrationTheme;
   }

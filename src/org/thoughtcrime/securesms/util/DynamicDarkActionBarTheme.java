@@ -12,6 +12,9 @@ public class DynamicDarkActionBarTheme extends DynamicTheme {
     if (theme.equals("dark")) {
       return R.style.TextSecure_DarkTheme_Conversation;
     }
+    else if (theme.equals("oled")) {
+      return R.style.TextSecure_DarkTheme_Conversation;
+    }
 
     return R.style.TextSecure_LightTheme_Conversation;
   }

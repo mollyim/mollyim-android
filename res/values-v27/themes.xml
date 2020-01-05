@@ -58,4 +58,27 @@
         <item name="android:navigationBarColor">@color/core_black</item>
         <item name="android:windowLightNavigationBar">false</item>
     </style>
+
+    <style name="TextSecure.DarkThemeOled" parent="TextSecure.BaseDarkTheme">
+        <item name="actionBarStyle">@style/TextSecure.DarkActionBarOled</item>
+        <item name="android:windowBackground">@color/black</item>
+        <item name="attachment_type_selector_background">@color/black</item>
+        <item name="dialog_background_color">@color/black</item>
+        <item name="conversation_background">@color/black</item>
+        <item name="conversation_input_background">@drawable/compose_background_oled</item>
+        <item name="emoji_tab_strip_background">@color/black</item>
+        <item name="android:statusBarColor">@color/black</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:navigationBarColor">@color/core_black</item>
+        <item name="android:windowLightNavigationBar">false</item>
+    </style>
+
+    <style name="TextSecure.DarkNoActionBarOled" parent="TextSecure.DarkNoActionBar">
+        <item name="android:windowBackground">@color/black</item>
+        <item name="colorPrimary">@color/black</item>
+        <item name="android:statusBarColor">@color/black</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:navigationBarColor">@color/black</item>
+        <item name="android:windowLightNavigationBar">false</item>
+    </style>
 </resources>
