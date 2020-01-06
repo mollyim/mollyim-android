@@ -58,7 +58,7 @@ public class ContactsCursorLoader extends CursorLoader {
     public static final int FLAG_SMS             = 1 << 1;
     public static final int FLAG_ACTIVE_GROUPS   = 1 << 2;
     public static final int FLAG_INACTIVE_GROUPS = 1 << 3;
-    public static final int FLAG_ALL             = FLAG_PUSH |  FLAG_SMS | FLAG_ACTIVE_GROUPS | FLAG_INACTIVE_GROUPS;
+    public static final int FLAG_ALL             = FLAG_PUSH | FLAG_ACTIVE_GROUPS | FLAG_INACTIVE_GROUPS;
   }
 
   private static final String[] CONTACT_PROJECTION = new String[]{ContactRepository.ID_COLUMN,
