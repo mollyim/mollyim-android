@@ -57,21 +57,38 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.dd.CircularProgressButton
-            android:id="@+id/ok_button"
-            style="@style/Button.Registration"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="10dp"
-            app:cpb_textIdle="@string/prompt_passphrase_activity__unlock"
-            app:cpb_cornerRadius="10dp"
-            app:cpb_colorIndicator="@color/signal_primary"
-            app:cpb_colorProgress="@color/transparent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:layout_marginBottom="10dp">
+
+            <com.dd.CircularProgressButton
+                android:id="@+id/ok_button"
+                style="@style/Button.Registration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                app:cpb_textIdle="@string/prompt_passphrase_activity__unlock"
+                app:cpb_cornerRadius="10dp"
+                app:cpb_colorIndicator="@color/signal_primary"
+                app:cpb_colorProgress="@color/transparent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <org.thoughtcrime.securesms.components.SquareImageView
+                android:id="@+id/success"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:background="@drawable/circle_tintable"
+                android:backgroundTint="@color/green_400"
+                android:gravity="center_vertical"
+                android:src="@drawable/ic_check_white_48dp"
+                android:visibility="gone"/>
+
+        </FrameLayout>
 
     </LinearLayout>
 </LinearLayout>

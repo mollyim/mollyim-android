@@ -16,6 +16,8 @@
  */
 package org.thoughtcrime.securesms;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -66,6 +68,7 @@ public class PassphrasePromptActivity extends PassphraseActivity {
   private TextInputLayout        passphraseLayout;
   private EditText               passphraseInput;
   private CircularProgressButton okButton;
+  private View                   successView;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -142,6 +145,7 @@ public class PassphrasePromptActivity extends PassphraseActivity {
     passphraseLayout        = findViewById(R.id.passphrase_layout);
     passphraseInput         = findViewById(R.id.passphrase_input);
     okButton                = findViewById(R.id.ok_button);
+    successView             = findViewById(R.id.success);
 
     setSupportActionBar(toolbar);
     getSupportActionBar().setTitle("");
@@ -183,9 +187,9 @@ public class PassphrasePromptActivity extends PassphraseActivity {
     okButton.setClickable(enabled);
   }
 
-  private void showProgress(double x) {
-    double y = 1 + Math.pow(1 - x, 3) * -1;
-    okButton.setProgress((int) (y * 100));
+  private void showProgress(float x) {
+    double y = 1 + Math.pow(1 - x, 1.5) * -1;
+    okButton.setProgress((int) (y * 99));
   }
 
   private void showFailure() {
@@ -200,8 +204,23 @@ public class PassphrasePromptActivity extends PassphraseActivity {
     passphraseAuthContainer.startAnimation(shake);
   }
 
+  private void handleSuccessfulPassphrase(MasterSecret masterSecret) {
+    int shortAnimationDuration = getResources().getInteger(android.R.integer.config_shortAnimTime);
+
+    successView.setAlpha(0f);
+    successView.setVisibility(View.VISIBLE);
+    successView.animate().alpha(1f).setDuration(shortAnimationDuration).setListener(null);
+
+    okButton.animate().alpha(0f).setDuration(shortAnimationDuration).setListener(new AnimatorListenerAdapter() {
+      @Override
+      public void onAnimationEnd(Animator animation) {
+        setMasterSecret(masterSecret);
+      }
+    });;
+  }
+
   @SuppressLint("StaticFieldLeak")
-  private class SetMasterSecretTask extends AsyncTask<Void, Double, MasterSecret> {
+  private class SetMasterSecretTask extends AsyncTask<Void, Float, MasterSecret> {
 
     private final char[] passphrase;
 
@@ -220,41 +239,48 @@ public class PassphrasePromptActivity extends PassphraseActivity {
     @Override
     protected MasterSecret doInBackground(Void... voids) {
       progressTimer.start();
+
+      MasterSecret masterSecret;
       try {
-        return MasterSecretUtil.getMasterSecret(getApplicationContext(), passphrase);
+        masterSecret = MasterSecretUtil.getMasterSecret(getApplicationContext(), passphrase);
       } catch (InvalidPassphraseException | UnrecoverableKeyException e) {
-        progressTimer.cancel();
-        publishProgress(0.0);
-        return null;
+        masterSecret = null;
       }
+
+      progressTimer.cancel();
+
+      return masterSecret;
     }
 
     @Override
-    protected void onProgressUpdate(Double... values) {
+    protected void onProgressUpdate(Float... values) {
       showProgress(values[0]);
     }
 
     @Override
     protected void onPostExecute(MasterSecret masterSecret) {
       if (masterSecret != null) {
-        setMasterSecret(masterSecret);
+        handleSuccessfulPassphrase(masterSecret);
       } else {
         setInputEnabled(true);
+        showProgress(0f);
         showFailure();
       }
     }
 
     private void initializeProgressTimer() {
-      long countdown = MasterSecretUtil.getKdfElapsedTimeMillis(getApplicationContext()) + 200;
+      long countdown = MasterSecretUtil.getKdfElapsedTimeMillis(getApplicationContext()) + 250;
 
-      progressTimer = new CountDownTimer(countdown, 120) {
+      progressTimer = new CountDownTimer(countdown, 100) {
         @Override
         public void onTick(long millisUntilFinished) {
-          publishProgress(1 - (millisUntilFinished / (double) countdown));
+          publishProgress(1 - (millisUntilFinished / (float) countdown));
         }
 
         @Override
-        public void onFinish() {}
+        public void onFinish() {
+          publishProgress(1f);
+        }
       };
     }
   }
