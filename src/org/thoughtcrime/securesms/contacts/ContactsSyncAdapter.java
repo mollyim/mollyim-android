@@ -29,7 +29,7 @@ public class ContactsSyncAdapter extends AbstractThreadedSyncAdapter {
   {
     Log.i(TAG, "onPerformSync(" + authority +")");
 
-    if (TextSecurePreferences.isPushRegistered(getContext()) && !KeyCachingService.isLocked()) {
+    if (!KeyCachingService.isLocked() && TextSecurePreferences.isPushRegistered(getContext())) {
       try {
         DirectoryHelper.refreshDirectory(getContext(), true);
       } catch (IOException e) {

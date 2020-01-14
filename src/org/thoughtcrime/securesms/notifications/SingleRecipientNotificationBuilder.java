@@ -97,7 +97,7 @@ public class SingleRecipientNotificationBuilder extends AbstractNotificationBuil
       }
 
     } else {
-      setContentTitle(context.getString(R.string.SingleRecipientNotificationBuilder_signal));
+      setContentTitle(context.getString(R.string.app_name));
       setLargeIcon(new GeneratedContactPhoto("Unknown", R.drawable.ic_profile_outline_40).asDrawable(context, ContactColors.UNKNOWN_COLOR.toConversationColor(context)));
     }
   }

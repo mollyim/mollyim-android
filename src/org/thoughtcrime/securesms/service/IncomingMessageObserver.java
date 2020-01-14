@@ -206,7 +206,7 @@ public class IncomingMessageObserver implements ConstraintObserver.Notifier {
       super.onStartCommand(intent, flags, startId);
 
       NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), NotificationChannels.OTHER);
-      builder.setContentTitle(getApplicationContext().getString(R.string.MessageRetrievalService_signal));
+      builder.setContentTitle(getApplicationContext().getString(R.string.app_name));
       builder.setContentText(getApplicationContext().getString(R.string.MessageRetrievalService_background_connection_enabled));
       builder.setPriority(NotificationCompat.PRIORITY_MIN);
       builder.setWhen(0);
