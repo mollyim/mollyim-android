@@ -4,4 +4,4 @@ services:
     build: .
     command: ./gradlew -Pci assemble
     volumes:
-      - ./reproducible-build:/src/app/build
+      - ./reproducible-build:/molly/app/build

@@ -6,7 +6,7 @@ project.properties
 *.iml
 local.properties
 .gradle
-.externalNativeBuild/
-.cxx/
-build
-reproducible-build
+build/
+*/build/
+*/.cxx/
+reproducible-build/
