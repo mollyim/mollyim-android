@@ -19,6 +19,9 @@ include $(CLEAR_VARS)
 LOCAL_MODULE     := argon2
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/argon2/include
 LOCAL_CFLAGS     += -fvisibility=hidden
+ifeq ($(APP_OPTIM),release)
+LOCAL_LDLIBS     += -Wl,--build-id=none
+endif
 
 LOCAL_SRC_FILES  := \
     argon2/src/argon2.c \
