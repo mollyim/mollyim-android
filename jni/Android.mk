@@ -5,6 +5,9 @@ include $(CLEAR_VARS)
 LOCAL_MODULE     := native-utils
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/utils
 LOCAL_CFLAGS     += -Wall
+ifeq ($(APP_OPTIM),release)
+LOCAL_LDLIBS     += -Wl,--build-id=none
+endif
 
 LOCAL_SRC_FILES := utils/org_thoughtcrime_securesms_util_FileUtils.cpp
 LOCAL_SRC_FILES += utils/org_thoughtcrime_securesms_service_WipeMemoryService.c
@@ -16,6 +19,9 @@ include $(CLEAR_VARS)
 LOCAL_MODULE     := argon2
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/argon2/include
 LOCAL_CFLAGS     += -fvisibility=hidden
+ifeq ($(APP_OPTIM),release)
+LOCAL_LDLIBS     += -Wl,--build-id=none
+endif
 
 LOCAL_SRC_FILES  := \
     argon2/src/argon2.c \

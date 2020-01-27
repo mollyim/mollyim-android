@@ -1611,8 +1611,8 @@
     <string name="reminder_header_invite_text">Suggest to %1$s to continue this conversation as a secure Signal conversation.</string>
     <string name="reminder_header_share_title">Invite your friends!</string>
     <string name="reminder_header_share_text">The more people use Signal, the more often you can communicate in private.</string>
-    <string name="reminder_header_screen_lock_need_title">Never turn off the screen lock</string>
-    <string name="reminder_header_screen_lock_need_text">Just a kind reminder. Molly uses your phone\'s screen lock for maximum security. If disabled, the encryption of the database will be cleared and the data will be lost.</string>
+    <string name="reminder_header_screen_lock_need_title">Never disable your Android screen lock</string>
+    <string name="reminder_header_screen_lock_need_text">A friendly reminder: Please do not diable your Android screen lock. Molly uses your Android screen lock PIN, password or pattern to encrypt it\'s database. If you ever disable your Android screen lock, than Molly will be forced to earase its database and all your conversation history and media will be lost.</string>
     <string name="reminder_header_service_outage_text">Signal is experiencing technical difficulties. We are working hard to restore service as quickly as possible.</string>
     <string name="reminder_header_the_latest_signal_features_wont_work">The latest Signal features won\'t work on this version of Android. Please upgrade this device to receive future Signal updates.</string>
     <string name="reminder_header_progress">%1$d%%</string>
