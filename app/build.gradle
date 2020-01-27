@@ -281,15 +281,6 @@ android {
         exclude 'META-INF/proguard/androidx-annotations.pro'
     }
 
-    signingConfigs {
-        debug {
-            storeFile file('certs/debug.keystore')
-            keyAlias 'androiddebugkey'
-            storePassword 'android'
-            keyPassword 'android'
-        }
-    }
-
     buildTypes {
         debug {
             minifyEnabled false
@@ -314,7 +305,6 @@ android {
                     'proguard/proguard.cfg'
             testProguardFiles 'proguard/proguard-automation.pro',
                     'proguard/proguard.cfg'
-            signingConfig signingConfigs.debug
         }
         release {
             minifyEnabled true
