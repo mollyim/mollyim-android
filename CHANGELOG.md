@@ -10,7 +10,7 @@ All notable changes to Signal will be documented in this file.
 - Fixed: for any bug fixes.
 - Merged: for code merged from upstream. -->
 
-[Unreleased]: https://github.com/mollyim/mollyim-android/compare/v4.52.4...HEAD
+[Unreleased]: https://github.com/mollyim/mollyim-android/compare/v4.53.7...HEAD
 ## [Unreleased]
 
 ### Added
@@ -49,5 +49,5 @@ All notable changes to Signal will be documented in this file.
 
 ### Merged
 
-- Signal v4.52.4
+- Signal v4.53.7
 

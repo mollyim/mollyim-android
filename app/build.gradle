@@ -121,7 +121,8 @@ dependencies {
 
     implementation project(':libsignal-service')
 
-    implementation 'org.signal:ringrtc-android:0.2.0'
+    implementation 'org.signal:argon2:13.0@aar'
+    implementation 'org.signal:ringrtc-android:0.3.1'
 
     implementation "me.leolin:ShortcutBadger:1.1.16"
     implementation 'se.emilsjolander:stickylistheaders:2.7.0'
@@ -200,8 +201,8 @@ dependencyVerification {
     configuration = '(staging|production)(Debug|Release)RuntimeClasspath'
 }
 
-def canonicalVersionCode = 584
-def canonicalVersionName = "4.52.4"
+def canonicalVersionCode = 592
+def canonicalVersionName = "4.53.7"
 
 def postFixSize = 10
 def abiPostFix = ['universal'   : 0,
@@ -324,7 +325,7 @@ android {
 
     externalNativeBuild {
         ndkBuild {
-            path file("$rootDir/jni/Android.mk")
+            path file("jni/Android.mk")
         }
     }
 
@@ -364,30 +365,6 @@ android {
         variant.outputs.all {
             def flavor = variant.baseName + (buildType.signingConfig ? "" : "-unsigned")
             outputFileName = "${appName}-${flavor}-${versionName}.apk"
-        }
-    }
-
-    sourceSets {
-        main {
-            manifest.srcFile '../AndroidManifest.xml'
-            java.srcDirs = ['../src']
-            resources.srcDirs = ['../src']
-            aidl.srcDirs = ['../src']
-            renderscript.srcDirs = ['../src']
-            res.srcDirs = ['../res']
-            assets.srcDirs = ['../assets']
-            jniLibs.srcDirs = ['../libs']
-            proto.srcDir '../protobuf'
-        }
-        androidTest {
-            java.srcDirs = ['../test/androidTest/java']
-        }
-        test {
-            java.srcDirs = ['../test/unitTest/java']
-            resources.srcDirs = ['../test/unitTest/resources']
-        }
-        staging {
-            res.srcDirs = ['../staging/res']
         }
     }
 
