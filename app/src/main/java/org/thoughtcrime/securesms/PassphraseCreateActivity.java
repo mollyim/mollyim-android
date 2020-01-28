@@ -71,7 +71,7 @@ public class PassphraseCreateActivity extends PassphraseActivity {
       dialog.setMasterSecretChangedListener(this::generateSecrets);
       dialog.show(getSupportFragmentManager(), "ChangePassphraseDialogFragment");
     } else {
-      generateSecrets(MasterSecretUtil.generateMasterSecret(this, MasterSecretUtil.UNENCRYPTED_PASSPHRASE));
+      generateSecrets(MasterSecretUtil.generateMasterSecret(this, MasterSecretUtil.getUnencryptedPassphrase()));
     }
 
     TextSecurePreferences.setPassphraseLockEnabled(this, enabled);

@@ -1,13 +1,20 @@
 package org.thoughtcrime.securesms.crypto;
 
+import org.signal.argon2.Argon2;
+import org.signal.argon2.Argon2Exception;
+import org.signal.argon2.MemoryCost;
+import org.signal.argon2.Type;
+import org.signal.argon2.Version;
 import org.thoughtcrime.securesms.logging.Log;
 
 /**
- * Based on LUKS cryptsetup performance check.
+ * Based on LUKS https://gitlab.com/cryptsetup/cryptsetup/blob/master/lib/crypto_backend/pbkdf_check.c
  */
 public class Argon2Benchmark {
 
   private static final String TAG = Log.tag(Argon2Benchmark.class);
+
+  private static final int NCPU = Runtime.getRuntime().availableProcessors();
 
   private static final long BENCH_MIN_MS          = 250;
   private static final long BENCH_MIN_MS_FAST     = 10;
@@ -20,25 +27,39 @@ public class Argon2Benchmark {
   private final long minMemory;
   private final long maxMemory;
 
+  private int  parallelism;
   private int  iterations;
   private long memory;
   private long ms;
 
   public Argon2Benchmark(int minIterations, long minMemory, long maxMemory) {
-    this.minIterations = minIterations;
-    this.minMemory     = minMemory;
-    this.maxMemory     = maxMemory;
+    this(minIterations, minMemory, maxMemory, (NCPU > 1) ? (NCPU - 1) : 1);
   }
 
-  public Argon2Params getParameters() {
-    return new Argon2Params(iterations, memory);
+  public Argon2Benchmark(int minIterations, long minMemory, long maxMemory, int parallelism) {
+    this.minIterations = minIterations;
+    this.minMemory     = minMemory * parallelism;
+    this.maxMemory     = maxMemory;
+    this.parallelism   = parallelism;
+  }
+
+  public int getParallelism() {
+    return parallelism;
+  }
+
+  public int getIterations() {
+    return iterations;
+  }
+
+  public long getMemory() {
+    return memory;
   }
 
   public long getElapsedTime() {
     return ms;
   }
 
-  public Argon2Params findParameters(long targetTimeMillis) {
+  public void run(long targetTimeMillis) throws Argon2Exception {
     iterations = minIterations;
     memory     = minMemory;
 
@@ -46,7 +67,7 @@ public class Argon2Benchmark {
 
     // 1. Find some small parameters, s. t. ms >= BENCH_MIN_MS:
     while (true) {
-      ms = measure(getParameters(), BENCH_SAMPLES_FAST, BENCH_MIN_MS);
+      ms = measure(BENCH_SAMPLES_FAST, BENCH_MIN_MS);
       if (ms >= BENCH_MIN_MS) {
         break;
       }
@@ -83,15 +104,13 @@ public class Argon2Benchmark {
     // 3. Then repeatedly measure the candidate params and if they fall out of
     // the acceptance range (+-5 %), try to improve the estimate:
     while (nextParameters(targetTimeMillis)) {
-      ms = measure(getParameters(), BENCH_SAMPLES_SLOW, atLeast);
+      ms = measure(BENCH_SAMPLES_SLOW, atLeast);
       if (ms >= atLeast && ms <= atMost) {
         break;
       }
     }
 
     Log.d(TAG, "Memory cost = " + memory + " bytes, iterations = " + iterations + " (took " + ms + " ms)");
-
-    return getParameters();
   }
 
   private boolean nextParameters(long targetTime) {
@@ -133,16 +152,24 @@ public class Argon2Benchmark {
     return !(prevIterations == iterations && prevMemory == memory);
   }
 
-  static private long measure(Argon2Params params, int samples, long atLeastMillis) {
-    char[] password = "password".toCharArray();
+  private long measure(int samples, long atLeastMillis) throws Argon2Exception {
+    byte[] password = "password".getBytes();
     byte[] salt     = "somesalt".getBytes();
+
+    Argon2 argon2 = new Argon2.Builder(Version.V13)
+                              .type(Type.Argon2id)
+                              .parallelism(parallelism)
+                              .iterations(iterations)
+                              .memoryCost(MemoryCost.Bytes(memory))
+                              .hashRaw(true)
+                              .build();
 
     long minTime = Long.MAX_VALUE;
 
     for (int i = 0; i < samples; i++) {
       long startTime = System.currentTimeMillis();
 
-      Argon2.generateHash(params, password, salt, 32);
+      argon2.hash(password, salt);
 
       long elapsedTime = System.currentTimeMillis() - startTime;
 

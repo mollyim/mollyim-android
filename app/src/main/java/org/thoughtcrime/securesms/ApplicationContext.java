@@ -283,7 +283,7 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
     if (MasterSecretUtil.isPassphraseInitialized(this)) {
       try {
         KeyCachingService.setMasterSecret(MasterSecretUtil.getMasterSecret(this,
-                MasterSecretUtil.UNENCRYPTED_PASSPHRASE));
+                MasterSecretUtil.getUnencryptedPassphrase()));
         TextSecurePreferences.setPassphraseLockEnabled(this, false);
         onUnlock();
       } catch (InvalidPassphraseException | UnrecoverableKeyException e) {

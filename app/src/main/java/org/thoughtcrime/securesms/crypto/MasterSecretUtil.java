@@ -56,21 +56,23 @@ public class MasterSecretUtil {
 
   private static final String TAG = Log.tag(MasterSecretUtil.class);
 
-  public static final char[] UNENCRYPTED_PASSPHRASE = "unencrypted".toCharArray();
+  private static final char[] UNENCRYPTED_PASSPHRASE = "unencrypted".toCharArray();
 
   private static final String PREFERENCES_NAME = "MasterKeys";
 
   private static final String ASYMMETRIC_LOCAL_PUBLIC_DJB   = "asymmetric_master_secret_curve25519_public";
   private static final String ASYMMETRIC_LOCAL_PRIVATE_DJB  = "asymmetric_master_secret_curve25519_private";
 
-  public static MasterSecret changeMasterSecretPassphrase(Context context,
-                                                          MasterSecret masterSecret,
-                                                          char[] newPassphrase)
+  private static void changeMasterSecretPassphrase(Context context,
+                                                   MasterSecret masterSecret,
+                                                   char[] newPassphrase)
   {
     SecureSecretKeySpec secretKey;
 
     if (!isUnencryptedPassphrase(newPassphrase)) {
       PassphraseBasedKdf kdf = new PassphraseBasedKdf();
+
+      System.gc();
 
       kdf.findParameters(Util.getAvailMemory(context) / 2);
 
@@ -89,7 +91,7 @@ public class MasterSecretUtil {
         throw new AssertionError("failed to save preferences in MasterSecretUtil");
       }
 
-      secretKey = kdf.deriveKey(passphraseSalt, newPassphrase);
+      secretKey = kdf.deriveKey(newPassphrase, passphraseSalt);
     } else {
       secretKey = getUnencryptedKey();
     }
@@ -109,8 +111,6 @@ public class MasterSecretUtil {
         .commit()) {
       throw new AssertionError("failed to save preferences in MasterSecretUtil");
     }
-
-    return masterSecret;
   }
 
   public static MasterSecret changeMasterSecretPassphrase(Context context,
@@ -153,7 +153,7 @@ public class MasterSecretUtil {
         }
       }
 
-      secretKey = kdf.deriveKey(passphraseSalt, passphrase);
+      secretKey = kdf.deriveKey(passphrase, passphraseSalt);
     } else {
       secretKey = getUnencryptedKey();
     }
@@ -218,7 +218,9 @@ public class MasterSecretUtil {
     byte[]       macSecret        = generateMacSecret();
     MasterSecret masterSecret     = new MasterSecret(encryptionSecret, macSecret);
 
-    return changeMasterSecretPassphrase(context, masterSecret, passphrase);
+    changeMasterSecretPassphrase(context, masterSecret, passphrase);
+
+    return masterSecret;
   }
 
   private static byte[] retrieve(Context context, String key) {
@@ -265,8 +267,12 @@ public class MasterSecretUtil {
             && ServiceUtil.getKeyguardManager(context).isDeviceSecure();
   }
 
+  public static char[] getUnencryptedPassphrase() {
+    return UNENCRYPTED_PASSPHRASE.clone();
+  }
+
   private static boolean isUnencryptedPassphrase(char[] passphrase) {
-    return passphrase == UNENCRYPTED_PASSPHRASE;
+    return Arrays.equals(UNENCRYPTED_PASSPHRASE, passphrase);
   }
 
   private static SecureSecretKeySpec getUnencryptedKey() {

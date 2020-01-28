@@ -248,7 +248,7 @@ public class ChangePassphraseDialogFragment extends DialogFragment {
   }
 
   private void handleEnable() {
-    changePassphrase(MasterSecretUtil.UNENCRYPTED_PASSPHRASE);
+    changePassphrase(MasterSecretUtil.getUnencryptedPassphrase());
   }
 
   private void handleChange() {
@@ -265,7 +265,7 @@ public class ChangePassphraseDialogFragment extends DialogFragment {
     final char[] oldPassphrase = getEnteredPassphrase(passphraseInput);
 
     if (oldPassphrase.length > 0) {
-      changeMasterSecret(MasterSecretUtil.UNENCRYPTED_PASSPHRASE, oldPassphrase);
+      changeMasterSecret(MasterSecretUtil.getUnencryptedPassphrase(), oldPassphrase);
     } else {
       setError(R.string.PassphrasePromptActivity_invalid_passphrase_exclamation, passphraseLayout);
     }
@@ -346,15 +346,22 @@ public class ChangePassphraseDialogFragment extends DialogFragment {
         return null;
       }
 
+      MasterSecret masterSecret = null;
+
       if (!MasterSecretUtil.isPassphraseInitialized(context)) {
-        return MasterSecretUtil.generateMasterSecret(context, newPassphrase);
+        masterSecret = MasterSecretUtil.generateMasterSecret(context, newPassphrase);
+      } else {
+        try {
+          masterSecret = MasterSecretUtil.changeMasterSecretPassphrase(context, oldPassphrase, newPassphrase);
+        } catch (InvalidPassphraseException | UnrecoverableKeyException e) {
+          Log.d(TAG, e);
+        }
       }
 
-      try {
-        return MasterSecretUtil.changeMasterSecretPassphrase(context, oldPassphrase, newPassphrase);
-      } catch (InvalidPassphraseException | UnrecoverableKeyException e) {
-        return null;
-      }
+      Arrays.fill(oldPassphrase, (char) 0);
+      Arrays.fill(newPassphrase, (char) 0);
+
+      return masterSecret;
     }
 
     @Override

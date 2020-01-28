@@ -52,6 +52,8 @@ import org.thoughtcrime.securesms.util.DynamicIntroTheme;
 import org.thoughtcrime.securesms.util.DynamicLanguage;
 import org.thoughtcrime.securesms.util.ServiceUtil;
 
+import java.util.Arrays;
+
 /**
  * Activity that prompts for a user's passphrase.
  *
@@ -240,13 +242,14 @@ public class PassphrasePromptActivity extends PassphraseActivity {
     protected MasterSecret doInBackground(Void... voids) {
       progressTimer.start();
 
-      MasterSecret masterSecret;
+      MasterSecret masterSecret = null;
       try {
         masterSecret = MasterSecretUtil.getMasterSecret(getApplicationContext(), passphrase);
       } catch (InvalidPassphraseException | UnrecoverableKeyException e) {
-        masterSecret = null;
+        Log.d(TAG, e);
       }
 
+      Arrays.fill(passphrase, (char) 0);
       progressTimer.cancel();
 
       return masterSecret;

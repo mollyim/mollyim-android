@@ -157,6 +157,7 @@ public class AppProtectionPreferenceFragment extends CorrectedPreferenceFragment
           Toast.makeText(getActivity(),
                          R.string.preferences__passphrase_changed,
                          Toast.LENGTH_LONG).show();
+          masterSecret.close();
         });
         dialog.show(requireFragmentManager(), "ChangePassphraseDialogFragment");
       } else {
