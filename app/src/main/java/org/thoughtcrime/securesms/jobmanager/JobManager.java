@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Build;
 import androidx.annotation.NonNull;
 import androidx.annotation.WorkerThread;
-import androidx.lifecycle.LiveData;
 
 import org.thoughtcrime.securesms.jobmanager.impl.DefaultExecutorFactory;
 import org.thoughtcrime.securesms.jobmanager.impl.JsonDataSerializer;
@@ -15,6 +14,7 @@ import org.thoughtcrime.securesms.util.Debouncer;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -124,12 +124,23 @@ public class JobManager implements ConstraintObserver.Notifier {
     jobTracker.removeListener(listener);
   }
 
-
   /**
    * Enqueues a single job to be run.
    */
   public void add(@NonNull Job job) {
     new Chain(this, Collections.singletonList(job)).enqueue();
+  }
+
+  /**
+   * Enqueues a single job that depends on a collection of job ID's.
+   */
+  public void add(@NonNull Job job, @NonNull Collection<String> dependsOn) {
+    jobTracker.onStateChange(job.getId(), JobTracker.JobState.PENDING);
+
+    executor.execute(() -> {
+      jobController.submitJobWithExistingDependencies(job, dependsOn);
+      wakeUp();
+    });
   }
 
   /**
@@ -149,8 +160,21 @@ public class JobManager implements ConstraintObserver.Notifier {
   }
 
   /**
+   * Attempts to cancel a job. This is best-effort and may not actually prevent a job from
+   * completing if it was already running. If this job is running, this can only stop jobs that
+   * bother to check {@link Job#isCanceled()}.
+   *
+   * When a job is canceled, {@link Job#onFailure()} will be triggered at the earliest possible
+   * moment. Just like a normal failure, all later jobs in the same chain will also be failed.
+   */
+  public void cancel(@NonNull String id) {
+    executor.execute(() -> jobController.cancelJob(id));
+  }
+
+  /**
    * Retrieves a string representing the state of the job queue. Intended for debugging.
    */
+  @WorkerThread
   public @NonNull String getDebugInfo() {
     Future<String> result = executor.submit(jobController::getDebugInfo);
     try {

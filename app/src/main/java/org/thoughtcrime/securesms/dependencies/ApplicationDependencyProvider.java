@@ -18,6 +18,7 @@ import org.thoughtcrime.securesms.jobmanager.JobMigrator;
 import org.thoughtcrime.securesms.jobmanager.impl.JsonDataSerializer;
 import org.thoughtcrime.securesms.jobs.FastJobStorage;
 import org.thoughtcrime.securesms.jobs.JobManagerFactories;
+import org.thoughtcrime.securesms.keyvalue.KeyValueStore;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.push.SecurityEventListener;
 import org.thoughtcrime.securesms.push.SignalServiceNetworkAccess;
@@ -56,7 +57,7 @@ public class ApplicationDependencyProvider implements ApplicationDependencies.Pr
   public @NonNull SignalServiceAccountManager provideSignalServiceAccountManager() {
     return new SignalServiceAccountManager(networkAccess.getConfiguration(context),
                                            new DynamicCredentialsProvider(context),
-                                           BuildConfig.USER_AGENT);
+                                           BuildConfig.SIGNAL_AGENT);
   }
 
   @Override
@@ -64,7 +65,7 @@ public class ApplicationDependencyProvider implements ApplicationDependencies.Pr
       return new SignalServiceMessageSender(networkAccess.getConfiguration(context),
                                             new DynamicCredentialsProvider(context),
                                             new SignalProtocolStoreImpl(context),
-                                            BuildConfig.USER_AGENT,
+                                            BuildConfig.SIGNAL_AGENT,
                                             TextSecurePreferences.isMultiDevice(context),
                                             Optional.fromNullable(IncomingMessageObserver.getPipe()),
                                             Optional.fromNullable(IncomingMessageObserver.getUnidentifiedPipe()),
@@ -77,7 +78,7 @@ public class ApplicationDependencyProvider implements ApplicationDependencies.Pr
                                                                          : new UptimeSleepTimer();
     return new SignalServiceMessageReceiver(networkAccess.getConfiguration(context),
                                             new DynamicCredentialsProvider(context),
-                                            BuildConfig.USER_AGENT,
+                                            BuildConfig.SIGNAL_AGENT,
                                             new PipeConnectivityListener(),
                                             sleepTimer);
   }
@@ -117,6 +118,11 @@ public class ApplicationDependencyProvider implements ApplicationDependencies.Pr
   @Override
   public @NonNull FrameRateTracker provideFrameRateTracker() {
     return new FrameRateTracker(context);
+  }
+
+  @Override
+  public @NonNull KeyValueStore provideKeyValueStore() {
+    return new KeyValueStore(context);
   }
 
   private static class DynamicCredentialsProvider implements CredentialsProvider {

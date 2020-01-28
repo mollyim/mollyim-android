@@ -10,6 +10,7 @@ import org.thoughtcrime.securesms.jobmanager.Data;
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
 import org.thoughtcrime.securesms.logging.Log;
+import org.thoughtcrime.securesms.profiles.ProfileName;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.util.ProfileUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
@@ -70,15 +71,16 @@ public class RefreshOwnProfileJob extends BaseJob {
   }
 
   @Override
-  public void onCanceled() { }
+  public void onFailure() { }
 
   private void setProfileName(@Nullable String encryptedName) {
     try {
-      byte[] profileKey    = ProfileKeyUtil.getProfileKey(context);
-      String plaintextName = ProfileUtil.decryptName(profileKey, encryptedName);
+      byte[]      profileKey    = ProfileKeyUtil.getProfileKey(context);
+      String      plaintextName = ProfileUtil.decryptName(profileKey, encryptedName);
+      ProfileName profileName   = ProfileName.fromSerialized(plaintextName);
 
-      DatabaseFactory.getRecipientDatabase(context).setProfileName(Recipient.self().getId(), plaintextName);
-      TextSecurePreferences.setProfileName(context, plaintextName);
+      DatabaseFactory.getRecipientDatabase(context).setProfileName(Recipient.self().getId(), profileName);
+      TextSecurePreferences.setProfileName(context, profileName);
     } catch (InvalidCiphertextException | IOException e) {
       Log.w(TAG, e);
     }

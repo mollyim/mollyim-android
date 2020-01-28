@@ -16,12 +16,12 @@ import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.util.Debouncer;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.Map;
 
 /**
  * Manages the queue of jobs. This is the only class that should write to {@link JobStorage} to
@@ -40,7 +40,7 @@ class JobController {
   private final Scheduler              scheduler;
   private final Debouncer              debouncer;
   private final Callback               callback;
-  private final Set<String>            runningJobs;
+  private final Map<String, Job>       runningJobs;
 
   JobController(@NonNull Application application,
                 @NonNull JobStorage jobStorage,
@@ -61,7 +61,7 @@ class JobController {
     this.scheduler              = scheduler;
     this.debouncer              = debouncer;
     this.callback               = callback;
-    this.runningJobs            = new HashSet<>();
+    this.runningJobs            = new HashMap<>();
   }
 
   @WorkerThread
@@ -94,6 +94,52 @@ class JobController {
     scheduleJobs(chain.get(0));
     triggerOnSubmit(chain);
     notifyAll();
+  }
+
+  @WorkerThread
+  synchronized void submitJobWithExistingDependencies(@NonNull Job job, @NonNull Collection<String> dependsOn) {
+    List<List<Job>> chain = Collections.singletonList(Collections.singletonList(job));
+
+    if (chainExceedsMaximumInstances(chain)) {
+      jobTracker.onStateChange(job.getId(), JobTracker.JobState.IGNORED);
+      Log.w(TAG, JobLogger.format(job, "Already at the max instance count of " + job.getParameters().getMaxInstances() + ". Skipping."));
+      return;
+    }
+
+    dependsOn = Stream.of(dependsOn)
+                      .filter(id -> jobStorage.getJobSpec(id) != null)
+                      .toList();
+
+    FullSpec fullSpec = buildFullSpec(job, dependsOn);
+    jobStorage.insertJobs(Collections.singletonList(fullSpec));
+
+    scheduleJobs(Collections.singletonList(job));
+    triggerOnSubmit(chain);
+    notifyAll();
+  }
+
+  @WorkerThread
+  synchronized void cancelJob(@NonNull String id) {
+    Job runningJob = runningJobs.get(id);
+
+    if (runningJob != null) {
+      Log.w(TAG, JobLogger.format(runningJob, "Canceling while running."));
+      runningJob.cancel();
+    } else {
+      JobSpec jobSpec = jobStorage.getJobSpec(id);
+
+      if (jobSpec != null) {
+        Job job = createJob(jobSpec, jobStorage.getConstraintSpecs(id));
+        Log.w(TAG, JobLogger.format(job, "Canceling while inactive."));
+        Log.w(TAG, JobLogger.format(job, "Job failed."));
+
+        job.cancel();
+        job.onFailure();
+        onFailure(job);
+      } else {
+        Log.w(TAG, "Tried to cancel JOB::" + id + ", but it could not be found.");
+      }
+    }
   }
 
   @WorkerThread
@@ -177,7 +223,7 @@ class JobController {
       }
 
       jobStorage.updateJobRunningState(job.getId(), true);
-      runningJobs.add(job.getId());
+      runningJobs.put(job.getId(), job);
       jobTracker.onStateChange(job.getId(), JobTracker.JobState.RUNNING);
 
       return job;
@@ -248,20 +294,20 @@ class JobController {
   @WorkerThread
   private void insertJobChain(@NonNull List<List<Job>> chain) {
     List<FullSpec> fullSpecs = new LinkedList<>();
-    List<Job>      dependsOn = Collections.emptyList();
+    List<String>   dependsOn = Collections.emptyList();
 
     for (List<Job> jobList : chain) {
       for (Job job : jobList) {
         fullSpecs.add(buildFullSpec(job, dependsOn));
       }
-      dependsOn = jobList;
+      dependsOn = Stream.of(jobList).map(Job::getId).toList();
     }
 
     jobStorage.insertJobs(fullSpecs);
   }
 
   @WorkerThread
-  private @NonNull FullSpec buildFullSpec(@NonNull Job job, @NonNull List<Job> dependsOn) {
+  private @NonNull FullSpec buildFullSpec(@NonNull Job job, @NonNull Collection<String> dependsOn) {
     job.setRunAttempt(0);
 
     JobSpec jobSpec = new JobSpec(job.getId(),
@@ -282,7 +328,7 @@ class JobController {
                                                  .toList();
 
     List<DependencySpec> dependencySpecs = Stream.of(dependsOn)
-                                                 .map(depends -> new DependencySpec(job.getId(), depends.getId()))
+                                                 .map(depends -> new DependencySpec(job.getId(), depends))
                                                  .toList();
 
     return new FullSpec(jobSpec, constraintSpecs, dependencySpecs);
@@ -333,7 +379,7 @@ class JobController {
 
       return job;
     } catch (RuntimeException e) {
-      Log.e(TAG, "Failed to instantiate job! Failing it and its dependencies without calling Job#onCanceled. Crash imminent.");
+      Log.e(TAG, "Failed to instantiate job! Failing it and its dependencies without calling Job#onFailure. Crash imminent.");
 
       List<String> failIds = Stream.of(jobStorage.getDependencySpecsThatDependOnJob(jobSpec.getId()))
                                    .map(DependencySpec::getJobId)

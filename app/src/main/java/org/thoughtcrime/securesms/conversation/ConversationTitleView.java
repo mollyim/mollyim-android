@@ -126,7 +126,7 @@ public class ConversationTitleView extends RelativeLayout {
   }
 
   private void setRecipientTitle(Recipient recipient) {
-    if (FeatureFlags.PROFILE_DISPLAY) {
+    if (FeatureFlags.profileDisplay()) {
       if      (recipient.isGroup())       setGroupRecipientTitle(recipient);
       else if (recipient.isLocalNumber()) setSelfTitle();
       else                                setIndividualRecipientTitle(recipient);
@@ -142,10 +142,10 @@ public class ConversationTitleView extends RelativeLayout {
   private void setNonContactRecipientTitle(Recipient recipient) {
     this.title.setText(Util.getFirstNonEmpty(recipient.getE164().orNull(), recipient.getUuid().transform(UUID::toString).orNull()));
 
-    if (TextUtils.isEmpty(recipient.getProfileName())) {
+    if (recipient.getProfileName().isEmpty()) {
       this.subtitle.setText(null);
     } else {
-      this.subtitle.setText("~" + recipient.getProfileName());
+      this.subtitle.setText("~" + recipient.getProfileName().toString());
     }
 
     updateSubtitleVisibility();
@@ -166,7 +166,7 @@ public class ConversationTitleView extends RelativeLayout {
   private void setGroupRecipientTitle(Recipient recipient) {
     String localNumber = TextSecurePreferences.getLocalNumber(getContext());
 
-    if (FeatureFlags.PROFILE_DISPLAY) {
+    if (FeatureFlags.profileDisplay()) {
       this.title.setText(recipient.getDisplayName(getContext()));
     } else {
       this.title.setText(recipient.getName(getContext()));

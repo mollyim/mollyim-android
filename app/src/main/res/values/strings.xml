@@ -309,12 +309,9 @@
     <string name="ConversationTitleView_verified">Verified</string>
 
     <!-- CreateProfileActivity -->
-    <string name="CreateProfileActivity_your_profile_info">Your profile info</string>
     <string name="CreateProfileActivity_error_setting_profile_photo">Error setting profile photo</string>
     <string name="CreateProfileActivity_problem_setting_profile">Problem setting profile</string>
     <string name="CreateProfileActivity_profile_photo">Profile photo</string>
-    <string name="CreateProfileActivity_too_long">Too long</string>
-    <string name="CreateProfileActivity_profile_name">Profile Name</string>
     <string name="CreateProfileActivity_set_up_your_profile">Set up your profile</string>
     <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">Signal profiles are end-to-end encrypted, and the Signal service never has access to this information.</string>
     <string name="CreateProfileActivity_set_avatar_description">Set avatar</string>
@@ -642,19 +639,6 @@
 
     <!-- PlayServicesProblemFragment -->
     <string name="PlayServicesProblemFragment_the_version_of_google_play_services_you_have_installed_is_not_functioning">The version of Google Play Services you have installed is not functioning correctly.  Please reinstall Google Play Services and try again.</string>
-
-    <!-- ProfileEditNameFragment -->
-    <string name="ProfileEditNameFragment_profile_name">Profile name</string>
-    <string name="ProfileEditNameFragment_your_profile_name_can_be_seen_by_your_contacts">Your profile name can be seen by your contacts and by other users or groups when you initiate a conversation or accept a conversation request.</string>
-    <string name="ProfileEditNameFragment_save">Save</string>
-
-    <!-- ProfileEditOverviewFragment -->
-    <string name="ProfileEditOverviewFragment_profile">Profile</string>
-    <string name="ProfileEditOverviewFragment_profile_name">Profile name</string>
-    <string name="ProfileEditOverviewFragment_username">Username</string>
-    <string name="ProfileEditOverviewFragment_create_a_profile_name">Create a profile name</string>
-    <string name="ProfileEditOverviewFragment_create_a_username">Create a username</string>
-    <string name="ProfileEditOverviewFragment_your_signal_profile_can_be_seen_by">Your Signal Profile can be seen by your contacts and by other users or groups when you initiate a conversation or accept a conversation request. <a href="https://support.signal.org/hc/en-us/articles/360007459591-Signal-Profiles">Tap here to learn more</a>.</string>
 
     <!-- RatingManager -->
     <string name="RatingManager_rate_this_app">Rate this app</string>
@@ -1263,10 +1247,11 @@
     <string name="prompt_mms_activity__to_send_media_and_group_messages_tap_ok">To send media and group messages, tap \'OK\' and complete the requested settings. The MMS settings for your carrier can generally be located by searching for \'your carrier APN\'. You will only need to do this once.</string>
 
     <!-- profile_create_activity -->
-    <string name="profile_create_activity__set_later">Set later</string>
-    <string name="profile_create_activity__finish">FINISH</string>
-    <string name="profile_create_activity__who_can_see_this_information">Who can see this information?</string>
-    <string name="profile_create_activity__your_name">Your name</string>
+    <string name="CreateProfileActivity_first_name_required">First name (required)</string>
+    <string name="CreateProfileActivity_last_name_optional">Last name (optional)</string>
+    <string name="CreateProfileActivity_next">Next</string>
+    <string name="CreateProfileActivity__username">Username</string>
+    <string name="CreateProfileActivity__create_a_username">Create a username</string>
 
     <!-- recipient_preferences_activity -->
     <string name="recipient_preference_activity__shared_media">Shared media</string>
@@ -1761,7 +1746,7 @@
     <string name="RegistrationLockDialog_registration_lock_helps_protect_your_phone_number_from_unauthorized_registration_attempts">Registration Lock helps protect your phone number from unauthorized registration attempts. This feature can be disabled at any time in your Signal privacy settings</string>
     <string name="RegistrationLockDialog_registration_lock">Registration Lock</string>
     <string name="RegistrationLockDialog_enable">Enable</string>
-    <string name="RegistrationLockDialog_the_registration_lock_pin_must_be_at_least_four_digits">The Registration Lock PIN must be at least 4 digits.</string>
+    <string name="RegistrationLockDialog_the_registration_lock_pin_must_be_at_least_d_digits">The Registration Lock PIN must be at least %d digits.</string>
     <string name="RegistrationLockDialog_the_two_pins_you_entered_do_not_match">The two PINs you entered do not match.</string>
     <string name="RegistrationLockDialog_error_connecting_to_the_service">Error connecting to the service</string>
     <string name="RegistrationLockDialog_disable_registration_lock_pin">Disable Registration Lock PIN?</string>

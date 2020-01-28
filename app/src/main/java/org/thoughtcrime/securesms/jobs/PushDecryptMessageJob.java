@@ -120,7 +120,7 @@ public final class PushDecryptMessageJob extends BaseJob {
   }
 
   @Override
-  public void onCanceled() {
+  public void onFailure() {
   }
 
   private @NonNull List<Job> handleMessage(@NonNull SignalServiceEnvelope envelope) throws NoSenderException {

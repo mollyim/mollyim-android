@@ -117,7 +117,7 @@ public class MmsDownloadJob extends BaseJob {
   }
 
   @Override
-  public void onCanceled() {
+  public void onFailure() {
     MmsDatabase database = DatabaseFactory.getMmsDatabase(context);
     database.markDownloadState(messageId, MmsDatabase.Status.DOWNLOAD_SOFT_FAILURE);
 

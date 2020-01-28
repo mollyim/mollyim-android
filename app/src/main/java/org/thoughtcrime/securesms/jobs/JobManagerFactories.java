@@ -66,6 +66,7 @@ public final class JobManagerFactories {
       put(RefreshAttributesJob.KEY,                  new RefreshAttributesJob.Factory());
       put(RefreshOwnProfileJob.KEY,                  new RefreshOwnProfileJob.Factory());
       put(RefreshPreKeysJob.KEY,                     new RefreshPreKeysJob.Factory());
+      put(RemoteConfigRefreshJob.KEY,                new RemoteConfigRefreshJob.Factory());
       put(RequestGroupInfoJob.KEY,                   new RequestGroupInfoJob.Factory());
       put(RetrieveProfileAvatarJob.KEY,              new RetrieveProfileAvatarJob.Factory());
       put(RetrieveProfileJob.KEY,                    new RetrieveProfileJob.Factory());
@@ -83,6 +84,7 @@ public final class JobManagerFactories {
       put(TypingSendJob.KEY,                         new TypingSendJob.Factory());
       put(UpdateApkJob.KEY,                          new UpdateApkJob.Factory());
       put(MarkerJob.KEY,                             new MarkerJob.Factory());
+      put(ProfileUploadJob.KEY,                      new ProfileUploadJob.Factory());
 
       // Migrations
       put(DatabaseMigrationJob.KEY,                  new DatabaseMigrationJob.Factory());

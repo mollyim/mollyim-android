@@ -958,14 +958,14 @@ public class ConversationItem extends LinearLayout implements BindableConversati
   private void setGroupMessageStatus(MessageRecord messageRecord, Recipient recipient) {
     if (groupThread && !messageRecord.isOutgoing()) {
 
-      if (FeatureFlags.PROFILE_DISPLAY) {
+      if (FeatureFlags.profileDisplay()) {
         this.groupSender.setText(recipient.getDisplayName(getContext()));
         this.groupSenderProfileName.setVisibility(View.GONE);
       } else {
         this.groupSender.setText(recipient.toShortString(context));
 
-        if (recipient.getName(context) == null && !TextUtils.isEmpty(recipient.getProfileName())) {
-          this.groupSenderProfileName.setText("~" + recipient.getProfileName());
+        if (recipient.getName(context) == null && !recipient.getProfileName().isEmpty()) {
+          this.groupSenderProfileName.setText("~" + recipient.getProfileName().toString());
           this.groupSenderProfileName.setVisibility(View.VISIBLE);
         } else {
           this.groupSenderProfileName.setText(null);

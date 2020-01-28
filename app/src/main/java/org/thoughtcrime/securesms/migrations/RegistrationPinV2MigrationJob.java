@@ -9,14 +9,21 @@ import org.thoughtcrime.securesms.jobmanager.Data;
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
 import org.thoughtcrime.securesms.jobs.BaseJob;
+import org.thoughtcrime.securesms.keyvalue.KbsValues;
+import org.thoughtcrime.securesms.keyvalue.SignalStore;
+import org.thoughtcrime.securesms.lock.PinHashing;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
+import org.whispersystems.signalservice.api.KeyBackupService;
+import org.whispersystems.signalservice.api.KeyBackupServicePinException;
 import org.whispersystems.signalservice.api.RegistrationLockData;
+import org.whispersystems.signalservice.api.kbs.HashedPin;
+import org.whispersystems.signalservice.api.kbs.MasterKey;
 import org.whispersystems.signalservice.internal.contacts.crypto.UnauthenticatedResponseException;
-import org.whispersystems.signalservice.internal.registrationpin.InvalidPinException;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Deliberately not a {@link MigrationJob} because it is not something that needs to run at app start.
@@ -35,6 +42,7 @@ public final class RegistrationPinV2MigrationJob extends BaseJob {
                        .addConstraint(NetworkConstraint.KEY)
                        .setLifespan(Job.Parameters.IMMORTAL)
                        .setMaxAttempts(Job.Parameters.UNLIMITED)
+                       .setMaxBackoff(TimeUnit.HOURS.toMillis(2))
                        .build());
   }
 
@@ -48,42 +56,44 @@ public final class RegistrationPinV2MigrationJob extends BaseJob {
   }
 
   @Override
-  protected void onRun() throws IOException, UnauthenticatedResponseException {
-    if (!FeatureFlags.KBS) {
+  protected void onRun() throws IOException, UnauthenticatedResponseException, KeyBackupServicePinException {
+    if (!FeatureFlags.kbs()) {
       Log.i(TAG, "Not migrating pin to KBS");
       return;
     }
 
-    if (!TextSecurePreferences.isRegistrationLockEnabled(context)) {
+    if (!TextSecurePreferences.isV1RegistrationLockEnabled(context)) {
       Log.i(TAG, "Registration lock disabled");
       return;
     }
 
-    if (!TextSecurePreferences.hasOldRegistrationLockPin(context)) {
-      Log.i(TAG, "No old pin to migrate");
-      return;
-    }
-
     //noinspection deprecation Only acceptable place to read the old pin.
-    String registrationLockPin = TextSecurePreferences.getDeprecatedRegistrationLockPin(context);
+    String pinValue = TextSecurePreferences.getDeprecatedV1RegistrationLockPin(context);
 
-    if (registrationLockPin == null | TextUtils.isEmpty(registrationLockPin)) {
+    if (pinValue == null | TextUtils.isEmpty(pinValue)) {
       Log.i(TAG, "No old pin to migrate");
       return;
     }
 
     Log.i(TAG, "Migrating pin to Key Backup Service");
 
-    try {
-      RegistrationLockData registrationPinV2Key = ApplicationDependencies.getKeyBackupService()
-                                                                         .newPinChangeSession()
-                                                                         .setPin(registrationLockPin);
+    KbsValues                         kbsValues        = SignalStore.kbsValues();
+    MasterKey                         masterKey        = kbsValues.getOrCreateMasterKey();
+    KeyBackupService                  keyBackupService = ApplicationDependencies.getKeyBackupService();
+    KeyBackupService.PinChangeSession pinChangeSession = keyBackupService.newPinChangeSession();
+    HashedPin                         hashedPin        = PinHashing.hashPin(pinValue, pinChangeSession);
+    RegistrationLockData              kbsData          = pinChangeSession.setPin(hashedPin, masterKey);
+    RegistrationLockData              restoredData     = keyBackupService.newRestoreSession(kbsData.getTokenResponse())
+                                                                         .restorePin(hashedPin);
 
-      TextSecurePreferences.setRegistrationLockMasterKey(context, registrationPinV2Key, System.currentTimeMillis());
-    } catch (InvalidPinException e) {
-      Log.w(TAG, "The V1 pin cannot be migrated.", e);
-      return;
+    if (!restoredData.getMasterKey().equals(masterKey)) {
+      throw new RuntimeException("Failed to migrate the pin correctly");
+    } else {
+      Log.i(TAG, "Set and retrieved pin on KBS successfully");
     }
+
+    kbsValues.setRegistrationLockMasterKey(restoredData, PinHashing.localPinHash(pinValue));
+    TextSecurePreferences.clearOldRegistrationLockPin(context);
 
     Log.i(TAG, "Pin migrated to Key Backup Service");
   }
@@ -99,7 +109,7 @@ public final class RegistrationPinV2MigrationJob extends BaseJob {
   }
 
   @Override
-  public void onCanceled() {
+  public void onFailure() {
   }
 
   public static class Factory implements Job.Factory<RegistrationPinV2MigrationJob> {

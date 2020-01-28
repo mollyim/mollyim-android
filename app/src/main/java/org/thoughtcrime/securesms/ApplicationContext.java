@@ -45,6 +45,7 @@ import org.thoughtcrime.securesms.crypto.IdentityKeyUtil;
 import org.thoughtcrime.securesms.crypto.InvalidPassphraseException;
 import org.thoughtcrime.securesms.crypto.MasterSecretUtil;
 import org.thoughtcrime.securesms.crypto.UnrecoverableKeyException;
+import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencyProvider;
@@ -59,7 +60,7 @@ import org.thoughtcrime.securesms.jobs.StickerPackDownloadJob;
 import org.thoughtcrime.securesms.logging.CustomSignalProtocolLogger;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.logging.LogManager;
-import org.thoughtcrime.securesms.logging.UncaughtExceptionLogger;
+import org.thoughtcrime.securesms.logging.SignalUncaughtExceptionHandler;
 import org.thoughtcrime.securesms.mediasend.camerax.CameraXUtil;
 import org.thoughtcrime.securesms.migrations.ApplicationMigrations;
 import org.thoughtcrime.securesms.notifications.MessageNotifier;
@@ -78,9 +79,10 @@ import org.thoughtcrime.securesms.service.RotateSenderCertificateListener;
 import org.thoughtcrime.securesms.service.RotateSignedPreKeyListener;
 import org.thoughtcrime.securesms.service.UpdateApkRefreshListener;
 import org.thoughtcrime.securesms.stickers.BlessedPacks;
-import org.thoughtcrime.securesms.util.FrameRateTracker;
+import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.Util;
+import org.thoughtcrime.securesms.util.concurrent.SignalExecutors;
 import org.thoughtcrime.securesms.util.dynamiclanguage.DynamicLanguageContextWrapper;
 import org.webrtc.voiceengine.WebRtcAudioManager;
 import org.webrtc.voiceengine.WebRtcAudioUtils;
@@ -155,6 +157,8 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
     initializePeriodicTasks();
     initializeCircumvention();
     initializePendingMessages();
+    initializeCleanup();
+    FeatureFlags.init();
     NotificationChannels.create(this);
     ApplicationDependencies.getJobManager().beginJobLoop();
     ApplicationDependencies.getRecipientCache().warmUp();
@@ -186,6 +190,7 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
     Log.i(TAG, "App is now visible.");
     KeyCachingService.onAppForegrounded(this);
     if (!KeyCachingService.isLocked()) {
+      FeatureFlags.refresh();
       executePendingContactSync();
       ApplicationDependencies.getFrameRateTracker().begin();
     }
@@ -259,7 +264,7 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
 
   private void initializeCrashHandling() {
     final Thread.UncaughtExceptionHandler originalHandler = Thread.getDefaultUncaughtExceptionHandler();
-    Thread.setDefaultUncaughtExceptionHandler(new UncaughtExceptionLogger(originalHandler));
+    Thread.setDefaultUncaughtExceptionHandler(new SignalUncaughtExceptionHandler(originalHandler));
   }
 
   private void initializeApplicationMigrations() {
@@ -438,7 +443,7 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
   }
 
   private void initializeBlobProvider() {
-    AsyncTask.THREAD_POOL_EXECUTOR.execute(() -> {
+    SignalExecutors.BOUNDED.execute(() -> {
       BlobProvider.getInstance().onSessionStart(this);
     });
   }
@@ -459,6 +464,13 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
 
   private void unregisterKeyEventReceiver() {
     unregisterReceiver(keyEventReceiver);
+  }
+
+  private void initializeCleanup() {
+    SignalExecutors.BOUNDED.execute(() -> {
+      int deleted = DatabaseFactory.getAttachmentDatabase(this).deleteAbandonedPreuploadedAttachments();
+      Log.i(TAG, "Deleted " + deleted + " abandoned attachments.");
+    });
   }
 
   @SuppressLint("RestrictedApi")

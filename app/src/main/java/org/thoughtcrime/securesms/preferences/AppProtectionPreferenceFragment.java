@@ -14,6 +14,7 @@ import org.thoughtcrime.securesms.components.SwitchPreferenceCompat;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.jobs.MultiDeviceConfigurationUpdateJob;
 import org.thoughtcrime.securesms.jobs.RefreshAttributesJob;
+import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.lock.RegistrationLockDialog;
 import org.thoughtcrime.securesms.preferences.widgets.PassphraseLockTriggerPreference;
 import org.thoughtcrime.securesms.util.CommunicationActions;
@@ -36,7 +37,12 @@ public class AppProtectionPreferenceFragment extends CorrectedPreferenceFragment
   public void onCreate(Bundle paramBundle) {
     super.onCreate(paramBundle);
 
-    this.findPreference(TextSecurePreferences.REGISTRATION_LOCK_PREF).setOnPreferenceClickListener(new AccountLockClickListener());
+    SwitchPreferenceCompat regLock = (SwitchPreferenceCompat) this.findPreference(TextSecurePreferences.REGISTRATION_LOCK_PREF_V1);
+    regLock.setChecked(
+      TextSecurePreferences.isV1RegistrationLockEnabled(requireContext()) || SignalStore.kbsValues().isV2RegistrationLockEnabled()
+    );
+    regLock.setOnPreferenceClickListener(new AccountLockClickListener());
+
     this.findPreference(TextSecurePreferences.PASSPHRASE_LOCK).setOnPreferenceChangeListener(new PassphraseLockListener());
     this.findPreference(TextSecurePreferences.PASSPHRASE_LOCK_TRIGGER).setOnPreferenceChangeListener(new PassphraseLockTriggerChangeListener());
     this.findPreference(TextSecurePreferences.PASSPHRASE_LOCK_TIMEOUT).setOnPreferenceClickListener(new PassphraseLockTimeoutListener());
@@ -179,10 +185,12 @@ public class AppProtectionPreferenceFragment extends CorrectedPreferenceFragment
   private class AccountLockClickListener implements Preference.OnPreferenceClickListener {
     @Override
     public boolean onPreferenceClick(Preference preference) {
-      if (((SwitchPreferenceCompat)preference).isChecked()) {
-        RegistrationLockDialog.showRegistrationUnlockPrompt(requireContext(), (SwitchPreferenceCompat)preference);
+      Context context = requireContext();
+
+      if (TextSecurePreferences.isV1RegistrationLockEnabled(context) || SignalStore.kbsValues().isV2RegistrationLockEnabled()) {
+        RegistrationLockDialog.showRegistrationUnlockPrompt(context, (SwitchPreferenceCompat)preference);
       } else {
-        RegistrationLockDialog.showRegistrationLockPrompt(requireContext(), (SwitchPreferenceCompat)preference);
+        RegistrationLockDialog.showRegistrationLockPrompt(context, (SwitchPreferenceCompat)preference);
       }
 
       return true;
@@ -242,18 +250,19 @@ public class AppProtectionPreferenceFragment extends CorrectedPreferenceFragment
   }
 
   public static CharSequence getSummary(Context context) {
-    final int    privacySummaryResId = R.string.ApplicationPreferencesActivity_protection_summary;
-    final String onRes               = context.getString(R.string.ApplicationPreferencesActivity_on);
-    final String offRes              = context.getString(R.string.ApplicationPreferencesActivity_off);
+    final   int    privacySummaryResId = R.string.ApplicationPreferencesActivity_privacy_summary;
+    final   String onRes               = context.getString(R.string.ApplicationPreferencesActivity_on);
+    final   String offRes              = context.getString(R.string.ApplicationPreferencesActivity_off);
+    boolean registrationLockEnabled    = TextSecurePreferences.isV1RegistrationLockEnabled(context) || SignalStore.kbsValues().isV2RegistrationLockEnabled();
 
     if (!TextSecurePreferences.isPassphraseLockEnabled(context)) {
-      if (TextSecurePreferences.isRegistrationLockEnabled(context)) {
+      if (registrationLockEnabled) {
         return context.getString(privacySummaryResId, offRes, onRes);
       } else {
         return context.getString(privacySummaryResId, offRes, offRes);
       }
     } else {
-      if (TextSecurePreferences.isRegistrationLockEnabled(context)) {
+      if (registrationLockEnabled) {
         return context.getString(privacySummaryResId, onRes, onRes);
       } else {
         return context.getString(privacySummaryResId, onRes, offRes);
