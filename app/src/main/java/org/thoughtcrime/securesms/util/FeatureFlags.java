@@ -31,9 +31,9 @@ import java.util.concurrent.TimeUnit;
  * - Create a new string constant using {@link #generateKey(String)})
  * - Add a method to retrieve the value using {@link #getValue(String, boolean)}. You can also add
  *   other checks here, like requiring other flags.
- * - If you would like to force a value for testing, place an entry in {@link #FORCED_VALUES}. When
- *   launching a feature that is planned to be updated via a remote config, do not forget to
- *   remove the entry!
+ * - If you want to be able to change a flag remotely, place it in {@link #REMOTE_CAPABLE}.
+ * - If you would like to force a value for testing, place an entry in {@link #FORCED_VALUES}.
+ *   Do not commit changes to this map!
  *
  * Other interesting things you can do:
  * - Make a flag {@link #HOT_SWAPPABLE}
@@ -46,25 +46,31 @@ public final class FeatureFlags {
   private static final String PREFIX         = "android.";
   private static final long   FETCH_INTERVAL = TimeUnit.HOURS.toMillis(2);
 
-  private static final String UUIDS             = generateKey("uuids");
-  private static final String PROFILE_DISPLAY   = generateKey("profileDisplay");
-  private static final String MESSAGE_REQUESTS  = generateKey("messageRequests");
-  private static final String USERNAMES         = generateKey("usernames");
-  private static final String KBS               = generateKey("kbs");
-  private static final String STORAGE_SERVICE   = generateKey("storageService");
-  private static final String REACTION_SENDING  = generateKey("reactionSending");
+  private static final String UUIDS                      = generateKey("uuids");
+  private static final String PROFILE_DISPLAY            = generateKey("profileDisplay");
+  private static final String MESSAGE_REQUESTS           = generateKey("messageRequests");
+  private static final String USERNAMES                  = generateKey("usernames");
+  private static final String STORAGE_SERVICE            = generateKey("storageService");
+  private static final String PINS_FOR_ALL               = generateKey("pinsForAll");
+  private static final String PINS_MEGAPHONE_KILL_SWITCH = generateKey("pinsMegaphoneKillSwitch");
 
   /**
-   * Values in this map will take precedence over any value. If you do not wish to have any sort of
-   * override, simply don't put a value in this map. You should never commit additions to this map
-   * for flags that you plan on updating remotely.
+   * We will only store remote values for flags in this set. If you want a flag to be controllable
+   * remotely, place it in here.
    */
+  private static final Set<String> REMOTE_CAPABLE = Sets.newHashSet(
+      PINS_FOR_ALL,
+      PINS_MEGAPHONE_KILL_SWITCH
+  );
+
+  /**
+   * Values in this map will take precedence over any value. This should only be used for local
+   * development. Given that you specify a default when retrieving a value, and that we only store
+   * remote values for things in {@link #REMOTE_CAPABLE}, there should be no need to ever *commit*
+   * an addition to this map.
+   */
+  @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
   private static final Map<String, Boolean> FORCED_VALUES = new HashMap<String, Boolean>() {{
-    put(UUIDS, false);
-    put(PROFILE_DISPLAY, false);
-    put(MESSAGE_REQUESTS, false);
-    put(USERNAMES, false);
-    put(STORAGE_SERVICE, false);
   }};
 
   /**
@@ -75,13 +81,14 @@ public final class FeatureFlags {
    * more burden on the reader to ensure that the app experience remains consistent.
    */
   private static final Set<String> HOT_SWAPPABLE = Sets.newHashSet(
-    KBS
+    PINS_MEGAPHONE_KILL_SWITCH
   );
 
   /**
    * Flags in this set will stay true forever once they receive a true value from a remote config.
    */
   private static final Set<String> STICKY = Sets.newHashSet(
+    PINS_FOR_ALL
   );
 
   private static final Map<String, Boolean> REMOTE_VALUES = new TreeMap<>();
@@ -107,7 +114,7 @@ public final class FeatureFlags {
   public static synchronized void update(@NonNull Map<String, Boolean> config) {
     Map<String, Boolean> memory = REMOTE_VALUES;
     Map<String, Boolean> disk   = parseStoredConfig();
-    UpdateResult         result = updateInternal(config, memory, disk, HOT_SWAPPABLE, STICKY);
+    UpdateResult         result = updateInternal(config, memory, disk, REMOTE_CAPABLE, HOT_SWAPPABLE, STICKY);
 
     SignalStore.setRemoteConfig(mapToJson(result.getDisk()).toString());
     REMOTE_VALUES.clear();
@@ -141,26 +148,31 @@ public final class FeatureFlags {
     return value;
   }
 
-  /** Set or migrate PIN to KBS */
-  public static boolean kbs() {
-    return getValue(KBS, false);
-  }
-
-  /** Storage service. Requires {@link #kbs()}. */
+  /** Storage service. */
   public static boolean storageService() {
-    boolean value = getValue(STORAGE_SERVICE, false);
-    if (value && !kbs()) throw new MissingFlagRequirementError();
-    return value;
+    return getValue(STORAGE_SERVICE, false);
   }
 
-  /** Send support for reactions. */
-  public static synchronized boolean reactionSending() {
-    return getValue(REACTION_SENDING, false);
+  /** Enables new KBS UI and notices but does not require user to set a pin */
+  public static boolean pinsForAll() {
+    return SignalStore.registrationValues().pinWasRequiredAtRegistration() ||
+           SignalStore.kbsValues().hasMigratedToPinsForAll()               ||
+           getValue(PINS_FOR_ALL, false);
+  }
+
+  /** Safety flag to disable Pins for All Megaphone */
+  public static boolean pinsForAllMegaphoneKillSwitch() {
+    return getValue(PINS_MEGAPHONE_KILL_SWITCH, false);
   }
 
   /** Only for rendering debug info. */
-  public static synchronized @NonNull Map<String, Boolean> getRemoteValues() {
+  public static synchronized @NonNull Map<String, Boolean> getMemoryValues() {
     return new TreeMap<>(REMOTE_VALUES);
+  }
+
+  /** Only for rendering debug info. */
+  public static synchronized @NonNull Map<String, Boolean> getDiskValues() {
+    return new TreeMap<>(parseStoredConfig());
   }
 
   /** Only for rendering debug info. */
@@ -172,6 +184,7 @@ public final class FeatureFlags {
   static @NonNull UpdateResult updateInternal(@NonNull Map<String, Boolean> remote,
                                               @NonNull Map<String, Boolean> localMemory,
                                               @NonNull Map<String, Boolean> localDisk,
+                                              @NonNull Set<String>          remoteCapable,
                                               @NonNull Set<String>          hotSwap,
                                               @NonNull Set<String>          sticky)
   {
@@ -184,7 +197,7 @@ public final class FeatureFlags {
     allKeys.addAll(localMemory.keySet());
 
     Stream.of(allKeys)
-          .filter(k -> k.startsWith(PREFIX))
+          .filter(remoteCapable::contains)
           .forEach(key -> {
             Boolean remoteValue = remote.get(key);
             Boolean diskValue   = localDisk.get(key);

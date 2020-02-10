@@ -42,6 +42,7 @@
   <string name="ApplicationPreferencesActivity_Off">Kapalı</string>
   <string name="ApplicationPreferencesActivity_sms_mms_summary">SMS %1$s, MMS %2$s</string>
   <string name="ApplicationPreferencesActivity_privacy_summary">Ekran kilidi %1$s, Kayıt kilidi %2$s</string>
+  <string name="ApplicationPreferencesActivity_privacy_summary_screen_lock">Ekran kilidi %1$s</string>
   <string name="ApplicationPreferencesActivity_appearance_summary">Tema %1$s, Dil %2$s</string>
   <!--AppProtectionPreferenceFragment-->
   <plurals name="AppProtectionPreferenceFragment_minutes">
@@ -54,6 +55,14 @@
   <string name="DraftDatabase_Draft_video_snippet">(video)</string>
   <string name="DraftDatabase_Draft_location_snippet">(konum)</string>
   <string name="DraftDatabase_Draft_quote_snippet">(yanıtla)</string>
+  <!--AttachmentKeyboard-->
+  <string name="AttachmentKeyboard_gallery">Galeri</string>
+  <string name="AttachmentKeyboard_gif">GIF</string>
+  <string name="AttachmentKeyboard_file">Dosya</string>
+  <string name="AttachmentKeyboard_contact">Kişi</string>
+  <string name="AttachmentKeyboard_location">Konum</string>
+  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Signal\'in fotoğraf ve videolarınızı göstermek için erişim iznine ihtiyacı var.</string>
+  <string name="AttachmentKeyboard_give_access">İzin Ver</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">İçerik seçebilecek uygulama bulunamıyor.</string>
   <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signal, fotoğraflar, videolar, veya ses ekleyebilmek için Depolama iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Depolama\"yı etkinleştirin.</string>
@@ -270,6 +279,7 @@
   <!--ConversationTitleView-->
   <string name="ConversationTitleView_verified">Doğrulandı</string>
   <!--CreateProfileActivity-->
+  <string name="CreateProfileActivity__profile">Profil</string>
   <string name="CreateProfileActivity_error_setting_profile_photo">Profil fotoğrafı kaydedilirken hata</string>
   <string name="CreateProfileActivity_problem_setting_profile">Profil ayarlanırken hata</string>
   <string name="CreateProfileActivity_profile_photo">Profil fotoğrafı</string>
@@ -451,7 +461,11 @@
   <string name="MediaOverviewActivity_sent_by_you">Sizin gönderdikleriniz</string>
   <string name="MediaOverviewActivity_sent_by_s_to_s">%1$s tarafından --&gt; %2$s </string>
   <string name="MediaOverviewActivity_sent_by_you_to_s">%1$s kişisine gönderdikleriniz</string>
-  <!--- NotificationBarManager-->
+  <!--Megaphones-->
+  <string name="Megaphones_introducing_reactions">Karşınızda Karşılıklar</string>
+  <string name="Megaphones_tap_and_hold_any_message_to_quicky_share_how_you_feel">Nasıl hissettiğinizi hızlıca paylaşmak için herhangi bir iletinin üzerine dokunup basılı tutun.</string>
+  <string name="Megaphones_remind_me_later">Daha sonra hatırlat</string>
+  <!--NotificationBarManager-->
   <string name="NotificationBarManager_signal_call_in_progress">Signal araması sürüyor</string>
   <string name="NotificationBarManager__establishing_signal_call">Signal araması kuruluyor</string>
   <string name="NotificationBarManager__incoming_signal_call">Gelen Signal araması</string>
@@ -555,6 +569,10 @@
   <string name="RatingManager_no_thanks">Hayır teşekkürler</string>
   <string name="RatingManager_later">Sonra</string>
   <string name="RatingManager_whoops_the_play_store_app_does_not_appear_to_be_installed">Aman aman, Play Store uygulaması nereye gitmiş, cihazınızda yüklü gözükmüyor.</string>
+  <!--ReactionsBottomSheetDialogFragment-->
+  <string name="ReactionsBottomSheetDialogFragment_all">Tümü %1$d</string>
+  <!--ReactionsConversationView-->
+  <string name="ReactionsConversationView_plus">+%1$d</string>
   <!--RecipientPreferencesActivity-->
   <string name="RecipientPreferenceActivity_block_this_contact_question">Bu kişiyi engelle?</string>
   <string name="RecipientPreferenceActivity_you_will_no_longer_receive_messages_and_calls_from_this_contact">Artık bu kişiden gelen iletileri ve aramaları almayacaksınız.</string>
@@ -648,6 +666,7 @@
   <string name="SharedContactView_add_to_contacts">Kişilere Ekle</string>
   <string name="SharedContactView_invite_to_signal">Signal\'e davet et</string>
   <string name="SharedContactView_message">Signal İletisi</string>
+  <!--SignalPinReminders-->
   <!--Slide-->
   <string name="Slide_image">Görüntü</string>
   <string name="Slide_sticker">Çıkartma</string>
@@ -793,7 +812,14 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Yakın zamandaki bildirimler için Signal\'i açın.</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">Kişi</string>
-  <!-- Removed by excludeNonTranslatables <string name="MessageNotifier_reacted_to_your_message">İletinize karşılık verdi: %1$s</string> -->
+  <string name="MessageNotifier_reacted_s_to_s">\"%2$s\" iletisine karşılık verdi: %1$s</string>
+  <string name="MessageNotifier_reacted_s_to_your_video">Videonuza karşılık verdi: %1$s</string>
+  <string name="MessageNotifier_reacted_s_to_your_image">Görüntünüze karşılık verdi: %1$s</string>
+  <string name="MessageNotifier_reacted_s_to_your_file">Dosyanıza karşılık verdi: %1$s</string>
+  <string name="MessageNotifier_reacted_s_to_your_audio">Sesinize karşılık verdi: %1$s</string>
+  <string name="MessageNotifier_reacted_s_to_your_view_once_photo">Tek görümlük fotoğrafınıza karşılık verdi: %1$s</string>
+  <string name="MessageNotifier_reacted_s_to_your_view_once_video">Tek görümlük videonuza karşılık verdi: %1$s</string>
+  <string name="MessageNotifier_reacted_s_to_your_sticker">Çıkartmanıza karşılık verdi: %1$s</string>
   <!--Notification Channels-->
   <string name="NotificationChannel_messages">Varsayılan</string>
   <string name="NotificationChannel_calls">Aramalar</string>
@@ -1402,6 +1428,97 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <string name="SecondInviteReminder__description">%1$s kişisini davet et</string>
   <string name="InsightsReminder__view_insights">İçgörüleri Görüntüle</string>
   <string name="InsightsReminder__invite">Davet et</string>
+  <!--Edit KBS Pin-->
+  <!--BaseKbsPinFragment-->
+  <string name="BaseKbsPinFragment__next">İleri</string>
+  <string name="BaseKbsPinFragment__create_alphanumeric_pin">Alfanumerik PIN oluştur</string>
+  <string name="BaseKbsPinFragment__create_numeric_pin">Sayısal PIN oluştur</string>
+  <!--CreateKbsPinFragment-->
+  <plurals name="CreateKbsPinFragment__pin_must_be_at_least_characters">
+    <item quantity="one">PIN en az %1$d karakterden oluşmalıdır</item>
+    <item quantity="other">PIN en az %1$d karakterden oluşmalıdır</item>
+  </plurals>
+  <plurals name="CreateKbsPinFragment__pin_must_be_at_least_digits">
+    <item quantity="one">PIN en az %1$d haneli olmalıdır</item>
+    <item quantity="other">PIN en az %1$d haneli olmalıdır</item>
+  </plurals>
+  <string name="CreateKbsPinFragment__create_a_new_pin">Yeni PIN oluştur</string>
+  <plurals name="CreateKbsPinFragment__you_can_choose_a_new_pin_because_this_device_is_registered">
+    <item quantity="one">Bu cihaz kaydedildiği için yeni bir PIN kodu seçebilirsiniz. Eğer PIN\'inizi unutursanız, yeniden kaydolmak için %1$d gün beklemeniz gerekebilir.</item>
+    <item quantity="other">Bu cihaz kaydedildiği için yeni bir PIN kodu seçebilirsiniz. Eğer PIN\'inizi unutursanız, yeniden kaydolmak için %1$d gün beklemeniz gerekebilir.</item>
+  </plurals>
+  <string name="CreateKbsPinFragment__create_your_pin">PIN\'inizi oluşturun</string>
+  <!--ConfirmKbsPinFragment-->
+  <string name="ConfirmKbsPinFragment__pins_dont_match">PIN\'ler eşleşmiyor. Tekrar deneyin.</string>
+  <string name="ConfirmKbsPinFragment__confirm_your_pin">PIN kodunuzu doğrulayın.</string>
+  <string name="ConfirmKbsPinFragment__pin_creation_failed">PIN oluşturma başarısız oldu</string>
+  <string name="ConfirmKbsPinFragment__your_pin_was_not_saved">PIN\'iniz kaydedilmedi. PIN oluşturmanız için daha sonra hatırlatacağız.</string>
+  <string name="ConfirmKbsPinFragment__pin_created">PIN oluşturuldu.</string>
+  <string name="ConfirmKbsPinFragment__re_enter_pin">PIN\'i tekrar girin</string>
+  <string name="ConfirmKbsPinFragment__creating_pin">PIN oluşturuluyor…</string>
+  <!--KbsSplashFragment-->
+  <string name="KbsSplashFragment__introducing_pins">Karşınızda PIN\'ler</string>
+  <string name="KbsSplashFragment__pins_add_another_level_of_security_to_your_account">PIN\'ler hesabınızın güvenliğine bir katman daha ekler. Şimdi oluşturun.</string>
+  <string name="KbsSplashFragment__learn_more">Dahasını Öğrenin</string>
+  <string name="KbsSplashFragment__learn_more_link">https://support.signal.org/hc/tr/articles/360007059792-Registration-Lock</string>
+  <string name="KbsSplashFragment__registration_lock_equals_pin">Kayıt Kilidi = PIN</string>
+  <string name="KbsSplashFragment__your_registration_lock_is_now_called_a_pin">Kayıt Kilidi yerine artık PIN kullanılıyor ve daha fazlasını yapıyor. Şimdi güncelleyin.</string>
+  <string name="KbsSplashFragment__read_more_about_pins">PIN\'ler hakkında dahasını okuyun</string>
+  <string name="KbsSplashFragment__update_pin">PIN\'i güncelle</string>
+  <string name="KbsSplashFragment__create_your_pin">PIN\'inizi oluşturun</string>
+  <!--KBS Reminder Dialog-->
+  <string name="KbsReminderDialog__enter_your_signal_pin">Signal PIN\'inizi girin</string>
+  <string name="KbsReminderDialog__to_help_you_memorize_your_pin">PIN\'inizi hatırlamanıza yardımcı olmak için, arada sırada girmenizi isteyeceğiz. Zaman geçtikçe daha az soracağız.</string>
+  <string name="KbsReminderDialog__skip">Atla</string>
+  <string name="KbsReminderDialog__submit">Gönder</string>
+  <string name="KbsReminderDialog__forgot_pin">PIN\'inizi mi unuttunuz?</string>
+  <string name="KbsReminderDialog__incorrect_pin_try_again">Yanlış PIN. Tekrar deneyin.</string>
+  <!--AccountLockedFragment-->
+  <string name="AccountLockedFragment__account_locked">Hesap kilitlendi</string>
+  <string name="AccountLockedFragment__your_account_has_been_locked_to_protect_your_privacy">Gizlilik ve güvenliğiniz için hesabınız kilitlendi. Hesabınızda %1$d gün boyunca hareketsizlik olduğunda, PIN olmadan bu telefon numarası ile yeniden kaydolabilirsiniz. Tüm içerik silinecektir. </string>
+  <string name="AccountLockedFragment__next">İleri</string>
+  <string name="AccountLockedFragment__learn_more">Dahasını Öğrenin</string>
+  <string name="AccountLockedFragment__learn_more_url">https://support.signal.org/hc/tr/articles/360007059792-Registration-Lock</string>
+  <!--KbsLockFragment-->
+  <string name="RegistrationLockFragment__enter_your_pin">PIN\'inizi girin</string>
+  <string name="RegistrationLockFragment__enter_the_pin_you_created">Bu hesap için oluşturduğunuz PIN kodunu girin. Bu kod, SMS doğrulama kodunuzdan farklıdır.</string>
+  <string name="RegistrationLockFragment__enter_alphanumeric_pin">Alfanumerik PIN\'i Girin</string>
+  <string name="RegistrationLockFragment__enter_numeric_pin">Sayısal PIN\'i Girin</string>
+  <string name="RegistrationLockFragment__next">İleri</string>
+  <string name="RegistrationLockFragment__incorrect_pin_try_again">Yanlış PIN. Tekrar deneyin.</string>
+  <string name="RegistrationLockFragment__forgot_pin">PIN\'inizi mi unuttunuz?</string>
+  <string name="RegistrationLockFragment__incorrect_pin">Yanlış PIN</string>
+  <string name="RegistrationLockFragment__forgot_your_pin">PIN\'inizi mi unuttunuz?</string>
+  <string name="RegistrationLockFragment__not_many_tries_left">Deneme hakkınız azaldı!</string>
+  <plurals name="RegistrationLockFragment__for_your_privacy_and_security_there_is_no_way_to_recover">
+    <item quantity="one">Gizlilik ve güvenliğiniz için PIN\'inizi kurtarmanın yolu yoktur. Eğer PIN\'inizi hatırlayamıyorsanız, %1$d gün eylemsizlik sonrasında SMS ile tekrar doğrulayabilirsiniz. Bu durumda hesabınız ve tüm içeriğiniz silinecektir.</item>
+    <item quantity="other">Gizlilik ve güvenliğiniz için PIN\'inizi kurtarmanın yolu yoktur. Eğer PIN\'inizi hatırlayamıyorsanız, %1$d gün eylemsizlik sonrasında SMS ile tekrar doğrulayabilirsiniz. Bu durumda hesabınız ve tüm içeriğiniz silinecektir.</item>
+  </plurals>
+  <plurals name="RegistrationLockFragment__incorrect_pin_d_attempts_remaining">
+    <item quantity="one">Yanlış PIN. %1$d deneme hakkınız kaldı.</item>
+    <item quantity="other">Yanlış PIN. %1$d deneme hakkınız kaldı.</item>
+  </plurals>
+  <plurals name="RegistrationLockFragment__if_you_run_out_of_attempts_your_account_will_be_locked_for_d_days">
+    <item quantity="one"> Hakkınız biterse hesabınız %1$d günlüğüne kilitlenecektir. %1$d gün eylemsizlikten sonra, PIN\'iniz olmadan tekrar kaydolabileceksiniz. Hesabınız ve tüm içeriğiniz silinecektir.</item>
+    <item quantity="other"> Hakkınız biterse hesabınız %1$d günlüğüne kilitlenecektir. %1$d gün eylemsizlikten sonra, PIN\'iniz olmadan tekrar kaydolabileceksiniz. Hesabınız ve tüm içeriğiniz silinecektir.</item>
+  </plurals>
+  <plurals name="RegistrationLockFragment__you_have_d_attempts_remaining">
+    <item quantity="one">%1$d deneme hakkınız kaldı.</item>
+    <item quantity="other">%1$d deneme hakkınız kaldı.</item>
+  </plurals>
+  <plurals name="RegistrationLockFragment__d_attempts_remaining">
+    <item quantity="one">%1$d deneme hakkı kaldı.</item>
+    <item quantity="other">%1$d deneme hakkı kaldı.</item>
+  </plurals>
+  <!--KBS Megaphone-->
+  <string name="KbsMegaphone__create_a_pin">PIN oluştur</string>
+  <string name="KbsMegaphone__pins_add_another_layer_of_security_to_your_signal_account">PIN\'ler hesabınızın güvenliğine bir katman daha ekler.</string>
+  <string name="KbsMegaphone__create_pin">PIN oluştur</string>
+  <string name="KbsMegaphone__introducing_pins">Karşınızda PIN\'ler</string>
+  <string name="KbsMegaphone__your_registration_lock_is_now_called_a_pin">Kayıt Kilidi yerine artık PIN kullanılıyor ve daha fazlasını yapıyor. PIN\'ler farklı olduğu için mevcut olanı güncellemeniz gerekiyor, yalnızca birkaç saniye sürer.</string>
+  <string name="KbsMegaphone__update_pin">PIN\'i güncelle</string>
+  <string name="KbsMegaphone__well_remind_you_later_creating_a_pin">Size daha sonra hatırlatacağız. %1$d gün sonra PIN oluşturmanız zorunlu olacaktır.</string>
+  <string name="KbsMegaphone__well_remind_you_later_confirming_your_pin">Size daha sonra hatırlatacağız. %1$d gün sonra PIN\'inizi onaylamanız zorunlu olacaktır.</string>
   <!--transport_selection_list_item-->
   <string name="transport_selection_list_item__transport_icon">Ulaştırma simgesi</string>
   <string name="ConversationListFragment_loading">Yükleniyor…</string>
@@ -1426,6 +1543,8 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <string name="preferences_chats__chat_backups">Sohbet yedekleri</string>
   <string name="preferences_chats__backup_chats_to_external_storage">Sohbetleri harici depolamaya yedekle</string>
   <string name="preferences_chats__create_backup">Yedek oluştur</string>
+  <string name="preferences_chats__verify_backup_passphrase">Yedek parolasını doğrula</string>
+  <string name="preferences_chats__test_your_backup_passphrase_and_verify_that_it_matches">Yedek parolanızı deneyin ve eşleştiğinden emin olun</string>
   <string name="RegistrationActivity_enter_backup_passphrase">Yedek parolasını giriniz</string>
   <string name="RegistrationActivity_restore">Geri yükle</string>
   <string name="RegistrationActivity_backup_failure_downgrade">Signal\'in daha yeni sürümlerinden yedek alınamaz</string>
@@ -1443,6 +1562,10 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <string name="BackupDialog_disable_and_delete_all_local_backups">Tüm yerel yedekler devre dışı bırakılıp silinsin mi?</string>
   <string name="BackupDialog_delete_backups_statement">Yedekleri sil</string>
   <string name="BackupDialog_copied_to_clipboard">Panoya kopyalandı</string>
+  <string name="BackupDialog_enter_backup_passphrase_to_verify">Doğrulamak için yedek parolanızı girin</string>
+  <string name="BackupDialog_verify">Doğrula</string>
+  <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">Yedek parolanızı başarıyla girdiniz</string>
+  <string name="BackupDialog_passphrase_was_not_correct">Parolanız doğru değil</string>
   <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal, yedek oluşturabilmek için Depolama iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Depolama\"yı etkinleştirin.</string>
   <string name="ChatsPreferenceFragment_last_backup_s">Son yedek: %s</string>
   <string name="ChatsPreferenceFragment_in_progress">Devam etmekte</string>
@@ -1459,6 +1582,11 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <string name="preferences_app_protection__screen_lock">Ekran kilidi</string>
   <string name="preferences_app_protection__lock_signal_access_with_android_screen_lock_or_fingerprint">Signal erişimini Android kilit ekranı ile veya parmak izi ile kilitleyin</string>
   <string name="preferences_app_protection__screen_lock_inactivity_timeout">Ekran kilidi zaman aşımı</string>
+  <string name="preferences_app_protection__signal_pin">Signal PIN\'i</string>
+  <string name="preferences_app_protection__pin">PIN</string>
+  <string name="preferences_app_protection__change">Değiştir</string>
+  <string name="preferences_app_protection__create">Oluştur</string>
+  <string name="preferences_app_protection__your_pin_adds_an_extra_layer_of_security_and_backs">PIN\'iniz hesabınıza fazladan güvenlik katmanı ekler ve hesabınızı güvence altına alır. Signal\'e telefon numaranızı kaydederken sorulacaktır. Eğer PIN\'inizi unutursanız, hesabınıza 7 gün boyunca erişemezsiniz.</string>
   <string name="AppProtectionPreferenceFragment_none">Hiçbiri</string>
   <string name="registration_activity__the_registration_lock_pin_is_not_the_same_as_the_sms_verification_code_you_just_received_please_enter_the_pin_you_previously_configured_in_the_application">Kaydolma Kilidi PIN\'iniz size gönderilen doğrulama koduyla aynı değildir. Lütfen önceden ayarlamış olduğunuz PIN\'inizi giriniz.  </string>
   <string name="registration_activity__registration_lock_pin">Kaydolma Kilidi PIN\'i</string>
@@ -1472,6 +1600,7 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <string name="preferences_app_protection__registration_lock_pin">Kaydolma Kilidi PIN\'i</string>
   <string name="preferences_app_protection__registration_lock">Kaydolma Kilidi</string>
   <string name="RegistrationActivity_you_must_enter_your_registration_lock_PIN">Kaydolma Kilidi PIN\'inizi girmek zorundasınız</string>
+  <string name="RegistrationActivity_your_pin_has_at_least_d_digits_or_characters">PIN\'iniz en az %d haneli veya karakterli</string>
   <string name="RegistrationActivity_incorrect_registration_lock_pin">Geçersiz Kaydolma Kilidi PIN\'i</string>
   <string name="RegistrationActivity_too_many_attempts">Çok fazla deneme yapıldı</string>
   <string name="RegistrationActivity_you_have_made_too_many_incorrect_registration_lock_pin_attempts_please_try_again_in_a_day">Çok fazla Kaydolma Kilidi PIN denemesi yaptınız. Lütfen bir gün içerisinde tekrar deneyin.</string>

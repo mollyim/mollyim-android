@@ -303,10 +303,11 @@ class MediaSendViewModel extends ViewModel {
     captionVisible = false;
 
     List<Media> uncaptioned = Stream.of(getSelectedMediaOrDefault())
-                                    .map(m -> new Media(m.getUri(), m.getMimeType(), m.getDate(), m.getWidth(), m.getHeight(), m.getSize(), m.getBucketId(), Optional.absent()))
+                                    .map(m -> new Media(m.getUri(), m.getMimeType(), m.getDate(), m.getWidth(), m.getHeight(), m.getSize(), m.getDuration(), m.getBucketId(), Optional.absent()))
                                     .toList();
 
     selectedMedia.setValue(uncaptioned);
+    position.setValue(position.getValue() != null ? position.getValue() : 0);
     hudState.setValue(buildHudState());
   }
 
@@ -476,7 +477,7 @@ class MediaSendViewModel extends ViewModel {
 
       if (splitMessage.getTextSlide().isPresent()) {
         Slide slide = splitMessage.getTextSlide().get();
-        uploadRepository.startUpload(new Media(Objects.requireNonNull(slide.getUri()), slide.getContentType(), System.currentTimeMillis(), 0, 0, slide.getFileSize(), Optional.absent(), Optional.absent()), recipient);
+        uploadRepository.startUpload(new Media(Objects.requireNonNull(slide.getUri()), slide.getContentType(), System.currentTimeMillis(), 0, 0, slide.getFileSize(), 0, Optional.absent(), Optional.absent()), recipient);
       }
 
       uploadRepository.applyMediaUpdates(oldToNew, recipient);

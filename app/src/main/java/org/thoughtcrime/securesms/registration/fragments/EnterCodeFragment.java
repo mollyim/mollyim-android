@@ -121,25 +121,38 @@ public final class EnterCodeFragment extends BaseRegistrationFragment {
           }
 
           @Override
-          public void onIncorrectRegistrationLockPin(long timeRemaining, String storageCredentials) {
-            model.setStorageCredentials(storageCredentials);
+          public void onV1RegistrationLockPinRequiredOrIncorrect(long timeRemaining) {
+            model.setTimeRemaining(timeRemaining);
             keyboard.displayLocked().addListener(new AssertedSuccessListener<Boolean>() {
               @Override
               public void onSuccess(Boolean r) {
                 Navigation.findNavController(requireView())
-                          .navigate(EnterCodeFragmentDirections.actionRequireRegistrationLockPin(timeRemaining));
+                          .navigate(EnterCodeFragmentDirections.actionRequireKbsLockPin(timeRemaining));
               }
             });
           }
 
           @Override
-          public void onIncorrectKbsRegistrationLockPin(@NonNull TokenResponse triesRemaining) {
-            // Unexpected, because at this point, no pin has been provided by the user.
-            throw new AssertionError();
+          public void onKbsRegistrationLockPinRequired(long timeRemaining, @NonNull TokenResponse tokenResponse, @NonNull String kbsStorageCredentials) {
+            model.setTimeRemaining(timeRemaining);
+            model.setStorageCredentials(kbsStorageCredentials);
+            model.setKeyBackupCurrentToken(tokenResponse);
+            keyboard.displayLocked().addListener(new AssertedSuccessListener<Boolean>() {
+              @Override
+              public void onSuccess(Boolean r) {
+                Navigation.findNavController(requireView())
+                          .navigate(EnterCodeFragmentDirections.actionRequireKbsLockPin(timeRemaining));
+              }
+            });
           }
 
           @Override
-          public void onTooManyAttempts() {
+          public void onIncorrectKbsRegistrationLockPin(@NonNull TokenResponse tokenResponse) {
+            throw new AssertionError("Unexpected, user has made no pin guesses");
+          }
+
+          @Override
+          public void onRateLimited() {
             keyboard.displayFailure().addListener(new AssertedSuccessListener<Boolean>() {
               @Override
               public void onSuccess(Boolean r) {
@@ -155,6 +168,14 @@ public final class EnterCodeFragment extends BaseRegistrationFragment {
                                .show();
               }
             });
+          }
+
+          @Override
+          public void onKbsAccountLocked(@Nullable Long timeRemaining) {
+            if (timeRemaining != null) {
+              model.setTimeRemaining(timeRemaining);
+            }
+            Navigation.findNavController(requireView()).navigate(RegistrationLockFragmentDirections.actionAccountLocked());
           }
 
           @Override

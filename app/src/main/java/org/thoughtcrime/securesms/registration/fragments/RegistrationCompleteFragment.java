@@ -14,7 +14,11 @@ import androidx.navigation.ActivityNavigator;
 
 import org.thoughtcrime.securesms.MainActivity;
 import org.thoughtcrime.securesms.R;
+import org.thoughtcrime.securesms.lock.v2.CreateKbsPinActivity;
+import org.thoughtcrime.securesms.lock.v2.PinUtil;
 import org.thoughtcrime.securesms.profiles.edit.EditProfileActivity;
+import org.thoughtcrime.securesms.util.CensorshipUtil;
+import org.thoughtcrime.securesms.util.FeatureFlags;
 
 public final class RegistrationCompleteFragment extends BaseRegistrationFragment {
 
@@ -30,21 +34,27 @@ public final class RegistrationCompleteFragment extends BaseRegistrationFragment
 
     FragmentActivity activity = requireActivity();
 
+
     if (!isReregister()) {
-      Intent setProfileNameIntent = getRoutedIntent(activity, EditProfileActivity.class, new Intent(activity, MainActivity.class));
+      final Intent main    = new Intent(activity, MainActivity.class);
+      final Intent profile = new Intent(activity, EditProfileActivity.class);
 
-      setProfileNameIntent.putExtra(EditProfileActivity.SHOW_TOOLBAR, false);
+      profile.putExtra(EditProfileActivity.SHOW_TOOLBAR, false);
 
-      activity.startActivity(setProfileNameIntent);
+      if (PinUtil.shouldShowPinCreationDuringRegistration(requireContext())) {
+        Intent kbs = CreateKbsPinActivity.getIntentForPinCreate(requireContext());
+        activity.startActivity(chainIntents(chainIntents(profile, kbs), main));
+      } else {
+        activity.startActivity(chainIntents(profile, main));
+      }
     }
 
     activity.finish();
     ActivityNavigator.applyPopAnimationsToPendingTransition(activity);
   }
 
-  private static Intent getRoutedIntent(@NonNull Context context, Class<?> destination, @Nullable Intent nextIntent) {
-    final Intent intent = new Intent(context, destination);
-    if (nextIntent != null) intent.putExtra("next_intent", nextIntent);
-    return intent;
+  private static Intent chainIntents(@NonNull Intent sourceIntent, @Nullable Intent nextIntent) {
+    if (nextIntent != null) sourceIntent.putExtra("next_intent", nextIntent);
+    return sourceIntent;
   }
 }

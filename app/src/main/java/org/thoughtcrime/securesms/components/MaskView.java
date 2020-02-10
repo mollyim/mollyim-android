@@ -67,14 +67,16 @@ public class MaskView extends View {
   protected void onDraw(@NonNull Canvas canvas) {
     super.onDraw(canvas);
 
-    if (target == null) {
+    if (target == null || !target.isAttachedToWindow()) {
       return;
     }
 
     target.getDrawingRect(drawingRect);
     activityContentView.offsetDescendantRectToMyCoords(target, drawingRect);
 
-    Bitmap mask       = Bitmap.createBitmap(target.getWidth(), target.getHeight(), Bitmap.Config.ARGB_8888);
+    drawingRect.bottom = Math.min(drawingRect.bottom, getBottom() - getPaddingBottom());
+
+    Bitmap mask       = Bitmap.createBitmap(target.getWidth(), drawingRect.height(), Bitmap.Config.ARGB_8888);
     Canvas maskCanvas = new Canvas(mask);
 
     target.draw(maskCanvas);

@@ -35,6 +35,8 @@ import com.dd.CircularProgressButton;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.avatar.AvatarSelection;
 import org.thoughtcrime.securesms.contacts.avatars.ResourceContactPhoto;
+import org.thoughtcrime.securesms.keyvalue.SignalStore;
+import org.thoughtcrime.securesms.lock.v2.PinUtil;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.mms.GlideApp;
 import org.thoughtcrime.securesms.permissions.Permissions;
@@ -321,6 +323,11 @@ public class EditProfileFragment extends Fragment {
             Log.w(TAG, "Failed to delete capture file " + captureFile);
           }
         }
+
+        if (!PinUtil.shouldShowPinCreationDuringRegistration(requireContext())) {
+          SignalStore.registrationValues().setRegistrationComplete();
+        }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) handleFinishedLollipop();
         else                                                       handleFinishedLegacy();
       } else {

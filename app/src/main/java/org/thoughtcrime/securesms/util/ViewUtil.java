@@ -29,6 +29,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
+
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -203,6 +205,14 @@ public class ViewUtil {
     return Math.round(dp * Resources.getSystem().getDisplayMetrics().density);
   }
 
+  public static int dpToSp(int dp) {
+    return (int) (dpToPx(dp) / Resources.getSystem().getDisplayMetrics().scaledDensity);
+  }
+
+  public static int spToPx(float sp) {
+    return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, Resources.getSystem().getDisplayMetrics());
+  }
+
   public static void updateLayoutParams(@NonNull View view, int width, int height) {
     view.getLayoutParams().width  = width;
     view.getLayoutParams().height = height;
@@ -228,6 +238,16 @@ public class ViewUtil {
       ((ViewGroup.MarginLayoutParams) view.getLayoutParams()).leftMargin = margin;
     } else {
       ((ViewGroup.MarginLayoutParams) view.getLayoutParams()).rightMargin = margin;
+    }
+    view.forceLayout();
+    view.requestLayout();
+  }
+
+  public static void setRightMargin(@NonNull View view, int margin) {
+    if (ViewCompat.getLayoutDirection(view) == ViewCompat.LAYOUT_DIRECTION_LTR) {
+      ((ViewGroup.MarginLayoutParams) view.getLayoutParams()).rightMargin = margin;
+    } else {
+      ((ViewGroup.MarginLayoutParams) view.getLayoutParams()).leftMargin = margin;
     }
     view.forceLayout();
     view.requestLayout();

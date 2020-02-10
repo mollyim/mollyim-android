@@ -27,12 +27,15 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.DialogCompat;
+import androidx.fragment.app.Fragment;
 
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.components.SwitchPreferenceCompat;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.keyvalue.KbsValues;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
+import org.thoughtcrime.securesms.lock.v2.KbsConstants;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.migrations.RegistrationPinV2MigrationJob;
 import org.thoughtcrime.securesms.util.FeatureFlags;
@@ -42,8 +45,8 @@ import org.thoughtcrime.securesms.util.ThemeUtil;
 import org.thoughtcrime.securesms.util.text.AfterTextChanged;
 import org.whispersystems.signalservice.api.KeyBackupService;
 import org.whispersystems.signalservice.api.KeyBackupServicePinException;
+import org.whispersystems.signalservice.api.KeyBackupSystemNoDataException;
 import org.whispersystems.signalservice.api.RegistrationLockData;
-import org.whispersystems.signalservice.api.SignalServiceAccountManager;
 import org.whispersystems.signalservice.api.kbs.HashedPin;
 import org.whispersystems.signalservice.api.kbs.MasterKey;
 import org.whispersystems.signalservice.internal.contacts.crypto.UnauthenticatedResponseException;
@@ -55,20 +58,29 @@ public final class RegistrationLockDialog {
 
   private static final String TAG = Log.tag(RegistrationLockDialog.class);
 
-  private static final int MIN_V2_NUMERIC_PIN_LENGTH_ENTRY   = 4;
-  private static final int MIN_V2_NUMERIC_PIN_LENGTH_SETTING = 4;
+  public static void showReminderIfNecessary(@NonNull Fragment fragment) {
+    final Context context = fragment.requireContext();
 
-  public static void showReminderIfNecessary(@NonNull Context context) {
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return;
-    if (!RegistrationLockReminders.needsReminder(context))    return;
-
-    if (!TextSecurePreferences.isV1RegistrationLockEnabled(context) &&
-        !SignalStore.kbsValues().isV2RegistrationLockEnabled()) {
-      // Neither v1 or v2 to check against
-      Log.w(TAG, "Reg lock enabled, but no pin stored to verify against");
+    if (!TextSecurePreferences.isV1RegistrationLockEnabled(context) && !SignalStore.kbsValues().isV2RegistrationLockEnabled()) {
       return;
     }
 
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+      return;
+    }
+
+    if (!RegistrationLockReminders.needsReminder(context)) {
+      return;
+    }
+
+    if (FeatureFlags.pinsForAll()) {
+      return;
+    }
+
+    showLegacyPinReminder(context);
+  }
+
+  private static void showLegacyPinReminder(@NonNull Context context) {
     AlertDialog dialog = new AlertDialog.Builder(context, ThemeUtil.isDarkTheme(context) ? R.style.RationaleDialogDark : R.style.RationaleDialogLight)
                                         .setView(R.layout.registration_lock_reminder_view)
                                         .setCancelable(true)
@@ -84,8 +96,8 @@ public final class RegistrationLockDialog {
     dialog.show();
     dialog.getWindow().setLayout((int)(metrics.widthPixels * .80), ViewGroup.LayoutParams.WRAP_CONTENT);
 
-    EditText pinEditText = dialog.findViewById(R.id.pin);
-    TextView reminder    = dialog.findViewById(R.id.reminder);
+    EditText pinEditText = (EditText) DialogCompat.requireViewById(dialog, R.id.pin);
+    TextView reminder    = (TextView) DialogCompat.requireViewById(dialog, R.id.reminder);
 
     if (pinEditText == null) throw new AssertionError();
     if (reminder    == null) throw new AssertionError();
@@ -126,27 +138,23 @@ public final class RegistrationLockDialog {
         dialog.dismiss();
         RegistrationLockReminders.scheduleReminder(context, true);
 
-        if (FeatureFlags.kbs()) {
-          Log.i(TAG, "Pin V1 successfully remembered, scheduling a migration to V2");
-          ApplicationDependencies.getJobManager().add(new RegistrationPinV2MigrationJob());
-        }
+        Log.i(TAG, "Pin V1 successfully remembered, scheduling a migration to V2");
+        ApplicationDependencies.getJobManager().add(new RegistrationPinV2MigrationJob());
       }
     });
   }
 
   private static TextWatcher getV2PinWatcher(@NonNull Context context, AlertDialog dialog) {
     KbsValues kbsValues    = SignalStore.kbsValues();
-    MasterKey masterKey    = kbsValues.getPinBackedMasterKey();
     String    localPinHash = kbsValues.getLocalPinHash();
 
-    if (masterKey    == null) throw new AssertionError("No masterKey set at time of reminder");
     if (localPinHash == null) throw new AssertionError("No local pin hash set at time of reminder");
 
     return new AfterTextChanged((Editable s) -> {
       if (s == null) return;
       String pin = s.toString();
       if (TextUtils.isEmpty(pin)) return;
-      if (pin.length() < MIN_V2_NUMERIC_PIN_LENGTH_ENTRY) return;
+      if (pin.length() < KbsConstants.MINIMUM_POSSIBLE_PIN_LENGTH) return;
 
       if (PinHashing.verifyLocalPinHash(localPinHash, pin)) {
         dialog.dismiss();
@@ -178,9 +186,9 @@ public final class RegistrationLockDialog {
         String pinValue    = pin.getText().toString().replace(" ", "");
         String repeatValue = repeat.getText().toString().replace(" ", "");
 
-        if (pinValue.length() < MIN_V2_NUMERIC_PIN_LENGTH_SETTING) {
+        if (pinValue.length() < KbsConstants.MINIMUM_POSSIBLE_PIN_LENGTH) {
           Toast.makeText(context,
-                         context.getString(R.string.RegistrationLockDialog_the_registration_lock_pin_must_be_at_least_d_digits, MIN_V2_NUMERIC_PIN_LENGTH_SETTING),
+                         context.getString(R.string.RegistrationLockDialog_the_registration_lock_pin_must_be_at_least_d_digits, KbsConstants.MINIMUM_POSSIBLE_PIN_LENGTH),
                          Toast.LENGTH_LONG).show();
           return;
         }
@@ -201,36 +209,29 @@ public final class RegistrationLockDialog {
           @Override
           protected Boolean doInBackground(Void... voids) {
             try {
-              if (FeatureFlags.kbs()) {
-                Log.i(TAG, "Setting pin on KBS");
+              Log.i(TAG, "Setting pin on KBS");
 
-                KbsValues                         kbsValues        = SignalStore.kbsValues();
-                MasterKey                         masterKey        = kbsValues.getOrCreateMasterKey();
-                KeyBackupService                  keyBackupService = ApplicationDependencies.getKeyBackupService();
-                KeyBackupService.PinChangeSession pinChangeSession = keyBackupService.newPinChangeSession();
-                HashedPin                         hashedPin        = PinHashing.hashPin(pinValue, pinChangeSession);
-                RegistrationLockData              kbsData          = pinChangeSession.setPin(hashedPin, masterKey);
-                RegistrationLockData              restoredData     = keyBackupService.newRestoreSession(kbsData.getTokenResponse())
-                                                                                     .restorePin(hashedPin);
+              KbsValues                         kbsValues        = SignalStore.kbsValues();
+              MasterKey                         masterKey        = kbsValues.getOrCreateMasterKey();
+              KeyBackupService                  keyBackupService = ApplicationDependencies.getKeyBackupService();
+              KeyBackupService.PinChangeSession pinChangeSession = keyBackupService.newPinChangeSession();
+              HashedPin                         hashedPin        = PinHashing.hashPin(pinValue, pinChangeSession);
+              RegistrationLockData              kbsData          = pinChangeSession.setPin(hashedPin, masterKey);
+              RegistrationLockData              restoredData     = keyBackupService.newRestoreSession(kbsData.getTokenResponse())
+                                                                                   .restorePin(hashedPin);
 
-                if (!restoredData.getMasterKey().equals(masterKey)) {
-                  throw new AssertionError("Failed to set the pin correctly");
-                } else {
-                  Log.i(TAG, "Set and retrieved pin on KBS successfully");
-                }
-
-                kbsValues.setRegistrationLockMasterKey(restoredData, PinHashing.localPinHash(pinValue));
-                TextSecurePreferences.clearOldRegistrationLockPin(context);
+              if (!restoredData.getMasterKey().equals(masterKey)) {
+                throw new AssertionError("Failed to set the pin correctly");
               } else {
-                Log.i(TAG, "Setting V1 pin");
-                SignalServiceAccountManager accountManager = ApplicationDependencies.getSignalServiceAccountManager();
-                accountManager.setPin(pinValue);
-                TextSecurePreferences.setDeprecatedRegistrationLockPin(context, pinValue);
+                Log.i(TAG, "Set and retrieved pin on KBS successfully");
               }
+
+              kbsValues.setRegistrationLockMasterKey(restoredData, PinHashing.localPinHash(pinValue));
+              TextSecurePreferences.clearOldRegistrationLockPin(context);
               TextSecurePreferences.setRegistrationLockLastReminderTime(context, System.currentTimeMillis());
               TextSecurePreferences.setRegistrationLockNextReminderInterval(context, RegistrationLockReminders.INITIAL_INTERVAL);
               return true;
-            } catch (IOException | UnauthenticatedResponseException | KeyBackupServicePinException e) {
+            } catch (IOException | UnauthenticatedResponseException | KeyBackupServicePinException | KeyBackupSystemNoDataException e) {
               Log.w(TAG, e);
               return false;
             }
@@ -324,5 +325,4 @@ public final class RegistrationLockDialog {
 
     dialog.show();
   }
-
 }

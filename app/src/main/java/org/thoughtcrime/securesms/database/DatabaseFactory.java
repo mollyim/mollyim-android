@@ -56,6 +56,7 @@ public class DatabaseFactory {
   private final StickerDatabase       stickerDatabase;
   private final StorageKeyDatabase    storageKeyDatabase;
   private final KeyValueDatabase      keyValueDatabase;
+  private final MegaphoneDatabase     megaphoneDatabase;
 
   public static DatabaseFactory getInstance(Context context) {
     synchronized (lock) {
@@ -150,6 +151,10 @@ public class DatabaseFactory {
     return getInstance(context).keyValueDatabase;
   }
 
+  public static MegaphoneDatabase getMegaphoneDatabase(Context context) {
+    return getInstance(context).megaphoneDatabase;
+  }
+
   public static SQLiteDatabase getBackupDatabase(Context context) {
     return getInstance(context).databaseHelper.getReadableDatabase();
   }
@@ -188,6 +193,7 @@ public class DatabaseFactory {
     this.stickerDatabase      = new StickerDatabase(context, databaseHelper, attachmentSecret);
     this.storageKeyDatabase   = new StorageKeyDatabase(context, databaseHelper);
     this.keyValueDatabase     = new KeyValueDatabase(context, databaseHelper);
+    this.megaphoneDatabase    = new MegaphoneDatabase(context, databaseHelper);
   }
 
   public void triggerDatabaseAccess() {

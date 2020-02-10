@@ -1,19 +1,22 @@
 package org.thoughtcrime.securesms.conversationlist;
 
+import android.app.Application;
+import android.database.ContentObserver;
+import android.os.Handler;
+import android.text.TextUtils;
+
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.app.Application;
-import android.database.ContentObserver;
-import android.os.Handler;
-import androidx.annotation.NonNull;
-import android.text.TextUtils;
-
 import org.thoughtcrime.securesms.conversationlist.model.SearchResult;
 import org.thoughtcrime.securesms.database.DatabaseContentProviders;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.megaphone.Megaphone;
+import org.thoughtcrime.securesms.megaphone.MegaphoneRepository;
+import org.thoughtcrime.securesms.megaphone.Megaphones;
 import org.thoughtcrime.securesms.search.SearchRepository;
 import org.thoughtcrime.securesms.util.Debouncer;
 import org.thoughtcrime.securesms.util.Util;
@@ -21,19 +24,23 @@ import org.thoughtcrime.securesms.util.Util;
 class ConversationListViewModel extends ViewModel {
 
   private final Application                   application;
+  private final MutableLiveData<Megaphone>    megaphone;
   private final MutableLiveData<SearchResult> searchResult;
   private final SearchRepository              searchRepository;
+  private final MegaphoneRepository           megaphoneRepository;
   private final Debouncer                     debouncer;
   private final ContentObserver               observer;
 
   private String lastQuery;
 
   private ConversationListViewModel(@NonNull Application application, @NonNull SearchRepository searchRepository) {
-    this.application      = application;
-    this.searchResult     = new MutableLiveData<>();
-    this.searchRepository = searchRepository;
-    this.debouncer        = new Debouncer(300);
-    this.observer         = new ContentObserver(new Handler()) {
+    this.application         = application;
+    this.megaphone           = new MutableLiveData<>();
+    this.searchResult        = new MutableLiveData<>();
+    this.searchRepository    = searchRepository;
+    this.megaphoneRepository = ApplicationDependencies.getMegaphoneRepository();
+    this.debouncer           = new Debouncer(300);
+    this.observer            = new ContentObserver(new Handler()) {
       @Override
       public void onChange(boolean selfChange) {
         if (!TextUtils.isEmpty(getLastQuery())) {
@@ -47,6 +54,28 @@ class ConversationListViewModel extends ViewModel {
 
   @NonNull LiveData<SearchResult> getSearchResult() {
     return searchResult;
+  }
+
+  @NonNull LiveData<Megaphone> getMegaphone() {
+    return megaphone;
+  }
+
+  void onVisible() {
+    megaphoneRepository.getNextMegaphone(megaphone::postValue);
+  }
+
+  void onMegaphoneCompleted(@NonNull Megaphones.Event event) {
+    megaphone.postValue(null);
+    megaphoneRepository.markFinished(event);
+  }
+
+  void onMegaphoneSnoozed(@NonNull Megaphones.Event event) {
+    megaphoneRepository.markSeen(event);
+    megaphone.postValue(null);
+  }
+
+  void onMegaphoneVisible(@NonNull Megaphone visible) {
+    megaphoneRepository.markVisible(visible.getEvent());
   }
 
   void updateQuery(String query) {

@@ -195,9 +195,14 @@
         <item name="android:homeAsUpIndicator">@drawable/ic_arrow_left_24</item>
         <!--<item name="android:windowContentOverlay">@drawable/compat_actionbar_shadow_background</item>-->
 
+        <item name="kbs_splash_image">@drawable/ic_kbs_splash_light_svg</item>
+
         <item name="attachment_type_selector_background">@color/white</item>
         <item name="attachment_document_icon_small">@drawable/ic_document_small_light</item>
         <item name="attachment_document_icon_large">@drawable/ic_document_large_light</item>
+
+        <item name="attachment_keyboard_button_background">@drawable/attachment_keyboard_button_background_light</item>
+        <item name="attachment_keyboard_button_foreground">@color/core_grey_65</item>
 
         <item name="compose_icon_tint">?icon_tint</item>
 
@@ -272,11 +277,14 @@
         <item name="emoji_category_emoticons">@drawable/ic_emoji_emoticon_light_20</item>
         <item name="emoji_variation_selector_background">@drawable/emoji_variation_selector_background_light</item>
 
-        <item name="reactions_recv_background">@drawable/reactions_recv_background_light</item>
-        <item name="reactions_sent_background">@drawable/reactions_send_background_light</item>
         <item name="reactions_overlay_old_background">@drawable/reactions_old_background_dark</item>
         <item name="reactions_overlay_scrubber_background">@drawable/conversation_reaction_overlay_background_dark</item>
         <item name="reactions_bottom_dialog_fragment_emoji_selected">@drawable/reactions_bottom_sheet_dialog_fragment_emoji_item_selected_light</item>
+        <item name="reactions_pill_background">@drawable/reaction_pill_background_light</item>
+        <item name="reactions_pill_selected_background">@drawable/reaction_pill_background_selected_light</item>
+        <item name="reactions_pill_text_color">@color/core_grey_60</item>
+        <item name="reactions_pill_selected_text_color">@color/core_grey_75</item>
+        <item name="reactions_screen_shade_color">@color/transparent_black_40</item>
 
         <item name="conversation_item_bubble_background">@color/core_grey_05</item>
         <item name="conversation_item_sent_text_primary_color">@color/core_grey_90</item>
@@ -319,6 +327,12 @@
         <item name="linkpreview_divider_color">@color/core_grey_25</item>
 
         <item name="media_keyboard_button_color">@color/core_grey_60</item>
+
+        <item name="megaphone_background">@color/core_grey_05</item>
+        <item name="megaphone_background_shadow">@drawable/megaphone_background_shadow</item>
+        <item name="megaphone_body_text_color">@color/core_grey_65</item>
+        <item name="megaphone_reactions_shade">@color/core_grey_02</item>
+        <item name="megaphone_reactions_close_tint">@color/core_black</item>
 
         <item name="menu_new_conversation_icon">@drawable/ic_add_white_24dp</item>
         <item name="menu_group_icon">@drawable/ic_group_solid_24</item>
@@ -438,9 +452,14 @@
         <item name="homeAsUpIndicator">@drawable/ic_arrow_left_24</item>
         <item name="android:homeAsUpIndicator">@drawable/ic_arrow_left_24</item>
 
+        <item name="kbs_splash_image">@drawable/ic_kbs_splash_dark_svg</item>
+
         <item name="attachment_type_selector_background">@color/core_grey_95</item>
         <item name="attachment_document_icon_small">@drawable/ic_document_small_dark</item>
         <item name="attachment_document_icon_large">@drawable/ic_document_large_dark</item>
+
+        <item name="attachment_keyboard_button_background">@drawable/attachment_keyboard_button_background_dark</item>
+        <item name="attachment_keyboard_button_foreground">@color/core_grey_05</item>
 
         <item name="compose_icon_tint">?icon_tint</item>
 
@@ -527,12 +546,14 @@
         <item name="conversation_title_color">@color/transparent_white_90</item>
         <item name="conversation_subtitle_color">@color/transparent_white_80</item>
 
-        <item name="reactions_recv_background">@drawable/reactions_recv_background_dark</item>
-        <item name="reactions_sent_background">@drawable/reactions_send_background_dark</item>
         <item name="reactions_overlay_old_background">@drawable/reactions_old_background_dark</item>
         <item name="reactions_overlay_scrubber_background">@drawable/conversation_reaction_overlay_background_dark</item>
         <item name="reactions_bottom_dialog_fragment_emoji_selected">@drawable/reactions_bottom_sheet_dialog_fragment_emoji_item_selected_dark</item>
-
+        <item name="reactions_pill_background">@drawable/reaction_pill_background_dark</item>
+        <item name="reactions_pill_selected_background">@drawable/reaction_pill_background_selected_dark</item>
+        <item name="reactions_pill_text_color">@color/core_grey_35</item>
+        <item name="reactions_pill_selected_text_color">@color/core_grey_15</item>
+        <item name="reactions_screen_shade_color">@color/transparent_black_60</item>
 
         <item name="emoji_tab_strip_background">@color/core_grey_85</item>
         <item name="emoji_tab_indicator">@color/core_grey_65</item>
@@ -562,6 +583,12 @@
         <item name="quick_mic_icon">@drawable/ic_mic_solid_24</item>
 
         <item name="media_keyboard_button_color">@color/core_grey_25</item>
+
+        <item name="megaphone_background">@color/core_grey_75</item>
+        <item name="megaphone_background_shadow">@null</item>
+        <item name="megaphone_body_text_color">@color/core_grey_25</item>
+        <item name="megaphone_reactions_shade">@color/core_grey_70</item>
+        <item name="megaphone_reactions_close_tint">@color/core_grey_15</item>
 
         <item name="menu_new_conversation_icon">@drawable/ic_add_white_24dp</item>
         <item name="menu_group_icon">@drawable/ic_group_solid_24</item>
@@ -639,6 +666,15 @@
     <style name="RationaleDialogDark" parent="Theme.AppCompat.Dialog.Alert">
         <item name="android:windowBackground">@drawable/permission_rationale_dialog_corners</item>
     </style>
+
+    <style name="RationaleDialogLight.SignalAccent">
+        <item name="colorAccent">@color/signal_primary</item>
+    </style>
+
+    <style name="RationaleDialogDark.SignalAccent">
+        <item name="colorAccent">@color/signal_primary</item>
+    </style>
+
 
     <style name="Theme.Signal.Insights.Modal" parent="@style/Theme.AppCompat.Dialog.MinWidth">
     </style>

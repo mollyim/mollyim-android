@@ -43,6 +43,7 @@
   <string name="ApplicationPreferencesActivity_Off">Ki</string>
   <string name="ApplicationPreferencesActivity_sms_mms_summary">SMS %1$s, MMS %2$s</string>
   <string name="ApplicationPreferencesActivity_privacy_summary">Képernyőzár %1$s, regisztrációs zár %2$s</string>
+  <string name="ApplicationPreferencesActivity_privacy_summary_screen_lock">Képernyőzár %1$s</string>
   <string name="ApplicationPreferencesActivity_appearance_summary">%1$s téma, %2$s nyelv</string>
   <!--AppProtectionPreferenceFragment-->
   <plurals name="AppProtectionPreferenceFragment_minutes">
@@ -55,6 +56,14 @@
   <string name="DraftDatabase_Draft_video_snippet">(videó)</string>
   <string name="DraftDatabase_Draft_location_snippet">(hely)</string>
   <string name="DraftDatabase_Draft_quote_snippet">(válasz)</string>
+  <!--AttachmentKeyboard-->
+  <string name="AttachmentKeyboard_gallery">Galéria</string>
+  <string name="AttachmentKeyboard_gif">GIF</string>
+  <string name="AttachmentKeyboard_file">Fájl</string>
+  <string name="AttachmentKeyboard_contact">Névjegy</string>
+  <string name="AttachmentKeyboard_location">Hely</string>
+  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">A Signal-nak engedélyre van szüksége fotók és videók megjelenítéséhez.</string>
+  <string name="AttachmentKeyboard_give_access">Hozzáférés engedélyezése</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">Nem található alkalmazás médiafájl kiválasztásához.</string>
   <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">A Signal-nak szüksége van a Tárhely engedélyre, hogy fotókat, videókat vagy hangokat csatolhasson, de ez jelenleg meg van tagadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Tárhely\"-t.</string>
@@ -272,6 +281,7 @@
   <!--ConversationTitleView-->
   <string name="ConversationTitleView_verified">Megerősítve</string>
   <!--CreateProfileActivity-->
+  <string name="CreateProfileActivity__profile">Profil</string>
   <string name="CreateProfileActivity_error_setting_profile_photo">Hiba történt a profilkép beállítása során</string>
   <string name="CreateProfileActivity_problem_setting_profile">Probléma profil beállításakor</string>
   <string name="CreateProfileActivity_profile_photo">Profilkép</string>
@@ -453,7 +463,14 @@
   <string name="MediaOverviewActivity_sent_by_you">Te küldted</string>
   <string name="MediaOverviewActivity_sent_by_s_to_s">Küldte: %1$s, címzett: %2$s</string>
   <string name="MediaOverviewActivity_sent_by_you_to_s">Te küldted %1$s részére</string>
-  <!--- NotificationBarManager-->
+  <!--Megaphones-->
+  <string name="Megaphones_introducing_reactions">Bemutakoznak az üzenet kedvelések</string>
+  <string name="Megaphones_tap_and_hold_any_message_to_quicky_share_how_you_feel">Koppints és tartsd nyomva bármely üzenetet, hogy gyorsan reagálhass rá!</string>
+  <string name="Megaphones_remind_me_later">Emlékeztess később</string>
+  <string name="Megaphones_verify_your_signal_pin">Signal PIN kód hitelesítése</string>
+  <string name="Megaphones_well_occasionally_ask_you_to_verify_your_pin">Időnként megkérünk PIN kódod hitelesítésére, hogy biztosan ne felejtsd el.</string>
+  <string name="Megaphones_verify_pin">PIN hitelesítése</string>
+  <!--NotificationBarManager-->
   <string name="NotificationBarManager_signal_call_in_progress">Signal hívás folyamatban</string>
   <string name="NotificationBarManager__establishing_signal_call">Signal hívás létesítése</string>
   <string name="NotificationBarManager__incoming_signal_call">Bejövő Signal hívás</string>
@@ -558,6 +575,10 @@ Kérlek telepítsd újra a Google Play Szolgáltatásokat, majd próbáld újra!
   <string name="RatingManager_no_thanks">Nem, köszönöm</string>
   <string name="RatingManager_later">Később</string>
   <string name="RatingManager_whoops_the_play_store_app_does_not_appear_to_be_installed">Hoppá! Úgy tűnik, hogy a Play Áruház alkalmazás nincs telepítve a készülékedre.</string>
+  <!--ReactionsBottomSheetDialogFragment-->
+  <string name="ReactionsBottomSheetDialogFragment_all">Összes %1$d</string>
+  <!--ReactionsConversationView-->
+  <string name="ReactionsConversationView_plus">+%1$d</string>
   <!--RecipientPreferencesActivity-->
   <string name="RecipientPreferenceActivity_block_this_contact_question">Blokkolod ezt a kontaktot?</string>
   <string name="RecipientPreferenceActivity_you_will_no_longer_receive_messages_and_calls_from_this_contact">Többé nem kapsz üzeneteket és hívásokat ettől a kontakttól.</string>
@@ -650,6 +671,12 @@ szám (%s) érvénytelen.
   <string name="SharedContactView_add_to_contacts">Hozzáadás a névjegyzékhez</string>
   <string name="SharedContactView_invite_to_signal">Meghívás a Signal-ba</string>
   <string name="SharedContactView_message">Signal üzenet</string>
+  <!--SignalPinReminders-->
+  <string name="SignalPinReminders_well_remind_you_again_later">Később újra emlékeztetünk.</string>
+  <string name="SignalPinReminders_well_remind_you_again_tomorrow">Holnap újra emlékeztetni fogunk.</string>
+  <string name="SignalPinReminders_well_remind_you_again_in_a_few_days">Pár napon belül újra emlékeztetni fogunk.</string>
+  <string name="SignalPinReminders_well_remind_you_again_in_a_week">Egy héten belül újra emlékeztetni fogunk.</string>
+  <string name="SignalPinReminders_well_remind_you_again_in_a_couple_weeks">Pár héten belül újra emlékeztetni fogunk.</string>
   <!--Slide-->
   <string name="Slide_image">Kép</string>
   <string name="Slide_sticker">Matrica</string>
@@ -797,7 +824,14 @@ Kulcs-csere üzenet érkezett érvénytelen protokoll verzióhoz.
   <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Nyisd meg a Signal-t a legújabb értesítések megtekintéséhez!</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">Névjegy</string>
-  <!-- Removed by excludeNonTranslatables <string name="MessageNotifier_reacted_to_your_message">Reakció az üzenetedre: %1$s</string> -->
+  <string name="MessageNotifier_reacted_s_to_s">%1$s reakció erre: \"%2$s\"</string>
+  <string name="MessageNotifier_reacted_s_to_your_video">Reakció a videódra: %1$s</string>
+  <string name="MessageNotifier_reacted_s_to_your_image">Reakció a képedre: %1$s</string>
+  <string name="MessageNotifier_reacted_s_to_your_file">Reakció a fájlodra: %1$s</string>
+  <string name="MessageNotifier_reacted_s_to_your_audio">Reakció a hangfájlodra: %1$s</string>
+  <string name="MessageNotifier_reacted_s_to_your_view_once_photo">Reakció az egyszer megtekinthető fotódra: %1$s</string>
+  <string name="MessageNotifier_reacted_s_to_your_view_once_video">Reakció az egyszer megtekinthető videódra: %1$s</string>
+  <string name="MessageNotifier_reacted_s_to_your_sticker">Reakció a matricádra: %1$s</string>
   <!--Notification Channels-->
   <string name="NotificationChannel_messages">Alapértelmezett</string>
   <string name="NotificationChannel_calls">Hívások</string>
@@ -1405,6 +1439,95 @@ Kulcs-csere üzenet érkezett érvénytelen protokoll verzióhoz.
   <string name="SecondInviteReminder__description">%1$s meghívása</string>
   <string name="InsightsReminder__view_insights">Statisztikák megtekintése</string>
   <string name="InsightsReminder__invite">Meghívás</string>
+  <!--Edit KBS Pin-->
+  <!--BaseKbsPinFragment-->
+  <string name="BaseKbsPinFragment__next">Tovább</string>
+  <string name="BaseKbsPinFragment__create_alphanumeric_pin">Alfanumerikus PIN kód létrehozása</string>
+  <string name="BaseKbsPinFragment__create_numeric_pin">Számjegyekből álló PIN kód létrehozása</string>
+  <!--CreateKbsPinFragment-->
+  <plurals name="CreateKbsPinFragment__pin_must_be_at_least_characters">
+    <item quantity="one">A PIN kódnak legalább %1$d karakterből kell állnia.</item>
+    <item quantity="other">A PIN kódnak legalább %1$d karakterből kell állnia.</item>
+  </plurals>
+  <plurals name="CreateKbsPinFragment__pin_must_be_at_least_digits">
+    <item quantity="one">A PIN kódnak legalább %1$d számjegyből kell állnia.</item>
+    <item quantity="other">A PIN kódnak legalább %1$d számjegyből kell állnia.</item>
+  </plurals>
+  <string name="CreateKbsPinFragment__create_a_new_pin">Új PIN létrehozása</string>
+  <plurals name="CreateKbsPinFragment__you_can_choose_a_new_pin_because_this_device_is_registered">
+    <item quantity="one">Mivel ez a készülék regisztrálva van, ezért lehetőséged van új PIN kód választására. Ha elfelejted a kódodat, csak %1$d várakozást követően regisztrálhatsz újra.</item>
+    <item quantity="other">Mivel ez a készülék regisztrálva van, ezért lehetőséged van új PIN kód választására. Ha elfelejted a kódodat, csak %1$d várakozást követően regisztrálhatsz újra.</item>
+  </plurals>
+  <string name="CreateKbsPinFragment__create_your_pin">PIN létrehozása</string>
+  <!--ConfirmKbsPinFragment-->
+  <string name="ConfirmKbsPinFragment__pins_dont_match">A PIN kódok nem egyeznek. Próbáld újra!</string>
+  <string name="ConfirmKbsPinFragment__confirm_your_pin">PIN visszaellenőrzése.</string>
+  <string name="ConfirmKbsPinFragment__pin_creation_failed">PIN kód létrehozása sikertelen.</string>
+  <string name="ConfirmKbsPinFragment__your_pin_was_not_saved">A PIN kódodat nem sikerült elmenteni. Később újra megpróbálkozunk vele.</string>
+  <string name="ConfirmKbsPinFragment__pin_created">PIN kód létrehozva.</string>
+  <string name="ConfirmKbsPinFragment__re_enter_pin">PIN újraellenőrzése</string>
+  <string name="ConfirmKbsPinFragment__creating_pin">PIN létrehozása…</string>
+  <!--KbsSplashFragment-->
+  <string name="KbsSplashFragment__introducing_pins">A PIN kódok bemutatása</string>
+  <string name="KbsSplashFragment__pins_add_another_level_of_security_to_your_account">A PIN kódok extra védelmi réteget adnak fiókod védelméhez. Hozz létre egyet most!</string>
+  <string name="KbsSplashFragment__learn_more">Tudj meg többet</string>
+  <string name="KbsSplashFragment__registration_lock_equals_pin">Regisztrációs kód = PIN</string>
+  <string name="KbsSplashFragment__your_registration_lock_is_now_called_a_pin">A regisztrációs zárat mostantól PIN kódnak hívják, és többet tud. Frissítsd most!</string>
+  <string name="KbsSplashFragment__read_more_about_pins">Bővebben a PIN kódokról.</string>
+  <string name="KbsSplashFragment__update_pin">PIN kód frissítése</string>
+  <string name="KbsSplashFragment__create_your_pin">PIN létrehozása</string>
+  <!--KBS Reminder Dialog-->
+  <string name="KbsReminderDialog__enter_your_signal_pin">Add meg Signal PIN kódodat</string>
+  <string name="KbsReminderDialog__to_help_you_memorize_your_pin">A PIN kód megjegyzése érdekében időnként megkérünk annak begépelésére. Az idő múlásával ez egyre ritkábban fog megtörténni.</string>
+  <string name="KbsReminderDialog__skip">Kihagyás</string>
+  <string name="KbsReminderDialog__submit">Küldés</string>
+  <string name="KbsReminderDialog__forgot_pin">Elfelejtetted PIN kódodat?</string>
+  <string name="KbsReminderDialog__incorrect_pin_try_again">Hibás PIN kód. Próbáld újra!</string>
+  <!--AccountLockedFragment-->
+  <string name="AccountLockedFragment__account_locked">Fiók zárolva</string>
+  <string name="AccountLockedFragment__your_account_has_been_locked_to_protect_your_privacy">Biztonságod és személyes adataid védelme érdekében fiókodat zároltuk. %1$d nap inaktivitást követően újraregisztrálhatod ezt a telefonszámot a PIN kód használata nélkül. Az összes adat törlésre kerül.</string>
+  <string name="AccountLockedFragment__next">Tovább</string>
+  <string name="AccountLockedFragment__learn_more">Tudj meg többet</string>
+  <!--KbsLockFragment-->
+  <string name="RegistrationLockFragment__enter_your_pin">Add meg PIN kódodat</string>
+  <string name="RegistrationLockFragment__enter_the_pin_you_created">Gépeld be a fiókodhoz létrehozott PIN kódodat. Ez nem azonos az SMS-ben regisztrációkor kapott ellenőrző kóddal.</string>
+  <string name="RegistrationLockFragment__enter_alphanumeric_pin">Add meg az alfanumerikus PIN kódot</string>
+  <string name="RegistrationLockFragment__enter_numeric_pin">Add meg a számjegyekből álló PIN kódot</string>
+  <string name="RegistrationLockFragment__next">Tovább</string>
+  <string name="RegistrationLockFragment__incorrect_pin_try_again">Hibás PIN kód. Próbáld újra!</string>
+  <string name="RegistrationLockFragment__forgot_pin">Elfelejtetted PIN kódodat?</string>
+  <string name="RegistrationLockFragment__incorrect_pin">Hibás PIN</string>
+  <string name="RegistrationLockFragment__forgot_your_pin">Elfelejtett PIN?</string>
+  <string name="RegistrationLockFragment__not_many_tries_left">Nem maradt túl sok lehetőséged!</string>
+  <plurals name="RegistrationLockFragment__for_your_privacy_and_security_there_is_no_way_to_recover">
+    <item quantity="one">Személyes adataid védelme és biztonságod érdekében nincs lehetőség a PIN kód visszaállítására. Ha nem emlékszel PIN kódodra, SMS-ben újra megerősítheted telefonszámodat %1$d nap inaktivitást követően. Ebben az esetben fiókod és az összes kapcsolódó adat törlésre kerül.</item>
+    <item quantity="other">Személyes adataid védelme és biztonságod érdekében nincs lehetőség a PIN kód visszaállítására. Ha nem emlékszel PIN kódodra, SMS-ben újra megerősítheted telefonszámodat %1$d nap inaktivitást követően. Ebben az esetben fiókod és az összes kapcsolódó adat törlésre kerül.</item>
+  </plurals>
+  <plurals name="RegistrationLockFragment__incorrect_pin_d_attempts_remaining">
+    <item quantity="one">Hibás PIN kód. Még %1$d alkalommal próbálkozhatsz.</item>
+    <item quantity="other">Hibás PIN kód. Még %1$d alkalommal próbálkozhatsz.</item>
+  </plurals>
+  <plurals name="RegistrationLockFragment__if_you_run_out_of_attempts_your_account_will_be_locked_for_d_days">
+    <item quantity="one">Ha kifogysz a lehetséges próbálkozásokból, fiókodat %1$d napra zárolni fogjuk. %1$d nap inaktivitást követően újra regisztrálhatsz PIN kódod használata nélkül. A fiókod adatai és az összes kapcsolódó tartalom törölve lesz.</item>
+    <item quantity="other">Ha kifogysz a lehetséges próbálkozásokból, fiókodat %1$d napra zárolni fogjuk. %1$d nap inaktivitást követően újra regisztrálhatsz PIN kódod használata nélkül. A fiókod adatai és az összes kapcsolódó tartalom törölve lesz.</item>
+  </plurals>
+  <plurals name="RegistrationLockFragment__you_have_d_attempts_remaining">
+    <item quantity="one">Még %1$d alkalommal próbálkozhatsz.</item>
+    <item quantity="other">Még %1$d alkalommal próbálkozhatsz.</item>
+  </plurals>
+  <plurals name="RegistrationLockFragment__d_attempts_remaining">
+    <item quantity="one">%1$d lehetőséged maradt.</item>
+    <item quantity="other">%1$d lehetőséged maradt.</item>
+  </plurals>
+  <!--KBS Megaphone-->
+  <string name="KbsMegaphone__create_a_pin">PIN létrehozása</string>
+  <string name="KbsMegaphone__pins_add_another_layer_of_security_to_your_signal_account">A PIN kódok extra védelmi réteget adnak fiókod védelméhez.</string>
+  <string name="KbsMegaphone__create_pin">PIN létrehozása</string>
+  <string name="KbsMegaphone__introducing_pins">A PIN kódok bemutatása</string>
+  <string name="KbsMegaphone__your_registration_lock_is_now_called_a_pin">A regisztrációs zárat mostantól PIN kódnak hívják. A frissítés pár pillanatot vesz igénybe.</string>
+  <string name="KbsMegaphone__update_pin">PIN kód frissítése</string>
+  <string name="KbsMegaphone__well_remind_you_later_creating_a_pin">Később emlékeztetni fogunk. A PIN létrehozása %1$d nap múlva kötelező lesz.</string>
+  <string name="KbsMegaphone__well_remind_you_later_confirming_your_pin">Később emlékeztetni fogunk. A PIN megerősítése %1$d nap múlva kötelező lesz.</string>
   <!--transport_selection_list_item-->
   <string name="transport_selection_list_item__transport_icon">Átvitel ikon</string>
   <string name="ConversationListFragment_loading">Betöltés…</string>
@@ -1429,6 +1552,8 @@ Kulcs-csere üzenet érkezett érvénytelen protokoll verzióhoz.
   <string name="preferences_chats__chat_backups">Csevegések biztonsági mentése</string>
   <string name="preferences_chats__backup_chats_to_external_storage">Csevegések biztonsági mentése külső tárolóra</string>
   <string name="preferences_chats__create_backup">Biztonsági mentés létrehozása</string>
+  <string name="preferences_chats__verify_backup_passphrase">Biztonsági mentés jelmondatának megerősítése</string>
+  <string name="preferences_chats__test_your_backup_passphrase_and_verify_that_it_matches">Ellenőrizd, hogy a biztonsági mentés jelmondata megfelelő-e</string>
   <string name="RegistrationActivity_enter_backup_passphrase">Biztonsági mentés jelmondatának megadása</string>
   <string name="RegistrationActivity_restore">Visszaállítás</string>
   <string name="RegistrationActivity_backup_failure_downgrade">Nem sikerült beolvasni a Signal újabb verziójából származó biztonsági mentést</string>
@@ -1446,6 +1571,10 @@ Kulcs-csere üzenet érkezett érvénytelen protokoll verzióhoz.
   <string name="BackupDialog_disable_and_delete_all_local_backups">Letiltod és törlöd az összes helyi biztonsági mentést?</string>
   <string name="BackupDialog_delete_backups_statement">Biztonsági mentések törlése</string>
   <string name="BackupDialog_copied_to_clipboard">Vágólapra másolva</string>
+  <string name="BackupDialog_enter_backup_passphrase_to_verify">Add meg megerősítés céljából a biztonsági mentés jelmondatát</string>
+  <string name="BackupDialog_verify">Hitelesítés</string>
+  <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">A biztonsági mentés jelmondat megadása sikeres volt</string>
+  <string name="BackupDialog_passphrase_was_not_correct">A jelmondat nem megfelelő</string>
   <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">A Signal-nak szüksége van külső tárhely engedélyre annak érdekében, hogy biztonsági mentést hozhasson létre, de ez jelenleg nincs megadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Tárhely\"-t.</string>
   <string name="ChatsPreferenceFragment_last_backup_s">Utolsó biztonsági mentés: %s</string>
   <string name="ChatsPreferenceFragment_in_progress">Folyamatban</string>
@@ -1462,6 +1591,11 @@ Kulcs-csere üzenet érkezett érvénytelen protokoll verzióhoz.
   <string name="preferences_app_protection__screen_lock">Képernyőzár</string>
   <string name="preferences_app_protection__lock_signal_access_with_android_screen_lock_or_fingerprint">Signal-hoz való hozzáférés védelme Android képernyőzárral vagy ujjlenyomattal</string>
   <string name="preferences_app_protection__screen_lock_inactivity_timeout">Képernyő lezárása ennyi tétlenséget követően</string>
+  <string name="preferences_app_protection__signal_pin">Signal PIN</string>
+  <string name="preferences_app_protection__pin">PIN</string>
+  <string name="preferences_app_protection__change">Változtatás</string>
+  <string name="preferences_app_protection__create">Létrehozás</string>
+  <string name="preferences_app_protection__your_pin_adds_an_extra_layer_of_security_and_backs">A PIN kód növeli fiókod biztonságát. Minden olyan esetben meg kell adnod, amikor telefonszámodat a Signal-ra beregisztrálod. Amennyiben elfelejted PIN kódodat, 7 napra ki leszel tiltva fiókodból.</string>
   <string name="AppProtectionPreferenceFragment_none">Egyik sem</string>
   <string name="registration_activity__the_registration_lock_pin_is_not_the_same_as_the_sms_verification_code_you_just_received_please_enter_the_pin_you_previously_configured_in_the_application">A regisztrációs zár PIN nem ugyanaz, mint az SMS ellenőrző kód, amit az imént kaptál. Kérlek add meg a PIN kódot, amelyet korábban az alkalmazásban állítottál be!</string>
   <string name="registration_activity__registration_lock_pin">Regisztrációs zár PIN</string>
@@ -1475,6 +1609,7 @@ Kulcs-csere üzenet érkezett érvénytelen protokoll verzióhoz.
   <string name="preferences_app_protection__registration_lock_pin">Regisztrációs zár PIN kód</string>
   <string name="preferences_app_protection__registration_lock">Regisztrációs zár</string>
   <string name="RegistrationActivity_you_must_enter_your_registration_lock_PIN">Meg kell adnod a regisztrációs zár PIN kódodat</string>
+  <string name="RegistrationActivity_your_pin_has_at_least_d_digits_or_characters">A PIN kódnak legalább %d számjegyből vagy karakterből kell állnia.</string>
   <string name="RegistrationActivity_incorrect_registration_lock_pin">Hibás regisztrációs zár PIN kód</string>
   <string name="RegistrationActivity_too_many_attempts">Túl sok próbálkozás</string>
   <string name="RegistrationActivity_you_have_made_too_many_incorrect_registration_lock_pin_attempts_please_try_again_in_a_day">Túl sokszor próbáltad megadni regisztrációs zár PIN kódodat. Kérlek próbáld újra egy nap múlva!</string>

@@ -82,7 +82,7 @@
         tools:layout="@layout/fragment_registration_enter_code">
 
         <action
-            android:id="@+id/action_requireRegistrationLockPin"
+            android:id="@+id/action_requireKbsLockPin"
             app:destination="@id/registrationLockFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
@@ -109,13 +109,22 @@
             app:destination="@id/registrationCompletePlaceHolderFragment"
             app:popUpTo="@+id/welcomeFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_accountLocked"
+            app:destination="@id/accountLockedFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@+id/welcomeFragment"
+            app:popUpToInclusive="true" />
 
     </fragment>
 
     <fragment
         android:id="@+id/registrationLockFragment"
         android:name="org.thoughtcrime.securesms.registration.fragments.RegistrationLockFragment"
-        android:label="fragment_registration_lock"
+        android:label="fragment_kbs_lock"
         tools:layout="@layout/fragment_registration_lock">
 
         <action
@@ -128,11 +137,27 @@
             app:popUpTo="@+id/welcomeFragment"
             app:popUpToInclusive="true" />
 
+        <action
+            android:id="@+id/action_accountLocked"
+            app:destination="@id/accountLockedFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@+id/welcomeFragment"
+            app:popUpToInclusive="true" />
+
         <argument
             android:name="timeRemaining"
             app:argType="long" />
 
     </fragment>
+
+    <fragment
+        android:id="@+id/accountLockedFragment"
+        android:name="org.thoughtcrime.securesms.registration.fragments.AccountLockedFragment"
+        android:label="fragment_account_locked"
+        tools:layout="@layout/account_locked_fragment"/>
 
     <fragment
         android:id="@+id/captchaFragment"

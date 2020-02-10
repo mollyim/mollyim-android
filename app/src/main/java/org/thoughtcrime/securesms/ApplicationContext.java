@@ -57,6 +57,7 @@ import org.thoughtcrime.securesms.jobs.FcmRefreshJob;
 import org.thoughtcrime.securesms.jobs.MultiDeviceContactUpdateJob;
 import org.thoughtcrime.securesms.jobs.PushNotificationReceiveJob;
 import org.thoughtcrime.securesms.jobs.StickerPackDownloadJob;
+import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.logging.CustomSignalProtocolLogger;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.logging.LogManager;
@@ -193,6 +194,7 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
       FeatureFlags.refresh();
       executePendingContactSync();
       ApplicationDependencies.getFrameRateTracker().begin();
+      ApplicationDependencies.getMegaphoneRepository().onAppForegrounded();
     }
   }
 
@@ -304,6 +306,8 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
         InsightsOptOut.userRequestedOptOut(this);
         TextSecurePreferences.setAppMigrationVersion(this, ApplicationMigrations.CURRENT_VERSION);
         TextSecurePreferences.setJobManagerVersion(this, JobManager.CURRENT_VERSION);
+        ApplicationDependencies.getMegaphoneRepository().onFirstEverAppLaunch();
+        SignalStore.registrationValues().onNewInstall();
         ApplicationDependencies.getJobManager().add(StickerPackDownloadJob.forInstall(BlessedPacks.ZOZO.getPackId(), BlessedPacks.ZOZO.getPackKey(), false));
         ApplicationDependencies.getJobManager().add(StickerPackDownloadJob.forInstall(BlessedPacks.BANDIT.getPackId(), BlessedPacks.BANDIT.getPackKey(), false));
       }

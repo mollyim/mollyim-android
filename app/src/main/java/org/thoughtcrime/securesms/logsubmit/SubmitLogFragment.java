@@ -64,6 +64,7 @@ import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.logging.LogManager;
 import org.thoughtcrime.securesms.logsubmit.util.Scrubber;
+import org.thoughtcrime.securesms.service.KeyCachingService;
 import org.thoughtcrime.securesms.util.BucketInfo;
 import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.FrameRateTracker;
@@ -79,7 +80,6 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -380,10 +380,7 @@ public class SubmitLogFragment extends Fragment {
         scrubbedLogcat = "Failed to retrieve logs.";
       }
 
-      CharSequence scrubbedJobs = "None";
-      try {
-        scrubbedJobs = Scrubber.scrub(ApplicationDependencies.getJobManager().getDebugInfo());
-      } catch (IllegalStateException ignored) {}
+      CharSequence scrubbedJobs = KeyCachingService.isLocked() ? "None" : Scrubber.scrub(ApplicationDependencies.getJobManager().getDebugInfo());
 
       StringBuilder stringBuilder = new StringBuilder();
 
@@ -537,10 +534,7 @@ public class SubmitLogFragment extends Fragment {
     final PackageManager pm      = context.getPackageManager();
     final StringBuilder  builder = new StringBuilder();
 
-    double averageFps = 0;
-    try {
-      averageFps = ApplicationDependencies.getFrameRateTracker().getRunningAverageFps();
-    } catch (IllegalStateException ignored) {}
+    double averageFps = KeyCachingService.isLocked() ? 0 : ApplicationDependencies.getFrameRateTracker().getRunningAverageFps();
 
     builder.append("Time         : ").append(System.currentTimeMillis()).append('\n');
     builder.append("Device       : ").append(Build.MANUFACTURER).append(" ")
@@ -627,20 +621,31 @@ public class SubmitLogFragment extends Fragment {
 
   private static CharSequence buildFlags() {
     StringBuilder        out          = new StringBuilder();
-    Map<String, Boolean> remote       = FeatureFlags.getRemoteValues();
+    Map<String, Boolean> memory       = FeatureFlags.getMemoryValues();
+    Map<String, Boolean> disk         = KeyCachingService.isLocked() ? Collections.emptyMap() : FeatureFlags.getDiskValues();
     Map<String, Boolean> forced       = FeatureFlags.getForcedValues();
-    int                  remoteLength = Stream.of(remote.keySet()).map(String::length).max(Integer::compareTo).orElse(0);
-    int                  forcedLength = Stream.of(forced.keySet()).map(String::length).max(Integer::compareTo).orElse(0);
+    int                  remoteLength = Stream.of(memory.keySet()).map(String::length).max(Integer::compareTo).orElse(0);
+    int                  forcedLength = Stream.of(disk.keySet()).map(String::length).max(Integer::compareTo).orElse(0);
 
-    out.append("-- Remote\n");
-    for (Map.Entry<String, Boolean> entry : remote.entrySet()) {
+    out.append("-- Memory\n");
+    for (Map.Entry<String, Boolean> entry : memory.entrySet()) {
       out.append(Util.rightPad(entry.getKey(), remoteLength)).append(": ").append(entry.getValue()).append("\n");
     }
     out.append("\n");
 
-    out.append("-- Forced\n");
-    for (Map.Entry<String, Boolean> entry : forced.entrySet()) {
+    out.append("-- Disk\n");
+    for (Map.Entry<String, Boolean> entry : disk.entrySet()) {
       out.append(Util.rightPad(entry.getKey(), forcedLength)).append(": ").append(entry.getValue()).append("\n");
+    }
+    out.append("\n");
+
+    out.append("-- Forced\n");
+    if (forced.isEmpty()) {
+      out.append("None\n");
+    } else {
+      for (Map.Entry<String, Boolean> entry : forced.entrySet()) {
+        out.append(Util.rightPad(entry.getKey(), forcedLength)).append(": ").append(entry.getValue()).append("\n");
+      }
     }
 
     return out;

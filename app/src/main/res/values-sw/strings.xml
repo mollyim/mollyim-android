@@ -42,6 +42,7 @@
   <string name="ApplicationPreferencesActivity_Off">Zima</string>
   <string name="ApplicationPreferencesActivity_sms_mms_summary">Ujumbe mfupi wa simu %1$s, Ujumbe mfupi wa picha %2$s</string>
   <string name="ApplicationPreferencesActivity_privacy_summary">Kifunga skrini%1$s, Kifunga usajili %2$s</string>
+  <string name="ApplicationPreferencesActivity_privacy_summary_screen_lock">Kifunga Skrini %1$s</string>
   <string name="ApplicationPreferencesActivity_appearance_summary">Mandhari %1$s, Lugha %2$s</string>
   <!--AppProtectionPreferenceFragment-->
   <plurals name="AppProtectionPreferenceFragment_minutes">
@@ -54,6 +55,14 @@
   <string name="DraftDatabase_Draft_video_snippet">(video)</string>
   <string name="DraftDatabase_Draft_location_snippet">(eneo)</string>
   <string name="DraftDatabase_Draft_quote_snippet">(jibu)</string>
+  <!--AttachmentKeyboard-->
+  <string name="AttachmentKeyboard_gallery">Picha</string>
+  <string name="AttachmentKeyboard_gif">GIF</string>
+  <string name="AttachmentKeyboard_file">Faili</string>
+  <string name="AttachmentKeyboard_contact">Mwasiliani</string>
+  <string name="AttachmentKeyboard_location">Eneo</string>
+  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Signal inahitaji ruhusa ili kuonyesha picha zako na video.</string>
+  <string name="AttachmentKeyboard_give_access">Ruhusu</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">Haiwezi kupata programu ya kuchagua media</string>
   <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signal inahitaji idhini ya Hifadhi ili kuunganisha picha, video, au sauti, lakini imekataliwa kabisa. Tafadhali endelea kwenye orodha ya mipangilio ya programu, chagua \"Ruhusa\", na uwezesha \"Hifadhi\".</string>
@@ -270,6 +279,7 @@
   <!--ConversationTitleView-->
   <string name="ConversationTitleView_verified">Imethibitishwa</string>
   <!--CreateProfileActivity-->
+  <string name="CreateProfileActivity__profile">Wasifa</string>
   <string name="CreateProfileActivity_error_setting_profile_photo">Hitilafu kuweka picha ya wasifu</string>
   <string name="CreateProfileActivity_problem_setting_profile">Hitilafu kuweka wasifu</string>
   <string name="CreateProfileActivity_profile_photo">Picha ya wasifu</string>
@@ -452,7 +462,11 @@ Gusa ikoni hii kwenye kicharazio chako:</string>
   <string name="MediaOverviewActivity_sent_by_you">Uliyotuma</string>
   <string name="MediaOverviewActivity_sent_by_s_to_s">Umetumwa na %1$s kwa %2$s</string>
   <string name="MediaOverviewActivity_sent_by_you_to_s">Umetumwa na wewe kwa %1$s</string>
-  <!--- NotificationBarManager-->
+  <!--Megaphones-->
+  <string name="Megaphones_introducing_reactions">Kuzindua hisia</string>
+  <string name="Megaphones_tap_and_hold_any_message_to_quicky_share_how_you_feel">Donoa na ushikilie ujumbe wowote ili kwa haraka ushiriki unavyohisi.</string>
+  <string name="Megaphones_remind_me_later">Nikumbushe baadaye</string>
+  <!--NotificationBarManager-->
   <string name="NotificationBarManager_signal_call_in_progress">Simu ya Signal inaendelea</string>
   <string name="NotificationBarManager__establishing_signal_call">Inaanzisha simu ya Signal</string>
   <string name="NotificationBarManager__incoming_signal_call">Simu ya Signal inayoingia</string>
@@ -557,6 +571,10 @@ Signal inahitaji ruhusa ya Kamera ili kuskani msimbo wa QR, lakini imekataliwa k
   <string name="RatingManager_no_thanks">Hapana nashukuru</string>
   <string name="RatingManager_later">Baadaye</string>
   <string name="RatingManager_whoops_the_play_store_app_does_not_appear_to_be_installed">Duh, programu ya Play Store inaonekana haijasakinishwa kwenye kifaa chako.</string>
+  <!--ReactionsBottomSheetDialogFragment-->
+  <string name="ReactionsBottomSheetDialogFragment_all">Zote%1$d</string>
+  <!--ReactionsConversationView-->
+  <string name="ReactionsConversationView_plus">+%1$d</string>
   <!--RecipientPreferencesActivity-->
   <string name="RecipientPreferenceActivity_block_this_contact_question">Zuia mwasiliani huyu?</string>
   <string name="RecipientPreferenceActivity_you_will_no_longer_receive_messages_and_calls_from_this_contact">Hautapokea tena ujumbe na simu kutoka kwa mwasiliani huyu</string>
@@ -644,6 +662,7 @@ nambari yako ya simu</string>
   <string name="SharedContactView_add_to_contacts">Ongeza kwa wawasiliani</string>
   <string name="SharedContactView_invite_to_signal">Mwalike kwenye Signal</string>
   <string name="SharedContactView_message">Ujumbe wa Signal</string>
+  <!--SignalPinReminders-->
   <!--Slide-->
   <string name="Slide_image">Picha</string>
   <string name="Slide_sticker">Kibandiko</string>
@@ -788,7 +807,14 @@ nambari yako ya simu</string>
   <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Fungua Signal kuangalia taarifa mpya</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">Mawasiliano</string>
-  <!-- Removed by excludeNonTranslatables <string name="MessageNotifier_reacted_to_your_message">Alitoa hisia kwa ujumbe wako: %1$s</string> -->
+  <string name="MessageNotifier_reacted_s_to_s">Ametoa hisia %1$skwa: \"%2$s\".</string>
+  <string name="MessageNotifier_reacted_s_to_your_video">Ametoa hisia%1$s kwa video yako.</string>
+  <string name="MessageNotifier_reacted_s_to_your_image">Ametoa hisia%1$s kwa picha yako.</string>
+  <string name="MessageNotifier_reacted_s_to_your_file">Ametoa hisia %1$s kwa faili yako.</string>
+  <string name="MessageNotifier_reacted_s_to_your_audio">Ametoa hisia %1$s kwa sauti yako.</string>
+  <string name="MessageNotifier_reacted_s_to_your_view_once_photo">Ametoa hisia %1$s kwa picha yako ya mtazamo-mmoja.</string>
+  <string name="MessageNotifier_reacted_s_to_your_view_once_video">Ametoa hisia %1$s kwa video yako ya mtazamo-mmoja.</string>
+  <string name="MessageNotifier_reacted_s_to_your_sticker">Ametoa hisia%1$s kwa kibandiko chako.</string>
   <!--Notification Channels-->
   <string name="NotificationChannel_messages">Chaguo Msingi</string>
   <string name="NotificationChannel_calls">Simu</string>
@@ -1397,6 +1423,97 @@ nambari yako ya simu</string>
   <string name="SecondInviteReminder__description">Alika %1$s</string>
   <string name="InsightsReminder__view_insights">Tazama Ufahamu</string>
   <string name="InsightsReminder__invite">Alika</string>
+  <!--Edit KBS Pin-->
+  <!--BaseKbsPinFragment-->
+  <string name="BaseKbsPinFragment__next">Ifuatayo</string>
+  <string name="BaseKbsPinFragment__create_alphanumeric_pin">Unda Nenosiri lenye herufi na nambari</string>
+  <string name="BaseKbsPinFragment__create_numeric_pin">Unda Nenosiri lenye nambari</string>
+  <!--CreateKbsPinFragment-->
+  <plurals name="CreateKbsPinFragment__pin_must_be_at_least_characters">
+    <item quantity="one">PINI lazima iwe na angalau alama %1$d</item>
+    <item quantity="other">Nenosiri lazima liwe na angalau vibambo %1$d</item>
+  </plurals>
+  <plurals name="CreateKbsPinFragment__pin_must_be_at_least_digits">
+    <item quantity="one">PINI lazima iwe na angalau herufi %1$d</item>
+    <item quantity="other">Nenosiro lazima liwe na angalau nambari %1$d</item>
+  </plurals>
+  <string name="CreateKbsPinFragment__create_a_new_pin">Unda Nenosiri jipya</string>
+  <plurals name="CreateKbsPinFragment__you_can_choose_a_new_pin_because_this_device_is_registered">
+    <item quantity="one">Unaweza kuchagua PINI mpya kwa sababu kifaa hiki kimesajiliwa. Kama utasahau PINI yako, unaweza kungoja baada ya siku %1$d ili kusajili upya tena.</item>
+    <item quantity="other">Unaweza kuchagua Nenosiri jipya kwa sababu kifaa hiki kimesajiliwa. Iwapo utasahau Nenosiri lako, utahitajika kusubiri%1$d ili kusajili upya tena.</item>
+  </plurals>
+  <string name="CreateKbsPinFragment__create_your_pin">Unda Nenosiri lako</string>
+  <!--ConfirmKbsPinFragment-->
+  <string name="ConfirmKbsPinFragment__pins_dont_match">Nenosiri hazifanani. Jaribu tena.</string>
+  <string name="ConfirmKbsPinFragment__confirm_your_pin">Thibitisha Nenosiri lako.</string>
+  <string name="ConfirmKbsPinFragment__pin_creation_failed">Uundaji Nenosiri umefeli</string>
+  <string name="ConfirmKbsPinFragment__your_pin_was_not_saved">Nenosiri lako halikuhifadhiwa. Tutakuarifu baadaye uliunde tena</string>
+  <string name="ConfirmKbsPinFragment__pin_created">Nenosiri limeundwa</string>
+  <string name="ConfirmKbsPinFragment__re_enter_pin">Ingiza tena Nenosiri</string>
+  <string name="ConfirmKbsPinFragment__creating_pin">Inaunda Nenosiri…</string>
+  <!--KbsSplashFragment-->
+  <string name="KbsSplashFragment__introducing_pins">Uanzishaji Nenosiri</string>
+  <string name="KbsSplashFragment__pins_add_another_level_of_security_to_your_account">Nenosiri huongeza safu zaidi ya usalama kwenye akaunti yako. Unda moja sasa.</string>
+  <string name="KbsSplashFragment__learn_more">Jifunze Zaidi</string>
+  <string name="KbsSplashFragment__learn_more_link">https://support.signal.org/hc/en-us/articles/360007059792-Registration-Lock</string>
+  <string name="KbsSplashFragment__registration_lock_equals_pin">Kufuli ya Usajili = Nenosiri</string>
+  <string name="KbsSplashFragment__your_registration_lock_is_now_called_a_pin">Kifunga usajili wako sasa kinaitwa Nenosiri, na kinafanya mengi zaidi. Kisasishe sasa.</string>
+  <string name="KbsSplashFragment__read_more_about_pins">Soma zaidi kuhusu Nenosiri</string>
+  <string name="KbsSplashFragment__update_pin">Sasisha Nenosiri</string>
+  <string name="KbsSplashFragment__create_your_pin">Unda Nenosiri lako</string>
+  <!--KBS Reminder Dialog-->
+  <string name="KbsReminderDialog__enter_your_signal_pin">Ingiza Nenosiri lako ya Signal</string>
+  <string name="KbsReminderDialog__to_help_you_memorize_your_pin">Ili kukusaidia kukariri Nenosiri lako, tutakuuliza uliingize mara kwa mara. Tunapunguza kukuuliza baada ya muda.</string>
+  <string name="KbsReminderDialog__skip">Ruka</string>
+  <string name="KbsReminderDialog__submit">Wasilisha</string>
+  <string name="KbsReminderDialog__forgot_pin">Umesahau Nenosiri?</string>
+  <string name="KbsReminderDialog__incorrect_pin_try_again">Nenosiri sio sahihi. Jaribu tena.</string>
+  <!--AccountLockedFragment-->
+  <string name="AccountLockedFragment__account_locked">Akaunti imefungwa</string>
+  <string name="AccountLockedFragment__your_account_has_been_locked_to_protect_your_privacy">Akaunti yako imefungwa ili kulinda faragha yako na usalama wako. Baada ya siku %1$d bila shughuli kwenye akaunti yako utaweza kusajili upya nambari hii ya simu bila kuhitaji Nenosiri lako. Yote yaliyomo yatafutwa.</string>
+  <string name="AccountLockedFragment__next">Ifuatayo</string>
+  <string name="AccountLockedFragment__learn_more">Jifunze Zaidi</string>
+  <string name="AccountLockedFragment__learn_more_url">https://support.signal.org/hc/en-us/articles/360007059792-Registration-Lock</string>
+  <!--KbsLockFragment-->
+  <string name="RegistrationLockFragment__enter_your_pin">Ingiza Nenosiri lako</string>
+  <string name="RegistrationLockFragment__enter_the_pin_you_created">Ingiza Nenosiri ulilobuni kwa hii akaunti. Hii ni tofauti na nambari za kuthibitisha kupitia Ujumbe mfupi.</string>
+  <string name="RegistrationLockFragment__enter_alphanumeric_pin">Ingiza Nenosiri la herufi na nambari</string>
+  <string name="RegistrationLockFragment__enter_numeric_pin">Ingiza Nenosiri lenye nambari </string>
+  <string name="RegistrationLockFragment__next">Ifuatayo</string>
+  <string name="RegistrationLockFragment__incorrect_pin_try_again">Nenosiri sio sahihi. Jaribu tena.</string>
+  <string name="RegistrationLockFragment__forgot_pin">Umesahau Nenosiri?</string>
+  <string name="RegistrationLockFragment__incorrect_pin">Nenosiri sio sahihi</string>
+  <string name="RegistrationLockFragment__forgot_your_pin">Umesahau Nenosiri lako?</string>
+  <string name="RegistrationLockFragment__not_many_tries_left">Sio majaribio mengi yaliyosalia!</string>
+  <plurals name="RegistrationLockFragment__for_your_privacy_and_security_there_is_no_way_to_recover">
+    <item quantity="one">Kwa ajili ya faragha yako na usalama wako, hamna njia yoyote ya kuokoa PINI yako. Kama hukumbuki PINI yako, unaweza kuhakikisha kupitia Ujumbe Mfupi baada ya siku %1$d ya kimya. Katika kesi hii, akaunti yako itafutwa na yote yaliyomo kufutwa.</item>
+    <item quantity="other">Kwa faragha yako na usalama wako, hamna njia yoyote ya kupata tena Nenosiri lako. Iwapo hukumbuki Nenosiri, unaweza kuhakikisha kupitia Ujumbe Mfupi baada ya siku %1$d bila shughuli. Kwenye tukio kama hili, akaunti yako itafutwa na yote yaliyomo kufutwa.</item>
+  </plurals>
+  <plurals name="RegistrationLockFragment__incorrect_pin_d_attempts_remaining">
+    <item quantity="one">PINI si sahihi. Jaribio %1$d limebaki.</item>
+    <item quantity="other">Nenosiri sio sahihi. Majaribio %1$d yamesalia</item>
+  </plurals>
+  <plurals name="RegistrationLockFragment__if_you_run_out_of_attempts_your_account_will_be_locked_for_d_days">
+    <item quantity="one">Kama majaribio yako yataisha akaunti yako itafungwa kwa siku %1$d. Baada ya siku %1$d ya kimya, unaweza kusajili upya bila PINI yako. Akaunti yako itafutwa na yote yaliyomo kufutwa.</item>
+    <item quantity="other">Iwapo majaribio yako yataisha akaunti yako itafungwa kwa siku %1$d. Baada ya siku %1$d bila shuguli, unaweza kusajili upya bila Nenosiri lako. Akaunti yako itafutwa na yote yaliyomo kufutwa.</item>
+  </plurals>
+  <plurals name="RegistrationLockFragment__you_have_d_attempts_remaining">
+    <item quantity="one">Una jaribio %1$d lililobakia.</item>
+    <item quantity="other">Una majaribio %1$d yaliyosalia</item>
+  </plurals>
+  <plurals name="RegistrationLockFragment__d_attempts_remaining">
+    <item quantity="one">Jaribio %1$d lililobakia.</item>
+    <item quantity="other">Majaribio %1$d yamesalia</item>
+  </plurals>
+  <!--KBS Megaphone-->
+  <string name="KbsMegaphone__create_a_pin">Unda Nenosiri</string>
+  <string name="KbsMegaphone__pins_add_another_layer_of_security_to_your_signal_account">Nenosiri huongeza safu nyingine ya usalama kwenye akaunti yako ya Signal.</string>
+  <string name="KbsMegaphone__create_pin">Unda Nenosiri</string>
+  <string name="KbsMegaphone__introducing_pins">Kuanzisha Nenosiri</string>
+  <string name="KbsMegaphone__your_registration_lock_is_now_called_a_pin">Kifunga usajili wako sasa kinaitwa Nenosiri. Kukisasisha kunachukua sekunde </string>
+  <string name="KbsMegaphone__update_pin">Sasisha Nenosiri</string>
+  <string name="KbsMegaphone__well_remind_you_later_creating_a_pin">Tutakukumbusha baadaye. Kuunda Nenosiri kutakuwa lazima baada ya siku %1$d.</string>
+  <string name="KbsMegaphone__well_remind_you_later_confirming_your_pin">Tutakukumbusha baadaye. Kuthibitisha Nenosiri lako kutakuwa ni lazima baada ya siku %1$d.</string>
   <!--transport_selection_list_item-->
   <string name="transport_selection_list_item__transport_icon">Ikoni ya usafiri</string>
   <string name="ConversationListFragment_loading">Inafunguka</string>
@@ -1421,6 +1538,8 @@ nambari yako ya simu</string>
   <string name="preferences_chats__chat_backups">Nakalahifadhi ya Gumzo</string>
   <string name="preferences_chats__backup_chats_to_external_storage">Nakili Gumzo kwa hifadhi ya nje</string>
   <string name="preferences_chats__create_backup">Unda nakalahifadhi</string>
+  <string name="preferences_chats__verify_backup_passphrase">Hakikisha kifungu maneno cha nakilihifadhi</string>
+  <string name="preferences_chats__test_your_backup_passphrase_and_verify_that_it_matches">Jaribu kifungu maneno chako cha nakilihifadhi na uhakikishe kinalingana</string>
   <string name="RegistrationActivity_enter_backup_passphrase">ingiza nenosiri la nakalahifadhi</string>
   <string name="RegistrationActivity_restore">Rejesha</string>
   <string name="RegistrationActivity_backup_failure_downgrade">Haiwezi kuingiza nakalahifadhi kutoka kwa matoleo mapya ya Signal</string>
@@ -1438,6 +1557,10 @@ nambari yako ya simu</string>
   <string name="BackupDialog_disable_and_delete_all_local_backups">Lemaza na futa nakalahifadhi zote za ndani?</string>
   <string name="BackupDialog_delete_backups_statement">Futa nakalahifadhi</string>
   <string name="BackupDialog_copied_to_clipboard">Imenakiliwa kwenye bodi ya kunakili</string>
+  <string name="BackupDialog_enter_backup_passphrase_to_verify">Ingiza kifungu maneno chako cha nakilihifadhi ili kuhakikisha</string>
+  <string name="BackupDialog_verify">Hakikisha</string>
+  <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">Umefaulu kuweka kifungu maneno chako cha nakilihifadhi</string>
+  <string name="BackupDialog_passphrase_was_not_correct">Kifungu maneno hakikuwa sahihi</string>
   <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal inahitaji idhini ya hifadhi ya nje ili kuunda nakalahifadhi, lakini imekataliwa kabisa. Tafadhali endelea kwenye mipangilio ya programu, chagua \"Ruhusa\" na uwezeshe \"Hifadhi\".</string>
   <string name="ChatsPreferenceFragment_last_backup_s">Nakalahifadhi ya mwisho: 1%s</string>
   <string name="ChatsPreferenceFragment_in_progress">Inaendelea</string>
@@ -1455,6 +1578,11 @@ nambari yako ya simu</string>
   <string name="preferences_app_protection__lock_signal_access_with_android_screen_lock_or_fingerprint">
 Funga ufikiaji wa Signal na ufungaji wa Android au alama za vidole</string>
   <string name="preferences_app_protection__screen_lock_inactivity_timeout">Muda wa kuisha Screen Lock isipokuwa na shughuli</string>
+  <string name="preferences_app_protection__signal_pin">Nenosiri la Signal</string>
+  <string name="preferences_app_protection__pin">Nenosiri</string>
+  <string name="preferences_app_protection__change">Badilisha</string>
+  <string name="preferences_app_protection__create">Unda</string>
+  <string name="preferences_app_protection__your_pin_adds_an_extra_layer_of_security_and_backs">Nenosiri lako linaongeza safu mpya ya usalama na linahifadhi nakili ya akaunti yako. Utaitishwa utakaposajili nambari yako ya simu kwenye Signal. Ukisahau Nenosiri lako, utafungiwa nje ya akaunti yako kwa siku saba.</string>
   <string name="AppProtectionPreferenceFragment_none">Hakuna</string>
   <string name="registration_activity__the_registration_lock_pin_is_not_the_same_as_the_sms_verification_code_you_just_received_please_enter_the_pin_you_previously_configured_in_the_application">Nambari ya PIN ya Usajili si sawa na msimbo wa uthibitisho wa SMS unayopokea tu. Tafadhali ingiza PIN uliyoiweka hapo awali katika programu.</string>
   <string name="registration_activity__registration_lock_pin">Nenosiri la usajili</string>
@@ -1468,6 +1596,7 @@ Funga ufikiaji wa Signal na ufungaji wa Android au alama za vidole</string>
   <string name="preferences_app_protection__registration_lock_pin">Lock PIN ya usajili</string>
   <string name="preferences_app_protection__registration_lock">Lock ya usajili</string>
   <string name="RegistrationActivity_you_must_enter_your_registration_lock_PIN">Ni lazima uingize Lock PIN yako ya usajili</string>
+  <string name="RegistrationActivity_your_pin_has_at_least_d_digits_or_characters">Nenosiri lako lina angalau nambari au vibambo %d</string>
   <string name="RegistrationActivity_incorrect_registration_lock_pin">Lock PIN ya usajili sio sahihi</string>
   <string name="RegistrationActivity_too_many_attempts">Majaribio mengi mno</string>
   <string name="RegistrationActivity_you_have_made_too_many_incorrect_registration_lock_pin_attempts_please_try_again_in_a_day">Umefanya majaribio mengi ya PIN ya Usajili yasio sahihi. Tafadhali jaribu tena baada ya siku.</string>

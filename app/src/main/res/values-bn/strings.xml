@@ -55,6 +55,12 @@
   <string name="DraftDatabase_Draft_video_snippet">(ভিডিও)</string>
   <string name="DraftDatabase_Draft_location_snippet">(স্থান)</string>
   <string name="DraftDatabase_Draft_quote_snippet">(উত্তর)</string>
+  <!--AttachmentKeyboard-->
+  <string name="AttachmentKeyboard_gallery">গ্যাল্যারি</string>
+  <string name="AttachmentKeyboard_gif">জিফ</string>
+  <string name="AttachmentKeyboard_file">ফাইল</string>
+  <string name="AttachmentKeyboard_contact">পরিচিতি</string>
+  <string name="AttachmentKeyboard_location">স্থান</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">মিডিয়া নির্বাচন করার জন্য কোন অ্যাপ খুঁজে পাওয়া যায়নি।</string>
   <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">ছবি, ভিডিও অথবা অডিও সংযুক্ত করার জন্য Signal এর স্টোরেজ ব্যাবহারের অনুমতির প্রয়োজন কিন্তু এর উপর স্থায়ী নিষেধাজ্ঞা জারি করা হয়েছে। দয়া করে আ্যপ সেটিংস-এ যান, \"অনুমতি\" নির্বাচন করুন এবং \"স্টোরেজ\"  সক্ষম করুন।</string>
@@ -271,6 +277,7 @@
   <!--ConversationTitleView-->
   <string name="ConversationTitleView_verified">যাচাইকৃত</string>
   <!--CreateProfileActivity-->
+  <string name="CreateProfileActivity__profile">প্রোফাইল</string>
   <string name="CreateProfileActivity_error_setting_profile_photo">প্রোফাইলের ছবি সেট করতে সমস্যা হয়েছে</string>
   <string name="CreateProfileActivity_problem_setting_profile">প্রোফাইল সেট করতে সমস্যা হয়েছে</string>
   <string name="CreateProfileActivity_profile_photo">প্রোফাইলের ছবি</string>
@@ -452,7 +459,9 @@
   <string name="MediaOverviewActivity_sent_by_you">আপনার প্রেরিত</string>
   <string name="MediaOverviewActivity_sent_by_s_to_s">%1$s দ্বারা %2$s কে প্রেরিত</string>
   <string name="MediaOverviewActivity_sent_by_you_to_s">%1$sকে আপনার প্রেরিত </string>
-  <!--- NotificationBarManager-->
+  <!--Megaphones-->
+  <string name="Megaphones_remind_me_later">আমাকে পরে মনে করিয়ে দিবেন</string>
+  <!--NotificationBarManager-->
   <string name="NotificationBarManager_signal_call_in_progress">Signal কল চলমান </string>
   <string name="NotificationBarManager__establishing_signal_call">Signal কল স্থাপন করা হচ্ছে</string>
   <string name="NotificationBarManager__incoming_signal_call">আগত Signal কল</string>
@@ -555,6 +564,8 @@
   <string name="RatingManager_no_thanks">না ধন্যবাদ</string>
   <string name="RatingManager_later">পরবর্তীতে</string>
   <string name="RatingManager_whoops_the_play_store_app_does_not_appear_to_be_installed">ওহো, প্লে স্টোর অ্যাপ আপনার ডিভাইস এ ইনস্টল করা আছে বলে মনে হচ্ছে না।</string>
+  <!--ReactionsBottomSheetDialogFragment-->
+  <!--ReactionsConversationView-->
   <!--RecipientPreferencesActivity-->
   <string name="RecipientPreferenceActivity_block_this_contact_question">এই পরিচিতিটি ব্লক করবেন?</string>
   <string name="RecipientPreferenceActivity_you_will_no_longer_receive_messages_and_calls_from_this_contact">আপনি এই পরিচিতি থেকে বার্তা এবং কল সমূহ গ্রহণ করতে পারবেন না।</string>
@@ -644,6 +655,7 @@
   <string name="SharedContactView_add_to_contacts">পরিচিতিতে যুক্ত করুন</string>
   <string name="SharedContactView_invite_to_signal">Signal এ আমন্ত্রণ জানান</string>
   <string name="SharedContactView_message">Signal বার্তা</string>
+  <!--SignalPinReminders-->
   <!--Slide-->
   <string name="Slide_image">ছবি</string>
   <string name="Slide_sticker">স্টিকার</string>
@@ -789,7 +801,14 @@
   <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">সাম্প্রতিক বিজ্ঞপ্তিগুলি দেখার জন্য Signal খুলুন।</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">পরিচিতি</string>
-  <!-- Removed by excludeNonTranslatables <string name="MessageNotifier_reacted_to_your_message">আপনার বার্তায় প্রতিক্রিয়া জানিয়েছে: %1$s</string> -->
+  <string name="MessageNotifier_reacted_s_to_s"> \"%2$s\" তে %1$s প্রতিক্রিয়া|</string>
+  <string name="MessageNotifier_reacted_s_to_your_video">আপনার ভিডিওতে %1$s প্রতিক্রিয়া জানিয়েছে|</string>
+  <string name="MessageNotifier_reacted_s_to_your_image">আপনার চিত্রে %1$s প্রতিক্রিয়া জানিয়েছে|</string>
+  <string name="MessageNotifier_reacted_s_to_your_file">আপনার ফাইলে %1$s প্রতিক্রিয়া জানিয়েছে|</string>
+  <string name="MessageNotifier_reacted_s_to_your_audio">আপনার অডিওতে %1$s প্রতিক্রিয়া জানিয়েছে|</string>
+  <string name="MessageNotifier_reacted_s_to_your_view_once_photo">আপনার একবার দেখার যোগ্য ছবিতে %1$s প্রতিক্রিয়া জানিয়েছে|</string>
+  <string name="MessageNotifier_reacted_s_to_your_view_once_video">আপনার একবার দেখার যোগ্য ভিডিওতে %1$s প্রতিক্রিয়া জানিয়েছে|</string>
+  <string name="MessageNotifier_reacted_s_to_your_sticker">আপনার স্টিকারে %1$s প্রতিক্রিয়া জানিয়েছে|</string>
   <!--Notification Channels-->
   <string name="NotificationChannel_messages">সচারচর</string>
   <string name="NotificationChannel_calls">কল সমূহ</string>
@@ -1046,6 +1065,8 @@
   <string name="prompt_mms_activity__signal_requires_mms_settings_to_deliver_media_and_group_messages">আপনার ওয়্যারলেস ক্যারিয়ারের মাধ্যমে মিডিয়া এবং গ্রুপ বার্তাগুলি সরবরাহ করার জন্য সিগন্যালের এমএমএস সেটিংস প্রয়োজন। আপনার ডিভাইসএ এই তথ্যটি পাওয়া যাচ্ছে না, যা লক্ করা ডিভাইস এবং অন্যান্য বিধিনিষেধযুক্ত কনফিগারেশনের জন্য প্রায়শ সত্য|</string>
   <string name="prompt_mms_activity__to_send_media_and_group_messages_tap_ok">মিডিয়া এবং গ্রুপ বার্তা প্রেরণ করতে, \'ঠিক আছে\' আলতো চাপুন এবং অনুরোধ করা সেটিংসটি সম্পূর্ণ করুন। আপনার ক্যারিয়ারের এমএমএস সেটিংস সাধারণত \'আপনার ক্যারিয়ার এপিএন\' অনুসন্ধান করে সনাক্ত করা যায়। আপনার কেবল এটি একবার করা দরকার।</string>
   <!--profile_create_activity-->
+  <string name="CreateProfileActivity_first_name_required">নামের প্রথম অংশ (প্রয়োজনীয়)</string>
+  <string name="CreateProfileActivity_last_name_optional">নামের শেষ অংশ (ঐচ্ছিক)</string>
   <string name="CreateProfileActivity_next">পরবর্তী</string>
   <string name="CreateProfileActivity__username">ব্যবহারকারীর নাম</string>
   <string name="CreateProfileActivity__create_a_username">একটি ব্যবহারকারীর নাম তৈরি করুন</string>
@@ -1395,6 +1416,52 @@
   <string name="SecondInviteReminder__description">%1$s কে আমন্ত্রণ জানান</string>
   <string name="InsightsReminder__view_insights">অন্তর্দৃষ্টি দেখুন</string>
   <string name="InsightsReminder__invite">আমন্ত্রণ</string>
+  <!--Edit KBS Pin-->
+  <!--BaseKbsPinFragment-->
+  <string name="BaseKbsPinFragment__next">পরবর্তী</string>
+  <string name="BaseKbsPinFragment__create_alphanumeric_pin">বর্ণানুক্রমিক পিন তৈরি করুন</string>
+  <string name="BaseKbsPinFragment__create_numeric_pin">সংখ্যার পিন তৈরি করুন</string>
+  <!--CreateKbsPinFragment-->
+  <string name="CreateKbsPinFragment__create_a_new_pin">একটি নতুন পিন তৈরি করুন</string>
+  <string name="CreateKbsPinFragment__create_your_pin">আপনার পিন তৈরি করুন</string>
+  <!--ConfirmKbsPinFragment-->
+  <string name="ConfirmKbsPinFragment__pins_dont_match">পিনগুলি মেলে না। আবার চেষ্টা করুন|</string>
+  <string name="ConfirmKbsPinFragment__confirm_your_pin">আপনার পিনটি নিশ্চিত করুন।</string>
+  <string name="ConfirmKbsPinFragment__pin_creation_failed">পিন তৈরি ব্যর্থ হয়েছে</string>
+  <string name="ConfirmKbsPinFragment__your_pin_was_not_saved">আপনার পিন সংরক্ষণ করা হয়নি। আমরা আপনাকে পরে একটি পিন তৈরি করতে অনুরোধ করব।</string>
+  <string name="ConfirmKbsPinFragment__pin_created">পিন তৈরি করা হয়েছে।</string>
+  <string name="ConfirmKbsPinFragment__re_enter_pin">পূনরায় পিন প্রবেশ করান</string>
+  <!--KbsSplashFragment-->
+  <string name="KbsSplashFragment__introducing_pins">পিনের সাথে পরিচিত হন</string>
+  <string name="KbsSplashFragment__learn_more">আরও জানুন</string>
+  <string name="KbsSplashFragment__registration_lock_equals_pin">রেজিস্ট্রেশন লক = পিন</string>
+  <string name="KbsSplashFragment__read_more_about_pins">পিন সম্পর্কে আরও পড়ুন।</string>
+  <string name="KbsSplashFragment__update_pin">পিন আপডেট করুন</string>
+  <string name="KbsSplashFragment__create_your_pin">আপনার পিন তৈরি করুন</string>
+  <!--KBS Reminder Dialog-->
+  <string name="KbsReminderDialog__enter_your_signal_pin">আপনার Signal পিন প্রবেশ করান</string>
+  <string name="KbsReminderDialog__to_help_you_memorize_your_pin">আপনাকে আপনার পিন মুখস্ত করতে সহায়তা করতে আমরা আপনাকে মাঝে মাঝে এটি প্রবেশ করাতে বলব। আমরা সময়ের সাথে সাথে  জিজ্ঞাসা করা কমিয়ে দেব।</string>
+  <string name="KbsReminderDialog__skip">বাদ দিয়ে যান</string>
+  <string name="KbsReminderDialog__submit">সাবমিট</string>
+  <string name="KbsReminderDialog__forgot_pin">পিন ভুলে গেছেন?</string>
+  <string name="KbsReminderDialog__incorrect_pin_try_again">ভুল পিন। আবার চেষ্টা করুন|</string>
+  <!--AccountLockedFragment-->
+  <string name="AccountLockedFragment__account_locked">একাউন্ট লক করা হয়েছে</string>
+  <string name="AccountLockedFragment__next">পরবর্তী</string>
+  <string name="AccountLockedFragment__learn_more">আরও জানুন</string>
+  <!--KbsLockFragment-->
+  <string name="RegistrationLockFragment__enter_your_pin">আপনার পিন প্রবেশ করান</string>
+  <string name="RegistrationLockFragment__enter_the_pin_you_created">আপনি নিজের অ্যাকাউন্ট এর জন্য তৈরি করা পিনটি প্রবেশ করুন। এটি আপনার এসএমএস যাচাইকরণ কোড থেকে ভিন্ন।</string>
+  <string name="RegistrationLockFragment__enter_alphanumeric_pin">বর্ণানুক্রমিক পিন প্রবেশ করান</string>
+  <string name="RegistrationLockFragment__enter_numeric_pin">সংখ্যার পিন প্রবেশ করান</string>
+  <string name="RegistrationLockFragment__next">পরবর্তী</string>
+  <string name="RegistrationLockFragment__incorrect_pin_try_again">ভুল পিন। আবার চেষ্টা করুন|</string>
+  <string name="RegistrationLockFragment__forgot_pin">পিন ভুলে গেছেন?</string>
+  <string name="RegistrationLockFragment__incorrect_pin">ভুল পিন</string>
+  <string name="RegistrationLockFragment__forgot_your_pin">পিন ভুলে গেছেন?</string>
+  <!--KBS Megaphone-->
+  <string name="KbsMegaphone__introducing_pins">পিনের সাথে পরিচিত হন</string>
+  <string name="KbsMegaphone__update_pin">পিন আপডেট করুন</string>
   <!--transport_selection_list_item-->
   <string name="transport_selection_list_item__transport_icon">পরিবহন আইকন</string>
   <string name="ConversationListFragment_loading">লোড হচ্ছে…</string>
@@ -1452,6 +1519,11 @@
   <string name="preferences_app_protection__screen_lock">স্ক্রীন এর লক্</string>
   <string name="preferences_app_protection__lock_signal_access_with_android_screen_lock_or_fingerprint">অ্যানড্রয়েড স্ক্রীন এর লক্ বা ফিঙ্গারপ্রিন্ট লক দিয়ে সিগন্যাল লক্ করুন </string>
   <string name="preferences_app_protection__screen_lock_inactivity_timeout">স্ক্রীন এর লক্ নিষ্ক্রিয়তার সময়সীমা</string>
+  <string name="preferences_app_protection__signal_pin">Signal পিন</string>
+  <string name="preferences_app_protection__pin">পিন</string>
+  <string name="preferences_app_protection__change">পরিবর্তন</string>
+  <string name="preferences_app_protection__create">তৈরি</string>
+  <string name="preferences_app_protection__your_pin_adds_an_extra_layer_of_security_and_backs">আপনার পিন সুরক্ষার অতিরিক্ত স্তর যুক্ত করে এবং আপনার অ্যাকাউন্ট নিরাপদ করে। আপনি যখন সিগন্যালের সাথে আপনার ফোন নাম্বার নিবন্ধন করবেন তখন আপনাকে এটি জিজ্ঞাসা করা হবে। আপনি যদি আপনার পিনটি ভুলে যান তবে আপনাকে 7 দিনের জন্য আপনার অ্যাকাউন্ট থেকে লক্ করা হবে।</string>
   <string name="AppProtectionPreferenceFragment_none">কেউ না</string>
   <string name="registration_activity__the_registration_lock_pin_is_not_the_same_as_the_sms_verification_code_you_just_received_please_enter_the_pin_you_previously_configured_in_the_application">রেজিস্ট্রেশন লক পিনটি আপনি সদ্য প্রাপ্ত এসএমএস যাচাইকরণ কোডের সাথে মিলছে না। আপনি পূর্বে অ্যাপ্লিকেশনটিতে কনফিগার করা পিনটি প্রবেশ করুন।</string>
   <string name="registration_activity__registration_lock_pin">রেজিস্ট্রেশন লক এর পিন কোড</string>
@@ -1479,6 +1551,7 @@
   <string name="RegistrationLockDialog_registration_lock_helps_protect_your_phone_number_from_unauthorized_registration_attempts">রেজিস্ট্রেশন লক আপনার ফোন নাম্বার অননুমোদিত রেজিস্ট্রেশন প্রচেষ্টা থেকে রক্ষা করতে সহায়তা করে। আপনার Signal গোপনীয়তা সেটিংস থেকে এই বৈশিষ্ট্যটি যে কোনও সময় অক্ষম করা যেতে পারে।</string>
   <string name="RegistrationLockDialog_registration_lock">রেজিস্ট্রেশন লক</string>
   <string name="RegistrationLockDialog_enable">সক্ষম করুন</string>
+  <string name="RegistrationLockDialog_the_registration_lock_pin_must_be_at_least_d_digits">রেজিস্ট্রেশন লক এর পিন কোড অবশ্যই কমপক্ষে %d ডিজিটের হতে হবে।</string>
   <string name="RegistrationLockDialog_the_two_pins_you_entered_do_not_match">আপনি যে দুটি পিন লিখেছেন তা মিলছে না।</string>
   <string name="RegistrationLockDialog_error_connecting_to_the_service">পরিষেবাটিতে সংযোগ করার সময় ত্রুটি</string>
   <string name="RegistrationLockDialog_disable_registration_lock_pin">রেজিস্ট্রেশন লক এর পিন কোড অক্ষম করতে চান?</string>
