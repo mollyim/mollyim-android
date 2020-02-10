@@ -23,6 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavDirections;
@@ -52,11 +53,15 @@ import static org.thoughtcrime.securesms.profiles.edit.EditProfileActivity.DISPL
 import static org.thoughtcrime.securesms.profiles.edit.EditProfileActivity.EXCLUDE_SYSTEM;
 import static org.thoughtcrime.securesms.profiles.edit.EditProfileActivity.NEXT_BUTTON_TEXT;
 import static org.thoughtcrime.securesms.profiles.edit.EditProfileActivity.NEXT_INTENT;
+import static org.thoughtcrime.securesms.profiles.edit.EditProfileActivity.SHOW_TOOLBAR;
 
 public class EditProfileFragment extends Fragment {
 
-  private static final String TAG = Log.tag(EditProfileFragment.class);
+  private static final String TAG          = Log.tag(EditProfileFragment.class);
+  private static final String AVATAR_STATE = "avatar";
 
+  private Toolbar                toolbar;
+  private View                   title;
   private ImageView              avatar;
   private CircularProgressButton finishButton;
   private EditText               givenName;
@@ -111,12 +116,26 @@ public class EditProfileFragment extends Fragment {
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     initializeResources(view);
-    initializeViewModel(requireArguments().getBoolean(EXCLUDE_SYSTEM, false));
+    initializeViewModel(requireArguments().getBoolean(EXCLUDE_SYSTEM, false), savedInstanceState != null);
     initializeProfileName();
     initializeProfileAvatar();
     initializeUsername();
 
     requireActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
+  }
+
+  @Override
+  public void onSaveInstanceState(@NonNull Bundle outState) {
+    outState.putByteArray(AVATAR_STATE, viewModel.getAvatarSnapshot());
+  }
+
+  @Override
+  public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+    super.onViewStateRestored(savedInstanceState);
+
+    if (savedInstanceState != null && savedInstanceState.containsKey(AVATAR_STATE)) {
+      viewModel.setAvatar(savedInstanceState.getByteArray(AVATAR_STATE));
+    }
   }
 
   @Override
@@ -177,9 +196,9 @@ public class EditProfileFragment extends Fragment {
     }
   }
 
-  private void initializeViewModel(boolean excludeSystem) {
-    EditProfileRepository repository = new EditProfileRepository(requireContext(), excludeSystem);
-    EditProfileViewModel.Factory factory    = new EditProfileViewModel.Factory(repository);
+  private void initializeViewModel(boolean excludeSystem, boolean hasSavedInstanceState) {
+    EditProfileRepository        repository = new EditProfileRepository(requireContext(), excludeSystem);
+    EditProfileViewModel.Factory factory    = new EditProfileViewModel.Factory(repository, hasSavedInstanceState);
 
     viewModel = ViewModelProviders.of(this, factory).get(EditProfileViewModel.class);
   }
@@ -187,6 +206,8 @@ public class EditProfileFragment extends Fragment {
   private void initializeResources(@NonNull View view) {
     Bundle arguments = requireArguments();
 
+    this.toolbar            = view.findViewById(R.id.toolbar);
+    this.title              = view.findViewById(R.id.title);
     this.avatar             = view.findViewById(R.id.avatar);
     this.givenName          = view.findViewById(R.id.given_name);
     this.familyName         = view.findViewById(R.id.family_name);
@@ -231,20 +252,26 @@ public class EditProfileFragment extends Fragment {
       NavDirections action = EditProfileFragmentDirections.actionEditUsername();
       Navigation.findNavController(v).navigate(action);
     });
+
+    if (arguments.getBoolean(SHOW_TOOLBAR, true)) {
+      this.toolbar.setVisibility(View.VISIBLE);
+      this.toolbar.setNavigationOnClickListener(v -> requireActivity().finish());
+      this.title.setVisibility(View.GONE);
+    }
   }
 
   private void initializeProfileName() {
-    viewModel.profileName().observe(this, profileName -> {
+    viewModel.givenName().observe(this, givenName -> updateFieldIfNeeded(this.givenName, givenName));
 
-      updateFieldIfNeeded(givenName, profileName.getGivenName());
-      updateFieldIfNeeded(familyName, profileName.getFamilyName());
+    viewModel.familyName().observe(this, familyName -> updateFieldIfNeeded(this.familyName, familyName));
+
+    viewModel.profileName().observe(this, profileName -> {
+      preview.setText(profileName.toString());
 
       boolean validEntry = !profileName.isGivenNameEmpty();
 
       finishButton.setEnabled(validEntry);
       finishButton.setAlpha(validEntry ? 1f : 0.5f);
-
-      preview.setText(profileName.toString());
     });
   }
 
