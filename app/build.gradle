@@ -67,12 +67,6 @@ repositories {
     mavenCentral()
     jcenter()
     mavenLocal()
-    maven {
-        url 'https://jitpack.io'
-        content {
-            includeGroupByRegex '^com\\.github\\..*'
-        }
-    }
 }
 
 protobuf {
