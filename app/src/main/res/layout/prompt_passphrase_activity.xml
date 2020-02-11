@@ -34,7 +34,7 @@
                   android:layout_marginBottom="36dp"
                   android:text="@string/prompt_passphrase_activity__signal_is_locked"
                   android:gravity="center_horizontal"
-                  android:textSize="25sp"/>
+                  android:textSize="28sp"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/passphrase_layout"
@@ -59,8 +59,7 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp">
+            android:layout_height="wrap_content">
 
             <com.dd.CircularProgressButton
                 android:id="@+id/ok_button"
@@ -69,8 +68,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
+                android:layout_marginBottom="16dp"
                 app:cpb_textIdle="@string/prompt_passphrase_activity__unlock"
-                app:cpb_cornerRadius="10dp"
+                app:cpb_cornerRadius="4dp"
+                app:cpb_selectorIdle="@drawable/progress_button_state"
                 app:cpb_colorIndicator="@color/signal_primary"
                 app:cpb_colorProgress="@color/transparent"
                 app:layout_constraintBottom_toBottomOf="parent"
