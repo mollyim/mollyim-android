@@ -194,8 +194,8 @@ dependencyVerification {
     configuration = '(staging|production)(Debug|Release)RuntimeClasspath'
 }
 
-def canonicalVersionCode = 603
-def canonicalVersionName = "4.55.6"
+def canonicalVersionCode = 605
+def canonicalVersionName = "4.55.8"
 
 def postFixSize = 10
 def abiPostFix = ['universal'   : 0,
