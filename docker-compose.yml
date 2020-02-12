@@ -2,6 +2,6 @@ version: '3.2'
 services:
   reproducible-build:
     build: .
-    command: ./gradlew -Pci clean assembleRelease
+    command: ./gradlew -Pci assembleRelease
     volumes:
       - ./reproducible-build:/molly/app/build
