@@ -13,7 +13,7 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: '8.0.242'
-    - name: Run tests
+    - name: Build and run tests
       run: ./gradlew -Pci qa
     - name: Upload APKs
       uses: actions/upload-artifact@v1
