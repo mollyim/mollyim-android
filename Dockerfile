@@ -1,4 +1,4 @@
-FROM openjdk:8u232
+FROM openjdk:8u242
 
 RUN apt-get update && apt-get install -y make file
 
