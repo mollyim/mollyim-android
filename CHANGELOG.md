@@ -10,25 +10,26 @@ All notable changes to Signal will be documented in this file.
 - Fixed: for any bug fixes.
 - Merged: for code merged from upstream. -->
 
-[Unreleased]: https://github.com/mollyim/mollyim-android/compare/v4.53.7...HEAD
+[Unreleased]: https://github.com/mollyim/mollyim-android/compare/v4.55.8...HEAD
 ## [Unreleased]
 
 ### Added
 
 - Passphrase lock.
+- Passphrase strength estimator library.
+- Argon2 benchmark function.
 - Encrypted shared preferences.
-- Associated data to MasterCipher's authenticated encryption.
-- Wipe free memory on lock to clear secrets.
-- Option to disable logging in advanced settings.
-- Early redact debug logs.
+- Associated data to MasterCipher encryption.
+- RAM wipe service to clear sensitive data on lock.
+- Early redact log messages.
+- Option in advanced preferences to disable logs.
 - Gradle build scan plugin.
 
 ### Changed
 
 - App renamed to Molly.
 - Purple color palette.
-- PBKDF2 key derivation function by Argon2.
-- Local storage encryption to 256-bits.
+- Local storage encryption upgraded to 256-bits.
 - Apkdiff tool to support multiple signature files.
 - Shrink resources on release build.
 - Use flavor dimension for staging build.
@@ -36,6 +37,7 @@ All notable changes to Signal will be documented in this file.
 ### Removed
 
 - SMS/MMS integration.
+- Intel x86 32-bit support.
 - Google Play flavor.
 - Google Play app rating prompt.
 - Build expiration age check.
@@ -49,5 +51,5 @@ All notable changes to Signal will be documented in this file.
 
 ### Merged
 
-- Signal v4.53.7
+- Signal v4.55.8
 
