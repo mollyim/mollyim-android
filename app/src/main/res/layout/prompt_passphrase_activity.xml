@@ -82,10 +82,9 @@
                 android:id="@+id/success"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:layout_gravity="center"
+                android:layout_gravity="center_horizontal"
                 android:background="@drawable/circle_tintable"
                 android:backgroundTint="@color/green_400"
-                android:gravity="center_vertical"
                 android:src="@drawable/ic_check_white_48dp"
                 android:visibility="gone"/>
 
