@@ -256,6 +256,8 @@ android {
             abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86_64'
         }
 
+        ndkVersion "21.0.6113669"
+
         resConfigs autoResConfig()
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
