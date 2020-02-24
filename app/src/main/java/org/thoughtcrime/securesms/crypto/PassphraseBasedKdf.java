@@ -28,16 +28,16 @@ public class PassphraseBasedKdf {
   private static final int ARGON2_MINIMUM_ITERATIONS = 4;
   private static final int ARGON2_MINIMUM_MEMORY     = 16383;
 
-  private SecretKey    secretKey;
+  private SecretKey    hmacKey;
   private Params       params;
   private long         elapsedMillis;
 
-  public void setSecretKey(SecretKey secretKey) {
-    this.secretKey = secretKey;
+  public void setHmacKey(SecretKey hmacKey) {
+    this.hmacKey = hmacKey;
   }
 
-  public SecretKey getSecretKey() {
-    return secretKey;
+  public SecretKey getHmacKey() {
+    return hmacKey;
   }
 
   public String getParameters() {
@@ -80,8 +80,8 @@ public class PassphraseBasedKdf {
                               .hash(pwd, salt)
                               .getHash();
 
-      if (secretKey != null) {
-        return new SecureSecretKeySpec(hmac(hash, secretKey), "AES");
+      if (hmacKey != null) {
+        return new SecureSecretKeySpec(hmac(hash, hmacKey), "AES");
       } else {
         return new SecureSecretKeySpec(hash, "AES");
       }

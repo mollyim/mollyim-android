@@ -30,6 +30,7 @@ import org.thoughtcrime.securesms.util.Conversions;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -104,7 +105,13 @@ public class AsymmetricMasterCipher {
   }
 
   private MasterCipher getMasterCipherForSecret(byte[] secretBytes) {
-    MasterSecret masterSecret = new MasterSecret(deriveCipherKey(secretBytes), deriveMacKey(secretBytes));
+    byte[] cipherKey = deriveCipherKey(secretBytes);
+    byte[] macKey    = deriveMacKey(secretBytes);
+
+    MasterSecret masterSecret = new MasterSecret(cipherKey, macKey);
+
+    Arrays.fill(cipherKey, (byte) 0);
+    Arrays.fill(macKey, (byte) 0);
 
     return new MasterCipher(masterSecret);
   }

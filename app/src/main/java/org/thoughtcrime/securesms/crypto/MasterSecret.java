@@ -17,7 +17,6 @@
 package org.thoughtcrime.securesms.crypto;
 
 import javax.security.auth.Destroyable;
-import java.util.Arrays;
 
 /**
  * When a user first initializes TextSecure, a few secrets
@@ -41,12 +40,9 @@ public class MasterSecret implements Cloneable, Destroyable, AutoCloseable {
   private SecureSecretKeySpec macKey;
 
   public MasterSecret(byte[] encryptionKeyBytes, byte[] macKeyBytes) {
+    // SecretKeySpec does an internal copy in its constructor.
     this.encryptionKey = new SecureSecretKeySpec(encryptionKeyBytes, "AES");
     this.macKey        = new SecureSecretKeySpec(macKeyBytes, "HmacSHA256");
-
-    // SecretKeySpec does an internal copy in its constructor.
-    Arrays.fill(encryptionKeyBytes, (byte) 0x00);
-    Arrays.fill(macKeyBytes, (byte)0x00);
   }
 
 

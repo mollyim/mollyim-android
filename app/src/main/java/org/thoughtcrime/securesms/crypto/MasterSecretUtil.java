@@ -76,7 +76,7 @@ public class MasterSecretUtil {
       kdf.findParameters(Util.getAvailMemory(context) / 2);
 
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-        kdf.setSecretKey(KeyStoreHelper.createKeyStoreEntryHmac());
+        kdf.setHmacKey(KeyStoreHelper.createKeyStoreEntryHmac());
       }
 
       byte[] passphraseSalt = generateSalt();
@@ -85,7 +85,7 @@ public class MasterSecretUtil {
           .putString("passphrase_salt", Base64.encodeBytes(passphraseSalt))
           .putString("kdf_parameters", kdf.getParameters())
           .putLong("kdf_elapsed", kdf.getElapsedTimeMillis())
-          .putBoolean("keystore_initialized", kdf.getSecretKey() != null)
+          .putBoolean("keystore_initialized", kdf.getHmacKey() != null)
           .commit()) {
         throw new AssertionError("failed to save preferences in MasterSecretUtil");
       }
@@ -145,7 +145,7 @@ public class MasterSecretUtil {
           throw new UnrecoverableKeyException("OS downgrade not supported. KeyStore secret exists on platform < M!");
         }
         try {
-          kdf.setSecretKey(KeyStoreHelper.getKeyStoreEntryHmac());
+          kdf.setHmacKey(KeyStoreHelper.getKeyStoreEntryHmac());
         } catch (UnrecoverableEntryException e) {
           throw new UnrecoverableKeyException(e);
         }
@@ -164,6 +164,9 @@ public class MasterSecretUtil {
       Arrays.fill(combinedSecrets, (byte) 0);
 
       MasterSecret masterSecret = new MasterSecret(encryptionSecret, macSecret);
+
+      Arrays.fill(encryptionSecret, (byte) 0);
+      Arrays.fill(macSecret, (byte) 0);
 
       if (!hasKeyStoreSecret && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !isUnencryptedPassphrase(passphrase)) {
         Log.i(TAG, "KeyStore is available. Forcing master secret re-encryption to use it.");
@@ -215,6 +218,9 @@ public class MasterSecretUtil {
     byte[]       encryptionSecret = generateEncryptionSecret();
     byte[]       macSecret        = generateMacSecret();
     MasterSecret masterSecret     = new MasterSecret(encryptionSecret, macSecret);
+
+    Arrays.fill(encryptionSecret, (byte) 0x00);
+    Arrays.fill(macSecret, (byte)0x00);
 
     changeMasterSecretPassphrase(context, masterSecret, passphrase);
 
