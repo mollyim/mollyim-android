@@ -26,7 +26,6 @@ import android.os.Build;
 import org.thoughtcrime.securesms.logging.Log;
 
 import org.thoughtcrime.securesms.util.Base64;
-import org.thoughtcrime.securesms.util.ServiceUtil;
 import org.thoughtcrime.securesms.util.Util;
 import org.whispersystems.libsignal.InvalidKeyException;
 import org.whispersystems.libsignal.ecc.Curve;
@@ -76,7 +75,7 @@ public class MasterSecretUtil {
 
       kdf.findParameters(Util.getAvailMemory(context) / 2);
 
-      if (isDeviceSecure(context)) {
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
         kdf.setSecretKey(KeyStoreHelper.createKeyStoreEntryHmac());
       }
 
@@ -142,14 +141,13 @@ public class MasterSecretUtil {
       kdf.setParameters(serializedParams);
 
       if (hasKeyStoreSecret) {
-        if (isDeviceSecure(context)) {
-          try {
-            kdf.setSecretKey(KeyStoreHelper.getKeyStoreEntryHmac());
-          } catch (UnrecoverableEntryException e) {
-            throw new UnrecoverableKeyException(e);
-          }
-        } else {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
           throw new UnrecoverableKeyException("OS downgrade not supported. KeyStore secret exists on platform < M!");
+        }
+        try {
+          kdf.setSecretKey(KeyStoreHelper.getKeyStoreEntryHmac());
+        } catch (UnrecoverableEntryException e) {
+          throw new UnrecoverableKeyException(e);
         }
       }
 
@@ -167,8 +165,8 @@ public class MasterSecretUtil {
 
       MasterSecret masterSecret = new MasterSecret(encryptionSecret, macSecret);
 
-      if (!hasKeyStoreSecret && isDeviceSecure(context) && isUnencryptedPassphrase(passphrase)) {
-        Log.i(TAG, "KeyStore is available and secure. Forcing master secret re-encryption to use it.");
+      if (!hasKeyStoreSecret && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !isUnencryptedPassphrase(passphrase)) {
+        Log.i(TAG, "KeyStore is available. Forcing master secret re-encryption to use it.");
         changeMasterSecretPassphrase(context, masterSecret, passphrase);
       }
 
@@ -260,11 +258,6 @@ public class MasterSecretUtil {
 
   public static boolean isKeyStoreInitialized(Context context) {
     return retrieve(context, "keystore_initialized", false);
-  }
-
-  private static boolean isDeviceSecure(Context context) {
-    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
-            && ServiceUtil.getKeyguardManager(context).isDeviceSecure();
   }
 
   public static char[] getUnencryptedPassphrase() {

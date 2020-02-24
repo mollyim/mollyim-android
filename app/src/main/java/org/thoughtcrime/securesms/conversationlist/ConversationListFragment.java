@@ -85,7 +85,6 @@ import org.thoughtcrime.securesms.components.reminder.OutdatedBuildReminder;
 import org.thoughtcrime.securesms.components.reminder.PushRegistrationReminder;
 import org.thoughtcrime.securesms.components.reminder.Reminder;
 import org.thoughtcrime.securesms.components.reminder.ReminderView;
-import org.thoughtcrime.securesms.components.reminder.ScreenLockNeedReminder;
 import org.thoughtcrime.securesms.components.reminder.ServiceOutageReminder;
 import org.thoughtcrime.securesms.components.reminder.ShareReminder;
 import org.thoughtcrime.securesms.components.reminder.UnauthorizedReminder;
@@ -512,8 +511,6 @@ public class ConversationListFragment extends MainFragment implements LoaderMana
         return Optional.of(new ShareReminder(context));
       } else if (DozeReminder.isEligible(context)) {
         return Optional.of(new DozeReminder(context));
-      } else if (ScreenLockNeedReminder.isEligible(context)) {
-        return Optional.of(new ScreenLockNeedReminder(context));
       } else {
         return Optional.<Reminder>absent();
       }

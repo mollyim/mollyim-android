@@ -128,9 +128,6 @@ public class KeyStoreHelper {
       KeyGenerator keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_HMAC_SHA256, ANDROID_KEY_STORE);
 
       KeyGenParameterSpec.Builder keySpecBuilder = new KeyGenParameterSpec.Builder(KEY_ALIAS_HMAC, KeyProperties.PURPOSE_SIGN);
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-        keySpecBuilder.setUnlockedDeviceRequired(true);
-      }
       KeyGenParameterSpec keyGenParameterSpec = keySpecBuilder.build();
 
       keyGenerator.init(keyGenParameterSpec);
