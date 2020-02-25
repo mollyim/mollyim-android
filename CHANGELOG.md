@@ -10,7 +10,12 @@ All notable changes to Signal will be documented in this file.
 - Fixed: for any bug fixes.
 - Merged: for code merged from upstream. -->
 
-[v4.55.8-1]: https://github.com/mollyim/mollyim-android/compare/v4.55.8...HEAD
+## [v4.55.8-2]
+
+### Fixed
+
+- Megaphones not displayed after unlocking.
+
 ## [v4.55.8-1]
 
 ### Added
@@ -30,6 +35,7 @@ All notable changes to Signal will be documented in this file.
 - App renamed to Molly.
 - Purple color palette.
 - Local storage encryption upgraded to 256-bits.
+- Hidden notifications, screen security, and incognito keyboard enabled by default.
 - Apkdiff tool to support multiple signature files.
 - Shrink resources on release build.
 - Use flavor dimension for staging build.
@@ -46,10 +52,15 @@ All notable changes to Signal will be documented in this file.
 
 ### Fixed
 
-- Race condition at KeyStore creation.
-- Fix lock alarm in low-power idle mode.
+- Race condition at KeyStore creation. ([#9019a2e])
+- Fix lock alarm in low-power idle mode. ([#7e0954d])
 
 ### Merged
 
 - Signal v4.55.8
 
+[v4.55.8-2]: https://github.com/mollyim/mollyim-android/compare/v4.55.8-1...v4.55.8-2
+[v4.55.8-1]: https://github.com/mollyim/mollyim-android/compare/v4.55.8...v4.55.8-1
+
+[#9019a2e]: https://github.com/mollyim/mollyim-android/commit/9019a2e931779b06a241768836ce11031bd043de
+[#7e0954d]: https://github.com/mollyim/mollyim-android/commit/7e0954d967c4210ae002bc0bbec83717a0ad8607
