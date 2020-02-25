@@ -162,9 +162,8 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
     FeatureFlags.init();
     NotificationChannels.create(this);
     ApplicationDependencies.getJobManager().beginJobLoop();
-    ApplicationDependencies.getRecipientCache().warmUp();
-    executePendingContactSync();
     registerKeyEventReceiver();
+    onStartUnlock();
 
     isAppInitialized = true;
   }
@@ -191,11 +190,16 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
     Log.i(TAG, "App is now visible.");
     KeyCachingService.onAppForegrounded(this);
     if (!KeyCachingService.isLocked()) {
-      FeatureFlags.refresh();
-      executePendingContactSync();
-      ApplicationDependencies.getFrameRateTracker().begin();
-      ApplicationDependencies.getMegaphoneRepository().onAppForegrounded();
+      onStartUnlock();
     }
+  }
+
+  public void onStartUnlock() {
+    FeatureFlags.refresh();
+    ApplicationDependencies.getRecipientCache().warmUp();
+    executePendingContactSync();
+    ApplicationDependencies.getFrameRateTracker().begin();
+    ApplicationDependencies.getMegaphoneRepository().onAppForegrounded();
   }
 
   @Override
@@ -204,9 +208,13 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
     Log.i(TAG, "App is no longer visible.");
     KeyCachingService.onAppBackgrounded(this);
     if (!KeyCachingService.isLocked()) {
-      MessageNotifier.setVisibleThread(-1);
-      ApplicationDependencies.getFrameRateTracker().end();
+      onStopUnlock();
     }
+  }
+
+  public void onStopUnlock() {
+    MessageNotifier.setVisibleThread(-1);
+    ApplicationDependencies.getFrameRateTracker().end();
   }
 
   public ExpiringMessageManager getExpiringMessageManager() {
