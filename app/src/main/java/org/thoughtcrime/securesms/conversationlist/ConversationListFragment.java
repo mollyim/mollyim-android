@@ -226,7 +226,9 @@ public class ConversationListFragment extends MainFragment implements LoaderMana
     initializeTypingObserver();
     initializeSearchListener();
 
-    RegistrationLockDialog.showReminderIfNecessary(this);
+    if (!TextSecurePreferences.isPinV2ReminderDisabled(requireContext())) {
+      RegistrationLockDialog.showReminderIfNecessary(this);
+    }
 
     TooltipCompat.setTooltipText(searchAction, getText(R.string.SearchToolbar_search_for_conversations_contacts_and_messages));
   }
