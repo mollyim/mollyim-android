@@ -20,7 +20,6 @@ import org.thoughtcrime.securesms.lock.v2.KbsMigrationActivity;
 import org.thoughtcrime.securesms.lock.v2.PinUtil;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.util.FeatureFlags;
-import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -49,7 +48,7 @@ public final class Megaphones {
   static @Nullable Megaphone getNextMegaphone(@NonNull Context context, @NonNull Map<Event, MegaphoneRecord> records) {
     long currentTime = System.currentTimeMillis();
 
-    List<Megaphone> megaphones = Stream.of(buildDisplayOrder(context))
+    List<Megaphone> megaphones = Stream.of(buildDisplayOrder())
                                        .filter(e -> {
                                          MegaphoneRecord   record = Objects.requireNonNull(records.get(e.getKey()));
                                          MegaphoneSchedule schedule = e.getValue();
@@ -79,13 +78,11 @@ public final class Megaphones {
    * This is when you would hide certain megaphones based on {@link FeatureFlags}. You could
    * conditionally set a {@link ForeverSchedule} set to false for disabled features.
    */
-  private static Map<Event, MegaphoneSchedule> buildDisplayOrder(Context context) {
+  private static Map<Event, MegaphoneSchedule> buildDisplayOrder() {
     return new LinkedHashMap<Event, MegaphoneSchedule>() {{
       put(Event.REACTIONS, new ForeverSchedule(true));
       put(Event.PINS_FOR_ALL, new PinsForAllSchedule());
-      if (!TextSecurePreferences.isPinV2ReminderDisabled(context)) {
-        put(Event.PIN_REMINDER, new SignalPinReminderSchedule());
-      }
+      put(Event.PIN_REMINDER, new SignalPinReminderSchedule());
     }};
   }
 
