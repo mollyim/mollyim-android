@@ -64,6 +64,9 @@ public final class RegistrationLockDialog {
     if (!TextSecurePreferences.isV1RegistrationLockEnabled(context) && !SignalStore.kbsValues().isV2RegistrationLockEnabled()) {
       return;
     }
+    if (TextSecurePreferences.isPinV2ReminderDisabled(ApplicationDependencies.getApplication())) {
+      return;
+    }
 
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
       return;
