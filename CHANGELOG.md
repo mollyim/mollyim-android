@@ -10,6 +10,12 @@ All notable changes to Signal will be documented in this file.
 - Fixed: for any bug fixes.
 - Merged: for code merged from upstream. -->
 
+## [Unreleased]
+
+### Added
+
+- Option to not show v2 PIN reminders. (#5)
+
 ## [v4.55.8-2]
 
 ### Fixed
@@ -59,6 +65,7 @@ All notable changes to Signal will be documented in this file.
 
 - Signal v4.55.8
 
+[Unreleased]: https://github.com/mollyim/mollyim-android/compare/v4.55.8-2...HEAD
 [v4.55.8-2]: https://github.com/mollyim/mollyim-android/compare/v4.55.8-1...v4.55.8-2
 [v4.55.8-1]: https://github.com/mollyim/mollyim-android/compare/v4.55.8...v4.55.8-1
 
