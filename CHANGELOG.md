@@ -16,6 +16,10 @@ All notable changes to Signal will be documented in this file.
 
 - Option to not show v2 PIN reminders. (#5)
 
+### Removed
+
+- MMS configs.
+
 ## [v4.55.8-2]
 
 ### Fixed
