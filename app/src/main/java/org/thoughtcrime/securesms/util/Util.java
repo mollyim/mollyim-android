@@ -319,6 +319,17 @@ public class Util {
     return Optional.fromNullable(simCountryIso != null ? simCountryIso.toUpperCase() : null);
   }
 
+  @SafeVarargs
+  public static @NonNull <T> T firstNonNull(T ... ts) {
+    for (T t : ts) {
+      if (t != null) {
+        return t;
+      }
+    }
+
+    throw new IllegalStateException("All choices were null.");
+  }
+
   public static <T> List<List<T>> partition(List<T> list, int partitionSize) {
     List<List<T>> results = new LinkedList<>();
 
@@ -574,6 +585,10 @@ public class Util {
     } catch (InterruptedException e) {
       throw new AssertionError(e);
     }
+  }
+
+  public static void copyToClipboard(@NonNull Context context, @NonNull String text) {
+    ServiceUtil.getClipboardManager(context).setPrimaryClip(ClipData.newPlainText("text", text));
   }
 
   private static Handler getHandler() {

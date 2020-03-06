@@ -190,7 +190,9 @@ public abstract class PassphraseRequiredActionBarActivity extends PassphraseActi
   }
 
   private boolean userMustSetKbsPin() {
-    return !SignalStore.registrationValues().isRegistrationComplete() && !PinUtil.userHasPin(this);
+    // TODO [greyson] [pins] Maybe re-enable in the future
+//    return !SignalStore.registrationValues().isRegistrationComplete() && !PinUtil.userHasPin(this);
+    return false;
   }
 
   private boolean userMustSetProfileName() {

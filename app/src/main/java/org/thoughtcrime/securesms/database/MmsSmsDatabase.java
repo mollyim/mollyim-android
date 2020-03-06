@@ -30,6 +30,7 @@ import org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper;
 import org.thoughtcrime.securesms.database.model.MessageRecord;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
+import org.whispersystems.libsignal.util.Pair;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -82,6 +83,35 @@ public class MmsSmsDatabase extends Database {
 
   public MmsSmsDatabase(Context context, SQLCipherOpenHelper databaseHelper) {
     super(context, databaseHelper);
+  }
+
+  /**
+   * @return The user that added you to the group, otherwise null.
+   */
+  public @Nullable RecipientId getGroupAddedBy(long threadId) {
+    long lastQuitChecked = System.currentTimeMillis();
+    Pair<RecipientId, Long> pair;
+
+    do {
+      pair = getGroupAddedBy(threadId, lastQuitChecked);
+      if (pair.first() != null) {
+        return pair.first();
+      } else {
+        lastQuitChecked = pair.second();
+      }
+
+    } while (pair.second() != -1);
+
+    return null;
+  }
+
+  private @NonNull Pair<RecipientId, Long> getGroupAddedBy(long threadId, long lastQuitChecked) {
+    MmsDatabase mmsDatabase = DatabaseFactory.getMmsDatabase(context);
+    SmsDatabase smsDatabase = DatabaseFactory.getSmsDatabase(context);
+    long        latestQuit  = mmsDatabase.getLatestGroupQuitTimestamp(threadId, lastQuitChecked);
+    RecipientId id          = smsDatabase.getOldestGroupUpdateSender(threadId, latestQuit);
+
+    return new Pair<>(id, latestQuit);
   }
 
   public @Nullable MessageRecord getMessageFor(long timestamp, RecipientId author) {
@@ -166,11 +196,38 @@ public class MmsSmsDatabase extends Database {
     }
   }
 
+  public int getSecureConversationCount(long threadId) {
+    if (threadId == -1) {
+      return 0;
+    }
+
+    int count = DatabaseFactory.getSmsDatabase(context).getSecureMessageCount(threadId);
+    count    += DatabaseFactory.getMmsDatabase(context).getSecureMessageCount(threadId);
+
+    return count;
+  }
+
+  public int getOutgoingSecureConversationCount(long threadId) {
+    if (threadId == -1L) {
+      return 0;
+    }
+
+    int count = DatabaseFactory.getSmsDatabase(context).getOutgoingSecureMessageCount(threadId);
+    count    += DatabaseFactory.getMmsDatabase(context).getOutgoingSecureMessageCount(threadId);
+
+    return count;
+  }
+
   public int getConversationCount(long threadId) {
     int count = DatabaseFactory.getSmsDatabase(context).getMessageCountForThread(threadId);
     count    += DatabaseFactory.getMmsDatabase(context).getMessageCountForThread(threadId);
 
     return count;
+  }
+
+  public int getConversationCount(long threadId, long beforeTime) {
+    return DatabaseFactory.getSmsDatabase(context).getMessageCountForThread(threadId, beforeTime) +
+           DatabaseFactory.getMmsDatabase(context).getMessageCountForThread(threadId, beforeTime);
   }
 
   public int getInsecureSentCount(long threadId) {
@@ -192,6 +249,13 @@ public class MmsSmsDatabase extends Database {
     count    += DatabaseFactory.getMmsDatabase(context).getSecureMessageCountForInsights();
 
     return count;
+  }
+
+  public long getThreadForMessageId(long messageId) {
+    long id = DatabaseFactory.getSmsDatabase(context).getThreadIdForMessage(messageId);
+
+    if (id == -1) return DatabaseFactory.getMmsDatabase(context).getThreadIdForMessage(messageId);
+    else          return id;
   }
 
   public void incrementDeliveryReceiptCount(SyncMessageId syncMessageId, long timestamp) {

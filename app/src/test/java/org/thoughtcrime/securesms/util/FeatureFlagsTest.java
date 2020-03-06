@@ -1,6 +1,7 @@
 package org.thoughtcrime.securesms.util;
 
 import org.junit.Test;
+import org.thoughtcrime.securesms.util.FeatureFlags.Change;
 import org.thoughtcrime.securesms.util.FeatureFlags.UpdateResult;
 
 import java.util.Arrays;
@@ -9,12 +10,14 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 public class FeatureFlagsTest {
 
-  private static final String A = key("a");
-  private static final String B = key("b");
+  private static final String A = "A";
+  private static final String B = "B";
 
   @Test
   public void updateInternal_newValue_ignoreNotInRemoteCapable() {
@@ -28,6 +31,7 @@ public class FeatureFlagsTest {
 
     assertEquals(mapOf(), result.getMemory());
     assertEquals(mapOf("A", true), result.getDisk());
+    assertTrue(result.getMemoryChanges().isEmpty());
   }
 
   @Test
@@ -41,6 +45,7 @@ public class FeatureFlagsTest {
 
     assertEquals(mapOf(), result.getMemory());
     assertEquals(mapOf(A, true), result.getDisk());
+    assertTrue(result.getMemoryChanges().isEmpty());
   }
 
   @Test
@@ -54,6 +59,7 @@ public class FeatureFlagsTest {
 
     assertEquals(mapOf(A, true), result.getMemory());
     assertEquals(mapOf(A, true), result.getDisk());
+    assertEquals(Change.ENABLED, result.getMemoryChanges().get(A));
   }
 
   @Test
@@ -67,6 +73,7 @@ public class FeatureFlagsTest {
 
     assertEquals(mapOf(), result.getMemory());
     assertEquals(mapOf(A, true), result.getDisk());
+    assertTrue(result.getMemoryChanges().isEmpty());
   }
 
   @Test
@@ -80,6 +87,7 @@ public class FeatureFlagsTest {
 
     assertEquals(mapOf(A, true), result.getMemory());
     assertEquals(mapOf(A, true), result.getDisk());
+    assertEquals(Change.ENABLED, result.getMemoryChanges().get(A));
   }
 
   @Test
@@ -93,6 +101,7 @@ public class FeatureFlagsTest {
 
     assertEquals(mapOf(A, false), result.getMemory());
     assertEquals(mapOf(A, true), result.getDisk());
+    assertTrue(result.getMemoryChanges().isEmpty());
   }
 
   @Test
@@ -106,6 +115,7 @@ public class FeatureFlagsTest {
 
     assertEquals(mapOf(A, true), result.getMemory());
     assertEquals(mapOf(A, true), result.getDisk());
+    assertEquals(Change.ENABLED, result.getMemoryChanges().get(A));
   }
 
   @Test
@@ -119,6 +129,7 @@ public class FeatureFlagsTest {
 
     assertEquals(mapOf(A, true), result.getMemory());
     assertEquals(mapOf(A, true), result.getDisk());
+    assertEquals(Change.ENABLED, result.getMemoryChanges().get(A));
   }
 
   @Test
@@ -132,6 +143,7 @@ public class FeatureFlagsTest {
 
     assertEquals(mapOf(A, true), result.getMemory());
     assertEquals(mapOf(A, true), result.getDisk());
+    assertTrue(result.getMemoryChanges().isEmpty());
   }
 
   @Test
@@ -145,6 +157,21 @@ public class FeatureFlagsTest {
 
     assertEquals(mapOf(A, true), result.getMemory());
     assertEquals(mapOf(), result.getDisk());
+    assertTrue(result.getMemoryChanges().isEmpty());
+  }
+
+  @Test
+  public void updateInternal_removeValue_notRemoteCapable() {
+    UpdateResult result = FeatureFlags.updateInternal(mapOf(A, true),
+                                                      mapOf(A, true),
+                                                      mapOf(A, true),
+                                                      setOf(),
+                                                      setOf(),
+                                                      setOf());
+
+    assertEquals(mapOf(A, true), result.getMemory());
+    assertEquals(mapOf(), result.getDisk());
+    assertTrue(result.getMemoryChanges().isEmpty());
   }
 
   @Test
@@ -158,6 +185,21 @@ public class FeatureFlagsTest {
 
     assertEquals(mapOf(), result.getMemory());
     assertEquals(mapOf(), result.getDisk());
+    assertEquals(Change.REMOVED, result.getMemoryChanges().get(A));
+  }
+
+  @Test
+  public void updateInternal_removeValue_hotSwap_notRemoteCapable() {
+    UpdateResult result = FeatureFlags.updateInternal(mapOf(A, true),
+                                                      mapOf(A, true),
+                                                      mapOf(A, true),
+                                                      setOf(),
+                                                      setOf(A),
+                                                      setOf());
+
+    assertEquals(mapOf(), result.getMemory());
+    assertEquals(mapOf(), result.getDisk());
+    assertEquals(Change.REMOVED, result.getMemoryChanges().get(A));
   }
 
   @Test
@@ -171,6 +213,7 @@ public class FeatureFlagsTest {
 
     assertEquals(mapOf(A, true), result.getMemory());
     assertEquals(mapOf(A, true), result.getDisk());
+    assertTrue(result.getMemoryChanges().isEmpty());
   }
 
   @Test
@@ -184,6 +227,21 @@ public class FeatureFlagsTest {
 
     assertEquals(mapOf(A, false), result.getMemory());
     assertEquals(mapOf(), result.getDisk());
+    assertTrue(result.getMemoryChanges().isEmpty());
+  }
+
+  @Test
+  public void updateInternal_removeValue_stickyNotEnabled_notRemoteCapable() {
+    UpdateResult result = FeatureFlags.updateInternal(mapOf(A, true),
+                                                      mapOf(A, false),
+                                                      mapOf(A, false),
+                                                      setOf(),
+                                                      setOf(),
+                                                      setOf(A));
+
+    assertEquals(mapOf(A, false), result.getMemory());
+    assertEquals(mapOf(), result.getDisk());
+    assertTrue(result.getMemoryChanges().isEmpty());
   }
 
   @Test
@@ -197,6 +255,21 @@ public class FeatureFlagsTest {
 
     assertEquals(mapOf(A, true), result.getMemory());
     assertEquals(mapOf(A, true), result.getDisk());
+    assertTrue(result.getMemoryChanges().isEmpty());
+  }
+
+  @Test
+  public void updateInternal_removeValue_hotSwap_stickyAlreadyEnabled_notRemoteCapable() {
+    UpdateResult result = FeatureFlags.updateInternal(mapOf(A, true),
+                                                      mapOf(A, true),
+                                                      mapOf(A, true),
+                                                      setOf(),
+                                                      setOf(A),
+                                                      setOf(A));
+
+    assertEquals(mapOf(A, true), result.getMemory());
+    assertEquals(mapOf(A, true), result.getDisk());
+    assertTrue(result.getMemoryChanges().isEmpty());
   }
 
   @Test
@@ -210,6 +283,7 @@ public class FeatureFlagsTest {
 
     assertEquals(mapOf(), result.getMemory());
     assertEquals(mapOf(), result.getDisk());
+    assertEquals(Change.REMOVED, result.getMemoryChanges().get(A));
   }
 
   @Test
@@ -224,6 +298,7 @@ public class FeatureFlagsTest {
 
     assertEquals(mapOf(), result.getMemory());
     assertEquals(mapOf(A, true, B, false), result.getDisk());
+    assertTrue(result.getMemoryChanges().isEmpty());
   }
 
   @Test
@@ -240,10 +315,34 @@ public class FeatureFlagsTest {
 
     assertEquals(mapOf(A, true, B, true), result.getMemory());
     assertEquals(mapOf(A, true, B, false), result.getDisk());
+    assertTrue(result.getMemoryChanges().isEmpty());
   }
 
-  private static String key(String s) {
-    return "android." + s;
+  @Test
+  public void computeChanges_generic() {
+    Map<String, Boolean> oldMap = new HashMap<String, Boolean>() {{
+      put("a", true);
+      put("b", false);
+      put("c", true);
+      put("d", false);
+    }};
+
+    Map<String, Boolean> newMap = new HashMap<String, Boolean>() {{
+      put("a", true);
+      put("b", true);
+      put("c", false);
+      put("e", true);
+      put("f", false);
+    }};
+
+    Map<String, Change> changes = FeatureFlags.computeChanges(oldMap, newMap);
+
+    assertFalse(changes.containsKey("a"));
+    assertEquals(Change.ENABLED, changes.get("b"));
+    assertEquals(Change.DISABLED, changes.get("c"));
+    assertEquals(Change.REMOVED, changes.get("d"));
+    assertEquals(Change.ENABLED, changes.get("e"));
+    assertEquals(Change.DISABLED, changes.get("f"));
   }
 
   private static <V> Set<V> setOf(V... values) {

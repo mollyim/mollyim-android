@@ -2,15 +2,17 @@ package org.whispersystems.signalservice.api.storage;
 
 import org.whispersystems.libsignal.util.guava.Optional;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
+import org.whispersystems.signalservice.api.util.OptionalUtil;
 
 import java.util.Arrays;
 import java.util.Objects;
 
-public class SignalContactRecord {
+public final class SignalContactRecord implements SignalRecord {
 
   private final byte[]               key;
   private final SignalServiceAddress address;
-  private final Optional<String>     profileName;
+  private final Optional<String>     givenName;
+  private final Optional<String>     familyName;
   private final Optional<byte[]>     profileKey;
   private final Optional<String>     username;
   private final Optional<byte[]>     identityKey;
@@ -18,11 +20,12 @@ public class SignalContactRecord {
   private final boolean              blocked;
   private final boolean              profileSharingEnabled;
   private final Optional<String>     nickname;
-  private final int protoVersion;
+  private final int                  protoVersion;
 
   private SignalContactRecord(byte[] key,
                               SignalServiceAddress address,
-                              String profileName,
+                              String givenName,
+                              String familyName,
                               byte[] profileKey,
                               String username,
                               byte[] identityKey,
@@ -34,7 +37,8 @@ public class SignalContactRecord {
   {
     this.key                   = key;
     this.address               = address;
-    this.profileName           = Optional.fromNullable(profileName);
+    this.givenName             = Optional.fromNullable(givenName);
+    this.familyName            = Optional.fromNullable(familyName);
     this.profileKey            = Optional.fromNullable(profileKey);
     this.username              = Optional.fromNullable(username);
     this.identityKey           = Optional.fromNullable(identityKey);
@@ -42,9 +46,10 @@ public class SignalContactRecord {
     this.blocked               = blocked;
     this.profileSharingEnabled = profileSharingEnabled;
     this.nickname              = Optional.fromNullable(nickname);
-    this.protoVersion = protoVersion;
+    this.protoVersion          = protoVersion;
   }
 
+  @Override
   public byte[] getKey() {
     return key;
   }
@@ -53,8 +58,12 @@ public class SignalContactRecord {
     return address;
   }
 
-  public Optional<String> getProfileName() {
-    return profileName;
+  public Optional<String> getGivenName() {
+    return givenName;
+  }
+
+  public Optional<String> getFamilyName() {
+    return familyName;
   }
 
   public Optional<byte[]> getProfileKey() {
@@ -98,18 +107,21 @@ public class SignalContactRecord {
         profileSharingEnabled == contact.profileSharingEnabled &&
         Arrays.equals(key, contact.key) &&
         Objects.equals(address, contact.address) &&
-        Objects.equals(profileName, contact.profileName) &&
-        Objects.equals(profileKey, contact.profileKey) &&
-        Objects.equals(username, contact.username) &&
-        Objects.equals(identityKey, contact.identityKey) &&
+        givenName.equals(contact.givenName) &&
+        familyName.equals(contact.familyName) &&
+        OptionalUtil.byteArrayEquals(profileKey, contact.profileKey) &&
+        username.equals(contact.username) &&
+        OptionalUtil.byteArrayEquals(identityKey, contact.identityKey) &&
         identityState == contact.identityState &&
         Objects.equals(nickname, contact.nickname);
   }
 
   @Override
   public int hashCode() {
-    int result = Objects.hash(address, profileName, profileKey, username, identityKey, identityState, blocked, profileSharingEnabled, nickname);
+    int result = Objects.hash(address, givenName, familyName, username, identityState, blocked, profileSharingEnabled, nickname);
     result = 31 * result + Arrays.hashCode(key);
+    result = 31 * result + OptionalUtil.byteArrayHashCode(profileKey);
+    result = 31 * result + OptionalUtil.byteArrayHashCode(identityKey);
     return result;
   }
 
@@ -117,7 +129,8 @@ public class SignalContactRecord {
     private final byte[]               key;
     private final SignalServiceAddress address;
 
-    private String        profileName;
+    private String        givenName;
+    private String        familyName;
     private byte[]        profileKey;
     private String        username;
     private byte[]        identityKey;
@@ -132,13 +145,18 @@ public class SignalContactRecord {
       this.address = address;
     }
 
-    public Builder setProfileName(String profileName) {
-      this.profileName = profileName;
+    public Builder setGivenName(String givenName) {
+      this.givenName = givenName;
+      return this;
+    }
+
+    public Builder setFamilyName(String familyName) {
+      this.familyName = familyName;
       return this;
     }
 
     public Builder setProfileKey(byte[] profileKey) {
-      this.profileKey= profileKey;
+      this.profileKey = profileKey;
       return this;
     }
 
@@ -180,7 +198,8 @@ public class SignalContactRecord {
     public SignalContactRecord build() {
       return new SignalContactRecord(key,
                                       address,
-                                      profileName,
+                                      givenName,
+                                      familyName,
                                       profileKey,
                                       username,
                                       identityKey,

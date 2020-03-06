@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.SystemClock;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
@@ -20,6 +21,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 import net.sqlcipher.database.SQLiteDatabaseHook;
 import net.sqlcipher.database.SQLiteOpenHelper;
 
+import org.thoughtcrime.securesms.contacts.sync.StorageSyncHelper;
 import org.thoughtcrime.securesms.crypto.DatabaseSecret;
 import org.thoughtcrime.securesms.crypto.MasterSecret;
 import org.thoughtcrime.securesms.database.AttachmentDatabase;
@@ -47,10 +49,12 @@ import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.phonenumbers.PhoneNumberFormatter;
 import org.thoughtcrime.securesms.service.KeyCachingService;
+import org.thoughtcrime.securesms.util.Base64;
 import org.thoughtcrime.securesms.util.GroupUtil;
 import org.thoughtcrime.securesms.util.ServiceUtil;
 import org.thoughtcrime.securesms.util.SqlUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
+import org.thoughtcrime.securesms.util.Util;
 
 import java.io.File;
 import java.util.List;
@@ -67,8 +71,12 @@ public class SQLCipherOpenHelper extends SQLiteOpenHelper {
   private static final int STICKER_PACK_ORDER               = 44;
   private static final int MEGAPHONES                       = 45;
   private static final int MEGAPHONE_FIRST_APPEARANCE       = 46;
+  private static final int PROFILE_KEY_TO_DB                = 47;
+  private static final int PROFILE_KEY_CREDENTIALS          = 48;
+  private static final int ATTACHMENT_FILE_INDEX            = 49;
+  private static final int STORAGE_SERVICE_ACTIVE           = 50;
 
-  private static final int    DATABASE_VERSION = 46;
+  private static final int    DATABASE_VERSION = 50;
   private static final String DATABASE_NAME    = "signal.db";
 
   private final Context        context;
@@ -170,6 +178,49 @@ public class SQLCipherOpenHelper extends SQLiteOpenHelper {
 
       if (oldVersion < MEGAPHONE_FIRST_APPEARANCE) {
         db.execSQL("ALTER TABLE megaphone ADD COLUMN first_visible INTEGER DEFAULT 0");
+      }
+
+      if (oldVersion < PROFILE_KEY_TO_DB) {
+        String localNumber = TextSecurePreferences.getLocalNumber(context);
+        if (!TextUtils.isEmpty(localNumber)) {
+          String        encodedProfileKey = PreferenceManager.getDefaultSharedPreferences(context).getString("pref_profile_key", null);
+          byte[]        profileKey        = encodedProfileKey != null ? Base64.decodeOrThrow(encodedProfileKey) : Util.getSecretBytes(32);
+          ContentValues values            = new ContentValues(1);
+
+          values.put("profile_key", Base64.encodeBytes(profileKey));
+
+          if (db.update("recipient", values, "phone = ?", new String[]{localNumber}) == 0) {
+            throw new AssertionError("No rows updated!");
+          }
+        }
+      }
+
+      if (oldVersion < PROFILE_KEY_CREDENTIALS) {
+        db.execSQL("ALTER TABLE recipient ADD COLUMN profile_key_credential TEXT DEFAULT NULL");
+      }
+
+      if (oldVersion < ATTACHMENT_FILE_INDEX) {
+        db.execSQL("CREATE INDEX IF NOT EXISTS part_data_index ON part (_data)");
+      }
+
+      if (oldVersion < STORAGE_SERVICE_ACTIVE) {
+        db.execSQL("ALTER TABLE recipient ADD COLUMN group_type INTEGER DEFAULT 0");
+        db.execSQL("CREATE INDEX IF NOT EXISTS recipient_group_type_index ON recipient (group_type)");
+
+        db.execSQL("UPDATE recipient set group_type = 1 WHERE group_id NOT NULL AND group_id LIKE '__signal_mms_group__%'");
+        db.execSQL("UPDATE recipient set group_type = 2 WHERE group_id NOT NULL AND group_id LIKE '__textsecure_group__%'");
+
+        try (Cursor cursor = db.rawQuery("SELECT _id FROM recipient WHERE registered = 1 or group_type = 2", null)) {
+          while (cursor != null && cursor.moveToNext()) {
+            String        id     = cursor.getString(cursor.getColumnIndexOrThrow("_id"));
+            ContentValues values = new ContentValues(1);
+
+            values.put("dirty", 2);
+            values.put("storage_service_key", Base64.encodeBytes(StorageSyncHelper.generateKey()));
+
+            db.update("recipient", values, "_id = ?", new String[] { id });
+          }
+        }
       }
 
       db.setTransactionSuccessful();

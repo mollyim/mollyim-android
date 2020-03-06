@@ -135,7 +135,7 @@
         </intent-filter>
     </activity>
 
-    <activity android:name=".ShareActivity"
+    <activity android:name=".sharing.ShareActivity"
               android:theme="@style/TextSecure.LightNoActionBar"
               android:excludeFromRecents="true"
               android:launchMode="singleTask"
@@ -143,7 +143,6 @@
               android:noHistory="true"
               android:windowSoftInputMode="stateHidden"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize">
-
         <intent-filter>
             <action android:name="android.intent.action.SEND" />
             <category android:name="android.intent.category.DEFAULT"/>
@@ -156,8 +155,15 @@
             <data android:mimeType="*/*"/>
         </intent-filter>
 
-        <meta-data
-                android:name="android.service.chooser.chooser_target_service"
+        <intent-filter>
+            <action android:name="android.intent.action.SEND_MULTIPLE" />
+            <category android:name="android.intent.category.DEFAULT"/>
+            <data android:mimeType="image/*" />
+            <data android:mimeType="video/*" />
+        </intent-filter>
+
+      <meta-data
+          android:name="android.service.chooser.chooser_target_service"
                 android:value=".service.DirectShareService" />
 
     </activity>
@@ -310,12 +316,12 @@
                android:label="@string/AndroidManifest__linked_devices"
                android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
 
-    <activity android:name=".LogSubmitActivity"
+    <activity android:name=".logsubmit.SubmitDebugLogActivity"
               android:label="@string/AndroidManifest__log_submit"
               android:windowSoftInputMode="stateHidden"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
 
-    <activity android:name=".MediaPreviewActivity"
+        <activity android:name=".MediaPreviewActivity"
               android:label="@string/AndroidManifest__media_preview"
               android:windowSoftInputMode="stateHidden"
               android:launchMode="singleTask"
@@ -396,6 +402,11 @@
             <category android:name="android.intent.category.DEFAULT"/>
         </intent-filter>
     </activity>
+
+    <activity android:name=".messagerequests.MessageRequestMegaphoneActivity"
+              android:theme="@style/TextSecure.LightRegistrationTheme"
+              android:windowSoftInputMode="adjustResize"
+              android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
 
     <activity android:name=".contactshare.ContactShareEditActivity"
               android:theme="@style/TextSecure.LightTheme"

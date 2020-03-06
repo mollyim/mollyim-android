@@ -9,6 +9,13 @@ package org.whispersystems.signalservice.internal.push;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
+import org.signal.zkgroup.ServerPublicParams;
+import org.signal.zkgroup.VerificationFailedException;
+import org.signal.zkgroup.profiles.ProfileKey;
+import org.signal.zkgroup.profiles.ProfileKeyCredential;
+import org.signal.zkgroup.profiles.ProfileKeyCredentialRequest;
+import org.signal.zkgroup.profiles.ProfileKeyCredentialRequestContext;
+import org.signal.zkgroup.profiles.ProfileKeyVersion;
 import org.whispersystems.libsignal.IdentityKey;
 import org.whispersystems.libsignal.ecc.ECPublicKey;
 import org.whispersystems.libsignal.logging.Log;
@@ -17,11 +24,14 @@ import org.whispersystems.libsignal.state.PreKeyRecord;
 import org.whispersystems.libsignal.state.SignedPreKeyRecord;
 import org.whispersystems.libsignal.util.Pair;
 import org.whispersystems.libsignal.util.guava.Optional;
+import org.whispersystems.signalservice.FeatureFlags;
 import org.whispersystems.signalservice.api.crypto.UnidentifiedAccess;
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachment.ProgressListener;
 import org.whispersystems.signalservice.api.messages.calls.TurnServerInfo;
 import org.whispersystems.signalservice.api.messages.multidevice.DeviceInfo;
+import org.whispersystems.signalservice.api.profiles.ProfileAndCredential;
 import org.whispersystems.signalservice.api.profiles.SignalServiceProfile;
+import org.whispersystems.signalservice.api.profiles.SignalServiceProfileWrite;
 import org.whispersystems.signalservice.api.push.ContactTokenDetails;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
 import org.whispersystems.signalservice.api.push.SignedPreKeyEntity;
@@ -29,6 +39,7 @@ import org.whispersystems.signalservice.api.push.exceptions.AuthorizationFailedE
 import org.whispersystems.signalservice.api.push.exceptions.CaptchaRequiredException;
 import org.whispersystems.signalservice.api.push.exceptions.ContactManifestMismatchException;
 import org.whispersystems.signalservice.api.push.exceptions.ExpectationFailedException;
+import org.whispersystems.signalservice.api.push.exceptions.NoContentException;
 import org.whispersystems.signalservice.api.push.exceptions.NonSuccessfulResponseCodeException;
 import org.whispersystems.signalservice.api.push.exceptions.NotFoundException;
 import org.whispersystems.signalservice.api.push.exceptions.PushNetworkException;
@@ -48,6 +59,7 @@ import org.whispersystems.signalservice.internal.contacts.entities.DiscoveryResp
 import org.whispersystems.signalservice.internal.contacts.entities.KeyBackupRequest;
 import org.whispersystems.signalservice.internal.contacts.entities.KeyBackupResponse;
 import org.whispersystems.signalservice.internal.contacts.entities.TokenResponse;
+import org.whispersystems.signalservice.internal.groupsv2.ClientZkOperations;
 import org.whispersystems.signalservice.internal.push.exceptions.MismatchedDevicesException;
 import org.whispersystems.signalservice.internal.push.exceptions.StaleDevicesException;
 import org.whispersystems.signalservice.internal.push.http.CancelationSignal;
@@ -170,6 +182,7 @@ public class PushServiceSocket {
   private final CredentialsProvider credentialsProvider;
   private final String              signalAgent;
   private final SecureRandom        random;
+  private final ClientZkOperations  clientZkOperations;
 
   public PushServiceSocket(SignalServiceConfiguration signalServiceConfiguration, CredentialsProvider credentialsProvider, String signalAgent) {
     this.credentialsProvider               = credentialsProvider;
@@ -180,6 +193,7 @@ public class PushServiceSocket {
     this.keyBackupServiceClients           = createConnectionHolders(signalServiceConfiguration.getSignalKeyBackupServiceUrls(), signalServiceConfiguration.getNetworkInterceptors());
     this.storageClients                    = createConnectionHolders(signalServiceConfiguration.getSignalStorageUrls(), signalServiceConfiguration.getNetworkInterceptors());
     this.random                            = new SecureRandom();
+    this.clientZkOperations                = FeatureFlags.ZK_GROUPS ? new ClientZkOperations(new ServerPublicParams(signalServiceConfiguration.getZkGroupServerPublicParams())) : null;
   }
 
   public void requestSmsVerificationCode(boolean androidSmsRetriever, Optional<String> captchaToken, Optional<String> challenge) throws IOException {
@@ -543,6 +557,37 @@ public class PushServiceSocket {
     }
   }
 
+  public ProfileAndCredential retrieveProfile(UUID target, ProfileKey profileKey, Optional<UnidentifiedAccess> unidentifiedAccess)
+    throws NonSuccessfulResponseCodeException, VerificationFailedException
+  {
+    if (!FeatureFlags.VERSIONED_PROFILES) {
+      throw new AssertionError();
+    }
+
+    try {
+      ProfileKeyVersion                  profileKeyIdentifier = profileKey.getProfileKeyVersion();
+      ProfileKeyCredentialRequestContext requestContext       = clientZkOperations.getProfileOperations().createProfileKeyCredentialRequestContext(random, target, profileKey);
+      ProfileKeyCredentialRequest        request              = requestContext.getRequest();
+
+      String version           = profileKeyIdentifier.serialize();
+      String credentialRequest = Hex.toStringCondensed(request.serialize());
+      String subPath           = String.format("%s/%s/%s", target, version, credentialRequest);
+
+      String response = makeServiceRequest(String.format(PROFILE_PATH, subPath), "GET", null, NO_HEADERS, unidentifiedAccess);
+
+      SignalServiceProfile signalServiceProfile = JsonUtil.fromJson(response, SignalServiceProfile.class);
+
+      ProfileKeyCredential profileKeyCredential = signalServiceProfile.getProfileKeyCredentialResponse() != null
+                                                ? clientZkOperations.getProfileOperations().receiveProfileKeyCredential(requestContext, signalServiceProfile.getProfileKeyCredentialResponse())
+                                                : null;
+
+      return new ProfileAndCredential(signalServiceProfile, SignalServiceProfile.RequestType.PROFILE_AND_CREDENTIAL, Optional.fromNullable(profileKeyCredential));
+    } catch (IOException e) {
+      Log.w(TAG, e);
+      throw new NonSuccessfulResponseCodeException("Unable to parse entity");
+    }
+  }
+
   public void retrieveProfileAvatar(String path, File destination, int maxSizeBytes)
       throws NonSuccessfulResponseCodeException, PushNetworkException
   {
@@ -550,12 +595,20 @@ public class PushServiceSocket {
   }
 
   public void setProfileName(String name) throws NonSuccessfulResponseCodeException, PushNetworkException {
+    if (FeatureFlags.VERSIONED_PROFILES) {
+      throw new AssertionError();
+    }
+
     makeServiceRequest(String.format(PROFILE_PATH, "name/" + (name == null ? "" : URLEncoder.encode(name))), "PUT", "");
   }
 
   public void setProfileAvatar(ProfileAvatarData profileAvatar)
       throws NonSuccessfulResponseCodeException, PushNetworkException
   {
+    if (FeatureFlags.VERSIONED_PROFILES) {
+      throw new AssertionError();
+    }
+
     String                        response       = makeServiceRequest(String.format(PROFILE_PATH, "form/avatar"), "GET", null);
     ProfileAvatarUploadAttributes formAttributes;
 
@@ -567,6 +620,35 @@ public class PushServiceSocket {
     }
 
     if (profileAvatar != null) {
+      uploadToCdn("", formAttributes.getAcl(), formAttributes.getKey(),
+                  formAttributes.getPolicy(), formAttributes.getAlgorithm(),
+                  formAttributes.getCredential(), formAttributes.getDate(),
+                  formAttributes.getSignature(), profileAvatar.getData(),
+                  profileAvatar.getContentType(), profileAvatar.getDataLength(),
+                  profileAvatar.getOutputStreamFactory(), null, null);
+    }
+  }
+
+  public void writeProfile(SignalServiceProfileWrite signalServiceProfileWrite, ProfileAvatarData profileAvatar)
+    throws NonSuccessfulResponseCodeException, PushNetworkException
+  {
+    if (!FeatureFlags.VERSIONED_PROFILES) {
+      throw new AssertionError();
+    }
+
+    String                        requestBody    = JsonUtil.toJson(signalServiceProfileWrite);
+    ProfileAvatarUploadAttributes formAttributes;
+
+    String response = makeServiceRequest(String.format(PROFILE_PATH, ""), "PUT", requestBody);
+
+    if (signalServiceProfileWrite.hasAvatar() && profileAvatar != null) {
+       try {
+        formAttributes = JsonUtil.fromJson(response, ProfileAvatarUploadAttributes.class);
+      } catch (IOException e) {
+        Log.w(TAG, e);
+        throw new NonSuccessfulResponseCodeException("Unable to parse entity");
+      }
+
       uploadToCdn("", formAttributes.getAcl(), formAttributes.getKey(),
                   formAttributes.getPolicy(), formAttributes.getAlgorithm(),
                   formAttributes.getCredential(), formAttributes.getDate(),
@@ -698,6 +780,16 @@ public class PushServiceSocket {
 
   public StorageManifest getStorageManifest(String authToken) throws IOException {
     Response response = makeStorageRequest(authToken, "/v1/storage/manifest", "GET", null);
+
+    if (response.body() == null) {
+      throw new IOException("Missing body!");
+    }
+
+    return StorageManifest.parseFrom(response.body().bytes());
+  }
+
+  public StorageManifest getStorageManifestIfDifferentVersion(String authToken, long version) throws IOException {
+    Response response = makeStorageRequest(authToken, "/v1/storage/manifest/version/" + version, "GET", null);
 
     if (response.body() == null) {
       throw new IOException("Missing body!");
@@ -1038,8 +1130,8 @@ public class PushServiceSocket {
                                                            .readTimeout(soTimeoutMillis, TimeUnit.MILLISECONDS)
                                                            .build();
 
-      Log.w(TAG, "Push service URL: " + connectionHolder.getUrl());
-      Log.w(TAG, "Opening URL: " + String.format("%s%s", connectionHolder.getUrl(), urlFragment));
+      Log.d(TAG, "Push service URL: " + connectionHolder.getUrl());
+      Log.d(TAG, "Opening URL: " + String.format("%s%s", connectionHolder.getUrl(), urlFragment));
 
       Request.Builder request = new Request.Builder();
       request.url(String.format("%s%s", connectionHolder.getUrl(), urlFragment));
@@ -1181,6 +1273,8 @@ public class PushServiceSocket {
                                                         .readTimeout(soTimeoutMillis, TimeUnit.MILLISECONDS)
                                                         .build();
 
+    Log.d(TAG, "Opening URL: " + String.format("%s%s", connectionHolder.getUrl(), path));
+
     Request.Builder request = new Request.Builder().url(connectionHolder.getUrl() + path);
 
     if (body != null) {
@@ -1208,7 +1302,7 @@ public class PushServiceSocket {
     try {
       response = call.execute();
 
-      if (response.isSuccessful()) {
+      if (response.isSuccessful() && response.code() != 204) {
         return response;
       }
     } catch (IOException e) {
@@ -1220,6 +1314,8 @@ public class PushServiceSocket {
     }
 
     switch (response.code()) {
+      case 204:
+        throw new NoContentException("No content!");
       case 401:
       case 403:
         throw new AuthorizationFailedException("Authorization failed!");

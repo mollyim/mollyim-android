@@ -28,7 +28,7 @@ import java.util.concurrent.TimeUnit;
  * are not yet ready to be activated.
  *
  * When creating a new flag:
- * - Create a new string constant using {@link #generateKey(String)})
+ * - Create a new string constant. This should almost certainly be prefixed with "android."
  * - Add a method to retrieve the value using {@link #getValue(String, boolean)}. You can also add
  *   other checks here, like requiring other flags.
  * - If you want to be able to change a flag remotely, place it in {@link #REMOTE_CAPABLE}.
@@ -38,29 +38,35 @@ import java.util.concurrent.TimeUnit;
  * Other interesting things you can do:
  * - Make a flag {@link #HOT_SWAPPABLE}
  * - Make a flag {@link #STICKY}
+ * - Register a listener for flag changes in  {@link #FLAG_CHANGE_LISTENERS}
  */
 public final class FeatureFlags {
 
   private static final String TAG = Log.tag(FeatureFlags.class);
 
-  private static final String PREFIX         = "android.";
-  private static final long   FETCH_INTERVAL = TimeUnit.HOURS.toMillis(2);
+  private static final long FETCH_INTERVAL = TimeUnit.HOURS.toMillis(2);
 
-  private static final String UUIDS                      = generateKey("uuids");
-  private static final String PROFILE_DISPLAY            = generateKey("profileDisplay");
-  private static final String MESSAGE_REQUESTS           = generateKey("messageRequests");
-  private static final String USERNAMES                  = generateKey("usernames");
-  private static final String STORAGE_SERVICE            = generateKey("storageService");
-  private static final String PINS_FOR_ALL               = generateKey("pinsForAll");
-  private static final String PINS_MEGAPHONE_KILL_SWITCH = generateKey("pinsMegaphoneKillSwitch");
+  private static final String UUIDS                      = "android.uuids";
+  private static final String MESSAGE_REQUESTS           = "android.messageRequests";
+  private static final String USERNAMES                  = "android.usernames";
+  private static final String PINS_FOR_ALL               = "android.pinsForAll";
+  private static final String PINS_MEGAPHONE_KILL_SWITCH = "android.pinsMegaphoneKillSwitch";
+  private static final String PROFILE_NAMES_MEGAPHONE    = "android.profileNamesMegaphone";
+  private static final String VIDEO_TRIMMING             = "android.videoTrimming";
+  private static final String STORAGE_SERVICE            = "android.storageService.2";
 
   /**
    * We will only store remote values for flags in this set. If you want a flag to be controllable
    * remotely, place it in here.
    */
+
   private static final Set<String> REMOTE_CAPABLE = Sets.newHashSet(
+      VIDEO_TRIMMING,
       PINS_FOR_ALL,
-      PINS_MEGAPHONE_KILL_SWITCH
+      PINS_MEGAPHONE_KILL_SWITCH,
+      PROFILE_NAMES_MEGAPHONE,
+      MESSAGE_REQUESTS,
+      STORAGE_SERVICE
   );
 
   /**
@@ -81,27 +87,51 @@ public final class FeatureFlags {
    * more burden on the reader to ensure that the app experience remains consistent.
    */
   private static final Set<String> HOT_SWAPPABLE = Sets.newHashSet(
-    PINS_MEGAPHONE_KILL_SWITCH
+      VIDEO_TRIMMING,
+      PINS_MEGAPHONE_KILL_SWITCH,
+      STORAGE_SERVICE
   );
 
   /**
    * Flags in this set will stay true forever once they receive a true value from a remote config.
    */
   private static final Set<String> STICKY = Sets.newHashSet(
-    PINS_FOR_ALL
+      PINS_FOR_ALL
   );
+
+  /**
+   * Listeners that are called when the value in {@link #REMOTE_VALUES} changes. That means that
+   * hot-swappable flags will have this invoked as soon as we know about that change, but otherwise
+   * these will only run during initialization.
+   *
+   * These can be called on any thread, including the main thread, so be careful!
+   *
+   * Also note that this doesn't play well with {@link #FORCED_VALUES} -- changes there will not
+   * trigger changes in this map, so you'll have to do some manually hacking to get yourself in the
+   * desired test state.
+   */
+  private static final Map<String, OnFlagChange> FLAG_CHANGE_LISTENERS = new HashMap<String, OnFlagChange>() {{
+    put(MESSAGE_REQUESTS, (change) -> SignalStore.setMessageRequestEnableTime(change == Change.ENABLED ? System.currentTimeMillis() : 0));
+  }};
 
   private static final Map<String, Boolean> REMOTE_VALUES = new TreeMap<>();
 
   private FeatureFlags() {}
 
   public static synchronized void init() {
-    REMOTE_VALUES.putAll(parseStoredConfig());
+    Map<String, Boolean> current = parseStoredConfig(SignalStore.remoteConfigValues().getCurrentConfig());
+    Map<String, Boolean> pending = parseStoredConfig(SignalStore.remoteConfigValues().getPendingConfig());
+    Map<String, Change>  changes = computeChanges(current, pending);
+
+    SignalStore.remoteConfigValues().setCurrentConfig(mapToJson(pending));
+    REMOTE_VALUES.putAll(pending);
+    triggerFlagChangeListeners(changes);
+
     Log.i(TAG, "init() " + REMOTE_VALUES.toString());
   }
 
-  public static synchronized void refresh() {
-    long timeSinceLastFetch = System.currentTimeMillis() - SignalStore.getRemoteConfigLastFetchTime();
+  public static synchronized void refreshIfNecessary() {
+    long timeSinceLastFetch = System.currentTimeMillis() - SignalStore.remoteConfigValues().getLastFetchTime();
 
     if (timeSinceLastFetch > FETCH_INTERVAL) {
       Log.i(TAG, "Scheduling remote config refresh.");
@@ -112,13 +142,16 @@ public final class FeatureFlags {
   }
 
   public static synchronized void update(@NonNull Map<String, Boolean> config) {
-    Map<String, Boolean> memory = REMOTE_VALUES;
-    Map<String, Boolean> disk   = parseStoredConfig();
-    UpdateResult         result = updateInternal(config, memory, disk, REMOTE_CAPABLE, HOT_SWAPPABLE, STICKY);
+    Map<String, Boolean> memory  = REMOTE_VALUES;
+    Map<String, Boolean> disk    = parseStoredConfig(SignalStore.remoteConfigValues().getPendingConfig());
+    UpdateResult         result  = updateInternal(config, memory, disk, REMOTE_CAPABLE, HOT_SWAPPABLE, STICKY);
 
-    SignalStore.setRemoteConfig(mapToJson(result.getDisk()).toString());
+    SignalStore.remoteConfigValues().setPendingConfig(mapToJson(result.getDisk()));
     REMOTE_VALUES.clear();
     REMOTE_VALUES.putAll(result.getMemory());
+    triggerFlagChangeListeners(result.getMemoryChanges());
+
+    SignalStore.remoteConfigValues().setLastFetchTime(System.currentTimeMillis());
 
     Log.i(TAG, "[Memory] Before: " + memory.toString());
     Log.i(TAG, "[Memory] After : " + result.getMemory().toString());
@@ -133,7 +166,7 @@ public final class FeatureFlags {
 
   /** Favoring profile names when displaying contacts. */
   public static synchronized boolean profileDisplay() {
-    return getValue(PROFILE_DISPLAY, false);
+    return messageRequests();
   }
 
   /** MessageRequest stuff */
@@ -148,11 +181,6 @@ public final class FeatureFlags {
     return value;
   }
 
-  /** Storage service. */
-  public static boolean storageService() {
-    return getValue(STORAGE_SERVICE, false);
-  }
-
   /** Enables new KBS UI and notices but does not require user to set a pin */
   public static boolean pinsForAll() {
     return SignalStore.registrationValues().pinWasRequiredAtRegistration() ||
@@ -165,6 +193,27 @@ public final class FeatureFlags {
     return getValue(PINS_MEGAPHONE_KILL_SWITCH, false);
   }
 
+  /** Safety switch for disabling profile names megaphone */
+  public static boolean profileNamesMegaphone() {
+    return getValue(PROFILE_NAMES_MEGAPHONE, false) &&
+           TextSecurePreferences.getFirstInstallVersion(ApplicationDependencies.getApplication()) < 600;
+  }
+
+  /** Allow trimming videos. */
+  public static boolean videoTrimming() {
+    return getValue(VIDEO_TRIMMING, false);
+  }
+
+  /** Whether or not we can actually restore data on a new installation. NOT remote-configurable. */
+  public static boolean storageServiceRestore() {
+    return false;
+  }
+
+  /** Whether or not we sync to the storage service. */
+  public static boolean storageService() {
+    return getValue(STORAGE_SERVICE, false);
+  }
+
   /** Only for rendering debug info. */
   public static synchronized @NonNull Map<String, Boolean> getMemoryValues() {
     return new TreeMap<>(REMOTE_VALUES);
@@ -172,7 +221,7 @@ public final class FeatureFlags {
 
   /** Only for rendering debug info. */
   public static synchronized @NonNull Map<String, Boolean> getDiskValues() {
-    return new TreeMap<>(parseStoredConfig());
+    return new TreeMap<>(parseStoredConfig(SignalStore.remoteConfigValues().getCurrentConfig()));
   }
 
   /** Only for rendering debug info. */
@@ -222,11 +271,42 @@ public final class FeatureFlags {
             }
           });
 
-    return new UpdateResult(newMemory, newDisk);
+    Stream.of(allKeys)
+          .filterNot(remoteCapable::contains)
+          .filterNot(key -> sticky.contains(key) && localDisk.get(key) == Boolean.TRUE)
+          .forEach(key -> {
+            newDisk.remove(key);
+
+            if (hotSwap.contains(key)) {
+              newMemory.remove(key);
+            }
+          });
+
+    return new UpdateResult(newMemory, newDisk, computeChanges(localMemory, newMemory));
   }
 
-  private static @NonNull String generateKey(@NonNull String key) {
-    return PREFIX + key;
+  @VisibleForTesting
+  static @NonNull Map<String, Change> computeChanges(@NonNull Map<String, Boolean> oldMap, @NonNull Map<String, Boolean> newMap) {
+    Map<String, Change> changes = new HashMap<>();
+    Set<String>         allKeys = new HashSet<>();
+
+    allKeys.addAll(oldMap.keySet());
+    allKeys.addAll(newMap.keySet());
+
+    for (String key : allKeys) {
+      Boolean oldValue = oldMap.get(key);
+      Boolean newValue = newMap.get(key);
+
+      if (oldValue == null && newValue == null) {
+        throw new AssertionError("Should not be possible.");
+      } else if (oldValue != null && newValue == null) {
+        changes.put(key, Change.REMOVED);
+      } else if (newValue != oldValue) {
+        changes.put(key, newValue ? Change.ENABLED : Change.DISABLED);
+      }
+    }
+
+    return changes;
   }
 
   private static boolean getValue(@NonNull String key, boolean defaultValue) {
@@ -243,9 +323,8 @@ public final class FeatureFlags {
     return defaultValue;
   }
 
-  private static Map<String, Boolean> parseStoredConfig() {
+  private static Map<String, Boolean> parseStoredConfig(String stored) {
     Map<String, Boolean> parsed = new HashMap<>();
-    String               stored = SignalStore.getRemoteConfig();
 
     if (TextUtils.isEmpty(stored)) {
       Log.i(TAG, "No remote config stored. Skipping.");
@@ -261,14 +340,13 @@ public final class FeatureFlags {
         parsed.put(key, root.getBoolean(key));
       }
     } catch (JSONException e) {
-      SignalStore.setRemoteConfig(null);
       throw new AssertionError("Failed to parse! Cleared storage.");
     }
 
     return parsed;
   }
 
-  private static JSONObject mapToJson(@NonNull Map<String, Boolean> map) {
+  private static @NonNull String mapToJson(@NonNull Map<String, Boolean> map) {
     try {
       JSONObject json = new JSONObject();
 
@@ -276,9 +354,20 @@ public final class FeatureFlags {
         json.put(entry.getKey(), (boolean) entry.getValue());
       }
 
-      return json;
+      return json.toString();
     } catch (JSONException e) {
       throw new AssertionError(e);
+    }
+  }
+
+  private static void triggerFlagChangeListeners(Map<String, Change> changes) {
+    for (Map.Entry<String, Change> change : changes.entrySet()) {
+      OnFlagChange listener = FLAG_CHANGE_LISTENERS.get(change.getKey());
+
+      if (listener != null) {
+        Log.i(TAG, "Triggering change listener for: " + change.getKey());
+        listener.onFlagChange(change.getValue());
+      }
     }
   }
 
@@ -289,10 +378,12 @@ public final class FeatureFlags {
   static final class UpdateResult {
     private final Map<String, Boolean> memory;
     private final Map<String, Boolean> disk;
+    private final Map<String, Change> memoryChanges;
 
-    UpdateResult(@NonNull Map<String, Boolean> memory, @NonNull Map<String, Boolean> disk) {
-      this.memory = memory;
-      this.disk   = disk;
+    UpdateResult(@NonNull Map<String, Boolean> memory, @NonNull Map<String, Boolean> disk, @NonNull Map<String, Change> memoryChanges) {
+      this.memory        = memory;
+      this.disk          = disk;
+      this.memoryChanges = memoryChanges;
     }
 
     public @NonNull Map<String, Boolean> getMemory() {
@@ -302,5 +393,21 @@ public final class FeatureFlags {
     public @NonNull Map<String, Boolean> getDisk() {
       return disk;
     }
+
+    public @NonNull Map<String, Change> getMemoryChanges() {
+      return memoryChanges;
+    }
   }
+
+  @VisibleForTesting
+  interface OnFlagChange {
+    void onFlagChange(@NonNull Change change);
+  }
+
+  enum Change {
+    ENABLED, DISABLED, REMOVED
+  }
+
+  /** Read and write versioned profile information. */
+  public static final boolean VERSIONED_PROFILES = org.whispersystems.signalservice.FeatureFlags.VERSIONED_PROFILES;
 }

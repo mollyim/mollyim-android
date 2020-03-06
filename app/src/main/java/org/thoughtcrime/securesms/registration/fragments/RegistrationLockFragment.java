@@ -6,7 +6,6 @@ import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -21,13 +20,17 @@ import androidx.navigation.Navigation;
 import com.dd.CircularProgressButton;
 
 import org.thoughtcrime.securesms.R;
+import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.jobs.StorageSyncJob;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.lock.v2.PinKeyboardType;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.registration.service.CodeVerificationRequest;
 import org.thoughtcrime.securesms.registration.service.RegistrationService;
 import org.thoughtcrime.securesms.registration.viewmodel.RegistrationViewModel;
+import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.ServiceUtil;
+import org.thoughtcrime.securesms.util.concurrent.SimpleTask;
 import org.whispersystems.signalservice.internal.contacts.entities.TokenResponse;
 
 import java.util.concurrent.TimeUnit;
@@ -63,7 +66,13 @@ public final class RegistrationLockFragment extends BaseRegistrationFragment {
     keyboardToggle = view.findViewById(R.id.kbs_lock_keyboard_toggle);
     forgotPin      = view.findViewById(R.id.kbs_lock_forgot_pin);
 
-    timeRemaining = RegistrationLockFragmentArgs.fromBundle(requireArguments()).getTimeRemaining();
+    RegistrationLockFragmentArgs args = RegistrationLockFragmentArgs.fromBundle(requireArguments());
+
+    timeRemaining = args.getTimeRemaining();
+
+    if (args.getIsV1RegistrationLock()) {
+      keyboardToggle.setVisibility(View.GONE);
+    }
 
     forgotPin.setVisibility(View.GONE);
     forgotPin.setOnClickListener(v -> handleForgottenPin(timeRemaining));
@@ -78,10 +87,7 @@ public final class RegistrationLockFragment extends BaseRegistrationFragment {
       return false;
     });
 
-    pinEntry.setFocusable(true);
-    if (pinEntry.requestFocus()) {
-      ServiceUtil.getInputMethodManager(pinEntry.getContext()).showSoftInput(pinEntry, 0);
-    }
+    enableAndFocusPinEntry();
 
     pinButton.setOnClickListener((v) -> {
       hideKeyboard(requireContext(), pinEntry);
@@ -136,6 +142,8 @@ public final class RegistrationLockFragment extends BaseRegistrationFragment {
   }
 
   private void handlePinEntry() {
+    pinEntry.setEnabled(false);
+
     final String pin = pinEntry.getText().toString();
 
     int trimmedLength = pin.replace(" ", "").length();
@@ -167,10 +175,7 @@ public final class RegistrationLockFragment extends BaseRegistrationFragment {
 
         @Override
         public void onSuccessfulRegistration() {
-          cancelSpinning(pinButton);
-          SignalStore.kbsValues().setKeyboardType(getPinEntryKeyboardType());
-
-          Navigation.findNavController(requireView()).navigate(RegistrationLockFragmentDirections.actionSuccessfulRegistration());
+          handleSuccessfulPinEntry();
         }
 
         @Override
@@ -179,6 +184,7 @@ public final class RegistrationLockFragment extends BaseRegistrationFragment {
 
           cancelSpinning(pinButton);
           pinEntry.getText().clear();
+          enableAndFocusPinEntry();
 
           errorLabel.setText(R.string.RegistrationLockFragment__incorrect_pin);
         }
@@ -192,6 +198,7 @@ public final class RegistrationLockFragment extends BaseRegistrationFragment {
         public void onIncorrectKbsRegistrationLockPin(@NonNull TokenResponse tokenResponse) {
           cancelSpinning(pinButton);
           pinEntry.getText().clear();
+          enableAndFocusPinEntry();
 
           model.setKeyBackupCurrentToken(tokenResponse);
 
@@ -224,6 +231,7 @@ public final class RegistrationLockFragment extends BaseRegistrationFragment {
         @Override
         public void onRateLimited() {
           cancelSpinning(pinButton);
+          enableAndFocusPinEntry();
 
           new AlertDialog.Builder(requireContext())
                          .setTitle(R.string.RegistrationActivity_too_many_attempts)
@@ -244,6 +252,7 @@ public final class RegistrationLockFragment extends BaseRegistrationFragment {
         @Override
         public void onError() {
           cancelSpinning(pinButton);
+          enableAndFocusPinEntry();
 
           Toast.makeText(requireContext(), R.string.RegistrationActivity_error_connecting_to_service, Toast.LENGTH_LONG).show();
         }
@@ -281,6 +290,39 @@ public final class RegistrationLockFragment extends BaseRegistrationFragment {
       return R.string.RegistrationLockFragment__enter_alphanumeric_pin;
     } else {
       return R.string.RegistrationLockFragment__enter_numeric_pin;
+    }
+  }
+
+  private void enableAndFocusPinEntry() {
+    pinEntry.setEnabled(true);
+    pinEntry.setFocusable(true);
+
+    if (pinEntry.requestFocus()) {
+      ServiceUtil.getInputMethodManager(pinEntry.getContext()).showSoftInput(pinEntry, 0);
+    }
+  }
+
+  private void handleSuccessfulPinEntry() {
+    SignalStore.kbsValues().setKeyboardType(getPinEntryKeyboardType());
+
+    if (FeatureFlags.storageServiceRestore()) {
+      long startTime = System.currentTimeMillis();
+      SimpleTask.run(() -> {
+        return ApplicationDependencies.getJobManager().runSynchronously(new StorageSyncJob(), TimeUnit.SECONDS.toMillis(10));
+      }, result -> {
+        long elapsedTime = System.currentTimeMillis() - startTime;
+
+        if (result.isPresent()) {
+          Log.i(TAG, "Storage Service restore completed: " + result.get().name() + ". (Took " + elapsedTime + " ms)");
+        } else {
+          Log.i(TAG, "Storage Service restore failed to complete in the allotted time. (" + elapsedTime + " ms elapsed)");
+        }
+        cancelSpinning(pinButton);
+        Navigation.findNavController(requireView()).navigate(RegistrationLockFragmentDirections.actionSuccessfulRegistration());
+      });
+    } else {
+      cancelSpinning(pinButton);
+      Navigation.findNavController(requireView()).navigate(RegistrationLockFragmentDirections.actionSuccessfulRegistration());
     }
   }
 }

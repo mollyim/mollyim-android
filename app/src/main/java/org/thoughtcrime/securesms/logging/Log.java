@@ -134,6 +134,6 @@ public class Log {
     public abstract void wtf(String tag, String message, Throwable t);
     public abstract void blockUntilAllWritesFinished();
     public abstract void clear();
-    public abstract String getLog() throws IOException;
+    public abstract CharSequence getLog() throws IOException;
   }
 }

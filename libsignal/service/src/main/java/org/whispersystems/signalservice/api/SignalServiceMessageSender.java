@@ -35,6 +35,8 @@ import org.whispersystems.signalservice.api.messages.calls.OfferMessage;
 import org.whispersystems.signalservice.api.messages.calls.SignalServiceCallMessage;
 import org.whispersystems.signalservice.api.messages.multidevice.BlockedListMessage;
 import org.whispersystems.signalservice.api.messages.multidevice.ConfigurationMessage;
+import org.whispersystems.signalservice.api.messages.multidevice.MessageRequestResponseMessage;
+import org.whispersystems.signalservice.api.messages.multidevice.KeysMessage;
 import org.whispersystems.signalservice.api.messages.multidevice.ReadMessage;
 import org.whispersystems.signalservice.api.messages.multidevice.SentTranscriptMessage;
 import org.whispersystems.signalservice.api.messages.multidevice.SignalServiceSyncMessage;
@@ -302,6 +304,10 @@ public class SignalServiceMessageSender {
       content = createMultiDeviceStickerPackOperationContent(message.getStickerPackOperations().get());
     } else if (message.getFetchType().isPresent()) {
       content = createMultiDeviceFetchTypeContent(message.getFetchType().get());
+    } else if (message.getMessageRequestResponse().isPresent()) {
+      content = createMultiDeviceMessageRequestResponseContent(message.getMessageRequestResponse().get());
+    } else if (message.getKeys().isPresent()) {
+      content = createMultiDeviceSyncKeysContent(message.getKeys().get());
     } else if (message.getVerified().isPresent()) {
       sendMessage(message.getVerified().get(), unidentifiedAccess);
       return;
@@ -816,6 +822,62 @@ public class SignalServiceMessageSender {
     }
 
     return container.setSyncMessage(syncMessage.setFetchLatest(fetchMessage)).build().toByteArray();
+  }
+
+  private byte[] createMultiDeviceMessageRequestResponseContent(MessageRequestResponseMessage message) {
+    Content.Builder container = Content.newBuilder();
+    SyncMessage.Builder syncMessage = createSyncMessageBuilder();
+    SyncMessage.MessageRequestResponse.Builder responseMessage = SyncMessage.MessageRequestResponse.newBuilder();
+
+    if (message.getGroupId().isPresent()) {
+      responseMessage.setGroupId(ByteString.copyFrom(message.getGroupId().get()));
+    }
+
+    if (message.getPerson().isPresent()) {
+      if (message.getPerson().get().getNumber().isPresent()) {
+        responseMessage.setThreadE164(message.getPerson().get().getNumber().get());
+      }
+      if (message.getPerson().get().getUuid().isPresent()) {
+        responseMessage.setThreadUuid(message.getPerson().get().getUuid().get().toString());
+      }
+    }
+
+    switch (message.getType()) {
+      case ACCEPT:
+        responseMessage.setType(SyncMessage.MessageRequestResponse.Type.ACCEPT);
+        break;
+      case DELETE:
+        responseMessage.setType(SyncMessage.MessageRequestResponse.Type.DELETE);
+        break;
+      case BLOCK:
+        responseMessage.setType(SyncMessage.MessageRequestResponse.Type.BLOCK);
+        break;
+      case BLOCK_AND_DELETE:
+        responseMessage.setType(SyncMessage.MessageRequestResponse.Type.BLOCK_AND_DELETE);
+        break;
+      default:
+        Log.w(TAG, "Unknown type!");
+        responseMessage.setType(SyncMessage.MessageRequestResponse.Type.UNKNOWN);
+        break;
+    }
+
+    syncMessage.setMessageRequestResponse(responseMessage);
+
+    return container.setSyncMessage(syncMessage).build().toByteArray();
+  }
+
+  private byte[] createMultiDeviceSyncKeysContent(KeysMessage keysMessage) {
+    Content.Builder          container   = Content.newBuilder();
+    SyncMessage.Builder      syncMessage = createSyncMessageBuilder();
+    SyncMessage.Keys.Builder builder     = SyncMessage.Keys.newBuilder();
+
+    if (keysMessage.getStorageService().isPresent()) {
+      builder.setStorageService(ByteString.copyFrom(keysMessage.getStorageService().get().serialize()));
+    } else {
+      Log.w(TAG, "Invalid keys message!");
+    }
+
+    return container.setSyncMessage(syncMessage.setKeys(builder)).build().toByteArray();
   }
 
   private byte[] createMultiDeviceVerifiedContent(VerifiedMessage verifiedMessage, byte[] nullMessage) {

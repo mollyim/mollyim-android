@@ -13,6 +13,8 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: '8.0.242'
+    - name: Validate Gradle Wrapper
+      uses: gradle/wrapper-validation-action@v1
     - name: Build and run tests
       run: ./gradlew -Pci qa
     - name: Upload APKs

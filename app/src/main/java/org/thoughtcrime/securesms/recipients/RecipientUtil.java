@@ -15,12 +15,15 @@ import org.thoughtcrime.securesms.database.RecipientDatabase.RegisteredState;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.database.ThreadDatabase;
 import org.thoughtcrime.securesms.jobs.DirectoryRefreshJob;
+import org.thoughtcrime.securesms.jobs.LeaveGroupJob;
 import org.thoughtcrime.securesms.jobs.MultiDeviceBlockedUpdateJob;
+import org.thoughtcrime.securesms.jobs.MultiDeviceMessageRequestResponseJob;
 import org.thoughtcrime.securesms.jobs.RotateProfileKeyJob;
+import org.thoughtcrime.securesms.keyvalue.SignalStore;
+import org.thoughtcrime.securesms.jobs.StorageSyncJob;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.mms.OutgoingGroupMediaMessage;
-import org.thoughtcrime.securesms.sms.MessageSender;
 import org.thoughtcrime.securesms.util.GroupUtil;
 import org.whispersystems.libsignal.util.guava.Optional;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
@@ -74,28 +77,17 @@ public class RecipientUtil {
 
     DatabaseFactory.getRecipientDatabase(context).setBlocked(resolved.getId(), true);
 
-    if (resolved.isGroup() && DatabaseFactory.getGroupDatabase(context).isActive(resolved.requireGroupId())) {
-      long                                threadId     = DatabaseFactory.getThreadDatabase(context).getThreadIdFor(resolved);
-      Optional<OutgoingGroupMediaMessage> leaveMessage = GroupUtil.createGroupLeaveMessage(context, resolved);
-
-      if (threadId != -1 && leaveMessage.isPresent()) {
-        MessageSender.send(context, leaveMessage.get(), threadId, false, null);
-
-        GroupDatabase groupDatabase = DatabaseFactory.getGroupDatabase(context);
-        String        groupId       = resolved.requireGroupId();
-        groupDatabase.setActive(groupId, false);
-        groupDatabase.remove(groupId, Recipient.self().getId());
-      } else {
-        Log.w(TAG, "Failed to leave group. Can't block.");
-        Toast.makeText(context, R.string.RecipientPreferenceActivity_error_leaving_group, Toast.LENGTH_LONG).show();
-      }
+    if (resolved.isGroup()) {
+      leaveGroup(context, recipient);
     }
 
     if (resolved.isSystemContact() || resolved.isProfileSharing()) {
       ApplicationDependencies.getJobManager().add(new RotateProfileKeyJob());
+      DatabaseFactory.getRecipientDatabase(context).setProfileSharing(resolved.getId(), false);
     }
 
     ApplicationDependencies.getJobManager().add(new MultiDeviceBlockedUpdateJob());
+    ApplicationDependencies.getJobManager().add(new StorageSyncJob());
   }
 
   @WorkerThread
@@ -106,18 +98,135 @@ public class RecipientUtil {
 
     DatabaseFactory.getRecipientDatabase(context).setBlocked(recipient.getId(), false);
     ApplicationDependencies.getJobManager().add(new MultiDeviceBlockedUpdateJob());
+    ApplicationDependencies.getJobManager().add(new StorageSyncJob());
+
+    if (FeatureFlags.messageRequests()) {
+      ApplicationDependencies.getJobManager().add(MultiDeviceMessageRequestResponseJob.forAccept(recipient.getId()));
+    }
   }
 
   @WorkerThread
-  public static boolean isRecipientMessageRequestAccepted(@NonNull Context context, @Nullable Recipient recipient) {
-    if (recipient == null || !FeatureFlags.messageRequests()) return true;
-
+  public static void leaveGroup(@NonNull Context context, @NonNull Recipient recipient) {
     Recipient resolved = recipient.resolve();
 
-    ThreadDatabase threadDatabase = DatabaseFactory.getThreadDatabase(context);
-    long           threadId       = threadDatabase.getThreadIdFor(resolved);
-    boolean        hasSentMessage = threadDatabase.getLastSeenAndHasSent(threadId).second() == Boolean.TRUE;
+    if (!resolved.isGroup()) {
+      throw new AssertionError("Not a group!");
+    }
 
-    return hasSentMessage || resolved.isProfileSharing() || resolved.isSystemContact();
+    if (DatabaseFactory.getGroupDatabase(context).isActive(resolved.requireGroupId())) {
+      long                                threadId     = DatabaseFactory.getThreadDatabase(context).getThreadIdFor(resolved);
+      Optional<OutgoingGroupMediaMessage> leaveMessage = GroupUtil.createGroupLeaveMessage(context, resolved);
+
+      if (threadId != -1 && leaveMessage.isPresent()) {
+        ApplicationDependencies.getJobManager().add(LeaveGroupJob.create(recipient));
+
+        GroupDatabase groupDatabase = DatabaseFactory.getGroupDatabase(context);
+        String        groupId       = resolved.requireGroupId();
+        groupDatabase.setActive(groupId, false);
+        groupDatabase.remove(groupId, Recipient.self().getId());
+      } else {
+        Log.w(TAG, "Failed to leave group.");
+        Toast.makeText(context, R.string.RecipientPreferenceActivity_error_leaving_group, Toast.LENGTH_LONG).show();
+      }
+    } else {
+      Log.i(TAG, "Group was already inactive. Skipping.");
+    }
+  }
+
+  /**
+   * If true, the new message request UI does not need to be shown, and it's safe to send read
+   * receipts.
+   *
+   * Note that this does not imply that a user has explicitly accepted a message request -- it could
+   * also be the case that the thread in question is for a system contact or something of the like.
+   */
+  @WorkerThread
+  public static boolean isMessageRequestAccepted(@NonNull Context context, long threadId) {
+    if (!FeatureFlags.messageRequests() || threadId < 0) {
+      return true;
+    }
+
+    ThreadDatabase threadDatabase  = DatabaseFactory.getThreadDatabase(context);
+    Recipient      threadRecipient = threadDatabase.getRecipientForThreadId(threadId);
+
+    if (threadRecipient == null) {
+      return true;
+    }
+
+    return isMessageRequestAccepted(context, threadId, threadRecipient);
+  }
+
+  /**
+   * See {@link #isMessageRequestAccepted(Context, long)}.
+   */
+  @WorkerThread
+  public static boolean isMessageRequestAccepted(@NonNull Context context, @Nullable Recipient threadRecipient) {
+    if (!FeatureFlags.messageRequests() || threadRecipient == null) {
+      return true;
+    }
+
+    long threadId = DatabaseFactory.getThreadDatabase(context).getThreadIdFor(threadRecipient);
+    return isMessageRequestAccepted(context, threadId, threadRecipient);
+  }
+
+  /**
+   * @return True if a conversation existed before we enabled message requests, otherwise false.
+   */
+  @WorkerThread
+  public static boolean isPreMessageRequestThread(@NonNull Context context, long threadId) {
+    if (!FeatureFlags.messageRequests()) {
+      return true;
+    }
+
+    long beforeTime = SignalStore.getMessageRequestEnableTime();
+    return DatabaseFactory.getMmsSmsDatabase(context).getConversationCount(threadId, beforeTime) > 0;
+  }
+
+  @WorkerThread
+  public static void shareProfileIfFirstSecureMessage(@NonNull Context context, @NonNull Recipient recipient) {
+    if (!FeatureFlags.messageRequests()) {
+      return;
+    }
+
+    long threadId = DatabaseFactory.getThreadDatabase(context).getThreadIdIfExistsFor(recipient);
+
+    if (isPreMessageRequestThread(context, threadId)) {
+      return;
+    }
+
+    boolean firstMessage = DatabaseFactory.getMmsSmsDatabase(context).getOutgoingSecureConversationCount(threadId) == 0;
+
+    if (firstMessage) {
+      DatabaseFactory.getRecipientDatabase(context).setProfileSharing(recipient.getId(), true);
+    }
+  }
+
+  public static boolean isLegacyProfileSharingAccepted(@NonNull Recipient threadRecipient) {
+    return threadRecipient.isLocalNumber()    ||
+           threadRecipient.isProfileSharing() ||
+           threadRecipient.isSystemContact()  ||
+           !threadRecipient.isRegistered();
+  }
+
+  @WorkerThread
+  private static boolean isMessageRequestAccepted(@NonNull Context context, long threadId, @NonNull Recipient threadRecipient) {
+    return threadRecipient.isLocalNumber()             ||
+           threadRecipient.isProfileSharing()          ||
+           threadRecipient.isSystemContact()           ||
+           threadRecipient.isForceSmsSelection()       ||
+           !threadRecipient.isRegistered()             ||
+           hasSentMessageInThread(context, threadId)   ||
+           noSecureMessagesInThread(context, threadId) ||
+           isPreMessageRequestThread(context, threadId);
+  }
+
+  @WorkerThread
+  private static boolean hasSentMessageInThread(@NonNull Context context, long threadId) {
+    return DatabaseFactory.getMmsSmsDatabase(context).getOutgoingSecureConversationCount(threadId) != 0;
+  }
+
+  @WorkerThread
+  private static boolean noSecureMessagesInThread(@NonNull Context context, long threadId) {
+    return DatabaseFactory.getMmsSmsDatabase(context).getSecureConversationCount(threadId) == 0;
   }
 }

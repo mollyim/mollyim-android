@@ -123,7 +123,7 @@ dependencies {
 
     implementation 'im.molly:argon2:13.1-1@aar'
 
-    implementation 'org.signal:ringrtc-android:0.3.3'
+    implementation 'org.signal:ringrtc-android:1.0.2'
 
     implementation "me.leolin:ShortcutBadger:1.1.16"
     implementation 'se.emilsjolander:stickylistheaders:2.7.0'
@@ -194,8 +194,8 @@ dependencyVerification {
     configuration = '(staging|production)(Debug|Release)RuntimeClasspath'
 }
 
-def canonicalVersionCode = 607
-def canonicalVersionName = "4.55.8-2"
+def canonicalVersionCode = 610
+def canonicalVersionName = "4.56.4"
 
 def postFixSize = 10
 def abiPostFix = ['universal'   : 0,
@@ -249,6 +249,7 @@ android {
         buildConfigField "int", "CONTENT_PROXY_PORT", "443"
         buildConfigField "String", "SIGNAL_AGENT", "\"OWA\""
         buildConfigField "String", "KEY_BACKUP_MRENCLAVE", "\"a3baab19ef6ce6f34ab9ebb25ba722725ae44a8872dc0ff08ad6d83a9489de87\""
+        buildConfigField "String", "ZKGROUP_SERVER_PUBLIC_PARAMS", "\"\""
         buildConfigField "String[]", "LANGUAGES", "new String[]{\"" + autoResConfig().collect { s -> s.replace('-r', '_') }.join('", "') + '"}'
         buildConfigField "int", "CANONICAL_VERSION_CODE", "$canonicalVersionCode"
 
@@ -330,6 +331,7 @@ android {
             buildConfigField "String", "MRENCLAVE", "\"ba4ebb438bc07713819ee6c98d94037747006d7df63fc9e44d2d6f1fec962a79\""
             buildConfigField "String", "KEY_BACKUP_ENCLAVE_NAME", "\"a1e9c1d3f352b5c4f0fc7a421b98119e60e5ff703c28fbea85c66bfa7306deab\""
             buildConfigField "String", "UNIDENTIFIED_SENDER_TRUST_ROOT", "\"BbqY1DzohE4NUZoVF+L18oUPrK3kILllLEJh2UnPSsEx\""
+            buildConfigField "String", "ZKGROUP_SERVER_PUBLIC_PARAMS", "\"\""
         }
         production {
             dimension "environment"

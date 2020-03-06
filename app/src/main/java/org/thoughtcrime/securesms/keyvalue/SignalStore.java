@@ -1,21 +1,25 @@
 package org.thoughtcrime.securesms.keyvalue;
 
-import android.content.Context;
-
 import androidx.annotation.NonNull;
 
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.logging.SignalUncaughtExceptionHandler;
+import org.thoughtcrime.securesms.util.FeatureFlags;
 
 /**
  * Simple, encrypted key-value store.
  */
 public final class SignalStore {
 
-  private static final String REMOTE_CONFIG                 = "remote_config";
-  private static final String REMOTE_CONFIG_LAST_FETCH_TIME = "remote_config_last_fetch_time";
+  private static final String LAST_PREKEY_REFRESH_TIME      = "last_prekey_refresh_time";
+  private static final String MESSAGE_REQUEST_ENABLE_TIME   = "message_request_enable_time";
 
   private SignalStore() {}
+
+  public static void onFirstEverAppLaunch() {
+    registrationValues().onFirstEverAppLaunch();
+    storageServiceValues().setFirstStorageSyncCompleted(false);
+  }
 
   public static @NonNull KbsValues kbsValues() {
     return new KbsValues(getStore());
@@ -29,22 +33,29 @@ public final class SignalStore {
     return new PinValues(getStore());
   }
 
-  public static String getRemoteConfig() {
-    return getStore().getString(REMOTE_CONFIG, null);
+  public static @NonNull RemoteConfigValues remoteConfigValues() {
+    return new RemoteConfigValues(getStore());
   }
 
-  public static void setRemoteConfig(String value) {
-    putString(REMOTE_CONFIG, value);
+  public static @NonNull StorageServiceValues storageServiceValues() {
+    return new StorageServiceValues(getStore());
   }
 
-  public static long getRemoteConfigLastFetchTime() {
-    return getStore().getLong(REMOTE_CONFIG_LAST_FETCH_TIME, 0);
+  public static long getLastPrekeyRefreshTime() {
+    return getStore().getLong(LAST_PREKEY_REFRESH_TIME, 0);
   }
 
-  public static void setRemoteConfigLastFetchTime(long time) {
-    putLong(REMOTE_CONFIG_LAST_FETCH_TIME, time);
+  public static void setLastPrekeyRefreshTime(long time) {
+    putLong(LAST_PREKEY_REFRESH_TIME, time);
   }
 
+  public static long getMessageRequestEnableTime() {
+    return getStore().getLong(MESSAGE_REQUEST_ENABLE_TIME, 0);
+  }
+
+  public static void setMessageRequestEnableTime(long time) {
+    putLong(MESSAGE_REQUEST_ENABLE_TIME, time);
+  }
 
   /**
    * Ensures any pending writes are finished. Only intended to be called by

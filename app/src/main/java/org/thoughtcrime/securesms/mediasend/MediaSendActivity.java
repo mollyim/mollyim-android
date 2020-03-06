@@ -87,6 +87,7 @@ import java.util.Map;
 public class MediaSendActivity extends PassphraseRequiredActionBarActivity implements MediaPickerFolderFragment.Controller,
                                                                                       MediaPickerItemFragment.Controller,
                                                                                       ImageEditorFragment.Controller,
+                                                                                      MediaSendVideoFragment.Controller,
                                                                                       CameraFragment.Controller,
                                                                                       CameraContactSelectionFragment.Controller,
                                                                                       ViewTreeObserver.OnGlobalLayoutListener,
@@ -141,11 +142,11 @@ public class MediaSendActivity extends PassphraseRequiredActionBarActivity imple
   /**
    * Get an intent to launch the media send flow starting with the picker.
    */
-  public static Intent buildGalleryIntent(@NonNull Context context, @NonNull Recipient recipient, @NonNull String body, @NonNull TransportOption transport) {
+  public static Intent buildGalleryIntent(@NonNull Context context, @NonNull Recipient recipient, @Nullable String body, @NonNull TransportOption transport) {
     Intent intent = new Intent(context, MediaSendActivity.class);
     intent.putExtra(KEY_RECIPIENT, recipient.getId());
     intent.putExtra(KEY_TRANSPORT, transport);
-    intent.putExtra(KEY_BODY, body);
+    intent.putExtra(KEY_BODY, body == null ? "" : body);
     return intent;
   }
 
@@ -346,6 +347,11 @@ public class MediaSendActivity extends PassphraseRequiredActionBarActivity imple
   }
 
   @Override
+  public void onVideoBeginEdit(@NonNull Uri uri) {
+    viewModel.onVideoBeginEdit(uri);
+  }
+
+  @Override
   public void onTouchEventsNeeded(boolean needed) {
     MediaSendFragment fragment = (MediaSendFragment) getSupportFragmentManager().findFragmentByTag(TAG_SEND);
     if (fragment != null) {
@@ -413,6 +419,7 @@ public class MediaSendActivity extends PassphraseRequiredActionBarActivity imple
             length,
             0,
             Optional.of(Media.ALL_MEDIA_BUCKET_ID),
+            Optional.absent(),
             Optional.absent()
         );
       } catch (IOException e) {
@@ -511,7 +518,7 @@ public class MediaSendActivity extends PassphraseRequiredActionBarActivity imple
     MediaSendFragment fragment = getMediaSendFragment();
 
     if (fragment != null) {
-      viewModel.onSendClicked(buildModelsToRender(fragment), recipients).observe(this, result -> {
+      viewModel.onSendClicked(buildModelsToTransform(fragment), recipients).observe(this, result -> {
         finish();
       });
     } else {
@@ -532,13 +539,13 @@ public class MediaSendActivity extends PassphraseRequiredActionBarActivity imple
 
     sendButton.setEnabled(false);
 
-    viewModel.onSendClicked(buildModelsToRender(fragment), Collections.emptyList()).observe(this, this::setActivityResultAndFinish);
+    viewModel.onSendClicked(buildModelsToTransform(fragment), Collections.emptyList()).observe(this, this::setActivityResultAndFinish);
   }
 
-  private Map<Media, EditorModel> buildModelsToRender(@NonNull MediaSendFragment fragment) {
+  private static Map<Media, MediaTransform> buildModelsToTransform(@NonNull MediaSendFragment fragment) {
     List<Media>             mediaList      = fragment.getAllMedia();
     Map<Uri, Object>        savedState     = fragment.getSavedState();
-    Map<Media, EditorModel> modelsToRender = new HashMap<>();
+    Map<Media, MediaTransform> modelsToRender = new HashMap<>();
 
     for (Media media : mediaList) {
       Object state = savedState.get(media.getUri());
@@ -546,7 +553,14 @@ public class MediaSendActivity extends PassphraseRequiredActionBarActivity imple
       if (state instanceof ImageEditorFragment.Data) {
         EditorModel model = ((ImageEditorFragment.Data) state).readModel();
         if (model != null && model.isChanged()) {
-          modelsToRender.put(media, model);
+          modelsToRender.put(media, new ImageEditorModelRenderMediaTransform(model));
+        }
+      }
+
+      if (state instanceof MediaSendVideoFragment.Data) {
+        MediaSendVideoFragment.Data data = (MediaSendVideoFragment.Data) state;
+        if (data.durationEdited) {
+          modelsToRender.put(media, new VideoTrimTransform(data));
         }
       }
     }

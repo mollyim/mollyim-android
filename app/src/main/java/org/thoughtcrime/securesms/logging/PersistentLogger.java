@@ -110,7 +110,7 @@ public class PersistentLogger extends Log.Logger {
   }
 
   @Override
-  public String getLog() throws IOException {
+  public CharSequence getLog() throws IOException {
     try {
       return getLogs().get();
     } catch (InterruptedException | ExecutionException e) {
@@ -119,8 +119,8 @@ public class PersistentLogger extends Log.Logger {
   }
 
   @WorkerThread
-  private ListenableFuture<String> getLogs() {
-    final SettableFuture<String> future = new SettableFuture<>();
+  private ListenableFuture<CharSequence> getLogs() {
+    final SettableFuture<CharSequence> future = new SettableFuture<>();
 
     executor.execute(() -> {
       StringBuilder builder = new StringBuilder();
@@ -137,7 +137,7 @@ public class PersistentLogger extends Log.Logger {
           }
         }
 
-        future.set(builder.toString());
+        future.set(builder);
       } catch (NoExternalStorageException e) {
         future.setException(e);
       }

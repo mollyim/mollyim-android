@@ -38,7 +38,7 @@ import com.google.android.gms.security.ProviderInstaller;
 
 import org.conscrypt.Conscrypt;
 import org.signal.aesgcmprovider.AesGcmProvider;
-import org.signal.ringrtc.CallConnectionFactory;
+import org.signal.ringrtc.CallManager;
 import org.thoughtcrime.securesms.components.TypingStatusRepository;
 import org.thoughtcrime.securesms.components.TypingStatusSender;
 import org.thoughtcrime.securesms.crypto.IdentityKeyUtil;
@@ -50,24 +50,24 @@ import org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencyProvider;
 import org.thoughtcrime.securesms.gcm.FcmJobService;
-import org.thoughtcrime.securesms.insights.InsightsOptOut;
-import org.thoughtcrime.securesms.jobmanager.JobManager;
 import org.thoughtcrime.securesms.jobs.CreateSignedPreKeyJob;
 import org.thoughtcrime.securesms.jobs.FcmRefreshJob;
 import org.thoughtcrime.securesms.jobs.MultiDeviceContactUpdateJob;
 import org.thoughtcrime.securesms.jobs.PushNotificationReceiveJob;
-import org.thoughtcrime.securesms.jobs.StickerPackDownloadJob;
-import org.thoughtcrime.securesms.keyvalue.SignalStore;
+import org.thoughtcrime.securesms.jobs.RefreshPreKeysJob;
+import org.thoughtcrime.securesms.jobs.StorageSyncJob;
 import org.thoughtcrime.securesms.logging.CustomSignalProtocolLogger;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.logging.LogManager;
 import org.thoughtcrime.securesms.logging.SignalUncaughtExceptionHandler;
 import org.thoughtcrime.securesms.mediasend.camerax.CameraXUtil;
 import org.thoughtcrime.securesms.migrations.ApplicationMigrations;
+import org.thoughtcrime.securesms.migrations.StorageServiceMigrationJob;
 import org.thoughtcrime.securesms.notifications.MessageNotifier;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.providers.BlobProvider;
 import org.thoughtcrime.securesms.push.SignalServiceNetworkAccess;
+import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.ringrtc.RingRtcLogger;
 import org.thoughtcrime.securesms.service.DirectoryRefreshListener;
 import org.thoughtcrime.securesms.service.ExpiringMessageManager;
@@ -79,7 +79,6 @@ import org.thoughtcrime.securesms.service.WipeMemoryService;
 import org.thoughtcrime.securesms.service.RotateSenderCertificateListener;
 import org.thoughtcrime.securesms.service.RotateSignedPreKeyListener;
 import org.thoughtcrime.securesms.service.UpdateApkRefreshListener;
-import org.thoughtcrime.securesms.stickers.BlessedPacks;
 import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.Util;
@@ -161,7 +160,11 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
     initializeCleanup();
     FeatureFlags.init();
     NotificationChannels.create(this);
+    RefreshPreKeysJob.scheduleIfNecessary();
+    StorageSyncJob.scheduleIfNecessary();
+
     ApplicationDependencies.getJobManager().beginJobLoop();
+
     registerKeyEventReceiver();
     onStartUnlock();
 
@@ -195,7 +198,7 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
   }
 
   public void onStartUnlock() {
-    FeatureFlags.refresh();
+    FeatureFlags.refreshIfNecessary();
     ApplicationDependencies.getRecipientCache().warmUp();
     executePendingContactSync();
     ApplicationDependencies.getFrameRateTracker().begin();
@@ -310,14 +313,7 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
     if (TextSecurePreferences.getFirstInstallVersion(this) == -1) {
       if (!SQLCipherOpenHelper.databaseFileExists(this)) {
         Log.i(TAG, "First ever app launch!");
-
-        InsightsOptOut.userRequestedOptOut(this);
-        TextSecurePreferences.setAppMigrationVersion(this, ApplicationMigrations.CURRENT_VERSION);
-        TextSecurePreferences.setJobManagerVersion(this, JobManager.CURRENT_VERSION);
-        ApplicationDependencies.getMegaphoneRepository().onFirstEverAppLaunch();
-        SignalStore.registrationValues().onNewInstall();
-        ApplicationDependencies.getJobManager().add(StickerPackDownloadJob.forInstall(BlessedPacks.ZOZO.getPackId(), BlessedPacks.ZOZO.getPackKey(), false));
-        ApplicationDependencies.getJobManager().add(StickerPackDownloadJob.forInstall(BlessedPacks.BANDIT.getPackId(), BlessedPacks.BANDIT.getPackKey(), false));
+        AppInitialization.onFirstEverAppLaunch(this);
       }
 
       if (!IdentityKeyUtil.hasIdentityKey(this)) {
@@ -411,9 +407,9 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
         WebRtcAudioManager.setBlacklistDeviceForOpenSLESUsage(true);
       }
 
-      CallConnectionFactory.initialize(this, new RingRtcLogger());
+      CallManager.initialize(this, new RingRtcLogger());
     } catch (UnsatisfiedLinkError e) {
-      Log.w(TAG, e);
+      throw new AssertionError("Unable to load ringrtc library", e);
     }
   }
 

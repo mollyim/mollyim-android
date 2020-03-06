@@ -16,6 +16,7 @@ import org.thoughtcrime.securesms.jobmanager.Data;
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.notifications.MessageNotifier;
 import org.thoughtcrime.securesms.recipients.Recipient;
+import org.thoughtcrime.securesms.recipients.RecipientUtil;
 import org.thoughtcrime.securesms.service.ExpiringMessageManager;
 import org.thoughtcrime.securesms.transport.InsecureFallbackApprovalException;
 import org.thoughtcrime.securesms.transport.RetryLaterException;
@@ -80,7 +81,9 @@ public class PushTextSendJob extends PushSendJob {
     try {
       log(TAG, "Sending message: " + messageId);
 
-      Recipient              recipient  = record.getRecipient().resolve();
+      RecipientUtil.shareProfileIfFirstSecureMessage(context, record.getRecipient());
+
+      Recipient              recipient  = record.getRecipient().fresh();
       byte[]                 profileKey = recipient.getProfileKey();
       UnidentifiedAccessMode accessMode = recipient.getUnidentifiedAccessMode();
 
@@ -151,10 +154,11 @@ public class PushTextSendJob extends PushSendJob {
     try {
       rotateSenderCertificateIfNecessary();
 
+      Recipient                        messageRecipient   = message.getIndividualRecipient().fresh();
       SignalServiceMessageSender       messageSender      = ApplicationDependencies.getSignalServiceMessageSender();
-      SignalServiceAddress             address            = getPushAddress(message.getIndividualRecipient());
-      Optional<byte[]>                 profileKey         = getProfileKey(message.getIndividualRecipient());
-      Optional<UnidentifiedAccessPair> unidentifiedAccess = UnidentifiedAccessUtil.getAccessFor(context, message.getIndividualRecipient());
+      SignalServiceAddress             address            = getPushAddress(messageRecipient);
+      Optional<byte[]>                 profileKey         = getProfileKey(messageRecipient);
+      Optional<UnidentifiedAccessPair> unidentifiedAccess = UnidentifiedAccessUtil.getAccessFor(context, messageRecipient);
 
       log(TAG, "Have access key to use: " + unidentifiedAccess.isPresent());
 

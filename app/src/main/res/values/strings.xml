@@ -237,6 +237,23 @@
     <string name="ConversationActivity_sticker_pack_installed">Sticker pack installed</string>
     <string name="ConversationActivity_new_say_it_with_stickers">New! Say it with stickers</string>
 
+    <string name="ConversationActivity_block_s">Block %1$s?</string>
+    <string name="ConversationActivity_block_and_leave_s">Block and leave %1$s?</string>
+    <string name="ConversationActivity_unblock_s">Unblock %1$s?</string>
+    <string name="ConversationActivity_you_will_be_able_to_message_and_call_each_other">You will be able to message and call each other.</string>
+    <string name="ConversationActivity_group_members_will_be_able_to_add_you_to_this_group_again">Group members will be able to add you to this group again.</string>
+    <string name="ConversationActivity_blocked_people_will_not_be_able_to_call_you_or_send_you_messages">Blocked people will not be able to call you or send you messages.</string>
+    <string name="ConversationActivity_you_will_leave_this_group_and_no_longer_receive_messages_or_updates">You will leave this group and no longer receive messages or updates.</string>
+    <string name="ConversationActivity_block">Block</string>
+    <string name="ConversationActivity_block_and_delete">Block and delete</string>
+    <string name="ConversationActivity_cancel">Cancel</string>
+    <string name="ConversationActivity_delete_conversation">Delete conversation?</string>
+    <string name="ConversationActivity_delete_and_leave_group">Delete and leave group?</string>
+    <string name="ConversationActivity_this_conversation_will_be_deleted_from_all_of_your_devices">This conversation will be deleted from all of your devices.</string>
+    <string name="ConversationActivity_you_will_leave_this_group_and_it_will_be_deleted_from_all_of_your_devices">You will leave this group, and it will be deleted from all your devices.</string>
+    <string name="ConversationActivity_delete">Delete</string>
+    <string name="ConversationActivity_delete_and_leave">Delete and leave</string>
+
     <!-- ConversationAdapter -->
     <plurals name="ConversationAdapter_n_unread_messages">
         <item quantity="one">%d unread message</item>
@@ -283,6 +300,7 @@
     <string name="ConversationFragment_you_can_swipe_to_the_left_reply">You can swipe to the left on any message to quickly reply</string>
     <string name="ConversationFragment_outgoing_view_once_media_files_are_automatically_removed">Outgoing view-once media files are automatically removed after they are sent</string>
     <string name="ConversationFragment_you_already_viewed_this_message">You already viewed this message</string>
+    <string name="ConversationFragment__you_can_add_notes_for_yourself_in_this_conversation">You can add notes for yourself in this conversation. If your account has any linked devices, new notes will be synced.</string>
 
     <!-- ConversationListActivity -->
     <string name="ConversationListActivity_there_is_no_browser_installed_on_your_device">There is no browser installed on your device.</string>
@@ -309,6 +327,8 @@
         <item quantity="one">Moved conversation to inbox</item>
         <item quantity="other">Moved %d conversations to inbox</item>
     </plurals>
+    <string name="ConversationListFragment__your_profile_name_has_been_created">Your profile name has been created.</string>
+    <string name="ConversationListFragment__your_profile_name_has_been_saved">Your profile name has been saved.</string>
 
     <!-- ConversationListItem -->
     <string name="ConversationListItem_key_exchange_message">Key exchange message</string>
@@ -369,6 +389,7 @@
 
     <!-- ShareActivity -->
     <string name="ShareActivity_share_with">Share with</string>
+    <string name="ShareActivity_multiple_attachments_are_only_supported">Multiple attachments are only supported for images and videos</string>
 
     <!-- ExperienceUpgradeActivity -->
     <string name="ExperienceUpgradeActivity_welcome_to_signal_dgaf">Welcome to Signal.</string>
@@ -442,7 +463,7 @@
     <string name="GroupShareProfileView_make_visible">Make visible</string>
 
     <!-- GroupMembersDialog -->
-    <string name="GroupMembersDialog_me">Me</string>
+    <string name="GroupMembersDialog_you">You</string>
 
     <!-- CropImageActivity -->
     <string name="CropImageActivity_group_avatar">Group avatar</string>
@@ -609,6 +630,27 @@
     <string name="MessageRecord_you_marked_your_safety_number_with_s_unverified">You marked your safety number with %s unverified</string>
     <string name="MessageRecord_you_marked_your_safety_number_with_s_unverified_from_another_device">You marked your safety number with %s unverified from another device</string>
 
+    <!-- MessageRequestBottomView -->
+    <string name="MessageRequestBottomView_accept">Accept</string>
+    <string name="MessageRequestBottomView_delete">Delete</string>
+    <string name="MessageRequestBottomView_block">Block</string>
+    <string name="MessageRequestBottomView_unblock">Unblock</string>
+    <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_they_wont_know_youve_seen_their_messages_until_you_accept">Do you want to let %1$s message you? They won\'t know you\'ve seen their messages until you accept.</string>
+    <string name="MessageRequestBottomView_do_you_want_to_join_the_group_s_they_wont_know_youve_seen_their_messages_until_you_accept">Do you want to join the group %1$s? They won\'t know you\'ve seen their messages until you accept.</string>
+    <string name="MessageRequestBottomView_unblock_s_to_message_and_call_each_other">Unblock %1$s to message and call each other.</string>
+    <string name="MessageRequestBottomView_unblock_to_allow_group_members_to_add_you_to_this_group_again">Unblock to allow group members to add you to this group again.</string>
+    <string name="MessageRequestProfileView_member_of_one_group">Member of %1$s</string>
+    <string name="MessageRequestProfileView_member_of_two_groups">Member of %1$s and %2$s</string>
+    <string name="MessageRequestProfileView_member_of_many_groups">Member of %1$s, %2$s, and %3$s</string>
+    <plurals name="MessageRequestProfileView_members">
+        <item quantity="one">%1$d member</item>
+        <item quantity="other">%1$d members</item>
+    </plurals>
+    <plurals name="MessageRequestProfileView_member_of_others">
+        <item quantity="one">%d other</item>
+        <item quantity="other">%d others</item>
+    </plurals>
+
     <!-- PassphraseChangeActivity -->
     <string name="PassphraseChangeActivity_passphrases_dont_match_exclamation">Passphrases don\'t match!</string>
     <string name="PassphraseChangeActivity_incorrect_old_passphrase_exclamation">Incorrect old passphrase!</string>
@@ -673,6 +715,9 @@
 
     <!-- ReactionsConversationView -->
     <string name="ReactionsConversationView_plus">+%1$d</string>
+
+    <!-- ReactionsRecipientAdapter -->
+    <string name="ReactionsRecipientAdapter_you">You</string>
 
     <!-- RecipientPreferencesActivity -->
     <string name="RecipientPreferenceActivity_block_this_contact_question">Block this contact?</string>
@@ -823,6 +868,18 @@
     <string name="StickerPackPreviewActivity_stickers">Stickers</string>
     <string name="StickerPackPreviewActivity_failed_to_load_sticker_pack">Failed to load sticker pack</string>
 
+    <!-- SubmitDebugLogActivity -->
+    <string name="SubmitDebugLogActivity_edit">Edit</string>
+    <string name="SubmitDebugLogActivity_done">Done</string>
+    <string name="SubmitDebugLogActivity_tap_a_line_to_delete_it">Tap a line to delete it</string>
+    <string name="SubmitDebugLogActivity_submit">Submit</string>
+    <string name="SubmitDebugLogActivity_failed_to_submit_logs">Failed to submit logs</string>
+    <string name="SubmitDebugLogActivity_success">Success!</string>
+    <string name="SubmitDebugLogActivity_copy_this_url_and_add_it_to_your_issue">Copy this URL and add it to your issue report or support email:\n\n<b>%1$s</b></string>
+    <string name="SubmitDebugLogActivity_copied_to_clipboard">Copied to clipboard</string>
+    <string name="SubmitDebugLogActivity_ok">Ok</string>
+    <string name="SubmitDebugLogActivity_share">Share</string>
+
     <!-- ThreadRecord -->
     <string name="ThreadRecord_group_updated">Group updated</string>
     <string name="ThreadRecord_left_the_group">Left the group</string>
@@ -844,6 +901,8 @@
     <string name="ThreadRecord_you_marked_verified">You marked verified</string>
     <string name="ThreadRecord_you_marked_unverified">You marked unverified</string>
     <string name="ThreadRecord_message_could_not_be_processed">Message could not be processed</string>
+    <string name="ThreadRecord_message_request">Message Request</string>
+    <string name="ThreadRecord_s_added_you_to_the_group">%1$s added you to the group</string>
 
     <!-- UpdateApkReadyListener -->
     <string name="UpdateApkReadyListener_Signal_update">Signal update</string>
@@ -1236,9 +1295,6 @@
     <string name="log_submit_activity__this_log_will_be_posted_online">This log will be posted publicly online for contributors to view, you may examine and edit it before submitting.</string>
     <string name="log_submit_activity__loading_logs">Loading logs…</string>
     <string name="log_submit_activity__uploading_logs">Uploading logs…</string>
-    <string name="log_submit_activity__success">Success!</string>
-    <string name="log_submit_activity__copy_this_url_and_add_it_to_your_issue">Copy this URL and add it to your issue report or support email:\n\n<b>%1$s</b>\n</string>
-    <string name="log_submit_activity__copied_to_clipboard">Copied to clipboard</string>
     <string name="log_submit_activity__choose_email_app">Choose email app</string>
     <string name="log_submit_activity__please_review_this_log_from_my_app">Please review this log from my app: %1$s</string>
     <string name="log_submit_activity__network_failure">Network failure. Please try again.</string>
@@ -1365,6 +1421,14 @@
     <string name="AndroidManifest_archived_conversations">Archived conversations</string>
     <string name="AndroidManifest_remove_photo">Remove photo</string>
 
+    <!-- Message Requests Megaphone -->
+    <string name="MessageRequestsMegaphone__message_requests">Message requests</string>
+    <string name="MessageRequestsMegaphone__users_can_now_choose_to_accept">Users can now choose to accept a new conversation. Profile names let people know who\'s messaging them.</string>
+    <string name="MessageRequestsMegaphone__add_profile_name">Add profile name</string>
+    <string name="MessageRequestsMegaphone__new_message_requests">New: Message requests</string>
+    <string name="MessageRequestsMegaphone__add_name">Add name</string>
+    <string name="MessageRequestsMegaphone__you_can_now_choose_whether_to_accept">You can now choose whether to accept a new conversation. You’ll see options to \"Accept,\" \"Delete,\" or \"Block.\"</string>
+
     <!-- arrays.xml -->
     <string name="arrays__import_export">Import</string>
     <string name="arrays__use_default">Use default</string>
@@ -1478,9 +1542,9 @@
     <string name="preferences__linked_devices">Linked devices</string>
     <string name="preferences__light_theme">Light</string>
     <string name="preferences__dark_theme">Dark</string>
-    <string name="preferences__system_theme">System</string>
     <string name="preferences__appearance">Appearance</string>
     <string name="preferences__theme">Theme</string>
+    <string name="preferences__system_default">System default</string>
     <string name="preferences__default">Default</string>
     <string name="preferences__language">Language</string>
     <string name="preferences__signal_messages_and_calls">Signal messages and calls</string>
@@ -1805,6 +1869,14 @@
     <string name="KbsMegaphone__well_remind_you_later_creating_a_pin">We\'ll remind you later. Creating a PIN will become mandatory in %1$d days.</string>
     <string name="KbsMegaphone__well_remind_you_later_confirming_your_pin">We\'ll remind you later. Confirming your PIN will become mandatory in %1$d days.</string>
 
+    <!-- Profile Names Megaphone -->
+    <string name="ProfileNamesMegaphone__add_a_profile_name">Add a profile name</string>
+    <string name="ProfileNamesMegaphone__this_will_be_displayed_when_you_start">This will be displayed when you start a new conversation or share it.</string>
+    <string name="ProfileNamesMegaphone__add_profile_name">Add Profile Name</string>
+    <string name="ProfileNamesMegaphone__confirm_your_profile_name">Confirm your Profile Name</string>
+    <string name="ProfileNamesMegaphone__your_profile_can_now_include">Your profile can now include an optional last name.</string>
+    <string name="ProfileNamesMegaphone__confirm_name">Confirm Name</string>
+
     <!-- transport_selection_list_item -->
     <string name="transport_selection_list_item__transport_icon">Transport icon</string>
     <string name="ConversationListFragment_loading">Loading…</string>
@@ -1873,7 +1945,7 @@
     <string name="preferences_app_protection__pin">PIN</string>
     <string name="preferences_app_protection__change">Change</string>
     <string name="preferences_app_protection__create">Create</string>
-    <string name="preferences_app_protection__your_pin_adds_an_extra_layer_of_security_and_backs">Your PIN adds an extra layer of security and backs up your account. You\'ll be asked for it when you register your phone number with Signal. If you forget your PIN, you\'ll be locked out of your account for 7 days.</string>
+    <string name="preferences_app_protection__your_pin_adds_an_extra_layer_of_security_to_your_account">Your PIN adds an extra layer of security to your account. You\'ll be asked for it when you register your phone number with Signal. If you forget your PIN, you\'ll be locked out of your account for 7 days.</string>
     <string name="preferences_app_protection__disable_pinv2_reminders">Disable PIN reminders</string>
     <string name="preferences_app_protection__disable_pinv2_reminders_summary">Do not prompt to enter your PIN periodically</string>
     <string name="AppProtectionPreferenceFragment_none">None</string>
@@ -1926,18 +1998,6 @@
     <string name="RegistrationLockDialog_reminder">Reminder:</string>
     <string name="recipient_preferences__about">About</string>
     <string name="Recipient_unknown">Unknown</string>
-    <string name="MessageRequestBottomView_accept">Accept</string>
-    <string name="MessageRequestBottomView_delete">Delete</string>
-    <string name="MessageRequestBottomView_block">Block</string>
-    <string name="MessageRequestBottomView_do_you_want_to_let">Do you want to receive messages from %1$s?</string>
-    <string name="MessageRequestProfileView_member_of_one_group">Member of %1$s</string>
-    <string name="MessageRequestProfileView_member_of_two_groups">Member of %1$s and %2$s</string>
-    <string name="MessageRequestProfileView_member_of_many_groups">Member of %1$s, %2$s, and %3$s</string>
-    <string name="MessageRequestProfileView_members">%1$d members</string>
-    <plurals name="MessageRequestProfileView_member_of_others">
-        <item quantity="one">%d other</item>
-        <item quantity="other">%d others</item>
-    </plurals>
     <!-- EOF -->
 
 </resources>

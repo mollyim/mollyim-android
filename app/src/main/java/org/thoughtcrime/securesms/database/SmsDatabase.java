@@ -20,9 +20,11 @@ package org.thoughtcrime.securesms.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import androidx.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Pair;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.annimon.stream.Stream;
 
@@ -45,7 +47,6 @@ import org.thoughtcrime.securesms.sms.IncomingTextMessage;
 import org.thoughtcrime.securesms.sms.OutgoingTextMessage;
 import org.thoughtcrime.securesms.util.JsonUtils;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
-import org.thoughtcrime.securesms.util.Util;
 import org.whispersystems.libsignal.util.guava.Optional;
 
 import java.io.IOException;
@@ -55,7 +56,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Database for storage of SMS messages.
@@ -162,6 +162,24 @@ public class SmsDatabase extends MessagingDatabase {
     notifyConversationListeners(threadId);
   }
 
+  public @Nullable RecipientId getOldestGroupUpdateSender(long threadId, long minimumDateReceived) {
+    SQLiteDatabase db = databaseHelper.getReadableDatabase();
+
+    String[] columns = new String[]{RECIPIENT_ID};
+    String   query   = THREAD_ID + " = ? AND " + TYPE + " & ? AND " + DATE_RECEIVED + " >= ?";
+    long     type    = Types.SECURE_MESSAGE_BIT | Types.PUSH_MESSAGE_BIT | Types.GROUP_UPDATE_BIT | Types.BASE_INBOX_TYPE;
+    String[] args    = new String[]{String.valueOf(threadId), String.valueOf(type), String.valueOf(minimumDateReceived)};
+    String   limit   = "1";
+
+    try (Cursor cursor = db.query(TABLE_NAME, columns, query, args, null, null, limit)) {
+      if (cursor.moveToFirst()) {
+        return RecipientId.from(cursor.getLong(cursor.getColumnIndex(RECIPIENT_ID)));
+      }
+    }
+
+    return null;
+  }
+
   public long getThreadIdForMessage(long id) {
     String sql        = "SELECT " + THREAD_ID + " FROM " + TABLE_NAME + " WHERE " + ID + " = ?";
     String[] sqlArgs  = new String[] {id+""};
@@ -198,17 +216,31 @@ public class SmsDatabase extends MessagingDatabase {
 
   public int getMessageCountForThread(long threadId) {
     SQLiteDatabase db = databaseHelper.getReadableDatabase();
-    Cursor cursor     = null;
 
-    try {
-      cursor = db.query(TABLE_NAME, new String[] {"COUNT(*)"}, THREAD_ID + " = ?",
-                        new String[] {threadId+""}, null, null, null);
+    String[] cols  = new String[] {"COUNT(*)"};
+    String   query = THREAD_ID + " = ?";
+    String[] args  = new String[]{String.valueOf(threadId)};
 
-      if (cursor != null && cursor.moveToFirst())
+    try (Cursor cursor = db.query(TABLE_NAME, cols, query, args, null, null, null)) {
+      if (cursor != null && cursor.moveToFirst()) {
         return cursor.getInt(0);
-    } finally {
-      if (cursor != null)
-        cursor.close();
+      }
+    }
+
+    return 0;
+  }
+
+  public int getMessageCountForThread(long threadId, long beforeTime) {
+    SQLiteDatabase db = databaseHelper.getReadableDatabase();
+
+    String[] cols  = new String[] {"COUNT(*)"};
+    String   query = THREAD_ID + " = ? AND " + DATE_RECEIVED + " < ?";
+    String[] args  = new String[]{String.valueOf(threadId), String.valueOf(beforeTime)};
+
+    try (Cursor cursor = db.query(TABLE_NAME, cols, query, args, null, null, null)) {
+      if (cursor != null && cursor.moveToFirst()) {
+        return cursor.getInt(0);
+      }
     }
 
     return 0;
@@ -446,14 +478,20 @@ public class SmsDatabase extends MessagingDatabase {
 
     database.beginTransaction();
     try {
-      cursor = database.query(TABLE_NAME, new String[] {ID, RECIPIENT_ID, DATE_SENT, TYPE, EXPIRES_IN, EXPIRE_STARTED}, where, arguments, null, null, null);
+      cursor = database.query(TABLE_NAME, new String[] {ID, RECIPIENT_ID, DATE_SENT, TYPE, EXPIRES_IN, EXPIRE_STARTED, THREAD_ID}, where, arguments, null, null, null);
 
       while (cursor != null && cursor.moveToNext()) {
-        if (Types.isSecureType(cursor.getLong(3))) {
-          SyncMessageId  syncMessageId  = new SyncMessageId(RecipientId.from(cursor.getLong(1)), cursor.getLong(2));
-          ExpirationInfo expirationInfo = new ExpirationInfo(cursor.getLong(0), cursor.getLong(4), cursor.getLong(5), false);
+        if (Types.isSecureType(cursor.getLong(cursor.getColumnIndex(TYPE)))) {
+          long           threadId       = cursor.getLong(cursor.getColumnIndex(THREAD_ID));
+          RecipientId    recipientId    = RecipientId.from(cursor.getLong(cursor.getColumnIndex(RECIPIENT_ID)));
+          long           dateSent       = cursor.getLong(cursor.getColumnIndex(DATE_SENT));
+          long           messageId      = cursor.getLong(cursor.getColumnIndex(ID));
+          long           expiresIn      = cursor.getLong(cursor.getColumnIndex(EXPIRES_IN));
+          long           expireStarted  = cursor.getLong(cursor.getColumnIndex(EXPIRE_STARTED));
+          SyncMessageId  syncMessageId  = new SyncMessageId(recipientId, dateSent);
+          ExpirationInfo expirationInfo = new ExpirationInfo(messageId, expiresIn, expireStarted, false);
 
-          results.add(new MarkedMessageInfo(syncMessageId, expirationInfo));
+          results.add(new MarkedMessageInfo(threadId, syncMessageId, expirationInfo));
         }
       }
 

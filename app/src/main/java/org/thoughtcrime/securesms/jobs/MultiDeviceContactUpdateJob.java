@@ -4,15 +4,16 @@ import android.content.res.AssetFileDescriptor;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import org.signal.zkgroup.profiles.ProfileKey;
 import org.thoughtcrime.securesms.ApplicationContext;
 import org.thoughtcrime.securesms.crypto.ProfileKeyUtil;
 import org.thoughtcrime.securesms.crypto.UnidentifiedAccessUtil;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.database.IdentityDatabase;
-import org.thoughtcrime.securesms.database.ThreadDatabase;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.jobmanager.Data;
 import org.thoughtcrime.securesms.jobmanager.Job;
@@ -42,8 +43,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -137,7 +136,7 @@ public class MultiDeviceContactUpdateJob extends BaseJob {
                                   getSystemAvatar(recipient.getContactUri()),
                                   Optional.fromNullable(recipient.getColor().serialize()),
                                   verifiedMessage,
-                                  Optional.fromNullable(recipient.getProfileKey()),
+                                  ProfileKeyUtil.profileKeyOptional(recipient.getProfileKey()),
                                   recipient.isBlocked(),
                                   recipient.getExpireMessages() > 0 ? Optional.of(recipient.getExpireMessages())
                                                                     : Optional.absent(),
@@ -184,7 +183,7 @@ public class MultiDeviceContactUpdateJob extends BaseJob {
         Optional<VerifiedMessage>                 verified      = getVerifiedMessage(recipient, identity);
         Optional<String>                          name          = Optional.fromNullable(recipient.getName(context));
         Optional<String>                          color         = Optional.of(recipient.getColor().serialize());
-        Optional<byte[]>                          profileKey    = Optional.fromNullable(recipient.getProfileKey());
+        Optional<ProfileKey>                      profileKey    = ProfileKeyUtil.profileKeyOptional(recipient.getProfileKey());
         boolean                                   blocked       = recipient.isBlocked();
         Optional<Integer>                         expireTimer   = recipient.getExpireMessages() > 0 ? Optional.of(recipient.getExpireMessages()) : Optional.absent();
         Optional<Integer>                         inboxPosition = Optional.fromNullable(inboxPositions.get(recipient.getId()));
@@ -201,14 +200,17 @@ public class MultiDeviceContactUpdateJob extends BaseJob {
                                     archived.contains(recipient.getId())));
       }
 
-      if (ProfileKeyUtil.hasProfileKey(context)) {
-        Recipient self = Recipient.self();
+
+      Recipient self       = Recipient.self();
+      byte[]    profileKey = self.getProfileKey();
+
+      if (profileKey != null) {
         out.write(new DeviceContact(RecipientUtil.toSignalServiceAddress(context, self),
                                     Optional.absent(),
                                     Optional.absent(),
                                     Optional.of(self.getColor().serialize()),
                                     Optional.absent(),
-                                    Optional.of(ProfileKeyUtil.getProfileKey(context)),
+                                    ProfileKeyUtil.profileKeyOptionalOrThrow(self.getProfileKey()),
                                     false,
                                     self.getExpireMessages() > 0 ? Optional.of(self.getExpireMessages()) : Optional.absent(),
                                     Optional.fromNullable(inboxPositions.get(self.getId())),

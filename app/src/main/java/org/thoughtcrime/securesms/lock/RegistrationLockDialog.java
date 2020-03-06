@@ -158,7 +158,7 @@ public final class RegistrationLockDialog {
       if (s == null) return;
       String pin = s.toString();
       if (TextUtils.isEmpty(pin)) return;
-      if (pin.length() < KbsConstants.MINIMUM_POSSIBLE_PIN_LENGTH) return;
+      if (pin.length() < KbsConstants.LEGACY_MINIMUM_PIN_LENGTH) return;
 
       if (PinHashing.verifyLocalPinHash(localPinHash, pin)) {
         dialog.dismiss();
@@ -190,9 +190,9 @@ public final class RegistrationLockDialog {
         String pinValue    = pin.getText().toString().replace(" ", "");
         String repeatValue = repeat.getText().toString().replace(" ", "");
 
-        if (pinValue.length() < KbsConstants.MINIMUM_POSSIBLE_PIN_LENGTH) {
+        if (pinValue.length() < KbsConstants.LEGACY_MINIMUM_PIN_LENGTH) {
           Toast.makeText(context,
-                         context.getString(R.string.RegistrationLockDialog_the_registration_lock_pin_must_be_at_least_d_digits, KbsConstants.MINIMUM_POSSIBLE_PIN_LENGTH),
+                         context.getString(R.string.RegistrationLockDialog_the_registration_lock_pin_must_be_at_least_d_digits, KbsConstants.LEGACY_MINIMUM_PIN_LENGTH),
                          Toast.LENGTH_LONG).show();
           return;
         }
@@ -213,7 +213,7 @@ public final class RegistrationLockDialog {
           @Override
           protected Boolean doInBackground(Void... voids) {
             try {
-              Log.i(TAG, "Setting pin on KBS");
+              Log.i(TAG, "Setting pin on KBS - dialog");
 
               KbsValues                         kbsValues        = SignalStore.kbsValues();
               MasterKey                         masterKey        = kbsValues.getOrCreateMasterKey();
@@ -221,21 +221,15 @@ public final class RegistrationLockDialog {
               KeyBackupService.PinChangeSession pinChangeSession = keyBackupService.newPinChangeSession();
               HashedPin                         hashedPin        = PinHashing.hashPin(pinValue, pinChangeSession);
               RegistrationLockData              kbsData          = pinChangeSession.setPin(hashedPin, masterKey);
-              RegistrationLockData              restoredData     = keyBackupService.newRestoreSession(kbsData.getTokenResponse())
-                                                                                   .restorePin(hashedPin);
 
-              if (!restoredData.getMasterKey().equals(masterKey)) {
-                throw new AssertionError("Failed to set the pin correctly");
-              } else {
-                Log.i(TAG, "Set and retrieved pin on KBS successfully");
-              }
-
-              kbsValues.setRegistrationLockMasterKey(restoredData, PinHashing.localPinHash(pinValue));
+              kbsValues.setRegistrationLockMasterKey(kbsData, PinHashing.localPinHash(pinValue));
               TextSecurePreferences.clearOldRegistrationLockPin(context);
               TextSecurePreferences.setRegistrationLockLastReminderTime(context, System.currentTimeMillis());
               TextSecurePreferences.setRegistrationLockNextReminderInterval(context, RegistrationLockReminders.INITIAL_INTERVAL);
+
+              Log.i(TAG, "Pin set on KBS");
               return true;
-            } catch (IOException | UnauthenticatedResponseException | KeyBackupServicePinException | KeyBackupSystemNoDataException e) {
+            } catch (IOException | UnauthenticatedResponseException e) {
               Log.w(TAG, e);
               return false;
             }

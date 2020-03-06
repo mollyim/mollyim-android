@@ -11,6 +11,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.thoughtcrime.securesms.jobmanager.JobManager;
 import org.thoughtcrime.securesms.logging.Log;
+import org.thoughtcrime.securesms.stickers.BlessedPacks;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.Util;
 import org.thoughtcrime.securesms.util.VersionTracker;
@@ -38,9 +39,12 @@ public class ApplicationMigrations {
 
   private static final int LEGACY_CANONICAL_VERSION = 455;
 
-  public static final int CURRENT_VERSION = 9;
+  public static final int CURRENT_VERSION = 12;
 
   private static final class Version {
+    static final int SWOON_STICKERS     = 10;
+    static final int STORAGE_SERVICE    = 11;
+    static final int STORAGE_KEY_ROTATE = 12;
   }
 
   /**
@@ -152,6 +156,18 @@ public class ApplicationMigrations {
 
   private static LinkedHashMap<Integer, MigrationJob> getMigrationJobs(@NonNull Context context, int lastSeenVersion) {
     LinkedHashMap<Integer, MigrationJob> jobs = new LinkedHashMap<>();
+
+    if (lastSeenVersion < Version.SWOON_STICKERS) {
+      jobs.put(Version.SWOON_STICKERS, new StickerAdditionMigrationJob(BlessedPacks.SWOON_HANDS, BlessedPacks.SWOON_FACES));
+    }
+
+    if (lastSeenVersion < Version.STORAGE_SERVICE) {
+      jobs.put(Version.STORAGE_SERVICE, new StorageServiceMigrationJob());
+    }
+
+    if (lastSeenVersion < Version.STORAGE_KEY_ROTATE) {
+      jobs.put(Version.STORAGE_KEY_ROTATE, new StorageKeyRotationMigrationJob());
+    }
 
     return jobs;
   }

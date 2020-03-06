@@ -55,7 +55,8 @@ public class Recipient {
 
   public static final Recipient UNKNOWN = new Recipient(RecipientId.UNKNOWN, new RecipientDetails());
 
-  private static final String TAG = Log.tag(Recipient.class);
+  private static final FallbackPhotoProvider DEFAULT_FALLBACK_PHOTO_PROVIDER = new FallbackPhotoProvider();
+  private static final String                TAG = Log.tag(Recipient.class);
 
   private final RecipientId            id;
   private final boolean                resolving;
@@ -78,6 +79,7 @@ public class Recipient {
   private final int                    expireMessages;
   private final RegisteredState        registered;
   private final byte[]                 profileKey;
+  private final byte[]                 profileKeyCredential;
   private final String                 name;
   private final Uri                    systemContactPhoto;
   private final String                 customLabel;
@@ -229,6 +231,19 @@ public class Recipient {
   }
 
   /**
+   * A version of {@link #external(Context, String)} that should be used when you know the
+   * identifier is a groupId.
+   */
+  @WorkerThread
+  public static @NonNull Recipient externalGroup(@NonNull Context context, @NonNull String groupId) {
+    if (!GroupUtil.isEncodedGroup(groupId)) {
+      throw new IllegalArgumentException("Invalid groupId!");
+    }
+
+    return Recipient.resolved(DatabaseFactory.getRecipientDatabase(context).getOrInsertFromGroupId(groupId));
+  }
+
+  /**
    * Returns a fully-populated {@link Recipient} based off of a string identifier, creating one in
    * the database if necessary. The identifier may be a uuid, phone number, email,
    * or serialized groupId.
@@ -297,6 +312,7 @@ public class Recipient {
     this.expireMessages         = 0;
     this.registered             = RegisteredState.UNKNOWN;
     this.profileKey             = null;
+    this.profileKeyCredential   = null;
     this.name                   = null;
     this.systemContactPhoto     = null;
     this.customLabel            = null;
@@ -336,6 +352,7 @@ public class Recipient {
     this.expireMessages         = details.expireMessages;
     this.registered             = details.registered;
     this.profileKey             = details.profileKey;
+    this.profileKeyCredential   = details.profileKeyCredential;
     this.name                   = details.name;
     this.systemContactPhoto     = details.systemContactPhoto;
     this.customLabel            = details.customLabel;
@@ -564,20 +581,28 @@ public class Recipient {
   }
 
   public @NonNull Drawable getFallbackContactPhotoDrawable(Context context, boolean inverted) {
-    return getFallbackContactPhoto().asDrawable(context, getColor().toAvatarColor(context), inverted);
+    return getFallbackContactPhotoDrawable(context, inverted, DEFAULT_FALLBACK_PHOTO_PROVIDER);
   }
 
-  public @NonNull Drawable getSmallFallbackContactPhotoDrawable(Context context, boolean inverted) {
-    return getFallbackContactPhoto().asSmallDrawable(context, getColor().toAvatarColor(context), inverted);
+  public @NonNull Drawable getFallbackContactPhotoDrawable(Context context, boolean inverted, @Nullable FallbackPhotoProvider fallbackPhotoProvider) {
+    return getFallbackContactPhoto(Util.firstNonNull(fallbackPhotoProvider, DEFAULT_FALLBACK_PHOTO_PROVIDER)).asDrawable(context, getColor().toAvatarColor(context), inverted);
+  }
+
+  public @NonNull Drawable getSmallFallbackContactPhotoDrawable(Context context, boolean inverted, @Nullable FallbackPhotoProvider fallbackPhotoProvider) {
+    return getFallbackContactPhoto(Util.firstNonNull(fallbackPhotoProvider, DEFAULT_FALLBACK_PHOTO_PROVIDER)).asSmallDrawable(context, getColor().toAvatarColor(context), inverted);
   }
 
   public @NonNull FallbackContactPhoto getFallbackContactPhoto() {
-    if      (localNumber)              return new ResourceContactPhoto(R.drawable.ic_note_to_self);
-    if      (isResolving())            return new TransparentContactPhoto();
-    else if (isGroupInternal())        return new ResourceContactPhoto(R.drawable.ic_group_outline_40, R.drawable.ic_group_outline_20, R.drawable.ic_group_large);
-    else if (isGroup())                return new ResourceContactPhoto(R.drawable.ic_group_outline_40, R.drawable.ic_group_outline_20, R.drawable.ic_group_large);
-    else if (!TextUtils.isEmpty(name)) return new GeneratedContactPhoto(name, R.drawable.ic_profile_outline_40);
-    else                               return new ResourceContactPhoto(R.drawable.ic_profile_outline_40, R.drawable.ic_profile_outline_20, R.drawable.ic_person_large);
+    return getFallbackContactPhoto(DEFAULT_FALLBACK_PHOTO_PROVIDER);
+  }
+
+  public @NonNull FallbackContactPhoto getFallbackContactPhoto(@NonNull FallbackPhotoProvider fallbackPhotoProvider) {
+    if      (localNumber)              return fallbackPhotoProvider.getPhotoForLocalNumber();
+    if      (isResolving())            return fallbackPhotoProvider.getPhotoForResolvingRecipient();
+    else if (isGroupInternal())        return fallbackPhotoProvider.getPhotoForGroup();
+    else if (isGroup())                return fallbackPhotoProvider.getPhotoForGroup();
+    else if (!TextUtils.isEmpty(name)) return fallbackPhotoProvider.getPhotoForRecipientWithName(name);
+    else                               return fallbackPhotoProvider.getPhotoForRecipientWithoutName();
   }
 
   public @Nullable ContactPhoto getContactPhoto() {
@@ -666,6 +691,14 @@ public class Recipient {
     return profileKey;
   }
 
+  public @Nullable byte[] getProfileKeyCredential() {
+    return profileKeyCredential;
+  }
+
+  public boolean hasProfileKeyCredential() {
+    return profileKeyCredential != null;
+  }
+
   public @Nullable byte[] getStorageServiceKey() {
     return storageKey;
   }
@@ -686,7 +719,11 @@ public class Recipient {
     return contactUri != null;
   }
 
-  public Recipient resolve() {
+  /**
+   * If this recipient is missing crucial data, this will return a populated copy. Otherwise it
+   * returns itself.
+   */
+  public @NonNull Recipient resolve() {
     if (resolving) {
       return live().resolve();
     } else {
@@ -696,6 +733,13 @@ public class Recipient {
 
   public boolean isResolving() {
     return resolving;
+  }
+
+  /**
+   * Forces retrieving a fresh copy of the recipient, regardless of its state.
+   */
+  public @NonNull Recipient fresh() {
+    return live().resolve();
   }
 
   public @NonNull LiveRecipient live() {
@@ -721,6 +765,29 @@ public class Recipient {
   @Override
   public int hashCode() {
     return Objects.hash(id);
+  }
+
+  public static class FallbackPhotoProvider {
+    public @NonNull FallbackContactPhoto getPhotoForLocalNumber() {
+      return new ResourceContactPhoto(R.drawable.ic_note_34, R.drawable.ic_note_24);
+    }
+
+    public @NonNull FallbackContactPhoto getPhotoForResolvingRecipient() {
+      return new TransparentContactPhoto();
+    }
+
+    public @NonNull FallbackContactPhoto getPhotoForGroup() {
+      return new ResourceContactPhoto(R.drawable.ic_group_outline_34, R.drawable.ic_group_outline_20, R.drawable.ic_group_outline_48);
+    }
+
+    public @NonNull FallbackContactPhoto getPhotoForRecipientWithName(String name) {
+      return new GeneratedContactPhoto(name, R.drawable.ic_profile_outline_40);
+    }
+
+    public @NonNull FallbackContactPhoto getPhotoForRecipientWithoutName() {
+      return new ResourceContactPhoto(R.drawable.ic_profile_outline_40, R.drawable.ic_profile_outline_20, R.drawable.ic_profile_outline_48);
+    }
+
   }
 
   private static class MissingAddressError extends AssertionError {
