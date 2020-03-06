@@ -4,6 +4,7 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 
+import org.thoughtcrime.securesms.ApplicationContext;
 import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.IncomingMessageProcessor;
 import org.thoughtcrime.securesms.gcm.MessageRetriever;
@@ -23,7 +24,7 @@ import org.whispersystems.signalservice.api.SignalServiceMessageSender;
 
 /**
  * Location for storing and retrieving application-scoped singletons. Users must call
- * {@link #init(Application, Provider)} before using any of the methods, preferably early on in
+ * {@link #init(Provider)} before using any of the methods, preferably early on in
  * {@link Application#onCreate()}.
  *
  * All future application-scoped singletons should be written as normal objects, then placed here
@@ -31,8 +32,7 @@ import org.whispersystems.signalservice.api.SignalServiceMessageSender;
  */
 public class ApplicationDependencies {
 
-  private static Application application;
-  private static Provider    provider;
+  private static Provider provider;
 
   private static SignalServiceAccountManager  accountManager;
   private static SignalServiceMessageSender   messageSender;
@@ -45,18 +45,16 @@ public class ApplicationDependencies {
   private static KeyValueStore                keyValueStore;
   private static MegaphoneRepository          megaphoneRepository;
 
-  public static synchronized void init(@NonNull Application application, @NonNull Provider provider) {
-    if (ApplicationDependencies.application != null || ApplicationDependencies.provider != null) {
+  public static synchronized void init(@NonNull Provider provider) {
+    if (ApplicationDependencies.provider != null) {
       throw new IllegalStateException("Already initialized!");
     }
 
-    ApplicationDependencies.application = application;
-    ApplicationDependencies.provider    = provider;
+    ApplicationDependencies.provider = provider;
   }
 
   public static @NonNull Application getApplication() {
-    assertInitialization();
-    return application;
+    return ApplicationContext.getInstance();
   }
 
   public static synchronized @NonNull SignalServiceAccountManager getSignalServiceAccountManager() {
@@ -70,7 +68,7 @@ public class ApplicationDependencies {
   }
 
   public static synchronized @NonNull KeyBackupService getKeyBackupService() {
-    return getSignalServiceAccountManager().getKeyBackupService(IasKeyStore.getIasKeyStore(application),
+    return getSignalServiceAccountManager().getKeyBackupService(IasKeyStore.getIasKeyStore(getApplication()),
                                                                 BuildConfig.KEY_BACKUP_ENCLAVE_NAME,
                                                                 BuildConfig.KEY_BACKUP_MRENCLAVE,
                                                                 10);
@@ -83,7 +81,7 @@ public class ApplicationDependencies {
       messageSender = provider.provideSignalServiceMessageSender();
     } else {
       messageSender.setMessagePipe(IncomingMessageObserver.getPipe(), IncomingMessageObserver.getUnidentifiedPipe());
-      messageSender.setIsMultiDevice(TextSecurePreferences.isMultiDevice(application));
+      messageSender.setIsMultiDevice(TextSecurePreferences.isMultiDevice(getApplication()));
     }
 
     return messageSender;
@@ -180,7 +178,7 @@ public class ApplicationDependencies {
   }
 
   private static void assertInitialization() {
-    if (application == null || provider == null) {
+    if (provider == null) {
       throw new UninitializedException();
     }
   }

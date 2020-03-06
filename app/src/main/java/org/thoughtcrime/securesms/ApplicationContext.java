@@ -25,6 +25,7 @@ import androidx.camera.core.CameraX;
 import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ProcessLifecycleOwner;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -105,6 +106,8 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
 
   private static final String TAG = ApplicationContext.class.getSimpleName();
 
+  private static ApplicationContext instance;
+
   private ExpiringMessageManager   expiringMessageManager;
   private ViewOnceMessageManager   viewOnceMessageManager;
   private TypingStatusRepository   typingStatusRepository;
@@ -115,8 +118,17 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
   private volatile boolean isAppVisible;
   private volatile boolean isAppInitialized;
 
-  public static ApplicationContext getInstance(Context context) {
-    return (ApplicationContext)context.getApplicationContext();
+  public ApplicationContext() {
+    super();
+    instance = this;
+  }
+
+  public static @NonNull ApplicationContext getInstance(Context context) {
+    return instance;
+  }
+
+  public static @NonNull ApplicationContext getInstance() {
+    return instance;
   }
 
   @Override
@@ -306,7 +318,7 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
   }
 
   private void initializeAppDependencies() {
-    ApplicationDependencies.init(this, new ApplicationDependencyProvider(this, new SignalServiceNetworkAccess(this)));
+    ApplicationDependencies.init(new ApplicationDependencyProvider(this, new SignalServiceNetworkAccess(this)));
   }
 
   private void initializeFirstEverAppLaunch() {
