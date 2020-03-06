@@ -175,7 +175,12 @@ class SubmitDebugLogRepository {
     List<LogLine> out = new ArrayList<>();
     out.add(new SimpleLogLine(formatTitle(section.getTitle(), maxTitleLength), LogLine.Style.NONE));
 
-    CharSequence content = Scrubber.scrub(section.getContent(context));
+    CharSequence content;
+    try {
+      content = Scrubber.scrub(section.getContent(context));
+    } catch (IllegalStateException e) {
+      content = "Not initialized yet";
+    }
 
     List<LogLine> lines = Stream.of(Pattern.compile("\\n").split(content))
                                 .map(s -> new SimpleLogLine(s, LogStyleParser.parseStyle(s)))

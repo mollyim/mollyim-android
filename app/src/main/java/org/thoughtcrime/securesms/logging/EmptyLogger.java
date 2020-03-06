@@ -27,7 +27,7 @@ public class EmptyLogger extends Log.Logger {
   public void clear() {}
 
   @Override
-  public String getLog() {
+  public CharSequence getLog() {
     return "Logs not available.\n";
   }
 }

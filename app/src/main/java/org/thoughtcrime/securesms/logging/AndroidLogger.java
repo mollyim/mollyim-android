@@ -48,7 +48,7 @@ public class AndroidLogger extends Log.Logger {
   }
 
   @Override
-  public String getLog() throws IOException {
+  public CharSequence getLog() throws IOException {
     final Process         process        = Runtime.getRuntime().exec("logcat -d");
     final BufferedReader  bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
     final StringBuilder   log            = new StringBuilder();
@@ -59,6 +59,6 @@ public class AndroidLogger extends Log.Logger {
       log.append(line);
       log.append(separator);
     }
-    return log.toString();
+    return log;
   }
 }
