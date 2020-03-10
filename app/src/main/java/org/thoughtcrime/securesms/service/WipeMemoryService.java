@@ -178,8 +178,10 @@ public class WipeMemoryService extends IntentService {
     PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
     Notification notification =
             new NotificationCompat.Builder(this, NotificationChannels.LOCKED_STATUS)
-                    .setContentTitle(this.getString(R.string.WipeMemoryService_molly_is_clearing_secrets))
-                    .setSmallIcon(R.drawable.icon_cached)
+                    .setContentTitle(this.getString(R.string.WipeMemoryService_secure_wipe_in_progress))
+                    .setContentText(this.getString(R.string.WipeMemoryService_molly_is_clearing_secrets))
+                    .setStyle(new NotificationCompat.BigTextStyle().bigText(this.getString(R.string.WipeMemoryService_molly_is_clearing_secrets)))
+                    .setSmallIcon(R.drawable.icon_notification)
                     .setContentIntent(pendingIntent)
                     .setPriority(Notification.PRIORITY_MIN)
                     .build();
