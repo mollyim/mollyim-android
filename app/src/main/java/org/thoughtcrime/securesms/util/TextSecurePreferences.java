@@ -186,14 +186,14 @@ public class TextSecurePreferences {
 
   private static final String STORAGE_MANIFEST_VERSION = "pref_storage_manifest_version";
 
-  public static final String DISABLE_PINV2_REMINDERS = "pref_signal_disable_pinv2_reminders";
+  public  static final String ENABLE_PINV2_REMINDERS = "pref_signal_enable_pinv2_reminders";
 
-  public static boolean isPinV2ReminderDisabled(@NonNull Context context) {
-    return getBooleanPreference(context, DISABLE_PINV2_REMINDERS, false);
+  public static boolean isPinV2ReminderEnabled(@NonNull Context context) {
+    return getBooleanPreference(context, ENABLE_PINV2_REMINDERS, true);
   }
 
-  public static void setPinV2ReminderDisabled(@NonNull Context context, boolean value) {
-    setBooleanPreference(context, DISABLE_PINV2_REMINDERS, value);
+  public static void setPinV2ReminderEnabled(@NonNull Context context, boolean value) {
+    setBooleanPreference(context, ENABLE_PINV2_REMINDERS, value);
   }
 
   public static boolean isScreenLockEnabled(@NonNull Context context) {

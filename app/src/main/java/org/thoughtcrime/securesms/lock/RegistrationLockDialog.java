@@ -65,7 +65,7 @@ public final class RegistrationLockDialog {
       return;
     }
 
-    if (TextSecurePreferences.isPinV2ReminderDisabled(context)) {
+    if (!TextSecurePreferences.isPinV2ReminderEnabled(context)) {
       return;
     }
 
