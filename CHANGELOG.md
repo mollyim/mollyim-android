@@ -10,15 +10,19 @@ All notable changes to Signal will be documented in this file.
 - Fixed: for any bug fixes.
 - Merged: for code merged from upstream. -->
 
-## [Unreleased]
+## [v4.56.4-1]
 
 ### Added
 
-- Option to not show v2 PIN reminders. (#5)
+- Option to not show v2 PIN reminders. ([#5])
 
 ### Removed
 
 - MMS configs.
+
+### Merged
+
+- Signal v4.56.4
 
 ## [v4.55.8-2]
 
@@ -62,16 +66,17 @@ All notable changes to Signal will be documented in this file.
 
 ### Fixed
 
-- Race condition at KeyStore creation. ([#9019a2e])
-- Fix lock alarm in low-power idle mode. ([#7e0954d])
+- Race condition at KeyStore creation. ([9019a2e])
+- Fix lock alarm in low-power idle mode. ([7e0954d])
 
 ### Merged
 
 - Signal v4.55.8
 
-[Unreleased]: https://github.com/mollyim/mollyim-android/compare/v4.55.8-2...HEAD
+[Unreleased]: https://github.com/mollyim/mollyim-android/compare/v4.56.4-1...HEAD
+[v4.56.4-1]: https://github.com/mollyim/mollyim-android/compare/v4.55.8-2...v4.56.4-1
 [v4.55.8-2]: https://github.com/mollyim/mollyim-android/compare/v4.55.8-1...v4.55.8-2
 [v4.55.8-1]: https://github.com/mollyim/mollyim-android/compare/v4.55.8...v4.55.8-1
-
-[#9019a2e]: https://github.com/mollyim/mollyim-android/commit/9019a2e931779b06a241768836ce11031bd043de
-[#7e0954d]: https://github.com/mollyim/mollyim-android/commit/7e0954d967c4210ae002bc0bbec83717a0ad8607
+[#5]: https://github.com/mollyim/mollyim-android/pull/5
+[9019a2e]: https://github.com/mollyim/mollyim-android/commit/9019a2e931779b06a241768836ce11031bd043de
+[7e0954d]: https://github.com/mollyim/mollyim-android/commit/7e0954d967c4210ae002bc0bbec83717a0ad8607
