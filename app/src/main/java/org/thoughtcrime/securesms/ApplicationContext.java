@@ -24,6 +24,7 @@ import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Build;
 
+import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.DefaultLifecycleObserver;
