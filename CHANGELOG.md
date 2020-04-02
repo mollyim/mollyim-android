@@ -12,6 +12,10 @@ All notable changes to Signal will be documented in this file.
 
 ## [Unreleased]
 
+### Removed
+
+- Flipper build type.
+
 ### Merged
 
 - Signal v4.58.4
