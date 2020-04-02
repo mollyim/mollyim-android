@@ -22,10 +22,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.camera.core.CameraX;
+import androidx.camera.core.CameraSelector;
 import androidx.camera.core.ImageCapture;
+import androidx.camera.core.ImageCaptureException;
 import androidx.camera.core.ImageProxy;
-import androidx.camera.core.impl.utils.executor.CameraXExecutors;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -45,7 +45,6 @@ import org.thoughtcrime.securesms.util.MemoryFileDescriptor;
 import org.thoughtcrime.securesms.util.Stopwatch;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.ThemeUtil;
-import org.thoughtcrime.securesms.util.Util;
 import org.thoughtcrime.securesms.util.concurrent.SimpleTask;
 import org.thoughtcrime.securesms.video.VideoUtil;
 import org.whispersystems.libsignal.util.guava.Optional;
@@ -60,7 +59,8 @@ import java.io.IOException;
 @RequiresApi(21)
 public class CameraXFragment extends Fragment implements CameraFragment {
 
-  private static final String TAG = Log.tag(CameraXFragment.class);
+  private static final String TAG              = Log.tag(CameraXFragment.class);
+  private static final String IS_VIDEO_ENABLED = "is_video_enabled";
 
   private CameraXView          camera;
   private ViewGroup            controlsContainer;
@@ -69,8 +69,22 @@ public class CameraXFragment extends Fragment implements CameraFragment {
   private View                 selfieFlash;
   private MemoryFileDescriptor videoFileDescriptor;
 
+  public static CameraXFragment newInstanceForAvatarCapture() {
+    CameraXFragment fragment = new CameraXFragment();
+    Bundle          args     = new Bundle();
+
+    args.putBoolean(IS_VIDEO_ENABLED, false);
+    fragment.setArguments(args);
+
+    return fragment;
+  }
+
   public static CameraXFragment newInstance() {
-    return new CameraXFragment();
+    CameraXFragment fragment = new CameraXFragment();
+
+    fragment.setArguments(new Bundle());
+
+    return fragment;
   }
 
   @Override
@@ -191,7 +205,9 @@ public class CameraXFragment extends Fragment implements CameraFragment {
       onCaptureClicked();
     });
 
-    if (camera.hasCameraWithLensFacing(CameraX.LensFacing.FRONT) && camera.hasCameraWithLensFacing(CameraX.LensFacing.BACK)) {
+    camera.setScaleType(CameraXView.ScaleType.CENTER_INSIDE);
+
+    if (camera.hasCameraWithLensFacing(CameraSelector.LENS_FACING_FRONT) && camera.hasCameraWithLensFacing(CameraSelector.LENS_FACING_BACK)) {
       flipButton.setVisibility(View.VISIBLE);
       flipButton.setOnClickListener(v ->  {
         camera.toggleCamera();
@@ -282,9 +298,10 @@ public class CameraXFragment extends Fragment implements CameraFragment {
   }
 
   private boolean isVideoRecordingSupported(@NonNull Context context) {
-    return Build.VERSION.SDK_INT >= 26                  &&
-           MediaConstraints.isVideoTranscodeAvailable() &&
-           CameraXUtil.isMixedModeSupported(context)    &&
+    return Build.VERSION.SDK_INT >= 26                           &&
+           requireArguments().getBoolean(IS_VIDEO_ENABLED, true) &&
+           MediaConstraints.isVideoTranscodeAvailable()          &&
+           CameraXUtil.isMixedModeSupported(context)             &&
            VideoUtil.getMaxVideoDurationInSeconds(context, viewModel.getMediaConstraints()) > 0;
   }
 
@@ -294,7 +311,7 @@ public class CameraXFragment extends Fragment implements CameraFragment {
 
       TooltipPopup.forTarget(captureButton)
                   .setOnDismissListener(this::neverDisplayVideoRecordingTooltipAgain)
-                  .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.signal_primary))
+                  .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.core_ultramarine))
                   .setTextColor(ThemeUtil.getThemedColor(requireContext(), R.attr.conversation_title_color))
                   .setText(R.string.CameraXFragment_tap_for_photo_hold_for_video)
                   .show(displayRotation == Surface.ROTATION_0 || displayRotation == Surface.ROTATION_180 ? TooltipPopup.POSITION_ABOVE : TooltipPopup.POSITION_START);
@@ -347,15 +364,15 @@ public class CameraXFragment extends Fragment implements CameraFragment {
         selfieFlash
     );
 
-    camera.takePicture(Executors.mainThreadExecutor(), new ImageCapture.OnImageCapturedListener() {
+    camera.takePicture(Executors.mainThreadExecutor(), new ImageCapture.OnImageCapturedCallback() {
       @Override
-      public void onCaptureSuccess(ImageProxy image, int rotationDegrees) {
+      public void onCaptureSuccess(@NonNull ImageProxy image) {
         flashHelper.endFlash();
 
         SimpleTask.run(CameraXFragment.this.getViewLifecycleOwner().getLifecycle(), () -> {
           stopwatch.split("captured");
           try {
-            return CameraXUtil.toJpeg(image, rotationDegrees, camera.getCameraLensFacing() == CameraX.LensFacing.FRONT);
+            return CameraXUtil.toJpeg(image, camera.getCameraLensFacing() == CameraSelector.LENS_FACING_FRONT);
           } catch (IOException e) {
             return null;
           } finally {
@@ -374,7 +391,7 @@ public class CameraXFragment extends Fragment implements CameraFragment {
       }
 
       @Override
-      public void onError(ImageCapture.ImageCaptureError useCaseError, String message, @Nullable Throwable cause) {
+      public void onError(ImageCaptureException exception) {
         flashHelper.endFlash();
         controller.onCameraError();
       }

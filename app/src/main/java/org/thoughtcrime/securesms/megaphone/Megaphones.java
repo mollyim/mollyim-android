@@ -23,6 +23,8 @@ import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.messagerequests.MessageRequestMegaphoneActivity;
 import org.thoughtcrime.securesms.profiles.ProfileName;
 import org.thoughtcrime.securesms.profiles.edit.EditProfileActivity;
+import org.thoughtcrime.securesms.recipients.Recipient;
+import org.thoughtcrime.securesms.util.AvatarUtil;
 import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
@@ -201,15 +203,15 @@ public final class Megaphones {
   }
 
   private static @NonNull Megaphone buildProfileNamesMegaphone(@NonNull Context context) {
-    short requestCode  = TextSecurePreferences.getProfileName(context) != ProfileName.EMPTY
+    short requestCode  = Recipient.self().getProfileName() != ProfileName.EMPTY
                          ? ConversationListFragment.PROFILE_NAMES_REQUEST_CODE_CONFIRM_NAME
                          : ConversationListFragment.PROFILE_NAMES_REQUEST_CODE_CREATE_NAME;
 
     Megaphone.Builder builder = new Megaphone.Builder(Event.PROFILE_NAMES_FOR_ALL, Megaphone.Style.BASIC)
                                              .enableSnooze(null)
-                                             .setImage(R.drawable.profile_megaphone);
+                                             .setImageRequest(AvatarUtil.getSelfAvatarOrFallbackIcon(context, R.drawable.ic_profilename_64));
 
-    if (TextSecurePreferences.getProfileName(ApplicationDependencies.getApplication()) == ProfileName.EMPTY) {
+    if (Recipient.self().getProfileName() == ProfileName.EMPTY) {
       return builder.setTitle(R.string.ProfileNamesMegaphone__add_a_profile_name)
                     .setBody(R.string.ProfileNamesMegaphone__this_will_be_displayed_when_you_start)
                     .setActionButton(R.string.ProfileNamesMegaphone__add_profile_name, (megaphone, listener) -> {
@@ -240,7 +242,7 @@ public final class Megaphones {
   }
 
   private static boolean shouldShowMessageRequestsMegaphone() {
-    boolean userHasAProfileName = TextSecurePreferences.getProfileName(ApplicationDependencies.getApplication()) != ProfileName.EMPTY;
+    boolean userHasAProfileName = Recipient.self().getProfileName() != ProfileName.EMPTY;
     return FeatureFlags.messageRequests() && !userHasAProfileName;
   }
 

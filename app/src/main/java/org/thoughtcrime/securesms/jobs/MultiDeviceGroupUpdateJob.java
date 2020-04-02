@@ -11,10 +11,10 @@ import org.thoughtcrime.securesms.jobmanager.Data;
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
 import org.thoughtcrime.securesms.logging.Log;
+import org.thoughtcrime.securesms.profiles.AvatarHelper;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.recipients.RecipientUtil;
-import org.thoughtcrime.securesms.util.GroupUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.whispersystems.libsignal.util.guava.Optional;
 import org.whispersystems.signalservice.api.SignalServiceMessageSender;
@@ -92,16 +92,16 @@ public class MultiDeviceGroupUpdateJob extends BaseJob {
             members.add(RecipientUtil.toSignalServiceAddress(context, Recipient.resolved(member)));
           }
 
-          RecipientId               recipientId     = DatabaseFactory.getRecipientDatabase(context).getOrInsertFromGroupId(GroupUtil.getEncodedId(record.getId(), record.isMms()));
+          RecipientId               recipientId     = DatabaseFactory.getRecipientDatabase(context).getOrInsertFromGroupId(record.getId());
           Recipient                 recipient       = Recipient.resolved(recipientId);
           Optional<Integer>         expirationTimer = recipient.getExpireMessages() > 0 ? Optional.of(recipient.getExpireMessages()) : Optional.absent();
           Map<RecipientId, Integer> inboxPositions  = DatabaseFactory.getThreadDatabase(context).getInboxPositions();
           Set<RecipientId>          archived        = DatabaseFactory.getThreadDatabase(context).getArchivedRecipients();
 
-          out.write(new DeviceGroup(record.getId(),
+          out.write(new DeviceGroup(record.getId().getDecodedId(),
                                     Optional.fromNullable(record.getTitle()),
                                     members,
-                                    getAvatar(record.getAvatar()),
+                                    getAvatar(record.getRecipientId()),
                                     record.isActive(),
                                     expirationTimer,
                                     Optional.of(recipient.getColor().serialize()),
@@ -152,13 +152,13 @@ public class MultiDeviceGroupUpdateJob extends BaseJob {
   }
 
 
-  private Optional<SignalServiceAttachmentStream> getAvatar(@Nullable byte[] avatar) {
-    if (avatar == null) return Optional.absent();
+  private Optional<SignalServiceAttachmentStream> getAvatar(@NonNull RecipientId recipientId) throws IOException {
+    if (!AvatarHelper.hasAvatar(context, recipientId)) return Optional.absent();
 
     return Optional.of(SignalServiceAttachment.newStreamBuilder()
-                                              .withStream(new ByteArrayInputStream(avatar))
+                                              .withStream(AvatarHelper.getAvatar(context, recipientId))
                                               .withContentType("image/*")
-                                              .withLength(avatar.length)
+                                              .withLength(AvatarHelper.getAvatarLength(context, recipientId))
                                               .build());
   }
 

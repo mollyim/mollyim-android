@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.WorkerThread;
 import androidx.core.graphics.drawable.IconCompat;
@@ -43,15 +44,24 @@ public final class AvatarUtil {
     }
   }
 
+  public static GlideRequest<Drawable> getSelfAvatarOrFallbackIcon(@NonNull Context context, @DrawableRes int fallbackIcon) {
+    return GlideApp.with(context)
+                   .asDrawable()
+                   .load(new ProfileContactPhoto(Recipient.self(), Recipient.self().getProfileAvatar()))
+                   .error(fallbackIcon)
+                   .circleCrop()
+                   .diskCacheStrategy(DiskCacheStrategy.ALL);
+  }
+
   private static <T> GlideRequest<T> request(@NonNull GlideRequest<T> glideRequest, @NonNull Context context, @NonNull Recipient recipient) {
-    return glideRequest.load(new ProfileContactPhoto(recipient.getId(), String.valueOf(TextSecurePreferences.getProfileAvatarId(context))))
+    return glideRequest.load(new ProfileContactPhoto(recipient, recipient.getProfileAvatar()))
                        .error(getFallback(context, recipient))
                        .circleCrop()
                        .diskCacheStrategy(DiskCacheStrategy.ALL);
   }
 
   private static Drawable getFallback(@NonNull Context context, @NonNull Recipient recipient) {
-    String        name          = Optional.fromNullable(recipient.getDisplayName(context)).or(Optional.fromNullable(TextSecurePreferences.getProfileName(context).toString())).or("");
+    String        name          = Optional.fromNullable(recipient.getDisplayName(context)).or("");
     MaterialColor fallbackColor = recipient.getColor();
 
     if (fallbackColor == ContactColors.UNKNOWN_COLOR && !TextUtils.isEmpty(name)) {

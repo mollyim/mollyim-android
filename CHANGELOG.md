@@ -10,6 +10,12 @@ All notable changes to Signal will be documented in this file.
 - Fixed: for any bug fixes.
 - Merged: for code merged from upstream. -->
 
+## [Unreleased]
+
+### Merged
+
+- Signal v4.58.4
+
 ## [v4.56.4-1]
 
 ### Added

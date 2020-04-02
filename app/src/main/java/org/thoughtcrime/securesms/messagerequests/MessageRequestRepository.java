@@ -25,7 +25,7 @@ import org.whispersystems.libsignal.util.guava.Optional;
 import java.util.List;
 import java.util.concurrent.Executor;
 
-public class MessageRequestRepository {
+final class MessageRequestRepository {
 
   private final Context  context;
   private final Executor executor;
@@ -38,15 +38,17 @@ public class MessageRequestRepository {
   void getGroups(@NonNull RecipientId recipientId, @NonNull Consumer<List<String>> onGroupsLoaded) {
     executor.execute(() -> {
       GroupDatabase groupDatabase = DatabaseFactory.getGroupDatabase(context);
-      onGroupsLoaded.accept(groupDatabase.getGroupNamesContainingMember(recipientId));
+      onGroupsLoaded.accept(groupDatabase.getPushGroupNamesContainingMember(recipientId));
     });
   }
 
-  void getMemberCount(@NonNull RecipientId recipientId, @NonNull Consumer<Integer> onMemberCountLoaded) {
+  void getMemberCount(@NonNull RecipientId recipientId, @NonNull Consumer<GroupMemberCount> onMemberCountLoaded) {
     executor.execute(() -> {
       GroupDatabase groupDatabase = DatabaseFactory.getGroupDatabase(context);
       Optional<GroupDatabase.GroupRecord> groupRecord = groupDatabase.getGroup(recipientId);
-      onMemberCountLoaded.accept(groupRecord.transform(record -> record.getMembers().size()).or(0));
+      onMemberCountLoaded.accept(groupRecord.transform(record -> {
+          return new GroupMemberCount(record.getMembers().size(), 0);
+      }).or(GroupMemberCount.ZERO));
     });
   }
 

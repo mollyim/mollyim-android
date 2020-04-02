@@ -1,20 +1,22 @@
 package org.thoughtcrime.securesms.jobs;
 
 import android.graphics.Bitmap;
+
 import androidx.annotation.NonNull;
 
 import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.database.GroupDatabase;
 import org.thoughtcrime.securesms.database.GroupDatabase.GroupRecord;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.groups.GroupId;
 import org.thoughtcrime.securesms.jobmanager.Data;
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.mms.AttachmentStreamUriLoader.AttachmentModel;
+import org.thoughtcrime.securesms.profiles.AvatarHelper;
 import org.thoughtcrime.securesms.util.BitmapDecodingException;
 import org.thoughtcrime.securesms.util.BitmapUtil;
-import org.thoughtcrime.securesms.util.GroupUtil;
 import org.thoughtcrime.securesms.util.Hex;
 import org.whispersystems.libsignal.InvalidMessageException;
 import org.whispersystems.libsignal.util.guava.Optional;
@@ -36,9 +38,9 @@ public class AvatarDownloadJob extends BaseJob {
 
   private static final String KEY_GROUP_ID = "group_id";
 
-  private byte[] groupId;
+  private @NonNull GroupId.V1 groupId;
 
-  public AvatarDownloadJob(@NonNull byte[] groupId) {
+  public AvatarDownloadJob(@NonNull GroupId.V1 groupId) {
     this(new Job.Parameters.Builder()
                            .addConstraint(NetworkConstraint.KEY)
                            .setMaxAttempts(10)
@@ -46,14 +48,14 @@ public class AvatarDownloadJob extends BaseJob {
          groupId);
   }
 
-  private AvatarDownloadJob(@NonNull Job.Parameters parameters, @NonNull byte[] groupId) {
+  private AvatarDownloadJob(@NonNull Job.Parameters parameters, @NonNull GroupId.V1 groupId) {
     super(parameters);
     this.groupId = groupId;
   }
 
   @Override
   public @NonNull Data serialize() {
-    return new Data.Builder().putString(KEY_GROUP_ID, GroupUtil.getEncodedId(groupId, false)).build();
+    return new Data.Builder().putString(KEY_GROUP_ID, groupId.toString()).build();
   }
 
   @Override
@@ -63,9 +65,8 @@ public class AvatarDownloadJob extends BaseJob {
 
   @Override
   public void onRun() throws IOException {
-    String                encodeId   = GroupUtil.getEncodedId(groupId, false);
     GroupDatabase         database   = DatabaseFactory.getGroupDatabase(context);
-    Optional<GroupRecord> record     = database.getGroup(encodeId);
+    Optional<GroupRecord> record     = database.getGroup(groupId);
     File                  attachment = null;
 
     try {
@@ -90,13 +91,14 @@ public class AvatarDownloadJob extends BaseJob {
 
         SignalServiceMessageReceiver   receiver    = ApplicationDependencies.getSignalServiceMessageReceiver();
         SignalServiceAttachmentPointer pointer     = new SignalServiceAttachmentPointer(avatarId, contentType, key, Optional.of(0), Optional.absent(), 0, 0, digest, fileName, false, Optional.absent(), Optional.absent());
-        InputStream                    inputStream = receiver.retrieveAttachment(pointer, attachment, MAX_AVATAR_SIZE);
-        Bitmap                         avatar      = BitmapUtil.createScaledBitmap(context, new AttachmentModel(attachment, key, 0, digest), 500, 500);
+        InputStream                    inputStream = receiver.retrieveAttachment(pointer, attachment, AvatarHelper.AVATAR_DOWNLOAD_FAILSAFE_MAX_SIZE);
 
-        database.updateAvatar(encodeId, avatar);
+        AvatarHelper.setAvatar(context, record.get().getRecipientId(), inputStream);
+        DatabaseFactory.getGroupDatabase(context).onAvatarUpdated(groupId, true);
+
         inputStream.close();
       }
-    } catch (BitmapDecodingException | NonSuccessfulResponseCodeException | InvalidMessageException e) {
+    } catch (NonSuccessfulResponseCodeException | InvalidMessageException e) {
       Log.w(TAG, e);
     } finally {
       if (attachment != null)
@@ -116,11 +118,7 @@ public class AvatarDownloadJob extends BaseJob {
   public static final class Factory implements Job.Factory<AvatarDownloadJob> {
     @Override
     public @NonNull AvatarDownloadJob create(@NonNull Parameters parameters, @NonNull Data data) {
-      try {
-        return new AvatarDownloadJob(parameters, GroupUtil.getDecodedId(data.getString(KEY_GROUP_ID)));
-      } catch (IOException e) {
-        throw new AssertionError(e);
-      }
+      return new AvatarDownloadJob(parameters, GroupId.parse(data.getString(KEY_GROUP_ID)).requireV1());
     }
   }
 }

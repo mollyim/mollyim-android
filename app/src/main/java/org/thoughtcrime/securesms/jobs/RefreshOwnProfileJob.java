@@ -1,5 +1,7 @@
 package org.thoughtcrime.securesms.jobs;
 
+import android.text.TextUtils;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -64,6 +66,11 @@ public class RefreshOwnProfileJob extends BaseJob {
 
   @Override
   protected void onRun() throws Exception {
+    if (!TextSecurePreferences.isPushRegistered(context) || TextUtils.isEmpty(TextSecurePreferences.getLocalNumber(context))) {
+      Log.w(TAG, "Not yet registered!");
+      return;
+    }
+
     Recipient            self                 = Recipient.self();
     ProfileAndCredential profileAndCredential = ProfileUtil.retrieveProfile(context, self, getRequestType(self));
     SignalServiceProfile profile              = profileAndCredential.getProfile();
@@ -106,7 +113,6 @@ public class RefreshOwnProfileJob extends BaseJob {
       ProfileName profileName   = ProfileName.fromSerialized(plaintextName);
 
       DatabaseFactory.getRecipientDatabase(context).setProfileName(Recipient.self().getId(), profileName);
-      TextSecurePreferences.setProfileName(context, profileName);
     } catch (InvalidCiphertextException | IOException e) {
       Log.w(TAG, e);
     }
@@ -121,7 +127,7 @@ public class RefreshOwnProfileJob extends BaseJob {
       return;
     }
 
-    DatabaseFactory.getRecipientDatabase(context).setUuidSupported(Recipient.self().getId(), capabilities.isUuid());
+    DatabaseFactory.getRecipientDatabase(context).setCapabilities(Recipient.self().getId(), capabilities);
   }
 
   public static final class Factory implements Job.Factory<RefreshOwnProfileJob> {

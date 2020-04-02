@@ -135,6 +135,8 @@
     <string name="CommunicationActions_start_voice_call">Start voice call?</string>
     <string name="CommunicationActions_cancel">Cancel</string>
     <string name="CommunicationActions_call">Call</string>
+    <string name="CommunicationActions_insecure_call">Insecure call</string>
+    <string name="CommunicationActions_carrier_charges_may_apply">Carrier charges may apply. The number you are calling is not registered with Signal. This call will be placed through your mobile carrier, not over the internet.</string>
 
     <!-- ConfirmIdentityDialog -->
     <string name="ConfirmIdentityDialog_your_safety_number_with_s_has_changed">Your safety number with %1$s has changed. This could either mean that someone is trying to intercept your communication, or that %2$s simply reinstalled Signal.</string>
@@ -353,6 +355,12 @@
     <string name="CustomDefaultPreference_using_default">Using default: %s</string>
     <string name="CustomDefaultPreference_none">None</string>
 
+    <!-- AvatarSelectionBottomSheetDialogFragment -->
+    <string name="AvatarSelectionBottomSheetDialogFragment__choose_photo">Choose photo</string>
+    <string name="AvatarSelectionBottomSheetDialogFragment__take_photo">Take photo</string>
+    <string name="AvatarSelectionBottomSheetDialogFragment__choose_from_gallery">Choose from gallery</string>
+    <string name="AvatarSelectionBottomSheetDialogFragment__remove_photo">Remove photo</string>
+
     <!-- DateUtils -->
     <string name="DateUtils_just_now">Now</string>
     <string name="DateUtils_minutes_ago">%dm</string>
@@ -390,40 +398,6 @@
     <!-- ShareActivity -->
     <string name="ShareActivity_share_with">Share with</string>
     <string name="ShareActivity_multiple_attachments_are_only_supported">Multiple attachments are only supported for images and videos</string>
-
-    <!-- ExperienceUpgradeActivity -->
-    <string name="ExperienceUpgradeActivity_welcome_to_signal_dgaf">Welcome to Signal.</string>
-    <string name="ExperienceUpgradeActivity_textsecure_is_now_called_signal">TextSecure and RedPhone are now one private messenger, for every situation: Signal.</string>
-    <string name="ExperienceUpgradeActivity_welcome_to_signal_excited">Welcome to Signal!</string>
-    <string name="ExperienceUpgradeActivity_textsecure_is_now_signal">TextSecure is now Signal.</string>
-    <string name="ExperienceUpgradeActivity_textsecure_is_now_signal_long">TextSecure and RedPhone are now one app: Signal. Tap to explore.</string>
-
-    <string name="ExperienceUpgradeActivity_say_hello_to_video_calls">Say hello to secure video calls.</string>
-    <string name="ExperienceUpgradeActivity_signal_now_supports_secure_video_calls">Signal now supports secure video calling. Just start a Signal call like normal, tap the video button, and wave hello.</string>
-    <string name="ExperienceUpgradeActivity_signal_now_supports_secure_video_calling">Signal now supports secure video calling.</string>
-    <string name="ExperienceUpgradeActivity_signal_now_supports_secure_video_calling_long">Signal now supports secure video calling. Tap to explore.</string>
-
-    <string name="ExperienceUpgradeActivity_ready_for_your_closeup">Ready for your closeup?</string>
-    <string name="ExperienceUpgradeActivity_now_you_can_share_a_profile_photo_and_name_with_friends_on_signal">Now you can share a profile photo and name with friends on Signal</string>
-    <string name="ExperienceUpgradeActivity_signal_profiles_are_here">Signal profiles are here</string>
-
-    <string name="ExperienceUpgradeActivity_introducing_typing_indicators">Introducing typing indicators.</string>
-    <string name="ExperienceUpgradeActivity_now_you_can_optionally_see_and_share_when_messages_are_being_typed">Now you can optionally see and share when messages are being typed.</string>
-    <string name="ExperienceUpgradeActivity_would_you_like_to_enable_them_now">Would you like to enable them now?</string>
-    <string name="ExperienceUpgradeActivity_typing_ui_title">Typing indicators are here</string>
-    <string name="ExperienceUpgradeActivity_enable_typing_indicators">Enable typing indicators</string>
-    <string name="ExperienceUpgradeActivity_turn_on_typing_indicators">Turn on typing indicators</string>
-    <string name="ExperienceUpgradeActivity_no_thanks">No thanks</string>
-
-    <string name="ExperienceUpgradeActivity_introducing_link_previews">Introducing link previews.</string>
-    <string name="ExperienceUpgradeActivity_optional_link_previews_are_now_supported">Optional link previews are now supported for some of the most popular sites on the Internet.</string>
-    <string name="ExperienceUpgradeActivity_you_can_disable_or_enable_this_feature_link_previews">You can disable or enable this feature anytime in your Signal settings (Privacy &gt; Send link previews).</string>
-    <string name="ExperienceUpgradeActivity_got_it">Got it</string>
-
-    <string name="ExperienceUpgradeActivity_introducing_stickers">Introducing stickers</string>
-    <string name="ExperienceUpgradeActivity_why_use_words_when_you_can_use_stickers">Why use words when you can use stickers?</string>
-    <string name="ExperienceUpgradeActivity_why_use_words_when_you_can_use_stickers_tap_this_icon">Why use words when you can use stickers? Tap this icon on your keyboard:</string>
-    <string name="ExperienceUpgradeActivity_lets_go">Let\'s go</string>
 
     <!-- GcmBroadcastReceiver -->
     <string name="GcmBroadcastReceiver_retrieving_a_message">Retrieving a message…</string>
@@ -645,6 +619,10 @@
     <plurals name="MessageRequestProfileView_members">
         <item quantity="one">%1$d member</item>
         <item quantity="other">%1$d members</item>
+    </plurals>
+    <plurals name="MessageRequestProfileView_members_and_invited">
+        <item quantity="one">%1$d member (+%2$d invited)</item>
+        <item quantity="other">%1$d members (+%2$d invited)</item>
     </plurals>
     <plurals name="MessageRequestProfileView_member_of_others">
         <item quantity="one">%d other</item>
@@ -1430,6 +1408,36 @@
     <string name="MessageRequestsMegaphone__add_name">Add name</string>
     <string name="MessageRequestsMegaphone__you_can_now_choose_whether_to_accept">You can now choose whether to accept a new conversation. You’ll see options to \"Accept,\" \"Delete,\" or \"Block.\"</string>
 
+    <!-- HelpFragment -->
+    <string name="HelpFragment__help">Help</string>
+    <string name="HelpFragment__have_you_read_our_faq_yet">Have you read our FAQ yet?</string>
+    <string name="HelpFragment__next">Next</string>
+    <string name="HelpFragment__contact_us">Contact us</string>
+    <string name="HelpFragment__tell_us_whats_going_on">Tell us what\'s going on</string>
+    <string name="HelpFragment__include_debug_log">Include debug log.</string>
+    <string name="HelpFragment__whats_this">What\'s this?</string>
+    <string name="HelpFragment__how_do_you_feel">How do you feel? (Optional)</string>
+    <string name="HelpFragment__emoji_5" translatable="false">emoji_5</string>
+    <string name="HelpFragment__emoji_4" translatable="false">emoji_4</string>
+    <string name="HelpFragment__emoji_3" translatable="false">emoji_3</string>
+    <string name="HelpFragment__emoji_2" translatable="false">emoji_2</string>
+    <string name="HelpFragment__emoji_1" translatable="false">emoji_1</string>
+    <string name="HelpFragment__link__debug_info" translatable="false">https://support.signal.org/hc/articles/360007318591</string>
+    <string name="HelpFragment__link__faq" translatable="false">https://support.signal.org</string>
+    <string name="HelpFragment__support_info">Support Info</string>
+    <string name="HelpFragment__subject">Subject:</string>
+    <string name="HelpFragment__signal_android_support_request">Signal Android Support Request</string>
+    <string name="HelpFragment__device_info">Device info:</string>
+    <string name="HelpFragment__android_version">Android version:</string>
+    <string name="HelpFragment__signal_version">Signal version:</string>
+    <string name="HelpFragment__locale">Locale:</string>
+    <string name="HelpFragment__debug_log">Debug Log:</string>
+    <string name="HelpFragment__na">n/a</string>
+    <string name="HelpFragment__could_not_upload_logs">Could not upload logs</string>
+    <string name="HelpFragment__signal_support">Signal Support</string>
+    <string name="HelpFragment__please_be_as_descriptive_as_possible">Please be as descriptive as possible to help us understand the issue.</string>
+    <string name="HelpFragment__no_email_app_found">No email app found.</string>
+
     <!-- arrays.xml -->
     <string name="arrays__import_export">Import</string>
     <string name="arrays__use_default">Use default</string>
@@ -1522,6 +1530,7 @@
     <string name="preferences__fast">Fast</string>
     <string name="preferences__normal">Normal</string>
     <string name="preferences__slow">Slow</string>
+    <string name="preferences__help">Help</string>
     <string name="preferences__advanced">Advanced</string>
     <string name="preferences__privacy">Privacy</string>
     <string name="preferences__mms_user_agent">MMS User Agent</string>
@@ -1891,8 +1900,6 @@
     <string name="SQLCipherMigrationHelper_migrating_signal_database">Migrating Signal database</string>
     <string name="PushDecryptJob_new_locked_message">New locked message</string>
     <string name="PushDecryptJob_unlock_to_view_pending_messages">Unlock to view pending messages</string>
-    <string name="ExperienceUpgradeActivity_unlock_to_complete_update">Unlock to complete update</string>
-    <string name="ExperienceUpgradeActivity_please_unlock_signal_to_complete_update">Please unlock Signal to complete update</string>
     <string name="enter_backup_passphrase_dialog__backup_passphrase">Backup passphrase</string>
     <string name="backup_enable_dialog__backups_will_be_saved_to_external_storage_and_encrypted_with_the_passphrase_below_you_must_have_this_passphrase_in_order_to_restore_a_backup">Backups will be saved to external storage and encrypted with the passphrase below. You must have this passphrase in order to restore a backup.</string>
     <string name="backup_enable_dialog__i_have_written_down_this_passphrase">I have written down this passphrase. Without it, I will be unable to restore a backup.</string>

@@ -48,7 +48,6 @@ public class RetrieveProfileAvatarJob extends BaseJob {
                            .setQueue("RetrieveProfileAvatarJob::" + recipient.getId().toQueueKey())
                            .addConstraint(NetworkConstraint.KEY)
                            .setLifespan(TimeUnit.HOURS.toMillis(1))
-                           .setMaxInstances(1)
                            .build(),
         recipient,
         profileAvatar);
@@ -98,17 +97,14 @@ public class RetrieveProfileAvatarJob extends BaseJob {
     File downloadDestination = File.createTempFile("avatar", "jpg", context.getCacheDir());
 
     try {
-      SignalServiceMessageReceiver receiver           = ApplicationDependencies.getSignalServiceMessageReceiver();
-      InputStream                  avatarStream       = receiver.retrieveProfileAvatar(profileAvatar, downloadDestination, profileKey, MAX_PROFILE_SIZE_BYTES);
-      File                         decryptDestination = File.createTempFile("avatar", "jpg", context.getCacheDir());
+      SignalServiceMessageReceiver receiver     = ApplicationDependencies.getSignalServiceMessageReceiver();
+      InputStream                  avatarStream = receiver.retrieveProfileAvatar(profileAvatar, downloadDestination, profileKey, AvatarHelper.AVATAR_DOWNLOAD_FAILSAFE_MAX_SIZE);
 
       try {
-        Util.copy(avatarStream, new FileOutputStream(decryptDestination));
+        AvatarHelper.setAvatar(context, recipient.getId(), avatarStream);
       } catch (AssertionError e) {
         throw new IOException("Failed to copy stream. Likely a Conscrypt issue.", e);
       }
-
-      decryptDestination.renameTo(AvatarHelper.getAvatarFile(context, recipient.getId()));
     } catch (PushNetworkException e) {
       if (e.getCause() instanceof NonSuccessfulResponseCodeException) {
         Log.w(TAG, "Removing profile avatar (no image available) for: " + recipient.getId().serialize());
@@ -121,10 +117,6 @@ public class RetrieveProfileAvatarJob extends BaseJob {
     }
 
     database.setProfileAvatar(recipient.getId(), profileAvatar);
-
-    if (recipient.isLocalNumber()) {
-      TextSecurePreferences.setProfileAvatarId(context, Util.getSecureRandom().nextInt());
-    }
   }
 
   @Override

@@ -16,7 +16,7 @@
         <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_transparent"
+                app:srcCompat="@drawable/ic_launcher_foreground"
                 android:layout_gravity="center"/>
 
     </androidx.appcompat.widget.Toolbar>

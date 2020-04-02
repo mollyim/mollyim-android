@@ -130,7 +130,7 @@
                         android:layout_height="16dp"
                         android:layout_marginStart="11dp"
                         android:layout_marginTop="8dp"
-                        android:tint="@color/core_blue"
+                        android:tint="@color/core_ultramarine"
                         android:scaleType="fitXY"
                         app:srcCompat="@drawable/triangle_right" />
 
@@ -178,6 +178,6 @@
         android:layout_gravity="top|end"
         android:background="@drawable/dismiss_background"
         android:src="@drawable/ic_close_white_18dp"
-        android:tint="@color/core_grey_70" />
+        android:tint="?quote_dismiss_button_tint" />
 
 </merge>

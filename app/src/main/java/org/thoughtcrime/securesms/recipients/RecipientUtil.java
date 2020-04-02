@@ -7,23 +7,26 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 
+import com.annimon.stream.Stream;
+
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.contacts.sync.DirectoryHelper;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.database.GroupDatabase;
 import org.thoughtcrime.securesms.database.RecipientDatabase.RegisteredState;
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.database.ThreadDatabase;
+import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.groups.GroupId;
 import org.thoughtcrime.securesms.jobs.DirectoryRefreshJob;
 import org.thoughtcrime.securesms.jobs.LeaveGroupJob;
 import org.thoughtcrime.securesms.jobs.MultiDeviceBlockedUpdateJob;
 import org.thoughtcrime.securesms.jobs.MultiDeviceMessageRequestResponseJob;
 import org.thoughtcrime.securesms.jobs.RotateProfileKeyJob;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
-import org.thoughtcrime.securesms.jobs.StorageSyncJob;
 import org.thoughtcrime.securesms.logging.Log;
-import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.mms.OutgoingGroupMediaMessage;
+import org.thoughtcrime.securesms.storage.StorageSyncHelper;
+import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.GroupUtil;
 import org.whispersystems.libsignal.util.guava.Optional;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
@@ -81,13 +84,13 @@ public class RecipientUtil {
       leaveGroup(context, recipient);
     }
 
-    if (resolved.isSystemContact() || resolved.isProfileSharing()) {
+    if (resolved.isSystemContact() || resolved.isProfileSharing() || isProfileSharedViaGroup(context,resolved)) {
       ApplicationDependencies.getJobManager().add(new RotateProfileKeyJob());
       DatabaseFactory.getRecipientDatabase(context).setProfileSharing(resolved.getId(), false);
     }
 
     ApplicationDependencies.getJobManager().add(new MultiDeviceBlockedUpdateJob());
-    ApplicationDependencies.getJobManager().add(new StorageSyncJob());
+    StorageSyncHelper.scheduleSyncForDataChange();
   }
 
   @WorkerThread
@@ -98,7 +101,7 @@ public class RecipientUtil {
 
     DatabaseFactory.getRecipientDatabase(context).setBlocked(recipient.getId(), false);
     ApplicationDependencies.getJobManager().add(new MultiDeviceBlockedUpdateJob());
-    ApplicationDependencies.getJobManager().add(new StorageSyncJob());
+    StorageSyncHelper.scheduleSyncForDataChange();
 
     if (FeatureFlags.messageRequests()) {
       ApplicationDependencies.getJobManager().add(MultiDeviceMessageRequestResponseJob.forAccept(recipient.getId()));
@@ -121,7 +124,7 @@ public class RecipientUtil {
         ApplicationDependencies.getJobManager().add(LeaveGroupJob.create(recipient));
 
         GroupDatabase groupDatabase = DatabaseFactory.getGroupDatabase(context);
-        String        groupId       = resolved.requireGroupId();
+        GroupId       groupId       = resolved.requireGroupId();
         groupDatabase.setActive(groupId, false);
         groupDatabase.remove(groupId, Recipient.self().getId());
       } else {
@@ -228,5 +231,11 @@ public class RecipientUtil {
   @WorkerThread
   private static boolean noSecureMessagesInThread(@NonNull Context context, long threadId) {
     return DatabaseFactory.getMmsSmsDatabase(context).getSecureConversationCount(threadId) == 0;
+  }
+
+  @WorkerThread
+  private static boolean isProfileSharedViaGroup(@NonNull Context context, @NonNull Recipient recipient) {
+    return Stream.of(DatabaseFactory.getGroupDatabase(context).getPushGroupsContainingMember(recipient.getId()))
+                 .anyMatch(group -> Recipient.resolved(group.getRecipientId()).isProfileSharing());
   }
 }

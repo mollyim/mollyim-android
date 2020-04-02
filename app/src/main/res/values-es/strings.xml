@@ -114,6 +114,8 @@
   <string name="CommunicationActions_start_voice_call">¿Iniciar llamada?</string>
   <string name="CommunicationActions_cancel">Cancelar</string>
   <string name="CommunicationActions_call">Llamar</string>
+  <string name="CommunicationActions_insecure_call">Llamada no segura</string>
+  <string name="CommunicationActions_carrier_charges_may_apply">Se pueden generar gastos del operador móvil. El número al que llamas no está registrado en Signal. Esta llamada se realizará por la red de tu operador móvil, no por internet.</string>
   <!--ConfirmIdentityDialog-->
   <string name="ConfirmIdentityDialog_your_safety_number_with_s_has_changed">Tus cifras de seguridad con %1$s han cambiado. Esto podría significar que alguien está tratando de interceptar tu comunicación, o que %2$s simplemente ha reinstalado Signal.</string>
   <string name="ConfirmIdentityDialog_you_may_wish_to_verify_your_safety_number_with_this_contact">Tal vez desees verificar tus cifras de seguridad con este contacto.</string>
@@ -309,6 +311,11 @@
   <string name="CustomDefaultPreference_using_custom">Usar personalizado: %s</string>
   <string name="CustomDefaultPreference_using_default">Usar predeterminado: %s</string>
   <string name="CustomDefaultPreference_none">Ninguno</string>
+  <!--AvatarSelectionBottomSheetDialogFragment-->
+  <string name="AvatarSelectionBottomSheetDialogFragment__choose_photo">Seleccionar foto</string>
+  <string name="AvatarSelectionBottomSheetDialogFragment__take_photo">Tomar foto</string>
+  <string name="AvatarSelectionBottomSheetDialogFragment__choose_from_gallery">Seleccionar desde galería</string>
+  <string name="AvatarSelectionBottomSheetDialogFragment__remove_photo">Eliminar foto</string>
   <!--DateUtils-->
   <string name="DateUtils_just_now">Ahora</string>
   <string name="DateUtils_minutes_ago">%d m</string>
@@ -340,34 +347,6 @@
   <!--ShareActivity-->
   <string name="ShareActivity_share_with">Compartir con</string>
   <string name="ShareActivity_multiple_attachments_are_only_supported">Sólo fotos y vídeos se pueden enviar como múltiples adjuntos</string>
-  <!--ExperienceUpgradeActivity-->
-  <string name="ExperienceUpgradeActivity_welcome_to_signal_dgaf">Bienvenido a Signal.</string>
-  <string name="ExperienceUpgradeActivity_textsecure_is_now_called_signal">TextSecure y RedPhone son ahora una sola aplicación de mensajería privada, para cualquier situación: Signal.</string>
-  <string name="ExperienceUpgradeActivity_welcome_to_signal_excited">¡Bienvenido a Signal!</string>
-  <string name="ExperienceUpgradeActivity_textsecure_is_now_signal">TextSecure es ahora Signal.</string>
-  <string name="ExperienceUpgradeActivity_textsecure_is_now_signal_long">TextSecure y RedPhone son ahora una sola aplicación: Signal. Toca para explorar.</string>
-  <string name="ExperienceUpgradeActivity_say_hello_to_video_calls">Di hola a las vídeollamadas seguras.</string>
-  <string name="ExperienceUpgradeActivity_signal_now_supports_secure_video_calls">Signal ofrece ahora vídeollamadas seguras. Simplemente inicia una llamada de Signal con normalidad, toca el botón de vídeo, y saluda con la mano.</string>
-  <string name="ExperienceUpgradeActivity_signal_now_supports_secure_video_calling">Signal ofrece ahora vídeollamadas seguras.</string>
-  <string name="ExperienceUpgradeActivity_signal_now_supports_secure_video_calling_long">Signal ofrece ahora vídeollamadas seguras. Toca para saber más.</string>
-  <string name="ExperienceUpgradeActivity_ready_for_your_closeup">¿Listo para tu retrato?</string>
-  <string name="ExperienceUpgradeActivity_now_you_can_share_a_profile_photo_and_name_with_friends_on_signal">Ahora puedes compartir la foto y nombre de perfil con contactos de Signal</string>
-  <string name="ExperienceUpgradeActivity_signal_profiles_are_here">Los perfiles de Signal han llegado</string>
-  <string name="ExperienceUpgradeActivity_introducing_typing_indicators">¡Los indicadores de tecleo han llegado!</string>
-  <string name="ExperienceUpgradeActivity_now_you_can_optionally_see_and_share_when_messages_are_being_typed">Ahora puedes visualizar y compartir de manera opcional cuando tú o tus contactos están escribiendo en el chat.</string>
-  <string name="ExperienceUpgradeActivity_would_you_like_to_enable_them_now">¿Deseas activar la opción ahora?</string>
-  <string name="ExperienceUpgradeActivity_typing_ui_title">Los indicadores de tecleo han llegado</string>
-  <string name="ExperienceUpgradeActivity_enable_typing_indicators">Activar indicador de tecleo</string>
-  <string name="ExperienceUpgradeActivity_turn_on_typing_indicators">Activar indicador de tecleo</string>
-  <string name="ExperienceUpgradeActivity_no_thanks">No, gracias</string>
-  <string name="ExperienceUpgradeActivity_introducing_link_previews">¡Por fin, vista previa de enlaces!</string>
-  <string name="ExperienceUpgradeActivity_optional_link_previews_are_now_supported">Ahora está disponible la vista previa de enlaces para algunos de los sitios más populares de Internet.</string>
-  <string name="ExperienceUpgradeActivity_you_can_disable_or_enable_this_feature_link_previews">Puedes desactivar o activar esta opción en cualquier momento desde el menú de ajustes de Signal (Privacidad &gt; Enviar previsualizaciones).</string>
-  <string name="ExperienceUpgradeActivity_got_it">Entendido</string>
-  <string name="ExperienceUpgradeActivity_introducing_stickers">¡Los cromos (stickers) han llegado!</string>
-  <string name="ExperienceUpgradeActivity_why_use_words_when_you_can_use_stickers">¿Por qué usar palabras si puedes usar cromos (stickers)?</string>
-  <string name="ExperienceUpgradeActivity_why_use_words_when_you_can_use_stickers_tap_this_icon">¿Por qué usar palabras si puedes usar cromos? Toca este icono en tu teclado:</string>
-  <string name="ExperienceUpgradeActivity_lets_go">¡Vamos!</string>
   <!--GcmBroadcastReceiver-->
   <string name="GcmBroadcastReceiver_retrieving_a_message">Recuperando mensaje …</string>
   <!--GcmRefreshJob-->
@@ -558,6 +537,10 @@
   <plurals name="MessageRequestProfileView_members">
     <item quantity="one">%1$d participante</item>
     <item quantity="other">%1$d participantes</item>
+  </plurals>
+  <plurals name="MessageRequestProfileView_members_and_invited">
+    <item quantity="one">%1$d participante (+%2$d pendiente)</item>
+    <item quantity="other">%1$d participantes (+%2$d pendientes)</item>
   </plurals>
   <plurals name="MessageRequestProfileView_member_of_others">
     <item quantity="one">%d otro</item>
@@ -1210,6 +1193,28 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="MessageRequestsMegaphone__new_message_requests">Nuevo: Solicitudes de chat</string>
   <string name="MessageRequestsMegaphone__add_name">Añadir nombre</string>
   <string name="MessageRequestsMegaphone__you_can_now_choose_whether_to_accept">Ahora puedes decidir si aceptas una solicitud de chat. Podrás elegir entre «Aceptar», «Eliminar» o «Bloquear».</string>
+  <!--HelpFragment-->
+  <string name="HelpFragment__help">Ayuda</string>
+  <string name="HelpFragment__have_you_read_our_faq_yet">¿Ya has leído nuestras FAQ?</string>
+  <string name="HelpFragment__next">Siguiente</string>
+  <string name="HelpFragment__contact_us">Contáctanos</string>
+  <string name="HelpFragment__tell_us_whats_going_on">Cuéntanos que pasa</string>
+  <string name="HelpFragment__include_debug_log">Incluir registro de depuración</string>
+  <string name="HelpFragment__whats_this">¿Qué es esto?</string>
+  <string name="HelpFragment__how_do_you_feel">¿Cómo te sientes? (Opcional)</string>
+  <string name="HelpFragment__support_info">Información de soporte</string>
+  <string name="HelpFragment__subject">Asunto:</string>
+  <string name="HelpFragment__signal_android_support_request">Petición de soporte Signal Android</string>
+  <string name="HelpFragment__device_info">Información del dispositivo:</string>
+  <string name="HelpFragment__android_version">Versión de Android:</string>
+  <string name="HelpFragment__signal_version">Versión de Signal:</string>
+  <string name="HelpFragment__locale">Idioma:</string>
+  <string name="HelpFragment__debug_log">Registro de depuración:</string>
+  <string name="HelpFragment__na">n/a</string>
+  <string name="HelpFragment__could_not_upload_logs">Imposible transmitir logs</string>
+  <string name="HelpFragment__signal_support">Asistencia Signal</string>
+  <string name="HelpFragment__please_be_as_descriptive_as_possible">Por favor, sé lo más descriptivo posible para ayudarnos a entender la incidencia.</string>
+  <string name="HelpFragment__no_email_app_found">No se encontró la aplicación de email.</string>
   <!--arrays.xml-->
   <string name="arrays__import_export">Importar</string>
   <string name="arrays__use_default">Usar predeterminado</string>
@@ -1288,6 +1293,7 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="preferences__fast">Rápido</string>
   <string name="preferences__normal">Normal</string>
   <string name="preferences__slow">Lento</string>
+  <string name="preferences__help">Ayuda</string>
   <string name="preferences__advanced">Avanzado</string>
   <string name="preferences__privacy">Privacidad</string>
   <string name="preferences__mms_user_agent">Agente de usuario de MMS</string>
@@ -1609,8 +1615,6 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="SQLCipherMigrationHelper_migrating_signal_database">Migrar base de datos de Signal</string>
   <string name="PushDecryptJob_new_locked_message">Nuevo mensaje bloqueado</string>
   <string name="PushDecryptJob_unlock_to_view_pending_messages">Desbloquear para ver mensajes pendientes</string>
-  <string name="ExperienceUpgradeActivity_unlock_to_complete_update">Desbloquear para completar actualización</string>
-  <string name="ExperienceUpgradeActivity_please_unlock_signal_to_complete_update">Por favor, desbloquea Signal para completar la actualización</string>
   <string name="enter_backup_passphrase_dialog__backup_passphrase">Clave de la copia de seguridad</string>
   <string name="backup_enable_dialog__backups_will_be_saved_to_external_storage_and_encrypted_with_the_passphrase_below_you_must_have_this_passphrase_in_order_to_restore_a_backup">Las copias de seguridad se guardarán en una unidad de almacenamiento externo y se cifrarán con la clave de debajo. Necesitas esta clave para poder restaurar una copia de seguridad.</string>
   <string name="backup_enable_dialog__i_have_written_down_this_passphrase">He anotado esta clave. Sé que sin ella, no podré restaurar la copia de seguridad.</string>
@@ -1673,7 +1677,7 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="registration_lock_dialog_view__confirm_pin">Confirma el PIN</string>
   <string name="registration_lock_reminder_view__enter_your_registration_lock_pin">Introduce tu PIN de bloqueo de registro</string>
   <string name="registration_lock_reminder_view__enter_pin">Introduce el PIN</string>
-  <string name="preferences_app_protection__enable_a_registration_lock_pin_that_will_be_required">Habilita un «PIN de bloqueo de registro» que la aplicación pedirá para registrar de nuevo este número de teléfono con Signal.</string>
+  <string name="preferences_app_protection__enable_a_registration_lock_pin_that_will_be_required">Activa el «PIN de bloqueo de registro» que la aplicación pedirá para registrar de nuevo este número de teléfono con Signal.</string>
   <string name="preferences_app_protection__registration_lock_pin">PIN de bloqueo de registro</string>
   <string name="preferences_app_protection__registration_lock">Bloqueo de registro</string>
   <string name="RegistrationActivity_you_must_enter_your_registration_lock_PIN">Debes introducir tu PIN de bloqueo de registro</string>

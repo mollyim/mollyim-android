@@ -103,7 +103,6 @@ import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.revealable.ViewOnceMessageActivity;
 import org.thoughtcrime.securesms.revealable.ViewOnceUtil;
-import org.thoughtcrime.securesms.sharing.ShareActivity;
 import org.thoughtcrime.securesms.sms.MessageSender;
 import org.thoughtcrime.securesms.sms.OutgoingTextMessage;
 import org.thoughtcrime.securesms.stickers.StickerLocator;
@@ -206,7 +205,7 @@ public class ConversationFragment extends Fragment
 
     new ConversationItemSwipeCallback(
             messageRecord -> actionMode == null &&
-                             canReplyToMessage(isActionMessage(messageRecord), messageRecord, messageRequestViewModel.shouldShowMessageRequest()),
+                             MenuState.canReplyToMessage(MenuState.isActionMessage(messageRecord), messageRecord, messageRequestViewModel.shouldShowMessageRequest()),
             this::handleReplyMessage
     ).attachToRecyclerView(list);
 
@@ -336,10 +335,11 @@ public class ConversationFragment extends Fragment
       return;
     }
 
-    Recipient    recipient   = recipientInfo.getRecipient();
-    boolean      isSelf      = Recipient.self().equals(recipient);
-    int          memberCount = recipientInfo.getGroupMemberCount();
-    List<String> groups      = recipientInfo.getSharedGroups();
+    Recipient    recipient          = recipientInfo.getRecipient();
+    boolean      isSelf             = Recipient.self().equals(recipient);
+    int          memberCount        = recipientInfo.getGroupMemberCount();
+    int          pendingMemberCount = recipientInfo.getGroupPendingMemberCount();
+    List<String> groups             = recipientInfo.getSharedGroups();
 
     if (recipient != null) {
       conversationBanner.setAvatar(GlideApp.with(context), recipient);
@@ -348,7 +348,14 @@ public class ConversationFragment extends Fragment
       conversationBanner.setTitle(title);
 
       if (recipient.isGroup()) {
-        conversationBanner.setSubtitle(context.getResources().getQuantityString(R.plurals.MessageRequestProfileView_members, memberCount, memberCount));
+        if (pendingMemberCount > 0) {
+          conversationBanner.setSubtitle(context.getResources()
+                                                .getQuantityString(R.plurals.MessageRequestProfileView_members_and_invited, memberCount,
+                                                                   memberCount, pendingMemberCount));
+        } else {
+          conversationBanner.setSubtitle(context.getResources().getQuantityString(R.plurals.MessageRequestProfileView_members, memberCount,
+                                                                                  memberCount));
+        }
       } else if (isSelf) {
         conversationBanner.setSubtitle(context.getString(R.string.ConversationFragment__you_can_add_notes_for_yourself_in_this_conversation));
       } else {
@@ -391,6 +398,8 @@ public class ConversationFragment extends Fragment
   }
 
   private void initializeResources() {
+    long oldThreadId = threadId;
+
     this.recipient         = Recipient.live(getActivity().getIntent().getParcelableExtra(ConversationActivity.RECIPIENT_EXTRA));
     this.threadId          = this.getActivity().getIntent().getLongExtra(ConversationActivity.THREAD_ID_EXTRA, -1);
     this.lastSeen          = this.getActivity().getIntent().getLongExtra(ConversationActivity.LAST_SEEN_EXTRA, -1);
@@ -400,6 +409,10 @@ public class ConversationFragment extends Fragment
 
     OnScrollListener scrollListener = new ConversationScrollListener(getActivity());
     list.addOnScrollListener(scrollListener);
+
+    if (oldThreadId != threadId) {
+      ApplicationContext.getInstance(requireContext()).getTypingStatusRepository().getTypists(oldThreadId).removeObservers(this);
+    }
   }
 
   private void initializeListAdapter() {
@@ -433,6 +446,7 @@ public class ConversationFragment extends Fragment
       return;
     }
 
+    ApplicationContext.getInstance(requireContext()).getTypingStatusRepository().getTypists(threadId).removeObservers(this);
     ApplicationContext.getInstance(requireContext()).getTypingStatusRepository().getTypists(threadId).observe(this, typingState ->  {
       List<Recipient> recipients;
       boolean         replacedByIncomingMessage;
@@ -496,78 +510,22 @@ public class ConversationFragment extends Fragment
     });
   }
 
-  private void setCorrectMenuVisibility(Menu menu) {
+  private void setCorrectMenuVisibility(@NonNull Menu menu) {
     Set<MessageRecord> messageRecords = getListAdapter().getSelectedItems();
-    boolean            actionMessage  = false;
-    boolean            hasText        = false;
-    boolean            sharedContact  = false;
-    boolean            viewOnce       = false;
 
     if (actionMode != null && messageRecords.size() == 0) {
       actionMode.finish();
       return;
     }
 
-    for (MessageRecord messageRecord : messageRecords) {
-      if (isActionMessage(messageRecord))
-      {
-        actionMessage = true;
-      }
+    MenuState menuState = MenuState.getMenuState(messageRecords, messageRequestViewModel.shouldShowMessageRequest());
 
-      if (messageRecord.getBody().length() > 0) {
-        hasText = true;
-      }
-
-      if (messageRecord.isMms() && !((MmsMessageRecord) messageRecord).getSharedContacts().isEmpty()) {
-        sharedContact = true;
-      }
-
-      if (messageRecord.isViewOnce()) {
-        viewOnce = true;
-      }
-    }
-
-    if (messageRecords.size() > 1) {
-      menu.findItem(R.id.menu_context_forward).setVisible(false);
-      menu.findItem(R.id.menu_context_reply).setVisible(false);
-      menu.findItem(R.id.menu_context_details).setVisible(false);
-      menu.findItem(R.id.menu_context_save_attachment).setVisible(false);
-      menu.findItem(R.id.menu_context_resend).setVisible(false);
-    } else {
-      MessageRecord messageRecord = messageRecords.iterator().next();
-
-      menu.findItem(R.id.menu_context_resend).setVisible(messageRecord.isFailed());
-      menu.findItem(R.id.menu_context_save_attachment).setVisible(!actionMessage                                              &&
-                                                                  !viewOnce                                                   &&
-                                                                  messageRecord.isMms()                                       &&
-                                                                  !messageRecord.isMmsNotification()                          &&
-                                                                  ((MediaMmsMessageRecord)messageRecord).containsMediaSlide() &&
-                                                                  ((MediaMmsMessageRecord)messageRecord).getSlideDeck().getStickerSlide() == null);
-
-      menu.findItem(R.id.menu_context_forward).setVisible(!actionMessage && !sharedContact && !viewOnce);
-      menu.findItem(R.id.menu_context_details).setVisible(!actionMessage);
-      menu.findItem(R.id.menu_context_reply).setVisible(canReplyToMessage(actionMessage, messageRecord, messageRequestViewModel.shouldShowMessageRequest()));
-    }
-    menu.findItem(R.id.menu_context_copy).setVisible(!actionMessage && hasText);
-  }
-
-  private static boolean canReplyToMessage(boolean actionMessage, MessageRecord messageRecord, boolean isDisplayingMessageRequest) {
-    return !actionMessage              &&
-           !messageRecord.isPending()  &&
-           !messageRecord.isFailed()   &&
-           !isDisplayingMessageRequest &&
-           messageRecord.isSecure();
-  }
-
-  private static boolean isActionMessage(MessageRecord messageRecord) {
-    return messageRecord.isGroupAction()           ||
-           messageRecord.isCallLog()               ||
-           messageRecord.isJoined()                ||
-           messageRecord.isExpirationTimerUpdate() ||
-           messageRecord.isEndSession()            ||
-           messageRecord.isIdentityUpdate()        ||
-           messageRecord.isIdentityVerified()      ||
-           messageRecord.isIdentityDefault();
+    menu.findItem(R.id.menu_context_forward).setVisible(menuState.shouldShowForwardAction());
+    menu.findItem(R.id.menu_context_reply).setVisible(menuState.shouldShowReplyAction());
+    menu.findItem(R.id.menu_context_details).setVisible(menuState.shouldShowDetailsAction());
+    menu.findItem(R.id.menu_context_save_attachment).setVisible(menuState.shouldShowSaveAttachmentAction());
+    menu.findItem(R.id.menu_context_resend).setVisible(menuState.shouldShowResendAction());
+    menu.findItem(R.id.menu_context_copy).setVisible(menuState.shouldShowCopyAction());
   }
 
   private ConversationAdapter getListAdapter() {
@@ -1015,7 +973,7 @@ public class ConversationFragment extends Fragment
       TooltipPopup.forTarget(requireActivity().findViewById(R.id.menu_context_reply))
                   .setText(text)
                   .setTextColor(getResources().getColor(R.color.core_white))
-                  .setBackgroundTint(getResources().getColor(R.color.core_blue))
+                  .setBackgroundTint(getResources().getColor(R.color.core_ultramarine))
                   .show(TooltipPopup.POSITION_BELOW);
 
       TextSecurePreferences.setHasSeenSwipeToReplyTooltip(requireContext(), true);
@@ -1424,6 +1382,10 @@ public class ConversationFragment extends Fragment
     }
 
     public void show() {
+      if (textView.getText() == null || textView.getText().length() == 0) {
+        return;
+      }
+
       if (pendingHide) {
         pendingHide = false;
       } else {

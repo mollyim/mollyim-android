@@ -19,7 +19,6 @@ import org.thoughtcrime.securesms.database.GroupDatabase.GroupRecord;
 import org.thoughtcrime.securesms.database.RecipientDatabase;
 import org.thoughtcrime.securesms.database.RecipientDatabase.RecipientSettings;
 import org.thoughtcrime.securesms.logging.Log;
-import org.thoughtcrime.securesms.util.GroupUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.Util;
 import org.whispersystems.libsignal.util.guava.Optional;
@@ -198,11 +197,11 @@ public final class LiveRecipient {
       List<Recipient> members  = Stream.of(groupRecord.get().getMembers()).filterNot(RecipientId::isUnknown).map(this::fetchRecipientFromDisk).toList();
       Optional<Long>  avatarId = Optional.absent();
 
-      if (settings.getGroupId() != null && !GroupUtil.isMmsGroup(settings.getGroupId()) && title == null) {
+      if (settings.getGroupId() != null && settings.getGroupId().isPush() && title == null) {
         title = unnamedGroupName;
       }
 
-      if (groupRecord.get().getAvatar() != null && groupRecord.get().getAvatar().length > 0) {
+      if (groupRecord.get().hasAvatar()) {
         avatarId = Optional.of(groupRecord.get().getAvatarId());
       }
 

@@ -28,10 +28,10 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.hardware.Camera;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -71,9 +71,10 @@ import androidx.core.content.pm.ShortcutInfoCompat;
 import androidx.core.content.pm.ShortcutManagerCompat;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.annimon.stream.Stream;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -147,10 +148,10 @@ import org.thoughtcrime.securesms.database.model.StickerRecord;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.events.ReminderUpdateEvent;
 import org.thoughtcrime.securesms.giph.ui.GiphyActivity;
+import org.thoughtcrime.securesms.groups.GroupManager;
 import org.thoughtcrime.securesms.insights.InsightsLauncher;
 import org.thoughtcrime.securesms.invites.InviteReminderModel;
 import org.thoughtcrime.securesms.invites.InviteReminderRepository;
-import org.thoughtcrime.securesms.jobs.LeaveGroupJob;
 import org.thoughtcrime.securesms.jobs.RetrieveProfileJob;
 import org.thoughtcrime.securesms.jobs.ServiceOutageDetectionJob;
 import org.thoughtcrime.securesms.linkpreview.LinkPreview;
@@ -174,7 +175,6 @@ import org.thoughtcrime.securesms.mms.ImageSlide;
 import org.thoughtcrime.securesms.mms.LocationSlide;
 import org.thoughtcrime.securesms.mms.MediaConstraints;
 import org.thoughtcrime.securesms.mms.OutgoingExpirationUpdateMessage;
-import org.thoughtcrime.securesms.mms.OutgoingGroupMediaMessage;
 import org.thoughtcrime.securesms.mms.OutgoingMediaMessage;
 import org.thoughtcrime.securesms.mms.OutgoingSecureMediaMessage;
 import org.thoughtcrime.securesms.mms.QuoteId;
@@ -209,12 +209,11 @@ import org.thoughtcrime.securesms.stickers.StickerSearchRepository;
 import org.thoughtcrime.securesms.util.BitmapUtil;
 import org.thoughtcrime.securesms.util.CharacterCalculator.CharacterState;
 import org.thoughtcrime.securesms.util.CommunicationActions;
-import org.thoughtcrime.securesms.util.Dialogs;
+import org.thoughtcrime.securesms.util.DrawableUtil;
 import org.thoughtcrime.securesms.util.DynamicDarkToolbarTheme;
 import org.thoughtcrime.securesms.util.DynamicLanguage;
 import org.thoughtcrime.securesms.util.DynamicTheme;
 import org.thoughtcrime.securesms.util.FeatureFlags;
-import org.thoughtcrime.securesms.util.GroupUtil;
 import org.thoughtcrime.securesms.util.IdentityUtil;
 import org.thoughtcrime.securesms.util.MediaUtil;
 import org.thoughtcrime.securesms.util.MessageUtil;
@@ -264,6 +263,9 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
                StickerKeyboardProvider.StickerEventListener,
                AttachmentKeyboard.Callback
 {
+
+  private static final int SHORTCUT_ICON_SIZE = Build.VERSION.SDK_INT >= 26 ? ViewUtil.dpToPx(72) : ViewUtil.dpToPx(48 + 16 * 2);
+
   private static final String TAG = ConversationActivity.class.getSimpleName();
 
   public static final String RECIPIENT_EXTRA         = "recipient_id";
@@ -433,9 +435,10 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
       return;
     }
 
-    if (!Util.isEmpty(composeText) || attachmentManager.isAttachmentPresent()) {
+    if (!Util.isEmpty(composeText) || attachmentManager.isAttachmentPresent() || inputPanel.getQuote().isPresent()) {
       saveDraft();
       attachmentManager.clear(glideRequests, false);
+      inputPanel.clearQuote();
       silentlySetComposeText("");
     }
 
@@ -1041,47 +1044,58 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
   private void handleAddShortcut() {
     Log.i(TAG, "Creating home screen shortcut for recipient " + recipient.get().getId());
 
-    new AsyncTask<Void, Void, IconCompat>() {
+    final Context context = getApplicationContext();
+    final Recipient recipient = this.recipient.get();
 
-      @Override
-      protected IconCompat doInBackground(Void... voids) {
-        Context    context = getApplicationContext();
-        IconCompat icon    = null;
+    GlideApp.with(this)
+            .asBitmap()
+            .load(recipient.getContactPhoto())
+            .error(recipient.getFallbackContactPhoto().asDrawable(this, recipient.getColor().toAvatarColor(this), false))
+            .into(new CustomTarget<Bitmap>() {
+              @Override
+              public void onLoadFailed(@Nullable Drawable errorDrawable) {
+                if (errorDrawable == null) {
+                  throw new AssertionError();
+                }
 
-        if (recipient.get().getContactPhoto() != null) {
-          try {
-            Bitmap bitmap = BitmapFactory.decodeStream(recipient.get().getContactPhoto().openInputStream(context));
-            bitmap = BitmapUtil.createScaledBitmap(bitmap, 300, 300);
-            icon   = IconCompat.createWithAdaptiveBitmap(bitmap);
-          } catch (IOException e) {
-            Log.w(TAG, "Failed to decode contact photo during shortcut creation. Falling back to generic icon.", e);
-          }
-        }
+                Log.w(TAG, "Utilizing fallback photo for shortcut for recipient " + recipient.getId());
 
-        if (icon == null) {
-          icon = IconCompat.createWithResource(context, recipient.get().isGroup() ? R.mipmap.ic_group_shortcut
-                                                                                           : R.mipmap.ic_person_shortcut);
-        }
+                SimpleTask.run(() -> DrawableUtil.toBitmap(errorDrawable, SHORTCUT_ICON_SIZE, SHORTCUT_ICON_SIZE),
+                               bitmap -> addIconToHomeScreen(context, bitmap, recipient));
+              }
 
-        return icon;
-      }
+              @Override
+              public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                SimpleTask.run(() -> BitmapUtil.createScaledBitmap(resource, SHORTCUT_ICON_SIZE, SHORTCUT_ICON_SIZE),
+                               bitmap -> addIconToHomeScreen(context, bitmap, recipient));
+              }
 
-      @Override
-      protected void onPostExecute(IconCompat icon) {
-        Context context  = getApplicationContext();
-        String  name     = recipient.get().getDisplayName(ConversationActivity.this);
+              @Override
+              public void onLoadCleared(@Nullable Drawable placeholder) {
+              }
+            });
 
-        ShortcutInfoCompat shortcutInfo = new ShortcutInfoCompat.Builder(context, recipient.get().getId().serialize() + '-' + System.currentTimeMillis())
-                                                                .setShortLabel(name)
-                                                                .setIcon(icon)
-                                                                .setIntent(ShortcutLauncherActivity.createIntent(context, recipient.getId()))
-                                                                .build();
+  }
 
-        if (ShortcutManagerCompat.requestPinShortcut(context, shortcutInfo, null)) {
-          Toast.makeText(context, getString(R.string.ConversationActivity_added_to_home_screen), Toast.LENGTH_LONG).show();
-        }
-      }
-    }.execute();
+  private static void addIconToHomeScreen(@NonNull Context context,
+                                          @NonNull Bitmap bitmap,
+                                          @NonNull Recipient recipient)
+  {
+    IconCompat icon = IconCompat.createWithAdaptiveBitmap(bitmap);
+    String     name = recipient.isLocalNumber() ? context.getString(R.string.note_to_self)
+                                                  : recipient.getDisplayName(context);
+
+    ShortcutInfoCompat shortcutInfoCompat = new ShortcutInfoCompat.Builder(context, recipient.getId().serialize() + '-' + System.currentTimeMillis())
+                                                                  .setShortLabel(name)
+                                                                  .setIcon(icon)
+                                                                  .setIntent(ShortcutLauncherActivity.createIntent(context, recipient.getId()))
+                                                                  .build();
+
+    if (ShortcutManagerCompat.requestPinShortcut(context, shortcutInfoCompat, null)) {
+      Toast.makeText(context, context.getString(R.string.ConversationActivity_added_to_home_screen), Toast.LENGTH_LONG).show();
+    }
+
+    bitmap.recycle();
   }
 
   private void handleSearch() {
@@ -1100,24 +1114,17 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
     builder.setIconAttribute(R.attr.dialog_info_icon);
     builder.setCancelable(true);
     builder.setMessage(getString(R.string.ConversationActivity_are_you_sure_you_want_to_leave_this_group));
-    builder.setPositiveButton(R.string.yes, (dialog, which) -> {
-      Recipient                           groupRecipient = getRecipient();
-      long                                threadId       = DatabaseFactory.getThreadDatabase(this).getThreadIdFor(groupRecipient);
-      Optional<OutgoingGroupMediaMessage> leaveMessage   = GroupUtil.createGroupLeaveMessage(this, groupRecipient);
-
-      if (threadId != -1 && leaveMessage.isPresent()) {
-        ApplicationDependencies.getJobManager().add(LeaveGroupJob.create(groupRecipient));
-
-        GroupDatabase groupDatabase = DatabaseFactory.getGroupDatabase(this);
-        String        groupId       = groupRecipient.requireGroupId();
-        groupDatabase.setActive(groupId, false);
-        groupDatabase.remove(groupId, Recipient.self().getId());
-
-        initializeEnabledCheck();
-      } else {
-        Toast.makeText(this, R.string.ConversationActivity_error_leaving_group, Toast.LENGTH_LONG).show();
-      }
-    });
+    builder.setPositiveButton(R.string.yes, (dialog, which) ->
+      SimpleTask.run(
+        getLifecycle(),
+        () -> GroupManager.leaveGroup(ConversationActivity.this, getRecipient()),
+        (success) -> {
+          if (success) {
+            initializeEnabledCheck();
+          } else {
+            Toast.makeText(ConversationActivity.this, R.string.ConversationActivity_error_leaving_group, Toast.LENGTH_LONG).show();
+          }
+        }));
 
     builder.setNegativeButton(R.string.no, null);
     builder.show();
@@ -1125,7 +1132,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
 
   private void handleEditPushGroup() {
     Intent intent = new Intent(ConversationActivity.this, GroupCreateActivity.class);
-    intent.putExtra(GroupCreateActivity.GROUP_ID_EXTRA, recipient.get().requireGroupId());
+    intent.putExtra(GroupCreateActivity.GROUP_ID_EXTRA, recipient.get().requireGroupId().toString());
     startActivityForResult(intent, GROUP_EDIT);
   }
 
@@ -1167,16 +1174,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
     if (isSecure) {
       CommunicationActions.startVoiceCall(this, recipient);
     } else {
-      try {
-        Intent dialIntent = new Intent(Intent.ACTION_DIAL,
-                                       Uri.parse("tel:" + recipient.requireSmsAddress()));
-        startActivity(dialIntent);
-      } catch (ActivityNotFoundException anfe) {
-        Log.w(TAG, anfe);
-        Dialogs.showAlertDialog(this,
-                                getString(R.string.ConversationActivity_calls_not_supported),
-                                getString(R.string.ConversationActivity_this_device_does_not_appear_to_support_dial_actions));
-      }
+      CommunicationActions.startInsecureCall(this, recipient);
     }
   }
 
@@ -1187,7 +1185,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
   }
 
   private void handleDisplayGroupRecipients() {
-    new GroupMembersDialog(this, getRecipient()).display();
+    new GroupMembersDialog(this, getRecipient(), getLifecycle()).display();
   }
 
   private void handleAddToContacts() {
@@ -1551,7 +1549,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
 
         if (params[0].isGroup()) {
           recipients.addAll(DatabaseFactory.getGroupDatabase(ConversationActivity.this)
-                                           .getGroupMembers(params[0].requireGroupId(), false));
+                                           .getGroupMembers(params[0].requireGroupId(), GroupDatabase.MemberSet.FULL_MEMBERS_EXCLUDING_SELF));
         } else {
           recipients.add(params[0]);
         }
@@ -1781,7 +1779,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
     inputPanel.setMediaKeyboardToggleMode(true);
 
     TooltipPopup.forTarget(inputPanel.getMediaKeyboardToggleAnchorView())
-                .setBackgroundTint(getResources().getColor(R.color.core_blue))
+                .setBackgroundTint(getResources().getColor(R.color.core_ultramarine))
                 .setTextColor(getResources().getColor(R.color.core_white))
                 .setText(R.string.ConversationActivity_new_say_it_with_stickers)
                 .setOnDismissListener(() -> {

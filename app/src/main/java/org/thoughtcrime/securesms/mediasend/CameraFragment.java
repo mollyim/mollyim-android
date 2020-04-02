@@ -1,24 +1,29 @@
 package org.thoughtcrime.securesms.mediasend;
 
 import android.annotation.SuppressLint;
-import android.os.Build;
 
 import androidx.annotation.NonNull;
-import androidx.camera.core.CameraX;
 import androidx.fragment.app.Fragment;
 
 import org.thoughtcrime.securesms.mediasend.camerax.CameraXUtil;
 
 import java.io.FileDescriptor;
-import java.util.HashSet;
-import java.util.Set;
 
 public interface CameraFragment {
 
   @SuppressLint("RestrictedApi")
   static Fragment newInstance() {
-    if (CameraXUtil.isSupported() && CameraX.isInitialized()) {
+    if (CameraXUtil.isSupported()) {
       return CameraXFragment.newInstance();
+    } else {
+      return Camera1Fragment.newInstance();
+    }
+  }
+
+  @SuppressLint("RestrictedApi")
+  static Fragment newInstanceForAvatarCapture() {
+    if (CameraXUtil.isSupported()) {
+      return CameraXFragment.newInstanceForAvatarCapture();
     } else {
       return Camera1Fragment.newInstance();
     }

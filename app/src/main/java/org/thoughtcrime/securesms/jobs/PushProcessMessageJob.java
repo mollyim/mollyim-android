@@ -43,7 +43,8 @@ import org.thoughtcrime.securesms.database.model.MmsMessageRecord;
 import org.thoughtcrime.securesms.database.model.ReactionRecord;
 import org.thoughtcrime.securesms.database.model.StickerRecord;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
-import org.thoughtcrime.securesms.groups.GroupMessageProcessor;
+import org.thoughtcrime.securesms.groups.GroupId;
+import org.thoughtcrime.securesms.groups.GroupV1MessageProcessor;
 import org.thoughtcrime.securesms.jobmanager.Data;
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobmanager.JobManager;
@@ -62,9 +63,9 @@ import org.thoughtcrime.securesms.mms.StickerSlide;
 import org.thoughtcrime.securesms.notifications.MessageNotifier;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
-import org.thoughtcrime.securesms.service.WebRtcCallService;
 import org.thoughtcrime.securesms.ringrtc.IceCandidateParcel;
 import org.thoughtcrime.securesms.ringrtc.RemotePeer;
+import org.thoughtcrime.securesms.service.WebRtcCallService;
 import org.thoughtcrime.securesms.sms.IncomingEncryptedMessage;
 import org.thoughtcrime.securesms.sms.IncomingEndSessionMessage;
 import org.thoughtcrime.securesms.sms.IncomingTextMessage;
@@ -72,6 +73,7 @@ import org.thoughtcrime.securesms.sms.OutgoingEncryptedMessage;
 import org.thoughtcrime.securesms.sms.OutgoingEndSessionMessage;
 import org.thoughtcrime.securesms.sms.OutgoingTextMessage;
 import org.thoughtcrime.securesms.stickers.StickerLocator;
+import org.thoughtcrime.securesms.storage.StorageSyncHelper;
 import org.thoughtcrime.securesms.util.Base64;
 import org.thoughtcrime.securesms.util.GroupUtil;
 import org.thoughtcrime.securesms.util.Hex;
@@ -85,6 +87,7 @@ import org.whispersystems.signalservice.api.messages.SignalServiceContent;
 import org.whispersystems.signalservice.api.messages.SignalServiceDataMessage;
 import org.whispersystems.signalservice.api.messages.SignalServiceDataMessage.Preview;
 import org.whispersystems.signalservice.api.messages.SignalServiceGroup;
+import org.whispersystems.signalservice.api.messages.SignalServiceGroupContext;
 import org.whispersystems.signalservice.api.messages.SignalServiceReceiptMessage;
 import org.whispersystems.signalservice.api.messages.SignalServiceTypingMessage;
 import org.whispersystems.signalservice.api.messages.calls.AnswerMessage;
@@ -216,7 +219,7 @@ public final class PushProcessMessageJob extends BaseJob {
       //noinspection ConstantConditions
       dataBuilder.putString(KEY_EXCEPTION_SENDER, exceptionMetadata.sender)
                  .putInt(KEY_EXCEPTION_DEVICE, exceptionMetadata.senderDevice)
-                 .putString(KEY_EXCEPTION_GROUP_ID, exceptionMetadata.groupId);
+                 .putString(KEY_EXCEPTION_GROUP_ID, exceptionMetadata.groupId == null ? null : exceptionMetadata.groupId.toString());
     }
 
     return dataBuilder.build();
@@ -262,17 +265,24 @@ public final class PushProcessMessageJob extends BaseJob {
       if (content.getDataMessage().isPresent()) {
         SignalServiceDataMessage message        = content.getDataMessage().get();
         boolean                  isMediaMessage = message.getAttachments().isPresent() || message.getQuote().isPresent() || message.getSharedContacts().isPresent() || message.getPreviews().isPresent() || message.getSticker().isPresent();
+        Optional<GroupId>        groupId        = GroupUtil.idFromGroupContext(message.getGroupContext());
+        boolean                  isGv2Message   = groupId.isPresent() && groupId.get().isV2();
 
-        if      (isInvalidMessage(message))         handleInvalidMessage(content.getSender(), content.getSenderDevice(), toEncodedId(message.getGroupInfo()), content.getTimestamp(), smsMessageId);
+        if (isGv2Message) {
+          Log.w(TAG, "Ignoring GV2 message.");
+          return;
+        }
+
+        if      (isInvalidMessage(message))         handleInvalidMessage(content.getSender(), content.getSenderDevice(), groupId, content.getTimestamp(), smsMessageId);
         else if (message.isEndSession())            handleEndSessionMessage(content, smsMessageId);
-        else if (message.isGroupUpdate())           handleGroupMessage(content, message, smsMessageId);
+        else if (message.isGroupV1Update())         handleGroupV1Message(content, message, smsMessageId);
         else if (message.isExpirationUpdate())      handleExpirationUpdate(content, message, smsMessageId);
         else if (message.getReaction().isPresent()) handleReaction(content, message);
         else if (isMediaMessage)                    handleMediaMessage(content, message, smsMessageId);
-        else if (message.getBody().isPresent())     handleTextMessage(content, message, smsMessageId);
+        else if (message.getBody().isPresent())     handleTextMessage(content, message, smsMessageId, groupId);
 
-        if (message.getGroupInfo().isPresent() && groupDatabase.isUnknownGroup(GroupUtil.getEncodedId(message.getGroupInfo().get().getGroupId(), false))) {
-          handleUnknownGroupMessage(content, message.getGroupInfo().get());
+        if (groupId.isPresent() && groupDatabase.isUnknownGroup(groupId.get())) {
+          handleUnknownGroupMessage(content, message.getGroupContext().get());
         }
 
         if (message.getProfileKey().isPresent()) {
@@ -324,10 +334,6 @@ public final class PushProcessMessageJob extends BaseJob {
       Log.w(TAG, e);
       handleCorruptMessage(e.getSender(), e.getSenderDevice(), timestamp, smsMessageId);
     }
-  }
-
-  private static @NonNull Optional<String> toEncodedId(@NonNull Optional<SignalServiceGroup> groupInfo) {
-    return groupInfo.transform(g -> GroupUtil.getEncodedId(g.getGroupId(), false));
   }
 
   private void handleExceptionMessage(@NonNull ExceptionMetadata e, @NonNull Optional<Long> smsMessageId) {
@@ -414,7 +420,7 @@ public final class PushProcessMessageJob extends BaseJob {
   {
     Log.i(TAG, "handleCallIceUpdateMessage... " + messages.size());
 
-    ArrayList<IceCandidateParcel> iceCandidates = new ArrayList(messages.size());
+    ArrayList<IceCandidateParcel> iceCandidates = new ArrayList<>(messages.size());
     long callId = -1;
     for (IceUpdateMessage iceMessage : messages) {
       iceCandidates.add(new IceCandidateParcel(iceMessage));
@@ -525,12 +531,12 @@ public final class PushProcessMessageJob extends BaseJob {
     return threadId;
   }
 
-  private void handleGroupMessage(@NonNull SignalServiceContent content,
-                                  @NonNull SignalServiceDataMessage message,
-                                  @NonNull Optional<Long> smsMessageId)
+  private void handleGroupV1Message(@NonNull SignalServiceContent content,
+                                    @NonNull SignalServiceDataMessage message,
+                                    @NonNull Optional<Long> smsMessageId)
       throws StorageFailedException
   {
-    GroupMessageProcessor.process(context, content, message, false);
+    GroupV1MessageProcessor.process(context, content, message, false);
 
     if (message.getExpiresInSeconds() != 0 && message.getExpiresInSeconds() != getMessageDestination(content, message).getExpireMessages()) {
       handleExpirationUpdate(content, message, Optional.absent());
@@ -542,9 +548,18 @@ public final class PushProcessMessageJob extends BaseJob {
   }
 
   private void handleUnknownGroupMessage(@NonNull SignalServiceContent content,
-                                         @NonNull SignalServiceGroup group)
+                                         @NonNull SignalServiceGroupContext group)
   {
-    ApplicationDependencies.getJobManager().add(new RequestGroupInfoJob(Recipient.externalPush(context, content.getSender()).getId(), group.getGroupId()));
+    if (group.getGroupV1().isPresent()) {
+      SignalServiceGroup groupV1 = group.getGroupV1().get();
+      if (groupV1.getType() != SignalServiceGroup.Type.REQUEST_INFO) {
+        ApplicationDependencies.getJobManager().add(new RequestGroupInfoJob(Recipient.externalPush(context, content.getSender()).getId(), GroupId.v1(groupV1.getGroupId())));
+      } else {
+        Log.w(TAG, "Received a REQUEST_INFO message for a group we don't know about. Ignoring.");
+      }
+    } else {
+      Log.w(TAG, "Received a message for a group we don't know about without a GV1 context. Ignoring.");
+    }
   }
 
   private void handleExpirationUpdate(@NonNull SignalServiceContent content,
@@ -562,7 +577,7 @@ public final class PushProcessMessageJob extends BaseJob {
                                                                    false,
                                                                    content.isNeedsReceipt(),
                                                                    Optional.absent(),
-                                                                   message.getGroupInfo(),
+                                                                   message.getGroupContext(),
                                                                    Optional.absent(),
                                                                    Optional.absent(),
                                                                    Optional.absent(),
@@ -661,7 +676,7 @@ public final class PushProcessMessageJob extends BaseJob {
         ApplicationDependencies.getJobManager().add(new RefreshOwnProfileJob());
         break;
       case STORAGE_MANIFEST:
-        ApplicationDependencies.getJobManager().add(new StorageSyncJob());
+        StorageSyncHelper.scheduleSyncForDataChange();
         break;
       default:
         Log.w(TAG, "Received a fetch message for an unknown type.");
@@ -677,7 +692,7 @@ public final class PushProcessMessageJob extends BaseJob {
     if (response.getPerson().isPresent()) {
       recipient = Recipient.externalPush(context, response.getPerson().get());
     } else if (response.getGroupId().isPresent()) {
-      String groupId = GroupUtil.getEncodedId(response.getGroupId().get(), false);
+      GroupId groupId = GroupId.v1(response.getGroupId().get());
       recipient = Recipient.externalGroup(context, groupId);
     } else {
       Log.w(TAG, "Message request response was missing a thread recipient! Skipping.");
@@ -724,8 +739,8 @@ public final class PushProcessMessageJob extends BaseJob {
         handleGroupRecipientUpdate(message);
       } else if (message.getMessage().isEndSession()) {
         threadId = handleSynchronizeSentEndSessionMessage(message);
-      } else if (message.getMessage().isGroupUpdate()) {
-        threadId = GroupMessageProcessor.process(context, content, message.getMessage(), true);
+      } else if (message.getMessage().isGroupV1Update()) {
+        threadId = GroupV1MessageProcessor.process(context, content, message.getMessage(), true);
       } else if (message.getMessage().isExpirationUpdate()) {
         threadId = handleSynchronizeSentExpirationUpdate(message);
       } else if (message.getMessage().getReaction().isPresent()) {
@@ -738,8 +753,8 @@ public final class PushProcessMessageJob extends BaseJob {
         threadId = handleSynchronizeSentTextMessage(message);
       }
 
-      if (message.getMessage().getGroupInfo().isPresent() && groupDatabase.isUnknownGroup(GroupUtil.getEncodedId(message.getMessage().getGroupInfo().get().getGroupId(), false))) {
-        handleUnknownGroupMessage(content, message.getMessage().getGroupInfo().get());
+      if (message.getMessage().getGroupContext().isPresent() && groupDatabase.isUnknownGroup(GroupUtil.idFromGroupContext(message.getMessage().getGroupContext().get()))) {
+        handleUnknownGroupMessage(content, message.getMessage().getGroupContext().get());
       }
 
       if (message.getMessage().getProfileKey().isPresent()) {
@@ -849,7 +864,7 @@ public final class PushProcessMessageJob extends BaseJob {
                                                                             message.isViewOnce(),
                                                                             content.isNeedsReceipt(),
                                                                             message.getBody(),
-                                                                            message.getGroupInfo(),
+                                                                            message.getGroupContext(),
                                                                             message.getAttachments(),
                                                                             quote,
                                                                             sharedContacts,
@@ -1012,10 +1027,10 @@ public final class PushProcessMessageJob extends BaseJob {
     updateGroupReceiptStatus(message, record.getId(), recipient.requireGroupId());
   }
 
-  private void updateGroupReceiptStatus(@NonNull SentTranscriptMessage message, long messageId, @NonNull String groupString) {
+  private void updateGroupReceiptStatus(@NonNull SentTranscriptMessage message, long messageId, @NonNull GroupId groupString) {
     GroupReceiptDatabase      receiptDatabase   = DatabaseFactory.getGroupReceiptDatabase(context);
     List<Recipient>           messageRecipients = Stream.of(message.getRecipients()).map(address -> Recipient.externalPush(context, address)).toList();
-    List<Recipient>           members           = DatabaseFactory.getGroupDatabase(context).getGroupMembers(groupString, false);
+    List<Recipient>           members           = DatabaseFactory.getGroupDatabase(context).getGroupMembers(groupString, GroupDatabase.MemberSet.FULL_MEMBERS_EXCLUDING_SELF);
     Map<RecipientId, Integer> localReceipts     = Stream.of(receiptDatabase.getGroupReceiptInfo(messageId))
                                                         .collect(Collectors.toMap(GroupReceiptInfo::getRecipientId, GroupReceiptInfo::getStatus));
 
@@ -1035,7 +1050,8 @@ public final class PushProcessMessageJob extends BaseJob {
 
   private void handleTextMessage(@NonNull SignalServiceContent content,
                                  @NonNull SignalServiceDataMessage message,
-                                 @NonNull Optional<Long> smsMessageId)
+                                 @NonNull Optional<Long> smsMessageId,
+                                 @NonNull Optional<GroupId> groupId)
       throws StorageFailedException
   {
     SmsDatabase database  = DatabaseFactory.getSmsDatabase(context);
@@ -1048,7 +1064,7 @@ public final class PushProcessMessageJob extends BaseJob {
 
     Long threadId;
 
-    if (smsMessageId.isPresent() && !message.getGroupInfo().isPresent()) {
+    if (smsMessageId.isPresent() && !message.getGroupContext().isPresent()) {
       threadId = database.updateBundleMessageBody(smsMessageId.get(), body).second;
     } else {
       notifyTypingStoppedFromIncomingMessage(recipient, content.getSender(), content.getSenderDevice());
@@ -1056,7 +1072,7 @@ public final class PushProcessMessageJob extends BaseJob {
       IncomingTextMessage textMessage = new IncomingTextMessage(Recipient.externalPush(context, content.getSender()).getId(),
                                                                 content.getSenderDevice(),
                                                                 message.getTimestamp(), body,
-                                                                toEncodedId(message.getGroupInfo()),
+                                                                groupId,
                                                                 message.getExpiresInSeconds() * 1000L,
                                                                 content.isNeedsReceipt());
 
@@ -1178,7 +1194,7 @@ public final class PushProcessMessageJob extends BaseJob {
 
   private void handleUnsupportedDataMessage(@NonNull String sender,
                                             int senderDevice,
-                                            @NonNull Optional<String> groupId,
+                                            @NonNull Optional<GroupId> groupId,
                                             long timestamp,
                                             @NonNull Optional<Long> smsMessageId)
   {
@@ -1198,7 +1214,7 @@ public final class PushProcessMessageJob extends BaseJob {
 
   private void handleInvalidMessage(@NonNull SignalServiceAddress sender,
                                     int senderDevice,
-                                    @NonNull Optional<String> groupId,
+                                    @NonNull Optional<GroupId> groupId,
                                     long timestamp,
                                     @NonNull Optional<Long> smsMessageId)
   {
@@ -1308,7 +1324,7 @@ public final class PushProcessMessageJob extends BaseJob {
     long threadId;
 
     if (typingMessage.getGroupId().isPresent()) {
-      RecipientId recipientId  = DatabaseFactory.getRecipientDatabase(context).getOrInsertFromGroupId(GroupUtil.getEncodedId(typingMessage.getGroupId().get(), false));
+      RecipientId recipientId  = DatabaseFactory.getRecipientDatabase(context).getOrInsertFromGroupId(GroupId.v1(typingMessage.getGroupId().get()));
       Recipient groupRecipient = Recipient.resolved(recipientId);
 
       threadId = DatabaseFactory.getThreadDatabase(context).getThreadIdFor(groupRecipient);
@@ -1473,7 +1489,7 @@ public final class PushProcessMessageJob extends BaseJob {
     return insertPlaceholder(sender, senderDevice, timestamp, Optional.absent());
   }
 
-  private Optional<InsertResult> insertPlaceholder(@NonNull String sender, int senderDevice, long timestamp, Optional<String> groupId) {
+  private Optional<InsertResult> insertPlaceholder(@NonNull String sender, int senderDevice, long timestamp, Optional<GroupId> groupId) {
     SmsDatabase         database    = DatabaseFactory.getSmsDatabase(context);
     IncomingTextMessage textMessage = new IncomingTextMessage(Recipient.external(context, sender).getId(),
                                                               senderDevice, timestamp, "",
@@ -1483,20 +1499,20 @@ public final class PushProcessMessageJob extends BaseJob {
     return database.insertMessageInbox(textMessage);
   }
 
-  private Recipient getSyncMessageDestination(SentTranscriptMessage message) {
-    if (message.getMessage().getGroupInfo().isPresent()) {
-      return Recipient.external(context, GroupUtil.getEncodedId(message.getMessage().getGroupInfo().get().getGroupId(), false));
-    } else {
-      return Recipient.externalPush(context, message.getDestination().get());
-    }
+  private Recipient getSyncMessageDestination(@NonNull SentTranscriptMessage message) {
+    return getGroupRecipient(message.getMessage().getGroupContext())
+           .or(() -> Recipient.externalPush(context, message.getDestination().get()));
   }
 
-  private Recipient getMessageDestination(SignalServiceContent content, SignalServiceDataMessage message) {
-    if (message.getGroupInfo().isPresent()) {
-      return Recipient.external(context, GroupUtil.getEncodedId(message.getGroupInfo().get().getGroupId(), false));
-    } else {
-      return Recipient.externalPush(context, content.getSender());
-    }
+  private Recipient getMessageDestination(@NonNull SignalServiceContent content,
+                                          @NonNull SignalServiceDataMessage message)
+  {
+    return getGroupRecipient(message.getGroupContext())
+           .or(() -> Recipient.externalPush(context, content.getSender()));
+  }
+
+  private Optional<Recipient> getGroupRecipient(Optional<SignalServiceGroupContext> message) {
+    return message.transform(groupContext -> Recipient.externalGroup(context, GroupUtil.idFromGroupContext(groupContext)));
   }
 
   private void notifyTypingStoppedFromIncomingMessage(@NonNull Recipient conversationRecipient, @NonNull SignalServiceAddress sender, int device) {
@@ -1524,9 +1540,8 @@ public final class PushProcessMessageJob extends BaseJob {
       if (conversation.isGroup() && conversation.isBlocked()) {
         return true;
       } else if (conversation.isGroup()) {
-        GroupDatabase    groupDatabase = DatabaseFactory.getGroupDatabase(context);
-        Optional<String> groupId       = message.getGroupInfo().isPresent() ? Optional.of(GroupUtil.getEncodedId(message.getGroupInfo().get().getGroupId(), false))
-                                                                            : Optional.absent();
+        GroupDatabase     groupDatabase = DatabaseFactory.getGroupDatabase(context);
+        Optional<GroupId> groupId       = message.getGroupContext().transform(GroupUtil::idFromGroupContext);
 
         if (groupId.isPresent() && groupDatabase.isUnknownGroup(groupId.get())) {
           return false;
@@ -1535,9 +1550,9 @@ public final class PushProcessMessageJob extends BaseJob {
         boolean isTextMessage    = message.getBody().isPresent();
         boolean isMediaMessage   = message.getAttachments().isPresent() || message.getQuote().isPresent() || message.getSharedContacts().isPresent();
         boolean isExpireMessage  = message.isExpirationUpdate();
-        boolean isContentMessage = !message.isGroupUpdate() && !isExpireMessage && (isTextMessage || isMediaMessage);
+        boolean isContentMessage = !message.isGroupV1Update() && !isExpireMessage && (isTextMessage || isMediaMessage);
         boolean isGroupActive    = groupId.isPresent() && groupDatabase.isActive(groupId.get());
-        boolean isLeaveMessage   = message.getGroupInfo().isPresent() && message.getGroupInfo().get().getType() == SignalServiceGroup.Type.QUIT;
+        boolean isLeaveMessage   = message.getGroupContext().isPresent() && message.getGroupContext().get().getGroupV1Type() == SignalServiceGroup.Type.QUIT;
 
         return (isContentMessage && !isGroupActive) || (sender.isBlocked() && !isLeaveMessage);
       } else {
@@ -1611,7 +1626,7 @@ public final class PushProcessMessageJob extends BaseJob {
         } else {
           ExceptionMetadata exceptionMetadata = new ExceptionMetadata(data.getString(KEY_EXCEPTION_SENDER),
                                                                       data.getInt(KEY_EXCEPTION_DEVICE),
-                                                                      data.getStringOrDefault(KEY_EXCEPTION_GROUP_ID, null));
+                                                                      GroupId.parseNullable(data.getStringOrDefault(KEY_EXCEPTION_GROUP_ID, null)));
 
           return new PushProcessMessageJob(parameters,
                                            state,
@@ -1638,11 +1653,11 @@ public final class PushProcessMessageJob extends BaseJob {
   }
 
   static class ExceptionMetadata {
-    @NonNull  private final String sender;
-              private final int    senderDevice;
-    @Nullable private final String groupId;
+    @NonNull  private final String  sender;
+              private final int     senderDevice;
+    @Nullable private final GroupId groupId;
 
-    ExceptionMetadata(@NonNull String sender, int senderDevice, @Nullable String groupId) {
+    ExceptionMetadata(@NonNull String sender, int senderDevice, @Nullable GroupId groupId) {
       this.sender       = sender;
       this.senderDevice = senderDevice;
       this.groupId      = groupId;

@@ -21,7 +21,10 @@ import net.sqlcipher.database.SQLiteDatabase;
 import net.sqlcipher.database.SQLiteDatabaseHook;
 import net.sqlcipher.database.SQLiteOpenHelper;
 
-import org.thoughtcrime.securesms.contacts.sync.StorageSyncHelper;
+import org.thoughtcrime.securesms.profiles.AvatarHelper;
+import org.thoughtcrime.securesms.profiles.ProfileName;
+import org.thoughtcrime.securesms.recipients.RecipientId;
+import org.thoughtcrime.securesms.storage.StorageSyncHelper;
 import org.thoughtcrime.securesms.crypto.DatabaseSecret;
 import org.thoughtcrime.securesms.crypto.MasterSecret;
 import org.thoughtcrime.securesms.database.AttachmentDatabase;
@@ -44,19 +47,23 @@ import org.thoughtcrime.securesms.database.StickerDatabase;
 import org.thoughtcrime.securesms.database.StorageKeyDatabase;
 import org.thoughtcrime.securesms.database.ThreadDatabase;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.groups.GroupId;
 import org.thoughtcrime.securesms.jobs.RefreshPreKeysJob;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.phonenumbers.PhoneNumberFormatter;
 import org.thoughtcrime.securesms.service.KeyCachingService;
 import org.thoughtcrime.securesms.util.Base64;
-import org.thoughtcrime.securesms.util.GroupUtil;
+import org.thoughtcrime.securesms.util.FileUtils;
 import org.thoughtcrime.securesms.util.ServiceUtil;
 import org.thoughtcrime.securesms.util.SqlUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.Util;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.List;
 
 public class SQLCipherOpenHelper extends SQLiteOpenHelper {
@@ -75,8 +82,13 @@ public class SQLCipherOpenHelper extends SQLiteOpenHelper {
   private static final int PROFILE_KEY_CREDENTIALS          = 48;
   private static final int ATTACHMENT_FILE_INDEX            = 49;
   private static final int STORAGE_SERVICE_ACTIVE           = 50;
+  private static final int GROUPS_V2_RECIPIENT_CAPABILITY   = 51;
+  private static final int TRANSFER_FILE_CLEANUP            = 52;
+  private static final int PROFILE_DATA_MIGRATION           = 53;
+  private static final int AVATAR_LOCATION_MIGRATION        = 54;
+  private static final int GROUPS_V2                        = 55;
 
-  private static final int    DATABASE_VERSION = 50;
+  private static final int    DATABASE_VERSION = 55;
   private static final String DATABASE_NAME    = "signal.db";
 
   private final Context        context;
@@ -223,6 +235,92 @@ public class SQLCipherOpenHelper extends SQLiteOpenHelper {
         }
       }
 
+      if (oldVersion < GROUPS_V2_RECIPIENT_CAPABILITY) {
+        db.execSQL("ALTER TABLE recipient ADD COLUMN gv2_capability INTEGER DEFAULT 0");
+      }
+
+      if (oldVersion < TRANSFER_FILE_CLEANUP) {
+        File partsDirectory = context.getDir("parts", Context.MODE_PRIVATE);
+
+        if (partsDirectory.exists()) {
+          File[] transferFiles = partsDirectory.listFiles((dir, name) -> name.startsWith("transfer"));
+          int    deleteCount   = 0;
+
+          Log.i(TAG, "Found " + transferFiles.length + " dangling transfer files.");
+
+          for (File file : transferFiles) {
+            if (file.delete()) {
+              Log.i(TAG, "Deleted " + file.getName());
+              deleteCount++;
+            }
+          }
+
+          Log.i(TAG, "Deleted " + deleteCount + " dangling transfer files.");
+        } else {
+          Log.w(TAG, "Part directory did not exist. Skipping.");
+        }
+      }
+
+      if (oldVersion < PROFILE_DATA_MIGRATION) {
+        String localNumber = TextSecurePreferences.getLocalNumber(context);
+        if (localNumber != null) {
+          String      encodedProfileName = PreferenceManager.getDefaultSharedPreferences(context).getString("pref_profile_name", null);
+          ProfileName profileName        = ProfileName.fromSerialized(encodedProfileName);
+
+          db.execSQL("UPDATE recipient SET signal_profile_name = ?, profile_family_name = ?, profile_joined_name = ? WHERE phone = ?",
+                     new String[] { profileName.getGivenName(), profileName.getFamilyName(), profileName.toString(), localNumber });
+        }
+      }
+
+      if (oldVersion < AVATAR_LOCATION_MIGRATION) {
+        File   oldAvatarDirectory = new File(context.getFilesDir(), "avatars");
+        File[] results            = oldAvatarDirectory.listFiles();
+
+        if (results != null) {
+          Log.i(TAG, "Preparing to migrate " + results.length + " avatars.");
+
+          for (File file : results) {
+            if (Util.isLong(file.getName())) {
+              try {
+                AvatarHelper.setAvatar(context, RecipientId.from(file.getName()), new FileInputStream(file));
+              } catch(IOException e) {
+                Log.w(TAG, "Failed to copy file " + file.getName() + "! Skipping.");
+              }
+            } else {
+              Log.w(TAG, "Invalid avatar name '" + file.getName() + "'! Skipping.");
+            }
+          }
+        } else {
+          Log.w(TAG, "No avatar directory files found.");
+        }
+
+        if (!FileUtils.deleteDirectory(oldAvatarDirectory)) {
+          Log.w(TAG, "Failed to delete avatar directory.");
+        }
+
+        try (Cursor cursor = db.rawQuery("SELECT recipient_id, avatar FROM groups", null)) {
+          while (cursor != null && cursor.moveToNext()) {
+            RecipientId recipientId = RecipientId.from(cursor.getLong(cursor.getColumnIndexOrThrow("recipient_id")));
+            byte[]      avatar      = cursor.getBlob(cursor.getColumnIndexOrThrow("avatar"));
+
+            try {
+              AvatarHelper.setAvatar(context, recipientId, avatar != null ? new ByteArrayInputStream(avatar) : null);
+            } catch (IOException e) {
+              Log.w(TAG, "Failed to copy avatar for " + recipientId + "! Skipping.", e);
+            }
+          }
+        }
+
+        db.execSQL("UPDATE groups SET avatar_id = 0 WHERE avatar IS NULL");
+        db.execSQL("UPDATE groups SET avatar = NULL");
+      }
+
+      if (oldVersion < GROUPS_V2) {
+        db.execSQL("ALTER TABLE groups ADD COLUMN master_key");
+        db.execSQL("ALTER TABLE groups ADD COLUMN revision");
+        db.execSQL("ALTER TABLE groups ADD COLUMN decrypted_group");
+      }
+
       db.setTransactionSuccessful();
     } finally {
       db.endTransaction();
@@ -244,6 +342,10 @@ public class SQLCipherOpenHelper extends SQLiteOpenHelper {
 
   public static boolean databaseFileExists(@NonNull Context context) {
     return context.getDatabasePath(DATABASE_NAME).exists();
+  }
+
+  public static File getDatabaseFile(@NonNull Context context) {
+    return context.getDatabasePath(DATABASE_NAME);
   }
 
   private void executeStatements(SQLiteDatabase db, String[] statements) {

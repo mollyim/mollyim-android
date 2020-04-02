@@ -208,7 +208,7 @@ public final class PushDecryptMessageJob extends BaseJob {
 
     return new PushProcessMessageJob.ExceptionMetadata(sender,
                                                        e.getSenderDevice(),
-                                                       e.getGroup().transform(g -> GroupUtil.getEncodedId(g.getGroupId(), false)).orNull());
+                                                       e.getGroup().transform(GroupUtil::idFromGroupContext).orNull());
   }
 
   private static PushProcessMessageJob.ExceptionMetadata toExceptionMetadata(@NonNull ProtocolException e) throws NoSenderException {

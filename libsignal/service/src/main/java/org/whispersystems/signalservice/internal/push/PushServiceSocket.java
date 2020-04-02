@@ -249,10 +249,11 @@ public class PushServiceSocket {
 
   public UUID verifyAccountCode(String verificationCode, String signalingKey, int registrationId, boolean fetchesMessages,
                                 String pin, String registrationLock,
-                                byte[] unidentifiedAccessKey, boolean unrestrictedUnidentifiedAccess)
+                                byte[] unidentifiedAccessKey, boolean unrestrictedUnidentifiedAccess,
+                                SignalServiceProfile.Capabilities capabilities)
       throws IOException
   {
-    AccountAttributes     signalingKeyEntity = new AccountAttributes(signalingKey, registrationId, fetchesMessages, pin, registrationLock, unidentifiedAccessKey, unrestrictedUnidentifiedAccess);
+    AccountAttributes     signalingKeyEntity = new AccountAttributes(signalingKey, registrationId, fetchesMessages, pin, registrationLock, unidentifiedAccessKey, unrestrictedUnidentifiedAccess, capabilities);
     String                requestBody        = JsonUtil.toJson(signalingKeyEntity);
     String                responseBody       = makeServiceRequest(String.format(VERIFY_ACCOUNT_CODE_PATH, verificationCode), "PUT", requestBody);
     VerifyAccountResponse response           = JsonUtil.fromJson(responseBody, VerifyAccountResponse.class);
@@ -267,7 +268,8 @@ public class PushServiceSocket {
 
   public void setAccountAttributes(String signalingKey, int registrationId, boolean fetchesMessages,
                                    String pin, String registrationLock,
-                                   byte[] unidentifiedAccessKey, boolean unrestrictedUnidentifiedAccess)
+                                   byte[] unidentifiedAccessKey, boolean unrestrictedUnidentifiedAccess,
+                                   SignalServiceProfile.Capabilities capabilities)
       throws IOException
   {
     if (registrationLock != null && pin != null) {
@@ -275,7 +277,7 @@ public class PushServiceSocket {
     }
 
     AccountAttributes accountAttributes = new AccountAttributes(signalingKey, registrationId, fetchesMessages, pin, registrationLock,
-                                                                unidentifiedAccessKey, unrestrictedUnidentifiedAccess);
+                                                                unidentifiedAccessKey, unrestrictedUnidentifiedAccess, capabilities);
     makeServiceRequest(SET_ACCOUNT_ATTRIBUTES, "PUT", JsonUtil.toJson(accountAttributes));
   }
 
@@ -496,7 +498,7 @@ public class PushServiceSocket {
     makeServiceRequest(SIGNED_PREKEY_PATH, "PUT", JsonUtil.toJson(signedPreKeyEntity));
   }
 
-  public void retrieveAttachment(long attachmentId, File destination, int maxSizeBytes, ProgressListener listener)
+  public void retrieveAttachment(long attachmentId, File destination, long maxSizeBytes, ProgressListener listener)
       throws NonSuccessfulResponseCodeException, PushNetworkException
   {
     downloadFromCdn(destination, String.format(Locale.US, ATTACHMENT_DOWNLOAD_PATH, attachmentId), maxSizeBytes, listener);
@@ -565,7 +567,7 @@ public class PushServiceSocket {
     }
 
     try {
-      ProfileKeyVersion                  profileKeyIdentifier = profileKey.getProfileKeyVersion();
+      ProfileKeyVersion                  profileKeyIdentifier = profileKey.getProfileKeyVersion(target);
       ProfileKeyCredentialRequestContext requestContext       = clientZkOperations.getProfileOperations().createProfileKeyCredentialRequestContext(random, target, profileKey);
       ProfileKeyCredentialRequest        request              = requestContext.getRequest();
 
@@ -588,7 +590,7 @@ public class PushServiceSocket {
     }
   }
 
-  public void retrieveProfileAvatar(String path, File destination, int maxSizeBytes)
+  public void retrieveProfileAvatar(String path, File destination, long maxSizeBytes)
       throws NonSuccessfulResponseCodeException, PushNetworkException
   {
     downloadFromCdn(destination, path, maxSizeBytes, null);
@@ -602,7 +604,7 @@ public class PushServiceSocket {
     makeServiceRequest(String.format(PROFILE_PATH, "name/" + (name == null ? "" : URLEncoder.encode(name))), "PUT", "");
   }
 
-  public void setProfileAvatar(ProfileAvatarData profileAvatar)
+  public Optional<String> setProfileAvatar(ProfileAvatarData profileAvatar)
       throws NonSuccessfulResponseCodeException, PushNetworkException
   {
     if (FeatureFlags.VERSIONED_PROFILES) {
@@ -626,10 +628,17 @@ public class PushServiceSocket {
                   formAttributes.getSignature(), profileAvatar.getData(),
                   profileAvatar.getContentType(), profileAvatar.getDataLength(),
                   profileAvatar.getOutputStreamFactory(), null, null);
+
+      return Optional.of(formAttributes.getKey());
     }
+
+    return Optional.absent();
   }
 
-  public void writeProfile(SignalServiceProfileWrite signalServiceProfileWrite, ProfileAvatarData profileAvatar)
+  /**
+   * @return The avatar URL path, if one was written.
+   */
+  public Optional<String> writeProfile(SignalServiceProfileWrite signalServiceProfileWrite, ProfileAvatarData profileAvatar)
     throws NonSuccessfulResponseCodeException, PushNetworkException
   {
     if (!FeatureFlags.VERSIONED_PROFILES) {
@@ -655,7 +664,11 @@ public class PushServiceSocket {
                   formAttributes.getSignature(), profileAvatar.getData(),
                   profileAvatar.getContentType(), profileAvatar.getDataLength(),
                   profileAvatar.getOutputStreamFactory(), null, null);
+
+       return Optional.of(formAttributes.getKey());
     }
+
+    return Optional.absent();
   }
 
   public void setUsername(String username) throws IOException {
@@ -861,7 +874,7 @@ public class PushServiceSocket {
     return new Pair<>(id, digest);
   }
 
-  private void downloadFromCdn(File destination, String path, int maxSizeBytes, ProgressListener listener)
+  private void downloadFromCdn(File destination, String path, long maxSizeBytes, ProgressListener listener)
       throws PushNetworkException, NonSuccessfulResponseCodeException
   {
     try (FileOutputStream outputStream = new FileOutputStream(destination, true)) {
@@ -871,7 +884,7 @@ public class PushServiceSocket {
     }
   }
 
-  private void downloadFromCdn(OutputStream outputStream, long offset, String path, int maxSizeBytes, ProgressListener listener)
+  private void downloadFromCdn(OutputStream outputStream, long offset, String path, long maxSizeBytes, ProgressListener listener)
       throws PushNetworkException, NonSuccessfulResponseCodeException
   {
     ConnectionHolder connectionHolder = getRandom(cdnClients, random);

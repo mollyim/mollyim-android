@@ -18,6 +18,8 @@ import org.whispersystems.signalservice.api.SignalServiceAccountManager;
 import org.whispersystems.signalservice.api.push.exceptions.PushNetworkException;
 import org.whispersystems.signalservice.api.util.StreamDetails;
 
+import java.util.UUID;
+
 public class RotateProfileKeyJob extends BaseJob {
 
   public static String KEY = "RotateProfileKeyJob";
@@ -55,11 +57,12 @@ public class RotateProfileKeyJob extends BaseJob {
     recipientDatabase.setProfileKey(self.getId(), profileKey);
      try (StreamDetails avatarStream = AvatarHelper.getSelfProfileAvatarStream(context)) {
       if (FeatureFlags.VERSIONED_PROFILES) {
-        accountManager.setVersionedProfile(profileKey,
-                                           TextSecurePreferences.getProfileName(context).serialize(),
+        accountManager.setVersionedProfile(self.getUuid().get(),
+                                           profileKey,
+                                           Recipient.self().getProfileName().serialize(),
                                            avatarStream);
       } else {
-        accountManager.setProfileName(profileKey, TextSecurePreferences.getProfileName(context).serialize());
+        accountManager.setProfileName(profileKey, Recipient.self().getProfileName().serialize());
         accountManager.setProfileAvatar(profileKey, avatarStream);
       }
     }

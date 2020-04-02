@@ -3,11 +3,14 @@ package org.thoughtcrime.securesms.contacts.avatars;
 
 import android.content.Context;
 import android.net.Uri;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.database.GroupDatabase;
+import org.thoughtcrime.securesms.groups.GroupId;
+import org.thoughtcrime.securesms.profiles.AvatarHelper;
 import org.thoughtcrime.securesms.util.Conversions;
 import org.whispersystems.libsignal.util.guava.Optional;
 
@@ -16,12 +19,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.MessageDigest;
 
-public class GroupRecordContactPhoto implements ContactPhoto {
+public final class GroupRecordContactPhoto implements ContactPhoto {
 
-  private final String groupId;
-  private final long   avatarId;
+  private final GroupId groupId;
+  private final long    avatarId;
 
-  public GroupRecordContactPhoto(@NonNull String groupId, long avatarId) {
+  public GroupRecordContactPhoto(@NonNull GroupId groupId, long avatarId) {
     this.groupId  = groupId;
     this.avatarId = avatarId;
   }
@@ -31,11 +34,11 @@ public class GroupRecordContactPhoto implements ContactPhoto {
     GroupDatabase                       groupDatabase = DatabaseFactory.getGroupDatabase(context);
     Optional<GroupDatabase.GroupRecord> groupRecord   = groupDatabase.getGroup(groupId);
 
-    if (groupRecord.isPresent() && groupRecord.get().getAvatar() != null) {
-      return new ByteArrayInputStream(groupRecord.get().getAvatar());
+    if (!groupRecord.isPresent() || !AvatarHelper.hasAvatar(context, groupRecord.get().getRecipientId())) {
+      throw new IOException("No avatar for group: " + groupId);
     }
 
-    throw new IOException("Couldn't load avatar for group: " + groupId);
+    return AvatarHelper.getAvatar(context, groupRecord.get().getRecipientId());
   }
 
   @Override
@@ -50,13 +53,13 @@ public class GroupRecordContactPhoto implements ContactPhoto {
 
   @Override
   public void updateDiskCacheKey(@NonNull MessageDigest messageDigest) {
-    messageDigest.update(groupId.getBytes());
+    messageDigest.update(groupId.toString().getBytes());
     messageDigest.update(Conversions.longToByteArray(avatarId));
   }
 
   @Override
   public boolean equals(Object other) {
-    if (other == null || !(other instanceof GroupRecordContactPhoto)) return false;
+    if (!(other instanceof GroupRecordContactPhoto)) return false;
 
     GroupRecordContactPhoto that = (GroupRecordContactPhoto)other;
     return this.groupId.equals(that.groupId) && this.avatarId == that.avatarId;

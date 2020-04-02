@@ -47,10 +47,10 @@ public final class ImageEditorFragment extends Fragment implements ImageEditorHu
 
   private static final String TAG = Log.tag(ImageEditorFragment.class);
 
-  private static final String KEY_IMAGE_URI = "image_uri";
+  private static final String KEY_IMAGE_URI      = "image_uri";
+  private static final String KEY_IS_AVATAR_MODE = "avatar_mode";
 
-  private static final int SELECT_OLD_STICKER_REQUEST_CODE = 123;
-  private static final int SELECT_NEW_STICKER_REQUEST_CODE = 124;
+  private static final int SELECT_STICKER_REQUEST_CODE = 124;
 
   private EditorModel restoredModel;
 
@@ -89,6 +89,12 @@ public final class ImageEditorFragment extends Fragment implements ImageEditorHu
   private ImageEditorHud  imageEditorHud;
   private ImageEditorView imageEditorView;
 
+  public static ImageEditorFragment newInstanceForAvatar(@NonNull Uri imageUri) {
+    ImageEditorFragment fragment = newInstance(imageUri);
+    fragment.requireArguments().putBoolean(KEY_IS_AVATAR_MODE, true);
+    return fragment;
+  }
+
   public static ImageEditorFragment newInstance(@NonNull Uri imageUri) {
     Bundle args = new Bundle();
     args.putParcelable(KEY_IMAGE_URI, imageUri);
@@ -119,8 +125,6 @@ public final class ImageEditorFragment extends Fragment implements ImageEditorHu
 
     imageMaxWidth  = mediaConstraints.getImageMaxWidth(requireContext());
     imageMaxHeight = mediaConstraints.getImageMaxHeight(requireContext());
-
-    StickerSearchRepository repository = new StickerSearchRepository(requireContext());
   }
 
   @Nullable
@@ -132,6 +136,8 @@ public final class ImageEditorFragment extends Fragment implements ImageEditorHu
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
+
+    boolean isAvatarMode = requireArguments().getBoolean(KEY_IS_AVATAR_MODE, false);
 
     imageEditorHud  = view.findViewById(R.id.scribble_hud);
     imageEditorView = view.findViewById(R.id.image_editor_view);
@@ -150,10 +156,15 @@ public final class ImageEditorFragment extends Fragment implements ImageEditorHu
     }
 
     if (editorModel == null) {
-      editorModel = new EditorModel();
+      editorModel = isAvatarMode ? EditorModel.createForCircleEditing() : EditorModel.create();
       EditorElement image = new EditorElement(new UriGlideRenderer(imageUri, true, imageMaxWidth, imageMaxHeight));
       image.getFlags().setSelectable(false).persist();
       editorModel.addElement(image);
+    }
+
+    if (isAvatarMode) {
+      imageEditorHud.setUpForAvatarEditing();
+      imageEditorHud.enterMode(ImageEditorHud.Mode.CROP);
     }
 
     imageEditorView.setModel(editorModel);
@@ -227,7 +238,7 @@ public final class ImageEditorFragment extends Fragment implements ImageEditorHu
     String                initialText = "";
     int                   color       = imageEditorHud.getActiveColor();
     MultiLineTextRenderer renderer    = new MultiLineTextRenderer(initialText, color);
-    EditorElement         element     = new EditorElement(renderer);
+    EditorElement         element     = new EditorElement(renderer, EditorModel.Z_TEXT);
 
     imageEditorView.getModel().addElementCentered(element, 1);
     imageEditorView.invalidate();
@@ -240,20 +251,11 @@ public final class ImageEditorFragment extends Fragment implements ImageEditorHu
   @Override
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
-    if (resultCode == RESULT_OK && requestCode == SELECT_NEW_STICKER_REQUEST_CODE && data != null) {
+    if (resultCode == RESULT_OK && requestCode == SELECT_STICKER_REQUEST_CODE && data != null) {
       final Uri uri = data.getData();
       if (uri != null) {
         UriGlideRenderer renderer = new UriGlideRenderer(uri, true, imageMaxWidth, imageMaxHeight);
-        EditorElement element = new EditorElement(renderer);
-        imageEditorView.getModel().addElementCentered(element, 0.2f);
-        currentSelection = element;
-        imageEditorHud.setMode(ImageEditorHud.Mode.MOVE_DELETE);
-      }
-    } else if (resultCode == RESULT_OK && requestCode == SELECT_OLD_STICKER_REQUEST_CODE && data != null) {
-      final Uri uri = data.getData();
-      if (uri != null) {
-        UriGlideRenderer renderer = new UriGlideRenderer(uri, false, imageMaxWidth, imageMaxHeight);
-        EditorElement element = new EditorElement(renderer);
+        EditorElement    element  = new EditorElement(renderer, EditorModel.Z_STICKERS);
         imageEditorView.getModel().addElementCentered(element, 0.2f);
         currentSelection = element;
         imageEditorHud.setMode(ImageEditorHud.Mode.MOVE_DELETE);
@@ -293,7 +295,7 @@ public final class ImageEditorFragment extends Fragment implements ImageEditorHu
 
       case INSERT_STICKER: {
         Intent intent = new Intent(getContext(), ImageEditorStickerSelectActivity.class);
-        startActivityForResult(intent, SELECT_NEW_STICKER_REQUEST_CODE);
+        startActivityForResult(intent, SELECT_STICKER_REQUEST_CODE);
         break;
       }
 
@@ -381,6 +383,11 @@ public final class ImageEditorFragment extends Fragment implements ImageEditorHu
     controller.onRequestFullScreen(fullScreen, hideKeyboard);
   }
 
+  @Override
+  public void onDone() {
+    controller.onDoneEditing();
+  }
+
   private void refreshUniqueColors() {
     imageEditorHud.setColorPalette(imageEditorView.getModel().getUniqueColorsIgnoringAlpha());
   }
@@ -439,5 +446,7 @@ public final class ImageEditorFragment extends Fragment implements ImageEditorHu
     void onTouchEventsNeeded(boolean needed);
 
     void onRequestFullScreen(boolean fullScreen, boolean hideKeyboard);
+
+    void onDoneEditing();
   }
 }

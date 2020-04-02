@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.WorkerThread;
 
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
@@ -28,7 +29,7 @@ public final class GroupManager {
   }
 
   public static GroupActionResult updateGroup(@NonNull  Context        context,
-                                              @NonNull  String         groupId,
+                                              @NonNull  GroupId        groupId,
                                               @NonNull  Set<Recipient> members,
                                               @Nullable Bitmap         avatar,
                                               @Nullable String         name)
@@ -46,6 +47,13 @@ public final class GroupManager {
     }
 
     return results;
+  }
+
+  @WorkerThread
+  public static boolean leaveGroup(@NonNull Context context, @NonNull Recipient groupRecipient) {
+    GroupId groupId = groupRecipient.requireGroupId();
+    
+    return V1GroupManager.leaveGroup(context, groupId.requireV1(), groupRecipient);
   }
 
   public static class GroupActionResult {

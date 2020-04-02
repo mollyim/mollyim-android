@@ -63,7 +63,7 @@
   <string name="AttachmentKeyboard_contact">Kontaktua</string>
   <string name="AttachmentKeyboard_location">Kokalekua</string>
   <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Signalek baimena behar du zue argazkiak eta bideoak erakutsi ahal izateko.</string>
-  <string name="AttachmentKeyboard_give_access">Baimena Eman</string>
+  <string name="AttachmentKeyboard_give_access">Eman baimena</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">Ez da euskarria aukeratzeko aplikaziorik aurkitu.</string>
   <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signal aplikazioak Gordailu baimena behar du argazkiak, bideoak edo audioak bidaltzeko baina ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Gordailua\".</string>
@@ -207,7 +207,7 @@
   <string name="ConversationActivity_new_say_it_with_stickers">Berria! Esan eranskailuen bidez</string>
   <string name="ConversationActivity_block_s">Blokeatu %1$s?</string>
   <string name="ConversationActivity_block_and_leave_s">%1$s blokeatu eta irten?</string>
-  <string name="ConversationActivity_unblock_s">%1$s desblokeatu?</string>
+  <string name="ConversationActivity_unblock_s">Desblokeatu %1$s?</string>
   <string name="ConversationActivity_you_will_be_able_to_message_and_call_each_other">Elkarri deitzeko eta mezuak bidaltzeko gai izango zarete.</string>
   <string name="ConversationActivity_group_members_will_be_able_to_add_you_to_this_group_again">Taldearen partaideak gai izango dira zu talde honetan berriro sartzeko.</string>
   <string name="ConversationActivity_blocked_people_will_not_be_able_to_call_you_or_send_you_messages">Blokeatuta dagoen jendeak ezingo dizu deitu edo mezuak bidali.</string>
@@ -310,6 +310,10 @@
   <string name="CustomDefaultPreference_using_custom">Pertsonalizatua: %s</string>
   <string name="CustomDefaultPreference_using_default">Lehenetsia: %s</string>
   <string name="CustomDefaultPreference_none">Bat ere ez</string>
+  <!--AvatarSelectionBottomSheetDialogFragment-->
+  <string name="AvatarSelectionBottomSheetDialogFragment__choose_photo">Aukeratu argazkia</string>
+  <string name="AvatarSelectionBottomSheetDialogFragment__take_photo">Atera argazkia</string>
+  <string name="AvatarSelectionBottomSheetDialogFragment__remove_photo">Argazkia ezabatu</string>
   <!--DateUtils-->
   <string name="DateUtils_just_now">Orain</string>
   <string name="DateUtils_minutes_ago">%dm</string>
@@ -341,34 +345,6 @@
   <!--ShareActivity-->
   <string name="ShareActivity_share_with">Norekin konpartitu</string>
   <string name="ShareActivity_multiple_attachments_are_only_supported">Eranskin anitzak bakarrik irudi eta bideoetan onartzen dira</string>
-  <!--ExperienceUpgradeActivity-->
-  <string name="ExperienceUpgradeActivity_welcome_to_signal_dgaf">Ongi etorri Signalera!</string>
-  <string name="ExperienceUpgradeActivity_textsecure_is_now_called_signal">TextSecure eta RedPhone mezulari pribatua bakar bat dira orain, edozein egoeratako.</string>
-  <string name="ExperienceUpgradeActivity_welcome_to_signal_excited">Ongi etorri Signalera!</string>
-  <string name="ExperienceUpgradeActivity_textsecure_is_now_signal">TextSecure orain Signal da.</string>
-  <string name="ExperienceUpgradeActivity_textsecure_is_now_signal_long">TextSecure eta RedPhone aplikazio bera da orain: Signal.  Ukitu arakatzeko.</string>
-  <string name="ExperienceUpgradeActivity_say_hello_to_video_calls">Kaixo esan bideodei seguruei</string>
-  <string name="ExperienceUpgradeActivity_signal_now_supports_secure_video_calls">Signal orain bideodei seguruak egiteko gai da. Besterik gabe, hasi  Signal dei normal bat, ukitu bideo botoia eta kaixo esan. </string>
-  <string name="ExperienceUpgradeActivity_signal_now_supports_secure_video_calling">Signal orain bideodei seguruak egiteko gai da.</string>
-  <string name="ExperienceUpgradeActivity_signal_now_supports_secure_video_calling_long">Signal orain bideodei seguruak egiteko gai da. Ukitu argibide gehiago lortzeko.</string>
-  <string name="ExperienceUpgradeActivity_ready_for_your_closeup">Prest zaude zure gertuko argazkia hartzeko?</string>
-  <string name="ExperienceUpgradeActivity_now_you_can_share_a_profile_photo_and_name_with_friends_on_signal">Signaleko zure lagunekin profileko argazkia eta izena partekatu ditzakezu</string>
-  <string name="ExperienceUpgradeActivity_signal_profiles_are_here">Signal profilak heldu dira</string>
-  <string name="ExperienceUpgradeActivity_introducing_typing_indicators">Idazketa jakinarazleak aurkezten.</string>
-  <string name="ExperienceUpgradeActivity_now_you_can_optionally_see_and_share_when_messages_are_being_typed">Orain aukeran mezuak idazten ari direla erakutsi eta ikusi dezakezu.</string>
-  <string name="ExperienceUpgradeActivity_would_you_like_to_enable_them_now">Aktibatu nahi al duzu orain?</string>
-  <string name="ExperienceUpgradeActivity_typing_ui_title">Idazketa jakinarazleak heldu dira</string>
-  <string name="ExperienceUpgradeActivity_enable_typing_indicators">Gaitu idazketa jakinarazleak</string>
-  <string name="ExperienceUpgradeActivity_turn_on_typing_indicators">Aktibatu idazketa jakinarazleak</string>
-  <string name="ExperienceUpgradeActivity_no_thanks">Ez, eskerrik asko</string>
-  <string name="ExperienceUpgradeActivity_introducing_link_previews">Loturen aurrebistak aurkezten.</string>
-  <string name="ExperienceUpgradeActivity_optional_link_previews_are_now_supported">Loturen aurrebistak hautazkoak dira eta Interneteko hainbat zerbitzurekin funtzionatzen dute.</string>
-  <string name="ExperienceUpgradeActivity_you_can_disable_or_enable_this_feature_link_previews">Nahi duzunean, aukera hau aktibatu eta desaktibatu dezakezu Signal aplikazioaren ezarpenetan (Pribatutasuna &gt; Loturen aurrebistak bidali).</string>
-  <string name="ExperienceUpgradeActivity_got_it">Ulertuta</string>
-  <string name="ExperienceUpgradeActivity_introducing_stickers">Eranskailuen aurkezpena</string>
-  <string name="ExperienceUpgradeActivity_why_use_words_when_you_can_use_stickers">Zergatik erabili hitzak eranskailuak erabili ditzakezuenan?</string>
-  <string name="ExperienceUpgradeActivity_why_use_words_when_you_can_use_stickers_tap_this_icon">Zertarako erabili hitzak eranskailuak erabili ditzakezunean? Ukitu ondoko ikonoa zure teklatuan:</string>
-  <string name="ExperienceUpgradeActivity_lets_go">Goazen</string>
   <!--GcmBroadcastReceiver-->
   <string name="GcmBroadcastReceiver_retrieving_a_message">Mezu bat berreskuratzen…</string>
   <!--GcmRefreshJob-->
@@ -1212,6 +1188,14 @@ Inportatu \'SMSBackup and Restorekin\' bateragarria den enkriptatu gabeko babesk
   <string name="MessageRequestsMegaphone__new_message_requests">Berria: Mezuen eskaerak</string>
   <string name="MessageRequestsMegaphone__add_name">Gehitu izena</string>
   <string name="MessageRequestsMegaphone__you_can_now_choose_whether_to_accept">Orain aukeratu dezakezu solasaldi berri bat onartu nahi duzun ala ez. \"Onartu\", \"Ezabatu\" edo \"Blokeatu\" aukerak ikusiko dituzu.</string>
+  <!--HelpFragment-->
+  <string name="HelpFragment__help">Laguntza</string>
+  <string name="HelpFragment__next">Hurrengoa</string>
+  <string name="HelpFragment__whats_this">Zer da hau?</string>
+  <string name="HelpFragment__device_info">Gailuaren informazioa:</string>
+  <string name="HelpFragment__android_version">Android bertsioa:</string>
+  <string name="HelpFragment__signal_version">Signal bertsioa:</string>
+  <string name="HelpFragment__no_email_app_found">Ez da e-posta aplikaziorik aurkitu.</string>
   <!--arrays.xml-->
   <string name="arrays__import_export">Inportatu</string>
   <string name="arrays__use_default">Erabili lehenetsia</string>
@@ -1290,6 +1274,7 @@ Inportatu \'SMSBackup and Restorekin\' bateragarria den enkriptatu gabeko babesk
   <string name="preferences__fast">Arina</string>
   <string name="preferences__normal">Normala</string>
   <string name="preferences__slow">Motela</string>
+  <string name="preferences__help">Laguntza</string>
   <string name="preferences__advanced">Aurreratua</string>
   <string name="preferences__privacy">Pribatutasuna</string>
   <string name="preferences__mms_user_agent">MMS erabiltzaile-agentea</string>
@@ -1584,18 +1569,18 @@ Inportatu \'SMSBackup and Restorekin\' bateragarria den enkriptatu gabeko babesk
   <string name="KbsMegaphone__create_a_pin">PIN bat sortu</string>
   <string name="KbsMegaphone__pins_add_another_layer_of_security_to_your_signal_account">PINek beste segurtasun geruza bat gehitzen diote zure Signal kontuari.</string>
   <string name="KbsMegaphone__create_pin">PINa sortu</string>
-  <string name="KbsMegaphone__introducing_pins">PIN-ak sartzen</string>
+  <string name="KbsMegaphone__introducing_pins">PINak sartzen</string>
   <string name="KbsMegaphone__your_registration_lock_is_now_called_a_pin">Zure Errejistratze-blokeoa orain PIN deitzen da. Eguneratzeko segunduak behar dira bakarrik.</string>
-  <string name="KbsMegaphone__update_pin">Eguneratu PIN-a</string>
+  <string name="KbsMegaphone__update_pin">Eguneratu PINa</string>
   <string name="KbsMegaphone__well_remind_you_later_creating_a_pin">Beranduago gogoraraziko dizugu. PIN bat sortzea beharrezkoa izango da %1$d eguneta.</string>
   <string name="KbsMegaphone__well_remind_you_later_confirming_your_pin">Beranduago gogoraraziko dizugu. Zure PINa baieztatzea derrigorrezkoa izango da %1$d egunetan.</string>
   <!--Profile Names Megaphone-->
   <string name="ProfileNamesMegaphone__add_a_profile_name">Gehitu profil izen bat</string>
   <string name="ProfileNamesMegaphone__this_will_be_displayed_when_you_start">Hau erakutsiko da solasaldi berri bat hasterakoan edo partekatzerakoan.</string>
-  <string name="ProfileNamesMegaphone__add_profile_name">Gehitu Profil Izena</string>
-  <string name="ProfileNamesMegaphone__confirm_your_profile_name">Baieztatu zure Profil Izena</string>
+  <string name="ProfileNamesMegaphone__add_profile_name">Gehitu profil izena</string>
+  <string name="ProfileNamesMegaphone__confirm_your_profile_name">Baieztatu zure profil izena</string>
   <string name="ProfileNamesMegaphone__your_profile_can_now_include">Zure profilak orain aukerazko abizen bat eduki dezake.</string>
-  <string name="ProfileNamesMegaphone__confirm_name">Baieztatu Izena</string>
+  <string name="ProfileNamesMegaphone__confirm_name">Baieztatu izena</string>
   <!--transport_selection_list_item-->
   <string name="transport_selection_list_item__transport_icon">Garraio ikonoa</string>
   <string name="ConversationListFragment_loading">Kargatzen…</string>
@@ -1609,8 +1594,6 @@ Inportatu \'SMSBackup and Restorekin\' bateragarria den enkriptatu gabeko babesk
   <string name="SQLCipherMigrationHelper_migrating_signal_database">Signal-en datu-basea migratzen</string>
   <string name="PushDecryptJob_new_locked_message">Blokeatutako mezu berria</string>
   <string name="PushDecryptJob_unlock_to_view_pending_messages">Desblokeatu begiratu gabeko mezuak ikusteko</string>
-  <string name="ExperienceUpgradeActivity_unlock_to_complete_update">Desblokeatu eguneratzea burutzeko</string>
-  <string name="ExperienceUpgradeActivity_please_unlock_signal_to_complete_update">Desblokeatu Signal eguneratzea burutzeko</string>
   <string name="enter_backup_passphrase_dialog__backup_passphrase">Babeskopiaren pasaesaldia</string>
   <string name="backup_enable_dialog__backups_will_be_saved_to_external_storage_and_encrypted_with_the_passphrase_below_you_must_have_this_passphrase_in_order_to_restore_a_backup">Babeskopiak kanpoko memoria batean gordeko dira beheko pasaesaldiarekin enkriptatuta. Pasaesaldi hau eduki behar duzu babeskopia bat berreskuratzeko.</string>
   <string name="backup_enable_dialog__i_have_written_down_this_passphrase">Pasaesaldia gorde dut. Hori gabe, ezin izango dut babeskopia bat berreskuratu.</string>
@@ -1663,7 +1646,7 @@ Inportatu \'SMSBackup and Restorekin\' bateragarria den enkriptatu gabeko babesk
   <string name="preferences_app_protection__pin">PIN</string>
   <string name="preferences_app_protection__change">Aldatu</string>
   <string name="preferences_app_protection__create">Sortu</string>
-  <string name="preferences_app_protection__your_pin_adds_an_extra_layer_of_security_to_your_account">Zure PINak beste segurtasun geruza bat gehitzen dio zure kontuari. Eskatuko zaizu zure telefono zenbakia Signael errejistratzerakoan. Zure PINa ahaztuz gero, zure kontua 7 egunez blokeatuta egongo da.</string>
+  <string name="preferences_app_protection__your_pin_adds_an_extra_layer_of_security_to_your_account">Zure PINak beste segurtasun geruza bat gehitzen dio zure kontuari. Hau zure telefono zenbakia Signal-en erregistratzen duzunean eskatuko zaizu. PINa ahaztuz gero, zure kontua 7 egunez blokeatuta egongo da.</string>
   <string name="AppProtectionPreferenceFragment_none">Bat ere ez</string>
   <string name="registration_activity__the_registration_lock_pin_is_not_the_same_as_the_sms_verification_code_you_just_received_please_enter_the_pin_you_previously_configured_in_the_application">Erregistratzea blokeatzeko PINa ez da jaso berri duzun SMS bidezko egiaztapen-kodearen berdina. Sartu aurrez aplikazioan konfiguratu duzun PINa.</string>
   <string name="registration_activity__registration_lock_pin">Erregistratzea blokeatzeko PINa</string>

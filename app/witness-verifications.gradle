@@ -6,6 +6,9 @@ dependencyVerification {
         ['androidx.activity:activity:1.0.0',
          'd1bc9842455c2e534415d88c44df4d52413b478db9093a1ba36324f705f44c3d'],
 
+        ['androidx.annotation:annotation-experimental:1.0.0-rc01',
+         '2f113195f61ecd08ea46cef545f0ea338898391d95425cf4c8836ba2b701f5d6'],
+
         ['androidx.annotation:annotation:1.1.0',
          'd38d63edb30f1467818d50aaf05f8a692dea8b31392a049bfa991b159ad5b692'],
 
@@ -24,11 +27,14 @@ dependencyVerification {
         ['androidx.asynclayoutinflater:asynclayoutinflater:1.0.0',
          'f7eab60c57addd94bb06275832fe7600611beaaae1a1ec597c231956faf96c8b'],
 
-        ['androidx.camera:camera-camera2:1.0.0-alpha06',
-         'e50f20deb950ffebcd4d1de5408ef7a5404bec80ec77119e05663c890739b903'],
+        ['androidx.camera:camera-camera2:1.0.0-beta01',
+         '02e15ad76153d09adcd6631627960707a8786333a8276d05dcbefc2bfe4ef5a1'],
 
-        ['androidx.camera:camera-core:1.0.0-alpha06',
-         '0096cabe539d9b4288f406acfb44264b137ebd600e38e33504ff425c979016c9'],
+        ['androidx.camera:camera-core:1.0.0-beta01',
+         'acba5f196b3bd3ecf756067c9f4fae4f15b81228c2bd6b52212d9454e27599f0'],
+
+        ['androidx.camera:camera-lifecycle:1.0.0-beta01',
+         '25c761a863555d5e008e428cf271caca774c867bf269495dc32a0fdc65770fd5'],
 
         ['androidx.cardview:cardview:1.0.0',
          '1193c04c22a3d6b5946dae9f4e8c59d6adde6a71b6bd5d87fb99d82dda1afec7'],
@@ -36,8 +42,8 @@ dependencyVerification {
         ['androidx.collection:collection:1.1.0',
          '632a0e5407461de774409352940e292a291037724207a787820c77daf7d33b72'],
 
-        ['androidx.concurrent:concurrent-futures:1.0.0-alpha03',
-         '50812a53912255e3e0f2147d13bbbb81937c3726fda2e984e77a27c7207d96a1'],
+        ['androidx.concurrent:concurrent-futures:1.0.0',
+         '5595a40e278a7b39fa78a09490e3d7f3faa95c7b01447148bd38b5ade0605c35'],
 
         ['androidx.constraintlayout:constraintlayout-solver:1.1.3',
          '965c177e64fbd81bd1d27b402b66ef9d7bc7b5cb5f718044bf7a453abc542045'],
@@ -204,17 +210,17 @@ dependencyVerification {
         ['com.fasterxml.jackson.core:jackson-databind:2.9.9.2',
          'fb262d42ea2de98044b62d393950a5aa050435fec38bbcadf2325cf7dc41b848'],
 
-        ['com.github.bumptech.glide:annotations:4.9.0',
-         '702a7521cb3f6d7e55edd66e90bda1a1975baf971d25f75b75638579f86bc69b'],
+        ['com.github.bumptech.glide:annotations:4.11.0',
+         'd219d238006d824962176229d4708abcdddcfe342c6a18a5d0fa48d6f0479b3e'],
 
-        ['com.github.bumptech.glide:disklrucache:4.9.0',
-         '4696a81340eb6beee21ab93f703ed6e7ae49fb4ce3bc2fbc546e5bacd21b96b9'],
+        ['com.github.bumptech.glide:disklrucache:4.11.0',
+         'd06775a5171b777aa3db031eb0dd4a1dbe3f00dda35b5574dfd953f6b0d5ef18'],
 
-        ['com.github.bumptech.glide:gifdecoder:4.9.0',
-         '7ee9402ae1c48fac9232b67e81f881c217b907b3252e49ce57bdb97937ebb270'],
+        ['com.github.bumptech.glide:gifdecoder:4.11.0',
+         '197a1cd5b76855aa02b230c13974e293229b901dc2b96fab4315201e78baa804'],
 
-        ['com.github.bumptech.glide:glide:4.9.0',
-         '1bf482442fce81aa9065a5e97e721039d921cc45f727a987be5f1a69f844d955'],
+        ['com.github.bumptech.glide:glide:4.11.0',
+         '5c294e6a5f0f812cef876b8412954c1822da184af38e082a5b766e3c4f4fcd95'],
 
         ['com.github.chrisbanes:PhotoView:2.1.3',
          'ed06775308da260e1fd86d1d3288988fcd3d80db24ce0d7c9fcfedc39e622292'],
@@ -312,17 +318,14 @@ dependencyVerification {
         ['com.pnikosis:materialish-progress:1.5',
          'd71d80e00717a096784482aee21001a9d299fec3833e4ebd87739ed36cf77c54'],
 
-        ['com.squareup.okhttp3:okhttp:3.12.1',
-         '07c3d82ca7eaf4722f00b2da807dc7860f6169ae60cfedcf5d40218f90880a46'],
+        ['com.squareup.okhttp3:okhttp:3.12.10',
+         '3cb8e21cd3ab10d390448f5a475c960732efab583a09c39f06f866a7ed819ebc'],
 
         ['com.squareup.okio:okio:1.17.4',
          'd78fac588458fc099e6c82e91fe5f0375c67434626451a3a77772c65d9eee85b'],
 
         ['com.takisoft.fix:colorpicker:0.9.1',
          'f5d0dbabe406a1800498ca9c1faf34db36e021d8488bf10360f29961fe3ab0d1'],
-
-        ['com.theartofdev.edmodo:android-image-cropper:2.8.0',
-         '5516ea87672e478b3d0ed5c274a7df27d22c02e66f899388f9b8bee93669e176'],
 
         ['com.tomergoldst.android:tooltips:1.0.6',
          '4c56697dd1ad64b8066535c61f961a6d901e7ae5d97ae27084ba40ad620349b6'],
@@ -357,11 +360,17 @@ dependencyVerification {
         ['org.signal:android-database-sqlcipher:3.5.9-S3',
          '33d4063336893af00b9d68b418e7b290cace74c20ce8aacffddc0911010d3d73'],
 
-        ['org.signal:ringrtc-android:1.0.2',
-         '8a39a9231415eae754c2d0cb7aeaee9f6425ba7625a79190e29d4518149023cb'],
+        ['org.signal:ringrtc-android:1.2.0',
+         '9ed01d209774d12c6e466a55a944a9e1f7d5d0718eaedf0d562124331cc8f6d4'],
 
         ['org.signal:signal-metadata-java:0.1.0',
          'f3faa23b7d9b5096d12979c35679d1e3b5e007522d8bef167a28e456f2a7c7d9'],
+
+        ['org.signal:zkgroup-android:0.4.1',
+         '52049e207531ef50160873ad4a44682ce2bfb7706e5e4179035d9632eb9d5eac'],
+
+        ['org.signal:zkgroup-java:0.4.1',
+         '12ea7e18c58aaefdbb8eccb748deff4f7c8fbd950eeb9c426dc894de50a83b77'],
 
         ['org.threeten:threetenbp:1.3.6',
          'f4c23ffaaed717c3b99c003e0ee02d6d66377fd47d866fec7d971bd8644fc1a7'],

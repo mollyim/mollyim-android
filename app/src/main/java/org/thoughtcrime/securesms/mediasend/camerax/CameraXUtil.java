@@ -1,5 +1,6 @@
 package org.thoughtcrime.securesms.mediasend.camerax;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -13,24 +14,28 @@ import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraManager;
 import android.hardware.camera2.CameraMetadata;
 import android.os.Build;
+import android.util.Pair;
 import android.util.Rational;
 import android.util.Size;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.camera.camera2.impl.compat.CameraManagerCompat;
-import androidx.camera.core.CameraX;
+import androidx.camera.camera2.internal.compat.CameraManagerCompat;
+import androidx.camera.core.CameraSelector;
 import androidx.camera.core.ImageCapture;
 import androidx.camera.core.ImageProxy;
 
 import org.thoughtcrime.securesms.logging.Log;
-import org.thoughtcrime.securesms.mediasend.LegacyCameraModels;
+import org.thoughtcrime.securesms.util.BitmapDecodingException;
+import org.thoughtcrime.securesms.util.BitmapUtil;
 import org.thoughtcrime.securesms.util.Stopwatch;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.util.Locale;
 
 public class CameraXUtil {
 
@@ -56,13 +61,32 @@ public class CameraXUtil {
 
   @SuppressWarnings("SuspiciousNameCombination")
   @RequiresApi(21)
-  public static ImageResult toJpeg(@NonNull ImageProxy image, int rotation, boolean flip) throws IOException {
+  public static ImageResult toJpeg(@NonNull ImageProxy image, boolean flip) throws IOException {
     ImageProxy.PlaneProxy[] planes   = image.getPlanes();
     ByteBuffer              buffer   = planes[0].getBuffer();
     Rect                    cropRect = shouldCropImage(image) ? image.getCropRect() : null;
     byte[]                  data     = new byte[buffer.capacity()];
+    int                     rotation = image.getImageInfo().getRotationDegrees();
 
     buffer.get(data);
+
+    try {
+      Pair<Integer, Integer> dimens = BitmapUtil.getDimensions(new ByteArrayInputStream(data));
+
+      if (dimens.first != image.getWidth() && dimens.second != image.getHeight()) {
+        Log.w(TAG, String.format(Locale.ENGLISH, "Decoded image dimensions differed from stated dimensions! Stated: %d x %d, Decoded: %d x %d",
+                                                  image.getWidth(), image.getHeight(), dimens.first, dimens.second));
+        Log.w(TAG, "Ignoring the stated rotation and rotating the crop rect 90 degrees (stated rotation is " + rotation + " degrees).");
+
+        rotation = 0;
+
+        if (cropRect != null) {
+          cropRect = new Rect(cropRect.top, cropRect.left, cropRect.bottom, cropRect.right);
+        }
+      }
+    } catch (BitmapDecodingException e) {
+      Log.w(TAG, "Failed to decode!", e);
+    }
 
     if (cropRect != null || rotation != 0 || flip) {
       data = transformByteArray(data, cropRect, rotation, flip);
@@ -82,28 +106,28 @@ public class CameraXUtil {
   }
 
   public static boolean isSupported() {
-    return Build.VERSION.SDK_INT >= 21 && !LegacyCameraModels.isLegacyCameraModel();
+    return Build.VERSION.SDK_INT >= 21 && !CameraXModelBlacklist.isBlacklisted();
   }
 
-  public static int toCameraDirectionInt(@Nullable CameraX.LensFacing facing) {
-    if (facing == CameraX.LensFacing.FRONT) {
+  public static int toCameraDirectionInt(int facing) {
+    if (facing == CameraSelector.LENS_FACING_FRONT) {
       return Camera.CameraInfo.CAMERA_FACING_FRONT;
     } else {
       return Camera.CameraInfo.CAMERA_FACING_BACK;
     }
   }
 
-  public static @NonNull CameraX.LensFacing toLensFacing(int cameraDirectionInt) {
+  public static int toLensFacing(@CameraSelector.LensFacing int cameraDirectionInt) {
     if (cameraDirectionInt == Camera.CameraInfo.CAMERA_FACING_FRONT) {
-      return CameraX.LensFacing.FRONT;
+      return CameraSelector.LENS_FACING_FRONT;
     } else {
-      return CameraX.LensFacing.BACK;
+      return CameraSelector.LENS_FACING_BACK;
     }
   }
 
-  public static @NonNull ImageCapture.CaptureMode getOptimalCaptureMode() {
-    return FastCameraModels.contains(Build.MODEL) ? ImageCapture.CaptureMode.MAX_QUALITY
-                                                  : ImageCapture.CaptureMode.MIN_LATENCY;
+  public static @NonNull @ImageCapture.CaptureMode int getOptimalCaptureMode() {
+    return FastCameraModels.contains(Build.MODEL) ? ImageCapture.CAPTURE_MODE_MAXIMIZE_QUALITY
+                                                  : ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY;
   }
 
   public static int getIdealResolution(int displayWidth, int displayHeight) {
@@ -185,7 +209,7 @@ public class CameraXUtil {
 
   @RequiresApi(21)
   public static int getLowestSupportedHardwareLevel(@NonNull Context context) {
-    CameraManager cameraManager = CameraManagerCompat.from(context).unwrap();
+    @SuppressLint("RestrictedApi") CameraManager cameraManager = CameraManagerCompat.from(context).unwrap();
 
     try {
       int supported = maxHardwareLevel();

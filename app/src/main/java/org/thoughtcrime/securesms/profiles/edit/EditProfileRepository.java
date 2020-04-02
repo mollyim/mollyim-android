@@ -20,6 +20,7 @@ import org.thoughtcrime.securesms.profiles.ProfileName;
 import org.thoughtcrime.securesms.profiles.SystemProfileUtil;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
+import org.thoughtcrime.securesms.util.Base64;
 import org.thoughtcrime.securesms.util.ProfileUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.Util;
@@ -29,6 +30,7 @@ import org.thoughtcrime.securesms.util.concurrent.SimpleTask;
 import org.whispersystems.libsignal.util.guava.Optional;
 import org.whispersystems.signalservice.api.profiles.SignalServiceProfile;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.security.SecureRandom;
 import java.util.Arrays;
@@ -47,7 +49,7 @@ class EditProfileRepository {
   }
 
   void getCurrentProfileName(@NonNull Consumer<ProfileName> profileNameConsumer) {
-    ProfileName storedProfileName = TextSecurePreferences.getProfileName(context);
+    ProfileName storedProfileName = Recipient.self().getProfileName();
     if (!storedProfileName.isEmpty()) {
       profileNameConsumer.accept(storedProfileName);
     } else if (!excludeSystem) {
@@ -75,10 +77,10 @@ class EditProfileRepository {
   void getCurrentAvatar(@NonNull Consumer<byte[]> avatarConsumer) {
     RecipientId selfId = Recipient.self().getId();
 
-    if (AvatarHelper.getAvatarFile(context, selfId).exists() && AvatarHelper.getAvatarFile(context, selfId).length() > 0) {
+    if (AvatarHelper.hasAvatar(context, selfId)) {
       SimpleTask.run(() -> {
         try {
-          return Util.readFully(AvatarHelper.getInputStreamFor(context, selfId));
+          return Util.readFully(AvatarHelper.getAvatar(context, selfId));
         } catch (IOException e) {
           Log.w(TAG, e);
           return null;
@@ -102,12 +104,10 @@ class EditProfileRepository {
 
   void uploadProfile(@NonNull ProfileName profileName, @Nullable byte[] avatar, @NonNull Consumer<UploadResult> uploadResultConsumer) {
     SimpleTask.run(() -> {
-      TextSecurePreferences.setProfileName(context, profileName);
       DatabaseFactory.getRecipientDatabase(context).setProfileName(Recipient.self().getId(), profileName);
 
       try {
-        AvatarHelper.setAvatar(context, Recipient.self().getId(), avatar);
-        TextSecurePreferences.setProfileAvatarId(context, new SecureRandom().nextInt());
+        AvatarHelper.setAvatar(context, Recipient.self().getId(), avatar != null ? new ByteArrayInputStream(avatar) : null);
       } catch (IOException e) {
         return UploadResult.ERROR_FILE_IO;
       }

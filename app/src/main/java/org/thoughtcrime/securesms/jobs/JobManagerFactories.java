@@ -20,6 +20,8 @@ import org.thoughtcrime.securesms.jobmanager.migrations.RecipientIdFollowUpJobMi
 import org.thoughtcrime.securesms.jobmanager.migrations.RecipientIdFollowUpJobMigration2;
 import org.thoughtcrime.securesms.jobmanager.migrations.RecipientIdJobMigration;
 import org.thoughtcrime.securesms.jobmanager.migrations.SendReadReceiptsJobMigration;
+import org.thoughtcrime.securesms.migrations.AvatarIdRemovalMigrationJob;
+import org.thoughtcrime.securesms.migrations.PassingMigrationJob;
 import org.thoughtcrime.securesms.migrations.DatabaseMigrationJob;
 import org.thoughtcrime.securesms.migrations.MigrationCompleteJob;
 import org.thoughtcrime.securesms.migrations.RegistrationPinV2MigrationJob;
@@ -76,6 +78,7 @@ public final class JobManagerFactories {
       put(RefreshPreKeysJob.KEY,                     new RefreshPreKeysJob.Factory());
       put(RemoteConfigRefreshJob.KEY,                new RemoteConfigRefreshJob.Factory());
       put(RequestGroupInfoJob.KEY,                   new RequestGroupInfoJob.Factory());
+      put(StorageAccountRestoreJob.KEY,              new StorageAccountRestoreJob.Factory());
       put(RetrieveProfileAvatarJob.KEY,              new RetrieveProfileAvatarJob.Factory());
       put(RetrieveProfileJob.KEY,                    new RetrieveProfileJob.Factory());
       put(RotateCertificateJob.KEY,                  new RotateCertificateJob.Factory());
@@ -95,6 +98,7 @@ public final class JobManagerFactories {
       put(ProfileUploadJob.KEY,                      new ProfileUploadJob.Factory());
 
       // Migrations
+      put(AvatarIdRemovalMigrationJob.KEY,           new AvatarIdRemovalMigrationJob.Factory());
       put(DatabaseMigrationJob.KEY,                  new DatabaseMigrationJob.Factory());
       put(MigrationCompleteJob.KEY,                  new MigrationCompleteJob.Factory());
       put(RegistrationPinV2MigrationJob.KEY,         new RegistrationPinV2MigrationJob.Factory());
@@ -103,10 +107,14 @@ public final class JobManagerFactories {
       put(StorageServiceMigrationJob.KEY,            new StorageServiceMigrationJob.Factory());
 
       // Dead jobs
+      put(FailingJob.KEY,                            new FailingJob.Factory());
+      put(PassingMigrationJob.KEY,                   new PassingMigrationJob.Factory());
       put("PushContentReceiveJob",                   new FailingJob.Factory());
       put("AttachmentUploadJob",                     new FailingJob.Factory());
       put("MmsSendJob",                              new FailingJob.Factory());
       put("RefreshUnidentifiedDeliveryAbilityJob",   new FailingJob.Factory());
+      put("Argon2TestJob",                           new FailingJob.Factory());
+      put("Argon2TestMigrationJob",                  new PassingMigrationJob.Factory());
     }};
   }
 
