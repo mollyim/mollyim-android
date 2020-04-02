@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/signal_primary">
+    android:background="@color/core_ultramarine">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -42,7 +43,7 @@
                 android:layout_width="120dp"
                 android:layout_height="70dp"
                 android:layout_gravity="center"
-                android:tint="@color/signal_primary"
+                android:tint="@color/core_ultramarine"
                 app:srcCompat="@drawable/ic_lock" />
         </FrameLayout>
 
@@ -79,7 +80,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="8dp"
             android:text="@string/create_passphrase_activity__turn_on_database_encryption"
-            android:textColor="@color/signal_primary"
+            android:textColor="@color/core_ultramarine"
             app:backgroundTint="@color/core_white" />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -90,7 +91,7 @@
             android:layout_marginTop="8dp"
             android:text="@string/RatingManager_no_thanks"
             android:textColor="@color/transparent_white_80"
-            app:backgroundTint="@color/signal_primary_dark" />
+            app:backgroundTint="@color/core_ultramarine_dark" />
 
     </LinearLayout>
 </ScrollView>

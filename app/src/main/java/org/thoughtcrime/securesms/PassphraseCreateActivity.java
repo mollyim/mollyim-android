@@ -44,7 +44,7 @@ public class PassphraseCreateActivity extends PassphraseActivity {
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setStatusBarColor(getResources().getColor(R.color.signal_primary_dark));
+    setStatusBarColor(getResources().getColor(R.color.core_ultramarine));
     setTheme(R.style.TextSecure_LightIntroTheme);
 
     setContentView(R.layout.create_passphrase_activity);

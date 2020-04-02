@@ -181,7 +181,7 @@ public class WipeMemoryService extends IntentService {
                     .setContentTitle(this.getString(R.string.WipeMemoryService_secure_wipe_in_progress))
                     .setContentText(this.getString(R.string.WipeMemoryService_molly_is_clearing_secrets))
                     .setStyle(new NotificationCompat.BigTextStyle().bigText(this.getString(R.string.WipeMemoryService_molly_is_clearing_secrets)))
-                    .setSmallIcon(R.drawable.icon_notification)
+                    .setSmallIcon(R.drawable.ic_notification)
                     .setContentIntent(pendingIntent)
                     .setPriority(Notification.PRIORITY_MIN)
                     .build();
