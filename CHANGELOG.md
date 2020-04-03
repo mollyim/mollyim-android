@@ -10,7 +10,7 @@ All notable changes to Signal will be documented in this file.
 - Fixed: for any bug fixes.
 - Merged: for code merged from upstream. -->
 
-## [v4.58.4-1]
+## [v4.58.5-1]
 
 ### Changed
 
@@ -26,7 +26,7 @@ All notable changes to Signal will be documented in this file.
 
 ### Merged
 
-- Signal v4.58.4
+- Signal v4.58.5
 
 ## [v4.56.4-1]
 
@@ -91,8 +91,8 @@ All notable changes to Signal will be documented in this file.
 
 - Signal v4.55.8
 
-[Unreleased]: https://github.com/mollyim/mollyim-android/compare/v4.58.4-1...HEAD
-[v4.58.4-1]: https://github.com/mollyim/mollyim-android/compare/v4.56.4-1...v4.58.4-1
+[Unreleased]: https://github.com/mollyim/mollyim-android/compare/v4.58.5-1...HEAD
+[v4.58.5-1]: https://github.com/mollyim/mollyim-android/compare/v4.56.4-1...v4.58.5-1
 [v4.56.4-1]: https://github.com/mollyim/mollyim-android/compare/v4.55.8-2...v4.56.4-1
 [v4.55.8-2]: https://github.com/mollyim/mollyim-android/compare/v4.55.8-1...v4.55.8-2
 [v4.55.8-1]: https://github.com/mollyim/mollyim-android/compare/v4.55.8...v4.55.8-1
