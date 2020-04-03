@@ -10,7 +10,7 @@ All notable changes to Signal will be documented in this file.
 - Fixed: for any bug fixes.
 - Merged: for code merged from upstream. -->
 
-## [Unreleased]
+## [v4.58.4-1]
 
 ### Changed
 
@@ -22,7 +22,7 @@ All notable changes to Signal will be documented in this file.
 
 ### Fixed
 
-- Incoming calls reset the inactivity timer.
+- Incoming calls reset the inactivity timer. ([dd8014e])
 
 ### Merged
 
@@ -91,10 +91,12 @@ All notable changes to Signal will be documented in this file.
 
 - Signal v4.55.8
 
-[Unreleased]: https://github.com/mollyim/mollyim-android/compare/v4.56.4-1...HEAD
+[Unreleased]: https://github.com/mollyim/mollyim-android/compare/v4.58.4-1...HEAD
+[v4.58.4-1]: https://github.com/mollyim/mollyim-android/compare/v4.56.4-1...v4.58.4-1
 [v4.56.4-1]: https://github.com/mollyim/mollyim-android/compare/v4.55.8-2...v4.56.4-1
 [v4.55.8-2]: https://github.com/mollyim/mollyim-android/compare/v4.55.8-1...v4.55.8-2
 [v4.55.8-1]: https://github.com/mollyim/mollyim-android/compare/v4.55.8...v4.55.8-1
 [#5]: https://github.com/mollyim/mollyim-android/pull/5
+[dd8014e]: https://github.com/mollyim/mollyim-android/commit/dd8014e7495fc94265058f81f99c4fc6d1447402
 [9019a2e]: https://github.com/mollyim/mollyim-android/commit/9019a2e931779b06a241768836ce11031bd043de
 [7e0954d]: https://github.com/mollyim/mollyim-android/commit/7e0954d967c4210ae002bc0bbec83717a0ad8607

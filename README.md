@@ -16,7 +16,7 @@ Molly is updated every two weeks to include the latest Signal changes and bug fi
 Molly has unique features compared to Signal:
 
 - Protects database with [passphrase encryption](https://github.com/mollyim/mollyim-android/wiki/Data-Encryption-At-Rest)
-- Locks down the app automatically after a set time of inactivity
+- Locks down the app automatically after you go a certain time without unlocking your device
 - Securely wipes sensitive data from RAM
 - Disables logging debug messages
 
