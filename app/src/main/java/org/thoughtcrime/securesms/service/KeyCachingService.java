@@ -21,17 +21,17 @@ import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Binder;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.SystemClock;
-import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
-import org.thoughtcrime.securesms.ApplicationContext;
 import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.MainActivity;
 import org.thoughtcrime.securesms.logging.Log;
@@ -69,6 +69,8 @@ public class KeyCachingService extends Service {
 
   private final IBinder binder  = new KeySetBinder();
 
+  private boolean pendingAlarm;
+
   private static MasterSecret masterSecret;
 
   private static volatile boolean locking;
@@ -99,14 +101,6 @@ public class KeyCachingService extends Service {
     locking = false;
   }
 
-  public static void onAppForegrounded(@NonNull Context context) {
-    ServiceUtil.getAlarmManager(context).cancel(buildExpirationPendingIntent(context));
-  }
-
-  public static void onAppBackgrounded(@NonNull Context context) {
-    startTimeoutIfAppropriate(context);
-  }
-
   @Override
   public int onStartCommand(Intent intent, int flags, int startId) {
     if (intent == null) return START_NOT_STICKY;
@@ -127,14 +121,16 @@ public class KeyCachingService extends Service {
 
   @Override
   public void onCreate() {
-    Log.i(TAG, "onCreate()");
     super.onCreate();
+    Log.d(TAG, "onCreate");
+    registerScreenReceiver();
   }
 
   @Override
   public void onDestroy() {
     super.onDestroy();
     Log.w(TAG, "KCS Is Being Destroyed!");
+    unregisterScreenReceiver();
     if (locking) clearMasterSecret();
   }
 
@@ -151,10 +147,13 @@ public class KeyCachingService extends Service {
 
   @SuppressLint("StaticFieldLeak")
   public void handleCacheKey() {
-    Log.i(TAG, "handleCacheKey()");
+    Log.i(TAG, "handleCacheKey");
 
     foregroundService();
-    startTimeoutIfAppropriate(this);
+
+    if (ServiceUtil.getKeyguardManager(this).isKeyguardLocked()) {
+      startTimeoutIfAppropriate();
+    }
 
     new AsyncTask<Void, Void, Void>() {
       @Override
@@ -169,7 +168,9 @@ public class KeyCachingService extends Service {
 
   @SuppressLint("StaticFieldLeak")
   private void handleClearKey() {
-    Log.i(TAG, "handleClearKey()");
+    Log.i(TAG, "handleClearKey");
+
+    pendingAlarm = false;
 
     if (ApplicationMigrations.isUpdate(this)) {
       Log.w(TAG, "Cannot clear key during update.");
@@ -194,30 +195,43 @@ public class KeyCachingService extends Service {
     foregroundService();
   }
 
-  private static void startTimeoutIfAppropriate(@NonNull Context context) {
-    if (!ApplicationContext.getInstance(context).isAppVisible()
-        && !KeyCachingService.isLocked()
-        && TextSecurePreferences.isPassphraseLockEnabled(context)
-        && TextSecurePreferences.getPassphraseLockTrigger(context).isTimeoutEnabled()) {
-      long lockTimeoutSeconds = TextSecurePreferences.getPassphraseLockTimeout(context);
-      if (lockTimeoutSeconds > 0) {
-        scheduleTimeout(context, lockTimeoutSeconds, buildExpirationPendingIntent(context));
-      }
+  private void startTimeoutIfAppropriate() {
+    long lockTimeoutSeconds = 0;
+    if (!KeyCachingService.isLocked()
+        && TextSecurePreferences.isPassphraseLockEnabled(this)
+        && TextSecurePreferences.getPassphraseLockTrigger(this).isTimeoutEnabled()) {
+      lockTimeoutSeconds = TextSecurePreferences.getPassphraseLockTimeout(this);
+    }
+    if (lockTimeoutSeconds > 0) {
+      scheduleTimeout(lockTimeoutSeconds);
+    } else {
+      cancelTimeout();
     }
   }
 
-  private static void scheduleTimeout(@NonNull Context context, long timeoutSeconds, PendingIntent operation) {
+  private void scheduleTimeout(long timeoutSeconds) {
+    if (pendingAlarm) return;
+
     Log.i(TAG, "Starting timeout: " + timeoutSeconds + " s.");
 
     long at = SystemClock.elapsedRealtime() + TimeUnit.SECONDS.toMillis(timeoutSeconds);
 
-    AlarmManager alarmManager = ServiceUtil.getAlarmManager(context);
-    alarmManager.cancel(operation);
+    AlarmManager alarmManager = ServiceUtil.getAlarmManager(this);
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-      alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, at, operation);
+      alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, at, buildExpirationIntent());
     } else {
-      alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, at, operation);
+      alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, at, buildExpirationIntent());
     }
+
+    pendingAlarm = true;
+  }
+
+  private void cancelTimeout() {
+    AlarmManager alarmManager = ServiceUtil.getAlarmManager(this);
+    alarmManager.cancel(buildExpirationIntent());
+    pendingAlarm = false;
+
+    Log.i(TAG, "Timeout canceled");
   }
 
   private void foregroundService() {
@@ -260,14 +274,15 @@ public class KeyCachingService extends Service {
 
   private PendingIntent buildLaunchIntent() {
     // TODO [greyson] Navigation
-    Intent intent              = new Intent(this, MainActivity.class);
+    Intent intent = new Intent(this, MainActivity.class);
     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     return PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
   }
 
-  private static PendingIntent buildExpirationPendingIntent(@NonNull Context context) {
-    Intent expirationIntent = new Intent(PASSPHRASE_EXPIRED_EVENT, null, context, KeyCachingService.class);
-    return PendingIntent.getService(context, 0, expirationIntent, 0);
+  private PendingIntent buildExpirationIntent() {
+    Intent intent = new Intent(this, KeyCachingService.class);
+    intent.setAction(PASSPHRASE_EXPIRED_EVENT);
+    return PendingIntent.getService(getApplicationContext(), 0, intent, 0);
   }
 
   @Override
@@ -280,4 +295,25 @@ public class KeyCachingService extends Service {
       return KeyCachingService.this;
     }
   }
+
+  private void registerScreenReceiver() {
+    IntentFilter filter = new IntentFilter();
+    filter.addAction(Intent.ACTION_SCREEN_OFF);
+    filter.addAction(Intent.ACTION_USER_PRESENT);
+
+    registerReceiver(screenReceiver, filter);
+  }
+
+  private void unregisterScreenReceiver() {
+    unregisterReceiver(screenReceiver);
+  }
+
+  private BroadcastReceiver screenReceiver = new BroadcastReceiver() {
+    public void onReceive(Context context, Intent intent) {
+      String action = intent.getAction();
+      Log.d(TAG, "onReceive, " + action);
+           if (Intent.ACTION_SCREEN_OFF  .equals(action)) startTimeoutIfAppropriate();
+      else if (Intent.ACTION_USER_PRESENT.equals(action)) cancelTimeout();
+    }
+  };
 }

@@ -12,9 +12,17 @@ All notable changes to Signal will be documented in this file.
 
 ## [Unreleased]
 
+### Changed
+
+- Auto-lock is not trigger due to app inactivity anymore, but the last time the device screen was unlocked.
+
 ### Removed
 
 - Flipper build type.
+
+### Fixed
+
+- Incoming calls reset the inactivity timer.
 
 ### Merged
 

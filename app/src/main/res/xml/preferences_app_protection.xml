@@ -15,7 +15,7 @@
                     android:dependency="pref_passphrase_lock"/>
 
         <MultiSelectListPreference
-                android:title="Automatic lockdown"
+                android:title="@string/preferences__automatic_lockdown"
                 android:key="pref_passphrase_lock_trigger"
                 android:defaultValue="@array/pref_passphrase_lock_trigger_default"
                 android:persistent="true"

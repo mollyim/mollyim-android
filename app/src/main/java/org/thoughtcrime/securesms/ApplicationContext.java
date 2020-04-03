@@ -69,6 +69,7 @@ import org.thoughtcrime.securesms.service.ExpiringMessageManager;
 import org.thoughtcrime.securesms.service.IncomingMessageObserver;
 import org.thoughtcrime.securesms.service.KeyCachingService;
 import org.thoughtcrime.securesms.service.LocalBackupListener;
+import org.thoughtcrime.securesms.service.WebRtcCallService;
 import org.thoughtcrime.securesms.service.WipeMemoryService;
 import org.thoughtcrime.securesms.service.RotateSenderCertificateListener;
 import org.thoughtcrime.securesms.service.RotateSignedPreKeyListener;
@@ -180,6 +181,8 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
   public void onLock() {
     Log.i(TAG, "onLock()");
 
+    stopService(new Intent(this, WebRtcCallService.class));
+
     finalizeRevealableMessageManager();
     finalizeExpiringMessageManager();
     finalizeMessageRetrieval();
@@ -196,7 +199,6 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
   public void onStart(@NonNull LifecycleOwner owner) {
     isAppVisible = true;
     Log.i(TAG, "App is now visible.");
-    KeyCachingService.onAppForegrounded(this);
     if (!KeyCachingService.isLocked()) {
       onStartUnlock();
     }
@@ -214,7 +216,6 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
   public void onStop(@NonNull LifecycleOwner owner) {
     isAppVisible = false;
     Log.i(TAG, "App is no longer visible.");
-    KeyCachingService.onAppBackgrounded(this);
     if (!KeyCachingService.isLocked()) {
       onStopUnlock();
     }

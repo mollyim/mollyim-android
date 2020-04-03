@@ -145,7 +145,7 @@ public class AppProtectionPreferenceFragment extends CorrectedPreferenceFragment
     }
 
     return outValues.isEmpty() ? getResources().getString(R.string.preferences__none)
-            : TextUtils.join(", ", outValues);
+            : TextUtils.join(". ", outValues);
   }
 
   private class PassphraseLockListener implements Preference.OnPreferenceChangeListener {
