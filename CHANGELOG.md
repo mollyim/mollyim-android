@@ -14,7 +14,7 @@ All notable changes to Signal will be documented in this file.
 
 ### Changed
 
-- Auto-lock is not trigger due to app inactivity anymore, but the last time the device screen was unlocked.
+- Auto-lock is not triggered due to app inactivity anymore, but if you go a certain time without unlocking your phone.
 
 ### Removed
 
