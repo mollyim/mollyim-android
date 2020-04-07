@@ -1,5 +1,7 @@
 package org.thoughtcrime.securesms.crypto;
 
+import android.os.SystemClock;
+
 import org.signal.argon2.Argon2;
 import org.signal.argon2.Argon2Exception;
 import org.signal.argon2.MemoryCost;
@@ -63,7 +65,7 @@ public class Argon2Benchmark {
     iterations = minIterations;
     memory     = minMemory;
 
-    Log.d(TAG, "Running benchmark: target time = " + targetTimeMillis + " ms");
+    Log.d(TAG, "Running benchmark: target = " + targetTimeMillis + " ms, maxMemory = " + maxMemory + " bytes");
 
     // 1. Find some small parameters, s. t. ms >= BENCH_MIN_MS:
     while (true) {
@@ -103,12 +105,15 @@ public class Argon2Benchmark {
     // 2. Use the params obtained in (1.) to estimate the target params.
     // 3. Then repeatedly measure the candidate params and if they fall out of
     // the acceptance range (+-5 %), try to improve the estimate:
-    while (nextParameters(targetTimeMillis)) {
+    boolean stop;
+    do {
+      stop = nextParameters(targetTimeMillis);
       ms = measure(BENCH_SAMPLES_SLOW, atLeast);
-      if (ms >= atLeast && ms <= atMost) {
+      if (stop) {
+        Log.d(TAG, "Optimal hash parameters exhausted");
         break;
       }
-    }
+    } while (ms < atLeast || ms > atMost);
 
     Log.d(TAG, "Memory cost = " + memory + " bytes, iterations = " + iterations + " (took " + ms + " ms)");
   }
@@ -119,37 +124,37 @@ public class Argon2Benchmark {
 
     if (ms > targetTime) {
       // Decreasing, first try to lower t_cost, then m_cost
-      int val = (int) (iterations * targetTime / ms);
-      if (val < minIterations) {
+      int t = (int) (iterations * targetTime / ms);
+      if (t < minIterations) {
         memory = (iterations * memory * targetTime) / (minIterations * ms);
         iterations = minIterations;
         if (memory < minMemory) {
           memory = minMemory;
-          return false;
+          return true;
         }
       } else {
-        iterations = val;
+        iterations = t;
       }
     } else {
       // Increasing, first try to increase m_cost, then t_cost
-      long val = memory * targetTime / ms;
-      if (val > maxMemory) {
+      long m = memory * targetTime / ms;
+      if (m > maxMemory) {
         iterations = (int) ((iterations * memory * targetTime) / (maxMemory * ms));
         memory = maxMemory;
         if (iterations <= minIterations) {
           iterations = minIterations;
-          return false;
+          return true;
         }
-      } else if (val < minMemory){
+      } else if (m < minMemory){
         memory = minMemory;
-        return false;
+        return true;
       } else {
-        memory = val;
+        memory = m;
       }
     }
 
     // Do not continue if it is the same as in the previous run
-    return !(prevIterations == iterations && prevMemory == memory);
+    return prevIterations == iterations && prevMemory == memory;
   }
 
   private long measure(int samples, long atLeastMillis) throws Argon2Exception {
@@ -167,11 +172,11 @@ public class Argon2Benchmark {
     long minTime = Long.MAX_VALUE;
 
     for (int i = 0; i < samples; i++) {
-      long startTime = System.currentTimeMillis();
+      long startTime = SystemClock.elapsedRealtime();
 
       argon2.hash(password, salt);
 
-      long elapsedTime = System.currentTimeMillis() - startTime;
+      long elapsedTime = SystemClock.elapsedRealtime() - startTime;
 
       if (elapsedTime < atLeastMillis) {
         minTime = elapsedTime;

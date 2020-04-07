@@ -10,6 +10,12 @@ All notable changes to Signal will be documented in this file.
 - Fixed: for any bug fixes.
 - Merged: for code merged from upstream. -->
 
+## [Unreleased]
+
+### Fixed
+
+- Passphrase circular progressbar is not always accurate.
+
 ## [v4.58.5-1]
 
 ### Changed
