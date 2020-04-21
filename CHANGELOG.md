@@ -12,6 +12,10 @@ All notable changes to Signal will be documented in this file.
 
 ## [Unreleased]
 
+### Changed
+
+- OLED friendly dark theme.
+
 ### Fixed
 
 - Passphrase circular progressbar is not always accurate.

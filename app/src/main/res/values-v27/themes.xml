@@ -9,7 +9,7 @@
     </style>
 
     <style name="TextSecure.DarkTheme" parent="TextSecure.BaseDarkTheme">
-        <item name="android:statusBarColor">@color/core_grey_95</item>
+        <item name="android:statusBarColor">@color/core_black</item>
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:navigationBarColor">@color/core_black</item>
         <item name="android:windowLightNavigationBar">false</item>
@@ -24,8 +24,8 @@
 
     <style name="TextSecure.DarkRegistrationTheme" parent="TextSecure.DarkNoActionBar">
         <item name="android:windowLightStatusBar">false</item>
-        <item name="android:statusBarColor">@color/core_grey_95</item>
-        <item name="android:navigationBarColor">@color/core_grey_95</item>
+        <item name="android:statusBarColor">@color/core_black</item>
+        <item name="android:navigationBarColor">@color/core_black</item>
         <item name="android:windowLightNavigationBar">false</item>
     </style>
 
@@ -37,9 +37,9 @@
     </style>
 
     <style name="TextSecure.DarkNoActionBar" parent="TextSecure.BaseDarkNoActionBar">
-        <item name="android:statusBarColor">@color/core_grey_95</item>
+        <item name="android:statusBarColor">@color/core_black</item>
         <item name="android:windowLightStatusBar">false</item>
-        <item name="android:navigationBarColor">@color/core_grey_95</item>
+        <item name="android:navigationBarColor">@color/core_black</item>
         <item name="android:windowLightNavigationBar">false</item>
     </style>
 
