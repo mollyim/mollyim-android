@@ -23,7 +23,7 @@
                 android:entryValues="@array/pref_passphrase_lock_trigger_entries"
                 android:dependency="pref_passphrase_lock"/>
 
-        <Preference android:title="@string/preferences__device_unlock_timeout"
+        <Preference android:title="@string/preferences__device_lock_timeout"
                     android:key="pref_passphrase_lock_timeout"
                     android:dependency="pref_passphrase_lock"/>
 

@@ -196,13 +196,10 @@ public class KeyCachingService extends Service {
   }
 
   private void startTimeoutIfAppropriate() {
-    long lockTimeoutSeconds = 0;
     if (!KeyCachingService.isLocked()
         && TextSecurePreferences.isPassphraseLockEnabled(this)
         && TextSecurePreferences.getPassphraseLockTrigger(this).isTimeoutEnabled()) {
-      lockTimeoutSeconds = TextSecurePreferences.getPassphraseLockTimeout(this);
-    }
-    if (lockTimeoutSeconds > 0) {
+      long lockTimeoutSeconds = TextSecurePreferences.getPassphraseLockTimeout(this);
       scheduleTimeout(lockTimeoutSeconds);
     } else {
       cancelTimeout();

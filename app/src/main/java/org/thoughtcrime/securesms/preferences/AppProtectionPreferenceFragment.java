@@ -121,7 +121,7 @@ public class AppProtectionPreferenceFragment extends CorrectedPreferenceFragment
   }
 
   private String getLockTimeoutSummary(long timeoutSeconds) {
-    if (timeoutSeconds <= 0) return getString(R.string.AppProtectionPreferenceFragment_none);
+    if (timeoutSeconds <= 0) return getString(R.string.AppProtectionPreferenceFragment_instant);
 
     long hours   = TimeUnit.SECONDS.toHours(timeoutSeconds);
     long minutes = TimeUnit.SECONDS.toMinutes(timeoutSeconds) - (TimeUnit.SECONDS.toHours(timeoutSeconds) * 60  );
@@ -171,13 +171,8 @@ public class AppProtectionPreferenceFragment extends CorrectedPreferenceFragment
     @Override
     public boolean onPreferenceClick(Preference preference) {
       new TimeDurationPickerDialog(requireContext(), (view, duration) -> {
-        long timeoutSeconds = 0;
-
-        if (duration > 0) {
-          timeoutSeconds = Math.max(TimeUnit.MILLISECONDS.toSeconds(duration), 5);
-        }
-
-        TextSecurePreferences.setPassphraseLockTimeout(getContext(), timeoutSeconds);
+        long timeoutSeconds = TimeUnit.MILLISECONDS.toSeconds(duration);
+        TextSecurePreferences.setPassphraseLockTimeout(requireContext(), timeoutSeconds);
         preference.setSummary(getLockTimeoutSummary(timeoutSeconds));
       }, 0).show();
 
