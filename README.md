@@ -20,13 +20,13 @@ Molly has unique features compared to Signal:
 - Securely wipes sensitive data from RAM
 - Disables logging debug messages
 
-Besides that, you will find all the features of Signal on Molly with the sole exception of the SMS/MMS integration.
+Besides that, you will find all the features of Signal on Molly with the only exception of the SMS/MMS integration, plus some minor tweaks and improvements.
 
 ## Compatibility with Signal
 
 Molly and Signal can be installed on the same device.
 
-However, you cannot use your phone number on both apps at the same time. Only the last app to register will remain active, and the other will go offline. To overcome this, remember that you are not limited to use only your SIM card number, but also any number on you can receive SMS or phone calls at registration.
+However, you cannot use your phone number on both apps at the same time. Only the last app to register will remain active, and the other will go offline. To get over this, remember that you are not limited to use only your SIM card number, but also any number on you can receive SMS or phone calls at registration.
 
 ## Feedback
 
