@@ -71,6 +71,7 @@ public class SQLCipherOpenHelper extends SQLiteOpenHelper {
   @SuppressWarnings("unused")
   private static final String TAG = SQLCipherOpenHelper.class.getSimpleName();
 
+  private static final int REACTIONS_UNREAD_INDEX           = 39;
   private static final int RESUMABLE_DOWNLOADS              = 40;
   private static final int KEY_VALUE_STORE                  = 41;
   private static final int ATTACHMENT_DISPLAY_ORDER         = 42;
@@ -155,6 +156,9 @@ public class SQLCipherOpenHelper extends SQLiteOpenHelper {
     db.beginTransaction();
 
     try {
+      if (oldVersion < REACTIONS_UNREAD_INDEX) {
+        throw new AssertionError("Unsupported Signal database: version is too old");
+      }
 
       if (oldVersion < RESUMABLE_DOWNLOADS) {
         db.execSQL("ALTER TABLE part ADD COLUMN transfer_file TEXT DEFAULT NULL");
