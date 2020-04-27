@@ -7,9 +7,17 @@
 
 ## Introduction
 
-Back in 2018, Signal allowed the user to set a passphrase to secure the local message database. But this option was removed with the introduction of full-disk encryption on Android. Molly bring it back again with some additional security features.
+Back in 2018, Signal allowed the user to set a passphrase to secure the local message database. But this option was removed with the introduction of full-disk encryption on Android. Molly bring it back again with additional security features.
 
-Molly is updated every two weeks to include the latest Signal changes and bug fixes. You can download it from GitHub's [Releases](https://github.com/mollyim/mollyim-android/releases/latest) page.
+Molly is updated every two weeks to include the latest Signal changes and bug fixes.
+
+## Download
+
+You can download the app from GitHub's [Releases](https://github.com/mollyim/mollyim-android/releases/latest) page or install it from F-Droid.
+
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+    alt="Get it on F-Droid"
+    height="80">](https://molly.im/fdroid/)
 
 ## Features
 
