@@ -41,7 +41,7 @@ Please read the [Reproducible Builds](https://github.com/mollyim/mollyim-android
 
 ## Changelog
 
-See the [CHANGELOG](CHANGELOG.md) to view recent changes.
+See the [Changelog](https://github.com/mollyim/mollyim-android/wiki/Changelog) to view recent changes.
 
 ## License
 
