@@ -27,7 +27,7 @@
   </plurals>
   <string name="ApplicationPreferencesActivity_delete">Dzēst</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">Atspējot paroli?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Šī opcija permanenti atslēgs Signal aplikāciju un paziņojumus par jaunām ziņām.</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Šī opcija permanenti atslēgs Molly aplikāciju un paziņojumus par jaunām ziņām.</string>
   <string name="ApplicationPreferencesActivity_disable">Atspējot</string>
   <string name="ApplicationPreferencesActivity_unregistering">Atreģistrēties</string>
   <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Atreģistrējos no Molly ziņām un zvaniem…</string>
@@ -64,14 +64,14 @@
   <string name="AttachmentKeyboard_file">Fails</string>
   <string name="AttachmentKeyboard_contact">Kontakts</string>
   <string name="AttachmentKeyboard_location">Atrašanās vieta</string>
-  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Signal ir nepieciešama atļauja rādīt jūsu fotoattēlus un videoklipus.</string>
+  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Molly ir nepieciešama atļauja rādīt jūsu fotoattēlus un videoklipus.</string>
   <string name="AttachmentKeyboard_give_access">Piešķirt piekļuvi</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">Nevar atrast aplikāciju, ar kuru iespējams izvēlēties pievienojamo multimediju failu.</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Lai pievienoto fotogrāfijas, videoierakstus un audioierakstus, Signal nepieciešama atļauja pieejai pie Glabātuves, bet tā ir liegta. Dodieties uz lietotnes iestatījumu izvēlni, izvēlieties \"Atļaujas\" un iespējojiet opciju \"Glabātuve\".</string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Signal nepieciešama atļauja pieejai pie Kontaktiem, bet tā ir liegta. Dodieties uz lietotnes iestatījumiem, izvēlieties \"Atļaujas\" un iespējojiet \"Kontakti\".</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Signal nepieciešama atļauja pieejai pie atrašanās vietas pakalpojumiem, bet tā ir liegta. Dodieties uz lietotnes iestatījumiem, izvēlieties \"Atļaujas\" un iespējojiet \"Atrašanās vieta\".</string>
-  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">Lai uzņemtu fotogrāfijas, Signal nepieciešama atļauja pieejai pie kameras, bet tā ir liegta. Dodieties uz lietotnes iestatījumiem, izvēlieties \"Atļaujas\" un ieslēdziet \"Kamera\".</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Lai pievienoto fotogrāfijas, videoierakstus un audioierakstus, Molly nepieciešama atļauja pieejai pie Glabātuves, bet tā ir liegta. Dodieties uz lietotnes iestatījumu izvēlni, izvēlieties \"Atļaujas\" un iespējojiet opciju \"Glabātuve\".</string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly nepieciešama atļauja pieejai pie Kontaktiem, bet tā ir liegta. Dodieties uz lietotnes iestatījumiem, izvēlieties \"Atļaujas\" un iespējojiet \"Kontakti\".</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly nepieciešama atļauja pieejai pie atrašanās vietas pakalpojumiem, bet tā ir liegta. Dodieties uz lietotnes iestatījumiem, izvēlieties \"Atļaujas\" un iespējojiet \"Atrašanās vieta\".</string>
+  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">Lai uzņemtu fotogrāfijas, Molly nepieciešama atļauja pieejai pie kameras, bet tā ir liegta. Dodieties uz lietotnes iestatījumiem, izvēlieties \"Atļaujas\" un ieslēdziet \"Kamera\".</string>
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">Notiek multimediju faila augšupielāde…</string>
   <string name="AttachmentUploadJob_compressing_video_start">Notiek video saspiešana…</string>
@@ -191,16 +191,16 @@
   <string name="ConversationActivity_quick_camera_unavailable">Kamera nav pieejama</string>
   <string name="ConversationActivity_unable_to_record_audio">Neizdodas ierakstīt audio!</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">Jūsu ierīcē nav uzstādītas lietotnes, kas ļautu atvērt šo saiti.</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Lai nosūtītu audio ziņu, ļaujiet Signal piekļūt ierīces mikrofonam.</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Lai nosūtītu audio ziņas, Signal nepieciešama atļauja pieejai mikrofonam, bet tā ir liegta. Dodieties uz lietotnes iestatījumiem, izvēlieties \"Atļaujas\" un iespējojiet \"Mikrofons\".</string>
-  <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">Lai zvanītu %s, Signal nepieciešama pieeja ierīces mikrofonam un kamerai.</string>
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Lai zvanītu %s, Signal nepieciešama atļauja piekļuvei mikrofonam un kamerai, bet tā ir liegta. Dodieties uz lietotnes iestatījumiem, izvēlieties \"Atļaujas\" un iespējojiet \"Mikrofons\" un \"Kamera\".</string>
-  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Lai uzņemtu fotogrāfijas un video, ļaujiet Signal piekļūt kamerai.</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Lai uzņemtu fotogrāfijas vai video, Signal nepieciešama atļauja piekļūt kamerai, bet tā ir liegta. Dodieties uz lietotnes iestatījumiem, izvēlieties \"Atļaujas\" un iespējojiet \"Kamera\".</string>
-  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Lai uzņemtu fotogrāfijas vai video, Signal nepieciešama atļauja piekļūt kamerai</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Lai nosūtītu audio ziņu, ļaujiet Molly piekļūt ierīces mikrofonam.</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Lai nosūtītu audio ziņas, Molly nepieciešama atļauja pieejai mikrofonam, bet tā ir liegta. Dodieties uz lietotnes iestatījumiem, izvēlieties \"Atļaujas\" un iespējojiet \"Mikrofons\".</string>
+  <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">Lai zvanītu %s, Molly nepieciešama pieeja ierīces mikrofonam un kamerai.</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Lai zvanītu %s, Molly nepieciešama atļauja piekļuvei mikrofonam un kamerai, bet tā ir liegta. Dodieties uz lietotnes iestatījumiem, izvēlieties \"Atļaujas\" un iespējojiet \"Mikrofons\" un \"Kamera\".</string>
+  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Lai uzņemtu fotogrāfijas un video, ļaujiet Molly piekļūt kamerai.</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Lai uzņemtu fotogrāfijas vai video, Molly nepieciešama atļauja piekļūt kamerai, bet tā ir liegta. Dodieties uz lietotnes iestatījumiem, izvēlieties \"Atļaujas\" un iespējojiet \"Kamera\".</string>
+  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Lai uzņemtu fotogrāfijas vai video, Molly nepieciešama atļauja piekļūt kamerai</string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Dodiet mikrofona atļauju, lai video tiktu uzņemts ar skaņu.</string>
-  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signal ir vajadzīgas mikrofona atļaujas video ierakstīšanai, taču tās tika liegtas. Lūdzu, dodieties uz lietotnes iestatījumiem, izvēlieties “Atļaujas” un iespējojiet “Mikrofons” un “Kamera”.</string>
-  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signal nepieciešamas mikrofona atļaujas, lai ierakstītu video.</string>
+  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Molly ir vajadzīgas mikrofona atļaujas video ierakstīšanai, taču tās tika liegtas. Lūdzu, dodieties uz lietotnes iestatījumiem, izvēlieties “Atļaujas” un iespējojiet “Mikrofons” un “Kamera”.</string>
+  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Molly nepieciešamas mikrofona atļaujas, lai ierakstītu video.</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">Signal nevar sūtīt SMS/MMS ziņas, jo tas nav iestatīts kā Jūsu noklusējuma SMS lietotne. Vai vēlaties to izdarīt Android iestatījumos?</string>
   <string name="ConversationActivity_yes">Jā</string>
@@ -357,7 +357,7 @@
   <string name="DocumentView_unnamed_file">Bezvārda fails</string>
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">Optimizē iztrūkstošajiem proprietārajiem Google Play Services</string>
-  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Par laimi šajā ierīcē nav Google Play Services. Pieskaries, lai atspējotu sistēmas baterijas optimizāciju, kas traucē Signal saņemt ziņas, kamēr tas ir neaktīvs (darbojas fonā).</string>
+  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Par laimi šajā ierīcē nav Google Play Services. Pieskaries, lai atspējotu sistēmas baterijas optimizāciju, kas traucē Molly saņemt ziņas, kamēr tas ir neaktīvs (darbojas fonā).</string>
   <!--ShareActivity-->
   <string name="ShareActivity_share_with">Dalīties ar</string>
   <string name="ShareActivity_multiple_attachments_are_only_supported">Vairāku pielikumu sūtīšana ir atbalstīta tikai attēliem un video</string>
@@ -511,8 +511,8 @@
   <string name="MediaSendActivity_message_to_s">Ziņa %s</string>
   <string name="MediaSendActivity_message">Sūtīt/ziņa</string>
   <string name="MediaSendActivity_select_recipients">Izvēlēties adresātus</string>
-  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Signal ir nepieciešama piekļuve Jūsu kontaktiem, lai tos parādītu.</string>
-  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Signal ir nepieciešama piekļuve kontaktiem, lai parādītu Jūsu kontaktpersonas, bet tā ir neatgriezeniski noraidīta.  Lūdzu, dodieties uz aplikāciju iestatījumiem, izvēlieties \"Atļaujas\" un iespējojiet \"Kontakti\"</string>
+  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Molly ir nepieciešama piekļuve Jūsu kontaktiem, lai tos parādītu.</string>
+  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Molly ir nepieciešama piekļuve kontaktiem, lai parādītu Jūsu kontaktpersonas, bet tā ir neatgriezeniski noraidīta.  Lūdzu, dodieties uz aplikāciju iestatījumiem, izvēlieties \"Atļaujas\" un iespējojiet \"Kontakti\"</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="zero">Jūs Nevariet dalīties ar vairāk kā %d elementus.</item>
     <item quantity="one">Jūs Nevariet dalīties ar vairāk %d elementu.</item>
@@ -588,7 +588,7 @@
   <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">Piedodiet, bet šis nav derīgs ierīces QR kods.</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">Piesaistīt Signal ierīci?</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Izskatās, ka Jūs mēģināt piesaistīt Signal ierīci, izmantojot svešas aplikācijas skeneri. Jūsu drošībai, lūdzu, skenējiet kodu vēlreiz, izmantojot Signal.</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Signal ir nepieciešama piekļuve kamerai, lai skenētu QR kodu, bet tai nav dotas šādas atļaujas. Dodieties uz lietotnes iestatījumiem, izvēlieties \"Atļaujas\" un iespējojiet \"Kamera\". </string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly ir nepieciešama piekļuve kamerai, lai skenētu QR kodu, bet tai nav dotas šādas atļaujas. Dodieties uz lietotnes iestatījumiem, izvēlieties \"Atļaujas\" un iespējojiet \"Kamera\". </string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Nav iespējams skenēt QR kodu bez kameras lietošanas atļaujas</string>
   <!--ExpirationDialog-->
   <string name="ExpirationDialog_disappearing_messages">Gaistošās ziņas</string>
@@ -669,7 +669,7 @@ tālruņa numurs
   <string name="RegistrationActivity_no_browser">Nevar atvērt saiti. Netika atrasts tīmekļa pārlūks. </string>
   <string name="RegistrationActivity_more_information">Vairāk informācijas</string>
   <string name="RegistrationActivity_less_information">Mazāk informācijas</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Signal ir nepieciešama piekļuve Jūsu kontaktpersonām un multividei, lai sazinātos ar draugiem, apmainītos ar ziņām un veiktu drošus zvanus</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly ir nepieciešama piekļuve Jūsu kontaktpersonām un multividei, lai sazinātos ar draugiem, apmainītos ar ziņām un veiktu drošus zvanus</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">Nevar izveidot savienojumu ar pakalpojumu. Lūdzu, pārbaudiet tīkla savienojumu un mēģiniet vēlreiz.</string>
   <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">Lai varētu viegli verificēt tālruņa numuru, Signal var automātiski nolasīt Jūsu verifikācijas kodu, ja ļaujiet Signal lasīt SMS.</string>
   <plurals name="RegistrationActivity_debug_log_hint">
@@ -824,7 +824,7 @@ Saņemts nederīgas protokola versijas atslēgas apmaiņas ziņojums.
   <string name="VerifyIdentityActivity_our_signal_safety_number">Mūsu Signal drošības numurs:</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">Izskatās, ka Tev nav nevienas aplikācijas, caur kurām dalīties.</string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">Starpenē netika atrasts drošības kods</string>
-  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Signal ir nepieciešama piekļuve kamerai, lai skenētu QR kodu, bet tā nav dota. Dodieties uz lietotnes iestatījumiem, izvēlieties \"Atļaujas\" un iespējojiet \"Kamera\". </string>
+  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Molly ir nepieciešama piekļuve kamerai, lai skenētu QR kodu, bet tā nav dota. Dodieties uz lietotnes iestatījumiem, izvēlieties \"Atļaujas\" un iespējojiet \"Kamera\". </string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">Nebija iespējams noskenēt QR kodu bez kameras lietošanas atļaujas</string>
   <!--ViewOnceMessageActivity-->
   <!--MessageDisplayHelper-->
@@ -845,13 +845,13 @@ Saņemts nederīgas protokola versijas atslēgas apmaiņas ziņojums.
   <!--KeyCachingService-->
   <string name="KeyCachingService_signal_passphrase_cached">Pieskarieties, lai atvērtu.</string>
   <string name="KeyCachingService_signal_passphrase_cached_with_lock">Pieskarieties, lai atvērtu, vai pieskarieties slēdzenei, lai aizvērtu.</string>
-  <string name="KeyCachingService_passphrase_cached">Signal ir atslēgts</string>
+  <string name="KeyCachingService_passphrase_cached">Molly ir atslēgts</string>
   <string name="KeyCachingService_lock">Noslēgt Molly</string>
   <!--MediaPreviewActivity-->
   <string name="MediaPreviewActivity_you">Jūs</string>
   <string name="MediaPreviewActivity_unssuported_media_type">Neatbalstīts multimediju faila tips</string>
   <string name="MediaPreviewActivity_draft">Melnraksts</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Signal ir nepieciešama pieeja glabātuvei, lai saglabātu ārējā glabātuvē, bet pieeja nav dota. Dodieties uz lietotņu iestatījumiem, izvēlieties \"Atļaujas\" un iespējojiet \"Krātuve\".</string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Molly ir nepieciešama pieeja glabātuvei, lai saglabātu ārējā glabātuvē, bet pieeja nav dota. Dodieties uz lietotņu iestatījumiem, izvēlieties \"Atļaujas\" un iespējojiet \"Krātuve\".</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">Nav iespējams saglabāt ārējā glabātuvē bez atļaujas.</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">Izdzēst ziņu?</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">Šis neatgriezeniski izdzēsīs ziņu.</string>

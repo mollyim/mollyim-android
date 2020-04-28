@@ -62,10 +62,10 @@
   <string name="AttachmentKeyboard_location">స్థానం</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">మీడియా ఎంచుకోవడానికి అనువర్తనం దొరకదు.</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">చిత్రాలు , వీడియోలు లేదా ఆడియోను అటాచ్ చేయడానికి Signal కు నిల్వ అనుమతి అవసరం, కానీ ఇది శాశ్వతంగా తిరస్కరించబడింది. దయచేసి అనువర్తనం సెట్టింగ్ల మెనుకు కొనసాగండి, \"అనుమతులు\" ఎంచుకోండి మరియు \"నిల్వ\" ను ప్రారంభించండి.</string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">సంప్రదింపు సమాచారాన్ని అటాచ్ చేయడానికి Signal కాంటాక్ట్స్ అనుమతి అవసరం, కానీ అది శాశ్వతంగా తిరస్కరించబడింది. దయచేసి అనువర్తన సెట్టింగ్ల మెనుకి కొనసాగండి, \"అనుమతులు\" ఎంచుకోండి మరియు \"పరిచయాలు\" ప్రారంభించండి.</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">ఒక స్థానాన్ని అటాచ్ చేయడానికి Signalకి నగర అనుమతి అవసరం, కానీ ఇది శాశ్వతంగా తిరస్కరించబడింది. దయచేసి అనువర్తనం సెట్టింగ్ల మెనుకి కొనసాగండి, \"అనుమతులు\" ఎంచుకోండి మరియు \"స్థానం\" ని ప్రారంభించండి.</string>
-  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">చిత్రాలను తీయడానికి Signal కు కెమెరా అనుమతి అవసరం, కానీ ఇది శాశ్వతంగా తిరస్కరించబడింది. దయచేసి అనువర్తనం సెట్టింగ్ల మెనుకి కొనసాగండి, \"అనుమతులు\" ఎంచుకోండి మరియు \"కెమెరా\" ని ప్రారంభించండి.</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">చిత్రాలు , వీడియోలు లేదా ఆడియోను అటాచ్ చేయడానికి Molly కు నిల్వ అనుమతి అవసరం, కానీ ఇది శాశ్వతంగా తిరస్కరించబడింది. దయచేసి అనువర్తనం సెట్టింగ్ల మెనుకు కొనసాగండి, \"అనుమతులు\" ఎంచుకోండి మరియు \"నిల్వ\" ను ప్రారంభించండి.</string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">సంప్రదింపు సమాచారాన్ని అటాచ్ చేయడానికి Molly కాంటాక్ట్స్ అనుమతి అవసరం, కానీ అది శాశ్వతంగా తిరస్కరించబడింది. దయచేసి అనువర్తన సెట్టింగ్ల మెనుకి కొనసాగండి, \"అనుమతులు\" ఎంచుకోండి మరియు \"పరిచయాలు\" ప్రారంభించండి.</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">ఒక స్థానాన్ని అటాచ్ చేయడానికి Mollyకి నగర అనుమతి అవసరం, కానీ ఇది శాశ్వతంగా తిరస్కరించబడింది. దయచేసి అనువర్తనం సెట్టింగ్ల మెనుకి కొనసాగండి, \"అనుమతులు\" ఎంచుకోండి మరియు \"స్థానం\" ని ప్రారంభించండి.</string>
+  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">చిత్రాలను తీయడానికి Molly కు కెమెరా అనుమతి అవసరం, కానీ ఇది శాశ్వతంగా తిరస్కరించబడింది. దయచేసి అనువర్తనం సెట్టింగ్ల మెనుకి కొనసాగండి, \"అనుమతులు\" ఎంచుకోండి మరియు \"కెమెరా\" ని ప్రారంభించండి.</string>
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">మీడియాను అప్‌లోడ్ చేస్తోంది …</string>
   <string name="AttachmentUploadJob_compressing_video_start">వీడియోను కుదించడం …</string>
@@ -183,16 +183,16 @@
   <string name="ConversationActivity_quick_camera_unavailable">కెమెరా అందుబాటులో లేదు </string>
   <string name="ConversationActivity_unable_to_record_audio">ఆడియో రికార్డ్ చేయడం సాధ్యపడలేదు!</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">మీ పరికరం ఈ లింక్ నిర్వహించడానికి ఎలాంటి అనువర్తనం లేదు.</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">ఆడియో సందేశాలను పంపడానికి, మీ మైక్రోఫోన్కు Signal ప్రాప్తిని అనుమతించండి.</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">ఆడియో సందేశాలను పంపడానికి Signalకు మైక్రోఫోన్ అనుమతి అవసరం, కానీ ఇది శాశ్వతంగా తిరస్కరించబడింది. దయచేసి అనువర్తనం సెట్టింగ్లకు కొనసాగించండి, \"అనుమతులు\" ఎంచుకోండి మరియు \"మైక్రోఫోన్\" ని ప్రారంభించండి.</string>
-  <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">1%s కాల్ చేయడానికి, మీ మైక్రోఫోన్ మరియు కెమెరాకి Signalకి ప్రాప్యత అవసరం.</string>
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Signal కాల్ చేయడానికి మైక్రోఫోన్ మరియు కెమెరా అనుమతులు అవసరం %s,కానీ వారు శాశ్వతంగా తిరస్కరించబడ్డారు. దయచేసి అనువర్తనం సెట్టింగ్లకు కొనసాగించండి, \"అనుమతులు\" ఎంచుకోండి మరియు \"మైక్రోఫోన్\" మరియు \"కెమెరా\" ని ప్రారంభించండి.</string>
-  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">చిత్రాలు మరియు వీడియోలను సంగ్రహించడానికి, కెమెరాకి Signal ప్రాప్తిని అనుమతించండి.</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">చిత్రాలను లేదా వీడియోను తీసుకోవడానికి Signal కు కెమెరా అనుమతి అవసరం, కానీ ఇది శాశ్వతంగా తిరస్కరించబడింది. దయచేసి అనువర్తనం సెట్టింగ్లకు కొనసాగించండి, \"అనుమతులు\" ఎంచుకోండి మరియు \"కెమెరా\" ని ప్రారంభించండి.</string>
-  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">ఛాయాచిత్రాలను లేదా వీడియోను తీసుకోవడానికి కెమెరా అనుమతులను Signalకి అవసరం</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">ఆడియో సందేశాలను పంపడానికి, మీ మైక్రోఫోన్కు Molly ప్రాప్తిని అనుమతించండి.</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">ఆడియో సందేశాలను పంపడానికి Mollyకు మైక్రోఫోన్ అనుమతి అవసరం, కానీ ఇది శాశ్వతంగా తిరస్కరించబడింది. దయచేసి అనువర్తనం సెట్టింగ్లకు కొనసాగించండి, \"అనుమతులు\" ఎంచుకోండి మరియు \"మైక్రోఫోన్\" ని ప్రారంభించండి.</string>
+  <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">1%s కాల్ చేయడానికి, మీ మైక్రోఫోన్ మరియు కెమెరాకి Mollyకి ప్రాప్యత అవసరం.</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly కాల్ చేయడానికి మైక్రోఫోన్ మరియు కెమెరా అనుమతులు అవసరం %s,కానీ వారు శాశ్వతంగా తిరస్కరించబడ్డారు. దయచేసి అనువర్తనం సెట్టింగ్లకు కొనసాగించండి, \"అనుమతులు\" ఎంచుకోండి మరియు \"మైక్రోఫోన్\" మరియు \"కెమెరా\" ని ప్రారంభించండి.</string>
+  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">చిత్రాలు మరియు వీడియోలను సంగ్రహించడానికి, కెమెరాకి Molly ప్రాప్తిని అనుమతించండి.</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">చిత్రాలను లేదా వీడియోను తీసుకోవడానికి Molly కు కెమెరా అనుమతి అవసరం, కానీ ఇది శాశ్వతంగా తిరస్కరించబడింది. దయచేసి అనువర్తనం సెట్టింగ్లకు కొనసాగించండి, \"అనుమతులు\" ఎంచుకోండి మరియు \"కెమెరా\" ని ప్రారంభించండి.</string>
+  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">ఛాయాచిత్రాలను లేదా వీడియోను తీసుకోవడానికి కెమెరా అనుమతులను Mollyకి అవసరం</string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">ధ్వనితో వీడియోలను సంగ్రహించడానికి మైక్రోఫోన్ అనుమతిని ప్రారంభించండి.</string>
-  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">వీడియోలను రికార్డ్ చేయడానికి Signal కు మైక్రోఫోన్ అనుమతులు అవసరం, కానీ అవి తిరస్కరించబడ్డాయి. దయచేసి అనువర్తన సెట్టింగ్‌లకు కొనసాగండి, \"అనుమతులు\" ఎంచుకోండి మరియు \"మైక్రోఫోన్\" మరియు \"కెమెరా\" ని ప్రారంభించండి.</string>
-  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">వీడియోలను రికార్డ్ చేయడానికి Signal కు మైక్రోఫోన్ అనుమతులు అవసరం.</string>
+  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">వీడియోలను రికార్డ్ చేయడానికి Molly కు మైక్రోఫోన్ అనుమతులు అవసరం, కానీ అవి తిరస్కరించబడ్డాయి. దయచేసి అనువర్తన సెట్టింగ్‌లకు కొనసాగండి, \"అనుమతులు\" ఎంచుకోండి మరియు \"మైక్రోఫోన్\" మరియు \"కెమెరా\" ని ప్రారంభించండి.</string>
+  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">వీడియోలను రికార్డ్ చేయడానికి Molly కు మైక్రోఫోన్ అనుమతులు అవసరం.</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">Signal SMS / MMS సందేశాలను పంపదు ఎందుకంటే ఇది మీ అప్రమేయ  SMS అనువర్తనం కాదు. మీరు దీన్ని మీ Android సెట్టింగ్‌లలో మార్చాలనుకుంటున్నారా?</string>
   <string name="ConversationActivity_yes">అవును</string>
@@ -468,8 +468,8 @@
   <string name="MediaSendActivity_message_to_s">%sకు సందేశం</string>
   <string name="MediaSendActivity_message">సందేశం</string>
   <string name="MediaSendActivity_select_recipients">గ్రహీతలను ఎంచుకోండి</string>
-  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">మీ పరిచయాలను Signal ప్రదర్శించడానికి పరిచయాలకు ప్రాప్యత అవసరం</string>
-  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">మీ పరిచయాలను చూపించడానికి Signal కు పరిచయాల అనుమతి అవసరం, కానీ ఇది శాశ్వతంగా తిరస్కరించబడింది. దయచేసి అనువర్తన అమరికలకు కొనసాగించండి, \"అనుమతులు\" ఎంచుకోండి మరియు \"పరిచయాలు\" ప్రారంభించండి.</string>
+  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">మీ పరిచయాలను Molly ప్రదర్శించడానికి పరిచయాలకు ప్రాప్యత అవసరం</string>
+  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">మీ పరిచయాలను చూపించడానికి Molly కు పరిచయాల అనుమతి అవసరం, కానీ ఇది శాశ్వతంగా తిరస్కరించబడింది. దయచేసి అనువర్తన అమరికలకు కొనసాగించండి, \"అనుమతులు\" ఎంచుకోండి మరియు \"పరిచయాలు\" ప్రారంభించండి.</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="one">మీరు %d అంశం కంటే ఎక్కువ భాగస్వామ్యం చేయలేరు.</item>
     <item quantity="other">మీరు %d అంశాల కంటే ఎక్కువ భాగస్వామ్యం చేయలేరు.</item>
@@ -533,7 +533,7 @@
   <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">క్షమించండి,ఇది ఒక చెల్లని అనుసంధానం చేసిన పరికరం యొక్క QR కోడ్.</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">ఒక Signal పరికరం లింక్ చేయాలా?</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">మీరు ఒక 3 వ పార్టీ స్కానర్ను ఉపయోగించి ఒక Signal పరికరం లింక్ ప్రయత్నిస్తున్నట్లుగా కనిపిస్తోంది. మీ రక్షణ కోసం, Signal లోపల నుండి మళ్ళీ కోడ్ స్కాన్ చెయ్యండి.</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">ఒక QR కోడ్ను స్కాన్ చేయడానికి Signalకు కెమెరా అనుమతి అవసరం, కానీ ఇది శాశ్వతంగా తిరస్కరించబడింది. దయచేసి అనువర్తనం సెట్టింగ్లకు కొనసాగించండి, \"అనుమతులు\" ఎంచుకోండి మరియు \"కెమెరా\" ని ప్రారంభించండి.</string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">ఒక QR కోడ్ను స్కాన్ చేయడానికి Mollyకు కెమెరా అనుమతి అవసరం, కానీ ఇది శాశ్వతంగా తిరస్కరించబడింది. దయచేసి అనువర్తనం సెట్టింగ్లకు కొనసాగించండి, \"అనుమతులు\" ఎంచుకోండి మరియు \"కెమెరా\" ని ప్రారంభించండి.</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">కెమెరా అనుమతి లేకుండా QR కోడ్ను స్కాన్ చేయడం సాధ్యపడలేదు</string>
   <!--ExpirationDialog-->
   <string name="ExpirationDialog_disappearing_messages">అదృశ్యమవుతున్న  సందేశాలు</string>
@@ -612,7 +612,7 @@
   <string name="RegistrationActivity_no_browser">ఈ లింక్ను తెరవడం సాధ్యం కాలేదు. వెబ్ బ్రౌజర్ కనుగొనబడలేదు.</string>
   <string name="RegistrationActivity_more_information">మరింత సమాచారం</string>
   <string name="RegistrationActivity_less_information">తక్కువ సమాచారం</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">స్నేహితులతో కనెక్ట్ అవ్వడానికి, సందేశాలు మార్పిడి చేసుకోవడానికి మరియు సురక్షితమైన కాల్లను చేయడానికి మీ పరిచయాలకు మరియు మీడియాకు Signal ప్రాప్తి అవసరం</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">స్నేహితులతో కనెక్ట్ అవ్వడానికి, సందేశాలు మార్పిడి చేసుకోవడానికి మరియు సురక్షితమైన కాల్లను చేయడానికి మీ పరిచయాలకు మరియు మీడియాకు Molly ప్రాప్తి అవసరం</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">కనెక్ట్ చేయడం సాధ్యం కాలేదు. దయచేసి నెట్వర్క్ కనెక్షన్ను తనిఖీ చేసి మళ్ళీ ప్రయత్నించండి.</string>
   <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">మీ ఫోన్ నంబర్ను సులభంగా ధృవీకరించడానికి, SMS సందేశాలను వీక్షించడానికి Signal మీరు అనుమతించినట్లయితే Signal మీ ధృవీకరణ కోడ్ను స్వయంచాలకంగా గుర్తించవచ్చు.</string>
   <plurals name="RegistrationActivity_debug_log_hint">
@@ -753,7 +753,7 @@
   <string name="VerifyIdentityActivity_our_signal_safety_number">మన Signal భద్రత సంఖ్య:</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">మీరు పంచుకొనడానికి మీ దగ్గర వేరే యాప్స్ లేనట్టు కనబడుతుంది.</string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard"> ఏ భద్రతకు సంఖ్య పోల్చడానికి క్లిప్బోర్డ్కు లొ కనుగొనబడింది</string>
-  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">ఒక QR కోడ్ను స్కాన్ చేయడానికి Signalకు కెమెరా అనుమతి అవసరం, కానీ ఇది శాశ్వతంగా తిరస్కరించబడింది. దయచేసి అనువర్తనం సెట్టింగ్లకు కొనసాగించండి, \"అనుమతులు\" ఎంచుకోండి మరియు \"కెమెరా\" ని ప్రారంభించండి.</string>
+  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">ఒక QR కోడ్ను స్కాన్ చేయడానికి Mollyకు కెమెరా అనుమతి అవసరం, కానీ ఇది శాశ్వతంగా తిరస్కరించబడింది. దయచేసి అనువర్తనం సెట్టింగ్లకు కొనసాగించండి, \"అనుమతులు\" ఎంచుకోండి మరియు \"కెమెరా\" ని ప్రారంభించండి.</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">కెమెరా అనుమతి లేకుండా QR కోడ్ను స్కాన్ చేయడం సాధ్యపడలేదు</string>
   <!--ViewOnceMessageActivity-->
   <!--MessageDisplayHelper-->
@@ -780,7 +780,7 @@
   <string name="MediaPreviewActivity_you">మీరు</string>
   <string name="MediaPreviewActivity_unssuported_media_type">మద్ధతు  లేనటువంటి ప్రసార మాధ్యమం</string>
   <string name="MediaPreviewActivity_draft">చిత్తు పత్రం</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">బాహ్య నిల్వకు భద్రపరచడానికి Signal కు నిల్వ అనుమతి అవసరం, కానీ ఇది శాశ్వతంగా తిరస్కరించబడింది. దయచేసి అనువర్తనం సెట్టింగ్లకు కొనసాగించండి, \"అనుమతులు\" ఎంచుకోండి, ఆపై \"నిల్వ\" ను ప్రారంభించండి.</string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">బాహ్య నిల్వకు భద్రపరచడానికి Molly కు నిల్వ అనుమతి అవసరం, కానీ ఇది శాశ్వతంగా తిరస్కరించబడింది. దయచేసి అనువర్తనం సెట్టింగ్లకు కొనసాగించండి, \"అనుమతులు\" ఎంచుకోండి, ఆపై \"నిల్వ\" ను ప్రారంభించండి.</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">అనుమతులు లేకుండా బాహ్య నిల్వకి భద్రపరచడం సాధ్యపడలేదు</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">సందేశాన్ని తొలగించాలా?</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">ఇది శాశ్వతంగా ఈ సందేశాన్ని తొలగిస్తుంది.</string>
@@ -803,7 +803,7 @@
   <string name="MessageNotifier_signal_message">Signal సందేశం</string>
   <string name="MessageNotifier_unsecured_sms">భద్రతలేని సందేశం</string>
   <string name="MessageNotifier_you_may_have_new_messages">మీకు క్రొత్త సందేశాలు ఉండవచ్చు</string>
-  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">ఇటీవలి నోటిఫికేషన్‌ల కోసం తనిఖీ చేయడానికి Signal ను తెరవండి.</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">ఇటీవలి నోటిఫికేషన్‌ల కోసం తనిఖీ చేయడానికి Molly ను తెరవండి.</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">పరిచయం</string>
   <string name="MessageNotifier_reacted_s_to_s">దీనికి %1$sను ప్రతిస్పందించారు: %2$s</string>
@@ -855,8 +855,8 @@
   <!--VideoPlayer-->
   <string name="VideoPlayer_error_playing_video">వీడియో ప్రదర్శనా లోపం</string>
   <!--WebRtcCallActivity-->
-  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">%s నుండి కాల్కు సమాధానం ఇవ్వడానికి, Signalకు మీ మైక్రోఫోన్ ప్రాప్యతను ఇవ్వండి.</string>
-  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">కాల్స్ చేయడానికి మరియు కాల్స్ స్వీకరించడానికి Signalకి మైక్రోఫోన్ మరియు కెమెరా అనుమతులు అవసరం, కానీ అవి శాశ్వతంగా తిరస్కరించబడ్డాయి. దయచేసి అనువర్తనం సెట్టింగ్లకు కొనసాగించండి, \"అనుమతులు\" ఎంచుకోండి మరియు \"మైక్రోఫోన్\" మరియు \"కెమెరా\" ని ప్రారంభించండి.</string>
+  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">%s నుండి కాల్కు సమాధానం ఇవ్వడానికి, Mollyకు మీ మైక్రోఫోన్ ప్రాప్యతను ఇవ్వండి.</string>
+  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">కాల్స్ చేయడానికి మరియు కాల్స్ స్వీకరించడానికి Mollyకి మైక్రోఫోన్ మరియు కెమెరా అనుమతులు అవసరం, కానీ అవి శాశ్వతంగా తిరస్కరించబడ్డాయి. దయచేసి అనువర్తనం సెట్టింగ్లకు కొనసాగించండి, \"అనుమతులు\" ఎంచుకోండి మరియు \"మైక్రోఫోన్\" మరియు \"కెమెరా\" ని ప్రారంభించండి.</string>
   <!--WebRtcCallScreen-->
   <string name="WebRtcCallScreen_new_safety_numbers">%1$s తో మీ సంభాషణ భద్రతా సంఖ్య మార్చబడింది. ఈ గాని ఎవరైనా మీ కమ్యూనికేషన్ అంతరాయం కలిగించడానికి ప్రయత్నిస్తున్నారు, లేదా అని %2$s కేవలం తిరిగి ఇన్స్టాల్ Signal అర్ధము</string>
   <string name="WebRtcCallScreen_you_may_wish_to_verify_this_contact">ఈ పరిచయంతో మీ భద్రత సంఖ్య ధ్రువీకరించాలనుకోవొచ్చు.</string>
@@ -907,7 +907,7 @@
   <!--single_contact_selection_activity-->
   <string name="SingleContactSelectionActivity_contact_photo">పరిచయస్థుల ఫొటో</string>
   <!--ContactSelectionListFragment-->
-  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">మీ పరిచయాలను ప్రదర్శించడానికి Signal కాంటాక్ట్స్ అనుమతి అవసరం, కానీ ఇది శాశ్వతంగా తిరస్కరించబడింది. దయచేసి అనువర్తన సెట్టింగ్ల మెనుకి కొనసాగండి, \"అనుమతులు\" ఎంచుకోండి మరియు \"పరిచయాలు\" ప్రారంభించండి.</string>
+  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">మీ పరిచయాలను ప్రదర్శించడానికి Molly కాంటాక్ట్స్ అనుమతి అవసరం, కానీ ఇది శాశ్వతంగా తిరస్కరించబడింది. దయచేసి అనువర్తన సెట్టింగ్ల మెనుకి కొనసాగండి, \"అనుమతులు\" ఎంచుకోండి మరియు \"పరిచయాలు\" ప్రారంభించండి.</string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">పరిచయాలను తిరిగి పొందడంలో లోపం, మీ నెట్వర్క్ కనెక్షన్ను తనిఖీ చేయండి</string>
   <string name="ContactSelectionListFragment_username_not_found">వినియోగదారు పేరు కనుగొనబడలేదు</string>
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">\"%1$s\" Signal యూజర్ కాదు. దయచేసి వినియోగదారు పేరును తనిఖీ చేసి, మళ్లీ ప్రయత్నించండి.</string>
@@ -915,7 +915,7 @@
   <!--blocked_contacts_fragment-->
   <string name="blocked_contacts_fragment__no_blocked_contacts">నిరోధించిన పరిచయాలు లేవు</string>
   <!--contact_selection_list_fragment-->
-  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">మీ పరిచయాలను Signal ప్రదర్శించడానికి పరిచయాలకు ప్రాప్యత అవసరం</string>
+  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">మీ పరిచయాలను Molly ప్రదర్శించడానికి పరిచయాలకు ప్రాప్యత అవసరం</string>
   <string name="contact_selection_list_fragment__show_contacts">పరిచయాలను చూపించు</string>
   <!--conversation_activity-->
   <string name="conversation_activity__type_message_push">Signal  మెసేజ్</string>
@@ -1510,7 +1510,7 @@
   <string name="BackupDialog_delete_backups_statement">ప్రత్యామ్నాయను తొలిగించు</string>
   <string name="BackupDialog_copied_to_clipboard">క్లిప్బోర్డ్కు కాపీ చేయబడింది</string>
   <string name="BackupDialog_verify">నిర్ధారించబడిన</string>
-  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">ప్రత్యామ్నాయను సృష్టించడానికి Signal బాహ్య నిల్వ అనుమతి అవసరం, కానీ ఇది శాశ్వతంగా తిరస్కరించబడింది. దయచేసి అనువర్తనం సెట్టింగ్లకు కొనసాగించండి, \"అనుమతులు\" ఎంచుకుని, \"నిల్వ\" ను ప్రారంభించండి.</string>
+  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">ప్రత్యామ్నాయను సృష్టించడానికి Molly బాహ్య నిల్వ అనుమతి అవసరం, కానీ ఇది శాశ్వతంగా తిరస్కరించబడింది. దయచేసి అనువర్తనం సెట్టింగ్లకు కొనసాగించండి, \"అనుమతులు\" ఎంచుకుని, \"నిల్వ\" ను ప్రారంభించండి.</string>
   <string name="ChatsPreferenceFragment_last_backup_s">మునుపటి ప్రత్యామ్నాయ: %s</string>
   <string name="ChatsPreferenceFragment_in_progress">పురోగతిలో ఉంది</string>
   <string name="LocalBackupJob_creating_backup">ప్రత్యామ్నాయను సృష్టిస్తోంది …</string>

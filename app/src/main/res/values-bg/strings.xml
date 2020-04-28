@@ -61,14 +61,14 @@
   <string name="AttachmentKeyboard_file">Файл</string>
   <string name="AttachmentKeyboard_contact">Контакт</string>
   <string name="AttachmentKeyboard_location">Местоположение</string>
-  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Signal се нуждае от разрешение, за да показва снимките и видеотата ти.</string>
+  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Molly се нуждае от разрешение, за да показва снимките и видеотата ти.</string>
   <string name="AttachmentKeyboard_give_access">Разрешаване на достъпа</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">Неуспешно откриване на папка за избор на файл.</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signal се нуждае от достъп до вградения диск, за да може да прикачва снимки, видеота или аудио, но той му е отказан. Моля, отидете в настройки в менюто и изберете \"Разрешения\" и \"Дискове\".</string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Signal се нуждае от достъп до контактите Ви, за да може да прикачва информация за тях, но той му е отказан. Моля, отидете на настройки в менюто и изберете \"Разрешения\" и \"Контакти\".</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Signal се нуждае от достъп до местоположението Ви, за да може да го прикачва, но той му е отказан. Моля, отидете на настройки в менюто и изберете \"Разрешения\" и \"Местоположение\".</string>
-  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">Signal се нуждае от достъп до камерта Ви, за да може да прави снимки, но той му е отказан. Моля, отидете на настройки в менюто и изберете \"Разрешения\" и \"Камера\".</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly се нуждае от достъп до вградения диск, за да може да прикачва снимки, видеота или аудио, но той му е отказан. Моля, отидете в настройки в менюто и изберете \"Разрешения\" и \"Дискове\".</string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly се нуждае от достъп до контактите Ви, за да може да прикачва информация за тях, но той му е отказан. Моля, отидете на настройки в менюто и изберете \"Разрешения\" и \"Контакти\".</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly се нуждае от достъп до местоположението Ви, за да може да го прикачва, но той му е отказан. Моля, отидете на настройки в менюто и изберете \"Разрешения\" и \"Местоположение\".</string>
+  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">Molly се нуждае от достъп до камерта Ви, за да може да прави снимки, но той му е отказан. Моля, отидете на настройки в менюто и изберете \"Разрешения\" и \"Камера\".</string>
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">Качване на медия…</string>
   <string name="AttachmentUploadJob_compressing_video_start">Компресиране на видео…</string>
@@ -186,16 +186,16 @@
   <string name="ConversationActivity_quick_camera_unavailable">Камерата е недостъпна</string>
   <string name="ConversationActivity_unable_to_record_audio">Не може да бъде записано аудио!</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">Нямате инсталирано приложение, което да може да използва тази препратка.</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">За да изпратите аудио съобщение, разрешете достъпа на Signal до микрофона.</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Signal се нуждае от достъп до микрофона Ви, за да може да изпраща аудио съобщения, но той му е отказан. Моля, отидете в настройки в менюто и изберете \"Разрешения\" и \"Микрофон\".</string>
-  <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">За да се обади на %s, Signal се нуждае от достъп до микрофона и камерта Ви.</string>
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Signal се нуждае от достъп до микрофона и камерта Ви, за да може да се обади на %s, но той му е отказан. Моля, отидете на настройки в менюто и изберете \"Разрешения\" и \"Микрофон\" и \"Камера\".</string>
-  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">За прави снимки и видеота, Signal се нуждае от достъп до камерта Ви.</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signal се нуждае от достъп до камерта Ви, за да може да прави снимки или видеота, но той му е отказан. Моля, отидете в настройки в менюто и изберете \"Разрешения\" и \"Камера\".</string>
-  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signal се нуждае от достъп до камерата, за да прави снимки и видеота</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">За да изпратите аудио съобщение, разрешете достъпа на Molly до микрофона.</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly се нуждае от достъп до микрофона Ви, за да може да изпраща аудио съобщения, но той му е отказан. Моля, отидете в настройки в менюто и изберете \"Разрешения\" и \"Микрофон\".</string>
+  <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">За да се обади на %s, Molly се нуждае от достъп до микрофона и камерта Ви.</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly се нуждае от достъп до микрофона и камерта Ви, за да може да се обади на %s, но той му е отказан. Моля, отидете на настройки в менюто и изберете \"Разрешения\" и \"Микрофон\" и \"Камера\".</string>
+  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">За прави снимки и видеота, Molly се нуждае от достъп до камерта Ви.</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Molly се нуждае от достъп до камерта Ви, за да може да прави снимки или видеота, но той му е отказан. Моля, отидете в настройки в менюто и изберете \"Разрешения\" и \"Камера\".</string>
+  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Molly се нуждае от достъп до камерата, за да прави снимки и видеота</string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Разреши използването на микрофона, за да правене на видео със звук.</string>
-  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signal се нуждае от достъп за правене на видеота, но той е отказан. Моля, отидете в настройки и изберете \"Достъп\" и активирайте \"Микрофон\" и \"Камера\".</string>
-  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signal се нуждае от достъп до микрофона за записване на видеота.</string>
+  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Molly се нуждае от достъп за правене на видеота, но той е отказан. Моля, отидете в настройки и изберете \"Достъп\" и активирайте \"Микрофон\" и \"Камера\".</string>
+  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Molly се нуждае от достъп до микрофона за записване на видеота.</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">Signal не може да изпраща SMS/MMS съобщения защото не е първо предназначена апликация за SMS. Желаетели да се промени това във вашите Android настройки ?</string>
   <string name="ConversationActivity_yes">Да</string>
@@ -328,7 +328,7 @@
   <!--DocumentView-->
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">Оптимизиране за липсващи Play услуги</string>
-  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Това устройство не поддържа Play услуги. Натиснете, за да изключите оптимизациите на батерият, за да преустановите опитите на Signal да изтегля съобщения, когато не е активен.</string>
+  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Това устройство не поддържа Play услуги. Натиснете, за да изключите оптимизациите на батерият, за да преустановите опитите на Molly да изтегля съобщения, когато не е активен.</string>
   <!--ShareActivity-->
   <string name="ShareActivity_share_with">Споделяне с</string>
   <!--GcmBroadcastReceiver-->
@@ -435,7 +435,7 @@
   <string name="MediaSendActivity_camera_unavailable">Не е открита камера.</string>
   <string name="MediaSendActivity_message_to_s">Изпрати на %s</string>
   <string name="MediaSendActivity_message">Съобщение</string>
-  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Signal се нуждае от достъп до контактите Ви, за да може да ги покаже.</string>
+  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Molly се нуждае от достъп до контактите Ви, за да може да ги покаже.</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="one">Не можете да споделяте повече от %d елемент.</item>
     <item quantity="other">Не можете да споделяте повече от %d елементи.</item>
@@ -491,7 +491,7 @@
   <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">За съжаление това не е валидна QR връзка.</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">Свързване със Signal устройство?</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Изглежда се опитвате да свържете Signal устройство с външна скенер програма. За Ваша сигурност, моля сканирайте кодът повторно използвайки Signal.</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Signal се нуждае от достъп до камерата Ви, за да може да сканирва QR кодове, но той му е отказан. Моля, отидете на настройки в менюто и изберете \"Разрешения\" и \"Камера\".</string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly се нуждае от достъп до камерата Ви, за да може да сканирва QR кодове, но той му е отказан. Моля, отидете на настройки в менюто и изберете \"Разрешения\" и \"Камера\".</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Неуспешно сканирване на QR код без разрешение за достъп до камерата</string>
   <!--ExpirationDialog-->
   <string name="ExpirationDialog_disappearing_messages">Изчезващи съобщения</string>
@@ -565,7 +565,7 @@
   <string name="RegistrationActivity_no_browser">Неуспешно отваряне на тази препратка. Не е открит уеб браузър.</string>
   <string name="RegistrationActivity_more_information">Повече информация</string>
   <string name="RegistrationActivity_less_information">По-малко информация</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Signal се нуждае от достъп до контактите Ви и друга медия, за да може да може да се свързва с приятелите Ви, обменя съобщения и да прави обажданията защитени.</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly се нуждае от достъп до контактите Ви и друга медия, за да може да може да се свързва с приятелите Ви, обменя съобщения и да прави обажданията защитени.</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">Неуспешно свързване с услугата. Моля, проверете мобилната връзка и опитайте отново.</string>
   <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">За да можете лесно да потвърдите телефонния си номер, Signal може автоматично да прочете кода за потвърждение ако разрешите достъпът на Signal до SMS съобщенията Ви.</string>
   <plurals name="RegistrationActivity_debug_log_hint">
@@ -684,7 +684,7 @@
   <string name="VerifyIdentityActivity_our_signal_safety_number">Нашите Signal числа за сигурност:</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">Изглежда нямате приложения, с които да можете да сподялите.</string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">Не са открити копирани числа за сигурност</string>
-  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Signal се нуждае от достъп до камерата Ви, за да може да сканирва QR кодове, но той му е отказан. Моля, отидете на настройки в менюто и изберете \"Разрешения\" и \"Камера\".</string>
+  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Molly се нуждае от достъп до камерата Ви, за да може да сканирва QR кодове, но той му е отказан. Моля, отидете на настройки в менюто и изберете \"Разрешения\" и \"Камера\".</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">Неуспешно сканирване на QR код без разрешение за достъп до камерата</string>
   <!--ViewOnceMessageActivity-->
   <!--MessageDisplayHelper-->
@@ -711,7 +711,7 @@
   <string name="MediaPreviewActivity_you">Ти</string>
   <string name="MediaPreviewActivity_unssuported_media_type">Неподдържан медиен формат.</string>
   <string name="MediaPreviewActivity_draft">Чернова</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Signal се нуждае от достъп до вградения диск, за да може да запазва на  него, но той му е отказан. Моля, отидете в настройки в менюто и изберете \"Разрешения\" и \"Дискове\".</string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Molly се нуждае от достъп до вградения диск, за да може да запазва на  него, но той му е отказан. Моля, отидете в настройки в менюто и изберете \"Разрешения\" и \"Дискове\".</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">Неуспешно запазване на външен диск без нуждното разрешение за достъп</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">Изтриване на съобщението?</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">Това ще изтрие невъзвращаемо текущото съобщение.</string>
@@ -731,7 +731,7 @@
   <string name="MessageNotifier_signal_message">Signal-ско съобщение</string>
   <string name="MessageNotifier_unsecured_sms">Некриптиран SMS</string>
   <string name="MessageNotifier_you_may_have_new_messages">Вие може да имате нови съобщения</string>
-  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Отворете Signal за да проверите за скорошни известия</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Отворете Molly за да проверите за скорошни известия</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">Контакт</string>
   <!--Notification Channels-->
@@ -771,8 +771,8 @@
   <!--VideoPlayer-->
   <string name="VideoPlayer_error_playing_video">Грешка при пускане на видео</string>
   <!--WebRtcCallActivity-->
-  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">За да можете да провеждате разговор с %s, разрешете на Signal достъп до микрофона.</string>
-  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Signal се нуждае от достъп до микрофона и камерта Ви, за да може да получава обаждания, но той му е отказан. Моля, отидете на настройки в менюто и изберете \"Разрешения\" и \"Микрофон\" и \"Камера\".</string>
+  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">За да можете да провеждате разговор с %s, разрешете на Molly достъп до микрофона.</string>
+  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Molly се нуждае от достъп до микрофона и камерта Ви, за да може да получава обаждания, но той му е отказан. Моля, отидете на настройки в менюто и изберете \"Разрешения\" и \"Микрофон\" и \"Камера\".</string>
   <!--WebRtcCallScreen-->
   <string name="WebRtcCallScreen_new_safety_numbers">Числата за сигурност за разговора с %1$s са променени. Това означава, че или някой се опитва да прехване куминикацията Ви, или че %2$s е преинсталирал Signal.</string>
   <string name="WebRtcCallScreen_you_may_wish_to_verify_this_contact">Може да желаете да проверите числата за сигурност с този контакт.</string>
@@ -816,12 +816,12 @@
   <!--single_contact_selection_activity-->
   <string name="SingleContactSelectionActivity_contact_photo">Снимка на Контактът</string>
   <!--ContactSelectionListFragment-->
-  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Signal се нуждае от достъп до контактите Ви, за да може да Ви ги показва, но той му е отказан. Моля, отидете на настройки в менюто и изберете \"Разрешения\" и \"Контакти\".</string>
+  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Molly се нуждае от достъп до контактите Ви, за да може да Ви ги показва, но той му е отказан. Моля, отидете на настройки в менюто и изберете \"Разрешения\" и \"Контакти\".</string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Грешка при получаване на конатактите, моля, проверете мобилната връзка</string>
   <!--blocked_contacts_fragment-->
   <string name="blocked_contacts_fragment__no_blocked_contacts">Няма блокирани контакти</string>
   <!--contact_selection_list_fragment-->
-  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Signal се нуждае от достъп до контактите Ви, за да може да ги покаже.</string>
+  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly се нуждае от достъп до контактите Ви, за да може да ги покаже.</string>
   <string name="contact_selection_list_fragment__show_contacts">Показване на контактите</string>
   <!--conversation_activity-->
   <string name="conversation_activity__type_message_push">Signal-ско съобщение</string>
@@ -1349,7 +1349,7 @@
   <string name="BackupDialog_delete_backups_statement">Изтриване на архиви</string>
   <string name="BackupDialog_copied_to_clipboard">Копирано</string>
   <string name="BackupDialog_verify">Валидиране</string>
-  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal изискава разрешение за достъп до външните хранлища, за да може да създаде архиви, но този достъп е парманентно отказан. Моля, продължете до настройки на приложенията и изберете \"Разрешения\" и активирайте \"Хранилище\"</string>
+  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly изискава разрешение за достъп до външните хранлища, за да може да създаде архиви, но този достъп е парманентно отказан. Моля, продължете до настройки на приложенията и изберете \"Разрешения\" и активирайте \"Хранилище\"</string>
   <string name="ChatsPreferenceFragment_last_backup_s">Последен архив: %s</string>
   <string name="ChatsPreferenceFragment_in_progress">Извъшрва се</string>
   <string name="LocalBackupJob_creating_backup">Създаване на архив…</string>

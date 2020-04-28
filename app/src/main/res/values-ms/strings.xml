@@ -59,10 +59,10 @@
   <string name="AttachmentKeyboard_location">Lokasi</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">Tidak dapat mencari aplikasi untuk memilih media.</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signal memerlukan kebenaran Storan untuk melampirkan foto, video atau audio, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Storan\".</string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Signal memerlukan kebenaran Kenalan untuk melampirkan maklumat hubungan, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Kenalan\".</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Signal memerlukan kebenaran Lokasi untuk melampirkan lokasi, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Lokasi\".</string>
-  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">Signal memerlukan kebenaran Kamera untuk menangkap foto, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Kamera\".</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly memerlukan kebenaran Storan untuk melampirkan foto, video atau audio, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Storan\".</string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly memerlukan kebenaran Kenalan untuk melampirkan maklumat hubungan, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Kenalan\".</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly memerlukan kebenaran Lokasi untuk melampirkan lokasi, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Lokasi\".</string>
+  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">Molly memerlukan kebenaran Kamera untuk menangkap foto, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Kamera\".</string>
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">Memuat naik media…</string>
   <string name="AttachmentUploadJob_compressing_video_start">Memampatkan video…</string>
@@ -177,16 +177,16 @@
   <string name="ConversationActivity_quick_camera_unavailable">Kamera tidak tersedia</string>
   <string name="ConversationActivity_unable_to_record_audio">Tidak dapat merakam audio!</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">Tiada aplikasi yang tersedia untuk mengendalikan pautan ini pada peranti anda.</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Untuk menghantar mesej audio, benarkan Signal untuk mengakses mikrofon anda.</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Signal memerlukan kebenaran Mikrofon untuk menghantar mesej audio, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Mikrofon\".</string>
-  <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">Untuk memanggil %s, Signal memerlukan akses kepada mikrofon dan kamera anda.</string>
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Signal memerlukan kebenaran Mikrofon dan Kamera untuk memanggil %s, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Mikrofon\" dan \"Kamera\".</string>
-  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Untuk menangkap foto dan video, benarkan Signal untuk mengakses kamera anda.</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signal memerlukan kebenaran Kamera untuk menangkap foto dan video, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Kamera\".</string>
-  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signal memerlukan kebenaran Kamera untuk menangkap foto dan video</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Untuk menghantar mesej audio, benarkan Molly untuk mengakses mikrofon anda.</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly memerlukan kebenaran Mikrofon untuk menghantar mesej audio, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Mikrofon\".</string>
+  <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">Untuk memanggil %s, Molly memerlukan akses kepada mikrofon dan kamera anda.</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly memerlukan kebenaran Mikrofon dan Kamera untuk memanggil %s, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Mikrofon\" dan \"Kamera\".</string>
+  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Untuk menangkap foto dan video, benarkan Molly untuk mengakses kamera anda.</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Molly memerlukan kebenaran Kamera untuk menangkap foto dan video, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Kamera\".</string>
+  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Molly memerlukan kebenaran Kamera untuk menangkap foto dan video</string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Dayakan kebenaran mikrofon untuk rakam video dengan bunyi</string>
-  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signal memerlukan kebenaran Mikrofon untuk merakam video, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Mikrofon\" dan \"Kamera\".</string>
-  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signal memerlukan kebenaran mikrofon untuk merakam video.</string>
+  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Molly memerlukan kebenaran Mikrofon untuk merakam video, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Mikrofon\" dan \"Kamera\".</string>
+  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Molly memerlukan kebenaran mikrofon untuk merakam video.</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s%2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">Signal tidak dapat menghantar mesej SMS/MMS sebab ia bukan aplikasi SMS lalai anda. Adakah anda ingin mengubah ini dalam tetapan Android?</string>
   <string name="ConversationActivity_yes">Ya</string>
@@ -407,8 +407,8 @@
   <string name="MediaSendActivity_message_to_s">Mesej kepada %s</string>
   <string name="MediaSendActivity_message">Mesej</string>
   <string name="MediaSendActivity_select_recipients">Memilih penerima</string>
-  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Signal memerlukan akses kepada kenalan anda untuk memaparkannya.</string>
-  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Signal memerlukan kebenaran Kenalan untuk memaparkan kenalan anda, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Kenalan\".</string>
+  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Molly memerlukan akses kepada kenalan anda untuk memaparkannya.</string>
+  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Molly memerlukan kebenaran Kenalan untuk memaparkan kenalan anda, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Kenalan\".</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="other">Anda tidak boleh berkongsi lebih daripada %d item.</item>
   </plurals>
@@ -463,7 +463,7 @@
   <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">Maaf, ini bukan kod QR pautan peranti yang sah.</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">Memautkan satu peranti Signal?</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Nampaknya anda cuba memautkan satu peranti Signal dengan menggunakan pengimbas pihak ke-3. Untuk perlindungan anda, sila imbas kod semula dalam Signal.</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Signal memerlukan kebenaran Kamera untuk mengimbas kod QR, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Kamera\".</string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly memerlukan kebenaran Kamera untuk mengimbas kod QR, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Kamera\".</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Tidak dapat mengimbas kod QR tanpa kebenaran Kamera</string>
   <!--ExpirationDialog-->
   <string name="ExpirationDialog_disappearing_messages">Mesej hilang</string>
@@ -538,7 +538,7 @@
   <string name="RegistrationActivity_no_browser">Tidak dapat membuka pautan ini. Tiada pelayar web dijumpai.</string>
   <string name="RegistrationActivity_more_information">Maklumat lanjut</string>
   <string name="RegistrationActivity_less_information">Kurang maklumat</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Signal memerlukan akses kepada kenalan dan media anda untuk berhubung dengan rakan, bertukar-tukar mesej, dan membuat panggilan selamat</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly memerlukan akses kepada kenalan dan media anda untuk berhubung dengan rakan, bertukar-tukar mesej, dan membuat panggilan selamat</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">Perkhidmatan tidak dapat disambungkan. Sila semak sambungan rangkaian dan cuba lagi.</string>
   <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">Untuk mengesahkan nombor telefon anda dengan mudah, Signal boleh mengesan kod pengesahan anda secara automatik jika anda membenarkan Signal untuk melihat mesej SMS.</string>
   <plurals name="RegistrationActivity_debug_log_hint">
@@ -661,7 +661,7 @@ Menerima mesej pertukaran kunci untuk versi protokol yang tidak sah.</string>
   <string name="VerifyIdentityActivity_our_signal_safety_number">Nombor keselamatan Signal kami:</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">Nampaknya anda tidak mempunyai sebarang aplikasi untuk dikongsi.</string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">Tiada nombor keselamatan untuk membandingkan ditemui di papan klip</string>
-  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Signal memerlukan kebenaran Kamera untuk mengimbas kod QR, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Kamera\".</string>
+  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Molly memerlukan kebenaran Kamera untuk mengimbas kod QR, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Kamera\".</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">Kod QR tidak dapat diimbas tanpa kebenaran Kamera</string>
   <!--ViewOnceMessageActivity-->
   <!--MessageDisplayHelper-->
@@ -688,7 +688,7 @@ Menerima mesej pertukaran kunci untuk versi protokol yang tidak sah.</string>
   <string name="MediaPreviewActivity_you">Anda</string>
   <string name="MediaPreviewActivity_unssuported_media_type">Jenis media yang tidak disokong</string>
   <string name="MediaPreviewActivity_draft">Draf</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Signal memerlukan kebenaran Storan untuk menyimpan ke storan luaran, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Storan\".</string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Molly memerlukan kebenaran Storan untuk menyimpan ke storan luaran, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Storan\".</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">Tidak dapat menyimpan ke storan luaran tanpa kebenaran</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">Padam mesej?</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">Ini akan memadam mesej ini secara kekal.</string>
@@ -708,7 +708,7 @@ Menerima mesej pertukaran kunci untuk versi protokol yang tidak sah.</string>
   <string name="MessageNotifier_signal_message">Mesej Signal</string>
   <string name="MessageNotifier_unsecured_sms">SMS yang tidak selamat</string>
   <string name="MessageNotifier_you_may_have_new_messages">Anda mungkin mempunyai mesej baru</string>
-  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Buka Signal untuk semak pemberitahuan terbaru.</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Buka Molly untuk semak pemberitahuan terbaru.</string>
   <string name="MessageNotifier_contact_message">%1$s%2$s</string>
   <string name="MessageNotifier_unknown_contact_message">Kenalan</string>
   <!--Notification Channels-->
@@ -747,8 +747,8 @@ Menerima mesej pertukaran kunci untuk versi protokol yang tidak sah.</string>
   <!--VideoPlayer-->
   <string name="VideoPlayer_error_playing_video">Ralat memainkan video</string>
   <!--WebRtcCallActivity-->
-  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Beri Signal akses kepada mikrofon anda untuk menjawab panggilan dari %s.</string>
-  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Signal memerlukan kebenaran Mikrofon dan Kamera untuk memanggil atau menerima panggilan, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Mikrofon\" dan \"Kamera\".</string>
+  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Beri Molly akses kepada mikrofon anda untuk menjawab panggilan dari %s.</string>
+  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Molly memerlukan kebenaran Mikrofon dan Kamera untuk memanggil atau menerima panggilan, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Mikrofon\" dan \"Kamera\".</string>
   <!--WebRtcCallScreen-->
   <string name="WebRtcCallScreen_new_safety_numbers">Nombor keselamatan perbualan anda dengan %1$s telah ditukar. Ini bermaksud mungkin seseorang cuba memintas komunikasi anda, atau %2$s telah memasang semula Signal. </string>
   <string name="WebRtcCallScreen_you_may_wish_to_verify_this_contact">Anda mungkin ingin menentusahkan nombor keselamatan anda dengan kenalan ini.</string>
@@ -799,13 +799,13 @@ Menerima mesej pertukaran kunci untuk versi protokol yang tidak sah.</string>
   <!--single_contact_selection_activity-->
   <string name="SingleContactSelectionActivity_contact_photo">Foto Kenalan</string>
   <!--ContactSelectionListFragment-->
-  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Signal memerlukan kebenaran Kenalan untuk memaparkan kenalan anda, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Kenalan\".</string>
+  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Molly memerlukan kebenaran Kenalan untuk memaparkan kenalan anda, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Kenalan\".</string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Ralat mengambil kenalan, semak sambungan rangkaian anda</string>
   <string name="ContactSelectionListFragment_okay">Okay</string>
   <!--blocked_contacts_fragment-->
   <string name="blocked_contacts_fragment__no_blocked_contacts">Tiada kenalan disekat</string>
   <!--contact_selection_list_fragment-->
-  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Signal memerlukan akses kepada kenalan anda untuk memaparkannya.</string>
+  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly memerlukan akses kepada kenalan anda untuk memaparkannya.</string>
   <string name="contact_selection_list_fragment__show_contacts">Tunjukkan Kenalan</string>
   <!--conversation_activity-->
   <string name="conversation_activity__type_message_push">Mesej Signal</string>
@@ -1346,7 +1346,7 @@ Menerima mesej pertukaran kunci untuk versi protokol yang tidak sah.</string>
   <string name="BackupDialog_disable_and_delete_all_local_backups">Nyahdayakan dan memadam semua sandaran lokal?</string>
   <string name="BackupDialog_delete_backups_statement">Padam sandaran</string>
   <string name="BackupDialog_copied_to_clipboard">Disalin ke papan klip</string>
-  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal memerlukan kebenaran storan luaran untuk mencipta sandaran, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Storan\".</string>
+  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly memerlukan kebenaran storan luaran untuk mencipta sandaran, tetapi telah ditolak secara kekal. Sila terus ke menu tetapan aplikasi, pilih \"Kebenaran\", dan dayakan \"Storan\".</string>
   <string name="ChatsPreferenceFragment_last_backup_s">Sandaran terakhir: %s</string>
   <string name="ChatsPreferenceFragment_in_progress">Sedang berjalan</string>
   <string name="LocalBackupJob_creating_backup">Mencipta sandaran…</string>

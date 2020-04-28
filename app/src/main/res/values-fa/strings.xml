@@ -61,14 +61,14 @@
   <string name="AttachmentKeyboard_file">فایل</string>
   <string name="AttachmentKeyboard_contact">مخاطب</string>
   <string name="AttachmentKeyboard_location">مکان</string>
-  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Signal به دسترسی برای نشان دادن عکس‌ها و ویدئوهای شما احتیاج دارد.</string>
+  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Molly به دسترسی برای نشان دادن عکس‌ها و ویدئوهای شما احتیاج دارد.</string>
   <string name="AttachmentKeyboard_give_access">دسترسی داده شود</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">برنامه‌ای برای انتخاب رسانه پیدا نشد.</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signal برای پیوست کردن فایل‌های صوتی و تصویری نیاز به دسترسی به حافظه دارد، اما این اجازه داده نشده است. لطفاً به بخش مدیریت برنامه‌ها در تنظیمات تلفن همراه خود رفته، در بخش «مجوزها» گزینهٔ «ذخیره‌سازی» را فعال کنید.</string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Signal برای پیوست اطلاعات مخاطب نیاز به دسترسی به مخاطبان دارد، اما این دسترسی به Signal داده نشده است. لطفاً به بخش مدیریت برنامه‌ها در تنظیمات تلفن همراه خود رفته، در بخش «مجوزها» گزینهٔ «مخاطبان» را فعال کنید.</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Signal برای پیوست کردن موقعیت مکانی نیاز به دسترسی به موقعیت مکانی شما دارد، ولی این دسترسی داده نشده است. لطفاً لطفاً به بخش مدیریت برنامه‌ها در تنظیمات تلفن همراه خود رفته، در بخش «مجوزها» گزینهٔ «موقعیت مکانی» را فعال کنید. </string>
-  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">Signal جهت گرفتن عکس نیاز به دسترسی به دوربین دارد، اما این دسترسی داده نشده است. لطفاً به بخش مدیریت برنامه‌ها در تنظیمات تلفن همراه خود رفته، در بخش «مجوزها» گزینهٔ «دوربین» را فعال کنید. </string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly برای پیوست کردن فایل‌های صوتی و تصویری نیاز به دسترسی به حافظه دارد، اما این اجازه داده نشده است. لطفاً به بخش مدیریت برنامه‌ها در تنظیمات تلفن همراه خود رفته، در بخش «مجوزها» گزینهٔ «ذخیره‌سازی» را فعال کنید.</string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly برای پیوست اطلاعات مخاطب نیاز به دسترسی به مخاطبان دارد، اما این دسترسی به Molly داده نشده است. لطفاً به بخش مدیریت برنامه‌ها در تنظیمات تلفن همراه خود رفته، در بخش «مجوزها» گزینهٔ «مخاطبان» را فعال کنید.</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly برای پیوست کردن موقعیت مکانی نیاز به دسترسی به موقعیت مکانی شما دارد، ولی این دسترسی داده نشده است. لطفاً لطفاً به بخش مدیریت برنامه‌ها در تنظیمات تلفن همراه خود رفته، در بخش «مجوزها» گزینهٔ «موقعیت مکانی» را فعال کنید. </string>
+  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">Molly جهت گرفتن عکس نیاز به دسترسی به دوربین دارد، اما این دسترسی داده نشده است. لطفاً به بخش مدیریت برنامه‌ها در تنظیمات تلفن همراه خود رفته، در بخش «مجوزها» گزینهٔ «دوربین» را فعال کنید. </string>
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">بارگزاری رسانه…</string>
   <string name="AttachmentUploadJob_compressing_video_start">فشرده‌سازی ویدئو…</string>
@@ -188,16 +188,16 @@
   <string name="ConversationActivity_quick_camera_unavailable">دوربین در دسترس نیست</string>
   <string name="ConversationActivity_unable_to_record_audio">امکان ضبط صدا وجود ندارد!</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">هیچ برنامه‌ای برای باز کردن این پیوند بر روی دستگاه شما وجود ندارد.</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">برای ارسال پیام‌ های صوتی، به Signal اجازه دهید تا به میکروفون شما دسترسی داشته باشد.</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Signal به منظور ارسال پیام های صوتی Signal نیاز به مجوز میکروفون دارد، ولی این اجازه به صورت دائم رد شده است. لطفاً به تنظیمات برنامه رفته، \"مجوزها\" را انتخاب کنید و \"میکروفون\" را فعال کنید.</string>
-  <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">برای تماس با %s، Signal نیاز دارد به دوربین و میکروفون شما دسترسی داشته باشد.</string>
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Signal نیاز به دسترسی به دوربین و میکروفون دارد تا بتواند با %s تماس بگیرد، اما دسترسی به آن ها داده نشده است. لطفاً به قسمت تنظیمات برنامه رفته، \"مجوزها\" را انتخاب کرده، \"دوربین\" و \"میکروفون\" را فعال کنید.</string>
-  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">برای گرفتن تصاویر و ویدیو، به Signal اجازه بدهید به دوربین شما دسترسی داشته باشد.</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signal برای گرفتن عکس یا ضبط ویدئو نیاز به دسترسی به دوربین دارد، اما دسترسی به آن رد شده است. لطفاً به تنظیمات برنامه رفته، \"مجوز ها\" را انتخاب کرده، \"دوربین\" را فعال کنید. </string>
-  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">برای گرفتن تصویر یا ویدئو Signal نیاز به اجازه دوربین دارد</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">برای ارسال پیام‌ های صوتی، به Molly اجازه دهید تا به میکروفون شما دسترسی داشته باشد.</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly به منظور ارسال پیام های صوتی Molly نیاز به مجوز میکروفون دارد، ولی این اجازه به صورت دائم رد شده است. لطفاً به تنظیمات برنامه رفته، \"مجوزها\" را انتخاب کنید و \"میکروفون\" را فعال کنید.</string>
+  <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">برای تماس با %s، Molly نیاز دارد به دوربین و میکروفون شما دسترسی داشته باشد.</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly نیاز به دسترسی به دوربین و میکروفون دارد تا بتواند با %s تماس بگیرد، اما دسترسی به آن ها داده نشده است. لطفاً به قسمت تنظیمات برنامه رفته، \"مجوزها\" را انتخاب کرده، \"دوربین\" و \"میکروفون\" را فعال کنید.</string>
+  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">برای گرفتن تصاویر و ویدیو، به Molly اجازه بدهید به دوربین شما دسترسی داشته باشد.</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Molly برای گرفتن عکس یا ضبط ویدئو نیاز به دسترسی به دوربین دارد، اما دسترسی به آن رد شده است. لطفاً به تنظیمات برنامه رفته، \"مجوز ها\" را انتخاب کرده، \"دوربین\" را فعال کنید. </string>
+  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">برای گرفتن تصویر یا ویدئو Molly نیاز به اجازه دوربین دارد</string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">مجوز میکروفون را برای ضبط فیلم با صدا فعال کنید.</string>
   <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">سیگنال برای ضبط ویدئو به اجازه میکروفون نیاز دارد، اما اجازه آن رد شده است. لطفاً به تنظیمات برنامه بروید، \"مجوزها\" را انتخاب کرده و \"میکروفون\" و \"دوربین\" را فعال کنید.</string>
-  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">برای ضبط ویدئو Signal نیاز به اجازه میکروفون دارد.</string>
+  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">برای ضبط ویدئو Molly نیاز به اجازه میکروفون دارد.</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">Signal قادر به ارسال پیامک‌/فراپیام‌ نیست چون به عنوان برنامهٔ یپش‌فرض پیامک شما انتخاب نشده است. آیا مایل به تغییر آن در تنظیمات اندروید خود هستید؟</string>
   <string name="ConversationActivity_yes">بله</string>
@@ -343,7 +343,7 @@
   <string name="DocumentView_unnamed_file">فایل بدون نام</string>
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">بهینه سازی برای سرویس های پلی ناموجود</string>
-  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">موبایل شما از سرویس های پلی پشتیبانی نمی‌کند. برای غیر فعال کردن سیستم بهینه‌ سازی باتری سیستم که هنگامی که Signal غیرفعال است از دریافت پیام‌ها ممانعت می‌کند ضربه بزنید.</string>
+  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">موبایل شما از سرویس های پلی پشتیبانی نمی‌کند. برای غیر فعال کردن سیستم بهینه‌ سازی باتری سیستم که هنگامی که Molly غیرفعال است از دریافت پیام‌ها ممانعت می‌کند ضربه بزنید.</string>
   <!--ShareActivity-->
   <string name="ShareActivity_share_with">اشتراک گذاری با</string>
   <string name="ShareActivity_multiple_attachments_are_only_supported">انتخاب چندگانهٔ پیوست‌ها فقط برای عکس‌ها و ویدئوها پشتیبانی می‌شود.</string>
@@ -491,8 +491,8 @@
   <string name="MediaSendActivity_message_to_s">پیام به %s </string>
   <string name="MediaSendActivity_message">پیام</string>
   <string name="MediaSendActivity_select_recipients">گیرندگان را انتخاب کنید</string>
-  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">برای اینکه Signal مخاطبان شما ره نمایش دهد نیاز دارد به آنها دسترسی داشته باشد.</string>
-  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">برای اینکه Signal مخاطبان شما را به شما نشان دهد، نیاز دارد تا به مخاطبان دسترسی داشته باشد، اما این اجازه به صورت دائمی رد شده است. لطفاً به قسمت تنظیمات برنامه رفته، \"مجوز ها\" را انتخاب کنید، و \"مخاطبان\" را فعال کنید.</string>
+  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">برای اینکه Molly مخاطبان شما ره نمایش دهد نیاز دارد به آنها دسترسی داشته باشد.</string>
+  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">برای اینکه Molly مخاطبان شما را به شما نشان دهد، نیاز دارد تا به مخاطبان دسترسی داشته باشد، اما این اجازه به صورت دائمی رد شده است. لطفاً به قسمت تنظیمات برنامه رفته، \"مجوز ها\" را انتخاب کنید، و \"مخاطبان\" را فعال کنید.</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="one">شما نمی توانید بیش از %d مورد را به اشتراک بگذارید.</item>
     <item quantity="other">شما نمی توانید بیش از %d مورد را به اشتراک بگذارید.</item>
@@ -565,7 +565,7 @@
   <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">پوزش، این کد کیوآر برای پیوند دستگاه معتبر نمی باشد.</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">پیوند یک دستگاه Signal؟</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">به نظر می آید شما سعی دارید از طریق یک اسکنر شخص ثالث دستگاه Signal خود را پیوند دهید. جهت حفظ امنیت، لطفاً کد را دوباره از داخل Signal اسکن کنید.</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Signal نیاز به مجوز دوربین دارد تا بتواند یک کد کیوآر را اسکن کند، اما این اجازه داده نشده است. لطفاً به تنظیمات برنامه رفته، \"مجوز ها\" را انتخاب کنید، و \"دوربین\" را فعال کنید.</string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly نیاز به مجوز دوربین دارد تا بتواند یک کد کیوآر را اسکن کند، اما این اجازه داده نشده است. لطفاً به تنظیمات برنامه رفته، \"مجوز ها\" را انتخاب کنید، و \"دوربین\" را فعال کنید.</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">عدم توانایی در اسکن کد کیوآر بدون مجوز دوربین</string>
   <!--ExpirationDialog-->
   <string name="ExpirationDialog_disappearing_messages">پیام های ناپدید شونده</string>
@@ -647,7 +647,7 @@
   <string name="RegistrationActivity_no_browser">عدم توانایی در باز کردن این پیوند. هیچ مرورگر اینترنتی یافت نشد.</string>
   <string name="RegistrationActivity_more_information">اطلاعات بیشتر</string>
   <string name="RegistrationActivity_less_information">اطلاعات کمتر</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">برای ارتباط با دوستان، تبادل پیام، برقراری تماس امن، Signal نیاز دارد تا به مخاطبان و رسانه شما دسترسی داشته باشد</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">برای ارتباط با دوستان، تبادل پیام، برقراری تماس امن، Molly نیاز دارد تا به مخاطبان و رسانه شما دسترسی داشته باشد</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">عدم توانایی در اتصال به سرویس. لطفاً اتصال شبکه را بررسی کرده و دوباره تلاش کنید.</string>
   <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">برای تأیید شماره‌ٔ همراه خود، Signal می‌تواند به صورت خودکار کد تأیید شما را شناسایی کند، در صورتی که به Signal اجازهٔ زؤیت پیامک‌ها را بدهید.</string>
   <plurals name="RegistrationActivity_debug_log_hint">
@@ -799,7 +799,7 @@
   <string name="VerifyIdentityActivity_our_signal_safety_number">شماره امنیتی ما:</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">به نظر می‌رسد که شما هیچ برنامه‌ای برای اشتراک گذاری ندارید.</string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">هیچ شماره امنیتی برای مقایسه در کلیپ بورد پیدا نشد</string>
-  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Signal  به منظور اسکن کد کیوآر نیاز به دسترسی دوربین دارد، اما این اجازه داده نشده است. لطفاً به قسمت تنظیمات برنامه رفته، \"مجوز ها\" را انتخاب کنید، و \"دوربین\" را فعال کنید.</string>
+  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Molly  به منظور اسکن کد کیوآر نیاز به دسترسی دوربین دارد، اما این اجازه داده نشده است. لطفاً به قسمت تنظیمات برنامه رفته، \"مجوز ها\" را انتخاب کنید، و \"دوربین\" را فعال کنید.</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">عدم توانایی در اسکن کد کیوآر بدون مجوز دوربین</string>
   <!--ViewOnceMessageActivity-->
   <!--MessageDisplayHelper-->
@@ -826,7 +826,7 @@
   <string name="MediaPreviewActivity_you">شما</string>
   <string name="MediaPreviewActivity_unssuported_media_type">نوع رسانه پشتیبانی نشده</string>
   <string name="MediaPreviewActivity_draft">پیش‌نویس</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Signal  به منظور ذخیره سازی روی حافظهٔ خارجی نیاز به مجوز حافظه دارد اما اجازه اینکار به طور دائمی رد شده است. لطفاً به تنظیمات برنامه رفته، \"مجوزها\" را انتخاب کنید و \"حافظهٔ\" را فعال کنید.</string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Molly  به منظور ذخیره سازی روی حافظهٔ خارجی نیاز به مجوز حافظه دارد اما اجازه اینکار به طور دائمی رد شده است. لطفاً به تنظیمات برنامه رفته، \"مجوزها\" را انتخاب کنید و \"حافظهٔ\" را فعال کنید.</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">عدم توانایی در ذخیره بر روی حافظهٔ خارجی بدون مجوز</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">حذف پیام؟</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">این باعث حذف دائمی این پیام خواهد شد.</string>
@@ -849,7 +849,7 @@
   <string name="MessageNotifier_signal_message">پیام Signal</string>
   <string name="MessageNotifier_unsecured_sms">پیامک ناامن</string>
   <string name="MessageNotifier_you_may_have_new_messages">پیام‌ جدید دارید</string>
-  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">برای مشاهدهٔ آخرین اعلان‌ها Signal را باز کنید.</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">برای مشاهدهٔ آخرین اعلان‌ها Molly را باز کنید.</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">مخاطب</string>
   <string name="MessageNotifier_reacted_s_to_s">%1$s به \"%2$s\" واکنش نشان داد.</string>
@@ -901,8 +901,8 @@
   <!--VideoPlayer-->
   <string name="VideoPlayer_error_playing_video">خطا در پخش ویدئو</string>
   <!--WebRtcCallActivity-->
-  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">برای پاسخ به تماس %s، به Signal اجازهٔ دسترسی به میکروفون خود را بدهید.</string>
-  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Signal برای برقراری و دریافت تماس نیاز مجوزهای میکروفون و دوربین دارد، اما دسترسی به آن‌ها به طور دائمی لغو شده است. لطفاً به تنظیمات برنامه رفته، در قسمت \"مجوزها\"، \"میکروفون\" و \"دوربین\" را فعال کنید.</string>
+  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">برای پاسخ به تماس %s، به Molly اجازهٔ دسترسی به میکروفون خود را بدهید.</string>
+  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Molly برای برقراری و دریافت تماس نیاز مجوزهای میکروفون و دوربین دارد، اما دسترسی به آن‌ها به طور دائمی لغو شده است. لطفاً به تنظیمات برنامه رفته، در قسمت \"مجوزها\"، \"میکروفون\" و \"دوربین\" را فعال کنید.</string>
   <!--WebRtcCallScreen-->
   <string name="WebRtcCallScreen_new_safety_numbers">شماره امنیتی مکالمه شما با %1$s تغییر یافته است. این میتواند به این معنا باشد که شخصی سعی دارد تا مکالمه شما را شنود کند، یا %2$s برنامه Signal را دوباره نصب کرده است.</string>
   <string name="WebRtcCallScreen_you_may_wish_to_verify_this_contact">شاید بخواهید شماره امتیتی خود را با این مخاطب تایید کنید.</string>
@@ -953,7 +953,7 @@
   <!--single_contact_selection_activity-->
   <string name="SingleContactSelectionActivity_contact_photo">تصویر مخاطب</string>
   <!--ContactSelectionListFragment-->
-  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Signal نیاز به دسترسی به مخاطبان دارد تا مخاطبان شما را نمایش دهد، اما مجوز آن به طور دائم رد شده است. لطفاً به منو تنظیمات برنامه رفته، \"مجوز ها\" را انتخاب کرده و \"مخاطبان\" را فعال کنید.</string>
+  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Molly نیاز به دسترسی به مخاطبان دارد تا مخاطبان شما را نمایش دهد، اما مجوز آن به طور دائم رد شده است. لطفاً به منو تنظیمات برنامه رفته، \"مجوز ها\" را انتخاب کرده و \"مخاطبان\" را فعال کنید.</string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">خطا در بازیابی مخاطبان، اتصال اینترنت خود را بررسی کنید</string>
   <string name="ContactSelectionListFragment_username_not_found">نام کاربری یافت نشد</string>
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">\"%1$s\" یک کاربر Signal نمی باشد. لطفاً نام کاربری را بررسی کرده و دوباره تلاش کنید.</string>
@@ -961,7 +961,7 @@
   <!--blocked_contacts_fragment-->
   <string name="blocked_contacts_fragment__no_blocked_contacts">هیچ مخاطب مسدود شده‌ای وجود ندارد</string>
   <!--contact_selection_list_fragment-->
-  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Signal نیاز به دسترسی به مخاطب های شما دارد تا بتواند آن ها را نمایش دهد.</string>
+  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly نیاز به دسترسی به مخاطب های شما دارد تا بتواند آن ها را نمایش دهد.</string>
   <string name="contact_selection_list_fragment__show_contacts">نمایش مخاطب ها</string>
   <!--conversation_activity-->
   <string name="conversation_activity__type_message_push">پیام Signal</string>
@@ -1638,7 +1638,7 @@
   <string name="BackupDialog_verify">تآیید</string>
   <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">گذرواژهٔ پشتیبان با موفقیت وارد شد</string>
   <string name="BackupDialog_passphrase_was_not_correct">گذرواژه نادرست بود</string>
-  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal برای پشتیبان‌گیری نیاز به مجوز حافظه دارد، اما اجازه آن داده نشده است. لطفاً به تنظیمات برنامه رفته، «مجوزها» را انتخاب کنید و «ذخیره‌سازی» را فعال کنید.</string>
+  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly برای پشتیبان‌گیری نیاز به مجوز حافظه دارد، اما اجازه آن داده نشده است. لطفاً به تنظیمات برنامه رفته، «مجوزها» را انتخاب کنید و «ذخیره‌سازی» را فعال کنید.</string>
   <string name="ChatsPreferenceFragment_last_backup_s">آخرین پشتیبان: %s</string>
   <string name="ChatsPreferenceFragment_in_progress">در حال انجام</string>
   <string name="LocalBackupJob_creating_backup">ایجاد پشتیبان…</string>

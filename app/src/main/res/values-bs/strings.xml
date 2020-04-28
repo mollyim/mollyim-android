@@ -66,10 +66,10 @@
   <string name="AttachmentKeyboard_location">Lokacija</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">Nije pronađena aplikacija za biranje priloga.</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signalu je potrebno dopuštenje da pristupi memoriji uređaja kako bi mogao priložiti slike, video i audiozapise, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavku \"Prostor za pohranu\".</string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Signalu je potrebno dopuštenje da pristupi kontaktima kako bi mogao priložiti informacije o njima, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavku \"Kontakti\".</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Signalu je potrebno dopuštenje da sazna lokaciju uređaja, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavku \"Lokacija\".</string>
-  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">Signalu je potrebno dopuštenje da pristupi kameri kako bi mogao slikati, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavku \"Kamera\".</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Mollyu je potrebno dopuštenje da pristupi memoriji uređaja kako bi mogao priložiti slike, video i audiozapise, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavku \"Prostor za pohranu\".</string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Mollyu je potrebno dopuštenje da pristupi kontaktima kako bi mogao priložiti informacije o njima, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavku \"Kontakti\".</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Mollyu je potrebno dopuštenje da sazna lokaciju uređaja, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavku \"Lokacija\".</string>
+  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">Mollyu je potrebno dopuštenje da pristupi kameri kako bi mogao slikati, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavku \"Kamera\".</string>
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">Prijenos priloga…</string>
   <string name="AttachmentUploadJob_compressing_video_start">Kompresija videozapisa u toku …</string>
@@ -187,16 +187,16 @@
   <string name="ConversationActivity_quick_camera_unavailable">Kamera nije dostupna</string>
   <string name="ConversationActivity_unable_to_record_audio">Nije moguće snimiti zvuk!</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">Na Vašem uređaju nema aplikacije koja bi mogla otvoriti ovaj link.</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Da biste mogli slati zvučne poruke, dozvolite Signalu pristup Vašem mikrofonu.</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Signalu je potrebno dopuštenje da pristupi mikrofonu kako bi mogao slati zvučne poruke, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavku \"Mikrofon\". </string>
-  <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">Da biste nazvali %s, Signalu je potreban pristup Vašem mikrofonu i kameri.</string>
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Signalu je potrebno dopuštenje da pristupi mikrofonu i kameri kako bi mogao nazvati %s, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavke \"Mikrofon\" i \"Kamera\". </string>
-  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Da biste slikali i snimali, dozvolite Signalu da pristupi kameri.</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signalu je potrebno dopuštenje da pristupi kameri kako bi mogao slikati i snimati, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavku \"Kamera\". </string>
-  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signalu je potrebno dopuštenje da pristupi kameri kako bi mogao slikati i snimati.</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Da biste mogli slati zvučne poruke, dozvolite Mollyu pristup Vašem mikrofonu.</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Mollyu je potrebno dopuštenje da pristupi mikrofonu kako bi mogao slati zvučne poruke, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavku \"Mikrofon\". </string>
+  <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">Da biste nazvali %s, Mollyu je potreban pristup Vašem mikrofonu i kameri.</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Mollyu je potrebno dopuštenje da pristupi mikrofonu i kameri kako bi mogao nazvati %s, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavke \"Mikrofon\" i \"Kamera\". </string>
+  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Da biste slikali i snimali, dozvolite Mollyu da pristupi kameri.</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Mollyu je potrebno dopuštenje da pristupi kameri kako bi mogao slikati i snimati, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavku \"Kamera\". </string>
+  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Mollyu je potrebno dopuštenje da pristupi kameri kako bi mogao slikati i snimati.</string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Omogućite pristup mikrofonu da biste snimali video sa zvukom.</string>
-  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signalu je potrebno dopuštenje da pristupi mikrofonu kako bi mogao snimati video, ali je ono uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavke \"Mikrofon\" i \"Kamera\".</string>
-  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signalu je potrebno dopuštenje da pristupi mikrofonu kako bi mogao snimati videozapise.</string>
+  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Mollyu je potrebno dopuštenje da pristupi mikrofonu kako bi mogao snimati video, ali je ono uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavke \"Mikrofon\" i \"Kamera\".</string>
+  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Mollyu je potrebno dopuštenje da pristupi mikrofonu kako bi mogao snimati videozapise.</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">Signal ne može slati SMS/MMS poruke zato što nije Vaša glavna SMS aplikacija. Želite li ovo promijeniti u postavkama Androida?</string>
   <string name="ConversationActivity_yes">Da</string>
@@ -332,7 +332,7 @@
   <string name="DocumentView_unnamed_file">Datoteka bez naziva</string>
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">Optimizuj za nepostojanje Play Services</string>
-  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Ovaj uređaj ne podržava Play Services. Pritisnite ovdje kako biste onemogućili sistemske optimizacije korištenja baterije koje sprečavaju Signal da prima poruke dok je aplikacija zatvorena.</string>
+  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Ovaj uređaj ne podržava Play Services. Pritisnite ovdje kako biste onemogućili sistemske optimizacije korištenja baterije koje sprečavaju Molly da prima poruke dok je aplikacija zatvorena.</string>
   <!--ShareActivity-->
   <string name="ShareActivity_share_with">Dijeli sa</string>
   <!--GcmBroadcastReceiver-->
@@ -479,8 +479,8 @@
   <string name="MediaSendActivity_message_to_s">Poruka za %s</string>
   <string name="MediaSendActivity_message">Poruka</string>
   <string name="MediaSendActivity_select_recipients">Odaberite primaoce</string>
-  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Signalu je potreban pristup Vašim kontaktima kako bi ih mogao prikazati.</string>
-  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Signalu je potrebno dopuštenje da pristupi kontaktima kako bi mogao prikazati Vaše kontakte, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavku \"Kontakti\".</string>
+  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Mollyu je potreban pristup Vašim kontaktima kako bi ih mogao prikazati.</string>
+  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Mollyu je potrebno dopuštenje da pristupi kontaktima kako bi mogao prikazati Vaše kontakte, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavku \"Kontakti\".</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="one">Ne možete dijeliti više od %d stavke.</item>
     <item quantity="few">Ne možete dijeliti više od %d stavke.</item>
@@ -546,7 +546,7 @@
   <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">Ovo nije ispravan QR kōd za povezivanje uređaja.</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">Povezati Signal uređaj?</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Izgleda da ste pokušali povezati Signal uređaj koristeći neki eksterni skener. Radi Vaše sigurnosti, molimo ponovo skenirajte kōd, ali kroz Signal.</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Signalu je potrebno dopuštenje da pristupi kameri kako bi mogao skenirati QR kōd, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavku \"Kamera\".</string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Mollyu je potrebno dopuštenje da pristupi kameri kako bi mogao skenirati QR kōd, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavku \"Kamera\".</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Nije moguće skenirati QR kōd bez dopuštenja za pristup kameri.</string>
   <!--ExpirationDialog-->
   <string name="ExpirationDialog_disappearing_messages">Nestajuće poruke</string>
@@ -627,7 +627,7 @@
   <string name="RegistrationActivity_no_browser">Ovaj link nije moguće otvoriti. Nije pronađen internet-preglednik.</string>
   <string name="RegistrationActivity_more_information">Više informacija</string>
   <string name="RegistrationActivity_less_information">Manje informacija</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Signalu je potrebno dopuštenje da pristupi Vašim kontaktima i datotekama kako biste uspostavili vezu sa prijateljima i razmjenjivali poruke i zaštićene pozive</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Mollyu je potrebno dopuštenje da pristupi Vašim kontaktima i datotekama kako biste uspostavili vezu sa prijateljima i razmjenjivali poruke i zaštićene pozive</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">Povezivanje nije uspjelo. Molimo provjerite Vašu internet-konekciju i pokušajte ponovo.</string>
   <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">Da biste na jednostavan način potvrdili Vaš telefonski broj, možete Signalu omogućiti pristup SMS porukama i on će automatski preuzeti kōd za verifikaciju.</string>
   <plurals name="RegistrationActivity_debug_log_hint">
@@ -767,7 +767,7 @@
   <string name="VerifyIdentityActivity_our_signal_safety_number">Naš Signal sigurnosni broj:</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">Izgleda da nemate nijednu aplikaciju s kojom je moguće dijeljenje.</string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">U spremniku nije pronađen sigurnosni broj za upoređivanje</string>
-  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Signalu je potrebno dopuštenje da pristupi kameri kako bi mogao skenirati QR kōd, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavku \"Kamera\".</string>
+  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Mollyu je potrebno dopuštenje da pristupi kameri kako bi mogao skenirati QR kōd, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavku \"Kamera\".</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">Nije moguće skenirati QR kōd bez dopuštenja za pristup kameri.</string>
   <!--ViewOnceMessageActivity-->
   <!--MessageDisplayHelper-->
@@ -794,7 +794,7 @@
   <string name="MediaPreviewActivity_you">Vi</string>
   <string name="MediaPreviewActivity_unssuported_media_type">Nepodržana vrsta datoteke</string>
   <string name="MediaPreviewActivity_draft">U obradi</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Signalu je potrebno dopuštenje da pristupi memoriji uređaja kako bi mogao pohranjivati podatke, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavku \"Prostor za pohranu\". </string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Mollyu je potrebno dopuštenje da pristupi memoriji uređaja kako bi mogao pohranjivati podatke, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavku \"Prostor za pohranu\". </string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">Nije moguće bez dopuštenja pohraniti podatke u memoriju uređaja</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">Izbrisati poruku?</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">Ovo će bespovratno izbrisati poruku.</string>
@@ -815,7 +815,7 @@
   <string name="MessageNotifier_signal_message">Signal poruka</string>
   <string name="MessageNotifier_unsecured_sms">Nezaštićen SMS</string>
   <string name="MessageNotifier_you_may_have_new_messages">Možda imate novih poruka</string>
-  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Otvorite Signal da provjerite zadnja obavještenja.</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Otvorite Molly da provjerite zadnja obavještenja.</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">Kontakt</string>
   <!--Notification Channels-->
@@ -860,8 +860,8 @@
   <!--VideoPlayer-->
   <string name="VideoPlayer_error_playing_video">Greška prilikom reprodukcije videa</string>
   <!--WebRtcCallActivity-->
-  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Da biste odgovorili na poziv %s, dozvolite Signalu pristup Vašem mikrofonu.</string>
-  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Signalu je potrebno dopuštenje da pristupi mikrofonu i kameri kako bi mogao slati i primati pozive, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavke \"Mikrofon\" i \"Kamera\". </string>
+  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Da biste odgovorili na poziv %s, dozvolite Mollyu pristup Vašem mikrofonu.</string>
+  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Mollyu je potrebno dopuštenje da pristupi mikrofonu i kameri kako bi mogao slati i primati pozive, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavke \"Mikrofon\" i \"Kamera\". </string>
   <!--WebRtcCallScreen-->
   <string name="WebRtcCallScreen_new_safety_numbers">Promijenjen je sigurnosni broj za Vašu konverzaciju sa %1$s. Ovo može značiti da neko pokušava presresti Vašu komunikaciju ili da je %2$s iznova instalirao/la Signal.</string>
   <string name="WebRtcCallScreen_you_may_wish_to_verify_this_contact">Trebali biste provjeriti Vaš sigurnosni broj s ovom osobom.</string>
@@ -912,7 +912,7 @@
   <!--single_contact_selection_activity-->
   <string name="SingleContactSelectionActivity_contact_photo">Slika kontakta</string>
   <!--ContactSelectionListFragment-->
-  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Signalu je potrebno dopuštenje da pristupi kontaktima kako bi mogao prikazati Vaše kontakte, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavku \"Kontakti\".</string>
+  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Mollyu je potrebno dopuštenje da pristupi kontaktima kako bi mogao prikazati Vaše kontakte, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavku \"Kontakti\".</string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Greška prilikom preuzimanja kontakta, provjerite internet-konekciju</string>
   <string name="ContactSelectionListFragment_username_not_found">Korisničko ime nije pronađeno</string>
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">\"%1$s\" ne koristi Signal. Provjerite korisničko ime i pokušajte ponovo.</string>
@@ -920,7 +920,7 @@
   <!--blocked_contacts_fragment-->
   <string name="blocked_contacts_fragment__no_blocked_contacts">Nema blokiranih lica</string>
   <!--contact_selection_list_fragment-->
-  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Signalu je potreban pristup Vašim kontaktima kako bi ih mogao prikazati.</string>
+  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Mollyu je potreban pristup Vašim kontaktima kako bi ih mogao prikazati.</string>
   <string name="contact_selection_list_fragment__show_contacts">Prikaži kontakte</string>
   <!--conversation_activity-->
   <string name="conversation_activity__type_message_push">Signal poruka</string>
@@ -1492,7 +1492,7 @@
   <string name="BackupDialog_delete_backups_statement">Obriši rezervne kopije</string>
   <string name="BackupDialog_copied_to_clipboard">Kopirano u međuspremnik</string>
   <string name="BackupDialog_verify">Verifikuj</string>
-  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signalu je potrebno dopuštenje da pristupi memoriji uređaja kako bi mogao kreirati rezervne kopije, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavku \"Prostor za pohranu\". </string>
+  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Mollyu je potrebno dopuštenje da pristupi memoriji uređaja kako bi mogao kreirati rezervne kopije, ali je ono trajno uskraćeno. Molimo nastavite do postavki aplikacije, odaberite \"Dozvole\" i aktivirajte stavku \"Prostor za pohranu\". </string>
   <string name="ChatsPreferenceFragment_last_backup_s">Zadnja kreirana kopija: %s</string>
   <string name="ChatsPreferenceFragment_in_progress">U toku</string>
   <string name="LocalBackupJob_creating_backup">Kreiram rezervnu kopiju…</string>

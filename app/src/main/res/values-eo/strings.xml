@@ -61,14 +61,14 @@
   <string name="AttachmentKeyboard_file">Dosiero</string>
   <string name="AttachmentKeyboard_contact">Kontakto</string>
   <string name="AttachmentKeyboard_location">Loko</string>
-  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Signal bezonas permeson por montri viajn fotojn kaj videaĵojn.</string>
+  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Molly bezonas permeson por montri viajn fotojn kaj videaĵojn.</string>
   <string name="AttachmentKeyboard_give_access">Permesi aliron</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">Ne eblas trovi aplikaĵon por malfermi aŭdvidaĵon.</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signal bezonas la Konservejo-permeson por almeti bildojn, videojn aŭ aŭdaĵojn, sed ĝi estis porĉiame malakceptita. Bonvolu daŭrigi al la aplikaĵaj agordoj, elekti „Permesoj“, kaj ŝalti „Konservejo“.</string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Signal bezonas permeson legi kontaktojn por kunligi kontaktajn informojn, sed ĝi estis porĉiame malakceptita. Bonvolu daŭrigi al la aplikaĵaj agordoj, elekti „Permesoj“, kaj ŝalti „Kontaktoj“.</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Signal bezonas Pozicio-permeson por kunligi pozicion, sed ĝi estis porĉiame malakceptita. Bonvolu daŭrigi al la aplikaĵaj agordoj, elekti „Permesoj“, kaj ŝalti „Pozicio“.</string>
-  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">Signal bezonas la Fotilo-permeson por preni fotojn, sed ĝi estis porĉiame malakceptita. Bonvolu daŭrigi al la aplikaĵaj agordoj, elekti „Permesoj“, kaj ŝalti „Fotilo“.</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly bezonas la Konservejo-permeson por almeti bildojn, videojn aŭ aŭdaĵojn, sed ĝi estis porĉiame malakceptita. Bonvolu daŭrigi al la aplikaĵaj agordoj, elekti „Permesoj“, kaj ŝalti „Konservejo“.</string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly bezonas permeson legi kontaktojn por kunligi kontaktajn informojn, sed ĝi estis porĉiame malakceptita. Bonvolu daŭrigi al la aplikaĵaj agordoj, elekti „Permesoj“, kaj ŝalti „Kontaktoj“.</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly bezonas Pozicio-permeson por kunligi pozicion, sed ĝi estis porĉiame malakceptita. Bonvolu daŭrigi al la aplikaĵaj agordoj, elekti „Permesoj“, kaj ŝalti „Pozicio“.</string>
+  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">Molly bezonas la Fotilo-permeson por preni fotojn, sed ĝi estis porĉiame malakceptita. Bonvolu daŭrigi al la aplikaĵaj agordoj, elekti „Permesoj“, kaj ŝalti „Fotilo“.</string>
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">Alŝuto de aŭdvidaĵo…</string>
   <string name="AttachmentUploadJob_compressing_video_start">Densigo de la videaĵo…</string>
@@ -188,16 +188,16 @@
   <string name="ConversationActivity_quick_camera_unavailable">Fotilo ne disponeblas</string>
   <string name="ConversationActivity_unable_to_record_audio">Ne eblas registri sonaĵon!</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">Estas neniu aplikaĵo disponebla por trakti ĉi tiun ligilon ĉe via aparato.</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Por registri aŭdajn mesaĝojn, donu al Signal permeson uzi vian mikrofonon.</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Signal bezonas la Mikrofono-permeson por sendi aŭdajn mesaĝojn, sed ĝi estis porĉiame malakceptita. Bonvolu daŭrigi al la aplikaĵaj agordoj, elekti „Permesoj“, kaj ŝalti „Mikrofono“.</string>
-  <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">Por telefoni %s, Signal bezonas aliron al via mikrofono kaj fotilo.</string>
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Signal bezonas la permesojn mikrofonan kaj fotilan por alvoki %s, sed ĝi estis porĉiame malakceptita. Bonvolu daŭrigi al la aplikaĵaj agordoj, elekti „Permesoj“, kaj ŝalti „Mikrofono“ kaj „Fotilo“.</string>
-  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Por registri bildojn kaj videaĵojn, donu al Signal aliron al la fotilo.</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signal bezonas la Fotilo-permeson por preni fotojn aŭ videojn, sed ĝi estis porĉiame malakceptita. Bonvolu daŭrigi al la aplikaĵaj agordoj, elekti „Permesoj“, kaj ŝalti „Fotilo“.</string>
-  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signal bezonas la Fotilo-permeson por preni fotojn aŭ videaĵojn</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Por registri aŭdajn mesaĝojn, donu al Molly permeson uzi vian mikrofonon.</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly bezonas la Mikrofono-permeson por sendi aŭdajn mesaĝojn, sed ĝi estis porĉiame malakceptita. Bonvolu daŭrigi al la aplikaĵaj agordoj, elekti „Permesoj“, kaj ŝalti „Mikrofono“.</string>
+  <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">Por telefoni %s, Molly bezonas aliron al via mikrofono kaj fotilo.</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly bezonas la permesojn mikrofonan kaj fotilan por alvoki %s, sed ĝi estis porĉiame malakceptita. Bonvolu daŭrigi al la aplikaĵaj agordoj, elekti „Permesoj“, kaj ŝalti „Mikrofono“ kaj „Fotilo“.</string>
+  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Por registri bildojn kaj videaĵojn, donu al Molly aliron al la fotilo.</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Molly bezonas la Fotilo-permeson por preni fotojn aŭ videojn, sed ĝi estis porĉiame malakceptita. Bonvolu daŭrigi al la aplikaĵaj agordoj, elekti „Permesoj“, kaj ŝalti „Fotilo“.</string>
+  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Molly bezonas la Fotilo-permeson por preni fotojn aŭ videaĵojn</string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Ebligi la permeson pri mikrofono por fari videaĵon kun sono.</string>
-  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signal bezonas permesojn uzi la mikrofonon por fari videaĵojn, sed ĝi estis porĉiame malakceptita. Bonvolu daŭrigi al la aplikaĵaj agordoj, elekti „Permesoj“, kaj ŝalti „Mikrofono“ kaj „Fotilo“.</string>
-  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signal bezonas permesojn uzi la mikrofonon por fari videaĵojn.</string>
+  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Molly bezonas permesojn uzi la mikrofonon por fari videaĵojn, sed ĝi estis porĉiame malakceptita. Bonvolu daŭrigi al la aplikaĵaj agordoj, elekti „Permesoj“, kaj ŝalti „Mikrofono“ kaj „Fotilo“.</string>
+  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Molly bezonas permesojn uzi la mikrofonon por fari videaĵojn.</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">Signal ne povas sendi SMM aŭ MMS, ĉar ĝi ne estas via defaŭlta SMS-aplikaĵo. Ĉu vi volas ŝanĝi tion en via Androida agordon?</string>
   <string name="ConversationActivity_yes">Jes</string>
@@ -343,7 +343,7 @@
   <string name="DocumentView_unnamed_file">Sennoma dosiero</string>
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">Optimumigi por mankantaj „Play Services“</string>
-  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Tiu aparato ne subtenas „Play Services“. Tuŝetu por malebligi baterian optimumigon, kiu alie malhelpus al Signal ricevi mesaĝojn dum neaktiva.</string>
+  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Tiu aparato ne subtenas „Play Services“. Tuŝetu por malebligi baterian optimumigon, kiu alie malhelpus al Molly ricevi mesaĝojn dum neaktiva.</string>
   <!--ShareActivity-->
   <string name="ShareActivity_share_with">Kunhavigi kun</string>
   <string name="ShareActivity_multiple_attachments_are_only_supported">Pluraj kunsendaĵoj nur eblas kun bildoj kaj videaĵoj</string>
@@ -491,8 +491,8 @@
   <string name="MediaSendActivity_message_to_s">Mesaĝo al %s</string>
   <string name="MediaSendActivity_message">Mesaĝo</string>
   <string name="MediaSendActivity_select_recipients">Elekti ricevontojn</string>
-  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Signal bezonas aliri viajn kontaktojn por montri ilin.</string>
-  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Signal bezonas permeson legi kontaktojn por serĉi en viaj kontaktoj, sed ĝi estis porĉiame malakceptita. Bonvolu daŭrigi al la aplikaĵaj agordoj, elekti „Permesoj“, kaj ŝalti „Kontaktoj“.</string>
+  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Molly bezonas aliri viajn kontaktojn por montri ilin.</string>
+  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Molly bezonas permeson legi kontaktojn por serĉi en viaj kontaktoj, sed ĝi estis porĉiame malakceptita. Bonvolu daŭrigi al la aplikaĵaj agordoj, elekti „Permesoj“, kaj ŝalti „Kontaktoj“.</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="one">Vi ne povas kunhavigi pli ol %d elementon.</item>
     <item quantity="other">Vi ne povas kunhavigi pli ol %d elementojn.</item>
@@ -569,7 +569,7 @@
   <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">Bedaŭrinde, tio ne estas valida rapidresponda (QR) kodo por ligi aparaton.</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">Ĉu ligi Signal-an aparaton?</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Ŝajnas, ke vi provas ligi al Signal-a aparato uzante skanilon el ekstera liveranto. Pro protekta kialo, bv. re-skani la kodon per SIgnal.</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Signal bezonas la Fotilo-permeson por skani rapidrespondan (QR) kodon, sed ĝi estis porĉiame malakceptita. Bonvolu daŭrigi al la aplikaĵaj agordoj, elekti „Permesoj“, kaj ŝalti „Fotilo“.</string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly bezonas la Fotilo-permeson por skani rapidrespondan (QR) kodon, sed ĝi estis porĉiame malakceptita. Bonvolu daŭrigi al la aplikaĵaj agordoj, elekti „Permesoj“, kaj ŝalti „Fotilo“.</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Ne eblas skani rapidrespondan (QR) kodon sen Fotilo-permeso</string>
   <!--ExpirationDialog-->
   <string name="ExpirationDialog_disappearing_messages">Memviŝontaj mesaĝoj</string>
@@ -652,7 +652,7 @@
   <string name="RegistrationActivity_no_browser">Ne eblis malfermi la ligilon. Neniu retumilo troviĝis.</string>
   <string name="RegistrationActivity_more_information">Plia informo</string>
   <string name="RegistrationActivity_less_information">Malplia informo</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Signal bezonas aliri al viaj kontaktoj kaj aŭdvidaĵoj por konekti kun amikoj, interŝanĝi mesaĝojn, kaj fari sekurajn alvokojn.</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly bezonas aliri al viaj kontaktoj kaj aŭdvidaĵoj por konekti kun amikoj, interŝanĝi mesaĝojn, kaj fari sekurajn alvokojn.</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">Konekto al servo ne eblas. Bv. kontroli retkonekton, kaj provi denove.</string>
   <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">Por facile kontroli vian telefonnumeron, Signal povas aŭtomate depreni la validigan kodon, se vi permesas al Signal aliri al viaj SMS-mesaĝoj.</string>
   <plurals name="RegistrationActivity_debug_log_hint">
@@ -805,7 +805,7 @@ Ricevis mesaĝon pri interŝanĝo de ŝlosiloj por nevalida protokola versio.
   <string name="VerifyIdentityActivity_our_signal_safety_number">Nia Signal-a sekuriga numero:</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">Ŝajnas, ke vi ne havas aplikaĵojn, al kiu kunhavigi.</string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">Neniu sekuriga numero komparota troveblis en la tondujo</string>
-  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Signal bezonas la Fotilo-permeson por skani rapidrespondan (QR) kodon, sed ĝi estis porĉiame malakceptita. Bonvolu daŭrigi al la aplikaĵaj agordoj, elekti „Permesoj“, kaj ŝalti „Fotilo“.</string>
+  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Molly bezonas la Fotilo-permeson por skani rapidrespondan (QR) kodon, sed ĝi estis porĉiame malakceptita. Bonvolu daŭrigi al la aplikaĵaj agordoj, elekti „Permesoj“, kaj ŝalti „Fotilo“.</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">Ne eblas skani rapidrespondan (QR) kodon sen Fotilo-permeso</string>
   <!--ViewOnceMessageActivity-->
   <!--MessageDisplayHelper-->
@@ -832,7 +832,7 @@ Ricevis mesaĝon pri interŝanĝo de ŝlosiloj por nevalida protokola versio.
   <string name="MediaPreviewActivity_you">Vi</string>
   <string name="MediaPreviewActivity_unssuported_media_type">Nesubtenata tipo de aŭdvidaĵo</string>
   <string name="MediaPreviewActivity_draft">Malneto</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Signal bezonas la permeson aliri al konservejo por konservi al ekstera konservejo, sed ĝi estis porĉiame malakceptita. Bonvolu iri al la aplikaĵaj agordoj, elekti „Permesoj“, kaj ŝalti „Konservejo“.</string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Molly bezonas la permeson aliri al konservejo por konservi al ekstera konservejo, sed ĝi estis porĉiame malakceptita. Bonvolu iri al la aplikaĵaj agordoj, elekti „Permesoj“, kaj ŝalti „Konservejo“.</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">Ne eblas konservi en la eksteran konservejon sen permesoj</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">Ĉu forviŝi mesaĝon?</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">Tio daŭre forviŝos ĉi tiun mesaĝon.</string>
@@ -855,7 +855,7 @@ Ricevis mesaĝon pri interŝanĝo de ŝlosiloj por nevalida protokola versio.
   <string name="MessageNotifier_signal_message">Signal-mesaĝo</string>
   <string name="MessageNotifier_unsecured_sms">Nesekura SMS</string>
   <string name="MessageNotifier_you_may_have_new_messages">Vi eble havas novajn mesaĝojn</string>
-  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Malfermu Signal-on por vidi, ĉu estas sciigoj.</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Malfermu Molly-on por vidi, ĉu estas sciigoj.</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">Kontakto</string>
   <string name="MessageNotifier_reacted_s_to_s">Reagis per %1$s al „%2$s“.</string>
@@ -907,8 +907,8 @@ Ricevis mesaĝon pri interŝanĝo de ŝlosiloj por nevalida protokola versio.
   <!--VideoPlayer-->
   <string name="VideoPlayer_error_playing_video">Eraro dum ludo de videaĵo</string>
   <!--WebRtcCallActivity-->
-  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Por respondi al la alvoko el %s, donu al Signal aliron al via mikrofono.</string>
-  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Signal bezonas permesojn uzi la mikrofonon kaj fotilon por fari aŭ ricevi alvokojn, sed ĝi estis porĉiame malakceptita. Bonvolu daŭrigi al la aplikaĵaj agordoj, elekti „Permesoj“, kaj ŝalti „Mikrofono“ kaj „Fotilo“.</string>
+  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Por respondi al la alvoko el %s, donu al Molly aliron al via mikrofono.</string>
+  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Molly bezonas permesojn uzi la mikrofonon kaj fotilon por fari aŭ ricevi alvokojn, sed ĝi estis porĉiame malakceptita. Bonvolu daŭrigi al la aplikaĵaj agordoj, elekti „Permesoj“, kaj ŝalti „Mikrofono“ kaj „Fotilo“.</string>
   <!--WebRtcCallScreen-->
   <string name="WebRtcCallScreen_new_safety_numbers">Via sekuriga numero pro via interparolo kun %1$s ŝanĝiĝis. Tio povas aŭ signifi, ke iu provas interkapti viajn komunikojn, aŭ ke %2$s simple reinstalis Signal-on.</string>
   <string name="WebRtcCallScreen_you_may_wish_to_verify_this_contact">Vi certe volos kontroli vian sekurigan numeron kun ĉi tiu kontakto.</string>
@@ -959,7 +959,7 @@ Ricevis mesaĝon pri interŝanĝo de ŝlosiloj por nevalida protokola versio.
   <!--single_contact_selection_activity-->
   <string name="SingleContactSelectionActivity_contact_photo">Kontakta bildo</string>
   <!--ContactSelectionListFragment-->
-  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Signal bezonas kontaktaro-permeson por montri viajn kontaktojn, sed ĝi estis porĉiame malakceptita. Bonvolu daŭrigi al la aplikaĵaj agordoj, elekti „Permesoj“, kaj ŝalti „Kontaktaro“.</string>
+  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Molly bezonas kontaktaro-permeson por montri viajn kontaktojn, sed ĝi estis porĉiame malakceptita. Bonvolu daŭrigi al la aplikaĵaj agordoj, elekti „Permesoj“, kaj ŝalti „Kontaktaro“.</string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Eraro dum ricevo de kontaktoj; bv. kontroli vian retkonekton</string>
   <string name="ContactSelectionListFragment_username_not_found">Uzantnomo ne trovita</string>
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">„%1$s“ ne estas Signal-uzanto. Kontrolu la uzantnomon kaj reprovu.</string>
@@ -967,7 +967,7 @@ Ricevis mesaĝon pri interŝanĝo de ŝlosiloj por nevalida protokola versio.
   <!--blocked_contacts_fragment-->
   <string name="blocked_contacts_fragment__no_blocked_contacts">Neniu blokata kontakto</string>
   <!--contact_selection_list_fragment-->
-  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Signal bezonas aliri viajn kontaktojn por montri ilin.</string>
+  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly bezonas aliri viajn kontaktojn por montri ilin.</string>
   <string name="contact_selection_list_fragment__show_contacts">Montri kontaktoj</string>
   <!--conversation_activity-->
   <string name="conversation_activity__type_message_push">Signal-mesaĝo</string>
@@ -1644,7 +1644,7 @@ Ricevis mesaĝon pri interŝanĝo de ŝlosiloj por nevalida protokola versio.
   <string name="BackupDialog_verify">Kontroli</string>
   <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">Vi sukcese entajpis vian savkopian pasfrazon</string>
   <string name="BackupDialog_passphrase_was_not_correct">La pasfrazo malĝustas</string>
-  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal bezonas la permeson aliri al ekstera konservejo por krei sekurkopiojn, sed ĝi estis porĉiame malakceptita. Bonvolu daŭrigi al la aplikaĵaj agordoj, elekti „Permesoj“, kaj ŝalti „Konservejo“.</string>
+  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly bezonas la permeson aliri al ekstera konservejo por krei sekurkopiojn, sed ĝi estis porĉiame malakceptita. Bonvolu daŭrigi al la aplikaĵaj agordoj, elekti „Permesoj“, kaj ŝalti „Konservejo“.</string>
   <string name="ChatsPreferenceFragment_last_backup_s">Lasta savkopiado: %s</string>
   <string name="ChatsPreferenceFragment_in_progress">Farata</string>
   <string name="LocalBackupJob_creating_backup">Kreo de savkopio…</string>

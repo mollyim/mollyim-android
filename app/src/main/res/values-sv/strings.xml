@@ -61,14 +61,14 @@
   <string name="AttachmentKeyboard_file">Fil</string>
   <string name="AttachmentKeyboard_contact">Kontakt</string>
   <string name="AttachmentKeyboard_location">Plats</string>
-  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Signal behöver behörighet för att visa dina foton och videoklipp.</string>
+  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Molly behöver behörighet för att visa dina foton och videoklipp.</string>
   <string name="AttachmentKeyboard_give_access">Ge åtkomst</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">Kan inte hitta app för att välja media.</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signal behöver behörigheten Lagring för att bifoga bilder, video och ljud men har nekats den permanent. Fortsätt till inställningsmenyn för Appar och aviseringar, välj \"Behörigheter\" och aktivera \"Lagring\".</string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Signal behöver behörigheten Kontakter för att bifoga kontaktinformation men har nekats den permanent. Fortsätt till inställningsmenyn för Appar och aviseringar, välj \"Behörigheter\" och aktivera \"Kontakter\".</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Signal behöver behörigheten Plats för att bifoga platser men har nekats den permanent. Fortsätt till inställningsmenyn för Appar och aviseringar, välj \"Behörigheter\" och aktivera \"Plats\".</string>
-  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">Signal behöver behörigheten Kamera för att ta bilder men har nekats den permanent. Fortsätt till inställningsmenyn för Appar och aviseringar, välj \"Behörigheter\" och aktivera \"Kamera\".</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly behöver behörigheten Lagring för att bifoga bilder, video och ljud men har nekats den permanent. Fortsätt till inställningsmenyn för Appar och aviseringar, välj \"Behörigheter\" och aktivera \"Lagring\".</string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly behöver behörigheten Kontakter för att bifoga kontaktinformation men har nekats den permanent. Fortsätt till inställningsmenyn för Appar och aviseringar, välj \"Behörigheter\" och aktivera \"Kontakter\".</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly behöver behörigheten Plats för att bifoga platser men har nekats den permanent. Fortsätt till inställningsmenyn för Appar och aviseringar, välj \"Behörigheter\" och aktivera \"Plats\".</string>
+  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">Molly behöver behörigheten Kamera för att ta bilder men har nekats den permanent. Fortsätt till inställningsmenyn för Appar och aviseringar, välj \"Behörigheter\" och aktivera \"Kamera\".</string>
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">Laddar upp media…</string>
   <string name="AttachmentUploadJob_compressing_video_start">Komprimerar video…</string>
@@ -188,16 +188,16 @@
   <string name="ConversationActivity_quick_camera_unavailable">Kamera otillgänglig</string>
   <string name="ConversationActivity_unable_to_record_audio">Kunde inte spela in ljud!</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">Det finns ingen app på din enhet som kan hantera den här länken.</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">För att skicka ljudmeddelanden, vänligen ge Signal tillgång till din mikrofon.</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Signal behöver behörigheten Mikrofon för att skicka ljudmeddelanden men har nekats den permanent. Fortsätt till inställningsmenyn för Appar och aviseringar, välj \"Behörigheter\" och aktivera \"Mikrofon\".</string>
-  <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">För att ringa %s behöver Signal åtkomst till din mikrofon och kamera.</string>
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Signal behöver behörigheterna Mikrofon och Kamera för att ringa%s men har nekats dem permanent. Fortsätt till inställningsmenyn för Appar och aviseringar, välj \"Behörigheter\" och aktivera \"Mikrofon\" och Kamera\".</string>
-  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">För att fånga fotografier och video, tillåt Signal att tillgå kameran.</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signal behöver behörigheten Kamera för att ta bilder och filma men har nekats den permanent. Fortsätt till inställningsmenyn för Appar och aviseringar, välj \"Behörigheter\" och aktivera \"Kamera\".</string>
-  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signal behöver behörigheten Kamera för att ta bilder och filma</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">För att skicka ljudmeddelanden, vänligen ge Molly tillgång till din mikrofon.</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly behöver behörigheten Mikrofon för att skicka ljudmeddelanden men har nekats den permanent. Fortsätt till inställningsmenyn för Appar och aviseringar, välj \"Behörigheter\" och aktivera \"Mikrofon\".</string>
+  <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">För att ringa %s behöver Molly åtkomst till din mikrofon och kamera.</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly behöver behörigheterna Mikrofon och Kamera för att ringa%s men har nekats dem permanent. Fortsätt till inställningsmenyn för Appar och aviseringar, välj \"Behörigheter\" och aktivera \"Mikrofon\" och Kamera\".</string>
+  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">För att fånga fotografier och video, tillåt Molly att tillgå kameran.</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Molly behöver behörigheten Kamera för att ta bilder och filma men har nekats den permanent. Fortsätt till inställningsmenyn för Appar och aviseringar, välj \"Behörigheter\" och aktivera \"Kamera\".</string>
+  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Molly behöver behörigheten Kamera för att ta bilder och filma</string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Aktivera behörigheten Mikrofon för att spela in videor med ljud.</string>
-  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signalen behöver mikrofonbehörigheter för att spela in videor, men de har nekats. Fortsätt till appinställningar, välj \"Behörigheter\" och aktivera \"mikrofon\" och \"kamera\".</string>
-  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signal behöver behörigheten Mikrofon för att filma.</string>
+  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Mollyen behöver mikrofonbehörigheter för att spela in videor, men de har nekats. Fortsätt till appinställningar, välj \"Behörigheter\" och aktivera \"mikrofon\" och \"kamera\".</string>
+  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Molly behöver behörigheten Mikrofon för att filma.</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">Signal kan inte skicka SMS/MMS-meddelanden eftersom det inte är din standardapp för SMS. Vill du ändra detta i dina Android-inställningar?</string>
   <string name="ConversationActivity_yes">Ja</string>
@@ -343,7 +343,7 @@
   <string name="DocumentView_unnamed_file">Namnlös fil</string>
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">Optimera för avsaknad av Play-tjänster</string>
-  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Denna enhet stödjer inte Play-tjänster. Tryck för att slå av systemets batterioptimeringar som förhindrar Signal från att ta emot meddelanden medan den är inaktiv.</string>
+  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Denna enhet stödjer inte Play-tjänster. Tryck för att slå av systemets batterioptimeringar som förhindrar Molly från att ta emot meddelanden medan den är inaktiv.</string>
   <!--ShareActivity-->
   <string name="ShareActivity_share_with">Dela med</string>
   <string name="ShareActivity_multiple_attachments_are_only_supported">Flera bilagor stöds endast för bilder och videoklipp</string>
@@ -491,8 +491,8 @@
   <string name="MediaSendActivity_message_to_s">Meddelande till %s</string>
   <string name="MediaSendActivity_message">Meddelande</string>
   <string name="MediaSendActivity_select_recipients">Välj mottagare</string>
-  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Signal behöver tillgång till dina kontakter för att visa dem.</string>
-  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Signal behöver behörighet till Kontakter för att visa dina kontakter, men det har permanent nekats. Fortsätt till appinställningarna, välj \"Behörigheter\" och aktivera \"Kontakter\".</string>
+  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Molly behöver tillgång till dina kontakter för att visa dem.</string>
+  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Molly behöver behörighet till Kontakter för att visa dina kontakter, men det har permanent nekats. Fortsätt till appinställningarna, välj \"Behörigheter\" och aktivera \"Kontakter\".</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="one">Du kan inte dela mer än %d objekt.</item>
     <item quantity="other">Du kan inte dela mer än %d objekt.</item>
@@ -568,7 +568,7 @@
   <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">Tyvärr, det här är ingen giltig QR-kod för enhetslänkning.</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">Länka en Signal-enhet?</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Det verkar som att du försöker länka en Signal-enhet med hjälp av en tredjepartsskanner. Skanna koden med Signal för säkerhetens skull.</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Signal behöver behörigheten Kamera för att skanna QR-koder men har nekats den permanent. Fortsätt till inställningsmenyn för Appar och aviseringar, välj \"Behörigheter\" och aktivera \"Kamera\".</string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly behöver behörigheten Kamera för att skanna QR-koder men har nekats den permanent. Fortsätt till inställningsmenyn för Appar och aviseringar, välj \"Behörigheter\" och aktivera \"Kamera\".</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Kan inte skanna QR-koder utan behörigheten Kamera</string>
   <!--ExpirationDialog-->
   <string name="ExpirationDialog_disappearing_messages">Försvinnande meddelanden</string>
@@ -648,7 +648,7 @@ angav (%s) är ogiltigt.</string>
   <string name="RegistrationActivity_no_browser">Det går inte att öppna den här länken. Ingen webbläsare hittades.</string>
   <string name="RegistrationActivity_more_information">Mer information</string>
   <string name="RegistrationActivity_less_information">Mindre information</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Signal behöver tillgång till dina kontakter och media för att koppla ihop med vänner, utbyta meddelanden och ringa säkra samtal</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly behöver tillgång till dina kontakter och media för att koppla ihop med vänner, utbyta meddelanden och ringa säkra samtal</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">Kan inte ansluta till tjänsten. Kontrollera din nätverksanslutning och försök igen.</string>
   <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">För att enkelt bekräfta ditt telefonnummer kan Signal automatiskt detektera din bekräftelsekod om du tillåter Signal att se SMS-meddelanden.</string>
   <plurals name="RegistrationActivity_debug_log_hint">
@@ -800,7 +800,7 @@ Tog emot meddelande för nyckelutbyte för ogiltig protokollversion.</string>
   <string name="VerifyIdentityActivity_our_signal_safety_number">Vårt säkerhetsnummer för Signal:</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">Verkar som att du inte har några appar att dela till.</string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">Inga säkerhetsnummer att jämföra med hittades i urklipp</string>
-  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Signal behöver behörigheten Kamera för att skanna QR-koder men har nekats den permanent. Fortsätt till inställningsmenyn för Appar och aviseringar, välj \"Behörigheter\" och aktivera \"Kamera\".</string>
+  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Molly behöver behörigheten Kamera för att skanna QR-koder men har nekats den permanent. Fortsätt till inställningsmenyn för Appar och aviseringar, välj \"Behörigheter\" och aktivera \"Kamera\".</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">Kan inte skanna QR-koder utan behörigheten Kamera</string>
   <!--ViewOnceMessageActivity-->
   <!--MessageDisplayHelper-->
@@ -827,7 +827,7 @@ Tog emot meddelande för nyckelutbyte för ogiltig protokollversion.</string>
   <string name="MediaPreviewActivity_you">Du</string>
   <string name="MediaPreviewActivity_unssuported_media_type">Mediatypen stöds inte</string>
   <string name="MediaPreviewActivity_draft">Utkast</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Signal behöver lagringsbehörigheter för att spara i extern lagring men det har permanent nekats. Fortsätt till inställningar för appar, välj \"Behörigheter\" och aktivera \"Lagring\".</string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Molly behöver lagringsbehörigheter för att spara i extern lagring men det har permanent nekats. Fortsätt till inställningar för appar, välj \"Behörigheter\" och aktivera \"Lagring\".</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">Kan inte spara i extern lagring utan behörighet</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">Ta bort meddelande?</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">Detta kommer permanent ta bort detta meddelande.</string>
@@ -850,7 +850,7 @@ Tog emot meddelande för nyckelutbyte för ogiltig protokollversion.</string>
   <string name="MessageNotifier_signal_message">Signal-meddelande</string>
   <string name="MessageNotifier_unsecured_sms">Osäkert SMS</string>
   <string name="MessageNotifier_you_may_have_new_messages">Du kan ha nya meddelanden</string>
-  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Öppna Signal för att kontrollera efter senaste aviseringar.</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Öppna Molly för att kontrollera efter senaste aviseringar.</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">Kontakt</string>
   <string name="MessageNotifier_reacted_s_to_s">Reagerade %1$s på: \"%2$s\".</string>
@@ -902,8 +902,8 @@ Tog emot meddelande för nyckelutbyte för ogiltig protokollversion.</string>
   <!--VideoPlayer-->
   <string name="VideoPlayer_error_playing_video">Fel vid videouppspelning</string>
   <!--WebRtcCallActivity-->
-  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">För att svara på samtalet från %s, ge Signal tillgång till din mikrofon.</string>
-  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Signal behöver behörigheterna Mikrofon och Kamera för att ringa och ta emot samtal, men de har nekats permanent. Fortsätt till inställningsmenyn för Appar och aviseringar, välj \"Behörigheter\" och aktivera \"Mikrofon\" och \"Kamera\".</string>
+  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">För att svara på samtalet från %s, ge Molly tillgång till din mikrofon.</string>
+  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Molly behöver behörigheterna Mikrofon och Kamera för att ringa och ta emot samtal, men de har nekats permanent. Fortsätt till inställningsmenyn för Appar och aviseringar, välj \"Behörigheter\" och aktivera \"Mikrofon\" och \"Kamera\".</string>
   <!--WebRtcCallScreen-->
   <string name="WebRtcCallScreen_new_safety_numbers">Säkerhetsnumret för din konversation med %1$s har ändrats. Detta kan antingen betyda att någon försöker avlyssna er kommunikation eller att %2$s helt enkelt har installerat om Signal.</string>
   <string name="WebRtcCallScreen_you_may_wish_to_verify_this_contact">Du kan vilja bekräfta ditt säkerhetsnummer med denna kontakt.</string>
@@ -954,7 +954,7 @@ Tog emot meddelande för nyckelutbyte för ogiltig protokollversion.</string>
   <!--single_contact_selection_activity-->
   <string name="SingleContactSelectionActivity_contact_photo">Kontaktfoto</string>
   <!--ContactSelectionListFragment-->
-  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Signal behöver behörigheten Kontakter för att bifoga kontaktinformation men har nekats den permanent. Fortsätt till inställningsmenyn för Appar och aviseringar, välj \"Behörigheter\" och aktivera \"Kontakter\".</string>
+  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Molly behöver behörigheten Kontakter för att bifoga kontaktinformation men har nekats den permanent. Fortsätt till inställningsmenyn för Appar och aviseringar, välj \"Behörigheter\" och aktivera \"Kontakter\".</string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Ett fel inträffade med att hämta kontakter, kontrollera din nätverksanslutning</string>
   <string name="ContactSelectionListFragment_username_not_found">Användarnamn hittades inte</string>
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">\"%1$s\" är inte en Signal-användare. Kontrollera användarnamnet och försök igen.</string>
@@ -962,7 +962,7 @@ Tog emot meddelande för nyckelutbyte för ogiltig protokollversion.</string>
   <!--blocked_contacts_fragment-->
   <string name="blocked_contacts_fragment__no_blocked_contacts">Inga blockerade kontakter</string>
   <!--contact_selection_list_fragment-->
-  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Signal behöver tillgång till dina kontakter för att visa dem.</string>
+  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly behöver tillgång till dina kontakter för att visa dem.</string>
   <string name="contact_selection_list_fragment__show_contacts">Visa kontakter</string>
   <!--conversation_activity-->
   <string name="conversation_activity__type_message_push">Signal-meddelande</string>
@@ -1640,7 +1640,7 @@ Tog emot meddelande för nyckelutbyte för ogiltig protokollversion.</string>
   <string name="BackupDialog_verify">Verifiera</string>
   <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">Du har angett lösenord för säkerhetskopian</string>
   <string name="BackupDialog_passphrase_was_not_correct">Lösenordet var inte korrekt</string>
-  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal behöver behörigheten Lagring för att skapa säkerhetskopior men har nekats den permanent. Fortsätt till inställningsmenyn för Appar och aviseringar, välj \"Behörigheter\" och aktivera \"Lagring\".</string>
+  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly behöver behörigheten Lagring för att skapa säkerhetskopior men har nekats den permanent. Fortsätt till inställningsmenyn för Appar och aviseringar, välj \"Behörigheter\" och aktivera \"Lagring\".</string>
   <string name="ChatsPreferenceFragment_last_backup_s">Senaste säkerhetskopia: %s</string>
   <string name="ChatsPreferenceFragment_in_progress">Pågår</string>
   <string name="LocalBackupJob_creating_backup">Skapar säkerhetskopia…</string>

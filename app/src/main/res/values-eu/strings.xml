@@ -62,14 +62,14 @@
   <string name="AttachmentKeyboard_file">Artxiboa</string>
   <string name="AttachmentKeyboard_contact">Kontaktua</string>
   <string name="AttachmentKeyboard_location">Kokalekua</string>
-  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Signalek baimena behar du zue argazkiak eta bideoak erakutsi ahal izateko.</string>
+  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Mollyek baimena behar du zue argazkiak eta bideoak erakutsi ahal izateko.</string>
   <string name="AttachmentKeyboard_give_access">Eman baimena</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">Ez da euskarria aukeratzeko aplikaziorik aurkitu.</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signal aplikazioak Gordailu baimena behar du argazkiak, bideoak edo audioak bidaltzeko baina ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Gordailua\".</string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Signal aplikazioak Kontaktuen baimena behar du kontaktuak atzitu ahal izateko baina ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Kontaktuak\".</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Signal aplikazioak baimena behar du kokalekuak bidali ahal izateko baina ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Kokalekua\".</string>
-  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">Signal aplikazioak Kamera baimena behar du argazkiak egiteko baina ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Kamara\".</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly aplikazioak Gordailu baimena behar du argazkiak, bideoak edo audioak bidaltzeko baina ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Gordailua\".</string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly aplikazioak Kontaktuen baimena behar du kontaktuak atzitu ahal izateko baina ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Kontaktuak\".</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly aplikazioak baimena behar du kokalekuak bidali ahal izateko baina ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Kokalekua\".</string>
+  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">Molly aplikazioak Kamera baimena behar du argazkiak egiteko baina ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Kamara\".</string>
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">Multimedia igotzen…</string>
   <string name="AttachmentUploadJob_compressing_video_start">Bideoa konprimatzen…</string>
@@ -187,16 +187,16 @@
   <string name="ConversationActivity_quick_camera_unavailable">Kamera ez dago eskuragarri</string>
   <string name="ConversationActivity_unable_to_record_audio">Ezgai audioa grabatzeko!</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">Ez dago erabil daitekeen aplikaziorik lotura hau kudeatzeko zure gailuan.</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Audio mezuak bidaltzeko, onartu Signalek zure mikrofonoa erabiltzea</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Signalek Mikrofono baimena behar du audio mezuak bidaltzeko, baina ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Mikrofonoa\"</string>
-  <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">%s kontaktuari deitzeko, Signal aplikazioak zure mikrofono eta kamera erabiltzeko baimena behar du.</string>
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Signal aplikazioak Mikronofoa eta Kamera baimenak behar ditu %skontaktuari deitzeko, baina ukatu egin dizkiozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Mikrofonoa\" eta \"Kamera\"</string>
-  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Argazkiak eta bideoak grabatzeko, eman baimena Signali kamera erabiltzeko.</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signal aplikazioak Kamera baimena behar du argazkiak eta bideoak egiteko, baina ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Kamera\".</string>
-  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signalek Kamera baimena behar du argazkiak eta bideoak egiteko</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Audio mezuak bidaltzeko, onartu Mollyek zure mikrofonoa erabiltzea</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Mollyek Mikrofono baimena behar du audio mezuak bidaltzeko, baina ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Mikrofonoa\"</string>
+  <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">%s kontaktuari deitzeko, Molly aplikazioak zure mikrofono eta kamera erabiltzeko baimena behar du.</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly aplikazioak Mikronofoa eta Kamera baimenak behar ditu %skontaktuari deitzeko, baina ukatu egin dizkiozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Mikrofonoa\" eta \"Kamera\"</string>
+  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Argazkiak eta bideoak grabatzeko, eman baimena Mollyi kamera erabiltzeko.</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Molly aplikazioak Kamera baimena behar du argazkiak eta bideoak egiteko, baina ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Kamera\".</string>
+  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Mollyek Kamera baimena behar du argazkiak eta bideoak egiteko</string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Gaitu mikrofonorako baimena soinua duten bideoak grabatu ahal izateko.</string>
-  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signal aplikazioak bideoak grabatu ahal izateko mikrofonorako baimenak behar ditu, baina ukatu egin dira. Mesedez, joan zaitez aplikazioaren ezarpenetara, aukeratu  \"Baimenak\" eta gaitu \"Mikrofonoa\" eta \"Kamara\".</string>
-  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signal aplikazioak mikrofonorako baimena behar du bideoak grabatu ahal izateko.</string>
+  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Molly aplikazioak bideoak grabatu ahal izateko mikrofonorako baimenak behar ditu, baina ukatu egin dira. Mesedez, joan zaitez aplikazioaren ezarpenetara, aukeratu  \"Baimenak\" eta gaitu \"Mikrofonoa\" eta \"Kamara\".</string>
+  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Molly aplikazioak mikrofonorako baimena behar du bideoak grabatu ahal izateko.</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s%2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">Signal aplikazioak ezin ditu SMS/MMSak bidali zure defektuzko SMS aplikazioa ez delako. Androiden ezarpenetara joan eta hau aldatu nahi duzu?</string>
   <string name="ConversationActivity_yes">Bai</string>
@@ -341,7 +341,7 @@
   <string name="DocumentView_unnamed_file">Izenik gabeko fitxategia</string>
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">Optimizatu Google Play-ren zerbitzuetarko</string>
-  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Gailu honek ez dauka Play Services erabiltzerik. Signal ezgaituta dagoenean, sistemaren bateria optimizazioek galarazten diote mezuak jasotzea. Ukitu sistemaren bateria optimizazioak ezgaitzeko.</string>
+  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Gailu honek ez dauka Play Services erabiltzerik. Molly ezgaituta dagoenean, sistemaren bateria optimizazioek galarazten diote mezuak jasotzea. Ukitu sistemaren bateria optimizazioak ezgaitzeko.</string>
   <!--ShareActivity-->
   <string name="ShareActivity_share_with">Norekin konpartitu</string>
   <string name="ShareActivity_multiple_attachments_are_only_supported">Eranskin anitzak bakarrik irudi eta bideoetan onartzen dira</string>
@@ -490,7 +490,7 @@
   <string name="MediaSendActivity_message">Mezua</string>
   <string name="MediaSendActivity_select_recipients">Aukeratu hartzaileak</string>
   <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Singalek zure kontaktuak lortzeko baimena behar du erakutsi ahal izateko.</string>
-  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Signal-ek Kontaktuen baimena behar du zure kontaktuak erakusteko baina ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\", eta gaitu \"Kontaktuak\".</string>
+  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Molly-ek Kontaktuen baimena behar du zure kontaktuak erakusteko baina ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\", eta gaitu \"Kontaktuak\".</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="one">Ezin duzu elementu %d baino gehiago partekatu</item>
     <item quantity="other">Ezin duzu %d elementu baino gehiago partekatu.</item>
@@ -563,7 +563,7 @@
   <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">Barkatu, hau ez da gailua lotzeko baliozko QR kodea.</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">Lotu Signal gailu bat?</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Signalez kanpoko eskaner batez parekatzen omen duzu Signal gailu bat.  Zure segurtasunerako, eskaneatu kodea Signaletik mesedez.</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Signalek Kamera baimena behar du QR kodea eskaneatzeko baina ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Kamera\".</string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Mollyek Kamera baimena behar du QR kodea eskaneatzeko baina ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Kamera\".</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Ezin da QR koderik eskaneatu Kamera baimen gabe</string>
   <!--ExpirationDialog-->
   <string name="ExpirationDialog_disappearing_messages">Mezuen desagerpena</string>
@@ -646,7 +646,7 @@ zenbakia (%s) baliogabea da.
   <string name="RegistrationActivity_no_browser">Ezin izan da esteka hau ireki. Ez da nabigatzailerik topatu.</string>
   <string name="RegistrationActivity_more_information">Informazio gehiago</string>
   <string name="RegistrationActivity_less_information">Informazio gutxiago</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Signalek zure kontaktu eta mediara sartzeko baimena behar du zure lagunekin kontaktuan jarri, mezuak bidali eta dei seguruak egiteko</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Mollyek zure kontaktu eta mediara sartzeko baimena behar du zure lagunekin kontaktuan jarri, mezuak bidali eta dei seguruak egiteko</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">Ezin da zerbitzura konektatu. Egiaztatu sarearen ezarpenak eta saiatu berriz.</string>
   <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">Zure telefono zenbakia erraz egiaztatzeko, Signalek automatikoki irakur dezake egiaztapen kodea SMS mezuak ikusteko baimena ematen badiozu.</string>
   <plurals name="RegistrationActivity_debug_log_hint">
@@ -800,7 +800,7 @@ Gakoaren elkar-trukeraro mezua jaso da protokoloaren bertsio baliogabe baterako.
   <string name="VerifyIdentityActivity_our_signal_safety_number">Gure Signal-en segurtasun zenbakia:</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">Dirudienez ez duzu partekatzeko aplikazio bakar bat ere.</string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">Ez da aurkitu konparantzeko segurtasun zenbakirik arbelean</string>
-  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Signalek Kamera baimena behar du QR kodea eskaneatzeko baina ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Kamera\".</string>
+  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Mollyek Kamera baimena behar du QR kodea eskaneatzeko baina ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Kamera\".</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">Ezin da QR kodea eskaneatu Kamera baimen gabe</string>
   <!--ViewOnceMessageActivity-->
   <!--MessageDisplayHelper-->
@@ -827,7 +827,7 @@ Gakoaren elkar-trukeraro mezua jaso da protokoloaren bertsio baliogabe baterako.
   <string name="MediaPreviewActivity_you">Zu</string>
   <string name="MediaPreviewActivity_unssuported_media_type">Euskarri mota ez-onartua</string>
   <string name="MediaPreviewActivity_draft">Zirriborroa</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Signalek Gordailu baimena behar du kanpoko gordailuan datuak idazteko baina baimena ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Gordailua\".</string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Mollyek Gordailu baimena behar du kanpoko gordailuan datuak idazteko baina baimena ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Gordailua\".</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">Ezin izan da kanpoko gordailuan idatzi baimen faltagatik</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">Ezabatu mezua?</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">Honek behin betiko ezabatuko du mezua.</string>
@@ -850,7 +850,7 @@ Gakoaren elkar-trukeraro mezua jaso da protokoloaren bertsio baliogabe baterako.
   <string name="MessageNotifier_signal_message">Signal mezua</string>
   <string name="MessageNotifier_unsecured_sms">SMS ez segurua</string>
   <string name="MessageNotifier_you_may_have_new_messages">Agian mezu berriak dituzu</string>
-  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Ireki Signal azken jakinarazpenak egiaztatzeko.</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Ireki Molly azken jakinarazpenak egiaztatzeko.</string>
   <string name="MessageNotifier_contact_message">%1$s%2$s</string>
   <string name="MessageNotifier_unknown_contact_message">Kontaktua</string>
   <string name="MessageNotifier_reacted_s_to_s">%1$s izan da \"%2$s\"rekiko erreakzioa.</string>
@@ -902,8 +902,8 @@ Gakoaren elkar-trukeraro mezua jaso da protokoloaren bertsio baliogabe baterako.
   <!--VideoPlayer-->
   <string name="VideoPlayer_error_playing_video">Bideoa ikusterakoan huts egin du</string>
   <!--WebRtcCallActivity-->
-  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">%s-ren deiari erantzuteko, eman Signali mikrofonoa erabiltzeko baimena.</string>
-  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Signalek Mikronofoa eta Kamera baimenak behar ditu deiak egin edo jasotzeko baina ukatu egin dizkiozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Mikrofonoa\" eta \"Kamera\"</string>
+  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">%s-ren deiari erantzuteko, eman Mollyi mikrofonoa erabiltzeko baimena.</string>
+  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Mollyek Mikronofoa eta Kamera baimenak behar ditu deiak egin edo jasotzeko baina ukatu egin dizkiozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Mikrofonoa\" eta \"Kamera\"</string>
   <!--WebRtcCallScreen-->
   <string name="WebRtcCallScreen_new_safety_numbers">%1$serabiltzailearekin duzun solasaldirako segurtasun zenbakia aldatu da. Agian norbait zure komunikazioa atzematen saiatzen ari da edo %2$s erabiltzaileak Signal berrinstalatu du.</string>
   <string name="WebRtcCallScreen_you_may_wish_to_verify_this_contact">Agian zure segurasun zenbakia kontatu honekin baieztatu nahi duzu.</string>
@@ -1626,7 +1626,7 @@ Inportatu \'SMSBackup and Restorekin\' bateragarria den enkriptatu gabeko babesk
   <string name="BackupDialog_verify">Baieztatu</string>
   <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">Ondo sartu duzu zure babeskopiaren pasahitza</string>
   <string name="BackupDialog_passphrase_was_not_correct">Pasahitza ez da zuzena</string>
-  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal-ek kanpoko memorian gordetzeko baimena behar du babeskopiak egin ahal izateko baina baimena ukatuta izan du beti. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta gaitu \"Biltegiratzea\".</string>
+  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly-ek kanpoko memorian gordetzeko baimena behar du babeskopiak egin ahal izateko baina baimena ukatuta izan du beti. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta gaitu \"Biltegiratzea\".</string>
   <string name="ChatsPreferenceFragment_last_backup_s">Azken babeskopia: %s</string>
   <string name="ChatsPreferenceFragment_in_progress">Martxan</string>
   <string name="LocalBackupJob_creating_backup">Babeskopia sortzen…</string>

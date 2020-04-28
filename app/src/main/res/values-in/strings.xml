@@ -58,14 +58,14 @@
   <string name="AttachmentKeyboard_file">Berkas</string>
   <string name="AttachmentKeyboard_contact">Kontak</string>
   <string name="AttachmentKeyboard_location">Lokasi</string>
-  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Signal memerlukan izin untuk menampilkan foto dan video Anda.</string>
+  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Molly memerlukan izin untuk menampilkan foto dan video Anda.</string>
   <string name="AttachmentKeyboard_give_access">Berikan Akses</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">Tidak bisa menemukan aplikasi untuk membuka media yang dipilih.</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signal memerlukan izin Penyimpanan untuk melampirkan foto, video, atau audio, tetapi saat ini izin ditolak secara permanen. Harap lanjutkan ke menu pengaturan aplikasi, Pilih \"Izin\", dan aktifkan \"Penyimpanan\".</string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Signal memerlukan izin Kontak untuk melampirkan informasi kontak, tetapi saat ini izin ditolak secara permanen. Harap melanjutkan ke menu pengaturan aplikasi, Pilih \"Izin\", dan aktifkan \"Kontak\".</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Signal memerlukan izin Lokasi untuk melampirkan lokasi, tetapi saat ini izin ditolak secara permanen. Harap melanjutkan ke menu pengaturan aplikasi, Pilih \"Izin\", dan aktifkan \"Lokasi\".</string>
-  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">Signal memerlukan izin Kamera untuk mengambil foto, tetapi saat ini izin ditolak secara permanen. Harap melanjutkan ke menu pengaturan aplikasi, Pilih \"Izin\", dan aktifkan \"Kamera\".</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly memerlukan izin Penyimpanan untuk melampirkan foto, video, atau audio, tetapi saat ini izin ditolak secara permanen. Harap lanjutkan ke menu pengaturan aplikasi, Pilih \"Izin\", dan aktifkan \"Penyimpanan\".</string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly memerlukan izin Kontak untuk melampirkan informasi kontak, tetapi saat ini izin ditolak secara permanen. Harap melanjutkan ke menu pengaturan aplikasi, Pilih \"Izin\", dan aktifkan \"Kontak\".</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly memerlukan izin Lokasi untuk melampirkan lokasi, tetapi saat ini izin ditolak secara permanen. Harap melanjutkan ke menu pengaturan aplikasi, Pilih \"Izin\", dan aktifkan \"Lokasi\".</string>
+  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">Molly memerlukan izin Kamera untuk mengambil foto, tetapi saat ini izin ditolak secara permanen. Harap melanjutkan ke menu pengaturan aplikasi, Pilih \"Izin\", dan aktifkan \"Kamera\".</string>
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">Mengunggah media…</string>
   <string name="AttachmentUploadJob_compressing_video_start">Mengompresi video…</string>
@@ -185,16 +185,16 @@
   <string name="ConversationActivity_quick_camera_unavailable">Kamera tidak tersedia</string>
   <string name="ConversationActivity_unable_to_record_audio">Tidak bisa merekam audio!</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">Tidak ada aplikasi tersedia untuk menangani tautan ini pada perangkat Anda</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Untuk mengirim pesan audio, izinkan Signal mengakses mikrofon Anda.</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Signal memerlukan izin Mikrofon untuk mengirim pesan audio, tetapi saat ini izin ditolak secara permanen. Mohon lanjutkan ke pengaturan aplikasi, pilih \"Izin\" dan aktifkan \"Mikrofon\".</string>
-  <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">Untuk melakukan panggilan %s, Signal memerlukan akses ke mikrofon dan kamera Anda.</string>
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Signal memerlukan izin Mikrofon dan Kamera untuk memanggil %s, tetapi saat ini izin ditolak secara permanen. Mohon lanjutkan ke pengaturan aplikasi, pilih \"Izin\" dan aktifkan \"Mikrofon\" serta \"Kamera\".</string>
-  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Untuk mengambil foto dan video, izinkan Signal mengakses kamera.</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signal memerlukan izin Kamera untuk mengambil foto dan video, tetapi saat ini izin ditolak secara permanen. Mohon lanjutkan ke pengaturan aplikasi, pilih \"Izin\" dan aktifkan \"Kamera\".</string>
-  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signal memerlukan izin Kamera untuk mengambil foto atau video.</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Untuk mengirim pesan audio, izinkan Molly mengakses mikrofon Anda.</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly memerlukan izin Mikrofon untuk mengirim pesan audio, tetapi saat ini izin ditolak secara permanen. Mohon lanjutkan ke pengaturan aplikasi, pilih \"Izin\" dan aktifkan \"Mikrofon\".</string>
+  <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">Untuk melakukan panggilan %s, Molly memerlukan akses ke mikrofon dan kamera Anda.</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly memerlukan izin Mikrofon dan Kamera untuk memanggil %s, tetapi saat ini izin ditolak secara permanen. Mohon lanjutkan ke pengaturan aplikasi, pilih \"Izin\" dan aktifkan \"Mikrofon\" serta \"Kamera\".</string>
+  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Untuk mengambil foto dan video, izinkan Molly mengakses kamera.</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Molly memerlukan izin Kamera untuk mengambil foto dan video, tetapi saat ini izin ditolak secara permanen. Mohon lanjutkan ke pengaturan aplikasi, pilih \"Izin\" dan aktifkan \"Kamera\".</string>
+  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Molly memerlukan izin Kamera untuk mengambil foto atau video.</string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Aktifkan izin mikrofon untuk mengambil video dengan suara.</string>
-  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signal membutuhkan izin mikrofon untuk merekam video, tapi saat ini ditolak. Mohon lanjutkan ke pengaturan aplikasi, pilih \"Izin\", dan aktifkan \"Mikrofon\" serta \"Kamera\".</string>
-  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signal membutuhkan izin mikrofon untuk merekam video.</string>
+  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Molly membutuhkan izin mikrofon untuk merekam video, tapi saat ini ditolak. Mohon lanjutkan ke pengaturan aplikasi, pilih \"Izin\", dan aktifkan \"Mikrofon\" serta \"Kamera\".</string>
+  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Molly membutuhkan izin mikrofon untuk merekam video.</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s%2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">Signal tidak dapat mengirimkan pesan SMS/MMS karena Signal bukan aplikasi SMS utama Anda. Apakah anda ingin menggantinya pada pengaturan Android Anda?</string>
   <string name="ConversationActivity_yes">Ya</string>
@@ -329,7 +329,7 @@
   <string name="DocumentView_unnamed_file">Berkas tanpa nama</string>
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">Optimalkan untuk mengabaikan Play Services</string>
-  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Perangkat ini tidak mendukung Play Services. Ketuk untuk menonaktifkan pengoptimalan baterai sistem yang mencegah Signal untuk mengambil pesan saat tidak aktif.</string>
+  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Perangkat ini tidak mendukung Play Services. Ketuk untuk menonaktifkan pengoptimalan baterai sistem yang mencegah Molly untuk mengambil pesan saat tidak aktif.</string>
   <!--ShareActivity-->
   <string name="ShareActivity_share_with">Berbagi dengan</string>
   <string name="ShareActivity_multiple_attachments_are_only_supported">Lampiran jamak hanya berupa gambar dan video</string>
@@ -471,8 +471,8 @@
   <string name="MediaSendActivity_message_to_s">Kirim pesan ke %s</string>
   <string name="MediaSendActivity_message">Pesan</string>
   <string name="MediaSendActivity_select_recipients">Pilih penerima</string>
-  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Signal memerlukan akses kontak Anda supaya dapat menampilkannya.</string>
-  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Signal membutuhkan izin Kontak untuk menampilkan daftar kontak Anda, namun saat ini izin ditolak secara permanen. Mohon lanjutkan ke pengaturan aplikasi, pilih, \"Izin\", dan aktifkan \"Kontak\".</string>
+  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Molly memerlukan akses kontak Anda supaya dapat menampilkannya.</string>
+  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Molly membutuhkan izin Kontak untuk menampilkan daftar kontak Anda, namun saat ini izin ditolak secara permanen. Mohon lanjutkan ke pengaturan aplikasi, pilih, \"Izin\", dan aktifkan \"Kontak\".</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="other">Anda tidak bisa membagikan lebih dari %d media.</item>
   </plurals>
@@ -542,7 +542,7 @@
   <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">Maaf, ini bukan tautan perangkat kode QR yang valid.</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">Hubungkan perangkat Signal?</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Sepertinya Anda mencoba untuk menghubungkan perangkat Signal menggunakan pemindai pihak ke-3. Untuk perlindungan Anda, mohon memindai kode lagi menggunakan Signal.</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Signal memerlukan izin Kamera untuk memindai kode QR, tetapi saat ini izin ditolak secara permanen. Silakan lanjut ke pengaturan aplikasi, pilih \"Izin\" dan aktifkan \"Kamera\".</string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly memerlukan izin Kamera untuk memindai kode QR, tetapi saat ini izin ditolak secara permanen. Silakan lanjut ke pengaturan aplikasi, pilih \"Izin\" dan aktifkan \"Kamera\".</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Tidak bisa memindai kode QR tanpa izin Kamera</string>
   <!--ExpirationDialog-->
   <string name="ExpirationDialog_disappearing_messages">Penghilangan pesan</string>
@@ -625,7 +625,7 @@ isikan (%s) tidak valid.
   <string name="RegistrationActivity_no_browser">Tidak bisa membuka tautan ini. Tidak ditemukan situs peramban.</string>
   <string name="RegistrationActivity_more_information">Informasi lebih lanjut</string>
   <string name="RegistrationActivity_less_information">Kurang informasi</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Signal memerlukkan akses ke kontak dan media Anda untuk terkoneksi dengan teman, bertukar pesan, dan membuat panggilan aman</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly memerlukkan akses ke kontak dan media Anda untuk terkoneksi dengan teman, bertukar pesan, dan membuat panggilan aman</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">Tidak bisa terhubung ke layanan. Mohon cek koneksi jaringan dan coba lagi.</string>
   <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">Untuk memudahkan verifikasi nomor telepon Anda, Signal dapat secara otomatis mendeteksi kode verifikasi Anda jika Anda mengizinkan Signal untuk melihat pesan SMS.</string>
   <plurals name="RegistrationActivity_debug_log_hint">
@@ -778,7 +778,7 @@ Menerima pesan pertukaran kunci untuk versi protokol yang tidak valid.
   <string name="VerifyIdentityActivity_our_signal_safety_number">Nomor keamanan Signal kami:</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">Sepertinya Anda tidak memiliki aplikasi untuk berbagi.</string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">Tidak ada nomor keamanan untuk dibandingkan yang ditemukan di papan klip</string>
-  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Signal memerlukan izin Kamera untuk memindai kode QR, tetapi saat ini izin ditolak secara permanen. Silakan lanjut ke pengaturan aplikasi, pilih \"Izin\" dan aktifkan \"Kamera\".</string>
+  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Molly memerlukan izin Kamera untuk memindai kode QR, tetapi saat ini izin ditolak secara permanen. Silakan lanjut ke pengaturan aplikasi, pilih \"Izin\" dan aktifkan \"Kamera\".</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">Tidak bisa memindai kode QR tanpa izin Kamera</string>
   <!--ViewOnceMessageActivity-->
   <!--MessageDisplayHelper-->
@@ -805,7 +805,7 @@ Menerima pesan pertukaran kunci untuk versi protokol yang tidak valid.
   <string name="MediaPreviewActivity_you">Anda</string>
   <string name="MediaPreviewActivity_unssuported_media_type">Tipe media tidak didukung</string>
   <string name="MediaPreviewActivity_draft">Draf</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Signal memerlukan izin Penyimpanan untuk menyimpan di penyimpanan eksternal, tetapi saat ini izin ditolak secara permanen. Harap lanjutkan ke pengaturan aplikasi, pilih \"Izin\" dan aktifkan \"Penyimpanan\".</string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Molly memerlukan izin Penyimpanan untuk menyimpan di penyimpanan eksternal, tetapi saat ini izin ditolak secara permanen. Harap lanjutkan ke pengaturan aplikasi, pilih \"Izin\" dan aktifkan \"Penyimpanan\".</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">Tidak bisa menyimpan ke penyimpanan eksternal tanpa izin</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">Hapus pesan?</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">Aksi ini akan menghapus pesan secara permanen.</string>
@@ -828,7 +828,7 @@ Menerima pesan pertukaran kunci untuk versi protokol yang tidak valid.
   <string name="MessageNotifier_signal_message">Pesan Signal</string>
   <string name="MessageNotifier_unsecured_sms">SMS tidak terenkripsi</string>
   <string name="MessageNotifier_you_may_have_new_messages">Anda mungkin memiliki pesan baru</string>
-  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Buka Signal untuk memeriksa notifikasi terbaru.</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Buka Molly untuk memeriksa notifikasi terbaru.</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">Kontak</string>
   <string name="MessageNotifier_reacted_s_to_s">Bereaksi %1$s ke: \"%2$s\".</string>
@@ -879,8 +879,8 @@ Menerima pesan pertukaran kunci untuk versi protokol yang tidak valid.
   <!--VideoPlayer-->
   <string name="VideoPlayer_error_playing_video">Gagal saat memutar video</string>
   <!--WebRtcCallActivity-->
-  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Untuk menjawab panggilan dari %s, berikan Signal akses ke mikrofon Anda.</string>
-  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Signal memerlukan izin Mikrofon dan Kamera untuk menerima atau melakukan panggilan, tetapi saat ini izin ditolak secara permanen. Mohon lanjutkan ke pengatuaran aplikasi, pilih \"Izin\" lalu aktifkan \"Mikrofon\" serta \"Kamera\". </string>
+  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Untuk menjawab panggilan dari %s, berikan Molly akses ke mikrofon Anda.</string>
+  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Molly memerlukan izin Mikrofon dan Kamera untuk menerima atau melakukan panggilan, tetapi saat ini izin ditolak secara permanen. Mohon lanjutkan ke pengatuaran aplikasi, pilih \"Izin\" lalu aktifkan \"Mikrofon\" serta \"Kamera\". </string>
   <!--WebRtcCallScreen-->
   <string name="WebRtcCallScreen_new_safety_numbers">Nomor keamanan untuk percakapan Anda dengan %1$s telah berubah. Ini bisa berarti seseorang mencoba untuk mencegat komunikasi Anda, atau %2$s hanya perlu memasang kembali Signal.</string>
   <string name="WebRtcCallScreen_you_may_wish_to_verify_this_contact">Sebaiknya Anda memverifikasi nomor keamanan dengan kontak ini.</string>
@@ -931,7 +931,7 @@ Menerima pesan pertukaran kunci untuk versi protokol yang tidak valid.
   <!--single_contact_selection_activity-->
   <string name="SingleContactSelectionActivity_contact_photo">Foto Kontak</string>
   <!--ContactSelectionListFragment-->
-  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Signal memerlukan izin Kontak untuk menampilkan daftar kontak Anda, tetapi saat ini izin ditolak secara permanen. Mohon lanjutkan ke pengaturan aplikasi, pilih \"Izin\" dan aktifkan \"Kontak\". </string>
+  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Molly memerlukan izin Kontak untuk menampilkan daftar kontak Anda, tetapi saat ini izin ditolak secara permanen. Mohon lanjutkan ke pengaturan aplikasi, pilih \"Izin\" dan aktifkan \"Kontak\". </string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Kesalahan saat mengambil kontak, periksa koneksi jaringan Anda</string>
   <string name="ContactSelectionListFragment_username_not_found">Nama pengguna tidak ditemukan</string>
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">\"%1$s\" bukan pengguna Signal. Cek kembali dan coba lagi.</string>
@@ -939,7 +939,7 @@ Menerima pesan pertukaran kunci untuk versi protokol yang tidak valid.
   <!--blocked_contacts_fragment-->
   <string name="blocked_contacts_fragment__no_blocked_contacts">Tidak ada kontak yang diblokir</string>
   <!--contact_selection_list_fragment-->
-  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Signal memerlukan akses ke daftar kontak Anda supaya dapat menampilkannya.</string>
+  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly memerlukan akses ke daftar kontak Anda supaya dapat menampilkannya.</string>
   <string name="contact_selection_list_fragment__show_contacts">Tampilkan kontak</string>
   <!--conversation_activity-->
   <string name="conversation_activity__type_message_push">Pesan Signal</string>
@@ -1599,7 +1599,7 @@ Menerima pesan pertukaran kunci untuk versi protokol yang tidak valid.
   <string name="BackupDialog_verify">Memeriksa</string>
   <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">Anda sukses memasukkan frasa sandi cadangan</string>
   <string name="BackupDialog_passphrase_was_not_correct">Frasa sandi salah</string>
-  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal memerlukan izin penyimpanan eksternal untuk membuat cadangan, tetapi saat ini izin ditolak secara permanen. Harap lanjutkan ke menu pengaturan aplikasi, pilih \"Izin\", dan aktifkan \"Penyimpanan\".</string>
+  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly memerlukan izin penyimpanan eksternal untuk membuat cadangan, tetapi saat ini izin ditolak secara permanen. Harap lanjutkan ke menu pengaturan aplikasi, pilih \"Izin\", dan aktifkan \"Penyimpanan\".</string>
   <string name="ChatsPreferenceFragment_last_backup_s">Terakhir melakukan cadangan: %s</string>
   <string name="ChatsPreferenceFragment_in_progress">Sedang berjalan</string>
   <string name="LocalBackupJob_creating_backup">Membuat cadangan…</string>

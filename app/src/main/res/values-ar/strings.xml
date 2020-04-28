@@ -73,14 +73,14 @@
   <string name="AttachmentKeyboard_file">ملف</string>
   <string name="AttachmentKeyboard_contact">جهة اتصال</string>
   <string name="AttachmentKeyboard_location">موقع جغرافي</string>
-  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">يحتاج Signal إلى الإذن لعرض صورك ومرئياتك.</string>
+  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">يحتاج Molly إلى الإذن لعرض صورك ومرئياتك.</string>
   <string name="AttachmentKeyboard_give_access">امنح الصلاحيات</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">لم يتم العثور على تطبيق لاختيار ملف.</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">يحتاج Signal إلى إذن الوصول إلى التخزين من أجل إرفاق الصور والفيديوهات والملفّات الصوتيّة، ولكن الإذن لم يُمنح  بشكل دائم. الّرجاء زيارة قائمة إعدادات التطبيق، واختيار \"الأذونات\"، ومن ثمّ تفعيل \"سعة التخزين\".</string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">يحتاج Signal إلى إذن الوصول لِ جهات الاتصال من أجل إرفاق بيانات جهة اتصال، لكن الإذن لم يُمنح بشكل دائم. الّرجاء زيارة قائمة إعدادات التطبيق، واختيار \"الأذونات\"، ومن ثم تفعيل \"جهات الاتصال\".</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">يحتاج Signal إلى إذن الوصول إلى الموقع من أجل إرفاق الموقع الجغرافي ولكن تم إيقاف الإذن على نحو دائم. يرجى زيارة قائمة إعدادات التطبيق ثم اختيار \"الأذونات\" وتفعيل \"الموقع\".</string>
-  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">يحتاج Signal إلى إذن الوصول إلى الكاميرا من أجل التقاط صور، لكن الإذن لم يمنح بشكل دائم. يرجى زيارة قائمة إعدادات التطبيق، ثم اختيار \"الأذونات\"، وتفعيل \"الكاميرا\".</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">يحتاج Molly إلى إذن الوصول إلى التخزين من أجل إرفاق الصور والفيديوهات والملفّات الصوتيّة، ولكن الإذن لم يُمنح  بشكل دائم. الّرجاء زيارة قائمة إعدادات التطبيق، واختيار \"الأذونات\"، ومن ثمّ تفعيل \"سعة التخزين\".</string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">يحتاج Molly إلى إذن الوصول لِ جهات الاتصال من أجل إرفاق بيانات جهة اتصال، لكن الإذن لم يُمنح بشكل دائم. الّرجاء زيارة قائمة إعدادات التطبيق، واختيار \"الأذونات\"، ومن ثم تفعيل \"جهات الاتصال\".</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">يحتاج Molly إلى إذن الوصول إلى الموقع من أجل إرفاق الموقع الجغرافي ولكن تم إيقاف الإذن على نحو دائم. يرجى زيارة قائمة إعدادات التطبيق ثم اختيار \"الأذونات\" وتفعيل \"الموقع\".</string>
+  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">يحتاج Molly إلى إذن الوصول إلى الكاميرا من أجل التقاط صور، لكن الإذن لم يمنح بشكل دائم. يرجى زيارة قائمة إعدادات التطبيق، ثم اختيار \"الأذونات\"، وتفعيل \"الكاميرا\".</string>
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">جاري رفع الملف …</string>
   <string name="AttachmentUploadJob_compressing_video_start">جاري ضغط الفيديو…</string>
@@ -199,16 +199,16 @@
   <string name="ConversationActivity_quick_camera_unavailable">الكاميرا غير موجودة</string>
   <string name="ConversationActivity_unable_to_record_audio">تعذر تسجيل الصوت!</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">لا يوجد تطبيق لمعالجة هذا الرابط على جهازك.</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">لإرسال الرسائل الصوتية، يرجى السماح ل Signal بالوصول إلى المايكروفون.</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">يحتاج Signal إلى إذن الوصول إلى الميكروفون لإرسال الرسائل الصوتية، ولكن تم إيقاف الإذن على نحو دائم. الرّجاء زيارة إعدادات التطبيق ثم اختيار \"الأذونات\" وتفعيل \"الميكروفون\".</string>
-  <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">للإتصال ب%s يحتاج Signal للوصول إلي المايكروفون والكاميرا الخاصين بكم.</string>
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">يحتاج Signal إلى أذونات الميكروفون والكاميرا من أجل الاتصال بـ%s ولكن تم إيقافهم على نحو دائم. الرجاء زيارة إعدادات التطبيق ثم اختيار \"الأذونات\" وتفعيل \"الميكروفون\" و\"الكاميرا\".</string>
-  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">لإلتقاط الصور والفيديوهات، الرجاء السماح لSignal بالوصول إلي الكاميرا.</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">يحتاج Signal إلى إذن الوصول إلى الكاميرا من أجل التقاط صور وفيديو، ولكن تم إيقاف الإذن على نحو دائم. الرجاء زيارة إعدادات التطبيق ثم اختيار \"الأذونات\"، ثم تفعيل \"الكاميرا\".</string>
-  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">يحتاج Signal إلي إذن الوصول إلى الكاميرا لالتقاط صور أو تسجيل فيديو</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">لإرسال الرسائل الصوتية، يرجى السماح ل Molly بالوصول إلى المايكروفون.</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">يحتاج Molly إلى إذن الوصول إلى الميكروفون لإرسال الرسائل الصوتية، ولكن تم إيقاف الإذن على نحو دائم. الرّجاء زيارة إعدادات التطبيق ثم اختيار \"الأذونات\" وتفعيل \"الميكروفون\".</string>
+  <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">للإتصال ب%s يحتاج Molly للوصول إلي المايكروفون والكاميرا الخاصين بكم.</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">يحتاج Molly إلى أذونات الميكروفون والكاميرا من أجل الاتصال بـ%s ولكن تم إيقافهم على نحو دائم. الرجاء زيارة إعدادات التطبيق ثم اختيار \"الأذونات\" وتفعيل \"الميكروفون\" و\"الكاميرا\".</string>
+  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">لإلتقاط الصور والفيديوهات، الرجاء السماح لMolly بالوصول إلي الكاميرا.</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">يحتاج Molly إلى إذن الوصول إلى الكاميرا من أجل التقاط صور وفيديو، ولكن تم إيقاف الإذن على نحو دائم. الرجاء زيارة إعدادات التطبيق ثم اختيار \"الأذونات\"، ثم تفعيل \"الكاميرا\".</string>
+  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">يحتاج Molly إلي إذن الوصول إلى الكاميرا لالتقاط صور أو تسجيل فيديو</string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">يرجى تفعيل الإذن للميكروفون للتمكّن من التقاط الصوت في الفيديو.</string>
-  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">يحتاج Signal إلى أذونات الوصول إلى الميكروفون لتسجيل الفيديو، لكنه لم يمنح الإذن. الرجاء الذهاب إلى إعدادات التطبيق ثم اختيار \"الأذونات\"  وتفعيل \"الميكروفون\" و \"الكاميرا\".</string>
-  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">يحتاج Signal الى أذونات الميكروفون لتسجيل الفيديو. </string>
+  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">يحتاج Molly إلى أذونات الوصول إلى الميكروفون لتسجيل الفيديو، لكنه لم يمنح الإذن. الرجاء الذهاب إلى إعدادات التطبيق ثم اختيار \"الأذونات\"  وتفعيل \"الميكروفون\" و \"الكاميرا\".</string>
+  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">يحتاج Molly الى أذونات الميكروفون لتسجيل الفيديو. </string>
   <string name="ConversationActivity_quoted_contact_message">%1$s%2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">لا يستطيع Signal إرسال الرسائل القصيرة SMS أو الرسائل متعدّدة الوسائط MMS لأنه ليس التطبيق الافتراضي لرسائل SMS في جهازك. هل تريد تغيير ذلك في إعدادات Android؟</string>
   <string name="ConversationActivity_yes">نعم</string>
@@ -392,7 +392,7 @@
   <string name="DocumentView_unnamed_file">ملف بدون اسم</string>
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">الإعداد الأمثل عند غياب خدمات Play Services</string>
-  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">هذا الهاتف لا يدعم خدمات Play. أنقر لإلغاء تفعيل ميزة الأداء الأمثل للبطارية والتي تمنع Signal من استقبال الرسائل عند عدم النشاط.</string>
+  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">هذا الهاتف لا يدعم خدمات Play. أنقر لإلغاء تفعيل ميزة الأداء الأمثل للبطارية والتي تمنع Molly من استقبال الرسائل عند عدم النشاط.</string>
   <!--ShareActivity-->
   <string name="ShareActivity_share_with">شارك مع</string>
   <!--GcmBroadcastReceiver-->
@@ -562,8 +562,8 @@
   <string name="MediaSendActivity_message_to_s">رسالة إلى %s</string>
   <string name="MediaSendActivity_message">رسالة</string>
   <string name="MediaSendActivity_select_recipients">اختر المتلقّيين</string>
-  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Signal بحاجة إلى الوصول إلى قائمة جهات الاتصال في دليل هاتفك  وذلك للتمكن من عرضها.</string>
-  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Signal بحاجة إلى إذن الوصول إلى جهات الاتصال لكي يظهر لك جهات اتصالك، ولكن تم ايقاف الإذن على نحو دائم. الرجاء زيارة إعدادات التطبيق ثم اختيار \"الأذونات\" وتفعيل \"جهات الاتصال\".</string>
+  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Molly بحاجة إلى الوصول إلى قائمة جهات الاتصال في دليل هاتفك  وذلك للتمكن من عرضها.</string>
+  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Molly بحاجة إلى إذن الوصول إلى جهات الاتصال لكي يظهر لك جهات اتصالك، ولكن تم ايقاف الإذن على نحو دائم. الرجاء زيارة إعدادات التطبيق ثم اختيار \"الأذونات\" وتفعيل \"جهات الاتصال\".</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="zero">لا يمكنك ارسال أكثر من %dعناصر. </item>
     <item quantity="one">لا يمكنك ارسال أكثر من عنصر %d.</item>
@@ -645,7 +645,7 @@
   <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">عذرا، الرابط غير صحيح.</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">الربط بجهاز Signal؟</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">يبدو أنك تحاول ربط جهاز Signal باستخدام ماسح ضوئي من طرف ثالث. الرجاء مسح الرمز مرّة  أخرى باستخدام Signal من أجل حمايتك.</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">يحتاج Signal إلى إذن الكاميرا من أجل مسح رمز الاستجابة السريع أو QR ولكن تم إيقاف الإذن على نحو دائم، الرجاء زيارة إعدادات التطبيق، اختيار \"الأذونات\"، ثم تفعيل \"الكاميرا\".</string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">يحتاج Molly إلى إذن الكاميرا من أجل مسح رمز الاستجابة السريع أو QR ولكن تم إيقاف الإذن على نحو دائم، الرجاء زيارة إعدادات التطبيق، اختيار \"الأذونات\"، ثم تفعيل \"الكاميرا\".</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">لا يمكن مسح رمز الاستجابة السريع بدون منح إذن الوصول إلى الكاميرا</string>
   <!--ExpirationDialog-->
   <string name="ExpirationDialog_disappearing_messages">الرسائل المختفية</string>
@@ -725,7 +725,7 @@
   <string name="RegistrationActivity_no_browser">لايمكن فتح الرابط. لم يتم العثور على متصفح ويب</string>
   <string name="RegistrationActivity_more_information">المزيد من المعلومات</string>
   <string name="RegistrationActivity_less_information">معلومات أقل</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">يحتاج Signal إلى إذن الوصول لجهات الاتصال والوسائط من أجل التواصل مع الأصدقا، وتبادل الرسائل وإجراء مكالمات آمنة.</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">يحتاج Molly إلى إذن الوصول لجهات الاتصال والوسائط من أجل التواصل مع الأصدقا، وتبادل الرسائل وإجراء مكالمات آمنة.</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">لا يمكن الاتصال بالخدمة. الرجاء التأكد من الإتصال بالشبكة والمحاولة مرة أخرى.</string>
   <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">للتحقق من رقم هاتفك بسهولة، يمكن ل Signal استقراء رمز التحقق الخاص بك تلقائيًا عند منح Signal إذن مشاهدة رسائل SMS.</string>
   <plurals name="RegistrationActivity_debug_log_hint">
@@ -881,7 +881,7 @@
   <string name="VerifyIdentityActivity_our_signal_safety_number">رقم السلامة الخاص بنا في Signal:</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">يبدو عدم وجود أي تطبيقات لديك للمشاركة من خلالها.</string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">لم يُعثر على رقم سلامة يمكن مقارنته في الحافظة</string>
-  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">يحتاج Signal إلى إذن الكاميرا من أجل مسح رمز الاستجابة السريع QR ولكن تم إيقاف الإذن على نحو دائم، الرجاء زيارة إعدادات التطبيق واختيار \"الأذونات\"، ثم تفعيل \"الكاميرا\".</string>
+  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">يحتاج Molly إلى إذن الكاميرا من أجل مسح رمز الاستجابة السريع QR ولكن تم إيقاف الإذن على نحو دائم، الرجاء زيارة إعدادات التطبيق واختيار \"الأذونات\"، ثم تفعيل \"الكاميرا\".</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">لا يمكن مسح رمز الإستجابة السريعة QR بدون إذن استخدام الكاميرا</string>
   <!--ViewOnceMessageActivity-->
   <!--MessageDisplayHelper-->
@@ -908,7 +908,7 @@
   <string name="MediaPreviewActivity_you">أنت</string>
   <string name="MediaPreviewActivity_unssuported_media_type">غير مدعوم.</string>
   <string name="MediaPreviewActivity_draft">مسودة</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">يحتاج Signal إلى إذن سعة التخزين من أجل استخدام الذاكرة الخارجية ولكن تم إيقاف الإذن على نحو دائم. الرجاء زيارة إعدادات التطبيق، واختيار\"الأذونات\"، ثم تفعيل \"سعة التخزين\".</string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">يحتاج Molly إلى إذن سعة التخزين من أجل استخدام الذاكرة الخارجية ولكن تم إيقاف الإذن على نحو دائم. الرجاء زيارة إعدادات التطبيق، واختيار\"الأذونات\"، ثم تفعيل \"سعة التخزين\".</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">لا يمكن الحفظ إلى الذاكرة الخارجية بدون أذونات</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">أَتريد حذف الرسالة ؟</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">سوف يقوم هذا بحذف الرسالة بشكل دائم.</string>
@@ -931,7 +931,7 @@
   <string name="MessageNotifier_signal_message">رسالة Signal</string>
   <string name="MessageNotifier_unsecured_sms">رسائل SMS غير مؤمّنة</string>
   <string name="MessageNotifier_you_may_have_new_messages">قد يكون لديك رسائل جديدة</string>
-  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">افتح Signal للتحقق من الإشعارات الأخيرة.</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">افتح Molly للتحقق من الإشعارات الأخيرة.</string>
   <string name="MessageNotifier_contact_message">%1$s%2$s</string>
   <string name="MessageNotifier_unknown_contact_message">جهة اتصال</string>
   <string name="MessageNotifier_reacted_s_to_s">تفاعل %1$s مع: \"%2$s\".</string>
@@ -987,8 +987,8 @@
   <!--VideoPlayer-->
   <string name="VideoPlayer_error_playing_video">خطأ في تشغيل الفيديو</string>
   <!--WebRtcCallActivity-->
-  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">للإجابة على مكالمة %s يجب السماح ل Signal بالوصول إلى المايكروفون في جهازك.</string>
-  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">يحتاج Signal إلى أذونات الميكروفون والكاميرا من أجل استقبال أو تلقّي المكالمات، ولكن الإذن لم يُمنح بشكل دائم. الرجاء زيارة إعدادات التطبيق، واختيار \"الأذونات\"، ثم تفعيل \"الميكروفون\" و\"الكاميرا\".</string>
+  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">للإجابة على مكالمة %s يجب السماح ل Molly بالوصول إلى المايكروفون في جهازك.</string>
+  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">يحتاج Molly إلى أذونات الميكروفون والكاميرا من أجل استقبال أو تلقّي المكالمات، ولكن الإذن لم يُمنح بشكل دائم. الرجاء زيارة إعدادات التطبيق، واختيار \"الأذونات\"، ثم تفعيل \"الميكروفون\" و\"الكاميرا\".</string>
   <!--WebRtcCallScreen-->
   <string name="WebRtcCallScreen_new_safety_numbers">تم تغيير رقم السلامة مع %1$s، وهذا يعني إما محاولة أحداً اعتراض المحادثة أو ببساطة قيام %2$s بإعادة تثبيت Signal.</string>
   <string name="WebRtcCallScreen_you_may_wish_to_verify_this_contact">لربما ترغب بالتحقق من رقم السامة مع جهة الاتصال هذه.</string>
@@ -1039,7 +1039,7 @@
   <!--single_contact_selection_activity-->
   <string name="SingleContactSelectionActivity_contact_photo">صورة جهة الاتصال</string>
   <!--ContactSelectionListFragment-->
-  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">يحتاج Signal إلى أذن الوصول إلى جهات الاتصال من أجل عرضها لك، ولكن تم إيقاف الإذن على نحو دائم. الرجاء زيارة إعدادات التطبيق، اختيار \"الأذونات\"، ثم تفعيل \"جهات الاتصال\".</string>
+  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">يحتاج Molly إلى أذن الوصول إلى جهات الاتصال من أجل عرضها لك، ولكن تم إيقاف الإذن على نحو دائم. الرجاء زيارة إعدادات التطبيق، اختيار \"الأذونات\"، ثم تفعيل \"جهات الاتصال\".</string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">خطأ في جلب جهات الاتصال، يُرجى التحقق مِن اتصالك بالشبكة</string>
   <string name="ContactSelectionListFragment_username_not_found">لم يتم العثور على اسم المستخدم</string>
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">\"%1$s\" ليس مستخدم ل Signal. يرجى التحقق من اسم المستخدم والمحاولة ثانية.</string>
@@ -1047,7 +1047,7 @@
   <!--blocked_contacts_fragment-->
   <string name="blocked_contacts_fragment__no_blocked_contacts">لا توجد جهات اتصال محظورة </string>
   <!--contact_selection_list_fragment-->
-  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Signal بحاجة إلى الوصول إلى جهات الاتصال لديك وذلك بغرض عرضها.</string>
+  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly بحاجة إلى الوصول إلى جهات الاتصال لديك وذلك بغرض عرضها.</string>
   <string name="contact_selection_list_fragment__show_contacts">إظهار جهات الإتصال</string>
   <!--conversation_activity-->
   <string name="conversation_activity__type_message_push">رسالة من Signal</string>
@@ -1715,7 +1715,7 @@
   <string name="BackupDialog_verify">تحقق</string>
   <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">لقد أدخلت العبارة السرية للنسخة الاحتياطية بنجاح</string>
   <string name="BackupDialog_passphrase_was_not_correct">العبارة السرية غير صحيحة</string>
-  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">يحتاج Signal إلى إذن سعة التخزين خارجيّة لإنشاء نسخ احتياطية، ولكن تم إيقاف الإذن على نحو دائم. الرجاء زيارة إعدادات التطبيق ثم اختيار \"الأذونات\"، ثم تفعيل \"سعة التخزين\".</string>
+  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">يحتاج Molly إلى إذن سعة التخزين خارجيّة لإنشاء نسخ احتياطية، ولكن تم إيقاف الإذن على نحو دائم. الرجاء زيارة إعدادات التطبيق ثم اختيار \"الأذونات\"، ثم تفعيل \"سعة التخزين\".</string>
   <string name="ChatsPreferenceFragment_last_backup_s">آخِر نسخة إحتياطية : %s</string>
   <string name="ChatsPreferenceFragment_in_progress">جارٍ</string>
   <string name="LocalBackupJob_creating_backup">جارٍ إنشاء نسخة احتياطية…</string>

@@ -62,14 +62,14 @@
   <string name="AttachmentKeyboard_file">Fájl</string>
   <string name="AttachmentKeyboard_contact">Névjegy</string>
   <string name="AttachmentKeyboard_location">Hely</string>
-  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">A Signal-nak engedélyre van szüksége fotók és videók megjelenítéséhez.</string>
+  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">A Molly-nak engedélyre van szüksége fotók és videók megjelenítéséhez.</string>
   <string name="AttachmentKeyboard_give_access">Hozzáférés engedélyezése</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">Nem található alkalmazás médiafájl kiválasztásához.</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">A Signal-nak szüksége van a Tárhely engedélyre, hogy fotókat, videókat vagy hangokat csatolhasson, de ez jelenleg meg van tagadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Tárhely\"-t.</string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">A Signal-nak szüksége van a Névjegyek engedélyre, hogy névjegy információt csatolhasson, de ez jelenleg meg van tagadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Névjegyek\"-et.</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">A Signal-nak szüksége van a Helyadatok engedélyre, hogy helyzetet csatolhasson, de ez jelenleg meg van tagadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Helyadatok\"-at.</string>
-  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">A Signal-nak szüksége van a Kamera engedélyre, hogy fotókat készíthessen, de ez jelenleg meg van tagadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Kamera\"-t.</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">A Molly-nak szüksége van a Tárhely engedélyre, hogy fotókat, videókat vagy hangokat csatolhasson, de ez jelenleg meg van tagadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Tárhely\"-t.</string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">A Molly-nak szüksége van a Névjegyek engedélyre, hogy névjegy információt csatolhasson, de ez jelenleg meg van tagadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Névjegyek\"-et.</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">A Molly-nak szüksége van a Helyadatok engedélyre, hogy helyzetet csatolhasson, de ez jelenleg meg van tagadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Helyadatok\"-at.</string>
+  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">A Molly-nak szüksége van a Kamera engedélyre, hogy fotókat készíthessen, de ez jelenleg meg van tagadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Kamera\"-t.</string>
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">Médiafájl feltöltése…</string>
   <string name="AttachmentUploadJob_compressing_video_start">Videó tömörítése…</string>
@@ -190,16 +190,16 @@
   <string name="ConversationActivity_quick_camera_unavailable">A kamera nem érhető el</string>
   <string name="ConversationActivity_unable_to_record_audio">Nem lehet hangot rögzíteni!</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">Nem található eszközödön megfelelő alkalmazás a hivatkozás kezeléséhez.</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Hangüzenetek küldéséhez engedélyezd, hogy a Signal hozzáférhessen a mikrofonhoz!</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">A Signal-nak szüksége van a Mikrofon engedélyre, hogy hangüzeneteket küldhessen, de ez jelenleg nincs megadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd az \"Mikrofon\"-t.</string>
-  <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">%s hívásához a Signal-nak hozzá kell férnie mikrofonodhoz és kamerádhoz.</string>
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">A Signal-nak szüksége van Mikrofon és Kamera engedélyekre %s felhívásához, de ez jelenleg nincs megadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Mikrofon\"-t és a \"Kamera\"-t.</string>
-  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Fotók és videók készítéséhez engedélyezd a Signal-nak a kamerához való hozzáférést!</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">A Signal-nak szüksége van a Kamera engedélyre, hogy fotót vagy videót készíthessen, de ez jelenleg nincs megadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Kamera\"-t.</string>
-  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">A Signal-nak szüksége van Kamera engedélyekre fotók és videók készítéséhez</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Hangüzenetek küldéséhez engedélyezd, hogy a Molly hozzáférhessen a mikrofonhoz!</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">A Molly-nak szüksége van a Mikrofon engedélyre, hogy hangüzeneteket küldhessen, de ez jelenleg nincs megadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd az \"Mikrofon\"-t.</string>
+  <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">%s hívásához a Molly-nak hozzá kell férnie mikrofonodhoz és kamerádhoz.</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">A Molly-nak szüksége van Mikrofon és Kamera engedélyekre %s felhívásához, de ez jelenleg nincs megadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Mikrofon\"-t és a \"Kamera\"-t.</string>
+  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Fotók és videók készítéséhez engedélyezd a Molly-nak a kamerához való hozzáférést!</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">A Molly-nak szüksége van a Kamera engedélyre, hogy fotót vagy videót készíthessen, de ez jelenleg nincs megadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Kamera\"-t.</string>
+  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">A Molly-nak szüksége van Kamera engedélyekre fotók és videók készítéséhez</string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Engedélyezd a mikrofon-hozzáférést, hogy a videóhoz hangot is lehessen rögzíteni</string>
-  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">A Signal-nak szüksége van mikrofon-hozzáférési engedélyre, de ez jelenleg meg van tagadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Mikrofon\"-t, valamint a \"Kamera\"-t.</string>
-  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">A Signal-nak mikrofon-hozzáférési engedélyre van szüksége videók rögzítéséhez.</string>
+  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">A Molly-nak szüksége van mikrofon-hozzáférési engedélyre, de ez jelenleg meg van tagadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Mikrofon\"-t, valamint a \"Kamera\"-t.</string>
+  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">A Molly-nak mikrofon-hozzáférési engedélyre van szüksége videók rögzítéséhez.</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">A Signal nem tud SMS/MMS üzeneteket küldeni, mert nem az alapértelmezett SMS alkalmazásod. Szeretnél változtatni ezen az Android beállításaidban?</string>
   <string name="ConversationActivity_yes">Igen</string>
@@ -345,7 +345,7 @@
   <string name="DocumentView_unnamed_file">Névtelen fájl</string>
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">Optimalizálás hiányzó Play Szolgáltatásokra</string>
-  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Ez a készülék nem támogatja a Play Szolgáltatásokat. Koppints a rendszer akkumulátor-optimalizációinak letiltásához, ami megakadályozza a Signal-t abban, hogy inaktív állapotban is letöltse az üzeneteket.</string>
+  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Ez a készülék nem támogatja a Play Szolgáltatásokat. Koppints a rendszer akkumulátor-optimalizációinak letiltásához, ami megakadályozza a Molly-t abban, hogy inaktív állapotban is letöltse az üzeneteket.</string>
   <!--ShareActivity-->
   <string name="ShareActivity_share_with">Megosztás…</string>
   <string name="ShareActivity_multiple_attachments_are_only_supported">Több csatolmányt használata csak fényképek és videók esetén támogatott.</string>
@@ -493,8 +493,8 @@
   <string name="MediaSendActivity_message_to_s">Üzenet neki: %s</string>
   <string name="MediaSendActivity_message">Üzenetek</string>
   <string name="MediaSendActivity_select_recipients">Címzettek kiválasztása</string>
-  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">A Signal-nak szüksége van a névjegyeidhez való hozzáférésre annak érdekében, hogy megjelenítse őket.</string>
-  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">A Signal-nak szüksége van a Névjegyek engedélyre annak érdekében, hogy megjelenítse kontaktjaidat, de ez jelenleg meg van tagadva. Kérlek menj az alkalmazás-beállításokhoz, válaszd az \"Engedélyek\" menüpontot, majd  engedélyezd a \"Névjegyek\"-et.</string>
+  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">A Molly-nak szüksége van a névjegyeidhez való hozzáférésre annak érdekében, hogy megjelenítse őket.</string>
+  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">A Molly-nak szüksége van a Névjegyek engedélyre annak érdekében, hogy megjelenítse kontaktjaidat, de ez jelenleg meg van tagadva. Kérlek menj az alkalmazás-beállításokhoz, válaszd az \"Engedélyek\" menüpontot, majd  engedélyezd a \"Névjegyek\"-et.</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="one">Nem oszthatsz meg többet, mint %d db elem.</item>
     <item quantity="other">Nem oszthatsz meg többet, mint %d db elem.</item>
@@ -571,7 +571,7 @@
   <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">Sajnáljuk, de ez nem egy érvényes eszköz-társítási QR kód.</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">Signal eszköz társítása?</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Úgy tűnik, hogy egy harmadik féltől származó vonalkódolvasóval próbálsz Signal eszközt társítani. A saját védelmed érdekében kérlek szkenneld újra a kódot Signal-on belül!</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">A Signal-nak szüksége van a Kamera engedélyre, hogy QR kódot szkennelhessen, de ez jelenleg nincs megadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Kamera\"-t.</string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">A Molly-nak szüksége van a Kamera engedélyre, hogy QR kódot szkennelhessen, de ez jelenleg nincs megadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Kamera\"-t.</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Nem lehet QR kódot szkennelni Kamera hozzáférési engedély nélkül</string>
   <!--ExpirationDialog-->
   <string name="ExpirationDialog_disappearing_messages">Eltűnő üzenetek</string>
@@ -655,7 +655,7 @@ szám (%s) érvénytelen.
   <string name="RegistrationActivity_no_browser">Nem lehet megnyitni ezt a hivatkozást. Nem található webböngésző.</string>
   <string name="RegistrationActivity_more_information">További információ</string>
   <string name="RegistrationActivity_less_information">Kevesebb információ</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">A Signal-nak szüksége van a kontaktjaidhoz és médiádhoz való hozzáférésre a barátokkal való kapcsolódáshoz, üzenetváltáshoz és biztonságos hívások bonyolításához.</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">A Molly-nak szüksége van a kontaktjaidhoz és médiádhoz való hozzáférésre a barátokkal való kapcsolódáshoz, üzenetváltáshoz és biztonságos hívások bonyolításához.</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">Nem lehet kapcsolódni szolgáltatáshoz. Kérlek ellenőrizd a hálózati kapcsolatot és próbáld újra!</string>
   <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">Hogy könnyedén ellenőrizd a telefonszámod, a Signal automatikusan érzékeli az ellenőrző kódod, ha engedélyezed a Signal-nak, hogy megtekintse az SMS üzeneteket.</string>
   <plurals name="RegistrationActivity_debug_log_hint">
@@ -809,7 +809,7 @@ Kulcs-csere üzenet érkezett érvénytelen protokoll verzióhoz.
   <string name="VerifyIdentityActivity_our_signal_safety_number">Signal biztonsági számunk:</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">Úgy néz ki, egy alkalmazásod sem alkalmas a megosztás kezeléséhez.</string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">A vágólapon nem található biztonsági szám, amellyel össze lehetne hasonlítani</string>
-  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">A Signal-nak szüksége van a Kamera engedélyre, hogy QR kódot szkennelhessen, de ez jelenleg nincs megadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Kamera\"-t.</string>
+  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">A Molly-nak szüksége van a Kamera engedélyre, hogy QR kódot szkennelhessen, de ez jelenleg nincs megadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Kamera\"-t.</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">Nem lehet QR kódot szkennelni Kamera engedély nélkül</string>
   <!--ViewOnceMessageActivity-->
   <!--MessageDisplayHelper-->
@@ -836,7 +836,7 @@ Kulcs-csere üzenet érkezett érvénytelen protokoll verzióhoz.
   <string name="MediaPreviewActivity_you">Te</string>
   <string name="MediaPreviewActivity_unssuported_media_type">Nem támogatott médiatípus</string>
   <string name="MediaPreviewActivity_draft">Piszkozat</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">A Signal-nak szüksége van a Tárhely engedélyre ahhoz, hogy külső tárolóra menthessen, de ez jelenleg nincs megadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Tárhely\"-t.</string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">A Molly-nak szüksége van a Tárhely engedélyre ahhoz, hogy külső tárolóra menthessen, de ez jelenleg nincs megadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Tárhely\"-t.</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">Nem lehet engedély nélkül menteni a külső tárolóra</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">Törlöd az üzenetet?</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">Ez véglegesen törölni fogja ezt az üzenetet.</string>
@@ -859,7 +859,7 @@ Kulcs-csere üzenet érkezett érvénytelen protokoll verzióhoz.
   <string name="MessageNotifier_signal_message">Signal üzenet</string>
   <string name="MessageNotifier_unsecured_sms">Titkosítatlan SMS</string>
   <string name="MessageNotifier_you_may_have_new_messages">Új üzeneteid érkezhettek</string>
-  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Nyisd meg a Signal-t a legújabb értesítések megtekintéséhez!</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Nyisd meg a Molly-t a legújabb értesítések megtekintéséhez!</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">Névjegy</string>
   <string name="MessageNotifier_reacted_s_to_s">%1$s reakció erre: \"%2$s\"</string>
@@ -911,8 +911,8 @@ Kulcs-csere üzenet érkezett érvénytelen protokoll verzióhoz.
   <!--VideoPlayer-->
   <string name="VideoPlayer_error_playing_video">Hiba történt a videó lejátszásakor</string>
   <!--WebRtcCallActivity-->
-  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Hogy felvedd a tőle érkező hívást: %s, adj engedélyt a Signal-nak mikrofonod eléréséhez!</string>
-  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">A Signal-nak szüksége van a Mikrofon és Kamera engedélyekre, hogy képes legyen hívások indítására és fogadására, de ez jelenleg nincs megadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Mikrofon\"-t és a \"Kamera\"-t.</string>
+  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Hogy felvedd a tőle érkező hívást: %s, adj engedélyt a Molly-nak mikrofonod eléréséhez!</string>
+  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">A Molly-nak szüksége van a Mikrofon és Kamera engedélyekre, hogy képes legyen hívások indítására és fogadására, de ez jelenleg nincs megadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Mikrofon\"-t és a \"Kamera\"-t.</string>
   <!--WebRtcCallScreen-->
   <string name="WebRtcCallScreen_new_safety_numbers">A biztonsági számod megváltozott a vele folytatott beszélgetésedhez: %1$s. Ez jelentheti azt, hogy valaki megpróbálja lehallgatni a kommunikációdat, vagy azt, hogy %2$s egyszerűen újratelepítette a Signal-t.
     </string>
@@ -964,7 +964,7 @@ Kulcs-csere üzenet érkezett érvénytelen protokoll verzióhoz.
   <!--single_contact_selection_activity-->
   <string name="SingleContactSelectionActivity_contact_photo">Kontakt fotó</string>
   <!--ContactSelectionListFragment-->
-  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">A Signal-nak szüksége van a Névjegyek engedélyre annak érdekében, hogy megjelenítse a névjegyeid, de ez jelenleg nincs megadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Névjegyek\"-et.</string>
+  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">A Molly-nak szüksége van a Névjegyek engedélyre annak érdekében, hogy megjelenítse a névjegyeid, de ez jelenleg nincs megadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Névjegyek\"-et.</string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Hiba történt a névjegyek betöltése során, ellenőrizd a hálózati kapcsolatod</string>
   <string name="ContactSelectionListFragment_username_not_found">A felhasználónév nem található</string>
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">\"%1$s\" nem Signal felhasználó. Kérlek ellenőrizd a felhasználónevet, majd próbáld újra.</string>
@@ -972,7 +972,7 @@ Kulcs-csere üzenet érkezett érvénytelen protokoll verzióhoz.
   <!--blocked_contacts_fragment-->
   <string name="blocked_contacts_fragment__no_blocked_contacts">Nincsenek blokkolt kontaktok</string>
   <!--contact_selection_list_fragment-->
-  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">A Signal-nak szüksége van a névjegyeidhez való hozzáférésre annak érdekében, hogy megjelenítse őket.</string>
+  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">A Molly-nak szüksége van a névjegyeidhez való hozzáférésre annak érdekében, hogy megjelenítse őket.</string>
   <string name="contact_selection_list_fragment__show_contacts">Kontaktok mutatása</string>
   <!--conversation_activity-->
   <string name="conversation_activity__type_message_push">Signal üzenet</string>
@@ -1650,7 +1650,7 @@ Kulcs-csere üzenet érkezett érvénytelen protokoll verzióhoz.
   <string name="BackupDialog_verify">Hitelesítés</string>
   <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">A biztonsági mentés jelmondat megadása sikeres volt</string>
   <string name="BackupDialog_passphrase_was_not_correct">A jelmondat nem megfelelő</string>
-  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">A Signal-nak szüksége van külső tárhely engedélyre annak érdekében, hogy biztonsági mentést hozhasson létre, de ez jelenleg nincs megadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Tárhely\"-t.</string>
+  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">A Molly-nak szüksége van külső tárhely engedélyre annak érdekében, hogy biztonsági mentést hozhasson létre, de ez jelenleg nincs megadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Tárhely\"-t.</string>
   <string name="ChatsPreferenceFragment_last_backup_s">Utolsó biztonsági mentés: %s</string>
   <string name="ChatsPreferenceFragment_in_progress">Folyamatban</string>
   <string name="LocalBackupJob_creating_backup">Biztonsági mentés létrehozása…</string>

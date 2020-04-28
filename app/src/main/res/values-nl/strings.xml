@@ -61,14 +61,14 @@
   <string name="AttachmentKeyboard_file">Bestand</string>
   <string name="AttachmentKeyboard_contact">Contactpersoon</string>
   <string name="AttachmentKeyboard_location">Locatie</string>
-  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Signal heeft toegang nodig tot de externe opslagruimte om afbeeldingen en video\'s weer te kunnen geven.</string>
+  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Molly heeft toegang nodig tot de externe opslagruimte om afbeeldingen en video\'s weer te kunnen geven.</string>
   <string name="AttachmentKeyboard_give_access">Toestemming geven</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">Geen app gevonden om media te selecteren.</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signal heeft toegang nodig tot de externe opslagruimte om afbeeldingen, video\'s of audio te kunnen verzenden, maar deze toestemming is pertinent geweigerd. Ga naar de instellingen, selecteer  ‘Machtigingen’ en schakel ‘Opslagruimte’ in.</string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Signal heeft toegang nodig tot de contacten om contactinformatie in Signal weer te geven, maar deze toestemming is pertinent geweigerd. Ga naar de instellingen, selecteer ‘Toestemmingen’ en schakel ‘Contacten’ in.</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Signal heeft toegang nodig tot de locatie om locaties te kunnen verzenden aan je gesprekspartners, maar deze toestemming is pertinent geweigerd. Ga naar de instellingen, selecteer ‘Toestemmingen’ en schakel ‘Locatie’ in.</string>
-  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">Signal heeft toegang nodig tot de camera om foto\'s te kunnen maken, maar deze toegang is pertinent geweigerd. Ga naar de instellingen, selecteer ‘Toestemmingen’ en schakel ‘Camera’ in.</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly heeft toegang nodig tot de externe opslagruimte om afbeeldingen, video\'s of audio te kunnen verzenden, maar deze toestemming is pertinent geweigerd. Ga naar de instellingen, selecteer  ‘Machtigingen’ en schakel ‘Opslagruimte’ in.</string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly heeft toegang nodig tot de contacten om contactinformatie in Molly weer te geven, maar deze toestemming is pertinent geweigerd. Ga naar de instellingen, selecteer ‘Toestemmingen’ en schakel ‘Contacten’ in.</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly heeft toegang nodig tot de locatie om locaties te kunnen verzenden aan je gesprekspartners, maar deze toestemming is pertinent geweigerd. Ga naar de instellingen, selecteer ‘Toestemmingen’ en schakel ‘Locatie’ in.</string>
+  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">Molly heeft toegang nodig tot de camera om foto\'s te kunnen maken, maar deze toegang is pertinent geweigerd. Ga naar de instellingen, selecteer ‘Toestemmingen’ en schakel ‘Camera’ in.</string>
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">Media aan het uploaden…</string>
   <string name="AttachmentUploadJob_compressing_video_start">Video aan het comprimeren…</string>
@@ -188,16 +188,16 @@
   <string name="ConversationActivity_quick_camera_unavailable">Camera niet beschikbaar</string>
   <string name="ConversationActivity_unable_to_record_audio">Kan audio niet opnemen!</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">Er is geen app beschikbaar op je apparaat om deze koppeling te openen.</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Om audioberichten op te nemen, moet je Signal toegang geven tot je microfoon.</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Signal heeft toegang nodig tot de microfoon om audioberichten te kunnen opnemen, maar deze is pertinent geweigerd. Ga naar de instellingen voor deze app, selecteer ‘Machtigingen’ en schakel ‘Microfoon’ in.</string>
-  <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">Signal heeft toegang nodig tot je microfoon en camera om %s te bellen.</string>
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Signal heeft toegang nodig tot de microfoon en de camera om %s te kunnen bellen, maar deze is pertinent geweigerd. Ga naar de instellingen voor deze app, selecteer ‘Machtigingen’ en schakel ‘Microfoon’ en ‘Camera’ in.</string>
-  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Geef Signal toegang tot de camera om foto\'s en video\'s te maken.</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signal heeft toegang nodig tot de camera om foto’s en video’s te kunnen opnemen, maar deze is pertinent geweigerd. Ga naar de instellingen voor deze app, selecteer ‘Machtigingen’ en schakel ‘Camera’ in.</string>
-  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signal heeft toegang tot de camera nodig om foto’s en video’s te kunnen opnemen</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Om audioberichten op te nemen, moet je Molly toegang geven tot je microfoon.</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly heeft toegang nodig tot de microfoon om audioberichten te kunnen opnemen, maar deze is pertinent geweigerd. Ga naar de instellingen voor deze app, selecteer ‘Machtigingen’ en schakel ‘Microfoon’ in.</string>
+  <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">Molly heeft toegang nodig tot je microfoon en camera om %s te bellen.</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly heeft toegang nodig tot de microfoon en de camera om %s te kunnen bellen, maar deze is pertinent geweigerd. Ga naar de instellingen voor deze app, selecteer ‘Machtigingen’ en schakel ‘Microfoon’ en ‘Camera’ in.</string>
+  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Geef Molly toegang tot de camera om foto\'s en video\'s te maken.</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Molly heeft toegang nodig tot de camera om foto’s en video’s te kunnen opnemen, maar deze is pertinent geweigerd. Ga naar de instellingen voor deze app, selecteer ‘Machtigingen’ en schakel ‘Camera’ in.</string>
+  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Molly heeft toegang tot de camera nodig om foto’s en video’s te kunnen opnemen</string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Signal heeft toegang nodig tot de microfoon om video te kunnen opnemen met geluid.</string>
-  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signal heeft toegang nodig tot de microfoon en camera om video te kunnen opnemen, maar deze is pertinent geweigerd. Ga naar de instellingen voor deze app, selecteer ‘Machtigingen’ en schakel ‘Microfoon’ en ‘Camera’ in.</string>
-  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signal heeft toegang nodig tot de microfoon om video te kunnen opnemen.</string>
+  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Molly heeft toegang nodig tot de microfoon en camera om video te kunnen opnemen, maar deze is pertinent geweigerd. Ga naar de instellingen voor deze app, selecteer ‘Machtigingen’ en schakel ‘Microfoon’ en ‘Camera’ in.</string>
+  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Molly heeft toegang nodig tot de microfoon om video te kunnen opnemen.</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">Signal kan geen sms-/mms-bericht verzenden omdat Signal niet je standaard sms-app is. Wil je dit veranderen in je Android-instellingen?</string>
   <string name="ConversationActivity_yes">Ja</string>
@@ -343,7 +343,7 @@
   <string name="DocumentView_unnamed_file">Onbenoemd bestand</string>
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">Optimaliseren voor ontbrekende Google Play Services</string>
-  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Dit apparaat biedt geen ondersteuning voor Google Play Services. Tik hier om de optimalisaties m.b.t. stroomverbruik uit te schakelen, die Signal momenteel verhinderen om berichten te ontvangen op de achtergrond.</string>
+  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Dit apparaat biedt geen ondersteuning voor Google Play Services. Tik hier om de optimalisaties m.b.t. stroomverbruik uit te schakelen, die Molly momenteel verhinderen om berichten te ontvangen op de achtergrond.</string>
   <!--ShareActivity-->
   <string name="ShareActivity_share_with">Doorsturen naar</string>
   <string name="ShareActivity_multiple_attachments_are_only_supported">Het verzenden van meerdere bijlagen is alleen mogelijk voor afbeeldingen en video\'s</string>
@@ -491,8 +491,8 @@
   <string name="MediaSendActivity_message_to_s">Bericht aan %s</string>
   <string name="MediaSendActivity_message">Bericht</string>
   <string name="MediaSendActivity_select_recipients">Selecteer Signal-gebruikers</string>
-  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Signal heeft toegang nodig tot je contacten om contactpersonen te kunnen weergeven.</string>
-  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Signal heeft toegang tot je lijst met contacten nodig om je contacten weer te kunnen geven, maar toestemming om contacten in te zien is pertinent geweigerd. Ga naar de instellingen voor deze app, selecteer ‘Machtigingen’ en schakel ‘Contacten’ in.</string>
+  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Molly heeft toegang nodig tot je contacten om contactpersonen te kunnen weergeven.</string>
+  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Molly heeft toegang tot je lijst met contacten nodig om je contacten weer te kunnen geven, maar toestemming om contacten in te zien is pertinent geweigerd. Ga naar de instellingen voor deze app, selecteer ‘Machtigingen’ en schakel ‘Contacten’ in.</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="one">Je kan niet meer dan %d item delen.</item>
     <item quantity="other">Je kunt niet meer dan %d items delen.</item>
@@ -569,7 +569,7 @@
   <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">Sorry, dit is geen geldige QR-code om een apparaat te koppelen.</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">Een Signal-apparaat koppelen?</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Het lijkt erop dat je een Signal-apparaat wilt koppelen met behulp van een externe scanner. Scan voor de veiligheid de code opnieuw vanuit Signal.</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Signal heeft toegang tot de camera nodig om een QR-code te scannen, maar deze is pertinent geweigerd. Ga naar de instellingen voor deze app, selecteer ‘Machtigingen’ en schakel ‘Camera’ in.</string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly heeft toegang tot de camera nodig om een QR-code te scannen, maar deze is pertinent geweigerd. Ga naar de instellingen voor deze app, selecteer ‘Machtigingen’ en schakel ‘Camera’ in.</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Kan geen QR-code scannen zonder toegang tot camera</string>
   <!--ExpirationDialog-->
   <string name="ExpirationDialog_disappearing_messages">Zelf-wissende berichten</string>
@@ -808,7 +808,7 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <string name="VerifyIdentityActivity_our_signal_safety_number">Ons Signal-veiligheidsnummer:</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">Het lijkt erop dat je geen apps hebt waarmee je je veiligheidsnummer kunt doorsturen.</string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">Geen veiligheidsnummer gevonden op het klembord</string>
-  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Signal heeft toegang tot de camera nodig om een QR-code te scannen, maar deze is pertinent geweigerd. Ga naar de instellingen voor deze app, selecteer ‘Machtigingen’ en schakel ‘Camera’ in.</string>
+  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Molly heeft toegang tot de camera nodig om een QR-code te scannen, maar deze is pertinent geweigerd. Ga naar de instellingen voor deze app, selecteer ‘Machtigingen’ en schakel ‘Camera’ in.</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">Kan QR-code niet scannen zonder toegang tot camera</string>
   <!--ViewOnceMessageActivity-->
   <!--MessageDisplayHelper-->
@@ -835,7 +835,7 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <string name="MediaPreviewActivity_you">jou</string>
   <string name="MediaPreviewActivity_unssuported_media_type">Niet-ondersteund mediatype</string>
   <string name="MediaPreviewActivity_draft">Concept</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Signal heeft toegang tot externe opslagruimte nodig om iets op te slaan op de externe opslag, maar deze toegang is pertinent geweigerd. Ga naar de instellingen voor deze app, selecteer ‘Machtigingen’ en schakel ‘Opslagruimte’ in.</string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Molly heeft toegang tot externe opslagruimte nodig om iets op te slaan op de externe opslag, maar deze toegang is pertinent geweigerd. Ga naar de instellingen voor deze app, selecteer ‘Machtigingen’ en schakel ‘Opslagruimte’ in.</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">Kan niet opslaan naar externe opslag zonder machtiging</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">Bericht wissen?</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">Dit bericht zal onherroepelijk gewist worden, maar alleen voor jou.</string>
@@ -858,7 +858,7 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <string name="MessageNotifier_signal_message">Signal-bericht</string>
   <string name="MessageNotifier_unsecured_sms">Onbeveiligde sms</string>
   <string name="MessageNotifier_you_may_have_new_messages">Je hebt mogelijk nieuwe berichten</string>
-  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Open Signal om te zien of er recente meldingen zijn.</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Open Molly om te zien of er recente meldingen zijn.</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">Contactpersoon</string>
   <string name="MessageNotifier_reacted_s_to_s">reageerde met %1$s op “%2$s”.</string>
@@ -910,8 +910,8 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <!--VideoPlayer-->
   <string name="VideoPlayer_error_playing_video">Fout bij afspelen van video</string>
   <!--WebRtcCallActivity-->
-  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Geef Signal toegang tot je microfoon om de oproep van %s te beantwoorden.</string>
-  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Signal heeft toegang nodig tot de microfoon en de camera om oproepen te maken of te ontvangen, maar deze toegang is pertinent geweigerd. Ga naar de instellingen voor deze app, selecteer ‘Machtigingen’ en schakel ‘Microfoon’ en ‘Camera’ in.</string>
+  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Geef Molly toegang tot je microfoon om de oproep van %s te beantwoorden.</string>
+  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Molly heeft toegang nodig tot de microfoon en de camera om oproepen te maken of te ontvangen, maar deze toegang is pertinent geweigerd. Ga naar de instellingen voor deze app, selecteer ‘Machtigingen’ en schakel ‘Microfoon’ en ‘Camera’ in.</string>
   <!--WebRtcCallScreen-->
   <string name="WebRtcCallScreen_new_safety_numbers">Je veiligheidsnummer met %1$s is veranderd. Dit kan betekenen dat iemand je communicatie probeert te onderscheppen, of gewoon dat %2$s Signal opnieuw geïnstalleerd heeft.</string>
   <string name="WebRtcCallScreen_you_may_wish_to_verify_this_contact">Het wordt aanbevolen de veiligheidsnummers met deze contactpersoon te verifiëren.</string>
@@ -962,7 +962,7 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <!--single_contact_selection_activity-->
   <string name="SingleContactSelectionActivity_contact_photo">Foto van contactpersoon</string>
   <!--ContactSelectionListFragment-->
-  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Signal heeft toegang tot je lijst met contacten nodig om je contacten weer te kunnen geven, maar toestemming om contacten in te zien is pertinent geweigerd. Ga naar de instellingen voor deze app, selecteer ‘Machtigingen’ en schakel ‘Contacten’ in.</string>
+  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Molly heeft toegang tot je lijst met contacten nodig om je contacten weer te kunnen geven, maar toestemming om contacten in te zien is pertinent geweigerd. Ga naar de instellingen voor deze app, selecteer ‘Machtigingen’ en schakel ‘Contacten’ in.</string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Fout bij ophalen van contactpersonen, controleer je netwerkverbinding</string>
   <string name="ContactSelectionListFragment_username_not_found">Gebruikersnaam niet gevonden</string>
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">“%1$s” is geen Signal-gebruiker. Kijk de gebruikersnaam na en probeer het opnieuw.</string>
@@ -970,7 +970,7 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <!--blocked_contacts_fragment-->
   <string name="blocked_contacts_fragment__no_blocked_contacts">Geen geblokkeerde contactpersonen</string>
   <!--contact_selection_list_fragment-->
-  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Signal heeft toegang nodig tot je contacten om contactpersonen te kunnen weergeven.</string>
+  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly heeft toegang nodig tot je contacten om contactpersonen te kunnen weergeven.</string>
   <string name="contact_selection_list_fragment__show_contacts">Contactpersonen weergeven</string>
   <!--conversation_activity-->
   <string name="conversation_activity__type_message_push">Signal-bericht</string>
@@ -1651,7 +1651,7 @@ Signal zal nu toestemming vragen om je contactenlijst te lezen, om na te gaan wi
   <string name="BackupDialog_verify">Verifiëren</string>
   <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">Je hebt het juiste back-up-wachtwoord ingevoerd</string>
   <string name="BackupDialog_passphrase_was_not_correct">Je hebt niet het juiste back-up-wachtwoord ingevoerd.</string>
-  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal heeft toegang nodig tot de externe opslagruimte om back-up-bestanden te kunnen maken, maar deze is pertinent geweigerd. Ga naar de instellingen voor deze app, selecteer ‘Machtigingen’ en schakel ‘Opslagruimte’ in.</string>
+  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly heeft toegang nodig tot de externe opslagruimte om back-up-bestanden te kunnen maken, maar deze is pertinent geweigerd. Ga naar de instellingen voor deze app, selecteer ‘Machtigingen’ en schakel ‘Opslagruimte’ in.</string>
   <string name="ChatsPreferenceFragment_last_backup_s">Meest recente back-up-bestand: %s</string>
   <string name="ChatsPreferenceFragment_in_progress">Bezig</string>
   <string name="LocalBackupJob_creating_backup">Back-up-bestand aan het maken…</string>

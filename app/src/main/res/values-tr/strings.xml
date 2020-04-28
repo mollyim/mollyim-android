@@ -61,14 +61,14 @@
   <string name="AttachmentKeyboard_file">Dosya</string>
   <string name="AttachmentKeyboard_contact">Kişi</string>
   <string name="AttachmentKeyboard_location">Konum</string>
-  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Signal\'in fotoğraf ve videolarınızı göstermek için erişim iznine ihtiyacı var.</string>
+  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Molly\'in fotoğraf ve videolarınızı göstermek için erişim iznine ihtiyacı var.</string>
   <string name="AttachmentKeyboard_give_access">İzin Ver</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">İçerik seçebilecek uygulama bulunamıyor.</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signal, fotoğraflar, videolar, veya ses ekleyebilmek için Depolama iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Depolama\"yı etkinleştirin.</string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Signal, iletişim bilgilerini eklemek için Kişiler iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Kişiler\"i etkinleştirin.</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Signal, konum bilgisi eklemek için Konum iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Konum\"u etkinleştirin.</string>
-  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">Signal, fotoğraf çekmek için Kamera iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Kamera\"yı etkinleştirin.</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly, fotoğraflar, videolar, veya ses ekleyebilmek için Depolama iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Depolama\"yı etkinleştirin.</string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly, iletişim bilgilerini eklemek için Kişiler iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Kişiler\"i etkinleştirin.</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly, konum bilgisi eklemek için Konum iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Konum\"u etkinleştirin.</string>
+  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">Molly, fotoğraf çekmek için Kamera iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Kamera\"yı etkinleştirin.</string>
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">İçerik yükleniyor…</string>
   <string name="AttachmentUploadJob_compressing_video_start">Video sıkıştırılıyor…</string>
@@ -187,16 +187,16 @@
   <string name="ConversationActivity_quick_camera_unavailable">Kamera kullanılamıyor</string>
   <string name="ConversationActivity_unable_to_record_audio">Ses kaydedilemedi!</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">Cihazınızda bu bağlantıyı işleyebilecek uygulama bulunmamaktadır.</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Sesli ileti göndermek için Signal\'in mikrofonunuza erişmesine izin verin.</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Signal, sesli iletiler göndermek için Mikrofon iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Mikrofon\"u etkinleştirin.</string>
-  <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">%s ile arama yapmanız için, Signal\'in mikrofonunuza ve kameranıza erişime ihtiyacı var.</string>
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Signal, %s ile arama yapmanız için Mikrofon ve Kamera iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, \"Mikrofon\" ve \"Kamera\"yı etkinleştirin.</string>
-  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Fotoğraf veya video çekmek için, Signal\'in kameraya erişmesine izin verin.</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signal, fotoğraf veya video çekmek için Kamera iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Kamera\"yı etkinleştirin.</string>
-  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signal fotoğraf veya video çekebilmek için kamera erişimine ihtiyaç duyar</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Sesli ileti göndermek için Molly\'in mikrofonunuza erişmesine izin verin.</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly, sesli iletiler göndermek için Mikrofon iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Mikrofon\"u etkinleştirin.</string>
+  <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">%s ile arama yapmanız için, Molly\'in mikrofonunuza ve kameranıza erişime ihtiyacı var.</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly, %s ile arama yapmanız için Mikrofon ve Kamera iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, \"Mikrofon\" ve \"Kamera\"yı etkinleştirin.</string>
+  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Fotoğraf veya video çekmek için, Molly\'in kameraya erişmesine izin verin.</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Molly, fotoğraf veya video çekmek için Kamera iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Kamera\"yı etkinleştirin.</string>
+  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Molly fotoğraf veya video çekebilmek için kamera erişimine ihtiyaç duyar</string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Sesli videolar kaydedebilmek için mikrofon erişim iznini etkinleştirin.</string>
-  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signal videolar kaydedebilmek için mikrofon erişimine ihtiyaç duyar, ama bu erişim reddedilmiş. Lütfen uygulama ayarlarına girip, \"İzinler\"i seçin, sonrasında \"Mikrofon\" ve \"Kamera\"yı etkinleştirin.</string>
-  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signal video kaydedebilmek için mikrofon erişimine izin duyar.</string>
+  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Molly videolar kaydedebilmek için mikrofon erişimine ihtiyaç duyar, ama bu erişim reddedilmiş. Lütfen uygulama ayarlarına girip, \"İzinler\"i seçin, sonrasında \"Mikrofon\" ve \"Kamera\"yı etkinleştirin.</string>
+  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Molly video kaydedebilmek için mikrofon erişimine izin duyar.</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">Signal varsayılan SMS uygulaması olmadığı için SMS/MMS iletileri gönderemiyor. Bunu Android ayarlarınızdan değiştirmek ister misiniz?</string>
   <string name="ConversationActivity_yes">Evet</string>
@@ -342,7 +342,7 @@
   <string name="DocumentView_unnamed_file">İsimsiz dosya</string>
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">Eksik Google Play Hizmetleri için optimize et</string>
-  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Bu cihaz Play Hizmetlerini desteklemiyor. Signal etkin değilken ileti almasını engelleyebilecek pil iyileştirmelerini devre dışı bırakmak için dokunun.</string>
+  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Bu cihaz Play Hizmetlerini desteklemiyor. Molly etkin değilken ileti almasını engelleyebilecek pil iyileştirmelerini devre dışı bırakmak için dokunun.</string>
   <!--ShareActivity-->
   <string name="ShareActivity_share_with">Paylaşılacak kişi</string>
   <string name="ShareActivity_multiple_attachments_are_only_supported">Çoklu ekler sadece resim ve dosyalarda destekleniyor</string>
@@ -490,8 +490,8 @@
   <string name="MediaSendActivity_message_to_s">%s kişisine ileti</string>
   <string name="MediaSendActivity_message">İleti</string>
   <string name="MediaSendActivity_select_recipients">Alıcıları seçin</string>
-  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Signal\'in kişilerinizi gösterebilmek için erişime ihtiyacı var.</string>
-  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Kişilerinizi göstermek için Signal\'in kişiler iznine ihtiyacı var fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulamanın ayarlarına girip \"İzinleri\" seçin ve \"Kişileri\" etkinleştirin.</string>
+  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Molly\'in kişilerinizi gösterebilmek için erişime ihtiyacı var.</string>
+  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Kişilerinizi göstermek için Molly\'in kişiler iznine ihtiyacı var fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulamanın ayarlarına girip \"İzinleri\" seçin ve \"Kişileri\" etkinleştirin.</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="one">%d öğeden daha fazlasını paylaşamazsınız.</item>
     <item quantity="other">%d öğeden daha fazlasını paylaşamazsınız.</item>
@@ -564,7 +564,7 @@
   <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">Üzgünüz, bu geçerli bir cihaz bağlama karekodu değil.</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">Bir Signal cihazı bağlansın mı?</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Üçüncül bir tarafın tarayıcısı ile taramaya çalışıyorsunuz gibi gözüküyor. Güvenliğiniz için, lütfen kodu Signal\'in içerisinden tekrar tarayın.</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Signal, bir karekod taramak için Kamera iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Kamera\"yı etkinleştirin.</string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly, bir karekod taramak için Kamera iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Kamera\"yı etkinleştirin.</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Kamera izni olmadan karekod taranamıyor.</string>
   <!--ExpirationDialog-->
   <string name="ExpirationDialog_disappearing_messages">Kaybolan iletiler</string>
@@ -648,7 +648,7 @@
   <string name="RegistrationActivity_no_browser">Bu bağlantı açılamıyor. İnternet tarayıcısı bulunamadı.</string>
   <string name="RegistrationActivity_more_information">Daha fazla bilgi</string>
   <string name="RegistrationActivity_less_information">Daha az bilgi</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Kişilerinizle iletişim kurabilmeniz ve güvenli aramalar yapabilmeniz için Signal\'in Kişilerinize ve Depolamanıza erişime ihtiyacı var</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Kişilerinizle iletişim kurabilmeniz ve güvenli aramalar yapabilmeniz için Molly\'in Kişilerinize ve Depolamanıza erişime ihtiyacı var</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">Hizmete bağlanılamadı. Lütfen ağ bağlantınızı kontrol edip tekrar deneyin. </string>
   <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">Eğer Signal\'in SMS iletilerine erişimine izin verirseniz telefon numaranızı kolayca doğrulamak için doğrulama kodunuzu otomatik olarak tespit edebilir.</string>
   <plurals name="RegistrationActivity_debug_log_hint">
@@ -800,7 +800,7 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <string name="VerifyIdentityActivity_our_signal_safety_number">Signal güvenlik numaramız:</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">Paylaşmak için herhangi bir uygulamanız yok gibi görünüyor. </string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">Panoda karşılaştırılacak bir güvenlik numarası bulunamadı</string>
-  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Signal, bir karekod taramak için Kamera iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Kamera\"yı etkinleştirin.</string>
+  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Molly, bir karekod taramak için Kamera iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Kamera\"yı etkinleştirin.</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">Kamera izni olmadan karekod taranamıyor.</string>
   <!--ViewOnceMessageActivity-->
   <!--MessageDisplayHelper-->
@@ -827,7 +827,7 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <string name="MediaPreviewActivity_you">Siz</string>
   <string name="MediaPreviewActivity_unssuported_media_type">Desteklenmeyen içerik türü</string>
   <string name="MediaPreviewActivity_draft">Taslak</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Signal, harici depolamaya kaydedebilmek için Depolama iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Depolama\"yı etkinleştirin.</string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Molly, harici depolamaya kaydedebilmek için Depolama iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Depolama\"yı etkinleştirin.</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">İzinler olmadan harici depolamaya kaydedilemiyor</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">İletiyi sil?</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">Bu eylem bu iletiyi kalıcı olarak silecektir.</string>
@@ -850,7 +850,7 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <string name="MessageNotifier_signal_message">Signal İletisi</string>
   <string name="MessageNotifier_unsecured_sms">Şifresiz SMS</string>
   <string name="MessageNotifier_you_may_have_new_messages">Yeni iletileriniz olabilir</string>
-  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Yakın zamandaki bildirimler için Signal\'i açın.</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Yakın zamandaki bildirimler için Molly\'i açın.</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">Kişi</string>
   <string name="MessageNotifier_reacted_s_to_s">\"%2$s\" iletisine karşılık verdi: %1$s</string>
@@ -902,8 +902,8 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <!--VideoPlayer-->
   <string name="VideoPlayer_error_playing_video">Video oynatılırken hata</string>
   <!--WebRtcCallActivity-->
-  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">%s tarafından gelen aramayı yanıtlamak için, Signal\'in mikrofonunuza erişmesine izin verin.</string>
-  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Signal, arama yapmak ve almak için Mikrofon ve Kamera iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, \"Mikrofon\" ve \"Kamera\"yı etkinleştirin.</string>
+  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">%s tarafından gelen aramayı yanıtlamak için, Molly\'in mikrofonunuza erişmesine izin verin.</string>
+  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Molly, arama yapmak ve almak için Mikrofon ve Kamera iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, \"Mikrofon\" ve \"Kamera\"yı etkinleştirin.</string>
   <!--WebRtcCallScreen-->
   <string name="WebRtcCallScreen_new_safety_numbers">%1$s ile sohbetinizin güvenlik numarası değişti. Bu, birisinin iletişiminizi kesmeye çalıştığı ya da %2$s Signal\'i yeniden yüklemiş olduğu anlamına gelebilir.</string>
   <string name="WebRtcCallScreen_you_may_wish_to_verify_this_contact">Bu kişi ile güvenlik numaranızı doğrulamak isteyebilirsiniz.</string>
@@ -954,7 +954,7 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <!--single_contact_selection_activity-->
   <string name="SingleContactSelectionActivity_contact_photo">Kişi Fotoğrafı</string>
   <!--ContactSelectionListFragment-->
-  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Signal, kişileriniz gösterebilmek için Kişiler iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Kişiler\"i etkinleştirin.</string>
+  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Molly, kişileriniz gösterebilmek için Kişiler iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Kişiler\"i etkinleştirin.</string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Kişiler alınırken hata oluştu, ağ bağlantınızı kontrol edin</string>
   <string name="ContactSelectionListFragment_username_not_found">Kullanıcı adı bulunamadı</string>
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">\"%1$s\" bir Signal kullanıcısı değil. Lütfen kullanıcı adını kontrol edin ve tekrar deneyin.</string>
@@ -962,7 +962,7 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <!--blocked_contacts_fragment-->
   <string name="blocked_contacts_fragment__no_blocked_contacts">Hiç engellenmiş kişi yok</string>
   <!--contact_selection_list_fragment-->
-  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Signal\'in kişilerinizi gösterebilmek için erişime ihtiyacı var.</string>
+  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly\'in kişilerinizi gösterebilmek için erişime ihtiyacı var.</string>
   <string name="contact_selection_list_fragment__show_contacts">Kişileri Görüntüle</string>
   <!--conversation_activity-->
   <string name="conversation_activity__type_message_push">Signal iletisi</string>
@@ -1629,7 +1629,7 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <string name="BackupDialog_verify">Doğrula</string>
   <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">Yedek parolanızı doğru girdiniz</string>
   <string name="BackupDialog_passphrase_was_not_correct">Parolanız doğru değil</string>
-  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal, yedek oluşturabilmek için Depolama iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Depolama\"yı etkinleştirin.</string>
+  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly, yedek oluşturabilmek için Depolama iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Depolama\"yı etkinleştirin.</string>
   <string name="ChatsPreferenceFragment_last_backup_s">Son yedek: %s</string>
   <string name="ChatsPreferenceFragment_in_progress">Devam etmekte</string>
   <string name="LocalBackupJob_creating_backup">Yedek oluşturuluyor…</string>

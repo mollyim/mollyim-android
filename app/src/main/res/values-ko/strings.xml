@@ -58,14 +58,14 @@
   <string name="AttachmentKeyboard_file">파일</string>
   <string name="AttachmentKeyboard_contact">연락처</string>
   <string name="AttachmentKeyboard_location">위치</string>
-  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Signal에서 사진이나 동영상을 찍으려면 권한이 필요합니다.</string>
+  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Molly에서 사진이나 동영상을 찍으려면 권한이 필요합니다.</string>
   <string name="AttachmentKeyboard_give_access">액세스 허용</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">미디어를 선택할 수 있는 앱이 없습니다.</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signal에서 사진, 동영상 또는 오디오를 첨부하려면 저장 공간 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'저장 공간\' 항목을 허용해 주세요.</string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Signal에서 연락처 정보를 첨부하려면 연락처 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'연락처\' 항목을 허용해 주세요.</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Signal에서 위치 정보를 첨부하려면 위치 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'위치\' 항목을 허용해 주세요.</string>
-  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">Signal에서 사진을 찍으려면 카메라 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'카메라\' 항목을 허용해 주세요.</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly에서 사진, 동영상 또는 오디오를 첨부하려면 저장 공간 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'저장 공간\' 항목을 허용해 주세요.</string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly에서 연락처 정보를 첨부하려면 연락처 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'연락처\' 항목을 허용해 주세요.</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly에서 위치 정보를 첨부하려면 위치 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'위치\' 항목을 허용해 주세요.</string>
+  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">Molly에서 사진을 찍으려면 카메라 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'카메라\' 항목을 허용해 주세요.</string>
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">미디어 업로드 중…</string>
   <string name="AttachmentUploadJob_compressing_video_start">동영상 압축 중…</string>
@@ -185,16 +185,16 @@
   <string name="ConversationActivity_quick_camera_unavailable">카메라를 사용할 수 없음</string>
   <string name="ConversationActivity_unable_to_record_audio">오디오를 녹음할 수 없습니다!</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">기기 링크를 처리할 수 있는 앱이 없습니다.</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">음성 메시지를 보내려면 Signal이 마이크를 사용할 수 있도록 허용해 주세요.</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Signal에서 오디오 메시지를 보내려면 마이크 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'마이크\' 항목을 허용해 주세요.</string>
-  <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">Signal에서 %s에게 전화하려면 마이크와 카메라 권한이 필요합니다.</string>
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Signal에서 %s에게 전화하려면 마이크와 카메라 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'마이크\'와 \'카메라\' 항목을 허용해 주세요.</string>
-  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Signal에서 사진과 동영상을 찍으려면 카메라 권한이 필요합니다.</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signal에서 사진이나 동영상을 찍으려면 카메라 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'카메라\' 항목을 허용해 주세요.</string>
-  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signal에서 사진이나 동영상을 찍으려면 카메라 권한이 필요합니다.</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">음성 메시지를 보내려면 Molly이 마이크를 사용할 수 있도록 허용해 주세요.</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly에서 오디오 메시지를 보내려면 마이크 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'마이크\' 항목을 허용해 주세요.</string>
+  <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">Molly에서 %s에게 전화하려면 마이크와 카메라 권한이 필요합니다.</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly에서 %s에게 전화하려면 마이크와 카메라 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'마이크\'와 \'카메라\' 항목을 허용해 주세요.</string>
+  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Molly에서 사진과 동영상을 찍으려면 카메라 권한이 필요합니다.</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Molly에서 사진이나 동영상을 찍으려면 카메라 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'카메라\' 항목을 허용해 주세요.</string>
+  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Molly에서 사진이나 동영상을 찍으려면 카메라 권한이 필요합니다.</string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">소리가 나는 동영상을 찍으려면 마이크 권한을 허용해 주세요.</string>
-  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signal에서 동영상을 찍으려면 마이크 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'마이크\'와 \'카메라\'를 허용해 주세요.</string>
-  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signal에서 동영상을 찍으려면 마이크 권한이 필요합니다.</string>
+  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Molly에서 동영상을 찍으려면 마이크 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'마이크\'와 \'카메라\'를 허용해 주세요.</string>
+  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Molly에서 동영상을 찍으려면 마이크 권한이 필요합니다.</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">Signal이 기본 SMS 앱이 아니므로 SMS/MMS 메시지를 보낼 수 없습니다. 안드로이드 설정에서 이를 바꾸시겠습니까?</string>
   <string name="ConversationActivity_yes">네</string>
@@ -329,7 +329,7 @@
   <string name="DocumentView_unnamed_file">이름 없는 파일</string>
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">누락된 Play Services에 최적화</string>
-  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">기기에서는 Play Services를 지원하지 않습니다. 탭하여 시스템 배터리 최적화 기능을 사용하지 않을 수 있습니다. 해당 기능은 Signal이 비활성화된 동안에 메시지를 검색하지 못하게 합니다.</string>
+  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">기기에서는 Play Services를 지원하지 않습니다. 탭하여 시스템 배터리 최적화 기능을 사용하지 않을 수 있습니다. 해당 기능은 Molly이 비활성화된 동안에 메시지를 검색하지 못하게 합니다.</string>
   <!--ShareActivity-->
   <string name="ShareActivity_share_with">공유자</string>
   <string name="ShareActivity_multiple_attachments_are_only_supported">이미지와 동영상만 여러 개 첨부할 수 있습니다.</string>
@@ -471,8 +471,8 @@
   <string name="MediaSendActivity_message_to_s">%s에게 메시지 보내기</string>
   <string name="MediaSendActivity_message">메시지</string>
   <string name="MediaSendActivity_select_recipients">수신자 선택</string>
-  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Signal에서 연락처를 표시하려면 연락처 권한이 필요합니다.</string>
-  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Signal에서 연락처를 표시하려면 연락처 권한이 필요하지만 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'연락처\'를 허용해 주세요.</string>
+  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Molly에서 연락처를 표시하려면 연락처 권한이 필요합니다.</string>
+  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Molly에서 연락처를 표시하려면 연락처 권한이 필요하지만 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'연락처\'를 허용해 주세요.</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="other">%d개 이상의 항목을 공유할 수 없습니다.</item>
   </plurals>
@@ -544,7 +544,7 @@
   <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">죄송합니다. 올바른 기기 연결 QR 코드가 아닙니다.</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">Signal 기기를 연결하시겠습니까?</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">제삼자 스캐너를 사용해 Signal 기기를 연결하려는 것 같습니다. 안전한 사용을 위해 Signal에서 다시 코드를 스캔해 주세요.</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Signal에서 QR 코드를 읽으려면 카메라 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'카메라\' 항목을 허용해 주세요.</string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly에서 QR 코드를 읽으려면 카메라 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'카메라\' 항목을 허용해 주세요.</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">카메라 권한이 없어 QR 코드를 스캔할 수 없음</string>
   <!--ExpirationDialog-->
   <string name="ExpirationDialog_disappearing_messages">사라지는 메시지</string>
@@ -627,7 +627,7 @@
   <string name="RegistrationActivity_no_browser">링크를 열 수 없습니다. 웹 브라우저를 찾을 수 없습니다.</string>
   <string name="RegistrationActivity_more_information">더 많은 정보</string>
   <string name="RegistrationActivity_less_information">더 적은 정보</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Signal에서 친구들과 연락하고, 메시지를 주고받으며 안전하게 전화하기 위해 연락처와 미디어 권한이 필요합니다.</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly에서 친구들과 연락하고, 메시지를 주고받으며 안전하게 전화하기 위해 연락처와 미디어 권한이 필요합니다.</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">서비스에 연결할 수 없습니다. 네트워크 연결을 확인 후 다시 시도해 주세요.</string>
   <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">Signal에 SMS 메시지 접근 권한을 허용하면 휴대 전화에 오는 인증 코드를 자동으로 탐지하여 쉽게 휴대 전화를 인증할 수 있습니다.</string>
   <plurals name="RegistrationActivity_debug_log_hint">
@@ -777,7 +777,7 @@
   <string name="VerifyIdentityActivity_our_signal_safety_number">우리 Signal 안전 번호:</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">공유에 사용할 수 있는 앱이 없습니다.</string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">클립보드에 비교할 수 있는 안전 번호가 없음</string>
-  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Signal에서 QR 코드를 읽으려면 카메라 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'카메라\' 항목을 허용해 주세요.</string>
+  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Molly에서 QR 코드를 읽으려면 카메라 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'카메라\' 항목을 허용해 주세요.</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">QR 코드를 읽으려면 카메라 권한이 필요함</string>
   <!--ViewOnceMessageActivity-->
   <!--MessageDisplayHelper-->
@@ -804,7 +804,7 @@
   <string name="MediaPreviewActivity_you">나</string>
   <string name="MediaPreviewActivity_unssuported_media_type">지원되지 않는 미디어 형식</string>
   <string name="MediaPreviewActivity_draft">초안</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Signal에서 외부 저장 공간에 저장하려면 저장 공간 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'저장 공간\' 항목을 허용해 주세요.</string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Molly에서 외부 저장 공간에 저장하려면 저장 공간 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'저장 공간\' 항목을 허용해 주세요.</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">외부 저장 공간에 저장하려면 저장 공간 권한이 필요함</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">메시지를 삭제하시겠습니까?</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">메시지를 영구적으로 삭제합니다.</string>
@@ -827,7 +827,7 @@
   <string name="MessageNotifier_signal_message">Signal 메시지</string>
   <string name="MessageNotifier_unsecured_sms">비보안 SMS</string>
   <string name="MessageNotifier_you_may_have_new_messages">새 메시지가 있을 수 있음</string>
-  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Signal을 열어 최근 알림을 확인하세요.</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Molly을 열어 최근 알림을 확인하세요.</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">연락처</string>
   <string name="MessageNotifier_reacted_s_to_s">\'%2$s\'에 대해 %1$s로 리액션했습니다.</string>
@@ -878,8 +878,8 @@
   <!--VideoPlayer-->
   <string name="VideoPlayer_error_playing_video">동영상 재생 중 오류 발생</string>
   <!--WebRtcCallActivity-->
-  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Signal에서 %s의 전화를 받으려면 마이크 권한이 필요합니다.</string>
-  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Signal에서 전화 기능을 사용하려면 마이크와 카메라 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'마이크\'와 \'카메라\' 항목을 허용해 주세요.</string>
+  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Molly에서 %s의 전화를 받으려면 마이크 권한이 필요합니다.</string>
+  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Molly에서 전화 기능을 사용하려면 마이크와 카메라 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'마이크\'와 \'카메라\' 항목을 허용해 주세요.</string>
   <!--WebRtcCallScreen-->
   <string name="WebRtcCallScreen_new_safety_numbers">%1$s 님과의 대화에서 사용되던 안전 번호가 변경되었습니다. 누군가가 연결을 가로채려고 하거나 단순히 %2$s 님이 Signal을 다시 설치한 것일 수도 있습니다.</string>
   <string name="WebRtcCallScreen_you_may_wish_to_verify_this_contact">연락처 님과의 안전 번호를 인증할 수 있습니다.</string>
@@ -930,7 +930,7 @@
   <!--single_contact_selection_activity-->
   <string name="SingleContactSelectionActivity_contact_photo">연락처 사진</string>
   <!--ContactSelectionListFragment-->
-  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Signal에서 연락처 정보를 표시하려면 연락처 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'연락처\' 항목을 허용해 주세요.</string>
+  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Molly에서 연락처 정보를 표시하려면 연락처 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'연락처\' 항목을 허용해 주세요.</string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">연락처를 가져오는 중 오류 발생, 네트워크 연결 확인</string>
   <string name="ContactSelectionListFragment_username_not_found">사용자 이름을 찾을 수 없음</string>
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">\'%1$s\' 님은 Signal 사용자가 아닙니다. 사용자 이름 확인 후 다시 시도해 주세요.</string>
@@ -938,7 +938,7 @@
   <!--blocked_contacts_fragment-->
   <string name="blocked_contacts_fragment__no_blocked_contacts">차단된 연락처 없음</string>
   <!--contact_selection_list_fragment-->
-  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Signal에서 연락처를 표시하려면 연락처 권한이 필요합니다.</string>
+  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly에서 연락처를 표시하려면 연락처 권한이 필요합니다.</string>
   <string name="contact_selection_list_fragment__show_contacts">연락처 표시</string>
   <!--conversation_activity-->
   <string name="conversation_activity__type_message_push">Signal 메시지</string>
@@ -1581,7 +1581,7 @@
   <string name="BackupDialog_verify">확인</string>
   <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">백업 암호가 성공적으로 입력됨</string>
   <string name="BackupDialog_passphrase_was_not_correct">암호가 올바르지 않음</string>
-  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal에서 백업을 저장하려면 저장 공간 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'저장 공간\' 항목을 허용해 주세요.</string>
+  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly에서 백업을 저장하려면 저장 공간 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'저장 공간\' 항목을 허용해 주세요.</string>
   <string name="ChatsPreferenceFragment_last_backup_s">마지막 백업: %s</string>
   <string name="ChatsPreferenceFragment_in_progress">진행 중</string>
   <string name="LocalBackupJob_creating_backup">백업 생성 중…</string>

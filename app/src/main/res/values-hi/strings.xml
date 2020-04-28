@@ -63,10 +63,10 @@
   <string name="AttachmentKeyboard_location">स्थान</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">मीडिया का चयन करने के लिए कोई ऐप नहीं मिल सकता है</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">फ़ोटो, वीडियो या ऑडियो संलग्न करने के लिए Signal को संग्रहण अनुमति की आवश्यकता होती है, लेकिन इसे स्थायी रूप से अस्वीकार कर दिया गया है। कृपया ऐप सेटिंग्स मेनू पर जारी रखें, \"अनुमतियां\" चुनें, और \"संग्रहण\" सक्षम करें।</string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">संपर्क जानकारी संलग्न करने के लिए Signal को संपर्क अनुमति की आवश्यकता होती है, लेकिन इसे स्थायी रूप से अस्वीकार कर दिया गया है। कृपया ऐप सेटिंग्स मेनू पर जारी रखें, \"अनुमतियां\" चुनें, और \"संपर्क\" सक्षम करें।</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">किसी स्थान को संलग्न करने के लिए Signal को स्थान अनुमति की आवश्यकता होती है, लेकिन इसे स्थायी रूप से अस्वीकार कर दिया गया है। कृपया ऐप सेटिंग्स मेनू पर जारी रखें, \"अनुमतियां\" चुनें, और \"स्थान\" सक्षम करें।</string>
-  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">Signal को फ़ोटो लेने के लिए कैमरा अनुमति की आवश्यकता होती है, लेकिन इसे स्थायी रूप से अस्वीकार कर दिया गया है। कृपया ऐप सेटिंग्स मेनू पर जारी रखें, \"अनुमतियां\" चुनें, और \"कैमरा\" सक्षम करें।</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">फ़ोटो, वीडियो या ऑडियो संलग्न करने के लिए Molly को संग्रहण अनुमति की आवश्यकता होती है, लेकिन इसे स्थायी रूप से अस्वीकार कर दिया गया है। कृपया ऐप सेटिंग्स मेनू पर जारी रखें, \"अनुमतियां\" चुनें, और \"संग्रहण\" सक्षम करें।</string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">संपर्क जानकारी संलग्न करने के लिए Molly को संपर्क अनुमति की आवश्यकता होती है, लेकिन इसे स्थायी रूप से अस्वीकार कर दिया गया है। कृपया ऐप सेटिंग्स मेनू पर जारी रखें, \"अनुमतियां\" चुनें, और \"संपर्क\" सक्षम करें।</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">किसी स्थान को संलग्न करने के लिए Molly को स्थान अनुमति की आवश्यकता होती है, लेकिन इसे स्थायी रूप से अस्वीकार कर दिया गया है। कृपया ऐप सेटिंग्स मेनू पर जारी रखें, \"अनुमतियां\" चुनें, और \"स्थान\" सक्षम करें।</string>
+  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">Molly को फ़ोटो लेने के लिए कैमरा अनुमति की आवश्यकता होती है, लेकिन इसे स्थायी रूप से अस्वीकार कर दिया गया है। कृपया ऐप सेटिंग्स मेनू पर जारी रखें, \"अनुमतियां\" चुनें, और \"कैमरा\" सक्षम करें।</string>
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">मीडिया अपलोड कर रहा है…</string>
   <string name="AttachmentUploadJob_compressing_video_start">वीडियो को कंप्रेस कर रहा है…</string>
@@ -184,16 +184,16 @@
   <string name="ConversationActivity_quick_camera_unavailable">कैमरा अनुपलब्ध</string>
   <string name="ConversationActivity_unable_to_record_audio">ऑडियो रिकॉर्ड करने में असमर्थ</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">आपके डिवाइस पर इस लिंक को संभालने के लिए कोई ऐप उपलब्ध नहीं है।</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">ऑडियो मेसेज भेजने के लिए, अपने माइक्रोफ़ोन पर Signal पहुंच की अनुमति दें।</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">ऑडियो मेसेज को भेजने के लिए Signal को माइक्रोफ़ोन अनुमति की आवश्यकता होती है, लेकिन इसे स्थायी रूप से अस्वीकार कर दिया गया है। कृपया ऐप सेटिंग्स जारी रखें, \"अनुमतियां\" चुनें, और \"माइक्रोफ़ोन\" सक्षम करें।</string>
-  <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">%s को कॉल करने के लिए, Signal को आपके माइक्रोफ़ोन और कैमरे तक पहुंच की आवश्यकता होती है।</string>
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">%s को कॉल करने के लिए Signal को माइक्रोफ़ोन और कैमरा अनुमतियों की आवश्यकता होती है, लेकिन उन्हें स्थायी रूप से अस्वीकार कर दिया गया है। कृपया ऐप सेटिंग्स जारी रखें, \"अनुमतियां\" चुनें, और \"माइक्रोफ़ोन\" और \"कैमरा\" सक्षम करें।</string>
-  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">फोटो और वीडियो कैप्चर करने के लिए, कैमरे को Signal पहुंच की अनुमति दें।</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signal को फ़ोटो या वीडियो लेने के लिए कैमरा अनुमति की आवश्यकता होती है, लेकिन इसे स्थायी रूप से अस्वीकार कर दिया गया है। कृपया ऐप सेटिंग्स जारी रखें, \"अनुमतियां\" चुनें, और \"कैमरा\" सक्षम करें।</string>
-  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signal को फ़ोटो या वीडियो लेने के लिए कैमरा अनुमतियां चाहिए</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">ऑडियो मेसेज भेजने के लिए, अपने माइक्रोफ़ोन पर Molly पहुंच की अनुमति दें।</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">ऑडियो मेसेज को भेजने के लिए Molly को माइक्रोफ़ोन अनुमति की आवश्यकता होती है, लेकिन इसे स्थायी रूप से अस्वीकार कर दिया गया है। कृपया ऐप सेटिंग्स जारी रखें, \"अनुमतियां\" चुनें, और \"माइक्रोफ़ोन\" सक्षम करें।</string>
+  <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">%s को कॉल करने के लिए, Molly को आपके माइक्रोफ़ोन और कैमरे तक पहुंच की आवश्यकता होती है।</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">%s को कॉल करने के लिए Molly को माइक्रोफ़ोन और कैमरा अनुमतियों की आवश्यकता होती है, लेकिन उन्हें स्थायी रूप से अस्वीकार कर दिया गया है। कृपया ऐप सेटिंग्स जारी रखें, \"अनुमतियां\" चुनें, और \"माइक्रोफ़ोन\" और \"कैमरा\" सक्षम करें।</string>
+  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">फोटो और वीडियो कैप्चर करने के लिए, कैमरे को Molly पहुंच की अनुमति दें।</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Molly को फ़ोटो या वीडियो लेने के लिए कैमरा अनुमति की आवश्यकता होती है, लेकिन इसे स्थायी रूप से अस्वीकार कर दिया गया है। कृपया ऐप सेटिंग्स जारी रखें, \"अनुमतियां\" चुनें, और \"कैमरा\" सक्षम करें।</string>
+  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Molly को फ़ोटो या वीडियो लेने के लिए कैमरा अनुमतियां चाहिए</string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">ध्वनि के साथ वीडियो कैप्चर करने के लिए माइक्रोफोन अनुमति सक्षम करें।</string>
-  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signal को वीडियो रिकॉर्ड करने के लिए माइक्रोफोन की अनुमति की आवश्यकता होती है, लेकिन उसे अस्वीकार कर दिया गया है। कृपया एप्प विन्यास जारी रखें, \"अनुमतियां\" चुनें, और \"माइक्रोफोन\" और \"कैमरा\" सक्षम करें।</string>
-  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signal को वीडियो रिकॉर्ड करने के लिए माइक्रोफोन की अनुमति की आवश्यकता होती है।</string>
+  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Molly को वीडियो रिकॉर्ड करने के लिए माइक्रोफोन की अनुमति की आवश्यकता होती है, लेकिन उसे अस्वीकार कर दिया गया है। कृपया एप्प विन्यास जारी रखें, \"अनुमतियां\" चुनें, और \"माइक्रोफोन\" और \"कैमरा\" सक्षम करें।</string>
+  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Molly को वीडियो रिकॉर्ड करने के लिए माइक्रोफोन की अनुमति की आवश्यकता होती है।</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s%2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">Signal SMS/MMS मेसेज नहीं भेज सकता क्योंकि यह आपका तयशुदा SMS एप्प नहीं है। क्या आप इसे अपने Android सेटिंग्स बदलना चाहेंगे?</string>
   <string name="ConversationActivity_yes">हाँ </string>
@@ -320,7 +320,7 @@
   <string name="DocumentView_unnamed_file">बेनाम फ़ाइल</string>
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">लापता प्ले सेवाओं के लिए अनुकूलित करें</string>
-  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">यह डिवाइस Play सेवाओं का समर्थन नहीं करता है। सिस्टम बैटरी ऑप्टिमाइज़ेशन को अक्षम करने के लिए टैप करें, जो निष्क्रिय होने पर संदेशों को पुनर्प्राप्त करने से Signal को रोकता है।</string>
+  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">यह डिवाइस Play सेवाओं का समर्थन नहीं करता है। सिस्टम बैटरी ऑप्टिमाइज़ेशन को अक्षम करने के लिए टैप करें, जो निष्क्रिय होने पर संदेशों को पुनर्प्राप्त करने से Molly को रोकता है।</string>
   <!--ShareActivity-->
   <string name="ShareActivity_share_with">साझा करें</string>
   <!--GcmBroadcastReceiver-->
@@ -462,8 +462,8 @@
   <string name="MediaSendActivity_message_to_s">%s को मेसेज</string>
   <string name="MediaSendActivity_message">मेसेज</string>
   <string name="MediaSendActivity_select_recipients">प्राप्तकर्ताओं को चुनें</string>
-  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">आपके संपर्कों को प्रदर्शित करने के लिए Signal को आपके संपर्कों तक पहुंच की आवश्यकता है।</string>
-  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Signal को आपके संपर्कों को दिखाने के लिए आपके संपर्क पढने की अनुमति की आवश्यकता है, लेकिन इसे स्थायी रूप से अस्वीकार कर दिया गया है। कृपया ऐप सेटिंग्स में जा कर \"अनुमतियां\" चुनें, और \"संपर्क\" अनुमति प्रदान करें।</string>
+  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">आपके संपर्कों को प्रदर्शित करने के लिए Molly को आपके संपर्कों तक पहुंच की आवश्यकता है।</string>
+  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Molly को आपके संपर्कों को दिखाने के लिए आपके संपर्क पढने की अनुमति की आवश्यकता है, लेकिन इसे स्थायी रूप से अस्वीकार कर दिया गया है। कृपया ऐप सेटिंग्स में जा कर \"अनुमतियां\" चुनें, और \"संपर्क\" अनुमति प्रदान करें।</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="one">आप %d से अधिक आइटम साझा नहीं कर सकते।</item>
     <item quantity="other">आप %d से अधिक आइटम साझा नहीं कर सकते।</item>
@@ -527,7 +527,7 @@
   <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">क्षमा करें, यह एक वैध डिवाइस लिंक क्यूआर कोड नहीं है।</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">Signal डिवाइस को लिंक करें?</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">ऐसा लगता है कि आप किसी 3 पक्ष स्कैनर का उपयोग करके Signal डिवाइस को लिंक करने का प्रयास कर रहे हैं। अपनी सुरक्षा के लिए, कृपया Signal के भीतर से कोड फिर से स्कैन करें।</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">एक क्यूआर कोड स्कैन करने के लिए Signal को कैमरा अनुमति की आवश्यकता होती है, लेकिन इसे स्थायी रूप से अस्वीकार कर दिया गया है। कृपया ऐप सेटिंग्स जारी रखें, \"अनुमतियां\" चुनें, और \"कैमरा\" सक्षम करें।</string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">एक क्यूआर कोड स्कैन करने के लिए Molly को कैमरा अनुमति की आवश्यकता होती है, लेकिन इसे स्थायी रूप से अस्वीकार कर दिया गया है। कृपया ऐप सेटिंग्स जारी रखें, \"अनुमतियां\" चुनें, और \"कैमरा\" सक्षम करें।</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">कैमरा अनुमति के बिना एक क्यूआर कोड स्कैन करने में असमर्थ</string>
   <!--ExpirationDialog-->
   <string name="ExpirationDialog_disappearing_messages">मेसेज जो गायब हो जाते हैं</string>
@@ -602,7 +602,7 @@
   <string name="RegistrationActivity_no_browser">इस लिंक को खोलने में असमर्थ। कोई वेब ब्राउजर नहीं मिला</string>
   <string name="RegistrationActivity_more_information">और जानकारी</string>
   <string name="RegistrationActivity_less_information">कम जानकारी</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">मित्रों से जुड़ने, मेसेजों का आदान-प्रदान करने और सुरक्षित कॉल करने के लिए Signal को आपके संपर्कों और मीडिया तक पहुंच की आवश्यकता होती है</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">मित्रों से जुड़ने, मेसेजों का आदान-प्रदान करने और सुरक्षित कॉल करने के लिए Molly को आपके संपर्कों और मीडिया तक पहुंच की आवश्यकता होती है</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">सेवा से कनेक्ट करने में असमर्थ। कृपया नेटवर्क कनेक्शन की जांच करें और पुनः प्रयास करें।</string>
   <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">अपने फोन नंबर को आसानी से सत्यापित करने के लिए, यदि आप Signal को MMS संदेशों को देखने की अनुमति देते हैं तो Signal स्वचालित रूप से आपके सत्यापन कोड का पता लगा सकता है।</string>
   <plurals name="RegistrationActivity_debug_log_hint">
@@ -745,7 +745,7 @@
   <string name="VerifyIdentityActivity_our_signal_safety_number">हमारा Signal सुरक्षा नंबर:</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">ऐसा लगता है कि आपके पास साझा करने के लिए कोई ऐप नहीं है।</string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">तुलना करने के लिए कोई सुरक्षा संख्या क्लिपबोर्ड में नहीं मिली थी</string>
-  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">एक क्यूआर कोड स्कैन करने के लिए Signal को कैमरा अनुमति की आवश्यकता होती है, लेकिन इसे स्थायी रूप से अस्वीकार कर दिया गया है। कृपया ऐप सेटिंग्स जारी रखें, \"अनुमतियां\" चुनें, और \"कैमरा\" सक्षम करें।</string>
+  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">एक क्यूआर कोड स्कैन करने के लिए Molly को कैमरा अनुमति की आवश्यकता होती है, लेकिन इसे स्थायी रूप से अस्वीकार कर दिया गया है। कृपया ऐप सेटिंग्स जारी रखें, \"अनुमतियां\" चुनें, और \"कैमरा\" सक्षम करें।</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">कैमरा अनुमति के बिना क्यूआर कोड स्कैन करने में असमर्थ</string>
   <!--ViewOnceMessageActivity-->
   <!--MessageDisplayHelper-->
@@ -772,7 +772,7 @@
   <string name="MediaPreviewActivity_you">आप</string>
   <string name="MediaPreviewActivity_unssuported_media_type">असमर्थित मीडिया प्रकार</string>
   <string name="MediaPreviewActivity_draft">ड्राफ्ट</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">बाहरी स्टॉरेज में सेव करने के लिए Signal को स्टोरेज अनुमति की आवश्यकता होती है, लेकिन इसे स्थायी रूप से अस्वीकार कर दिया गया है। कृपया ऐप सेटिंग्स जारी रखें, \"अनुमतियां\" चुनें, और \"स्टॉरेज\" सक्षम करें।</string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">बाहरी स्टॉरेज में सेव करने के लिए Molly को स्टोरेज अनुमति की आवश्यकता होती है, लेकिन इसे स्थायी रूप से अस्वीकार कर दिया गया है। कृपया ऐप सेटिंग्स जारी रखें, \"अनुमतियां\" चुनें, और \"स्टॉरेज\" सक्षम करें।</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">अनुमति के बिना बाहरी स्टॉरेज में सहेजने में असमर्थ</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">चयनित मेसेज हटाएं?</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">यह इस मेसेज को स्थायी रूप से हटा देगा।</string>
@@ -795,7 +795,7 @@
   <string name="MessageNotifier_signal_message">Signal मेसेज</string>
   <string name="MessageNotifier_unsecured_sms">असुरक्षित SMS</string>
   <string name="MessageNotifier_you_may_have_new_messages">आपके पास नए मेसेज हो सकते हैं</string>
-  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">नई अधिसुचनाओं के लिए Signal खोलें।</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">नई अधिसुचनाओं के लिए Molly खोलें।</string>
   <string name="MessageNotifier_contact_message">%1$s%2$s</string>
   <string name="MessageNotifier_unknown_contact_message">संपर्क</string>
   <string name="MessageNotifier_reacted_s_to_s">प्रतिक्रिया की गई %1$s से: \"%2$s\".</string>
@@ -847,8 +847,8 @@
   <!--VideoPlayer-->
   <string name="VideoPlayer_error_playing_video">वीडियो खोलने में त्रुटि</string>
   <!--WebRtcCallActivity-->
-  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">%s से कॉल का जवाब देने के लिए, Signal को अपने माइक्रोफ़ोन तक पहुंचने दें।</string>
-  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">कॉल करने या प्राप्त करने के लिए Signal को माइक्रोफ़ोन और कैमरा अनुमतियों की आवश्यकता होती है, लेकिन उन्हें स्थायी रूप से अस्वीकार कर दिया गया है। कृपया ऐप सेटिंग्स जारी रखें, \"अनुमतियां\" चुनें, और \"माइक्रोफ़ोन\" और \"कैमरा\" सक्षम करें।</string>
+  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">%s से कॉल का जवाब देने के लिए, Molly को अपने माइक्रोफ़ोन तक पहुंचने दें।</string>
+  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">कॉल करने या प्राप्त करने के लिए Molly को माइक्रोफ़ोन और कैमरा अनुमतियों की आवश्यकता होती है, लेकिन उन्हें स्थायी रूप से अस्वीकार कर दिया गया है। कृपया ऐप सेटिंग्स जारी रखें, \"अनुमतियां\" चुनें, और \"माइक्रोफ़ोन\" और \"कैमरा\" सक्षम करें।</string>
   <!--WebRtcCallScreen-->
   <string name="WebRtcCallScreen_new_safety_numbers">%1$s के साथ आपका सुरक्षा नंबर बदल गया है। इसका मतलब यह हो सकता है कि कोई आपके संचार को रोकने की कोशिश कर रहा है, या उस %2$s ने Signal को फिर से इंस्टॉल किया है।</string>
   <string name="WebRtcCallScreen_you_may_wish_to_verify_this_contact">आप इस संपर्क के साथ अपना सुरक्षा नंबर सत्यापित करना चाह सकते हैं।</string>
@@ -899,7 +899,7 @@
   <!--single_contact_selection_activity-->
   <string name="SingleContactSelectionActivity_contact_photo">संपर्क फोटो</string>
   <!--ContactSelectionListFragment-->
-  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Signal को आपके संपर्कों को प्रदर्शित करने के लिए संपर्क अनुमति की आवश्यकता होती है, लेकिन इसे स्थायी रूप से अस्वीकार कर दिया गया है। कृपया ऐप सेटिंग्स मेनू पर जारी रखें, \"अनुमतियां\" चुनें, और \"संपर्क\" सक्षम करें।</string>
+  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Molly को आपके संपर्कों को प्रदर्शित करने के लिए संपर्क अनुमति की आवश्यकता होती है, लेकिन इसे स्थायी रूप से अस्वीकार कर दिया गया है। कृपया ऐप सेटिंग्स मेनू पर जारी रखें, \"अनुमतियां\" चुनें, और \"संपर्क\" सक्षम करें।</string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">संपर्क पुनर्प्राप्त करने में त्रुटि, अपना नेटवर्क कनेक्शन जांचें</string>
   <string name="ContactSelectionListFragment_username_not_found">उपयोगकर्ता नाम नहीं मिला</string>
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">\"%1$s\" एक Signal उपयोगकर्ता नहीं है। कृपया उपयोगकर्ता नाम जांचें और पुनः प्रयास करें।</string>
@@ -907,7 +907,7 @@
   <!--blocked_contacts_fragment-->
   <string name="blocked_contacts_fragment__no_blocked_contacts">कोई अवरुद्ध संपर्क नहीं</string>
   <!--contact_selection_list_fragment-->
-  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">आपके संपर्कों को प्रदर्शित करने के लिए Signal को आपके संपर्कों तक पहुंच की आवश्यकता है।</string>
+  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">आपके संपर्कों को प्रदर्शित करने के लिए Molly को आपके संपर्कों तक पहुंच की आवश्यकता है।</string>
   <string name="contact_selection_list_fragment__show_contacts">संपर्क दिखाओ</string>
   <!--conversation_activity-->
   <string name="conversation_activity__type_message_push">Signal मेसेज</string>
@@ -1501,7 +1501,7 @@
   <string name="BackupDialog_disable_and_delete_all_local_backups">सभी स्थानीय बैकअप अक्षम करें और हटाएं?</string>
   <string name="BackupDialog_delete_backups_statement">बैकअप हटाएं</string>
   <string name="BackupDialog_copied_to_clipboard">क्लिपबोर्ड पर कॉपी किया गया है</string>
-  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">बैकअप बनाने के लिए Signal को बाहरी संग्रहण अनुमति की आवश्यकता होती है, लेकिन इसे स्थायी रूप से अस्वीकार कर दिया गया है। कृपया ऐप सेटिंग्स को जारी रखें, \"अनुमतियां\" चुनें और \"संग्रहण\" सक्षम करें।</string>
+  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">बैकअप बनाने के लिए Molly को बाहरी संग्रहण अनुमति की आवश्यकता होती है, लेकिन इसे स्थायी रूप से अस्वीकार कर दिया गया है। कृपया ऐप सेटिंग्स को जारी रखें, \"अनुमतियां\" चुनें और \"संग्रहण\" सक्षम करें।</string>
   <string name="ChatsPreferenceFragment_last_backup_s">पिछला बैकअप: %s</string>
   <string name="ChatsPreferenceFragment_in_progress">प्रगति में</string>
   <string name="LocalBackupJob_creating_backup">बैकअप बनाया जा रहा है</string>

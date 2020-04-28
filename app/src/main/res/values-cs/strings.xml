@@ -68,14 +68,14 @@
   <string name="AttachmentKeyboard_file">Soubor</string>
   <string name="AttachmentKeyboard_contact">Kontakt</string>
   <string name="AttachmentKeyboard_location">Poloha</string>
-  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Signal potřebuje oprávnění pro zobrazení vašich fotografií a videí.</string>
+  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Molly potřebuje oprávnění pro zobrazení vašich fotografií a videí.</string>
   <string name="AttachmentKeyboard_give_access">Povolit přístup</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">Nemohu nalézt aplikaci pro vybraný typ dat.</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signal potřebuje oprávnění pro přístup k úložišti, aby mohl připojovat fotky, videa nebo audio, ale toto oprávnění je nyní zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Úložiště\".</string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Signal potřebuje oprávnění pro přístup ke kontaktům, aby mohl připojit informace o kontaktu, ale toto oprávnění je nyní zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Kontakty\".</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Signal potřebuje oprávnění pro přístup k poloze, aby mohl připojit informace o poloze, ale toto oprávnění je nyní zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Poloha\".</string>
-  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">Signal potřebuje oprávnění pro přístup k fotoaparátu, aby mohl pořizovat fotografie, ale toto oprávnění je nyní zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Fotoaparát\".</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly potřebuje oprávnění pro přístup k úložišti, aby mohl připojovat fotky, videa nebo audio, ale toto oprávnění je nyní zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Úložiště\".</string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly potřebuje oprávnění pro přístup ke kontaktům, aby mohl připojit informace o kontaktu, ale toto oprávnění je nyní zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Kontakty\".</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly potřebuje oprávnění pro přístup k poloze, aby mohl připojit informace o poloze, ale toto oprávnění je nyní zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Poloha\".</string>
+  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">Molly potřebuje oprávnění pro přístup k fotoaparátu, aby mohl pořizovat fotografie, ale toto oprávnění je nyní zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Fotoaparát\".</string>
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">Nahrávám médium…</string>
   <string name="AttachmentUploadJob_compressing_video_start">Komprimování videa…</string>
@@ -195,16 +195,16 @@
   <string name="ConversationActivity_quick_camera_unavailable">Kamera není dostupná</string>
   <string name="ConversationActivity_unable_to_record_audio">Nemohu nahrávat audio!</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">Není zde žádná aplikace, která by dokázala zpracovat tento odkaz.</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Pro posílání audio zpráv potřebuje Signal přístup k mikrofonu.</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Signal potřebuje oprávnění pro přístup k mikrofonu, aby mohl poslat audio zprávu, ale toto oprávnění je nyní zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Mikrofon\".</string>
-  <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">Pro volání %s, potřebuje Signal přístup k mikrofonu a fotoaparátu.</string>
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Signal potřebuje oprávnění pro přístup k mikrofonu a fotoaparátu, abyste mohli volat %s, ale tato oprávnění jsou nyní zakázána. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Mikrofon\" a \"Fotoaparát\".</string>
-  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Pro pořizování fotografií nebo videa potřebuje Signal přístup k fotoaparátu.</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signal potřebuje oprávnění pro přístup k fotoaparátu, aby mohl pořizovat fotografie nebo video, ale toto oprávnění je nyní zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Fotoaparát\".</string>
-  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signal potřebuje přístup k fotoaparátu, aby mohl pořizovat fotografie nebo videa.</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Pro posílání audio zpráv potřebuje Molly přístup k mikrofonu.</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly potřebuje oprávnění pro přístup k mikrofonu, aby mohl poslat audio zprávu, ale toto oprávnění je nyní zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Mikrofon\".</string>
+  <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">Pro volání %s, potřebuje Molly přístup k mikrofonu a fotoaparátu.</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly potřebuje oprávnění pro přístup k mikrofonu a fotoaparátu, abyste mohli volat %s, ale tato oprávnění jsou nyní zakázána. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Mikrofon\" a \"Fotoaparát\".</string>
+  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Pro pořizování fotografií nebo videa potřebuje Molly přístup k fotoaparátu.</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Molly potřebuje oprávnění pro přístup k fotoaparátu, aby mohl pořizovat fotografie nebo video, ale toto oprávnění je nyní zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Fotoaparát\".</string>
+  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Molly potřebuje přístup k fotoaparátu, aby mohl pořizovat fotografie nebo videa.</string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Povolte oprávnění k mikrofonu pro nahrávání videa se zvukem.</string>
-  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signal potřebuje oprávnění k mikrofonu, aby mohl nahrávat videa, ale toto oprávnění bylo zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Mikrofon\" a \"Fotoaparát\".</string>
-  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signal potřebuje oprávnění k mikrofonu pro nahrávání videa.</string>
+  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Molly potřebuje oprávnění k mikrofonu, aby mohl nahrávat videa, ale toto oprávnění bylo zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Mikrofon\" a \"Fotoaparát\".</string>
+  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Molly potřebuje oprávnění k mikrofonu pro nahrávání videa.</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">Signal nemůže posílat SMS/MMS zprávy, protože není výchozí SMS aplikací. Chcete to změnit v nastavení Android?</string>
   <string name="ConversationActivity_yes">Ano</string>
@@ -372,7 +372,7 @@
   <string name="DocumentView_unnamed_file">Nepojmenovaný soubor</string>
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">Optimlizovat pro chybějící Google Play službu</string>
-  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Toto zařízení nepodporuje službu Google Play. Klepnutím zakážete systémové optimalizace baterie, které způsobují nemožnost Signalu přijímat zprávy v době nečinnosti.</string>
+  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Toto zařízení nepodporuje službu Google Play. Klepnutím zakážete systémové optimalizace baterie, které způsobují nemožnost Mollyu přijímat zprávy v době nečinnosti.</string>
   <!--ShareActivity-->
   <string name="ShareActivity_share_with">Sdílet s</string>
   <string name="ShareActivity_multiple_attachments_are_only_supported">Vícero příloh je podporováno pouze pro obrázky a videa</string>
@@ -532,8 +532,8 @@
   <string name="MediaSendActivity_message_to_s">Zpráva pro %s</string>
   <string name="MediaSendActivity_message">Zpráva</string>
   <string name="MediaSendActivity_select_recipients">Vyberte příjemce</string>
-  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Signal potřebuje přístup k vašim kontaktům, aby je mohl zobrazit.</string>
-  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Signal potřebuje oprávnění pro přístup ke kontaktům, aby mohl připojit informace o kontaktu, ale toto oprávnění je nyní zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Kontakty\".</string>
+  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Molly potřebuje přístup k vašim kontaktům, aby je mohl zobrazit.</string>
+  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Molly potřebuje oprávnění pro přístup ke kontaktům, aby mohl připojit informace o kontaktu, ale toto oprávnění je nyní zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Kontakty\".</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="one">Nemůžete sdílet více než  %d položku.</item>
     <item quantity="few">Nemůžete sdílet více než  %d položky.</item>
@@ -700,7 +700,7 @@ telefonní číslo
   <string name="RegistrationActivity_no_browser">Nelze otevřít tento odkaz. Nebyl nalezen žádný prohlížeč.</string>
   <string name="RegistrationActivity_more_information">Více informací</string>
   <string name="RegistrationActivity_less_information">Méně informací</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Signal potřebuje přístup ke kontaktům a médiím, abyste se mohli spojit s vašimi přáteli, vyměňovat si zprávy a bezpečně telefonovat.</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly potřebuje přístup ke kontaktům a médiím, abyste se mohli spojit s vašimi přáteli, vyměňovat si zprávy a bezpečně telefonovat.</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">Nelze se připojit k službě. Prosím zkontrolujte připojení k internetu a poté to zkuste znovu.</string>
   <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">Po snadné ověření vašeho telefonního čísla může Signal automaticky zkontrolovat ověřovací kód, pokud mu povolíte přístup ke čtení SMS.</string>
   <plurals name="RegistrationActivity_debug_log_hint">
@@ -883,7 +883,7 @@ Obdržen požadavek na výměnu klíčů pro neplatnou verzi protokolu.
   <string name="MediaPreviewActivity_you">Vy</string>
   <string name="MediaPreviewActivity_unssuported_media_type">Nepodporovaný typ dat</string>
   <string name="MediaPreviewActivity_draft">Koncept</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Signal potřebuje oprávnění pro přístup k úložišti, aby mohl zapisovat do externího úložiště, ale toto oprávnění je nyní zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Úložiště\".</string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Molly potřebuje oprávnění pro přístup k úložišti, aby mohl zapisovat do externího úložiště, ale toto oprávnění je nyní zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Úložiště\".</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">Nelze ukládat do externího úložiště bez oprávnění.</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">Smazat zprávu?</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">Tímto trvale smažete tuto zprávu.</string>
@@ -906,7 +906,7 @@ Obdržen požadavek na výměnu klíčů pro neplatnou verzi protokolu.
   <string name="MessageNotifier_signal_message">Zpráva Signal</string>
   <string name="MessageNotifier_unsecured_sms">Nezabezpečená SMS</string>
   <string name="MessageNotifier_you_may_have_new_messages">Možná máte nové zprávy</string>
-  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Otevřít Signal pro kontrolu nedávných upozornění.</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Otevřít Molly pro kontrolu nedávných upozornění.</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">Kontakt</string>
   <string name="MessageNotifier_reacted_s_to_s">Reagoval %1$s na: \"%2$s\".</string>
@@ -960,8 +960,8 @@ Obdržen požadavek na výměnu klíčů pro neplatnou verzi protokolu.
   <!--VideoPlayer-->
   <string name="VideoPlayer_error_playing_video">Chyba při přehrávání videa</string>
   <!--WebRtcCallActivity-->
-  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Chcete-li přijmout hovor od %s, povolte Signalu přístup k mikrofonu.</string>
-  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Signal potřebuje oprávnění pro přístup k mikrofonu a fotoaparátu, abyste mohli volat nebo přijímat hovory, ale tato oprávnění jsou nyní zakázána. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Mikrofon\" a \"Fotoaparát\".</string>
+  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Chcete-li přijmout hovor od %s, povolte Mollyu přístup k mikrofonu.</string>
+  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Molly potřebuje oprávnění pro přístup k mikrofonu a fotoaparátu, abyste mohli volat nebo přijímat hovory, ale tato oprávnění jsou nyní zakázána. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Mikrofon\" a \"Fotoaparát\".</string>
   <!--WebRtcCallScreen-->
   <string name="WebRtcCallScreen_new_safety_numbers">Bezpečnostní kódy pro vaši konverzaci s %1$s se změnily. To může znamenat, že se někdo pokouší zachytit vaši konverzaci, nebo že %2$s si jednoduše přeinstaloval Signal.</string>
   <string name="WebRtcCallScreen_you_may_wish_to_verify_this_contact">Možná budete chtít zkontrolovat vaše bezpečnostní kódy pro tento kontakt.</string>
@@ -1012,7 +1012,7 @@ Obdržen požadavek na výměnu klíčů pro neplatnou verzi protokolu.
   <!--single_contact_selection_activity-->
   <string name="SingleContactSelectionActivity_contact_photo">Fotografie kontaktu</string>
   <!--ContactSelectionListFragment-->
-  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Signal potřebuje oprávnění pro přístup ke kontaktům, aby vám je mohl zobrazit, ale toto oprávnění je nyní zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Kontakty\".</string>
+  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Molly potřebuje oprávnění pro přístup ke kontaktům, aby vám je mohl zobrazit, ale toto oprávnění je nyní zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Kontakty\".</string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Nepodařilo se načíst kontakty, zkontrolujte připojení k síti.</string>
   <string name="ContactSelectionListFragment_username_not_found">Uživatelské jméno nebylo nalezeno</string>
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">\"%1$s\" není uživatel Signalu. Prosím zkontrolujte uživatelské jméno a zkuste to znovu.</string>
@@ -1020,7 +1020,7 @@ Obdržen požadavek na výměnu klíčů pro neplatnou verzi protokolu.
   <!--blocked_contacts_fragment-->
   <string name="blocked_contacts_fragment__no_blocked_contacts">Žádné blokované kontakty</string>
   <!--contact_selection_list_fragment-->
-  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Signal potřebuje přístup k vašim kontaktům, aby je mohl zobrazit.</string>
+  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly potřebuje přístup k vašim kontaktům, aby je mohl zobrazit.</string>
   <string name="contact_selection_list_fragment__show_contacts">Zobrazit kontakty</string>
   <!--conversation_activity-->
   <string name="conversation_activity__type_message_push">Zpráva Signal</string>
@@ -1732,7 +1732,7 @@ Obdržen požadavek na výměnu klíčů pro neplatnou verzi protokolu.
   <string name="BackupDialog_verify">Ověřit</string>
   <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">Úspěšně jste zadali přístupovou frázi pro vaši zálohu</string>
   <string name="BackupDialog_passphrase_was_not_correct">Přístupová fráze nebyla správná</string>
-  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal potřebuje oprávnění pro přístup k úložišti, aby mohl vytvářet zálohy, ale toto oprávnění je nyní trvale zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Úložiště\".</string>
+  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly potřebuje oprávnění pro přístup k úložišti, aby mohl vytvářet zálohy, ale toto oprávnění je nyní trvale zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Úložiště\".</string>
   <string name="ChatsPreferenceFragment_last_backup_s">Poslední záloha: %s</string>
   <string name="ChatsPreferenceFragment_in_progress">Probíhá</string>
   <string name="LocalBackupJob_creating_backup">Vytvářím zálohu…</string>

@@ -58,14 +58,14 @@
   <string name="AttachmentKeyboard_file">ファイル</string>
   <string name="AttachmentKeyboard_contact">連絡先</string>
   <string name="AttachmentKeyboard_location">場所</string>
-  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">写真や動画を表示するには、Signal にそれを許可する必要があります。</string>
+  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">写真や動画を表示するには、Molly にそれを許可する必要があります。</string>
   <string name="AttachmentKeyboard_give_access">アクセスを許可する</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">メディアを選択するアプリが見つかりません。</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">写真や動画、音声データを添付するには、Signal にストレージへのアクセスを許可する必要がありますが、無効になっています。アプリ設定メニューの「アクセス許可」で「ストレージ」を有効にしてください。</string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">連絡先情報を添付するには、Signal に連絡先へのアクセスを許可する必要がありますが、無効になっています。アプリ設定メニューの「アクセス許可」で「連絡先」を有効にしてください。</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">位置情報を添付するには、Signal に位置情報へのアクセスを許可する必要がありますが、無効になっています。アプリ設定メニューの「アクセス許可」で「位置情報」を有効にしてください。</string>
-  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">写真を撮るには、Signal にカメラへのアクセスを許可する必要がありますが、無効になっています。アプリ設定メニューの「アクセス許可」で「カメラ」を有効にしてください。</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">写真や動画、音声データを添付するには、Molly にストレージへのアクセスを許可する必要がありますが、無効になっています。アプリ設定メニューの「アクセス許可」で「ストレージ」を有効にしてください。</string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">連絡先情報を添付するには、Molly に連絡先へのアクセスを許可する必要がありますが、無効になっています。アプリ設定メニューの「アクセス許可」で「連絡先」を有効にしてください。</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">位置情報を添付するには、Molly に位置情報へのアクセスを許可する必要がありますが、無効になっています。アプリ設定メニューの「アクセス許可」で「位置情報」を有効にしてください。</string>
+  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">写真を撮るには、Molly にカメラへのアクセスを許可する必要がありますが、無効になっています。アプリ設定メニューの「アクセス許可」で「カメラ」を有効にしてください。</string>
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">メディアをアップロードしています…</string>
   <string name="AttachmentUploadJob_compressing_video_start">動画を圧縮しています…</string>
@@ -183,16 +183,16 @@
   <string name="ConversationActivity_quick_camera_unavailable">カメラが使えません</string>
   <string name="ConversationActivity_unable_to_record_audio">録音できません！</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">このリンクを扱えるアプリがインストールされていません</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">音声メッセージを送るには、Signal にマイクへのアクセスを許可してください。</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">音声メッセージを送信するには、Signal にマイクへのアクセスを許可する必要がありますが、無効になっています。アプリ設定メニューの「アクセス許可」で「マイク」を有効にしてください。</string>
-  <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">%s と通話するには、Signal にマイクとカメラへのアクセスを許可してください。</string>
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">%s と通話するには、Signal にマイクとカメラへのアクセスを許可する必要がありますが、無効になっています。アプリ設定メニューの「アクセス許可」で「マイク」と「カメラ」を有効にしてください。</string>
-  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">写真や動画を撮るには、Signal にカメラへのアクセスを許可してください。</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">写真や動画を撮るには、Signal にカメラへのアクセスを許可する必要がありますが、無効になっています。アプリ設定メニューの「アクセス許可」で「カメラ」を有効にしてください。</string>
-  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">写真や動画を撮るには Signal にカメラへのアクセスを許可する必要があります</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">音声メッセージを送るには、Molly にマイクへのアクセスを許可してください。</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">音声メッセージを送信するには、Molly にマイクへのアクセスを許可する必要がありますが、無効になっています。アプリ設定メニューの「アクセス許可」で「マイク」を有効にしてください。</string>
+  <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">%s と通話するには、Molly にマイクとカメラへのアクセスを許可してください。</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">%s と通話するには、Molly にマイクとカメラへのアクセスを許可する必要がありますが、無効になっています。アプリ設定メニューの「アクセス許可」で「マイク」と「カメラ」を有効にしてください。</string>
+  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">写真や動画を撮るには、Molly にカメラへのアクセスを許可してください。</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">写真や動画を撮るには、Molly にカメラへのアクセスを許可する必要がありますが、無効になっています。アプリ設定メニューの「アクセス許可」で「カメラ」を有効にしてください。</string>
+  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">写真や動画を撮るには Molly にカメラへのアクセスを許可する必要があります</string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">音声付きで動画を撮影するには、マイクへのアクセスを許可してください。</string>
-  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">動画を撮るには、Signal にマイクへのアクセスを許可する必要がありますが、無効になっています。アプリ設定メニューの「アクセス権」で「マイク」と「カメラ」を有効にしてください。</string>
-  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">動画を撮るには、Signal にマイクへのアクセスを許可する必要があります。</string>
+  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">動画を撮るには、Molly にマイクへのアクセスを許可する必要がありますが、無効になっています。アプリ設定メニューの「アクセス権」で「マイク」と「カメラ」を有効にしてください。</string>
+  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">動画を撮るには、Molly にマイクへのアクセスを許可する必要があります。</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">Signal は既定の SMS アプリになっていないため、SMS や MMS のメッセージを送信できません。Android の設定を変更しますか？</string>
   <string name="ConversationActivity_yes">はい</string>
@@ -323,7 +323,7 @@
   <string name="DocumentView_unnamed_file">無名のファイル</string>
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">欠落している Play Services を考慮した最適化</string>
-  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">このデバイスは Play Service をサポートしていません。Signal が非アクティブ状態でもメッセージを受信できるよう、タップしてバッテリー最適化機能を無効にしてください。</string>
+  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">このデバイスは Play Service をサポートしていません。Molly が非アクティブ状態でもメッセージを受信できるよう、タップしてバッテリー最適化機能を無効にしてください。</string>
   <!--ShareActivity-->
   <string name="ShareActivity_share_with">共有先</string>
   <!--GcmBroadcastReceiver-->
@@ -464,8 +464,8 @@
   <string name="MediaSendActivity_message_to_s">%s へのメッセージ</string>
   <string name="MediaSendActivity_message">メッセージ</string>
   <string name="MediaSendActivity_select_recipients">受信者を選択</string>
-  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">連絡先を表示するには、Signal に連絡先へのアクセスを許可する必要があります。</string>
-  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">連絡先を表示するには、Signal に連絡先へのアクセスを許可する必要がありますが、無効になっています。アプリ設定メニューの「アクセス許可」で「連絡先」を有効にしてください。</string>
+  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">連絡先を表示するには、Molly に連絡先へのアクセスを許可する必要があります。</string>
+  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">連絡先を表示するには、Molly に連絡先へのアクセスを許可する必要がありますが、無効になっています。アプリ設定メニューの「アクセス許可」で「連絡先」を有効にしてください。</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="other">%d 個を超えるアイテムは共有できません。</item>
   </plurals>
@@ -527,7 +527,7 @@
   <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">このデバイスリンク用 QR コードは無効です。</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">Signal デバイスをリンクしますか？</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">サードパーティのスキャナーを使ってデバイスをリンクしようとしていますが、セキュリティ確保のため Signal 内からもう一度コードをスキャンしてください。</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">QR コードをスキャンするには、Signal にカメラへのアクセスを許可する必要がありますが、無効になっています。アプリ設定メニューの「アクセス許可」で「カメラ」を有効にしてください。</string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">QR コードをスキャンするには、Molly にカメラへのアクセスを許可する必要がありますが、無効になっています。アプリ設定メニューの「アクセス許可」で「カメラ」を有効にしてください。</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">カメラへのアクセス許可がないため QR コードをスキャンできません</string>
   <!--ExpirationDialog-->
   <string name="ExpirationDialog_disappearing_messages">消えるメッセージ</string>
@@ -604,7 +604,7 @@
   <string name="RegistrationActivity_no_browser">このリンクを開けません。ウェブブラウザが見つかりません。</string>
   <string name="RegistrationActivity_more_information">詳細</string>
   <string name="RegistrationActivity_less_information">詳細を隠す</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">友達とつながったり、メッセージを交換したり、保護された通話をするには、Signal に連絡先やメディアへのアクセスを許可する必要があります。</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">友達とつながったり、メッセージを交換したり、保護された通話をするには、Molly に連絡先やメディアへのアクセスを許可する必要があります。</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">サービスに接続できません。ネットワークの接続を確認してから、もう一度お試しください。</string>
   <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">Signal でSMSメッセージを表示できるようにすると、認証コードが自動的に検出され、電話場号を簡単に確認できます。</string>
   <plurals name="RegistrationActivity_debug_log_hint">
@@ -749,7 +749,7 @@
   <string name="VerifyIdentityActivity_our_signal_safety_number">私たちの Signal 安全番号:</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">共有先として使えるアプリがないようです。</string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">クリップボードの中に比較できる安全番号が見つかりませんでした</string>
-  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">QR コードをスキャンするには、Signal にカメラへのアクセスを許可する必要がありますが、無効になっています。アプリ設定メニューの「アクセス許可」で「カメラ」を有効にしてください。</string>
+  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">QR コードをスキャンするには、Molly にカメラへのアクセスを許可する必要がありますが、無効になっています。アプリ設定メニューの「アクセス許可」で「カメラ」を有効にしてください。</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">カメラへのアクセス許可なしでは QR コードをスキャンできません</string>
   <!--ViewOnceMessageActivity-->
   <!--MessageDisplayHelper-->
@@ -776,7 +776,7 @@
   <string name="MediaPreviewActivity_you">あなた</string>
   <string name="MediaPreviewActivity_unssuported_media_type">サポートされないメディアタイプ</string>
   <string name="MediaPreviewActivity_draft">下書き</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">外部ストレージにデータを保存するには、Signal にストレージへのアクセスを許可する必要がありますが、無効になっています。アプリ設定メニューの「アクセス許可」で「ストレージ」を有効にしてください。</string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">外部ストレージにデータを保存するには、Molly にストレージへのアクセスを許可する必要がありますが、無効になっています。アプリ設定メニューの「アクセス許可」で「ストレージ」を有効にしてください。</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">ストレージへのアクセス許可なしでは外部ストレージに保存できません</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">メッセージを削除しますか？</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">このメッセージは完全に削除されます。</string>
@@ -799,7 +799,7 @@
   <string name="MessageNotifier_signal_message">Signal メッセージ</string>
   <string name="MessageNotifier_unsecured_sms">保護されていない SMS</string>
   <string name="MessageNotifier_you_may_have_new_messages">新着メッセージがあるかもしれません</string>
-  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">最近の通知を確認するには Signal を開いてください。</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">最近の通知を確認するには Molly を開いてください。</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">連絡先</string>
   <string name="MessageNotifier_reacted_s_to_s">の 「%2$s」に対する反応: %1$s </string>
@@ -850,8 +850,8 @@
   <!--VideoPlayer-->
   <string name="VideoPlayer_error_playing_video">動画再生中にエラーが発生しました</string>
   <!--WebRtcCallActivity-->
-  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">%s からの着信に出るには、Signal にマイクへのアクセスを許可してください。</string>
-  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">通話をするには、Signal にマイクとカメラへのアクセスを許可する必要がありますが、無効になっています。アプリ設定メニューの「アクセス許可」で「マイク」と「カメラ」を有効にしてください。</string>
+  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">%s からの着信に出るには、Molly にマイクへのアクセスを許可してください。</string>
+  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">通話をするには、Molly にマイクとカメラへのアクセスを許可する必要がありますが、無効になっています。アプリ設定メニューの「アクセス許可」で「マイク」と「カメラ」を有効にしてください。</string>
   <!--WebRtcCallScreen-->
   <string name="WebRtcCallScreen_new_safety_numbers">%1$s との会話に対する安全番号が変更されました。誰かが通話を傍受しようと試みているか、%2$s が Signal を再インストールした可能性があります。</string>
   <string name="WebRtcCallScreen_you_may_wish_to_verify_this_contact">この連絡先に対する安全番号を確認することをお勧めします。</string>
@@ -902,7 +902,7 @@
   <!--single_contact_selection_activity-->
   <string name="SingleContactSelectionActivity_contact_photo">連絡先の写真</string>
   <!--ContactSelectionListFragment-->
-  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">連絡先を表示するには、Signal に連絡先へのアクセスを許可する必要がありますが、無効になっています。アプリ設定メニューの「アクセス許可」で「連絡先」を有効にしてください。</string>
+  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">連絡先を表示するには、Molly に連絡先へのアクセスを許可する必要がありますが、無効になっています。アプリ設定メニューの「アクセス許可」で「連絡先」を有効にしてください。</string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">連絡先の取得中にエラーが発生しました。ネットワーク接続をお確かめください。</string>
   <string name="ContactSelectionListFragment_username_not_found">ユーザ名が見つかりませんでした</string>
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">「%1$s」は Signal ユーザではありません。ユーザ名を確認してからもう一度お試しください。</string>
@@ -910,7 +910,7 @@
   <!--blocked_contacts_fragment-->
   <string name="blocked_contacts_fragment__no_blocked_contacts">ブロックしている連絡先はありません</string>
   <!--contact_selection_list_fragment-->
-  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">連絡先を表示するには、Signal に連絡先へのアクセスを許可してください。</string>
+  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">連絡先を表示するには、Molly に連絡先へのアクセスを許可してください。</string>
   <string name="contact_selection_list_fragment__show_contacts">連絡先を表示</string>
   <!--conversation_activity-->
   <string name="conversation_activity__type_message_push">Signal メッセージ</string>
@@ -1557,7 +1557,7 @@
   <string name="BackupDialog_verify">確認</string>
   <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">バックアップ用パスフレーズが入力されました</string>
   <string name="BackupDialog_passphrase_was_not_correct">パスフレーズが違います</string>
-  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">バックアップを作成するには、Signal に外部ストレージへのアクセスを許可する必要がありますが、無効になっています。アプリ設定メニューの「アクセス許可」で「ストレージ」を有効にしてください。</string>
+  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">バックアップを作成するには、Molly に外部ストレージへのアクセスを許可する必要がありますが、無効になっています。アプリ設定メニューの「アクセス許可」で「ストレージ」を有効にしてください。</string>
   <string name="ChatsPreferenceFragment_last_backup_s">最終バックアップ: %s</string>
   <string name="ChatsPreferenceFragment_in_progress">実行中</string>
   <string name="LocalBackupJob_creating_backup">バックアップを作成しています…</string>

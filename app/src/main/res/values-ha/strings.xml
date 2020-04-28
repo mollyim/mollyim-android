@@ -62,10 +62,10 @@
   <string name="AttachmentKeyboard_location">Wuri</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">Babu aikace-aikacen zabar midiya</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signal na bukatar izinin ajiya domin samun damar hada hotuna, bidiyoyi ko kuma odiyo,amma kuma an hana izinin dindindin. Cigaba ka/ki shiga menun wurin saiti, zabi \"permissions\", kuma ka/ki shiga \"storage\" ka/ki bada dama.</string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Signal na bukatar izinin lambobin sadarwarka/ki domin asamu damar hada bayanansu amma sai dai anhana wannan damar dindindin. Cigaba ka/ki shiga cikin mazabar saitin aikace-aikacen Signal ka/ki zabi \"Permissions\" sannan ka/ki bada damar \"Contacts\".</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Signal na bukatan bada izinin wurin da ake domin asamu a hada wuri amma an hana wannan damar dindindin. Cigaba ka/ki shiga mazabar saitin aikace-aikacen sannan ka/ki zabi \"permissins\", sai kuma ka/ki bada damar \"location\". </string>
-  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">Signal na bukatar izinin kyamara domin daukar hotuna amma anhana wannan damar dindindin. Cigaba ka/ki shiga mazabar saitin aikace-aikacen Signal ka/ki da damar \"Kyamara\".</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly na bukatar izinin ajiya domin samun damar hada hotuna, bidiyoyi ko kuma odiyo,amma kuma an hana izinin dindindin. Cigaba ka/ki shiga menun wurin saiti, zabi \"permissions\", kuma ka/ki shiga \"storage\" ka/ki bada dama.</string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly na bukatar izinin lambobin sadarwarka/ki domin asamu damar hada bayanansu amma sai dai anhana wannan damar dindindin. Cigaba ka/ki shiga cikin mazabar saitin aikace-aikacen Molly ka/ki zabi \"Permissions\" sannan ka/ki bada damar \"Contacts\".</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly na bukatan bada izinin wurin da ake domin asamu a hada wuri amma an hana wannan damar dindindin. Cigaba ka/ki shiga mazabar saitin aikace-aikacen sannan ka/ki zabi \"permissins\", sai kuma ka/ki bada damar \"location\". </string>
+  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">Molly na bukatar izinin kyamara domin daukar hotuna amma anhana wannan damar dindindin. Cigaba ka/ki shiga mazabar saitin aikace-aikacen Molly ka/ki da damar \"Kyamara\".</string>
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">Midiya na sabuntuwa…</string>
   <string name="AttachmentUploadJob_compressing_video_start">Bidiyo na matsewa……</string>
@@ -183,16 +183,16 @@
   <string name="ConversationActivity_quick_camera_unavailable">Ba kyamara</string>
   <string name="ConversationActivity_unable_to_record_audio">Ankasa daukar odiyo!</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">An rasa app da zai iya daukan wannan hadin a na\'urarka/ki.</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Domin aika sakon odiyo, bari Signal ya samu damar aiki da reno.</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Signal na bukatar izinin reno domin aikar da sakwanin odiyo amma an hana wannnan damar dindindin. Cigaba ka/ki shiga mazabar saitin aikace-aikacen signal ka/ki ba da damar \"Microphone\".</string>
-  <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">Domin kiran %s, bawa Signal damar samun reno da kyamara</string>
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Signal na bukatar izinin Reno da Kyamara domin kiran %s, amma anhana wannan dama dindindin. Cigaba ka/ki shiga saitin affilikashon, zabi \"Permissions\", sannan kunna \"Reno\" da \"Kyamara\".</string>
-  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Domin kama hotuna ko bidiyo, ka/ki bawa Signal dama.</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signal na bukatar izinin Kyamara domin daukan hotuna ko bidiyo amma an hana wannan damar dindindin. Cigaba ka/ki shiga cikin mazabar saitin Signal ka/ki zabi \"Permission\" domin ka/ki bawa \"Camera\" dama.</string>
-  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signal na bukatar izinin kyamara domin daukar hoto ko bidiyo.</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Domin aika sakon odiyo, bari Molly ya samu damar aiki da reno.</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly na bukatar izinin reno domin aikar da sakwanin odiyo amma an hana wannnan damar dindindin. Cigaba ka/ki shiga mazabar saitin aikace-aikacen signal ka/ki ba da damar \"Microphone\".</string>
+  <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">Domin kiran %s, bawa Molly damar samun reno da kyamara</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly na bukatar izinin Reno da Kyamara domin kiran %s, amma anhana wannan dama dindindin. Cigaba ka/ki shiga saitin affilikashon, zabi \"Permissions\", sannan kunna \"Reno\" da \"Kyamara\".</string>
+  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Domin kama hotuna ko bidiyo, ka/ki bawa Molly dama.</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Molly na bukatar izinin Kyamara domin daukan hotuna ko bidiyo amma an hana wannan damar dindindin. Cigaba ka/ki shiga cikin mazabar saitin Molly ka/ki zabi \"Permission\" domin ka/ki bawa \"Camera\" dama.</string>
+  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Molly na bukatar izinin kyamara domin daukar hoto ko bidiyo.</string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Bawa reno damar daukan bidiyo da sauti.</string>
-  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signal na bukatan izinin reno domin daukar bidiyoyi amma an hana wannan damar. Cigaba ka/ki shiga mazabar saitin Signal, zabi \"Permissions\" kuma karfafa \"Microphone\" da \"Camera\"</string>
-  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signal na bukatar izinin reno domin daukan bidiyoyi.</string>
+  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Molly na bukatan izinin reno domin daukar bidiyoyi amma an hana wannan damar. Cigaba ka/ki shiga mazabar saitin Molly, zabi \"Permissions\" kuma karfafa \"Microphone\" da \"Camera\"</string>
+  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Molly na bukatar izinin reno domin daukan bidiyoyi.</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">Signal ba zai iya tura SMS/MMS ba sabida ba shine zabbaben manhajar sakonka/ki ba. Ko dai zakaki canza wannan saitin a Android dinka/ki?</string>
   <string name="ConversationActivity_yes">Eh</string>
@@ -319,7 +319,7 @@
   <string name="DocumentView_unnamed_file">Fayil maras suna</string>
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">Inganta don rashin Play Services</string>
-  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Wannan na\'urar baya daukan Google Play Services. Taba nan domin kashe fasalin batiri da yake hana Signal karban sakwanni idan ba\'a aiki dashi.</string>
+  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Wannan na\'urar baya daukan Google Play Services. Taba nan domin kashe fasalin batiri da yake hana Molly karban sakwanni idan ba\'a aiki dashi.</string>
   <!--ShareActivity-->
   <string name="ShareActivity_share_with">Tura wa</string>
   <!--GcmBroadcastReceiver-->
@@ -461,8 +461,8 @@
   <string name="MediaSendActivity_message_to_s">Sako zuwa %s</string>
   <string name="MediaSendActivity_message">Sako</string>
   <string name="MediaSendActivity_select_recipients">Zabi masu karba</string>
-  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Signal na bukatar daman samun abokan sadarwarka/ki domin nuna musu</string>
-  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Signal na bukatar izinin Lambobin sadarwa domin nuna wa lambobin sadarwarka/ki, amma anhana wannan damar. Ci gaba da saitin afilikashon dinnan, zabi \"Izini\" sai kuma a karfafa \"Lambobin sadarwa\".</string>
+  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Molly na bukatar daman samun abokan sadarwarka/ki domin nuna musu</string>
+  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Molly na bukatar izinin Lambobin sadarwa domin nuna wa lambobin sadarwarka/ki, amma anhana wannan damar. Ci gaba da saitin afilikashon dinnan, zabi \"Izini\" sai kuma a karfafa \"Lambobin sadarwa\".</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="one">You can\'t share more than %d item.</item>
     <item quantity="other">Bazaka/ki iya tura da abubuwa sama da %d </item>
@@ -527,7 +527,7 @@
   <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">Wannan ba tabbatattacen hanyar sadarwar QR code din na\'ura bane.</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">Ko zaka/ki hada na\'urar Signal?</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Kamar ka/kina kokarin hada wani na\'urar Signal ta na\'urar sikana na 3 . Domin tsarewarka, yi sikanin lambar tsari daga cikin Signal.</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Signal na bukatar izinin Kyamara domin yin sikanin QR code, amma an hana wannan damar dindindin. Ci gaba da shigar saitin Signal, Zabi \"Permissions\" sannan ka/ki kunna \"Kyamara\".</string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly na bukatar izinin Kyamara domin yin sikanin QR code, amma an hana wannan damar dindindin. Ci gaba da shigar saitin Molly, Zabi \"Permissions\" sannan ka/ki kunna \"Kyamara\".</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Baza\'a iya sikanin din QR code ba idan ba izinin Kyamara</string>
   <!--ExpirationDialog-->
   <string name="ExpirationDialog_disappearing_messages">Sakwanni masu bacewa</string>
@@ -606,7 +606,7 @@
   <string name="RegistrationActivity_no_browser">An gaza bude hadinnan. Babu yanar gizo.</string>
   <string name="RegistrationActivity_more_information">Karin bayani</string>
   <string name="RegistrationActivity_less_information">Bayani kadan</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Signal na bukatar damar samun lambobin sadarwarka/ki domin sadarwa da abokane, masanyar sakwanni kuma yin kira mai tsari.</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly na bukatar damar samun lambobin sadarwarka/ki domin sadarwa da abokane, masanyar sakwanni kuma yin kira mai tsari.</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">An gaza sadawa da sabis. Duba hanyar sadarwa kuma ka/ki sake gwadawa.</string>
   <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">Domin tabbatar da lambar wayarka/ki, Signal na iya bincika lambar sirrinka/ki idan ka/kika ba wa Signal damar ganin sakwanninka/ki na SMS.</string>
   <plurals name="RegistrationActivity_debug_log_hint">
@@ -747,7 +747,7 @@
   <string name="VerifyIdentityActivity_our_signal_safety_number">Lambar tsarinmu na Signal:</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">Kamar ba manhajar da zaka/ki tura zuwa</string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">Ba\'a samu lambar tsari da za\'a hada a wannan allon haruffa ba.</string>
-  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Signal na bukatar izinin Kyamara domin yin sikanin QR code, amma an hana wannan damar dindindin. Ci gaba da shigar saitin Signal, Zabi Permissions sannan ka/ki kunna Kyamara.</string>
+  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Molly na bukatar izinin Kyamara domin yin sikanin QR code, amma an hana wannan damar dindindin. Ci gaba da shigar saitin Molly, Zabi Permissions sannan ka/ki kunna Kyamara.</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">Sikanin lambar sirri QR ba zai yi ba tareda izinin Kyamara ba.</string>
   <!--ViewOnceMessageActivity-->
   <!--MessageDisplayHelper-->
@@ -774,7 +774,7 @@
   <string name="MediaPreviewActivity_you">Kai/Ke</string>
   <string name="MediaPreviewActivity_unssuported_media_type">Ba\'a daukar iri wannan midiyan ba.</string>
   <string name="MediaPreviewActivity_draft">Daftarin sako</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Signal na bukatar izinin ajiya domin ajiyar daga waje amma an hana wannan damar. Cigaba ka/ki shiga saitin afilikashon, zabi \"Izini\", kuma ka/ki karfafa \"Ajiya\".</string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Molly na bukatar izinin ajiya domin ajiyar daga waje amma an hana wannan damar. Cigaba ka/ki shiga saitin afilikashon, zabi \"Izini\", kuma ka/ki karfafa \"Ajiya\".</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">Baza\'a iya ajiye wani wurin ajiya daga waje ba tareda izini ba</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">Goge sako?</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">Wannan zai goge sako dindindin.</string>
@@ -797,7 +797,7 @@
   <string name="MessageNotifier_signal_message">Sakon Signal</string>
   <string name="MessageNotifier_unsecured_sms">SMS mara tsaro</string>
   <string name="MessageNotifier_you_may_have_new_messages">Kamar akwai sabon sakwanni.</string>
-  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Bude Signal domin duba sabobbin sanarwa.</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Bude Molly domin duba sabobbin sanarwa.</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">Lambar sadarwa</string>
   <string name="MessageNotifier_reacted_s_to_s">Ya/ta yi martani %1$s akan: \"%2$s\".</string>
@@ -849,8 +849,8 @@
   <!--VideoPlayer-->
   <string name="VideoPlayer_error_playing_video">An samu matsalar kunna bidiyo</string>
   <!--WebRtcCallActivity-->
-  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Don daga waya daga %s, bawa Signal damar samun reno.</string>
-  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Signal na bukatar izinin Reno da Kyamara domin yi da kuma samun kira, amma an hana wannan damar dindindin. Cigaba ka/ki shiga mazabar saitin manhajar ka/ki zabi \"Izini\" sannan ka/ki karfafe \"Reno\" da \"Kyamara\".</string>
+  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Don daga waya daga %s, bawa Molly damar samun reno.</string>
+  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Molly na bukatar izinin Reno da Kyamara domin yi da kuma samun kira, amma an hana wannan damar dindindin. Cigaba ka/ki shiga mazabar saitin manhajar ka/ki zabi \"Izini\" sannan ka/ki karfafe \"Reno\" da \"Kyamara\".</string>
   <!--WebRtcCallScreen-->
   <string name="WebRtcCallScreen_new_safety_numbers">Lambar tsaronka/ki da %1$s ya canza. Hakan na nufin wata kila wani na kokarin yanka hirarka/ki ko kuma %2$s ya sake saka Signal a na\'urarsa.</string>
   <string name="WebRtcCallScreen_you_may_wish_to_verify_this_contact">Zaka/ki tabbatar da lambar tsaronkaki da wannan lamabar.</string>
@@ -901,7 +901,7 @@
   <!--single_contact_selection_activity-->
   <string name="SingleContactSelectionActivity_contact_photo">Hoton lambar sadarwa</string>
   <!--ContactSelectionListFragment-->
-  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Signal na bukatar izinin lambobin sadarwa domin nuna lambobin sadarwarka/ki amma an hana wannan damar har dindindin. Cigaba ka/ki shiga mazabar saitin afilikashon, zabi \"Izini\" sannan ka/ki karfafa \"Lambobin sadarwa\".</string>
+  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Molly na bukatar izinin lambobin sadarwa domin nuna lambobin sadarwarka/ki amma an hana wannan damar har dindindin. Cigaba ka/ki shiga mazabar saitin afilikashon, zabi \"Izini\" sannan ka/ki karfafa \"Lambobin sadarwa\".</string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">An samu kuskuren karbar lambobin sadarwa, duba hanyar sadarwar gizonka/ki</string>
   <string name="ContactSelectionListFragment_username_not_found">Ba\'a ga wannan sunan ba</string>
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">\"%1$s\" wannan ba mai mafani da Signal bane. Duba sunan sannan ka/ki kara gwadawa.</string>
@@ -909,7 +909,7 @@
   <!--blocked_contacts_fragment-->
   <string name="blocked_contacts_fragment__no_blocked_contacts">Babu tosasshen lambobin sadarwa</string>
   <!--contact_selection_list_fragment-->
-  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Signal na bukatar daman samun abokan sadarwarka/ki domin nuna su</string>
+  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly na bukatar daman samun abokan sadarwarka/ki domin nuna su</string>
   <string name="contact_selection_list_fragment__show_contacts">Nuna lambobin sadarwa</string>
   <!--conversation_activity-->
   <string name="conversation_activity__type_message_push">Sakon Signal</string>
@@ -1501,7 +1501,7 @@
   <string name="BackupDialog_disable_and_delete_all_local_backups">Nakashe kuma goge duk nakaitaccen tsimi?</string>
   <string name="BackupDialog_delete_backups_statement">Goge tsimi</string>
   <string name="BackupDialog_copied_to_clipboard">An kwafa zuwa allon rubutu</string>
-  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal na bukatar izinin ajiyar waje domin kirkirar tsimi, amma an hana wannan dama dindindin. Dan ci gaba da shigar mazabar saitin manhajar, zabi Izini sannan karfafa Ajiya.</string>
+  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly na bukatar izinin ajiyar waje domin kirkirar tsimi, amma an hana wannan dama dindindin. Dan ci gaba da shigar mazabar saitin manhajar, zabi Izini sannan karfafa Ajiya.</string>
   <string name="ChatsPreferenceFragment_last_backup_s">Tsimin karshe: %s</string>
   <string name="ChatsPreferenceFragment_in_progress">Yana tafiya</string>
   <string name="LocalBackupJob_creating_backup">Kirkirar tsimi</string>

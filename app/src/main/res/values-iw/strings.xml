@@ -67,14 +67,14 @@
   <string name="AttachmentKeyboard_file">קובץ</string>
   <string name="AttachmentKeyboard_contact">איש קשר</string>
   <string name="AttachmentKeyboard_location">מיקום</string>
-  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Signal צריך הרשאה כדי להראות את התצלומים והסרטונים שלך.</string>
+  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Molly צריך הרשאה כדי להראות את התצלומים והסרטונים שלך.</string>
   <string name="AttachmentKeyboard_give_access">תן גישה</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">לא ניתן למצוא יישום לבחירת מדיה.</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signal דורש את הרשאת האחסון על מנת לצרף תצלומים, סרטונים, או שמע, אבל היא נדחתה לצמיתות. אנא המשך אל תפריט הגדרות היישום, בחר \"הרשאות\" ואפשר את \"אחסון\".</string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Signal דורש הרשאת אנשי קשר על מנת לצרף מידע איש קשר, אבל היא נדחתה לצמיתות. אנא המשך אל תפריט הגדרות היישום, בחר \"הרשאות\" ואפשר את \"אנשי קשר\".</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Signal דורש הרשאת מיקום על מנת לצרף מיקום, אבל היא נדחתה לצמיתות. אנא המשך אל תפריט הגדרות היישום, בחר \"הרשאות\" ואפשר את \"מיקום\".</string>
-  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">Signal דורש את הרשאת המצלמה על מנת לצלם תצלומים, אבל היא נדחתה לצמיתות. אנא המשך אל תפריט הגדרות היישום, בחר \"הרשאות\" ואפשר את \"מצלמה\".</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly דורש את הרשאת האחסון על מנת לצרף תצלומים, סרטונים, או שמע, אבל היא נדחתה לצמיתות. אנא המשך אל תפריט הגדרות היישום, בחר \"הרשאות\" ואפשר את \"אחסון\".</string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly דורש הרשאת אנשי קשר על מנת לצרף מידע איש קשר, אבל היא נדחתה לצמיתות. אנא המשך אל תפריט הגדרות היישום, בחר \"הרשאות\" ואפשר את \"אנשי קשר\".</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly דורש הרשאת מיקום על מנת לצרף מיקום, אבל היא נדחתה לצמיתות. אנא המשך אל תפריט הגדרות היישום, בחר \"הרשאות\" ואפשר את \"מיקום\".</string>
+  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">Molly דורש את הרשאת המצלמה על מנת לצלם תצלומים, אבל היא נדחתה לצמיתות. אנא המשך אל תפריט הגדרות היישום, בחר \"הרשאות\" ואפשר את \"מצלמה\".</string>
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">מעלה מדיה…</string>
   <string name="AttachmentUploadJob_compressing_video_start">דוחס סרטון…</string>
@@ -194,16 +194,16 @@
   <string name="ConversationActivity_quick_camera_unavailable">המצלמה אינה זמינה</string>
   <string name="ConversationActivity_unable_to_record_audio">לא היה ניתן להקליט שמע!</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">אין יישום זמין לטיפול בקישור זה במכשיר שלך.</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">כדי לשלוח הודעות שמע, התר אל Signal לקבל גישה אל המיקרופון שלך.</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Signal דורש את הרשאת המיקרופון על מנת לשלוח הודעות שמע, אבל היא נדחתה לצמיתות. אנא המשך אל הגדרות היישום, בחר \"הרשאות\" ואפשר את \"מיקרופון\".</string>
-  <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">כדי לחייג אל %s, יישום Signal צריך גישה אל המיקרופון והמצלמה שלך.</string>
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Signal צריך את ההרשאות של המיקרופון והמצלמה על מנת לחייג אל %s, אבל הן נדחו לצמיתות. אנא המשך אל הגדרות היישום, בחר \"הרשאות\" ואפשר את \"מיקרופון\" ואת \"מצלמה\".</string>
-  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">כדי ללכוד תצלומים וסרטונים, התר אל Signal גישה אל המצלמה.</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signal צריך את הרשאת המצלמה כדי לצלם תצלומים או סרטונים, אבל היא נדחתה לצמיתות. אנא המשך אל הגדרות היישום, בחר \"הרשאות\" ואפשר את \"מצלמה\".</string>
-  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signal צריך הרשאות מצלמה כדי לצלם תצלומים או להקליט סרטון</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">כדי לשלוח הודעות שמע, התר אל Molly לקבל גישה אל המיקרופון שלך.</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly דורש את הרשאת המיקרופון על מנת לשלוח הודעות שמע, אבל היא נדחתה לצמיתות. אנא המשך אל הגדרות היישום, בחר \"הרשאות\" ואפשר את \"מיקרופון\".</string>
+  <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">כדי לחייג אל %s, יישום Molly צריך גישה אל המיקרופון והמצלמה שלך.</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly צריך את ההרשאות של המיקרופון והמצלמה על מנת לחייג אל %s, אבל הן נדחו לצמיתות. אנא המשך אל הגדרות היישום, בחר \"הרשאות\" ואפשר את \"מיקרופון\" ואת \"מצלמה\".</string>
+  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">כדי ללכוד תצלומים וסרטונים, התר אל Molly גישה אל המצלמה.</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Molly צריך את הרשאת המצלמה כדי לצלם תצלומים או סרטונים, אבל היא נדחתה לצמיתות. אנא המשך אל הגדרות היישום, בחר \"הרשאות\" ואפשר את \"מצלמה\".</string>
+  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Molly צריך הרשאות מצלמה כדי לצלם תצלומים או להקליט סרטון</string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">אפשר את הרשאת המיקרופון כדי ללכוד סרטונים עם צליל.</string>
-  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signal צריך הרשאות מיקרופון כדי להקליט סרטונים, אבל הן נדחו. אנא המשך אל הגדרות היישום, בחר \"הרשאות\" ואפשר את \"מיקרופון\" ואת \"מצלמה\".</string>
-  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signal צריך הרשאות מיקרופון כדי להקליט סרטונים.</string>
+  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Molly צריך הרשאות מיקרופון כדי להקליט סרטונים, אבל הן נדחו. אנא המשך אל הגדרות היישום, בחר \"הרשאות\" ואפשר את \"מיקרופון\" ואת \"מצלמה\".</string>
+  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Molly צריך הרשאות מיקרופון כדי להקליט סרטונים.</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s%2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">Signal לא יכול לשלוח הודעות SMS/MMS מאחר שהוא לא יישום המסרונים ברירת המחדל שלך. האם אתה רוצה לשנות זאת בהגדרות Android שלך?</string>
   <string name="ConversationActivity_yes">כן</string>
@@ -371,7 +371,7 @@
   <string name="DocumentView_unnamed_file">קובץ ללא שם</string>
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">מטב עבור שירותי Play חסרים</string>
-  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">מכשיר זה אינו תומך בשירותי Play. הקש כדי להשבית מיטובי סוללה של מערכת שמונעים מ־Signal לאחזר הודעות בעת אי־פעילות.</string>
+  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">מכשיר זה אינו תומך בשירותי Play. הקש כדי להשבית מיטובי סוללה של מערכת שמונעים מ־Molly לאחזר הודעות בעת אי־פעילות.</string>
   <!--ShareActivity-->
   <string name="ShareActivity_share_with">שתף עם</string>
   <string name="ShareActivity_multiple_attachments_are_only_supported">צרופות מרובות נתמכות רק עבור תמונות וסרטונים</string>
@@ -531,8 +531,8 @@
   <string name="MediaSendActivity_message_to_s">שלח הודעה אל %s</string>
   <string name="MediaSendActivity_message">הודעה</string>
   <string name="MediaSendActivity_select_recipients">בחר מקבלים</string>
-  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Signal צריך הרשאה אל אנשי הקשר שלך על מנת להציגם.</string>
-  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Signal צריך הרשאת אנשי קשר על מנת להראות את אנשי הקשר שלך, אבל היא נדחתה לצמיתות. אנא המשך אל הגדרות היישום, בחר \"הרשאות\" ואפשר את \"אנשי קשר\".</string>
+  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Molly צריך הרשאה אל אנשי הקשר שלך על מנת להציגם.</string>
+  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Molly צריך הרשאת אנשי קשר על מנת להראות את אנשי הקשר שלך, אבל היא נדחתה לצמיתות. אנא המשך אל הגדרות היישום, בחר \"הרשאות\" ואפשר את \"אנשי קשר\".</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="one">אינך יכול לשתף יותר מפריט %d.</item>
     <item quantity="two">אינך יכול לשתף יותר מ־%d פריטים.</item>
@@ -617,7 +617,7 @@
   <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">סליחה, זה לא קוד QR תקף של קישור מכשיר.</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">לקשר מכשיר Signal?</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">נראה שאתה מנסה לקשר מכשיר Signal ע״י שימוש בסורק צד־שלישי. למען הגנתך, אנא סרוק את הקוד שוב מתוך Signal.</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Signal צריך את הרשאת המצלמה על מנת לסרוק קוד QR, אבל היא נדחתה לצמיתות. אנא המשך אל הגדרות היישום, בחר \"הרשאות\" ואפשר את \"מצלמה\".</string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly צריך את הרשאת המצלמה על מנת לסרוק קוד QR, אבל היא נדחתה לצמיתות. אנא המשך אל הגדרות היישום, בחר \"הרשאות\" ואפשר את \"מצלמה\".</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">לא היה ניתן לסרוק קוד QR ללא הרשאת המצלמה</string>
   <!--ExpirationDialog-->
   <string name="ExpirationDialog_disappearing_messages">הודעות נעלמות</string>
@@ -700,7 +700,7 @@
   <string name="RegistrationActivity_no_browser">לא היה ניתן לפתוח קישור זה. דפדפן רשת לא נמצא.</string>
   <string name="RegistrationActivity_more_information">יותר מידע</string>
   <string name="RegistrationActivity_less_information">פחות מידע</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Signal צריך גישה אל אנשי הקשר והמדיה שלך על מנת לחבור אל חברים, להחליף הודעות ולקיים שיחות מאובטחות</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly צריך גישה אל אנשי הקשר והמדיה שלך על מנת לחבור אל חברים, להחליף הודעות ולקיים שיחות מאובטחות</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">לא היה ניתן להתחבר אל השירות. אנא בדוק את חיבור האינטרנט ונסה שוב.</string>
   <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">כדי לוודא בקלות את מספר הטלפון שלך, Signal יכול לזהות באופן אוטומטי את קוד הוידוא שלך אם תתיר אל Signal לראות הודעות מסרונים.</string>
   <plurals name="RegistrationActivity_debug_log_hint">
@@ -856,7 +856,7 @@
   <string name="VerifyIdentityActivity_our_signal_safety_number">מספר ביטחון Signal שלנו:</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">נראה שאין לך יישומים לשתף בהם.</string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">מספר ביטחון להשוואה לא נמצא בלוח העריכה</string>
-  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Signal צריך את הרשאת המצלמה על מנת לסרוק קוד QR, אבל היא נדחתה לצמיתות. אנא המשך אל הגדרות היישום, בחר \"הרשאות\" ואפשר את \"מצלמה\".</string>
+  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Molly צריך את הרשאת המצלמה על מנת לסרוק קוד QR, אבל היא נדחתה לצמיתות. אנא המשך אל הגדרות היישום, בחר \"הרשאות\" ואפשר את \"מצלמה\".</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">לא היה ניתן לסרוק קוד QR ללא הרשאת מצלמה</string>
   <!--ViewOnceMessageActivity-->
   <!--MessageDisplayHelper-->
@@ -883,7 +883,7 @@
   <string name="MediaPreviewActivity_you">אתה</string>
   <string name="MediaPreviewActivity_unssuported_media_type">סוג מדיה בלתי נתמך</string>
   <string name="MediaPreviewActivity_draft">טיוטה</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Signal צריך את הרשאת האחסון על מנת לשמור באחסון חיצוני, אבל היא נדחתה לצמיתות. אנא המשך אל הגדרות היישום, בחר \"הרשאות\" ואפשר את \"אחסון\".</string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Molly צריך את הרשאת האחסון על מנת לשמור באחסון חיצוני, אבל היא נדחתה לצמיתות. אנא המשך אל הגדרות היישום, בחר \"הרשאות\" ואפשר את \"אחסון\".</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">לא היה ניתן לשמור באחסון חיצוני ללא הרשאות</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">למחוק הודעה?</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">זה ימחק לצמיתות הודעה זו.</string>
@@ -906,7 +906,7 @@
   <string name="MessageNotifier_signal_message">הודעת Signal</string>
   <string name="MessageNotifier_unsecured_sms">מסרון בלתי מאובטח</string>
   <string name="MessageNotifier_you_may_have_new_messages">ייתכן שיש לך הודעות חדשות</string>
-  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">פתח את Signal כדי לבדוק התראות אחרונות.</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">פתח את Molly כדי לבדוק התראות אחרונות.</string>
   <string name="MessageNotifier_contact_message">%1$s%2$s</string>
   <string name="MessageNotifier_unknown_contact_message">איש קשר</string>
   <string name="MessageNotifier_reacted_s_to_s">הגיב עם %1$s אל: \"%2$s\".</string>
@@ -960,8 +960,8 @@
   <!--VideoPlayer-->
   <string name="VideoPlayer_error_playing_video">שגיאה בניגון סרטון</string>
   <!--WebRtcCallActivity-->
-  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">כדי לענות אל השיחה מאת %s, תן אל Signal גישה למיקרופון שלך.</string>
-  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Signal דורש את ההרשאות של המיקרופון והמצלמה על מנת לבצע שיחות ולענות לשיחות, אבל הן נדחו לצמיתות. אנא המשך אל הגדרות היישום, בחר \"הרשאות\" ואפשר את \"מיקרופון\" ואת \"מצלמה\".</string>
+  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">כדי לענות אל השיחה מאת %s, תן אל Molly גישה למיקרופון שלך.</string>
+  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Molly דורש את ההרשאות של המיקרופון והמצלמה על מנת לבצע שיחות ולענות לשיחות, אבל הן נדחו לצמיתות. אנא המשך אל הגדרות היישום, בחר \"הרשאות\" ואפשר את \"מיקרופון\" ואת \"מצלמה\".</string>
   <!--WebRtcCallScreen-->
   <string name="WebRtcCallScreen_new_safety_numbers">מספר הביטחון עבור השיחה שלך עם %1$s השתנה. ייתכן שזה אומר שמישהו מנסה ליירט את התקשורת שלכם או שפשוט %2$s התקין מחדש את Signal.</string>
   <string name="WebRtcCallScreen_you_may_wish_to_verify_this_contact">ייתכן שתרצה לוודא את מספר הביטחון שלך עם איש קשר זה.</string>
@@ -1012,7 +1012,7 @@
   <!--single_contact_selection_activity-->
   <string name="SingleContactSelectionActivity_contact_photo">תצלום איש קשר</string>
   <!--ContactSelectionListFragment-->
-  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Signal דורש את הרשאת אנשי הקשר על מנת להציג את אנשי הקשר שלך, אבל היא נדחתה לצמיתות. אנא המשך אל תפריט הגדרות היישום, בחר \"הרשאות\" ואפשר את \"אנשי קשר\".</string>
+  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Molly דורש את הרשאת אנשי הקשר על מנת להציג את אנשי הקשר שלך, אבל היא נדחתה לצמיתות. אנא המשך אל תפריט הגדרות היישום, בחר \"הרשאות\" ואפשר את \"אנשי קשר\".</string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">שגיאה באחזור אנשי קשר, בדוק את חיבור הרשת שלך</string>
   <string name="ContactSelectionListFragment_username_not_found">שם משתמש לא נמצא</string>
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">\"%1$s\" הוא לא משתמש Signal. אנא בדוק את שם המשתמש ונסה שוב.</string>
@@ -1020,7 +1020,7 @@
   <!--blocked_contacts_fragment-->
   <string name="blocked_contacts_fragment__no_blocked_contacts">אין אנשי קשר חסומים</string>
   <!--contact_selection_list_fragment-->
-  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Signal צריך הרשאה אל אנשי הקשר שלך על מנת להציגם.</string>
+  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly צריך הרשאה אל אנשי הקשר שלך על מנת להציגם.</string>
   <string name="contact_selection_list_fragment__show_contacts">הראה אנשי קשר</string>
   <!--conversation_activity-->
   <string name="conversation_activity__type_message_push">הודעת Signal</string>
@@ -1731,7 +1731,7 @@
   <string name="BackupDialog_verify">וודא</string>
   <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">הכנסת בהצלחה את משפט־סיסמת הגיבוי שלך</string>
   <string name="BackupDialog_passphrase_was_not_correct">משפט־הסיסמה לא היה נכון</string>
-  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal דורש הרשאת אחסון חיצוני על מנת ליצור גיבויים, אבל היא נדחתה לצמיתות. אנא המשך אל הגדרות היישום, בחר \"הרשאות\" ואפשר את \"אחסון\".</string>
+  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly דורש הרשאת אחסון חיצוני על מנת ליצור גיבויים, אבל היא נדחתה לצמיתות. אנא המשך אל הגדרות היישום, בחר \"הרשאות\" ואפשר את \"אחסון\".</string>
   <string name="ChatsPreferenceFragment_last_backup_s">גיבוי אחרון: %s</string>
   <string name="ChatsPreferenceFragment_in_progress">בתהליך</string>
   <string name="LocalBackupJob_creating_backup">יוצר גיבוי…</string>

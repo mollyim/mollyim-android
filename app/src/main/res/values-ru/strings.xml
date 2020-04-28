@@ -67,14 +67,14 @@
   <string name="AttachmentKeyboard_file">Файл</string>
   <string name="AttachmentKeyboard_contact">Контакт</string>
   <string name="AttachmentKeyboard_location">Место</string>
-  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Signal требуется разрешение, чтобы показывать ваши недавние фото и видео.</string>
+  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Molly требуется разрешение, чтобы показывать ваши недавние фото и видео.</string>
   <string name="AttachmentKeyboard_give_access">Разрешить доступ</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">Не найдено приложение для выбора медиа-файлов.</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signal требуется разрешение на доступ к хранилищу для прикрепления фото, видео или аудио, но оно было вами отклонено. Нажмите «Продолжить», чтобы перейти в настройки приложения, откройте «Разрешения» и включите «Хранилище».</string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Signal требуется разрешение на доступ к контактам для прикрепления контактной информации, но оно было вами отклонено. Нажмите «Продолжить», чтобы перейти в настройки приложения, откройте «Разрешения» и включите «Контакты».</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Signal требуется разрешение на доступ к местоположению для прикрепления местоположения, но оно было вами отклонено. Нажмите «Продолжить», чтобы перейти в настройки приложения, откройте «Разрешения» и включите «Местоположение».</string>
-  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">Signal требуется разрешение на доступ к камере, чтобы делать фото, но оно было вами отклонено. Нажмите «Продолжить», чтобы перейти в настройки приложения, откройте «Разрешения» и включите «Камера».</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly требуется разрешение на доступ к хранилищу для прикрепления фото, видео или аудио, но оно было вами отклонено. Нажмите «Продолжить», чтобы перейти в настройки приложения, откройте «Разрешения» и включите «Хранилище».</string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly требуется разрешение на доступ к контактам для прикрепления контактной информации, но оно было вами отклонено. Нажмите «Продолжить», чтобы перейти в настройки приложения, откройте «Разрешения» и включите «Контакты».</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly требуется разрешение на доступ к местоположению для прикрепления местоположения, но оно было вами отклонено. Нажмите «Продолжить», чтобы перейти в настройки приложения, откройте «Разрешения» и включите «Местоположение».</string>
+  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">Molly требуется разрешение на доступ к камере, чтобы делать фото, но оно было вами отклонено. Нажмите «Продолжить», чтобы перейти в настройки приложения, откройте «Разрешения» и включите «Камера».</string>
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">Загружаем медиа-файл…</string>
   <string name="AttachmentUploadJob_compressing_video_start">Сжимаем видео…</string>
@@ -194,16 +194,16 @@
   <string name="ConversationActivity_quick_camera_unavailable">Камера недоступна</string>
   <string name="ConversationActivity_unable_to_record_audio">Не удалось записать аудио!</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">На вашем устройстве нет приложения для открытия этой ссылки.</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Для отправки аудиосообщений разрешите Signal доступ к микрофону.</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Signal требуется разрешение на доступ к микрофону для отправки аудиосообщений, но оно было вами отклонено. Нажмите «Продолжить», чтобы перейти в настройки приложения, откройте «Разрешения» и включите «Микрофон».</string>
-  <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">Чтобы позвонить %s, Signal необходим доступ к вашим микрофону и камере.</string>
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Signal требуются разрешения на доступ к микрофону и камере, чтобы позвонить %s, но они были вами отклонены. Нажмите «Продолжить», чтобы перейти в настройки приложения, откройте «Разрешения» и включите «Микрофон» и «Камера».</string>
-  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Для создания фото и видео разрешите Signal доступ к камере.</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signal требуется разрешение на доступ к камере, чтобы снимать фото или видео, но оно было вами отклонено. Нажмите «Продолжить», чтобы перейти в настройки приложения, откройте «Разрешения» и включите «Камера».</string>
-  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signal требуется разрешение на доступ к камере, чтобы снимать фото или видео </string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Для отправки аудиосообщений разрешите Molly доступ к микрофону.</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly требуется разрешение на доступ к микрофону для отправки аудиосообщений, но оно было вами отклонено. Нажмите «Продолжить», чтобы перейти в настройки приложения, откройте «Разрешения» и включите «Микрофон».</string>
+  <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">Чтобы позвонить %s, Molly необходим доступ к вашим микрофону и камере.</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly требуются разрешения на доступ к микрофону и камере, чтобы позвонить %s, но они были вами отклонены. Нажмите «Продолжить», чтобы перейти в настройки приложения, откройте «Разрешения» и включите «Микрофон» и «Камера».</string>
+  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Для создания фото и видео разрешите Molly доступ к камере.</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Molly требуется разрешение на доступ к камере, чтобы снимать фото или видео, но оно было вами отклонено. Нажмите «Продолжить», чтобы перейти в настройки приложения, откройте «Разрешения» и включите «Камера».</string>
+  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Molly требуется разрешение на доступ к камере, чтобы снимать фото или видео </string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Предоставьте разрешение на доступ к микрофону, чтобы снимать видео со звуком.</string>
-  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signal требуется разрешение на доступ к микрофону, чтобы снимать видео, но оно было вами отклонено. Нажмите «Продолжить», чтобы перейти в настройки приложения, откройте «Разрешения» и включите «Микрофон» и «Камера».</string>
-  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signal требуется разрешение на доступ к микрофону, чтобы записывать видео.</string>
+  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Molly требуется разрешение на доступ к микрофону, чтобы снимать видео, но оно было вами отклонено. Нажмите «Продолжить», чтобы перейти в настройки приложения, откройте «Разрешения» и включите «Микрофон» и «Камера».</string>
+  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Molly требуется разрешение на доступ к микрофону, чтобы записывать видео.</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">Signal не может отправлять SMS/MMS-сообщения, так как не является приложением по умолчанию для SMS. Хотите изменить это в настройках Android?</string>
   <string name="ConversationActivity_yes">Да</string>
@@ -371,7 +371,7 @@
   <string name="DocumentView_unnamed_file">Безымянный файл</string>
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">Оптимизация при отсутствии Служб Google Play</string>
-  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Это устройство не поддерживает Службы Google Play. Нажмите для отключения оптимизации энергопотребления, которая не позволяет Signal получать сообщения, когда он неактивен.</string>
+  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Это устройство не поддерживает Службы Google Play. Нажмите для отключения оптимизации энергопотребления, которая не позволяет Molly получать сообщения, когда он неактивен.</string>
   <!--ShareActivity-->
   <string name="ShareActivity_share_with">Поделиться с</string>
   <string name="ShareActivity_multiple_attachments_are_only_supported">Несколько вложений поддерживаются только для изображений и видео</string>
@@ -531,8 +531,8 @@
   <string name="MediaSendActivity_message_to_s">Сообщение для %s</string>
   <string name="MediaSendActivity_message">Сообщение</string>
   <string name="MediaSendActivity_select_recipients">Выберите получателей</string>
-  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Signal необходим доступ к вашим контактам, чтобы отобразить их.</string>
-  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Signal требуется разрешение на доступ к контактам для показа ваших контактов, но оно было вами отклонено. Нажмите «Продолжить», чтобы перейти в настройки приложения, откройте «Разрешения» и включите «Контакты».</string>
+  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Molly необходим доступ к вашим контактам, чтобы отобразить их.</string>
+  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Molly требуется разрешение на доступ к контактам для показа ваших контактов, но оно было вами отклонено. Нажмите «Продолжить», чтобы перейти в настройки приложения, откройте «Разрешения» и включите «Контакты».</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="one">Вы не можете поделиться больше, чем %d элементом.</item>
     <item quantity="few">Вы не можете поделиться больше, чем %d элементами.</item>
@@ -616,7 +616,7 @@
   <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">К сожалению, это неправильный QR-код для привязки устройства.</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">Привязать устройство Signal?</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Похоже, вы пытаетесь привязать устройство Signal, используя сторонний сканер. Для вашей защиты, пожалуйста, просканируйте код через Signal.</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Signal требуется разрешение на доступ к камере для сканирования QR-кода, но оно было вами отклонено. Нажмите «Продолжить», чтобы перейти в настройки приложения, откройте «Разрешения» и включите «Камера».</string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly требуется разрешение на доступ к камере для сканирования QR-кода, но оно было вами отклонено. Нажмите «Продолжить», чтобы перейти в настройки приложения, откройте «Разрешения» и включите «Камера».</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Не удалось отсканировать QR-код из-за отсутствия доступа к камере</string>
   <!--ExpirationDialog-->
   <string name="ExpirationDialog_disappearing_messages">Исчезающие сообщения</string>
@@ -693,7 +693,7 @@
   <string name="RegistrationActivity_no_browser">Не удалось открыть эту ссылку. Веб-браузер не найден.</string>
   <string name="RegistrationActivity_more_information">Больше информации</string>
   <string name="RegistrationActivity_less_information">Меньше информации</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Signal необходим доступ к вашим контактам и медиа-файлам для того, чтобы связываться с друзьями, обмениваться сообщениями и совершать защищённые звонки</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly необходим доступ к вашим контактам и медиа-файлам для того, чтобы связываться с друзьями, обмениваться сообщениями и совершать защищённые звонки</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">Не удается подключиться к сервису. Пожалуйста, проверьте подключение к сети и повторите попытку.</string>
   <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">Чтобы упросить подтверждение вашего номера телефона, Signal может автоматически вставить код подтверждения, если вы разрешите Signal доступ к SMS.</string>
   <plurals name="RegistrationActivity_debug_log_hint">
@@ -849,7 +849,7 @@
   <string name="VerifyIdentityActivity_our_signal_safety_number">Наш код безопасности Signal:</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">Похоже, что у вас нет приложений, через которые можно поделиться.</string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">В буфере обмена код безопасности не найден</string>
-  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Signal требуется разрешение на доступ к камере для сканирования QR-кода, но оно было вами отклонено. Нажмите «Продолжить», чтобы перейти в настройки приложения, откройте «Разрешения» и включите «Камера».</string>
+  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Molly требуется разрешение на доступ к камере для сканирования QR-кода, но оно было вами отклонено. Нажмите «Продолжить», чтобы перейти в настройки приложения, откройте «Разрешения» и включите «Камера».</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">Не удалось просканировать QR-код из-за отсутствия разрешения на доступ к камере</string>
   <!--ViewOnceMessageActivity-->
   <!--MessageDisplayHelper-->
@@ -876,7 +876,7 @@
   <string name="MediaPreviewActivity_you">Вы</string>
   <string name="MediaPreviewActivity_unssuported_media_type">Тип медиа-файла не поддерживается</string>
   <string name="MediaPreviewActivity_draft">Черновик</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Signal требуется разрешение на доступ к хранилищу для сохранения во внешнее хранилище, но оно было вами отклонено. Нажмите «Продолжить», чтобы перейти в настройки приложения, откройте «Разрешения» и включите «Хранилище».</string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Molly требуется разрешение на доступ к хранилищу для сохранения во внешнее хранилище, но оно было вами отклонено. Нажмите «Продолжить», чтобы перейти в настройки приложения, откройте «Разрешения» и включите «Хранилище».</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">Не удалось сохранить во внешнем хранилище без разрешений</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">Удалить сообщение?</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">Это сообщение будет навсегда удалено.</string>
@@ -899,7 +899,7 @@
   <string name="MessageNotifier_signal_message">Сообщение Signal</string>
   <string name="MessageNotifier_unsecured_sms">Незащищенное SMS</string>
   <string name="MessageNotifier_you_may_have_new_messages">У вас могут быть новые сообщения</string>
-  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Откройте Signal, чтобы проверить наличие новых уведомлений.</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Откройте Molly, чтобы проверить наличие новых уведомлений.</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">Контакт</string>
   <string name="MessageNotifier_reacted_s_to_s">Отреагировал(-а) %1$s на: «%2$s».</string>
@@ -953,8 +953,8 @@
   <!--VideoPlayer-->
   <string name="VideoPlayer_error_playing_video">Ошибка при воспроизведении видео</string>
   <!--WebRtcCallActivity-->
-  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Для ответа на звонок от %s разрешите Signal доступ к микрофону.</string>
-  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Signal требуются разрешения на доступ к микрофону и камере для совершения или принятия звонков, но они были вами отклонены. Нажмите «Продолжить», чтобы перейти в настройки приложения, откройте «Разрешения» и включите «Микрофон» и «Камера».</string>
+  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Для ответа на звонок от %s разрешите Molly доступ к микрофону.</string>
+  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Molly требуются разрешения на доступ к микрофону и камере для совершения или принятия звонков, но они были вами отклонены. Нажмите «Продолжить», чтобы перейти в настройки приложения, откройте «Разрешения» и включите «Микрофон» и «Камера».</string>
   <!--WebRtcCallScreen-->
   <string name="WebRtcCallScreen_new_safety_numbers">Код безопасности вашего разговора с %1$s изменился. Это может означать, что кто-то пытается перехватить вашу переписку и звонки или что %2$s просто переустановил(-а) Signal.</string>
   <string name="WebRtcCallScreen_you_may_wish_to_verify_this_contact">Возможно, вам стоит подтвердить код безопасности с этим контактом.</string>
@@ -1005,7 +1005,7 @@
   <!--single_contact_selection_activity-->
   <string name="SingleContactSelectionActivity_contact_photo">Фото контакта</string>
   <!--ContactSelectionListFragment-->
-  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Signal требуется разрешение на доступ к контактам для показа ваших контактов, но оно было вами отклонено. Нажмите «Продолжить», чтобы перейти в настройки приложения, откройте «Разрешения» и включите «Контакты».</string>
+  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Molly требуется разрешение на доступ к контактам для показа ваших контактов, но оно было вами отклонено. Нажмите «Продолжить», чтобы перейти в настройки приложения, откройте «Разрешения» и включите «Контакты».</string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Ошибка при получении контактов, проверьте подключение к сети</string>
   <string name="ContactSelectionListFragment_username_not_found">Имя пользователя не найдено</string>
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">«%1$s» — не пользователь Signal. Пожалуйста, проверьте имя пользователя и попробуйте ещё раз.</string>
@@ -1013,7 +1013,7 @@
   <!--blocked_contacts_fragment-->
   <string name="blocked_contacts_fragment__no_blocked_contacts">Нет заблокированных контактов</string>
   <!--contact_selection_list_fragment-->
-  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Signal необходим доступ к вашим контактам, чтобы отобразить их.</string>
+  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly необходим доступ к вашим контактам, чтобы отобразить их.</string>
   <string name="contact_selection_list_fragment__show_contacts">Показать контакты</string>
   <!--conversation_activity-->
   <string name="conversation_activity__type_message_push">Сообщение Signal</string>
@@ -1725,7 +1725,7 @@
   <string name="BackupDialog_verify">Подтверждение</string>
   <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">Вы успешно ввели парольную фразу своей резервной копии</string>
   <string name="BackupDialog_passphrase_was_not_correct">Парольная фраза была неправильной</string>
-  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal требуется разрешение на доступ к хранилищу для создания резервных копий, но оно было вами отклонено. Нажмите «Продолжить», чтобы перейти в настройки приложения, откройте «Разрешения» и включите «Хранилище».</string>
+  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly требуется разрешение на доступ к хранилищу для создания резервных копий, но оно было вами отклонено. Нажмите «Продолжить», чтобы перейти в настройки приложения, откройте «Разрешения» и включите «Хранилище».</string>
   <string name="ChatsPreferenceFragment_last_backup_s">Последняя резервная копия: %s</string>
   <string name="ChatsPreferenceFragment_in_progress">В процессе</string>
   <string name="LocalBackupJob_creating_backup">Создаём резервную копию…</string>

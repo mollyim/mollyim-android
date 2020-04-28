@@ -61,14 +61,14 @@
   <string name="AttachmentKeyboard_file">Kartelë</string>
   <string name="AttachmentKeyboard_contact">Kontakt</string>
   <string name="AttachmentKeyboard_location">Vendndodhje</string>
-  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Signal-i lyp leje të shfaqë fotot dhe videot tuaja.</string>
+  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Molly-i lyp leje të shfaqë fotot dhe videot tuaja.</string>
   <string name="AttachmentKeyboard_give_access">Lejo Hyrje</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">S\’gjendet dot aplikacion për përzgjedhje mediash.</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Që të mund të bashkëngjisë foto, video, ose audio, Signal-i lyp leje Depozitimi, por kjo i është mohuar. Ju lutemi, vazhdoni për te menuja e rregullimeve të aplikacionit, përzgjidhni \"Leje\", dhe aktivizoni \"Depozitim\".</string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Që të mund të bashkëngjisë të dhëna kontakti, Signal-i lyp leje përdorimi Kontaktesh, por kjo i është mohuar. Ju lutemi, vazhdoni për te menuja e rregullimeve të aplikacionit, përzgjidhni \"Leje\", dhe aktivizoni \"Kontakte\".</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Që të mund të bashkëngjisë një vendndodhje, Signal-i lyp leje përdorimi Vendodhjesh, por kjo i është mohuar. Ju lutemi, vazhdoni për te menuja e rregullimeve të aplikacionit, përzgjidhni \"Leje\", dhe aktivizoni \"Vendndodhje\".</string>
-  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">Që të mund të bëjë foto, Signal-i lyp leje përdorimi Kamere, por kjo i është mohuar. Ju lutemi, vazhdoni për te menuja e rregullimeve të aplikacionit, përzgjidhni \"Leje\", dhe aktivizoni \"Kamerë\".</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Që të mund të bashkëngjisë foto, video, ose audio, Molly-i lyp leje Depozitimi, por kjo i është mohuar. Ju lutemi, vazhdoni për te menuja e rregullimeve të aplikacionit, përzgjidhni \"Leje\", dhe aktivizoni \"Depozitim\".</string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Që të mund të bashkëngjisë të dhëna kontakti, Molly-i lyp leje përdorimi Kontaktesh, por kjo i është mohuar. Ju lutemi, vazhdoni për te menuja e rregullimeve të aplikacionit, përzgjidhni \"Leje\", dhe aktivizoni \"Kontakte\".</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Që të mund të bashkëngjisë një vendndodhje, Molly-i lyp leje përdorimi Vendodhjesh, por kjo i është mohuar. Ju lutemi, vazhdoni për te menuja e rregullimeve të aplikacionit, përzgjidhni \"Leje\", dhe aktivizoni \"Vendndodhje\".</string>
+  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">Që të mund të bëjë foto, Molly-i lyp leje përdorimi Kamere, por kjo i është mohuar. Ju lutemi, vazhdoni për te menuja e rregullimeve të aplikacionit, përzgjidhni \"Leje\", dhe aktivizoni \"Kamerë\".</string>
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">Po ngarkohet media…</string>
   <string name="AttachmentUploadJob_compressing_video_start">Po ngjeshet video…</string>
@@ -188,16 +188,16 @@
   <string name="ConversationActivity_quick_camera_unavailable">Kamera jo gati</string>
   <string name="ConversationActivity_unable_to_record_audio">S\’arrihet të incizohet audio!</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">S\’ka aplikacion të gatshëm në celularin tuaj për trajtim të kësaj në pajisjen tuaj.</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Për të dërguar mesazhe zanorë, lejojeni Signal-in të përdorë mikrofonin tuaj.</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Që të mund të dërgojë mesazhe audio, Signal-i lyp leje përdorimi të Mikrofonit, por kjo i është mohuar. Ju lutemi, kaloni te rregullimet e aplikacionit, përzgjidhni \"Leje\", dhe aktivizoni \"Mikrofonin\".</string>
-  <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">Për të thirrur %s, Signal-i lyp hyrje në mikrofonin dhe kamerën tuaj.</string>
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Që të bëjë thirrje me %s, Signal-i lyp leje përdorimi të Mikrofonit dhe Kamerës, por kjo i është mohuar. Ju lutemi, kaloni te rregullimet e aplikacionit, përzgjidhni \"Leje\", dhe aktivizoni \"Mikrofonin\" dhe \"Kamerën\".</string>
-  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Për të bërë foto dhe dhe video, lejojini Signal-it të përdorë kamerën.</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Që të bëjë foto ose video, Signal-i lyp leje përdorimi të Kamerës, por kjo i është mohuar. Ju lutemi, kaloni te rregullimet e aplikacionit, përzgjidhni \"Leje\", dhe aktivizoni \"Kamerën\".</string>
-  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Që të bëjë foto ose video, Signal-i lyp leje përdorimi të Kamerës</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Për të dërguar mesazhe zanorë, lejojeni Molly-in të përdorë mikrofonin tuaj.</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Që të mund të dërgojë mesazhe audio, Molly-i lyp leje përdorimi të Mikrofonit, por kjo i është mohuar. Ju lutemi, kaloni te rregullimet e aplikacionit, përzgjidhni \"Leje\", dhe aktivizoni \"Mikrofonin\".</string>
+  <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">Për të thirrur %s, Molly-i lyp hyrje në mikrofonin dhe kamerën tuaj.</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Që të bëjë thirrje me %s, Molly-i lyp leje përdorimi të Mikrofonit dhe Kamerës, por kjo i është mohuar. Ju lutemi, kaloni te rregullimet e aplikacionit, përzgjidhni \"Leje\", dhe aktivizoni \"Mikrofonin\" dhe \"Kamerën\".</string>
+  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Për të bërë foto dhe dhe video, lejojini Molly-it të përdorë kamerën.</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Që të bëjë foto ose video, Molly-i lyp leje përdorimi të Kamerës, por kjo i është mohuar. Ju lutemi, kaloni te rregullimet e aplikacionit, përzgjidhni \"Leje\", dhe aktivizoni \"Kamerën\".</string>
+  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Që të bëjë foto ose video, Molly-i lyp leje përdorimi të Kamerës</string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Për regjistrim videosh me zë, aktivizoni leje mbi mikrofonin.</string>
-  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Për regjistrim videosh, Signal-i lyp leje mbi mikrofonin, por këto janë mohuar. Ju lutemi, vazhdoni te rregullime aplikacioni, përzgjidhni \"Leje\", dhe aktivizoni \"Mikrofon\" dhe \"Kamera\".</string>
-  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Që të bëjë regjistrojë video, Signal-i lyp leje përdorimi të mikrofonit</string>
+  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Për regjistrim videosh, Molly-i lyp leje mbi mikrofonin, por këto janë mohuar. Ju lutemi, vazhdoni te rregullime aplikacioni, përzgjidhni \"Leje\", dhe aktivizoni \"Mikrofon\" dhe \"Kamera\".</string>
+  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Që të bëjë regjistrojë video, Molly-i lyp leje përdorimi të mikrofonit</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">Signal-i s\’mund të dërgojë mesazhe SMS/MMS, ngaqë s\’është aplikacioni juaj parazgjedhje për SMS. Doni ta ndryshoni këtë te rregullimet tuaja për Android-in?</string>
   <string name="ConversationActivity_yes">Po</string>
@@ -343,7 +343,7 @@
   <string name="DocumentView_unnamed_file">Kartelë e paemërtuar</string>
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">Optimizoje për Shërbime Play që mungojnë</string>
-  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Kjo pajisje nuk mbulon Shërbime Play. Prekeni që të çaktivizohen optimizime baterie sistemi të cilat e pengojnë Signal-in të marrë mesazhe teksa është joaktiv.</string>
+  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Kjo pajisje nuk mbulon Shërbime Play. Prekeni që të çaktivizohen optimizime baterie sistemi të cilat e pengojnë Molly-in të marrë mesazhe teksa është joaktiv.</string>
   <!--ShareActivity-->
   <string name="ShareActivity_share_with">Ndaje me</string>
   <string name="ShareActivity_multiple_attachments_are_only_supported">Disa bashkëngjitje njëherësh mbulohen vetëm për figura dhe video</string>
@@ -491,8 +491,8 @@
   <string name="MediaSendActivity_message_to_s">Mesazh për %s</string>
   <string name="MediaSendActivity_message">Mesazh</string>
   <string name="MediaSendActivity_select_recipients">Përzgjidhni marrës</string>
-  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Që të mund t\’i shfaqë, Signal-i lyp leje përdorimi të kontakteve.</string>
-  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Signal-i lyp leje mbi Kontaktet që të mund të shfaqë kontaktet tuaja, por kjo i është mohuar përgjithmonë. Ju lutemi, kaloni te rregullimet e aplikacionit, përzgjidhni \"Leje\", dhe aktivizoni \"Kontakte\".</string>
+  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Që të mund t\’i shfaqë, Molly-i lyp leje përdorimi të kontakteve.</string>
+  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Molly-i lyp leje mbi Kontaktet që të mund të shfaqë kontaktet tuaja, por kjo i është mohuar përgjithmonë. Ju lutemi, kaloni te rregullimet e aplikacionit, përzgjidhni \"Leje\", dhe aktivizoni \"Kontakte\".</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="one">S\’mund të ndani me të tjerët më shumë se %d objekte.</item>
     <item quantity="other">S\’mund të ndani me të tjerët më shumë se %d objekte.</item>
@@ -568,7 +568,7 @@
   <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">Na ndjeni, ky s\’është kod QR lidhjeje pajisjeje i vlefshëm.</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">Të lidhet një pajisje Signal?</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Duket sikur po provoni të lidhni një pajisje Signal duke përdorur skaner të një pale të tretë. Si masë mbrojtëse, ju lutemi, riskanojeni kodin që nga brenda Signal-it.</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Që të mund të skanojë një kod QR, Signal lyp leje përdorimi të Kamerës, por kjo i është mohuar. Ju lutemi, kaloni te rregullimet e aplikacionit, përzgjidhni \"Leje\", dhe aktivizoni \"Kamerën\".</string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Që të mund të skanojë një kod QR, Molly lyp leje përdorimi të Kamerës, por kjo i është mohuar. Ju lutemi, kaloni te rregullimet e aplikacionit, përzgjidhni \"Leje\", dhe aktivizoni \"Kamerën\".</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">S\’arrihet të skanohet kod QR pa leje mbi Kamerën</string>
   <!--ExpirationDialog-->
   <string name="ExpirationDialog_disappearing_messages">Zhdukje mesazhesh</string>
@@ -649,7 +649,7 @@
   <string name="RegistrationActivity_no_browser">S\’arrihet të hapet kjo lidhje. S\’u gjet shfletues.</string>
   <string name="RegistrationActivity_more_information">Më tepër të dhëna</string>
   <string name="RegistrationActivity_less_information">Më pak të dhëna</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Që të mund të lidheni me shokët, të shkëmbeni mesazhe dhe të bëni thirje të siguruara, Signal-i lyp hyrje te kontaktet dhe mediat tuaja</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Që të mund të lidheni me shokët, të shkëmbeni mesazhe dhe të bëni thirje të siguruara, Molly-i lyp hyrje te kontaktet dhe mediat tuaja</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">S\’arrihet të bëhet lidhja te shërbimi. Ju lutemi, kontrolloni lidhjen me rrjetin dhe riprovoni.</string>
   <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">Që të verifikohet lehtësisht numri juaj i telefonit, Signal-i mund të zbulojë vetvetiu kodin tuaj të verifikimit, nëse e lejoni Signal-in të shohë mesazhe SMS.</string>
   <plurals name="RegistrationActivity_debug_log_hint">
@@ -801,7 +801,7 @@
   <string name="VerifyIdentityActivity_our_signal_safety_number">Numri ynë i sigurisë për Signal:</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">Duket se s\’keni ndonjë aplikacion me të cilin të ndahet.</string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">Në të papastër s\’u gjet numër sigurie për krahasim</string>
-  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Që të mund të skanojë një kod QR, Signal-i lyp leje përdorimi të Kamerës, por kjo i është mohuar. Ju lutemi, kaloni te rregullimet e aplikacionit, përzgjidhni \"Leje\", dhe aktivizoni \"Kamera\".</string>
+  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Që të mund të skanojë një kod QR, Molly-i lyp leje përdorimi të Kamerës, por kjo i është mohuar. Ju lutemi, kaloni te rregullimet e aplikacionit, përzgjidhni \"Leje\", dhe aktivizoni \"Kamera\".</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">S\’arrihet të skanohet kodi QR pa lejim të kamerës</string>
   <!--ViewOnceMessageActivity-->
   <!--MessageDisplayHelper-->
@@ -828,7 +828,7 @@
   <string name="MediaPreviewActivity_you">Ju</string>
   <string name="MediaPreviewActivity_unssuported_media_type">Lloj media i pambuluar</string>
   <string name="MediaPreviewActivity_draft">Skicë:</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Për të ruajtur gjëra në depozitë të jashtme, Signal-i lyp leje Depozitimi, por kjo i është mohuar. Ju lutemi, kaloni te rregullimet e aplikacionit, përzgjidhni \"Leje\", dhe aktivizoni \"Depozitim\".</string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Për të ruajtur gjëra në depozitë të jashtme, Molly-i lyp leje Depozitimi, por kjo i është mohuar. Ju lutemi, kaloni te rregullimet e aplikacionit, përzgjidhni \"Leje\", dhe aktivizoni \"Depozitim\".</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">S\’bëhet dot ruajtje në depozitë të jashtme pa leje</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">Të fshihet mesazhi?</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">Kjo do ta fshijë përgjithmonë këtë mesazh.</string>
@@ -851,7 +851,7 @@
   <string name="MessageNotifier_signal_message">Mesazhe Signal</string>
   <string name="MessageNotifier_unsecured_sms">SMS e pasiguruar</string>
   <string name="MessageNotifier_you_may_have_new_messages">Mund të keni mesazhe të rinj</string>
-  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Që të shihni për njoftime së fundi, hapni Signal-in.</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Që të shihni për njoftime së fundi, hapni Molly-in.</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">Kontakt</string>
   <string name="MessageNotifier_reacted_s_to_s">Reagoi me %1$s ndaj: \"%2$s\".</string>
@@ -903,8 +903,8 @@
   <!--VideoPlayer-->
   <string name="VideoPlayer_error_playing_video">Gabim në luajtjen e videos</string>
   <!--WebRtcCallActivity-->
-  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Për t\’iu përgjigjur thirrjes prej %s, lejojini Signal-it të përdorë mikrofonin tuaj.</string>
-  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Që të bëjë ose pranojë thirrje, Signal-i lyp leje mbi Mikrofonin dhe Kamerën, por këto i janë mohuar. Ju lutemi, kaloni te rregullimet e aplikacionit, përzgjidhni \"Leje\", dhe aktivizoni \"Mikrofonin\" dhe \"Kamerën\".</string>
+  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Për t\’iu përgjigjur thirrjes prej %s, lejojini Molly-it të përdorë mikrofonin tuaj.</string>
+  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Që të bëjë ose pranojë thirrje, Molly-i lyp leje mbi Mikrofonin dhe Kamerën, por këto i janë mohuar. Ju lutemi, kaloni te rregullimet e aplikacionit, përzgjidhni \"Leje\", dhe aktivizoni \"Mikrofonin\" dhe \"Kamerën\".</string>
   <!--WebRtcCallScreen-->
   <string name="WebRtcCallScreen_new_safety_numbers">Numri i sigurisë për bisedën tuaj me %1$s ka ndryshuar. Kjo mund të jetë shenjë se ose sepse dikush po rreket të përgjojë komunikimin tuaj, ose se %2$s thjesht ka riinstaluar Signal-in.</string>
   <string name="WebRtcCallScreen_you_may_wish_to_verify_this_contact">Mund të donit të verifikonit numrin tuaj të sigurisë me këtë kontakt.</string>
@@ -955,7 +955,7 @@
   <!--single_contact_selection_activity-->
   <string name="SingleContactSelectionActivity_contact_photo">Foto Kontakti</string>
   <!--ContactSelectionListFragment-->
-  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Që të mund të shfaqë kontaktet tuaja, Signal-i lyp leje mbi Kontaktet, por këto i janë mohuar. Ju lutemi, kaloni te menuja e rregullimeve të aplikacionit, përzgjidhni \"Leje\", dhe aktivizoni \"Kontakte\".</string>
+  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Që të mund të shfaqë kontaktet tuaja, Molly-i lyp leje mbi Kontaktet, por këto i janë mohuar. Ju lutemi, kaloni te menuja e rregullimeve të aplikacionit, përzgjidhni \"Leje\", dhe aktivizoni \"Kontakte\".</string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Gabim në marrje kontaktesh, kontrolloni lidhjen tuaj në rrjet</string>
   <string name="ContactSelectionListFragment_username_not_found">Emri i përdoruesit s’u gjet</string>
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">\"%1$s\" s’është përdorues Signal-i. Ju lutemi, kontrolloni emrin e përdoruesit dhe riprovoni.</string>
@@ -963,7 +963,7 @@
   <!--blocked_contacts_fragment-->
   <string name="blocked_contacts_fragment__no_blocked_contacts">S\’ka kontakte të bllokuara</string>
   <!--contact_selection_list_fragment-->
-  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Që të mund t\’i shfaqë, Signal-i lyp leje përdorimi të kontakteve.</string>
+  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Që të mund t\’i shfaqë, Molly-i lyp leje përdorimi të kontakteve.</string>
   <string name="contact_selection_list_fragment__show_contacts">Shfaq Kontaktet</string>
   <!--conversation_activity-->
   <string name="conversation_activity__type_message_push">Mesazh Signal</string>
@@ -1642,7 +1642,7 @@ spastrohet dhe krejt lënda do të fshihet.</item>
   <string name="BackupDialog_verify">Verifikoje</string>
   <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">E dhatë me sukses frazëkalimin tuaj të kopjeruajtjes</string>
   <string name="BackupDialog_passphrase_was_not_correct">Frazëkalimi s’qe i saktë</string>
-  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Që të mund të krijohen kopjeruajtje, Signal-i lyp leje mbi depozitë të jashtme, por kjo i është mohuar. Ju lutemi, kaloni te rregullime aplikacioni, përzgjidhni \"Leje\" dhe aktivizoni \"Depozitim\".</string>
+  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Që të mund të krijohen kopjeruajtje, Molly-i lyp leje mbi depozitë të jashtme, por kjo i është mohuar. Ju lutemi, kaloni te rregullime aplikacioni, përzgjidhni \"Leje\" dhe aktivizoni \"Depozitim\".</string>
   <string name="ChatsPreferenceFragment_last_backup_s">Kopjeruajtja e fundit: %s</string>
   <string name="ChatsPreferenceFragment_in_progress">Në kryerje e sipër</string>
   <string name="LocalBackupJob_creating_backup">Po krijohet kopjeruajtje…</string>

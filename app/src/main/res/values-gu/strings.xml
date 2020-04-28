@@ -62,10 +62,10 @@
   <string name="AttachmentKeyboard_location">સ્થળ</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">મીડિયા પસંદ કરવા માટે કોઈ એપ્લિકેશન મળતું નથી.</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">ફોટા, વિડિયો અથવા ઓડિયો ને જોડવા માટે Signal ને સ્ટોરેજ પરવાનગીની જરૂર હોય છે, પરંતુ તે કાયમી ધોરણે નામંજૂર કરવામાં આવી છે. કૃપા કરીને એપ્લિકેશન સેટિંગ્સ મેનૂ પર ચાલુ રાખો, \"પરવાનગી\" પસંદ કરો અને \"સ્ટોરેજ\" સક્ષમ કરો.</string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">સંપર્ક માહિતીને જોડવા માટે Signal ને સંપર્કોની પરવાનગીની જરૂર હોય છે, પરંતુ તે કાયમી ધોરણે નામંજૂર કરવામાં આવી છે. કૃપા કરીને એપ્લિકેશન સેટિંગ્સ મેનૂ પર ચાલુ રાખો, \"પરવાનગી\" પસંદ કરો અને \"સંપર્કો\" સક્ષમ કરો.</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">કોઈ સ્થળ જોડવા માટે Signal ને સ્થાનની પરવાનગીની જરૂર હોય છે, પરંતુ તે કાયમી ધોરણે નામંજૂર કરવામાં આવી છે. કૃપા કરીને એપ્લિકેશન સેટિંગ્સ મેનૂ પર ચાલુ રાખો, \"પરવાનગી\" પસંદ કરો અને \"સ્થાન\" સક્ષમ કરો.</string>
-  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">ફોટા લેવા માટે Signal ને કૅમેરાની પરવાનગીની જરૂર હોય છે, પરંતુ તે કાયમી ધોરણે નામંજૂર કરવામાં આવી છે. કૃપા કરીને એપ્લિકેશન સેટિંગ્સ મેનૂ પર ચાલુ રાખો, \"પરવાનગી\" પસંદ કરો અને \"કૅમેરા\" સક્ષમ કરો.</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">ફોટા, વિડિયો અથવા ઓડિયો ને જોડવા માટે Molly ને સ્ટોરેજ પરવાનગીની જરૂર હોય છે, પરંતુ તે કાયમી ધોરણે નામંજૂર કરવામાં આવી છે. કૃપા કરીને એપ્લિકેશન સેટિંગ્સ મેનૂ પર ચાલુ રાખો, \"પરવાનગી\" પસંદ કરો અને \"સ્ટોરેજ\" સક્ષમ કરો.</string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">સંપર્ક માહિતીને જોડવા માટે Molly ને સંપર્કોની પરવાનગીની જરૂર હોય છે, પરંતુ તે કાયમી ધોરણે નામંજૂર કરવામાં આવી છે. કૃપા કરીને એપ્લિકેશન સેટિંગ્સ મેનૂ પર ચાલુ રાખો, \"પરવાનગી\" પસંદ કરો અને \"સંપર્કો\" સક્ષમ કરો.</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">કોઈ સ્થળ જોડવા માટે Molly ને સ્થાનની પરવાનગીની જરૂર હોય છે, પરંતુ તે કાયમી ધોરણે નામંજૂર કરવામાં આવી છે. કૃપા કરીને એપ્લિકેશન સેટિંગ્સ મેનૂ પર ચાલુ રાખો, \"પરવાનગી\" પસંદ કરો અને \"સ્થાન\" સક્ષમ કરો.</string>
+  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">ફોટા લેવા માટે Molly ને કૅમેરાની પરવાનગીની જરૂર હોય છે, પરંતુ તે કાયમી ધોરણે નામંજૂર કરવામાં આવી છે. કૃપા કરીને એપ્લિકેશન સેટિંગ્સ મેનૂ પર ચાલુ રાખો, \"પરવાનગી\" પસંદ કરો અને \"કૅમેરા\" સક્ષમ કરો.</string>
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">મીડિયા અપલોડ કરી રહ્યું છે…</string>
   <string name="AttachmentUploadJob_compressing_video_start">વિડિયો કંપ્રેસ થઈ રહ્યો છે…</string>
@@ -183,16 +183,16 @@
   <string name="ConversationActivity_quick_camera_unavailable">કૅમેરા અનુપલબ્ધ</string>
   <string name="ConversationActivity_unable_to_record_audio">ઓડિયો રેકોર્ડ કરવામાં અસમર્થ</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">તમારા ડિવાઇસ પર આ લિંક ને હેન્ડલ કરવા માટે કોઈ એપ્લિકેશન ઉપલબ્ધ નથી.</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">ઓડિયો મેસેજ મોકલવા માટે, તમારા માઇક્રોફોન પર Signal એક્સેસની મંજૂરી આપો.</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">ઓડિયો મેસેજ મોકલવા માટે Signal ને માઇક્રોફોન પરવાનગીની આવશ્યકતા છે, પરંતુ તે કાયમી ધોરણે નામંજૂર કરવામાં આવી છે. કૃપા કરીને એપ્લિકેશન સેટિંગ્સ ચાલુ રાખો, \"પરવાનગી\" પસંદ કરો અને \"માઇક્રોફોન\" સક્ષમ કરો.</string>
-  <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">કૉલ કરવા માટે %s, Signal ને તમારા માઇક્રોફોન અને કૅમેરાની એક્સેસની જરૂર છે.</string>
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">કૉલ કરવા માટે Signal ને માઇક્રોફોન અને કેમેરાની પરવાનગીની જરૂર છે %s, પરંતુ તેઓને કાયમી નામંજૂર કરવામાં આવ્યા છે. કૃપા કરીને એપ્લિકેશન સેટિંગ્સ ચાલુ રાખો, \"પરવાનગી\" પસંદ કરો અને \"માઇક્રોફોન\" અને \"કેમેરો\" સક્ષમ કરો.</string>
-  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">ફોટા અને વિડિયો મેળવવા માટે, કેમેરામાં Signal એક્સેસની મંજૂરી આપો.</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">ફોટા અથવા વિડિયો લેવા માટે Signal ને કૅમેરાની પરવાનગીની જરૂર હોય છે, પરંતુ તે કાયમી ધોરણે નામંજૂર કરવામાં આવી છે. કૃપા કરીને એપ્લિકેશન સેટિંગ્સ ચાલુ રાખો, \"પરવાનગી\" પસંદ કરો અને \"કૅમેરા\" સક્ષમ કરો.</string>
-  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signal ને ફોટા અથવા વિડિયો લેવા માટે કૅમેરાની પરવાનગીની જરૂર હોય છે</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">ઓડિયો મેસેજ મોકલવા માટે, તમારા માઇક્રોફોન પર Molly એક્સેસની મંજૂરી આપો.</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">ઓડિયો મેસેજ મોકલવા માટે Molly ને માઇક્રોફોન પરવાનગીની આવશ્યકતા છે, પરંતુ તે કાયમી ધોરણે નામંજૂર કરવામાં આવી છે. કૃપા કરીને એપ્લિકેશન સેટિંગ્સ ચાલુ રાખો, \"પરવાનગી\" પસંદ કરો અને \"માઇક્રોફોન\" સક્ષમ કરો.</string>
+  <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">કૉલ કરવા માટે %s, Molly ને તમારા માઇક્રોફોન અને કૅમેરાની એક્સેસની જરૂર છે.</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">કૉલ કરવા માટે Molly ને માઇક્રોફોન અને કેમેરાની પરવાનગીની જરૂર છે %s, પરંતુ તેઓને કાયમી નામંજૂર કરવામાં આવ્યા છે. કૃપા કરીને એપ્લિકેશન સેટિંગ્સ ચાલુ રાખો, \"પરવાનગી\" પસંદ કરો અને \"માઇક્રોફોન\" અને \"કેમેરો\" સક્ષમ કરો.</string>
+  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">ફોટા અને વિડિયો મેળવવા માટે, કેમેરામાં Molly એક્સેસની મંજૂરી આપો.</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">ફોટા અથવા વિડિયો લેવા માટે Molly ને કૅમેરાની પરવાનગીની જરૂર હોય છે, પરંતુ તે કાયમી ધોરણે નામંજૂર કરવામાં આવી છે. કૃપા કરીને એપ્લિકેશન સેટિંગ્સ ચાલુ રાખો, \"પરવાનગી\" પસંદ કરો અને \"કૅમેરા\" સક્ષમ કરો.</string>
+  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Molly ને ફોટા અથવા વિડિયો લેવા માટે કૅમેરાની પરવાનગીની જરૂર હોય છે</string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">અવાજ સાથે વિડિયોને કેપ્ચર કરવા માટે માઇક્રોફોન પરવાનગીને સક્ષમ કરો</string>
-  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">વિડિયોને રેકોર્ડ કરવા માટે Signal ને માઇક્રોફોન પરવાનગીની જરૂર છે, પરંતુ તે નામંજૂર કરવામાં આવી છે. કૃપા કરીને એપ્લિકેશન સેટિંગ્સ ચાલુ રાખો, \"પરવાનગી\" પસંદ કરો અને \"માઇક્રોફોન\" અને \"કેમેરા\" સક્ષમ કરો.</string>
-  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">વિડિયો રેકોર્ડ કરવા માટે Signal ને માઇક્રોફોન પરવાનગીની જરૂર છે.</string>
+  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">વિડિયોને રેકોર્ડ કરવા માટે Molly ને માઇક્રોફોન પરવાનગીની જરૂર છે, પરંતુ તે નામંજૂર કરવામાં આવી છે. કૃપા કરીને એપ્લિકેશન સેટિંગ્સ ચાલુ રાખો, \"પરવાનગી\" પસંદ કરો અને \"માઇક્રોફોન\" અને \"કેમેરા\" સક્ષમ કરો.</string>
+  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">વિડિયો રેકોર્ડ કરવા માટે Molly ને માઇક્રોફોન પરવાનગીની જરૂર છે.</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">Signal SMS/MMS મેસેજ મોકલી શકતું નથી કારણ કે તે તમારી ડિફોલ્ટ SMS એપ્લિકેશન નથી. શું તમે તેને તમારા Android સેટિંગ્સ માં બદલવા માંગો છો?</string>
   <string name="ConversationActivity_yes">હા</string>
@@ -319,7 +319,7 @@
   <string name="DocumentView_unnamed_file">અનામી ફાઇલ</string>
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">ખૂટતી Play Services માટે ઓપ્ટિમાઇઝ કરો</string>
-  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">આ ડિવાઇસ Play Servicesનું સમર્થન કરતું નથી. સિસ્ટમ બેટરી ઓપ્ટિમાઇઝેશંસને અક્ષમ કરવા માટે ટેપ કરો જે Signal ને નિષ્ક્રિય હોવા પર મેસેજ પ્રાપ્ત કરવામાં અટકાવે છે.</string>
+  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">આ ડિવાઇસ Play Servicesનું સમર્થન કરતું નથી. સિસ્ટમ બેટરી ઓપ્ટિમાઇઝેશંસને અક્ષમ કરવા માટે ટેપ કરો જે Molly ને નિષ્ક્રિય હોવા પર મેસેજ પ્રાપ્ત કરવામાં અટકાવે છે.</string>
   <!--ShareActivity-->
   <string name="ShareActivity_share_with">સાથે શેર કરો</string>
   <!--GcmBroadcastReceiver-->
@@ -461,8 +461,8 @@
   <string name="MediaSendActivity_message_to_s">%sને મેસેજ</string>
   <string name="MediaSendActivity_message">મેસેજ</string>
   <string name="MediaSendActivity_select_recipients">પ્રાપ્તકર્તાઓ પસંદ કરો</string>
-  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Signal ને તમારા સંપર્કોને પ્રદર્શિત કરવા માટે તેમને એક્સેસની જરૂર છે.</string>
-  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">તમારા સંપર્કો બતાવવા માટે Signal ને સંપર્કોની પરવાનગીની જરૂર છે, પરંતુ તે કાયમી ધોરણે નામંજૂર કરવામાં આવી છે. કૃપા કરીને એપ્લિકેશન સેટિંગ્સ ચાલુ રાખો, \"પરવાનગી\" પસંદ કરો અને \"સંપર્કો\" સક્ષમ કરો.</string>
+  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Molly ને તમારા સંપર્કોને પ્રદર્શિત કરવા માટે તેમને એક્સેસની જરૂર છે.</string>
+  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">તમારા સંપર્કો બતાવવા માટે Molly ને સંપર્કોની પરવાનગીની જરૂર છે, પરંતુ તે કાયમી ધોરણે નામંજૂર કરવામાં આવી છે. કૃપા કરીને એપ્લિકેશન સેટિંગ્સ ચાલુ રાખો, \"પરવાનગી\" પસંદ કરો અને \"સંપર્કો\" સક્ષમ કરો.</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="one">તમે %d આઇટમ કરતાં વધુ શેર કરી શકતા નથી.</item>
     <item quantity="other">તમે %d આઇટમ્સ કરતાં વધુ શેર કરી શકતા નથી.</item>
@@ -526,7 +526,7 @@
   <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">માફ કરશો, આ માન્ય ડિવાઇસ લિંક QR કોડ નથી.</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">Signal ડિવાઇસ ને લિંક કરીએ?</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">એવું લાગે છે કે તમે 3જી પાર્ટી સ્કેનરનો ઉપયોગ કરીને Signal ડિવાઇસ ને લિંક કરવાનો પ્રયાસ કરી રહ્યાં છો. તમારી સુરક્ષા માટે, કૃપા કરીને Signal ની અંદરથી ફરીથી કોડ સ્કેન કરો.</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">QR કોડને સ્કેન કરવા માટે Signal ને કેમેરાની પરવાનગીની જરૂર હોય છે, પરંતુ તે કાયમી ધોરણે નામંજૂર કરવામાં આવી છે. કૃપા કરીને એપ્લિકેશન સેટિંગ્સ ચાલુ રાખો, \"પરવાનગી\" પસંદ કરો અને \"કેમેરો\" સક્ષમ કરો.</string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">QR કોડને સ્કેન કરવા માટે Molly ને કેમેરાની પરવાનગીની જરૂર હોય છે, પરંતુ તે કાયમી ધોરણે નામંજૂર કરવામાં આવી છે. કૃપા કરીને એપ્લિકેશન સેટિંગ્સ ચાલુ રાખો, \"પરવાનગી\" પસંદ કરો અને \"કેમેરો\" સક્ષમ કરો.</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">કેમેરાની પરવાનગી વિના QR કોડ સ્કેન કરવામાં અસમર્થ</string>
   <!--ExpirationDialog-->
   <string name="ExpirationDialog_disappearing_messages">અદૃશ્ય થઈ રહેલા મેસેજ</string>
@@ -604,7 +604,7 @@
   <string name="RegistrationActivity_no_browser">આ લિંક ખોલવામાં અસમર્થ. કોઈ વેબ બ્રાઉઝર મળ્યું નથી.</string>
   <string name="RegistrationActivity_more_information">વધુ મહિતી</string>
   <string name="RegistrationActivity_less_information">ઓછી માહિતી</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">મિત્રો સાથે જોડાવા, મેસેજ આપ-લે કરવા અને સલામત કૉલ્સ કરવા માટે Signal ને તમારા સંપર્કો અને મીડિયા એક્સેસની જરૂર છે</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">મિત્રો સાથે જોડાવા, મેસેજ આપ-લે કરવા અને સલામત કૉલ્સ કરવા માટે Molly ને તમારા સંપર્કો અને મીડિયા એક્સેસની જરૂર છે</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">સેવાથી કનેક્ટ કરવામાં અસમર્થ. કૃપા કરીને નેટવર્ક કનેક્શન તપાસો અને ફરીથી પ્રયાસ કરો.</string>
   <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">તમારા ફોન નંબરને સરળતાથી ચકાસવા માટે, જો તમે Signalને SMS મેસેજ જોવાની મંજૂરી આપો તો Signal આપમેળે તમારો ચકાસણી કોડ શોધી શકે છે.</string>
   <plurals name="RegistrationActivity_debug_log_hint">
@@ -743,7 +743,7 @@
   <string name="VerifyIdentityActivity_our_signal_safety_number">અમારો Signal સલામતી નંબર:</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">એવું લાગે છે કે તમારી પાસે શેર કરવા માટે કોઈ એપ્લિકેશન નથી.</string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">ક્લિપબોર્ડમાં તુલના કરવા માટેનો સલામતી નંબર મળ્યો નથી</string>
-  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">QR કોડને સ્કેન કરવા માટે Signal ને કેમેરાની પરવાનગીની જરૂર હોય છે, પરંતુ તે કાયમી ધોરણે નામંજૂર કરવામાં આવી છે. કૃપા કરીને એપ્લિકેશન સેટિંગ્સ ચાલુ રાખો, \"પરવાનગી\", પસંદ કરો અને \"કેમેરો\" સક્ષમ કરો.</string>
+  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">QR કોડને સ્કેન કરવા માટે Molly ને કેમેરાની પરવાનગીની જરૂર હોય છે, પરંતુ તે કાયમી ધોરણે નામંજૂર કરવામાં આવી છે. કૃપા કરીને એપ્લિકેશન સેટિંગ્સ ચાલુ રાખો, \"પરવાનગી\", પસંદ કરો અને \"કેમેરો\" સક્ષમ કરો.</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">કેમેરાની મંજૂરી વિના QR કોડ સ્કેન કરવામાં અસમર્થ</string>
   <!--ViewOnceMessageActivity-->
   <!--MessageDisplayHelper-->
@@ -770,7 +770,7 @@
   <string name="MediaPreviewActivity_you">તમે</string>
   <string name="MediaPreviewActivity_unssuported_media_type">અસમર્થિત મીડિયા પ્રકાર</string>
   <string name="MediaPreviewActivity_draft">ડ્રાફ્ટ</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">બાહ્ય સ્ટોરેજ માં સેવ કરવા માટે Signal ને સ્ટોરેજ પરવાનગીની જરૂર છે, પરંતુ તેનો કાયમી નામંજૂર કરવામાં આવી છે. કૃપા કરીને એપ્લિકેશન સેટિંગ્સ ચાલુ રાખો \"પરવાનગી\" પસંદ કરો, અને \"સ્ટોરેજ\" સક્ષમ કરો.</string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">બાહ્ય સ્ટોરેજ માં સેવ કરવા માટે Molly ને સ્ટોરેજ પરવાનગીની જરૂર છે, પરંતુ તેનો કાયમી નામંજૂર કરવામાં આવી છે. કૃપા કરીને એપ્લિકેશન સેટિંગ્સ ચાલુ રાખો \"પરવાનગી\" પસંદ કરો, અને \"સ્ટોરેજ\" સક્ષમ કરો.</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">પરવાનગી વિના બાહ્ય સ્ટોરેજમાં સેવ કરવામાં અસમર્થ</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">મેસેજ કાઢી નાખો?</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">આ મેસેજ ને કાયમી ધોરણે કાઢી નાખશે.</string>
@@ -793,7 +793,7 @@
   <string name="MessageNotifier_signal_message">Signal મેસેજ</string>
   <string name="MessageNotifier_unsecured_sms">અસુરક્ષિત SMS</string>
   <string name="MessageNotifier_you_may_have_new_messages">તમારી માટે કદાચ નવા મેસેજ હોઈ શકે છે</string>
-  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">તાજેતરની સૂચનાઓ તપાસવા માટે Signal ખોલો.</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">તાજેતરની સૂચનાઓ તપાસવા માટે Molly ખોલો.</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">સંપર્ક</string>
   <string name="MessageNotifier_reacted_s_to_s">%1$s પ્રતિક્રિયા આપી: \"%2$s\".</string>
@@ -845,8 +845,8 @@
   <!--VideoPlayer-->
   <string name="VideoPlayer_error_playing_video">વિડિયો ચલાવવામાં ભૂલ</string>
   <!--WebRtcCallActivity-->
-  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">%s ના કોલનો જવાબ આપવા માટે, તમારા માઇક્રોફોનને Signal એક્સેસ આપો.</string>
-  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">કૉલ કરવા અથવા પ્રાપ્ત કરવા માટે Signal ને માઇક્રોફોન અને કેમેરાની પરવાનગીની જરૂર હોય છે, પરંતુ તેઓને કાયમી નામંજૂર કરવામાં આવ્યા છે. કૃપા કરીને એપ્લિકેશન સેટિંગ્સ ચાલુ રાખો, \"પરવાનગી\" પસંદ કરો અને \"માઇક્રોફોન\" અને \"કેમેરો\" સક્ષમ કરો.</string>
+  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">%s ના કોલનો જવાબ આપવા માટે, તમારા માઇક્રોફોનને Molly એક્સેસ આપો.</string>
+  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">કૉલ કરવા અથવા પ્રાપ્ત કરવા માટે Molly ને માઇક્રોફોન અને કેમેરાની પરવાનગીની જરૂર હોય છે, પરંતુ તેઓને કાયમી નામંજૂર કરવામાં આવ્યા છે. કૃપા કરીને એપ્લિકેશન સેટિંગ્સ ચાલુ રાખો, \"પરવાનગી\" પસંદ કરો અને \"માઇક્રોફોન\" અને \"કેમેરો\" સક્ષમ કરો.</string>
   <!--WebRtcCallScreen-->
   <string name="WebRtcCallScreen_new_safety_numbers">%1$s સાથેની તમારી વાતચીતનો સલામતી નંબર બદલાયો છે. આનો અર્થ ક્યાંય થઈ શકે કે કોઈ તમારા સંદેશાવ્યવહારને અટકાવવાનો પ્રયાસ કરી રહ્યો છે, અથવા તે %2$s ફક્ત Signal ને ફરીથી ઇન્સ્ટોલ કરે છે.</string>
   <string name="WebRtcCallScreen_you_may_wish_to_verify_this_contact">તમે આ સંપર્ક સાથે તમારો સલામતી નંબર ચકાસી શકો છો.</string>
@@ -897,7 +897,7 @@
   <!--single_contact_selection_activity-->
   <string name="SingleContactSelectionActivity_contact_photo">સંપર્ક ફોટો</string>
   <!--ContactSelectionListFragment-->
-  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">તમારા સંપર્કોને પ્રદર્શિત કરવા માટે Signal ને સંપર્કોની પરવાનગીની જરૂર હોય છે, પરંતુ તે કાયમી ધોરણે નામંજૂર કરવામાં આવી છે. કૃપા કરીને એપ્લિકેશન સેટિંગ્સ મેનૂ પર ચાલુ રાખો, \"પરવાનગી\" પસંદ કરો અને \"સંપર્કો\" ને સક્ષમ કરો.</string>
+  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">તમારા સંપર્કોને પ્રદર્શિત કરવા માટે Molly ને સંપર્કોની પરવાનગીની જરૂર હોય છે, પરંતુ તે કાયમી ધોરણે નામંજૂર કરવામાં આવી છે. કૃપા કરીને એપ્લિકેશન સેટિંગ્સ મેનૂ પર ચાલુ રાખો, \"પરવાનગી\" પસંદ કરો અને \"સંપર્કો\" ને સક્ષમ કરો.</string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">કૃપા કરીને એપ્લિકેશન સેટિંગ્સ મેનૂ પર ચાલુ રાખો, \"પરવાનગી\" પસંદ કરો અને \"સંપર્કો\" ને સક્ષમ કરો.</string>
   <string name="ContactSelectionListFragment_username_not_found">વપરાશકર્તા નામ મળ્યું નથી</string>
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">\"%1$s\" Signal વપરાશકર્તા નથી. કૃપા કરીને વપરાશકર્તા નામ તપાસો અને ફરીથી પ્રયાસ કરો.</string>
@@ -905,7 +905,7 @@
   <!--blocked_contacts_fragment-->
   <string name="blocked_contacts_fragment__no_blocked_contacts">કોઈ અવરોધિત સંપર્કો નથી</string>
   <!--contact_selection_list_fragment-->
-  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Signal ને તમારા સંપર્કોને પ્રદર્શિત કરવા માટે તેમને એક્સેસની જરૂર છે.</string>
+  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly ને તમારા સંપર્કોને પ્રદર્શિત કરવા માટે તેમને એક્સેસની જરૂર છે.</string>
   <string name="contact_selection_list_fragment__show_contacts">સંપર્કો બતાવો</string>
   <!--conversation_activity-->
   <string name="conversation_activity__type_message_push">Signal મેસેજ</string>
@@ -1497,7 +1497,7 @@
   <string name="BackupDialog_disable_and_delete_all_local_backups">બધા સ્થાનિક બૅકઅપ ને અક્ષમ અને કાઢી નાખીએ?</string>
   <string name="BackupDialog_delete_backups_statement">બૅકઅપ કાઢી નાખો</string>
   <string name="BackupDialog_copied_to_clipboard">ક્લિપબોર્ડ પર કૉપી કરેલું</string>
-  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">બૅકઅપ બનાવવા માટે Signal ને બાહ્ય સ્ટોરેજ પરવાનગીની જરૂર હોય છે, પરંતુ તે કાયમી ધોરણે નામંજૂર કરવામાં આવી છે. કૃપા કરીને એપ્લિકેશન સેટિંગ્સ ચાલુ રાખો, \"પરવાનગી\" પસંદ કરો અને \"સ્ટોરેજ\" સક્ષમ કરો.</string>
+  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">બૅકઅપ બનાવવા માટે Molly ને બાહ્ય સ્ટોરેજ પરવાનગીની જરૂર હોય છે, પરંતુ તે કાયમી ધોરણે નામંજૂર કરવામાં આવી છે. કૃપા કરીને એપ્લિકેશન સેટિંગ્સ ચાલુ રાખો, \"પરવાનગી\" પસંદ કરો અને \"સ્ટોરેજ\" સક્ષમ કરો.</string>
   <string name="ChatsPreferenceFragment_last_backup_s">છેલ્લો બૅકઅપ: %s</string>
   <string name="ChatsPreferenceFragment_in_progress">ચાલુ છે</string>
   <string name="LocalBackupJob_creating_backup">બૅકઅપ બનાવી રહ્યા છે…</string>
