@@ -25,8 +25,9 @@ Molly has unique features compared to Signal:
 
 - Protects database with [passphrase encryption](https://github.com/mollyim/mollyim-android/wiki/Data-Encryption-At-Rest)
 - Locks down the app automatically after you go a certain time without unlocking your device
-- Securely wipes sensitive data from RAM
-- Disables logging debug messages
+- Securely shreds sensitive data from RAM
+- PIN reminders are optional
+- Logging debug messages can be disabled
 
 Besides that, you will find all the features of Signal on Molly with the only exception of the SMS/MMS integration, plus some minor tweaks and improvements.
 
