@@ -54,16 +54,18 @@ public abstract class MessageRecord extends DisplayRecord {
   private final long                      expireStarted;
   private final boolean                   unidentified;
   private final List<ReactionRecord>      reactions;
+  private final long                      serverTimestamp;
+  private final boolean                   remoteDelete;
 
   MessageRecord(long id, String body, Recipient conversationRecipient,
                 Recipient individualRecipient, int recipientDeviceId,
-                long dateSent, long dateReceived, long threadId,
+                long dateSent, long dateReceived, long dateServer, long threadId,
                 int deliveryStatus, int deliveryReceiptCount, long type,
                 List<IdentityKeyMismatch> mismatches,
                 List<NetworkFailure> networkFailures,
                 int subscriptionId, long expiresIn, long expireStarted,
                 int readReceiptCount, boolean unidentified,
-                @NonNull List<ReactionRecord> reactions)
+                @NonNull List<ReactionRecord> reactions, boolean remoteDelete)
   {
     super(body, conversationRecipient, dateSent, dateReceived,
           threadId, deliveryStatus, deliveryReceiptCount, type, readReceiptCount);
@@ -77,6 +79,8 @@ public abstract class MessageRecord extends DisplayRecord {
     this.expireStarted       = expireStarted;
     this.unidentified        = unidentified;
     this.reactions           = reactions;
+    this.serverTimestamp     = dateServer;
+    this.remoteDelete        = remoteDelete;
   }
 
   public abstract boolean isMms();
@@ -143,6 +147,10 @@ public abstract class MessageRecord extends DisplayRecord {
       return getDateSent();
     }
     return getDateReceived();
+  }
+
+  public long getServerTimestamp() {
+    return serverTimestamp;
   }
 
   public boolean isForcedSms() {
@@ -251,6 +259,10 @@ public abstract class MessageRecord extends DisplayRecord {
 
   public boolean isViewOnce() {
     return false;
+  }
+
+  public boolean isRemoteDelete() {
+    return remoteDelete;
   }
 
   public @NonNull List<ReactionRecord> getReactions() {

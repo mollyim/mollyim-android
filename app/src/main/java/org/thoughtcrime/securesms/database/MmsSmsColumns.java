@@ -6,6 +6,7 @@ public interface MmsSmsColumns {
   public static final String ID                       = "_id";
   public static final String NORMALIZED_DATE_SENT     = "date_sent";
   public static final String NORMALIZED_DATE_RECEIVED = "date_received";
+  public static final String DATE_SERVER              = "date_server";
   public static final String THREAD_ID                = "thread_id";
   public static final String READ                     = "read";
   public static final String BODY                     = "body";
@@ -23,6 +24,7 @@ public interface MmsSmsColumns {
   public static final String REACTIONS                = "reactions";
   public static final String REACTIONS_UNREAD         = "reactions_unread";
   public static final String REACTIONS_LAST_SEEN      = "reactions_last_seen";
+  public static final String REMOTE_DELETED           = "remote_deleted";
 
   public static class Types {
     protected static final long TOTAL_MASK = 0xFFFFFFFF;
@@ -76,6 +78,7 @@ public interface MmsSmsColumns {
     protected static final long GROUP_UPDATE_BIT            = 0x10000;
     protected static final long GROUP_QUIT_BIT              = 0x20000;
     protected static final long EXPIRATION_TIMER_UPDATE_BIT = 0x40000;
+    protected static final long GROUP_V2_BIT                = 0x80000;
 
     // Encrypted Storage Information XXX
     public    static final long ENCRYPTION_MASK                  = 0xFF000000;
@@ -221,6 +224,10 @@ public interface MmsSmsColumns {
 
     public static boolean isGroupUpdate(long type) {
       return (type & GROUP_UPDATE_BIT) != 0;
+    }
+
+    public static boolean isGroupV2(long type) {
+      return (type & GROUP_V2_BIT) != 0;
     }
 
     public static boolean isGroupQuit(long type) {

@@ -59,6 +59,7 @@ final class MenuState {
     boolean hasText       = false;
     boolean sharedContact = false;
     boolean viewOnce      = false;
+    boolean remoteDelete  = false;
 
     for (MessageRecord messageRecord : messageRecords) {
       if (isActionMessage(messageRecord))
@@ -77,6 +78,10 @@ final class MenuState {
       if (messageRecord.isViewOnce()) {
         viewOnce = true;
       }
+
+      if (messageRecord.isRemoteDelete()) {
+        remoteDelete = true;
+      }
     }
 
     if (messageRecords.size() > 1) {
@@ -89,27 +94,29 @@ final class MenuState {
       MessageRecord messageRecord = messageRecords.iterator().next();
 
       builder.shouldShowResendAction(messageRecord.isFailed())
-             .shouldShowSaveAttachmentAction(!actionMessage                                        &&
-                                       !viewOnce                                                   &&
-                                       messageRecord.isMms()                                       &&
-                                       !messageRecord.isMmsNotification()                          &&
-                                       ((MediaMmsMessageRecord)messageRecord).containsMediaSlide() &&
-                                       ((MediaMmsMessageRecord)messageRecord).getSlideDeck().getStickerSlide() == null)
-             .shouldShowForwardAction(!actionMessage && !sharedContact && !viewOnce)
+             .shouldShowSaveAttachmentAction(!actionMessage                                              &&
+                                             !viewOnce                                                   &&
+                                             messageRecord.isMms()                                       &&
+                                             !messageRecord.isMmsNotification()                          &&
+                                             ((MediaMmsMessageRecord)messageRecord).containsMediaSlide() &&
+                                             ((MediaMmsMessageRecord)messageRecord).getSlideDeck().getStickerSlide() == null)
+             .shouldShowForwardAction(!actionMessage && !sharedContact && !viewOnce && !remoteDelete)
              .shouldShowDetailsAction(!actionMessage)
              .shouldShowReplyAction(canReplyToMessage(actionMessage, messageRecord, shouldShowMessageRequest));
     }
 
-    return builder.shouldShowCopyAction(!actionMessage && hasText)
+    return builder.shouldShowCopyAction(!actionMessage && !remoteDelete && hasText)
                   .build();
   }
 
   static boolean canReplyToMessage(boolean actionMessage, @NonNull MessageRecord messageRecord, boolean isDisplayingMessageRequest) {
-    return !actionMessage              &&
-           !messageRecord.isPending()  &&
-           !messageRecord.isFailed()   &&
-           !isDisplayingMessageRequest &&
-           messageRecord.isSecure();
+    return !actionMessage                  &&
+           !messageRecord.isRemoteDelete() &&
+           !messageRecord.isPending()      &&
+           !messageRecord.isFailed()       &&
+           !isDisplayingMessageRequest     &&
+           messageRecord.isSecure()        &&
+           !messageRecord.getRecipient().isBlocked();
   }
 
   static boolean isActionMessage(@NonNull MessageRecord messageRecord) {

@@ -35,7 +35,7 @@ import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.contacts.avatars.ResourceContactPhoto;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
-import org.thoughtcrime.securesms.lock.v2.PinUtil;
+import org.thoughtcrime.securesms.lock.v2.RegistrationLockUtil;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.mediasend.AvatarSelectionActivity;
 import org.thoughtcrime.securesms.mediasend.AvatarSelectionBottomSheetDialogFragment;
@@ -45,6 +45,8 @@ import org.thoughtcrime.securesms.mms.GlideApp;
 import org.thoughtcrime.securesms.permissions.Permissions;
 import org.thoughtcrime.securesms.profiles.ProfileName;
 import org.thoughtcrime.securesms.providers.BlobProvider;
+import org.thoughtcrime.securesms.registration.RegistrationUtil;
+import org.thoughtcrime.securesms.storage.StorageSyncHelper;
 import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.concurrent.SimpleTask;
 import org.thoughtcrime.securesms.util.text.AfterTextChanged;
@@ -307,9 +309,7 @@ public class EditProfileFragment extends Fragment {
   private void handleUpload() {
     viewModel.submitProfile(uploadResult -> {
       if (uploadResult == EditProfileRepository.UploadResult.SUCCESS) {
-        if (!PinUtil.shouldShowPinCreationDuringRegistration(requireContext())) {
-          SignalStore.registrationValues().setRegistrationComplete();
-        }
+        RegistrationUtil.markRegistrationPossiblyComplete();
 
         ApplicationDependencies.getMegaphoneRepository().markFinished(Megaphones.Event.PROFILE_NAMES_FOR_ALL);
 

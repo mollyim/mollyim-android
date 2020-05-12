@@ -238,6 +238,10 @@
           android:windowSoftInputMode="stateVisible"
           android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
 
+    <activity android:name=".groups.ui.pendingmemberinvites.PendingMemberInvitesActivity"
+              android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+              android:theme="@style/TextSecure.LightNoActionBar" />
+
     <activity android:name=".migrations.ApplicationMigrationActivity"
               android:theme="@style/NoAnimation.Theme.AppCompat.Light.DarkActionBar"
               android:launchMode="singleTask"
@@ -431,6 +435,11 @@
               android:theme="@style/TextSecure.LightNoActionBar"
               android:launchMode="singleTask"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize" />
+
+    <activity android:name=".pin.PinRestoreActivity"
+              android:theme="@style/TextSecure.LightNoActionBar"
+              android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize" />
+
 
     <service android:enabled="true" android:name="org.thoughtcrime.securesms.service.WebRtcCallService"/>
     <service android:enabled="true" android:name=".service.ApplicationMigrationService"/>

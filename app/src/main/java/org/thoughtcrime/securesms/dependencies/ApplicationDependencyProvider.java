@@ -12,7 +12,6 @@ import org.thoughtcrime.securesms.crypto.storage.SignalProtocolStoreImpl;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.events.ReminderUpdateEvent;
 import org.thoughtcrime.securesms.gcm.MessageRetriever;
-import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobmanager.JobManager;
 import org.thoughtcrime.securesms.jobmanager.JobMigrator;
 import org.thoughtcrime.securesms.jobmanager.impl.JsonDataSerializer;
@@ -26,12 +25,16 @@ import org.thoughtcrime.securesms.push.SignalServiceNetworkAccess;
 import org.thoughtcrime.securesms.recipients.LiveRecipientCache;
 import org.thoughtcrime.securesms.service.IncomingMessageObserver;
 import org.thoughtcrime.securesms.util.AlarmSleepTimer;
+import org.thoughtcrime.securesms.util.EarlyMessageCache;
+import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.FrameRateTracker;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.whispersystems.libsignal.util.guava.Optional;
 import org.whispersystems.signalservice.api.SignalServiceAccountManager;
 import org.whispersystems.signalservice.api.SignalServiceMessageReceiver;
 import org.whispersystems.signalservice.api.SignalServiceMessageSender;
+import org.whispersystems.signalservice.api.groupsv2.ClientZkOperations;
+import org.whispersystems.signalservice.api.groupsv2.GroupsV2Operations;
 import org.whispersystems.signalservice.api.util.CredentialsProvider;
 import org.whispersystems.signalservice.api.util.SleepTimer;
 import org.whispersystems.signalservice.api.util.UptimeSleepTimer;
@@ -54,11 +57,21 @@ public class ApplicationDependencyProvider implements ApplicationDependencies.Pr
     this.networkAccess = networkAccess;
   }
 
+  private @NonNull ClientZkOperations provideClientZkOperations() {
+    return ClientZkOperations.create(networkAccess.getConfiguration(context));
+  }
+
+  @Override
+  public @NonNull GroupsV2Operations provideGroupsV2Operations() {
+    return new GroupsV2Operations(provideClientZkOperations());
+  }
+
   @Override
   public @NonNull SignalServiceAccountManager provideSignalServiceAccountManager() {
     return new SignalServiceAccountManager(networkAccess.getConfiguration(context),
                                            new DynamicCredentialsProvider(context),
-                                           BuildConfig.SIGNAL_AGENT);
+                                           BuildConfig.SIGNAL_AGENT,
+                                           provideGroupsV2Operations());
   }
 
   @Override
@@ -68,9 +81,11 @@ public class ApplicationDependencyProvider implements ApplicationDependencies.Pr
                                             new SignalProtocolStoreImpl(context),
                                             BuildConfig.SIGNAL_AGENT,
                                             TextSecurePreferences.isMultiDevice(context),
+                                            FeatureFlags.attachmentsV3(),
                                             Optional.fromNullable(IncomingMessageObserver.getPipe()),
                                             Optional.fromNullable(IncomingMessageObserver.getUnidentifiedPipe()),
-                                            Optional.of(new SecurityEventListener(context)));
+                                            Optional.of(new SecurityEventListener(context)),
+                                            provideClientZkOperations().getProfileOperations());
   }
 
   @Override
@@ -81,7 +96,8 @@ public class ApplicationDependencyProvider implements ApplicationDependencies.Pr
                                             new DynamicCredentialsProvider(context),
                                             BuildConfig.SIGNAL_AGENT,
                                             new PipeConnectivityListener(),
-                                            sleepTimer);
+                                            sleepTimer,
+                                            provideClientZkOperations().getProfileOperations());
   }
 
   @Override
@@ -129,6 +145,11 @@ public class ApplicationDependencyProvider implements ApplicationDependencies.Pr
   @Override
   public @NonNull MegaphoneRepository provideMegaphoneRepository() {
     return new MegaphoneRepository(context);
+  }
+
+  @Override
+  public @NonNull EarlyMessageCache provideEarlyMessageCache() {
+    return new EarlyMessageCache();
   }
 
   private static class DynamicCredentialsProvider implements CredentialsProvider {

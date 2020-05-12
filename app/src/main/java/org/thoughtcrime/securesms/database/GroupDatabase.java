@@ -25,12 +25,11 @@ import org.thoughtcrime.securesms.groups.GroupId;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
-import org.thoughtcrime.securesms.util.Util;
 import org.whispersystems.libsignal.util.guava.Optional;
+import org.whispersystems.signalservice.api.groupsv2.DecryptedGroupUtil;
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachmentPointer;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
 import org.whispersystems.signalservice.api.util.UuidUtil;
-import org.whispersystems.signalservice.internal.groupsv2.DecryptedGroupUtil;
 
 import java.io.Closeable;
 import java.security.SecureRandom;
@@ -132,6 +131,21 @@ public final class GroupDatabase extends Database {
     return Optional.fromNullable(reader.getCurrent());
   }
 
+   /**
+   * Call if you are sure this group should exist.
+   * <p>
+   * Finds group and throws if it cannot.
+   */
+  public @NonNull GroupRecord requireGroup(@NonNull GroupId groupId) {
+    Optional<GroupRecord> group = getGroup(groupId);
+
+    if (!group.isPresent()) {
+      throw new AssertionError("Group not found");
+    }
+
+    return group.get();
+  }
+
   public boolean isUnknownGroup(@NonNull GroupId groupId) {
     Optional<GroupRecord> group = getGroup(groupId);
 
@@ -171,7 +185,7 @@ public final class GroupDatabase extends Database {
                                                                null, null, null);
     try {
       if (cursor != null && cursor.moveToNext()) {
-        return GroupId.parse(cursor.getString(cursor.getColumnIndexOrThrow(GROUP_ID)))
+        return GroupId.parseOrThrow(cursor.getString(cursor.getColumnIndexOrThrow(GROUP_ID)))
                       .requireMms();
       } else {
         GroupId.Mms groupId = GroupId.createMms(new SecureRandom());
@@ -200,9 +214,9 @@ public final class GroupDatabase extends Database {
 
     try (Cursor cursor = database.query(table, null, query, args, null, null, orderBy)) {
       while (cursor != null && cursor.moveToNext()) {
-        List<String> members = Util.split(cursor.getString(cursor.getColumnIndexOrThrow(MEMBERS)), ",");
+        String serializedMembers = cursor.getString(cursor.getColumnIndexOrThrow(MEMBERS));
 
-        if (members.contains(recipientId.serialize())) {
+        if (RecipientId.serializedListContains(serializedMembers, recipientId)) {
           groups.add(new Reader(cursor).getCurrent());
         }
       }
@@ -282,7 +296,7 @@ public final class GroupDatabase extends Database {
     contentValues.put(MEMBERS, RecipientId.toSerializedList(members));
 
     if (avatar != null) {
-      contentValues.put(AVATAR_ID, avatar.getId());
+      contentValues.put(AVATAR_ID, avatar.getRemoteId().getV2().get());
       contentValues.put(AVATAR_KEY, avatar.getKey());
       contentValues.put(AVATAR_CONTENT_TYPE, avatar.getContentType());
       contentValues.put(AVATAR_DIGEST, avatar.getDigest().orNull());
@@ -326,7 +340,7 @@ public final class GroupDatabase extends Database {
     if (title != null) contentValues.put(TITLE, title);
 
     if (avatar != null) {
-      contentValues.put(AVATAR_ID, avatar.getId());
+      contentValues.put(AVATAR_ID, avatar.getRemoteId().getV2().get());
       contentValues.put(AVATAR_CONTENT_TYPE, avatar.getContentType());
       contentValues.put(AVATAR_KEY, avatar.getKey());
       contentValues.put(AVATAR_DIGEST, avatar.getDigest().orNull());
@@ -380,7 +394,7 @@ public final class GroupDatabase extends Database {
   /**
    * Used to bust the Glide cache when an avatar changes.
    */
-  public void onAvatarUpdated(@NonNull GroupId.V1 groupId, boolean hasAvatar) {
+  public void onAvatarUpdated(@NonNull GroupId.Push groupId, boolean hasAvatar) {
     ContentValues contentValues = new ContentValues(1);
     contentValues.put(AVATAR_ID, hasAvatar ? Math.abs(new SecureRandom().nextLong()) : 0);
 
@@ -452,6 +466,23 @@ public final class GroupDatabase extends Database {
     database.update(TABLE_NAME, values, GROUP_ID + " = ?", new String[] {groupId.toString()});
   }
 
+  @WorkerThread
+  public boolean isCurrentMember(@NonNull GroupId.Push groupId, @NonNull RecipientId recipientId) {
+    SQLiteDatabase database = databaseHelper.getReadableDatabase();
+
+    try (Cursor cursor = database.query(TABLE_NAME, new String[] {MEMBERS},
+                                        GROUP_ID + " = ?", new String[] {groupId.toString()},
+                                        null, null, null))
+    {
+      if (cursor.moveToNext()) {
+        String serializedMembers = cursor.getString(cursor.getColumnIndexOrThrow(MEMBERS));
+        return RecipientId.serializedListContains(serializedMembers, recipientId);
+      } else {
+        return false;
+      }
+    }
+  }
+
   private static String serializeV2GroupMembers(@NonNull Context context, @NonNull DecryptedGroup decryptedGroup) {
     List<RecipientId> groupMembers  = new ArrayList<>(decryptedGroup.getMembersCount());
 
@@ -487,7 +518,7 @@ public final class GroupDatabase extends Database {
         return null;
       }
 
-      return new GroupRecord(GroupId.parse(cursor.getString(cursor.getColumnIndexOrThrow(GROUP_ID))),
+      return new GroupRecord(GroupId.parseOrThrow(cursor.getString(cursor.getColumnIndexOrThrow(GROUP_ID))),
                              RecipientId.from(cursor.getLong(cursor.getColumnIndexOrThrow(RECIPIENT_ID))),
                              cursor.getString(cursor.getColumnIndexOrThrow(TITLE)),
                              cursor.getString(cursor.getColumnIndexOrThrow(MEMBERS)),

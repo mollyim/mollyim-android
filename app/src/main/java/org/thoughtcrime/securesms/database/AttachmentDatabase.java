@@ -122,6 +122,8 @@ public class AttachmentDatabase extends Database {
           static final String BLUR_HASH              = "blur_hash";
           static final String TRANSFORM_PROPERTIES   = "transform_properties";
           static final String DISPLAY_ORDER          = "display_order";
+          static final String UPLOAD_TIMESTAMP       = "upload_timestamp";
+          static final String CDN_NUMBER             = "cdn_number";
 
   public  static final String DIRECTORY              = "parts";
 
@@ -137,30 +139,54 @@ public class AttachmentDatabase extends Database {
 
   private static final String[] PROJECTION = new String[] {ROW_ID,
                                                            MMS_ID, CONTENT_TYPE, NAME, CONTENT_DISPOSITION,
-                                                           CONTENT_LOCATION, DATA, THUMBNAIL, TRANSFER_STATE,
-                                                           SIZE, FILE_NAME, THUMBNAIL, THUMBNAIL_ASPECT_RATIO,
-                                                           UNIQUE_ID, DIGEST, FAST_PREFLIGHT_ID, VOICE_NOTE,
-                                                           QUOTE, DATA_RANDOM, THUMBNAIL_RANDOM, WIDTH, HEIGHT,
-                                                           CAPTION, STICKER_PACK_ID, STICKER_PACK_KEY, STICKER_ID,
-                                                           DATA_HASH, BLUR_HASH, TRANSFORM_PROPERTIES, TRANSFER_FILE,
-                                                           DISPLAY_ORDER };
+                                                           CDN_NUMBER, CONTENT_LOCATION, DATA, THUMBNAIL,
+                                                           TRANSFER_STATE, SIZE, FILE_NAME, THUMBNAIL,
+                                                           THUMBNAIL_ASPECT_RATIO, UNIQUE_ID, DIGEST,
+                                                           FAST_PREFLIGHT_ID, VOICE_NOTE, QUOTE, DATA_RANDOM,
+                                                           THUMBNAIL_RANDOM, WIDTH, HEIGHT, CAPTION, STICKER_PACK_ID,
+                                                           STICKER_PACK_KEY, STICKER_ID, DATA_HASH, BLUR_HASH,
+                                                           TRANSFORM_PROPERTIES, TRANSFER_FILE, DISPLAY_ORDER,
+                                                           UPLOAD_TIMESTAMP };
 
-  public static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " (" + ROW_ID + " INTEGER PRIMARY KEY, " +
-    MMS_ID + " INTEGER, " + "seq" + " INTEGER DEFAULT 0, "                        +
-    CONTENT_TYPE + " TEXT, " + NAME + " TEXT, " + "chset" + " INTEGER, "             +
-    CONTENT_DISPOSITION + " TEXT, " + "fn" + " TEXT, " + "cid" + " TEXT, "  +
-    CONTENT_LOCATION + " TEXT, " + "ctt_s" + " INTEGER, "                 +
-    "ctt_t" + " TEXT, " + "encrypted" + " INTEGER, "                         +
-    TRANSFER_STATE + " INTEGER, "+ DATA + " TEXT, " + SIZE + " INTEGER, "   +
-    FILE_NAME + " TEXT, " + THUMBNAIL + " TEXT, " + THUMBNAIL_ASPECT_RATIO + " REAL, " +
-    UNIQUE_ID + " INTEGER NOT NULL, " + DIGEST + " BLOB, " + FAST_PREFLIGHT_ID + " TEXT, " +
-    VOICE_NOTE + " INTEGER DEFAULT 0, " + DATA_RANDOM + " BLOB, " + THUMBNAIL_RANDOM + " BLOB, " +
-    QUOTE + " INTEGER DEFAULT 0, " + WIDTH + " INTEGER DEFAULT 0, " + HEIGHT + " INTEGER DEFAULT 0, " +
-    CAPTION + " TEXT DEFAULT NULL, " + STICKER_PACK_ID + " TEXT DEFAULT NULL, " +
-    STICKER_PACK_KEY + " DEFAULT NULL, " + STICKER_ID + " INTEGER DEFAULT -1, " +
-    DATA_HASH + " TEXT DEFAULT NULL, " + BLUR_HASH + " TEXT DEFAULT NULL, " +
-    TRANSFORM_PROPERTIES + " TEXT DEFAULT NULL, " + TRANSFER_FILE + " TEXT DEFAULT NULL, " +
-    DISPLAY_ORDER + " INTEGER DEFAULT 0);";
+  public static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " (" + ROW_ID                 + " INTEGER PRIMARY KEY, " +
+                                                                                  MMS_ID                 + " INTEGER, " +
+                                                                                  "seq"                  + " INTEGER DEFAULT 0, " +
+                                                                                  CONTENT_TYPE           + " TEXT, " +
+                                                                                  NAME                   + " TEXT, " +
+                                                                                  "chset"                + " INTEGER, " +
+                                                                                  CONTENT_DISPOSITION    + " TEXT, " +
+                                                                                  "fn"                   + " TEXT, " +
+                                                                                  "cid"                  + " TEXT, "  +
+                                                                                  CONTENT_LOCATION       + " TEXT, " +
+                                                                                  "ctt_s"                + " INTEGER, " +
+                                                                                  "ctt_t"                + " TEXT, " +
+                                                                                  "encrypted"            + " INTEGER, " +
+                                                                                  TRANSFER_STATE         + " INTEGER, " +
+                                                                                  DATA                   + " TEXT, " +
+                                                                                  SIZE                   + " INTEGER, " +
+                                                                                  FILE_NAME              + " TEXT, " +
+                                                                                  THUMBNAIL              + " TEXT, " +
+                                                                                  THUMBNAIL_ASPECT_RATIO + " REAL, " +
+                                                                                  UNIQUE_ID              + " INTEGER NOT NULL, " +
+                                                                                  DIGEST                 + " BLOB, " +
+                                                                                  FAST_PREFLIGHT_ID      + " TEXT, " +
+                                                                                  VOICE_NOTE             + " INTEGER DEFAULT 0, " +
+                                                                                  DATA_RANDOM            + " BLOB, " +
+                                                                                  THUMBNAIL_RANDOM       + " BLOB, " +
+                                                                                  QUOTE                  + " INTEGER DEFAULT 0, " +
+                                                                                  WIDTH                  + " INTEGER DEFAULT 0, " +
+                                                                                  HEIGHT                 + " INTEGER DEFAULT 0, " +
+                                                                                  CAPTION                + " TEXT DEFAULT NULL, " +
+                                                                                  STICKER_PACK_ID        + " TEXT DEFAULT NULL, " +
+                                                                                  STICKER_PACK_KEY       + " DEFAULT NULL, " +
+                                                                                  STICKER_ID             + " INTEGER DEFAULT -1, " +
+                                                                                  DATA_HASH              + " TEXT DEFAULT NULL, " +
+                                                                                  BLUR_HASH              + " TEXT DEFAULT NULL, " +
+                                                                                  TRANSFORM_PROPERTIES   + " TEXT DEFAULT NULL, " +
+                                                                                  TRANSFER_FILE          + " TEXT DEFAULT NULL, " +
+                                                                                  DISPLAY_ORDER          + " INTEGER DEFAULT 0, " +
+                                                                                  UPLOAD_TIMESTAMP       + " INTEGER DEFAULT 0, " +
+                                                                                  CDN_NUMBER             + " INTEGER DEFAULT 0);";
 
   public static final String[] CREATE_INDEXS = {
     "CREATE INDEX IF NOT EXISTS part_mms_id_index ON " + TABLE_NAME + " (" + MMS_ID + ");",
@@ -482,12 +508,9 @@ public class AttachmentDatabase extends Database {
     }
 
     values.put(TRANSFER_STATE, TRANSFER_PROGRESS_DONE);
-    values.put(CONTENT_LOCATION, (String)null);
-    values.put(CONTENT_DISPOSITION, (String)null);
-    values.put(DIGEST, (byte[])null);
-    values.put(NAME, (String) null);
-    values.put(FAST_PREFLIGHT_ID, (String)null);
     values.put(TRANSFER_FILE, (String)null);
+
+    values.put(TRANSFORM_PROPERTIES, TransformProperties.forSkipTransform().serialize());
 
     if (database.update(TABLE_NAME, values, PART_ID_WHERE, attachmentId.toStrings()) == 0) {
       //noinspection ResultOfMethodCallIgnored
@@ -534,6 +557,7 @@ public class AttachmentDatabase extends Database {
     contentValues.put(DATA_RANDOM, sourceDataInfo.random);
 
     contentValues.put(TRANSFER_STATE, sourceAttachment.getTransferState());
+    contentValues.put(CDN_NUMBER, sourceAttachment.getCdnNumber());
     contentValues.put(CONTENT_LOCATION, sourceAttachment.getLocation());
     contentValues.put(DIGEST, sourceAttachment.getDigest());
     contentValues.put(CONTENT_DISPOSITION, sourceAttachment.getKey());
@@ -574,11 +598,13 @@ public class AttachmentDatabase extends Database {
 
   }
 
-  public void updateAttachmentAfterUpload(@NonNull AttachmentId id, @NonNull Attachment attachment) {
+  public void updateAttachmentAfterUpload(@NonNull AttachmentId id, @NonNull Attachment attachment, long uploadTimestamp) {
     SQLiteDatabase database = databaseHelper.getWritableDatabase();
+    DataInfo       dataInfo = getAttachmentDataFileInfo(id, DATA);
     ContentValues  values   = new ContentValues();
 
     values.put(TRANSFER_STATE, TRANSFER_PROGRESS_DONE);
+    values.put(CDN_NUMBER, attachment.getCdnNumber());
     values.put(CONTENT_LOCATION, attachment.getLocation());
     values.put(DIGEST, attachment.getDigest());
     values.put(CONTENT_DISPOSITION, attachment.getKey());
@@ -586,8 +612,13 @@ public class AttachmentDatabase extends Database {
     values.put(SIZE, attachment.getSize());
     values.put(FAST_PREFLIGHT_ID, attachment.getFastPreflightId());
     values.put(BLUR_HASH, getBlurHashStringOrNull(attachment.getBlurHash()));
+    values.put(UPLOAD_TIMESTAMP, uploadTimestamp);
 
-    database.update(TABLE_NAME, values, PART_ID_WHERE, id.toStrings());
+    if (dataInfo != null && dataInfo.hash != null) {
+      updateAttachmentAndMatchingHashes(database, id, dataInfo.hash, values);
+    } else {
+      database.update(TABLE_NAME, values, PART_ID_WHERE, id.toStrings());
+    }
   }
 
   public @NonNull DatabaseAttachment insertAttachmentForPreUpload(@NonNull Attachment attachment) throws MmsException {
@@ -1018,6 +1049,7 @@ public class AttachmentDatabase extends Database {
                                               object.getInt(TRANSFER_STATE),
                                               object.getLong(SIZE),
                                               object.getString(FILE_NAME),
+                                              object.getInt(CDN_NUMBER),
                                               object.getString(CONTENT_LOCATION),
                                               object.getString(CONTENT_DISPOSITION),
                                               object.getString(NAME),
@@ -1035,7 +1067,8 @@ public class AttachmentDatabase extends Database {
                                                   : null,
                                               BlurHash.parseOrNull(object.getString(BLUR_HASH)),
                                               TransformProperties.parse(object.getString(TRANSFORM_PROPERTIES)),
-                                              object.getInt(DISPLAY_ORDER)));
+                                              object.getInt(DISPLAY_ORDER),
+                                              object.getLong(UPLOAD_TIMESTAMP)));
           }
         }
 
@@ -1050,6 +1083,7 @@ public class AttachmentDatabase extends Database {
                                                                 cursor.getInt(cursor.getColumnIndexOrThrow(TRANSFER_STATE)),
                                                                 cursor.getLong(cursor.getColumnIndexOrThrow(SIZE)),
                                                                 cursor.getString(cursor.getColumnIndexOrThrow(FILE_NAME)),
+                                                                cursor.getInt(cursor.getColumnIndexOrThrow(CDN_NUMBER)),
                                                                 cursor.getString(cursor.getColumnIndexOrThrow(CONTENT_LOCATION)),
                                                                 cursor.getString(cursor.getColumnIndexOrThrow(CONTENT_DISPOSITION)),
                                                                 cursor.getString(cursor.getColumnIndexOrThrow(NAME)),
@@ -1067,7 +1101,8 @@ public class AttachmentDatabase extends Database {
                                                                     : null,
                                                                 BlurHash.parseOrNull(cursor.getString(cursor.getColumnIndexOrThrow(BLUR_HASH))),
                                                                 TransformProperties.parse(cursor.getString(cursor.getColumnIndexOrThrow(TRANSFORM_PROPERTIES))),
-                                                                cursor.getInt(cursor.getColumnIndexOrThrow(DISPLAY_ORDER))));
+                                                                cursor.getInt(cursor.getColumnIndexOrThrow(DISPLAY_ORDER)),
+                                                                cursor.getLong(cursor.getColumnIndexOrThrow(UPLOAD_TIMESTAMP))));
       }
     } catch (JSONException e) {
       throw new AssertionError(e);
@@ -1101,15 +1136,21 @@ public class AttachmentDatabase extends Database {
       }
     }
 
+    boolean useTemplateUpload = template.getUploadTimestamp() > attachment.getUploadTimestamp() &&
+                                template.getTransferState() == TRANSFER_PROGRESS_DONE           &&
+                                template.getTransformProperties().shouldSkipTransform()         &&
+                                !attachment.getTransformProperties().isVideoEdited();
+
     ContentValues contentValues = new ContentValues();
     contentValues.put(MMS_ID, mmsId);
     contentValues.put(CONTENT_TYPE, template.getContentType());
     contentValues.put(TRANSFER_STATE, attachment.getTransferState());
     contentValues.put(UNIQUE_ID, uniqueId);
-    contentValues.put(CONTENT_LOCATION, attachment.getLocation());
-    contentValues.put(DIGEST, attachment.getDigest());
-    contentValues.put(CONTENT_DISPOSITION, attachment.getKey());
-    contentValues.put(NAME, attachment.getRelay());
+    contentValues.put(CDN_NUMBER, useTemplateUpload ? template.getCdnNumber() : attachment.getCdnNumber());
+    contentValues.put(CONTENT_LOCATION, useTemplateUpload ? template.getLocation() : attachment.getLocation());
+    contentValues.put(DIGEST, useTemplateUpload ? template.getDigest() : attachment.getDigest());
+    contentValues.put(CONTENT_DISPOSITION, useTemplateUpload ? template.getKey() : attachment.getKey());
+    contentValues.put(NAME, useTemplateUpload ? template.getRelay() : attachment.getRelay());
     contentValues.put(FILE_NAME, StorageUtil.getCleanFileName(attachment.getFileName()));
     contentValues.put(SIZE, template.getSize());
     contentValues.put(FAST_PREFLIGHT_ID, attachment.getFastPreflightId());
@@ -1118,12 +1159,13 @@ public class AttachmentDatabase extends Database {
     contentValues.put(HEIGHT, template.getHeight());
     contentValues.put(QUOTE, quote);
     contentValues.put(CAPTION, attachment.getCaption());
+    contentValues.put(UPLOAD_TIMESTAMP, useTemplateUpload ? template.getUploadTimestamp() : attachment.getUploadTimestamp());
     if (attachment.getTransformProperties().isVideoEdited()) {
       contentValues.putNull(BLUR_HASH);
       contentValues.put(TRANSFORM_PROPERTIES, attachment.getTransformProperties().serialize());
       thumbnailTimeUs = Math.max(STANDARD_THUMB_TIME, attachment.getTransformProperties().videoTrimStartTimeUs);
     } else {
-      contentValues.put(BLUR_HASH, getBlurHashStringOrNull(attachment.getBlurHash()));
+      contentValues.put(BLUR_HASH, getBlurHashStringOrNull(template.getBlurHash()));
       contentValues.put(TRANSFORM_PROPERTIES, template.getTransformProperties().serialize());
       thumbnailTimeUs = STANDARD_THUMB_TIME;
     }

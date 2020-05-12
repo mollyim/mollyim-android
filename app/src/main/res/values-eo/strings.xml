@@ -76,6 +76,19 @@
   <string name="AudioSlidePlayer_error_playing_audio">Eraro dum ludo de sonaĵo!</string>
   <!--BlockedContactsActivity-->
   <string name="BlockedContactsActivity_blocked_contacts">Blokataj kontaktoj</string>
+  <!--BlockUnblockDialog-->
+  <string name="BlockUnblockDialog_block_and_leave_s">Ĉu bloki kaj forlasi %1$s?</string>
+  <string name="BlockUnblockDialog_block_s">Ĉu bloki %1$s?</string>
+  <string name="BlockUnblockDialog_you_will_no_longer_receive_messages_or_updates">Vi ne plu ricevos mesaĝojn kaj ĝisdatigojn el tiu ĉi grupo kaj grupanoj ne plu povos realdoni vin al ĉi tiu grupo.</string>
+  <string name="BlockUnblockDialog_group_members_wont_be_able_to_add_you">Grupanoj ne plu povos realdoni vin al tiu ĉi grupo.</string>
+  <string name="BlockUnblockDialog_group_members_will_be_able_to_add_you">Grupanoj povos denove aldoni vin al tiu ĉi grupo.</string>
+  <string name="BlockUnblockDialog_you_will_be_able_to_call_and_message_each_other">Vi povos mesaĝi kaj alvoki unu la alian.</string>
+  <string name="BlockUnblockDialog_blocked_people_wont_be_able_to_call_you_or_send_you_messages">Blokitaj kontaktoj ne eblos sendi al vi mesaĝojn aŭ alvoki vin.</string>
+  <string name="BlockUnblockDialog_unblock_s">Ĉu malbloki %1$s?</string>
+  <string name="BlockUnblockDialog_unblock">Malbloki</string>
+  <string name="BlockUnblockDialog_block">Bloki</string>
+  <string name="BlockUnblockDialog_block_and_leave">Bloki kaj forlasi</string>
+  <string name="BlockUnblockDialog_block_and_delete">Bloki kaj forigi</string>
   <!--BucketedThreadMedia-->
   <string name="BucketedThreadMedia_Today">Hodiaŭ</string>
   <string name="BucketedThreadMedia_Yesterday">Hieraŭ</string>
@@ -109,6 +122,7 @@
   <string name="ClearProfileActivity_remove_profile_photo">Ĉu forviŝi profilfoton?</string>
   <!--CommunicationActions-->
   <string name="CommunicationActions_no_browser_found">Neniu retumilo trovita.</string>
+  <string name="CommunicationActions_no_email_app_found">Neniu retpoŝtilo trovita.</string>
   <string name="CommunicationActions_a_cellular_call_is_already_in_progress">Alia alvoko jam estas okazanta.</string>
   <string name="CommunicationActions_start_video_call">Ĉu eki vid-alvokon?</string>
   <string name="CommunicationActions_start_voice_call">Ĉu eki voĉ-alvokon?</string>
@@ -156,6 +170,7 @@
   <string name="ConversationItem_read_more">  Legi pli</string>
   <string name="ConversationItem_download_more">   Elŝuti pli</string>
   <string name="ConversationItem_pending">  Pritraktota</string>
+  <string name="ConversationItem_this_message_was_deleted">Tiu ĉi mesaĝo forviŝiĝis.</string>
   <!--ConversationActivity-->
   <string name="ConversationActivity_reset_secure_session_question">Ĉu restarigi sekuran seancon?</string>
   <string name="ConversationActivity_this_may_help_if_youre_having_encryption_problems">Ĉi tio eble helpos, se vi havas ĉifrajn problemojn en ĉi tiu interparolo. Viaj mesaĝoj konserviĝos.</string>
@@ -206,15 +221,6 @@
   <string name="ConversationActivity_no_results">Neniu rezulto</string>
   <string name="ConversationActivity_sticker_pack_installed">Glumarkaro instaliĝis</string>
   <string name="ConversationActivity_new_say_it_with_stickers">Nove! Parolu per glumarkoj</string>
-  <string name="ConversationActivity_block_s">Ĉu bloki %1$s?</string>
-  <string name="ConversationActivity_block_and_leave_s">Ĉu bloki kaj forlasi %1$s?</string>
-  <string name="ConversationActivity_unblock_s">Ĉu malbloki %1$s?</string>
-  <string name="ConversationActivity_you_will_be_able_to_message_and_call_each_other">Vi povos mesaĝi kaj alvoki unu la alian.</string>
-  <string name="ConversationActivity_group_members_will_be_able_to_add_you_to_this_group_again">Grupanoj povos denove aldoni vin al tiu ĉi grupo.</string>
-  <string name="ConversationActivity_blocked_people_will_not_be_able_to_call_you_or_send_you_messages">Blokitaj kontaktoj ne eblos sendi al vi mesaĝojn aŭ alvoki vin.</string>
-  <string name="ConversationActivity_you_will_leave_this_group_and_no_longer_receive_messages_or_updates">Vi forlasos tiun grupon kaj ne plu ricevos mesaĝojn kaj ĝisdatigojn.</string>
-  <string name="ConversationActivity_block">Bloki</string>
-  <string name="ConversationActivity_block_and_delete">Bloki kaj forigi</string>
   <string name="ConversationActivity_cancel">Nuligi</string>
   <string name="ConversationActivity_delete_conversation">Ĉu forviŝi konversacion?</string>
   <string name="ConversationActivity_delete_and_leave_group">Ĉu forigi kaj forlasi la grupon?</string>
@@ -260,6 +266,8 @@
   <string name="ConversationFragment_sms">SMS</string>
   <string name="ConversationFragment_deleting">Forviŝado</string>
   <string name="ConversationFragment_deleting_messages">Forviŝado de mesaĝoj…</string>
+  <string name="ConversationFragment_delete_for_me">Forviŝi nur por mi</string>
+  <string name="ConversationFragment_delete_for_everyone">Forviŝi por ĉiuj</string>
   <string name="ConversationFragment_quoted_message_not_found">Origina mesaĝo ne troveblas</string>
   <string name="ConversationFragment_quoted_message_no_longer_available">Origina mesaĝo ne plu disponeblas</string>
   <string name="ConversationFragment_failed_to_open_message">Malsukceso malfermi la mesaĝon</string>
@@ -373,12 +381,44 @@
   <string name="GroupCreateActivity_cannot_add_non_push_to_existing_group">Ne eblis aldoni %1$s, ĉar li aŭ ŝi ne estas Signal-uzanto.</string>
   <string name="GroupCreateActivity_loading_group_details">Ŝargo de la grupdetaloj…</string>
   <string name="GroupCreateActivity_youre_already_in_the_group">Vi jam estas en la grupo.</string>
+  <string name="GroupCreateActivity_remove_member_description">Forigi grupanon</string>
   <!--GroupShareProfileView-->
   <string name="GroupShareProfileView_share_your_profile_name_and_photo_with_this_group">Ĉu kunhavigi viajn profilajn nomon kaj foton kun tiu ĉi grupo?</string>
   <string name="GroupShareProfileView_do_you_want_to_make_your_profile_name_and_photo_visible_to_all_current_and_future_members_of_this_group">Ĉu vi volas videbligi viajn profilajn nomon kaj foton al ĉiuj nunaj kaj venontaj grupanoj?</string>
   <string name="GroupShareProfileView_make_visible">Videbligi</string>
   <!--GroupMembersDialog-->
   <string name="GroupMembersDialog_you">Vi</string>
+  <!--GV2 access levels-->
+  <string name="GroupManagement_access_level_anyone">Iu</string>
+  <string name="GroupManagement_access_level_all_members">Ĉiuj grupanoj</string>
+  <string name="GroupManagement_access_level_only_admins">Nur administrantoj</string>
+  <!--PendingMembersActivity-->
+  <string name="PendingMemberInvitesActivity_pending_group_invites">Pritraktotaj grupinvitoj</string>
+  <string name="PendingMembersActivity_people_you_invited">Homoj, kiujn vi invitis</string>
+  <string name="PendingMembersActivity_you_have_no_pending_invites">Vi ne havas invitojn  pritraktotajn.</string>
+  <string name="PendingMembersActivity_invites_by_other_group_members">Invitoj el aliaj grupanoj</string>
+  <string name="PendingMembersActivity_no_pending_invites_by_other_group_members">Neniu pritraktota invito el aliaj grupanoj.</string>
+  <string name="PendingMembersActivity_missing_detail_explanation">La detaloj pri homoj invititaj de aliaj grupanoj ne montriĝas. Ĉu invititoj decidas aliĝi, iliaj informoj tiam kunhaviĝos kun la grupo. Ili ne vidos mesaĝojn antaŭ ol ili aliĝas.</string>
+  <string name="PendingMembersActivity_cancel_invite">Nuligi inviton</string>
+  <string name="PendingMembersActivity_cancel_invites">Nuligi invitojn</string>
+  <plurals name="PendingMembersActivity_cancel_d_invites">
+    <item quantity="one">Nuligi inviton</item>
+    <item quantity="other">Nuligi %1$d invitojn</item>
+  </plurals>
+  <plurals name="PendingMembersActivity_error_canceling_invite">
+    <item quantity="one">Eraro dum nuligo de la invito</item>
+    <item quantity="other">Eraro dum nuligo de la invitoj</item>
+  </plurals>
+  <plurals name="GroupMemberList_invited">
+    <item quantity="one">%1$s invitis 1 homon</item>
+    <item quantity="other">%1$s invitis %2$d homojn</item>
+  </plurals>
+  <!--GV2 Invite cancellation confirmation-->
+  <string name="GroupManagement_cancel_own_single_invite">Ĉu vi volas nuligi inviton senditan de vi al %1$s?</string>
+  <plurals name="GroupManagement_cancel_others_invites">
+    <item quantity="one">Ĉu vi volas nuligi la inviton senditan de %1$s?</item>
+    <item quantity="other">Ĉu vi volas nuligi la %2$d invitojn senditajn de %1$s?</item>
+  </plurals>
   <!--CropImageActivity-->
   <string name="CropImageActivity_group_avatar">Bildo de la grupo</string>
   <string name="CropImageActivity_profile_avatar">Avataro</string>
@@ -407,6 +447,8 @@
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Amikoj ne lasas amikojn babili neĉifrite.</string>
   <!--Job-->
   <string name="Job_working_in_the_background">Laborado en la fono…</string>
+  <!--LearnMoreTextView-->
+  <string name="LearnMoreTextView_learn_more">Scii pli</string>
   <!--MessageDetailsRecipient-->
   <string name="MessageDetailsRecipient_failed_to_send">Malsukcesa sendo</string>
   <string name="MessageDetailsRecipient_new_safety_number">Nova sekuriga numero</string>
@@ -517,6 +559,62 @@
   <string name="MessageRecord_s_disabled_disappearing_messages">%1$s malŝaltis memviŝontajn mesaĝojn.</string>
   <string name="MessageRecord_you_set_disappearing_message_time_to_s">Vi agordis la malaperon de la memviŝontaj mesaĝoj al %1$s.</string>
   <string name="MessageRecord_s_set_disappearing_message_time_to_s">%1$s agordis la malaperon de la memviŝontaj mesaĝoj al %2$s.</string>
+  <!--GV2 specific-->
+  <!--GV2 member additions-->
+  <string name="MessageRecord_you_added_s">Vi aldonis %1$s.</string>
+  <string name="MessageRecord_s_added_s">%1$s aldonis %2$s.</string>
+  <string name="MessageRecord_s_added_you">%1$s aldonis vin al la grupo.</string>
+  <string name="MessageRecord_you_joined_the_group">Vi aniĝis al la grupo.</string>
+  <string name="MessageRecord_s_joined_the_group">%1$s estis aldonitaj al la grupo.</string>
+  <!--GV2 member removals-->
+  <string name="MessageRecord_you_removed_s">Vi forigis %1$s.</string>
+  <string name="MessageRecord_s_removed_s">%1$s forigis %2$s.</string>
+  <string name="MessageRecord_s_removed_you_from_the_group">%1$s forigis vin el la grupo.</string>
+  <string name="MessageRecord_you_left_the_group">Vi forlasis la grupon.</string>
+  <string name="MessageRecord_s_left_the_group">%1$s forlasis la grupon.</string>
+  <!--GV2 role change-->
+  <string name="MessageRecord_you_made_s_an_admin">Vi donis al %1$s la rolon de administranto.</string>
+  <string name="MessageRecord_s_made_s_an_admin">%1$sdonis al %2$s la rolon de administranto.</string>
+  <string name="MessageRecord_s_made_you_an_admin">%1$sdonis al vi la rolon de administranto.</string>
+  <string name="MessageRecord_you_revoked_admin_privileges_from_s">Vi forigis la rolon de administranto de %1$s.</string>
+  <string name="MessageRecord_s_revoked_your_admin_privileges">%1$s forigis al vi la rolon de administranto.</string>
+  <string name="MessageRecord_s_revoked_admin_privileges_from_s">%1$s forigis la rolon de administranto de %2$s.</string>
+  <!--GV2 invitations-->
+  <string name="MessageRecord_you_invited_s_to_the_group">Vi invitis %1$s al la grupo.</string>
+  <string name="MessageRecord_s_invited_you_to_the_group">%1$s invitis vin al la grupo.</string>
+  <plurals name="MessageRecord_s_invited_members">
+    <item quantity="one">%1$s invitis unu homon al la grupo.</item>
+    <item quantity="other">%1$s invitis %2$d homojn al la grupo.</item>
+  </plurals>
+  <!--GV2 invitation revokes-->
+  <plurals name="MessageRecord_you_revoked_invites">
+    <item quantity="one">Vi senvalidigis unu inviton al la grupo.</item>
+    <item quantity="other">Vi senvalidigis %1$d invitojn al la grupo.</item>
+  </plurals>
+  <plurals name="MessageRecord_s_revoked_invites">
+    <item quantity="one">%1$s senvalidigis unu inviton al la grupo.</item>
+    <item quantity="other">%1$s senvalidigis %2$d invitojn al la grupo.</item>
+  </plurals>
+  <string name="MessageRecord_someone_declined_an_invitation_to_the_group">Iu malakceptis inviton al la grupo.</string>
+  <string name="MessageRecord_you_declined_the_invitation_to_the_group">Vi malakceptis la inviton al la grupo.</string>
+  <!--GV2 invitation acceptance-->
+  <string name="MessageRecord_you_accepted_invite">Vi akceptis la inviton al la grupo.</string>
+  <string name="MessageRecord_s_accepted_invite">%1$s akceptis la inviton al la grupo.</string>
+  <string name="MessageRecord_you_added_invited_member_s">Vi aldonis invititon %1$s.</string>
+  <string name="MessageRecord_s_added_invited_member_s">%1$s aldonis invititon %2$s.</string>
+  <!--GV2 title change-->
+  <string name="MessageRecord_you_changed_the_group_name_to_s">Vi ŝanĝis la grupnomon al „%1$s“.</string>
+  <string name="MessageRecord_s_changed_the_group_name_to_s">%1$s ŝanĝis la grupnomon al „%2$s“.</string>
+  <!--GV2 avatar change-->
+  <string name="MessageRecord_you_changed_the_group_avatar">Vi ŝanĝis la grupavataron.</string>
+  <string name="MessageRecord_s_changed_the_group_avatar">%1$s ŝanĝis la grupavataron.</string>
+  <!--GV2 attribute access level change-->
+  <string name="MessageRecord_you_changed_who_can_edit_group_info_to_s">Vi ŝanĝis, kiu povas modifi la grupinformojn al „%1$s“.</string>
+  <string name="MessageRecord_s_changed_who_can_edit_group_info_to_s">%1$s ŝanĝis, kiu povas modifi la grupinformojn al „%2$s“.</string>
+  <!--GV2 membership access level change-->
+  <string name="MessageRecord_you_changed_who_can_edit_group_membership_to_s">Vi ŝanĝis, kiu povas modifi la grupan membrecon al „%1$s“.</string>
+  <string name="MessageRecord_s_changed_who_can_edit_group_membership_to_s">%1$s ŝanĝis, kiu povas modifi la grupan membrecon al „%2$s“.</string>
+  <!--End of GV2 specific update messages-->
   <string name="MessageRecord_your_safety_number_with_s_has_changed">Via sekuriga numero kun %s ŝanĝiĝis.</string>
   <string name="MessageRecord_you_marked_your_safety_number_with_s_verified">Vi markis vian sekurigan numeron kun %s kiel konfirmita.</string>
   <string name="MessageRecord_you_marked_your_safety_number_with_s_verified_from_another_device">Vi markis, el alia aparato, vian sekurigan numeron kun %s kiel konfirmita.</string>
@@ -588,6 +686,28 @@
   <string name="PlacePickerActivity_accept_address">Akcepti la adreson</string>
   <!--PlayServicesProblemFragment-->
   <string name="PlayServicesProblemFragment_the_version_of_google_play_services_you_have_installed_is_not_functioning">La instalita versio de la Google-servoj „Play“ ne bone funkcias. Bv. re-instali „Google Play Services“, kaj provi denove.</string>
+  <!--PinRestoreEntryFragment-->
+  <string name="PinRestoreEntryFragment_incorrect_pin">Malĝusta PIN</string>
+  <string name="PinRestoreEntryFragment_skip_pin_entry">Ĉu preterpasi PIN-enigon?</string>
+  <string name="PinRestoreEntryFragment_need_help">Ĉu vi bezonas helpon?</string>
+  <string name="PinRestoreEntryFragment_your_pin_is_a_d_digit_code">Via PIN (persona identiga numero) estas kodo almenaŭ %1$d signojn longa, kiun vi kreis, kaj ĝi povas esti cifera aŭ litercifera.\n\nSe vi ne povas rememori vian PIN, vi povas krei novan. Vi povos registri kaj uzi vian konton, sed vi perdos kelkajn agordojn (kiel vian profilinformon).</string>
+  <string name="PinRestoreEntryFragment_if_you_cant_remember_your_pin">Se vi ne povas rememori vian PIN, vi povas krei novan. Vi povos registri kaj uzi vian konton, sed vi perdos kelkajn agordojn (kiel vian profilinformon).</string>
+  <string name="PinRestoreEntryFragment_create_new_pin">Krei novan PIN</string>
+  <string name="PinRestoreEntryFragment_contact_support">Kontakti subtenon</string>
+  <string name="PinRestoreEntryFragment_cancel">Nuligi</string>
+  <string name="PinRestoreEntryFragment_skip">Preterpasi</string>
+  <plurals name="PinRestoreEntryFragment_you_have_d_attempt_remaining">
+    <item quantity="one">Restas %1$d provo. Se vi ne plu havas provojn, vi povas krei novan PIN. Vi povas registri kaj uzi vian konton, sed vi perdos kelkajn agordojn (kiel vian profilinformon).</item>
+    <item quantity="other">Restas %1$d provoj. Se vi ne plu havas provojn, vi povas krei novan PIN. Vi povas registri kaj uzi vian konton, sed vi perdos kelkajn agordojn (kiel vian profilinformon).</item>
+  </plurals>
+  <string name="PinRestoreEntryFragment_signal_registration_need_help_with_pin">Signal-registriĝo — Helpbezono pri PIN ĉe Android</string>
+  <string name="PinRestoreEntryFragment_subject_signal_registration">Pri: Signal-registriĝo — Helpbezono pri PIN ĉe Android\nAparata informo: %1$s\nAndroid-versio: %2$s\nSignal-versio: %3$s\nLokaĵaro: %4$s</string>
+  <string name="PinRestoreEntryFragment_enter_alphanumeric_pin">Entajpu literciferan PIN</string>
+  <string name="PinRestoreEntryFragment_enter_numeric_pin">Entajpu ciferan PIN</string>
+  <!--PinRestoreLockedFragment-->
+  <string name="PinRestoreLockedFragment_create_your_pin">Krei vian PIN</string>
+  <string name="PinRestoreLockedFragment_youve_run_out_of_pin_guesses">Vi ne plu povas enigi vian PIN, sed vi tamen povas aliri vian Signal-konton por krei novan PIN. Pro via privateco kaj sekureco, via konto restariĝos sen iuj konservitaj profilinformojn aŭ agordojn.</string>
+  <string name="PinRestoreLockedFragment_create_new_pin">Krei novan PIN</string>
   <!--RatingManager-->
   <string name="RatingManager_rate_this_app">Pritaksi tiun aplikaĵon</string>
   <string name="RatingManager_if_you_enjoy_using_this_app_please_take_a_moment">Se vi ŝatas uzi tiun aplikaĵon, bv. helpi nin per via pritakso.</string>
@@ -602,16 +722,7 @@
   <!--ReactionsRecipientAdapter-->
   <string name="ReactionsRecipientAdapter_you">Vi</string>
   <!--RecipientPreferencesActivity-->
-  <string name="RecipientPreferenceActivity_block_this_contact_question">Ĉu bloki ĉi tiun kontakton?</string>
-  <string name="RecipientPreferenceActivity_you_will_no_longer_receive_messages_and_calls_from_this_contact">Vi ne plu ricevos mesaĝojn kaj alvokojn el tiu kontakto.</string>
-  <string name="RecipientPreferenceActivity_block_and_leave_group">Ĉu bloki kaj forlasi la grupon?</string>
-  <string name="RecipientPreferenceActivity_block_group">Ĉu bloki la grupon?</string>
-  <string name="RecipientPreferenceActivity_block_and_leave_group_description">Vi ne plu ricevos mesaĝojn kaj ĝisdatigojn el tiu grupo.</string>
   <string name="RecipientPreferenceActivity_block">Bloki</string>
-  <string name="RecipientPreferenceActivity_unblock_this_contact_question">Ĉu malbloki ĉi tiun kontakton?</string>
-  <string name="RecipientPreferenceActivity_you_will_once_again_be_able_to_receive_messages_and_calls_from_this_contact">Vi ree ricevos mesaĝojn kaj alvokojn de ĉi tiu kontakto.</string>
-  <string name="RecipientPreferenceActivity_unblock_this_group_question">Ĉu malbloki tiun grupon?</string>
-  <string name="RecipientPreferenceActivity_unblock_this_group_description">Ekzistantaj anoj povos denove aldoni vin al la grupo.</string>
   <string name="RecipientPreferenceActivity_error_leaving_group">Eraro dum forlaso de grupo</string>
   <string name="RecipientPreferenceActivity_unblock">Malbloki</string>
   <string name="RecipientPreferenceActivity_enabled">Ŝaltita</string>
@@ -654,7 +765,7 @@
   <string name="RegistrationActivity_less_information">Malplia informo</string>
   <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly bezonas aliri al viaj kontaktoj kaj aŭdvidaĵoj por konekti kun amikoj, interŝanĝi mesaĝojn, kaj fari sekurajn alvokojn.</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">Konekto al servo ne eblas. Bv. kontroli retkonekton, kaj provi denove.</string>
-  <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">Por facile kontroli vian telefonnumeron, Signal povas aŭtomate depreni la validigan kodon, se vi permesas al Signal aliri al viaj SMS-mesaĝoj.</string>
+  <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">Por facile kontroli vian telefonnumeron, Molly povas aŭtomate depreni la validigan kodon, se vi permesas al Molly aliri al viaj SMS-mesaĝoj.</string>
   <plurals name="RegistrationActivity_debug_log_hint">
     <item quantity="one">Restas al vi %d paŝo antaŭ ol sendi protokolan dosieron pri sencimigo.</item>
     <item quantity="other">Restas al vi %dpaŝoj antaŭ ol sendi protokolan dosieron pri sencimigo.</item>
@@ -672,6 +783,12 @@
   <string name="RegistrationActivity_phone_number_description">Telefonnumero</string>
   <string name="RegistrationActivity_country_code_description">Landokodo</string>
   <string name="RegistrationActivity_call">Alvoko</string>
+  <!--RegistrationLockV2Dialog-->
+  <string name="RegistrationLockV2Dialog_turn_on_registration_lock">Ĉu aktivigi blokon de registriĝo?</string>
+  <string name="RegistrationLockV2Dialog_turn_off_registration_lock">Ĉu malaktivigi blokon de registriĝo?</string>
+  <string name="RegistrationLockV2Dialog_if_you_forget_your_signal_pin_when_registering_again">Se vi forgesas vian Signal-PIN registrante kun Signal denove, vi ne plu povos aliri vian konton dum 7 tagoj.</string>
+  <string name="RegistrationLockV2Dialog_turn_on">Aktivigi</string>
+  <string name="RegistrationLockV2Dialog_turn_off">Malaktivigi</string>
   <!--RevealableMessageView-->
   <string name="RevealableMessageView_view_photo">Vidi foton</string>
   <string name="RevealableMessageView_view_video">Vidi videaĵon</string>
@@ -757,6 +874,7 @@ Ricevis mesaĝon pri interŝanĝo de ŝlosiloj por nevalida protokola versio.
   <string name="ThreadRecord_view_once_photo">Nurunufoje videbla foto</string>
   <string name="ThreadRecord_view_once_video">Nurunufoje videbla videaĵo</string>
   <string name="ThreadRecord_view_once_media">Nurunufoje videbla aŭdvidaĵo</string>
+  <string name="ThreadRecord_this_message_was_deleted">Tiu ĉi mesaĝo forviŝiĝis.</string>
   <string name="ThreadRecord_s_is_on_signal">%s estas ĉe Signal!</string>
   <string name="ThreadRecord_disappearing_messages_disabled">Memviŝontaj mesaĝoj malŝaltita</string>
   <string name="ThreadRecord_disappearing_message_time_updated_to_s">Daŭro de memviŝontaj mesaĝoj agordita je %s</string>
@@ -866,6 +984,7 @@ Ricevis mesaĝon pri interŝanĝo de ŝlosiloj por nevalida protokola versio.
   <string name="MessageNotifier_reacted_s_to_your_view_once_photo">Reagis per %1$s al via nurunufoje videbla bildo.</string>
   <string name="MessageNotifier_reacted_s_to_your_view_once_video">Reagis per %1$s al via nurunufoje videbla videaĵo.</string>
   <string name="MessageNotifier_reacted_s_to_your_sticker">Reagis per %1$s al via glumarko.</string>
+  <string name="MessageNotifier_this_message_was_deleted">Tiu ĉi mesaĝo forviŝiĝis.</string>
   <!--Notification Channels-->
   <string name="NotificationChannel_messages">Defaŭlta</string>
   <string name="NotificationChannel_calls">Alvokoj</string>
@@ -1110,7 +1229,7 @@ Ricevis mesaĝon pri interŝanĝo de ŝlosiloj por nevalida protokola versio.
     <item quantity="one">%1$s estis aldonita al la grupo.</item>
     <item quantity="other">%1$s estis aldonitaj al la grupo.</item>
   </plurals>
-  <string name="GroupUtil_group_name_is_now">La grupnomo estas de nun „%1$s“.</string>
+  <string name="GroupUtil_group_name_is_now">La grupnomo estas nun „%1$s“.</string>
   <!--profile_group_share_view-->
   <string name="profile_group_share_view__make_your_profile_name_and_photo_visible_to_this_group">Ĉu vidigi viajn profilajn nomon kaj foton al tiu ĉi grupo?</string>
   <!--prompt_passphrase_activity-->
@@ -1423,6 +1542,7 @@ Ricevis mesaĝon pri interŝanĝo de ŝlosiloj por nevalida protokola versio.
   <string name="conversation__menu_view_all_media">Ĉiuj aŭvidaĵoj</string>
   <string name="conversation__menu_conversation_settings">Agordoj pri interparolo</string>
   <string name="conversation__menu_add_shortcut">Aldoni al la ĉefekrano</string>
+  <string name="conversation__menu_pending_members">Pritraktotaj anojn</string>
   <!--conversation_popup-->
   <string name="conversation_popup__menu_expand_popup">Montri spruĉmenuon</string>
   <!--conversation_callable_insecure-->
@@ -1515,25 +1635,22 @@ Ricevis mesaĝon pri interŝanĝo de ŝlosiloj por nevalida protokola versio.
     <item quantity="other">Via PIN estu almenaŭ %1$d ciferajn longa</item>
   </plurals>
   <string name="CreateKbsPinFragment__create_a_new_pin">Krei novan PIN</string>
-  <plurals name="CreateKbsPinFragment__you_can_choose_a_new_pin_because_this_device_is_registered">
-    <item quantity="one">Vi povas elekti novan PIN, ĉar via aparato estas registrita. Se vi forgesos vian PIN, vi bezonos atendi %1$d tagon antaŭ ol registriĝi ree.</item>
-    <item quantity="other">Vi povas elekti novan PIN, ĉar via aparato estas registrita. Se vi forgesos vian PIN, vi bezonos atendi %1$d tagojn antaŭ ol registriĝi ree.</item>
-  </plurals>
+  <string name="CreateKbsPinFragment__you_can_choose_a_new_pin_as_long_as_this_device_is_registered">Vi povas ŝanĝi vian PIN tiel longe, kiel tiu ĉi aparato estas registrita.</string>
   <string name="CreateKbsPinFragment__create_your_pin">Krei vian PIN</string>
-  <string name="CreateKbsPinFragment__pins_add_extra_security_to_your_account">PIN aldonas plian tavolon de sekurigo ĉe via konto, kaj ĝi ne estas rehavebla. Vi bezonos vian PIN por re-registriĝi al Signal. </string>
+  <string name="CreateKbsPinFragment__pins_keep_information_stored_with_signal_encrypted">PIN konservas informojn ĉifritajn ĉe Signal, tiel ke nur vi povas aliri ilin. Via profilo, viaj agordoj kaj kontaktoj revenos, kiam vi reinstalos Signal-on.</string>
+  <string name="CreateKbsPinFragment__choose_a_stronger_pin">Elektu pli fortikan PIN-on</string>
   <!--ConfirmKbsPinFragment-->
   <string name="ConfirmKbsPinFragment__pins_dont_match">La du PIN-oj malsamas. Re-provu.</string>
   <string name="ConfirmKbsPinFragment__confirm_your_pin">Konfirmu vian PIN.</string>
   <string name="ConfirmKbsPinFragment__pin_creation_failed">Kreo de la PIN malsukcesis</string>
   <string name="ConfirmKbsPinFragment__your_pin_was_not_saved">Via PIN ne konserviĝis. Ni petos vin krei PIN-on poste.</string>
   <string name="ConfirmKbsPinFragment__pin_created">PIN kreiĝis.</string>
-  <string name="ConfirmKbsPinFragment__re_enter_pin">Reentajpu vian PIN</string>
+  <string name="ConfirmKbsPinFragment__re_enter_your_pin">Reentajpu vian PIN</string>
   <string name="ConfirmKbsPinFragment__creating_pin">Kreo de PIN…</string>
   <!--KbsSplashFragment-->
   <string name="KbsSplashFragment__introducing_pins">Jen la „persona identiga numero“ (PIN)</string>
-  <string name="KbsSplashFragment__pins_add_another_level_of_security_to_your_account">PIN aldonas plian tavolon de sekurigo ĉe via konto. Kreu unu nun.</string>
+  <string name="KbsSplashFragment__pins_keep_information_stored_with_signal_encrypted">PIN konservas informojn ĉifritajn ĉe Signal, tiel ke nur vi povas aliri ilin. Via profilo, viaj agordoj kaj kontaktoj revenos, kiam vi reinstalos Signal-on.</string>
   <string name="KbsSplashFragment__learn_more">Scii pli</string>
-  <string name="KbsSplashFragment__learn_more_link">https://support.signal.org/hc/en-us/articles/360007059792-Registration-Lock</string>
   <string name="KbsSplashFragment__registration_lock_equals_pin">Bloko de registriĝo = PIN</string>
   <string name="KbsSplashFragment__your_registration_lock_is_now_called_a_pin">„Bloko de registriĝo“ nomiĝas nun „PIN“, kaj ĝi faras pli. Ĝisdatigu ĝin nun.</string>
   <string name="KbsSplashFragment__read_more_about_pins">Legu pli pri PIN.</string>
@@ -1551,7 +1668,6 @@ Ricevis mesaĝon pri interŝanĝo de ŝlosiloj por nevalida protokola versio.
   <string name="AccountLockedFragment__your_account_has_been_locked_to_protect_your_privacy">Via konto ŝlosiĝis por protekti vian privatecon kaj sekurecon. Post %1$d tagoj de neaktiveco, vi povos re-registrigi tiun telefonnumeron sen bezono de via PIN. Ĉiu enhavo foriĝos.</string>
   <string name="AccountLockedFragment__next">Sekva</string>
   <string name="AccountLockedFragment__learn_more">Scii pli</string>
-  <string name="AccountLockedFragment__learn_more_url">https://support.signal.org/hc/en-us/articles/360007059792-Registration-Lock</string>
   <!--KbsLockFragment-->
   <string name="RegistrationLockFragment__enter_your_pin">Entajpu vian PIN</string>
   <string name="RegistrationLockFragment__enter_the_pin_you_created">Entajpu la PIN-on, kiun vi kreis por via konto. Ĝi ne estas la sama kiel la SMS-kontrolkodo.</string>
@@ -1585,10 +1701,9 @@ Ricevis mesaĝon pri interŝanĝo de ŝlosiloj por nevalida protokola versio.
   </plurals>
   <!--KBS Megaphone-->
   <string name="KbsMegaphone__create_a_pin">Krei  PIN-on</string>
-  <string name="KbsMegaphone__pins_add_another_layer_of_security_to_your_signal_account">PIN aldonas plian tavolon de sekurigo al via Signal-konto.</string>
+  <string name="KbsMegaphone__pins_keep_information_thats_stored_with_signal_encrytped">La informoj konservitaj ĉe Signal estas  ĉifritaj danke al PIN.</string>
   <string name="KbsMegaphone__create_pin">Krei  PIN-on</string>
   <string name="KbsMegaphone__introducing_pins">Jen la „persona identiga numero“ (PIN)</string>
-  <string name="KbsMegaphone__your_registration_lock_is_now_called_a_pin">Via „bloko de registriĝo“ nomiĝas nun „PIN“, kaj ĝi faras pli. Ĝisdatigo al tio estas rapida.</string>
   <string name="KbsMegaphone__update_pin">Ĝisdatigi PIN-on</string>
   <string name="KbsMegaphone__well_remind_you_later_creating_a_pin">Ni memorigos vin poste. Kreado de PIN nepros post %1$d tagoj.</string>
   <string name="KbsMegaphone__well_remind_you_later_confirming_your_pin">Ni memorigos vin poste. Konfirmado de PIN nepros post %1$d tagoj.</string>
@@ -1661,10 +1776,12 @@ Ricevis mesaĝon pri interŝanĝo de ŝlosiloj por nevalida protokola versio.
   <string name="preferences_app_protection__lock_signal_access_with_android_screen_lock_or_fingerprint">Ŝlosi aliron al Signal per Androida ekranŝloso aŭ fingropremaĵo</string>
   <string name="preferences_app_protection__screen_lock_inactivity_timeout">Neaktiveca eltempiĝo antaŭ ol ŝlosi la ekranon</string>
   <string name="preferences_app_protection__signal_pin">Signal-PIN</string>
-  <string name="preferences_app_protection__pin">PIN</string>
-  <string name="preferences_app_protection__change">Ŝanĝi</string>
-  <string name="preferences_app_protection__create">Krei</string>
-  <string name="preferences_app_protection__your_pin_adds_an_extra_layer_of_security_to_your_account">Via PIN aldonas plian tavolon de sekurigo ĉe via konto. Oni petos ĝin al vi, kiam vi registros vian telefonnumeron ĉe Signal. Se vi forgesas vian PIN, vi ne plu povos aliri vian konton dum 7 tagoj.</string>
+  <string name="preferences_app_protection__create_a_pin">Krei  PIN-on</string>
+  <string name="preferences_app_protection__change_your_pin">Ŝanĝu vian PIN</string>
+  <string name="preferences_app_protection__pins_keep_information_stored_with_signal_encrypted">PIN konservas informojn ĉifritajn ĉe Signal, tiel ke nur vi povas aliri ilin. Via profilo, viaj agordoj kaj kontaktoj revenos, kiam vi reinstalos Signal-on.</string>
+  <string name="preferences_app_protection__add_extra_security_by_requiring_your_signal_pin_to_register">Aldonu plian sekurigon postulante, ke via Signal-PIN estu deviga por reregistri vian telefonnumeron al Signal.</string>
+  <string name="preferences_app_protection__failed_to_enable_registration_lock">Malsukceso ebligi la blokon de registriĝo</string>
+  <string name="preferences_app_protection__failed_to_disable_registration_lock">Malsukceso malebligi la blokon de registriĝo</string>
   <string name="AppProtectionPreferenceFragment_none">Neniu</string>
   <string name="registration_activity__the_registration_lock_pin_is_not_the_same_as_the_sms_verification_code_you_just_received_please_enter_the_pin_you_previously_configured_in_the_application">La persona identiga numero de bloko de registriĝo ne estas la sama kodo kiel la SMS-kontrolkodo, kiun vi ĵus ricevis. Bv. entajpi la personan identigan numeron, kiun vi antaŭe agordis en la aplikaĵo.</string>
   <string name="registration_activity__registration_lock_pin">PIN de bloko de registriĝo</string>
@@ -1693,7 +1810,7 @@ Ricevis mesaĝon pri interŝanĝo de ŝlosiloj por nevalida protokola versio.
   <string name="RegistrationLockDialog_registration_lock_helps_protect_your_phone_number_from_unauthorized_registration_attempts">Bloko de registriĝo helpas protekti vian telefonnumeron kontraŭ nerajtigita provo de registriĝo. Tio povas estas malŝaltita en viaj Signal-agordoj pri privateco</string>
   <string name="RegistrationLockDialog_registration_lock">Bloko de registriĝo</string>
   <string name="RegistrationLockDialog_enable">Ŝalti</string>
-  <string name="RegistrationLockDialog_the_registration_lock_pin_must_be_at_least_d_digits">La PIN estu almenaŭ %d ciferajn longa.</string>
+  <string name="RegistrationLockDialog_the_registration_lock_pin_must_be_at_least_d_digits">La PIN de bloko de registriĝo estu almenaŭ %d ciferajn longa.</string>
   <string name="RegistrationLockDialog_the_two_pins_you_entered_do_not_match">La du PIN, kiujn vi entajpis, ne kongruas.</string>
   <string name="RegistrationLockDialog_error_connecting_to_the_service">Eraro dum konekto al servo</string>
   <string name="RegistrationLockDialog_disable_registration_lock_pin">Ĉu malŝalti la PIN de bloko de registriĝo?</string>

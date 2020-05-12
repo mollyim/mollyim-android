@@ -16,7 +16,7 @@ import org.thoughtcrime.securesms.database.documents.Document;
 import org.thoughtcrime.securesms.database.documents.IdentityKeyMismatch;
 import org.thoughtcrime.securesms.database.documents.IdentityKeyMismatchList;
 import org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper;
-import org.thoughtcrime.securesms.database.model.DatabaseProtos.ReactionList;
+import org.thoughtcrime.securesms.database.model.databaseprotos.ReactionList;
 import org.thoughtcrime.securesms.database.model.ReactionRecord;
 import org.thoughtcrime.securesms.insights.InsightsConstants;
 import org.thoughtcrime.securesms.logging.Log;
@@ -49,6 +49,9 @@ public abstract class MessagingDatabase extends Database implements MmsSmsColumn
 
   public abstract void markAsSent(long messageId, boolean secure);
   public abstract void markUnidentified(long messageId, boolean unidentified);
+
+  public abstract void markAsSending(long messageId);
+  public abstract void markAsRemoteDelete(long messageId);
 
   final int getInsecureMessagesSentForThread(long threadId) {
     SQLiteDatabase db         = databaseHelper.getReadableDatabase();

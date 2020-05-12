@@ -76,6 +76,19 @@
   <string name="AudioSlidePlayer_error_playing_audio">S\'ha produït un error en reproduir l\'àudio.</string>
   <!--BlockedContactsActivity-->
   <string name="BlockedContactsActivity_blocked_contacts">Contactes blocats</string>
+  <!--BlockUnblockDialog-->
+  <string name="BlockUnblockDialog_block_and_leave_s">Voleu blocar i abandonar %1$s?</string>
+  <string name="BlockUnblockDialog_block_s">Voleu blocar %1$s?</string>
+  <string name="BlockUnblockDialog_you_will_no_longer_receive_messages_or_updates">Ja no rebreu cap més missatge ni novetat d\'aquest grup i els membres no us hi podran tornar a afegir.</string>
+  <string name="BlockUnblockDialog_group_members_wont_be_able_to_add_you">Els membres del grup no us hi podran tornar a afegir.</string>
+  <string name="BlockUnblockDialog_group_members_will_be_able_to_add_you">Els membres del grup us podran afegir a aquest grup un altre cop.</string>
+  <string name="BlockUnblockDialog_you_will_be_able_to_call_and_message_each_other">Us podreu trucar i enviar missatges.</string>
+  <string name="BlockUnblockDialog_blocked_people_wont_be_able_to_call_you_or_send_you_messages">Les persones blocades no us podran trucar ni enviar missatges.</string>
+  <string name="BlockUnblockDialog_unblock_s">Voleu desblocar %1$s?</string>
+  <string name="BlockUnblockDialog_unblock">Desbloca</string>
+  <string name="BlockUnblockDialog_block">Bloca</string>
+  <string name="BlockUnblockDialog_block_and_leave">Bloca i abandona</string>
+  <string name="BlockUnblockDialog_block_and_delete">Bloca\'l i suprimeix-lo</string>
   <!--BucketedThreadMedia-->
   <string name="BucketedThreadMedia_Today">Avui</string>
   <string name="BucketedThreadMedia_Yesterday">Ahir</string>
@@ -109,6 +122,7 @@
   <string name="ClearProfileActivity_remove_profile_photo">Voleu suprimir la foto de perfil?</string>
   <!--CommunicationActions-->
   <string name="CommunicationActions_no_browser_found">No s\'ha trobat cap navegador web.</string>
+  <string name="CommunicationActions_no_email_app_found">No s\'ha trobat cap aplicació de correu.</string>
   <string name="CommunicationActions_a_cellular_call_is_already_in_progress">Ja hi ha una de mòbil en curs.</string>
   <string name="CommunicationActions_start_video_call">Inicio la trucada de vídeo?</string>
   <string name="CommunicationActions_start_voice_call">Inicio la trucada de veu?</string>
@@ -156,6 +170,7 @@
   <string name="ConversationItem_read_more">  Més informació</string>
   <string name="ConversationItem_download_more">  Baixa\'n més</string>
   <string name="ConversationItem_pending">  Pendent</string>
+  <string name="ConversationItem_this_message_was_deleted">Aquest missatge s\'ha suprimit.</string>
   <!--ConversationActivity-->
   <string name="ConversationActivity_reset_secure_session_question">Voleu restablir la sessió segura?</string>
   <string name="ConversationActivity_this_may_help_if_youre_having_encryption_problems">Això pot ajudar si teniu problemes d\'encriptació en aquesta conversa. Els missatges es mantindran.</string>
@@ -206,15 +221,6 @@
   <string name="ConversationActivity_no_results">No hi ha cap resultat.</string>
   <string name="ConversationActivity_sticker_pack_installed">Paquet d\'adhesius instal·lat</string>
   <string name="ConversationActivity_new_say_it_with_stickers">Nou! Digueu-ho amb adhesius.</string>
-  <string name="ConversationActivity_block_s">Voleu blocar %1$s?</string>
-  <string name="ConversationActivity_block_and_leave_s">Voleu blocar i abandonar %1$s?</string>
-  <string name="ConversationActivity_unblock_s">Voleu desblocar %1$s?</string>
-  <string name="ConversationActivity_you_will_be_able_to_message_and_call_each_other">Us podreu trucar i enviar missatges.</string>
-  <string name="ConversationActivity_group_members_will_be_able_to_add_you_to_this_group_again">Els membres del grup us podran afegir a aquest grup un altre cop.</string>
-  <string name="ConversationActivity_blocked_people_will_not_be_able_to_call_you_or_send_you_messages">Les persones blocades no podran trucar-vos ni enviar-vos missatges.</string>
-  <string name="ConversationActivity_you_will_leave_this_group_and_no_longer_receive_messages_or_updates">Abandonareu el grup i ja no en rebreu missatges ni actualitzacions.</string>
-  <string name="ConversationActivity_block">Bloca</string>
-  <string name="ConversationActivity_block_and_delete">Bloca\'l i suprimeix-lo</string>
   <string name="ConversationActivity_cancel">Cancel·la</string>
   <string name="ConversationActivity_delete_conversation">Voleu eliminar la conversa?</string>
   <string name="ConversationActivity_delete_and_leave_group">Voleu suprimir i abandonar el grup?</string>
@@ -260,6 +266,8 @@
   <string name="ConversationFragment_sms">SMS</string>
   <string name="ConversationFragment_deleting">Se suprimeix</string>
   <string name="ConversationFragment_deleting_messages">Se suprimeixen missatges…</string>
+  <string name="ConversationFragment_delete_for_me">Suprimeix per a mi</string>
+  <string name="ConversationFragment_delete_for_everyone">Suprimeix per a tothom</string>
   <string name="ConversationFragment_quoted_message_not_found">No s\'ha trobat el missatge original.</string>
   <string name="ConversationFragment_quoted_message_no_longer_available">El missatge original ja no està disponible.</string>
   <string name="ConversationFragment_failed_to_open_message">Ha fallat obrir el missatge.</string>
@@ -373,12 +381,44 @@
   <string name="GroupCreateActivity_cannot_add_non_push_to_existing_group">No s\'ha pogut afegir %1$s perquè no és un usuari de Signal.</string>
   <string name="GroupCreateActivity_loading_group_details">Es carreguen els detalls del grup…</string>
   <string name="GroupCreateActivity_youre_already_in_the_group">Ja sou dins del grup.</string>
+  <string name="GroupCreateActivity_remove_member_description">Suprimeix el membre</string>
   <!--GroupShareProfileView-->
   <string name="GroupShareProfileView_share_your_profile_name_and_photo_with_this_group">Voleu compartir el nom i la foto del perfil amb aquest grup?</string>
   <string name="GroupShareProfileView_do_you_want_to_make_your_profile_name_and_photo_visible_to_all_current_and_future_members_of_this_group">Voleu que el nom i la foto del perfil siguin visibles a tots els membres actuals i futurs d\'aquest grup?</string>
   <string name="GroupShareProfileView_make_visible">Fes-ho visible</string>
   <!--GroupMembersDialog-->
   <string name="GroupMembersDialog_you">Vós</string>
+  <!--GV2 access levels-->
+  <string name="GroupManagement_access_level_anyone">Qualsevol</string>
+  <string name="GroupManagement_access_level_all_members">Tots els membres</string>
+  <string name="GroupManagement_access_level_only_admins">Només els administradors</string>
+  <!--PendingMembersActivity-->
+  <string name="PendingMemberInvitesActivity_pending_group_invites">Invitacions de grup pendents</string>
+  <string name="PendingMembersActivity_people_you_invited">Persones que heu convidat</string>
+  <string name="PendingMembersActivity_you_have_no_pending_invites">No teniu invitacions pendents.</string>
+  <string name="PendingMembersActivity_invites_by_other_group_members">Invitacions d\'altres membres del grup</string>
+  <string name="PendingMembersActivity_no_pending_invites_by_other_group_members">No hi ha invitacions pendents d\'altres membres del grup.</string>
+  <string name="PendingMembersActivity_missing_detail_explanation">No es mostren els detalls de les persones convidades per altres membres del grup. Si trien afegir-s\'hi, la informació es compartirà amb el grup en aquell moment. No veuran cap missatge del grup fins que no s\'hi afegeixin.</string>
+  <string name="PendingMembersActivity_cancel_invite">Cancel·la la invitació</string>
+  <string name="PendingMembersActivity_cancel_invites">Cancel·la les invitacions</string>
+  <plurals name="PendingMembersActivity_cancel_d_invites">
+    <item quantity="one">Cancel·la la invitació</item>
+    <item quantity="other">Cancel·la %1$d invitacions</item>
+  </plurals>
+  <plurals name="PendingMembersActivity_error_canceling_invite">
+    <item quantity="one">Error en cancel·lar la invitació</item>
+    <item quantity="other">Error en cancel·lar les invitacions</item>
+  </plurals>
+  <plurals name="GroupMemberList_invited">
+    <item quantity="one">%1$s ha convidat 1 persona</item>
+    <item quantity="other">%1$s ha convidat %2$d persones</item>
+  </plurals>
+  <!--GV2 Invite cancellation confirmation-->
+  <string name="GroupManagement_cancel_own_single_invite">Voleu cancel·lar la invitació que heu enviat a %1$s?</string>
+  <plurals name="GroupManagement_cancel_others_invites">
+    <item quantity="one">Voleu cancel·lar la invitació enviada per %1$s?</item>
+    <item quantity="other">Voleu cancel·lar %2$d invitacions enviades per %1$s?</item>
+  </plurals>
   <!--CropImageActivity-->
   <string name="CropImageActivity_group_avatar">Avatar del grup</string>
   <string name="CropImageActivity_profile_avatar">Avatar</string>
@@ -407,6 +447,8 @@
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Les amistats no deixen que les seves amistats xerrin sense encriptació.</string>
   <!--Job-->
   <string name="Job_working_in_the_background">Es treballa en segon pla…</string>
+  <!--LearnMoreTextView-->
+  <string name="LearnMoreTextView_learn_more">Més informació</string>
   <!--MessageDetailsRecipient-->
   <string name="MessageDetailsRecipient_failed_to_send">No s\'ha pogut enviar.</string>
   <string name="MessageDetailsRecipient_new_safety_number">Número de seguretat nou</string>
@@ -517,6 +559,62 @@
   <string name="MessageRecord_s_disabled_disappearing_messages">%1$s ha desactivat els missatges efímers.</string>
   <string name="MessageRecord_you_set_disappearing_message_time_to_s">Heu establert el temporitzador dels missatges efímers a %1$s.</string>
   <string name="MessageRecord_s_set_disappearing_message_time_to_s">%1$s ha establert el temporitzador dels missatges efímers a %2$s.</string>
+  <!--GV2 specific-->
+  <!--GV2 member additions-->
+  <string name="MessageRecord_you_added_s">Hi heu afegit %1$s.</string>
+  <string name="MessageRecord_s_added_s">%1$s ha afegit %2$s.</string>
+  <string name="MessageRecord_s_added_you">%1$s us ha afegit al grup.</string>
+  <string name="MessageRecord_you_joined_the_group">Us heu unit al grup.</string>
+  <string name="MessageRecord_s_joined_the_group">%1$s s\'han unit al grup.</string>
+  <!--GV2 member removals-->
+  <string name="MessageRecord_you_removed_s">Heu suprimit %1$s.</string>
+  <string name="MessageRecord_s_removed_s">%1$s ha suprimit %2$s.</string>
+  <string name="MessageRecord_s_removed_you_from_the_group">%1$s us ha suprimit del grup.</string>
+  <string name="MessageRecord_you_left_the_group">Heu abandonat el grup.</string>
+  <string name="MessageRecord_s_left_the_group">%1$s ha abandonat el grup.</string>
+  <!--GV2 role change-->
+  <string name="MessageRecord_you_made_s_an_admin">Heu fet que %1$s sigui administrador/a.</string>
+  <string name="MessageRecord_s_made_s_an_admin">%1$s ha fet que %2$s sigui administrador/a.</string>
+  <string name="MessageRecord_s_made_you_an_admin">%1$s us ha fet administrador/a.</string>
+  <string name="MessageRecord_you_revoked_admin_privileges_from_s">Heu rebutjat els privilegis d\'administrador/a de %1$s.</string>
+  <string name="MessageRecord_s_revoked_your_admin_privileges">%1$s us ha revocat els privilegis d\'administrador/a.</string>
+  <string name="MessageRecord_s_revoked_admin_privileges_from_s">%1$s ha rebutjat els privilegis d\'administrador/a de %2$s.</string>
+  <!--GV2 invitations-->
+  <string name="MessageRecord_you_invited_s_to_the_group">Heu convidat %1$s al grup.</string>
+  <string name="MessageRecord_s_invited_you_to_the_group">%1$s us ha convidat al grup.</string>
+  <plurals name="MessageRecord_s_invited_members">
+    <item quantity="one">%1$s ha convidat 1 persona al grup.</item>
+    <item quantity="other">%1$s ha convidat %2$d persones al grup.</item>
+  </plurals>
+  <!--GV2 invitation revokes-->
+  <plurals name="MessageRecord_you_revoked_invites">
+    <item quantity="one">Heu rebutjat una invitació al grup.</item>
+    <item quantity="other">Heu rebutjat %1$d invitacions al grup.</item>
+  </plurals>
+  <plurals name="MessageRecord_s_revoked_invites">
+    <item quantity="one">%1$s ha rebutjat una invitació al grup.</item>
+    <item quantity="other">%1$s ha rebutjat %2$d invitacions al grup.</item>
+  </plurals>
+  <string name="MessageRecord_someone_declined_an_invitation_to_the_group">Algú ha rebutjat una invitació al grup.</string>
+  <string name="MessageRecord_you_declined_the_invitation_to_the_group">Heu rebutjat la invitació al grup.</string>
+  <!--GV2 invitation acceptance-->
+  <string name="MessageRecord_you_accepted_invite">Heu acceptat la invitació al grup.</string>
+  <string name="MessageRecord_s_accepted_invite">%1$s ha acceptat una invitació al grup.</string>
+  <string name="MessageRecord_you_added_invited_member_s">Hi heu afegit el membre convidat %1$s.</string>
+  <string name="MessageRecord_s_added_invited_member_s">%1$s ha afegit el membre convidat %2$s.</string>
+  <!--GV2 title change-->
+  <string name="MessageRecord_you_changed_the_group_name_to_s">Heu canviat el nom del grup a \"%1$s\".</string>
+  <string name="MessageRecord_s_changed_the_group_name_to_s">%1$s ha canviat el nom del grup a \"%2$s\".</string>
+  <!--GV2 avatar change-->
+  <string name="MessageRecord_you_changed_the_group_avatar">Heu canviat l\'avatar del grup.</string>
+  <string name="MessageRecord_s_changed_the_group_avatar">%1$s ha canviat l\'avatar del grup.</string>
+  <!--GV2 attribute access level change-->
+  <string name="MessageRecord_you_changed_who_can_edit_group_info_to_s">Heu canviat qui pot editar la informació del grup a \"%1$s\".</string>
+  <string name="MessageRecord_s_changed_who_can_edit_group_info_to_s">%1$s ha canviat qui pot editar la informació del grup a \"%2$s\".</string>
+  <!--GV2 membership access level change-->
+  <string name="MessageRecord_you_changed_who_can_edit_group_membership_to_s">Heu canviat qui pot editar els membres del grup a \"%1$s\".</string>
+  <string name="MessageRecord_s_changed_who_can_edit_group_membership_to_s">%1$s ha canviat qui pot editar els membres del grup a \"%2$s\".</string>
+  <!--End of GV2 specific update messages-->
   <string name="MessageRecord_your_safety_number_with_s_has_changed">El número de seguretat amb %s ha canviat.</string>
   <string name="MessageRecord_you_marked_your_safety_number_with_s_verified">Heu verificat el número de seguretat amb %s</string>
   <string name="MessageRecord_you_marked_your_safety_number_with_s_verified_from_another_device">Heu verificat el número de seguretat amb %s des d\'un altre dispositiu</string>
@@ -575,7 +673,7 @@
   <string name="ExpirationDialog_your_messages_will_not_expire">El missatges no expiraran.</string>
   <string name="ExpirationDialog_your_messages_will_disappear_s_after_they_have_been_seen">Els missatges enviats i rebuts a aquesta conversa desapareixeran %s després que s\'hagin llegit.</string>
   <!--PassphrasePromptActivity-->
-  <string name="PassphrasePromptActivity_enter_passphrase">Introduïu la contrasenya</string>
+  <string name="PassphrasePromptActivity_enter_passphrase">Escriviu la contrasenya</string>
   <string name="PassphrasePromptActivity_watermark_content_description">Icona del Signal</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">Envia la contrasenya</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Contrasenya incorrecta!</string>
@@ -587,6 +685,28 @@
   <string name="PlacePickerActivity_accept_address">Accepta l\'adreça</string>
   <!--PlayServicesProblemFragment-->
   <string name="PlayServicesProblemFragment_the_version_of_google_play_services_you_have_installed_is_not_functioning">La versió del Google Play Services que hi ha instal·lada no funciona correctament. Reinstal·leu-lo i tornar a provar-ho.</string>
+  <!--PinRestoreEntryFragment-->
+  <string name="PinRestoreEntryFragment_incorrect_pin">PIN incorrecte</string>
+  <string name="PinRestoreEntryFragment_skip_pin_entry">Voleu ometre l\'entrada del PIN?</string>
+  <string name="PinRestoreEntryFragment_need_help">Us cal ajuda?</string>
+  <string name="PinRestoreEntryFragment_your_pin_is_a_d_digit_code">El PIN és un codi d\'un mínim de %1$d dígits que heu creat que pot ser numèric o alfanumèric.\n\nSi no recordeu el PIN, en podeu crear un de nou. Podeu registrar-vos i usar el vostre compte, però perdreu algunes configuracions desades, com ara la informació del perfil.</string>
+  <string name="PinRestoreEntryFragment_if_you_cant_remember_your_pin">Si no recordeu el PIN, en podeu crear un de nou. Podeu registrar-vos i usar el compte, però perdreu algunes configuracions desades, com ara la informació del perfil.</string>
+  <string name="PinRestoreEntryFragment_create_new_pin">Crea un PIN nou</string>
+  <string name="PinRestoreEntryFragment_contact_support">Contacteu amb l\'Assistència</string>
+  <string name="PinRestoreEntryFragment_cancel">Cancel·la</string>
+  <string name="PinRestoreEntryFragment_skip">Omet</string>
+  <plurals name="PinRestoreEntryFragment_you_have_d_attempt_remaining">
+    <item quantity="one">Us resta %1$d intent. Si us quedeu sense intents, podeu crear un PIN nou. Podeu registrar-vos i usar el compte, però perdreu algunes configuracions desades, com ara la informació del perfil.</item>
+    <item quantity="other">Us resten %1$d intents. Si us quedeu sense intents, podeu crear un PIN nou. Podeu registrar-vos i usar el compte, però perdreu algunes configuracions desades, com ara la informació del perfil.</item>
+  </plurals>
+  <string name="PinRestoreEntryFragment_signal_registration_need_help_with_pin">Registre del Signal - Cal ajuda amb el PIN per a Android</string>
+  <string name="PinRestoreEntryFragment_subject_signal_registration">Assumpte: registre del Signal - cal ajuda amb el PIN per a Android\nInformació del dispositiu: %1$s\nVersió d\'Android: %2$s\nVersió del Signal: %3$s\nLlengua: %4$s</string>
+  <string name="PinRestoreEntryFragment_enter_alphanumeric_pin">Escriviu un PIN alfanumèric</string>
+  <string name="PinRestoreEntryFragment_enter_numeric_pin">Marqueu un PIN numèric</string>
+  <!--PinRestoreLockedFragment-->
+  <string name="PinRestoreLockedFragment_create_your_pin">Creeu el PIN</string>
+  <string name="PinRestoreLockedFragment_youve_run_out_of_pin_guesses">Se us han acabat els intents del PIN, però encara podeu accedir al compte del Signal creant un PIN nou. Per a la vostra privadesa i seguretat, el compte es restaurarà sense cap tipus d\'informació ni configuració de perfil.</string>
+  <string name="PinRestoreLockedFragment_create_new_pin">Crea un PIN nou</string>
   <!--RatingManager-->
   <string name="RatingManager_rate_this_app">Valoreu l\'aplicació</string>
   <string name="RatingManager_if_you_enjoy_using_this_app_please_take_a_moment">Si gaudiu usant aquesta aplicació, podeu ajudar-nos valorant-la.</string>
@@ -601,16 +721,7 @@
   <!--ReactionsRecipientAdapter-->
   <string name="ReactionsRecipientAdapter_you">Vós</string>
   <!--RecipientPreferencesActivity-->
-  <string name="RecipientPreferenceActivity_block_this_contact_question">Voleu blocar aquest contacte?</string>
-  <string name="RecipientPreferenceActivity_you_will_no_longer_receive_messages_and_calls_from_this_contact">No rebreu missatges ni trucades d\'aquest contacte.</string>
-  <string name="RecipientPreferenceActivity_block_and_leave_group">Voleu blocar i abandonar aquest grup?</string>
-  <string name="RecipientPreferenceActivity_block_group">Voleu blocar aquest grup?</string>
-  <string name="RecipientPreferenceActivity_block_and_leave_group_description">Ja no rebreu missatges ni actualitzacions d\'aquest grup.</string>
   <string name="RecipientPreferenceActivity_block">Bloca</string>
-  <string name="RecipientPreferenceActivity_unblock_this_contact_question">Voleu desblocar aquest contacte?</string>
-  <string name="RecipientPreferenceActivity_you_will_once_again_be_able_to_receive_messages_and_calls_from_this_contact">Podreu tornar a rebre missatges i trucades d\'aquest contacte.</string>
-  <string name="RecipientPreferenceActivity_unblock_this_group_question">Voleu desblocar aquest grup?</string>
-  <string name="RecipientPreferenceActivity_unblock_this_group_description">Els membres existents us podran afegir de nou al grup.</string>
   <string name="RecipientPreferenceActivity_error_leaving_group">Error en abandonar el grup</string>
   <string name="RecipientPreferenceActivity_unblock">Desbloca</string>
   <string name="RecipientPreferenceActivity_enabled">Activat</string>
@@ -650,7 +761,7 @@ especificat (%s) no és vàlid.</string>
   <string name="RegistrationActivity_less_information">Menys informació</string>
   <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">El Molly necessita accés als contactes i als continguts multimèdia per tal de connectar amb amistats, intercanviar-hi missatges i fer trucades amb seguretat.</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">No es pot connectar al servei. Si us plau, comproveu la connexió de xarxa i torneu-ho a provar.</string>
-  <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">Per verificar fàcilment el número de telèfon, el Signal pot detectar automàticament el codi de verificació si permeteu que vegi els missatges d\'SMS.</string>
+  <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">Per verificar fàcilment el número de telèfon, el Molly pot detectar automàticament el codi de verificació si permeteu que vegi els missatges d\'SMS.</string>
   <plurals name="RegistrationActivity_debug_log_hint">
     <item quantity="one">Ara us queda %d pas per enviar un informe de depuració.</item>
     <item quantity="other">Ara us queden %d passos per enviar un informe de depuració.</item>
@@ -662,12 +773,18 @@ especificat (%s) no és vàlid.</string>
   <string name="RegistrationActivity_continue_d_attempts_left">Continua (resten %d intents)</string>
   <string name="RegistrationActivity_continue_last_attempt">Continua (darrer intent!)</string>
   <string name="RegistrationActivity_take_privacy_with_you_be_yourself_in_every_message">Porteu a sobre la privadesa.\nSigueu vosaltres mateixos a cada missatge.</string>
-  <string name="RegistrationActivity_enter_your_phone_number_to_get_started">Per començar, introduïu el número de telèfon.</string>
+  <string name="RegistrationActivity_enter_your_phone_number_to_get_started">Per començar, marqueu el número de telèfon.</string>
   <string name="RegistrationActivity_you_will_receive_a_verification_code">Rebreu un codi de verificació. La vostra operadora podria aplicar algun càrrec.</string>
-  <string name="RegistrationActivity_enter_the_code_we_sent_to_s">Introduïu el codi que hem enviat a %s</string>
+  <string name="RegistrationActivity_enter_the_code_we_sent_to_s">Marqueu el codi que hem enviat a %s</string>
   <string name="RegistrationActivity_phone_number_description">Número de telèfon</string>
   <string name="RegistrationActivity_country_code_description">Codi de país</string>
   <string name="RegistrationActivity_call">Truca</string>
+  <!--RegistrationLockV2Dialog-->
+  <string name="RegistrationLockV2Dialog_turn_on_registration_lock">Voleu activar el bloqueig de registre?</string>
+  <string name="RegistrationLockV2Dialog_turn_off_registration_lock">Voleu desactivar el bloqueig de registre?</string>
+  <string name="RegistrationLockV2Dialog_if_you_forget_your_signal_pin_when_registering_again">Si heu oblidat el PIN quan us torneu a registrar al Signal, se us blocarà el compte durant 7 dies.</string>
+  <string name="RegistrationLockV2Dialog_turn_on">Activa</string>
+  <string name="RegistrationLockV2Dialog_turn_off">Desactiva</string>
   <!--RevealableMessageView-->
   <string name="RevealableMessageView_view_photo">Mostra la fotografia</string>
   <string name="RevealableMessageView_view_video">Mostra el vídeo</string>
@@ -710,7 +827,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="SmsMessageRecord_secure_session_reset_s">%s ha restablit la sessió segura.</string>
   <string name="SmsMessageRecord_duplicate_message">Missatge duplicat.</string>
   <string name="SmsMessageRecord_this_message_could_not_be_processed_because_it_was_sent_from_a_newer_version">No s’ha pogut processar aquest missatge perquè s’ha enviat des d’una versió més recent del Signal. Podeu demanar al vostre contacte que enviï aquest missatge un cop l\'hàgiu actualitzat.  </string>
-  <string name="SmsMessageRecord_error_handling_incoming_message">S\'ha produït un error en gestionar el missatge rebut</string>
+  <string name="SmsMessageRecord_error_handling_incoming_message">S\'ha produït un error en gestionar el missatge rebut.</string>
   <!--StickerManagementActivity-->
   <string name="StickerManagementActivity_stickers">Adhesius</string>
   <!--StickerManagementAdapter-->
@@ -752,6 +869,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="ThreadRecord_view_once_photo">Fotografia d\'una sola visualització</string>
   <string name="ThreadRecord_view_once_video">Vídeo d\'una sola visualització</string>
   <string name="ThreadRecord_view_once_media">Contingut d\'una sola visualització</string>
+  <string name="ThreadRecord_this_message_was_deleted">Aquest missatge s\'ha suprimit.</string>
   <string name="ThreadRecord_s_is_on_signal">%s és al Signal!</string>
   <string name="ThreadRecord_disappearing_messages_disabled">Missatges efímers desactivats</string>
   <string name="ThreadRecord_disappearing_message_time_updated_to_s">El temps del missatge efímer s\'ha establit a %s</string>
@@ -861,6 +979,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="MessageNotifier_reacted_s_to_your_view_once_photo">%1$s  ha reaccionat a la vostra foto d\'una visualització.</string>
   <string name="MessageNotifier_reacted_s_to_your_view_once_video">%1$s  ha reaccionat al vostre vídeo d\'una visualització.</string>
   <string name="MessageNotifier_reacted_s_to_your_sticker">%1$s ha reaccionat al vostre adhesiu.</string>
+  <string name="MessageNotifier_this_message_was_deleted">Aquest missatge s\'ha suprimit.</string>
   <!--Notification Channels-->
   <string name="NotificationChannel_messages">Per defecte</string>
   <string name="NotificationChannel_calls">Trucades</string>
@@ -942,10 +1061,10 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="change_passphrase_activity__new_passphrase">Contrasenya nova</string>
   <string name="change_passphrase_activity__repeat_new_passphrase">Repetiu la contrasenya nova</string>
   <!--contact_selection_activity-->
-  <string name="contact_selection_activity__enter_name_or_number">Introduïu un nom o número</string>
+  <string name="contact_selection_activity__enter_name_or_number">Escriviu un nom o un número</string>
   <string name="contact_selection_activity__invite_to_signal">Convida al Signal</string>
   <!--contact_filter_toolbar-->
-  <string name="contact_filter_toolbar__clear_entered_text_description">Neteja el text introduït</string>
+  <string name="contact_filter_toolbar__clear_entered_text_description">Neteja el text escrit</string>
   <string name="contact_filter_toolbar__show_keyboard_description">Mostra el teclat</string>
   <string name="contact_filter_toolbar__show_dial_pad_description">Mostra el teclat numèric</string>
   <!--contact_selection_group_activity-->
@@ -1140,9 +1259,9 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="registration_activity__phone_number">NÚMERO DE TELÈFON</string>
   <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">El Signal fa que comunicar-se sigui fàcil usant el vostre número de telèfon i el llibre d\'adreces. Les amistats i contactes que ja saben com contactar-vos pel número de telèfon us podran trobar fàcilment al Signal.\n\nEl registre tramet certa informació de contacte al servidor. No s\'emmagatzema.</string>
   <string name="registration_activity__verify_your_number">Verifiqueu el número de telèfon</string>
-  <string name="registration_activity__please_enter_your_mobile_number_to_receive_a_verification_code_carrier_rates_may_apply">Introduïu el vostre número de telèfon per a rebre un codi de verificació. És possible que s\'apliquin càrrecs de la operadora.</string>
+  <string name="registration_activity__please_enter_your_mobile_number_to_receive_a_verification_code_carrier_rates_may_apply">Marqueu el vostre número de mòbil per rebre un codi de verificació. Pot ser que s\'apliquin càrrecs de l\'operadora.</string>
   <!--recipients_panel-->
-  <string name="recipients_panel__to"><small>Escriviu un nom o número</small></string>
+  <string name="recipients_panel__to"><small>Escriviu un nom o un número</small></string>
   <string name="recipients_panel__add_members">Afegiu-hi membres</string>
   <!--unknown_sender_view-->
   <string name="unknown_sender_view__the_sender_is_not_in_your_contact_list">El remitent no és a la llista de contactes</string>
@@ -1246,7 +1365,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="preferences__pref_all_mms_title">Rep tots els MMS</string>
   <string name="preferences__use_signal_for_viewing_and_storing_all_incoming_text_messages">Fes servir el Signal per a tots els missatges de text d\'entrada</string>
   <string name="preferences__use_signal_for_viewing_and_storing_all_incoming_multimedia_messages">Fes servir el Signal per a tots els missatges multimèdia d\'entrada</string>
-  <string name="preferences__pref_enter_sends_title">Envia amb la tecla Retorn</string>
+  <string name="preferences__pref_enter_sends_title">S\'envia amb la tecla de Retorn</string>
   <string name="preferences__pressing_the_enter_key_will_send_text_messages">En prémer Retorn s\'envia el missatge de text</string>
   <string name="preferences__send_link_previews">Envia previsualitzacions d\'enllaços</string>
   <string name="preferences__previews_are_supported_for">Les vistes prèvies són compatibles amb els enllaços d\'Imgur, Instagram, Pinterest, Reddit i YouTube.</string>
@@ -1419,6 +1538,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="conversation__menu_view_all_media">Tot el contingut</string>
   <string name="conversation__menu_conversation_settings">Configuració de la conversa</string>
   <string name="conversation__menu_add_shortcut">Afegeix a la pantalla d\'inici</string>
+  <string name="conversation__menu_pending_members">Membres pendents</string>
   <!--conversation_popup-->
   <string name="conversation_popup__menu_expand_popup">Expandeix la finestra emergent</string>
   <!--conversation_callable_insecure-->
@@ -1511,25 +1631,22 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
     <item quantity="other">El PIN ha de tenir un mínim de %1$d dígits.</item>
   </plurals>
   <string name="CreateKbsPinFragment__create_a_new_pin">Crea un PIN nou</string>
-  <plurals name="CreateKbsPinFragment__you_can_choose_a_new_pin_because_this_device_is_registered">
-    <item quantity="one">Podeu triar un PIN nou perquè aquest dispositiu està registrat. Si l\'oblideu, pot ser que hàgiu d\'esperar %1$d dia per tornar-vos a registrar.</item>
-    <item quantity="other">Podeu triar un PIN nou perquè aquest dispositiu està registrat. Si l\'oblideu, pot ser que hàgiu d\'esperar %1$d dies per tornar-vos a registrar.</item>
-  </plurals>
+  <string name="CreateKbsPinFragment__you_can_choose_a_new_pin_as_long_as_this_device_is_registered">Podeu canviar el PIN sempre que aquest dispositiu estigui registrat.</string>
   <string name="CreateKbsPinFragment__create_your_pin">Creeu el PIN</string>
-  <string name="CreateKbsPinFragment__pins_add_extra_security_to_your_account">Els PIN afegeixen seguretat extra al compte i no es poden recuperar. Us caldrà el PIN per registrar-vos al Signal un altre cop.</string>
+  <string name="CreateKbsPinFragment__pins_keep_information_stored_with_signal_encrypted">Els PIN mantenen encriptada la informació desada amb el Signal de manera que no hi pugui accedir ningú més. El perfil, la configuració i els contactes es restauraran quan el reinstal·leu.</string>
+  <string name="CreateKbsPinFragment__choose_a_stronger_pin">Trieu un PIN més segur.</string>
   <!--ConfirmKbsPinFragment-->
   <string name="ConfirmKbsPinFragment__pins_dont_match">Els codis no coincideixen. Torneu-ho a provar.</string>
   <string name="ConfirmKbsPinFragment__confirm_your_pin">Confirmeu el vostre PIN.</string>
   <string name="ConfirmKbsPinFragment__pin_creation_failed">Ha fallat crear el PIN.</string>
   <string name="ConfirmKbsPinFragment__your_pin_was_not_saved">El PIN no s\'ha desat. Us demanarem de crear-lo més tard.</string>
   <string name="ConfirmKbsPinFragment__pin_created">PIN creat.</string>
-  <string name="ConfirmKbsPinFragment__re_enter_pin">Torneu a marcar el PIN</string>
+  <string name="ConfirmKbsPinFragment__re_enter_your_pin">Torneu a marcar el PIN.</string>
   <string name="ConfirmKbsPinFragment__creating_pin">Es crea un PIN…</string>
   <!--KbsSplashFragment-->
   <string name="KbsSplashFragment__introducing_pins">S\'introdueixen els PIN</string>
-  <string name="KbsSplashFragment__pins_add_another_level_of_security_to_your_account">Els PIN afegeixen una altra capa de seguretat al compte. Creeu-ne un ara.</string>
+  <string name="KbsSplashFragment__pins_keep_information_stored_with_signal_encrypted">Els PIN mantenen encriptada la informació desada amb el Signal de manera que no hi pugui accedir ningú més. El perfil, la configuració i els contactes es restauraran quan el reinstal·leu.</string>
   <string name="KbsSplashFragment__learn_more">Més informació</string>
-  <string name="KbsSplashFragment__learn_more_link">https://support.signal.org/hc/en-us/articles/360007059792-Registration-Lock</string>
   <string name="KbsSplashFragment__registration_lock_equals_pin">Bloqueig de registre = PIN</string>
   <string name="KbsSplashFragment__your_registration_lock_is_now_called_a_pin">El bloqueig de registre ara s\'anomena PIN i serveix per a molt més. Actualitzeu-lo ara.</string>
   <string name="KbsSplashFragment__read_more_about_pins">Llegiu més informació sobre els PIN.</string>
@@ -1547,10 +1664,9 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="AccountLockedFragment__your_account_has_been_locked_to_protect_your_privacy">Hem bloquejat el compte per protegir la vostra privadesa i seguretat. Al cap de %1$d dies d’inactivitat, podreu tornar a registrar aquest número de telèfon sense necessitar el PIN. Se n\'esborrarà tot el contingut.</string>
   <string name="AccountLockedFragment__next">Següent</string>
   <string name="AccountLockedFragment__learn_more">Més informació</string>
-  <string name="AccountLockedFragment__learn_more_url">https://support.signal.org/hc/en-us/articles/360007059792-Registration-Lock</string>
   <!--KbsLockFragment-->
   <string name="RegistrationLockFragment__enter_your_pin">Marqueu el PIN</string>
-  <string name="RegistrationLockFragment__enter_the_pin_you_created">Introduïu el PIN que heu creat per al compte. Això és diferent del codi de verificació d\'SMS.</string>
+  <string name="RegistrationLockFragment__enter_the_pin_you_created">Marqueu el PIN que heu creat per al compte. Això és diferent del codi de verificació d\'SMS.</string>
   <string name="RegistrationLockFragment__enter_alphanumeric_pin">Escriviu un PIN alfanumèric</string>
   <string name="RegistrationLockFragment__enter_numeric_pin">Marqueu un PIN numèric</string>
   <string name="RegistrationLockFragment__next">Següent</string>
@@ -1581,10 +1697,9 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   </plurals>
   <!--KBS Megaphone-->
   <string name="KbsMegaphone__create_a_pin">Crea un PIN</string>
-  <string name="KbsMegaphone__pins_add_another_layer_of_security_to_your_signal_account">Els PIN afegeixen una altra capa de seguretat al compte del Signal.</string>
+  <string name="KbsMegaphone__pins_keep_information_thats_stored_with_signal_encrytped">Els PIN mantenen encriptada la informació desada amb el Signal.</string>
   <string name="KbsMegaphone__create_pin">Crea un PIN</string>
   <string name="KbsMegaphone__introducing_pins">S\'introdueixen els PIN</string>
-  <string name="KbsMegaphone__your_registration_lock_is_now_called_a_pin">El bloqueig de registre ara s\'anomena PIN. Actualitzar-lo és cosa de segons.</string>
   <string name="KbsMegaphone__update_pin">Actualitza el PIN</string>
   <string name="KbsMegaphone__well_remind_you_later_creating_a_pin">Us ho recordarem més tard. Crear un PIN serà obligatori d\'aquí a %1$d dies.</string>
   <string name="KbsMegaphone__well_remind_you_later_confirming_your_pin">Us ho recordarem més tard. Confirmar el PIN serà obligatori d\'aquí a %1$d dies.</string>
@@ -1657,10 +1772,12 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="preferences_app_protection__lock_signal_access_with_android_screen_lock_or_fingerprint">Bloca l\'accés al Signal amb el bloqueig de pantalla de l\'Android o amb l\'empremta.</string>
   <string name="preferences_app_protection__screen_lock_inactivity_timeout">Temps d\'inactivitat per al bloqueig de pantalla</string>
   <string name="preferences_app_protection__signal_pin">PIN del Signal</string>
-  <string name="preferences_app_protection__pin">PIN</string>
-  <string name="preferences_app_protection__change">Canvieu-lo</string>
-  <string name="preferences_app_protection__create">Crea</string>
-  <string name="preferences_app_protection__your_pin_adds_an_extra_layer_of_security_to_your_account">El PIN afegeix una capa extra de seguretat al compte. Se us demanarà quan registreu el número de telèfon al Signal. Si l\'oblideu, se us bloquejarà el compte durant 7 dies.</string>
+  <string name="preferences_app_protection__create_a_pin">Crea un PIN</string>
+  <string name="preferences_app_protection__change_your_pin">Canvieu el PIN</string>
+  <string name="preferences_app_protection__pins_keep_information_stored_with_signal_encrypted">Els PIN mantenen encriptada la informació desada amb el Signal de manera que no hi pugui accedir ningú més. El perfil, la configuració i els contactes es restauraran quan el reinstal·leu.</string>
+  <string name="preferences_app_protection__add_extra_security_by_requiring_your_signal_pin_to_register">Afegiu-hi més seguretat fent que el PIN torni a registrar el número de telèfon al Signal.</string>
+  <string name="preferences_app_protection__failed_to_enable_registration_lock">Ha fallat activar el bloqueig de registre.</string>
+  <string name="preferences_app_protection__failed_to_disable_registration_lock">Ha fallat desactivar el bloqueig de registre.</string>
   <string name="AppProtectionPreferenceFragment_none">Cap</string>
   <string name="AppProtectionPreferenceFragment_instant">Immediat</string>
   <string name="registration_activity__the_registration_lock_pin_is_not_the_same_as_the_sms_verification_code_you_just_received_please_enter_the_pin_you_previously_configured_in_the_application">El PIN de bloqueig del registre no és el mateix que el codi de verificació de l\'SMS que heu rebut. Si us plau, escriviu el PIN que heu configurat a l\'aplicació.</string>
@@ -1678,7 +1795,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="RegistrationActivity_your_pin_has_at_least_d_digits_or_characters">El PIN té un mínim de %d dígits o caràcters.</string>
   <string name="RegistrationActivity_incorrect_registration_lock_pin">PIN de bloqueig del registre incorrecte</string>
   <string name="RegistrationActivity_too_many_attempts">Massa intents</string>
-  <string name="RegistrationActivity_you_have_made_too_many_incorrect_registration_lock_pin_attempts_please_try_again_in_a_day">Heu introduït un PIN de bloqueig de registre incorrecte massa vegades. Si us plau, torneu-ho a provar d\'aquí a un dia.</string>
+  <string name="RegistrationActivity_you_have_made_too_many_incorrect_registration_lock_pin_attempts_please_try_again_in_a_day">Heu marcat un PIN de bloqueig de registre incorrecte massa vegades. Si us plau, torneu-ho a provar d\'aquí a un dia.</string>
   <string name="RegistrationActivity_error_connecting_to_service">Error en connectar al servei</string>
   <string name="RegistrationActivity_oh_no">Oh, no!</string>
   <string name="RegistrationActivity_registration_of_this_phone_number_will_be_possible_without_your_registration_lock_pin_after_seven_days_have_passed">El registre d\'aquest número de telèfon serà possible sense el PIN de bloqueig del registre 7 dies després des de l\'últim cop que el número es va usar al Signal. Us manquen %d dies.</string>
@@ -1691,7 +1808,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="RegistrationLockDialog_registration_lock">Bloqueig del registre</string>
   <string name="RegistrationLockDialog_enable">Activa</string>
   <string name="RegistrationLockDialog_the_registration_lock_pin_must_be_at_least_d_digits">El PIN de bloqueig del registre ha de tenir com a mínim %d dígits.</string>
-  <string name="RegistrationLockDialog_the_two_pins_you_entered_do_not_match">Els dos PIN que heu introduït no coincideixen.</string>
+  <string name="RegistrationLockDialog_the_two_pins_you_entered_do_not_match">Els dos PIN que heu escrit no coincideixen.</string>
   <string name="RegistrationLockDialog_error_connecting_to_the_service">Error en connectar al servei</string>
   <string name="RegistrationLockDialog_disable_registration_lock_pin">Voleu desactivar el PIN de bloqueig del registre?</string>
   <string name="RegistrationLockDialog_disable">Desactiva</string>

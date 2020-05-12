@@ -13,11 +13,12 @@ import org.thoughtcrime.securesms.keyvalue.KbsValues;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.lock.PinHashing;
 import org.thoughtcrime.securesms.logging.Log;
+import org.thoughtcrime.securesms.pin.PinState;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.whispersystems.signalservice.api.KeyBackupService;
 import org.whispersystems.signalservice.api.KeyBackupServicePinException;
 import org.whispersystems.signalservice.api.KeyBackupSystemNoDataException;
-import org.whispersystems.signalservice.api.RegistrationLockData;
+import org.whispersystems.signalservice.api.KbsPinData;
 import org.whispersystems.signalservice.api.kbs.HashedPin;
 import org.whispersystems.signalservice.api.kbs.MasterKey;
 import org.whispersystems.signalservice.internal.contacts.crypto.UnauthenticatedResponseException;
@@ -26,6 +27,9 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * Migrates an existing V1 registration lock user to a V2 registration lock that is backed by a
+ * Signal PIN.
+ *
  * Deliberately not a {@link MigrationJob} because it is not something that needs to run at app start.
  * This migration can run at anytime.
  */
@@ -56,7 +60,7 @@ public final class RegistrationPinV2MigrationJob extends BaseJob {
   }
 
   @Override
-  protected void onRun() throws IOException, UnauthenticatedResponseException, KeyBackupServicePinException, KeyBackupSystemNoDataException {
+  protected void onRun() throws IOException, UnauthenticatedResponseException {
     if (!TextSecurePreferences.isV1RegistrationLockEnabled(context)) {
       Log.i(TAG, "Registration lock disabled");
       return;
@@ -71,17 +75,7 @@ public final class RegistrationPinV2MigrationJob extends BaseJob {
     }
 
     Log.i(TAG, "Migrating pin to Key Backup Service");
-
-    KbsValues                         kbsValues        = SignalStore.kbsValues();
-    MasterKey                         masterKey        = kbsValues.getOrCreateMasterKey();
-    KeyBackupService                  keyBackupService = ApplicationDependencies.getKeyBackupService();
-    KeyBackupService.PinChangeSession pinChangeSession = keyBackupService.newPinChangeSession();
-    HashedPin                         hashedPin        = PinHashing.hashPin(pinValue, pinChangeSession);
-    RegistrationLockData              kbsData          = pinChangeSession.setPin(hashedPin, masterKey);
-
-    kbsValues.setRegistrationLockMasterKey(kbsData, PinHashing.localPinHash(pinValue));
-    TextSecurePreferences.clearOldRegistrationLockPin(context);
-
+    PinState.onMigrateToRegistrationLockV2(context, pinValue);
     Log.i(TAG, "Pin migrated to Key Backup Service");
   }
 

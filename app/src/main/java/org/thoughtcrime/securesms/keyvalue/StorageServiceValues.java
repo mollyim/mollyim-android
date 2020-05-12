@@ -4,13 +4,14 @@ import androidx.annotation.NonNull;
 
 import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.whispersystems.signalservice.api.kbs.MasterKey;
+import org.whispersystems.signalservice.api.storage.StorageKey;
 
 import java.security.SecureRandom;
 
 public class StorageServiceValues {
 
-  private static final String STORAGE_MASTER_KEY = "storage.storage_master_key";
-  private static final String LAST_SYNC_TIME     = "storage.last_sync_time";
+  private static final String LAST_SYNC_TIME        = "storage.last_sync_time";
+  private static final String NEEDS_ACCOUNT_RESTORE = "storage.needs_account_restore";
 
   private final KeyValueStore store;
 
@@ -18,23 +19,8 @@ public class StorageServiceValues {
     this.store = store;
   }
 
-  public synchronized MasterKey getOrCreateStorageMasterKey() {
-    byte[] blob = store.getBlob(STORAGE_MASTER_KEY, null);
-
-    if (blob == null) {
-      store.beginWrite()
-           .putBlob(STORAGE_MASTER_KEY, MasterKey.createNew(new SecureRandom()).serialize())
-           .commit();
-      blob = store.getBlob(STORAGE_MASTER_KEY, null);
-    }
-
-    return new MasterKey(blob);
-  }
-
-  public synchronized void rotateStorageMasterKey() {
-    store.beginWrite()
-         .putBlob(STORAGE_MASTER_KEY, MasterKey.createNew(new SecureRandom()).serialize())
-         .commit();
+  public synchronized StorageKey getOrCreateStorageKey() {
+    return SignalStore.kbsValues().getOrCreateMasterKey().deriveStorageServiceKey();
   }
 
   public long getLastSyncTime() {
@@ -43,5 +29,13 @@ public class StorageServiceValues {
 
   public void onSyncCompleted() {
     store.beginWrite().putLong(LAST_SYNC_TIME, System.currentTimeMillis()).apply();
+  }
+
+  public boolean needsAccountRestore() {
+    return store.getBoolean(NEEDS_ACCOUNT_RESTORE, false);
+  }
+
+  public void setNeedsAccountRestore(boolean value) {
+    store.beginWrite().putBoolean(NEEDS_ACCOUNT_RESTORE, value).apply();
   }
 }

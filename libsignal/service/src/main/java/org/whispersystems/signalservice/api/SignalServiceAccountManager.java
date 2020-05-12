@@ -9,7 +9,9 @@ package org.whispersystems.signalservice.api;
 
 import com.google.protobuf.ByteString;
 
+import org.signal.zkgroup.VerificationFailedException;
 import org.signal.zkgroup.profiles.ProfileKey;
+import org.signal.zkgroup.profiles.ProfileKeyCredential;
 import org.whispersystems.libsignal.IdentityKey;
 import org.whispersystems.libsignal.IdentityKeyPair;
 import org.whispersystems.libsignal.InvalidKeyException;
@@ -22,20 +24,28 @@ import org.whispersystems.signalservice.FeatureFlags;
 import org.whispersystems.signalservice.api.crypto.InvalidCiphertextException;
 import org.whispersystems.signalservice.api.crypto.ProfileCipher;
 import org.whispersystems.signalservice.api.crypto.ProfileCipherOutputStream;
-import org.whispersystems.signalservice.api.push.exceptions.NoContentException;
-import org.whispersystems.signalservice.api.storage.StorageId;
-import org.whispersystems.signalservice.api.storage.StorageKey;
+import org.whispersystems.signalservice.api.groupsv2.ClientZkOperations;
+import org.whispersystems.signalservice.api.groupsv2.GroupsV2Api;
+import org.whispersystems.signalservice.api.groupsv2.GroupsV2Authorization;
+import org.whispersystems.signalservice.api.groupsv2.GroupsV2Operations;
+import org.whispersystems.signalservice.api.kbs.HashedPin;
+import org.whispersystems.signalservice.api.kbs.MasterKey;
 import org.whispersystems.signalservice.api.messages.calls.TurnServerInfo;
 import org.whispersystems.signalservice.api.messages.multidevice.DeviceInfo;
 import org.whispersystems.signalservice.api.profiles.SignalServiceProfile;
 import org.whispersystems.signalservice.api.profiles.SignalServiceProfileWrite;
 import org.whispersystems.signalservice.api.push.ContactTokenDetails;
 import org.whispersystems.signalservice.api.push.SignedPreKeyEntity;
+import org.whispersystems.signalservice.api.push.exceptions.NoContentException;
+import org.whispersystems.signalservice.api.push.exceptions.NonSuccessfulResponseCodeException;
 import org.whispersystems.signalservice.api.push.exceptions.NotFoundException;
+import org.whispersystems.signalservice.api.push.exceptions.PushNetworkException;
 import org.whispersystems.signalservice.api.storage.SignalStorageCipher;
 import org.whispersystems.signalservice.api.storage.SignalStorageManifest;
 import org.whispersystems.signalservice.api.storage.SignalStorageModels;
 import org.whispersystems.signalservice.api.storage.SignalStorageRecord;
+import org.whispersystems.signalservice.api.storage.StorageId;
+import org.whispersystems.signalservice.api.storage.StorageKey;
 import org.whispersystems.signalservice.api.storage.StorageManifestKey;
 import org.whispersystems.signalservice.api.util.CredentialsProvider;
 import org.whispersystems.signalservice.api.util.StreamDetails;
@@ -52,6 +62,7 @@ import org.whispersystems.signalservice.internal.push.ProfileAvatarData;
 import org.whispersystems.signalservice.internal.push.PushServiceSocket;
 import org.whispersystems.signalservice.internal.push.RemoteAttestationUtil;
 import org.whispersystems.signalservice.internal.push.RemoteConfigResponse;
+import org.whispersystems.signalservice.internal.push.VerifyAccountResponse;
 import org.whispersystems.signalservice.internal.push.http.ProfileCipherOutputStreamFactory;
 import org.whispersystems.signalservice.internal.storage.protos.ManifestRecord;
 import org.whispersystems.signalservice.internal.storage.protos.ReadOperation;
@@ -97,6 +108,7 @@ public class SignalServiceAccountManager {
   private final PushServiceSocket   pushServiceSocket;
   private final CredentialsProvider credentials;
   private final String              userAgent;
+  private final GroupsV2Operations  groupsV2Operations;
 
   /**
    * Construct a SignalServiceAccountManager.
@@ -111,16 +123,21 @@ public class SignalServiceAccountManager {
                                      UUID uuid, String e164, String password,
                                      String signalAgent)
   {
-    this(configuration, new StaticCredentialsProvider(uuid, e164, password, null), signalAgent);
+    this(configuration,
+         new StaticCredentialsProvider(uuid, e164, password, null),
+         signalAgent,
+         new GroupsV2Operations(ClientZkOperations.create(configuration)));
   }
 
   public SignalServiceAccountManager(SignalServiceConfiguration configuration,
                                      CredentialsProvider credentialsProvider,
-                                     String signalAgent)
+                                     String signalAgent,
+                                     GroupsV2Operations groupsV2Operations)
   {
-    this.pushServiceSocket = new PushServiceSocket(configuration, credentialsProvider, signalAgent);
-    this.credentials       = credentialsProvider;
-    this.userAgent         = signalAgent;
+    this.groupsV2Operations = groupsV2Operations;
+    this.pushServiceSocket  = new PushServiceSocket(configuration, credentialsProvider, signalAgent, groupsV2Operations.getProfileOperations());
+    this.credentials        = credentialsProvider;
+    this.userAgent          = signalAgent;
   }
 
   public byte[] getSenderCertificate() throws IOException {
@@ -132,11 +149,14 @@ public class SignalServiceAccountManager {
   }
 
   /**
-   * V1 Pin setting has been replaced by KeyBackupService.
-   * Now you can only remove the old pin but there is no need to remove the old pin if setting a KBS Pin.
+   * V1 PINs are no longer used in favor of V2 PINs stored on KBS.
+   *
+   * You can remove a V1 PIN, but typically this is unnecessary, as setting a V2 PIN via
+   * {@link KeyBackupService.Session#enableRegistrationLock(MasterKey)}} will automatically clear the
+   * V1 PIN on the service.
    */
-  public void removeV1Pin() throws IOException {
-    this.pushServiceSocket.removePin();
+  public void removeRegistrationLockV1() throws IOException {
+    this.pushServiceSocket.removeRegistrationLockV1();
   }
 
   public UUID getOwnUuid() throws IOException {
@@ -220,10 +240,10 @@ public class SignalServiceAccountManager {
    * @return The UUID of the user that was registered.
    * @throws IOException
    */
-  public UUID verifyAccountWithCode(String verificationCode, String signalingKey, int signalProtocolRegistrationId, boolean fetchesMessages,
-                                    String pin, String registrationLock,
-                                    byte[] unidentifiedAccessKey, boolean unrestrictedUnidentifiedAccess,
-                                    SignalServiceProfile.Capabilities capabilities)
+  public VerifyAccountResponse verifyAccountWithCode(String verificationCode, String signalingKey, int signalProtocolRegistrationId, boolean fetchesMessages,
+                                                     String pin, String registrationLock,
+                                                     byte[] unidentifiedAccessKey, boolean unrestrictedUnidentifiedAccess,
+                                                     SignalServiceProfile.Capabilities capabilities)
       throws IOException
   {
     return this.pushServiceSocket.verifyAccountCode(verificationCode, signalingKey,
@@ -664,7 +684,7 @@ public class SignalServiceAccountManager {
    * @return The avatar URL path, if one was written.
    */
   public Optional<String> setVersionedProfile(UUID uuid, ProfileKey profileKey, String name, StreamDetails avatar)
-    throws IOException
+      throws IOException
   {
     if (!FeatureFlags.VERSIONED_PROFILES) {
       throw new AssertionError();
@@ -688,6 +708,12 @@ public class SignalServiceAccountManager {
                                                                              hasAvatar,
                                                                              profileKey.getCommitment(uuid).serialize()),
                                                                              profileAvatarData);
+  }
+
+  public Optional<ProfileKeyCredential> resolveProfileKeyCredential(UUID uuid, ProfileKey profileKey)
+      throws NonSuccessfulResponseCodeException, PushNetworkException, VerificationFailedException
+  {
+    return this.pushServiceSocket.retrieveProfile(uuid, profileKey, Optional.absent()).getProfileKeyCredential();
   }
 
   public void setUsername(String username) throws IOException {
@@ -729,5 +755,11 @@ public class SignalServiceAccountManager {
     return tokenMap;
   }
 
+  public GroupsV2Api getGroupsV2Api() {
+    return new GroupsV2Api(pushServiceSocket, groupsV2Operations);
+  }
 
+  public GroupsV2Authorization createGroupsV2Authorization(UUID self) {
+    return new GroupsV2Authorization(self, pushServiceSocket, groupsV2Operations.getAuthOperations());
+  }
 }

@@ -28,6 +28,7 @@ import org.thoughtcrime.securesms.permissions.Permissions;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.ringrtc.RemotePeer;
 import org.thoughtcrime.securesms.service.WebRtcCallService;
+import org.thoughtcrime.securesms.sms.MessageSender;
 
 public class CommunicationActions {
 
@@ -149,6 +150,17 @@ public class CommunicationActions {
     }
   }
 
+  public static void openEmail(@NonNull Context context, @NonNull String address, @Nullable String subject, @Nullable String body) {
+    Intent intent = new Intent(Intent.ACTION_SENDTO);
+    intent.setData(Uri.parse("mailto:"));
+    intent.putExtra(Intent.EXTRA_EMAIL, new String[]{ address });
+    intent.putExtra(Intent.EXTRA_SUBJECT, Util.emptyIfNull(subject));
+    intent.putExtra(Intent.EXTRA_TEXT, Util.emptyIfNull(body));
+
+    context.startActivity(intent);
+  }
+
+
   private static void startInsecureCallInternal(@NonNull Activity activity, @NonNull Recipient recipient) {
     try {
       Intent dialIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + recipient.requireSmsAddress()));
@@ -182,6 +194,7 @@ public class CommunicationActions {
                    activityIntent.putExtra(WebRtcCallActivity.EXTRA_ENABLE_VIDEO_IF_AVAILABLE, true);
                  }
 
+                 MessageSender.onMessageSent();
                  activity.startActivity(activityIntent);
                })
                .execute();

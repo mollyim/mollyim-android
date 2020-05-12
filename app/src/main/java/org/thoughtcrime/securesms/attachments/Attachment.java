@@ -19,6 +19,8 @@ public abstract class Attachment {
   @Nullable
   private final String fileName;
 
+  private final int    cdnNumber;
+
   @Nullable
   private final String  location;
 
@@ -35,10 +37,10 @@ public abstract class Attachment {
   private final String fastPreflightId;
 
   private final boolean voiceNote;
-  private final int width;
-  private final int height;
-
+  private final int     width;
+  private final int     height;
   private final boolean quote;
+  private final long    uploadTimestamp;
 
   @Nullable
   private final String caption;
@@ -53,15 +55,17 @@ public abstract class Attachment {
   private final TransformProperties transformProperties;
 
   public Attachment(@NonNull String contentType, int transferState, long size, @Nullable String fileName,
-                    @Nullable String location, @Nullable String key, @Nullable String relay,
+                    int cdnNumber, @Nullable String location, @Nullable String key, @Nullable String relay,
                     @Nullable byte[] digest, @Nullable String fastPreflightId, boolean voiceNote,
-                    int width, int height, boolean quote, @Nullable String caption, @Nullable StickerLocator stickerLocator,
-                    @Nullable BlurHash blurHash, @Nullable TransformProperties transformProperties)
+                    int width, int height, boolean quote, long uploadTimestamp, @Nullable String caption,
+                    @Nullable StickerLocator stickerLocator, @Nullable BlurHash blurHash,
+                    @Nullable TransformProperties transformProperties)
   {
     this.contentType         = contentType;
     this.transferState       = transferState;
     this.size                = size;
     this.fileName            = fileName;
+    this.cdnNumber           = cdnNumber;
     this.location            = location;
     this.key                 = key;
     this.relay               = relay;
@@ -71,6 +75,7 @@ public abstract class Attachment {
     this.width               = width;
     this.height              = height;
     this.quote               = quote;
+    this.uploadTimestamp     = uploadTimestamp;
     this.stickerLocator      = stickerLocator;
     this.caption             = caption;
     this.blurHash            = blurHash;
@@ -104,6 +109,10 @@ public abstract class Attachment {
   @NonNull
   public String getContentType() {
     return contentType;
+  }
+
+  public int getCdnNumber() {
+    return cdnNumber;
   }
 
   @Nullable
@@ -145,6 +154,10 @@ public abstract class Attachment {
 
   public boolean isQuote() {
     return quote;
+  }
+
+  public long getUploadTimestamp() {
+    return uploadTimestamp;
   }
 
   public boolean isSticker() {

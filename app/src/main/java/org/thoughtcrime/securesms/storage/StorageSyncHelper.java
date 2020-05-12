@@ -31,6 +31,7 @@ import org.whispersystems.signalservice.api.storage.SignalStorageManifest;
 import org.whispersystems.signalservice.api.storage.SignalStorageRecord;
 import org.whispersystems.signalservice.api.storage.StorageId;
 import org.whispersystems.signalservice.api.util.OptionalUtil;
+import org.whispersystems.signalservice.internal.storage.protos.ManifestRecord;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -73,7 +74,6 @@ public final class StorageSyncHelper {
    * @return If changes need to be written, then it will return those changes. If no changes need
    *         to be written, this will return {@link Optional#absent()}.
    */
-  // TODO [greyson] [storage] Test this
   public static @NonNull Optional<LocalWriteResult> buildStorageUpdatesForLocal(long currentManifestVersion,
                                                                                 @NonNull List<StorageId> currentLocalKeys,
                                                                                 @NonNull List<RecipientSettings> updates,
@@ -83,54 +83,106 @@ public final class StorageSyncHelper {
                                                                                 @NonNull Optional<SignalAccountRecord> accountInsert,
                                                                                 @NonNull Set<RecipientId> archivedRecipients)
   {
-    Set<StorageId>           completeKeys      = new LinkedHashSet<>(currentLocalKeys);
+    int accountCount = Stream.of(currentLocalKeys)
+                             .filter(id -> id.getType() == ManifestRecord.Identifier.Type.ACCOUNT_VALUE)
+                             .toList()
+                             .size();
+
+    if (accountCount > 1) {
+      throw new MultipleExistingAccountsException();
+    }
+
+    Optional<StorageId> accountId = Optional.fromNullable(Stream.of(currentLocalKeys)
+                                            .filter(id -> id.getType() == ManifestRecord.Identifier.Type.ACCOUNT_VALUE)
+                                            .findFirst()
+                                            .orElse(null));
+
+
+    if (accountId.isPresent() && accountInsert.isPresent() && !accountInsert.get().getId().equals(accountId.get())) {
+      throw new InvalidAccountInsertException();
+    }
+
+    if (accountId.isPresent() && accountUpdate.isPresent() && !accountUpdate.get().getId().equals(accountId.get())) {
+      throw new InvalidAccountUpdateException();
+    }
+
+    if (accountUpdate.isPresent() && accountInsert.isPresent()) {
+      throw new InvalidAccountDualInsertUpdateException();
+    }
+
+    Set<StorageId>           completeIds       = new LinkedHashSet<>(currentLocalKeys);
     Set<SignalStorageRecord> storageInserts    = new LinkedHashSet<>();
     Set<ByteBuffer>          storageDeletes    = new LinkedHashSet<>();
     Map<RecipientId, byte[]> storageKeyUpdates = new HashMap<>();
 
     for (RecipientSettings insert : inserts) {
       storageInserts.add(StorageSyncModels.localToRemoteRecord(insert, archivedRecipients));
+
+      switch (insert.getGroupType()) {
+        case NONE:
+          completeIds.add(StorageId.forContact(insert.getStorageId()));
+          break;
+        case SIGNAL_V1:
+          completeIds.add(StorageId.forGroupV1(insert.getStorageId()));
+          break;
+        default:
+          throw new AssertionError("Unsupported type!");
+      }
     }
 
     if (accountInsert.isPresent()) {
       storageInserts.add(SignalStorageRecord.forAccount(accountInsert.get()));
+      completeIds.add(accountInsert.get().getId());
     }
 
     for (RecipientSettings delete : deletes) {
       byte[] key = Objects.requireNonNull(delete.getStorageId());
       storageDeletes.add(ByteBuffer.wrap(key));
-      completeKeys.remove(StorageId.forContact(key));
+      completeIds.remove(StorageId.forContact(key));
     }
 
     for (RecipientSettings update : updates) {
-      byte[] oldKey = update.getStorageId();
-      byte[] newKey = generateKey();
+      StorageId oldId;
+      StorageId newId;
 
-      storageInserts.add(StorageSyncModels.localToRemoteRecord(update, newKey, archivedRecipients));
-      storageDeletes.add(ByteBuffer.wrap(oldKey));
-      completeKeys.remove(StorageId.forContact(oldKey));
-      completeKeys.add(StorageId.forContact(newKey));
-      storageKeyUpdates.put(update.getId(), newKey);
+      switch (update.getGroupType()) {
+        case NONE:
+          oldId = StorageId.forContact(update.getStorageId());
+          newId = StorageId.forContact(generateKey());
+          break;
+        case SIGNAL_V1:
+          oldId = StorageId.forGroupV1(update.getStorageId());
+          newId = StorageId.forGroupV1(generateKey());
+          break;
+        default:
+          throw new AssertionError("Unsupported type!");
+      }
+
+      storageInserts.add(StorageSyncModels.localToRemoteRecord(update, newId.getRaw(), archivedRecipients));
+      storageDeletes.add(ByteBuffer.wrap(oldId.getRaw()));
+      completeIds.remove(oldId);
+      completeIds.add(newId);
+      storageKeyUpdates.put(update.getId(), newId.getRaw());
     }
 
     if (accountUpdate.isPresent()) {
-      byte[] oldKey = accountUpdate.get().getId().getRaw();
-      byte[] newKey = generateKey();
+      StorageId oldId = accountUpdate.get().getId();
+      StorageId newId = StorageId.forAccount(generateKey());
 
-      storageInserts.add(SignalStorageRecord.forAccount(StorageId.forAccount(newKey), accountUpdate.get()));
-      storageDeletes.add(ByteBuffer.wrap(oldKey));
-      completeKeys.remove(StorageId.forAccount(oldKey));
-      completeKeys.add(StorageId.forAccount(newKey));
-      storageKeyUpdates.put(Recipient.self().getId(), newKey);
+      storageInserts.add(SignalStorageRecord.forAccount(newId, accountUpdate.get()));
+      storageDeletes.add(ByteBuffer.wrap(oldId.getRaw()));
+      completeIds.remove(oldId);
+      completeIds.add(newId);
+      storageKeyUpdates.put(Recipient.self().getId(), newId.getRaw());
     }
 
     if (storageInserts.isEmpty() && storageDeletes.isEmpty()) {
       return Optional.absent();
     } else {
-      List<byte[]>          contactDeleteBytes   = Stream.of(storageDeletes).map(ByteBuffer::array).toList();
-      List<StorageId>       completeKeysBytes    = new ArrayList<>(completeKeys);
-      SignalStorageManifest manifest             = new SignalStorageManifest(currentManifestVersion + 1, completeKeysBytes);
-      WriteOperationResult  writeOperationResult = new WriteOperationResult(manifest, new ArrayList<>(storageInserts), contactDeleteBytes);
+      List<byte[]>          storageDeleteBytes   = Stream.of(storageDeletes).map(ByteBuffer::array).toList();
+      List<StorageId>       completeIdsBytes     = new ArrayList<>(completeIds);
+      SignalStorageManifest manifest             = new SignalStorageManifest(currentManifestVersion + 1, completeIdsBytes);
+      WriteOperationResult  writeOperationResult = new WriteOperationResult(manifest, new ArrayList<>(storageInserts), storageDeleteBytes);
 
       return Optional.of(new LocalWriteResult(writeOperationResult, storageKeyUpdates));
     }
@@ -298,23 +350,23 @@ public final class StorageSyncHelper {
     return !OptionalUtil.byteArrayEquals(update.getOld().getProfileKey(), update.getNew().getProfileKey());
   }
 
-  public static Optional<SignalAccountRecord> getPendingAccountSyncUpdate(@NonNull Context context) {
-    if (DatabaseFactory.getRecipientDatabase(context).getDirtyState(Recipient.self().getId()) != RecipientDatabase.DirtyState.UPDATE) {
+  public static Optional<SignalAccountRecord> getPendingAccountSyncUpdate(@NonNull Context context, @NonNull Recipient self) {
+    if (DatabaseFactory.getRecipientDatabase(context).getDirtyState(self.getId()) != RecipientDatabase.DirtyState.UPDATE) {
       return Optional.absent();
     }
-    return Optional.of(buildAccountRecord(context, null).getAccount().get());
+    return Optional.of(buildAccountRecord(context, self).getAccount().get());
   }
 
-  public static Optional<SignalAccountRecord> getPendingAccountSyncInsert(@NonNull Context context) {
-    if (DatabaseFactory.getRecipientDatabase(context).getDirtyState(Recipient.self().getId()) != RecipientDatabase.DirtyState.INSERT) {
+  public static Optional<SignalAccountRecord> getPendingAccountSyncInsert(@NonNull Context context, @NonNull Recipient self) {
+    if (DatabaseFactory.getRecipientDatabase(context).getDirtyState(self.getId()) != RecipientDatabase.DirtyState.INSERT) {
       return Optional.absent();
     }
-    return Optional.of(buildAccountRecord(context, null).getAccount().get());
+    return Optional.of(buildAccountRecord(context, self).getAccount().get());
   }
 
-  public static SignalStorageRecord buildAccountRecord(@NonNull Context context, @Nullable StorageId id) {
-    Recipient           self    = Recipient.self().fresh();
-    SignalAccountRecord account = new SignalAccountRecord.Builder(id != null ? id.getRaw() : self.getStorageServiceId())
+  public static SignalStorageRecord buildAccountRecord(@NonNull Context context, @NonNull Recipient self) {
+
+    SignalAccountRecord account = new SignalAccountRecord.Builder(self.getStorageServiceId())
                                                          .setProfileKey(self.getProfileKey())
                                                          .setGivenName(self.getProfileName().getGivenName())
                                                          .setFamilyName(self.getProfileName().getFamilyName())
@@ -625,4 +677,9 @@ public final class StorageSyncHelper {
   interface KeyGenerator {
     @NonNull byte[] generate();
   }
+
+  private static final class MultipleExistingAccountsException extends IllegalArgumentException {}
+  private static final class InvalidAccountInsertException extends IllegalArgumentException {}
+  private static final class InvalidAccountUpdateException extends IllegalArgumentException {}
+  private static final class InvalidAccountDualInsertUpdateException extends IllegalArgumentException {}
 }

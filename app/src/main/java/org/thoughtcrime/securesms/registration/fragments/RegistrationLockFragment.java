@@ -303,26 +303,21 @@ public final class RegistrationLockFragment extends BaseRegistrationFragment {
   }
 
   private void handleSuccessfulPinEntry() {
-    SignalStore.kbsValues().setKeyboardType(getPinEntryKeyboardType());
+    SignalStore.pinValues().setKeyboardType(getPinEntryKeyboardType());
 
-    if (FeatureFlags.storageServiceRestore()) {
-      long startTime = System.currentTimeMillis();
-      SimpleTask.run(() -> {
-        return ApplicationDependencies.getJobManager().runSynchronously(new StorageAccountRestoreJob(), StorageAccountRestoreJob.LIFESPAN);
-      }, result -> {
-        long elapsedTime = System.currentTimeMillis() - startTime;
+    long startTime = System.currentTimeMillis();
+    SimpleTask.run(() -> {
+      return ApplicationDependencies.getJobManager().runSynchronously(new StorageAccountRestoreJob(), StorageAccountRestoreJob.LIFESPAN);
+    }, result -> {
+      long elapsedTime = System.currentTimeMillis() - startTime;
 
-        if (result.isPresent()) {
-          Log.i(TAG, "Storage Service account restore completed: " + result.get().name() + ". (Took " + elapsedTime + " ms)");
-        } else {
-          Log.i(TAG, "Storage Service account restore failed to complete in the allotted time. (" + elapsedTime + " ms elapsed)");
-        }
-        cancelSpinning(pinButton);
-        Navigation.findNavController(requireView()).navigate(RegistrationLockFragmentDirections.actionSuccessfulRegistration());
-      });
-    } else {
+      if (result.isPresent()) {
+        Log.i(TAG, "Storage Service account restore completed: " + result.get().name() + ". (Took " + elapsedTime + " ms)");
+      } else {
+        Log.i(TAG, "Storage Service account restore failed to complete in the allotted time. (" + elapsedTime + " ms elapsed)");
+      }
       cancelSpinning(pinButton);
       Navigation.findNavController(requireView()).navigate(RegistrationLockFragmentDirections.actionSuccessfulRegistration());
-    }
+    });
   }
 }

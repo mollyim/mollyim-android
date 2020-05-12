@@ -21,6 +21,9 @@ import net.sqlcipher.database.SQLiteDatabase;
 import net.sqlcipher.database.SQLiteDatabaseHook;
 import net.sqlcipher.database.SQLiteOpenHelper;
 
+import org.thoughtcrime.securesms.color.MaterialColor;
+import org.thoughtcrime.securesms.contacts.avatars.ContactColors;
+import org.thoughtcrime.securesms.contacts.avatars.ContactColorsLegacy;
 import org.thoughtcrime.securesms.profiles.AvatarHelper;
 import org.thoughtcrime.securesms.profiles.ProfileName;
 import org.thoughtcrime.securesms.recipients.RecipientId;
@@ -88,8 +91,14 @@ public class SQLCipherOpenHelper extends SQLiteOpenHelper {
   private static final int PROFILE_DATA_MIGRATION           = 53;
   private static final int AVATAR_LOCATION_MIGRATION        = 54;
   private static final int GROUPS_V2                        = 55;
+  private static final int ATTACHMENT_UPLOAD_TIMESTAMP      = 56;
+  private static final int ATTACHMENT_CDN_NUMBER            = 57;
+  private static final int JOB_INPUT_DATA                   = 58;
+  private static final int SERVER_TIMESTAMP                 = 59;
+  private static final int REMOTE_DELETE                    = 60;
+  private static final int COLOR_MIGRATION                  = 61;
 
-  private static final int    DATABASE_VERSION = 55;
+  private static final int    DATABASE_VERSION = 61;
   private static final String DATABASE_NAME    = "signal.db";
 
   private final Context        context;
@@ -323,6 +332,45 @@ public class SQLCipherOpenHelper extends SQLiteOpenHelper {
         db.execSQL("ALTER TABLE groups ADD COLUMN master_key");
         db.execSQL("ALTER TABLE groups ADD COLUMN revision");
         db.execSQL("ALTER TABLE groups ADD COLUMN decrypted_group");
+      }
+
+      if (oldVersion < ATTACHMENT_UPLOAD_TIMESTAMP) {
+        db.execSQL("ALTER TABLE part ADD COLUMN upload_timestamp DEFAULT 0");
+      }
+
+      if (oldVersion < ATTACHMENT_CDN_NUMBER) {
+        db.execSQL("ALTER TABLE part ADD COLUMN cdn_number INTEGER DEFAULT 0");
+      }
+
+      if (oldVersion < JOB_INPUT_DATA) {
+        db.execSQL("ALTER TABLE job_spec ADD COLUMN serialized_input_data TEXT DEFAULT NULL");
+      }
+
+      if (oldVersion < SERVER_TIMESTAMP) {
+        db.execSQL("ALTER TABLE sms ADD COLUMN date_server INTEGER DEFAULT -1");
+        db.execSQL("CREATE INDEX IF NOT EXISTS sms_date_server_index ON sms (date_server)");
+
+        db.execSQL("ALTER TABLE mms ADD COLUMN date_server INTEGER DEFAULT -1");
+        db.execSQL("CREATE INDEX IF NOT EXISTS mms_date_server_index ON mms (date_server)");
+      }
+
+      if (oldVersion < REMOTE_DELETE) {
+        db.execSQL("ALTER TABLE sms ADD COLUMN remote_deleted INTEGER DEFAULT 0");
+        db.execSQL("ALTER TABLE mms ADD COLUMN remote_deleted INTEGER DEFAULT 0");
+      }
+
+      if (oldVersion < COLOR_MIGRATION) {
+        try (Cursor cursor = db.rawQuery("SELECT _id, system_display_name FROM recipient WHERE system_display_name NOT NULL AND color IS NULL", null)) {
+          while (cursor != null && cursor.moveToNext()) {
+            long   id   = cursor.getLong(cursor.getColumnIndexOrThrow("_id"));
+            String name = cursor.getString(cursor.getColumnIndexOrThrow("system_display_name"));
+
+            ContentValues values = new ContentValues();
+            values.put("color", ContactColorsLegacy.generateForV2(name).serialize());
+
+            db.update("recipient", values, "_id = ?", new String[] { String.valueOf(id) });
+          }
+        }
       }
 
       db.setTransactionSuccessful();

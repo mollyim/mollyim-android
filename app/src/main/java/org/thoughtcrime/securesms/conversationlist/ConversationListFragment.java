@@ -20,7 +20,6 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
@@ -30,7 +29,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -101,7 +99,7 @@ import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.events.ReminderUpdateEvent;
 import org.thoughtcrime.securesms.insights.InsightsLauncher;
 import org.thoughtcrime.securesms.jobs.ServiceOutageDetectionJob;
-import org.thoughtcrime.securesms.lock.RegistrationLockDialog;
+import org.thoughtcrime.securesms.lock.RegistrationLockV1Dialog;
 import org.thoughtcrime.securesms.lock.v2.CreateKbsPinActivity;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.mediasend.MediaSendActivity;
@@ -113,9 +111,9 @@ import org.thoughtcrime.securesms.mms.GlideApp;
 import org.thoughtcrime.securesms.notifications.MarkReadReceiver;
 import org.thoughtcrime.securesms.notifications.MessageNotifier;
 import org.thoughtcrime.securesms.permissions.Permissions;
-import org.thoughtcrime.securesms.profiles.ProfileName;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.service.KeyCachingService;
+import org.thoughtcrime.securesms.sms.MessageSender;
 import org.thoughtcrime.securesms.util.AvatarUtil;
 import org.thoughtcrime.securesms.util.ServiceUtil;
 import org.thoughtcrime.securesms.util.StickyHeaderDecoration;
@@ -235,7 +233,7 @@ public class ConversationListFragment extends MainFragment implements LoaderMana
     initializeTypingObserver();
     initializeSearchListener();
 
-    RegistrationLockDialog.showReminderIfNecessary(this);
+    RegistrationLockV1Dialog.showReminderIfNecessary(this);
 
     TooltipCompat.setTooltipText(searchAction, getText(R.string.SearchToolbar_search_for_conversations_contacts_and_messages));
   }
@@ -300,6 +298,10 @@ public class ConversationListFragment extends MainFragment implements LoaderMana
 
   @Override
   public boolean onBackPressed() {
+    return closeSearchIfOpen();
+  }
+
+  private boolean closeSearchIfOpen() {
     if (searchToolbar.isVisible() || activeAdapter == searchAdapter) {
       activeAdapter = defaultAdapter;
       list.removeItemDecoration(searchAdapterDecoration);
@@ -809,6 +811,12 @@ public class ConversationListFragment extends MainFragment implements LoaderMana
   @Subscribe(threadMode = ThreadMode.MAIN)
   public void onEvent(ReminderUpdateEvent event) {
     updateReminders();
+  }
+
+  @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+  public void onEvent(MessageSender.MessageSentEvent event) {
+    EventBus.getDefault().removeStickyEvent(event);
+    closeSearchIfOpen();
   }
 
   protected @IdRes int getToolbarRes() {

@@ -73,6 +73,15 @@
   <string name="AudioSlidePlayer_error_playing_audio">Gagal memutar audio!</string>
   <!--BlockedContactsActivity-->
   <string name="BlockedContactsActivity_blocked_contacts">Kontak yang diblokir</string>
+  <!--BlockUnblockDialog-->
+  <string name="BlockUnblockDialog_block_and_leave_s">Blok dan tinggalkan %1$s?</string>
+  <string name="BlockUnblockDialog_block_s">Blok %1$s?</string>
+  <string name="BlockUnblockDialog_group_members_will_be_able_to_add_you">Anggota grup dapat mengundang Anda kembali ke dalam grup.</string>
+  <string name="BlockUnblockDialog_you_will_be_able_to_call_and_message_each_other">Anda akan dapat mengirim pesan dan membuat panggilan satu sama lain.</string>
+  <string name="BlockUnblockDialog_unblock_s">Berhenti blok %1$s?</string>
+  <string name="BlockUnblockDialog_unblock">Buka blokir</string>
+  <string name="BlockUnblockDialog_block">Blokir</string>
+  <string name="BlockUnblockDialog_block_and_delete">Blok dan Hapus</string>
   <!--BucketedThreadMedia-->
   <string name="BucketedThreadMedia_Today">Hari ini</string>
   <string name="BucketedThreadMedia_Yesterday">Kemarin</string>
@@ -106,6 +115,7 @@
   <string name="ClearProfileActivity_remove_profile_photo">Hapus foto profil?</string>
   <!--CommunicationActions-->
   <string name="CommunicationActions_no_browser_found">Peramban web tidak ditemukan.</string>
+  <string name="CommunicationActions_no_email_app_found">Aplikasi pengirim email tidak ditermukan.</string>
   <string name="CommunicationActions_a_cellular_call_is_already_in_progress">Panggilan melalui jaringan seluler sedang berlangsung.</string>
   <string name="CommunicationActions_start_video_call">Buat panggilan video?</string>
   <string name="CommunicationActions_start_voice_call">Buat panggilan suara?</string>
@@ -203,15 +213,6 @@
   <string name="ConversationActivity_no_results">Tidak ada hasil</string>
   <string name="ConversationActivity_sticker_pack_installed">Paket stiker terpasang</string>
   <string name="ConversationActivity_new_say_it_with_stickers">Baru! Katakan dengan stiker</string>
-  <string name="ConversationActivity_block_s">Blok %1$s?</string>
-  <string name="ConversationActivity_block_and_leave_s">Blok dan tinggalkan %1$s?</string>
-  <string name="ConversationActivity_unblock_s">Berhenti blok %1$s?</string>
-  <string name="ConversationActivity_you_will_be_able_to_message_and_call_each_other">Anda akan dapat mengirim pesan dan membuat panggilan satu sama lain.</string>
-  <string name="ConversationActivity_group_members_will_be_able_to_add_you_to_this_group_again">Anggota grup dapat mengundang Anda kembali ke dalam grup.</string>
-  <string name="ConversationActivity_blocked_people_will_not_be_able_to_call_you_or_send_you_messages">Orang yang telah diblok tidak dapat menelepon atau mengirim pesan kepada Anda.</string>
-  <string name="ConversationActivity_you_will_leave_this_group_and_no_longer_receive_messages_or_updates">Anda akan meninggalkan grup ini juga berhenti menerima pesan dan notifikasi.</string>
-  <string name="ConversationActivity_block">Blokir</string>
-  <string name="ConversationActivity_block_and_delete">Blok dan hapus</string>
   <string name="ConversationActivity_cancel">Batal</string>
   <string name="ConversationActivity_delete_conversation">Hapus percakapan?</string>
   <string name="ConversationActivity_delete_and_leave_group">Hapus dan tinggalkan grup?</string>
@@ -365,6 +366,9 @@
   <string name="GroupShareProfileView_make_visible">Tampilkan</string>
   <!--GroupMembersDialog-->
   <string name="GroupMembersDialog_you">Anda</string>
+  <!--GV2 access levels-->
+  <!--PendingMembersActivity-->
+  <!--GV2 Invite cancellation confirmation-->
   <!--CropImageActivity-->
   <string name="CropImageActivity_group_avatar">Avatar grup</string>
   <string name="CropImageActivity_profile_avatar">Avatar</string>
@@ -391,6 +395,8 @@
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Teman tidak membiarkan temannya mengobrol tanpa enkripsi.</string>
   <!--Job-->
   <string name="Job_working_in_the_background">Bekerja di belakang layar…</string>
+  <!--LearnMoreTextView-->
+  <string name="LearnMoreTextView_learn_more">Pelajari lebih lanjut</string>
   <!--MessageDetailsRecipient-->
   <string name="MessageDetailsRecipient_failed_to_send">Gagal mengirim</string>
   <string name="MessageDetailsRecipient_new_safety_number">Nomor keamanan baru</string>
@@ -496,6 +502,20 @@
   <string name="MessageRecord_s_disabled_disappearing_messages">%1$s menonaktifkan penghilangan pesan.</string>
   <string name="MessageRecord_you_set_disappearing_message_time_to_s">Anda mengatur waktu penghilangan pesan menjadi%1$s</string>
   <string name="MessageRecord_s_set_disappearing_message_time_to_s">%1$s mengatur waktu penghilangan pesan menjadi %2$s</string>
+  <!--GV2 specific-->
+  <!--GV2 member additions-->
+  <string name="MessageRecord_you_joined_the_group">Anda bergabung ke dalam grup.</string>
+  <string name="MessageRecord_s_joined_the_group">%1$s bergabung dengan grup</string>
+  <!--GV2 member removals-->
+  <!--GV2 role change-->
+  <!--GV2 invitations-->
+  <!--GV2 invitation revokes-->
+  <!--GV2 invitation acceptance-->
+  <!--GV2 title change-->
+  <!--GV2 avatar change-->
+  <!--GV2 attribute access level change-->
+  <!--GV2 membership access level change-->
+  <!--End of GV2 specific update messages-->
   <string name="MessageRecord_your_safety_number_with_s_has_changed">Nomor keamanan Anda dengan %s telah berubah.</string>
   <string name="MessageRecord_you_marked_your_safety_number_with_s_verified">Anda menandai nomor keamanan anda dengan %s terverifikasi</string>
   <string name="MessageRecord_you_marked_your_safety_number_with_s_verified_from_another_device">Anda menandai nomor keamanan anda dengan %s terverifikasi dari perangkat lain</string>
@@ -515,6 +535,9 @@
   <string name="MessageRequestProfileView_member_of_many_groups">Anggota dari %1$s, %2$s, dan %3$s</string>
   <plurals name="MessageRequestProfileView_members">
     <item quantity="other">%1$d anggota</item>
+  </plurals>
+  <plurals name="MessageRequestProfileView_members_and_invited">
+    <item quantity="other">%1$d anggota (+ %2$d diundang)</item>
   </plurals>
   <plurals name="MessageRequestProfileView_member_of_others">
     <item quantity="other">%d lainnya</item>
@@ -561,6 +584,15 @@
   <string name="PlacePickerActivity_accept_address">Terima alamat</string>
   <!--PlayServicesProblemFragment-->
   <string name="PlayServicesProblemFragment_the_version_of_google_play_services_you_have_installed_is_not_functioning">Versi dari Google Play Services yang Anda pasang tidak berfungsi dengan benar. Mohon pasang ulang Google Play Services dan coba lagi.</string>
+  <!--PinRestoreEntryFragment-->
+  <string name="PinRestoreEntryFragment_incorrect_pin">PIN Salah</string>
+  <string name="PinRestoreEntryFragment_contact_support">Hubungi Bantuan</string>
+  <string name="PinRestoreEntryFragment_cancel">Batal</string>
+  <string name="PinRestoreEntryFragment_skip">Lewati</string>
+  <string name="PinRestoreEntryFragment_enter_alphanumeric_pin">Masukan PIN alfanumerik</string>
+  <string name="PinRestoreEntryFragment_enter_numeric_pin">Masukkan PIN numerik</string>
+  <!--PinRestoreLockedFragment-->
+  <string name="PinRestoreLockedFragment_create_your_pin">Buat PIN Anda</string>
   <!--RatingManager-->
   <string name="RatingManager_rate_this_app">Nilai aplikasi ini</string>
   <string name="RatingManager_if_you_enjoy_using_this_app_please_take_a_moment">Jika Anda suka menggunakan aplikasi ini, luangkan waktu sejenak untuk membantu kami dengan memberikan nilai pada aplikasi.</string>
@@ -575,16 +607,7 @@
   <!--ReactionsRecipientAdapter-->
   <string name="ReactionsRecipientAdapter_you">Anda</string>
   <!--RecipientPreferencesActivity-->
-  <string name="RecipientPreferenceActivity_block_this_contact_question">Blokir kontak ini?</string>
-  <string name="RecipientPreferenceActivity_you_will_no_longer_receive_messages_and_calls_from_this_contact">Anda tidak akan menerima pesan dan panggilan dari kontak ini lagi.</string>
-  <string name="RecipientPreferenceActivity_block_and_leave_group">Blokir dan tinggalkan grup ini?</string>
-  <string name="RecipientPreferenceActivity_block_group">Blokir grup ini?</string>
-  <string name="RecipientPreferenceActivity_block_and_leave_group_description">Anda tidak akan lagi menerima pesan dan pembaruan dari grup ini.</string>
   <string name="RecipientPreferenceActivity_block">Blokir</string>
-  <string name="RecipientPreferenceActivity_unblock_this_contact_question">Buka blokir kontak ini?</string>
-  <string name="RecipientPreferenceActivity_you_will_once_again_be_able_to_receive_messages_and_calls_from_this_contact">Anda dapat menerima pesan dan panggilan dari kontak ini kembali.</string>
-  <string name="RecipientPreferenceActivity_unblock_this_group_question">Buka blokir grup ini?</string>
-  <string name="RecipientPreferenceActivity_unblock_this_group_description">Anggota grup yang masih ada dapat menambahkan Anda ke grup lagi.</string>
   <string name="RecipientPreferenceActivity_error_leaving_group">Gagal meninggalkan grup</string>
   <string name="RecipientPreferenceActivity_unblock">Buka blokir</string>
   <string name="RecipientPreferenceActivity_enabled">Diaktifkan</string>
@@ -627,7 +650,7 @@ isikan (%s) tidak valid.
   <string name="RegistrationActivity_less_information">Kurang informasi</string>
   <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly memerlukkan akses ke kontak dan media Anda untuk terkoneksi dengan teman, bertukar pesan, dan membuat panggilan aman</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">Tidak bisa terhubung ke layanan. Mohon cek koneksi jaringan dan coba lagi.</string>
-  <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">Untuk memudahkan verifikasi nomor telepon Anda, Signal dapat secara otomatis mendeteksi kode verifikasi Anda jika Anda mengizinkan Signal untuk melihat pesan SMS.</string>
+  <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">Untuk memudahkan verifikasi nomor telepon Anda, Molly dapat secara otomatis mendeteksi kode verifikasi Anda jika Anda mengizinkan Molly untuk melihat pesan SMS.</string>
   <plurals name="RegistrationActivity_debug_log_hint">
     <item quantity="other">Kamu memiliki %d langkah lagi untuk mengirimkan catatan awakutu.</item>
   </plurals>
@@ -644,6 +667,7 @@ isikan (%s) tidak valid.
   <string name="RegistrationActivity_phone_number_description">Nomor telepon</string>
   <string name="RegistrationActivity_country_code_description">Kode negara</string>
   <string name="RegistrationActivity_call">Panggil</string>
+  <!--RegistrationLockV2Dialog-->
   <!--RevealableMessageView-->
   <string name="RevealableMessageView_view_photo">Lihat Foto</string>
   <string name="RevealableMessageView_view_video">Lihat Video</string>
@@ -688,7 +712,7 @@ Menerima pesan pertukaran kunci untuk versi protokol yang tidak valid.
   <string name="SmsMessageRecord_secure_session_reset_s">%s mengatur ulang sesi aman.</string>
   <string name="SmsMessageRecord_duplicate_message">Pesan Duplikat</string>
   <string name="SmsMessageRecord_this_message_could_not_be_processed_because_it_was_sent_from_a_newer_version">Pesan ini tidak dapat diproses karena dikirim dari versi Signal yang lebih baru. Anda dapat meminta kontak anda untuk mengirim pesan ini lagi setelah Anda melakukan pembaruan.</string>
-  <string name="SmsMessageRecord_error_handling_incoming_message">Gagal dalam menangani pesan masuk</string>
+  <string name="SmsMessageRecord_error_handling_incoming_message">Kesalahan dalam penanganan pesan baru.</string>
   <!--StickerManagementActivity-->
   <string name="StickerManagementActivity_stickers">Stiker</string>
   <!--StickerManagementAdapter-->
@@ -1476,24 +1500,17 @@ Menerima pesan pertukaran kunci untuk versi protokol yang tidak valid.
     <item quantity="other">PIN harus terdiri dari minimal %1$d digit</item>
   </plurals>
   <string name="CreateKbsPinFragment__create_a_new_pin">Buat PIN baru</string>
-  <plurals name="CreateKbsPinFragment__you_can_choose_a_new_pin_because_this_device_is_registered">
-    <item quantity="other">Anda dapat membuat PIN baru karena perangkat ini telah terdaftar. Jika Anda lupa PIN, Anda perlu menunggu %1$d hari untuk mendaftar lagi.</item>
-  </plurals>
   <string name="CreateKbsPinFragment__create_your_pin">Buat PIN Anda</string>
-  <string name="CreateKbsPinFragment__pins_add_extra_security_to_your_account">PIN menambah keamanan tambahan ke akun Anda dan tidak dapat dipulihkan setelah diatur. Anda akan membutuhkan PIN ini untuk mendaftarkan ulang nomor Anda ke Signal.</string>
   <!--ConfirmKbsPinFragment-->
   <string name="ConfirmKbsPinFragment__pins_dont_match">PIN tidak cocok. Coba lagi.</string>
   <string name="ConfirmKbsPinFragment__confirm_your_pin">Konfirmasi PIN Anda.</string>
   <string name="ConfirmKbsPinFragment__pin_creation_failed">Pembuatan PIN gagal</string>
   <string name="ConfirmKbsPinFragment__your_pin_was_not_saved">PIN Anda tidak disimpan. Signal akan meminta Anda membuat PIN lagi nanti.</string>
   <string name="ConfirmKbsPinFragment__pin_created">PIN dibuat.</string>
-  <string name="ConfirmKbsPinFragment__re_enter_pin">Masukkan ulang PIN</string>
   <string name="ConfirmKbsPinFragment__creating_pin">Membuat PIN…</string>
   <!--KbsSplashFragment-->
   <string name="KbsSplashFragment__introducing_pins">Memperkenalkan PIN</string>
-  <string name="KbsSplashFragment__pins_add_another_level_of_security_to_your_account">PIN menambah tingkatan keamanan terhadap akun Anda. Buat sekarang.</string>
   <string name="KbsSplashFragment__learn_more">Pelajari Lebih Lanjut</string>
-  <string name="KbsSplashFragment__learn_more_link">https://support.signal.org/hc/en-us/articles/360007059792-Registration-Lock</string>
   <string name="KbsSplashFragment__registration_lock_equals_pin">Kunci Pendaftaran = PIN</string>
   <string name="KbsSplashFragment__your_registration_lock_is_now_called_a_pin">Kunci Pendaftaran Anda sekarang bernama PIN, dan ia melakukan hal lebih. Perbarui sekarang.</string>
   <string name="KbsSplashFragment__read_more_about_pins">Baca lebih lanjut mengenai PIN.</string>
@@ -1511,7 +1528,6 @@ Menerima pesan pertukaran kunci untuk versi protokol yang tidak valid.
   <string name="AccountLockedFragment__your_account_has_been_locked_to_protect_your_privacy">Akun Anda terkunci untuk melindungi privasi dan keamanan Anda. Setelah %1$d hari tidak aktif Anda akan dapat mendaftarkan ulang nomor telpon ini tanpa memerlukan PIN. Semua konten akan dihapus.</string>
   <string name="AccountLockedFragment__next">Berikutnya</string>
   <string name="AccountLockedFragment__learn_more">Pelajari Lebih Lanjut</string>
-  <string name="AccountLockedFragment__learn_more_url">https://support.signal.org/hc/en-us/articles/360007059792-Registration-Lock</string>
   <!--KbsLockFragment-->
   <string name="RegistrationLockFragment__enter_your_pin">Masukkan PIN Anda</string>
   <string name="RegistrationLockFragment__enter_the_pin_you_created">Masukkan PIN yang Anda buat untuk akun Anda. Ini berbeda dari kode verifikasi SMS.</string>
@@ -1540,10 +1556,8 @@ Menerima pesan pertukaran kunci untuk versi protokol yang tidak valid.
   </plurals>
   <!--KBS Megaphone-->
   <string name="KbsMegaphone__create_a_pin">Buat PIN</string>
-  <string name="KbsMegaphone__pins_add_another_layer_of_security_to_your_signal_account">PIN menambah lapisan keamanan ke akun Signal Anda.</string>
   <string name="KbsMegaphone__create_pin">Buat PIN</string>
   <string name="KbsMegaphone__introducing_pins">Memperkenalkan PIN</string>
-  <string name="KbsMegaphone__your_registration_lock_is_now_called_a_pin">Kunci Pendaftaran Anda sekarang bernama PIN. Memperbaruinya memakan waktu beberapa detik.</string>
   <string name="KbsMegaphone__update_pin">Perbarui PIN</string>
   <string name="KbsMegaphone__well_remind_you_later_creating_a_pin">Kami akan mengingatkan Anda nanti. Membuat PIN akan menjadi kewajiban dalam %1$d hari.</string>
   <string name="KbsMegaphone__well_remind_you_later_confirming_your_pin">Kami akan mengingatkan Anda nanti. Mengonfirmasi PIN akan menjadi kewajiban dalam %1$d hari.</string>
@@ -1616,10 +1630,8 @@ Menerima pesan pertukaran kunci untuk versi protokol yang tidak valid.
   <string name="preferences_app_protection__lock_signal_access_with_android_screen_lock_or_fingerprint">Kunci akses Signal Anda dengan kunci layar Android atau sidik jari</string>
   <string name="preferences_app_protection__screen_lock_inactivity_timeout">Batas waktu kunci layar tanpa aktivitas</string>
   <string name="preferences_app_protection__signal_pin">PIN SIgnal</string>
-  <string name="preferences_app_protection__pin">PIN</string>
-  <string name="preferences_app_protection__change">Ubah</string>
-  <string name="preferences_app_protection__create">Buat</string>
-  <string name="preferences_app_protection__your_pin_adds_an_extra_layer_of_security_to_your_account">PIN Anda berguna untuk meningkatkan keamanan. Anda akan ditanya mengenai PIN saat meregister nomor telepon dengan Signal. Jika Anda melupakan nomor PIN, akun Anda akan terkunci selama 7 hari.</string>
+  <string name="preferences_app_protection__create_a_pin">Buat PIN</string>
+  <string name="preferences_app_protection__change_your_pin">Ganti PIN Anda</string>
   <string name="AppProtectionPreferenceFragment_none">Kosong</string>
   <string name="registration_activity__the_registration_lock_pin_is_not_the_same_as_the_sms_verification_code_you_just_received_please_enter_the_pin_you_previously_configured_in_the_application">PIN Kunci Pendaftaran berbeda dengan SMS kode verifikasi yang baru Anda terima. Harap masukkan konfigurasi PIN yang sebelumnya telah Anda buat. </string>
   <string name="registration_activity__registration_lock_pin">PIN Kunci Pendaftaran</string>

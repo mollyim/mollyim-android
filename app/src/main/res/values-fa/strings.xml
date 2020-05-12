@@ -76,6 +76,19 @@
   <string name="AudioSlidePlayer_error_playing_audio">خطا در پخش صوت!</string>
   <!--BlockedContactsActivity-->
   <string name="BlockedContactsActivity_blocked_contacts">مخاطبان مسدود شده</string>
+  <!--BlockUnblockDialog-->
+  <string name="BlockUnblockDialog_block_and_leave_s">می‌خواهید گروه %1$s را مسدود و ترک کنید؟</string>
+  <string name="BlockUnblockDialog_block_s"> گروه %1$s مسدود شود؟</string>
+  <string name="BlockUnblockDialog_you_will_no_longer_receive_messages_or_updates">شما دیگر از این گروه پیام و به‌روزرسانی دریافت نخواهید کرد. و اعضا قادر نخواهند بود دوباره شما را به این گروه اضافه کنند.</string>
+  <string name="BlockUnblockDialog_group_members_wont_be_able_to_add_you">اعضای گروه دیگر قادر نخواهند بود شما را به این گروه اضافه کنند.</string>
+  <string name="BlockUnblockDialog_group_members_will_be_able_to_add_you">اعضای گروه می‌توانند دوباره شما را به این گروه اضافه کنند.</string>
+  <string name="BlockUnblockDialog_you_will_be_able_to_call_and_message_each_other">شما قادر خواهید بود به یکدیگر پیام دهید و با آنها تماس بگیرید.</string>
+  <string name="BlockUnblockDialog_blocked_people_wont_be_able_to_call_you_or_send_you_messages">افراد مسدود شده قادر به برقراری تماس با یا ارسال پیام به شما نخواهند بود.</string>
+  <string name="BlockUnblockDialog_unblock_s">گروه %1$s از حالت مسدود خارج شود؟</string>
+  <string name="BlockUnblockDialog_unblock">رفع مسدودیت</string>
+  <string name="BlockUnblockDialog_block">مسدودسازی</string>
+  <string name="BlockUnblockDialog_block_and_leave">می‌خواهید گروه را ترک و مسدود کنید؟</string>
+  <string name="BlockUnblockDialog_block_and_delete">بلاک و حذف</string>
   <!--BucketedThreadMedia-->
   <string name="BucketedThreadMedia_Today">امروز</string>
   <string name="BucketedThreadMedia_Yesterday">دیروز</string>
@@ -109,6 +122,7 @@
   <string name="ClearProfileActivity_remove_profile_photo">حذف عکس پروفایل؟</string>
   <!--CommunicationActions-->
   <string name="CommunicationActions_no_browser_found"> مرورگر اینترنت یافت نشد.</string>
+  <string name="CommunicationActions_no_email_app_found">برنامهٔ ایمیل یافت نشد.</string>
   <string name="CommunicationActions_a_cellular_call_is_already_in_progress">یک تماس تلفنی در جریان است.</string>
   <string name="CommunicationActions_start_video_call">شروع تماس تصویری؟</string>
   <string name="CommunicationActions_start_voice_call">شروع تماس صوتی؟</string>
@@ -156,6 +170,7 @@
   <string name="ConversationItem_read_more">  بیشتر بخوانید</string>
   <string name="ConversationItem_download_more"> دانلود بیشتر</string>
   <string name="ConversationItem_pending">  در انتظار</string>
+  <string name="ConversationItem_this_message_was_deleted">این پیام حذف شد</string>
   <!--ConversationActivity-->
   <string name="ConversationActivity_reset_secure_session_question">تنظیم مجدد نشست امن؟</string>
   <string name="ConversationActivity_this_may_help_if_youre_having_encryption_problems">اگر در این مکالمه با مشکلات رمزگذاری روبرو هستید این کار ممکن است کمک کند. پیام‌های شما باقی خواهند ماند.</string>
@@ -206,15 +221,6 @@
   <string name="ConversationActivity_no_results">بدون نتیجه</string>
   <string name="ConversationActivity_sticker_pack_installed">بسته استیکر نصب شد</string>
   <string name="ConversationActivity_new_say_it_with_stickers">قابلیت جدید! حرف خود را با استیکر بزنید</string>
-  <string name="ConversationActivity_block_s"> گروه %1$s مسدود شود؟</string>
-  <string name="ConversationActivity_block_and_leave_s">می‌خواهید گروه %1$s را مسدود و ترک کنید؟</string>
-  <string name="ConversationActivity_unblock_s">گروه %1$s از حالت مسدود خارج شود؟</string>
-  <string name="ConversationActivity_you_will_be_able_to_message_and_call_each_other">شما قادر خواهید بود به یکدیگر پیام دهید و با آنها تماس بگیرید.</string>
-  <string name="ConversationActivity_group_members_will_be_able_to_add_you_to_this_group_again">اعضای گروه می‌توانند دوباره شما را به این گروه اضافه کنند.</string>
-  <string name="ConversationActivity_blocked_people_will_not_be_able_to_call_you_or_send_you_messages">افراد مسدود شده قادر به برقراری تماس یا تبادل پیام با شما نخواهند بود.</string>
-  <string name="ConversationActivity_you_will_leave_this_group_and_no_longer_receive_messages_or_updates">شما این گروه را ترک کرده و دیگر پیام‌ها و به‌روزرسانی‌ها را دریافت نخواهید کرد.</string>
-  <string name="ConversationActivity_block">مسدودسازی</string>
-  <string name="ConversationActivity_block_and_delete">مسدود و حذف</string>
   <string name="ConversationActivity_cancel">لغو</string>
   <string name="ConversationActivity_delete_conversation">مکالمه حذف شود؟</string>
   <string name="ConversationActivity_delete_and_leave_group">حذف و ترک گروه؟</string>
@@ -260,8 +266,10 @@
   <string name="ConversationFragment_sms">پیامک</string>
   <string name="ConversationFragment_deleting">در حال حذف کردن</string>
   <string name="ConversationFragment_deleting_messages">حذف پیام‌‌ها…</string>
+  <string name="ConversationFragment_delete_for_me">حذف برای من</string>
+  <string name="ConversationFragment_delete_for_everyone">حذف برای همه</string>
   <string name="ConversationFragment_quoted_message_not_found">پیام اصلی یافت نشد</string>
-  <string name="ConversationFragment_quoted_message_no_longer_available">پیام اصلی دیگر موجود نمی باشد</string>
+  <string name="ConversationFragment_quoted_message_no_longer_available">پیام اصلی دیگر در دسترس نیست</string>
   <string name="ConversationFragment_failed_to_open_message">عدم موفقیت در باز کردن پیام</string>
   <string name="ConversationFragment_you_can_swipe_to_the_right_reply">برای پاسخ دهی سریع روی هر پیام به سمت راست بکشید</string>
   <string name="ConversationFragment_you_can_swipe_to_the_left_reply">برای پاسخ دهی سریع روی هر پیام به سمت چپ بکشید</string>
@@ -317,7 +325,7 @@
   <string name="AvatarSelectionBottomSheetDialogFragment__choose_from_gallery">انتخاب از گالری</string>
   <string name="AvatarSelectionBottomSheetDialogFragment__remove_photo">حذف عکس</string>
   <!--DateUtils-->
-  <string name="DateUtils_just_now">الان</string>
+  <string name="DateUtils_just_now">الآن</string>
   <string name="DateUtils_minutes_ago">%d دقیقه</string>
   <string name="DateUtils_today">امروز</string>
   <string name="DateUtils_yesterday">دیروز</string>
@@ -370,18 +378,50 @@
   <string name="GroupCreateActivity_menu_apply_button">اعمال</string>
   <string name="GroupCreateActivity_creating_group">ایجاد %1$s…</string>
   <string name="GroupCreateActivity_updating_group">به روز رسانی %1$s…</string>
-  <string name="GroupCreateActivity_cannot_add_non_push_to_existing_group">امکان افزودن %1$s وجود ندارد چون کاربر Signal نمی باشد.</string>
+  <string name="GroupCreateActivity_cannot_add_non_push_to_existing_group">امکان افزودن این کاربر وجود ندارد چون %1$s کاربر Signal نیست.</string>
   <string name="GroupCreateActivity_loading_group_details">بارگذاری جزئیات گروه…</string>
   <string name="GroupCreateActivity_youre_already_in_the_group">شما در حال حاضر در این گروه هستید.</string>
+  <string name="GroupCreateActivity_remove_member_description">حذف عضو گروه</string>
   <!--GroupShareProfileView-->
   <string name="GroupShareProfileView_share_your_profile_name_and_photo_with_this_group">اشتراک گذاری نام و تصویر پروفایل خود با این گروه؟</string>
   <string name="GroupShareProfileView_do_you_want_to_make_your_profile_name_and_photo_visible_to_all_current_and_future_members_of_this_group">آیا می‌خواهید نام و تصویر نمایه شما برای همه اعضا فعلی و کسانی که در آینده عضو می شوند آشکار شود؟</string>
   <string name="GroupShareProfileView_make_visible">آشکار کن</string>
   <!--GroupMembersDialog-->
   <string name="GroupMembersDialog_you">شما</string>
+  <!--GV2 access levels-->
+  <string name="GroupManagement_access_level_anyone">همه</string>
+  <string name="GroupManagement_access_level_all_members">همهٔ اعضا</string>
+  <string name="GroupManagement_access_level_only_admins">فقط مدیران</string>
+  <!--PendingMembersActivity-->
+  <string name="PendingMemberInvitesActivity_pending_group_invites">دعوت‌های در حال انتظار</string>
+  <string name="PendingMembersActivity_people_you_invited">افرادی که شما دعوت کردید</string>
+  <string name="PendingMembersActivity_you_have_no_pending_invites">شما هیچ دعوت در حال انتظاری ندارید</string>
+  <string name="PendingMembersActivity_invites_by_other_group_members">دعوت‌های اعضای دیگر گروه</string>
+  <string name="PendingMembersActivity_no_pending_invites_by_other_group_members">هیچ دعوتی از اعضای دیگر گروه وجود ندارد</string>
+  <string name="PendingMembersActivity_missing_detail_explanation">جزئیات افراد دعوت شده از جانب اعضای دیگر گروه نشان داده نمی‌شوند. اگر دعوت‌شوندگان تصمیم به عضویت بگیرند، آنگاه اطلاعات آن‌ها نشان داده خواهد شد. آن‌ها تا زمانی که عضو نشوند هیچ پیامی از گروه را نخواهند دید.</string>
+  <string name="PendingMembersActivity_cancel_invite">لغو دعوت</string>
+  <string name="PendingMembersActivity_cancel_invites">لغو دعوت‌ها</string>
+  <plurals name="PendingMembersActivity_cancel_d_invites">
+    <item quantity="one">لغو دعوت</item>
+    <item quantity="other">لغو %1$d دعوت</item>
+  </plurals>
+  <plurals name="PendingMembersActivity_error_canceling_invite">
+    <item quantity="one">اشکال در لغو دعوت</item>
+    <item quantity="other">اشکال در لغو دعوت‌ها</item>
+  </plurals>
+  <plurals name="GroupMemberList_invited">
+    <item quantity="one">%1$s ۱ نفر را دعوت کرد</item>
+    <item quantity="other">%1$s %2$d نفر را دعوت کرد</item>
+  </plurals>
+  <!--GV2 Invite cancellation confirmation-->
+  <string name="GroupManagement_cancel_own_single_invite">آیا می‌خواهید دعوتی که به %1$s فرستادید را لغو کنید؟</string>
+  <plurals name="GroupManagement_cancel_others_invites">
+    <item quantity="one">آیا می‌خواهید دعوت ارسال‌شده از جانب %1$s را لغو کنید؟</item>
+    <item quantity="other">آیا می‌خواهید %2$d دعوت ارسال‌شده از جانب %1$s را لغو کنید؟</item>
+  </plurals>
   <!--CropImageActivity-->
-  <string name="CropImageActivity_group_avatar">چهرک گروه</string>
-  <string name="CropImageActivity_profile_avatar">چهرک</string>
+  <string name="CropImageActivity_group_avatar">عکس گروه</string>
+  <string name="CropImageActivity_profile_avatar">عکس</string>
   <!--InputPanel-->
   <string name="InputPanel_tap_and_hold_to_record_a_voice_message_release_to_send">برای ضبط کردن پیام صوتی ضربه زده و نگه دارید، برای ارسال رها کنید</string>
   <!--InviteActivity-->
@@ -407,6 +447,8 @@
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">دوستان واقعی به دوستان خود اجازهٔ گفتگوی رمزگذاری نشده را نمی‌دهند.</string>
   <!--Job-->
   <string name="Job_working_in_the_background">در حال کار در پس‌زمینه…</string>
+  <!--LearnMoreTextView-->
+  <string name="LearnMoreTextView_learn_more">بیشتر یاد بگیرید</string>
   <!--MessageDetailsRecipient-->
   <string name="MessageDetailsRecipient_failed_to_send">عدم موفقیت در ارسال</string>
   <string name="MessageDetailsRecipient_new_safety_number">شمارهٔ امنیتی جدید</string>
@@ -492,7 +534,7 @@
   <string name="MediaSendActivity_message">پیام</string>
   <string name="MediaSendActivity_select_recipients">گیرندگان را انتخاب کنید</string>
   <string name="MediaSendActivity_signal_needs_access_to_your_contacts">برای اینکه Molly مخاطبان شما ره نمایش دهد نیاز دارد به آنها دسترسی داشته باشد.</string>
-  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">برای اینکه Molly مخاطبان شما را به شما نشان دهد، نیاز دارد تا به مخاطبان دسترسی داشته باشد، اما این اجازه به صورت دائمی رد شده است. لطفاً به قسمت تنظیمات برنامه رفته، \"مجوز ها\" را انتخاب کنید، و \"مخاطبان\" را فعال کنید.</string>
+  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Molly برای نشان دادن مخاطبان شما نیاز به دسترسی به مخاطبان دارد، اما این دسترسی داده نشده است. لطفاً به بخش مدیریت برنامه‌ها در تنظیمات تلفن همراه خود رفته، در بخش «مجوزها» گزینهٔ «مخاطبان» را فعال کنید.</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="one">شما نمی توانید بیش از %d مورد را به اشتراک بگذارید.</item>
     <item quantity="other">شما نمی توانید بیش از %d مورد را به اشتراک بگذارید.</item>
@@ -512,11 +554,67 @@
   <string name="MessageRecord_s_called_you">%s با شما تماس گرفت</string>
   <string name="MessageRecord_called_s">با %s تماس گرفته شد</string>
   <string name="MessageRecord_missed_call_from">تماس از دست رفته از %s</string>
-  <string name="MessageRecord_s_joined_signal">%s روی Signal می باشد!</string>
+  <string name="MessageRecord_s_joined_signal">%s در Signal است!</string>
   <string name="MessageRecord_you_disabled_disappearing_messages">شما پیام های ناپدید شونده را غیر فعال کردید.</string>
   <string name="MessageRecord_s_disabled_disappearing_messages">%1$s پیام های ناپدید شونده را غیرفعال کرد.</string>
   <string name="MessageRecord_you_set_disappearing_message_time_to_s">شما زمان سنج پیام های ناپدید شونده را روی %1$s تنظیم کردید.</string>
   <string name="MessageRecord_s_set_disappearing_message_time_to_s">%1$s زمان سنج پیام های ناپدید شونده را روی %2$s قرار داد.</string>
+  <!--GV2 specific-->
+  <!--GV2 member additions-->
+  <string name="MessageRecord_you_added_s">شما %1$s را اضافه کردید.</string>
+  <string name="MessageRecord_s_added_s">%1$s %2$s را اضافه کرد.</string>
+  <string name="MessageRecord_s_added_you">%1$s شما را به گروه اضافه کرد.</string>
+  <string name="MessageRecord_you_joined_the_group">شما به گروه پیوستید.</string>
+  <string name="MessageRecord_s_joined_the_group">%1$s به گروه پیوست.</string>
+  <!--GV2 member removals-->
+  <string name="MessageRecord_you_removed_s">شما %1$s را حذف کردید.</string>
+  <string name="MessageRecord_s_removed_s">%1$s %2$s را حذف کرد.</string>
+  <string name="MessageRecord_s_removed_you_from_the_group">%1$s شما را از گروه حذف کرد.</string>
+  <string name="MessageRecord_you_left_the_group">شما گروه را ترک کردید</string>
+  <string name="MessageRecord_s_left_the_group">%1$s گروه را ترک کرد.</string>
+  <!--GV2 role change-->
+  <string name="MessageRecord_you_made_s_an_admin">شما %1$s را به مدیر تبدیل کردید.</string>
+  <string name="MessageRecord_s_made_s_an_admin">%1$s %2$s را به مدیر تبدیل کرد.</string>
+  <string name="MessageRecord_s_made_you_an_admin">%1$s شما را به مدیر تبدیل کرد.</string>
+  <string name="MessageRecord_you_revoked_admin_privileges_from_s">شما امتیازات مدیریت %1$s را لغو کردید.</string>
+  <string name="MessageRecord_s_revoked_your_admin_privileges">%1$s امتیازات مدیریت شما را لغو کرد.</string>
+  <string name="MessageRecord_s_revoked_admin_privileges_from_s">%1$s امتیازات مدیریت %2$s را لغو کرد.</string>
+  <!--GV2 invitations-->
+  <string name="MessageRecord_you_invited_s_to_the_group">شما %1$s را به گروه دعوت کردید.</string>
+  <string name="MessageRecord_s_invited_you_to_the_group">%1$s شما را به گروه دعوت کرد.</string>
+  <plurals name="MessageRecord_s_invited_members">
+    <item quantity="one">%1$s ۱ نفر را به گروه دعوت کرد.</item>
+    <item quantity="other">%1$s %2$d نفر را به گروه دعوت کرد.</item>
+  </plurals>
+  <!--GV2 invitation revokes-->
+  <plurals name="MessageRecord_you_revoked_invites">
+    <item quantity="one">شما یک دعوت به گروه را لغو کردید.</item>
+    <item quantity="other">شما %1$d دعوت‌ را لغو کردید.</item>
+  </plurals>
+  <plurals name="MessageRecord_s_revoked_invites">
+    <item quantity="one">%1$s یک دعوت به گروه را لغو کرد.</item>
+    <item quantity="other">%1$s %2$d دعوت‌ به گروه را لغو کرد.</item>
+  </plurals>
+  <string name="MessageRecord_someone_declined_an_invitation_to_the_group">یک نفر دعوت به گروه را رد کرد.</string>
+  <string name="MessageRecord_you_declined_the_invitation_to_the_group">شما دعوت به گروه را رد کردید.</string>
+  <!--GV2 invitation acceptance-->
+  <string name="MessageRecord_you_accepted_invite">شما دعوت به گروه را پذیرفتید.</string>
+  <string name="MessageRecord_s_accepted_invite">%1$s دعوت به گروه را قبول کرد.</string>
+  <string name="MessageRecord_you_added_invited_member_s">شما %1$s را اضافه کردید.</string>
+  <string name="MessageRecord_s_added_invited_member_s">%1$s %2$s را اضافه کرد.</string>
+  <!--GV2 title change-->
+  <string name="MessageRecord_you_changed_the_group_name_to_s">شما نام گروه را به «%1$s» تغییر دادید.</string>
+  <string name="MessageRecord_s_changed_the_group_name_to_s">%1$s نام گروه را به «%2$s» تغییر داد.</string>
+  <!--GV2 avatar change-->
+  <string name="MessageRecord_you_changed_the_group_avatar">شما عکس گروه را عوض کردید.</string>
+  <string name="MessageRecord_s_changed_the_group_avatar">%1$s عکس گروه را تغییر داد.</string>
+  <!--GV2 attribute access level change-->
+  <string name="MessageRecord_you_changed_who_can_edit_group_info_to_s">شما قابلیت ویرایش اطلاعات گروه را به «%1$s» انتقال دادید.</string>
+  <string name="MessageRecord_s_changed_who_can_edit_group_info_to_s">%1$s قابلیت ویرایش اطلاعات گروه را به «%2$s» انتقال داد.</string>
+  <!--GV2 membership access level change-->
+  <string name="MessageRecord_you_changed_who_can_edit_group_membership_to_s">شما قابلیت ویرایش اعضای گروه را به «%1$s» انتقال دادید.</string>
+  <string name="MessageRecord_s_changed_who_can_edit_group_membership_to_s">%1$s قابلیت ویرایش اعضای گروه را به «%2$s» انتقال داد.</string>
+  <!--End of GV2 specific update messages-->
   <string name="MessageRecord_your_safety_number_with_s_has_changed">شماره امنیتی شما با %s تغییر یافت.</string>
   <string name="MessageRecord_you_marked_your_safety_number_with_s_verified">شما شماره امنیتی خود با %s  را تایید شده علامت گذاری کردید</string>
   <string name="MessageRecord_you_marked_your_safety_number_with_s_verified_from_another_device">شما شماره امنیتی خود با %s را از دستگاه دیگری تایید شده علامت گذاری کردید</string>
@@ -537,6 +635,10 @@
   <plurals name="MessageRequestProfileView_members">
     <item quantity="one">عضو %1$d</item>
     <item quantity="other">اعضای %1$d</item>
+  </plurals>
+  <plurals name="MessageRequestProfileView_members_and_invited">
+    <item quantity="one">%1$d عضو (+%2$d دعوت شدند)</item>
+    <item quantity="other">%1$d عضو (+%2$d دعوت شدند)</item>
   </plurals>
   <plurals name="MessageRequestProfileView_member_of_others">
     <item quantity="one">%d گروه دیگر</item>
@@ -559,14 +661,14 @@
   <string name="DeviceProvisioningActivity_content_progress_content">پیوند دهی دستگاه جدید…</string>
   <string name="DeviceProvisioningActivity_content_progress_success">دستگاه تایید شد!</string>
   <string name="DeviceProvisioningActivity_content_progress_no_device">هیچ دستگاهی یافت نشد.</string>
-  <string name="DeviceProvisioningActivity_content_progress_network_error">خطا شبکه.</string>
-  <string name="DeviceProvisioningActivity_content_progress_key_error">کد کیوآر نامعتبر.</string>
+  <string name="DeviceProvisioningActivity_content_progress_network_error">خطای شبکه.</string>
+  <string name="DeviceProvisioningActivity_content_progress_key_error">کد QR نامعتبر است.</string>
   <string name="DeviceProvisioningActivity_sorry_you_have_too_many_devices_linked_already">پوزش، تا کنون دستگاه‌های زیادی را پیوند داده‌اید، سعی کنید برخی از آن‌ها را حذف کنید.</string>
-  <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">پوزش، این کد کیوآر برای پیوند دستگاه معتبر نمی باشد.</string>
+  <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">متاسفانه این کد QR برای اتصال دستگاه معتبر نيست.</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">پیوند یک دستگاه Signal؟</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">به نظر می آید شما سعی دارید از طریق یک اسکنر شخص ثالث دستگاه Signal خود را پیوند دهید. جهت حفظ امنیت، لطفاً کد را دوباره از داخل Signal اسکن کنید.</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly نیاز به مجوز دوربین دارد تا بتواند یک کد کیوآر را اسکن کند، اما این اجازه داده نشده است. لطفاً به تنظیمات برنامه رفته، \"مجوز ها\" را انتخاب کنید، و \"دوربین\" را فعال کنید.</string>
-  <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">عدم توانایی در اسکن کد کیوآر بدون مجوز دوربین</string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly جهت اسکن کردن کد QR نیاز به دسترسی به دوربین دارد، اما این دسترسی داده نشده است. لطفاً به بخش مدیریت برنامه‌ها در تنظیمات تلفن همراه خود رفته، در بخش «مجوزها» گزینهٔ «دوربین» را فعال کنید.</string>
+  <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">امکان اسکن کردن کد QR بدون مجوز دوربین وجود ندارد</string>
   <!--ExpirationDialog-->
   <string name="ExpirationDialog_disappearing_messages">پیام های ناپدید شونده</string>
   <string name="ExpirationDialog_your_messages_will_not_expire">پیام های شما انقضا نخواهند یافت.</string>
@@ -579,11 +681,33 @@
   <string name="PassphrasePromptActivity_unlock_signal">باز کردن قفل Signal</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">نقشه</string>
-  <string name="PlacePickerActivity_not_a_valid_address">نشانی معتبر نمی باشد</string>
+  <string name="PlacePickerActivity_not_a_valid_address">آدرس معتبر نیست</string>
   <string name="PlacePickerActivity_drop_pin">قرار دادن نشانگر</string>
   <string name="PlacePickerActivity_accept_address">پذیرش نشانی</string>
   <!--PlayServicesProblemFragment-->
   <string name="PlayServicesProblemFragment_the_version_of_google_play_services_you_have_installed_is_not_functioning">نسخه گوگل پلی سرویس که شما نصب کرده اید به درستی کار نمی کند. لطفاً آن را دوباره کنید و مجددا تلاش کنید.</string>
+  <!--PinRestoreEntryFragment-->
+  <string name="PinRestoreEntryFragment_incorrect_pin">پین نادرست</string>
+  <string name="PinRestoreEntryFragment_skip_pin_entry">رد ورود پین؟</string>
+  <string name="PinRestoreEntryFragment_need_help">به راهنمایی نیاز دارید؟</string>
+  <string name="PinRestoreEntryFragment_your_pin_is_a_d_digit_code">پین شما یک کد %1$d+ رقمی است که می‌تواند شامل اعداد یا حروف باشد.\n\n اگر نمی‌توانید پین را به یاد بیاورید، می‌توانید یک پین جدید ایجاد کنید. می‌توانید دوباره ثبت‌نام و از حساب‌تان استفاده کنید اما تنظیمات ذخیره شده مانند اطلاعات پروفایل‌‌تان را از دست می‌دهید.</string>
+  <string name="PinRestoreEntryFragment_if_you_cant_remember_your_pin">اگر نمی‌توانید پین را به یاد بیاورید، یک پین جدید ایجاد کنید. شما می‌توانید ثبت‌نام و از حساب‌تان استفاده کنید اما تنظیمات ذخیره‌ شده مانند اطلاعت پروفایل‌تان را از دست می‌دهید.</string>
+  <string name="PinRestoreEntryFragment_create_new_pin">ایجاد پین جدید</string>
+  <string name="PinRestoreEntryFragment_contact_support">ارتباط با پشتیبانی</string>
+  <string name="PinRestoreEntryFragment_cancel">لغو</string>
+  <string name="PinRestoreEntryFragment_skip">پرش</string>
+  <plurals name="PinRestoreEntryFragment_you_have_d_attempt_remaining">
+    <item quantity="one">شما %1$d فرصت دیگر باقی دارید. اگر فرصت‌های شما تمام شوند، می‌توانید یک پین جدید بسازید. شما می‌توانید ثبت‌نام و از حساب خود استفاده کنید ولی برخی تنظیمات ذخیره‌شده مانند اطلاعات پروفایل‌تان را از دست می‌دهید.</item>
+    <item quantity="other">شما %1$d فرصت دیگر باقی دارید. اگر فرصت‌های شما تمام شوند، می‌توانید یک پین جدید بسازید. شما می‌توانید ثبت‌نام و از حساب خود استفاده کنید ولی برخی تنظیمات ذخیره‌شده مانند اطلاعات پروفایل‌تان را از دست می‌دهید.</item>
+  </plurals>
+  <string name="PinRestoreEntryFragment_signal_registration_need_help_with_pin">ثبت‌نام Signal - نیاز به راهنمایی در مورد پین اندروید</string>
+  <string name="PinRestoreEntryFragment_subject_signal_registration">موضوع: ثبت‌نام سیگنال - نیاز به راهنمایی برای اندروید\n اطلاعات دستگاه: %1$s\nنسخهٔ اندروید: %2$s\n نسخهٔ سیگنال %3$s\n زبان: %4$s</string>
+  <string name="PinRestoreEntryFragment_enter_alphanumeric_pin">پین حرفی‌-عددی را وارد کنید</string>
+  <string name="PinRestoreEntryFragment_enter_numeric_pin">پین عددی را وارد کنید</string>
+  <!--PinRestoreLockedFragment-->
+  <string name="PinRestoreLockedFragment_create_your_pin">پین خود را ایجاد کنید</string>
+  <string name="PinRestoreLockedFragment_youve_run_out_of_pin_guesses">فرصت‌های شما برای حدس پین تمام شد، اما شما هنوز می‌توانید با ایجاد یک پین جدید به حساب Signal تان دسترسی داشته باشید. به منظور حفظ امنیت و حریم خصوصی شما، حساب شما بدون هیچ اطلاعات و تنظیماتی ذخیره‌شده‌ای از پروفایل شما بازنشانی خواهد شد.</string>
+  <string name="PinRestoreLockedFragment_create_new_pin">ایجاد پین جدید</string>
   <!--RatingManager-->
   <string name="RatingManager_rate_this_app">امتیازدهی این برنامه</string>
   <string name="RatingManager_if_you_enjoy_using_this_app_please_take_a_moment">اگر از استفاده از این برنامه لذت می برید، لطفاً برای کمک به ما یک لحظه وقت بگذارید و آن را امتیاز دهید.</string>
@@ -598,16 +722,7 @@
   <!--ReactionsRecipientAdapter-->
   <string name="ReactionsRecipientAdapter_you">شما</string>
   <!--RecipientPreferencesActivity-->
-  <string name="RecipientPreferenceActivity_block_this_contact_question">مسدود کردن این مخاطب؟</string>
-  <string name="RecipientPreferenceActivity_you_will_no_longer_receive_messages_and_calls_from_this_contact">شما ديگر هیچ تماس و پيامی از این مخاطب دريافت نخواهید کرد.</string>
-  <string name="RecipientPreferenceActivity_block_and_leave_group">مسدودسازی و ترک این گروه؟</string>
-  <string name="RecipientPreferenceActivity_block_group">مسدودسازی این گروه؟</string>
-  <string name="RecipientPreferenceActivity_block_and_leave_group_description">شما دیگر از این گروه پیام یا به‌روزرسانی دریافت نخواهید کرد.</string>
   <string name="RecipientPreferenceActivity_block">مسدود سازی</string>
-  <string name="RecipientPreferenceActivity_unblock_this_contact_question">رفع مسدودیت این مخاطب؟</string>
-  <string name="RecipientPreferenceActivity_you_will_once_again_be_able_to_receive_messages_and_calls_from_this_contact">شما دوباره قادر به دریافت پیام و تماس از این مخاطب خواهید بود.</string>
-  <string name="RecipientPreferenceActivity_unblock_this_group_question">رفع مسدودیت این گروه؟</string>
-  <string name="RecipientPreferenceActivity_unblock_this_group_description">اعضا فعلی قادر خواهند بود دوباره شما را به گروه اضافه کنند.</string>
   <string name="RecipientPreferenceActivity_error_leaving_group">خطا در ترک گروه</string>
   <string name="RecipientPreferenceActivity_unblock">رفع مسدودیت</string>
   <string name="RecipientPreferenceActivity_enabled">فعال</string>
@@ -638,8 +753,8 @@
   <string name="RegistrationActivity_invalid_number">شماره نامعتبر</string>
   <string name="RegistrationActivity_the_number_you_specified_s_is_invalid">شماره‌ای که شما
 مشخص کرده‌اید (%s) معتبر نیست.</string>
-  <string name="RegistrationActivity_missing_google_play_services">سرویس های گوگل پلی موجود نمی باشد</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">این دستگاه فاقد سرویس های گوگل پلی می باشد. شما می‌توانید به استفاده از Signal ادامه دهید، اما این پیکربندی می‌تواند باعث کاهش اطمینان‌پذیری یا عملکرد شود.\n\n اگر یک کاربر حرفه‌ای نبوده یا در حال اجرای یک ROM سفارشی اندروید نیستید، یا فکر می‌کنید که این پیام اشتباهاً به شما نشان داده شده است، برای دریافت کمک در فرآیند رفع اشکال با support@signal.org تماس بگیرید.</string>
+  <string name="RegistrationActivity_missing_google_play_services">سرویس‌های گوگل پلی موجود نیستند</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">این دستگاه فاقد خدمات Google Play است. شما می‌توانید به استفاده از Signal ادامه دهید، اما این پیکربندی می‌تواند باعث کاهش اطمینان‌پذیری یا عملکرد شود.\n\n اگر یک کاربر حرفه‌ای یا در حال اجرای یک ROM سفارشی اندروید نیستید یا فکر می‌کنید که این پیام به اشتباه به شما نشان داده شده است، برای دریافت کمک در فرآیند عیب‌یابی با support@signal.org تماس بگیرید.</string>
   <string name="RegistrationActivity_i_understand">می فهمم</string>
   <string name="RegistrationActivity_play_services_error">خطا پلی استور</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">گوگل پلی استور در حال به روز رسانی بوده یا موقتاً در دسترس نیست. لطفاً دوباره تلاش کنید.</string>
@@ -649,7 +764,7 @@
   <string name="RegistrationActivity_less_information">اطلاعات کمتر</string>
   <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">برای ارتباط با دوستان، تبادل پیام، برقراری تماس امن، Molly نیاز دارد تا به مخاطبان و رسانه شما دسترسی داشته باشد</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">عدم توانایی در اتصال به سرویس. لطفاً اتصال شبکه را بررسی کرده و دوباره تلاش کنید.</string>
-  <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">برای تأیید شماره‌ٔ همراه خود، Signal می‌تواند به صورت خودکار کد تأیید شما را شناسایی کند، در صورتی که به Signal اجازهٔ زؤیت پیامک‌ها را بدهید.</string>
+  <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">برای تأیید شماره‌ٔ همراه خود، Molly می‌تواند به صورت خودکار کد تأیید شما را شناسایی کند، در صورتی که به Molly اجازهٔ زؤیت پیامک‌ها را بدهید.</string>
   <plurals name="RegistrationActivity_debug_log_hint">
     <item quantity="one">شما %d قدم از ثبت گزارش اشکال زدایی فاصله دارید.</item>
     <item quantity="other">شما  %d قدم از ارسال گزارش اشکال‌زدایی فاصله دارید.</item>
@@ -667,6 +782,12 @@
   <string name="RegistrationActivity_phone_number_description">شمارهٔ همراه</string>
   <string name="RegistrationActivity_country_code_description">کد کشور</string>
   <string name="RegistrationActivity_call">تماس</string>
+  <!--RegistrationLockV2Dialog-->
+  <string name="RegistrationLockV2Dialog_turn_on_registration_lock">روشن کردن قفل ثبت‌نام؟</string>
+  <string name="RegistrationLockV2Dialog_turn_off_registration_lock">خاموش کردن قفل ثبت‌نام؟</string>
+  <string name="RegistrationLockV2Dialog_if_you_forget_your_signal_pin_when_registering_again">اگر شما پین سیگنال خود را هنگام ثبت‌نام دوباره فراموش کنید، حساب شما به مدت ۷ روز قفل خواهد شد و قادر به استفاده از آن نخواهید بود.</string>
+  <string name="RegistrationLockV2Dialog_turn_on">روشن</string>
+  <string name="RegistrationLockV2Dialog_turn_off">خاموش</string>
   <!--RevealableMessageView-->
   <string name="RevealableMessageView_view_photo">مشاهده تصویر</string>
   <string name="RevealableMessageView_view_video">مشاهده ویدئو</string>
@@ -709,14 +830,14 @@
   <string name="SmsMessageRecord_secure_session_reset_s">%s نشست امن را مجدداً تنظیم کرد.</string>
   <string name="SmsMessageRecord_duplicate_message">پیام تکراری.</string>
   <string name="SmsMessageRecord_this_message_could_not_be_processed_because_it_was_sent_from_a_newer_version">این پیام قابل پردازش نیست چون از یک نسخه جدیدتر Signal ارسال شده است. می توانید از مخاطب خود بخواهید تا این پیام را دوباره بعد از به‌روزرسانی برای شما ارسال کند.</string>
-  <string name="SmsMessageRecord_error_handling_incoming_message">خطا در کنترل پیام دریافتی</string>
+  <string name="SmsMessageRecord_error_handling_incoming_message">خطا هنگام دریافت پیام.</string>
   <!--StickerManagementActivity-->
   <string name="StickerManagementActivity_stickers">استیکر ها</string>
   <!--StickerManagementAdapter-->
   <string name="StickerManagementAdapter_installed_stickers">استیکر های نصب شده</string>
   <string name="StickerManagementAdapter_stickers_you_received">استیکر هایی که دریافت کردید</string>
   <string name="StickerManagementAdapter_signal_artist_series">سری های هنرمند Signal</string>
-  <string name="StickerManagementAdapter_no_stickers_installed">هیچ استیکری نصب نمی باشد</string>
+  <string name="StickerManagementAdapter_no_stickers_installed">هیچ استیکری نصب نشده است</string>
   <string name="StickerManagementAdapter_stickers_from_incoming_messages_will_appear_here">استیکر هایی که از پیام های ورودی دریافت می شوند اینجا نمایش داده خواهند شد</string>
   <string name="StickerManagementAdapter_untitled">بدون نام</string>
   <string name="StickerManagementAdapter_unknown">ناشناخته</string>
@@ -751,6 +872,7 @@
   <string name="ThreadRecord_view_once_photo">عکس یکبار مصرف</string>
   <string name="ThreadRecord_view_once_video">ویدئوی یکبار مصرف</string>
   <string name="ThreadRecord_view_once_media">رسانهٔ یکبار مصرف</string>
+  <string name="ThreadRecord_this_message_was_deleted">این پیام حذف شد</string>
   <string name="ThreadRecord_s_is_on_signal">%s به Signal پیوست!</string>
   <string name="ThreadRecord_disappearing_messages_disabled">پیام های ناپدید شونده غیر فعال شدند</string>
   <string name="ThreadRecord_disappearing_message_time_updated_to_s">زمان پیام ناپدید شونده  روی %s تنظیم شد</string>
@@ -758,7 +880,7 @@
   <string name="ThreadRecord_your_safety_number_with_s_has_changed">شمارهٔ امنیتی شما با %s تغییر یافت.</string>
   <string name="ThreadRecord_you_marked_verified">شما تایید شده علامت زدید</string>
   <string name="ThreadRecord_you_marked_unverified">شما تایید نشده علامت زدید</string>
-  <string name="ThreadRecord_message_could_not_be_processed">پیام قابل پردازش نمی باشد</string>
+  <string name="ThreadRecord_message_could_not_be_processed">پیام قابل پردازش نیست</string>
   <string name="ThreadRecord_message_request">درخواست تبادل پیام</string>
   <string name="ThreadRecord_s_added_you_to_the_group">%1$s شما را به گروه اضافه کرد</string>
   <!--UpdateApkReadyListener-->
@@ -793,14 +915,14 @@
   <string name="UsernameEditFragment_other_signal_users_can_send_message_requests_to_your_unique_username">دیگر کاربران Signal می‌توانند از طریق نام کاربری و بدون نیاز به دانستن شمارهٔ همراه شما درخواستِ پیام ارسال کنند. انتخاب نام کاربری اختیاری است.</string>
   <!--VerifyIdentityActivity-->
   <string name="VerifyIdentityActivity_your_contact_is_running_an_old_version_of_signal">مخاطب شما در حال استفاده از یک نسخهٔ قدیمی Signal است. لطفاً پیش از تأیید شمارهٔ امنیتی شما از او بخواهید به‌روزرسانی کند.</string>
-  <string name="VerifyIdentityActivity_your_contact_is_running_a_newer_version_of_Signal">مخاطب شما در حال اجرای یک نسخهٔ جدیدتر Signal با یک QR code ناسازگار است. لطفاً برای مقایسه به‌روزرسانی کنید.</string>
-  <string name="VerifyIdentityActivity_the_scanned_qr_code_is_not_a_correctly_formatted_safety_number">کد کیوآر اسکن شده کد تأیید شماره امنیتی فرمت شده صحیح نیست. لطفاً دوباره اسکن کنید.</string>
+  <string name="VerifyIdentityActivity_your_contact_is_running_a_newer_version_of_Signal">مخاطب شما در حال اجرای نسخهٔ جدیدتر Signal با یک کد QR ناسازگار است. لطفاً برای مقایسه به‌روزرسانی کنید.</string>
+  <string name="VerifyIdentityActivity_the_scanned_qr_code_is_not_a_correctly_formatted_safety_number">کد QR اسکن شده، یک کد تأیید عدد ایمنی است که به صورت صحیح قالب‌بندی نشده است. لطفاً دوباره اسکن کنید.</string>
   <string name="VerifyIdentityActivity_share_safety_number_via">اشتراک گذاری شمارهٔ امنیتی از طریق…</string>
   <string name="VerifyIdentityActivity_our_signal_safety_number">شماره امنیتی ما:</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">به نظر می‌رسد که شما هیچ برنامه‌ای برای اشتراک گذاری ندارید.</string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">هیچ شماره امنیتی برای مقایسه در کلیپ بورد پیدا نشد</string>
-  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Molly  به منظور اسکن کد کیوآر نیاز به دسترسی دوربین دارد، اما این اجازه داده نشده است. لطفاً به قسمت تنظیمات برنامه رفته، \"مجوز ها\" را انتخاب کنید، و \"دوربین\" را فعال کنید.</string>
-  <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">عدم توانایی در اسکن کد کیوآر بدون مجوز دوربین</string>
+  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Molly جهت اسکن کردن کد QR نیاز به دسترسی به دوربین دارد، اما این دسترسی داده نشده است. لطفاً به بخش مدیریت برنامه‌ها در تنظیمات تلفن همراه خود رفته، در بخش «مجوزها» گزینهٔ «دوربین» را فعال کنید. </string>
+  <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">امکان اسکن کردن کد QR بدون مجوز دوربین وجود ندارد</string>
   <!--ViewOnceMessageActivity-->
   <!--MessageDisplayHelper-->
   <string name="MessageDisplayHelper_bad_encrypted_message">پیام بد رمزگذاری شده</string>
@@ -811,7 +933,7 @@
   <!--MuteDialog-->
   <string name="MuteDialog_mute_notifications">بی‌صدا کردن اعلان‌‌ها</string>
   <!--OutdatedBuildReminder-->
-  <string name="OutdatedBuildReminder_no_web_browser_installed">هیچ مرورگر اینترنتی نصب نمی باشد!</string>
+  <string name="OutdatedBuildReminder_no_web_browser_installed">هیچ مرورگر اینترنتی نصب نشده است!</string>
   <!--ApplicationMigrationService-->
   <string name="ApplicationMigrationService_import_in_progress">درون برد در حال انجام</string>
   <string name="ApplicationMigrationService_importing_text_messages">درون برد پیام های متنی</string>
@@ -860,6 +982,7 @@
   <string name="MessageNotifier_reacted_s_to_your_view_once_photo">%1$s به تصویر یکبار مصرف شما واکنش نشان داد.</string>
   <string name="MessageNotifier_reacted_s_to_your_view_once_video">%1$s به ویدئوی یکبار مصرف شما واکنش نشان داد.</string>
   <string name="MessageNotifier_reacted_s_to_your_sticker">%1$s به استیکر شما واکنش نشان داد.</string>
+  <string name="MessageNotifier_this_message_was_deleted">این پیام حذف شد</string>
   <!--Notification Channels-->
   <string name="NotificationChannel_messages">پیش‌فرض</string>
   <string name="NotificationChannel_calls">تماس‌ها</string>
@@ -872,7 +995,7 @@
   <string name="NotificationChannel_missing_display_name">ناشناخته</string>
   <!--ProfileEditNameFragment-->
   <string name="ProfileEditNameFragment_successfully_set_profile_name">نام نمایه با موفقیت تنظیم شد.</string>
-  <string name="ProfileEditNameFragment_encountered_a_network_error">خطا شبکه رخ داد.</string>
+  <string name="ProfileEditNameFragment_encountered_a_network_error">خطای شبکه رخ داد.</string>
   <!--QuickResponseService-->
   <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">پاسخ سریع هنگام قفل بودن Signal در دسترس نیست!</string>
   <string name="QuickResponseService_problem_sending_message">خطا در ارسال پیام!</string>
@@ -896,7 +1019,7 @@
     <item quantity="other">%d مورد</item>
   </plurals>
   <!--UnauthorizedReminder-->
-  <string name="UnauthorizedReminder_device_no_longer_registered">این دستگاه دیگر ثبت شده نمی باشد</string>
+  <string name="UnauthorizedReminder_device_no_longer_registered">این دستگاه دیگر ثبت شده نیست</string>
   <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">این احتمالا به این خاطر است که شما شماره تلفن خود در Signal را روی یک دستگاه دیگر ثبت کرده‌اید. برای ثبت نام مجدد ضربه بزنید.</string>
   <!--VideoPlayer-->
   <string name="VideoPlayer_error_playing_video">خطا در پخش ویدئو</string>
@@ -904,7 +1027,7 @@
   <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">برای پاسخ به تماس %s، به Molly اجازهٔ دسترسی به میکروفون خود را بدهید.</string>
   <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Molly برای برقراری و دریافت تماس نیاز مجوزهای میکروفون و دوربین دارد، اما دسترسی به آن‌ها به طور دائمی لغو شده است. لطفاً به تنظیمات برنامه رفته، در قسمت \"مجوزها\"، \"میکروفون\" و \"دوربین\" را فعال کنید.</string>
   <!--WebRtcCallScreen-->
-  <string name="WebRtcCallScreen_new_safety_numbers">شماره امنیتی مکالمه شما با %1$s تغییر یافته است. این میتواند به این معنا باشد که شخصی سعی دارد تا مکالمه شما را شنود کند، یا %2$s برنامه Signal را دوباره نصب کرده است.</string>
+  <string name="WebRtcCallScreen_new_safety_numbers">شمارهٔ امنیتی مکالمهٔ شما با %1$s تغییر یافته است. این می‌تواند به این معنا باشد که شخصی سعی دارد تا مکالمه شما را شنود کند یا %2$s برنامهٔ Signal را دوباره نصب کرده است.</string>
   <string name="WebRtcCallScreen_you_may_wish_to_verify_this_contact">شاید بخواهید شماره امتیتی خود را با این مخاطب تایید کنید.</string>
   <string name="WebRtcCallScreen_new_safety_number_title">شماره امنیتی جدید</string>
   <string name="WebRtcCallScreen_accept">پذیرش</string>
@@ -929,8 +1052,8 @@
   <string name="attachment_type_selector__camera_description">دوربین</string>
   <string name="attachment_type_selector__location">موقعیت</string>
   <string name="attachment_type_selector__location_description">موقعیت</string>
-  <string name="attachment_type_selector__gif">جیف</string>
-  <string name="attachment_type_selector__gif_description">جیف</string>
+  <string name="attachment_type_selector__gif">گیف</string>
+  <string name="attachment_type_selector__gif_description">گیف</string>
   <string name="attachment_type_selector__gallery_description">تصویر یا ویدئو</string>
   <string name="attachment_type_selector__file_description">فایل</string>
   <string name="attachment_type_selector__gallery">گالری</string>
@@ -956,7 +1079,7 @@
   <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Molly نیاز به دسترسی به مخاطبان دارد تا مخاطبان شما را نمایش دهد، اما مجوز آن به طور دائم رد شده است. لطفاً به منو تنظیمات برنامه رفته، \"مجوز ها\" را انتخاب کرده و \"مخاطبان\" را فعال کنید.</string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">خطا در بازیابی مخاطبان، اتصال اینترنت خود را بررسی کنید</string>
   <string name="ContactSelectionListFragment_username_not_found">نام کاربری یافت نشد</string>
-  <string name="ContactSelectionListFragment_s_is_not_a_signal_user">\"%1$s\" یک کاربر Signal نمی باشد. لطفاً نام کاربری را بررسی کرده و دوباره تلاش کنید.</string>
+  <string name="ContactSelectionListFragment_s_is_not_a_signal_user">\"%1$s\" یک کاربر Signal نیست. لطفاً نام کاربری را بررسی کرده و دوباره تلاش کنید.</string>
   <string name="ContactSelectionListFragment_okay">باشه</string>
   <!--blocked_contacts_fragment-->
   <string name="blocked_contacts_fragment__no_blocked_contacts">هیچ مخاطب مسدود شده‌ای وجود ندارد</string>
@@ -1008,7 +1131,7 @@
   <string name="country_selection_fragment__loading_countries">در حال بارگذاری کشور ها…</string>
   <string name="country_selection_fragment__search">جستجو</string>
   <!--device_add_fragment-->
-  <string name="device_add_fragment__scan_the_qr_code_displayed_on_the_device_to_link">کد کیوآر نمایش داده شده روی دستگاه را برای پیوند دادن اسکن کنید</string>
+  <string name="device_add_fragment__scan_the_qr_code_displayed_on_the_device_to_link">برای پیوند دادن، تصویر QR نمایش داده شده روی دستگاه را اسکن کنید.</string>
   <!--device_link_fragment-->
   <string name="device_link_fragment__link_device">پیوند دستگاه</string>
   <!--device_list_fragment-->
@@ -1050,9 +1173,9 @@
   <string name="IdentityUtil_unverified_banner_one">شماره امنیتی شما با %s تغییر کرده است و دیگر مورد تایید نیست</string>
   <string name="IdentityUtil_unverified_banner_two">شماره های امنیتی شما با %1$s و %2$s دیگر مورد تایید نمی باشند</string>
   <string name="IdentityUtil_unverified_banner_many">شماره های امنیتی شما با %1$s، %2$s و %3$s  دیگر مورد تایید نمی باشند </string>
-  <string name="IdentityUtil_unverified_dialog_one">شماره امنیتی شما با %1$s تغییر کرده و دیگر معتبر نیست. این می توان به این معنا باشد که کسی سعی دارد تا ارتباطات شما را شنود کرده، یا %1$s Signal را مجددا نصب کرده است.</string>
-  <string name="IdentityUtil_unverified_dialog_two">شماره های امنیتی شما با %1$s و %2$s دیگر مورد تایید نمی باشند. این میتواند به این معنا باشد که شخصی سعی دارد تا ارتباطات شما را شنود کند، یا اینکه آن ها برنامه Signal را دوباره نصب کرده اند.</string>
-  <string name="IdentityUtil_unverified_dialog_many">شماره های امنیتی شما با %1$s،%2$s، و %3$s دیگر مورد تایید نمی باشند. این می تواند به این معنا باشد که شخصی سعی دارد تا ارتباطات شما را شنود کند، یا اینکه آن ها برنامه Signal را دوباره نصب کرده اند.</string>
+  <string name="IdentityUtil_unverified_dialog_one">شمارهٔ امنیتی شما با %1$s تغییر کرده و دیگر معتبر نیست. این می‌تواند به این معنا باشد که شخصی سعی دارد تا مکالمهٔ شما را شنود کند یا %1$s Signal را دوباره نصب کرده است.</string>
+  <string name="IdentityUtil_unverified_dialog_two">شماره‌های امنیتی شما با %1$s و %2$s دیگر مورد تأیید نیستند. این می‌تواند به این معنا باشد که شخصی سعی دارد تا ارتباطات شما را شنود کند، یا اینکه آن‌ها برنامهٔ Signal را دوباره نصب کرده‌اند.</string>
+  <string name="IdentityUtil_unverified_dialog_many">شماره های امنیتی شما با %1$s، %2$s و %3$s دیگر مورد تأیید نیستند. این می‌تواند به این معنا باشد که شخصی سعی دارد تا ارتباطات شما را شنود کند یا اینکه آن‌ها برنامه Signal را دوباره نصب کرده‌اند.</string>
   <string name="IdentityUtil_untrusted_dialog_one">شماره امنیتی شما با %s تغییر یافت.</string>
   <string name="IdentityUtil_untrusted_dialog_two">شماره‌ های امنیتی شما با %1$s و %2$s تغییر کرد.</string>
   <string name="IdentityUtil_untrusted_dialog_many">شماره‌های امنیتی شما با %1$s، %2$s و %3$s تغییر کرد.</string>
@@ -1061,11 +1184,11 @@
     <item quantity="other">%d نفر دیگر</item>
   </plurals>
   <!--giphy_activity-->
-  <string name="giphy_activity_toolbar__search_gifs_and_stickers">جستجو جیف‌ها و استیکرها</string>
+  <string name="giphy_activity_toolbar__search_gifs_and_stickers">جستجوی گیف‌ها و استیکرها</string>
   <!--giphy_fragment-->
   <string name="giphy_fragment__nothing_found">چیزی یافت نشد</string>
   <!--log_submit_activity-->
-  <string name="log_submit_activity__log_fetch_failed">عدم توانایی در خوانش گزارش روی دستگاه شما. همچنان می توانید از طریق ADB گزارش دیباگ را دریافت کنید.</string>
+  <string name="log_submit_activity__log_fetch_failed">عدم توانایی در خوانش گزارش روی دستگاه شما. همچنان می‌توانید از طریق ADB گزارش اشکال‌زدایی را دریافت کنید.</string>
   <string name="log_submit_activity__thanks">از کمک شما سپاسگزاریم!</string>
   <string name="log_submit_activity__submitting">در حال ارسال</string>
   <string name="log_submit_activity__no_browser_installed">هیچ مرورگری نصب نشده است</string>
@@ -1078,7 +1201,7 @@
   <string name="log_submit_activity__uploading_logs">آپلود گزارش ها…</string>
   <string name="log_submit_activity__choose_email_app">انتخاب برنامه ایمیل</string>
   <string name="log_submit_activity__please_review_this_log_from_my_app">لطفاً این گزارش از برنامه من را بازبینی کنید: %1$s</string>
-  <string name="log_submit_activity__network_failure">خطا شبکه. لطفاً دوباره تلاش کنید.</string>
+  <string name="log_submit_activity__network_failure">خطای شبکه. لطفاً دوباره تلاش کنید.</string>
   <!--database_migration_activity-->
   <string name="database_migration_activity__would_you_like_to_import_your_existing_text_messages">آیا مایل به درون برد پیام های متنی موجود خود به پایگاه داده رمزگذاری شده Signal می باشید؟</string>
   <string name="database_migration_activity__the_default_system_database_will_not_be_modified">پایگاه دادهٔ پيش‌‌فرض سيستم به هيچ شکلی تغییر نخواهد کرد.</string>
@@ -1104,7 +1227,7 @@
     <item quantity="one">%1$s به گروه پیوست.</item>
     <item quantity="other">%1$s به گروه پیوست.</item>
   </plurals>
-  <string name="GroupUtil_group_name_is_now">نام گروه اکنون \'%1$s\' می باشد.</string>
+  <string name="GroupUtil_group_name_is_now">نام گروه اکنون \'%1$s\' است.</string>
   <!--profile_group_share_view-->
   <string name="profile_group_share_view__make_your_profile_name_and_photo_visible_to_this_group">آیا می‌خواهید نام و تصویر نمایه خود را برای این گروه آشکار کنید؟</string>
   <!--prompt_passphrase_activity-->
@@ -1236,7 +1359,7 @@
   <string name="arrays__max">بیشینه</string>
   <!--plurals.xml-->
   <plurals name="hours_ago">
-    <item quantity="one">%dس</item>
+    <item quantity="one">%d ساعت</item>
     <item quantity="other">%d ساعت</item>
   </plurals>
   <!--preferences.xml-->
@@ -1417,6 +1540,7 @@
   <string name="conversation__menu_view_all_media">تمام رسانه‌ها</string>
   <string name="conversation__menu_conversation_settings">تنظیمات مکالمه</string>
   <string name="conversation__menu_add_shortcut">افزودن به صفحهٔ اصلی</string>
+  <string name="conversation__menu_pending_members">اعضای در حال انتظار</string>
   <!--conversation_popup-->
   <string name="conversation_popup__menu_expand_popup">بسط پاپ آپ</string>
   <!--conversation_callable_insecure-->
@@ -1509,25 +1633,22 @@
     <item quantity="other">پین باید حداقل شامل %1$d رقم باشد</item>
   </plurals>
   <string name="CreateKbsPinFragment__create_a_new_pin">یک پین جدید ایجاد کنید</string>
-  <plurals name="CreateKbsPinFragment__you_can_choose_a_new_pin_because_this_device_is_registered">
-    <item quantity="one">از آنجایی که این دستگاه ثبت شده است، شما می‌توانید یک پین جدید بسازید. اگر پین خود را فراموش کنید، برای ثبت دوباره، باید به مدت %1$d روز صبر کنید.</item>
-    <item quantity="other">از آنجایی که این دستگاه ثبت شده است، شما می‌توانید یک پین جدید بسازید. اگر پین خود را فراموش کنید، برای ثبت دوباره، باید به مدت %1$d روز صبر کنید.</item>
-  </plurals>
+  <string name="CreateKbsPinFragment__you_can_choose_a_new_pin_as_long_as_this_device_is_registered">تا زمانی که این دستگاه ثبت شده باشد شما می‌توانید پین خود را تغییر دهید.</string>
   <string name="CreateKbsPinFragment__create_your_pin">پین خود را ایجاد کنید</string>
-  <string name="CreateKbsPinFragment__pins_add_extra_security_to_your_account">پین‌ها یک لایهٔ امنیتی دیگر به حساب شما اضافه می‌کنند. شما به پین برای ثبت نام دوباره در سیگنال احتیاج دارید.</string>
+  <string name="CreateKbsPinFragment__pins_keep_information_stored_with_signal_encrypted">پین‌ها اطلاعات ذخیره شده در Signal را رمز‌گذاری می‌کنند تا فقط شما قادر به دسترسی به آن‌ها باشید. پروفایل، تنظیمات و مخاطبین شما هنگام نصب دوبارهٔ سیگنال بازگردانی می‌شوند.</string>
+  <string name="CreateKbsPinFragment__choose_a_stronger_pin">یک پین قوی‌تر انتخاب کنید</string>
   <!--ConfirmKbsPinFragment-->
   <string name="ConfirmKbsPinFragment__pins_dont_match">پین‌ها مطابقت ندارند. دوباره تلاش کنید.</string>
   <string name="ConfirmKbsPinFragment__confirm_your_pin">پین خود را تایید کنید</string>
   <string name="ConfirmKbsPinFragment__pin_creation_failed">پین ایجاد نشد</string>
   <string name="ConfirmKbsPinFragment__your_pin_was_not_saved">پین شما ذخیره نشد. ما بعداً از شما خواهیم خواست تا یک پین دیگر ایجاد کنید.</string>
   <string name="ConfirmKbsPinFragment__pin_created">پین ایجاد شد.</string>
-  <string name="ConfirmKbsPinFragment__re_enter_pin">دوباره پین را وارد کنید</string>
+  <string name="ConfirmKbsPinFragment__re_enter_your_pin">پین خود را دوباره وارد نمایید</string>
   <string name="ConfirmKbsPinFragment__creating_pin">ایجاد پین…</string>
   <!--KbsSplashFragment-->
   <string name="KbsSplashFragment__introducing_pins">تعریف پین‌ها</string>
-  <string name="KbsSplashFragment__pins_add_another_level_of_security_to_your_account">پین‌ها یک لایهٔ امنیتی دیگر به حساب شما اضافه می‌کنند. یک پین ایجاد کنید.</string>
+  <string name="KbsSplashFragment__pins_keep_information_stored_with_signal_encrypted">پین‌ها اطلاعات ذخیره شده در Signal را رمز‌گذاری می‌کنند تا فقط شما قادر به دسترسی به آن‌ها باشید. پروفایل، تنظیمات و مخاطبین شما هنگام نصب دوبارهٔ سیگنال بازنشانی می‌شوند.</string>
   <string name="KbsSplashFragment__learn_more">اطلاعات بیشتر</string>
-  <string name="KbsSplashFragment__learn_more_link">https://support.signal.org/hc/en-us/articles/360007059792-Registration-Lock</string>
   <string name="KbsSplashFragment__registration_lock_equals_pin">قفل ثبت‌نام = پین</string>
   <string name="KbsSplashFragment__your_registration_lock_is_now_called_a_pin">قفل ثبت‌نام شما اکنون پین نام دارد، و کارهای بیشتری را انجام می‌دهد. هم‌اکنون آن را به‌روزرسانی کنید.</string>
   <string name="KbsSplashFragment__read_more_about_pins">در مورد پین‌ها بیشتر بخوانید.</string>
@@ -1545,7 +1666,6 @@
   <string name="AccountLockedFragment__your_account_has_been_locked_to_protect_your_privacy">حساب‌ شما به منظور حفاظت از حریم خصوصی و امنیت شما قفل شده است. بعد از %1$d روز عدم فعالیت، می توانید دوباره با این شماره و بدون نیاز به پین ثبت نام کنید. تمام محتویات پاک خواهند شد.</string>
   <string name="AccountLockedFragment__next">بعدی</string>
   <string name="AccountLockedFragment__learn_more">اطلاعات بیشتر</string>
-  <string name="AccountLockedFragment__learn_more_url">https://support.signal.org/hc/en-us/articles/360007059792-Registration-Lock</string>
   <!--KbsLockFragment-->
   <string name="RegistrationLockFragment__enter_your_pin">پین خود را وارد کنید</string>
   <string name="RegistrationLockFragment__enter_the_pin_you_created">پین ایجاد شده برای حساب خود را وارد کنید. این کد با کد تأیید پیامکی شما تفاوت دارد.</string>
@@ -1579,10 +1699,9 @@
   </plurals>
   <!--KBS Megaphone-->
   <string name="KbsMegaphone__create_a_pin">یک پین جدید ایجاد کنید</string>
-  <string name="KbsMegaphone__pins_add_another_layer_of_security_to_your_signal_account">پین‌ها یک لایهٔ امنیتی دیگر به حساب ‌Signal شما اضافه می‌کنند.</string>
+  <string name="KbsMegaphone__pins_keep_information_thats_stored_with_signal_encrytped">پین‌ها اطلاعات ذخیره شده در Signal را رمزگذاری می‌کنند.</string>
   <string name="KbsMegaphone__create_pin">ایجاد پین</string>
   <string name="KbsMegaphone__introducing_pins">معرفی پین‌ها</string>
-  <string name="KbsMegaphone__your_registration_lock_is_now_called_a_pin">قفل ثبت‌نام شما اکنون پین نام دارد. به‌روزرسانی آن فقط چند ثانیه زمان می‌برد.</string>
   <string name="KbsMegaphone__update_pin">به‌روزرسانی پین</string>
   <string name="KbsMegaphone__well_remind_you_later_creating_a_pin">در آینده به شما یادآوری خواهیم کرد. ایجاد پین از %1$d روز دیگر الزامی خواهد شد.</string>
   <string name="KbsMegaphone__well_remind_you_later_confirming_your_pin">در آینده به شما یادآوری خواهیم کرد. ایجاد پین از %1$d روز دیگر الزامی خواهد شد.</string>
@@ -1600,12 +1719,12 @@
   <string name="Permissions_permission_required">مجوز لازم است</string>
   <string name="ConversationActivity_signal_needs_sms_permission_in_order_to_send_an_sms">Signal برای ارسال پیامک نیاز به مجوز پیامک دارد اما این دسترسی به‌ داده نشده است. لطفاً به تنظیمات برنامه‌ رفته، \"مجوزها\" را انتخاب کنید و \"پیامک\" را فعال کنید.</string>
   <string name="Permissions_continue">ادامه</string>
-  <string name="Permissions_not_now">الان نه</string>
-  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Signal برای جستجو مخاطبان نیاز به دسترسی به مخاطبان دارد اما این اجازه داده نشده است. لطفاً به تنظیمات برنامه رفته، \"مجوزها\" را انتخاب کنید، \"مخاطبان\" را فعال کنید.</string>
+  <string name="Permissions_not_now">حالا نه</string>
+  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Signal برای جستجوی مخاطبین نیاز به دسترسی به مخاطبان دارد، اما این دسترسی داده نشده است. لطفاً به بخش مدیریت برنامه‌ها در تنظیمات تلفن همراه خود رفته، در بخش «مجوزها» گزینهٔ «مخاطبان» را فعال کنید.</string>
   <string name="conversation_activity__enable_signal_messages">فعال‌سازی پیام های Signal</string>
   <string name="SQLCipherMigrationHelper_migrating_signal_database">در حال انتقال پایگاه داده Signal</string>
   <string name="PushDecryptJob_new_locked_message">پیام قفل شده جدید</string>
-  <string name="PushDecryptJob_unlock_to_view_pending_messages">جهت دیدن پیام های در حال انتظار قفل را باز کنید</string>
+  <string name="PushDecryptJob_unlock_to_view_pending_messages">جهت دیدن پیام‌های در حال انتظار قفل را باز کنید</string>
   <string name="enter_backup_passphrase_dialog__backup_passphrase">گذرواژهٔ پشتیبان‌گیری</string>
   <string name="backup_enable_dialog__backups_will_be_saved_to_external_storage_and_encrypted_with_the_passphrase_below_you_must_have_this_passphrase_in_order_to_restore_a_backup">پشتیبان‌ها روی یک حافظهٔ خارجی ذخیره و با گذرواژهٔ زیر رمزنگاری خواهند شد. شما برای بازگردانی پشتیبان خود باید گذرواژهٔ زیر را داشته باشید.</string>
   <string name="backup_enable_dialog__i_have_written_down_this_passphrase">من این گذرواژه را یادداشت کرده‌ام. بدون آن، قادر به بازگردانی پشتیبان خود نخواهم بود.</string>
@@ -1655,16 +1774,18 @@
   <string name="preferences_app_protection__lock_signal_access_with_android_screen_lock_or_fingerprint">قفل دسترسی Signal با قفل صفحهٔ اندروید یا اثر انگشت</string>
   <string name="preferences_app_protection__screen_lock_inactivity_timeout">قفل خودکار صفحه به دلیل عدم فعالیت</string>
   <string name="preferences_app_protection__signal_pin">پین Signal</string>
-  <string name="preferences_app_protection__pin">پین</string>
-  <string name="preferences_app_protection__change">تغییر</string>
-  <string name="preferences_app_protection__create">ایجاد</string>
-  <string name="preferences_app_protection__your_pin_adds_an_extra_layer_of_security_to_your_account">پین یک لایهٔ امنیتی دیگر به حساب شما اضافه می‌کند. پین به هنگام ثبت نام از شما پرسیده خواهد شد. اگر پین خود را فراموش کنید، حساب کاربری شما تا ۷ روز قفل خواهد شد.</string>
+  <string name="preferences_app_protection__create_a_pin">یک پین جدید ایجاد کنید</string>
+  <string name="preferences_app_protection__change_your_pin">پین خود را تغییر دهید</string>
+  <string name="preferences_app_protection__pins_keep_information_stored_with_signal_encrypted">پین‌ها اطلاعات ذخیره شده در Signal را رمز‌گذاری می‌کنند تا فقط شما قادر به دسترسی به آن‌ها باشید. پروفایل، تنظیمات و مخاطبین شما هنگام نصب دوبارهٔ سیگنال بازگردانی می‌شوند.</string>
+  <string name="preferences_app_protection__add_extra_security_by_requiring_your_signal_pin_to_register">امنیت بیشتر با افزودن درخواست پین Signal برای ثبت‌نام دوباره</string>
+  <string name="preferences_app_protection__failed_to_enable_registration_lock">قفل ثبت‌نام فعال نشد.</string>
+  <string name="preferences_app_protection__failed_to_disable_registration_lock">قفل ثبت‌نام غیرفعال نشد.</string>
   <string name="AppProtectionPreferenceFragment_none">هیچ‌کدام</string>
   <string name="AppProtectionPreferenceFragment_instant">لحظه</string>
   <string name="registration_activity__the_registration_lock_pin_is_not_the_same_as_the_sms_verification_code_you_just_received_please_enter_the_pin_you_previously_configured_in_the_application">پین قفل ثبت‌نام همان کد تأییدی که الان از طریق پیامک دریافت کردید نیست. لطفاً رمزی را که قبلاً در برنامه تنظیم کرده بودید را وارد کنید.</string>
   <string name="registration_activity__registration_lock_pin">پین قفل ثبت‌نام</string>
-  <string name="registration_activity__forgot_pin">پین را فراموش کرده‌اید؟</string>
-  <string name="registration_lock_dialog_view__the_pin_can_consist_of_four_or_more_digits_if_you_forget_your_pin_you_could_be_locked_out_of_your_account_for_up_to_seven_days">پین می تواند از چهار رقم یا تعداد ارقام بیشتری تشکیل شود. اگر پین خود را فراموش کردید، حساب کاربری شما تا هفت روز قفل خواهند شد.</string>
+  <string name="registration_activity__forgot_pin">پین را فراموش کردید؟</string>
+  <string name="registration_lock_dialog_view__the_pin_can_consist_of_four_or_more_digits_if_you_forget_your_pin_you_could_be_locked_out_of_your_account_for_up_to_seven_days">پین می تواند از چهار رقم یا تعداد ارقام بیشتری تشکیل شود. اگر پین خود را فراموش کردید، حساب کاربری شما تا هفت روز قفل خواهد شد.</string>
   <string name="registration_lock_dialog_view__enter_pin">پین را وارد کنید</string>
   <string name="registration_lock_dialog_view__confirm_pin">پین را تأیید کنید</string>
   <string name="registration_lock_reminder_view__enter_your_registration_lock_pin">پین قفل ثبت‌نام خود را وارد کنید</string>
@@ -1683,7 +1804,7 @@
   <string name="RegistrationActivity_registration_lock_pin">پین قفل ثبت‌نام</string>
   <string name="RegistrationActivity_this_phone_number_has_registration_lock_enabled_please_enter_the_registration_lock_pin">قفل ثبت‌نام برای این شماره فعال است. لطفاً پین قفل ثبت‌نام را وارد کنید.</string>
   <string name="RegistrationLockDialog_registration_lock_is_enabled_for_your_phone_number">قفل ثبت‌نام برای شماره‌ٔ شما فعال شد. برای کمک به شما در بخاطر سپردن پین قفل ثبت‌نام، Signal به صورت دوره‌ای از شما می‌خواهد تا آن را تأیید کنید.</string>
-  <string name="RegistrationLockDialog_i_forgot_my_pin">پین را فراموش کرده‌ام.</string>
+  <string name="RegistrationLockDialog_i_forgot_my_pin">پین را فراموش کردم.</string>
   <string name="RegistrationLockDialog_forgotten_pin">پین فراموش شده؟</string>
   <string name="RegistrationLockDialog_registration_lock_helps_protect_your_phone_number_from_unauthorized_registration_attempts">قفل ثبت‌نام کمک می‌کند تا شماره‌ٔ خود را از تلاش‌ غیرمجاز برای ثبت‌نام محافظت کنید. هر موقع که بخواهید می‌توانید این ویژگی را در تنظیمات حریم خصوصی Signal غیرفعال کنید</string>
   <string name="RegistrationLockDialog_registration_lock">قفل ثبت‌نام</string>

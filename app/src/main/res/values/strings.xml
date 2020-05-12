@@ -91,6 +91,20 @@
     <!-- BlockedContactsActivity -->
     <string name="BlockedContactsActivity_blocked_contacts">Blocked contacts</string>
 
+    <!-- BlockUnblockDialog -->
+    <string name="BlockUnblockDialog_block_and_leave_s">Block and leave %1$s?</string>
+    <string name="BlockUnblockDialog_block_s">Block %1$s?</string>
+    <string name="BlockUnblockDialog_you_will_no_longer_receive_messages_or_updates">You will no longer receive messages or updates from this group, and members won\'t be able to add you to this group again.</string>
+    <string name="BlockUnblockDialog_group_members_wont_be_able_to_add_you">Group members won\'t be able to add you to this group again.</string>
+    <string name="BlockUnblockDialog_group_members_will_be_able_to_add_you">Group members will be able to add you to this group again.</string>
+    <string name="BlockUnblockDialog_you_will_be_able_to_call_and_message_each_other">You will be able to message and call each other.</string>
+    <string name="BlockUnblockDialog_blocked_people_wont_be_able_to_call_you_or_send_you_messages">Blocked people won\'t be able to call you or send you messages.</string>
+    <string name="BlockUnblockDialog_unblock_s">Unblock %1$s?</string>
+    <string name="BlockUnblockDialog_unblock">Unblock</string>
+    <string name="BlockUnblockDialog_block">Block</string>
+    <string name="BlockUnblockDialog_block_and_leave">Block and Leave</string>
+    <string name="BlockUnblockDialog_block_and_delete">Block and Delete</string>
+
     <!-- BucketedThreadMedia -->
     <string name="BucketedThreadMedia_Today">Today</string>
     <string name="BucketedThreadMedia_Yesterday">Yesterday</string>
@@ -130,6 +144,7 @@
 
     <!-- CommunicationActions -->
     <string name="CommunicationActions_no_browser_found">No web browser found.</string>
+    <string name="CommunicationActions_no_email_app_found">No email app found.</string>
     <string name="CommunicationActions_a_cellular_call_is_already_in_progress">A cellular call is already in progress.</string>
     <string name="CommunicationActions_start_video_call">Start video call?</string>
     <string name="CommunicationActions_start_voice_call">Start voice call?</string>
@@ -183,6 +198,7 @@
     <string name="ConversationItem_read_more">&#160; Read More</string>
     <string name="ConversationItem_download_more">&#160; Download More</string>
     <string name="ConversationItem_pending">&#160; Pending</string>
+    <string name="ConversationItem_this_message_was_deleted">This message was deleted.</string>
 
     <!-- ConversationActivity -->
     <string name="ConversationActivity_reset_secure_session_question">Reset secure session?</string>
@@ -239,15 +255,6 @@
     <string name="ConversationActivity_sticker_pack_installed">Sticker pack installed</string>
     <string name="ConversationActivity_new_say_it_with_stickers">New! Say it with stickers</string>
 
-    <string name="ConversationActivity_block_s">Block %1$s?</string>
-    <string name="ConversationActivity_block_and_leave_s">Block and leave %1$s?</string>
-    <string name="ConversationActivity_unblock_s">Unblock %1$s?</string>
-    <string name="ConversationActivity_you_will_be_able_to_message_and_call_each_other">You will be able to message and call each other.</string>
-    <string name="ConversationActivity_group_members_will_be_able_to_add_you_to_this_group_again">Group members will be able to add you to this group again.</string>
-    <string name="ConversationActivity_blocked_people_will_not_be_able_to_call_you_or_send_you_messages">Blocked people will not be able to call you or send you messages.</string>
-    <string name="ConversationActivity_you_will_leave_this_group_and_no_longer_receive_messages_or_updates">You will leave this group and no longer receive messages or updates.</string>
-    <string name="ConversationActivity_block">Block</string>
-    <string name="ConversationActivity_block_and_delete">Block and delete</string>
     <string name="ConversationActivity_cancel">Cancel</string>
     <string name="ConversationActivity_delete_conversation">Delete conversation?</string>
     <string name="ConversationActivity_delete_and_leave_group">Delete and leave group?</string>
@@ -295,6 +302,8 @@
     <string name="ConversationFragment_sms">SMS</string>
     <string name="ConversationFragment_deleting">Deleting</string>
     <string name="ConversationFragment_deleting_messages">Deleting messages…</string>
+    <string name="ConversationFragment_delete_for_me">Delete for me</string>
+    <string name="ConversationFragment_delete_for_everyone">Delete for everyone</string>
     <string name="ConversationFragment_quoted_message_not_found">Original message not found</string>
     <string name="ConversationFragment_quoted_message_no_longer_available">Original message no longer available</string>
     <string name="ConversationFragment_failed_to_open_message">Failed to open message</string>
@@ -430,6 +439,7 @@
     <string name="GroupCreateActivity_cannot_add_non_push_to_existing_group">Couldn\'t add %1$s because they\'re not a Signal user.</string>
     <string name="GroupCreateActivity_loading_group_details">Loading group details…</string>
     <string name="GroupCreateActivity_youre_already_in_the_group">You\'re already in the group.</string>
+    <string name="GroupCreateActivity_remove_member_description">Remove member</string>
 
     <!-- GroupShareProfileView -->
     <string name="GroupShareProfileView_share_your_profile_name_and_photo_with_this_group">Share your profile name and photo with this group?</string>
@@ -438,6 +448,43 @@
 
     <!-- GroupMembersDialog -->
     <string name="GroupMembersDialog_you">You</string>
+
+    <!-- GV2 access levels -->
+    <string name="GroupManagement_access_level_anyone">Anyone</string>
+    <string name="GroupManagement_access_level_all_members">All members</string>
+    <string name="GroupManagement_access_level_only_admins">Only admins</string>
+    <string name="GroupManagement_access_level_unknown" translatable="false">Unknown</string>
+
+    <!-- PendingMembersActivity -->
+    <string name="PendingMemberInvitesActivity_pending_group_invites">Pending group invites</string>
+    <string name="PendingMembersActivity_people_you_invited">People you invited</string>
+    <string name="PendingMembersActivity_you_have_no_pending_invites">You have no pending invites.</string>
+    <string name="PendingMembersActivity_invites_by_other_group_members">Invites by other group members</string>
+    <string name="PendingMembersActivity_no_pending_invites_by_other_group_members">No pending invites by other group members.</string>
+    <string name="PendingMembersActivity_missing_detail_explanation">Details of people invited by other group members are not shown. If invitees choose to join, their information will be shared with the group at that time. They will not see any messages in the group until they join.</string>
+
+    <string name="PendingMembersActivity_cancel_invite">Cancel invite</string>
+    <string name="PendingMembersActivity_cancel_invites">Cancel invites</string>
+    <plurals name="PendingMembersActivity_cancel_d_invites">
+        <item quantity="one">Cancel invite</item>
+        <item quantity="other">Cancel %1$d invites</item>
+    </plurals>
+    <plurals name="PendingMembersActivity_error_canceling_invite">
+        <item quantity="one">Error canceling invite</item>
+        <item quantity="other">Error canceling invites</item>
+    </plurals>
+
+    <plurals name="GroupMemberList_invited">
+        <item quantity="one">%1$s invited 1 person</item>
+        <item quantity="other">%1$s invited %2$d people</item>
+    </plurals>
+
+    <!-- GV2 Invite cancellation confirmation -->
+    <string name="GroupManagement_cancel_own_single_invite">Do you want to cancel the invite you sent to %1$s?</string>
+    <plurals name="GroupManagement_cancel_others_invites">
+        <item quantity="one">Do you want to cancel the invite sent by %1$s?</item>
+        <item quantity="other">Do you want to cancel %2$d invites sent by %1$s?</item>
+    </plurals>
 
     <!-- CropImageActivity -->
     <string name="CropImageActivity_group_avatar">Group avatar</string>
@@ -471,6 +518,9 @@
 
     <!-- Job -->
     <string name="Job_working_in_the_background">Working in the background…</string>
+
+    <!-- LearnMoreTextView -->
+    <string name="LearnMoreTextView_learn_more">Learn more</string>
 
     <!-- MessageDetailsRecipient -->
     <string name="MessageDetailsRecipient_failed_to_send">Failed to send</string>
@@ -598,6 +648,74 @@
     <string name="MessageRecord_s_disabled_disappearing_messages">%1$s disabled disappearing messages.</string>
     <string name="MessageRecord_you_set_disappearing_message_time_to_s">You set the disappearing message timer to %1$s.</string>
     <string name="MessageRecord_s_set_disappearing_message_time_to_s">%1$s set the disappearing message timer to %2$s.</string>
+
+    <!-- GV2 specific -->
+    <!-- GV2 member additions -->
+    <string name="MessageRecord_you_added_s">You added %1$s.</string>
+    <string name="MessageRecord_s_added_s">%1$s added %2$s.</string>
+    <string name="MessageRecord_s_added_you">%1$s added you to the group.</string>
+    <string name="MessageRecord_you_joined_the_group">You joined the group.</string>
+    <string name="MessageRecord_s_joined_the_group">%1$s joined the group.</string>
+
+    <!-- GV2 member removals -->
+    <string name="MessageRecord_you_removed_s">You removed %1$s.</string>
+    <string name="MessageRecord_s_removed_s">%1$s removed %2$s.</string>
+    <string name="MessageRecord_s_removed_you_from_the_group">%1$s removed you from the group.</string>
+    <string name="MessageRecord_you_left_the_group">You left the group.</string>
+    <string name="MessageRecord_s_left_the_group">%1$s left the group.</string>
+
+    <!-- GV2 role change -->
+    <string name="MessageRecord_you_made_s_an_admin">You made %1$s an admin.</string>
+    <string name="MessageRecord_s_made_s_an_admin">%1$s made %2$s an admin.</string>
+    <string name="MessageRecord_s_made_you_an_admin">%1$s made you an admin.</string>
+    <string name="MessageRecord_you_revoked_admin_privileges_from_s">You revoked admin privileges from %1$s.</string>
+    <string name="MessageRecord_s_revoked_your_admin_privileges">%1$s revoked your admin privileges."</string>
+    <string name="MessageRecord_s_revoked_admin_privileges_from_s">%1$s revoked admin privileges from %2$s.</string>
+
+    <!-- GV2 invitations -->
+    <string name="MessageRecord_you_invited_s_to_the_group">You invited %1$s to the group.</string>
+    <string name="MessageRecord_s_invited_you_to_the_group">%1$s invited you to the group.</string>
+    <plurals name="MessageRecord_s_invited_members">
+        <item quantity="one">%1$s invited 1 person to the group.</item>
+        <item quantity="other">%1$s invited %2$d people to the group.</item>
+    </plurals>
+
+    <!-- GV2 invitation revokes -->
+    <plurals name="MessageRecord_you_revoked_invites">
+      <item quantity="one">You revoked an invitation to the group.</item>
+      <item quantity="other">You revoked %1$d invitations to the group.</item>
+    </plurals>
+    <plurals name="MessageRecord_s_revoked_invites">
+      <item quantity="one">%1$s revoked an invitation to the group.</item>
+      <item quantity="other">%1$s revoked %2$d invitations to the group.</item>
+    </plurals>
+    <string name="MessageRecord_someone_declined_an_invitation_to_the_group">Someone declined an invitation to the group.</string>
+    <string name="MessageRecord_you_declined_the_invitation_to_the_group">You declined the invitation to the group.</string>
+
+    <!-- GV2 invitation acceptance -->
+    <string name="MessageRecord_you_accepted_invite">You accepted the invitation to the group.</string>
+    <string name="MessageRecord_s_accepted_invite">%1$s accepted an invitation to the group.</string>
+    <string name="MessageRecord_you_added_invited_member_s">You added invited member %1$s.</string>
+    <string name="MessageRecord_s_added_invited_member_s">%1$s added invited member %2$s.</string>
+
+    <!-- GV2 title change -->
+    <string name="MessageRecord_you_changed_the_group_name_to_s">You changed the group name to \"%1$s\".</string>
+    <string name="MessageRecord_s_changed_the_group_name_to_s">%1$s changed the group name to \"%2$s\".</string>
+
+    <!-- GV2 avatar change -->
+    <string name="MessageRecord_you_changed_the_group_avatar">You changed the group avatar.</string>
+    <string name="MessageRecord_s_changed_the_group_avatar">%1$s changed the group avatar.</string>
+
+    <!-- GV2 attribute access level change -->
+    <string name="MessageRecord_you_changed_who_can_edit_group_info_to_s">You changed who can edit group info to \"%1$s\".</string>
+    <string name="MessageRecord_s_changed_who_can_edit_group_info_to_s">%1$s changed who can edit group info to \"%2$s\".</string>
+
+    <!-- GV2 membership access level change -->
+    <string name="MessageRecord_you_changed_who_can_edit_group_membership_to_s">You changed who can edit group membership to \"%1$s\".</string>
+    <string name="MessageRecord_s_changed_who_can_edit_group_membership_to_s">%1$s changed who can edit group membership to \"%2$s\".</string>
+
+    <!-- End of GV2 specific update messages -->
+
     <string name="MessageRecord_your_safety_number_with_s_has_changed">Your safety number with %s has changed.</string>
     <string name="MessageRecord_you_marked_your_safety_number_with_s_verified">You marked your safety number with %s verified</string>
     <string name="MessageRecord_you_marked_your_safety_number_with_s_verified_from_another_device">You marked your safety number with %s verified from another device</string>
@@ -680,6 +798,32 @@
     <!-- PlayServicesProblemFragment -->
     <string name="PlayServicesProblemFragment_the_version_of_google_play_services_you_have_installed_is_not_functioning">The version of Google Play Services you have installed is not functioning correctly.  Please reinstall Google Play Services and try again.</string>
 
+    <!-- PinRestoreEntryFragment -->
+    <string name="PinRestoreEntryFragment_incorrect_pin">Incorrect PIN</string>
+    <string name="PinRestoreEntryFragment_skip_pin_entry">Skip PIN entry?</string>
+    <string name="PinRestoreEntryFragment_need_help">Need help?</string>
+    <string name="PinRestoreEntryFragment_your_pin_is_a_d_digit_code">Your PIN is a %1$d+ digit code you created that can be numeric or alphanumeric.\n\nIf you can’t remember your PIN, you can create a new one. You can register and use your account but you’ll lose some saved settings like your profile information.</string>
+    <string name="PinRestoreEntryFragment_if_you_cant_remember_your_pin">If you can’t remember your PIN, you can create a new one. You can register and use your account but you’ll lose some saved settings like your profile information.</string>
+    <string name="PinRestoreEntryFragment_create_new_pin">Create New PIN</string>
+    <string name="PinRestoreEntryFragment_contact_support">Contact Support</string>
+    <string name="PinRestoreEntryFragment_cancel">Cancel</string>
+    <string name="PinRestoreEntryFragment_skip">Skip</string>
+    <plurals name="PinRestoreEntryFragment_you_have_d_attempt_remaining">
+        <item quantity="one">You have %1$d attempt remaining. If you run out of attempts, you can create a new PIN. You can register and use your account but you\'ll lose some saved settings like your profile information.</item>
+        <item quantity="other">You have %1$d attempts remaining. If you run out of attempts, you can create a new PIN. You can register and use your account but you\'ll lose some saved settings like your profile information.</item>
+    </plurals>
+    <string name="PinRestoreEntryFragment_support_email" translatable="false">support@signal.org</string>
+    <string name="PinRestoreEntryFragment_signal_registration_need_help_with_pin">Signal Registration - Need Help with PIN for Android</string>
+    <string name="PinRestoreEntryFragment_subject_signal_registration">Subject: Signal Registration - Need Help with PIN for Android\nDevice info: %1$s\nAndroid version: %2$s\nSignal version: %3$s\nLocale: %4$s</string>
+    <string name="PinRestoreEntryFragment_enter_alphanumeric_pin">Enter alphanumeric PIN</string>
+    <string name="PinRestoreEntryFragment_enter_numeric_pin">Enter numeric PIN</string>
+
+    <!-- PinRestoreLockedFragment -->
+    <string name="PinRestoreLockedFragment_create_your_pin">Create your PIN</string>
+    <string name="PinRestoreLockedFragment_youve_run_out_of_pin_guesses">You\'ve run out of PIN guesses, but you can still access your Signal account by creating a new PIN. For your privacy and security your account will be restored without any saved profile information or settings.</string>
+    <string name="PinRestoreLockedFragment_create_new_pin">Create new PIN</string>
+    <string name="PinRestoreLockedFragment_learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007059792</string>
+
     <!-- RatingManager -->
     <string name="RatingManager_rate_this_app">Rate this app</string>
     <string name="RatingManager_if_you_enjoy_using_this_app_please_take_a_moment">If you enjoy using this app, please take a moment to help us by rating it.</string>
@@ -698,16 +842,7 @@
     <string name="ReactionsRecipientAdapter_you">You</string>
 
     <!-- RecipientPreferencesActivity -->
-    <string name="RecipientPreferenceActivity_block_this_contact_question">Block this contact?</string>
-    <string name="RecipientPreferenceActivity_you_will_no_longer_receive_messages_and_calls_from_this_contact">You will no longer receive messages and calls from this contact.</string>
-    <string name="RecipientPreferenceActivity_block_and_leave_group">Block and leave this group?</string>
-    <string name="RecipientPreferenceActivity_block_group">Block this group?</string>
-    <string name="RecipientPreferenceActivity_block_and_leave_group_description">You will no longer receive messages or updates from this group.</string>
     <string name="RecipientPreferenceActivity_block">Block</string>
-    <string name="RecipientPreferenceActivity_unblock_this_contact_question">Unblock this contact?</string>
-    <string name="RecipientPreferenceActivity_you_will_once_again_be_able_to_receive_messages_and_calls_from_this_contact">You will once again be able to receive messages and calls from this contact.</string>
-    <string name="RecipientPreferenceActivity_unblock_this_group_question">Unblock this group?</string>
-    <string name="RecipientPreferenceActivity_unblock_this_group_description">Existing members will be able to add you to the group again.</string>
     <string name="RecipientPreferenceActivity_error_leaving_group">Error leaving group</string>
     <string name="RecipientPreferenceActivity_unblock">Unblock</string>
     <string name="RecipientPreferenceActivity_enabled">Enabled</string>
@@ -753,7 +888,7 @@
     <string name="RegistrationActivity_less_information">Less information</string>
     <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly needs access to your contacts and media in order to connect with friends, exchange messages, and make secure calls</string>
     <string name="RegistrationActivity_unable_to_connect_to_service">Unable to connect to service. Please check network connection and try again.</string>
-    <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">To easily verify your phone number, Signal can automatically detect your verification code if you allow Signal to view SMS messages.</string>
+    <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">To easily verify your phone number, Molly can automatically detect your verification code if you allow Molly to view SMS messages.</string>
     <plurals name="RegistrationActivity_debug_log_hint">
         <item quantity="one">You are now %d step away from submitting a debug log.</item>
         <item quantity="other">You are now %d steps away from submitting a debug log.</item>
@@ -772,6 +907,13 @@
     <string name="RegistrationActivity_phone_number_description">Phone number</string>
     <string name="RegistrationActivity_country_code_description">Country code</string>
     <string name="RegistrationActivity_call">Call</string>
+
+    <!-- RegistrationLockV2Dialog -->
+    <string name="RegistrationLockV2Dialog_turn_on_registration_lock">Turn on Registration Lock?</string>
+    <string name="RegistrationLockV2Dialog_turn_off_registration_lock">Turn off Registration Lock?</string>
+    <string name="RegistrationLockV2Dialog_if_you_forget_your_signal_pin_when_registering_again">If you forget your Signal PIN when registering with Signal again, you’ll be locked out of your account for 7 days.</string>
+    <string name="RegistrationLockV2Dialog_turn_on">Turn on</string>
+    <string name="RegistrationLockV2Dialog_turn_off">Turn off</string>
 
     <!-- RevealableMessageView -->
     <string name="RevealableMessageView_view_photo">View Photo</string>
@@ -824,7 +966,7 @@
     <string name="SmsMessageRecord_secure_session_reset_s">%s reset the secure session.</string>
     <string name="SmsMessageRecord_duplicate_message">Duplicate message.</string>
     <string name="SmsMessageRecord_this_message_could_not_be_processed_because_it_was_sent_from_a_newer_version">This message could not be processed because it was sent from a newer version of Signal. You can ask your contact to send this message again after you update.</string>
-    <string name="SmsMessageRecord_error_handling_incoming_message">Error handling incoming message</string>
+    <string name="SmsMessageRecord_error_handling_incoming_message">Error handling incoming message.</string>
 
     <!-- StickerManagementActivity -->
     <string name="StickerManagementActivity_stickers">Stickers</string>
@@ -871,6 +1013,7 @@
     <string name="ThreadRecord_view_once_photo">View-once photo</string>
     <string name="ThreadRecord_view_once_video">View-once video</string>
     <string name="ThreadRecord_view_once_media">View-once media</string>
+    <string name="ThreadRecord_this_message_was_deleted">This message was deleted.</string>
     <string name="ThreadRecord_s_is_on_signal">%s is on Signal!</string>
     <string name="ThreadRecord_disappearing_messages_disabled">Disappearing messages disabled</string>
     <string name="ThreadRecord_disappearing_message_time_updated_to_s">Disappearing message time set to %s</string>
@@ -1000,6 +1143,7 @@
     <string name="MessageNotifier_reacted_s_to_your_view_once_photo">Reacted %1$s to your view-once photo.</string>
     <string name="MessageNotifier_reacted_s_to_your_view_once_video">Reacted %1$s to your view-once video.</string>
     <string name="MessageNotifier_reacted_s_to_your_sticker">Reacted %1$s to your sticker.</string>
+    <string name="MessageNotifier_this_message_was_deleted">This message was deleted.</string>
 
     <!-- Notification Channels -->
     <string name="NotificationChannel_messages">Default</string>
@@ -1684,6 +1828,7 @@
     <string name="conversation__menu_view_all_media">All media</string>
     <string name="conversation__menu_conversation_settings">Conversation settings</string>
     <string name="conversation__menu_add_shortcut">Add to home screen</string>
+    <string name="conversation__menu_pending_members">Pending members</string>
 
     <!-- conversation_popup -->
     <string name="conversation_popup__menu_expand_popup">Expand popup</string>
@@ -1780,6 +1925,7 @@
     <string name="BaseKbsPinFragment__next">Next</string>
     <string name="BaseKbsPinFragment__create_alphanumeric_pin">Create alphanumeric PIN</string>
     <string name="BaseKbsPinFragment__create_numeric_pin">Create numeric PIN</string>
+    <string name="BaseKbsPinFragment__learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007059792</string>
 
     <!-- CreateKbsPinFragment -->
     <plurals name="CreateKbsPinFragment__pin_must_be_at_least_characters">
@@ -1791,12 +1937,10 @@
         <item quantity="other">PIN must be at least %1$d digits</item>
     </plurals>
     <string name="CreateKbsPinFragment__create_a_new_pin">Create a new PIN</string>
-    <plurals name="CreateKbsPinFragment__you_can_choose_a_new_pin_because_this_device_is_registered">
-        <item quantity="one">You can choose a new PIN because this device is registered. If you forget your PIN, you may need to wait %1$d day to register again.</item>
-        <item quantity="other">You can choose a new PIN because this device is registered. If you forget your PIN, you may need to wait %1$d days to register again.</item>
-    </plurals>
+    <string name="CreateKbsPinFragment__you_can_choose_a_new_pin_as_long_as_this_device_is_registered">You can change your PIN as long as this device is registered.</string>
     <string name="CreateKbsPinFragment__create_your_pin">Create your PIN</string>
-    <string name="CreateKbsPinFragment__pins_add_extra_security_to_your_account">PINs add extra security to your account and can\'t be recovered. You\'ll need your PIN to register with Signal again.</string>
+    <string name="CreateKbsPinFragment__pins_keep_information_stored_with_signal_encrypted">PINs keep information stored with Signal encrypted so only you can access it. Your profile, settings, and contacts will restore when you reinstall Signal.</string>
+    <string name="CreateKbsPinFragment__choose_a_stronger_pin">Choose a stronger PIN</string>
 
     <!-- ConfirmKbsPinFragment -->
     <string name="ConfirmKbsPinFragment__pins_dont_match">PINs don\'t match. Try again.</string>
@@ -1804,14 +1948,14 @@
     <string name="ConfirmKbsPinFragment__pin_creation_failed">PIN creation failed</string>
     <string name="ConfirmKbsPinFragment__your_pin_was_not_saved">Your PIN was not saved. We\'ll prompt you to create a PIN later.</string>
     <string name="ConfirmKbsPinFragment__pin_created">PIN created.</string>
-    <string name="ConfirmKbsPinFragment__re_enter_pin">Re-enter PIN</string>
+    <string name="ConfirmKbsPinFragment__re_enter_your_pin">Re-enter your PIN</string>
     <string name="ConfirmKbsPinFragment__creating_pin">Creating PIN…</string>
 
     <!-- KbsSplashFragment -->
     <string name="KbsSplashFragment__introducing_pins">Introducing PINs</string>
-    <string name="KbsSplashFragment__pins_add_another_level_of_security_to_your_account">PINs add another level of security to your account. Create one now.</string>
+    <string name="KbsSplashFragment__pins_keep_information_stored_with_signal_encrypted">PINs keep information stored with Signal encrypted so only you can access it. Your profile, settings, and contacts will restore when you reinstall Signal.</string>
     <string name="KbsSplashFragment__learn_more">Learn More</string>
-    <string name="KbsSplashFragment__learn_more_link">https://support.signal.org/hc/en-us/articles/360007059792-Registration-Lock</string>
+    <string name="KbsSplashFragment__learn_more_link" translatable="false">https://support.signal.org/hc/articles/360007059792</string>
     <string name="KbsSplashFragment__registration_lock_equals_pin">Registration Lock = PIN</string>
     <string name="KbsSplashFragment__your_registration_lock_is_now_called_a_pin">Your Registration Lock is now called a PIN, and it does more. Update it now.</string>
     <string name="KbsSplashFragment__read_more_about_pins">Read more about PINs.</string>
@@ -1831,7 +1975,7 @@
     <string name="AccountLockedFragment__your_account_has_been_locked_to_protect_your_privacy">Your account has been locked to protect your privacy and security. After %1$d days of inactivity in your account you\'ll be able to re-register this phone number without needing your PIN. All content will be deleted.</string>
     <string name="AccountLockedFragment__next">Next</string>
     <string name="AccountLockedFragment__learn_more">Learn More</string>
-    <string name="AccountLockedFragment__learn_more_url">https://support.signal.org/hc/en-us/articles/360007059792-Registration-Lock</string>
+    <string name="AccountLockedFragment__learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007059792</string>
 
     <!-- KbsLockFragment -->
     <string name="RegistrationLockFragment__enter_your_pin">Enter your PIN</string>
@@ -1872,10 +2016,9 @@
 
     <!-- KBS Megaphone -->
     <string name="KbsMegaphone__create_a_pin">Create a PIN</string>
-    <string name="KbsMegaphone__pins_add_another_layer_of_security_to_your_signal_account">PINs add another layer of security to your Signal account.</string>
+    <string name="KbsMegaphone__pins_keep_information_thats_stored_with_signal_encrytped">PINs keep information that’s stored with Signal encrypted.</string>
     <string name="KbsMegaphone__create_pin">Create PIN</string>
     <string name="KbsMegaphone__introducing_pins">Introducing PINs</string>
-    <string name="KbsMegaphone__your_registration_lock_is_now_called_a_pin">Your Registration Lock is now called a PIN. Updating it takes seconds.</string>
     <string name="KbsMegaphone__update_pin">Update PIN</string>
     <string name="KbsMegaphone__well_remind_you_later_creating_a_pin">We\'ll remind you later. Creating a PIN will become mandatory in %1$d days.</string>
     <string name="KbsMegaphone__well_remind_you_later_confirming_your_pin">We\'ll remind you later. Confirming your PIN will become mandatory in %1$d days.</string>
@@ -1951,10 +2094,12 @@
     <string name="preferences_app_protection__lock_signal_access_with_android_screen_lock_or_fingerprint">Lock Signal access with Android screen lock or fingerprint</string>
     <string name="preferences_app_protection__screen_lock_inactivity_timeout">Screen lock inactivity timeout</string>
     <string name="preferences_app_protection__signal_pin">Signal PIN</string>
-    <string name="preferences_app_protection__pin">PIN</string>
-    <string name="preferences_app_protection__change">Change</string>
-    <string name="preferences_app_protection__create">Create</string>
-    <string name="preferences_app_protection__your_pin_adds_an_extra_layer_of_security_to_your_account">Your PIN adds an extra layer of security to your account. You\'ll be asked for it when you register your phone number with Signal. If you forget your PIN, you\'ll be locked out of your account for 7 days.</string>
+    <string name="preferences_app_protection__create_a_pin">Create a PIN</string>
+    <string name="preferences_app_protection__change_your_pin">Change your PIN</string>
+    <string name="preferences_app_protection__pins_keep_information_stored_with_signal_encrypted">PINs keep information stored with Signal encrypted so only you can access it. Your profile, settings, and contacts will restore when you reinstall Signal.</string>
+    <string name="preferences_app_protection__add_extra_security_by_requiring_your_signal_pin_to_register">Add extra security by requiring your Signal PIN to register your phone number with Signal again.</string>
+    <string name="preferences_app_protection__failed_to_enable_registration_lock">Failed to enable registration lock.</string>
+    <string name="preferences_app_protection__failed_to_disable_registration_lock">Failed to disable registration lock.</string>
     <string name="preferences_app_protection__enable_pinv2_reminders">PIN reminders</string>
     <string name="preferences_app_protection__enable_pinv2_reminders_summary">Prompt to enter your PIN periodically to help you remember it</string>
     <string name="AppProtectionPreferenceFragment_none">None</string>

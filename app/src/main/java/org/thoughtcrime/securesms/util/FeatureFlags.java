@@ -49,11 +49,13 @@ public final class FeatureFlags {
   private static final String UUIDS                      = "android.uuids";
   private static final String MESSAGE_REQUESTS           = "android.messageRequests";
   private static final String USERNAMES                  = "android.usernames";
-  private static final String PINS_FOR_ALL               = "android.pinsForAll";
+  private static final String PINS_FOR_ALL_LEGACY        = "android.pinsForAll";
+  private static final String PINS_FOR_ALL               = "android.pinsForAll.2";
+  private static final String PINS_FOR_ALL_MANDATORY     = "android.pinsForAllMandatory";
   private static final String PINS_MEGAPHONE_KILL_SWITCH = "android.pinsMegaphoneKillSwitch";
   private static final String PROFILE_NAMES_MEGAPHONE    = "android.profileNamesMegaphone";
-  private static final String VIDEO_TRIMMING             = "android.videoTrimming.2";
-  private static final String STORAGE_SERVICE            = "android.storageService.2";
+  private static final String ATTACHMENTS_V3             = "android.attachmentsV3";
+  private static final String REMOTE_DELETE              = "android.remoteDelete";
 
   /**
    * We will only store remote values for flags in this set. If you want a flag to be controllable
@@ -61,12 +63,14 @@ public final class FeatureFlags {
    */
 
   private static final Set<String> REMOTE_CAPABLE = Sets.newHashSet(
-      VIDEO_TRIMMING,
+      PINS_FOR_ALL_LEGACY,
       PINS_FOR_ALL,
+      PINS_FOR_ALL_MANDATORY,
       PINS_MEGAPHONE_KILL_SWITCH,
       PROFILE_NAMES_MEGAPHONE,
       MESSAGE_REQUESTS,
-      STORAGE_SERVICE
+      ATTACHMENTS_V3,
+      REMOTE_DELETE
   );
 
   /**
@@ -87,15 +91,15 @@ public final class FeatureFlags {
    * more burden on the reader to ensure that the app experience remains consistent.
    */
   private static final Set<String> HOT_SWAPPABLE = Sets.newHashSet(
-      VIDEO_TRIMMING,
       PINS_MEGAPHONE_KILL_SWITCH,
-      STORAGE_SERVICE
+      ATTACHMENTS_V3
   );
 
   /**
    * Flags in this set will stay true forever once they receive a true value from a remote config.
    */
   private static final Set<String> STICKY = Sets.newHashSet(
+      PINS_FOR_ALL_LEGACY,
       PINS_FOR_ALL
   );
 
@@ -181,11 +185,24 @@ public final class FeatureFlags {
     return value;
   }
 
-  /** Enables new KBS UI and notices but does not require user to set a pin */
+  /**
+   * - Starts showing prompts for users to create PINs.
+   * - Shows new reminder UI.
+   * - Shows new settings UI.
+   * - Syncs to storage service.
+   */
   public static boolean pinsForAll() {
     return SignalStore.registrationValues().pinWasRequiredAtRegistration() ||
-           SignalStore.kbsValues().hasMigratedToPinsForAll()               ||
+           SignalStore.kbsValues().isV2RegistrationLockEnabled()           ||
+           SignalStore.kbsValues().hasPin()                                ||
+           pinsForAllMandatory()                                           ||
+           getValue(PINS_FOR_ALL_LEGACY, false)                            ||
            getValue(PINS_FOR_ALL, false);
+  }
+
+  /** Makes it so the user will eventually see a fullscreen splash requiring them to create a PIN. */
+  public static boolean pinsForAllMandatory() {
+    return getValue(PINS_FOR_ALL_MANDATORY, false);
   }
 
   /** Safety flag to disable Pins for All Megaphone */
@@ -199,19 +216,14 @@ public final class FeatureFlags {
            TextSecurePreferences.getFirstInstallVersion(ApplicationDependencies.getApplication()) < 600;
   }
 
-  /** Allow trimming videos. */
-  public static boolean videoTrimming() {
-    return getValue(VIDEO_TRIMMING, false);
+  /** Whether or not we use the attachments v3 form. */
+  public static boolean attachmentsV3() {
+    return getValue(ATTACHMENTS_V3, false);
   }
 
-  /** Whether or not we can actually restore data on a new installation. NOT remote-configurable. */
-  public static boolean storageServiceRestore() {
-    return false;
-  }
-
-  /** Whether or not we sync to the storage service. */
-  public static boolean storageService() {
-    return getValue(STORAGE_SERVICE, false);
+  /** Send support for remotely deleting a message. */
+  public static boolean remoteDelete() {
+    return getValue(REMOTE_DELETE, false);
   }
 
   /** Only for rendering debug info. */

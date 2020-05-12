@@ -1,7 +1,6 @@
 package org.thoughtcrime.securesms;
 
 import android.annotation.SuppressLint;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -25,7 +24,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
@@ -48,10 +46,7 @@ import org.thoughtcrime.securesms.contacts.avatars.ContactPhoto;
 import org.thoughtcrime.securesms.contacts.avatars.FallbackContactPhoto;
 import org.thoughtcrime.securesms.contacts.avatars.ProfileContactPhoto;
 import org.thoughtcrime.securesms.contacts.avatars.ResourceContactPhoto;
-import org.thoughtcrime.securesms.conversation.ConversationActivity;
-import org.thoughtcrime.securesms.crypto.IdentityKeyParcelable;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
-import org.thoughtcrime.securesms.database.IdentityDatabase;
 import org.thoughtcrime.securesms.database.IdentityDatabase.IdentityRecord;
 import org.thoughtcrime.securesms.database.MediaDatabase;
 import org.thoughtcrime.securesms.database.RecipientDatabase;
@@ -73,19 +68,15 @@ import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.recipients.RecipientUtil;
 import org.thoughtcrime.securesms.util.CommunicationActions;
-import org.thoughtcrime.securesms.util.Dialogs;
 import org.thoughtcrime.securesms.util.DynamicDarkToolbarTheme;
 import org.thoughtcrime.securesms.util.DynamicLanguage;
 import org.thoughtcrime.securesms.util.DynamicTheme;
 import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.IdentityUtil;
-import org.thoughtcrime.securesms.util.ServiceUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.ThemeUtil;
-import org.thoughtcrime.securesms.util.Util;
 import org.thoughtcrime.securesms.util.ViewUtil;
 import org.thoughtcrime.securesms.util.concurrent.ListenableFuture;
-import org.thoughtcrime.securesms.util.concurrent.SignalExecutors;
 import org.thoughtcrime.securesms.util.concurrent.SimpleTask;
 import org.whispersystems.libsignal.util.guava.Optional;
 
@@ -182,16 +173,10 @@ public class RecipientPreferenceActivity extends PassphraseRequiredActionBarActi
     this.toolbarLayout.setExpandedTitleColor(ThemeUtil.getThemedColor(this, R.attr.conversation_title_color));
     this.toolbarLayout.setCollapsedTitleTextColor(ThemeUtil.getThemedColor(this, R.attr.conversation_title_color));
 
-    this.threadPhotoRailView.setListener(mediaRecord -> {
-      Intent intent = new Intent(RecipientPreferenceActivity.this, MediaPreviewActivity.class);
-      intent.putExtra(MediaPreviewActivity.THREAD_ID_EXTRA, mediaRecord.getThreadId());
-      intent.putExtra(MediaPreviewActivity.DATE_EXTRA, mediaRecord.getDate());
-      intent.putExtra(MediaPreviewActivity.SIZE_EXTRA, mediaRecord.getAttachment().getSize());
-      intent.putExtra(MediaPreviewActivity.CAPTION_EXTRA, mediaRecord.getAttachment().getCaption());
-      intent.putExtra(MediaPreviewActivity.LEFT_IS_RECENT_EXTRA, ViewCompat.getLayoutDirection(threadPhotoRailView) == ViewCompat.LAYOUT_DIRECTION_LTR);
-      intent.setDataAndType(mediaRecord.getAttachment().getDataUri(), mediaRecord.getContentType());
-      startActivity(intent);
-    });
+    this.threadPhotoRailView.setListener(mediaRecord ->
+      startActivity(MediaPreviewActivity.intentFromMediaRecord(RecipientPreferenceActivity.this,
+                                                               mediaRecord,
+                                                               ViewCompat.getLayoutDirection(threadPhotoRailView) == ViewCompat.LAYOUT_DIRECTION_LTR)));
 
     SimpleTask.run(
       () -> DatabaseFactory.getThreadDatabase(this).getThreadIdFor(recipientId),
@@ -238,13 +223,6 @@ public class RecipientPreferenceActivity extends PassphraseRequiredActionBarActi
     this.avatar.setBackgroundColor(recipient.getColor().toActionBarColor(this));
     this.toolbarLayout.setTitle(recipient.toShortString(this));
     this.toolbarLayout.setContentScrimColor(recipient.getColor().toActionBarColor(this));
-    if (recipient.getUuid().isPresent()) {
-      toolbarLayout.setOnLongClickListener(v -> {
-        Util.copyToClipboard(this, recipient.getUuid().get().toString());
-        ServiceUtil.getVibrator(this).vibrate(200);
-        return true;
-      });
-    }
   }
 
   @Override
@@ -451,7 +429,7 @@ public class RecipientPreferenceActivity extends PassphraseRequiredActionBarActi
           aboutPreference.setSummary(recipient.getCustomLabel());
         }
 
-        aboutPreference.setSecure(recipient.getRegistered() == RecipientDatabase.RegisteredState.REGISTERED);
+        aboutPreference.setState(recipient.getRegistered() == RecipientDatabase.RegisteredState.REGISTERED, recipient.isBlocked());
 
         IdentityUtil.getRemoteIdentityKey(getActivity(), recipient).addListener(new ListenableFuture.Listener<Optional<IdentityRecord>>() {
           @Override
@@ -693,11 +671,7 @@ public class RecipientPreferenceActivity extends PassphraseRequiredActionBarActi
 
       @Override
       public boolean onPreferenceClick(Preference preference) {
-        Intent verifyIdentityIntent = new Intent(preference.getContext(), VerifyIdentityActivity.class);
-        verifyIdentityIntent.putExtra(VerifyIdentityActivity.RECIPIENT_EXTRA, recipient.getId());
-        verifyIdentityIntent.putExtra(VerifyIdentityActivity.IDENTITY_EXTRA, new IdentityKeyParcelable(identityKey.getIdentityKey()));
-        verifyIdentityIntent.putExtra(VerifyIdentityActivity.VERIFIED_EXTRA, identityKey.getVerifiedStatus() == IdentityDatabase.VerifiedStatus.VERIFIED);
-        startActivity(verifyIdentityIntent);
+        startActivity(VerifyIdentityActivity.newIntent(preference.getContext(), identityKey));
 
         return true;
       }
@@ -706,72 +680,15 @@ public class RecipientPreferenceActivity extends PassphraseRequiredActionBarActi
     private class BlockClickedListener implements Preference.OnPreferenceClickListener {
       @Override
       public boolean onPreferenceClick(Preference preference) {
-        if (recipient.get().isBlocked()) handleUnblock(preference.getContext());
-        else                             handleBlock(preference.getContext());
+        Context context = preference.getContext();
 
-        return true;
-      }
-
-      private void handleBlock(@NonNull final Context context) {
-        new AsyncTask<Void, Void, Pair<Integer, Integer>>() {
-
-          @Override
-          protected Pair<Integer, Integer> doInBackground(Void... voids) {
-            int titleRes = R.string.RecipientPreferenceActivity_block_this_contact_question;
-            int bodyRes  = R.string.RecipientPreferenceActivity_you_will_no_longer_receive_messages_and_calls_from_this_contact;
-
-            if (recipient.get().isGroup()) {
-              bodyRes = R.string.RecipientPreferenceActivity_block_and_leave_group_description;
-
-              if (recipient.get().isGroup() && DatabaseFactory.getGroupDatabase(context).isActive(recipient.get().requireGroupId())) {
-                titleRes = R.string.RecipientPreferenceActivity_block_and_leave_group;
-              } else {
-                titleRes = R.string.RecipientPreferenceActivity_block_group;
-              }
-            }
-
-            return new Pair<>(titleRes, bodyRes);
-          }
-
-          @Override
-          protected void onPostExecute(Pair<Integer, Integer> titleAndBody) {
-            new AlertDialog.Builder(context)
-                           .setTitle(titleAndBody.first)
-                           .setMessage(titleAndBody.second)
-                           .setCancelable(true)
-                           .setNegativeButton(android.R.string.cancel, null)
-                           .setPositiveButton(R.string.RecipientPreferenceActivity_block, (dialog, which) -> {
-                             setBlocked(context, recipient.get(), true);
-                           }).show();
-          }
-        }.execute();
-      }
-
-      private void handleUnblock(@NonNull Context context) {
-        int titleRes = R.string.RecipientPreferenceActivity_unblock_this_contact_question;
-        int bodyRes  = R.string.RecipientPreferenceActivity_you_will_once_again_be_able_to_receive_messages_and_calls_from_this_contact;
-
-        if (recipient.resolve().isGroup()) {
-          titleRes = R.string.RecipientPreferenceActivity_unblock_this_group_question;
-          bodyRes  = R.string.RecipientPreferenceActivity_unblock_this_group_description;
+        if (recipient.get().isBlocked()) {
+          BlockUnblockDialog.showUnblockFor(context, getLifecycle(), recipient.get(), () -> RecipientUtil.unblock(context, recipient.get()));
+        } else {
+          BlockUnblockDialog.showBlockFor(context, getLifecycle(), recipient.get(), () -> RecipientUtil.block(context, recipient.get()));
         }
 
-        new AlertDialog.Builder(context)
-                       .setTitle(titleRes)
-                       .setMessage(bodyRes)
-                       .setCancelable(true)
-                       .setNegativeButton(android.R.string.cancel, null)
-                       .setPositiveButton(R.string.RecipientPreferenceActivity_unblock, (dialog, which) -> setBlocked(context, recipient.get(), false)).show();
-      }
-
-      private void setBlocked(@NonNull final Context context, final Recipient recipient, final boolean blocked) {
-        SignalExecutors.BOUNDED.execute(() -> {
-          if (blocked) {
-            RecipientUtil.block(context, recipient);
-          } else {
-            RecipientUtil.unblock(context, recipient);
-          }
-        });
+        return true;
       }
     }
 

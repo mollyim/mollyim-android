@@ -8,10 +8,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+import org.thoughtcrime.securesms.BaseUnitTest;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.keyvalue.KbsValues;
 import org.thoughtcrime.securesms.keyvalue.RegistrationValues;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
+import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
@@ -26,19 +28,22 @@ import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({ApplicationDependencies.class, SignalStore.class, FeatureFlags.class, RegistrationValues.class, KbsValues.class, TextSecurePreferences.class})
-public class PinsForAllScheduleTest {
+@PrepareForTest({ApplicationDependencies.class, SignalStore.class, FeatureFlags.class, RegistrationValues.class, KbsValues.class, TextSecurePreferences.class })
+public class PinsForAllScheduleTest extends BaseUnitTest {
 
   private final PinsForAllSchedule testSubject        = new PinsForAllSchedule();
   private final RegistrationValues registrationValues = mock(RegistrationValues.class);
   private final KbsValues          kbsValues          = mock(KbsValues.class);
 
   @Before
-  public void setUp() {
+  public void setUp() throws Exception {
+    super.setUp();
+
     mockStatic(ApplicationDependencies.class);
     mockStatic(SignalStore.class);
     mockStatic(FeatureFlags.class);
     mockStatic(TextSecurePreferences.class);
+    mockStatic(Log.class);
     when(ApplicationDependencies.getApplication()).thenReturn(mock(Application.class));
     when(SignalStore.registrationValues()).thenReturn(registrationValues);
     when(SignalStore.kbsValues()).thenReturn(kbsValues);
@@ -99,78 +104,10 @@ public class PinsForAllScheduleTest {
   }
 
   @Test
-  public void givenFirstVisibleIsZero_whenIGetDaysRemaining_thenIExpectMax() {
-    // GIVEN
-    long firstVisible = 0;
-    long expected     = PinsForAllSchedule.DAYS_REMAINING_MAX;
-
-    // WHEN
-    long result = PinsForAllSchedule.getDaysRemaining(firstVisible, 0);
-
-    // THEN
-    assertEquals(expected, result);
-  }
-
-  @Test
-  public void givenFirstVisibleIsNow_whenIGetDaysRemaining_thenIExpectMax() {
-    // GIVEN
-    long now      = System.currentTimeMillis();
-    long expected = PinsForAllSchedule.DAYS_REMAINING_MAX;
-
-    // WHEN
-    long result = PinsForAllSchedule.getDaysRemaining(now, now);
-
-    // THEN
-    assertEquals(expected, result);
-  }
-
-  @Test
-  public void givenFirstVisibleIsFiveSecondsAgo_whenIGetDaysRemaining_thenIExpectMax() {
-    // GIVEN
-    long now          = System.currentTimeMillis();
-    long firstVisible = now - TimeUnit.SECONDS.toMillis(5);
-    long expected     = PinsForAllSchedule.DAYS_REMAINING_MAX;
-
-    // WHEN
-    long result = PinsForAllSchedule.getDaysRemaining(firstVisible, now);
-
-    // THEN
-    assertEquals(expected, result);
-  }
-
-  @Test
-  public void givenFirstVisibleIsADayAgo_whenIGetDaysRemaining_thenIExpectMaxLessOne() {
-    // GIVEN
-    long now          = System.currentTimeMillis();
-    long firstVisible = now - TimeUnit.DAYS.toMillis(1);
-    long expected     = PinsForAllSchedule.DAYS_REMAINING_MAX - 1;
-
-    // WHEN
-    long result = PinsForAllSchedule.getDaysRemaining(firstVisible, now);
-
-    // THEN
-    assertEquals(expected, result);
-  }
-
-  @Test
-  public void givenFirstVisibleIsAMonthAgo_whenIGetDaysRemaining_thenIExpectZero() {
-    // GIVEN
-    long now          = System.currentTimeMillis();
-    long firstVisible = now - TimeUnit.DAYS.toMillis(31);
-    long expected     = 0;
-
-    // WHEN
-    long result = PinsForAllSchedule.getDaysRemaining(firstVisible, now);
-
-    // THEN
-    assertEquals(expected, result);
-  }
-
-  @Test
   public void whenUserIsANewInstallAndFlagIsDisabled_whenIShouldDisplay_thenIExpectFalse() {
     // GIVEN
     when(registrationValues.pinWasRequiredAtRegistration()).thenReturn(true);
-    when(kbsValues.isV2RegistrationLockEnabled()).thenReturn(true);
+    when(kbsValues.hasPin()).thenReturn(true);
     when(FeatureFlags.pinsForAll()).thenReturn(false);
 
     // WHEN
@@ -184,7 +121,7 @@ public class PinsForAllScheduleTest {
   public void whenUserIsANewInstallAndFlagIsEnabled_whenIShouldDisplay_thenIExpectFalse() {
     // GIVEN
     when(registrationValues.pinWasRequiredAtRegistration()).thenReturn(true);
-    when(kbsValues.isV2RegistrationLockEnabled()).thenReturn(true);
+    when(kbsValues.hasPin()).thenReturn(true);
     when(FeatureFlags.pinsForAll()).thenReturn(true);
 
     // WHEN

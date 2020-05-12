@@ -8,8 +8,8 @@ syntax = "proto3";
 
 package signal;
 
-option java_package         = "org.thoughtcrime.securesms.database.model";
-option java_outer_classname = "DatabaseProtos";
+option java_package        = "org.thoughtcrime.securesms.database.model.databaseprotos";
+option java_multiple_files = true;
 
 
 message ReactionList {
@@ -21,4 +21,14 @@ message ReactionList {
     }
 
     repeated Reaction reactions = 1;
+}
+
+
+import "SignalService.proto";
+import "DecryptedGroups.proto";
+
+message DecryptedGroupV2Context {
+    signalservice.GroupContextV2 context    = 1;
+    DecryptedGroupChange         change     = 2;
+    DecryptedGroup               groupState = 3;
 }

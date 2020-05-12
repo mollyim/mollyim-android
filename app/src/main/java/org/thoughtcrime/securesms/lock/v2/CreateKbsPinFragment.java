@@ -1,15 +1,22 @@
 package org.thoughtcrime.securesms.lock.v2;
 
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
+import android.widget.EditText;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.PluralsRes;
+import androidx.autofill.HintConstants;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
 import org.thoughtcrime.securesms.R;
+import org.thoughtcrime.securesms.util.SpanUtil;
 
 public class CreateKbsPinFragment extends BaseKbsPinFragment<CreateKbsPinViewModel> {
-
-  private static final int PIN_LOCKOUT_DAYS = 7;
 
   @Override
   protected void initializeViewStates() {
@@ -23,24 +30,20 @@ public class CreateKbsPinFragment extends BaseKbsPinFragment<CreateKbsPinViewMod
 
     getLabel().setText(getPinLengthRestrictionText(R.plurals.CreateKbsPinFragment__pin_must_be_at_least_digits));
     getConfirm().setEnabled(false);
+    ViewCompat.setAutofillHints(getInput(), HintConstants.AUTOFILL_HINT_NEW_PASSWORD);
   }
 
   private void initializeViewStatesForPinChange(boolean isForgotPin) {
     getTitle().setText(R.string.CreateKbsPinFragment__create_a_new_pin);
 
-    if (isForgotPin) {
-      getDescription().setText(requireContext().getResources()
-                                               .getQuantityString(R.plurals.CreateKbsPinFragment__you_can_choose_a_new_pin_because_this_device_is_registered,
-                                                                  PIN_LOCKOUT_DAYS,
-                                                                  PIN_LOCKOUT_DAYS));
-    } else {
-      getDescription().setText(R.string.CreateKbsPinFragment__pins_add_extra_security_to_your_account);
-    }
+    getDescription().setText(R.string.CreateKbsPinFragment__you_can_choose_a_new_pin_as_long_as_this_device_is_registered);
+    getDescription().setLearnMoreVisible(true);
   }
 
   private void initializeViewStatesForPinCreate() {
     getTitle().setText(R.string.CreateKbsPinFragment__create_your_pin);
-    getDescription().setText(R.string.CreateKbsPinFragment__pins_add_extra_security_to_your_account);
+    getDescription().setText(R.string.CreateKbsPinFragment__pins_keep_information_stored_with_signal_encrypted);
+    getDescription().setLearnMoreVisible(true);
   }
 
   @Override
@@ -48,8 +51,16 @@ public class CreateKbsPinFragment extends BaseKbsPinFragment<CreateKbsPinViewMod
     CreateKbsPinViewModel    viewModel = ViewModelProviders.of(this).get(CreateKbsPinViewModel.class);
     CreateKbsPinFragmentArgs args      = CreateKbsPinFragmentArgs.fromBundle(requireArguments());
 
-
     viewModel.getNavigationEvents().observe(getViewLifecycleOwner(), e -> onConfirmPin(e.getUserEntry(), e.getKeyboard(), args.getIsPinChange()));
+    viewModel.getErrorEvents().observe(getViewLifecycleOwner(), e -> {
+      if (e == CreateKbsPinViewModel.PinErrorEvent.WEAK_PIN) {
+        getLabel().setText(SpanUtil.color(ContextCompat.getColor(requireContext(), R.color.red),
+                                          getString(R.string.CreateKbsPinFragment__choose_a_stronger_pin)));
+        shake(getInput(), () -> getInput().getText().clear());
+      } else {
+        throw new AssertionError("Unexpected PIN error!");
+      }
+    });
     viewModel.getKeyboard().observe(getViewLifecycleOwner(), k -> {
       getLabel().setText(getLabelText(k));
       getInput().getText().clear();
@@ -78,5 +89,24 @@ public class CreateKbsPinFragment extends BaseKbsPinFragment<CreateKbsPinViewMod
 
   private String getPinLengthRestrictionText(@PluralsRes int plurals) {
     return requireContext().getResources().getQuantityString(plurals, KbsConstants.MINIMUM_PIN_LENGTH, KbsConstants.MINIMUM_PIN_LENGTH);
+  }
+
+  private static void shake(@NonNull EditText view, @NonNull Runnable afterwards) {
+    TranslateAnimation shake = new TranslateAnimation(0, 30, 0, 0);
+    shake.setDuration(50);
+    shake.setRepeatCount(7);
+    shake.setAnimationListener(new Animation.AnimationListener() {
+      @Override
+      public void onAnimationStart(Animation animation) {}
+
+      @Override
+      public void onAnimationEnd(Animation animation) {
+        afterwards.run();
+      }
+
+      @Override
+      public void onAnimationRepeat(Animation animation) {}
+    });
+    view.startAnimation(shake);
   }
 }

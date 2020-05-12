@@ -21,7 +21,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.autofill.HintConstants;
 import androidx.core.app.DialogCompat;
+import androidx.core.view.ViewCompat;
 
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -44,7 +46,7 @@ public final class SignalPinReminderDialog {
   public static void show(@NonNull Context context, @NonNull Launcher launcher, @NonNull Callback mainCallback) {
     Log.i(TAG, "Showing PIN reminder dialog.");
 
-    AlertDialog dialog = new AlertDialog.Builder(context, ThemeUtil.isDarkTheme(context) ? R.style.RationaleDialogDark_SignalAccent : R.style.RationaleDialogLight_SignalAccent)
+    AlertDialog dialog = new AlertDialog.Builder(context, ThemeUtil.isDarkTheme(context) ? R.style.Theme_Signal_AlertDialog_Dark_Cornered_ColoredAccent : R.style.Theme_Signal_AlertDialog_Light_Cornered_ColoredAccent)
                                         .setView(R.layout.kbs_pin_reminder_view)
                                         .setCancelable(false)
                                         .setOnCancelListener(d -> RegistrationLockReminders.scheduleReminder(context, false))
@@ -72,8 +74,9 @@ public final class SignalPinReminderDialog {
         ServiceUtil.getInputMethodManager(pinEditText.getContext()).showSoftInput(pinEditText, 0);
       }
     });
+    ViewCompat.setAutofillHints(pinEditText, HintConstants.AUTOFILL_HINT_PASSWORD);
 
-    switch (SignalStore.kbsValues().getKeyboardType()) {
+    switch (SignalStore.pinValues().getKeyboardType()) {
       case NUMERIC:
         pinEditText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
         break;
@@ -96,9 +99,8 @@ public final class SignalPinReminderDialog {
     reminder.setMovementMethod(LinkMovementMethod.getInstance());
 
     PinVerifier.Callback callback = getPinWatcherCallback(context, dialog, pinEditText, pinStatus, mainCallback);
-    PinVerifier          verifier = SignalStore.kbsValues().isV2RegistrationLockEnabled()
-                                    ? new V2PinVerifier()
-                                    : new V1PinVerifier(context);
+    PinVerifier          verifier = SignalStore.kbsValues().hasPin() ? new V2PinVerifier()
+                                                                     : new V1PinVerifier(context);
 
     skip.setOnClickListener(v -> {
       dialog.dismiss();
@@ -115,7 +117,7 @@ public final class SignalPinReminderDialog {
     pinEditText.addTextChangedListener(new SimpleTextWatcher() {
       @Override
       public void onTextChanged(String text) {
-        if (text.length() >= KbsConstants.minimumPossiblePinLength()) {
+        if (text.length() >= KbsConstants.MINIMUM_PIN_LENGTH) {
           submit.setEnabled(true);
         } else {
           submit.setEnabled(false);
@@ -192,7 +194,7 @@ public final class SignalPinReminderDialog {
       if (pin == null) return;
       if (TextUtils.isEmpty(pin)) return;
 
-      if (pin.length() < KbsConstants.minimumPossiblePinLength()) return;
+      if (pin.length() < KbsConstants.MINIMUM_PIN_LENGTH) return;
 
       if (PinHashing.verifyLocalPinHash(localPinHash, pin)) {
         callback.onPinCorrect();

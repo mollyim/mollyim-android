@@ -6,9 +6,12 @@ import android.content.Context;
 import androidx.annotation.Nullable;
 
 import org.thoughtcrime.securesms.BuildConfig;
+import org.thoughtcrime.securesms.net.CustomDns;
+import org.thoughtcrime.securesms.net.SequentialDns;
 import org.thoughtcrime.securesms.net.UserAgentInterceptor;
 import org.thoughtcrime.securesms.util.Base64;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
+import org.whispersystems.libsignal.util.guava.Optional;
 import org.whispersystems.signalservice.api.push.TrustStore;
 import org.whispersystems.signalservice.internal.configuration.SignalCdnUrl;
 import org.whispersystems.signalservice.internal.configuration.SignalContactDiscoveryUrl;
@@ -25,6 +28,7 @@ import java.util.Map;
 
 import okhttp3.CipherSuite;
 import okhttp3.ConnectionSpec;
+import okhttp3.Dns;
 import okhttp3.Interceptor;
 import okhttp3.TlsVersion;
 
@@ -32,6 +36,8 @@ public class SignalServiceNetworkAccess {
 
   @SuppressWarnings("unused")
   private static final String TAG = SignalServiceNetworkAccess.class.getSimpleName();
+
+  public static final Dns DNS = new SequentialDns(Dns.SYSTEM, new CustomDns("1.1.1.1"));
 
   private static final String COUNTRY_CODE_EGYPT = "+20";
   private static final String COUNTRY_CODE_UAE   = "+971";
@@ -115,6 +121,16 @@ public class SignalServiceNetworkAccess {
     final SignalCdnUrl              omanGoogleCdn           = new SignalCdnUrl("https://www.google.com.om/cdn", SERVICE_REFLECTOR_HOST, trustStore, GMAIL_CONNECTION_SPEC);
     final SignalCdnUrl              qatarGoogleCdn          = new SignalCdnUrl("https://www.google.com.qa/cdn", SERVICE_REFLECTOR_HOST, trustStore, GMAIL_CONNECTION_SPEC);
 
+    final SignalCdnUrl              baseGoogleCdn2          = new SignalCdnUrl("https://www.google.com/cdn2", SERVICE_REFLECTOR_HOST, trustStore, GMAIL_CONNECTION_SPEC);
+    final SignalCdnUrl              baseAndroidCdn2         = new SignalCdnUrl("https://android.clients.google.com/cdn2", SERVICE_REFLECTOR_HOST, trustStore, PLAY_CONNECTION_SPEC);
+    final SignalCdnUrl              mapsOneAndroidCdn2      = new SignalCdnUrl("https://clients3.google.com/cdn2", SERVICE_REFLECTOR_HOST, trustStore, GMAPS_CONNECTION_SPEC);
+    final SignalCdnUrl              mapsTwoAndroidCdn2      = new SignalCdnUrl("https://clients4.google.com/cdn2", SERVICE_REFLECTOR_HOST, trustStore, GMAPS_CONNECTION_SPEC);
+    final SignalCdnUrl              mailAndroidCdn2         = new SignalCdnUrl("https://inbox.google.com/cdn2", SERVICE_REFLECTOR_HOST, trustStore, GMAIL_CONNECTION_SPEC);
+    final SignalCdnUrl              egyptGoogleCdn2         = new SignalCdnUrl("https://www.google.com.eg/cdn2", SERVICE_REFLECTOR_HOST, trustStore, GMAIL_CONNECTION_SPEC);
+    final SignalCdnUrl              uaeGoogleCdn2           = new SignalCdnUrl("https://www.google.ae/cdn2", SERVICE_REFLECTOR_HOST, trustStore, GMAIL_CONNECTION_SPEC);
+    final SignalCdnUrl              omanGoogleCdn2          = new SignalCdnUrl("https://www.google.com.om/cdn2", SERVICE_REFLECTOR_HOST, trustStore, GMAIL_CONNECTION_SPEC);
+    final SignalCdnUrl              qatarGoogleCdn2         = new SignalCdnUrl("https://www.google.com.qa/cdn2", SERVICE_REFLECTOR_HOST, trustStore, GMAIL_CONNECTION_SPEC);
+
     final SignalContactDiscoveryUrl baseGoogleDiscovery     = new SignalContactDiscoveryUrl("https://www.google.com/directory", SERVICE_REFLECTOR_HOST, trustStore, GMAIL_CONNECTION_SPEC);
     final SignalContactDiscoveryUrl baseAndroidDiscovery    = new SignalContactDiscoveryUrl("https://android.clients.google.com/directory", SERVICE_REFLECTOR_HOST, trustStore, PLAY_CONNECTION_SPEC);
     final SignalContactDiscoveryUrl mapsOneAndroidDiscovery = new SignalContactDiscoveryUrl("https://clients3.google.com/directory", SERVICE_REFLECTOR_HOST, trustStore, GMAPS_CONNECTION_SPEC);
@@ -146,6 +162,8 @@ public class SignalServiceNetworkAccess {
     final SignalStorageUrl qatarGoogleStorage    = new SignalStorageUrl("https://www.google.com.qa/storage", SERVICE_REFLECTOR_HOST, trustStore, GMAIL_CONNECTION_SPEC);
 
     final List<Interceptor> interceptors = Collections.singletonList(new UserAgentInterceptor());
+    final Optional<Dns>     dns          = Optional.of(DNS);
+
     final byte[] zkGroupServerPublicParams;
 
     try {
@@ -156,45 +174,55 @@ public class SignalServiceNetworkAccess {
 
     this.censorshipConfiguration = new HashMap<String, SignalServiceConfiguration>() {{
       put(COUNTRY_CODE_EGYPT, new SignalServiceConfiguration(new SignalServiceUrl[] {egyptGoogleService, baseGoogleService, baseAndroidService, mapsOneAndroidService, mapsTwoAndroidService, mailAndroidService},
-                                                             new SignalCdnUrl[] {egyptGoogleCdn, baseAndroidCdn, baseGoogleCdn, mapsOneAndroidCdn, mapsTwoAndroidCdn, mailAndroidCdn, mailAndroidCdn},
+                                                             makeSignalCdnUrlMapFor(new SignalCdnUrl[] {egyptGoogleCdn, baseAndroidCdn, baseGoogleCdn, mapsOneAndroidCdn, mapsTwoAndroidCdn, mailAndroidCdn, mailAndroidCdn},
+                                                                                    new SignalCdnUrl[] {egyptGoogleCdn2, baseAndroidCdn2, baseGoogleCdn2, mapsOneAndroidCdn2, mapsTwoAndroidCdn2, mailAndroidCdn2, mailAndroidCdn2}),
                                                              new SignalContactDiscoveryUrl[] {egyptGoogleDiscovery, baseGoogleDiscovery, baseAndroidDiscovery, mapsOneAndroidDiscovery, mapsTwoAndroidDiscovery, mailAndroidDiscovery},
                                                              new SignalKeyBackupServiceUrl[] {egyptGoogleKbs, baseGoogleKbs, baseAndroidKbs, mapsOneAndroidKbs, mapsTwoAndroidKbs, mailAndroidKbs},
                                                              new SignalStorageUrl[] {egyptGoogleStorage, baseGoogleStorage, baseAndroidStorage, mapsOneAndroidStorage, mapsTwoAndroidStorage, mailAndroidStorage},
                                                              interceptors,
+                                                             dns,
                                                              zkGroupServerPublicParams));
 
       put(COUNTRY_CODE_UAE, new SignalServiceConfiguration(new SignalServiceUrl[] {uaeGoogleService, baseAndroidService, baseGoogleService, mapsOneAndroidService, mapsTwoAndroidService, mailAndroidService},
-                                                           new SignalCdnUrl[] {uaeGoogleCdn, baseAndroidCdn, baseGoogleCdn, mapsOneAndroidCdn, mapsTwoAndroidCdn, mailAndroidCdn},
+                                                           makeSignalCdnUrlMapFor(new SignalCdnUrl[] {uaeGoogleCdn, baseAndroidCdn, baseGoogleCdn, mapsOneAndroidCdn, mapsTwoAndroidCdn, mailAndroidCdn},
+                                                                                  new SignalCdnUrl[] {uaeGoogleCdn2, baseAndroidCdn2, baseGoogleCdn2, mapsOneAndroidCdn2, mapsTwoAndroidCdn2, mailAndroidCdn2}),
                                                            new SignalContactDiscoveryUrl[] {uaeGoogleDiscovery, baseGoogleDiscovery, baseAndroidDiscovery, mapsOneAndroidDiscovery, mapsTwoAndroidDiscovery, mailAndroidDiscovery},
                                                            new SignalKeyBackupServiceUrl[] {uaeGoogleKbs, baseGoogleKbs, baseAndroidKbs, mapsOneAndroidKbs, mapsTwoAndroidKbs, mailAndroidKbs},
                                                            new SignalStorageUrl[] {uaeGoogleStorage, baseGoogleStorage, baseAndroidStorage, mapsOneAndroidStorage, mapsTwoAndroidStorage, mailAndroidStorage},
                                                            interceptors,
+                                                           dns,
                                                            zkGroupServerPublicParams));
 
       put(COUNTRY_CODE_OMAN, new SignalServiceConfiguration(new SignalServiceUrl[] {omanGoogleService, baseAndroidService, baseGoogleService, mapsOneAndroidService, mapsTwoAndroidService, mailAndroidService},
-                                                            new SignalCdnUrl[] {omanGoogleCdn, baseAndroidCdn, baseGoogleCdn, mapsOneAndroidCdn, mapsTwoAndroidCdn, mailAndroidCdn},
+                                                            makeSignalCdnUrlMapFor(new SignalCdnUrl[] {omanGoogleCdn, baseAndroidCdn, baseGoogleCdn, mapsOneAndroidCdn, mapsTwoAndroidCdn, mailAndroidCdn},
+                                                                                   new SignalCdnUrl[] {omanGoogleCdn2, baseAndroidCdn2, baseGoogleCdn2, mapsOneAndroidCdn2, mapsTwoAndroidCdn2, mailAndroidCdn2}),
                                                             new SignalContactDiscoveryUrl[] {omanGoogleDiscovery, baseGoogleDiscovery, baseAndroidDiscovery, mapsOneAndroidDiscovery, mapsTwoAndroidDiscovery, mailAndroidDiscovery},
                                                             new SignalKeyBackupServiceUrl[] {omanGoogleKbs, baseGoogleKbs, baseAndroidKbs, mapsOneAndroidKbs, mapsTwoAndroidKbs, mailAndroidKbs},
                                                             new SignalStorageUrl[] {omanGoogleStorage, baseGoogleStorage, baseAndroidStorage, mapsOneAndroidStorage, mapsTwoAndroidStorage, mailAndroidStorage},
                                                             interceptors,
+                                                            dns,
                                                             zkGroupServerPublicParams));
 
 
       put(COUNTRY_CODE_QATAR, new SignalServiceConfiguration(new SignalServiceUrl[] {qatarGoogleService, baseAndroidService, baseGoogleService, mapsOneAndroidService, mapsTwoAndroidService, mailAndroidService},
-                                                             new SignalCdnUrl[] {qatarGoogleCdn, baseAndroidCdn, baseGoogleCdn, mapsOneAndroidCdn, mapsTwoAndroidCdn, mailAndroidCdn},
+                                                             makeSignalCdnUrlMapFor(new SignalCdnUrl[] {qatarGoogleCdn, baseAndroidCdn, baseGoogleCdn, mapsOneAndroidCdn, mapsTwoAndroidCdn, mailAndroidCdn},
+                                                                                    new SignalCdnUrl[] {qatarGoogleCdn2, baseAndroidCdn2, baseGoogleCdn2, mapsOneAndroidCdn2, mapsTwoAndroidCdn2, mailAndroidCdn2}),
                                                              new SignalContactDiscoveryUrl[] {qatarGoogleDiscovery, baseGoogleDiscovery, baseAndroidDiscovery, mapsOneAndroidDiscovery, mapsTwoAndroidDiscovery, mailAndroidDiscovery},
                                                              new SignalKeyBackupServiceUrl[] {qatarGoogleKbs, baseGoogleKbs, baseAndroidKbs, mapsOneAndroidKbs, mapsTwoAndroidKbs, mailAndroidKbs},
                                                              new SignalStorageUrl[] {qatarGoogleStorage, baseGoogleStorage, baseAndroidStorage, mapsOneAndroidStorage, mapsTwoAndroidStorage, mailAndroidStorage},
                                                              interceptors,
+                                                             dns,
                                                              zkGroupServerPublicParams));
     }};
 
     this.uncensoredConfiguration = new SignalServiceConfiguration(new SignalServiceUrl[] {new SignalServiceUrl(BuildConfig.SIGNAL_URL, new SignalServiceTrustStore(context))},
-                                                                  new SignalCdnUrl[] {new SignalCdnUrl(BuildConfig.SIGNAL_CDN_URL, new SignalServiceTrustStore(context))},
+                                                                  makeSignalCdnUrlMapFor(new SignalCdnUrl[] {new SignalCdnUrl(BuildConfig.SIGNAL_CDN_URL, new SignalServiceTrustStore(context))},
+                                                                                         new SignalCdnUrl[] {new SignalCdnUrl(BuildConfig.SIGNAL_CDN2_URL, new SignalServiceTrustStore(context))}),
                                                                   new SignalContactDiscoveryUrl[] {new SignalContactDiscoveryUrl(BuildConfig.SIGNAL_CONTACT_DISCOVERY_URL, new SignalServiceTrustStore(context))},
                                                                   new SignalKeyBackupServiceUrl[] { new SignalKeyBackupServiceUrl(BuildConfig.SIGNAL_KEY_BACKUP_URL, new SignalServiceTrustStore(context)) },
                                                                   new SignalStorageUrl[] {new SignalStorageUrl(BuildConfig.STORAGE_URL, new SignalServiceTrustStore(context))},
                                                                   interceptors,
+                                                                  dns,
                                                                   zkGroupServerPublicParams);
 
     this.censoredCountries = this.censorshipConfiguration.keySet().toArray(new String[0]);
@@ -225,4 +253,10 @@ public class SignalServiceNetworkAccess {
     return getConfiguration(number) != this.uncensoredConfiguration;
   }
 
+  private static Map<Integer, SignalCdnUrl[]> makeSignalCdnUrlMapFor(SignalCdnUrl[] cdn0Urls, SignalCdnUrl[] cdn2Urls) {
+    Map<Integer, SignalCdnUrl[]> result = new HashMap<>();
+    result.put(0, cdn0Urls);
+    result.put(2, cdn2Urls);
+    return Collections.unmodifiableMap(result);
+  }
 }

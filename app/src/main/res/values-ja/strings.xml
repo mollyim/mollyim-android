@@ -73,6 +73,19 @@
   <string name="AudioSlidePlayer_error_playing_audio">音声再生中にエラーが発生しました！</string>
   <!--BlockedContactsActivity-->
   <string name="BlockedContactsActivity_blocked_contacts">ブロックした連絡先</string>
+  <!--BlockUnblockDialog-->
+  <string name="BlockUnblockDialog_block_and_leave_s">%1$s から抜けてブロックしますか?</string>
+  <string name="BlockUnblockDialog_block_s">%1$s をブロックしますか?</string>
+  <string name="BlockUnblockDialog_you_will_no_longer_receive_messages_or_updates">グループのメンバーはあなたをもう一度このグループに加えることができなくなります。</string>
+  <string name="BlockUnblockDialog_group_members_wont_be_able_to_add_you">グループのメンバーはあなたをもう一度このグループに加えることができなくなります。</string>
+  <string name="BlockUnblockDialog_group_members_will_be_able_to_add_you">グループのメンバーはあなたをもう一度このグループに加えることができます。</string>
+  <string name="BlockUnblockDialog_you_will_be_able_to_call_and_message_each_other">お互いにメッセージや通話ができるようになります。</string>
+  <string name="BlockUnblockDialog_blocked_people_wont_be_able_to_call_you_or_send_you_messages">ブロックされたユーザは、あなたにメッセージや通話を発信することができなくなります。</string>
+  <string name="BlockUnblockDialog_unblock_s">%1$s をブロック解除しますか?</string>
+  <string name="BlockUnblockDialog_unblock">ブロックを解除</string>
+  <string name="BlockUnblockDialog_block">ブロック</string>
+  <string name="BlockUnblockDialog_block_and_leave">ブロックして退出</string>
+  <string name="BlockUnblockDialog_block_and_delete">ブロックして削除</string>
   <!--BucketedThreadMedia-->
   <string name="BucketedThreadMedia_Today">今日</string>
   <string name="BucketedThreadMedia_Yesterday">昨日</string>
@@ -106,11 +119,14 @@
   <string name="ClearProfileActivity_remove_profile_photo">プロフィール写真を削除しますか？</string>
   <!--CommunicationActions-->
   <string name="CommunicationActions_no_browser_found">ウェブブラウザが見つかりません。</string>
+  <string name="CommunicationActions_no_email_app_found">メールアプリがありません。</string>
   <string name="CommunicationActions_a_cellular_call_is_already_in_progress">携帯電話回線で通話中です。</string>
   <string name="CommunicationActions_start_video_call">ビデオ通話を始めますか？</string>
   <string name="CommunicationActions_start_voice_call">音声通話を始めますか？</string>
   <string name="CommunicationActions_cancel">キャンセル</string>
   <string name="CommunicationActions_call">通話</string>
+  <string name="CommunicationActions_insecure_call">保護されていない通話</string>
+  <string name="CommunicationActions_carrier_charges_may_apply">携帯キャリアの通話料がかかる場合があります。今通話している番号は Signal に登録されていません。この通話はインターネットではなく携帯キャリアの電話回線を利用しています。</string>
   <!--ConfirmIdentityDialog-->
   <string name="ConfirmIdentityDialog_your_safety_number_with_s_has_changed">%1$s に対する安全番号が変更されました。誰かが通話の傍受を試みているか、%2$s が Signal を再インストールした可能性があります。</string>
   <string name="ConfirmIdentityDialog_you_may_wish_to_verify_your_safety_number_with_this_contact">この連絡先に対する安全番号を確認することをお勧めします。</string>
@@ -151,6 +167,7 @@
   <string name="ConversationItem_read_more">  詳細を読む</string>
   <string name="ConversationItem_download_more">  更にダウンロード</string>
   <string name="ConversationItem_pending">  保留中</string>
+  <string name="ConversationItem_this_message_was_deleted">このメッセージが削除されました。</string>
   <!--ConversationActivity-->
   <string name="ConversationActivity_reset_secure_session_question">セキュアセッションをリセットしますか？</string>
   <string name="ConversationActivity_this_may_help_if_youre_having_encryption_problems">この会話の暗号化に問題がある場合、改善される可能性があります。メッセージは削除されません。</string>
@@ -201,19 +218,13 @@
   <string name="ConversationActivity_no_results">結果なし</string>
   <string name="ConversationActivity_sticker_pack_installed">ステッカーパックをインストールしました</string>
   <string name="ConversationActivity_new_say_it_with_stickers">新機能！ステッカーを使いましょう</string>
-  <string name="ConversationActivity_block_s">%1$s をブロックしますか？</string>
-  <string name="ConversationActivity_block_and_leave_s">%1$s から抜けてブロックしますか？</string>
-  <string name="ConversationActivity_unblock_s">%1$s をブロック解除しますか？</string>
-  <string name="ConversationActivity_you_will_be_able_to_message_and_call_each_other">お互いにメッセージや通話ができるようになります。</string>
-  <string name="ConversationActivity_group_members_will_be_able_to_add_you_to_this_group_again">グループのメンバーはあなたをもう一度このグループに加えることができます。</string>
-  <string name="ConversationActivity_you_will_leave_this_group_and_no_longer_receive_messages_or_updates">このグループから退出して、今後メッセージや更新を受信しなくなります。</string>
-  <string name="ConversationActivity_block">ブロック</string>
   <string name="ConversationActivity_cancel">キャンセル</string>
-  <string name="ConversationActivity_delete_conversation">会話を削除しますか？</string>
-  <string name="ConversationActivity_delete_and_leave_group">グループから退出して削除しますか？</string>
+  <string name="ConversationActivity_delete_conversation">会話を削除しますか?</string>
+  <string name="ConversationActivity_delete_and_leave_group">グループから退出して削除しますか?</string>
   <string name="ConversationActivity_this_conversation_will_be_deleted_from_all_of_your_devices">この会話はすべての端末から削除されます。</string>
   <string name="ConversationActivity_you_will_leave_this_group_and_it_will_be_deleted_from_all_of_your_devices">このグループから退出し、すべての端末から削除します。</string>
   <string name="ConversationActivity_delete">削除</string>
+  <string name="ConversationActivity_delete_and_leave">退出して削除</string>
   <!--ConversationAdapter-->
   <plurals name="ConversationAdapter_n_unread_messages">
     <item quantity="other">%d 件の未読メッセージ</item>
@@ -245,6 +256,8 @@
   <string name="ConversationFragment_sms">SMS</string>
   <string name="ConversationFragment_deleting">削除しています</string>
   <string name="ConversationFragment_deleting_messages">メッセージを削除しています…</string>
+  <string name="ConversationFragment_delete_for_me">自分の分だけ削除</string>
+  <string name="ConversationFragment_delete_for_everyone">全員の分を削除</string>
   <string name="ConversationFragment_quoted_message_not_found">元のメッセージが見つかりません</string>
   <string name="ConversationFragment_quoted_message_no_longer_available">元のメッセージはすでに削除されています</string>
   <string name="ConversationFragment_failed_to_open_message">メッセージを開けませんでした</string>
@@ -272,6 +285,7 @@
   <plurals name="ConversationListFragment_moved_conversations_to_inbox">
     <item quantity="other">%d 件の会話を受信ボックスに移動しました</item>
   </plurals>
+  <string name="ConversationListFragment__your_profile_name_has_been_created">プロフィール名を作成しました。</string>
   <string name="ConversationListFragment__your_profile_name_has_been_saved">プロフィール名を保存しました。</string>
   <!--ConversationListItem-->
   <string name="ConversationListItem_key_exchange_message">鍵交換のメッセージ</string>
@@ -326,6 +340,7 @@
   <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">このデバイスは Play Service をサポートしていません。Molly が非アクティブ状態でもメッセージを受信できるよう、タップしてバッテリー最適化機能を無効にしてください。</string>
   <!--ShareActivity-->
   <string name="ShareActivity_share_with">共有先</string>
+  <string name="ShareActivity_multiple_attachments_are_only_supported">複数の添付ファイルが画像と動画のみに対応されています。</string>
   <!--GcmBroadcastReceiver-->
   <string name="GcmBroadcastReceiver_retrieving_a_message">メッセージを取得しています…</string>
   <!--GcmRefreshJob-->
@@ -352,12 +367,39 @@
   <string name="GroupCreateActivity_cannot_add_non_push_to_existing_group">%1$s は Signal ユーザではないので追加できませんでした。</string>
   <string name="GroupCreateActivity_loading_group_details">グループの詳細を読み込んでいます…</string>
   <string name="GroupCreateActivity_youre_already_in_the_group">グループに加入済みです。</string>
+  <string name="GroupCreateActivity_remove_member_description">メンバーを削除</string>
   <!--GroupShareProfileView-->
   <string name="GroupShareProfileView_share_your_profile_name_and_photo_with_this_group">このグループにプロフィール名と写真を表示しますか？</string>
   <string name="GroupShareProfileView_do_you_want_to_make_your_profile_name_and_photo_visible_to_all_current_and_future_members_of_this_group">このグループの現在と将来のメンバー全員にプロフィール名と写真を表示しますか？</string>
   <string name="GroupShareProfileView_make_visible">表示</string>
   <!--GroupMembersDialog-->
   <string name="GroupMembersDialog_you">あなた</string>
+  <!--GV2 access levels-->
+  <string name="GroupManagement_access_level_anyone">誰でも</string>
+  <string name="GroupManagement_access_level_all_members">全てのメンバー</string>
+  <string name="GroupManagement_access_level_only_admins">管理者のみ</string>
+  <!--PendingMembersActivity-->
+  <string name="PendingMemberInvitesActivity_pending_group_invites">保留中のグループ招待</string>
+  <string name="PendingMembersActivity_people_you_invited">あなたを招待した人々</string>
+  <string name="PendingMembersActivity_you_have_no_pending_invites">保留中の招待はありません。</string>
+  <string name="PendingMembersActivity_invites_by_other_group_members">グループの他のメンバーからの招待</string>
+  <string name="PendingMembersActivity_no_pending_invites_by_other_group_members">グループの他のメンバーからの招待はありません。</string>
+  <string name="PendingMembersActivity_cancel_invite">招待をキャンセル</string>
+  <string name="PendingMembersActivity_cancel_invites">招待をキャンセル</string>
+  <plurals name="PendingMembersActivity_cancel_d_invites">
+    <item quantity="other">%1$d件の招待をキャンセル</item>
+  </plurals>
+  <plurals name="PendingMembersActivity_error_canceling_invite">
+    <item quantity="other">招待をキャンセルする時にエラーが発生しました</item>
+  </plurals>
+  <plurals name="GroupMemberList_invited">
+    <item quantity="other">%1$s は%2$d人招待しました</item>
+  </plurals>
+  <!--GV2 Invite cancellation confirmation-->
+  <string name="GroupManagement_cancel_own_single_invite">あなたが %1$s に送った招待をキャンセルしたいですか?</string>
+  <plurals name="GroupManagement_cancel_others_invites">
+    <item quantity="other">%1$s から送られた%2$d件の招待をキャンセルしますか?</item>
+  </plurals>
   <!--CropImageActivity-->
   <string name="CropImageActivity_group_avatar">グループアバター</string>
   <string name="CropImageActivity_profile_avatar">アバター</string>
@@ -384,6 +426,8 @@
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">友達とのチャットを暗号化しましょう。</string>
   <!--Job-->
   <string name="Job_working_in_the_background">バックグラウンドで処理しています…</string>
+  <!--LearnMoreTextView-->
+  <string name="LearnMoreTextView_learn_more">詳しく見る</string>
   <!--MessageDetailsRecipient-->
   <string name="MessageDetailsRecipient_failed_to_send">送信に失敗しました</string>
   <string name="MessageDetailsRecipient_new_safety_number">新しい安全番号</string>
@@ -437,7 +481,7 @@
   <string name="Megaphones_introducing_reactions">リアクションのご紹介</string>
   <string name="Megaphones_tap_and_hold_any_message_to_quicky_share_how_you_feel">メッセージを長押しして、手軽にリアクションできます。</string>
   <string name="Megaphones_remind_me_later">あとで通知</string>
-  <string name="Megaphones_verify_your_signal_pin">あなたのSignal PINを確認してください</string>
+  <string name="Megaphones_verify_your_signal_pin">Signal PIN を確認</string>
   <string name="Megaphones_well_occasionally_ask_you_to_verify_your_pin">PINを忘れないよう、時々確認を行います。</string>
   <string name="Megaphones_verify_pin">PINの確認</string>
   <!--NotificationBarManager-->
@@ -489,6 +533,53 @@
   <string name="MessageRecord_s_disabled_disappearing_messages">%1$s が消えるメッセージを無効にしました。</string>
   <string name="MessageRecord_you_set_disappearing_message_time_to_s">消えるメッセージのタイマーを%1$sに設定しました。</string>
   <string name="MessageRecord_s_set_disappearing_message_time_to_s">%1$s が消えるメッセージのタイマーを%2$sに設定しました。</string>
+  <!--GV2 specific-->
+  <!--GV2 member additions-->
+  <string name="MessageRecord_you_added_s">%1$s を追加しました。</string>
+  <string name="MessageRecord_s_added_s">%1$s は %2$s を追加しました。</string>
+  <string name="MessageRecord_s_added_you">%1$s はあなたをこのグループに追加しました。</string>
+  <string name="MessageRecord_you_joined_the_group">あなたがグループに入りました。</string>
+  <string name="MessageRecord_s_joined_the_group">%1$s がグループに加わりました。</string>
+  <!--GV2 member removals-->
+  <string name="MessageRecord_you_removed_s">%1$s を削除しました。</string>
+  <string name="MessageRecord_s_removed_s">%1$s は %2$s を削除しました。</string>
+  <string name="MessageRecord_s_removed_you_from_the_group">%1$s はあなたをこのグループから削除しました。</string>
+  <string name="MessageRecord_you_left_the_group">グループを退会しました。</string>
+  <string name="MessageRecord_s_left_the_group">%1$s はグループを去りました。</string>
+  <!--GV2 role change-->
+  <string name="MessageRecord_you_made_s_an_admin">%1$s を管理者にしました。</string>
+  <string name="MessageRecord_s_made_s_an_admin">%1$s は %2$s を管理者にしました。</string>
+  <string name="MessageRecord_s_made_you_an_admin">%1$s はあなたを管理者にしました。</string>
+  <string name="MessageRecord_you_revoked_admin_privileges_from_s">%1$s から管理者特権を無効にしました。</string>
+  <string name="MessageRecord_s_revoked_your_admin_privileges">%1$s はあなたの管理者特権を無効にしました。\"</string>
+  <string name="MessageRecord_s_revoked_admin_privileges_from_s">%1$s は %2$s からの管理者特権を無効にしました。</string>
+  <!--GV2 invitations-->
+  <string name="MessageRecord_you_invited_s_to_the_group">%1$s をこのグループに招待しました。</string>
+  <string name="MessageRecord_s_invited_you_to_the_group">%1$s はあなたをグループに招待しました。</string>
+  <plurals name="MessageRecord_s_invited_members">
+    <item quantity="other">%1$s は%2$d人をグループに招待しました</item>
+  </plurals>
+  <!--GV2 invitation revokes-->
+  <plurals name="MessageRecord_you_revoked_invites">
+    <item quantity="other">%1$d件のこのグループの招待を無効にしました。</item>
+  </plurals>
+  <plurals name="MessageRecord_s_revoked_invites">
+    <item quantity="other">%1$s は%2$d件のこのグループの招待を無効にしました。</item>
+  </plurals>
+  <string name="MessageRecord_someone_declined_an_invitation_to_the_group">誰かがこのグループの招待を断りました。</string>
+  <string name="MessageRecord_you_declined_the_invitation_to_the_group">このグループの招待を断りました。</string>
+  <!--GV2 invitation acceptance-->
+  <string name="MessageRecord_you_accepted_invite">このグループの招待を承認しました。</string>
+  <string name="MessageRecord_s_accepted_invite">%1$s はグループの招待を承認しました。</string>
+  <!--GV2 title change-->
+  <string name="MessageRecord_you_changed_the_group_name_to_s">このグループ名を \"%1$s\" に変更しました。</string>
+  <string name="MessageRecord_s_changed_the_group_name_to_s">%1$s はグループ名を \"%2$s\" に変更しました。</string>
+  <!--GV2 avatar change-->
+  <string name="MessageRecord_you_changed_the_group_avatar">グループアバターを更新しました。</string>
+  <string name="MessageRecord_s_changed_the_group_avatar">%1$s はグループアバターを更新しました。</string>
+  <!--GV2 attribute access level change-->
+  <!--GV2 membership access level change-->
+  <!--End of GV2 specific update messages-->
   <string name="MessageRecord_your_safety_number_with_s_has_changed">%s に対する安全番号が変わりました。</string>
   <string name="MessageRecord_you_marked_your_safety_number_with_s_verified">%s に対する安全番号を確認済みにしました</string>
   <string name="MessageRecord_you_marked_your_safety_number_with_s_verified_from_another_device">%s に対する安全番号を他のデバイスで確認済みにしました</string>
@@ -499,9 +590,16 @@
   <string name="MessageRequestBottomView_delete">削除</string>
   <string name="MessageRequestBottomView_block">ブロック</string>
   <string name="MessageRequestBottomView_unblock">ブロックを解除</string>
+  <string name="MessageRequestBottomView_unblock_s_to_message_and_call_each_other">%1$s をブロック解除することでお互いにメッセージと通話ができます。　</string>
   <string name="MessageRequestProfileView_member_of_one_group">%1$s のメンバー</string>
   <string name="MessageRequestProfileView_member_of_two_groups">%1$s と %2$s のメンバー</string>
   <string name="MessageRequestProfileView_member_of_many_groups">%1$s、%2$s および %3$s のメンバー</string>
+  <plurals name="MessageRequestProfileView_members">
+    <item quantity="other">%1$d メンバー</item>
+  </plurals>
+  <plurals name="MessageRequestProfileView_members_and_invited">
+    <item quantity="other">%1$d メンバー (+%2$d 件の招待)</item>
+  </plurals>
   <plurals name="MessageRequestProfileView_member_of_others">
     <item quantity="other">他 %d 人</item>
   </plurals>
@@ -546,6 +644,26 @@
   <string name="PlacePickerActivity_accept_address">アドレスを受け入れる</string>
   <!--PlayServicesProblemFragment-->
   <string name="PlayServicesProblemFragment_the_version_of_google_play_services_you_have_installed_is_not_functioning">インストールされている Google Play Service のバージョンは正しく動作していません。再インストールしてからもう一度お試しください。</string>
+  <!--PinRestoreEntryFragment-->
+  <string name="PinRestoreEntryFragment_incorrect_pin">PIN が違います</string>
+  <string name="PinRestoreEntryFragment_skip_pin_entry">PIN の入力を飛ばしますか?</string>
+  <string name="PinRestoreEntryFragment_need_help">ヘルプが必要ですか?</string>
+  <string name="PinRestoreEntryFragment_if_you_cant_remember_your_pin">もし PIN を思い出せない場合、新規に作成することができます。登録してアカウントを使用することはできますが、保存されたプロフィール設定などは失われます。</string>
+  <string name="PinRestoreEntryFragment_create_new_pin">新しい PIN を作成</string>
+  <string name="PinRestoreEntryFragment_contact_support">サポートに問い合わせる</string>
+  <string name="PinRestoreEntryFragment_cancel">キャンセル</string>
+  <string name="PinRestoreEntryFragment_skip">スキップ</string>
+  <plurals name="PinRestoreEntryFragment_you_have_d_attempt_remaining">
+    <item quantity="other">残り%1$d回試行できます。もし試行回数を使い果たした場合、新しい PIN を作成することができます。登録することができアカウントを使用できますが、保存されたあなたのプロフィール情報は失われます。</item>
+  </plurals>
+  <string name="PinRestoreEntryFragment_signal_registration_need_help_with_pin">Signal 登録 - Android の PIN に関するサポートが必要</string>
+  <string name="PinRestoreEntryFragment_subject_signal_registration">件名: Signal 登録 - Android の PIN についてのヘルプが必要\nデバイス情報: %1$s\nAndroid バージョン: %2$s\nSignal バージョン: %3$s\n地域: %4$s</string>
+  <string name="PinRestoreEntryFragment_enter_alphanumeric_pin">英数字の PIN を入力</string>
+  <string name="PinRestoreEntryFragment_enter_numeric_pin">数字の PIN を入力</string>
+  <!--PinRestoreLockedFragment-->
+  <string name="PinRestoreLockedFragment_create_your_pin">PIN を作成</string>
+  <string name="PinRestoreLockedFragment_youve_run_out_of_pin_guesses">PIN の試行回数が尽きましたが、新しい PIN を作成することによりまだ Signal  アカウントにアクセスすることができます。プライバシーとセキュリティーのためにアカウントに保存されたプロフィール情報または設定は戻されません。</string>
+  <string name="PinRestoreLockedFragment_create_new_pin">新しい PIN を作成</string>
   <!--RatingManager-->
   <string name="RatingManager_rate_this_app">アプリを評価</string>
   <string name="RatingManager_if_you_enjoy_using_this_app_please_take_a_moment">このアプリが気に入ったら、評価アンケートへのご協力をお願いします。</string>
@@ -560,16 +678,7 @@
   <!--ReactionsRecipientAdapter-->
   <string name="ReactionsRecipientAdapter_you">あなた</string>
   <!--RecipientPreferencesActivity-->
-  <string name="RecipientPreferenceActivity_block_this_contact_question">この連絡先をブロックしますか？</string>
-  <string name="RecipientPreferenceActivity_you_will_no_longer_receive_messages_and_calls_from_this_contact">今後この連絡先からはメッセージや通話を受信しなくなります。</string>
-  <string name="RecipientPreferenceActivity_block_and_leave_group">このグループを抜けてブロックしますか？</string>
-  <string name="RecipientPreferenceActivity_block_group">このグループをブロックしますか？</string>
-  <string name="RecipientPreferenceActivity_block_and_leave_group_description">今後このグループからはメッセージや更新を受信しなくなります。</string>
   <string name="RecipientPreferenceActivity_block">ブロック</string>
-  <string name="RecipientPreferenceActivity_unblock_this_contact_question">この連絡先のブロックを解除しますか？</string>
-  <string name="RecipientPreferenceActivity_you_will_once_again_be_able_to_receive_messages_and_calls_from_this_contact">この連絡先からのメッセージや通話を受信できるようになります。</string>
-  <string name="RecipientPreferenceActivity_unblock_this_group_question">このグループのブロックを解除しますか？</string>
-  <string name="RecipientPreferenceActivity_unblock_this_group_description">既存のメンバーはもう一度あなたをグループに追加できるようになります。</string>
   <string name="RecipientPreferenceActivity_error_leaving_group">グループを抜ける際にエラーが発生しました</string>
   <string name="RecipientPreferenceActivity_unblock">ブロックを解除</string>
   <string name="RecipientPreferenceActivity_enabled">有効</string>
@@ -606,7 +715,7 @@
   <string name="RegistrationActivity_less_information">詳細を隠す</string>
   <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">友達とつながったり、メッセージを交換したり、保護された通話をするには、Molly に連絡先やメディアへのアクセスを許可する必要があります。</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">サービスに接続できません。ネットワークの接続を確認してから、もう一度お試しください。</string>
-  <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">Signal でSMSメッセージを表示できるようにすると、認証コードが自動的に検出され、電話場号を簡単に確認できます。</string>
+  <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">Molly でSMSメッセージを表示できるようにすると、認証コードが自動的に検出され、電話場号を簡単に確認できます。</string>
   <plurals name="RegistrationActivity_debug_log_hint">
     <item quantity="other">デバッグログの提出まで、あと %d ステップです。</item>
   </plurals>
@@ -623,6 +732,12 @@
   <string name="RegistrationActivity_phone_number_description">電話番号</string>
   <string name="RegistrationActivity_country_code_description">国番号</string>
   <string name="RegistrationActivity_call">通話</string>
+  <!--RegistrationLockV2Dialog-->
+  <string name="RegistrationLockV2Dialog_turn_on_registration_lock">登録ロックを有効にしますか?</string>
+  <string name="RegistrationLockV2Dialog_turn_off_registration_lock">登録ロックを無効にしますか?</string>
+  <string name="RegistrationLockV2Dialog_if_you_forget_your_signal_pin_when_registering_again">Signal に再度登録するとき、Signal PIN を忘れた場合は7日間アカウントを使用できません。</string>
+  <string name="RegistrationLockV2Dialog_turn_on">オン</string>
+  <string name="RegistrationLockV2Dialog_turn_off">オフ</string>
   <!--RevealableMessageView-->
   <string name="RevealableMessageView_view_photo">写真を見る</string>
   <string name="RevealableMessageView_view_video">動画を見る</string>
@@ -663,7 +778,7 @@
   <string name="SmsMessageRecord_secure_session_reset_s">%s がセキュアセッションをリセットしました。</string>
   <string name="SmsMessageRecord_duplicate_message">重複メッセージ。</string>
   <string name="SmsMessageRecord_this_message_could_not_be_processed_because_it_was_sent_from_a_newer_version">このメッセージは新しいバージョンの Signal から送信されたため、処理できませんでした。アップデートしてから連絡先にメッセージの再送を依頼してください。</string>
-  <string name="SmsMessageRecord_error_handling_incoming_message">受信メッセージの処理中にエラーが発生しました</string>
+  <string name="SmsMessageRecord_error_handling_incoming_message">受信中にエラー</string>
   <!--StickerManagementActivity-->
   <string name="StickerManagementActivity_stickers">ステッカー</string>
   <!--StickerManagementAdapter-->
@@ -684,8 +799,11 @@
   <!--SubmitDebugLogActivity-->
   <string name="SubmitDebugLogActivity_edit">編集</string>
   <string name="SubmitDebugLogActivity_done">完了</string>
+  <string name="SubmitDebugLogActivity_tap_a_line_to_delete_it">線をタップして削除</string>
   <string name="SubmitDebugLogActivity_submit">送信</string>
-  <string name="SubmitDebugLogActivity_success">成功しました！</string>
+  <string name="SubmitDebugLogActivity_failed_to_submit_logs">ログを送信するのに失敗しました。</string>
+  <string name="SubmitDebugLogActivity_success">成功しました!</string>
+  <string name="SubmitDebugLogActivity_copy_this_url_and_add_it_to_your_issue">このURLをコピーしてバグレポートやサポートメールに貼り付けてください:\n\n<b>%1$s</b></string>
   <string name="SubmitDebugLogActivity_copied_to_clipboard">クリップボードにコピーしました</string>
   <string name="SubmitDebugLogActivity_ok">OK</string>
   <string name="SubmitDebugLogActivity_share">共有する</string>
@@ -702,6 +820,7 @@
   <string name="ThreadRecord_view_once_photo">消える写真</string>
   <string name="ThreadRecord_view_once_video">消える動画</string>
   <string name="ThreadRecord_view_once_media">消えるメディア</string>
+  <string name="ThreadRecord_this_message_was_deleted">このメッセージが削除されました。</string>
   <string name="ThreadRecord_s_is_on_signal">%s が Signal に登録しました！</string>
   <string name="ThreadRecord_disappearing_messages_disabled">消えるメッセージが無効にされました</string>
   <string name="ThreadRecord_disappearing_message_time_updated_to_s">消えるメッセージのタイマーが %s に設定されました</string>
@@ -711,6 +830,7 @@
   <string name="ThreadRecord_you_marked_unverified">未確認にしました</string>
   <string name="ThreadRecord_message_could_not_be_processed">メッセージを処理できませんでした</string>
   <string name="ThreadRecord_message_request">メッセージリクエスト</string>
+  <string name="ThreadRecord_s_added_you_to_the_group">%1$s はあなたをこのグループに追加しました。</string>
   <!--UpdateApkReadyListener-->
   <string name="UpdateApkReadyListener_Signal_update">Signal アップデート</string>
   <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Signal の最新版をご利用いただけます。タップしてアップデートしてください。</string>
@@ -810,6 +930,7 @@
   <string name="MessageNotifier_reacted_s_to_your_view_once_photo">あなたの消える写真に %1$s。</string>
   <string name="MessageNotifier_reacted_s_to_your_view_once_video">あなたの消えるビデオに %1$s。</string>
   <string name="MessageNotifier_reacted_s_to_your_sticker">あなたのステッカーに %1$s。</string>
+  <string name="MessageNotifier_this_message_was_deleted">このメッセージが削除されました。</string>
   <!--Notification Channels-->
   <string name="NotificationChannel_messages">既定</string>
   <string name="NotificationChannel_calls">通話</string>
@@ -1122,6 +1243,12 @@
   <string name="AndroidManifest_archived_conversations">アーカイブ済みの会話</string>
   <string name="AndroidManifest_remove_photo">写真を消去</string>
   <!--Message Requests Megaphone-->
+  <string name="MessageRequestsMegaphone__message_requests">メッセージリクエスト</string>
+  <string name="MessageRequestsMegaphone__users_can_now_choose_to_accept">ユーザが新しい会話を了承するかどうかを選択できるようになりました。プロフィール名で、誰が自分にメッセージを送っているのかを知ることができます。</string>
+  <string name="MessageRequestsMegaphone__add_profile_name">プロフィール名を追加</string>
+  <string name="MessageRequestsMegaphone__new_message_requests">New: メッセージリクエスト</string>
+  <string name="MessageRequestsMegaphone__add_name">名前を追加</string>
+  <string name="MessageRequestsMegaphone__you_can_now_choose_whether_to_accept">新しい会話を了承するかどうかを選択できるようになりました。今後、新しい会話には「了承」、「削除」および「ブロック」という選択肢が表示されます。</string>
   <!--HelpFragment-->
   <string name="HelpFragment__help">ヘルプ</string>
   <string name="HelpFragment__have_you_read_our_faq_yet">よくある質問を見る</string>
@@ -1133,13 +1260,17 @@
   <string name="HelpFragment__how_do_you_feel">今の状況は？ (任意)</string>
   <string name="HelpFragment__support_info">Support Info</string>
   <string name="HelpFragment__subject">Subject:</string>
+  <string name="HelpFragment__signal_android_support_request">Signal Android Support Request</string>
   <string name="HelpFragment__device_info">Device info:</string>
   <string name="HelpFragment__android_version">Android version:</string>
   <string name="HelpFragment__signal_version">Signal version:</string>
   <string name="HelpFragment__locale">Locale:</string>
   <string name="HelpFragment__debug_log">Debug Log:</string>
+  <string name="HelpFragment__na">n/a</string>
+  <string name="HelpFragment__could_not_upload_logs">ログをアップロードできませんでした</string>
   <string name="HelpFragment__signal_support">Signalサポート</string>
   <string name="HelpFragment__please_be_as_descriptive_as_possible">どのような問題が発生しているのか、詳細に記述してください。</string>
+  <string name="HelpFragment__no_email_app_found">メールアプリがありません。</string>
   <!--arrays.xml-->
   <string name="arrays__import_export">インポート</string>
   <string name="arrays__use_default">既定を使う</string>
@@ -1241,6 +1372,7 @@
   <string name="preferences__dark_theme">暗い</string>
   <string name="preferences__appearance">デザイン</string>
   <string name="preferences__theme">テーマ</string>
+  <string name="preferences__system_default">システム既定</string>
   <string name="preferences__default">既定</string>
   <string name="preferences__language">言語</string>
   <string name="preferences__signal_messages_and_calls">Signal のメッセージと通話</string>
@@ -1347,6 +1479,7 @@
   <string name="conversation__menu_view_all_media">すべてのメディア</string>
   <string name="conversation__menu_conversation_settings">会話設定</string>
   <string name="conversation__menu_add_shortcut">ホーム画面に追加</string>
+  <string name="conversation__menu_pending_members">メンバー待ち</string>
   <!--conversation_popup-->
   <string name="conversation_popup__menu_expand_popup">ポップアップを拡大</string>
   <!--conversation_callable_insecure-->
@@ -1436,24 +1569,20 @@
     <item quantity="other">PINは %1$d 桁以上の数字にしてください</item>
   </plurals>
   <string name="CreateKbsPinFragment__create_a_new_pin">新しい PIN を作成</string>
-  <plurals name="CreateKbsPinFragment__you_can_choose_a_new_pin_because_this_device_is_registered">
-    <item quantity="other">このデバイスを登録したため、新しい PIN を選択できます。PIN を忘れると、再登録まで %1$d 日間待たなければならないことがあります。</item>
-  </plurals>
+  <string name="CreateKbsPinFragment__you_can_choose_a_new_pin_as_long_as_this_device_is_registered">このデバイスが登録されている間はPINを変更することができます。</string>
   <string name="CreateKbsPinFragment__create_your_pin">PIN を作成</string>
-  <string name="CreateKbsPinFragment__pins_add_extra_security_to_your_account">PINはアカウントのセキュリティを強化します。Signalに再登録する際に必要になり、回復はできません。</string>
+  <string name="CreateKbsPinFragment__choose_a_stronger_pin">強いPINを選択</string>
   <!--ConfirmKbsPinFragment-->
   <string name="ConfirmKbsPinFragment__pins_dont_match">PIN が一致しません。再度試してください。</string>
   <string name="ConfirmKbsPinFragment__confirm_your_pin">PIN を確認してください。</string>
   <string name="ConfirmKbsPinFragment__pin_creation_failed">PIN の作成に失敗しました</string>
   <string name="ConfirmKbsPinFragment__your_pin_was_not_saved">PIN は保存されませんでした。後ほど PIN の作成ダイアログが表示されます。</string>
   <string name="ConfirmKbsPinFragment__pin_created">PIN を作成しました。</string>
-  <string name="ConfirmKbsPinFragment__re_enter_pin">PIN を再入力</string>
+  <string name="ConfirmKbsPinFragment__re_enter_your_pin">PIN を再入力</string>
   <string name="ConfirmKbsPinFragment__creating_pin">PIN を作成しています…</string>
   <!--KbsSplashFragment-->
   <string name="KbsSplashFragment__introducing_pins">PIN のご紹介</string>
-  <string name="KbsSplashFragment__pins_add_another_level_of_security_to_your_account">PIN はアカウントのセキュリティを強化します。いますぐ作成しましょう。</string>
   <string name="KbsSplashFragment__learn_more">詳細を見る</string>
-  <string name="KbsSplashFragment__learn_more_link">https://support.signal.org/hc/articles/360007059792-Registration-Lock</string>
   <string name="KbsSplashFragment__registration_lock_equals_pin">登録ロック = PIN</string>
   <string name="KbsSplashFragment__your_registration_lock_is_now_called_a_pin">登録ロックは今後 PIN と呼ばれ、より多機能になります。今すぐアップデートしてください。</string>
   <string name="KbsSplashFragment__read_more_about_pins">PIN の詳細を読む。</string>
@@ -1471,7 +1600,6 @@
   <string name="AccountLockedFragment__your_account_has_been_locked_to_protect_your_privacy">プライバシーとセキュリティ保護のため、あなたのアカウントをロックしました。%1$d の間何もしなければ、PIN なしでこの電話番号を再登録できるようになります。その場合、メッセージ等はすべて消去されます。</string>
   <string name="AccountLockedFragment__next">次へ</string>
   <string name="AccountLockedFragment__learn_more">詳細を見る</string>
-  <string name="AccountLockedFragment__learn_more_url">https://support.signal.org/hc/articles/360007059792-Registration-Lock</string>
   <!--KbsLockFragment-->
   <string name="RegistrationLockFragment__enter_your_pin">PIN を入力</string>
   <string name="RegistrationLockFragment__enter_the_pin_you_created">あなたのアカウント用に作成した PIN を入力してください。これは SMS の認証コードとは違います。</string>
@@ -1500,16 +1628,16 @@
   </plurals>
   <!--KBS Megaphone-->
   <string name="KbsMegaphone__create_a_pin">PIN を作成</string>
-  <string name="KbsMegaphone__pins_add_another_layer_of_security_to_your_signal_account">PIN は Signal アカウントのセキュリティを強化します。</string>
   <string name="KbsMegaphone__create_pin">PIN を作成</string>
   <string name="KbsMegaphone__introducing_pins">PIN のご紹介</string>
-  <string name="KbsMegaphone__your_registration_lock_is_now_called_a_pin">登録ロックは今後、PIN と呼ばれます。アップデートは数秒で終わります。</string>
   <string name="KbsMegaphone__update_pin">PIN をアップデート</string>
   <string name="KbsMegaphone__well_remind_you_later_creating_a_pin">後ほど再度お知らせします。PIN の作成は %1$d 日後に必須となります。</string>
   <string name="KbsMegaphone__well_remind_you_later_confirming_your_pin">後ほど再度お知らせします。PIN の確認は %1$d 日後に必須となります。</string>
   <!--Profile Names Megaphone-->
+  <string name="ProfileNamesMegaphone__add_a_profile_name">プロフィール名を追加</string>
   <string name="ProfileNamesMegaphone__this_will_be_displayed_when_you_start">これは共有したり新しい会話を始めた際に表示されます。</string>
   <string name="ProfileNamesMegaphone__add_profile_name">プロフィール名を追加する</string>
+  <string name="ProfileNamesMegaphone__confirm_your_profile_name">プロフィール名の確認</string>
   <string name="ProfileNamesMegaphone__your_profile_can_now_include">プロフィールに任意で姓を追加できます。</string>
   <string name="ProfileNamesMegaphone__confirm_name">名前の確認</string>
   <!--transport_selection_list_item-->
@@ -1574,9 +1702,10 @@
   <string name="preferences_app_protection__lock_signal_access_with_android_screen_lock_or_fingerprint">Android の画面ロックや指紋認証で Signal へのアクセスをロックします</string>
   <string name="preferences_app_protection__screen_lock_inactivity_timeout">画面ロックの非アクティブタイムアウト</string>
   <string name="preferences_app_protection__signal_pin">Signal PIN</string>
-  <string name="preferences_app_protection__pin">PIN</string>
-  <string name="preferences_app_protection__change">変更</string>
-  <string name="preferences_app_protection__create">作成</string>
+  <string name="preferences_app_protection__create_a_pin">PIN を作成</string>
+  <string name="preferences_app_protection__change_your_pin">PIN を変更</string>
+  <string name="preferences_app_protection__failed_to_enable_registration_lock">登録ロックを有効にすることに失敗しました。</string>
+  <string name="preferences_app_protection__failed_to_disable_registration_lock">登録ロックを無効にすることに失敗しました</string>
   <string name="AppProtectionPreferenceFragment_none">なし</string>
   <string name="AppProtectionPreferenceFragment_instant">即時</string>
   <string name="registration_activity__the_registration_lock_pin_is_not_the_same_as_the_sms_verification_code_you_just_received_please_enter_the_pin_you_previously_configured_in_the_application">登録ロック PIN は SMS で先程送信された認証コードと異なります。以前 Signal で設定した PIN を入力してください。</string>

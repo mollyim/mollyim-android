@@ -22,6 +22,7 @@ import org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.groups.GroupId;
 import org.thoughtcrime.securesms.logging.Log;
+import org.thoughtcrime.securesms.profiles.AvatarHelper;
 import org.thoughtcrime.securesms.profiles.ProfileName;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
@@ -397,9 +398,9 @@ public class RecipientDatabase extends Database {
 
     try (Cursor cursor = database.query(table, RECIPIENT_FULL_PROJECTION, query, args, null, null, null)) {
       if (cursor != null && cursor.moveToNext()) {
-        return getRecipientSettings(cursor);
+        return getRecipientSettings(context, cursor);
       } else {
-        throw new MissingRecipientError(id);
+        throw new MissingRecipientException(id);
       }
     }
   }
@@ -561,7 +562,7 @@ public class RecipientDatabase extends Database {
       for (SignalGroupV1Record insert : groupV1Inserts) {
         db.insertOrThrow(TABLE_NAME, null, getValuesForStorageGroupV1(insert));
 
-        Recipient recipient = Recipient.externalGroup(context, GroupId.v1(insert.getGroupId()));
+        Recipient recipient = Recipient.externalGroup(context, GroupId.v1orThrow(insert.getGroupId()));
 
         threadDatabase.setArchived(recipient.getId(), insert.isArchived());
         recipient.live().refresh();
@@ -575,7 +576,7 @@ public class RecipientDatabase extends Database {
           throw new AssertionError("Had an update, but it didn't match any rows!");
         }
 
-        Recipient recipient = Recipient.externalGroup(context, GroupId.v1(update.getOld().getGroupId()));
+        Recipient recipient = Recipient.externalGroup(context, GroupId.v1orThrow(update.getOld().getGroupId()));
 
         threadDatabase.setArchived(recipient.getId(), update.getNew().isArchived());
         recipient.live().refresh();
@@ -670,7 +671,7 @@ public class RecipientDatabase extends Database {
 
   private static @NonNull ContentValues getValuesForStorageGroupV1(@NonNull SignalGroupV1Record groupV1) {
     ContentValues values = new ContentValues();
-    values.put(GROUP_ID, GroupId.v1(groupV1.getGroupId()).toString());
+    values.put(GROUP_ID, GroupId.v1orThrow(groupV1.getGroupId()).toString());
     values.put(GROUP_TYPE, GroupType.SIGNAL_V1.getId());
     values.put(PROFILE_SHARING, groupV1.isProfileSharingEnabled() ? "1" : "0");
     values.put(BLOCKED, groupV1.isBlocked() ? "1" : "0");
@@ -686,7 +687,7 @@ public class RecipientDatabase extends Database {
 
     try (Cursor cursor = db.query(table, RECIPIENT_FULL_PROJECTION, query, args, null, null, null)) {
       while (cursor != null && cursor.moveToNext()) {
-        out.add(getRecipientSettings(cursor));
+        out.add(getRecipientSettings(context, cursor));
       }
     }
 
@@ -727,13 +728,13 @@ public class RecipientDatabase extends Database {
     return out;
   }
 
-  private static @NonNull RecipientSettings getRecipientSettings(@NonNull Cursor cursor) {
+  private static @NonNull RecipientSettings getRecipientSettings(@NonNull Context context, @NonNull Cursor cursor) {
     long    id                         = cursor.getLong(cursor.getColumnIndexOrThrow(ID));
     UUID    uuid                       = UuidUtil.parseOrNull(cursor.getString(cursor.getColumnIndexOrThrow(UUID)));
     String  username                   = cursor.getString(cursor.getColumnIndexOrThrow(USERNAME));
     String  e164                       = cursor.getString(cursor.getColumnIndexOrThrow(PHONE));
     String  email                      = cursor.getString(cursor.getColumnIndexOrThrow(EMAIL));
-    GroupId groupId                    = GroupId.parseNullable(cursor.getString(cursor.getColumnIndexOrThrow(GROUP_ID)));
+    GroupId groupId                    = GroupId.parseNullableOrThrow(cursor.getString(cursor.getColumnIndexOrThrow(GROUP_ID)));
     int     groupType                  = cursor.getInt(cursor.getColumnIndexOrThrow(GROUP_TYPE));
     boolean blocked                    = cursor.getInt(cursor.getColumnIndexOrThrow(BLOCKED))                == 1;
     String  messageRingtone            = cursor.getString(cursor.getColumnIndexOrThrow(MESSAGE_RINGTONE));
@@ -808,7 +809,8 @@ public class RecipientDatabase extends Database {
                                  profileKey, profileKeyCredential,
                                  systemDisplayName, systemContactPhoto,
                                  systemPhoneLabel, systemContactUri,
-                                 ProfileName.fromParts(profileGivenName, profileFamilyName), signalProfileAvatar, profileSharing,
+                                 ProfileName.fromParts(profileGivenName, profileFamilyName), signalProfileAvatar,
+                                 AvatarHelper.hasAvatar(context, RecipientId.from(id)), profileSharing,
                                  notificationChannel, UnidentifiedAccessMode.fromMode(unidentifiedAccessMode),
                                  forceSmsSelection,
                                  Recipient.Capability.deserialize(uuidCapabilityValue),
@@ -1172,12 +1174,8 @@ public class RecipientDatabase extends Database {
 
   @Deprecated
   public void setRegistered(@NonNull RecipientId id, RegisteredState registeredState) {
-    ContentValues contentValues = new ContentValues(2);
+    ContentValues contentValues = new ContentValues(1);
     contentValues.put(REGISTERED, registeredState.getId());
-
-    if (registeredState == RegisteredState.REGISTERED) {
-      contentValues.put(STORAGE_SERVICE_ID, Base64.encodeBytes(StorageSyncHelper.generateKey()));
-    }
 
     if (update(id, contentValues)) {
       if (registeredState == RegisteredState.REGISTERED) {
@@ -1382,7 +1380,7 @@ public class RecipientDatabase extends Database {
         db.update(TABLE_NAME, setBlocked, UUID + " = ?", new String[] { uuid });
       }
 
-      List<GroupId.V1> groupIdStrings = Stream.of(groupIds).map(GroupId::v1).toList();
+      List<GroupId.V1> groupIdStrings = Stream.of(groupIds).map(GroupId::v1orThrow).toList();
 
       for (GroupId.V1 groupId : groupIdStrings) {
         db.update(TABLE_NAME, setBlocked, GROUP_ID + " = ?", new String[] { groupId.toString() });
@@ -1432,10 +1430,12 @@ public class RecipientDatabase extends Database {
   }
 
   void markDirty(@NonNull RecipientId recipientId, @NonNull DirtyState dirtyState) {
+    Log.d(TAG, "Attempting to mark " + recipientId + " with dirty state " + dirtyState, new Throwable());
+
     ContentValues contentValues = new ContentValues(1);
     contentValues.put(DIRTY, dirtyState.getId());
 
-    String   query = ID + " = ? AND (" + UUID + " NOT NULL OR " + PHONE + " NOT NULL) AND ";
+    String   query = ID + " = ? AND (" + UUID + " NOT NULL OR " + PHONE + " NOT NULL OR " + GROUP_ID + " NOT NULL) AND ";
     String[] args  = new String[] { recipientId.serialize(), String.valueOf(dirtyState.id) };
 
     switch (dirtyState) {
@@ -1631,6 +1631,7 @@ public class RecipientDatabase extends Database {
     private final String                          systemContactUri;
     private final ProfileName                     signalProfileName;
     private final String                          signalProfileAvatar;
+    private final boolean                         hasProfileImage;
     private final boolean                         profileSharing;
     private final String                          notificationChannel;
     private final UnidentifiedAccessMode          unidentifiedAccessMode;
@@ -1667,6 +1668,7 @@ public class RecipientDatabase extends Database {
                       @Nullable String systemContactUri,
                       @NonNull ProfileName signalProfileName,
                       @Nullable String signalProfileAvatar,
+                      boolean hasProfileImage,
                       boolean profileSharing,
                       @Nullable String notificationChannel,
                       @NonNull UnidentifiedAccessMode unidentifiedAccessMode,
@@ -1703,6 +1705,7 @@ public class RecipientDatabase extends Database {
       this.systemContactUri       = systemContactUri;
       this.signalProfileName      = signalProfileName;
       this.signalProfileAvatar    = signalProfileAvatar;
+      this.hasProfileImage        = hasProfileImage;
       this.profileSharing         = profileSharing;
       this.notificationChannel    = notificationChannel;
       this.unidentifiedAccessMode = unidentifiedAccessMode;
@@ -1819,6 +1822,10 @@ public class RecipientDatabase extends Database {
       return signalProfileAvatar;
     }
 
+    public boolean hasProfileImage() {
+      return hasProfileImage;
+    }
+
     public boolean isProfileSharing() {
       return profileSharing;
     }
@@ -1897,8 +1904,8 @@ public class RecipientDatabase extends Database {
     }
   }
 
-  public static class MissingRecipientError extends AssertionError {
-    public MissingRecipientError(@Nullable RecipientId id) {
+  public static class MissingRecipientException extends IllegalStateException {
+    public MissingRecipientException(@Nullable RecipientId id) {
       super("Failed to find recipient with ID: " + id);
     }
   }

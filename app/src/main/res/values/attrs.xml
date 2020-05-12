@@ -136,6 +136,8 @@
     <attr name="conversation_item_sticky_date_text_color" format="color" />
     <attr name="conversation_item_image_outline_color" format="color" />
     <attr name="conversation_item_reveal_viewed_background_color" format="color" />
+    <attr name="conversation_scroll_to_bottom_background" format="reference" />
+    <attr name="conversation_scroll_to_bottom_foreground_color" format="color" />
 
     <attr name="dialog_info_icon" format="reference" />
     <attr name="dialog_alert_icon" format="reference" />
@@ -153,8 +155,6 @@
     <attr name="contact_filter_toolbar_keyboard_icon" format="reference" />
 
     <attr name="device_link_item_card_background" format="reference|color" />
-
-    <attr name="mediapicker_image_outline" format="reference" />
 
     <attr name="import_export_item_background_color" format="reference|color" />
     <attr name="import_export_item_background_shadow_color" format="reference|color" />
@@ -270,6 +270,9 @@
     <attr name="megaphone_body_text_color" format="color"/>
     <attr name="megaphone_reactions_shade" format="color"/>
     <attr name="megaphone_reactions_close_tint" format="color"/>
+
+    <attr name="pending_member_background" format="color" />
+    <attr name="pending_member_empty_text_color" format="color" />
 
     <attr name="debuglog_color_none" format="color" />
     <attr name="debuglog_color_verbose" format="color" />

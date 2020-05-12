@@ -4,15 +4,15 @@ import androidx.annotation.NonNull;
 
 import org.whispersystems.signalservice.internal.contacts.entities.TokenResponse;
 
-final class KeyBackupSystemWrongPinException extends Exception {
+public final class KeyBackupSystemWrongPinException extends Exception {
 
   private final TokenResponse tokenResponse;
 
-  KeyBackupSystemWrongPinException(@NonNull TokenResponse tokenResponse){
+  public KeyBackupSystemWrongPinException(@NonNull TokenResponse tokenResponse){
     this.tokenResponse = tokenResponse;
   }
 
-  @NonNull TokenResponse getTokenResponse() {
+  public @NonNull TokenResponse getTokenResponse() {
     return tokenResponse;
   }
 }

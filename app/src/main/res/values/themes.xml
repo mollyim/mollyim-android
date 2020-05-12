@@ -310,6 +310,8 @@
         <item name="conversation_item_sticky_date_text_color">@color/core_grey_60</item>
         <item name="conversation_item_image_outline_color">@color/transparent_black_20</item>
         <item name="conversation_item_reveal_viewed_background_color">?conversation_background</item>
+        <item name="conversation_scroll_to_bottom_background">@drawable/scroll_to_bottom_background_light</item>
+        <item name="conversation_scroll_to_bottom_foreground_color">@color/grey_600</item>
 
         <item name="quick_camera_icon">@drawable/ic_camera_outline_24</item>
         <item name="quick_mic_icon">@drawable/ic_mic_outline_24</item>
@@ -321,8 +323,6 @@
         <item name="dialog_background_color">@color/background_material_light</item>
 
         <item name="device_link_item_card_background">@color/device_link_item_background_light</item>
-
-        <item name="mediapicker_image_outline">@drawable/mediapicker_item_border_light</item>
 
         <item name="import_export_item_background_color">@color/import_export_item_background_light</item>
         <item name="import_export_item_background_shadow_color">@color/import_export_item_background_shadow_light</item>
@@ -417,6 +417,11 @@
         <item name="shared_contact_details_header_background">@color/grey_100</item>
         <item name="shared_contact_details_titlebar">@color/grey_400</item>
         <item name="shared_contact_item_button_color">@color/core_grey_02</item>
+
+        <item name="pending_member_background">@color/core_grey_02</item>
+        <item name="pending_member_empty_text_color">@color/core_grey_60</item>
+
+        <item name="colorControlNormal">@color/core_grey_90</item>
     </style>
 
     <style name="TextSecure.DarkTheme" parent="@style/TextSecure.BaseDarkTheme">
@@ -531,8 +536,6 @@
 
         <item name="device_link_item_card_background">@color/device_link_item_background_dark</item>
 
-        <item name="mediapicker_image_outline">@drawable/mediapicker_item_border_dark</item>
-
         <item name="import_export_item_background_color">@color/import_export_item_background_dark</item>
         <item name="import_export_item_background_shadow_color">@color/import_export_item_background_shadow_dark</item>
         <item name="import_export_item_card_background">@drawable/clickable_card_dark</item>
@@ -569,6 +572,8 @@
         <item name="conversation_popup_theme">@style/ThemeOverlay.AppCompat.Dark</item>
         <item name="conversation_title_color">@color/transparent_white_90</item>
         <item name="conversation_subtitle_color">@color/transparent_white_80</item>
+        <item name="conversation_scroll_to_bottom_background">@drawable/scroll_to_bottom_background_dark</item>
+        <item name="conversation_scroll_to_bottom_foreground_color">@color/core_white</item>
 
         <item name="reactions_overlay_old_background">@drawable/reactions_old_background_dark</item>
         <item name="reactions_overlay_scrubber_background">@drawable/conversation_reaction_overlay_background_dark</item>
@@ -687,21 +692,26 @@
         <item name="shared_contact_details_header_background">@color/grey_800</item>
         <item name="shared_contact_details_titlebar">@color/grey_900</item>
         <item name="shared_contact_item_button_color">@color/core_grey_85</item>
+
+        <item name="pending_member_background">@color/core_grey_80</item>
+        <item name="pending_member_empty_text_color">@color/core_grey_25</item>
+
+        <item name="colorControlNormal">@color/core_white</item>
     </style>
 
-    <style name="RationaleDialogLight" parent="Theme.AppCompat.Light.Dialog.Alert">
+    <style name="Theme.Signal.AlertDialog.Light.Cornered" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:windowBackground">@drawable/dialog_corners_light</item>
     </style>
 
-    <style name="RationaleDialogDark" parent="Theme.AppCompat.Dialog.Alert">
+    <style name="Theme.Signal.AlertDialog.Dark.Cornered" parent="Theme.AppCompat.Dialog.Alert">
         <item name="android:windowBackground">@drawable/dialog_corners_dark</item>
     </style>
 
-    <style name="RationaleDialogLight.SignalAccent">
+    <style name="Theme.Signal.AlertDialog.Light.Cornered.ColoredAccent">
         <item name="colorAccent">@color/core_ultramarine</item>
     </style>
 
-    <style name="RationaleDialogDark.SignalAccent">
+    <style name="Theme.Signal.AlertDialog.Dark.Cornered.ColoredAccent">
         <item name="colorAccent">@color/core_ultramarine_light</item>
     </style>
 

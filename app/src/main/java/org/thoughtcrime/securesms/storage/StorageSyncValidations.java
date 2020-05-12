@@ -8,11 +8,14 @@ import com.annimon.stream.Stream;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.util.Base64;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
+import org.whispersystems.signalservice.api.storage.SignalStorageManifest;
 import org.whispersystems.signalservice.api.storage.SignalStorageRecord;
 import org.whispersystems.signalservice.api.storage.StorageId;
 import org.whispersystems.signalservice.internal.storage.protos.ManifestRecord;
 
+import java.nio.ByteBuffer;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public final class StorageSyncValidations {
@@ -20,15 +23,44 @@ public final class StorageSyncValidations {
   private StorageSyncValidations() {}
 
   public static void validate(@NonNull StorageSyncHelper.WriteOperationResult result) {
-    Set<StorageId> allSet    = new HashSet<>(result.getManifest().getStorageIds());
-    Set<StorageId> insertSet = new HashSet<>(Stream.of(result.getInserts()).map(SignalStorageRecord::getId).toList());
+    validateManifestAndInserts(result.getManifest(), result.getInserts());
+
+    if (result.getDeletes().size() > 0) {
+      Set<String> allSetEncoded = Stream.of(result.getManifest().getStorageIds()).map(StorageId::getRaw).map(Base64::encodeBytes).collect(Collectors.toSet());
+
+      for (byte[] delete : result.getDeletes()) {
+        String encoded = Base64.encodeBytes(delete);
+        if (allSetEncoded.contains(encoded)) {
+          throw new DeletePresentInFullIdSetError();
+        }
+      }
+    }
+  }
+
+
+  public static void validateForcePush(@NonNull SignalStorageManifest manifest, @NonNull List<SignalStorageRecord> inserts) {
+    validateManifestAndInserts(manifest, inserts);
+  }
+
+  private static void validateManifestAndInserts(@NonNull SignalStorageManifest manifest, @NonNull List<SignalStorageRecord> inserts) {
+    Set<StorageId>  allSet    = new HashSet<>(manifest.getStorageIds());
+    Set<StorageId>  insertSet = new HashSet<>(Stream.of(inserts).map(SignalStorageRecord::getId).toList());
+    Set<ByteBuffer> rawIdSet  = Stream.of(allSet).map(id -> ByteBuffer.wrap(id.getRaw())).collect(Collectors.toSet());
+
+    if (allSet.size() != manifest.getStorageIds().size()) {
+      throw new DuplicateStorageIdError();
+    }
+
+    if (rawIdSet.size() != allSet.size()) {
+      throw new DuplicateRawIdError();
+    }
 
     int accountCount = 0;
-    for (StorageId id : result.getManifest().getStorageIds()) {
+    for (StorageId id : manifest.getStorageIds()) {
       accountCount += id.getType() == ManifestRecord.Identifier.Type.ACCOUNT_VALUE ? 1 : 0;
     }
 
-    if (result.getInserts().size() > insertSet.size()) {
+    if (inserts.size() > insertSet.size()) {
       throw new DuplicateInsertInWriteError();
     }
 
@@ -40,7 +72,7 @@ public final class StorageSyncValidations {
       throw new MissingAccountError();
     }
 
-    for (SignalStorageRecord insert : result.getInserts()) {
+    for (SignalStorageRecord insert : inserts) {
       if (!allSet.contains(insert.getId())) {
         throw new InsertNotPresentInFullIdSetError();
       }
@@ -57,17 +89,12 @@ public final class StorageSyncValidations {
         }
       }
     }
+  }
 
-    if (result.getDeletes().size() > 0) {
-      Set<String> allSetEncoded = Stream.of(result.getManifest().getStorageIds()).map(StorageId::getRaw).map(Base64::encodeBytes).collect(Collectors.toSet());
+  private static final class DuplicateStorageIdError extends Error {
+  }
 
-      for (byte[] delete : result.getDeletes()) {
-        String encoded = Base64.encodeBytes(delete);
-        if (allSetEncoded.contains(encoded)) {
-          throw new DeletePresentInFullIdSetError();
-        }
-      }
-    }
+  private static final class DuplicateRawIdError extends Error {
   }
 
   private static final class DuplicateInsertInWriteError extends Error {

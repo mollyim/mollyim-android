@@ -2,16 +2,16 @@ package org.thoughtcrime.securesms.lock.v2;
 
 import android.animation.Animator;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
+import android.view.autofill.AutofillManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RawRes;
 import androidx.appcompat.app.AlertDialog;
+import androidx.autofill.HintConstants;
 import androidx.core.content.ContextCompat;
-import androidx.core.util.Preconditions;
+import androidx.core.view.ViewCompat;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -23,7 +23,11 @@ import org.thoughtcrime.securesms.animation.AnimationRepeatListener;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.megaphone.Megaphones;
+import org.thoughtcrime.securesms.registration.RegistrationUtil;
+import org.thoughtcrime.securesms.storage.StorageSyncHelper;
 import org.thoughtcrime.securesms.util.SpanUtil;
+
+import java.util.Objects;
 
 public class ConfirmKbsPinFragment extends BaseKbsPinFragment<ConfirmKbsPinViewModel> {
 
@@ -38,12 +42,13 @@ public class ConfirmKbsPinFragment extends BaseKbsPinFragment<ConfirmKbsPinViewM
     } else {
       initializeViewStatesForPinCreate();
     }
+    ViewCompat.setAutofillHints(getInput(), HintConstants.AUTOFILL_HINT_NEW_PASSWORD);
   }
 
   @Override
   protected ConfirmKbsPinViewModel initializeViewModel() {
     ConfirmKbsPinFragmentArgs      args       = ConfirmKbsPinFragmentArgs.fromBundle(requireArguments());
-    KbsPin                         userEntry  = Preconditions.checkNotNull(args.getUserEntry());
+    KbsPin                         userEntry  = Objects.requireNonNull(args.getUserEntry());
     PinKeyboardType                keyboard   = args.getKeyboard();
     ConfirmKbsPinRepository        repository = new ConfirmKbsPinRepository();
     ConfirmKbsPinViewModel.Factory factory    = new ConfirmKbsPinViewModel.Factory(userEntry, keyboard, repository);
@@ -61,11 +66,13 @@ public class ConfirmKbsPinFragment extends BaseKbsPinFragment<ConfirmKbsPinViewM
     getDescription().setText(R.string.ConfirmKbsPinFragment__confirm_your_pin);
     getKeyboardToggle().setVisibility(View.INVISIBLE);
     getLabel().setText("");
+    getDescription().setLearnMoreVisible(false);
   }
 
   private void initializeViewStatesForPinChange() {
     getTitle().setText(R.string.CreateKbsPinFragment__create_a_new_pin);
     getDescription().setText(R.string.ConfirmKbsPinFragment__confirm_your_pin);
+    getDescription().setLearnMoreVisible(false);
     getKeyboardToggle().setVisibility(View.INVISIBLE);
     getLabel().setText("");
   }
@@ -80,7 +87,7 @@ public class ConfirmKbsPinFragment extends BaseKbsPinFragment<ConfirmKbsPinViewM
         getInput().setEnabled(false);
         break;
       case RE_ENTER_PIN:
-        getLabel().setText(R.string.ConfirmKbsPinFragment__re_enter_pin);
+        getLabel().setText(R.string.ConfirmKbsPinFragment__re_enter_your_pin);
         break;
       case PIN_DOES_NOT_MATCH:
         getLabel().setText(SpanUtil.color(ContextCompat.getColor(requireContext(), R.color.red),
@@ -110,8 +117,8 @@ public class ConfirmKbsPinFragment extends BaseKbsPinFragment<ConfirmKbsPinViewM
           public void onAnimationEnd(Animator animation) {
             requireActivity().setResult(Activity.RESULT_OK);
             closeNavGraphBranch();
-            SignalStore.registrationValues().setRegistrationComplete();
-            SignalStore.pinValues().onPinChange();
+            RegistrationUtil.markRegistrationPossiblyComplete();
+            StorageSyncHelper.scheduleSyncForDataChange();
           }
         });
         break;
@@ -119,7 +126,7 @@ public class ConfirmKbsPinFragment extends BaseKbsPinFragment<ConfirmKbsPinViewM
         startEndAnimationOnNextProgressRepetition(R.raw.lottie_kbs_failure, new AnimationCompleteListener() {
           @Override
           public void onAnimationEnd(Animator animation) {
-            SignalStore.registrationValues().setRegistrationComplete();
+            RegistrationUtil.markRegistrationPossiblyComplete();
             displayFailedDialog();
           }
         });

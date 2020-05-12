@@ -2,9 +2,10 @@ package org.thoughtcrime.securesms.jobs;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.text.TextUtils;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.text.TextUtils;
 
 import com.annimon.stream.Stream;
 
@@ -43,6 +44,7 @@ import org.thoughtcrime.securesms.util.Util;
 import org.whispersystems.libsignal.util.guava.Optional;
 import org.whispersystems.signalservice.api.crypto.UnidentifiedAccessPair;
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachment;
+import org.whispersystems.signalservice.api.messages.SignalServiceAttachmentRemoteId;
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachmentPointer;
 import org.whispersystems.signalservice.api.messages.SignalServiceDataMessage;
 import org.whispersystems.signalservice.api.messages.SignalServiceDataMessage.Preview;
@@ -55,8 +57,10 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 public abstract class PushSendJob extends SendJob {
@@ -144,7 +148,7 @@ public abstract class PushSendJob extends SendJob {
     return null;
   }
 
-  protected static JobManager.Chain createCompressingAndUploadAttachmentsChain(@NonNull JobManager jobManager, OutgoingMediaMessage message) {
+  protected static Set<String> enqueueCompressingAndUploadAttachmentsChains(@NonNull JobManager jobManager, OutgoingMediaMessage message) {
     List<Attachment> attachments = new LinkedList<>();
 
     attachments.addAll(message.getAttachments());
@@ -160,12 +164,17 @@ public abstract class PushSendJob extends SendJob {
                              .map(Contact.Avatar::getAttachment).withoutNulls()
                              .toList());
 
-    List<AttachmentCompressionJob> compressionJobs = Stream.of(attachments).map(a -> AttachmentCompressionJob.fromAttachment((DatabaseAttachment) a, false, -1)).toList();
+    return new HashSet<>(Stream.of(attachments).map(a -> {
+                                                 AttachmentUploadJob attachmentUploadJob = new AttachmentUploadJob(((DatabaseAttachment) a).getAttachmentId());
 
-    List<AttachmentUploadJob> attachmentJobs = Stream.of(attachments).map(a -> new AttachmentUploadJob(((DatabaseAttachment) a).getAttachmentId())).toList();
+                                                 jobManager.startChain(AttachmentCompressionJob.fromAttachment((DatabaseAttachment) a, false, -1))
+                                                           .then(new ResumableUploadSpecJob())
+                                                           .then(attachmentUploadJob)
+                                                           .enqueue();
 
-    return jobManager.startChain(compressionJobs)
-                     .then(attachmentJobs);
+                                                 return attachmentUploadJob.getId();
+                                               })
+                                               .toList());
   }
 
   protected @NonNull List<SignalServiceAttachment> getAttachmentPointersFor(List<Attachment> attachments) {
@@ -184,10 +193,11 @@ public abstract class PushSendJob extends SendJob {
     }
 
     try {
-      long   id  = Long.parseLong(attachment.getLocation());
-      byte[] key = Base64.decode(attachment.getKey());
+      final SignalServiceAttachmentRemoteId remoteId = SignalServiceAttachmentRemoteId.from(attachment.getLocation());
+      final byte[]                          key      = Base64.decode(attachment.getKey());
 
-      return new SignalServiceAttachmentPointer(id,
+      return new SignalServiceAttachmentPointer(attachment.getCdnNumber(),
+                                                remoteId,
                                                 attachment.getContentType(),
                                                 key,
                                                 Optional.of(Util.toIntExact(attachment.getSize())),
@@ -198,7 +208,8 @@ public abstract class PushSendJob extends SendJob {
                                                 Optional.fromNullable(attachment.getFileName()),
                                                 attachment.isVoiceNote(),
                                                 Optional.fromNullable(attachment.getCaption()),
-                                                Optional.fromNullable(attachment.getBlurHash()).transform(BlurHash::getHash));
+                                                Optional.fromNullable(attachment.getBlurHash()).transform(BlurHash::getHash),
+                                                attachment.getUploadTimestamp());
     } catch (IOException | ArithmeticException e) {
       Log.w(TAG, e);
       return null;

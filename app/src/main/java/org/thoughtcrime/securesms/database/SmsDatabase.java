@@ -48,6 +48,7 @@ import org.thoughtcrime.securesms.sms.OutgoingTextMessage;
 import org.thoughtcrime.securesms.util.JsonUtils;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.whispersystems.libsignal.util.guava.Optional;
+import org.whispersystems.signalservice.internal.push.SignalServiceProtos;
 
 import java.io.IOException;
 import java.security.SecureRandom;
@@ -84,6 +85,7 @@ public class SmsDatabase extends MessagingDatabase {
                                                                                   PERSON                 + " INTEGER, " +
                                                                                   DATE_RECEIVED          + " INTEGER, " +
                                                                                   DATE_SENT              + " INTEGER, " +
+                                                                                  DATE_SERVER            + " INTEGER DEFAULT -1, " +
                                                                                   PROTOCOL               + " INTEGER, " +
                                                                                   READ                   + " INTEGER DEFAULT 0, " +
                                                                                   STATUS                 + " INTEGER DEFAULT -1," +
@@ -102,7 +104,8 @@ public class SmsDatabase extends MessagingDatabase {
                                                                                   UNIDENTIFIED           + " INTEGER DEFAULT 0, " +
                                                                                   REACTIONS              + " BLOB DEFAULT NULL, " +
                                                                                   REACTIONS_UNREAD       + " INTEGER DEFAULT 0, " +
-                                                                                  REACTIONS_LAST_SEEN    + " INTEGER DEFAULT -1);";
+                                                                                  REACTIONS_LAST_SEEN    + " INTEGER DEFAULT -1, " +
+                                                                                  REMOTE_DELETED         + " INTEGER DEFAULT 0);";
 
   public static final String[] CREATE_INDEXS = {
     "CREATE INDEX IF NOT EXISTS sms_thread_id_index ON " + TABLE_NAME + " (" + THREAD_ID + ");",
@@ -110,6 +113,7 @@ public class SmsDatabase extends MessagingDatabase {
     "CREATE INDEX IF NOT EXISTS sms_read_and_notified_and_thread_id_index ON " + TABLE_NAME + "(" + READ + "," + NOTIFIED + ","  + THREAD_ID + ");",
     "CREATE INDEX IF NOT EXISTS sms_type_index ON " + TABLE_NAME + " (" + TYPE + ");",
     "CREATE INDEX IF NOT EXISTS sms_date_sent_index ON " + TABLE_NAME + " (" + DATE_SENT + ");",
+    "CREATE INDEX IF NOT EXISTS sms_date_server_index ON " + TABLE_NAME + " (" + DATE_SERVER + ");",
     "CREATE INDEX IF NOT EXISTS sms_thread_date_index ON " + TABLE_NAME + " (" + THREAD_ID + ", " + DATE_RECEIVED + ");",
     "CREATE INDEX IF NOT EXISTS sms_reactions_unread_index ON " + TABLE_NAME + " (" + REACTIONS_UNREAD + ");"
   };
@@ -118,17 +122,18 @@ public class SmsDatabase extends MessagingDatabase {
       ID, THREAD_ID, RECIPIENT_ID, ADDRESS_DEVICE_ID, PERSON,
       DATE_RECEIVED + " AS " + NORMALIZED_DATE_RECEIVED,
       DATE_SENT + " AS " + NORMALIZED_DATE_SENT,
+      DATE_SERVER,
       PROTOCOL, READ, STATUS, TYPE,
       REPLY_PATH_PRESENT, SUBJECT, BODY, SERVICE_CENTER, DELIVERY_RECEIPT_COUNT,
       MISMATCHED_IDENTITIES, SUBSCRIPTION_ID, EXPIRES_IN, EXPIRE_STARTED,
-      NOTIFIED, READ_RECEIPT_COUNT, UNIDENTIFIED, REACTIONS, REACTIONS_UNREAD, REACTIONS_LAST_SEEN
+      NOTIFIED, READ_RECEIPT_COUNT, UNIDENTIFIED, REACTIONS, REACTIONS_UNREAD, REACTIONS_LAST_SEEN,
+      REMOTE_DELETED
   };
 
   private final String OUTGOING_INSECURE_MESSAGE_CLAUSE = "(" + TYPE + " & " + Types.BASE_TYPE_MASK + ") = " + Types.BASE_SENT_TYPE + " AND NOT (" + TYPE + " & " + Types.SECURE_MESSAGE_BIT + ")";
   private final String OUTGOING_SECURE_MESSAGE_CLAUSE   = "(" + TYPE + " & " + Types.BASE_TYPE_MASK + ") = " + Types.BASE_SENT_TYPE + " AND (" + TYPE + " & " + (Types.SECURE_MESSAGE_BIT | Types.PUSH_MESSAGE_BIT) + ")";
 
   private static final EarlyReceiptCache earlyDeliveryReceiptCache = new EarlyReceiptCache("SmsDelivery");
-  private static final EarlyReceiptCache earlyReadReceiptCache     = new EarlyReceiptCache("SmsRead");
 
   public SmsDatabase(Context context, SQLCipherOpenHelper databaseHelper) {
     super(context, databaseHelper);
@@ -311,12 +316,28 @@ public class SmsDatabase extends MessagingDatabase {
     updateTypeBitmask(id, Types.BASE_TYPE_MASK, Types.BASE_SENT_TYPE | (isSecure ? Types.PUSH_MESSAGE_BIT | Types.SECURE_MESSAGE_BIT : 0));
   }
 
+  @Override
   public void markAsSending(long id) {
     updateTypeBitmask(id, Types.BASE_TYPE_MASK, Types.BASE_SENDING_TYPE);
   }
 
   public void markAsMissedCall(long id) {
     updateTypeBitmask(id, Types.TOTAL_MASK, Types.MISSED_CALL_TYPE);
+  }
+
+  @Override
+  public void markAsRemoteDelete(long id) {
+    SQLiteDatabase db = databaseHelper.getWritableDatabase();
+
+    ContentValues values = new ContentValues();
+    values.put(REMOTE_DELETED, 1);
+    values.putNull(BODY);
+    db.update(TABLE_NAME, values, ID_WHERE, new String[] { String.valueOf(id) });
+
+    long threadId = getThreadIdForMessage(id);
+
+    DatabaseFactory.getThreadDatabase(context).update(threadId, false);
+    notifyConversationListeners(threadId);
   }
 
   @Override
@@ -373,7 +394,7 @@ public class SmsDatabase extends MessagingDatabase {
     database.update(TABLE_NAME, contentValues, ID_WHERE, new String[] {String.valueOf(id)});
   }
 
-  public void incrementReceiptCount(SyncMessageId messageId, boolean deliveryReceipt, boolean readReceipt) {
+  public boolean incrementReceiptCount(SyncMessageId messageId, boolean deliveryReceipt) {
     SQLiteDatabase database     = databaseHelper.getWritableDatabase();
     Cursor         cursor       = null;
     boolean        foundMessage = false;
@@ -404,11 +425,12 @@ public class SmsDatabase extends MessagingDatabase {
         }
       }
 
-      if (!foundMessage) {
-        if (deliveryReceipt) earlyDeliveryReceiptCache.increment(messageId.getTimetamp(), messageId.getRecipientId());
-        if (readReceipt)     earlyReadReceiptCache.increment(messageId.getTimetamp(), messageId.getRecipientId());
+      if (!foundMessage && deliveryReceipt) {
+        earlyDeliveryReceiptCache.increment(messageId.getTimetamp(), messageId.getRecipientId());
+        return true;
       }
 
+      return foundMessage;
     } finally {
       if (cursor != null)
         cursor.close();
@@ -534,36 +556,6 @@ public class SmsDatabase extends MessagingDatabase {
     return new Pair<>(messageId, threadId);
   }
 
-  public Pair<Long, Long> copyMessageInbox(long messageId) {
-    try {
-      SmsMessageRecord record = getMessage(messageId);
-
-      ContentValues contentValues = new ContentValues();
-      contentValues.put(TYPE, (record.getType() & ~Types.BASE_TYPE_MASK) | Types.BASE_INBOX_TYPE);
-      contentValues.put(RECIPIENT_ID, record.getIndividualRecipient().getId().serialize());
-      contentValues.put(ADDRESS_DEVICE_ID, record.getRecipientDeviceId());
-      contentValues.put(DATE_RECEIVED, System.currentTimeMillis());
-      contentValues.put(DATE_SENT, record.getDateSent());
-      contentValues.put(PROTOCOL, 31337);
-      contentValues.put(READ, 0);
-      contentValues.put(BODY, record.getBody());
-      contentValues.put(THREAD_ID, record.getThreadId());
-      contentValues.put(EXPIRES_IN, record.getExpiresIn());
-
-      SQLiteDatabase db           = databaseHelper.getWritableDatabase();
-      long           newMessageId = db.insert(TABLE_NAME, null, contentValues);
-
-      DatabaseFactory.getThreadDatabase(context).update(record.getThreadId(), true);
-      notifyConversationListeners(record.getThreadId());
-
-      ApplicationDependencies.getJobManager().add(new TrimThreadJob(record.getThreadId()));
-
-      return new Pair<>(newMessageId, record.getThreadId());
-    } catch (NoSuchMessageException e) {
-      throw new AssertionError(e);
-    }
-  }
-
   boolean hasReceivedAnyCallsSince(long threadId, long timestamp) {
     SQLiteDatabase db            = databaseHelper.getReadableDatabase();
     String[]       projection    = new String[]{SmsDatabase.TYPE};
@@ -665,6 +657,7 @@ public class SmsDatabase extends MessagingDatabase {
     values.put(ADDRESS_DEVICE_ID,  message.getSenderDeviceId());
     values.put(DATE_RECEIVED, System.currentTimeMillis());
     values.put(DATE_SENT, message.getSentTimestampMillis());
+    values.put(DATE_SERVER, message.getServerTimestampMillis());
     values.put(PROTOCOL, message.getProtocol());
     values.put(READ, unread ? 0 : 1);
     values.put(SUBSCRIPTION_ID, message.getSubscriptionId());
@@ -728,7 +721,6 @@ public class SmsDatabase extends MessagingDatabase {
 
     RecipientId            recipientId           = message.getRecipient().getId();
     Map<RecipientId, Long> earlyDeliveryReceipts = earlyDeliveryReceiptCache.remove(date);
-    Map<RecipientId, Long> earlyReadReceipts     = earlyReadReceiptCache.remove(date);
 
     ContentValues contentValues = new ContentValues(6);
     contentValues.put(RECIPIENT_ID, recipientId.serialize());
@@ -741,7 +733,6 @@ public class SmsDatabase extends MessagingDatabase {
     contentValues.put(SUBSCRIPTION_ID, message.getSubscriptionId());
     contentValues.put(EXPIRES_IN, message.getExpiresIn());
     contentValues.put(DELIVERY_RECEIPT_COUNT, Stream.of(earlyDeliveryReceipts.values()).mapToLong(Long::longValue).sum());
-    contentValues.put(READ_RECEIPT_COUNT, Stream.of(earlyReadReceipts.values()).mapToLong(Long::longValue).sum());
 
     SQLiteDatabase db        = databaseHelper.getWritableDatabase();
     long           messageId = db.insert(TABLE_NAME, null, contentValues);
@@ -908,7 +899,7 @@ public class SmsDatabase extends MessagingDatabase {
     return new OutgoingMessageReader(message, threadId);
   }
 
-  public class OutgoingMessageReader {
+  public static class OutgoingMessageReader {
 
     private final OutgoingTextMessage message;
     private final long                id;
@@ -921,13 +912,26 @@ public class SmsDatabase extends MessagingDatabase {
     }
 
     public MessageRecord getCurrent() {
-      return new SmsMessageRecord(id, message.getMessageBody(),
-                                  message.getRecipient(), message.getRecipient(),
-                                  1, System.currentTimeMillis(), System.currentTimeMillis(),
-                                  0, message.isSecureMessage() ? MmsSmsColumns.Types.getOutgoingEncryptedMessageType() : MmsSmsColumns.Types.getOutgoingSmsMessageType(),
-                                  threadId, 0, new LinkedList<IdentityKeyMismatch>(),
-                                  message.getSubscriptionId(), message.getExpiresIn(),
-                                  System.currentTimeMillis(), 0, false, Collections.emptyList());
+      return new SmsMessageRecord(id,
+                                  message.getMessageBody(),
+                                  message.getRecipient(),
+                                  message.getRecipient(),
+                                  1,
+                                  System.currentTimeMillis(),
+                                  System.currentTimeMillis(),
+                                  -1,
+                                  0,
+                                  message.isSecureMessage() ? MmsSmsColumns.Types.getOutgoingEncryptedMessageType() : MmsSmsColumns.Types.getOutgoingSmsMessageType(),
+                                  threadId,
+                                  0,
+                                  new LinkedList<>(),
+                                  message.getSubscriptionId(),
+                                  message.getExpiresIn(),
+                                  System.currentTimeMillis(),
+                                  0,
+                                  false,
+                                  Collections.emptyList(),
+                                  false);
     }
   }
 
@@ -952,22 +956,24 @@ public class SmsDatabase extends MessagingDatabase {
     }
 
     public SmsMessageRecord getCurrent() {
-      long                 messageId            = cursor.getLong(cursor.getColumnIndexOrThrow(SmsDatabase.ID                      ));
-      long                 recipientId          = cursor.getLong(cursor.getColumnIndexOrThrow(SmsDatabase.RECIPIENT_ID            ));
-      int                  addressDeviceId      = cursor.getInt(cursor.getColumnIndexOrThrow(SmsDatabase.ADDRESS_DEVICE_ID     ));
-      long                 type                 = cursor.getLong(cursor.getColumnIndexOrThrow(SmsDatabase.TYPE                    ));
+      long                 messageId            = cursor.getLong(cursor.getColumnIndexOrThrow(SmsDatabase.ID));
+      long                 recipientId          = cursor.getLong(cursor.getColumnIndexOrThrow(SmsDatabase.RECIPIENT_ID));
+      int                  addressDeviceId      = cursor.getInt(cursor.getColumnIndexOrThrow(SmsDatabase.ADDRESS_DEVICE_ID));
+      long                 type                 = cursor.getLong(cursor.getColumnIndexOrThrow(SmsDatabase.TYPE));
       long                 dateReceived         = cursor.getLong(cursor.getColumnIndexOrThrow(SmsDatabase.NORMALIZED_DATE_RECEIVED));
-      long                 dateSent             = cursor.getLong(cursor.getColumnIndexOrThrow(SmsDatabase.NORMALIZED_DATE_SENT    ));
-      long                 threadId             = cursor.getLong(cursor.getColumnIndexOrThrow(SmsDatabase.THREAD_ID               ));
-      int                  status               = cursor.getInt(cursor.getColumnIndexOrThrow(SmsDatabase.STATUS                ));
+      long                 dateSent             = cursor.getLong(cursor.getColumnIndexOrThrow(SmsDatabase.NORMALIZED_DATE_SENT));
+      long                 dateServer           = cursor.getLong(cursor.getColumnIndexOrThrow(SmsDatabase.DATE_SERVER));
+      long                 threadId             = cursor.getLong(cursor.getColumnIndexOrThrow(SmsDatabase.THREAD_ID));
+      int                  status               = cursor.getInt(cursor.getColumnIndexOrThrow(SmsDatabase.STATUS));
       int                  deliveryReceiptCount = cursor.getInt(cursor.getColumnIndexOrThrow(SmsDatabase.DELIVERY_RECEIPT_COUNT));
-      int                  readReceiptCount     = cursor.getInt(cursor.getColumnIndexOrThrow(SmsDatabase.READ_RECEIPT_COUNT    ));
+      int                  readReceiptCount     = cursor.getInt(cursor.getColumnIndexOrThrow(SmsDatabase.READ_RECEIPT_COUNT));
       String               mismatchDocument     = cursor.getString(cursor.getColumnIndexOrThrow(SmsDatabase.MISMATCHED_IDENTITIES));
-      int                  subscriptionId       = cursor.getInt(cursor.getColumnIndexOrThrow(SmsDatabase.SUBSCRIPTION_ID       ));
-      long                 expiresIn            = cursor.getLong(cursor.getColumnIndexOrThrow(SmsDatabase.EXPIRES_IN              ));
-      long                 expireStarted        = cursor.getLong(cursor.getColumnIndexOrThrow(SmsDatabase.EXPIRE_STARTED          ));
-      String               body                 = cursor.getString(cursor.getColumnIndexOrThrow(SmsDatabase.BODY                 ));
+      int                  subscriptionId       = cursor.getInt(cursor.getColumnIndexOrThrow(SmsDatabase.SUBSCRIPTION_ID));
+      long                 expiresIn            = cursor.getLong(cursor.getColumnIndexOrThrow(SmsDatabase.EXPIRES_IN));
+      long                 expireStarted        = cursor.getLong(cursor.getColumnIndexOrThrow(SmsDatabase.EXPIRE_STARTED));
+      String               body                 = cursor.getString(cursor.getColumnIndexOrThrow(SmsDatabase.BODY));
       boolean              unidentified         = cursor.getInt(cursor.getColumnIndexOrThrow(SmsDatabase.UNIDENTIFIED)) == 1;
+      boolean              remoteDelete         = cursor.getInt(cursor.getColumnIndexOrThrow(SmsDatabase.REMOTE_DELETED)) == 1;
       List<ReactionRecord> reactions            = parseReactions(cursor);
 
       if (!TextSecurePreferences.isReadReceiptsEnabled(context)) {
@@ -980,10 +986,10 @@ public class SmsDatabase extends MessagingDatabase {
       return new SmsMessageRecord(messageId, body, recipient,
                                   recipient,
                                   addressDeviceId,
-                                  dateSent, dateReceived, deliveryReceiptCount, type,
+                                  dateSent, dateReceived, dateServer, deliveryReceiptCount, type,
                                   threadId, status, mismatches, subscriptionId,
                                   expiresIn, expireStarted,
-                                  readReceiptCount, unidentified, reactions);
+                                  readReceiptCount, unidentified, reactions, remoteDelete);
     }
 
     private List<IdentityKeyMismatch> getMismatches(String document) {

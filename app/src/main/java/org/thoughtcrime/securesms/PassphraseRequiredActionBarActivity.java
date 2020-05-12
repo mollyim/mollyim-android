@@ -17,17 +17,15 @@ import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.jobs.PushNotificationReceiveJob;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.lock.v2.CreateKbsPinActivity;
-import org.thoughtcrime.securesms.lock.v2.PinUtil;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.migrations.ApplicationMigrationActivity;
 import org.thoughtcrime.securesms.migrations.ApplicationMigrations;
-import org.thoughtcrime.securesms.profiles.ProfileName;
+import org.thoughtcrime.securesms.pin.PinRestoreActivity;
 import org.thoughtcrime.securesms.profiles.edit.EditProfileActivity;
 import org.thoughtcrime.securesms.push.SignalServiceNetworkAccess;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.registration.RegistrationNavigationActivity;
 import org.thoughtcrime.securesms.service.KeyCachingService;
-import org.thoughtcrime.securesms.util.CensorshipUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
 import java.util.Locale;
@@ -35,15 +33,17 @@ import java.util.Locale;
 public abstract class PassphraseRequiredActionBarActivity extends PassphraseActivity implements MasterSecretListener {
   private static final String TAG = PassphraseRequiredActionBarActivity.class.getSimpleName();
 
-  public static final String LOCALE_EXTRA = "locale_extra";
+  public static final String LOCALE_EXTRA      = "locale_extra";
+  public static final String NEXT_INTENT_EXTRA = "next_intent";
 
   private static final int STATE_NORMAL              = 0;
   private static final int STATE_CREATE_PASSPHRASE   = 1;
   private static final int STATE_PROMPT_PASSPHRASE   = 2;
   private static final int STATE_UI_BLOCKING_UPGRADE = 3;
   private static final int STATE_WELCOME_PUSH_SCREEN = 4;
-  private static final int STATE_CREATE_PROFILE_NAME = 5;
-  private static final int STATE_CREATE_KBS_PIN      = 6;
+  private static final int STATE_ENTER_SIGNAL_PIN    = 5;
+  private static final int STATE_CREATE_PROFILE_NAME = 6;
+  private static final int STATE_CREATE_SIGNAL_PIN   = 7;
 
   private SignalServiceNetworkAccess networkAccess;
   private BroadcastReceiver          clearKeyReceiver;
@@ -162,7 +162,8 @@ public abstract class PassphraseRequiredActionBarActivity extends PassphraseActi
       case STATE_PROMPT_PASSPHRASE:   return getPromptPassphraseIntent();
       case STATE_UI_BLOCKING_UPGRADE: return getUiBlockingUpgradeIntent();
       case STATE_WELCOME_PUSH_SCREEN: return getPushRegistrationIntent();
-      case STATE_CREATE_KBS_PIN:      return getCreateKbsPinIntent();
+      case STATE_ENTER_SIGNAL_PIN:    return getEnterSignalPinIntent();
+      case STATE_CREATE_SIGNAL_PIN:   return getCreateSignalPinIntent();
       case STATE_CREATE_PROFILE_NAME: return getCreateProfileNameIntent();
       default:                        return null;
     }
@@ -177,23 +178,23 @@ public abstract class PassphraseRequiredActionBarActivity extends PassphraseActi
       return STATE_UI_BLOCKING_UPGRADE;
     } else if (!TextSecurePreferences.hasPromptedPushRegistration(this)) {
       return STATE_WELCOME_PUSH_SCREEN;
+    } else if (SignalStore.storageServiceValues().needsAccountRestore()) {
+      return STATE_ENTER_SIGNAL_PIN;
     } else if (userMustSetProfileName()) {
       return STATE_CREATE_PROFILE_NAME;
-    } else if (userMustSetKbsPin()) {
-      return STATE_CREATE_KBS_PIN;
+    } else if (userMustCreateSignalPin()) {
+      return STATE_CREATE_SIGNAL_PIN;
     } else {
       return STATE_NORMAL;
     }
   }
 
-  private boolean userMustSetKbsPin() {
-    // TODO [greyson] [pins] Maybe re-enable in the future
-//    return !SignalStore.registrationValues().isRegistrationComplete() && !PinUtil.userHasPin(this);
-    return false;
+  private boolean userMustCreateSignalPin() {
+    return !SignalStore.registrationValues().isRegistrationComplete() && !SignalStore.kbsValues().hasPin() && !SignalStore.kbsValues().lastPinCreateFailed();
   }
 
   private boolean userMustSetProfileName() {
-    return !SignalStore.registrationValues().isRegistrationComplete() && Recipient.self().getProfileName() == ProfileName.EMPTY;
+    return !SignalStore.registrationValues().isRegistrationComplete() && Recipient.self().getProfileName().isEmpty();
   }
 
   private Intent getCreatePassphraseIntent() {
@@ -215,7 +216,11 @@ public abstract class PassphraseRequiredActionBarActivity extends PassphraseActi
     return RegistrationNavigationActivity.newIntentForNewRegistration(this);
   }
 
-  private Intent getCreateKbsPinIntent() {
+  private Intent getEnterSignalPinIntent() {
+    return getRoutedIntent(PinRestoreActivity.class, getIntent());
+  }
+
+  private Intent getCreateSignalPinIntent() {
 
     final Intent intent;
     if (userMustSetProfileName()) {
@@ -260,5 +265,13 @@ public abstract class PassphraseRequiredActionBarActivity extends PassphraseActi
       context.unregisterReceiver(clearKeyReceiver);
       clearKeyReceiver = null;
     }
+  }
+
+  /**
+   * Puts an extra in {@code intent} so that {@code nextIntent} will be shown after it.
+   */
+  public static @NonNull Intent chainIntent(@NonNull Intent intent, @NonNull Intent nextIntent) {
+    intent.putExtra(NEXT_INTENT_EXTRA, nextIntent);
+    return intent;
   }
 }

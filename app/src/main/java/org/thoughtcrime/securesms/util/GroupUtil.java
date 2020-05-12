@@ -11,13 +11,17 @@ import com.google.protobuf.ByteString;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.database.GroupDatabase;
+import org.thoughtcrime.securesms.groups.BadGroupIdException;
 import org.thoughtcrime.securesms.groups.GroupId;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.mms.OutgoingGroupMediaMessage;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientForeverObserver;
 import org.whispersystems.libsignal.util.guava.Optional;
+import org.whispersystems.signalservice.api.messages.SignalServiceDataMessage;
+import org.whispersystems.signalservice.api.messages.SignalServiceGroup;
 import org.whispersystems.signalservice.api.messages.SignalServiceGroupContext;
+import org.whispersystems.signalservice.api.messages.SignalServiceGroupV2;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
 import org.whispersystems.signalservice.api.util.UuidUtil;
 
@@ -38,7 +42,9 @@ public final class GroupUtil {
   /**
    * Result may be a v1 or v2 GroupId.
    */
-  public static GroupId idFromGroupContext(@NonNull SignalServiceGroupContext groupContext) {
+  public static @NonNull GroupId idFromGroupContext(@NonNull SignalServiceGroupContext groupContext)
+      throws BadGroupIdException
+  {
     if (groupContext.getGroupV1().isPresent()) {
       return GroupId.v1(groupContext.getGroupV1().get().getGroupId());
     } else if (groupContext.getGroupV2().isPresent()) {
@@ -48,11 +54,24 @@ public final class GroupUtil {
     }
   }
 
+  public static @NonNull GroupId idFromGroupContextOrThrow(@NonNull SignalServiceGroupContext groupContext) {
+    try {
+      return idFromGroupContext(groupContext);
+    } catch (BadGroupIdException e) {
+      throw new AssertionError(e);
+    }
+  }
+
   /**
    * Result may be a v1 or v2 GroupId.
    */
-  public static @NonNull Optional<GroupId> idFromGroupContext(@NonNull Optional<SignalServiceGroupContext> groupContext) {
-    return groupContext.transform(GroupUtil::idFromGroupContext);
+  public static @NonNull Optional<GroupId> idFromGroupContext(@NonNull Optional<SignalServiceGroupContext> groupContext)
+      throws BadGroupIdException
+  {
+    if (groupContext.isPresent()) {
+      return Optional.of(idFromGroupContext(groupContext.get()));
+    }
+    return Optional.absent();
   }
 
   @WorkerThread
@@ -88,6 +107,24 @@ public final class GroupUtil {
       Log.w(TAG, e);
       return new GroupDescription(context, null);
     }
+  }
+
+  @WorkerThread
+  public static void setDataMessageGroupContext(@NonNull Context context,
+                                                @NonNull SignalServiceDataMessage.Builder dataMessageBuilder,
+                                                @NonNull GroupId.Push groupId)
+  {
+    if (groupId.isV2()) {
+        GroupDatabase                   groupDatabase     = DatabaseFactory.getGroupDatabase(context);
+        GroupDatabase.GroupRecord       groupRecord       = groupDatabase.requireGroup(groupId);
+        GroupDatabase.V2GroupProperties v2GroupProperties = groupRecord.requireV2GroupProperties();
+        SignalServiceGroupV2            group             = SignalServiceGroupV2.newBuilder(v2GroupProperties.getGroupMasterKey())
+                                                                                .withRevision(v2GroupProperties.getGroupRevision())
+                                                                                .build();
+        dataMessageBuilder.asGroupMessage(group);
+      } else {
+        dataMessageBuilder.asGroupMessage(new SignalServiceGroup(groupId.getDecodedId()));
+      }
   }
 
   public static class GroupDescription {

@@ -42,6 +42,7 @@
   <string name="ApplicationPreferencesActivity_Off">बंद</string>
   <string name="ApplicationPreferencesActivity_sms_mms_summary">SMS %1$s, MMS %2$s</string>
   <string name="ApplicationPreferencesActivity_privacy_summary">स्क्रीन लॉक %1$s, नोंदणी लॉक %2$s</string>
+  <string name="ApplicationPreferencesActivity_privacy_summary_screen_lock">स्क्रीन लॉक %1$s</string>
   <string name="ApplicationPreferencesActivity_appearance_summary">थीम %1$s, भाषा %2$s</string>
   <!--AppProtectionPreferenceFragment-->
   <plurals name="AppProtectionPreferenceFragment_minutes">
@@ -60,6 +61,8 @@
   <string name="AttachmentKeyboard_file">फाईल</string>
   <string name="AttachmentKeyboard_contact">संपर्क</string>
   <string name="AttachmentKeyboard_location">स्थान</string>
+  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">आपले फोटो आणि व्हिडिओ दर्शविण्यासाठी Molly ला परवानगी आवश्यक आहे.</string>
+  <string name="AttachmentKeyboard_give_access">प्रवेश द्या</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">मिडिया निवडण्यासाठी अॅप सापडत नाही.</string>
   <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">फोटो, व्हिडिओ, किंवा ऑडिओ, संलग्न करण्यासाठी Molly ला संचयन परवानगीची आवश्यकता असते, पण ती कायमची नाकारली गेली आहे. कृपया अॅप सेटिंग मेनू मध्ये सुरू ठेवा, \"परवानग्या\" निवडा, आणि \"संचयन\" सक्षम करा.</string>
@@ -73,6 +76,19 @@
   <string name="AudioSlidePlayer_error_playing_audio">ऑडिओ प्ले करण्यात त्रुटी!</string>
   <!--BlockedContactsActivity-->
   <string name="BlockedContactsActivity_blocked_contacts">अवरोधित संपर्क</string>
+  <!--BlockUnblockDialog-->
+  <string name="BlockUnblockDialog_block_and_leave_s">%1$sअवरोधित करायचे आणि पडायचे?</string>
+  <string name="BlockUnblockDialog_block_s">%1$s अवरोधित करायचे?</string>
+  <string name="BlockUnblockDialog_you_will_no_longer_receive_messages_or_updates">आपणास यापुढे या गटाकडून संदेश किंवा अद्यतने प्राप्त होणार नाहीत आणि सदस्य आपल्याला या गटामध्ये पुन्हा जोडण्यास सक्षम राहणार नाहीत.</string>
+  <string name="BlockUnblockDialog_group_members_wont_be_able_to_add_you">गट सदस्य आपल्याला या गटामध्ये पुन्हा जोडू शकणार नाहीत.</string>
+  <string name="BlockUnblockDialog_group_members_will_be_able_to_add_you">गट सदस्य आपल्याला पुन्हा या गटात जोडू शकतील.</string>
+  <string name="BlockUnblockDialog_you_will_be_able_to_call_and_message_each_other">आपण एकमेकांना संदेश पाठवू आणि कॉल करू शकाल.</string>
+  <string name="BlockUnblockDialog_blocked_people_wont_be_able_to_call_you_or_send_you_messages">अवरोधित लोक आपल्याला कॉल करण्यास किंवा संदेश पाठविण्यास सक्षम असणार नाहीत.</string>
+  <string name="BlockUnblockDialog_unblock_s">%1$sअनावरोधित करायचे?</string>
+  <string name="BlockUnblockDialog_unblock">अनब्लॉक करा</string>
+  <string name="BlockUnblockDialog_block">अवरोधित करा</string>
+  <string name="BlockUnblockDialog_block_and_leave">अवरोधित करा आणि पडा</string>
+  <string name="BlockUnblockDialog_block_and_delete">अवरोधित करा आणि हटवा</string>
   <!--BucketedThreadMedia-->
   <string name="BucketedThreadMedia_Today">आज</string>
   <string name="BucketedThreadMedia_Yesterday">काल</string>
@@ -106,11 +122,14 @@
   <string name="ClearProfileActivity_remove_profile_photo">प्रोफाईल फोटो काढायचा?</string>
   <!--CommunicationActions-->
   <string name="CommunicationActions_no_browser_found">कुठलाही वेब ब्राऊझर सापडला नाही.</string>
+  <string name="CommunicationActions_no_email_app_found">कोणतेही ईमेल अ‍ॅप आढळले नाही</string>
   <string name="CommunicationActions_a_cellular_call_is_already_in_progress">एक सेल्यूलर कॉल प्रगतीमध्ये आहे.</string>
   <string name="CommunicationActions_start_video_call">व्हिडिओ कॉल चालू करायचा?</string>
   <string name="CommunicationActions_start_voice_call">व्हॉईस कॉल चालू करायचा?</string>
   <string name="CommunicationActions_cancel">रद्द करा</string>
   <string name="CommunicationActions_call">कॉल करा</string>
+  <string name="CommunicationActions_insecure_call">असुरक्षित कॉल</string>
+  <string name="CommunicationActions_carrier_charges_may_apply">वाहक शुल्क लागू शकते. आपण कॉल करीत असलेला नंबर सिग्नलसह नोंदणीकृत नाही. हा कॉल इंटरनेटवरून नव्हे तर आपल्या मोबाइल कॅरियरद्वारे दिला जाईल.</string>
   <!--ConfirmIdentityDialog-->
   <string name="ConfirmIdentityDialog_your_safety_number_with_s_has_changed">%1$s सोबतचा आपला सुरक्षितता नंबर बदलला आहे. ह्याचा अर्थ कुणीतरी आपले परस्परसंवादामध्ये अटकाव करण्याचा प्रयत्न करतो आहे किंवा %2$s याने Signal पुनर्स्थापित केले आहे असा होऊ शकतो.</string>
   <string name="ConfirmIdentityDialog_you_may_wish_to_verify_your_safety_number_with_this_contact">या संपर्कासोबत आपल्याला आपला सुरक्षितता नंबर सत्यापित करावेसे वाटू शकते.</string>
@@ -151,6 +170,7 @@
   <string name="ConversationItem_read_more"> अधिक जाणा</string>
   <string name="ConversationItem_download_more">  अधिक डाऊनलोड करा</string>
   <string name="ConversationItem_pending">  प्रलंबित</string>
+  <string name="ConversationItem_this_message_was_deleted">हा संदेश हटविला गेला.</string>
   <!--ConversationActivity-->
   <string name="ConversationActivity_reset_secure_session_question">सुरक्षित सत्र रीसेट करायचे?</string>
   <string name="ConversationActivity_this_may_help_if_youre_having_encryption_problems">जर या संभाषणात आपल्याला एन्क्रिप्शन समस्या येत असतील तर हे मदत करू शकते. आपले संदेश ठेवले जातील.</string>
@@ -201,8 +221,8 @@
   <string name="ConversationActivity_no_results">कुठलेही परिणाम नाहीत</string>
   <string name="ConversationActivity_sticker_pack_installed">स्टिकर पॅक स्थापन केले</string>
   <string name="ConversationActivity_new_say_it_with_stickers">नवीन! स्टिकर सोबत बोला</string>
-  <string name="ConversationActivity_block">अवरोधित करा</string>
   <string name="ConversationActivity_cancel">रद्द करा</string>
+  <string name="ConversationActivity_delete_conversation">संभाषण काढून टाकायचे?</string>
   <string name="ConversationActivity_delete">हटवा</string>
   <!--ConversationAdapter-->
   <plurals name="ConversationAdapter_n_unread_messages">
@@ -354,6 +374,9 @@
   <string name="GroupShareProfileView_make_visible">दृश्यमान करा</string>
   <!--GroupMembersDialog-->
   <string name="GroupMembersDialog_you">आपण</string>
+  <!--GV2 access levels-->
+  <!--PendingMembersActivity-->
+  <!--GV2 Invite cancellation confirmation-->
   <!--CropImageActivity-->
   <string name="CropImageActivity_group_avatar">गट अवतार</string>
   <string name="CropImageActivity_profile_avatar">अवतार</string>
@@ -382,6 +405,8 @@
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">मित्र मित्रांना अनएन्क्रिप्टेड चॅट करू देत नाही.</string>
   <!--Job-->
   <string name="Job_working_in_the_background">पार्श्वभूमीमध्ये कार्य करत आहे…</string>
+  <!--LearnMoreTextView-->
+  <string name="LearnMoreTextView_learn_more">अधिक जाणा</string>
   <!--MessageDetailsRecipient-->
   <string name="MessageDetailsRecipient_failed_to_send">पाठविण्यात अयशस्वी</string>
   <string name="MessageDetailsRecipient_new_safety_number">नवीन सुरक्षितता नंबर</string>
@@ -487,6 +512,19 @@
   <string name="MessageRecord_s_disabled_disappearing_messages">%1$s ने हरवणारे संदेश अक्षम केले.</string>
   <string name="MessageRecord_you_set_disappearing_message_time_to_s">आपण हरवणारे संदेश टायमर %1$s वर सेट केले.</string>
   <string name="MessageRecord_s_set_disappearing_message_time_to_s">%1$s ने हरवणारे संदेश टायमर %2$s वर सेट केले.</string>
+  <!--GV2 specific-->
+  <!--GV2 member additions-->
+  <string name="MessageRecord_s_joined_the_group">%1$s गटात सामील झाले</string>
+  <!--GV2 member removals-->
+  <!--GV2 role change-->
+  <!--GV2 invitations-->
+  <!--GV2 invitation revokes-->
+  <!--GV2 invitation acceptance-->
+  <!--GV2 title change-->
+  <!--GV2 avatar change-->
+  <!--GV2 attribute access level change-->
+  <!--GV2 membership access level change-->
+  <!--End of GV2 specific update messages-->
   <string name="MessageRecord_your_safety_number_with_s_has_changed">%s सोबतचा आपला सुरक्षितता नंबर बदलला आहे.</string>
   <string name="MessageRecord_you_marked_your_safety_number_with_s_verified">%s सोबत आपण आपला सुरक्षितता नंबर सत्यापित म्हणून चिन्हांकित केला आहे</string>
   <string name="MessageRecord_you_marked_your_safety_number_with_s_verified_from_another_device">%s सोबत आपण आपला सुरक्षितता नंबर दुसऱ्या डिव्हाईस वरून सत्यापित म्हणून चिन्हांकित केला आहे</string>
@@ -546,6 +584,15 @@
   <string name="PlacePickerActivity_accept_address">पत्ता स्वीकारा</string>
   <!--PlayServicesProblemFragment-->
   <string name="PlayServicesProblemFragment_the_version_of_google_play_services_you_have_installed_is_not_functioning">आपण स्थापन केलेली Google प्ले सेवेची आवृत्ती व्यवस्थित कार्य करत नाही. कृपया Google प्ले सेवा पुन्हा स्थापन करा आणि पुन्हा प्रयत्न करा.</string>
+  <!--PinRestoreEntryFragment-->
+  <string name="PinRestoreEntryFragment_incorrect_pin">चुकीचा PIN</string>
+  <string name="PinRestoreEntryFragment_contact_support">समर्थन सोबत संपर्क साधा</string>
+  <string name="PinRestoreEntryFragment_cancel">रद्द करा</string>
+  <string name="PinRestoreEntryFragment_skip">वगळा</string>
+  <string name="PinRestoreEntryFragment_enter_alphanumeric_pin">अल्फान्यूमेरिक PIN प्रविष्ट करा</string>
+  <string name="PinRestoreEntryFragment_enter_numeric_pin">न्यूमेरिक PIN प्रविष्ट करा</string>
+  <!--PinRestoreLockedFragment-->
+  <string name="PinRestoreLockedFragment_create_your_pin">आपला PIN तयार करा</string>
   <!--RatingManager-->
   <string name="RatingManager_rate_this_app">ह्या अॅपला रेट करा</string>
   <string name="RatingManager_if_you_enjoy_using_this_app_please_take_a_moment">जर आपल्याला हा अॅप वापरणे आवडत असेल, तर कृपया एक क्षण काढून आम्हाला रेट करून आमची मदत करा.</string>
@@ -558,16 +605,7 @@
   <!--ReactionsRecipientAdapter-->
   <string name="ReactionsRecipientAdapter_you">आपण</string>
   <!--RecipientPreferencesActivity-->
-  <string name="RecipientPreferenceActivity_block_this_contact_question">हा संपर्क अवरोधित करायचा?</string>
-  <string name="RecipientPreferenceActivity_you_will_no_longer_receive_messages_and_calls_from_this_contact">आपल्याला यापुढे या संपर्काकडून संदेश आणि कॉल प्राप्त होणार नाहीत.</string>
-  <string name="RecipientPreferenceActivity_block_and_leave_group">हा गट अवरोधित करायचा आणि सोडायचा?</string>
-  <string name="RecipientPreferenceActivity_block_group">हा गट अवरोधित करायचा?</string>
-  <string name="RecipientPreferenceActivity_block_and_leave_group_description">या गटामधून आपल्याला यापुढे संदेश किंवा अद्यतने प्राप्त होणार नाहीत.</string>
   <string name="RecipientPreferenceActivity_block">अवरोधित करा</string>
-  <string name="RecipientPreferenceActivity_unblock_this_contact_question">हा संपर्क अनब्लॉक करायचा?</string>
-  <string name="RecipientPreferenceActivity_you_will_once_again_be_able_to_receive_messages_and_calls_from_this_contact">आपण पुन्हा एकदा या संपर्काकडून कॉल आणि संदेश प्राप्त करू शकाल.</string>
-  <string name="RecipientPreferenceActivity_unblock_this_group_question">हा गट अनब्लॉक करायचा?</string>
-  <string name="RecipientPreferenceActivity_unblock_this_group_description">अस्तित्वात असलेले सदस्य आपल्याला गटामध्ये पुन्हा जोडू शकतील.</string>
   <string name="RecipientPreferenceActivity_error_leaving_group">गट सोडण्यात त्रुटी</string>
   <string name="RecipientPreferenceActivity_unblock">अनब्लॉक करा</string>
   <string name="RecipientPreferenceActivity_enabled">सक्षम केले</string>
@@ -608,7 +646,7 @@
   <string name="RegistrationActivity_less_information">कमी माहिती</string>
   <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">आपल्या मित्रांसोबत जोडण्यासाठी, संदेश अदलाबदल करण्यासाठी, आणि सुरक्षित कॉल करण्यासाठी Molly ला आपल्या संपर्काच्या अॅक्सेसची गरज आहे.</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">सेवेसोबत कनेक्ट करण्यात अक्षम. कृपया नेटवर्क कनेक्शन तपासा आणि पुन्हा प्रयत्न करा.</string>
-  <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">सहजतने आपला फोन नंबर सत्यापित करण्यासाठी, जर आपण Signal ला SMS संदेश बघण्याची अनुमती दिली तर Signal स्वयंचलितपणे आपला सत्यापन कोड ओळखू शकतो.</string>
+  <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">सहजतने आपला फोन नंबर सत्यापित करण्यासाठी, जर आपण Molly ला SMS संदेश बघण्याची अनुमती दिली तर Molly स्वयंचलितपणे आपला सत्यापन कोड ओळखू शकतो.</string>
   <plurals name="RegistrationActivity_debug_log_hint">
     <item quantity="one">आपण आता डीबग लॉग प्रविष्ट करण्याच्या %d पायरी दूर आहात.</item>
     <item quantity="other">आपण आता डीबग लॉग प्रविष्ट करण्याच्या %d पायऱ्या दूर आहात.</item>
@@ -626,6 +664,7 @@
   <string name="RegistrationActivity_phone_number_description">फोन नंबर</string>
   <string name="RegistrationActivity_country_code_description">देश कोड</string>
   <string name="RegistrationActivity_call">कॉल करा</string>
+  <!--RegistrationLockV2Dialog-->
   <!--RevealableMessageView-->
   <string name="RevealableMessageView_view_photo">फोटो बघा</string>
   <string name="RevealableMessageView_view_video">व्हिडिओ बघा</string>
@@ -664,7 +703,7 @@
   <string name="SmsMessageRecord_secure_session_reset_s">%s ने सुरक्षित सत्र रीसेट केले.</string>
   <string name="SmsMessageRecord_duplicate_message">संदेश डूप्लिकेट करा</string>
   <string name="SmsMessageRecord_this_message_could_not_be_processed_because_it_was_sent_from_a_newer_version">हा नवीन आवृत्तीवरून पाठविला गेला असल्यामुळे ह्या संदेशाची प्रक्रिया होऊ शकली नाही. आपण आपल्या संपर्काला आपण अद्यतन केल्यावर हा संदेश पुन्हा पाठविण्यास विचारू शकता.</string>
-  <string name="SmsMessageRecord_error_handling_incoming_message">येणारा संदेश हाताळण्यात त्रुटी</string>
+  <string name="SmsMessageRecord_error_handling_incoming_message">येणारा संदेश हाताळण्यात त्रुटी.</string>
   <!--StickerManagementActivity-->
   <string name="StickerManagementActivity_stickers">स्टिकर</string>
   <!--StickerManagementAdapter-->
@@ -702,6 +741,7 @@
   <string name="ThreadRecord_view_once_photo">एकदा-बघा फोटो</string>
   <string name="ThreadRecord_view_once_video">एकदा-बघा व्हिडिओ</string>
   <string name="ThreadRecord_view_once_media">एकदा-बघा मिडिया</string>
+  <string name="ThreadRecord_this_message_was_deleted">हा संदेश हटविला गेला.</string>
   <string name="ThreadRecord_s_is_on_signal">%s Signal वर आहे!</string>
   <string name="ThreadRecord_disappearing_messages_disabled">हरवणारे संदेश अक्षम केले</string>
   <string name="ThreadRecord_disappearing_message_time_updated_to_s">हरवणारा संदेश वेळ %s वर सेट केली</string>
@@ -810,6 +850,7 @@
   <string name="MessageNotifier_reacted_s_to_your_view_once_photo">आपल्या एकदा-बघा फोटोला %1$s प्रतिसाद दिला.</string>
   <string name="MessageNotifier_reacted_s_to_your_view_once_video">आपल्या एकदा-बघा व्हिडिओला %1$s प्रतिसाद दिला.</string>
   <string name="MessageNotifier_reacted_s_to_your_sticker">आपल्या स्टिकरला %1$s प्रतिसाद दिला.</string>
+  <string name="MessageNotifier_this_message_was_deleted">हा संदेश हटविला गेला.</string>
   <!--Notification Channels-->
   <string name="NotificationChannel_messages">पूर्वनिर्धारित</string>
   <string name="NotificationChannel_calls">कॉल</string>
@@ -1134,6 +1175,7 @@
   <string name="HelpFragment__help">मदत</string>
   <string name="HelpFragment__next">पुढे</string>
   <string name="HelpFragment__signal_support">Signal समर्थन</string>
+  <string name="HelpFragment__no_email_app_found">कोणतेही ईमेल अ‍ॅप आढळले नाही</string>
   <!--arrays.xml-->
   <string name="arrays__import_export">आयात</string>
   <string name="arrays__use_default">पूर्वनिर्धारित वापरा</string>
@@ -1433,7 +1475,6 @@
   <string name="ConfirmKbsPinFragment__pin_creation_failed">PIN तयार करणे अयशस्वी</string>
   <string name="ConfirmKbsPinFragment__your_pin_was_not_saved">आपला PIN जतन केला गेला नाही. आम्ही नंतर आपल्याला PIN तयार करण्यासाठी सूचित करू.</string>
   <string name="ConfirmKbsPinFragment__pin_created">PIN तयार केले</string>
-  <string name="ConfirmKbsPinFragment__re_enter_pin">PIN पुन्हा प्रविष्ट करा</string>
   <!--KbsSplashFragment-->
   <string name="KbsSplashFragment__introducing_pins">PIN ची ओळख करून देत आहे</string>
   <string name="KbsSplashFragment__learn_more">अधिक जाणा</string>
@@ -1522,9 +1563,7 @@
   <string name="preferences_app_protection__lock_signal_access_with_android_screen_lock_or_fingerprint">Android स्क्रीन लॉक किंवा फिंगरप्रिंटने Signal अॅक्सेस लॉक करा</string>
   <string name="preferences_app_protection__screen_lock_inactivity_timeout">स्क्रीन लॉक निष्क्रियता टाईमआऊट</string>
   <string name="preferences_app_protection__signal_pin">Signal PIN</string>
-  <string name="preferences_app_protection__pin">PIN</string>
-  <string name="preferences_app_protection__change">बदला</string>
-  <string name="preferences_app_protection__create">तयार करा</string>
+  <string name="preferences_app_protection__change_your_pin">आपला PIN बदला</string>
   <string name="AppProtectionPreferenceFragment_none">कुठलेही नाही</string>
   <string name="AppProtectionPreferenceFragment_instant">क्षणात</string>
   <string name="registration_activity__the_registration_lock_pin_is_not_the_same_as_the_sms_verification_code_you_just_received_please_enter_the_pin_you_previously_configured_in_the_application">आपल्याला आता प्राप्त झालेल्या SMS सत्यापन कोड आणि नोंदणी लॉक PIN सारखे नाहीत. कृपया आपण अॅपलिकेशनमध्ये पूर्वी कॉन्फिगर केलेले PIN प्रविष्ट करा.</string>

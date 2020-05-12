@@ -26,6 +26,7 @@ import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.storage.StorageSyncValidations;
 import org.thoughtcrime.securesms.transport.RetryLaterException;
+import org.thoughtcrime.securesms.util.Base64;
 import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.Util;
@@ -42,6 +43,7 @@ import org.whispersystems.signalservice.internal.storage.protos.ManifestRecord;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -86,8 +88,13 @@ public class StorageSyncJob extends BaseJob {
 
   @Override
   protected void onRun() throws IOException, RetryLaterException {
-    if (!FeatureFlags.storageService()) {
+    if (!FeatureFlags.pinsForAll()) {
       Log.i(TAG, "Not enabled. Skipping.");
+      return;
+    }
+
+    if (!SignalStore.kbsValues().hasPin()) {
+      Log.i(TAG, "Doesn't have a PIN. Skipping.");
       return;
     }
 
@@ -127,7 +134,7 @@ public class StorageSyncJob extends BaseJob {
     SignalServiceAccountManager accountManager     = ApplicationDependencies.getSignalServiceAccountManager();
     RecipientDatabase           recipientDatabase  = DatabaseFactory.getRecipientDatabase(context);
     StorageKeyDatabase          storageKeyDatabase = DatabaseFactory.getStorageKeyDatabase(context);
-    StorageKey                  storageServiceKey  = SignalStore.storageServiceValues().getOrCreateStorageMasterKey().deriveStorageServiceKey();
+    StorageKey                  storageServiceKey  = SignalStore.storageServiceValues().getOrCreateStorageKey();
 
     boolean                         needsMultiDeviceSync  = false;
     long                            localManifestVersion  = TextSecurePreferences.getStorageManifestVersion(context);
@@ -139,7 +146,7 @@ public class StorageSyncJob extends BaseJob {
     if (remoteManifest.isPresent() && remoteManifestVersion > localManifestVersion) {
       Log.i(TAG, "[Remote Newer] Newer manifest version found!");
 
-      List<StorageId>     allLocalStorageKeys = getAllLocalStorageIds(context);
+      List<StorageId>     allLocalStorageKeys = getAllLocalStorageIds(context, Recipient.self().fresh());
       KeyDifferenceResult keyDifference       = StorageSyncHelper.findKeyDifference(remoteManifest.get().getStorageIds(), allLocalStorageKeys);
 
       if (!keyDifference.isEmpty()) {
@@ -192,12 +199,14 @@ public class StorageSyncJob extends BaseJob {
 
     localManifestVersion = TextSecurePreferences.getStorageManifestVersion(context);
 
-    List<StorageId>               allLocalStorageKeys  = getAllLocalStorageIds(context);
+    Recipient self = Recipient.self().fresh();
+
+    List<StorageId>               allLocalStorageKeys  = getAllLocalStorageIds(context, self);
     List<RecipientSettings>       pendingUpdates       = recipientDatabase.getPendingRecipientSyncUpdates();
     List<RecipientSettings>       pendingInsertions    = recipientDatabase.getPendingRecipientSyncInsertions();
     List<RecipientSettings>       pendingDeletions     = recipientDatabase.getPendingRecipientSyncDeletions();
-    Optional<SignalAccountRecord> pendingAccountUpdate = StorageSyncHelper.getPendingAccountSyncUpdate(context);
-    Optional<SignalAccountRecord> pendingAccountInsert = StorageSyncHelper.getPendingAccountSyncInsert(context);
+    Optional<SignalAccountRecord> pendingAccountInsert = StorageSyncHelper.getPendingAccountSyncInsert(context, self);
+    Optional<SignalAccountRecord> pendingAccountUpdate = StorageSyncHelper.getPendingAccountSyncUpdate(context, self);
     Set<RecipientId>              archivedRecipients   = DatabaseFactory.getThreadDatabase(context).getArchivedRecipients();
     Optional<LocalWriteResult>    localWriteResult     = StorageSyncHelper.buildStorageUpdatesForLocal(localManifestVersion,
                                                                                                        allLocalStorageKeys,
@@ -209,7 +218,7 @@ public class StorageSyncJob extends BaseJob {
                                                                                                        archivedRecipients);
 
     if (localWriteResult.isPresent()) {
-      Log.i(TAG, String.format(Locale.ENGLISH, "[Local Changes] Local changes present. %d updates, %d inserts, %d deletes, account update: %b, account insert %b.", pendingUpdates.size(), pendingInsertions.size(), pendingDeletions.size(), pendingAccountUpdate.isPresent(), pendingAccountInsert.isPresent()));
+      Log.i(TAG, String.format(Locale.ENGLISH, "[Local Changes] Local changes present. %d updates, %d inserts, %d deletes, account update: %b, account insert: %b.", pendingUpdates.size(), pendingInsertions.size(), pendingDeletions.size(), pendingAccountUpdate.isPresent(), pendingAccountInsert.isPresent()));
 
       WriteOperationResult localWrite = localWriteResult.get().getWriteResult();
       StorageSyncValidations.validate(localWrite);
@@ -248,15 +257,14 @@ public class StorageSyncJob extends BaseJob {
     return needsMultiDeviceSync;
   }
 
-  private static @NonNull List<StorageId> getAllLocalStorageIds(@NonNull Context context) {
-    Recipient self = Recipient.self().fresh();
-
+  private static @NonNull List<StorageId> getAllLocalStorageIds(@NonNull Context context, @NonNull Recipient self) {
     return Util.concatenatedList(DatabaseFactory.getRecipientDatabase(context).getContactStorageSyncIds(),
                                  Collections.singletonList(StorageId.forAccount(self.getStorageServiceId())),
                                  DatabaseFactory.getStorageKeyDatabase(context).getAllKeys());
   }
 
   private static @NonNull List<SignalStorageRecord> buildLocalStorageRecords(@NonNull Context context, @NonNull List<StorageId> ids, @NonNull Set<RecipientId> archivedRecipients) {
+    Recipient          self               = Recipient.self().fresh();
     RecipientDatabase  recipientDatabase  = DatabaseFactory.getRecipientDatabase(context);
     StorageKeyDatabase storageKeyDatabase = DatabaseFactory.getStorageKeyDatabase(context);
 
@@ -275,7 +283,10 @@ public class StorageSyncJob extends BaseJob {
           }
           break;
         case ManifestRecord.Identifier.Type.ACCOUNT_VALUE:
-          records.add(StorageSyncHelper.buildAccountRecord(context, id));
+          if (!Arrays.equals(self.getStorageServiceId(), id.getRaw())) {
+            throw new AssertionError("Local storage ID doesn't match self!");
+          }
+          records.add(StorageSyncHelper.buildAccountRecord(context, self));
           break;
         default:
           SignalStorageRecord unknown = storageKeyDatabase.getById(id.getRaw());

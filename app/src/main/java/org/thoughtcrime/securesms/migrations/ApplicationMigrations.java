@@ -39,13 +39,14 @@ public class ApplicationMigrations {
 
   private static final int LEGACY_CANONICAL_VERSION = 455;
 
-  public static final int CURRENT_VERSION = 13;
+  public static final int CURRENT_VERSION = 14;
 
   private static final class Version {
     static final int SWOON_STICKERS     = 10;
     static final int STORAGE_SERVICE    = 11;
     static final int STORAGE_KEY_ROTATE = 12;
     static final int REMOVE_AVATAR_ID   = 13;
+    static final int STORAGE_CAPABILITY = 14;
   }
 
   /**
@@ -166,12 +167,17 @@ public class ApplicationMigrations {
       jobs.put(Version.STORAGE_SERVICE, new StorageServiceMigrationJob());
     }
 
-    if (lastSeenVersion < Version.STORAGE_KEY_ROTATE) {
-      jobs.put(Version.STORAGE_KEY_ROTATE, new StorageKeyRotationMigrationJob());
-    }
+    // Superceded by StorageCapabilityMigrationJob
+//    if (lastSeenVersion < Version.STORAGE_KEY_ROTATE) {
+//      jobs.put(Version.STORAGE_KEY_ROTATE, new StorageKeyRotationMigrationJob());
+//    }
 
     if (lastSeenVersion < Version.REMOVE_AVATAR_ID) {
       jobs.put(Version.REMOVE_AVATAR_ID, new AvatarIdRemovalMigrationJob());
+    }
+
+    if (lastSeenVersion < Version.STORAGE_CAPABILITY) {
+      jobs.put(Version.STORAGE_CAPABILITY, new StorageCapabilityMigrationJob());
     }
 
     return jobs;
