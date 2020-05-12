@@ -315,7 +315,6 @@ public class RecipientPreferenceActivity extends PassphraseRequiredActionBarActi
 
     @Override
     public void onCreateEncryptedPreferences(@Nullable Bundle savedInstanceState, String rootKey) {
-      Log.i(TAG, "onCreatePreferences...");
       addPreferencesFromResource(R.xml.recipient_preferences);
     }
 

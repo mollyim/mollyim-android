@@ -58,6 +58,7 @@ import org.thoughtcrime.securesms.phonenumbers.PhoneNumberFormatter;
 import org.thoughtcrime.securesms.service.KeyCachingService;
 import org.thoughtcrime.securesms.util.Base64;
 import org.thoughtcrime.securesms.util.FileUtils;
+import org.thoughtcrime.securesms.util.SecurePreferenceManager;
 import org.thoughtcrime.securesms.util.ServiceUtil;
 import org.thoughtcrime.securesms.util.SqlUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
@@ -208,7 +209,7 @@ public class SQLCipherOpenHelper extends SQLiteOpenHelper {
       if (oldVersion < PROFILE_KEY_TO_DB) {
         String localNumber = TextSecurePreferences.getLocalNumber(context);
         if (!TextUtils.isEmpty(localNumber)) {
-          String        encodedProfileKey = PreferenceManager.getDefaultSharedPreferences(context).getString("pref_profile_key", null);
+          String        encodedProfileKey = SecurePreferenceManager.getSecurePreferences(context).getString("pref_profile_key", null);
           byte[]        profileKey        = encodedProfileKey != null ? Base64.decodeOrThrow(encodedProfileKey) : Util.getSecretBytes(32);
           ContentValues values            = new ContentValues(1);
 
@@ -277,7 +278,7 @@ public class SQLCipherOpenHelper extends SQLiteOpenHelper {
       if (oldVersion < PROFILE_DATA_MIGRATION) {
         String localNumber = TextSecurePreferences.getLocalNumber(context);
         if (localNumber != null) {
-          String      encodedProfileName = PreferenceManager.getDefaultSharedPreferences(context).getString("pref_profile_name", null);
+          String      encodedProfileName = SecurePreferenceManager.getSecurePreferences(context).getString("pref_profile_name", null);
           ProfileName profileName        = ProfileName.fromSerialized(encodedProfileName);
 
           db.execSQL("UPDATE recipient SET signal_profile_name = ?, profile_family_name = ?, profile_joined_name = ? WHERE phone = ?",
