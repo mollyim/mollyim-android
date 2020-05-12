@@ -25,6 +25,7 @@ import org.thoughtcrime.securesms.profiles.edit.EditProfileActivity;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.util.AvatarUtil;
 import org.thoughtcrime.securesms.util.FeatureFlags;
+import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -160,6 +161,9 @@ public final class Megaphones {
                               Log.i(TAG, "[PinReminder] onReminderDismissed(" + includedFailure + ")");
                               if (includedFailure) {
                                 SignalStore.pinValues().onEntrySkipWithWrongGuess();
+                              }
+                              if (!TextSecurePreferences.isPinV2ReminderEnabled(context)) {
+                                controller.onMegaphoneSnooze(Event.PIN_REMINDER);
                               }
                             }
 
