@@ -230,7 +230,7 @@ public class SubmitDebugLogActivity extends BaseActionBarActivity implements Sub
                                                    ShareCompat.IntentBuilder.from(this)
                                                                             .setText(url)
                                                                             .setType("text/plain")
-                                                                            .setEmailTo(new String[] { "support@signal.org" })
+                                                                            .setEmailTo(new String[] { "support@molly.im" })
                                                                             .startChooser();
                                                  });
 
