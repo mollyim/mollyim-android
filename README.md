@@ -37,6 +37,13 @@ Molly and Signal can be installed on the same device.
 
 However, you cannot use your phone number on both apps at the same time. Only the last app to register will remain active, and the other will go offline. To get over this, remember that you are not limited to use only your SIM card number, but also any number on you can receive SMS or phone calls at registration.
 
+## Backups
+
+Backups are fully compatible. You can restore [Signal's backups](https://support.signal.org/hc/en-us/articles/360007059752-Backup-and-Restore-Messages) in Molly, and the other way around. To do that, simply rename the backup file and copy it into the expected path, so the app can find the backup to restore during installation:
+
+- `Device storage/Signal/Backups/Signal-year-month-date-time.backup`
+- `Device storage/Molly/Backups/Molly-year-month-date-time.backup`
+
 ## Feedback
 
 - Ask a question on the forum [community.signalusers.org](https://community.signalusers.org/)
