@@ -1,25 +1,25 @@
 package org.thoughtcrime.securesms.webrtc;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
 
+import org.thoughtcrime.securesms.PassphraseRequiredActionBarActivity;
 import org.thoughtcrime.securesms.WebRtcCallActivity;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.ringrtc.RemotePeer;
 import org.thoughtcrime.securesms.service.WebRtcCallService;
 import org.thoughtcrime.securesms.util.concurrent.SimpleTask;
 
-public class VoiceCallShare extends Activity {
+public class VoiceCallShare extends PassphraseRequiredActionBarActivity {
   
   private static final String TAG = VoiceCallShare.class.getSimpleName();
-  
+
   @Override
-  public void onCreate(Bundle icicle) {
-    super.onCreate(icicle);
+  protected void onCreate(Bundle savedInstanceState, boolean ready) {
+    super.onCreate(savedInstanceState, ready);
 
     if (getIntent().getData() != null && "content".equals(getIntent().getData().getScheme())) {
       Cursor cursor = null;
