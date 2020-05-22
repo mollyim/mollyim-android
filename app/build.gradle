@@ -116,7 +116,7 @@ android {
     }
 
     defaultConfig {
-        versionCode canonicalVersionCode * postFixSize
+        versionCode canonicalVersionCode * postFixSize + abiPostFix['universal']
         versionName project.hasProperty('ci') ? commitTag : canonicalVersionName
 
         minSdkVersion 19
