@@ -52,6 +52,7 @@ import org.thoughtcrime.securesms.jobs.CreateSignedPreKeyJob;
 import org.thoughtcrime.securesms.jobs.FcmRefreshJob;
 import org.thoughtcrime.securesms.jobs.MultiDeviceContactUpdateJob;
 import org.thoughtcrime.securesms.jobs.PushNotificationReceiveJob;
+import org.thoughtcrime.securesms.jobs.RefreshAttributesJob;
 import org.thoughtcrime.securesms.jobs.RefreshPreKeysJob;
 import org.thoughtcrime.securesms.logging.CustomSignalProtocolLogger;
 import org.thoughtcrime.securesms.logging.Log;
@@ -77,6 +78,7 @@ import org.thoughtcrime.securesms.service.RotateSignedPreKeyListener;
 import org.thoughtcrime.securesms.service.UpdateApkRefreshListener;
 import org.thoughtcrime.securesms.storage.StorageSyncHelper;
 import org.thoughtcrime.securesms.util.FeatureFlags;
+import org.thoughtcrime.securesms.util.PlayServicesUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.Util;
 import org.thoughtcrime.securesms.util.concurrent.SignalExecutors;
@@ -165,6 +167,7 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
     initializeCircumvention();
     initializePendingMessages();
     initializeCleanup();
+    initializePlayServicesCheck();
 
     FeatureFlags.init();
     NotificationChannels.create(this);
@@ -488,6 +491,21 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
       int deleted = DatabaseFactory.getAttachmentDatabase(this).deleteAbandonedPreuploadedAttachments();
       Log.i(TAG, "Deleted " + deleted + " abandoned attachments.");
     });
+  }
+
+  private void initializePlayServicesCheck() {
+    if (TextSecurePreferences.isFcmDisabled(this)) {
+      PlayServicesUtil.PlayServicesStatus status = PlayServicesUtil.getPlayServicesStatus(this);
+
+      if (status == PlayServicesUtil.PlayServicesStatus.SUCCESS) {
+        Log.i(TAG, "Play Services are newly-available. Updating to use FCM.");
+
+        TextSecurePreferences.setFcmDisabled(this, false);
+        ApplicationDependencies.getJobManager().startChain(new FcmRefreshJob())
+                                               .then(new RefreshAttributesJob())
+                                               .enqueue();
+      }
+    }
   }
 
   @Override
