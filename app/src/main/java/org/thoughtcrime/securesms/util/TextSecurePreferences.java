@@ -127,9 +127,6 @@ public class TextSecurePreferences {
   public  static final String PASSPHRASE_LOCK_TIMEOUT = "pref_passphrase_lock_timeout";
   public  static final String PASSPHRASE_LOCK_TRIGGER = "pref_passphrase_lock_trigger";
 
-  private static final String SCREEN_LOCK_NEED_NEXT_REMINDER_TIME = "pref_screen_lock_need_next_reminder_time";
-  private static final String SCREEN_LOCK_NEED_REMINDER_INTERVAL  = "pref_screen_lock_need_reminder_interval";
-
   @Deprecated
   public static final  String REGISTRATION_LOCK_PREF_V1                = "pref_registration_lock";
   @Deprecated
@@ -211,22 +208,6 @@ public class TextSecurePreferences {
 
   public static void setPassphraseLockTimeout(@NonNull Context context, long value) {
     setLongPreference(context, PASSPHRASE_LOCK_TIMEOUT, value);
-  }
-
-  public static long getScreenLockNeedNextReminderTime(@NonNull Context context) {
-    return getLongPreference(context, SCREEN_LOCK_NEED_NEXT_REMINDER_TIME, 0);
-  }
-
-  public static void setScreenLockNeedNextReminderTime(@NonNull Context context, long time) {
-    setLongPreference(context, SCREEN_LOCK_NEED_NEXT_REMINDER_TIME, time);
-  }
-
-  public static long getScreenLockNeedReminderInterval(@NonNull Context context) {
-    return getLongPreference(context, SCREEN_LOCK_NEED_REMINDER_INTERVAL, 0);
-  }
-
-  public static void setScreenLockNeedReminderInterval(@NonNull Context context, long value) {
-    setLongPreference(context, SCREEN_LOCK_NEED_REMINDER_INTERVAL, value);
   }
 
   public static boolean isV1RegistrationLockEnabled(@NonNull Context context) {
