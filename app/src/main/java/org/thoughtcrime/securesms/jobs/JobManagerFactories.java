@@ -113,6 +113,11 @@ public final class JobManagerFactories {
       // Dead jobs
       put(FailingJob.KEY,                            new FailingJob.Factory());
       put(PassingMigrationJob.KEY,                   new PassingMigrationJob.Factory());
+      put("MmsReceiveJob",                           new FailingJob.Factory());
+      put("MmsSendJobV2",                            new FailingJob.Factory());
+      put("SmsReceiveJob",                           new FailingJob.Factory());
+      put("SmsSendJob",                              new FailingJob.Factory());
+      put("SmsSentJob",                              new FailingJob.Factory());
       put("PushContentReceiveJob",                   new FailingJob.Factory());
       put("AttachmentUploadJob",                     new FailingJob.Factory());
       put("MmsSendJob",                              new FailingJob.Factory());
