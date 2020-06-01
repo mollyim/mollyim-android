@@ -4,7 +4,7 @@ import android.os.Build;
 
 import androidx.annotation.NonNull;
 
-import org.thoughtcrime.securesms.BuildConfig;
+import org.thoughtcrime.securesms.util.Util;
 
 import java.io.IOException;
 
@@ -13,7 +13,7 @@ import okhttp3.Response;
 
 public class UserAgentInterceptor implements Interceptor {
 
-  private static final String USER_AGENT = "Signal-Android " + BuildConfig.VERSION_NAME + " (API " + Build.VERSION.SDK_INT + ")";
+  private static final String USER_AGENT = "Signal-Android " + Util.getCanonicalVersionName() + " (API " + Build.VERSION.SDK_INT + ")";
 
   @Override
   public Response intercept(@NonNull Chain chain) throws IOException {

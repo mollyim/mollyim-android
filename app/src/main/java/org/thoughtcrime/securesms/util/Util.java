@@ -410,6 +410,10 @@ public class Util {
     return BuildConfig.CANONICAL_VERSION_CODE;
   }
 
+  public static String getCanonicalVersionName() {
+    return BuildConfig.CANONICAL_VERSION_NAME;
+  }
+
   /**
    * {@link BuildConfig#VERSION_CODE} may not be the actual version due to ABI split code adding a
    * postfix after BuildConfig is generated.
