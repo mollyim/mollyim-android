@@ -251,7 +251,6 @@ android {
 
     lintOptions {
         abortOnError true
-        checkDependencies true
         baseline file("lint-baseline.xml")
         disable "LintError"
     }
