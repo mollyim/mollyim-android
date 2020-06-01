@@ -1,9 +1,12 @@
 package org.thoughtcrime.securesms.logging;
 
+import android.annotation.SuppressLint;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+@SuppressLint("LogNotSignal")
 public class AndroidLogger extends Log.Logger {
 
   @Override

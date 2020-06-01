@@ -13,11 +13,15 @@ final class SignalPinReminderSchedule implements MegaphoneSchedule {
       return false;
     }
 
-    if (!TextSecurePreferences.isPinV2ReminderEnabled(ApplicationDependencies.getApplication())) {
+    if (!FeatureFlags.pinsForAll()) {
       return false;
     }
 
-    if (!FeatureFlags.pinsForAll()) {
+    if (!SignalStore.pinValues().arePinRemindersEnabled()) {
+      return false;
+    }
+
+    if (!TextSecurePreferences.isPushRegistered(ApplicationDependencies.getApplication())) {
       return false;
     }
 

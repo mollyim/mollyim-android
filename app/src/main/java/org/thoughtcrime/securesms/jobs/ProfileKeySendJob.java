@@ -41,12 +41,19 @@ public class ProfileKeySendJob extends BaseJob {
   private final long              threadId;
   private final List<RecipientId> recipients;
 
+  /**
+   * Suitable for a 1:1 conversation or a GV1 group only.
+   */
   @WorkerThread
   public static ProfileKeySendJob create(@NonNull Context context, long threadId) {
     Recipient conversationRecipient = DatabaseFactory.getThreadDatabase(context).getRecipientForThreadId(threadId);
 
     if (conversationRecipient == null) {
       throw new AssertionError("We have a thread but no recipient!");
+    }
+
+    if (conversationRecipient.isPushV2Group()) {
+      throw new AssertionError("Do not send profile keys directly for GV2");
     }
 
     List<RecipientId> recipients = conversationRecipient.isGroup() ? Stream.of(conversationRecipient.getParticipants()).map(Recipient::getId).toList()
@@ -120,6 +127,7 @@ public class ProfileKeySendJob extends BaseJob {
     List<SignalServiceAddress>             addresses          = Stream.of(destinations).map(t -> RecipientUtil.toSignalServiceAddress(context, t)).toList();
     List<Optional<UnidentifiedAccessPair>> unidentifiedAccess = Stream.of(destinations).map(recipient -> UnidentifiedAccessUtil.getAccessFor(context, recipient)).toList();
     SignalServiceDataMessage.Builder       dataMessage        = SignalServiceDataMessage.newBuilder()
+                                                                                        .asProfileKeyUpdate(true)
                                                                                         .withTimestamp(System.currentTimeMillis())
                                                                                         .withProfileKey(Recipient.self().resolve().getProfileKey());
 

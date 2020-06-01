@@ -158,7 +158,6 @@ public class TextSecurePreferences {
   private static final String NEEDS_MESSAGE_PULL = "pref_needs_message_pull";
 
   private static final String UNIDENTIFIED_ACCESS_CERTIFICATE_ROTATION_TIME_PREF = "pref_unidentified_access_certificate_rotation_time";
-  private static final String UNIDENTIFIED_ACCESS_CERTIFICATE_LEGACY             = "pref_unidentified_access_certificate";
   private static final String UNIDENTIFIED_ACCESS_CERTIFICATE                    = "pref_unidentified_access_certificate_uuid";
   public  static final String UNIVERSAL_UNIDENTIFIED_ACCESS                      = "pref_universal_unidentified_access";
   public  static final String SHOW_UNIDENTIFIED_DELIVERY_INDICATORS              = "pref_show_unidentifed_delivery_indicators";
@@ -187,16 +186,6 @@ public class TextSecurePreferences {
   private static final String HAS_SEEN_VIDEO_RECORDING_TOOLTIP = "camerax.fragment.has.dismissed.video.recording.tooltip";
 
   private static final String STORAGE_MANIFEST_VERSION = "pref_storage_manifest_version";
-
-  public  static final String ENABLE_PINV2_REMINDERS = "pref_signal_enable_pinv2_reminders";
-
-  public static boolean isPinV2ReminderEnabled(@NonNull Context context) {
-    return getBooleanPreference(context, ENABLE_PINV2_REMINDERS, true);
-  }
-
-  public static void setPinV2ReminderEnabled(@NonNull Context context, boolean value) {
-    setBooleanPreference(context, ENABLE_PINV2_REMINDERS, value);
-  }
 
   public static boolean isScreenLockEnabled(@NonNull Context context) {
     return isPassphraseLockEnabled(context);
@@ -571,14 +560,6 @@ public class TextSecurePreferences {
 
   public static byte[] getUnidentifiedAccessCertificate(Context context) {
     return parseCertificate(getStringPreference(context, UNIDENTIFIED_ACCESS_CERTIFICATE, null));
-  }
-
-  public static void setUnidentifiedAccessCertificateLegacy(Context context, byte[] value) {
-    setStringPreference(context, UNIDENTIFIED_ACCESS_CERTIFICATE_LEGACY, Base64.encodeBytes(value));
-  }
-
-  public static byte[] getUnidentifiedAccessCertificateLegacy(Context context) {
-    return parseCertificate(getStringPreference(context, UNIDENTIFIED_ACCESS_CERTIFICATE_LEGACY, null));
   }
 
   private static byte[] parseCertificate(String raw) {

@@ -81,6 +81,9 @@ public class MessageSender {
 
   private static final String TAG = MessageSender.class.getSimpleName();
 
+  /**
+   * Suitable for a 1:1 conversation or a GV1 group only.
+   */
   @WorkerThread
   public static void sendProfileKey(final Context context, final long threadId) {
     ApplicationDependencies.getJobManager().add(ProfileKeySendJob.create(context, threadId));
@@ -378,7 +381,7 @@ public class MessageSender {
     } else if (!forceSms && isPushTextSend(context, recipient, keyExchange)) {
       sendTextPush(recipient, messageId);
     } else {
-      sendSms(context, recipient, messageId);
+      sendSms(recipient, messageId);
     }
   }
 
@@ -409,7 +412,7 @@ public class MessageSender {
     }
   }
 
-  private static void sendSms(Context context, Recipient recipient, long messageId) {}
+  private static void sendSms(Recipient recipient, long messageId) {}
 
   private static void sendMms(Context context, long messageId) {}
 
@@ -496,7 +499,7 @@ public class MessageSender {
         expirationManager.scheduleDeletion(messageId, true, message.getExpiresIn());
       }
     } catch (NoSuchMessageException | MmsException e) {
-      Log.w("Failed to update self-sent message.", e);
+      Log.w(TAG, "Failed to update self-sent message.", e);
     }
   }
 
@@ -519,7 +522,7 @@ public class MessageSender {
         expirationManager.scheduleDeletion(message.getId(), message.isMms(), message.getExpiresIn());
       }
     } catch (NoSuchMessageException e) {
-      Log.w("Failed to update self-sent message.", e);
+      Log.w(TAG, "Failed to update self-sent message.", e);
     }
   }
 

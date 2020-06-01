@@ -163,7 +163,7 @@
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">ယခုလင့်ခ် ကိုဖွင့်နိုင်သည့် app သင့်စက်တွင် မရှိပါ။ </string>
   <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">အသံဖိုင်ပို့နိုင်ရန် မိမိမိုက်ခရိုဖုန်းကို Molly အား အသုံးပြုခွင့်ပေးပါ။</string>
   <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">အသံဖိုင်များပို့နိုင်ရန် Mollyမှ မိုက်ခရိုဖုန်းအား အသုံးပြုခွင့်ရရန် လိုအပ်သည်။ သို့သော် လုံးဝခွင့်မပြုပါ ဟုရွေးထားပြီး ဖြစ်နေသဖြင့် အပ်ပလီကေးရှင်း အပြင်အဆင်သို့ သွား၍ ခွင့်ပြုချက်များကို ရွေးချယ်ကာ မိုက်ခရိုဖုန်းကို အသုံးပြုနိုင်အောင် ပြုလုပ်ပါ။</string>
-  <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">%s ကို ဖုန်းခေါ်ရန် မိုက်ခရိုဖုန်း နှင့် ကင်မရာကို Molly အား အသုံးပြုခွင့်ပေးပါ။</string>
+  <!-- Removed by excludeNonTranslatables <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">%s ကို ဖုန်းခေါ်ရန် မိုက်ခရိုဖုန်း နှင့် ကင်မရာကို Signal အား အသုံးပြုခွင့်ပေးပါ။</string> -->
   <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">%sဖုန်းခေါ်ဆိုမှုပြုနိုင်ရန် Mollyမှ မိုက်ခရိုဖုန်း နှင့် ကင်မရာအား အသုံးပြုခွင့်ရရန်လိုအပ်သည်။ သို့သော် အမြဲတမ်းတွက် ခွင့်မပြုပါ ဟုရွေးထားပြီး ဖြစ်နေသဖြင့် အပ်ပလီကေးရှင်း အပြင်အဆင်သို့ သွား၍ ခွင့်ပြုချက်များကို ရွေးချယ်ကာ မိုက်ခရိုဖုန်း နှင့် ကင်မရာကို အသုံးပြုနိုင်အောင် ပြုလုပ်ပါ။</string>
   <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">ဓါတ်ပုံနှင့် ဗီဒီယိုရိုက်နိုင်ရန် Molly မှ မိမိကင်မရာကို အသုံးပြုခွင့်ပေးပါ။</string>
   <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">ဓါတ်ပုံနှင့် ဗီဒီယိုရိုက်နိုင်ရန် Molly မှ မိမိကင်မရာကို အသုံးပြုခွင့်ပေးထားရန်လိုသည်။  သို့သော် လုံးဝခွင့်မပြုပါ ဟုရွေးထားပြီး ဖြစ်နေသဖြင့် အပ်ပလီကေးရှင်း အပြင်အဆင်သို့ သွား၍ ခွင့်ပြုချက်များကို ရွေးချယ်ကာ ကင်မရာကို အသုံးပြုနိုင်အောင် ပြုလုပ်ပါ။</string>
@@ -475,7 +475,7 @@
   <string name="RegistrationActivity_invalid_number">နံပါတ် မှားနေသည်</string>
   <string name="RegistrationActivity_the_number_you_specified_s_is_invalid">သင်ထည့်လိုက်သော နံပါတ် ( %s) သည်မှားယွင်းနေသည်။</string>
   <string name="RegistrationActivity_missing_google_play_services">Google Play မရှိပါ</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">သင့်ဖုန်းတွင် Google Play Services လိုအပ်နေပါသည်။ သင် Signal ကို အသုံးပြုနိုင်ပါတယ် 
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">သင့်ဖုန်းတွင် Google Play Services လိုအပ်နေပါသည်။ သင် Signal ကို အသုံးပြုနိုင်ပါတယ်
 ဒီဖွဲ့စည်းပုံအကျိုးရလဒ်ကယုံကြည်ဖို့အတွက် ဒါမှမဟုတ် စွမ်းဆောင်ရည် ကောင်းဖို့အတွက်ဖြစ်နိုင်ပါတယ်။
 \n\n သင်က  ကျွမ်းကျင်အဆင့် မဟုတ်လျှင် Android Rom market ကို သွားရန် မလိုပါ။ သို့မဟုတ် အမှားတစ်ခုခုဟု ထင်ပါက ဖြေရှင်းပေးနိုင်ဖို့အတွက် support@signal.org သို့ ဆက်သွယ်ပေးပါ။</string>
   <string name="RegistrationActivity_i_understand">နားလည် လက်ခံပါသည်</string>

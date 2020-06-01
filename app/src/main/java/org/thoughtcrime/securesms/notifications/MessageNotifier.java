@@ -649,7 +649,7 @@ public class MessageNotifier {
     } catch (Throwable t) {
       // NOTE :: I don't totally trust this thing, so I'm catching
       // everything.
-      Log.w("MessageNotifier", t);
+      Log.w(TAG, t);
     }
   }
 

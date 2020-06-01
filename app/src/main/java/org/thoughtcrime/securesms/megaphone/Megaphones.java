@@ -162,9 +162,6 @@ public final class Megaphones {
                               if (includedFailure) {
                                 SignalStore.pinValues().onEntrySkipWithWrongGuess();
                               }
-                              if (!TextSecurePreferences.isPinV2ReminderEnabled(context)) {
-                                controller.onMegaphoneSnooze(Event.PIN_REMINDER);
-                              }
                             }
 
                             @Override

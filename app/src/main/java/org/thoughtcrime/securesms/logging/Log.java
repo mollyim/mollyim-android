@@ -119,10 +119,13 @@ public class Log {
   }
 
   private static String redact(final String message) {
-    if (!BuildConfig.DEBUG && message != null)
-      return Scrubber.scrub(message).toString();
-    else
+    if (message == null) {
+      return null;
+    }
+    if (BuildConfig.DEBUG || message.isEmpty()) {
       return message;
+    }
+    return Scrubber.scrub(message).toString();
   }
 
   public static abstract class Logger {

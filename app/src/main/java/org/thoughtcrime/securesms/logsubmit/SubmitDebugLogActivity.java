@@ -51,8 +51,8 @@ public class SubmitDebugLogActivity extends BaseActionBarActivity implements Sub
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    dynamicTheme.onCreate(this);
     super.onCreate(savedInstanceState);
+    dynamicTheme.onCreate(this);
     setContentView(R.layout.submit_debug_log_activity);
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

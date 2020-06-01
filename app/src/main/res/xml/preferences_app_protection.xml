@@ -107,11 +107,9 @@
         android:title="@string/preferences_app_protection__change_your_pin" />
 
     <org.thoughtcrime.securesms.components.SwitchPreferenceCompat
-        android:defaultValue="true"
-        android:enabled="false"
-        android:key="pref_signal_enable_pinv2_reminders"
-        android:summary="@string/preferences_app_protection__enable_pinv2_reminders_summary"
-        android:title="@string/preferences_app_protection__enable_pinv2_reminders" />
+        android:key="pin.pin_reminders_enabled"
+        android:summary="@string/preferences_app_protection__reminders_help_you_remember_your_pin"
+        android:title="@string/preferences_app_protection__pin_reminders" />
 
     <org.thoughtcrime.securesms.components.SwitchPreferenceCompat
         android:defaultValue="false"
