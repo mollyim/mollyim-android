@@ -22,6 +22,7 @@ import org.thoughtcrime.securesms.migrations.AvatarIdRemovalMigrationJob;
 import org.thoughtcrime.securesms.migrations.PassingMigrationJob;
 import org.thoughtcrime.securesms.migrations.DatabaseMigrationJob;
 import org.thoughtcrime.securesms.migrations.MigrationCompleteJob;
+import org.thoughtcrime.securesms.migrations.PinRemindersMigrationJob;
 import org.thoughtcrime.securesms.migrations.RegistrationPinV2MigrationJob;
 import org.thoughtcrime.securesms.migrations.StickerAdditionMigrationJob;
 import org.thoughtcrime.securesms.migrations.StorageCapabilityMigrationJob;
@@ -109,6 +110,7 @@ public final class JobManagerFactories {
       put(StickerAdditionMigrationJob.KEY,           new StickerAdditionMigrationJob.Factory());
       put(StorageCapabilityMigrationJob.KEY,         new StorageCapabilityMigrationJob.Factory());
       put(StorageServiceMigrationJob.KEY,            new StorageServiceMigrationJob.Factory());
+      put(PinRemindersMigrationJob.KEY,              new PinRemindersMigrationJob.Factory());
 
       // Dead jobs
       put(FailingJob.KEY,                            new FailingJob.Factory());
