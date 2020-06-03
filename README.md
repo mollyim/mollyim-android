@@ -26,23 +26,25 @@ Molly has unique features compared to Signal:
 - Protects database with [passphrase encryption](https://github.com/mollyim/mollyim-android/wiki/Data-Encryption-At-Rest)
 - Locks down the app automatically after you go a certain time without unlocking your device
 - Securely shreds sensitive data from RAM
-- PIN reminders are optional
 - Logging debug messages can be disabled
 
-Besides that, you will find all the features of Signal on Molly with the only exception of the SMS/MMS integration, plus some minor tweaks and improvements.
+Besides that, you will find all the features of Signal plus some minor tweaks and improvements. The only exception is the SMS integration, that was removed for compatibility reasons.
 
 ## Compatibility with Signal
 
-Molly and Signal can be installed on the same device.
+Molly and Signal can be installed on the same device. If you need a 2nd number to chat, you can use Molly along with Signal.
 
-However, you cannot use your phone number on both apps at the same time. Only the last app to register will remain active, and the other will go offline. To get over this, remember that you are not limited to use only your SIM card number, but also any number on you can receive SMS or phone calls at registration.
+However, you cannot use the same phone number on both apps at the same time. Only the last app to register will remain active, and the other will go offline. To solve this, remember that you are not limited to use only your main phone number, but also any number on you can receive SMS or phone calls at registration.
 
 ## Backups
 
-Backups are fully compatible. You can restore [Signal's backups](https://support.signal.org/hc/en-us/articles/360007059752-Backup-and-Restore-Messages) in Molly, and the other way around. To do that, simply rename the backup file and copy it into the expected path, so the app can find the backup to restore during installation:
+Backups are fully compatible. Signal's [backups](https://support.signal.org/hc/en-us/articles/360007059752-Backup-and-Restore-Messages) can be restored in Molly, and the other way around. To do that, simply rename the backup file and copy it into the expected path, so the app can find the backup to restore during installation.
 
-- `Device storage/Signal/Backups/Signal-year-month-date-time.backup`
-- `Device storage/Molly/Backups/Molly-year-month-date-time.backup`
+The path within internal storage where backups are written by Signal:
+- `Signal/Backups/Signal-year-month-date-time.backup`
+
+And Molly:
+- `Molly/Backups/Molly-year-month-date-time.backup`
 
 ## Feedback
 
