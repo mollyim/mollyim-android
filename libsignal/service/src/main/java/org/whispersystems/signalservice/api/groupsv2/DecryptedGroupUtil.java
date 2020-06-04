@@ -88,8 +88,8 @@ public final class DecryptedGroupUtil {
   /**
    * The UUID of the member that made the change.
    */
-  public static UUID editorUuid(DecryptedGroupChange change) {
-    return change != null ? UuidUtil.fromByteStringOrUnknown(change.getEditor()) : UuidUtil.UNKNOWN_UUID;
+  public static Optional<UUID> editorUuid(DecryptedGroupChange change) {
+    return Optional.fromNullable(change != null ? UuidUtil.fromByteStringOrNull(change.getEditor()) : null);
   }
 
   public static Optional<DecryptedMember> findMemberByUuid(Collection<DecryptedMember> members, UUID uuid) {
@@ -171,7 +171,7 @@ public final class DecryptedGroupUtil {
     if (removed) {
       return builder.clearMembers()
                     .addAllMembers(decryptedMembers)
-                    .setVersion(revision)
+                    .setRevision(revision)
                     .build();
     } else {
       return group;
@@ -181,7 +181,7 @@ public final class DecryptedGroupUtil {
   public static DecryptedGroup apply(DecryptedGroup group, DecryptedGroupChange change)
       throws NotAbleToApplyChangeException
   {
-    if (change.getVersion() != group.getVersion() + 1) {
+    if (change.getRevision() != group.getRevision() + 1) {
       throw new NotAbleToApplyChangeException();
     }
 
@@ -266,7 +266,7 @@ public final class DecryptedGroupUtil {
              .build());
     }
 
-    return builder.setVersion(change.getVersion()).build();
+    return builder.setRevision(change.getRevision()).build();
   }
 
   private static int indexOfUuid(List<DecryptedMember> memberList, ByteString uuid) {

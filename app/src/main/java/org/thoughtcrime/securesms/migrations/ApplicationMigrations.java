@@ -182,7 +182,7 @@ public class ApplicationMigrations {
     }
 
     if (lastSeenVersion < Version.PIN_REMINDER) {
-      jobs.put(Version.PIN_REMINDER, new PinRemindersMigrationJob());
+      jobs.put(Version.PIN_REMINDER, new PinReminderMigrationJob());
     }
 
     return jobs;

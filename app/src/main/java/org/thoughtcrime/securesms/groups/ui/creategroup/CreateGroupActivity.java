@@ -29,8 +29,8 @@ public class CreateGroupActivity extends ContactSelectionActivity {
 
   private View next;
 
-  public static Intent newIntent(@NonNull Context context) {
-    if (!FeatureFlags.newGroupUI()) {
+  public static Intent newIntent(@NonNull Context context, boolean forceV1) {
+    if (forceV1 || !FeatureFlags.newGroupUI() || !FeatureFlags.groupsV2create()) {
       return new Intent(context, GroupCreateActivity.class);
     }
 
@@ -44,6 +44,7 @@ public class CreateGroupActivity extends ContactSelectionActivity {
                                                                   : ContactsCursorLoader.DisplayMode.FLAG_PUSH;
 
     intent.putExtra(ContactSelectionListFragment.DISPLAY_MODE, displayMode);
+    intent.putExtra(ContactSelectionListFragment.SELECTION_LIMIT, FeatureFlags.gv2GroupCapacity() - 1);
 
     return intent;
   }
@@ -81,6 +82,10 @@ public class CreateGroupActivity extends ContactSelectionActivity {
 
   @Override
   public void onContactSelected(Optional<RecipientId> recipientId, String number) {
+    if (contactsFragment.hasQueryFilter()) {
+      getToolbar().clear();
+    }
+
     if (contactsFragment.getSelectedContactsCount() >= MINIMUM_GROUP_SIZE) {
       enableNext();
     }
@@ -88,6 +93,10 @@ public class CreateGroupActivity extends ContactSelectionActivity {
 
   @Override
   public void onContactDeselected(Optional<RecipientId> recipientId, String number) {
+    if (contactsFragment.hasQueryFilter()) {
+      getToolbar().clear();
+    }
+
     if (contactsFragment.getSelectedContactsCount() < MINIMUM_GROUP_SIZE) {
       disableNext();
     }

@@ -56,7 +56,7 @@ final class GroupsV2UpdateMessageProducer {
       return context.getString(R.string.MessageRecord_s_invited_you_to_the_group, describe(selfPending.get().getAddedByUuid()));
     }
 
-    if (group.getVersion() == 0) {
+    if (group.getRevision() == 0) {
       Optional<DecryptedMember> foundingMember = DecryptedGroupUtil.firstMember(group.getMembersList());
       if (foundingMember.isPresent()) {
         ByteString foundingMemberUuid = foundingMember.get().getUuid();
@@ -140,16 +140,16 @@ final class GroupsV2UpdateMessageProducer {
     boolean editorIsYou = change.getEditor().equals(selfUuidBytes);
 
     for (ByteString member : change.getDeleteMembersList()) {
-      boolean newMemberIsYou = member.equals(selfUuidBytes);
+      boolean removedMemberIsYou = member.equals(selfUuidBytes);
 
       if (editorIsYou) {
-        if (newMemberIsYou) {
+        if (removedMemberIsYou) {
           updates.add(context.getString(R.string.MessageRecord_you_left_the_group));
         } else {
           updates.add(context.getString(R.string.MessageRecord_you_removed_s, describe(member)));
         }
       } else {
-        if (newMemberIsYou) {
+        if (removedMemberIsYou) {
           updates.add(context.getString(R.string.MessageRecord_s_removed_you_from_the_group, describe(change.getEditor())));
         } else {
           if (member.equals(change.getEditor())) {

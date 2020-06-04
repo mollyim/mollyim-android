@@ -103,7 +103,7 @@ public final class GroupsV2Api {
       DecryptedGroup       decryptedGroup  = groupOperations.decryptGroup(change.getGroupState());
       DecryptedGroupChange decryptedChange = groupOperations.decryptChange(change.getGroupChange(), false);
 
-      if (decryptedChange.getVersion() != decryptedGroup.getVersion()) {
+      if (decryptedChange.getRevision() != decryptedGroup.getRevision()) {
         throw new InvalidGroupStateException();
       }
 
@@ -132,15 +132,11 @@ public final class GroupsV2Api {
     return form.getKey();
   }
 
-  public DecryptedGroupChange patchGroup(GroupChange.Actions groupChange,
-                                         GroupSecretParams groupSecretParams,
-                                         GroupsV2AuthorizationString authorization)
-      throws IOException, VerificationFailedException, InvalidGroupStateException
+  public GroupChange patchGroup(GroupChange.Actions groupChange,
+                                GroupsV2AuthorizationString authorization)
+      throws IOException
   {
-    GroupChange groupChanges = socket.patchGroupsV2Group(groupChange, authorization.toString());
-
-    return groupsOperations.forGroup(groupSecretParams)
-                           .decryptChange(groupChanges, true);
+    return socket.patchGroupsV2Group(groupChange, authorization.toString());
   }
 
   private static HashMap<Integer, AuthCredentialResponse> parseCredentialResponse(CredentialResponse credentialResponse)

@@ -309,6 +309,7 @@
   <string name="ConversationListItemAction_archived_conversations_d">Gearchiveerde gesprekken (%d)</string>
   <!--ConversationTitleView-->
   <string name="ConversationTitleView_verified">Geverifieerd</string>
+  <string name="ConversationTitleView_you">Jij</string>
   <!--CreateProfileActivity-->
   <string name="CreateProfileActivity__profile">Profiel</string>
   <string name="CreateProfileActivity_error_setting_profile_photo">Fout bij instellen van profielfoto</string>
@@ -438,6 +439,7 @@
   <string name="ManageGroupActivity_on">Aan</string>
   <string name="ManageGroupActivity_add_members">Leden toevoegen</string>
   <string name="ManageGroupActivity_view_all_members">Alle leden weergeven</string>
+  <string name="ManageGroupActivity_none">Niets</string>
   <string name="ManageGroupActivity_you_dont_have_the_rights_to_do_this">Je hebt geen recht om dit te doen</string>
   <string name="ManageGroupActivity_not_capable">Één of meer van de door jou toegevoegde personen ondersteunen de nieuwe groepsgesprekken nog niet. Zij moeten Signal bijwerken.</string>
   <string name="ManageGroupActivity_failed_to_update_the_group">Bijwerken van de groep is mislukt</string>
@@ -464,6 +466,12 @@
   <!--CropImageActivity-->
   <string name="CropImageActivity_group_avatar">Groepsafbeelding</string>
   <string name="CropImageActivity_profile_avatar">Profielfoto</string>
+  <!--ImageEditorFragment-->
+  <!-- Removed by excludeNonTranslatables <string name="ImageEditorFragment_no_faces_detected">Er zijn geen gezichten gedetecteerd</string> -->
+  <!--ImageEditorHud-->
+  <string name="ImageEditorHud_blur_faces">Vervaag gezichten</string>
+  <string name="ImageEditorHud_draw_anywhere_to_blur">Teken waar je maar wilt om iets te vervagen</string>
+  <string name="ImageEditorHud_draw_to_blur_additional_faces_or_areas">Teken om meer gezichten of gebieden te vervagen</string>
   <!--InputPanel-->
   <string name="InputPanel_tap_and_hold_to_record_a_voice_message_release_to_send">Tik en houd vast om een audiobericht op te nemen, laat los om te verzenden</string>
   <!--InviteActivity-->
@@ -991,6 +999,7 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Molly heeft toegang tot de camera nodig om een QR-code te scannen, maar deze is pertinent geweigerd. Ga naar de instellingen voor deze app, selecteer ‘Machtigingen’ en schakel ‘Camera’ in.</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">Kan QR-code niet scannen zonder toegang tot camera</string>
   <!--ViewOnceMessageActivity-->
+  <!--AudioView-->
   <!--MessageDisplayHelper-->
   <string name="MessageDisplayHelper_bad_encrypted_message">Bericht kan niet worden ontsleuteld</string>
   <string name="MessageDisplayHelper_message_encrypted_for_non_existing_session">Fout: Dit bericht is versleuteld voor een niet-bestaande sessie</string>
@@ -1146,6 +1155,7 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <string name="contact_selection_activity__enter_name_or_number">Typ naam of nummer</string>
   <string name="contact_selection_activity__invite_to_signal">Uitnodigen voor Signal</string>
   <string name="contact_selection_activity__new_group">Nieuwe groep</string>
+  <!--temporary for internal testing-->
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">Ingevoerde tekst wissen</string>
   <string name="contact_filter_toolbar__show_keyboard_description">Toetsenbord weergeven</string>
@@ -1554,7 +1564,7 @@ Signal zal nu toestemming vragen om je contactenlijst te lezen, om na te gaan wi
   <string name="preferences_storage__review_storage">Alle bestanden bekijken</string>
   <string name="preferences_advanced__use_system_emoji">Gebruik systeem-emoji</string>
   <string name="preferences_advanced__disable_signal_built_in_emoji_support">Schakel de ingebouwde emoji-ondersteuning van Signal uit</string>
-  <string name="preferences_advanced__relay_all_calls_through_the_signal_server_to_avoid_revealing_your_ip_address">Om te voorkomen dat je gesprekspartner je IP-adres kan achterhalen worden oproepen met niet-contactpersonen altijd omgeleid via de Signal-server. Door deze optie in te schakelen wordt dat ook gedaan voor contacten wie wel in je contactenlijst staan. Dit leidt echter tot een verminderde geluids- en videokwaliteit.</string>
+  <string name="preferences_advanced__relay_all_calls_through_the_signal_server_to_avoid_revealing_your_ip_address">Om te voorkomen dat je gesprekspartner je IP-adres kan achterhalen worden Signal-oproepen met niet-contactpersonen altijd omgeleid via de Signal-server. Door deze optie in te schakelen wordt dat ook gedaan voor Signal-oproepen met contacten wie wel in je contactenlijst staan. Dit leidt echter tot een verminderde geluids- en videokwaliteit.</string>
   <string name="preferences_advanced__always_relay_calls">Alle oproepen omleiden</string>
   <string name="preferences_app_protection__app_access">Toegang tot app</string>
   <string name="preferences_app_protection__communication">Communicatie</string>
@@ -1608,6 +1618,9 @@ Signal zal nu toestemming vragen om je contactenlijst te lezen, om na te gaan wi
   <string name="conversation_list_batch__menu_select_all">Alles selecteren</string>
   <string name="conversation_list_batch_archive__menu_archive_selected">Selectie archiveren</string>
   <string name="conversation_list_batch_unarchive__menu_unarchive_selected">Selectie dearchiveren</string>
+  <string name="conversation_list_batch__menu_unarchive_selected">Selectie dearchiveren</string>
+  <string name="conversation_list_batch__menu_mark_as_read">Markeren als gelezen</string>
+  <string name="conversation_list_batch__menu_mark_as_unread">Voor mij als ongelezen markeren</string>
   <!--conversation_list-->
   <string name="conversation_list_settings_shortcut">Snelkoppeling naar instellingen</string>
   <string name="conversation_list_search_description">Zoeken</string>
@@ -1629,7 +1642,7 @@ Signal zal nu toestemming vragen om je contactenlijst te lezen, om na te gaan wi
   <!--conversation-->
   <string name="conversation__menu_add_attachment">Bijlage toevoegen</string>
   <string name="conversation__menu_edit_group">Groep aanpassen</string>
-  <string name="conversation__menu_manage_group">Groep beheren</string>
+  <string name="conversation__menu_group_settings">Groepsinstellingen</string>
   <string name="conversation__menu_leave_group">Groep verlaten</string>
   <string name="conversation__menu_view_all_media">Alle media</string>
   <string name="conversation__menu_conversation_settings">Gespreksinstellingen</string>

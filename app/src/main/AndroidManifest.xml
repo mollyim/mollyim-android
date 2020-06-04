@@ -245,6 +245,7 @@
               android:theme="@style/TextSecure.LightNoActionBar" />
 
     <activity android:name=".groups.ui.managegroup.ManageGroupActivity"
+              android:windowSoftInputMode="stateAlwaysHidden"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
 
     <activity android:name=".migrations.ApplicationMigrationActivity"
@@ -326,10 +327,15 @@
               android:windowSoftInputMode="stateHidden"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
 
-        <activity android:name=".MediaPreviewActivity"
+    <activity android:name=".MediaPreviewActivity"
               android:label="@string/AndroidManifest__media_preview"
               android:windowSoftInputMode="stateHidden"
               android:launchMode="singleTask"
+              android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
+
+    <activity android:name=".AvatarPreviewActivity"
+              android:label="@string/AndroidManifest__media_preview"
+              android:windowSoftInputMode="stateHidden"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
 
     <activity android:name=".mediaoverview.MediaOverviewActivity"
@@ -392,7 +398,7 @@
 
     <activity android:name=".profiles.edit.EditProfileActivity"
               android:theme="@style/TextSecure.LightRegistrationTheme"
-              android:windowSoftInputMode="adjustResize" />
+              android:windowSoftInputMode="stateVisible|adjustResize" />
 
     <activity android:name=".lock.v2.CreateKbsPinActivity"
             android:theme="@style/TextSecure.LightRegistrationTheme"
@@ -462,7 +468,7 @@
     <service android:enabled="true" android:name="org.thoughtcrime.securesms.service.WebRtcCallService"/>
     <service android:enabled="true" android:exported="false" android:name=".service.KeyCachingService"/>
     <service android:enabled="true" android:exported="false" android:name=".service.WipeMemoryService"/>
-    <service android:enabled="true" android:name=".service.IncomingMessageObserver$ForegroundService"/>
+    <service android:enabled="true" android:name=".messages.IncomingMessageObserver$ForegroundService"/>
 
     <service android:name=".service.AccountAuthenticatorService" android:exported="true">
         <intent-filter>
@@ -488,7 +494,9 @@
 
     <service android:name=".service.GenericForegroundService"/>
 
-    <service android:name=".gcm.FcmService">
+    <service android:name=".gcm.FcmFetchService" />
+
+    <service android:name=".gcm.FcmReceiveService">
         <intent-filter>
             <action android:name="com.google.firebase.MESSAGING_EVENT" />
         </intent-filter>

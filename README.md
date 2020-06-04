@@ -67,6 +67,6 @@ License and legal notices in the original [README](README-ORIG.md).
 
 ## Disclaimer
 
-This project is *NOT* sponsored by Signal Messenger LLC. or Signal Foundation.
+This project is *NOT* sponsored by Signal Messenger LLC or Signal Foundation.
 
-The software is produced independently of Signal Messenger and carries no guarantee about quality, security or anything else. Use at your own risk.
+The software is produced independently of Signal and carries no guarantee about quality, security or anything else. Use at your own risk.

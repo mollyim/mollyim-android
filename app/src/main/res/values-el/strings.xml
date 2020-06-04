@@ -111,7 +111,7 @@
   <string name="CameraContacts_signal_contacts">Επαφές Signal</string>
   <string name="CameraContacts_signal_groups">Ομάδες Signal</string>
   <string name="CameraContacts_you_can_share_with_a_maximum_of_n_conversations">Μπορείς να μοιραστείς το πολύ με %d συνομιλίες.</string>
-  <string name="CameraContacts_select_signal_recipients">Επιλογή παραληπτών/τριών Signal</string>
+  <string name="CameraContacts_select_signal_recipients">Επιλογή παραληπτών Signal</string>
   <string name="CameraContacts_no_signal_contacts">Δεν υπάρχουν επαφές Signal</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">Μπορείς να στείλεις φωτογραφίες σε επαφές Signal μόνο χρησιμοποιώντας το κουμπί της κάμερας.</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">Δεν βρήκες αυτόν ή αυτήν που ψάχνεις;</string>
@@ -309,6 +309,7 @@
   <string name="ConversationListItemAction_archived_conversations_d">Αρχειοθετημένες συνομιλίες (%d)</string>
   <!--ConversationTitleView-->
   <string name="ConversationTitleView_verified">Επιβεβαιωμένος</string>
+  <string name="ConversationTitleView_you">Εσύ</string>
   <!--CreateProfileActivity-->
   <string name="CreateProfileActivity__profile">Προφίλ</string>
   <string name="CreateProfileActivity_error_setting_profile_photo">Σφάλμα κατά τον καθορισμό φωτογραφίας προφίλ</string>
@@ -381,7 +382,7 @@
   <string name="GroupCreateActivity_menu_apply_button">Εφαρμογή</string>
   <string name="GroupCreateActivity_creating_group">Δημιουργία %1$s…</string>
   <string name="GroupCreateActivity_updating_group">Ενημέρωση %1$s…</string>
-  <string name="GroupCreateActivity_cannot_add_non_push_to_existing_group">Δεν μπορέσαμε να προσθέσουμε τον/την %1$s επειδή δεν είναι χρήστης/τρια του Signal.</string>
+  <string name="GroupCreateActivity_cannot_add_non_push_to_existing_group">Δεν μπορέσαμε να προσθέσουμε τον/την %1$s επειδή δεν είναι χρήστης του Signal.</string>
   <string name="GroupCreateActivity_loading_group_details">Φόρτωση λεπτομέρειων ομάδας…</string>
   <string name="GroupCreateActivity_youre_already_in_the_group">Είσαι ήδη μέλος αυτής της ομάδας.</string>
   <string name="GroupCreateActivity_remove_member_description">Αφαίρεση μέλους</string>
@@ -438,6 +439,7 @@
   <string name="ManageGroupActivity_on">Ενεργοποιημένο</string>
   <string name="ManageGroupActivity_add_members">Προσθήκη μελών</string>
   <string name="ManageGroupActivity_view_all_members">Προβολή όλων των μελών</string>
+  <string name="ManageGroupActivity_none">Κανένα</string>
   <string name="ManageGroupActivity_you_dont_have_the_rights_to_do_this">Δεν έχεις το δικαίωμα να το κάνεις</string>
   <string name="ManageGroupActivity_not_capable">Κάποιος/α που πρόσθεσες δεν υποστηρίζει τις νέες ομάδες και πρέπει να αναβαθμίσει το Signal</string>
   <string name="ManageGroupActivity_failed_to_update_the_group">Αποτυχία ενημέρωσης της ομάδας</string>
@@ -464,6 +466,8 @@
   <!--CropImageActivity-->
   <string name="CropImageActivity_group_avatar">Εικόνα ομάδας</string>
   <string name="CropImageActivity_profile_avatar">Εικόνα προφίλ</string>
+  <!--ImageEditorFragment-->
+  <!--ImageEditorHud-->
   <!--InputPanel-->
   <string name="InputPanel_tap_and_hold_to_record_a_voice_message_release_to_send">Πάτα και κράτα πατημένο για να ηχογραφήσεις ένα φωνητικό μήνυμα, άφησε το κουμπί για αποστολή</string>
   <!--InviteActivity-->
@@ -574,14 +578,14 @@
   <string name="MediaSendActivity_camera_unavailable">Η κάμερα δεν είναι διαθέσιμη.</string>
   <string name="MediaSendActivity_message_to_s">Μήνυμα προς τον/την %s</string>
   <string name="MediaSendActivity_message">Μήνυμα</string>
-  <string name="MediaSendActivity_select_recipients">Επιλογή παραληπτών/τριών</string>
+  <string name="MediaSendActivity_select_recipients">Επιλογή παραληπτών</string>
   <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Το Molly χρειάζεται πρόσβαση στις επαφές σου για να μπορέσει να τις εμφανίσει. </string>
   <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Το Molly χρειάζεται τα δικαιώματα Επαφών για την εμφάνιση των επαφών σου, αλλά αυτά δεν έχουν δοθεί μόνιμα. Παρακαλώ πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα \"Δικαιώματα\", και ενεργοποίησε τις \"Επαφές\".</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="one">Δεν μπορείς να μοιραστείς πάνω από %d αντικείμενο.</item>
     <item quantity="other">Δεν μπορείς να μοιραστείς πάνω από %d αντικείμενα.</item>
   </plurals>
-  <string name="MediaSendActivity_select_recipients_description">Επιλογή παραληπτών/τριών</string>
+  <string name="MediaSendActivity_select_recipients_description">Επιλογή παραληπτών</string>
   <string name="MediaSendActivity_tap_here_to_make_this_message_disappear_after_it_is_viewed">Πάτα εδώ για να κάνεις αυτό το μήνυμα να εξαφανιστεί αφού διαβαστεί.</string>
   <!--MediaRepository-->
   <string name="MediaRepository_all_media">Όλα τα πολυμέσα</string>
@@ -800,7 +804,7 @@
   <string name="RegistrationActivity_the_number_you_specified_s_is_invalid">Ο αριθμός που έγραψες (%s)
 δεν είναι έγκυρος.</string>
   <string name="RegistrationActivity_missing_google_play_services">Υπηρεσίες Google Play που λείπουν</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Αυτή η συσκευή δεν έχει τις Υπηρεσίες Google Play. Μπορείς και πάλι να χρησιμοποιήσεις το Signal, αλλά αυτή η διαμόρφωση μπορεί να οδηγήσει σε μειωμένη αξιοπιστία και επιδόσεις.\n\nΑν δεν είσαι προηγμένος/η χρήστης/τρια, αν δεν έχεις εγκαταστήσει κάποιο εναλλακτικό Android ROM, ή αν νομίζεις πως βλέπεις αυτό το μήνυμα από λάθος, παρακαλώ επικοινώνησε με το support@signal.org για να σε βοηθήσουμε με την αποσφαλμάτωση.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Αυτή η συσκευή δεν έχει τις Υπηρεσίες Google Play. Μπορείς και πάλι να χρησιμοποιήσεις το Signal, αλλά αυτή η διαμόρφωση μπορεί να οδηγήσει σε μειωμένη αξιοπιστία και επιδόσεις.\n\nΑν δεν είσαι προηγμένος/η χρήστης, αν δεν έχεις εγκαταστήσει κάποιο εναλλακτικό Android ROM, ή αν νομίζεις πως βλέπεις αυτό το μήνυμα από λάθος, παρακαλώ επικοινώνησε με το support@signal.org για να σε βοηθήσουμε με την αποσφαλμάτωση.</string>
   <string name="RegistrationActivity_i_understand">Καταλαβαίνω</string>
   <string name="RegistrationActivity_play_services_error">Σφάλμα υπηρεσιών Play</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Οι υπηρεσίες Google Play αναβαθμίζονται ή είναι προσωρινά μη διαθέσιμες. Παρακαλώ ξαναπροσπάθησε.</string>
@@ -980,6 +984,7 @@
   <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Το Molly χρειάζεται τα δικαιώματα Κάμερας για το σκανάρισμα του κωδικού QR, αλλά αυτά δεν έχουν δοθεί μόνιμα. Παρακαλώ πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα \"Δικαιώματα\", και ενεργοποίησε την \"Κάμερα\".</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">Δεν μπορούμε να σκανάρουμε τον QR κωδικό χωρίς τα δικαιώματα Κάμερας</string>
   <!--ViewOnceMessageActivity-->
+  <!--AudioView-->
   <!--MessageDisplayHelper-->
   <string name="MessageDisplayHelper_bad_encrypted_message">Μήνυμα με πρόβλημα στην κρυπτογράφησή του</string>
   <string name="MessageDisplayHelper_message_encrypted_for_non_existing_session">Το μήνυμα κρυπτογραφήθηκε για μη υπάρχουσα συνεδρία</string>
@@ -1135,6 +1140,7 @@
   <string name="contact_selection_activity__enter_name_or_number">Εισαγωγή ονόματος ή αριθμού</string>
   <string name="contact_selection_activity__invite_to_signal">Πρόσκληση στο Signal</string>
   <string name="contact_selection_activity__new_group">Νέα ομάδα</string>
+  <!--temporary for internal testing-->
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">Καθαρισμός πληκτρολογημένου κειμένου</string>
   <string name="contact_filter_toolbar__show_keyboard_description">Εμφάνιση πληκτρολογίου</string>
@@ -1148,7 +1154,7 @@
   <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Το Molly χρειάζεται τα δικαιώματα Επαφών για την εμφάνιση των επαφών σου, αλλά αυτά δεν έχουν δοθεί μόνιμα. Παρακαλώ πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα \"Δικαιώματα\", και ενεργοποίησε τις \"Επαφές\".</string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Σφάλμα κατά τη λήψη επαφών, έλεγξε τη σύνδεσή σου στο δίκτυο</string>
   <string name="ContactSelectionListFragment_username_not_found">Το όνομα χρήστη δε βρέθηκε</string>
-  <string name="ContactSelectionListFragment_s_is_not_a_signal_user">Ο/Η \"%1$s\" δεν είναι χρήστης/τρια του Signal. Παρακαλώ επιβεβαίωσε το όνομα χρήστη και ξαναδοκίμασε.</string>
+  <string name="ContactSelectionListFragment_s_is_not_a_signal_user">Ο/Η \"%1$s\" δεν είναι χρήστης του Signal. Παρακαλώ επιβεβαίωσε το όνομα χρήστη και ξαναδοκίμασε.</string>
   <string name="ContactSelectionListFragment_okay">Εντάξει</string>
   <!--blocked_contacts_fragment-->
   <string name="blocked_contacts_fragment__no_blocked_contacts">Καμία φραγμένη επαφή</string>
@@ -1595,6 +1601,7 @@
   <string name="conversation_list_batch__menu_select_all">Επιλογή όλων</string>
   <string name="conversation_list_batch_archive__menu_archive_selected">Αρχειοθέτηση επιλεγμένων</string>
   <string name="conversation_list_batch_unarchive__menu_unarchive_selected">Απαρχειοθέτηση επιλεγμένων</string>
+  <string name="conversation_list_batch__menu_unarchive_selected">Απαρχειοθέτηση επιλεγμένων</string>
   <!--conversation_list-->
   <string name="conversation_list_settings_shortcut">Συντόμευση Ρυθμίσεων</string>
   <string name="conversation_list_search_description">Αναζήτηση</string>
@@ -1617,7 +1624,6 @@
   <!--conversation-->
   <string name="conversation__menu_add_attachment">Προσθήκη συνημμένου</string>
   <string name="conversation__menu_edit_group">Επεξεργασία ομάδας</string>
-  <string name="conversation__menu_manage_group">Διαχείριση ομάδας</string>
   <string name="conversation__menu_leave_group">Αποχώρηση απ\' την ομάδα</string>
   <string name="conversation__menu_view_all_media">Όλα τα πολυμέσα</string>
   <string name="conversation__menu_conversation_settings">Επιλογές συνομιλίας</string>

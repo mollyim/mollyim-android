@@ -11,7 +11,9 @@ import com.google.android.collect.Sets;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.jobs.ProfileUploadJob;
 import org.thoughtcrime.securesms.jobs.RefreshAttributesJob;
+import org.thoughtcrime.securesms.jobs.RefreshOwnProfileJob;
 import org.thoughtcrime.securesms.jobs.RemoteConfigRefreshJob;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.logging.Log;
@@ -60,9 +62,11 @@ public final class FeatureFlags {
   private static final String PROFILE_FOR_CALLING        = "android.profileForCalling";
   private static final String CALLING_PIP                = "android.callingPip";
   private static final String NEW_GROUP_UI               = "android.newGroupUI";
-  private static final String REACT_WITH_ANY_EMOJI       = "android.reactWithAnyEmoji";
+  private static final String VERSIONED_PROFILES         = "android.versionedProfiles";
   private static final String GROUPS_V2                  = "android.groupsv2";
   private static final String GROUPS_V2_CREATE           = "android.groupsv2.create";
+  private static final String GROUPS_V2_CAPACITY         = "android.groupsv2.capacity";
+  private static final String GROUPS_V2_INTERNAL_TEST    = "android.groupsv2.internalTest";
 
   /**
    * We will only store remote values for flags in this set. If you want a flag to be controllable
@@ -81,7 +85,12 @@ public final class FeatureFlags {
       PROFILE_FOR_CALLING,
       CALLING_PIP,
       NEW_GROUP_UI,
-      REACT_WITH_ANY_EMOJI
+      VERSIONED_PROFILES,
+      GROUPS_V2,
+      GROUPS_V2_CREATE,
+      GROUPS_V2_CAPACITY,
+      NEW_GROUP_UI,
+      GROUPS_V2_INTERNAL_TEST
   );
 
   /**
@@ -103,8 +112,7 @@ public final class FeatureFlags {
    */
   private static final Set<String> HOT_SWAPPABLE = Sets.newHashSet(
       PINS_MEGAPHONE_KILL_SWITCH,
-      ATTACHMENTS_V3,
-      REACT_WITH_ANY_EMOJI
+      ATTACHMENTS_V3
   );
 
   /**
@@ -113,6 +121,7 @@ public final class FeatureFlags {
   private static final Set<String> STICKY = Sets.newHashSet(
       PINS_FOR_ALL_LEGACY,
       PINS_FOR_ALL,
+      VERSIONED_PROFILES,
       GROUPS_V2
   );
 
@@ -128,8 +137,11 @@ public final class FeatureFlags {
    * desired test state.
    */
   private static final Map<String, OnFlagChange> FLAG_CHANGE_LISTENERS = new HashMap<String, OnFlagChange>() {{
-    put(MESSAGE_REQUESTS, (change) -> SignalStore.setMessageRequestEnableTime(change == Change.ENABLED ? System.currentTimeMillis() : 0));
-    put(GROUPS_V2,        (change) -> ApplicationDependencies.getJobManager().add(new RefreshAttributesJob()));
+    put(MESSAGE_REQUESTS,   (change) -> SignalStore.setMessageRequestEnableTime(change == Change.ENABLED ? System.currentTimeMillis() : 0));
+    put(VERSIONED_PROFILES, (change) -> ApplicationDependencies.getJobManager().add(new ProfileUploadJob()));
+    put(GROUPS_V2,          (change) -> ApplicationDependencies.getJobManager().startChain(new RefreshAttributesJob())
+                                                                               .then(new RefreshOwnProfileJob())
+                                                                               .enqueue());
   }};
 
   private static final Map<String, Object> REMOTE_VALUES = new TreeMap<>();
@@ -255,19 +267,31 @@ public final class FeatureFlags {
     return getBoolean(NEW_GROUP_UI, false);
   }
 
-  /** React with Any Emoji */
-  public static boolean reactWithAnyEmoji() {
-    return getBoolean(REACT_WITH_ANY_EMOJI, false);
+  /** Read and write versioned profile information. */
+  public static boolean versionedProfiles() {
+    return getBoolean(VERSIONED_PROFILES, false);
   }
 
   /** Groups v2 send and receive. */
   public static boolean groupsV2() {
-    return org.whispersystems.signalservice.FeatureFlags.ZK_GROUPS && getBoolean(GROUPS_V2, false);
+    return versionedProfiles() && getBoolean(GROUPS_V2, false);
   }
 
   /** Groups v2 send and receive. */
   public static boolean groupsV2create() {
     return groupsV2() && getBoolean(GROUPS_V2_CREATE, false);
+  }
+
+  /**
+   * Maximum number of members allowed in a group.
+   */
+  public static int gv2GroupCapacity() {
+    return getInteger(GROUPS_V2_CAPACITY, 100);
+  }
+
+  /** Groups v2 UI for internal testing. */
+  public static boolean groupsV2internalTest() {
+    return groupsV2() && getBoolean(GROUPS_V2_INTERNAL_TEST, false);
   }
 
   /** Only for rendering debug info. */
@@ -504,10 +528,4 @@ public final class FeatureFlags {
   enum Change {
     ENABLED, DISABLED, CHANGED, REMOVED
   }
-
-  /** Read and write versioned profile information. */
-  public static final boolean VERSIONED_PROFILES = org.whispersystems.signalservice.FeatureFlags.VERSIONED_PROFILES;
-
-  /** Enabled ZKGroups library. */
-  public static final boolean ZK_GROUPS = org.whispersystems.signalservice.FeatureFlags.ZK_GROUPS;
 }

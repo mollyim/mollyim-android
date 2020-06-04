@@ -20,6 +20,7 @@ import org.thoughtcrime.securesms.imageeditor.Renderer;
 import org.thoughtcrime.securesms.imageeditor.RendererContext;
 import org.thoughtcrime.securesms.imageeditor.UndoRedoStackListener;
 import org.thoughtcrime.securesms.imageeditor.renderers.MultiLineTextRenderer;
+import org.thoughtcrime.securesms.imageeditor.renderers.FaceBlurRenderer;
 
 import java.util.HashMap;
 import java.util.LinkedHashSet;
@@ -35,6 +36,7 @@ import java.util.UUID;
  */
 public final class EditorModel implements Parcelable, RendererContext.Ready {
 
+  public static final int Z_MASK     = -1;
   public static final int Z_DRAWING  = 0;
   public static final int Z_STICKERS = 0;
   public static final int Z_TEXT     = 1;
@@ -602,6 +604,21 @@ public final class EditorModel implements Parcelable, RendererContext.Ready {
     return new Point(width, height);
   }
 
+  @NonNull
+  public Point getOutputSizeMaxWidth(int maxDimension) {
+    PointF outputSize = editorElementHierarchy.getOutputSize(size);
+
+    int width  = Math.min(maxDimension, (int) Math.max(MINIMUM_OUTPUT_WIDTH, outputSize.x));
+    int height = (int) (width * outputSize.y / outputSize.x);
+
+    if (height > maxDimension) {
+      height = maxDimension;
+      width  = (int) (height * outputSize.x / outputSize.y);
+    }
+
+    return new Point(width, height);
+  }
+
   @Override
   public void onReady(@NonNull Renderer renderer, @Nullable Matrix cropMatrix, @Nullable Point size) {
     if (cropMatrix != null && size != null && isRendererOfMainImage(renderer)) {
@@ -661,7 +678,10 @@ public final class EditorModel implements Parcelable, RendererContext.Ready {
    */
   public void addElement(@NonNull EditorElement element) {
     pushUndoPoint();
+    addElementWithoutPushUndo(element);
+  }
 
+  public void addElementWithoutPushUndo(@NonNull EditorElement element) {
     EditorElement mainImage = editorElementHierarchy.getMainImage();
     EditorElement parent    = mainImage != null ? mainImage : editorElementHierarchy.getImageRoot();
 
@@ -672,6 +692,36 @@ public final class EditorModel implements Parcelable, RendererContext.Ready {
     }
 
     updateUndoRedoAvailableState(undoRedoStacks);
+  }
+
+  public void clearFaceRenderers() {
+    EditorElement mainImage = editorElementHierarchy.getMainImage();
+    if (mainImage != null) {
+      boolean hasPushedUndo = false;
+      for (int i = mainImage.getChildCount() - 1; i >= 0; i--) {
+        if (mainImage.getChild(i).getRenderer() instanceof FaceBlurRenderer) {
+          if (!hasPushedUndo) {
+            pushUndoPoint();
+            hasPushedUndo = true;
+          }
+          
+          mainImage.deleteChild(mainImage.getChild(i), invalidate);
+        }
+      }
+    }
+  }
+
+  public boolean hasFaceRenderer() {
+    EditorElement mainImage = editorElementHierarchy.getMainImage();
+    if (mainImage != null) {
+      for (int i = mainImage.getChildCount() - 1; i >= 0; i--) {
+        if (mainImage.getChild(i).getRenderer() instanceof FaceBlurRenderer) {
+          return true;
+        }
+      }
+    }
+
+    return false;
   }
 
   public boolean isChanged() {
@@ -740,6 +790,10 @@ public final class EditorModel implements Parcelable, RendererContext.Ready {
     return editorElementHierarchy.getRoot();
   }
 
+  public EditorElement getMainImage() {
+    return editorElementHierarchy.getMainImage();
+  }
+
   public void delete(@NonNull EditorElement editorElement) {
     editorElementHierarchy.getImageRoot().forAllInTree(element -> element.deleteChild(editorElement, invalidate));
   }
@@ -780,4 +834,16 @@ public final class EditorModel implements Parcelable, RendererContext.Ready {
     return editorElementHierarchy.getCropEditorElement().getFlags().isVisible();
   }
 
+  /**
+   * Returns a matrix that maps bounds to the crop area.
+   */
+  public Matrix getInverseCropPosition() {
+    Matrix matrix = new Matrix();
+    matrix.set(findRelativeMatrix(editorElementHierarchy.getMainImage(), editorElementHierarchy.getCropEditorElement()));
+    matrix.postConcat(editorElementHierarchy.getFlipRotate().getLocalMatrix());
+
+    Matrix positionRelativeToCrop = new Matrix();
+    matrix.invert(positionRelativeToCrop);
+    return positionRelativeToCrop;
+  }
 }

@@ -1,6 +1,7 @@
 package org.thoughtcrime.securesms.keyvalue;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.OnLifecycleEvent;
 import androidx.preference.PreferenceDataStore;
 
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
@@ -11,13 +12,15 @@ import org.thoughtcrime.securesms.logging.SignalUncaughtExceptionHandler;
  */
 public final class SignalStore {
 
-  private static final String LAST_PREKEY_REFRESH_TIME      = "last_prekey_refresh_time";
-  private static final String MESSAGE_REQUEST_ENABLE_TIME   = "message_request_enable_time";
+  private static final String LAST_PREKEY_REFRESH_TIME    = "last_prekey_refresh_time";
+  private static final String MESSAGE_REQUEST_ENABLE_TIME = "message_request_enable_time";
 
   private SignalStore() {}
 
   public static void onFirstEverAppLaunch() {
     registrationValues().onFirstEverAppLaunch();
+    uiHints().onFirstEverAppLaunch();
+    tooltips().onFirstEverAppLaunch();
   }
 
   public static @NonNull KbsValues kbsValues() {
@@ -38,6 +41,14 @@ public final class SignalStore {
 
   public static @NonNull StorageServiceValues storageServiceValues() {
     return new StorageServiceValues(getStore());
+  }
+
+  public static @NonNull UiHints uiHints() {
+    return new UiHints(getStore());
+  }
+
+  public static @NonNull TooltipValues tooltips() {
+    return new TooltipValues(getStore());
   }
 
   public static @NonNull GroupsV2AuthorizationSignalStoreCache groupsV2AuthorizationCache() {

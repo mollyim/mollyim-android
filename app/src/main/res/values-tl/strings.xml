@@ -166,6 +166,7 @@
   <string name="ConversationItem_read_more">  Magbasa pa</string>
   <string name="ConversationItem_download_more">  Mag-download pa</string>
   <string name="ConversationItem_pending">  Nakabinbin</string>
+  <string name="ConversationItem_this_message_was_deleted">Ang mensaheng ito ay nabura na.</string>
   <!--ConversationActivity-->
   <string name="ConversationActivity_reset_secure_session_question">I-reset ang secure na sesyon?</string>
   <string name="ConversationActivity_this_may_help_if_youre_having_encryption_problems">Maaari itong makatulong kung ika\'y nagkakaproblema sa encryption ng pag-uusap na ito. Ang iyong mga mensahe ay pananatilihin.</string>
@@ -299,6 +300,7 @@
   <string name="ConversationListItemAction_archived_conversations_d">Mga naka-archive na pag-uusap (%d)</string>
   <!--ConversationTitleView-->
   <string name="ConversationTitleView_verified">Beripikado</string>
+  <string name="ConversationTitleView_you">Ikaw</string>
   <!--CreateProfileActivity-->
   <string name="CreateProfileActivity__profile">Profile</string>
   <string name="CreateProfileActivity_error_setting_profile_photo">Nagka-error sa pagtatakda ng iyong profile photo</string>
@@ -398,6 +400,7 @@
   <string name="ManageGroupActivity_on">On</string>
   <string name="ManageGroupActivity_add_members">Magdagdag ng mga kasapi</string>
   <string name="ManageGroupActivity_view_all_members">Tignan ang lahat ng mga kasapi</string>
+  <string name="ManageGroupActivity_none">Wala</string>
   <!--CustomNotificationsDialogFragment-->
   <string name="CustomNotificationsDialogFragment__custom_notifications">Custom na mga notipikasyon</string>
   <string name="CustomNotificationsDialogFragment__messages">Mga Mensahe</string>
@@ -407,6 +410,8 @@
   <!--CropImageActivity-->
   <string name="CropImageActivity_group_avatar">Avatar ng grupo</string>
   <string name="CropImageActivity_profile_avatar">Avatar</string>
+  <!--ImageEditorFragment-->
+  <!--ImageEditorHud-->
   <!--InputPanel-->
   <string name="InputPanel_tap_and_hold_to_record_a_voice_message_release_to_send">Pindutin at huwag bitawan upang mag-record ng voice message, bitawan upang ipadala</string>
   <!--InviteActivity-->
@@ -721,6 +726,7 @@
   <string name="RegistrationActivity_country_code_description">Country code</string>
   <string name="RegistrationActivity_call">Tawag</string>
   <!--RegistrationLockV2Dialog-->
+  <string name="RegistrationLockV2Dialog_if_you_forget_your_signal_pin_when_registering_again">Kung makalimutan mo ang iyong PIN sa Signal kapag nagrehistro kang muli, hindi mo mabubuksan ang iyong account sa loob ng 7 araw.</string>
   <!--RevealableMessageView-->
   <string name="RevealableMessageView_view_photo">Tingnan ang Larawan</string>
   <string name="RevealableMessageView_view_video">Tingnan ang Video</string>
@@ -813,6 +819,7 @@
   <string name="ThreadRecord_view_once_photo">View-once na larawan</string>
   <string name="ThreadRecord_view_once_video">View-once na video</string>
   <string name="ThreadRecord_view_once_media">View-once na media</string>
+  <string name="ThreadRecord_this_message_was_deleted">Ang mensaheng ito ay nabura na.</string>
   <string name="ThreadRecord_s_is_on_signal">Nasa Signal si %s!</string>
   <string name="ThreadRecord_disappearing_messages_disabled">Naka-disable ang mga naglalahong mensahe</string>
   <string name="ThreadRecord_disappearing_message_time_updated_to_s">Nakatakda ang oras ng naglalahong mensahe sa %s</string>
@@ -864,6 +871,7 @@
   <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Kailangan ng Molly ang pahintulot sa Camera upang makapag-scan ng QR code, ngunit ito ay permanenteng ipinagbabawal. Pumunta sa app settings, piliin ang  \"Mga Pahintulot\", at i-enable ang \"Camera\".</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">Hindi makapag-scan ng QR code nang walang pahintulot sa Camera.</string>
   <!--ViewOnceMessageActivity-->
+  <!--AudioView-->
   <!--MessageDisplayHelper-->
   <string name="MessageDisplayHelper_bad_encrypted_message">Masamang encrypted na mensahe</string>
   <string name="MessageDisplayHelper_message_encrypted_for_non_existing_session">Ang mensahe ay naka-encrypt para sa hindi-umiiral na sesyon.</string>
@@ -922,6 +930,7 @@
   <string name="MessageNotifier_reacted_s_to_your_view_once_photo">Nag-react ng %1$s sa iyong view-once na larawan.</string>
   <string name="MessageNotifier_reacted_s_to_your_view_once_video">Nag-react ng %1$s sa iyong view-once na video.</string>
   <string name="MessageNotifier_reacted_s_to_your_sticker">Nag-react ng %1$s sa iyong sticker.</string>
+  <string name="MessageNotifier_this_message_was_deleted">Ang mensaheng ito ay nabura na.</string>
   <!--Notification Channels-->
   <string name="NotificationChannel_messages">Default</string>
   <string name="NotificationChannel_calls">Mga Tawag</string>
@@ -1011,6 +1020,7 @@
   <string name="contact_selection_activity__enter_name_or_number">Ilagay ang pangalan o numero</string>
   <string name="contact_selection_activity__invite_to_signal">Imbitahan sa Signal</string>
   <string name="contact_selection_activity__new_group">Bagong grupo</string>
+  <!--temporary for internal testing-->
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">Burahin ang inilagay na text</string>
   <string name="contact_filter_toolbar__show_keyboard_description">Ipakita ang keyboard</string>
@@ -1274,6 +1284,10 @@
   <string name="HelpFragment__please_be_as_descriptive_as_possible">Pakiusap na hangga\'t maaari ay ipaliwanag ng mabuti upang matulungan kaming maunawaan ang isyu.</string>
   <string name="HelpFragment__no_email_app_found">Walang nahanap na app na pang-email.</string>
   <!--ReactWithAnyEmojiBottomSheetDialogFragment-->
+  <string name="ReactWithAnyEmojiBottomSheetDialogFragment__activities">Mga Aktibidad</string>
+  <string name="ReactWithAnyEmojiBottomSheetDialogFragment__objects">Mga Bagay</string>
+  <string name="ReactWithAnyEmojiBottomSheetDialogFragment__symbols">Mga Simbulo</string>
+  <string name="ReactWithAnyEmojiBottomSheetDialogFragment__flags">Mga Watawat</string>
   <!--arrays.xml-->
   <string name="arrays__import_export">I-import</string>
   <string name="arrays__use_default">Gamitin ang default</string>
@@ -1458,6 +1472,7 @@
   <string name="conversation_list_batch__menu_select_all">Piliin lahat</string>
   <string name="conversation_list_batch_archive__menu_archive_selected">I-archive ang pinili</string>
   <string name="conversation_list_batch_unarchive__menu_unarchive_selected">Tanggalin sa archive ang pinili</string>
+  <string name="conversation_list_batch__menu_unarchive_selected">Tanggalin sa archive ang pinili</string>
   <!--conversation_list-->
   <string name="conversation_list_settings_shortcut">Shortcut ng settings</string>
   <string name="conversation_list_search_description">Maghanap</string>
@@ -1577,6 +1592,7 @@
   <string name="CreateKbsPinFragment__create_a_new_pin">Lumikha ng bagong PIN</string>
   <string name="CreateKbsPinFragment__you_can_choose_a_new_pin_as_long_as_this_device_is_registered">Mapapalitan mo ang iyong PIN hangga\'t rehistrado ang device na ito.</string>
   <string name="CreateKbsPinFragment__create_your_pin">Likhain ang iyong PIN</string>
+  <string name="CreateKbsPinFragment__pins_keep_information_stored_with_signal_encrypted">Panapanatiling encrypted ng PIN ang mga impormasyong naka-imbak sa Signal upang ikaw lang ang maka-access nito. Ang iyong profile, mga setting, at kontak ay mare-restore kapag nagre-install ka ng Signal.</string>
   <string name="CreateKbsPinFragment__choose_a_stronger_pin">Pumili ng mas malakas na PIN</string>
   <!--ConfirmKbsPinFragment-->
   <string name="ConfirmKbsPinFragment__pins_dont_match">Hindi tugma ang mga PIN. Subukang muli.</string>
@@ -1587,6 +1603,7 @@
   <string name="ConfirmKbsPinFragment__creating_pin">Lumilikha ng PIN…</string>
   <!--KbsSplashFragment-->
   <string name="KbsSplashFragment__introducing_pins">Ipinakikilala ang mga PIN</string>
+  <string name="KbsSplashFragment__pins_keep_information_stored_with_signal_encrypted">Panapanatiling encrypted ng PIN ang mga impormasyong naka-imbak sa Signal upang ikaw lang ang maka-access nito. Ang iyong profile, mga setting, at kontak ay mare-restore kapag nagre-install ka ng Signal.</string>
   <string name="KbsSplashFragment__learn_more">Matuto pa</string>
   <string name="KbsSplashFragment__registration_lock_equals_pin">Lock sa Pagpaparehistro = PIN</string>
   <string name="KbsSplashFragment__your_registration_lock_is_now_called_a_pin">Ang iyong Lock sa Pagpaparehistro ay tinatawag na ngayong PIN, at mas marami itong nagagawa. I-update ito ngayon.</string>
@@ -1715,7 +1732,9 @@
   <string name="preferences_app_protection__signal_pin">PIN ng Signal</string>
   <string name="preferences_app_protection__create_a_pin">Lumikha ng PIN</string>
   <string name="preferences_app_protection__change_your_pin">Baguhin ang iyong PIN</string>
+  <string name="preferences_app_protection__pins_keep_information_stored_with_signal_encrypted">Panapanatiling encrypted ng PIN ang mga impormasyong naka-imbak sa Signal upang ikaw lang ang maka-access nito. Ang iyong profile, mga setting, at kontak ay mare-restore kapag nagre-install ka ng Signal.</string>
   <string name="preferences_app_protection__confirm_pin">Kumpirmahin ang PIN</string>
+  <string name="preferences_app_protection__confirm_your_signal_pin">Kumpirmahin ang PIN ng iyong Signal</string>
   <string name="preferences_app_protection__incorrect_pin_try_again">Hindi tama ang PIN. Subukang muli.</string>
   <string name="AppProtectionPreferenceFragment_none">Wala</string>
   <string name="registration_activity__the_registration_lock_pin_is_not_the_same_as_the_sms_verification_code_you_just_received_please_enter_the_pin_you_previously_configured_in_the_application">Ang Lock PIN sa Pagpaparehistro ay hindi kapareho ng verification code sa SMS na iyong natanggap. Pakilagay ang PIN na nakaraan mong na-configure sa application.</string>

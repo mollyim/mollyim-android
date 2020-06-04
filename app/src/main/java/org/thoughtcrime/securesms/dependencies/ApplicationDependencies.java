@@ -2,21 +2,25 @@ package org.thoughtcrime.securesms.dependencies;
 
 import android.app.Application;
 
+import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 
 import org.thoughtcrime.securesms.ApplicationContext;
 import org.thoughtcrime.securesms.BuildConfig;
-import org.thoughtcrime.securesms.IncomingMessageProcessor;
-import org.thoughtcrime.securesms.gcm.MessageRetriever;
+import org.thoughtcrime.securesms.messages.IncomingMessageProcessor;
+import org.thoughtcrime.securesms.messages.BackgroundMessageRetriever;
 import org.thoughtcrime.securesms.groups.GroupsV2AuthorizationMemoryValueCache;
 import org.thoughtcrime.securesms.groups.v2.processing.GroupsV2StateProcessor;
 import org.thoughtcrime.securesms.jobmanager.JobManager;
 import org.thoughtcrime.securesms.keyvalue.KeyValueStore;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.megaphone.MegaphoneRepository;
+import org.thoughtcrime.securesms.messages.InitialMessageRetriever;
+import org.thoughtcrime.securesms.notifications.DefaultMessageNotifier;
+import org.thoughtcrime.securesms.notifications.MessageNotifier;
 import org.thoughtcrime.securesms.push.SignalServiceNetworkAccess;
 import org.thoughtcrime.securesms.recipients.LiveRecipientCache;
-import org.thoughtcrime.securesms.service.IncomingMessageObserver;
+import org.thoughtcrime.securesms.messages.IncomingMessageObserver;
 import org.thoughtcrime.securesms.util.EarlyMessageCache;
 import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.FrameRateTracker;
@@ -45,7 +49,7 @@ public class ApplicationDependencies {
   private static SignalServiceMessageSender   messageSender;
   private static SignalServiceMessageReceiver messageReceiver;
   private static IncomingMessageProcessor     incomingMessageProcessor;
-  private static MessageRetriever             messageRetriever;
+  private static BackgroundMessageRetriever   backgroundMessageRetriever;
   private static LiveRecipientCache           recipientCache;
   private static JobManager                   jobManager;
   private static FrameRateTracker             frameRateTracker;
@@ -55,13 +59,17 @@ public class ApplicationDependencies {
   private static GroupsV2StateProcessor       groupsV2StateProcessor;
   private static GroupsV2Operations           groupsV2Operations;
   private static EarlyMessageCache            earlyMessageCache;
+  private static InitialMessageRetriever      initialMessageRetriever;
+  private static MessageNotifier              messageNotifier;
 
+  @MainThread
   public static synchronized void init(@NonNull Provider provider) {
     if (ApplicationDependencies.provider != null) {
       throw new IllegalStateException("Already initialized!");
     }
 
-    ApplicationDependencies.provider = provider;
+    ApplicationDependencies.provider        = provider;
+    ApplicationDependencies.messageNotifier = provider.provideMessageNotifier();
   }
 
   public static @NonNull Application getApplication() {
@@ -162,14 +170,14 @@ public class ApplicationDependencies {
     return incomingMessageProcessor;
   }
 
-  public static synchronized @NonNull MessageRetriever getMessageRetriever() {
+  public static synchronized @NonNull BackgroundMessageRetriever getBackgroundMessageRetriever() {
     assertInitialization();
 
-    if (messageRetriever == null) {
-      messageRetriever = provider.provideMessageRetriever();
+    if (backgroundMessageRetriever == null) {
+      backgroundMessageRetriever = provider.provideBackgroundMessageRetriever();
     }
 
-    return messageRetriever;
+    return backgroundMessageRetriever;
   }
 
   public static synchronized @NonNull LiveRecipientCache getRecipientCache() {
@@ -232,6 +240,21 @@ public class ApplicationDependencies {
     return earlyMessageCache;
   }
 
+  public static synchronized @NonNull InitialMessageRetriever getInitialMessageRetriever() {
+    assertInitialization();
+
+    if (initialMessageRetriever == null) {
+      initialMessageRetriever = provider.provideInitialMessageRetriever();
+    }
+
+    return initialMessageRetriever;
+  }
+
+  public static synchronized @NonNull MessageNotifier getMessageNotifier() {
+    assertInitialization();
+    return messageNotifier;
+  }
+
   private static void assertInitialization() {
     if (provider == null) {
       throw new UninitializedException();
@@ -245,13 +268,15 @@ public class ApplicationDependencies {
     @NonNull SignalServiceMessageReceiver provideSignalServiceMessageReceiver();
     @NonNull SignalServiceNetworkAccess provideSignalServiceNetworkAccess();
     @NonNull IncomingMessageProcessor provideIncomingMessageProcessor();
-    @NonNull MessageRetriever provideMessageRetriever();
+    @NonNull BackgroundMessageRetriever provideBackgroundMessageRetriever();
     @NonNull LiveRecipientCache provideRecipientCache();
     @NonNull JobManager provideJobManager();
     @NonNull FrameRateTracker provideFrameRateTracker();
     @NonNull KeyValueStore provideKeyValueStore();
     @NonNull MegaphoneRepository provideMegaphoneRepository();
     @NonNull EarlyMessageCache provideEarlyMessageCache();
+    @NonNull InitialMessageRetriever provideInitialMessageRetriever();
+    @NonNull MessageNotifier provideMessageNotifier();
   }
 
   private static class UninitializedException extends IllegalStateException {

@@ -230,6 +230,7 @@
   <string name="ConversationActivity_delete_and_leave">Poista ja poistu</string>
   <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">Jotta voit soittaa yhteystiedolle %1$s, Molly tarvitsee lupaa käyttää mikrofonia.</string>
   <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone_and_camera">Jotta voit soittaa yhteystiedolle %1$s, Molly tarvitsee lupaa käyttää mikrofonia ja kameraa.</string>
+  <string name="ConversationActivity__more_options_now_in_group_settings">Ryhmän asetuksissa on nyt lisää vaihtoehtoja</string>
   <!--ConversationAdapter-->
   <plurals name="ConversationAdapter_n_unread_messages">
     <item quantity="one">%d lukematon viesti</item>
@@ -309,6 +310,7 @@
   <string name="ConversationListItemAction_archived_conversations_d">Arkistoidut keskustelut (%d)</string>
   <!--ConversationTitleView-->
   <string name="ConversationTitleView_verified">Varmennettu</string>
+  <string name="ConversationTitleView_you">Sinä</string>
   <!--CreateProfileActivity-->
   <string name="CreateProfileActivity__profile">Profiili</string>
   <string name="CreateProfileActivity_error_setting_profile_photo">Virhe asetettaessa profiilikuvaa</string>
@@ -424,6 +426,7 @@
   <string name="AddGroupDetailsFragment__youve_selected_a_contact_that_doesnt">Olet valinnut yhteystiedon, joka ei tue Signalin ryhmäkeskusteluja. Tämä ryhmä tulee olemaan MMS-pohjainen.</string>
   <string name="AddGroupDetailsFragment__remove">Poista</string>
   <string name="AddGroupDetailsFragment__sms_contact">SMS-yhteyshenkilö</string>
+  <string name="AddGroupDetailsFragment__remove_s_from_this_group">Poista %1$s tästä ryhmästä?</string>
   <!--ManageGroupActivity-->
   <string name="ManageGroupActivity_disappearing_messages">Katoavat viestit</string>
   <string name="ManageGroupActivity_pending_group_invites">Odottavat ryhmäkutsut</string>
@@ -438,6 +441,11 @@
   <string name="ManageGroupActivity_on">Päällä</string>
   <string name="ManageGroupActivity_add_members">Lisää jäseniä</string>
   <string name="ManageGroupActivity_view_all_members">Näytä kaikki jäsenet</string>
+  <string name="ManageGroupActivity_none">Ei mitään</string>
+  <plurals name="ManageGroupActivity_invited">
+    <item quantity="one">%d kutsuttu</item>
+    <item quantity="other">%d kutsuttu</item>
+  </plurals>
   <string name="ManageGroupActivity_you_dont_have_the_rights_to_do_this">Sinulla ei ole oikeuksia tähän</string>
   <string name="ManageGroupActivity_not_capable">Joku lisäämistäsi käyttäjistä ei tue uusia ryhmiä ja hänen on siis päivitettävä Signal</string>
   <string name="ManageGroupActivity_failed_to_update_the_group">Ryhmän päivitys epäonnistui</string>
@@ -464,6 +472,13 @@
   <!--CropImageActivity-->
   <string name="CropImageActivity_group_avatar">Ryhmän kuvake</string>
   <string name="CropImageActivity_profile_avatar">Kuvake</string>
+  <!--ImageEditorFragment-->
+  <!-- Removed by excludeNonTranslatables <string name="ImageEditorFragment_no_faces_detected">Kasvoja ei havaittu</string> -->
+  <!--ImageEditorHud-->
+  <string name="ImageEditorHud_blur_faces">Sumenna kasvot</string>
+  <string name="ImageEditorHud_new_blur_faces_or_draw_anywhere_to_blur">Uutta: Sumenna kasvot tai piirrä sumentaaksesi</string>
+  <string name="ImageEditorHud_draw_anywhere_to_blur">Piirrä mihin vain sumentaaksesi</string>
+  <string name="ImageEditorHud_draw_to_blur_additional_faces_or_areas">Piirrä sumentaaksesi lisää kasvoja tai alueita</string>
   <!--InputPanel-->
   <string name="InputPanel_tap_and_hold_to_record_a_voice_message_release_to_send">Pidä pohjassa nauhoittaaksesi ääniviestin ja päästä irti lähettääksesi sen</string>
   <!--InviteActivity-->
@@ -916,6 +931,7 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <string name="SupportEmailUtil_android_version">Android-versio:</string>
   <string name="SupportEmailUtil_signal_version">Molly-versio:</string>
   <string name="SupportEmailUtil_signal_package">Molly ohjelmistopaketti:</string>
+  <string name="SupportEmailUtil_registration_lock">Rekisteröinnin lukitus:</string>
   <string name="SupportEmailUtil_locale">Sijainti:</string>
   <!--ThreadRecord-->
   <string name="ThreadRecord_group_updated">Ryhmä päivitetty</string>
@@ -983,6 +999,7 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Molly tarvitsee lupaa käyttää kameraa QR-koodien skannaamista varten, mutta tämä käyttöoikeus on pysyvästi evätty Mollyilta. Voit muuttaa tätä menemällä sovellusten asetuksiin, valitsemalla \"Sovelluksen käyttöoikeudet\" ja laittamalla päälle \"Kamera\".</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">QR-koodin skannaus ei onnistu ilman kameran käyttöoikeutta.</string>
   <!--ViewOnceMessageActivity-->
+  <!--AudioView-->
   <!--MessageDisplayHelper-->
   <string name="MessageDisplayHelper_bad_encrypted_message">Viestin salaus on kelvoton</string>
   <string name="MessageDisplayHelper_message_encrypted_for_non_existing_session">Viesti salattu olemattomalle istunnolle</string>
@@ -1138,6 +1155,7 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <string name="contact_selection_activity__enter_name_or_number">Syötä nimi tai numero</string>
   <string name="contact_selection_activity__invite_to_signal">Kutsu Signaliin</string>
   <string name="contact_selection_activity__new_group">Uusi ryhmä</string>
+  <!--temporary for internal testing-->
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">Tyhjennä syötetty teksti</string>
   <string name="contact_filter_toolbar__show_keyboard_description">Näytä näppäimistö</string>
@@ -1153,6 +1171,7 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <string name="ContactSelectionListFragment_username_not_found">Käyttäjätunnusta ei löydy</string>
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">\"%1$s\" ei ole Signalin käyttäjä. Tarkista käyttäjätunnus ja yritä uudelleen.</string>
   <string name="ContactSelectionListFragment_okay">Selvä</string>
+  <string name="ContactSelectionListFragment_the_group_is_full">Ryhmä on täynnä</string>
   <!--blocked_contacts_fragment-->
   <string name="blocked_contacts_fragment__no_blocked_contacts">Ei estettyjä yhteystietoja</string>
   <!--contact_selection_list_fragment-->
@@ -1403,11 +1422,11 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <string name="HelpFragment__please_be_as_descriptive_as_possible">Auta meitä ymmärtämään asiaa olemalla mahdollisimman kuvaileva.</string>
   <string name="HelpFragment__no_email_app_found">Sähköpostiohjelmaa ei löytynyt.</string>
   <!--ReactWithAnyEmojiBottomSheetDialogFragment-->
-  <string name="ReactWithAnyEmojiBottomSheetDialogFragment__recently_used">Viimeksi käytetyt</string>
+  <string name="ReactWithAnyEmojiBottomSheetDialogFragment__recently_used">Äskettäin käytetyt</string>
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__smileys_and_people">Hymiöt ja ihmiset</string>
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__nature">Luonto</string>
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__food">Ruoka</string>
-  <string name="ReactWithAnyEmojiBottomSheetDialogFragment__activities">Aktiviteetit</string>
+  <string name="ReactWithAnyEmojiBottomSheetDialogFragment__activities">Toiminta</string>
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__places">Paikat</string>
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__objects">Esineet</string>
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__symbols">Symbolit</string>
@@ -1598,6 +1617,9 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <string name="conversation_list_batch__menu_select_all">Valitse kaikki</string>
   <string name="conversation_list_batch_archive__menu_archive_selected">Arkistoi valitut</string>
   <string name="conversation_list_batch_unarchive__menu_unarchive_selected">Palauta valitut arkistosta</string>
+  <string name="conversation_list_batch__menu_unarchive_selected">Palauta valitut arkistosta</string>
+  <string name="conversation_list_batch__menu_mark_as_read">Merkitse luetuksi</string>
+  <string name="conversation_list_batch__menu_mark_as_unread">Merkitse lukemattomaksi</string>
   <!--conversation_list-->
   <string name="conversation_list_settings_shortcut">Asetukset-pikakuvake</string>
   <string name="conversation_list_search_description">Hae</string>
@@ -1619,7 +1641,7 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <!--conversation-->
   <string name="conversation__menu_add_attachment">Lisää liite</string>
   <string name="conversation__menu_edit_group">Muokkaa ryhmää</string>
-  <string name="conversation__menu_manage_group">Hallinnoi ryhmää</string>
+  <string name="conversation__menu_group_settings">Ryhmän asetukset</string>
   <string name="conversation__menu_leave_group">Poistu ryhmästä</string>
   <string name="conversation__menu_view_all_media">Kaikki media</string>
   <string name="conversation__menu_conversation_settings">Keskustelun asetukset</string>
@@ -1869,6 +1891,7 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <string name="preferences_app_protection__turn_off">Poista käytöstä</string>
   <string name="preferences_app_protection__confirm_pin">Vahvista PIN</string>
   <string name="preferences_app_protection__confirm_your_signal_pin">Vahvista Signal PIN-koodisi</string>
+  <string name="preferences_app_protection__make_sure_you_memorize_or_securely_store_your_pin">Pistä PIN-koodi muistiin tai tallenna se turvallisesti, sillä sitä ei voi palauttaa. Jos PIN-koodi unohtuu ja Signal rekisteröidään uudelleen, tietoja voi kadota.</string>
   <string name="preferences_app_protection__incorrect_pin_try_again">Väärä PIN-koodi. Yritä uudelleen.</string>
   <string name="preferences_app_protection__failed_to_enable_registration_lock">Rekisteröinnin lukitusta ei voitu ottaa käyttöön.</string>
   <string name="preferences_app_protection__failed_to_disable_registration_lock">Rekisteröinnin lukitusta ei voitu poistaa käytöstä.</string>

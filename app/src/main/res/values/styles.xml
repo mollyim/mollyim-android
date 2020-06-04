@@ -326,7 +326,7 @@
     <style name="Signal.Toolbar.Overflow" parent="Widget.AppCompat.ActionButton.Overflow">
         <item name="srcCompat">@drawable/ic_more_vert_24</item>
         <item name="android:src">@null</item>
-        <item name="android:tint">?icon_tint</item>
+        <item name="android:tint">@color/core_white</item>
     </style>
 
     <style name="Signal.Toolbar.Overflow.Conversation">
@@ -421,8 +421,9 @@
 
     <style name="Widget.Signal.Button.TextButton.Drawable">
         <item name="android:textAlignment">viewStart</item>
-        <item name="android:drawablePadding">16dp</item>
+        <item name="android:drawablePadding">20dp</item>
         <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:textAppearance">@style/Signal.Text.Body</item>
     </style>
 
     <style name="Widget.Signal.Button.TextButton.Red" >
@@ -440,5 +441,11 @@
     <style name="Widget.Signal.Button.CalleeDialog" parent="Widget.AppCompat.Button">
         <item name="android:textColor">@color/core_ultramarine</item>
         <item name="android:background">@drawable/callee_dialog_button_background</item>
+    </style>
+
+    <style name="Widget.Signal.CardView.PreferenceRow" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">0dp</item>
+        <item name="cardElevation">0.5dp</item>
+        <item name="cardBackgroundColor">?android:attr/windowBackground</item>
     </style>
 </resources>

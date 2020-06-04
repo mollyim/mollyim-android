@@ -56,12 +56,14 @@ import org.whispersystems.signalservice.api.groupsv2.DecryptedGroupUtil;
 
 import java.io.Closeable;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
@@ -92,17 +94,27 @@ public class ThreadDatabase extends Database {
   public  static final String LAST_SEEN              = "last_seen";
   public  static final String HAS_SENT               = "has_sent";
 
-  public static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " ("                    +
-    ID + " INTEGER PRIMARY KEY, " + DATE + " INTEGER DEFAULT 0, "                                  +
-    MESSAGE_COUNT + " INTEGER DEFAULT 0, " + RECIPIENT_ID + " INTEGER, " + SNIPPET + " TEXT, "             +
-    SNIPPET_CHARSET + " INTEGER DEFAULT 0, " + READ + " INTEGER DEFAULT 1, "                       +
-    TYPE + " INTEGER DEFAULT 0, " + ERROR + " INTEGER DEFAULT 0, "                                 +
-    SNIPPET_TYPE + " INTEGER DEFAULT 0, " + SNIPPET_URI + " TEXT DEFAULT NULL, "                   +
-    SNIPPET_CONTENT_TYPE + " TEXT DEFAULT NULL, " + SNIPPET_EXTRAS + " TEXT DEFAULT NULL, "      +
-    ARCHIVED + " INTEGER DEFAULT 0, " + STATUS + " INTEGER DEFAULT 0, "                            +
-    DELIVERY_RECEIPT_COUNT + " INTEGER DEFAULT 0, " + EXPIRES_IN + " INTEGER DEFAULT 0, "          +
-    LAST_SEEN + " INTEGER DEFAULT 0, " + HAS_SENT + " INTEGER DEFAULT 0, "                         +
-    READ_RECEIPT_COUNT + " INTEGER DEFAULT 0, " + UNREAD_COUNT + " INTEGER DEFAULT 0);";
+  public static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " (" + ID                     + " INTEGER PRIMARY KEY, " +
+                                                                                  DATE                   + " INTEGER DEFAULT 0, " +
+                                                                                  MESSAGE_COUNT          + " INTEGER DEFAULT 0, " +
+                                                                                  RECIPIENT_ID           + " INTEGER, " +
+                                                                                  SNIPPET                + " TEXT, " +
+                                                                                  SNIPPET_CHARSET        + " INTEGER DEFAULT 0, " +
+                                                                                  READ                   + " INTEGER DEFAULT " + ReadStatus.READ.serialize() + ", " +
+                                                                                  TYPE                   + " INTEGER DEFAULT 0, " +
+                                                                                  ERROR                  + " INTEGER DEFAULT 0, " +
+                                                                                  SNIPPET_TYPE           + " INTEGER DEFAULT 0, " +
+                                                                                  SNIPPET_URI            + " TEXT DEFAULT NULL, " +
+                                                                                  SNIPPET_CONTENT_TYPE   + " TEXT DEFAULT NULL, " +
+                                                                                  SNIPPET_EXTRAS         + " TEXT DEFAULT NULL, " +
+                                                                                  ARCHIVED               + " INTEGER DEFAULT 0, " +
+                                                                                  STATUS                 + " INTEGER DEFAULT 0, " +
+                                                                                  DELIVERY_RECEIPT_COUNT + " INTEGER DEFAULT 0, " +
+                                                                                  EXPIRES_IN             + " INTEGER DEFAULT 0, " +
+                                                                                  LAST_SEEN              + " INTEGER DEFAULT 0, " +
+                                                                                  HAS_SENT               + " INTEGER DEFAULT 0, " +
+                                                                                  READ_RECEIPT_COUNT     + " INTEGER DEFAULT 0, " +
+                                                                                  UNREAD_COUNT           + " INTEGER DEFAULT 0);";
 
   public static final String[] CREATE_INDEXS = {
     "CREATE INDEX IF NOT EXISTS thread_recipient_ids_index ON " + TABLE_NAME + " (" + RECIPIENT_ID + ");",
@@ -280,7 +292,7 @@ public class ThreadDatabase extends Database {
   public List<MarkedMessageInfo> setAllThreadsRead() {
     SQLiteDatabase db           = databaseHelper.getWritableDatabase();
     ContentValues contentValues = new ContentValues(1);
-    contentValues.put(READ, 1);
+    contentValues.put(READ, ReadStatus.READ.serialize());
     contentValues.put(UNREAD_COUNT, 0);
 
     db.update(TABLE_NAME, contentValues, null, null);
@@ -310,32 +322,69 @@ public class ThreadDatabase extends Database {
   }
 
   public List<MarkedMessageInfo> setRead(long threadId, boolean lastSeen) {
-    ContentValues contentValues = new ContentValues(1);
-    contentValues.put(READ, 1);
-    contentValues.put(UNREAD_COUNT, 0);
+    return setRead(Collections.singletonList(threadId), lastSeen);
+  }
 
-    if (lastSeen) {
-      contentValues.put(LAST_SEEN, System.currentTimeMillis());
-    }
-
+  public List<MarkedMessageInfo> setRead(Collection<Long> threadIds, boolean lastSeen) {
     SQLiteDatabase db = databaseHelper.getWritableDatabase();
 
-    db.update(TABLE_NAME, contentValues, ID_WHERE, new String[] {threadId+""});
+    List<MarkedMessageInfo> smsRecords = new LinkedList<>();
+    List<MarkedMessageInfo> mmsRecords = new LinkedList<>();
 
-    final List<MarkedMessageInfo> smsRecords = DatabaseFactory.getSmsDatabase(context).setMessagesRead(threadId);
-    final List<MarkedMessageInfo> mmsRecords = DatabaseFactory.getMmsDatabase(context).setMessagesRead(threadId);
+    db.beginTransaction();
 
-    DatabaseFactory.getSmsDatabase(context).setReactionsSeen(threadId);
-    DatabaseFactory.getMmsDatabase(context).setReactionsSeen(threadId);
+    try {
+      ContentValues contentValues = new ContentValues(2);
+      contentValues.put(READ, ReadStatus.READ.serialize());
+      contentValues.put(UNREAD_COUNT, 0);
+
+      if (lastSeen) {
+        contentValues.put(LAST_SEEN, System.currentTimeMillis());
+      }
+
+      for (long threadId : threadIds) {
+        db.update(TABLE_NAME, contentValues, ID_WHERE, new String[]{threadId + ""});
+
+        smsRecords.addAll(DatabaseFactory.getSmsDatabase(context).setMessagesRead(threadId));
+        mmsRecords.addAll(DatabaseFactory.getMmsDatabase(context).setMessagesRead(threadId));
+
+        DatabaseFactory.getSmsDatabase(context).setReactionsSeen(threadId);
+        DatabaseFactory.getMmsDatabase(context).setReactionsSeen(threadId);
+      }
+
+      db.setTransactionSuccessful();
+    } finally {
+      db.endTransaction();
+    }
 
     notifyConversationListListeners();
-
     return Util.concatenatedList(smsRecords, mmsRecords);
   }
 
+  public void setForcedUnread(@NonNull Collection<Long> threadIds) {
+    SQLiteDatabase db = databaseHelper.getWritableDatabase();
+
+    db.beginTransaction();
+    try {
+      ContentValues contentValues = new ContentValues();
+      contentValues.put(READ, ReadStatus.FORCED_UNREAD.serialize());
+
+      for (long threadId : threadIds) {
+        db.update(TABLE_NAME, contentValues, ID_WHERE, new String[] { String.valueOf(threadId) });
+      }
+
+      db.setTransactionSuccessful();
+    } finally {
+      db.endTransaction();
+    }
+
+    notifyConversationListListeners();
+  }
+
+
   public void incrementUnread(long threadId, int amount) {
     SQLiteDatabase db = databaseHelper.getWritableDatabase();
-    db.execSQL("UPDATE " + TABLE_NAME + " SET " + READ + " = 0, " +
+    db.execSQL("UPDATE " + TABLE_NAME + " SET " + READ + " = " + ReadStatus.UNREAD.serialize() + ", " +
                    UNREAD_COUNT + " = " + UNREAD_COUNT + " + ? WHERE " + ID + " = ?",
                new String[] {String.valueOf(amount),
                              String.valueOf(threadId)});
@@ -848,31 +897,15 @@ public class ThreadDatabase extends Database {
     }
 
     public ThreadRecord getCurrent() {
-      long        threadId         = cursor.getLong(cursor.getColumnIndexOrThrow(ThreadDatabase.ID));
-      int         distributionType = cursor.getInt(cursor.getColumnIndexOrThrow(ThreadDatabase.TYPE));
-      RecipientId recipientId      = RecipientId.from(cursor.getLong(cursor.getColumnIndexOrThrow(ThreadDatabase.RECIPIENT_ID)));
+      RecipientId recipientId = RecipientId.from(cursor.getLong(cursor.getColumnIndexOrThrow(ThreadDatabase.RECIPIENT_ID)));
+      Recipient   recipient   = Recipient.live(recipientId).get();
 
-      Recipient          recipient            = Recipient.live(recipientId).get();
-      String             body                 = cursor.getString(cursor.getColumnIndexOrThrow(ThreadDatabase.SNIPPET));
-      long               date                 = cursor.getLong(cursor.getColumnIndexOrThrow(ThreadDatabase.DATE));
-      long               count                = cursor.getLong(cursor.getColumnIndexOrThrow(ThreadDatabase.MESSAGE_COUNT));
-      int                unreadCount          = cursor.getInt(cursor.getColumnIndexOrThrow(ThreadDatabase.UNREAD_COUNT));
-      long               type                 = cursor.getLong(cursor.getColumnIndexOrThrow(ThreadDatabase.SNIPPET_TYPE));
-      boolean            archived             = cursor.getInt(cursor.getColumnIndex(ThreadDatabase.ARCHIVED)) != 0;
-      int                status               = cursor.getInt(cursor.getColumnIndexOrThrow(ThreadDatabase.STATUS));
-      int                deliveryReceiptCount = cursor.getInt(cursor.getColumnIndexOrThrow(ThreadDatabase.DELIVERY_RECEIPT_COUNT));
-      int                readReceiptCount     = cursor.getInt(cursor.getColumnIndexOrThrow(ThreadDatabase.READ_RECEIPT_COUNT));
-      long               expiresIn            = cursor.getLong(cursor.getColumnIndexOrThrow(ThreadDatabase.EXPIRES_IN));
-      long               lastSeen             = cursor.getLong(cursor.getColumnIndexOrThrow(ThreadDatabase.LAST_SEEN));
-      Uri                snippetUri           = getSnippetUri(cursor);
-      String             contentType          = cursor.getString(cursor.getColumnIndexOrThrow(ThreadDatabase.SNIPPET_CONTENT_TYPE));
-      String             extraString          = cursor.getString(cursor.getColumnIndexOrThrow(ThreadDatabase.SNIPPET_EXTRAS));
 
-      if (!TextSecurePreferences.isReadReceiptsEnabled(context)) {
-        readReceiptCount = 0;
-      }
+      int readReceiptCount = TextSecurePreferences.isReadReceiptsEnabled(context) ? cursor.getInt(cursor.getColumnIndexOrThrow(ThreadDatabase.READ_RECEIPT_COUNT))
+                                                                                  : 0;
 
-      Extra extra = null;
+      String extraString = cursor.getString(cursor.getColumnIndexOrThrow(ThreadDatabase.SNIPPET_EXTRAS));
+      Extra  extra       = null;
 
       if (extraString != null) {
         try {
@@ -882,9 +915,25 @@ public class ThreadDatabase extends Database {
         }
       }
 
-      return new ThreadRecord(body, snippetUri, contentType, extra, recipient, date, count,
-                              unreadCount, threadId, deliveryReceiptCount, status, type,
-                              distributionType, archived, expiresIn, lastSeen, readReceiptCount);
+      return new ThreadRecord.Builder(cursor.getLong(cursor.getColumnIndexOrThrow(ThreadDatabase.ID)))
+                             .setRecipient(recipient)
+                             .setType(cursor.getInt(cursor.getColumnIndexOrThrow(ThreadDatabase.SNIPPET_TYPE)))
+                             .setDistributionType(cursor.getInt(cursor.getColumnIndexOrThrow(ThreadDatabase.TYPE)))
+                             .setBody(cursor.getString(cursor.getColumnIndexOrThrow(ThreadDatabase.SNIPPET)))
+                             .setDate(cursor.getLong(cursor.getColumnIndexOrThrow(ThreadDatabase.DATE)))
+                             .setArchived(cursor.getInt(cursor.getColumnIndex(ThreadDatabase.ARCHIVED)) != 0)
+                             .setDeliveryStatus(cursor.getInt(cursor.getColumnIndexOrThrow(ThreadDatabase.STATUS)))
+                             .setDeliveryReceiptCount(cursor.getInt(cursor.getColumnIndexOrThrow(ThreadDatabase.DELIVERY_RECEIPT_COUNT)))
+                             .setReadReceiptCount(readReceiptCount)
+                             .setExpiresIn(cursor.getLong(cursor.getColumnIndexOrThrow(ThreadDatabase.EXPIRES_IN)))
+                             .setLastSeen(cursor.getLong(cursor.getColumnIndexOrThrow(ThreadDatabase.LAST_SEEN)))
+                             .setSnippetUri(getSnippetUri(cursor))
+                             .setContentType(cursor.getString(cursor.getColumnIndexOrThrow(ThreadDatabase.SNIPPET_CONTENT_TYPE)))
+                             .setCount(cursor.getLong(cursor.getColumnIndexOrThrow(ThreadDatabase.MESSAGE_COUNT)))
+                             .setUnreadCount(cursor.getInt(cursor.getColumnIndexOrThrow(ThreadDatabase.UNREAD_COUNT)))
+                             .setForcedUnread(cursor.getInt(cursor.getColumnIndexOrThrow(ThreadDatabase.READ)) == ReadStatus.FORCED_UNREAD.serialize())
+                             .setExtra(extra)
+                             .build();
     }
 
     private @Nullable Uri getSnippetUri(Cursor cursor) {
@@ -989,6 +1038,29 @@ public class ThreadDatabase extends Database {
 
     public @Nullable String getGroupAddedBy() {
       return groupAddedBy;
+    }
+  }
+
+  private enum ReadStatus {
+    READ(1), UNREAD(0), FORCED_UNREAD(2);
+
+    private final int value;
+
+    ReadStatus(int value) {
+      this.value = value;
+    }
+
+    public static ReadStatus deserialize(int value) {
+      for (ReadStatus status : ReadStatus.values()) {
+        if (status.value == value) {
+          return status;
+        }
+      }
+      throw new IllegalArgumentException("No matching status for value " + value);
+    }
+
+    public int serialize() {
+      return value;
     }
   }
 }

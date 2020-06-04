@@ -63,11 +63,6 @@ public final class UuidUtil {
     return parseOrNull(bytes.toByteArray());
   }
 
-  public static UUID fromByteStringOrUnknown(ByteString bytes) {
-    UUID uuid = parseOrNull(bytes.toByteArray());
-    return uuid != null ? uuid : UNKNOWN_UUID;
-  }
-
   private static UUID parseOrNull(byte[] byteArray) {
     return byteArray != null && byteArray.length == 16 ? parseOrThrow(byteArray) : null;
   }
@@ -77,6 +72,21 @@ public final class UuidUtil {
 
     for (ByteString byteString : byteStringCollection) {
       result.add(fromByteString(byteString));
+    }
+
+    return result;
+  }
+
+  /**
+   * Keep only UUIDs that are not the {@link #UNKNOWN_UUID}.
+   */
+  public static List<UUID> filterKnown(Collection<UUID> uuids) {
+    ArrayList<UUID> result = new ArrayList<>(uuids.size());
+
+    for (UUID uuid : uuids) {
+      if (!UNKNOWN_UUID.equals(uuid)) {
+        result.add(uuid);
+      }
     }
 
     return result;

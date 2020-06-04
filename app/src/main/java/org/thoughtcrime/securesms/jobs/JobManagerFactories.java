@@ -13,16 +13,18 @@ import org.thoughtcrime.securesms.jobmanager.impl.MasterSecretConstraint;
 import org.thoughtcrime.securesms.jobmanager.impl.MasterSecretConstraintObserver;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraintObserver;
+import org.thoughtcrime.securesms.jobmanager.impl.WebsocketDrainedConstraint;
+import org.thoughtcrime.securesms.jobmanager.impl.WebsocketDrainedConstraintObserver;
 import org.thoughtcrime.securesms.jobmanager.migrations.PushProcessMessageQueueJobMigration;
 import org.thoughtcrime.securesms.jobmanager.migrations.RecipientIdFollowUpJobMigration;
 import org.thoughtcrime.securesms.jobmanager.migrations.RecipientIdFollowUpJobMigration2;
 import org.thoughtcrime.securesms.jobmanager.migrations.RecipientIdJobMigration;
 import org.thoughtcrime.securesms.jobmanager.migrations.SendReadReceiptsJobMigration;
 import org.thoughtcrime.securesms.migrations.AvatarIdRemovalMigrationJob;
-import org.thoughtcrime.securesms.migrations.PassingMigrationJob;
 import org.thoughtcrime.securesms.migrations.DatabaseMigrationJob;
 import org.thoughtcrime.securesms.migrations.MigrationCompleteJob;
-import org.thoughtcrime.securesms.migrations.PinRemindersMigrationJob;
+import org.thoughtcrime.securesms.migrations.PassingMigrationJob;
+import org.thoughtcrime.securesms.migrations.PinReminderMigrationJob;
 import org.thoughtcrime.securesms.migrations.RegistrationPinV2MigrationJob;
 import org.thoughtcrime.securesms.migrations.StickerAdditionMigrationJob;
 import org.thoughtcrime.securesms.migrations.StorageCapabilityMigrationJob;
@@ -83,6 +85,7 @@ public final class JobManagerFactories {
       put(ResumableUploadSpecJob.KEY,                new ResumableUploadSpecJob.Factory());
       put(StorageAccountRestoreJob.KEY,              new StorageAccountRestoreJob.Factory());
       put(RequestGroupV2InfoJob.KEY,                 new RequestGroupV2InfoJob.Factory());
+      put(WakeGroupV2Job.KEY,                        new WakeGroupV2Job.Factory());
       put(GroupV2UpdateSelfProfileKeyJob.KEY,        new GroupV2UpdateSelfProfileKeyJob.Factory());
       put(RetrieveProfileAvatarJob.KEY,              new RetrieveProfileAvatarJob.Factory());
       put(RetrieveProfileJob.KEY,                    new RetrieveProfileJob.Factory());
@@ -106,11 +109,11 @@ public final class JobManagerFactories {
       put(AvatarIdRemovalMigrationJob.KEY,           new AvatarIdRemovalMigrationJob.Factory());
       put(DatabaseMigrationJob.KEY,                  new DatabaseMigrationJob.Factory());
       put(MigrationCompleteJob.KEY,                  new MigrationCompleteJob.Factory());
+      put(PinReminderMigrationJob.KEY,               new PinReminderMigrationJob.Factory());
       put(RegistrationPinV2MigrationJob.KEY,         new RegistrationPinV2MigrationJob.Factory());
       put(StickerAdditionMigrationJob.KEY,           new StickerAdditionMigrationJob.Factory());
       put(StorageCapabilityMigrationJob.KEY,         new StorageCapabilityMigrationJob.Factory());
       put(StorageServiceMigrationJob.KEY,            new StorageServiceMigrationJob.Factory());
-      put(PinRemindersMigrationJob.KEY,              new PinRemindersMigrationJob.Factory());
 
       // Dead jobs
       put(FailingJob.KEY,                            new FailingJob.Factory());
@@ -134,12 +137,14 @@ public final class JobManagerFactories {
     return new HashMap<String, Constraint.Factory>() {{
       put(NetworkConstraint.KEY,                     new NetworkConstraint.Factory(application));
       put(MasterSecretConstraint.KEY,                new MasterSecretConstraint.Factory(application));
+      put(WebsocketDrainedConstraint.KEY,            new WebsocketDrainedConstraint.Factory());
     }};
   }
 
   public static List<ConstraintObserver> getConstraintObservers(@NonNull Application application) {
     return Arrays.asList(new NetworkConstraintObserver(application),
-                         new MasterSecretConstraintObserver(application));
+                         new MasterSecretConstraintObserver(application),
+                         new WebsocketDrainedConstraintObserver());
   }
 
   public static List<JobMigration> getJobMigrations(@NonNull Application application) {
