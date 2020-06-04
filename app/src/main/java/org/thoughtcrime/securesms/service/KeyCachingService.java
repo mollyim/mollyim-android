@@ -86,6 +86,9 @@ public class KeyCachingService extends Service {
   }
 
   public static synchronized MasterSecret getMasterSecret() {
+    if (masterSecret == null) {
+      throw new IllegalStateException();
+    }
     return masterSecret.clone();
   }
 

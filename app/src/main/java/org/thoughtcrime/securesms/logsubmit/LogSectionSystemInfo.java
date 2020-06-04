@@ -55,9 +55,19 @@ public class LogSectionSystemInfo implements LogSection {
     builder.append("Memory       : ").append(getMemoryUsage()).append("\n");
     builder.append("Memclass     : ").append(getMemoryClass(context)).append("\n");
     builder.append("OS Host      : ").append(Build.HOST).append("\n");
-    builder.append("Censored     : ").append(CensorshipUtil.isCensored(context)).append("\n");
+    builder.append("Censored     : ");
+    try {
+      builder.append(CensorshipUtil.isCensored(context)).append("\n");
+    } catch (IllegalStateException e) {
+      builder.append("Unknown\n");
+    }
     builder.append("Play Services: ").append(getPlayServicesString(context)).append("\n");
-    builder.append("FCM          : ").append(!TextSecurePreferences.isFcmDisabled(context)).append("\n");
+    builder.append("FCM          : ");
+    try {
+      builder.append(!TextSecurePreferences.isFcmDisabled(context)).append("\n");
+    } catch (IllegalStateException e) {
+      builder.append("Unknown\n");
+    }
     builder.append("First Version: ").append(TextSecurePreferences.getFirstInstallVersion(context)).append("\n");
     builder.append("App          : ");
     try {
