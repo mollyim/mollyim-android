@@ -53,10 +53,8 @@ public class PassphraseCreateActivity extends PassphraseActivity {
   }
 
   private void initializeResources() {
-    yesButton = ViewUtil.findById(this,R.id.yes_button);
     noButton  = ViewUtil.findById(this,R.id.no_button);
 
-    yesButton.setOnClickListener(v -> onButtonClicked(true));
     noButton.setOnClickListener(v -> onButtonClicked(false));
   }
 

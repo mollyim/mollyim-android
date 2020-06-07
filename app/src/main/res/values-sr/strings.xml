@@ -27,12 +27,12 @@
   </plurals>
   <string name="ApplicationPreferencesActivity_delete">Обриши</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">Да искључим лозинку?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Ово ће трајно да откључа Molly и обавештења о порукама.</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Ово ће трајно да откључа Bharat Plus и обавештења о порукама.</string>
   <string name="ApplicationPreferencesActivity_disable">Искључи</string>
   <string name="ApplicationPreferencesActivity_unregistering">Одјављујем</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Одјављивање са Molly порука и пожива…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Онемогућити поруке и позиве преко Molly-а?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Онемогућите поруке и позиве преко Molly-a одјавом са сервера.
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Одјављивање са Bharat Plus порука и пожива…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Онемогућити поруке и позиве преко Bharat Plus-а?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Онемогућите поруке и позиве преко Bharat Plus-a одјавом са сервера.
 Мораћете поново да пријавите ваш број телефона да бисте опет их користили убудуће.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">Грешка повезивања на сервер!</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">СМС омогућен</string>
@@ -65,11 +65,11 @@
   <string name="AttachmentKeyboard_file">Фајл</string>
   <string name="AttachmentKeyboard_contact">Контакт</string>
   <string name="AttachmentKeyboard_location">Локација</string>
-  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Апликацији Molly је потребан приступ за приказ Ваших фотографија и видео клипова.</string>
+  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Апликацији Bharat Plus је потребан приступ за приказ Ваших фотографија и видео клипова.</string>
   <string name="AttachmentKeyboard_give_access">Дaj приступ</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">Нема апликације за избор медијума.</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly захтева дозовле за меморију како би могао слати фотографије, видео снимке или аудио снимке, али су трајно забрањене. Молимо Вас идите у мени за подешавања и дозволите приступ меморији.</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Bharat Plus захтева дозовле за меморију како би могао слати фотографије, видео снимке или аудио снимке, али су трајно забрањене. Молимо Вас идите у мени за подешавања и дозволите приступ меморији.</string>
   <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Сигнал захтева приступ вашим контактима, али му је дозвола трајно забрањена. Молимо вас да у апликацији за подешавање телефона Сигналу дозволите пруиступ контактима.</string>
   <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Сигнал захтева приступ вашој локацији за додавање локације у порукама, али му је дозвола трајно забрањена. Молимо вас да у апликацији за подешавање телефона Сигналу дозволите пруиступ локацији.</string>
   <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">Сигнал захтева приступ камери како би могао да шаље нове фотографије, али му је дозвола трајно забрањена. Молимо вас да у апликацији за подешавање телефона Сигналу дозволите пруиступ камери.</string>
@@ -195,7 +195,7 @@
   <string name="ConversationActivity_transport_insecure_sms">Необезбеђени СМС</string>
   <string name="ConversationActivity_transport_insecure_mms">Необезбеђени ММС</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">Пребацимо се на Molly %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">Пребацимо се на Bharat Plus %1$s</string>
   <string name="ConversationActivity_error_leaving_group">Грешка при напуштању групе</string>
   <string name="ConversationActivity_specify_recipient">Одредите примаоца</string>
   <string name="ConversationActivity_unblock_this_contact_question">Одлокирати овај контакт?</string>
@@ -207,8 +207,8 @@
   <string name="ConversationActivity_quick_camera_unavailable">Камера није доступна</string>
   <string name="ConversationActivity_unable_to_record_audio">Не могу да снимим звук!</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">Нема апликације за руковање овом везом на вашем уређају.</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Да бисте послали аудио поруку, одобрите Molly-у дозволе за коришћење микрофона.</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly захтева дозволе за коришћење микрофона како би могао да шаље аудио поруке, али му је дозбола блокирана за стално. Молимо Вас да уђете у подешавања уређаја, изаберите „Апликације, затим „Дозволе“ и одобрите коришћење микрофона апликацији Molly.</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Да бисте послали аудио поруку, одобрите Bharat Plus-у дозволе за коришћење микрофона.</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Bharat Plus захтева дозволе за коришћење микрофона како би могао да шаље аудио поруке, али му је дозбола блокирана за стално. Молимо Вас да уђете у подешавања уређаја, изаберите „Апликације, затим „Дозволе“ и одобрите коришћење микрофона апликацији Bharat Plus.</string>
   <!-- Removed by excludeNonTranslatables <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">Да бисте позвали %s, Signal-у су неопходне дозволе за коришћење Вашег микрофона и камере.</string> -->
   <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Сигнал захтева приступ микрофону и камери да би успоставио позив са %s, али су му дозволе трајно забрањене. Молимо вас да у апликацији за подешавање телефона Сигналу дозволите пруиступ микрофону и камери.</string>
   <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Да бисте направили нову фотографију или видео запис, дозволите Сигналу да приступи камери.</string>
@@ -352,7 +352,7 @@
   <!--DocumentView-->
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">Оптимизуј за недостајуће Плеј сервисе</string>
-  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Овај уређај не подржава Плеј сервисе. Тапните да искључите системску оптимизацију потрошње батерије која спречава добављање порука док је Molly неактиван.</string>
+  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Овај уређај не подржава Плеј сервисе. Тапните да искључите системску оптимизацију потрошње батерије која спречава добављање порука док је Bharat Plus неактиван.</string>
   <!--ShareActivity-->
   <string name="ShareActivity_share_with">Подели са</string>
   <!--GcmBroadcastReceiver-->
@@ -405,7 +405,7 @@
   <string name="InviteActivity_sending">Шаље се…</string>
   <string name="InviteActivity_heart_content_description">Срце</string>
   <string name="InviteActivity_invitations_sent">Позивнице послате!</string>
-  <string name="InviteActivity_invite_to_signal">Слање позивнице за Molly</string>
+  <string name="InviteActivity_invite_to_signal">Слање позивнице за Bharat Plus</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">ПОШАЉИ СМС ЗА %d ПРИЈАТЕЉА</item>
     <item quantity="few">ПОШАЉИ СМС ЗА %d ПРИЈАТЕЉА</item>
@@ -416,7 +416,7 @@
     <item quantity="few">Послати %d СМС позивнице?</item>
     <item quantity="other">Послати %d СМС позивница?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">Пребацимо се на Molly: %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">Пребацимо се на Bharat Plus: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Изгледа да немате ниједну апликацију преко које бисте могли да делите.</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Пријатељи не допуштају пријатељима да ћаскају небезбедно.</string>
   <!--Job-->
@@ -431,7 +431,7 @@
   <string name="LongMessageActivity_message_from_s">Порука од %1$s</string>
   <string name="LongMessageActivity_your_message">Ваша порука</string>
   <!--MessageRetrievalService-->
-  <string name="MessageRetrievalService_signal">Molly</string>
+  <string name="MessageRetrievalService_signal">Bharat Plus</string>
   <string name="MessageRetrievalService_background_connection_enabled">Позадинска веза активна</string>
   <!--MmsDownloader-->
   <string name="MmsDownloader_error_reading_mms_settings">Грешка читања поставки ММС послужиоца</string>
@@ -768,8 +768,8 @@
   <!--KeyCachingService-->
   <string name="KeyCachingService_signal_passphrase_cached">Тапните за отварање.</string>
   <string name="KeyCachingService_signal_passphrase_cached_with_lock">Тапните за отварање или тапните браву да затворите.</string>
-  <string name="KeyCachingService_passphrase_cached">Molly је откључан</string>
-  <string name="KeyCachingService_lock">Закључај Molly</string>
+  <string name="KeyCachingService_passphrase_cached">Bharat Plus је откључан</string>
+  <string name="KeyCachingService_lock">Закључај Bharat Plus</string>
   <!--MediaPreviewActivity-->
   <string name="MediaPreviewActivity_you">Ви</string>
   <string name="MediaPreviewActivity_unssuported_media_type">Неподржан тип медијума</string>
@@ -1496,7 +1496,7 @@
   <string name="RegistrationLockDialog_disable_registration_lock_pin">Онемогући ПИН заштиту регистрације?</string>
   <string name="RegistrationLockDialog_disable">Искључи</string>
   <string name="preferences_chats__backups">Резерве</string>
-  <string name="prompt_passphrase_activity__signal_is_locked">Molly је закључан</string>
+  <string name="prompt_passphrase_activity__signal_is_locked">Bharat Plus је закључан</string>
   <string name="prompt_passphrase_activity__tap_to_unlock">ТАПНИ ЗА ОТКЉУЧАВАЊЕ</string>
   <string name="RegistrationLockDialog_reminder">Подсетник:</string>
   <string name="recipient_preferences__about">О контакту</string>

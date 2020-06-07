@@ -25,10 +25,10 @@
   </plurals>
   <string name="ApplicationPreferencesActivity_delete">Slet</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">Deaktivér kodeord?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Dette låser permanent op for Molly og besked notifikationer </string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Dette låser permanent op for Bharat Plus og besked notifikationer </string>
   <string name="ApplicationPreferencesActivity_disable">Déaktiver</string>
   <string name="ApplicationPreferencesActivity_unregistering">Afmeld</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Afregistrerer fra Molly beskeder og opkald…</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Afregistrerer fra Bharat Plus beskeder og opkald…</string>
   <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Déaktiver Mollybeskeder og -opkald?</string>
   <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Déaktiver Mollybeskeder og -opkald fra serveren ved afmelding. Det er nødvendigt igen at registrere telefonnummeret, for at bruge det fremadrettet</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">Fejl ved oprettelse af forbindelse til serveren</string>
@@ -61,14 +61,14 @@
   <string name="AttachmentKeyboard_file">Fil</string>
   <string name="AttachmentKeyboard_contact">Kontakt</string>
   <string name="AttachmentKeyboard_location">Lokation</string>
-  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Molly kræver adgang for at vise dine billeder og videoer</string>
+  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Bharat Plus kræver adgang for at vise dine billeder og videoer</string>
   <string name="AttachmentKeyboard_give_access">Giv adgang</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">Ingen app tilgængelig til valg af data</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly kræver tilladelse til at tilgå din hukommelse, for at kunne vedhæfte billeder, videoer eller lydfiler, hvilket det er blevet nægtet. Gå venligst via appens menu til Indstillinger, vælg \"Tilladelser\" og tilvælg \"Hukommelse\"</string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly kræver tilladelse til at tilgå dine kontakter, for at kunne vedhæfte kontakt informationer, hvilket det er blevet nægtet. Gå venligst via appens menu til Indstillinger, vælg \"Tilladelser\" og tilvælg \"Kontakter\"</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly kræver tilladelse til at tilgå din lokation, for at kunne vedhæfte lokationer, hvilket det er blevet nægtet. Gå venligst via appens menu til Indstillinger, vælg \"Tilladelser\" og tilvælg \"Lokation\"</string>
-  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">Molly kræver tilladelse til at tilgå dit kamera for at kunne tage billeder, hvilket det er blevet nægtet. Gå venligst via appens menu til Indstillinger, vælg \"Tilladelser\" og tilvælg \"Kamera\"</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Bharat Plus kræver tilladelse til at tilgå din hukommelse, for at kunne vedhæfte billeder, videoer eller lydfiler, hvilket det er blevet nægtet. Gå venligst via appens menu til Indstillinger, vælg \"Tilladelser\" og tilvælg \"Hukommelse\"</string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Bharat Plus kræver tilladelse til at tilgå dine kontakter, for at kunne vedhæfte kontakt informationer, hvilket det er blevet nægtet. Gå venligst via appens menu til Indstillinger, vælg \"Tilladelser\" og tilvælg \"Kontakter\"</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Bharat Plus kræver tilladelse til at tilgå din lokation, for at kunne vedhæfte lokationer, hvilket det er blevet nægtet. Gå venligst via appens menu til Indstillinger, vælg \"Tilladelser\" og tilvælg \"Lokation\"</string>
+  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">Bharat Plus kræver tilladelse til at tilgå dit kamera for at kunne tage billeder, hvilket det er blevet nægtet. Gå venligst via appens menu til Indstillinger, vælg \"Tilladelser\" og tilvælg \"Kamera\"</string>
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">Oploader medie…</string>
   <string name="AttachmentUploadJob_compressing_video_start">Komprimerer video…</string>
@@ -193,7 +193,7 @@
   <string name="ConversationActivity_transport_insecure_sms">Ukrypteret SMS</string>
   <string name="ConversationActivity_transport_insecure_mms">Ukrypteret MMS</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">Lad os bruge Molly %1$s?</string>
+  <string name="ConversationActivity_lets_switch_to_signal">Lad os bruge Bharat Plus %1$s?</string>
   <string name="ConversationActivity_error_leaving_group">Fejl ved forsøg på at forlade gruppen</string>
   <string name="ConversationActivity_specify_recipient">Vælg venligst en kontakt</string>
   <string name="ConversationActivity_unblock_this_contact_question">Fjern blokering af kontakten?</string>
@@ -205,15 +205,15 @@
   <string name="ConversationActivity_quick_camera_unavailable">Kamera utilgængeligt</string>
   <string name="ConversationActivity_unable_to_record_audio">Fejl ved lydoptagelse!</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">Der er ingen app tilgængelig på enheden, der kan åbne linket</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">For at sende talebeskeder skal du give Molly tilladelse til at tilgå mikrofonen</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly kræver tilladelse til at tilgå mikrofonen for at kunne sende lydfiler, hvilket det er blevet nægtet. Gå venligst via appens menu til Indstillinger, vælg \"Tilladelser\" og tilvælg \"Mikrofon\"</string>
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly kræver tilladelse til at tilgå mikrofon og kamera, for at kunne ringe til %s, men det er permanent blevet afvist. Gå venligst via appens menu til Indstillinger, vælg \"Tilladelser\" og tilvælg \"Mikrofon\" og \"Kamera\"</string>
-  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Molly kræver tilladelse til at tilgå dit kamera, for at kunne tage billeder og optage video</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Molly kræver tilladelse til at tilgå dit kamera, for at kunne tage billeder eller optage video, hvilket det er blevet nægtet. Gå venligst via appens menu til Indstillinger, vælg \"Tilladelser\" og tilvælg \"Kamera\"</string>
-  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Molly kræver tilladelse til at tilgå kameraet, for at tage billeder og video</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">For at sende talebeskeder skal du give Bharat Plus tilladelse til at tilgå mikrofonen</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Bharat Plus kræver tilladelse til at tilgå mikrofonen for at kunne sende lydfiler, hvilket det er blevet nægtet. Gå venligst via appens menu til Indstillinger, vælg \"Tilladelser\" og tilvælg \"Mikrofon\"</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Bharat Plus kræver tilladelse til at tilgå mikrofon og kamera, for at kunne ringe til %s, men det er permanent blevet afvist. Gå venligst via appens menu til Indstillinger, vælg \"Tilladelser\" og tilvælg \"Mikrofon\" og \"Kamera\"</string>
+  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Bharat Plus kræver tilladelse til at tilgå dit kamera, for at kunne tage billeder og optage video</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Bharat Plus kræver tilladelse til at tilgå dit kamera, for at kunne tage billeder eller optage video, hvilket det er blevet nægtet. Gå venligst via appens menu til Indstillinger, vælg \"Tilladelser\" og tilvælg \"Kamera\"</string>
+  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Bharat Plus kræver tilladelse til at tilgå kameraet, for at tage billeder og video</string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Tildel adgang til mikrofonen, for at kunne optage video med lyd</string>
-  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Molly kræver tilladelse til at tilgå mikrofonen, for at kunne optage videoer, men det er blevet afvist. Gå venligst via appens menu til Indstillinger, vælg \"Tilladelser\" og tilvælg \"Mikrofon\" og \"Kamera\"</string>
-  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Molly kræver adgang til mikrofonen, for at kunne optage video</string>
+  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Bharat Plus kræver tilladelse til at tilgå mikrofonen, for at kunne optage videoer, men det er blevet afvist. Gå venligst via appens menu til Indstillinger, vælg \"Tilladelser\" og tilvælg \"Mikrofon\" og \"Kamera\"</string>
+  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Bharat Plus kræver adgang til mikrofonen, for at kunne optage video</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s%2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">Signal kan ikke sende SMS/MMS beskeder, fordi det ikke er din standard besked app. Vil du ændre dette under Android indstillinger?</string>
   <string name="ConversationActivity_yes">Ja</string>
@@ -229,8 +229,8 @@
   <string name="ConversationActivity_you_will_leave_this_group_and_it_will_be_deleted_from_all_of_your_devices">Du forlader gruppen og den vil blive slettet fra alle dine enheder</string>
   <string name="ConversationActivity_delete">Slet</string>
   <string name="ConversationActivity_delete_and_leave">Slet og forlad</string>
-  <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">For at ringe til %1$s kræver Molly tilladelse til at tilgå din mikrofon</string>
-  <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone_and_camera">For at ringe til %1$s, kræver Molly tilladelse til at tilgå din mikrofon og dit kamera</string>
+  <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">For at ringe til %1$s kræver Bharat Plus tilladelse til at tilgå din mikrofon</string>
+  <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone_and_camera">For at ringe til %1$s, kræver Bharat Plus tilladelse til at tilgå din mikrofon og dit kamera</string>
   <!--ConversationAdapter-->
   <plurals name="ConversationAdapter_n_unread_messages">
     <item quantity="one">%d ulæst besked</item>
@@ -354,7 +354,7 @@
   <string name="DocumentView_unnamed_file">Unavngivet fil</string>
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">Optimér for manglende Play Services</string>
-  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Enheden understøtter ikke Play Services. Tap for at slå batterioptimering fra, som forhindrer Molly i at modtage beskeder i baggrunden</string>
+  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Enheden understøtter ikke Play Services. Tap for at slå batterioptimering fra, som forhindrer Bharat Plus i at modtage beskeder i baggrunden</string>
   <!--ShareActivity-->
   <string name="ShareActivity_share_with">Del med</string>
   <string name="ShareActivity_multiple_attachments_are_only_supported">Det er kun muligt at vedhæfte flere billeder og videoer</string>
@@ -476,7 +476,7 @@
   <string name="InviteActivity_sending">Sender…</string>
   <string name="InviteActivity_heart_content_description">Hjerte</string>
   <string name="InviteActivity_invitations_sent">Invitationer sendt!</string>
-  <string name="InviteActivity_invite_to_signal">Invitér til Molly</string>
+  <string name="InviteActivity_invite_to_signal">Invitér til Bharat Plus</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">SEND SMS TIL %d VENNER</item>
     <item quantity="other">SEND SMS TIL %d VENNER</item>
@@ -485,7 +485,7 @@
     <item quantity="one">Send %d SMS invitationer?</item>
     <item quantity="other">Send %d SMS invitationer?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">Lad os bruge Molly: %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">Lad os bruge Bharat Plus: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Det lader til at du ikke har nogle apps at dele til</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Venner lader ikke rigtige venner chatte ukrypteret</string>
   <!--Job-->
@@ -500,7 +500,7 @@
   <string name="LongMessageActivity_message_from_s">Besked fra %1$s</string>
   <string name="LongMessageActivity_your_message">Din besked</string>
   <!--MessageRetrievalService-->
-  <string name="MessageRetrievalService_signal">Molly</string>
+  <string name="MessageRetrievalService_signal">Bharat Plus</string>
   <string name="MessageRetrievalService_background_connection_enabled">Baggrundsforbindelse aktiveret</string>
   <!--MmsDownloader-->
   <string name="MmsDownloader_error_reading_mms_settings">Kunne ikke læse indstillinger for trådløs MMS udbyder</string>
@@ -576,8 +576,8 @@
   <string name="MediaSendActivity_message_to_s">Besked til %s</string>
   <string name="MediaSendActivity_message">Besked</string>
   <string name="MediaSendActivity_select_recipients">Vælg modtagere</string>
-  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Molly kræver tilladelse til at tilgå dine kontakter, for at kunne vise dem</string>
-  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Molly kræver tilladelse til at tilgå dine kontakter, hvilket det er blevet nægtet. Gå venligst via appens menu til Indstillinger, vælg \"Tilladelser\" og tilvælg \"Kontakter\"</string>
+  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Bharat Plus kræver tilladelse til at tilgå dine kontakter, for at kunne vise dem</string>
+  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Bharat Plus kræver tilladelse til at tilgå dine kontakter, hvilket det er blevet nægtet. Gå venligst via appens menu til Indstillinger, vælg \"Tilladelser\" og tilvælg \"Kontakter\"</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="one">Du kan ikke dele flere end %d fil.</item>
     <item quantity="other">Du kan ikke dele flere end %d filer</item>
@@ -714,7 +714,7 @@
   <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">Beklager - QR-koden kan ikke bruges til at forbinde enheder</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">Tilføj en Signal enhed?</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Det ser ud som om du forsøger at tilføje en Signal enhed via en 3 parts skanner. Af sikkerhedshensyn bør du bruge den integrerede skanner i Signal app\'en</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly kræver tilladelse til at tilgå dit kamera, for at kunne skanne en QR-kode, hvilket det er blevet nægtet. Gå venligst via appens menu til Indstillinger, vælg \"Tilladelser\" og tilvælg \"Kamera\"</string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Bharat Plus kræver tilladelse til at tilgå dit kamera, for at kunne skanne en QR-kode, hvilket det er blevet nægtet. Gå venligst via appens menu til Indstillinger, vælg \"Tilladelser\" og tilvælg \"Kamera\"</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Kan ikke scanne en QR kode uden tilladelse til at tilgå kameraet</string>
   <!--ExpirationDialog-->
   <string name="ExpirationDialog_disappearing_messages">Beskeder med tidsudløb</string>
@@ -816,9 +816,9 @@ nummer (%s) er ugyldigt</string>
   <string name="RegistrationActivity_no_browser">Linket kan ikke åbnes. Ingen Webbrowser installeret</string>
   <string name="RegistrationActivity_more_information">Mere information</string>
   <string name="RegistrationActivity_less_information">Mindre information</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly kræver tilladelse til at tilgå dine kontakter og medieindhold, for at oprette forbindelser til venner, udveksle beskeder og foretage sikre opkald</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Bharat Plus kræver tilladelse til at tilgå dine kontakter og medieindhold, for at oprette forbindelser til venner, udveksle beskeder og foretage sikre opkald</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">Ikke muligt at få forbindelse til service. Tjek venligst din netværksforbindelse og prøv igen</string>
-  <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">For nemt at godkende dit mobilnummer, kan Molly automatisk registrere din verifikationskode, hvis du tillader Molly adgang til at læse SMS beskeder</string>
+  <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">For nemt at godkende dit mobilnummer, kan Bharat Plus automatisk registrere din verifikationskode, hvis du tillader Bharat Plus adgang til at læse SMS beskeder</string>
   <plurals name="RegistrationActivity_debug_log_hint">
     <item quantity="one">Du er nu kun %d trin fra at indsende en fejllog</item>
     <item quantity="other">Du er nu kun %d trin fra at indsende en fejllog</item>
@@ -917,11 +917,11 @@ Modtog en nøgle besked, for en ugyldig protokol-version
   <string name="SubmitDebugLogActivity_share">Del</string>
   <!--SupportEmailUtil-->
   <string name="SupportEmailUtil_subject">Emne:</string>
-  <string name="SupportEmailUtil_signal_android_support_request">Molly Android support spørgsmål</string>
+  <string name="SupportEmailUtil_signal_android_support_request">Bharat Plus Android support spørgsmål</string>
   <string name="SupportEmailUtil_device_info">Enheds info:</string>
   <string name="SupportEmailUtil_android_version">Android version:</string>
-  <string name="SupportEmailUtil_signal_version">Molly version:</string>
-  <string name="SupportEmailUtil_signal_package">Molly-pakke:</string>
+  <string name="SupportEmailUtil_signal_version">Bharat Plus version:</string>
+  <string name="SupportEmailUtil_signal_package">Bharat Plus-pakke:</string>
   <string name="SupportEmailUtil_locale">Lokalt:</string>
   <!--ThreadRecord-->
   <string name="ThreadRecord_group_updated">Gruppe opdateret</string>
@@ -986,7 +986,7 @@ Modtog en nøgle besked, for en ugyldig protokol-version
   <string name="VerifyIdentityActivity_our_signal_safety_number">Vores Signal sikkerhedsnummer:</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">Det lader til at du ikke har nogen apps at dele til</string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">Sikkerhedsnummer til sammenligning findes ikke i udklipsholderen</string>
-  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Molly kræver tilladelse til at tilgå dit kamera, for at kunne skanne en QR-kode, hvilket det er blevet nægtet. Gå venligst via appens menu til Indstillinger, vælg \"Tilladelser\" og tilvælg \"Kamera\"</string>
+  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Bharat Plus kræver tilladelse til at tilgå dit kamera, for at kunne skanne en QR-kode, hvilket det er blevet nægtet. Gå venligst via appens menu til Indstillinger, vælg \"Tilladelser\" og tilvælg \"Kamera\"</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">Ikke muligt at skanne QR-koden. Tilladelse til at tilgå kameraet mangler</string>
   <!--ViewOnceMessageActivity-->
   <!--MessageDisplayHelper-->
@@ -1007,13 +1007,13 @@ Modtog en nøgle besked, for en ugyldig protokol-version
   <!--KeyCachingService-->
   <string name="KeyCachingService_signal_passphrase_cached">Tap for at åbne</string>
   <string name="KeyCachingService_signal_passphrase_cached_with_lock">Tap for at åbne, eller tap på låsen for at lukke</string>
-  <string name="KeyCachingService_passphrase_cached">Molly er låst op</string>
-  <string name="KeyCachingService_lock">Lås Molly</string>
+  <string name="KeyCachingService_passphrase_cached">Bharat Plus er låst op</string>
+  <string name="KeyCachingService_lock">Lås Bharat Plus</string>
   <!--MediaPreviewActivity-->
   <string name="MediaPreviewActivity_you">Dig</string>
   <string name="MediaPreviewActivity_unssuported_media_type">Multimedie type ikke understøttet</string>
   <string name="MediaPreviewActivity_draft">Kladde</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Molly kræver tilladelse til at tilgå din hukommelse, for at kunne gemme til ekstern placering, hvilket det er blevet nægtet. Gå venligst via appens menu til Indstillinger, vælg \"Tilladelser\" og tilvælg \"Hukommelse\"</string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Bharat Plus kræver tilladelse til at tilgå din hukommelse, for at kunne gemme til ekstern placering, hvilket det er blevet nægtet. Gå venligst via appens menu til Indstillinger, vælg \"Tilladelser\" og tilvælg \"Hukommelse\"</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">Ikke muligt at gemme til ekstern placering, uden tilladelse</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">Slet besked?</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">Dette sletter beskeden permanent</string>
@@ -1036,7 +1036,7 @@ Modtog en nøgle besked, for en ugyldig protokol-version
   <string name="MessageNotifier_signal_message">Signalbesked</string>
   <string name="MessageNotifier_unsecured_sms">Standard SMS</string>
   <string name="MessageNotifier_you_may_have_new_messages">Du har nye beskeder</string>
-  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Åbn Molly for at tjekke seneste notifikationer</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Åbn Bharat Plus for at tjekke seneste notifikationer</string>
   <string name="MessageNotifier_contact_message">%1$s%2$s</string>
   <string name="MessageNotifier_unknown_contact_message">Kontakt</string>
   <string name="MessageNotifier_reacted_s_to_s">%1$s reagerede på: \"%2$s\"</string>
@@ -1089,8 +1089,8 @@ Modtog en nøgle besked, for en ugyldig protokol-version
   <!--VideoPlayer-->
   <string name="VideoPlayer_error_playing_video">Kunne ikke afspille video</string>
   <!--WebRtcCallActivity-->
-  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">For at svare opkald fra %s skal Molly gives adgang til din mikrofon</string>
-  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Molly kræver tilladelse til at tilgå mikrofon og kamera, for at kunne modtage og foretage opkald, hvilket det er blevet nægtet. Gå venligst via appens menu til Indstillinger, vælg \"Tilladelser\" og tilvælg \"Mikrofon\" og \"Kamera\"</string>
+  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">For at svare opkald fra %s skal Bharat Plus gives adgang til din mikrofon</string>
+  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Bharat Plus kræver tilladelse til at tilgå mikrofon og kamera, for at kunne modtage og foretage opkald, hvilket det er blevet nægtet. Gå venligst via appens menu til Indstillinger, vælg \"Tilladelser\" og tilvælg \"Mikrofon\" og \"Kamera\"</string>
   <string name="WebRtcCallActivity__answered_on_a_linked_device">Besvaret på en forbundet enhed</string>
   <string name="WebRtcCallActivity__declined_on_a_linked_device">Afvist på en forbundet enhed</string>
   <string name="WebRtcCallActivity__busy_on_a_linked_device">Optaget på en forbundet enhed</string>
@@ -1154,7 +1154,7 @@ Modtog en nøgle besked, for en ugyldig protokol-version
   <!--single_contact_selection_activity-->
   <string name="SingleContactSelectionActivity_contact_photo">Kontaktbillede</string>
   <!--ContactSelectionListFragment-->
-  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Molly kræver tilladelse til at tilgå dine kontakter for at kunne vise dem, hvilket det er blevet nægtet. Gå venligst via appens menu til Indstillinger, vælg \"Tilladelser\" og tilvælg \"Kontakter\"</string>
+  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Bharat Plus kræver tilladelse til at tilgå dine kontakter for at kunne vise dem, hvilket det er blevet nægtet. Gå venligst via appens menu til Indstillinger, vælg \"Tilladelser\" og tilvælg \"Kontakter\"</string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Fejl ved modtagelse af kontakter, tjek din netværksforbindelse</string>
   <string name="ContactSelectionListFragment_username_not_found">Brugernavn ikke fundet</string>
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">\"%1$s\" er ikke en Signal bruger. Tjek venligst brugernavnet og prøv igen</string>
@@ -1162,7 +1162,7 @@ Modtog en nøgle besked, for en ugyldig protokol-version
   <!--blocked_contacts_fragment-->
   <string name="blocked_contacts_fragment__no_blocked_contacts">Ingen blokerede kontakter</string>
   <!--contact_selection_list_fragment-->
-  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly kræver tilladelse til at tilgå dine kontakter, for at kunne vise dem</string>
+  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Bharat Plus kræver tilladelse til at tilgå dine kontakter, for at kunne vise dem</string>
   <string name="contact_selection_list_fragment__show_contacts">Vis kontakter</string>
   <!--conversation_activity-->
   <string name="conversation_activity__type_message_push">Signalbesked</string>
@@ -1562,7 +1562,7 @@ Modtog en nøgle besked, for en ugyldig protokol-version
   <string name="preferences_notifications__calls">Opkald</string>
   <string name="preferences_notifications__ringtone">Ringetone</string>
   <string name="preferences_chats__show_invitation_prompts">Invitationsprompt</string>
-  <string name="preferences_chats__display_invitation_prompts_for_contacts_without_signal">Vis invitationsprompt for kontakter uden Molly</string>
+  <string name="preferences_chats__display_invitation_prompts_for_contacts_without_signal">Vis invitationsprompt for kontakter uden Bharat Plus</string>
   <string name="preferences_chats__message_text_size">Skriftstørrelse på beskeder</string>
   <string name="preferences_events__contact_joined_signal">Kontakt er nu tilmeldt Signal</string>
   <string name="preferences_notifications__priority">Prioritet</string>
@@ -1850,7 +1850,7 @@ Modtog en nøgle besked, for en ugyldig protokol-version
   <string name="BackupDialog_verify">Verificér</string>
   <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">Dit kodeord for backup er oprettet</string>
   <string name="BackupDialog_passphrase_was_not_correct">Forkert kodeord</string>
-  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly kræver tilladelse til at tilgå ekstern placering for at oprette backups, hvilket det er blevet nægtet. Gå venligst via appens menu til Indstillinger, vælg \"Tilladelser\" og tilvælg \"Hukommelse\"</string>
+  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Bharat Plus kræver tilladelse til at tilgå ekstern placering for at oprette backups, hvilket det er blevet nægtet. Gå venligst via appens menu til Indstillinger, vælg \"Tilladelser\" og tilvælg \"Hukommelse\"</string>
   <string name="ChatsPreferenceFragment_last_backup_s">Sidste backup: %s</string>
   <string name="ChatsPreferenceFragment_in_progress">Pågående</string>
   <string name="LocalBackupJob_creating_backup">Opretter backup…</string>
@@ -1917,7 +1917,7 @@ Der er %d dage tilbage</string>
   <string name="RegistrationActivity_pin_incorrect">Forkert PIN</string>
   <string name="RegistrationActivity_you_have_d_tries_remaining">Du har %d forsøg tilbage</string>
   <string name="preferences_chats__backups">Backup´s</string>
-  <string name="prompt_passphrase_activity__signal_is_locked">Molly er låst</string>
+  <string name="prompt_passphrase_activity__signal_is_locked">Bharat Plus er låst</string>
   <string name="prompt_passphrase_activity__tap_to_unlock">TAP FOR AT LÅSE OP</string>
   <string name="RegistrationLockDialog_reminder">Påmindelse:</string>
   <string name="recipient_preferences__about">Om</string>

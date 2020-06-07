@@ -96,7 +96,7 @@
 
     <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDSZp9k3UG-ob8Co2v-EhQdaIOgSd6qAsU"/>
+            android:value="AIzaSyDKXQBRWY_buj_2P-jE_QIxAEsr8WlxFKA"/>
 
     <meta-data android:name="com.google.android.gms.version"
                android:value="@integer/google_play_services_version" />
@@ -667,6 +667,9 @@
     <meta-data android:name="com.sec.android.multiwindow.DEFAULT_SIZE_H" android:value="598.0dip" />
     <meta-data android:name="com.sec.android.multiwindow.MINIMUM_SIZE_W" android:value="632.0dip" />
     <meta-data android:name="com.sec.android.multiwindow.MINIMUM_SIZE_H" android:value="598.0dip" />
+        <!-- Example: Sets all OneSignal notification's accent color to Green by default.  -->
+        <!-- Color format is in ARGB. -->
+    <meta-data android:name="com.onesignal.NotificationAccentColor.DEFAULT" android:value="#2c6bed" />
 
 </application>
 </manifest>

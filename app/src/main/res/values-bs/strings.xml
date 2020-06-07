@@ -27,12 +27,12 @@
   </plurals>
   <string name="ApplicationPreferencesActivity_delete">Obriši</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">Onemogući lozinku?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Ovo će trajno otključati Molly i obavještenja o porukama.</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Ovo će trajno otključati Bharat Plus i obavještenja o porukama.</string>
   <string name="ApplicationPreferencesActivity_disable">Onemogući</string>
   <string name="ApplicationPreferencesActivity_unregistering">Odjavljivanje</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Odjavljivanje iz Molly poruka i poziva …</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Onemogući Molly poruke i pozive?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Onemogućite Molly
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Odjavljivanje iz Bharat Plus poruka i poziva …</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Onemogući Bharat Plus poruke i pozive?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Onemogućite Bharat Plus
    poruke i pozive tako što ćete se odjaviti sa servera. Morate ponovo da registrujete svoj broj telefona da biste ih ponovo koristili u budućnosti.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">Greška pri povezivanju sa serverom!</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">SMS omogućen</string>
@@ -196,7 +196,7 @@
   <string name="ConversationActivity_transport_insecure_sms">Nezaštićen SMS</string>
   <string name="ConversationActivity_transport_insecure_mms">Nezaštićen MMS</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">Pređimo na Molly %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">Pređimo na Bharat Plus %1$s</string>
   <string name="ConversationActivity_error_leaving_group">Greška prilikom napuštanja grupe</string>
   <string name="ConversationActivity_specify_recipient">Molimo odaberite kontakt</string>
   <string name="ConversationActivity_unblock_this_contact_question">Prestati blokiranje ove osobe?</string>
@@ -368,7 +368,7 @@
   <string name="DocumentView_unnamed_file">Datoteka bez naziva</string>
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">Optimizuj za nepostojanje Play Services</string>
-  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Ovaj uređaj ne podržava Play Services. Pritisnite ovdje kako biste onemogućili sistemske optimizacije korištenja baterije koje sprečavaju Molly da prima poruke dok je aplikacija zatvorena.</string>
+  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Ovaj uređaj ne podržava Play Services. Pritisnite ovdje kako biste onemogućili sistemske optimizacije korištenja baterije koje sprečavaju Bharat Plus da prima poruke dok je aplikacija zatvorena.</string>
   <!--ShareActivity-->
   <string name="ShareActivity_share_with">Dijeli sa</string>
   <string name="ShareActivity_multiple_attachments_are_only_supported">Višestruki prilozi podržani su samo za slike i videozapise</string>
@@ -494,7 +494,7 @@
   <string name="InviteActivity_sending">Šaljem…</string>
   <string name="InviteActivity_heart_content_description">Srce</string>
   <string name="InviteActivity_invitations_sent">Pozivnica poslana!</string>
-  <string name="InviteActivity_invite_to_signal">Pozovite na Molly</string>
+  <string name="InviteActivity_invite_to_signal">Pozovite na Bharat Plus</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">ŠALJI SMS %d PRIJATELJU</item>
     <item quantity="few">ŠALJI SMS %d PRIJATELJA</item>
@@ -505,7 +505,7 @@
     <item quantity="few">Poslati %d SMS pozivnice?</item>
     <item quantity="other">Poslati %d SMS pozivnica?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">Pređimo na Molly: %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">Pređimo na Bharat Plus: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Izgleda da nemate nijednu aplikaciju s kojom je moguće dijeljenje.</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Prijatelji neće dozvoliti da s prijateljima razgovaraju bez šifriranja.</string>
   <!--Job-->
@@ -520,7 +520,7 @@
   <string name="LongMessageActivity_message_from_s">Poruka od %1$s</string>
   <string name="LongMessageActivity_your_message">Vaša poruka</string>
   <!--MessageRetrievalService-->
-  <string name="MessageRetrievalService_signal">Molly</string>
+  <string name="MessageRetrievalService_signal">Bharat Plus</string>
   <string name="MessageRetrievalService_background_connection_enabled">Aktivirana konekcija u pozadini</string>
   <!--MmsDownloader-->
   <string name="MmsDownloader_error_reading_mms_settings">Greška prilikom čitanja operaterovih MMS postavki</string>
@@ -951,11 +951,11 @@
   <string name="SubmitDebugLogActivity_share">Dijeli</string>
   <!--SupportEmailUtil-->
   <string name="SupportEmailUtil_subject">Tema:</string>
-  <string name="SupportEmailUtil_signal_android_support_request">Zahtjev za pomoć (Molly Android)</string>
+  <string name="SupportEmailUtil_signal_android_support_request">Zahtjev za pomoć (Bharat Plus Android)</string>
   <string name="SupportEmailUtil_device_info">Podaci o uređaju:</string>
   <string name="SupportEmailUtil_android_version">Verzija Androida:</string>
   <string name="SupportEmailUtil_signal_version">Verzija Mollya:</string>
-  <string name="SupportEmailUtil_signal_package">Molly paket:</string>
+  <string name="SupportEmailUtil_signal_package">Bharat Plus paket:</string>
   <string name="SupportEmailUtil_locale">Region:</string>
   <!--ThreadRecord-->
   <string name="ThreadRecord_group_updated">Grupa ažurirana</string>
@@ -1041,8 +1041,8 @@
   <!--KeyCachingService-->
   <string name="KeyCachingService_signal_passphrase_cached">Dotaknite da otvorite.</string>
   <string name="KeyCachingService_signal_passphrase_cached_with_lock">Dotaknite da otvorite ili dotaknite katanac da zatvorite.</string>
-  <string name="KeyCachingService_passphrase_cached">Molly je otključan</string>
-  <string name="KeyCachingService_lock">Zaključaj Molly</string>
+  <string name="KeyCachingService_passphrase_cached">Bharat Plus je otključan</string>
+  <string name="KeyCachingService_lock">Zaključaj Bharat Plus</string>
   <!--MediaPreviewActivity-->
   <string name="MediaPreviewActivity_you">Vi</string>
   <string name="MediaPreviewActivity_unssuported_media_type">Nepodržana vrsta datoteke</string>
@@ -1070,7 +1070,7 @@
   <string name="MessageNotifier_signal_message">Signal poruka</string>
   <string name="MessageNotifier_unsecured_sms">Nezaštićen SMS</string>
   <string name="MessageNotifier_you_may_have_new_messages">Možda imate novih poruka</string>
-  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Otvorite Molly da provjerite zadnja obavještenja.</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Otvorite Bharat Plus da provjerite zadnja obavještenja.</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">Kontakt</string>
   <string name="MessageNotifier_reacted_s_to_s">Reagovao/la je sa %1$s na: \"%2$s\".</string>
@@ -1604,7 +1604,7 @@
   <string name="preferences_notifications__calls">Pozivi</string>
   <string name="preferences_notifications__ringtone">Zvono</string>
   <string name="preferences_chats__show_invitation_prompts">Prikaži upite za pozivnice</string>
-  <string name="preferences_chats__display_invitation_prompts_for_contacts_without_signal">Prikaži sugestije za slanje pozivnice kontaktima koji ne koriste Molly</string>
+  <string name="preferences_chats__display_invitation_prompts_for_contacts_without_signal">Prikaži sugestije za slanje pozivnice kontaktima koji ne koriste Bharat Plus</string>
   <string name="preferences_chats__message_text_size">Veličina slova u poruci</string>
   <string name="preferences_events__contact_joined_signal">Kontakt je počeo koristiti Signal</string>
   <string name="preferences_notifications__priority">Prioritet</string>
@@ -1966,7 +1966,7 @@
   <string name="RegistrationActivity_pin_incorrect">PIN je netačan</string>
   <string name="RegistrationActivity_you_have_d_tries_remaining">Preostalo pokušaja: %d</string>
   <string name="preferences_chats__backups">Rezervne kopije</string>
-  <string name="prompt_passphrase_activity__signal_is_locked">Molly je zaključan</string>
+  <string name="prompt_passphrase_activity__signal_is_locked">Bharat Plus je zaključan</string>
   <string name="prompt_passphrase_activity__tap_to_unlock">PRITISNITE DA OTKLJUČATE</string>
   <string name="RegistrationLockDialog_reminder">Podsjetnik:</string>
   <string name="recipient_preferences__about">O kontaktu</string>

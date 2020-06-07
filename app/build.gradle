@@ -6,6 +6,7 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        maven { url 'https://plugins.gradle.org/m2/'}
         jcenter {
             content {
                 includeVersion 'org.jetbrains.trove4j', 'trove4j', '20160824'
@@ -16,9 +17,11 @@ buildscript {
         classpath 'com.android.tools.build:gradle:3.6.3'
         classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.1.0'
         classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.10'
+        classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:[0.12.6, 0.99.99]'
     }
 }
 
+apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.protobuf'
 apply plugin: 'androidx.navigation.safeargs'
@@ -63,6 +66,7 @@ repositories {
             includeModule 'com.amulyakhare:com.amulyakhare', 'textdrawable'
         }
     }
+    maven { url 'https://maven.google.com' }
     google()
     mavenCentral()
     jcenter()
@@ -84,8 +88,8 @@ protobuf {
     }
 }
 
-def canonicalVersionCode = 640
-def canonicalVersionName = "4.60.9"
+def canonicalVersionCode = 1
+def canonicalVersionName = "1.0"
 
 def postFixSize = 10
 def abiPostFix = ['universal'   : 0,
@@ -152,6 +156,13 @@ android {
         ndkVersion "21.1.6352462"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        manifestPlaceholders = [
+                onesignal_app_id: 'e8e79b52-aa86-4a2d-939b-b97c8e128093',
+                // Project number pulled from dashboard, local value is ignored.
+                onesignal_google_project_number: 'REMOTE'
+        ]
+
     }
 
     compileOptions {
@@ -200,11 +211,6 @@ android {
         }
     }
 
-    externalNativeBuild {
-        ndkBuild {
-            path file("jni/Android.mk")
-        }
-    }
 
     productFlavors {
         staging {
@@ -294,6 +300,9 @@ dependencies {
     implementation "androidx.autofill:autofill:1.0.0"
     implementation "androidx.paging:paging-common:2.1.2"
     implementation "androidx.paging:paging-runtime:2.1.2"
+
+    implementation 'com.onesignal:OneSignal:[3.13.0, 3.99.99]'
+    implementation 'com.facebook.android:audience-network-sdk:5.9.0'
 
 
     implementation('com.google.firebase:firebase-messaging:17.3.4') {

@@ -23,12 +23,12 @@
   </plurals>
   <string name="ApplicationPreferencesActivity_delete">刪除</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">停用密碼嗎？</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">這將會永久性地解鎖 Molly 與訊息通知。</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">這將會永久性地解鎖 Bharat Plus 與訊息通知。</string>
   <string name="ApplicationPreferencesActivity_disable">停用</string>
   <string name="ApplicationPreferencesActivity_unregistering">取消註冊</string>
   <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">正在從Molly訊息和通話中註銷…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">停用 Molly 訊息與通話？</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">這將會從伺服器上登出您的 Molly 並停用。 未來如果還想使用該功能，則需要再次註冊。</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">停用 Bharat Plus 訊息與通話？</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">這將會從伺服器上登出您的 Bharat Plus 並停用。 未來如果還想使用該功能，則需要再次註冊。</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">與伺服器的連線發生錯誤！</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">簡訊功能已啟動</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">按此以變更您預設的簡訊應用程式</string>
@@ -58,14 +58,14 @@
   <string name="AttachmentKeyboard_file">檔案</string>
   <string name="AttachmentKeyboard_contact">聯絡人</string>
   <string name="AttachmentKeyboard_location">位置</string>
-  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Molly 需要權限以顯示你的照片及影片。</string>
+  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Bharat Plus 需要權限以顯示你的照片及影片。</string>
   <string name="AttachmentKeyboard_give_access">取得連結</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">找不到合適的應用程式來選擇媒體檔案。</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly 需要儲存的權限，以存取照片、影片或聲音檔。但是現在被設定為永久拒絕存取。請到應用程式設定中，選擇「權限」及開啟「儲存」。 </string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly 需要聯絡人的權限以存取聯絡人資訊，但是現在被設定為永久拒絕存取。請到應用程式設定中，選取「權限」，並啟用「聯絡人」的權限。</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly 需要位置的權限以存取位置資訊，但是現在被設定為永久拒絕存取。請到應用程式設定中，選取「權限」，並啟用「位置」的權限。</string>
-  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">Molly 需要相機的權限用以拍照，但是現在被設定為永久拒絕使用。請到應用程式設定中，選取「權限」，並啟用「相機」的權限。</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Bharat Plus 需要儲存的權限，以存取照片、影片或聲音檔。但是現在被設定為永久拒絕存取。請到應用程式設定中，選擇「權限」及開啟「儲存」。 </string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Bharat Plus 需要聯絡人的權限以存取聯絡人資訊，但是現在被設定為永久拒絕存取。請到應用程式設定中，選取「權限」，並啟用「聯絡人」的權限。</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Bharat Plus 需要位置的權限以存取位置資訊，但是現在被設定為永久拒絕存取。請到應用程式設定中，選取「權限」，並啟用「位置」的權限。</string>
+  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">Bharat Plus 需要相機的權限用以拍照，但是現在被設定為永久拒絕使用。請到應用程式設定中，選取「權限」，並啟用「相機」的權限。</string>
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">上傳多媒體檔案中…</string>
   <string name="AttachmentUploadJob_compressing_video_start">壓縮影片中…</string>
@@ -189,7 +189,7 @@
   <string name="ConversationActivity_transport_insecure_sms">不安全的簡訊</string>
   <string name="ConversationActivity_transport_insecure_mms">不安全的多媒體訊息</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">我們要不要切換到 Molly %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">我們要不要切換到 Bharat Plus %1$s</string>
   <string name="ConversationActivity_error_leaving_group">離開群組時發生錯誤</string>
   <string name="ConversationActivity_specify_recipient">請選擇聯絡人</string>
   <string name="ConversationActivity_unblock_this_contact_question">解除封鎖此聯絡人？</string>
@@ -201,15 +201,15 @@
   <string name="ConversationActivity_quick_camera_unavailable">無法使用相機</string>
   <string name="ConversationActivity_unable_to_record_audio">無法錄製音訊！</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">您的裝置上沒有應用程式可以處理這個連結</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">若要傳送語音訊息，請允許 Molly 使用您的麥克風</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly 需要麥克風的權限來傳送語音訊息，但是現在系統設定為總是拒絕 Molly。請到 Molly 的應用程式設定中，點選「權限」，並啟用「麥克風」的權限。</string>
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly 需要麥克風和相機的權限來打電話給 %s，但是現在系統設定為總是拒絕 Molly。請到 Molly 的應用程式設定中，點選「權限」，並啟用麥克風和相機的權限。</string>
-  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">請授予 Molly 使用相機的權限，才能拍攝照片和影片</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Molly 需要相機的權限來拍攝照片或是影片 ，但是現在系統設定為總是拒絕 Molly。請到 Molly 的應用程式設定中，點選「權限」，並啟用相機的權限。</string>
-  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Molly 需要使用相機的權限來拍攝照片和影片</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">若要傳送語音訊息，請允許 Bharat Plus 使用您的麥克風</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Bharat Plus 需要麥克風的權限來傳送語音訊息，但是現在系統設定為總是拒絕 Bharat Plus。請到 Bharat Plus 的應用程式設定中，點選「權限」，並啟用「麥克風」的權限。</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Bharat Plus 需要麥克風和相機的權限來打電話給 %s，但是現在系統設定為總是拒絕 Bharat Plus。請到 Bharat Plus 的應用程式設定中，點選「權限」，並啟用麥克風和相機的權限。</string>
+  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">請授予 Bharat Plus 使用相機的權限，才能拍攝照片和影片</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Bharat Plus 需要相機的權限來拍攝照片或是影片 ，但是現在系統設定為總是拒絕 Bharat Plus。請到 Bharat Plus 的應用程式設定中，點選「權限」，並啟用相機的權限。</string>
+  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Bharat Plus 需要使用相機的權限來拍攝照片和影片</string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">開啟麥克風權限以擷取帶有音效的影片。</string>
   <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Molly需要麥克風權限才能錄製影片，但已被拒絕。 請繼續進行應用程式設定，選擇“權限”，然後啟用“麥克風”和“相機”。</string>
-  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Molly 需要麥克風權限以錄製影片。</string>
+  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Bharat Plus 需要麥克風權限以錄製影片。</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">Signal 無法傳送 SMS/MMS 訊息，因為Signal 不是你預設 SMS 應用軟體。你要在 Android 設定中改變這個設定嗎？</string>
   <string name="ConversationActivity_yes">是</string>
@@ -225,8 +225,8 @@
   <string name="ConversationActivity_you_will_leave_this_group_and_it_will_be_deleted_from_all_of_your_devices">你將離開此群組，及它將從你所有的裝置上被刪除。</string>
   <string name="ConversationActivity_delete">刪除</string>
   <string name="ConversationActivity_delete_and_leave">刪除並離開</string>
-  <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">要撥電話給%1$s，Molly 須要你連結你的麥克風</string>
-  <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone_and_camera">要撥電話給%1$s，Molly 須要連結你的麥克風與相機。</string>
+  <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">要撥電話給%1$s，Bharat Plus 須要你連結你的麥克風</string>
+  <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone_and_camera">要撥電話給%1$s，Bharat Plus 須要連結你的麥克風與相機。</string>
   <!--ConversationAdapter-->
   <plurals name="ConversationAdapter_n_unread_messages">
     <item quantity="other">%d 則未讀訊息</item>
@@ -339,7 +339,7 @@
   <string name="DocumentView_unnamed_file">無名稱的檔案</string>
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">為缺少的 Play 服務優化</string>
-  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">這個裝置不支援 Play 服務。輕觸關閉，因為系統電池效能最佳化會防止 Molly 在閒置時取得訊息。</string>
+  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">這個裝置不支援 Play 服務。輕觸關閉，因為系統電池效能最佳化會防止 Bharat Plus 在閒置時取得訊息。</string>
   <!--ShareActivity-->
   <string name="ShareActivity_share_with">分享給</string>
   <string name="ShareActivity_multiple_attachments_are_only_supported">僅圖片和影片支援多個附檔</string>
@@ -457,14 +457,14 @@
   <string name="InviteActivity_sending">傳送中…</string>
   <string name="InviteActivity_heart_content_description">心</string>
   <string name="InviteActivity_invitations_sent">邀請已傳送！</string>
-  <string name="InviteActivity_invite_to_signal">邀請至 Molly</string>
+  <string name="InviteActivity_invite_to_signal">邀請至 Bharat Plus</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="other">傳送簡訊給 %d 位朋友</item>
   </plurals>
   <plurals name="InviteActivity_send_sms_invites">
     <item quantity="other">傳送 %d 則簡訊邀請？</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">讓我們切換到 Molly：%1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">讓我們切換到 Bharat Plus：%1$s</string>
   <string name="InviteActivity_no_app_to_share_to">看起來您沒有任何可以分享的應用。</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">朋友不該讓朋友之間的聊天未經加密。</string>
   <!--Job-->
@@ -479,7 +479,7 @@
   <string name="LongMessageActivity_message_from_s">從 %1$s 傳送的訊息</string>
   <string name="LongMessageActivity_your_message">你的訊息</string>
   <!--MessageRetrievalService-->
-  <string name="MessageRetrievalService_signal">Molly</string>
+  <string name="MessageRetrievalService_signal">Bharat Plus</string>
   <string name="MessageRetrievalService_background_connection_enabled">背景連線已經啟用</string>
   <!--MmsDownloader-->
   <string name="MmsDownloader_error_reading_mms_settings">讀取無線供應商的 MMS 設定時發生錯誤</string>
@@ -551,8 +551,8 @@
   <string name="MediaSendActivity_message_to_s">傳訊息給 %s</string>
   <string name="MediaSendActivity_message">訊息</string>
   <string name="MediaSendActivity_select_recipients">選擇收件人</string>
-  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Molly 需要存取你的\"聯絡人\"以顯示聯絡人資訊。</string>
-  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Molly 需要聯絡人權限以顯示你的聯絡人，但是你已拒絕了該權限。請到應用程式設定，選擇\"權限\"，並開啟\"聯絡人\"。</string>
+  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Bharat Plus 需要存取你的\"聯絡人\"以顯示聯絡人資訊。</string>
+  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Bharat Plus 需要聯絡人權限以顯示你的聯絡人，但是你已拒絕了該權限。請到應用程式設定，選擇\"權限\"，並開啟\"聯絡人\"。</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="other">你無法分享超過 %d 個項目。</item>
   </plurals>
@@ -681,7 +681,7 @@
   <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">抱歉，這不是有些的裝置連結 QR 碼。</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">連結 Signal 裝置？</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">看起來您正在嘗試使用第 3 方掃描器連結 Signal 裝置。為了安全著想，請使用 Signal 重新掃描代碼一次。</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly 需要相機的權限以掃描 QR code，但是現在被設定為永久拒絕使用。請到應用程式設定中，選取「權限」，並啟用「相機」的權限。</string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Bharat Plus 需要相機的權限以掃描 QR code，但是現在被設定為永久拒絕使用。請到應用程式設定中，選取「權限」，並啟用「相機」的權限。</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">因為沒有相機的使用權限，所以無法掃描 QR code。</string>
   <!--ExpirationDialog-->
   <string name="ExpirationDialog_disappearing_messages">自動銷毀訊息</string>
@@ -781,9 +781,9 @@
   <string name="RegistrationActivity_no_browser">無法開啟此連結。沒有找到網頁瀏覽器。</string>
   <string name="RegistrationActivity_more_information">更多資訊</string>
   <string name="RegistrationActivity_less_information">較少資訊</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly 需要存取的你的聯絡人及媒體，以聯絡你的朋友、交換訊息、及撥打私密電話。</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Bharat Plus 需要存取的你的聯絡人及媒體，以聯絡你的朋友、交換訊息、及撥打私密電話。</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">無法連接服務。請檢查網路連線並再試一次。</string>
-  <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">如果你允許 Molly 讀取 SMS 訊息，你可以簡單的驗證電話號碼，Molly 會自動偵測你的驗證碼。</string>
+  <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">如果你允許 Bharat Plus 讀取 SMS 訊息，你可以簡單的驗證電話號碼，Bharat Plus 會自動偵測你的驗證碼。</string>
   <plurals name="RegistrationActivity_debug_log_hint">
     <item quantity="other">你現在距離提交偵錯日誌只有%d步之遙。</item>
   </plurals>
@@ -880,11 +880,11 @@
   <string name="SubmitDebugLogActivity_share">分享</string>
   <!--SupportEmailUtil-->
   <string name="SupportEmailUtil_subject">標題:</string>
-  <string name="SupportEmailUtil_signal_android_support_request">Molly Android 支援要求</string>
+  <string name="SupportEmailUtil_signal_android_support_request">Bharat Plus Android 支援要求</string>
   <string name="SupportEmailUtil_device_info">裝置資訊:</string>
   <string name="SupportEmailUtil_android_version">Android 版本:</string>
-  <string name="SupportEmailUtil_signal_version">Molly 版本:</string>
-  <string name="SupportEmailUtil_signal_package">Molly 封包:</string>
+  <string name="SupportEmailUtil_signal_version">Bharat Plus 版本:</string>
+  <string name="SupportEmailUtil_signal_package">Bharat Plus 封包:</string>
   <string name="SupportEmailUtil_locale">語言:</string>
   <!--ThreadRecord-->
   <string name="ThreadRecord_group_updated">群組已更新</string>
@@ -950,7 +950,7 @@
   <string name="VerifyIdentityActivity_our_signal_safety_number">我方 Signal 安全碼：</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">看起來您沒有任何可以分享的應用。</string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">沒有在剪貼簿中發現安全碼，因此無法進行比較</string>
-  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Molly 需要相機的權限以掃描 QR code，但是現在被設定為永久拒絕使用。請到應用程式設定中，選取「權限」，並啟用「相機」的權限。</string>
+  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Bharat Plus 需要相機的權限以掃描 QR code，但是現在被設定為永久拒絕使用。請到應用程式設定中，選取「權限」，並啟用「相機」的權限。</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">因為沒有「相機」的權限，無法掃描 QR code</string>
   <!--ViewOnceMessageActivity-->
   <!--MessageDisplayHelper-->
@@ -971,13 +971,13 @@
   <!--KeyCachingService-->
   <string name="KeyCachingService_signal_passphrase_cached">按一下開啟。</string>
   <string name="KeyCachingService_signal_passphrase_cached_with_lock">按一下開啟，或按一下鎖住並關閉。</string>
-  <string name="KeyCachingService_passphrase_cached">Molly 已經解鎖</string>
-  <string name="KeyCachingService_lock">鎖定 Molly</string>
+  <string name="KeyCachingService_passphrase_cached">Bharat Plus 已經解鎖</string>
+  <string name="KeyCachingService_lock">鎖定 Bharat Plus</string>
   <!--MediaPreviewActivity-->
   <string name="MediaPreviewActivity_you">您</string>
   <string name="MediaPreviewActivity_unssuported_media_type">不支援的媒體類型</string>
   <string name="MediaPreviewActivity_draft">草稿</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Molly 需要儲存的權限以儲存外接儲存空間，但是現在被設定為永久拒絕存取。請到應用程式設定中，選取「權限」，並啟用「儲存空間」的權限。</string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Bharat Plus 需要儲存的權限以儲存外接儲存空間，但是現在被設定為永久拒絕存取。請到應用程式設定中，選取「權限」，並啟用「儲存空間」的權限。</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">因為沒有儲存的權限，無法儲存到外部儲存空間</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">刪除訊息？</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">這將永久刪除此訊息。</string>
@@ -1000,7 +1000,7 @@
   <string name="MessageNotifier_signal_message">Signal 訊息</string>
   <string name="MessageNotifier_unsecured_sms">不安全的簡訊</string>
   <string name="MessageNotifier_you_may_have_new_messages">你有新訊息</string>
-  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">開啟 Molly 以查驗最近的通知。</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">開啟 Bharat Plus 以查驗最近的通知。</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">聯絡人</string>
   <string name="MessageNotifier_reacted_s_to_s">%1$s對檢視:\"%2$s\"。</string>
@@ -1052,8 +1052,8 @@
   <!--VideoPlayer-->
   <string name="VideoPlayer_error_playing_video">播放影片時發生錯誤</string>
   <!--WebRtcCallActivity-->
-  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">要接聽來自%s的電話，請允許 Molly 使用你的麥克風。</string>
-  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Molly 需要\"麥克風\"及\"相機\"的權限以接聽來電，但是現在被設定為永久拒絕使用。請到應用程式設定中，選取\"權限\"，並啟用\"麥克風\"及\"相機\"的權限。</string>
+  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">要接聽來自%s的電話，請允許 Bharat Plus 使用你的麥克風。</string>
+  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Bharat Plus 需要\"麥克風\"及\"相機\"的權限以接聽來電，但是現在被設定為永久拒絕使用。請到應用程式設定中，選取\"權限\"，並啟用\"麥克風\"及\"相機\"的權限。</string>
   <string name="WebRtcCallActivity__answered_on_a_linked_device">在已連結的裝置回答。</string>
   <string name="WebRtcCallActivity__declined_on_a_linked_device">拒絕在已連結的裝置。</string>
   <string name="WebRtcCallActivity__busy_on_a_linked_device">已連結的裝置忙線。</string>
@@ -1117,7 +1117,7 @@
   <!--single_contact_selection_activity-->
   <string name="SingleContactSelectionActivity_contact_photo">聯絡人相片</string>
   <!--ContactSelectionListFragment-->
-  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Molly 需要聯絡人的權限以顯示聯絡人資訊，但是現在被設定為永久拒絕存取。請到應用程式設定中，選取「權限」，並啟用「聯絡人」的權限。</string>
+  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Bharat Plus 需要聯絡人的權限以顯示聯絡人資訊，但是現在被設定為永久拒絕存取。請到應用程式設定中，選取「權限」，並啟用「聯絡人」的權限。</string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">取回聯絡人名單錯誤，請檢查網路連線</string>
   <string name="ContactSelectionListFragment_username_not_found">找不到使用者名稱</string>
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">\"%1$s\"不是 Signal 使用者。請檢查使用者名稱並再試一次。</string>
@@ -1125,7 +1125,7 @@
   <!--blocked_contacts_fragment-->
   <string name="blocked_contacts_fragment__no_blocked_contacts">無已封鎖的聯絡人</string>
   <!--contact_selection_list_fragment-->
-  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly 需要存取你的\"聯絡人\"以顯示聯絡人資訊。</string>
+  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Bharat Plus 需要存取你的\"聯絡人\"以顯示聯絡人資訊。</string>
   <string name="contact_selection_list_fragment__show_contacts">顯示聯絡人</string>
   <!--conversation_activity-->
   <string name="conversation_activity__type_message_push">Signal 訊息</string>
@@ -1517,7 +1517,7 @@
   <string name="preferences_notifications__calls">通話</string>
   <string name="preferences_notifications__ringtone">鈴聲</string>
   <string name="preferences_chats__show_invitation_prompts">顯示邀請提示</string>
-  <string name="preferences_chats__display_invitation_prompts_for_contacts_without_signal">不用 Molly 來顯示給聯絡人的邀請提示</string>
+  <string name="preferences_chats__display_invitation_prompts_for_contacts_without_signal">不用 Bharat Plus 來顯示給聯絡人的邀請提示</string>
   <string name="preferences_chats__message_text_size">訊息字體大小</string>
   <string name="preferences_events__contact_joined_signal">聯絡人已加入 Signal 通知</string>
   <string name="preferences_notifications__priority">優先順序</string>
@@ -1797,7 +1797,7 @@
   <string name="BackupDialog_verify">驗證</string>
   <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">你已成功的輸入你的備份碼</string>
   <string name="BackupDialog_passphrase_was_not_correct">備份碼錯誤</string>
-  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">為了要建立備份，Molly 需要外部空間的權限，但是已被永久拒絕。請到應用程式設定，選擇「權限」及開啟「儲存」。</string>
+  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">為了要建立備份，Bharat Plus 需要外部空間的權限，但是已被永久拒絕。請到應用程式設定，選擇「權限」及開啟「儲存」。</string>
   <string name="ChatsPreferenceFragment_last_backup_s">上一次備份︰%s</string>
   <string name="ChatsPreferenceFragment_in_progress">處理中</string>
   <string name="LocalBackupJob_creating_backup">建立備份中…</string>
@@ -1864,7 +1864,7 @@
   <string name="RegistrationActivity_pin_incorrect">PIN 碼錯誤</string>
   <string name="RegistrationActivity_you_have_d_tries_remaining">你只剩下%d次的嘗試</string>
   <string name="preferences_chats__backups">備份</string>
-  <string name="prompt_passphrase_activity__signal_is_locked">Molly 已被鎖定</string>
+  <string name="prompt_passphrase_activity__signal_is_locked">Bharat Plus 已被鎖定</string>
   <string name="prompt_passphrase_activity__tap_to_unlock">觸碰來解鎖</string>
   <string name="RegistrationLockDialog_reminder">提醒：</string>
   <string name="recipient_preferences__about">關於</string>
