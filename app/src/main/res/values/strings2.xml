@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="arrays__on_inactivity_timeout">If you go a certain time without unlocking your device</string>
+  <string name="preferences__passphrase_lock">Database encryption</string>
+  <string name="preferences__protect_molly_database_with_a_passphrase">Protect Molly\'s database with a passphrase</string>
+  <string name="preferences__automatic_lockdown">Automatic lockdown</string>
+  <string name="preferences__device_lock_timeout">Device lock timeout</string>
+  <string name="preferences__passphrase_changed">Passphrase changed</string>
+  <string name="preferences__enable_debug_log">Enable debug log</string>
+  <string name="ApplicationPreferencesActivity_privacy_summary_passphrase_registration_locks">Database encryption %1$s, Registration lock %2$s</string>
+  <string name="WipeMemoryService_secure_wipe_in_progress">Secure wipe in progress</string>
+  <string name="WipeMemoryService_molly_is_clearing_secrets">Molly is clearing unencrypted data remain in memory</string>
+  <string name="AppProtectionPreferenceFragment_instant">Instant</string>
+  <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">Now you can set a passphrase to encrypt the database. Until it\'s unlocked, Molly cannot receive notifications or calls. This helps protect data on lost or stolen devices.</string>
+  <string name="PassphraseCreateActivity_require_passphrase_to_unlock_molly">Require passphrase to unlock Molly?</string>
+  <string name="PassphraseCreateActivity_turn_on_database_encryption">Turn on database encryption</string>
+  <string name="ChangePassphraseDialogFragment_weak_passphrase">Weak passphrase!</string>
+  <string name="ChangePassphraseDialogFragment_estimated_time_to_crack_suggestion">%1$s\n\nEstimated time to crack: %2$s.\n\nSuggestion: %3$s</string>
+  <string name="ChangePassphraseDialogFragment_passphrase">Passphrase</string>
+  <string name="ChangePassphraseDialogFragment_enable">Enable</string>
+  <string name="ChangePassphraseDialogFragment_please_choose_a_passphrase_that_will_be_used_to_locally_encrypt_your_data_this_should_be_a_strong_passphrase">Please choose a passphrase that will be used to locally encrypt your data.\n\nThis should be a strong passphrase.</string>
+  <string name="ChangePassphraseDialogFragment_generating_keys_this_may_take_a_while">Generating keys. This may take a while…</string>
+</resources>

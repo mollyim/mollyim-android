@@ -55,7 +55,7 @@
             android:gravity="center_horizontal"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            android:text="@string/create_passphrase_activity__now_you_can_set_a_passphrase_to_encrypt_the_database"
+            android:text="@string/PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database"
             android:textColor="@color/core_white"
             android:textIsSelectable="false"
             android:textSize="18sp" />
@@ -68,7 +68,7 @@
             android:gravity="center_horizontal"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            android:text="@string/create_passphrase_activity__require_passphrase_to_unlock_molly"
+            android:text="@string/PassphraseCreateActivity_require_passphrase_to_unlock_molly"
             android:textColor="@color/core_white"
             android:textIsSelectable="false"
             android:textSize="18sp" />
@@ -79,7 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="8dp"
-            android:text="@string/create_passphrase_activity__turn_on_database_encryption"
+            android:text="@string/PassphraseCreateActivity_turn_on_database_encryption"
             android:textColor="@color/core_ultramarine"
             app:backgroundTint="@color/core_white" />
 
