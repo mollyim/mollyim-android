@@ -49,7 +49,6 @@
     <string name="ApplicationPreferencesActivity_privacy_summary">Screen lock %1$s, Registration lock %2$s</string>
     <string name="ApplicationPreferencesActivity_privacy_summary_screen_lock">Screen lock %1$s</string>
     <string name="ApplicationPreferencesActivity_privacy_summary_passphrase_registration_locks">Database encryption %1$s, Registration lock %2$s</string>
-    <string name="ApplicationPreferencesActivity_privacy_summary_passphrase_lock">Database encryption %1$s</string>
     <string name="ApplicationPreferencesActivity_appearance_summary">Theme %1$s, Language %2$s</string>
 
     <!-- AppProtectionPreferenceFragment -->
@@ -488,8 +487,16 @@
         <item quantity="other">Error canceling invites</item>
     </plurals>
 
+    <!-- AddMembersActivity -->
+    <string name="AddMembersActivity__done">Done</string>
+    <plurals name="AddMembersActivity__add_d_members_to_s">
+        <item quantity="one">Add \"%1$s\" to \"%2$s\"?</item>
+        <item quantity="other">Add %3$d members to \"%2$s\"?</item>
+    </plurals>
+
     <!-- AddGroupDetailsFragment -->
     <string name="AddGroupDetailsFragment__name_this_group">Name this group</string>
+    <string name="AddGroupDetailsFragment__create_group">Create group</string>
     <string name="AddGroupDetailsFragment__create">Create</string>
     <string name="AddGroupDetailsFragment__members">Members</string>
     <string name="AddGroupDetailsFragment__group_name_required">Group name (required)</string>
@@ -508,6 +515,7 @@
     <string name="ManageGroupActivity_who_can_edit_group_membership">Who can edit group membership</string>
     <string name="ManageGroupActivity_who_can_edit_group_info">Who can edit group info</string>
     <string name="ManageGroupActivity_block_group">Block group</string>
+    <string name="ManageGroupActivity_unblock_group">Unblock group</string>
     <string name="ManageGroupActivity_leave_group">Leave group</string>
     <string name="ManageGroupActivity_mute_notifications">Mute notifications</string>
     <string name="ManageGroupActivity_custom_notifications">Custom notifications</string>
@@ -522,6 +530,10 @@
     <plurals name="ManageGroupActivity_invited">
         <item quantity="one">%d invited</item>
         <item quantity="other">%d invited</item>
+    </plurals>
+    <plurals name="ManageGroupActivity_added">
+        <item quantity="one">%d member added.</item>
+        <item quantity="other">%d members added.</item>
     </plurals>
 
     <string name="ManageGroupActivity_you_dont_have_the_rights_to_do_this">You don\'t have the rights to do this</string>
@@ -1122,6 +1134,12 @@
     <string name="ThreadRecord_message_request">Message Request</string>
     <string name="ThreadRecord_s_added_you_to_the_group">%1$s added you to the group</string>
     <string name="ThreadRecord_s_invited_you_to_the_group">%1$s invited you to the group</string>
+    <string name="ThreadRecord_photo">Photo</string>
+    <string name="ThreadRecord_gif">GIF</string>
+    <string name="ThreadRecord_voice_message">Voice Message</string>
+    <string name="ThreadRecord_contact">Contact</string>
+    <string name="ThreadRecord_file">File</string>
+    <string name="ThreadRecord_video">Video</string>
 
     <!-- UpdateApkReadyListener -->
     <string name="UpdateApkReadyListener_Signal_update">Signal update</string>
@@ -1888,6 +1906,7 @@
 
     <!-- contact_selection_list -->
     <string name="contact_selection_list__unknown_contact">New message to…</string>
+    <string name="contact_selection_list__unknown_contact_add_to_group">Add to group</string>
 
     <!-- conversation_callable_insecure -->
     <string name="conversation_callable_insecure__menu_call">Call</string>
@@ -2302,6 +2321,7 @@
     <string name="RecipientBottomSheet_call">Call</string>
     <string name="RecipientBottomSheet_block">Block</string>
     <string name="RecipientBottomSheet_unblock">Unblock</string>
+    <string name="RecipientBottomSheet_add_to_contacts">Add to contacts</string>
     <string name="RecipientBottomSheet_view_safety_number">View safety number</string>
     <string name="RecipientBottomSheet_make_group_admin">Make group admin</string>
     <string name="RecipientBottomSheet_remove_as_admin">Remove as admin</string>
@@ -2312,6 +2332,7 @@
 
     <string name="RecipientBottomSheet_remove_s_from_s">Remove %1$s from "%2$s"?</string>
     <string name="RecipientBottomSheet_remove">Remove</string>
+    <string name="RecipientBottomSheet_copied_to_clipboard">Copied to clipboard</string>
 
     <string name="GroupRecipientListItem_admin">Admin</string>
 

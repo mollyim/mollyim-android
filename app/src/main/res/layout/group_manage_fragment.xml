@@ -110,7 +110,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/pending_member_background"
+        android:background="?pref_divider"
         android:fillViewport="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -118,21 +118,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <View
-                android:id="@+id/divider"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/group_manage_fragment_card_vertical_padding"
-                android:background="?pref_divider"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <androidx.cardview.widget.CardView
                 android:id="@+id/group_disappearing_messages_card"
                 style="@style/Widget.Signal.CardView.PreferenceRow"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/divider">
+                android:layout_marginTop="@dimen/group_manage_fragment_card_vertical_padding"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <LinearLayout
                     android:id="@+id/disappearing_messages_row"
@@ -288,41 +280,44 @@
                 app:layout_constraintTop_toBottomOf="@id/group_notifications_card"
                 tools:visibility="visible">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/shared_media"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:gravity="center_vertical|start"
-                        android:paddingStart="@dimen/group_manage_fragment_row_horizontal_padding"
-                        android:paddingEnd="@dimen/group_manage_fragment_row_horizontal_padding"
-                        android:text="@string/recipient_preference_activity__shared_media"
-                        android:textAlignment="viewStart"
-                        android:textAppearance="@style/Signal.Text.Body"
-                        app:layout_constraintBottom_toBottomOf="@id/rail_label"
-                        app:layout_constraintEnd_toStartOf="@+id/rail_label"
-                        app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                    <LinearLayout
+                        android:id="@+id/shared_media_row"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/group_manage_fragment_row_height"
+                        android:background="?selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:orientation="horizontal">
 
-                    <Button
-                        android:id="@+id/rail_label"
-                        style="@style/Widget.Signal.Button.TextButton.Ultramarine"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:focusableInTouchMode="true"
-                        android:gravity="center_vertical"
-                        android:minWidth="48dp"
-                        android:paddingStart="@dimen/group_manage_fragment_row_horizontal_padding"
-                        android:paddingEnd="@dimen/group_manage_fragment_row_horizontal_padding"
-                        android:text="@string/ManageGroupActivity_see_all"
-                        android:textAppearance="@style/Signal.Text.Body"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical|start"
+                            android:paddingStart="@dimen/group_manage_fragment_row_horizontal_padding"
+                            android:paddingEnd="@dimen/group_manage_fragment_row_horizontal_padding"
+                            android:text="@string/recipient_preference_activity__shared_media"
+                            android:textAlignment="viewStart"
+                            android:textAppearance="@style/Signal.Text.Body" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:minWidth="48dp"
+                            android:paddingStart="@dimen/group_manage_fragment_row_horizontal_padding"
+                            android:paddingEnd="@dimen/group_manage_fragment_row_horizontal_padding"
+                            android:text="@string/ManageGroupActivity_see_all"
+                            android:textAppearance="@style/Signal.Text.Body"
+                            android:textColor="@color/ultramarine_text_button" />
+
+                    </LinearLayout>
 
                     <org.thoughtcrime.securesms.components.ThreadPhotoRailView
                         android:id="@+id/recent_photos"
@@ -331,9 +326,9 @@
                         android:layout_marginBottom="16dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/rail_label" />
+                        app:layout_constraintTop_toBottomOf="@id/shared_media_row" />
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
@@ -561,6 +556,21 @@
                         android:textAlignment="viewStart"
                         android:textAppearance="@style/Signal.Text.Body"
                         android:textColor="@color/core_red" />
+
+                    <TextView
+                        android:id="@+id/unblockGroup"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/group_manage_fragment_row_height"
+                        android:background="?selectableItemBackground"
+                        android:gravity="center_vertical|start"
+                        android:paddingStart="@dimen/group_manage_fragment_row_horizontal_padding"
+                        android:paddingEnd="@dimen/group_manage_fragment_row_horizontal_padding"
+                        android:text="@string/ManageGroupActivity_unblock_group"
+                        android:textAlignment="viewStart"
+                        android:textAppearance="@style/Signal.Text.Body"
+                        android:textColor="@color/core_red"
+                        android:visibility="gone"
+                        tools:visibility="visible" />
 
                     <TextView
                         android:id="@+id/leaveGroup"

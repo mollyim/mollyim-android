@@ -49,7 +49,10 @@ class ConversationDataSource extends PositionalDataSource<MessageRecord> {
       }
     };
 
-    invalidator.observe(this::invalidate);
+    invalidator.observe(() -> {
+      invalidate();
+      context.getContentResolver().unregisterContentObserver(contentObserver);
+    });
 
     context.getContentResolver().registerContentObserver(DatabaseContentProviders.Conversation.getUriForThread(threadId), true, contentObserver);
   }
@@ -100,7 +103,10 @@ class ConversationDataSource extends PositionalDataSource<MessageRecord> {
     }
 
     callback.onResult(records);
-    Util.runOnMain(dataUpdateCallback::onDataUpdated);
+
+    if (!isInvalid()) {
+      Util.runOnMain(dataUpdateCallback::onDataUpdated);
+    }
 
     Log.d(TAG, "[Update] " + (System.currentTimeMillis() - start) + " ms" + (isInvalid() ? " -- invalidated" : ""));
   }

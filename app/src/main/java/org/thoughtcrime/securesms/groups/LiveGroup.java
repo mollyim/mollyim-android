@@ -27,12 +27,14 @@ import java.util.List;
 
 public final class LiveGroup {
 
-  private static final Comparator<GroupMemberEntry.FullMember>         LOCAL_FIRST  = (m1, m2) -> Boolean.compare(m2.getMember().isLocalNumber(), m1.getMember().isLocalNumber());
-  private static final Comparator<GroupMemberEntry.FullMember>         ADMIN_FIRST  = (m1, m2) -> Boolean.compare(m2.isAdmin(), m1.isAdmin());
-  private static final Comparator<GroupMemberEntry.FullMember>         ALPHABETICAL = (m1, m2) -> m1.getMember().toShortString(ApplicationDependencies.getApplication()).compareToIgnoreCase(m2.getMember().toShortString(ApplicationDependencies.getApplication()));
-  private static final Comparator<? super GroupMemberEntry.FullMember> MEMBER_ORDER = ComparatorCompat.chain(LOCAL_FIRST)
-                                                                                                      .thenComparing(ADMIN_FIRST)
-                                                                                                      .thenComparing(ALPHABETICAL);
+  private static final Comparator<GroupMemberEntry.FullMember>         LOCAL_FIRST       = (m1, m2) -> Boolean.compare(m2.getMember().isLocalNumber(), m1.getMember().isLocalNumber());
+  private static final Comparator<GroupMemberEntry.FullMember>         ADMIN_FIRST       = (m1, m2) -> Boolean.compare(m2.isAdmin(), m1.isAdmin());
+  private static final Comparator<GroupMemberEntry.FullMember>         HAS_DISPLAY_NAME  = (m1, m2) -> Boolean.compare(m2.getMember().hasAUserSetDisplayName(ApplicationDependencies.getApplication()), m1.getMember().hasAUserSetDisplayName(ApplicationDependencies.getApplication()));
+  private static final Comparator<GroupMemberEntry.FullMember>         ALPHABETICAL      = (m1, m2) -> m1.getMember().getDisplayName(ApplicationDependencies.getApplication()).compareToIgnoreCase(m2.getMember().getDisplayName(ApplicationDependencies.getApplication()));
+  private static final Comparator<? super GroupMemberEntry.FullMember> MEMBER_ORDER      = ComparatorCompat.chain(LOCAL_FIRST)
+                                                                                                           .thenComparing(ADMIN_FIRST)
+                                                                                                           .thenComparing(HAS_DISPLAY_NAME)
+                                                                                                           .thenComparing(ALPHABETICAL);
 
   private final GroupDatabase                       groupDatabase;
   private final LiveData<Recipient>                 recipient;
@@ -59,6 +61,10 @@ public final class LiveGroup {
 
   public LiveData<Boolean> isSelfAdmin() {
     return Transformations.map(groupRecord, g -> g.isAdmin(Recipient.self()));
+  }
+
+  public LiveData<Boolean> isActive() {
+    return Transformations.map(groupRecord, GroupDatabase.GroupRecord::isActive);
   }
 
   public LiveData<Boolean> getRecipientIsAdmin(@NonNull RecipientId recipientId) {
@@ -93,11 +99,11 @@ public final class LiveGroup {
   }
 
   public LiveData<Boolean> selfCanEditGroupAttributes() {
-    return LiveDataUtil.combineLatest(isSelfAdmin(), getAttributesAccessControl(), this::applyAccessControl);
+    return LiveDataUtil.combineLatest(selfMemberLevel(), getAttributesAccessControl(), LiveGroup::applyAccessControl);
   }
 
   public LiveData<Boolean> selfCanAddMembers() {
-    return LiveDataUtil.combineLatest(isSelfAdmin(), getMembershipAdditionAccessControl(), this::applyAccessControl);
+    return LiveDataUtil.combineLatest(selfMemberLevel(), getMembershipAdditionAccessControl(), LiveGroup::applyAccessControl);
   }
 
   /**
@@ -123,11 +129,28 @@ public final class LiveGroup {
                                                           fullMemberCount);
   }
 
-  private boolean applyAccessControl(boolean isAdmin, @NonNull GroupAccessControl rights) {
+  private LiveData<MemberLevel> selfMemberLevel() {
+    return Transformations.map(groupRecord, g -> {
+      if (g.isAdmin(Recipient.self())) {
+        return MemberLevel.ADMIN;
+      } else {
+        return g.isActive() ? MemberLevel.MEMBER
+                            : MemberLevel.NOT_A_MEMBER;
+      }
+    });
+  }
+
+  private static boolean applyAccessControl(@NonNull MemberLevel memberLevel, @NonNull GroupAccessControl rights) {
     switch (rights) {
-      case ALL_MEMBERS: return true;
-      case ONLY_ADMINS: return isAdmin;
+      case ALL_MEMBERS: return memberLevel != MemberLevel.NOT_A_MEMBER;
+      case ONLY_ADMINS: return memberLevel == MemberLevel.ADMIN;
       default:          throw new AssertionError();
     }
+  }
+
+  private enum MemberLevel {
+    NOT_A_MEMBER,
+    MEMBER,
+    ADMIN
   }
 }

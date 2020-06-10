@@ -165,9 +165,7 @@
         <item name="insight_dashboard_bottom_bar_background">@color/core_grey_02</item>
         <item name="insight_progress_background">@color/core_grey_15</item>
 
-        <item name="group_resource_placeholder_80">@drawable/group_resource_placeholder_80</item>
         <item name="resource_placeholder_gradient">@drawable/avatar_gradient_light</item>
-        <item name="resource_placeholder_background">@color/core_ultramarine</item>
 
         <item name="search_view_style">@style/Signal.SearchView</item>
         <item name="search_view_style_dark">@style/Signal.SearchView.Dark</item>
@@ -194,8 +192,6 @@
         <item name="homeAsUpIndicator">@drawable/ic_arrow_left_24</item>
         <item name="android:homeAsUpIndicator">@drawable/ic_arrow_left_24</item>
         <!--<item name="android:windowContentOverlay">@drawable/compat_actionbar_shadow_background</item>-->
-
-        <item name="group_candidate_item_background">@drawable/group_candidate_item_background_light</item>
 
         <item name="kbs_splash_image">@drawable/ic_kbs_splash_light_svg</item>
 
@@ -434,10 +430,13 @@
 
         <item name="contact_selection_new_group_icon">@drawable/ic_new_group_circle_light</item>
         <item name="contact_selection_invite_icon">@drawable/ic_invite_circle_light</item>
+        <item name="contact_selection_checkbox_background">@drawable/contact_selection_checkbox_light</item>
 
         <item name="chipStyle">@style/Signal.Chip.Action.Light</item>
 
         <item name="colorControlNormal">@color/core_grey_90</item>
+
+        <item name="circular_progress_button_state">@drawable/progress_button_state_light</item>
     </style>
 
     <style name="TextSecure.DarkTheme" parent="@style/TextSecure.BaseDarkTheme">
@@ -456,15 +455,13 @@
         <item name="insight_progress_background">@color/core_grey_60</item>
         <item name="insight_dashboard_bottom_bar_background">@color/core_grey_80</item>
 
-        <item name="group_resource_placeholder_80">@drawable/group_resource_placeholder_80</item>
         <item name="resource_placeholder_gradient">@drawable/avatar_gradient_dark</item>
-        <item name="resource_placeholder_background">@color/core_ultramarine</item>
 
         <item name="search_view_style">@style/Signal.SearchView</item>
         <item name="search_view_style_dark">@style/Signal.SearchView.Dark</item>
 
         <item name="invite_edit_text_background">@drawable/invite_edit_text_background_dark</item>
-        <item name="invite_share_icon">@drawable/ic_share_solid_24</item>
+        <item name="invite_share_icon">@drawable/ic_share_solid_24_dark</item>
 
         <item name="title_text_color_primary">@color/core_grey_05</item>
         <item name="title_text_color_secondary">@color/core_grey_25</item>
@@ -489,8 +486,6 @@
         <item name="android:alertDialogTheme">@style/AppCompatDialogStyleDark</item>
         <item name="homeAsUpIndicator">@drawable/ic_arrow_left_24</item>
         <item name="android:homeAsUpIndicator">@drawable/ic_arrow_left_24</item>
-
-        <item name="group_candidate_item_background">@drawable/group_candidate_item_background_dark</item>
 
         <item name="tinted_circle_background">@drawable/tinted_circle_dark</item>
 
@@ -725,10 +720,13 @@
 
         <item name="contact_selection_new_group_icon">@drawable/ic_new_group_circle_dark</item>
         <item name="contact_selection_invite_icon">@drawable/ic_invite_circle_dark</item>
+        <item name="contact_selection_checkbox_background">@drawable/contact_selection_checkbox_dark</item>
 
         <item name="chipStyle">@style/Signal.Chip.Action</item>
 
         <item name="colorControlNormal">@color/core_white</item>
+
+        <item name="circular_progress_button_state">@drawable/progress_button_state_dark</item>
     </style>
 
     <style name="Theme.Signal.AlertDialog.Light.Cornered" parent="Theme.AppCompat.Light.Dialog.Alert">
@@ -871,11 +869,12 @@
         <item name="title_text_color_secondary">@color/core_grey_60</item>
 
         <item name="android:navigationBarColor" tools:ignore="NewApi">@color/white</item>
-        <item name="android:windowLightNavigationBar" tools:ignore="NewApi">false</item>
+        <item name="android:windowLightNavigationBar" tools:ignore="NewApi">true</item>
 
         <item name="recipient_message_icon">@drawable/ic_message_outline_tinted_24</item>
         <item name="recipient_call_icon">@drawable/ic_phone_right_outline_tinted_24</item>
         <item name="recipient_block_icon">@drawable/ic_block_tinted_24</item>
+        <item name="recipient_add_contact_icon">@drawable/ic_plus_24</item>
         <item name="recipient_view_safety_icon">@drawable/ic_info_outline_tinted_24</item>
         <item name="recipient_make_admin_icon">@drawable/ic_group_outline_24</item>
         <item name="recipient_remove_icon">@drawable/ic_leave_tinted_24</item>
@@ -897,6 +896,7 @@
         <item name="recipient_message_icon">@drawable/ic_message_solid_tinted_24</item>
         <item name="recipient_call_icon">@drawable/ic_phone_right_solid_tinted_24</item>
         <item name="recipient_block_icon">@drawable/ic_block_tinted_24</item>
+        <item name="recipient_add_contact_icon">@drawable/ic_plus_24</item>
         <item name="recipient_view_safety_icon">@drawable/ic_info_solid_tinted_24</item>
         <item name="recipient_make_admin_icon">@drawable/ic_group_solid_24</item>
         <item name="recipient_remove_icon">@drawable/ic_leave_tinted_24</item>

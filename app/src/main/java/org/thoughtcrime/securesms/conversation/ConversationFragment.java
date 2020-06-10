@@ -21,6 +21,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -63,9 +64,6 @@ import org.thoughtcrime.securesms.ApplicationContext;
 import org.thoughtcrime.securesms.MessageDetailsActivity;
 import org.thoughtcrime.securesms.PassphraseRequiredActionBarActivity;
 import org.thoughtcrime.securesms.R;
-import org.thoughtcrime.securesms.groups.GroupId;
-import org.thoughtcrime.securesms.recipients.ui.bottomsheet.RecipientBottomSheetDialogFragment;
-import org.thoughtcrime.securesms.sharing.ShareActivity;
 import org.thoughtcrime.securesms.attachments.Attachment;
 import org.thoughtcrime.securesms.components.ConversationTypingView;
 import org.thoughtcrime.securesms.components.TooltipPopup;
@@ -73,8 +71,8 @@ import org.thoughtcrime.securesms.components.recyclerview.SmoothScrollingLinearL
 import org.thoughtcrime.securesms.contactshare.Contact;
 import org.thoughtcrime.securesms.contactshare.ContactUtil;
 import org.thoughtcrime.securesms.contactshare.SharedContactDetailsActivity;
-import org.thoughtcrime.securesms.conversation.ConversationAdapter.StickyHeaderViewHolder;
 import org.thoughtcrime.securesms.conversation.ConversationAdapter.ItemClickListener;
+import org.thoughtcrime.securesms.conversation.ConversationAdapter.StickyHeaderViewHolder;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.database.MessagingDatabase;
 import org.thoughtcrime.securesms.database.MmsSmsDatabase;
@@ -83,6 +81,7 @@ import org.thoughtcrime.securesms.database.model.MediaMmsMessageRecord;
 import org.thoughtcrime.securesms.database.model.MessageRecord;
 import org.thoughtcrime.securesms.database.model.MmsMessageRecord;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.groups.GroupId;
 import org.thoughtcrime.securesms.jobs.DirectoryRefreshJob;
 import org.thoughtcrime.securesms.jobs.MultiDeviceViewOnceOpenJob;
 import org.thoughtcrime.securesms.linkpreview.LinkPreview;
@@ -100,8 +99,10 @@ import org.thoughtcrime.securesms.reactions.ReactionsBottomSheetDialogFragment;
 import org.thoughtcrime.securesms.recipients.LiveRecipient;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
+import org.thoughtcrime.securesms.recipients.ui.bottomsheet.RecipientBottomSheetDialogFragment;
 import org.thoughtcrime.securesms.revealable.ViewOnceMessageActivity;
 import org.thoughtcrime.securesms.revealable.ViewOnceUtil;
+import org.thoughtcrime.securesms.sharing.ShareActivity;
 import org.thoughtcrime.securesms.sms.MessageSender;
 import org.thoughtcrime.securesms.sms.OutgoingTextMessage;
 import org.thoughtcrime.securesms.stickers.StickerLocator;
@@ -163,12 +164,14 @@ public class ConversationFragment extends Fragment {
   private MessageRequestViewModel     messageRequestViewModel;
   private ConversationViewModel       conversationViewModel;
 
+  private Deferred deferred = new Deferred();
+
   public static void prepare(@NonNull Context context) {
     FrameLayout parent = new FrameLayout(context);
     parent.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT));
 
-    CachedInflater.from(context).cacheUntilLimit(R.layout.conversation_item_received, parent, 10);
-    CachedInflater.from(context).cacheUntilLimit(R.layout.conversation_item_sent, parent, 10);
+    CachedInflater.from(context).cacheUntilLimit(R.layout.conversation_item_received_multimedia, parent, 10);
+    CachedInflater.from(context).cacheUntilLimit(R.layout.conversation_item_sent_multimedia, parent, 10);
     CachedInflater.from(context).cacheUntilLimit(R.layout.conversation_item_update, parent, 5);
     CachedInflater.from(context).cacheUntilLimit(R.layout.cursor_adapter_header_footer_view, parent, 2);
   }
@@ -217,10 +220,11 @@ public class ConversationFragment extends Fragment {
     this.conversationViewModel = ViewModelProviders.of(requireActivity(), new ConversationViewModel.Factory()).get(ConversationViewModel.class);
     conversationViewModel.getMessages().observe(this, list -> {
       if (getListAdapter() != null) {
+        Log.i(TAG, "submitList");
         getListAdapter().submitList(list);
       }
     });
-    conversationViewModel.getConversationMetadata().observe(this, this::presentConversationMetadata);
+    conversationViewModel.getConversationMetadata().observe(this, data -> deferred.defer(() -> presentConversationMetadata(data)));
 
     return view;
   }
@@ -276,15 +280,6 @@ public class ConversationFragment extends Fragment {
   public void onStart() {
     super.onStart();
     initializeTypingObserver();
-  }
-
-  @Override
-  public void onResume() {
-    super.onResume();
-
-    if (list.getAdapter() != null) {
-      list.getAdapter().notifyDataSetChanged();
-    }
   }
 
   @Override
@@ -409,6 +404,7 @@ public class ConversationFragment extends Fragment {
     this.threadId          = this.getActivity().getIntent().getLongExtra(ConversationActivity.THREAD_ID_EXTRA, -1);
     this.unknownSenderView = new UnknownSenderView(getActivity(), recipient.get(), threadId, () -> clearHeaderIfNotTyping(getListAdapter()));
 
+    deferred.setDeferred(true);
     conversationViewModel.onConversationDataAvailable(threadId, startingPosition);
 
     OnScrollListener scrollListener = new ConversationScrollListener(getActivity());
@@ -426,6 +422,8 @@ public class ConversationFragment extends Fragment {
       list.setAdapter(adapter);
       list.addItemDecoration(new StickyHeaderDecoration(adapter, false, false));
       ConversationAdapter.initializePool(list.getRecycledViewPool());
+
+      adapter.registerAdapterDataObserver(new DataObserver());
 
       setLastSeen(conversationViewModel.getLastSeen());
 
@@ -480,14 +478,11 @@ public class ConversationFragment extends Fragment {
           });
           list.postDelayed(() -> list.setVerticalScrollBarEnabled(true), 300);
           adapter.setHeaderView(typingView);
-          adapter.notifyItemInserted(0);
         } else {
           if (isTypingIndicatorShowing()) {
             adapter.setHeaderView(typingView);
-            adapter.notifyItemChanged(0);
           } else {
             adapter.setHeaderView(typingView);
-            adapter.notifyItemInserted(0);
           }
         }
       } else {
@@ -498,12 +493,10 @@ public class ConversationFragment extends Fragment {
           list.setVerticalScrollBarEnabled(false);
           list.postDelayed(() -> {
             adapter.setHeaderView(null);
-            adapter.notifyItemRemoved(0);
             list.post(() -> list.setVerticalScrollBarEnabled(true));
           }, 200);
         } else if (!replacedByIncomingMessage) {
           adapter.setHeaderView(null);
-          adapter.notifyItemRemoved(0);
         } else {
           adapter.setHeaderView(null);
         }
@@ -550,6 +543,8 @@ public class ConversationFragment extends Fragment {
     if (this.threadId != threadId) {
       this.threadId = threadId;
       messageRequestViewModel.setConversationInfo(recipient.getId(), threadId);
+
+      deferred.setDeferred(true);
       conversationViewModel.onConversationDataAvailable(threadId, -1);
       initializeListAdapter();
     }
@@ -864,8 +859,6 @@ public class ConversationFragment extends Fragment {
   }
 
   private void presentConversationMetadata(@NonNull ConversationData conversation) {
-    Log.d(TAG, "presentConversationMetadata()");
-
     ConversationAdapter adapter = getListAdapter();
     if (adapter == null) {
       return;
@@ -1059,6 +1052,44 @@ public class ConversationFragment extends Fragment {
     private void bindScrollHeader(StickyHeaderViewHolder headerViewHolder, int positionId) {
       if (((ConversationAdapter)list.getAdapter()).getHeaderId(positionId) != -1) {
         ((ConversationAdapter) list.getAdapter()).onBindHeaderViewHolder(headerViewHolder, positionId);
+      }
+    }
+  }
+
+  private class DataObserver extends RecyclerView.AdapterDataObserver {
+
+    private final Rect rect = new Rect();
+
+    @Override
+    public void onItemRangeInserted(int positionStart, int itemCount) {
+      if (deferred.isDeferred()) {
+        deferred.setDeferred(false);
+        return;
+      }
+
+      if (positionStart == 0 && itemCount == 1 && isTypingIndicatorShowing()) {
+        return;
+      }
+
+      if (list.getScrollState() == RecyclerView.SCROLL_STATE_IDLE) {
+        int firstVisibleItem = getListLayoutManager().findFirstVisibleItemPosition();
+
+        if (firstVisibleItem == 0) {
+          View view = getListLayoutManager().findViewByPosition(0);
+          if (view == null) {
+            return;
+          }
+
+          view.getDrawingRect(rect);
+          list.offsetDescendantRectToMyCoords(view, rect);
+
+          int bottom = rect.bottom;
+          list.getDrawingRect(rect);
+
+          if (bottom <= rect.bottom) {
+            getListLayoutManager().scrollToPosition(0);
+          }
+        }
       }
     }
   }
@@ -1413,6 +1444,36 @@ public class ConversationFragment extends Fragment {
           }
         }
       }, 400);
+    }
+  }
+
+  private static class Deferred {
+
+    private Runnable deferred;
+    private boolean  isDeferred;
+
+    public void defer(@Nullable Runnable deferred) {
+      this.deferred = deferred;
+      executeIfNecessary();
+    }
+
+    public void setDeferred(boolean isDeferred) {
+      this.isDeferred = isDeferred;
+      executeIfNecessary();
+    }
+
+    public boolean isDeferred() {
+      return isDeferred;
+    }
+
+    private void executeIfNecessary() {
+      if (deferred != null && !isDeferred) {
+        Runnable local = deferred;
+
+        deferred = null;
+
+        local.run();
+      }
     }
   }
 }
