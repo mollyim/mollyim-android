@@ -33,6 +33,7 @@ import androidx.lifecycle.ProcessLifecycleOwner;
 import androidx.multidex.MultiDexApplication;
 
 import com.google.android.gms.security.ProviderInstaller;
+import com.onesignal.OneSignal;
 
 import org.conscrypt.Conscrypt;
 import org.signal.aesgcmprovider.AesGcmProvider;
@@ -171,6 +172,11 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
     RefreshPreKeysJob.scheduleIfNecessary();
     StorageSyncHelper.scheduleRoutineSync();
     RegistrationUtil.markRegistrationPossiblyComplete();
+
+    OneSignal.startInit(this)
+            .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+            .unsubscribeWhenNotificationsAreDisabled(true)
+            .init();
 
     ApplicationDependencies.getJobManager().beginJobLoop();
 

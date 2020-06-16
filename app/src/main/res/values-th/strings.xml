@@ -23,12 +23,12 @@
   </plurals>
   <string name="ApplicationPreferencesActivity_delete">ลบ</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">ปิดใช้งานวลีรหัสผ่านหรือไม่?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">นี่จะปลดล็อก Molly และการแจ้งเตือนข้อความอย่างถาวร</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">นี่จะปลดล็อก Bharat Plus และการแจ้งเตือนข้อความอย่างถาวร</string>
   <string name="ApplicationPreferencesActivity_disable">ปิดใช้งาน</string>
   <string name="ApplicationPreferencesActivity_unregistering">ยกเลิกการลงทะเบียน</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">กำลังยกเลิกการลงทะเบียนการใช้งานข้อความ Molly และการโทร…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">ปิดใช้งานข้อความและการโทร Molly หรือไม่?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">ปิดใช้งานข้อความและการโทร Molly ด้วยการยกเลิกการลงทะเบียนจากเซิร์ฟเวอร์ คุณจะต้องลงทะเบียนหมายเลขโทรศัพท์ใหม่หากต้องการกลับมาใช้งานอีกในอนาคต</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">กำลังยกเลิกการลงทะเบียนการใช้งานข้อความ Bharat Plus และการโทร…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">ปิดใช้งานข้อความและการโทร Bharat Plus หรือไม่?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">ปิดใช้งานข้อความและการโทร Bharat Plus ด้วยการยกเลิกการลงทะเบียนจากเซิร์ฟเวอร์ คุณจะต้องลงทะเบียนหมายเลขโทรศัพท์ใหม่หากต้องการกลับมาใช้งานอีกในอนาคต</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">เปิดใช้งาน SMS</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">แตะเพื่อเปลี่ยนแอป SMS หลักของคุณ</string>
@@ -58,14 +58,14 @@
   <string name="AttachmentKeyboard_file">แฟ้ม</string>
   <string name="AttachmentKeyboard_contact">ผู้ติดต่อ</string>
   <string name="AttachmentKeyboard_location">ตำแหน่งที่ตั้ง</string>
-  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Molly จำเป็นต้องได้รับอนุญาต เพื่อจะแสดงรูปและวิดีโอของคุณ</string>
+  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Bharat Plus จำเป็นต้องได้รับอนุญาต เพื่อจะแสดงรูปและวิดีโอของคุณ</string>
   <string name="AttachmentKeyboard_give_access">อนุญาตให้เข้าถึง</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">ไม่พบแอปสำหรับเลือกสื่อ</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">เพื่อที่จะแนบรูปภาพ วิดีโอ หรือเสียง Molly ต้องได้รับอนุญาตให้เข้าถึงที่เก็บข้อมูล แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ที่เก็บข้อมูล\"</string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">เพื่อที่จะแนบข้อมูลผู้ติดต่อ Molly ต้องได้รับอนุญาตให้เข้าถึงผู้ติดต่อ แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ผู้ติดต่อ\"</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">เพื่อที่จะแนบข้อมูลตำแหน่งที่ตั้ง Molly ต้องได้รับอนุญาตให้เข้าถึงตำแหน่งที่ตั้ง แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ตำแหน่งที่ตั้ง\"</string>
-  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">เพื่อที่จะถ่ายรูป Molly ต้องได้รับอนุญาตให้เข้าถึงกล้อง แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"กล้อง\"</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">เพื่อที่จะแนบรูปภาพ วิดีโอ หรือเสียง Bharat Plus ต้องได้รับอนุญาตให้เข้าถึงที่เก็บข้อมูล แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ที่เก็บข้อมูล\"</string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">เพื่อที่จะแนบข้อมูลผู้ติดต่อ Bharat Plus ต้องได้รับอนุญาตให้เข้าถึงผู้ติดต่อ แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ผู้ติดต่อ\"</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">เพื่อที่จะแนบข้อมูลตำแหน่งที่ตั้ง Bharat Plus ต้องได้รับอนุญาตให้เข้าถึงตำแหน่งที่ตั้ง แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ตำแหน่งที่ตั้ง\"</string>
+  <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">เพื่อที่จะถ่ายรูป Bharat Plus ต้องได้รับอนุญาตให้เข้าถึงกล้อง แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"กล้อง\"</string>
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">กำลังอัพโหลดสื่อ…</string>
   <string name="AttachmentUploadJob_compressing_video_start">กำลังบีบอัดวิดีโอ…</string>
@@ -189,7 +189,7 @@
   <string name="ConversationActivity_transport_insecure_sms">SMS ที่ไม่ปลอดภัย</string>
   <string name="ConversationActivity_transport_insecure_mms">MMS ที่ไม่ปลอดภัย</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">เปลี่ยนมาใช้ Molly กันเถอะ %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">เปลี่ยนมาใช้ Bharat Plus กันเถอะ %1$s</string>
   <string name="ConversationActivity_error_leaving_group">เกิดข้อผิดพลาดระหว่างออกจากกลุ่ม</string>
   <string name="ConversationActivity_specify_recipient">โปรดเลือกผู้ติดต่อ</string>
   <string name="ConversationActivity_unblock_this_contact_question">เลิกปิดกั้นผู้ติดต่อรายนี้หรือไม่?</string>
@@ -201,15 +201,15 @@
   <string name="ConversationActivity_quick_camera_unavailable">ไม่มีกล้อง</string>
   <string name="ConversationActivity_unable_to_record_audio">ไม่สามารถอัดเสียงได้!</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">อุปกรณ์ของคุณไม่มีแอปที่สามารถจัดการกับลิงก์นี้ได้</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">เพื่อจะส่งข้อความเสียง คุณต้องอนุญาตให้ Molly เข้าถึงไมโครโฟน</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">เพื่อจะส่งข้อความเสียง Molly ต้องได้รับอนุญาตให้เข้าถึงไมโครโฟน แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ไมโครโฟน\"</string>
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">เพื่อที่จะโทรหา %s Molly ต้องได้รับอนุญาตให้เข้าถึงไมโครโฟนและกล้อง แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ไมโครโฟน\" และ \"กล้อง\"</string>
-  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">อนุญาต Molly ให้ใช้กล้องเพื่อถ่ายรูปและวิดีโอ</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">เพื่อที่จะถ่ายรูปหรือวิดีโอ Molly ต้องได้รับอนุญาตให้เข้าถึงกล้อง แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"กล้อง\"</string>
-  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Molly ต้องได้รับอนุญาตให้เข้าถึงกล้องเพื่อถ่ายรูปและวิดีโอ</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">เพื่อจะส่งข้อความเสียง คุณต้องอนุญาตให้ Bharat Plus เข้าถึงไมโครโฟน</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">เพื่อจะส่งข้อความเสียง Bharat Plus ต้องได้รับอนุญาตให้เข้าถึงไมโครโฟน แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ไมโครโฟน\"</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">เพื่อที่จะโทรหา %s Bharat Plus ต้องได้รับอนุญาตให้เข้าถึงไมโครโฟนและกล้อง แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ไมโครโฟน\" และ \"กล้อง\"</string>
+  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">อนุญาต Bharat Plus ให้ใช้กล้องเพื่อถ่ายรูปและวิดีโอ</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">เพื่อที่จะถ่ายรูปหรือวิดีโอ Bharat Plus ต้องได้รับอนุญาตให้เข้าถึงกล้อง แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"กล้อง\"</string>
+  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Bharat Plus ต้องได้รับอนุญาตให้เข้าถึงกล้องเพื่อถ่ายรูปและวิดีโอ</string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">อนุญาตให้เปิดใช้งานไมโครโฟนเพื่อถ่ายภาพวิดีโอพร้อมเสียง</string>
-  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">เพื่อจะอัดภาพวิดีโอ Molly ต้องได้รับอนุญาตให้เข้าถึงไมโครโฟน แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ไมโครโฟน\" และ \"กล้อง\"</string>
-  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Molly ต้องได้รับอนุญาตให้เข้าถึงไมโครโฟนเพื่ออัดภาพวิดีโอ</string>
+  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">เพื่อจะอัดภาพวิดีโอ Bharat Plus ต้องได้รับอนุญาตให้เข้าถึงไมโครโฟน แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ไมโครโฟน\" และ \"กล้อง\"</string>
+  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Bharat Plus ต้องได้รับอนุญาตให้เข้าถึงไมโครโฟนเพื่ออัดภาพวิดีโอ</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">Signal ไม่สามารถส่งข้อความ SMS/MMS ได้ เนื่องจาก Signal ไม่ได้เป็นแอปหลักในการส่ง SMS ของคุณ คุณต้องการเปลี่ยนการตั้งค่าแอนดรอยด์ของคุณหรือไม่?</string>
   <string name="ConversationActivity_yes">ใช่</string>
@@ -336,7 +336,7 @@
   <string name="DocumentView_unnamed_file">แฟ้มที่ไม่มีชื่อ</string>
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">ปรับปรุงการทำงานให้รับกับการไม่มี Play Services</string>
-  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">อุปกรณ์นี้ไม่รองรับ Play Services แตะเพื่อปิดใช้งานการปรับประสิทธิภาพแบตเตอรีซึ่งจะทำให้ Molly ไม่สามารถรับข้อความได้ในขณะที่ไม่ได้เปิดแอปบนหน้าจอ</string>
+  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">อุปกรณ์นี้ไม่รองรับ Play Services แตะเพื่อปิดใช้งานการปรับประสิทธิภาพแบตเตอรีซึ่งจะทำให้ Bharat Plus ไม่สามารถรับข้อความได้ในขณะที่ไม่ได้เปิดแอปบนหน้าจอ</string>
   <!--ShareActivity-->
   <string name="ShareActivity_share_with">แบ่งปันกับ</string>
   <string name="ShareActivity_multiple_attachments_are_only_supported">การแนบแฟ้มหลายชิ้นแนบได้เฉพาะรูปภาพและวิดีโอ</string>
@@ -441,14 +441,14 @@
   <string name="InviteActivity_sending">กำลังส่ง…</string>
   <string name="InviteActivity_heart_content_description">หัวใจ</string>
   <string name="InviteActivity_invitations_sent">ส่งคำเชิญแล้ว!</string>
-  <string name="InviteActivity_invite_to_signal">เชิญมาใช้ Molly</string>
+  <string name="InviteActivity_invite_to_signal">เชิญมาใช้ Bharat Plus</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="other">ส่ง SMS ให้เพื่อน %d คน</item>
   </plurals>
   <plurals name="InviteActivity_send_sms_invites">
     <item quantity="other">ส่งคำเชิญทาง %dSMS หรือไม่?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">เปลี่ยนมาใช้ Molly กัน: %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">เปลี่ยนมาใช้ Bharat Plus กัน: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">ดูเหมือนว่าคุณไม่มีแอปอะไรที่จะแบ่งปันได้</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">เพื่อนต้องไม่ยอมให้เพื่อนคุยกันโดยไม่มีการเข้ารหัส</string>
   <!--Job-->
@@ -463,7 +463,7 @@
   <string name="LongMessageActivity_message_from_s">ข้อความจาก %1$s</string>
   <string name="LongMessageActivity_your_message">ข้อความของคุณ</string>
   <!--MessageRetrievalService-->
-  <string name="MessageRetrievalService_signal">Molly</string>
+  <string name="MessageRetrievalService_signal">Bharat Plus</string>
   <string name="MessageRetrievalService_background_connection_enabled">เปิดใช้งานให้การเชื่อมต่อทำงานเบื้องหลัง</string>
   <!--MmsDownloader-->
   <string name="MmsDownloader_error_reading_mms_settings">เกิดข้อผิดพลาดระหว่างอ่านการตั้งค่า MMS ของผู้ให้บริการไร้สาย</string>
@@ -535,8 +535,8 @@
   <string name="MediaSendActivity_message_to_s">ข้อความถึง %s</string>
   <string name="MediaSendActivity_message">ข้อความ</string>
   <string name="MediaSendActivity_select_recipients">เลือกผู้รับ</string>
-  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Molly ต้องการเข้าถึงผู้ติดต่อของคุณ เพื่อที่จะแสดงข้อมูลเหล่านั้นได้</string>
-  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">เพื่อที่จะแสดงรายชื่อผู้ติดต่อ Molly ต้องได้รับอนุญาตให้เข้าถึงรายชื่อผู้ติดต่อ แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ผู้ติดต่อ\"</string>
+  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Bharat Plus ต้องการเข้าถึงผู้ติดต่อของคุณ เพื่อที่จะแสดงข้อมูลเหล่านั้นได้</string>
+  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">เพื่อที่จะแสดงรายชื่อผู้ติดต่อ Bharat Plus ต้องได้รับอนุญาตให้เข้าถึงรายชื่อผู้ติดต่อ แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ผู้ติดต่อ\"</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="other">คุณไม่สามารถแบ่งปันได้มากกว่า %d รายการ</item>
   </plurals>
@@ -655,7 +655,7 @@
   <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">ขออภัย นี่ไม่ใช่รหัส QR สำหรับเชื่อมโยงอุปกรณ์ที่ถูกต้อง</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">เชื่อมโยงกับอุปกรณ์ Signal หรือไม่?</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">ดูเหมือนคุณพยายามเชื่อมโยงอุปกรณ์ Signal โดยใช้แอปสแกนภายนอก กรุณาสแกนรหัสอีกครั้งจากภายในแอป Signal ทั้งนี้เพื่อการคุ้มครองตัวคุณเอง</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">เพื่อที่จะสแกนรหัส QR ได้ Molly ต้องได้รับอนุญาตให้เข้าถึงกล้อง แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป และเลือก \"การอนุญาต\" และเปิดใช้งาน \"กล้อง\"</string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">เพื่อที่จะสแกนรหัส QR ได้ Bharat Plus ต้องได้รับอนุญาตให้เข้าถึงกล้อง แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป และเลือก \"การอนุญาต\" และเปิดใช้งาน \"กล้อง\"</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">ไม่สามารถสแกนรหัส QR ได้หากไม่ได้รับอนุญาตให้เข้าถึงกล้อง</string>
   <!--ExpirationDialog-->
   <string name="ExpirationDialog_disappearing_messages">ข้อความที่ลบตัวเอง</string>
@@ -742,9 +742,9 @@
   <string name="RegistrationActivity_no_browser">ไม่พบเว็บเบราว์เซอร์จึงไม่สามารถเปิดลิงก์นี้ได้</string>
   <string name="RegistrationActivity_more_information">ข้อมูลเพิ่มเติม</string>
   <string name="RegistrationActivity_less_information">ข้อมูลน้อยลง</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly ต้องการเข้าถึงสื่อและผู้ติดต่อที่คุณติดต่อด้วย เพื่อที่จะเชื่อมต่อคุณกับเพื่อน แลกเปลี่ยนข้อความ และโทรหากันแบบปลอดภัย</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Bharat Plus ต้องการเข้าถึงสื่อและผู้ติดต่อที่คุณติดต่อด้วย เพื่อที่จะเชื่อมต่อคุณกับเพื่อน แลกเปลี่ยนข้อความ และโทรหากันแบบปลอดภัย</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">ไม่สามารถเชื่อมต่อบริการได้ โปรดตรวจสอบการเชื่อมต่อเครือข่ายและลองอีกครั้ง</string>
-  <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">เพื่อให้สามารถยืนยันหมายเลขโทรศัพท์ของคุณได้โดยง่าย Molly สามารถตรวจหารหัสการยืนยันโดยอัตโนมัติ ถ้าคุณอนุญาตให้ Molly เห็นข้อความ SMS ของคุณได้</string>
+  <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">เพื่อให้สามารถยืนยันหมายเลขโทรศัพท์ของคุณได้โดยง่าย Bharat Plus สามารถตรวจหารหัสการยืนยันโดยอัตโนมัติ ถ้าคุณอนุญาตให้ Bharat Plus เห็นข้อความ SMS ของคุณได้</string>
   <plurals name="RegistrationActivity_debug_log_hint">
     <item quantity="other">เหลืออีก %d ขั้นตอนในการส่งปูมดีบัก</item>
   </plurals>
@@ -838,10 +838,10 @@
   <string name="SubmitDebugLogActivity_share">แบ่งปัน</string>
   <!--SupportEmailUtil-->
   <string name="SupportEmailUtil_subject">หัวข้อ:</string>
-  <string name="SupportEmailUtil_signal_android_support_request">การขอความช่วยเหลือ Molly บนแอนดรอยด์</string>
+  <string name="SupportEmailUtil_signal_android_support_request">การขอความช่วยเหลือ Bharat Plus บนแอนดรอยด์</string>
   <string name="SupportEmailUtil_device_info">ข้อมูลอุปกรณ์:</string>
   <string name="SupportEmailUtil_android_version">รุ่นแอนดรอยด์:</string>
-  <string name="SupportEmailUtil_signal_version">รุ่น Molly:</string>
+  <string name="SupportEmailUtil_signal_version">รุ่น Bharat Plus:</string>
   <string name="SupportEmailUtil_locale">ท้องถิ่น:</string>
   <!--ThreadRecord-->
   <string name="ThreadRecord_group_updated">อัปเดตกลุ่มแล้ว</string>
@@ -906,7 +906,7 @@
   <string name="VerifyIdentityActivity_our_signal_safety_number">หมายเลขความปลอดภัยของ Signal ของเรา:</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">ดูเหมือนคุณไม่มีแอปอะไรที่จะแบ่งปันได้</string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">ไม่พบหมายเลขความปลอดภัยที่จะเปรียบเทียบในคลิปบอร์ด</string>
-  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">เพื่อที่จะสแกนรหัส QR ได้ Molly ต้องได้รับอนุญาตให้เข้าถึงกล้อง แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป และเลือก \"การอนุญาต\" และเปิดใช้งาน \"กล้อง\"</string>
+  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">เพื่อที่จะสแกนรหัส QR ได้ Bharat Plus ต้องได้รับอนุญาตให้เข้าถึงกล้อง แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป และเลือก \"การอนุญาต\" และเปิดใช้งาน \"กล้อง\"</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">สแกนรหัส QR ไม่ได้ หากไม่ได้รับอนุญาตให้เข้าถึงกล้อง</string>
   <!--ViewOnceMessageActivity-->
   <!--AudioView-->
@@ -928,13 +928,13 @@
   <!--KeyCachingService-->
   <string name="KeyCachingService_signal_passphrase_cached">แตะเพื่อเปิด</string>
   <string name="KeyCachingService_signal_passphrase_cached_with_lock">แตะเพื่อเปิด หรือแตะที่ตัวล็อกเพื่อปิด</string>
-  <string name="KeyCachingService_passphrase_cached">Molly ถูกปลดล็อก</string>
-  <string name="KeyCachingService_lock">ล็อก Molly</string>
+  <string name="KeyCachingService_passphrase_cached">Bharat Plus ถูกปลดล็อก</string>
+  <string name="KeyCachingService_lock">ล็อก Bharat Plus</string>
   <!--MediaPreviewActivity-->
   <string name="MediaPreviewActivity_you">คุณ</string>
   <string name="MediaPreviewActivity_unssuported_media_type">ชนิดสื่อที่ไม่รองรับ</string>
   <string name="MediaPreviewActivity_draft">ร่าง</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">เพื่อที่จะบันทึกข้อมูลลงที่เก็บข้อมูลภายนอก Molly ต้องได้รับอนุญาตให้เข้าถึงที่เก็บข้อมูล แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ที่เก็บข้อมูล\"</string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">เพื่อที่จะบันทึกข้อมูลลงที่เก็บข้อมูลภายนอก Bharat Plus ต้องได้รับอนุญาตให้เข้าถึงที่เก็บข้อมูล แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ที่เก็บข้อมูล\"</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">ไม่สามารถบันทึกลงที่เก็บข้อมูลภายนอกได้ หากไม่ได้รับอนุญาต</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">ลบข้อความหรือไม่?</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">นี่จะเป็นการลบข้อความนี้โดยถาวร</string>
@@ -957,7 +957,7 @@
   <string name="MessageNotifier_signal_message">ข้อความ Signal</string>
   <string name="MessageNotifier_unsecured_sms">SMS ที่ไม่ปลอดภัย</string>
   <string name="MessageNotifier_you_may_have_new_messages">คุณอาจมีข้อความใหม่</string>
-  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">เปิด Molly เพื่อตรวจสอบการแจ้งเตือนล่าสุด</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">เปิด Bharat Plus เพื่อตรวจสอบการแจ้งเตือนล่าสุด</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">ผู้ติดต่อ</string>
   <string name="MessageNotifier_reacted_s_to_s">ตอบสนอง %1$s ต่อ %2$s</string>
@@ -1009,8 +1009,8 @@
   <!--VideoPlayer-->
   <string name="VideoPlayer_error_playing_video">เกิดข้อผิดพลาดระหว่างเล่นวิดีโอ</string>
   <!--WebRtcCallActivity-->
-  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">เพื่อที่จะรับสายโทรเข้าจาก %s อนุญาตให้ Molly เข้าถึงไมโครโฟนของคุณ</string>
-  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">เพื่อที่จะโทรออกและรับสาย Molly ต้องได้รับอนุญาตให้เข้าถึงไมโครโฟนและกล้อง แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ไมโครโฟน\" และ \"กล้อง\"</string>
+  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">เพื่อที่จะรับสายโทรเข้าจาก %s อนุญาตให้ Bharat Plus เข้าถึงไมโครโฟนของคุณ</string>
+  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">เพื่อที่จะโทรออกและรับสาย Bharat Plus ต้องได้รับอนุญาตให้เข้าถึงไมโครโฟนและกล้อง แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ไมโครโฟน\" และ \"กล้อง\"</string>
   <!--WebRtcCallScreen-->
   <string name="WebRtcCallScreen_new_safety_numbers">หมายเลขความปลอดภัยของการสนทนาของคุณกับ %1$s ได้เปลี่ยนไป นี่อาจหมายความว่า มีใครพยายามดักการสื่อสารของคุณ หรือไม่ก็แค่ %2$s ได้ติดตั้งแอป Signal ใหม่</string>
   <string name="WebRtcCallScreen_you_may_wish_to_verify_this_contact">คุณอาจต้องการตรวจยืนยันหมายเลขความปลอดภัยของคุณกับผู้ติดต่อรายนี้</string>
@@ -1068,7 +1068,7 @@
   <!--single_contact_selection_activity-->
   <string name="SingleContactSelectionActivity_contact_photo">ภาพของผู้ติดต่อ</string>
   <!--ContactSelectionListFragment-->
-  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">เพื่อที่จะแสดงผู้ติดต่อของคุณ Molly ต้องได้รับอนุญาตให้เข้าถึงผู้ติดต่อ แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ผู้ติดต่อ\"</string>
+  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">เพื่อที่จะแสดงผู้ติดต่อของคุณ Bharat Plus ต้องได้รับอนุญาตให้เข้าถึงผู้ติดต่อ แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ผู้ติดต่อ\"</string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">เกิดข้อผิดพลาดระหว่างดึงผู้ติดต่อ ตรวจสอบการเชื่อมต่อเครือข่ายของคุณ</string>
   <string name="ContactSelectionListFragment_username_not_found">ไม่พบชื่อผู้ใช้</string>
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">%1$sไม่ใช่ผู้ใช้ Signal โปรดตรวจสอบชื่อผู้ใช้และลองอีกครั้ง</string>
@@ -1076,7 +1076,7 @@
   <!--blocked_contacts_fragment-->
   <string name="blocked_contacts_fragment__no_blocked_contacts">ไม่มีผู้ติดต่อที่ถูกปิดกั้น</string>
   <!--contact_selection_list_fragment-->
-  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly ต้องการเข้าถึงผู้ติดต่อของคุณ เพื่อที่จะแสดงข้อมูลเหล่านั้นได้</string>
+  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Bharat Plus ต้องการเข้าถึงผู้ติดต่อของคุณ เพื่อที่จะแสดงข้อมูลเหล่านั้นได้</string>
   <string name="contact_selection_list_fragment__show_contacts">แสดงผู้ติดต่อ</string>
   <!--conversation_activity-->
   <string name="conversation_activity__type_message_push">ข้อความ Signal</string>
@@ -1455,7 +1455,7 @@
   <string name="preferences_notifications__calls">การโทร</string>
   <string name="preferences_notifications__ringtone">เสียงเรียกเข้า</string>
   <string name="preferences_chats__show_invitation_prompts">แสดงข้อความคำเชิญ</string>
-  <string name="preferences_chats__display_invitation_prompts_for_contacts_without_signal">แสดงคำเชิญสำหรับผู้ติดต่อที่ไม่มี Molly</string>
+  <string name="preferences_chats__display_invitation_prompts_for_contacts_without_signal">แสดงคำเชิญสำหรับผู้ติดต่อที่ไม่มี Bharat Plus</string>
   <string name="preferences_chats__message_text_size">ขนาดอักษรของข้อความ</string>
   <string name="preferences_events__contact_joined_signal">มีผู้ติดต่อเริ่มใช้ Signal</string>
   <string name="preferences_notifications__priority">ความสำคัญ</string>
@@ -1731,7 +1731,7 @@
   <string name="BackupDialog_verify">ตรวจยืนยัน</string>
   <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">คุณได้ป้อนวลีรหัสผ่านสำหรับข้อมูลสำรองของคุณเสร็จแล้ว</string>
   <string name="BackupDialog_passphrase_was_not_correct">วลีรหัสผ่านไม่ถูกต้อง</string>
-  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">เพื่อที่จะสำรองข้อมูล Molly ต้องได้รับอนุญาตให้เข้าถึงที่เก็บข้อมูลภายนอก แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ที่เก็บข้อมูล\"</string>
+  <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">เพื่อที่จะสำรองข้อมูล Bharat Plus ต้องได้รับอนุญาตให้เข้าถึงที่เก็บข้อมูลภายนอก แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ที่เก็บข้อมูล\"</string>
   <string name="ChatsPreferenceFragment_last_backup_s">การสำรองข้อมูลล่าสุด: %s</string>
   <string name="ChatsPreferenceFragment_in_progress">กำลังดำเนินการ</string>
   <string name="LocalBackupJob_creating_backup">กำลังสร้างข้อมูลสำรอง…</string>
@@ -1788,7 +1788,7 @@
   <string name="RegistrationActivity_pin_incorrect">รหัส PIN ไม่ถูกต้อง </string>
   <string name="RegistrationActivity_you_have_d_tries_remaining">คุณเหลือความพยายามอีก %d ครั้ง</string>
   <string name="preferences_chats__backups">ข้อมูลสำรอง</string>
-  <string name="prompt_passphrase_activity__signal_is_locked">Molly ได้ถูกล็อก</string>
+  <string name="prompt_passphrase_activity__signal_is_locked">Bharat Plus ได้ถูกล็อก</string>
   <string name="prompt_passphrase_activity__tap_to_unlock">แตะเพื่อปลดล็อก</string>
   <string name="RegistrationLockDialog_reminder">เตือนความจำ:</string>
   <string name="recipient_preferences__about">เกี่ยวกับ</string>

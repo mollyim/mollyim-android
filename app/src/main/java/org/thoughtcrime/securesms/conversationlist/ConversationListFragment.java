@@ -68,6 +68,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.annimon.stream.Stream;
 import com.google.android.material.snackbar.Snackbar;
 
+import com.facebook.ads.Ad;
+import com.facebook.ads.AdError;
+import com.facebook.ads.AdIconView;
+import com.facebook.ads.NativeAdLayout;
+import com.facebook.ads.NativeAdListener;
+import com.facebook.ads.NativeBannerAd;
+import com.facebook.ads.NativeBannerAdView;
+import android.widget.Button;
+import android.widget.LinearLayout;
+
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -171,6 +182,9 @@ public class ConversationListFragment extends MainFragment implements LoaderMana
   private ConversationListSearchAdapter searchAdapter;
   private StickyHeaderDecoration        searchAdapterDecoration;
   private ViewGroup                     megaphoneContainer;
+  private NativeAdLayout                nativeAdLayout;
+  private NativeBannerAd                nativeBannerAd;
+  private LinearLayout                  adView;
 
   public static ConversationListFragment newInstance() {
     return new ConversationListFragment();
@@ -200,6 +214,49 @@ public class ConversationListFragment extends MainFragment implements LoaderMana
     searchAction       = view.findViewById(R.id.search_action);
     toolbarShadow      = view.findViewById(R.id.conversation_list_toolbar_shadow);
     megaphoneContainer = view.findViewById(R.id.megaphone_container);
+
+    if (getContext() != null) {
+      nativeBannerAd = new NativeBannerAd(getContext(), "258794762206481_258795612206396");
+      nativeBannerAd.setAdListener(new NativeAdListener() {
+        @Override
+        public void onMediaDownloaded(Ad ad) {
+          // Native ad finished downloading all assets
+          //Log.e(TAG, "Native ad finished downloading all assets.");
+        }
+
+        @Override
+        public void onError(Ad ad, AdError adError) {
+          // Native ad failed to load
+          //Log.e(TAG, "Native ad failed to load: " + adError.getErrorMessage());
+        }
+
+        @Override
+        public void onAdLoaded(Ad ad) {
+          // Native ad is loaded and ready to be displayed
+          //Log.d(TAG, "Native ad is loaded and ready to be displayed!");
+
+          if (nativeBannerAd == null || nativeBannerAd != ad) {
+            return;
+          }
+          // Inflate Native Banner Ad into Container
+          inflateAd(view, nativeBannerAd);
+        }
+
+        @Override
+        public void onAdClicked(Ad ad) {
+          // Native ad clicked
+          //Log.d(TAG, "Native ad clicked!");
+        }
+
+        @Override
+        public void onLoggingImpression(Ad ad) {
+          // Native ad impression
+          //Log.d(TAG, "Native ad impression logged!");
+        }
+      });
+      // load the ad
+      nativeBannerAd.loadAd();
+    }
 
     Toolbar toolbar = view.findViewById(getToolbarRes());
     toolbar.setVisibility(View.VISIBLE);
@@ -455,6 +512,20 @@ public class ConversationListFragment extends MainFragment implements LoaderMana
         list.setAdapter(defaultAdapter);
       }
     });
+  }
+
+  private void inflateAd(View rootView, NativeBannerAd nativeBannerAd) {
+
+    if (getContext() == null)
+      return;
+
+    nativeBannerAd.unregisterView();
+    View adView = NativeBannerAdView.render(getContext(), nativeBannerAd, NativeBannerAdView.Type.HEIGHT_100);
+    nativeAdLayout = rootView.findViewById(R.id.native_banner_ad_container);
+    AdIconView nativeAdIcon = adView.findViewById(R.id.native_ad_icon);
+    Button nativeAdCallToAction = adView.findViewById(R.id.native_ad_call_to_action);
+    // Add the Native Banner Ad View to your ad container
+    nativeAdLayout.addView(adView);
   }
 
   private void initializeListAdapters() {
