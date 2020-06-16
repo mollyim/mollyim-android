@@ -60,38 +60,16 @@
             android:textIsSelectable="false"
             android:textSize="18sp" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:fontFamily="sans-serif-light"
-            android:gravity="center_horizontal"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:text="@string/PassphraseCreateActivity_require_passphrase_to_unlock_molly"
-            android:textColor="@color/core_white"
-            android:textIsSelectable="false"
-            android:textSize="18sp" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/yes_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="8dp"
-            android:text="@string/PassphraseCreateActivity_turn_on_database_encryption"
-            android:textColor="@color/core_ultramarine"
-            app:backgroundTint="@color/core_white" />
-
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/no_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="8dp"
-            android:text="@string/RatingManager_no_thanks"
-            android:textColor="@color/transparent_white_80"
-            app:backgroundTint="@color/core_ultramarine_dark" />
+            android:text="@string/DeviceProvisioningActivity_continue"
+            android:textColor="@color/core_ultramarine"
+            app:backgroundTint="@color/core_white" />
+
 
     </LinearLayout>
 </ScrollView>
