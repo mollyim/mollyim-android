@@ -479,7 +479,7 @@ public class ConversationAdapter<V extends View & BindableConversationItem>
     return headerView != null;
   }
 
-  private boolean hasFooter() {
+  public boolean hasFooter() {
     return footerView != null;
   }
 
@@ -508,6 +508,10 @@ public class ConversationAdapter<V extends View & BindableConversationItem>
     } catch (NoSuchAlgorithmException e) {
       throw new AssertionError(e);
     }
+  }
+
+  public @Nullable MessageRecord getLastVisibleMessageRecord(int position) {
+    return getItem(position - ((hasFooter() && position == getItemCount() - 1) ? 1 : 0));
   }
 
   static class ConversationViewHolder extends RecyclerView.ViewHolder {

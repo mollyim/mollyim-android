@@ -29,20 +29,22 @@ class JobRunner extends Thread {
   private final Application   application;
   private final int           id;
   private final JobController jobController;
+  private final JobPredicate  jobPredicate;
 
-  JobRunner(@NonNull Application application, int id, @NonNull JobController jobController) {
+  JobRunner(@NonNull Application application, int id, @NonNull JobController jobController, @NonNull JobPredicate predicate) {
     super("signal-JobRunner-" + id);
 
     this.application   = application;
     this.id            = id;
     this.jobController = jobController;
+    this.jobPredicate  = predicate;
   }
 
   @Override
   public synchronized void run() {
     //noinspection InfiniteLoopStatement
     while (true) {
-      Job        job    = jobController.pullNextEligibleJobForExecution();
+      Job        job    = jobController.pullNextEligibleJobForExecution(jobPredicate);
       Job.Result result = run(job);
 
       jobController.onJobFinished(job);
@@ -67,6 +69,7 @@ class JobRunner extends Thread {
   }
 
   private Job.Result run(@NonNull Job job) {
+    long runStartTime = System.currentTimeMillis();
     Log.i(TAG, JobLogger.format(job, String.valueOf(id), "Running job."));
 
     if (isJobExpired(job)) {
@@ -94,7 +97,7 @@ class JobRunner extends Thread {
       }
     }
 
-    printResult(job, result);
+    printResult(job, result, runStartTime);
 
     if (result.isRetry()                                                &&
         job.getRunAttempt() + 1 >= job.getParameters().getMaxAttempts() &&
@@ -117,13 +120,13 @@ class JobRunner extends Thread {
     return job.getParameters().getLifespan() != Job.Parameters.IMMORTAL && expirationTime <= System.currentTimeMillis();
   }
 
-  private void printResult(@NonNull Job job, @NonNull Job.Result result) {
+  private void printResult(@NonNull Job job, @NonNull Job.Result result, long runStartTime) {
     if (result.getException() != null) {
       Log.e(TAG, JobLogger.format(job, String.valueOf(id), "Job failed with a fatal exception. Crash imminent."));
     } else if (result.isFailure()) {
       Log.w(TAG, JobLogger.format(job, String.valueOf(id), "Job failed."));
     } else {
-      Log.i(TAG, JobLogger.format(job, String.valueOf(id), "Job finished with result: " + result));
+      Log.i(TAG, JobLogger.format(job, String.valueOf(id), "Job finished with result " + result + " in " + (System.currentTimeMillis() - runStartTime) + " ms."));
     }
   }
 }

@@ -82,7 +82,7 @@
   <string name="BlockUnblockDialog_you_will_no_longer_receive_messages_or_updates">No podrás enviar ni recibir más mensajes en este grupo y sus participantes no podrán agregarte de nuevo al grupo.</string>
   <string name="BlockUnblockDialog_group_members_wont_be_able_to_add_you">L*s participantes no podrán agregarte de nuevo a este grupo.</string>
   <string name="BlockUnblockDialog_group_members_will_be_able_to_add_you">L*s participantes podrán agregarte de nuevo a este grupo.</string>
-  <string name="BlockUnblockDialog_you_will_be_able_to_call_and_message_each_other">Podréis chatear y llamaros mutuamente.</string>
+  <string name="BlockUnblockDialog_you_will_be_able_to_call_and_message_each_other">Podréis chatear y llamaros mutuamente. Tu nombre y foto de perfil se compartirá con esta persona.</string>
   <string name="BlockUnblockDialog_blocked_people_wont_be_able_to_call_you_or_send_you_messages">Las personas bloqueadas no podrán llamarte o enviarte mensajes.</string>
   <string name="BlockUnblockDialog_unblock_s">¿Desbloquear a %1$s?</string>
   <string name="BlockUnblockDialog_unblock">Desbloquear</string>
@@ -157,7 +157,9 @@
   <string name="ContactShareEditActivity_type_missing">Otros</string>
   <string name="ContactShareEditActivity_invalid_contact">La persona que has seleccionado no es válida.</string>
   <!--ConversationItem-->
-  <string name="ConversationItem_error_not_delivered">Fallo al enviar. Toca para más detalles</string>
+  <string name="ConversationItem_error_not_sent_tap_for_details">Fallo al enviar. Toca para más detalles.</string>
+  <string name="ConversationItem_error_partially_not_delivered">Enviado parcialmente, toca para más detalles</string>
+  <string name="ConversationItem_error_network_not_delivered">Fallo al enviar</string>
   <string name="ConversationItem_received_key_exchange_message_tap_to_process">Se recibió un mensaje de intercambio de claves, toca para proceder.</string>
   <string name="ConversationItem_group_action_left">%1$s ha abandonado el grupo.</string>
   <string name="ConversationItem_click_to_approve_unencrypted">Fallo al enviar. Toca para enviar sin cifrar</string>
@@ -278,7 +280,7 @@
   <string name="ConversationFragment_you_can_swipe_to_the_left_reply">Puedes deslizar hacia la izquierda sobre cualquier mensaje para responder rápidamente</string>
   <string name="ConversationFragment_outgoing_view_once_media_files_are_automatically_removed">Los medios que envías para ver solo una vez se eliminan automáticamente tras enviar.</string>
   <string name="ConversationFragment_you_already_viewed_this_message">Ya has visto este mensaje</string>
-  <string name="ConversationFragment__you_can_add_notes_for_yourself_in_this_conversation">En este chat puedes añadir notas, mensajes personales, contraseñas …. Si tu cuenta tiene dispositivos enlazados, las notas se sincronizarán.</string>
+  <string name="ConversationFragment__you_can_add_notes_for_yourself_in_this_conversation">En este chat puedes añadir notas que sólo tú puedes ver.\nSi tu cuenta tiene dispositivos enlazados, las nuevas notas se sincronizarán.</string>
   <!--ConversationListActivity-->
   <string name="ConversationListActivity_there_is_no_browser_installed_on_your_device">No hay ningún navegador instalado</string>
   <!--ConversationListFragment-->
@@ -302,8 +304,6 @@
     <item quantity="one">Chat devuelto al buzón de entrada</item>
     <item quantity="other">%d chats devueltos al buzón de entrada</item>
   </plurals>
-  <string name="ConversationListFragment__your_profile_name_has_been_created">Tu nombre de perfil se ha creado.</string>
-  <string name="ConversationListFragment__your_profile_name_has_been_saved">El nombre se ha guardado en tu perfil.</string>
   <!--ConversationListItem-->
   <string name="ConversationListItem_key_exchange_message">Mensaje de intercambio de claves</string>
   <!--ConversationListItemAction-->
@@ -317,7 +317,7 @@
   <string name="CreateProfileActivity_problem_setting_profile">Problema al crear el perfil</string>
   <string name="CreateProfileActivity_profile_photo">Foto de perfil</string>
   <string name="CreateProfileActivity_set_up_your_profile">Completa tu perfil</string>
-  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">Los perfiles de Signal están cifrados de extremo a extremo, por lo que el servidor de Signal no tiene acceso a ningún dato.</string>
+  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">Tu perfil está cifrado de punto a punto. Sólo es visible para tus contactos, para personas con las que inicies o aceptes un chat y cuando te unas a nuevos grupos. Nadie más tiene acceso, ni siquiera l*s creador*s de Signal.</string>
   <string name="CreateProfileActivity_set_avatar_description">Configurar avatar de perfil</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Usar personalizado: %s</string>
@@ -369,24 +369,12 @@
   <!--GiphyFragmentPageAdapter-->
   <string name="GiphyFragmentPagerAdapter_gifs">GIFs</string>
   <string name="GiphyFragmentPagerAdapter_stickers">Cromos (stickers)</string>
-  <!--GroupCreateActivity-->
-  <string name="GroupCreateActivity_actionbar_title">Nuevo grupo</string>
-  <string name="GroupCreateActivity_actionbar_edit_title">Editar grupo</string>
-  <string name="GroupCreateActivity_actionbar_manage_title">Administrar grupo</string>
-  <string name="GroupCreateActivity_group_name_hint">Nombre del grupo</string>
-  <string name="GroupCreateActivity_actionbar_mms_title">Nuevo grupo de MMS</string>
-  <string name="GroupCreateActivity_contacts_dont_support_push">Has seleccionado una persona que no usa Signal, así que este grupo será de MMS.</string>
-  <string name="GroupCreateActivity_youre_not_registered_for_signal">No estás registrado para los mensajes y llamadas de Signal, así que los grupos de Signal están desactivados, por favor, intenta registrarte otra vez en Configuración &gt; Avanzado.</string>
-  <string name="GroupCreateActivity_contacts_no_members">¡Necesitas al menos una persona en tu grupo!</string>
-  <string name="GroupCreateActivity_contacts_invalid_number">Un* participante de tu grupo tiene un número incorrecto. Por favor, comprueba el número o elimina esa persona del grupo e inténtalo de nuevo.</string>
-  <string name="GroupCreateActivity_avatar_content_description">Avatar del grupo</string>
-  <string name="GroupCreateActivity_menu_apply_button">Aplicar</string>
-  <string name="GroupCreateActivity_creating_group">Creando %1$s …</string>
-  <string name="GroupCreateActivity_updating_group">Actualizando %1$s …</string>
-  <string name="GroupCreateActivity_cannot_add_non_push_to_existing_group">No se ha podido agregar a %1$s porque no usa Signal.</string>
-  <string name="GroupCreateActivity_loading_group_details">Cargando detalles del grupo …</string>
-  <string name="GroupCreateActivity_youre_already_in_the_group">Ya eres participante en el grupo.</string>
-  <string name="GroupCreateActivity_remove_member_description">Expulsar participante</string>
+  <!--AddToGroupActivity-->
+  <string name="AddToGroupActivity_add_member">¿Agregar participante?</string>
+  <string name="AddToGroupActivity_add_s_to_s">¿Agregar a %1$s a «%2$s»?</string>
+  <string name="AddToGroupActivity_s_added_to_s">Se ha agregado a %1$s a «%2$s».</string>
+  <string name="AddToGroupActivity_add_to_group">Agregar al grupo</string>
+  <string name="AddToGroupActivity_add_to_groups">Agregar a grupos</string>
   <!--GroupShareProfileView-->
   <string name="GroupShareProfileView_share_your_profile_name_and_photo_with_this_group">¿Deseas compartir tu nombre y foto de perfil con este grupo?</string>
   <string name="GroupShareProfileView_do_you_want_to_make_your_profile_name_and_photo_visible_to_all_current_and_future_members_of_this_group">¿Deseas hacer visible tu nombre y foto de perfil a tod*s l*s participantes presentes y futuros de este grupo?</string>
@@ -414,8 +402,15 @@
     <item quantity="one">Fallo al retirar invitación</item>
     <item quantity="other">Fallo al retirar invitaciones</item>
   </plurals>
+  <!--AddMembersActivity-->
+  <string name="AddMembersActivity__done">Hecho</string>
+  <plurals name="AddMembersActivity__add_d_members_to_s">
+    <item quantity="one">¿Agregar %1$s a «%2$s»?</item>
+    <item quantity="other">¿Agregar %3$d participantes a «%2$s»?</item>
+  </plurals>
   <!--AddGroupDetailsFragment-->
   <string name="AddGroupDetailsFragment__name_this_group">Nombra este grupo</string>
+  <string name="AddGroupDetailsFragment__create_group">Crear grupo</string>
   <string name="AddGroupDetailsFragment__create">Crear</string>
   <string name="AddGroupDetailsFragment__members">Participantes</string>
   <string name="AddGroupDetailsFragment__group_name_required">Nombre del grupo (necesario)</string>
@@ -433,6 +428,7 @@
   <string name="ManageGroupActivity_who_can_edit_group_membership">Quién puede modificar participantes del grupo</string>
   <string name="ManageGroupActivity_who_can_edit_group_info">Quién puede modificar detalles del grupo</string>
   <string name="ManageGroupActivity_block_group">Bloquear grupo</string>
+  <string name="ManageGroupActivity_unblock_group">Desbloquear grupo</string>
   <string name="ManageGroupActivity_leave_group">Abandonar grupo</string>
   <string name="ManageGroupActivity_mute_notifications">Silenciar notificaciones</string>
   <string name="ManageGroupActivity_custom_notifications">Notificaciones personalizadas</string>
@@ -441,11 +437,15 @@
   <string name="ManageGroupActivity_on">Activo</string>
   <string name="ManageGroupActivity_add_members">Agregar participantes</string>
   <string name="ManageGroupActivity_view_all_members">Mostrar participantes</string>
-  <string name="ManageGroupActivity_see_all">Mostrar tod*s</string>
-  <string name="ManageGroupActivity_none">Ningun*</string>
+  <string name="ManageGroupActivity_see_all">Mostrar todos</string>
+  <string name="ManageGroupActivity_none">Ninguna</string>
   <plurals name="ManageGroupActivity_invited">
     <item quantity="one">%d invitad*</item>
     <item quantity="other">%d invitad*s</item>
+  </plurals>
+  <plurals name="ManageGroupActivity_added">
+    <item quantity="one">%d participante agregad*.</item>
+    <item quantity="other">%d participantes agregad*s.</item>
   </plurals>
   <string name="ManageGroupActivity_you_dont_have_the_rights_to_do_this">No dispones de permisos para hacerlo</string>
   <string name="ManageGroupActivity_not_capable">Alguien que has agregado no soporta los nuevos grupos ya que debe actualizar Signal.</string>
@@ -454,6 +454,30 @@
   <string name="ManageGroupActivity_edit_name_and_picture">Editar nombre e imagen</string>
   <string name="GroupManagement_choose_who_can_add_or_invite_new_members">Selecciona quién puede agregar o invitar a más participantes</string>
   <string name="GroupManagement_choose_who_can_change_the_group_name_and_photo">Selecciona quién puede modificar el nombre e imagen del grupo</string>
+  <!--ManageRecipientActivity-->
+  <string name="ManageRecipientActivity_disappearing_messages">Desaparición de mensajes</string>
+  <string name="ManageRecipientActivity_chat_color">Color del chat</string>
+  <string name="ManageRecipientActivity_block">Bloquear</string>
+  <string name="ManageRecipientActivity_unblock">Desbloquear</string>
+  <string name="ManageRecipientActivity_view_safety_number">Ver cifras de seguridad</string>
+  <string name="ManageRecipientActivity_mute_notifications">Silenciar notificaciones</string>
+  <string name="ManageRecipientActivity_custom_notifications">Notificaciones personalizadas</string>
+  <string name="ManageRecipientActivity_until_s">Hasta %1$s</string>
+  <string name="ManageRecipientActivity_off">Inactivo</string>
+  <string name="ManageRecipientActivity_on">Activo</string>
+  <string name="ManageRecipientActivity_add_to_a_group">Agregar a un grupo</string>
+  <string name="ManageRecipientActivity_view_all_groups">Ver todos los grupos</string>
+  <string name="ManageRecipientActivity_see_all">Mostrar todos</string>
+  <string name="ManageRecipientActivity_no_groups_in_common">No hay grupos en común</string>
+  <plurals name="ManageRecipientActivity_d_groups_in_common">
+    <item quantity="one">%d grupo en común</item>
+    <item quantity="other">%d grupos en común</item>
+  </plurals>
+  <string name="ManageRecipientActivity_edit_name_and_picture">Editar nombre y foto</string>
+  <string name="ManageRecipientActivity_message_description">Mensaje</string>
+  <string name="ManageRecipientActivity_voice_call_description">Llamada de voz</string>
+  <string name="ManageRecipientActivity_insecure_voice_call_description">Llamada no segura</string>
+  <string name="ManageRecipientActivity_video_call_description">Vídeollamada</string>
   <plurals name="GroupMemberList_invited">
     <item quantity="one">«%1$s» ha invitado a 1 persona</item>
     <item quantity="other">«%1$s» ha invitado a %2$d personas</item>
@@ -464,6 +488,11 @@
   <string name="CustomNotificationsDialogFragment__use_custom_notifications">Usar notificaciones personalizadas</string>
   <string name="CustomNotificationsDialogFragment__notification_sound">Sonido de notificaciones</string>
   <string name="CustomNotificationsDialogFragment__vibrate">Vibración</string>
+  <string name="CustomNotificationsDialogFragment__call_settings">Ajustes de llamada</string>
+  <string name="CustomNotificationsDialogFragment__ringtone">Tono de llamada</string>
+  <string name="CustomNotificationsDialogFragment__enabled">Activada</string>
+  <string name="CustomNotificationsDialogFragment__disabled">Desactivada</string>
+  <string name="CustomNotificationsDialogFragment__default">Por defecto</string>
   <!--GV2 Invite cancellation confirmation-->
   <string name="GroupManagement_cancel_own_single_invite">¿Deseas retirar tu invitación a «%1$s»?</string>
   <plurals name="GroupManagement_cancel_others_invites">
@@ -473,8 +502,6 @@
   <!--CropImageActivity-->
   <string name="CropImageActivity_group_avatar">Avatar del grupo</string>
   <string name="CropImageActivity_profile_avatar">Foto</string>
-  <!--ImageEditorFragment-->
-  <!-- Removed by excludeNonTranslatables <string name="ImageEditorFragment_no_faces_detected">No se han detectado caras</string> -->
   <!--ImageEditorHud-->
   <string name="ImageEditorHud_blur_faces">Enturbiar caras</string>
   <string name="ImageEditorHud_new_blur_faces_or_draw_anywhere_to_blur">Nuevo: Enturbia caras o zonas de la foto.</string>
@@ -507,9 +534,6 @@
   <string name="Job_working_in_the_background">Procesando en segundo plano …</string>
   <!--LearnMoreTextView-->
   <string name="LearnMoreTextView_learn_more">Saber más</string>
-  <!--MessageDetailsRecipient-->
-  <string name="MessageDetailsRecipient_failed_to_send">Fallo al enviar</string>
-  <string name="MessageDetailsRecipient_new_safety_number">Nuevas cifras de seguridad</string>
   <!--LongMessageActivity-->
   <string name="LongMessageActivity_unable_to_find_message">Imposible encontrar el mensaje</string>
   <string name="LongMessageActivity_message_from_s">Mensaje de %1$s</string>
@@ -686,11 +710,11 @@
   <string name="MessageRequestBottomView_delete">Eliminar</string>
   <string name="MessageRequestBottomView_block">Bloquear</string>
   <string name="MessageRequestBottomView_unblock">Desbloquear</string>
-  <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_they_wont_know_youve_seen_their_messages_until_you_accept">¿Deseas recibir mensajes de %1$s? No sabrá que has visto sus mensajes hasta que aceptes.</string>
-  <string name="MessageRequestBottomView_do_you_want_to_join_the_group_s_they_wont_know_youve_seen_their_messages_until_you_accept">¿Deseas unirte al grupo «%1$s»? L*s participantes no sabrán que has visto sus mensajes hasta que aceptes.</string>
+  <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_they_wont_know_youve_seen_their_messages_until_you_accept">¿Permitir a %1$s enviarte mensajes y compartir tu nombre y foto de perfil con esta persona? No sabrá que has visto sus mensajes hasta que aceptes.</string>
+  <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them">¿Permitir a %1$s enviarte mensajes y compartir tu nombre y foto de perfil con esta persona? No recibirás ningún mensaje de esta persona hasta que la desbloquees.</string>
+  <string name="MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">¿Unirse a este grupo y compartir tu nombre y foto de perfil con sus participantes? No sabrán que has visto sus mensajes hasta que aceptes.</string>
   <string name="MessageRequestBottomView_you_were_invited_to_join_the_group_s">Te han invitado a participar en el grupo «%1$s». ¿Deseas que participantes de este grupo te envíen mensajes?</string>
-  <string name="MessageRequestBottomView_unblock_s_to_message_and_call_each_other">Debloquea a %1$s para poder comunicaros.</string>
-  <string name="MessageRequestBottomView_unblock_to_allow_group_members_to_add_you_to_this_group_again">Desbloquea para permitir a participantes agregarte de nuevo al grupo.</string>
+  <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">¿Desbloquear este grupo y compartir tu nombre y foto de perfil con sus participantes? No recibirás ningún mensaje del grupo hasta que lo desbloquees.</string>
   <string name="MessageRequestProfileView_member_of_one_group">Participa en %1$s</string>
   <string name="MessageRequestProfileView_member_of_two_groups">Participa en %1$s y %2$s</string>
   <string name="MessageRequestProfileView_member_of_many_groups">Participa en %1$s, %2$s y %3$s</string>
@@ -712,7 +736,6 @@
   <string name="PassphraseChangeActivity_enter_new_passphrase_exclamation">¡Introduce una nueva clave de acceso!</string>
   <!--DeviceProvisioningActivity-->
   <string name="DeviceProvisioningActivity_link_this_device">¿Enlazar este dispositivo?</string>
-  <string name="DeviceProvisioningActivity_cancel">CANCELAR</string>
   <string name="DeviceProvisioningActivity_continue">CONTINUAR</string>
   <string name="DeviceProvisioningActivity_content_intro">Podrá</string>
   <string name="DeviceProvisioningActivity_content_bullets">
@@ -786,8 +809,8 @@
   <string name="RecipientPreferenceActivity_block">Bloquear</string>
   <string name="RecipientPreferenceActivity_error_leaving_group">Fallo al abandonar el grupo</string>
   <string name="RecipientPreferenceActivity_unblock">Desbloquear</string>
-  <string name="RecipientPreferenceActivity_enabled">Activado</string>
-  <string name="RecipientPreferenceActivity_disabled">Desactivado</string>
+  <string name="RecipientPreferenceActivity_enabled">Activada</string>
+  <string name="RecipientPreferenceActivity_disabled">Desactivada</string>
   <string name="RecipientPreferenceActivity_available_once_a_message_has_been_sent_or_received">Disponible una vez que se ha enviado o recibido un mensaje</string>
   <!--RecipientProvider-->
   <string name="RecipientProvider_unnamed_group">Grupo sin nombre</string>
@@ -833,6 +856,7 @@ número de teléfono
   <string name="RegistrationActivity_more_information">Más detalles</string>
   <string name="RegistrationActivity_less_information">Menos detalles</string>
   <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly necesita acceso a tus contactos y medios para conectar con tus amistades, chatear, y hacer llamadas seguras. Tu lista de contactos no se guarda en el servidor de Molly.</string>
+  <string name="RegistrationActivity_rate_limited_to_service">Has hecho demasiados intentos para registrar este número. Inténtalo de nuevo más tarde.</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">No se puede conectar con el servidor. Por favor, comprueba la conexión de red e inténtalo de nuevo.</string>
   <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">Para verificar cómodamente el número de teléfono, Molly puede detectar automáticamente el código de verificación si tiene acceso a tus SMS.</string>
   <plurals name="RegistrationActivity_debug_log_hint">
@@ -929,7 +953,6 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="SubmitDebugLogActivity_success">¡Completado!</string>
   <string name="SubmitDebugLogActivity_copy_this_url_and_add_it_to_your_issue">Copia esta URL y añádela a tu correo para el soporte o informe de incidencia:\n\n<b>%1$s</b></string>
   <string name="SubmitDebugLogActivity_copied_to_clipboard">Copiado al portapapeles</string>
-  <string name="SubmitDebugLogActivity_ok">Ok</string>
   <string name="SubmitDebugLogActivity_share">Compartir</string>
   <!--SupportEmailUtil-->
   <string name="SupportEmailUtil_subject">Asunto:</string>
@@ -965,6 +988,12 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="ThreadRecord_message_request">Solicitud de chat</string>
   <string name="ThreadRecord_s_added_you_to_the_group">%1$s te ha agregado al grupo</string>
   <string name="ThreadRecord_s_invited_you_to_the_group">%1$s te ha invitado al grupo</string>
+  <string name="ThreadRecord_photo">Foto</string>
+  <string name="ThreadRecord_gif">GIF</string>
+  <string name="ThreadRecord_voice_message">Nota de voz</string>
+  <string name="ThreadRecord_contact">Contacto</string>
+  <string name="ThreadRecord_file">Archivo</string>
+  <string name="ThreadRecord_video">Vídeo</string>
   <!--UpdateApkReadyListener-->
   <string name="UpdateApkReadyListener_Signal_update">Actualizar Signal</string>
   <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Una nueva versión de Signal está disponible. Toca para actualizar.</string>
@@ -990,7 +1019,7 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="UsernameEditFragment_encountered_a_network_error">Fallo en la conexión de red.</string>
   <string name="UsernameEditFragment_this_username_is_taken">Alias en uso por otra persona.</string>
   <string name="UsernameEditFragment_this_username_is_available">Alias disponible.</string>
-  <string name="UsernameEditFragment_usernames_can_only_include">El alias sólo puede contener a-Z, 0-9 y _.</string>
+  <string name="UsernameEditFragment_usernames_can_only_include">El alias sólo puede contener a–Z, 0–9 y _.</string>
   <string name="UsernameEditFragment_usernames_cannot_begin_with_a_number">El alias no puede comenzar por un número.</string>
   <string name="UsernameEditFragment_username_is_invalid">Alias no válido.</string>
   <string name="UsernameEditFragment_usernames_must_be_between_a_and_b_characters">El alias debe contener entre %1$d y %2$d caracteres.</string>
@@ -1184,6 +1213,11 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <!--contact_selection_list_fragment-->
   <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly necesita acceso a tus contactos para poder mostrarlos.</string>
   <string name="contact_selection_list_fragment__show_contacts">Mostrar personas</string>
+  <!--contact_selection_list_item-->
+  <plurals name="contact_selection_list_item__number_of_members">
+    <item quantity="one">%1$d participante</item>
+    <item quantity="other">%1$d participantes</item>
+  </plurals>
   <!--conversation_activity-->
   <string name="conversation_activity__type_message_push">Mensaje de Signal</string>
   <string name="conversation_activity__type_message_sms_insecure">SMS sin cifrado</string>
@@ -1198,6 +1232,7 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="conversation_activity__quick_attachment_drawer_record_and_send_audio_description">Grabar y enviar nota de voz</string>
   <string name="conversation_activity__quick_attachment_drawer_lock_record_description">Fijar grabación para nota de voz larga</string>
   <string name="conversation_activity__enable_signal_for_sms">Activar Signal para SMS</string>
+  <string name="conversation_activity__message_could_not_be_sent">No se ha podido enviar el mensaje. Comprueba tu conexión a internet e inténtalo de nuevo.</string>
   <!--conversation_input_panel-->
   <string name="conversation_input_panel__slide_to_cancel">Desliza para cancelar</string>
   <string name="conversation_input_panel__cancel">Cancelar</string>
@@ -1225,6 +1260,12 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="QuoteView_original_missing">No se encuentra el mensaje original </string>
   <!--conversation_fragment-->
   <string name="conversation_fragment__scroll_to_the_bottom_content_description">Desliza hasta el final</string>
+  <!--safety_number_change_dialog-->
+  <string name="safety_number_change_dialog__safety_number_changes">Cambios en cifras de seguridad</string>
+  <string name="safety_number_change_dialog__send_anyway">Enviar de todas formas</string>
+  <string name="safety_number_change_dialog__the_following_people_may_have_reinstalled_or_changed_devices">Las siguentes personas pueden haber reinstalado Signal o cambiado su dispositivo. Verifica tus cifras de seguridas con ellas para asegurar vuestra privacidad.</string>
+  <string name="safety_number_change_dialog__view">Ver</string>
+  <string name="safety_number_change_dialog__previous_verified">Identidad previamente verificada</string>
   <!--country_selection_fragment-->
   <string name="country_selection_fragment__loading_countries">Cargando países …</string>
   <string name="country_selection_fragment__search">Buscar</string>
@@ -1345,19 +1386,6 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="EditProfileFragment__group_name">Nombre del grupo</string>
   <!--recipient_preferences_activity-->
   <string name="recipient_preference_activity__shared_media">Archivos multimedia compartidos</string>
-  <!--recipient_preferences-->
-  <string name="recipient_preferences__mute_conversation">Silenciar chat</string>
-  <string name="recipient_preferences__custom_notifications">Notificaciones personalizadas</string>
-  <string name="recipient_preferences__custom_notifications_settings">Ajustes de notificaciones del sistema</string>
-  <string name="recipient_preferences__notification_sound">Sonido de notificaciones</string>
-  <string name="recipient_preferences__vibrate">Vibración</string>
-  <string name="recipient_preferences__block">Bloquear</string>
-  <string name="recipient_preferences__color">Color</string>
-  <string name="recipient_preferences__view_safety_number">Ver cifras de seguridad</string>
-  <string name="recipient_preferences__chat_settings">Ajustes del chat</string>
-  <string name="recipient_preferences__privacy">Privacidad</string>
-  <string name="recipient_preferences__call_settings">Ajustes de llamada</string>
-  <string name="recipient_preferences__ringtone">Tono de llamada</string>
   <!--- redphone_call_controls-->
   <string name="redphone_call_card__signal_call">Llamada de Signal</string>
   <!--registration_activity-->
@@ -1389,9 +1417,16 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="message_details_header__received">Recibido</string>
   <string name="message_details_header__disappears">Desaparición de mensajes</string>
   <string name="message_details_header__via">Vía</string>
-  <string name="message_details_header__to">Para:</string>
-  <string name="message_details_header__from">De:</string>
-  <string name="message_details_header__with">Con:</string>
+  <!--message_details_recipient_header-->
+  <string name="message_details_recipient_header__pending_send">Pendiente</string>
+  <string name="message_details_recipient_header__sent_to">Enviado a</string>
+  <string name="message_details_recipient_header__sent_from">Recibido de</string>
+  <string name="message_details_recipient_header__delivered_to">Entregado a</string>
+  <string name="message_details_recipient_header__read_by">Leído por</string>
+  <string name="message_details_recipient_header__not_sent">No enviado</string>
+  <!--message_Details_recipient-->
+  <string name="message_details_recipient__failed_to_send">Fallo al enviar</string>
+  <string name="message_details_recipient__new_safety_number">Nuevas cifras de seguridad</string>
   <!--AndroidManifest.xml-->
   <string name="AndroidManifest__create_passphrase">Crear clave de acceso</string>
   <string name="AndroidManifest__select_contacts">Seleccionar contactos</string>
@@ -1587,15 +1622,16 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="preferences_notifications__priority">Prioridad</string>
   <string name="preferences_communication__category_sealed_sender">Remitente confidencial</string>
   <string name="preferences_communication__sealed_sender_display_indicators">Mostrar indicadores</string>
-  <string name="preferences_communication__sealed_sender_display_indicators_description">Mostrar el icono de estado al tocar sobre «Detalles del mensaje» en mensajes entregados usando la característica de remitente confidencial.</string>
+  <string name="preferences_communication__sealed_sender_display_indicators_description">Muestra el icono de estado al tocar sobre «Detalles del mensaje» en mensajes entregados con «remitente confidencial». «Remitente confidencial» es una característica del protocolo de Signal que impide saber a nuestro servidor quién envía el mensaje. La persona que lo recibe sí lo sabrá.</string>
   <string name="preferences_communication__sealed_sender_allow_from_anyone">Permitir de cualquiera</string>
-  <string name="preferences_communication__sealed_sender_allow_from_anyone_description">«Remitente confidencial» es una característica del protocolo de Signal que permite a nuestro servidor no saber quién envía el mensaje. Al contrario que la persona que lo recibe. Activar la opción muestra un icono de estado en la sección «Más detalles» de los mensajes entregados con remitente confidencial.</string>
+  <string name="preferences_communication__sealed_sender_allow_from_anyone_description">Activar la opción permite usar la característica de «remitente confidencial» con personas que no están entre tus contactos y con las que no has compartido tu perfil.</string>
   <string name="preferences_communication__sealed_sender_learn_more">Saber más</string>
   <!--****************************************-->
   <!--menus-->
   <!--****************************************-->
   <!--contact_selection_list-->
   <string name="contact_selection_list__unknown_contact">Nuevo mensaje para …</string>
+  <string name="contact_selection_list__unknown_contact_add_to_group">Agregar al grupo</string>
   <!--conversation_callable_insecure-->
   <string name="conversation_callable_insecure__menu_call">Llamar</string>
   <!--conversation_callable_secure-->
@@ -1821,13 +1857,6 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="KbsMegaphone__update_pin">Actualizar PIN</string>
   <string name="KbsMegaphone__well_remind_you_later_creating_a_pin">Te lo volveremos a recordar. Crear tu PIN será obligatorio en %1$d días.</string>
   <string name="KbsMegaphone__well_remind_you_later_confirming_your_pin">Te lo volveremos a recordar. Confirmar tu PIN será obligatorio en %1$d días.</string>
-  <!--Profile Names Megaphone-->
-  <string name="ProfileNamesMegaphone__add_a_profile_name">Añadir nombre al perfil</string>
-  <string name="ProfileNamesMegaphone__this_will_be_displayed_when_you_start">Se mostrará al iniciar un nuevo chat o al compartirlo.</string>
-  <string name="ProfileNamesMegaphone__add_profile_name">Añadir nombre al perfil</string>
-  <string name="ProfileNamesMegaphone__confirm_your_profile_name">Confirma tu nombre de perfil</string>
-  <string name="ProfileNamesMegaphone__your_profile_can_now_include">Ahora tu perfil puede incluir opcionalmente tu(s) apellido(s)</string>
-  <string name="ProfileNamesMegaphone__confirm_name">Confirmar nombre</string>
   <!--transport_selection_list_item-->
   <string name="transport_selection_list_item__transport_icon">Icono de transporte</string>
   <string name="ConversationListFragment_loading">Cargando …</string>
@@ -1945,18 +1974,24 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="recipient_preferences__about">Acerca de</string>
   <string name="Recipient_unknown">Desconocido</string>
   <!--RecipientBottomSheet-->
-  <string name="RecipientBottomSheet_message">Mensaje</string>
-  <string name="RecipientBottomSheet_call">Llamar</string>
   <string name="RecipientBottomSheet_block">Bloquear</string>
   <string name="RecipientBottomSheet_unblock">Desbloquear</string>
+  <string name="RecipientBottomSheet_add_to_contacts">Añadir a contactos</string>
+  <string name="RecipientBottomSheet_add_to_a_group">Agregar a un grupo</string>
+  <string name="RecipientBottomSheet_add_to_another_group">Agregar a otro grupo</string>
   <string name="RecipientBottomSheet_view_safety_number">Ver cifras de seguridad</string>
   <string name="RecipientBottomSheet_make_group_admin">Promover a admin</string>
   <string name="RecipientBottomSheet_remove_as_admin">Retirar permisos de admin</string>
   <string name="RecipientBottomSheet_remove_from_group">Expulsar del grupo</string>
+  <string name="RecipientBottomSheet_message_description">Mensaje</string>
+  <string name="RecipientBottomSheet_voice_call_description">Llamada de voz</string>
+  <string name="RecipientBottomSheet_insecure_voice_call_description">Llamada no segura</string>
+  <string name="RecipientBottomSheet_video_call_description">Vídeollamada</string>
   <string name="RecipientBottomSheet_remove_s_as_group_admin">¿Retirar los permisos de admin a %1$s?</string>
   <string name="RecipientBottomSheet_s_will_be_able_to_edit_group">%1$s podrá editar los detalles de este grupo y modificar la lista de participantes</string>
   <string name="RecipientBottomSheet_remove_s_from_s">¿Expulsar a %1$s de «%2$s»?</string>
   <string name="RecipientBottomSheet_remove">Eliminar</string>
+  <string name="RecipientBottomSheet_copied_to_clipboard">Copiado al portapapeles</string>
   <string name="GroupRecipientListItem_admin">Admin</string>
   <!--EOF-->
 </resources>

@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
 
-import org.thoughtcrime.securesms.PassphraseRequiredActionBarActivity;
+import org.thoughtcrime.securesms.PassphraseRequiredActivity;
 import org.thoughtcrime.securesms.WebRtcCallActivity;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.ringrtc.RemotePeer;
@@ -14,7 +14,7 @@ import org.thoughtcrime.securesms.service.WebRtcCallService;
 import org.thoughtcrime.securesms.util.concurrent.SimpleTask;
 import org.whispersystems.signalservice.api.messages.calls.OfferMessage;
 
-public class VoiceCallShare extends PassphraseRequiredActionBarActivity {
+public class VoiceCallShare extends PassphraseRequiredActivity {
   
   private static final String TAG = VoiceCallShare.class.getSimpleName();
 

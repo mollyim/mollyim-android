@@ -82,7 +82,7 @@
   <string name="BlockUnblockDialog_you_will_no_longer_receive_messages_or_updates">S’do të merrni më mesazhe apo përditësime nga ky grup, dhe anëtarët e tij s’do të jenë në gjendje t’ju shtojnë sërish te ky grup.</string>
   <string name="BlockUnblockDialog_group_members_wont_be_able_to_add_you">Anëtarët e grupit s’do të jenë në gjendje t’ju rishtojnë te ky grup.</string>
   <string name="BlockUnblockDialog_group_members_will_be_able_to_add_you">Anëtarë të grupit do të jenë në gjendje t’ju rishtojnë te ky grup.</string>
-  <string name="BlockUnblockDialog_you_will_be_able_to_call_and_message_each_other">Do të jeni në gjendje t’i shkruani mesazhe dhe t’i bëni thirrje njëri-tjetrit.</string>
+  <string name="BlockUnblockDialog_you_will_be_able_to_call_and_message_each_other">Do të jeni në gjendje t’i dërgoni mesazhe dhe t’i bëni thirrje njëri-tjetrit, dhe emri juaj dhe fotoja do të jenë të dukshëm për të.</string>
   <string name="BlockUnblockDialog_blocked_people_wont_be_able_to_call_you_or_send_you_messages">Personat e bllokuar s’do të jenë në gjendje t’ju bëjnë thirrje apo t’ju dërgojnë mesazhe.</string>
   <string name="BlockUnblockDialog_unblock_s">Të zhbllokohet %1$s?</string>
   <string name="BlockUnblockDialog_unblock">Zhbllokoje</string>
@@ -157,7 +157,9 @@
   <string name="ContactShareEditActivity_type_missing">Tjetër</string>
   <string name="ContactShareEditActivity_invalid_contact">Kontakti i përzgjedhur qe i pavlefshëm</string>
   <!--ConversationItem-->
-  <string name="ConversationItem_error_not_delivered">Dërgimi dështoi, për hollësi, prekeni</string>
+  <string name="ConversationItem_error_not_sent_tap_for_details">S’u dërgua, prekeni për hollësi</string>
+  <string name="ConversationItem_error_partially_not_delivered">Dërguar pjesërisht, prekeni për hollësi</string>
+  <string name="ConversationItem_error_network_not_delivered">Dërgimi dështoi</string>
   <string name="ConversationItem_received_key_exchange_message_tap_to_process">U mor mesazh shkëmbimi kyçesh, prekeni që të bëhet.</string>
   <string name="ConversationItem_group_action_left">%1$s e la grupin.</string>
   <string name="ConversationItem_click_to_approve_unencrypted">Dërgimi dështoi, prekeni për dërgim të pasigurt</string>
@@ -278,7 +280,7 @@
   <string name="ConversationFragment_you_can_swipe_to_the_left_reply">Për t’u përgjigjur shpejt e shpejt, mund të fërkoni ekranin për majtas</string>
   <string name="ConversationFragment_outgoing_view_once_media_files_are_automatically_removed">Kartela media për parje vetëm një herë, që duhen dërguar, hiqen automatikisht pasi të jenë dërguar.</string>
   <string name="ConversationFragment_you_already_viewed_this_message">E patë tashmë këtë mesazh</string>
-  <string name="ConversationFragment__you_can_add_notes_for_yourself_in_this_conversation">Në këtë bisedë mund të shtoni shënime për veten. Nëse llogaria juaj ka ndonjë pajisje të lidhur, shënimet e reja do të njëkohësohen.</string>
+  <string name="ConversationFragment__you_can_add_notes_for_yourself_in_this_conversation">Në këtë bisedë mund të shtoni shënime për veten.\nNëse llogaria juaj ka ndonjë pajisje të lidhur, shënimet e reja do të njëkohësohen.</string>
   <!--ConversationListActivity-->
   <string name="ConversationListActivity_there_is_no_browser_installed_on_your_device">Në pajisjen tuaj s\’ka shfletues të instaluar.</string>
   <!--ConversationListFragment-->
@@ -302,8 +304,6 @@
     <item quantity="one">Biseda u shpu te të marrat</item>
     <item quantity="other">%d biseda u shpunë te të marrat</item>
   </plurals>
-  <string name="ConversationListFragment__your_profile_name_has_been_created">Emri i profilit tuaj u krijua.</string>
-  <string name="ConversationListFragment__your_profile_name_has_been_saved">Emri juaj i profilit u ruajt.</string>
   <!--ConversationListItem-->
   <string name="ConversationListItem_key_exchange_message">Mesazh shkëmbimi kyçesh</string>
   <!--ConversationListItemAction-->
@@ -317,7 +317,7 @@
   <string name="CreateProfileActivity_problem_setting_profile">Problem në rregullim profili</string>
   <string name="CreateProfileActivity_profile_photo">Foto profili</string>
   <string name="CreateProfileActivity_set_up_your_profile">Ujdisni profilin tuaj</string>
-  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">Profilet Signal fshehtëzohen skaj-më-skaj, dhe shërbimi Signal s\’mund të hyjë kurrë në këto të dhëna.</string>
+  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">Profili juaj është i fshehtëzuar skaj-më-skaj. Do të jetë i dukshëm për kontaktet tuaj, kur filloni ose pranoni biseda të reja, dhe kur bëheni anëtar grupesh të rinj.</string>
   <string name="CreateProfileActivity_set_avatar_description">Caktoni avatar</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Me përdorim të një të përshtaturi: %s</string>
@@ -369,24 +369,12 @@
   <!--GiphyFragmentPageAdapter-->
   <string name="GiphyFragmentPagerAdapter_gifs">GIFe</string>
   <string name="GiphyFragmentPagerAdapter_stickers">Ngjitëse</string>
-  <!--GroupCreateActivity-->
-  <string name="GroupCreateActivity_actionbar_title">Grup i ri</string>
-  <string name="GroupCreateActivity_actionbar_edit_title">Përpunoni grupin</string>
-  <string name="GroupCreateActivity_actionbar_manage_title">Administroni grupin</string>
-  <string name="GroupCreateActivity_group_name_hint">Emër grupi</string>
-  <string name="GroupCreateActivity_actionbar_mms_title">Grup MMS i ri</string>
-  <string name="GroupCreateActivity_contacts_dont_support_push">Keni përzgjedhur një kontakt që nuk mbulon grupe Signal, prandaj ky grup do të jetë MMS.</string>
-  <string name="GroupCreateActivity_youre_not_registered_for_signal">S\’jeni i regjistruar për mesazhe dhe thirrje Signal, prandaj grupet Signal janë çaktivizuar. Ju lutemi, provoni të regjistroheni, që nga Rregullime &gt; Të mëtejshme.</string>
-  <string name="GroupCreateActivity_contacts_no_members">Ju duhet së paku një person në grupin tuaj!</string>
-  <string name="GroupCreateActivity_contacts_invalid_number">Një nga anëtarët e grupit tuaj ka numër që s\’mund të lexohet saktë. Ju lutemi, ndreqeni, ose hiqeni atë kontakt dhe riprovoni.</string>
-  <string name="GroupCreateActivity_avatar_content_description">Avatar grupi</string>
-  <string name="GroupCreateActivity_menu_apply_button">Zbatoje</string>
-  <string name="GroupCreateActivity_creating_group">Po krijohet %1$s…</string>
-  <string name="GroupCreateActivity_updating_group">Po përditësohet %1$s…</string>
-  <string name="GroupCreateActivity_cannot_add_non_push_to_existing_group">S\’u shtua dot %1$s, ngaqë s\’është përdorues Signal-i.</string>
-  <string name="GroupCreateActivity_loading_group_details">Po ngarkohen hollësi grupi…</string>
-  <string name="GroupCreateActivity_youre_already_in_the_group">Jeni tashmë te grupi.</string>
-  <string name="GroupCreateActivity_remove_member_description">Hiqe anëtarin</string>
+  <!--AddToGroupActivity-->
+  <string name="AddToGroupActivity_add_member">Të shtohet anëtar?</string>
+  <string name="AddToGroupActivity_add_s_to_s">Të shtohet \"%1$s\" te \"%2$s\"?</string>
+  <string name="AddToGroupActivity_s_added_to_s">\"%1$s\" u shtua te \"%2$s\".</string>
+  <string name="AddToGroupActivity_add_to_group">Shtoje te grupi</string>
+  <string name="AddToGroupActivity_add_to_groups">Shtoni te grupe</string>
   <!--GroupShareProfileView-->
   <string name="GroupShareProfileView_share_your_profile_name_and_photo_with_this_group">Të ndahet emri dhe fotoja juaj e profilit me këtë grup?</string>
   <string name="GroupShareProfileView_do_you_want_to_make_your_profile_name_and_photo_visible_to_all_current_and_future_members_of_this_group">Doni t\’i bëni emrin dhe foton e profilit të dukshme për krejt anëtarët e tanishëm dhe të ardhshëm të këtij grupi?</string>
@@ -414,8 +402,15 @@
     <item quantity="one">Gabim në anulim ftese</item>
     <item quantity="other">Gabim në anulim ftesash</item>
   </plurals>
+  <!--AddMembersActivity-->
+  <string name="AddMembersActivity__done">U bë</string>
+  <plurals name="AddMembersActivity__add_d_members_to_s">
+    <item quantity="one">Të shtohet \"%1$s\" te \"%2$s\"?</item>
+    <item quantity="other">Të shtohen %3$d anëtarë te \"%2$s\"?</item>
+  </plurals>
   <!--AddGroupDetailsFragment-->
   <string name="AddGroupDetailsFragment__name_this_group">Emërtojeni këtë grup</string>
+  <string name="AddGroupDetailsFragment__create_group">Krijo grup</string>
   <string name="AddGroupDetailsFragment__create">Krijoje</string>
   <string name="AddGroupDetailsFragment__members">Anëtarë</string>
   <string name="AddGroupDetailsFragment__group_name_required">Emër grupi (e domosdoshme)</string>
@@ -433,6 +428,7 @@
   <string name="ManageGroupActivity_who_can_edit_group_membership">Cilët mund të përpunojnë anëtarësi grupi</string>
   <string name="ManageGroupActivity_who_can_edit_group_info">Cilët mund të përpunojnë të dhëna grupi</string>
   <string name="ManageGroupActivity_block_group">Blloko grup</string>
+  <string name="ManageGroupActivity_unblock_group">Zhbllokoje grupin</string>
   <string name="ManageGroupActivity_leave_group">Braktise grupin</string>
   <string name="ManageGroupActivity_mute_notifications">Heshtoji njoftimet</string>
   <string name="ManageGroupActivity_custom_notifications">Njoftime vetjake</string>
@@ -447,6 +443,10 @@
     <item quantity="one">%d i ftuar</item>
     <item quantity="other">%d të ftuar</item>
   </plurals>
+  <plurals name="ManageGroupActivity_added">
+    <item quantity="one">U shtua %d anëtar.</item>
+    <item quantity="other">U shtuan %d anëtarë.</item>
+  </plurals>
   <string name="ManageGroupActivity_you_dont_have_the_rights_to_do_this">S’keni të drejta për ta bërë këtë</string>
   <string name="ManageGroupActivity_not_capable">Dikush që shtuat, nuk mbulon grupe të reja dhe lypset të përditësojë Signal-in</string>
   <string name="ManageGroupActivity_failed_to_update_the_group">S’u arrit të përditësohej grupi</string>
@@ -454,6 +454,30 @@
   <string name="ManageGroupActivity_edit_name_and_picture">Përpunoni emër dhe foto</string>
   <string name="GroupManagement_choose_who_can_add_or_invite_new_members">Zgjidhni cilët mund të shtojnë ose ftojnë anëtarë të rinj</string>
   <string name="GroupManagement_choose_who_can_change_the_group_name_and_photo">Zgjidhni cilët mund të ndryshojnë emrin dhe foton e grupit</string>
+  <!--ManageRecipientActivity-->
+  <string name="ManageRecipientActivity_disappearing_messages">Zhdukje mesazhesh</string>
+  <string name="ManageRecipientActivity_chat_color">Ngjyrë fjalosjeje</string>
+  <string name="ManageRecipientActivity_block">Bllokoje</string>
+  <string name="ManageRecipientActivity_unblock">Zhbllokoje</string>
+  <string name="ManageRecipientActivity_view_safety_number">Shihni numër sigurie</string>
+  <string name="ManageRecipientActivity_mute_notifications">Heshtoji njoftimet</string>
+  <string name="ManageRecipientActivity_custom_notifications">Njoftime vetjake</string>
+  <string name="ManageRecipientActivity_until_s">Deri më %1$s</string>
+  <string name="ManageRecipientActivity_off">Off</string>
+  <string name="ManageRecipientActivity_on">On</string>
+  <string name="ManageRecipientActivity_add_to_a_group">Shtoje te grup</string>
+  <string name="ManageRecipientActivity_view_all_groups">Shihni krejt grupet</string>
+  <string name="ManageRecipientActivity_see_all">Shihini krejt</string>
+  <string name="ManageRecipientActivity_no_groups_in_common">S’ka grupe të përbashkët.</string>
+  <plurals name="ManageRecipientActivity_d_groups_in_common">
+    <item quantity="one">%d grup i përbashkët</item>
+    <item quantity="other">%d grupe të përbashkët</item>
+  </plurals>
+  <string name="ManageRecipientActivity_edit_name_and_picture">Përpunoni emër dhe foto</string>
+  <string name="ManageRecipientActivity_message_description">Mesazh</string>
+  <string name="ManageRecipientActivity_voice_call_description">Thirrje zanore</string>
+  <string name="ManageRecipientActivity_insecure_voice_call_description">Thirrje zanore jo e sigurt</string>
+  <string name="ManageRecipientActivity_video_call_description">Thirrje video</string>
   <plurals name="GroupMemberList_invited">
     <item quantity="one">%1$s ftoi 1 person</item>
     <item quantity="other">%1$s ftoi %2$d vetë</item>
@@ -464,6 +488,11 @@
   <string name="CustomNotificationsDialogFragment__use_custom_notifications">Përdor njoftime vetjake</string>
   <string name="CustomNotificationsDialogFragment__notification_sound">Tingull njoftimesh</string>
   <string name="CustomNotificationsDialogFragment__vibrate">Dridhu</string>
+  <string name="CustomNotificationsDialogFragment__call_settings">Rregullime thirrjeje</string>
+  <string name="CustomNotificationsDialogFragment__ringtone">Zile</string>
+  <string name="CustomNotificationsDialogFragment__enabled">E aktivizuar</string>
+  <string name="CustomNotificationsDialogFragment__disabled">E çaktivizuar</string>
+  <string name="CustomNotificationsDialogFragment__default">Parazgjedhje</string>
   <!--GV2 Invite cancellation confirmation-->
   <string name="GroupManagement_cancel_own_single_invite">Doni të anulohet ftesa që dërguat për %1$s?</string>
   <plurals name="GroupManagement_cancel_others_invites">
@@ -473,8 +502,6 @@
   <!--CropImageActivity-->
   <string name="CropImageActivity_group_avatar">Avatar grupi</string>
   <string name="CropImageActivity_profile_avatar">Avatar</string>
-  <!--ImageEditorFragment-->
-  <!-- Removed by excludeNonTranslatables <string name="ImageEditorFragment_no_faces_detected">S’u pikasën fytyra</string> -->
   <!--ImageEditorHud-->
   <string name="ImageEditorHud_blur_faces">Turbulloni fytyra</string>
   <string name="ImageEditorHud_new_blur_faces_or_draw_anywhere_to_blur">E re: Turbulloni fytyra ose vizatoni kudoqoftë që të turbullohet.</string>
@@ -507,9 +534,6 @@
   <string name="Job_working_in_the_background">Po punohet në prapaskenë…</string>
   <!--LearnMoreTextView-->
   <string name="LearnMoreTextView_learn_more">Mësoni më tepër</string>
-  <!--MessageDetailsRecipient-->
-  <string name="MessageDetailsRecipient_failed_to_send">Dështoi dërgimi</string>
-  <string name="MessageDetailsRecipient_new_safety_number">Numër i ri sigurie</string>
   <!--LongMessageActivity-->
   <string name="LongMessageActivity_unable_to_find_message">S\’arrihet të gjendet mesazh</string>
   <string name="LongMessageActivity_message_from_s">Mesazh prej %1$s</string>
@@ -686,11 +710,11 @@
   <string name="MessageRequestBottomView_delete">Fshije</string>
   <string name="MessageRequestBottomView_block">Bllokoje</string>
   <string name="MessageRequestBottomView_unblock">Zhbllokoje</string>
-  <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_they_wont_know_youve_seen_their_messages_until_you_accept">Doni të lejohet %1$s t’ju dërgojë mesazh? S’do ta dijë se e keni parë mesazhin e tij, deri sa të pranoni.</string>
-  <string name="MessageRequestBottomView_do_you_want_to_join_the_group_s_they_wont_know_youve_seen_their_messages_until_you_accept">Doni të bëheni pjesë e grupit %1$s? S’do ta dinë se i keni parë mesazhet e tyre, deri sa të pranoni.</string>
+  <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_they_wont_know_youve_seen_their_messages_until_you_accept">Të lejohet %1$s t’ju dërgojë mesazh dhe të ndajë emrin dhe foton tuaj me të tjerë? S’do ta dijë se e keni parë mesazhin e tij, para se të pranoni këtë.</string>
+  <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them">Të lejohet %1$s t’ju dërgojë mesazh dhe të ndajë emrin dhe foton tuaj me të tjerë? S’do të merrni ndonjë mesazh, para se ta zhbllokoni.</string>
+  <string name="MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Të bëhet anëtarësim në këtë grup dhe të ndahet emri dhe fotoja juaj me anëtarët e tij? S’do ta dinë se i keni parë mesazhet e tyre, para se të pranoni këtë.</string>
   <string name="MessageRequestBottomView_you_were_invited_to_join_the_group_s">Qetë ftuar në këtë grup nga %1$s. Doni t’i lini anëtarët e këtij grupi t’ju dërgojnë mesazhe?</string>
-  <string name="MessageRequestBottomView_unblock_s_to_message_and_call_each_other">Zhbllokojeni %1$s që t’i shkruani mesazhe dhe t’i bëni thirrje njëri-tjetrit.</string>
-  <string name="MessageRequestBottomView_unblock_to_allow_group_members_to_add_you_to_this_group_again">Zhbllokojeni që t’u lejoni anëtarëve të grupit t’ju rishtojnë te ky grup.</string>
+  <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">Të zhbllokohet ky grup dhe të lejohet të ndajë emrin dhe foton tuaj me anëtarët e tij? S’do të merrni ndonjë mesazh, para se ta zhbllokoni.</string>
   <string name="MessageRequestProfileView_member_of_one_group">Anëtar i %1$s</string>
   <string name="MessageRequestProfileView_member_of_two_groups">Anëtar i %1$s dhe %2$s</string>
   <string name="MessageRequestProfileView_member_of_many_groups">Anëtar i %1$s, %2$s, dhe %3$s</string>
@@ -712,7 +736,6 @@
   <string name="PassphraseChangeActivity_enter_new_passphrase_exclamation">Jepni frazëkalim të ri!</string>
   <!--DeviceProvisioningActivity-->
   <string name="DeviceProvisioningActivity_link_this_device">Të lidhet kjo pajisje?</string>
-  <string name="DeviceProvisioningActivity_cancel">ANULOJE</string>
   <string name="DeviceProvisioningActivity_continue">VAZHDO</string>
   <string name="DeviceProvisioningActivity_content_intro">Do të jetë në gjendje të</string>
   <string name="DeviceProvisioningActivity_content_bullets">
@@ -831,6 +854,7 @@
   <string name="RegistrationActivity_more_information">Më tepër të dhëna</string>
   <string name="RegistrationActivity_less_information">Më pak të dhëna</string>
   <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Që të mund të lidheni me shokët, të shkëmbeni mesazhe dhe të bëni thirje të siguruara, Molly-i lyp hyrje te kontaktet dhe mediat tuaja</string>
+  <string name="RegistrationActivity_rate_limited_to_service">Keni bërë shumë përpjekje për të regjistruar këtë numër. Ju lutemi, riprovoni më vonë.</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">S\’arrihet të bëhet lidhja te shërbimi. Ju lutemi, kontrolloni lidhjen me rrjetin dhe riprovoni.</string>
   <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">Që të verifikohet lehtësisht numri juaj i telefonit, Molly-i mund të zbulojë vetvetiu kodin tuaj të verifikimit, nëse e lejoni Molly-in të shohë mesazhe SMS.</string>
   <plurals name="RegistrationActivity_debug_log_hint">
@@ -925,7 +949,6 @@
   <string name="SubmitDebugLogActivity_success">Sukses!</string>
   <string name="SubmitDebugLogActivity_copy_this_url_and_add_it_to_your_issue">Kopjojeni këtë URL dhe shtojeni te njoftimi i problemit tuaj ose email-i për asistencën:\n\n<b>%1$s</b></string>
   <string name="SubmitDebugLogActivity_copied_to_clipboard">U kopjua në të papastër!</string>
-  <string name="SubmitDebugLogActivity_ok">Ok</string>
   <string name="SubmitDebugLogActivity_share">Ndajeni Me të Tjerë</string>
   <!--SupportEmailUtil-->
   <string name="SupportEmailUtil_subject">Subjekt:</string>
@@ -961,6 +984,12 @@
   <string name="ThreadRecord_message_request">Kërkesë Mesazhi</string>
   <string name="ThreadRecord_s_added_you_to_the_group">%1$s ju shtoi te grupi</string>
   <string name="ThreadRecord_s_invited_you_to_the_group">%1$s ju ftoi te grupi</string>
+  <string name="ThreadRecord_photo">Foto</string>
+  <string name="ThreadRecord_gif">GIF</string>
+  <string name="ThreadRecord_voice_message">Mesazh Zanor</string>
+  <string name="ThreadRecord_contact">Kontakt</string>
+  <string name="ThreadRecord_file">Kartelë</string>
+  <string name="ThreadRecord_video">Video</string>
   <!--UpdateApkReadyListener-->
   <string name="UpdateApkReadyListener_Signal_update">Përditësim i Signal-it</string>
   <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Është gati një version i ri i Signal-it, prekeni që të përditësohet</string>
@@ -1180,6 +1209,11 @@
   <!--contact_selection_list_fragment-->
   <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Që të mund t\’i shfaqë, Molly-i lyp leje përdorimi të kontakteve.</string>
   <string name="contact_selection_list_fragment__show_contacts">Shfaq Kontaktet</string>
+  <!--contact_selection_list_item-->
+  <plurals name="contact_selection_list_item__number_of_members">
+    <item quantity="one">%1$d anëtar</item>
+    <item quantity="other">%1$d anëtarë</item>
+  </plurals>
   <!--conversation_activity-->
   <string name="conversation_activity__type_message_push">Mesazh Signal</string>
   <string name="conversation_activity__type_message_sms_insecure">SMS e pasiguruar</string>
@@ -1194,6 +1228,7 @@
   <string name="conversation_activity__quick_attachment_drawer_record_and_send_audio_description">Incizoni dhe dërgoni bashkëngjitje zanore</string>
   <string name="conversation_activity__quick_attachment_drawer_lock_record_description">Blloko incizim bashkëngjitjeje audio</string>
   <string name="conversation_activity__enable_signal_for_sms">Aktivizo Signal për SMS</string>
+  <string name="conversation_activity__message_could_not_be_sent">Mesazhi s’u dërgua dot. Kontrolloni lidhjen tuaj dhe riprovoni.</string>
   <!--conversation_input_panel-->
   <string name="conversation_input_panel__slide_to_cancel">Rrëshqiteni që të anulohet</string>
   <string name="conversation_input_panel__cancel">Anuloje</string>
@@ -1221,6 +1256,12 @@
   <string name="QuoteView_original_missing">S\’u gjet mesazhi origjinal</string>
   <!--conversation_fragment-->
   <string name="conversation_fragment__scroll_to_the_bottom_content_description">Rrëshqit drejt fundit</string>
+  <!--safety_number_change_dialog-->
+  <string name="safety_number_change_dialog__safety_number_changes">Ndryshime Numri Sigurie</string>
+  <string name="safety_number_change_dialog__send_anyway">Dërgoje, sido qoftë</string>
+  <string name="safety_number_change_dialog__the_following_people_may_have_reinstalled_or_changed_devices">Personat vijues mund të kenë riinstaluar ose ndryshuar pajisjet. Për të siguruar privatësi, verifikoni me ta numrin tuaj të sigurisë.</string>
+  <string name="safety_number_change_dialog__view">Shihni</string>
+  <string name="safety_number_change_dialog__previous_verified">Verifikuar më herët</string>
   <!--country_selection_fragment-->
   <string name="country_selection_fragment__loading_countries">Po ngarkohen vende…</string>
   <string name="country_selection_fragment__search">Kërko</string>
@@ -1341,19 +1382,6 @@
   <string name="EditProfileFragment__group_name">Emër grupi</string>
   <!--recipient_preferences_activity-->
   <string name="recipient_preference_activity__shared_media">Media e ndarë me të tjerët</string>
-  <!--recipient_preferences-->
-  <string name="recipient_preferences__mute_conversation">Heshtoje bisedën</string>
-  <string name="recipient_preferences__custom_notifications">Njoftime vetjake</string>
-  <string name="recipient_preferences__custom_notifications_settings">Rregullime mbi njoftime sistemi</string>
-  <string name="recipient_preferences__notification_sound">Tingull njoftimesh</string>
-  <string name="recipient_preferences__vibrate">Dridhu</string>
-  <string name="recipient_preferences__block">Bllokoje</string>
-  <string name="recipient_preferences__color">Ngjyrë</string>
-  <string name="recipient_preferences__view_safety_number">Shihni numër sigurie</string>
-  <string name="recipient_preferences__chat_settings">Rregullime fjalosjeje</string>
-  <string name="recipient_preferences__privacy">Privatësi</string>
-  <string name="recipient_preferences__call_settings">Rregullime thirrjeje</string>
-  <string name="recipient_preferences__ringtone">Zile</string>
   <!--- redphone_call_controls-->
   <string name="redphone_call_card__signal_call">Thirrje përmes Signal-i</string>
   <!--registration_activity-->
@@ -1385,9 +1413,16 @@
   <string name="message_details_header__received">Marrë më</string>
   <string name="message_details_header__disappears">Zhduket më</string>
   <string name="message_details_header__via">Përmes</string>
-  <string name="message_details_header__to">Për:</string>
-  <string name="message_details_header__from">Nga:</string>
-  <string name="message_details_header__with">Me:</string>
+  <!--message_details_recipient_header-->
+  <string name="message_details_recipient_header__pending_send">Pezull</string>
+  <string name="message_details_recipient_header__sent_to">Dërguar te</string>
+  <string name="message_details_recipient_header__sent_from">Dërguar nga</string>
+  <string name="message_details_recipient_header__delivered_to">Dorëzuar te</string>
+  <string name="message_details_recipient_header__read_by">Lexuar nga</string>
+  <string name="message_details_recipient_header__not_sent">S’u dërgua</string>
+  <!--message_Details_recipient-->
+  <string name="message_details_recipient__failed_to_send">Dështoi dërgimi</string>
+  <string name="message_details_recipient__new_safety_number">Numër i ri sigurie</string>
   <!--AndroidManifest.xml-->
   <string name="AndroidManifest__create_passphrase">Krijo frazëkalim</string>
   <string name="AndroidManifest__select_contacts">Përzgjidhni kontakt</string>
@@ -1592,6 +1627,7 @@
   <!--****************************************-->
   <!--contact_selection_list-->
   <string name="contact_selection_list__unknown_contact">Mesazh i ri për:</string>
+  <string name="contact_selection_list__unknown_contact_add_to_group">Shtoje te grupi</string>
   <!--conversation_callable_insecure-->
   <string name="conversation_callable_insecure__menu_call">Thirrje</string>
   <!--conversation_callable_secure-->
@@ -1818,13 +1854,6 @@ spastrohet dhe krejt lënda do të fshihet.</item>
   <string name="KbsMegaphone__update_pin">Përditësoni PIN-in</string>
   <string name="KbsMegaphone__well_remind_you_later_creating_a_pin">Do t’jua kujtojmë më vonë. Krijimi i një PIN-i do të jetë i detyrueshëm pas %1$d ditësh.</string>
   <string name="KbsMegaphone__well_remind_you_later_confirming_your_pin">Do t’jua kujtojmë më vonë. Ripohimi i PIN-it tuaj do të jetë i detyrueshëm pas %1$d ditësh.</string>
-  <!--Profile Names Megaphone-->
-  <string name="ProfileNamesMegaphone__add_a_profile_name">Shtoni emër profili</string>
-  <string name="ProfileNamesMegaphone__this_will_be_displayed_when_you_start">Ky do të shfaqe kur nisni një bisedë të re ose e ndani me të tjerë.</string>
-  <string name="ProfileNamesMegaphone__add_profile_name">Shtoni Emër Profili</string>
-  <string name="ProfileNamesMegaphone__confirm_your_profile_name">Ripohoni Emrin tuaj të Profilit</string>
-  <string name="ProfileNamesMegaphone__your_profile_can_now_include">Profili juaj tani mund të përfshijë një mbiemër, në daçi.</string>
-  <string name="ProfileNamesMegaphone__confirm_name">Ripohoni Emrin</string>
   <!--transport_selection_list_item-->
   <string name="transport_selection_list_item__transport_icon">Ikonë bartjesh</string>
   <string name="ConversationListFragment_loading">Po ngarkohet…</string>
@@ -1942,18 +1971,24 @@ spastrohet dhe krejt lënda do të fshihet.</item>
   <string name="recipient_preferences__about">Mbi</string>
   <string name="Recipient_unknown">I panjohur</string>
   <!--RecipientBottomSheet-->
-  <string name="RecipientBottomSheet_message">Mesazh</string>
-  <string name="RecipientBottomSheet_call">Thirrje</string>
   <string name="RecipientBottomSheet_block">Bllokoje</string>
   <string name="RecipientBottomSheet_unblock">Zhbllokoje</string>
+  <string name="RecipientBottomSheet_add_to_contacts">Shtoje te kontaktet</string>
+  <string name="RecipientBottomSheet_add_to_a_group">Shtoje te grup</string>
+  <string name="RecipientBottomSheet_add_to_another_group">Shtojeni në grup tjetër</string>
   <string name="RecipientBottomSheet_view_safety_number">Shihni numër sigurie</string>
   <string name="RecipientBottomSheet_make_group_admin">Bëje përgjegjës grupi</string>
   <string name="RecipientBottomSheet_remove_as_admin">Hiqe nga përgjegjës</string>
   <string name="RecipientBottomSheet_remove_from_group">Hiqe nga grup</string>
+  <string name="RecipientBottomSheet_message_description">Mesazh</string>
+  <string name="RecipientBottomSheet_voice_call_description">Thirrje zanore</string>
+  <string name="RecipientBottomSheet_insecure_voice_call_description">Thirrje zanore jo e sigurt</string>
+  <string name="RecipientBottomSheet_video_call_description">Thirrje video</string>
   <string name="RecipientBottomSheet_remove_s_as_group_admin">Të hiqet %1$s nga përgjegjës grupi?</string>
   <string name="RecipientBottomSheet_s_will_be_able_to_edit_group">%1$s do të jetë në gjendje të përpunojë këtë grup dhe anëtarët e tij</string>
   <string name="RecipientBottomSheet_remove_s_from_s">Të hiqet %1$s nga \"%2$s\"?</string>
   <string name="RecipientBottomSheet_remove">Hiqe</string>
+  <string name="RecipientBottomSheet_copied_to_clipboard">U kopjua në të papastër!</string>
   <string name="GroupRecipientListItem_admin">Përgjegjës</string>
   <!--EOF-->
 </resources>

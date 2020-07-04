@@ -19,9 +19,11 @@ import org.signal.zkgroup.groups.GroupMasterKey;
 import org.signal.zkgroup.profiles.ProfileKey;
 import org.signal.zkgroup.profiles.ProfileKeyCredential;
 import org.thoughtcrime.securesms.color.MaterialColor;
+import org.thoughtcrime.securesms.contacts.avatars.ContactColors;
 import org.thoughtcrime.securesms.crypto.ProfileKeyUtil;
 import org.thoughtcrime.securesms.database.IdentityDatabase.IdentityRecord;
 import org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper;
+import org.thoughtcrime.securesms.database.model.ThreadRecord;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.groups.GroupId;
 import org.thoughtcrime.securesms.groups.v2.ProfileKeySet;
@@ -59,6 +61,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -101,6 +104,7 @@ public class RecipientDatabase extends Database {
   private static final String PROFILE_KEY_CREDENTIAL   = "profile_key_credential";
   private static final String SIGNAL_PROFILE_AVATAR    = "signal_profile_avatar";
   private static final String PROFILE_SHARING          = "profile_sharing";
+  private static final String LAST_PROFILE_FETCH       = "last_profile_fetch";
   private static final String UNIDENTIFIED_ACCESS_MODE = "unidentified_access_mode";
   private static final String FORCE_SMS_SELECTION      = "force_sms_selection";
   private static final String UUID_CAPABILITY          = "uuid_supported";
@@ -122,7 +126,8 @@ public class RecipientDatabase extends Database {
       BLOCKED, MESSAGE_RINGTONE, CALL_RINGTONE, MESSAGE_VIBRATE, CALL_VIBRATE, MUTE_UNTIL, COLOR, SEEN_INVITE_REMINDER, DEFAULT_SUBSCRIPTION_ID, MESSAGE_EXPIRATION_TIME, REGISTERED,
       PROFILE_KEY, PROFILE_KEY_CREDENTIAL,
       SYSTEM_DISPLAY_NAME, SYSTEM_PHOTO_URI, SYSTEM_PHONE_LABEL, SYSTEM_PHONE_TYPE, SYSTEM_CONTACT_URI,
-      PROFILE_GIVEN_NAME, PROFILE_FAMILY_NAME, SIGNAL_PROFILE_AVATAR, PROFILE_SHARING, NOTIFICATION_CHANNEL,
+      PROFILE_GIVEN_NAME, PROFILE_FAMILY_NAME, SIGNAL_PROFILE_AVATAR, PROFILE_SHARING, LAST_PROFILE_FETCH,
+      NOTIFICATION_CHANNEL,
       UNIDENTIFIED_ACCESS_MODE,
       FORCE_SMS_SELECTION,
       UUID_CAPABILITY, GROUPS_V2_CAPABILITY,
@@ -164,6 +169,10 @@ public class RecipientDatabase extends Database {
 
     public static VibrateState fromId(int id) {
       return values()[id];
+    }
+
+    public static VibrateState fromBoolean(boolean enabled) {
+      return enabled ? ENABLED : DISABLED;
     }
   }
 
@@ -294,6 +303,7 @@ public class RecipientDatabase extends Database {
                                             PROFILE_JOINED_NAME      + " TEXT DEFAULT NULL, " +
                                             SIGNAL_PROFILE_AVATAR    + " TEXT DEFAULT NULL, " +
                                             PROFILE_SHARING          + " INTEGER DEFAULT 0, " +
+                                            LAST_PROFILE_FETCH       + " INTEGER DEFAULT 0, " +
                                             UNIDENTIFIED_ACCESS_MODE + " INTEGER DEFAULT 0, " +
                                             FORCE_SMS_SELECTION      + " INTEGER DEFAULT 0, " +
                                             UUID_CAPABILITY          + " INTEGER DEFAULT " + Recipient.Capability.UNKNOWN.serialize() + ", " +
@@ -518,10 +528,11 @@ public class RecipientDatabase extends Database {
     try {
 
       for (SignalContactRecord insert : contactInserts) {
-        ContentValues values = validateContactValuesForInsert(getValuesForStorageContact(insert));
+        ContentValues values = validateContactValuesForInsert(getValuesForStorageContact(insert, true));
         long          id     = db.insertWithOnConflict(TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_IGNORE);
 
         if (id < 0) {
+          values = validateContactValuesForInsert(getValuesForStorageContact(insert, false));
           Log.w(TAG, "Failed to insert! It's likely that these were newly-registered users that were missed in the merge. Doing an update instead.");
 
           if (insert.getAddress().getNumber().isPresent()) {
@@ -550,7 +561,7 @@ public class RecipientDatabase extends Database {
       }
 
       for (RecordUpdate<SignalContactRecord> update : contactUpdates) {
-        ContentValues values      = getValuesForStorageContact(update.getNew());
+        ContentValues values      = getValuesForStorageContact(update.getNew(), false);
         int           updateCount = db.update(TABLE_NAME, values, STORAGE_SERVICE_ID + " = ?", new String[]{Base64.encodeBytes(update.getOld().getId().getRaw())});
 
         if (updateCount < 1) {
@@ -708,7 +719,7 @@ public class RecipientDatabase extends Database {
     }
   }
 
-  private static @NonNull ContentValues getValuesForStorageContact(@NonNull SignalContactRecord contact) {
+  private static @NonNull ContentValues getValuesForStorageContact(@NonNull SignalContactRecord contact, boolean isInsert) {
     ContentValues values = new ContentValues();
 
     if (contact.getAddress().getUuid().isPresent()) {
@@ -728,6 +739,11 @@ public class RecipientDatabase extends Database {
     values.put(BLOCKED, contact.isBlocked() ? "1" : "0");
     values.put(STORAGE_SERVICE_ID, Base64.encodeBytes(contact.getId().getRaw()));
     values.put(DIRTY, DirtyState.CLEAN.getId());
+
+    if (contact.isProfileSharingEnabled() && isInsert) {
+      values.put(COLOR, ContactColors.generateFor(profileName.toString()).serialize());
+    }
+
     return values;
   }
 
@@ -835,6 +851,7 @@ public class RecipientDatabase extends Database {
     String  profileFamilyName          = cursor.getString(cursor.getColumnIndexOrThrow(PROFILE_FAMILY_NAME));
     String  signalProfileAvatar        = cursor.getString(cursor.getColumnIndexOrThrow(SIGNAL_PROFILE_AVATAR));
     boolean profileSharing             = cursor.getInt(cursor.getColumnIndexOrThrow(PROFILE_SHARING))      == 1;
+    long    lastProfileFetch           = cursor.getLong(cursor.getColumnIndexOrThrow(LAST_PROFILE_FETCH));
     String  notificationChannel        = cursor.getString(cursor.getColumnIndexOrThrow(NOTIFICATION_CHANNEL));
     int     unidentifiedAccessMode     = cursor.getInt(cursor.getColumnIndexOrThrow(UNIDENTIFIED_ACCESS_MODE));
     boolean forceSmsSelection          = cursor.getInt(cursor.getColumnIndexOrThrow(FORCE_SMS_SELECTION))  == 1;
@@ -901,7 +918,7 @@ public class RecipientDatabase extends Database {
                                  systemDisplayName, systemContactPhoto,
                                  systemPhoneLabel, systemContactUri,
                                  ProfileName.fromParts(profileGivenName, profileFamilyName), signalProfileAvatar,
-                                 AvatarHelper.hasAvatar(context, RecipientId.from(id)), profileSharing,
+                                 AvatarHelper.hasAvatar(context, RecipientId.from(id)), profileSharing, lastProfileFetch,
                                  notificationChannel, UnidentifiedAccessMode.fromMode(unidentifiedAccessMode),
                                  forceSmsSelection,
                                  Recipient.Capability.deserialize(uuidCapabilityValue),
@@ -928,6 +945,23 @@ public class RecipientDatabase extends Database {
     if (update(id, values)) {
       Recipient.live(id).refresh();
     }
+  }
+
+  public void setColorIfNotSet(@NonNull RecipientId id, @NonNull MaterialColor color) {
+    if (setColorIfNotSetInternal(id, color)) {
+      Recipient.live(id).refresh();
+    }
+  }
+
+  private boolean setColorIfNotSetInternal(@NonNull RecipientId id, @NonNull MaterialColor color) {
+    SQLiteDatabase db    = databaseHelper.getWritableDatabase();
+    String         query = ID + " = ? AND " + COLOR + " IS NULL";
+    String[]       args  = new String[]{ id.serialize() };
+
+    ContentValues values = new ContentValues();
+    values.put(COLOR, color.serialize());
+
+    return db.update(TABLE_NAME, values, query, args) > 0;
   }
 
   public void setDefaultSubscriptionId(@NonNull RecipientId id, int defaultSubscriptionId) {
@@ -1208,7 +1242,11 @@ public class RecipientDatabase extends Database {
   public void setProfileSharing(@NonNull RecipientId id, @SuppressWarnings("SameParameterValue") boolean enabled) {
     ContentValues contentValues = new ContentValues(1);
     contentValues.put(PROFILE_SHARING, enabled ? 1 : 0);
-    if (update(id, contentValues)) {
+
+    boolean profiledUpdated = update(id, contentValues);
+    boolean colorUpdated    = enabled && setColorIfNotSetInternal(id, ContactColors.generateFor(Recipient.resolved(id).getDisplayName(context)));
+
+    if (profiledUpdated || colorUpdated) {
       markDirty(id, DirtyState.UPDATE);
       Recipient.live(id).refresh();
       StorageSyncHelper.scheduleSyncForDataChange();
@@ -1534,6 +1572,53 @@ public class RecipientDatabase extends Database {
     return recipients;
   }
 
+  /**
+   * @param lastInteractionThreshold Only include contacts that have been interacted with since this time.
+   * @param lastProfileFetchThreshold Only include contacts that haven't their profile fetched after this time.
+   * @param limit Only return at most this many contact.
+   */
+  public List<RecipientId> getRecipientsForRoutineProfileFetch(long lastInteractionThreshold, long lastProfileFetchThreshold, int limit) {
+    ThreadDatabase threadDatabase                       = DatabaseFactory.getThreadDatabase(context);
+    Set<Recipient> recipientsWithinInteractionThreshold = new LinkedHashSet<>();
+
+    try (ThreadDatabase.Reader reader = threadDatabase.readerFor(threadDatabase.getRecentPushConversationList(-1, false))) {
+      ThreadRecord record;
+
+      while ((record = reader.getNext()) != null && record.getDate() > lastInteractionThreshold) {
+        Recipient recipient = Recipient.resolved(record.getRecipient().getId());
+
+        if (recipient.isGroup()) {
+          recipientsWithinInteractionThreshold.addAll(recipient.getParticipants());
+        } else {
+          recipientsWithinInteractionThreshold.add(recipient);
+        }
+      }
+    }
+
+    return Stream.of(recipientsWithinInteractionThreshold)
+                 .filterNot(Recipient::isLocalNumber)
+                 .filter(r -> r.getLastProfileFetchTime() < lastProfileFetchThreshold)
+                 .limit(limit)
+                 .map(Recipient::getId)
+                 .toList();
+  }
+
+  public void markProfilesFetched(@NonNull Collection<RecipientId> ids, long time) {
+    SQLiteDatabase db = databaseHelper.getWritableDatabase();
+    db.beginTransaction();
+    try {
+      ContentValues values = new ContentValues(1);
+      values.put(LAST_PROFILE_FETCH, time);
+
+      for (RecipientId id : ids) {
+        db.update(TABLE_NAME, values, ID_WHERE, new String[] { id.serialize() });
+      }
+      db.setTransactionSuccessful();
+    } finally {
+      db.endTransaction();
+    }
+  }
+
   public void applyBlockedUpdate(@NonNull List<SignalServiceAddress> blocked, List<byte[]> groupIds) {
     List<String> blockedE164 = Stream.of(blocked)
                                      .filter(b -> b.getNumber().isPresent())
@@ -1747,7 +1832,10 @@ public class RecipientDatabase extends Database {
       refreshQualifyingValues.put(SYSTEM_PHONE_TYPE, systemPhoneType);
       refreshQualifyingValues.put(SYSTEM_CONTACT_URI, systemContactUri);
 
-      if (update(id, refreshQualifyingValues)) {
+      boolean updatedValues = update(id, refreshQualifyingValues);
+      boolean updatedColor  = displayName != null && setColorIfNotSetInternal(id, ContactColors.generateFor(displayName));
+
+      if (updatedValues || updatedColor) {
         pendingContactInfoMap.put(id, new PendingContactInfo(displayName, photoUri, systemPhoneLabel, systemContactUri));
       }
 
@@ -1829,6 +1917,7 @@ public class RecipientDatabase extends Database {
     private final String                          signalProfileAvatar;
     private final boolean                         hasProfileImage;
     private final boolean                         profileSharing;
+    private final long                            lastProfileFetch;
     private final String                          notificationChannel;
     private final UnidentifiedAccessMode          unidentifiedAccessMode;
     private final boolean                         forceSmsSelection;
@@ -1867,6 +1956,7 @@ public class RecipientDatabase extends Database {
                       @Nullable String signalProfileAvatar,
                       boolean hasProfileImage,
                       boolean profileSharing,
+                      long lastProfileFetch,
                       @Nullable String notificationChannel,
                       @NonNull UnidentifiedAccessMode unidentifiedAccessMode,
                       boolean forceSmsSelection,
@@ -1905,6 +1995,7 @@ public class RecipientDatabase extends Database {
       this.signalProfileAvatar    = signalProfileAvatar;
       this.hasProfileImage        = hasProfileImage;
       this.profileSharing         = profileSharing;
+      this.lastProfileFetch       = lastProfileFetch;
       this.notificationChannel    = notificationChannel;
       this.unidentifiedAccessMode = unidentifiedAccessMode;
       this.forceSmsSelection      = forceSmsSelection;
@@ -2033,6 +2124,10 @@ public class RecipientDatabase extends Database {
 
     public boolean isProfileSharing() {
       return profileSharing;
+    }
+
+    public long getLastProfileFetch() {
+      return lastProfileFetch;
     }
 
     public @Nullable String getNotificationChannel() {

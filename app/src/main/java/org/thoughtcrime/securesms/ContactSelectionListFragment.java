@@ -40,7 +40,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.Loader;
@@ -93,7 +92,7 @@ import java.util.Set;
  * @author Moxie Marlinspike
  *
  */
-public final class ContactSelectionListFragment extends    Fragment
+public final class ContactSelectionListFragment extends LoggingFragment
                                                 implements LoaderManager.LoaderCallbacks<Cursor>
 {
   @SuppressWarnings("unused")
@@ -255,7 +254,7 @@ public final class ContactSelectionListFragment extends    Fragment
                                     : Collections.unmodifiableSet(Stream.of(currentSelection).collect(Collectors.toSet()));
   }
 
-  private boolean isMulti() {
+  public boolean isMulti() {
     return requireActivity().getIntent().getBooleanExtra(MULTI_SELECT, false);
   }
 
@@ -271,7 +270,7 @@ public final class ContactSelectionListFragment extends    Fragment
 
     RecyclerViewConcatenateAdapterStickyHeader concatenateAdapter = new RecyclerViewConcatenateAdapterStickyHeader();
 
-    if (listCallback != null && FeatureFlags.newGroupUI()) {
+    if (listCallback != null) {
       if (FeatureFlags.groupsV2create() && FeatureFlags.groupsV2internalTest()) {
         headerAdapter = new FixedViewsAdapter(createNewGroupItem(listCallback), createNewGroupsV1GroupItem(listCallback));
       } else {
@@ -518,7 +517,7 @@ public final class ContactSelectionListFragment extends    Fragment
 
   private void markContactSelected(@NonNull SelectedContact selectedContact) {
     cursorRecyclerViewAdapter.addSelectedContact(selectedContact);
-    if (isMulti() && FeatureFlags.newGroupUI()) {
+    if (isMulti()) {
       addChipForSelectedContact(selectedContact);
     }
   }

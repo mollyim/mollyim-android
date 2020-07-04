@@ -32,8 +32,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.signal.storageservice.protos.groups.local.DecryptedGroup;
-import org.thoughtcrime.securesms.contactshare.Contact;
-import org.thoughtcrime.securesms.contactshare.ContactUtil;
 import org.thoughtcrime.securesms.database.MessagingDatabase.MarkedMessageInfo;
 import org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper;
 import org.thoughtcrime.securesms.database.model.MediaMmsMessageRecord;
@@ -63,7 +61,6 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
@@ -93,6 +90,7 @@ public class ThreadDatabase extends Database {
   public  static final String EXPIRES_IN             = "expires_in";
   public  static final String LAST_SEEN              = "last_seen";
   public  static final String HAS_SENT               = "has_sent";
+  private static final String LAST_SCROLLED          = "last_scrolled";
 
   public static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " (" + ID                     + " INTEGER PRIMARY KEY, " +
                                                                                   DATE                   + " INTEGER DEFAULT 0, " +
@@ -114,7 +112,8 @@ public class ThreadDatabase extends Database {
                                                                                   LAST_SEEN              + " INTEGER DEFAULT 0, " +
                                                                                   HAS_SENT               + " INTEGER DEFAULT 0, " +
                                                                                   READ_RECEIPT_COUNT     + " INTEGER DEFAULT 0, " +
-                                                                                  UNREAD_COUNT           + " INTEGER DEFAULT 0);";
+                                                                                  UNREAD_COUNT           + " INTEGER DEFAULT 0, " +
+                                                                                  LAST_SCROLLED          + " INTEGER DEFAULT 0);";
 
   public static final String[] CREATE_INDEXS = {
     "CREATE INDEX IF NOT EXISTS thread_recipient_ids_index ON " + TABLE_NAME + " (" + RECIPIENT_ID + ");",
@@ -123,7 +122,7 @@ public class ThreadDatabase extends Database {
 
   private static final String[] THREAD_PROJECTION = {
       ID, DATE, MESSAGE_COUNT, RECIPIENT_ID, SNIPPET, SNIPPET_CHARSET, READ, UNREAD_COUNT, TYPE, ERROR, SNIPPET_TYPE,
-      SNIPPET_URI, SNIPPET_CONTENT_TYPE, SNIPPET_EXTRAS, ARCHIVED, STATUS, DELIVERY_RECEIPT_COUNT, EXPIRES_IN, LAST_SEEN, READ_RECEIPT_COUNT
+      SNIPPET_URI, SNIPPET_CONTENT_TYPE, SNIPPET_EXTRAS, ARCHIVED, STATUS, DELIVERY_RECEIPT_COUNT, EXPIRES_IN, LAST_SEEN, READ_RECEIPT_COUNT, LAST_SCROLLED
   };
 
   private static final List<String> TYPED_THREAD_PROJECTION = Stream.of(THREAD_PROJECTION)
@@ -440,14 +439,23 @@ public class ThreadDatabase extends Database {
     }
 
     Cursor cursor = cursors.size() > 1 ? new MergeCursor(cursors.toArray(new Cursor[cursors.size()])) : cursors.get(0);
-    setNotifyConverationListListeners(cursor);
+    setNotifyConversationListListeners(cursor);
     return cursor;
   }
 
   public Cursor getRecentConversationList(int limit, boolean includeInactiveGroups) {
+    return getRecentConversationList(limit, includeInactiveGroups, false);
+  }
+
+  public Cursor getRecentConversationList(int limit, boolean includeInactiveGroups, boolean groupsOnly) {
     SQLiteDatabase db    = databaseHelper.getReadableDatabase();
     String         query = !includeInactiveGroups ? MESSAGE_COUNT + " != 0 AND (" + GroupDatabase.TABLE_NAME + "." + GroupDatabase.ACTIVE + " IS NULL OR " + GroupDatabase.TABLE_NAME + "." + GroupDatabase.ACTIVE + " = 1)"
                                                   : MESSAGE_COUNT + " != 0";
+
+    if (groupsOnly) {
+      query += " AND " + RecipientDatabase.TABLE_NAME + "." + RecipientDatabase.GROUP_ID + " NOT NULL";
+    }
+
     return db.rawQuery(createQuery(query, limit), null);
   }
 
@@ -544,30 +552,46 @@ public class ThreadDatabase extends Database {
     return positions;
   }
 
+  public Cursor getConversationList(long offset, long limit) {
+    return getConversationList("0", offset, limit);
+  }
+
+  public Cursor getArchivedConversationList(long offset, long limit) {
+    return getConversationList("1", offset, limit);
+  }
+
   private Cursor getConversationList(String archived) {
+    return getConversationList(archived, 0, 0);
+  }
+
+  private Cursor getConversationList(@NonNull String archived, long offset, long limit) {
     SQLiteDatabase db     = databaseHelper.getReadableDatabase();
-    String         query  = createQuery(ARCHIVED + " = ? AND " + MESSAGE_COUNT + " != 0", 0);
+    String         query  = createQuery(ARCHIVED + " = ? AND " + MESSAGE_COUNT + " != 0", offset, limit);
     Cursor         cursor = db.rawQuery(query, new String[]{archived});
 
-    setNotifyConverationListListeners(cursor);
+    setNotifyConversationListListeners(cursor);
 
     return cursor;
   }
 
+  public int getUnarchivedConversationListCount() {
+    return getConversationListCount(false);
+  }
+
   public int getArchivedConversationListCount() {
-    SQLiteDatabase db = databaseHelper.getReadableDatabase();
-    Cursor cursor     = null;
+    return getConversationListCount(true);
+  }
 
-    try {
-      cursor = db.query(TABLE_NAME, new String[] {"COUNT(*)"}, ARCHIVED + " = ?",
-                        new String[] {"1"}, null, null, null);
+  private int getConversationListCount(boolean archived) {
+    SQLiteDatabase db      = databaseHelper.getReadableDatabase();
+    String[]       columns = new String[] { "COUNT(*)" };
+    String         query   = ARCHIVED + " = ? AND " + MESSAGE_COUNT + " != 0";
+    String[]       args    = new String[] { archived ? "1" : "0" };
 
+    try (Cursor cursor = db.query(TABLE_NAME, columns, query, args, null, null, null)) {
       if (cursor != null && cursor.moveToFirst()) {
         return cursor.getInt(0);
       }
-
-    } finally {
-      if (cursor != null) cursor.close();
     }
 
     return 0;
@@ -612,18 +636,26 @@ public class ThreadDatabase extends Database {
     notifyConversationListListeners();
   }
 
-  public Pair<Long, Boolean> getLastSeenAndHasSent(long threadId) {
-    SQLiteDatabase db     = databaseHelper.getReadableDatabase();
-    Cursor         cursor = db.query(TABLE_NAME, new String[]{LAST_SEEN, HAS_SENT}, ID_WHERE, new String[]{String.valueOf(threadId)}, null, null, null);
+  public void setLastScrolled(long threadId, long lastScrolledTimestamp) {
+    SQLiteDatabase db            = databaseHelper.getWritableDatabase();
+    ContentValues  contentValues = new ContentValues(1);
 
-    try {
+    contentValues.put(LAST_SCROLLED, lastScrolledTimestamp);
+
+    db.update(TABLE_NAME, contentValues, ID_WHERE, new String[] {String.valueOf(threadId)});
+  }
+
+  public ConversationMetadata getConversationMetadata(long threadId) {
+    SQLiteDatabase db = databaseHelper.getReadableDatabase();
+
+    try (Cursor cursor = db.query(TABLE_NAME, new String[]{LAST_SEEN, HAS_SENT, LAST_SCROLLED}, ID_WHERE, new String[]{String.valueOf(threadId)}, null, null, null)) {
       if (cursor != null && cursor.moveToFirst()) {
-        return new Pair<>(cursor.getLong(0), cursor.getLong(1) == 1);
+        return new ConversationMetadata(cursor.getLong(cursor.getColumnIndexOrThrow(LAST_SEEN)),
+                                        cursor.getLong(cursor.getColumnIndexOrThrow(HAS_SENT)) == 1,
+                                        cursor.getLong(cursor.getColumnIndexOrThrow(LAST_SCROLLED)));
       }
 
-      return new Pair<>(-1L, false);
-    } finally {
-      if (cursor != null) cursor.close();
+      return new ConversationMetadata(-1L, false, -1);
     }
   }
 
@@ -838,7 +870,11 @@ public class ThreadDatabase extends Database {
     return null;
   }
 
-  private @NonNull String createQuery(@NonNull String where, int limit) {
+  private @NonNull String createQuery(@NonNull String where, long limit) {
+    return createQuery(where, 0, limit);
+  }
+
+  private @NonNull String createQuery(@NonNull String where, long offset, long limit) {
     String projection = Util.join(COMBINED_THREAD_RECIPIENT_GROUP_PROJECTION, ",");
     String query =
     "SELECT " + projection + " FROM " + TABLE_NAME +
@@ -851,6 +887,10 @@ public class ThreadDatabase extends Database {
 
     if (limit >  0) {
       query += " LIMIT " + limit;
+    }
+
+    if (offset > 0) {
+      query += " OFFSET " + offset;
     }
 
     return query;
@@ -910,7 +950,7 @@ public class ThreadDatabase extends Database {
                              .setRecipient(recipient)
                              .setType(cursor.getInt(cursor.getColumnIndexOrThrow(ThreadDatabase.SNIPPET_TYPE)))
                              .setDistributionType(cursor.getInt(cursor.getColumnIndexOrThrow(ThreadDatabase.TYPE)))
-                             .setBody(cursor.getString(cursor.getColumnIndexOrThrow(ThreadDatabase.SNIPPET)))
+                             .setBody(Util.emptyIfNull(cursor.getString(cursor.getColumnIndexOrThrow(ThreadDatabase.SNIPPET))))
                              .setDate(cursor.getLong(cursor.getColumnIndexOrThrow(ThreadDatabase.DATE)))
                              .setArchived(cursor.getInt(cursor.getColumnIndex(ThreadDatabase.ARCHIVED)) != 0)
                              .setDeliveryStatus(cursor.getInt(cursor.getColumnIndexOrThrow(ThreadDatabase.STATUS)))
@@ -1052,6 +1092,30 @@ public class ThreadDatabase extends Database {
 
     public int serialize() {
       return value;
+    }
+  }
+
+  public static class ConversationMetadata {
+    private final long    lastSeen;
+    private final boolean hasSent;
+    private final long    lastScrolled;
+
+    public ConversationMetadata(long lastSeen, boolean hasSent, long lastScrolled) {
+      this.lastSeen     = lastSeen;
+      this.hasSent      = hasSent;
+      this.lastScrolled = lastScrolled;
+    }
+
+    public long getLastSeen() {
+      return lastSeen;
+    }
+
+    public boolean hasSent() {
+      return hasSent;
+    }
+
+    public long getLastScrolled() {
+      return lastScrolled;
     }
   }
 }

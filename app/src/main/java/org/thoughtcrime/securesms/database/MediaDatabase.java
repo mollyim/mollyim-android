@@ -65,7 +65,7 @@ public class MediaDatabase extends Database {
         + " WHERE " + MmsDatabase.THREAD_ID + " __EQUALITY__ ?) AND (%s) AND "
         + MmsDatabase.VIEW_ONCE + " = 0 AND "
         + AttachmentDatabase.DATA + " IS NOT NULL AND "
-        + AttachmentDatabase.QUOTE + " = 0 AND "
+        + "(" + AttachmentDatabase.QUOTE + " = 0 OR (" + AttachmentDatabase.QUOTE + " = 1 AND " + AttachmentDatabase.DATA_HASH + " IS NULL)) AND "
         + AttachmentDatabase.STICKER_PACK_ID + " IS NULL ";
 
    private static final String UNIQUE_MEDIA_QUERY = "SELECT "
@@ -92,7 +92,7 @@ public class MediaDatabase extends Database {
     String         query    = sorting.applyToQuery(applyEqualityOperator(threadId, GALLERY_MEDIA_QUERY));
     String[]       args     = {threadId + ""};
     Cursor         cursor   = database.rawQuery(query, args);
-    setNotifyConverationListeners(cursor, threadId);
+    setNotifyConversationListeners(cursor, threadId);
     return cursor;
   }
 
@@ -101,7 +101,7 @@ public class MediaDatabase extends Database {
     String         query    = sorting.applyToQuery(applyEqualityOperator(threadId, DOCUMENT_MEDIA_QUERY));
     String[]       args     = {threadId + ""};
     Cursor         cursor   = database.rawQuery(query, args);
-    setNotifyConverationListeners(cursor, threadId);
+    setNotifyConversationListeners(cursor, threadId);
     return cursor;
   }
 
@@ -110,7 +110,7 @@ public class MediaDatabase extends Database {
     String         query    = sorting.applyToQuery(applyEqualityOperator(threadId, AUDIO_MEDIA_QUERY));
     String[]       args     = {threadId + ""};
     Cursor         cursor   = database.rawQuery(query, args);
-    setNotifyConverationListeners(cursor, threadId);
+    setNotifyConversationListeners(cursor, threadId);
     return cursor;
   }
 
@@ -119,7 +119,7 @@ public class MediaDatabase extends Database {
     String         query    = sorting.applyToQuery(applyEqualityOperator(threadId, ALL_MEDIA_QUERY));
     String[]       args     = {threadId + ""};
     Cursor         cursor   = database.rawQuery(query, args);
-    setNotifyConverationListeners(cursor, threadId);
+    setNotifyConversationListeners(cursor, threadId);
     return cursor;
   }
 

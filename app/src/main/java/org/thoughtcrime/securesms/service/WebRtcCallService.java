@@ -74,6 +74,7 @@ import org.whispersystems.signalservice.api.push.exceptions.UnregisteredUserExce
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -94,26 +95,27 @@ public class WebRtcCallService extends Service implements CallManager.Observer,
 
   private static final String TAG = WebRtcCallService.class.getSimpleName();
 
-  public static final String EXTRA_MUTE               = "mute_value";
-  public static final String EXTRA_AVAILABLE          = "enabled_value";
-  public static final String EXTRA_TIMESTAMP          = "timestamp";
-  public static final String EXTRA_CALL_ID            = "call_id";
-  public static final String EXTRA_RESULT_RECEIVER    = "result_receiver";
-  public static final String EXTRA_SPEAKER            = "audio_speaker";
-  public static final String EXTRA_BLUETOOTH          = "audio_bluetooth";
-  public static final String EXTRA_REMOTE_PEER        = "remote_peer";
-  public static final String EXTRA_REMOTE_DEVICE      = "remote_device";
-  public static final String EXTRA_OFFER_DESCRIPTION  = "offer_description";
-  public static final String EXTRA_OFFER_TYPE         = "offer_type";
-  public static final String EXTRA_MULTI_RING         = "multi_ring";
-  public static final String EXTRA_HANGUP_TYPE        = "hangup_type";
-  public static final String EXTRA_HANGUP_IS_LEGACY   = "hangup_is_legacy";
-  public static final String EXTRA_HANGUP_DEVICE_ID   = "hangup_device_id";
-  public static final String EXTRA_ANSWER_DESCRIPTION = "answer_description";
-  public static final String EXTRA_ICE_CANDIDATES     = "ice_candidates";
-  public static final String EXTRA_ENABLE             = "enable_value";
-  public static final String EXTRA_BROADCAST          = "broadcast";
-  public static final String EXTRA_ANSWER_WITH_VIDEO = "enable_video";
+  public static final String EXTRA_MUTE                       = "mute_value";
+  public static final String EXTRA_AVAILABLE                  = "enabled_value";
+  public static final String EXTRA_SERVER_RECEIVED_TIMESTAMP  = "server_received_timestamp";
+  public static final String EXTRA_SERVER_DELIVERED_TIMESTAMP = "server_delivered_timestamp";
+  public static final String EXTRA_CALL_ID                    = "call_id";
+  public static final String EXTRA_RESULT_RECEIVER            = "result_receiver";
+  public static final String EXTRA_SPEAKER                    = "audio_speaker";
+  public static final String EXTRA_BLUETOOTH                  = "audio_bluetooth";
+  public static final String EXTRA_REMOTE_PEER                = "remote_peer";
+  public static final String EXTRA_REMOTE_DEVICE              = "remote_device";
+  public static final String EXTRA_OFFER_DESCRIPTION          = "offer_description";
+  public static final String EXTRA_OFFER_TYPE                 = "offer_type";
+  public static final String EXTRA_MULTI_RING                 = "multi_ring";
+  public static final String EXTRA_HANGUP_TYPE                = "hangup_type";
+  public static final String EXTRA_HANGUP_IS_LEGACY           = "hangup_is_legacy";
+  public static final String EXTRA_HANGUP_DEVICE_ID           = "hangup_device_id";
+  public static final String EXTRA_ANSWER_DESCRIPTION         = "answer_description";
+  public static final String EXTRA_ICE_CANDIDATES             = "ice_candidates";
+  public static final String EXTRA_ENABLE                     = "enable_value";
+  public static final String EXTRA_BROADCAST                  = "broadcast";
+  public static final String EXTRA_ANSWER_WITH_VIDEO          = "enable_video";
 
   public static final String ACTION_OUTGOING_CALL                = "CALL_OUTGOING";
   public static final String ACTION_DENY_CALL                    = "DENY_CALL";
@@ -382,13 +384,14 @@ public class WebRtcCallService extends Service implements CallManager.Observer,
   // Handlers
 
   private void handleReceivedOffer(Intent intent) {
-    CallId            callId       = getCallId(intent);
-    RemotePeer        remotePeer   = getRemotePeer(intent);
-    Integer           remoteDevice = intent.getIntExtra(EXTRA_REMOTE_DEVICE, -1);
-    String            offer        = intent.getStringExtra(EXTRA_OFFER_DESCRIPTION);
-    Long              timeStamp    = intent.getLongExtra(EXTRA_TIMESTAMP, -1);
-    OfferMessage.Type offerType    = OfferMessage.Type.fromCode(intent.getStringExtra(EXTRA_OFFER_TYPE));
-    boolean           isMultiRing  = intent.getBooleanExtra(EXTRA_MULTI_RING, false);
+    CallId            callId                      = getCallId(intent);
+    RemotePeer        remotePeer                  = getRemotePeer(intent);
+    Integer           remoteDevice                = intent.getIntExtra(EXTRA_REMOTE_DEVICE, -1);
+    String            offer                       = intent.getStringExtra(EXTRA_OFFER_DESCRIPTION);
+    long              serverReceivedTimestamp     = intent.getLongExtra(EXTRA_SERVER_RECEIVED_TIMESTAMP, -1);
+    long              serverDeliveredTimestamp    = intent.getLongExtra(EXTRA_SERVER_DELIVERED_TIMESTAMP, -1);
+    OfferMessage.Type offerType                   = OfferMessage.Type.fromCode(intent.getStringExtra(EXTRA_OFFER_TYPE));
+    boolean           isMultiRing                 = intent.getBooleanExtra(EXTRA_MULTI_RING, false);
 
     Log.i(TAG, "handleReceivedOffer(): id: " + callId.format(remoteDevice));
 
@@ -412,8 +415,11 @@ public class WebRtcCallService extends Service implements CallManager.Observer,
 
     CallManager.CallMediaType callType = getCallMediaTypeFromOfferType(offerType);
 
+    long messageAgeSec = Math.max(serverDeliveredTimestamp - serverReceivedTimestamp, 0) / 1000;
+    Log.i(TAG, "handleReceivedOffer(): messageAgeSec: " + messageAgeSec + ", serverReceivedTimestamp: " + serverReceivedTimestamp + ", serverDeliveredTimestamp: " + serverDeliveredTimestamp);
+
     try {
-      callManager.receivedOffer(callId, remotePeer, remoteDevice, offer, timeStamp, callType, isMultiRing, true);
+      callManager.receivedOffer(callId, remotePeer, remoteDevice, offer, messageAgeSec, callType, 1, isMultiRing, true);
     } catch  (CallException e) {
       callFailure("Unable to process received offer: ", e);
     }
@@ -435,7 +441,7 @@ public class WebRtcCallService extends Service implements CallManager.Observer,
     CallManager.CallMediaType callMediaType = getCallMediaTypeFromOfferType(offerType);
 
     try {
-      callManager.call(remotePeer, callMediaType);
+      callManager.call(remotePeer, callMediaType, 1);
     } catch  (CallException e) {
       callFailure("Unable to create outgoing call: ", e);
     }
@@ -611,7 +617,6 @@ public class WebRtcCallService extends Service implements CallManager.Observer,
                                 camera,
                                 iceServers,
                                 isAlwaysTurn,
-                                1,
                                 deviceList,
                                 enableVideoOnCreate,
                                 true);
@@ -656,7 +661,6 @@ public class WebRtcCallService extends Service implements CallManager.Observer,
                                 camera,
                                 iceServers,
                                 hideIp,
-                                1,
                                 deviceList,
                                 false,
                                 true);
@@ -1650,8 +1654,8 @@ public class WebRtcCallService extends Service implements CallManager.Observer,
   // CallManager observer callbacks
 
   @Override
-  public void onStartCall(Remote remote, CallId callId, Boolean isOutgoing) {
-    Log.i(TAG, "onStartCall: callId: " + callId + ", outgoing: " + isOutgoing);
+  public void onStartCall(Remote remote, CallId callId, Boolean isOutgoing, CallManager.CallMediaType callMediaType) {
+    Log.i(TAG, "onStartCall: callId: " + callId + ", outgoing: " + isOutgoing + ", type: " + callMediaType);
 
     if (activePeer != null) {
       throw new IllegalStateException("activePeer already set for START_OUTGOING_CALL");
@@ -1661,6 +1665,9 @@ public class WebRtcCallService extends Service implements CallManager.Observer,
       activePeer = (RemotePeer)remote;
 
       Intent intent = new Intent(this, WebRtcCallService.class);
+
+      AudioManager audioManager = ServiceUtil.getAudioManager(this);
+      audioManager.setSpeakerphoneOn(false);
 
       if (isOutgoing) {
           intent.setAction(ACTION_START_OUTGOING_CALL);

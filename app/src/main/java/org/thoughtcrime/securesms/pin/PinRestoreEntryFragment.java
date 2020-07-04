@@ -25,6 +25,7 @@ import androidx.navigation.Navigation;
 
 import com.dd.CircularProgressButton;
 
+import org.thoughtcrime.securesms.LoggingFragment;
 import org.thoughtcrime.securesms.MainActivity;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
@@ -41,7 +42,7 @@ import org.thoughtcrime.securesms.util.ServiceUtil;
 import org.thoughtcrime.securesms.util.SupportEmailUtil;
 import org.thoughtcrime.securesms.util.ViewUtil;
 
-public class PinRestoreEntryFragment extends Fragment {
+public class PinRestoreEntryFragment extends LoggingFragment {
   private static final String TAG = Log.tag(PinRestoreActivity.class);
 
   private static final int MINIMUM_PIN_LENGTH = 4;
@@ -173,6 +174,7 @@ public class PinRestoreEntryFragment extends Fragment {
         cancelSpinning(pinButton);
         pinEntry.setEnabled(true);
         enableAndFocusPinEntry();
+        skipButton.setVisibility(View.VISIBLE);
         break;
     }
   }
@@ -193,7 +195,10 @@ public class PinRestoreEntryFragment extends Fragment {
     new AlertDialog.Builder(requireContext())
                    .setTitle(R.string.PinRestoreEntryFragment_need_help)
                    .setMessage(getString(R.string.PinRestoreEntryFragment_your_pin_is_a_d_digit_code, KbsConstants.MINIMUM_PIN_LENGTH))
-                   .setPositiveButton(R.string.PinRestoreEntryFragment_create_new_pin, null)
+                   .setPositiveButton(R.string.PinRestoreEntryFragment_create_new_pin, ((dialog, which) -> {
+                     PinState.onPinRestoreForgottenOrSkipped();
+                     ((PinRestoreActivity) requireActivity()).navigateToPinCreation();
+                   }))
                    .setNeutralButton(R.string.PinRestoreEntryFragment_contact_support, (dialog, which) -> {
                      String body = SupportEmailUtil.generateSupportEmailBody(requireContext(),
                                                                              getString(R.string.PinRestoreEntryFragment_signal_registration_need_help_with_pin),

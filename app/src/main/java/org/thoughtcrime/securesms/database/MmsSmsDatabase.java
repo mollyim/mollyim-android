@@ -124,9 +124,9 @@ public class MmsSmsDatabase extends Database {
     return new Pair<>(id, latestQuit);
   }
 
-  public int getMessagePositionForLastSeen(long threadId, long lastSeen) {
+  public int getMessagePositionOnOrAfterTimestamp(long threadId, long timestamp) {
     String[] projection = new String[] { "COUNT(*)" };
-    String   selection  = MmsSmsColumns.THREAD_ID + " = " + threadId + " AND " + MmsSmsColumns.NORMALIZED_DATE_RECEIVED + " > " + lastSeen;
+    String   selection  = MmsSmsColumns.THREAD_ID + " = " + threadId + " AND " + MmsSmsColumns.NORMALIZED_DATE_RECEIVED + " >= " + timestamp;
 
     try (Cursor cursor = queryTables(projection, selection, null, null)) {
       if (cursor != null && cursor.moveToNext()) {
@@ -162,7 +162,7 @@ public class MmsSmsDatabase extends Database {
     String limitStr  = limit > 0 || offset > 0 ? offset + ", " + limit : null;
 
     Cursor cursor = queryTables(PROJECTION, selection, order, limitStr);
-    setNotifyConverationListeners(cursor, threadId);
+    setNotifyConversationListeners(cursor, threadId);
 
     return cursor;
   }
@@ -176,7 +176,7 @@ public class MmsSmsDatabase extends Database {
     String selection       = MmsSmsColumns.THREAD_ID + " = " + threadId + " AND " + MmsSmsColumns.MISMATCHED_IDENTITIES + " IS NOT NULL";
 
     Cursor cursor = queryTables(PROJECTION, selection, order, null);
-    setNotifyConverationListeners(cursor, threadId);
+    setNotifyConversationListeners(cursor, threadId);
 
     return cursor;
   }
@@ -278,6 +278,18 @@ public class MmsSmsDatabase extends Database {
 
     if (id == -1) return DatabaseFactory.getMmsDatabase(context).getThreadIdForMessage(messageId);
     else          return id;
+  }
+
+  public @Nullable MessageRecord getMessageRecord(long messageId) {
+    try {
+      return DatabaseFactory.getSmsDatabase(context).getMessage(messageId);
+    } catch (NoSuchMessageException e1) {
+      try {
+        return DatabaseFactory.getMmsDatabase(context).getMessageRecord(messageId);
+      } catch (NoSuchMessageException e2) {
+        return null;
+      }
+    }
   }
 
   public void incrementDeliveryReceiptCount(SyncMessageId syncMessageId, long timestamp) {

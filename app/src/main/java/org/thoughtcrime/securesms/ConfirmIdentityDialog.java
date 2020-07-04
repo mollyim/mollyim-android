@@ -3,7 +3,6 @@ package org.thoughtcrime.securesms;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.database.Cursor;
 import android.os.AsyncTask;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -15,7 +14,6 @@ import androidx.appcompat.app.AlertDialog;
 import org.thoughtcrime.securesms.crypto.storage.TextSecureIdentityKeyStore;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.database.MmsDatabase;
-import org.thoughtcrime.securesms.database.MmsSmsDatabase;
 import org.thoughtcrime.securesms.database.PushDatabase;
 import org.thoughtcrime.securesms.database.SmsDatabase;
 import org.thoughtcrime.securesms.database.documents.IdentityKeyMismatch;
@@ -51,7 +49,7 @@ public class ConfirmIdentityDialog extends AlertDialog {
     super(context);
 
       Recipient       recipient       = Recipient.resolved(mismatch.getRecipientId(context));
-      String          name            = recipient.toShortString(context);
+      String          name            = recipient.getDisplayName(context);
       String          introduction    = context.getString(R.string.ConfirmIdentityDialog_your_safety_number_with_s_has_changed, name, name);
       SpannableString spannableString = new SpannableString(introduction + " " +
                                                             context.getString(R.string.ConfirmIdentityDialog_you_may_wish_to_verify_your_safety_number_with_this_contact));
@@ -105,7 +103,6 @@ public class ConfirmIdentityDialog extends AlertDialog {
           }
 
           processMessageRecord(messageRecord);
-          processPendingMessageRecords(messageRecord.getThreadId(), mismatch);
 
           return null;
         }
@@ -113,26 +110,6 @@ public class ConfirmIdentityDialog extends AlertDialog {
         private void processMessageRecord(MessageRecord messageRecord) {
           if (messageRecord.isOutgoing()) processOutgoingMessageRecord(messageRecord);
           else                            processIncomingMessageRecord(messageRecord);
-        }
-
-        private void processPendingMessageRecords(long threadId, IdentityKeyMismatch mismatch) {
-          MmsSmsDatabase        mmsSmsDatabase = DatabaseFactory.getMmsSmsDatabase(getContext());
-          Cursor                cursor         = mmsSmsDatabase.getIdentityConflictMessagesForThread(threadId);
-          MmsSmsDatabase.Reader reader         = mmsSmsDatabase.readerFor(cursor);
-          MessageRecord         record;
-
-          try {
-            while ((record = reader.getNext()) != null) {
-              for (IdentityKeyMismatch recordMismatch : record.getIdentityKeyMismatches()) {
-                if (mismatch.equals(recordMismatch)) {
-                  processMessageRecord(record);
-                }
-              }
-            }
-          } finally {
-            if (reader != null)
-              reader.close();
-          }
         }
 
         private void processOutgoingMessageRecord(MessageRecord messageRecord) {
@@ -175,7 +152,9 @@ public class ConfirmIdentityDialog extends AlertDialog {
                                                                        messageRecord.getDateSent(),
                                                                        legacy ? Base64.decode(messageRecord.getBody()) : null,
                                                                        !legacy ? Base64.decode(messageRecord.getBody()) : null,
-                                                                       0, null);
+                                                                       0,
+                                                                       0,
+                                                                       null);
 
             long pushId = pushDatabase.insert(envelope);
 

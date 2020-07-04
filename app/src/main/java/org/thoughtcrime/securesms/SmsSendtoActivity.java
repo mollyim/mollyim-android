@@ -12,7 +12,7 @@ import org.thoughtcrime.securesms.conversation.ConversationActivity;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.recipients.Recipient;
 
-public class SmsSendtoActivity extends PassphraseRequiredActionBarActivity {
+public class SmsSendtoActivity extends PassphraseRequiredActivity {
 
   private static final String TAG = SmsSendtoActivity.class.getSimpleName();
 

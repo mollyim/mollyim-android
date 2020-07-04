@@ -11,22 +11,22 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import org.thoughtcrime.securesms.BlockUnblockDialog;
 import org.thoughtcrime.securesms.R;
-import org.thoughtcrime.securesms.RecipientPreferenceActivity;
 import org.thoughtcrime.securesms.VerifyIdentityActivity;
 import org.thoughtcrime.securesms.database.IdentityDatabase;
 import org.thoughtcrime.securesms.groups.GroupId;
 import org.thoughtcrime.securesms.groups.LiveGroup;
 import org.thoughtcrime.securesms.groups.ui.GroupChangeFailureReason;
 import org.thoughtcrime.securesms.groups.ui.GroupErrors;
+import org.thoughtcrime.securesms.groups.ui.addtogroup.AddToGroupsActivity;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.recipients.RecipientUtil;
+import org.thoughtcrime.securesms.recipients.ui.managerecipient.ManageRecipientActivity;
 import org.thoughtcrime.securesms.util.CommunicationActions;
 import org.thoughtcrime.securesms.util.Util;
 import org.thoughtcrime.securesms.util.livedata.LiveDataUtil;
@@ -69,7 +69,10 @@ final class RecipientDialogViewModel extends ViewModel {
 
     recipient = Recipient.live(recipientDialogRepository.getRecipientId()).getLiveData();
 
-    recipientDialogRepository.getIdentity(identity::setValue);
+    boolean isSelf = recipientDialogRepository.getRecipientId().equals(Recipient.self().getId());
+    if (!isSelf) {
+      recipientDialogRepository.getIdentity(identity::postValue);
+    }
   }
 
   LiveData<Recipient> getRecipient() {
@@ -96,6 +99,14 @@ final class RecipientDialogViewModel extends ViewModel {
     recipientDialogRepository.getRecipient(recipient -> CommunicationActions.startVoiceCall(activity, recipient));
   }
 
+  void onInsecureCallClicked(@NonNull FragmentActivity activity) {
+    recipientDialogRepository.getRecipient(recipient -> CommunicationActions.startInsecureCall(activity, recipient));
+  }
+
+  void onSecureVideoCallClicked(@NonNull FragmentActivity activity) {
+    recipientDialogRepository.getRecipient(recipient -> CommunicationActions.startVideoCall(activity, recipient));
+  }
+
   void onBlockClicked(@NonNull FragmentActivity activity) {
     recipientDialogRepository.getRecipient(recipient -> BlockUnblockDialog.showBlockFor(activity, activity.getLifecycle(), recipient, () -> RecipientUtil.block(context, recipient)));
   }
@@ -109,12 +120,12 @@ final class RecipientDialogViewModel extends ViewModel {
   }
 
   void onAvatarClicked(@NonNull Activity activity) {
-    activity.startActivity(RecipientPreferenceActivity.getLaunchIntent(activity, recipientDialogRepository.getRecipientId()));
+    activity.startActivity(ManageRecipientActivity.newIntent(activity, recipientDialogRepository.getRecipientId()));
   }
 
   void onMakeGroupAdminClicked(@NonNull Activity activity) {
     new AlertDialog.Builder(activity)
-                   .setMessage(context.getString(R.string.RecipientBottomSheet_s_will_be_able_to_edit_group, Objects.requireNonNull(recipient.getValue()).toShortString(context)))
+                   .setMessage(context.getString(R.string.RecipientBottomSheet_s_will_be_able_to_edit_group, Objects.requireNonNull(recipient.getValue()).getDisplayName(context)))
                    .setPositiveButton(R.string.RecipientBottomSheet_make_group_admin,
                                       (dialog, which) -> {
                                         adminActionBusy.setValue(true);
@@ -132,7 +143,7 @@ final class RecipientDialogViewModel extends ViewModel {
 
   void onRemoveGroupAdminClicked(@NonNull Activity activity) {
     new AlertDialog.Builder(activity)
-                   .setMessage(context.getString(R.string.RecipientBottomSheet_remove_s_as_group_admin, Objects.requireNonNull(recipient.getValue()).toShortString(context)))
+                   .setMessage(context.getString(R.string.RecipientBottomSheet_remove_s_as_group_admin, Objects.requireNonNull(recipient.getValue()).getDisplayName(context)))
                    .setPositiveButton(R.string.RecipientBottomSheet_remove_as_admin,
                                       (dialog, which) -> {
                                         adminActionBusy.setValue(true);
@@ -151,7 +162,7 @@ final class RecipientDialogViewModel extends ViewModel {
   void onRemoveFromGroupClicked(@NonNull Activity activity, @NonNull Runnable onSuccess) {
     recipientDialogRepository.getGroupName(title ->
       new AlertDialog.Builder(activity)
-                     .setMessage(context.getString(R.string.RecipientBottomSheet_remove_s_from_s, Objects.requireNonNull(recipient.getValue()).toShortString(context), title))
+                     .setMessage(context.getString(R.string.RecipientBottomSheet_remove_s_from_s, Objects.requireNonNull(recipient.getValue()).getDisplayName(context), title))
                      .setPositiveButton(R.string.RecipientBottomSheet_remove,
                                         (dialog, which) -> {
                                           adminActionBusy.setValue(true);
@@ -169,6 +180,10 @@ final class RecipientDialogViewModel extends ViewModel {
 
   void onAddedToContacts() {
     recipientDialogRepository.refreshRecipient();
+  }
+
+  void onAddToGroupButton(@NonNull Activity activity) {
+    recipientDialogRepository.getGroupMembership(existingGroups -> activity.startActivity(AddToGroupsActivity.newIntent(activity, recipientDialogRepository.getRecipientId(), existingGroups)));
   }
 
   @WorkerThread

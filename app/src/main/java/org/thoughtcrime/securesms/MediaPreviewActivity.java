@@ -77,7 +77,7 @@ import java.util.Map;
 /**
  * Activity for displaying media attachments in-app
  */
-public final class MediaPreviewActivity extends PassphraseRequiredActionBarActivity
+public final class MediaPreviewActivity extends PassphraseRequiredActivity
   implements LoaderManager.LoaderCallbacks<Pair<Cursor, Integer>>,
              MediaRailAdapter.RailItemListener,
              MediaPreviewFragment.Events
@@ -181,7 +181,7 @@ public final class MediaPreviewActivity extends PassphraseRequiredActionBarActiv
   private @NonNull String getTitleText(@NonNull MediaItem mediaItem) {
     String from;
     if      (mediaItem.outgoing)          from = getString(R.string.MediaPreviewActivity_you);
-    else if (mediaItem.recipient != null) from = mediaItem.recipient.toShortString(this);
+    else if (mediaItem.recipient != null) from = mediaItem.recipient.getDisplayName(this);
     else                                  from = "";
 
     if (showThread) {
@@ -193,7 +193,7 @@ public final class MediaPreviewActivity extends PassphraseRequiredActionBarActiv
           if (threadRecipient.isLocalNumber()) {
             from = getString(R.string.note_to_self);
           } else {
-            to = threadRecipient.toShortString(this);
+            to = threadRecipient.getDisplayName(this);
           }
         } else {
           to = getString(R.string.MediaPreviewActivity_you);

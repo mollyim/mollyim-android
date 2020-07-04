@@ -1,184 +1,210 @@
-/*
- * Copyright (C) 2011 Whisper Systems
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
 package org.thoughtcrime.securesms.conversationlist;
 
-import android.content.Context;
-import android.database.Cursor;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
-import com.annimon.stream.Collectors;
-import com.annimon.stream.Stream;
+import androidx.annotation.NonNull;
+import androidx.paging.PagedListAdapter;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.thoughtcrime.securesms.BindableConversationListItem;
 import org.thoughtcrime.securesms.R;
-import org.thoughtcrime.securesms.database.CursorRecyclerViewAdapter;
-import org.thoughtcrime.securesms.database.DatabaseFactory;
-import org.thoughtcrime.securesms.database.ThreadDatabase;
+import org.thoughtcrime.securesms.conversationlist.model.Conversation;
 import org.thoughtcrime.securesms.database.model.ThreadRecord;
 import org.thoughtcrime.securesms.mms.GlideRequests;
-import org.thoughtcrime.securesms.util.Conversions;
+import org.thoughtcrime.securesms.recipients.Recipient;
+import org.thoughtcrime.securesms.util.CachedInflater;
+import org.thoughtcrime.securesms.util.ViewUtil;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
-/**
- * A CursorAdapter for building a list of conversation threads.
- *
- * @author Moxie Marlinspike
- */
-class ConversationListAdapter extends CursorRecyclerViewAdapter<ConversationListAdapter.ViewHolder> {
+class ConversationListAdapter extends PagedListAdapter<Conversation, RecyclerView.ViewHolder> {
 
-  private static final int MESSAGE_TYPE_SWITCH_ARCHIVE = 1;
-  private static final int MESSAGE_TYPE_THREAD         = 2;
-  private static final int MESSAGE_TYPE_INBOX_ZERO     = 3;
+  private static final int TYPE_THREAD      = 1;
+  private static final int TYPE_ACTION      = 2;
+  private static final int TYPE_PLACEHOLDER = 3;
 
-  private final @NonNull  ThreadDatabase    threadDatabase;
-  private final @NonNull  GlideRequests     glideRequests;
-  private final @NonNull  Locale            locale;
-  private final @NonNull  LayoutInflater    inflater;
-  private final @Nullable ItemClickListener clickListener;
-  private final @NonNull  MessageDigest     digest;
+  private enum Payload {
+    TYPING_INDICATOR,
+    SELECTION
+  }
 
-  private final Map<Long, ThreadRecord> batchSet  = Collections.synchronizedMap(new HashMap<>());
-  private       boolean                 batchMode = false;
-  private final Set<Long>               typingSet = new HashSet<>();
+  private final GlideRequests               glideRequests;
+  private final OnConversationClickListener onConversationClickListener;
+  private final Map<Long, Conversation>     batchSet  = Collections.synchronizedMap(new HashMap<>());
+  private       boolean                     batchMode = false;
+  private final Set<Long>                   typingSet = new HashSet<>();
+  private       int                         archived;
 
-  protected static class ViewHolder extends RecyclerView.ViewHolder {
-    public <V extends View & BindableConversationListItem> ViewHolder(final @NonNull V itemView)
-    {
-      super(itemView);
-    }
+  protected ConversationListAdapter(@NonNull GlideRequests glideRequests, @NonNull OnConversationClickListener onConversationClickListener) {
+    super(new ConversationDiffCallback());
 
-    public BindableConversationListItem getItem() {
-      return (BindableConversationListItem)itemView;
-    }
+    this.glideRequests               = glideRequests;
+    this.onConversationClickListener = onConversationClickListener;
   }
 
   @Override
-  public long getItemId(@NonNull Cursor cursor) {
-    ThreadRecord  record  = getThreadRecord(cursor);
+  public @NonNull RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    if (viewType == TYPE_ACTION) {
+      ConversationViewHolder holder =  new ConversationViewHolder(LayoutInflater.from(parent.getContext())
+                                                                                .inflate(R.layout.conversation_list_item_action, parent, false));
 
-    return Conversions.byteArrayToLong(digest.digest(record.getRecipient().getId().serialize().getBytes()));
-  }
+      holder.itemView.setOnClickListener(v -> {
+        int position = holder.getAdapterPosition();
 
-  @Override
-  protected long getFastAccessItemId(int position) {
-    return super.getFastAccessItemId(position);
-  }
-
-  ConversationListAdapter(@NonNull Context context,
-                          @NonNull GlideRequests glideRequests,
-                          @NonNull Locale locale,
-                          @Nullable Cursor cursor,
-                          @Nullable ItemClickListener clickListener)
-  {
-    super(context, cursor);
-    try {
-      this.glideRequests  = glideRequests;
-      this.threadDatabase = DatabaseFactory.getThreadDatabase(context);
-      this.locale         = locale;
-      this.inflater       = LayoutInflater.from(context);
-      this.clickListener  = clickListener;
-      this.digest         = MessageDigest.getInstance("SHA1");
-      setHasStableIds(true);
-    } catch (NoSuchAlgorithmException nsae) {
-      throw new AssertionError("SHA-1 missing");
-    }
-  }
-
-  @Override
-  public ViewHolder onCreateItemViewHolder(ViewGroup parent, int viewType) {
-    if (viewType == MESSAGE_TYPE_SWITCH_ARCHIVE) {
-      ConversationListItemAction action = (ConversationListItemAction) inflater.inflate(R.layout.conversation_list_item_action,
-                                                                                        parent, false);
-
-      action.setOnClickListener(v -> {
-        if (clickListener != null) clickListener.onSwitchToArchive();
+        if (position != RecyclerView.NO_POSITION) {
+          onConversationClickListener.onShowArchiveClick();
+        }
       });
 
-      return new ViewHolder(action);
-    } else if (viewType == MESSAGE_TYPE_INBOX_ZERO) {
-      return new ViewHolder((ConversationListItemInboxZero)inflater.inflate(R.layout.conversation_list_item_inbox_zero, parent, false));
+      return holder;
+    } else if (viewType == TYPE_THREAD) {
+      ConversationViewHolder holder =  new ConversationViewHolder(CachedInflater.from(parent.getContext())
+                                                                                .inflate(R.layout.conversation_list_item_view, parent, false));
+
+      holder.itemView.setOnClickListener(v -> {
+        int position = holder.getAdapterPosition();
+
+        if (position != RecyclerView.NO_POSITION) {
+          onConversationClickListener.onConversationClick(getItem(position));
+        }
+      });
+
+      holder.itemView.setOnLongClickListener(v -> {
+        int position = holder.getAdapterPosition();
+
+        if (position != RecyclerView.NO_POSITION) {
+          return onConversationClickListener.onConversationLongClick(getItem(position));
+        }
+
+        return false;
+      });
+      return holder;
+    } else if (viewType == TYPE_PLACEHOLDER) {
+      View v = new FrameLayout(parent.getContext());
+      v.setLayoutParams(new FrameLayout.LayoutParams(1, ViewUtil.dpToPx(100)));
+      return new PlaceholderViewHolder(v);
     } else {
-      final ConversationListItem item = (ConversationListItem)inflater.inflate(R.layout.conversation_list_item_view,
-                                                                               parent, false);
-
-      item.setOnClickListener(view -> {
-        if (clickListener != null) clickListener.onItemClick(item);
-      });
-
-      item.setOnLongClickListener(view -> {
-        if (clickListener != null) clickListener.onItemLongClick(item);
-        return true;
-      });
-
-      return new ViewHolder(item);
+      throw new IllegalStateException("Unknown type! " + viewType);
     }
   }
 
   @Override
-  public void onItemViewRecycled(ViewHolder holder) {
-    holder.getItem().unbind();
-  }
-
-  @Override
-  public void onBindItemViewHolder(ViewHolder viewHolder, @NonNull Cursor cursor) {
-    viewHolder.getItem().bind(getThreadRecord(cursor), glideRequests, locale, typingSet, batchSet.keySet(), batchMode);
-  }
-
-  @Override
-  public int getItemViewType(@NonNull Cursor cursor) {
-    ThreadRecord threadRecord = getThreadRecord(cursor);
-
-    if (threadRecord.getDistributionType() == ThreadDatabase.DistributionTypes.ARCHIVE) {
-      return MESSAGE_TYPE_SWITCH_ARCHIVE;
-    } else if (threadRecord.getDistributionType() == ThreadDatabase.DistributionTypes.INBOX_ZERO) {
-      return MESSAGE_TYPE_INBOX_ZERO;
+  public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position, @NonNull List<Object> payloads) {
+    if (payloads.isEmpty()) {
+      onBindViewHolder(holder, position);
     } else {
-      return MESSAGE_TYPE_THREAD;
+      for (Object payloadObject : payloads) {
+        if (payloadObject instanceof Payload) {
+          Payload payload = (Payload) payloadObject;
+
+          if (payload == Payload.SELECTION) {
+            ((ConversationViewHolder) holder).getConversationListItem().setBatchMode(batchMode);
+          } else {
+            ((ConversationViewHolder) holder).getConversationListItem().updateTypingIndicator(typingSet);
+          }
+        }
+      }
     }
   }
 
-  public void setTypingThreads(@NonNull Set<Long> threadsIds) {
-    typingSet.clear();
-    typingSet.addAll(threadsIds);
-    notifyDataSetChanged();
+  @Override
+  public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    if (holder.getItemViewType() == TYPE_ACTION) {
+      ConversationViewHolder casted = (ConversationViewHolder) holder;
+
+      casted.getConversationListItem().bind(new ThreadRecord.Builder(100)
+                                                            .setBody("")
+                                                            .setDate(100)
+                                                            .setRecipient(Recipient.UNKNOWN)
+                                                            .setCount(archived)
+                                                            .build(),
+                                            glideRequests,
+                                            Locale.getDefault(),
+                                            typingSet,
+                                            getBatchSelectionIds(),
+                                            batchMode);
+    } else if (holder.getItemViewType() == TYPE_THREAD) {
+      ConversationViewHolder casted       = (ConversationViewHolder) holder;
+      Conversation           conversation = Objects.requireNonNull(getItem(position));
+
+      casted.getConversationListItem().bind(conversation.getThreadRecord(),
+                                            glideRequests,
+                                            Locale.getDefault(),
+                                            typingSet,
+                                            getBatchSelectionIds(),
+                                            batchMode);
+    }
   }
 
-  private ThreadRecord getThreadRecord(@NonNull Cursor cursor) {
-    return threadDatabase.readerFor(cursor).getCurrent();
+  @Override
+  public void onViewRecycled(@NonNull RecyclerView.ViewHolder holder) {
+    if (holder instanceof ConversationViewHolder) {
+      ((ConversationViewHolder) holder).getConversationListItem().unbind();
+    }
   }
 
-  void toggleThreadInBatchSet(@NonNull ThreadRecord thread) {
-    if (batchSet.containsKey(thread.getThreadId())) {
-      batchSet.remove(thread.getThreadId());
-    } else if (thread.getThreadId() != -1) {
-      batchSet.put(thread.getThreadId(), thread);
+  void setTypingThreads(@NonNull Set<Long> typingThreadSet) {
+    this.typingSet.clear();
+    this.typingSet.addAll(typingThreadSet);
+
+    notifyItemRangeChanged(0, getItemCount(), Payload.TYPING_INDICATOR);
+  }
+
+  void toggleConversationInBatchSet(@NonNull Conversation conversation) {
+    if (batchSet.containsKey(conversation.getThreadRecord().getThreadId())) {
+      batchSet.remove(conversation.getThreadRecord().getThreadId());
+    } else if (conversation.getThreadRecord().getThreadId() != -1) {
+      batchSet.put(conversation.getThreadRecord().getThreadId(), conversation);
+    }
+
+    notifyItemRangeChanged(0, getItemCount(), Payload.SELECTION);
+  }
+
+  Collection<Conversation> getBatchSelection() {
+    return batchSet.values();
+  }
+
+  void updateArchived(int archived) {
+    int oldArchived = this.archived;
+
+    this.archived = archived;
+
+    if (oldArchived != archived) {
+      if (archived == 0) {
+        notifyItemRemoved(getItemCount());
+      } else if (oldArchived == 0) {
+        notifyItemInserted(getItemCount() - 1);
+      } else {
+        notifyItemChanged(getItemCount() - 1);
+      }
+    }
+  }
+
+  @Override
+  public int getItemCount() {
+    return (archived > 0 ? 1 : 0) + super.getItemCount();
+  }
+
+  @Override
+  public int getItemViewType(int position) {
+    if (archived > 0 && position == getItemCount() - 1) {
+      return TYPE_ACTION;
+    } else if (getItem(position) == null) {
+      return TYPE_PLACEHOLDER;
+    } else {
+      return TYPE_THREAD;
     }
   }
 
@@ -186,8 +212,15 @@ class ConversationListAdapter extends CursorRecyclerViewAdapter<ConversationList
     return batchSet.keySet();
   }
 
-  @NonNull Set<ThreadRecord> getBatchSelection() {
-    return new HashSet<>(batchSet.values());
+  void selectAllThreads() {
+    for (int i = 0; i < super.getItemCount(); i++) {
+      Conversation conversation = getItem(i);
+      if (conversation != null && conversation.getThreadRecord().getThreadId() != -1) {
+        batchSet.put(conversation.getThreadRecord().getThreadId(), conversation);
+      }
+    }
+
+    notifyItemRangeChanged(0, getItemCount(), Payload.SELECTION);
   }
 
   void initializeBatchMode(boolean toggle) {
@@ -196,23 +229,48 @@ class ConversationListAdapter extends CursorRecyclerViewAdapter<ConversationList
   }
 
   private void unselectAllThreads() {
-    this.batchSet.clear();
-    this.notifyDataSetChanged();
+    batchSet.clear();
+
+    notifyItemRangeChanged(0, getItemCount(), Payload.SELECTION);
   }
 
-  void selectAllThreads() {
-    for (int i = 0; i < getItemCount(); i++) {
-      ThreadRecord record = getThreadRecord(getCursorAtPositionOrThrow(i));
-      if (record.getThreadId() != -1) {
-        batchSet.put(record.getThreadId(), record);
-      }
+  static final class ConversationViewHolder extends RecyclerView.ViewHolder {
+
+    private final BindableConversationListItem conversationListItem;
+
+    ConversationViewHolder(@NonNull View itemView) {
+      super(itemView);
+
+      conversationListItem = (BindableConversationListItem) itemView;
     }
-    this.notifyDataSetChanged();
+
+    public BindableConversationListItem getConversationListItem() {
+      return conversationListItem;
+    }
   }
 
-  interface ItemClickListener {
-    void onItemClick(ConversationListItem item);
-    void onItemLongClick(ConversationListItem item);
-    void onSwitchToArchive();
+  private static final class ConversationDiffCallback extends DiffUtil.ItemCallback<Conversation> {
+
+    @Override
+    public boolean areItemsTheSame(@NonNull Conversation oldItem, @NonNull Conversation newItem) {
+      return oldItem.getThreadRecord().getThreadId() == newItem.getThreadRecord().getThreadId();
+    }
+
+    @Override
+    public boolean areContentsTheSame(@NonNull Conversation oldItem, @NonNull Conversation newItem) {
+      return oldItem.equals(newItem);
+    }
+  }
+
+  private static class PlaceholderViewHolder extends RecyclerView.ViewHolder {
+    PlaceholderViewHolder(@NonNull View itemView) {
+      super(itemView);
+    }
+  }
+
+  interface OnConversationClickListener {
+    void onConversationClick(Conversation conversation);
+    boolean onConversationLongClick(Conversation conversation);
+    void onShowArchiveClick();
   }
 }

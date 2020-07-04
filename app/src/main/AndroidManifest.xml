@@ -138,7 +138,7 @@
     </activity>
 
     <activity android:name=".sharing.ShareActivity"
-              android:theme="@style/TextSecure.LightNoActionBar"
+              android:theme="@style/Theme.Signal.DayNight.NoActionBar"
               android:excludeFromRecents="true"
               android:launchMode="singleTask"
               android:taskAffinity=""
@@ -171,7 +171,7 @@
     </activity>
 
     <activity android:name=".stickers.StickerPackPreviewActivity"
-              android:theme="@style/TextSecure.LightNoActionBar"
+              android:theme="@style/Theme.Signal.DayNight.NoActionBar"
               android:launchMode="singleTask"
               android:noHistory="true"
               android:windowSoftInputMode="stateHidden"
@@ -230,21 +230,21 @@
               android:theme="@style/TextSecure.LightTheme.Popup"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize" />
 
-    <activity android:name=".MessageDetailsActivity"
+    <activity android:name=".messagedetails.MessageDetailsActivity"
               android:label="@string/AndroidManifest__message_details"
               android:windowSoftInputMode="stateHidden"
               android:launchMode="singleTask"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
 
-    <activity android:name=".GroupCreateActivity"
-          android:windowSoftInputMode="stateVisible"
-          android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
-
     <activity android:name=".groups.ui.pendingmemberinvites.PendingMemberInvitesActivity"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
-              android:theme="@style/TextSecure.LightNoActionBar" />
+              android:theme="@style/Theme.Signal.DayNight.NoActionBar" />
 
     <activity android:name=".groups.ui.managegroup.ManageGroupActivity"
+              android:windowSoftInputMode="stateAlwaysHidden"
+              android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
+
+    <activity android:name=".recipients.ui.managerecipient.ManageRecipientActivity"
               android:windowSoftInputMode="stateAlwaysHidden"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
 
@@ -268,7 +268,7 @@
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
 
     <activity android:name=".NewConversationActivity"
-              android:theme="@style/TextSecure.LightNoActionBar"
+              android:theme="@style/Theme.Signal.DayNight.NoActionBar"
               android:windowSoftInputMode="stateAlwaysVisible"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
 
@@ -278,7 +278,7 @@
           android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
 
     <activity android:name=".giph.ui.GiphyActivity"
-              android:theme="@style/TextSecure.LightNoActionBar"
+              android:theme="@style/Theme.Signal.DayNight.NoActionBar"
               android:windowSoftInputMode="stateHidden"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
 
@@ -339,7 +339,7 @@
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
 
     <activity android:name=".mediaoverview.MediaOverviewActivity"
-              android:theme="@style/TextSecure.LightNoActionBar"
+              android:theme="@style/Theme.Signal.DayNight.NoActionBar"
               android:windowSoftInputMode="stateHidden"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
 
@@ -379,10 +379,6 @@
         </intent-filter>
 
     </activity>
-
-    <activity android:name=".RecipientPreferenceActivity"
-              android:theme="@style/TextSecure.LightNoActionBar"
-              android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
 
     <activity android:name=".mediasend.AvatarSelectionActivity"
               android:theme="@style/TextSecure.FullScreenMedia"
@@ -432,41 +428,44 @@
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
 
     <activity android:name=".contactshare.ContactNameEditActivity"
-              android:theme="@style/TextSecure.LightNoActionBar"
+              android:theme="@style/Theme.Signal.DayNight.NoActionBar"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
 
     <activity android:name=".contactshare.SharedContactDetailsActivity"
-              android:theme="@style/TextSecure.LightNoActionBar"
+              android:theme="@style/Theme.Signal.DayNight.NoActionBar"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
 
     <activity android:name=".ShortcutLauncherActivity"
-              android:theme="@style/TextSecure.LightNoActionBar"
+              android:theme="@style/Theme.Signal.DayNight.NoActionBar"
               android:exported="true"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
 
     <activity
             android:name=".maps.PlacePickerActivity"
             android:label="@string/PlacePickerActivity_title"
-            android:theme="@style/TextSecure.LightNoActionBar"
+            android:theme="@style/Theme.Signal.DayNight.NoActionBar"
             android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
 
     <activity android:name=".MainActivity"
-              android:theme="@style/TextSecure.LightNoActionBar"
+              android:theme="@style/Theme.Signal.DayNight.NoActionBar"
               android:launchMode="singleTask"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize" />
 
     <activity android:name=".pin.PinRestoreActivity"
-              android:theme="@style/TextSecure.LightNoActionBar"
+              android:theme="@style/Theme.Signal.DayNight.NoActionBar"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize" />
 
     <activity android:name=".groups.ui.creategroup.CreateGroupActivity"
-              android:theme="@style/TextSecure.LightNoActionBar" />
+              android:theme="@style/Theme.Signal.DayNight.NoActionBar" />
+
+    <activity android:name=".groups.ui.addtogroup.AddToGroupsActivity"
+              android:theme="@style/Theme.Signal.DayNight.NoActionBar" />
 
     <activity android:name=".groups.ui.addmembers.AddMembersActivity"
-              android:theme="@style/TextSecure.LightNoActionBar" />
+              android:theme="@style/Theme.Signal.DayNight.NoActionBar" />
 
     <activity android:name=".groups.ui.creategroup.details.AddGroupDetailsActivity"
-              android:theme="@style/TextSecure.LightNoActionBar" />
+              android:theme="@style/Theme.Signal.DayNight.NoActionBar" />
 
     <service android:enabled="true" android:name="org.thoughtcrime.securesms.service.WebRtcCallService"/>
     <service android:enabled="true" android:exported="false" android:name=".service.KeyCachingService"/>
@@ -621,11 +620,7 @@
         </intent-filter>
     </receiver>
 
-    <receiver android:name=".notifications.MessageNotifier$ReminderReceiver">
-        <intent-filter>
-            <action android:name="org.thoughtcrime.securesms.MessageNotifier.REMINDER_ACTION"/>
-        </intent-filter>
-    </receiver>
+    <receiver android:name=".notifications.MessageNotifier$ReminderReceiver"/>
 
     <receiver android:name=".notifications.DeleteNotificationReceiver">
         <intent-filter>

@@ -35,7 +35,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 
-import org.thoughtcrime.securesms.PassphraseRequiredActionBarActivity;
+import org.thoughtcrime.securesms.PassphraseRequiredActivity;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.components.AnimatingToggle;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
@@ -53,7 +53,7 @@ import java.util.List;
 /**
  * Activity for displaying media attachments in-app
  */
-public final class MediaOverviewActivity extends PassphraseRequiredActionBarActivity {
+public final class MediaOverviewActivity extends PassphraseRequiredActivity {
 
   private static final String THREAD_ID_EXTRA = "thread_id";
 
@@ -200,8 +200,8 @@ public final class MediaOverviewActivity extends PassphraseRequiredActionBarActi
       SimpleTask.run(() -> DatabaseFactory.getThreadDatabase(this).getRecipientForThreadId(threadId),
         (recipient) -> {
           if (recipient != null) {
-            getSupportActionBar().setTitle(recipient.toShortString(this));
-            recipient.live().observe(this, r -> getSupportActionBar().setTitle(r.toShortString(this)));
+            getSupportActionBar().setTitle(recipient.getDisplayName(this));
+            recipient.live().observe(this, r -> getSupportActionBar().setTitle(r.getDisplayName(this)));
           }
         }
       );

@@ -53,6 +53,7 @@ import org.thoughtcrime.securesms.jobs.FcmRefreshJob;
 import org.thoughtcrime.securesms.jobs.MultiDeviceContactUpdateJob;
 import org.thoughtcrime.securesms.jobs.PushNotificationReceiveJob;
 import org.thoughtcrime.securesms.jobs.RefreshPreKeysJob;
+import org.thoughtcrime.securesms.jobs.RetrieveProfileJob;
 import org.thoughtcrime.securesms.logging.CustomSignalProtocolLogger;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.logging.LogManager;
@@ -131,6 +132,7 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
   public void onCreate() {
     super.onCreate();
     Log.i(TAG, "onCreate()");
+
     initializeSecurityProvider();
     initializeTypingStatusRepository();
     initializeTypingStatusSender();
@@ -170,6 +172,7 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
     NotificationChannels.create(this);
     RefreshPreKeysJob.scheduleIfNecessary();
     StorageSyncHelper.scheduleRoutineSync();
+    RetrieveProfileJob.enqueueRoutineFetchIfNeccessary(this);
     RegistrationUtil.markRegistrationPossiblyComplete();
 
     ApplicationDependencies.getJobManager().beginJobLoop();

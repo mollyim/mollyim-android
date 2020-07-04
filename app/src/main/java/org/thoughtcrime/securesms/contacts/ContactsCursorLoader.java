@@ -115,8 +115,13 @@ public class ContactsCursorLoader extends CursorLoader {
   private List<Cursor> getUnfilteredResults() {
     ArrayList<Cursor> cursorList = new ArrayList<>();
 
-    addRecentsSection(cursorList);
-    addContactsSection(cursorList);
+    if (groupsOnly(mode)) {
+      addRecentGroupsSection(cursorList);
+      addGroupsSection(cursorList);
+    } else {
+      addRecentsSection(cursorList);
+      addContactsSection(cursorList);
+    }
 
     return cursorList;
   }
@@ -154,6 +159,19 @@ public class ContactsCursorLoader extends CursorLoader {
     }
   }
 
+  private void addRecentGroupsSection(@NonNull List<Cursor> cursorList) {
+    if (!groupsEnabled(mode) || !recents) {
+      return;
+    }
+
+    Cursor groups = getRecentConversationsCursor(true);
+
+    if (groups.getCount() > 0) {
+      cursorList.add(getRecentsHeaderCursor());
+      cursorList.add(groups);
+    }
+  }
+
   private void addGroupsSection(@NonNull List<Cursor> cursorList) {
     if (!groupsEnabled(mode)) {
       return;
@@ -163,7 +181,7 @@ public class ContactsCursorLoader extends CursorLoader {
 
     if (groups.getCount() > 0) {
       cursorList.add(getGroupsHeaderCursor());
-      cursorList.add(getGroupsCursor());
+      cursorList.add(groups);
     }
   }
 
@@ -241,10 +259,14 @@ public class ContactsCursorLoader extends CursorLoader {
 
 
   private Cursor getRecentConversationsCursor() {
+    return getRecentConversationsCursor(false);
+  }
+
+  private Cursor getRecentConversationsCursor(boolean groupsOnly) {
     ThreadDatabase threadDatabase = DatabaseFactory.getThreadDatabase(getContext());
 
     MatrixCursor recentConversations = new MatrixCursor(CONTACT_PROJECTION, RECENT_CONVERSATION_MAX);
-    try (Cursor rawConversations = threadDatabase.getRecentConversationList(RECENT_CONVERSATION_MAX, flagSet(mode, DisplayMode.FLAG_INACTIVE_GROUPS))) {
+    try (Cursor rawConversations = threadDatabase.getRecentConversationList(RECENT_CONVERSATION_MAX, flagSet(mode, DisplayMode.FLAG_INACTIVE_GROUPS), groupsOnly)) {
       ThreadDatabase.Reader reader = threadDatabase.readerFor(rawConversations);
       ThreadRecord threadRecord;
       while ((threadRecord = reader.getNext()) != null) {
@@ -252,7 +274,7 @@ public class ContactsCursorLoader extends CursorLoader {
         String    stringId  = recipient.isGroup() ? recipient.requireGroupId().toString() : recipient.getE164().or(recipient.getEmail()).or("");
 
         recentConversations.addRow(new Object[] { recipient.getId().serialize(),
-                                                  recipient.toShortString(getContext()),
+                                                  recipient.getDisplayName(getContext()),
                                                   stringId,
                                                   ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE,
                                                   "",
@@ -374,6 +396,10 @@ public class ContactsCursorLoader extends CursorLoader {
 
   private static boolean groupsEnabled(int mode) {
     return flagSet(mode, DisplayMode.FLAG_ACTIVE_GROUPS);
+  }
+
+  private static boolean groupsOnly(int mode) {
+    return mode == DisplayMode.FLAG_ACTIVE_GROUPS;
   }
 
   private static boolean flagSet(int mode, int flag) {

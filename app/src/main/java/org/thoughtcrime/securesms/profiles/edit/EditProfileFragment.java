@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,7 +21,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
@@ -31,6 +29,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dd.CircularProgressButton;
 import com.google.android.gms.common.util.IOUtils;
 
+import org.thoughtcrime.securesms.LoggingFragment;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.contacts.avatars.ResourceContactPhoto;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
@@ -45,10 +44,12 @@ import org.thoughtcrime.securesms.permissions.Permissions;
 import org.thoughtcrime.securesms.profiles.ProfileName;
 import org.thoughtcrime.securesms.providers.BlobProvider;
 import org.thoughtcrime.securesms.registration.RegistrationUtil;
+import org.thoughtcrime.securesms.util.CommunicationActions;
 import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.StringUtil;
 import org.thoughtcrime.securesms.util.concurrent.SimpleTask;
 import org.thoughtcrime.securesms.util.text.AfterTextChanged;
+import org.thoughtcrime.securesms.util.views.LearnMoreTextView;
 import org.whispersystems.libsignal.util.guava.Optional;
 
 import java.io.IOException;
@@ -62,7 +63,7 @@ import static org.thoughtcrime.securesms.profiles.edit.EditProfileActivity.NEXT_
 import static org.thoughtcrime.securesms.profiles.edit.EditProfileActivity.NEXT_INTENT;
 import static org.thoughtcrime.securesms.profiles.edit.EditProfileActivity.SHOW_TOOLBAR;
 
-public class EditProfileFragment extends Fragment {
+public class EditProfileFragment extends LoggingFragment {
 
   private static final String TAG                        = Log.tag(EditProfileFragment.class);
   private static final String AVATAR_STATE               = "avatar";
@@ -252,6 +253,9 @@ public class EditProfileFragment extends Fragment {
                                                                          trimInPlace(s, false);
                                                                          viewModel.setFamilyName(s.toString());
                                                                        }));
+      LearnMoreTextView descriptionText = view.findViewById(R.id.description_text);
+      descriptionText.setLearnMoreVisible(true);
+      descriptionText.setOnLinkClickListener(v -> CommunicationActions.openBrowserLink(requireContext(), getString(R.string.EditProfileFragment__support_link)));
     }
 
     this.finishButton.setOnClickListener(v -> {
@@ -333,8 +337,6 @@ public class EditProfileFragment extends Fragment {
     viewModel.submitProfile(uploadResult -> {
       if (uploadResult == EditProfileRepository.UploadResult.SUCCESS) {
         RegistrationUtil.markRegistrationPossiblyComplete();
-
-        ApplicationDependencies.getMegaphoneRepository().markFinished(Megaphones.Event.PROFILE_NAMES_FOR_ALL);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) handleFinishedLollipop();
         else                                                       handleFinishedLegacy();

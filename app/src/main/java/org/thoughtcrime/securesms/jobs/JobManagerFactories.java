@@ -19,6 +19,7 @@ import org.thoughtcrime.securesms.jobmanager.migrations.PushProcessMessageQueueJ
 import org.thoughtcrime.securesms.jobmanager.migrations.RecipientIdFollowUpJobMigration;
 import org.thoughtcrime.securesms.jobmanager.migrations.RecipientIdFollowUpJobMigration2;
 import org.thoughtcrime.securesms.jobmanager.migrations.RecipientIdJobMigration;
+import org.thoughtcrime.securesms.jobmanager.migrations.RetrieveProfileJobMigration;
 import org.thoughtcrime.securesms.jobmanager.migrations.SendReadReceiptsJobMigration;
 import org.thoughtcrime.securesms.migrations.AvatarIdRemovalMigrationJob;
 import org.thoughtcrime.securesms.migrations.DatabaseMigrationJob;
@@ -152,6 +153,7 @@ public final class JobManagerFactories {
                          new RecipientIdFollowUpJobMigration(),
                          new RecipientIdFollowUpJobMigration2(),
                          new SendReadReceiptsJobMigration(DatabaseFactory.getMmsSmsDatabase(application)),
-                         new PushProcessMessageQueueJobMigration(application));
+                         new PushProcessMessageQueueJobMigration(application),
+                         new RetrieveProfileJobMigration());
   }
 }

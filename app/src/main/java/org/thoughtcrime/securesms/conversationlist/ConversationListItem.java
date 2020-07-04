@@ -174,27 +174,18 @@ public class ConversationListItem extends RelativeLayout
       this.fromView.setText(recipient.get(), thread.isRead());
     }
 
-    if (typingThreads.contains(threadId)) {
-      this.subjectView.setVisibility(INVISIBLE);
+    updateTypingIndicator(typingThreads);
 
-      this.typingView.setVisibility(VISIBLE);
-      this.typingView.startAnimation();
-    } else {
-      this.typingView.setVisibility(GONE);
-      this.typingView.stopAnimation();
+    this.subjectView.setText(getTrimmedSnippet(getThreadDisplayBody(getContext(), thread)));
 
-      this.subjectView.setVisibility(VISIBLE);
-      this.subjectView.setText(getTrimmedSnippet(getThreadDisplayBody(getContext(), thread)));
-
-      if (thread.getGroupAddedBy() != null) {
-        groupAddedBy = Recipient.live(thread.getGroupAddedBy());
-        groupAddedBy.observeForever(groupAddedByObserver);
-      }
-
-      this.subjectView.setTypeface(thread.isRead() ? LIGHT_TYPEFACE : BOLD_TYPEFACE);
-      this.subjectView.setTextColor(thread.isRead() ? ThemeUtil.getThemedColor(getContext(), R.attr.conversation_list_item_subject_color)
-                                                    : ThemeUtil.getThemedColor(getContext(), R.attr.conversation_list_item_unread_color));
+    if (thread.getGroupAddedBy() != null) {
+      groupAddedBy = Recipient.live(thread.getGroupAddedBy());
+      groupAddedBy.observeForever(groupAddedByObserver);
     }
+
+    this.subjectView.setTypeface(thread.isRead() ? LIGHT_TYPEFACE : BOLD_TYPEFACE);
+    this.subjectView.setTextColor(thread.isRead() ? ThemeUtil.getThemedColor(getContext(), R.attr.conversation_list_item_subject_color)
+                                                  : ThemeUtil.getThemedColor(getContext(), R.attr.conversation_list_item_unread_color));
 
     if (thread.getDate() > 0) {
       CharSequence date = DateUtils.getBriefRelativeTimeSpanString(getContext(), locale, thread.getDate());
@@ -291,9 +282,25 @@ public class ConversationListItem extends RelativeLayout
     }
   }
 
-  private void setBatchMode(boolean batchMode) {
+  @Override
+  public void setBatchMode(boolean batchMode) {
     this.batchMode = batchMode;
     setSelected(batchMode && selectedThreads.contains(thread.getThreadId()));
+  }
+
+  @Override
+  public void updateTypingIndicator(@NonNull Set<Long> typingThreads) {
+    if (typingThreads.contains(threadId)) {
+      this.subjectView.setVisibility(INVISIBLE);
+
+      this.typingView.setVisibility(VISIBLE);
+      this.typingView.startAnimation();
+    } else {
+      this.typingView.setVisibility(GONE);
+      this.typingView.stopAnimation();
+
+      this.subjectView.setVisibility(VISIBLE);
+    }
   }
 
   public Recipient getRecipient() {
@@ -421,7 +428,7 @@ public class ConversationListItem extends RelativeLayout
     } else if (SmsDatabase.Types.isMissedCall(thread.getType())) {
       return emphasisAdded(context.getString(org.thoughtcrime.securesms.R.string.ThreadRecord_missed_call));
     } else if (SmsDatabase.Types.isJoinedType(thread.getType())) {
-      return emphasisAdded(context.getString(R.string.ThreadRecord_s_is_on_signal, thread.getRecipient().toShortString(context)));
+      return emphasisAdded(context.getString(R.string.ThreadRecord_s_is_on_signal, thread.getRecipient().getDisplayName(context)));
     } else if (SmsDatabase.Types.isExpirationTimerUpdate(thread.getType())) {
       int seconds = (int)(thread.getExpiresIn() / 1000);
       if (seconds <= 0) {
@@ -433,7 +440,7 @@ public class ConversationListItem extends RelativeLayout
       if (thread.getRecipient().isGroup()) {
         return emphasisAdded(context.getString(R.string.ThreadRecord_safety_number_changed));
       } else {
-        return emphasisAdded(context.getString(R.string.ThreadRecord_your_safety_number_with_s_has_changed, thread.getRecipient().toShortString(context)));
+        return emphasisAdded(context.getString(R.string.ThreadRecord_your_safety_number_with_s_has_changed, thread.getRecipient().getDisplayName(context)));
       }
     } else if (SmsDatabase.Types.isIdentityVerified(thread.getType())) {
       return emphasisAdded(context.getString(R.string.ThreadRecord_you_marked_verified));

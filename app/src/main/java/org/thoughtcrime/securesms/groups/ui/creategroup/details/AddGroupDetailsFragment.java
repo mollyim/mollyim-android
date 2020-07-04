@@ -8,10 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.InsetDrawable;
 import android.os.Bundle;
-import android.view.ActionMode;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -32,6 +29,7 @@ import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.dd.CircularProgressButton;
 
+import org.thoughtcrime.securesms.LoggingFragment;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.groups.ui.GroupMemberListView;
 import org.thoughtcrime.securesms.mediasend.AvatarSelectionActivity;
@@ -49,7 +47,7 @@ import org.thoughtcrime.securesms.util.text.AfterTextChanged;
 
 import java.util.Objects;
 
-public class AddGroupDetailsFragment extends Fragment {
+public class AddGroupDetailsFragment extends LoggingFragment {
 
   private static final int    AVATAR_PLACEHOLDER_INSET_DP = 18;
   private static final short  REQUEST_CODE_AVATAR         = 27621;
@@ -94,7 +92,7 @@ public class AddGroupDetailsFragment extends Fragment {
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     create  = view.findViewById(R.id.create);
-    name    = view.findViewById(R.id.group_name);
+    name    = view.findViewById(R.id.name);
     toolbar = view.findViewById(R.id.toolbar);
 
     setCreateEnabled(false, false);
@@ -116,7 +114,13 @@ public class AddGroupDetailsFragment extends Fragment {
     name.addTextChangedListener(new AfterTextChanged(editable -> viewModel.setName(editable.toString())));
     toolbar.setNavigationOnClickListener(unused -> callback.onNavigationButtonPressed());
     create.setOnClickListener(v -> handleCreateClicked());
-    viewModel.getMembers().observe(getViewLifecycleOwner(), members::setMembers);
+    viewModel.getMembers().observe(getViewLifecycleOwner(), recipients -> {
+      members.setMembers(recipients);
+      if (recipients.isEmpty()) {
+        toast(R.string.AddGroupDetailsFragment__groups_require_at_least_two_members);
+        callback.onNavigationButtonPressed();
+      }
+    });
     viewModel.getCanSubmitForm().observe(getViewLifecycleOwner(), isFormValid -> setCreateEnabled(isFormValid, true));
     viewModel.getIsMms().observe(getViewLifecycleOwner(), isMms -> {
       mmsWarning.setVisibility(isMms ? View.VISIBLE : View.GONE);
@@ -226,6 +230,7 @@ public class AddGroupDetailsFragment extends Fragment {
         break;
       case ERROR_INVALID_MEMBER_COUNT:
         toast(R.string.AddGroupDetailsFragment__groups_require_at_least_two_members);
+        callback.onNavigationButtonPressed();
         break;
       default:
         throw new IllegalStateException("Unexpected error: " + error.getErrorType().name());

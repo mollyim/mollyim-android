@@ -75,7 +75,6 @@
   <string name="BlockedContactsActivity_blocked_contacts">અવરોધિત સંપર્કો</string>
   <!--BlockUnblockDialog-->
   <string name="BlockUnblockDialog_group_members_will_be_able_to_add_you">ગ્રુપના સભ્યો તમને આ ગ્રુપમાં ફરીથી ઉમેરવામાં સમર્થ હશે.</string>
-  <string name="BlockUnblockDialog_you_will_be_able_to_call_and_message_each_other">તમે એકબીજાને મેસેજ અને કૉલ કરી શકશો.</string>
   <string name="BlockUnblockDialog_unblock">અનાવરોધિત કરો</string>
   <string name="BlockUnblockDialog_block">અવરોધિત કરો</string>
   <string name="BlockUnblockDialog_block_and_delete">બ્લોક કરો અને કાઢી નાખો</string>
@@ -143,7 +142,6 @@
   <string name="ContactShareEditActivity_type_missing">અન્ય</string>
   <string name="ContactShareEditActivity_invalid_contact">પસંદ કરેલો સંપર્ક અમાન્ય હતો</string>
   <!--ConversationItem-->
-  <string name="ConversationItem_error_not_delivered">મોકલવામાં નિષ્ફળ, વિગતો માટે ટેપ કરો</string>
   <string name="ConversationItem_received_key_exchange_message_tap_to_process">કી વિનિમય મેસેજ મળ્યો, પ્રક્રિયા કરવા માટે ટેપ કરો.</string>
   <string name="ConversationItem_group_action_left">%1$s એ ગ્રુપ છોડયુ.</string>
   <string name="ConversationItem_click_to_approve_unencrypted">મોકલવામાં નિષ્ફળ, અસુરક્ષિત ફૉલબેક માટે ટેપ કરો</string>
@@ -256,7 +254,6 @@
   <string name="ConversationFragment_you_can_swipe_to_the_left_reply">ઝડપથી જવાબ આપવા માટે તમે કોઈપણ મેસેજ ની ડાબી બાજુ સ્વાઇપ કરી શકો છો</string>
   <string name="ConversationFragment_outgoing_view_once_media_files_are_automatically_removed">આઉટગોઇંગ વ્યૂ-એકવાર મીડિયા ફાઇલો મોકલ્યા પછી આપમેળે દૂર થાય છે</string>
   <string name="ConversationFragment_you_already_viewed_this_message">તમે આ મેસેજ પહેલેથી જોયો છે</string>
-  <string name="ConversationFragment__you_can_add_notes_for_yourself_in_this_conversation">તમે આ વાતચીતમાં તમારા માટે નોંધો ઉમેરી શકો છો. જો તમારા એકાઉન્ટમાં કોઈ લિંક થયેલ ડિવાઇસ છે, તો નવી નોટ્સ સમન્વયિત કરવામાં આવશે.</string>
   <!--ConversationListActivity-->
   <string name="ConversationListActivity_there_is_no_browser_installed_on_your_device">તમારા ડિવાઇસ પર કોઈ બ્રાઉઝર ઇન્સ્ટોલ કરેલું નથી.</string>
   <!--ConversationListFragment-->
@@ -280,7 +277,6 @@
     <item quantity="one">સંવાદને ઇનબોક્સમાં ખસેડયો</item>
     <item quantity="other">સંવાદને %d ઇનબોક્સમાં ખસેડયા</item>
   </plurals>
-  <string name="ConversationListFragment__your_profile_name_has_been_saved">તમારું પ્રોફાઇલ નામ સેવ કરવામાં આવ્યું છે.</string>
   <!--ConversationListItem-->
   <string name="ConversationListItem_key_exchange_message">કી વિનિમય મેસેજ</string>
   <!--ConversationListItemAction-->
@@ -294,7 +290,6 @@
   <string name="CreateProfileActivity_problem_setting_profile">પ્રોફાઇલ ને સેટ કરવામાં સમસ્યા</string>
   <string name="CreateProfileActivity_profile_photo">પ્રોફાઇલ ફોટો</string>
   <string name="CreateProfileActivity_set_up_your_profile">તમારી પ્રોફાઇલ સેટ કરો</string>
-  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">Signal પ્રોફાઇલ્સ એ એન્ડ-ટુ-એન્ડ એન્ક્રિપ્ટેડ હોય છે, અને Signal સેવાની આ માહિતીની એક્સેસ ક્યારેય હોતી નથી.</string>
   <string name="CreateProfileActivity_set_avatar_description">અવતાર સેટ કરો</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">કસ્ટમથી: %s</string>
@@ -342,22 +337,7 @@
   <!--GiphyFragmentPageAdapter-->
   <string name="GiphyFragmentPagerAdapter_gifs">GIFs</string>
   <string name="GiphyFragmentPagerAdapter_stickers">સ્ટીકરો</string>
-  <!--GroupCreateActivity-->
-  <string name="GroupCreateActivity_actionbar_title">નવું ગ્રુપ</string>
-  <string name="GroupCreateActivity_actionbar_edit_title">ગ્રુપ માં ફેરફાર કરો</string>
-  <string name="GroupCreateActivity_group_name_hint">ગ્રુપ નામ</string>
-  <string name="GroupCreateActivity_actionbar_mms_title">નવું MMS ગ્રુપ</string>
-  <string name="GroupCreateActivity_contacts_dont_support_push">તમે એક સંપર્ક પસંદ કર્યો છે જે Signal ગ્રુપ ને ટેકો આપતો નથી, તેથી આ ગ્રુપ MMS હશે.</string>
-  <string name="GroupCreateActivity_youre_not_registered_for_signal">તમે Signal મેસેજ અને કૉલ્સ માટે નોંધાયેલા નથી, તેથી Signal ગ્રુપ અક્ષમ છે. કૃપા કરી સેટિંગ્સ માં રજીસ્ટર કરવાનો પ્રયાસ કરો &gt; વધુ.</string>
-  <string name="GroupCreateActivity_contacts_no_members">તમારે તમારા ગ્રુપ માં ઓછામાં ઓછા એક વ્યક્તિની જરૂર છે!</string>
-  <string name="GroupCreateActivity_contacts_invalid_number">તમારા ગ્રુપ ના સભ્યોમાં એકનો નંબર છે જે યોગ્ય રીતે વાંચી શકાતો નથી. કૃપા કરીને તે સંપર્કને ઠીક કરો અથવા દૂર કરો અને ફરીથી પ્રયાસ કરો.</string>
-  <string name="GroupCreateActivity_avatar_content_description">ગ્રુપ અવતાર</string>
-  <string name="GroupCreateActivity_menu_apply_button">લાગુ કરો</string>
-  <string name="GroupCreateActivity_creating_group">%1$s બનાવી રહ્યા છે…</string>
-  <string name="GroupCreateActivity_updating_group">%1$s અપડેટ થઈ રહ્યુ છે…</string>
-  <string name="GroupCreateActivity_cannot_add_non_push_to_existing_group">%1$s ઉમેરી શક્યાં નથી કારણ કે તેઓ Signal વપરાશકર્તા નથી.</string>
-  <string name="GroupCreateActivity_loading_group_details">ગ્રુપ ની વિગતો લોડ કરી રહ્યું છે…</string>
-  <string name="GroupCreateActivity_youre_already_in_the_group">તમે ગ્રુપ માં પહેલેથી જ છો.</string>
+  <!--AddToGroupActivity-->
   <!--GroupShareProfileView-->
   <string name="GroupShareProfileView_share_your_profile_name_and_photo_with_this_group">આ ગ્રુપ સાથે તમારું પ્રોફાઇલ નામ અને ફોટો શેર કરો?</string>
   <string name="GroupShareProfileView_do_you_want_to_make_your_profile_name_and_photo_visible_to_all_current_and_future_members_of_this_group">શું તમે આ ગ્રુપ ના બધા વર્તમાન અને ભાવિ સભ્યો માટે તમારા પ્રોફાઇલ નામ અને ફોટાને દેખાડવા માંગો છો?</string>
@@ -369,6 +349,8 @@
   <string name="PendingMembersActivity_people_you_invited">તમે આમંત્રિત કરેલા લોકો</string>
   <string name="PendingMembersActivity_invites_by_other_group_members">ગ્રુપના અન્ય સભ્યો દ્વારા આમંત્રણો</string>
   <string name="PendingMembersActivity_missing_detail_explanation">અન્ય ગ્રુપ સભ્યો દ્વારા આમંત્રિત લોકોની વિગતો બતાવવામાં આવી નથી. જો આમંત્રિતો જોડાવાનું પસંદ કરે છે, તો તે સમયે તેમની માહિતી ગ્રુપ સાથે શેર કરવામાં આવશે. તેઓ જોડાશે ત્યાં સુધી તેઓ ગ્રુપમાં કોઈ મેસેજ જોશે નહીં.</string>
+  <!--AddMembersActivity-->
+  <string name="AddMembersActivity__done">થઈ ગયું</string>
   <!--AddGroupDetailsFragment-->
   <string name="AddGroupDetailsFragment__create">બનાવો</string>
   <string name="AddGroupDetailsFragment__members">સભ્યો</string>
@@ -384,16 +366,30 @@
   <string name="ManageGroupActivity_add_members">સભ્યો ઉમેરો</string>
   <string name="ManageGroupActivity_view_all_members">બધા સભ્યો જુઓ</string>
   <string name="ManageGroupActivity_none">કંઈ નહીં</string>
+  <!--ManageRecipientActivity-->
+  <string name="ManageRecipientActivity_disappearing_messages">અદૃશ્ય થઈ રહેલા મેસેજ</string>
+  <string name="ManageRecipientActivity_block">અવરોધિત કરો</string>
+  <string name="ManageRecipientActivity_unblock">અનાવરોધિત કરો</string>
+  <string name="ManageRecipientActivity_view_safety_number">સલામતી નંબર જુઓ</string>
+  <string name="ManageRecipientActivity_mute_notifications">સૂચનાઓ મ્યૂટ કરો</string>
+  <string name="ManageRecipientActivity_custom_notifications">કસ્ટમ સૂચના</string>
+  <string name="ManageRecipientActivity_off">બંધ</string>
+  <string name="ManageRecipientActivity_on">ચાલુ</string>
+  <string name="ManageRecipientActivity_message_description">મેસેજ</string>
   <!--CustomNotificationsDialogFragment-->
   <string name="CustomNotificationsDialogFragment__custom_notifications">કસ્ટમ સૂચના</string>
   <string name="CustomNotificationsDialogFragment__messages">મેસેજ</string>
   <string name="CustomNotificationsDialogFragment__notification_sound">સૂચના અવાજ</string>
   <string name="CustomNotificationsDialogFragment__vibrate">વાઈબ્રેટ</string>
+  <string name="CustomNotificationsDialogFragment__call_settings">કૉલ સેટિંગ્સ</string>
+  <string name="CustomNotificationsDialogFragment__ringtone">રીંગટોન</string>
+  <string name="CustomNotificationsDialogFragment__enabled">સક્ષમ કરેલ</string>
+  <string name="CustomNotificationsDialogFragment__disabled">અક્ષમ</string>
+  <string name="CustomNotificationsDialogFragment__default">ડિફોલ્ટ</string>
   <!--GV2 Invite cancellation confirmation-->
   <!--CropImageActivity-->
   <string name="CropImageActivity_group_avatar">ગ્રુપ અવતાર</string>
   <string name="CropImageActivity_profile_avatar">અવતાર</string>
-  <!--ImageEditorFragment-->
   <!--ImageEditorHud-->
   <!--InputPanel-->
   <string name="InputPanel_tap_and_hold_to_record_a_voice_message_release_to_send">વૉઈસ મેસેજ રેકોર્ડ કરવા માટે ટેપ કરો અને હોલ્ડ કરો, મોકલવા માટે છોડો</string>
@@ -422,9 +418,6 @@
   <string name="Job_working_in_the_background">બેકગ્રાઉન્ડમાં કામ કરવું…</string>
   <!--LearnMoreTextView-->
   <string name="LearnMoreTextView_learn_more">વધુ શીખો</string>
-  <!--MessageDetailsRecipient-->
-  <string name="MessageDetailsRecipient_failed_to_send">મોકલવામાં નિષ્ફળ</string>
-  <string name="MessageDetailsRecipient_new_safety_number">નવો સલામતી નંબર</string>
   <!--LongMessageActivity-->
   <string name="LongMessageActivity_unable_to_find_message">મેસેજ શોધવા માટે અસમર્થ</string>
   <string name="LongMessageActivity_message_from_s">%1$s તરફથી મેસેજ</string>
@@ -570,7 +563,6 @@
   <string name="PassphraseChangeActivity_enter_new_passphrase_exclamation">નવો પાસફ્રેઝ દાખલ કરો!</string>
   <!--DeviceProvisioningActivity-->
   <string name="DeviceProvisioningActivity_link_this_device">આ ઉપકરણને લિંક કરીએ?</string>
-  <string name="DeviceProvisioningActivity_cancel">રદ કરો</string>
   <string name="DeviceProvisioningActivity_continue">ચાલુ રાખો</string>
   <string name="DeviceProvisioningActivity_content_intro">તે સમર્થ હશે</string>
   <string name="DeviceProvisioningActivity_content_bullets">
@@ -776,6 +768,12 @@
   <string name="ThreadRecord_you_marked_unverified">તમે વણચકાસેલ માર્ક કર્યું છે</string>
   <string name="ThreadRecord_message_could_not_be_processed">મેસેજ પર પ્રક્રિયા કરી શકાઈ નથી</string>
   <string name="ThreadRecord_message_request">મેસેજ રિક્વેસ્ટ</string>
+  <string name="ThreadRecord_photo">ફોટો</string>
+  <string name="ThreadRecord_gif">GIF</string>
+  <string name="ThreadRecord_voice_message">વૉઈસ મેસેજ</string>
+  <string name="ThreadRecord_contact">સંપર્ક</string>
+  <string name="ThreadRecord_file">ફાઇલ</string>
+  <string name="ThreadRecord_video">વિડિયો</string>
   <!--UpdateApkReadyListener-->
   <string name="UpdateApkReadyListener_Signal_update">Signal અપડેટ</string>
   <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Signalનું નવું વર્ઝન ઉપલબ્ધ છે, અપડેટ કરવા માટે ટેપ કરો</string>
@@ -801,7 +799,6 @@
   <string name="UsernameEditFragment_encountered_a_network_error">નેટવર્ક ભૂલ મળી.</string>
   <string name="UsernameEditFragment_this_username_is_taken">આ વપરાશકર્તા નામ લેવામાં આવ્યું છે.</string>
   <string name="UsernameEditFragment_this_username_is_available">આ વપરાશકર્તા નામ ઉપલબ્ધ છે.</string>
-  <string name="UsernameEditFragment_usernames_can_only_include">વપરાશકર્તાનામોમાં ફક્ત a-Z, 0-9 અને _ શામેલ હોઈ શકે છે.</string>
   <string name="UsernameEditFragment_usernames_cannot_begin_with_a_number">વપરાશકર્તાનામ સંખ્યા સાથે શરૂ થઈ શકતા નથી.</string>
   <string name="UsernameEditFragment_username_is_invalid">વપરાશકર્તા નામ અમાન્ય છે.</string>
   <string name="UsernameEditFragment_usernames_must_be_between_a_and_b_characters">વપરાશકર્તાનામો %1$d અને %2$d અક્ષરોની વચ્ચે હોવા જોઈએ.</string>
@@ -987,6 +984,7 @@
   <!--contact_selection_list_fragment-->
   <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly ને તમારા સંપર્કોને પ્રદર્શિત કરવા માટે તેમને એક્સેસની જરૂર છે.</string>
   <string name="contact_selection_list_fragment__show_contacts">સંપર્કો બતાવો</string>
+  <!--contact_selection_list_item-->
   <!--conversation_activity-->
   <string name="conversation_activity__type_message_push">Signal મેસેજ</string>
   <string name="conversation_activity__type_message_sms_insecure">અસુરક્ષિત SMS</string>
@@ -1028,6 +1026,7 @@
   <string name="QuoteView_original_missing">અસલ મેસેજ મળ્યો નથી</string>
   <!--conversation_fragment-->
   <string name="conversation_fragment__scroll_to_the_bottom_content_description">નીચે સ્ક્રોલ કરો</string>
+  <!--safety_number_change_dialog-->
   <!--country_selection_fragment-->
   <string name="country_selection_fragment__loading_countries">દેશો લોડ થઈ રહ્યા છે…</string>
   <string name="country_selection_fragment__search">શોધો</string>
@@ -1146,19 +1145,6 @@
   <string name="EditProfileFragment__group_name">ગ્રુપ નામ</string>
   <!--recipient_preferences_activity-->
   <string name="recipient_preference_activity__shared_media">શેર કરેલ મીડિયા</string>
-  <!--recipient_preferences-->
-  <string name="recipient_preferences__mute_conversation">સંવાદ મ્યૂટ કરો</string>
-  <string name="recipient_preferences__custom_notifications">કસ્ટમ સૂચના</string>
-  <string name="recipient_preferences__custom_notifications_settings">સિસ્ટમ સૂચના સેટિંગ્સ</string>
-  <string name="recipient_preferences__notification_sound">સૂચના અવાજ</string>
-  <string name="recipient_preferences__vibrate">વાઈબ્રેટ</string>
-  <string name="recipient_preferences__block">અવરોધિત કરો</string>
-  <string name="recipient_preferences__color">રંગ</string>
-  <string name="recipient_preferences__view_safety_number">સલામતી નંબર જુઓ</string>
-  <string name="recipient_preferences__chat_settings">ચેટ સેટિંગ્સ</string>
-  <string name="recipient_preferences__privacy">ગોપનીયતા</string>
-  <string name="recipient_preferences__call_settings">કૉલ સેટિંગ્સ</string>
-  <string name="recipient_preferences__ringtone">રીંગટોન</string>
   <!--- redphone_call_controls-->
   <string name="redphone_call_card__signal_call">Signal કૉલ</string>
   <!--registration_activity-->
@@ -1190,9 +1176,10 @@
   <string name="message_details_header__received">મળી ગયા</string>
   <string name="message_details_header__disappears">અદૃશ્ય થઈ જાય છે</string>
   <string name="message_details_header__via">દ્વારા</string>
-  <string name="message_details_header__to">તરફ:</string>
-  <string name="message_details_header__from">માંથી:</string>
-  <string name="message_details_header__with">સાથે:</string>
+  <!--message_details_recipient_header-->
+  <!--message_Details_recipient-->
+  <string name="message_details_recipient__failed_to_send">મોકલવામાં નિષ્ફળ</string>
+  <string name="message_details_recipient__new_safety_number">નવો સલામતી નંબર</string>
   <!--AndroidManifest.xml-->
   <string name="AndroidManifest__create_passphrase">પાસફ્રેઝ બનાવો</string>
   <string name="AndroidManifest__select_contacts">સંપર્કો પસંદ કરો</string>
@@ -1550,10 +1537,6 @@
   <string name="KbsMegaphone__create_pin">PIN બનાવો</string>
   <string name="KbsMegaphone__introducing_pins">PIN રજૂ કરી રહ્યા છીએ</string>
   <string name="KbsMegaphone__update_pin">PIN અપડેટ કરો</string>
-  <!--Profile Names Megaphone-->
-  <string name="ProfileNamesMegaphone__this_will_be_displayed_when_you_start">જ્યારે તમે નવી વાતચીત શરૂ કરો અથવા શેર કરો ત્યારે આ પ્રદર્શિત થશે.</string>
-  <string name="ProfileNamesMegaphone__add_profile_name">પ્રોફાઇલ નામ ઉમેરો</string>
-  <string name="ProfileNamesMegaphone__your_profile_can_now_include">તમારી પ્રોફાઇલમાં હવે વૈકલ્પિક અટક શામેલ હોઈ શકે છે.</string>
   <!--transport_selection_list_item-->
   <string name="transport_selection_list_item__transport_icon">પરિવહન ચિહ્ન</string>
   <string name="ConversationListFragment_loading">લોડ કરી રહ્યું છે </string>
@@ -1655,12 +1638,13 @@
   <string name="recipient_preferences__about">વિષે</string>
   <string name="Recipient_unknown">અજાણ્યું</string>
   <!--RecipientBottomSheet-->
-  <string name="RecipientBottomSheet_message">મેસેજ</string>
-  <string name="RecipientBottomSheet_call">કૉલ</string>
   <string name="RecipientBottomSheet_block">અવરોધિત કરો</string>
   <string name="RecipientBottomSheet_unblock">અનાવરોધિત કરો</string>
+  <string name="RecipientBottomSheet_add_to_contacts">સંપર્કોમાં ઉમેરો </string>
   <string name="RecipientBottomSheet_view_safety_number">સલામતી નંબર જુઓ</string>
+  <string name="RecipientBottomSheet_message_description">મેસેજ</string>
   <string name="RecipientBottomSheet_remove">દૂર કરો</string>
+  <string name="RecipientBottomSheet_copied_to_clipboard">ક્લિપબોર્ડ પર કૉપી કરેલું</string>
   <string name="GroupRecipientListItem_admin">એડમિન</string>
   <!--EOF-->
 </resources>

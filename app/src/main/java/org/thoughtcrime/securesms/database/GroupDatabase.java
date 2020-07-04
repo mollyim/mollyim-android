@@ -215,13 +215,15 @@ public final class GroupDatabase extends Database {
     }
   }
 
-  public List<String> getPushGroupNamesContainingMember(RecipientId recipientId) {
+  @WorkerThread
+  public List<String> getPushGroupNamesContainingMember(@NonNull RecipientId recipientId) {
     return Stream.of(getPushGroupsContainingMember(recipientId))
-                 .map(GroupRecord::getTitle)
+                 .map(groupRecord -> Recipient.resolved(groupRecord.getRecipientId()).getDisplayName(context))
                  .toList();
   }
 
-  public List<GroupRecord> getPushGroupsContainingMember(RecipientId recipientId) {
+  @WorkerThread
+  public @NonNull List<GroupRecord> getPushGroupsContainingMember(@NonNull RecipientId recipientId) {
     SQLiteDatabase database   = databaseHelper.getReadableDatabase();
     String         table      = TABLE_NAME + " INNER JOIN " + ThreadDatabase.TABLE_NAME + " ON " + TABLE_NAME + "." + RECIPIENT_ID + " = " + ThreadDatabase.TABLE_NAME + "." + ThreadDatabase.RECIPIENT_ID;
     String         query      = MEMBERS + " LIKE ? AND " + MMS + " = ?";
@@ -689,6 +691,10 @@ public final class GroupDatabase extends Database {
 
     public boolean isMms() {
       return mms;
+    }
+
+    public boolean isV1Group() {
+      return !mms && !isV2Group();
     }
 
     public boolean isV2Group() {

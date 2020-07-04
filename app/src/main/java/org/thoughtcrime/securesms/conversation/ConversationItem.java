@@ -58,7 +58,6 @@ import com.annimon.stream.Stream;
 import org.thoughtcrime.securesms.BindableConversationItem;
 import org.thoughtcrime.securesms.ConfirmIdentityDialog;
 import org.thoughtcrime.securesms.MediaPreviewActivity;
-import org.thoughtcrime.securesms.MessageDetailsActivity;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.attachments.DatabaseAttachment;
 import org.thoughtcrime.securesms.components.AlertView;
@@ -77,7 +76,6 @@ import org.thoughtcrime.securesms.contactshare.Contact;
 import org.thoughtcrime.securesms.database.AttachmentDatabase;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.database.MmsDatabase;
-import org.thoughtcrime.securesms.database.MmsSmsDatabase;
 import org.thoughtcrime.securesms.database.SmsDatabase;
 import org.thoughtcrime.securesms.database.documents.IdentityKeyMismatch;
 import org.thoughtcrime.securesms.database.model.MediaMmsMessageRecord;
@@ -107,7 +105,6 @@ import org.thoughtcrime.securesms.revealable.ViewOnceUtil;
 import org.thoughtcrime.securesms.stickers.StickerUrl;
 import org.thoughtcrime.securesms.util.DateUtils;
 import org.thoughtcrime.securesms.util.DynamicTheme;
-import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.LongClickCopySpan;
 import org.thoughtcrime.securesms.util.LongClickMovementMethod;
 import org.thoughtcrime.securesms.util.SearchUtil;
@@ -1000,21 +997,8 @@ public class ConversationItem extends LinearLayout implements BindableConversati
   @SuppressLint("SetTextI18n")
   private void setGroupMessageStatus(MessageRecord messageRecord, Recipient recipient) {
     if (groupThread && !messageRecord.isOutgoing() && groupSender != null && groupSenderProfileName != null) {
-
-      if (FeatureFlags.profileDisplay()) {
-        groupSender.setText(recipient.getDisplayName(getContext()));
-        groupSenderProfileName.setVisibility(View.GONE);
-      } else {
-        groupSender.setText(recipient.toShortString(context));
-
-        if (recipient.getName(context) == null && !recipient.getProfileName().isEmpty()) {
-          groupSenderProfileName.setText("~" + recipient.getProfileName().toString());
-          groupSenderProfileName.setVisibility(View.VISIBLE);
-        } else {
-          groupSenderProfileName.setText(null);
-          groupSenderProfileName.setVisibility(View.GONE);
-        }
-      }
+      groupSender.setText(recipient.getDisplayName(getContext()));
+      groupSenderProfileName.setVisibility(View.GONE);
     }
   }
 
@@ -1388,13 +1372,9 @@ public class ConversationItem extends LinearLayout implements BindableConversati
       if (!shouldInterceptClicks(messageRecord) && parent != null) {
         parent.onClick(v);
       } else if (messageRecord.isFailed()) {
-        Intent intent = new Intent(context, MessageDetailsActivity.class);
-        intent.putExtra(MessageDetailsActivity.MESSAGE_ID_EXTRA, messageRecord.getId());
-        intent.putExtra(MessageDetailsActivity.THREAD_ID_EXTRA, messageRecord.getThreadId());
-        intent.putExtra(MessageDetailsActivity.TYPE_EXTRA, messageRecord.isMms() ? MmsSmsDatabase.MMS_TRANSPORT : MmsSmsDatabase.SMS_TRANSPORT);
-        intent.putExtra(MessageDetailsActivity.IS_PUSH_GROUP_EXTRA, groupThread && messageRecord.isPush());
-        intent.putExtra(MessageDetailsActivity.RECIPIENT_EXTRA, conversationRecipient.getId());
-        context.startActivity(intent);
+        if (eventListener != null) {
+          eventListener.onMessageWithErrorClicked(messageRecord);
+        }
       } else if (!messageRecord.isOutgoing() && messageRecord.isIdentityMismatchFailure()) {
         handleApproveIdentity();
       } else if (messageRecord.isPendingInsecureSmsFallback()) {

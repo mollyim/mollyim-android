@@ -21,7 +21,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Rect;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -51,7 +50,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.text.HtmlCompat;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -61,8 +59,8 @@ import com.annimon.stream.Stream;
 import com.google.android.collect.Sets;
 
 import org.thoughtcrime.securesms.ApplicationContext;
-import org.thoughtcrime.securesms.MessageDetailsActivity;
-import org.thoughtcrime.securesms.PassphraseRequiredActionBarActivity;
+import org.thoughtcrime.securesms.LoggingFragment;
+import org.thoughtcrime.securesms.PassphraseRequiredActivity;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.attachments.Attachment;
 import org.thoughtcrime.securesms.components.ConversationTypingView;
@@ -75,7 +73,6 @@ import org.thoughtcrime.securesms.conversation.ConversationAdapter.ItemClickList
 import org.thoughtcrime.securesms.conversation.ConversationAdapter.StickyHeaderViewHolder;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.database.MessagingDatabase;
-import org.thoughtcrime.securesms.database.MmsSmsDatabase;
 import org.thoughtcrime.securesms.database.RecipientDatabase;
 import org.thoughtcrime.securesms.database.model.MediaMmsMessageRecord;
 import org.thoughtcrime.securesms.database.model.MessageRecord;
@@ -88,6 +85,7 @@ import org.thoughtcrime.securesms.linkpreview.LinkPreview;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.longmessage.LongMessageActivity;
 import org.thoughtcrime.securesms.mediasend.Media;
+import org.thoughtcrime.securesms.messagedetails.MessageDetailsActivity;
 import org.thoughtcrime.securesms.messagerequests.MessageRequestViewModel;
 import org.thoughtcrime.securesms.mms.GlideApp;
 import org.thoughtcrime.securesms.mms.OutgoingMediaMessage;
@@ -113,6 +111,7 @@ import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.HtmlUtil;
 import org.thoughtcrime.securesms.util.RemoteDeleteUtil;
 import org.thoughtcrime.securesms.util.SaveAttachmentTask;
+import org.thoughtcrime.securesms.util.SnapToTopDataObserver;
 import org.thoughtcrime.securesms.util.StickyHeaderDecoration;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.Util;
@@ -134,7 +133,7 @@ import java.util.Locale;
 import java.util.Set;
 
 @SuppressLint("StaticFieldLeak")
-public class ConversationFragment extends Fragment {
+public class ConversationFragment extends LoggingFragment {
   private static final String TAG = ConversationFragment.class.getSimpleName();
 
   private static final int SCROLL_ANIMATION_THRESHOLD = 50;
@@ -163,8 +162,7 @@ public class ConversationFragment extends Fragment {
   private ConversationBannerView      emptyConversationBanner;
   private MessageRequestViewModel     messageRequestViewModel;
   private ConversationViewModel       conversationViewModel;
-
-  private Deferred deferred = new Deferred();
+  private SnapToTopDataObserver       snapToTopDataObserver;
 
   public static void prepare(@NonNull Context context) {
     FrameLayout parent = new FrameLayout(context);
@@ -179,7 +177,7 @@ public class ConversationFragment extends Fragment {
   @Override
   public void onCreate(Bundle icicle) {
     super.onCreate(icicle);
-    this.locale = (Locale) getArguments().getSerializable(PassphraseRequiredActionBarActivity.LOCALE_EXTRA);
+    this.locale = (Locale) getArguments().getSerializable(PassphraseRequiredActivity.LOCALE_EXTRA);
   }
 
   @Override
@@ -198,12 +196,11 @@ public class ConversationFragment extends Fragment {
     list.setLayoutManager(layoutManager);
     list.setItemAnimator(null);
 
-    if (FeatureFlags.messageRequests()) {
-      conversationBanner = (ConversationBannerView) inflater.inflate(R.layout.conversation_item_banner, container, false);
-    }
+    snapToTopDataObserver = new ConversationSnapToTopDataObserver(list, new ConversationScrollRequestValidator());
+    conversationBanner    = (ConversationBannerView) inflater.inflate(R.layout.conversation_item_banner, container, false);
+    topLoadMoreView       = (ViewSwitcher) inflater.inflate(R.layout.load_more_header, container, false);
+    bottomLoadMoreView    = (ViewSwitcher) inflater.inflate(R.layout.load_more_header, container, false);
 
-    topLoadMoreView    = (ViewSwitcher) inflater.inflate(R.layout.load_more_header, container, false);
-    bottomLoadMoreView = (ViewSwitcher) inflater.inflate(R.layout.load_more_header, container, false);
     initializeLoadMoreView(topLoadMoreView);
     initializeLoadMoreView(bottomLoadMoreView);
 
@@ -219,21 +216,19 @@ public class ConversationFragment extends Fragment {
 
     this.conversationViewModel = ViewModelProviders.of(requireActivity(), new ConversationViewModel.Factory()).get(ConversationViewModel.class);
     conversationViewModel.getMessages().observe(this, list -> {
-      if (getListAdapter() != null) {
+      if (getListAdapter() != null && !list.getDataSource().isInvalid()) {
         Log.i(TAG, "submitList");
         getListAdapter().submitList(list);
+      } else if (list.getDataSource().isInvalid()) {
+        Log.i(TAG, "submitList skipped an invalid list");
       }
     });
-    conversationViewModel.getConversationMetadata().observe(this, data -> deferred.defer(() -> presentConversationMetadata(data)));
+    conversationViewModel.getConversationMetadata().observe(this, this::presentConversationMetadata);
 
     return view;
   }
 
   private void setupListLayoutListeners() {
-    if (!FeatureFlags.messageRequests()) {
-      return;
-    }
-
     list.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> setListVerticalTranslation());
 
     list.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
@@ -283,6 +278,23 @@ public class ConversationFragment extends Fragment {
   }
 
   @Override
+  public void onPause() {
+    super.onPause();
+    int lastVisiblePosition  = getListLayoutManager().findLastVisibleItemPosition();
+    int firstVisiblePosition = getListLayoutManager().findFirstCompletelyVisibleItemPosition();
+
+    final long lastVisibleMessageTimestamp;
+    if (firstVisiblePosition != 0 && lastVisiblePosition != RecyclerView.NO_POSITION) {
+      MessageRecord message = getListAdapter().getLastVisibleMessageRecord(lastVisiblePosition);
+
+      lastVisibleMessageTimestamp = message != null ? message.getDateReceived() : 0;
+    } else {
+      lastVisibleMessageTimestamp = 0;
+    }
+    SignalExecutors.BOUNDED.submit(() -> DatabaseFactory.getThreadDatabase(requireContext()).setLastScrolled(threadId, lastVisibleMessageTimestamp));
+  }
+
+  @Override
   public void onStop() {
     super.onStop();
     ApplicationContext.getInstance(requireContext()).getTypingStatusRepository().getTypists(threadId).removeObservers(this);
@@ -310,7 +322,7 @@ public class ConversationFragment extends Fragment {
     }
 
     int position = getListAdapter().getAdapterPositionForMessagePosition(conversationViewModel.getLastSeenPosition());
-    scrollToLastSeenPosition(position);
+    snapToTopDataObserver.requestScrollPosition(position);
   }
 
   private void initializeMessageRequestViewModel() {
@@ -404,7 +416,6 @@ public class ConversationFragment extends Fragment {
     this.threadId          = this.getActivity().getIntent().getLongExtra(ConversationActivity.THREAD_ID_EXTRA, -1);
     this.unknownSenderView = new UnknownSenderView(getActivity(), recipient.get(), threadId, () -> clearHeaderIfNotTyping(getListAdapter()));
 
-    deferred.setDeferred(true);
     conversationViewModel.onConversationDataAvailable(threadId, startingPosition);
 
     OnScrollListener scrollListener = new ConversationScrollListener(getActivity());
@@ -423,12 +434,12 @@ public class ConversationFragment extends Fragment {
       list.addItemDecoration(new StickyHeaderDecoration(adapter, false, false));
       ConversationAdapter.initializePool(list.getRecycledViewPool());
 
-      adapter.registerAdapterDataObserver(new DataObserver());
+      adapter.registerAdapterDataObserver(snapToTopDataObserver);
 
       setLastSeen(conversationViewModel.getLastSeen());
 
       emptyConversationBanner.setVisibility(View.GONE);
-    } else if (FeatureFlags.messageRequests() && threadId == -1) {
+    } else if (threadId == -1) {
       emptyConversationBanner.setVisibility(View.VISIBLE);
     }
   }
@@ -544,7 +555,7 @@ public class ConversationFragment extends Fragment {
       this.threadId = threadId;
       messageRequestViewModel.setConversationInfo(recipient.getId(), threadId);
 
-      deferred.setDeferred(true);
+      snapToTopDataObserver.requestScrollPosition(0);
       conversationViewModel.onConversationDataAvailable(threadId, -1);
       initializeListAdapter();
     }
@@ -696,13 +707,7 @@ public class ConversationFragment extends Fragment {
 
 
   private void handleDisplayDetails(MessageRecord message) {
-    Intent intent = new Intent(getActivity(), MessageDetailsActivity.class);
-    intent.putExtra(MessageDetailsActivity.MESSAGE_ID_EXTRA, message.getId());
-    intent.putExtra(MessageDetailsActivity.THREAD_ID_EXTRA, threadId);
-    intent.putExtra(MessageDetailsActivity.TYPE_EXTRA, message.isMms() ? MmsSmsDatabase.MMS_TRANSPORT : MmsSmsDatabase.SMS_TRANSPORT);
-    intent.putExtra(MessageDetailsActivity.RECIPIENT_EXTRA, recipient.getId());
-    intent.putExtra(MessageDetailsActivity.IS_PUSH_GROUP_EXTRA, recipient.get().isGroup() && message.isPush());
-    startActivity(intent);
+    startActivity(MessageDetailsActivity.getIntentForMessageDetails(requireContext(), message, recipient.getId(), threadId));
   }
 
   private void handleForwardMessage(MessageRecord message) {
@@ -864,47 +869,49 @@ public class ConversationFragment extends Fragment {
       return;
     }
 
-    if (FeatureFlags.messageRequests()) {
-      adapter.setFooterView(conversationBanner);
-    } else {
-      adapter.setFooterView(null);
-    }
+    adapter.setFooterView(conversationBanner);
 
-    setLastSeen(conversation.getLastSeen());
-
-    if (FeatureFlags.messageRequests() && !conversation.hasPreMessageRequestMessages()) {
-      clearHeaderIfNotTyping(adapter);
-    } else {
-      if (!conversation.hasSent() && !recipient.get().isSystemContact() && !recipient.get().isGroup() && recipient.get().getRegistered() == RecipientDatabase.RegisteredState.REGISTERED) {
-        adapter.setHeaderView(unknownSenderView);
-      } else {
-        clearHeaderIfNotTyping(adapter);
+    Runnable afterScroll = () -> {
+      if (!conversation.isMessageRequestAccepted()) {
+        snapToTopDataObserver.requestScrollPosition(adapter.getItemCount() - 1);
       }
-    }
 
-    listener.onCursorChanged();
+      setLastSeen(conversation.getLastSeen());
 
-    int lastSeenPosition = adapter.getAdapterPositionForMessagePosition(conversation.getLastSeenPosition());
+      if (!conversation.hasPreMessageRequestMessages()) {
+        clearHeaderIfNotTyping(adapter);
+      } else {
+        if (!conversation.hasSent() && !recipient.get().isSystemContact() && !recipient.get().isGroup() && recipient.get().getRegistered() == RecipientDatabase.RegisteredState.REGISTERED) {
+          adapter.setHeaderView(unknownSenderView);
+        } else {
+          clearHeaderIfNotTyping(adapter);
+        }
+      }
 
-    if (conversation.shouldJumpToMessage()) {
-      scrollToStartingPosition(conversation.getJumpToPosition());
+      listener.onCursorChanged();
+    };
+
+    int lastSeenPosition     = adapter.getAdapterPositionForMessagePosition(conversation.getLastSeenPosition());
+    int lastScrolledPosition = adapter.getAdapterPositionForMessagePosition(conversation.getLastScrolledPosition());
+
+    if (conversation.getThreadSize() == 0) {
+      afterScroll.run();
+    } else if (conversation.shouldJumpToMessage()) {
+      snapToTopDataObserver.buildScrollPosition(conversation.getJumpToPosition())
+                           .withOnScrollRequestComplete(() -> {
+                             afterScroll.run();
+                             getListAdapter().pulseHighlightItem(conversation.getJumpToPosition());
+                           })
+                           .submit();
     } else if (conversation.isMessageRequestAccepted()) {
-      scrollToLastSeenPosition(lastSeenPosition);
-    } else if (FeatureFlags.messageRequests()) {
-      list.post(() -> getListLayoutManager().scrollToPosition(adapter.getItemCount() - 1));
-    }
-  }
-
-  private void scrollToStartingPosition(int startingPosition) {
-    list.post(() -> {
-      list.getLayoutManager().scrollToPosition(startingPosition);
-      getListAdapter().pulseHighlightItem(startingPosition);
-    });
-  }
-
-  private void scrollToLastSeenPosition(int lastSeenPosition) {
-    if (lastSeenPosition > 0) {
-      list.post(() -> getListLayoutManager().scrollToPositionWithOffset(lastSeenPosition, list.getHeight()));
+      snapToTopDataObserver.buildScrollPosition(conversation.shouldScrollToLastSeen() ? lastSeenPosition : lastScrolledPosition)
+                           .withOnPerformScroll((layoutManager, position) -> layoutManager.scrollToPositionWithOffset(position, list.getHeight()))
+                           .withOnScrollRequestComplete(afterScroll)
+                           .submit();
+    } else {
+      snapToTopDataObserver.buildScrollPosition(adapter.getItemCount() - 1)
+                           .withOnScrollRequestComplete(afterScroll)
+                           .submit();
     }
   }
 
@@ -939,24 +946,21 @@ public class ConversationFragment extends Fragment {
   }
 
   private void moveToMessagePosition(int position, @Nullable Runnable onMessageNotFound) {
-    if (position >= 0) {
-      list.scrollToPosition(position);
-
-      if (getListAdapter() == null || getListAdapter().getItem(position) == null) {
-        Log.i(TAG, "[moveToMessagePosition] Position " + position + " not currently populated. Scheduling a jump.");
-        conversationViewModel.scheduleForNextMessageUpdate(() -> {
-          list.scrollToPosition(position);
-          getListAdapter().pulseHighlightItem(position);
-        });
-      } else {
-        getListAdapter().pulseHighlightItem(position);
-      }
-    } else {
-      Log.w(TAG, "[moveToMessagePosition] Tried to navigate to message, but it wasn't found.");
-      if (onMessageNotFound != null) {
-        onMessageNotFound.run();
-      }
-    }
+    conversationViewModel.onConversationDataAvailable(threadId, position);
+    snapToTopDataObserver.buildScrollPosition(position)
+                         .withOnPerformScroll(((layoutManager, p) ->
+                           list.post(() -> {
+                             layoutManager.scrollToPosition(p);
+                             getListAdapter().pulseHighlightItem(position);
+                           })
+                         ))
+                         .withOnInvalidPosition(() -> {
+                           if (onMessageNotFound != null) {
+                             onMessageNotFound.run();
+                           }
+                           Log.w(TAG, "[moveToMessagePosition] Tried to navigate to message, but it wasn't found.");
+                         })
+                         .submit();
   }
 
   private void maybeShowSwipeToReplyTooltip() {
@@ -985,6 +989,7 @@ public class ConversationFragment extends Fragment {
                         @NonNull ConversationReactionOverlay.OnHideListener onHideListener);
     void onCursorChanged();
     void onListVerticalTranslationChanged(float translationY);
+    void onMessageWithErrorClicked(@NonNull MessageRecord messageRecord);
   }
 
   private class ConversationScrollListener extends OnScrollListener {
@@ -1052,44 +1057,6 @@ public class ConversationFragment extends Fragment {
     private void bindScrollHeader(StickyHeaderViewHolder headerViewHolder, int positionId) {
       if (((ConversationAdapter)list.getAdapter()).getHeaderId(positionId) != -1) {
         ((ConversationAdapter) list.getAdapter()).onBindHeaderViewHolder(headerViewHolder, positionId);
-      }
-    }
-  }
-
-  private class DataObserver extends RecyclerView.AdapterDataObserver {
-
-    private final Rect rect = new Rect();
-
-    @Override
-    public void onItemRangeInserted(int positionStart, int itemCount) {
-      if (deferred.isDeferred()) {
-        deferred.setDeferred(false);
-        return;
-      }
-
-      if (positionStart == 0 && itemCount == 1 && isTypingIndicatorShowing()) {
-        return;
-      }
-
-      if (list.getScrollState() == RecyclerView.SCROLL_STATE_IDLE) {
-        int firstVisibleItem = getListLayoutManager().findFirstVisibleItemPosition();
-
-        if (firstVisibleItem == 0) {
-          View view = getListLayoutManager().findViewByPosition(0);
-          if (view == null) {
-            return;
-          }
-
-          view.getDrawingRect(rect);
-          list.offsetDescendantRectToMyCoords(view, rect);
-
-          int bottom = rect.bottom;
-          list.getDrawingRect(rect);
-
-          if (bottom <= rect.bottom) {
-            getListLayoutManager().scrollToPosition(0);
-          }
-        }
       }
     }
   }
@@ -1283,6 +1250,11 @@ public class ConversationFragment extends Fragment {
 
       RecipientBottomSheetDialogFragment.create(recipientId, groupId).show(requireFragmentManager(), "BOTTOM");
     }
+
+    @Override
+    public void onMessageWithErrorClicked(@NonNull MessageRecord messageRecord) {
+      listener.onMessageWithErrorClicked(messageRecord);
+    }
   }
 
   @Override
@@ -1299,6 +1271,52 @@ public class ConversationFragment extends Fragment {
     list.getAdapter().notifyDataSetChanged();
 
     actionMode = ((AppCompatActivity)getActivity()).startSupportActionMode(actionModeCallback);
+  }
+
+  private final class ConversationSnapToTopDataObserver extends SnapToTopDataObserver {
+
+    public ConversationSnapToTopDataObserver(@NonNull RecyclerView recyclerView,
+                                             @Nullable ScrollRequestValidator scrollRequestValidator)
+    {
+      super(recyclerView, scrollRequestValidator);
+    }
+
+    @Override
+    public void onItemRangeMoved(int fromPosition, int toPosition, int itemCount) {
+      // Do nothing.
+    }
+
+    @Override
+    public void onItemRangeInserted(int positionStart, int itemCount) {
+      if (positionStart == 0 && itemCount == 1 && isTypingIndicatorShowing()) {
+        return;
+      }
+
+      super.onItemRangeInserted(positionStart, itemCount);
+    }
+  }
+
+  private final class ConversationScrollRequestValidator implements SnapToTopDataObserver.ScrollRequestValidator {
+
+    @Override
+    public boolean isPositionStillValid(int position) {
+      if (getListAdapter() == null) {
+        return position >= 0;
+      } else {
+        return position >= 0 && position < getListAdapter().getItemCount();
+      }
+    }
+
+    @Override
+    public boolean isItemAtPositionLoaded(int position) {
+      if (getListAdapter() == null) {
+        return false;
+      } else if (getListAdapter().hasFooter() && position == getListAdapter().getItemCount() - 1) {
+        return true;
+      } else {
+        return getListAdapter().getItem(position) != null;
+      }
+    }
   }
 
   private class ReactionsToolbarListener implements Toolbar.OnMenuItemClickListener {
@@ -1447,33 +1465,4 @@ public class ConversationFragment extends Fragment {
     }
   }
 
-  private static class Deferred {
-
-    private Runnable deferred;
-    private boolean  isDeferred;
-
-    public void defer(@Nullable Runnable deferred) {
-      this.deferred = deferred;
-      executeIfNecessary();
-    }
-
-    public void setDeferred(boolean isDeferred) {
-      this.isDeferred = isDeferred;
-      executeIfNecessary();
-    }
-
-    public boolean isDeferred() {
-      return isDeferred;
-    }
-
-    private void executeIfNecessary() {
-      if (deferred != null && !isDeferred) {
-        Runnable local = deferred;
-
-        deferred = null;
-
-        local.run();
-      }
-    }
-  }
 }

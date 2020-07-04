@@ -15,15 +15,21 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.components.AvatarImageView;
+import org.thoughtcrime.securesms.contacts.avatars.FallbackContactPhoto;
+import org.thoughtcrime.securesms.contacts.avatars.FallbackPhoto80dp;
 import org.thoughtcrime.securesms.groups.GroupId;
+import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientExporter;
 import org.thoughtcrime.securesms.recipients.RecipientId;
+import org.thoughtcrime.securesms.util.CommunicationActions;
 import org.thoughtcrime.securesms.util.ServiceUtil;
 import org.thoughtcrime.securesms.util.ThemeUtil;
 import org.thoughtcrime.securesms.util.Util;
@@ -47,14 +53,18 @@ public final class RecipientBottomSheetDialogFragment extends BottomSheetDialogF
   private TextView                 usernameNumber;
   private Button                   messageButton;
   private Button                   secureCallButton;
+  private Button                   insecureCallButton;
+  private Button                   secureVideoCallButton;
   private Button                   blockButton;
   private Button                   unblockButton;
   private Button                   addContactButton;
+  private Button                   addToGroupButton;
   private Button                   viewSafetyNumberButton;
   private Button                   makeGroupAdminButton;
   private Button                   removeAdminButton;
   private Button                   removeFromGroupButton;
   private ProgressBar              adminActionBusy;
+  private View                     noteToSelfDescription;
 
   public static BottomSheetDialogFragment create(@NonNull RecipientId recipientId,
                                                  @Nullable GroupId groupId)
@@ -90,14 +100,18 @@ public final class RecipientBottomSheetDialogFragment extends BottomSheetDialogF
     usernameNumber         = view.findViewById(R.id.rbs_username_number);
     messageButton          = view.findViewById(R.id.rbs_message_button);
     secureCallButton       = view.findViewById(R.id.rbs_secure_call_button);
+    insecureCallButton     = view.findViewById(R.id.rbs_insecure_call_button);
+    secureVideoCallButton  = view.findViewById(R.id.rbs_video_call_button);
     blockButton            = view.findViewById(R.id.rbs_block_button);
     unblockButton          = view.findViewById(R.id.rbs_unblock_button);
     addContactButton       = view.findViewById(R.id.rbs_add_contact_button);
+    addToGroupButton       = view.findViewById(R.id.rbs_add_to_group_button);
     viewSafetyNumberButton = view.findViewById(R.id.rbs_view_safety_number_button);
     makeGroupAdminButton   = view.findViewById(R.id.rbs_make_group_admin_button);
     removeAdminButton      = view.findViewById(R.id.rbs_remove_group_admin_button);
     removeFromGroupButton  = view.findViewById(R.id.rbs_remove_from_group_button);
     adminActionBusy        = view.findViewById(R.id.rbs_admin_action_busy);
+    noteToSelfDescription  = view.findViewById(R.id.rbs_note_to_self_description);
 
     return view;
   }
@@ -115,14 +129,28 @@ public final class RecipientBottomSheetDialogFragment extends BottomSheetDialogF
     viewModel = ViewModelProviders.of(this, factory).get(RecipientDialogViewModel.class);
 
     viewModel.getRecipient().observe(getViewLifecycleOwner(), recipient -> {
-      avatar.setRecipient(recipient);
+      avatar.setFallbackPhotoProvider(new Recipient.FallbackPhotoProvider() {
+        @Override
+        public @NonNull FallbackContactPhoto getPhotoForLocalNumber() {
+          return new FallbackPhoto80dp(R.drawable.ic_note_80, recipient.getColor());
+        }
+      });
+      avatar.setAvatar(recipient);
+      if (recipient.isLocalNumber()) {
+        avatar.setOnClickListener(v -> {
+          dismiss();
+          viewModel.onMessageClicked(requireActivity());
+        });
+      }
 
-      String name = recipient.getProfileName().toString();
+      String name = recipient.isLocalNumber() ? requireContext().getString(R.string.note_to_self)
+                                              : recipient.getDisplayName(requireContext());
       fullName.setText(name);
       fullName.setVisibility(TextUtils.isEmpty(name) ? View.GONE : View.VISIBLE);
 
-      String usernameNumberString = String.format("%s %s", recipient.getUsername().or(""), recipient.getSmsAddress().or(""))
-                                          .trim();
+      String usernameNumberString = recipient.hasAUserSetDisplayName(requireContext()) && !recipient.isLocalNumber()
+                                    ? String.format("%s %s", recipient.getUsername().or(""), recipient.getSmsAddress().or("")).trim()
+                                    : "";
       usernameNumber.setText(usernameNumberString);
       usernameNumber.setVisibility(TextUtils.isEmpty(usernameNumberString) ? View.GONE : View.VISIBLE);
       usernameNumber.setOnLongClickListener(v -> {
@@ -132,13 +160,18 @@ public final class RecipientBottomSheetDialogFragment extends BottomSheetDialogF
         return true;
       });
 
+      noteToSelfDescription.setVisibility(recipient.isLocalNumber() ? View.VISIBLE : View.GONE);
+
       boolean blocked = recipient.isBlocked();
-      blockButton.setVisibility(blocked ? View.GONE : View.VISIBLE);
-      unblockButton.setVisibility(blocked ? View.VISIBLE : View.GONE);
+      blockButton  .setVisibility(recipient.isLocalNumber() ||  blocked ? View.GONE : View.VISIBLE);
+      unblockButton.setVisibility(recipient.isLocalNumber() || !blocked ? View.GONE : View.VISIBLE);
 
-      secureCallButton.setVisibility(recipient.isRegistered() ? View.VISIBLE : View.GONE);
+      messageButton.setVisibility(!recipient.isLocalNumber() ? View.VISIBLE : View.GONE);
+      secureCallButton.setVisibility(recipient.isRegistered() && !recipient.isLocalNumber() ? View.VISIBLE : View.GONE);
+      insecureCallButton.setVisibility(!recipient.isRegistered() && !recipient.isLocalNumber() ? View.VISIBLE : View.GONE);
+      secureVideoCallButton.setVisibility(recipient.isRegistered() && !recipient.isLocalNumber() ? View.VISIBLE : View.GONE);
 
-      if (recipient.isSystemContact() || recipient.isGroup()) {
+      if (recipient.isSystemContact() || recipient.isGroup() || recipient.isLocalNumber()) {
         addContactButton.setVisibility(View.GONE);
       } else {
         addContactButton.setVisibility(View.VISIBLE);
@@ -146,6 +179,9 @@ public final class RecipientBottomSheetDialogFragment extends BottomSheetDialogF
           startActivityForResult(RecipientExporter.export(recipient).asAddContactIntent(), REQUEST_CODE_ADD_CONTACT);
         });
       }
+
+      addToGroupButton.setText(groupId == null ? R.string.RecipientBottomSheet_add_to_a_group : R.string.RecipientBottomSheet_add_to_another_group);
+      addToGroupButton.setVisibility(recipient.isRegistered() && !recipient.isGroup() && !recipient.isLocalNumber() ? View.VISIBLE : View.GONE);
     });
 
     viewModel.getAdminActionStatus().observe(getViewLifecycleOwner(), adminStatus -> {
@@ -175,10 +211,9 @@ public final class RecipientBottomSheetDialogFragment extends BottomSheetDialogF
       viewModel.onMessageClicked(requireActivity());
     });
 
-    secureCallButton.setOnClickListener(view -> {
-      dismiss();
-      viewModel.onSecureCallClicked(requireActivity());
-    });
+    secureCallButton.setOnClickListener(view -> viewModel.onSecureCallClicked(requireActivity()));
+    insecureCallButton.setOnClickListener(view -> viewModel.onInsecureCallClicked(requireActivity()));
+    secureVideoCallButton.setOnClickListener(view -> viewModel.onSecureVideoCallClicked(requireActivity()));
 
     blockButton.setOnClickListener(view -> viewModel.onBlockClicked(requireActivity()));
     unblockButton.setOnClickListener(view -> viewModel.onUnblockClicked(requireActivity()));
@@ -187,6 +222,11 @@ public final class RecipientBottomSheetDialogFragment extends BottomSheetDialogF
     removeAdminButton.setOnClickListener(view -> viewModel.onRemoveGroupAdminClicked(requireActivity()));
 
     removeFromGroupButton.setOnClickListener(view -> viewModel.onRemoveFromGroupClicked(requireActivity(), this::dismiss));
+
+    addToGroupButton.setOnClickListener(view -> {
+      dismiss();
+      viewModel.onAddToGroupButton(requireActivity());
+    });
 
     viewModel.getAdminActionBusy().observe(getViewLifecycleOwner(), busy -> {
       adminActionBusy.setVisibility(busy ? View.VISIBLE : View.GONE);
@@ -202,5 +242,12 @@ public final class RecipientBottomSheetDialogFragment extends BottomSheetDialogF
     if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_ADD_CONTACT) {
       viewModel.onAddedToContacts();
     }
+  }
+
+  @Override
+  public void show(@NonNull FragmentManager manager, @Nullable String tag) {
+    FragmentTransaction transaction = manager.beginTransaction();
+    transaction.add(this, tag);
+    transaction.commitAllowingStateLoss();
   }
 }

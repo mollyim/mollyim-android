@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -74,6 +75,11 @@ class JobController {
 
   synchronized void wakeUp() {
     notifyAll();
+  }
+
+  @WorkerThread
+  synchronized void flush() {
+    jobStorage.flush();
   }
 
   @WorkerThread
@@ -148,6 +154,14 @@ class JobController {
         Log.w(TAG, "Tried to cancel JOB::" + id + ", but it could not be found.");
       }
     }
+  }
+
+  @WorkerThread
+  synchronized void cancelAllInQueue(@NonNull String queue) {
+    Stream.of(runningJobs.values())
+          .filter(j -> Objects.equals(j.getParameters().getQueue(), queue))
+          .map(Job::getId)
+          .forEach(this::cancelJob);
   }
 
   @WorkerThread
@@ -228,11 +242,11 @@ class JobController {
    * When the job returned from this method has been run, you must call {@link #onJobFinished(Job)}.
    */
   @WorkerThread
-  synchronized @NonNull Job pullNextEligibleJobForExecution() {
+  synchronized @NonNull Job pullNextEligibleJobForExecution(@NonNull JobPredicate predicate) {
     try {
       Job job;
 
-      while ((job = getNextEligibleJobForExecution()) == null) {
+      while ((job = getNextEligibleJobForExecution(predicate)) == null) {
         if (runningJobs.isEmpty()) {
           debouncer.publish(callback::onEmpty);
         }
@@ -340,14 +354,20 @@ class JobController {
                                   job.getParameters().getMaxInstances(),
                                   dataSerializer.serialize(job.serialize()),
                                   null,
-                                  false);
+                                  false,
+                                  job.getParameters().isMemoryOnly());
 
     List<ConstraintSpec> constraintSpecs = Stream.of(job.getParameters().getConstraintKeys())
-                                                 .map(key -> new ConstraintSpec(jobSpec.getId(), key))
+                                                 .map(key -> new ConstraintSpec(jobSpec.getId(), key, jobSpec.isMemoryOnly()))
                                                  .toList();
 
     List<DependencySpec> dependencySpecs = Stream.of(dependsOn)
-                                                 .map(depends -> new DependencySpec(job.getId(), depends))
+                                                 .map(depends -> {
+                                                   JobSpec dependsOnJobSpec = jobStorage.getJobSpec(depends);
+                                                   boolean memoryOnly       = job.getParameters().isMemoryOnly() || (dependsOnJobSpec != null && dependsOnJobSpec.isMemoryOnly());
+
+                                                   return new DependencySpec(job.getId(), depends, memoryOnly);
+                                                 })
                                                  .toList();
 
     return new FullSpec(jobSpec, constraintSpecs, dependencySpecs);
@@ -357,7 +377,7 @@ class JobController {
   private void scheduleJobs(@NonNull List<Job> jobs) {
     for (Job job : jobs) {
       List<Constraint> constraints = Stream.of(job.getParameters().getConstraintKeys())
-                                           .map(key -> new ConstraintSpec(job.getId(), key))
+                                           .map(key -> new ConstraintSpec(job.getId(), key, job.getParameters().isMemoryOnly()))
                                            .map(ConstraintSpec::getFactoryKey)
                                            .map(constraintInstantiator::instantiate)
                                            .toList();
@@ -367,8 +387,10 @@ class JobController {
   }
 
   @WorkerThread
-  private @Nullable Job getNextEligibleJobForExecution() {
-    List<JobSpec> jobSpecs = jobStorage.getPendingJobsWithNoDependenciesInCreatedOrder(System.currentTimeMillis());
+  private @Nullable Job getNextEligibleJobForExecution(@NonNull JobPredicate predicate) {
+    List<JobSpec> jobSpecs = Stream.of(jobStorage.getPendingJobsWithNoDependenciesInCreatedOrder(System.currentTimeMillis()))
+                                   .filter(predicate::shouldRun)
+                                   .toList();
 
     for (JobSpec jobSpec : jobSpecs) {
       List<ConstraintSpec> constraintSpecs = jobStorage.getConstraintSpecs(jobSpec.getId());
@@ -446,7 +468,8 @@ class JobController {
                        jobSpec.getMaxInstances(),
                        jobSpec.getSerializedData(),
                        dataSerializer.serialize(inputData),
-                       jobSpec.isRunning());
+                       jobSpec.isRunning(),
+                       jobSpec.isMemoryOnly());
   }
 
   interface Callback {

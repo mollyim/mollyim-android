@@ -82,7 +82,7 @@
   <string name="BlockUnblockDialog_you_will_no_longer_receive_messages_or_updates">Ja no rebreu cap més missatge ni novetat d\'aquest grup i els membres no us hi podran tornar a afegir.</string>
   <string name="BlockUnblockDialog_group_members_wont_be_able_to_add_you">Els membres del grup no us hi podran tornar a afegir.</string>
   <string name="BlockUnblockDialog_group_members_will_be_able_to_add_you">Els membres del grup us podran afegir a aquest grup un altre cop.</string>
-  <string name="BlockUnblockDialog_you_will_be_able_to_call_and_message_each_other">Us podreu trucar i enviar missatges.</string>
+  <string name="BlockUnblockDialog_you_will_be_able_to_call_and_message_each_other">Us podreu enviar missatges i fer trucades, i compartireu el nom i la fotografia.</string>
   <string name="BlockUnblockDialog_blocked_people_wont_be_able_to_call_you_or_send_you_messages">Les persones blocades no us podran trucar ni enviar missatges.</string>
   <string name="BlockUnblockDialog_unblock_s">Voleu desblocar %1$s?</string>
   <string name="BlockUnblockDialog_unblock">Desbloca</string>
@@ -157,7 +157,9 @@
   <string name="ContactShareEditActivity_type_missing">Altres</string>
   <string name="ContactShareEditActivity_invalid_contact">El contacte seleccionat no és vàlid.</string>
   <!--ConversationItem-->
-  <string name="ConversationItem_error_not_delivered">Ha fallat l\'enviament. Toqueu per saber-ne més.</string>
+  <string name="ConversationItem_error_not_sent_tap_for_details">No enviat. Toqueu per saber-ne més.</string>
+  <string name="ConversationItem_error_partially_not_delivered">Parcialment enviat, toca per més informació</string>
+  <string name="ConversationItem_error_network_not_delivered">L\'enviament ha fallat</string>
   <string name="ConversationItem_received_key_exchange_message_tap_to_process">S\'ha rebut el missatge de l\'intercanvi de la clau, toqueu per processar-lo.</string>
   <string name="ConversationItem_group_action_left">%1$s ha abandonat el grup.</string>
   <string name="ConversationItem_click_to_approve_unencrypted">Ha fallat l\'enviament. Toqueu per al mode no segur.</string>
@@ -278,7 +280,7 @@
   <string name="ConversationFragment_you_can_swipe_to_the_left_reply">Podeu lliscar cap a l’esquerra en qualsevol missatge per respondre ràpidament.</string>
   <string name="ConversationFragment_outgoing_view_once_media_files_are_automatically_removed">Els fitxers multimèdia d\'una sola visualització se suprimeixen automàticament un cop enviats.</string>
   <string name="ConversationFragment_you_already_viewed_this_message">Ja heu vist aquest missatge.</string>
-  <string name="ConversationFragment__you_can_add_notes_for_yourself_in_this_conversation">Podeu afegir notes per a vosaltres mateixos en aquesta conversa. Si hi ha algun dispositiu enllaçat, s\'hi sincronitzaran les notes noves.</string>
+  <string name="ConversationFragment__you_can_add_notes_for_yourself_in_this_conversation">Podeu afegir notes per a vosaltres mateixos en aquesta conversa.\nSi el compte té dispositius enllaçats, s\'hi sincronitzaran les notes noves.</string>
   <!--ConversationListActivity-->
   <string name="ConversationListActivity_there_is_no_browser_installed_on_your_device">No hi ha cap navegador instal·lat al dispositiu.</string>
   <!--ConversationListFragment-->
@@ -302,8 +304,6 @@
     <item quantity="one">S\'ha mogut la conversa a la safata d\'entrada</item>
     <item quantity="other">S\'han mogut %d converses a la safata d\'entrada</item>
   </plurals>
-  <string name="ConversationListFragment__your_profile_name_has_been_created">S\'ha creat el nom de perfil.</string>
-  <string name="ConversationListFragment__your_profile_name_has_been_saved">S\'ha desat el nom de perfil.</string>
   <!--ConversationListItem-->
   <string name="ConversationListItem_key_exchange_message">Missatge d\'intercanvi de clau</string>
   <!--ConversationListItemAction-->
@@ -317,7 +317,7 @@
   <string name="CreateProfileActivity_problem_setting_profile">Problema en establir el perfil</string>
   <string name="CreateProfileActivity_profile_photo">Foto del perfil</string>
   <string name="CreateProfileActivity_set_up_your_profile">Establiu el perfil</string>
-  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">Els perfils del Signal estan encriptats de cap a cap i el servei del Signal no té accés a aquesta informació.</string>
+  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">El perfil està encriptat d\'extrem a extrem. Serà visible per als vostres contactes quan inicieu o accepteu converses noves i quan us afegiu a grups nous.</string>
   <string name="CreateProfileActivity_set_avatar_description">Estableix l\'avatar</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Ús de la personalització: %s</string>
@@ -369,24 +369,12 @@
   <!--GiphyFragmentPageAdapter-->
   <string name="GiphyFragmentPagerAdapter_gifs">GIF</string>
   <string name="GiphyFragmentPagerAdapter_stickers">Adhesius</string>
-  <!--GroupCreateActivity-->
-  <string name="GroupCreateActivity_actionbar_title">Grup nou</string>
-  <string name="GroupCreateActivity_actionbar_edit_title">Edita el grup</string>
-  <string name="GroupCreateActivity_actionbar_manage_title">Gestioneu el grup</string>
-  <string name="GroupCreateActivity_group_name_hint">Nom del grup</string>
-  <string name="GroupCreateActivity_actionbar_mms_title">Grup de MMS nou</string>
-  <string name="GroupCreateActivity_contacts_dont_support_push">Heu seleccionat un contacte que no pot gestionar els grups del Signal, per tant aquest grup serà per MMS.</string>
-  <string name="GroupCreateActivity_youre_not_registered_for_signal">No esteu registrat per als missatges i les trucades del Signal; per tant, els grups del Signal estan desactivats. Torneu a registrar-vos a Configuració &gt; Avançada.l</string>
-  <string name="GroupCreateActivity_contacts_no_members">Cal almenys una persona al grup.</string>
-  <string name="GroupCreateActivity_contacts_invalid_number">Un dels membres del grup té un número que no es pot llegir correctament. Corregiu-ho o suprimiu aquest contacte i torneu a provar-ho.</string>
-  <string name="GroupCreateActivity_avatar_content_description">Avatar del grup</string>
-  <string name="GroupCreateActivity_menu_apply_button">Aplica</string>
-  <string name="GroupCreateActivity_creating_group">Es crea %1$s…</string>
-  <string name="GroupCreateActivity_updating_group">S\'actualitza %1$s…</string>
-  <string name="GroupCreateActivity_cannot_add_non_push_to_existing_group">No s\'ha pogut afegir %1$s perquè no és un usuari de Signal.</string>
-  <string name="GroupCreateActivity_loading_group_details">Es carreguen els detalls del grup…</string>
-  <string name="GroupCreateActivity_youre_already_in_the_group">Ja sou dins del grup.</string>
-  <string name="GroupCreateActivity_remove_member_description">Suprimeix el membre</string>
+  <!--AddToGroupActivity-->
+  <string name="AddToGroupActivity_add_member">Voleu afegir el membre?</string>
+  <string name="AddToGroupActivity_add_s_to_s">Voleu afegir \"%1$s\" a \"%2$s\"?</string>
+  <string name="AddToGroupActivity_s_added_to_s">\"%1$s\" s\'ha afegit a \"%2$s\".</string>
+  <string name="AddToGroupActivity_add_to_group">Afegeix-lo al grup</string>
+  <string name="AddToGroupActivity_add_to_groups">Afegeix-lo als grups</string>
   <!--GroupShareProfileView-->
   <string name="GroupShareProfileView_share_your_profile_name_and_photo_with_this_group">Voleu compartir el nom i la foto del perfil amb aquest grup?</string>
   <string name="GroupShareProfileView_do_you_want_to_make_your_profile_name_and_photo_visible_to_all_current_and_future_members_of_this_group">Voleu que el nom i la foto del perfil siguin visibles a tots els membres actuals i futurs d\'aquest grup?</string>
@@ -414,8 +402,15 @@
     <item quantity="one">Error en cancel·lar la invitació</item>
     <item quantity="other">Error en cancel·lar les invitacions</item>
   </plurals>
+  <!--AddMembersActivity-->
+  <string name="AddMembersActivity__done">Fet</string>
+  <plurals name="AddMembersActivity__add_d_members_to_s">
+    <item quantity="one">Voleu afegir %1$s a \"%2$s\"?</item>
+    <item quantity="other">Voleu afegir %3$d membres a \"%2$s\"?</item>
+  </plurals>
   <!--AddGroupDetailsFragment-->
   <string name="AddGroupDetailsFragment__name_this_group">Poseu un nom al grup</string>
+  <string name="AddGroupDetailsFragment__create_group">Crear un grup</string>
   <string name="AddGroupDetailsFragment__create">Crea</string>
   <string name="AddGroupDetailsFragment__members">Membres</string>
   <string name="AddGroupDetailsFragment__group_name_required">Nom de grup (necessari)</string>
@@ -433,6 +428,7 @@
   <string name="ManageGroupActivity_who_can_edit_group_membership">Qui pot editar els membres del grup</string>
   <string name="ManageGroupActivity_who_can_edit_group_info">Qui pot editar la informació del grup</string>
   <string name="ManageGroupActivity_block_group">Bloca el grup</string>
+  <string name="ManageGroupActivity_unblock_group">Desbloca el grup</string>
   <string name="ManageGroupActivity_leave_group">Abandona el grup</string>
   <string name="ManageGroupActivity_mute_notifications">Silencia les notificacions</string>
   <string name="ManageGroupActivity_custom_notifications">Notificacions personalitzades</string>
@@ -447,6 +443,10 @@
     <item quantity="one">%d convidat</item>
     <item quantity="other">%d convidats</item>
   </plurals>
+  <plurals name="ManageGroupActivity_added">
+    <item quantity="one">%d membre afegit</item>
+    <item quantity="other">%d membres afegits</item>
+  </plurals>
   <string name="ManageGroupActivity_you_dont_have_the_rights_to_do_this">No teniu permís per fer això.</string>
   <string name="ManageGroupActivity_not_capable">Algú que heu afegit no admet grups nous i cal que actualitzi el Signal.</string>
   <string name="ManageGroupActivity_failed_to_update_the_group">Ha fallat actualitzar el grup.</string>
@@ -454,6 +454,30 @@
   <string name="ManageGroupActivity_edit_name_and_picture">Editeu el nom i la imatge</string>
   <string name="GroupManagement_choose_who_can_add_or_invite_new_members">Trieu qui pot afegir-hi o convidar-hi membres nous.</string>
   <string name="GroupManagement_choose_who_can_change_the_group_name_and_photo">Trieu qui pot canviar el nom i la imatge del grup.</string>
+  <!--ManageRecipientActivity-->
+  <string name="ManageRecipientActivity_disappearing_messages">Missatges efímers</string>
+  <string name="ManageRecipientActivity_chat_color">Color del xat</string>
+  <string name="ManageRecipientActivity_block">Bloca</string>
+  <string name="ManageRecipientActivity_unblock">Desbloca</string>
+  <string name="ManageRecipientActivity_view_safety_number">Mostra el número de seguretat</string>
+  <string name="ManageRecipientActivity_mute_notifications">Silencia les notificacions</string>
+  <string name="ManageRecipientActivity_custom_notifications">Notificacions personalitzades</string>
+  <string name="ManageRecipientActivity_until_s">Fins a %1$s</string>
+  <string name="ManageRecipientActivity_off">Inactiu</string>
+  <string name="ManageRecipientActivity_on">Actiu</string>
+  <string name="ManageRecipientActivity_add_to_a_group">Afegeix-lo a un grup</string>
+  <string name="ManageRecipientActivity_view_all_groups">Mostra tots els grups</string>
+  <string name="ManageRecipientActivity_see_all">Mostra-ho tot</string>
+  <string name="ManageRecipientActivity_no_groups_in_common">No hi ha grups en comú.</string>
+  <plurals name="ManageRecipientActivity_d_groups_in_common">
+    <item quantity="one">%d grup en comú</item>
+    <item quantity="other">%d grups en comú</item>
+  </plurals>
+  <string name="ManageRecipientActivity_edit_name_and_picture">Editeu el nom i la imatge</string>
+  <string name="ManageRecipientActivity_message_description">Missatge</string>
+  <string name="ManageRecipientActivity_voice_call_description">Trucada de veu</string>
+  <string name="ManageRecipientActivity_insecure_voice_call_description">Trucada de veu no segura</string>
+  <string name="ManageRecipientActivity_video_call_description">Trucada de vídeo</string>
   <plurals name="GroupMemberList_invited">
     <item quantity="one">%1$s ha convidat 1 persona</item>
     <item quantity="other">%1$s ha convidat %2$d persones</item>
@@ -464,6 +488,11 @@
   <string name="CustomNotificationsDialogFragment__use_custom_notifications">Usa notificacions personalitzades</string>
   <string name="CustomNotificationsDialogFragment__notification_sound">So de notificació</string>
   <string name="CustomNotificationsDialogFragment__vibrate">Vibra</string>
+  <string name="CustomNotificationsDialogFragment__call_settings">Configuració de les trucades</string>
+  <string name="CustomNotificationsDialogFragment__ringtone">To de trucada</string>
+  <string name="CustomNotificationsDialogFragment__enabled">Activat</string>
+  <string name="CustomNotificationsDialogFragment__disabled">Desactivat</string>
+  <string name="CustomNotificationsDialogFragment__default">Per defecte</string>
   <!--GV2 Invite cancellation confirmation-->
   <string name="GroupManagement_cancel_own_single_invite">Voleu cancel·lar la invitació que heu enviat a %1$s?</string>
   <plurals name="GroupManagement_cancel_others_invites">
@@ -473,8 +502,6 @@
   <!--CropImageActivity-->
   <string name="CropImageActivity_group_avatar">Avatar del grup</string>
   <string name="CropImageActivity_profile_avatar">Avatar</string>
-  <!--ImageEditorFragment-->
-  <!-- Removed by excludeNonTranslatables <string name="ImageEditorFragment_no_faces_detected">No s\'ha detectat cap cara.</string> -->
   <!--ImageEditorHud-->
   <string name="ImageEditorHud_blur_faces">Esfuma les cares</string>
   <string name="ImageEditorHud_new_blur_faces_or_draw_anywhere_to_blur">Nou: s\'esfumen les cares o dibuixeu a qualsevol lloc per esfumar-lo.</string>
@@ -507,9 +534,6 @@
   <string name="Job_working_in_the_background">Es treballa en segon pla…</string>
   <!--LearnMoreTextView-->
   <string name="LearnMoreTextView_learn_more">Més informació</string>
-  <!--MessageDetailsRecipient-->
-  <string name="MessageDetailsRecipient_failed_to_send">No s\'ha pogut enviar.</string>
-  <string name="MessageDetailsRecipient_new_safety_number">Número de seguretat nou</string>
   <!--LongMessageActivity-->
   <string name="LongMessageActivity_unable_to_find_message">No s\'ha pogut trobar el missatge</string>
   <string name="LongMessageActivity_message_from_s">Missatge de %1$s</string>
@@ -686,11 +710,11 @@
   <string name="MessageRequestBottomView_delete">Suprimeix</string>
   <string name="MessageRequestBottomView_block">Bloca</string>
   <string name="MessageRequestBottomView_unblock">Desbloca</string>
-  <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_they_wont_know_youve_seen_their_messages_until_you_accept">Voleu permetre que %1$s us enviï missatges? No sabrà que heu vist els seus missatges fins que no ho accepteu.</string>
-  <string name="MessageRequestBottomView_do_you_want_to_join_the_group_s_they_wont_know_youve_seen_their_messages_until_you_accept">Voleu afegir-vos al grup %1$s? No sabran que heu vist els missatges fins que no ho accepteu.</string>
+  <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_they_wont_know_youve_seen_their_messages_until_you_accept">Voleu permetre que %1$s us envii missatges i compartir-hi el nom i la fotografia? No sabran que heu vist el missatge fins que no ho accepteu.</string>
+  <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them">Voleu permetre que %1$s us envii missatges i compartir-hi el nom i la fotografia? No rebreu cap missatge fins que no el desbloqueu.</string>
+  <string name="MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Voleu afegir-vos a aquest grup i compartir el nom i la fotografia amb els seus membres? No sabran que heu vist els seus missatges fins que no ho accepteu.</string>
   <string name="MessageRequestBottomView_you_were_invited_to_join_the_group_s">Se us ha convidat a afegir-vos al grup %1$s. Voleu permetre que els membres d\'aquest grup us enviïn missatges?</string>
-  <string name="MessageRequestBottomView_unblock_s_to_message_and_call_each_other">Desbloqueu %1$s per poder trucar-vos i enviar-vos missatges.</string>
-  <string name="MessageRequestBottomView_unblock_to_allow_group_members_to_add_you_to_this_group_again">Desbloqueu-lo per permetre que els membres del grup us hi puguin afegir un altre cop.</string>
+  <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">Voleu desblocar aquest grup i compartir el nom i la fotografia amb els seus membres? No rebreu cap missatge fins que no el desbloqueu.</string>
   <string name="MessageRequestProfileView_member_of_one_group">Membre de %1$s</string>
   <string name="MessageRequestProfileView_member_of_two_groups">Membre de %1$s i %2$s</string>
   <string name="MessageRequestProfileView_member_of_many_groups">Membre de %1$s, %2$s i %3$s</string>
@@ -712,7 +736,6 @@
   <string name="PassphraseChangeActivity_enter_new_passphrase_exclamation">Escriviu la contrasenya nova.</string>
   <!--DeviceProvisioningActivity-->
   <string name="DeviceProvisioningActivity_link_this_device">Voleu enllaçar aquest dispositiu?</string>
-  <string name="DeviceProvisioningActivity_cancel">CANCEL·LA</string>
   <string name="DeviceProvisioningActivity_continue">CONTINUA</string>
   <string name="DeviceProvisioningActivity_content_intro">Podrà</string>
   <string name="DeviceProvisioningActivity_content_bullets">
@@ -829,6 +852,7 @@ especificat (%s) no és vàlid.</string>
   <string name="RegistrationActivity_more_information">Més informació</string>
   <string name="RegistrationActivity_less_information">Menys informació</string>
   <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">El Molly necessita accés als contactes i als continguts multimèdia per tal de connectar amb amistats, intercanviar-hi missatges i fer trucades amb seguretat.</string>
+  <string name="RegistrationActivity_rate_limited_to_service">Heu fet massa intents per registrar aquest número. Si us plau, torneu-ho a provar més tard.</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">No es pot connectar al servei. Si us plau, comproveu la connexió de xarxa i torneu-ho a provar.</string>
   <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">Per verificar fàcilment el número de telèfon, el Molly pot detectar automàticament el codi de verificació si permeteu que vegi els missatges d\'SMS.</string>
   <plurals name="RegistrationActivity_debug_log_hint">
@@ -923,7 +947,6 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="SubmitDebugLogActivity_success">Acabat!</string>
   <string name="SubmitDebugLogActivity_copy_this_url_and_add_it_to_your_issue">Copieu aquest URL i afegiu-lo a l\'informe d\'error o al correu electrònic de suport:\n\n<b>%1$s</b></string>
   <string name="SubmitDebugLogActivity_copied_to_clipboard">Copiat al porta-retalls</string>
-  <string name="SubmitDebugLogActivity_ok">D\'acord</string>
   <string name="SubmitDebugLogActivity_share">Comparteix</string>
   <!--SupportEmailUtil-->
   <string name="SupportEmailUtil_subject">Assumpte:</string>
@@ -959,6 +982,12 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="ThreadRecord_message_request">Petició de missatge</string>
   <string name="ThreadRecord_s_added_you_to_the_group">%1$s us ha afegit al grup.</string>
   <string name="ThreadRecord_s_invited_you_to_the_group">%1$s us ha convidat al grup.</string>
+  <string name="ThreadRecord_photo">Foto</string>
+  <string name="ThreadRecord_gif">GIF</string>
+  <string name="ThreadRecord_voice_message">Missatge de veu</string>
+  <string name="ThreadRecord_contact">Contacte</string>
+  <string name="ThreadRecord_file">Fitxer</string>
+  <string name="ThreadRecord_video">Vídeo</string>
   <!--UpdateApkReadyListener-->
   <string name="UpdateApkReadyListener_Signal_update">Actualització del Signal</string>
   <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Hi ha disponible una versió nova del Signal. Toqueu per actualitzar-lo</string>
@@ -984,7 +1013,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="UsernameEditFragment_encountered_a_network_error">Hi ha hagut un error de xarxa.</string>
   <string name="UsernameEditFragment_this_username_is_taken">Aquest nom d\'usuari ja està agafat.</string>
   <string name="UsernameEditFragment_this_username_is_available">Aquest nom d\'usuari està disponible.</string>
-  <string name="UsernameEditFragment_usernames_can_only_include">Els noms d\'usuari només poden incloure a-z, 0-9 i _.</string>
+  <string name="UsernameEditFragment_usernames_can_only_include">Els noms d\'usuari solo poden incloure a-z, 0-9 i _.</string>
   <string name="UsernameEditFragment_usernames_cannot_begin_with_a_number">Els noms d\'usuari no poden començar amb un número.</string>
   <string name="UsernameEditFragment_username_is_invalid">El nom d\'usuari no és vàlid.</string>
   <string name="UsernameEditFragment_usernames_must_be_between_a_and_b_characters">Els noms d\'usuari han de tenir entre %1$d i %2$d caràcters.</string>
@@ -1178,6 +1207,11 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <!--contact_selection_list_fragment-->
   <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">El Molly necessita accés als contactes per tal de mostrar-los.</string>
   <string name="contact_selection_list_fragment__show_contacts">Mostra els contactes</string>
+  <!--contact_selection_list_item-->
+  <plurals name="contact_selection_list_item__number_of_members">
+    <item quantity="one">%1$d membre</item>
+    <item quantity="other">%1$d membres</item>
+  </plurals>
   <!--conversation_activity-->
   <string name="conversation_activity__type_message_push">Missatge del Signal</string>
   <string name="conversation_activity__type_message_sms_insecure">SMS no segur</string>
@@ -1192,6 +1226,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="conversation_activity__quick_attachment_drawer_record_and_send_audio_description">Enregistra i envia un àudio adjunt</string>
   <string name="conversation_activity__quick_attachment_drawer_lock_record_description">Bloqueja la gravació d\'un adjunt d\'àudio</string>
   <string name="conversation_activity__enable_signal_for_sms">Activa el Signal per als SMS</string>
+  <string name="conversation_activity__message_could_not_be_sent">No s\'ha pogut enviar el missatge. Comproveu la connexió i torneu-ho a provar.</string>
   <!--conversation_input_panel-->
   <string name="conversation_input_panel__slide_to_cancel">Llisqueu per cancel·lar-ho</string>
   <string name="conversation_input_panel__cancel">Cancel·la</string>
@@ -1219,6 +1254,12 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="QuoteView_original_missing">No s\'ha trobat el missatge original.</string>
   <!--conversation_fragment-->
   <string name="conversation_fragment__scroll_to_the_bottom_content_description">Desplaça al final</string>
+  <!--safety_number_change_dialog-->
+  <string name="safety_number_change_dialog__safety_number_changes">Canvis en el número de seguretat</string>
+  <string name="safety_number_change_dialog__send_anyway">Envia\'l tanmateix</string>
+  <string name="safety_number_change_dialog__the_following_people_may_have_reinstalled_or_changed_devices">Aquesta gent podria haver reinstallar o dispositius canviats. Comproveu vostre número de seguretat amb ells, per assegurar la privadesa.</string>
+  <string name="safety_number_change_dialog__view">Mostra</string>
+  <string name="safety_number_change_dialog__previous_verified">Verificat prèviament</string>
   <!--country_selection_fragment-->
   <string name="country_selection_fragment__loading_countries">Es carreguen els països…</string>
   <string name="country_selection_fragment__search">Cerca</string>
@@ -1339,19 +1380,6 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="EditProfileFragment__group_name">Nom del grup</string>
   <!--recipient_preferences_activity-->
   <string name="recipient_preference_activity__shared_media">Contingut compartit</string>
-  <!--recipient_preferences-->
-  <string name="recipient_preferences__mute_conversation">Silencia la conversa</string>
-  <string name="recipient_preferences__custom_notifications">Notificacions personalitzades</string>
-  <string name="recipient_preferences__custom_notifications_settings">Paràmetres de les notificacions de sistema</string>
-  <string name="recipient_preferences__notification_sound">So de notificació</string>
-  <string name="recipient_preferences__vibrate">Vibra</string>
-  <string name="recipient_preferences__block">Bloca</string>
-  <string name="recipient_preferences__color">Color</string>
-  <string name="recipient_preferences__view_safety_number">Mostra el número de seguretat</string>
-  <string name="recipient_preferences__chat_settings">Configuració del xat</string>
-  <string name="recipient_preferences__privacy">Privadesa</string>
-  <string name="recipient_preferences__call_settings">Configuració de les trucades</string>
-  <string name="recipient_preferences__ringtone">To de trucada</string>
   <!--- redphone_call_controls-->
   <string name="redphone_call_card__signal_call">Trucada del Signal</string>
   <!--registration_activity-->
@@ -1383,9 +1411,16 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="message_details_header__received">Rebut</string>
   <string name="message_details_header__disappears">Desapareix</string>
   <string name="message_details_header__via">Per</string>
-  <string name="message_details_header__to">A:</string>
-  <string name="message_details_header__from">De:</string>
-  <string name="message_details_header__with">Amb:</string>
+  <!--message_details_recipient_header-->
+  <string name="message_details_recipient_header__pending_send">Pendent</string>
+  <string name="message_details_recipient_header__sent_to">Enviat a</string>
+  <string name="message_details_recipient_header__sent_from">Enviat per</string>
+  <string name="message_details_recipient_header__delivered_to">Lliurat a</string>
+  <string name="message_details_recipient_header__read_by">Llegit per</string>
+  <string name="message_details_recipient_header__not_sent">No enviat</string>
+  <!--message_Details_recipient-->
+  <string name="message_details_recipient__failed_to_send">No s\'ha pogut enviar.</string>
+  <string name="message_details_recipient__new_safety_number">Número de seguretat nou</string>
   <!--AndroidManifest.xml-->
   <string name="AndroidManifest__create_passphrase">Crea una contrasenya</string>
   <string name="AndroidManifest__select_contacts">Seleccioneu els contactes</string>
@@ -1590,6 +1625,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <!--****************************************-->
   <!--contact_selection_list-->
   <string name="contact_selection_list__unknown_contact">Missatge nou per a…</string>
+  <string name="contact_selection_list__unknown_contact_add_to_group">Afegeix-lo al grup</string>
   <!--conversation_callable_insecure-->
   <string name="conversation_callable_insecure__menu_call">Truca</string>
   <!--conversation_callable_secure-->
@@ -1814,13 +1850,6 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="KbsMegaphone__update_pin">Actualitza el PIN</string>
   <string name="KbsMegaphone__well_remind_you_later_creating_a_pin">Us ho recordarem més tard. Crear un PIN serà obligatori d\'aquí a %1$d dies.</string>
   <string name="KbsMegaphone__well_remind_you_later_confirming_your_pin">Us ho recordarem més tard. Confirmar el PIN serà obligatori d\'aquí a %1$d dies.</string>
-  <!--Profile Names Megaphone-->
-  <string name="ProfileNamesMegaphone__add_a_profile_name">Afegiu un nom de perfil</string>
-  <string name="ProfileNamesMegaphone__this_will_be_displayed_when_you_start">Es mostrarà quan inicieu una conversa nova o la compartiu.</string>
-  <string name="ProfileNamesMegaphone__add_profile_name">Afegiu un nom de perfil</string>
-  <string name="ProfileNamesMegaphone__confirm_your_profile_name">Confirmeu el nom de perfil</string>
-  <string name="ProfileNamesMegaphone__your_profile_can_now_include">El perfil ara pot incloure un cognom addicional.</string>
-  <string name="ProfileNamesMegaphone__confirm_name">Confirmeu el nom</string>
   <!--transport_selection_list_item-->
   <string name="transport_selection_list_item__transport_icon">Icona de trànsit</string>
   <string name="ConversationListFragment_loading">Es carrega…</string>
@@ -1938,18 +1967,24 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="recipient_preferences__about">Quant a</string>
   <string name="Recipient_unknown">Desconegut</string>
   <!--RecipientBottomSheet-->
-  <string name="RecipientBottomSheet_message">Missatge</string>
-  <string name="RecipientBottomSheet_call">Truca</string>
   <string name="RecipientBottomSheet_block">Bloca</string>
   <string name="RecipientBottomSheet_unblock">Desbloca</string>
+  <string name="RecipientBottomSheet_add_to_contacts">Afegeix als contactes</string>
+  <string name="RecipientBottomSheet_add_to_a_group">Afegeix-lo a un grup</string>
+  <string name="RecipientBottomSheet_add_to_another_group">Afegeix-lo a un altre grup</string>
   <string name="RecipientBottomSheet_view_safety_number">Mostra el número de seguretat</string>
   <string name="RecipientBottomSheet_make_group_admin">Fes adminstrador/a del grup</string>
   <string name="RecipientBottomSheet_remove_as_admin">Suprimeix com a administrador/a</string>
   <string name="RecipientBottomSheet_remove_from_group">Suprimeix del grup</string>
+  <string name="RecipientBottomSheet_message_description">Missatge</string>
+  <string name="RecipientBottomSheet_voice_call_description">Trucada de veu</string>
+  <string name="RecipientBottomSheet_insecure_voice_call_description">Trucada de veu no segura</string>
+  <string name="RecipientBottomSheet_video_call_description">Trucada de vídeo</string>
   <string name="RecipientBottomSheet_remove_s_as_group_admin">Voleu suprimir %1$s com a administrador/a del grup?</string>
   <string name="RecipientBottomSheet_s_will_be_able_to_edit_group">%1$s podrà editar aquest grup i els seus membres.</string>
   <string name="RecipientBottomSheet_remove_s_from_s">Voleu suprimir %1$s de \"%2$s\"?</string>
   <string name="RecipientBottomSheet_remove">Suprimeix</string>
+  <string name="RecipientBottomSheet_copied_to_clipboard">Copiat al porta-retalls</string>
   <string name="GroupRecipientListItem_admin">Administrador/a</string>
   <!--EOF-->
 </resources>
