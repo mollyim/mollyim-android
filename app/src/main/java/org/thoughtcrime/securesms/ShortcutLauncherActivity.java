@@ -13,7 +13,7 @@ import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.util.CommunicationActions;
 
-public class ShortcutLauncherActivity extends AppCompatActivity {
+public class ShortcutLauncherActivity extends PassphraseRequiredActivity {
 
   private static final String KEY_RECIPIENT = "recipient_id";
 
@@ -26,9 +26,7 @@ public class ShortcutLauncherActivity extends AppCompatActivity {
   }
 
   @Override
-  protected void onCreate(@Nullable Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-
+  protected void onCreate(@Nullable Bundle savedInstanceState, boolean ready) {
     String rawId = getIntent().getStringExtra(KEY_RECIPIENT);
 
     if (rawId == null) {
