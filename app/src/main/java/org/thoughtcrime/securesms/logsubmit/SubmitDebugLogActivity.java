@@ -1,5 +1,6 @@
 package org.thoughtcrime.securesms.logsubmit;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
@@ -113,7 +114,7 @@ public class SubmitDebugLogActivity extends BaseActivity implements SubmitDebugL
 
     switch (item.getItemId()) {
       case android.R.id.home:
-        finish();
+        onBackPressed();
         return true;
       case R.id.menu_edit_log:
         viewModel.onEditButtonPressed();
@@ -129,6 +130,10 @@ public class SubmitDebugLogActivity extends BaseActivity implements SubmitDebugL
   @Override
   public void onBackPressed() {
     if (!viewModel.onBackPressed()) {
+      final Intent nextIntent = getIntent().getParcelableExtra("next_intent");
+      if (nextIntent != null) {
+        startActivity(nextIntent);
+      }
       super.onBackPressed();
     }
   }

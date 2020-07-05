@@ -22,6 +22,9 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import android.os.CountDownTimer;
 import android.text.SpannableString;
@@ -118,8 +121,13 @@ public class PassphrasePromptActivity extends PassphraseActivity {
   }
 
   private void handleLogSubmit() {
-    Intent intent = new Intent(this, SubmitDebugLogActivity.class);
-    startActivity(intent);
+    final Intent intent = new Intent(this, SubmitDebugLogActivity.class);
+    startActivity(chainIntents(intent, getIntent().getParcelableExtra("next_intent")));
+  }
+
+  private static Intent chainIntents(@NonNull Intent sourceIntent, @Nullable Intent nextIntent) {
+    if (nextIntent != null) sourceIntent.putExtra("next_intent", nextIntent);
+    return sourceIntent;
   }
 
   private void handlePassphrase() {
