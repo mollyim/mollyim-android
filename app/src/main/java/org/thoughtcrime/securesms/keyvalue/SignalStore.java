@@ -12,7 +12,7 @@ import org.thoughtcrime.securesms.logging.SignalUncaughtExceptionHandler;
  */
 public final class SignalStore {
 
-  private static final SignalStore INSTANCE = new SignalStore();
+  private static SignalStore instance;
 
   private final KeyValueStore        store;
   private final KbsValues            kbsValues;
@@ -36,6 +36,17 @@ public final class SignalStore {
     this.misc                 = new MiscellaneousValues(store);
   }
 
+  public static SignalStore getInstance() {
+    if (instance == null) {
+      synchronized (SignalStore.class) {
+        if (instance == null) {
+          instance = new SignalStore();
+        }
+      }
+    }
+    return instance;
+  }
+
   public static void onFirstEverAppLaunch() {
     kbsValues().onFirstEverAppLaunch();
     registrationValues().onFirstEverAppLaunch();
@@ -48,35 +59,35 @@ public final class SignalStore {
   }
 
   public static @NonNull KbsValues kbsValues() {
-    return INSTANCE.kbsValues;
+    return getInstance().kbsValues;
   }
 
   public static @NonNull RegistrationValues registrationValues() {
-    return INSTANCE.registrationValues;
+    return getInstance().registrationValues;
   }
 
   public static @NonNull PinValues pinValues() {
-    return INSTANCE.pinValues;
+    return getInstance().pinValues;
   }
 
   public static @NonNull RemoteConfigValues remoteConfigValues() {
-    return INSTANCE.remoteConfigValues;
+    return getInstance().remoteConfigValues;
   }
 
   public static @NonNull StorageServiceValues storageServiceValues() {
-    return INSTANCE.storageServiceValues;
+    return getInstance().storageServiceValues;
   }
 
   public static @NonNull UiHints uiHints() {
-    return INSTANCE.uiHints;
+    return getInstance().uiHints;
   }
 
   public static @NonNull TooltipValues tooltips() {
-    return INSTANCE.tooltipValues;
+    return getInstance().tooltipValues;
   }
 
   public static @NonNull MiscellaneousValues misc() {
-    return INSTANCE.misc;
+    return getInstance().misc;
   }
 
   public static @NonNull GroupsV2AuthorizationSignalStoreCache groupsV2AuthorizationCache() {
@@ -96,6 +107,6 @@ public final class SignalStore {
   }
 
   private static @NonNull KeyValueStore getStore() {
-    return INSTANCE.store;
+    return getInstance().store;
   }
 }
