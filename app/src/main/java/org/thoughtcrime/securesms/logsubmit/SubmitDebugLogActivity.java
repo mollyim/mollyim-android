@@ -130,11 +130,12 @@ public class SubmitDebugLogActivity extends BaseActivity implements SubmitDebugL
   @Override
   public void onBackPressed() {
     if (!viewModel.onBackPressed()) {
+      super.onBackPressed();
       final Intent nextIntent = getIntent().getParcelableExtra("next_intent");
       if (nextIntent != null) {
         startActivity(nextIntent);
       }
-      super.onBackPressed();
+      finish();
     }
   }
 
