@@ -18,15 +18,17 @@ RUN yes | sdkmanager  --licenses
 
 ENV ANDROID_API_LEVELS android-28
 ENV ANDROID_BUILD_TOOLS_VERSION 28.0.3
-ENV ANDROID_NDK_VERSION 21.2.6472646
 
 RUN sdkmanager \
     "platform-tools" \
     "build-tools;${ANDROID_BUILD_TOOLS_VERSION}" \
     "platforms;${ANDROID_API_LEVELS}" \
-    "ndk;${ANDROID_NDK_VERSION}" \
     "extras;google;m2repository" \
     "extras;android;m2repository"
+
+ENV ANDROID_NDK_VERSION 21.3.6528147
+
+RUN sdkmanager "ndk;${ANDROID_NDK_VERSION}"
 
 COPY . /molly
 WORKDIR /molly
