@@ -141,7 +141,7 @@ android {
         buildConfigField "String", "KBS_MRENCLAVE", "\"a3baab19ef6ce6f34ab9ebb25ba722725ae44a8872dc0ff08ad6d83a9489de87\""
         buildConfigField "String[]", "LANGUAGES", "new String[]{\"" + autoResConfig().collect { s -> s.replace('-r', '_') }.join('", "') + '"}'
         buildConfigField "int", "CANONICAL_VERSION_CODE", "$canonicalVersionCode"
-        buildConfigField "String", "CANONICAL_VERSION_NAME", "\"$canonicalVersionCode\""
+        buildConfigField "String", "CANONICAL_VERSION_NAME", "\"$canonicalVersionName\""
 
         ndk {
             abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86_64'
