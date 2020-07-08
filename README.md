@@ -9,7 +9,7 @@
 
 Back in 2018, Signal allowed the user to set a passphrase to secure the local message database. But this option was removed with the introduction of full-disk encryption on Android. Molly brings it back again with additional security features.
 
-Molly is updated every two weeks to include the latest Signal changes and bug fixes.
+Molly is updated every three weeks to include the latest Signal changes and bug fixes.
 
 ## Download
 
@@ -38,7 +38,7 @@ However, you cannot use the same phone number on both apps at the same time. Onl
 
 ## Backups
 
-Backups are fully compatible. Signal's [backups](https://support.signal.org/hc/en-us/articles/360007059752-Backup-and-Restore-Messages) can be restored in Molly, and the other way around. To do that, simply rename the backup file and copy it into the expected path, so the app can find the backup to restore during installation.
+Backups are fully compatible. Signal [backups](https://support.signal.org/hc/en-us/articles/360007059752-Backup-and-Restore-Messages) can be restored in Molly and the other way around. To do that, simply rename the backup file and copy it into the expected path, so the app can find the backup to restore during installation.
 
 The path within internal storage where backups are written by Signal:
 - `Signal/Backups/Signal-year-month-date-time.backup`
