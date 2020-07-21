@@ -23,6 +23,8 @@ import java.util.UUID;
 
 public final class DecryptedGroupUtil {
 
+  static final int MAX_CHANGE_FIELD = 14;
+
   public static Set<UUID> toUuidSet(Collection<DecryptedMember> membersList) {
     HashSet<UUID> uuids = new HashSet<>(membersList.size());
 
@@ -48,6 +50,16 @@ public final class DecryptedGroupUtil {
 
     for (DecryptedMember member : membersList) {
       uuidList.add(toUuid(member));
+    }
+
+    return uuidList;
+  }
+
+  public static Set<ByteString> membersToUuidByteStringSet(Collection<DecryptedMember> membersList) {
+    Set<ByteString> uuidList = new HashSet<>(membersList.size());
+
+    for (DecryptedMember member : membersList) {
+      uuidList.add(member.getUuid());
     }
 
     return uuidList;
@@ -185,6 +197,12 @@ public final class DecryptedGroupUtil {
       throw new NotAbleToApplyChangeException();
     }
 
+    return applyWithoutRevisionCheck(group, change);
+  }
+
+  public static DecryptedGroup applyWithoutRevisionCheck(DecryptedGroup group, DecryptedGroupChange change)
+      throws NotAbleToApplyChangeException
+  {
     DecryptedGroup.Builder builder = DecryptedGroup.newBuilder(group);
 
     builder.addAllMembers(change.getNewMembersList());
@@ -216,7 +234,7 @@ public final class DecryptedGroupUtil {
         throw new NotAbleToApplyChangeException();
       }
 
-      builder.setMembers(index, modifyProfileKey);
+      builder.setMembers(index, DecryptedMember.newBuilder(builder.getMembers(index)).setProfileKey(modifyProfileKey.getProfileKey()).build());
     }
 
     for (DecryptedPendingMemberRemoval removedMember : change.getDeletePendingMembersList()) {
@@ -266,7 +284,20 @@ public final class DecryptedGroupUtil {
              .build());
     }
 
+    removePendingMembersNowInGroup(builder);
+
     return builder.setRevision(change.getRevision()).build();
+  }
+
+  static void removePendingMembersNowInGroup(DecryptedGroup.Builder builder) {
+    Set<ByteString> allMembers = membersToUuidByteStringSet(builder.getMembersList());
+
+    for (int i = builder.getPendingMembersCount() - 1; i >= 0; i--) {
+      DecryptedPendingMember pendingMember = builder.getPendingMembers(i);
+      if (allMembers.contains(pendingMember.getUuid())) {
+        builder.removePendingMembers(i);
+      }
+    }
   }
 
   private static int indexOfUuid(List<DecryptedMember> memberList, ByteString uuid) {
@@ -280,6 +311,29 @@ public final class DecryptedGroupUtil {
     return Optional.fromNullable(findPendingByUuid(pendingMembersList, uuid).transform(DecryptedPendingMember::getAddedByUuid)
                                                                             .transform(UuidUtil::fromByteStringOrNull)
                                                                             .orNull());
+  }
+
+  public static boolean changeIsEmpty(DecryptedGroupChange change) {
+    return change.getModifiedProfileKeysCount()   == 0 && // field 6
+           changeIsEmptyExceptForProfileKeyChanges(change);
+  }
+
+  public static boolean changeIsEmptyExceptForProfileKeyChanges(DecryptedGroupChange change) {
+    return change.getNewMembersCount()            == 0 && // field 3
+           change.getDeleteMembersCount()         == 0 && // field 4
+           change.getModifyMemberRolesCount()     == 0 && // field 5
+           change.getNewPendingMembersCount()     == 0 && // field 7
+           change.getDeletePendingMembersCount()  == 0 && // field 8
+           change.getPromotePendingMembersCount() == 0 && // field 9
+           !change.hasNewTitle()                       && // field 10
+           !change.hasNewAvatar()                      && // field 11
+           !change.hasNewTimer()                       && // field 12
+           isSet(change.getNewAttributeAccess())       && // field 13
+           isSet(change.getNewMemberAccess());            // field 14
+  }
+
+  static boolean isSet(AccessControl.AccessRequired newAttributeAccess) {
+    return newAttributeAccess == AccessControl.AccessRequired.UNKNOWN;
   }
 
   public static class NotAbleToApplyChangeException extends Throwable {

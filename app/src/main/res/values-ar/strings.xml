@@ -52,6 +52,7 @@
   <string name="ApplicationPreferencesActivity_privacy_summary">إقفال الشاشة %1$s، إنهاء التسجيل %2$s</string>
   <string name="ApplicationPreferencesActivity_privacy_summary_screen_lock">قفل الشاشة %1$s</string>
   <string name="ApplicationPreferencesActivity_appearance_summary">المظهر %1$s، اللغة %2$s</string>
+  <string name="ApplicationPreferencesActivity_pin_created">تم إنشاء الرقم التعريفي الشخصي.</string>
   <!--AppProtectionPreferenceFragment-->
   <plurals name="AppProtectionPreferenceFragment_minutes">
     <item quantity="zero">%d دقيقة</item>
@@ -169,6 +170,7 @@
   <string name="ContactShareEditActivity_type_missing">غير ذلك</string>
   <string name="ContactShareEditActivity_invalid_contact">جهة الاتصال التي تم اختيارها غير صالحة.</string>
   <!--ConversationItem-->
+  <string name="ConversationItem_error_partially_not_delivered">تم الإرسال جزئياً فقط، انقر لمعرفة المزيد</string>
   <string name="ConversationItem_received_key_exchange_message_tap_to_process">تم استلام رسالة تبادل مفاتيح، أنقر للمتابعة.</string>
   <string name="ConversationItem_group_action_left">%1$s تَرك المجموعة.</string>
   <string name="ConversationItem_click_to_approve_unencrypted">فشل الإرسال، انقر للاستعاضة بارسال غير آمن</string>
@@ -183,6 +185,7 @@
   <string name="ConversationItem_download_more">  تحميل المزيد</string>
   <string name="ConversationItem_pending">  معلّق</string>
   <string name="ConversationItem_this_message_was_deleted">تم حذف هذه الرسالة.</string>
+  <string name="ConversationItem_you_deleted_this_message">لقد حذفت هذه الرسالة.</string>
   <!--ConversationActivity-->
   <string name="ConversationActivity_reset_secure_session_question">إعادة ضبط جلسة آمنة؟</string>
   <string name="ConversationActivity_this_may_help_if_youre_having_encryption_problems">سوف يتم الاحتفاظ برسائلك. هذا قد يساعد في حال وجود مشاكل في التشفير بهذه المحادثة.</string>
@@ -310,6 +313,7 @@
   <string name="ConversationFragment_deleting_messages">حذف الرسائل جارٍ…</string>
   <string name="ConversationFragment_delete_for_me">إحذف بالنسبة لي</string>
   <string name="ConversationFragment_delete_for_everyone">إحذف بالنسبة للجميع</string>
+  <string name="ConversationFragment_this_message_will_be_permanently_deleted_for_everyone">سيتم حذف هذه الرسالة لجميع الأعضاء في هذه المحادثة. الجميع سيرى أنك حذفت رسالة.</string>
   <string name="ConversationFragment_quoted_message_not_found">لم يتم العثور على الرسالة الأصلية</string>
   <string name="ConversationFragment_quoted_message_no_longer_available">الرسالة الأصلية لم تعد متوفرة</string>
   <string name="ConversationFragment_failed_to_open_message">فشل في فتح الرسالة</string>
@@ -369,7 +373,6 @@
   <string name="CreateProfileActivity_problem_setting_profile">خطأ في إعداد الملف الشخصي</string>
   <string name="CreateProfileActivity_profile_photo">صورة الملف الشخصي</string>
   <string name="CreateProfileActivity_set_up_your_profile">إعداد الملف الشخصي</string>
-  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">معلوماتك الشخصية محمي باستخدام تشفير التام، ستكون ظاهرة لجهات اتصالك، عندما تقبل أو تبدأ محادثة جديدة، وعندما تنضم إلى مجموعات جديدة.</string>
   <string name="CreateProfileActivity_set_avatar_description">اختيار صورة ملفك الشخصي</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">استخدام التخصيص: %s</string>
@@ -738,6 +741,7 @@
   <string name="MessageRecord_s_disabled_disappearing_messages">قام %1$s بتعطيل الرسائل المختفية.</string>
   <string name="MessageRecord_you_set_disappearing_message_time_to_s">لقد حددت مدّة ظهور الرّسائل قبل اختفائها ب  %1$s.</string>
   <string name="MessageRecord_s_set_disappearing_message_time_to_s">%1$s حدد مدّة ظهور الرّسائل قبل اختفائها ب %2$s.</string>
+  <!--Profile change updates-->
   <!--GV2 specific-->
   <string name="MessageRecord_you_created_the_group">لقد أنشأتَ مجموعة.</string>
   <string name="MessageRecord_group_updated">تم تحديث المجموعة.</string>
@@ -760,6 +764,7 @@
   <string name="MessageRecord_you_revoked_admin_privileges_from_s">لقد قمت بسحب امتيازات المشرف من %1$s .</string>
   <string name="MessageRecord_s_revoked_your_admin_privileges">قام %1$s  بإلغاء امتيازات المشرف الخاصة بك. \"</string>
   <string name="MessageRecord_s_revoked_admin_privileges_from_s">قام %1$s  بإلغاء امتيازات المشرف من %2$s.</string>
+  <string name="MessageRecord_you_are_now_an_admin">أنت الآن هو المشرف.</string>
   <!--GV2 invitations-->
   <string name="MessageRecord_you_invited_s_to_the_group">لقد دعوت %1$s إلى المجموعة.</string>
   <string name="MessageRecord_s_invited_you_to_the_group">دعاك %1$s  إلى المجموعة.</string>
@@ -771,6 +776,7 @@
     <item quantity="many">دعا%1$s%2$dأشخاص للمجموعة.</item>
     <item quantity="other">دعا %1$s%2$dأشخاص للمجموعة.</item>
   </plurals>
+  <string name="MessageRecord_you_were_invited_to_the_group">لقد دُعيت إلى المجموعة.</string>
   <!--GV2 invitation revokes-->
   <plurals name="MessageRecord_you_revoked_invites">
     <item quantity="zero">لقد أبطلت %1$d دعوات للمجموعة.</item>
@@ -782,6 +788,7 @@
   </plurals>
   <string name="MessageRecord_someone_declined_an_invitation_to_the_group">رفض شخص ما دعوة إلى المجموعة.</string>
   <string name="MessageRecord_you_declined_the_invitation_to_the_group">لقد رفضت الدعوة إلى المجموعة.</string>
+  <string name="MessageRecord_your_invitation_to_the_group_was_revoked">لقد أُبطلَت دعوتك إلى المجموعة.</string>
   <!--GV2 invitation acceptance-->
   <string name="MessageRecord_you_accepted_invite">لقد قبلت الدعوة إلى المجموعة.</string>
   <string name="MessageRecord_s_accepted_invite">قبل %1$s  دعوة إلى المجموعة.</string>
@@ -898,6 +905,8 @@
   <string name="PinRestoreLockedFragment_youve_run_out_of_pin_guesses">لقد نفذت تخميناتك لكلمة المرور الرقمية، لكن مازال بوسعك الوصول إلى حسابك على Signal من خلال إنشاء كلمة مرور رقمية جديدة.
 للحفاظ على خصوصيتك وأمن معلوماتك، سيتم استرجاع حسابك لكن  بدون أية معلومات شخصية عن الحساب أو الإعدادات.</string>
   <string name="PinRestoreLockedFragment_create_new_pin">إنشاء رقم تعريف شخصي جديد</string>
+  <!--PinOptOutDialog-->
+  <string name="PinOptOutDialog_warning">تحذير</string>
   <!--RatingManager-->
   <string name="RatingManager_rate_this_app">تقييم التطبيق</string>
   <string name="RatingManager_if_you_enjoy_using_this_app_please_take_a_moment">إذا كنت مستمتع باستخدام التطبيق رجاء مساعدتنا بتقييمه</string>
@@ -1082,6 +1091,7 @@
   <string name="ThreadRecord_view_once_video">فيديو لمشاهدة لمرة واحدة</string>
   <string name="ThreadRecord_view_once_media">وسيط لمشاهدة لمرة واحدة</string>
   <string name="ThreadRecord_this_message_was_deleted">تم حذف هذه الرسالة.</string>
+  <string name="ThreadRecord_you_deleted_this_message">لقد حذفت هذه الرسالة.</string>
   <string name="ThreadRecord_s_is_on_signal">%sمتواجد على Signal !</string>
   <string name="ThreadRecord_disappearing_messages_disabled">الرسائل المختفية غير مفعّلة</string>
   <string name="ThreadRecord_disappearing_message_time_updated_to_s">ضبط توقيت إخفاء الرسائل إلى %s</string>
@@ -1299,7 +1309,6 @@
   <string name="contact_selection_activity__enter_name_or_number">أدخل أسم أو رقم</string>
   <string name="contact_selection_activity__invite_to_signal">ادعُ إلى Signal</string>
   <string name="contact_selection_activity__new_group">مجموعة جديدة</string>
-  <!--temporary for internal testing-->
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">امسح النص الذي ادخلته</string>
   <string name="contact_filter_toolbar__show_keyboard_description">إظهار لوحة المفاتيح</string>
@@ -1372,6 +1381,8 @@
   <!--conversation_fragment-->
   <string name="conversation_fragment__scroll_to_the_bottom_content_description">النزول إلى الأسفل</string>
   <!--safety_number_change_dialog-->
+  <string name="safety_number_change_dialog__safety_number_changes">تغيّرات رقم الأمان</string>
+  <string name="safety_number_change_dialog__the_following_people_may_have_reinstalled_or_changed_devices">هؤلاء الأشخاص قاموا بإعادة تثبيت أو قاموا بتغير أجهزتهم. يرجى تأكيد رقم الأمان معهم لضمان الخصوصية.</string>
   <string name="safety_number_change_dialog__view">معاينة </string>
   <!--country_selection_fragment-->
   <string name="country_selection_fragment__loading_countries">تحميل البلدان جارٍ …</string>
@@ -1767,6 +1778,7 @@
   <string name="preferences_communication__sealed_sender_allow_from_anyone">السماح من أي شخص</string>
   <string name="preferences_communication__sealed_sender_allow_from_anyone_description">تفعيل استقبال الرّسائل من جهة غير معروفة أي ليست من ضمن جهات اتصالك أو لم تشاركها ملفّك الشخصي.</string>
   <string name="preferences_communication__sealed_sender_learn_more">لمعرفة المزيد</string>
+  <!--Internal only preferences-->
   <!--****************************************-->
   <!--menus-->
   <!--****************************************-->
@@ -1920,7 +1932,6 @@
   <string name="CreateKbsPinFragment__create_a_new_pin">إنشاء رقم تعريفي شخصي جديد</string>
   <string name="CreateKbsPinFragment__you_can_choose_a_new_pin_as_long_as_this_device_is_registered">يمكنك تغيير الرقم التعريفي الشخصي في أي وقت طالما بقي هذا الجهاز مسجلا.</string>
   <string name="CreateKbsPinFragment__create_your_pin">إنشاء الرقم التعريفي الشخصي الخاص بك</string>
-  <string name="CreateKbsPinFragment__pins_keep_information_stored_with_signal_encrypted">يمكنك الرقم التعريفي الشخصي من حفظ معلوماتك بشكل مُعمَّى في Signal بحيث يمكنك الوصول إليها وحدك. سوف تتم استعادة حسابك وإعداداتك و جهات اتصالك عند إعادة تثبيت Signal.</string>
   <string name="CreateKbsPinFragment__choose_a_stronger_pin">اختر رقما تعريفيا شخصيا أمتن.</string>
   <!--ConfirmKbsPinFragment-->
   <string name="ConfirmKbsPinFragment__pins_dont_match">الأرقام التعريفية الشخصية غير متطابقة. يرجى المحاولة ثانية.</string>
@@ -1932,13 +1943,13 @@
   <string name="ConfirmKbsPinFragment__creating_pin">جاري إنشاء الرقم التعريفي الشخصي</string>
   <!--KbsSplashFragment-->
   <string name="KbsSplashFragment__introducing_pins">نقدم لكم الأرقام التعريفية الشخصية أو PINs</string>
-  <string name="KbsSplashFragment__pins_keep_information_stored_with_signal_encrypted">يمكنك الرقم التعريفي الشخصي من حفظ معلوماتك بشكل مُعمَّى في Signal بحيث يمكنك الوصول إليها وحدك. سوف تتم استعادة حسابك وإعداداتك و جهات اتصالك عند إعادة تثبيت Signal.</string>
   <string name="KbsSplashFragment__learn_more">أعرف أكثر</string>
   <string name="KbsSplashFragment__registration_lock_equals_pin">قفل التسجيل = الرقم التعريفي الشخصي</string>
   <string name="KbsSplashFragment__your_registration_lock_is_now_called_a_pin">قفل التسجيل يسمى الآن رقم التعريف الشخصي، وهو مسؤول عن أشياء أخرى. حدِّثه الآن.</string>
   <string name="KbsSplashFragment__read_more_about_pins">اقرأ المزيد عن الأرقام التعريفية الشخصية.</string>
   <string name="KbsSplashFragment__update_pin">تحديث الرقم التعريفي الشخصي</string>
   <string name="KbsSplashFragment__create_your_pin">إنشاء الرقم التعريفي الشخصي الخاص بك</string>
+  <string name="KbsSplashFragment__learn_more_about_pins">تعرف أكثر على الرقم التعريفي الشخصي</string>
   <!--KBS Reminder Dialog-->
   <string name="KbsReminderDialog__enter_your_signal_pin">أدخل الرقم التعريفي الشخصي ل Signal</string>
   <string name="KbsReminderDialog__to_help_you_memorize_your_pin">لمساعدتك على حفظ  رقم التعريف الشخصي الخاص بك سنطلب منك إعادة إدخاله من حين لآخر. مع مرور الوقت سنطلبه منك مرات أقل.</string>

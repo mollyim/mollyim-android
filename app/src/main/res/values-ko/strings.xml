@@ -42,6 +42,7 @@
   <string name="ApplicationPreferencesActivity_privacy_summary">화면 잠금 %1$s, 등록 잠금 %2$s</string>
   <string name="ApplicationPreferencesActivity_privacy_summary_screen_lock">화면 잠금 %1$s</string>
   <string name="ApplicationPreferencesActivity_appearance_summary">테마 %1$s, 언어 %2$s</string>
+  <string name="ApplicationPreferencesActivity_pin_created">번호가 생성되었습니다.</string>
   <!--AppProtectionPreferenceFragment-->
   <plurals name="AppProtectionPreferenceFragment_minutes">
     <item quantity="other">%d분</item>
@@ -147,6 +148,7 @@
   <string name="ContactShareEditActivity_type_missing">기타</string>
   <string name="ContactShareEditActivity_invalid_contact">선택한 연락처가 잘못됨</string>
   <!--ConversationItem-->
+  <string name="ConversationItem_error_partially_not_delivered">일부만 송신됨, 탭하여 확인</string>
   <string name="ConversationItem_error_network_not_delivered">보내기 실패</string>
   <string name="ConversationItem_received_key_exchange_message_tap_to_process">핵심 교환 메시지를 받았습니다. 탭하여 처리하세요.</string>
   <string name="ConversationItem_group_action_left">%1$s 님이 그룹에서 탈퇴했습니다.</string>
@@ -162,6 +164,7 @@
   <string name="ConversationItem_download_more"> 더 다운로드</string>
   <string name="ConversationItem_pending"> 대기 중</string>
   <string name="ConversationItem_this_message_was_deleted">본 메세지는 삭제되었습니다.&lt;br&gt;</string>
+  <string name="ConversationItem_you_deleted_this_message">이 메시지를 삭제했습니다.</string>
   <!--ConversationActivity-->
   <string name="ConversationActivity_reset_secure_session_question">보안 세션을 초기화하시겠습니까?</string>
   <string name="ConversationActivity_this_may_help_if_youre_having_encryption_problems">대화에서 암호화 문제가 발생할 경우 해당 기능이 도움이 될 수 있습니다. 메시지는 저장됩니다.</string>
@@ -249,6 +252,7 @@
   <string name="ConversationFragment_sms">SMS</string>
   <string name="ConversationFragment_deleting">삭제 중</string>
   <string name="ConversationFragment_deleting_messages">메시지 삭제 중…</string>
+  <string name="ConversationFragment_this_message_will_be_permanently_deleted_for_everyone">이 메시지가 대화에 참가한 모든 이들에게서 삭제됩니다. 멤버는 내가 메시지를 삭제했다는 것을 볼 수 있습니다.</string>
   <string name="ConversationFragment_quoted_message_not_found">원본 메시지를 찾을 수 없음</string>
   <string name="ConversationFragment_quoted_message_no_longer_available">원본 메시지를 더 이상 볼 수 없음</string>
   <string name="ConversationFragment_failed_to_open_message">메시지 열기 실패</string>
@@ -288,7 +292,6 @@
   <string name="CreateProfileActivity_problem_setting_profile">프로필 설정 중 오류 발생</string>
   <string name="CreateProfileActivity_profile_photo">프로필 사진</string>
   <string name="CreateProfileActivity_set_up_your_profile">프로필을 설정하세요.</string>
-  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">프로필은 단대단 암호화됩니다. 내 연락처에게, 새로운 대화를 시작하거나 수락할 때, 새 그룹에 참가할 때 표시됩니다.</string>
   <string name="CreateProfileActivity_set_avatar_description">아바타 설정</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">맞춤형 값 사용: %s</string>
@@ -526,6 +529,7 @@
   <string name="MessageRecord_s_disabled_disappearing_messages">%1$s 님이 사라지는 메시지 기능을 비활성화했습니다.</string>
   <string name="MessageRecord_you_set_disappearing_message_time_to_s">사라지는 메시지 시간을 %1$s(으)로 설정했습니다.</string>
   <string name="MessageRecord_s_set_disappearing_message_time_to_s">%1$s 님이 사라지는 메시지 시간을 %2$s(으)로 설정했습니다.</string>
+  <!--Profile change updates-->
   <!--GV2 specific-->
   <string name="MessageRecord_you_created_the_group">그룹을 생성했습니다.</string>
   <string name="MessageRecord_group_updated">그룹 업데이트됨.</string>
@@ -535,8 +539,11 @@
   <!--GV2 member removals-->
   <string name="MessageRecord_you_left_the_group">당신은 그룹에서 떠났습니다.</string>
   <!--GV2 role change-->
+  <string name="MessageRecord_you_are_now_an_admin">관리자가 되었습니다.</string>
   <!--GV2 invitations-->
+  <string name="MessageRecord_you_were_invited_to_the_group">그룹에 초대되었습니다.</string>
   <!--GV2 invitation revokes-->
+  <string name="MessageRecord_your_invitation_to_the_group_was_revoked">그룹 초대가 파기되었습니다.</string>
   <!--GV2 invitation acceptance-->
   <!--GV2 title change-->
   <!--GV2 avatar change-->
@@ -618,6 +625,7 @@
   <string name="PinRestoreEntryFragment_enter_numeric_pin">숫자 번호 입력</string>
   <!--PinRestoreLockedFragment-->
   <string name="PinRestoreLockedFragment_create_your_pin">번호 생성</string>
+  <!--PinOptOutDialog-->
   <!--RatingManager-->
   <string name="RatingManager_rate_this_app">앱 평가</string>
   <string name="RatingManager_if_you_enjoy_using_this_app_please_take_a_moment">앱이 마음에 들면 평가해 주세요.</string>
@@ -784,6 +792,7 @@
   <string name="ThreadRecord_view_once_video">한 번 볼 수 있는 동영상</string>
   <string name="ThreadRecord_view_once_media">한 번 볼 수 있는 미디어</string>
   <string name="ThreadRecord_this_message_was_deleted">본 메세지는 삭제되었습니다.&lt;br&gt;</string>
+  <string name="ThreadRecord_you_deleted_this_message">이 메시지를 삭제했습니다.</string>
   <string name="ThreadRecord_s_is_on_signal">%s 님이 온라인입니다!</string>
   <string name="ThreadRecord_disappearing_messages_disabled">사라지는 메시지 기능이 비활성화됨</string>
   <string name="ThreadRecord_disappearing_message_time_updated_to_s">사라지는 메시지 시간을 %s(으)로 설정했습니다.</string>
@@ -987,7 +996,6 @@
   <string name="contact_selection_activity__enter_name_or_number">이름 또는 전화번호 입력</string>
   <string name="contact_selection_activity__invite_to_signal">Signal로 초대</string>
   <string name="contact_selection_activity__new_group">새 그룹</string>
-  <!--temporary for internal testing-->
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">입력된 텍스트 삭제</string>
   <string name="contact_filter_toolbar__show_keyboard_description">키보드 표시</string>
@@ -1051,6 +1059,8 @@
   <!--conversation_fragment-->
   <string name="conversation_fragment__scroll_to_the_bottom_content_description">하단으로 스크롤</string>
   <!--safety_number_change_dialog-->
+  <string name="safety_number_change_dialog__safety_number_changes">안전 번호 변경됨</string>
+  <string name="safety_number_change_dialog__the_following_people_may_have_reinstalled_or_changed_devices">재설치했거나 기기를 바꾼 사람의 목록입니다. 보안을 보장하려면 안전 번호를 검증하세요.</string>
   <string name="safety_number_change_dialog__view">보기</string>
   <!--country_selection_fragment-->
   <string name="country_selection_fragment__loading_countries">국가 로드 중…</string>
@@ -1375,6 +1385,7 @@
   <string name="preferences_communication__sealed_sender_allow_from_anyone">모두에게 허용</string>
   <string name="preferences_communication__sealed_sender_allow_from_anyone_description">연락처에 없는 사람과 프로필을 공유하지 않은 사람이 나에게 보내는 메시지에도 발신자 암호화를 허용합니다.</string>
   <string name="preferences_communication__sealed_sender_learn_more">더 알아보기</string>
+  <!--Internal only preferences-->
   <!--****************************************-->
   <!--menus-->
   <!--****************************************-->
@@ -1525,7 +1536,6 @@
   <string name="CreateKbsPinFragment__create_a_new_pin">새 번호 생성</string>
   <string name="CreateKbsPinFragment__you_can_choose_a_new_pin_as_long_as_this_device_is_registered">기기가 등록된 동안은 PIN 번호를 언제든지 변경할 수 있습니다</string>
   <string name="CreateKbsPinFragment__create_your_pin">내 번호 생성</string>
-  <string name="CreateKbsPinFragment__pins_keep_information_stored_with_signal_encrypted">PIN 번호는 정보를 Signal에서 암호화하여 저장하므로 사용자만 액세스할 수 있습니다. 프로필, 설정과 연락처는 Signal을 다시 설치할 때 복원됩니다.</string>
   <string name="CreateKbsPinFragment__choose_a_stronger_pin">더 강력한 PIN 번호 선택</string>
   <!--ConfirmKbsPinFragment-->
   <string name="ConfirmKbsPinFragment__pins_dont_match">번호가 일치하지 않습니다. 다시 시도해 주세요.</string>
@@ -1536,13 +1546,13 @@
   <string name="ConfirmKbsPinFragment__creating_pin">번호 생성 중…</string>
   <!--KbsSplashFragment-->
   <string name="KbsSplashFragment__introducing_pins">번호를 소개합니다.</string>
-  <string name="KbsSplashFragment__pins_keep_information_stored_with_signal_encrypted">PIN 번호는 정보를 Signal에서 암호화하여 저장하므로 사용자만 액세스할 수 있습니다. 프로필, 설정과 연락처는 Signal을 다시 설치할 때 복원됩니다.</string>
   <string name="KbsSplashFragment__learn_more">더 알아보기</string>
   <string name="KbsSplashFragment__registration_lock_equals_pin">등록 잠금 = 번호</string>
   <string name="KbsSplashFragment__your_registration_lock_is_now_called_a_pin">등록 잠금을 번호라 합니다. 하지만, 단순한 번호 그 이상입니다. 지금 업데이트하세요.</string>
   <string name="KbsSplashFragment__read_more_about_pins">번호에 관해 더 알아보세요.</string>
   <string name="KbsSplashFragment__update_pin">번호 업데이트</string>
   <string name="KbsSplashFragment__create_your_pin">번호 생성</string>
+  <string name="KbsSplashFragment__learn_more_about_pins">PIN에 대해 더 알아보기</string>
   <!--KBS Reminder Dialog-->
   <string name="KbsReminderDialog__enter_your_signal_pin">Signal 번호 입력</string>
   <string name="KbsReminderDialog__to_help_you_memorize_your_pin">주기적으로 번호를 입력하면 외우는 데 도움이 됩니다. 가끔씩만 여쭤보겠습니다.</string>

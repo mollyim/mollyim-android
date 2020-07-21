@@ -46,6 +46,7 @@
   <string name="ApplicationPreferencesActivity_privacy_summary">Ekrāna bloķēšana %1$s, Reģistrācijas bloķēšana %2$s</string>
   <string name="ApplicationPreferencesActivity_privacy_summary_screen_lock">Ekrāna bloķēšana %1$s</string>
   <string name="ApplicationPreferencesActivity_appearance_summary">Ādiņa %1$s, valoda %2$s</string>
+  <string name="ApplicationPreferencesActivity_pin_created">PIN izveidots.</string>
   <!--AppProtectionPreferenceFragment-->
   <plurals name="AppProtectionPreferenceFragment_minutes">
     <item quantity="zero">%d minūšu</item>
@@ -173,6 +174,7 @@
   <string name="ConversationItem_download_more"> Lejupielādēt vēl</string>
   <string name="ConversationItem_pending"> Gaida</string>
   <string name="ConversationItem_this_message_was_deleted">Ziņojums ir izdzēsts.</string>
+  <string name="ConversationItem_you_deleted_this_message">Ziņa dzēsta.</string>
   <!--ConversationActivity-->
   <string name="ConversationActivity_reset_secure_session_question">Atstatīt šifrēto sarakstes sesiju?</string>
   <string name="ConversationActivity_this_may_help_if_youre_having_encryption_problems">Tas var palīdzēt, ja sarakstē saskaraties ar šifrēšanas problēmām. Jūsu ziņas tiks saglabātas.</string>
@@ -278,6 +280,7 @@
   <string name="ConversationFragment_deleting_messages">Tiek dzēstas ziņas…</string>
   <string name="ConversationFragment_delete_for_me">Dzēst tikai man</string>
   <string name="ConversationFragment_delete_for_everyone">Dzēst no visiem</string>
+  <string name="ConversationFragment_this_message_will_be_permanently_deleted_for_everyone">Šī ziņa tiks dzēsta no visiem dalībniekiem. Dalībnieki var redzēt, ka jūs izdzēsāt ziņu.</string>
   <string name="ConversationFragment_quoted_message_not_found">Oriģinālā ziņa netika atrasta</string>
   <string name="ConversationFragment_quoted_message_no_longer_available">Oriģinālā ziņa vairs nav pieejama</string>
   <string name="ConversationFragment_failed_to_open_message">Neizdevās atvērt ziņu</string>
@@ -325,7 +328,6 @@
   <string name="CreateProfileActivity_problem_setting_profile">Problēma iestatot profilu</string>
   <string name="CreateProfileActivity_profile_photo">Profila attēls</string>
   <string name="CreateProfileActivity_set_up_your_profile">Iestatiet savu profilu</string>
-  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">Jūsu profils ir šifrēts ar end-to-end. Tas būs redzams Jūsu kontaktiem kad sāksiet vai apstiprināsiet jaunas sarunas, un pievienojoties jaunām grupām.</string>
   <string name="CreateProfileActivity_set_avatar_description">Iestatīt ikonu/avataru</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Lieto pielāgojamu: %s</string>
@@ -607,6 +609,7 @@
   <string name="MessageRecord_s_disabled_disappearing_messages">%1$s atspējoja gaistošās ziņas.</string>
   <string name="MessageRecord_you_set_disappearing_message_time_to_s">Jūs iestatījāt gaistošo ziņu \"dzīves\" ilgumu uz %1$s. </string>
   <string name="MessageRecord_s_set_disappearing_message_time_to_s">%1$s iestatīja gaistošo ziņu \"dzīves\" ilgumu uz %2$s</string>
+  <!--Profile change updates-->
   <!--GV2 specific-->
   <string name="MessageRecord_you_created_the_group">Jūs izveidojāt grupu.</string>
   <string name="MessageRecord_group_updated">Grupa atjaunināta.</string>
@@ -629,12 +632,15 @@
   <string name="MessageRecord_you_revoked_admin_privileges_from_s">Jūs atsaucāt %1$sadministratora tiesības.</string>
   <string name="MessageRecord_s_revoked_your_admin_privileges">%1$satsauca Jūsu administratora tiesības.\"</string>
   <string name="MessageRecord_s_revoked_admin_privileges_from_s">%1$satsauca administratora tiesības no %2$s.</string>
+  <string name="MessageRecord_you_are_now_an_admin">Jūs tagad esat administrators.</string>
   <!--GV2 invitations-->
   <string name="MessageRecord_you_invited_s_to_the_group">Jūs uzaicinājāt %1$spievienoties grupai.</string>
   <string name="MessageRecord_s_invited_you_to_the_group">%1$suzaicināja Jūs grupai.</string>
+  <string name="MessageRecord_you_were_invited_to_the_group">Jūs tikāt uzaicināts pievienoties šai grupai.</string>
   <!--GV2 invitation revokes-->
   <string name="MessageRecord_someone_declined_an_invitation_to_the_group">Kāds atcēla ielūgumu pievienoties grupai.</string>
   <string name="MessageRecord_you_declined_the_invitation_to_the_group">Jūs atcēlāt ielūgumu pievienoties grupai.</string>
+  <string name="MessageRecord_your_invitation_to_the_group_was_revoked">Jūsu uzaicinājums pievienoties šai grupai tika atsaukts.</string>
   <!--GV2 invitation acceptance-->
   <string name="MessageRecord_you_accepted_invite">Jūs pieņēmāt ielūgumu pievienoties grupai.</string>
   <string name="MessageRecord_s_accepted_invite">%1$spieņēma uzaicinājumu pievienoties grupai.</string>
@@ -736,6 +742,8 @@
   <string name="PinRestoreLockedFragment_create_your_pin">Izveido savu PIN </string>
   <string name="PinRestoreLockedFragment_youve_run_out_of_pin_guesses">Jums beidzās PIN mēģinājumu skaits, bet Jums ir iespēja piekļūt Jūsu kontam, izveidojot jaunu PIN. Jūsu konta privātumam un drošībai Jūsu konts tiks atjaunots bez profila informācijas un uzstādījumiem.</string>
   <string name="PinRestoreLockedFragment_create_new_pin">Izveidot jaunu PIN</string>
+  <!--PinOptOutDialog-->
+  <string name="PinOptOutDialog_warning">Brīdinājums</string>
   <!--RatingManager-->
   <string name="RatingManager_rate_this_app">Novērtējiet šo lietotni</string>
   <string name="RatingManager_if_you_enjoy_using_this_app_please_take_a_moment">Ja ar gandarījumu lietojat šo lietotni, lūdzu atbalstiet mūs, veltot brīdi, lai to novērtētu.</string>
@@ -918,6 +926,7 @@ Saņemts nederīgas protokola versijas atslēgas apmaiņas ziņojums.
   <string name="ThreadRecord_view_once_video">Vienreiz skatāms video</string>
   <string name="ThreadRecord_view_once_media">Vienreiz skatāmā multivide/multimediju fails</string>
   <string name="ThreadRecord_this_message_was_deleted">Ziņojums ir izdzēsts.</string>
+  <string name="ThreadRecord_you_deleted_this_message">Ziņa dzēsta.</string>
   <string name="ThreadRecord_s_is_on_signal">%s lieto Signālu!</string>
   <string name="ThreadRecord_disappearing_messages_disabled">Gaistošās ziņas atspējotas</string>
   <string name="ThreadRecord_disappearing_message_time_updated_to_s">Gaistošo ziņu laiks iestatīts uz %s</string>
@@ -1130,7 +1139,6 @@ Saņemts nederīgas protokola versijas atslēgas apmaiņas ziņojums.
   <string name="contact_selection_activity__enter_name_or_number">Ievadiet vārdu vai numuru</string>
   <string name="contact_selection_activity__invite_to_signal">Uzaicināt Signālā</string>
   <string name="contact_selection_activity__new_group">Jauna grupa</string>
-  <!--temporary for internal testing-->
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">Dzēst ierakstīto tekstu</string>
   <string name="contact_filter_toolbar__show_keyboard_description">Parādīt tastatūru</string>
@@ -1557,6 +1565,7 @@ Saņemts nederīgas protokola versijas atslēgas apmaiņas ziņojums.
   <string name="preferences_communication__sealed_sender_allow_from_anyone">Atļaut no visiem</string>
   <string name="preferences_communication__sealed_sender_allow_from_anyone_description">Iespējot aizzīmogoto sūtītāju ienākošajām ziņām no ne-kontaktiem un cilvēkiem, ar kuriem Jūs neesiet dalījies ar savu profilu.</string>
   <string name="preferences_communication__sealed_sender_learn_more">Lasīt vairāk</string>
+  <!--Internal only preferences-->
   <!--****************************************-->
   <!--menus-->
   <!--****************************************-->
@@ -1713,7 +1722,6 @@ Saņemts nederīgas protokola versijas atslēgas apmaiņas ziņojums.
   <string name="CreateKbsPinFragment__create_a_new_pin">Izveidot jaunu PIN</string>
   <string name="CreateKbsPinFragment__you_can_choose_a_new_pin_as_long_as_this_device_is_registered">Varat labot PIN kamēr ierīce ir reģistrēta.</string>
   <string name="CreateKbsPinFragment__create_your_pin">Izveido savu PIN </string>
-  <string name="CreateKbsPinFragment__pins_keep_information_stored_with_signal_encrypted">PIN noglabā Signal informāciju šifrētā veidā tā, ka tikai Jūs varat tai piekļūt. Jūsu profils, uzstādījumu un kontakti tiks atjaunoti, ja uzstādīsiet Signal no jauna.</string>
   <string name="CreateKbsPinFragment__choose_a_stronger_pin">Izveidojiet sarežģītāku PIN</string>
   <!--ConfirmKbsPinFragment-->
   <string name="ConfirmKbsPinFragment__pins_dont_match">PINi nesakrīt. Mēģiniet vēlreiz.</string>
@@ -1725,13 +1733,13 @@ Saņemts nederīgas protokola versijas atslēgas apmaiņas ziņojums.
   <string name="ConfirmKbsPinFragment__creating_pin">Tiek veidots jauns PIN…</string>
   <!--KbsSplashFragment-->
   <string name="KbsSplashFragment__introducing_pins">Iepazīstinām ar PINiem</string>
-  <string name="KbsSplashFragment__pins_keep_information_stored_with_signal_encrypted">PIN noglabā Signal informāciju šifrētā veidā tā, ka tikai Jūs varat tai piekļūt. Jūsu profils, uzstādījumu un kontakti tiks atjaunoti, ja uzstādīsiet Signal no jauna.</string>
   <string name="KbsSplashFragment__learn_more">Uzziniet vairāk.</string>
   <string name="KbsSplashFragment__registration_lock_equals_pin">Reģistrācijas atslēga (Registration Lock) = PIN</string>
   <string name="KbsSplashFragment__your_registration_lock_is_now_called_a_pin">Jūsu Reģistrācijas atslēga tagad tiek saukta par PIN, un tā kļuvusi funkcionālāka. Aktualizējiet to tūlīt.</string>
   <string name="KbsSplashFragment__read_more_about_pins">Lasīt vairāk par PINiem.</string>
   <string name="KbsSplashFragment__update_pin">Aktualizēt PIN</string>
   <string name="KbsSplashFragment__create_your_pin">Izveido savu PIN </string>
+  <string name="KbsSplashFragment__learn_more_about_pins">Uzzināt vairāk par PIN kodiem</string>
   <!--KBS Reminder Dialog-->
   <string name="KbsReminderDialog__enter_your_signal_pin">Ievadiet jūsu Signāla PIN</string>
   <string name="KbsReminderDialog__to_help_you_memorize_your_pin">Lai palīdzētu jums iegaumēt PIN, mēs Jums lūgsim to ievadīt periodiski. Sākumā biežāk, bet ar laiku - retāk.</string>

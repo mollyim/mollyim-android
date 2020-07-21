@@ -11,7 +11,6 @@ import com.google.android.collect.Sets;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
-import org.thoughtcrime.securesms.jobs.ProfileUploadJob;
 import org.thoughtcrime.securesms.jobs.RefreshAttributesJob;
 import org.thoughtcrime.securesms.jobs.RefreshOwnProfileJob;
 import org.thoughtcrime.securesms.jobs.RemoteConfigRefreshJob;
@@ -47,22 +46,18 @@ public final class FeatureFlags {
 
   private static final String TAG = Log.tag(FeatureFlags.class);
 
-  private static final long FETCH_INTERVAL = TimeUnit.HOURS.toMillis(2);
+  private static final long FETCH_INTERVAL = TimeUnit.HOURS.toMillis(0);
 
   private static final String UUIDS                      = "android.uuids";
   private static final String USERNAMES                  = "android.usernames";
-  private static final String PINS_FOR_ALL_MANDATORY     = "android.pinsForAllMandatory";
-  private static final String PINS_MEGAPHONE_KILL_SWITCH = "android.pinsMegaphoneKillSwitch";
   private static final String ATTACHMENTS_V3             = "android.attachmentsV3";
   private static final String REMOTE_DELETE              = "android.remoteDelete";
-  private static final String PROFILE_FOR_CALLING        = "android.profileForCalling";
-  private static final String CALLING_PIP                = "android.callingPip";
-  private static final String VERSIONED_PROFILES_1       = "android.versionedProfiles";
-  private static final String VERSIONED_PROFILES_2       = "android.versionedProfiles.2";
+  private static final String PROFILE_FOR_CALLING        = "android.profileForCalling.2";
   private static final String GROUPS_V2                  = "android.groupsv2";
   private static final String GROUPS_V2_CREATE           = "android.groupsv2.create";
   private static final String GROUPS_V2_CAPACITY         = "android.groupsv2.capacity";
-  private static final String GROUPS_V2_INTERNAL_TEST    = "android.groupsv2.internalTest";
+  private static final String CDS                        = "android.cds";
+  private static final String INTERNAL_USER              = "android.internalUser";
 
   /**
    * We will only store remote values for flags in this set. If you want a flag to be controllable
@@ -70,18 +65,13 @@ public final class FeatureFlags {
    */
 
   private static final Set<String> REMOTE_CAPABLE = Sets.newHashSet(
-      PINS_FOR_ALL_MANDATORY,
-      PINS_MEGAPHONE_KILL_SWITCH,
       ATTACHMENTS_V3,
       REMOTE_DELETE,
       PROFILE_FOR_CALLING,
-      CALLING_PIP,
-      VERSIONED_PROFILES_1,
-      VERSIONED_PROFILES_2,
       GROUPS_V2,
       GROUPS_V2_CREATE,
       GROUPS_V2_CAPACITY,
-      GROUPS_V2_INTERNAL_TEST
+      INTERNAL_USER
   );
 
   /**
@@ -102,7 +92,6 @@ public final class FeatureFlags {
    * more burden on the reader to ensure that the app experience remains consistent.
    */
   private static final Set<String> HOT_SWAPPABLE = Sets.newHashSet(
-      PINS_MEGAPHONE_KILL_SWITCH,
       ATTACHMENTS_V3
   );
 
@@ -110,8 +99,6 @@ public final class FeatureFlags {
    * Flags in this set will stay true forever once they receive a true value from a remote config.
    */
   private static final Set<String> STICKY = Sets.newHashSet(
-      VERSIONED_PROFILES_1,
-      VERSIONED_PROFILES_2,
       GROUPS_V2
   );
 
@@ -127,11 +114,6 @@ public final class FeatureFlags {
    * desired test state.
    */
   private static final Map<String, OnFlagChange> FLAG_CHANGE_LISTENERS = new HashMap<String, OnFlagChange>() {{
-    put(VERSIONED_PROFILES_2, (change) -> {
-      if (change == Change.ENABLED) {
-        ApplicationDependencies.getJobManager().add(new ProfileUploadJob());
-      }
-    });
     put(GROUPS_V2, (change) -> {
       if (change == Change.ENABLED) {
         ApplicationDependencies.getJobManager().startChain(new RefreshAttributesJob())
@@ -186,26 +168,16 @@ public final class FeatureFlags {
     Log.i(TAG, "[Disk]   After : " + result.getDisk().toString());
   }
 
-  /** UUID-related stuff that shouldn't be activated until the user-facing launch. */
-  public static synchronized boolean uuids() {
+  /** Whether or not we allow UUID-only contacts. */
+  public static synchronized boolean uuidOnlyContacts() {
     return getBoolean(UUIDS, false);
   }
 
-  /** Creating usernames, sending messages by username. Requires {@link #uuids()}. */
+  /** Creating usernames, sending messages by username. Requires {@link #uuidOnlyContacts()}. */
   public static synchronized boolean usernames() {
     boolean value = getBoolean(USERNAMES, false);
-    if (value && !uuids()) throw new MissingFlagRequirementError();
+    if (value && !uuidOnlyContacts()) throw new MissingFlagRequirementError();
     return value;
-  }
-
-  /** Makes it so the user will eventually see a fullscreen splash requiring them to create a PIN. */
-  public static boolean pinsForAllMandatory() {
-    return getBoolean(PINS_FOR_ALL_MANDATORY, false);
-  }
-
-  /** Safety flag to disable Pins for All Megaphone */
-  public static boolean pinsForAllMegaphoneKillSwitch() {
-    return getBoolean(PINS_MEGAPHONE_KILL_SWITCH, false);
   }
 
   /** Whether or not we use the attachments v3 form. */
@@ -223,25 +195,16 @@ public final class FeatureFlags {
     return getBoolean(PROFILE_FOR_CALLING, false);
   }
 
-  /** Whether or not to display Calling PIP */
-  public static boolean callingPip() {
-    return getBoolean(CALLING_PIP, false);
-  }
-
-  /** Read and write versioned profile information. */
-  public static boolean versionedProfiles() {
-    return getBoolean(VERSIONED_PROFILES_1, false) ||
-           getBoolean(VERSIONED_PROFILES_2, false);
-  }
-
   /** Groups v2 send and receive. */
   public static boolean groupsV2() {
-    return versionedProfiles() && getBoolean(GROUPS_V2, false);
+    return getBoolean(GROUPS_V2, false);
   }
 
-  /** Groups v2 send and receive. */
+  /** Attempt groups v2 creation. */
   public static boolean groupsV2create() {
-    return groupsV2() && getBoolean(GROUPS_V2_CREATE, false);
+    return groupsV2() &&
+           getBoolean(GROUPS_V2_CREATE, false) &&
+           !SignalStore.internalValues().gv2DoNotCreateGv2Groups();
   }
 
   /**
@@ -251,9 +214,14 @@ public final class FeatureFlags {
     return getInteger(GROUPS_V2_CAPACITY, 100);
   }
 
-  /** Groups v2 UI for internal testing. */
-  public static boolean groupsV2internalTest() {
-    return groupsV2() && getBoolean(GROUPS_V2_INTERNAL_TEST, false);
+  /** Internal testing extensions. */
+  public static boolean internalUser() {
+    return getBoolean(INTERNAL_USER, false);
+  }
+
+  /** Whether or not to use the new contact discovery service endpoint, which supports UUIDs. */
+  public static boolean cds() {
+    return getBoolean(CDS, false);
   }
 
   /** Only for rendering debug info. */

@@ -44,6 +44,7 @@
   <string name="ApplicationPreferencesActivity_privacy_summary">திரை பூட்டி%1$sபதிவு பூட்டு%2$s, </string>
   <string name="ApplicationPreferencesActivity_privacy_summary_screen_lock">திரை பூட்டு%1$s</string>
   <string name="ApplicationPreferencesActivity_appearance_summary">பின்புலத்தோற்றம் %1$s, மொழி %2$s</string>
+  <string name="ApplicationPreferencesActivity_pin_created">பின் உருவாக்கப்பட்டது.</string>
   <!--AppProtectionPreferenceFragment-->
   <plurals name="AppProtectionPreferenceFragment_minutes">
     <item quantity="one">%d நிமிடம்</item>
@@ -538,6 +539,7 @@
   <string name="MessageRecord_s_disabled_disappearing_messages">%1$s ஆல் காணாமல் போகும் செய்திகள் முடக்கப்பட்டது .</string>
   <string name="MessageRecord_you_set_disappearing_message_time_to_s">காணாமல் போகும் செய்திகளின் நேரத்தை %1$s ஆக அமைத்துள்ளீர்கள்.</string>
   <string name="MessageRecord_s_set_disappearing_message_time_to_s">%1$s காணாமல் போகும் செய்திகளின் நேரத்தை %2$s ஆக அமைத்தார்.</string>
+  <!--Profile change updates-->
   <!--GV2 specific-->
   <string name="MessageRecord_you_created_the_group">நீங்கள் குழுவை உருவாக்கியது.</string>
   <string name="MessageRecord_group_updated">குழு புதுப்பிக்கப்பட்டது.</string>
@@ -545,9 +547,13 @@
   <string name="MessageRecord_you_joined_the_group">நீங்கள் குழுவில் சேர்ந்தார்.</string>
   <string name="MessageRecord_s_joined_the_group">%1$s குழுவில் சேர்ந்தார்.</string>
   <!--GV2 member removals-->
+  <string name="MessageRecord_you_left_the_group">நீங்கள் குழுவிலிருந்து வெளியேறிவிட்டீர்கள்.</string>
   <!--GV2 role change-->
+  <string name="MessageRecord_you_are_now_an_admin">நீங்கள் இப்போது ஒரு நிர்வாகி.</string>
   <!--GV2 invitations-->
+  <string name="MessageRecord_you_were_invited_to_the_group">நீங்கள் குழுவிற்கு அழைக்கப்பட்டனர்.</string>
   <!--GV2 invitation revokes-->
+  <string name="MessageRecord_your_invitation_to_the_group_was_revoked">உங்கள் குழுவிற்கு அழைப்பு இருந்தது ரத்து செய்யப்பட்டது.</string>
   <!--GV2 invitation acceptance-->
   <!--GV2 title change-->
   <!--GV2 avatar change-->
@@ -623,6 +629,7 @@
   <string name="PinRestoreEntryFragment_enter_numeric_pin">எண் பின்னை உள்ளிடவும்</string>
   <!--PinRestoreLockedFragment-->
   <string name="PinRestoreLockedFragment_create_your_pin">உங்கள் பின்னை உருவாக்கவும்</string>
+  <!--PinOptOutDialog-->
   <!--RatingManager-->
   <string name="RatingManager_rate_this_app">இச் செயலியை மதிப்புரை செய்க</string>
   <string name="RatingManager_if_you_enjoy_using_this_app_please_take_a_moment">இச் செயலியின்  பயன்பாட்டை விரும்பினால் தயை கூர்ந்து  எங்கள் செயலியை   மதிப்புரை செய்க    </string>
@@ -987,7 +994,6 @@
   <string name="contact_selection_activity__enter_name_or_number">பெயர் அல்லது எண்ணை உள்ளிடவும்</string>
   <string name="contact_selection_activity__invite_to_signal">Signalக்கு அழை</string>
   <string name="contact_selection_activity__new_group">புதிய குழு</string>
-  <!--temporary for internal testing-->
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">உள்ளிட்ட உரையை அழிக்கவும்</string>
   <string name="contact_filter_toolbar__show_keyboard_description">விசைப்பலகை காட்டு</string>
@@ -1377,6 +1383,7 @@
   <string name="preferences_communication__sealed_sender_allow_from_anyone">யாரிடமிருந்தும் அனுமதிக்கவும்</string>
   <string name="preferences_communication__sealed_sender_allow_from_anyone_description">தொடர்புகள் அல்லாதவர்களிடமிருந்தும், உங்கள் சுயவிவரத்தைப் பகிராத நபர்களிடமிருந்தும் உள்வரும் செய்திகளுக்கு சீல் அனுப்பியவரை இயக்கவும்.</string>
   <string name="preferences_communication__sealed_sender_learn_more">மேலும் அறிக</string>
+  <!--Internal only preferences-->
   <!--****************************************-->
   <!--menus-->
   <!--****************************************-->
@@ -1522,7 +1529,6 @@
   <string name="CreateKbsPinFragment__create_a_new_pin">புதிய பின்னை உருவாக்கவும்</string>
   <string name="CreateKbsPinFragment__you_can_choose_a_new_pin_as_long_as_this_device_is_registered">நீங்கள் முடியும் மாற்றம் உங்கள் பின் இந்த வரை சாதனம் பதிவு செய்யப்பட்டுள்ளது.</string>
   <string name="CreateKbsPinFragment__create_your_pin">உங்கள் பின்னை உருவாக்கவும்</string>
-  <string name="CreateKbsPinFragment__pins_keep_information_stored_with_signal_encrypted">பின்ஸ் வைத்திருக்கின்றன தகவல் உடன் சேமிக்கப்படுகிறது Signal மறைகுறியாக்கப்பட்டது எனவே மட்டுமே நீங்கள் முடியும் அணுகல் அது. உங்கள் சுயவிவரம், அமைப்புகள், மற்றும் தொடர்புகள் இருக்கும் மீட்டமை எப்பொழுது நீங்கள் மீண்டும் நிறுவவும் Signal.</string>
   <string name="CreateKbsPinFragment__choose_a_stronger_pin">வலுவானதைத் தேர்வுசெய்க பின்</string>
   <!--ConfirmKbsPinFragment-->
   <string name="ConfirmKbsPinFragment__pins_dont_match">பின்ஸ் பொருந்தவில்லை. மீண்டும் முயற்சி செய்.</string>
@@ -1533,12 +1539,12 @@
   <string name="ConfirmKbsPinFragment__creating_pin">பின் உருவாக்குகிறது…</string>
   <!--KbsSplashFragment-->
   <string name="KbsSplashFragment__introducing_pins">பின்களை  அறிமுகப்படுத்துகிறது</string>
-  <string name="KbsSplashFragment__pins_keep_information_stored_with_signal_encrypted">பின்ஸ் வைத்திருக்கின்றன தகவல் உடன் சேமிக்கப்படுகிறது Signal மறைகுறியாக்கப்பட்டது எனவே மட்டுமே நீங்கள் முடியும் அணுகல் அது. உங்கள் சுயவிவரம், அமைப்புகள், மற்றும் தொடர்புகள் இருக்கும் மீட்டமை எப்பொழுது நீங்கள் மீண்டும் நிறுவவும் Signal.</string>
   <string name="KbsSplashFragment__learn_more">மேலும் அறிக</string>
   <string name="KbsSplashFragment__registration_lock_equals_pin">பதிவு பூட்டு = பின்</string>
   <string name="KbsSplashFragment__read_more_about_pins">பின்ஸைப் பற்றி மேலும் வாசிக்க.</string>
   <string name="KbsSplashFragment__update_pin">பின்னைப் புதுப்பிக்கவும்</string>
   <string name="KbsSplashFragment__create_your_pin">உங்கள் பின்னை உருவாக்கவும்</string>
+  <string name="KbsSplashFragment__learn_more_about_pins">பின்கள் பற்றி மேலும் அறிக</string>
   <!--KBS Reminder Dialog-->
   <string name="KbsReminderDialog__enter_your_signal_pin">உங்கள் Signal பின்னை உள்ளிடவும்</string>
   <string name="KbsReminderDialog__to_help_you_memorize_your_pin">உங்கள் பின்னை மனப்பாடம் செய்ய உங்களுக்கு உதவ, அதை அவ்வப்போது உள்ளிடுமாறு கேட்டுக்கொள்கிறோம். காலப்போக்கில் நாங்கள் உங்களிடம் குறைவாகக் கேட்கிறோம்.</string>

@@ -36,6 +36,7 @@ import org.thoughtcrime.securesms.recipients.RecipientUtil;
 import org.thoughtcrime.securesms.util.Base64;
 import org.thoughtcrime.securesms.util.BitmapDecodingException;
 import org.thoughtcrime.securesms.util.BitmapUtil;
+import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.Hex;
 import org.thoughtcrime.securesms.util.MediaUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
@@ -136,6 +137,7 @@ public abstract class PushSendJob extends SendJob {
                                     .withLength(attachment.getSize())
                                     .withFileName(attachment.getFileName())
                                     .withVoiceNote(attachment.isVoiceNote())
+                                    .withBorderless(attachment.isBorderless())
                                     .withWidth(attachment.getWidth())
                                     .withHeight(attachment.getHeight())
                                     .withCaption(attachment.getCaption())
@@ -206,6 +208,7 @@ public abstract class PushSendJob extends SendJob {
                                                 Optional.fromNullable(attachment.getDigest()),
                                                 Optional.fromNullable(attachment.getFileName()),
                                                 attachment.isVoiceNote(),
+                                                attachment.isBorderless(),
                                                 Optional.fromNullable(attachment.getCaption()),
                                                 Optional.fromNullable(attachment.getBlurHash()).transform(BlurHash::getHash),
                                                 attachment.getUploadTimestamp());
@@ -224,7 +227,7 @@ public abstract class PushSendJob extends SendJob {
     }
   }
 
-  protected Optional<SignalServiceDataMessage.Quote> getQuoteFor(OutgoingMediaMessage message) {
+  protected Optional<SignalServiceDataMessage.Quote> getQuoteFor(OutgoingMediaMessage message) throws IOException {
     if (message.getOutgoingQuote() == null) return Optional.absent();
 
     long                                                  quoteId             = message.getOutgoingQuote().getId();
@@ -251,13 +254,18 @@ public abstract class PushSendJob extends SendJob {
         }
 
         if (thumbnailData != null) {
-          thumbnail = SignalServiceAttachment.newStreamBuilder()
-                                             .withContentType(thumbnailType)
-                                             .withWidth(thumbnailData.getWidth())
-                                             .withHeight(thumbnailData.getHeight())
-                                             .withLength(thumbnailData.getBitmap().length)
-                                             .withStream(new ByteArrayInputStream(thumbnailData.getBitmap()))
-                                             .build();
+          SignalServiceAttachment.Builder builder = SignalServiceAttachment.newStreamBuilder()
+                                                                           .withContentType(thumbnailType)
+                                                                           .withWidth(thumbnailData.getWidth())
+                                                                           .withHeight(thumbnailData.getHeight())
+                                                                           .withLength(thumbnailData.getBitmap().length)
+                                                                           .withStream(new ByteArrayInputStream(thumbnailData.getBitmap()));
+
+          if (FeatureFlags.attachmentsV3()) {
+            builder.withResumableUploadSpec(ApplicationDependencies.getSignalServiceMessageSender().getResumableUploadSpec());
+          }
+
+          thumbnail = builder.build();
         }
 
         quoteAttachments.add(new SignalServiceDataMessage.Quote.QuotedAttachment(attachment.getContentType(),

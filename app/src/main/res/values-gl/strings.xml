@@ -45,6 +45,7 @@
   <string name="ApplicationPreferencesActivity_privacy_summary">Bloqueo da pantalla %1$s, bloqueo do rexistro %2$s</string>
   <string name="ApplicationPreferencesActivity_privacy_summary_screen_lock">Bloqueo de pantalla %1$s</string>
   <string name="ApplicationPreferencesActivity_appearance_summary">Tema %1$s, Idioma %2$s</string>
+  <string name="ApplicationPreferencesActivity_pin_created">PIN establecido.</string>
   <!--AppProtectionPreferenceFragment-->
   <plurals name="AppProtectionPreferenceFragment_minutes">
     <item quantity="one">%d minuto</item>
@@ -524,6 +525,7 @@
   <string name="MessageRecord_s_disabled_disappearing_messages">%1$s desactivou a desaparición das mensaxes.</string>
   <string name="MessageRecord_you_set_disappearing_message_time_to_s">Estableciches a desaparición das mensaxes en %1$s.</string>
   <string name="MessageRecord_s_set_disappearing_message_time_to_s">%1$s estableceu a desaparición das mensaxes en %2$s.</string>
+  <!--Profile change updates-->
   <!--GV2 specific-->
   <string name="MessageRecord_group_updated">Grupo actualizado.</string>
   <!--GV2 member additions-->
@@ -632,6 +634,8 @@
   <string name="PinRestoreLockedFragment_create_your_pin">Crea o teu PIN</string>
   <string name="PinRestoreLockedFragment_youve_run_out_of_pin_guesses">Esgotaches os intentos, pero aínda podes acceder á conta Signal creando un novo PIN. Por privacidade e seguridade a conta será restablecida sen a información de perfil gardada ou axustes.</string>
   <string name="PinRestoreLockedFragment_create_new_pin">Crear novo PIN</string>
+  <!--PinOptOutDialog-->
+  <string name="PinOptOutDialog_warning">Aviso</string>
   <!--RatingManager-->
   <string name="RatingManager_rate_this_app">Valorar esta app</string>
   <string name="RatingManager_if_you_enjoy_using_this_app_please_take_a_moment">Se realmente che gusta esta aplicación, dedícalle, por favor, un intre a valorala.</string>
@@ -974,7 +978,6 @@
   <string name="contact_selection_activity__enter_name_or_number">Inserir nome ou número</string>
   <string name="contact_selection_activity__invite_to_signal">Convidar a Signal</string>
   <string name="contact_selection_activity__new_group">Novo grupo</string>
-  <!--temporary for internal testing-->
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">Limpar o texto inserido</string>
   <string name="contact_filter_toolbar__show_keyboard_description">Mostrar teclado</string>
@@ -1208,6 +1211,7 @@
   <string name="HelpFragment__contact_us">Contacto</string>
   <string name="HelpFragment__tell_us_whats_going_on">Envíanos o teu problema ou consulta</string>
   <string name="HelpFragment__include_debug_log">Incluír rexistro de depuración.</string>
+  <string name="HelpFragment__whats_this">Que é isto?</string>
   <string name="HelpFragment__how_do_you_feel">Como te sintes? (Optativo)</string>
   <string name="HelpFragment__no_email_app_found">Non se atopou app para email.</string>
   <!--ReactWithAnyEmojiBottomSheetDialogFragment-->
@@ -1369,6 +1373,7 @@
   <string name="preferences_communication__sealed_sender_allow_from_anyone">Permitir de calquera</string>
   <string name="preferences_communication__sealed_sender_allow_from_anyone_description">Activa o remitente selado para as mensaxes entrantes de persoas que non estean nos teus contactos ou con aquelas coas que non compartiras o teu perfil.</string>
   <string name="preferences_communication__sealed_sender_learn_more">Saber máis</string>
+  <!--Internal only preferences-->
   <!--****************************************-->
   <!--menus-->
   <!--****************************************-->
@@ -1509,7 +1514,6 @@
   <string name="CreateKbsPinFragment__create_a_new_pin">Crear un novo PIN</string>
   <string name="CreateKbsPinFragment__you_can_choose_a_new_pin_as_long_as_this_device_is_registered">Podes cambiar o PIN en tanto este dispositivo estea rexistrado.</string>
   <string name="CreateKbsPinFragment__create_your_pin">Crea o teu PIN</string>
-  <string name="CreateKbsPinFragment__pins_keep_information_stored_with_signal_encrypted">O PIN cifra a información gardada con Signal para que só ti poidas acceder a ela. O perfil, axustes e contactos restablécense ao reinstalar Signal.</string>
   <string name="CreateKbsPinFragment__choose_a_stronger_pin">Escolle un PIN máis forte</string>
   <!--ConfirmKbsPinFragment-->
   <string name="ConfirmKbsPinFragment__pins_dont_match">Os PIN non concordan, inténtao outra vez.</string>
@@ -1521,7 +1525,6 @@
   <string name="ConfirmKbsPinFragment__creating_pin">Creando PIN…</string>
   <!--KbsSplashFragment-->
   <string name="KbsSplashFragment__introducing_pins">Escribindo PINs</string>
-  <string name="KbsSplashFragment__pins_keep_information_stored_with_signal_encrypted">O PIN cifra a información gardada con Signal para que só ti poidas acceder a ela. O perfil, axustes e contactos restablécense ao reinstalar Signal.</string>
   <string name="KbsSplashFragment__learn_more">Saber máis</string>
   <string name="KbsSplashFragment__registration_lock_equals_pin">Bloqueo do rexistro = PIN</string>
   <string name="KbsSplashFragment__your_registration_lock_is_now_called_a_pin">O Bloqueo de Rexistro agora chámase PIN, e serve para máis. Actualiza agora.</string>

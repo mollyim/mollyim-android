@@ -42,6 +42,7 @@
   <string name="ApplicationPreferencesActivity_privacy_summary">Kunci layar %1$s, Kunci pendaftaran%2$s</string>
   <string name="ApplicationPreferencesActivity_privacy_summary_screen_lock">Kunci layar %1$s</string>
   <string name="ApplicationPreferencesActivity_appearance_summary">Tema %1$s, Bahasa %2$s</string>
+  <string name="ApplicationPreferencesActivity_pin_created">PIN dibuat.</string>
   <!--AppProtectionPreferenceFragment-->
   <plurals name="AppProtectionPreferenceFragment_minutes">
     <item quantity="other">%dmenit</item>
@@ -575,6 +576,7 @@
   <string name="MessageRecord_s_disabled_disappearing_messages">%1$s menonaktifkan penghilangan pesan.</string>
   <string name="MessageRecord_you_set_disappearing_message_time_to_s">Anda mengatur waktu penghilangan pesan menjadi%1$s</string>
   <string name="MessageRecord_s_set_disappearing_message_time_to_s">%1$s mengatur waktu penghilangan pesan menjadi %2$s</string>
+  <!--Profile change updates-->
   <!--GV2 specific-->
   <string name="MessageRecord_you_created_the_group">Grup telah dibuat.</string>
   <string name="MessageRecord_group_updated">Group dimutakhirkan</string>
@@ -597,12 +599,14 @@
   <string name="MessageRecord_you_revoked_admin_privileges_from_s">Anda membatalkan akses admin dari %1$s.</string>
   <string name="MessageRecord_s_revoked_your_admin_privileges">%1$s membatalkan akses admin Anda.\"</string>
   <string name="MessageRecord_s_revoked_admin_privileges_from_s">%1$s membatalkan akses admin %2$s.</string>
+  <string name="MessageRecord_you_are_now_an_admin">Anda sekarang menjadi admin.</string>
   <!--GV2 invitations-->
   <string name="MessageRecord_you_invited_s_to_the_group">Anda mengundang %1$s ke grup.</string>
   <string name="MessageRecord_s_invited_you_to_the_group">%1$s mengundang Anda ke grup.</string>
   <plurals name="MessageRecord_s_invited_members">
     <item quantity="other">%1$s mengundang %2$d orang ke grup.</item>
   </plurals>
+  <string name="MessageRecord_you_were_invited_to_the_group">Anda diundang ke dalam grup.</string>
   <!--GV2 invitation revokes-->
   <plurals name="MessageRecord_you_revoked_invites">
     <item quantity="other">Anda membatalkan %1$d undangan ke grup.</item>
@@ -612,6 +616,7 @@
   </plurals>
   <string name="MessageRecord_someone_declined_an_invitation_to_the_group">Seseorang menolak undangan masuk ke grup.</string>
   <string name="MessageRecord_you_declined_the_invitation_to_the_group">Anda menolak undangan masuk ke grup.</string>
+  <string name="MessageRecord_your_invitation_to_the_group_was_revoked">Undangan Anda untuk masuk ke grup telah dibatalkan.</string>
   <!--GV2 invitation acceptance-->
   <string name="MessageRecord_you_accepted_invite">Anda menerima undangan masuk ke grup.</string>
   <string name="MessageRecord_s_accepted_invite">%1$s menerima undangan masuk ke grup.</string>
@@ -698,6 +703,8 @@
   <!--PinRestoreLockedFragment-->
   <string name="PinRestoreLockedFragment_create_your_pin">Buat PIN Anda</string>
   <string name="PinRestoreLockedFragment_create_new_pin">Buat PIN baru</string>
+  <!--PinOptOutDialog-->
+  <string name="PinOptOutDialog_warning">Peringatan</string>
   <!--RatingManager-->
   <string name="RatingManager_rate_this_app">Nilai aplikasi ini</string>
   <string name="RatingManager_if_you_enjoy_using_this_app_please_take_a_moment">Jika Anda suka menggunakan aplikasi ini, luangkan waktu sejenak untuk membantu kami dengan memberikan nilai pada aplikasi.</string>
@@ -1088,7 +1095,6 @@ Menerima pesan pertukaran kunci untuk versi protokol yang tidak valid.
   <string name="contact_selection_activity__enter_name_or_number">Masukkan nama atau nomor</string>
   <string name="contact_selection_activity__invite_to_signal">Undang ke Signal</string>
   <string name="contact_selection_activity__new_group">Grup baru</string>
-  <!--temporary for internal testing-->
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">Hapus teks yang dimasukkan</string>
   <string name="contact_filter_toolbar__show_keyboard_description">Munculkan papan ketik</string>
@@ -1496,6 +1502,7 @@ Menerima pesan pertukaran kunci untuk versi protokol yang tidak valid.
   <string name="preferences_communication__sealed_sender_allow_from_anyone">Izinkan dari semua orang</string>
   <string name="preferences_communication__sealed_sender_allow_from_anyone_description">Aktifkan pengirim tertutup untuk pesan masuk dari non-kontak dan orang yang tidak Anda beri profil.</string>
   <string name="preferences_communication__sealed_sender_learn_more">Pelajari lebih lanjut</string>
+  <!--Internal only preferences-->
   <!--****************************************-->
   <!--menus-->
   <!--****************************************-->
@@ -1646,7 +1653,6 @@ Menerima pesan pertukaran kunci untuk versi protokol yang tidak valid.
   <string name="CreateKbsPinFragment__create_a_new_pin">Buat PIN baru</string>
   <string name="CreateKbsPinFragment__you_can_choose_a_new_pin_as_long_as_this_device_is_registered">Anda dapat mengganti PIN Anda selama perangkat ini terdaftar.</string>
   <string name="CreateKbsPinFragment__create_your_pin">Buat PIN Anda</string>
-  <string name="CreateKbsPinFragment__pins_keep_information_stored_with_signal_encrypted">PIN menjaga informasi yang disimpan di Signal terenkripsi sehingga hanya Anda yang dapat mengaksesnya. Profil, pengaturan, dan kontak akan dipulihkan saat Anda memasang ulang Signal.</string>
   <string name="CreateKbsPinFragment__choose_a_stronger_pin">Buat PIN yang lebih kuah</string>
   <!--ConfirmKbsPinFragment-->
   <string name="ConfirmKbsPinFragment__pins_dont_match">PIN tidak cocok. Coba lagi.</string>
@@ -1658,13 +1664,13 @@ Menerima pesan pertukaran kunci untuk versi protokol yang tidak valid.
   <string name="ConfirmKbsPinFragment__creating_pin">Membuat PIN…</string>
   <!--KbsSplashFragment-->
   <string name="KbsSplashFragment__introducing_pins">Memperkenalkan PIN</string>
-  <string name="KbsSplashFragment__pins_keep_information_stored_with_signal_encrypted">PIN menjaga informasi yang disimpan di Signal terenkripsi sehingga hanya Anda yang dapat mengaksesnya. Profil, pengaturan, dan kontak akan dipulihkan saat Anda memasang ulang Signal.</string>
   <string name="KbsSplashFragment__learn_more">Pelajari Lebih Lanjut</string>
   <string name="KbsSplashFragment__registration_lock_equals_pin">Kunci Pendaftaran = PIN</string>
   <string name="KbsSplashFragment__your_registration_lock_is_now_called_a_pin">Kunci Pendaftaran Anda sekarang bernama PIN, dan ia melakukan hal lebih. Perbarui sekarang.</string>
   <string name="KbsSplashFragment__read_more_about_pins">Baca lebih lanjut mengenai PIN.</string>
   <string name="KbsSplashFragment__update_pin">Perbarui PIN</string>
   <string name="KbsSplashFragment__create_your_pin">Buat PIN Anda</string>
+  <string name="KbsSplashFragment__learn_more_about_pins">Pelajari lebih lanjut tentang PIN</string>
   <!--KBS Reminder Dialog-->
   <string name="KbsReminderDialog__enter_your_signal_pin">Masukkan PIN Signal Anda</string>
   <string name="KbsReminderDialog__to_help_you_memorize_your_pin">Untuk membantu Anda mengingat PIN, kami akan meminta Anda untuk memasukkannya secara berkala. Kami akan memintanya lebih jarang dari waktu ke waktu.</string>

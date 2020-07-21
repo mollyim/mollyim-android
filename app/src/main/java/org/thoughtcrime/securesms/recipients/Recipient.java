@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 
+import com.annimon.stream.Stream;
+
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.color.MaterialColor;
 import org.thoughtcrime.securesms.contacts.avatars.ContactColors;
@@ -54,7 +56,7 @@ import static org.thoughtcrime.securesms.database.RecipientDatabase.InsightsBann
 
 public class Recipient {
 
-  public static final Recipient UNKNOWN = new Recipient(RecipientId.UNKNOWN, new RecipientDetails());
+  public static final Recipient UNKNOWN = new Recipient(RecipientId.UNKNOWN, new RecipientDetails(), true);
 
   private static final FallbackPhotoProvider DEFAULT_FALLBACK_PHOTO_PROVIDER = new FallbackPhotoProvider();
   private static final String                TAG = Log.tag(Recipient.class);
@@ -177,7 +179,7 @@ public class Recipient {
       } else if (!recipient.isRegistered()) {
         db.markRegistered(recipient.getId());
 
-        if (FeatureFlags.uuids()) {
+        if (FeatureFlags.cds()) {
           Log.i(TAG, "No UUID! Scheduling a fetch.");
           ApplicationDependencies.getJobManager().add(new DirectoryRefreshJob(recipient, false));
         }
@@ -185,7 +187,7 @@ public class Recipient {
 
       return resolved(recipient.getId());
     } else if (uuid != null) {
-      if (FeatureFlags.uuids() || e164 != null) {
+      if (FeatureFlags.uuidOnlyContacts() || e164 != null) {
         RecipientId id = db.getOrInsertFromUuid(uuid);
         db.markRegistered(id, uuid);
 
@@ -195,7 +197,7 @@ public class Recipient {
 
         return resolved(id);
       } else {
-        if (!FeatureFlags.uuids() && FeatureFlags.groupsV2()) {
+        if (!FeatureFlags.uuidOnlyContacts() && FeatureFlags.groupsV2()) {
           throw new RuntimeException(new UuidRecipientError());
         } else {
           throw new UuidRecipientError();
@@ -207,7 +209,7 @@ public class Recipient {
       if (!recipient.isRegistered()) {
         db.markRegistered(recipient.getId());
 
-        if (FeatureFlags.uuids()) {
+        if (FeatureFlags.cds()) {
           Log.i(TAG, "No UUID! Scheduling a fetch.");
           ApplicationDependencies.getJobManager().add(new DirectoryRefreshJob(recipient, false));
         }
@@ -270,7 +272,7 @@ public class Recipient {
     if (UuidUtil.isUuid(identifier)) {
       UUID uuid = UuidUtil.parseOrThrow(identifier);
 
-      if (FeatureFlags.uuids()) {
+      if (FeatureFlags.uuidOnlyContacts()) {
         id = db.getOrInsertFromUuid(uuid);
       } else {
         Optional<RecipientId> possibleId = db.getByUuid(uuid);
@@ -278,7 +280,7 @@ public class Recipient {
         if (possibleId.isPresent()) {
           id = possibleId.get();
         } else {
-          if (!FeatureFlags.uuids() && FeatureFlags.groupsV2()) {
+          if (!FeatureFlags.uuidOnlyContacts() && FeatureFlags.groupsV2()) {
             throw new RuntimeException(new UuidRecipientError());
           } else {
             throw new UuidRecipientError();
@@ -344,9 +346,9 @@ public class Recipient {
     this.identityStatus         = VerifiedStatus.DEFAULT;
   }
 
-  Recipient(@NonNull RecipientId id, @NonNull RecipientDetails details) {
+  public Recipient(@NonNull RecipientId id, @NonNull RecipientDetails details, boolean resolved) {
     this.id                     = id;
-    this.resolving              = false;
+    this.resolving              = !resolved;
     this.uuid                   = details.uuid;
     this.username               = details.username;
     this.e164                   = details.e164;
@@ -408,9 +410,11 @@ public class Recipient {
       }
 
       return Util.join(names, ", ");
+    } else if (name == null && groupId != null && groupId.isPush()) {
+      return context.getString(R.string.RecipientProvider_unnamed_group);
+    } else {
+      return this.name;
     }
-
-    return this.name;
   }
 
   /**
@@ -631,6 +635,10 @@ public class Recipient {
     return groupId != null && groupId.isV2();
   }
 
+  public boolean isActiveGroup() {
+    return Stream.of(getParticipants()).anyMatch(Recipient::isLocalNumber);
+  }
+
   public @NonNull List<Recipient> getParticipants() {
     return new ArrayList<>(participants);
   }
@@ -657,7 +665,7 @@ public class Recipient {
 
   public @NonNull FallbackContactPhoto getFallbackContactPhoto(@NonNull FallbackPhotoProvider fallbackPhotoProvider) {
     if      (localNumber)              return fallbackPhotoProvider.getPhotoForLocalNumber();
-    if      (isResolving())            return fallbackPhotoProvider.getPhotoForResolvingRecipient();
+    else if (isResolving())            return fallbackPhotoProvider.getPhotoForResolvingRecipient();
     else if (isGroupInternal())        return fallbackPhotoProvider.getPhotoForGroup();
     else if (isGroup())                return fallbackPhotoProvider.getPhotoForGroup();
     else if (!TextUtils.isEmpty(name)) return fallbackPhotoProvider.getPhotoForRecipientWithName(name);
@@ -746,7 +754,7 @@ public class Recipient {
     if (FeatureFlags.usernames()) {
       return true;
     } else {
-      return FeatureFlags.uuids() && uuidCapability == Capability.SUPPORTED;
+      return FeatureFlags.uuidOnlyContacts() && uuidCapability == Capability.SUPPORTED;
     }
   }
 

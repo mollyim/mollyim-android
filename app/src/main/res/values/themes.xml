@@ -322,6 +322,7 @@
         <item name="conversation_item_sticky_date_text_color">@color/core_grey_60</item>
         <item name="conversation_item_image_outline_color">@color/transparent_black_20</item>
         <item name="conversation_item_reveal_viewed_background_color">?conversation_background</item>
+        <item name="conversation_item_delete_for_everyone_text_color">@color/core_grey_90</item>
         <item name="conversation_scroll_to_bottom_background">@drawable/scroll_to_bottom_background_light</item>
         <item name="conversation_scroll_to_bottom_foreground_color">@color/grey_600</item>
 
@@ -411,6 +412,8 @@
         <item name="sticker_view_missing_background">@drawable/sticker_missing_background_light</item>
 
         <item name="tooltip_default_color">@color/core_white</item>
+
+        <item name="dangerous_button_color">@color/core_red_highlight</item>
 
         <item name="pref_icon_tint">?attr/icon_tint</item>
 
@@ -548,6 +551,7 @@
         <item name="conversation_item_sticky_date_text_color">@color/core_grey_25</item>
         <item name="conversation_item_image_outline_color">@color/transparent_white_20</item>
         <item name="conversation_item_reveal_viewed_background_color">?conversation_background</item>
+        <item name="conversation_item_delete_for_everyone_text_color">@color/core_grey_15</item>
 
         <item name="safety_number_change_dialog_button_background">@color/core_grey_75</item>
         <item name="safety_number_change_dialog_button_text_color">@color/core_grey_05</item>
@@ -710,6 +714,8 @@
         <item name="sticker_view_missing_background">@drawable/sticker_missing_background_dark</item>
 
         <item name="tooltip_default_color">@color/core_grey_75</item>
+
+        <item name="dangerous_button_color">@color/core_red</item>
 
         <item name="pref_icon_tint">?attr/icon_tint</item>
 

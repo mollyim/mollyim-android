@@ -286,6 +286,7 @@ public class WebRtcCallView extends FrameLayout {
   public void setStatusFromHangupType(@NonNull HangupMessage.Type hangupType) {
     switch (hangupType) {
       case NORMAL:
+      case NEED_PERMISSION:
         status.setText(R.string.RedPhone_ending_call);
         break;
       case ACCEPTED:
@@ -306,7 +307,10 @@ public class WebRtcCallView extends FrameLayout {
     Set<View> lastVisibleSet = new HashSet<>(visibleViewSet);
 
     visibleViewSet.clear();
-    visibleViewSet.addAll(topViews);
+
+    if (webRtcControls.displayTopViews()) {
+      visibleViewSet.addAll(topViews);
+    }
 
     if (webRtcControls.displayIncomingCallButtons()) {
       visibleViewSet.addAll(incomingCallViews);

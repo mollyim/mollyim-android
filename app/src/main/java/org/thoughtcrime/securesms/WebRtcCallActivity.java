@@ -51,6 +51,7 @@ import org.thoughtcrime.securesms.components.webrtc.WebRtcCallViewModel;
 import org.thoughtcrime.securesms.crypto.storage.TextSecureIdentityKeyStore;
 import org.thoughtcrime.securesms.events.WebRtcViewModel;
 import org.thoughtcrime.securesms.logging.Log;
+import org.thoughtcrime.securesms.messagerequests.CalleeMustAcceptMessageRequestActivity;
 import org.thoughtcrime.securesms.permissions.Permissions;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.ringrtc.RemotePeer;
@@ -155,14 +156,13 @@ public class WebRtcCallActivity extends AppCompatActivity {
 
   @Override
   protected void onUserLeaveHint() {
-    if (deviceSupportsPipMode()) {
-      PictureInPictureParams params = new PictureInPictureParams.Builder()
-                                                                .setAspectRatio(new Rational(16, 9))
-                                                                .build();
-      setPictureInPictureParams(params);
+    enterPipModeIfPossible();
+  }
 
-      //noinspection deprecation
-      enterPictureInPictureMode();
+  @Override
+  public void onBackPressed() {
+    if (!enterPipModeIfPossible()) {
+      super.onBackPressed();
     }
   }
 
@@ -171,8 +171,19 @@ public class WebRtcCallActivity extends AppCompatActivity {
     viewModel.setIsInPipMode(isInPictureInPictureMode);
   }
 
+  private boolean enterPipModeIfPossible() {
+    if (isSystemPipEnabledAndAvailable()) {
+      PictureInPictureParams params = new PictureInPictureParams.Builder()
+              .setAspectRatio(new Rational(9, 16))
+              .build();
+      enterPictureInPictureMode(params);
+      return true;
+    }
+    return false;
+  }
+
   private boolean isInPipMode() {
-    return deviceSupportsPipMode() && isInPictureInPictureMode();
+    return isSystemPipEnabledAndAvailable() && isInPictureInPictureMode();
   }
 
   private void processIntent(@NonNull Intent intent) {
@@ -391,6 +402,9 @@ public class WebRtcCallActivity extends AppCompatActivity {
 
     EventBus.getDefault().removeStickyEvent(WebRtcViewModel.class);
 
+    if (hangupType == HangupMessage.Type.NEED_PERMISSION) {
+      startActivity(CalleeMustAcceptMessageRequestActivity.createIntent(this, recipient.getId()));
+    }
     delayedFinish();
   }
 
@@ -489,9 +503,8 @@ public class WebRtcCallActivity extends AppCompatActivity {
                    .show();
   }
 
-  private boolean deviceSupportsPipMode() {
+  private boolean isSystemPipEnabledAndAvailable() {
     return Build.VERSION.SDK_INT >= 26 &&
-           FeatureFlags.callingPip()   &&
            getPackageManager().hasSystemFeature(PackageManager.FEATURE_PICTURE_IN_PICTURE);
   }
 
@@ -510,19 +523,20 @@ public class WebRtcCallActivity extends AppCompatActivity {
     viewModel.setRecipient(event.getRecipient());
 
     switch (event.getState()) {
-      case CALL_CONNECTED:          handleCallConnected(event);                                         break;
-      case NETWORK_FAILURE:         handleServerFailure(event);                                         break;
-      case CALL_RINGING:            handleCallRinging(event);                                           break;
-      case CALL_DISCONNECTED:       handleTerminate(event.getRecipient(), HangupMessage.Type.NORMAL);   break;
-      case CALL_ACCEPTED_ELSEWHERE: handleTerminate(event.getRecipient(), HangupMessage.Type.ACCEPTED); break;
-      case CALL_DECLINED_ELSEWHERE: handleTerminate(event.getRecipient(), HangupMessage.Type.DECLINED); break;
-      case CALL_ONGOING_ELSEWHERE:  handleTerminate(event.getRecipient(), HangupMessage.Type.BUSY);     break;
-      case NO_SUCH_USER:            handleNoSuchUser(event);                                            break;
-      case RECIPIENT_UNAVAILABLE:   handleRecipientUnavailable(event);                                  break;
-      case CALL_INCOMING:           handleIncomingCall(event);                                          break;
-      case CALL_OUTGOING:           handleOutgoingCall(event);                                          break;
-      case CALL_BUSY:               handleCallBusy(event);                                              break;
-      case UNTRUSTED_IDENTITY:      handleUntrustedIdentity(event);                                     break;
+      case CALL_CONNECTED:          handleCallConnected(event);                                                break;
+      case NETWORK_FAILURE:         handleServerFailure(event);                                                break;
+      case CALL_RINGING:            handleCallRinging(event);                                                  break;
+      case CALL_DISCONNECTED:       handleTerminate(event.getRecipient(), HangupMessage.Type.NORMAL);          break;
+      case CALL_ACCEPTED_ELSEWHERE: handleTerminate(event.getRecipient(), HangupMessage.Type.ACCEPTED);        break;
+      case CALL_DECLINED_ELSEWHERE: handleTerminate(event.getRecipient(), HangupMessage.Type.DECLINED);        break;
+      case CALL_ONGOING_ELSEWHERE:  handleTerminate(event.getRecipient(), HangupMessage.Type.BUSY);            break;
+      case CALL_NEEDS_PERMISSION:   handleTerminate(event.getRecipient(), HangupMessage.Type.NEED_PERMISSION); break;
+      case NO_SUCH_USER:            handleNoSuchUser(event);                                                   break;
+      case RECIPIENT_UNAVAILABLE:   handleRecipientUnavailable(event);                                         break;
+      case CALL_INCOMING:           handleIncomingCall(event);                                                 break;
+      case CALL_OUTGOING:           handleOutgoingCall(event);                                                 break;
+      case CALL_BUSY:               handleCallBusy(event);                                                     break;
+      case UNTRUSTED_IDENTITY:      handleUntrustedIdentity(event);                                            break;
     }
 
     callScreen.setLocalRenderer(event.getLocalRenderer());

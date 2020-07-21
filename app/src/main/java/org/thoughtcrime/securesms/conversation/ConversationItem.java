@@ -36,7 +36,6 @@ import android.text.style.BackgroundColorSpan;
 import android.text.style.CharacterStyle;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
-import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.text.style.URLSpan;
 import android.text.util.Linkify;
@@ -70,7 +69,7 @@ import org.thoughtcrime.securesms.components.LinkPreviewView;
 import org.thoughtcrime.securesms.components.Outliner;
 import org.thoughtcrime.securesms.components.QuoteView;
 import org.thoughtcrime.securesms.components.SharedContactView;
-import org.thoughtcrime.securesms.components.StickerView;
+import org.thoughtcrime.securesms.components.BorderlessImageView;
 import org.thoughtcrime.securesms.components.emoji.EmojiTextView;
 import org.thoughtcrime.securesms.contactshare.Contact;
 import org.thoughtcrime.securesms.database.AttachmentDatabase;
@@ -167,7 +166,7 @@ public class ConversationItem extends LinearLayout implements BindableConversati
   private           Stub<DocumentView>              documentViewStub;
   private           Stub<SharedContactView>         sharedContactStub;
   private           Stub<LinkPreviewView>           linkPreviewStub;
-  private           Stub<StickerView>               stickerStub;
+  private           Stub<BorderlessImageView>       stickerStub;
   private           Stub<ViewOnceMessageView>       revealableStub;
   private @Nullable EventListener                   eventListener;
 
@@ -387,11 +386,11 @@ public class ConversationItem extends LinearLayout implements BindableConversati
   /// MessageRecord Attribute Parsers
 
   private void setBubbleState(MessageRecord messageRecord) {
-    if (messageRecord.isOutgoing()) {
+    if (messageRecord.isOutgoing() && !messageRecord.isRemoteDelete()) {
       bodyBubble.getBackground().setColorFilter(defaultBubbleColor, PorterDuff.Mode.MULTIPLY);
       footer.setTextColor(ThemeUtil.getThemedColor(context, R.attr.conversation_item_sent_text_secondary_color));
       footer.setIconColor(ThemeUtil.getThemedColor(context, R.attr.conversation_item_sent_icon_color));
-    } else if (isViewOnceMessage(messageRecord) && ViewOnceUtil.isViewed((MmsMessageRecord) messageRecord)) {
+    } else if (messageRecord.isRemoteDelete() || (isViewOnceMessage(messageRecord) && ViewOnceUtil.isViewed((MmsMessageRecord) messageRecord))) {
       bodyBubble.getBackground().setColorFilter(ThemeUtil.getThemedColor(context, R.attr.conversation_item_reveal_viewed_background_color), PorterDuff.Mode.MULTIPLY);
       footer.setTextColor(ThemeUtil.getThemedColor(context, R.attr.conversation_item_sent_text_secondary_color));
       footer.setIconColor(ThemeUtil.getThemedColor(context, R.attr.conversation_item_sent_icon_color));
@@ -454,7 +453,8 @@ public class ConversationItem extends LinearLayout implements BindableConversati
   }
 
   private boolean shouldDrawBodyBubbleOutline(MessageRecord messageRecord) {
-    return !messageRecord.isOutgoing() && isViewOnceMessage(messageRecord) && ViewOnceUtil.isViewed((MmsMessageRecord) messageRecord);
+    boolean isIncomingViewedOnce = !messageRecord.isOutgoing() && isViewOnceMessage(messageRecord) && ViewOnceUtil.isViewed((MmsMessageRecord) messageRecord);
+    return isIncomingViewedOnce || messageRecord.isRemoteDelete();
   }
 
   private boolean isCaptionlessMms(MessageRecord messageRecord) {
@@ -473,12 +473,20 @@ public class ConversationItem extends LinearLayout implements BindableConversati
     return messageRecord.isMms() && ((MmsMessageRecord)messageRecord).getSlideDeck().getStickerSlide() != null;
   }
 
+  private boolean isBorderless(MessageRecord messageRecord) {
+    //noinspection ConstantConditions
+    return isCaptionlessMms(messageRecord)   &&
+           hasThumbnail(messageRecord)       &&
+           ((MmsMessageRecord)messageRecord).getSlideDeck().getThumbnailSlide().isBorderless();
+  }
+
   private boolean hasOnlyThumbnail(MessageRecord messageRecord) {
     return hasThumbnail(messageRecord)      &&
            !hasAudio(messageRecord)         &&
            !hasDocument(messageRecord)      &&
            !hasSharedContact(messageRecord) &&
            !hasSticker(messageRecord)       &&
+           !isBorderless(messageRecord)     &&
            !isViewOnceMessage(messageRecord);
   }
 
@@ -527,12 +535,16 @@ public class ConversationItem extends LinearLayout implements BindableConversati
     bodyText.setMovementMethod(LongClickMovementMethod.getInstance(getContext()));
 
     if (messageRecord.isRemoteDelete()) {
-      String deletedMessage = context.getString(R.string.ConversationItem_this_message_was_deleted);
+      String deletedMessage = context.getString(messageRecord.isOutgoing() ? R.string.ConversationItem_you_deleted_this_message : R.string.ConversationItem_this_message_was_deleted);
       SpannableString italics = new SpannableString(deletedMessage);
-      italics.setSpan(new RelativeSizeSpan(0.9f), 0, deletedMessage.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
       italics.setSpan(new StyleSpan(android.graphics.Typeface.ITALIC), 0, deletedMessage.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+      italics.setSpan(new ForegroundColorSpan(ThemeUtil.getThemedColor(context, R.attr.conversation_item_delete_for_everyone_text_color)),
+                                              0,
+                                              deletedMessage.length(),
+                                              Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
       bodyText.setText(italics);
+      bodyText.setVisibility(View.VISIBLE);
     } else if (isCaptionlessMms(messageRecord)) {
       bodyText.setVisibility(View.GONE);
     } else {
@@ -668,7 +680,7 @@ public class ConversationItem extends LinearLayout implements BindableConversati
       ViewUtil.updateLayoutParamsIfNonNull(groupSenderHolder, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
       footer.setVisibility(VISIBLE);
-    } else if (hasSticker(messageRecord) && isCaptionlessMms(messageRecord)) {
+    } else if ((hasSticker(messageRecord) && isCaptionlessMms(messageRecord)) || isBorderless(messageRecord)) {
       bodyBubble.setBackgroundColor(Color.TRANSPARENT);
 
       stickerStub.get().setVisibility(View.VISIBLE);
@@ -679,9 +691,16 @@ public class ConversationItem extends LinearLayout implements BindableConversati
       if (linkPreviewStub.resolved())    linkPreviewStub.get().setVisibility(GONE);
       if (revealableStub.resolved())     revealableStub.get().setVisibility(View.GONE);
 
-      //noinspection ConstantConditions
-      stickerStub.get().setSticker(glideRequests, ((MmsMessageRecord) messageRecord).getSlideDeck().getStickerSlide());
-      stickerStub.get().setThumbnailClickListener(new StickerClickListener());
+      if (hasSticker(messageRecord)) {
+        //noinspection ConstantConditions
+        stickerStub.get().setSlide(glideRequests, ((MmsMessageRecord) messageRecord).getSlideDeck().getStickerSlide());
+        stickerStub.get().setThumbnailClickListener(new StickerClickListener());
+      } else {
+        //noinspection ConstantConditions
+        stickerStub.get().setSlide(glideRequests, ((MmsMessageRecord) messageRecord).getSlideDeck().getThumbnailSlide());
+        stickerStub.get().setThumbnailClickListener((v, slide) -> performClick());
+      }
+
       stickerStub.get().setDownloadClickListener(downloadClickListener);
       stickerStub.get().setOnLongClickListener(passthroughClickListener);
       stickerStub.get().setOnClickListener(passthroughClickListener);
@@ -699,7 +718,6 @@ public class ConversationItem extends LinearLayout implements BindableConversati
       if (stickerStub.resolved())        stickerStub.get().setVisibility(View.GONE);
       if (revealableStub.resolved())     revealableStub.get().setVisibility(View.GONE);
 
-      //noinspection ConstantConditions
       List<Slide> thumbnailSlides = ((MmsMessageRecord) messageRecord).getSlideDeck().getThumbnailSlides();
       mediaThumbnailStub.get().setImageResource(glideRequests,
                                                 thumbnailSlides,
@@ -972,7 +990,7 @@ public class ConversationItem extends LinearLayout implements BindableConversati
   }
 
   private ConversationItemFooter getActiveFooter(@NonNull MessageRecord messageRecord) {
-    if (hasSticker(messageRecord)) {
+    if (hasSticker(messageRecord) || isBorderless(messageRecord)) {
       return stickerFooter;
     } else if (hasSharedContact(messageRecord)) {
       return sharedContactStub.get().getFooter();
@@ -1008,7 +1026,7 @@ public class ConversationItem extends LinearLayout implements BindableConversati
       if (shouldDrawBodyBubbleOutline(messageRecord)) {
         groupSender.setTextColor(stickerAuthorColor);
         groupSenderProfileName.setTextColor(stickerAuthorColor);
-      } else if (hasSticker(messageRecord)) {
+      } else if (hasSticker(messageRecord) || isBorderless(messageRecord)) {
         groupSender.setTextColor(stickerAuthorColor);
         groupSenderProfileName.setTextColor(stickerAuthorColor);
       } else {
@@ -1305,7 +1323,7 @@ public class ConversationItem extends LinearLayout implements BindableConversati
     public void onClick(View v, Slide slide) {
       if (shouldInterceptClicks(messageRecord) || !batchSelected.isEmpty()) {
         performClick();
-      } else if (eventListener != null && hasSticker(messageRecord)){
+      } else if (eventListener != null && hasSticker(messageRecord)) {
         //noinspection ConstantConditions
         eventListener.onStickerClicked(((MmsMessageRecord) messageRecord).getSlideDeck().getStickerSlide().asAttachment().getSticker());
       }

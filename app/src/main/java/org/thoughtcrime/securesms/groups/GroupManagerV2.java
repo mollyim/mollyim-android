@@ -26,6 +26,8 @@ import org.thoughtcrime.securesms.database.model.databaseprotos.DecryptedGroupV2
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.groups.v2.GroupCandidateHelper;
 import org.thoughtcrime.securesms.groups.v2.processing.GroupsV2StateProcessor;
+import org.thoughtcrime.securesms.jobs.PushGroupSilentUpdateSendJob;
+import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.mms.OutgoingGroupUpdateMessage;
 import org.thoughtcrime.securesms.profiles.AvatarHelper;
@@ -117,6 +119,10 @@ final class GroupManagerV2 {
       GroupCandidate      self       = groupCandidateHelper.recipientIdToCandidate(Recipient.self().getId());
       Set<GroupCandidate> candidates = new HashSet<>(groupCandidateHelper.recipientIdsToCandidates(members));
 
+      if (SignalStore.internalValues().gv2ForceInvites()) {
+        candidates = GroupCandidate.withoutProfileKeyCredentials(candidates);
+      }
+
       if (!self.hasProfileKeyCredential()) {
         Log.w(TAG, "Cannot create a V2 group as self does not have a versioned profile");
         throw new MembershipNotSuitableForV2Exception("Cannot create a V2 group as self does not have a versioned profile");
@@ -186,6 +192,11 @@ final class GroupManagerV2 {
       }
 
       Set<GroupCandidate> groupCandidates = groupCandidateHelper.recipientIdsToCandidates(new HashSet<>(newMembers));
+
+      if (SignalStore.internalValues().gv2ForceInvites()) {
+        groupCandidates = GroupCandidate.withoutProfileKeyCredentials(groupCandidates);
+      }
+
       return commitChangeWithConflictResolution(groupOperations.createModifyGroupMembershipChange(groupCandidates, selfUuid));
     }
 
@@ -472,9 +483,13 @@ final class GroupManagerV2 {
                                                                                        Collections.emptyList(),
                                                                                        Collections.emptyList());
 
-    long threadId = MessageSender.send(context, outgoingMessage, -1, false, null);
-
-    return new GroupManager.GroupActionResult(groupRecipient, threadId);
+    if (plainGroupChange != null && DecryptedGroupUtil.changeIsEmptyExceptForProfileKeyChanges(plainGroupChange)) {
+      ApplicationDependencies.getJobManager().add(PushGroupSilentUpdateSendJob.create(context, groupId, decryptedGroup, outgoingMessage));
+      return new GroupManager.GroupActionResult(groupRecipient, -1);
+    } else {
+      long threadId = MessageSender.send(context, outgoingMessage, -1, false, null);
+      return new GroupManager.GroupActionResult(groupRecipient, threadId);
+    }
   }
 
   private static @NonNull AccessControl.AccessRequired rightsToAccessControl(@NonNull GroupAccessControl rights) {

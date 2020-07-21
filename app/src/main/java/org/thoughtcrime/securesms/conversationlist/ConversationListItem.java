@@ -46,7 +46,6 @@ import org.thoughtcrime.securesms.database.MmsSmsColumns;
 import org.thoughtcrime.securesms.database.SmsDatabase;
 import org.thoughtcrime.securesms.database.ThreadDatabase;
 import org.thoughtcrime.securesms.database.model.ThreadRecord;
-import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.mms.GlideRequests;
 import org.thoughtcrime.securesms.recipients.LiveRecipient;
 import org.thoughtcrime.securesms.recipients.Recipient;
@@ -453,7 +452,7 @@ public class ConversationListItem extends RelativeLayout
       if (extra != null && extra.isViewOnce()) {
         return new SpannableString(emphasisAdded(getViewOnceDescription(context, thread.getContentType())));
       } else if (extra != null && extra.isRemoteDelete()) {
-        return new SpannableString(emphasisAdded(context.getString(R.string.ThreadRecord_this_message_was_deleted)));
+        return new SpannableString(emphasisAdded(context.getString(thread.isOutgoing() ? R.string.ThreadRecord_you_deleted_this_message : R.string.ThreadRecord_this_message_was_deleted)));
       } else {
         return new SpannableString(Util.emptyIfNull(thread.getBody()));
       }

@@ -53,6 +53,9 @@
     <string name="ApplicationPreferencesActivity_privacy_summary">Screen lock %1$s, Registration lock %2$s</string>
     <string name="ApplicationPreferencesActivity_privacy_summary_screen_lock">Screen lock %1$s</string>
     <string name="ApplicationPreferencesActivity_appearance_summary">Theme %1$s, Language %2$s</string>
+    <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">PINs are required for registration lock. To disable PINs, please first disable registration lock.</string>
+    <string name="ApplicationPreferencesActivity_pin_created">PIN created.</string>
+    <string name="ApplicationPreferencesActivity_pin_disabled">PIN disabled.</string>
 
     <!-- AppProtectionPreferenceFragment -->
     <plurals name="AppProtectionPreferenceFragment_minutes">
@@ -204,6 +207,7 @@
     <string name="ConversationItem_download_more">&#160; Download More</string>
     <string name="ConversationItem_pending">&#160; Pending</string>
     <string name="ConversationItem_this_message_was_deleted">This message was deleted.</string>
+    <string name="ConversationItem_you_deleted_this_message">You deleted this message.</string>
 
     <!-- ConversationActivity -->
     <string name="ConversationActivity_reset_secure_session_question">Reset secure session?</string>
@@ -312,6 +316,7 @@
     <string name="ConversationFragment_deleting_messages">Deleting messages…</string>
     <string name="ConversationFragment_delete_for_me">Delete for me</string>
     <string name="ConversationFragment_delete_for_everyone">Delete for everyone</string>
+    <string name="ConversationFragment_this_message_will_be_permanently_deleted_for_everyone">This message will be permanently deleted for everyone in the conversation. Members will be able to see that you deleted a message.</string>
     <string name="ConversationFragment_quoted_message_not_found">Original message not found</string>
     <string name="ConversationFragment_quoted_message_no_longer_available">Original message no longer available</string>
     <string name="ConversationFragment_failed_to_open_message">Failed to open message</string>
@@ -363,7 +368,7 @@
     <string name="CreateProfileActivity_problem_setting_profile">Problem setting profile</string>
     <string name="CreateProfileActivity_profile_photo">Profile photo</string>
     <string name="CreateProfileActivity_set_up_your_profile">Set up your profile</string>
-    <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">Your profile is end-to-end encrypted. It will be visible to your contacts, when you initiate or accept new conversations, and when you join new groups.</string>
+    <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">Your profile is end-to-end encrypted. Your profile and changes to it will be visible to your contacts, when you initiate or accept new conversations, and when you join new groups.</string>
     <string name="CreateProfileActivity_set_avatar_description">Set avatar</string>
 
     <!-- CustomDefaultPreference -->
@@ -539,6 +544,8 @@
     
     
     <!-- ManageRecipientActivity -->
+    <string name="ManageRecipientActivity_add_to_system_contacts">Add to system contacts</string>
+    <string name="ManageRecipientActivity_this_person_is_in_your_contacts">This person is in your contacts</string>
     <string name="ManageRecipientActivity_disappearing_messages">Disappearing messages</string>
     <string name="ManageRecipientActivity_chat_color">Chat color</string>
     <string name="ManageRecipientActivity_block">Block</string>
@@ -740,6 +747,7 @@
     <string name="MessageRecord_message_encrypted_with_a_legacy_protocol_version_that_is_no_longer_supported">Received a message encrypted using an old version of Signal that is no longer supported. Please ask the sender to update to the most recent version and resend the message.</string>
     <string name="MessageRecord_left_group">You have left the group.</string>
     <string name="MessageRecord_you_updated_group">You updated the group.</string>
+    <string name="MessageRecord_the_group_was_updated">The group was updated.</string>
     <string name="MessageRecord_you_called">You called</string>
     <string name="MessageRecord_called_you">Contact called</string>
     <string name="MessageRecord_missed_call">Missed call</string>
@@ -752,6 +760,12 @@
     <string name="MessageRecord_s_disabled_disappearing_messages">%1$s disabled disappearing messages.</string>
     <string name="MessageRecord_you_set_disappearing_message_time_to_s">You set the disappearing message timer to %1$s.</string>
     <string name="MessageRecord_s_set_disappearing_message_time_to_s">%1$s set the disappearing message timer to %2$s.</string>
+    <string name="MessageRecord_disappearing_message_time_set_to_s">The disappearing message timer has been set to %1$s.</string>
+
+    <!-- Profile change updates -->
+    <string name="MessageRecord_changed_their_profile_name_to">%1$s changed their profile name to %2$s.</string>
+    <string name="MessageRecord_changed_their_profile_name_from_to">%1$s changed their profile name from %2$s to %3$s.</string>
+    <string name="MessageRecord_changed_their_profile">%1$s changed their profile.</string>
 
     <!-- GV2 specific -->
     <string name="MessageRecord_you_created_the_group">You created the group.</string>
@@ -770,6 +784,8 @@
     <string name="MessageRecord_s_removed_you_from_the_group">%1$s removed you from the group.</string>
     <string name="MessageRecord_you_left_the_group">You left the group.</string>
     <string name="MessageRecord_s_left_the_group">%1$s left the group.</string>
+    <string name="MessageRecord_you_are_no_longer_in_the_group">You are no longer in the group.</string>
+    <string name="MessageRecord_s_is_no_longer_in_the_group">%1$s is no longer in the group.</string>
 
     <!-- GV2 role change -->
     <string name="MessageRecord_you_made_s_an_admin">You made %1$s an admin.</string>
@@ -778,6 +794,10 @@
     <string name="MessageRecord_you_revoked_admin_privileges_from_s">You revoked admin privileges from %1$s.</string>
     <string name="MessageRecord_s_revoked_your_admin_privileges">%1$s revoked your admin privileges."</string>
     <string name="MessageRecord_s_revoked_admin_privileges_from_s">%1$s revoked admin privileges from %2$s.</string>
+    <string name="MessageRecord_s_is_now_an_admin">%1$s is now an admin.</string>
+    <string name="MessageRecord_you_are_now_an_admin">You are now an admin.</string>
+    <string name="MessageRecord_s_is_no_longer_an_admin">%1$s is no longer an admin.</string>
+    <string name="MessageRecord_you_are_no_longer_an_admin">You are no longer an admin.</string>
 
     <!-- GV2 invitations -->
     <string name="MessageRecord_you_invited_s_to_the_group">You invited %1$s to the group.</string>
@@ -785,6 +805,11 @@
     <plurals name="MessageRecord_s_invited_members">
         <item quantity="one">%1$s invited 1 person to the group.</item>
         <item quantity="other">%1$s invited %2$d people to the group.</item>
+    </plurals>
+    <string name="MessageRecord_you_were_invited_to_the_group">You were invited to the group.</string>
+    <plurals name="MessageRecord_d_people_were_invited_to_the_group">
+        <item quantity="one">1 person was invited to the group.</item>
+        <item quantity="other">%1$d people were invited to the group.</item>
     </plurals>
 
     <!-- GV2 invitation revokes -->
@@ -798,6 +823,11 @@
     </plurals>
     <string name="MessageRecord_someone_declined_an_invitation_to_the_group">Someone declined an invitation to the group.</string>
     <string name="MessageRecord_you_declined_the_invitation_to_the_group">You declined the invitation to the group.</string>
+    <string name="MessageRecord_your_invitation_to_the_group_was_revoked">Your invitation to the group was revoked.</string>
+    <plurals name="MessageRecord_d_invitations_were_revoked">
+      <item quantity="one">An invitation to the group was revoked.</item>
+      <item quantity="other">%1$d invitations to the group were revoked.</item>
+    </plurals>
 
     <!-- GV2 invitation acceptance -->
     <string name="MessageRecord_you_accepted_invite">You accepted the invitation to the group.</string>
@@ -808,18 +838,22 @@
     <!-- GV2 title change -->
     <string name="MessageRecord_you_changed_the_group_name_to_s">You changed the group name to \"%1$s\".</string>
     <string name="MessageRecord_s_changed_the_group_name_to_s">%1$s changed the group name to \"%2$s\".</string>
+    <string name="MessageRecord_the_group_name_has_changed_to_s">The group name has changed to \"%1$s\".</string>
 
     <!-- GV2 avatar change -->
     <string name="MessageRecord_you_changed_the_group_avatar">You changed the group avatar.</string>
     <string name="MessageRecord_s_changed_the_group_avatar">%1$s changed the group avatar.</string>
+    <string name="MessageRecord_the_group_group_avatar_has_been_changed">The group avatar has been changed.</string>
 
     <!-- GV2 attribute access level change -->
     <string name="MessageRecord_you_changed_who_can_edit_group_info_to_s">You changed who can edit group info to \"%1$s\".</string>
     <string name="MessageRecord_s_changed_who_can_edit_group_info_to_s">%1$s changed who can edit group info to \"%2$s\".</string>
+    <string name="MessageRecord_who_can_edit_group_info_has_been_changed_to_s">Who can edit group info has been changed to \"%1$s\".</string>
 
     <!-- GV2 membership access level change -->
     <string name="MessageRecord_you_changed_who_can_edit_group_membership_to_s">You changed who can edit group membership to \"%1$s\".</string>
     <string name="MessageRecord_s_changed_who_can_edit_group_membership_to_s">%1$s changed who can edit group membership to \"%2$s\".</string>
+    <string name="MessageRecord_who_can_edit_group_membership_has_been_changed_to_s">Who can edit group membership has been changed to \"%1$s\".</string>
 
     <!-- End of GV2 specific update messages -->
 
@@ -928,6 +962,11 @@
     <string name="PinRestoreLockedFragment_youve_run_out_of_pin_guesses">You\'ve run out of PIN guesses, but you can still access your Signal account by creating a new PIN. For your privacy and security your account will be restored without any saved profile information or settings.</string>
     <string name="PinRestoreLockedFragment_create_new_pin">Create new PIN</string>
     <string name="PinRestoreLockedFragment_learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007059792</string>
+
+    <!-- PinOptOutDialog -->
+    <string name="PinOptOutDialog_warning">Warning</string>
+    <string name="PinOptOutDialog_if_you_disable_the_pin_you_will_lose_all_data">If you disable the PIN, you will lose all data when you re-register Signal unless you manually back up and restore. You can not turn on Registration Lock while the PIN is disabled.</string>
+    <string name="PinOptOutDialog_disable_pin">Disable PIN</string>
 
     <!-- RatingManager -->
     <string name="RatingManager_rate_this_app">Rate this app</string>
@@ -1063,6 +1102,7 @@
     <string name="SignalPinReminders_well_remind_you_again_in_a_few_days">We\'ll remind you again in a few days.</string>
     <string name="SignalPinReminders_well_remind_you_again_in_a_week">We\'ll remind you again in a week.</string>
     <string name="SignalPinReminders_well_remind_you_again_in_a_couple_weeks">We\'ll remind you again in a couple weeks.</string>
+    <string name="SignalPinReminders_well_remind_you_again_in_a_month">We\'ll remind you again in a month.</string>
 
     <!-- Slide -->
     <string name="Slide_image">Image</string>
@@ -1140,6 +1180,7 @@
     <string name="ThreadRecord_view_once_video">View-once video</string>
     <string name="ThreadRecord_view_once_media">View-once media</string>
     <string name="ThreadRecord_this_message_was_deleted">This message was deleted.</string>
+    <string name="ThreadRecord_you_deleted_this_message">You deleted this message.</string>
     <string name="ThreadRecord_s_is_on_signal">%s is on Signal!</string>
     <string name="ThreadRecord_disappearing_messages_disabled">Disappearing messages disabled</string>
     <string name="ThreadRecord_disappearing_message_time_updated_to_s">Disappearing message time set to %s</string>
@@ -1245,6 +1286,7 @@
     <string name="MediaPreviewActivity_media_delete_confirmation_title">Delete message?</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_message">This will permanently delete this message.</string>
     <string name="MediaPreviewActivity_s_to_s">%1$s to %2$s</string>
+    <string name="MediaPreviewActivity_media_no_longer_available">Media no longer available.</string>
 
     <!-- MessageNotifier -->
     <string name="MessageNotifier_d_new_messages_in_d_conversations">%1$d new messages in %2$d conversations</string>
@@ -1394,8 +1436,6 @@
     <string name="contact_selection_activity__enter_name_or_number">Enter name or number</string>
     <string name="contact_selection_activity__invite_to_signal">Invite to Signal</string>
     <string name="contact_selection_activity__new_group">New group</string>
-    <!-- temporary for internal testing -->
-    <string name="contact_selection_activity__new_gv1_group" translatable="false">New old style group (GV1)</string>
 
     <!-- contact_filter_toolbar -->
     <string name="contact_filter_toolbar__clear_entered_text_description">Clear entered text</string>
@@ -1416,6 +1456,7 @@
     <string name="ContactSelectionListFragment_s_is_not_a_signal_user">"%1$s" is not a Signal user. Please check the username and try again.</string>
     <string name="ContactSelectionListFragment_okay">Okay</string>
     <string name="ContactSelectionListFragment_the_group_is_full">The group is full</string>
+    <string name="ContactSelectionListFragment_you_do_not_need_to_add_yourself_to_the_group">You do not need to add yourself to the group</string>
 
     <!-- blocked_contacts_fragment -->
     <string name="blocked_contacts_fragment__no_blocked_contacts">No blocked contacts</string>
@@ -1864,10 +1905,15 @@
     <string name="preferences__dark_theme">Dark</string>
     <string name="preferences__appearance">Appearance</string>
     <string name="preferences__theme">Theme</string>
+    <string name="preferences__disable_pin">Disable PIN</string>
+    <string name="preferences__enable_pin">Enable PIN</string>
+    <string name="preferences__if_you_disable_the_pin_you_will_lose_all_data">If you disable the PIN, you will lose all data when you re-register Signal unless you manually back up and restore. You can not turn on Registration Lock while the PIN is disabled.</string>
+    <string name="preferences__pins_keep_information_stored_with_signal_encrypted_so_only_you_can_access_it">PINs keep information stored with Signal encrypted so only you can access it. Your profile, settings, and contacts will restore when you reinstall. You won’t need your PIN to open the app.</string>
     <string name="preferences__system_default">System default</string>
     <string name="preferences__default">Default</string>
     <string name="preferences__language">Language</string>
     <string name="preferences__signal_messages_and_calls">Signal messages and calls</string>
+    <string name="preferences__advanced_pin_settings">Advanced PIN settings</string>
     <string name="preferences__free_private_messages_and_calls">Free private messages and calls to Signal users</string>
     <string name="preferences__submit_debug_log">Submit debug log</string>
     <string name="preferences__support_wifi_calling">\'WiFi Calling\' compatibility mode</string>
@@ -1914,6 +1960,28 @@
     <string name="preferences_communication__sealed_sender_allow_from_anyone">Allow from anyone</string>
     <string name="preferences_communication__sealed_sender_allow_from_anyone_description">Enable sealed sender for incoming messages from non-contacts and people with whom you have not shared your profile.</string>
     <string name="preferences_communication__sealed_sender_learn_more">Learn more</string>
+
+    <!-- Internal only preferences -->
+    <string name="preferences__internal_preferences" translatable="false">Internal Preferences</string>
+    <string name="preferences__internal_preferences_groups_v2" translatable="false">Groups V2</string>
+    <string name="preferences__internal_do_not_create_gv2" translatable="false">Do not create GV2 groups</string>
+    <string name="preferences__internal_do_not_create_gv2_description" translatable="false">Do not attempt to create GV2 groups, i.e. will force creation of GV1 or MMS groups.</string>
+    <string name="preferences__internal_force_gv2_invites" translatable="false">Force Invites</string>
+    <string name="preferences__internal_force_gv2_invites_description" translatable="false">Members will not be added directly to a GV2 even if they could be.</string>
+    <string name="preferences__internal_ignore_gv2_server_changes" translatable="false">Ignore server changes</string>
+    <string name="preferences__internal_ignore_gv2_server_changes_description" translatable="false">Changes in server\'s response will be ignored, causing passive voice update messages if P2P is also ignored.</string>
+    <string name="preferences__internal_ignore_gv2_p2p_changes" translatable="false">Ignore P2P changes</string>
+    <string name="preferences__internal_ignore_gv2_p2p_changes_description" translatable="false">Changes sent P2P will be ignored. In conjunction with ignoring server changes, will cause passive voice.</string>
+    <string name="preferences__internal_account" translatable="false">Account</string>
+    <string name="preferences__internal_refresh_attributes" translatable="false">Refresh attributes</string>
+    <string name="preferences__internal_refresh_attributes_description" translatable="false">Forces a write of capabilities on to the server followed by a read.</string>
+    <string name="preferences__internal_rotate_profile_key" translatable="false">Rotate profile key</string>
+    <string name="preferences__internal_rotate_profile_key_description" translatable="false">Creates a new versioned profile, and triggers an update of any GV2 group you belong to.</string>
+    <string name="preferences__internal_refresh_remote_values" translatable="false">Refresh remote values</string>
+    <string name="preferences__internal_refresh_remote_values_description" translatable="false">Forces a refresh of remote values locally instead of waiting for the elapsed time</string>
+    <string name="preferences__internal_storage_service" translatable="false">Storage service</string>
+    <string name="preferences__internal_force_storage_service_sync" translatable="false">Overwrite remote data</string>
+    <string name="preferences__internal_force_storage_service_sync_description" translatable="false">Forces remote storage to match the local device state.</string>
 
     <!-- **************************************** -->
     <!-- menus -->
@@ -2108,7 +2176,7 @@
     <string name="CreateKbsPinFragment__create_a_new_pin">Create a new PIN</string>
     <string name="CreateKbsPinFragment__you_can_choose_a_new_pin_as_long_as_this_device_is_registered">You can change your PIN as long as this device is registered.</string>
     <string name="CreateKbsPinFragment__create_your_pin">Create your PIN</string>
-    <string name="CreateKbsPinFragment__pins_keep_information_stored_with_signal_encrypted">PINs keep information stored with Signal encrypted so only you can access it. Your profile, settings, and contacts will restore when you reinstall Signal.</string>
+    <string name="CreateKbsPinFragment__pins_keep_information_stored_with_signal_encrypted">PINs keep information stored with Signal encrypted so only you can access it. Your profile, settings, and contacts will restore when you reinstall. You won\'t need your PIN to open the app.</string>
     <string name="CreateKbsPinFragment__choose_a_stronger_pin">Choose a stronger PIN</string>
 
     <!-- ConfirmKbsPinFragment -->
@@ -2122,7 +2190,7 @@
 
     <!-- KbsSplashFragment -->
     <string name="KbsSplashFragment__introducing_pins">Introducing PINs</string>
-    <string name="KbsSplashFragment__pins_keep_information_stored_with_signal_encrypted">PINs keep information stored with Signal encrypted so only you can access it. Your profile, settings, and contacts will restore when you reinstall Signal.</string>
+    <string name="KbsSplashFragment__pins_keep_information_stored_with_signal_encrypted">PINs keep information stored with Signal encrypted so only you can access it. Your profile, settings, and contacts will restore when you reinstall. You won\'t need your PIN to open the app.</string>
     <string name="KbsSplashFragment__learn_more">Learn More</string>
     <string name="KbsSplashFragment__learn_more_link" translatable="false">https://support.signal.org/hc/articles/360007059792</string>
     <string name="KbsSplashFragment__registration_lock_equals_pin">Registration Lock = PIN</string>
@@ -2130,6 +2198,8 @@
     <string name="KbsSplashFragment__read_more_about_pins">Read more about PINs.</string>
     <string name="KbsSplashFragment__update_pin">Update PIN</string>
     <string name="KbsSplashFragment__create_your_pin">Create your PIN</string>
+    <string name="KbsSplashFragment__learn_more_about_pins">Learn more about PINs</string>
+    <string name="KbsSplashFragment__disable_pin">Disable PIN</string>
 
     <!-- KBS Reminder Dialog -->
     <string name="KbsReminderDialog__enter_your_signal_pin">Enter your Signal PIN</string>

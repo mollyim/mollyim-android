@@ -37,6 +37,7 @@ public class MediaDatabase extends Database {
         + AttachmentDatabase.TABLE_NAME + "." + AttachmentDatabase.DIGEST + ", "
         + AttachmentDatabase.TABLE_NAME + "." + AttachmentDatabase.FAST_PREFLIGHT_ID + ", "
         + AttachmentDatabase.TABLE_NAME + "." + AttachmentDatabase.VOICE_NOTE + ", "
+        + AttachmentDatabase.TABLE_NAME + "." + AttachmentDatabase.BORDERLESS + ", "
         + AttachmentDatabase.TABLE_NAME + "." + AttachmentDatabase.WIDTH + ", "
         + AttachmentDatabase.TABLE_NAME + "." + AttachmentDatabase.HEIGHT + ", "
         + AttachmentDatabase.TABLE_NAME + "." + AttachmentDatabase.QUOTE + ", "
@@ -88,11 +89,19 @@ public class MediaDatabase extends Database {
   }
 
   public @NonNull Cursor getGalleryMediaForThread(long threadId, @NonNull Sorting sorting) {
+    return getGalleryMediaForThread(threadId, sorting, false);
+  }
+
+  public @NonNull Cursor getGalleryMediaForThread(long threadId, @NonNull Sorting sorting, boolean listenToAllThreads) {
     SQLiteDatabase database = databaseHelper.getReadableDatabase();
     String         query    = sorting.applyToQuery(applyEqualityOperator(threadId, GALLERY_MEDIA_QUERY));
     String[]       args     = {threadId + ""};
     Cursor         cursor   = database.rawQuery(query, args);
-    setNotifyConversationListeners(cursor, threadId);
+    if (listenToAllThreads) {
+      setNotifyConversationListeners(cursor);
+    } else {
+      setNotifyConversationListeners(cursor, threadId);
+    }
     return cursor;
   }
 

@@ -25,7 +25,9 @@ import org.thoughtcrime.securesms.migrations.AvatarIdRemovalMigrationJob;
 import org.thoughtcrime.securesms.migrations.DatabaseMigrationJob;
 import org.thoughtcrime.securesms.migrations.MigrationCompleteJob;
 import org.thoughtcrime.securesms.migrations.PassingMigrationJob;
+import org.thoughtcrime.securesms.migrations.PinOptOutMigration;
 import org.thoughtcrime.securesms.migrations.PinReminderMigrationJob;
+import org.thoughtcrime.securesms.migrations.ProfileMigrationJob;
 import org.thoughtcrime.securesms.migrations.RegistrationPinV2MigrationJob;
 import org.thoughtcrime.securesms.migrations.StickerAdditionMigrationJob;
 import org.thoughtcrime.securesms.migrations.StorageCapabilityMigrationJob;
@@ -72,6 +74,7 @@ public final class JobManagerFactories {
       put(PushDecryptMessageJob.KEY,                 new PushDecryptMessageJob.Factory());
       put(PushProcessMessageJob.KEY,                 new PushProcessMessageJob.Factory());
       put(PushGroupSendJob.KEY,                      new PushGroupSendJob.Factory());
+      put(PushGroupSilentUpdateSendJob.KEY,          new PushGroupSilentUpdateSendJob.Factory());
       put(PushGroupUpdateJob.KEY,                    new PushGroupUpdateJob.Factory());
       put(PushMediaSendJob.KEY,                      new PushMediaSendJob.Factory());
       put(PushNotificationReceiveJob.KEY,            new PushNotificationReceiveJob.Factory());
@@ -110,7 +113,9 @@ public final class JobManagerFactories {
       put(AvatarIdRemovalMigrationJob.KEY,           new AvatarIdRemovalMigrationJob.Factory());
       put(DatabaseMigrationJob.KEY,                  new DatabaseMigrationJob.Factory());
       put(MigrationCompleteJob.KEY,                  new MigrationCompleteJob.Factory());
+      put(PinOptOutMigration.KEY,                    new PinOptOutMigration.Factory());
       put(PinReminderMigrationJob.KEY,               new PinReminderMigrationJob.Factory());
+      put(ProfileMigrationJob.KEY,                   new ProfileMigrationJob.Factory());
       put(RegistrationPinV2MigrationJob.KEY,         new RegistrationPinV2MigrationJob.Factory());
       put(StickerAdditionMigrationJob.KEY,           new StickerAdditionMigrationJob.Factory());
       put(StorageCapabilityMigrationJob.KEY,         new StorageCapabilityMigrationJob.Factory());

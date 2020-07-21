@@ -81,6 +81,7 @@ import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.groups.GroupId;
 import org.thoughtcrime.securesms.jobs.DirectoryRefreshJob;
 import org.thoughtcrime.securesms.jobs.MultiDeviceViewOnceOpenJob;
+import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.linkpreview.LinkPreview;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.longmessage.LongMessageActivity;
@@ -168,6 +169,8 @@ public class ConversationFragment extends LoggingFragment {
     FrameLayout parent = new FrameLayout(context);
     parent.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT));
 
+    CachedInflater.from(context).cacheUntilLimit(R.layout.conversation_item_received_text_only, parent, 15);
+    CachedInflater.from(context).cacheUntilLimit(R.layout.conversation_item_sent_text_only, parent, 15);
     CachedInflater.from(context).cacheUntilLimit(R.layout.conversation_item_received_multimedia, parent, 10);
     CachedInflater.from(context).cacheUntilLimit(R.layout.conversation_item_sent_multimedia, parent, 10);
     CachedInflater.from(context).cacheUntilLimit(R.layout.conversation_item_update, parent, 5);
@@ -284,7 +287,7 @@ public class ConversationFragment extends LoggingFragment {
     int firstVisiblePosition = getListLayoutManager().findFirstCompletelyVisibleItemPosition();
 
     final long lastVisibleMessageTimestamp;
-    if (firstVisiblePosition != 0 && lastVisiblePosition != RecyclerView.NO_POSITION) {
+    if (firstVisiblePosition > 0 && lastVisiblePosition != RecyclerView.NO_POSITION) {
       MessageRecord message = getListAdapter().getLastVisibleMessageRecord(lastVisiblePosition);
 
       lastVisibleMessageTimestamp = message != null ? message.getDateReceived() : 0;
@@ -692,19 +695,35 @@ public class ConversationFragment extends LoggingFragment {
     });
 
     if (RemoteDeleteUtil.isValidSend(messageRecords, System.currentTimeMillis())) {
-      builder.setNeutralButton(R.string.ConversationFragment_delete_for_everyone, (dialog, which) -> {
-        SignalExecutors.BOUNDED.execute(() -> {
-          for (MessageRecord message : messageRecords) {
-            MessageSender.sendRemoteDelete(context, message.getId(), message.isMms());
-          }
-        });
-      });
+      builder.setNeutralButton(R.string.ConversationFragment_delete_for_everyone, (dialog, which) -> handleDeleteForEveryone(messageRecords));
     }
 
     builder.setNegativeButton(android.R.string.cancel, null);
     return builder;
   }
 
+  private void handleDeleteForEveryone(Set<MessageRecord> messageRecords) {
+    Runnable deleteForEveryone = () -> {
+      SignalExecutors.BOUNDED.execute(() -> {
+        for (MessageRecord message : messageRecords) {
+          MessageSender.sendRemoteDelete(ApplicationDependencies.getApplication(), message.getId(), message.isMms());
+        }
+      });
+    };
+
+    if (SignalStore.uiHints().hasConfirmedDeleteForEveryoneOnce()) {
+      deleteForEveryone.run();
+    } else {
+      new AlertDialog.Builder(requireActivity())
+                     .setMessage(R.string.ConversationFragment_this_message_will_be_permanently_deleted_for_everyone)
+                     .setPositiveButton(R.string.ConversationFragment_delete_for_everyone, (dialog, which) -> {
+                       SignalStore.uiHints().markHasConfirmedDeleteForEveryoneOnce();
+                       deleteForEveryone.run();
+                     })
+                     .setNegativeButton(android.R.string.cancel, null)
+                     .show();
+    }
+  }
 
   private void handleDisplayDetails(MessageRecord message) {
     startActivity(MessageDetailsActivity.getIntentForMessageDetails(requireContext(), message, recipient.getId(), threadId));
@@ -747,6 +766,7 @@ public class ConversationFragment extends LoggingFragment {
                                       attachment.getHeight(),
                                       attachment.getSize(),
                                       0,
+                                      attachment.isBorderless(),
                                       Optional.absent(),
                                       Optional.fromNullable(attachment.getCaption()),
                                       Optional.absent()));
@@ -760,6 +780,7 @@ public class ConversationFragment extends LoggingFragment {
           Slide slide = mediaMessage.getSlideDeck().getSlides().get(0);
           composeIntent.putExtra(Intent.EXTRA_STREAM, slide.getUri());
           composeIntent.setType(slide.getContentType());
+          composeIntent.putExtra(ConversationActivity.BORDERLESS_EXTRA, slide.isBorderless());
 
           if (slide.hasSticker()) {
             composeIntent.putExtra(ConversationActivity.STICKER_EXTRA, slide.asAttachment().getSticker());

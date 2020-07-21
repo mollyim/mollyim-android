@@ -44,6 +44,7 @@
   <string name="ApplicationPreferencesActivity_privacy_summary">ಸ್ಕ್ರೀನ್ ಲಾಕ್ %1$s, ನೋಂದಣಿ ಲಾಕ್ %2$s</string>
   <string name="ApplicationPreferencesActivity_privacy_summary_screen_lock">ಸ್ಕ್ರೀನ್ ಲಾಕ್  %1$s</string>
   <string name="ApplicationPreferencesActivity_appearance_summary">ಥೀಮ್‌ %1$s, ಭಾಷೆ %2$s</string>
+  <string name="ApplicationPreferencesActivity_pin_created">ಪಿನ್ ರಚಿಸಲಾಗಿದೆ.</string>
   <!--AppProtectionPreferenceFragment-->
   <plurals name="AppProtectionPreferenceFragment_minutes">
     <item quantity="one">%dನಿಮಿಷಗಳು</item>
@@ -540,6 +541,7 @@
   <string name="MessageRecord_s_disabled_disappearing_messages">%1$s ಅವರು ಕಣ್ಮರೆಯಾಗುವ ಸಂದೇಶಗಳನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಿದ್ದಾರೆ</string>
   <string name="MessageRecord_you_set_disappearing_message_time_to_s">ನೀವು ಕಾಣದಂತಾಗುವ ಸಂದೇಶದ ಟೈಮರ್ ಅನ್ನು %1$s ಗೆ ನಿಗದಿಪಡಿಸಿದ್ದೀರಿ.</string>
   <string name="MessageRecord_s_set_disappearing_message_time_to_s">%1$sಕಾಣದಂತಾಗುತ್ತಿರುವ ಸಂದೇಶದ ಟೈಮರ್ ಅನ್ನು %2$s ಗೆ ಹೊಂದಿಸಿ.</string>
+  <!--Profile change updates-->
   <!--GV2 specific-->
   <string name="MessageRecord_you_created_the_group">ನೀವು ಗುಂಪನ್ನು ರಚಿಸಿದ್ದೀರಿ.</string>
   <string name="MessageRecord_group_updated">ಗುಂಪು ನವೀಕರಿಸಲಾಗಿದೆ.</string>
@@ -548,8 +550,11 @@
   <string name="MessageRecord_s_joined_the_group">%1$s ಗುಂಪನ್ನು ಸೇರಿದ್ದಾರೆ </string>
   <!--GV2 member removals-->
   <!--GV2 role change-->
+  <string name="MessageRecord_you_are_now_an_admin">ನೀವು ಈಗ ಆಡ್ಮಿನ್ ಆಗಿದ್ದೀರಿ.</string>
   <!--GV2 invitations-->
+  <string name="MessageRecord_you_were_invited_to_the_group">ನಿಮ್ಮನ್ನು ಗುಂಪಿಗೆ ಆಹ್ವಾನಿಸಲಾಗಿದೆ.</string>
   <!--GV2 invitation revokes-->
+  <string name="MessageRecord_your_invitation_to_the_group_was_revoked">ಗುಂಪಿಗೆ ನಿಮ್ಮ ಆಹ್ವಾನವನ್ನು ಹಿಂತೆಗೆದುಕೊಳ್ಳಲಾಗಿದೆ.</string>
   <!--GV2 invitation acceptance-->
   <!--GV2 title change-->
   <!--GV2 avatar change-->
@@ -629,6 +634,7 @@
   <string name="PinRestoreEntryFragment_enter_numeric_pin"> ಸಂಖ್ಯಾ ಪಿನ್ ನಮೂದಿಸಿ</string>
   <!--PinRestoreLockedFragment-->
   <string name="PinRestoreLockedFragment_create_your_pin"> ನಿಮ್ಮ ಪಿನ್ ರಚಿಸಿ</string>
+  <!--PinOptOutDialog-->
   <!--RatingManager-->
   <string name="RatingManager_rate_this_app">ಈ ಆ್ಯಪ್ ಅನ್ನು ರೇಟ್ ಮಾಡಿ</string>
   <string name="RatingManager_if_you_enjoy_using_this_app_please_take_a_moment">ನೀವು ಒಂದು ವೇಳೆ ಈ ಆ್ಯಪ್ ಬಳಸುವುದನ್ನು ಆನಂದಿಸುತ್ತಿದ್ದಲ್ಲಿ, ನಮಗೆ ಸಹಾಯ ಮಾಡಲು ಕೊಂಚ ಸಮಯ ತೆಗೆದುಕೊಂಡು ರೇಟಿಂಗ್ ಮಾಡಿ.</string>
@@ -995,7 +1001,6 @@
   <string name="contact_selection_activity__enter_name_or_number">ಹೆಸರು ಅಥವಾ ಸಂಖ್ಯೆಯನ್ನು ನಮೂದಿಸಿ</string>
   <string name="contact_selection_activity__invite_to_signal">Signalಗೆ ಆಮಂತ್ರಿಸಿ</string>
   <string name="contact_selection_activity__new_group">ಹೊಸ ಗುಂಪು</string>
-  <!--temporary for internal testing-->
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">ನಮೂದಿಸಿದ ಪಠ್ಯ ತೆರವುಗೊಳಿಸಿ</string>
   <string name="contact_filter_toolbar__show_keyboard_description">ಕೀಬೋರ್ಡ್ ತೋರಿಸು</string>
@@ -1388,6 +1393,7 @@
   <string name="preferences_communication__sealed_sender_allow_from_anyone">ಯಾರಿಂದಲೂ ಅನುಮತಿಸಿ</string>
   <string name="preferences_communication__sealed_sender_allow_from_anyone_description">ಸಂಪರ್ಕಗಳಲ್ಲದವರು ಮತ್ತು ನಿಮ್ಮ ಪ್ರೊಫೈಲ್ ಅನ್ನು ನೀವು ಹಂಚಿಕೊಳ್ಳದ ಜನರಿಂದ ಒಳಬರುವ ಸಂದೇಶಗಳಿಗಾಗಿ ಸೀಲ್ಡ್ ಸೆಂಡರ್ ಸಕ್ರಿಯಗೊಳಿಸಿ.</string>
   <string name="preferences_communication__sealed_sender_learn_more">ಇನ್ನಷ್ಟು ತಿಳಿಯಿರಿ</string>
+  <!--Internal only preferences-->
   <!--****************************************-->
   <!--menus-->
   <!--****************************************-->
@@ -1540,7 +1546,6 @@
   <string name="CreateKbsPinFragment__create_a_new_pin">ಹೊಸ ಪಿನ್ ರಚಿಸಿ</string>
   <string name="CreateKbsPinFragment__you_can_choose_a_new_pin_as_long_as_this_device_is_registered">ಈ ಸಾಧನವನ್ನು ನೋಂದಾಯಿಸಿರುವವರೆಗೆ ನಿಮ್ಮ ಪಿನ್ ಅನ್ನು ನೀವು ಬದಲಾಯಿಸಬಹುದು.</string>
   <string name="CreateKbsPinFragment__create_your_pin">ನಿಮ್ಮ ಪಿನ್ ರಚಿಸಿ </string>
-  <string name="CreateKbsPinFragment__pins_keep_information_stored_with_signal_encrypted">ಪಿನ್‌ಗಳು Signal ಎನ್‌ಕ್ರಿಪ್ಟ್ ಮಾಡಿದ ಮಾಹಿತಿಯನ್ನು ಸಂಗ್ರಹಿಸಿಡುತ್ತವೆ ಆದ್ದರಿಂದ ನೀವು ಮಾತ್ರ ಅದನ್ನು ಪ್ರವೇಶಿಸಬಹುದು. ನೀವು Signal ಅನ್ನು ಪುನಃ ಇನ್‌ಸ್ಟಾಲ್ ಮಾಡಿದಾಗ ನಿಮ್ಮ ಪ್ರೊಫೈಲ್, ಸೆಟ್ಟಿಂಗ್‌‌ಗಳು ಮತ್ತು ಸಂಪರ್ಕಗಳು ಪುನಃಸ್ಥಾಪನೆಯಾಗುತ್ತವೆ.</string>
   <string name="CreateKbsPinFragment__choose_a_stronger_pin">ಬಲವಾದ ಪಿನ್ ಆಯ್ಕೆಮಾಡಿ</string>
   <!--ConfirmKbsPinFragment-->
   <string name="ConfirmKbsPinFragment__pins_dont_match">ಪಿನ್‌ಗಳು ಹೊಂದಿಕೆಯಾಗುತಿಲ್ಲ. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.</string>
@@ -1551,13 +1556,13 @@
   <string name="ConfirmKbsPinFragment__creating_pin">ಪಿನ್ ರಚಿಸುತ್ತಿದೆ…</string>
   <!--KbsSplashFragment-->
   <string name="KbsSplashFragment__introducing_pins">ಪಿನ್‌ಗಳನ್ನು ಪರಿಚಯಿಸಲಾಗುತ್ತಿದೆ</string>
-  <string name="KbsSplashFragment__pins_keep_information_stored_with_signal_encrypted">ಪಿನ್‌ಗಳು Signal ಎನ್‌ಕ್ರಿಪ್ಟ್ ಮಾಡಿದ ಮಾಹಿತಿಯನ್ನು ಸಂಗ್ರಹಿಸಿಡುತ್ತವೆ ಆದ್ದರಿಂದ ನೀವು ಮಾತ್ರ ಅದನ್ನು ಪ್ರವೇಶಿಸಬಹುದು. ನೀವು Signal ಅನ್ನು ಪುನಃ ಇನ್‌ಸ್ಟಾಲ್ ಮಾಡಿದಾಗ ನಿಮ್ಮ ಪ್ರೊಫೈಲ್, ಸೆಟ್ಟಿಂಗ್‌‌ಗಳು ಮತ್ತು ಸಂಪರ್ಕಗಳು ಪುನಃಸ್ಥಾಪನೆಯಾಗುತ್ತವೆ.</string>
   <string name="KbsSplashFragment__learn_more">ಇನ್ನಷ್ಟು ತಿಳಿಯಿರಿ</string>
   <string name="KbsSplashFragment__registration_lock_equals_pin">ನೋಂದಣಿ ಲಾಕ್ = ಪಿನ್</string>
   <string name="KbsSplashFragment__your_registration_lock_is_now_called_a_pin">ನಿಮ್ಮ ನೋಂದಣಿ ಲಾಕ್ ಅನ್ನು ಈಗ ಪಿನ್ ಎಂದು ಕರೆಯಲಾಗುತ್ತದೆ, ಮತ್ತು ಅದು ಹೆಚ್ಚಿನದನ್ನು ಮಾಡುತ್ತದೆ. ಇದೀಗ ಅದನ್ನು ನವೀಕರಿಸಿ. </string>
   <string name="KbsSplashFragment__read_more_about_pins">ಪಿನ್‌ಗಳ ಬಗ್ಗೆ ಇನ್ನಷ್ಟು ಓದಿ.</string>
   <string name="KbsSplashFragment__update_pin">ಪಿನ್ ನವೀಕರಿಸಿ</string>
   <string name="KbsSplashFragment__create_your_pin"> ನಿಮ್ಮ ಪಿನ್ ರಚಿಸಿ</string>
+  <string name="KbsSplashFragment__learn_more_about_pins">ಪಿನ್‌ಗಳ ಬಗ್ಗೆ ಇನ್ನಷ್ಟು ತಿಳಿಯಿರಿ. </string>
   <!--KBS Reminder Dialog-->
   <string name="KbsReminderDialog__enter_your_signal_pin">ನಿಮ್ಮ Signal ಪಿನ್ ಅನ್ನು ನಮೂದಿಸಿ</string>
   <string name="KbsReminderDialog__to_help_you_memorize_your_pin">ನಿಮ್ಮ ಪಿನ್ ನೆನಪಿನಲ್ಲಿ ಉಳಿಸಿಕೊಳ್ಳಲು ನಿಮಗೆ ಸಹಾಯ ಮಾಡುತ್ತದೆ, ಇದನ್ನು ಆಗಾಗ್ಗೆ ನಮೂದಿಸುವಂತೆ ನಾವು ಕೇಳುತ್ತೇವೆ. ನಾವು ಸಮಯ ಸರಿದಂತೆ ಇದನ್ನು ಕಡಿಮೆ ಕೇಳುತ್ತೇವೆ.</string>

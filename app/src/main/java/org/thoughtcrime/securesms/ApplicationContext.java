@@ -173,7 +173,7 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
     RefreshPreKeysJob.scheduleIfNecessary();
     StorageSyncHelper.scheduleRoutineSync();
     RetrieveProfileJob.enqueueRoutineFetchIfNeccessary(this);
-    RegistrationUtil.markRegistrationPossiblyComplete();
+    RegistrationUtil.markRegistrationPossiblyComplete(this);
 
     ApplicationDependencies.getJobManager().beginJobLoop();
 

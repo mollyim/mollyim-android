@@ -44,6 +44,7 @@
   <string name="ApplicationPreferencesActivity_privacy_summary">స్క్రీన్ లాక్ %1$s, నమోదు లాక్ %2$s</string>
   <string name="ApplicationPreferencesActivity_privacy_summary_screen_lock">తెరకి తాళం%1$s</string>
   <string name="ApplicationPreferencesActivity_appearance_summary">థీమ్ %1$s, భాష %2$s</string>
+  <string name="ApplicationPreferencesActivity_pin_created">పిన్ సృష్టించబడింది.</string>
   <!--AppProtectionPreferenceFragment-->
   <plurals name="AppProtectionPreferenceFragment_minutes">
     <item quantity="one">%d నిమిషాలు</item>
@@ -581,6 +582,7 @@
   <string name="MessageRecord_s_disabled_disappearing_messages">%1$s డిసేబుల్ కనుమరుగవుతున్న సందేశాలు.</string>
   <string name="MessageRecord_you_set_disappearing_message_time_to_s">మీరు కనుమరుగైన సందేశ టైమర్ను సెట్ చేసారు %1$s.</string>
   <string name="MessageRecord_s_set_disappearing_message_time_to_s">%1$s కనుమరుగవుతున్న సందేశాన్ని టైమర్కు సెట్ చేయండి %2$s.</string>
+  <!--Profile change updates-->
   <!--GV2 specific-->
   <string name="MessageRecord_you_created_the_group">మీరు సమూహాన్ని సృష్టించారు.</string>
   <string name="MessageRecord_group_updated">సమూహం నవీకరించబడింది</string>
@@ -603,6 +605,7 @@
   <string name="MessageRecord_you_revoked_admin_privileges_from_s">మీరు %1$s యొక్క పరిపాలనా యోగ్యతను తొలగించారు.</string>
   <string name="MessageRecord_s_revoked_your_admin_privileges">%1$s మీ పరిపాలనా యోగ్యతను తొలగించారు.</string>
   <string name="MessageRecord_s_revoked_admin_privileges_from_s">%1$s %2$s యొక్క పరిపాలనా యోగ్యతను తొలగించారు.</string>
+  <string name="MessageRecord_you_are_now_an_admin">మీరు ఇప్పుడు నిర్వాహకులే.</string>
   <!--GV2 invitations-->
   <string name="MessageRecord_you_invited_s_to_the_group">మీరు %1$sని సమూహానికి ఆహ్వానించారు.</string>
   <string name="MessageRecord_s_invited_you_to_the_group">%1$s మిమ్మల్ని సమూహానికి ఆహ్వానించారు.</string>
@@ -610,6 +613,7 @@
     <item quantity="one">%1$s ఒక వ్యక్తిని సమూహానికి ఆహ్వానించారు.</item>
     <item quantity="other">%1$s %2$d వ్యక్తులను సమూహానికి ఆహ్వానించారు.</item>
   </plurals>
+  <string name="MessageRecord_you_were_invited_to_the_group">మిమ్మల్ని గుంపుకు ఆహ్వానించారు.</string>
   <!--GV2 invitation revokes-->
   <plurals name="MessageRecord_you_revoked_invites">
     <item quantity="one">మీరు ఒక సమూహ ఆహ్వానాన్ని వెనక్కి తీసుకున్నారు</item>
@@ -621,6 +625,7 @@
   </plurals>
   <string name="MessageRecord_someone_declined_an_invitation_to_the_group">ఎవరో సమూహ ఆహ్వానాన్ని తిరస్కరించారు.</string>
   <string name="MessageRecord_you_declined_the_invitation_to_the_group">మీరు సమూహ ఆహ్వానాన్ని తిరస్కరించారు.</string>
+  <string name="MessageRecord_your_invitation_to_the_group_was_revoked">సమూహానికి మీ ఆహ్వానం ఉపసంహరించబడింది.</string>
   <!--GV2 invitation acceptance-->
   <string name="MessageRecord_you_accepted_invite">మీరు సమూహ ఆహ్వానాన్ని ఆమోదించారు.</string>
   <string name="MessageRecord_s_accepted_invite">%1$s సమూహ ఆహ్వానాన్ని ఆమోదించారు.</string>
@@ -725,6 +730,7 @@
   <string name="PinRestoreEntryFragment_enter_numeric_pin">సంఖ్యా పిన్ను నమోదు చేయండి</string>
   <!--PinRestoreLockedFragment-->
   <string name="PinRestoreLockedFragment_create_your_pin">మీ పిన్ను సృష్టించండి</string>
+  <!--PinOptOutDialog-->
   <!--RatingManager-->
   <string name="RatingManager_rate_this_app">ఈ అప్లికేషన్ ని రేట్ చెయ్యండి</string>
   <string name="RatingManager_if_you_enjoy_using_this_app_please_take_a_moment">ఈ కార్యక్షేత్రం నచ్చినచొ,దయచేసి కొంత సమయము వెచ్చించి దినిని విలువ కట్టండి.</string>
@@ -1081,7 +1087,6 @@
   <string name="contact_selection_activity__enter_name_or_number">పేరు లేదా నంబరు ఎంటర్ చేయండి</string>
   <string name="contact_selection_activity__invite_to_signal">Signal కు ఆహ్వానించండి</string>
   <string name="contact_selection_activity__new_group">కొత్త సమూహం</string>
-  <!--temporary for internal testing-->
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">నమోదు చేసిన వచనాన్ని క్లియర్ చేయండి</string>
   <string name="contact_filter_toolbar__show_keyboard_description">కీబోర్డ్ చూపించు</string>
@@ -1469,6 +1474,7 @@
   <string name="preferences_communication__sealed_sender_allow_from_anyone">ఎవరి నుండి అయినా అనుమతించు</string>
   <string name="preferences_communication__sealed_sender_allow_from_anyone_description">మీరు మీ రూపం భాగస్వామ్యం చేయని పరిచయాలు మరియు వ్యక్తుల నుండి ఇన్కమింగ్ సందేశాల కోసం మూసివేసిన పంపేవారిని ప్రారంభించండి.</string>
   <string name="preferences_communication__sealed_sender_learn_more">ఇంకా నేర్చుకో</string>
+  <!--Internal only preferences-->
   <!--****************************************-->
   <!--menus-->
   <!--****************************************-->
@@ -1613,7 +1619,6 @@
   <string name="CreateKbsPinFragment__create_a_new_pin">క్రొత్త పిన్ను సృష్టించండి</string>
   <string name="CreateKbsPinFragment__you_can_choose_a_new_pin_as_long_as_this_device_is_registered">ఈ పరికరం నమోదు చేయబడినంత వరకు మీరు మీ పిన్‌ను మార్చవచ్చు.</string>
   <string name="CreateKbsPinFragment__create_your_pin">మీ పిన్ను సృష్టించండి</string>
-  <string name="CreateKbsPinFragment__pins_keep_information_stored_with_signal_encrypted">పిన్‌లు Signal గుప్తీకరించిన సమాచారాన్ని నిల్వ చేస్తాయి కాబట్టి మీరు మాత్రమే దీన్ని యాక్సెస్ చేయవచ్చు. మీరు Signal ‌ను మళ్లీ ఇన్‌స్టాల్ చేసినప్పుడు మీ ప్రొఫైల్, సెట్టింగ్‌లు మరియు పరిచయాలు పునరుద్ధరించబడతాయి.</string>
   <string name="CreateKbsPinFragment__choose_a_stronger_pin">బలమైన పిన్ను ఎంచుకోండి</string>
   <!--ConfirmKbsPinFragment-->
   <string name="ConfirmKbsPinFragment__pins_dont_match">పిన్‌లు సరిపోలడం లేదు. మళ్ళీ ప్రయత్నించండి.</string>
@@ -1624,12 +1629,12 @@
   <string name="ConfirmKbsPinFragment__creating_pin">పిన్ సృష్టిస్తోంది…</string>
   <!--KbsSplashFragment-->
   <string name="KbsSplashFragment__introducing_pins">పిన్‌లను పరిచయం చేస్తోంది</string>
-  <string name="KbsSplashFragment__pins_keep_information_stored_with_signal_encrypted">పిన్‌లు Signal గుప్తీకరించిన సమాచారాన్ని నిల్వ చేస్తాయి కాబట్టి మీరు మాత్రమే దీన్ని యాక్సెస్ చేయవచ్చు. మీరు Signal ‌ను మళ్లీ ఇన్‌స్టాల్ చేసినప్పుడు మీ ప్రొఫైల్, సెట్టింగ్‌లు మరియు పరిచయాలు పునరుద్ధరించబడతాయి.</string>
   <string name="KbsSplashFragment__learn_more">ఇంకా నేర్చుకో</string>
   <string name="KbsSplashFragment__registration_lock_equals_pin">నమోదు లాక్  = పిన్</string>
   <string name="KbsSplashFragment__read_more_about_pins">పిన్‌ల గురించి మరింత చదవండి.</string>
   <string name="KbsSplashFragment__update_pin">పిన్‌ను నవీకరించండి</string>
   <string name="KbsSplashFragment__create_your_pin">మీ పిన్ను సృష్టించండి</string>
+  <string name="KbsSplashFragment__learn_more_about_pins">పిన్‌ల గురించి మరింత తెలుసుకోండి</string>
   <!--KBS Reminder Dialog-->
   <string name="KbsReminderDialog__enter_your_signal_pin">మీ Signal పిన్ను నమోదు చేయండి</string>
   <string name="KbsReminderDialog__to_help_you_memorize_your_pin">మీ పిన్‌ను గుర్తుంచుకోవడంలో మీకు సహాయపడటానికి, క్రమానుగతంగా నమోదు చేయమని మేము మిమ్మల్ని అడుగుతాము. మేము మిమ్మల్ని కాలక్రమేణా తక్కువ అడుగుతాము.</string>

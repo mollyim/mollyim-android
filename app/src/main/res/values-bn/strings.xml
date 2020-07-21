@@ -45,6 +45,7 @@
   <string name="ApplicationPreferencesActivity_privacy_summary">স্ক্রিন লক%1$s, নিবন্ধন লক%2$s</string>
   <string name="ApplicationPreferencesActivity_privacy_summary_screen_lock">স্ক্রিন লক %1$s</string>
   <string name="ApplicationPreferencesActivity_appearance_summary">%1$sথীম, %2$s ভাষা</string>
+  <string name="ApplicationPreferencesActivity_pin_created">পিন তৈরি করা হয়েছে।</string>
   <!--AppProtectionPreferenceFragment-->
   <plurals name="AppProtectionPreferenceFragment_minutes">
     <item quantity="one">%d মিনিট</item>
@@ -624,6 +625,7 @@
   <string name="MessageRecord_s_disabled_disappearing_messages">%1$s অদৃশ্য হয়ে যাওয়া বার্তা অক্ষম করেছেন।</string>
   <string name="MessageRecord_you_set_disappearing_message_time_to_s">আপনি অদৃশ্য হয়ে যাওয়া বার্তার সময়কাল %1$s নির্ধারন করেছেন।</string>
   <string name="MessageRecord_s_set_disappearing_message_time_to_s">%1$s অদৃশ্য হয়ে যাওয়া বার্তার সময়কাল %2$s নির্ধারন করেছেন।</string>
+  <!--Profile change updates-->
   <!--GV2 specific-->
   <string name="MessageRecord_you_created_the_group">আপনি গ্রুপ তৈরি করেছেন।</string>
   <string name="MessageRecord_group_updated">গ্রুপ আপডেট হয়েছে।</string>
@@ -646,6 +648,7 @@
   <string name="MessageRecord_you_revoked_admin_privileges_from_s">আপনি %1$s এর প্রশাসকীয় ক্ষমতাগুলি বাতিল করেছেন।</string>
   <string name="MessageRecord_s_revoked_your_admin_privileges">%1$s আপনার এর প্রশাসকীয় ক্ষমতাগুলি বাতিল করেছে।</string>
   <string name="MessageRecord_s_revoked_admin_privileges_from_s">%1$s %2$s এর প্রশাসকীয় ক্ষমতাগুলি বাতিল করেছে।</string>
+  <string name="MessageRecord_you_are_now_an_admin">আপনি এখন প্রশাসক</string>
   <!--GV2 invitations-->
   <string name="MessageRecord_you_invited_s_to_the_group">আপনি %1$s কে এই গ্রুপে আমন্ত্রণ জানিয়েছেন।</string>
   <string name="MessageRecord_s_invited_you_to_the_group">%1$s আপনাকে গ্রুপটিতে আমন্ত্রণ জানিয়েছেন।</string>
@@ -653,6 +656,7 @@
     <item quantity="one">%1$s ১ জনকে গ্রুপে আমন্ত্রণ জানিয়েছে।</item>
     <item quantity="other">%1$s %2$d জনকে গ্রুপে আমন্ত্রণ জানিয়েছে।</item>
   </plurals>
+  <string name="MessageRecord_you_were_invited_to_the_group">আপনাকে এই গ্রুপে আমন্ত্রিত করা হয়েছিল।</string>
   <!--GV2 invitation revokes-->
   <plurals name="MessageRecord_you_revoked_invites">
     <item quantity="one">আপনি গ্রুপেটির জন্য কৃত একটি আমন্ত্রণ বাতিল করেছেন।</item>
@@ -664,6 +668,7 @@
   </plurals>
   <string name="MessageRecord_someone_declined_an_invitation_to_the_group">কেউ একজন এই গ্রুপের আমন্ত্রণ প্রত্যাখ্যান করেছে।</string>
   <string name="MessageRecord_you_declined_the_invitation_to_the_group">আপনি গ্রুপটির নিমন্ত্রণ প্রত্যাখ্যান করেছেন।</string>
+  <string name="MessageRecord_your_invitation_to_the_group_was_revoked">গ্রুপে আপনার আমন্ত্রণ বাতিল করা হয়েছিল।</string>
   <!--GV2 invitation acceptance-->
   <string name="MessageRecord_you_accepted_invite">আপনি গ্রুপটির নিমন্ত্রণ গ্রহণ করেছেন।</string>
   <string name="MessageRecord_s_accepted_invite">%1$s গ্রুপটির নিমন্ত্রণ গ্রহণ করেছেন।</string>
@@ -763,6 +768,7 @@
   <!--PinRestoreLockedFragment-->
   <string name="PinRestoreLockedFragment_create_your_pin">আপনার পিন তৈরি করুন</string>
   <string name="PinRestoreLockedFragment_create_new_pin">PIN তৈরি করুন</string>
+  <!--PinOptOutDialog-->
   <!--RatingManager-->
   <string name="RatingManager_rate_this_app">এই এপটিকে রেটিং দিন</string>
   <string name="RatingManager_if_you_enjoy_using_this_app_please_take_a_moment">আপনি যদি এই অ্যাপ ব্যবহার করে উপভোগ করেন, তবে দয়া করে এটি রেটিং দিতে কিছুক্ষণ সময় দিয়ে আমাদের সহায়তা করুন।</string>
@@ -1153,7 +1159,6 @@
   <string name="contact_selection_activity__enter_name_or_number">নাম বা নাম্বার লিখুন</string>
   <string name="contact_selection_activity__invite_to_signal">Signal এ নিমন্ত্রণ করুন</string>
   <string name="contact_selection_activity__new_group">নতুন গ্রুপ</string>
-  <!--temporary for internal testing-->
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">প্রবেশ করা লেখা মুছুন</string>
   <string name="contact_filter_toolbar__show_keyboard_description">কীবোর্ড প্রদর্শন করুন</string>
@@ -1568,6 +1573,7 @@
   <string name="preferences_communication__sealed_sender_allow_from_anyone">যে কারও কাছ থেকে অনুমতি দিন</string>
   <string name="preferences_communication__sealed_sender_allow_from_anyone_description">পরিচিতিতে নেই এবং যাদের সাথে আপনি নিজের প্রোফাইল শেয়ার করেন নি তাদের কাছ থেকে আগত বার্তাগুলির জন্য সিলযুক্ত প্রেরককে সক্ষম করুন।</string>
   <string name="preferences_communication__sealed_sender_learn_more">আরও জানুন</string>
+  <!--Internal only preferences-->
   <!--****************************************-->
   <!--menus-->
   <!--****************************************-->
@@ -1725,7 +1731,6 @@
   <string name="CreateKbsPinFragment__create_a_new_pin">একটি নতুন পিন তৈরি করুন</string>
   <string name="CreateKbsPinFragment__you_can_choose_a_new_pin_as_long_as_this_device_is_registered">এই ডিভাইসটি নিবন্ধিত থাকা অবধি আপনি আপনার পিন পরিবর্তন করতে পারবেন।</string>
   <string name="CreateKbsPinFragment__create_your_pin">আপনার পিন তৈরি করুন</string>
-  <string name="CreateKbsPinFragment__pins_keep_information_stored_with_signal_encrypted">পিনগুলি Signal-এ সঞ্চিত তথ্য এনক্রিপ্ট করে রাখে যাতে কেবল আপনি এটি অ্যাক্সেস করতে পারবেন। আপনি যখন Signal পুনরায় ইনস্টল করবেন তখন আপনার প্রোফাইল, সেটিংস এবং পরিচিতিগুলি পুনরুদ্ধার করবে।</string>
   <string name="CreateKbsPinFragment__choose_a_stronger_pin">একটি শক্তিশালী পিন চয়ন করুন</string>
   <!--ConfirmKbsPinFragment-->
   <string name="ConfirmKbsPinFragment__pins_dont_match">পিনগুলি মেলে না। আবার চেষ্টা করুন|</string>
@@ -1737,12 +1742,12 @@
   <string name="ConfirmKbsPinFragment__creating_pin">পিন তৈরি করা হচ্ছে …</string>
   <!--KbsSplashFragment-->
   <string name="KbsSplashFragment__introducing_pins">পিনের সাথে পরিচিত হন</string>
-  <string name="KbsSplashFragment__pins_keep_information_stored_with_signal_encrypted">পিনগুলি Signal-এ সঞ্চিত তথ্য এনক্রিপ্ট করে রাখে যাতে কেবল আপনি এটি অ্যাক্সেস করতে পারবেন। আপনি যখন Signal পুনরায় ইনস্টল করবেন তখন আপনার প্রোফাইল, সেটিংস এবং পরিচিতিগুলি পুনরুদ্ধার করবে।</string>
   <string name="KbsSplashFragment__learn_more">আরও জানুন</string>
   <string name="KbsSplashFragment__registration_lock_equals_pin">রেজিস্ট্রেশন লক = পিন</string>
   <string name="KbsSplashFragment__read_more_about_pins">পিন সম্পর্কে আরও পড়ুন।</string>
   <string name="KbsSplashFragment__update_pin">পিন আপডেট করুন</string>
   <string name="KbsSplashFragment__create_your_pin">আপনার পিন তৈরি করুন</string>
+  <string name="KbsSplashFragment__learn_more_about_pins">পিনগুলি সম্পর্কে আরও জানুন</string>
   <!--KBS Reminder Dialog-->
   <string name="KbsReminderDialog__enter_your_signal_pin">আপনার Signal পিন প্রবেশ করান</string>
   <string name="KbsReminderDialog__to_help_you_memorize_your_pin">আপনাকে আপনার পিন মুখস্ত করতে সহায়তা করতে আমরা আপনাকে মাঝে মাঝে এটি প্রবেশ করাতে বলব। আমরা সময়ের সাথে সাথে  জিজ্ঞাসা করা কমিয়ে দেব।</string>

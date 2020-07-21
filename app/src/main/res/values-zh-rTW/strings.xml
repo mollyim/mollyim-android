@@ -42,6 +42,9 @@
   <string name="ApplicationPreferencesActivity_privacy_summary">螢幕鎖定 %1$s，註冊鎖定 %2$s</string>
   <string name="ApplicationPreferencesActivity_privacy_summary_screen_lock">螢幕鎖%1$s</string>
   <string name="ApplicationPreferencesActivity_appearance_summary">主題 %1$s，語言 %2$s</string>
+  <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">PIN碼是註冊鎖定所必需的。 要停用PIN碼，請先關閉註冊鎖功能。</string>
+  <string name="ApplicationPreferencesActivity_pin_created">PIN碼已建立。</string>
+  <string name="ApplicationPreferencesActivity_pin_disabled">PIN碼功能已停用</string>
   <!--AppProtectionPreferenceFragment-->
   <plurals name="AppProtectionPreferenceFragment_minutes">
     <item quantity="other">%d 分鐘</item>
@@ -171,6 +174,7 @@
   <string name="ConversationItem_download_more">下載更多</string>
   <string name="ConversationItem_pending">等待中</string>
   <string name="ConversationItem_this_message_was_deleted">這個訊息已經被刪除。</string>
+  <string name="ConversationItem_you_deleted_this_message">你刪除了此訊息。</string>
   <!--ConversationActivity-->
   <string name="ConversationActivity_reset_secure_session_question">重設安全對話？</string>
   <string name="ConversationActivity_this_may_help_if_youre_having_encryption_problems">該選項將會有助於解決您在對話中遇到的加密問題。您的訊息將被保留。</string>
@@ -263,6 +267,7 @@
   <string name="ConversationFragment_deleting_messages">刪除訊息中…</string>
   <string name="ConversationFragment_delete_for_me">為我刪除</string>
   <string name="ConversationFragment_delete_for_everyone">為大家刪除</string>
+  <string name="ConversationFragment_this_message_will_be_permanently_deleted_for_everyone">該訊息將被永久刪除。 成員將能夠看到你刪除了一則訊息。</string>
   <string name="ConversationFragment_quoted_message_not_found">無法找到原始訊息</string>
   <string name="ConversationFragment_quoted_message_no_longer_available">原始訊息已不存在</string>
   <string name="ConversationFragment_failed_to_open_message">開啟訊息失敗</string>
@@ -303,7 +308,7 @@
   <string name="CreateProfileActivity_problem_setting_profile">個人資訊設定出現問題</string>
   <string name="CreateProfileActivity_profile_photo">頭像照片</string>
   <string name="CreateProfileActivity_set_up_your_profile">設定你的資訊</string>
-  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">你的個人資訊是點對點加密的。 當你傳送或接收新對話以及加入新群組時，你的聯絡人將可看見。</string>
+  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">你的個人資料已點對點加密。 在你發起或接受新對話以及在加入新群組後，你的聯絡人可以看到你變更個人資料。</string>
   <string name="CreateProfileActivity_set_avatar_description">設定頭像</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">使用自訂：%s</string>
@@ -436,6 +441,8 @@
   <string name="GroupManagement_choose_who_can_add_or_invite_new_members">選擇誰可以新增或邀請新成員</string>
   <string name="GroupManagement_choose_who_can_change_the_group_name_and_photo">選擇誰可以改變群組名稱及照片</string>
   <!--ManageRecipientActivity-->
+  <string name="ManageRecipientActivity_add_to_system_contacts">加入系統聯絡人</string>
+  <string name="ManageRecipientActivity_this_person_is_in_your_contacts">這個人在你的聯絡人清單中</string>
   <string name="ManageRecipientActivity_disappearing_messages">自動銷毀訊息</string>
   <string name="ManageRecipientActivity_chat_color">聊天的顏色</string>
   <string name="ManageRecipientActivity_block">封鎖</string>
@@ -601,6 +608,7 @@
   <string name="MessageRecord_message_encrypted_with_a_legacy_protocol_version_that_is_no_longer_supported">收到一則使用舊版本並已經不再支援的 Signal 加密訊息。請尋求傳送人將 Signal 升級到最新的版本並再次傳送該訊息。</string>
   <string name="MessageRecord_left_group">您已經離開了此群組。</string>
   <string name="MessageRecord_you_updated_group">你已更新群組。</string>
+  <string name="MessageRecord_the_group_was_updated">該群組已更新。</string>
   <string name="MessageRecord_you_called">向外撥號</string>
   <string name="MessageRecord_called_you">聯絡人來電</string>
   <string name="MessageRecord_missed_call">未接來電</string>
@@ -613,6 +621,11 @@
   <string name="MessageRecord_s_disabled_disappearing_messages">%1$s 關閉了自動銷毀訊息的功能。</string>
   <string name="MessageRecord_you_set_disappearing_message_time_to_s">你已將訊息銷毀時間設定為 %1$s。</string>
   <string name="MessageRecord_s_set_disappearing_message_time_to_s">%1$s 已將訊息銷毀時間設為 %2$s。</string>
+  <string name="MessageRecord_disappearing_message_time_set_to_s">自動銷毀訊息時間已經被設為%1$s。</string>
+  <!--Profile change updates-->
+  <string name="MessageRecord_changed_their_profile_name_to">%1$s變更他們的個人資訊名稱為%2$s。</string>
+  <string name="MessageRecord_changed_their_profile_name_from_to">%1$s變更他們的個人資訊名稱從%2$s改為%3$s。</string>
+  <string name="MessageRecord_changed_their_profile">%1$s已變更他們個人資訊。</string>
   <!--GV2 specific-->
   <string name="MessageRecord_you_created_the_group">你建立了一個群組。</string>
   <string name="MessageRecord_group_updated">群組已更新。</string>
@@ -628,6 +641,8 @@
   <string name="MessageRecord_s_removed_you_from_the_group">%1$s從此群組將你移除了。</string>
   <string name="MessageRecord_you_left_the_group">你已離開群組。</string>
   <string name="MessageRecord_s_left_the_group">%1$s離開了群組。</string>
+  <string name="MessageRecord_you_are_no_longer_in_the_group">你已不在這個群組中。</string>
+  <string name="MessageRecord_s_is_no_longer_in_the_group">%1$s已不在群組中。</string>
   <!--GV2 role change-->
   <string name="MessageRecord_you_made_s_an_admin">你將%1$s設為管理員。</string>
   <string name="MessageRecord_s_made_s_an_admin">%1$s將%2$s設為管理員。</string>
@@ -635,11 +650,19 @@
   <string name="MessageRecord_you_revoked_admin_privileges_from_s">你撤消了%1$s的管理員權限。</string>
   <string name="MessageRecord_s_revoked_your_admin_privileges">%1$s撤消你的管理員權限。\"</string>
   <string name="MessageRecord_s_revoked_admin_privileges_from_s">%1$s從%2$s撤銷了管理員權限。</string>
+  <string name="MessageRecord_s_is_now_an_admin">%1$s現在是管理者。</string>
+  <string name="MessageRecord_you_are_now_an_admin">你現在是管理員。</string>
+  <string name="MessageRecord_s_is_no_longer_an_admin">%1$s不再是管理者。</string>
+  <string name="MessageRecord_you_are_no_longer_an_admin">你已不再是管理者。</string>
   <!--GV2 invitations-->
   <string name="MessageRecord_you_invited_s_to_the_group">你邀請了%1$s到此群組。</string>
   <string name="MessageRecord_s_invited_you_to_the_group">%1$s邀請你到此群組。</string>
   <plurals name="MessageRecord_s_invited_members">
     <item quantity="other">%1$s邀請了%2$d個人們到此群組。</item>
+  </plurals>
+  <string name="MessageRecord_you_were_invited_to_the_group">你被邀請到此群組。</string>
+  <plurals name="MessageRecord_d_people_were_invited_to_the_group">
+    <item quantity="other">%1$d個人已經被邀請到此群組。</item>
   </plurals>
   <!--GV2 invitation revokes-->
   <plurals name="MessageRecord_you_revoked_invites">
@@ -650,6 +673,10 @@
   </plurals>
   <string name="MessageRecord_someone_declined_an_invitation_to_the_group">有人拒絕了到此群組的邀請。</string>
   <string name="MessageRecord_you_declined_the_invitation_to_the_group">你拒絕了到此群組的邀請。</string>
+  <string name="MessageRecord_your_invitation_to_the_group_was_revoked">你加入群組的邀請已被撤消。</string>
+  <plurals name="MessageRecord_d_invitations_were_revoked">
+    <item quantity="other">%1$d的邀請到此群組已被取消。</item>
+  </plurals>
   <!--GV2 invitation acceptance-->
   <string name="MessageRecord_you_accepted_invite">你接受了到此群組的邀請。</string>
   <string name="MessageRecord_s_accepted_invite">%1$s接受了到此群組的邀請。</string>
@@ -658,15 +685,19 @@
   <!--GV2 title change-->
   <string name="MessageRecord_you_changed_the_group_name_to_s">你變更了群組名稱為\"%1$s\"。</string>
   <string name="MessageRecord_s_changed_the_group_name_to_s">%1$s變更了群組名稱為\"%2$s\"。</string>
+  <string name="MessageRecord_the_group_name_has_changed_to_s">此群組的名稱已經被改為\"%1$s\"。</string>
   <!--GV2 avatar change-->
   <string name="MessageRecord_you_changed_the_group_avatar">你變更了群組頭像。</string>
   <string name="MessageRecord_s_changed_the_group_avatar">%1$s變更了群組頭像。</string>
+  <string name="MessageRecord_the_group_group_avatar_has_been_changed">此群組的頭像已被改變。</string>
   <!--GV2 attribute access level change-->
   <string name="MessageRecord_you_changed_who_can_edit_group_info_to_s">你變更了誰可以編輯群組資訊為\"%1$s\"。</string>
   <string name="MessageRecord_s_changed_who_can_edit_group_info_to_s">%1$s變更了誰可以編輯群組資訊為\"%2$s\"。</string>
+  <string name="MessageRecord_who_can_edit_group_info_has_been_changed_to_s">誰可以編輯群組資訊已變更為\"%1$s\"。</string>
   <!--GV2 membership access level change-->
   <string name="MessageRecord_you_changed_who_can_edit_group_membership_to_s">你變更了誰可以編輯群組成員資格為\"%1$s\"。</string>
   <string name="MessageRecord_s_changed_who_can_edit_group_membership_to_s">%1$s變更了誰可以編輯群駔成員資格為\"%2$s\"。</string>
+  <string name="MessageRecord_who_can_edit_group_membership_has_been_changed_to_s">誰可以編輯群成員已變更為\"%1$s\"。</string>
   <!--End of GV2 specific update messages-->
   <string name="MessageRecord_your_safety_number_with_s_has_changed">您與 %s 的安全碼已改變。</string>
   <string name="MessageRecord_you_marked_your_safety_number_with_s_verified">你標記與 %s 的安全碼為已驗證</string>
@@ -755,6 +786,10 @@
   <string name="PinRestoreLockedFragment_create_your_pin">建立你的 PIN 碼</string>
   <string name="PinRestoreLockedFragment_youve_run_out_of_pin_guesses">你的PIN碼猜測用完了，但是你仍然可以通過建立新的PIN碼來連結Signal帳號。 為了你的隱私和安全，你的帳號將被回復，而不會保存任何個人資料訊息或設定。</string>
   <string name="PinRestoreLockedFragment_create_new_pin">建立新的PIN碼</string>
+  <!--PinOptOutDialog-->
+  <string name="PinOptOutDialog_warning">警告</string>
+  <string name="PinOptOutDialog_if_you_disable_the_pin_you_will_lose_all_data">如果停用了PIN碼功能，則除非手動備份和還原，否則重新註冊Signal時，所有資料都會遺失。 停用PIN碼功能時無法開啟註冊鎖。</string>
+  <string name="PinOptOutDialog_disable_pin">停用PIN碼</string>
   <!--RatingManager-->
   <string name="RatingManager_rate_this_app">評分這個應用程式</string>
   <string name="RatingManager_if_you_enjoy_using_this_app_please_take_a_moment">如果您喜歡使用此應用程式，請使用片刻時間幫我們對其進行評分。</string>
@@ -869,6 +904,7 @@
   <string name="SignalPinReminders_well_remind_you_again_in_a_few_days">我們將在幾天後再次提醒你。</string>
   <string name="SignalPinReminders_well_remind_you_again_in_a_week">我們會在一周後再次提醒你。</string>
   <string name="SignalPinReminders_well_remind_you_again_in_a_couple_weeks">我們會在幾週後再次提醒你。</string>
+  <string name="SignalPinReminders_well_remind_you_again_in_a_month">我們將在一個月內再次提醒你。</string>
   <!--Slide-->
   <string name="Slide_image">圖片</string>
   <string name="Slide_sticker">貼圖</string>
@@ -936,6 +972,7 @@
   <string name="ThreadRecord_view_once_video">一次性影片</string>
   <string name="ThreadRecord_view_once_media">一次性多媒體檔案</string>
   <string name="ThreadRecord_this_message_was_deleted">這個訊息已經被刪除。</string>
+  <string name="ThreadRecord_you_deleted_this_message">你刪除了此訊息。</string>
   <string name="ThreadRecord_s_is_on_signal">%s 在 Signal 了！</string>
   <string name="ThreadRecord_disappearing_messages_disabled">自動銷毀訊息功能已被關閉。</string>
   <string name="ThreadRecord_disappearing_message_time_updated_to_s">訊息銷毀時間設定為 %s</string>
@@ -1025,6 +1062,7 @@
   <string name="MediaPreviewActivity_media_delete_confirmation_title">刪除訊息？</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">這將永久刪除此訊息。</string>
   <string name="MediaPreviewActivity_s_to_s">%1$s到%2$s</string>
+  <string name="MediaPreviewActivity_media_no_longer_available">媒體不可再使用。</string>
   <!--MessageNotifier-->
   <string name="MessageNotifier_d_new_messages_in_d_conversations">%1$d 則新訊息在 %2$d 的對話中</string>
   <string name="MessageNotifier_most_recent_from_s">最新來自：%1$s</string>
@@ -1150,7 +1188,6 @@
   <string name="contact_selection_activity__enter_name_or_number">輸入名字或號碼</string>
   <string name="contact_selection_activity__invite_to_signal">邀請至 Signal</string>
   <string name="contact_selection_activity__new_group">新增群組</string>
-  <!--temporary for internal testing-->
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">清除已輸入的文字</string>
   <string name="contact_filter_toolbar__show_keyboard_description">顯示鍵盤</string>
@@ -1167,6 +1204,7 @@
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">\"%1$s\"不是 Signal 使用者。請檢查使用者名稱並再試一次。</string>
   <string name="ContactSelectionListFragment_okay">Okay</string>
   <string name="ContactSelectionListFragment_the_group_is_full">群組人數已經滿了</string>
+  <string name="ContactSelectionListFragment_you_do_not_need_to_add_yourself_to_the_group">你無需將自己新增到群組中</string>
   <!--blocked_contacts_fragment-->
   <string name="blocked_contacts_fragment__no_blocked_contacts">無已封鎖的聯絡人</string>
   <!--contact_selection_list_fragment-->
@@ -1526,10 +1564,15 @@
   <string name="preferences__dark_theme">深色</string>
   <string name="preferences__appearance">介面設定</string>
   <string name="preferences__theme">主題</string>
+  <string name="preferences__disable_pin">停用PIN碼</string>
+  <string name="preferences__enable_pin">啟用PIN碼</string>
+  <string name="preferences__if_you_disable_the_pin_you_will_lose_all_data">如果停用了PIN碼功能，則除非手動備份和還原，否則重新註冊Signal時，所有資料都會遺失。 停用PIN碼功能時無法開啟註冊鎖。</string>
+  <string name="preferences__pins_keep_information_stored_with_signal_encrypted_so_only_you_can_access_it">PIN碼會以Signal加密方式儲存訊息，因此只有你可以讀取。 重新安裝後，你的個人資料，設定和聯絡人將回復。 你不需要PIN碼即可開啟應用程式。</string>
   <string name="preferences__system_default">系統預設</string>
   <string name="preferences__default">預設</string>
   <string name="preferences__language">語言選項</string>
   <string name="preferences__signal_messages_and_calls">Signal 訊息與通話</string>
+  <string name="preferences__advanced_pin_settings">進階PIN碼設定</string>
   <string name="preferences__free_private_messages_and_calls">免費加密訊息與通話至 Signal 使用者</string>
   <string name="preferences__submit_debug_log">送出偵錯日誌</string>
   <string name="preferences__support_wifi_calling">\"WiFi 呼叫\"相容模式</string>
@@ -1576,6 +1619,7 @@
   <string name="preferences_communication__sealed_sender_allow_from_anyone">允許任何人</string>
   <string name="preferences_communication__sealed_sender_allow_from_anyone_description">啟用密封發件人對來自非聯絡人及其他人傳來的訊息，將不會對其分享你的個人資訊。</string>
   <string name="preferences_communication__sealed_sender_learn_more">了解更多</string>
+  <!--Internal only preferences-->
   <!--****************************************-->
   <!--menus-->
   <!--****************************************-->
@@ -1730,7 +1774,7 @@
   <string name="CreateKbsPinFragment__create_a_new_pin">建立一個新 PIN 碼</string>
   <string name="CreateKbsPinFragment__you_can_choose_a_new_pin_as_long_as_this_device_is_registered">只要註冊了此裝置，你就可以變更PIN碼。</string>
   <string name="CreateKbsPinFragment__create_your_pin">建立你的 PIN 碼</string>
-  <string name="CreateKbsPinFragment__pins_keep_information_stored_with_signal_encrypted">PIN碼會以Signal加密方式儲存資訊，因此只有你可以讀取。 重新安裝Signal時，你的個人資料，設定和聯絡人將復元。</string>
+  <string name="CreateKbsPinFragment__pins_keep_information_stored_with_signal_encrypted">PIN碼會以Signal加密方式儲存訊息，因此只有你可以讀取。 重新安裝後，你的個人資料，設定和聯絡人將回復。 你不需要PIN碼即可開啟應用程式。</string>
   <string name="CreateKbsPinFragment__choose_a_stronger_pin">請選擇強度較強的PIN碼</string>
   <!--ConfirmKbsPinFragment-->
   <string name="ConfirmKbsPinFragment__pins_dont_match">PIN碼不符合。請重試一次。</string>
@@ -1742,13 +1786,15 @@
   <string name="ConfirmKbsPinFragment__creating_pin">建立PIN碼中…</string>
   <!--KbsSplashFragment-->
   <string name="KbsSplashFragment__introducing_pins">介紹 PIN 碼</string>
-  <string name="KbsSplashFragment__pins_keep_information_stored_with_signal_encrypted">PIN碼會以Signal加密方式儲存資訊，因此只有你可以讀取。 重新安裝Signal時，你的個人資料，設定和聯絡人將復元。</string>
+  <string name="KbsSplashFragment__pins_keep_information_stored_with_signal_encrypted">PIN碼會以Signal加密方式儲存訊息，因此只有你可以讀取。 重新安裝後，你的個人資料，設定和聯絡人將回復。 你不需要PIN碼即可開啟應用程式。</string>
   <string name="KbsSplashFragment__learn_more">了解更多</string>
   <string name="KbsSplashFragment__registration_lock_equals_pin">註冊鎖 = PIN 碼</string>
   <string name="KbsSplashFragment__your_registration_lock_is_now_called_a_pin">你的註冊鎖現在稱為PIN碼，並且功能更多。 請立即更新。</string>
   <string name="KbsSplashFragment__read_more_about_pins">了解更多有關PIN碼。</string>
   <string name="KbsSplashFragment__update_pin">升級PIN碼</string>
   <string name="KbsSplashFragment__create_your_pin">建立你的 PIN 碼</string>
+  <string name="KbsSplashFragment__learn_more_about_pins">了解更多有關 PIN 碼</string>
+  <string name="KbsSplashFragment__disable_pin">停用PIN碼</string>
   <!--KBS Reminder Dialog-->
   <string name="KbsReminderDialog__enter_your_signal_pin">輸入你的 Signal PIN 碼</string>
   <string name="KbsReminderDialog__to_help_you_memorize_your_pin">為了幫助你記住PIN碼，我們會要求你定期輸入。 我們會漸漸地減少要求。</string>

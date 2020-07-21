@@ -44,6 +44,7 @@
   <string name="ApplicationPreferencesActivity_privacy_summary">स्क्रीन लॉक %1$s, नोंदणी लॉक %2$s</string>
   <string name="ApplicationPreferencesActivity_privacy_summary_screen_lock">स्क्रीन लॉक %1$s</string>
   <string name="ApplicationPreferencesActivity_appearance_summary">थीम %1$s, भाषा %2$s</string>
+  <string name="ApplicationPreferencesActivity_pin_created">PIN तयार केले</string>
   <!--AppProtectionPreferenceFragment-->
   <plurals name="AppProtectionPreferenceFragment_minutes">
     <item quantity="one">%d मिनिट</item>
@@ -312,7 +313,6 @@
   <string name="CreateProfileActivity_problem_setting_profile">प्रोफाईल सेट करण्यात समस्या</string>
   <string name="CreateProfileActivity_profile_photo">प्रोफाईल फोटो</string>
   <string name="CreateProfileActivity_set_up_your_profile">आपली प्रोफाईल सेट अप करा</string>
-  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">आपले प्रोफाईल एंड-टू-एंड एन्क्रिप्टेड आहे. जेव्हा आपण नवीन संभाषणे सुरू करता किंवा स्वीकारता आणि आपण नवीन गटांमध्ये सामील होता तेव्हा हे आपल्या संपर्कांना दृश्यमान असेल.</string>
   <string name="CreateProfileActivity_set_avatar_description">अवतार सेट करा</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">सानुकूल वापरून: %s</string>
@@ -576,6 +576,7 @@
   <string name="MessageRecord_s_disabled_disappearing_messages">%1$s ने हरवणारे संदेश अक्षम केले.</string>
   <string name="MessageRecord_you_set_disappearing_message_time_to_s">आपण हरवणारे संदेश टायमर %1$s वर सेट केले.</string>
   <string name="MessageRecord_s_set_disappearing_message_time_to_s">%1$s ने हरवणारे संदेश टायमर %2$s वर सेट केले.</string>
+  <!--Profile change updates-->
   <!--GV2 specific-->
   <string name="MessageRecord_you_created_the_group">आपण गट तयार केला.</string>
   <string name="MessageRecord_group_updated">गट अद्यतनित.</string>
@@ -584,8 +585,11 @@
   <string name="MessageRecord_s_joined_the_group">%1$s गटात सामील झाले</string>
   <!--GV2 member removals-->
   <!--GV2 role change-->
+  <string name="MessageRecord_you_are_now_an_admin">आपण आता प्रशासक आहात.</string>
   <!--GV2 invitations-->
+  <string name="MessageRecord_you_were_invited_to_the_group">आपल्याला गटात निमंत्रित केले गेले होते.</string>
   <!--GV2 invitation revokes-->
+  <string name="MessageRecord_your_invitation_to_the_group_was_revoked">आपले गटाचे निमंत्रण रद्द केले गेले.</string>
   <!--GV2 invitation acceptance-->
   <!--GV2 title change-->
   <!--GV2 avatar change-->
@@ -661,6 +665,7 @@
   <string name="PinRestoreEntryFragment_enter_numeric_pin">न्यूमेरिक PIN प्रविष्ट करा</string>
   <!--PinRestoreLockedFragment-->
   <string name="PinRestoreLockedFragment_create_your_pin">आपला PIN तयार करा</string>
+  <!--PinOptOutDialog-->
   <!--RatingManager-->
   <string name="RatingManager_rate_this_app">ह्या अॅपला रेट करा</string>
   <string name="RatingManager_if_you_enjoy_using_this_app_please_take_a_moment">जर आपल्याला हा अॅप वापरणे आवडत असेल, तर कृपया एक क्षण काढून आम्हाला रेट करून आमची मदत करा.</string>
@@ -1019,7 +1024,6 @@
   <string name="contact_selection_activity__enter_name_or_number">नाव किंवा नंबर प्रविष्ट करा</string>
   <string name="contact_selection_activity__invite_to_signal">Signal वर आमंत्रित करा</string>
   <string name="contact_selection_activity__new_group">नवीन गट</string>
-  <!--temporary for internal testing-->
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">प्रविष्ट केलेले मजकूर साफ करा</string>
   <string name="contact_filter_toolbar__show_keyboard_description">कीबोर्ड दाखवा</string>
@@ -1407,6 +1411,7 @@
   <string name="preferences_communication__sealed_sender_allow_from_anyone">कुणाकडूनही अनुमती द्या</string>
   <string name="preferences_communication__sealed_sender_allow_from_anyone_description">विना-संपर्क आणि आपण ज्यांच्या सोबत आपली प्रोफाईल सामायिक केलेली नाही त्यांच्याकडून येणाऱ्या संदेशांकरिता सीलबंद प्रेषक सक्षम करा.</string>
   <string name="preferences_communication__sealed_sender_learn_more">अधिक जाणा</string>
+  <!--Internal only preferences-->
   <!--****************************************-->
   <!--menus-->
   <!--****************************************-->
@@ -1552,7 +1557,6 @@
   <string name="CreateKbsPinFragment__create_a_new_pin">एक नवीन PIN तयार करा</string>
   <string name="CreateKbsPinFragment__you_can_choose_a_new_pin_as_long_as_this_device_is_registered">जोपर्यंत हा डिव्हाईस नोंदणीकृत आहे आपण आपला PIN बदलू शकता.</string>
   <string name="CreateKbsPinFragment__create_your_pin">आपला PIN तयार करा</string>
-  <string name="CreateKbsPinFragment__pins_keep_information_stored_with_signal_encrypted">Signal सोबत संचयित केलेली माहिती PIN एन्क्रिप्टेड ठेवतात जेणेकरून ती फक्त आपण अॅक्सेस करू शकता. आपण Signal पुन्हा स्थापन केल्यावर आपली प्रोफाईल, सेटिंग, आणि संपर्क पुनर्स्थित होईल.</string>
   <string name="CreateKbsPinFragment__choose_a_stronger_pin">एक शक्तिशाली PIN निवडा</string>
   <!--ConfirmKbsPinFragment-->
   <string name="ConfirmKbsPinFragment__pins_dont_match">PIN जुळत नाहीत. पुन्हा प्रयत्न करा.</string>
@@ -1563,12 +1567,12 @@
   <string name="ConfirmKbsPinFragment__creating_pin">PIN तयार करत आहे…</string>
   <!--KbsSplashFragment-->
   <string name="KbsSplashFragment__introducing_pins">PIN ची ओळख करून देत आहे</string>
-  <string name="KbsSplashFragment__pins_keep_information_stored_with_signal_encrypted">Signal सोबत संचयित केलेली माहिती PIN एन्क्रिप्टेड ठेवतात जेणेकरून ती फक्त आपण अॅक्सेस करू शकता. आपण Signal पुन्हा स्थापन केल्यावर आपली प्रोफाईल, सेटिंग, आणि संपर्क पुनर्स्थित होईल.</string>
   <string name="KbsSplashFragment__learn_more">अधिक जाणा</string>
   <string name="KbsSplashFragment__registration_lock_equals_pin">नोंदणी लॉक = PIN</string>
   <string name="KbsSplashFragment__read_more_about_pins">PIN बद्दल अधिक येथे वाचा.</string>
   <string name="KbsSplashFragment__update_pin">PIN अद्यतनित करा</string>
   <string name="KbsSplashFragment__create_your_pin">आपला PIN तयार करा</string>
+  <string name="KbsSplashFragment__learn_more_about_pins">PIN बद्दल अधिक जाणा</string>
   <!--KBS Reminder Dialog-->
   <string name="KbsReminderDialog__enter_your_signal_pin">आपला Signal PIN प्रविष्ट करा</string>
   <string name="KbsReminderDialog__to_help_you_memorize_your_pin">आपल्याला PIN लक्षात ठेवण्यासाठी, आम्ही आपल्याला तो वेळोवेळी तो प्रविष्ट करण्यास विचारू. काही काळानंतर आम्ही आपल्याला कमी विचारू.</string>

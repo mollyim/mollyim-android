@@ -42,6 +42,9 @@
   <string name="ApplicationPreferencesActivity_privacy_summary">画面ロック %1$s、登録ロック %2$s</string>
   <string name="ApplicationPreferencesActivity_privacy_summary_screen_lock">画面ロック %1$s</string>
   <string name="ApplicationPreferencesActivity_appearance_summary">テーマ %1$s、言語 %2$s</string>
+  <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">登録ロックを使うにはPINが必要です。PINを無効にする前に登録ロックを無効にしてください。</string>
+  <string name="ApplicationPreferencesActivity_pin_created">PIN を作成しました。</string>
+  <string name="ApplicationPreferencesActivity_pin_disabled">PINを無効にしました。</string>
   <!--AppProtectionPreferenceFragment-->
   <plurals name="AppProtectionPreferenceFragment_minutes">
     <item quantity="other">%d 分</item>
@@ -171,6 +174,7 @@
   <string name="ConversationItem_download_more">  更にダウンロード</string>
   <string name="ConversationItem_pending">  保留中</string>
   <string name="ConversationItem_this_message_was_deleted">このメッセージは削除されました。</string>
+  <string name="ConversationItem_you_deleted_this_message">このメッセージはあなたが削除しました。</string>
   <!--ConversationActivity-->
   <string name="ConversationActivity_reset_secure_session_question">セキュアセッションをリセットしますか？</string>
   <string name="ConversationActivity_this_may_help_if_youre_having_encryption_problems">この会話の暗号化に問題がある場合、改善される可能性があります。メッセージは削除されません。</string>
@@ -263,6 +267,7 @@
   <string name="ConversationFragment_deleting_messages">メッセージを削除しています…</string>
   <string name="ConversationFragment_delete_for_me">自分の分だけ削除</string>
   <string name="ConversationFragment_delete_for_everyone">全員分を削除</string>
+  <string name="ConversationFragment_this_message_will_be_permanently_deleted_for_everyone">このメッセージを参加者全員の会話から削除します。参加者からは、あなたがメッセージを削除したことがわかります。</string>
   <string name="ConversationFragment_quoted_message_not_found">元のメッセージが見つかりません</string>
   <string name="ConversationFragment_quoted_message_no_longer_available">元のメッセージはすでに削除されています</string>
   <string name="ConversationFragment_failed_to_open_message">メッセージを開けませんでした</string>
@@ -303,7 +308,7 @@
   <string name="CreateProfileActivity_problem_setting_profile">プロフィールの設定中に問題が発生しました</string>
   <string name="CreateProfileActivity_profile_photo">プロフィール写真</string>
   <string name="CreateProfileActivity_set_up_your_profile">プロフィールの設定</string>
-  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">あなたのプロフィールはエンドツーエンドで暗号化されていますが、会話をする相手、グループ内の人から閲覧可能です。</string>
+  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">あなたのプロフィールとその更新情報はエンドツーエンドで暗号化されています。こちらから会話を開始したときや初めて相手からのメッセージを受け取ったとき、またはグループに参加したときに表示されます。</string>
   <string name="CreateProfileActivity_set_avatar_description">アバターを設定</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">カスタマイズ: %s</string>
@@ -436,6 +441,8 @@
   <string name="GroupManagement_choose_who_can_add_or_invite_new_members">新しいメンバーを追加、または招待できる人を選択</string>
   <string name="GroupManagement_choose_who_can_change_the_group_name_and_photo">グループ名と写真を変更できるメンバーを選択</string>
   <!--ManageRecipientActivity-->
+  <string name="ManageRecipientActivity_add_to_system_contacts">システムの連絡先に追加</string>
+  <string name="ManageRecipientActivity_this_person_is_in_your_contacts">この人は連絡先にいます</string>
   <string name="ManageRecipientActivity_disappearing_messages">消えるメッセージ</string>
   <string name="ManageRecipientActivity_chat_color">チャットの色</string>
   <string name="ManageRecipientActivity_block">ブロック</string>
@@ -601,6 +608,7 @@
   <string name="MessageRecord_message_encrypted_with_a_legacy_protocol_version_that_is_no_longer_supported">もはやサポートされていない旧バージョンの Signal で暗号化されたメッセージを受信しました。送信者に Signal を最新バージョンにアップデートして再送するよう依頼してください。</string>
   <string name="MessageRecord_left_group">グループを抜けました。</string>
   <string name="MessageRecord_you_updated_group">グループを更新しました。</string>
+  <string name="MessageRecord_the_group_was_updated">グループが更新されました。</string>
   <string name="MessageRecord_you_called">あなたからの発信</string>
   <string name="MessageRecord_called_you">連絡先からの発信</string>
   <string name="MessageRecord_missed_call">不在着信</string>
@@ -613,6 +621,11 @@
   <string name="MessageRecord_s_disabled_disappearing_messages">%1$s が消えるメッセージを無効にしました。</string>
   <string name="MessageRecord_you_set_disappearing_message_time_to_s">消えるメッセージのタイマーを%1$sに設定しました。</string>
   <string name="MessageRecord_s_set_disappearing_message_time_to_s">%1$s が消えるメッセージのタイマーを%2$sに設定しました。</string>
+  <string name="MessageRecord_disappearing_message_time_set_to_s">消えるメッセージの時間が%1$sに設定されました。</string>
+  <!--Profile change updates-->
+  <string name="MessageRecord_changed_their_profile_name_to">%1$sはプロフィールの名前を%2$sに変更しました。</string>
+  <string name="MessageRecord_changed_their_profile_name_from_to">%1$sはプロフィールの名前を%2$sから%3$sに変更しました。</string>
+  <string name="MessageRecord_changed_their_profile">%1$sはプロフィールを更新しました。</string>
   <!--GV2 specific-->
   <string name="MessageRecord_you_created_the_group">グループを作成しました。</string>
   <string name="MessageRecord_group_updated">グループをアップデートしました。</string>
@@ -628,6 +641,8 @@
   <string name="MessageRecord_s_removed_you_from_the_group">%1$s はあなたをこのグループから削除しました。</string>
   <string name="MessageRecord_you_left_the_group">グループを退会しました。</string>
   <string name="MessageRecord_s_left_the_group">%1$s はグループを去りました。</string>
+  <string name="MessageRecord_you_are_no_longer_in_the_group">グループのメンバーから外れました。</string>
+  <string name="MessageRecord_s_is_no_longer_in_the_group">%1$s はグループのメンバーから外れました。　 　</string>
   <!--GV2 role change-->
   <string name="MessageRecord_you_made_s_an_admin">%1$s を管理者にしました。</string>
   <string name="MessageRecord_s_made_s_an_admin">%1$s は %2$s を管理者にしました。</string>
@@ -635,21 +650,33 @@
   <string name="MessageRecord_you_revoked_admin_privileges_from_s">%1$s から管理者特権を無効にしました。</string>
   <string name="MessageRecord_s_revoked_your_admin_privileges">%1$s はあなたの管理者特権を無効にしました。\"</string>
   <string name="MessageRecord_s_revoked_admin_privileges_from_s">%1$s は %2$s からの管理者特権を無効にしました。</string>
+  <string name="MessageRecord_s_is_now_an_admin">%1$s は管理者になりました。</string>
+  <string name="MessageRecord_you_are_now_an_admin">あなたは現在管理者です。</string>
+  <string name="MessageRecord_s_is_no_longer_an_admin">%1$s は管理者ではなくなりました。</string>
+  <string name="MessageRecord_you_are_no_longer_an_admin">管理者ではなくなりました。</string>
   <!--GV2 invitations-->
   <string name="MessageRecord_you_invited_s_to_the_group">%1$s をこのグループに招待しました。</string>
   <string name="MessageRecord_s_invited_you_to_the_group">%1$s はあなたをグループに招待しました。</string>
   <plurals name="MessageRecord_s_invited_members">
     <item quantity="other">%1$s は%2$d人をグループに招待しました</item>
   </plurals>
+  <string name="MessageRecord_you_were_invited_to_the_group">グループに招待されました。</string>
+  <plurals name="MessageRecord_d_people_were_invited_to_the_group">
+    <item quantity="other">このグループに%1$d人が招待されました。</item>
+  </plurals>
   <!--GV2 invitation revokes-->
   <plurals name="MessageRecord_you_revoked_invites">
-    <item quantity="other">%1$d件のこのグループの招待を無効にしました。</item>
+    <item quantity="other">このグループへの招待のうち%1$d件を無効にしました。</item>
   </plurals>
   <plurals name="MessageRecord_s_revoked_invites">
-    <item quantity="other">%1$s は%2$d件のこのグループの招待を無効にしました。</item>
+    <item quantity="other">%1$s がこのグループへの招待のうち%2$d件を無効にしました。</item>
   </plurals>
   <string name="MessageRecord_someone_declined_an_invitation_to_the_group">誰かがこのグループの招待を断りました。</string>
   <string name="MessageRecord_you_declined_the_invitation_to_the_group">このグループの招待を断りました。</string>
+  <string name="MessageRecord_your_invitation_to_the_group_was_revoked">あなたのグループへの招待は無効にされました。</string>
+  <plurals name="MessageRecord_d_invitations_were_revoked">
+    <item quantity="other">このグループへの招待のうち%1$d件が無効になりました。</item>
+  </plurals>
   <!--GV2 invitation acceptance-->
   <string name="MessageRecord_you_accepted_invite">このグループの招待を承認しました。</string>
   <string name="MessageRecord_s_accepted_invite">%1$s はグループの招待を承認しました。</string>
@@ -658,15 +685,19 @@
   <!--GV2 title change-->
   <string name="MessageRecord_you_changed_the_group_name_to_s">このグループ名を「%1$s」に変更しました。</string>
   <string name="MessageRecord_s_changed_the_group_name_to_s">%1$s はグループ名を「%2$s」に変更しました。</string>
+  <string name="MessageRecord_the_group_name_has_changed_to_s">このグループ名は「%1$s」に変更されました。</string>
   <!--GV2 avatar change-->
   <string name="MessageRecord_you_changed_the_group_avatar">グループアバターを更新しました。</string>
   <string name="MessageRecord_s_changed_the_group_avatar">%1$s はグループアバターを更新しました。</string>
+  <string name="MessageRecord_the_group_group_avatar_has_been_changed">グループの画像が変更されました。</string>
   <!--GV2 attribute access level change-->
-  <string name="MessageRecord_you_changed_who_can_edit_group_info_to_s">あなたは「%1$s」がグループ情報を編集できるよう変更しました。</string>
-  <string name="MessageRecord_s_changed_who_can_edit_group_info_to_s">「%2$s」がグループ情報を編集できるよう、%1$sが変更しました。</string>
+  <string name="MessageRecord_you_changed_who_can_edit_group_info_to_s">グループ情報を編集できるユーザーの設定を「%1$s」に自分で変更しました。</string>
+  <string name="MessageRecord_s_changed_who_can_edit_group_info_to_s">グループ情報を編集できるユーザーの設定を %1$s が「%2$s」に変更しました。</string>
+  <string name="MessageRecord_who_can_edit_group_info_has_been_changed_to_s">グループ情報を編集できるユーザーの設定が「%1$s」に変更されました。</string>
   <!--GV2 membership access level change-->
-  <string name="MessageRecord_you_changed_who_can_edit_group_membership_to_s">あなたは「%1$s」がグループのメンバーを編集できるよう変更しました。</string>
-  <string name="MessageRecord_s_changed_who_can_edit_group_membership_to_s">「%2$s」がグループのメンバーを編集できるよう、%1$sが変更しました。</string>
+  <string name="MessageRecord_you_changed_who_can_edit_group_membership_to_s">グループ情報を編集できるユーザーの設定を「%1$s」に自分で変更しました。</string>
+  <string name="MessageRecord_s_changed_who_can_edit_group_membership_to_s">グループ情報を編集できるユーザーの設定を %1$s が「%2$s」に変更しました。</string>
+  <string name="MessageRecord_who_can_edit_group_membership_has_been_changed_to_s">グループ情報を編集できるユーザーの設定が「%1$s」に変更されました。</string>
   <!--End of GV2 specific update messages-->
   <string name="MessageRecord_your_safety_number_with_s_has_changed">%s に対する安全番号が変わりました。</string>
   <string name="MessageRecord_you_marked_your_safety_number_with_s_verified">%s に対する安全番号を確認済みにしました</string>
@@ -682,7 +713,7 @@
   <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them">%1$sがあなたにメッセージを送れるように、名前とプロフィール画像を共有しますか? ブロックを解除するまでメッセージは届きません。</string>
   <string name="MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">このグループに参加し、名前やプロフィール画像を共有しますか? あなたが許可するまで、あなたがメッセージを見たことは相手にはわかりません。</string>
   <string name="MessageRequestBottomView_you_were_invited_to_join_the_group_s">あなたは%1$sというグループに招待されました。このグループのメンバーからのメッセージを受け取りますか?</string>
-  <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">このグループのブロックを解除し、名前や写真を共有することを許可しますか? ブロックを解除するまでメッセージを受け取れません。</string>
+  <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">このグループのブロックを解除し、名前やプロフィール画像を共有することを許可しますか? ブロックを解除するまでメッセージを受け取れません。</string>
   <string name="MessageRequestProfileView_member_of_one_group">%1$s のメンバー</string>
   <string name="MessageRequestProfileView_member_of_two_groups">%1$s と %2$s のメンバー</string>
   <string name="MessageRequestProfileView_member_of_many_groups">%1$s、%2$s および %3$s のメンバー</string>
@@ -755,6 +786,10 @@
   <string name="PinRestoreLockedFragment_create_your_pin">PIN を作成</string>
   <string name="PinRestoreLockedFragment_youve_run_out_of_pin_guesses">PIN の試行回数が尽きましたが、新しい PIN を作成することによりまだ Signal  アカウントにアクセスすることができます。プライバシーとセキュリティーのためにアカウントに保存されたプロフィール情報または設定は戻されません。</string>
   <string name="PinRestoreLockedFragment_create_new_pin">新しい PIN を作成</string>
+  <!--PinOptOutDialog-->
+  <string name="PinOptOutDialog_warning">ご注意ください</string>
+  <string name="PinOptOutDialog_if_you_disable_the_pin_you_will_lose_all_data">PINを無効にすると、自分でバックアップを取っておかない限り、Signalを再登録するときにすべてのデータが失われます。PINを無効にしている間は登録ロックを使用することができません。</string>
+  <string name="PinOptOutDialog_disable_pin">PINを無効化</string>
   <!--RatingManager-->
   <string name="RatingManager_rate_this_app">アプリを評価</string>
   <string name="RatingManager_if_you_enjoy_using_this_app_please_take_a_moment">このアプリが気に入ったら、評価アンケートへのご協力をお願いします。</string>
@@ -865,6 +900,7 @@
   <string name="SignalPinReminders_well_remind_you_again_in_a_few_days">数日後に再度お知らせします。</string>
   <string name="SignalPinReminders_well_remind_you_again_in_a_week">1週間後に再度お知らせします。</string>
   <string name="SignalPinReminders_well_remind_you_again_in_a_couple_weeks">2週間後に再度お知らせします。</string>
+  <string name="SignalPinReminders_well_remind_you_again_in_a_month">1ヶ月後に再度お知らせします。</string>
   <!--Slide-->
   <string name="Slide_image">画像</string>
   <string name="Slide_sticker">ステッカー</string>
@@ -929,6 +965,7 @@
   <string name="ThreadRecord_view_once_video">消える動画</string>
   <string name="ThreadRecord_view_once_media">消えるメディア</string>
   <string name="ThreadRecord_this_message_was_deleted">このメッセージが削除されました。</string>
+  <string name="ThreadRecord_you_deleted_this_message">このメッセージはあなたが削除しました。</string>
   <string name="ThreadRecord_s_is_on_signal">%s が Signal に登録しました！</string>
   <string name="ThreadRecord_disappearing_messages_disabled">消えるメッセージが無効にされました</string>
   <string name="ThreadRecord_disappearing_message_time_updated_to_s">消えるメッセージのタイマーが %s に設定されました</string>
@@ -1017,6 +1054,7 @@
   <string name="MediaPreviewActivity_media_delete_confirmation_title">メッセージを削除しますか？</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">このメッセージは完全に削除されます。</string>
   <string name="MediaPreviewActivity_s_to_s">%1$s から %2$s</string>
+  <string name="MediaPreviewActivity_media_no_longer_available">メディアが存在しません。</string>
   <!--MessageNotifier-->
   <string name="MessageNotifier_d_new_messages_in_d_conversations">%2$d 個の会話に %1$d 件の新着メッセージ</string>
   <string name="MessageNotifier_most_recent_from_s">最新の受信: %1$s</string>
@@ -1142,7 +1180,6 @@
   <string name="contact_selection_activity__enter_name_or_number">名前もしくは番号を入力</string>
   <string name="contact_selection_activity__invite_to_signal">Signal に招待する</string>
   <string name="contact_selection_activity__new_group">新規グループ</string>
-  <!--temporary for internal testing-->
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">テキストを消去</string>
   <string name="contact_filter_toolbar__show_keyboard_description">キーボードを表示</string>
@@ -1159,6 +1196,7 @@
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">「%1$s」は Signal ユーザではありません。ユーザ名を確認してからもう一度お試しください。</string>
   <string name="ContactSelectionListFragment_okay">OK</string>
   <string name="ContactSelectionListFragment_the_group_is_full">このグループはいっぱいです</string>
+  <string name="ContactSelectionListFragment_you_do_not_need_to_add_yourself_to_the_group">自分自身をグループに追加する必要はありません</string>
   <!--blocked_contacts_fragment-->
   <string name="blocked_contacts_fragment__no_blocked_contacts">ブロックしている連絡先はありません</string>
   <!--contact_selection_list_fragment-->
@@ -1325,7 +1363,7 @@
   <string name="CreateProfileActivity__username">ユーザ名</string>
   <string name="CreateProfileActivity__create_a_username">ユーザ名を作成</string>
   <!--EditProfileFragment-->
-  <string name="EditProfileFragment__edit_group_name_and_photo">グループ名と写真の編集</string>
+  <string name="EditProfileFragment__edit_group_name_and_photo">グループ名とアイコンの編集</string>
   <string name="EditProfileFragment__group_name">グループ名</string>
   <!--recipient_preferences_activity-->
   <string name="recipient_preference_activity__shared_media">共有されたメディア</string>
@@ -1518,10 +1556,15 @@
   <string name="preferences__dark_theme">暗い</string>
   <string name="preferences__appearance">デザイン</string>
   <string name="preferences__theme">テーマ</string>
+  <string name="preferences__disable_pin">PINを無効化</string>
+  <string name="preferences__enable_pin">PINを有効化</string>
+  <string name="preferences__if_you_disable_the_pin_you_will_lose_all_data">PINを無効にすると、自分でバックアップを取っておかない限り、Signalを再登録するときにすべてのデータが失われます。PINを無効にしている間は登録ロックを使用することができません。</string>
+  <string name="preferences__pins_keep_information_stored_with_signal_encrypted_so_only_you_can_access_it">PINは Signal 上に保管されている情報を暗号化するのに使われます。これによって、あなた以外の誰もその情報にアクセスできないようにしています。PINを使うことで、Signal を再インストールしたときにあなたのプロフィール、設定、連絡先の情報が復元されます。アプリを利用するときにPINを入力する必要はありません。</string>
   <string name="preferences__system_default">システム既定</string>
   <string name="preferences__default">既定</string>
   <string name="preferences__language">言語</string>
   <string name="preferences__signal_messages_and_calls">Signal のメッセージと通話</string>
+  <string name="preferences__advanced_pin_settings">PINの詳細設定</string>
   <string name="preferences__free_private_messages_and_calls">Molly ユーザーは無料でプライベートメッセージと通話をご利用いただけます</string>
   <string name="preferences__submit_debug_log">デバッグログを提出</string>
   <string name="preferences__support_wifi_calling">Wi-Fi 通話互換モード</string>
@@ -1568,6 +1611,7 @@
   <string name="preferences_communication__sealed_sender_allow_from_anyone">全員を許可する</string>
   <string name="preferences_communication__sealed_sender_allow_from_anyone_description">あなたのプロフィールを共有しておらず、連絡先にもないユーザーからのメッセージ受信において、送信者の秘匿化を有効にします。</string>
   <string name="preferences_communication__sealed_sender_learn_more">詳しく見る</string>
+  <!--Internal only preferences-->
   <!--****************************************-->
   <!--menus-->
   <!--****************************************-->
@@ -1722,7 +1766,7 @@
   <string name="CreateKbsPinFragment__create_a_new_pin">新しい PIN を作成</string>
   <string name="CreateKbsPinFragment__you_can_choose_a_new_pin_as_long_as_this_device_is_registered">このデバイスが登録されている間は PIN を変更することができます。</string>
   <string name="CreateKbsPinFragment__create_your_pin">PIN を作成</string>
-  <string name="CreateKbsPinFragment__pins_keep_information_stored_with_signal_encrypted">PIN を使用してあなたの情報をあなただけがアクセス可能な形で暗号化して保存できます。PIN を使用すると Signal をインストールし直した際、あなたのプロフィール・設定・連絡先を復元することができます。</string>
+  <string name="CreateKbsPinFragment__pins_keep_information_stored_with_signal_encrypted">PINは Signal 上に保管されている情報を暗号化するのに使われます。これによって、あなた以外の誰もその情報にアクセスできないようにしています。PINを使うことで、Signal を再インストールしたときにあなたのプロフィール、設定、連絡先の情報が復元されます。アプリを利用するときにPINを入力する必要はありません。</string>
   <string name="CreateKbsPinFragment__choose_a_stronger_pin">強固なPINを選択</string>
   <!--ConfirmKbsPinFragment-->
   <string name="ConfirmKbsPinFragment__pins_dont_match">PIN が一致しません。再度試してください。</string>
@@ -1734,13 +1778,15 @@
   <string name="ConfirmKbsPinFragment__creating_pin">PIN を作成しています…</string>
   <!--KbsSplashFragment-->
   <string name="KbsSplashFragment__introducing_pins">PIN のご紹介</string>
-  <string name="KbsSplashFragment__pins_keep_information_stored_with_signal_encrypted">PIN はあなたの情報を暗号化された状態で保管され、あなただけがアクセスすることができます。Signal を再インストールした時、あなたのプロフィール、設定、連絡先は復元されます。</string>
+  <string name="KbsSplashFragment__pins_keep_information_stored_with_signal_encrypted">PINは Signal 上に保管されている情報を暗号化するのに使われます。これによって、あなた以外の誰もその情報にアクセスできないようにしています。PINを使うことで、Signal を再インストールしたときにあなたのプロフィール、設定、連絡先の情報が復元されます。アプリを利用するときにPINを入力する必要はありません。</string>
   <string name="KbsSplashFragment__learn_more">詳細を見る</string>
   <string name="KbsSplashFragment__registration_lock_equals_pin">登録ロック = PIN</string>
   <string name="KbsSplashFragment__your_registration_lock_is_now_called_a_pin">登録ロックは今後 PIN と呼ばれ、より多機能になります。今すぐアップデートしてください。</string>
   <string name="KbsSplashFragment__read_more_about_pins">PIN の詳細を読む。</string>
   <string name="KbsSplashFragment__update_pin">PIN をアップデート</string>
   <string name="KbsSplashFragment__create_your_pin">PIN を作成</string>
+  <string name="KbsSplashFragment__learn_more_about_pins">PINに関する詳細情報</string>
+  <string name="KbsSplashFragment__disable_pin">PINを無効化</string>
   <!--KBS Reminder Dialog-->
   <string name="KbsReminderDialog__enter_your_signal_pin">Signal の PIN を入力</string>
   <string name="KbsReminderDialog__to_help_you_memorize_your_pin">PIN を覚えていただけるように、定期的に入力していただくようお願いします。頻度は次第に減っていきます。</string>

@@ -2,6 +2,7 @@ package org.thoughtcrime.securesms.recipients.ui.bottomsheet;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -14,6 +15,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.core.widget.TextViewCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -29,10 +32,10 @@ import org.thoughtcrime.securesms.groups.GroupId;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientExporter;
 import org.thoughtcrime.securesms.recipients.RecipientId;
-import org.thoughtcrime.securesms.util.CommunicationActions;
 import org.thoughtcrime.securesms.util.ServiceUtil;
 import org.thoughtcrime.securesms.util.ThemeUtil;
 import org.thoughtcrime.securesms.util.Util;
+import org.thoughtcrime.securesms.util.ViewUtil;
 
 import java.util.Objects;
 
@@ -147,6 +150,11 @@ public final class RecipientBottomSheetDialogFragment extends BottomSheetDialogF
                                               : recipient.getDisplayName(requireContext());
       fullName.setText(name);
       fullName.setVisibility(TextUtils.isEmpty(name) ? View.GONE : View.VISIBLE);
+      if (recipient.isSystemContact() && !recipient.isLocalNumber()) {
+        fullName.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_profile_circle_outline_16, 0);
+        fullName.setCompoundDrawablePadding(ViewUtil.dpToPx(4));
+        TextViewCompat.setCompoundDrawableTintList(fullName, ColorStateList.valueOf(ThemeUtil.getThemedColor(requireContext(), R.attr.title_text_color_primary)));
+      }
 
       String usernameNumberString = recipient.hasAUserSetDisplayName(requireContext()) && !recipient.isLocalNumber()
                                     ? String.format("%s %s", recipient.getUsername().or(""), recipient.getSmsAddress().or("")).trim()
@@ -179,9 +187,11 @@ public final class RecipientBottomSheetDialogFragment extends BottomSheetDialogF
           startActivityForResult(RecipientExporter.export(recipient).asAddContactIntent(), REQUEST_CODE_ADD_CONTACT);
         });
       }
+    });
 
+    viewModel.getCanAddToAGroup().observe(getViewLifecycleOwner(), canAdd -> {
       addToGroupButton.setText(groupId == null ? R.string.RecipientBottomSheet_add_to_a_group : R.string.RecipientBottomSheet_add_to_another_group);
-      addToGroupButton.setVisibility(recipient.isRegistered() && !recipient.isGroup() && !recipient.isLocalNumber() ? View.VISIBLE : View.GONE);
+      addToGroupButton.setVisibility(canAdd ? View.VISIBLE : View.GONE);
     });
 
     viewModel.getAdminActionStatus().observe(getViewLifecycleOwner(), adminStatus -> {

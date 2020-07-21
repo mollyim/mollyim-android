@@ -44,6 +44,9 @@
   <string name="ApplicationPreferencesActivity_privacy_summary">Näytön lukitus %1$s, Rekisteröinnin lukitus %2$s</string>
   <string name="ApplicationPreferencesActivity_privacy_summary_screen_lock">Näytön lukitus %1$s</string>
   <string name="ApplicationPreferencesActivity_appearance_summary">Teema %1$s, Kieli %2$s</string>
+  <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">Rekisteröinnin lukitus vaatii PIN-koodin. Poistaaksesi PIN-koodin käytöstä, poista ensin rekisteröinnin lukitus käytöstä.</string>
+  <string name="ApplicationPreferencesActivity_pin_created">PIN-koodi luotu.</string>
+  <string name="ApplicationPreferencesActivity_pin_disabled">PIN poistettu käytöstä.</string>
   <!--AppProtectionPreferenceFragment-->
   <plurals name="AppProtectionPreferenceFragment_minutes">
     <item quantity="one">%d minuutti</item>
@@ -174,6 +177,7 @@
   <string name="ConversationItem_download_more">  Lataa lisää</string>
   <string name="ConversationItem_pending">  Käsiteltävänä</string>
   <string name="ConversationItem_this_message_was_deleted">Tämä viesti poistettiin.</string>
+  <string name="ConversationItem_you_deleted_this_message">Poistit tämän viestin.</string>
   <!--ConversationActivity-->
   <string name="ConversationActivity_reset_secure_session_question">Alusta suojattu istunto?</string>
   <string name="ConversationActivity_this_may_help_if_youre_having_encryption_problems">Tämä saattaa auttaa, jos tässä keskustelussa on ilmennyt salaukseen liittyviä ongelmia. Huom. tämä ei poista eikä muokkaa mitenkään olemassa olevia viestejä.</string>
@@ -273,6 +277,7 @@
   <string name="ConversationFragment_deleting_messages">Viestejä poistetaan…</string>
   <string name="ConversationFragment_delete_for_me">Poista minulta</string>
   <string name="ConversationFragment_delete_for_everyone">Poista kaikilta</string>
+  <string name="ConversationFragment_this_message_will_be_permanently_deleted_for_everyone">Tämä viesti poistetaan pysyvästi kaikilta keskustelun jäseniltä. Jäsenet voivat nähdä, että olet poistanut viestin.</string>
   <string name="ConversationFragment_quoted_message_not_found">Alkuperäistä viestiä ei löytynyt</string>
   <string name="ConversationFragment_quoted_message_no_longer_available">Alkuperäinen viesti ei ole enää saatavilla</string>
   <string name="ConversationFragment_failed_to_open_message">Viestin avaaminen epäonnistui</string>
@@ -317,7 +322,6 @@
   <string name="CreateProfileActivity_problem_setting_profile">Virhe asetettaessa profiilia</string>
   <string name="CreateProfileActivity_profile_photo">Profiilikuva</string>
   <string name="CreateProfileActivity_set_up_your_profile">Aseta profiilisi</string>
-  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">Profiilisi on päästä päähän salattu. Se näkyy yhteystiedoillesi, kun aloitat tai hyväksyt uusia keskusteluja ja kun liityt uusiin ryhmiin.</string>
   <string name="CreateProfileActivity_set_avatar_description">Aseta kuvake</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Käytä mukautettua: %s</string>
@@ -455,6 +459,7 @@
   <string name="GroupManagement_choose_who_can_add_or_invite_new_members">Valitse ketkä voivat lisätä tai kutsua uusia jäseniä</string>
   <string name="GroupManagement_choose_who_can_change_the_group_name_and_photo">Valitse ketkä voivat muuttaa ryhmän nimeä ja kuvaa</string>
   <!--ManageRecipientActivity-->
+  <string name="ManageRecipientActivity_this_person_is_in_your_contacts">Tämä henkilö on yhteystiedoissasi</string>
   <string name="ManageRecipientActivity_disappearing_messages">Katoavat viestit</string>
   <string name="ManageRecipientActivity_chat_color">Keskustelun väri</string>
   <string name="ManageRecipientActivity_block">Estä</string>
@@ -630,6 +635,7 @@
   <string name="MessageRecord_message_encrypted_with_a_legacy_protocol_version_that_is_no_longer_supported">Vastaanotettiin viesti, joka on salattu Signalin vanhalla versiolla, jota ei enää tueta. Pyydä lähettäjää päivittämään uusimpaan versioon ja lähettämään viesti uudelleen.</string>
   <string name="MessageRecord_left_group">Olet poistunut ryhmästä.</string>
   <string name="MessageRecord_you_updated_group">Sinä päivitit ryhmää.</string>
+  <string name="MessageRecord_the_group_was_updated">Ryhmä päivitettiin.</string>
   <string name="MessageRecord_you_called">Soitit puhelun</string>
   <string name="MessageRecord_called_you">Yhteystieto soitti</string>
   <string name="MessageRecord_missed_call">Vastaamatta jäänyt puhelu</string>
@@ -642,6 +648,7 @@
   <string name="MessageRecord_s_disabled_disappearing_messages">%1$s asetti katoavat viestit pois päältä.</string>
   <string name="MessageRecord_you_set_disappearing_message_time_to_s">Sinä asetit viestien katoamisajan: %1$s</string>
   <string name="MessageRecord_s_set_disappearing_message_time_to_s">%1$s asetti viestien katoamisajan: %2$s</string>
+  <!--Profile change updates-->
   <!--GV2 specific-->
   <string name="MessageRecord_you_created_the_group">Sinä loit ryhmän.</string>
   <string name="MessageRecord_group_updated">Ryhmä päivitetty.</string>
@@ -657,6 +664,8 @@
   <string name="MessageRecord_s_removed_you_from_the_group">%1$s poisti sinut ryhmästä.</string>
   <string name="MessageRecord_you_left_the_group">Olet poistunut ryhmästä.</string>
   <string name="MessageRecord_s_left_the_group">%1$s poistui ryhmästä.</string>
+  <string name="MessageRecord_you_are_no_longer_in_the_group">Et ole enää ryhmässä.</string>
+  <string name="MessageRecord_s_is_no_longer_in_the_group">%1$s ei ole enää ryhmässä.</string>
   <!--GV2 role change-->
   <string name="MessageRecord_you_made_s_an_admin">Nimitit käyttäjän %1$s ylläpitäjäksi.</string>
   <string name="MessageRecord_s_made_s_an_admin">%1$s nimitti käyttäjän %2$s ylläpitäjäksi.</string>
@@ -664,6 +673,10 @@
   <string name="MessageRecord_you_revoked_admin_privileges_from_s">Poistit käyttäjän %1$s ylläpito-oikeudet.</string>
   <string name="MessageRecord_s_revoked_your_admin_privileges">%1$s poisti ylläpito-oikeutesi.</string>
   <string name="MessageRecord_s_revoked_admin_privileges_from_s">%1$s poisti ylläpito-oikeudet käyttäjältä %2$s.</string>
+  <string name="MessageRecord_s_is_now_an_admin">%1$s on nyt ylläpitäjä.</string>
+  <string name="MessageRecord_you_are_now_an_admin">Olet nyt ylläpitäjä.</string>
+  <string name="MessageRecord_s_is_no_longer_an_admin">%1$s ei ole enää ylläpitäjä.</string>
+  <string name="MessageRecord_you_are_no_longer_an_admin">Et ole enää ylläpitäjä.</string>
   <!--GV2 invitations-->
   <string name="MessageRecord_you_invited_s_to_the_group">Kutsuit käyttäjän %1$s ryhmään.</string>
   <string name="MessageRecord_s_invited_you_to_the_group">%1$s kutsui sinut ryhmään.</string>
@@ -671,6 +684,7 @@
     <item quantity="one">%1$s kutsui 1 henkilön ryhmään.</item>
     <item quantity="other">%1$s kutsui %2$d henkilöä ryhmään.</item>
   </plurals>
+  <string name="MessageRecord_you_were_invited_to_the_group">Sinut kutsuttiin ryhmään.</string>
   <!--GV2 invitation revokes-->
   <plurals name="MessageRecord_you_revoked_invites">
     <item quantity="one">Peruutit yhden kutsun ryhmään.</item>
@@ -682,6 +696,7 @@
   </plurals>
   <string name="MessageRecord_someone_declined_an_invitation_to_the_group">Joku hylkäsi kutsun ryhmään.</string>
   <string name="MessageRecord_you_declined_the_invitation_to_the_group">Hylkäsit kutsun ryhmään.</string>
+  <string name="MessageRecord_your_invitation_to_the_group_was_revoked">Kutsusi ryhmään peruttiin.</string>
   <!--GV2 invitation acceptance-->
   <string name="MessageRecord_you_accepted_invite">Hyväksyit kutsun ryhmään.</string>
   <string name="MessageRecord_s_accepted_invite">%1$s hyväksyi kutsun ryhmään.</string>
@@ -693,6 +708,7 @@
   <!--GV2 avatar change-->
   <string name="MessageRecord_you_changed_the_group_avatar">Muutit ryhmän kuvakkeen.</string>
   <string name="MessageRecord_s_changed_the_group_avatar">%1$s muutti ryhmän kuvakkeen.</string>
+  <string name="MessageRecord_the_group_group_avatar_has_been_changed">Ryhmän kuvake on vaihdettu.</string>
   <!--GV2 attribute access level change-->
   <string name="MessageRecord_you_changed_who_can_edit_group_info_to_s">Muutit kuka voi muokata ryhmän tietoja käyttäjiin \"%1$s\".</string>
   <string name="MessageRecord_s_changed_who_can_edit_group_info_to_s">%1$s muutti kuka voi muokata ryhmän tietoja käyttäjiin \"%2$s\".</string>
@@ -791,6 +807,9 @@
   <string name="PinRestoreLockedFragment_create_your_pin">Luo PIN-koodisi</string>
   <string name="PinRestoreLockedFragment_youve_run_out_of_pin_guesses">PIN-arvailut ovat loppuneet, mutta voit silti käyttää Signal-tiliäsi luomalla uuden PIN-koodin. Yksityisyytesi ja turvallisuutesi vuoksi tili palautetaan ilman tallennettuja profiilitietoja tai asetuksia.</string>
   <string name="PinRestoreLockedFragment_create_new_pin">Luo uusi PIN-koodi</string>
+  <!--PinOptOutDialog-->
+  <string name="PinOptOutDialog_warning">Varoitus</string>
+  <string name="PinOptOutDialog_disable_pin">Poista PIN käytöstä</string>
   <!--RatingManager-->
   <string name="RatingManager_rate_this_app">Arvostele tämä sovellus</string>
   <string name="RatingManager_if_you_enjoy_using_this_app_please_take_a_moment">Jos pidät Signalista, voit auttaa meitä arvostelemalla sen.</string>
@@ -905,6 +924,7 @@ puhelinnumero</string>
   <string name="SignalPinReminders_well_remind_you_again_in_a_few_days">Muistutamme sinua jälleen muutaman päivän päästä.</string>
   <string name="SignalPinReminders_well_remind_you_again_in_a_week">Muistutamme sinua uudelleen viikon kuluttua.</string>
   <string name="SignalPinReminders_well_remind_you_again_in_a_couple_weeks">Muistutamme sinua jälleen parin viikon kuluttua.</string>
+  <string name="SignalPinReminders_well_remind_you_again_in_a_month">Muistutamme sinua uudelleen kuukauden kuluttua.</string>
   <!--Slide-->
   <string name="Slide_image">Kuva</string>
   <string name="Slide_sticker">Tarra</string>
@@ -971,6 +991,7 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <string name="ThreadRecord_view_once_video">Kerran katsottava video</string>
   <string name="ThreadRecord_view_once_media">Kerran katsottava media</string>
   <string name="ThreadRecord_this_message_was_deleted">Tämä viesti poistettiin.</string>
+  <string name="ThreadRecord_you_deleted_this_message">Poistit tämän viestin.</string>
   <string name="ThreadRecord_s_is_on_signal">%s käyttää Signalia!</string>
   <string name="ThreadRecord_disappearing_messages_disabled">Katoavat viestit poistettu käytöstä</string>
   <string name="ThreadRecord_disappearing_message_time_updated_to_s">Katoavien viestien ajaksi asetettu %s</string>
@@ -1185,7 +1206,6 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <string name="contact_selection_activity__enter_name_or_number">Syötä nimi tai numero</string>
   <string name="contact_selection_activity__invite_to_signal">Kutsu Signaliin</string>
   <string name="contact_selection_activity__new_group">Uusi ryhmä</string>
-  <!--temporary for internal testing-->
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">Tyhjennä syötetty teksti</string>
   <string name="contact_filter_toolbar__show_keyboard_description">Näytä näppäimistö</string>
@@ -1202,6 +1222,7 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">\"%1$s\" ei ole Signalin käyttäjä. Tarkista käyttäjätunnus ja yritä uudelleen.</string>
   <string name="ContactSelectionListFragment_okay">Selvä</string>
   <string name="ContactSelectionListFragment_the_group_is_full">Ryhmä on täynnä</string>
+  <string name="ContactSelectionListFragment_you_do_not_need_to_add_yourself_to_the_group">Sinun ei tarvitse lisätä itseäsi ryhmään</string>
   <!--blocked_contacts_fragment-->
   <string name="blocked_contacts_fragment__no_blocked_contacts">Ei estettyjä yhteystietoja</string>
   <!--contact_selection_list_fragment-->
@@ -1570,6 +1591,8 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <string name="preferences__dark_theme">Tumma</string>
   <string name="preferences__appearance">Ulkonäkö</string>
   <string name="preferences__theme">Teema</string>
+  <string name="preferences__disable_pin">Poista PIN käytöstä</string>
+  <string name="preferences__enable_pin">Ota PIN käyttöön</string>
   <string name="preferences__system_default">Järjestelmän oletus</string>
   <string name="preferences__default">Oletus</string>
   <string name="preferences__language">Kieli</string>
@@ -1620,6 +1643,7 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <string name="preferences_communication__sealed_sender_allow_from_anyone">Hyväksy kaikilta</string>
   <string name="preferences_communication__sealed_sender_allow_from_anyone_description">Ota käyttöön sinetöity lähettäjä saapuville viesteille henkilöiltä, jotka eivät ole yhteystitojasi ja joiden kanssa et ole jakanut profiiliasi.</string>
   <string name="preferences_communication__sealed_sender_learn_more">Lue lisää</string>
+  <!--Internal only preferences-->
   <!--****************************************-->
   <!--menus-->
   <!--****************************************-->
@@ -1777,7 +1801,6 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <string name="CreateKbsPinFragment__create_a_new_pin">Luo uusi PIN-koodi</string>
   <string name="CreateKbsPinFragment__you_can_choose_a_new_pin_as_long_as_this_device_is_registered">Voit vaihtaa PIN-koodisi niin kauan kuin tämä laite on rekisteröity.</string>
   <string name="CreateKbsPinFragment__create_your_pin">Luo PIN-koodisi</string>
-  <string name="CreateKbsPinFragment__pins_keep_information_stored_with_signal_encrypted">PIN-koodit pitävät Signalin luona tallennetut tiedot salattuina, jotta vain sinä pääset niihin käsiksi. Profiilisi, asetuksesi ja yhteystietosi palautuvat kun asennat Signalin uudelleen.</string>
   <string name="CreateKbsPinFragment__choose_a_stronger_pin">Valitse vahvempi PIN-koodi</string>
   <!--ConfirmKbsPinFragment-->
   <string name="ConfirmKbsPinFragment__pins_dont_match">PIN-koodit eivät täsmää. Yritä uudelleen.</string>
@@ -1789,13 +1812,14 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <string name="ConfirmKbsPinFragment__creating_pin">Luodaan PIN-koodia…</string>
   <!--KbsSplashFragment-->
   <string name="KbsSplashFragment__introducing_pins">Esittelemme PIN-koodit</string>
-  <string name="KbsSplashFragment__pins_keep_information_stored_with_signal_encrypted">PIN-koodit pitävät Signalin luona tallennetut tiedot salattuina, jotta vain sinä pääset niihin käsiksi. Profiilisi, asetuksesi ja yhteystietosi palautuvat kun asennat Signalin uudelleen.</string>
   <string name="KbsSplashFragment__learn_more">Lue lisää</string>
   <string name="KbsSplashFragment__registration_lock_equals_pin">Rekisteröinnin lukitus = PIN-koodi</string>
   <string name="KbsSplashFragment__your_registration_lock_is_now_called_a_pin">Rekisteröinnin lukitusta kutsutaan nyt PIN-koodiksi, ja se tekee enemmän. Päivitä se nyt.</string>
   <string name="KbsSplashFragment__read_more_about_pins">Lue lisää PIN-koodeista</string>
   <string name="KbsSplashFragment__update_pin">Päivitä PIN</string>
   <string name="KbsSplashFragment__create_your_pin">Luo PIN-koodisi</string>
+  <string name="KbsSplashFragment__learn_more_about_pins">Lisätietoja PIN-koodeista</string>
+  <string name="KbsSplashFragment__disable_pin">Poista PIN käytöstä</string>
   <!--KBS Reminder Dialog-->
   <string name="KbsReminderDialog__enter_your_signal_pin">Syötä Signal PIN-koodisi</string>
   <string name="KbsReminderDialog__to_help_you_memorize_your_pin">Pyydämme sinulta PIN-koodia ajoittain sen muistamisen helpottamiseksi. Pyynnöt harvenevat ajan myötä.</string>

@@ -43,6 +43,7 @@
   <string name="ApplicationPreferencesActivity_privacy_summary">ចាក់សោរអេក្រង់ %1$s, ចាក់សោេរចុះឈ្មោះ %2$s</string>
   <string name="ApplicationPreferencesActivity_privacy_summary_screen_lock">ចាក់សោអេក្រង់ %1$s</string>
   <string name="ApplicationPreferencesActivity_appearance_summary">ប្រធានបទ %1$s, ភាសា %2$s</string>
+  <string name="ApplicationPreferencesActivity_pin_created">PIN ត្រូវបានបង្កើត។</string>
   <!--AppProtectionPreferenceFragment-->
   <plurals name="AppProtectionPreferenceFragment_minutes">
     <item quantity="other">%d នាទី</item>
@@ -170,6 +171,7 @@
   <string name="ConversationItem_download_more">  ទាញយកបន្ថែម</string>
   <string name="ConversationItem_pending">  កំពុងរង់ចាំ</string>
   <string name="ConversationItem_this_message_was_deleted">សារនេះត្រូវបានលុប។</string>
+  <string name="ConversationItem_you_deleted_this_message">អ្នកបានលុបសារនេះ។</string>
   <!--ConversationActivity-->
   <string name="ConversationActivity_reset_secure_session_question">កំណត់ការប្រើប្រាស់សុវត្ថិភាពឡើងវិញ?</string>
   <string name="ConversationActivity_this_may_help_if_youre_having_encryption_problems">នេះប្រហែលអាចជួយបាន បើអ្នកមានបញ្ហាកាណាល់កូដក្នុងការសន្ទនានេះ។ សាររបស់អ្នកនឹងត្រូវរក្សាទុក។</string>
@@ -262,6 +264,7 @@
   <string name="ConversationFragment_deleting_messages">កំពុងលុបសារ…</string>
   <string name="ConversationFragment_delete_for_me">លុបសម្រាប់ខ្ញុំ</string>
   <string name="ConversationFragment_delete_for_everyone">លុបសម្រាប់ទាំងអស់គ្នា</string>
+  <string name="ConversationFragment_this_message_will_be_permanently_deleted_for_everyone">សារនេះ នឹងត្រូវលុបចោលរហូតសម្រាប់អ្នកទាំងអស់គ្នាក្នុងការសន្ទនានេះ។ សមាជិក នឹងអាចមើលឃើញ អ្នកបានលុបសារនេះ។</string>
   <string name="ConversationFragment_quoted_message_not_found">រកមិនឃើញសារដើម</string>
   <string name="ConversationFragment_quoted_message_no_longer_available">សារដើមលែងមានទៀតហើយ</string>
   <string name="ConversationFragment_failed_to_open_message">បរាជ័យក្នុងការបើកសារ</string>
@@ -302,7 +305,6 @@
   <string name="CreateProfileActivity_problem_setting_profile">បញ្ហាក្នុងការកំណត់ប្រវត្តិរូប</string>
   <string name="CreateProfileActivity_profile_photo">រូបថតប្រវត្តិរូប</string>
   <string name="CreateProfileActivity_set_up_your_profile">បង្កើតប្រវត្តិរូបរបស់អ្នក</string>
-  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">ប្រវត្តិរូបរបស់អ្នក ត្រូវបានអ៊ីនគ្រីបទាំងសងខាង។ វានឹងបង្ហាញទៅបញ្ជីទំនាក់ទំនងរបស់អ្នក នៅពេលចាប់ផ្តើមសន្ទនាថ្មី និងពេលអ្នកចែករំលែកវាជាមួយអ្នកប្រើប្រាស់និងក្រុមផ្សេង។</string>
   <string name="CreateProfileActivity_set_avatar_description">កំណត់រូបតំណាង</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">ប្រើផ្សេងៗ៖ %s</string>
@@ -612,6 +614,7 @@
   <string name="MessageRecord_s_disabled_disappearing_messages">%1$s បានបិទសារបាត់ទៅវិញ។</string>
   <string name="MessageRecord_you_set_disappearing_message_time_to_s">អ្នកបានកំណត់រយៈពេលសារបាត់ទៅវិញជា %1$s។</string>
   <string name="MessageRecord_s_set_disappearing_message_time_to_s">%1$s បានកំណត់រយៈពេលលុបសារ %2$s។</string>
+  <!--Profile change updates-->
   <!--GV2 specific-->
   <string name="MessageRecord_you_created_the_group">អ្នកបានបង្កើតក្រុមនេះ។</string>
   <string name="MessageRecord_group_updated">បានធ្វើបច្ចុប្បន្នភាពក្រុម។</string>
@@ -634,12 +637,14 @@
   <string name="MessageRecord_you_revoked_admin_privileges_from_s">អ្នកបានដកសិទ្ធិអ្នកគ្រប់គ្រងពី %1$s។</string>
   <string name="MessageRecord_s_revoked_your_admin_privileges">%1$s បានដកសិទ្ធិអ្នកគ្រប់គ្រងរបស់អ្នក។\"</string>
   <string name="MessageRecord_s_revoked_admin_privileges_from_s">%1$s បានដកសិទ្ធិអ្នកគ្រប់គ្រងពី %2$s។</string>
+  <string name="MessageRecord_you_are_now_an_admin">ឥឡូវអ្នកជាអ្នកគ្រប់គ្រង។</string>
   <!--GV2 invitations-->
   <string name="MessageRecord_you_invited_s_to_the_group">អ្នកបានអញ្ជើញ %1$s ទៅក្រុមនេះ។</string>
   <string name="MessageRecord_s_invited_you_to_the_group">%1$s បានអញ្ជើញអ្នកទៅក្រុមនេះ។</string>
   <plurals name="MessageRecord_s_invited_members">
     <item quantity="other">%1$s បានអញ្ជើញមនុស្ស%2$d នាក់ទៅក្រុមនេះ។</item>
   </plurals>
+  <string name="MessageRecord_you_were_invited_to_the_group">អ្នកត្រូវបានអញ្ជើញទៅក្រុម។</string>
   <!--GV2 invitation revokes-->
   <plurals name="MessageRecord_you_revoked_invites">
     <item quantity="other">អ្នកបានដកការអញ្ជើញ %1$d ពីក្រុមនេះ។</item>
@@ -649,6 +654,7 @@
   </plurals>
   <string name="MessageRecord_someone_declined_an_invitation_to_the_group">មានគេបានបដិសេធការអញ្ជើញទៅក្រុម។</string>
   <string name="MessageRecord_you_declined_the_invitation_to_the_group">អ្នកបានបដិសេធការអញ្ជើញទៅក្រុមនេះ។</string>
+  <string name="MessageRecord_your_invitation_to_the_group_was_revoked">ការអញ្ជើញចូលក្រុមរបស់អ្នកត្រូវបានដកហូត។</string>
   <!--GV2 invitation acceptance-->
   <string name="MessageRecord_you_accepted_invite">អ្នកបានយល់ព្រមការអញ្ជើញទៅក្រុមនេះ។</string>
   <string name="MessageRecord_s_accepted_invite">%1$s បានយល់ព្រមការអញ្ជើញទៅក្រុមនេះ។</string>
@@ -754,6 +760,7 @@
   <string name="PinRestoreLockedFragment_create_your_pin">បង្កើតលេខ PIN របស់អ្នក</string>
   <string name="PinRestoreLockedFragment_youve_run_out_of_pin_guesses">អ្នកបានប្រើការទាយលេខ PIN អស់ហើយ តែអ្នកនៅតែអាចចូលប្រើប្រាស់គណនី Signal ដោយបង្កើតលេខកូដ PIN ថ្មី។ សម្រាប់ឯកជនភាព និងសុវត្ថិភាពគណនីរបស់អ្នក នឹងត្រូវស្តារឡើងវិញ ដោយមិនមានការរក្សាទុកព័ត៌មានប្រវត្តិរូប និងការកំណត់ឡើយ។</string>
   <string name="PinRestoreLockedFragment_create_new_pin">បង្កើតលេខ PIN ថ្មី</string>
+  <!--PinOptOutDialog-->
   <!--RatingManager-->
   <string name="RatingManager_rate_this_app">ដាក់ពិន្ទុកម្មវិធីនេះ</string>
   <string name="RatingManager_if_you_enjoy_using_this_app_please_take_a_moment">បើអ្នកចូលចិត្តប្រើប្រាស់កម្មវិធីនេះ សូមចំណាយពេលបន្តិច ដើម្បីជួយដាក់ពិន្ទុផង។</string>
@@ -933,6 +940,7 @@
   <string name="ThreadRecord_view_once_video">បង្ហាញ-ម្តង វីដេអូ</string>
   <string name="ThreadRecord_view_once_media">បង្ហាញ-ម្តង មេឌា</string>
   <string name="ThreadRecord_this_message_was_deleted">សារនេះត្រូវបានលុប។</string>
+  <string name="ThreadRecord_you_deleted_this_message">អ្នកបានលុបសារនេះ។</string>
   <string name="ThreadRecord_s_is_on_signal">%s ប្រើ Signal!​</string>
   <string name="ThreadRecord_disappearing_messages_disabled">សារបាត់ទៅវិញបានបិទ</string>
   <string name="ThreadRecord_disappearing_message_time_updated_to_s">កំណត់រយៈពេលលុបសារ %s</string>
@@ -1145,7 +1153,6 @@
   <string name="contact_selection_activity__enter_name_or_number">បញ្ចូលឈ្មោះ និងលេខទូរស័ព្ទ</string>
   <string name="contact_selection_activity__invite_to_signal">អញ្ជើញចូលប្រើSignal</string>
   <string name="contact_selection_activity__new_group">ក្រុមថ្មី</string>
-  <!--temporary for internal testing-->
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">លុបអក្សរដែលបានបញ្ចូល</string>
   <string name="contact_filter_toolbar__show_keyboard_description">បង្ហាញក្តារចុច</string>
@@ -1566,6 +1573,7 @@
   <string name="preferences_communication__sealed_sender_allow_from_anyone">អនុញ្ញាតពីនរណាម្នាក់</string>
   <string name="preferences_communication__sealed_sender_allow_from_anyone_description">បើក ត្រាអ្នកផ្ញើសម្រាប់សារទទួលបានពីអ្នកក្រៅបញ្ជីទំនាក់ទំនង និងមនុស្សដែលអ្នកមិនបានចែករំលែកទម្រង់របស់អ្នក។</string>
   <string name="preferences_communication__sealed_sender_learn_more">សិក្សាបន្ថែម</string>
+  <!--Internal only preferences-->
   <!--****************************************-->
   <!--menus-->
   <!--****************************************-->
@@ -1720,7 +1728,6 @@
   <string name="CreateKbsPinFragment__create_a_new_pin">បង្កើតលេខ PIN ថ្មី</string>
   <string name="CreateKbsPinFragment__you_can_choose_a_new_pin_as_long_as_this_device_is_registered">អ្នកអាចប្តូរលេខ PIN របស់អ្នក លុះត្រាឧបករណ៍នេះត្រូវបានចុះឈ្មោះ។</string>
   <string name="CreateKbsPinFragment__create_your_pin">បង្កើតលេខ PIN របស់អ្នក</string>
-  <string name="CreateKbsPinFragment__pins_keep_information_stored_with_signal_encrypted">លេខ PIN រក្សាទុកព័ត៌មានដែលផ្ទុកជាមួយ Signalដែលបានអ៊ិនគ្រីប​ដូច្នេះមានតែអ្នកប៉ុណ្ណោះដែលអាចចូលប្រើវាបាន។ ប្រវត្តិរូប ការកំណត់ និងទំនាក់ទំនងរបស់អ្នក នឹងស្តារឡើងវិញនៅពេលដែលអ្នកតំឡើង Signal ឡើងវិញ។</string>
   <string name="CreateKbsPinFragment__choose_a_stronger_pin">ជ្រើសរើសលេខ PIN ខ្លាំងជាងនេះ</string>
   <!--ConfirmKbsPinFragment-->
   <string name="ConfirmKbsPinFragment__pins_dont_match">PINs មិនត្រូវគ្នា។ សាកល្បងម្តងទៀត។</string>
@@ -1732,13 +1739,13 @@
   <string name="ConfirmKbsPinFragment__creating_pin">កំពុងបង្កើត PIN…</string>
   <!--KbsSplashFragment-->
   <string name="KbsSplashFragment__introducing_pins">ការណែនាំ លេខPINs</string>
-  <string name="KbsSplashFragment__pins_keep_information_stored_with_signal_encrypted">លេខ PIN រក្សាទុកព័ត៌មានដែលផ្ទុកជាមួយ Signalដែលបានអ៊ិនគ្រីប​ដូច្នេះមានតែអ្នកប៉ុណ្ណោះដែលអាចចូលប្រើវាបាន។ ប្រវត្តិរូប ការកំណត់ និងទំនាក់ទំនងរបស់អ្នក នឹងស្តារឡើងវិញនៅពេលដែលអ្នកតំឡើង Signal ឡើងវិញ។</string>
   <string name="KbsSplashFragment__learn_more">ស្វែងយល់បន្ថែម</string>
   <string name="KbsSplashFragment__registration_lock_equals_pin">ចាក់សោរការចុះឈ្មោះ = លេខ PIN</string>
   <string name="KbsSplashFragment__your_registration_lock_is_now_called_a_pin">ការចាក់សោរការចុះឈ្មោះរបស់អ្នក ឥឡូវត្រូវបានហៅថា លេខកូដ PIN និងវាមានមុខងារច្រើន។ ធ្វើបច្ចុប្បន្នភាពវាឥឡូវនេះ។</string>
   <string name="KbsSplashFragment__read_more_about_pins">អានបន្ថែមអំពីលេខកូដ PINs។</string>
   <string name="KbsSplashFragment__update_pin">បច្ចុប្បន្នភាពកូដ PIN</string>
   <string name="KbsSplashFragment__create_your_pin">បង្កើតលេខ PIN របស់អ្នក</string>
+  <string name="KbsSplashFragment__learn_more_about_pins">ស្វែងយល់បន្ថែមពី លេខ PINs</string>
   <!--KBS Reminder Dialog-->
   <string name="KbsReminderDialog__enter_your_signal_pin">បញ្ចូលលេខ Signal PIN របស់អ្នក</string>
   <string name="KbsReminderDialog__to_help_you_memorize_your_pin">ដើម្បីជួយអ្នកចងចាំលេខកូដ PIN របស់អ្នក យើងនឹងសាកសួរអ្នកអោយបញ្ចូលវាម្តងម្កាល។ យើងនឹងសួរតិចជាងមុន។ </string>

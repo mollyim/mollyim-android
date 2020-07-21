@@ -2,6 +2,7 @@ package org.thoughtcrime.securesms.preferences;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Toast;
@@ -95,9 +96,10 @@ public class AppProtectionPreferenceFragment extends CorrectedPreferenceFragment
     SwitchPreferenceCompat signalPinReminders      = (SwitchPreferenceCompat) this.findPreference(PinValues.PIN_REMINDERS_ENABLED);
     SwitchPreferenceCompat registrationLockV2      = (SwitchPreferenceCompat) this.findPreference(KbsValues.V2_LOCK_ENABLED);
 
-    if (SignalStore.kbsValues().hasPin()) {
+    if (SignalStore.kbsValues().hasPin() && !SignalStore.kbsValues().hasOptedOut()) {
       signalPinCreateChange.setOnPreferenceClickListener(new KbsPinUpdateListener());
       signalPinCreateChange.setTitle(R.string.preferences_app_protection__change_your_pin);
+      signalPinReminders.setEnabled(true);
       registrationLockV2.setEnabled(true);
     } else {
       signalPinCreateChange.setOnPreferenceClickListener(new KbsPinCreateListener());
@@ -115,7 +117,7 @@ public class AppProtectionPreferenceFragment extends CorrectedPreferenceFragment
   @Override
   public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
     if (requestCode == CreateKbsPinActivity.REQUEST_NEW_PIN && resultCode == CreateKbsPinActivity.RESULT_OK) {
-      Snackbar.make(requireView(), R.string.ConfirmKbsPinFragment__pin_created, Snackbar.LENGTH_LONG).show();
+      Snackbar.make(requireView(), R.string.ConfirmKbsPinFragment__pin_created, Snackbar.LENGTH_LONG).setTextColor(Color.WHITE).show();
     }
   }
 

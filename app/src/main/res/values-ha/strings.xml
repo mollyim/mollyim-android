@@ -43,6 +43,7 @@
   <string name="ApplicationPreferencesActivity_sms_mms_summary">SMS %1$s, MMS %2$s</string>
   <string name="ApplicationPreferencesActivity_privacy_summary"> Kullewar fuska %1$s, Kullewar rijista %2$s</string>
   <string name="ApplicationPreferencesActivity_appearance_summary">Jigo %1$s, Harshe %2$s</string>
+  <string name="ApplicationPreferencesActivity_pin_created">An kirkiri lambobin sirri.</string>
   <!--AppProtectionPreferenceFragment-->
   <plurals name="AppProtectionPreferenceFragment_minutes">
     <item quantity="one">%d mintina</item>
@@ -524,6 +525,7 @@
   <string name="MessageRecord_s_disabled_disappearing_messages">%1$s nakashe bacewar sakwanni.</string>
   <string name="MessageRecord_you_set_disappearing_message_time_to_s">Ka/kin saita lokacin bacewar sako zuwa %1$s.</string>
   <string name="MessageRecord_s_set_disappearing_message_time_to_s">%1$s saita lokacin bacewar sako zuwa %2$s.</string>
+  <!--Profile change updates-->
   <!--GV2 specific-->
   <string name="MessageRecord_you_created_the_group">Kai/ke ka/kika kirkiro rukunin. </string>
   <string name="MessageRecord_group_updated">An sabunta rukuni. </string>
@@ -532,8 +534,11 @@
   <string name="MessageRecord_s_joined_the_group">%1$s ya/ta shiga rukuni.</string>
   <!--GV2 member removals-->
   <!--GV2 role change-->
+  <string name="MessageRecord_you_are_now_an_admin">Ka/kin zama mai gudanarwa. </string>
   <!--GV2 invitations-->
+  <string name="MessageRecord_you_were_invited_to_the_group">An gayyaceka/ki zuwa rukunin.</string>
   <!--GV2 invitation revokes-->
+  <string name="MessageRecord_your_invitation_to_the_group_was_revoked">An soke gayyatarka/ki zuwa rukunin. </string>
   <!--GV2 invitation acceptance-->
   <!--GV2 title change-->
   <!--GV2 avatar change-->
@@ -609,6 +614,7 @@
   <string name="PinRestoreEntryFragment_enter_numeric_pin">Shigar da lambobin sirri mai lambobi zalla</string>
   <!--PinRestoreLockedFragment-->
   <string name="PinRestoreLockedFragment_create_your_pin">Kirkiri lambobin sirrinka/ki</string>
+  <!--PinOptOutDialog-->
   <!--RatingManager-->
   <string name="RatingManager_rate_this_app">Yaba wannan manhajar</string>
   <string name="RatingManager_if_you_enjoy_using_this_app_please_take_a_moment">Idan ka/kin ji dadin wannan manhajar, dan dauki \'yan mintina ka/kiyi kafa mana taurari.</string>
@@ -967,7 +973,6 @@
   <string name="contact_selection_activity__enter_name_or_number">Sa suna ko lamba</string>
   <string name="contact_selection_activity__invite_to_signal">Gayyace shi/ta zuwa Signal.</string>
   <string name="contact_selection_activity__new_group">Sabon rukuni</string>
-  <!--temporary for internal testing-->
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">Goge rubutu</string>
   <string name="contact_filter_toolbar__show_keyboard_description">Nuna allon haruffa</string>
@@ -1352,6 +1357,7 @@
   <string name="preferences_communication__sealed_sender_allow_from_anyone">Karba daga ko waye</string>
   <string name="preferences_communication__sealed_sender_allow_from_anyone_description">Karfafa rufaffen mai aika sako don sakonni masu shigowa daga waddanda basu cikin lambobin sadawarka/ki da kuma mutane da baka/ki tura ma sako ba.</string>
   <string name="preferences_communication__sealed_sender_learn_more">Karin bayani</string>
+  <!--Internal only preferences-->
   <!--****************************************-->
   <!--menus-->
   <!--****************************************-->
@@ -1496,7 +1502,6 @@
   <string name="CreateKbsPinFragment__create_a_new_pin">Kirkiri sabon lambobin sirri</string>
   <string name="CreateKbsPinFragment__you_can_choose_a_new_pin_as_long_as_this_device_is_registered">Zaka/ki iya canza lambobin sirrinka/ki idan da rijista akan wannan na\'ura. </string>
   <string name="CreateKbsPinFragment__create_your_pin">Kirkiri lambobin sirrinka/ki</string>
-  <string name="CreateKbsPinFragment__pins_keep_information_stored_with_signal_encrypted">Ka/ki tsare bayanai da ka/kika ajiye da Signal domin ya Zaman to kai/ke kadai ne/ceke damar isonshi. Furofayil, saiti, da lambobin sadarwarka/ki za su dawo saitin ainihi idan ka/kika sake girka Signal. </string>
   <string name="CreateKbsPinFragment__choose_a_stronger_pin">Zabi lambobin sirri masu karfi</string>
   <!--ConfirmKbsPinFragment-->
   <string name="ConfirmKbsPinFragment__pins_dont_match">An samu kuskuren lambobin sirri. Kara gwadawa.</string>
@@ -1507,12 +1512,12 @@
   <string name="ConfirmKbsPinFragment__creating_pin">Ana kirkirar lambobin sirri</string>
   <!--KbsSplashFragment-->
   <string name="KbsSplashFragment__introducing_pins">Gabatar da lambobin sirri</string>
-  <string name="KbsSplashFragment__pins_keep_information_stored_with_signal_encrypted">Ka/ki tsare bayanai da ka/kika ajiye da Signal domin ya Zaman to kai/ke kadai ne/ceke damar isonshi. Furofayil, saiti, da lambobin sadarwarka/ki za su dawo saitin ainihi idan ka/kika sake girka Signal. </string>
   <string name="KbsSplashFragment__learn_more">Karin bayani</string>
   <string name="KbsSplashFragment__registration_lock_equals_pin">Makullin rijista = Lambobin sirri</string>
   <string name="KbsSplashFragment__read_more_about_pins">Karanta karin bayanin akan ambobin sirri.</string>
   <string name="KbsSplashFragment__update_pin">Sabunta lambobin sirri</string>
   <string name="KbsSplashFragment__create_your_pin">Kirkiri lambobin sirrinka/ki</string>
+  <string name="KbsSplashFragment__learn_more_about_pins">Samu Karin bayani akan lambobin sirri</string>
   <!--KBS Reminder Dialog-->
   <string name="KbsReminderDialog__enter_your_signal_pin">Shigar da lambobin sirrin Signal dinka/ki</string>
   <string name="KbsReminderDialog__to_help_you_memorize_your_pin">Domin tayaka/ki haddace lambobin sirrinka/ki, zamu rinka tambayan lambobin lokaci-lokaci. Zamu rage tambaya nan gaba.</string>
