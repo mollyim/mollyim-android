@@ -53,6 +53,25 @@
                     android:textAppearance="@style/Signal.Text.Body"
                     android:textColor="?title_text_color_secondary"
                     tools:text="12 members (4 invited)" />
+
+                <org.thoughtcrime.securesms.util.views.LearnMoreTextView
+                    android:id="@+id/manage_group_group_v1_indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="?secondary_background_bubble"
+                    android:paddingStart="12dp"
+                    android:paddingTop="10dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/ManageGroupActivity_legacy_group_learn_more"
+                    android:textAppearance="@style/TextAppearance.Signal.Caption"
+                    android:textColor="?title_text_color_secondary"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+
             </LinearLayout>
 
             <androidx.appcompat.widget.Toolbar
@@ -130,29 +149,33 @@
                 <LinearLayout
                     android:id="@+id/disappearing_messages_row"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/group_manage_fragment_row_height"
+                    android:layout_height="wrap_content"
                     android:background="?selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true"
-                    android:orientation="horizontal">
+                    android:gravity="center_vertical"
+                    android:minHeight="@dimen/group_manage_fragment_row_height"
+                    android:orientation="horizontal"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp">
 
                     <TextView
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
                         android:gravity="center_vertical|start"
                         android:paddingStart="@dimen/group_manage_fragment_row_horizontal_padding"
                         android:paddingEnd="@dimen/group_manage_fragment_row_horizontal_padding"
-                        android:text="@string/ManageGroupActivity_disappearing_messages"
+                        android:text="@string/ManageRecipientActivity_disappearing_messages"
                         android:textAlignment="viewStart"
                         android:textAppearance="@style/Signal.Text.Body" />
 
                     <TextView
                         android:id="@+id/disappearing_messages"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
                         android:minWidth="48dp"
                         android:paddingStart="@dimen/group_manage_fragment_row_horizontal_padding"
                         android:paddingEnd="@dimen/group_manage_fragment_row_horizontal_padding"
@@ -364,7 +387,7 @@
                             android:gravity="center_vertical|start"
                             android:paddingStart="@dimen/group_manage_fragment_row_horizontal_padding"
                             android:paddingEnd="@dimen/group_manage_fragment_row_horizontal_padding"
-                            android:text="@string/ManageGroupActivity_who_can_edit_group_membership"
+                            android:text="@string/ManageGroupActivity_add_members"
                             android:textAlignment="viewStart"
                             android:textAppearance="@style/Signal.Text.Body" />
 
@@ -372,8 +395,8 @@
                             android:id="@+id/edit_group_membership_value"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:minWidth="48dp"
+                            android:gravity="center_vertical|end"
+                            android:minWidth="136dp"
                             android:paddingStart="@dimen/group_manage_fragment_row_horizontal_padding"
                             android:paddingEnd="@dimen/group_manage_fragment_row_horizontal_padding"
                             android:textAppearance="@style/Signal.Text.Body"
@@ -382,10 +405,10 @@
 
                     </LinearLayout>
 
-                    <LinearLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/edit_group_access_row"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/group_manage_fragment_row_height"
+                        android:layout_height="wrap_content"
                         android:background="?selectableItemBackground"
                         android:clickable="true"
                         android:focusable="true">
@@ -393,28 +416,54 @@
                         <TextView
                             android:id="@+id/edit_group_access_title"
                             android:layout_width="0dp"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:gravity="center_vertical|start"
+                            android:gravity="start"
                             android:paddingStart="@dimen/group_manage_fragment_row_horizontal_padding"
+                            android:paddingTop="16dp"
                             android:paddingEnd="@dimen/group_manage_fragment_row_horizontal_padding"
-                            android:text="@string/ManageGroupActivity_who_can_edit_group_info"
+                            android:paddingBottom="8dp"
+                            android:text="@string/ManageGroupActivity_edit_group_info"
                             android:textAlignment="viewStart"
-                            android:textAppearance="@style/Signal.Text.Body" />
+                            android:textAppearance="@style/Signal.Text.Body"
+                            app:layout_constraintEnd_toStartOf="@+id/edit_group_access_value"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
                             android:id="@+id/edit_group_access_value"
                             android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:minWidth="48dp"
+                            android:layout_height="0dp"
+                            android:gravity="end"
+                            android:minWidth="136dp"
                             android:paddingStart="@dimen/group_manage_fragment_row_horizontal_padding"
+                            android:paddingTop="16dp"
                             android:paddingEnd="@dimen/group_manage_fragment_row_horizontal_padding"
                             android:textAppearance="@style/Signal.Text.Body"
                             android:textColor="@color/ultramarine_text_button"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
                             tools:text="All members" />
 
-                    </LinearLayout>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="start"
+                            android:paddingStart="@dimen/group_manage_fragment_row_horizontal_padding"
+                            android:paddingEnd="@dimen/group_manage_fragment_row_horizontal_padding"
+                            android:paddingBottom="16dp"
+                            android:text="@string/ManageGroupActivity_choose_who_can_edit_the_group_name_avatar_and_disappearing_messages"
+                            android:textAlignment="viewStart"
+                            android:textAppearance="@style/Signal.Text.Caption"
+                            android:textColor="?title_text_color_secondary"
+                            app:layout_constraintEnd_toEndOf="@+id/edit_group_access_title"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/edit_group_access_title" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>

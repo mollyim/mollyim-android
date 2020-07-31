@@ -14,12 +14,9 @@ import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.database.GroupDatabase;
 import org.thoughtcrime.securesms.database.ThreadDatabase;
 import org.thoughtcrime.securesms.groups.GroupAccessControl;
-import org.thoughtcrime.securesms.groups.GroupChangeBusyException;
-import org.thoughtcrime.securesms.groups.GroupChangeFailedException;
+import org.thoughtcrime.securesms.groups.GroupChangeException;
 import org.thoughtcrime.securesms.groups.GroupId;
-import org.thoughtcrime.securesms.groups.GroupInsufficientRightsException;
 import org.thoughtcrime.securesms.groups.GroupManager;
-import org.thoughtcrime.securesms.groups.GroupNotAMemberException;
 import org.thoughtcrime.securesms.groups.GroupProtoUtil;
 import org.thoughtcrime.securesms.groups.MembershipNotSuitableForV2Exception;
 import org.thoughtcrime.securesms.groups.ui.AddMembersResultCallback;
@@ -28,6 +25,7 @@ import org.thoughtcrime.securesms.groups.ui.GroupChangeFailureReason;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
+import org.thoughtcrime.securesms.recipients.RecipientUtil;
 import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.concurrent.SignalExecutors;
 import org.thoughtcrime.securesms.util.concurrent.SimpleTask;
@@ -88,15 +86,9 @@ final class ManageGroupRepository {
     SignalExecutors.UNBOUNDED.execute(() -> {
       try {
         GroupManager.updateGroupTimer(context, groupId.requirePush(), newExpirationTime);
-      } catch (GroupInsufficientRightsException e) {
+      } catch (GroupChangeException | IOException e) {
         Log.w(TAG, e);
-        error.onError(GroupChangeFailureReason.NO_RIGHTS);
-      } catch (GroupNotAMemberException e) {
-        Log.w(TAG, e);
-        error.onError(GroupChangeFailureReason.NOT_A_MEMBER);
-      } catch (GroupChangeFailedException | GroupChangeBusyException | IOException e) {
-        Log.w(TAG, e);
-        error.onError(GroupChangeFailureReason.OTHER);
+        error.onError(GroupChangeFailureReason.fromException(e));
       }
     });
   }
@@ -105,12 +97,9 @@ final class ManageGroupRepository {
     SignalExecutors.UNBOUNDED.execute(() -> {
       try {
         GroupManager.applyMembershipAdditionRightsChange(context, groupId.requireV2(), newRights);
-      } catch (GroupInsufficientRightsException | GroupNotAMemberException e) {
+      } catch (GroupChangeException | IOException e) {
         Log.w(TAG, e);
-        error.onError(GroupChangeFailureReason.NO_RIGHTS);
-      } catch (GroupChangeFailedException | GroupChangeBusyException | IOException e) {
-        Log.w(TAG, e);
-        error.onError(GroupChangeFailureReason.OTHER);
+        error.onError(GroupChangeFailureReason.fromException(e));
       }
     });
   }
@@ -119,12 +108,9 @@ final class ManageGroupRepository {
     SignalExecutors.UNBOUNDED.execute(() -> {
       try {
         GroupManager.applyAttributesRightsChange(context, groupId.requireV2(), newRights);
-      } catch (GroupInsufficientRightsException | GroupNotAMemberException e) {
+      } catch (GroupChangeException | IOException e) {
         Log.w(TAG, e);
-        error.onError(GroupChangeFailureReason.NO_RIGHTS);
-      } catch (GroupChangeFailedException | GroupChangeBusyException | IOException e) {
-        Log.w(TAG, e);
-        error.onError(GroupChangeFailureReason.OTHER);
+        error.onError(GroupChangeFailureReason.fromException(e));
       }
     });
   }
@@ -145,17 +131,23 @@ final class ManageGroupRepository {
   void addMembers(@NonNull List<RecipientId> selected, @NonNull AddMembersResultCallback addMembersResultCallback, @NonNull GroupChangeErrorCallback error) {
     SignalExecutors.UNBOUNDED.execute(() -> {
       try {
-        GroupManager.addMembers(context, groupId.requirePush(), selected);
-        addMembersResultCallback.onMembersAdded(selected.size());
-      } catch (GroupInsufficientRightsException | GroupNotAMemberException e) {
+        GroupManager.GroupActionResult groupActionResult = GroupManager.addMembers(context, groupId.requirePush(), selected);
+        addMembersResultCallback.onMembersAdded(groupActionResult.getAddedMemberCount(), groupActionResult.getInvitedMembers());
+      } catch (GroupChangeException | MembershipNotSuitableForV2Exception | IOException e) {
         Log.w(TAG, e);
-        error.onError(GroupChangeFailureReason.NO_RIGHTS);
-      } catch (GroupChangeFailedException | GroupChangeBusyException | IOException e) {
+        error.onError(GroupChangeFailureReason.fromException(e));
+      }
+    });
+  }
+
+  void blockAndLeaveGroup(@NonNull GroupChangeErrorCallback error, @NonNull Runnable onSuccess) {
+    SignalExecutors.UNBOUNDED.execute(() -> {
+      try {
+        RecipientUtil.block(context, Recipient.externalGroup(context, groupId));
+        onSuccess.run();
+      } catch (GroupChangeException | IOException e) {
         Log.w(TAG, e);
-        error.onError(GroupChangeFailureReason.OTHER);
-      } catch (MembershipNotSuitableForV2Exception e) {
-        Log.w(TAG, e);
-        error.onError(GroupChangeFailureReason.NOT_CAPABLE);
+        error.onError(GroupChangeFailureReason.fromException(e));
       }
     });
   }

@@ -4,8 +4,12 @@ import android.app.Service;
 import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ProcessLifecycleOwner;
+
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.IBinder;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,7 +19,6 @@ import androidx.core.content.ContextCompat;
 import org.thoughtcrime.securesms.messages.IncomingMessageProcessor.Processor;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.jobmanager.ConstraintObserver;
-import org.thoughtcrime.securesms.jobmanager.impl.MasterSecretConstraint;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraintObserver;
 import org.thoughtcrime.securesms.logging.Log;
@@ -24,15 +27,20 @@ import org.thoughtcrime.securesms.ApplicationContext;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.push.SignalServiceNetworkAccess;
+import org.thoughtcrime.securesms.service.KeyCachingService;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.whispersystems.libsignal.InvalidVersionException;
+import org.whispersystems.libsignal.util.guava.Optional;
 import org.whispersystems.signalservice.api.SignalServiceMessagePipe;
 import org.whispersystems.signalservice.api.SignalServiceMessageReceiver;
+import org.whispersystems.signalservice.api.messages.SignalServiceEnvelope;
 
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-public class IncomingMessageObserver implements ConstraintObserver.Notifier {
+public class IncomingMessageObserver {
 
   private static final String TAG = IncomingMessageObserver.class.getSimpleName();
 
@@ -42,22 +50,19 @@ public class IncomingMessageObserver implements ConstraintObserver.Notifier {
   private static SignalServiceMessagePipe pipe             = null;
   private static SignalServiceMessagePipe unidentifiedPipe = null;
 
-  private final Context                      context;
-  private final MasterSecretConstraint       masterSecretConstraint;
-  private final NetworkConstraint            networkConstraint;
-  private final SignalServiceNetworkAccess   networkAccess;
+  private final Context                    context;
+  private final SignalServiceNetworkAccess networkAccess;
+  private final List<Runnable>             websocketDrainedListeners;
 
   private boolean appVisible;
 
+  private volatile boolean websocketDrained;
 
   public IncomingMessageObserver(@NonNull Context context) {
-    this.context           = context;
-    this.networkConstraint = new NetworkConstraint.Factory(ApplicationContext.getInstance(context)).create();
-    this.networkAccess     = ApplicationDependencies.getSignalServiceNetworkAccess();
+    this.context                   = context;
+    this.networkAccess             = ApplicationDependencies.getSignalServiceNetworkAccess();
+    this.websocketDrainedListeners = new CopyOnWriteArrayList<>();
 
-    this.masterSecretConstraint = new MasterSecretConstraint.Factory(ApplicationContext.getInstance(context)).create();
-
-    new NetworkConstraintObserver(ApplicationContext.getInstance(context)).register(this);
     new MessageRetrievalThread().start();
 
     if (TextSecurePreferences.isFcmDisabled(context)) {
@@ -76,18 +81,34 @@ public class IncomingMessageObserver implements ConstraintObserver.Notifier {
       }
     });
 
-    ApplicationDependencies.getInitialMessageRetriever().addListener(this::onInitialRetrievalComplete);
+    context.registerReceiver(new BroadcastReceiver() {
+      @Override
+      public void onReceive(Context context, Intent intent) {
+        synchronized (IncomingMessageObserver.this) {
+          if (!NetworkConstraint.isMet(context)) {
+            Log.w(TAG, "Lost network connection. Shutting down our websocket connections and resetting the drained state.");
+            websocketDrained = false;
+            shutdown(pipe, unidentifiedPipe);
+          }
+          IncomingMessageObserver.this.notifyAll();
+        }
+      }
+    }, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
   }
 
   public void quit() {
     context.stopService(new Intent(context, ForegroundService.class));
   }
 
-  @Override
-  public void onConstraintMet(@NonNull String reason) {
-    synchronized (this) {
-      notifyAll();
+  public synchronized void addWebsocketDrainedListener(@NonNull Runnable listener) {
+    websocketDrainedListeners.add(listener);
+    if (websocketDrained) {
+      listener.run();
     }
+  }
+
+  public boolean isWebsocketDrained() {
+    return websocketDrained;
   }
 
   private synchronized void onAppForegrounded() {
@@ -100,22 +121,23 @@ public class IncomingMessageObserver implements ConstraintObserver.Notifier {
     notifyAll();
   }
 
-  private synchronized void onInitialRetrievalComplete() {
-    notifyAll();
-  }
-
   private synchronized boolean isConnectionNecessary() {
-    boolean isGcmDisabled = TextSecurePreferences.isFcmDisabled(context);
+    if (KeyCachingService.isLocked()) {
+      return false;
+    }
 
-    Log.d(TAG, String.format("Network requirement: %s, app visible: %s, gcm disabled: %b",
-                             networkConstraint.isMet(), appVisible, isGcmDisabled));
+    boolean registered          = TextSecurePreferences.isPushRegistered(context);
+    boolean websocketRegistered = TextSecurePreferences.isWebsocketRegistered(context);
+    boolean isGcmDisabled       = TextSecurePreferences.isFcmDisabled(context);
+    boolean hasNetwork          = NetworkConstraint.isMet(context);
 
-    return masterSecretConstraint.isMet()                                    &&
-           TextSecurePreferences.isPushRegistered(context)                   &&
-           TextSecurePreferences.isWebsocketRegistered(context)              &&
-           (appVisible || isGcmDisabled)                                     &&
-           networkConstraint.isMet()                                         &&
-           ApplicationDependencies.getInitialMessageRetriever().isCaughtUp() &&
+    Log.d(TAG, String.format("Network: %s, Foreground: %s, FCM: %s, Censored: %s, Registered: %s, Websocket Registered: %s",
+                             hasNetwork, appVisible, !isGcmDisabled, networkAccess.isCensored(context), registered, websocketRegistered));
+
+    return registered                    &&
+           websocketRegistered           &&
+           (appVisible || isGcmDisabled) &&
+           hasNetwork                    &&
            !networkAccess.isCensored(context);
   }
 
@@ -127,12 +149,21 @@ public class IncomingMessageObserver implements ConstraintObserver.Notifier {
     }
   }
 
-  private void shutdown(SignalServiceMessagePipe pipe, SignalServiceMessagePipe unidentifiedPipe) {
+  private void shutdown(@Nullable SignalServiceMessagePipe pipe, @Nullable SignalServiceMessagePipe unidentifiedPipe) {
     try {
-      pipe.shutdown();
-      unidentifiedPipe.shutdown();
+      if (pipe != null) {
+        pipe.shutdown();
+      }
     } catch (Throwable t) {
-      Log.w(TAG, t);
+      Log.w(TAG, "Closing normal pipe failed!", t);
+    }
+
+    try {
+      if (unidentifiedPipe != null) {
+        unidentifiedPipe.shutdown();
+      }
+    } catch (Throwable t) {
+      Log.w(TAG, "Closing unidentified pipe failed!", t);
     }
   }
 
@@ -169,14 +200,22 @@ public class IncomingMessageObserver implements ConstraintObserver.Notifier {
         try {
           while (isConnectionNecessary()) {
             try {
-              Log.i(TAG, "Reading message...");
-              localPipe.read(REQUEST_TIMEOUT_MINUTES, TimeUnit.MINUTES,
-                             envelope -> {
-                               Log.i(TAG, "Retrieved envelope! " + envelope.getTimestamp());
-                               try (Processor processor = ApplicationDependencies.getIncomingMessageProcessor().acquire()) {
-                                 processor.processEnvelope(envelope);
-                               }
-                             });
+              Log.d(TAG, "Reading message...");
+              Optional<SignalServiceEnvelope> result = localPipe.readOrEmpty(REQUEST_TIMEOUT_MINUTES, TimeUnit.MINUTES, envelope -> {
+                Log.i(TAG, "Retrieved envelope! " + envelope.getTimestamp());
+                try (Processor processor = ApplicationDependencies.getIncomingMessageProcessor().acquire()) {
+                  processor.processEnvelope(envelope);
+                }
+              });
+
+              if (!result.isPresent() && !websocketDrained) {
+                Log.i(TAG, "Websocket was newly-drained. Triggering listeners.");
+                websocketDrained = true;
+
+                for (Runnable listener : websocketDrainedListeners) {
+                  listener.run();
+                }
+              }
             } catch (TimeoutException e) {
               Log.w(TAG, "Application level read timeout...");
             } catch (InvalidVersionException e) {
@@ -213,7 +252,7 @@ public class IncomingMessageObserver implements ConstraintObserver.Notifier {
       super.onStartCommand(intent, flags, startId);
 
       NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), NotificationChannels.OTHER);
-      builder.setContentTitle(getApplicationContext().getString(R.string.app_name));
+      builder.setContentTitle(getApplicationContext().getString(R.string.MessageRetrievalService_signal));
       builder.setContentText(getApplicationContext().getString(R.string.MessageRetrievalService_background_connection_enabled));
       builder.setPriority(NotificationCompat.PRIORITY_MIN);
       builder.setWhen(0);

@@ -46,17 +46,17 @@ public final class FeatureFlags {
 
   private static final String TAG = Log.tag(FeatureFlags.class);
 
-  private static final long FETCH_INTERVAL = TimeUnit.HOURS.toMillis(0);
+  private static final long FETCH_INTERVAL = TimeUnit.HOURS.toMillis(2);
 
-  private static final String UUIDS                      = "android.uuids";
   private static final String USERNAMES                  = "android.usernames";
-  private static final String ATTACHMENTS_V3             = "android.attachmentsV3";
+  private static final String ATTACHMENTS_V3             = "android.attachmentsV3.2";
   private static final String REMOTE_DELETE              = "android.remoteDelete";
-  private static final String PROFILE_FOR_CALLING        = "android.profileForCalling.2";
-  private static final String GROUPS_V2                  = "android.groupsv2";
-  private static final String GROUPS_V2_CREATE           = "android.groupsv2.create";
+  private static final String GROUPS_V2_OLD              = "android.groupsv2";
+  private static final String GROUPS_V2                  = "android.groupsv2.2";
+  private static final String GROUPS_V2_CREATE           = "android.groupsv2.create.2";
   private static final String GROUPS_V2_CAPACITY         = "android.groupsv2.capacity";
   private static final String CDS                        = "android.cds";
+  private static final String RECIPIENT_TRUST            = "android.recipientTrust";
   private static final String INTERNAL_USER              = "android.internalUser";
 
   /**
@@ -67,10 +67,10 @@ public final class FeatureFlags {
   private static final Set<String> REMOTE_CAPABLE = Sets.newHashSet(
       ATTACHMENTS_V3,
       REMOTE_DELETE,
-      PROFILE_FOR_CALLING,
       GROUPS_V2,
       GROUPS_V2_CREATE,
       GROUPS_V2_CAPACITY,
+      RECIPIENT_TRUST,
       INTERNAL_USER
   );
 
@@ -92,14 +92,18 @@ public final class FeatureFlags {
    * more burden on the reader to ensure that the app experience remains consistent.
    */
   private static final Set<String> HOT_SWAPPABLE = Sets.newHashSet(
-      ATTACHMENTS_V3
+      ATTACHMENTS_V3,
+      GROUPS_V2_CREATE,
+      RECIPIENT_TRUST
   );
 
   /**
    * Flags in this set will stay true forever once they receive a true value from a remote config.
    */
   private static final Set<String> STICKY = Sets.newHashSet(
-      GROUPS_V2
+      GROUPS_V2,
+      GROUPS_V2_OLD,
+      RECIPIENT_TRUST
   );
 
   /**
@@ -168,16 +172,9 @@ public final class FeatureFlags {
     Log.i(TAG, "[Disk]   After : " + result.getDisk().toString());
   }
 
-  /** Whether or not we allow UUID-only contacts. */
-  public static synchronized boolean uuidOnlyContacts() {
-    return getBoolean(UUIDS, false);
-  }
-
   /** Creating usernames, sending messages by username. Requires {@link #uuidOnlyContacts()}. */
   public static synchronized boolean usernames() {
-    boolean value = getBoolean(USERNAMES, false);
-    if (value && !uuidOnlyContacts()) throw new MissingFlagRequirementError();
-    return value;
+    return getBoolean(USERNAMES, false);
   }
 
   /** Whether or not we use the attachments v3 form. */
@@ -190,14 +187,9 @@ public final class FeatureFlags {
     return getBoolean(REMOTE_DELETE, false);
   }
 
-  /** Whether or not profile sharing is required for calling */
-  public static boolean profileForCalling() {
-    return getBoolean(PROFILE_FOR_CALLING, false);
-  }
-
   /** Groups v2 send and receive. */
   public static boolean groupsV2() {
-    return getBoolean(GROUPS_V2, false);
+    return getBoolean(GROUPS_V2_OLD, false) || getBoolean(GROUPS_V2, false);
   }
 
   /** Attempt groups v2 creation. */
@@ -222,6 +214,11 @@ public final class FeatureFlags {
   /** Whether or not to use the new contact discovery service endpoint, which supports UUIDs. */
   public static boolean cds() {
     return getBoolean(CDS, false);
+  }
+
+  /** Whether or not we allow different trust levels for recipient address sources. */
+  public static boolean recipientTrust() {
+    return getBoolean(RECIPIENT_TRUST, false);
   }
 
   /** Only for rendering debug info. */

@@ -38,6 +38,7 @@ import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.permissions.Permissions;
 import org.thoughtcrime.securesms.phonenumbers.PhoneNumberFormatter;
 import org.thoughtcrime.securesms.recipients.Recipient;
+import org.thoughtcrime.securesms.registration.RegistrationUtil;
 import org.thoughtcrime.securesms.storage.StorageSyncHelper;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.sms.IncomingJoinedMessage;
@@ -55,7 +56,6 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -75,12 +75,18 @@ public class DirectoryHelper {
   @WorkerThread
   public static void refreshDirectory(@NonNull Context context, boolean notifyOfNewUsers) throws IOException {
     if (TextUtils.isEmpty(TextSecurePreferences.getLocalNumber(context))) {
-      Log.i(TAG, "Have not yet set our own local number. Skipping.");
+      Log.w(TAG, "Have not yet set our own local number. Skipping.");
       return;
     }
 
     if (!Permissions.hasAll(context, Manifest.permission.WRITE_CONTACTS)) {
-      Log.i(TAG, "No contact permissions. Skipping.");
+      Log.w(TAG, "No contact permissions. Skipping.");
+      return;
+    }
+
+    if (!SignalStore.registrationValues().isRegistrationComplete()) {
+      Log.w(TAG, "Registration is not yet complete. Skipping, but running a routine to possibly mark it complete.");
+      RegistrationUtil.maybeMarkRegistrationComplete(context);
       return;
     }
 
@@ -102,32 +108,14 @@ public class DirectoryHelper {
       recipientDatabase.updatePhoneNumbers(result.getNumberRewrites());
     }
 
-    HashMap<RecipientId, String> uuidMap = new HashMap<>();
-
-    // TODO [greyson] [cds] Probably want to do this in a DB transaction to prevent concurrent operations
-    for (Map.Entry<String, UUID> entry : result.getRegisteredNumbers().entrySet()) {
-      // TODO [greyson] [cds] This is where we'll have to do record merging
-      String                e164      = entry.getKey();
-      UUID                  uuid      = entry.getValue();
-      Optional<RecipientId> uuidEntry = uuid != null ? recipientDatabase.getByUuid(uuid) : Optional.absent();
-
-      // TODO [greyson] [cds] Handle phone numbers changing, possibly conflicting
-      if (uuidEntry.isPresent()) {
-        recipientDatabase.setPhoneNumber(uuidEntry.get(), e164);
-      }
-
-      RecipientId id = uuidEntry.isPresent() ? uuidEntry.get() : recipientDatabase.getOrInsertFromE164(e164);
-
-      uuidMap.put(id, uuid != null ? uuid.toString() : null);
-    }
-
-    Set<String>      activeNumbers = result.getRegisteredNumbers().keySet();
-    Set<RecipientId> activeIds     = uuidMap.keySet();
-    Set<RecipientId> inactiveIds   = Stream.of(allNumbers)
-                                           .filterNot(activeNumbers::contains)
-                                           .filterNot(n -> result.getNumberRewrites().containsKey(n))
-                                           .map(recipientDatabase::getOrInsertFromE164)
-                                           .collect(Collectors.toSet());
+    Map<RecipientId, String> uuidMap       = recipientDatabase.bulkProcessCdsResult(result.getRegisteredNumbers());
+    Set<String>              activeNumbers = result.getRegisteredNumbers().keySet();
+    Set<RecipientId>         activeIds     = uuidMap.keySet();
+    Set<RecipientId>         inactiveIds   = Stream.of(allNumbers)
+                                                   .filterNot(activeNumbers::contains)
+                                                   .filterNot(n -> result.getNumberRewrites().containsKey(n))
+                                                   .map(recipientDatabase::getOrInsertFromE164)
+                                                   .collect(Collectors.toSet());
 
     recipientDatabase.bulkUpdatedRegisteredStatus(uuidMap, inactiveIds);
 
@@ -162,7 +150,10 @@ public class DirectoryHelper {
     if (recipient.hasUuid() && !recipient.hasE164()) {
       boolean isRegistered = isUuidRegistered(context, recipient);
       if (isRegistered) {
-        recipientDatabase.markRegistered(recipient.getId(), recipient.getUuid().get());
+        boolean idChanged = recipientDatabase.markRegistered(recipient.getId(), recipient.getUuid().get());
+        if (idChanged) {
+          Log.w(TAG, "ID changed during refresh by UUID.");
+        }
       } else {
         recipientDatabase.markUnregistered(recipient.getId());
       }
@@ -189,7 +180,15 @@ public class DirectoryHelper {
     }
 
     if (result.getRegisteredNumbers().size() > 0) {
-      recipientDatabase.markRegistered(recipient.getId(), result.getRegisteredNumbers().values().iterator().next());
+      UUID uuid = result.getRegisteredNumbers().values().iterator().next();
+      if (uuid != null) {
+        boolean idChanged = recipientDatabase.markRegistered(recipient.getId(), uuid);
+        if (idChanged) {
+          recipient = Recipient.resolved(recipientDatabase.getByUuid(uuid).get());
+        }
+      } else {
+        recipientDatabase.markRegistered(recipient.getId());
+      }
     } else {
       recipientDatabase.markUnregistered(recipient.getId());
     }

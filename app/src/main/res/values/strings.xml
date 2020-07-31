@@ -227,11 +227,13 @@
     <string name="ConversationActivity_this_device_does_not_appear_to_support_dial_actions">This device does not appear to support dial actions.</string>
     <string name="ConversationActivity_leave_group">Leave group?</string>
     <string name="ConversationActivity_are_you_sure_you_want_to_leave_this_group">Are you sure you want to leave this group?</string>
+    <string name="ConversationActivity_choose_new_admin">Choose new admin</string>
+    <string name="ConversationActivity_before_you_leave_you_must_choose_at_least_one_new_admin_for_this_group">Before you leave, you must choose at least one new admin for this group.</string>
+    <string name="ConversationActivity_choose_admin">Choose admin</string>
     <string name="ConversationActivity_transport_insecure_sms">Insecure SMS</string>
     <string name="ConversationActivity_transport_insecure_mms">Insecure MMS</string>
     <string name="ConversationActivity_transport_signal">Signal</string>
     <string name="ConversationActivity_lets_switch_to_signal">Let\'s switch to Molly %1$s</string>
-    <string name="ConversationActivity_error_leaving_group">Error leaving group</string>
     <string name="ConversationActivity_specify_recipient">Please choose a contact</string>
     <string name="ConversationActivity_unblock_this_contact_question">Unblock this contact?</string>
     <string name="ConversationActivity_unblock_this_group_question">Unblock this group?</string>
@@ -241,6 +243,7 @@
     <string name="ConversationActivity_attachment_exceeds_size_limits">Attachment exceeds size limits for the type of message you\'re sending.</string>
     <string name="ConversationActivity_quick_camera_unavailable">Camera unavailable</string>
     <string name="ConversationActivity_unable_to_record_audio">Unable to record audio!</string>
+    <string name="ConversationActivity_you_cant_send_messages_to_this_group">You can\'t send messages to this group because you\'re no longer a member.</string>
     <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">There is no app available to handle this link on your device.</string>
 
     <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">To send audio messages, allow Molly access to your microphone.</string>
@@ -442,6 +445,11 @@
     <string name="AddToGroupActivity_add_to_group">Add to group</string>
     <string name="AddToGroupActivity_add_to_groups">Add to groups</string>
 
+    <!-- ChooseNewAdminActivity -->
+    <string name="ChooseNewAdminActivity_choose_new_admin">Choose new admin</string>
+    <string name="ChooseNewAdminActivity_done">Done</string>
+    <string name="ChooseNewAdminActivity_you_left">You left \"%1$s.\"</string>
+
     <!-- GroupShareProfileView -->
     <string name="GroupShareProfileView_share_your_profile_name_and_photo_with_this_group">Share your profile name and photo with this group?</string>
     <string name="GroupShareProfileView_do_you_want_to_make_your_profile_name_and_photo_visible_to_all_current_and_future_members_of_this_group">Do you want to make your profile name and photo visible to all current and future members of this group?</string>
@@ -463,6 +471,15 @@
         <item>@string/GroupManagement_access_level_all_members</item>
         <item>@string/GroupManagement_access_level_only_admins</item>
     </array>
+
+    <!-- GV2 invites sent -->
+    <plurals name="GroupManagement_invitation_sent">
+        <item quantity="one">Invitation sent</item>
+        <item quantity="other">%d invitations sent</item>
+    </plurals>
+    <string name="GroupManagement_invite_single_user">“%1$s” can’t be automatically added to this group by you.\n\nThey’ve been invited to join, and won’t see any group messages until they accept.</string>
+    <string name="GroupManagement_learn_more">Learn more</string>
+    <string name="GroupManagement_invite_multiple_users">These users can’t be automatically added to this group by you.\n\nThey’ve been invited to join the group, and won’t see any group messages until they accept.</string>
 
     <!-- PendingMembersActivity -->
     <string name="PendingMemberInvitesActivity_pending_group_invites">Pending group invites</string>
@@ -508,8 +525,10 @@
     <!-- ManageGroupActivity -->
     <string name="ManageGroupActivity_disappearing_messages">Disappearing messages</string>
     <string name="ManageGroupActivity_pending_group_invites">Pending group invites</string>
-    <string name="ManageGroupActivity_who_can_edit_group_membership">Who can edit group membership</string>
-    <string name="ManageGroupActivity_who_can_edit_group_info">Who can edit group info</string>
+    <string name="ManageGroupActivity_add_members">Add members</string>
+    <string name="ManageGroupActivity_edit_group_info">Edit group info</string>
+    <string name="ManageGroupActivity_choose_who_can_edit_the_group_name_avatar_and_disappearing_messages">Choose who can edit the group name, avatar, and disappearing messages.</string>
+    <string name="ManageGroupActivity_choose_who_can_add_or_invite_new_members">Choose who can add or invite new members.</string>
     <string name="ManageGroupActivity_block_group">Block group</string>
     <string name="ManageGroupActivity_unblock_group">Unblock group</string>
     <string name="ManageGroupActivity_leave_group">Leave group</string>
@@ -518,7 +537,6 @@
     <string name="ManageGroupActivity_until_s">Until %1$s</string>
     <string name="ManageGroupActivity_off">Off</string>
     <string name="ManageGroupActivity_on">On</string>
-    <string name="ManageGroupActivity_add_members">Add members</string>
     <string name="ManageGroupActivity_view_all_members">View all members</string>
     <string name="ManageGroupActivity_see_all">See all</string>
 
@@ -536,12 +554,13 @@
     <string name="ManageGroupActivity_not_capable">Someone you added does not support new groups and needs to update Signal</string>
     <string name="ManageGroupActivity_failed_to_update_the_group">Failed to update the group</string>
     <string name="ManageGroupActivity_youre_not_a_member_of_the_group">You\'re not a member of the group</string>
+    <string name="ManageGroupActivity_failed_to_update_the_group_please_retry_later">Failed to update the group please retry later</string>
+    <string name="ManageGroupActivity_failed_to_update_the_group_due_to_a_network_error_please_retry_later">Failed to update the group due to a network error, please retry later</string>
 
     <string name="ManageGroupActivity_edit_name_and_picture">Edit name and picture</string>
+    <string name="ManageGroupActivity_legacy_group">Legacy Group</string>
+    <string name="ManageGroupActivity_legacy_group_learn_more">This is a Legacy Group. To access features like group admins, create a New Group.</string>
 
-    <string name="GroupManagement_choose_who_can_add_or_invite_new_members">Choose who can add or invite new members</string>
-    <string name="GroupManagement_choose_who_can_change_the_group_name_and_photo">Choose who can change the group name and photo</string>
-    
     
     <!-- ManageRecipientActivity -->
     <string name="ManageRecipientActivity_add_to_system_contacts">Add to system contacts</string>
@@ -1587,6 +1606,7 @@
     </plurals>
 
     <string name="expiration_weeks_abbreviated">%dw</string>
+    <string name="expiration_combined">%1$s %2$s</string>
 
     <!-- unverified safety numbers -->
     <string name="IdentityUtil_unverified_banner_one">Your safety number with %s has changed and is no longer verified</string>
@@ -2406,6 +2426,15 @@
     <string name="RecipientBottomSheet_copied_to_clipboard">Copied to clipboard</string>
 
     <string name="GroupRecipientListItem_admin">Admin</string>
+
+
+    <!-- GroupsLearnMoreBottomSheetDialogFragment -->
+    <string name="GroupsLearnMore_legacy_vs_new_groups">Legacy vs. New Groups</string>
+    <string name="GroupsLearnMore_what_are_legacy_groups">What are Legacy Groups?</string>
+    <string name="GroupsLearnMore_paragraph_1">Legacy Groups are groups that are not compatible with New Group features like admins and more descriptive group updates.</string>
+    <string name="GroupsLearnMore_how_do_i_use_new_groups">How do I use New Groups?</string>
+    <string name="GroupsLearnMore_paragraph_2">Legacy Groups can’t be converted into New Groups, but you can create a New Group with the same members.</string>
+    <string name="GroupsLearnMore_paragraph_3">To create a New Group, all members should update to the latest version of Signal.</string>
 
     <!-- EOF -->
 

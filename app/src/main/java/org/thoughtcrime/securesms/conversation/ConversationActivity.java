@@ -147,12 +147,10 @@ import org.thoughtcrime.securesms.database.model.StickerRecord;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.events.ReminderUpdateEvent;
 import org.thoughtcrime.securesms.giph.ui.GiphyActivity;
-import org.thoughtcrime.securesms.groups.GroupChangeBusyException;
-import org.thoughtcrime.securesms.groups.GroupChangeFailedException;
-import org.thoughtcrime.securesms.groups.GroupInsufficientRightsException;
+import org.thoughtcrime.securesms.groups.GroupChangeException;
 import org.thoughtcrime.securesms.groups.GroupManager;
-import org.thoughtcrime.securesms.groups.GroupNotAMemberException;
 import org.thoughtcrime.securesms.groups.ui.GroupChangeFailureReason;
+import org.thoughtcrime.securesms.groups.ui.GroupChangeResult;
 import org.thoughtcrime.securesms.groups.ui.GroupErrors;
 import org.thoughtcrime.securesms.groups.ui.LeaveGroupDialog;
 import org.thoughtcrime.securesms.groups.ui.managegroup.ManageGroupActivity;
@@ -339,6 +337,7 @@ public class ConversationActivity extends PassphraseRequiredActivity
   protected HidingLinearLayout       inlineAttachmentToggle;
   private   InputPanel               inputPanel;
   private   View                     panelParent;
+  private   View                     noLongerMemberBanner;
 
   private LinkPreviewViewModel         linkPreviewViewModel;
   private ConversationSearchViewModel  searchViewModel;
@@ -355,7 +354,7 @@ public class ConversationActivity extends PassphraseRequiredActivity
   private boolean       isMmsEnabled                  = false;
   private boolean       isSecurityInitialized         = false;
 
-  private final IdentityRecordList identityRecords = new IdentityRecordList();
+  private       IdentityRecordList identityRecords = new IdentityRecordList(Collections.emptyList());
   private final DynamicTheme       dynamicTheme    = new DynamicDarkToolbarTheme();
   private final DynamicLanguage    dynamicLanguage = new DynamicLanguage();
 
@@ -1001,26 +1000,20 @@ public class ConversationActivity extends PassphraseRequiredActivity
             if (activeGroup) {
               try {
                 GroupManager.updateGroupTimer(ConversationActivity.this, getRecipient().requireGroupId().requirePush(), expirationTime);
-              } catch (GroupInsufficientRightsException e) {
+                } catch (GroupChangeException | IOException e) {
                 Log.w(TAG, e);
-                return ConversationActivity.this.getString(R.string.ManageGroupActivity_you_dont_have_the_rights_to_do_this);
-              } catch (GroupNotAMemberException e) {
-                Log.w(TAG, e);
-                return ConversationActivity.this.getString(R.string.ManageGroupActivity_youre_not_a_member_of_the_group);
-              } catch (GroupChangeFailedException | GroupChangeBusyException | IOException e) {
-                Log.w(TAG, e);
-                return ConversationActivity.this.getString(R.string.ManageGroupActivity_failed_to_update_the_group);
+                return GroupChangeResult.failure(GroupChangeFailureReason.fromException(e));
               }
             } else {
               DatabaseFactory.getRecipientDatabase(ConversationActivity.this).setExpireMessages(recipient.getId(), expirationTime);
               OutgoingExpirationUpdateMessage outgoingMessage = new OutgoingExpirationUpdateMessage(getRecipient(), System.currentTimeMillis(), expirationTime * 1000L);
               MessageSender.send(ConversationActivity.this, outgoingMessage, threadId, false, null);
             }
-            return null;
+            return GroupChangeResult.SUCCESS;
           },
-          (errorString) -> {
-            if (errorString != null) {
-              Toast.makeText(ConversationActivity.this, errorString, Toast.LENGTH_SHORT).show();
+          (changeResult) -> {
+            if (!changeResult.isSuccess()) {
+              Toast.makeText(ConversationActivity.this, GroupErrors.getUserDisplayMessage(changeResult.getFailureReason()), Toast.LENGTH_SHORT).show();
             } else {
               invalidateOptionsMenu();
               if (fragment != null) fragment.setLastSeen(0);
@@ -1195,10 +1188,7 @@ public class ConversationActivity extends PassphraseRequiredActivity
       return;
     }
 
-    LeaveGroupDialog.handleLeavePushGroup(ConversationActivity.this,
-                                          getLifecycle(),
-                                          getRecipient().requireGroupId().requirePush(),
-                                          null);
+    LeaveGroupDialog.handleLeavePushGroup(this, getRecipient().requireGroupId().requirePush(), this::finish);
   }
 
   private void handleManageGroup() {
@@ -1397,7 +1387,10 @@ public class ConversationActivity extends PassphraseRequiredActivity
 
   private void initializeEnabledCheck() {
     groupViewModel.getGroupActiveState().observe(this, state -> {
-      boolean enabled = state == null || !(isPushGroupConversation() && !state.isActiveGroup());
+      boolean inactivePushGroup = state != null && isPushGroupConversation() && !state.isActiveGroup();
+      boolean enabled = !inactivePushGroup;
+      noLongerMemberBanner.setVisibility(enabled ? View.GONE : View.VISIBLE);
+      inputPanel.setVisibility(enabled ? View.VISIBLE : View.GONE);
       inputPanel.setEnabled(enabled);
       sendButton.setEnabled(enabled);
       attachButton.setEnabled(enabled);
@@ -1630,7 +1623,7 @@ public class ConversationActivity extends PassphraseRequiredActivity
       @Override
       protected void onPostExecute(@NonNull Pair<IdentityRecordList, String> result) {
         Log.i(TAG, "Got identity records: " + result.first().isUnverified());
-        identityRecords.replaceWith(result.first());
+        identityRecords = result.first();
 
         if (result.second() != null) {
           Log.d(TAG, "Replacing banner...");
@@ -1678,6 +1671,8 @@ public class ConversationActivity extends PassphraseRequiredActivity
 
     ImageButton quickCameraToggle      = ViewUtil.findById(this, R.id.quick_camera_toggle);
     ImageButton inlineAttachmentButton = ViewUtil.findById(this, R.id.inline_attachment_button);
+
+    noLongerMemberBanner = findViewById(R.id.conversation_no_longer_member_banner);
 
     container.addOnKeyboardShownListener(this);
     inputPanel.setListener(this);
@@ -2123,7 +2118,8 @@ public class ConversationActivity extends PassphraseRequiredActivity
       inviteButton.setVisibility(TextSecurePreferences.isPushRegistered(this) ? View.VISIBLE : View.GONE);
       registerButton.setVisibility(View.GONE);
     } else {
-      inputPanel.setVisibility(View.VISIBLE);
+      boolean inactivePushGroup = isPushGroupConversation() && !recipient.isActiveGroup();
+      inputPanel.setVisibility(inactivePushGroup ? View.GONE : View.VISIBLE);
       unblockButton.setVisibility(View.GONE);
       inviteButton.setVisibility(View.GONE);
       registerButton.setVisibility(View.GONE);
@@ -2816,23 +2812,42 @@ public class ConversationActivity extends PassphraseRequiredActivity
 
   @Override
   public void onMessageRequest(@NonNull MessageRequestViewModel viewModel) {
-    messageRequestBottomView.setAcceptOnClickListener(v -> viewModel.onAccept(this::showGroupChangeErrorToast));
+    messageRequestBottomView.setAcceptOnClickListener(v -> viewModel.onAccept());
     messageRequestBottomView.setDeleteOnClickListener(v -> onMessageRequestDeleteClicked(viewModel));
     messageRequestBottomView.setBlockOnClickListener(v -> onMessageRequestBlockClicked(viewModel));
     messageRequestBottomView.setUnblockOnClickListener(v -> onMessageRequestUnblockClicked(viewModel));
 
     viewModel.getRecipient().observe(this, this::presentMessageRequestBottomViewTo);
     viewModel.getMessageRequestDisplayState().observe(this, this::presentMessageRequestDisplayState);
+    viewModel.getFailures().observe(this, this::showGroupChangeErrorToast);
     viewModel.getMessageRequestStatus().observe(this, status -> {
       switch (status) {
+        case IDLE:
+          hideMessageRequestBusy();
+          break;
+        case ACCEPTING:
+        case BLOCKING:
+        case DELETING:
+          showMessageRequestBusy();
+          break;
         case ACCEPTED:
+          hideMessageRequestBusy();
           messageRequestBottomView.setVisibility(View.GONE);
-          return;
+          break;
         case DELETED:
         case BLOCKED:
+          hideMessageRequestBusy();
           finish();
       }
     });
+  }
+
+  private void showMessageRequestBusy() {
+    messageRequestBottomView.showBusy();
+  }
+
+  private void hideMessageRequestBusy() {
+    messageRequestBottomView.hideBusy();
   }
 
   private void showGroupChangeErrorToast(@NonNull GroupChangeFailureReason e) {

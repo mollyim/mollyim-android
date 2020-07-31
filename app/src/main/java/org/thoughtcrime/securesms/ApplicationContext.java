@@ -58,7 +58,6 @@ import org.thoughtcrime.securesms.logging.CustomSignalProtocolLogger;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.logging.LogManager;
 import org.thoughtcrime.securesms.logging.SignalUncaughtExceptionHandler;
-import org.thoughtcrime.securesms.messages.InitialMessageRetriever;
 import org.thoughtcrime.securesms.migrations.ApplicationMigrations;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.providers.BlobProvider;
@@ -68,7 +67,6 @@ import org.thoughtcrime.securesms.revealable.ViewOnceMessageManager;
 import org.thoughtcrime.securesms.ringrtc.RingRtcLogger;
 import org.thoughtcrime.securesms.service.DirectoryRefreshListener;
 import org.thoughtcrime.securesms.service.ExpiringMessageManager;
-import org.thoughtcrime.securesms.messages.IncomingMessageObserver;
 import org.thoughtcrime.securesms.service.KeyCachingService;
 import org.thoughtcrime.securesms.service.LocalBackupListener;
 import org.thoughtcrime.securesms.service.WebRtcCallService;
@@ -109,7 +107,6 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
   private ViewOnceMessageManager   viewOnceMessageManager;
   private TypingStatusRepository   typingStatusRepository;
   private TypingStatusSender       typingStatusSender;
-  private IncomingMessageObserver  incomingMessageObserver;
   private LogManager               logManager;
 
   private volatile boolean isAppVisible;
@@ -173,7 +170,7 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
     RefreshPreKeysJob.scheduleIfNecessary();
     StorageSyncHelper.scheduleRoutineSync();
     RetrieveProfileJob.enqueueRoutineFetchIfNeccessary(this);
-    RegistrationUtil.markRegistrationPossiblyComplete(this);
+    RegistrationUtil.maybeMarkRegistrationComplete(this);
 
     ApplicationDependencies.getJobManager().beginJobLoop();
 
@@ -216,7 +213,6 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
     executePendingContactSync();
     ApplicationDependencies.getFrameRateTracker().begin();
     ApplicationDependencies.getMegaphoneRepository().onAppForegrounded();
-    catchUpOnMessages();
   }
 
   @Override
@@ -298,11 +294,11 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
   }
 
   public void initializeMessageRetrieval() {
-    this.incomingMessageObserver = new IncomingMessageObserver(this);
+    ApplicationDependencies.getIncomingMessageObserver();
   }
 
   public void finalizeMessageRetrieval() {
-    this.incomingMessageObserver.quit();
+    ApplicationDependencies.getIncomingMessageObserver().quit();
   }
 
   private void initializePassphraseLock() {
@@ -491,36 +487,6 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
     SignalExecutors.BOUNDED.execute(() -> {
       int deleted = DatabaseFactory.getAttachmentDatabase(this).deleteAbandonedPreuploadedAttachments();
       Log.i(TAG, "Deleted " + deleted + " abandoned attachments.");
-    });
-  }
-
-  private void catchUpOnMessages() {
-    InitialMessageRetriever retriever = ApplicationDependencies.getInitialMessageRetriever();
-
-    if (retriever.isCaughtUp()) {
-      return;
-    }
-
-    SignalExecutors.UNBOUNDED.execute(() -> {
-      long startTime = System.currentTimeMillis();
-
-      switch (retriever.begin(TimeUnit.SECONDS.toMillis(60))) {
-        case SUCCESS:
-          Log.i(TAG, "Successfully caught up on messages. " + (System.currentTimeMillis() - startTime) + " ms");
-          break;
-        case FAILURE_TIMEOUT:
-          Log.w(TAG, "Did not finish catching up due to a timeout. " + (System.currentTimeMillis() - startTime) + " ms");
-          break;
-        case FAILURE_ERROR:
-          Log.w(TAG, "Did not finish catching up due to an error. " + (System.currentTimeMillis() - startTime) + " ms");
-          break;
-        case SKIPPED_ALREADY_CAUGHT_UP:
-          Log.i(TAG, "Already caught up. " + (System.currentTimeMillis() - startTime) + " ms");
-          break;
-        case SKIPPED_ALREADY_RUNNING:
-          Log.i(TAG, "Already in the process of catching up. " + (System.currentTimeMillis() - startTime) + " ms");
-          break;
-      }
     });
   }
 
