@@ -59,6 +59,7 @@ import org.thoughtcrime.securesms.mms.SlideDeck;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientUtil;
 import org.thoughtcrime.securesms.service.KeyCachingService;
+import org.thoughtcrime.securesms.service.WipeMemoryService;
 import org.thoughtcrime.securesms.util.MediaUtil;
 import org.thoughtcrime.securesms.util.MessageRecordUtil;
 import org.thoughtcrime.securesms.util.ServiceUtil;
@@ -193,6 +194,7 @@ public class DefaultMessageNotifier implements MessageNotifier {
 
           if (notification.getId() != NotificationIds.MESSAGE_SUMMARY       &&
               notification.getId() != KeyCachingService.SERVICE_RUNNING_ID  &&
+              notification.getId() != WipeMemoryService.NOTIFICATION_ID     &&
               notification.getId() != IncomingMessageObserver.FOREGROUND_ID &&
               notification.getId() != NotificationIds.PENDING_MESSAGES      &&
               !CallNotificationBuilder.isWebRtcNotification(notification.getId()))
