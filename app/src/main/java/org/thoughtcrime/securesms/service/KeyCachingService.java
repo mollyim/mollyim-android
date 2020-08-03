@@ -149,7 +149,7 @@ public class KeyCachingService extends Service {
   }
 
   @SuppressLint("StaticFieldLeak")
-  public void handleCacheKey() {
+  private void handleCacheKey() {
     Log.i(TAG, "handleCacheKey");
 
     foregroundService();
