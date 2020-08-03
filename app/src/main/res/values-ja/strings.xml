@@ -305,6 +305,8 @@
   <!--ConversationTitleView-->
   <string name="ConversationTitleView_verified">確認済み</string>
   <string name="ConversationTitleView_you">あなた</string>
+  <!--CreateGroupActivity-->
+  <string name="CreateGroupActivity_some_contacts_cannot_be_in_legacy_groups">古いバージョンのグループには入れられない連絡先があります。</string>
   <!--CreateProfileActivity-->
   <string name="CreateProfileActivity__profile">プロフィール</string>
   <string name="CreateProfileActivity_error_setting_profile_photo">プロフィール写真の設定中にエラーが発生しました</string>
@@ -369,6 +371,7 @@
   <string name="AddToGroupActivity_s_added_to_s">「%1$s」が「%2$s」へ追加しました。</string>
   <string name="AddToGroupActivity_add_to_group">グループに追加</string>
   <string name="AddToGroupActivity_add_to_groups">グループへ追加</string>
+  <string name="AddToGroupActivity_this_person_cant_be_added_to_legacy_groups">この相手を古いバージョンのグループに入れることはできません。</string>
   <!--ChooseNewAdminActivity-->
   <string name="ChooseNewAdminActivity_choose_new_admin">新しい管理者を選択</string>
   <string name="ChooseNewAdminActivity_done">完了</string>
@@ -407,6 +410,7 @@
   </plurals>
   <!--AddMembersActivity-->
   <string name="AddMembersActivity__done">完了</string>
+  <string name="AddMembersActivity__this_person_cant_be_added_to_legacy_groups">この相手を古いバージョンのグループに入れることはできません。</string>
   <plurals name="AddMembersActivity__add_d_members_to_s">
     <item quantity="other">%3$d人のメンバーを「%2$s」へ追加しますか?</item>
   </plurals>
@@ -459,7 +463,7 @@
   <string name="ManageGroupActivity_legacy_group_learn_more">これは古いバージョンのグループです。グループの管理機能などの新機能を利用するには、新しいグループを作ってください。</string>
   <!--ManageRecipientActivity-->
   <string name="ManageRecipientActivity_add_to_system_contacts">システムの連絡先に追加</string>
-  <string name="ManageRecipientActivity_this_person_is_in_your_contacts">この人は連絡先にいます</string>
+  <string name="ManageRecipientActivity_this_person_is_in_your_contacts">この人物は連絡先にいます</string>
   <string name="ManageRecipientActivity_disappearing_messages">消えるメッセージ</string>
   <string name="ManageRecipientActivity_chat_color">チャットの色</string>
   <string name="ManageRecipientActivity_block">ブロック</string>
@@ -955,19 +959,19 @@
   <string name="SubmitDebugLogActivity_tap_a_line_to_delete_it">線をタップして削除</string>
   <string name="SubmitDebugLogActivity_submit">送信</string>
   <string name="SubmitDebugLogActivity_failed_to_submit_logs">ログを送信するのに失敗しました。</string>
-  <string name="SubmitDebugLogActivity_success">成功しました!</string>
+  <string name="SubmitDebugLogActivity_success">送信を完了しました。</string>
   <string name="SubmitDebugLogActivity_copy_this_url_and_add_it_to_your_issue">このURLをコピーしてバグレポートやサポートメールに貼り付けてください:\n\n<b>%1$s</b></string>
-  <string name="SubmitDebugLogActivity_copied_to_clipboard">クリップボードにコピーしました</string>
+  <string name="SubmitDebugLogActivity_copied_to_clipboard">クリップボードにコピーしました。</string>
   <string name="SubmitDebugLogActivity_share">共有</string>
   <!--SupportEmailUtil-->
-  <string name="SupportEmailUtil_subject">Subject:</string>
-  <string name="SupportEmailUtil_signal_android_support_request">Molly Android Support Request</string>
-  <string name="SupportEmailUtil_device_info">Device info:</string>
-  <string name="SupportEmailUtil_android_version">Android version:</string>
-  <string name="SupportEmailUtil_signal_version">Molly version:</string>
+  <string name="SupportEmailUtil_subject">件名:</string>
+  <string name="SupportEmailUtil_signal_android_support_request">Molly Android サポートリクエスト</string>
+  <string name="SupportEmailUtil_device_info">デバイスの情報</string>
+  <string name="SupportEmailUtil_android_version">Androidのバージョン:</string>
+  <string name="SupportEmailUtil_signal_version">Molly のバージョン:</string>
   <string name="SupportEmailUtil_signal_package">Molly パッケージ:</string>
   <string name="SupportEmailUtil_registration_lock">登録ロック</string>
-  <string name="SupportEmailUtil_locale">Locale:</string>
+  <string name="SupportEmailUtil_locale">言語設定:</string>
   <!--ThreadRecord-->
   <string name="ThreadRecord_group_updated">グループが更新されました</string>
   <string name="ThreadRecord_left_the_group">グループを抜けました</string>
@@ -1463,6 +1467,7 @@
   <string name="HelpFragment__please_be_as_descriptive_as_possible">どのような問題が発生しているのか、詳細に記述してください。</string>
   <string name="HelpFragment__no_email_app_found">メールアプリがありません。</string>
   <!--ReactWithAnyEmojiBottomSheetDialogFragment-->
+  <string name="ReactWithAnyEmojiBottomSheetDialogFragment__this_message">このメッセージ</string>
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__recently_used">最近使った</string>
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__smileys_and_people">スマイリーと人々</string>
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__nature">自然</string>

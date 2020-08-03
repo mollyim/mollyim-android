@@ -137,11 +137,12 @@ public class ConversationItem extends LinearLayout implements BindableConversati
 
   private static final Rect SWIPE_RECT = new Rect();
 
-  private MessageRecord messageRecord;
-  private Locale        locale;
-  private boolean       groupThread;
-  private LiveRecipient recipient;
-  private GlideRequests glideRequests;
+  private ConversationMessage conversationMessage;
+  private MessageRecord       messageRecord;
+  private Locale              locale;
+  private boolean             groupThread;
+  private LiveRecipient       recipient;
+  private GlideRequests       glideRequests;
 
             protected ConversationItemBodyBubble bodyBubble;
             protected View                       reply;
@@ -158,7 +159,7 @@ public class ConversationItem extends LinearLayout implements BindableConversati
             private   ViewGroup                  container;
             protected ReactionsConversationView  reactionsView;
 
-  private @NonNull  Set<MessageRecord>              batchSelected = new HashSet<>();
+  private @NonNull  Set<ConversationMessage>        batchSelected = new HashSet<>();
   private @NonNull  Outliner                        outliner      = new Outliner();
   private           LiveRecipient                   conversationRecipient;
   private           Stub<ConversationItemThumbnail> mediaThumbnailStub;
@@ -232,22 +233,23 @@ public class ConversationItem extends LinearLayout implements BindableConversati
   }
 
   @Override
-  public void bind(@NonNull MessageRecord           messageRecord,
+  public void bind(@NonNull ConversationMessage conversationMessage,
                    @NonNull Optional<MessageRecord> previousMessageRecord,
                    @NonNull Optional<MessageRecord> nextMessageRecord,
-                   @NonNull GlideRequests           glideRequests,
-                   @NonNull Locale                  locale,
-                   @NonNull Set<MessageRecord>      batchSelected,
-                   @NonNull Recipient               conversationRecipient,
-                   @Nullable String                 searchQuery,
-                            boolean                 pulseHighlight)
+                   @NonNull GlideRequests glideRequests,
+                   @NonNull Locale locale,
+                   @NonNull Set<ConversationMessage> batchSelected,
+                   @NonNull Recipient conversationRecipient,
+                   @Nullable String searchQuery,
+                   boolean pulseHighlight)
   {
     if (this.recipient != null) this.recipient.removeForeverObserver(this);
     if (this.conversationRecipient != null) this.conversationRecipient.removeForeverObserver(this);
 
     conversationRecipient = conversationRecipient.resolve();
 
-    this.messageRecord          = messageRecord;
+    this.conversationMessage    = conversationMessage;
+    this.messageRecord          = conversationMessage.getMessageRecord();
     this.locale                 = locale;
     this.glideRequests          = glideRequests;
     this.batchSelected          = batchSelected;
@@ -261,7 +263,7 @@ public class ConversationItem extends LinearLayout implements BindableConversati
     setGutterSizes(messageRecord, groupThread);
     setMessageShape(messageRecord, previousMessageRecord, nextMessageRecord, groupThread);
     setMediaAttributes(messageRecord, previousMessageRecord, nextMessageRecord, conversationRecipient, groupThread);
-    setInteractionState(messageRecord, pulseHighlight);
+    setInteractionState(conversationMessage, pulseHighlight);
     setBodyText(messageRecord, searchQuery);
     setBubbleState(messageRecord);
     setStatusIcons(messageRecord);
@@ -379,8 +381,8 @@ public class ConversationItem extends LinearLayout implements BindableConversati
     }
   }
 
-  public MessageRecord getMessageRecord() {
-    return messageRecord;
+  public ConversationMessage getConversationMessage() {
+    return conversationMessage;
   }
 
   /// MessageRecord Attribute Parsers
@@ -422,8 +424,8 @@ public class ConversationItem extends LinearLayout implements BindableConversati
     }
   }
 
-  private void setInteractionState(MessageRecord messageRecord, boolean pulseHighlight) {
-    if (batchSelected.contains(messageRecord)) {
+  private void setInteractionState(ConversationMessage conversationMessage, boolean pulseHighlight) {
+    if (batchSelected.contains(conversationMessage)) {
       setBackgroundResource(R.drawable.conversation_item_background);
       setSelected(true);
     } else if (pulseHighlight) {
@@ -435,19 +437,19 @@ public class ConversationItem extends LinearLayout implements BindableConversati
     }
 
     if (mediaThumbnailStub.resolved()) {
-      mediaThumbnailStub.get().setFocusable(!shouldInterceptClicks(messageRecord) && batchSelected.isEmpty());
-      mediaThumbnailStub.get().setClickable(!shouldInterceptClicks(messageRecord) && batchSelected.isEmpty());
+      mediaThumbnailStub.get().setFocusable(!shouldInterceptClicks(conversationMessage.getMessageRecord()) && batchSelected.isEmpty());
+      mediaThumbnailStub.get().setClickable(!shouldInterceptClicks(conversationMessage.getMessageRecord()) && batchSelected.isEmpty());
       mediaThumbnailStub.get().setLongClickable(batchSelected.isEmpty());
     }
 
     if (audioViewStub.resolved()) {
-      audioViewStub.get().setFocusable(!shouldInterceptClicks(messageRecord) && batchSelected.isEmpty());
+      audioViewStub.get().setFocusable(!shouldInterceptClicks(conversationMessage.getMessageRecord()) && batchSelected.isEmpty());
       audioViewStub.get().setClickable(batchSelected.isEmpty());
       audioViewStub.get().setEnabled(batchSelected.isEmpty());
     }
 
     if (documentViewStub.resolved()) {
-      documentViewStub.get().setFocusable(!shouldInterceptClicks(messageRecord) && batchSelected.isEmpty());
+      documentViewStub.get().setFocusable(!shouldInterceptClicks(conversationMessage.getMessageRecord()) && batchSelected.isEmpty());
       documentViewStub.get().setClickable(batchSelected.isEmpty());
     }
   }
@@ -966,7 +968,7 @@ public class ConversationItem extends LinearLayout implements BindableConversati
     reactionsView.setOnClickListener(v -> {
       if (eventListener == null) return;
 
-      eventListener.onReactionClicked(current.getId(), current.isMms());
+      eventListener.onReactionClicked(this, current.getId(), current.isMms());
     });
   }
 

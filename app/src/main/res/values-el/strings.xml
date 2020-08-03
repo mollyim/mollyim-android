@@ -319,6 +319,8 @@
   <!--ConversationTitleView-->
   <string name="ConversationTitleView_verified">Επιβεβαιωμένος</string>
   <string name="ConversationTitleView_you">Εσύ</string>
+  <!--CreateGroupActivity-->
+  <string name="CreateGroupActivity_some_contacts_cannot_be_in_legacy_groups">Κάποιες επαφές δεν μπορούν να προστεθούν σε ομάδες παλαιού τύπου.</string>
   <!--CreateProfileActivity-->
   <string name="CreateProfileActivity__profile">Προφίλ</string>
   <string name="CreateProfileActivity_error_setting_profile_photo">Σφάλμα κατά τον καθορισμό φωτογραφίας προφίλ</string>
@@ -383,6 +385,7 @@
   <string name="AddToGroupActivity_s_added_to_s">Ο/Η \"%1$s\" προστέθηκε στο \"%2$s\".</string>
   <string name="AddToGroupActivity_add_to_group">Προσθήκη σε ομάδα</string>
   <string name="AddToGroupActivity_add_to_groups">Προσθήκη σε ομάδες</string>
+  <string name="AddToGroupActivity_this_person_cant_be_added_to_legacy_groups">Αυτό το άτομο δεν μπορεί να προστεθεί σε ομάδες παλαιού τύπου.</string>
   <!--ChooseNewAdminActivity-->
   <string name="ChooseNewAdminActivity_choose_new_admin">Επιλογή νέου διαχειριστή/τριας</string>
   <string name="ChooseNewAdminActivity_done">Τέλος</string>
@@ -424,6 +427,7 @@
   </plurals>
   <!--AddMembersActivity-->
   <string name="AddMembersActivity__done">Τέλος</string>
+  <string name="AddMembersActivity__this_person_cant_be_added_to_legacy_groups">Αυτό το άτομο δεν μπορεί να προστεθεί σε ομάδες παλαιού τύπου.</string>
   <plurals name="AddMembersActivity__add_d_members_to_s">
     <item quantity="one">Προσθήκη του/της \"%1$s\" στο \"%2$s\";</item>
     <item quantity="other">Προσθήκη %3$d μελών στο \"%2$s\";</item>
@@ -1518,6 +1522,7 @@
   <string name="HelpFragment__please_be_as_descriptive_as_possible">Παρακαλούμε να είσαι όσο γίνεται πιο περιγραφικός/ή για να μας βοηθήσεις να καταλάβουμε το πρόβλημα.</string>
   <string name="HelpFragment__no_email_app_found">Δεν βρέθηκε εφαρμογή email.</string>
   <!--ReactWithAnyEmojiBottomSheetDialogFragment-->
+  <string name="ReactWithAnyEmojiBottomSheetDialogFragment__this_message">Αυτό το μήνυμα</string>
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__recently_used">Πρόσφατα χρησιμοποιημένα</string>
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__smileys_and_people">Φατσούλες &amp; Άνθρωποι</string>
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__nature">Φύση</string>
@@ -1734,7 +1739,7 @@
   <!--conversation_list_fragment-->
   <string name="conversation_list_fragment__fab_content_description">Νέα συνομιλία</string>
   <string name="conversation_list_fragment__open_camera_description">Άνοιγμα κάμερας</string>
-  <string name="conversation_list_fragment__give_your_inbox_something_to_write_home_about_get_started_by_messaging_a_friend">Δώστε ζωή στα εισερχόμενά σου! Ξεκίνα στέλνοντας μήνυμα σε έναν φίλο ή φίλη σου.</string>
+  <string name="conversation_list_fragment__give_your_inbox_something_to_write_home_about_get_started_by_messaging_a_friend">Δώσε ζωή στα εισερχόμενά σου! Κάνε την αρχή, στείλε μήνυμα σε έναν φίλο ή φίλη σου.</string>
   <!--conversation_secure_verified-->
   <string name="conversation_secure_verified__menu_reset_secure_session">Επανεκκίνηση ασφαλούς συνεδρίας</string>
   <!--conversation_muted-->

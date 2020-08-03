@@ -55,6 +55,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener;
 
+import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 import com.google.android.collect.Sets;
 
@@ -152,6 +153,7 @@ public class ConversationFragment extends LoggingFragment {
   private Locale                      locale;
   private RecyclerView                list;
   private RecyclerView.ItemDecoration lastSeenDecoration;
+  private RecyclerView.ItemDecoration stickyHeaderDecoration;
   private ViewSwitcher                topLoadMoreView;
   private ViewSwitcher                bottomLoadMoreView;
   private ConversationTypingView      typingView;
@@ -210,8 +212,8 @@ public class ConversationFragment extends LoggingFragment {
     typingView = (ConversationTypingView) inflater.inflate(R.layout.conversation_typing_view, container, false);
 
     new ConversationItemSwipeCallback(
-            messageRecord -> actionMode == null &&
-                             MenuState.canReplyToMessage(MenuState.isActionMessage(messageRecord), messageRecord, messageRequestViewModel.shouldShowMessageRequest()),
+            conversationMessage -> actionMode == null &&
+                                   MenuState.canReplyToMessage(MenuState.isActionMessage(conversationMessage.getMessageRecord()), conversationMessage.getMessageRecord(), messageRequestViewModel.shouldShowMessageRequest()),
             this::handleReplyMessage
     ).attachToRecyclerView(list);
 
@@ -288,9 +290,9 @@ public class ConversationFragment extends LoggingFragment {
 
     final long lastVisibleMessageTimestamp;
     if (firstVisiblePosition > 0 && lastVisiblePosition != RecyclerView.NO_POSITION) {
-      MessageRecord message = getListAdapter().getLastVisibleMessageRecord(lastVisiblePosition);
+      ConversationMessage message = getListAdapter().getLastVisibleConversationMessage(lastVisiblePosition);
 
-      lastVisibleMessageTimestamp = message != null ? message.getDateReceived() : 0;
+      lastVisibleMessageTimestamp = message != null ? message.getMessageRecord().getDateReceived() : 0;
     } else {
       lastVisibleMessageTimestamp = 0;
     }
@@ -434,7 +436,7 @@ public class ConversationFragment extends LoggingFragment {
       Log.d(TAG, "Initializing adapter for " + recipient.getId());
       ConversationAdapter adapter = new ConversationAdapter(GlideApp.with(this), locale, selectionClickListener, this.recipient.get());
       list.setAdapter(adapter);
-      list.addItemDecoration(new StickyHeaderDecoration(adapter, false, false));
+      setStickyHeaderDecoration(adapter);
       ConversationAdapter.initializePool(list.getRecycledViewPool());
 
       adapter.registerAdapterDataObserver(snapToTopDataObserver);
@@ -519,14 +521,14 @@ public class ConversationFragment extends LoggingFragment {
   }
 
   private void setCorrectMenuVisibility(@NonNull Menu menu) {
-    Set<MessageRecord> messageRecords = getListAdapter().getSelectedItems();
+    Set<ConversationMessage> messages = getListAdapter().getSelectedItems();
 
-    if (actionMode != null && messageRecords.size() == 0) {
+    if (actionMode != null && messages.size() == 0) {
       actionMode.finish();
       return;
     }
 
-    MenuState menuState = MenuState.getMenuState(messageRecords, messageRequestViewModel.shouldShowMessageRequest());
+    MenuState menuState = MenuState.getMenuState(Stream.of(messages).map(ConversationMessage::getMessageRecord).collect(Collectors.toSet()), messageRequestViewModel.shouldShowMessageRequest());
 
     menu.findItem(R.id.menu_context_forward).setVisible(menuState.shouldShowForwardAction());
     menu.findItem(R.id.menu_context_reply).setVisible(menuState.shouldShowReplyAction());
@@ -544,8 +546,8 @@ public class ConversationFragment extends LoggingFragment {
     return (SmoothScrollingLinearLayoutManager) list.getLayoutManager();
   }
 
-  private MessageRecord getSelectedMessageRecord() {
-    Set<MessageRecord> messageRecords = getListAdapter().getSelectedItems();
+  private ConversationMessage getSelectedConversationMessage() {
+    Set<ConversationMessage> messageRecords = getListAdapter().getSelectedItems();
 
     if (messageRecords.size() == 1) return messageRecords.iterator().next();
     else                            throw new AssertionError();
@@ -572,6 +574,15 @@ public class ConversationFragment extends LoggingFragment {
     }
   }
 
+  public void setStickyHeaderDecoration(@NonNull ConversationAdapter adapter) {
+    if (stickyHeaderDecoration != null) {
+      list.removeItemDecoration(stickyHeaderDecoration);
+    }
+
+    stickyHeaderDecoration = new StickyHeaderDecoration(adapter, false, false);
+    list.addItemDecoration(stickyHeaderDecoration);
+  }
+
   public void setLastSeen(long lastSeen) {
     if (lastSeenDecoration != null) {
       list.removeItemDecoration(lastSeenDecoration);
@@ -581,8 +592,8 @@ public class ConversationFragment extends LoggingFragment {
     list.addItemDecoration(lastSeenDecoration);
   }
 
-  private void handleCopyMessage(final Set<MessageRecord> messageRecords) {
-    List<MessageRecord> messageList = new LinkedList<>(messageRecords);
+  private void handleCopyMessage(final Set<ConversationMessage> conversationMessages) {
+    List<MessageRecord> messageList = Stream.of(conversationMessages).map(ConversationMessage::getMessageRecord).toList();
     Collections.sort(messageList, new Comparator<MessageRecord>() {
       @Override
       public int compare(MessageRecord lhs, MessageRecord rhs) {
@@ -611,7 +622,8 @@ public class ConversationFragment extends LoggingFragment {
         clipboard.setText(result);
   }
 
-  private void handleDeleteMessages(final Set<MessageRecord> messageRecords) {
+  private void handleDeleteMessages(final Set<ConversationMessage> conversationMessages) {
+    Set<MessageRecord> messageRecords = Stream.of(conversationMessages).map(ConversationMessage::getMessageRecord).collect(Collectors.toSet());
     if (FeatureFlags.remoteDelete()) {
       buildRemoteDeleteConfirmationDialog(messageRecords).show();
     } else {
@@ -725,11 +737,12 @@ public class ConversationFragment extends LoggingFragment {
     }
   }
 
-  private void handleDisplayDetails(MessageRecord message) {
-    startActivity(MessageDetailsActivity.getIntentForMessageDetails(requireContext(), message, recipient.getId(), threadId));
+  private void handleDisplayDetails(ConversationMessage message) {
+    startActivity(MessageDetailsActivity.getIntentForMessageDetails(requireContext(), message.getMessageRecord(), recipient.getId(), threadId));
   }
 
-  private void handleForwardMessage(MessageRecord message) {
+  private void handleForwardMessage(ConversationMessage conversationMessage) {
+    MessageRecord message = conversationMessage.getMessageRecord();
     if (message.isViewOnce()) {
       throw new AssertionError("Cannot forward a view-once message.");
     }
@@ -812,13 +825,13 @@ public class ConversationFragment extends LoggingFragment {
     }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, message);
   }
 
-  private void handleReplyMessage(final MessageRecord message) {
+  private void handleReplyMessage(final ConversationMessage message) {
     if (getActivity() != null) {
       //noinspection ConstantConditions
       ((AppCompatActivity) getActivity()).getSupportActionBar().collapseActionView();
     }
 
-    listener.handleReplyMessage(message);
+    listener.handleReplyMessage(message.getMessageRecord());
   }
 
   private void handleSaveAttachment(final MediaMmsMessageRecord message) {
@@ -858,7 +871,7 @@ public class ConversationFragment extends LoggingFragment {
     if (getListAdapter() != null) {
       clearHeaderIfNotTyping(getListAdapter());
       setLastSeen(0);
-      getListAdapter().addFastRecord(messageRecord);
+      getListAdapter().addFastRecord(new ConversationMessage(messageRecord));
       list.post(() -> list.scrollToPosition(0));
     }
 
@@ -871,7 +884,7 @@ public class ConversationFragment extends LoggingFragment {
     if (getListAdapter() != null) {
       clearHeaderIfNotTyping(getListAdapter());
       setLastSeen(0);
-      getListAdapter().addFastRecord(messageRecord);
+      getListAdapter().addFastRecord(new ConversationMessage(messageRecord));
       list.post(() -> list.scrollToPosition(0));
     }
 
@@ -1011,6 +1024,7 @@ public class ConversationFragment extends LoggingFragment {
     void onCursorChanged();
     void onListVerticalTranslationChanged(float translationY);
     void onMessageWithErrorClicked(@NonNull MessageRecord messageRecord);
+    void handleReactionDetails(@NonNull View maskTarget);
   }
 
   private class ConversationScrollListener extends OnScrollListener {
@@ -1085,9 +1099,9 @@ public class ConversationFragment extends LoggingFragment {
   private class ConversationFragmentItemClickListener implements ItemClickListener {
 
     @Override
-    public void onItemClick(MessageRecord messageRecord) {
+    public void onItemClick(ConversationMessage conversationMessage) {
       if (actionMode != null) {
-        ((ConversationAdapter) list.getAdapter()).toggleSelection(messageRecord);
+        ((ConversationAdapter) list.getAdapter()).toggleSelection(conversationMessage);
         list.getAdapter().notifyDataSetChanged();
 
         if (getListAdapter().getSelectedItems().size() == 0) {
@@ -1100,9 +1114,11 @@ public class ConversationFragment extends LoggingFragment {
     }
 
     @Override
-    public void onItemLongClick(View maskTarget, MessageRecord messageRecord) {
+    public void onItemLongClick(View maskTarget, ConversationMessage conversationMessage) {
 
       if (actionMode != null) return;
+
+      MessageRecord messageRecord = conversationMessage.getMessageRecord();
 
       if (messageRecord.isSecure()                            &&
           !messageRecord.isRemoteDelete()                     &&
@@ -1113,12 +1129,12 @@ public class ConversationFragment extends LoggingFragment {
       {
         isReacting = true;
         list.setLayoutFrozen(true);
-        listener.handleReaction(maskTarget, messageRecord, new ReactionsToolbarListener(messageRecord), () -> {
+        listener.handleReaction(maskTarget, messageRecord, new ReactionsToolbarListener(conversationMessage), () -> {
           isReacting = false;
           list.setLayoutFrozen(false);
         });
       } else {
-        ((ConversationAdapter) list.getAdapter()).toggleSelection(messageRecord);
+        ((ConversationAdapter) list.getAdapter()).toggleSelection(conversationMessage);
         list.getAdapter().notifyDataSetChanged();
 
         actionMode = ((AppCompatActivity)getActivity()).startSupportActionMode(actionModeCallback);
@@ -1259,9 +1275,10 @@ public class ConversationFragment extends LoggingFragment {
     }
 
     @Override
-    public void onReactionClicked(long messageId, boolean isMms) {
+    public void onReactionClicked(@NonNull View reactionTarget, long messageId, boolean isMms) {
       if (getContext() == null) return;
 
+      listener.handleReactionDetails(reactionTarget);
       ReactionsBottomSheetDialogFragment.create(messageId, isMms).show(requireFragmentManager(), null);
     }
 
@@ -1287,8 +1304,8 @@ public class ConversationFragment extends LoggingFragment {
     }
   }
 
-  private void handleEnterMultiSelect(@NonNull MessageRecord messageRecord) {
-    ((ConversationAdapter) list.getAdapter()).toggleSelection(messageRecord);
+  private void handleEnterMultiSelect(@NonNull ConversationMessage conversationMessage) {
+    ((ConversationAdapter) list.getAdapter()).toggleSelection(conversationMessage);
     list.getAdapter().notifyDataSetChanged();
 
     actionMode = ((AppCompatActivity)getActivity()).startSupportActionMode(actionModeCallback);
@@ -1342,23 +1359,23 @@ public class ConversationFragment extends LoggingFragment {
 
   private class ReactionsToolbarListener implements Toolbar.OnMenuItemClickListener {
 
-    private final MessageRecord messageRecord;
+    private final ConversationMessage conversationMessage;
 
-    private ReactionsToolbarListener(@NonNull MessageRecord messageRecord) {
-      this.messageRecord = messageRecord;
+    private ReactionsToolbarListener(@NonNull ConversationMessage conversationMessage) {
+      this.conversationMessage = conversationMessage;
     }
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
       switch (item.getItemId()) {
-        case R.id.action_info:        handleDisplayDetails(messageRecord);                         return true;
-        case R.id.action_delete:      handleDeleteMessages(Sets.newHashSet(messageRecord));        return true;
-        case R.id.action_copy:        handleCopyMessage(Sets.newHashSet(messageRecord));           return true;
-        case R.id.action_reply:       handleReplyMessage(messageRecord);                           return true;
-        case R.id.action_multiselect: handleEnterMultiSelect(messageRecord);                       return true;
-        case R.id.action_forward:     handleForwardMessage(messageRecord);                         return true;
-        case R.id.action_download:    handleSaveAttachment((MediaMmsMessageRecord) messageRecord); return true;
-        default:                                                                                   return false;
+        case R.id.action_info:        handleDisplayDetails(conversationMessage);                                            return true;
+        case R.id.action_delete:      handleDeleteMessages(Sets.newHashSet(conversationMessage));                           return true;
+        case R.id.action_copy:        handleCopyMessage(Sets.newHashSet(conversationMessage));                              return true;
+        case R.id.action_reply:       handleReplyMessage(conversationMessage);                                              return true;
+        case R.id.action_multiselect: handleEnterMultiSelect(conversationMessage);                                          return true;
+        case R.id.action_forward:     handleForwardMessage(conversationMessage);                                            return true;
+        case R.id.action_download:    handleSaveAttachment((MediaMmsMessageRecord) conversationMessage.getMessageRecord()); return true;
+        default:                                                                                                            return false;
       }
     }
   }
@@ -1417,24 +1434,24 @@ public class ConversationFragment extends LoggingFragment {
           actionMode.finish();
           return true;
         case R.id.menu_context_details:
-          handleDisplayDetails(getSelectedMessageRecord());
+          handleDisplayDetails(getSelectedConversationMessage());
           actionMode.finish();
           return true;
         case R.id.menu_context_forward:
-          handleForwardMessage(getSelectedMessageRecord());
+          handleForwardMessage(getSelectedConversationMessage());
           actionMode.finish();
           return true;
         case R.id.menu_context_resend:
-          handleResendMessage(getSelectedMessageRecord());
+          handleResendMessage(getSelectedConversationMessage().getMessageRecord());
           actionMode.finish();
           return true;
         case R.id.menu_context_save_attachment:
-          handleSaveAttachment((MediaMmsMessageRecord)getSelectedMessageRecord());
+          handleSaveAttachment((MediaMmsMessageRecord) getSelectedConversationMessage().getMessageRecord());
           actionMode.finish();
           return true;
         case R.id.menu_context_reply:
           maybeShowSwipeToReplyTooltip();
-          handleReplyMessage(getSelectedMessageRecord());
+          handleReplyMessage(getSelectedConversationMessage());
           actionMode.finish();
           return true;
       }

@@ -591,15 +591,15 @@ public final class SignalServiceContent {
 
     if (content.hasOffer()) {
       SignalServiceProtos.CallMessage.Offer offerContent = content.getOffer();
-      return SignalServiceCallMessage.forOffer(new OfferMessage(offerContent.getId(), offerContent.getDescription(), OfferMessage.Type.fromProto(offerContent.getType())), isMultiRing, destinationDeviceId);
+      return SignalServiceCallMessage.forOffer(new OfferMessage(offerContent.getId(), offerContent.hasSdp() ? offerContent.getSdp() : null, OfferMessage.Type.fromProto(offerContent.getType()), offerContent.hasOpaque() ? offerContent.getOpaque().toByteArray() : null), isMultiRing, destinationDeviceId);
     } else if (content.hasAnswer()) {
       SignalServiceProtos.CallMessage.Answer answerContent = content.getAnswer();
-      return SignalServiceCallMessage.forAnswer(new AnswerMessage(answerContent.getId(), answerContent.getDescription()), isMultiRing, destinationDeviceId);
+      return SignalServiceCallMessage.forAnswer(new AnswerMessage(answerContent.getId(), answerContent.hasSdp() ? answerContent.getSdp() : null, answerContent.hasOpaque() ? answerContent.getOpaque().toByteArray() : null), isMultiRing, destinationDeviceId);
     } else if (content.getIceUpdateCount() > 0) {
       List<IceUpdateMessage> iceUpdates = new LinkedList<>();
 
       for (SignalServiceProtos.CallMessage.IceUpdate iceUpdate : content.getIceUpdateList()) {
-        iceUpdates.add(new IceUpdateMessage(iceUpdate.getId(), iceUpdate.getSdpMid(), iceUpdate.getSdpMLineIndex(), iceUpdate.getSdp()));
+        iceUpdates.add(new IceUpdateMessage(iceUpdate.getId(), iceUpdate.hasOpaque() ? iceUpdate.getOpaque().toByteArray() : null, iceUpdate.hasSdp() ? iceUpdate.getSdp() : null));
       }
 
       return SignalServiceCallMessage.forIceUpdates(iceUpdates, isMultiRing, destinationDeviceId);
@@ -873,8 +873,8 @@ public final class SignalServiceContent {
         members = new ArrayList<>(content.getGroup().getMembersCount());
 
         for (SignalServiceProtos.GroupContext.Member member : content.getGroup().getMembersList()) {
-          if (SignalServiceAddress.isValidAddress(member.getUuid(), member.getE164())) {
-            members.add(new SignalServiceAddress(UuidUtil.parseOrNull(member.getUuid()), member.getE164()));
+          if (SignalServiceAddress.isValidAddress(null, member.getE164())) {
+            members.add(new SignalServiceAddress(null, member.getE164()));
           } else {
             throw new ProtocolInvalidMessageException(new InvalidMessageException("GroupContext.Member had no address!"), null, 0);
           }

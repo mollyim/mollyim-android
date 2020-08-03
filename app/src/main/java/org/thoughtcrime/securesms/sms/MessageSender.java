@@ -494,7 +494,7 @@ public class MessageSender {
       ExpiringMessageManager expirationManager = ApplicationContext.getInstance(context).getExpiringMessageManager();
       SmsDatabase            smsDatabase       = DatabaseFactory.getSmsDatabase(context);
       MmsSmsDatabase         mmsSmsDatabase    = DatabaseFactory.getMmsSmsDatabase(context);
-      SmsMessageRecord       message           = smsDatabase.getMessage(messageId);
+      SmsMessageRecord       message           = smsDatabase.getMessageRecord(messageId);
       SyncMessageId          syncId            = new SyncMessageId(Recipient.self().getId(), message.getDateSent());
 
       smsDatabase.markAsSent(messageId, true);
