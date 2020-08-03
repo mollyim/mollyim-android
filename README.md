@@ -9,7 +9,7 @@
 
 Back in 2018, Signal allowed the user to set a passphrase to secure the local message database. But this option was removed with the introduction of full-disk encryption on Android. Molly brings it back again with additional security features.
 
-Molly is updated every three weeks to include the latest Signal changes and bug fixes.
+Molly is updated every two weeks to include the latest Signal changes and bug fixes.
 
 ## Download
 
