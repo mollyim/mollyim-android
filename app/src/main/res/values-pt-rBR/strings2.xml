@@ -1,5 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="preferences__enable_debug_log">Habilitar log de depuração</string>
-  <string name="AppProtectionPreferenceFragment_instant">Instante</string>
+    <string name="preferences__enable_debug_log">Habilitar log de depuração</string>
+    <string name="AppProtectionPreferenceFragment_instant">Instante</string>
+    <string name="ChangePassphraseDialogFragment_generating_keys_this_may_take_a_while">Gerando chaves. Isto pode demorar…</string>
+    <string name="ChangePassphraseDialogFragment_please_choose_a_passphrase_that_will_be_used_to_locally_encrypt_your_data_this_should_be_a_strong_passphrase">Por favor escolha uma senha que irá ser usada para encriptar localmente seus dados
+\n
+\nEsta deve ser uma senha forte.</string>
+    <string name="ChangePassphraseDialogFragment_enable">Ligar</string>
+    <string name="ChangePassphraseDialogFragment_passphrase">Senha</string>
+    <string name="ChangePassphraseDialogFragment_estimated_time_to_crack_suggestion">%1$s
+\n
+\nTempo estimado para quebrar: %2$s.
+\n
+\nSugestão: %3$s</string>
+    <string name="ChangePassphraseDialogFragment_weak_passphrase">Senha fraca!</string>
+    <string name="PassphraseCreateActivity_turn_on_database_encryption">Ligar encriptação do banco de dados</string>
+    <string name="PassphraseCreateActivity_require_passphrase_to_unlock_molly">Pedir senha para desbloquear o Molly\?</string>
+    <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">Você agora pode colocar uma senha para encriptar o banco de dados. Até ser desbloqueado, Molly não pode receber notificações ou chamadas. Iss oajuda a proteger os dados em dispositivos robuados ou perdidos.</string>
+    <string name="WipeMemoryService_molly_is_clearing_secrets">Molly está limpando dados não criptografados na RAM</string>
+    <string name="WipeMemoryService_secure_wipe_in_progress">Limpeza segura em progresso</string>
+    <string name="ApplicationPreferencesActivity_privacy_summary_passphrase_registration_locks">Encriptação do banco de dados %1$s, trava do registro %2$s</string>
+    <string name="preferences__passphrase_changed">Senha alterada</string>
+    <string name="preferences__device_lock_timeout">Tempo para bloqueio do dispositivo</string>
+    <string name="preferences__automatic_lockdown">Bloquear automaticamente</string>
+    <string name="preferences__protect_molly_database_with_a_passphrase">Proteger o banco de dados do Molly com uma senha</string>
+    <string name="preferences__passphrase_lock">Encriptação do banco de dados</string>
+    <string name="arrays__on_inactivity_timeout">Se você ficar um certo tempo sem desbloquear seu despositivo</string>
 </resources>
