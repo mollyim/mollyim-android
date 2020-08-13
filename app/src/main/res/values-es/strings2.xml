@@ -1,4 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="AppProtectionPreferenceFragment_instant">Inmediato</string>
+    <string name="AppProtectionPreferenceFragment_instant">Inmediato</string>
+    <string name="WipeMemoryService_secure_wipe_in_progress">Borrado seguro en curso</string>
+    <string name="ApplicationPreferencesActivity_privacy_summary_passphrase_registration_locks">Cifrado de la base de datos %1$s, Bloqueo de registro %2$s</string>
+    <string name="WipeMemoryService_molly_is_clearing_secrets">Molly está limpiando los datos no cifrados que quedan en la RAM</string>
+    <string name="ChangePassphraseDialogFragment_generating_keys_this_may_take_a_while">Generando claves. Esto puede tomar un tiempo…</string>
+    <string name="ChangePassphraseDialogFragment_please_choose_a_passphrase_that_will_be_used_to_locally_encrypt_your_data_this_should_be_a_strong_passphrase">Por favor, elige una frase de contraseña que será utilizada para cifrar tus datos de manera local.\n\nEsta debe ser una frase de contraseña fuerte.</string>
+    <string name="ChangePassphraseDialogFragment_enable">Activar</string>
+    <string name="ChangePassphraseDialogFragment_passphrase">Frase de contraseña</string>
+    <string name="ChangePassphraseDialogFragment_estimated_time_to_crack_suggestion">%1$s\n\nTiempo estimado para romper: %2$s.\n\nSugerencia: %3$s</string>
+    <string name="ChangePassphraseDialogFragment_weak_passphrase">¡Frase de contraseña débil!</string>
+    <string name="PassphraseCreateActivity_turn_on_database_encryption">Activar el cifrado de la base de datos</string>
+    <string name="PassphraseCreateActivity_require_passphrase_to_unlock_molly">¿Solicitar una frase de contraseña para desbloquear a Molly\?</string>
+    <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">Ahora puedes establecer una frase de contraseña para cifrar la base de datos. Hasta que no sea desbloqueada, Molly no puede recibir notificaciones o llamadas. Esto ayuda a proteger los datos de los dispositivos perdidos o robados.</string>
+    <string name="preferences__enable_debug_log">Habilitar el registro de depuración</string>
+    <string name="preferences__passphrase_changed">Frase de contraseña cambiada</string>
+    <string name="preferences__device_lock_timeout">Tiempo de bloqueo del dispositivo</string>
+    <string name="preferences__automatic_lockdown">Bloqueo automático</string>
+    <string name="preferences__protect_molly_database_with_a_passphrase">Protege la base de datos de Molly con una frase de contraseña</string>
+    <string name="preferences__passphrase_lock">Cifrado de la base de datos</string>
+    <string name="arrays__on_inactivity_timeout">Si pasas un cierto tiempo sin desbloquear tu dispositivo</string>
 </resources>
