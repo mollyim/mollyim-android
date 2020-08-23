@@ -228,17 +228,26 @@ public final class GroupDatabase extends Database {
     return getGroupsContainingMember(recipientId, true);
   }
 
-  @WorkerThread
   public @NonNull List<GroupRecord> getGroupsContainingMember(@NonNull RecipientId recipientId, boolean pushOnly) {
+    return getGroupsContainingMember(recipientId, pushOnly, false);
+  }
+
+  @WorkerThread
+  public @NonNull List<GroupRecord> getGroupsContainingMember(@NonNull RecipientId recipientId, boolean pushOnly, boolean includeInactive) {
     SQLiteDatabase database   = databaseHelper.getReadableDatabase();
     String         table      = TABLE_NAME + " INNER JOIN " + ThreadDatabase.TABLE_NAME + " ON " + TABLE_NAME + "." + RECIPIENT_ID + " = " + ThreadDatabase.TABLE_NAME + "." + ThreadDatabase.RECIPIENT_ID;
     String         query      = MEMBERS + " LIKE ?";
-    String[]       args       = new String[]{"%" + recipientId.serialize() + "%"};
+    String[]       args       = SqlUtil.buildArgs("%" + recipientId.serialize() + "%");
     String         orderBy    = ThreadDatabase.TABLE_NAME + "." + ThreadDatabase.DATE + " DESC";
 
     if (pushOnly) {
       query += " AND " + MMS + " = ?";
       args = SqlUtil.appendArg(args, "0");
+    }
+
+    if (!includeInactive) {
+      query += " AND " + ACTIVE + " = ?";
+      args = SqlUtil.appendArg(args, "1");
     }
 
     List<GroupRecord> groups = new LinkedList<>();
@@ -597,7 +606,7 @@ public final class GroupDatabase extends Database {
     }
 
     public @Nullable GroupRecord getCurrent() {
-      if (cursor == null || cursor.getString(cursor.getColumnIndexOrThrow(GROUP_ID)) == null) {
+      if (cursor == null || cursor.getString(cursor.getColumnIndexOrThrow(GROUP_ID)) == null || cursor.getLong(cursor.getColumnIndexOrThrow(RECIPIENT_ID)) == 0) {
         return null;
       }
 
@@ -739,6 +748,15 @@ public final class GroupDatabase extends Database {
       return isV2Group() && requireV2GroupProperties().isAdmin(recipient);
     }
 
+    public MemberLevel memberLevel(@NonNull Recipient recipient) {
+      if (isV2Group()) {
+        return requireV2GroupProperties().memberLevel(recipient);
+      } else {
+        return members.contains(recipient.getId()) ? MemberLevel.FULL_MEMBER
+                                                   : MemberLevel.NOT_A_MEMBER;
+      }
+    }
+
     /**
      * Who is allowed to add to the membership of this group.
      */
@@ -817,6 +835,18 @@ public final class GroupDatabase extends Database {
                                .or(false);
     }
 
+    public MemberLevel memberLevel(@NonNull Recipient recipient) {
+      DecryptedGroup decryptedGroup = getDecryptedGroup();
+
+      return DecryptedGroupUtil.findMemberByUuid(decryptedGroup.getMembersList(), recipient.getUuid().get())
+                               .transform(member -> member.getRole() == Member.Role.ADMINISTRATOR
+                                                    ? MemberLevel.ADMINISTRATOR
+                                                    : MemberLevel.FULL_MEMBER)
+                               .or(() -> DecryptedGroupUtil.findPendingByUuid(decryptedGroup.getPendingMembersList(), recipient.getUuid().get())
+                                                           .isPresent() ? MemberLevel.PENDING_MEMBER
+                                                                        : MemberLevel.NOT_A_MEMBER);
+    }
+
     public List<Recipient> getMemberRecipients(@NonNull MemberSet memberSet) {
       return Recipient.resolvedList(getMemberRecipientIds(memberSet));
     }
@@ -866,6 +896,23 @@ public final class GroupDatabase extends Database {
     MemberSet(boolean includeSelf, boolean includePending) {
       this.includeSelf    = includeSelf;
       this.includePending = includePending;
+    }
+  }
+
+  public enum MemberLevel {
+    NOT_A_MEMBER(false),
+    PENDING_MEMBER(false),
+    FULL_MEMBER(true),
+    ADMINISTRATOR(true);
+
+    private final boolean inGroup;
+
+    MemberLevel(boolean inGroup){
+      this.inGroup = inGroup;
+    }
+
+    public boolean isInGroup() {
+      return inGroup;
     }
   }
 }

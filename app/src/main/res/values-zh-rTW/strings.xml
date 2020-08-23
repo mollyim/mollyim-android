@@ -383,7 +383,6 @@
   <!--GroupMembersDialog-->
   <string name="GroupMembersDialog_you">您</string>
   <!--GV2 access levels-->
-  <string name="GroupManagement_access_level_anyone">任何人</string>
   <string name="GroupManagement_access_level_all_members">所有的成員</string>
   <string name="GroupManagement_access_level_only_admins">只有管理者</string>
   <!--GV2 invites sent-->
@@ -393,6 +392,12 @@
   <string name="GroupManagement_invite_single_user">\"%1$s\"不能由你自動新增到此群組。\n\n他們已被邀請加入，並且在他們接受之前不會看到任何群組訊息。</string>
   <string name="GroupManagement_learn_more">了解更多</string>
   <string name="GroupManagement_invite_multiple_users">你無法將這些使用者自動新增到此群組。\n\n他們已被邀請加入群組，並且在他們接受之前不會看到任何群組訊息。</string>
+  <!--LinkPreviewsMegaphone-->
+  <string name="LinkPreviewsMegaphone_disable">關閉</string>
+  <string name="LinkPreviewsMegaphone_preview_any_link">預覽任何連結</string>
+  <string name="LinkPreviewsMegaphone_you_can_now_retrieve_link_previews_directly_from_any_website">你現在可以直接從任何網站上檢索傳送的訊息的連結預覽。</string>
+  <!--LinkPreviewView-->
+  <string name="LinkPreviewView_no_link_preview_available">沒有可用的連結預覽</string>
   <!--PendingMembersActivity-->
   <string name="PendingMemberInvitesActivity_pending_group_invites">待處理的群組邀請</string>
   <string name="PendingMembersActivity_people_you_invited">你所邀請的成員們</string>
@@ -400,13 +405,13 @@
   <string name="PendingMembersActivity_invites_by_other_group_members">被其他群組成員邀請</string>
   <string name="PendingMembersActivity_no_pending_invites_by_other_group_members">沒有其他群組成員的待處理的邀請。</string>
   <string name="PendingMembersActivity_missing_detail_explanation">未顯示其他群組成員邀請的成員的詳細資息。 如果被邀請者選擇加入，他們的訊息將在那時與群組共享。 除非他們加入，否則他們不會在群組中看到任何訊息。</string>
-  <string name="PendingMembersActivity_cancel_invite">取消邀請</string>
-  <string name="PendingMembersActivity_cancel_invites">取消邀請</string>
-  <plurals name="PendingMembersActivity_cancel_d_invites">
-    <item quantity="other">取消%1$d的邀請</item>
+  <string name="PendingMembersActivity_revoke_invite">撤消邀請</string>
+  <string name="PendingMembersActivity_revoke_invites">撤消多個邀請</string>
+  <plurals name="PendingMembersActivity_revoke_d_invites">
+    <item quantity="other">撤消%1$d個邀請</item>
   </plurals>
-  <plurals name="PendingMembersActivity_error_canceling_invite">
-    <item quantity="other">錯誤的取消邀請</item>
+  <plurals name="PendingMembersActivity_error_revoking_invite">
+    <item quantity="other">撤消邀請時發生錯誤</item>
   </plurals>
   <!--AddMembersActivity-->
   <string name="AddMembersActivity__done">完成</string>
@@ -428,6 +433,14 @@
   <string name="AddGroupDetailsFragment__remove">移除</string>
   <string name="AddGroupDetailsFragment__sms_contact">SMS 聯絡人</string>
   <string name="AddGroupDetailsFragment__remove_s_from_this_group">從此群組移除%1$s嗎？</string>
+  <plurals name="AddGroupDetailsFragment__d_members_do_not_support_new_groups">
+    <item quantity="other">%d個成員不支援新群組，因此該群組將成為舊群組。</item>
+  </plurals>
+  <!--NonGv2MemberDialog-->
+  <string name="NonGv2MemberDialog_single_users_are_non_gv2_capable">舊版群組將被建立，因為“%1$s”使用的是舊版本的Signal。 你可以在他們更新Signal之後用他們建立一個新樣式的群組，或者在建立群組之前將他們刪除。</string>
+  <plurals name="NonGv2MemberDialog_d_users_are_non_gv2_capable">
+    <item quantity="other">舊版群組將被建立，因為%1$d個成員使用的是舊版本的 Signal。 你可以在他們更新Signal之後用他們建立一個新樣式的群組，或者在建立群組之前將他們刪除。</item>
+  </plurals>
   <!--ManageGroupActivity-->
   <string name="ManageGroupActivity_disappearing_messages">自動銷毀訊息</string>
   <string name="ManageGroupActivity_pending_group_invites">待處理的群組邀請</string>
@@ -440,6 +453,7 @@
   <string name="ManageGroupActivity_leave_group">離開對話群組</string>
   <string name="ManageGroupActivity_mute_notifications">將通知調整為靜音</string>
   <string name="ManageGroupActivity_custom_notifications">自訂通知</string>
+  <string name="ManageGroupActivity_mentions">提及</string>
   <string name="ManageGroupActivity_until_s">直到 %1$s</string>
   <string name="ManageGroupActivity_off">關</string>
   <string name="ManageGroupActivity_on">開</string>
@@ -461,6 +475,13 @@
   <string name="ManageGroupActivity_edit_name_and_picture">編輯名稱及圖片</string>
   <string name="ManageGroupActivity_legacy_group">舊版群組</string>
   <string name="ManageGroupActivity_legacy_group_learn_more">這是一個舊的群組。 要連結群組管理員等功能，請建立一個新群組。</string>
+  <!--GroupMentionSettingDialog-->
+  <string name="GroupMentionSettingDialog_notify_me_for_mentions">通知我提及。</string>
+  <string name="GroupMentionSettingDialog_receive_notifications_when_youre_mentioned_in_muted_chats">在靜音聊天中提及你時收到通知嗎？</string>
+  <string name="GroupMentionSettingDialog_default_notify_me">預設（通知我）</string>
+  <string name="GroupMentionSettingDialog_default_dont_notify_me">預設（不要通知我）</string>
+  <string name="GroupMentionSettingDialog_always_notify_me">總是通知我</string>
+  <string name="GroupMentionSettingDialog_dont_notify_me">不要通知我</string>
   <!--ManageRecipientActivity-->
   <string name="ManageRecipientActivity_add_to_system_contacts">加入系統聯絡人</string>
   <string name="ManageRecipientActivity_this_person_is_in_your_contacts">這個人在你的聯絡人清單中</string>
@@ -500,11 +521,17 @@
   <string name="CustomNotificationsDialogFragment__enabled">啟動</string>
   <string name="CustomNotificationsDialogFragment__disabled">關閉</string>
   <string name="CustomNotificationsDialogFragment__default">預設</string>
-  <!--GV2 Invite cancellation confirmation-->
-  <string name="GroupManagement_cancel_own_single_invite">你要取消你傳給%1$s的邀請嗎？</string>
-  <plurals name="GroupManagement_cancel_others_invites">
-    <item quantity="other">你要取消%1$s傳送給%2$d的邀請嗎？</item>
+  <!--GV2 Invite Revoke confirmation dialog-->
+  <string name="InviteRevokeConfirmationDialog_revoke_own_single_invite">你要撤消傳送給%1$s的邀請嗎？</string>
+  <plurals name="InviteRevokeConfirmationDialog_revoke_others_invites">
+    <item quantity="other">你要撤銷由%1$s傳送給%2$d的邀請嗎？</item>
   </plurals>
+  <!--GroupJoinBottomSheetDialogFragment-->
+  <string name="GroupJoinBottomSheetDialogFragment_you_are_already_a_member">你已經是成員</string>
+  <!--GroupJoinUpdateRequiredBottomSheetDialogFragment-->
+  <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_signal_to_use_group_links">更新Signal 以使用群組連結</string>
+  <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_message">你使用的Signal版本不支援可共享的群組連結。透過連結更新到最新版本以加入該群組。</string>
+  <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_signal">更新 Signal</string>
   <!--CropImageActivity-->
   <string name="CropImageActivity_group_avatar">群組的大頭照</string>
   <string name="CropImageActivity_profile_avatar">頭像</string>
@@ -694,7 +721,8 @@
   </plurals>
   <string name="MessageRecord_someone_declined_an_invitation_to_the_group">有人拒絕了到此群組的邀請。</string>
   <string name="MessageRecord_you_declined_the_invitation_to_the_group">你拒絕了到此群組的邀請。</string>
-  <string name="MessageRecord_your_invitation_to_the_group_was_revoked">你加入群組的邀請已被撤消。</string>
+  <string name="MessageRecord_s_revoked_your_invitation_to_the_group">%1$s撤銷你到此群組的邀請。</string>
+  <string name="MessageRecord_an_admin_revoked_your_invitation_to_the_group">管理員撤消了你加入此群組的邀請。</string>
   <plurals name="MessageRecord_d_invitations_were_revoked">
     <item quantity="other">%1$d的邀請到此群組已被取消。</item>
   </plurals>
@@ -733,7 +761,6 @@
   <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_they_wont_know_youve_seen_their_messages_until_you_accept">讓%1$s傳訊息給你並與他們分享你的名字和照片嗎？ 在你接受之前，他們不會知道你已看到他們的訊息。</string>
   <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them">讓%1$s傳訊息給你並與他們分享你的名字和照片嗎？ 除非你解鎖他們，否則你將不會收到任何訊息。</string>
   <string name="MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">加入該群組並與其成員分享你的名字和照片嗎？ 在你接受之前，他們不會知道你已看到他們的訊息。</string>
-  <string name="MessageRequestBottomView_you_were_invited_to_join_the_group_s">你可以被邀請到%1$s群組。你想讓該群組的成員向你傳送訊息嗎？</string>
   <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">取消封鎖此群組並與其成員分享你的名字和照片？ 除非你取消阻止它們，否則你將不會收到任何訊息。</string>
   <string name="MessageRequestProfileView_member_of_one_group">%1$s的成員</string>
   <string name="MessageRequestProfileView_member_of_two_groups">%1$s及%2$s的成員</string>
@@ -744,8 +771,8 @@
   <plurals name="MessageRequestProfileView_members_and_invited">
     <item quantity="other">%1$d成員(+%2$d已被邀請)</item>
   </plurals>
-  <plurals name="MessageRequestProfileView_member_of_others">
-    <item quantity="other">%d其他</item>
+  <plurals name="MessageRequestProfileView_member_of_d_additional_groups">
+    <item quantity="other">%d其他群組</item>
   </plurals>
   <!--PassphraseChangeActivity-->
   <string name="PassphraseChangeActivity_passphrases_dont_match_exclamation">輸入的自訂密碼不相符！</string>
@@ -1062,8 +1089,6 @@
   <string name="MmsMessageRecord_mms_message_encrypted_for_non_existing_session">此加密MMS訊息的對話已不存在</string>
   <!--MuteDialog-->
   <string name="MuteDialog_mute_notifications">靜音通知</string>
-  <!--OutdatedBuildReminder-->
-  <string name="OutdatedBuildReminder_no_web_browser_installed">沒有已安裝的瀏覽器</string>
   <!--ApplicationMigrationService-->
   <string name="ApplicationMigrationService_import_in_progress">匯入中</string>
   <string name="ApplicationMigrationService_importing_text_messages">匯入文字簡訊</string>
@@ -1094,6 +1119,7 @@
   <string name="MessageNotifier_error_delivering_message">傳送訊息發生失誤。</string>
   <string name="MessageNotifier_mark_all_as_read">全部標示為已讀</string>
   <string name="MessageNotifier_mark_read">標示已讀</string>
+  <string name="MessageNotifier_turn_off_these_notifications">開啟這些通知</string>
   <string name="MessageNotifier_media_message">媒體訊息</string>
   <string name="MessageNotifier_sticker">貼圖</string>
   <string name="MessageNotifier_view_once_photo">一次性照片</string>
@@ -1114,6 +1140,7 @@
   <string name="MessageNotifier_reacted_s_to_your_view_once_video">到%1$s檢視一次性觀看影片。</string>
   <string name="MessageNotifier_reacted_s_to_your_sticker">到%1$s檢視你的貼圖。</string>
   <string name="MessageNotifier_this_message_was_deleted">這個訊息已經被刪除。</string>
+  <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">關閉聯絡人已加入Signal 的通知嗎？你可以在次開啟他們在 Signal &gt; 設定 &gt; 通知。</string>
   <!--Notification Channels-->
   <string name="NotificationChannel_messages">預設</string>
   <string name="NotificationChannel_calls">通話</string>
@@ -1524,8 +1551,8 @@
   <string name="preferences__use_signal_for_viewing_and_storing_all_incoming_multimedia_messages">使用 Signal 接收所有多媒體訊息</string>
   <string name="preferences__pref_enter_sends_title">按下輸入鍵發送</string>
   <string name="preferences__pressing_the_enter_key_will_send_text_messages">按下輸入鍵將會發送訊息</string>
-  <string name="preferences__send_link_previews">傳送連結預覽</string>
-  <string name="preferences__previews_are_supported_for">預覽功能支援 Imgur、 Instagram、 Pinterest、 Reddit 及 YouTube的連結。</string>
+  <string name="preferences__generate_link_previews">建立連結預覽</string>
+  <string name="preferences__retrieve_link_previews_from_websites_for_messages">直接從網站上檢索你傳送的訊息的連結預覽。</string>
   <string name="preferences__choose_identity">選擇身分</string>
   <string name="preferences__choose_your_contact_entry_from_the_contacts_list">從您的聯絡人清單中選擇聯絡人項目。</string>
   <string name="preferences__change_passphrase">變更自訂密碼</string>
@@ -1640,8 +1667,11 @@
   <string name="preferences_communication__sealed_sender_display_indicators">顯示指標</string>
   <string name="preferences_communication__sealed_sender_display_indicators_description">在使用密封發件人傳遞的訊息上選擇“訊息細節”時顯示狀態圖示。</string>
   <string name="preferences_communication__sealed_sender_allow_from_anyone">允許任何人</string>
-  <string name="preferences_communication__sealed_sender_allow_from_anyone_description">啟用密封發件人對來自非聯絡人及其他人傳來的訊息，將不會對其分享你的個人資訊。</string>
+  <string name="preferences_communication__sealed_sender_allow_from_anyone_description">啟用密封發件人對來自非聯絡人及其他你未分享過個人資料的人傳來的訊息。</string>
   <string name="preferences_communication__sealed_sender_learn_more">了解更多</string>
+  <string name="preferences_notifications__mentions">提及</string>
+  <string name="preferences_notifications__notify_me">通知我</string>
+  <string name="preferences_notifications__receive_notifications_when_youre_mentioned_in_muted_chats">在靜音聊天中提及你時接收通知</string>
   <!--Internal only preferences-->
   <!--****************************************-->
   <!--menus-->
@@ -1673,6 +1703,8 @@
   <string name="conversation_insecure__invite">邀請</string>
   <!--conversation_list_batch-->
   <string name="conversation_list_batch__menu_delete_selected">刪除已選項目</string>
+  <string name="conversation_list_batch__menu_pin_selected">釘選已選擇</string>
+  <string name="conversation_list_batch__menu_unpin_selected">解除釘選已選擇</string>
   <string name="conversation_list_batch__menu_select_all">全選</string>
   <string name="conversation_list_batch_archive__menu_archive_selected">已選擇存檔</string>
   <string name="conversation_list_batch_unarchive__menu_unarchive_selected">取消存檔已選擇的</string>
@@ -1682,6 +1714,9 @@
   <!--conversation_list-->
   <string name="conversation_list_settings_shortcut">設定捷徑</string>
   <string name="conversation_list_search_description">搜尋</string>
+  <string name="conversation_list__pinned">已釘選</string>
+  <string name="conversation_list__chats">聊天</string>
+  <string name="conversation_list__you_can_only_pin_up_to_d_chats">你只能釘選%1$d來聊天</string>
   <!--conversation_list_item_view-->
   <string name="conversation_list_item_view__contact_photo_image">聯絡人相片</string>
   <string name="conversation_list_item_view__archived">存檔</string>
@@ -1867,6 +1902,9 @@
   <string name="KbsMegaphone__update_pin">升級PIN碼</string>
   <string name="KbsMegaphone__well_remind_you_later_creating_a_pin">我們稍後會提醒你。 建立PIN碼將在%1$d天之內成為強制性的。</string>
   <string name="KbsMegaphone__well_remind_you_later_confirming_your_pin">我們稍後會提醒你。 在%1$d天之內，必須確認你的PIN碼。</string>
+  <!--Mention Megaphone-->
+  <string name="MentionsMegaphone__introducing_mentions">介紹 @Mentions</string>
+  <string name="MentionsMegaphone__get_someones_attention_in_a_group_by_typing">在“新群組”中輸入@吸引某人的注意</string>
   <!--transport_selection_list_item-->
   <string name="transport_selection_list_item__transport_icon">傳輸圖示</string>
   <string name="ConversationListFragment_loading">讀取中…</string>

@@ -210,6 +210,14 @@
             <category android:name="android.intent.category.MULTIWINDOW_LAUNCHER" />
         </intent-filter>
 
+        <intent-filter>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="https"
+                  android:host="group.signal.org"/>
+        </intent-filter>
+
         <meta-data android:name="com.sec.minimode.icon.portrait.normal"
                    android:resource="@mipmap/ic_launcher" />
         <meta-data android:name="com.sec.minimode.icon.landscape.normal"
@@ -424,6 +432,9 @@
             <category android:name="android.intent.category.DEFAULT"/>
         </intent-filter>
     </activity>
+
+    <activity android:name=".contacts.TurnOffContactJoinedNotificationsActivity"
+              android:theme="@style/Theme.AppCompat.Dialog.Alert" />
 
     <activity android:name=".messagerequests.MessageRequestMegaphoneActivity"
               android:theme="@style/TextSecure.LightRegistrationTheme"

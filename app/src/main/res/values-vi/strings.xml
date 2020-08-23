@@ -193,6 +193,8 @@
   <string name="ConversationActivity_leave_group">Rời nhóm?</string>
   <string name="ConversationActivity_are_you_sure_you_want_to_leave_this_group">Bạn có chắc muốn rời nhóm này?</string>
   <string name="ConversationActivity_choose_new_admin">Chọn quản trị viên mới</string>
+  <string name="ConversationActivity_before_you_leave_you_must_choose_at_least_one_new_admin_for_this_group">Trước khi rời nhóm, bạn phải chọn ít nhất một quản trị viên mới cho nhóm này.</string>
+  <string name="ConversationActivity_choose_admin">Chọn quản trị viên</string>
   <string name="ConversationActivity_transport_insecure_sms">SMS không bảo mật</string>
   <string name="ConversationActivity_transport_insecure_mms">MMS không bảo mật</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
@@ -206,6 +208,7 @@
   <string name="ConversationActivity_attachment_exceeds_size_limits">Tệp đính kèm vượt quá giới hạn kích cỡ cho loại tin nhắn mà bạn đang gửi.</string>
   <string name="ConversationActivity_quick_camera_unavailable">Máy ảnh không khả dụng</string>
   <string name="ConversationActivity_unable_to_record_audio">Không thể ghi âm!</string>
+  <string name="ConversationActivity_you_cant_send_messages_to_this_group">Bạn không thể nhắn tin cho nhóm này vì bạn không còn là thành viên.</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">Không ứng dụng nào trên điện thoại bạn có thể xử lí liên kết này.</string>
   <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Để gửi tin nhắn âm thanh, hãy cho phép Molly truy cập micro điện thoại.</string>
   <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly cần quyền truy cập Micro để gửi tin nhắn âm thanh, nhưng đã bị từ chối vĩnh viễn. Vui lòng mở cài đặt ứng dụng, chọn \"Quyền\" và bật \"Micro\".</string>
@@ -303,12 +306,14 @@
   <string name="ConversationTitleView_verified">Đã xác minh</string>
   <string name="ConversationTitleView_you">Bạn</string>
   <!--CreateGroupActivity-->
+  <string name="CreateGroupActivity_some_contacts_cannot_be_in_legacy_groups">Một vài liên hệ không thể ở trong nhóm cũ.</string>
   <!--CreateProfileActivity-->
   <string name="CreateProfileActivity__profile">Hồ sơ</string>
   <string name="CreateProfileActivity_error_setting_profile_photo">Lỗi đặt ảnh đại diện</string>
   <string name="CreateProfileActivity_problem_setting_profile">Lỗi thiết lập hồ sơ</string>
   <string name="CreateProfileActivity_profile_photo">Ảnh đại diện</string>
   <string name="CreateProfileActivity_set_up_your_profile">Thiết lập hồ sơ</string>
+  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">Hồ sơ của bạn được mã hóa đầu cuối. Hồ sơ và các thay đổi sẽ hiển thị với liên hệ trong danh bạ của bạn, khi bạn bắt đầu hoặc chấp nhận cuộc trò chuyện mới, hoặc khi bạn tham gia nhóm mới.</string>
   <string name="CreateProfileActivity_set_avatar_description">Đặt ảnh đại diện</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Dùng tùy chỉnh: %s</string>
@@ -366,9 +371,11 @@
   <string name="AddToGroupActivity_s_added_to_s">Đã thêm \"%1$s\" vào \"%2$s\".</string>
   <string name="AddToGroupActivity_add_to_group">Thêm vào nhóm</string>
   <string name="AddToGroupActivity_add_to_groups">Thêm vào các nhóm</string>
+  <string name="AddToGroupActivity_this_person_cant_be_added_to_legacy_groups">Người này không thể được thêm vào nhóm cũ.</string>
   <!--ChooseNewAdminActivity-->
   <string name="ChooseNewAdminActivity_choose_new_admin">Chọn quản trị viên mới</string>
   <string name="ChooseNewAdminActivity_done">Xong</string>
+  <string name="ChooseNewAdminActivity_you_left">Bạn đã rời khỏi \"%1$s\".</string>
   <!--GroupShareProfileView-->
   <string name="GroupShareProfileView_share_your_profile_name_and_photo_with_this_group">Chia sẻ ảnh đại diện và tên của bạn với nhóm này?</string>
   <string name="GroupShareProfileView_do_you_want_to_make_your_profile_name_and_photo_visible_to_all_current_and_future_members_of_this_group">Bạn có muốn tất cả thành viên hiện có và trong tương lai của nhóm thấy ảnh đại diện và tên bạn?</string>
@@ -376,11 +383,21 @@
   <!--GroupMembersDialog-->
   <string name="GroupMembersDialog_you">Bạn</string>
   <!--GV2 access levels-->
-  <string name="GroupManagement_access_level_anyone">Bất cứ ai</string>
   <string name="GroupManagement_access_level_all_members">Tất cả thành viên</string>
   <string name="GroupManagement_access_level_only_admins">Chỉ quản trị viên</string>
   <!--GV2 invites sent-->
+  <plurals name="GroupManagement_invitation_sent">
+    <item quantity="other">Đã gửi %d lời mời</item>
+  </plurals>
+  <string name="GroupManagement_invite_single_user">\"%1$s\" không thể được tự động thêm vào nhóm bởi bạn.\n\nHọ đã được mời tham gia và sẽ không thấy tin nhắn trong nhóm cho đến khi họ chấp nhận.</string>
   <string name="GroupManagement_learn_more">Tìm hiểu thêm</string>
+  <string name="GroupManagement_invite_multiple_users">Những người dùng này không thể được tự động thêm vào nhóm bởi bạn.\n\nHọ đã được mời tham gia và sẽ không thấy tin nhắn trong nhóm cho đến khi họ chấp nhận.</string>
+  <!--LinkPreviewsMegaphone-->
+  <string name="LinkPreviewsMegaphone_disable">Tắt</string>
+  <string name="LinkPreviewsMegaphone_preview_any_link">Xem trước tất cả liên kết</string>
+  <string name="LinkPreviewsMegaphone_you_can_now_retrieve_link_previews_directly_from_any_website">Từ giờ bạn có thể thêm xem trước liên kết từ bất cứ trang web nào vào trong tin nhắn bạn gửi.</string>
+  <!--LinkPreviewView-->
+  <string name="LinkPreviewView_no_link_preview_available">Xem trước liên kết không khả dụng</string>
   <!--PendingMembersActivity-->
   <string name="PendingMemberInvitesActivity_pending_group_invites">Lời mời vào nhóm đang chờ</string>
   <string name="PendingMembersActivity_people_you_invited">Người dùng bạn đã mời</string>
@@ -388,16 +405,17 @@
   <string name="PendingMembersActivity_invites_by_other_group_members">Thư mời bởi các thành viên nhóm khác</string>
   <string name="PendingMembersActivity_no_pending_invites_by_other_group_members">Không có lời mời đang chờ nào từ các thành viên khác trong nhóm.</string>
   <string name="PendingMembersActivity_missing_detail_explanation">Thông tin của các người dùng được mời bởi các thành viên nhóm khác không được hiển thị. Nếu người được mời chấp nhận tham gia, thông tin của họ sẽ được chia sẻ với nhóm vào lúc đó. Họ sẽ không thấy tin nhắn trong nhóm cho đến khi họ tham gia. </string>
-  <string name="PendingMembersActivity_cancel_invite">Hủy lời mời</string>
-  <string name="PendingMembersActivity_cancel_invites">Hủy lời mời</string>
-  <plurals name="PendingMembersActivity_cancel_d_invites">
-    <item quantity="other">Hủy %1$d lời mời</item>
+  <string name="PendingMembersActivity_revoke_invite">Thu hồi lời mời</string>
+  <string name="PendingMembersActivity_revoke_invites">Thu hồi các lời mời</string>
+  <plurals name="PendingMembersActivity_revoke_d_invites">
+    <item quantity="other">Thu hồi %1$d lời mời</item>
   </plurals>
-  <plurals name="PendingMembersActivity_error_canceling_invite">
-    <item quantity="other">Lỗi khi hủy lời mời</item>
+  <plurals name="PendingMembersActivity_error_revoking_invite">
+    <item quantity="other">Lỗi khi thu hồi lời mời</item>
   </plurals>
   <!--AddMembersActivity-->
   <string name="AddMembersActivity__done">Xong</string>
+  <string name="AddMembersActivity__this_person_cant_be_added_to_legacy_groups">Người này không thể được thêm vào nhóm cũ.</string>
   <plurals name="AddMembersActivity__add_d_members_to_s">
     <item quantity="other">Thêm %3$d thành viên vào \"%2$s\"?</item>
   </plurals>
@@ -415,15 +433,27 @@
   <string name="AddGroupDetailsFragment__remove">Loại bỏ</string>
   <string name="AddGroupDetailsFragment__sms_contact">Liên hệ SMS</string>
   <string name="AddGroupDetailsFragment__remove_s_from_this_group">Loại bỏ %1$s khỏi nhóm này?</string>
+  <plurals name="AddGroupDetailsFragment__d_members_do_not_support_new_groups">
+    <item quantity="other">%d thành viên không hỗ trợ Nhóm Mới, vì vậy nhóm này sẽ là Nhóm Cũ.</item>
+  </plurals>
+  <!--NonGv2MemberDialog-->
+  <string name="NonGv2MemberDialog_single_users_are_non_gv2_capable">Một Nhóm Cũ sẽ được tạo vì \"%1$s\" đang sử dụng phiên bản cũ của Signal. Bạn có thể tạo Nhóm Mới với họ sau khi họ cập nhật Signal, hoặc loại họ khỏi danh sách thành viên trước khi tạo nhóm.</string>
+  <plurals name="NonGv2MemberDialog_d_users_are_non_gv2_capable">
+    <item quantity="other">Một Nhóm Cũ sẽ được tạo vì %1$d thành viên đang sử dụng phiên bản cũ của Signal. Bạn có thể tạo Nhóm Mới với họ sau khi họ cập nhật Signal, hoặc loại họ khỏi danh sách thành viên trước khi tạo nhóm.</item>
+  </plurals>
   <!--ManageGroupActivity-->
   <string name="ManageGroupActivity_disappearing_messages">Tin nhắn tạm thời</string>
   <string name="ManageGroupActivity_pending_group_invites">Lời mời vào nhóm đang chờ</string>
   <string name="ManageGroupActivity_add_members">Thêm thành viên</string>
+  <string name="ManageGroupActivity_edit_group_info">Sửa thông tin nhóm</string>
+  <string name="ManageGroupActivity_choose_who_can_edit_the_group_name_avatar_and_disappearing_messages">Chọn ai có quyền sửa tên nhóm, ảnh nhóm và tin nhắn tự hủy.</string>
+  <string name="ManageGroupActivity_choose_who_can_add_or_invite_new_members">Chọn ai có quyền thêm hoặc mời thành viên mới</string>
   <string name="ManageGroupActivity_block_group">Chặn nhóm</string>
   <string name="ManageGroupActivity_unblock_group">Bỏ chặn nhóm</string>
   <string name="ManageGroupActivity_leave_group">Rời nhóm</string>
   <string name="ManageGroupActivity_mute_notifications">Tạm im thông báo</string>
   <string name="ManageGroupActivity_custom_notifications">Thông báo tuỳ chỉnh</string>
+  <string name="ManageGroupActivity_mentions">Nhắc tên</string>
   <string name="ManageGroupActivity_until_s">Cho đến %1$s</string>
   <string name="ManageGroupActivity_off">Tắt</string>
   <string name="ManageGroupActivity_on">Bật</string>
@@ -440,8 +470,21 @@
   <string name="ManageGroupActivity_not_capable">Bạn đã thêm một thành viên không hỗ trợ Nhóm Signal và cần cập nhật ứng dụng Signal.</string>
   <string name="ManageGroupActivity_failed_to_update_the_group">Không thể cập nhật nhóm</string>
   <string name="ManageGroupActivity_youre_not_a_member_of_the_group">Bạn không phải thành viên nhóm này</string>
+  <string name="ManageGroupActivity_failed_to_update_the_group_please_retry_later">Không thể cập nhật nhóm, vui lòng thử lại sau</string>
+  <string name="ManageGroupActivity_failed_to_update_the_group_due_to_a_network_error_please_retry_later">Không thể cập nhật nhóm vì lỗi mạng, vui lòng thử lại sau</string>
   <string name="ManageGroupActivity_edit_name_and_picture">Sửa tên và ảnh</string>
+  <string name="ManageGroupActivity_legacy_group">Nhóm Cũ</string>
+  <string name="ManageGroupActivity_legacy_group_learn_more">Đây là một Nhóm Cũ. Để truy cập các tính năng mới như quản trị viên, hãy tạo Nhóm Mới.</string>
+  <!--GroupMentionSettingDialog-->
+  <string name="GroupMentionSettingDialog_notify_me_for_mentions">Thông báo khi tôi được nhắc tên</string>
+  <string name="GroupMentionSettingDialog_receive_notifications_when_youre_mentioned_in_muted_chats">Nhận thông báo khi bạn được nhắc tên trong cuộc trò chuyện đã im lặng?</string>
+  <string name="GroupMentionSettingDialog_default_notify_me">Mặc định (thông báo tôi)</string>
+  <string name="GroupMentionSettingDialog_default_dont_notify_me">Mặc định (không thông báo tôi)</string>
+  <string name="GroupMentionSettingDialog_always_notify_me">Luôn thông báo tôi</string>
+  <string name="GroupMentionSettingDialog_dont_notify_me">Không thông báo tôi</string>
   <!--ManageRecipientActivity-->
+  <string name="ManageRecipientActivity_add_to_system_contacts">Thêm vào danh bạ điện thoại</string>
+  <string name="ManageRecipientActivity_this_person_is_in_your_contacts">Người này có trong danh bạ của bạn</string>
   <string name="ManageRecipientActivity_disappearing_messages">Tin nhắn tự hủy</string>
   <string name="ManageRecipientActivity_chat_color">Màu trò chuyện</string>
   <string name="ManageRecipientActivity_block">Chặn</string>
@@ -478,11 +521,17 @@
   <string name="CustomNotificationsDialogFragment__enabled">Đã bật</string>
   <string name="CustomNotificationsDialogFragment__disabled">Tắt</string>
   <string name="CustomNotificationsDialogFragment__default">Mặc định</string>
-  <!--GV2 Invite cancellation confirmation-->
-  <string name="GroupManagement_cancel_own_single_invite">Bạn có muốn hủy lời mời bạn gửi tới %1$s?</string>
-  <plurals name="GroupManagement_cancel_others_invites">
-    <item quantity="other"> Bạn có muốn hủy %2$d lời mời gửi bởi %1$s?</item>
+  <!--GV2 Invite Revoke confirmation dialog-->
+  <string name="InviteRevokeConfirmationDialog_revoke_own_single_invite">Bạn có muốn thu hồi lời mời đã gửi đến %1$s?</string>
+  <plurals name="InviteRevokeConfirmationDialog_revoke_others_invites">
+    <item quantity="other">Bạn có muốn thu hồi %2$d lời mời gửi bởi %1$s?</item>
   </plurals>
+  <!--GroupJoinBottomSheetDialogFragment-->
+  <string name="GroupJoinBottomSheetDialogFragment_you_are_already_a_member">Bạn đã là thành viên</string>
+  <!--GroupJoinUpdateRequiredBottomSheetDialogFragment-->
+  <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_signal_to_use_group_links">Cập nhật Signal để dùng liên kết nhóm</string>
+  <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_message">Phiên bản Signal bạn đang dùng không hỗ trợ liên kết nhóm. Vui lòng cập nhật để có thể tham gia nhóm qua liên kết.</string>
+  <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_signal">Cập nhật Signal</string>
   <!--CropImageActivity-->
   <string name="CropImageActivity_group_avatar">Ảnh đại diện của nhóm</string>
   <string name="CropImageActivity_profile_avatar">Ảnh đại diện</string>
@@ -622,6 +671,9 @@
   <string name="MessageRecord_s_set_disappearing_message_time_to_s">%1$s đã đặt tự hủy tin nhắn sau %2$s.</string>
   <string name="MessageRecord_disappearing_message_time_set_to_s">Tin nhắn sẽ tự hủy sau %1$s.</string>
   <!--Profile change updates-->
+  <string name="MessageRecord_changed_their_profile_name_to">%1$s đã đổi tên hồ sơ thành %2$s.</string>
+  <string name="MessageRecord_changed_their_profile_name_from_to">%1$s đã đổi tên hồ sơ từ %2$s thành %3$s.</string>
+  <string name="MessageRecord_changed_their_profile">%1$s đã đổi hồ sơ.</string>
   <!--GV2 specific-->
   <string name="MessageRecord_you_created_the_group">Bạn đã tạo nhóm.</string>
   <string name="MessageRecord_group_updated">Nhóm được cập nhật.</string>
@@ -669,7 +721,8 @@
   </plurals>
   <string name="MessageRecord_someone_declined_an_invitation_to_the_group">Ai đó đã từ chối lời mời vào nhóm.</string>
   <string name="MessageRecord_you_declined_the_invitation_to_the_group">Bạn đã từ chối lời mời vào nhóm.</string>
-  <string name="MessageRecord_your_invitation_to_the_group_was_revoked">Thư mời tham gia nhóm của bạn đã bị thu hồi.</string>
+  <string name="MessageRecord_s_revoked_your_invitation_to_the_group">%1$s đã thu hồi lời mời bạn vào nhóm.</string>
+  <string name="MessageRecord_an_admin_revoked_your_invitation_to_the_group">Một quản trị viên đã thu hồi lời mời bạn vào nhóm.</string>
   <plurals name="MessageRecord_d_invitations_were_revoked">
     <item quantity="other">%1$d lời mời vào nhóm đã được thu hồi.</item>
   </plurals>
@@ -708,7 +761,6 @@
   <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_they_wont_know_youve_seen_their_messages_until_you_accept">Cho phép %1$s nhắn tin với bạn, đồng thời chia sẻ tên và ảnh đại diện của bạn với họ? Họ sẽ không biết là bạn đã đọc tin nhắn cho tới khi bạn chấp nhận.</string>
   <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them">Cho phép %1$s nhắn tin với bạn, đồng thời chia sẻ tên và ảnh đại diện của bạn với họ? Bạn sẽ không nhận thêm tin nhắn mới nếu bạn cho tới khi bạn bỏ chặn họ.</string>
   <string name="MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Tham gia nhóm này và chia sẻ tên và ảnh đại diện của bạn với các thành viên nhóm? Họ sẽ không biết là bạn đã đọc tin nhắn cho tới khi bạn chấp nhận.</string>
-  <string name="MessageRequestBottomView_you_were_invited_to_join_the_group_s">Bạn đã được mời vào nhóm %1$s. Bạn có muốn cho phép thành viên nhóm nhắn tin với bạn?</string>
   <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">Bỏ chặn nhóm này và chia sẻ tên và ảnh đại diện của bạn với thành viên nhóm? Bạn sẽ không nhận thêm tin nhắn mới cho tới khi bạn bỏ chặn họ.</string>
   <string name="MessageRequestProfileView_member_of_one_group">Thành viên của %1$s</string>
   <string name="MessageRequestProfileView_member_of_two_groups">Thành viên của %1$s và %2$s</string>
@@ -719,8 +771,8 @@
   <plurals name="MessageRequestProfileView_members_and_invited">
     <item quantity="other">%1$d thành viên (+%2$d đã được mời)</item>
   </plurals>
-  <plurals name="MessageRequestProfileView_member_of_others">
-    <item quantity="other">%d người khác</item>
+  <plurals name="MessageRequestProfileView_member_of_d_additional_groups">
+    <item quantity="other">%d nhóm khác</item>
   </plurals>
   <!--PassphraseChangeActivity-->
   <string name="PassphraseChangeActivity_passphrases_dont_match_exclamation">Mật khẩu không khớp!</string>
@@ -1034,8 +1086,6 @@ Nhận thông tin trao đổi mã khóa về phiên bản giao thức không h�
   <string name="MmsMessageRecord_mms_message_encrypted_for_non_existing_session">Tin nhắn MMS mã hoá cho phiên không tồn tại</string>
   <!--MuteDialog-->
   <string name="MuteDialog_mute_notifications">Tạm im thông báo</string>
-  <!--OutdatedBuildReminder-->
-  <string name="OutdatedBuildReminder_no_web_browser_installed">Không tìm thấy trình duyệt!</string>
   <!--ApplicationMigrationService-->
   <string name="ApplicationMigrationService_import_in_progress">Đang nhập…</string>
   <string name="ApplicationMigrationService_importing_text_messages">Đang nhập tin nhắn văn bản</string>
@@ -1066,6 +1116,7 @@ Nhận thông tin trao đổi mã khóa về phiên bản giao thức không h�
   <string name="MessageNotifier_error_delivering_message">Có lỗi khi gửi tin nhắn.</string>
   <string name="MessageNotifier_mark_all_as_read">Đánh dấu đã đọc tất cả</string>
   <string name="MessageNotifier_mark_read">Đánh dấu đã đọc</string>
+  <string name="MessageNotifier_turn_off_these_notifications">Tắt các thông báo này</string>
   <string name="MessageNotifier_media_message">Tin nhắn đa phương tiện</string>
   <string name="MessageNotifier_sticker">Nhãn dán</string>
   <string name="MessageNotifier_view_once_photo">Ảnh xem một lần</string>
@@ -1086,6 +1137,7 @@ Nhận thông tin trao đổi mã khóa về phiên bản giao thức không h�
   <string name="MessageNotifier_reacted_s_to_your_view_once_video">Đã bày tỏ cảm xúc %1$s cho video xem một lần của bạn.</string>
   <string name="MessageNotifier_reacted_s_to_your_sticker">Đã bày tỏ cảm xúc %1$s cho nhãn dán của bạn.</string>
   <string name="MessageNotifier_this_message_was_deleted">Tin nhắn này đã bị xóa.</string>
+  <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Tắt thông báo khi liên hệ bắt đầu sử dụng Signal? Bạn có thể bật lại ở Signal &gt; Cài đặt &gt; Thông báo.</string>
   <!--Notification Channels-->
   <string name="NotificationChannel_messages">Mặc định</string>
   <string name="NotificationChannel_calls">Cuộc gọi</string>
@@ -1447,6 +1499,7 @@ Nhận thông tin trao đổi mã khóa về phiên bản giao thức không h�
   <string name="HelpFragment__please_be_as_descriptive_as_possible">Vui lòng miêu tả càng chi tiết càng tốt để giúp chúng tôi hiểu về vấn đề.</string>
   <string name="HelpFragment__no_email_app_found">Không tìm thấy ứng dụng email.</string>
   <!--ReactWithAnyEmojiBottomSheetDialogFragment-->
+  <string name="ReactWithAnyEmojiBottomSheetDialogFragment__this_message">Tin nhắn này</string>
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__recently_used">Sử dụng gần đây</string>
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__smileys_and_people">Mặt cười và Con người</string>
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__nature">Thiên nhiên</string>
@@ -1495,8 +1548,8 @@ Nhận thông tin trao đổi mã khóa về phiên bản giao thức không h�
   <string name="preferences__use_signal_for_viewing_and_storing_all_incoming_multimedia_messages">Dùng Signal cho tất cả tin nhắn đến đa phương tiện</string>
   <string name="preferences__pref_enter_sends_title">Phím Enter gửi đi</string>
   <string name="preferences__pressing_the_enter_key_will_send_text_messages">Nhấn phím Enter sẽ gửi tin nhắn đi</string>
-  <string name="preferences__send_link_previews">Gửi xem trước liên kết</string>
-  <string name="preferences__previews_are_supported_for">Xem trước hỗ trợ liên kết Imgur, Instagram, Pinterest, Reddit và Youtube</string>
+  <string name="preferences__generate_link_previews">Tạo xem trước liên kết</string>
+  <string name="preferences__retrieve_link_previews_from_websites_for_messages">Thêm xem trước liên kết trang web vào trong tin nhắn bạn gửi.</string>
   <string name="preferences__choose_identity">Chọn danh tính</string>
   <string name="preferences__choose_your_contact_entry_from_the_contacts_list">Chọn khoản mục liên lạc của bạn trong danh sách liên lạc.</string>
   <string name="preferences__change_passphrase">Đổi mật khẩu</string>
@@ -1613,6 +1666,9 @@ Nhận thông tin trao đổi mã khóa về phiên bản giao thức không h�
   <string name="preferences_communication__sealed_sender_allow_from_anyone">Cho phép từ bất cứ ai</string>
   <string name="preferences_communication__sealed_sender_allow_from_anyone_description">Bật \'Lá thư không chủ\' cho tin nhắn từ người gửi không có trong danh bạ và người bạn chưa chia sẻ hồ sơ.</string>
   <string name="preferences_communication__sealed_sender_learn_more">Tìm hiểu thêm</string>
+  <string name="preferences_notifications__mentions">Nhắc tên</string>
+  <string name="preferences_notifications__notify_me">Thông báo tôi</string>
+  <string name="preferences_notifications__receive_notifications_when_youre_mentioned_in_muted_chats">Nhận thông báo khi bạn được nhắc tên trong cuộc trò chuyện đã im lặng</string>
   <!--Internal only preferences-->
   <!--****************************************-->
   <!--menus-->
@@ -1644,6 +1700,8 @@ Nhận thông tin trao đổi mã khóa về phiên bản giao thức không h�
   <string name="conversation_insecure__invite">Mời</string>
   <!--conversation_list_batch-->
   <string name="conversation_list_batch__menu_delete_selected">Xóa mục đã chọn</string>
+  <string name="conversation_list_batch__menu_pin_selected">Ghim mục đã chọn</string>
+  <string name="conversation_list_batch__menu_unpin_selected">Bỏ ghim mục đã chọn</string>
   <string name="conversation_list_batch__menu_select_all">Chọn tất cả</string>
   <string name="conversation_list_batch_archive__menu_archive_selected">Lưu trữ mục đã chọn</string>
   <string name="conversation_list_batch_unarchive__menu_unarchive_selected">Bỏ lưu trữ mục đã chọn</string>
@@ -1653,6 +1711,9 @@ Nhận thông tin trao đổi mã khóa về phiên bản giao thức không h�
   <!--conversation_list-->
   <string name="conversation_list_settings_shortcut">Phím tắt cài đặt</string>
   <string name="conversation_list_search_description">Tìm kiếm</string>
+  <string name="conversation_list__pinned">Đã ghim</string>
+  <string name="conversation_list__chats">Trò chuyện</string>
+  <string name="conversation_list__you_can_only_pin_up_to_d_chats">Bạn chỉ có thể ghim tối đa %1$d cuộc trò chuyện</string>
   <!--conversation_list_item_view-->
   <string name="conversation_list_item_view__contact_photo_image">Ảnh Chân Dung Liên Hệ</string>
   <string name="conversation_list_item_view__archived">Đã lưu trữ</string>
@@ -1838,6 +1899,9 @@ Nhận thông tin trao đổi mã khóa về phiên bản giao thức không h�
   <string name="KbsMegaphone__update_pin">Cập nhật mã PIN</string>
   <string name="KbsMegaphone__well_remind_you_later_creating_a_pin">Chúng tôi sẽ nhắc bạn sau. Việc tạo mã PIN sẽ trở nên bắt buộc sau %1$d ngày.</string>
   <string name="KbsMegaphone__well_remind_you_later_confirming_your_pin">Chúng tôi sẽ nhắc bạn sau. Xác minh mã PIN của bạn sẽ trở nên bắt buộc sau %1$d ngày.</string>
+  <!--Mention Megaphone-->
+  <string name="MentionsMegaphone__introducing_mentions">Giới thiệu tính năng @Nhắc tên</string>
+  <string name="MentionsMegaphone__get_someones_attention_in_a_group_by_typing">Lấy sự chú ý của ai đó trong \"Nhóm Mới\" bằng cách gõ @</string>
   <!--transport_selection_list_item-->
   <string name="transport_selection_list_item__transport_icon">Biểu tượng chuyển tải</string>
   <string name="ConversationListFragment_loading">Đang tải…</string>
@@ -1975,5 +2039,11 @@ Nhận thông tin trao đổi mã khóa về phiên bản giao thức không h�
   <string name="RecipientBottomSheet_copied_to_clipboard">Đã sao chép vào clipboard</string>
   <string name="GroupRecipientListItem_admin">Quản trị viên</string>
   <!--GroupsLearnMoreBottomSheetDialogFragment-->
+  <string name="GroupsLearnMore_legacy_vs_new_groups">Nhóm Mới và Nhóm Cũ</string>
+  <string name="GroupsLearnMore_what_are_legacy_groups">Nhóm Cũ là gì?</string>
+  <string name="GroupsLearnMore_paragraph_1">Nhóm Cũ là nhóm không tương thích với các tính năng mới như quản trị viên hay cập nhật cụ thể thông tin nhóm.</string>
+  <string name="GroupsLearnMore_how_do_i_use_new_groups">Làm thế nào tôi có thể sử dụng Nhóm Mới?</string>
+  <string name="GroupsLearnMore_paragraph_2">Nhóm Cũ không thể được chuyển đổi thành Nhóm Mới, nhưng bạn có thể tạo một Nhóm Mới với những thành viên cũ.</string>
+  <string name="GroupsLearnMore_paragraph_3">Để tạo Nhóm Mới, tất cả thành viên cần phải cập nhật lên phiên bản Signal mới nhất.</string>
   <!--EOF-->
 </resources>

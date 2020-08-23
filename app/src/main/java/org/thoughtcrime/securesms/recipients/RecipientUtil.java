@@ -17,7 +17,6 @@ import org.thoughtcrime.securesms.groups.GroupChangeBusyException;
 import org.thoughtcrime.securesms.groups.GroupChangeException;
 import org.thoughtcrime.securesms.groups.GroupChangeFailedException;
 import org.thoughtcrime.securesms.groups.GroupManager;
-import org.thoughtcrime.securesms.jobs.DirectoryRefreshJob;
 import org.thoughtcrime.securesms.jobs.MultiDeviceBlockedUpdateJob;
 import org.thoughtcrime.securesms.jobs.MultiDeviceMessageRequestResponseJob;
 import org.thoughtcrime.securesms.jobs.RotateProfileKeyJob;
@@ -29,6 +28,8 @@ import org.whispersystems.libsignal.util.guava.Optional;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RecipientUtil {
 
@@ -40,7 +41,24 @@ public class RecipientUtil {
    * available.
    */
   @WorkerThread
-  public static @NonNull SignalServiceAddress toSignalServiceAddress(@NonNull Context context, @NonNull Recipient recipient) {
+  public static @NonNull SignalServiceAddress toSignalServiceAddressBestEffort(@NonNull Context context, @NonNull Recipient recipient) {
+    try {
+      return toSignalServiceAddress(context, recipient);
+    } catch (IOException e) {
+      Log.w(TAG, "Failed to populate address!", e);
+      return new SignalServiceAddress(recipient.getUuid().orNull(), recipient.getE164().orNull());
+    }
+  }
+
+  /**
+   * This method will do it's best to craft a fully-populated {@link SignalServiceAddress} based on
+   * the provided recipient. This includes performing a possible network request if no UUID is
+   * available.
+   */
+  @WorkerThread
+  public static @NonNull SignalServiceAddress toSignalServiceAddress(@NonNull Context context, @NonNull Recipient recipient)
+      throws IOException
+  {
     recipient = recipient.resolve();
 
     if (!recipient.getUuid().isPresent() && !recipient.getE164().isPresent()) {
@@ -49,17 +67,37 @@ public class RecipientUtil {
 
     if (FeatureFlags.cds() && !recipient.getUuid().isPresent()) {
       Log.i(TAG, recipient.getId() + " is missing a UUID...");
-      try {
-        RegisteredState state = DirectoryHelper.refreshDirectoryFor(context, recipient, false);
-        recipient = Recipient.resolved(recipient.getId());
-        Log.i(TAG, "Successfully performed a UUID fetch for " + recipient.getId() + ". Registered: " + state);
-      } catch (IOException e) {
-        Log.w(TAG, "Failed to fetch a UUID for " + recipient.getId() + ". Scheduling a future fetch and building an address without one.");
-        ApplicationDependencies.getJobManager().add(new DirectoryRefreshJob(recipient, false));
-      }
+      RegisteredState state = DirectoryHelper.refreshDirectoryFor(context, recipient, false);
+
+      recipient = Recipient.resolved(recipient.getId());
+      Log.i(TAG, "Successfully performed a UUID fetch for " + recipient.getId() + ". Registered: " + state);
     }
 
     return new SignalServiceAddress(Optional.fromNullable(recipient.getUuid().orNull()), Optional.fromNullable(recipient.resolve().getE164().orNull()));
+  }
+
+  public static @NonNull List<SignalServiceAddress> toSignalServiceAddresses(@NonNull Context context, @NonNull List<RecipientId> recipients)
+      throws IOException
+  {
+    List<SignalServiceAddress> addresses = new ArrayList<>(recipients.size());
+
+    for (RecipientId id : recipients) {
+      addresses.add(toSignalServiceAddress(context, Recipient.resolved(id)));
+    }
+
+    return addresses;
+  }
+
+  public static @NonNull List<SignalServiceAddress> toSignalServiceAddressesFromResolved(@NonNull Context context, @NonNull List<Recipient> recipients)
+      throws IOException
+  {
+    List<SignalServiceAddress> addresses = new ArrayList<>(recipients.size());
+
+    for (Recipient recipient : recipients) {
+      addresses.add(toSignalServiceAddress(context, recipient));
+    }
+
+    return addresses;
   }
 
   public static boolean isBlockable(@NonNull Recipient recipient) {
@@ -163,6 +201,20 @@ public class RecipientUtil {
   }
 
   /**
+   * Like {@link #isMessageRequestAccepted(Context, long)} but with fewer checks around messages so it
+   * is more likely to return false.
+   */
+  @WorkerThread
+  public static boolean isCallRequestAccepted(@NonNull Context context, @Nullable Recipient threadRecipient) {
+    if (threadRecipient == null) {
+      return true;
+    }
+
+    long threadId = DatabaseFactory.getThreadDatabase(context).getThreadIdFor(threadRecipient);
+    return isCallRequestAccepted(context, threadId, threadRecipient);
+  }
+
+  /**
    * @return True if a conversation existed before we enabled message requests, otherwise false.
    */
   @WorkerThread
@@ -202,6 +254,14 @@ public class RecipientUtil {
            !threadRecipient.isRegistered()                       ||
            hasSentMessageInThread(context, threadId)             ||
            noSecureMessagesAndNoCallsInThread(context, threadId) ||
+           isPreMessageRequestThread(context, threadId);
+  }
+
+  @WorkerThread
+  private static boolean isCallRequestAccepted(@NonNull Context context, long threadId, @NonNull Recipient threadRecipient) {
+    return threadRecipient.isProfileSharing()            ||
+           threadRecipient.isSystemContact()             ||
+           hasSentMessageInThread(context, threadId)     ||
            isPreMessageRequestThread(context, threadId);
   }
 

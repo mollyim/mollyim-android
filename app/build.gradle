@@ -84,8 +84,8 @@ protobuf {
     }
 }
 
-def canonicalVersionCode = 684
-def canonicalVersionName = "4.68.3"
+def canonicalVersionCode = 694
+def canonicalVersionName = "4.69.4"
 
 def postFixSize = 10
 def abiPostFix = ['universal'   : 0,
@@ -217,7 +217,7 @@ android {
             buildConfigField "String", "SIGNAL_CDN2_URL", "\"https://cdn2-staging.signal.org\""
             buildConfigField "String", "SIGNAL_CONTACT_DISCOVERY_URL", "\"https://api-staging.directory.signal.org\""
             buildConfigField "String", "SIGNAL_KEY_BACKUP_URL", "\"https://api-staging.backup.signal.org\""
-            buildConfigField "String", "CDS_MRENCLAVE", "\"b657cad56d518827b0938949bb1e5727a9a4db358dd6a88e55e710a89ffa50bd\""
+            buildConfigField "String", "CDS_MRENCLAVE", "\"bd123560b01c8fa92935bc5ae15cd2064e5c45215f23f0bd40364d521329d2ad\""
             buildConfigField "String", "KBS_ENCLAVE_NAME", "\"823a3b2c037ff0cbe305cc48928cfcc97c9ed4a8ca6d49af6f7d6981fb60a4e9\""
             buildConfigField "String", "UNIDENTIFIED_SENDER_TRUST_ROOT", "\"BbqY1DzohE4NUZoVF+L18oUPrK3kILllLEJh2UnPSsEx\""
             buildConfigField "String", "ZKGROUP_SERVER_PUBLIC_PARAMS", "\"ABSY21VckQcbSXVNCGRYJcfWHiAMZmpTtTELcDmxgdFbtp/bWsSxZdMKzfCp8rvIs8ocCU3B37fT3r4Mi5qAemeGeR2X+/YmOGR5ofui7tD5mDQfstAI9i+4WpMtIe8KC3wU5w3Inq3uNWVmoGtpKndsNfwJrCg0Hd9zmObhypUnSkfYn2ooMOOnBpfdanRtrvetZUayDMSC5iSRcXKpdls=\""
@@ -230,7 +230,7 @@ android {
             buildConfigField "String", "SIGNAL_CDN2_URL", "\"https://cdn2.signal.org\""
             buildConfigField "String", "SIGNAL_CONTACT_DISCOVERY_URL", "\"https://api.directory.signal.org\""
             buildConfigField "String", "SIGNAL_KEY_BACKUP_URL", "\"https://api.backup.signal.org\""
-            buildConfigField "String", "CDS_MRENCLAVE", "\"cd6cfc342937b23b1bdd3bbf9721aa5615ac9ff50a75c5527d441cd3276826c9\""
+            buildConfigField "String", "CDS_MRENCLAVE", "\"bd123560b01c8fa92935bc5ae15cd2064e5c45215f23f0bd40364d521329d2ad\""
             buildConfigField "String", "KBS_ENCLAVE_NAME", "\"fe7c1bfae98f9b073d220366ea31163ee82f6d04bead774f71ca8e5c40847bfe\""
             buildConfigField "String", "UNIDENTIFIED_SENDER_TRUST_ROOT", "\"BXu6QIKVz5MA8gstzfOgRQGqyLqOwNKHL6INkv3IHWMF\""
             buildConfigField "String", "ZKGROUP_SERVER_PUBLIC_PARAMS", "\"AMhf5ywVwITZMsff/eCyudZx9JDmkkkbV6PInzG4p8x3VqVJSFiMvnvlEKWuRob/1eaIetR31IYeAbm0NdOuHH8Qi+Rexi1wLlpzIo1gstHWBfZzy1+qHRV5A4TqPp15YzBPm0WSggW6PbSn+F4lf57VCnHF7p8SvzAA2ZZJPYJURt8X7bbg+H3i+PEjH9DXItNEqs2sNcug37xZQDLm7X0=\""
@@ -369,11 +369,11 @@ dependencies {
 
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.assertj:assertj-core:3.11.1'
-    testImplementation 'org.mockito:mockito-core:1.9.5'
-    testImplementation 'org.powermock:powermock-api-mockito:1.6.5'
-    testImplementation 'org.powermock:powermock-module-junit4:1.6.5'
-    testImplementation 'org.powermock:powermock-module-junit4-rule:1.6.5'
-    testImplementation 'org.powermock:powermock-classloading-xstream:1.6.5'
+    testImplementation 'org.mockito:mockito-core:2.8.9'
+    testImplementation 'org.powermock:powermock-api-mockito2:1.7.4'
+    testImplementation 'org.powermock:powermock-module-junit4:1.7.4'
+    testImplementation 'org.powermock:powermock-module-junit4-rule:1.7.4'
+    testImplementation 'org.powermock:powermock-classloading-xstream:1.7.4'
 
     testImplementation 'androidx.test:core:1.2.0'
     testImplementation ('org.robolectric:robolectric:4.2') {
@@ -393,5 +393,15 @@ tasks.withType(Test) {
     testLogging {
         events "skipped", "passed", "failed"
         showStandardStreams true
+    }
+}
+
+tasks.withType(Test) {
+    testLogging {
+        events "failed"
+        exceptionFormat "full"
+        showCauses true
+        showExceptions true
+        showStackTraces true
     }
 }

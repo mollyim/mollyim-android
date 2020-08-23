@@ -2,31 +2,32 @@ package org.thoughtcrime.securesms.linkpreview;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+
 import androidx.annotation.NonNull;
-import android.text.Html;
-import android.text.TextUtils;
+import androidx.annotation.Nullable;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.FutureTarget;
 
 import org.thoughtcrime.securesms.attachments.Attachment;
 import org.thoughtcrime.securesms.attachments.UriAttachment;
 import org.thoughtcrime.securesms.database.AttachmentDatabase;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
-import org.thoughtcrime.securesms.giph.model.ChunkedImageUrl;
+import org.thoughtcrime.securesms.linkpreview.LinkPreviewUtil.OpenGraph;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.mms.GlideApp;
 import org.thoughtcrime.securesms.net.CallRequestController;
 import org.thoughtcrime.securesms.net.CompositeRequestController;
-import org.thoughtcrime.securesms.net.ContentProxySafetyInterceptor;
-import org.thoughtcrime.securesms.net.ContentProxySelector;
 import org.thoughtcrime.securesms.net.RequestController;
+import org.thoughtcrime.securesms.net.UserAgentInterceptor;
 import org.thoughtcrime.securesms.providers.BlobProvider;
 import org.thoughtcrime.securesms.stickers.StickerRemoteUri;
 import org.thoughtcrime.securesms.stickers.StickerUrl;
+import org.thoughtcrime.securesms.util.ByteUnit;
 import org.thoughtcrime.securesms.util.Hex;
 import org.thoughtcrime.securesms.util.MediaUtil;
+import org.thoughtcrime.securesms.util.OkHttpUtil;
 import org.thoughtcrime.securesms.util.concurrent.SignalExecutors;
 import org.whispersystems.libsignal.InvalidMessageException;
 import org.whispersystems.libsignal.util.Pair;
@@ -37,10 +38,8 @@ import org.whispersystems.signalservice.api.messages.SignalServiceStickerManifes
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.concurrent.CancellationException;
+import java.io.InputStream;
 import java.util.concurrent.ExecutionException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import okhttp3.CacheControl;
 import okhttp3.Call;
@@ -54,20 +53,22 @@ public class LinkPreviewRepository {
 
   private static final CacheControl NO_CACHE = new CacheControl.Builder().noCache().build();
 
+  private static final long FAILSAFE_MAX_TEXT_SIZE  = ByteUnit.MEGABYTES.toBytes(2);
+  private static final long FAILSAFE_MAX_IMAGE_SIZE = ByteUnit.MEGABYTES.toBytes(2);
+
   private final OkHttpClient client;
 
   public LinkPreviewRepository() {
     this.client = new OkHttpClient.Builder()
-                                  .proxySelector(new ContentProxySelector())
-                                  .addNetworkInterceptor(new ContentProxySafetyInterceptor())
                                   .cache(null)
+                                  .addInterceptor(new UserAgentInterceptor("WhatsApp"))
                                   .build();
   }
 
   RequestController getLinkPreview(@NonNull Context context, @NonNull String url, @NonNull Callback<Optional<LinkPreview>> callback) {
     CompositeRequestController compositeController = new CompositeRequestController();
 
-    if (!LinkPreviewUtil.isWhitelistedLinkUrl(url)) {
+    if (!LinkPreviewUtil.isValidPreviewUrl(url)) {
       Log.w(TAG, "Tried to get a link preview for a non-whitelisted domain.");
       callback.onComplete(Optional.absent());
       return compositeController;
@@ -89,7 +90,7 @@ public class LinkPreviewRepository {
           return;
         }
 
-        RequestController imageController = fetchThumbnail(context, metadata.getImageUrl().get(), attachment -> {
+        RequestController imageController = fetchThumbnail(metadata.getImageUrl().get(), attachment -> {
           if (!metadata.getTitle().isPresent() && !attachment.isPresent()) {
             callback.onComplete(Optional.absent());
           } else {
@@ -127,11 +128,12 @@ public class LinkPreviewRepository {
           return;
         }
 
-        String            body     = response.body().string();
-        Optional<String>  title    = getProperty(body, "title");
-        Optional<String>  imageUrl = getProperty(body, "image");
+        String           body      = OkHttpUtil.readAsString(response.body(), FAILSAFE_MAX_TEXT_SIZE);
+        OpenGraph        openGraph = LinkPreviewUtil.parseOpenGraphFields(body);
+        Optional<String> title     = openGraph.getTitle();
+        Optional<String> imageUrl  = openGraph.getImageUrl();
 
-        if (imageUrl.isPresent() && !LinkPreviewUtil.isWhitelistedMediaUrl(imageUrl.get())) {
+        if (imageUrl.isPresent() && !LinkPreviewUtil.isValidPreviewUrl(imageUrl.get())) {
           Log.i(TAG, "Image URL was invalid or for a non-whitelisted domain. Skipping.");
           imageUrl = Optional.absent();
         }
@@ -143,70 +145,38 @@ public class LinkPreviewRepository {
     return new CallRequestController(call);
   }
 
-  private @NonNull RequestController fetchThumbnail(@NonNull Context context, @NonNull String imageUrl, @NonNull Callback<Optional<Attachment>> callback) {
-    FutureTarget<Bitmap> bitmapFuture = GlideApp.with(context).asBitmap()
-                                                              .load(new ChunkedImageUrl(imageUrl))
-                                                              .skipMemoryCache(true)
-                                                              .diskCacheStrategy(DiskCacheStrategy.NONE)
-                                                              .centerInside()
-                                                              .submit(1024, 1024);
-
-    RequestController controller = () -> bitmapFuture.cancel(false);
+  private @NonNull RequestController fetchThumbnail(@NonNull String imageUrl, @NonNull Callback<Optional<Attachment>> callback) {
+    Call                  call       = client.newCall(new Request.Builder().url(imageUrl).build());
+    CallRequestController controller = new CallRequestController(call);
 
     SignalExecutors.UNBOUNDED.execute(() -> {
       try {
-        Bitmap                bitmap = bitmapFuture.get();
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        Response response = call.execute();
+        if (!response.isSuccessful() || response.body() == null) {
+          return;
+        }
 
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
+        InputStream bodyStream = response.body().byteStream();
+        controller.setStream(bodyStream);
 
-        byte[]               bytes     = baos.toByteArray();
-        Uri                  uri       = BlobProvider.getInstance().forData(bytes).createForSingleSessionInMemory();
-        Optional<Attachment> thumbnail = Optional.of(new UriAttachment(uri,
-                                                                       uri,
-                                                                       MediaUtil.IMAGE_JPEG,
-                                                                       AttachmentDatabase.TRANSFER_PROGRESS_STARTED,
-                                                                       bytes.length,
-                                                                       bitmap.getWidth(),
-                                                                       bitmap.getHeight(),
-                                                                       null,
-                                                                       null,
-                                                                       false,
-                                                                       false,
-                                                                       false,
-                                                                       null,
-                                                                       null,
-                                                                       null,
-                                                                       null,
-                                                                       null));
+        byte[]               data      = OkHttpUtil.readAsBytes(bodyStream, FAILSAFE_MAX_IMAGE_SIZE);
+        Bitmap               bitmap    = BitmapFactory.decodeByteArray(data, 0, data.length);
+        Optional<Attachment> thumbnail = bitmapToAttachment(bitmap, Bitmap.CompressFormat.JPEG, MediaUtil.IMAGE_JPEG);
 
         callback.onComplete(thumbnail);
-      } catch (CancellationException | ExecutionException | InterruptedException e) {
+      } catch (IOException e) {
+        Log.w(TAG, "Exception during link preview image retrieval.", e);
         controller.cancel();
         callback.onComplete(Optional.absent());
-      } finally {
-        bitmapFuture.cancel(false);
       }
     });
 
-    return () -> bitmapFuture.cancel(true);
+    return controller;
   }
 
-  private @NonNull Optional<String> getProperty(@NonNull String searchText, @NonNull String property) {
-    Pattern pattern = Pattern.compile("<\\s*meta\\s+property\\s*=\\s*\"\\s*og:" + property + "\\s*\"\\s+[^>]*content\\s*=\\s*\"(.*?)\"[^>]*/?\\s*>", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
-    Matcher matcher = pattern.matcher(searchText);
-
-    if (matcher.find()) {
-      String text = Html.fromHtml(matcher.group(1)).toString();
-      return TextUtils.isEmpty(text) ? Optional.absent() : Optional.of(text);
-    }
-
-    return Optional.absent();
-  }
-
-  private RequestController fetchStickerPackLinkPreview(@NonNull Context context,
-                                                        @NonNull String packUrl,
-                                                        @NonNull Callback<Optional<LinkPreview>> callback)
+  private static RequestController fetchStickerPackLinkPreview(@NonNull Context context,
+                                                               @NonNull String packUrl,
+                                                               @NonNull Callback<Optional<LinkPreview>> callback)
   {
     SignalExecutors.UNBOUNDED.execute(() -> {
       try {
@@ -232,29 +202,7 @@ public class LinkPreviewRepository {
                                                 .submit(512, 512)
                                                 .get();
 
-          ByteArrayOutputStream baos = new ByteArrayOutputStream();
-
-          bitmap.compress(Bitmap.CompressFormat.WEBP, 80, baos);
-
-          byte[]               bytes     = baos.toByteArray();
-          Uri                  uri       = BlobProvider.getInstance().forData(bytes).createForSingleSessionInMemory();
-          Optional<Attachment> thumbnail = Optional.of(new UriAttachment(uri,
-                                                       uri,
-                                                       MediaUtil.IMAGE_WEBP,
-                                                       AttachmentDatabase.TRANSFER_PROGRESS_STARTED,
-                                                       bytes.length,
-                                                       bitmap.getWidth(),
-                                                       bitmap.getHeight(),
-                                                       null,
-                                                       null,
-                                                       false,
-                                                       false,
-                                                       false,
-                                                       null,
-                                                       null,
-                                                       null,
-                                                       null,
-                                                       null));
+          Optional<Attachment> thumbnail = bitmapToAttachment(bitmap, Bitmap.CompressFormat.WEBP, MediaUtil.IMAGE_WEBP);
 
           callback.onComplete(Optional.of(new LinkPreview(packUrl, title, thumbnail)));
         } else {
@@ -267,6 +215,40 @@ public class LinkPreviewRepository {
     });
 
     return () -> Log.i(TAG, "Cancelled sticker pack link preview fetch -- no effect.");
+  }
+
+  private static Optional<Attachment> bitmapToAttachment(@Nullable Bitmap bitmap,
+                                                         @NonNull Bitmap.CompressFormat format,
+                                                         @NonNull String contentType)
+  {
+    if (bitmap == null) {
+      return Optional.absent();
+    }
+
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+    bitmap.compress(format, 80, baos);
+
+    byte[] bytes = baos.toByteArray();
+    Uri    uri   = BlobProvider.getInstance().forData(bytes).createForSingleSessionInMemory();
+
+    return Optional.of(new UriAttachment(uri,
+                                         uri,
+                                         contentType,
+                                         AttachmentDatabase.TRANSFER_PROGRESS_STARTED,
+                                         bytes.length,
+                                         bitmap.getWidth(),
+                                         bitmap.getHeight(),
+                                         null,
+                                         null,
+                                         false,
+                                         false,
+                                         false,
+                                         null,
+                                         null,
+                                         null,
+                                         null,
+                                         null));
   }
 
   private static class Metadata {

@@ -3,6 +3,7 @@ package org.thoughtcrime.securesms.messagerequests;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.WorkerThread;
 import androidx.core.util.Consumer;
 
 import org.signal.storageservice.protos.groups.local.DecryptedGroup;
@@ -67,20 +68,29 @@ final class MessageRequestRepository {
   }
 
   void getMessageRequestState(@NonNull Recipient recipient, long threadId, @NonNull Consumer<MessageRequestState> state) {
-    executor.execute(() -> {
-      if (recipient.isPushV2Group()) {
-        boolean pendingMember = DatabaseFactory.getGroupDatabase(context)
-                                               .isPendingMember(recipient.requireGroupId().requireV2(), Recipient.self());
-        state.accept(pendingMember ? MessageRequestState.UNACCEPTED
-                                   : MessageRequestState.ACCEPTED);
-      } else if (!RecipientUtil.isMessageRequestAccepted(context, threadId)) {
-        state.accept(MessageRequestState.UNACCEPTED);
-      } else if (RecipientUtil.isPreMessageRequestThread(context, threadId) && !RecipientUtil.isLegacyProfileSharingAccepted(recipient)) {
-        state.accept(MessageRequestState.LEGACY);
-      } else {
-        state.accept(MessageRequestState.ACCEPTED);
+    executor.execute(() -> state.accept(findMessageRequestState(recipient, threadId)));
+  }
+
+  @WorkerThread
+  private MessageRequestState findMessageRequestState(@NonNull Recipient recipient, long threadId) {
+    if (!RecipientUtil.isMessageRequestAccepted(context, threadId)) {
+      if (recipient.isGroup()) {
+        GroupDatabase.MemberLevel memberLevel = DatabaseFactory.getGroupDatabase(context)
+                                                               .getGroup(recipient.getId())
+                                                               .transform(g -> g.memberLevel(Recipient.self()))
+                                                               .or(GroupDatabase.MemberLevel.NOT_A_MEMBER);
+
+        if (memberLevel == GroupDatabase.MemberLevel.NOT_A_MEMBER) {
+          return MessageRequestState.NOT_REQUIRED;
+        }
       }
-    });
+
+      return MessageRequestState.REQUIRED;
+    } else if (RecipientUtil.isPreMessageRequestThread(context, threadId) && !RecipientUtil.isLegacyProfileSharingAccepted(recipient)) {
+      return MessageRequestState.LEGACY;
+    } else {
+      return MessageRequestState.NOT_REQUIRED;
+    }
   }
 
   void acceptMessageRequest(@NonNull LiveRecipient liveRecipient,
@@ -223,6 +233,19 @@ final class MessageRequestRepository {
   }
 
   enum MessageRequestState {
-    ACCEPTED, UNACCEPTED, LEGACY
+    /**
+     * Message request permission does not need to be gained at this time.
+     * <p>
+     * Either:
+     * - Explicit message request has been accepted, or;
+     * - Did not need to be shown because they are a contact etc, or;
+     * - It's a group that they are no longer in or invited to.
+     */
+    NOT_REQUIRED,
+
+    /** Explicit message request permission is required. */
+    REQUIRED,
+
+    LEGACY
   }
 }

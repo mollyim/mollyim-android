@@ -31,19 +31,21 @@ import org.thoughtcrime.securesms.util.concurrent.SignalExecutors;
 import org.thoughtcrime.securesms.util.livedata.LiveDataUtil;
 import org.thoughtcrime.securesms.util.paging.Invalidator;
 
+import java.util.Objects;
+
 class ConversationListViewModel extends ViewModel {
 
   private static final String TAG = Log.tag(ConversationListViewModel.class);
 
-  private final Application                   application;
-  private final MutableLiveData<Megaphone>    megaphone;
-  private final MutableLiveData<SearchResult> searchResult;
-  private final LiveData<ConversationList>    conversationList;
-  private final SearchRepository              searchRepository;
-  private final MegaphoneRepository           megaphoneRepository;
-  private final Debouncer                     debouncer;
-  private final ContentObserver               observer;
-  private final Invalidator                   invalidator;
+  private final Application                       application;
+  private final MutableLiveData<Megaphone>        megaphone;
+  private final MutableLiveData<SearchResult>     searchResult;
+  private final LiveData<ConversationList>        conversationList;
+  private final SearchRepository                  searchRepository;
+  private final MegaphoneRepository               megaphoneRepository;
+  private final Debouncer                         debouncer;
+  private final ContentObserver                   observer;
+  private final Invalidator                       invalidator;
 
   private String lastQuery;
 
@@ -86,16 +88,21 @@ class ConversationListViewModel extends ViewModel {
       MutableLiveData<ConversationList> updated = new MutableLiveData<>();
 
       if (isArchived) {
-        updated.postValue(new ConversationList(conversation, 0));
+        updated.postValue(new ConversationList(conversation, 0, 0));
       } else {
         SignalExecutors.BOUNDED.execute(() -> {
           int archiveCount = DatabaseFactory.getThreadDatabase(application).getArchivedConversationListCount();
-          updated.postValue(new ConversationList(conversation, archiveCount));
+          int pinnedCount  = DatabaseFactory.getThreadDatabase(application).getPinnedConversationListCount();
+          updated.postValue(new ConversationList(conversation, archiveCount, pinnedCount));
         });
       }
 
       return updated;
     });
+  }
+
+  public LiveData<Boolean> hasNoConversations() {
+    return Transformations.map(getConversationList(), ConversationList::isEmpty);
   }
 
   @NonNull LiveData<SearchResult> getSearchResult() {
@@ -108,6 +115,10 @@ class ConversationListViewModel extends ViewModel {
 
   @NonNull LiveData<ConversationList> getConversationList() {
     return conversationList;
+  }
+
+  public int getPinnedCount() {
+    return Objects.requireNonNull(getConversationList().getValue()).pinnedCount;
   }
 
   void onVisible() {
@@ -168,10 +179,12 @@ class ConversationListViewModel extends ViewModel {
   final static class ConversationList {
     private final PagedList<Conversation> conversations;
     private final int                     archivedCount;
+    private final int                     pinnedCount;
 
-    ConversationList(PagedList<Conversation> conversations, int archivedCount) {
+    ConversationList(PagedList<Conversation> conversations, int archivedCount, int pinnedCount) {
       this.conversations = conversations;
       this.archivedCount = archivedCount;
+      this.pinnedCount   = pinnedCount;
     }
 
     PagedList<Conversation> getConversations() {
@@ -180,6 +193,10 @@ class ConversationListViewModel extends ViewModel {
 
     int getArchivedCount() {
       return archivedCount;
+    }
+
+    public int getPinnedCount() {
+      return pinnedCount;
     }
 
     boolean isEmpty() {

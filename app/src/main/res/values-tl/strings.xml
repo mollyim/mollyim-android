@@ -370,6 +370,9 @@
   <!--GV2 access levels-->
   <!--GV2 invites sent-->
   <string name="GroupManagement_learn_more">Matuto pa</string>
+  <!--LinkPreviewsMegaphone-->
+  <string name="LinkPreviewsMegaphone_disable">Huwag Paganahin</string>
+  <!--LinkPreviewView-->
   <!--PendingMembersActivity-->
   <string name="PendingMembersActivity_people_you_invited">Mga taong iyong inimbitahan</string>
   <string name="PendingMembersActivity_invites_by_other_group_members">Mga imbitasyon ng iba pang mga kasapi ng grupo</string>
@@ -381,6 +384,7 @@
   <string name="AddGroupDetailsFragment__members">Mga Kasapi</string>
   <string name="AddGroupDetailsFragment__group_name_required">Pangalan ng Grupo (kailangan)</string>
   <string name="AddGroupDetailsFragment__remove">Tanggalin</string>
+  <!--NonGv2MemberDialog-->
   <!--ManageGroupActivity-->
   <string name="ManageGroupActivity_disappearing_messages">Mga naglalahong mensahe</string>
   <string name="ManageGroupActivity_add_members">Magdagdag ng mga kasapi</string>
@@ -391,6 +395,7 @@
   <string name="ManageGroupActivity_on">On</string>
   <string name="ManageGroupActivity_view_all_members">Tignan ang lahat ng mga kasapi</string>
   <string name="ManageGroupActivity_none">Wala</string>
+  <!--GroupMentionSettingDialog-->
   <!--ManageRecipientActivity-->
   <string name="ManageRecipientActivity_disappearing_messages">Mga naglalahong mensahe</string>
   <string name="ManageRecipientActivity_block">I-block</string>
@@ -411,7 +416,9 @@
   <string name="CustomNotificationsDialogFragment__enabled">Naka-enable</string>
   <string name="CustomNotificationsDialogFragment__disabled">Naka-disable</string>
   <string name="CustomNotificationsDialogFragment__default">Default</string>
-  <!--GV2 Invite cancellation confirmation-->
+  <!--GV2 Invite Revoke confirmation dialog-->
+  <!--GroupJoinBottomSheetDialogFragment-->
+  <!--GroupJoinUpdateRequiredBottomSheetDialogFragment-->
   <!--CropImageActivity-->
   <string name="CropImageActivity_group_avatar">Avatar ng grupo</string>
   <string name="CropImageActivity_profile_avatar">Avatar</string>
@@ -564,7 +571,6 @@
   <!--GV2 invitations-->
   <string name="MessageRecord_you_were_invited_to_the_group">Ikaw ay inimbitahan sa grupo.</string>
   <!--GV2 invitation revokes-->
-  <string name="MessageRecord_your_invitation_to_the_group_was_revoked">Ang iyong imbitasyon sa grupo ay binawi.</string>
   <!--GV2 invitation acceptance-->
   <!--GV2 title change-->
   <!--GV2 avatar change-->
@@ -591,10 +597,6 @@
   <plurals name="MessageRequestProfileView_members_and_invited">
     <item quantity="one">%1$d na kasapi (+%2$d na inimbitahan)</item>
     <item quantity="other">%1$d na mga kasapi (+%2$d na inimbitahan)</item>
-  </plurals>
-  <plurals name="MessageRequestProfileView_member_of_others">
-    <item quantity="one">%d iba pa</item>
-    <item quantity="other">%d pang iba</item>
   </plurals>
   <!--PassphraseChangeActivity-->
   <string name="PassphraseChangeActivity_passphrases_dont_match_exclamation">Hindi tugma ang mga passphrase!</string>
@@ -887,8 +889,6 @@
   <string name="MmsMessageRecord_mms_message_encrypted_for_non_existing_session">Ang MMS na mensahe ay naka-encrypt para sa hindi-umiiral na sesyon</string>
   <!--MuteDialog-->
   <string name="MuteDialog_mute_notifications">Patahimikin ang mga notipikasyon</string>
-  <!--OutdatedBuildReminder-->
-  <string name="OutdatedBuildReminder_no_web_browser_installed">Walang web browser na naka-install!</string>
   <!--ApplicationMigrationService-->
   <string name="ApplicationMigrationService_import_in_progress">Isinasagawa ang pag-i-import</string>
   <string name="ApplicationMigrationService_importing_text_messages">Ini-import ang mga text message</string>
@@ -1324,8 +1324,6 @@
   <string name="preferences__use_signal_for_viewing_and_storing_all_incoming_multimedia_messages">Gamitin ang Signal para sa lahat ng paparating na multimedia na mensahe</string>
   <string name="preferences__pref_enter_sends_title">Nagpapadala ang Enter key</string>
   <string name="preferences__pressing_the_enter_key_will_send_text_messages">Magpapadala ng mga text message kapag pinindot ang Enter key</string>
-  <string name="preferences__send_link_previews">Ipadala ang mga preview ng link</string>
-  <string name="preferences__previews_are_supported_for">Ang mga preview ay suportado para sa mga link ng Imgur, Instagram, Pinterest, Reddit, at YouTube</string>
   <string name="preferences__choose_identity">Pumili ng pagkakakilanlan</string>
   <string name="preferences__choose_your_contact_entry_from_the_contacts_list">Piliin ang entry ng iyong kontak mula sa listahan ng mga kontak.</string>
   <string name="preferences__change_passphrase">Baguhin ang passphrase</string>
@@ -1474,6 +1472,7 @@
   <!--conversation_list-->
   <string name="conversation_list_settings_shortcut">Shortcut ng settings</string>
   <string name="conversation_list_search_description">Maghanap</string>
+  <string name="conversation_list__chats">Mga chat</string>
   <!--conversation_list_item_view-->
   <string name="conversation_list_item_view__contact_photo_image">Larawang Imahe ng Kontak</string>
   <string name="conversation_list_item_view__archived">Nai-archive</string>
@@ -1659,6 +1658,7 @@
   <string name="KbsMegaphone__update_pin">I-update ang PIN</string>
   <string name="KbsMegaphone__well_remind_you_later_creating_a_pin">Paaalalahanan ka namin kinalaunan. Ang paglikha ng PIN ay magiging sapilitan sa loob ng %1$d araw.</string>
   <string name="KbsMegaphone__well_remind_you_later_confirming_your_pin">Paaalalahanan ka namin kinalaunan. Ang pagkumpirma ng iyong PIN ay magiging sapilitan sa loob ng %1$d araw.</string>
+  <!--Mention Megaphone-->
   <!--transport_selection_list_item-->
   <string name="transport_selection_list_item__transport_icon">Icon ng transportasyon</string>
   <string name="ConversationListFragment_loading">Naglo-load…</string>

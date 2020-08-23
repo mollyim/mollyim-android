@@ -425,7 +425,6 @@
   <!--GroupMembersDialog-->
   <string name="GroupMembersDialog_you">אתה</string>
   <!--GV2 access levels-->
-  <string name="GroupManagement_access_level_anyone">כל אחד</string>
   <string name="GroupManagement_access_level_all_members">כל חברי הקבוצה</string>
   <string name="GroupManagement_access_level_only_admins">רק מנהלנים</string>
   <!--GV2 invites sent-->
@@ -438,6 +437,12 @@
   <string name="GroupManagement_invite_single_user">“%1$s” אינו יכול להתווסף באופן אוטומטי אל קבוצה זו על ידך.\n\nהוא הוזמן להצטרף, ולא יראה הודעות קבוצה כלשהן עד שהוא יסכים.</string>
   <string name="GroupManagement_learn_more">למד עוד</string>
   <string name="GroupManagement_invite_multiple_users">משתמשים אלו אינם יכולים להתווסף באופן אוטומטי אל קבוצה זו על ידך.\n\nהם הוזמנו להצטרף אל הקבוצה, ולא יראו הודעות קבוצה כלשהן עד שהם יסכימו.</string>
+  <!--LinkPreviewsMegaphone-->
+  <string name="LinkPreviewsMegaphone_disable">השבת</string>
+  <string name="LinkPreviewsMegaphone_preview_any_link">הצג מראש כל קישור שהוא</string>
+  <string name="LinkPreviewsMegaphone_you_can_now_retrieve_link_previews_directly_from_any_website">אתה יכול כעת לאחזר תצוגות מקדימות של קישורים ישירות מכל אתר עבור הודעות שאתה שולח.</string>
+  <!--LinkPreviewView-->
+  <string name="LinkPreviewView_no_link_preview_available">תצוגה מקדימה של קישור אינה זמינה</string>
   <!--PendingMembersActivity-->
   <string name="PendingMemberInvitesActivity_pending_group_invites">הזמנות קבוצה ממתינות</string>
   <string name="PendingMembersActivity_people_you_invited">אנשים שהזמנת</string>
@@ -445,19 +450,19 @@
   <string name="PendingMembersActivity_invites_by_other_group_members">הזמנות ע״י חברי קבוצה אחרים</string>
   <string name="PendingMembersActivity_no_pending_invites_by_other_group_members">אין הזמנות ממתינות על ידי חברי קבוצה אחרים.</string>
   <string name="PendingMembersActivity_missing_detail_explanation">פרטים של אנשים שהוזמנו על ידי חברי קבוצה אחרים אינם נראים. אם מוזמנים בוחרים להצטרף, המידע שלהם ישותף עם הקבוצה בזמן ההצטרפות. הם לא יראו הודעות כלשהן בקבוצה עד שהם יצטרפו.</string>
-  <string name="PendingMembersActivity_cancel_invite">בטל הזמנה</string>
-  <string name="PendingMembersActivity_cancel_invites">בטל הזמנות</string>
-  <plurals name="PendingMembersActivity_cancel_d_invites">
-    <item quantity="one">בטל הזמנה</item>
-    <item quantity="two">בטל %1$d הזמנות</item>
-    <item quantity="many">בטל %1$d הזמנות</item>
-    <item quantity="other">בטל %1$d הזמנות</item>
+  <string name="PendingMembersActivity_revoke_invite">שלול הזמנה</string>
+  <string name="PendingMembersActivity_revoke_invites">שלול הזמנות</string>
+  <plurals name="PendingMembersActivity_revoke_d_invites">
+    <item quantity="one">שלול הזמנה</item>
+    <item quantity="two">שלול %1$d הזמנות</item>
+    <item quantity="many">שלול %1$d הזמנות</item>
+    <item quantity="other">שלול %1$d הזמנות</item>
   </plurals>
-  <plurals name="PendingMembersActivity_error_canceling_invite">
-    <item quantity="one">שגיאה בביטול הזמנה</item>
-    <item quantity="two">שגיאה בביטול הזמנות</item>
-    <item quantity="many">שגיאה בביטול הזמנות</item>
-    <item quantity="other">שגיאה בביטול הזמנות</item>
+  <plurals name="PendingMembersActivity_error_revoking_invite">
+    <item quantity="one">שגיאה בשלילת הזמנה</item>
+    <item quantity="two">שגיאה בשלילת הזמנות</item>
+    <item quantity="many">שגיאה בשלילת הזמנות</item>
+    <item quantity="other">שגיאה בשלילת הזמנות</item>
   </plurals>
   <!--AddMembersActivity-->
   <string name="AddMembersActivity__done">סיים</string>
@@ -482,6 +487,20 @@
   <string name="AddGroupDetailsFragment__remove">הסר</string>
   <string name="AddGroupDetailsFragment__sms_contact">שלח מסרון אל איש קשר</string>
   <string name="AddGroupDetailsFragment__remove_s_from_this_group">להסיר את %1$s מקבוצה זו?</string>
+  <plurals name="AddGroupDetailsFragment__d_members_do_not_support_new_groups">
+    <item quantity="one">חבר קבוצה %d אינו תומך בקבוצות חדשות, כך שקבוצה זו תהיה קבוצה מיושנת.</item>
+    <item quantity="two">%d חברי קבוצה אינם תומכים בקבוצות חדשות, כך שקבוצה זו תהיה קבוצה מיושנת.</item>
+    <item quantity="many">%d חברי קבוצה אינם תומכים בקבוצות חדשות, כך שקבוצה זו תהיה קבוצה מיושנת.</item>
+    <item quantity="other">%d חברי קבוצה אינם תומכים בקבוצות חדשות, כך שקבוצה זו תהיה קבוצה מיושנת.</item>
+  </plurals>
+  <!--NonGv2MemberDialog-->
+  <string name="NonGv2MemberDialog_single_users_are_non_gv2_capable">קבוצה מיושנת תיוצר כי \"%1$s\" משתמש בגרסה ישנה של Signal. אתה יכול ליצור קבוצה בסגנון חדש איתו לאחר שהוא יעדכן את Signal, או להסיר אותו לפני יצירת הקבוצה.</string>
+  <plurals name="NonGv2MemberDialog_d_users_are_non_gv2_capable">
+    <item quantity="one">קבוצה מיושנת תיוצר כי חבר קבוצה %1$d משתמש בגרסה ישנה של Signal. אתה יכול ליצור קבוצה בסגנון חדש איתו לאחר שהוא יעדכן את Signal, או להסיר אותו לפני יצירת הקבוצה.</item>
+    <item quantity="two">קבוצה מיושנת תיוצר כי %1$d חברי קבוצה משתמשים בגרסה ישנה של Signal. אתה יכול ליצור קבוצה בסגנון חדש איתם לאחר שהם יעדכנו את Signal, או להסיר אותם לפני יצירת הקבוצה.</item>
+    <item quantity="many">קבוצה מיושנת תיוצר כי %1$d חברי קבוצה משתמשים בגרסה ישנה של Signal. אתה יכול ליצור קבוצה בסגנון חדש איתם לאחר שהם יעדכנו את Signal, או להסיר אותם לפני יצירת הקבוצה.</item>
+    <item quantity="other">קבוצה מיושנת תיוצר כי %1$d חברי קבוצה משתמשים בגרסה ישנה של Signal. אתה יכול ליצור קבוצה בסגנון חדש איתם לאחר שהם יעדכנו את Signal, או להסיר אותם לפני יצירת הקבוצה.</item>
+  </plurals>
   <!--ManageGroupActivity-->
   <string name="ManageGroupActivity_disappearing_messages">הודעות נעלמות</string>
   <string name="ManageGroupActivity_pending_group_invites">הזמנות קבוצה ממתינות</string>
@@ -494,6 +513,7 @@
   <string name="ManageGroupActivity_leave_group">עזוב קבוצה</string>
   <string name="ManageGroupActivity_mute_notifications">השתק התראות</string>
   <string name="ManageGroupActivity_custom_notifications">התראות מותאמות אישית</string>
+  <string name="ManageGroupActivity_mentions">אזכורים</string>
   <string name="ManageGroupActivity_until_s">עד %1$s</string>
   <string name="ManageGroupActivity_off">כבוי</string>
   <string name="ManageGroupActivity_on">מופעל</string>
@@ -521,6 +541,13 @@
   <string name="ManageGroupActivity_edit_name_and_picture">ערוך שם ותמונה</string>
   <string name="ManageGroupActivity_legacy_group">קבוצה מיושנת</string>
   <string name="ManageGroupActivity_legacy_group_learn_more">זוהי קבוצה מיושנת. כדי להשיג גישה אל מאפיינים כמו מנהלני קבוצה, צור קבוצה חדשה.</string>
+  <!--GroupMentionSettingDialog-->
+  <string name="GroupMentionSettingDialog_notify_me_for_mentions">יידע אותי לגבי אזכורים</string>
+  <string name="GroupMentionSettingDialog_receive_notifications_when_youre_mentioned_in_muted_chats">לקבל התראות כאשר אתה מוזכר בהתכתבויות מושתקות?</string>
+  <string name="GroupMentionSettingDialog_default_notify_me">ברירת מחדל (יידע אותי)</string>
+  <string name="GroupMentionSettingDialog_default_dont_notify_me">ברירת מחדל (אל תיידע אותי)</string>
+  <string name="GroupMentionSettingDialog_always_notify_me">יידע אותי תמיד</string>
+  <string name="GroupMentionSettingDialog_dont_notify_me">אל תיידע אותי</string>
   <!--ManageRecipientActivity-->
   <string name="ManageRecipientActivity_add_to_system_contacts">הוסף לאנשי קשר של המערכת</string>
   <string name="ManageRecipientActivity_this_person_is_in_your_contacts">איש זה נמצא באנשי הקשר שלך</string>
@@ -566,14 +593,20 @@
   <string name="CustomNotificationsDialogFragment__enabled">מאופשר</string>
   <string name="CustomNotificationsDialogFragment__disabled">מושבת</string>
   <string name="CustomNotificationsDialogFragment__default">ברירת מחדל</string>
-  <!--GV2 Invite cancellation confirmation-->
-  <string name="GroupManagement_cancel_own_single_invite">האם אתה רוצה לבטל את ההזמנה ששלחת אל %1$s?</string>
-  <plurals name="GroupManagement_cancel_others_invites">
-    <item quantity="one">האם אתה רוצה לבטל את ההזמנה שנשלחה על ידי %1$s?</item>
-    <item quantity="two">האם אתה רוצה לבטל %2$d הזמנות שנשלחו על ידי %1$s?</item>
-    <item quantity="many">האם אתה רוצה לבטל %2$d הזמנות שנשלחו על ידי %1$s?</item>
-    <item quantity="other">האם אתה רוצה לבטל %2$d הזמנות שנשלחו על ידי %1$s?</item>
+  <!--GV2 Invite Revoke confirmation dialog-->
+  <string name="InviteRevokeConfirmationDialog_revoke_own_single_invite">האם אתה רוצה לשלול את ההזמנה ששלחת אל %1$s?</string>
+  <plurals name="InviteRevokeConfirmationDialog_revoke_others_invites">
+    <item quantity="one">האם אתה רוצה לשלול את ההזמנה שנשלחה על ידי %1$s?</item>
+    <item quantity="two">האם אתה רוצה לשלול את %2$d ההזמנות שנשלחו על ידי %1$s?</item>
+    <item quantity="many">האם אתה רוצה לשלול את %2$d ההזמנות שנשלחו על ידי %1$s?</item>
+    <item quantity="other">האם אתה רוצה לשלול את %2$d ההזמנות שנשלחו על ידי %1$s?</item>
   </plurals>
+  <!--GroupJoinBottomSheetDialogFragment-->
+  <string name="GroupJoinBottomSheetDialogFragment_you_are_already_a_member">את/ה כבר חבר/ת קבוצה</string>
+  <!--GroupJoinUpdateRequiredBottomSheetDialogFragment-->
+  <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_signal_to_use_group_links">עדכן את Signal כדי להשתמש בקישורי קבוצה</string>
+  <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_message">הגרסה של Signal שאתה משתמש בה אינה תומכת בקישורי קבוצה שניתנים לשיתוף. עדכן אל הגרסה האחרונה כדי להצטרף אל קבוצה זו באמצעות קישור.</string>
+  <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_signal">עדכן את Signal</string>
   <!--CropImageActivity-->
   <string name="CropImageActivity_group_avatar">יצגן קבוצה</string>
   <string name="CropImageActivity_profile_avatar">יצגן</string>
@@ -796,7 +829,8 @@
   </plurals>
   <string name="MessageRecord_someone_declined_an_invitation_to_the_group">מישהו דחה הזמנה אל הקבוצה.</string>
   <string name="MessageRecord_you_declined_the_invitation_to_the_group">סירבת אל ההזמנה אל הקבוצה.</string>
-  <string name="MessageRecord_your_invitation_to_the_group_was_revoked">ההזמנה שלך אל הקבוצה נשללה.</string>
+  <string name="MessageRecord_s_revoked_your_invitation_to_the_group">%1$s שלל את ההזמנה שלך אל הקבוצה.</string>
+  <string name="MessageRecord_an_admin_revoked_your_invitation_to_the_group">מנהלן שלל את ההזמנה שלך אל הקבוצה.</string>
   <plurals name="MessageRecord_d_invitations_were_revoked">
     <item quantity="one">הזמנה אל הקבוצה נשללה.</item>
     <item quantity="two">%1$d הזמנות אל הקבוצה נשללו.</item>
@@ -838,7 +872,6 @@
   <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_they_wont_know_youve_seen_their_messages_until_you_accept">לאפשר אל %1$s לשלוח אליך הודעות? הצד השני לא יידע שראית את ההודעות שלו עד שלא תסכים.</string>
   <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them">לאפשר אל %1$s לשלוח אליך הודעות ולשתף את השם והתמונה שלך איתו/איתה? לא תקבל הודעות כלשהן עד שלא תבטל חסימה שלו/שלה.</string>
   <string name="MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">להצטרף אל קבוצה זו ולשתף את השם והתמונה שלך עם חברי הקבוצה? חברי הקבוצה לא יידעו שראית את ההודעה שלהם עד שלא תאשר.</string>
-  <string name="MessageRequestBottomView_you_were_invited_to_join_the_group_s">הוזמנת להצטרף אל הקבוצה %1$s. האם אתה רוצה לאפשר לחברי הקבוצה הזאת לשלוח לך הודעות?</string>
   <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">לבטל חסימת קבוצה זו ולשתף את השם והתמונה שלך עם חברי הקבוצה? לא תקבל הודעות כלשהן עד שלא תבטל חסימה.</string>
   <string name="MessageRequestProfileView_member_of_one_group">חבר קבוצה של %1$s</string>
   <string name="MessageRequestProfileView_member_of_two_groups">חבר קבוצה של %1$s ושל %2$s</string>
@@ -855,11 +888,11 @@
     <item quantity="many">%1$d חברי קבוצה (+%2$d הוזמנו)</item>
     <item quantity="other">%1$d חברי קבוצה (+%2$d הוזמנו)</item>
   </plurals>
-  <plurals name="MessageRequestProfileView_member_of_others">
-    <item quantity="one">אחר %d</item>
-    <item quantity="two">%d אחרים</item>
-    <item quantity="many">%d אחרים</item>
-    <item quantity="other">%d אחרים</item>
+  <plurals name="MessageRequestProfileView_member_of_d_additional_groups">
+    <item quantity="one">קבוצה %d נוספת</item>
+    <item quantity="two">%d קבוצות נוספות</item>
+    <item quantity="many">%d קבוצות נוספות</item>
+    <item quantity="other">%d קבוצות נוספות</item>
   </plurals>
   <!--PassphraseChangeActivity-->
   <string name="PassphraseChangeActivity_passphrases_dont_match_exclamation">משפטי־סיסמה אינם תואמים!</string>
@@ -1185,8 +1218,6 @@
   <string name="MmsMessageRecord_mms_message_encrypted_for_non_existing_session">הודעת MMS הוצפנה עבור שיח בלתי־קיים</string>
   <!--MuteDialog-->
   <string name="MuteDialog_mute_notifications">השתק התראות</string>
-  <!--OutdatedBuildReminder-->
-  <string name="OutdatedBuildReminder_no_web_browser_installed">אין דפדפן רשת מותקן!</string>
   <!--ApplicationMigrationService-->
   <string name="ApplicationMigrationService_import_in_progress">יבוא בתהליך</string>
   <string name="ApplicationMigrationService_importing_text_messages">מייבא הודעות טקסט</string>
@@ -1217,6 +1248,7 @@
   <string name="MessageNotifier_error_delivering_message">שגיאה במסירת הודעה.</string>
   <string name="MessageNotifier_mark_all_as_read">סמן שהכל נקרא</string>
   <string name="MessageNotifier_mark_read">סמן כנקרא</string>
+  <string name="MessageNotifier_turn_off_these_notifications">כבה התראות אלו</string>
   <string name="MessageNotifier_media_message">הודעת מדיה</string>
   <string name="MessageNotifier_sticker">מדבקה</string>
   <string name="MessageNotifier_view_once_photo">תמונה לצפייה חד־פעמית</string>
@@ -1237,6 +1269,7 @@
   <string name="MessageNotifier_reacted_s_to_your_view_once_video">הגיב עם %1$s אל הסרטון לצפייה חד־פעמית שלך.</string>
   <string name="MessageNotifier_reacted_s_to_your_sticker">הגיב עם %1$s אל המדבקה שלך.</string>
   <string name="MessageNotifier_this_message_was_deleted">הודעה זו נמחקה.</string>
+  <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">לכבות התראות של איש קשר הצטרף אל Signal? אתה יכול לאפשר אותן שוב דרך Signal &lt; הגדרות &lt; התראות.</string>
   <!--Notification Channels-->
   <string name="NotificationChannel_messages">ברירת מחדל</string>
   <string name="NotificationChannel_calls">שיחות</string>
@@ -1677,8 +1710,8 @@
   <string name="preferences__use_signal_for_viewing_and_storing_all_incoming_multimedia_messages">השתמש ב־Signal עבור כל הודעות המולטימדיה הנכנסות</string>
   <string name="preferences__pref_enter_sends_title">מקש Enter שולח</string>
   <string name="preferences__pressing_the_enter_key_will_send_text_messages">לחיצה על מקש Enter תישלח הודעות טקסט</string>
-  <string name="preferences__send_link_previews">שלח קדם־תצוגות של קישורים</string>
-  <string name="preferences__previews_are_supported_for">קדם־תצוגות נתמכות עבור קישורים של Imgur, Instagram, Pinterest, Reddit ו־YouTube</string>
+  <string name="preferences__generate_link_previews">חולל תצוגות מקדימות של קישורים</string>
+  <string name="preferences__retrieve_link_previews_from_websites_for_messages">אחזר תצוגות מקדימות של קישורים ישירות מאתרים עבור הודעות שאתה שולח.</string>
   <string name="preferences__choose_identity">בחר זהות</string>
   <string name="preferences__choose_your_contact_entry_from_the_contacts_list">בחר את כניסת איש הקשר שלך מתוך רשימת אנשי הקשר.</string>
   <string name="preferences__change_passphrase">שנה משפט־סיסמה</string>
@@ -1795,6 +1828,9 @@
   <string name="preferences_communication__sealed_sender_allow_from_anyone">התר מכל אחד</string>
   <string name="preferences_communication__sealed_sender_allow_from_anyone_description">אפשר שולח אטום עבור הודעות נכנסות מאת אי־אנשי קשר ומאת אנשים איתם לא שיתפת את הפרופיל שלך.</string>
   <string name="preferences_communication__sealed_sender_learn_more">למד עוד</string>
+  <string name="preferences_notifications__mentions">אזכורים</string>
+  <string name="preferences_notifications__notify_me">יידע אותי</string>
+  <string name="preferences_notifications__receive_notifications_when_youre_mentioned_in_muted_chats">קבל התראות כאשר אתה מוזכר בהתכתבויות מושתקות</string>
   <!--Internal only preferences-->
   <!--****************************************-->
   <!--menus-->
@@ -1826,6 +1862,8 @@
   <string name="conversation_insecure__invite">הזמן</string>
   <!--conversation_list_batch-->
   <string name="conversation_list_batch__menu_delete_selected">מחק נבחרים</string>
+  <string name="conversation_list_batch__menu_pin_selected">הצמד נבחרים</string>
+  <string name="conversation_list_batch__menu_unpin_selected">בטל הצמדת נבחרים</string>
   <string name="conversation_list_batch__menu_select_all">בחר הכל</string>
   <string name="conversation_list_batch_archive__menu_archive_selected">אחסן בארכיון נבחרים</string>
   <string name="conversation_list_batch_unarchive__menu_unarchive_selected">הוצא מארכיון נבחרים</string>
@@ -1835,6 +1873,9 @@
   <!--conversation_list-->
   <string name="conversation_list_settings_shortcut">קיצור דרך להגדרות</string>
   <string name="conversation_list_search_description">חפש</string>
+  <string name="conversation_list__pinned">מוצמד</string>
+  <string name="conversation_list__chats">התכתבויות</string>
+  <string name="conversation_list__you_can_only_pin_up_to_d_chats">אתה יכול להצמיד רק עד %1$d התכתבויות</string>
   <!--conversation_list_item_view-->
   <string name="conversation_list_item_view__contact_photo_image">תמונת איש קשר</string>
   <string name="conversation_list_item_view__archived">בארכיון</string>
@@ -2044,6 +2085,9 @@
   <string name="KbsMegaphone__update_pin">עדכן PIN</string>
   <string name="KbsMegaphone__well_remind_you_later_creating_a_pin">נזכיר לך מאוחר יותר. יצירת PIN תהיה חובה עוד %1$d ימים.</string>
   <string name="KbsMegaphone__well_remind_you_later_confirming_your_pin">נזכיר לך מאוחר יותר. אימות PIN יהיה חובה עוד %1$d ימים.</string>
+  <!--Mention Megaphone-->
+  <string name="MentionsMegaphone__introducing_mentions">היכרות עם @אזכורים</string>
+  <string name="MentionsMegaphone__get_someones_attention_in_a_group_by_typing">תפוס תשומת לב של מישהו ב\"קבוצה חדשה\" על ידי הקלדת @</string>
   <!--transport_selection_list_item-->
   <string name="transport_selection_list_item__transport_icon">צלמית תעבורה</string>
   <string name="ConversationListFragment_loading">טוען…</string>

@@ -548,7 +548,7 @@
   <!--GV2 invitations-->
   <string name="MessageRecord_you_were_invited_to_the_group">आपको ग्रूप से जुङने के लिये आमंत्रित किया गया था।</string>
   <!--GV2 invitation revokes-->
-  <string name="MessageRecord_your_invitation_to_the_group_was_revoked">आपका ग्रूप से जुङने का आमंत्रण वापस ले लिया गया है।</string>
+  <!-- Removed by excludeNonTranslatables <string name="MessageRecord_your_invitation_to_the_group_was_revoked">आपका ग्रूप से जुङने का आमंत्रण वापस ले लिया गया है।</string> -->
   <!--GV2 invitation acceptance-->
   <!--GV2 title change-->
   <!--GV2 avatar change-->
@@ -568,10 +568,10 @@
   <string name="MessageRequestProfileView_member_of_one_group">%1$s का सदस्य</string>
   <string name="MessageRequestProfileView_member_of_two_groups">%1$s और %2$s का सदस्य</string>
   <string name="MessageRequestProfileView_member_of_many_groups">%1$s, %2$s और %3$s का सदस्य</string>
-  <plurals name="MessageRequestProfileView_member_of_others">
+  <!-- Removed by excludeNonTranslatables <plurals name="MessageRequestProfileView_member_of_others">
     <item quantity="one">%d अन्य</item>
     <item quantity="other">%d अन्य</item>
-  </plurals>
+  </plurals> -->
   <!--PassphraseChangeActivity-->
   <string name="PassphraseChangeActivity_passphrases_dont_match_exclamation">पासफ्रेज़ मेल नहीं खाते हैं</string>
   <string name="PassphraseChangeActivity_incorrect_old_passphrase_exclamation">गलत पुराना पासफ्रेज</string>
@@ -839,7 +839,7 @@
   <!--MuteDialog-->
   <string name="MuteDialog_mute_notifications">नोटिफिकेशन म्यूट करें</string>
   <!--OutdatedBuildReminder-->
-  <string name="OutdatedBuildReminder_no_web_browser_installed">कोई वेब ब्राउज़र स्थापित नहीं है!</string>
+  <!-- Removed by excludeNonTranslatables <string name="OutdatedBuildReminder_no_web_browser_installed">कोई वेब ब्राउज़र स्थापित नहीं है!</string> -->
   <!--ApplicationMigrationService-->
   <string name="ApplicationMigrationService_import_in_progress">आयात किया जा रहा है</string>
   <string name="ApplicationMigrationService_importing_text_messages">टेक्स्ट मेसेज आयात किए जा रहे हैं</string>
@@ -1253,8 +1253,8 @@
   <string name="preferences__use_signal_for_viewing_and_storing_all_incoming_multimedia_messages">सभी आने वाले मल्टीमीडिया मेसेज के लिए Signal का उपयोग करें</string>
   <string name="preferences__pref_enter_sends_title">दर्ज की भेजता है</string>
   <string name="preferences__pressing_the_enter_key_will_send_text_messages">एंटर कुंजी दबाकर टेक्स्ट मेसेज भेजे जाएंगे</string>
-  <string name="preferences__send_link_previews">लिंक प्रिव्यु भेजें</string>
-  <string name="preferences__previews_are_supported_for">Imgur, Instagram, Pinterest, Reddit, और YouTube की लिंक्स का पूर्व दृश्य देखना संभव है</string>
+  <!-- Removed by excludeNonTranslatables <string name="preferences__send_link_previews">लिंक प्रिव्यु भेजें</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="preferences__previews_are_supported_for">Imgur, Instagram, Pinterest, Reddit, और YouTube की लिंक्स का पूर्व दृश्य देखना संभव है</string> -->
   <string name="preferences__choose_identity">पहचान का चयन करें</string>
   <string name="preferences__choose_your_contact_entry_from_the_contacts_list">संपर्क सूची से अपनी संपर्क प्रविष्टि चुनें।</string>
   <string name="preferences__change_passphrase">पासफ्रेज बदलें</string>

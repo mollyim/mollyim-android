@@ -46,6 +46,7 @@
   <string name="ApplicationPreferencesActivity_privacy_summary_screen_lock">স্ক্রিন লক %1$s</string>
   <string name="ApplicationPreferencesActivity_appearance_summary">%1$sথীম, %2$s ভাষা</string>
   <string name="ApplicationPreferencesActivity_pin_created">পিন তৈরি করা হয়েছে।</string>
+  <string name="ApplicationPreferencesActivity_pin_disabled">পিন নিষ্ক্রিয়।</string>
   <!--AppProtectionPreferenceFragment-->
   <plurals name="AppProtectionPreferenceFragment_minutes">
     <item quantity="one">%d মিনিট</item>
@@ -157,6 +158,7 @@
   <string name="ContactShareEditActivity_type_missing">অন্যান্য</string>
   <string name="ContactShareEditActivity_invalid_contact">নির্বাচিত পরিচিতিটি সঠিক নয়</string>
   <!--ConversationItem-->
+  <string name="ConversationItem_error_not_sent_tap_for_details">পাঠানো হয়নি, বিস্তারিত জানার জন্য টিপ দাও</string>
   <string name="ConversationItem_error_network_not_delivered">পাঠাতে ব্যর্থ</string>
   <string name="ConversationItem_received_key_exchange_message_tap_to_process">কী বিনিময়ের বার্তা পাওয়া গেছে, প্রক্রিয়া করতে আলতো চাপুন।</string>
   <string name="ConversationItem_group_action_left">%1$s গ্রুপ ত্যাগ করেছে।</string>
@@ -379,11 +381,13 @@
   <!--GroupMembersDialog-->
   <string name="GroupMembersDialog_you">আপনি</string>
   <!--GV2 access levels-->
-  <string name="GroupManagement_access_level_anyone">যেকেউ</string>
   <string name="GroupManagement_access_level_all_members">সকল সদস্য</string>
   <string name="GroupManagement_access_level_only_admins">শুধুমাত্র এডমিন</string>
   <!--GV2 invites sent-->
   <string name="GroupManagement_learn_more">আরও জানুন</string>
+  <!--LinkPreviewsMegaphone-->
+  <string name="LinkPreviewsMegaphone_disable">অক্ষম</string>
+  <!--LinkPreviewView-->
   <!--PendingMembersActivity-->
   <string name="PendingMemberInvitesActivity_pending_group_invites">অনিষ্পাদিত গ্রুপ নিমন্ত্রণসমূহ</string>
   <string name="PendingMembersActivity_people_you_invited">আপনার আমন্ত্রিত লোকেরা</string>
@@ -391,16 +395,6 @@
   <string name="PendingMembersActivity_invites_by_other_group_members">গ্রুপের অন্যান্য সদস্যদের আমন্ত্রণ</string>
   <string name="PendingMembersActivity_no_pending_invites_by_other_group_members">গ্রুপের অন্যান্য সদস্যবৃন্দ কর্তৃক কোন অনিষ্পাদিত আমন্ত্রণ নেই।</string>
   <string name="PendingMembersActivity_missing_detail_explanation">গ্রুপের অন্যান্য সদস্যদের দ্বারা আমন্ত্রিত লোকদের বিবরণ দেখানো হয় না। আমন্ত্রিতরা যদি যোগদান করেন, তখন তাদের তথ্য গ্রুপের সাথে শেয়ার করা হবে। যোগদান না করা পর্যন্ত তারা গ্রুপের কোনও বার্তা দেখতে পাবেন না।</string>
-  <string name="PendingMembersActivity_cancel_invite">আমন্ত্রণ বাতিল করুন</string>
-  <string name="PendingMembersActivity_cancel_invites">আমন্ত্রণ সমূহ বাতিল করুন</string>
-  <plurals name="PendingMembersActivity_cancel_d_invites">
-    <item quantity="one">আমন্ত্রণটি বাতিল করুন</item>
-    <item quantity="other">%1$d আমন্ত্রণটি বাতিল করুন</item>
-  </plurals>
-  <plurals name="PendingMembersActivity_error_canceling_invite">
-    <item quantity="one">আমন্ত্রণ বাতিল করতে সমস্যা হয়েছে</item>
-    <item quantity="other">আমন্ত্রণ বাতিল করতে সমস্যা হয়েছে</item>
-  </plurals>
   <!--AddMembersActivity-->
   <string name="AddMembersActivity__done">শেষ</string>
   <plurals name="AddMembersActivity__add_d_members_to_s">
@@ -421,6 +415,7 @@
   <string name="AddGroupDetailsFragment__remove">সরান</string>
   <string name="AddGroupDetailsFragment__sms_contact">এসএমএস কন্টাক্ট</string>
   <string name="AddGroupDetailsFragment__remove_s_from_this_group">%1$s কে এই গ্রুপ থেকে বের করে দিবেন?</string>
+  <!--NonGv2MemberDialog-->
   <!--ManageGroupActivity-->
   <string name="ManageGroupActivity_disappearing_messages">অদৃশ্য বার্তা</string>
   <string name="ManageGroupActivity_pending_group_invites">অনিষ্পাদিত গ্রুপ নিমন্ত্রণসমূহ</string>
@@ -449,6 +444,7 @@
   <string name="ManageGroupActivity_failed_to_update_the_group">গ্রুপ আপডেটকরণ ব্যার্থ হয়েছে</string>
   <string name="ManageGroupActivity_youre_not_a_member_of_the_group">আপনি গ্রুপটির সদস্য নন</string>
   <string name="ManageGroupActivity_edit_name_and_picture">নাম এবং ছবি সম্পাদনা করেন</string>
+  <!--GroupMentionSettingDialog-->
   <!--ManageRecipientActivity-->
   <string name="ManageRecipientActivity_disappearing_messages">অদৃশ্য বার্তা</string>
   <string name="ManageRecipientActivity_block">অবরূদ্ধ</string>
@@ -478,12 +474,10 @@
   <string name="CustomNotificationsDialogFragment__enabled">সক্রিয়</string>
   <string name="CustomNotificationsDialogFragment__disabled">নিষ্ক্রিয়</string>
   <string name="CustomNotificationsDialogFragment__default">সচারচর</string>
-  <!--GV2 Invite cancellation confirmation-->
-  <string name="GroupManagement_cancel_own_single_invite">%1$s কে আপনি যে আমন্ত্রণ জানিয়েছেন তা কি আপনি বাতিল করতে চান?</string>
-  <plurals name="GroupManagement_cancel_others_invites">
-    <item quantity="one">আপনি কী %1$s এর দ্বারা পাঠানো আমন্ত্রণটি বাতিল করতে চান?</item>
-    <item quantity="other">আপনি কী %1$s এর দ্বারা পাঠানো %2$d টি আমন্ত্রণ বাতিল করতে চান?</item>
-  </plurals>
+  <!--GV2 Invite Revoke confirmation dialog-->
+  <!--GroupJoinBottomSheetDialogFragment-->
+  <!--GroupJoinUpdateRequiredBottomSheetDialogFragment-->
+  <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_signal">Signal আপডেট করুন</string>
   <!--CropImageActivity-->
   <string name="CropImageActivity_group_avatar">গ্রুপের ছবি</string>
   <string name="CropImageActivity_profile_avatar">প্রোফাইলের ছবি</string>
@@ -670,7 +664,6 @@
   </plurals>
   <string name="MessageRecord_someone_declined_an_invitation_to_the_group">কেউ একজন এই গ্রুপের আমন্ত্রণ প্রত্যাখ্যান করেছে।</string>
   <string name="MessageRecord_you_declined_the_invitation_to_the_group">আপনি গ্রুপটির নিমন্ত্রণ প্রত্যাখ্যান করেছেন।</string>
-  <string name="MessageRecord_your_invitation_to_the_group_was_revoked">গ্রুপে আপনার আমন্ত্রণ বাতিল করা হয়েছিল।</string>
   <!--GV2 invitation acceptance-->
   <string name="MessageRecord_you_accepted_invite">আপনি গ্রুপটির নিমন্ত্রণ গ্রহণ করেছেন।</string>
   <string name="MessageRecord_s_accepted_invite">%1$s গ্রুপটির নিমন্ত্রণ গ্রহণ করেছেন।</string>
@@ -699,7 +692,6 @@
   <string name="MessageRequestBottomView_delete">মুছে দিন</string>
   <string name="MessageRequestBottomView_block">অবরূদ্ধ</string>
   <string name="MessageRequestBottomView_unblock">মূক্ত করুন</string>
-  <string name="MessageRequestBottomView_you_were_invited_to_join_the_group_s">আপনাকে %1$s গ্রুপে যোগ দেওয়ার আমন্ত্রণ জানানো হয়েছে। আপনি কি এই গ্রুপের সদস্যদেরকে আপনাকে বার্তা প্রেরণ করার অনুমতি দিতে চান?</string>
   <string name="MessageRequestProfileView_member_of_one_group">%1$sএর সদস্য</string>
   <string name="MessageRequestProfileView_member_of_two_groups">%1$s এবং %2$s এর সদস্য</string>
   <string name="MessageRequestProfileView_member_of_many_groups">%1$s, %2$s, এবং %3$s এর সদস্য</string>
@@ -710,10 +702,6 @@
   <plurals name="MessageRequestProfileView_members_and_invited">
     <item quantity="one"> %1$d জন সদস্য (+ %2$d জন আমন্ত্রিত)</item>
     <item quantity="other">%1$d জন সদস্য (+ %2$d জন আমন্ত্রিত)</item>
-  </plurals>
-  <plurals name="MessageRequestProfileView_member_of_others">
-    <item quantity="one">%dঅন্যান্য</item>
-    <item quantity="other">%d অন্যান্য</item>
   </plurals>
   <!--PassphraseChangeActivity-->
   <string name="PassphraseChangeActivity_passphrases_dont_match_exclamation">পাসফ্রেজ মিলছে না!</string>
@@ -1015,8 +1003,6 @@
   <string name="MmsMessageRecord_mms_message_encrypted_for_non_existing_session">অ-বিদ্যমান সেশনের জন্য এমএমএস বার্তা এনক্রিপ্ট করা</string>
   <!--MuteDialog-->
   <string name="MuteDialog_mute_notifications">বিজ্ঞপ্তি নিঃশব্দ করুন</string>
-  <!--OutdatedBuildReminder-->
-  <string name="OutdatedBuildReminder_no_web_browser_installed">কোনও ওয়েব ব্রাউজার ইনস্টল করা হয়নি!</string>
   <!--ApplicationMigrationService-->
   <string name="ApplicationMigrationService_import_in_progress">আমদানি চলছে</string>
   <string name="ApplicationMigrationService_importing_text_messages">পাঠ্য বার্তা আমদানি করা হচ্ছে</string>
@@ -1463,8 +1449,6 @@
   <string name="preferences__use_signal_for_viewing_and_storing_all_incoming_multimedia_messages">সমস্ত আগত মাল্টিমিডিয়া বার্তাগুলির জন্য Signal ব্যবহার করুন</string>
   <string name="preferences__pref_enter_sends_title">এন্টার কী পাঠাবে</string>
   <string name="preferences__pressing_the_enter_key_will_send_text_messages">এন্টার কী টিপলে পাঠ্য বার্তা প্রেরণ করা হবে</string>
-  <string name="preferences__send_link_previews">লিঙ্কের পূর্বরূপগুলি প্রেরণ করুন</string>
-  <string name="preferences__previews_are_supported_for">ইমগুর, ইনস্টাগ্রাম, পিন্টারেস্ট, রেডডিট এবং ইউটিউব লিঙ্কগুলির জন্য পূর্বরূপগুলি সমর্থিত</string>
   <string name="preferences__choose_identity">পরিচয় বাছুন</string>
   <string name="preferences__choose_your_contact_entry_from_the_contacts_list">পরিচিতি তালিকা থেকে আপনার পরিচিতি এন্টি চয়ন করুন</string>
   <string name="preferences__change_passphrase">পাসফ্রেজ পরিবর্তন করুন</string>
@@ -1616,6 +1600,7 @@
   <!--conversation_list-->
   <string name="conversation_list_settings_shortcut">সেটিংস শর্টকাট</string>
   <string name="conversation_list_search_description">অনুসন্ধান</string>
+  <string name="conversation_list__chats">আলাপসমূহ</string>
   <!--conversation_list_item_view-->
   <string name="conversation_list_item_view__contact_photo_image">পরিচিতির ফটো ইমেজ</string>
   <string name="conversation_list_item_view__archived">আর্কাইভ করা</string>
@@ -1793,6 +1778,7 @@
   <string name="KbsMegaphone__create_pin">পিন তৈরি করুন</string>
   <string name="KbsMegaphone__introducing_pins">পিনের সাথে পরিচিত হন</string>
   <string name="KbsMegaphone__update_pin">পিন আপডেট করুন</string>
+  <!--Mention Megaphone-->
   <!--transport_selection_list_item-->
   <string name="transport_selection_list_item__transport_icon">পরিবহন আইকন</string>
   <string name="ConversationListFragment_loading">লোড হচ্ছে…</string>

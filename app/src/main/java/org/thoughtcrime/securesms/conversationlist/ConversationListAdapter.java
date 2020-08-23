@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.paging.PagedListAdapter;
@@ -13,9 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.thoughtcrime.securesms.BindableConversationListItem;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.conversationlist.model.Conversation;
-import org.thoughtcrime.securesms.database.model.ThreadRecord;
 import org.thoughtcrime.securesms.mms.GlideRequests;
-import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.util.CachedInflater;
 import org.thoughtcrime.securesms.util.ViewUtil;
 
@@ -34,6 +33,7 @@ class ConversationListAdapter extends PagedListAdapter<Conversation, RecyclerVie
   private static final int TYPE_THREAD      = 1;
   private static final int TYPE_ACTION      = 2;
   private static final int TYPE_PLACEHOLDER = 3;
+  private static final int TYPE_HEADER      = 4;
 
   private enum Payload {
     TYPING_INDICATOR,
@@ -45,9 +45,10 @@ class ConversationListAdapter extends PagedListAdapter<Conversation, RecyclerVie
   private final Map<Long, Conversation>     batchSet  = Collections.synchronizedMap(new HashMap<>());
   private       boolean                     batchMode = false;
   private final Set<Long>                   typingSet = new HashSet<>();
-  private       int                         archived;
 
-  protected ConversationListAdapter(@NonNull GlideRequests glideRequests, @NonNull OnConversationClickListener onConversationClickListener) {
+  protected ConversationListAdapter(@NonNull GlideRequests glideRequests,
+                                    @NonNull OnConversationClickListener onConversationClickListener)
+  {
     super(new ConversationDiffCallback());
 
     this.glideRequests               = glideRequests;
@@ -61,9 +62,7 @@ class ConversationListAdapter extends PagedListAdapter<Conversation, RecyclerVie
                                                                                 .inflate(R.layout.conversation_list_item_action, parent, false));
 
       holder.itemView.setOnClickListener(v -> {
-        int position = holder.getAdapterPosition();
-
-        if (position != RecyclerView.NO_POSITION) {
+        if (holder.getAdapterPosition() != RecyclerView.NO_POSITION) {
           onConversationClickListener.onShowArchiveClick();
         }
       });
@@ -95,6 +94,9 @@ class ConversationListAdapter extends PagedListAdapter<Conversation, RecyclerVie
       View v = new FrameLayout(parent.getContext());
       v.setLayoutParams(new FrameLayout.LayoutParams(1, ViewUtil.dpToPx(100)));
       return new PlaceholderViewHolder(v);
+    } else if (viewType == TYPE_HEADER) {
+      View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.conversation_list_item_header, parent, false);
+      return new HeaderViewHolder(v);
     } else {
       throw new IllegalStateException("Unknown type! " + viewType);
     }
@@ -104,7 +106,7 @@ class ConversationListAdapter extends PagedListAdapter<Conversation, RecyclerVie
   public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position, @NonNull List<Object> payloads) {
     if (payloads.isEmpty()) {
       onBindViewHolder(holder, position);
-    } else {
+    } else if (holder instanceof ConversationViewHolder) {
       for (Object payloadObject : payloads) {
         if (payloadObject instanceof Payload) {
           Payload payload = (Payload) payloadObject;
@@ -121,21 +123,7 @@ class ConversationListAdapter extends PagedListAdapter<Conversation, RecyclerVie
 
   @Override
   public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-    if (holder.getItemViewType() == TYPE_ACTION) {
-      ConversationViewHolder casted = (ConversationViewHolder) holder;
-
-      casted.getConversationListItem().bind(new ThreadRecord.Builder(100)
-                                                            .setBody("")
-                                                            .setDate(100)
-                                                            .setRecipient(Recipient.UNKNOWN)
-                                                            .setCount(archived)
-                                                            .build(),
-                                            glideRequests,
-                                            Locale.getDefault(),
-                                            typingSet,
-                                            getBatchSelectionIds(),
-                                            batchMode);
-    } else if (holder.getItemViewType() == TYPE_THREAD) {
+    if (holder.getItemViewType() == TYPE_ACTION || holder.getItemViewType() == TYPE_THREAD) {
       ConversationViewHolder casted       = (ConversationViewHolder) holder;
       Conversation           conversation = Objects.requireNonNull(getItem(position));
 
@@ -145,6 +133,19 @@ class ConversationListAdapter extends PagedListAdapter<Conversation, RecyclerVie
                                             typingSet,
                                             getBatchSelectionIds(),
                                             batchMode);
+    } else if (holder.getItemViewType() == TYPE_HEADER) {
+      HeaderViewHolder casted       = (HeaderViewHolder) holder;
+      Conversation     conversation = Objects.requireNonNull(getItem(position));
+      switch (conversation.getType()) {
+        case PINNED_HEADER:
+          casted.headerText.setText(R.string.conversation_list__pinned);
+          break;
+        case UNPINNED_HEADER:
+          casted.headerText.setText(R.string.conversation_list__chats);
+          break;
+        default:
+          throw new IllegalArgumentException();
+      }
     }
   }
 
@@ -176,35 +177,22 @@ class ConversationListAdapter extends PagedListAdapter<Conversation, RecyclerVie
     return batchSet.values();
   }
 
-  void updateArchived(int archived) {
-    int oldArchived = this.archived;
-
-    this.archived = archived;
-
-    if (oldArchived != archived) {
-      if (archived == 0) {
-        notifyItemRemoved(getItemCount());
-      } else if (oldArchived == 0) {
-        notifyItemInserted(getItemCount() - 1);
-      } else {
-        notifyItemChanged(getItemCount() - 1);
-      }
-    }
-  }
-
-  @Override
-  public int getItemCount() {
-    return (archived > 0 ? 1 : 0) + super.getItemCount();
-  }
-
   @Override
   public int getItemViewType(int position) {
-    if (archived > 0 && position == getItemCount() - 1) {
-      return TYPE_ACTION;
-    } else if (getItem(position) == null) {
+    Conversation conversation = getItem(position);
+    if (conversation == null) {
       return TYPE_PLACEHOLDER;
-    } else {
-      return TYPE_THREAD;
+    }
+    switch (conversation.getType()) {
+      case PINNED_HEADER:
+      case UNPINNED_HEADER:
+        return TYPE_HEADER;
+      case ARCHIVED_FOOTER:
+        return TYPE_ACTION;
+      case THREAD:
+        return TYPE_THREAD;
+      default:
+        throw new IllegalArgumentException();
     }
   }
 
@@ -215,7 +203,7 @@ class ConversationListAdapter extends PagedListAdapter<Conversation, RecyclerVie
   void selectAllThreads() {
     for (int i = 0; i < super.getItemCount(); i++) {
       Conversation conversation = getItem(i);
-      if (conversation != null && conversation.getThreadRecord().getThreadId() != -1) {
+      if (conversation != null && conversation.getThreadRecord().getThreadId() >= 0) {
         batchSet.put(conversation.getThreadRecord().getThreadId(), conversation);
       }
     }
@@ -265,6 +253,15 @@ class ConversationListAdapter extends PagedListAdapter<Conversation, RecyclerVie
   private static class PlaceholderViewHolder extends RecyclerView.ViewHolder {
     PlaceholderViewHolder(@NonNull View itemView) {
       super(itemView);
+    }
+  }
+
+  static class HeaderViewHolder extends RecyclerView.ViewHolder {
+    private TextView headerText;
+
+    public HeaderViewHolder(@NonNull View itemView) {
+      super(itemView);
+      headerText = (TextView) itemView;
     }
   }
 

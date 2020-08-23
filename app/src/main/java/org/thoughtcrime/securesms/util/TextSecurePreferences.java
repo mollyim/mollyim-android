@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
 import org.thoughtcrime.securesms.R;
+import org.thoughtcrime.securesms.keyvalue.SettingsValues;
 import org.thoughtcrime.securesms.lock.RegistrationLockReminders;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.preferences.widgets.NotificationPrivacyPreference;
@@ -390,12 +391,13 @@ public class TextSecurePreferences {
     setBooleanPreference(context, TYPING_INDICATORS, enabled);
   }
 
-  public static boolean isLinkPreviewsEnabled(Context context) {
+  /**
+   * Only kept so that we can avoid showing the megaphone for the new link previews setting
+   * ({@link SettingsValues#isLinkPreviewsEnabled()}) when users upgrade. This can be removed after
+   * we stop showing the link previews megaphone.
+   */
+  public static boolean wereLinkPreviewsEnabled(Context context) {
     return getBooleanPreference(context, LINK_PREVIEWS, true);
-  }
-
-  public static void setLinkPreviewsEnabled(Context context, boolean enabled) {
-    setBooleanPreference(context, LINK_PREVIEWS, enabled);
   }
 
   public static boolean isGifSearchInGridLayout(Context context) {
@@ -453,6 +455,10 @@ public class TextSecurePreferences {
 
   public static NotificationPrivacyPreference getNotificationPrivacy(Context context) {
     return new NotificationPrivacyPreference(getStringPreference(context, NOTIFICATION_PRIVACY_PREF, "none"));
+  }
+
+  public static void setNewContactsNotificationEnabled(Context context, boolean isEnabled) {
+    setBooleanPreference(context, NEW_CONTACTS_NOTIFICATIONS, isEnabled);
   }
 
   public static boolean isNewContactsNotificationEnabled(Context context) {

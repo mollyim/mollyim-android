@@ -18,17 +18,11 @@ import org.powermock.modules.junit4.rule.PowerMockRule;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.signal.storageservice.protos.groups.AccessControl;
-import org.signal.storageservice.protos.groups.Member;
 import org.signal.storageservice.protos.groups.local.DecryptedGroup;
 import org.signal.storageservice.protos.groups.local.DecryptedGroupChange;
 import org.signal.storageservice.protos.groups.local.DecryptedMember;
-import org.signal.storageservice.protos.groups.local.DecryptedModifyMemberRole;
 import org.signal.storageservice.protos.groups.local.DecryptedPendingMember;
-import org.signal.storageservice.protos.groups.local.DecryptedPendingMemberRemoval;
-import org.signal.storageservice.protos.groups.local.DecryptedString;
-import org.signal.storageservice.protos.groups.local.DecryptedTimer;
 import org.thoughtcrime.securesms.testutil.MainThreadUtil;
-import org.thoughtcrime.securesms.util.StringUtil;
 import org.thoughtcrime.securesms.util.Util;
 import org.whispersystems.signalservice.api.util.UuidUtil;
 
@@ -44,6 +38,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.thoughtcrime.securesms.groups.v2.ChangeBuilder.changeBy;
+import static org.thoughtcrime.securesms.groups.v2.ChangeBuilder.changeByUnknown;
 import static org.thoughtcrime.securesms.util.StringUtil.isolateBidi;
 
 @RunWith(RobolectricTestRunner.class)
@@ -186,6 +182,35 @@ public final class GroupsV2UpdateMessageProducerTest {
     assertThat(describeChange(change), is(singletonList("Bob joined the group.")));
   }
 
+  @Test
+  public void member_added_you_and_another_where_you_are_not_first() {
+    DecryptedGroupChange change = changeBy(bob)
+                                    .addMember(alice)
+                                    .addMember(you)
+                                    .build();
+
+    assertThat(describeChange(change), is(Arrays.asList("Bob added you to the group.", "Bob added Alice.")));
+  }
+
+  @Test
+  public void unknown_member_added_you_and_another_where_you_are_not_first() {
+    DecryptedGroupChange change = changeByUnknown()
+                                    .addMember(alice)
+                                    .addMember(you)
+                                    .build();
+
+    assertThat(describeChange(change), is(Arrays.asList("You joined the group.", "Alice joined the group.")));
+  }
+
+  @Test
+  public void you_added_you_and_another_where_you_are_not_first() {
+    DecryptedGroupChange change = changeBy(you)
+                                    .addMember(alice)
+                                    .addMember(you)
+                                    .build();
+
+    assertThat(describeChange(change), is(Arrays.asList("You joined the group.", "You added Alice.")));
+  }
 
   // Member removals
   @Test
@@ -395,7 +420,16 @@ public final class GroupsV2UpdateMessageProducerTest {
   }
 
   @Test
-  public void unknown_invited_you() {
+  public void unknown_editor_but_known_invitee_invited_you() {
+    DecryptedGroupChange change = changeByUnknown()
+                                    .inviteBy(you, alice)
+                                    .build();
+
+    assertThat(describeChange(change), is(singletonList("Alice invited you to the group.")));
+  }
+
+  @Test
+  public void unknown_editor_and_unknown_inviter_invited_you() {
     DecryptedGroupChange change = changeByUnknown()
                                     .invite(you)
                                     .build();
@@ -432,6 +466,50 @@ public final class GroupsV2UpdateMessageProducerTest {
                                     .build();
 
     assertThat(describeChange(change), is(Arrays.asList("You were invited to the group.", "3 people were invited to the group.")));
+  }
+
+  @Test
+  public void unknown_editor_invited_3_persons_and_you_inviter_known() {
+    DecryptedGroupChange change = changeByUnknown()
+                                    .invite(alice)
+                                    .inviteBy(you, bob)
+                                    .invite(UUID.randomUUID())
+                                    .invite(UUID.randomUUID())
+                                    .build();
+
+    assertThat(describeChange(change), is(Arrays.asList("Bob invited you to the group.", "3 people were invited to the group.")));
+  }
+
+  @Test
+  public void member_invited_3_persons_and_you_and_added_another_where_you_were_not_first() {
+    DecryptedGroupChange change = changeBy(bob)
+                                    .addMember(alice)
+                                    .invite(you)
+                                    .invite(UUID.randomUUID())
+                                    .invite(UUID.randomUUID())
+                                    .build();
+
+    assertThat(describeChange(change), is(Arrays.asList("Bob invited you to the group.", "Bob added Alice.", "Bob invited 2 people to the group.")));
+  }
+
+  @Test
+  public void unknown_editor_but_known_invitee_invited_you_and_added_another_where_you_were_not_first() {
+    DecryptedGroupChange change = changeByUnknown()
+                                    .addMember(bob)
+                                    .inviteBy(you, alice)
+                                    .build();
+
+    assertThat(describeChange(change), is(Arrays.asList("Alice invited you to the group.", "Bob joined the group.")));
+  }
+
+  @Test
+  public void unknown_editor_and_unknown_inviter_invited_you_and_added_another_where_you_were_not_first() {
+    DecryptedGroupChange change = changeByUnknown()
+                                    .addMember(alice)
+                                    .invite(you)
+                                    .build();
+
+    assertThat(describeChange(change), is(Arrays.asList("You were invited to the group.", "Alice joined the group.")));
   }
 
   // Member invitation revocation
@@ -498,7 +576,7 @@ public final class GroupsV2UpdateMessageProducerTest {
                                     .uninvite(you)
                                     .build();
 
-    assertThat(describeChange(change), is(singletonList("Your invitation to the group was revoked.")));
+    assertThat(describeChange(change), is(singletonList("An admin revoked your invitation to the group.")));
   }
 
   @Test
@@ -529,7 +607,16 @@ public final class GroupsV2UpdateMessageProducerTest {
                                     .uninvite(UUID.randomUUID())
                                     .build();
 
-    assertThat(describeChange(change), is(Arrays.asList("Your invitation to the group was revoked.", "3 invitations to the group were revoked.")));
+    assertThat(describeChange(change), is(Arrays.asList("An admin revoked your invitation to the group.", "3 invitations to the group were revoked.")));
+  }
+
+  @Test
+  public void your_invite_was_revoked_by_known_member() {
+    DecryptedGroupChange change = changeBy(bob)
+                                    .uninvite(you)
+                                    .build();
+
+    assertThat(describeChange(change), is(singletonList("Bob revoked your invitation to the group.")));
   }
 
   // Promote pending members
@@ -759,10 +846,12 @@ public final class GroupsV2UpdateMessageProducerTest {
                                     .addMember(bob)
                                     .membershipAccess(AccessControl.AccessRequired.MEMBER)
                                     .title("Title")
+                                    .addMember(you)
                                     .timer(300)
                                     .build();
 
     assertThat(describeChange(change), is(Arrays.asList(
+      "Alice added you to the group.",
       "Alice added Bob.",
       "Alice changed the group name to \"" + isolateBidi("Title") + "\".",
       "Alice set the disappearing message timer to 5 minutes.",
@@ -930,102 +1019,6 @@ public final class GroupsV2UpdateMessageProducerTest {
     public DecryptedGroup build() {
       return builder.build();
     }
-  }
-
-  private static class ChangeBuilder {
-
-    private final DecryptedGroupChange.Builder builder;
-
-    ChangeBuilder(@NonNull UUID editor) {
-      builder = DecryptedGroupChange.newBuilder()
-                                    .setEditor(UuidUtil.toByteString(editor));
-    }
-
-    ChangeBuilder() {
-      builder = DecryptedGroupChange.newBuilder();
-    }
-
-    ChangeBuilder addMember(@NonNull UUID newMember) {
-      builder.addNewMembers(DecryptedMember.newBuilder()
-                                           .setUuid(UuidUtil.toByteString(newMember)));
-      return this;
-    }
-
-    ChangeBuilder deleteMember(@NonNull UUID removedMember) {
-      builder.addDeleteMembers(UuidUtil.toByteString(removedMember));
-      return this;
-    }
-
-    ChangeBuilder promoteToAdmin(@NonNull UUID member) {
-      builder.addModifyMemberRoles(DecryptedModifyMemberRole.newBuilder()
-                                                            .setRole(Member.Role.ADMINISTRATOR)
-                                                            .setUuid(UuidUtil.toByteString(member)));
-      return this;
-    }
-
-    ChangeBuilder demoteToMember(@NonNull UUID member) {
-      builder.addModifyMemberRoles(DecryptedModifyMemberRole.newBuilder()
-                                                            .setRole(Member.Role.DEFAULT)
-                                                            .setUuid(UuidUtil.toByteString(member)));
-      return this;
-    }
-
-    ChangeBuilder invite(@NonNull UUID potentialMember) {
-      builder.addNewPendingMembers(DecryptedPendingMember.newBuilder()
-                                                         .setUuid(UuidUtil.toByteString(potentialMember)));
-      return this;
-    }
-
-    ChangeBuilder uninvite(@NonNull UUID pendingMember) {
-      builder.addDeletePendingMembers(DecryptedPendingMemberRemoval.newBuilder()
-                                                                   .setUuid(UuidUtil.toByteString(pendingMember)));
-      return this;
-    }
-
-    ChangeBuilder promote(@NonNull UUID pendingMember) {
-      builder.addPromotePendingMembers(DecryptedMember.newBuilder().setUuid(UuidUtil.toByteString(pendingMember)));
-      return this;
-    }
-
-    ChangeBuilder title(@NonNull String newTitle) {
-      builder.setNewTitle(DecryptedString.newBuilder()
-                                         .setValue(newTitle));
-      return this;
-    }
-
-    ChangeBuilder avatar(@NonNull String newAvatar) {
-      builder.setNewAvatar(DecryptedString.newBuilder()
-                                          .setValue(newAvatar));
-      return this;
-    }
-
-    ChangeBuilder timer(int duration) {
-      builder.setNewTimer(DecryptedTimer.newBuilder()
-                                        .setDuration(duration));
-      return this;
-    }
-
-    ChangeBuilder attributeAccess(@NonNull AccessControl.AccessRequired accessRequired) {
-      builder.setNewAttributeAccess(accessRequired);
-      return this;
-    }
-
-    ChangeBuilder membershipAccess(@NonNull AccessControl.AccessRequired accessRequired) {
-      builder.setNewMemberAccess(accessRequired);
-      return this;
-    }
-
-    DecryptedGroupChange build() {
-      return builder.build();
-    }
-  }
-
-  private static ChangeBuilder changeBy(@NonNull UUID groupEditor) {
-    return new ChangeBuilder(groupEditor);
-  }
-
-  private static ChangeBuilder changeByUnknown() {
-    return new ChangeBuilder();
   }
 
   private static @NonNull GroupsV2UpdateMessageProducer.DescribeMemberStrategy createDescriber(@NonNull Map<UUID, String> map) {

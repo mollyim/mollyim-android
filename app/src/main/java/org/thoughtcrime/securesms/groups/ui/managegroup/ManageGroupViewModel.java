@@ -22,6 +22,7 @@ import org.thoughtcrime.securesms.ExpirationDialog;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.contacts.ContactsCursorLoader;
 import org.thoughtcrime.securesms.database.MediaDatabase;
+import org.thoughtcrime.securesms.database.MentionUtil;
 import org.thoughtcrime.securesms.database.loaders.MediaLoader;
 import org.thoughtcrime.securesms.database.loaders.ThreadMediaLoader;
 import org.thoughtcrime.securesms.groups.GroupAccessControl;
@@ -31,6 +32,7 @@ import org.thoughtcrime.securesms.groups.ui.GroupChangeFailureReason;
 import org.thoughtcrime.securesms.groups.ui.GroupErrors;
 import org.thoughtcrime.securesms.groups.ui.GroupMemberEntry;
 import org.thoughtcrime.securesms.groups.ui.addmembers.AddMembersActivity;
+import org.thoughtcrime.securesms.groups.ui.managegroup.dialogs.GroupMentionSettingDialog;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
@@ -48,7 +50,8 @@ import java.util.List;
 
 public class ManageGroupViewModel extends ViewModel {
 
-  private static final int MAX_COLLAPSED_MEMBERS = 5;
+  private static final int MAX_UNCOLLAPSED_MEMBERS = 6;
+  private static final int SHOW_COLLAPSED_MEMBERS  = 5;
 
   private final Context                                     context;
   private final ManageGroupRepository                       manageGroupRepository;
@@ -74,6 +77,7 @@ public class ManageGroupViewModel extends ViewModel {
   private final LiveData<Boolean>                           canLeaveGroup;
   private final LiveData<Boolean>                           canBlockGroup;
   private final LiveData<Boolean>                           showLegacyIndicator;
+  private final LiveData<String>                            mentionSetting;
 
   private ManageGroupViewModel(@NonNull Context context, @NonNull ManageGroupRepository manageGroupRepository) {
     this.context               = context;
@@ -89,7 +93,7 @@ public class ManageGroupViewModel extends ViewModel {
                                                                                            : title);
     this.isAdmin                   = liveGroup.isSelfAdmin();
     this.canCollapseMemberList     = LiveDataUtil.combineLatest(memberListCollapseState,
-                                                                Transformations.map(liveGroup.getFullMembers(), m -> m.size() > MAX_COLLAPSED_MEMBERS),
+                                                                Transformations.map(liveGroup.getFullMembers(), m -> m.size() > MAX_UNCOLLAPSED_MEMBERS),
                                                                 (state, hasEnoughMembers) -> state != CollapseState.OPEN && hasEnoughMembers);
     this.members                   = LiveDataUtil.combineLatest(liveGroup.getFullMembers(),
                                                                 memberListCollapseState,
@@ -113,6 +117,8 @@ public class ManageGroupViewModel extends ViewModel {
                                                          recipient -> recipient.getNotificationChannel() != null || !NotificationChannels.supported());
     this.canLeaveGroup             = liveGroup.isActive();
     this.canBlockGroup             = Transformations.map(this.groupRecipient, recipient -> !recipient.isBlocked());
+    this.mentionSetting            = Transformations.distinctUntilChanged(Transformations.map(this.groupRecipient,
+                                                                                              recipient -> MentionUtil.getMentionSettingDisplayValue(context, recipient.getMentionSetting())));
   }
 
   @WorkerThread
@@ -206,6 +212,10 @@ public class ManageGroupViewModel extends ViewModel {
     return canLeaveGroup;
   }
 
+  LiveData<String> getMentionSetting() {
+    return mentionSetting;
+  }
+
   void handleExpirationSelection() {
     manageGroupRepository.getRecipient(groupRecipient ->
                                          ExpirationDialog.show(context,
@@ -249,6 +259,10 @@ public class ManageGroupViewModel extends ViewModel {
     memberListCollapseState.setValue(CollapseState.OPEN);
   }
 
+  void handleMentionNotificationSelection() {
+    manageGroupRepository.getRecipient(r -> GroupMentionSettingDialog.show(context, r.getMentionSetting(), manageGroupRepository::setMentionSetting));
+  }
+
   private void onBlockAndLeaveConfirmed() {
     SimpleProgressDialog.DismissibleDialog dismissibleDialog = SimpleProgressDialog.showDelayed(context);
 
@@ -262,8 +276,8 @@ public class ManageGroupViewModel extends ViewModel {
   private static @NonNull List<GroupMemberEntry.FullMember> filterMemberList(@NonNull List<GroupMemberEntry.FullMember> members,
                                                                              @NonNull CollapseState collapseState)
   {
-    if (collapseState == CollapseState.COLLAPSED && members.size() > MAX_COLLAPSED_MEMBERS) {
-      return members.subList(0, MAX_COLLAPSED_MEMBERS);
+    if (collapseState == CollapseState.COLLAPSED && members.size() > MAX_UNCOLLAPSED_MEMBERS) {
+      return members.subList(0, SHOW_COLLAPSED_MEMBERS);
     } else {
       return members;
     }

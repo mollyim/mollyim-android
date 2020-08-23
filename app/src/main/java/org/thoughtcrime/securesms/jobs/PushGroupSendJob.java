@@ -286,7 +286,8 @@ public final class PushGroupSendJob extends PushSendJob {
     Optional<SignalServiceDataMessage.Sticker> sticker            = getStickerFor(message);
     List<SharedContact>                        sharedContacts     = getSharedContactsFor(message);
     List<Preview>                              previews           = getPreviewsFor(message);
-    List<SignalServiceAddress>                 addresses          = Stream.of(destinations).map(this::getPushAddress).toList();
+    List<SignalServiceDataMessage.Mention>     mentions           = getMentionsFor(message.getMentions());
+    List<SignalServiceAddress>                 addresses          = RecipientUtil.toSignalServiceAddressesFromResolved(context, destinations);
     List<Attachment>                           attachments        = Stream.of(message.getAttachments()).filterNot(Attachment::isSticker).toList();
     List<SignalServiceAttachment>              attachmentPointers = getAttachmentPointersFor(attachments);
     boolean                                    isRecipientUpdate  = destinations.size() != DatabaseFactory.getGroupReceiptDatabase(context).getGroupReceiptInfo(messageId).size();
@@ -352,6 +353,7 @@ public final class PushGroupSendJob extends PushSendJob {
                                                      .withSticker(sticker.orNull())
                                                      .withSharedContacts(sharedContacts)
                                                      .withPreviews(previews)
+                                                     .withMentions(mentions)
                                                      .build();
 
       Log.i(TAG, JobLogger.format(this, "Beginning message send."));

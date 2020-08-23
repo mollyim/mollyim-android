@@ -154,8 +154,16 @@ public class Util {
     return value == null || value.getText() == null || TextUtils.isEmpty(value.getTextTrimmed());
   }
 
-  public static boolean isEmpty(Collection collection) {
+  public static boolean isEmpty(Collection<?> collection) {
     return collection == null || collection.isEmpty();
+  }
+
+  public static boolean isEmpty(@Nullable String value) {
+    return value == null || value.length() == 0;
+  }
+
+  public static boolean hasItems(@Nullable Collection<?> collection) {
+    return collection != null && !collection.isEmpty();
   }
 
   public static <K, V> V getOrDefault(@NonNull Map<K, V> map, K key, V defaultValue) {
@@ -164,7 +172,7 @@ public class Util {
 
   public static String getFirstNonEmpty(String... values) {
     for (String value : values) {
-      if (!TextUtils.isEmpty(value)) {
+      if (!Util.isEmpty(value)) {
         return value;
       }
     }
@@ -172,6 +180,10 @@ public class Util {
   }
 
   public static @NonNull String emptyIfNull(@Nullable String value) {
+    return value != null ? value : "";
+  }
+
+  public static @NonNull CharSequence emptyIfNull(@Nullable CharSequence value) {
     return value != null ? value : "";
   }
 

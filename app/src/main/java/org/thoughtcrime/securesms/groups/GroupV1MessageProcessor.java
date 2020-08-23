@@ -240,7 +240,7 @@ public final class GroupV1MessageProcessor {
         MmsDatabase                mmsDatabase     = DatabaseFactory.getMmsDatabase(context);
         RecipientId                recipientId     = DatabaseFactory.getRecipientDatabase(context).getOrInsertFromGroupId(GroupId.v1orThrow(group.getGroupId()));
         Recipient                  recipient       = Recipient.resolved(recipientId);
-        OutgoingGroupUpdateMessage outgoingMessage = new OutgoingGroupUpdateMessage(recipient, storage, null, content.getTimestamp(), 0, false, null, Collections.emptyList(), Collections.emptyList());
+        OutgoingGroupUpdateMessage outgoingMessage = new OutgoingGroupUpdateMessage(recipient, storage, null, content.getTimestamp(), 0, false, null, Collections.emptyList(), Collections.emptyList(), Collections.emptyList());
         long                       threadId        = DatabaseFactory.getThreadDatabase(context).getThreadIdFor(recipient);
         long                       messageId       = mmsDatabase.insertMessageOutbox(outgoingMessage, threadId, false, null);
 
@@ -273,7 +273,10 @@ public final class GroupV1MessageProcessor {
     GroupContext.Builder builder = GroupContext.newBuilder();
     builder.setId(ByteString.copyFrom(group.getGroupId()));
 
-    if (group.getAvatar().isPresent() && group.getAvatar().get().isPointer()) {
+    if (group.getAvatar().isPresent()       &&
+        group.getAvatar().get().isPointer() &&
+        group.getAvatar().get().asPointer().getRemoteId().getV2().isPresent())
+    {
       builder.setAvatar(AttachmentPointer.newBuilder()
                                          .setCdnId(group.getAvatar().get().asPointer().getRemoteId().getV2().get())
                                          .setKey(ByteString.copyFrom(group.getAvatar().get().asPointer().getKey()))

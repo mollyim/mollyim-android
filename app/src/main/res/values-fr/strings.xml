@@ -160,8 +160,8 @@
   <string name="ContactShareEditActivity_type_missing">Autre</string>
   <string name="ContactShareEditActivity_invalid_contact">Le contact sélectionné était invalide</string>
   <!--ConversationItem-->
-  <string name="ConversationItem_error_not_sent_tap_for_details">N’a pas été envoyé, touchez pour obtenir des détails</string>
-  <string name="ConversationItem_error_partially_not_delivered">Envoyé partiellement, touchez pour obtenir des détails</string>
+  <string name="ConversationItem_error_not_sent_tap_for_details">N’a pas été envoyé, toucher pour obtenir des détails</string>
+  <string name="ConversationItem_error_partially_not_delivered">Envoyé partiellement, toucher pour obtenir des détails</string>
   <string name="ConversationItem_error_network_not_delivered">Échec d’envoi</string>
   <string name="ConversationItem_received_key_exchange_message_tap_to_process">Vous avez reçu un message d’échange de clés. Touchez pour le traiter.</string>
   <string name="ConversationItem_group_action_left">%1$s a quitté le groupe.</string>
@@ -213,10 +213,10 @@
   <string name="ConversationActivity_unable_to_record_audio">Impossible d’enregistrer le son.</string>
   <string name="ConversationActivity_you_cant_send_messages_to_this_group">Vous ne pouvez pas envoyer de messages à ce groupe, car vous n’en faites plus partie.</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">Il n’y a aucune appli pour gérer ce lien sur votre appareil.</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Pour envoyer des messages audio, autorisez Molly à accéder à votre microphone.</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Pour envoyer des messages audio, autorisez l’accès de Molly à votre microphone.</string>
   <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly exige l’autorisation Microphone afin d’envoyer des messages audio, mais elle a été refusée définitivement. Veuillez accéder au menu des paramètres des applis, sélectionner Autorisations et activer Microphone.</string>
   <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly a besoin des autorisations Microphone et Appareil photo pour appeler %s, mais elles ont été refusées définitivement. Veuillez accéder aux paramètres de l’appli, sélectionner Autorisations et activer Microphone et Appareil photo.</string>
-  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Pour prendre des photos et des vidéos, autorisez Molly à accéder à l’appareil photo.</string>
+  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Pour prendre des photos et des vidéos, autorisez l’accès de Molly à l’appareil photo.</string>
   <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Molly a besoin de l’autorisation Appareil photo afin de prendre des photos ou des vidéos, mais elle a été refusée définitivement. Veuillez accéder aux paramètres de l’appli, sélectionner Autorisations et activer Appareil photo.</string>
   <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Molly a besoin de l’autorisation Appareil photo pour prendre des photos ou des vidéos</string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Autoriser l’accès au microphone afin de prendre des vidéos avec du son.</string>
@@ -352,7 +352,7 @@
   <string name="DeviceListActivity_unlink_s">Annuler le lien avec « %s » ?</string>
   <string name="DeviceListActivity_by_unlinking_this_device_it_will_no_longer_be_able_to_send_or_receive">En annulant le lien avec cet appareil, il ne pourra plus ni envoyer ni recevoir de messages.</string>
   <string name="DeviceListActivity_network_connection_failed">Échec de connexion au réseau</string>
-  <string name="DeviceListActivity_try_again">Ressayer</string>
+  <string name="DeviceListActivity_try_again">Réessayer</string>
   <string name="DeviceListActivity_unlinking_device">Annulation du lien avec l’appareil…</string>
   <string name="DeviceListActivity_unlinking_device_no_ellipsis">Annulation du lien avec l’appareil</string>
   <string name="DeviceListActivity_network_failed">Échec du réseau.</string>
@@ -392,12 +392,11 @@
   <string name="ChooseNewAdminActivity_you_left">Vous avez quitté « %1$s ».</string>
   <!--GroupShareProfileView-->
   <string name="GroupShareProfileView_share_your_profile_name_and_photo_with_this_group">Partager vos nom et photo de profil avec ce groupe ?</string>
-  <string name="GroupShareProfileView_do_you_want_to_make_your_profile_name_and_photo_visible_to_all_current_and_future_members_of_this_group">Voulez-vous que vos nom et photo de profil soient visibles pour tous les membres actuels et futurs de ce groupe ?</string>
+  <string name="GroupShareProfileView_do_you_want_to_make_your_profile_name_and_photo_visible_to_all_current_and_future_members_of_this_group">Souhaitez-vous que vos nom et photo de profil soient visibles pour tous les membres actuels et futurs de ce groupe ?</string>
   <string name="GroupShareProfileView_make_visible">Rendre visible</string>
   <!--GroupMembersDialog-->
   <string name="GroupMembersDialog_you">Vous</string>
   <!--GV2 access levels-->
-  <string name="GroupManagement_access_level_anyone">Tout le monde</string>
   <string name="GroupManagement_access_level_all_members">Tous les membres</string>
   <string name="GroupManagement_access_level_only_admins">Seulement les administrateurs</string>
   <!--GV2 invites sent-->
@@ -408,6 +407,12 @@
   <string name="GroupManagement_invite_single_user">« %1$s » ne peut pas être ajouté automatiquement par vous à ce groupe.\n\nUne invitation a été envoyée et l’utilisateur ne verra aucun message du groupe tant que l’invitation n’aura pas été acceptée.</string>
   <string name="GroupManagement_learn_more">En apprendre davantage</string>
   <string name="GroupManagement_invite_multiple_users">Ces utilisateurs ne peuvent pas être ajoutés automatiquement par vous à ce groupe.\n\nDes invitations ont été envoyées et ces utilisateurs ne verront aucun message du groupe tant que les invitations n’auront pas été acceptées.</string>
+  <!--LinkPreviewsMegaphone-->
+  <string name="LinkPreviewsMegaphone_disable">Désactiver</string>
+  <string name="LinkPreviewsMegaphone_preview_any_link">Prévisualiser n’importe quel lien</string>
+  <string name="LinkPreviewsMegaphone_you_can_now_retrieve_link_previews_directly_from_any_website">Pour les messages que vous envoyez, vous pouvez désormais récupérer des aperçus de lien directement de n’importe quel site Web.</string>
+  <!--LinkPreviewView-->
+  <string name="LinkPreviewView_no_link_preview_available">Aucun aperçu du lien n’est proposé</string>
   <!--PendingMembersActivity-->
   <string name="PendingMemberInvitesActivity_pending_group_invites">Invitations de groupe en attente</string>
   <string name="PendingMembersActivity_people_you_invited">Les personnes que vous avez invitées</string>
@@ -415,15 +420,15 @@
   <string name="PendingMembersActivity_invites_by_other_group_members">Invitations par d’autres membres du groupe</string>
   <string name="PendingMembersActivity_no_pending_invites_by_other_group_members">Il n’y a aucune invitation par d’autres membres du groupe en attente.</string>
   <string name="PendingMembersActivity_missing_detail_explanation">Les détails des personnes invitées par d’autres membres du groupe ne sont pas affichés. Si les invités choisissent de se joindre au groupe, leurs renseignements seront alors communiqués au groupe. Ils ne verront aucun message dans le groupe avant de s’y être joints.</string>
-  <string name="PendingMembersActivity_cancel_invite">Annuler l’invitation</string>
-  <string name="PendingMembersActivity_cancel_invites">Annuler les invitations</string>
-  <plurals name="PendingMembersActivity_cancel_d_invites">
-    <item quantity="one">Annuler l’invitation</item>
-    <item quantity="other">Annuler %1$d invitations</item>
+  <string name="PendingMembersActivity_revoke_invite">Révoquer l’invitation</string>
+  <string name="PendingMembersActivity_revoke_invites">Révoquer les invitations</string>
+  <plurals name="PendingMembersActivity_revoke_d_invites">
+    <item quantity="one">Révoquer l’invitation</item>
+    <item quantity="other">Révoquer %1$d invitations</item>
   </plurals>
-  <plurals name="PendingMembersActivity_error_canceling_invite">
-    <item quantity="one">Erreur d’annulation de l’invitation</item>
-    <item quantity="other">Erreur d’annulation des invitations</item>
+  <plurals name="PendingMembersActivity_error_revoking_invite">
+    <item quantity="one">Erreur de révocation de l’invitation</item>
+    <item quantity="other">Erreur de révocation des invitations</item>
   </plurals>
   <!--AddMembersActivity-->
   <string name="AddMembersActivity__done">Terminé</string>
@@ -441,11 +446,21 @@
   <string name="AddGroupDetailsFragment__this_field_is_required">Ce champ est requis.</string>
   <string name="AddGroupDetailsFragment__groups_require_at_least_two_members">Il faut au moins deux membres par groupe.</string>
   <string name="AddGroupDetailsFragment__group_creation_failed">Échec de création du groupe.</string>
-  <string name="AddGroupDetailsFragment__try_again_later">Ressayez plus tard.</string>
+  <string name="AddGroupDetailsFragment__try_again_later">Réessayez plus tard.</string>
   <string name="AddGroupDetailsFragment__youve_selected_a_contact_that_doesnt">Vous avez sélectionné un contact qui ne prend pas en charge les groupes Signal, donc ce groupe sera un groupe de message multimédia.</string>
   <string name="AddGroupDetailsFragment__remove">Supprimer</string>
   <string name="AddGroupDetailsFragment__sms_contact">Contact texto</string>
   <string name="AddGroupDetailsFragment__remove_s_from_this_group">Supprimer %1$s de ce groupe ?</string>
+  <plurals name="AddGroupDetailsFragment__d_members_do_not_support_new_groups">
+    <item quantity="one">%d membre ne prend pas en charge les nouveaux groupes, ce sera donc un groupe hérité</item>
+    <item quantity="other">%d membres ne prennent pas en charge les nouveaux groupes, ce sera donc un groupe hérité</item>
+  </plurals>
+  <!--NonGv2MemberDialog-->
+  <string name="NonGv2MemberDialog_single_users_are_non_gv2_capable">Un groupe hérité sera créé, car « %1$s » utilise une ancienne version de Signal. Vous pourrez créer un groupe de type nouveau avec cette personne une fois qu’elle aura mis Signal à jour, ou supprimez-la avant de créer le groupe.</string>
+  <plurals name="NonGv2MemberDialog_d_users_are_non_gv2_capable">
+    <item quantity="one">Un groupe hérité sera créé, car %1$d membre utilise une ancienne version de Signal. Vous pourrez créer un groupe de type nouveau avec ce membre une fois qu’il aura mis Signal à jour, ou supprimez-le avant de créer le groupe.</item>
+    <item quantity="other">Un groupe hérité sera créé, car %1$d membres utilisent une ancienne version de Signal. Vous pourrez créer un groupe de type nouveau avec eux une fois qu’ils auront mis Signal à jour, ou supprimez-les avant de créer le groupe.</item>
+  </plurals>
   <!--ManageGroupActivity-->
   <string name="ManageGroupActivity_disappearing_messages">Messages éphémères</string>
   <string name="ManageGroupActivity_pending_group_invites">Invitations de groupe en attente</string>
@@ -458,6 +473,7 @@
   <string name="ManageGroupActivity_leave_group">Quitter le groupe</string>
   <string name="ManageGroupActivity_mute_notifications">Notifications en sourdine</string>
   <string name="ManageGroupActivity_custom_notifications">Notifications personnalisées</string>
+  <string name="ManageGroupActivity_mentions">Mentions</string>
   <string name="ManageGroupActivity_until_s">Jusqu’à %1$s</string>
   <string name="ManageGroupActivity_off">Désactivé</string>
   <string name="ManageGroupActivity_on">Activé</string>
@@ -476,11 +492,18 @@
   <string name="ManageGroupActivity_not_capable">Une personne que vous avez ajoutée ne prend pas en charge les nouveaux groupes et doit mettre Signal à jour.</string>
   <string name="ManageGroupActivity_failed_to_update_the_group">Échec de mise à jour du groupe</string>
   <string name="ManageGroupActivity_youre_not_a_member_of_the_group">Vous n’êtes pas un membre du groupe</string>
-  <string name="ManageGroupActivity_failed_to_update_the_group_please_retry_later">Échec de mise à jour du groupe, veuillez ressayer</string>
-  <string name="ManageGroupActivity_failed_to_update_the_group_due_to_a_network_error_please_retry_later">Échec de mise à jour du groupe en raison d’une erreur réseau, veuillez ressayer plus tard</string>
+  <string name="ManageGroupActivity_failed_to_update_the_group_please_retry_later">Échec de mise à jour du groupe, veuillez réessayer</string>
+  <string name="ManageGroupActivity_failed_to_update_the_group_due_to_a_network_error_please_retry_later">Échec de mise à jour du groupe en raison d’une erreur réseau, veuillez réessayer plus tard</string>
   <string name="ManageGroupActivity_edit_name_and_picture">Modifier le nom et l’image</string>
   <string name="ManageGroupActivity_legacy_group">Groupe hérité</string>
-  <string name="ManageGroupActivity_legacy_group_learn_more">Ce groupe est hérité. Afin d’accéder aux fonctions telles que les administrateur du groupe, veuillez créer un nouveau groupe.</string>
+  <string name="ManageGroupActivity_legacy_group_learn_more">Ce groupe est un groupe hérité. Afin d’accéder aux fonctions telles que les administrateur du groupe, veuillez créer un nouveau groupe.</string>
+  <!--GroupMentionSettingDialog-->
+  <string name="GroupMentionSettingDialog_notify_me_for_mentions">Me signaler les mentions</string>
+  <string name="GroupMentionSettingDialog_receive_notifications_when_youre_mentioned_in_muted_chats">Recevoir des notifications si vous êtes mentionné dans des conversations en sourdine ?</string>
+  <string name="GroupMentionSettingDialog_default_notify_me">Par défaut (me prévenir)</string>
+  <string name="GroupMentionSettingDialog_default_dont_notify_me">Par défaut (ne pas me prévenir)</string>
+  <string name="GroupMentionSettingDialog_always_notify_me">Toujours me prévenir</string>
+  <string name="GroupMentionSettingDialog_dont_notify_me">Ne pas me prévenir</string>
   <!--ManageRecipientActivity-->
   <string name="ManageRecipientActivity_add_to_system_contacts">Ajouter aux contacts du système </string>
   <string name="ManageRecipientActivity_this_person_is_in_your_contacts">Cette personne est dans vos contacts</string>
@@ -522,12 +545,18 @@
   <string name="CustomNotificationsDialogFragment__enabled">Activé</string>
   <string name="CustomNotificationsDialogFragment__disabled">Désactivé</string>
   <string name="CustomNotificationsDialogFragment__default">Valeur par défaut</string>
-  <!--GV2 Invite cancellation confirmation-->
-  <string name="GroupManagement_cancel_own_single_invite">Voulez-vous annuler l’invitation envoyée à %1$s ?</string>
-  <plurals name="GroupManagement_cancel_others_invites">
-    <item quantity="one">Voulez-vous annuler l’invitation envoyée par %1$s ?</item>
-    <item quantity="other">Voulez-vous annuler %2$d invitations envoyées par %1$s ?</item>
+  <!--GV2 Invite Revoke confirmation dialog-->
+  <string name="InviteRevokeConfirmationDialog_revoke_own_single_invite">Souhaitez-vous révoquer l’invitation envoyée à %1$s ?</string>
+  <plurals name="InviteRevokeConfirmationDialog_revoke_others_invites">
+    <item quantity="one">Souhaitez-vous révoquer l’invitation envoyée par %1$s ?</item>
+    <item quantity="other">Souhaitez-vous révoquer %2$d invitations envoyées par %1$s ?</item>
   </plurals>
+  <!--GroupJoinBottomSheetDialogFragment-->
+  <string name="GroupJoinBottomSheetDialogFragment_you_are_already_a_member">Vous êtes déjà membre</string>
+  <!--GroupJoinUpdateRequiredBottomSheetDialogFragment-->
+  <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_signal_to_use_group_links">Mettez Signal à jour pour utiliser les liens de groupe</string>
+  <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_message">La version de Signal que vous utilisez ne prend pas en charge les liens de groupe partageables. Installez la dernière version de Signal pour vous joindre à ce groupe à partir d’un lien.</string>
+  <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_signal">Mettre Signal à jour</string>
   <!--CropImageActivity-->
   <string name="CropImageActivity_group_avatar">Avatar du groupe</string>
   <string name="CropImageActivity_profile_avatar">Avatar</string>
@@ -631,7 +660,7 @@
   <!--NotificationMmsMessageRecord-->
   <string name="NotificationMmsMessageRecord_multimedia_message">Message multimédia</string>
   <string name="NotificationMmsMessageRecord_downloading_mms_message">Téléchargement du message multimédia</string>
-  <string name="NotificationMmsMessageRecord_error_downloading_mms_message">Erreur de téléchargement du message multimédia. Touchez pour ressayer</string>
+  <string name="NotificationMmsMessageRecord_error_downloading_mms_message">Erreur de téléchargement du message multimédia. Touchez pour réessayer</string>
   <!--MediaPickerActivity-->
   <string name="MediaPickerActivity_send_to">Envoyer à %s</string>
   <string name="MediaPickerActivity__menu_open_camera">Ouvrir l’appareil photo</string>
@@ -728,7 +757,8 @@
   </plurals>
   <string name="MessageRecord_someone_declined_an_invitation_to_the_group">Quelqu’un a décliné une invitation au groupe.</string>
   <string name="MessageRecord_you_declined_the_invitation_to_the_group">Vous avez décliné l’invitation du groupe.</string>
-  <string name="MessageRecord_your_invitation_to_the_group_was_revoked">Votre invitation au groupe a été révoquée.</string>
+  <string name="MessageRecord_s_revoked_your_invitation_to_the_group">%1$s a révoqué votre invitation au groupe.</string>
+  <string name="MessageRecord_an_admin_revoked_your_invitation_to_the_group">Un administrateur a révoqué votre invitation au groupe.</string>
   <plurals name="MessageRecord_d_invitations_were_revoked">
     <item quantity="one">Une invitation au groupe a été révoquée.</item>
     <item quantity="other">%1$d invitations au groupe ont été révoquées.</item>
@@ -767,8 +797,7 @@
   <string name="MessageRequestBottomView_unblock">Débloquer</string>
   <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_they_wont_know_youve_seen_their_messages_until_you_accept">Autoriser %1$s à échanger des messages et partager votre nom et votre photo avec ce contact ? Ce contact ne saura pas que vous avez vu ses messages tant que vous n’aurez pas accepté.</string>
   <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them">Autoriser %1$s à échanger des messages et partager votre nom et votre photo avec ce contact ? Vous ne recevrez aucun message tant que vous ne l’aurez pas débloqué.</string>
-  <string name="MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Rejoindre ce groupe et partager votre nom et votre photo avec ses membres ? Ils ne sauront pas que vous avez vu leurs messages tant que vous n’aurez pas accepté.</string>
-  <string name="MessageRequestBottomView_you_were_invited_to_join_the_group_s">Vous avez été invité à vous joindre au groupe%1$s. Souhaitez-vous permettre aux membres de ce groupe de vous envoyer des messages ?</string>
+  <string name="MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Vous joindre à ce groupe et partager votre nom et votre photo avec ses membres ? Ils ne sauront pas que vous avez vu leurs messages tant que vous n’aurez pas accepté.</string>
   <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">Débloquer ce groupe et partager votre nom et votre photo avec ses membres ? Vous ne recevrez aucun message tant que vous ne l’aurez pas débloqué.</string>
   <string name="MessageRequestProfileView_member_of_one_group">Membre de %1$s</string>
   <string name="MessageRequestProfileView_member_of_two_groups">Membre de %1$s et de %2$s</string>
@@ -781,9 +810,9 @@
     <item quantity="one">%1$d membre (+%2$d invités)</item>
     <item quantity="other">%1$d membres (+%2$d invités)</item>
   </plurals>
-  <plurals name="MessageRequestProfileView_member_of_others">
-    <item quantity="one">%d autre</item>
-    <item quantity="other">%d autres</item>
+  <plurals name="MessageRequestProfileView_member_of_d_additional_groups">
+    <item quantity="one">%d autre groupe</item>
+    <item quantity="other">%d autres groupes</item>
   </plurals>
   <!--PassphraseChangeActivity-->
   <string name="PassphraseChangeActivity_passphrases_dont_match_exclamation">Les phrases de passe ne correspondent pas.</string>
@@ -825,7 +854,7 @@
   <string name="PlacePickerActivity_drop_pin">Marquer</string>
   <string name="PlacePickerActivity_accept_address">Accepter l’adresse</string>
   <!--PlayServicesProblemFragment-->
-  <string name="PlayServicesProblemFragment_the_version_of_google_play_services_you_have_installed_is_not_functioning">La version des services Google Play installée ne fonctionne pas correctement. Veuillez réinstaller les Services Google Play et ressayer.</string>
+  <string name="PlayServicesProblemFragment_the_version_of_google_play_services_you_have_installed_is_not_functioning">La version des services Google Play installée ne fonctionne pas correctement. Veuillez réinstaller les Services Google Play et réessayer.</string>
   <!--PinRestoreEntryFragment-->
   <string name="PinRestoreEntryFragment_incorrect_pin">Le NIP est erroné</string>
   <string name="PinRestoreEntryFragment_skip_pin_entry">Ignorer la saisie du NIP ?</string>
@@ -903,14 +932,14 @@
   <string name="RegistrationActivity_this_device_is_missing_google_play_services">Cet appareil ne dispose pas des service Google Play. Vous pouvez quand même utiliser Signal, mais cette configuration pourrait entraîner une fiabilité ou des performances moindres.\n\nSi vous n’êtes pas un utilisateur expérimenté, que vous n’utilisez pas une image Android de remplacement ou si vous pensez voir cela par erreur, veuillez contacter support@signal.org pour obtenir une aide au dépannage.</string>
   <string name="RegistrationActivity_i_understand">Je comprends</string>
   <string name="RegistrationActivity_play_services_error">Erreur des Services Google Play</string>
-  <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Les services Google Play sont en cours de mise à jour ou temporairement non disponibles. Veuillez ressayer.</string>
+  <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Les services Google Play sont en cours de mise à jour ou temporairement non disponibles. Veuillez réessayer.</string>
   <string name="RegistrationActivity_terms_and_privacy">Conditions générales et politique de confidentialité</string>
   <string name="RegistrationActivity_no_browser">Impossible d’ouvrir ce lien. Aucun navigateur Web n’a été trouvé.</string>
   <string name="RegistrationActivity_more_information">Plus de précisions</string>
   <string name="RegistrationActivity_less_information">Moins de précisions</string>
   <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly a besoin d’accéder à vos contacts et médias afin de se connecter avec vos amis, échanger des messages et effectuer des appels sécurisés</string>
-  <string name="RegistrationActivity_rate_limited_to_service">Vous avez fait trop d’essais pour inscrire ce numéro. Veuillez ressayer plus tard.</string>
-  <string name="RegistrationActivity_unable_to_connect_to_service">Impossible de se connecter au service. Veuillez vérifier la connexion réseau et ressayer.</string>
+  <string name="RegistrationActivity_rate_limited_to_service">Vous avez fait trop d’essais pour inscrire ce numéro. Veuillez réessayer plus tard.</string>
+  <string name="RegistrationActivity_unable_to_connect_to_service">Impossible de se connecter au service. Veuillez vérifier la connexion réseau et réessayer.</string>
   <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">Pour confirmer facilement votre numéro de téléphone, Molly peut automatiquement détecter votre code de confirmation si vous autorisez Molly à lire les textos.</string>
   <plurals name="RegistrationActivity_debug_log_hint">
     <item quantity="one">Vous êtes maintenant à %d étape d’envoyer un journal de débogage.</item>
@@ -1079,7 +1108,7 @@
   <!--VerifyIdentityActivity-->
   <string name="VerifyIdentityActivity_your_contact_is_running_an_old_version_of_signal">Votre contact utilise une ancienne version de Signal. Veuillez lui demander de la mettre à jour avant de confirmer votre numéro de sécurité.</string>
   <string name="VerifyIdentityActivity_your_contact_is_running_a_newer_version_of_Signal">Votre contact utilise une version plus récente de Signal dont le format de code QR est incompatible. Veuillez mettre Signal à jour pour comparer.</string>
-  <string name="VerifyIdentityActivity_the_scanned_qr_code_is_not_a_correctly_formatted_safety_number">Le code QR balayé n’est pas un code de confirmation du numéro de sécurité correctement formaté. Veuillez ressayer de le balayer.</string>
+  <string name="VerifyIdentityActivity_the_scanned_qr_code_is_not_a_correctly_formatted_safety_number">Le code QR balayé n’est pas un code de confirmation du numéro de sécurité correctement formaté. Veuillez réessayer de le balayer.</string>
   <string name="VerifyIdentityActivity_share_safety_number_via">Partager le numéro de sécurité par…</string>
   <string name="VerifyIdentityActivity_our_signal_safety_number">Notre numéro de sécurité Signal :</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">Vous semblez n’avoir aucune appli vers laquelle partager.</string>
@@ -1096,8 +1125,6 @@
   <string name="MmsMessageRecord_mms_message_encrypted_for_non_existing_session">Le message multimédia est chiffré pour une session non existante</string>
   <!--MuteDialog-->
   <string name="MuteDialog_mute_notifications">Notifications en sourdine</string>
-  <!--OutdatedBuildReminder-->
-  <string name="OutdatedBuildReminder_no_web_browser_installed">Aucun navigateur Web n’est installé.</string>
   <!--ApplicationMigrationService-->
   <string name="ApplicationMigrationService_import_in_progress">Importation en cours</string>
   <string name="ApplicationMigrationService_importing_text_messages">Importation des textos</string>
@@ -1128,6 +1155,7 @@
   <string name="MessageNotifier_error_delivering_message">Erreur de remise du message.</string>
   <string name="MessageNotifier_mark_all_as_read">Tout marquer comme lu</string>
   <string name="MessageNotifier_mark_read">Marquer comme lu</string>
+  <string name="MessageNotifier_turn_off_these_notifications">Désactiver ces notifications</string>
   <string name="MessageNotifier_media_message">Message multimédia</string>
   <string name="MessageNotifier_sticker">Autocollant</string>
   <string name="MessageNotifier_view_once_photo">Photo éphémère</string>
@@ -1148,6 +1176,7 @@
   <string name="MessageNotifier_reacted_s_to_your_view_once_video">A réagi %1$s à votre vidéo éphémère.</string>
   <string name="MessageNotifier_reacted_s_to_your_sticker">A réagi %1$s à votre autocollant.</string>
   <string name="MessageNotifier_this_message_was_deleted">Ce message a été supprimé.</string>
+  <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Désactiver les notifications pour les contacts qui se sont joints à Signal ? Vous pouvez les réactiver dans Signal &gt; Paramètres &gt; Notifications</string>
   <!--Notification Channels-->
   <string name="NotificationChannel_messages">Valeur par défaut</string>
   <string name="NotificationChannel_calls">Appels</string>
@@ -1257,7 +1286,7 @@
   <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Molly exige l’autorisation Contacts afin d’afficher vos contacts, mais elle a été refusée définitivement. Veuillez accéder au menu des paramètres des applis, sélectionner « Autorisations » et activer « Contacts ».</string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Erreur de récupération des contacts, veuillez vérifier votre connexion réseau</string>
   <string name="ContactSelectionListFragment_username_not_found">Le nom d’utilisateur est introuvable</string>
-  <string name="ContactSelectionListFragment_s_is_not_a_signal_user">« %1$s » n’est pas un utilisateur de Signal. Veuillez confirmer le nom d’utilisateur et ressayer.</string>
+  <string name="ContactSelectionListFragment_s_is_not_a_signal_user">« %1$s » n’est pas un utilisateur de Signal. Veuillez confirmer le nom d’utilisateur et réessayer.</string>
   <string name="ContactSelectionListFragment_okay">Valider</string>
   <string name="ContactSelectionListFragment_the_group_is_full">Le groupe est plein</string>
   <string name="ContactSelectionListFragment_you_do_not_need_to_add_yourself_to_the_group">Vous n’avez pas besoin de vous ajouter au groupe</string>
@@ -1285,7 +1314,7 @@
   <string name="conversation_activity__quick_attachment_drawer_record_and_send_audio_description">Enregistrer et envoyer une fichier son joint</string>
   <string name="conversation_activity__quick_attachment_drawer_lock_record_description">Verrouiller l’enregistrement de fichiers son joints</string>
   <string name="conversation_activity__enable_signal_for_sms">Gérer les textos avec Signal</string>
-  <string name="conversation_activity__message_could_not_be_sent">Impossible d’envoyer le message. Vérifiez votre connexion et ressayez.</string>
+  <string name="conversation_activity__message_could_not_be_sent">Impossible d’envoyer le message. Vérifiez votre connexion et réessayez.</string>
   <!--conversation_input_panel-->
   <string name="conversation_input_panel__slide_to_cancel">Faire glisser pour annuler</string>
   <string name="conversation_input_panel__cancel">Annuler</string>
@@ -1394,7 +1423,7 @@
   <string name="log_submit_activity__uploading_logs">Téléversement des journaux…</string>
   <string name="log_submit_activity__choose_email_app">Choisir un appli de courriel</string>
   <string name="log_submit_activity__please_review_this_log_from_my_app">Veuillez examiner ce journal provenant de mon appli : %1$s</string>
-  <string name="log_submit_activity__network_failure">Échec réseau. Veuillez ressayer.</string>
+  <string name="log_submit_activity__network_failure">Échec réseau. Veuillez réessayer.</string>
   <!--database_migration_activity-->
   <string name="database_migration_activity__would_you_like_to_import_your_existing_text_messages">Souhaitez-vous importer vos textos existants dans la base de données chiffrée de Signal ?</string>
   <string name="database_migration_activity__the_default_system_database_will_not_be_modified">La base de données par défaut du système ne sera aucunement modifiée ni altérée.</string>
@@ -1517,6 +1546,7 @@
   <string name="HelpFragment__please_be_as_descriptive_as_possible">Veuillez nous donner autant de détails que possible, afin de nous aider comprendre la situation.</string>
   <string name="HelpFragment__no_email_app_found">Aucune appli de courriel n’a été trouvée.</string>
   <!--ReactWithAnyEmojiBottomSheetDialogFragment-->
+  <string name="ReactWithAnyEmojiBottomSheetDialogFragment__this_message">Ce message</string>
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__recently_used">Utilisés récemment</string>
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__smileys_and_people">Frimousses et personnes</string>
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__nature">Nature</string>
@@ -1566,8 +1596,8 @@
   <string name="preferences__use_signal_for_viewing_and_storing_all_incoming_multimedia_messages">Utiliser Signal pour tous les messages multimédias entrants</string>
   <string name="preferences__pref_enter_sends_title">La touche Entrée envoie</string>
   <string name="preferences__pressing_the_enter_key_will_send_text_messages">Appuyer sur la touche Entrée enverra les textos</string>
-  <string name="preferences__send_link_previews">Envoyer des aperçus de liens</string>
-  <string name="preferences__previews_are_supported_for">Les aperçus sont pris en charge pour les liens Imgur, Instagram, Pinterest, Reddit et YouTube</string>
+  <string name="preferences__generate_link_previews">Générer des aperçus de lien</string>
+  <string name="preferences__retrieve_link_previews_from_websites_for_messages">Pour les messages que vous envoyez, récupérez des aperçus de lien directement des sites Web.</string>
   <string name="preferences__choose_identity">Choisir une identité</string>
   <string name="preferences__choose_your_contact_entry_from_the_contacts_list">Choisissez votre entrée de contact dans la liste de contacts.</string>
   <string name="preferences__change_passphrase">Changer la phrase de passe</string>
@@ -1684,6 +1714,9 @@
   <string name="preferences_communication__sealed_sender_allow_from_anyone">Autoriser de n’importe qui</string>
   <string name="preferences_communication__sealed_sender_allow_from_anyone_description">Activer l’option « expéditeur scellé » pour les messages entrants provenant d’expéditeurs qui ne sont pas dans vos contacts et de personnes avec qui vous n’avez pas partagé votre profil.</string>
   <string name="preferences_communication__sealed_sender_learn_more">En apprendre davantage</string>
+  <string name="preferences_notifications__mentions">Mentions</string>
+  <string name="preferences_notifications__notify_me">Me prévenir</string>
+  <string name="preferences_notifications__receive_notifications_when_youre_mentioned_in_muted_chats">Recevoir des notifications si vous êtes mentionné dans des conversations en sourdine</string>
   <!--Internal only preferences-->
   <!--****************************************-->
   <!--menus-->
@@ -1715,6 +1748,8 @@
   <string name="conversation_insecure__invite">Inviter</string>
   <!--conversation_list_batch-->
   <string name="conversation_list_batch__menu_delete_selected">Supprimer la sélection</string>
+  <string name="conversation_list_batch__menu_pin_selected">Épingler la sélection</string>
+  <string name="conversation_list_batch__menu_unpin_selected">Désépingler la sélection</string>
   <string name="conversation_list_batch__menu_select_all">Tout sélectionner</string>
   <string name="conversation_list_batch_archive__menu_archive_selected">Archiver la sélection</string>
   <string name="conversation_list_batch_unarchive__menu_unarchive_selected">Désarchiver la sélection</string>
@@ -1724,6 +1759,9 @@
   <!--conversation_list-->
   <string name="conversation_list_settings_shortcut">Raccourci des paramètres</string>
   <string name="conversation_list_search_description">Chercher</string>
+  <string name="conversation_list__pinned">Épinglé</string>
+  <string name="conversation_list__chats">Conversations</string>
+  <string name="conversation_list__you_can_only_pin_up_to_d_chats">Vous pouvez seulement épingler jusqu’à %1$d conversations</string>
   <!--conversation_list_item_view-->
   <string name="conversation_list_item_view__contact_photo_image">Photo du contact</string>
   <string name="conversation_list_item_view__archived">Archivée</string>
@@ -1785,7 +1823,7 @@
   <string name="reminder_header_invite_title">Inviter à Signal</string>
   <string name="reminder_header_invite_text">Passez votre conversation avec %1$s au niveau supérieur.</string>
   <string name="reminder_header_share_title">Invitez vos amis !</string>
-  <string name="reminder_header_share_text">Plus vos amis utilisent Signal, plus ça devient intéressant.</string>
+  <string name="reminder_header_share_text">Plus vos amis utilisent Signal, plus ça devient intéréessant.</string>
   <string name="reminder_header_service_outage_text">Signal éprouve des difficultés techniques. Nous mettons tout en œuvre pour restaurer le service aussi rapidement que possible.</string>
   <string name="reminder_header_the_latest_signal_features_wont_work">Les dernières fonctions de Signal ne sont pas compatibles avec cette version d’Android. Veuillez mettre cet appareil à niveau afin de recevoir les mises à jour ultérieures de Signal.</string>
   <string name="reminder_header_progress">%1$d%%</string>
@@ -1845,7 +1883,7 @@
   <string name="CreateKbsPinFragment__pins_keep_information_stored_with_signal_encrypted">Les NIP font en sorte que les renseignements sont enregistrés chiffrés dans Signal afin que vous seul puissiez y accéder. Votre profil, vos paramètres et vos contacts seront restaurés quand vous réinstallerez Signal. Vous n’aurez pas besoin de votre NIP pour ouvrir l’appli.</string>
   <string name="CreateKbsPinFragment__choose_a_stronger_pin">Choisissez une NIP plus robuste</string>
   <!--ConfirmKbsPinFragment-->
-  <string name="ConfirmKbsPinFragment__pins_dont_match">Les NIP ne correspondent pas. Veuillez ressayez.</string>
+  <string name="ConfirmKbsPinFragment__pins_dont_match">Les NIP ne correspondent pas. Veuillez réessayez.</string>
   <string name="ConfirmKbsPinFragment__confirm_your_pin">Confirmez votre NIP</string>
   <string name="ConfirmKbsPinFragment__pin_creation_failed">Échec de création du NIP</string>
   <string name="ConfirmKbsPinFragment__your_pin_was_not_saved">Votre NIP n’a pas été enregistré. Nous vous inviterons à en créer un plus tard.</string>
@@ -1869,7 +1907,7 @@
   <string name="KbsReminderDialog__skip">Ignorer</string>
   <string name="KbsReminderDialog__submit">Envoyer</string>
   <string name="KbsReminderDialog__forgot_pin">Avez-vous oublié votre NIP ?</string>
-  <string name="KbsReminderDialog__incorrect_pin_try_again">Le NIP est erroné. Veuillez ressayer.</string>
+  <string name="KbsReminderDialog__incorrect_pin_try_again">Le NIP est erroné. Veuillez réessayer.</string>
   <!--AccountLockedFragment-->
   <string name="AccountLockedFragment__account_locked">Le compte est verrouillé</string>
   <string name="AccountLockedFragment__your_account_has_been_locked_to_protect_your_privacy">Votre compte a été verrouillé afin de protéger vos données personnelles et votre sécurité. Après %1$d jours d’inactivité dans votre compte, vous pourrez réinscrire ce numéro de téléphone sans avoir besoin de votre NIP. Tout le contenu sera supprimé.</string>
@@ -1881,7 +1919,7 @@
   <string name="RegistrationLockFragment__enter_alphanumeric_pin">Saisissez un NIP alphanumérique</string>
   <string name="RegistrationLockFragment__enter_numeric_pin">Saisissez un NIP numérique</string>
   <string name="RegistrationLockFragment__next">Suivant</string>
-  <string name="RegistrationLockFragment__incorrect_pin_try_again">Le NIP est erroné. Veuillez ressayer.</string>
+  <string name="RegistrationLockFragment__incorrect_pin_try_again">Le NIP est erroné. Veuillez réessayer.</string>
   <string name="RegistrationLockFragment__forgot_pin">Avez-vous oublié votre NIP ?</string>
   <string name="RegistrationLockFragment__incorrect_pin">Le NIP est erroné</string>
   <string name="RegistrationLockFragment__forgot_your_pin">Avez-vous oublié votre NIP ?</string>
@@ -1917,6 +1955,9 @@
   <string name="KbsMegaphone__update_pin">Mettre le NIP à jour</string>
   <string name="KbsMegaphone__well_remind_you_later_creating_a_pin">Nous vous le rappellerons plus tard. La création d’un NIP deviendra obligatoire dans %1$d jours.</string>
   <string name="KbsMegaphone__well_remind_you_later_confirming_your_pin">Nous vous le rappellerons plus tard. La confirmation de votre NIP deviendra obligatoire dans %1$d jours.</string>
+  <!--Mention Megaphone-->
+  <string name="MentionsMegaphone__introducing_mentions">Nous présentons les @mentions</string>
+  <string name="MentionsMegaphone__get_someones_attention_in_a_group_by_typing">Attirez l’attention de quelqu’un dans un « nouveau groupe » en tapant @</string>
   <!--transport_selection_list_item-->
   <string name="transport_selection_list_item__transport_icon">Icône de transport</string>
   <string name="ConversationListFragment_loading">Chargement…</string>
@@ -1988,7 +2029,7 @@
   <string name="preferences_app_protection__confirm_pin">Confirmer le NIP</string>
   <string name="preferences_app_protection__confirm_your_signal_pin">Confirmer votre NIP Signal</string>
   <string name="preferences_app_protection__make_sure_you_memorize_or_securely_store_your_pin">Assurez-vous de mémoriser votre NIP ou de le conserver à l’abri, car il ne peut pas être récupéré. Si vous oubliez votre NIP, vous risquez de perdre des données lors de la réinscription de votre compte Signal. </string>
-  <string name="preferences_app_protection__incorrect_pin_try_again">Le NIP est erroné. Veuillez ressayer.</string>
+  <string name="preferences_app_protection__incorrect_pin_try_again">Le NIP est erroné. Veuillez réessayer.</string>
   <string name="preferences_app_protection__failed_to_enable_registration_lock">Échec d’activation du blocage de l’inscription.</string>
   <string name="preferences_app_protection__failed_to_disable_registration_lock">Échec de désactivation du blocage de l’inscription.</string>
   <string name="AppProtectionPreferenceFragment_none">Aucun</string>
@@ -2007,8 +2048,8 @@
   <string name="RegistrationActivity_your_pin_has_at_least_d_digits_or_characters">Votre NIP comporte au moins %d chiffres ou caractères</string>
   <string name="RegistrationActivity_incorrect_registration_lock_pin">Le NIP de blocage de l’inscription est erroné.</string>
   <string name="RegistrationActivity_too_many_attempts">Trop d’essais</string>
-  <string name="RegistrationActivity_you_have_made_too_many_incorrect_registration_lock_pin_attempts_please_try_again_in_a_day">Vous avez fait trop d’essais infructueux de saisie du NIP de blocage de l’inscription. Veuillez ressayer dans un jour.</string>
-  <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">Vous avez fait trop d’essais. Veuillez ressayer plus tard.</string>
+  <string name="RegistrationActivity_you_have_made_too_many_incorrect_registration_lock_pin_attempts_please_try_again_in_a_day">Vous avez fait trop d’essais infructueux de saisie du NIP de blocage de l’inscription. Veuillez réessayer dans un jour.</string>
+  <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">Vous avez fait trop d’essais. Veuillez réessayer plus tard.</string>
   <string name="RegistrationActivity_error_connecting_to_service">Erreur de connexion au service</string>
   <string name="RegistrationActivity_oh_no">Oh non !</string>
   <string name="RegistrationActivity_registration_of_this_phone_number_will_be_possible_without_your_registration_lock_pin_after_seven_days_have_passed">L’inscription de ce numéro de téléphone sera possible sans votre NIP de blocage de l’inscription sept jours après la dernière activité de ce numéro de téléphone sur Signal. Il vous reste %d jours.</string>
@@ -2056,7 +2097,7 @@
   <!--GroupsLearnMoreBottomSheetDialogFragment-->
   <string name="GroupsLearnMore_legacy_vs_new_groups">Les groupes hérités comparés aux nouveaux</string>
   <string name="GroupsLearnMore_what_are_legacy_groups">Que sont les groupes hérités ?</string>
-  <string name="GroupsLearnMore_paragraph_1">Les groupes hérités sont des groupes qui ne sont pas compatibles avec les fonctions des nouveaux groupes telles que les administrateurs et les mises à jour plus descriptives des groupes.</string>
+  <string name="GroupsLearnMore_paragraph_1">Les groupes hérités sont des groupes qui ne sont pas compatibles avec les fonctions des nouveaux groupes, telles que les administrateurs et les mises à jour plus descriptives des groupes.</string>
   <string name="GroupsLearnMore_how_do_i_use_new_groups">Comment utiliser les nouveaux groupes ?</string>
   <string name="GroupsLearnMore_paragraph_2">Les groupes hérités ne peuvent pas être convertis en nouveaux groupes, mais vous pouvez créer un nouveau groupe avec les mêmes membres.</string>
   <string name="GroupsLearnMore_paragraph_3">Pour créer un nouveau groupe, tous les membres devraient mettre Signal à jour vers la version la plus récente.</string>

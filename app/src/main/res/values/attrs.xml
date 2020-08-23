@@ -41,6 +41,9 @@
     <attr name="avatar_selection_remove_photo" format="reference" />
 
     <attr name="kbs_splash_image" format="reference" />
+    <attr name="kbs_confirm_lottie_loading" format="reference" />
+    <attr name="kbs_confirm_lottie_success" format="reference" />
+    <attr name="kbs_confirm_lottie_failure" format="reference" />
 
     <attr name="conversation_sent_card_background" format="reference|color"/>
     <attr name="conversation_group_member_name" format="reference|color"/>
@@ -87,6 +90,8 @@
     <attr name="conversation_title_color" format="reference" />
     <attr name="conversation_subtitle_color" format="reference" />
     <attr name="conversation_mention_background_color" format="reference" />
+
+    <attr name="mention_picker_background_color" format="reference" />
 
     <attr name="emoji_tab_strip_background" format="color" />
     <attr name="emoji_tab_indicator" format="color" />
@@ -147,6 +152,7 @@
     <attr name="conversation_item_image_outline_color" format="color" />
     <attr name="conversation_item_reveal_viewed_background_color" format="color" />
     <attr name="conversation_item_delete_for_everyone_text_color" format="color" />
+    <attr name="conversation_item_mention_pulse_color" format="color" />
     <attr name="conversation_scroll_to_bottom_background" format="reference" />
     <attr name="conversation_scroll_to_bottom_foreground_color" format="color" />
 
@@ -214,6 +220,8 @@
     <attr name="menu_multi_select_icon" format="reference" />
     <attr name="menu_archive_icon" format="reference" />
     <attr name="menu_edit_icon" format="reference" />
+    <attr name="menu_pin_icon" format="reference" />
+    <attr name="menu_unpin_icon" format="reference" />
 
     <attr name="message_icon" format="reference" />
     <attr name="notifications_icon" format="reference" />
@@ -401,6 +409,7 @@
         <attr name="scaleEmojis" format="boolean" />
         <attr name="emoji_maxLength" format="integer" />
         <attr name="emoji_forceCustom" format="boolean" />
+        <attr name="emoji_renderMentions" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="RingtonePreference">
@@ -550,5 +559,9 @@
         <attr name="state_headset_selected" format="boolean" />
         <attr name="state_speaker_selected" format="boolean" />
         <attr name="state_handset_selected" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="ConversationScrollToView">
+        <attr name="cstv_scroll_button_src" format="reference" />
     </declare-styleable>
 </resources>

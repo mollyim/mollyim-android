@@ -51,14 +51,15 @@ public final class FeatureFlags {
   private static final String USERNAMES                  = "android.usernames";
   private static final String ATTACHMENTS_V3             = "android.attachmentsV3.2";
   private static final String REMOTE_DELETE              = "android.remoteDelete";
-  private static final String GROUPS_V2_OLD              = "android.groupsv2";
-  private static final String GROUPS_V2                  = "android.groupsv2.2";
-  private static final String GROUPS_V2_CREATE           = "android.groupsv2.create.2";
-  private static final String GROUPS_V2_CAPACITY         = "android.groupsv2.capacity";
-  private static final String CDS                        = "android.cds";
-  private static final String RECIPIENT_TRUST            = "android.recipientTrust";
+  private static final String GROUPS_V2_OLD_1            = "android.groupsv2";
+  private static final String GROUPS_V2_OLD_2            = "android.groupsv2.2";
+  private static final String GROUPS_V2                  = "android.groupsv2.3";
+  private static final String GROUPS_V2_CREATE           = "android.groupsv2.create.3";
+  private static final String GROUPS_V2_CAPACITY         = "global.groupsv2.maxGroupSize";
+  private static final String CDS                        = "android.cds.3";
   private static final String INTERNAL_USER              = "android.internalUser";
   private static final String MENTIONS                   = "android.mentions";
+  private static final String VERIFY_V2                  = "android.verifyV2";
 
   /**
    * We will only store remote values for flags in this set. If you want a flag to be controllable
@@ -71,9 +72,10 @@ public final class FeatureFlags {
       GROUPS_V2,
       GROUPS_V2_CREATE,
       GROUPS_V2_CAPACITY,
-      RECIPIENT_TRUST,
+      CDS,
       INTERNAL_USER,
-      MENTIONS
+      MENTIONS,
+      VERIFY_V2
   );
 
   /**
@@ -96,7 +98,7 @@ public final class FeatureFlags {
   private static final Set<String> HOT_SWAPPABLE = Sets.newHashSet(
       ATTACHMENTS_V3,
       GROUPS_V2_CREATE,
-      RECIPIENT_TRUST
+      VERIFY_V2
   );
 
   /**
@@ -104,9 +106,10 @@ public final class FeatureFlags {
    */
   private static final Set<String> STICKY = Sets.newHashSet(
       GROUPS_V2,
-      GROUPS_V2_OLD,
-      RECIPIENT_TRUST
-  );
+      GROUPS_V2_OLD_1,
+      GROUPS_V2_OLD_2,
+      VERIFY_V2
+    );
 
   /**
    * Listeners that are called when the value in {@link #REMOTE_VALUES} changes. That means that
@@ -174,7 +177,7 @@ public final class FeatureFlags {
     Log.i(TAG, "[Disk]   After : " + result.getDisk().toString());
   }
 
-  /** Creating usernames, sending messages by username. Requires {@link #uuidOnlyContacts()}. */
+  /** Creating usernames, sending messages by username. */
   public static synchronized boolean usernames() {
     return getBoolean(USERNAMES, false);
   }
@@ -191,21 +194,31 @@ public final class FeatureFlags {
 
   /** Groups v2 send and receive. */
   public static boolean groupsV2() {
-    return getBoolean(GROUPS_V2_OLD, false) || getBoolean(GROUPS_V2, false);
+    return groupsV2OlderStickyFlags() || groupsV2LatestFlag();
   }
 
   /** Attempt groups v2 creation. */
   public static boolean groupsV2create() {
-    return groupsV2() &&
+    return groupsV2LatestFlag() &&
            getBoolean(GROUPS_V2_CREATE, false) &&
            !SignalStore.internalValues().gv2DoNotCreateGv2Groups();
+  }
+
+  private static boolean groupsV2LatestFlag() {
+    return getBoolean(GROUPS_V2, false);
+  }
+
+  /** Clients that previously saw these flags as true must continue to respect that */
+  private static boolean groupsV2OlderStickyFlags() {
+    return getBoolean(GROUPS_V2_OLD_1, false) ||
+           getBoolean(GROUPS_V2_OLD_2, false);
   }
 
   /**
    * Maximum number of members allowed in a group.
    */
   public static int gv2GroupCapacity() {
-    return getInteger(GROUPS_V2_CAPACITY, 100);
+    return getInteger(GROUPS_V2_CAPACITY, 151);
   }
 
   /** Internal testing extensions. */
@@ -218,14 +231,14 @@ public final class FeatureFlags {
     return getBoolean(CDS, false);
   }
 
-  /** Whether or not we allow different trust levels for recipient address sources. */
-  public static boolean recipientTrust() {
-    return getBoolean(RECIPIENT_TRUST, false);
-  }
-
   /** Whether or not we allow mentions send support in groups. */
   public static boolean mentions() {
-    return getBoolean(MENTIONS, false);
+    return groupsV2() && getBoolean(MENTIONS, false);
+  }
+
+  /** Whether or not to use the UUID in verification codes. */
+  public static boolean verifyV2() {
+    return getBoolean(VERIFY_V2, false);
   }
 
   /** Only for rendering debug info. */

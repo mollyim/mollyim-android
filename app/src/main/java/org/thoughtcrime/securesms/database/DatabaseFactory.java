@@ -58,6 +58,7 @@ public class DatabaseFactory {
   private final KeyValueDatabase        keyValueDatabase;
   private final MegaphoneDatabase       megaphoneDatabase;
   private final RemappedRecordsDatabase remappedRecordsDatabase;
+  private final MentionDatabase         mentionDatabase;
 
   public static DatabaseFactory getInstance(Context context) {
     synchronized (lock) {
@@ -160,6 +161,10 @@ public class DatabaseFactory {
     return getInstance(context).remappedRecordsDatabase;
   }
 
+  public static MentionDatabase getMentionDatabase(Context context) {
+    return getInstance(context).mentionDatabase;
+  }
+
   public static SQLiteDatabase getBackupDatabase(Context context) {
     return getInstance(context).databaseHelper.getReadableDatabase();
   }
@@ -209,6 +214,7 @@ public class DatabaseFactory {
     this.keyValueDatabase        = new KeyValueDatabase(context, databaseHelper);
     this.megaphoneDatabase       = new MegaphoneDatabase(context, databaseHelper);
     this.remappedRecordsDatabase = new RemappedRecordsDatabase(context, databaseHelper);
+    this.mentionDatabase         = new MentionDatabase(context, databaseHelper);
   }
 
   public void triggerDatabaseAccess() {

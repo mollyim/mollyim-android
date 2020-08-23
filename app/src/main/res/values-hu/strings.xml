@@ -399,7 +399,6 @@
   <!--GroupMembersDialog-->
   <string name="GroupMembersDialog_you">Te</string>
   <!--GV2 access levels-->
-  <string name="GroupManagement_access_level_anyone">Bárki</string>
   <string name="GroupManagement_access_level_all_members">Összes tag</string>
   <string name="GroupManagement_access_level_only_admins">Csak adminisztrátorok</string>
   <!--GV2 invites sent-->
@@ -410,6 +409,12 @@
   <string name="GroupManagement_invite_single_user">Nem lehet \"%1$s\" nevű kontaktodat automatikusan a csoporthoz adni.\n\nBár már meg lett hívva, addig mégsem láthatja az csoportüzeneteket, míg el nem fogadja a meghívást.</string>
   <string name="GroupManagement_learn_more">További információ</string>
   <string name="GroupManagement_invite_multiple_users">Ezeket a felhasználókat nem lehet automatikusan a csoporthoz adni.\n\nBár már meg lettek hívva, addig mégsem láthatják a csoportüzeneteket, míg el nem fogadják a meghívást.</string>
+  <!--LinkPreviewsMegaphone-->
+  <string name="LinkPreviewsMegaphone_disable">Kikapcsolás</string>
+  <string name="LinkPreviewsMegaphone_preview_any_link">Előnézet bármely weboldalhoz</string>
+  <string name="LinkPreviewsMegaphone_you_can_now_retrieve_link_previews_directly_from_any_website">Mostantól bármely weboldalra vezető linkhez lekérheted annak előnézeti képét, mielőtt elküldenéd üzenetben.</string>
+  <!--LinkPreviewView-->
+  <string name="LinkPreviewView_no_link_preview_available">Nem érhető el előnézeti kép</string>
   <!--PendingMembersActivity-->
   <string name="PendingMemberInvitesActivity_pending_group_invites">Függőben lévő csoportmeghívók</string>
   <string name="PendingMembersActivity_people_you_invited">Általad meghívott személyek</string>
@@ -417,15 +422,15 @@
   <string name="PendingMembersActivity_invites_by_other_group_members">Más tagok csoportmeghívói</string>
   <string name="PendingMembersActivity_no_pending_invites_by_other_group_members">Nincsenek a csoport más tagjaitól származó, függőben lévő meghívók.</string>
   <string name="PendingMembersActivity_missing_detail_explanation">A csoport más tagjai által meghívott személyek részletes információi nem jelennek meg. Amint a meghívott elfogadja a felkérést, ezek az információk megosztásra kerülnek az egész csoporttal. A csatlakozás elfogadásáig a meghívottak nem tudják elolvasni az üzeneteket.</string>
-  <string name="PendingMembersActivity_cancel_invite">Meghívó törlése</string>
-  <string name="PendingMembersActivity_cancel_invites">Meghívók törlése</string>
-  <plurals name="PendingMembersActivity_cancel_d_invites">
-    <item quantity="one">Meghívó törlése</item>
-    <item quantity="other">%1$d meghívó törlése</item>
+  <string name="PendingMembersActivity_revoke_invite">Meghívó visszavonása</string>
+  <string name="PendingMembersActivity_revoke_invites">Meghívók visszavonása</string>
+  <plurals name="PendingMembersActivity_revoke_d_invites">
+    <item quantity="one">Meghívó visszavonása</item>
+    <item quantity="other">%1$d db meghívó visszavonása</item>
   </plurals>
-  <plurals name="PendingMembersActivity_error_canceling_invite">
-    <item quantity="one">Nem sikerült törölni a meghívót</item>
-    <item quantity="other">Nem sikerült törölni a meghívókat</item>
+  <plurals name="PendingMembersActivity_error_revoking_invite">
+    <item quantity="one">Nem sikerült visszavonni a meghívót</item>
+    <item quantity="other">Nem sikerült visszavonni a meghívókat</item>
   </plurals>
   <!--AddMembersActivity-->
   <string name="AddMembersActivity__done">Befejezés</string>
@@ -448,6 +453,16 @@
   <string name="AddGroupDetailsFragment__remove">Eltávolítás</string>
   <string name="AddGroupDetailsFragment__sms_contact">SMS kontakt</string>
   <string name="AddGroupDetailsFragment__remove_s_from_this_group">Eltávolítod %1$s-t ebből a csoportból?</string>
+  <plurals name="AddGroupDetailsFragment__d_members_do_not_support_new_groups">
+    <item quantity="one">%d tag nem támogatja az új típusú csoportokat, ezért a csoport továbbra is régi típusú marad.</item>
+    <item quantity="other">%d tag nem támogatja az új típusú csoportokat, ezért a csoport továbbra is régi típusú marad.</item>
+  </plurals>
+  <!--NonGv2MemberDialog-->
+  <string name="NonGv2MemberDialog_single_users_are_non_gv2_capable">Régi típusú csoport lesz létrehozva, mivel \"%1$s\" a Signal egy régi verzióját használja. Új típusú csoportot csak azután fogsz tudni létrehozni, hogy ő is frissítette Signalját, vagy ha eltávolítod a felvételre kerülő tagok közül.</string>
+  <plurals name="NonGv2MemberDialog_d_users_are_non_gv2_capable">
+    <item quantity="one">Régi típusú csoport lesz létrehozva, mivel %1$d tag a Signal egy régi verzióját használja. Új típusú csoportot csak azután fogsz tudni létrehozni, hogy ő is frissítette Signalját, vagy ha eltávolítod a felvételre kerülő tagok közül.</item>
+    <item quantity="other">Régi típusú csoport lesz létrehozva, mivel %1$d tag a Signal egy régi verzióját használja. Új típusú csoportot csak azután fogsz tudni létrehozni, hogy ők is frissítették Signaljukat, vagy ha eltávolítod őket a felvételre kerülő tagok közül.</item>
+  </plurals>
   <!--ManageGroupActivity-->
   <string name="ManageGroupActivity_disappearing_messages">Eltűnő üzenetek</string>
   <string name="ManageGroupActivity_pending_group_invites">Függőben lévő csoportmeghívók</string>
@@ -460,6 +475,7 @@
   <string name="ManageGroupActivity_leave_group">Kilépés a csoportból</string>
   <string name="ManageGroupActivity_mute_notifications">Értesítések némítása</string>
   <string name="ManageGroupActivity_custom_notifications">Egyedi értesítések</string>
+  <string name="ManageGroupActivity_mentions">Említések</string>
   <string name="ManageGroupActivity_until_s">%1$s-ig</string>
   <string name="ManageGroupActivity_off">Ki</string>
   <string name="ManageGroupActivity_on">Be</string>
@@ -483,6 +499,13 @@
   <string name="ManageGroupActivity_edit_name_and_picture">Név és kép szerkesztése</string>
   <string name="ManageGroupActivity_legacy_group">Régi típusú csoport</string>
   <string name="ManageGroupActivity_legacy_group_learn_more">Ez egy régi típusú csoport. Az újabb funkciók eléréséhez (pl. csoport-adminok) hozz létre egy új csoportot!</string>
+  <!--GroupMentionSettingDialog-->
+  <string name="GroupMentionSettingDialog_notify_me_for_mentions">Értesítsen említés esetén</string>
+  <string name="GroupMentionSettingDialog_receive_notifications_when_youre_mentioned_in_muted_chats">Szeretnél értesítéseket kapni, ha egy lenémított beszélgetésben megemlítenek?</string>
+  <string name="GroupMentionSettingDialog_default_notify_me">Alapértelmezett (értesítés be)</string>
+  <string name="GroupMentionSettingDialog_default_dont_notify_me">Alapértelmezett (értesítés ki)</string>
+  <string name="GroupMentionSettingDialog_always_notify_me">Mindig értesítsen</string>
+  <string name="GroupMentionSettingDialog_dont_notify_me">Sose értesítsen</string>
   <!--ManageRecipientActivity-->
   <string name="ManageRecipientActivity_add_to_system_contacts">Hozzáadás a rendszer-kontaktokhoz</string>
   <string name="ManageRecipientActivity_this_person_is_in_your_contacts">Ez a személy szerepel a kontakjaid közt</string>
@@ -524,12 +547,18 @@
   <string name="CustomNotificationsDialogFragment__enabled">Engedélyezve</string>
   <string name="CustomNotificationsDialogFragment__disabled">Letiltva</string>
   <string name="CustomNotificationsDialogFragment__default">Alapértelmezett</string>
-  <!--GV2 Invite cancellation confirmation-->
-  <string name="GroupManagement_cancel_own_single_invite">Biztosan vissza szeretnéd vonni a %1$s részére küldött meghívót?</string>
-  <plurals name="GroupManagement_cancel_others_invites">
+  <!--GV2 Invite Revoke confirmation dialog-->
+  <string name="InviteRevokeConfirmationDialog_revoke_own_single_invite">Biztosan vissza szeretnéd vonni a %1$s részére küldött meghívót?</string>
+  <plurals name="InviteRevokeConfirmationDialog_revoke_others_invites">
     <item quantity="one">Biztosan vissza szeretnéd vonni a %1$s által küldött meghívót?</item>
     <item quantity="other">Biztosan vissza szeretnéd vonni a %1$s által küldött %2$d db meghívót?</item>
   </plurals>
+  <!--GroupJoinBottomSheetDialogFragment-->
+  <string name="GroupJoinBottomSheetDialogFragment_you_are_already_a_member">Már tag vagy</string>
+  <!--GroupJoinUpdateRequiredBottomSheetDialogFragment-->
+  <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_signal_to_use_group_links">Frissítsd a Signalt a csoporthivatkozások használatához</string>
+  <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_message">Az általad használt verziójú Signal nem támogatja a megosztható csoporthivatkozásokat. Frissíts a legújabb verzióra, hogy a hivatkozás használatával csatlakozhass ehhez a csoporthoz!</string>
+  <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_signal">Signal frissítése</string>
   <!--CropImageActivity-->
   <string name="CropImageActivity_group_avatar">Csoport avatar</string>
   <string name="CropImageActivity_profile_avatar">Avatar</string>
@@ -730,7 +759,8 @@
   </plurals>
   <string name="MessageRecord_someone_declined_an_invitation_to_the_group">Valaki visszautasított egy meghívót a csoportba.</string>
   <string name="MessageRecord_you_declined_the_invitation_to_the_group">Visszautasítottad a meghívást a csoportba.</string>
-  <string name="MessageRecord_your_invitation_to_the_group_was_revoked">A csoportmeghívásod visszavonásra került.</string>
+  <string name="MessageRecord_s_revoked_your_invitation_to_the_group">%1$s visszavonta meghívásod a csoportba.</string>
+  <string name="MessageRecord_an_admin_revoked_your_invitation_to_the_group">Egy admin visszavonta meghívásod a csoportba.</string>
   <plurals name="MessageRecord_d_invitations_were_revoked">
     <item quantity="one">Egy személy csoportmeghívója vissza lett vonva.</item>
     <item quantity="other">%1$d személy csoportmeghívója vissza lett vonva.</item>
@@ -770,7 +800,6 @@
   <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_they_wont_know_youve_seen_their_messages_until_you_accept">Engedélyezed, hogy %1$s üzenetet küldjön számodra, és lássa nevedet, valamint profilképedet? Amíg ebbe bele nem egyezel, addig nem értesül arról sem, hogy elolvastad-e az üzeneteit.</string>
   <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them">Engedélyezed, hogy %1$s üzenetet küldjön számodra, és lássa nevedet, valamint profilképedet? Nem fogsz üzenetet kapni tőle, amíg fel nem oldod a tiltást.</string>
   <string name="MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Belépsz a csoportba, és megosztod velük neved és profilképedet? Amíg ebbe bele nem egyezel, addig nem értesülnek arról sem, hogy elolvastad-e üzeneteiket.</string>
-  <string name="MessageRequestBottomView_you_were_invited_to_join_the_group_s">Meghívtak a %1$s csoportba. Engedélyezed, hogy a csoport tagjai üzenetet küldhessenek neked?</string>
   <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">Feloldod a csoport tiltását és megosztod profilodat a tagokkal? Amíg nem oldod fel a tiltást, nem kapsz üzeneteket a csoportból.</string>
   <string name="MessageRequestProfileView_member_of_one_group">%1$s tagja</string>
   <string name="MessageRequestProfileView_member_of_two_groups">%1$s és %2$s tagja</string>
@@ -783,9 +812,9 @@
     <item quantity="one">%1$d tag (+%2$d meghívott)</item>
     <item quantity="other">%1$d tag (+%2$d meghívott)</item>
   </plurals>
-  <plurals name="MessageRequestProfileView_member_of_others">
-    <item quantity="one">%d további</item>
-    <item quantity="other">%d további</item>
+  <plurals name="MessageRequestProfileView_member_of_d_additional_groups">
+    <item quantity="one">%d további csoport</item>
+    <item quantity="other">%d további csoport</item>
   </plurals>
   <!--PassphraseChangeActivity-->
   <string name="PassphraseChangeActivity_passphrases_dont_match_exclamation">A jelmondatok nem egyeznek!</string>
@@ -1108,8 +1137,6 @@ Kulcs-csere üzenet érkezett érvénytelen protokoll verzióhoz.
   <string name="MmsMessageRecord_mms_message_encrypted_for_non_existing_session">Az MMS üzenet nem létező munkamenethez lett titkosítva</string>
   <!--MuteDialog-->
   <string name="MuteDialog_mute_notifications">Értesítések némítása</string>
-  <!--OutdatedBuildReminder-->
-  <string name="OutdatedBuildReminder_no_web_browser_installed">Nincs telepítve webböngésző!</string>
   <!--ApplicationMigrationService-->
   <string name="ApplicationMigrationService_import_in_progress">Importálás folyamatban</string>
   <string name="ApplicationMigrationService_importing_text_messages">Szöveges üzenetek importálása</string>
@@ -1140,6 +1167,7 @@ Kulcs-csere üzenet érkezett érvénytelen protokoll verzióhoz.
   <string name="MessageNotifier_error_delivering_message">Hiba történt az üzenet kézbesítése során.</string>
   <string name="MessageNotifier_mark_all_as_read">Összes megjelölése olvasottként</string>
   <string name="MessageNotifier_mark_read">Olvasottnak jelöl</string>
+  <string name="MessageNotifier_turn_off_these_notifications">Értesítések kikapcsolása</string>
   <string name="MessageNotifier_media_message">Médiaüzenet</string>
   <string name="MessageNotifier_sticker">Matrica</string>
   <string name="MessageNotifier_view_once_photo">Egyszer megjelenő fotó</string>
@@ -1160,6 +1188,7 @@ Kulcs-csere üzenet érkezett érvénytelen protokoll verzióhoz.
   <string name="MessageNotifier_reacted_s_to_your_view_once_video">Reakció az egyszer megtekinthető videódra: %1$s</string>
   <string name="MessageNotifier_reacted_s_to_your_sticker">Reakció a matricádra: %1$s</string>
   <string name="MessageNotifier_this_message_was_deleted">Ez az üzenet ki lett törölve.</string>
+  <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Kikapcsolod az új kontakt érhető el Signalon értesítést? Újra engedélyezheted a  Signal &gt; Beállítások &gt; Értesítések menüpontban.</string>
   <!--Notification Channels-->
   <string name="NotificationChannel_messages">Alapértelmezett</string>
   <string name="NotificationChannel_calls">Hívások</string>
@@ -1581,8 +1610,8 @@ Kulcs-csere üzenet érkezett érvénytelen protokoll verzióhoz.
   <string name="preferences__use_signal_for_viewing_and_storing_all_incoming_multimedia_messages">Signal használata minden bejövő multimédia üzenethez</string>
   <string name="preferences__pref_enter_sends_title">Küldés az Enter lenyomásával</string>
   <string name="preferences__pressing_the_enter_key_will_send_text_messages">Az Enter billentyű megnyomása elküldi a szöveges üzeneteket</string>
-  <string name="preferences__send_link_previews">Előnézeti képek küldése</string>
-  <string name="preferences__previews_are_supported_for">Az előnézeti képek az Imgur, az Instagram, a Pinterest, a Reddit és a YouTube szolgáltatásokhoz érhetőek el.</string>
+  <string name="preferences__generate_link_previews">Hivatkozások előnézeti képének generálása</string>
+  <string name="preferences__retrieve_link_previews_from_websites_for_messages">Előnézeti képek lekérése közvetlenül a weboldalról az elküldendő üzenetekhez.</string>
   <string name="preferences__choose_identity">Azonosító választása</string>
   <string name="preferences__choose_your_contact_entry_from_the_contacts_list">Válaszd ki saját névjegyed a névjegyzékből.</string>
   <string name="preferences__change_passphrase">Jelmondat megváltoztatása</string>
@@ -1699,6 +1728,9 @@ Kulcs-csere üzenet érkezett érvénytelen protokoll verzióhoz.
   <string name="preferences_communication__sealed_sender_allow_from_anyone">Engedélyezés mindenkitől</string>
   <string name="preferences_communication__sealed_sender_allow_from_anyone_description">Rejtett feladóval érkező üzenetek engedélyezése olyan nem-kontaktoktól és személyektől is, akikkel nem osztottad meg a profilodat.</string>
   <string name="preferences_communication__sealed_sender_learn_more">További információ</string>
+  <string name="preferences_notifications__mentions">Említések</string>
+  <string name="preferences_notifications__notify_me">Értesítsen</string>
+  <string name="preferences_notifications__receive_notifications_when_youre_mentioned_in_muted_chats">Értesítsen, ha egy lenémított beszélgetésben megemlítenek</string>
   <!--Internal only preferences-->
   <!--****************************************-->
   <!--menus-->
@@ -1730,6 +1762,8 @@ Kulcs-csere üzenet érkezett érvénytelen protokoll verzióhoz.
   <string name="conversation_insecure__invite">Meghívás</string>
   <!--conversation_list_batch-->
   <string name="conversation_list_batch__menu_delete_selected">Kiválasztottak törlése</string>
+  <string name="conversation_list_batch__menu_pin_selected">Kiválasztottak rögzítése</string>
+  <string name="conversation_list_batch__menu_unpin_selected">Kiválasztottak rögzítésének feloldása</string>
   <string name="conversation_list_batch__menu_select_all">Összes kiválasztása</string>
   <string name="conversation_list_batch_archive__menu_archive_selected">Kiválasztottak archiválása</string>
   <string name="conversation_list_batch_unarchive__menu_unarchive_selected">Kiválasztottak kivétele archívumból</string>
@@ -1739,6 +1773,9 @@ Kulcs-csere üzenet érkezett érvénytelen protokoll verzióhoz.
   <!--conversation_list-->
   <string name="conversation_list_settings_shortcut">Beállítások parancsikon</string>
   <string name="conversation_list_search_description">Keresés</string>
+  <string name="conversation_list__pinned">Rögzítve</string>
+  <string name="conversation_list__chats">Csevegések</string>
+  <string name="conversation_list__you_can_only_pin_up_to_d_chats">Maximum %1$d beszélgetést rögzíthetsz</string>
   <!--conversation_list_item_view-->
   <string name="conversation_list_item_view__contact_photo_image">Kontakt fotó kép</string>
   <string name="conversation_list_item_view__archived">Archív</string>
@@ -1932,6 +1969,9 @@ Kulcs-csere üzenet érkezett érvénytelen protokoll verzióhoz.
   <string name="KbsMegaphone__update_pin">PIN kód frissítése</string>
   <string name="KbsMegaphone__well_remind_you_later_creating_a_pin">Később emlékeztetni fogunk. A PIN létrehozása %1$d nap múlva kötelező lesz.</string>
   <string name="KbsMegaphone__well_remind_you_later_confirming_your_pin">Később emlékeztetni fogunk. A PIN megerősítése %1$d nap múlva kötelező lesz.</string>
+  <!--Mention Megaphone-->
+  <string name="MentionsMegaphone__introducing_mentions">Bemutatkozik az @Említések</string>
+  <string name="MentionsMegaphone__get_someones_attention_in_a_group_by_typing">Hívd fel valaki figyelmét egy új típusú csoportban a @ használatával</string>
   <!--transport_selection_list_item-->
   <string name="transport_selection_list_item__transport_icon">Átvitel ikon</string>
   <string name="ConversationListFragment_loading">Betöltés…</string>

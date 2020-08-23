@@ -26,6 +26,7 @@ import org.thoughtcrime.securesms.contacts.avatars.TransparentContactPhoto;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.database.IdentityDatabase.VerifiedStatus;
 import org.thoughtcrime.securesms.database.RecipientDatabase;
+import org.thoughtcrime.securesms.database.RecipientDatabase.MentionSetting;
 import org.thoughtcrime.securesms.database.RecipientDatabase.RegisteredState;
 import org.thoughtcrime.securesms.database.RecipientDatabase.UnidentifiedAccessMode;
 import org.thoughtcrime.securesms.database.RecipientDatabase.VibrateState;
@@ -102,6 +103,7 @@ public class Recipient {
   private final byte[]                 storageId;
   private final byte[]                 identityKey;
   private final VerifiedStatus         identityStatus;
+  private final MentionSetting         mentionSetting;
 
 
   /**
@@ -221,7 +223,7 @@ public class Recipient {
     RecipientId       id = null;
 
     if (UuidUtil.isUuid(identifier)) {
-      throw new UuidRecipientError();
+      throw new AssertionError("UUIDs are not valid system contact identifiers!");
     } else if (NumberUtil.isValidEmail(identifier)) {
       id = db.getOrInsertFromEmail(identifier);
     } else {
@@ -316,6 +318,7 @@ public class Recipient {
     this.storageId              = null;
     this.identityKey            = null;
     this.identityStatus         = VerifiedStatus.DEFAULT;
+    this.mentionSetting         = MentionSetting.ALWAYS_NOTIFY;
   }
 
   public Recipient(@NonNull RecipientId id, @NonNull RecipientDetails details, boolean resolved) {
@@ -359,6 +362,7 @@ public class Recipient {
     this.storageId              = details.storageId;
     this.identityKey            = details.identityKey;
     this.identityStatus         = details.identityStatus;
+    this.mentionSetting         = details.mentionSetting;
   }
 
   public @NonNull RecipientId getId() {
@@ -401,6 +405,17 @@ public class Recipient {
   public @NonNull String getDisplayName(@NonNull Context context) {
     String name = Util.getFirstNonEmpty(getName(context),
                                         getProfileName().toString(),
+                                        getDisplayUsername(),
+                                        e164,
+                                        email,
+                                        context.getString(R.string.Recipient_unknown));
+
+    return StringUtil.isolateBidi(name);
+  }
+
+  public @NonNull String getMentionDisplayName(@NonNull Context context) {
+    String name = Util.getFirstNonEmpty(localNumber ? getProfileName().toString() : getName(context),
+                                        localNumber ? getName(context) : getProfileName().toString(),
                                         getDisplayUsername(),
                                         e164,
                                         email,
@@ -809,6 +824,10 @@ public class Recipient {
     }
   }
 
+  public @NonNull MentionSetting getMentionSetting() {
+    return mentionSetting;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -874,8 +893,5 @@ public class Recipient {
   }
 
   private static class MissingAddressError extends AssertionError {
-  }
-
-  private static class UuidRecipientError extends AssertionError {
   }
 }

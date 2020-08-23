@@ -3,13 +3,14 @@ package org.whispersystems.signalservice.api.groupsv2;
 import com.google.protobuf.ByteString;
 
 import org.signal.storageservice.protos.groups.AccessControl;
+import org.signal.storageservice.protos.groups.Member;
 import org.signal.storageservice.protos.groups.local.DecryptedGroup;
 import org.signal.storageservice.protos.groups.local.DecryptedGroupChange;
 import org.signal.storageservice.protos.groups.local.DecryptedMember;
 import org.signal.storageservice.protos.groups.local.DecryptedModifyMemberRole;
 import org.signal.storageservice.protos.groups.local.DecryptedPendingMember;
 import org.signal.storageservice.protos.groups.local.DecryptedPendingMemberRemoval;
-import org.signal.zkgroup.util.UUIDUtil;
+import org.whispersystems.libsignal.logging.Log;
 import org.whispersystems.libsignal.util.guava.Optional;
 import org.whispersystems.signalservice.api.util.UuidUtil;
 
@@ -23,17 +24,9 @@ import java.util.UUID;
 
 public final class DecryptedGroupUtil {
 
+  private static final String TAG = DecryptedGroupUtil.class.getSimpleName();
+
   static final int MAX_CHANGE_FIELD = 14;
-
-  public static Set<UUID> toUuidSet(Collection<DecryptedMember> membersList) {
-    HashSet<UUID> uuids = new HashSet<>(membersList.size());
-
-    for (DecryptedMember member : membersList) {
-      uuids.add(toUuid(member));
-    }
-
-    return uuids;
-  }
 
   public static ArrayList<UUID> toUuidList(Collection<DecryptedMember> membersList) {
     ArrayList<UUID> uuidList = new ArrayList<>(membersList.size());
@@ -49,7 +42,11 @@ public final class DecryptedGroupUtil {
     ArrayList<UUID> uuidList = new ArrayList<>(membersList.size());
 
     for (DecryptedMember member : membersList) {
-      uuidList.add(toUuid(member));
+      UUID uuid = toUuid(member);
+
+      if (!UuidUtil.UNKNOWN_UUID.equals(uuid)) {
+        uuidList.add(uuid);
+      }
     }
 
     return uuidList;
@@ -65,6 +62,9 @@ public final class DecryptedGroupUtil {
     return uuidList;
   }
 
+  /**
+   * Can return non-decryptable member UUIDs as {@link UuidUtil#UNKNOWN_UUID}.
+   */
   public static ArrayList<UUID> pendingToUuidList(Collection<DecryptedPendingMember> membersList) {
     ArrayList<UUID> uuidList = new ArrayList<>(membersList.size());
 
@@ -75,11 +75,37 @@ public final class DecryptedGroupUtil {
     return uuidList;
   }
 
+  /**
+   * Will not return any non-decryptable member UUIDs.
+   */
   public static ArrayList<UUID> removedMembersUuidList(DecryptedGroupChange groupChange) {
-    ArrayList<UUID> uuidList = new ArrayList<>(groupChange.getDeleteMembersCount());
+    List<ByteString> deletedMembers = groupChange.getDeleteMembersList();
+    ArrayList<UUID>  uuidList       = new ArrayList<>(deletedMembers.size());
 
-    for (ByteString member : groupChange.getDeleteMembersList()) {
-      uuidList.add(toUuid(member));
+    for (ByteString member : deletedMembers) {
+       UUID uuid = toUuid(member);
+
+      if (!UuidUtil.UNKNOWN_UUID.equals(uuid)) {
+        uuidList.add(uuid);
+      }
+    }
+
+    return uuidList;
+  }
+
+  /**
+   * Will not return any non-decryptable member UUIDs.
+   */
+  public static ArrayList<UUID> removedPendingMembersUuidList(DecryptedGroupChange groupChange) {
+    List<DecryptedPendingMemberRemoval> deletedPendingMembers = groupChange.getDeletePendingMembersList();
+    ArrayList<UUID>                     uuidList              = new ArrayList<>(deletedPendingMembers.size());
+
+    for (DecryptedPendingMemberRemoval member : deletedPendingMembers) {
+      UUID uuid = toUuid(member.getUuid());
+
+      if(!UuidUtil.UNKNOWN_UUID.equals(uuid)) {
+        uuidList.add(uuid);
+      }
     }
 
     return uuidList;
@@ -93,8 +119,8 @@ public final class DecryptedGroupUtil {
     return toUuid(member.getUuid());
   }
 
-  private static UUID toUuid(ByteString member) {
-    return UUIDUtil.deserialize(member.toByteArray());
+  private static UUID toUuid(ByteString memberUuid) {
+    return UuidUtil.fromByteStringOrUnknown(memberUuid);
   }
 
   /**
@@ -191,105 +217,197 @@ public final class DecryptedGroupUtil {
   }
 
   public static DecryptedGroup apply(DecryptedGroup group, DecryptedGroupChange change)
-      throws NotAbleToApplyChangeException
+      throws NotAbleToApplyGroupV2ChangeException
   {
     if (change.getRevision() != group.getRevision() + 1) {
-      throw new NotAbleToApplyChangeException();
+      throw new NotAbleToApplyGroupV2ChangeException();
     }
 
     return applyWithoutRevisionCheck(group, change);
   }
 
   public static DecryptedGroup applyWithoutRevisionCheck(DecryptedGroup group, DecryptedGroupChange change)
-      throws NotAbleToApplyChangeException
+      throws NotAbleToApplyGroupV2ChangeException
   {
-    DecryptedGroup.Builder builder = DecryptedGroup.newBuilder(group);
+    DecryptedGroup.Builder builder = DecryptedGroup.newBuilder(group)
+                                                   .setRevision(change.getRevision());
 
-    builder.addAllMembers(change.getNewMembersList());
+    applyAddMemberAction(builder, change.getNewMembersList());
 
-    for (ByteString removedMember : change.getDeleteMembersList()) {
+    applyDeleteMemberActions(builder, change.getDeleteMembersList());
+
+    applyModifyMemberRoleActions(builder, change.getModifyMemberRolesList());
+
+    applyModifyMemberProfileKeyActions(builder, change.getModifiedProfileKeysList());
+
+    applyAddPendingMemberActions(builder, change.getNewPendingMembersList());
+
+    applyDeletePendingMemberActions(builder, change.getDeletePendingMembersList());
+
+    applyPromotePendingMemberActions(builder, change.getPromotePendingMembersList());
+
+    applyModifyTitleAction(builder, change);
+
+    applyModifyAvatarAction(builder, change);
+
+    applyModifyDisappearingMessagesTimerAction(builder, change);
+
+    applyModifyAttributesAccessControlAction(builder, change);
+
+    applyModifyMembersAccessControlAction(builder, change);
+
+    return builder.build();
+  }
+
+  private static void applyAddMemberAction(DecryptedGroup.Builder builder, List<DecryptedMember> newMembersList) {
+    builder.addAllMembers(newMembersList);
+
+    removePendingMembersNowInGroup(builder);
+  }
+
+  protected static void applyDeleteMemberActions(DecryptedGroup.Builder builder, List<ByteString> deleteMembersList) {
+    for (ByteString removedMember : deleteMembersList) {
       int index = indexOfUuid(builder.getMembersList(), removedMember);
 
       if (index == -1) {
-        throw new NotAbleToApplyChangeException();
+        Log.w(TAG, "Deleted member on change not found in group");
+        continue;
       }
 
       builder.removeMembers(index);
     }
+  }
 
-    for (DecryptedModifyMemberRole modifyMemberRole : change.getModifyMemberRolesList()) {
+  private static void applyModifyMemberRoleActions(DecryptedGroup.Builder builder, List<DecryptedModifyMemberRole> modifyMemberRolesList) throws NotAbleToApplyGroupV2ChangeException {
+    for (DecryptedModifyMemberRole modifyMemberRole : modifyMemberRolesList) {
       int index = indexOfUuid(builder.getMembersList(), modifyMemberRole.getUuid());
 
       if (index == -1) {
-        throw new NotAbleToApplyChangeException();
+        throw new NotAbleToApplyGroupV2ChangeException();
+      }
+
+      if (modifyMemberRole.getRole() != Member.Role.ADMINISTRATOR && modifyMemberRole.getRole() != Member.Role.DEFAULT) {
+        throw new NotAbleToApplyGroupV2ChangeException();
       }
 
       builder.setMembers(index, DecryptedMember.newBuilder(builder.getMembers(index)).setRole(modifyMemberRole.getRole()).build());
     }
+  }
 
-    for (DecryptedMember modifyProfileKey : change.getModifiedProfileKeysList()) {
+  private static void applyModifyMemberProfileKeyActions(DecryptedGroup.Builder builder, List<DecryptedMember> modifiedProfileKeysList) throws NotAbleToApplyGroupV2ChangeException {
+    for (DecryptedMember modifyProfileKey : modifiedProfileKeysList) {
       int index = indexOfUuid(builder.getMembersList(), modifyProfileKey.getUuid());
 
       if (index == -1) {
-        throw new NotAbleToApplyChangeException();
+        throw new NotAbleToApplyGroupV2ChangeException();
       }
 
-      builder.setMembers(index, DecryptedMember.newBuilder(builder.getMembers(index)).setProfileKey(modifyProfileKey.getProfileKey()).build());
+      builder.setMembers(index, withNewProfileKey(builder.getMembers(index), modifyProfileKey.getProfileKey()));
     }
+  }
 
-    for (DecryptedPendingMemberRemoval removedMember : change.getDeletePendingMembersList()) {
+  private static void applyAddPendingMemberActions(DecryptedGroup.Builder builder, List<DecryptedPendingMember> newPendingMembersList) throws NotAbleToApplyGroupV2ChangeException {
+    Set<ByteString> fullMemberSet            = getMemberUuidSet(builder.getMembersList());
+    Set<ByteString> pendingMemberCipherTexts = getPendingMemberCipherTextSet(builder.getPendingMembersList());
+
+    for (DecryptedPendingMember pendingMember : newPendingMembersList) {
+      if (fullMemberSet.contains(pendingMember.getUuid())) {
+        throw new NotAbleToApplyGroupV2ChangeException();
+      }
+
+      if (!pendingMemberCipherTexts.contains(pendingMember.getUuidCipherText())) {
+        builder.addPendingMembers(pendingMember);
+      }
+    }
+  }
+
+  protected static void applyDeletePendingMemberActions(DecryptedGroup.Builder builder, List<DecryptedPendingMemberRemoval> deletePendingMembersList) {
+    for (DecryptedPendingMemberRemoval removedMember : deletePendingMembersList) {
       int index = findPendingIndexByUuidCipherText(builder.getPendingMembersList(), removedMember.getUuidCipherText());
 
       if (index == -1) {
-        throw new NotAbleToApplyChangeException();
+        Log.w(TAG, "Deleted pending member on change not found in group");
+        continue;
       }
 
       builder.removePendingMembers(index);
     }
+  }
 
-    for (DecryptedMember newMember : change.getPromotePendingMembersList()) {
+  protected static void applyPromotePendingMemberActions(DecryptedGroup.Builder builder, List<DecryptedMember> promotePendingMembersList) throws NotAbleToApplyGroupV2ChangeException {
+    for (DecryptedMember newMember : promotePendingMembersList) {
       int index = findPendingIndexByUuid(builder.getPendingMembersList(), newMember.getUuid());
 
       if (index == -1) {
-        throw new NotAbleToApplyChangeException();
+        throw new NotAbleToApplyGroupV2ChangeException();
       }
 
       builder.removePendingMembers(index);
       builder.addMembers(newMember);
     }
+  }
 
-    builder.addAllPendingMembers(change.getNewPendingMembersList());
-
+  protected static void applyModifyTitleAction(DecryptedGroup.Builder builder, DecryptedGroupChange change) {
     if (change.hasNewTitle()) {
       builder.setTitle(change.getNewTitle().getValue());
     }
+  }
 
+  protected static void applyModifyAvatarAction(DecryptedGroup.Builder builder, DecryptedGroupChange change) {
     if (change.hasNewAvatar()) {
       builder.setAvatar(change.getNewAvatar().getValue());
     }
+  }
 
+  protected static void applyModifyDisappearingMessagesTimerAction(DecryptedGroup.Builder builder, DecryptedGroupChange change) {
     if (change.hasNewTimer()) {
       builder.setDisappearingMessagesTimer(change.getNewTimer());
     }
+  }
 
+  protected static void applyModifyAttributesAccessControlAction(DecryptedGroup.Builder builder, DecryptedGroupChange change) {
     if (change.getNewAttributeAccess() != AccessControl.AccessRequired.UNKNOWN) {
       builder.setAccessControl(AccessControl.newBuilder(builder.getAccessControl())
              .setAttributesValue(change.getNewAttributeAccessValue())
              .build());
     }
-
-    if (change.getNewMemberAccess() != AccessControl.AccessRequired.UNKNOWN) {
-      builder.setAccessControl(AccessControl.newBuilder(builder.getAccessControl())
-             .setMembersValue(change.getNewMemberAccessValue())
-             .build());
-    }
-
-    removePendingMembersNowInGroup(builder);
-
-    return builder.setRevision(change.getRevision()).build();
   }
 
-  static void removePendingMembersNowInGroup(DecryptedGroup.Builder builder) {
+  protected static void applyModifyMembersAccessControlAction(DecryptedGroup.Builder builder, DecryptedGroupChange change) {
+    if (change.getNewMemberAccess() != AccessControl.AccessRequired.UNKNOWN) {
+      builder.setAccessControl(AccessControl.newBuilder(builder.getAccessControl())
+                                 .setMembersValue(change.getNewMemberAccessValue())
+                                 .build());
+    }
+  }
+
+  private static DecryptedMember withNewProfileKey(DecryptedMember member, ByteString profileKey) {
+    return DecryptedMember.newBuilder(member)
+                          .setProfileKey(profileKey)
+                          .build();
+  }
+
+  private static Set<ByteString> getMemberUuidSet(List<DecryptedMember> membersList) {
+    Set<ByteString> memberUuids = new HashSet<>(membersList.size());
+
+    for (DecryptedMember members : membersList) {
+      memberUuids.add(members.getUuid());
+    }
+
+    return memberUuids;
+  }
+
+    private static Set<ByteString> getPendingMemberCipherTextSet(List<DecryptedPendingMember> pendingMemberList) {
+    Set<ByteString> pendingMemberCipherTexts = new HashSet<>(pendingMemberList.size());
+
+    for (DecryptedPendingMember pendingMember : pendingMemberList) {
+      pendingMemberCipherTexts.add(pendingMember.getUuidCipherText());
+    }
+
+    return pendingMemberCipherTexts;
+  }
+
+  private static void removePendingMembersNowInGroup(DecryptedGroup.Builder builder) {
     Set<ByteString> allMembers = membersToUuidByteStringSet(builder.getMembersList());
 
     for (int i = builder.getPendingMembersCount() - 1; i >= 0; i--) {
@@ -336,6 +454,4 @@ public final class DecryptedGroupUtil {
     return newAttributeAccess == AccessControl.AccessRequired.UNKNOWN;
   }
 
-  public static class NotAbleToApplyChangeException extends Throwable {
-  }
 }

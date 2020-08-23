@@ -9,6 +9,7 @@ import androidx.annotation.WorkerThread;
 
 import org.signal.storageservice.protos.groups.local.DecryptedGroup;
 import org.signal.storageservice.protos.groups.local.DecryptedGroupChange;
+import org.signal.storageservice.protos.groups.local.DecryptedMember;
 import org.signal.storageservice.protos.groups.local.DecryptedPendingMember;
 import org.signal.zkgroup.VerificationFailedException;
 import org.signal.zkgroup.groups.GroupMasterKey;
@@ -27,7 +28,6 @@ import org.thoughtcrime.securesms.groups.GroupsV2Authorization;
 import org.thoughtcrime.securesms.groups.v2.ProfileKeySet;
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobmanager.JobManager;
-import org.thoughtcrime.securesms.jobmanager.JobTracker;
 import org.thoughtcrime.securesms.jobs.AvatarGroupsV2DownloadJob;
 import org.thoughtcrime.securesms.jobs.RequestGroupV2InfoJob;
 import org.thoughtcrime.securesms.jobs.RetrieveProfileJob;
@@ -44,6 +44,7 @@ import org.whispersystems.signalservice.api.groupsv2.DecryptedGroupHistoryEntry;
 import org.whispersystems.signalservice.api.groupsv2.DecryptedGroupUtil;
 import org.whispersystems.signalservice.api.groupsv2.GroupsV2Api;
 import org.whispersystems.signalservice.api.groupsv2.InvalidGroupStateException;
+import org.whispersystems.signalservice.api.groupsv2.NotAbleToApplyGroupV2ChangeException;
 import org.whispersystems.signalservice.api.util.UuidUtil;
 import org.whispersystems.signalservice.internal.push.exceptions.NotInGroupException;
 
@@ -152,8 +153,8 @@ public final class GroupsV2StateProcessor {
                                                .transform(g -> g.requireV2GroupProperties().getDecryptedGroup())
                                                .orNull();
 
-      if (signedGroupChange != null &&
-          localState != null &&
+      if (signedGroupChange != null                                       &&
+          localState != null                                              &&
           localState.getRevision() + 1 == signedGroupChange.getRevision() &&
           revision == signedGroupChange.getRevision())
       {
@@ -165,7 +166,7 @@ public final class GroupsV2StateProcessor {
             DecryptedGroup newState = DecryptedGroupUtil.apply(localState, signedGroupChange);
 
             inputGroupState = new GlobalGroupState(localState, Collections.singletonList(new ServerGroupLogEntry(newState, signedGroupChange)));
-          } catch (DecryptedGroupUtil.NotAbleToApplyChangeException e) {
+          } catch (NotAbleToApplyGroupV2ChangeException e) {
             Log.w(TAG, "Unable to apply P2P group change", e);
           }
         }
@@ -231,6 +232,7 @@ public final class GroupsV2StateProcessor {
                                                                                           false,
                                                                                           null,
                                                                                           Collections.emptyList(),
+                                                                                          Collections.emptyList(),
                                                                                           Collections.emptyList());
 
       try {
@@ -274,9 +276,30 @@ public final class GroupsV2StateProcessor {
         jobManager.add(new AvatarGroupsV2DownloadJob(groupId, newLocalState.getAvatar()));
       }
 
-      final boolean fullMemberPostUpdate = GroupProtoUtil.isMember(Recipient.self().getUuid().get(), newLocalState.getMembersList());
-      if (fullMemberPostUpdate) {
+      boolean fullMemberPostUpdate = GroupProtoUtil.isMember(Recipient.self().getUuid().get(), newLocalState.getMembersList());
+      boolean trustedAdder         = false;
+
+      if (newLocalState.getRevision() == 0) {
+        Optional<DecryptedMember> foundingMember = DecryptedGroupUtil.firstMember(newLocalState.getMembersList());
+
+        if (foundingMember.isPresent()) {
+          UUID      foundingMemberUuid = UuidUtil.fromByteString(foundingMember.get().getUuid());
+          Recipient foundingRecipient  = Recipient.externalPush(context, foundingMemberUuid, null, false);
+
+          if (foundingRecipient.isSystemContact() || foundingRecipient.isProfileSharing()) {
+            Log.i(TAG, "Group 'adder' is trusted. contact: " + foundingRecipient.isSystemContact() + ", profileSharing: " + foundingRecipient.isProfileSharing());
+            trustedAdder = true;
+          }
+        } else {
+          Log.i(TAG, "Could not find founding member during gv2 create. Not enabling profile sharing.");
+        }
+      }
+
+      if (fullMemberPostUpdate && trustedAdder) {
+        Log.i(TAG, "Added to a group and auto-enabling profile sharing");
         recipientDatabase.setProfileSharing(Recipient.externalGroup(context, groupId).getId(), true);
+      } else {
+        Log.i(TAG, "Added to a group, but not enabling profile sharing. fullMember: " + fullMemberPostUpdate + ", trustedAdded: " + trustedAdder);
       }
     }
 
@@ -294,9 +317,11 @@ public final class GroupsV2StateProcessor {
       final ProfileKeySet profileKeys = new ProfileKeySet();
 
       for (ServerGroupLogEntry entry : globalGroupState.getServerHistory()) {
-        Optional<UUID> editor = DecryptedGroupUtil.editorUuid(entry.getChange());
-        if (editor.isPresent() && entry.getGroup() != null) {
-          profileKeys.addKeysFromGroupState(entry.getGroup(), editor.get());
+        if (entry.getGroup() != null) {
+          profileKeys.addKeysFromGroupState(entry.getGroup());
+        }
+        if (entry.getChange() != null) {
+          profileKeys.addKeysFromGroupChange(entry.getChange());
         }
       }
 
@@ -373,7 +398,7 @@ public final class GroupsV2StateProcessor {
           MmsDatabase                mmsDatabase     = DatabaseFactory.getMmsDatabase(context);
           RecipientId                recipientId     = recipientDatabase.getOrInsertFromGroupId(groupId);
           Recipient                  recipient       = Recipient.resolved(recipientId);
-          OutgoingGroupUpdateMessage outgoingMessage = new OutgoingGroupUpdateMessage(recipient, decryptedGroupV2Context, null, timestamp, 0, false, null, Collections.emptyList(), Collections.emptyList());
+          OutgoingGroupUpdateMessage outgoingMessage = new OutgoingGroupUpdateMessage(recipient, decryptedGroupV2Context, null, timestamp, 0, false, null, Collections.emptyList(), Collections.emptyList(), Collections.emptyList());
           long                       threadId        = DatabaseFactory.getThreadDatabase(context).getThreadIdFor(recipient);
           long                       messageId       = mmsDatabase.insertMessageOutbox(outgoingMessage, threadId, false, null);
 

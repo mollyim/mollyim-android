@@ -9,10 +9,11 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.text.TextUtils;
+
 import androidx.annotation.Nullable;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
-import android.text.TextUtils;
 
 import org.thoughtcrime.securesms.ApplicationPreferencesActivity;
 import org.thoughtcrime.securesms.R;
