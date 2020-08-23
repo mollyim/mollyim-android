@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="preferences__enable_debug_log">Omogući debug zapis</string>
-  <string name="AppProtectionPreferenceFragment_instant">Odmah</string>
+    <string name="preferences__enable_debug_log">Omogući zapisnik ispravljanja grešaka</string>
+    <string name="AppProtectionPreferenceFragment_instant">Odmah</string>
+    <string name="ChangePassphraseDialogFragment_generating_keys_this_may_take_a_while">Generiranje ključeva. Ovo može potrajati …</string>
+    <string name="ChangePassphraseDialogFragment_please_choose_a_passphrase_that_will_be_used_to_locally_encrypt_your_data_this_should_be_a_strong_passphrase">Odaberi lozinku koja će se koristiti za lokalno šifriranje podataka.\n\nOvo bi trebala biti jaka lozinka.</string>
+    <string name="ChangePassphraseDialogFragment_enable">Aktiviraj</string>
+    <string name="ChangePassphraseDialogFragment_passphrase">Lozinka</string>
+    <string name="ChangePassphraseDialogFragment_estimated_time_to_crack_suggestion">%1$s\n\nProcijenjeno vrijeme za pogađanje lozinke: %2$s.\n\nPrijedlog: %3$s</string>
+    <string name="ChangePassphraseDialogFragment_weak_passphrase">Slaba lozinka!</string>
+    <string name="PassphraseCreateActivity_turn_on_database_encryption">Uključi šifriranje baze podataka</string>
+    <string name="PassphraseCreateActivity_require_passphrase_to_unlock_molly">Je li potrebna lozinka za otključavanje Mollya\?</string>
+    <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">Sada možeš postaviti lozinku za šifriranje baze podataka. Dok se ne otključa, Molly ne može primati obavijesti ili pozive. To pomaže zaštiti podatke na izgubljenim ili ukradenim uređajima.</string>
+    <string name="WipeMemoryService_molly_is_clearing_secrets">Molly briše nešifrirane podatke koji su ostali u RAM-u</string>
+    <string name="WipeMemoryService_secure_wipe_in_progress">U tijeku je sigurno brisanje</string>
+    <string name="ApplicationPreferencesActivity_privacy_summary_passphrase_registration_locks">Šifriranje baze podataka %1$s, zaključavanje registracije %2$s</string>
+    <string name="preferences__passphrase_changed">Lozinka promijenjena</string>
+    <string name="preferences__device_lock_timeout">Vrijeme isteka zaključavanja uređaja</string>
+    <string name="preferences__automatic_lockdown">Automatsko zaključavanje</string>
+    <string name="preferences__protect_molly_database_with_a_passphrase">Zaštiti Mollynu bazu podataka lozinkom</string>
+    <string name="preferences__passphrase_lock">Šifriranje baze podataka</string>
+    <string name="arrays__on_inactivity_timeout">Ako provedeš određeno vrijeme bez otključavanja uređaja</string>
 </resources>

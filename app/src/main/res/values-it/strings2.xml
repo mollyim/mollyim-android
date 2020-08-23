@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="preferences__enable_debug_log">Abilita il log di debug</string>
-  <string name="AppProtectionPreferenceFragment_instant">Immediato</string>
+    <string name="preferences__enable_debug_log">Abilita il log di debug</string>
+    <string name="AppProtectionPreferenceFragment_instant">Immediato</string>
+    <string name="ChangePassphraseDialogFragment_estimated_time_to_crack_suggestion">%1$s\n\nTempo stimato per trovare la passphrase: %2$s.\n\nSuggerimento: %3$s</string>
+    <string name="ChangePassphraseDialogFragment_generating_keys_this_may_take_a_while">Generazione di chiavi. Questo potrebbe richiedere un po\' di tempo…</string>
+    <string name="ChangePassphraseDialogFragment_please_choose_a_passphrase_that_will_be_used_to_locally_encrypt_your_data_this_should_be_a_strong_passphrase">Scegli una passphrase che verrà utilizzata per crittografare localmente i tuoi dati.\n\nQuesta dovrebbe essere una passphrase forte.</string>
+    <string name="ChangePassphraseDialogFragment_enable">Abilita</string>
+    <string name="ChangePassphraseDialogFragment_passphrase">Passphrase</string>
+    <string name="ChangePassphraseDialogFragment_weak_passphrase">Passphrase debole!</string>
+    <string name="PassphraseCreateActivity_turn_on_database_encryption">Attiva la crittografia della base di dati</string>
+    <string name="PassphraseCreateActivity_require_passphrase_to_unlock_molly">Richiedere la passphrase per sbloccare Molly\?</string>
+    <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">Ora puoi impostare una passphrase per crittografare la base di dati. Fino a quando non viene sbloccato, Molly non può ricevere notifiche o chiamate. Questo aiuta a proteggere i dati su dispositivi smarriti o rubati.</string>
+    <string name="WipeMemoryService_molly_is_clearing_secrets">Molly sta cancellando i dati non crittografati rimangono nella RAM</string>
+    <string name="WipeMemoryService_secure_wipe_in_progress">Cancellazione di sicurezza in corso</string>
+    <string name="ApplicationPreferencesActivity_privacy_summary_passphrase_registration_locks">Crittografia della base di dati %1$s, Blocco di registrazione %2$s</string>
+    <string name="preferences__passphrase_changed">Passphrase cambiata</string>
+    <string name="preferences__device_lock_timeout">Limite di tempo per il blocco del dispositivo</string>
+    <string name="preferences__automatic_lockdown">Blocco automatico</string>
+    <string name="preferences__protect_molly_database_with_a_passphrase">Proteggi la base di dati di Molly con una passphrase</string>
+    <string name="preferences__passphrase_lock">Crittografia della base di dati</string>
+    <string name="arrays__on_inactivity_timeout">Se passi un certo tempo senza sbloccare il dispositivo</string>
 </resources>

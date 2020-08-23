@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="preferences__enable_debug_log">Diagnoseprotokoll aktivieren</string>
-  <string name="AppProtectionPreferenceFragment_instant">Sofort</string>
+    <string name="preferences__enable_debug_log">Diagnoseprotokoll aktivieren</string>
+    <string name="AppProtectionPreferenceFragment_instant">Sofort</string>
+    <string name="WipeMemoryService_secure_wipe_in_progress">Sicherheitswischen läuft</string>
+    <string name="ApplicationPreferencesActivity_privacy_summary_passphrase_registration_locks">Datenbankverschlüsselung %1$s, Registrierungssperre %2$s</string>
+    <string name="ChangePassphraseDialogFragment_generating_keys_this_may_take_a_while">Generierung von Schlüsseln. Dies kann eine Weile dauern …</string>
+    <string name="ChangePassphraseDialogFragment_please_choose_a_passphrase_that_will_be_used_to_locally_encrypt_your_data_this_should_be_a_strong_passphrase">Bitte wählen Sie einen Passwortsatz, mit dem Ihre Daten lokal verschlüsselt werden.\n\nDies sollte ein starker Passwortsatz sein.</string>
+    <string name="ChangePassphraseDialogFragment_enable">Aktivieren</string>
+    <string name="ChangePassphraseDialogFragment_passphrase">Passwortsatz</string>
+    <string name="ChangePassphraseDialogFragment_estimated_time_to_crack_suggestion">%1$s\n\nGeschätzte Zeit zum Knacken: %2$s.\n\nVorschlag: %3$s</string>
+    <string name="ChangePassphraseDialogFragment_weak_passphrase">Schwache Passwortsatz!</string>
+    <string name="PassphraseCreateActivity_turn_on_database_encryption">Datenbankverschlüsselung einschalten</string>
+    <string name="PassphraseCreateActivity_require_passphrase_to_unlock_molly">Passwortsatz benötigen, um Molly freizuschalten\?</string>
+    <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">Jetzt können Sie eine Passwortsatz festlegen, um die Datenbank zu verschlüsseln. Bis zum Entsperren kann Molly keine Benachrichtigungen oder Anrufe empfangen. Dies schützt Daten auf verlorenen oder gestohlenen Geräten.</string>
+    <string name="WipeMemoryService_molly_is_clearing_secrets">Molly löscht unverschlüsselte Daten, die im Direktzugriffsspeicher verbleiben</string>
+    <string name="preferences__passphrase_changed">Passwortsatz geändert</string>
+    <string name="preferences__device_lock_timeout">Zeitlimit für Gerätesperre</string>
+    <string name="preferences__automatic_lockdown">Automatische Sperrung</string>
+    <string name="preferences__protect_molly_database_with_a_passphrase">Mollys Datenbank mit einem Passwortsatz schützen</string>
+    <string name="preferences__passphrase_lock">Datenbankverschlüsselung</string>
+    <string name="arrays__on_inactivity_timeout">Wenn Sie eine bestimmte Zeit ohne Entsperren Ihres Geräts verbringen</string>
 </resources>

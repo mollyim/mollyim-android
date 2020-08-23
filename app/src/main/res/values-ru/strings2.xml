@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="preferences__enable_debug_log">Включить журнал отладки</string>
-  <string name="AppProtectionPreferenceFragment_instant">Мгновенно</string>
+    <string name="preferences__enable_debug_log">Включить журнал отладки</string>
+    <string name="AppProtectionPreferenceFragment_instant">Мгновенно</string>
+    <string name="ApplicationPreferencesActivity_privacy_summary_passphrase_registration_locks">Шифрование базы данных %1$s, блокировка регистрации %2$s</string>
+    <string name="preferences__protect_molly_database_with_a_passphrase">Защитите базу данных Молли кодовой фразой</string>
+    <string name="ChangePassphraseDialogFragment_generating_keys_this_may_take_a_while">Генерация ключей. Это может занять некоторое время…</string>
+    <string name="ChangePassphraseDialogFragment_please_choose_a_passphrase_that_will_be_used_to_locally_encrypt_your_data_this_should_be_a_strong_passphrase">Выберите кодовую фразу, которая будет использоваться для локального шифрования ваших данных.\n\nЭто должна быть надежная парольная фраза.</string>
+    <string name="ChangePassphraseDialogFragment_enable">Вкл</string>
+    <string name="ChangePassphraseDialogFragment_passphrase">Кодовая фраза</string>
+    <string name="ChangePassphraseDialogFragment_estimated_time_to_crack_suggestion">%1$s\n\nРасчетное время взлома:%2$s.\n\nПредложение: %3$s</string>
+    <string name="ChangePassphraseDialogFragment_weak_passphrase">Слабая кодовая фраза!</string>
+    <string name="PassphraseCreateActivity_turn_on_database_encryption">Включите шифрование базы данных</string>
+    <string name="PassphraseCreateActivity_require_passphrase_to_unlock_molly">Требовать кодовую фразу для разблокировки Молли\?</string>
+    <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">Теперь вы можете установить парольную фразу для шифрования базы данных. Пока она не разблокирована, Молли не может получать уведомления или звонки. Это помогает защитить данные на потерянных или украденных устройствах.</string>
+    <string name="WipeMemoryService_molly_is_clearing_secrets">Молли очищает незашифрованные данные, оставшиеся в ОЗУ</string>
+    <string name="WipeMemoryService_secure_wipe_in_progress">Выполняется безопасная очистка</string>
+    <string name="preferences__passphrase_changed">Кодовая фраза изменена</string>
+    <string name="preferences__device_lock_timeout">Тайм-аут блокировки устройства</string>
+    <string name="preferences__automatic_lockdown">Автоматическая блокировка</string>
+    <string name="preferences__passphrase_lock">Шифрование базы данных</string>
+    <string name="arrays__on_inactivity_timeout">Если вы уйдете какое-то время без разблокировки устройства</string>
 </resources>

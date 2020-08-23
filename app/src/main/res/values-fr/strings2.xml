@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="preferences__enable_debug_log">Activer le journal de débogage</string>
-  <string name="AppProtectionPreferenceFragment_instant">Instantané</string>
+    <string name="preferences__enable_debug_log">Activer le journal de débogage</string>
+    <string name="AppProtectionPreferenceFragment_instant">Instantané</string>
+    <string name="ChangePassphraseDialogFragment_generating_keys_this_may_take_a_while">Génération de clés. Ceci peut prendre un certain temps…</string>
+    <string name="ChangePassphraseDialogFragment_please_choose_a_passphrase_that_will_be_used_to_locally_encrypt_your_data_this_should_be_a_strong_passphrase">Veuillez choisir une phrase secrète qui sera utilisée pour chiffrer localement vos données.\n\nCelle-ci devrait être une phrase secrète forte.</string>
+    <string name="ChangePassphraseDialogFragment_enable">Activer</string>
+    <string name="ChangePassphraseDialogFragment_passphrase">Phrase secrète</string>
+    <string name="ChangePassphraseDialogFragment_estimated_time_to_crack_suggestion">%1$s\n\nTemps estimé pour le craquage : %2$s.\n\nSuggestion : %3$s</string>
+    <string name="ChangePassphraseDialogFragment_weak_passphrase">Phrase secrète faible !</string>
+    <string name="PassphraseCreateActivity_turn_on_database_encryption">Activer le chiffrement de la base de données</string>
+    <string name="PassphraseCreateActivity_require_passphrase_to_unlock_molly">Exiger une phrase secrète pour déverrouiller Molly \?</string>
+    <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">Vous pouvez maintenant définir une phrase secrète pour chiffrer la base de données. Tant qu’elle n’est pas déverrouillée, Molly ne peut pas recevoir de notifications ni d’appels. Ceci permet de protéger les données sur les appareils perdus ou volés.</string>
+    <string name="WipeMemoryService_molly_is_clearing_secrets">Molly efface les données non chiffrées qui restent dans la mémoire vive</string>
+    <string name="WipeMemoryService_secure_wipe_in_progress">Effacement de sécurité en cours</string>
+    <string name="ApplicationPreferencesActivity_privacy_summary_passphrase_registration_locks">Chiffrement de la base de données %1$s, Verrouillage d’inscription %2$s</string>
+    <string name="preferences__passphrase_changed">Phrase secrète changée</string>
+    <string name="preferences__device_lock_timeout">Délai de verrouillage de l’appareil</string>
+    <string name="preferences__automatic_lockdown">Verrouillage automatique</string>
+    <string name="preferences__protect_molly_database_with_a_passphrase">Protéger la base de données de Molly avec une phrase secrète</string>
+    <string name="preferences__passphrase_lock">Chiffrement de la base de données</string>
+    <string name="arrays__on_inactivity_timeout">Si un certain passe sans que vous déverrouilliez votre appareil</string>
 </resources>

@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="preferences__enable_debug_log">Foutopsporingslog inschakelen</string>
-  <string name="AppProtectionPreferenceFragment_instant">Onmiddellijk</string>
+    <string name="preferences__enable_debug_log">Foutopsporingslog inschakelen</string>
+    <string name="AppProtectionPreferenceFragment_instant">Onmiddellijk</string>
+    <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">Je kunt nu een wachtwoord instellen om de database te versleutelen. Totdat de database ontgrendeld is kan Molly geen berichten of oproepen ontvangen. Dit beschermt gegevens op verloren of gestolen apparaten.</string>
+    <string name="ChangePassphraseDialogFragment_generating_keys_this_may_take_a_while">Sleutels aan het aanmaken. Dit kan even duren…</string>
+    <string name="ChangePassphraseDialogFragment_please_choose_a_passphrase_that_will_be_used_to_locally_encrypt_your_data_this_should_be_a_strong_passphrase">Kies een wachtwoord dat gebruikt zal worden om je gegevens lokaal te versleutelen\n\nDit moet een sterk wachtwoord zijn.</string>
+    <string name="ChangePassphraseDialogFragment_enable">Activeren</string>
+    <string name="ChangePassphraseDialogFragment_passphrase">Wachtwoord</string>
+    <string name="ChangePassphraseDialogFragment_estimated_time_to_crack_suggestion">%1$s\n\nVerwachte tijd om dit te kraken: %2$s.\n\nSuggestie: %3$s</string>
+    <string name="ChangePassphraseDialogFragment_weak_passphrase">Zwak wachtwoord!</string>
+    <string name="PassphraseCreateActivity_turn_on_database_encryption">Zet database versleuteling aan</string>
+    <string name="PassphraseCreateActivity_require_passphrase_to_unlock_molly">Wachtwoord instellen om Molly te ontgrendelen\?</string>
+    <string name="WipeMemoryService_molly_is_clearing_secrets">Molly is bezig onversleutelde gegevens in het RAM geheugen te verwijderen</string>
+    <string name="WipeMemoryService_secure_wipe_in_progress">Bezig met veilig verwijderen</string>
+    <string name="ApplicationPreferencesActivity_privacy_summary_passphrase_registration_locks">Database versleuteling %1$s, registratievergrendeling %2$s</string>
+    <string name="preferences__passphrase_changed">Wachtwoord gewijzigd</string>
+    <string name="preferences__device_lock_timeout">Inactiviteitsduur voor vergrendeling</string>
+    <string name="preferences__automatic_lockdown">Automatische vergrendeling</string>
+    <string name="preferences__protect_molly_database_with_a_passphrase">Bescherm Molly\'s database met een wachtwoord</string>
+    <string name="preferences__passphrase_lock">Database versleuteling</string>
+    <string name="arrays__on_inactivity_timeout">Als je gedurende een bepaalde tijd je apparaat niet vergrendelt</string>
 </resources>
