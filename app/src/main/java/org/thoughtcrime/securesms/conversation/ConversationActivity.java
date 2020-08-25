@@ -163,9 +163,6 @@ import org.thoughtcrime.securesms.groups.ui.GroupChangeResult;
 import org.thoughtcrime.securesms.groups.ui.GroupErrors;
 import org.thoughtcrime.securesms.groups.ui.LeaveGroupDialog;
 import org.thoughtcrime.securesms.groups.ui.managegroup.ManageGroupActivity;
-import org.thoughtcrime.securesms.insights.InsightsLauncher;
-import org.thoughtcrime.securesms.invites.InviteReminderModel;
-import org.thoughtcrime.securesms.invites.InviteReminderRepository;
 import org.thoughtcrime.securesms.jobs.GroupV2UpdateSelfProfileKeyJob;
 import org.thoughtcrime.securesms.jobs.RequestGroupV2InfoJob;
 import org.thoughtcrime.securesms.jobs.RetrieveProfileJob;
@@ -359,7 +356,6 @@ public class ConversationActivity extends PassphraseRequiredActivity
   private ConversationSearchViewModel  searchViewModel;
   private ConversationStickerViewModel stickerViewModel;
   private ConversationViewModel        viewModel;
-  private InviteReminderModel          inviteReminderModel;
   private ConversationGroupViewModel   groupViewModel;
 
   private LiveRecipient recipient;
@@ -455,7 +451,6 @@ public class ConversationActivity extends PassphraseRequiredActivity
         });
       }
     });
-    initializeInsightObserver();
   }
 
   @Override
@@ -1567,14 +1562,7 @@ public class ConversationActivity extends PassphraseRequiredActivity
     updateDefaultSubscriptionId(recipient.get().getDefaultSubscriptionId());
   }
 
-  private void initializeInsightObserver() {
-    inviteReminderModel = new InviteReminderModel(this, new InviteReminderRepository(this));
-    inviteReminderModel.loadReminder(recipient, this::updateReminders);
-  }
-
   protected void updateReminders() {
-    Optional<Reminder> inviteReminder = inviteReminderModel.getReminder();
-
     if (UnauthorizedReminder.isEligible(this)) {
       reminderView.get().showReminder(new UnauthorizedReminder(this));
     } else if (ExpiredBuildReminder.isEligible()) {
@@ -1582,30 +1570,8 @@ public class ConversationActivity extends PassphraseRequiredActivity
     } else if (ServiceOutageReminder.isEligible(this)) {
       ApplicationDependencies.getJobManager().add(new ServiceOutageDetectionJob());
       reminderView.get().showReminder(new ServiceOutageReminder(this));
-    } else if (TextSecurePreferences.isPushRegistered(this)      &&
-               TextSecurePreferences.isShowInviteReminders(this) &&
-               !isSecureText                                     &&
-               inviteReminder.isPresent()                        &&
-               !recipient.get().isGroup()) {
-      reminderView.get().setOnActionClickListener(this::handleReminderAction);
-      reminderView.get().setOnDismissListener(() -> inviteReminderModel.dismissReminder());
-      reminderView.get().showReminder(inviteReminder.get());
     } else if (reminderView.resolved()) {
       reminderView.get().hide();
-    }
-  }
-
-  private void handleReminderAction(@IdRes int reminderActionId) {
-    switch (reminderActionId) {
-      case R.id.reminder_action_invite:
-        handleInviteLink();
-        reminderView.get().requestDismiss();
-        break;
-      case R.id.reminder_action_view_insights:
-        InsightsLauncher.showInsightsDashboard(getSupportFragmentManager());
-        break;
-      default:
-        throw new IllegalArgumentException("Unknown ID: " + reminderActionId);
     }
   }
 

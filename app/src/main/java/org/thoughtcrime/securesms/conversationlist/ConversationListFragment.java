@@ -96,7 +96,6 @@ import org.thoughtcrime.securesms.database.ThreadDatabase;
 import org.thoughtcrime.securesms.database.model.ThreadRecord;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.events.ReminderUpdateEvent;
-import org.thoughtcrime.securesms.insights.InsightsLauncher;
 import org.thoughtcrime.securesms.jobs.ServiceOutageDetectionJob;
 import org.thoughtcrime.securesms.lock.v2.CreateKbsPinActivity;
 import org.thoughtcrime.securesms.logging.Log;
@@ -245,10 +244,6 @@ public class ConversationListFragment extends MainFragment implements ActionMode
     updateReminders();
     EventBus.getDefault().register(this);
 
-    if (TextSecurePreferences.isSmsEnabled(requireContext())) {
-      InsightsLauncher.showInsightsModal(requireContext(), requireFragmentManager());
-    }
-
     SimpleTask.run(getLifecycle(), Recipient::self, this::initializeProfileIcon);
 
     if (!searchToolbar.isVisible() && list.getAdapter() != defaultAdapter) {
@@ -283,7 +278,6 @@ public class ConversationListFragment extends MainFragment implements ActionMode
 
     inflater.inflate(R.menu.text_secure_normal, menu);
 
-    menu.findItem(R.id.menu_insights).setVisible(TextSecurePreferences.isSmsEnabled(requireContext()));
     menu.findItem(R.id.menu_clear_passphrase).setVisible(TextSecurePreferences.isPassphraseLockEnabled(requireContext()));
   }
 
@@ -297,7 +291,6 @@ public class ConversationListFragment extends MainFragment implements ActionMode
       case R.id.menu_clear_passphrase:  handleClearPassphrase(); return true;
       case R.id.menu_mark_all_read:     handleMarkAllRead();     return true;
       case R.id.menu_invite:            handleInvite();          return true;
-      case R.id.menu_insights:          handleInsights();        return true;
     }
 
     return false;
@@ -638,10 +631,6 @@ public class ConversationListFragment extends MainFragment implements ActionMode
 
   private void handleInvite() {
     getNavigator().goToInvite();
-  }
-
-  private void handleInsights() {
-    getNavigator().goToInsights();
   }
 
   @SuppressLint("StaticFieldLeak")

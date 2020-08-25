@@ -5,7 +5,6 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
-import org.thoughtcrime.securesms.insights.InsightsOptOut;
 import org.thoughtcrime.securesms.jobmanager.JobManager;
 import org.thoughtcrime.securesms.jobs.StickerPackDownloadJob;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
@@ -29,7 +28,6 @@ public final class AppInitialization {
   public static void onFirstEverAppLaunch(@NonNull Context context) {
     Log.i(TAG, "onFirstEverAppLaunch()");
 
-    InsightsOptOut.userRequestedOptOut(context);
     TextSecurePreferences.setAppMigrationVersion(context, ApplicationMigrations.CURRENT_VERSION);
     TextSecurePreferences.setJobManagerVersion(context, JobManager.CURRENT_VERSION);
     TextSecurePreferences.setLastExperienceVersionCode(context, Util.getCanonicalVersionCode());

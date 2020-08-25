@@ -13,7 +13,6 @@ import org.thoughtcrime.securesms.conversation.ConversationActivity;
 import org.thoughtcrime.securesms.conversationlist.ConversationListArchiveFragment;
 import org.thoughtcrime.securesms.conversationlist.ConversationListFragment;
 import org.thoughtcrime.securesms.groups.ui.creategroup.CreateGroupActivity;
-import org.thoughtcrime.securesms.insights.InsightsLauncher;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 
 public class MainNavigator {
@@ -84,10 +83,6 @@ public class MainNavigator {
   public void goToInvite() {
     Intent intent = new Intent(activity, InviteActivity.class);
     activity.startActivity(intent);
-  }
-
-  public void goToInsights() {
-    InsightsLauncher.showInsightsDashboard(activity.getSupportFragmentManager());
   }
 
   private @NonNull FragmentManager getFragmentManager() {
