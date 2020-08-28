@@ -1404,15 +1404,17 @@ public class ConversationActivity extends PassphraseRequiredActivity
   }
 
   private void initializeEnabledCheck() {
-    groupViewModel.getGroupActiveState().observe(this, state -> {
-      boolean inactivePushGroup = state != null && isPushGroupConversation() && !state.isActiveGroup();
-      boolean enabled = !inactivePushGroup;
-      noLongerMemberBanner.setVisibility(enabled ? View.GONE : View.VISIBLE);
-      inputPanel.setVisibility(enabled ? View.VISIBLE : View.GONE);
-      inputPanel.setEnabled(enabled);
-      sendButton.setEnabled(enabled);
-      attachButton.setEnabled(enabled);
-    });
+    if (isPushGroupConversation()) {
+      groupViewModel.getGroupActiveState().observe(this, state -> {
+        boolean inactivePushGroup = state != null && !state.isActiveGroup();
+        boolean enabled = !inactivePushGroup;
+        noLongerMemberBanner.setVisibility(enabled ? View.GONE : View.VISIBLE);
+        inputPanel.setVisibility(enabled ? View.VISIBLE : View.GONE);
+        inputPanel.setEnabled(enabled);
+        sendButton.setEnabled(enabled);
+        attachButton.setEnabled(enabled);
+      });
+    }
   }
 
   private ListenableFuture<Boolean> initializeDraftFromDatabase() {
