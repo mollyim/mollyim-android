@@ -75,7 +75,7 @@ public class StickerDatabase extends Database {
       "CREATE INDEX IF NOT EXISTS sticker_sticker_id_index ON " + TABLE_NAME + " (" + STICKER_ID + ");"
   };
 
-  private static final String DIRECTORY = "stickers";
+  public static final String DIRECTORY = "stickers";
 
   private final AttachmentSecret attachmentSecret;
 
