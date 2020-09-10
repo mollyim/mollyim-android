@@ -22,6 +22,7 @@ import org.thoughtcrime.securesms.messages.IncomingMessageObserver;
 import org.thoughtcrime.securesms.util.EarlyMessageCache;
 import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.FrameRateTracker;
+import org.thoughtcrime.securesms.util.Hex;
 import org.thoughtcrime.securesms.util.IasKeyStore;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.whispersystems.signalservice.api.KeyBackupService;
@@ -108,6 +109,7 @@ public class ApplicationDependencies {
   public static synchronized @NonNull KeyBackupService getKeyBackupService() {
     return getSignalServiceAccountManager().getKeyBackupService(IasKeyStore.getIasKeyStore(getApplication()),
                                                                 BuildConfig.KBS_ENCLAVE_NAME,
+                                                                Hex.fromStringOrThrow(BuildConfig.KBS_SERVICE_ID),
                                                                 BuildConfig.KBS_MRENCLAVE,
                                                                 10);
   }

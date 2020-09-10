@@ -17,11 +17,14 @@
  */
 package org.thoughtcrime.securesms;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -29,6 +32,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.Preference;
 
 import org.thoughtcrime.securesms.help.HelpFragment;
+import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.preferences.AdvancedPreferenceFragment;
 import org.thoughtcrime.securesms.preferences.AppProtectionPreferenceFragment;
 import org.thoughtcrime.securesms.preferences.AppearancePreferenceFragment;
@@ -37,9 +41,12 @@ import org.thoughtcrime.securesms.preferences.CorrectedPreferenceFragment;
 import org.thoughtcrime.securesms.preferences.NotificationsPreferenceFragment;
 import org.thoughtcrime.securesms.preferences.StoragePreferenceFragment;
 import org.thoughtcrime.securesms.preferences.widgets.ProfilePreference;
+import org.thoughtcrime.securesms.preferences.widgets.UsernamePreference;
 import org.thoughtcrime.securesms.profiles.edit.EditProfileActivity;
+import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.util.DynamicLanguage;
 import org.thoughtcrime.securesms.util.DynamicTheme;
+import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.ThemeUtil;
 
@@ -56,6 +63,7 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActivity
   private static final String TAG = ApplicationPreferencesActivity.class.getSimpleName();
 
   private static final String PREFERENCE_CATEGORY_PROFILE        = "preference_category_profile";
+  private static final String PREFERENCE_CATEGORY_USERNAME       = "preference_category_username";
   private static final String PREFERENCE_CATEGORY_NOTIFICATIONS  = "preference_category_notifications";
   private static final String PREFERENCE_CATEGORY_APP_PROTECTION = "preference_category_app_protection";
   private static final String PREFERENCE_CATEGORY_APPEARANCE     = "preference_category_appearance";
@@ -124,6 +132,8 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActivity
 
       this.findPreference(PREFERENCE_CATEGORY_PROFILE)
           .setOnPreferenceClickListener(new ProfileClickListener());
+      this.findPreference(PREFERENCE_CATEGORY_USERNAME)
+          .setOnPreferenceClickListener(new UsernameClickListener());
       this.findPreference(PREFERENCE_CATEGORY_NOTIFICATIONS)
         .setOnPreferenceClickListener(new CategoryClickListener(PREFERENCE_CATEGORY_NOTIFICATIONS));
       this.findPreference(PREFERENCE_CATEGORY_APP_PROTECTION)
@@ -151,6 +161,24 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActivity
     @Override
     public void onCreateEncryptedPreferences(@Nullable Bundle savedInstanceState, String rootKey) {
       addPreferencesFromResource(R.xml.preferences);
+
+      if (FeatureFlags.usernames()) {
+        UsernamePreference pref = (UsernamePreference) findPreference(PREFERENCE_CATEGORY_USERNAME);
+        pref.setVisible(shouldDisplayUsernameReminder());
+        pref.setOnLongClickListener(v -> {
+          new AlertDialog.Builder(requireContext())
+                         .setMessage(R.string.ApplicationPreferencesActivity_hide_reminder)
+                         .setPositiveButton(R.string.ApplicationPreferencesActivity_hide, (dialog, which) -> {
+                           dialog.dismiss();
+                           SignalStore.misc().hideUsernameReminder();
+                             findPreference(PREFERENCE_CATEGORY_USERNAME).setVisible(false);
+                         })
+                         .setNegativeButton(android.R.string.cancel, ((dialog, which) -> dialog.dismiss()))
+                         .setCancelable(true)
+                         .show();
+          return true;
+        });
+      }
     }
 
     @Override
@@ -164,6 +192,11 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActivity
 
     private void setCategorySummaries() {
       ((ProfilePreference)this.findPreference(PREFERENCE_CATEGORY_PROFILE)).refresh();
+
+      if (FeatureFlags.usernames()) {
+        this.findPreference(PREFERENCE_CATEGORY_USERNAME)
+            .setVisible(shouldDisplayUsernameReminder());
+      }
 
       this.findPreference(PREFERENCE_CATEGORY_NOTIFICATIONS)
           .setSummary(NotificationsPreferenceFragment.getSummary(getActivity()));
@@ -180,6 +213,10 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActivity
       if (devicePreference != null && !TextSecurePreferences.isPushRegistered(getActivity())) {
         getPreferenceScreen().removePreference(devicePreference);
       }
+    }
+
+    private static boolean shouldDisplayUsernameReminder() {
+      return FeatureFlags.usernames() && !Recipient.self().getUsername().isPresent() && SignalStore.misc().shouldShowUsernameReminder();
     }
 
     private class CategoryClickListener implements Preference.OnPreferenceClickListener {
@@ -245,6 +282,14 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActivity
       @Override
       public boolean onPreferenceClick(Preference preference) {
         requireActivity().startActivity(EditProfileActivity.getIntentForUserProfileEdit(preference.getContext()));
+        return true;
+      }
+    }
+
+    private class UsernameClickListener implements Preference.OnPreferenceClickListener {
+      @Override
+      public boolean onPreferenceClick(Preference preference) {
+        requireActivity().startActivity(EditProfileActivity.getIntentForUsernameEdit(preference.getContext()));
         return true;
       }
     }

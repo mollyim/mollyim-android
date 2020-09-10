@@ -7,7 +7,7 @@
     android:background="?pref_divider"
     android:fillViewport="true"
     android:paddingTop="0dp"
-    tools:context="org.thoughtcrime.securesms.groups.ui.pendingmemberinvites.PendingMemberInvitesFragment">
+    tools:context="org.thoughtcrime.securesms.groups.ui.invitesandrequests.invited.PendingMemberInvitesFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/pendingmemberinvites"
@@ -31,7 +31,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="24dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="8dp"
                     android:text="@string/PendingMembersActivity_people_you_invited" />

@@ -49,6 +49,7 @@
   <string name="ApplicationPreferencesActivity_privacy_summary_screen_lock">Zámok obrazovky %1$s</string>
   <string name="ApplicationPreferencesActivity_appearance_summary">%1$s motív,  jazyk: %2$s</string>
   <string name="ApplicationPreferencesActivity_pin_created">PIN kód sa vytvoril.</string>
+  <string name="ApplicationPreferencesActivity_hide">Skryť</string>
   <!--AppProtectionPreferenceFragment-->
   <plurals name="AppProtectionPreferenceFragment_minutes">
     <item quantity="one">%d minúta</item>
@@ -406,6 +407,7 @@
   <!--GroupMembersDialog-->
   <string name="GroupMembersDialog_you">Vy</string>
   <!--GV2 access levels-->
+  <string name="GroupManagement_access_level_anyone">Ktokoľvek</string>
   <string name="GroupManagement_access_level_all_members">Všetci členovia</string>
   <string name="GroupManagement_access_level_only_admins">Iba správcovia</string>
   <!--GV2 invites sent-->
@@ -413,6 +415,7 @@
   <!--LinkPreviewsMegaphone-->
   <string name="LinkPreviewsMegaphone_disable">Zrušiť</string>
   <!--LinkPreviewView-->
+  <!--LinkPreviewRepository-->
   <!--PendingMembersActivity-->
   <string name="PendingMemberInvitesActivity_pending_group_invites">Nevybavené pozvánky do skupín</string>
   <string name="PendingMembersActivity_people_you_invited">Ľudia, ktorých ste pozvali vy</string>
@@ -420,6 +423,7 @@
   <string name="PendingMembersActivity_invites_by_other_group_members">Pozvánky odoslané inými členmi skupiny</string>
   <string name="PendingMembersActivity_no_pending_invites_by_other_group_members">Žiadne nevybavené pozvánky od ostatných členov skupiny.</string>
   <string name="PendingMembersActivity_missing_detail_explanation">Podrobnosti o ľudoch pozvaných inými členmi skupiny sa nezobrazia. Pozvaní začnú svoje informácie so skupinou zdieľať až po tom, ako sa rozhodnú pridať sa. Kým sa nepridajú, neuvidia žiadne správy zo skupiny.</string>
+  <!--RequestingMembersFragment-->
   <!--AddMembersActivity-->
   <string name="AddMembersActivity__done">Hotovo</string>
   <!--AddGroupDetailsFragment-->
@@ -470,10 +474,19 @@
   <string name="CustomNotificationsDialogFragment__enabled">Povolené</string>
   <string name="CustomNotificationsDialogFragment__disabled">Zakázané</string>
   <string name="CustomNotificationsDialogFragment__default">Predvolená</string>
+  <!--ShareableGroupLinkDialogFragment-->
+  <string name="ShareableGroupLinkDialogFragment__share">Zdieľať</string>
+  <string name="ShareableGroupLinkDialogFragment__enabled">Povolené</string>
+  <string name="ShareableGroupLinkDialogFragment__disabled">Zakázané</string>
+  <string name="ShareableGroupLinkDialogFragment__default">Predvolená</string>
+  <!--GroupLinkShareQrDialogFragment-->
   <!--GV2 Invite Revoke confirmation dialog-->
   <!--GroupJoinBottomSheetDialogFragment-->
+  <string name="GroupJoinBottomSheetDialogFragment_encountered_a_network_error">Vyskytla sa chyba siete.</string>
   <!--GroupJoinUpdateRequiredBottomSheetDialogFragment-->
   <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_signal">Aktualizovať Signal</string>
+  <!--GV2 Request confirmation dialog-->
+  <string name="RequestConfirmationDialog_add">Pridať</string>
   <!--CropImageActivity-->
   <string name="CropImageActivity_group_avatar">Obrázok skupiny</string>
   <string name="CropImageActivity_profile_avatar">Fotka</string>
@@ -696,6 +709,12 @@
   <!--GV2 membership access level change-->
   <string name="MessageRecord_you_changed_who_can_edit_group_membership_to_s">Zmenili ste, kto môže upravovať členstvo v skupine na \"%1$s\".</string>
   <string name="MessageRecord_s_changed_who_can_edit_group_membership_to_s">%1$s zmenil/a, kto môže upravovať členstvo v skupine na \"%2$s\".</string>
+  <!--GV2 group link invite access level change-->
+  <!--GV2 group link reset-->
+  <!--GV2 group link joins-->
+  <!--GV2 group link requests-->
+  <!--GV2 group link approvals-->
+  <!--GV2 group link deny-->
   <!--End of GV2 specific update messages-->
   <string name="MessageRecord_your_safety_number_with_s_has_changed">Vaše bezpečnostné číslo s %s sa zmenilo.</string>
   <string name="MessageRecord_you_marked_your_safety_number_with_s_verified">Bezpečnostné číslo s %s ste označili ako overené</string>
@@ -811,10 +830,7 @@
   <!--RecipientProvider-->
   <string name="RecipientProvider_unnamed_group">Nepomenovaná skupina</string>
   <!--RedPhone-->
-  <string name="RedPhone_answering">Prijatie hovoru</string>
-  <string name="RedPhone_ending_call">Ukončenie hovoru</string>
-  <string name="RedPhone_dialing">Vytáčanie</string>
-  <string name="RedPhone_ringing">Zvonenie</string>
+  <string name="RedPhone_ringing">Vyzváňanie…</string>
   <string name="RedPhone_busy">Obsadené</string>
   <string name="RedPhone_connected">Pripojený</string>
   <string name="RedPhone_recipient_unavailable">Kontakt nie je dostupný</string>
@@ -1002,7 +1018,6 @@ Bola prijatá správa výmeny kľúčov s neplatnou verziou protokolu.
   <string name="UnverifiedSendDialog_send">Odoslať</string>
   <!--UsernameEditFragment-->
   <string name="UsernameEditFragment_username">Používateľské meno</string>
-  <string name="UsernameEditFragment_submit">Potvrdiť</string>
   <string name="UsernameEditFragment_delete">Vymazať</string>
   <string name="UsernameEditFragment_successfully_set_username">Používateľské meno bolo úspešne nastavené.</string>
   <string name="UsernameEditFragment_successfully_removed_username">Používateľské meno bolo úspešne odstránené.</string>
@@ -1012,7 +1027,6 @@ Bola prijatá správa výmeny kľúčov s neplatnou verziou protokolu.
   <string name="UsernameEditFragment_usernames_cannot_begin_with_a_number">Používateľské mená nemôžu začínať číslicou.</string>
   <string name="UsernameEditFragment_username_is_invalid">Používateľské meno je neplatné.</string>
   <string name="UsernameEditFragment_usernames_must_be_between_a_and_b_characters">Používateľské mená musia obsahovať %1$d až %2$d znakov.</string>
-  <string name="UsernameEditFragment_other_signal_users_can_send_message_requests_to_your_unique_username">Ostatní používatelia Signalu môžu vášmu jedinečnému používateľskému menu odoslať žiadosti o správu bez toho, aby poznali vaše telefónne číslo. Voľba používateľského mena je voliteľná.</string>
   <!--VerifyIdentityActivity-->
   <string name="VerifyIdentityActivity_your_contact_is_running_an_old_version_of_signal">Váš kontakt používa starú verziu Signalu. Pred overením bezpečnostného čísla ich požiadajte o aktualizáciu aplikácie.</string>
   <string name="VerifyIdentityActivity_your_contact_is_running_a_newer_version_of_Signal">Váš kontakt používa novšiu verziu Signalu, nekompatibilnú s formátom QR kódu. Prosím aktualizujte pre porovnanie.</string>
@@ -1491,6 +1505,7 @@ Bola prijatá správa výmeny kľúčov s neplatnou verziou protokolu.
   <string name="preferences__use_signal_for_viewing_and_storing_all_incoming_multimedia_messages">Použiť Signal pre všetky prichádzajúce multimediálne správy</string>
   <string name="preferences__pref_enter_sends_title">Odoslať stlačením klávesy Enter</string>
   <string name="preferences__pressing_the_enter_key_will_send_text_messages">Stlačením klávesy Enter sa správa odošle</string>
+  <string name="preferences__retrieve_link_previews_from_websites_for_messages">Získať ukážky stránok priamo z webových prepojení pre správy, ktoré odošlete.</string>
   <string name="preferences__choose_identity">Vyberať identitu</string>
   <string name="preferences__choose_your_contact_entry_from_the_contacts_list">Vyberte Váš kontakt zo zoznamu kontaktov.</string>
   <string name="preferences__change_passphrase">Zmeniť heslo</string>
@@ -1978,5 +1993,10 @@ Bola prijatá správa výmeny kľúčov s neplatnou verziou protokolu.
   <string name="GroupsLearnMore_paragraph_1">Zastarané skupiny sú skupiny, ktoré nie sú kompatibilné s novými funkciami skupín, ako napríklad administrátori či viac hovoriace aktualizácie.</string>
   <string name="GroupsLearnMore_paragraph_2">Zastarané skupiny nie je možné prerobiť na nové skupiny, môžete však vytvoriť novú skupinu s tými istými členmi.</string>
   <string name="GroupsLearnMore_paragraph_3">Na vytvorenie novej skupiny by všetci členovia mali prejsť na najnovšiu verziu aplikácie Signal.</string>
+  <!--GroupLinkBottomSheetDialogFragment-->
+  <string name="GroupLinkBottomSheet_copy">Kopírovať</string>
+  <string name="GroupLinkBottomSheet_qr_code">QR kód</string>
+  <string name="GroupLinkBottomSheet_share">Zdieľať</string>
+  <string name="GroupLinkBottomSheet_copied_to_clipboard">Skopírované do schránky</string>
   <!--EOF-->
 </resources>

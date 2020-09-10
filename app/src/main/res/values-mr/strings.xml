@@ -397,6 +397,7 @@
   <!--GroupMembersDialog-->
   <string name="GroupMembersDialog_you">आपण</string>
   <!--GV2 access levels-->
+  <string name="GroupManagement_access_level_anyone">कोणीही</string>
   <string name="GroupManagement_access_level_all_members">सर्व सदस्य </string>
   <string name="GroupManagement_access_level_only_admins">केवळ प्रशासक</string>
   <!--GV2 invites sent-->
@@ -622,6 +623,12 @@
   <!--GV2 avatar change-->
   <!--GV2 attribute access level change-->
   <!--GV2 membership access level change-->
+  <!--GV2 group link invite access level change-->
+  <!--GV2 group link reset-->
+  <!--GV2 group link joins-->
+  <!--GV2 group link requests-->
+  <!--GV2 group link approvals-->
+  <!--GV2 group link deny-->
   <!--End of GV2 specific update messages-->
   <string name="MessageRecord_your_safety_number_with_s_has_changed">%s सोबतचा आपला सुरक्षितता नंबर बदलला आहे.</string>
   <string name="MessageRecord_you_marked_your_safety_number_with_s_verified">%s सोबत आपण आपला सुरक्षितता नंबर सत्यापित म्हणून चिन्हांकित केला आहे</string>
@@ -710,10 +717,7 @@
   <!--RecipientProvider-->
   <string name="RecipientProvider_unnamed_group">अनामित गट</string>
   <!--RedPhone-->
-  <string name="RedPhone_answering">उत्तर देत आहे</string>
-  <string name="RedPhone_ending_call">कॉल संपवत आहे</string>
-  <string name="RedPhone_dialing">डायल करत आहे</string>
-  <string name="RedPhone_ringing">रिंग होत आहे</string>
+  <string name="RedPhone_ringing">रिंग होत आहे…</string>
   <string name="RedPhone_busy">व्यस्त</string>
   <string name="RedPhone_connected">कनेक्ट केले</string>
   <string name="RedPhone_recipient_unavailable">प्राप्तकर्ता अनुपलब्ध</string>
@@ -877,7 +881,7 @@
   <string name="UnverifiedSendDialog_send">पाठवा</string>
   <!--UsernameEditFragment-->
   <string name="UsernameEditFragment_username">वापरकर्तानाव</string>
-  <string name="UsernameEditFragment_submit">सादर करा</string>
+  <!-- Removed by excludeNonTranslatables <string name="UsernameEditFragment_submit">सादर करा</string> -->
   <string name="UsernameEditFragment_delete">हटवा</string>
   <string name="UsernameEditFragment_successfully_set_username">वापरकर्तानाव यशस्वीरीत्या सेट.</string>
   <string name="UsernameEditFragment_successfully_removed_username">वापरकर्तानाव यशस्वीरीत्या काढले.</string>
@@ -887,7 +891,7 @@
   <string name="UsernameEditFragment_usernames_cannot_begin_with_a_number">वापरकर्तानाव अंकांसोबत सोबत चालू होऊ शकत नाही.</string>
   <string name="UsernameEditFragment_username_is_invalid">वापरकर्तानाव अवैध आहे.</string>
   <string name="UsernameEditFragment_usernames_must_be_between_a_and_b_characters">वापरकर्तानाव %1$d आणि %2$d कॅरेक्टर मध्येच असायला हवे.</string>
-  <string name="UsernameEditFragment_other_signal_users_can_send_message_requests_to_your_unique_username">इतर Signal वापरकर्ते आपला फोन नंबर न जाणता आपल्या एकमेव वापरकर्त्यानावावर संदेश विनंत्या पाठवू शकतात. वापरकर्तानाव निवडणे पर्यायी आहे.</string>
+  <!-- Removed by excludeNonTranslatables <string name="UsernameEditFragment_other_signal_users_can_send_message_requests_to_your_unique_username">इतर Signal वापरकर्ते आपला फोन नंबर न जाणता आपल्या एकमेव वापरकर्त्यानावावर संदेश विनंत्या पाठवू शकतात. वापरकर्तानाव निवडणे पर्यायी आहे.</string> -->
   <!--VerifyIdentityActivity-->
   <string name="VerifyIdentityActivity_your_contact_is_running_an_old_version_of_signal">आपला संपर्क Signal ची जुनी आवृत्ती वापरत आहे.आपला सुरक्षितता नंबर सत्यापित करण्यापूर्वी कृपया त्यांना अद्यतन करण्यास विचारा.</string>
   <string name="VerifyIdentityActivity_your_contact_is_running_a_newer_version_of_Signal">आपला संपर्क विसंगत QR कोड स्वरूपन सोबत Signal ची नवीन आवृत्ती वापरत आहे. तुलना करण्यासाठी कृपया अद्यतन करा.</string>

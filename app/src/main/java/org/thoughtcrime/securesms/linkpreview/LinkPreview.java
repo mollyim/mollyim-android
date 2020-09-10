@@ -23,44 +23,66 @@ public class LinkPreview {
   private final String       title;
 
   @JsonProperty
+  private final String       description;
+
+  @JsonProperty
+  private final long         date;
+
+  @JsonProperty
   private final AttachmentId attachmentId;
 
   @JsonIgnore
   private final Optional<Attachment> thumbnail;
 
-  public LinkPreview(@NonNull String url, @NonNull String title, @NonNull DatabaseAttachment thumbnail) {
+  public LinkPreview(@NonNull String url, @NonNull String title, @NonNull String description, long date, @NonNull DatabaseAttachment thumbnail) {
     this.url          = url;
     this.title        = title;
+    this.description  = description;
+    this.date         = date;
     this.thumbnail    = Optional.of(thumbnail);
     this.attachmentId = thumbnail.getAttachmentId();
   }
 
-  public LinkPreview(@NonNull String url, @NonNull String title, @NonNull Optional<Attachment> thumbnail) {
+  public LinkPreview(@NonNull String url, @NonNull String title, @NonNull String description, long date, @NonNull Optional<Attachment> thumbnail) {
     this.url          = url;
     this.title        = title;
+    this.description  = description;
+    this.date         = date;
     this.thumbnail    = thumbnail;
     this.attachmentId = null;
   }
 
   public LinkPreview(@JsonProperty("url")          @NonNull  String url,
                      @JsonProperty("title")        @NonNull  String title,
+                     @JsonProperty("description")  @Nullable String description,
+                     @JsonProperty("date")                   long date,
                      @JsonProperty("attachmentId") @Nullable AttachmentId attachmentId)
   {
     this.url          = url;
     this.title        = title;
+    this.description  = Optional.fromNullable(description).or("");
+    this.date         = date;
     this.attachmentId = attachmentId;
     this.thumbnail    = Optional.absent();
   }
 
-  public String getUrl() {
+  public @NonNull String getUrl() {
     return url;
   }
 
-  public String getTitle() {
+  public @NonNull String getTitle() {
     return title;
   }
 
-  public Optional<Attachment> getThumbnail() {
+  public @NonNull String getDescription() {
+    return description;
+  }
+
+  public long getDate() {
+    return date;
+  }
+
+  public @NonNull Optional<Attachment> getThumbnail() {
     return thumbnail;
   }
 
@@ -68,11 +90,11 @@ public class LinkPreview {
     return attachmentId;
   }
 
-  public String serialize() throws IOException {
+  public @NonNull String serialize() throws IOException {
     return JsonUtils.toJson(this);
   }
 
-  public static LinkPreview deserialize(@NonNull String serialized) throws IOException {
+  public static @NonNull LinkPreview deserialize(@NonNull String serialized) throws IOException {
     return JsonUtils.fromJson(serialized, LinkPreview.class);
   }
 }

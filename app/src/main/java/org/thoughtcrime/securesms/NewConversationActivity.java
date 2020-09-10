@@ -60,7 +60,7 @@ public class NewConversationActivity extends ContactSelectionActivity
   }
 
   @Override
-  public boolean onContactSelected(Optional<RecipientId> recipientId, String number) {
+  public boolean onBeforeContactSelected(Optional<RecipientId> recipientId, String number) {
     if (recipientId.isPresent()) {
       launch(Recipient.resolved(recipientId.get()));
     } else {
@@ -138,11 +138,11 @@ public class NewConversationActivity extends ContactSelectionActivity
   }
 
   @Override
-  public boolean onPrepareOptionsMenu(Menu menu) {
+  public boolean onCreateOptionsMenu(Menu menu) {
     menu.clear();
     getMenuInflater().inflate(R.menu.new_conversation_activity, menu);
 
-    super.onPrepareOptionsMenu(menu);
+    super.onCreateOptionsMenu(menu);
     return true;
   }
 

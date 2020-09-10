@@ -18,10 +18,10 @@
     <item quantity="one">%d پیام در هر مکالمه</item>
     <item quantity="other">%d پیام در هر مکالمه</item>
   </plurals>
-  <string name="ApplicationPreferencesActivity_delete_all_old_messages_now">حذف تمام پیام‌های قدیمی؟</string>
+  <string name="ApplicationPreferencesActivity_delete_all_old_messages_now">حذف همهٔ پیام‌های قدیمی؟</string>
   <plurals name="ApplicationPreferencesActivity_this_will_immediately_trim_all_conversations_to_the_d_most_recent_messages">
-    <item quantity="one">این گزینه باعث پاک شدن تمامی مکالمه‌ها تا پیام آخر خواهد شد.</item>
-    <item quantity="other">این گزینه باعث حذف تمامی مکالمه‌ها تا %d پیام آخر خواهد شد.</item>
+    <item quantity="one">این گزینه باعث حذف همهٔ مکالمه‌ها به جز پیام آخر خواهد شد.</item>
+    <item quantity="other">این گزینه باعث حذف همهٔ مکالمه‌ها به جز %d پیام آخر خواهد شد.</item>
   </plurals>
   <string name="ApplicationPreferencesActivity_delete">حذف</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">غیرفعال کردن گذرواژه؟</string>
@@ -47,6 +47,7 @@
   <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">پین‌ها برای قفل ثبت‌نام لازم هستند. برای غیرفعال کردن پین‌ها، لطفاً ابتدا قفل ثبت‌نام را غیرفعال کنید.</string>
   <string name="ApplicationPreferencesActivity_pin_created">پین ایجاد شد.</string>
   <string name="ApplicationPreferencesActivity_pin_disabled">پین غیرفعال شد.</string>
+  <string name="ApplicationPreferencesActivity_hide">مخفی سازی</string>
   <!--AppProtectionPreferenceFragment-->
   <plurals name="AppProtectionPreferenceFragment_minutes">
     <item quantity="one">%d دقیقه</item>
@@ -137,7 +138,7 @@
   <!--ConfirmIdentityDialog-->
   <string name="ConfirmIdentityDialog_your_safety_number_with_s_has_changed">شمارۀ امنیتی شما با %1$s تغییر یافته است. این می‌تواند به این معنا باشد که شخصی سعی دارد تا ارتباط شما را شنود کند یا %2$s Signal را دوباره نصب کرده است.</string>
   <string name="ConfirmIdentityDialog_you_may_wish_to_verify_your_safety_number_with_this_contact">شاید بخواهید که شمارهٔ امنیتی خود را با این مخاطب تأیید کنید.</string>
-  <string name="ConfirmIdentityDialog_accept">پذیرش</string>
+  <string name="ConfirmIdentityDialog_accept">پذیرفتن</string>
   <!--ContactsCursorLoader-->
   <string name="ContactsCursorLoader_recent_chats">آخرین گفتگوها</string>
   <string name="ContactsCursorLoader_contacts">مخاطبین</string>
@@ -213,6 +214,8 @@
   <string name="ConversationActivity_unable_to_record_audio">امکان ضبط صدا وجود ندارد!</string>
   <string name="ConversationActivity_you_cant_send_messages_to_this_group">نمی‌توانید به این گروه پیام ارسال کنید، چون دیگر عضو نیستید.</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">هیچ برنامه‌ای برای باز کردن این پیوند بر روی دستگاه شما وجود ندارد.</string>
+  <string name="ConversationActivity_your_request_to_join_has_been_sent_to_the_group_admin">درخواست شما برای پیوستن به مدیر گروه ارسال شد. هنگامی که به درخواست‌ شما پاسخ دهند، مطلع خواهید شد.</string>
+  <string name="ConversationActivity_cancel_request">لغو درخواست</string>
   <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">برای ارسال پیام‌ های صوتی، به Molly اجازه دهید تا به میکروفون شما دسترسی داشته باشد.</string>
   <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly به منظور ارسال پیام های صوتی Molly نیاز به مجوز میکروفون دارد، ولی این اجازه به صورت دائم رد شده است. لطفاً به تنظیمات برنامه رفته، «مجوزها» را انتخاب کنید و «میکروفون» را فعال کنید.</string>
   <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly نیاز به دسترسی به دوربین و میکروفون دارد تا بتواند با %s تماس بگیرد، اما دسترسی به آن ها داده نشده است. لطفاً به قسمت تنظیمات برنامه رفته، «مجوزها» را انتخاب کرده، «دوربین» و «میکروفون» را فعال کنید.</string>
@@ -338,6 +341,7 @@
   <string name="AvatarSelectionBottomSheetDialogFragment__take_photo">گرفتن عکس</string>
   <string name="AvatarSelectionBottomSheetDialogFragment__choose_from_gallery">انتخاب از گالری</string>
   <string name="AvatarSelectionBottomSheetDialogFragment__remove_photo">حذف عکس</string>
+  <string name="AvatarSelectionBottomSheetDialogFragment__taking_a_photo_requires_the_camera_permission">گرفتن عکس به مجوز دوربین نیاز دارد.</string>
   <!--DateUtils-->
   <string name="DateUtils_just_now">حالا</string>
   <string name="DateUtils_minutes_ago">%d دقیقه</string>
@@ -367,7 +371,7 @@
   <string name="DozeReminder_optimize_for_missing_play_services">بهینه‌سازی به علت ناموجود بودن خدمات Play</string>
   <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">این دستگاه از خدمات Play پشتیبانی نمی‌کند. برای غیرفعال کردن بهینه‌سازی باتری سیستم که از دریافت پیام‌ها هنگامی که Molly غیرفعال است ممانعت می‌کند، ضربه بزنید.</string>
   <!--ShareActivity-->
-  <string name="ShareActivity_share_with">اشتراک‌گذاری با</string>
+  <string name="ShareActivity_share_with">اشتراک‌گذاشتن با</string>
   <string name="ShareActivity_multiple_attachments_are_only_supported">انتخاب چندگانهٔ پیوست‌ها فقط برای عکس‌ها و ویدئوها پشتیبانی می‌شود.</string>
   <!--GcmBroadcastReceiver-->
   <string name="GcmBroadcastReceiver_retrieving_a_message">در حال بازیابی یک پیام…</string>
@@ -391,14 +395,16 @@
   <string name="ChooseNewAdminActivity_done">انجام شد</string>
   <string name="ChooseNewAdminActivity_you_left">شما «%1$s» را ترک کردید.</string>
   <!--GroupShareProfileView-->
-  <string name="GroupShareProfileView_share_your_profile_name_and_photo_with_this_group">اشتراک‌گذاری نام و عکس پروفایل خود با این گروه؟</string>
+  <string name="GroupShareProfileView_share_your_profile_name_and_photo_with_this_group">اشتراک‌گذاشتن نام و عکس پروفایل خود با این گروه؟</string>
   <string name="GroupShareProfileView_do_you_want_to_make_your_profile_name_and_photo_visible_to_all_current_and_future_members_of_this_group">آیا می‌خواهید نام و عکس پروفایل شما به همهٔ اعضای کنونی و آتی این گروه نشان داده شود؟</string>
   <string name="GroupShareProfileView_make_visible">آشکار کن</string>
   <!--GroupMembersDialog-->
   <string name="GroupMembersDialog_you">شما</string>
   <!--GV2 access levels-->
+  <string name="GroupManagement_access_level_anyone">همه</string>
   <string name="GroupManagement_access_level_all_members">همهٔ اعضا</string>
   <string name="GroupManagement_access_level_only_admins">فقط مدیران</string>
+  <string name="GroupManagement_access_level_no_one">هیچکس</string>
   <!--GV2 invites sent-->
   <plurals name="GroupManagement_invitation_sent">
     <item quantity="one">دعوت‌نامه ارسال شد</item>
@@ -406,13 +412,15 @@
   </plurals>
   <string name="GroupManagement_invite_single_user">«%1$s» نمی‌تواند به صورت خودکار توسط شما به این گروه اضافه شود.\n\nآن‌ها برای پیوستن دعوت شده‌اند و پیام‌های گروهی را تا زمانی که دعوت را نپذیرند، نخواهند دید.</string>
   <string name="GroupManagement_learn_more">بیشتر یاد بگیرید</string>
-  <string name="GroupManagement_invite_multiple_users">این کاربران نمی‌توانند به صورت خودکار توسط شما به این گروه اضافه شوند.\n\nآن ها برای پیوستن به گروه دعوت شده‌اند و پیام‌های گروهی را تا زمانی که دعوت را نپذیرند، نخواهند دید.</string>
+  <string name="GroupManagement_invite_multiple_users">این کاربران نمی‌توانند به صورت خودکار توسط شما به این گروه اضافه شوند.\n\nآن‌ها برای پیوستن به گروه دعوت شده‌اند و پیام‌های گروهی را تا زمانی که دعوت را بپذیرند، نخواهند دید.</string>
   <!--LinkPreviewsMegaphone-->
   <string name="LinkPreviewsMegaphone_disable">غیرفعال کردن</string>
   <string name="LinkPreviewsMegaphone_preview_any_link">پیش‌نمایش هر پیوند</string>
   <string name="LinkPreviewsMegaphone_you_can_now_retrieve_link_previews_directly_from_any_website">شما حالا می‌توانید پیش‌نمایش‌ پیوندها را به صورت مستقیم از هر وب‌سایتی برای پیام‌هایی که ارسال می‌کنید، دریافت کنید.</string>
   <!--LinkPreviewView-->
   <string name="LinkPreviewView_no_link_preview_available">هیچ پیش‌نمایش پیوندی در دسترس نیست</string>
+  <string name="LinkPreviewView_this_group_link_is_not_active">این پیوند گروه فعال نیست</string>
+  <!--LinkPreviewRepository-->
   <!--PendingMembersActivity-->
   <string name="PendingMemberInvitesActivity_pending_group_invites">دعوت‌های در حال انتظار</string>
   <string name="PendingMembersActivity_people_you_invited">افرادی که شما دعوت کردید</string>
@@ -430,6 +438,7 @@
     <item quantity="one">اشکال در لغو دعوت</item>
     <item quantity="other">اشکال در لغو دعوت‌ها</item>
   </plurals>
+  <!--RequestingMembersFragment-->
   <!--AddMembersActivity-->
   <string name="AddMembersActivity__done">انجام شد</string>
   <string name="AddMembersActivity__this_person_cant_be_added_to_legacy_groups">این فرد نمی‌تواند به گروه‌های قدیمی اضافه شود.</string>
@@ -545,6 +554,12 @@
   <string name="CustomNotificationsDialogFragment__enabled">فعال</string>
   <string name="CustomNotificationsDialogFragment__disabled">غیرفعال</string>
   <string name="CustomNotificationsDialogFragment__default">پیش‌فرض</string>
+  <!--ShareableGroupLinkDialogFragment-->
+  <string name="ShareableGroupLinkDialogFragment__share">اشتراک‌گذاری</string>
+  <string name="ShareableGroupLinkDialogFragment__enabled">فعال</string>
+  <string name="ShareableGroupLinkDialogFragment__disabled">غیرفعال</string>
+  <string name="ShareableGroupLinkDialogFragment__default">پیش‌فرض</string>
+  <!--GroupLinkShareQrDialogFragment-->
   <!--GV2 Invite Revoke confirmation dialog-->
   <string name="InviteRevokeConfirmationDialog_revoke_own_single_invite">آیا می‌خواهید دعوتی که به %1$s فرستادید را لغو کنید؟</string>
   <plurals name="InviteRevokeConfirmationDialog_revoke_others_invites">
@@ -553,10 +568,14 @@
   </plurals>
   <!--GroupJoinBottomSheetDialogFragment-->
   <string name="GroupJoinBottomSheetDialogFragment_you_are_already_a_member">شما از پیش عضو هستید</string>
+  <string name="GroupJoinBottomSheetDialogFragment_encountered_a_network_error">خطای شبکه رخ داد.</string>
+  <string name="GroupJoinBottomSheetDialogFragment_this_group_link_is_not_active">این پیوند گروه فعال نیست</string>
   <!--GroupJoinUpdateRequiredBottomSheetDialogFragment-->
   <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_signal_to_use_group_links">برای استفاده از پیوند‌های گروه Signal را به‌روزرسانی کنید</string>
   <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_message">نسخهٔ Signal که استفاده می‌کنید از پیوند‌های با قابلیت اشتراک‌گذاری پشتیبانی نمی‌کند. برای پیوستن به این گروه از طریق پیوند به آخرین نسخه به‌روزرسانی کنید.</string>
   <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_signal">بروزرسانی Signal</string>
+  <!--GV2 Request confirmation dialog-->
+  <string name="RequestConfirmationDialog_add">افزودن</string>
   <!--CropImageActivity-->
   <string name="CropImageActivity_group_avatar">عکس گروه</string>
   <string name="CropImageActivity_profile_avatar">عکس</string>
@@ -570,7 +589,7 @@
   <!--InviteActivity-->
   <string name="InviteActivity_share">اشتراک‌گذاری</string>
   <string name="InviteActivity_choose_contacts">انتخاب مخاطبین</string>
-  <string name="InviteActivity_share_with_contacts">اشتراک‌گذاری با مخاطبین</string>
+  <string name="InviteActivity_share_with_contacts">اشتراک‌گذاشتن با مخاطبین</string>
   <string name="InviteActivity_choose_how_to_share">انتخاب نحوهٔ اشتراک‌گذاری</string>
   <string name="InviteActivity_cancel">لغو</string>
   <string name="InviteActivity_sending">در حال ارسال…</string>
@@ -765,7 +784,7 @@
   </plurals>
   <!--GV2 invitation acceptance-->
   <string name="MessageRecord_you_accepted_invite">شما دعوت به گروه را پذیرفتید.</string>
-  <string name="MessageRecord_s_accepted_invite">%1$s دعوت به گروه را قبول کرد.</string>
+  <string name="MessageRecord_s_accepted_invite">%1$s دعوت به گروه را پذیرفت.</string>
   <string name="MessageRecord_you_added_invited_member_s">شما %1$s را اضافه کردید.</string>
   <string name="MessageRecord_s_added_invited_member_s">%1$s %2$s را اضافه کرد.</string>
   <!--GV2 title change-->
@@ -784,6 +803,13 @@
   <string name="MessageRecord_you_changed_who_can_edit_group_membership_to_s">شما قابلیت ویرایش اعضای گروه را به «%1$s» انتقال دادید.</string>
   <string name="MessageRecord_s_changed_who_can_edit_group_membership_to_s">%1$s قابلیت ویرایش اعضای گروه را به «%2$s» انتقال داد.</string>
   <string name="MessageRecord_who_can_edit_group_membership_has_been_changed_to_s">قابلیت ویرایش اعضای گروه به «%1$s» انتقال یافت.</string>
+  <!--GV2 group link invite access level change-->
+  <!--GV2 group link reset-->
+  <!--GV2 group link joins-->
+  <!--GV2 group link requests-->
+  <string name="MessageRecord_you_sent_a_request_to_join_the_group">شما یک درخواست برای پیوستن به گروه ارسال کردید</string>
+  <!--GV2 group link approvals-->
+  <!--GV2 group link deny-->
   <!--End of GV2 specific update messages-->
   <string name="MessageRecord_your_safety_number_with_s_has_changed">شمارهٔ امنیتی شما با %s تغییر یافت.</string>
   <string name="MessageRecord_you_marked_your_safety_number_with_s_verified">شما شمارهٔ امنیتی خود با %s  را به عنوان تأیید شده علامت زدید</string>
@@ -791,7 +817,7 @@
   <string name="MessageRecord_you_marked_your_safety_number_with_s_unverified">شما شمارهٔ امنیتی خود با %s را تأیید نشده علامت زدید</string>
   <string name="MessageRecord_you_marked_your_safety_number_with_s_unverified_from_another_device">شما شمارهٔ امنیتی خود با %s را از دستگاه دیگری تأیید نشده علامت زدید</string>
   <!--MessageRequestBottomView-->
-  <string name="MessageRequestBottomView_accept">پذیرش</string>
+  <string name="MessageRequestBottomView_accept">پذیرفتن</string>
   <string name="MessageRequestBottomView_delete">حذف</string>
   <string name="MessageRequestBottomView_block">مسدود کردن</string>
   <string name="MessageRequestBottomView_unblock">رفع مسدودیت</string>
@@ -823,9 +849,9 @@
   <string name="DeviceProvisioningActivity_continue">ادامه</string>
   <string name="DeviceProvisioningActivity_content_intro">قادر خواهد بود تا</string>
   <string name="DeviceProvisioningActivity_content_bullets">
-•  تمام پیام‌های شما را بخواند
-\n• با نام شما پیام ارسال کند
-</string>
+        • همهٔ پیام‌های شما را بخواند
+        \n• به نام شما پیام ارسال کند
+    </string>
   <string name="DeviceProvisioningActivity_content_progress_title">در حال پیوند دادن دستگاه</string>
   <string name="DeviceProvisioningActivity_content_progress_content">در حال پیوند دادن دستگاه جدید…</string>
   <string name="DeviceProvisioningActivity_content_progress_success">دستگاه تأیید شد!</string>
@@ -852,7 +878,7 @@
   <string name="PlacePickerActivity_title">نقشه</string>
   <string name="PlacePickerActivity_not_a_valid_address">آدرس معتبر نیست</string>
   <string name="PlacePickerActivity_drop_pin">قرار دادن نشانگر</string>
-  <string name="PlacePickerActivity_accept_address">پذیرش نشانی</string>
+  <string name="PlacePickerActivity_accept_address">پذیرفتن نشانی</string>
   <!--PlayServicesProblemFragment-->
   <string name="PlayServicesProblemFragment_the_version_of_google_play_services_you_have_installed_is_not_functioning">نسخهٔ خدمات Google Play که نصب کرده‌اید به درستی کار نمی‌کند. لطفاً دوباره آن را نصب کرده و مجدداً امتحان کنید.</string>
   <!--PinRestoreEntryFragment-->
@@ -862,7 +888,7 @@
   <string name="PinRestoreEntryFragment_your_pin_is_a_d_digit_code">پین شما یک کد %1$d+ رقمی است که می‌تواند شامل اعداد یا حروف باشد.\n\n اگر نمی‌توانید پین را به یاد بیاورید، می‌توانید یک پین جدید ایجاد کنید. می‌توانید دوباره ثبت‌نام و از حساب‌تان استفاده کنید اما تنظیمات ذخیره شده مانند اطلاعات پروفایل‌‌تان را از دست می‌دهید.</string>
   <string name="PinRestoreEntryFragment_if_you_cant_remember_your_pin">اگر نمی‌توانید پین را به یاد بیاورید، یک پین جدید ایجاد کنید. شما می‌توانید ثبت‌نام و از حساب‌تان استفاده کنید اما تنظیمات ذخیره‌ شده مانند اطلاعات پروفایل‌تان را از دست می‌دهید.</string>
   <string name="PinRestoreEntryFragment_create_new_pin">ایجاد پین جدید</string>
-  <string name="PinRestoreEntryFragment_contact_support">ارتباط با پشتیبانی</string>
+  <string name="PinRestoreEntryFragment_contact_support">تماس با پشتیبانی</string>
   <string name="PinRestoreEntryFragment_cancel">لغو</string>
   <string name="PinRestoreEntryFragment_skip">رد شدن</string>
   <plurals name="PinRestoreEntryFragment_you_have_d_attempt_remaining">
@@ -903,10 +929,7 @@
   <!--RecipientProvider-->
   <string name="RecipientProvider_unnamed_group">گروه بدون نام</string>
   <!--RedPhone-->
-  <string name="RedPhone_answering">در حال پاسخ دادن</string>
-  <string name="RedPhone_ending_call">پایان‌‌دهی به تماس</string>
-  <string name="RedPhone_dialing">شماره‌گیری</string>
-  <string name="RedPhone_ringing">در حال زنگ خوردن</string>
+  <string name="RedPhone_ringing">در حال زنگ خوردن…</string>
   <string name="RedPhone_busy">مشغول</string>
   <string name="RedPhone_connected">متصل</string>
   <string name="RedPhone_recipient_unavailable">گیرنده در دسترس نیست</string>
@@ -956,7 +979,7 @@
   <string name="RegistrationActivity_continue">ادامه</string>
   <string name="RegistrationActivity_continue_d_attempts_left">ادامه (%d تلاش دیگر باقی مانده است)</string>
   <string name="RegistrationActivity_continue_last_attempt">ادامه (آخرین تلاش)</string>
-  <string name="RegistrationActivity_take_privacy_with_you_be_yourself_in_every_message">حریم خصوصی را همراه خود داشته باشید.n\در هر پیام خودتان باشید.</string>
+  <string name="RegistrationActivity_take_privacy_with_you_be_yourself_in_every_message">حریم خصوصی را همراه داشته باشید.\nدر هر پیام خودتان باشید.</string>
   <string name="RegistrationActivity_enter_your_phone_number_to_get_started">برای شروع شمارهٔ همراه خود را وارد کنید</string>
   <string name="RegistrationActivity_you_will_receive_a_verification_code">شما یک کد تأیید دریافت خواهید کرد. اپراتور شما ممکن است مبلغی در ازای این کار دریافت کند.</string>
   <string name="RegistrationActivity_enter_the_code_we_sent_to_s">کدی که به %s ارسال کردیم را وارد کنید</string>
@@ -1089,7 +1112,7 @@
   <string name="UnknownSenderView_block_s">%s مسدود شود؟</string>
   <string name="UnknownSenderView_blocked_contacts_will_no_longer_be_able_to_send_you_messages_or_call_you">مخاطبین مسدود شده دیگر قادر به ارسال پیام یا تماس با شما نخواهند بود.</string>
   <string name="UnknownSenderView_block">مسدود کردن</string>
-  <string name="UnknownSenderView_share_profile_with_s">اشتراک‌گذاری پروفایل با %s؟</string>
+  <string name="UnknownSenderView_share_profile_with_s">اشتراک‌گذاشتن پروفایل با %s؟</string>
   <string name="UnknownSenderView_the_easiest_way_to_share_your_profile_information_is_to_add_the_sender_to_your_contacts">آسان‌ترین راه برای اشتراک‌گذاری اطلاعات پروفایل شما اضافه کردن فرستنده به مخاطبان است. اگر مایل به انجام این کار نیستید، همچنان می‌توانید اطلاعات پروفایل خود را به این شیوه به اشتراک بگذارید.</string>
   <string name="UnknownSenderView_share_profile">اشتراک‌گذاری پروفایل</string>
   <!--UntrustedSendDialog-->
@@ -1100,7 +1123,6 @@
   <string name="UnverifiedSendDialog_send">ارسال</string>
   <!--UsernameEditFragment-->
   <string name="UsernameEditFragment_username">نام کاربری</string>
-  <string name="UsernameEditFragment_submit">ارسال</string>
   <string name="UsernameEditFragment_delete">حذف</string>
   <string name="UsernameEditFragment_successfully_set_username">نام کاربری با موفقیت تنظیم شد.</string>
   <string name="UsernameEditFragment_successfully_removed_username">نام کاربری با موفقیت حذف شد.</string>
@@ -1111,7 +1133,6 @@
   <string name="UsernameEditFragment_usernames_cannot_begin_with_a_number">نام‌های کاربری نمی‌توانند با عدد آغاز شوند.</string>
   <string name="UsernameEditFragment_username_is_invalid">نام کاربری نامعتبر است.</string>
   <string name="UsernameEditFragment_usernames_must_be_between_a_and_b_characters">نام‌های کاربری باید بین %1$d و %2$d کاراکتر باشند.</string>
-  <string name="UsernameEditFragment_other_signal_users_can_send_message_requests_to_your_unique_username">دیگر کاربران Signal می‌توانند بدون نیاز به دانستن شمارهٔ همراه شما به نام کاربری شما درخواستِ پیام ارسال کنند. انتخاب نام کاربری اختیاری است.</string>
   <!--VerifyIdentityActivity-->
   <string name="VerifyIdentityActivity_your_contact_is_running_an_old_version_of_signal">مخاطب شما در حال استفاده از یک نسخهٔ قدیمی Signal است. لطفاً پیش از تأیید شمارهٔ امنیتی شما از او بخواهید به‌روزرسانی کند.</string>
   <string name="VerifyIdentityActivity_your_contact_is_running_a_newer_version_of_Signal">مخاطب شما در حال اجرای نسخهٔ جدیدتر Signal با یک کد QR ناسازگار است. لطفاً برای مقایسه به‌روزرسانی کنید.</string>
@@ -1234,7 +1255,7 @@
   <string name="WebRtcCallScreen_new_safety_numbers">شمارهٔ امنیتی مکالمهٔ شما با %1$s تغییر یافته است. این می‌تواند به این معنا باشد که شخصی سعی دارد تا مکالمه شما را شنود کند یا %2$s برنامهٔ Signal را دوباره نصب کرده است.</string>
   <string name="WebRtcCallScreen_you_may_wish_to_verify_this_contact">شاید بخواهید شمارهٔ امنیتی خود را با این مخاطب تأیید کنید.</string>
   <string name="WebRtcCallScreen_new_safety_number_title">شمارهٔ امنیتی جدید</string>
-  <string name="WebRtcCallScreen_accept">پذیرش</string>
+  <string name="WebRtcCallScreen_accept">پذیرفتن</string>
   <string name="WebRtcCallScreen_end_call">پایان دادن به تماس</string>
   <!--WebRtcCallScreen V2-->
   <string name="WebRtcCallScreen__decline">رد کردن</string>
@@ -1426,7 +1447,7 @@
   <string name="log_submit_activity__button_submit">ارسال</string>
   <string name="log_submit_activity__button_got_it">فهمیدم</string>
   <string name="log_submit_activity__button_compose_email">نوشتن ایمیل</string>
-  <string name="log_submit_activity__this_log_will_be_posted_online">این گزارش به صورت آنلاین برای بازنگری مشارکت کنندگان منتشر خواهد شد، می‌توانید آن را قبل از ارسال بررسی کرده و ویرایش کنید.</string>
+  <string name="log_submit_activity__this_log_will_be_posted_online">این گزارش به صورت آنلاین برای بازنگری مشارکت‌کنندگان منتشر خواهد شد، می‌توانید آن را قبل از ارسال بررسی کرده و ویرایش کنید.</string>
   <string name="log_submit_activity__loading_logs">بارگذاری گزارش‌ها…</string>
   <string name="log_submit_activity__uploading_logs">آپلود گزارش‌ها…</string>
   <string name="log_submit_activity__choose_email_app">انتخاب برنامهٔ ایمیل</string>
@@ -1511,7 +1532,7 @@
   <string name="message_details_recipient_header__pending_send">در انتظار…</string>
   <string name="message_details_recipient_header__sent_to">ارسال شده به</string>
   <string name="message_details_recipient_header__sent_from">ارسال شده از</string>
-  <string name="message_details_recipient_header__delivered_to">تحویل داده شده به</string>
+  <string name="message_details_recipient_header__delivered_to">تحویل داده شد به</string>
   <string name="message_details_recipient_header__read_by">خوانده شد توسط</string>
   <string name="message_details_recipient_header__not_sent">ارسال نشد</string>
   <!--message_Details_recipient-->
@@ -1531,11 +1552,11 @@
   <string name="AndroidManifest_remove_photo">حذف عکس</string>
   <!--Message Requests Megaphone-->
   <string name="MessageRequestsMegaphone__message_requests">درخواست‌های تبادل پیام</string>
-  <string name="MessageRequestsMegaphone__users_can_now_choose_to_accept">کاربران حالا می‌توانند درخواست مکالمهٔ جدید را قبول یا رد کنند. نام‌های پروفایل به کاربران نشان می‌دهند که چه کسی در حال پیام دادن به آن‌هاست.</string>
+  <string name="MessageRequestsMegaphone__users_can_now_choose_to_accept">کاربران حالا می‌توانند درخواست مکالمهٔ جدید را پذیرفته یا رد کنند. نام‌های پروفایل به کاربران نشان می‌دهند که چه کسی در حال پیام دادن به آن‌هاست.</string>
   <string name="MessageRequestsMegaphone__add_profile_name">افزودن نام پروفایل</string>
   <string name="MessageRequestsMegaphone__new_message_requests">جدید: درخواست‌های تبادل پیام</string>
   <string name="MessageRequestsMegaphone__add_name">افزودن نام</string>
-  <string name="MessageRequestsMegaphone__you_can_now_choose_whether_to_accept">شما حالا می‌توانید مکالمهٔ جدید را قبول یا رد کنید. گزینه‌های «قبول»، «حذف» و «مسدود کردن» نشان داده خواهند شد.</string>
+  <string name="MessageRequestsMegaphone__you_can_now_choose_whether_to_accept">شما حالا می‌توانید مکالمهٔ جدید را پذیرفته یا رد کنید. گزینه‌های «پذیرفتن»، «حذف» و «مسدود کردن» نشان داده خواهند شد.</string>
   <!--HelpFragment-->
   <string name="HelpFragment__help">راهنمایی</string>
   <string name="HelpFragment__have_you_read_our_faq_yet">آیا پرسش‌های متداول ما را خوانده‌اید؟</string>
@@ -1720,7 +1741,7 @@
   <string name="preferences_communication__sealed_sender_display_indicators">نمایش نشانگرها</string>
   <string name="preferences_communication__sealed_sender_display_indicators_description">نمایش نگارک وضعیت در حالتی که شما «جزئیات پیام» را بر روی پیام‌‌هایی که با استفاده از فرستندهٔ ناشناس تحویل داده شده بودند انتخاب می‌کنید.</string>
   <string name="preferences_communication__sealed_sender_allow_from_anyone">اجازه به همه</string>
-  <string name="preferences_communication__sealed_sender_allow_from_anyone_description">فعال‌سازی فرستندهٔ ناشناس برای پیام‌های ورودی از غیرمخاطبین و کسانی که پروفایل خود را با آن‌ها به اشتراک نگذاشته‌اید.</string>
+  <string name="preferences_communication__sealed_sender_allow_from_anyone_description">فعال‌سازی فرستندۀ ناشناس برای پیام‌های ورودی از غیرمخاطبین و کسانی که پروفایل خود را با آن‌ها به اشتراک نگذاشته‌اید.</string>
   <string name="preferences_communication__sealed_sender_learn_more">بیشتر یاد بگیرید</string>
   <string name="preferences_notifications__mentions">اشاره‌ها</string>
   <string name="preferences_notifications__notify_me">به من اطلاع بده</string>
@@ -1979,7 +2000,7 @@
   <string name="SQLCipherMigrationHelper_migrating_signal_database">در حال انتقال پایگاه داده Signal</string>
   <string name="PushDecryptJob_new_locked_message">پیام قفل شده جدید</string>
   <string name="PushDecryptJob_unlock_to_view_pending_messages">جهت دیدن پیام‌های در حال انتظار قفل را باز کنید</string>
-  <string name="enter_backup_passphrase_dialog__backup_passphrase">گذرواژهٔ پشتیبان‌گیری</string>
+  <string name="enter_backup_passphrase_dialog__backup_passphrase">گذرواژهٔ پشتیبان‌</string>
   <string name="backup_enable_dialog__backups_will_be_saved_to_external_storage_and_encrypted_with_the_passphrase_below_you_must_have_this_passphrase_in_order_to_restore_a_backup">پشتیبان‌ها روی یک حافظهٔ خارجی ذخیره و با گذرواژهٔ زیر رمزنگاری خواهند شد. شما برای بازگردانی پشتیبان خود باید گذرواژهٔ زیر را داشته باشید.</string>
   <string name="backup_enable_dialog__i_have_written_down_this_passphrase">من این گذرواژه را یادداشت کرده‌ام. بدون آن، قادر به بازگردانی پشتیبان خود نخواهم بود.</string>
   <string name="registration_activity__restore_backup">بازگردانی پشتیبان</string>
@@ -2018,8 +2039,8 @@
   <string name="ProgressPreference_d_messages_so_far">%d پیام تا به الان</string>
   <string name="RegistrationActivity_please_enter_the_verification_code_sent_to_s">لطفاً کد تأیید ارسال شده به %s را وارد کنید.</string>
   <string name="RegistrationActivity_wrong_number">شمارهٔ اشتباه</string>
-  <string name="RegistrationActivity_call_me_instead_available_in">در عوض به من زنگ بزن n\ (موجود در %1$02d:%2$02d)</string>
-  <string name="RegistrationActivity_contact_signal_support">ارتباط با پشتیبانی Signal</string>
+  <string name="RegistrationActivity_call_me_instead_available_in">در عوض به من زنگ بزن \n (موجود در %1$02d:%2$02d)</string>
+  <string name="RegistrationActivity_contact_signal_support">تماس با پشتیبانی Signal</string>
   <string name="RegistrationActivity_code_support_subject">ثبت‌نام Signal - کد تأیید برای اندروید</string>
   <string name="BackupUtil_never">هرگز</string>
   <string name="BackupUtil_unknown">ناشناخته</string>
@@ -2109,5 +2130,9 @@
   <string name="GroupsLearnMore_how_do_i_use_new_groups">چگونه از گروه‌های جدید استفاده کنم؟</string>
   <string name="GroupsLearnMore_paragraph_2">گروه‌های قدیمی نمی‌توانند به گروه‌های جدید تبدیل شوند، اما شما می‌توانید گروهی جدید با همان اعضا بسازید.</string>
   <string name="GroupsLearnMore_paragraph_3">برای ایجاد یک گروه جدید، همهٔ اعضا باید به آخرین نسخهٔ Signal به‌روزرسانی کنند.</string>
+  <!--GroupLinkBottomSheetDialogFragment-->
+  <string name="GroupLinkBottomSheet_copy">کپی</string>
+  <string name="GroupLinkBottomSheet_share">اشتراک‌گذاری</string>
+  <string name="GroupLinkBottomSheet_copied_to_clipboard">روی کلیپ‌بورد کپی شد</string>
   <!--EOF-->
 </resources>

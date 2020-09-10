@@ -810,11 +810,7 @@ public class MediaSendActivity extends PassphraseRequiredActivity implements Med
     });
 
     mentionsViewModel.getSelectedRecipient().observe(this, recipient -> {
-      String replacementDisplayName = recipient.getDisplayName(this);
-      if (replacementDisplayName.equals(recipient.getDisplayUsername())) {
-        replacementDisplayName = recipient.getUsername().or(replacementDisplayName);
-      }
-      composeText.replaceTextWithMention(replacementDisplayName, recipient.getId());
+      composeText.replaceTextWithMention(recipient.getDisplayName(this), recipient.getId());
     });
 
     MentionPickerPlacer mentionPickerPlacer = new MentionPickerPlacer();

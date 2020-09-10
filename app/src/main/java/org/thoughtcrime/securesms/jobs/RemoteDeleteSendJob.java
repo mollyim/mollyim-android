@@ -9,7 +9,7 @@ import com.annimon.stream.Stream;
 
 import org.thoughtcrime.securesms.crypto.UnidentifiedAccessUtil;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
-import org.thoughtcrime.securesms.database.MessagingDatabase;
+import org.thoughtcrime.securesms.database.MessageDatabase;
 import org.thoughtcrime.securesms.database.NoSuchMessageException;
 import org.thoughtcrime.securesms.database.model.MessageRecord;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
@@ -57,7 +57,7 @@ public class RemoteDeleteSendJob extends BaseJob {
       throws NoSuchMessageException
   {
     MessageRecord message = isMms ? DatabaseFactory.getMmsDatabase(context).getMessageRecord(messageId)
-                                  : DatabaseFactory.getSmsDatabase(context).getMessageRecord(messageId);
+                                  : DatabaseFactory.getSmsDatabase(context).getSmsMessage(messageId);
 
     Recipient conversationRecipient = DatabaseFactory.getThreadDatabase(context).getRecipientForThreadId(message.getThreadId());
 
@@ -65,7 +65,7 @@ public class RemoteDeleteSendJob extends BaseJob {
       throw new AssertionError("We have a message, but couldn't find the thread!");
     }
 
-    List<RecipientId> recipients = conversationRecipient.isGroup() ? Stream.of(conversationRecipient.getParticipants()).map(Recipient::getId).toList()
+    List<RecipientId> recipients = conversationRecipient.isGroup() ? Stream.of(RecipientUtil.getEligibleForSending(conversationRecipient.getParticipants())).map(Recipient::getId).toList()
                                                                    : Stream.of(conversationRecipient.getId()).toList();
 
     recipients.remove(Recipient.self().getId());
@@ -111,7 +111,7 @@ public class RemoteDeleteSendJob extends BaseJob {
 
   @Override
   protected void onRun() throws Exception {
-    MessagingDatabase db;
+    MessageDatabase db;
     MessageRecord     message;
 
     if (isMms) {
@@ -119,7 +119,7 @@ public class RemoteDeleteSendJob extends BaseJob {
       message = DatabaseFactory.getMmsDatabase(context).getMessageRecord(messageId);
     } else {
       db      = DatabaseFactory.getSmsDatabase(context);
-      message = DatabaseFactory.getSmsDatabase(context).getMessageRecord(messageId);
+      message = DatabaseFactory.getSmsDatabase(context).getSmsMessage(messageId);
     }
 
     long       targetSentTimestamp  = message.getDateSent();

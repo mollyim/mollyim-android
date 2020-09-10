@@ -685,8 +685,10 @@ public final class SignalServiceContent {
       }
 
       results.add(new SignalServiceDataMessage.Preview(preview.getUrl(),
-                              preview.getTitle(),
-                              Optional.fromNullable(attachment)));
+                                                       preview.getTitle(),
+                                                       preview.getDescription(),
+                                                       preview.getDate(),
+                                                       Optional.fromNullable(attachment)));
     }
 
     return results;

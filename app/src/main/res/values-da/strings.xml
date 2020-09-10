@@ -47,6 +47,8 @@
   <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">PIN´s er påkrævet for registreringslås. For at deaktivere PIN´s skal registreringslås først déaktiveres</string>
   <string name="ApplicationPreferencesActivity_pin_created">PIN oprettet</string>
   <string name="ApplicationPreferencesActivity_pin_disabled">PIN  déaktiveret</string>
+  <string name="ApplicationPreferencesActivity_hide">Skjul</string>
+  <string name="ApplicationPreferencesActivity_hide_reminder">Skjul påmindelse?</string>
   <!--AppProtectionPreferenceFragment-->
   <plurals name="AppProtectionPreferenceFragment_minutes">
     <item quantity="one">%d minut</item>
@@ -214,6 +216,8 @@
   <string name="ConversationActivity_unable_to_record_audio">Fejl ved lydoptagelse!</string>
   <string name="ConversationActivity_you_cant_send_messages_to_this_group">Du kan ikke sende beskeder til gruppen, fordi du ikke længere er medlem</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">Der er ingen app tilgængelig på enheden, der kan åbne linket</string>
+  <string name="ConversationActivity_your_request_to_join_has_been_sent_to_the_group_admin">Din anmodning om at deltage er sendt til gruppeadministratoren. Du får besked når den er behandlet</string>
+  <string name="ConversationActivity_cancel_request">Annullér forespørgsel</string>
   <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">For at sende talebeskeder skal du give Molly tilladelse til at tilgå mikrofonen</string>
   <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly kræver tilladelse til at tilgå mikrofonen for at kunne sende lydfiler, hvilket det er blevet nægtet. Gå venligst via appens menu til Indstillinger, vælg \"Tilladelser\" og tilvælg \"Mikrofon\"</string>
   <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly kræver tilladelse til at tilgå mikrofon og kamera, for at kunne ringe til %s, men det er permanent blevet afvist. Gå venligst via appens menu til Indstillinger, vælg \"Tilladelser\" og tilvælg \"Mikrofon\" og \"Kamera\"</string>
@@ -321,7 +325,7 @@
   <string name="ConversationTitleView_verified">Verificeret</string>
   <string name="ConversationTitleView_you">Dig</string>
   <!--CreateGroupActivity-->
-  <string name="CreateGroupActivity_some_contacts_cannot_be_in_legacy_groups">Nogle kontakter kan ikke være i forældede grupper.</string>
+  <string name="CreateGroupActivity_some_contacts_cannot_be_in_legacy_groups">Nogle kontakter kan ikke være i forældede grupper</string>
   <!--CreateProfileActivity-->
   <string name="CreateProfileActivity__profile">Profil</string>
   <string name="CreateProfileActivity_error_setting_profile_photo">Fejl opstået ved oprettelse af profilbilledet</string>
@@ -339,6 +343,7 @@
   <string name="AvatarSelectionBottomSheetDialogFragment__take_photo">Tag billed</string>
   <string name="AvatarSelectionBottomSheetDialogFragment__choose_from_gallery">Vælg fra billeder</string>
   <string name="AvatarSelectionBottomSheetDialogFragment__remove_photo">Fjern billede</string>
+  <string name="AvatarSelectionBottomSheetDialogFragment__taking_a_photo_requires_the_camera_permission">Det kræver kameratilladelse for at tage et foto</string>
   <!--DateUtils-->
   <string name="DateUtils_just_now">Nu</string>
   <string name="DateUtils_minutes_ago">%dm</string>
@@ -386,7 +391,7 @@
   <string name="AddToGroupActivity_s_added_to_s">\"%1$s\" blev tilføjet \"%2$s\".</string>
   <string name="AddToGroupActivity_add_to_group">Tilføj til gruppe</string>
   <string name="AddToGroupActivity_add_to_groups">Tilføj til grupper</string>
-  <string name="AddToGroupActivity_this_person_cant_be_added_to_legacy_groups">Denne person kan ikke føjes til forældede grupper.</string>
+  <string name="AddToGroupActivity_this_person_cant_be_added_to_legacy_groups">Personen kan ikke tilføjes forældede grupper</string>
   <!--ChooseNewAdminActivity-->
   <string name="ChooseNewAdminActivity_choose_new_admin">Vælg ny administrator</string>
   <string name="ChooseNewAdminActivity_done">Udført</string>
@@ -398,8 +403,10 @@
   <!--GroupMembersDialog-->
   <string name="GroupMembersDialog_you">Dig</string>
   <!--GV2 access levels-->
+  <string name="GroupManagement_access_level_anyone">Hvem som helst</string>
   <string name="GroupManagement_access_level_all_members">Alle medlemmer</string>
   <string name="GroupManagement_access_level_only_admins">Kun administratorer</string>
+  <string name="GroupManagement_access_level_no_one">Ingen</string>
   <!--GV2 invites sent-->
   <plurals name="GroupManagement_invitation_sent">
     <item quantity="one">Invitation er sendt</item>
@@ -410,12 +417,21 @@
   <string name="GroupManagement_invite_multiple_users">Disse brugere kan ikke automatisk tilføjes gruppen af dig. De er blevet inviteret til at deltage, og kan ikke se gruppebeskeder før de accepterer</string>
   <!--LinkPreviewsMegaphone-->
   <string name="LinkPreviewsMegaphone_disable">Déaktiver</string>
-  <string name="LinkPreviewsMegaphone_preview_any_link">Eksempelvisning af hvilket som helst link</string>
-  <string name="LinkPreviewsMegaphone_you_can_now_retrieve_link_previews_directly_from_any_website">Du kan nu hente linkeksempelvisninger direkte fra ethvert websted til beskeder, som du sender.</string>
+  <string name="LinkPreviewsMegaphone_preview_any_link">Eksempelvisning af alle links</string>
+  <string name="LinkPreviewsMegaphone_you_can_now_retrieve_link_previews_directly_from_any_website">Du kan nu hente eksempelvisning af links, direkte fra ethvert websted til beskeder, som du sender</string>
   <!--LinkPreviewView-->
-  <string name="LinkPreviewView_no_link_preview_available">Ingen linkeksempelvisning tilgængelig</string>
+  <string name="LinkPreviewView_no_link_preview_available">Ingen eksempelvisning af links tilgængelige</string>
+  <string name="LinkPreviewView_this_group_link_is_not_active">Dette gruppelink er ikke aktivt</string>
+  <string name="LinkPreviewView_domain_date">%1$s - %2$s</string>
+  <!--LinkPreviewRepository-->
+  <plurals name="LinkPreviewRepository_d_members">
+    <item quantity="one">%1$d medlem</item>
+    <item quantity="other">%1$d medlemmer</item>
+  </plurals>
   <!--PendingMembersActivity-->
   <string name="PendingMemberInvitesActivity_pending_group_invites">Afventende gruppeinvitationer</string>
+  <string name="PendingMembersActivity_requests">Anmodninger</string>
+  <string name="PendingMembersActivity_invites">Invitationer</string>
   <string name="PendingMembersActivity_people_you_invited">Personer du har inviteret</string>
   <string name="PendingMembersActivity_you_have_no_pending_invites">Du har ingen afventende invitationer</string>
   <string name="PendingMembersActivity_invites_by_other_group_members">Invitationer fra andre medlemmer af gruppen</string>
@@ -431,9 +447,15 @@
     <item quantity="one">Fejl ved tilbagetrækning af invitation</item>
     <item quantity="other">Fejl ved tilbagetrækning af invitationer</item>
   </plurals>
+  <!--RequestingMembersFragment-->
+  <string name="RequestingMembersFragment_pending_member_requests">Afventende medlemsanmodninger</string>
+  <string name="RequestingMembersFragment_no_member_requests_to_show">Ingen medlemsanmodninger</string>
+  <string name="RequestingMembersFragment_explanation">Personer på denne liste forsøger at deltage i gruppen via det delbare gruppelink</string>
+  <string name="RequestingMembersFragment_added_s">\"%1$s\" tilføjet</string>
+  <string name="RequestingMembersFragment_denied_s">%1$s\" afvist</string>
   <!--AddMembersActivity-->
   <string name="AddMembersActivity__done">Udført</string>
-  <string name="AddMembersActivity__this_person_cant_be_added_to_legacy_groups">Denne person kan ikke føjes til forældede grupper.</string>
+  <string name="AddMembersActivity__this_person_cant_be_added_to_legacy_groups">Personen kan ikke tilføjes forældede grupper</string>
   <plurals name="AddMembersActivity__add_d_members_to_s">
     <item quantity="one">Tilføj \"%1$s\" til \"%2$s\"?</item>
     <item quantity="other">Tilføj %3$d medlemmer til \"%2$s\"?</item>
@@ -454,21 +476,23 @@
   <string name="AddGroupDetailsFragment__remove_s_from_this_group">Fjern %1$s fra gruppen?</string>
   <plurals name="AddGroupDetailsFragment__d_members_do_not_support_new_groups">
     <item quantity="one">%d  medlem støtter ikke nye grupper, så denne gruppe vil være en forældet gruppe.</item>
-    <item quantity="other">%d medlemmer støtter ikke nye grupper, så denne gruppe vil være en forældet gruppe.</item>
+    <item quantity="other">%d medlemmer støtter ikke nye grupper, så gruppen vil være en forældet gruppe</item>
   </plurals>
   <!--NonGv2MemberDialog-->
-  <string name="NonGv2MemberDialog_single_users_are_non_gv2_capable">Der oprettes en Forældet gruppe, fordi “%1$s” bruger en gammel version af Signal. Du kan oprette en ny stilgruppe med dem, når de har opdateret Signal, eller fjern dem, før du opretter gruppen.</string>
+  <string name="NonGv2MemberDialog_single_users_are_non_gv2_capable">Der oprettes en forældet gruppe, fordi “%1$s” bruger en gammel version af Signal. Du kan oprette en ny stilgruppe med dem, når de har opdateret Signal, eller fjern dem, før du opretter gruppen</string>
   <plurals name="NonGv2MemberDialog_d_users_are_non_gv2_capable">
     <item quantity="one">Der oprettes en Forældet gruppe, fordi %1$d medlem anvender en ældre version af Signal. Du kan oprette en ny stilgruppe med dem, når de har opdateret Signal, eller fjern dem, før du opretter gruppen.</item>
-    <item quantity="other">Der oprettes en Forældet gruppe, fordi %1$d medlemmer anvender en ældre version af Signal. Du kan oprette en ny stilgruppe med dem, når de har opdateret Signal, eller fjern dem, før du opretter gruppen.</item>
+    <item quantity="other">Der oprettes en forældet gruppe, fordi %1$d medlemmer anvender en ældre version af Signal. Du kan oprette en ny stilgruppe med dem, når de har opdateret Signal, eller fjern dem, før du opretter gruppen</item>
   </plurals>
   <!--ManageGroupActivity-->
   <string name="ManageGroupActivity_disappearing_messages">Beskeder med tidsudløb</string>
   <string name="ManageGroupActivity_pending_group_invites">Afventende gruppeinvitationer</string>
+  <string name="ManageGroupActivity_member_requests_and_invites">Medlemsanmodninger &amp; invitationer</string>
   <string name="ManageGroupActivity_add_members">Tilføj medlemmer</string>
   <string name="ManageGroupActivity_edit_group_info">Rediger gruppeinformation</string>
   <string name="ManageGroupActivity_choose_who_can_edit_the_group_name_avatar_and_disappearing_messages">Vælg hvem som kan ændre navn og avatar for gruppen, og beskeder med tidsudløb</string>
   <string name="ManageGroupActivity_choose_who_can_add_or_invite_new_members">Vælg hvem der kan tilføje eller invitere nye medlemmer</string>
+  <string name="ManageGroupActivity_sharable_group_link">Delbart gruppelink</string>
   <string name="ManageGroupActivity_block_group">Blokér gruppe</string>
   <string name="ManageGroupActivity_unblock_group">Ophæv blokering af gruppe</string>
   <string name="ManageGroupActivity_leave_group">Forlad gruppe</string>
@@ -503,7 +527,7 @@
   <string name="GroupMentionSettingDialog_receive_notifications_when_youre_mentioned_in_muted_chats">Vil du modtage meddelelser, når du er omtalt i udsatte chats?</string>
   <string name="GroupMentionSettingDialog_default_notify_me">Standard (Underret mig)</string>
   <string name="GroupMentionSettingDialog_default_dont_notify_me">Standard (Underret mig ikke)</string>
-  <string name="GroupMentionSettingDialog_always_notify_me">Altid underret mig</string>
+  <string name="GroupMentionSettingDialog_always_notify_me">Underret mig altid</string>
   <string name="GroupMentionSettingDialog_dont_notify_me">Underret mig ikke</string>
   <!--ManageRecipientActivity-->
   <string name="ManageRecipientActivity_add_to_system_contacts">Tilføj til dine kontakter</string>
@@ -546,18 +570,56 @@
   <string name="CustomNotificationsDialogFragment__enabled">Aktivéret</string>
   <string name="CustomNotificationsDialogFragment__disabled">Déaktiveret</string>
   <string name="CustomNotificationsDialogFragment__default">Standard</string>
+  <!--ShareableGroupLinkDialogFragment-->
+  <string name="ShareableGroupLinkDialogFragment__shareable_group_link">Delbart gruppelink</string>
+  <string name="ShareableGroupLinkDialogFragment__manage_and_share">Håndter &amp; del</string>
+  <string name="ShareableGroupLinkDialogFragment__group_link">Gruppelink</string>
+  <string name="ShareableGroupLinkDialogFragment__share">Del</string>
+  <string name="ShareableGroupLinkDialogFragment__reset_link">Nulstil link</string>
+  <string name="ShareableGroupLinkDialogFragment__member_requests">Medlemsanmodninger</string>
+  <string name="ShareableGroupLinkDialogFragment__approve_new_members">Godkend nye medlemmer</string>
+  <string name="ShareableGroupLinkDialogFragment__enabled">Aktivéret</string>
+  <string name="ShareableGroupLinkDialogFragment__disabled">Déaktiveret</string>
+  <string name="ShareableGroupLinkDialogFragment__default">Standard</string>
+  <string name="ShareableGroupLinkDialogFragment__group_link_reset">Gruppelink nulstillet</string>
+  <string name="ShareableGroupLinkDialogFragment__require_an_admin_to_approve_new_members_joining_via_the_group_link">Det kræves at en administrator godkender nye gruppemedlemmer via gruppelinket</string>
+  <string name="ShareableGroupLinkDialogFragment__are_you_sure_you_want_to_reset_the_group_link">Er du sikker på, at du vil nulstille gruppelinket? Man vil ikke længere kunne deltage i gruppen ved hjælp af det aktuelle link</string>
+  <!--GroupLinkShareQrDialogFragment-->
+  <string name="GroupLinkShareQrDialogFragment__qr_code">QR-kode</string>
+  <string name="GroupLinkShareQrDialogFragment__people_who_scan_this_code_will">Personer der scanner denne kode, kan deltage i din gruppe. Administratorer skal stadig godkende nye medlemmer, hvis denne indstilling er slået til</string>
+  <string name="GroupLinkShareQrDialogFragment__share_code">Del kode</string>
   <!--GV2 Invite Revoke confirmation dialog-->
   <string name="InviteRevokeConfirmationDialog_revoke_own_single_invite">Vil du tilbagetrække invitationen, du har sendt til %1$s?</string>
   <plurals name="InviteRevokeConfirmationDialog_revoke_others_invites">
     <item quantity="one">Vil du tilbagetrække invitationen,  sendt af %1$s?</item>
-    <item quantity="other">Vil du tilbagetrække %2$d invitationer,  sendt af %1$s?</item>
+    <item quantity="other">Vil du tilbagetrække %2$d invitationer, sendt af %1$s?</item>
   </plurals>
   <!--GroupJoinBottomSheetDialogFragment-->
-  <string name="GroupJoinBottomSheetDialogFragment_you_are_already_a_member">Du er allerede et medlem</string>
+  <string name="GroupJoinBottomSheetDialogFragment_you_are_already_a_member">Du er allerede medlem</string>
+  <string name="GroupJoinBottomSheetDialogFragment_join">Deltag</string>
+  <string name="GroupJoinBottomSheetDialogFragment_request_to_join">Anmoder om at deltage</string>
+  <string name="GroupJoinBottomSheetDialogFragment_unable_to_join_group_please_try_again_later">Det lykkedes ikke at deltage i gruppen, prøv igen senere</string>
+  <string name="GroupJoinBottomSheetDialogFragment_encountered_a_network_error">Registreret en netværksfejl</string>
+  <string name="GroupJoinBottomSheetDialogFragment_this_group_link_is_not_active">Dette gruppelink er ikke aktivt</string>
+  <string name="GroupJoinBottomSheetDialogFragment_unable_to_get_group_information_please_try_again_later">Det lykkedes ikke at få gruppeinformation, prøv igen senere</string>
+  <string name="GroupJoinBottomSheetDialogFragment_direct_join">Vil du deltage i gruppen, og dele dit navn og foto med dens medlemmer?</string>
+  <string name="GroupJoinBottomSheetDialogFragment_admin_approval_needed">En administrator af gruppen skal godkende din anmodning, inden du kan deltage. Når du anmoder om at deltage, vil dit navn og foto blive delt med dens medlemmer</string>
+  <plurals name="GroupJoinBottomSheetDialogFragment_group_dot_d_members">
+    <item quantity="one">Gruppe · %1$d medlem</item>
+    <item quantity="other">Gruppe · %1$d medlemmer</item>
+  </plurals>
   <!--GroupJoinUpdateRequiredBottomSheetDialogFragment-->
-  <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_signal_to_use_group_links">Opdater Signal for at bruge gruppelinks</string>
-  <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_message">Signal-versionen som du bruger, understøtter ikke delbare gruppelinks. Opdater til den nyeste version for at deltage i denne gruppe via linket.</string>
+  <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_group_links_coming_soon">Gruppelinks kommer snart</string>
+  <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_signal_to_use_group_links">Opdatér Signal for at bruge gruppelinks</string>
+  <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_coming_soon">Deltagelse i en gruppe via et link understøttes endnu ikke af Signal. Funktionen frigives i en kommende opdatering</string>
+  <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_message">Signal versionen du bruger, understøtter ikke delbare gruppelinks. Opdater til den nyeste version for at deltage i gruppen via linket</string>
   <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_signal">Opdatér Signal</string>
+  <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_group_link_is_not_valid">Gruppelink er ikke gyldigt</string>
+  <!--GV2 Request confirmation dialog-->
+  <string name="RequestConfirmationDialog_add_s_to_the_group">Føj \"%1$s\" til gruppen?</string>
+  <string name="RequestConfirmationDialog_deny_request_from_s">Afvis anmodning fra \"%1$s\"?</string>
+  <string name="RequestConfirmationDialog_add">Tilføj</string>
+  <string name="RequestConfirmationDialog_deny">Afvis</string>
   <!--CropImageActivity-->
   <string name="CropImageActivity_group_avatar">Gruppe avatar</string>
   <string name="CropImageActivity_profile_avatar">Avatar</string>
@@ -758,8 +820,8 @@
   </plurals>
   <string name="MessageRecord_someone_declined_an_invitation_to_the_group">En person afviste en invitation til gruppen</string>
   <string name="MessageRecord_you_declined_the_invitation_to_the_group">Du afviste invitationen til gruppen</string>
-  <string name="MessageRecord_s_revoked_your_invitation_to_the_group">%1$s tilbagetrak din invitation til gruppen.</string>
-  <string name="MessageRecord_an_admin_revoked_your_invitation_to_the_group">En administrator tilbagetrak din invitation til gruppen.</string>
+  <string name="MessageRecord_s_revoked_your_invitation_to_the_group">%1$s tilbagetrak din invitation til gruppen</string>
+  <string name="MessageRecord_an_admin_revoked_your_invitation_to_the_group">En administrator tilbagetrak din invitation til gruppen</string>
   <plurals name="MessageRecord_d_invitations_were_revoked">
     <item quantity="one">En invitation til gruppen blev tilbagekaldt.</item>
     <item quantity="other">%1$d invitationer til gruppen blev tilbagekaldt</item>
@@ -785,6 +847,38 @@
   <string name="MessageRecord_you_changed_who_can_edit_group_membership_to_s">Du ændrede, hvem som kan redigere medlemskab af gruppen til \"%1$s\"</string>
   <string name="MessageRecord_s_changed_who_can_edit_group_membership_to_s">%1$s ændrede, hvem som kan redigere medlemskab af gruppen til \"%2$s\"</string>
   <string name="MessageRecord_who_can_edit_group_membership_has_been_changed_to_s">Hvem som kan redigere medlemskaber af gruppen er blevet ændret til \"%1$s\"</string>
+  <!--GV2 group link invite access level change-->
+  <string name="MessageRecord_you_turned_on_the_sharable_group_link">Du aktiverede det delbare gruppelink</string>
+  <string name="MessageRecord_you_turned_on_the_sharable_group_link_with_admin_approval">Du aktiverede det delbare gruppelink med administratorgodkendelse</string>
+  <string name="MessageRecord_you_turned_off_the_sharable_group_link">Du déaktiverede det delbare gruppelink</string>
+  <string name="MessageRecord_s_turned_on_the_sharable_group_link">%1$s aktiverede det delbare gruppelink</string>
+  <string name="MessageRecord_s_turned_on_the_sharable_group_link_with_admin_approval">%1$s aktiverede det delbare gruppelink med administratorgodkendelse</string>
+  <string name="MessageRecord_s_turned_off_the_sharable_group_link">%1$s déaktiverede det delbare gruppelink</string>
+  <string name="MessageRecord_the_sharable_group_link_has_been_turned_on">Det delbare gruppelink blev aktiveret</string>
+  <string name="MessageRecord_the_sharable_group_link_has_been_turned_on_with_admin_approval">Det delbare gruppelink blev aktiveret med administratorgodkendelse</string>
+  <string name="MessageRecord_the_sharable_group_link_has_been_turned_off">Det delbare gruppelink blev déaktiveret</string>
+  <!--GV2 group link reset-->
+  <string name="MessageRecord_you_reset_the_sharable_group_link">Du nulstiller det delbare gruppelink</string>
+  <string name="MessageRecord_s_reset_the_sharable_group_link">%1$s nulstiller det delbare gruppelink</string>
+  <string name="MessageRecord_the_sharable_group_link_has_been_reset">Det delbare gruppelink blev nulstillet</string>
+  <!--GV2 group link joins-->
+  <string name="MessageRecord_you_joined_the_group_via_the_sharable_group_link">Du deltager i gruppen via det delbare gruppelink</string>
+  <string name="MessageRecord_s_joined_the_group_via_the_sharable_group_link">%1$s deltager i gruppen via det delbare gruppelink</string>
+  <!--GV2 group link requests-->
+  <string name="MessageRecord_you_sent_a_request_to_join_the_group">Du sendte en anmodning om at deltage i gruppen</string>
+  <string name="MessageRecord_s_requested_to_join_via_the_sharable_group_link">%1$s anmodede om at deltage via det delbare gruppelink</string>
+  <!--GV2 group link approvals-->
+  <string name="MessageRecord_s_approved_your_request_to_join_the_group">%1$s godkendte din anmodning om at deltage i gruppen</string>
+  <string name="MessageRecord_s_approved_a_request_to_join_the_group_from_s">%1$s godkendte en anmodning fra %2$s om at deltage i gruppen</string>
+  <string name="MessageRecord_you_approved_a_request_to_join_the_group_from_s">Du godkendte en anmodning om at deltage i gruppen fra %1$s</string>
+  <string name="MessageRecord_your_request_to_join_the_group_has_been_approved">Din anmodning om at deltage i gruppen blev godkendt</string>
+  <string name="MessageRecord_a_request_to_join_the_group_from_s_has_been_approved">En anmodning fra %1$s om at deltage i gruppen blev godkendt</string>
+  <!--GV2 group link deny-->
+  <string name="MessageRecord_your_request_to_join_the_group_has_been_denied_by_an_admin">Din anmodning om at deltage i gruppen, blev afvist af en administrator</string>
+  <string name="MessageRecord_s_denied_a_request_to_join_the_group_from_s">%1$s afviste en anmodning fra %2$s om at deltage i gruppen</string>
+  <string name="MessageRecord_a_request_to_join_the_group_from_s_has_been_denied">En anmodning fra %1$s om at deltage i gruppen blev afvist</string>
+  <string name="MessageRecord_you_canceled_your_request_to_join_the_group">Du annullerede din anmodning om at deltage i gruppen</string>
+  <string name="MessageRecord_s_canceled_their_request_to_join_the_group">%1$s annullerede sin anmodning om at deltage i gruppen</string>
   <!--End of GV2 specific update messages-->
   <string name="MessageRecord_your_safety_number_with_s_has_changed">Dit sikkerhedsnummer med %s er ændret</string>
   <string name="MessageRecord_you_marked_your_safety_number_with_s_verified">Du har markeret dit sikkerhedsnummer med %s som verificeret</string>
@@ -904,10 +998,10 @@
   <!--RecipientProvider-->
   <string name="RecipientProvider_unnamed_group">Unavngivet gruppe</string>
   <!--RedPhone-->
-  <string name="RedPhone_answering">Svar opkald</string>
-  <string name="RedPhone_ending_call">Afslut opkald</string>
-  <string name="RedPhone_dialing">Ringer op</string>
-  <string name="RedPhone_ringing">Ringer</string>
+  <string name="RedPhone_answering">Besvarer…</string>
+  <string name="RedPhone_ending_call">Afslutter opkald…</string>
+  <string name="RedPhone_dialing">Ringer op…</string>
+  <string name="RedPhone_ringing">Ringer…</string>
   <string name="RedPhone_busy">Optaget</string>
   <string name="RedPhone_connected">Forbundet</string>
   <string name="RedPhone_recipient_unavailable">Modtager utilgængelig</string>
@@ -1102,7 +1196,6 @@ Modtog en nøgle besked, for en ugyldig protokol-version
   <string name="UnverifiedSendDialog_send">Send</string>
   <!--UsernameEditFragment-->
   <string name="UsernameEditFragment_username">Brugernavn</string>
-  <string name="UsernameEditFragment_submit">Send</string>
   <string name="UsernameEditFragment_delete">Slet</string>
   <string name="UsernameEditFragment_successfully_set_username">Brugernavn gemt</string>
   <string name="UsernameEditFragment_successfully_removed_username">Brugernavn slettet</string>
@@ -1113,7 +1206,7 @@ Modtog en nøgle besked, for en ugyldig protokol-version
   <string name="UsernameEditFragment_usernames_cannot_begin_with_a_number">Brugernavne kan ikke starte med et tal</string>
   <string name="UsernameEditFragment_username_is_invalid">Brugernavn er invalid</string>
   <string name="UsernameEditFragment_usernames_must_be_between_a_and_b_characters">Brugernavne skal være mellem %1$d og %2$d karakters længde</string>
-  <string name="UsernameEditFragment_other_signal_users_can_send_message_requests_to_your_unique_username">Andre Signal brugere kan sende beskeder til dit unikke brugernavn, uden at kende dit mobilnummer. At vælge et brugernavn er valgfrit</string>
+  <string name="UsernameEditFragment_usernames_on_signal_are_optional">Brugernavne på Signal er valgfrie. Hvis du vælger at oprette et brugernavn, kan andre Signal-brugere finde dig via dette brugernavn, og kontakte dig uden at kende dit telefonnummer</string>
   <!--VerifyIdentityActivity-->
   <string name="VerifyIdentityActivity_your_contact_is_running_an_old_version_of_signal">Din kontakt har en gammel version af Signal installeret. Bed ham venligst om at opdatere inden i udveksler sikkerhedsnummer</string>
   <string name="VerifyIdentityActivity_your_contact_is_running_a_newer_version_of_Signal">Din kontakt bruger en nyere version af Signal, med en inkompatibel QR kode. Opdatér venligst din app for at sammenligne</string>
@@ -1164,7 +1257,7 @@ Modtog en nøgle besked, for en ugyldig protokol-version
   <string name="MessageNotifier_error_delivering_message">Fejl ved levering af besked</string>
   <string name="MessageNotifier_mark_all_as_read">Markér alle som læst</string>
   <string name="MessageNotifier_mark_read">Markér som læst</string>
-  <string name="MessageNotifier_turn_off_these_notifications">Sluk for disse meddelelser</string>
+  <string name="MessageNotifier_turn_off_these_notifications">Déaktiver disse notifikationer</string>
   <string name="MessageNotifier_media_message">Mediebesked</string>
   <string name="MessageNotifier_sticker">Klistermærke</string>
   <string name="MessageNotifier_view_once_photo">Se billed én gang</string>
@@ -1185,7 +1278,7 @@ Modtog en nøgle besked, for en ugyldig protokol-version
   <string name="MessageNotifier_reacted_s_to_your_view_once_video">%1$s reagerede på din video, vist kun én gang</string>
   <string name="MessageNotifier_reacted_s_to_your_sticker">%1$s reagerede på dit klistermærke</string>
   <string name="MessageNotifier_this_message_was_deleted">Beskeden blev slettet.</string>
-  <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Sluk for \'Kontakt har tilsluttet Signal\'-meddelelser? Du kan aktivere dem igen i Signal &gt; Indstillinger &gt; Meddelelser.</string>
+  <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Déaktiver: Kontakt har tilsluttet Signal meddelelser? Du kan aktivere dem igen i Signal &gt; Indstillinger &gt; Meddelelser</string>
   <!--Notification Channels-->
   <string name="NotificationChannel_messages">Standard</string>
   <string name="NotificationChannel_calls">Opkald</string>
@@ -1606,8 +1699,8 @@ Modtog en nøgle besked, for en ugyldig protokol-version
   <string name="preferences__use_signal_for_viewing_and_storing_all_incoming_multimedia_messages">Brug Signal til alle indgående MMS\'er</string>
   <string name="preferences__pref_enter_sends_title">[Enter] sender besked</string>
   <string name="preferences__pressing_the_enter_key_will_send_text_messages">Tap på [Enter] sender beskeden</string>
-  <string name="preferences__generate_link_previews">Generer linkeksempelvisning</string>
-  <string name="preferences__retrieve_link_previews_from_websites_for_messages">Hent linkeksempelvisninger direkte fra websteder til beskeder, som du sender.</string>
+  <string name="preferences__generate_link_previews">Genererer eksempelvisning af link</string>
+  <string name="preferences__retrieve_link_previews_from_websites_for_messages">Hent eksempelvisninger af links direkte fra websteder til beskeder, som du sender</string>
   <string name="preferences__choose_identity">Vælg identitet</string>
   <string name="preferences__choose_your_contact_entry_from_the_contacts_list">Vælg din kontakt fra kontaktlisten</string>
   <string name="preferences__change_passphrase">Skift kodeord</string>
@@ -1727,6 +1820,7 @@ Modtog en nøgle besked, for en ugyldig protokol-version
   <string name="preferences_notifications__mentions">Omtaler</string>
   <string name="preferences_notifications__notify_me">Underret mig</string>
   <string name="preferences_notifications__receive_notifications_when_youre_mentioned_in_muted_chats">Modtag meddelelser, når du er omtalt i udsatte chats</string>
+  <string name="preferences_setup_a_username">Opret et brugernavn</string>
   <!--Internal only preferences-->
   <!--****************************************-->
   <!--menus-->
@@ -2105,6 +2199,8 @@ Der er %d dage tilbage</string>
   <string name="RecipientBottomSheet_remove">Fjern</string>
   <string name="RecipientBottomSheet_copied_to_clipboard">Kopieret til udklipsholder</string>
   <string name="GroupRecipientListItem_admin">Administrator</string>
+  <string name="GroupRecipientListItem_approve_description">Godkend</string>
+  <string name="GroupRecipientListItem_deny_description">Afvis</string>
   <!--GroupsLearnMoreBottomSheetDialogFragment-->
   <string name="GroupsLearnMore_legacy_vs_new_groups">Forældede vs. nye grupper</string>
   <string name="GroupsLearnMore_what_are_legacy_groups">Hvad er forældede grupper?</string>
@@ -2112,5 +2208,12 @@ Der er %d dage tilbage</string>
   <string name="GroupsLearnMore_how_do_i_use_new_groups">Hvordan bruger jeg nye grupper?</string>
   <string name="GroupsLearnMore_paragraph_2">Forældede grupper kan ikke konverteres til nye grupper, men du kan oprette en ny gruppe med de samme medlemmer</string>
   <string name="GroupsLearnMore_paragraph_3">For at oprette en ny gruppe, skal alle medlemmer opdatere til den nyeste version af Signal</string>
+  <!--GroupLinkBottomSheetDialogFragment-->
+  <string name="GroupLinkBottomSheet_share_via_signal">Del via Signal</string>
+  <string name="GroupLinkBottomSheet_copy">Kopiér</string>
+  <string name="GroupLinkBottomSheet_qr_code">QR-kode</string>
+  <string name="GroupLinkBottomSheet_share">Del</string>
+  <string name="GroupLinkBottomSheet_copied_to_clipboard">Kopieret til udklipsholder</string>
+  <string name="GroupLinkBottomSheet_the_link_is_not_currently_active">Linket er ikke aktivt i øjeblikket</string>
   <!--EOF-->
 </resources>

@@ -34,6 +34,8 @@
     <attr name="conversation_list_compose_icon_tint" format="color" />
     <attr name="conversation_list_camera_button_background" format="color"/>
 
+    <attr name="camera_icon_background_tint" format="color" />
+
     <attr name="resource_placeholder_gradient" format="reference" />
 
     <attr name="avatar_selection_take_photo" format="reference" />
@@ -190,6 +192,11 @@
     <attr name="invite_edit_text_background" format="reference" />
     <attr name="invite_share_icon" format="reference" />
 
+    <attr name="share_icon" format="reference" />
+    <attr name="copy_icon" format="reference" />
+    <attr name="qr_icon" format="reference" />
+    <attr name="reset_link_icon" format="reference" />
+
     <attr name="linkpreview_background_color" format="color" />
     <attr name="linkpreview_primary_text_color" format="color" />
     <attr name="linkpreview_secondary_text_color" format="color" />
@@ -247,6 +254,8 @@
     <attr name="pref_icon_tint" format="color"/>
 
     <attr name="pref_divider" format="reference" />
+
+    <attr name="preference_username_background" format="reference" />
 
     <attr name="quote_missing_icon_color" format="color" />
     <attr name="quote_dismiss_button_tint" format="color" />
@@ -551,6 +560,11 @@
 
     <declare-styleable name="PopupMenuView">
         <attr name="background_tint" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="QrView">
+        <attr name="qr_foreground_color" format="color" />
+        <attr name="qr_background_color" format="color" />
     </declare-styleable>
 
     <declare-styleable name="WebRtcAudioOutputToggleButtonState">

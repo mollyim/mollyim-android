@@ -6,7 +6,7 @@ import org.signal.zkgroup.InvalidInputException;
 import org.signal.zkgroup.groups.GroupMasterKey;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.database.GroupDatabase;
-import org.thoughtcrime.securesms.database.MmsDatabase;
+import org.thoughtcrime.securesms.database.MessageDatabase;
 import org.thoughtcrime.securesms.database.model.databaseprotos.DecryptedGroupV2Context;
 import org.thoughtcrime.securesms.groups.GroupChangeBusyException;
 import org.thoughtcrime.securesms.groups.GroupId;
@@ -21,7 +21,6 @@ import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.mms.MmsException;
 import org.thoughtcrime.securesms.mms.OutgoingGroupUpdateMessage;
 import org.thoughtcrime.securesms.recipients.Recipient;
-import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.Hex;
 import org.whispersystems.libsignal.util.guava.Optional;
 import org.whispersystems.signalservice.api.groupsv2.NoCredentialForRedemptionTimeException;
@@ -78,11 +77,12 @@ public final class WakeGroupV2Job extends BaseJob {
     GroupDatabase groupDatabase = DatabaseFactory.getGroupDatabase(context);
     GroupId.V2    groupId       = GroupId.v2(groupMasterKey);
 
-    if (!groupDatabase.getGroup(groupId).isPresent()) {
+    if (groupDatabase.findGroup(groupId)) {
+      Log.w(TAG, "Group already exists " + groupId);
+      return;
+    } else {
       GroupManager.updateGroupFromServer(context, groupMasterKey, GroupsV2StateProcessor.LATEST, System.currentTimeMillis(), null);
       Log.i(TAG, "Group created " + groupId);
-    } else {
-      Log.w(TAG, "Group already exists " + groupId);
     }
 
     Optional<GroupDatabase.GroupRecord> group = groupDatabase.getGroup(groupId);
@@ -97,7 +97,7 @@ public final class WakeGroupV2Job extends BaseJob {
       long                            threadId                = DatabaseFactory.getThreadDatabase(context).getThreadIdFor(groupRecipient);
       GroupDatabase.V2GroupProperties v2GroupProperties       = group.get().requireV2GroupProperties();
       DecryptedGroupV2Context         decryptedGroupV2Context = GroupProtoUtil.createDecryptedGroupV2Context(v2GroupProperties.getGroupMasterKey(), v2GroupProperties.getDecryptedGroup(), null, null);
-      MmsDatabase                     mmsDatabase             = DatabaseFactory.getMmsDatabase(context);
+      MessageDatabase                 mmsDatabase             = DatabaseFactory.getMmsDatabase(context);
       OutgoingGroupUpdateMessage      outgoingMessage         = new OutgoingGroupUpdateMessage(groupRecipient, decryptedGroupV2Context, null, System.currentTimeMillis(), 0, false, null, Collections.emptyList(), Collections.emptyList(), Collections.emptyList());
 
       long messageId = mmsDatabase.insertMessageOutbox(outgoingMessage, threadId, false, null);

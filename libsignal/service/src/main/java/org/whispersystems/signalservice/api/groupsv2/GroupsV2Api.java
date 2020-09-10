@@ -7,8 +7,10 @@ import org.signal.storageservice.protos.groups.Group;
 import org.signal.storageservice.protos.groups.GroupAttributeBlob;
 import org.signal.storageservice.protos.groups.GroupChange;
 import org.signal.storageservice.protos.groups.GroupChanges;
+import org.signal.storageservice.protos.groups.GroupJoinInfo;
 import org.signal.storageservice.protos.groups.local.DecryptedGroup;
 import org.signal.storageservice.protos.groups.local.DecryptedGroupChange;
+import org.signal.storageservice.protos.groups.local.DecryptedGroupJoinInfo;
 import org.signal.zkgroup.InvalidInputException;
 import org.signal.zkgroup.VerificationFailedException;
 import org.signal.zkgroup.auth.AuthCredential;
@@ -19,6 +21,7 @@ import org.signal.zkgroup.groups.ClientZkGroupCipher;
 import org.signal.zkgroup.groups.GroupSecretParams;
 import org.whispersystems.libsignal.util.guava.Optional;
 import org.whispersystems.signalservice.internal.push.PushServiceSocket;
+import org.whispersystems.signalservice.internal.push.exceptions.ForbiddenException;
 
 import java.io.IOException;
 import java.security.SecureRandom;
@@ -110,6 +113,21 @@ public final class GroupsV2Api {
     return result;
   }
 
+  public DecryptedGroupJoinInfo getGroupJoinInfo(GroupSecretParams groupSecretParams,
+                                                 Optional<byte[]> password,
+                                                 GroupsV2AuthorizationString authorization)
+      throws IOException, GroupLinkNotActiveException
+  {
+    try {
+      GroupJoinInfo                      joinInfo        = socket.getGroupJoinInfo(password, authorization);
+      GroupsV2Operations.GroupOperations groupOperations = groupsOperations.forGroup(groupSecretParams);
+
+      return groupOperations.decryptGroupJoinInfo(joinInfo);
+    } catch (ForbiddenException e) {
+      throw new GroupLinkNotActiveException();
+    }
+  }
+
   public String uploadAvatar(byte[] avatar,
                              GroupSecretParams groupSecretParams,
                              GroupsV2AuthorizationString authorization)
@@ -130,10 +148,11 @@ public final class GroupsV2Api {
   }
 
   public GroupChange patchGroup(GroupChange.Actions groupChange,
-                                GroupsV2AuthorizationString authorization)
+                                GroupsV2AuthorizationString authorization,
+                                Optional<byte[]> groupLinkPassword)
       throws IOException
   {
-    return socket.patchGroupsV2Group(groupChange, authorization.toString());
+    return socket.patchGroupsV2Group(groupChange, authorization.toString(), groupLinkPassword);
   }
 
   private static HashMap<Integer, AuthCredentialResponse> parseCredentialResponse(CredentialResponse credentialResponse)

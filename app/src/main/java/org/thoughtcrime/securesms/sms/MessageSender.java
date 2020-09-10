@@ -34,9 +34,10 @@ import org.thoughtcrime.securesms.attachments.DatabaseAttachment;
 import org.thoughtcrime.securesms.contacts.sync.DirectoryHelper;
 import org.thoughtcrime.securesms.contactshare.Contact;
 import org.thoughtcrime.securesms.database.AttachmentDatabase;
+import org.thoughtcrime.securesms.database.Database;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
-import org.thoughtcrime.securesms.database.MessagingDatabase;
-import org.thoughtcrime.securesms.database.MessagingDatabase.SyncMessageId;
+import org.thoughtcrime.securesms.database.MessageDatabase;
+import org.thoughtcrime.securesms.database.MessageDatabase.SyncMessageId;
 import org.thoughtcrime.securesms.database.MmsDatabase;
 import org.thoughtcrime.securesms.database.MmsSmsDatabase;
 import org.thoughtcrime.securesms.database.NoSuchMessageException;
@@ -99,9 +100,9 @@ public class MessageSender {
                           final boolean forceSms,
                           final SmsDatabase.InsertListener insertListener)
   {
-    SmsDatabase database    = DatabaseFactory.getSmsDatabase(context);
-    Recipient   recipient   = message.getRecipient();
-    boolean     keyExchange = message.isKeyExchange();
+    MessageDatabase database    = DatabaseFactory.getSmsDatabase(context);
+    Recipient       recipient   = message.getRecipient();
+    boolean         keyExchange = message.isKeyExchange();
 
     long allocatedThreadId = DatabaseFactory.getThreadDatabase(context).getOrCreateValidThreadId(recipient, threadId);
     long messageId         = database.insertMessageOutbox(allocatedThreadId, message, forceSms, System.currentTimeMillis(), insertListener);
@@ -119,8 +120,8 @@ public class MessageSender {
                           final SmsDatabase.InsertListener insertListener)
   {
     try {
-      ThreadDatabase threadDatabase = DatabaseFactory.getThreadDatabase(context);
-      MmsDatabase    database       = DatabaseFactory.getMmsDatabase(context);
+      ThreadDatabase  threadDatabase = DatabaseFactory.getThreadDatabase(context);
+      MessageDatabase database       = DatabaseFactory.getMmsDatabase(context);
 
       long      allocatedThreadId = threadDatabase.getOrCreateValidThreadId(message.getRecipient(), threadId, message.getDistributionType());
       Recipient recipient         = message.getRecipient();
@@ -147,7 +148,7 @@ public class MessageSender {
 
     try {
       ThreadDatabase     threadDatabase     = DatabaseFactory.getThreadDatabase(context);
-      MmsDatabase        mmsDatabase        = DatabaseFactory.getMmsDatabase(context);
+      MessageDatabase    mmsDatabase        = DatabaseFactory.getMmsDatabase(context);
       AttachmentDatabase attachmentDatabase = DatabaseFactory.getAttachmentDatabase(context);
 
       long allocatedThreadId;
@@ -182,7 +183,7 @@ public class MessageSender {
 
     JobManager                 jobManager             = ApplicationDependencies.getJobManager();
     AttachmentDatabase         attachmentDatabase     = DatabaseFactory.getAttachmentDatabase(context);
-    MmsDatabase                mmsDatabase            = DatabaseFactory.getMmsDatabase(context);
+    MessageDatabase            mmsDatabase            = DatabaseFactory.getMmsDatabase(context);
     ThreadDatabase             threadDatabase         = DatabaseFactory.getThreadDatabase(context);
     List<AttachmentId>         preUploadAttachmentIds = Stream.of(preUploadResults).map(PreUploadResult::getAttachmentId).toList();
     List<String>               preUploadJobIds        = Stream.of(preUploadResults).map(PreUploadResult::getJobIds).flatMap(Stream::of).toList();
@@ -285,7 +286,7 @@ public class MessageSender {
   }
 
   public static void sendNewReaction(@NonNull Context context, long messageId, boolean isMms, @NonNull String emoji) {
-    MessagingDatabase db       = isMms ? DatabaseFactory.getMmsDatabase(context) : DatabaseFactory.getSmsDatabase(context);
+    MessageDatabase db       = isMms ? DatabaseFactory.getMmsDatabase(context) : DatabaseFactory.getSmsDatabase(context);
     ReactionRecord    reaction = new ReactionRecord(emoji, Recipient.self().getId(), System.currentTimeMillis(), System.currentTimeMillis());
 
     db.addReaction(messageId, reaction);
@@ -299,7 +300,7 @@ public class MessageSender {
   }
 
   public static void sendReactionRemoval(@NonNull Context context, long messageId, boolean isMms, @NonNull ReactionRecord reaction) {
-    MessagingDatabase db = isMms ? DatabaseFactory.getMmsDatabase(context) : DatabaseFactory.getSmsDatabase(context);
+    MessageDatabase db = isMms ? DatabaseFactory.getMmsDatabase(context) : DatabaseFactory.getSmsDatabase(context);
 
     db.deleteReaction(messageId, reaction.getAuthor());
 
@@ -312,7 +313,7 @@ public class MessageSender {
   }
 
   public static void sendRemoteDelete(@NonNull Context context, long messageId, boolean isMms) {
-    MessagingDatabase db = isMms ? DatabaseFactory.getMmsDatabase(context) : DatabaseFactory.getSmsDatabase(context);
+    MessageDatabase db = isMms ? DatabaseFactory.getMmsDatabase(context) : DatabaseFactory.getSmsDatabase(context);
     db.markAsRemoteDelete(messageId);
     db.markAsSending(messageId);
 
@@ -461,7 +462,7 @@ public class MessageSender {
   private static void sendLocalMediaSelf(Context context, long messageId) {
     try {
       ExpiringMessageManager expirationManager  = ApplicationContext.getInstance(context).getExpiringMessageManager();
-      MmsDatabase            mmsDatabase        = DatabaseFactory.getMmsDatabase(context);
+      MessageDatabase        mmsDatabase        = DatabaseFactory.getMmsDatabase(context);
       MmsSmsDatabase         mmsSmsDatabase     = DatabaseFactory.getMmsSmsDatabase(context);
       OutgoingMediaMessage   message            = mmsDatabase.getOutgoingMessage(messageId);
       SyncMessageId          syncId             = new SyncMessageId(Recipient.self().getId(), message.getSentTimeMillis());
@@ -511,9 +512,9 @@ public class MessageSender {
   private static void sendLocalTextSelf(Context context, long messageId) {
     try {
       ExpiringMessageManager expirationManager = ApplicationContext.getInstance(context).getExpiringMessageManager();
-      SmsDatabase            smsDatabase       = DatabaseFactory.getSmsDatabase(context);
+      MessageDatabase        smsDatabase       = DatabaseFactory.getSmsDatabase(context);
       MmsSmsDatabase         mmsSmsDatabase    = DatabaseFactory.getMmsSmsDatabase(context);
-      SmsMessageRecord       message           = smsDatabase.getMessageRecord(messageId);
+      SmsMessageRecord       message           = smsDatabase.getSmsMessage(messageId);
       SyncMessageId          syncId            = new SyncMessageId(Recipient.self().getId(), message.getDateSent());
 
       smsDatabase.markAsSent(messageId, true);

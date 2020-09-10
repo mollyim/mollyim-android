@@ -44,7 +44,10 @@
   <string name="ApplicationPreferencesActivity_privacy_summary">Ekran kilidi %1$s, Kayıt kilidi %2$s</string>
   <string name="ApplicationPreferencesActivity_privacy_summary_screen_lock">Ekran kilidi %1$s</string>
   <string name="ApplicationPreferencesActivity_appearance_summary">Tema %1$s, Dil %2$s</string>
+  <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">Kayıt kilidi için PIN gereklidir. PIN\'leri devre dışı bırakmak için, lütfen ilk önce kayıt kilidini devre dışı bırakın.</string>
   <string name="ApplicationPreferencesActivity_pin_created">PIN oluşturuldu.</string>
+  <string name="ApplicationPreferencesActivity_pin_disabled">PIN devre dışı.</string>
+  <string name="ApplicationPreferencesActivity_hide">Gizle</string>
   <!--AppProtectionPreferenceFragment-->
   <plurals name="AppProtectionPreferenceFragment_minutes">
     <item quantity="one">%d dakika</item>
@@ -194,6 +197,8 @@
   <string name="ConversationActivity_leave_group">Gruptan ayrıl?</string>
   <string name="ConversationActivity_are_you_sure_you_want_to_leave_this_group">Bu gruptan ayrılmak istediğinize emin misiniz?</string>
   <string name="ConversationActivity_choose_new_admin">Yeni yönetici seç</string>
+  <string name="ConversationActivity_before_you_leave_you_must_choose_at_least_one_new_admin_for_this_group">Ayrılmadan önce, bu gruba yeni bir yönetici seçmek zorundasınız.</string>
+  <string name="ConversationActivity_choose_admin">Yönetici seçin</string>
   <string name="ConversationActivity_transport_insecure_sms">Şifresiz SMS</string>
   <string name="ConversationActivity_transport_insecure_mms">Şifresiz MMS</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
@@ -207,6 +212,7 @@
   <string name="ConversationActivity_attachment_exceeds_size_limits">Eklenti gönderdiğiniz ileti türü için olan boyut limitini aşıyor.</string>
   <string name="ConversationActivity_quick_camera_unavailable">Kamera kullanılamıyor</string>
   <string name="ConversationActivity_unable_to_record_audio">Ses kaydedilemedi!</string>
+  <string name="ConversationActivity_you_cant_send_messages_to_this_group">Bu gruba ileti gönderemezsiniz çünkü artık bu gruba üye değilsiniz.</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">Cihazınızda bu bağlantıyı işleyebilecek uygulama bulunmamaktadır.</string>
   <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Sesli ileti göndermek için Molly\'in mikrofonunuza erişmesine izin verin.</string>
   <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly, sesli iletiler göndermek için Mikrofon iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Mikrofon\"u etkinleştirin.</string>
@@ -315,12 +321,14 @@
   <string name="ConversationTitleView_verified">Doğrulandı</string>
   <string name="ConversationTitleView_you">Siz</string>
   <!--CreateGroupActivity-->
+  <string name="CreateGroupActivity_some_contacts_cannot_be_in_legacy_groups">Bazı kişiler eski gruplarda bulunamaz.</string>
   <!--CreateProfileActivity-->
   <string name="CreateProfileActivity__profile">Profil</string>
   <string name="CreateProfileActivity_error_setting_profile_photo">Profil fotoğrafı kaydedilirken hata</string>
   <string name="CreateProfileActivity_problem_setting_profile">Profil ayarlanırken hata</string>
   <string name="CreateProfileActivity_profile_photo">Profil fotoğrafı</string>
   <string name="CreateProfileActivity_set_up_your_profile">Profilinizi ayarlayın</string>
+  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">Profiliniz uçtan uca şifrelidir. Profiliniz ve profildeki değişiklikler, yeni sohbetler başlattığınızda veya kabul ettiğinizde ve yeni gruplara katıldığınızda kişileriniz tarafından görülebilir.</string>
   <string name="CreateProfileActivity_set_avatar_description">Avatar seçin</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Özelleştirilmiş \'%s\' kullanılıyor</string>
@@ -378,9 +386,11 @@
   <string name="AddToGroupActivity_s_added_to_s">\"%1$s\", \"%2$s\" grubuna eklendi.</string>
   <string name="AddToGroupActivity_add_to_group">Gruba ekle</string>
   <string name="AddToGroupActivity_add_to_groups">Gruplara ekle</string>
+  <string name="AddToGroupActivity_this_person_cant_be_added_to_legacy_groups">Bu kullanıcı eski bir gruba eklenemez.</string>
   <!--ChooseNewAdminActivity-->
   <string name="ChooseNewAdminActivity_choose_new_admin">Yeni yönetici seç</string>
   <string name="ChooseNewAdminActivity_done">Tamam</string>
+  <string name="ChooseNewAdminActivity_you_left">^\"%1$s\"  grubundan ayrıldınız.</string>
   <!--GroupShareProfileView-->
   <string name="GroupShareProfileView_share_your_profile_name_and_photo_with_this_group">Profil adınız ve fotoğrafınız bu grupla paylaşılsın mı?</string>
   <string name="GroupShareProfileView_do_you_want_to_make_your_profile_name_and_photo_visible_to_all_current_and_future_members_of_this_group">Profil adınızı ve fotoğrafınızı bu grupta bulunan ve sonradan eklenecek üyelere görünür yapmak istiyor musunuz?</string>
@@ -388,13 +398,21 @@
   <!--GroupMembersDialog-->
   <string name="GroupMembersDialog_you">Siz</string>
   <!--GV2 access levels-->
+  <string name="GroupManagement_access_level_anyone">Herhangi biri</string>
   <string name="GroupManagement_access_level_all_members">Tüm üyeler</string>
   <string name="GroupManagement_access_level_only_admins">Yalnızca yöneticiler</string>
   <!--GV2 invites sent-->
+  <plurals name="GroupManagement_invitation_sent">
+    <item quantity="one">Davet gönderildi</item>
+    <item quantity="other">%d davet gönderildi</item>
+  </plurals>
+  <string name="GroupManagement_invite_single_user">\"%1$s\" sizin tarafınızdan bu gruba otomatik olarak eklenemez.\n\nKatılmaları için davet gönderildi ve daveti kabul edene kadar hiçbir grup iletisini görmeyecekler.</string>
   <string name="GroupManagement_learn_more">Dahasını öğrenin</string>
+  <string name="GroupManagement_invite_multiple_users">Bu kullanıcılar otomatik olarak bu gruba eklenemez.\n\nKatılmaları için davet gönderildi ve daveti kabul edene kadar hiçbir grup iletisini görmeyecekler.</string>
   <!--LinkPreviewsMegaphone-->
   <string name="LinkPreviewsMegaphone_disable">Devre dışı bırak</string>
   <!--LinkPreviewView-->
+  <!--LinkPreviewRepository-->
   <!--PendingMembersActivity-->
   <string name="PendingMemberInvitesActivity_pending_group_invites">Beklemedeki grup davetleri</string>
   <string name="PendingMembersActivity_people_you_invited">Davet ettiğiniz kişiler</string>
@@ -402,8 +420,10 @@
   <string name="PendingMembersActivity_invites_by_other_group_members">Diğer grup üyelerinin davetleri</string>
   <string name="PendingMembersActivity_no_pending_invites_by_other_group_members">Diğer grup üyelerinin bekleyen davetleri yok.</string>
   <string name="PendingMembersActivity_missing_detail_explanation">Diğer grup üyeleri tarafından davet edilen kişilerin ayrıntıları gösterilmez. Davetliler katılmayı seçerse, bilgileri o zaman grupla paylaşılacaktır. Katılıncaya kadar grupta herhangi bir ileti görmezler.</string>
+  <!--RequestingMembersFragment-->
   <!--AddMembersActivity-->
   <string name="AddMembersActivity__done">Tamam</string>
+  <string name="AddMembersActivity__this_person_cant_be_added_to_legacy_groups">Bu kullanıcı eski bir gruba eklenemez.</string>
   <plurals name="AddMembersActivity__add_d_members_to_s">
     <item quantity="one">\"%2$s\" grubuna \"%1$s\" eklensin mi?</item>
     <item quantity="other">\"%2$s\" grubuna %3$d üye eklensin mi?</item>
@@ -491,10 +511,19 @@
   <string name="CustomNotificationsDialogFragment__enabled">Etkin</string>
   <string name="CustomNotificationsDialogFragment__disabled">Devre dışı</string>
   <string name="CustomNotificationsDialogFragment__default">Varsayılan</string>
+  <!--ShareableGroupLinkDialogFragment-->
+  <string name="ShareableGroupLinkDialogFragment__share">Paylaş</string>
+  <string name="ShareableGroupLinkDialogFragment__enabled">Etkin</string>
+  <string name="ShareableGroupLinkDialogFragment__disabled">Devre dışı</string>
+  <string name="ShareableGroupLinkDialogFragment__default">Varsayılan</string>
+  <!--GroupLinkShareQrDialogFragment-->
   <!--GV2 Invite Revoke confirmation dialog-->
   <!--GroupJoinBottomSheetDialogFragment-->
+  <string name="GroupJoinBottomSheetDialogFragment_encountered_a_network_error">Bir ağ hatası ile karşılaşıldı.</string>
   <!--GroupJoinUpdateRequiredBottomSheetDialogFragment-->
   <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_signal">Signal\'i Güncelle</string>
+  <!--GV2 Request confirmation dialog-->
+  <string name="RequestConfirmationDialog_add">Ekle</string>
   <!--CropImageActivity-->
   <string name="CropImageActivity_group_avatar">Grup resmi</string>
   <string name="CropImageActivity_profile_avatar">Resim</string>
@@ -698,6 +727,12 @@
   <!--GV2 membership access level change-->
   <string name="MessageRecord_you_changed_who_can_edit_group_membership_to_s">Grup üyeliğini kimlerin düzenleyebileceğini \"%1$s\" olarak değiştirdiniz.</string>
   <string name="MessageRecord_s_changed_who_can_edit_group_membership_to_s">%1$s grup üyeliğini kimlerin düzenleyebileceğini \"%2$s\" olarak değiştirdi.</string>
+  <!--GV2 group link invite access level change-->
+  <!--GV2 group link reset-->
+  <!--GV2 group link joins-->
+  <!--GV2 group link requests-->
+  <!--GV2 group link approvals-->
+  <!--GV2 group link deny-->
   <!--End of GV2 specific update messages-->
   <string name="MessageRecord_your_safety_number_with_s_has_changed">%s ile güvenlik numaranız değişti.</string>
   <string name="MessageRecord_you_marked_your_safety_number_with_s_verified">%s ile olan güvenlik numaranızı doğrulanmış olarak işaretlediniz.</string>
@@ -804,10 +839,7 @@
   <!--RecipientProvider-->
   <string name="RecipientProvider_unnamed_group">Adsız grup</string>
   <!--RedPhone-->
-  <string name="RedPhone_answering">Cevap veriliyor</string>
-  <string name="RedPhone_ending_call">Arama sonlandırılıyor</string>
-  <string name="RedPhone_dialing">Aranıyor</string>
-  <string name="RedPhone_ringing">Çalıyor</string>
+  <string name="RedPhone_ringing">Çalıyor…</string>
   <string name="RedPhone_busy">Meşgul</string>
   <string name="RedPhone_connected">Bağlanıldı</string>
   <string name="RedPhone_recipient_unavailable">Kişi müsait değil</string>
@@ -1000,7 +1032,6 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <string name="UnverifiedSendDialog_send">Gönder</string>
   <!--UsernameEditFragment-->
   <string name="UsernameEditFragment_username">Kullanıcı adı</string>
-  <string name="UsernameEditFragment_submit">Gönder</string>
   <string name="UsernameEditFragment_delete">Sil</string>
   <string name="UsernameEditFragment_successfully_set_username">Kullanıcı adı başarıyla ayarlandı.</string>
   <string name="UsernameEditFragment_successfully_removed_username">Kullanıcı adı başarıyla kaldırıldı.</string>
@@ -1011,7 +1042,6 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <string name="UsernameEditFragment_usernames_cannot_begin_with_a_number">Kullanıcı adları rakam ile başlayamaz.</string>
   <string name="UsernameEditFragment_username_is_invalid">Kullanıcı adı geçersiz.</string>
   <string name="UsernameEditFragment_usernames_must_be_between_a_and_b_characters">Kullanıcı adları %1$d ve %2$d karakter aralığında olmalıdır.</string>
-  <string name="UsernameEditFragment_other_signal_users_can_send_message_requests_to_your_unique_username">Diğer Signal kullanıcıları telefon numaranızı bilmeden eşsiz kullanıcı adınıza iletiler gönderebilirler. Kullanıcı adı seçimi isteğe bağlıdır.</string>
   <!--VerifyIdentityActivity-->
   <string name="VerifyIdentityActivity_your_contact_is_running_an_old_version_of_signal">Kişiniz Signal\'in eski bir sürümünü kullanmakta. Güvenlik numaranızı doğrulamadan önce uygulamayı güncellemelerini rica edin.</string>
   <string name="VerifyIdentityActivity_your_contact_is_running_a_newer_version_of_Signal">Kişiniz Signal\'in uyumsuz karekod formatına sahip yeni bir sürümünü kullanıyor. Karşılaştırmak için lütfen güncelleyin.</string>
@@ -1975,5 +2005,9 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <string name="RecipientBottomSheet_copied_to_clipboard">Panoya kopyalandı</string>
   <string name="GroupRecipientListItem_admin">Yönetici</string>
   <!--GroupsLearnMoreBottomSheetDialogFragment-->
+  <!--GroupLinkBottomSheetDialogFragment-->
+  <string name="GroupLinkBottomSheet_copy">Kopyala</string>
+  <string name="GroupLinkBottomSheet_share">Paylaş</string>
+  <string name="GroupLinkBottomSheet_copied_to_clipboard">Panoya kopyalandı</string>
   <!--EOF-->
 </resources>

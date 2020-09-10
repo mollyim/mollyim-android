@@ -77,9 +77,10 @@ import org.thoughtcrime.securesms.conversation.ConversationAdapter.ItemClickList
 import org.thoughtcrime.securesms.conversation.ConversationAdapter.StickyHeaderViewHolder;
 import org.thoughtcrime.securesms.conversation.ConversationMessage.ConversationMessageFactory;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
-import org.thoughtcrime.securesms.database.MessagingDatabase;
+import org.thoughtcrime.securesms.database.MessageDatabase;
 import org.thoughtcrime.securesms.database.MmsDatabase;
 import org.thoughtcrime.securesms.database.RecipientDatabase;
+import org.thoughtcrime.securesms.database.SmsDatabase;
 import org.thoughtcrime.securesms.database.model.MediaMmsMessageRecord;
 import org.thoughtcrime.securesms.database.model.MessageRecord;
 import org.thoughtcrime.securesms.database.model.MmsMessageRecord;
@@ -393,7 +394,7 @@ public class ConversationFragment extends LoggingFragment {
     if (recipient != null) {
       conversationBanner.setAvatar(GlideApp.with(context), recipient);
 
-      String title = isSelf ? context.getString(R.string.note_to_self) : recipient.getDisplayName(context);
+      String title = isSelf ? context.getString(R.string.note_to_self) : recipient.getDisplayNameOrUsername(context);
       conversationBanner.setTitle(title);
 
       if (recipient.isGroup()) {
@@ -401,14 +402,16 @@ public class ConversationFragment extends LoggingFragment {
           conversationBanner.setSubtitle(context.getResources()
                                                 .getQuantityString(R.plurals.MessageRequestProfileView_members_and_invited, memberCount,
                                                                    memberCount, pendingMemberCount));
-        } else {
+        } else if (memberCount > 0) {
           conversationBanner.setSubtitle(context.getResources().getQuantityString(R.plurals.MessageRequestProfileView_members, memberCount,
                                                                                   memberCount));
+        } else {
+          conversationBanner.setSubtitle(null);
         }
       } else if (isSelf) {
         conversationBanner.setSubtitle(context.getString(R.string.ConversationFragment__you_can_add_notes_for_yourself_in_this_conversation));
       } else {
-        String subtitle = recipient.getUsername().or(recipient.getE164()).orNull();
+        String subtitle = recipient.getE164().orNull();
 
         if (subtitle == null || subtitle.equals(title)) {
           conversationBanner.hideSubtitle();
@@ -686,7 +689,7 @@ public class ConversationFragment extends LoggingFragment {
             boolean threadDeleted;
 
             if (messageRecord.isMms()) {
-              threadDeleted = DatabaseFactory.getMmsDatabase(getActivity()).delete(messageRecord.getId());
+              threadDeleted = DatabaseFactory.getMmsDatabase(getActivity()).deleteMessage(messageRecord.getId());
             } else {
               threadDeleted = DatabaseFactory.getSmsDatabase(getActivity()).deleteMessage(messageRecord.getId());
             }
@@ -727,7 +730,7 @@ public class ConversationFragment extends LoggingFragment {
             boolean threadDeleted;
 
             if (messageRecord.isMms()) {
-              threadDeleted = DatabaseFactory.getMmsDatabase(context).delete(messageRecord.getId());
+              threadDeleted = DatabaseFactory.getMmsDatabase(context).deleteMessage(messageRecord.getId());
             } else {
               threadDeleted = DatabaseFactory.getSmsDatabase(context).deleteMessage(messageRecord.getId());
             }
@@ -904,7 +907,7 @@ public class ConversationFragment extends LoggingFragment {
   }
 
   public long stageOutgoingMessage(OutgoingMediaMessage message) {
-    MessageRecord messageRecord = DatabaseFactory.getMmsDatabase(getContext()).readerFor(message, threadId).getCurrent();
+    MessageRecord messageRecord = MmsDatabase.readerFor(message, threadId).getCurrent();
 
     if (getListAdapter() != null) {
       clearHeaderIfNotTyping(getListAdapter());
@@ -917,7 +920,7 @@ public class ConversationFragment extends LoggingFragment {
   }
 
   public long stageOutgoingMessage(OutgoingTextMessage message) {
-    MessageRecord messageRecord = DatabaseFactory.getSmsDatabase(getContext()).readerFor(message, threadId).getCurrent();
+    MessageRecord messageRecord = SmsDatabase.readerFor(message, threadId).getCurrent();
 
     if (getListAdapter() != null) {
       clearHeaderIfNotTyping(getListAdapter());
@@ -1080,11 +1083,11 @@ public class ConversationFragment extends LoggingFragment {
 
   private void scrollToNextMention() {
     SimpleTask.run(getViewLifecycleOwner().getLifecycle(), () -> {
-      MmsDatabase mmsDatabase = DatabaseFactory.getMmsDatabase(ApplicationDependencies.getApplication());
+      MessageDatabase mmsDatabase = DatabaseFactory.getMmsDatabase(ApplicationDependencies.getApplication());
       return mmsDatabase.getOldestUnreadMentionDetails(threadId);
     }, (pair) -> {
       if (pair != null) {
-        jumpToMessage(pair.first, pair.second, () -> {});
+        jumpToMessage(pair.first(), pair.second(), () -> {});
       }
     });
   }
@@ -1095,6 +1098,10 @@ public class ConversationFragment extends LoggingFragment {
     }
 
     int position = getListLayoutManager().findFirstVisibleItemPosition();
+    if (position == getListAdapter().getItemCount() - 1) {
+      return;
+    }
+
     if (position >= (isTypingIndicatorShowing() ? 1 : 0)) {
       ConversationMessage item = getListAdapter().getItem(position);
       if (item != null) {
@@ -1309,7 +1316,7 @@ public class ConversationFragment extends LoggingFragment {
                             .getViewOnceMessageManager()
                             .scheduleIfNecessary();
 
-          ApplicationDependencies.getJobManager().add(new MultiDeviceViewOnceOpenJob(new MessagingDatabase.SyncMessageId(messageRecord.getIndividualRecipient().getId(), messageRecord.getDateSent())));
+          ApplicationDependencies.getJobManager().add(new MultiDeviceViewOnceOpenJob(new MessageDatabase.SyncMessageId(messageRecord.getIndividualRecipient().getId(), messageRecord.getDateSent())));
 
           return tempUri;
         } catch (IOException e) {

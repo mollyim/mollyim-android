@@ -58,10 +58,11 @@ import static org.thoughtcrime.securesms.database.RecipientDatabase.InsightsBann
 
 public class Recipient {
 
+  private static final String TAG = Log.tag(Recipient.class);
+
   public static final Recipient UNKNOWN = new Recipient(RecipientId.UNKNOWN, new RecipientDetails(), true);
 
-  private static final FallbackPhotoProvider DEFAULT_FALLBACK_PHOTO_PROVIDER = new FallbackPhotoProvider();
-  private static final String                TAG = Log.tag(Recipient.class);
+  public static final FallbackPhotoProvider DEFAULT_FALLBACK_PHOTO_PROVIDER = new FallbackPhotoProvider();
 
   private final RecipientId            id;
   private final boolean                resolving;
@@ -397,17 +398,26 @@ public class Recipient {
    * False iff it {@link #getDisplayName} would fall back to e164, email or unknown.
    */
   public boolean hasAUserSetDisplayName(@NonNull Context context) {
-    return !TextUtils.isEmpty(getName(context))            ||
-           !TextUtils.isEmpty(getProfileName().toString()) ||
-           !TextUtils.isEmpty(getDisplayUsername());
+    return !TextUtils.isEmpty(getName(context)) ||
+           !TextUtils.isEmpty(getProfileName().toString());
   }
 
   public @NonNull String getDisplayName(@NonNull Context context) {
     String name = Util.getFirstNonEmpty(getName(context),
                                         getProfileName().toString(),
-                                        getDisplayUsername(),
                                         e164,
                                         email,
+                                        context.getString(R.string.Recipient_unknown));
+
+    return StringUtil.isolateBidi(name);
+  }
+
+  public @NonNull String getDisplayNameOrUsername(@NonNull Context context) {
+    String name = Util.getFirstNonEmpty(getName(context),
+                                        getProfileName().toString(),
+                                        e164,
+                                        email,
+                                        username,
                                         context.getString(R.string.Recipient_unknown));
 
     return StringUtil.isolateBidi(name);
@@ -416,7 +426,6 @@ public class Recipient {
   public @NonNull String getMentionDisplayName(@NonNull Context context) {
     String name = Util.getFirstNonEmpty(localNumber ? getProfileName().toString() : getName(context),
                                         localNumber ? getName(context) : getProfileName().toString(),
-                                        getDisplayUsername(),
                                         e164,
                                         email,
                                         context.getString(R.string.Recipient_unknown));
@@ -814,14 +823,6 @@ public class Recipient {
 
   public @NonNull LiveRecipient live() {
     return ApplicationDependencies.getRecipientCache().getLive(id);
-  }
-
-  public @Nullable String getDisplayUsername() {
-    if (!TextUtils.isEmpty(username)) {
-      return "@" + username;
-    } else {
-      return null;
-    }
   }
 
   public @NonNull MentionSetting getMentionSetting() {

@@ -45,6 +45,8 @@
   <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">登録ロックを使うにはPINが必要です。PINを無効にするには、まず登録ロックを無効にしてください。</string>
   <string name="ApplicationPreferencesActivity_pin_created">PINを作成しました。</string>
   <string name="ApplicationPreferencesActivity_pin_disabled">PINを無効にしました。</string>
+  <string name="ApplicationPreferencesActivity_hide">閉じる</string>
+  <string name="ApplicationPreferencesActivity_hide_reminder">リマインダーを閉じますか？</string>
   <!--AppProtectionPreferenceFragment-->
   <plurals name="AppProtectionPreferenceFragment_minutes">
     <item quantity="other">%d分</item>
@@ -210,6 +212,8 @@
   <string name="ConversationActivity_unable_to_record_audio">録音できません！</string>
   <string name="ConversationActivity_you_cant_send_messages_to_this_group">メンバーではなくなったので、このグループにメッセージを送ることはできません。</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">このリンクを扱えるアプリがインストールされていません</string>
+  <string name="ConversationActivity_your_request_to_join_has_been_sent_to_the_group_admin">あなたの参加申請はグループ管理者に送信されました。応答があると通知されます。</string>
+  <string name="ConversationActivity_cancel_request">申請をキャンセル</string>
   <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">音声メッセージを送るには、Mollyのマイクへのアクセスを許可してください。</string>
   <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">音声メッセージを添付するには、Mollyにマイクへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「マイク」を有効にしてください。</string>
   <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">%s と通話するには、Mollyにマイクとカメラへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「マイク」と「カメラ」を有効にしてください。</string>
@@ -313,17 +317,18 @@
   <string name="CreateProfileActivity_problem_setting_profile">プロフィールの設定中に問題が発生しました</string>
   <string name="CreateProfileActivity_profile_photo">プロフィール画像</string>
   <string name="CreateProfileActivity_set_up_your_profile">プロフィールの設定</string>
-  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">あなたのプロフィールはエンドツーエンドで暗号化されています。あなたのプロフィールやその更新は、あなたが新しい会話を開始したり受け入れた際や、新しいグループに参加した際に連絡先で表示されます。</string>
+  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">あなたのプロフィール情報はエンドツーエンドで暗号化され、あなたが新しい会話を開始したり受け入れた際や、新しいグループに参加した際に相手先で表示されます。</string>
   <string name="CreateProfileActivity_set_avatar_description">アバターを設定</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">カスタマイズ: %s</string>
   <string name="CustomDefaultPreference_using_default">既定を使用: %s</string>
   <string name="CustomDefaultPreference_none">なし</string>
   <!--AvatarSelectionBottomSheetDialogFragment-->
-  <string name="AvatarSelectionBottomSheetDialogFragment__choose_photo">写真を選択</string>
-  <string name="AvatarSelectionBottomSheetDialogFragment__take_photo">写真を撮る</string>
+  <string name="AvatarSelectionBottomSheetDialogFragment__choose_photo">画像を選択してください</string>
+  <string name="AvatarSelectionBottomSheetDialogFragment__take_photo">写真を撮影</string>
   <string name="AvatarSelectionBottomSheetDialogFragment__choose_from_gallery">ギャラリーから選択</string>
   <string name="AvatarSelectionBottomSheetDialogFragment__remove_photo">画像を消去</string>
+  <string name="AvatarSelectionBottomSheetDialogFragment__taking_a_photo_requires_the_camera_permission">写真を撮るにはカメラへのアクセス許可が必要です。</string>
   <!--DateUtils-->
   <string name="DateUtils_just_now">たった今</string>
   <string name="DateUtils_minutes_ago">%d分</string>
@@ -383,8 +388,10 @@
   <!--GroupMembersDialog-->
   <string name="GroupMembersDialog_you">あなた</string>
   <!--GV2 access levels-->
-  <string name="GroupManagement_access_level_all_members">全てのメンバー</string>
+  <string name="GroupManagement_access_level_anyone">誰でも</string>
+  <string name="GroupManagement_access_level_all_members">すべてのメンバー</string>
   <string name="GroupManagement_access_level_only_admins">管理者のみ</string>
+  <string name="GroupManagement_access_level_no_one">なし</string>
   <!--GV2 invites sent-->
   <plurals name="GroupManagement_invitation_sent">
     <item quantity="other">招待を%d件送信済み</item>
@@ -398,8 +405,16 @@
   <string name="LinkPreviewsMegaphone_you_can_now_retrieve_link_previews_directly_from_any_website">送信メッセージにて、どのウェヴサイトからでも直接リンクプレビューを取得できるようになりました。</string>
   <!--LinkPreviewView-->
   <string name="LinkPreviewView_no_link_preview_available">リンクプレビューは使用できません</string>
+  <string name="LinkPreviewView_this_group_link_is_not_active">このグループリンクは利用できません</string>
+  <string name="LinkPreviewView_domain_date">%1$s · %2$s</string>
+  <!--LinkPreviewRepository-->
+  <plurals name="LinkPreviewRepository_d_members">
+    <item quantity="other">メンバー %1$d人</item>
+  </plurals>
   <!--PendingMembersActivity-->
   <string name="PendingMemberInvitesActivity_pending_group_invites">保留中のグループ招待</string>
+  <string name="PendingMembersActivity_requests">申請</string>
+  <string name="PendingMembersActivity_invites">招待</string>
   <string name="PendingMembersActivity_people_you_invited">あなたが招待した人々</string>
   <string name="PendingMembersActivity_you_have_no_pending_invites">保留中の招待はありません。</string>
   <string name="PendingMembersActivity_invites_by_other_group_members">グループの他のメンバーからの招待</string>
@@ -413,6 +428,12 @@
   <plurals name="PendingMembersActivity_error_revoking_invite">
     <item quantity="other">招待の取り消し中にエラーが発生しました</item>
   </plurals>
+  <!--RequestingMembersFragment-->
+  <string name="RequestingMembersFragment_pending_member_requests">保留中のメンバー申請</string>
+  <string name="RequestingMembersFragment_no_member_requests_to_show">メンバー申請はありません。</string>
+  <string name="RequestingMembersFragment_explanation">このリストの人々が、共有グループリンク経由でグループ参加を申請しています。</string>
+  <string name="RequestingMembersFragment_added_s">「%1$s」を追加しました</string>
+  <string name="RequestingMembersFragment_denied_s">「%1$s」を拒否しました</string>
   <!--AddMembersActivity-->
   <string name="AddMembersActivity__done">完了</string>
   <string name="AddMembersActivity__this_person_cant_be_added_to_legacy_groups">この連絡先をレガシーグループに入れることはできません。</string>
@@ -444,10 +465,12 @@
   <!--ManageGroupActivity-->
   <string name="ManageGroupActivity_disappearing_messages">消えるメッセージ</string>
   <string name="ManageGroupActivity_pending_group_invites">保留中のグループ招待</string>
+  <string name="ManageGroupActivity_member_requests_and_invites">メンバー申請と招待</string>
   <string name="ManageGroupActivity_add_members">メンバーを追加</string>
   <string name="ManageGroupActivity_edit_group_info">グループの情報を編集</string>
   <string name="ManageGroupActivity_choose_who_can_edit_the_group_name_avatar_and_disappearing_messages">グループ名、アバターおよび消えるメッセージの時間を編集できる人を選択してください。</string>
   <string name="ManageGroupActivity_choose_who_can_add_or_invite_new_members">新しいメンバーを追加したり招待できる人を選択してください。</string>
+  <string name="ManageGroupActivity_sharable_group_link">共有グループリンク</string>
   <string name="ManageGroupActivity_block_group">グループをブロック</string>
   <string name="ManageGroupActivity_unblock_group">グループのブロック解除</string>
   <string name="ManageGroupActivity_leave_group">グループを抜ける</string>
@@ -457,7 +480,7 @@
   <string name="ManageGroupActivity_until_s">%1$s まで</string>
   <string name="ManageGroupActivity_off">オフ</string>
   <string name="ManageGroupActivity_on">オン</string>
-  <string name="ManageGroupActivity_view_all_members">全てのメンバーを表示</string>
+  <string name="ManageGroupActivity_view_all_members">すべてのメンバーを表示</string>
   <string name="ManageGroupActivity_see_all">すべて表示</string>
   <string name="ManageGroupActivity_none">なし</string>
   <plurals name="ManageGroupActivity_invited">
@@ -521,6 +544,24 @@
   <string name="CustomNotificationsDialogFragment__enabled">有効</string>
   <string name="CustomNotificationsDialogFragment__disabled">無効</string>
   <string name="CustomNotificationsDialogFragment__default">既定</string>
+  <!--ShareableGroupLinkDialogFragment-->
+  <string name="ShareableGroupLinkDialogFragment__shareable_group_link">共有グループリンク</string>
+  <string name="ShareableGroupLinkDialogFragment__manage_and_share">管理と共有</string>
+  <string name="ShareableGroupLinkDialogFragment__group_link">グループリンク</string>
+  <string name="ShareableGroupLinkDialogFragment__share">共有する</string>
+  <string name="ShareableGroupLinkDialogFragment__reset_link">リンクをリセットする</string>
+  <string name="ShareableGroupLinkDialogFragment__member_requests">メンバー申請</string>
+  <string name="ShareableGroupLinkDialogFragment__approve_new_members">新メンバーを承認する</string>
+  <string name="ShareableGroupLinkDialogFragment__enabled">有効</string>
+  <string name="ShareableGroupLinkDialogFragment__disabled">無効</string>
+  <string name="ShareableGroupLinkDialogFragment__default">既定</string>
+  <string name="ShareableGroupLinkDialogFragment__group_link_reset">グループリンクのリセット</string>
+  <string name="ShareableGroupLinkDialogFragment__require_an_admin_to_approve_new_members_joining_via_the_group_link">グループリンク経由での新メンバー参加時に、管理者の承認を要求します。</string>
+  <string name="ShareableGroupLinkDialogFragment__are_you_sure_you_want_to_reset_the_group_link">本当にグループリンクをリセットしますか？リセットすると現在のリンクからグループに参加できなくなります。</string>
+  <!--GroupLinkShareQrDialogFragment-->
+  <string name="GroupLinkShareQrDialogFragment__qr_code">QRコード</string>
+  <string name="GroupLinkShareQrDialogFragment__people_who_scan_this_code_will">このコードをスキャンすると、グループに参加できます。設定によっては、新メンバーの参加時に管理者の承認が必要になります。</string>
+  <string name="GroupLinkShareQrDialogFragment__share_code">コードを共有する</string>
   <!--GV2 Invite Revoke confirmation dialog-->
   <string name="InviteRevokeConfirmationDialog_revoke_own_single_invite">%1$s に送った招待を取り消しますか？</string>
   <plurals name="InviteRevokeConfirmationDialog_revoke_others_invites">
@@ -528,10 +569,29 @@
   </plurals>
   <!--GroupJoinBottomSheetDialogFragment-->
   <string name="GroupJoinBottomSheetDialogFragment_you_are_already_a_member">あなたはすでにメンバーです</string>
+  <string name="GroupJoinBottomSheetDialogFragment_join">参加する</string>
+  <string name="GroupJoinBottomSheetDialogFragment_request_to_join">参加を申請する</string>
+  <string name="GroupJoinBottomSheetDialogFragment_unable_to_join_group_please_try_again_later">グループに参加できません。あとで再度試してください。</string>
+  <string name="GroupJoinBottomSheetDialogFragment_encountered_a_network_error">ネットワークエラーが発生しました。</string>
+  <string name="GroupJoinBottomSheetDialogFragment_this_group_link_is_not_active">このグループリンクは利用できません</string>
+  <string name="GroupJoinBottomSheetDialogFragment_unable_to_get_group_information_please_try_again_later">グループ情報を取得できません。あとで再度試してください。</string>
+  <string name="GroupJoinBottomSheetDialogFragment_direct_join">このグループに参加して、あなたの名前と画像をそのメンバーと共有しますか？</string>
+  <string name="GroupJoinBottomSheetDialogFragment_admin_approval_needed">このグループに参加するには、管理者の承認が必要です。参加を申請すると、あなたの名前と画像がそのメンバーと共有されます。</string>
+  <plurals name="GroupJoinBottomSheetDialogFragment_group_dot_d_members">
+    <item quantity="other">グループ · メンバー %1$d人</item>
+  </plurals>
   <!--GroupJoinUpdateRequiredBottomSheetDialogFragment-->
+  <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_group_links_coming_soon">グループリンクのご案内</string>
   <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_signal_to_use_group_links">グループリンクを使用するためSignalをアップデート</string>
-  <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_message">このバージョンのSignalは、共有可能なグループリンクをサポートしていません。リンク経由でこのグループに参加するには、最新バージョンにアップデートしてください。</string>
+  <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_coming_soon">リンク経由でのグループ参加は、Signalではまだ対応していません。この機能は今後のアップデートで提供されます。</string>
+  <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_message">このバージョンのSignalは、共有グループリンクをサポートしていません。リンク経由でこのグループに参加するには、最新バージョンにアップデートしてください。</string>
   <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_signal">Signalをアップデート</string>
+  <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_group_link_is_not_valid">グループリンクが正しくありません</string>
+  <!--GV2 Request confirmation dialog-->
+  <string name="RequestConfirmationDialog_add_s_to_the_group">「%1$s」をこのグループに追加しますか？</string>
+  <string name="RequestConfirmationDialog_deny_request_from_s">「%1$s」からの申請を拒否しますか？</string>
+  <string name="RequestConfirmationDialog_add">追加する</string>
+  <string name="RequestConfirmationDialog_deny">拒否する</string>
   <!--CropImageActivity-->
   <string name="CropImageActivity_group_avatar">グループアバター</string>
   <string name="CropImageActivity_profile_avatar">アバター</string>
@@ -553,7 +613,7 @@
   <string name="InviteActivity_invitations_sent">招待状を送りました！</string>
   <string name="InviteActivity_invite_to_signal">Mollyに招待する</string>
   <plurals name="InviteActivity_send_sms_to_friends">
-    <item quantity="other">SMSを友達%d人に送ります</item>
+    <item quantity="other">SMSを友達%d人に送る</item>
   </plurals>
   <plurals name="InviteActivity_send_sms_invites">
     <item quantity="other">SMS招待状%d件を送信しますか？</item>
@@ -676,7 +736,7 @@
   <string name="MessageRecord_changed_their_profile">%1$s がプロフィールを更新しました。</string>
   <!--GV2 specific-->
   <string name="MessageRecord_you_created_the_group">グループを作成しました。</string>
-  <string name="MessageRecord_group_updated">グループがアップデートされました。</string>
+  <string name="MessageRecord_group_updated">グループが更新されました。</string>
   <!--GV2 member additions-->
   <string name="MessageRecord_you_added_s">%1$s を追加しました。</string>
   <string name="MessageRecord_s_added_s">%1$s が %2$s を追加しました。</string>
@@ -747,6 +807,38 @@
   <string name="MessageRecord_you_changed_who_can_edit_group_membership_to_s">グループ情報を編集できるユーザを「%1$s」に変更しました。</string>
   <string name="MessageRecord_s_changed_who_can_edit_group_membership_to_s">%1$s がグループ情報を編集できるユーザを「%2$s」に変更しました。</string>
   <string name="MessageRecord_who_can_edit_group_membership_has_been_changed_to_s">グループ情報を編集できるユーザーが「%1$s」に変更されました。</string>
+  <!--GV2 group link invite access level change-->
+  <string name="MessageRecord_you_turned_on_the_sharable_group_link">共有グループリンクを有効にしました。</string>
+  <string name="MessageRecord_you_turned_on_the_sharable_group_link_with_admin_approval">管理者承認制の共有グループリンクを有効にしました。</string>
+  <string name="MessageRecord_you_turned_off_the_sharable_group_link">共有グループリンクを無効にしました。</string>
+  <string name="MessageRecord_s_turned_on_the_sharable_group_link">%1$s が共有グループリンクを有効にしました。</string>
+  <string name="MessageRecord_s_turned_on_the_sharable_group_link_with_admin_approval">%1$s が管理者承認制の共有グループリンクを有効にしました。</string>
+  <string name="MessageRecord_s_turned_off_the_sharable_group_link">%1$s が共有グループリンクを無効にしました。</string>
+  <string name="MessageRecord_the_sharable_group_link_has_been_turned_on">共有グループリンクが有効になりました。</string>
+  <string name="MessageRecord_the_sharable_group_link_has_been_turned_on_with_admin_approval">管理者承認制の共有グループリンクが有効になりました。</string>
+  <string name="MessageRecord_the_sharable_group_link_has_been_turned_off">共有グループリンクが無効になりました。</string>
+  <!--GV2 group link reset-->
+  <string name="MessageRecord_you_reset_the_sharable_group_link">共有グループリンクをリセットしました。</string>
+  <string name="MessageRecord_s_reset_the_sharable_group_link">%1$s が共有グループリンクをリセットしました。</string>
+  <string name="MessageRecord_the_sharable_group_link_has_been_reset">共有グループリンクがリセットされました。</string>
+  <!--GV2 group link joins-->
+  <string name="MessageRecord_you_joined_the_group_via_the_sharable_group_link">共有グループリンクからグループに参加しました。</string>
+  <string name="MessageRecord_s_joined_the_group_via_the_sharable_group_link">%1$s が共有グループリンクからグループに参加しました。</string>
+  <!--GV2 group link requests-->
+  <string name="MessageRecord_you_sent_a_request_to_join_the_group">グループ参加を申請しました。</string>
+  <string name="MessageRecord_s_requested_to_join_via_the_sharable_group_link">%1$s が共有グループリンクから参加を申請しました。</string>
+  <!--GV2 group link approvals-->
+  <string name="MessageRecord_s_approved_your_request_to_join_the_group">%1$s がグループ参加申請を承認しました。</string>
+  <string name="MessageRecord_s_approved_a_request_to_join_the_group_from_s">%1$s が %2$s からのグループ参加申請を承認しました。</string>
+  <string name="MessageRecord_you_approved_a_request_to_join_the_group_from_s">%1$s にグループ参加申請を承認されました。</string>
+  <string name="MessageRecord_your_request_to_join_the_group_has_been_approved">このグループへの参加申請は承認されました。</string>
+  <string name="MessageRecord_a_request_to_join_the_group_from_s_has_been_approved">%1$s からのグループ参加申請は承認されました。</string>
+  <!--GV2 group link deny-->
+  <string name="MessageRecord_your_request_to_join_the_group_has_been_denied_by_an_admin">このグループへの参加申請は、管理者によって拒否されました。</string>
+  <string name="MessageRecord_s_denied_a_request_to_join_the_group_from_s">%1$s が %2$s からのグループ参加申請を拒否しました。</string>
+  <string name="MessageRecord_a_request_to_join_the_group_from_s_has_been_denied">%1$s からのグループ参加申請は拒否されました。</string>
+  <string name="MessageRecord_you_canceled_your_request_to_join_the_group">グループ参加申請をキャンセルしました。</string>
+  <string name="MessageRecord_s_canceled_their_request_to_join_the_group">%1$s はグループ参加申請をキャンセルしました。</string>
   <!--End of GV2 specific update messages-->
   <string name="MessageRecord_your_safety_number_with_s_has_changed">%s に対する安全番号が変わりました。</string>
   <string name="MessageRecord_you_marked_your_safety_number_with_s_verified">%s に対する安全番号を検証済みにしました</string>
@@ -756,20 +848,20 @@
   <!--MessageRequestBottomView-->
   <string name="MessageRequestBottomView_accept">承認する</string>
   <string name="MessageRequestBottomView_delete">削除する</string>
-  <string name="MessageRequestBottomView_block">ブロックする</string>
-  <string name="MessageRequestBottomView_unblock">ブロックを解除</string>
-  <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_they_wont_know_youve_seen_their_messages_until_you_accept">%1$s にあなたへのメッセージ送信と、名前と画像の共有を承認しますか？あなたが承認するまで、相手にはあなたがメッセージを見たことははわかりません。</string>
+  <string name="MessageRequestBottomView_block">ブロック</string>
+  <string name="MessageRequestBottomView_unblock">ブロック解除</string>
+  <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_they_wont_know_youve_seen_their_messages_until_you_accept">%1$s からメッセージを受信し、あなたの名前と画像を共有しますか？承認するまで、相手にはあなたがメッセージを見たことははわかりません。</string>
   <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them">%1$s にあなたへのメッセージ送信や、名前とプロフィール画像の共有を許可しますか？ブロックを解除するまでメッセージは届きません。</string>
-  <string name="MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">このグループに参加し、あなたの名前と画像をメンバーと共有しますか？あなたが承認するまで、相手にはあなたがメッセージを見たことははわかりません。</string>
+  <string name="MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">このグループに参加し、あなたの名前と画像をメンバーと共有しますか？承認するまで、相手にはあなたがメッセージを見たことははわかりません。</string>
   <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">このグループのブロックを解除し、名前とプロフィール画像の共有を許可しますか？ブロックを解除するまでメッセージは届きません。</string>
   <string name="MessageRequestProfileView_member_of_one_group">%1$s のメンバー</string>
   <string name="MessageRequestProfileView_member_of_two_groups">%1$s と %2$s のメンバー</string>
   <string name="MessageRequestProfileView_member_of_many_groups">%1$s, %2$s および %3$s のメンバー</string>
   <plurals name="MessageRequestProfileView_members">
-    <item quantity="other">%1$d人のメンバー</item>
+    <item quantity="other">メンバー %1$d人</item>
   </plurals>
   <plurals name="MessageRequestProfileView_members_and_invited">
-    <item quantity="other">%1$d人のメンバー (+%2$d件の招待)</item>
+    <item quantity="other">メンバー %1$d人 (+%2$d件の招待)</item>
   </plurals>
   <plurals name="MessageRequestProfileView_member_of_d_additional_groups">
     <item quantity="other">ほか%dグループ</item>
@@ -817,7 +909,7 @@
   <!--PinRestoreEntryFragment-->
   <string name="PinRestoreEntryFragment_incorrect_pin">PINが違います</string>
   <string name="PinRestoreEntryFragment_skip_pin_entry">PINの入力を省略しますか？</string>
-  <string name="PinRestoreEntryFragment_need_help">ヘルプが必要ですか？</string>
+  <string name="PinRestoreEntryFragment_need_help">お困りですか？</string>
   <string name="PinRestoreEntryFragment_your_pin_is_a_d_digit_code">あなたのPINは%1$d桁以上のコードで、数字または英数字のいずれかです。\n\nもしPINを忘れてしまっても、新しく作成できます。アカウントを登録して使用することもできますが、プロフィールなどの保存されている設定情報は失われます。</string>
   <string name="PinRestoreEntryFragment_if_you_cant_remember_your_pin">もしPINを忘れてしまっても、新しく作成できます。アカウントを登録して使用することもできますが、プロフィールなどの保存されている設定情報は失われます。</string>
   <string name="PinRestoreEntryFragment_create_new_pin">新しいPINを作成</string>
@@ -861,10 +953,10 @@
   <!--RecipientProvider-->
   <string name="RecipientProvider_unnamed_group">無名グループ</string>
   <!--RedPhone-->
-  <string name="RedPhone_answering">応答中</string>
-  <string name="RedPhone_ending_call">通話を終了しています</string>
-  <string name="RedPhone_dialing">発信中</string>
-  <string name="RedPhone_ringing">着信中</string>
+  <string name="RedPhone_answering">応答しています…</string>
+  <string name="RedPhone_ending_call">通話を終了しています…</string>
+  <string name="RedPhone_dialing">発信しています…</string>
+  <string name="RedPhone_ringing">呼び出しています…</string>
   <string name="RedPhone_busy">話し中</string>
   <string name="RedPhone_connected">接続完了</string>
   <string name="RedPhone_recipient_unavailable">応答なし</string>
@@ -1023,7 +1115,7 @@
   <string name="ThreadRecord_you_marked_verified">検証済みにしました</string>
   <string name="ThreadRecord_you_marked_unverified">未検証にしました</string>
   <string name="ThreadRecord_message_could_not_be_processed">メッセージを処理できませんでした</string>
-  <string name="ThreadRecord_message_request">メッセージリクエスト</string>
+  <string name="ThreadRecord_message_request">メッセージ申請</string>
   <string name="ThreadRecord_s_added_you_to_the_group">%1$s があなたをこのグループに追加しました</string>
   <string name="ThreadRecord_s_invited_you_to_the_group">%1$s があなたをグループに招待しました</string>
   <string name="ThreadRecord_photo">写真</string>
@@ -1050,7 +1142,6 @@
   <string name="UnverifiedSendDialog_send">送信する</string>
   <!--UsernameEditFragment-->
   <string name="UsernameEditFragment_username">ユーザ名</string>
-  <string name="UsernameEditFragment_submit">送信する</string>
   <string name="UsernameEditFragment_delete">削除する</string>
   <string name="UsernameEditFragment_successfully_set_username">ユーザ名を設定しました。</string>
   <string name="UsernameEditFragment_successfully_removed_username">ユーザ名を削除しました。</string>
@@ -1061,7 +1152,7 @@
   <string name="UsernameEditFragment_usernames_cannot_begin_with_a_number">ユーザ名の先頭に数字は使用できません。</string>
   <string name="UsernameEditFragment_username_is_invalid">無効なユーザ名です。</string>
   <string name="UsernameEditFragment_usernames_must_be_between_a_and_b_characters">ユーザ名は%1$dから%2$d文字にしてください。</string>
-  <string name="UsernameEditFragment_other_signal_users_can_send_message_requests_to_your_unique_username">他のSignalユーザは、あなたの電話番号を知らなくても、あなたのユーザ名にメッセージリクエストを送信することができます。ユーザ名の選択は任意です。</string>
+  <string name="UsernameEditFragment_usernames_on_signal_are_optional">Signalのユーザ名設定は任意です。ユーザ名を作成すると、他のSignalユーザはあなたの電話番号を知らなくても、このユーザ名であなたに連絡できるようになります。</string>
   <!--VerifyIdentityActivity-->
   <string name="VerifyIdentityActivity_your_contact_is_running_an_old_version_of_signal">連絡先の相手は古いSignalを使っています。Signalをアップデートしてから安全番号の検証を行うようお願いしてください。</string>
   <string name="VerifyIdentityActivity_your_contact_is_running_a_newer_version_of_Signal">連絡先の相手は互換性のないQRコード形式を使った新しいバージョンのSignalを使っています。Signalをアップデートしてから比較してください。</string>
@@ -1253,7 +1344,7 @@
   <string name="contact_selection_list_fragment__show_contacts">連絡先を表示</string>
   <!--contact_selection_list_item-->
   <plurals name="contact_selection_list_item__number_of_members">
-    <item quantity="other">%1$d人のメンバー</item>
+    <item quantity="other">メンバー %1$d人</item>
   </plurals>
   <!--conversation_activity-->
   <string name="conversation_activity__type_message_push">Signalメッセージ</string>
@@ -1471,10 +1562,10 @@
   <string name="AndroidManifest_archived_conversations">アーカイブ済みの会話</string>
   <string name="AndroidManifest_remove_photo">写真を消去</string>
   <!--Message Requests Megaphone-->
-  <string name="MessageRequestsMegaphone__message_requests">メッセージリクエスト</string>
+  <string name="MessageRequestsMegaphone__message_requests">メッセージ申請</string>
   <string name="MessageRequestsMegaphone__users_can_now_choose_to_accept">ユーザが新しい会話を受け入れるかどうかを選択できるようになりました。プロフィール名でメッセージの送信者を示します。</string>
   <string name="MessageRequestsMegaphone__add_profile_name">プロフィール名を追加</string>
-  <string name="MessageRequestsMegaphone__new_message_requests">新機能: メッセージリクエスト</string>
+  <string name="MessageRequestsMegaphone__new_message_requests">新機能: メッセージ申請</string>
   <string name="MessageRequestsMegaphone__add_name">名前を追加</string>
   <string name="MessageRequestsMegaphone__you_can_now_choose_whether_to_accept">新しい会話を受け入れるかどうかを選択できるようになりました。「承認する」、「削除する」および「ブロックする」の選択肢が表示されます。</string>
   <!--HelpFragment-->
@@ -1502,7 +1593,7 @@
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__food">食品</string>
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__activities">アクティビティ</string>
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__places">場所</string>
-  <string name="ReactWithAnyEmojiBottomSheetDialogFragment__objects">オブジェ</string>
+  <string name="ReactWithAnyEmojiBottomSheetDialogFragment__objects">オブジェクト</string>
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__symbols">記号</string>
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__flags">旗</string>
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__emoticons">顔文字</string>
@@ -1552,7 +1643,7 @@
   <string name="preferences__change_your_passphrase">パスフレーズを変更します</string>
   <string name="preferences__enable_passphrase">パスフレーズでの画面ロックを有効にする</string>
   <string name="preferences__lock_signal_and_message_notifications_with_a_passphrase">パスフレーズで画面と通知をロックします</string>
-  <string name="preferences__screen_security">画面セキュリティ</string>
+  <string name="preferences__screen_security">画面のセキュリティ</string>
   <string name="preferences__disable_screen_security_to_allow_screen_shots">「最近使ったアプリ」やアプリ内でのスクリーンショットをブロックします</string>
   <string name="preferences__auto_lock_signal_after_a_specified_time_interval_of_inactivity">指定した無操作時間経過後にSignalを自動でロックします</string>
   <string name="preferences__inactivity_timeout_passphrase">無操作タイムアウトのパスフレーズ</string>
@@ -1665,6 +1756,7 @@
   <string name="preferences_notifications__mentions">メンション</string>
   <string name="preferences_notifications__notify_me">通知を受け取る</string>
   <string name="preferences_notifications__receive_notifications_when_youre_mentioned_in_muted_chats">ミュートした会話でメンションされた際に通知を受け取る</string>
+  <string name="preferences_setup_a_username">ユーザ名の設定</string>
   <!--Internal only preferences-->
   <!--****************************************-->
   <!--menus-->
@@ -1886,7 +1978,7 @@
   </plurals>
   <!--CalleeMustAcceptMessageRequestDialogFragment-->
   <string name="CalleeMustAcceptMessageRequestDialogFragment__okay">OK</string>
-  <string name="CalleeMustAcceptMessageRequestDialogFragment__s_will_get_a_message_request_from_you">%1$s があなたからのメッセージリクエストを受け取ります。承認されると通話できるようになります。</string>
+  <string name="CalleeMustAcceptMessageRequestDialogFragment__s_will_get_a_message_request_from_you">%1$s があなたからのメッセージ申請を受け取ります。承認されると通話できるようになります。</string>
   <!--KBS Megaphone-->
   <string name="KbsMegaphone__create_a_pin">PINを作成</string>
   <string name="KbsMegaphone__pins_keep_information_thats_stored_with_signal_encrytped">Signalで保管される情報はPINで暗号化されます。</string>
@@ -2029,11 +2121,13 @@
   <string name="RecipientBottomSheet_insecure_voice_call_description">安全ではない音声電話</string>
   <string name="RecipientBottomSheet_video_call_description">ビデオ通話</string>
   <string name="RecipientBottomSheet_remove_s_as_group_admin">グループ管理者から %1$s を削除しますか？</string>
-  <string name="RecipientBottomSheet_s_will_be_able_to_edit_group">%1$sがこのグループの設定やメンバーを編集できるようになります</string>
+  <string name="RecipientBottomSheet_s_will_be_able_to_edit_group">%1$s がこのグループの設定やメンバーを編集できるようになります</string>
   <string name="RecipientBottomSheet_remove_s_from_s">%2$s から %1$s を削除しますか？</string>
   <string name="RecipientBottomSheet_remove">削除</string>
   <string name="RecipientBottomSheet_copied_to_clipboard">クリップボードにコピーしました</string>
   <string name="GroupRecipientListItem_admin">管理者</string>
+  <string name="GroupRecipientListItem_approve_description">承認する</string>
+  <string name="GroupRecipientListItem_deny_description">拒否する</string>
   <!--GroupsLearnMoreBottomSheetDialogFragment-->
   <string name="GroupsLearnMore_legacy_vs_new_groups">レガシーグループと新グループ</string>
   <string name="GroupsLearnMore_what_are_legacy_groups">レガシーグループとは？</string>
@@ -2041,5 +2135,12 @@
   <string name="GroupsLearnMore_how_do_i_use_new_groups">どうすれば新グループを使えますか？</string>
   <string name="GroupsLearnMore_paragraph_2">レガシーグループを新グループに変換することはできませんが、同じメンバーで新グループを作成できます。</string>
   <string name="GroupsLearnMore_paragraph_3">新グループを作成するには、すべてのメンバーが最新バージョンのSignalにアップデートしてください。</string>
+  <!--GroupLinkBottomSheetDialogFragment-->
+  <string name="GroupLinkBottomSheet_share_via_signal">Signal経由で共有する</string>
+  <string name="GroupLinkBottomSheet_copy">コピー</string>
+  <string name="GroupLinkBottomSheet_qr_code">QRコード</string>
+  <string name="GroupLinkBottomSheet_share">共有</string>
+  <string name="GroupLinkBottomSheet_copied_to_clipboard">クリップボードにコピーしました</string>
+  <string name="GroupLinkBottomSheet_the_link_is_not_currently_active">このリンクは現在利用できません</string>
   <!--EOF-->
 </resources>

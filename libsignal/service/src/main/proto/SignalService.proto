@@ -203,9 +203,11 @@ message DataMessage {
   }
 
   message Preview {
-    optional string            url   = 1;
-    optional string            title = 2;
-    optional AttachmentPointer image = 3;
+    optional string            url         = 1;
+    optional string            title       = 2;
+    optional AttachmentPointer image       = 3;
+    optional string            description = 4;
+    optional uint64            date        = 5;
   }
 
   message Sticker {
@@ -353,8 +355,9 @@ message SyncMessage {
     optional bool   readReceipts                   = 1;
     optional bool   unidentifiedDeliveryIndicators = 2;
     optional bool   typingIndicators               = 3;
-    optional bool   linkPreviews                   = 4;
+    // 4 is reserved (old link preview setting)
     optional uint32 provisioningVersion            = 5;
+    optional bool   linkPreviews                   = 6;
   }
 
   message StickerPackOperation {

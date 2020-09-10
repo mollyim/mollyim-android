@@ -47,6 +47,8 @@
   <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">Els PIN són necessaris per al bloqueig de registre. Per desactivar-los, primer desactiveu el bloqueig de registre.</string>
   <string name="ApplicationPreferencesActivity_pin_created">PIN creat.</string>
   <string name="ApplicationPreferencesActivity_pin_disabled">PIN desactivat.</string>
+  <string name="ApplicationPreferencesActivity_hide">Amaga</string>
+  <string name="ApplicationPreferencesActivity_hide_reminder">Amago el recordatori?</string>
   <!--AppProtectionPreferenceFragment-->
   <plurals name="AppProtectionPreferenceFragment_minutes">
     <item quantity="one">%d minute</item>
@@ -197,7 +199,7 @@
   <string name="ConversationActivity_are_you_sure_you_want_to_leave_this_group">Segur que voleu abandonar aquest grup?</string>
   <string name="ConversationActivity_choose_new_admin">Trieu un administrador nou</string>
   <string name="ConversationActivity_before_you_leave_you_must_choose_at_least_one_new_admin_for_this_group">Abans d\'abandonar-lo, heu de triar almenys un administrador nou per a aquest grup.</string>
-  <string name="ConversationActivity_choose_admin">Trieu un administrador/a</string>
+  <string name="ConversationActivity_choose_admin">Trieu un administrador</string>
   <string name="ConversationActivity_transport_insecure_sms">SMS no segur</string>
   <string name="ConversationActivity_transport_insecure_mms">MMS no segur</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
@@ -213,6 +215,8 @@
   <string name="ConversationActivity_unable_to_record_audio">No s\'ha pogut enregistrar l\'àudio.</string>
   <string name="ConversationActivity_you_cant_send_messages_to_this_group">No podeu enviar missatges a aquest grup perquè ja no en sou membre.</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">No hi ha cap aplicació que pugui obrir aquest enllaç.</string>
+  <string name="ConversationActivity_your_request_to_join_has_been_sent_to_the_group_admin">La sol·licitud per afegir-vos-hi s\'ha enviat a l\'administrador/a del grup. Rebreu una notificació quan la resolguin.</string>
+  <string name="ConversationActivity_cancel_request">Cancel·la la sol·licitud</string>
   <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Per enviar missatges d\'àudio, permeteu que el Molly tingui accés al micròfon.</string>
   <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">El Molly necessita el permís del micròfon per tal d\'enviar missatges d\'àudio, però s\'ha denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi el micròfon.</string>
   <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">El Molly necessita el permís del micròfon i de la càmera per tal de trucar a %s, però s\'han denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi el micròfon i la càmera.</string>
@@ -338,6 +342,7 @@
   <string name="AvatarSelectionBottomSheetDialogFragment__take_photo">Feu una fotografia</string>
   <string name="AvatarSelectionBottomSheetDialogFragment__choose_from_gallery">Trieu-ne una de la galeria</string>
   <string name="AvatarSelectionBottomSheetDialogFragment__remove_photo">Suprimeix la foto</string>
+  <string name="AvatarSelectionBottomSheetDialogFragment__taking_a_photo_requires_the_camera_permission">Fer una fotografia necessita permís de la càmera.</string>
   <!--DateUtils-->
   <string name="DateUtils_just_now">Ara</string>
   <string name="DateUtils_minutes_ago">%d min</string>
@@ -397,8 +402,10 @@
   <!--GroupMembersDialog-->
   <string name="GroupMembersDialog_you">Vós</string>
   <!--GV2 access levels-->
+  <string name="GroupManagement_access_level_anyone">Qualsevol</string>
   <string name="GroupManagement_access_level_all_members">Tots els membres</string>
   <string name="GroupManagement_access_level_only_admins">Només els administradors</string>
+  <string name="GroupManagement_access_level_no_one">Cap</string>
   <!--GV2 invites sent-->
   <plurals name="GroupManagement_invitation_sent">
     <item quantity="one">Invitació enviada</item>
@@ -413,8 +420,17 @@
   <string name="LinkPreviewsMegaphone_you_can_now_retrieve_link_previews_directly_from_any_website">Ara podeu recuperar les previsualitzacions d’enllaços directament des de qualsevol lloc web per als missatges que envieu.</string>
   <!--LinkPreviewView-->
   <string name="LinkPreviewView_no_link_preview_available">No hi ha previsualització d\'enllaç disponible.</string>
+  <string name="LinkPreviewView_this_group_link_is_not_active">Aquest enllaç de grup no està actiu.</string>
+  <string name="LinkPreviewView_domain_date">%1$s · %2$s</string>
+  <!--LinkPreviewRepository-->
+  <plurals name="LinkPreviewRepository_d_members">
+    <item quantity="one">%1$d membre</item>
+    <item quantity="other">%1$d membres</item>
+  </plurals>
   <!--PendingMembersActivity-->
   <string name="PendingMemberInvitesActivity_pending_group_invites">Invitacions de grup pendents</string>
+  <string name="PendingMembersActivity_requests">Sol·licituds</string>
+  <string name="PendingMembersActivity_invites">Invitacions</string>
   <string name="PendingMembersActivity_people_you_invited">Persones que heu convidat</string>
   <string name="PendingMembersActivity_you_have_no_pending_invites">No teniu invitacions pendents.</string>
   <string name="PendingMembersActivity_invites_by_other_group_members">Invitacions d\'altres membres del grup</string>
@@ -430,6 +446,12 @@
     <item quantity="one">Error en rebutjar la invitació</item>
     <item quantity="other">Error en rebutjar invitacions</item>
   </plurals>
+  <!--RequestingMembersFragment-->
+  <string name="RequestingMembersFragment_pending_member_requests">Sol·licituds d\'adhesió pendents</string>
+  <string name="RequestingMembersFragment_no_member_requests_to_show">No hi ha cap sol·licitud d\'adhesió per mostrar.</string>
+  <string name="RequestingMembersFragment_explanation">La gent d\'aquesta llista intenta afegir-se a aquest grup per l\'enllaç de grup que es pot compartir.</string>
+  <string name="RequestingMembersFragment_added_s">S\'hi ha afegit %1$s</string>
+  <string name="RequestingMembersFragment_denied_s">S\'ha rebutjat %1$s</string>
   <!--AddMembersActivity-->
   <string name="AddMembersActivity__done">Fet</string>
   <string name="AddMembersActivity__this_person_cant_be_added_to_legacy_groups">Aquesta persona no es pot afegir a grups de llegat.</string>
@@ -464,10 +486,12 @@
   <!--ManageGroupActivity-->
   <string name="ManageGroupActivity_disappearing_messages">Missatges efímers</string>
   <string name="ManageGroupActivity_pending_group_invites">Invitacions de grup pendents</string>
+  <string name="ManageGroupActivity_member_requests_and_invites">Sol·licituds d\'adhesió i invitacions</string>
   <string name="ManageGroupActivity_add_members">Afegiu-hi membres</string>
   <string name="ManageGroupActivity_edit_group_info">Edita la informació del grup</string>
   <string name="ManageGroupActivity_choose_who_can_edit_the_group_name_avatar_and_disappearing_messages">Trieu qui pot editar el nom del grup, l\'avatar i els missatges efímers.</string>
   <string name="ManageGroupActivity_choose_who_can_add_or_invite_new_members">Trieu qui pot afegir-hi o convidar-hi membres nous.</string>
+  <string name="ManageGroupActivity_sharable_group_link">Enllaç de grup que es pot compartir</string>
   <string name="ManageGroupActivity_block_group">Bloca el grup</string>
   <string name="ManageGroupActivity_unblock_group">Desbloca el grup</string>
   <string name="ManageGroupActivity_leave_group">Abandona el grup</string>
@@ -545,6 +569,24 @@
   <string name="CustomNotificationsDialogFragment__enabled">Activat</string>
   <string name="CustomNotificationsDialogFragment__disabled">Desactivat</string>
   <string name="CustomNotificationsDialogFragment__default">Per defecte</string>
+  <!--ShareableGroupLinkDialogFragment-->
+  <string name="ShareableGroupLinkDialogFragment__shareable_group_link">Enllaç de grup que es pot compartir</string>
+  <string name="ShareableGroupLinkDialogFragment__manage_and_share">Gestió i compartició</string>
+  <string name="ShareableGroupLinkDialogFragment__group_link">Enllaç del grup</string>
+  <string name="ShareableGroupLinkDialogFragment__share">Compartir-lo</string>
+  <string name="ShareableGroupLinkDialogFragment__reset_link">Restableix l\'enllaç</string>
+  <string name="ShareableGroupLinkDialogFragment__member_requests">Sol·licituds d\'adhesió</string>
+  <string name="ShareableGroupLinkDialogFragment__approve_new_members">Aproveu membres nous</string>
+  <string name="ShareableGroupLinkDialogFragment__enabled">Activat</string>
+  <string name="ShareableGroupLinkDialogFragment__disabled">Desactivat</string>
+  <string name="ShareableGroupLinkDialogFragment__default">Per defecte</string>
+  <string name="ShareableGroupLinkDialogFragment__group_link_reset">Restableix l\'enllaç del grup</string>
+  <string name="ShareableGroupLinkDialogFragment__require_an_admin_to_approve_new_members_joining_via_the_group_link">Requereix que un administrador aprovi els membres nous que s’afegeixin per l’enllaç del grup.</string>
+  <string name="ShareableGroupLinkDialogFragment__are_you_sure_you_want_to_reset_the_group_link">Segur que voleu restablir l\'enllaç del grup? La gent ja no podrà afegir-se al grup amb l’enllaç actual.</string>
+  <!--GroupLinkShareQrDialogFragment-->
+  <string name="GroupLinkShareQrDialogFragment__qr_code">Codi QR</string>
+  <string name="GroupLinkShareQrDialogFragment__people_who_scan_this_code_will">Les persones que escanegin aquest codi podran afegir-se al grup. Els administradors encara hauran d\'aprovar els membres nous si teniu activada aquesta opció.</string>
+  <string name="GroupLinkShareQrDialogFragment__share_code">Comparteix el codi</string>
   <!--GV2 Invite Revoke confirmation dialog-->
   <string name="InviteRevokeConfirmationDialog_revoke_own_single_invite">Voleu rebutjar la invitació que heu enviat a %1$s?</string>
   <plurals name="InviteRevokeConfirmationDialog_revoke_others_invites">
@@ -553,10 +595,30 @@
   </plurals>
   <!--GroupJoinBottomSheetDialogFragment-->
   <string name="GroupJoinBottomSheetDialogFragment_you_are_already_a_member">Ja en sou membre.</string>
+  <string name="GroupJoinBottomSheetDialogFragment_join">Afegeix-m\'hi</string>
+  <string name="GroupJoinBottomSheetDialogFragment_request_to_join">Demaneu afegir-vos-hi</string>
+  <string name="GroupJoinBottomSheetDialogFragment_unable_to_join_group_please_try_again_later">No es pot afegir al grup. Torneu-ho a provar és tard.</string>
+  <string name="GroupJoinBottomSheetDialogFragment_encountered_a_network_error">Hi ha hagut un error de xarxa.</string>
+  <string name="GroupJoinBottomSheetDialogFragment_this_group_link_is_not_active">Aquest enllaç de grup no està actiu.</string>
+  <string name="GroupJoinBottomSheetDialogFragment_unable_to_get_group_information_please_try_again_later">No es pot obtenir la informació del grup. Torneu-ho a provar més tard.</string>
+  <string name="GroupJoinBottomSheetDialogFragment_direct_join">Voleu afegir-vos a aquest grup i compartir-hi el nom i la fotografia?</string>
+  <string name="GroupJoinBottomSheetDialogFragment_admin_approval_needed">Un administrador d\'aquest grup ha d\'aprovar la sol·licitud abans de poder-vos afegir-hi. Quan demaneu afegir-vos-hi, el vostre nom i la fotografia es compartiran amb els seus membres.</string>
+  <plurals name="GroupJoinBottomSheetDialogFragment_group_dot_d_members">
+    <item quantity="one">Grup · %1$d membre</item>
+    <item quantity="other">Grup · %1$d membres</item>
+  </plurals>
   <!--GroupJoinUpdateRequiredBottomSheetDialogFragment-->
+  <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_group_links_coming_soon">Aviat hi haurà enllaços de grup</string>
   <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_signal_to_use_group_links">Actualitzeu el Signal per usar els enllaços de grup</string>
+  <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_coming_soon">Afegir-se a un grup per un enllaç encara no és possible amb el Signal. Aquesta funció s\'activarà en una actualització propera.</string>
   <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_message">La versió del Signal que useu no admet enllaços de grup compartibles. Actualitzeu a la versió més recent per afegir-vos a aquest grup per l\'enllaç.</string>
   <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_signal">Actualitza el Signal</string>
+  <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_group_link_is_not_valid">L\'enllaç de grup no és vàlid.</string>
+  <!--GV2 Request confirmation dialog-->
+  <string name="RequestConfirmationDialog_add_s_to_the_group">Voleu afegir %1$s al grup?</string>
+  <string name="RequestConfirmationDialog_deny_request_from_s">Voleu rebutjar la sol·licitud de %1$s?</string>
+  <string name="RequestConfirmationDialog_add">Afegeix</string>
+  <string name="RequestConfirmationDialog_deny">Rebutja-la</string>
   <!--CropImageActivity-->
   <string name="CropImageActivity_group_avatar">Avatar del grup</string>
   <string name="CropImageActivity_profile_avatar">Avatar</string>
@@ -724,16 +786,16 @@
   <string name="MessageRecord_you_are_no_longer_in_the_group">Ja no sou al grup.</string>
   <string name="MessageRecord_s_is_no_longer_in_the_group">%1$s ja no és al grup.</string>
   <!--GV2 role change-->
-  <string name="MessageRecord_you_made_s_an_admin">Heu fet que %1$s sigui administrador/a.</string>
-  <string name="MessageRecord_s_made_s_an_admin">%1$s ha fet que %2$s sigui administrador/a.</string>
-  <string name="MessageRecord_s_made_you_an_admin">%1$s us ha fet administrador/a.</string>
-  <string name="MessageRecord_you_revoked_admin_privileges_from_s">Heu rebutjat els privilegis d\'administrador/a de %1$s.</string>
-  <string name="MessageRecord_s_revoked_your_admin_privileges">%1$s us ha revocat els privilegis d\'administrador/a.</string>
-  <string name="MessageRecord_s_revoked_admin_privileges_from_s">%1$s ha rebutjat els privilegis d\'administrador/a de %2$s.</string>
-  <string name="MessageRecord_s_is_now_an_admin">%1$s ara és un administrador/a.</string>
+  <string name="MessageRecord_you_made_s_an_admin">Heu fet que %1$s sigui administrador.</string>
+  <string name="MessageRecord_s_made_s_an_admin">%1$s ha fet que %2$s sigui administrador.</string>
+  <string name="MessageRecord_s_made_you_an_admin">%1$s us ha fet administrador.</string>
+  <string name="MessageRecord_you_revoked_admin_privileges_from_s">Heu rebutjat els privilegis d\'administrador de %1$s.</string>
+  <string name="MessageRecord_s_revoked_your_admin_privileges">%1$s us ha revocat els privilegis d\'administrador.</string>
+  <string name="MessageRecord_s_revoked_admin_privileges_from_s">%1$s ha rebutjat els privilegis d\'administrador de %2$s.</string>
+  <string name="MessageRecord_s_is_now_an_admin">%1$s ara és un administrador.</string>
   <string name="MessageRecord_you_are_now_an_admin">Ara sou un administrador.</string>
-  <string name="MessageRecord_s_is_no_longer_an_admin">%1$s ja no és un administrador/a.</string>
-  <string name="MessageRecord_you_are_no_longer_an_admin">Ja no sou un administrador/a.</string>
+  <string name="MessageRecord_s_is_no_longer_an_admin">%1$s ja no és un administrador.</string>
+  <string name="MessageRecord_you_are_no_longer_an_admin">Ja no sou un administrador.</string>
   <!--GV2 invitations-->
   <string name="MessageRecord_you_invited_s_to_the_group">Heu convidat %1$s al grup.</string>
   <string name="MessageRecord_s_invited_you_to_the_group">%1$s us ha convidat al grup.</string>
@@ -758,7 +820,7 @@
   <string name="MessageRecord_someone_declined_an_invitation_to_the_group">Algú ha rebutjat una invitació al grup.</string>
   <string name="MessageRecord_you_declined_the_invitation_to_the_group">Heu rebutjat la invitació al grup.</string>
   <string name="MessageRecord_s_revoked_your_invitation_to_the_group">%1$s ha rebutjat la vostra invitació al grup.</string>
-  <string name="MessageRecord_an_admin_revoked_your_invitation_to_the_group">Un administrador/a ha rebutjat la vostra invitació al grup.</string>
+  <string name="MessageRecord_an_admin_revoked_your_invitation_to_the_group">Un administrador ha rebutjat la vostra invitació al grup.</string>
   <plurals name="MessageRecord_d_invitations_were_revoked">
     <item quantity="one"> Una invitació al grup s\'ha rebutjat.</item>
     <item quantity="other">%1$d invitacions al grup s\'han rebutjat.</item>
@@ -784,6 +846,38 @@
   <string name="MessageRecord_you_changed_who_can_edit_group_membership_to_s">Heu canviat qui pot editar els membres del grup a \"%1$s\".</string>
   <string name="MessageRecord_s_changed_who_can_edit_group_membership_to_s">%1$s ha canviat qui pot editar els membres del grup a \"%2$s\".</string>
   <string name="MessageRecord_who_can_edit_group_membership_has_been_changed_to_s">S\'ha canviat qui pot editar els membres del grup a \"%1$s\".</string>
+  <!--GV2 group link invite access level change-->
+  <string name="MessageRecord_you_turned_on_the_sharable_group_link">Heu activat l\'enllaç de grup que es pot compartir.</string>
+  <string name="MessageRecord_you_turned_on_the_sharable_group_link_with_admin_approval">Heu activat l\'enllaç de grup que es pot compartir amb aprovació de l\'administrador/a.</string>
+  <string name="MessageRecord_you_turned_off_the_sharable_group_link">Heu desactivat l\'enllaç de grup que es pot compartir.</string>
+  <string name="MessageRecord_s_turned_on_the_sharable_group_link">%1$s ha activat l\'enllaç de grup que es pot compartir.</string>
+  <string name="MessageRecord_s_turned_on_the_sharable_group_link_with_admin_approval">%1$s ha activat l\'enllaç de grup que es pot compartir amb aprovació de l\'administrador/a.</string>
+  <string name="MessageRecord_s_turned_off_the_sharable_group_link">%1$s ha desactivat l\'enllaç de grup que es pot compartir.</string>
+  <string name="MessageRecord_the_sharable_group_link_has_been_turned_on">S\'ha activat l\'enllaç de grup que es pot compartir.</string>
+  <string name="MessageRecord_the_sharable_group_link_has_been_turned_on_with_admin_approval">S\'ha activat l\'enllaç de grup que es pot compartir amb aprovació de l\'administrador/a.</string>
+  <string name="MessageRecord_the_sharable_group_link_has_been_turned_off">S\'ha desactivat l\'enllaç de grup que es pot compartir.</string>
+  <!--GV2 group link reset-->
+  <string name="MessageRecord_you_reset_the_sharable_group_link">Heu restablert l\'enllaç de grup que es pot compartir.</string>
+  <string name="MessageRecord_s_reset_the_sharable_group_link">%1$s ha restablert l\'enllaç de grup que es pot compartir.</string>
+  <string name="MessageRecord_the_sharable_group_link_has_been_reset">S\'ha restablert l\'enllaç de grup que es pot compartir.</string>
+  <!--GV2 group link joins-->
+  <string name="MessageRecord_you_joined_the_group_via_the_sharable_group_link">Us heu afegit al grup per l\'enllaç de grup que es pot compartir.</string>
+  <string name="MessageRecord_s_joined_the_group_via_the_sharable_group_link">%1$ss\'ha afegit al grup per l\'enllaç de grup que es pot compartir.</string>
+  <!--GV2 group link requests-->
+  <string name="MessageRecord_you_sent_a_request_to_join_the_group">Heu enviat la sol·licitud per afegir-vos al grup.</string>
+  <string name="MessageRecord_s_requested_to_join_via_the_sharable_group_link">%1$sha demanat afegir-s\'hi per l\'enllaç de grup que es pot compartir.</string>
+  <!--GV2 group link approvals-->
+  <string name="MessageRecord_s_approved_your_request_to_join_the_group">%1$s ha aprovat la sol·licitud per afegir-vos al grup.</string>
+  <string name="MessageRecord_s_approved_a_request_to_join_the_group_from_s">%1$s ha aprovat una sol·licitud de %2$sper afegir-se al grup.</string>
+  <string name="MessageRecord_you_approved_a_request_to_join_the_group_from_s">Heu aprovat una sol·licitud d\'adhesió al grup de %1$s.</string>
+  <string name="MessageRecord_your_request_to_join_the_group_has_been_approved">S\'ha aprovat la sol·licitud per afegir-vos al grup.</string>
+  <string name="MessageRecord_a_request_to_join_the_group_from_s_has_been_approved">S\'ha aprovat la sol·licitud de %1$sper afegir-se al grup.</string>
+  <!--GV2 group link deny-->
+  <string name="MessageRecord_your_request_to_join_the_group_has_been_denied_by_an_admin">Un administrador ha rebutjat la sol·licitud per afegir-vos al grup.</string>
+  <string name="MessageRecord_s_denied_a_request_to_join_the_group_from_s">%1$s ha rebutjat una sol·licitud de %2$sper afegir-se al grup.</string>
+  <string name="MessageRecord_a_request_to_join_the_group_from_s_has_been_denied">S\'ha rebutjat la sol·licitud de %1$sper afegir-se al grup.</string>
+  <string name="MessageRecord_you_canceled_your_request_to_join_the_group">Heu cancel·lat la sol·licitud per afegir-vos al grup.</string>
+  <string name="MessageRecord_s_canceled_their_request_to_join_the_group">%1$s ha cancel·lat la sol·licitud per afegir-se al grup.</string>
   <!--End of GV2 specific update messages-->
   <string name="MessageRecord_your_safety_number_with_s_has_changed">El número de seguretat amb %s ha canviat.</string>
   <string name="MessageRecord_you_marked_your_safety_number_with_s_verified">Heu verificat el número de seguretat amb %s</string>
@@ -902,10 +996,10 @@
   <!--RecipientProvider-->
   <string name="RecipientProvider_unnamed_group">Grup sense nom</string>
   <!--RedPhone-->
-  <string name="RedPhone_answering">Resposta</string>
-  <string name="RedPhone_ending_call">S\'acaba la trucada</string>
-  <string name="RedPhone_dialing">Es marca el número</string>
-  <string name="RedPhone_ringing">Sona</string>
+  <string name="RedPhone_answering">Resposta…</string>
+  <string name="RedPhone_ending_call">S\'acaba la trucada…</string>
+  <string name="RedPhone_dialing">Es marca…</string>
+  <string name="RedPhone_ringing">Sona…</string>
   <string name="RedPhone_busy">Ocupat</string>
   <string name="RedPhone_connected">Connectat</string>
   <string name="RedPhone_recipient_unavailable">Destinatari no disponible</string>
@@ -1096,7 +1190,6 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="UnverifiedSendDialog_send">Envia</string>
   <!--UsernameEditFragment-->
   <string name="UsernameEditFragment_username">Nom d\'usuari</string>
-  <string name="UsernameEditFragment_submit">Envia</string>
   <string name="UsernameEditFragment_delete">Suprimeix</string>
   <string name="UsernameEditFragment_successfully_set_username">El nom d\'usuari s\'ha establert correctament.</string>
   <string name="UsernameEditFragment_successfully_removed_username">El nom d\'usuari s\'ha suprimit correctament.</string>
@@ -1107,7 +1200,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="UsernameEditFragment_usernames_cannot_begin_with_a_number">Els noms d\'usuari no poden començar amb un número.</string>
   <string name="UsernameEditFragment_username_is_invalid">El nom d\'usuari no és vàlid.</string>
   <string name="UsernameEditFragment_usernames_must_be_between_a_and_b_characters">Els noms d\'usuari han de tenir entre %1$d i %2$d caràcters.</string>
-  <string name="UsernameEditFragment_other_signal_users_can_send_message_requests_to_your_unique_username">Altres usuaris del Signal poden enviar peticions de missatge al vostre nom d\'usuari únic sense saber-ne el número de telèfon. Triar un nom d\'usuari és opcional.</string>
+  <string name="UsernameEditFragment_usernames_on_signal_are_optional">Els noms d’usuari a Signal són opcionals. Si trieu crear un nom d’usuari, altres usuaris del Signal us podran trobar per aquest nom i contactar-vos sense saber el vostre número de telèfon.</string>
   <!--VerifyIdentityActivity-->
   <string name="VerifyIdentityActivity_your_contact_is_running_an_old_version_of_signal">El vostre contacte està fent servir una versió antiga del Signal. Demaneu-li que l\'actualitzi abans de verificar el número de seguretat.</string>
   <string name="VerifyIdentityActivity_your_contact_is_running_a_newer_version_of_Signal">El vostre contacte està fent servir una versió nova del Signal amb un format del codi QR no compatible. Actualitzeu-la per comparar-lo.</string>
@@ -1721,6 +1814,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="preferences_notifications__mentions">Mencions</string>
   <string name="preferences_notifications__notify_me">Notifica-m\'ho</string>
   <string name="preferences_notifications__receive_notifications_when_youre_mentioned_in_muted_chats">Rebeu notificacions quan us mencionin en xats silenciats.</string>
+  <string name="preferences_setup_a_username">Estableix un nom d\'usuari</string>
   <!--Internal only preferences-->
   <!--****************************************-->
   <!--menus-->
@@ -2086,18 +2180,20 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="RecipientBottomSheet_add_to_another_group">Afegeix-lo a un altre grup</string>
   <string name="RecipientBottomSheet_view_safety_number">Mostra el número de seguretat</string>
   <string name="RecipientBottomSheet_make_group_admin">Fes adminstrador/a del grup</string>
-  <string name="RecipientBottomSheet_remove_as_admin">Suprimeix com a administrador/a</string>
+  <string name="RecipientBottomSheet_remove_as_admin">Suprimeix com a administrador</string>
   <string name="RecipientBottomSheet_remove_from_group">Suprimeix del grup</string>
   <string name="RecipientBottomSheet_message_description">Missatge</string>
   <string name="RecipientBottomSheet_voice_call_description">Trucada de veu</string>
   <string name="RecipientBottomSheet_insecure_voice_call_description">Trucada de veu no segura</string>
   <string name="RecipientBottomSheet_video_call_description">Trucada de vídeo</string>
-  <string name="RecipientBottomSheet_remove_s_as_group_admin">Voleu suprimir %1$s com a administrador/a del grup?</string>
+  <string name="RecipientBottomSheet_remove_s_as_group_admin">Voleu suprimir %1$s com a administrador del grup?</string>
   <string name="RecipientBottomSheet_s_will_be_able_to_edit_group">%1$s podrà editar aquest grup i els seus membres.</string>
   <string name="RecipientBottomSheet_remove_s_from_s">Voleu suprimir %1$s de \"%2$s\"?</string>
   <string name="RecipientBottomSheet_remove">Suprimeix</string>
   <string name="RecipientBottomSheet_copied_to_clipboard">Copiat al porta-retalls</string>
-  <string name="GroupRecipientListItem_admin">Administrador/a</string>
+  <string name="GroupRecipientListItem_admin">Administrador</string>
+  <string name="GroupRecipientListItem_approve_description">Aprova-la</string>
+  <string name="GroupRecipientListItem_deny_description">Rebutja-la</string>
   <!--GroupsLearnMoreBottomSheetDialogFragment-->
   <string name="GroupsLearnMore_legacy_vs_new_groups">Grups de llegat vs. grups nous</string>
   <string name="GroupsLearnMore_what_are_legacy_groups">Què són els grups de llegat?</string>
@@ -2105,5 +2201,12 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="GroupsLearnMore_how_do_i_use_new_groups">Com uso els grups nous?</string>
   <string name="GroupsLearnMore_paragraph_2">Els grups de llegat no es poden convertir a grups nous, però podeu crear un grup nou amb els mateixos membres.</string>
   <string name="GroupsLearnMore_paragraph_3">Per crear un grup nou, tots els membres han d\'actualitzar el Signal a la darrera versió.</string>
+  <!--GroupLinkBottomSheetDialogFragment-->
+  <string name="GroupLinkBottomSheet_share_via_signal">Comparteix per Signal</string>
+  <string name="GroupLinkBottomSheet_copy">Copia</string>
+  <string name="GroupLinkBottomSheet_qr_code">Codi QR</string>
+  <string name="GroupLinkBottomSheet_share">Compartir-lo</string>
+  <string name="GroupLinkBottomSheet_copied_to_clipboard">Copiat al porta-retalls</string>
+  <string name="GroupLinkBottomSheet_the_link_is_not_currently_active">Ara l\'enllaç no està actiu.</string>
   <!--EOF-->
 </resources>

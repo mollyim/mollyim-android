@@ -56,6 +56,8 @@
     <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">PINs are required for registration lock. To disable PINs, please first disable registration lock.</string>
     <string name="ApplicationPreferencesActivity_pin_created">PIN created.</string>
     <string name="ApplicationPreferencesActivity_pin_disabled">PIN disabled.</string>
+    <string name="ApplicationPreferencesActivity_hide">Hide</string>
+    <string name="ApplicationPreferencesActivity_hide_reminder">Hide reminder?</string>
 
     <!-- AppProtectionPreferenceFragment -->
     <plurals name="AppProtectionPreferenceFragment_minutes">
@@ -245,6 +247,8 @@
     <string name="ConversationActivity_unable_to_record_audio">Unable to record audio!</string>
     <string name="ConversationActivity_you_cant_send_messages_to_this_group">You can\'t send messages to this group because you\'re no longer a member.</string>
     <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">There is no app available to handle this link on your device.</string>
+    <string name="ConversationActivity_your_request_to_join_has_been_sent_to_the_group_admin">Your request to join has been sent to the group admin. You\'ll be notified when they take action.</string>
+    <string name="ConversationActivity_cancel_request">Cancel Request</string>
 
     <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">To send audio messages, allow Molly access to your microphone.</string>
     <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly requires the Microphone permission in order to send audio messages, but it has been permanently denied. Please continue to app settings, select \"Permissions\", and enable \"Microphone\".</string>
@@ -387,6 +391,7 @@
     <string name="AvatarSelectionBottomSheetDialogFragment__take_photo">Take photo</string>
     <string name="AvatarSelectionBottomSheetDialogFragment__choose_from_gallery">Choose from gallery</string>
     <string name="AvatarSelectionBottomSheetDialogFragment__remove_photo">Remove photo</string>
+    <string name="AvatarSelectionBottomSheetDialogFragment__taking_a_photo_requires_the_camera_permission">Taking a photo requires the camera permission.</string>
 
     <!-- DateUtils -->
     <string name="DateUtils_just_now">Now</string>
@@ -463,8 +468,10 @@
     <string name="GroupMembersDialog_you">You</string>
 
     <!-- GV2 access levels -->
+    <string name="GroupManagement_access_level_anyone">Anyone</string>
     <string name="GroupManagement_access_level_all_members">All members</string>
     <string name="GroupManagement_access_level_only_admins">Only admins</string>
+    <string name="GroupManagement_access_level_no_one">No one</string>
     <string name="GroupManagement_access_level_unknown" translatable="false">Unknown</string>
     <array name="GroupManagement_edit_group_membership_choices">
         <item>@string/GroupManagement_access_level_all_members</item>
@@ -491,9 +498,19 @@
 
     <!-- LinkPreviewView -->
     <string name="LinkPreviewView_no_link_preview_available">No link preview available</string>
+    <string name="LinkPreviewView_this_group_link_is_not_active">This group link is not active</string>
+    <string name="LinkPreviewView_domain_date">%1$s · %2$s</string>
+
+    <!-- LinkPreviewRepository -->
+    <plurals name="LinkPreviewRepository_d_members">
+        <item quantity="one">%1$d member</item>
+        <item quantity="other">%1$d members</item>
+    </plurals>
 
     <!-- PendingMembersActivity -->
     <string name="PendingMemberInvitesActivity_pending_group_invites">Pending group invites</string>
+    <string name="PendingMembersActivity_requests">Requests</string>
+    <string name="PendingMembersActivity_invites">Invites</string>
     <string name="PendingMembersActivity_people_you_invited">People you invited</string>
     <string name="PendingMembersActivity_you_have_no_pending_invites">You have no pending invites.</string>
     <string name="PendingMembersActivity_invites_by_other_group_members">Invites by other group members</string>
@@ -510,6 +527,13 @@
         <item quantity="one">Error revoking invite</item>
         <item quantity="other">Error revoking invites</item>
     </plurals>
+    
+    <!-- RequestingMembersFragment -->
+    <string name="RequestingMembersFragment_pending_member_requests">Pending member requests</string>
+    <string name="RequestingMembersFragment_no_member_requests_to_show">No member requests to show.</string>
+    <string name="RequestingMembersFragment_explanation">People on this list are attempting to join this group via the sharable group link.</string>
+    <string name="RequestingMembersFragment_added_s">Added "%1$s"</string>
+    <string name="RequestingMembersFragment_denied_s">Denied "%1$s"</string>
 
     <!-- AddMembersActivity -->
     <string name="AddMembersActivity__done">Done</string>
@@ -548,10 +572,12 @@
     <!-- ManageGroupActivity -->
     <string name="ManageGroupActivity_disappearing_messages">Disappearing messages</string>
     <string name="ManageGroupActivity_pending_group_invites">Pending group invites</string>
+    <string name="ManageGroupActivity_member_requests_and_invites">Member requests &amp; invites</string>
     <string name="ManageGroupActivity_add_members">Add members</string>
     <string name="ManageGroupActivity_edit_group_info">Edit group info</string>
     <string name="ManageGroupActivity_choose_who_can_edit_the_group_name_avatar_and_disappearing_messages">Choose who can edit the group name, avatar, and disappearing messages.</string>
     <string name="ManageGroupActivity_choose_who_can_add_or_invite_new_members">Choose who can add or invite new members.</string>
+    <string name="ManageGroupActivity_sharable_group_link">Sharable group link</string>
     <string name="ManageGroupActivity_block_group">Block group</string>
     <string name="ManageGroupActivity_unblock_group">Unblock group</string>
     <string name="ManageGroupActivity_leave_group">Leave group</string>
@@ -636,6 +662,26 @@
     <string name="CustomNotificationsDialogFragment__enabled">Enabled</string>
     <string name="CustomNotificationsDialogFragment__disabled">Disabled</string>
     <string name="CustomNotificationsDialogFragment__default">Default</string>
+    
+    <!-- ShareableGroupLinkDialogFragment -->
+    <string name="ShareableGroupLinkDialogFragment__shareable_group_link">Shareable group link</string>
+    <string name="ShareableGroupLinkDialogFragment__manage_and_share">Manage &amp; share</string>
+    <string name="ShareableGroupLinkDialogFragment__group_link">Group link</string>
+    <string name="ShareableGroupLinkDialogFragment__share">Share</string>
+    <string name="ShareableGroupLinkDialogFragment__reset_link">Reset link</string>
+    <string name="ShareableGroupLinkDialogFragment__member_requests">Member requests</string>
+    <string name="ShareableGroupLinkDialogFragment__approve_new_members">Approve new members</string>
+    <string name="ShareableGroupLinkDialogFragment__enabled">Enabled</string>
+    <string name="ShareableGroupLinkDialogFragment__disabled">Disabled</string>
+    <string name="ShareableGroupLinkDialogFragment__default">Default</string>
+    <string name="ShareableGroupLinkDialogFragment__group_link_reset">Group link reset</string>
+    <string name="ShareableGroupLinkDialogFragment__require_an_admin_to_approve_new_members_joining_via_the_group_link">Require an admin to approve new members joining via the group link.</string>
+    <string name="ShareableGroupLinkDialogFragment__are_you_sure_you_want_to_reset_the_group_link">Are you sure you want to reset the group link? People will no longer be able to join the group using the current link.</string>
+
+    <!-- GroupLinkShareQrDialogFragment -->
+    <string name="GroupLinkShareQrDialogFragment__qr_code">QR code</string>
+    <string name="GroupLinkShareQrDialogFragment__people_who_scan_this_code_will">People who scan this code will be able to join your group. Admins will still need to approve new members if you have that setting turned on.</string>
+    <string name="GroupLinkShareQrDialogFragment__share_code">Share code</string>
 
     <!-- GV2 Invite Revoke confirmation dialog -->
     <string name="InviteRevokeConfirmationDialog_revoke_own_single_invite">Do you want to revoke the invite you sent to %1$s?</string>
@@ -646,11 +692,33 @@
 
     <!-- GroupJoinBottomSheetDialogFragment -->
     <string name="GroupJoinBottomSheetDialogFragment_you_are_already_a_member">You are already a member</string>
+    <string name="GroupJoinBottomSheetDialogFragment_join">Join</string>
+    <string name="GroupJoinBottomSheetDialogFragment_request_to_join">Request to join</string>
+    <string name="GroupJoinBottomSheetDialogFragment_unable_to_join_group_please_try_again_later">Unable to join group. Please try again later</string>
+    <string name="GroupJoinBottomSheetDialogFragment_encountered_a_network_error">Encountered a network error.</string>
+    <string name="GroupJoinBottomSheetDialogFragment_this_group_link_is_not_active">This group link is not active</string>
+
+    <string name="GroupJoinBottomSheetDialogFragment_unable_to_get_group_information_please_try_again_later">Unable to get group information, please try again later</string>
+    <string name="GroupJoinBottomSheetDialogFragment_direct_join">Do you want to join this group and share your name and photo with its members?</string>
+    <string name="GroupJoinBottomSheetDialogFragment_admin_approval_needed">An admin of this group must approve your request before you can join this group. When you request to join, your name and photo will be shared with its members.</string>
+    <plurals name="GroupJoinBottomSheetDialogFragment_group_dot_d_members">
+        <item quantity="one">Group · %1$d member</item>
+        <item quantity="other">Group · %1$d members</item>
+    </plurals>
 
     <!-- GroupJoinUpdateRequiredBottomSheetDialogFragment -->
+    <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_group_links_coming_soon">Group links coming soon</string>
     <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_signal_to_use_group_links">Update Signal to use group links</string>
+    <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_coming_soon">Joining a group via a link is not yet supported by Signal. This feature will be released in an upcoming update.</string>
     <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_message">The version of Signal you’re using does not support sharable group links. Update to the latest version to join this group via link.</string>
     <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_signal">Update Signal</string>
+    <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_group_link_is_not_valid">Group link is not valid</string>
+
+    <!-- GV2 Request confirmation dialog -->
+    <string name="RequestConfirmationDialog_add_s_to_the_group">Add “%1$s” to the group?</string>
+    <string name="RequestConfirmationDialog_deny_request_from_s">Deny request from “%1$s”?</string>
+    <string name="RequestConfirmationDialog_add">Add</string>
+    <string name="RequestConfirmationDialog_deny">Deny</string>
 
     <!-- CropImageActivity -->
     <string name="CropImageActivity_group_avatar">Group avatar</string>
@@ -914,6 +982,44 @@
     <string name="MessageRecord_s_changed_who_can_edit_group_membership_to_s">%1$s changed who can edit group membership to \"%2$s\".</string>
     <string name="MessageRecord_who_can_edit_group_membership_has_been_changed_to_s">Who can edit group membership has been changed to \"%1$s\".</string>
 
+    <!-- GV2 group link invite access level change -->
+    <string name="MessageRecord_you_turned_on_the_sharable_group_link">You turned on the sharable group link.</string>
+    <string name="MessageRecord_you_turned_on_the_sharable_group_link_with_admin_approval">You turned on the sharable group link with admin approval.</string>
+    <string name="MessageRecord_you_turned_off_the_sharable_group_link">You turned off the sharable group link.</string>
+    <string name="MessageRecord_s_turned_on_the_sharable_group_link">%1$s turned on the sharable group link.</string>
+    <string name="MessageRecord_s_turned_on_the_sharable_group_link_with_admin_approval">%1$s turned on the sharable group link with admin approval.</string>
+    <string name="MessageRecord_s_turned_off_the_sharable_group_link">%1$s turned off the sharable group link.</string>
+    <string name="MessageRecord_the_sharable_group_link_has_been_turned_on">The sharable group link has been turned on.</string>
+    <string name="MessageRecord_the_sharable_group_link_has_been_turned_on_with_admin_approval">The sharable group link has been turned on with admin approval.</string>
+    <string name="MessageRecord_the_sharable_group_link_has_been_turned_off">The sharable group link has been turned off.</string>
+
+    <!-- GV2 group link reset -->
+    <string name="MessageRecord_you_reset_the_sharable_group_link">You reset the sharable group link.</string>
+    <string name="MessageRecord_s_reset_the_sharable_group_link">%1$s reset the sharable group link.</string>
+    <string name="MessageRecord_the_sharable_group_link_has_been_reset">The sharable group link has been reset.</string>
+
+    <!-- GV2 group link joins -->
+    <string name="MessageRecord_you_joined_the_group_via_the_sharable_group_link">You joined the group via the sharable group link.</string>
+    <string name="MessageRecord_s_joined_the_group_via_the_sharable_group_link">%1$s joined the group via the sharable group link.</string>
+
+    <!-- GV2 group link requests -->
+    <string name="MessageRecord_you_sent_a_request_to_join_the_group">You sent a request to join the group.</string>
+    <string name="MessageRecord_s_requested_to_join_via_the_sharable_group_link">%1$s requested to join via the sharable group link.</string>
+
+    <!-- GV2 group link approvals -->
+    <string name="MessageRecord_s_approved_your_request_to_join_the_group">%1$s approved your request to join the group.</string>
+    <string name="MessageRecord_s_approved_a_request_to_join_the_group_from_s">%1$s approved a request to join the group from %2$s.</string>
+    <string name="MessageRecord_you_approved_a_request_to_join_the_group_from_s">You approved a request to join the group from %1$s.</string>
+    <string name="MessageRecord_your_request_to_join_the_group_has_been_approved">Your request to join the group has been approved.</string>
+    <string name="MessageRecord_a_request_to_join_the_group_from_s_has_been_approved">A request to join the group from %1$s has been approved.</string>
+
+    <!-- GV2 group link deny -->
+    <string name="MessageRecord_your_request_to_join_the_group_has_been_denied_by_an_admin">Your request to join the group has been denied by an admin.</string>
+    <string name="MessageRecord_s_denied_a_request_to_join_the_group_from_s">%1$s denied a request to join the group from %2$s.</string>
+    <string name="MessageRecord_a_request_to_join_the_group_from_s_has_been_denied">A request to join the group from %1$s has been denied.</string>
+    <string name="MessageRecord_you_canceled_your_request_to_join_the_group">You canceled your request to join the group.</string>
+    <string name="MessageRecord_s_canceled_their_request_to_join_the_group">%1$s canceled their request to join the group.</string>
+
     <!-- End of GV2 specific update messages -->
 
     <string name="MessageRecord_your_safety_number_with_s_has_changed">Your safety number with %s has changed.</string>
@@ -1055,10 +1161,10 @@
     <string name="RecipientProvider_unnamed_group">Unnamed group</string>
 
     <!-- RedPhone -->
-    <string name="RedPhone_answering">Answering</string>
-    <string name="RedPhone_ending_call">Ending call</string>
-    <string name="RedPhone_dialing">Dialing</string>
-    <string name="RedPhone_ringing">Ringing</string>
+    <string name="RedPhone_answering">Answering…</string>
+    <string name="RedPhone_ending_call">Ending call…</string>
+    <string name="RedPhone_dialing">Dialing…</string>
+    <string name="RedPhone_ringing">Ringing…</string>
     <string name="RedPhone_busy">Busy</string>
     <string name="RedPhone_connected">Connected</string>
     <string name="RedPhone_recipient_unavailable">Recipient unavailable</string>
@@ -1279,7 +1385,6 @@
 
     <!-- UsernameEditFragment -->
     <string name="UsernameEditFragment_username">Username</string>
-    <string name="UsernameEditFragment_submit">Submit</string>
     <string name="UsernameEditFragment_delete">Delete</string>
     <string name="UsernameEditFragment_successfully_set_username">Successfully set username.</string>
     <string name="UsernameEditFragment_successfully_removed_username">Successfully removed username.</string>
@@ -1290,7 +1395,7 @@
     <string name="UsernameEditFragment_usernames_cannot_begin_with_a_number">Usernames cannot begin with a number.</string>
     <string name="UsernameEditFragment_username_is_invalid">Username is invalid.</string>
     <string name="UsernameEditFragment_usernames_must_be_between_a_and_b_characters">Usernames must be between %1$d and %2$d characters.</string>
-    <string name="UsernameEditFragment_other_signal_users_can_send_message_requests_to_your_unique_username">Other Signal users can send message requests to your unique username without knowing your phone number. Choosing a username is optional.</string>
+    <string name="UsernameEditFragment_usernames_on_signal_are_optional">Usernames on Signal are optional. If you choose to create a username, other Signal users will be able to find you by this username and contact you without knowing your phone number.</string>
 
     <!-- VerifyIdentityActivity -->
     <string name="VerifyIdentityActivity_your_contact_is_running_an_old_version_of_signal">Your contact is running an old version of Signal. Please ask them to update before verifying your safety number.</string>
@@ -2023,6 +2128,7 @@
     <string name="preferences_notifications__mentions">Mentions</string>
     <string name="preferences_notifications__notify_me">Notify me</string>
     <string name="preferences_notifications__receive_notifications_when_youre_mentioned_in_muted_chats">Receive notifications when you’re mentioned in muted chats</string>
+    <string name="preferences_setup_a_username">Setup a username</string>
 
     <!-- Internal only preferences -->
     <string name="preferences__internal_preferences" translatable="false">Internal Preferences</string>
@@ -2481,6 +2587,8 @@
     <string name="RecipientBottomSheet_copied_to_clipboard">Copied to clipboard</string>
 
     <string name="GroupRecipientListItem_admin">Admin</string>
+    <string name="GroupRecipientListItem_approve_description">Approve</string>
+    <string name="GroupRecipientListItem_deny_description">Deny</string>
 
 
     <!-- GroupsLearnMoreBottomSheetDialogFragment -->
@@ -2490,6 +2598,14 @@
     <string name="GroupsLearnMore_how_do_i_use_new_groups">How do I use New Groups?</string>
     <string name="GroupsLearnMore_paragraph_2">Legacy Groups can’t be converted into New Groups, but you can create a New Group with the same members.</string>
     <string name="GroupsLearnMore_paragraph_3">To create a New Group, all members should update to the latest version of Signal.</string>
+
+    <!-- GroupLinkBottomSheetDialogFragment -->
+    <string name="GroupLinkBottomSheet_share_via_signal">Share via Signal</string>
+    <string name="GroupLinkBottomSheet_copy">Copy</string>
+    <string name="GroupLinkBottomSheet_qr_code">QR Code</string>
+    <string name="GroupLinkBottomSheet_share">Share</string>
+    <string name="GroupLinkBottomSheet_copied_to_clipboard">Copied to clipboard</string>
+    <string name="GroupLinkBottomSheet_the_link_is_not_currently_active">The link is not currently active</string>
 
     <!-- EOF -->
 

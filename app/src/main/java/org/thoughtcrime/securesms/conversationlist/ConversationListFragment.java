@@ -54,6 +54,7 @@ import androidx.appcompat.view.ActionMode;
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.core.view.ViewCompat;
 import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ProcessLifecycleOwner;
@@ -91,7 +92,7 @@ import org.thoughtcrime.securesms.conversationlist.model.Conversation;
 import org.thoughtcrime.securesms.conversationlist.model.MessageResult;
 import org.thoughtcrime.securesms.conversationlist.model.SearchResult;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
-import org.thoughtcrime.securesms.database.MessagingDatabase.MarkedMessageInfo;
+import org.thoughtcrime.securesms.database.MessageDatabase.MarkedMessageInfo;
 import org.thoughtcrime.securesms.database.ThreadDatabase;
 import org.thoughtcrime.securesms.database.model.ThreadRecord;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
@@ -125,6 +126,7 @@ import org.whispersystems.libsignal.util.guava.Optional;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -272,12 +274,13 @@ public class ConversationListFragment extends MainFragment implements ActionMode
   }
 
   @Override
-  public void onPrepareOptionsMenu(Menu menu) {
-    MenuInflater inflater = requireActivity().getMenuInflater();
+  public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
     menu.clear();
-
     inflater.inflate(R.menu.text_secure_normal, menu);
+  }
 
+  @Override
+  public void onPrepareOptionsMenu(Menu menu) {
     menu.findItem(R.id.menu_clear_passphrase).setVisible(TextSecurePreferences.isPassphraseLockEnabled(requireContext()));
   }
 
@@ -658,16 +661,12 @@ public class ConversationListFragment extends MainFragment implements ActionMode
 
       @Override
       protected void executeAction(@Nullable Void parameter) {
-        for (long threadId : selectedConversations) {
-          archiveThread(threadId);
-        }
+        archiveThreads(selectedConversations);
       }
 
       @Override
       protected void reverseAction(@Nullable Void parameter) {
-        for (long threadId : selectedConversations) {
-          reverseArchiveThread(threadId);
-        }
+        reverseArchiveThreads(selectedConversations);
       }
     }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
   }
@@ -722,10 +721,10 @@ public class ConversationListFragment extends MainFragment implements ActionMode
   }
 
   private void handlePinAllSelected() {
-    final Set<Long> toPin = new HashSet<>(Stream.of(defaultAdapter.getBatchSelection())
-                                                .filterNot(conversation -> conversation.getThreadRecord().isPinned())
-                                                .map(conversation -> conversation.getThreadRecord().getThreadId())
-                                                .toList());
+    final Set<Long> toPin = new LinkedHashSet<>(Stream.of(defaultAdapter.getBatchSelection())
+                                                      .filterNot(conversation -> conversation.getThreadRecord().isPinned())
+                                                      .map(conversation -> conversation.getThreadRecord().getThreadId())
+                                                      .toList());
 
     if (toPin.size() + viewModel.getPinnedCount() > MAXIMUM_PINNED_CONVERSATIONS) {
       Snackbar.make(fab,
@@ -776,6 +775,10 @@ public class ConversationListFragment extends MainFragment implements ActionMode
   }
 
   private void onSubmitList(@NonNull ConversationListViewModel.ConversationList conversationList) {
+    if (conversationList.getConversations().isDetached()) {
+      return;
+    }
+
     defaultAdapter.submitList(conversationList.getConversations());
 
     onPostSubmitList();
@@ -818,6 +821,11 @@ public class ConversationListFragment extends MainFragment implements ActionMode
 
   @Override
   public boolean onConversationLongClick(Conversation conversation) {
+    if (actionMode != null) {
+      onConversationClick(conversation);
+      return true;
+    }
+
     defaultAdapter.initializeBatchMode(true);
     defaultAdapter.toggleConversationInBatchSet(conversation);
 
@@ -946,13 +954,13 @@ public class ConversationListFragment extends MainFragment implements ActionMode
   }
 
   @WorkerThread
-  protected void archiveThread(long threadId) {
-    DatabaseFactory.getThreadDatabase(getActivity()).archiveConversation(threadId);
+  protected void archiveThreads(Set<Long> threadIds) {
+    DatabaseFactory.getThreadDatabase(getActivity()).setArchived(threadIds, true);
   }
 
   @WorkerThread
-  protected void reverseArchiveThread(long threadId) {
-    DatabaseFactory.getThreadDatabase(getActivity()).unarchiveConversation(threadId);
+  protected void reverseArchiveThreads(Set<Long> threadIds) {
+    DatabaseFactory.getThreadDatabase(getActivity()).setArchived(threadIds, false);
   }
 
   @SuppressLint("StaticFieldLeak")

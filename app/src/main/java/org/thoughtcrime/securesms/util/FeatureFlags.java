@@ -10,6 +10,7 @@ import com.google.android.collect.Sets;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.jobs.RefreshAttributesJob;
 import org.thoughtcrime.securesms.jobs.RefreshOwnProfileJob;
@@ -55,8 +56,10 @@ public final class FeatureFlags {
   private static final String GROUPS_V2_OLD_2            = "android.groupsv2.2";
   private static final String GROUPS_V2                  = "android.groupsv2.3";
   private static final String GROUPS_V2_CREATE           = "android.groupsv2.create.3";
+  private static final String GROUPS_V2_JOIN_VERSION     = "android.groupsv2.joinVersion";
+  private static final String GROUPS_V2_LINKS_VERSION    = "android.groupsv2.manageGroupLinksVersion";
   private static final String GROUPS_V2_CAPACITY         = "global.groupsv2.maxGroupSize";
-  private static final String CDS                        = "android.cds.3";
+  private static final String CDS_VERSION                = "android.cdsVersion";
   private static final String INTERNAL_USER              = "android.internalUser";
   private static final String MENTIONS                   = "android.mentions";
   private static final String VERIFY_V2                  = "android.verifyV2";
@@ -72,8 +75,11 @@ public final class FeatureFlags {
       GROUPS_V2,
       GROUPS_V2_CREATE,
       GROUPS_V2_CAPACITY,
-      CDS,
+      GROUPS_V2_JOIN_VERSION,
+      GROUPS_V2_LINKS_VERSION,
+      CDS_VERSION,
       INTERNAL_USER,
+      USERNAMES,
       MENTIONS,
       VERIFY_V2
   );
@@ -98,7 +104,9 @@ public final class FeatureFlags {
   private static final Set<String> HOT_SWAPPABLE = Sets.newHashSet(
       ATTACHMENTS_V3,
       GROUPS_V2_CREATE,
-      VERIFY_V2
+      GROUPS_V2_JOIN_VERSION,
+      VERIFY_V2,
+      CDS_VERSION
   );
 
   /**
@@ -204,6 +212,11 @@ public final class FeatureFlags {
            !SignalStore.internalValues().gv2DoNotCreateGv2Groups();
   }
 
+  /** Allow creation and managing of group links. */
+  public static boolean groupsV2manageGroupLinks() {
+    return groupsV2() && getVersionFlag(GROUPS_V2_LINKS_VERSION) == VersionFlag.ON;
+  }
+
   private static boolean groupsV2LatestFlag() {
     return getBoolean(GROUPS_V2, false);
   }
@@ -221,6 +234,31 @@ public final class FeatureFlags {
     return getInteger(GROUPS_V2_CAPACITY, 151);
   }
 
+  /**
+   * Ability of local client to join a GV2 group.
+   * <p>
+   * You must still check GV2 capabilities to respect linked devices.
+   */
+  public static GroupJoinStatus clientLocalGroupJoinStatus() {
+    switch (getVersionFlag(GROUPS_V2_JOIN_VERSION)) {
+      case ON_IN_FUTURE_VERSION: return GroupJoinStatus.UPDATE_TO_JOIN;
+      case ON                  : return GroupJoinStatus.LOCAL_CAN_JOIN;
+      case OFF                 :
+      default                  : return GroupJoinStatus.COMING_SOON;
+    }
+  }
+
+  public enum GroupJoinStatus {
+    /** No version of the client that can join V2 groups by link is in production. */
+    COMING_SOON,
+
+    /** A newer version of the client is in production that will allow joining via GV2 group links. */
+    UPDATE_TO_JOIN,
+
+    /** This version of the client allows joining via GV2 group links. */
+    LOCAL_CAN_JOIN
+  }
+
   /** Internal testing extensions. */
   public static boolean internalUser() {
     return getBoolean(INTERNAL_USER, false);
@@ -228,7 +266,7 @@ public final class FeatureFlags {
 
   /** Whether or not to use the new contact discovery service endpoint, which supports UUIDs. */
   public static boolean cds() {
-    return getBoolean(CDS, false);
+    return getVersionFlag(CDS_VERSION) == VersionFlag.ON;
   }
 
   /** Whether or not we allow mentions send support in groups. */
@@ -355,6 +393,31 @@ public final class FeatureFlags {
     }
 
     return changes;
+  }
+
+  private static @NonNull VersionFlag getVersionFlag(@NonNull String key) {
+    int versionFromKey = getInteger(key, 0);
+
+    if (versionFromKey == 0) {
+      return VersionFlag.OFF;
+    }
+
+    if (BuildConfig.CANONICAL_VERSION_CODE >= versionFromKey) {
+      return VersionFlag.ON;
+    } else {
+      return VersionFlag.ON_IN_FUTURE_VERSION;
+    }
+  }
+
+  private enum VersionFlag {
+    /** The flag is no set */
+    OFF,
+
+    /** The flag is set on for a version higher than the current client version */
+    ON_IN_FUTURE_VERSION,
+
+    /** The flag is set on for this version or earlier */
+    ON
   }
 
   private static boolean getBoolean(@NonNull String key, boolean defaultValue) {

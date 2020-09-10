@@ -169,10 +169,11 @@ public class SignalServiceAccountManager {
 
   public KeyBackupService getKeyBackupService(KeyStore iasKeyStore,
                                               String enclaveName,
+                                              byte[] serviceId,
                                               String mrenclave,
                                               int tries)
   {
-    return new KeyBackupService(iasKeyStore, enclaveName, mrenclave, pushServiceSocket, tries);
+    return new KeyBackupService(iasKeyStore, enclaveName, serviceId, mrenclave, pushServiceSocket, tries);
   }
 
   /**
@@ -367,6 +368,10 @@ public class SignalServiceAccountManager {
   public Map<String, UUID> getRegisteredUsers(KeyStore iasKeyStore, Set<String> e164numbers, String mrenclave)
       throws IOException, Quote.InvalidQuoteFormatException, UnauthenticatedQuoteException, SignatureException, UnauthenticatedResponseException
   {
+    if (e164numbers.isEmpty()) {
+      return Collections.emptyMap();
+    }
+
     try {
       String                         authorization = this.pushServiceSocket.getContactDiscoveryAuthorization();
       Map<String, RemoteAttestation> attestations  = RemoteAttestationUtil.getAndVerifyMultiRemoteAttestation(pushServiceSocket,

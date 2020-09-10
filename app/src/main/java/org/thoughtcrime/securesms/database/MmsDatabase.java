@@ -21,7 +21,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.text.TextUtils;
-import android.util.Pair;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,6 +31,7 @@ import com.google.android.mms.pdu_alt.NotificationInd;
 import com.google.android.mms.pdu_alt.PduHeaders;
 
 import net.sqlcipher.database.SQLiteDatabase;
+import net.sqlcipher.database.SQLiteStatement;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,6 +41,7 @@ import org.thoughtcrime.securesms.attachments.AttachmentId;
 import org.thoughtcrime.securesms.attachments.DatabaseAttachment;
 import org.thoughtcrime.securesms.attachments.MmsNotificationAttachment;
 import org.thoughtcrime.securesms.contactshare.Contact;
+import org.thoughtcrime.securesms.database.documents.Document;
 import org.thoughtcrime.securesms.database.documents.IdentityKeyMismatch;
 import org.thoughtcrime.securesms.database.documents.IdentityKeyMismatchList;
 import org.thoughtcrime.securesms.database.documents.NetworkFailure;
@@ -52,6 +53,7 @@ import org.thoughtcrime.securesms.database.model.MessageRecord;
 import org.thoughtcrime.securesms.database.model.NotificationMmsMessageRecord;
 import org.thoughtcrime.securesms.database.model.Quote;
 import org.thoughtcrime.securesms.database.model.ReactionRecord;
+import org.thoughtcrime.securesms.database.model.SmsMessageRecord;
 import org.thoughtcrime.securesms.database.model.databaseprotos.BodyRangeList;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.jobs.TrimThreadJob;
@@ -70,11 +72,15 @@ import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.revealable.ViewOnceExpirationInfo;
 import org.thoughtcrime.securesms.revealable.ViewOnceUtil;
+import org.thoughtcrime.securesms.sms.IncomingTextMessage;
+import org.thoughtcrime.securesms.sms.OutgoingTextMessage;
 import org.thoughtcrime.securesms.util.CursorUtil;
 import org.thoughtcrime.securesms.util.JsonUtils;
 import org.thoughtcrime.securesms.util.SqlUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.Util;
+import org.whispersystems.libsignal.IdentityKey;
+import org.whispersystems.libsignal.util.Pair;
 import org.whispersystems.libsignal.util.guava.Optional;
 
 import java.io.Closeable;
@@ -91,7 +97,7 @@ import java.util.Set;
 
 import static org.thoughtcrime.securesms.contactshare.Contact.Avatar;
 
-public class MmsDatabase extends MessagingDatabase {
+public class MmsDatabase extends MessageDatabase {
 
   private static final String TAG = MmsDatabase.class.getSimpleName();
 
@@ -266,6 +272,167 @@ public class MmsDatabase extends MessagingDatabase {
     return MESSAGE_BOX;
   }
 
+  @Override
+  public @Nullable RecipientId getOldestGroupUpdateSender(long threadId, long minimumDateReceived) {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  int getMessageCountForThreadSummary(long threadId) {
+    return getMessageCountForThread(threadId);
+  }
+
+  @Override
+  public Cursor getExpirationStartedMessages() {
+    String where = EXPIRE_STARTED + " > 0";
+    return rawQuery(where, null);
+  }
+
+  @Override
+  public SmsMessageRecord getSmsMessage(long messageId) {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public Cursor getMessageCursor(long messageId) {
+    Cursor cursor = internalGetMessage(messageId);
+    setNotifyConversationListeners(cursor, getThreadIdForMessage(messageId));
+    return cursor;
+  }
+
+  @Override
+  public Cursor getVerboseMessageCursor(long messageId) {
+    Cursor cursor = internalGetMessage(messageId);
+    setNotifyVerboseConversationListeners(cursor, getThreadIdForMessage(messageId));
+    return cursor;
+  }
+
+  @Override
+  public boolean hasReceivedAnyCallsSince(long threadId, long timestamp) {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public void markAsEndSession(long id) {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public void markAsPreKeyBundle(long id) {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public void markAsInvalidVersionKeyExchange(long id) {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public void markAsSecure(long id) {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public void markAsPush(long id) {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public void markAsDecryptFailed(long id) {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public void markAsDecryptDuplicate(long id) {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public void markAsNoSession(long id) {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public void markAsUnsupportedProtocolVersion(long id) {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public void markAsInvalidMessage(long id) {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public void markAsLegacyVersion(long id) {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public void markAsMissedCall(long id) {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public void markSmsStatus(long id, int status) {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public Pair<Long, Long> updateBundleMessageBody(long messageId, String body) {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public @NonNull Pair<Long, Long> insertReceivedCall(@NonNull RecipientId address) {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public @NonNull Pair<Long, Long> insertOutgoingCall(@NonNull RecipientId address) {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public @NonNull Pair<Long, Long> insertMissedCall(@NonNull RecipientId address) {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public Optional<InsertResult> insertMessageInbox(IncomingTextMessage message, long type) {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public Optional<InsertResult> insertMessageInbox(IncomingTextMessage message) {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public long insertMessageOutbox(long threadId, OutgoingTextMessage message, boolean forceSms, long date, InsertListener insertListener) {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public void insertProfileNameChangeMessages(@NonNull Recipient recipient, @NonNull String newProfileName, @NonNull String previousProfileName) {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public void endTransaction(SQLiteDatabase database) {
+    database.endTransaction();
+  }
+
+  @Override
+  public SQLiteStatement createInsertStatement(SQLiteDatabase database) {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public void ensureMigration() {
+    databaseHelper.getWritableDatabase();
+  }
+
+  @Override
   public boolean isGroupQuitMessage(long messageId) {
     SQLiteDatabase db = databaseHelper.getReadableDatabase();
 
@@ -283,6 +450,7 @@ public class MmsDatabase extends MessagingDatabase {
     return false;
   }
 
+  @Override
   public long getLatestGroupQuitTimestamp(long threadId, long quitTimeBarrier) {
     SQLiteDatabase db = databaseHelper.getReadableDatabase();
 
@@ -302,6 +470,7 @@ public class MmsDatabase extends MessagingDatabase {
     return -1;
   }
 
+  @Override
   public int getMessageCountForThread(long threadId) {
     SQLiteDatabase db = databaseHelper.getReadableDatabase();
 
@@ -318,6 +487,7 @@ public class MmsDatabase extends MessagingDatabase {
     return 0;
   }
 
+  @Override
   public int getMessageCountForThread(long threadId, long beforeTime) {
     SQLiteDatabase db = databaseHelper.getReadableDatabase();
 
@@ -334,6 +504,7 @@ public class MmsDatabase extends MessagingDatabase {
     return 0;
   }
 
+  @Override
   public void addFailures(long messageId, List<NetworkFailure> failure) {
     try {
       addToDocument(messageId, NETWORK_FAILURE, failure, NetworkFailureList.class);
@@ -342,6 +513,7 @@ public class MmsDatabase extends MessagingDatabase {
     }
   }
 
+  @Override
   public void removeFailure(long messageId, NetworkFailure failure) {
     try {
       removeFromDocument(messageId, NETWORK_FAILURE, failure, NetworkFailureList.class);
@@ -350,6 +522,7 @@ public class MmsDatabase extends MessagingDatabase {
     }
   }
 
+  @Override
   public boolean incrementReceiptCount(SyncMessageId messageId, long timestamp, boolean deliveryReceipt) {
     SQLiteDatabase database = databaseHelper.getWritableDatabase();
     boolean        found    = false;
@@ -396,6 +569,7 @@ public class MmsDatabase extends MessagingDatabase {
     }
   }
 
+  @Override
   public long getThreadIdForMessage(long id) {
     String sql        = "SELECT " + THREAD_ID + " FROM " + TABLE_NAME + " WHERE " + ID + " = ?";
     String[] sqlArgs  = new String[] {id+""};
@@ -442,18 +616,6 @@ public class MmsDatabase extends MessagingDatabase {
                              " WHERE " + where + " GROUP BY " + MmsDatabase.TABLE_NAME + "." + MmsDatabase.ID, arguments);
   }
 
-  public Cursor getMessage(long messageId) {
-    Cursor cursor = internalGetMessage(messageId);
-    setNotifyConversationListeners(cursor, getThreadIdForMessage(messageId));
-    return cursor;
-  }
-
-  public Cursor getVerboseMessage(long messageId) {
-    Cursor cursor = internalGetMessage(messageId);
-    setNotifyVerboseConversationListeners(cursor, getThreadIdForMessage(messageId));
-    return cursor;
-  }
-
   private Cursor internalGetMessage(long messageId) {
     return rawQuery(RAW_ID_WHERE, new String[] {messageId + ""});
   }
@@ -471,14 +633,10 @@ public class MmsDatabase extends MessagingDatabase {
     }
   }
 
+  @Override
   public Reader getMessages(Collection<Long> messageIds) {
     String ids = TextUtils.join(",", messageIds);
     return readerFor(rawQuery(MmsDatabase.TABLE_NAME + "." + MmsDatabase.ID + " IN (" + ids + ")", null));
-  }
-
-  public Reader getExpireStartedMessages() {
-    String where = EXPIRE_STARTED + " > 0";
-    return readerFor(rawQuery(where, null));
   }
 
   private void updateMailboxBitmask(long id, long maskOff, long maskOn, Optional<Long> threadId) {
@@ -492,17 +650,20 @@ public class MmsDatabase extends MessagingDatabase {
     }
   }
 
+  @Override
   public void markAsOutbox(long messageId) {
     long threadId = getThreadIdForMessage(messageId);
     updateMailboxBitmask(messageId, Types.BASE_TYPE_MASK, Types.BASE_OUTBOX_TYPE, Optional.of(threadId));
   }
 
+  @Override
   public void markAsForcedSms(long messageId) {
     long threadId = getThreadIdForMessage(messageId);
     updateMailboxBitmask(messageId, Types.PUSH_MESSAGE_BIT, Types.MESSAGE_FORCE_SMS_BIT, Optional.of(threadId));
     notifyConversationListeners(threadId);
   }
 
+  @Override
   public void markAsPendingInsecureSmsFallback(long messageId) {
     long threadId = getThreadIdForMessage(messageId);
     updateMailboxBitmask(messageId, Types.BASE_TYPE_MASK, Types.BASE_PENDING_INSECURE_SMS_FALLBACK, Optional.of(threadId));
@@ -516,6 +677,7 @@ public class MmsDatabase extends MessagingDatabase {
     notifyConversationListeners(threadId);
   }
 
+  @Override
   public void markAsSentFailed(long messageId) {
     long threadId = getThreadIdForMessage(messageId);
     updateMailboxBitmask(messageId, Types.BASE_TYPE_MASK, Types.BASE_SENT_FAILED_TYPE, Optional.of(threadId));
@@ -552,6 +714,7 @@ public class MmsDatabase extends MessagingDatabase {
     notifyConversationListeners(threadId);
   }
 
+  @Override
   public void markDownloadState(long messageId, long state) {
     SQLiteDatabase database     = databaseHelper.getWritableDatabase();
     ContentValues contentValues = new ContentValues();
@@ -561,36 +724,9 @@ public class MmsDatabase extends MessagingDatabase {
     notifyConversationListeners(getThreadIdForMessage(messageId));
   }
 
-  public void markAsNoSession(long messageId, long threadId) {
-    updateMailboxBitmask(messageId, Types.ENCRYPTION_MASK, Types.ENCRYPTION_REMOTE_NO_SESSION_BIT, Optional.of(threadId));
-    notifyConversationListeners(threadId);
-  }
-
-//  public void markAsSecure(long messageId) {
-//    updateMailboxBitmask(messageId, 0, Types.SECURE_MESSAGE_BIT, Optional.<Long>absent());
-//  }
-
+  @Override
   public void markAsInsecure(long messageId) {
     updateMailboxBitmask(messageId, Types.SECURE_MESSAGE_BIT, 0, Optional.<Long>absent());
-  }
-
-//  public void markAsPush(long messageId) {
-//    updateMailboxBitmask(messageId, 0, Types.PUSH_MESSAGE_BIT, Optional.<Long>absent());
-//  }
-
-  public void markAsDecryptFailed(long messageId, long threadId) {
-    updateMailboxBitmask(messageId, Types.ENCRYPTION_MASK, Types.ENCRYPTION_REMOTE_FAILED_BIT, Optional.of(threadId));
-    notifyConversationListeners(threadId);
-  }
-
-  public void markAsDecryptDuplicate(long messageId, long threadId) {
-    updateMailboxBitmask(messageId, Types.ENCRYPTION_MASK, Types.ENCRYPTION_REMOTE_DUPLICATE_BIT, Optional.of(threadId));
-    notifyConversationListeners(threadId);
-  }
-
-  public void markAsLegacyVersion(long messageId, long threadId) {
-    updateMailboxBitmask(messageId, Types.ENCRYPTION_MASK, Types.ENCRYPTION_REMOTE_LEGACY_BIT, Optional.of(threadId));
-    notifyConversationListeners(threadId);
   }
 
   @Override
@@ -641,6 +777,7 @@ public class MmsDatabase extends MessagingDatabase {
     notifyConversationListeners(threadId);
   }
 
+  @Override
   public void markAsNotified(long id) {
     SQLiteDatabase database      = databaseHelper.getWritableDatabase();
     ContentValues  contentValues = new ContentValues();
@@ -650,6 +787,7 @@ public class MmsDatabase extends MessagingDatabase {
     database.update(TABLE_NAME, contentValues, ID_WHERE, new String[] {String.valueOf(id)});
   }
 
+  @Override
   public List<MarkedMessageInfo> setMessagesReadSince(long threadId, long sinceTimestamp) {
     if (sinceTimestamp == -1) {
       return setMessagesRead(THREAD_ID + " = ? AND " + READ + " = 0", new String[] {String.valueOf(threadId)});
@@ -658,10 +796,12 @@ public class MmsDatabase extends MessagingDatabase {
     }
   }
 
+  @Override
   public List<MarkedMessageInfo> setEntireThreadRead(long threadId) {
     return setMessagesRead(THREAD_ID + " = ?", new String[] {String.valueOf(threadId)});
   }
 
+  @Override
   public List<MarkedMessageInfo> setAllMessagesRead() {
     return setMessagesRead(READ + " = 0", null);
   }
@@ -704,6 +844,7 @@ public class MmsDatabase extends MessagingDatabase {
     return result;
   }
 
+  @Override
   public List<Pair<Long, Long>> setTimestampRead(SyncMessageId messageId, long proposedExpireStarted) {
     SQLiteDatabase         database        = databaseHelper.getWritableDatabase();
     List<Pair<Long, Long>> expiring        = new LinkedList<>();
@@ -747,6 +888,7 @@ public class MmsDatabase extends MessagingDatabase {
     return expiring;
   }
 
+  @Override
   public @Nullable Pair<RecipientId, Long> getOldestUnreadMentionDetails(long threadId) {
     SQLiteDatabase database   = databaseHelper.getReadableDatabase();
     String[]       projection = new String[]{RECIPIENT_ID,DATE_RECEIVED};
@@ -762,6 +904,7 @@ public class MmsDatabase extends MessagingDatabase {
     return null;
   }
 
+  @Override
   public int getUnreadMentionCount(long threadId) {
     SQLiteDatabase database   = databaseHelper.getReadableDatabase();
     String[]       projection = new String[]{"COUNT(*)"};
@@ -775,12 +918,6 @@ public class MmsDatabase extends MessagingDatabase {
     }
 
     return 0;
-  }
-
-  public void updateMessageBody(long messageId, String body) {
-    long type = 0;
-
-    updateMessageBodyAndType(messageId, body, Types.ENCRYPTION_MASK, type);
   }
 
   /**
@@ -808,22 +945,7 @@ public class MmsDatabase extends MessagingDatabase {
     }
   }
 
-  private Pair<Long, Long> updateMessageBodyAndType(long messageId, String body, long maskOff, long maskOn) {
-    SQLiteDatabase db = databaseHelper.getWritableDatabase();
-    db.execSQL("UPDATE " + TABLE_NAME + " SET " + BODY + " = ?, " +
-               MESSAGE_BOX + " = (" + MESSAGE_BOX + " & " + (Types.TOTAL_MASK - maskOff) + " | " + maskOn + ") " +
-               "WHERE " + ID + " = ?",
-               new String[] {body, messageId + ""});
-
-    long threadId = getThreadIdForMessage(messageId);
-
-    DatabaseFactory.getThreadDatabase(context).update(threadId, true);
-    notifyConversationListeners(threadId);
-    notifyConversationListListeners();
-
-    return new Pair<>(messageId, threadId);
-  }
-
+  @Override
   public Optional<MmsNotificationInfo> getNotification(long messageId) {
     Cursor cursor = null;
 
@@ -844,6 +966,7 @@ public class MmsDatabase extends MessagingDatabase {
     }
   }
 
+  @Override
   public OutgoingMediaMessage getOutgoingMessage(long messageId)
       throws MmsException, NoSuchMessageException
   {
@@ -875,7 +998,7 @@ public class MmsDatabase extends MessagingDatabase {
         String            quoteText          = cursor.getString(cursor.getColumnIndexOrThrow(QUOTE_BODY));
         boolean           quoteMissing       = cursor.getInt(cursor.getColumnIndexOrThrow(QUOTE_MISSING)) == 1;
         List<Attachment>  quoteAttachments   = Stream.of(associatedAttachments).filter(Attachment::isQuote).map(a -> (Attachment)a).toList();
-        List<Mention>     quoteMentions      = parseQuoteMentions(cursor);
+        List<Mention>     quoteMentions      = parseQuoteMentions(context, cursor);
         List<Contact>     contacts           = getSharedContacts(cursor, associatedAttachments);
         Set<Attachment>   contactAttachments = new HashSet<>(Stream.of(contacts).map(Contact::getAvatarAttachment).filter(a -> a != null).toList());
         List<LinkPreview> previews           = getLinkPreviews(cursor, associatedAttachments);
@@ -935,7 +1058,7 @@ public class MmsDatabase extends MessagingDatabase {
     }
   }
 
-  private List<Contact> getSharedContacts(@NonNull Cursor cursor, @NonNull List<DatabaseAttachment> attachments) {
+  private static List<Contact> getSharedContacts(@NonNull Cursor cursor, @NonNull List<DatabaseAttachment> attachments) {
     String serializedContacts = cursor.getString(cursor.getColumnIndexOrThrow(SHARED_CONTACTS));
 
     if (TextUtils.isEmpty(serializedContacts)) {
@@ -973,7 +1096,7 @@ public class MmsDatabase extends MessagingDatabase {
     return Collections.emptyList();
   }
 
-  private List<LinkPreview> getLinkPreviews(@NonNull Cursor cursor, @NonNull List<DatabaseAttachment> attachments) {
+  private static List<LinkPreview> getLinkPreviews(@NonNull Cursor cursor, @NonNull List<DatabaseAttachment> attachments) {
     String serializedPreviews = cursor.getString(cursor.getColumnIndexOrThrow(LINK_PREVIEWS));
 
     if (TextUtils.isEmpty(serializedPreviews)) {
@@ -995,7 +1118,7 @@ public class MmsDatabase extends MessagingDatabase {
         if (preview.getAttachmentId() != null) {
           DatabaseAttachment attachment = attachmentIdMap.get(preview.getAttachmentId());
           if (attachment != null) {
-            previews.add(new LinkPreview(preview.getUrl(), preview.getTitle(), attachment));
+            previews.add(new LinkPreview(preview.getUrl(), preview.getTitle(), preview.getDescription(), preview.getDate(), attachment));
           }
         } else {
           previews.add(preview);
@@ -1076,6 +1199,7 @@ public class MmsDatabase extends MessagingDatabase {
     return Optional.of(new InsertResult(messageId, threadId));
   }
 
+  @Override
   public Optional<InsertResult> insertMessageInbox(IncomingMediaMessage retrieved,
                                                    String contentLocation, long threadId)
       throws MmsException
@@ -1093,6 +1217,7 @@ public class MmsDatabase extends MessagingDatabase {
     return insertMessageInbox(retrieved, contentLocation, threadId, type);
   }
 
+  @Override
   public Optional<InsertResult> insertSecureDecryptedMessageInbox(IncomingMediaMessage retrieved, long threadId)
       throws MmsException
   {
@@ -1146,6 +1271,7 @@ public class MmsDatabase extends MessagingDatabase {
     return new Pair<>(messageId, threadId);
   }
 
+  @Override
   public void markIncomingNotificationReceived(long threadId) {
     notifyConversationListeners(threadId);
     DatabaseFactory.getThreadDatabase(context).update(threadId, true);
@@ -1157,14 +1283,17 @@ public class MmsDatabase extends MessagingDatabase {
     ApplicationDependencies.getJobManager().add(new TrimThreadJob(threadId));
   }
 
+  @Override
   public long insertMessageOutbox(@NonNull OutgoingMediaMessage message,
-                                  long threadId, boolean forceSms,
+                                  long threadId,
+                                  boolean forceSms,
                                   @Nullable SmsDatabase.InsertListener insertListener)
       throws MmsException
   {
     return insertMessageOutbox(message, threadId, forceSms, GroupReceiptDatabase.STATUS_UNDELIVERED, insertListener);
   }
 
+  @Override
   public long insertMessageOutbox(@NonNull OutgoingMediaMessage message,
                                   long threadId, boolean forceSms, int defaultReceiptStatus,
                                   @Nullable SmsDatabase.InsertListener insertListener)
@@ -1333,7 +1462,8 @@ public class MmsDatabase extends MessagingDatabase {
     }
   }
 
-  public boolean delete(long messageId) {
+  @Override
+  public boolean deleteMessage(long messageId) {
     long               threadId           = getThreadIdForMessage(messageId);
     AttachmentDatabase attachmentDatabase = DatabaseFactory.getAttachmentDatabase(context);
     attachmentDatabase.deleteAttachmentsForMessage(messageId);
@@ -1350,6 +1480,7 @@ public class MmsDatabase extends MessagingDatabase {
     return threadDeleted;
   }
 
+  @Override
   public void deleteThread(long threadId) {
     Set<Long> singleThreadSet = new HashSet<>();
     singleThreadSet.add(threadId);
@@ -1395,7 +1526,7 @@ public class MmsDatabase extends MessagingDatabase {
           attachmentId = insertedAttachmentIds.get(preview.getThumbnail().get());
         }
 
-        LinkPreview updatedPreview = new LinkPreview(preview.getUrl(), preview.getTitle(), attachmentId);
+        LinkPreview updatedPreview = new LinkPreview(preview.getUrl(), preview.getTitle(), preview.getDescription(), preview.getDate(), attachmentId);
         linkPreviewJson.put(new JSONObject(updatedPreview.serialize()));
       } catch (JSONException | IOException e) {
         Log.w(TAG, "Failed to serialize shared contact. Skipping it.", e);
@@ -1417,6 +1548,7 @@ public class MmsDatabase extends MessagingDatabase {
     }
   }
 
+  @Override
   public boolean isSent(long messageId) {
     SQLiteDatabase database = databaseHelper.getReadableDatabase();
     try (Cursor cursor = database.query(TABLE_NAME, new String[] {  MESSAGE_BOX }, ID + " = ?", new String[] { String.valueOf(messageId)}, null, null, null)) {
@@ -1428,7 +1560,8 @@ public class MmsDatabase extends MessagingDatabase {
     return false;
   }
 
-  /*package*/ void deleteThreads(Set<Long> threadIds) {
+  @Override
+  void deleteThreads(@NonNull Set<Long> threadIds) {
     SQLiteDatabase db = databaseHelper.getWritableDatabase();
     String where      = "";
     Cursor cursor     = null;
@@ -1443,7 +1576,7 @@ public class MmsDatabase extends MessagingDatabase {
       cursor = db.query(TABLE_NAME, new String[] {ID}, where, null, null, null, null);
 
       while (cursor != null && cursor.moveToNext()) {
-        delete(cursor.getLong(0));
+        deleteMessage(cursor.getLong(0));
       }
 
     } finally {
@@ -1452,7 +1585,8 @@ public class MmsDatabase extends MessagingDatabase {
     }
   }
 
-  /*package*/void deleteMessagesInThreadBeforeDate(long threadId, long date) {
+  @Override
+  void deleteMessagesInThreadBeforeDate(long threadId, long date) {
     Cursor cursor = null;
 
     try {
@@ -1469,7 +1603,7 @@ public class MmsDatabase extends MessagingDatabase {
 
       while (cursor != null && cursor.moveToNext()) {
         Log.i(TAG, "Trimming: " + cursor.getLong(0));
-        delete(cursor.getLong(0));
+        deleteMessage(cursor.getLong(0));
       }
 
     } finally {
@@ -1478,7 +1612,7 @@ public class MmsDatabase extends MessagingDatabase {
     }
   }
 
-
+  @Override
   public void deleteAllThreads() {
     DatabaseFactory.getAttachmentDatabase(context).deleteAllAttachments();
     DatabaseFactory.getGroupReceiptDatabase(context).deleteAllRows();
@@ -1487,8 +1621,8 @@ public class MmsDatabase extends MessagingDatabase {
     database.delete(TABLE_NAME, null, null);
   }
 
-  public @Nullable
-  ViewOnceExpirationInfo getNearestExpiringViewOnceMessage() {
+  @Override
+  public @Nullable ViewOnceExpirationInfo getNearestExpiringViewOnceMessage() {
     SQLiteDatabase       db                = databaseHelper.getReadableDatabase();
     ViewOnceExpirationInfo info              = null;
     long                 nearestExpiration = Long.MAX_VALUE;
@@ -1520,44 +1654,33 @@ public class MmsDatabase extends MessagingDatabase {
     return info;
   }
 
-  public Cursor getCarrierMmsInformation(String apn) {
-    Uri uri                = Uri.withAppendedPath(Uri.parse("content://telephony/carriers"), "current");
-    String selection       = TextUtils.isEmpty(apn) ? null : "apn = ?";
-    String[] selectionArgs = TextUtils.isEmpty(apn) ? null : new String[] {apn.trim()};
-
-    try {
-      return context.getContentResolver().query(uri, null, selection, selectionArgs, null);
-    } catch (NullPointerException npe) {
-      // NOTE - This is dumb, but on some devices there's an NPE in the Android framework
-      // for the provider of this call, which gets rethrown back to here through a binder
-      // call.
-      throw new IllegalArgumentException(npe);
-    }
-  }
-
-  private @NonNull List<Mention> parseQuoteMentions(Cursor cursor) {
+  private static @NonNull List<Mention> parseQuoteMentions(@NonNull Context context, Cursor cursor) {
     byte[] raw = cursor.getBlob(cursor.getColumnIndexOrThrow(QUOTE_MENTIONS));
 
     return MentionUtil.bodyRangeListToMentions(context, raw);
   }
 
-  public void beginTransaction() {
+  @Override
+  public SQLiteDatabase beginTransaction() {
     databaseHelper.getWritableDatabase().beginTransaction();
+    return databaseHelper.getWritableDatabase();
   }
 
+  @Override
   public void setTransactionSuccessful() {
     databaseHelper.getWritableDatabase().setTransactionSuccessful();
   }
 
+  @Override
   public void endTransaction() {
     databaseHelper.getWritableDatabase().endTransaction();
   }
 
-  public Reader readerFor(Cursor cursor) {
+  public static Reader readerFor(Cursor cursor) {
     return new Reader(cursor);
   }
 
-  public OutgoingMessageReader readerFor(OutgoingMediaMessage message, long threadId) {
+  public static OutgoingMessageReader readerFor(OutgoingMediaMessage message, long threadId) {
     return new OutgoingMessageReader(message, threadId);
   }
 
@@ -1570,43 +1693,15 @@ public class MmsDatabase extends MessagingDatabase {
     public static final int DOWNLOAD_APN_UNAVAILABLE = 6;
   }
 
-  public static class MmsNotificationInfo {
-    private final RecipientId from;
-    private final String      contentLocation;
-    private final String      transactionId;
-    private final int         subscriptionId;
+  public static class OutgoingMessageReader {
 
-    MmsNotificationInfo(@NonNull RecipientId from, String contentLocation, String transactionId, int subscriptionId) {
-      this.from            = from;
-      this.contentLocation = contentLocation;
-      this.transactionId   = transactionId;
-      this.subscriptionId  = subscriptionId;
-    }
-
-    public String getContentLocation() {
-      return contentLocation;
-    }
-
-    public String getTransactionId() {
-      return transactionId;
-    }
-
-    public int getSubscriptionId() {
-      return subscriptionId;
-    }
-
-    public @NonNull RecipientId getFrom() {
-      return from;
-    }
-  }
-
-  public class OutgoingMessageReader {
-
+    private final Context              context;
     private final OutgoingMediaMessage message;
     private final long                 id;
     private final long                 threadId;
 
     public OutgoingMessageReader(OutgoingMediaMessage message, long threadId) {
+      this.context  = ApplicationDependencies.getApplication();
       this.message  = message;
       this.id       = new SecureRandom().nextLong();
       this.threadId = threadId;
@@ -1661,14 +1756,17 @@ public class MmsDatabase extends MessagingDatabase {
     }
   }
 
-  public class Reader implements Closeable {
+  public static class Reader implements MessageDatabase.Reader {
 
-    private final Cursor cursor;
+    private final Cursor  cursor;
+    private final Context context;
 
     public Reader(Cursor cursor) {
-      this.cursor = cursor;
+      this.cursor  = cursor;
+      this.context = ApplicationDependencies.getApplication();
     }
 
+    @Override
     public MessageRecord getNext() {
       if (cursor == null || !cursor.moveToNext())
         return null;
@@ -1676,6 +1774,7 @@ public class MmsDatabase extends MessagingDatabase {
       return getCurrent();
     }
 
+    @Override
     public MessageRecord getCurrent() {
       long mmsType = cursor.getLong(cursor.getColumnIndexOrThrow(MmsDatabase.MESSAGE_TYPE));
 
@@ -1812,7 +1911,7 @@ public class MmsDatabase extends MessagingDatabase {
       long                       quoteAuthor      = cursor.getLong(cursor.getColumnIndexOrThrow(MmsDatabase.QUOTE_AUTHOR));
       CharSequence               quoteText        = cursor.getString(cursor.getColumnIndexOrThrow(MmsDatabase.QUOTE_BODY));
       boolean                    quoteMissing     = cursor.getInt(cursor.getColumnIndexOrThrow(MmsDatabase.QUOTE_MISSING)) == 1;
-      List<Mention>              quoteMentions    = parseQuoteMentions(cursor);
+      List<Mention>              quoteMentions    = parseQuoteMentions(context, cursor);
       List<DatabaseAttachment>   attachments      = DatabaseFactory.getAttachmentDatabase(context).getAttachment(cursor);
       List<? extends Attachment> quoteAttachments = Stream.of(attachments).filter(Attachment::isQuote).toList();
       SlideDeck                  quoteDeck        = new SlideDeck(context, quoteAttachments);

@@ -6,9 +6,10 @@ import androidx.annotation.Nullable;
 import com.google.protobuf.ByteString;
 
 import org.signal.storageservice.protos.groups.GroupInviteLink;
+import org.signal.storageservice.protos.groups.local.DecryptedGroup;
 import org.signal.zkgroup.InvalidInputException;
 import org.signal.zkgroup.groups.GroupMasterKey;
-import org.thoughtcrime.securesms.util.Base64UrlSafe;
+import org.whispersystems.util.Base64UrlSafe;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -16,28 +17,37 @@ import java.net.URL;
 
 public final class GroupInviteLinkUrl {
 
-  private static final String GROUP_URL_HOST   = "group.signal.org";
+  private static final String GROUP_URL_HOST   = "signal.group";
   private static final String GROUP_URL_PREFIX = "https://" + GROUP_URL_HOST + "/#";
 
   private final GroupMasterKey    groupMasterKey;
   private final GroupLinkPassword password;
   private final String            url;
 
+  public static GroupInviteLinkUrl forGroup(@NonNull GroupMasterKey groupMasterKey,
+                                            @NonNull DecryptedGroup group)
+  {
+    return new GroupInviteLinkUrl(groupMasterKey, GroupLinkPassword.fromBytes(group.getInviteLinkPassword().toByteArray()));
+  }
+
+  public static boolean isGroupLink(@NonNull String urlString) {
+    return getGroupUrl(urlString) != null;
+  }
+
+  /**
+   * @return null iff not a group url.
+   * @throws InvalidGroupLinkException If group url, but cannot be parsed.
+   */
   public static @Nullable GroupInviteLinkUrl fromUrl(@NonNull String urlString)
       throws InvalidGroupLinkException, UnknownGroupLinkVersionException
   {
-    URL url;
-    try {
-      url = new URL(urlString);
-    } catch (MalformedURLException e) {
+    URL url = getGroupUrl(urlString);
+
+    if (url == null) {
       return null;
     }
 
     try {
-      if (!GROUP_URL_HOST.equalsIgnoreCase(url.getHost())) {
-        return null;
-      }
-
       if (!"/".equals(url.getPath()) && url.getPath().length() > 0) {
         throw new InvalidGroupLinkException("No path was expected in url");
       }
@@ -62,8 +72,23 @@ public final class GroupInviteLinkUrl {
         }
         default: throw new UnknownGroupLinkVersionException("Url contains no known group link content");
       }
-    } catch (GroupLinkPassword.InvalidLengthException | InvalidInputException | IOException e){
+    } catch (InvalidInputException | IOException e) {
       throw new InvalidGroupLinkException(e);
+    }
+  }
+
+  /**
+   * @return {@link URL} if the host name matches.
+   */
+  private static URL getGroupUrl(@NonNull String urlString) {
+    try {
+      URL url = new URL(urlString);
+
+      return GROUP_URL_HOST.equalsIgnoreCase(url.getHost())
+             ? url
+             : null;
+    } catch (MalformedURLException e) {
+      return null;
     }
   }
 

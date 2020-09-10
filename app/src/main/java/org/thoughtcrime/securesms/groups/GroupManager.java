@@ -6,16 +6,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 
+import org.signal.storageservice.protos.groups.local.DecryptedGroupJoinInfo;
+import org.signal.zkgroup.VerificationFailedException;
 import org.signal.zkgroup.groups.GroupMasterKey;
 import org.signal.zkgroup.groups.UuidCiphertext;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.database.GroupDatabase;
+import org.thoughtcrime.securesms.groups.v2.GroupLinkPassword;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.profiles.AvatarHelper;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.Util;
+import org.whispersystems.signalservice.api.groupsv2.GroupLinkNotActiveException;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -141,6 +145,12 @@ public final class GroupManager {
     }
   }
 
+  /**
+   * @throws GroupNotAMemberException When Self is not a member of the group.
+   *                                  The exception to this is when Self is a requesting member and
+   *                                  there is a supplied signedGroupChange. This allows for
+   *                                  processing deny messages.
+   */
   @WorkerThread
   public static void updateGroupFromServer(@NonNull Context context,
                                            @NonNull GroupMasterKey groupMasterKey,
@@ -170,6 +180,11 @@ public final class GroupManager {
   public static void updateSelfProfileKeyInGroup(@NonNull Context context, @NonNull GroupId.V2 groupId)
       throws IOException, GroupChangeBusyException, GroupInsufficientRightsException, GroupNotAMemberException, GroupChangeFailedException
   {
+    if (!DatabaseFactory.getGroupDatabase(context).findGroup(groupId)) {
+      Log.i(TAG, "Group is not available locally " + groupId);
+      return;
+    }
+
     try (GroupManagerV2.GroupEditor editor = new GroupManagerV2(context).edit(groupId.requireV2())) {
       editor.updateSelfProfileKeyInGroup();
     }
@@ -233,6 +248,49 @@ public final class GroupManager {
   }
 
   @WorkerThread
+  public static void cycleGroupLinkPassword(@NonNull Context context,
+                                            @NonNull GroupId.V2 groupId)
+      throws GroupChangeFailedException, GroupInsufficientRightsException, IOException, GroupNotAMemberException, GroupChangeBusyException
+  {
+    try (GroupManagerV2.GroupEditor editor = new GroupManagerV2(context).edit(groupId.requireV2())) {
+      editor.cycleGroupLinkPassword();
+    }
+  }
+
+  @WorkerThread
+  public static void setGroupLinkEnabledState(@NonNull Context context,
+                                              @NonNull GroupId.V2 groupId,
+                                              @NonNull GroupLinkState state)
+      throws GroupChangeFailedException, GroupInsufficientRightsException, IOException, GroupNotAMemberException, GroupChangeBusyException
+  {
+    try (GroupManagerV2.GroupEditor editor = new GroupManagerV2(context).edit(groupId.requireV2())) {
+      editor.setJoinByGroupLinkState(state);
+    }
+  }
+
+  @WorkerThread
+  public static void approveRequests(@NonNull Context context,
+                                     @NonNull GroupId.V2 groupId,
+                                     @NonNull Collection<RecipientId> recipientIds)
+      throws GroupChangeFailedException, GroupInsufficientRightsException, IOException, GroupNotAMemberException, GroupChangeBusyException
+  {
+    try (GroupManagerV2.GroupEditor editor = new GroupManagerV2(context).edit(groupId.requireV2())) {
+      editor.approveRequests(recipientIds);
+    }
+  }
+
+  @WorkerThread
+  public static void denyRequests(@NonNull Context context,
+                                  @NonNull GroupId.V2 groupId,
+                                  @NonNull Collection<RecipientId> recipientIds)
+      throws GroupChangeFailedException, GroupInsufficientRightsException, IOException, GroupNotAMemberException, GroupChangeBusyException
+  {
+    try (GroupManagerV2.GroupEditor editor = new GroupManagerV2(context).edit(groupId.requireV2())) {
+      editor.denyRequests(recipientIds);
+    }
+  }
+
+  @WorkerThread
   public static @NonNull GroupActionResult addMembers(@NonNull Context context,
                                                       @NonNull GroupId.Push groupId,
                                                       @NonNull Collection<RecipientId> newMembers)
@@ -251,6 +309,43 @@ public final class GroupManager {
 
       recipientIds.addAll(newMembers);
       return GroupManagerV1.updateGroup(context, groupId, recipientIds, avatar, groupRecord.getTitle(), recipientIds.size() - originalSize);
+    }
+  }
+
+  /**
+   * Use to get a group's details direct from server bypassing the database.
+   * <p>
+   * Useful when you don't yet have the group in the database locally.
+   */
+  @WorkerThread
+  public static @NonNull DecryptedGroupJoinInfo getGroupJoinInfoFromServer(@NonNull Context context,
+                                                                           @NonNull GroupMasterKey groupMasterKey,
+                                                                           @Nullable GroupLinkPassword groupLinkPassword)
+      throws IOException, VerificationFailedException, GroupLinkNotActiveException
+  {
+    return new GroupManagerV2(context).getGroupJoinInfoFromServer(groupMasterKey, groupLinkPassword);
+  }
+
+  @WorkerThread
+  public static GroupActionResult joinGroup(@NonNull Context context,
+                                            @NonNull GroupMasterKey groupMasterKey,
+                                            @NonNull GroupLinkPassword groupLinkPassword,
+                                            @NonNull DecryptedGroupJoinInfo decryptedGroupJoinInfo,
+                                            @Nullable byte[] avatar)
+      throws IOException, GroupChangeBusyException, GroupChangeFailedException, MembershipNotSuitableForV2Exception, GroupLinkNotActiveException
+  {
+    try (GroupManagerV2.GroupJoiner join = new GroupManagerV2(context).join(groupMasterKey, groupLinkPassword)) {
+      return join.joinGroup(decryptedGroupJoinInfo, avatar);
+    }
+  }
+
+  @WorkerThread
+  public static void cancelJoinRequest(@NonNull Context context,
+                                       @NonNull GroupId.V2 groupId)
+      throws GroupChangeFailedException, IOException, GroupChangeBusyException
+  {
+    try (GroupManagerV2.GroupJoiner editor = new GroupManagerV2(context).cancelRequest(groupId.requireV2())) {
+      editor.cancelJoinRequest();
     }
   }
 
@@ -286,5 +381,11 @@ public final class GroupManager {
     public @NonNull List<RecipientId> getInvitedMembers() {
       return invitedMembers;
     }
+  }
+
+  public enum GroupLinkState {
+    DISABLED,
+    ENABLED,
+    ENABLED_WITH_APPROVAL
   }
 }

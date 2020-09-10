@@ -9,9 +9,11 @@ import androidx.annotation.Nullable;
 import com.annimon.stream.Stream;
 import com.google.protobuf.ByteString;
 
+import org.thoughtcrime.securesms.database.Database;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.database.GroupDatabase;
-import org.thoughtcrime.securesms.database.MessagingDatabase.InsertResult;
+import org.thoughtcrime.securesms.database.MessageDatabase;
+import org.thoughtcrime.securesms.database.MessageDatabase.InsertResult;
 import org.thoughtcrime.securesms.database.MmsDatabase;
 import org.thoughtcrime.securesms.database.SmsDatabase;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
@@ -237,7 +239,7 @@ public final class GroupV1MessageProcessor {
 
     try {
       if (outgoing) {
-        MmsDatabase                mmsDatabase     = DatabaseFactory.getMmsDatabase(context);
+        MessageDatabase            mmsDatabase     = DatabaseFactory.getMmsDatabase(context);
         RecipientId                recipientId     = DatabaseFactory.getRecipientDatabase(context).getOrInsertFromGroupId(GroupId.v1orThrow(group.getGroupId()));
         Recipient                  recipient       = Recipient.resolved(recipientId);
         OutgoingGroupUpdateMessage outgoingMessage = new OutgoingGroupUpdateMessage(recipient, storage, null, content.getTimestamp(), 0, false, null, Collections.emptyList(), Collections.emptyList(), Collections.emptyList());
@@ -248,9 +250,9 @@ public final class GroupV1MessageProcessor {
 
         return threadId;
       } else {
-        SmsDatabase          smsDatabase  = DatabaseFactory.getSmsDatabase(context);
-        String               body         = Base64.encodeBytes(storage.toByteArray());
-        IncomingTextMessage  incoming     = new IncomingTextMessage(Recipient.externalHighTrustPush(context, content.getSender()).getId(), content.getSenderDevice(), content.getTimestamp(), content.getServerReceivedTimestamp(), body, Optional.of(GroupId.v1orThrow(group.getGroupId())), 0, content.isNeedsReceipt());
+        MessageDatabase            smsDatabase  = DatabaseFactory.getSmsDatabase(context);
+        String                     body         = Base64.encodeBytes(storage.toByteArray());
+        IncomingTextMessage        incoming     = new IncomingTextMessage(Recipient.externalHighTrustPush(context, content.getSender()).getId(), content.getSenderDevice(), content.getTimestamp(), content.getServerReceivedTimestamp(), body, Optional.of(GroupId.v1orThrow(group.getGroupId())), 0, content.isNeedsReceipt());
         IncomingGroupUpdateMessage groupMessage = new IncomingGroupUpdateMessage(incoming, storage, body);
 
         Optional<InsertResult> insertResult = smsDatabase.insertMessageInbox(groupMessage);
