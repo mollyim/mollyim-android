@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="preferences__enable_debug_log">디버그 파일 활성화시키기</string>
+    <string name="preferences__enable_debug_log">디버그 파일 활성화시키기</string>
+    <string name="ChangePassphraseDialogFragment_weak_passphrase">약한 암호 입니다!</string>
+    <string name="PassphraseCreateActivity_turn_on_database_encryption">데이터베이스 암호화를 켜세요</string>
+    <string name="PassphraseCreateActivity_require_passphrase_to_unlock_molly">몰리를 잠금해제 하려면 암호가 필요합니까\?</string>
+    <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">이제 당신은 암호화 데이터베이스에 암호를 정할 수 있습니다. 그것이 잠금 해제될 때까지, 몰리는 알림이나 요청을 받을 수 없습니다. 이것은 도난당하거나 잃어버린 기계의 데이터를 보호하는데 도움이 됩니다.</string>
+    <string name="AppProtectionPreferenceFragment_instant">즉시</string>
+    <string name="WipeMemoryService_molly_is_clearing_secrets">몰리는 램(RAM)에 남아 있는 암호화되지 않은 데이터를 지우고 있습니다</string>
+    <string name="WipeMemoryService_secure_wipe_in_progress">보안 초기화 진행중</string>
+    <string name="preferences__passphrase_changed">변경된 암호</string>
+    <string name="preferences__device_lock_timeout">기계 잠금 시간 초과</string>
+    <string name="preferences__automatic_lockdown">자동 폐쇄</string>
+    <string name="preferences__protect_molly_database_with_a_passphrase">암호로 몰리의 데이터베이스를 보호하세요</string>
+    <string name="preferences__passphrase_lock">데이터베이스 암호화</string>
+    <string name="arrays__on_inactivity_timeout">만약 당신의 기기를 잠금해제하지 않고 일정 시간을 간다면</string>
 </resources>

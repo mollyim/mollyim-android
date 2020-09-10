@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="preferences__enable_debug_log">Slå på felsökningslogg</string>
-  <string name="AppProtectionPreferenceFragment_instant">Direkt</string>
+    <string name="preferences__enable_debug_log">Slå på felsökningslogg</string>
+    <string name="AppProtectionPreferenceFragment_instant">Direkt</string>
+    <string name="ChangePassphraseDialogFragment_generating_keys_this_may_take_a_while">Genererar nycklar. Detta kan ta ett tag…</string>
+    <string name="ChangePassphraseDialogFragment_please_choose_a_passphrase_that_will_be_used_to_locally_encrypt_your_data_this_should_be_a_strong_passphrase">Välj en lösenfras som används för att kryptera din data lokalt.\n\nDet skall vara en stark lösenfras.</string>
+    <string name="ChangePassphraseDialogFragment_enable">Aktivera</string>
+    <string name="ChangePassphraseDialogFragment_passphrase">Lösenfras</string>
+    <string name="ChangePassphraseDialogFragment_estimated_time_to_crack_suggestion">%1$s\n\nUppskattad tid att knäcka: %2$s.\n\nFörslag: %3$s</string>
+    <string name="ChangePassphraseDialogFragment_weak_passphrase">Svag lösenfras!</string>
+    <string name="PassphraseCreateActivity_turn_on_database_encryption">Aktivera databas-kryptering</string>
+    <string name="PassphraseCreateActivity_require_passphrase_to_unlock_molly">Kräv lösenfras för att låsa upp Molly\?</string>
+    <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">Nu kan du ställa in en lösenfras för att kryptera databasen. Innan den är upplåst så kan inte Molly ta emot notifieringar eller samtal. Detta bistår till att skydda data på borttappad eller stulen enhet.</string>
+    <string name="WipeMemoryService_molly_is_clearing_secrets">Molly rensar okrypterad data kvarstår i RAM</string>
+    <string name="WipeMemoryService_secure_wipe_in_progress">Säker rensning pågår</string>
+    <string name="ApplicationPreferencesActivity_privacy_summary_passphrase_registration_locks">Databas-kryptering %1$s, Registreringslås %2$s</string>
+    <string name="preferences__passphrase_changed">Lösenfras ändrad</string>
+    <string name="preferences__device_lock_timeout">Timeout för enhetslåsning</string>
+    <string name="preferences__automatic_lockdown">Automatisk nedlåsning</string>
+    <string name="preferences__protect_molly_database_with_a_passphrase">Skydda Molly\'s databas med en lösenfras</string>
+    <string name="preferences__passphrase_lock">Databas-kryptering</string>
+    <string name="arrays__on_inactivity_timeout">Om du låter en viss tid gå utan att låsa upp din enhet</string>
 </resources>

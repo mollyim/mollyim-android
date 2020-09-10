@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="preferences__enable_debug_log">Włącz logi debugowania</string>
-  <string name="AppProtectionPreferenceFragment_instant">Brak</string>
+    <string name="preferences__enable_debug_log">Włącz logi debugowania</string>
+    <string name="AppProtectionPreferenceFragment_instant">Brak</string>
+    <string name="ChangePassphraseDialogFragment_generating_keys_this_may_take_a_while">Generowanie kluczy. Może to trochę potrwać…</string>
+    <string name="ChangePassphraseDialogFragment_please_choose_a_passphrase_that_will_be_used_to_locally_encrypt_your_data_this_should_be_a_strong_passphrase">Wybierz hasło, które będzie używane do lokalnego szyfrowania danych.\n\nTo powinno być silne hasło.</string>
+    <string name="ChangePassphraseDialogFragment_enable">Włącz</string>
+    <string name="ChangePassphraseDialogFragment_passphrase">Hasło</string>
+    <string name="ChangePassphraseDialogFragment_estimated_time_to_crack_suggestion">%1$s\n\nSzacowany czas do złamania: %2$s.\n\nSugestia: %3$s</string>
+    <string name="ChangePassphraseDialogFragment_weak_passphrase">Słabe hasło!</string>
+    <string name="PassphraseCreateActivity_turn_on_database_encryption">Włącz szyfrowanie bazy danych</string>
+    <string name="PassphraseCreateActivity_require_passphrase_to_unlock_molly">Wymagać hasła do odblokowania Molly\?</string>
+    <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">Teraz można ustawić hasło do szyfrowania bazy danych. Dopóki nie jest odblokowana, Molly nie może odbierać powiadomień ani połączeń. Pomaga to chronić dane na zagubionych lub skradzionych urządzeniach.</string>
+    <string name="WipeMemoryService_molly_is_clearing_secrets">Molly czyści niezaszyfrowane dane pozostające w pamięci RAM</string>
+    <string name="WipeMemoryService_secure_wipe_in_progress">Trwa bezpieczne czyszczenie</string>
+    <string name="ApplicationPreferencesActivity_privacy_summary_passphrase_registration_locks">Szyfrowanie bazy danych %1$s, blokada rejestracji %2$s</string>
+    <string name="preferences__passphrase_changed">Hasło zostało zmienione</string>
+    <string name="preferences__device_lock_timeout">Limit czasu blokady urządzenia</string>
+    <string name="preferences__automatic_lockdown">Automatyczne blokowanie</string>
+    <string name="preferences__protect_molly_database_with_a_passphrase">Chroń bazę danych Molly za pomocą hasła</string>
+    <string name="preferences__passphrase_lock">Szyfrowanie bazy danych</string>
+    <string name="arrays__on_inactivity_timeout">Jeśli zdecydujesz się na określony czas bez odblokowywania urządzenia</string>
 </resources>
