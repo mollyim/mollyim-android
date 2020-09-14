@@ -442,7 +442,7 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
   }
 
   private void executePendingContactSync() {
-    if (isAppInitialized && TextSecurePreferences.needsFullContactSync(this)) {
+    if (TextSecurePreferences.needsFullContactSync(this)) {
       ApplicationDependencies.getJobManager().add(new MultiDeviceContactUpdateJob(true));
     }
   }
