@@ -53,23 +53,24 @@ final class GroupsV2UpdateMessageProducer {
   /**
    * Describes a group that is new to you, use this when there is no available change record.
    * <p>
-   * Invitation and groups you create are the most common cases where no change is available.
+   * Invitation and revision 0 groups are the most common use cases for this.
+   * <p>
+   * When invited, it's possible there's no change available.
+   * <p>
+   * When the revision of the group is 0, the change is very noisy and only the editor is useful.
    */
-  UpdateDescription describeNewGroup(@NonNull DecryptedGroup group) {
+  UpdateDescription describeNewGroup(@NonNull DecryptedGroup group, @NonNull DecryptedGroupChange decryptedGroupChange) {
     Optional<DecryptedPendingMember> selfPending = DecryptedGroupUtil.findPendingByUuid(group.getPendingMembersList(), selfUuid);
     if (selfPending.isPresent()) {
       return updateDescription(selfPending.get().getAddedByUuid(), inviteBy -> context.getString(R.string.MessageRecord_s_invited_you_to_the_group, inviteBy));
     }
 
-    if (group.getRevision() == 0) {
-      Optional<DecryptedMember> foundingMember = DecryptedGroupUtil.firstMember(group.getMembersList());
-      if (foundingMember.isPresent()) {
-        ByteString foundingMemberUuid = foundingMember.get().getUuid();
-        if (selfUuidBytes.equals(foundingMemberUuid)) {
-          return updateDescription(context.getString(R.string.MessageRecord_you_created_the_group));
-        } else {
-          return updateDescription(foundingMemberUuid, creator -> context.getString(R.string.MessageRecord_s_added_you, creator));
-        }
+    ByteString foundingMemberUuid = decryptedGroupChange.getEditor();
+    if (!foundingMemberUuid.isEmpty()) {
+      if (selfUuidBytes.equals(foundingMemberUuid)) {
+        return updateDescription(context.getString(R.string.MessageRecord_you_created_the_group));
+      } else {
+        return updateDescription(foundingMemberUuid, creator -> context.getString(R.string.MessageRecord_s_added_you, creator));
       }
     }
 
@@ -158,7 +159,7 @@ final class GroupsV2UpdateMessageProducer {
 
       if (editorIsYou) {
         if (newMemberIsYou) {
-          updates.add(0, updateDescription(context.getString(R.string.MessageRecord_you_joined_the_group_via_the_sharable_group_link)));
+          updates.add(0, updateDescription(context.getString(R.string.MessageRecord_you_joined_the_group_via_the_group_link)));
         } else {
           updates.add(updateDescription(member.getUuid(), added -> context.getString(R.string.MessageRecord_you_added_s, added)));
         }
@@ -167,7 +168,7 @@ final class GroupsV2UpdateMessageProducer {
           updates.add(0, updateDescription(change.getEditor(), editor -> context.getString(R.string.MessageRecord_s_added_you, editor)));
         } else {
           if (member.getUuid().equals(change.getEditor())) {
-            updates.add(updateDescription(member.getUuid(), newMember -> context.getString(R.string.MessageRecord_s_joined_the_group_via_the_sharable_group_link, newMember)));
+            updates.add(updateDescription(member.getUuid(), newMember -> context.getString(R.string.MessageRecord_s_joined_the_group_via_the_group_link, newMember)));
           } else {
             updates.add(updateDescription(change.getEditor(), member.getUuid(), (editor, newMember) -> context.getString(R.string.MessageRecord_s_added_s, editor, newMember)));
           }
@@ -516,33 +517,33 @@ final class GroupsV2UpdateMessageProducer {
       case ANY:
         groupLinkEnabled = true;
         if (editorIsYou) {
-          updates.add(updateDescription(context.getString(R.string.MessageRecord_you_turned_on_the_sharable_group_link)));
+          updates.add(updateDescription(context.getString(R.string.MessageRecord_you_turned_on_the_group_link_with_admin_approval_off)));
         } else {
-          updates.add(updateDescription(change.getEditor(), editor -> context.getString(R.string.MessageRecord_s_turned_on_the_sharable_group_link, editor)));
+          updates.add(updateDescription(change.getEditor(), editor -> context.getString(R.string.MessageRecord_s_turned_on_the_group_link_with_admin_approval_off, editor)));
         }
         break;
       case ADMINISTRATOR:
         groupLinkEnabled = true;
         if (editorIsYou) {
-          updates.add(updateDescription(context.getString(R.string.MessageRecord_you_turned_on_the_sharable_group_link_with_admin_approval)));
+          updates.add(updateDescription(context.getString(R.string.MessageRecord_you_turned_on_the_group_link_with_admin_approval_on)));
         } else {
-          updates.add(updateDescription(change.getEditor(), editor -> context.getString(R.string.MessageRecord_s_turned_on_the_sharable_group_link_with_admin_approval, editor)));
+          updates.add(updateDescription(change.getEditor(), editor -> context.getString(R.string.MessageRecord_s_turned_on_the_group_link_with_admin_approval_on, editor)));
         }
         break;
       case UNSATISFIABLE:
         if (editorIsYou) {
-          updates.add(updateDescription(context.getString(R.string.MessageRecord_you_turned_off_the_sharable_group_link)));
+          updates.add(updateDescription(context.getString(R.string.MessageRecord_you_turned_off_the_group_link)));
         } else {
-          updates.add(updateDescription(change.getEditor(), editor -> context.getString(R.string.MessageRecord_s_turned_off_the_sharable_group_link, editor)));
+          updates.add(updateDescription(change.getEditor(), editor -> context.getString(R.string.MessageRecord_s_turned_off_the_group_link, editor)));
         }
         break;
     }
 
     if (!groupLinkEnabled && change.getNewInviteLinkPassword().size() > 0) {
       if (editorIsYou) {
-        updates.add(updateDescription(context.getString(R.string.MessageRecord_you_reset_the_sharable_group_link)));
+        updates.add(updateDescription(context.getString(R.string.MessageRecord_you_reset_the_group_link)));
       } else {
-        updates.add(updateDescription(change.getEditor(), editor -> context.getString(R.string.MessageRecord_s_reset_the_sharable_group_link, editor)));
+        updates.add(updateDescription(change.getEditor(), editor -> context.getString(R.string.MessageRecord_s_reset_the_group_link, editor)));
       }
     }
   }
@@ -550,18 +551,18 @@ final class GroupsV2UpdateMessageProducer {
   private void describeUnknownEditorNewGroupInviteLinkAccess(@NonNull DecryptedGroupChange change, @NonNull List<UpdateDescription> updates) {
     switch (change.getNewInviteLinkAccess()) {
       case ANY:
-        updates.add(updateDescription(context.getString(R.string.MessageRecord_the_sharable_group_link_has_been_turned_on)));
+        updates.add(updateDescription(context.getString(R.string.MessageRecord_the_group_link_has_been_turned_on_with_admin_approval_off)));
         break;
       case ADMINISTRATOR:
-        updates.add(updateDescription(context.getString(R.string.MessageRecord_the_sharable_group_link_has_been_turned_on_with_admin_approval)));
+        updates.add(updateDescription(context.getString(R.string.MessageRecord_the_group_link_has_been_turned_on_with_admin_approval_on)));
         break;
       case UNSATISFIABLE:
-        updates.add(updateDescription(context.getString(R.string.MessageRecord_the_sharable_group_link_has_been_turned_off)));
+        updates.add(updateDescription(context.getString(R.string.MessageRecord_the_group_link_has_been_turned_off)));
         break;
     }
 
     if (change.getNewInviteLinkPassword().size() > 0) {
-      updates.add(updateDescription(context.getString(R.string.MessageRecord_the_sharable_group_link_has_been_reset)));
+      updates.add(updateDescription(context.getString(R.string.MessageRecord_the_group_link_has_been_reset)));
     }
   }
 
@@ -572,7 +573,7 @@ final class GroupsV2UpdateMessageProducer {
       if (requestingMemberIsYou) {
         updates.add(updateDescription(context.getString(R.string.MessageRecord_you_sent_a_request_to_join_the_group)));
       } else {
-        updates.add(updateDescription(member.getUuid(), requesting -> context.getString(R.string.MessageRecord_s_requested_to_join_via_the_sharable_group_link, requesting)));
+        updates.add(updateDescription(member.getUuid(), requesting -> context.getString(R.string.MessageRecord_s_requested_to_join_via_the_group_link, requesting)));
       }
     }
   }

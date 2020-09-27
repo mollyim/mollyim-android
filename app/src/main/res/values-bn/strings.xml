@@ -1511,13 +1511,9 @@
   <string name="preferences__mmsc_password">এমএমএসসি পাসওয়ার্ড</string>
   <string name="preferences__sms_delivery_reports">এসএমএস বিতরণ রিপোর্ট</string>
   <string name="preferences__request_a_delivery_report_for_each_sms_message_you_send">আপনার প্রেরিত প্রতিটি এসএমএস বার্তার জন্য একটি বিতরণ রিপোর্টের জন্য অনুরোধ করুন</string>
-  <string name="preferences__automatically_delete_older_messages_once_a_conversation_exceeds_a_specified_length">কোনও কথোপকথন একটি নির্দিষ্ট দৈর্ঘ্য ছাড়িয়ে গেলে স্বয়ংক্রিয়ভাবে পুরানো বার্তাগুলি মুছে দিন</string>
-  <string name="preferences__delete_old_messages">পুরানো বার্তা মুছে দিন</string>
   <string name="preferences__chats">চ্যাট আর মিডিয়া</string>
   <string name="preferences__storage">স্টোরেজ</string>
   <string name="preferences__conversation_length_limit">কথোপকথন দৈর্ঘ্য সীমা</string>
-  <string name="preferences__trim_all_conversations_now">এখন সমস্ত কথোপকথন সংক্ষিপ্ত করুন</string>
-  <string name="preferences__scan_through_all_conversations_and_enforce_conversation_length_limits">সমস্ত কথোপকথন স্ক্যান করুন এবং কথোপকথন দৈর্ঘ্যের সীমাটি প্রয়োগ করুন</string>
   <string name="preferences__linked_devices">সংযুক্ত ডিভাইস সমূহ</string>
   <string name="preferences__light_theme">আলো</string>
   <string name="preferences__dark_theme">অন্ধকার</string>
@@ -1542,13 +1538,13 @@
   <string name="preferences_chats__when_using_wifi">ওয়াইফাই ব্যবহার করার সময়</string>
   <string name="preferences_chats__when_roaming">রোমিং করার সময়</string>
   <string name="preferences_chats__media_auto_download">মিডিয়া অটো-ডাউনলোড</string>
-  <string name="preferences_chats__message_trimming">বার্তা ছাঁটাই</string>
   <string name="preferences_storage__storage_usage">স্টোরেজ ব্যবহার</string>
   <string name="preferences_storage__photos">ছবিসমূহ</string>
   <string name="preferences_storage__videos">ভিডিওসমূহ</string>
   <string name="preferences_storage__files">ফাইলসমূহ</string>
   <string name="preferences_storage__audio">শব্দ</string>
   <string name="preferences_storage__review_storage">স্টোরেজ পর্যালোচনা</string>
+  <string name="preferences_storage__none">কিছুই না</string>
   <string name="preferences_advanced__use_system_emoji">সিস্টেম ইমোজি ব্যবহার করুন</string>
   <string name="preferences_advanced__disable_signal_built_in_emoji_support">Signal এর অন্তর্নির্মিত ইমোজি সমর্থন অক্ষম করুন</string>
   <string name="preferences_advanced__relay_all_calls_through_the_signal_server_to_avoid_revealing_your_ip_address">আপনার যোগাযোগের আইপি ঠিকানাটি প্রকাশ না করার জন্য Signal সার্ভারের মাধ্যমে কল সমূহ রিলে করুন। সক্ষম করা কল এর মান হ্রাস পাবে|</string>
@@ -1658,14 +1654,14 @@
   <string name="verify_display_fragment_context_menu__copy_to_clipboard">ক্লিপবোর্ডে অনুলিপি করুন</string>
   <string name="verify_display_fragment_context_menu__compare_with_clipboard">ক্লিপবোর্ডের সাথে তুলনা করুন</string>
   <!--reminder_header-->
-  <string name="reminder_header_outdated_build">আপনার Signal সংস্করণটি পুরানো</string>
-  <plurals name="reminder_header_outdated_build_details">
+  <!-- Removed by excludeNonTranslatables <string name="reminder_header_outdated_build">আপনার Signal সংস্করণটি পুরানো</string> -->
+  <!-- Removed by excludeNonTranslatables <plurals name="reminder_header_outdated_build_details">
     <item quantity="one">আপনার Signal সংস্করণ %d দিন পরে বাতিল হয়ে যাবে। অতি সাম্প্রতিক সংস্করণে আপডেট করতে আলতো চাপুন।</item>
     <item quantity="other">আপনার Signal সংস্করণ %d দিনের মধ্যেই বাতিল হয়ে যাবে। অতি সাম্প্রতিক সংস্করণে আপডেট করতে আলতো চাপুন।</item>
-  </plurals>
-  <string name="reminder_header_outdated_build_details_today">আপনার Signal সংস্করণ আজ বাতিল হয়ে যাবে। অতি সাম্প্রতিক সংস্করণে আপডেট করতে আলতো চাপুন।</string>
-  <string name="reminder_header_expired_build">আপনার Signal সংস্করণ বাতিল হয়ে গেছে।</string>
-  <string name="reminder_header_expired_build_details">বার্তা সফলভাবে আর প্রেরণ করবে না। অতি সাম্প্রতিক সংস্করণে আপডেট করতে আলতো চাপুন।</string>
+  </plurals> -->
+  <!-- Removed by excludeNonTranslatables <string name="reminder_header_outdated_build_details_today">আপনার Signal সংস্করণ আজ বাতিল হয়ে যাবে। অতি সাম্প্রতিক সংস্করণে আপডেট করতে আলতো চাপুন।</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="reminder_header_expired_build">আপনার Signal সংস্করণ বাতিল হয়ে গেছে।</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="reminder_header_expired_build_details">বার্তা সফলভাবে আর প্রেরণ করবে না। অতি সাম্প্রতিক সংস্করণে আপডেট করতে আলতো চাপুন।</string> -->
   <string name="reminder_header_sms_default_title">ডিফল্ট এসএমএস অ্যাপ হিসাবে ব্যবহার করুন</string>
   <string name="reminder_header_sms_default_text">Signal কে আপনার ডিফল্ট এসএমএস অ্যাপ করতে আলতো চাপুন।</string>
   <string name="reminder_header_sms_import_title">সিস্টেম এসএমএস আমদানি করুন</string>

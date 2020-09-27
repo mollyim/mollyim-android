@@ -1621,13 +1621,9 @@ Mottok nøkkelutvekslingsmelding for ugyldig protokollversion.</string>
   <string name="preferences__mmsc_password">MMSC-passord</string>
   <string name="preferences__sms_delivery_reports">SMS-leveringsrapporter </string>
   <string name="preferences__request_a_delivery_report_for_each_sms_message_you_send">Be om leveringsrapport når du sender SMS</string>
-  <string name="preferences__automatically_delete_older_messages_once_a_conversation_exceeds_a_specified_length">Slett gamle meldinger automatisk når en samtale overskrider valgt lengde</string>
-  <string name="preferences__delete_old_messages">Slett gamle meldinger</string>
   <string name="preferences__chats">Samtaler og medier</string>
   <string name="preferences__storage">Lagring</string>
   <string name="preferences__conversation_length_limit">Lengdegrense for samtaler</string>
-  <string name="preferences__trim_all_conversations_now">Rydd opp i alle samtaler nå</string>
-  <string name="preferences__scan_through_all_conversations_and_enforce_conversation_length_limits">Søk gjennom alle samtaler og tving lengdegrenser for samtaler</string>
   <string name="preferences__linked_devices">Sammenkoblede enheter</string>
   <string name="preferences__light_theme">Lys</string>
   <string name="preferences__dark_theme">Mørk</string>
@@ -1657,13 +1653,14 @@ Mottok nøkkelutvekslingsmelding for ugyldig protokollversion.</string>
   <string name="preferences_chats__when_using_wifi">Ved bruk av Wi-Fi</string>
   <string name="preferences_chats__when_roaming">I fremmednett</string>
   <string name="preferences_chats__media_auto_download">Automatisk nedlasting av medier</string>
-  <string name="preferences_chats__message_trimming">Automatisk sletting</string>
   <string name="preferences_storage__storage_usage">Lagringsbruk</string>
   <string name="preferences_storage__photos">Bilder</string>
   <string name="preferences_storage__videos">Videoer</string>
   <string name="preferences_storage__files">Filer</string>
   <string name="preferences_storage__audio">Lyd</string>
   <string name="preferences_storage__review_storage">Gå gjennom lagring</string>
+  <string name="preferences_storage__none">Ingen</string>
+  <string name="preferences_storage__custom">Selvvalgt</string>
   <string name="preferences_advanced__use_system_emoji">Bruk systemets emoji</string>
   <string name="preferences_advanced__disable_signal_built_in_emoji_support">Slå av innebygd emoji-støtte i Signal</string>
   <string name="preferences_advanced__relay_all_calls_through_the_signal_server_to_avoid_revealing_your_ip_address">Videresend alle samtaler gjennom Signal serveren for å unngå å avsløre IP-adressen din til kontakten din. Aktivering vill redusere samtalekvaliteten.</string>
@@ -1774,14 +1771,14 @@ Mottok nøkkelutvekslingsmelding for ugyldig protokollversion.</string>
   <string name="verify_display_fragment_context_menu__copy_to_clipboard">Kopiere til utklippstavle</string>
   <string name="verify_display_fragment_context_menu__compare_with_clipboard">Sammenlign med utklippstavlen</string>
   <!--reminder_header-->
-  <string name="reminder_header_outdated_build">Din versjon av Signal er utdatert</string>
-  <plurals name="reminder_header_outdated_build_details">
+  <!-- Removed by excludeNonTranslatables <string name="reminder_header_outdated_build">Din versjon av Signal er utdatert</string> -->
+  <!-- Removed by excludeNonTranslatables <plurals name="reminder_header_outdated_build_details">
     <item quantity="one">Denne versjonen av Signal utløper om %ddag. Trykk for å oppdatere programmet til nyeste versjon.</item>
     <item quantity="other">Denne versjonen av Signal utløper om %d dag. Trykk for å oppdatere programmet til nyeste versjon.</item>
-  </plurals>
-  <string name="reminder_header_outdated_build_details_today">Denne versjonen av Signal utgår i dag. Trykk for å oppdatere til nyeste versjon.</string>
-  <string name="reminder_header_expired_build">Denne versjonen av Signal er utgått.</string>
-  <string name="reminder_header_expired_build_details">Meldinger blir fra nå av ikke sendt. Trykk for å oppdatere til nyeste versjon.</string>
+  </plurals> -->
+  <!-- Removed by excludeNonTranslatables <string name="reminder_header_outdated_build_details_today">Denne versjonen av Signal utgår i dag. Trykk for å oppdatere til nyeste versjon.</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="reminder_header_expired_build">Denne versjonen av Signal er utgått.</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="reminder_header_expired_build_details">Meldinger blir fra nå av ikke sendt. Trykk for å oppdatere til nyeste versjon.</string> -->
   <string name="reminder_header_sms_default_title">Bruk som forvalgt SMS-program</string>
   <string name="reminder_header_sms_default_text">Trykk for å gjøre Signal til forvalgt SMS-program.</string>
   <string name="reminder_header_sms_import_title">Importer system-SMS</string>

@@ -56,6 +56,7 @@ import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.ViewCompat;
 import androidx.lifecycle.DefaultLifecycleObserver;
+import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ProcessLifecycleOwner;
 import androidx.lifecycle.ViewModelProviders;
@@ -113,6 +114,7 @@ import org.thoughtcrime.securesms.service.KeyCachingService;
 import org.thoughtcrime.securesms.sms.MessageSender;
 import org.thoughtcrime.securesms.storage.StorageSyncHelper;
 import org.thoughtcrime.securesms.util.AvatarUtil;
+import org.thoughtcrime.securesms.util.PlayStoreUtil;
 import org.thoughtcrime.securesms.util.ServiceUtil;
 import org.thoughtcrime.securesms.util.SnapToTopDataObserver;
 import org.thoughtcrime.securesms.util.StickyHeaderDecoration;
@@ -172,6 +174,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
   private ViewGroup                         megaphoneContainer;
   private SnapToTopDataObserver             snapToTopDataObserver;
   private Drawable                          archiveDrawable;
+  private LifecycleObserver                 visibilityLifecycleObserver;
 
   public static ConversationListFragment newInstance() {
     return new ConversationListFragment();
@@ -210,6 +213,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
     cameraFab.show();
 
     reminderView.setOnDismissListener(this::updateReminders);
+    reminderView.setOnActionClickListener(this::onReminderAction);
 
     list.setLayoutManager(new LinearLayoutManager(requireActivity()));
     list.setItemAnimator(new DeleteItemAnimator());
@@ -246,7 +250,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
     updateReminders();
     EventBus.getDefault().register(this);
 
-    SimpleTask.run(getLifecycle(), Recipient::self, this::initializeProfileIcon);
+    SimpleTask.run(getViewLifecycleOwner().getLifecycle(), Recipient::self, this::initializeProfileIcon);
 
     if (!searchToolbar.isVisible() && list.getAdapter() != defaultAdapter) {
       list.removeItemDecoration(searchAdapterDecoration);
@@ -262,6 +266,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
   public void onStart() {
     super.onStart();
     ConversationFragment.prepare(requireContext());
+    ProcessLifecycleOwner.get().getLifecycle().addObserver(visibilityLifecycleObserver);
   }
 
   @Override
@@ -271,6 +276,12 @@ public class ConversationListFragment extends MainFragment implements ActionMode
     fab.stopPulse();
     cameraFab.stopPulse();
     EventBus.getDefault().unregister(this);
+  }
+
+  @Override
+  public void onStop() {
+    super.onStop();
+    ProcessLifecycleOwner.get().getLifecycle().removeObserver(visibilityLifecycleObserver);
   }
 
   @Override
@@ -400,6 +411,12 @@ public class ConversationListFragment extends MainFragment implements ActionMode
     viewModel.onMegaphoneCompleted(event);
   }
 
+  private void onReminderAction(@IdRes int reminderActionId) {
+    if (reminderActionId == R.id.reminder_action_update_now) {
+      PlayStoreUtil.openPlayStoreOrOurApkDownloadPage(requireContext());
+    }
+  }
+
   private void hideKeyboard() {
     InputMethodManager imm = ServiceUtil.getInputMethodManager(requireContext());
     imm.hideSoftInputFromWindow(requireView().getWindowToken(), 0);
@@ -496,12 +513,12 @@ public class ConversationListFragment extends MainFragment implements ActionMode
     viewModel.getConversationList().observe(getViewLifecycleOwner(), this::onSubmitList);
     viewModel.hasNoConversations().observe(getViewLifecycleOwner(), this::updateEmptyState);
 
-    ProcessLifecycleOwner.get().getLifecycle().addObserver(new DefaultLifecycleObserver() {
+    visibilityLifecycleObserver = new DefaultLifecycleObserver() {
       @Override
       public void onStart(@NonNull LifecycleOwner owner) {
         viewModel.onVisible();
       }
-    });
+    };
   }
 
   private void onSearchResultChanged(@Nullable SearchResult result) {

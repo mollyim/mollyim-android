@@ -21,11 +21,14 @@ import org.thoughtcrime.securesms.contactshare.ContactModelMapper;
 import org.thoughtcrime.securesms.crypto.ProfileKeyUtil;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.database.model.Mention;
+import org.thoughtcrime.securesms.database.model.StickerRecord;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.events.PartProgressEvent;
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobmanager.JobManager;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
+import org.thoughtcrime.securesms.keyvalue.CertificateType;
+import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.linkpreview.LinkPreview;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.mms.DecryptableStreamUriLoader;
@@ -45,8 +48,8 @@ import org.thoughtcrime.securesms.util.Util;
 import org.whispersystems.libsignal.util.guava.Optional;
 import org.whispersystems.signalservice.api.crypto.UnidentifiedAccessPair;
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachment;
-import org.whispersystems.signalservice.api.messages.SignalServiceAttachmentRemoteId;
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachmentPointer;
+import org.whispersystems.signalservice.api.messages.SignalServiceAttachmentRemoteId;
 import org.whispersystems.signalservice.api.messages.SignalServiceDataMessage;
 import org.whispersystems.signalservice.api.messages.SignalServiceDataMessage.Preview;
 import org.whispersystems.signalservice.api.messages.multidevice.SentTranscriptMessage;
@@ -57,10 +60,12 @@ import org.whispersystems.signalservice.api.push.SignalServiceAddress;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -283,9 +288,11 @@ public abstract class PushSendJob extends SendJob {
       byte[]                  packId     = Hex.fromStringCondensed(stickerAttachment.getSticker().getPackId());
       byte[]                  packKey    = Hex.fromStringCondensed(stickerAttachment.getSticker().getPackKey());
       int                     stickerId  = stickerAttachment.getSticker().getStickerId();
+      StickerRecord           record     = DatabaseFactory.getStickerDatabase(context).getSticker(stickerAttachment.getSticker().getPackId(), stickerId, false);
+      String                  emoji      = record != null ? record.getEmoji() : null;
       SignalServiceAttachment attachment = getAttachmentPointerFor(stickerAttachment);
 
-      return Optional.of(new SignalServiceDataMessage.Sticker(packId, packKey, stickerId, attachment));
+      return Optional.of(new SignalServiceDataMessage.Sticker(packId, packKey, stickerId, emoji, attachment));
     } catch (IOException e) {
       Log.w(TAG, "Failed to decode sticker id/key", e);
       return Optional.absent();
@@ -327,23 +334,34 @@ public abstract class PushSendJob extends SendJob {
 
   protected void rotateSenderCertificateIfNecessary() throws IOException {
     try {
-      byte[] certificateBytes = TextSecurePreferences.getUnidentifiedAccessCertificate(context);
+      Collection<CertificateType> requiredCertificateTypes = SignalStore.phoneNumberPrivacy()
+                                                                        .getRequiredCertificateTypes();
 
-      if (certificateBytes == null) {
-        throw new InvalidCertificateException("No certificate was present.");
+      Log.i(TAG, "Ensuring we have these certificates " + requiredCertificateTypes);
+
+      for (CertificateType certificateType : requiredCertificateTypes) {
+
+        byte[] certificateBytes = SignalStore.certificateValues()
+                                             .getUnidentifiedAccessCertificate(certificateType);
+
+        if (certificateBytes == null) {
+          throw new InvalidCertificateException(String.format("No certificate %s was present.", certificateType));
+        }
+
+        SenderCertificate certificate = new SenderCertificate(certificateBytes);
+
+        if (System.currentTimeMillis() > (certificate.getExpiration() - CERTIFICATE_EXPIRATION_BUFFER)) {
+          throw new InvalidCertificateException(String.format(Locale.US, "Certificate %s is expired, or close to it. Expires on: %d, currently: %d", certificateType, certificate.getExpiration(), System.currentTimeMillis()));
+        }
+        Log.d(TAG, String.format("Certificate %s is valid", certificateType));
       }
 
-      SenderCertificate certificate = new SenderCertificate(certificateBytes);
-
-      if (System.currentTimeMillis() > (certificate.getExpiration() - CERTIFICATE_EXPIRATION_BUFFER)) {
-        throw new InvalidCertificateException("Certificate is expired, or close to it. Expires on: " + certificate.getExpiration() + ", currently: " + System.currentTimeMillis());
-      }
-
-      Log.d(TAG, "Certificate is valid.");
+      Log.d(TAG, "All certificates are valid.");
     } catch (InvalidCertificateException e) {
-      Log.w(TAG, "Certificate was invalid at send time. Fetching a new one.", e);
-      RotateCertificateJob certificateJob = new RotateCertificateJob(context);
-      certificateJob.onRun();
+      Log.w(TAG, "A certificate was invalid at send time. Fetching new ones.", e);
+      if (!ApplicationDependencies.getJobManager().runSynchronously(new RotateCertificateJob(), 5000).isPresent()) {
+        throw new IOException("Timeout rotating certificate");
+      }
     }
   }
 

@@ -49,20 +49,23 @@ public final class FeatureFlags {
 
   private static final long FETCH_INTERVAL = TimeUnit.HOURS.toMillis(2);
 
-  private static final String USERNAMES                  = "android.usernames";
-  private static final String ATTACHMENTS_V3             = "android.attachmentsV3.2";
-  private static final String REMOTE_DELETE              = "android.remoteDelete";
-  private static final String GROUPS_V2_OLD_1            = "android.groupsv2";
-  private static final String GROUPS_V2_OLD_2            = "android.groupsv2.2";
-  private static final String GROUPS_V2                  = "android.groupsv2.3";
-  private static final String GROUPS_V2_CREATE           = "android.groupsv2.create.3";
-  private static final String GROUPS_V2_JOIN_VERSION     = "android.groupsv2.joinVersion";
-  private static final String GROUPS_V2_LINKS_VERSION    = "android.groupsv2.manageGroupLinksVersion";
-  private static final String GROUPS_V2_CAPACITY         = "global.groupsv2.maxGroupSize";
-  private static final String CDS_VERSION                = "android.cdsVersion";
-  private static final String INTERNAL_USER              = "android.internalUser";
-  private static final String MENTIONS                   = "android.mentions";
-  private static final String VERIFY_V2                  = "android.verifyV2";
+  private static final String USERNAMES                    = "android.usernames";
+  private static final String ATTACHMENTS_V3               = "android.attachmentsV3.2";
+  private static final String REMOTE_DELETE                = "android.remoteDelete";
+  private static final String GROUPS_V2_OLD_1              = "android.groupsv2";
+  private static final String GROUPS_V2_OLD_2              = "android.groupsv2.2";
+  private static final String GROUPS_V2_OLD_3              = "android.groupsv2.3";
+  private static final String GROUPS_V2                    = "android.groupsv2.4";
+  private static final String GROUPS_V2_CREATE_VERSION     = "android.groupsv2.createVersion";
+  private static final String GROUPS_V2_JOIN_VERSION       = "android.groupsv2.joinVersion";
+  private static final String GROUPS_V2_LINKS_VERSION      = "android.groupsv2.manageGroupLinksVersion";
+  private static final String GROUPS_V2_CAPACITY           = "global.groupsv2.maxGroupSize";
+  private static final String CDS_VERSION                  = "android.cdsVersion";
+  private static final String INTERNAL_USER                = "android.internalUser";
+  private static final String MENTIONS                     = "android.mentions";
+  private static final String VERIFY_V2                    = "android.verifyV2";
+  private static final String PHONE_NUMBER_PRIVACY_VERSION = "android.phoneNumberPrivacyVersion";
+  private static final String CLIENT_EXPIRATION            = "android.clientExpiration";
 
   /**
    * We will only store remote values for flags in this set. If you want a flag to be controllable
@@ -73,7 +76,7 @@ public final class FeatureFlags {
       ATTACHMENTS_V3,
       REMOTE_DELETE,
       GROUPS_V2,
-      GROUPS_V2_CREATE,
+      GROUPS_V2_CREATE_VERSION,
       GROUPS_V2_CAPACITY,
       GROUPS_V2_JOIN_VERSION,
       GROUPS_V2_LINKS_VERSION,
@@ -81,7 +84,8 @@ public final class FeatureFlags {
       INTERNAL_USER,
       USERNAMES,
       MENTIONS,
-      VERIFY_V2
+      VERIFY_V2,
+      CLIENT_EXPIRATION
   );
 
   /**
@@ -103,10 +107,11 @@ public final class FeatureFlags {
    */
   private static final Set<String> HOT_SWAPPABLE = Sets.newHashSet(
       ATTACHMENTS_V3,
-      GROUPS_V2_CREATE,
+      GROUPS_V2_CREATE_VERSION,
       GROUPS_V2_JOIN_VERSION,
       VERIFY_V2,
-      CDS_VERSION
+      CDS_VERSION,
+      CLIENT_EXPIRATION
   );
 
   /**
@@ -116,6 +121,7 @@ public final class FeatureFlags {
       GROUPS_V2,
       GROUPS_V2_OLD_1,
       GROUPS_V2_OLD_2,
+      GROUPS_V2_OLD_3,
       VERIFY_V2
     );
 
@@ -208,7 +214,7 @@ public final class FeatureFlags {
   /** Attempt groups v2 creation. */
   public static boolean groupsV2create() {
     return groupsV2LatestFlag() &&
-           getBoolean(GROUPS_V2_CREATE, false) &&
+           getVersionFlag(GROUPS_V2_CREATE_VERSION) == VersionFlag.ON &&
            !SignalStore.internalValues().gv2DoNotCreateGv2Groups();
   }
 
@@ -224,7 +230,8 @@ public final class FeatureFlags {
   /** Clients that previously saw these flags as true must continue to respect that */
   private static boolean groupsV2OlderStickyFlags() {
     return getBoolean(GROUPS_V2_OLD_1, false) ||
-           getBoolean(GROUPS_V2_OLD_2, false);
+           getBoolean(GROUPS_V2_OLD_2, false) ||
+           getBoolean(GROUPS_V2_OLD_3, false);
   }
 
   /**
@@ -277,6 +284,19 @@ public final class FeatureFlags {
   /** Whether or not to use the UUID in verification codes. */
   public static boolean verifyV2() {
     return getBoolean(VERIFY_V2, false);
+  }
+
+  /** The raw client expiration JSON string. */
+  public static String clientExpiration() {
+    return getString(CLIENT_EXPIRATION, null);
+  }
+
+  /**
+   * Whether the user can choose phone number privacy settings, and;
+   * Whether to fetch and store the secondary certificate
+   */
+  public static boolean phoneNumberPrivacy() {
+    return getVersionFlag(PHONE_NUMBER_PRIVACY_VERSION) == VersionFlag.ON;
   }
 
   /** Only for rendering debug info. */
@@ -442,13 +462,27 @@ public final class FeatureFlags {
       return forced;
     }
 
-    String remote = (String) REMOTE_VALUES.get(key);
-    if (remote != null) {
+    Object remote = REMOTE_VALUES.get(key);
+    if (remote instanceof String) {
       try {
-        return Integer.parseInt(remote);
+        return Integer.parseInt((String) remote);
       } catch (NumberFormatException e) {
         Log.w(TAG, "Expected an int for key '" + key + "', but got something else! Falling back to the default.");
       }
+    }
+
+    return defaultValue;
+  }
+
+  private static String getString(@NonNull String key, String defaultValue) {
+    String forced = (String) FORCED_VALUES.get(key);
+    if (forced != null) {
+      return forced;
+    }
+
+    Object remote = REMOTE_VALUES.get(key);
+    if (remote instanceof String) {
+      return (String) remote;
     }
 
     return defaultValue;
@@ -502,14 +536,11 @@ public final class FeatureFlags {
     }
   }
 
-  private static final class MissingFlagRequirementError extends Error {
-  }
-
   @VisibleForTesting
   static final class UpdateResult {
     private final Map<String, Object> memory;
     private final Map<String, Object> disk;
-    private final Map<String, Change>  memoryChanges;
+    private final Map<String, Change> memoryChanges;
 
     UpdateResult(@NonNull Map<String, Object> memory, @NonNull Map<String, Object> disk, @NonNull Map<String, Change> memoryChanges) {
       this.memory        = memory;

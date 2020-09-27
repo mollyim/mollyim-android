@@ -338,6 +338,8 @@ public final class PushProcessMessageJob extends BaseJob {
         return;
       }
 
+      Log.i(TAG, "Processing message ID " + content.getTimestamp());
+
       if (content.getDataMessage().isPresent()) {
         SignalServiceDataMessage message        = content.getDataMessage().get();
         boolean                  isMediaMessage = message.getAttachments().isPresent() || message.getQuote().isPresent() || message.getSharedContacts().isPresent() || message.getPreviews().isPresent() || message.getSticker().isPresent() || message.getMentions().isPresent();
@@ -1658,14 +1660,15 @@ public final class PushProcessMessageJob extends BaseJob {
     String          packId          = Hex.toStringCondensed(sticker.get().getPackId());
     String          packKey         = Hex.toStringCondensed(sticker.get().getPackKey());
     int             stickerId       = sticker.get().getStickerId();
-    StickerLocator  stickerLocator  = new StickerLocator(packId, packKey, stickerId);
+    String          emoji           = sticker.get().getEmoji();
+    StickerLocator  stickerLocator  = new StickerLocator(packId, packKey, stickerId, emoji);
     StickerDatabase stickerDatabase = DatabaseFactory.getStickerDatabase(context);
     StickerRecord   stickerRecord   = stickerDatabase.getSticker(stickerLocator.getPackId(), stickerLocator.getStickerId(), false);
 
     if (stickerRecord != null) {
       return Optional.of(new UriAttachment(stickerRecord.getUri(),
                                            stickerRecord.getUri(),
-                                           MediaUtil.IMAGE_WEBP,
+                                           stickerRecord.getContentType(),
                                            AttachmentDatabase.TRANSFER_PROGRESS_DONE,
                                            stickerRecord.getSize(),
                                            StickerSlide.WIDTH,

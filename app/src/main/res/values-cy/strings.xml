@@ -615,10 +615,11 @@ Send neges heb ei ddiogelu?</string>
   </plurals>
   <!--GroupJoinBottomSheetDialogFragment-->
   <string name="GroupJoinBottomSheetDialogFragment_you_are_already_a_member">Rydych eisoes yn aelod</string>
+  <string name="GroupJoinBottomSheetDialogFragment_join">Ymuno</string>
   <string name="GroupJoinBottomSheetDialogFragment_encountered_a_network_error">Profwyd gwall rhwydwaith.</string>
+  <string name="GroupJoinBottomSheetDialogFragment_direct_join">Hoffech ymuno â\'r grŵp hwn a rhannu eich enw a llun gyda\'i aelodau?</string>
   <!--GroupJoinUpdateRequiredBottomSheetDialogFragment-->
   <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_signal_to_use_group_links">Diweddarwch Signal i ddefnyddio dolenni grŵp</string>
-  <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_message">Nid yw\'r fersiwn o Signal rydych yn ei ddefnyddio\'n cynnal dolenni grwpiau. Diweddarwch i\'r fersiwn diweddaraf i ymuno â\'r grŵp drwy ddolen.</string>
   <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_signal">Diweddaru Signal</string>
   <!--GV2 Request confirmation dialog-->
   <string name="RequestConfirmationDialog_add">Ychwanegu</string>
@@ -782,8 +783,8 @@ Send neges heb ei ddiogelu?</string>
   <string name="MessageRecord_s_set_disappearing_message_time_to_s">Gosododd %1$s amserydd y neges diflannu i %2$s.</string>
   <string name="MessageRecord_disappearing_message_time_set_to_s">Mae\'r amserydd neges sy\'n diflannu wedi\'i osod i %1$s.</string>
   <!--Profile change updates-->
-  <string name="MessageRecord_changed_their_profile_name_to">Newidiodd %$s eu henwau proffil i %2$s.</string>
-  <string name="MessageRecord_changed_their_profile_name_from_to">Newidiodd %$s eu henwau proffil o %2$s i %3$s.</string>
+  <string name="MessageRecord_changed_their_profile_name_to">Newidiodd %1$s eu henwau proffil i %2$s.</string>
+  <string name="MessageRecord_changed_their_profile_name_from_to">Newidiodd %1$s eu henwau proffil o %2$s i %3$s.</string>
   <string name="MessageRecord_changed_their_profile">Newidiodd %1$s eu proffil.</string>
   <!--GV2 specific-->
   <string name="MessageRecord_you_created_the_group">Crëwyd y grŵp gennych chi.</string>
@@ -874,7 +875,11 @@ Send neges heb ei ddiogelu?</string>
   <string name="MessageRecord_s_changed_who_can_edit_group_membership_to_s">Fe wnaeth %1$s newid pwy all olygu aelodaeth y grŵp i \"%2$s\".</string>
   <string name="MessageRecord_who_can_edit_group_membership_has_been_changed_to_s">Mae pwy all olygu manylion y grŵp wedi\'i newid i \"%1$s\".</string>
   <!--GV2 group link invite access level change-->
+  <string name="MessageRecord_you_turned_on_the_group_link_with_admin_approval_off">Galluogasoch y ddolen grŵp gyda chaniatâd gewinyddwr i ffwrdd.</string>
+  <string name="MessageRecord_you_turned_on_the_group_link_with_admin_approval_on">Galluogasoch y ddolen grŵp gyda chaniatâd gewinyddwr ymlaen.</string>
+  <string name="MessageRecord_you_turned_off_the_group_link">Diffoddasoch y ddolen grŵp.</string>
   <!--GV2 group link reset-->
+  <string name="MessageRecord_you_reset_the_group_link">Galluogasoch y ddolen grŵp.</string>
   <!--GV2 group link joins-->
   <!--GV2 group link requests-->
   <!--GV2 group link approvals-->
@@ -1777,13 +1782,9 @@ Send neges heb ei ddiogelu?</string>
   <string name="preferences__mmsc_password">Cyfrinair MMSC</string>
   <string name="preferences__sms_delivery_reports">Adroddiadau trosglwyddo SMS</string>
   <string name="preferences__request_a_delivery_report_for_each_sms_message_you_send">Gofyn am adroddiad trosglwyddo pob neges SMS rydych chi\'n ei anfon</string>
-  <string name="preferences__automatically_delete_older_messages_once_a_conversation_exceeds_a_specified_length">Dileu negeseuon hŷn yn ddiofyn pan fydd y sgwrs yn fwy na maint penodol</string>
-  <string name="preferences__delete_old_messages">Dileu hen negeseuon</string>
   <string name="preferences__chats">Sgyrsiau a chyfryngau</string>
   <string name="preferences__storage">Storfa</string>
   <string name="preferences__conversation_length_limit">Maint uchaf sgyrsiau</string>
-  <string name="preferences__trim_all_conversations_now">Tocio bob sgwrs nawr</string>
-  <string name="preferences__scan_through_all_conversations_and_enforce_conversation_length_limits">Sganio drwy\'r holl sgyrsiau a gorfodi terfynau hyd sgwrsio</string>
   <string name="preferences__linked_devices">Dyfeisiau cysylltiedig</string>
   <string name="preferences__light_theme">Golau</string>
   <string name="preferences__dark_theme">Tywyll</string>
@@ -1813,13 +1814,13 @@ Send neges heb ei ddiogelu?</string>
   <string name="preferences_chats__when_using_wifi">Wrth ddefnyddio diwifr</string>
   <string name="preferences_chats__when_roaming">Wrth grwydro</string>
   <string name="preferences_chats__media_auto_download">Awto lwytho cyfryngau</string>
-  <string name="preferences_chats__message_trimming">Tocio sgyrsiau</string>
   <string name="preferences_storage__storage_usage">Storfa wedi ei ddefnyddio</string>
   <string name="preferences_storage__photos">Lluniau</string>
   <string name="preferences_storage__videos">Fideos</string>
   <string name="preferences_storage__files">Ffeiliau</string>
   <string name="preferences_storage__audio">Sain</string>
   <string name="preferences_storage__review_storage">Adolygu\'r storfa</string>
+  <string name="preferences_storage__none">Dim</string>
   <string name="preferences_advanced__use_system_emoji">Defnyddio gwenogluniau\'r system</string>
   <string name="preferences_advanced__disable_signal_built_in_emoji_support">Analluogi cefnogaeth gwenogluniau Signal</string>
   <string name="preferences_advanced__relay_all_calls_through_the_signal_server_to_avoid_revealing_your_ip_address">Ail-alw pob galwad drwy\'r gweinydd Signal i osgoi datgelu eich cyfeiriad IP i\'ch cyswllt. Bydd galluogi yn lleihau ansawdd galwadau.</string>
@@ -1936,16 +1937,16 @@ Send neges heb ei ddiogelu?</string>
   <string name="verify_display_fragment_context_menu__copy_to_clipboard">Copïo i\'r clipfwrdd</string>
   <string name="verify_display_fragment_context_menu__compare_with_clipboard">Cymharu â\'r clipfwrdd</string>
   <!--reminder_header-->
-  <string name="reminder_header_outdated_build">Mae\'ch fersiwn o Signal yn hen</string>
-  <plurals name="reminder_header_outdated_build_details">
+  <!-- Removed by excludeNonTranslatables <string name="reminder_header_outdated_build">Mae\'ch fersiwn o Signal yn hen</string> -->
+  <!-- Removed by excludeNonTranslatables <plurals name="reminder_header_outdated_build_details">
     <item quantity="one">Bydd eich fersiwn o Signal yn dod i ben ymhen %d diwrnod. Tapiwch i ddiweddaru i\'r fersiwn ddiweddaraf.</item>
     <item quantity="two">Bydd eich fersiwn o Signal yn dod i ben ymhen %d diwrnod. Tapiwch i ddiweddaru i\'r fersiwn ddiweddaraf.</item>
     <item quantity="many">Bydd eich fersiwn o Signal yn dod i ben ymhen %d diwrnod. Tapiwch i ddiweddaru i\'r fersiwn ddiweddaraf.</item>
     <item quantity="other">Bydd eich fersiwn o Signal yn dod i ben ymhen %d diwrnod. Tapiwch i ddiweddaru i\'r fersiwn ddiweddaraf.</item>
-  </plurals>
-  <string name="reminder_header_outdated_build_details_today">Bydd eich fersiwn o Signal yn dod i ben heddiw. Tapiwch i ddiweddaru i\'r fersiwn ddiweddaraf.</string>
-  <string name="reminder_header_expired_build">Mae\'ch fersiwn o Signal wedi dod i ben!</string>
-  <string name="reminder_header_expired_build_details">Ni fydd negeseuon bellach yn cael eu hanfon yn llwyddiannus. Tapiwch i ddiweddaru i\'r fersiwn ddiweddaraf.</string>
+  </plurals> -->
+  <!-- Removed by excludeNonTranslatables <string name="reminder_header_outdated_build_details_today">Bydd eich fersiwn o Signal yn dod i ben heddiw. Tapiwch i ddiweddaru i\'r fersiwn ddiweddaraf.</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="reminder_header_expired_build">Mae\'ch fersiwn o Signal wedi dod i ben!</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="reminder_header_expired_build_details">Ni fydd negeseuon bellach yn cael eu hanfon yn llwyddiannus. Tapiwch i ddiweddaru i\'r fersiwn ddiweddaraf.</string> -->
   <string name="reminder_header_sms_default_title">Defnyddio fel yr ap SMS rhagosodedig</string>
   <string name="reminder_header_sms_default_text">Tapio i wneud Signal eich ap SMS.</string>
   <string name="reminder_header_sms_import_title">Mewnforio SMS y system</string>

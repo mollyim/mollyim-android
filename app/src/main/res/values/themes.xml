@@ -200,6 +200,8 @@
         <item name="android:homeAsUpIndicator">@drawable/ic_arrow_left_24</item>
         <!--<item name="android:windowContentOverlay">@drawable/compat_actionbar_shadow_background</item>-->
 
+        <item name="radio_theme">@style/Widget.Signal.CompoundButton.RadioButton.Light</item>
+
         <item name="kbs_splash_image">@drawable/ic_kbs_splash_light_svg</item>
         <item name="kbs_confirm_lottie_loading">@raw/lottie_kbs_loading_light</item>
         <item name="kbs_confirm_lottie_success">@raw/lottie_kbs_success_light</item>
@@ -268,6 +270,8 @@
         <item name="conversation_title_color">@color/white</item>
         <item name="conversation_subtitle_color">@color/transparent_white_90</item>
         <item name="conversation_mention_background_color">@color/core_grey_20</item>
+
+        <item name="low_priority_button_text_color">@color/core_grey_70</item>
 
         <item name="mention_picker_background_color">@color/core_white</item>
 
@@ -403,6 +407,7 @@
         <item name="advanced_icon">@drawable/ic_advanced_24</item>
         <item name="safety_number_icon">@drawable/ic_safety_number_outline_24</item>
         <item name="help_icon">@drawable/ic_help_outline_24</item>
+        <item name="donate_icon">@drawable/ic_heart_outline_24</item>
         <item name="message_request_dialog_button_background">@drawable/message_request_button_background_light</item>
         <item name="message_request_text_color_primary">@color/core_grey_90</item>
         <item name="message_request_text_color_secondary">@color/core_grey_60</item>
@@ -532,6 +537,8 @@
         <item name="homeAsUpIndicator">@drawable/ic_arrow_left_24</item>
         <item name="android:homeAsUpIndicator">@drawable/ic_arrow_left_24</item>
 
+        <item name="radio_theme">@style/Widget.Signal.CompoundButton.RadioButton</item>
+
         <item name="tinted_circle_background">@drawable/tinted_circle_dark</item>
 
         <item name="kbs_splash_image">@drawable/ic_kbs_splash_dark_svg</item>
@@ -650,6 +657,8 @@
         <item name="conversation_scroll_to_bottom_background">@drawable/scroll_to_bottom_background_dark</item>
         <item name="conversation_scroll_to_bottom_foreground_color">@color/core_white</item>
 
+        <item name="low_priority_button_text_color">@color/core_grey_50</item>
+
         <item name="mention_picker_background_color">@color/core_grey_90</item>
 
         <item name="reactions_overlay_toolbar_icon_tint">@color/core_white</item>
@@ -734,6 +743,7 @@
         <item name="advanced_icon">@drawable/ic_advanced_24</item>
         <item name="safety_number_icon">@drawable/ic_safety_number_solid_24</item>
         <item name="help_icon">@drawable/ic_help_solid_24</item>
+        <item name="donate_icon">@drawable/ic_heart_solid_24</item>
         <item name="message_request_dialog_button_background">@drawable/message_request_button_background_dark</item>
         <item name="message_request_text_color_primary">@color/core_grey_05</item>
         <item name="message_request_text_color_secondary">@color/core_grey_25</item>

@@ -1084,13 +1084,13 @@
   <string name="preferences__mmsc_password">Пароль MMSC</string>
   <string name="preferences__sms_delivery_reports">Звіти про доставку SMS</string>
   <string name="preferences__request_a_delivery_report_for_each_sms_message_you_send">Запитувати звіт про доставку для кожного відісланого вами SMS</string>
-  <string name="preferences__automatically_delete_older_messages_once_a_conversation_exceeds_a_specified_length">Автоматично видаляти старі повідомлення, коли довжина розмови перевищує задану</string>
-  <string name="preferences__delete_old_messages">Видаляти старі повідомлення</string>
+  <!-- Removed by excludeNonTranslatables <string name="preferences__automatically_delete_older_messages_once_a_conversation_exceeds_a_specified_length">Автоматично видаляти старі повідомлення, коли довжина розмови перевищує задану</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="preferences__delete_old_messages">Видаляти старі повідомлення</string> -->
   <string name="preferences__chats">Чати та медіа</string>
   <string name="preferences__storage">Сховище</string>
   <string name="preferences__conversation_length_limit">Обмеження довжини розмови</string>
-  <string name="preferences__trim_all_conversations_now">Обрізати усі розмови зараз</string>
-  <string name="preferences__scan_through_all_conversations_and_enforce_conversation_length_limits">Переглянути всі розмови і привести їх довжину у відповідність із заданою</string>
+  <!-- Removed by excludeNonTranslatables <string name="preferences__trim_all_conversations_now">Обрізати усі розмови зараз</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="preferences__scan_through_all_conversations_and_enforce_conversation_length_limits">Переглянути всі розмови і привести їх довжину у відповідність із заданою</string> -->
   <string name="preferences__linked_devices">Прив\'язані пристрої</string>
   <string name="preferences__light_theme">Світла</string>
   <string name="preferences__dark_theme">Темна</string>
@@ -1112,7 +1112,7 @@
   <string name="preferences_chats__when_using_wifi">При використанні Wi-Fi</string>
   <string name="preferences_chats__when_roaming">Під час роумінгу</string>
   <string name="preferences_chats__media_auto_download">Автозавантаження медіа</string>
-  <string name="preferences_chats__message_trimming">Обрізка повідомлень</string>
+  <!-- Removed by excludeNonTranslatables <string name="preferences_chats__message_trimming">Обрізка повідомлень</string> -->
   <string name="preferences_storage__audio">Аудіо</string>
   <string name="preferences_advanced__use_system_emoji">Використовувати системні emoji</string>
   <string name="preferences_advanced__disable_signal_built_in_emoji_support">Вимкнути вбудовану в Signal підтримку emoji</string>
@@ -1209,16 +1209,16 @@
   <string name="verify_display_fragment_context_menu__copy_to_clipboard">Скопіювати до буфера обміну</string>
   <string name="verify_display_fragment_context_menu__compare_with_clipboard">Порівняти із буфером обміну</string>
   <!--reminder_header-->
-  <string name="reminder_header_outdated_build">Ваша версія Signal застаріла</string>
-  <plurals name="reminder_header_outdated_build_details">
+  <!-- Removed by excludeNonTranslatables <string name="reminder_header_outdated_build">Ваша версія Signal застаріла</string> -->
+  <!-- Removed by excludeNonTranslatables <plurals name="reminder_header_outdated_build_details">
     <item quantity="one">Вашу версію Сигналу перестануть підтримувати за %d день. Торкніться, щоб оновити до останньої версії.</item>
     <item quantity="few">Вашу версію Сигналу перестануть підтримувати за %d днів. Торкніться, щоб оновити до останньої версії.</item>
     <item quantity="many">Вашу версію Сигналу перестануть підтримувати за %d днів. Торкніться, щоб оновити до останньої версії.</item>
     <item quantity="other">Вашу версію Signal перестануть підтримувати за %d днів. Торкніться, щоб оновити до останньої версії.</item>
-  </plurals>
-  <string name="reminder_header_outdated_build_details_today">Вашу версію Signal перестануть підтримувати сьогодні. Торкніться, щоб оновити до останньої версії.</string>
-  <string name="reminder_header_expired_build">Ваша версія Signal застаріла!</string>
-  <string name="reminder_header_expired_build_details">Повідомлення більше не будуть відправлятися. Торкніться, щоб оновитися до останньої версії.</string>
+  </plurals> -->
+  <!-- Removed by excludeNonTranslatables <string name="reminder_header_outdated_build_details_today">Вашу версію Signal перестануть підтримувати сьогодні. Торкніться, щоб оновити до останньої версії.</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="reminder_header_expired_build">Ваша версія Signal застаріла!</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="reminder_header_expired_build_details">Повідомлення більше не будуть відправлятися. Торкніться, щоб оновитися до останньої версії.</string> -->
   <string name="reminder_header_sms_default_title">Використовувати як типову програму для SMS</string>
   <string name="reminder_header_sms_default_text">Торкніться, щоб зробити Signal типовою програмою для SMS.</string>
   <string name="reminder_header_sms_import_title">Імпортувати системну базу SMS?</string>

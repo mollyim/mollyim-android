@@ -65,6 +65,7 @@ import org.thoughtcrime.securesms.util.JsonUtils;
 import org.thoughtcrime.securesms.util.MediaMetadataRetrieverUtil;
 import org.thoughtcrime.securesms.util.MediaUtil;
 import org.thoughtcrime.securesms.util.MediaUtil.ThumbnailData;
+import org.thoughtcrime.securesms.util.SetUtil;
 import org.thoughtcrime.securesms.util.StorageUtil;
 import org.thoughtcrime.securesms.util.Util;
 import org.thoughtcrime.securesms.video.EncryptedMediaDataSource;
@@ -82,10 +83,12 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -117,6 +120,7 @@ public class AttachmentDatabase extends Database {
   public  static final String STICKER_PACK_ID        = "sticker_pack_id";
   public  static final String STICKER_PACK_KEY       = "sticker_pack_key";
           static final String STICKER_ID             = "sticker_id";
+          static final String STICKER_EMOJI          = "sticker_emoji";
           static final String FAST_PREFLIGHT_ID      = "fast_preflight_id";
   public  static final String DATA_RANDOM            = "data_random";
   private static final String THUMBNAIL_RANDOM       = "thumbnail_random";
@@ -149,7 +153,7 @@ public class AttachmentDatabase extends Database {
                                                            THUMBNAIL_ASPECT_RATIO, UNIQUE_ID, DIGEST,
                                                            FAST_PREFLIGHT_ID, VOICE_NOTE, BORDERLESS, QUOTE, DATA_RANDOM,
                                                            THUMBNAIL_RANDOM, WIDTH, HEIGHT, CAPTION, STICKER_PACK_ID,
-                                                           STICKER_PACK_KEY, STICKER_ID, DATA_HASH, VISUAL_HASH,
+                                                           STICKER_PACK_KEY, STICKER_ID, STICKER_EMOJI, DATA_HASH, VISUAL_HASH,
                                                            TRANSFORM_PROPERTIES, TRANSFER_FILE, DISPLAY_ORDER,
                                                            UPLOAD_TIMESTAMP };
 
@@ -186,6 +190,7 @@ public class AttachmentDatabase extends Database {
                                                                                   STICKER_PACK_ID        + " TEXT DEFAULT NULL, " +
                                                                                   STICKER_PACK_KEY       + " DEFAULT NULL, " +
                                                                                   STICKER_ID             + " INTEGER DEFAULT -1, " +
+                                                                                  STICKER_EMOJI          + " STRING DEFAULT NULL, " +
                                                                                   DATA_HASH              + " TEXT DEFAULT NULL, " +
                                                                                   VISUAL_HASH            + " TEXT DEFAULT NULL, " +
                                                                                   TRANSFORM_PROPERTIES   + " TEXT DEFAULT NULL, " +
@@ -449,6 +454,41 @@ public class AttachmentDatabase extends Database {
       database.delete(TABLE_NAME, PART_ID_WHERE, id.toStrings());
       deleteAttachmentOnDisk(data, thumbnail, contentType, id);
       notifyAttachmentListeners();
+    }
+  }
+
+  public void trimAllAbandonedAttachments() {
+    SQLiteDatabase db              = databaseHelper.getWritableDatabase();
+    String         selectAllMmsIds = "SELECT " + MmsDatabase.ID + " FROM " + MmsDatabase.TABLE_NAME;
+    String         selectDataInUse = "SELECT DISTINCT " + DATA + " FROM " + TABLE_NAME + " WHERE " + QUOTE + " = 0 AND " + MMS_ID + " IN (" + selectAllMmsIds + ")";
+    String         where           = MMS_ID + " NOT IN (" + selectAllMmsIds + ") AND " + DATA + " NOT IN (" + selectDataInUse + ")";
+
+    db.delete(TABLE_NAME, where, null);
+  }
+
+  public void deleteAbandonedAttachmentFiles() {
+    Set<String> filesOnDisk = new HashSet<>();
+    Set<String> filesInDb   = new HashSet<>();
+
+    File attachmentDirectory = context.getDir(DIRECTORY, Context.MODE_PRIVATE);
+    for (File file : attachmentDirectory.listFiles()) {
+      filesOnDisk.add(file.getAbsolutePath());
+    }
+
+    try (Cursor cursor = databaseHelper.getReadableDatabase().query(true, TABLE_NAME, new String[] { DATA, THUMBNAIL }, null, null, null, null, null, null)) {
+      while (cursor != null && cursor.moveToNext()) {
+        filesInDb.add(CursorUtil.requireString(cursor, DATA));
+        filesInDb.add(CursorUtil.requireString(cursor, THUMBNAIL));
+      }
+    }
+
+    filesInDb.addAll(DatabaseFactory.getStickerDatabase(context).getAllStickerFiles());
+
+    Set<String> onDiskButNotInDatabase = SetUtil.difference(filesOnDisk, filesInDb);
+
+    for (String filePath : onDiskButNotInDatabase) {
+      //noinspection ResultOfMethodCallIgnored
+      new File(filePath).delete();
     }
   }
 
@@ -1138,7 +1178,8 @@ public class AttachmentDatabase extends Database {
                                               object.getInt(STICKER_ID) >= 0
                                                   ? new StickerLocator(object.getString(STICKER_PACK_ID),
                                                                        object.getString(STICKER_PACK_KEY),
-                                                                       object.getInt(STICKER_ID))
+                                                                       object.getInt(STICKER_ID),
+                                                                       object.getString(STICKER_EMOJI))
                                                   : null,
                                               MediaUtil.isAudioType(contentType) ? null : BlurHash.parseOrNull(object.getString(VISUAL_HASH)),
                                               MediaUtil.isAudioType(contentType) ? AudioHash.parseOrNull(object.getString(VISUAL_HASH)) : null,
@@ -1173,9 +1214,10 @@ public class AttachmentDatabase extends Database {
                                                                 cursor.getInt(cursor.getColumnIndexOrThrow(QUOTE)) == 1,
                                                                 cursor.getString(cursor.getColumnIndexOrThrow(CAPTION)),
                                                                 cursor.getInt(cursor.getColumnIndexOrThrow(STICKER_ID)) >= 0
-                                                                    ? new StickerLocator(cursor.getString(cursor.getColumnIndexOrThrow(STICKER_PACK_ID)),
-                                                                                         cursor.getString(cursor.getColumnIndexOrThrow(STICKER_PACK_KEY)),
-                                                                                         cursor.getInt(cursor.getColumnIndexOrThrow(STICKER_ID)))
+                                                                    ? new StickerLocator(CursorUtil.requireString(cursor, STICKER_PACK_ID),
+                                                                                         CursorUtil.requireString(cursor, STICKER_PACK_KEY),
+                                                                                         CursorUtil.requireInt(cursor, STICKER_ID),
+                                                                                         CursorUtil.requireString(cursor, STICKER_EMOJI))
                                                                     : null,
                                                                 MediaUtil.isAudioType(contentType) ? null : BlurHash.parseOrNull(cursor.getString(cursor.getColumnIndexOrThrow(VISUAL_HASH))),
                                                                 MediaUtil.isAudioType(contentType) ? AudioHash.parseOrNull(cursor.getString(cursor.getColumnIndexOrThrow(VISUAL_HASH))) : null,
@@ -1253,6 +1295,7 @@ public class AttachmentDatabase extends Database {
       contentValues.put(STICKER_PACK_ID, attachment.getSticker().getPackId());
       contentValues.put(STICKER_PACK_KEY, attachment.getSticker().getPackKey());
       contentValues.put(STICKER_ID, attachment.getSticker().getStickerId());
+      contentValues.put(STICKER_EMOJI, attachment.getSticker().getEmoji());
     }
 
     if (dataInfo != null) {

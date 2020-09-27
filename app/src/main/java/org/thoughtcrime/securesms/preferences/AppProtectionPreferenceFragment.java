@@ -4,10 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.style.TextAppearanceSpan;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.preference.CheckBoxPreference;
 import androidx.preference.Preference;
 
@@ -24,19 +29,20 @@ import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.jobs.MultiDeviceConfigurationUpdateJob;
 import org.thoughtcrime.securesms.jobs.RefreshAttributesJob;
 import org.thoughtcrime.securesms.keyvalue.KbsValues;
+import org.thoughtcrime.securesms.keyvalue.PhoneNumberPrivacyValues;
 import org.thoughtcrime.securesms.keyvalue.PinValues;
 import org.thoughtcrime.securesms.keyvalue.SettingsValues;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.lock.v2.CreateKbsPinActivity;
 import org.thoughtcrime.securesms.lock.v2.RegistrationLockUtil;
 import org.thoughtcrime.securesms.logging.Log;
-import org.thoughtcrime.securesms.megaphone.MegaphoneRepository;
 import org.thoughtcrime.securesms.megaphone.Megaphones;
 import org.thoughtcrime.securesms.pin.RegistrationLockV2Dialog;
 import org.thoughtcrime.securesms.preferences.widgets.PassphraseLockTriggerPreference;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.storage.StorageSyncHelper;
 import org.thoughtcrime.securesms.util.CommunicationActions;
+import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.concurrent.SignalExecutors;
 
@@ -52,8 +58,10 @@ public class AppProtectionPreferenceFragment extends CorrectedPreferenceFragment
 
   private static final String TAG = Log.tag(AppProtectionPreferenceFragment.class);
 
-  private static final String PREFERENCE_CATEGORY_BLOCKED        = "preference_category_blocked";
-  private static final String PREFERENCE_UNIDENTIFIED_LEARN_MORE = "pref_unidentified_learn_more";
+  private static final String PREFERENCE_CATEGORY_BLOCKED             = "preference_category_blocked";
+  private static final String PREFERENCE_UNIDENTIFIED_LEARN_MORE      = "pref_unidentified_learn_more";
+  private static final String PREFERENCE_WHO_CAN_SEE_PHONE_NUMBER     = "pref_who_can_see_phone_number";
+  private static final String PREFERENCE_WHO_CAN_FIND_BY_PHONE_NUMBER = "pref_who_can_find_by_phone_number";
 
   @Override
   public void onCreate(Bundle paramBundle) {
@@ -78,6 +86,18 @@ public class AppProtectionPreferenceFragment extends CorrectedPreferenceFragment
     this.findPreference(TextSecurePreferences.UNIVERSAL_UNIDENTIFIED_ACCESS).setOnPreferenceChangeListener(new UniversalUnidentifiedAccessChangedListener());
     this.findPreference(PREFERENCE_UNIDENTIFIED_LEARN_MORE).setOnPreferenceClickListener(new UnidentifiedLearnMoreClickListener());
 
+    if (FeatureFlags.phoneNumberPrivacy()) {
+      Preference whoCanSeePhoneNumber    = this.findPreference(PREFERENCE_WHO_CAN_SEE_PHONE_NUMBER);
+      Preference whoCanFindByPhoneNumber = this.findPreference(PREFERENCE_WHO_CAN_FIND_BY_PHONE_NUMBER);
+
+      whoCanSeePhoneNumber.setPreferenceDataStore(null);
+      whoCanSeePhoneNumber.setOnPreferenceClickListener(new PhoneNumberPrivacyWhoCanSeeClickListener());
+
+      whoCanFindByPhoneNumber.setPreferenceDataStore(null);
+      whoCanFindByPhoneNumber.setOnPreferenceClickListener(new PhoneNumberPrivacyWhoCanFindClickListener());
+    } else {
+      this.findPreference("category_phone_number_privacy").setVisible(false);
+    }
 
     SwitchPreferenceCompat linkPreviewPref = (SwitchPreferenceCompat) this.findPreference(SettingsValues.LINK_PREVIEWS);
     linkPreviewPref.setChecked(SignalStore.settings().isLinkPreviewsEnabled());
@@ -115,6 +135,9 @@ public class AppProtectionPreferenceFragment extends CorrectedPreferenceFragment
       signalPinReminders.setEnabled(false);
       registrationLockV2.setEnabled(false);
     }
+
+    initializePhoneNumberPrivacyWhoCanSeeSummary();
+    initializePhoneNumberPrivacyWhoCanFindSummary();
   }
 
   private void initializePassphraseLockTriggerSummary() {
@@ -142,6 +165,27 @@ public class AppProtectionPreferenceFragment extends CorrectedPreferenceFragment
     long seconds = TimeUnit.SECONDS.toSeconds(timeoutSeconds) - (TimeUnit.SECONDS.toMinutes(timeoutSeconds) * 60);
 
     return String.format(Locale.getDefault(), "%02d:%02d:%02d", hours, minutes, seconds);
+  }
+
+  private void initializePhoneNumberPrivacyWhoCanSeeSummary() {
+    Preference preference = findPreference(PREFERENCE_WHO_CAN_SEE_PHONE_NUMBER);
+
+    switch (SignalStore.phoneNumberPrivacy().getPhoneNumberSharingMode()) {
+      case EVERYONE: preference.setSummary(R.string.PhoneNumberPrivacy_everyone);    break;
+      case CONTACTS: preference.setSummary(R.string.PhoneNumberPrivacy_my_contacts); break;
+      case NOBODY  : preference.setSummary(R.string.PhoneNumberPrivacy_nobody);      break;
+      default      : throw new AssertionError();
+    }
+  }
+
+  private void initializePhoneNumberPrivacyWhoCanFindSummary() {
+    Preference preference = findPreference(PREFERENCE_WHO_CAN_FIND_BY_PHONE_NUMBER);
+
+    switch (SignalStore.phoneNumberPrivacy().getPhoneNumberListingMode()) {
+      case LISTED  : preference.setSummary(R.string.PhoneNumberPrivacy_everyone); break;
+      case UNLISTED: preference.setSummary(R.string.PhoneNumberPrivacy_nobody);   break;
+      default      : throw new AssertionError();
+    }
   }
 
   private void initializeVisibility() {
@@ -379,5 +423,88 @@ public class AppProtectionPreferenceFragment extends CorrectedPreferenceFragment
 
       return false;
     }
+  }
+
+  private final class PhoneNumberPrivacyWhoCanSeeClickListener implements Preference.OnPreferenceClickListener {
+    @Override
+    public boolean onPreferenceClick(Preference preference) {
+      PhoneNumberPrivacyValues phoneNumberPrivacyValues = SignalStore.phoneNumberPrivacy();
+
+      final PhoneNumberPrivacyValues.PhoneNumberSharingMode[] value = { phoneNumberPrivacyValues.getPhoneNumberSharingMode() };
+
+      new AlertDialog.Builder(requireActivity())
+                     .setTitle(R.string.preferences_app_protection__see_my_phone_number)
+                     .setCancelable(true)
+                     .setSingleChoiceItems(items(requireContext()), value[0].ordinal(), (dialog, which) -> value[0] = PhoneNumberPrivacyValues.PhoneNumberSharingMode.values()[which])
+                     .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                       PhoneNumberPrivacyValues.PhoneNumberSharingMode phoneNumberSharingMode = value[0];
+                       phoneNumberPrivacyValues.setPhoneNumberSharingMode(phoneNumberSharingMode);
+                       Log.i(TAG, String.format("PhoneNumberSharingMode changed to %s. Scheduling storage value sync", phoneNumberSharingMode));
+                       StorageSyncHelper.scheduleSyncForDataChange();
+                       initializePhoneNumberPrivacyWhoCanSeeSummary();
+                     })
+                     .setNegativeButton(android.R.string.cancel, null)
+                     .show();
+
+      return true;
+    }
+
+    private CharSequence[] items(Context context) {
+      return new CharSequence[]{
+        titleAndDescription(context, context.getString(R.string.PhoneNumberPrivacy_everyone), context.getString(R.string.PhoneNumberPrivacy_everyone_see_description)),
+        titleAndDescription(context, context.getString(R.string.PhoneNumberPrivacy_my_contacts), context.getString(R.string.PhoneNumberPrivacy_my_contacts_see_description)),
+        context.getString(R.string.PhoneNumberPrivacy_nobody) };
+    }
+
+  }
+
+  private final class PhoneNumberPrivacyWhoCanFindClickListener implements Preference.OnPreferenceClickListener {
+    @Override
+    public boolean onPreferenceClick(Preference preference) {
+      PhoneNumberPrivacyValues phoneNumberPrivacyValues = SignalStore.phoneNumberPrivacy();
+
+      final PhoneNumberPrivacyValues.PhoneNumberListingMode[] value = { phoneNumberPrivacyValues.getPhoneNumberListingMode() };
+
+      new AlertDialog.Builder(requireActivity())
+                     .setTitle(R.string.preferences_app_protection__find_me_by_phone_number)
+                     .setCancelable(true)
+                     .setSingleChoiceItems(items(requireContext()),
+                                           value[0].ordinal(),
+                                           (dialog, which) -> value[0] = PhoneNumberPrivacyValues.PhoneNumberListingMode.values()[which])
+                     .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                       PhoneNumberPrivacyValues.PhoneNumberListingMode phoneNumberListingMode = value[0];
+                       phoneNumberPrivacyValues.setPhoneNumberListingMode(phoneNumberListingMode);
+                       Log.i(TAG, String.format("PhoneNumberListingMode changed to %s. Scheduling storage value sync", phoneNumberListingMode));
+                       StorageSyncHelper.scheduleSyncForDataChange();
+                       ApplicationDependencies.getJobManager().add(new RefreshAttributesJob());
+                       initializePhoneNumberPrivacyWhoCanFindSummary();
+                     })
+                     .setNegativeButton(android.R.string.cancel, null)
+                     .show();
+
+      return true;
+    }
+
+    private CharSequence[] items(Context context) {
+      return new CharSequence[]{
+        titleAndDescription(context, context.getString(R.string.PhoneNumberPrivacy_everyone), context.getString(R.string.PhoneNumberPrivacy_everyone_find_description)),
+        context.getString(R.string.PhoneNumberPrivacy_nobody) };
+    }
+  }
+
+  /** Adds a detail row for radio group descriptions. */
+  private static CharSequence titleAndDescription(@NonNull Context context, @NonNull String header, @NonNull String description) {
+    SpannableStringBuilder builder = new SpannableStringBuilder();
+
+    builder.append("\n");
+    builder.append(header);
+    builder.append("\n");
+
+    builder.setSpan(new TextAppearanceSpan(context, android.R.style.TextAppearance_Small), builder.length(), builder.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+
+    builder.append(description);
+    builder.append("\n");
+
+    return builder;
   }
 }

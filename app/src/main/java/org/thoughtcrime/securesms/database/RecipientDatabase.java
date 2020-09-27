@@ -15,6 +15,7 @@ import com.google.android.gms.common.util.ArrayUtils;
 import net.sqlcipher.database.SQLiteConstraintException;
 import net.sqlcipher.database.SQLiteDatabase;
 
+import org.signal.storageservice.protos.groups.local.DecryptedGroup;
 import org.signal.zkgroup.InvalidInputException;
 import org.signal.zkgroup.groups.GroupMasterKey;
 import org.signal.zkgroup.profiles.ProfileKey;
@@ -28,8 +29,9 @@ import org.thoughtcrime.securesms.database.model.ThreadRecord;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.groups.GroupId;
 import org.thoughtcrime.securesms.groups.v2.ProfileKeySet;
+import org.thoughtcrime.securesms.groups.v2.processing.GroupsV2StateProcessor;
 import org.thoughtcrime.securesms.jobs.RefreshAttributesJob;
-import org.thoughtcrime.securesms.jobs.WakeGroupV2Job;
+import org.thoughtcrime.securesms.jobs.RequestGroupV2InfoJob;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.profiles.AvatarHelper;
 import org.thoughtcrime.securesms.profiles.ProfileName;
@@ -857,10 +859,21 @@ public class RecipientDatabase extends Database {
       for (SignalGroupV2Record insert : groupV2Inserts) {
         db.insertOrThrow(TABLE_NAME, null, getValuesForStorageGroupV2(insert));
 
-        GroupId.V2 groupId   = GroupId.v2(insert.getMasterKey());
-        Recipient  recipient = Recipient.externalGroup(context, groupId);
+        GroupMasterKey masterKey = insert.getMasterKeyOrThrow();
+        GroupId.V2     groupId   = GroupId.v2(masterKey);
+        Recipient      recipient = Recipient.externalGroup(context, groupId);
 
-        ApplicationDependencies.getJobManager().add(new WakeGroupV2Job(insert.getMasterKey()));
+        Log.i(TAG, "Creating restore placeholder for " + groupId);
+
+        DatabaseFactory.getGroupDatabase(context)
+                       .create(masterKey,
+                               DecryptedGroup.newBuilder()
+                                             .setRevision(GroupsV2StateProcessor.RESTORE_PLACEHOLDER_REVISION)
+                                             .build());
+
+        Log.i(TAG, "Scheduling request for latest group info for " + groupId);
+
+        ApplicationDependencies.getJobManager().add(new RequestGroupV2InfoJob(groupId));
 
         threadDatabase.setArchived(recipient.getId(), insert.isArchived());
         needsRefresh.add(recipient.getId());
@@ -874,7 +887,8 @@ public class RecipientDatabase extends Database {
           throw new AssertionError("Had an update, but it didn't match any rows!");
         }
 
-        Recipient recipient = Recipient.externalGroup(context, GroupId.v2(update.getOld().getMasterKey()));
+        GroupMasterKey masterKey = update.getOld().getMasterKeyOrThrow();
+        Recipient      recipient = Recipient.externalGroup(context, GroupId.v2(masterKey));
 
         threadDatabase.setArchived(recipient.getId(), update.getNew().isArchived());
         needsRefresh.add(recipient.getId());
@@ -1019,7 +1033,7 @@ public class RecipientDatabase extends Database {
 
   private static @NonNull ContentValues getValuesForStorageGroupV2(@NonNull SignalGroupV2Record groupV2) {
     ContentValues values = new ContentValues();
-    values.put(GROUP_ID, GroupId.v2(groupV2.getMasterKey()).toString());
+    values.put(GROUP_ID, GroupId.v2(groupV2.getMasterKeyOrThrow()).toString());
     values.put(GROUP_TYPE, GroupType.SIGNAL_V2.getId());
     values.put(PROFILE_SHARING, groupV2.isProfileSharingEnabled() ? "1" : "0");
     values.put(BLOCKED, groupV2.isBlocked() ? "1" : "0");
@@ -1736,7 +1750,6 @@ public class RecipientDatabase extends Database {
       for (RecipientId id : unregistered) {
         ContentValues values = new ContentValues(2);
         values.put(REGISTERED, RegisteredState.NOT_REGISTERED.getId());
-        values.put(UUID, (String) null);
         if (update(id, values)) {
           markDirty(id, DirtyState.DELETE);
         }

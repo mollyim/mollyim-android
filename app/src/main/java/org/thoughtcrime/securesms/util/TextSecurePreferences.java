@@ -38,8 +38,6 @@ public class TextSecurePreferences {
   public  static final String CHANGE_PASSPHRASE_PREF           = "pref_change_passphrase";
   public  static final String THEME_PREF                       = "pref_theme";
   public  static final String LANGUAGE_PREF                    = "pref_language";
-  public  static final String THREAD_TRIM_LENGTH               = "pref_trim_length";
-  public  static final String THREAD_TRIM_NOW                  = "pref_trim_now";
 
   private static final String LAST_VERSION_CODE_PREF           = "last_version_code";
   private static final String LAST_EXPERIENCE_VERSION_PREF     = "last_experience_version_code";
@@ -53,7 +51,6 @@ public class TextSecurePreferences {
   public  static final String SCREEN_SECURITY_PREF             = "pref_screen_security";
   private static final String ENTER_SENDS_PREF                 = "pref_enter_sends";
   private static final String ENTER_PRESENT_PREF               = "pref_enter_key";
-  private static final String THREAD_TRIM_ENABLED              = "pref_trim_threads";
   private static final String LOCAL_NUMBER_PREF                = "pref_local_number";
   private static final String LOCAL_UUID_PREF                  = "pref_local_uuid";
   private static final String LOCAL_USERNAME_PREF              = "pref_local_username";
@@ -156,7 +153,6 @@ public class TextSecurePreferences {
   private static final String NEEDS_MESSAGE_PULL = "pref_needs_message_pull";
 
   private static final String UNIDENTIFIED_ACCESS_CERTIFICATE_ROTATION_TIME_PREF = "pref_unidentified_access_certificate_rotation_time";
-  private static final String UNIDENTIFIED_ACCESS_CERTIFICATE                    = "pref_unidentified_access_certificate_uuid";
   public  static final String UNIVERSAL_UNIDENTIFIED_ACCESS                      = "pref_universal_unidentified_access";
   public  static final String SHOW_UNIDENTIFIED_DELIVERY_INDICATORS              = "pref_show_unidentifed_delivery_indicators";
   private static final String UNIDENTIFIED_DELIVERY_ENABLED                      = "pref_unidentified_delivery_enabled";
@@ -541,26 +537,6 @@ public class TextSecurePreferences {
     setLongPreference(context, UNIDENTIFIED_ACCESS_CERTIFICATE_ROTATION_TIME_PREF, value);
   }
 
-  public static void setUnidentifiedAccessCertificate(Context context, byte[] value) {
-    setStringPreference(context, UNIDENTIFIED_ACCESS_CERTIFICATE, Base64.encodeBytes(value));
-  }
-
-  public static byte[] getUnidentifiedAccessCertificate(Context context) {
-    return parseCertificate(getStringPreference(context, UNIDENTIFIED_ACCESS_CERTIFICATE, null));
-  }
-
-  private static byte[] parseCertificate(String raw) {
-    try {
-      if (raw != null) {
-        return Base64.decode(raw);
-      }
-    } catch (IOException e) {
-      Log.w(TAG, e);
-    }
-
-    return null;
-  }
-
   public static boolean isUniversalUnidentifiedAccess(Context context) {
     return getBooleanPreference(context, UNIVERSAL_UNIDENTIFIED_ACCESS, false);
   }
@@ -836,14 +812,6 @@ public class TextSecurePreferences {
 
   public static void setNotificationLedPatternCustom(Context context, String pattern) {
     setStringPreference(context, LED_BLINK_PREF_CUSTOM, pattern);
-  }
-
-  public static boolean isThreadLengthTrimmingEnabled(Context context) {
-    return getBooleanPreference(context, THREAD_TRIM_ENABLED, false);
-  }
-
-  public static int getThreadTrimLength(Context context) {
-    return Integer.parseInt(getStringPreference(context, THREAD_TRIM_LENGTH, "500"));
   }
 
   public static boolean isSystemEmojiPreferred(Context context) {

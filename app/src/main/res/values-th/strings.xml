@@ -1454,13 +1454,9 @@
   <string name="preferences__mmsc_password">รหัสผ่าน MMSC</string>
   <string name="preferences__sms_delivery_reports">รายงานการส่ง SMS</string>
   <string name="preferences__request_a_delivery_report_for_each_sms_message_you_send">ร้องขอรายงานสำหรับแต่ละข้อความ SMS ที่คุณส่ง</string>
-  <string name="preferences__automatically_delete_older_messages_once_a_conversation_exceeds_a_specified_length">ลบข้อความเก่าโดยอัตโนมัติเมื่อการสนทนายาวเกินกว่าความยาวที่กำหนด</string>
-  <string name="preferences__delete_old_messages">ลบข้อความเก่า</string>
   <string name="preferences__chats">การพูดคุยและสื่อ</string>
   <string name="preferences__storage">พื้นที่จัดเก็บ</string>
   <string name="preferences__conversation_length_limit">ขีดจำกัดความยาวของการสนทนา</string>
-  <string name="preferences__trim_all_conversations_now">ตัดการสนทนาทั้งหมดให้สั้นลงเดี๋ยวนี้</string>
-  <string name="preferences__scan_through_all_conversations_and_enforce_conversation_length_limits">ไล่ดูการสนทนาทั้งหมดและบังคับใช้ขีดจำกัดความยาวของการสนทนา</string>
   <string name="preferences__linked_devices">อุปกรณ์ที่เชื่อมโยงอยู่</string>
   <string name="preferences__light_theme">สว่าง</string>
   <string name="preferences__dark_theme">มืด</string>
@@ -1485,13 +1481,13 @@
   <string name="preferences_chats__when_using_wifi">เมื่อใช้ Wi-Fi</string>
   <string name="preferences_chats__when_roaming">เมื่อใช้บริการข้ามเครือข่าย Roaming</string>
   <string name="preferences_chats__media_auto_download">ดาวน์โหลดสื่ออัตโนมัติ</string>
-  <string name="preferences_chats__message_trimming">ตัดข้อความให้สั้นลง</string>
   <string name="preferences_storage__storage_usage">การใช้พื้นที่จัดเก็บ</string>
   <string name="preferences_storage__photos">รูปภาพ</string>
   <string name="preferences_storage__videos">วิดีโอ</string>
   <string name="preferences_storage__files">แฟ้ม</string>
   <string name="preferences_storage__audio">เสียง</string>
   <string name="preferences_storage__review_storage">ดูพื้นที่จัดเก็บ</string>
+  <string name="preferences_storage__none">ไม่มี</string>
   <string name="preferences_advanced__use_system_emoji">ใช้อีโมจิของระบบ</string>
   <string name="preferences_advanced__disable_signal_built_in_emoji_support">ปิดใช้งานการรองรับอีโมจิของ Signal </string>
   <string name="preferences_advanced__relay_all_calls_through_the_signal_server_to_avoid_revealing_your_ip_address">ส่งต่อสายทั้งหมดผ่านเซิร์ฟเวอร์ Signal เพื่อหลีกเลี่ยงการเปิดเผยที่อยู่ IP ของคนที่คุณติดต่อด้วย การเปิดใช้งานจะลดคุณภาพการโทรลง</string>
@@ -1601,13 +1597,13 @@
   <string name="verify_display_fragment_context_menu__copy_to_clipboard">คัดลอกไปยังคลิปบอร์ด</string>
   <string name="verify_display_fragment_context_menu__compare_with_clipboard">เปรียบเทียบกับคลิปบอร์ด</string>
   <!--reminder_header-->
-  <string name="reminder_header_outdated_build">Signal รุ่นที่คุณมีล้าสมัยแล้ว</string>
-  <plurals name="reminder_header_outdated_build_details">
+  <!-- Removed by excludeNonTranslatables <string name="reminder_header_outdated_build">Signal รุ่นที่คุณมีล้าสมัยแล้ว</string> -->
+  <!-- Removed by excludeNonTranslatables <plurals name="reminder_header_outdated_build_details">
     <item quantity="other">Signal รุ่นที่คุณมีจะหมดอายุในอีก %d วัน แตะเพื่อปรับปรุงเป็นรุ่นล่าสุด</item>
-  </plurals>
-  <string name="reminder_header_outdated_build_details_today">Signal รุ่นที่คุณมีจะหมดอายุวันนี้ แตะเพื่อปรับปรุงเป็นรุ่นล่าสุด</string>
-  <string name="reminder_header_expired_build">Signal รุ่นที่คุณมีหมดอายุแล้ว!</string>
-  <string name="reminder_header_expired_build_details">จะไม่สามารถส่งข้อความได้อีกต่อไป แตะเพื่อปรับปรุงเป็นรุ่นล่าสุด</string>
+  </plurals> -->
+  <!-- Removed by excludeNonTranslatables <string name="reminder_header_outdated_build_details_today">Signal รุ่นที่คุณมีจะหมดอายุวันนี้ แตะเพื่อปรับปรุงเป็นรุ่นล่าสุด</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="reminder_header_expired_build">Signal รุ่นที่คุณมีหมดอายุแล้ว!</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="reminder_header_expired_build_details">จะไม่สามารถส่งข้อความได้อีกต่อไป แตะเพื่อปรับปรุงเป็นรุ่นล่าสุด</string> -->
   <string name="reminder_header_sms_default_title">ใช้เป็นแอป SMS หลัก</string>
   <string name="reminder_header_sms_default_text">แตะเพื่อกำหนดให้ Signal เป็นแอป SMS หลักของคุณ</string>
   <string name="reminder_header_sms_import_title">นำเข้า SMS ของระบบ</string>

@@ -34,8 +34,8 @@ import net.sqlcipher.database.SQLiteDatabase;
 import org.jsoup.helper.StringUtil;
 import org.signal.storageservice.protos.groups.local.DecryptedGroup;
 import org.signal.storageservice.protos.groups.local.DecryptedMember;
-import org.thoughtcrime.securesms.database.RecipientDatabase.RecipientSettings;
 import org.thoughtcrime.securesms.database.MessageDatabase.MarkedMessageInfo;
+import org.thoughtcrime.securesms.database.RecipientDatabase.RecipientSettings;
 import org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper;
 import org.thoughtcrime.securesms.database.model.MediaMmsMessageRecord;
 import org.thoughtcrime.securesms.database.model.MessageRecord;
@@ -44,6 +44,7 @@ import org.thoughtcrime.securesms.database.model.ThreadRecord;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.mms.Slide;
 import org.thoughtcrime.securesms.mms.SlideDeck;
+import org.thoughtcrime.securesms.mms.StickerSlide;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientDetails;
 import org.thoughtcrime.securesms.recipients.RecipientId;
@@ -67,12 +68,16 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
 public class ThreadDatabase extends Database {
 
   private static final String TAG = ThreadDatabase.class.getSimpleName();
+
+  public static final long NO_TRIM_BEFORE_DATE_SET   = 0;
+  public static final int  NO_TRIM_MESSAGE_COUNT_SET = Integer.MAX_VALUE;
 
   public  static final String TABLE_NAME             = "thread";
   public  static final String ID                     = "_id";
@@ -256,53 +261,90 @@ public class ThreadDatabase extends Database {
     notifyConversationListListeners();
   }
 
-  public void trimAllThreads(int length, ProgressListener listener) {
-    Cursor cursor   = null;
-    int threadCount = 0;
-    int complete    = 0;
+  public void trimAllThreads(int length, long trimBeforeDate) {
+    if (length == NO_TRIM_MESSAGE_COUNT_SET && trimBeforeDate == NO_TRIM_BEFORE_DATE_SET) {
+      return;
+    }
+
+    SQLiteDatabase       db                   = databaseHelper.getWritableDatabase();
+    AttachmentDatabase   attachmentDatabase   = DatabaseFactory.getAttachmentDatabase(context);
+    GroupReceiptDatabase groupReceiptDatabase = DatabaseFactory.getGroupReceiptDatabase(context);
+    MmsSmsDatabase       mmsSmsDatabase       = DatabaseFactory.getMmsSmsDatabase(context);
+
+    try (Cursor cursor = databaseHelper.getReadableDatabase().query(TABLE_NAME, new String[] { ID }, null, null, null, null, null)) {
+      while (cursor != null && cursor.moveToNext()) {
+        trimThreadInternal(CursorUtil.requireLong(cursor, ID), length, trimBeforeDate);
+      }
+    }
+
+    db.beginTransaction();
 
     try {
-      cursor = this.getConversationList();
-
-      if (cursor != null)
-        threadCount = cursor.getCount();
-
-      while (cursor != null && cursor.moveToNext()) {
-        long threadId = cursor.getLong(cursor.getColumnIndexOrThrow(ID));
-        trimThread(threadId, length);
-
-        listener.onProgress(++complete, threadCount);
-      }
+      mmsSmsDatabase.deleteAbandonedMessages();
+      attachmentDatabase.trimAllAbandonedAttachments();
+      groupReceiptDatabase.deleteAbandonedRows();
+      db.setTransactionSuccessful();
     } finally {
-      if (cursor != null)
-        cursor.close();
+      db.endTransaction();
     }
+
+    attachmentDatabase.deleteAbandonedAttachmentFiles();
+
+    notifyAttachmentListeners();
+    notifyStickerListeners();
+    notifyStickerPackListeners();
   }
 
-  public void trimThread(long threadId, int length) {
-    Log.i(TAG, "Trimming thread: " + threadId + " to: " + length);
-    Cursor cursor = null;
+  public void trimThread(long threadId, int length, long trimBeforeDate) {
+    if (length == NO_TRIM_MESSAGE_COUNT_SET && trimBeforeDate == NO_TRIM_BEFORE_DATE_SET) {
+      return;
+    }
+
+    SQLiteDatabase       db                   = databaseHelper.getWritableDatabase();
+    AttachmentDatabase   attachmentDatabase   = DatabaseFactory.getAttachmentDatabase(context);
+    GroupReceiptDatabase groupReceiptDatabase = DatabaseFactory.getGroupReceiptDatabase(context);
+    MmsSmsDatabase       mmsSmsDatabase       = DatabaseFactory.getMmsSmsDatabase(context);
+
+    db.beginTransaction();
 
     try {
-      cursor = DatabaseFactory.getMmsSmsDatabase(context).getConversation(threadId);
-
-      if (cursor != null && length > 0 && cursor.getCount() > length) {
-        Log.w(TAG, "Cursor count is greater than length!");
-        cursor.moveToPosition(length - 1);
-
-        long lastTweetDate = cursor.getLong(cursor.getColumnIndexOrThrow(MmsSmsColumns.NORMALIZED_DATE_RECEIVED));
-
-        Log.i(TAG, "Cut off tweet date: " + lastTweetDate);
-
-        DatabaseFactory.getSmsDatabase(context).deleteMessagesInThreadBeforeDate(threadId, lastTweetDate);
-        DatabaseFactory.getMmsDatabase(context).deleteMessagesInThreadBeforeDate(threadId, lastTweetDate);
-
-        update(threadId, false);
-        notifyConversationListeners(threadId);
-      }
+      trimThreadInternal(threadId, length, trimBeforeDate);
+      mmsSmsDatabase.deleteAbandonedMessages();
+      attachmentDatabase.trimAllAbandonedAttachments();
+      groupReceiptDatabase.deleteAbandonedRows();
+      db.setTransactionSuccessful();
     } finally {
-      if (cursor != null)
-        cursor.close();
+      db.endTransaction();
+    }
+
+    attachmentDatabase.deleteAbandonedAttachmentFiles();
+
+    notifyAttachmentListeners();
+    notifyStickerListeners();
+    notifyStickerPackListeners();
+  }
+
+  private void trimThreadInternal(long threadId, int length, long trimBeforeDate) {
+    if (length == NO_TRIM_MESSAGE_COUNT_SET && trimBeforeDate == NO_TRIM_BEFORE_DATE_SET) {
+      return;
+    }
+
+    if (length != NO_TRIM_MESSAGE_COUNT_SET) {
+      try (Cursor cursor = DatabaseFactory.getMmsSmsDatabase(context).getConversation(threadId)) {
+        if (cursor != null && length > 0 && cursor.getCount() > length) {
+          cursor.moveToPosition(length - 1);
+          trimBeforeDate = Math.max(trimBeforeDate, cursor.getLong(cursor.getColumnIndexOrThrow(MmsSmsColumns.NORMALIZED_DATE_RECEIVED)));
+        }
+      }
+    }
+
+    if (trimBeforeDate != NO_TRIM_BEFORE_DATE_SET) {
+      Log.i(TAG, "Trimming thread: " + threadId + " before: " + trimBeforeDate);
+
+      DatabaseFactory.getMmsSmsDatabase(context).deleteMessagesInThreadBeforeDate(threadId, trimBeforeDate);
+
+      update(threadId, false);
+      notifyConversationListeners(threadId);
     }
   }
 
@@ -1079,19 +1121,19 @@ public class ThreadDatabase extends Database {
       Recipient resolved = Recipient.resolved(threadRecipientId);
       if (resolved.isPushGroup()) {
         if (resolved.isPushV2Group()) {
-          DecryptedGroup decryptedGroup = DatabaseFactory.getGroupDatabase(context).requireGroup(resolved.requireGroupId().requireV2()).requireV2GroupProperties().getDecryptedGroup();
-          Optional<UUID> inviter        = DecryptedGroupUtil.findInviter(decryptedGroup.getPendingMembersList(), Recipient.self().getUuid().get());
-
-          if (inviter.isPresent()) {
-            RecipientId recipientId = RecipientId.from(inviter.get(), null);
-            return Extra.forGroupV2invite(recipientId);
-          } else if (decryptedGroup.getRevision() == 0) {
-            Optional<DecryptedMember> foundingMember = DecryptedGroupUtil.firstMember(decryptedGroup.getMembersList());
-
-            if (foundingMember.isPresent()) {
-              return Extra.forGroupMessageRequest(RecipientId.from(UuidUtil.fromByteString(foundingMember.get().getUuid()), null));
+          MessageRecord.InviteAddState inviteAddState = record.getGv2AddInviteState();
+          if (inviteAddState != null) {
+            RecipientId from = RecipientId.from(inviteAddState.getAddedOrInvitedBy(), null);
+            if (inviteAddState.isInvited()) {
+              Log.i(TAG, "GV2 invite message request from " + from);
+              return Extra.forGroupV2invite(from);
+            } else {
+              Log.i(TAG, "GV2 message request from " + from);
+              return Extra.forGroupMessageRequest(from);
             }
           }
+          Log.w(TAG, "Falling back to unknown message request state for GV2 message");
+          return Extra.forMessageRequest();
         } else {
           RecipientId recipientId = DatabaseFactory.getMmsSmsDatabase(context).getGroupAddedBy(record.getThreadId());
 
@@ -1109,7 +1151,8 @@ public class ThreadDatabase extends Database {
     } else if (record.isRemoteDelete()) {
       return Extra.forRemoteDelete();
     } else if (record.isMms() && ((MmsMessageRecord) record).getSlideDeck().getStickerSlide() != null) {
-      return Extra.forSticker();
+      StickerSlide slide = Objects.requireNonNull(((MmsMessageRecord) record).getSlideDeck().getStickerSlide());
+      return Extra.forSticker(slide.getEmoji());
     } else if (record.isMms() && ((MmsMessageRecord) record).getSlideDeck().getSlides().size() > 1) {
       return Extra.forAlbum();
     }
@@ -1148,10 +1191,6 @@ public class ThreadDatabase extends Database {
     }
 
     return query;
-  }
-
-  public interface ProgressListener {
-    void onProgress(int complete, int total);
   }
 
   public Reader readerFor(Cursor cursor) {
@@ -1275,6 +1314,7 @@ public class ThreadDatabase extends Database {
 
     @JsonProperty private final boolean isRevealable;
     @JsonProperty private final boolean isSticker;
+    @JsonProperty private final String  stickerEmoji;
     @JsonProperty private final boolean isAlbum;
     @JsonProperty private final boolean isRemoteDelete;
     @JsonProperty private final boolean isMessageRequestAccepted;
@@ -1283,6 +1323,7 @@ public class ThreadDatabase extends Database {
 
     public Extra(@JsonProperty("isRevealable") boolean isRevealable,
                  @JsonProperty("isSticker") boolean isSticker,
+                 @JsonProperty("stickerEmoji") String stickerEmoji,
                  @JsonProperty("isAlbum") boolean isAlbum,
                  @JsonProperty("isRemoteDelete") boolean isRemoteDelete,
                  @JsonProperty("isMessageRequestAccepted") boolean isMessageRequestAccepted,
@@ -1291,6 +1332,7 @@ public class ThreadDatabase extends Database {
     {
       this.isRevealable             = isRevealable;
       this.isSticker                = isSticker;
+      this.stickerEmoji             = stickerEmoji;
       this.isAlbum                  = isAlbum;
       this.isRemoteDelete           = isRemoteDelete;
       this.isMessageRequestAccepted = isMessageRequestAccepted;
@@ -1299,31 +1341,31 @@ public class ThreadDatabase extends Database {
     }
 
     public static @NonNull Extra forViewOnce() {
-      return new Extra(true, false, false, false, true, false, null);
+      return new Extra(true, false, null, false, false, true, false, null);
     }
 
-    public static @NonNull Extra forSticker() {
-      return new Extra(false, true, false, false, true, false, null);
+    public static @NonNull Extra forSticker(@Nullable String emoji) {
+      return new Extra(false, true, emoji, false, false, true, false, null);
     }
 
     public static @NonNull Extra forAlbum() {
-      return new Extra(false, false, true, false, true, false, null);
+      return new Extra(false, false, null, true, false, true, false, null);
     }
 
     public static @NonNull Extra forRemoteDelete() {
-      return new Extra(false, false, false, true, true, false, null);
+      return new Extra(false, false, null, false, true, true, false, null);
     }
 
     public static @NonNull Extra forMessageRequest() {
-      return new Extra(false, false, false, false, false, false, null);
+      return new Extra(false, false, null, false, false, false, false, null);
     }
 
     public static @NonNull Extra forGroupMessageRequest(RecipientId recipientId) {
-      return new Extra(false, false, false, false, false, false, recipientId.serialize());
+      return new Extra(false, false, null, false, false, false, false, recipientId.serialize());
     }
 
     public static @NonNull Extra forGroupV2invite(RecipientId recipientId) {
-      return new Extra(false, false, false, false, false, true, recipientId.serialize());
+      return new Extra(false, false, null, false, false, false, true, recipientId.serialize());
     }
 
     public boolean isViewOnce() {
@@ -1332,6 +1374,10 @@ public class ThreadDatabase extends Database {
 
     public boolean isSticker() {
       return isSticker;
+    }
+
+    public @Nullable String getStickerEmoji() {
+      return stickerEmoji;
     }
 
     public boolean isAlbum() {

@@ -49,6 +49,7 @@ import com.google.i18n.phonenumbers.Phonenumber;
 
 import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.components.ComposeText;
+import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.logging.Log;
 import org.whispersystems.libsignal.util.guava.Optional;
 
@@ -75,6 +76,8 @@ import java.util.concurrent.TimeUnit;
 
 public class Util {
   private static final String TAG = Util.class.getSimpleName();
+
+  private static final long BUILD_LIFESPAN = TimeUnit.DAYS.toMillis(90);
 
   private static volatile Handler handler;
 
@@ -461,8 +464,8 @@ public class Util {
     return secret;
   }
 
-  public static int getDaysTillBuildExpiry() {
-    return Integer.MAX_VALUE;
+  public static long getTimeUntilBuildExpiry() {
+    return TimeUnit.DAYS.toMillis(1000);
   }
 
   @TargetApi(VERSION_CODES.LOLLIPOP)
