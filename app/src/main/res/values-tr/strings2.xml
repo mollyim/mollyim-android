@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="preferences__enable_debug_log">Hata ayıklama günlüğünü etkinleştir</string>
-  <string name="AppProtectionPreferenceFragment_instant">Derhal</string>
+    <string name="preferences__enable_debug_log">Hata ayıklama günlüğünü etkinleştir</string>
+    <string name="AppProtectionPreferenceFragment_instant">Derhal</string>
+    <string name="ChangePassphraseDialogFragment_please_choose_a_passphrase_that_will_be_used_to_locally_encrypt_your_data_this_should_be_a_strong_passphrase">Lütfen verilerinizi yerel olarak şifrelemek için kullanılacak bir parola seçin.\n\nBu güçlü bir parola olmalıdır.</string>
+    <string name="WipeMemoryService_secure_wipe_in_progress">Güvenli silme işlemi devam ediyor</string>
+    <string name="ApplicationPreferencesActivity_privacy_summary_passphrase_registration_locks">Veri tabanı şifreleme %1$s, Kaydolma kilidi %2$s</string>
+    <string name="preferences__device_lock_timeout">Cihaz kilidi zaman aşımı</string>
+    <string name="arrays__on_inactivity_timeout">Cihazınızın kilidini açmadan belirli bir süre geçerseniz</string>
+    <string name="preferences__automatic_lockdown">Otomatik kilitleme</string>
+    <string name="ChangePassphraseDialogFragment_generating_keys_this_may_take_a_while">Anahtarlar oluşturuluyor. Bu biraz zaman alabilir…</string>
+    <string name="ChangePassphraseDialogFragment_enable">Etkinleştir</string>
+    <string name="ChangePassphraseDialogFragment_passphrase">Parola</string>
+    <string name="ChangePassphraseDialogFragment_estimated_time_to_crack_suggestion">%1$s\n\nTahmini çözme süresi: %2$s.\n\nÖneri: %3$s</string>
+    <string name="ChangePassphraseDialogFragment_weak_passphrase">Zayıf parola!</string>
+    <string name="PassphraseCreateActivity_turn_on_database_encryption">Veri tabanı şifrelemeyi aç</string>
+    <string name="PassphraseCreateActivity_require_passphrase_to_unlock_molly">Molly\'nin kilidini açmak için parola gerekli mi\?</string>
+    <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">Artık veri tabanını şifrelemek için bir parola belirleyebilirsiniz. Kilidi açılana kadar, Molly bildirim veya çağrı alamaz. Bu, kaybolan veya çalınan cihazlardaki verilerin korunmasına yardımcı olur.</string>
+    <string name="WipeMemoryService_molly_is_clearing_secrets">Molly RAM\'de kalan şifrelenmemiş verileri siliyor</string>
+    <string name="preferences__passphrase_changed">Parola değiştirildi</string>
+    <string name="preferences__protect_molly_database_with_a_passphrase">Molly\'nin veri tabanını bir parola ile koruyun</string>
+    <string name="preferences__passphrase_lock">Veri tabanı şifreleme</string>
 </resources>

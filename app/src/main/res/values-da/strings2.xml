@@ -1,4 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="preferences__enable_debug_log">Aktiver fejlfindingslog</string>
+    <string name="preferences__enable_debug_log">Aktivér fejlfindingslog</string>
+    <string name="ChangePassphraseDialogFragment_generating_keys_this_may_take_a_while">Genererer nøgler. Dette kan tage et stykke tid …</string>
+    <string name="ChangePassphraseDialogFragment_please_choose_a_passphrase_that_will_be_used_to_locally_encrypt_your_data_this_should_be_a_strong_passphrase">Vælg en adgangskode, der bruges til at kryptere dine data lokalt.\n\nDette skal helst være en stærk adgangskode.</string>
+    <string name="ChangePassphraseDialogFragment_enable">Aktivér</string>
+    <string name="ChangePassphraseDialogFragment_passphrase">Adgangskode</string>
+    <string name="ChangePassphraseDialogFragment_estimated_time_to_crack_suggestion">%1$s\n\nAnslået tid til at knække: %2$s.\n\nForslag: %3$s</string>
+    <string name="ChangePassphraseDialogFragment_weak_passphrase">Svag adgangskode!</string>
+    <string name="PassphraseCreateActivity_turn_on_database_encryption">Slå databasekryptering til</string>
+    <string name="PassphraseCreateActivity_require_passphrase_to_unlock_molly">Kræv adgangskode for at låse Molly op\?</string>
+    <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">InstantNow kan du indstille en adgangskode til at kryptere databasen. Indtil det er låst op, kan Molly ikke modtage underretninger eller opkald. Dette hjælper med at beskytte data på mistede eller stjålne enheder.</string>
+    <string name="AppProtectionPreferenceFragment_instant">Øjeblikkelig</string>
+    <string name="WipeMemoryService_molly_is_clearing_secrets">Molly rydder ukrypterede data forbliver i RAM</string>
+    <string name="WipeMemoryService_secure_wipe_in_progress">Sikker sletning i gang</string>
+    <string name="ApplicationPreferencesActivity_privacy_summary_passphrase_registration_locks">Databasekryptering %1$s, Registreringslås %2$s</string>
+    <string name="preferences__passphrase_changed">Adgangssætning ændret</string>
+    <string name="preferences__device_lock_timeout">Enhedslås timeout</string>
+    <string name="preferences__automatic_lockdown">Automatisk nedlukning</string>
+    <string name="preferences__protect_molly_database_with_a_passphrase">Beskyt Molly\'s database med en adgangskode</string>
+    <string name="preferences__passphrase_lock">Databasekryptering</string>
+    <string name="arrays__on_inactivity_timeout">Hvis du går et bestemt tidspunkt uden at låse din enhed op</string>
 </resources>
