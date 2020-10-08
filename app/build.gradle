@@ -226,7 +226,7 @@ android {
             dimension "environment"
             applicationIdSuffix ".staging"
             resValue 'string', 'app_name', "$appName Staging"
-            buildConfigField "String", "BACKUP_DIRECTORY", "\"$appName Staging\""
+            buildConfigField "String", "BACKUP_DIRECTORY", "\"${appName}.staging\""
             buildConfigField "String", "SIGNAL_URL", "\"https://textsecure-service-staging.whispersystems.org\""
             buildConfigField "String", "STORAGE_URL", "\"https://storage-staging.signal.org\""
             buildConfigField "String", "SIGNAL_CDN_URL", "\"https://cdn-staging.signal.org\""
