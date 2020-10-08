@@ -59,6 +59,7 @@ public class KeyCachingService extends Service {
   private static final String TAG = KeyCachingService.class.getSimpleName();
 
   public static final int SERVICE_RUNNING_ID = 4141;
+
   public  static final String KEY_PERMISSION           = BuildConfig.APPLICATION_ID + ".ACCESS_SECRETS";
   public  static final String CLEAR_KEY_EVENT          = BuildConfig.APPLICATION_ID + ".service.action.CLEAR_KEY_EVENT";
   private static final String PASSPHRASE_EXPIRED_EVENT = BuildConfig.APPLICATION_ID + ".service.action.PASSPHRASE_EXPIRED_EVENT";

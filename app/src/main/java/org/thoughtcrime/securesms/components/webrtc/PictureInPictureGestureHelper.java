@@ -9,6 +9,7 @@ import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Interpolator;
 
 import androidx.annotation.NonNull;
@@ -16,21 +17,26 @@ import androidx.core.view.GestureDetectorCompat;
 
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.animation.AnimationCompleteListener;
-import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.util.views.TouchInterceptingFrameLayout;
 
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class PictureInPictureGestureHelper extends GestureDetector.SimpleOnGestureListener {
 
-  private static final float DECELERATION_RATE = 0.99f;
+  private static final float        DECELERATION_RATE   = 0.99f;
+  private static final Interpolator FLING_INTERPOLATOR  = new ViscousFluidInterpolator();
+  private static final Interpolator ADJUST_INTERPOLATOR = new AccelerateDecelerateInterpolator();
 
-  private final ViewGroup parent;
-  private final View      child;
-  private final int       framePadding;
-  private final int       pipWidth;
-  private final int       pipHeight;
+  private final ViewGroup       parent;
+  private final View            child;
+  private final int             framePadding;
+  private final Queue<Runnable> runAfterFling;
 
+  private int             pipWidth;
+  private int             pipHeight;
   private int             activePointerId = MotionEvent.INVALID_POINTER_ID;
   private float           lastTouchX;
   private float           lastTouchY;
@@ -42,6 +48,8 @@ public class PictureInPictureGestureHelper extends GestureDetector.SimpleOnGestu
   private double          projectionY;
   private VelocityTracker velocityTracker;
   private int             maximumFlingVelocity;
+  private boolean         isLockedToBottomEnd;
+  private Interpolator    interpolator;
 
   @SuppressLint("ClickableViewAccessibility")
   public static PictureInPictureGestureHelper applyTo(@NonNull View child) {
@@ -95,6 +103,8 @@ public class PictureInPictureGestureHelper extends GestureDetector.SimpleOnGestu
     this.pipWidth             = child.getResources().getDimensionPixelSize(R.dimen.picture_in_picture_gesture_helper_pip_width);
     this.pipHeight            = child.getResources().getDimensionPixelSize(R.dimen.picture_in_picture_gesture_helper_pip_height);
     this.maximumFlingVelocity = ViewConfiguration.get(child.getContext()).getScaledMaximumFlingVelocity();
+    this.runAfterFling        = new LinkedList<>();
+    this.interpolator         = ADJUST_INTERPOLATOR;
   }
 
   public void clearVerticalBoundaries() {
@@ -105,11 +115,7 @@ public class PictureInPictureGestureHelper extends GestureDetector.SimpleOnGestu
     extraPaddingTop    = topBoundary - parent.getTop();
     extraPaddingBottom = parent.getMeasuredHeight() + parent.getTop() - bottomBoundary;
 
-    if (isAnimating) {
-      fling();
-    } else if (!isDragging) {
-      onFling(null, null, 0, 0);
-    }
+    adjustPip();
   }
 
   private boolean onGestureFinished(MotionEvent e) {
@@ -123,12 +129,46 @@ public class PictureInPictureGestureHelper extends GestureDetector.SimpleOnGestu
     return false;
   }
 
+  public void adjustPip() {
+    pipWidth  = child.getMeasuredWidth();
+    pipHeight = child.getMeasuredHeight();
+
+    if (isAnimating) {
+      interpolator = ADJUST_INTERPOLATOR;
+
+      fling();
+    } else if (!isDragging) {
+      interpolator = ADJUST_INTERPOLATOR;
+
+      onFling(null, null, 0, 0);
+    }
+  }
+
+  public void lockToBottomEnd() {
+    isLockedToBottomEnd = true;
+  }
+
+  public void enableCorners() {
+    isLockedToBottomEnd = false;
+  }
+
+  public void performAfterFling(@NonNull Runnable runnable) {
+    if (isAnimating) {
+      runAfterFling.add(runnable);
+    } else {
+      runnable.run();
+    }
+  }
+
   @Override
   public boolean onDown(MotionEvent e) {
     activePointerId = e.getPointerId(0);
     lastTouchX      = e.getX(activePointerId) + child.getX();
     lastTouchY      = e.getY(activePointerId) + child.getY();
     isDragging      = true;
+    pipWidth        = child.getMeasuredWidth();
+    pipHeight       = child.getMeasuredHeight();
+    interpolator    = FLING_INTERPOLATOR;
 
     return true;
   }
@@ -167,6 +207,13 @@ public class PictureInPictureGestureHelper extends GestureDetector.SimpleOnGestu
     return true;
   }
 
+  @Override
+  public boolean onSingleTapUp(MotionEvent e) {
+    child.performClick();
+
+    return true;
+  }
+
   private void fling() {
     Point  projection            = new Point((int) projectionX, (int) projectionY);
     Point  nearestCornerPosition = findNearestCornerPosition(projection);
@@ -178,17 +225,30 @@ public class PictureInPictureGestureHelper extends GestureDetector.SimpleOnGestu
          .translationX(getTranslationXForPoint(nearestCornerPosition))
          .translationY(getTranslationYForPoint(nearestCornerPosition))
          .setDuration(250)
-         .setInterpolator(new ViscousFluidInterpolator())
+         .setInterpolator(interpolator)
          .setListener(new AnimationCompleteListener() {
            @Override
            public void onAnimationEnd(Animator animation) {
              isAnimating = false;
+
+             Iterator<Runnable> afterFlingRunnables = runAfterFling.iterator();
+             while (afterFlingRunnables.hasNext()) {
+               Runnable runnable = afterFlingRunnables.next();
+
+               runnable.run();
+               afterFlingRunnables.remove();
+             }
            }
          })
          .start();
   }
 
   private Point findNearestCornerPosition(Point projection) {
+    if (isLockedToBottomEnd) {
+      return parent.getLayoutDirection() == View.LAYOUT_DIRECTION_LTR ? calculateBottomRightCoordinates(parent)
+                                                                      : calculateBottomLeftCoordinates(parent);
+    }
+
     Point  maxPoint     = null;
     double maxDistance  = Double.MAX_VALUE;
 

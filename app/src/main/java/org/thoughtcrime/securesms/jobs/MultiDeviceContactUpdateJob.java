@@ -261,14 +261,11 @@ public class MultiDeviceContactUpdateJob extends BaseJob {
   {
     if (length > 0) {
       try {
-        SignalServiceAttachmentStream.Builder attachmentStream   = SignalServiceAttachment.newStreamBuilder()
-                                                                                          .withStream(stream)
-                                                                                          .withContentType("application/octet-stream")
-                                                                                          .withLength(length);
-
-        if (FeatureFlags.attachmentsV3()) {
-          attachmentStream.withResumableUploadSpec(messageSender.getResumableUploadSpec());
-        }
+        SignalServiceAttachmentStream.Builder attachmentStream = SignalServiceAttachment.newStreamBuilder()
+                                                                                        .withStream(stream)
+                                                                                        .withContentType("application/octet-stream")
+                                                                                        .withLength(length)
+                                                                                        .withResumableUploadSpec(messageSender.getResumableUploadSpec());
 
         messageSender.sendMessage(SignalServiceSyncMessage.forContacts(new ContactsMessage(attachmentStream.build(), complete)),
                                   UnidentifiedAccessUtil.getAccessForSync(context));
@@ -328,7 +325,7 @@ public class MultiDeviceContactUpdateJob extends BaseJob {
                                                 .withLength(fd.getLength())
                                                 .build());
     } catch (IOException e) {
-      Log.i(TAG, "Could not find avatar for URI: " + displayPhotoUri);
+      // Ignored
     }
 
     Uri photoUri = Uri.withAppendedPath(uri, ContactsContract.Contacts.Photo.CONTENT_DIRECTORY);

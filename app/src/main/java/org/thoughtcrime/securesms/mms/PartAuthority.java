@@ -4,43 +4,40 @@ import android.content.ContentUris;
 import android.content.Context;
 import android.content.UriMatcher;
 import android.net.Uri;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.attachments.Attachment;
 import org.thoughtcrime.securesms.attachments.AttachmentId;
-import org.thoughtcrime.securesms.blurhash.BlurHash;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.providers.BlobProvider;
 import org.thoughtcrime.securesms.providers.DeprecatedPersistentBlobProvider;
 import org.thoughtcrime.securesms.providers.PartProvider;
-import org.thoughtcrime.securesms.util.MediaUtil;
 
 import java.io.IOException;
 import java.io.InputStream;
 
 public class PartAuthority {
 
-  private static final String PART_URI_STRING     = "content://org.thoughtcrime.securesms/part";
-  private static final String THUMB_URI_STRING    = "content://org.thoughtcrime.securesms/thumb";
-  private static final String STICKER_URI_STRING  = "content://org.thoughtcrime.securesms/sticker";
+  private static final String AUTHORITY           = BuildConfig.APPLICATION_ID;
+  private static final String PART_URI_STRING     = "content://" + AUTHORITY + "/part";
+  private static final String STICKER_URI_STRING  = "content://" + AUTHORITY + "/sticker";
   private static final Uri    PART_CONTENT_URI    = Uri.parse(PART_URI_STRING);
-  private static final Uri    THUMB_CONTENT_URI   = Uri.parse(THUMB_URI_STRING);
   private static final Uri    STICKER_CONTENT_URI = Uri.parse(STICKER_URI_STRING);
 
   private static final int PART_ROW       = 1;
-  private static final int THUMB_ROW      = 2;
-  private static final int PERSISTENT_ROW = 3;
-  private static final int BLOB_ROW       = 4;
-  private static final int STICKER_ROW    = 5;
+  private static final int PERSISTENT_ROW = 2;
+  private static final int BLOB_ROW       = 3;
+  private static final int STICKER_ROW    = 4;
 
   private static final UriMatcher uriMatcher;
 
   static {
     uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-    uriMatcher.addURI("org.thoughtcrime.securesms", "part/*/#", PART_ROW);
-    uriMatcher.addURI("org.thoughtcrime.securesms", "thumb/*/#", THUMB_ROW);
-    uriMatcher.addURI("org.thoughtcrime.securesms", "sticker/#", STICKER_ROW);
+    uriMatcher.addURI(AUTHORITY, "part/*/#", PART_ROW);
+    uriMatcher.addURI(AUTHORITY, "sticker/#", STICKER_ROW);
     uriMatcher.addURI(DeprecatedPersistentBlobProvider.AUTHORITY, DeprecatedPersistentBlobProvider.EXPECTED_PATH_OLD, PERSISTENT_ROW);
     uriMatcher.addURI(DeprecatedPersistentBlobProvider.AUTHORITY, DeprecatedPersistentBlobProvider.EXPECTED_PATH_NEW, PERSISTENT_ROW);
     uriMatcher.addURI(BlobProvider.AUTHORITY, BlobProvider.PATH, BLOB_ROW);
@@ -49,13 +46,6 @@ public class PartAuthority {
   public static InputStream getAttachmentThumbnailStream(@NonNull Context context, @NonNull Uri uri)
       throws IOException
   {
-    String contentType = getAttachmentContentType(context, uri);
-    int    match       = uriMatcher.match(uri);
-
-    if (match == PART_ROW && MediaUtil.isVideoType(contentType)) {
-      return DatabaseFactory.getAttachmentDatabase(context).getThumbnailStream(new PartUriParser(uri).getPartId());
-    }
-
     return getAttachmentStream(context, uri);
   }
 
@@ -66,7 +56,6 @@ public class PartAuthority {
     try {
       switch (match) {
       case PART_ROW:       return DatabaseFactory.getAttachmentDatabase(context).getAttachmentStream(new PartUriParser(uri).getPartId(), 0);
-      case THUMB_ROW:      return DatabaseFactory.getAttachmentDatabase(context).getThumbnailStream(new PartUriParser(uri).getPartId());
       case STICKER_ROW:    return DatabaseFactory.getStickerDatabase(context).getStickerStream(ContentUris.parseId(uri));
       case PERSISTENT_ROW: return DeprecatedPersistentBlobProvider.getInstance(context).getStream(context, ContentUris.parseId(uri));
       case BLOB_ROW:       return BlobProvider.getInstance().getStream(context, uri);
@@ -81,7 +70,6 @@ public class PartAuthority {
     int match = uriMatcher.match(uri);
 
     switch (match) {
-    case THUMB_ROW:
     case PART_ROW:
       Attachment attachment = DatabaseFactory.getAttachmentDatabase(context).getAttachment(new PartUriParser(uri).getPartId());
 
@@ -100,7 +88,6 @@ public class PartAuthority {
     int match = uriMatcher.match(uri);
 
     switch (match) {
-      case THUMB_ROW:
       case PART_ROW:
         Attachment attachment = DatabaseFactory.getAttachmentDatabase(context).getAttachment(new PartUriParser(uri).getPartId());
 
@@ -119,7 +106,6 @@ public class PartAuthority {
     int match = uriMatcher.match(uri);
 
     switch (match) {
-      case THUMB_ROW:
       case PART_ROW:
         Attachment attachment = DatabaseFactory.getAttachmentDatabase(context).getAttachment(new PartUriParser(uri).getPartId());
 
@@ -145,8 +131,7 @@ public class PartAuthority {
   }
 
   public static Uri getAttachmentThumbnailUri(AttachmentId attachmentId) {
-    Uri uri = Uri.withAppendedPath(THUMB_CONTENT_URI, String.valueOf(attachmentId.getUniqueId()));
-    return ContentUris.withAppendedId(uri, attachmentId.getRowId());
+    return getAttachmentDataUri(attachmentId);
   }
 
   public static Uri getStickerUri(long id) {
@@ -157,11 +142,18 @@ public class PartAuthority {
     int match = uriMatcher.match(uri);
     switch (match) {
     case PART_ROW:
-    case THUMB_ROW:
     case PERSISTENT_ROW:
     case BLOB_ROW:
       return true;
     }
     return false;
+  }
+
+  public static boolean isAttachmentUri(@NonNull Uri uri) {
+    return uriMatcher.match(uri) == PART_ROW;
+  }
+
+  public static @NonNull AttachmentId requireAttachmentId(@NonNull Uri uri) {
+    return new PartUriParser(uri).getPartId();
   }
 }

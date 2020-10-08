@@ -36,24 +36,32 @@ public final class WebRtcControls {
     this.audioOutput                  = audioOutput;
   }
 
+  boolean displayStartCallControls() {
+    return isPreJoin();
+  }
+
   boolean displayEndCall() {
-    return isOngoing();
+    return isAtLeastOutgoing();
   }
 
   boolean displayMuteAudio() {
-    return isOngoing();
+    return isPreJoin() || isAtLeastOutgoing();
   }
 
   boolean displayVideoToggle() {
-    return isOngoing();
+    return isPreJoin() || isAtLeastOutgoing();
   }
 
   boolean displayAudioToggle() {
-    return isOngoing() && (!isLocalVideoEnabled || isBluetoothAvailable);
+    return (isPreJoin() || isAtLeastOutgoing()) && (!isLocalVideoEnabled || isBluetoothAvailable);
   }
 
   boolean displayCameraToggle() {
-    return isOngoing() && isLocalVideoEnabled && isMoreThanOneCameraAvailable;
+    return (isPreJoin() || isAtLeastOutgoing()) && isLocalVideoEnabled && isMoreThanOneCameraAvailable;
+  }
+
+  boolean displayRemoteVideoRecycler() {
+    return isOngoing();
   }
 
   boolean displayAnswerWithAudio() {
@@ -73,23 +81,27 @@ public final class WebRtcControls {
   }
 
   boolean isFadeOutEnabled() {
-    return isOngoing() && isRemoteVideoEnabled;
+    return isAtLeastOutgoing() && isRemoteVideoEnabled;
   }
 
   boolean displaySmallOngoingCallButtons() {
-    return isOngoing() && displayAudioToggle() && displayCameraToggle();
+    return isAtLeastOutgoing() && displayAudioToggle() && displayCameraToggle();
   }
 
   boolean displayLargeOngoingCallButtons() {
-    return isOngoing() && !(displayAudioToggle() && displayCameraToggle());
+    return isAtLeastOutgoing() && !(displayAudioToggle() && displayCameraToggle());
   }
 
   boolean displayTopViews() {
     return !isInPipMode;
   }
 
-  WebRtcAudioOutput getAudioOutput() {
+  @NonNull WebRtcAudioOutput getAudioOutput() {
     return audioOutput;
+  }
+
+  private boolean isPreJoin() {
+    return callState == CallState.PRE_JOIN;
   }
 
   private boolean isOngoing() {
@@ -100,9 +112,20 @@ public final class WebRtcControls {
     return callState == CallState.INCOMING;
   }
 
+  private boolean isAtLeastOutgoing() {
+    return callState.isAtLeast(CallState.OUTGOING);
+  }
+
   public enum CallState {
     NONE,
+    PRE_JOIN,
     INCOMING,
-    ONGOING
+    OUTGOING,
+    ONGOING,
+    ENDING;
+
+    boolean isAtLeast(@NonNull CallState other) {
+      return compareTo(other) >= 0;
+    }
   }
 }

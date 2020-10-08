@@ -479,7 +479,7 @@ public class ConversationFragment extends LoggingFragment {
   private void initializeListAdapter() {
     if (this.recipient != null && this.threadId != -1) {
       Log.d(TAG, "Initializing adapter for " + recipient.getId());
-      ConversationAdapter adapter = new ConversationAdapter(GlideApp.with(this), locale, selectionClickListener, this.recipient.get());
+      ConversationAdapter adapter = new ConversationAdapter(this, GlideApp.with(this), locale, selectionClickListener, this.recipient.get());
       list.setAdapter(adapter);
       setStickyHeaderDecoration(adapter);
       ConversationAdapter.initializePool(list.getRecycledViewPool());
@@ -810,7 +810,7 @@ public class ConversationFragment extends LoggingFragment {
                                                .toList();
 
           for (Attachment attachment : attachments) {
-            Uri uri = attachment.getDataUri() != null ? attachment.getDataUri() : attachment.getThumbnailUri();
+            Uri uri = attachment.getUri();
 
             if (uri != null) {
               mediaList.add(new Media(uri,
@@ -1424,7 +1424,10 @@ public class ConversationFragment extends LoggingFragment {
     public ConversationSnapToTopDataObserver(@NonNull RecyclerView recyclerView,
                                              @Nullable ScrollRequestValidator scrollRequestValidator)
     {
-      super(recyclerView, scrollRequestValidator);
+      super(recyclerView, scrollRequestValidator, () -> {
+        list.scrollToPosition(0);
+        list.post(ConversationFragment.this::postMarkAsReadRequest);
+      });
     }
 
     @Override

@@ -112,13 +112,16 @@ public class NotificationState {
   }
 
   public PendingIntent getMarkAsReadIntent(Context context, int notificationId) {
-    long[] threadArray = new long[threads.size()];
-    int    index       = 0;
+    long[]        threadArray  = new long[threads.size()];
+    int           index        = 0;
+    StringBuilder threadString = new StringBuilder();
 
     for (long thread : threads) {
-      Log.i(TAG, "Added thread: " + thread);
+      threadString.append(thread).append(" ");
       threadArray[index++] = thread;
     }
+
+    Log.i(TAG, "Added threads: " + threadString.toString());
 
     Intent intent = new Intent(MarkReadReceiver.CLEAR_ACTION);
     intent.setClass(context, MarkReadReceiver.class);
@@ -205,5 +208,8 @@ public class NotificationState {
     return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
   }
 
+  public boolean canReply() {
+    return notifications.size() >= 1 && notifications.get(0).canReply();
+  }
 
 }

@@ -124,7 +124,6 @@ public class SignalServiceMessageSender {
   private final AtomicReference<Optional<SignalServiceMessagePipe>> pipe;
   private final AtomicReference<Optional<SignalServiceMessagePipe>> unidentifiedPipe;
   private final AtomicBoolean                                       isMultiDevice;
-  private final AtomicBoolean                                       attachmentsV3;
 
   private final ExecutorService                                     executor;
 
@@ -144,14 +143,13 @@ public class SignalServiceMessageSender {
                                     SignalProtocolStore store,
                                     String signalAgent,
                                     boolean isMultiDevice,
-                                    boolean attachmentsV3,
                                     Optional<SignalServiceMessagePipe> pipe,
                                     Optional<SignalServiceMessagePipe> unidentifiedPipe,
                                     Optional<EventListener> eventListener,
                                     ClientZkProfileOperations clientZkProfileOperations,
                                     ExecutorService executor)
   {
-    this(urls, new StaticCredentialsProvider(uuid, e164, password, null), store, signalAgent, isMultiDevice, attachmentsV3, pipe, unidentifiedPipe, eventListener, clientZkProfileOperations, executor);
+    this(urls, new StaticCredentialsProvider(uuid, e164, password, null), store, signalAgent, isMultiDevice, pipe, unidentifiedPipe, eventListener, clientZkProfileOperations, executor);
   }
 
   public SignalServiceMessageSender(SignalServiceConfiguration urls,
@@ -159,7 +157,6 @@ public class SignalServiceMessageSender {
                                     SignalProtocolStore store,
                                     String signalAgent,
                                     boolean isMultiDevice,
-                                    boolean attachmentsV3,
                                     Optional<SignalServiceMessagePipe> pipe,
                                     Optional<SignalServiceMessagePipe> unidentifiedPipe,
                                     Optional<EventListener> eventListener,
@@ -172,7 +169,6 @@ public class SignalServiceMessageSender {
     this.pipe             = new AtomicReference<>(pipe);
     this.unidentifiedPipe = new AtomicReference<>(unidentifiedPipe);
     this.isMultiDevice    = new AtomicBoolean(isMultiDevice);
-    this.attachmentsV3    = new AtomicBoolean(attachmentsV3);
     this.eventListener    = eventListener;
     this.executor         = executor != null ? executor : Executors.newSingleThreadExecutor();
   }
@@ -365,11 +361,10 @@ public class SignalServiceMessageSender {
     socket.cancelInFlightRequests();
   }
 
-  public void update(SignalServiceMessagePipe pipe, SignalServiceMessagePipe unidentifiedPipe, boolean isMultiDevice, boolean attachmentsV3) {
+  public void update(SignalServiceMessagePipe pipe, SignalServiceMessagePipe unidentifiedPipe, boolean isMultiDevice) {
     this.pipe.set(Optional.fromNullable(pipe));
     this.unidentifiedPipe.set(Optional.fromNullable(unidentifiedPipe));
     this.isMultiDevice.set(isMultiDevice);
-    this.attachmentsV3.set(attachmentsV3);
   }
 
   public SignalServiceAttachmentPointer uploadAttachment(SignalServiceAttachmentStream attachment) throws IOException {
@@ -661,7 +656,10 @@ public class SignalServiceMessageSender {
       stickerBuilder.setPackId(ByteString.copyFrom(message.getSticker().get().getPackId()));
       stickerBuilder.setPackKey(ByteString.copyFrom(message.getSticker().get().getPackKey()));
       stickerBuilder.setStickerId(message.getSticker().get().getStickerId());
-      stickerBuilder.setEmoji(message.getSticker().get().getEmoji());
+
+      if (message.getSticker().get().getEmoji() != null) {
+        stickerBuilder.setEmoji(message.getSticker().get().getEmoji());
+      }
 
       if (message.getSticker().get().getAttachment().isStream()) {
         stickerBuilder.setData(createAttachmentPointer(message.getSticker().get().getAttachment().asStream()));
@@ -682,11 +680,6 @@ public class SignalServiceMessageSender {
                                                                          .setEmoji(message.getReaction().get().getEmoji())
                                                                          .setRemove(message.getReaction().get().isRemove())
                                                                          .setTargetSentTimestamp(message.getReaction().get().getTargetSentTimestamp());
-
-      // TODO [Alan] PhoneNumberPrivacy: Do not set this number
-      if (message.getReaction().get().getTargetAuthor().getNumber().isPresent()) {
-        reactionBuilder.setTargetAuthorE164(message.getReaction().get().getTargetAuthor().getNumber().get());
-      }
 
       if (message.getReaction().get().getTargetAuthor().getUuid().isPresent()) {
         reactionBuilder.setTargetAuthorUuid(message.getReaction().get().getTargetAuthor().getUuid().get().toString());
@@ -810,7 +803,7 @@ public class SignalServiceMessageSender {
 
   private byte[] createMultiDeviceSentTranscriptContent(SentTranscriptMessage transcript, Optional<UnidentifiedAccessPair> unidentifiedAccess) throws IOException {
     SignalServiceAddress address = transcript.getDestination().get();
-    SendMessageResult    result  = SendMessageResult.success(address, unidentifiedAccess.isPresent(), true);
+    SendMessageResult    result  = SendMessageResult.success(address, unidentifiedAccess.isPresent(), true, -1);
 
     return createMultiDeviceSentTranscriptContent(createMessageContent(transcript.getMessage()),
                                                   Optional.of(address),
@@ -1295,7 +1288,23 @@ public class SignalServiceMessageSender {
       }
     }
 
-    Log.d(TAG, "Completed send to " + recipients.size() + " recipients in " + (System.currentTimeMillis() - startTime) + " ms");
+    double sendsForAverage = 0;
+    for (SendMessageResult result : results) {
+      if (result.getSuccess() != null && result.getSuccess().getDuration() != -1) {
+        sendsForAverage++;
+      }
+    }
+
+    double average = 0;
+    if (sendsForAverage > 0) {
+      for (SendMessageResult result : results) {
+        if (result.getSuccess() != null && result.getSuccess().getDuration() != -1) {
+          average += result.getSuccess().getDuration() / sendsForAverage;
+        }
+      }
+    }
+
+    Log.d(TAG, "Completed send to " + recipients.size() + " recipients in " + (System.currentTimeMillis() - startTime) + " ms, with an average time of " + Math.round(average) + " ms per send.");
     return results;
   }
 
@@ -1327,8 +1336,7 @@ public class SignalServiceMessageSender {
         if (pipe.isPresent() && !unidentifiedAccess.isPresent()) {
           try {
             SendMessageResponse response = pipe.get().send(messages, Optional.absent()).get(10, TimeUnit.SECONDS);
-            Log.d(TAG, "[sendMessage] Completed over pipe in " + (System.currentTimeMillis() - startTime) + " ms and " + (i + 1) + " attempt(s)");
-            return SendMessageResult.success(recipient, false, response.getNeedsSync() || isMultiDevice.get());
+            return SendMessageResult.success(recipient, false, response.getNeedsSync() || isMultiDevice.get(), System.currentTimeMillis() - startTime);
           } catch (IOException | ExecutionException | InterruptedException | TimeoutException e) {
             Log.w(TAG, e);
             Log.w(TAG, "[sendMessage] Pipe failed, falling back...");
@@ -1336,8 +1344,7 @@ public class SignalServiceMessageSender {
         } else if (unidentifiedPipe.isPresent() && unidentifiedAccess.isPresent()) {
           try {
             SendMessageResponse response = unidentifiedPipe.get().send(messages, unidentifiedAccess).get(10, TimeUnit.SECONDS);
-            Log.d(TAG, "[sendMessage] Completed over unidentified pipe in " + (System.currentTimeMillis() - startTime) + " ms and " + (i + 1) + " attempt(s)");
-            return SendMessageResult.success(recipient, true, response.getNeedsSync() || isMultiDevice.get());
+            return SendMessageResult.success(recipient, true, response.getNeedsSync() || isMultiDevice.get(), System.currentTimeMillis() - startTime);
           } catch (IOException | ExecutionException | InterruptedException | TimeoutException e) {
             Log.w(TAG, e);
             Log.w(TAG, "[sendMessage] Unidentified pipe failed, falling back...");
@@ -1350,8 +1357,7 @@ public class SignalServiceMessageSender {
 
         SendMessageResponse response = socket.sendMessage(messages, unidentifiedAccess);
 
-        Log.d(TAG, "[sendMessage] Completed over REST in " + (System.currentTimeMillis() - startTime) + " ms and " + (i + 1) + " attempt(s)");
-        return SendMessageResult.success(recipient, unidentifiedAccess.isPresent(), response.getNeedsSync() || isMultiDevice.get());
+        return SendMessageResult.success(recipient, unidentifiedAccess.isPresent(), response.getNeedsSync() || isMultiDevice.get(), System.currentTimeMillis() - startTime);
 
       } catch (InvalidKeyException ike) {
         Log.w(TAG, ike);

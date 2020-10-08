@@ -55,6 +55,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.ViewCompat;
+import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
@@ -219,7 +220,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
     list.setItemAnimator(new DeleteItemAnimator());
     list.addOnScrollListener(new ScrollListener());
 
-    snapToTopDataObserver = new SnapToTopDataObserver(list, null);
+    snapToTopDataObserver = new SnapToTopDataObserver(list);
 
     new ItemTouchHelper(new ArchiveListenerCallback()).attachToRecyclerView(list);
 
@@ -355,7 +356,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
   @Override
   public void onContactClicked(@NonNull Recipient contact) {
     SimpleTask.run(getViewLifecycleOwner().getLifecycle(), () -> {
-      return DatabaseFactory.getThreadDatabase(getContext()).getThreadIdIfExistsFor(contact);
+      return DatabaseFactory.getThreadDatabase(getContext()).getThreadIdIfExistsFor(contact.getId());
     }, threadId -> {
       hideKeyboard();
       getNavigator().goToConversation(contact.getId(),
@@ -409,6 +410,11 @@ public class ConversationListFragment extends MainFragment implements ActionMode
   @Override
   public void onMegaphoneCompleted(@NonNull Megaphones.Event event) {
     viewModel.onMegaphoneCompleted(event);
+  }
+
+  @Override
+  public void onMegaphoneDialogFragmentRequested(@NonNull DialogFragment dialogFragment) {
+    dialogFragment.show(getChildFragmentManager(), "megaphone_dialog");
   }
 
   private void onReminderAction(@IdRes int reminderActionId) {
@@ -659,7 +665,8 @@ public class ConversationListFragment extends MainFragment implements ActionMode
     int       count                 = selectedConversations.size();
     String    snackBarTitle         = getResources().getQuantityString(getArchivedSnackbarTitleRes(), count, count);
 
-    new SnackbarAsyncTask<Void>(getView(),
+    new SnackbarAsyncTask<Void>(getViewLifecycleOwner().getLifecycle(),
+                                requireView(),
                                 snackBarTitle,
                                 getString(R.string.ConversationListFragment_undo),
                                 getResources().getColor(R.color.amber_500),
@@ -982,11 +989,13 @@ public class ConversationListFragment extends MainFragment implements ActionMode
 
   @SuppressLint("StaticFieldLeak")
   protected void onItemSwiped(long threadId, int unreadCount) {
-    new SnackbarAsyncTask<Long>(getView(),
-        getResources().getQuantityString(R.plurals.ConversationListFragment_conversations_archived, 1, 1),
-        getString(R.string.ConversationListFragment_undo),
-        getResources().getColor(R.color.amber_500),
-        Snackbar.LENGTH_LONG, false)
+    new SnackbarAsyncTask<Long>(getViewLifecycleOwner().getLifecycle(),
+                                requireView(),
+                                getResources().getQuantityString(R.plurals.ConversationListFragment_conversations_archived, 1, 1),
+                                getString(R.string.ConversationListFragment_undo),
+                                getResources().getColor(R.color.amber_500),
+                                Snackbar.LENGTH_LONG,
+                                false)
     {
       @Override
       protected void executeAction(@Nullable Long parameter) {

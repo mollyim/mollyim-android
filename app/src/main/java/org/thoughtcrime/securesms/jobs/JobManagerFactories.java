@@ -9,6 +9,8 @@ import org.thoughtcrime.securesms.jobmanager.Constraint;
 import org.thoughtcrime.securesms.jobmanager.ConstraintObserver;
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobmanager.JobMigration;
+import org.thoughtcrime.securesms.jobmanager.impl.ChargingConstraint;
+import org.thoughtcrime.securesms.jobmanager.impl.ChargingConstraintObserver;
 import org.thoughtcrime.securesms.jobmanager.impl.MasterSecretConstraint;
 import org.thoughtcrime.securesms.jobmanager.impl.MasterSecretConstraintObserver;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
@@ -21,6 +23,7 @@ import org.thoughtcrime.securesms.jobmanager.migrations.RecipientIdFollowUpJobMi
 import org.thoughtcrime.securesms.jobmanager.migrations.RecipientIdJobMigration;
 import org.thoughtcrime.securesms.jobmanager.migrations.RetrieveProfileJobMigration;
 import org.thoughtcrime.securesms.jobmanager.migrations.SendReadReceiptsJobMigration;
+import org.thoughtcrime.securesms.migrations.AttributesMigrationJob;
 import org.thoughtcrime.securesms.migrations.AvatarIdRemovalMigrationJob;
 import org.thoughtcrime.securesms.migrations.DatabaseMigrationJob;
 import org.thoughtcrime.securesms.migrations.MigrationCompleteJob;
@@ -111,6 +114,7 @@ public final class JobManagerFactories {
       put(ProfileUploadJob.KEY,                      new ProfileUploadJob.Factory());
 
       // Migrations
+      put(AttributesMigrationJob.KEY,                new AttributesMigrationJob.Factory());
       put(AvatarIdRemovalMigrationJob.KEY,           new AvatarIdRemovalMigrationJob.Factory());
       put(DatabaseMigrationJob.KEY,                  new DatabaseMigrationJob.Factory());
       put(MigrationCompleteJob.KEY,                  new MigrationCompleteJob.Factory());
@@ -144,6 +148,7 @@ public final class JobManagerFactories {
 
   public static Map<String, Constraint.Factory> getConstraintFactories(@NonNull Application application) {
     return new HashMap<String, Constraint.Factory>() {{
+      put(ChargingConstraint.KEY,                    new ChargingConstraint.Factory());
       put(NetworkConstraint.KEY,                     new NetworkConstraint.Factory(application));
       put(MasterSecretConstraint.KEY,                new MasterSecretConstraint.Factory(application));
       put(WebsocketDrainedConstraint.KEY,            new WebsocketDrainedConstraint.Factory());
@@ -151,8 +156,9 @@ public final class JobManagerFactories {
   }
 
   public static List<ConstraintObserver> getConstraintObservers(@NonNull Application application) {
-    return Arrays.asList(new NetworkConstraintObserver(application),
-                         new MasterSecretConstraintObserver(application),
+    return Arrays.asList(new MasterSecretConstraintObserver(application),
+                         new ChargingConstraintObserver(application),
+                         new NetworkConstraintObserver(application),
                          new WebsocketDrainedConstraintObserver());
   }
 

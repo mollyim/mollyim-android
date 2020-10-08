@@ -11,8 +11,11 @@ import org.thoughtcrime.securesms.backup.FullBackupExporter;
 import org.thoughtcrime.securesms.crypto.AttachmentSecretProvider;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.database.NoExternalStorageException;
+import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.jobmanager.Data;
 import org.thoughtcrime.securesms.jobmanager.Job;
+import org.thoughtcrime.securesms.jobmanager.JobManager;
+import org.thoughtcrime.securesms.jobmanager.impl.ChargingConstraint;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.permissions.Permissions;
@@ -27,18 +30,30 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class LocalBackupJob extends BaseJob {
+public final class LocalBackupJob extends BaseJob {
 
   public static final String KEY = "LocalBackupJob";
 
-  private static final String TAG = LocalBackupJob.class.getSimpleName();
+  private static final String TAG = Log.tag(LocalBackupJob.class);
 
-  public LocalBackupJob() {
-    this(new Job.Parameters.Builder()
-                           .setQueue("__LOCAL_BACKUP__")
-                           .setMaxInstances(1)
-                           .setMaxAttempts(3)
-                           .build());
+  private static final String QUEUE = "__LOCAL_BACKUP__";
+
+  public static final String TEMP_BACKUP_FILE_PREFIX = ".backup";
+  public static final String TEMP_BACKUP_FILE_SUFFIX = ".tmp";
+
+  public static void enqueue(boolean force) {
+    JobManager         jobManager = ApplicationDependencies.getJobManager();
+    Parameters.Builder parameters = new Parameters.Builder()
+                                                  .setQueue(QUEUE)
+                                                  .setMaxInstances(1)
+                                                  .setMaxAttempts(3);
+    if (force) {
+      jobManager.cancelAllInQueue(QUEUE);
+    } else {
+      parameters.addConstraint(ChargingConstraint.KEY);
+    }
+
+    jobManager.add(new LocalBackupJob(parameters.build()));
   }
 
   private LocalBackupJob(@NonNull Job.Parameters parameters) {
@@ -76,6 +91,8 @@ public class LocalBackupJob extends BaseJob {
       String fileName        = String.format("%s-%s.backup", context.getString(R.string.app_name), timestamp);
       File   backupFile      = new File(backupDirectory, fileName);
 
+      deleteOldTemporaryBackups(backupDirectory);
+
       if (backupFile.exists()) {
         throw new IOException("Backup file already exists?");
       }
@@ -84,7 +101,7 @@ public class LocalBackupJob extends BaseJob {
         throw new IOException("Backup password is null");
       }
 
-      File tempFile = File.createTempFile("backup", "tmp", StorageUtil.getBackupCacheDirectory(context));
+      File tempFile = File.createTempFile(TEMP_BACKUP_FILE_PREFIX, TEMP_BACKUP_FILE_SUFFIX, backupDirectory);
 
       try {
         FullBackupExporter.export(context,
@@ -108,6 +125,21 @@ public class LocalBackupJob extends BaseJob {
       }
 
       BackupUtil.deleteOldBackups();
+    }
+  }
+
+  private static void deleteOldTemporaryBackups(@NonNull File backupDirectory) {
+    for (File file : backupDirectory.listFiles()) {
+      if (file.isFile()) {
+        String name = file.getName();
+        if (name.startsWith(TEMP_BACKUP_FILE_PREFIX) && name.endsWith(TEMP_BACKUP_FILE_SUFFIX)) {
+          if (file.delete()) {
+            Log.w(TAG, "Deleted old temporary backup file");
+          } else {
+            Log.w(TAG, "Could not delete old temporary backup file");
+          }
+        }
+      }
     }
   }
 

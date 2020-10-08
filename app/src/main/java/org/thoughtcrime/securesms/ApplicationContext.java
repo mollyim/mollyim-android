@@ -173,7 +173,6 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
     NotificationChannels.create(this);
     RefreshPreKeysJob.scheduleIfNecessary();
     StorageSyncHelper.scheduleRoutineSync();
-    RetrieveProfileJob.enqueueRoutineFetchIfNecessary(this);
     RegistrationUtil.maybeMarkRegistrationComplete(this);
 
     ApplicationDependencies.getJobManager().beginJobLoop();
@@ -214,6 +213,7 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
   public void onStartUnlock() {
     FeatureFlags.refreshIfNecessary();
     ApplicationDependencies.getRecipientCache().warmUp();
+    RetrieveProfileJob.enqueueRoutineFetchIfNecessary(this);
     executePendingContactSync();
     ApplicationDependencies.getFrameRateTracker().begin();
     ApplicationDependencies.getMegaphoneRepository().onAppForegrounded();

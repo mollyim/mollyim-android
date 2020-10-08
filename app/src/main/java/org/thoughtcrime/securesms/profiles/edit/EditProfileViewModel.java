@@ -16,6 +16,7 @@ import org.thoughtcrime.securesms.util.StringUtil;
 import org.thoughtcrime.securesms.util.livedata.LiveDataUtil;
 import org.whispersystems.libsignal.util.guava.Optional;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 class EditProfileViewModel extends ViewModel {
@@ -91,11 +92,6 @@ class EditProfileViewModel extends ViewModel {
     return hasAvatar();
   }
 
-  @MainThread
-  public byte[] getAvatarSnapshot() {
-    return internalAvatar.getValue();
-  }
-
   public void setGivenName(String givenName) {
     this.givenName.setValue(givenName);
   }
@@ -126,9 +122,9 @@ class EditProfileViewModel extends ViewModel {
 
     repository.uploadProfile(profileName,
                              displayName,
-                             !Objects.equals(oldDisplayName, displayName),
+                             !Objects.equals(StringUtil.stripBidiProtection(oldDisplayName), displayName),
                              newAvatar,
-                             oldAvatar != newAvatar,
+                             !Arrays.equals(oldAvatar, newAvatar),
                              uploadResultConsumer);
   }
 

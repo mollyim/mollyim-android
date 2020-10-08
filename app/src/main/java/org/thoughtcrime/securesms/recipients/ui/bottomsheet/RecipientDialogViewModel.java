@@ -11,12 +11,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import org.thoughtcrime.securesms.BlockUnblockDialog;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.VerifyIdentityActivity;
+import org.thoughtcrime.securesms.database.GroupDatabase;
 import org.thoughtcrime.securesms.database.IdentityDatabase;
 import org.thoughtcrime.securesms.groups.GroupId;
 import org.thoughtcrime.securesms.groups.LiveGroup;
@@ -53,22 +55,26 @@ final class RecipientDialogViewModel extends ViewModel {
 
     boolean recipientIsSelf = recipientDialogRepository.getRecipientId().equals(Recipient.self().getId());
 
+    recipient = Recipient.live(recipientDialogRepository.getRecipientId()).getLiveData();
+
     if (recipientDialogRepository.getGroupId() != null && recipientDialogRepository.getGroupId().isV2() && !recipientIsSelf) {
       LiveGroup source = new LiveGroup(recipientDialogRepository.getGroupId());
 
-      LiveData<Boolean> localIsAdmin     = source.isSelfAdmin();
-      LiveData<Boolean> recipientIsAdmin = source.getRecipientIsAdmin(recipientDialogRepository.getRecipientId());
+      LiveData<Boolean>                   localIsAdmin         = source.isSelfAdmin();
+      LiveData<GroupDatabase.MemberLevel> recipientMemberLevel = Transformations.switchMap(recipient, source::getMemberLevel);
 
-      adminActionStatus = LiveDataUtil.combineLatest(localIsAdmin, recipientIsAdmin,
-        (localAdmin, recipientAdmin) ->
-          new AdminActionStatus(localAdmin,
-            localAdmin && !recipientAdmin,
-            localAdmin && recipientAdmin));
+      adminActionStatus = LiveDataUtil.combineLatest(localIsAdmin, recipientMemberLevel,
+        (localAdmin, memberLevel) -> {
+          boolean inGroup        = memberLevel.isInGroup();
+          boolean recipientAdmin = memberLevel == GroupDatabase.MemberLevel.ADMINISTRATOR;
+
+          return new AdminActionStatus(inGroup && localAdmin,
+                                       inGroup && localAdmin && !recipientAdmin,
+                                       inGroup && localAdmin && recipientAdmin);
+        });
     } else {
       adminActionStatus = new MutableLiveData<>(new AdminActionStatus(false, false, false));
     }
-
-    recipient = Recipient.live(recipientDialogRepository.getRecipientId()).getLiveData();
 
     boolean isSelf = recipientDialogRepository.getRecipientId().equals(Recipient.self().getId());
     if (!isSelf) {
@@ -172,22 +178,21 @@ final class RecipientDialogViewModel extends ViewModel {
   }
 
   void onRemoveFromGroupClicked(@NonNull Activity activity, @NonNull Runnable onSuccess) {
-    recipientDialogRepository.getGroupName(title ->
-      new AlertDialog.Builder(activity)
-                     .setMessage(context.getString(R.string.RecipientBottomSheet_remove_s_from_s, Objects.requireNonNull(recipient.getValue()).getDisplayName(context), title))
-                     .setPositiveButton(R.string.RecipientBottomSheet_remove,
-                                        (dialog, which) -> {
-                                          adminActionBusy.setValue(true);
-                                          recipientDialogRepository.removeMember(result -> {
-                                            adminActionBusy.setValue(false);
-                                            if (result) {
-                                              onSuccess.run();
-                                            }
-                                          },
-                                          this::showErrorToast);
-                                        })
-                     .setNegativeButton(android.R.string.cancel, (dialog, which) -> {})
-                     .show());
+    new AlertDialog.Builder(activity)
+                   .setMessage(context.getString(R.string.RecipientBottomSheet_remove_s_from_the_group, Objects.requireNonNull(recipient.getValue()).getDisplayName(context)))
+                   .setPositiveButton(R.string.RecipientBottomSheet_remove,
+                                      (dialog, which) -> {
+                                        adminActionBusy.setValue(true);
+                                        recipientDialogRepository.removeMember(result -> {
+                                          adminActionBusy.setValue(false);
+                                          if (result) {
+                                            onSuccess.run();
+                                          }
+                                        },
+                                        this::showErrorToast);
+                                      })
+                   .setNegativeButton(android.R.string.cancel, (dialog, which) -> {})
+                   .show();
   }
 
   void onAddedToContacts() {

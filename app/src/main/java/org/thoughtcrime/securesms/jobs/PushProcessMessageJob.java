@@ -82,7 +82,6 @@ import org.thoughtcrime.securesms.sms.OutgoingTextMessage;
 import org.thoughtcrime.securesms.stickers.StickerLocator;
 import org.thoughtcrime.securesms.storage.StorageSyncHelper;
 import org.thoughtcrime.securesms.util.Base64;
-import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.GroupUtil;
 import org.thoughtcrime.securesms.util.Hex;
 import org.thoughtcrime.securesms.util.IdentityUtil;
@@ -456,40 +455,47 @@ public final class PushProcessMessageJob extends BaseJob {
   }
 
   private void handleExceptionMessage(@NonNull ExceptionMetadata e, @NonNull Optional<Long> smsMessageId) {
+    Recipient sender = Recipient.external(context, e.sender);
+
+    if (sender.isBlocked()) {
+      Log.w(TAG, "Ignoring exception content from blocked sender, message state:" + messageState);
+      return;
+    }
+
     switch (messageState) {
 
       case INVALID_VERSION:
-        Log.w(TAG, "Handling invalid version");
+        Log.w(TAG, "Handling invalid version (" + timestamp + ")");
         handleInvalidVersionMessage(e.sender, e.senderDevice, timestamp, smsMessageId);
         break;
 
       case CORRUPT_MESSAGE:
-        Log.w(TAG, "Handling corrupt message");
+        Log.w(TAG, "Handling corrupt message (" + timestamp + ")");
         handleCorruptMessage(e.sender, e.senderDevice, timestamp, smsMessageId);
         break;
 
       case NO_SESSION:
-        Log.w(TAG, "Handling no session");
+        Log.w(TAG, "Handling no session (" + timestamp + ")");
         handleNoSessionMessage(e.sender, e.senderDevice, timestamp, smsMessageId);
         break;
 
       case LEGACY_MESSAGE:
-        Log.w(TAG, "Handling legacy message");
+        Log.w(TAG, "Handling legacy message (" + timestamp + ")");
         handleLegacyMessage(e.sender, e.senderDevice, timestamp, smsMessageId);
         break;
 
       case DUPLICATE_MESSAGE:
-        Log.w(TAG, "Handling duplicate message");
+        Log.w(TAG, "Handling duplicate message (" + timestamp + ")");
         handleDuplicateMessage(e.sender, e.senderDevice, timestamp, smsMessageId);
         break;
 
       case UNSUPPORTED_DATA_MESSAGE:
-        Log.w(TAG, "Handling unsupported data message");
+        Log.w(TAG, "Handling unsupported data message (" + timestamp + ")");
         handleUnsupportedDataMessage(e.sender, e.senderDevice, Optional.fromNullable(e.groupId), timestamp, smsMessageId);
         break;
 
       default:
-        throw new AssertionError("Not handled " + messageState);
+        throw new AssertionError("Not handled " + messageState + ". (" + timestamp + ")");
     }
   }
 
@@ -503,12 +509,15 @@ public final class PushProcessMessageJob extends BaseJob {
       MessageDatabase database = DatabaseFactory.getSmsDatabase(context);
       database.markAsMissedCall(smsMessageId.get());
     } else {
-      Intent     intent     = new Intent(context, WebRtcCallService.class);
-      RemotePeer remotePeer = new RemotePeer(Recipient.externalHighTrustPush(context, content.getSender()).getId());
+      Intent     intent            = new Intent(context, WebRtcCallService.class);
+      Recipient  recipient         = Recipient.externalHighTrustPush(context, content.getSender());
+      RemotePeer remotePeer        = new RemotePeer(recipient.getId());
+      byte[]     remoteIdentityKey = recipient.getIdentityKey();
 
       intent.setAction(WebRtcCallService.ACTION_RECEIVE_OFFER)
             .putExtra(WebRtcCallService.EXTRA_CALL_ID,                    message.getId())
             .putExtra(WebRtcCallService.EXTRA_REMOTE_PEER,                remotePeer)
+            .putExtra(WebRtcCallService.EXTRA_REMOTE_IDENTITY_KEY,        remoteIdentityKey)
             .putExtra(WebRtcCallService.EXTRA_REMOTE_DEVICE,              content.getSenderDevice())
             .putExtra(WebRtcCallService.EXTRA_OFFER_OPAQUE,               message.getOpaque())
             .putExtra(WebRtcCallService.EXTRA_OFFER_SDP,                  message.getSdp())
@@ -526,16 +535,19 @@ public final class PushProcessMessageJob extends BaseJob {
                                        @NonNull AnswerMessage message)
   {
     Log.i(TAG, "handleCallAnswerMessage...");
-    Intent     intent     = new Intent(context, WebRtcCallService.class);
-    RemotePeer remotePeer = new RemotePeer(Recipient.externalHighTrustPush(context, content.getSender()).getId());
+    Intent     intent            = new Intent(context, WebRtcCallService.class);
+    Recipient  recipient         = Recipient.externalHighTrustPush(context, content.getSender());
+    RemotePeer remotePeer        = new RemotePeer(recipient.getId());
+    byte[]     remoteIdentityKey = recipient.getIdentityKey();
 
     intent.setAction(WebRtcCallService.ACTION_RECEIVE_ANSWER)
-          .putExtra(WebRtcCallService.EXTRA_CALL_ID,       message.getId())
-          .putExtra(WebRtcCallService.EXTRA_REMOTE_PEER,   remotePeer)
-          .putExtra(WebRtcCallService.EXTRA_REMOTE_DEVICE, content.getSenderDevice())
-          .putExtra(WebRtcCallService.EXTRA_ANSWER_OPAQUE, message.getOpaque())
-          .putExtra(WebRtcCallService.EXTRA_ANSWER_SDP,    message.getSdp())
-          .putExtra(WebRtcCallService.EXTRA_MULTI_RING,    content.getCallMessage().get().isMultiRing());
+          .putExtra(WebRtcCallService.EXTRA_CALL_ID,             message.getId())
+          .putExtra(WebRtcCallService.EXTRA_REMOTE_PEER,         remotePeer)
+          .putExtra(WebRtcCallService.EXTRA_REMOTE_IDENTITY_KEY, remoteIdentityKey)
+          .putExtra(WebRtcCallService.EXTRA_REMOTE_DEVICE,       content.getSenderDevice())
+          .putExtra(WebRtcCallService.EXTRA_ANSWER_OPAQUE,       message.getOpaque())
+          .putExtra(WebRtcCallService.EXTRA_ANSWER_SDP,          message.getSdp())
+          .putExtra(WebRtcCallService.EXTRA_MULTI_RING,          content.getCallMessage().get().isMultiRing());
 
     context.startService(intent);
   }
@@ -1667,7 +1679,6 @@ public final class PushProcessMessageJob extends BaseJob {
 
     if (stickerRecord != null) {
       return Optional.of(new UriAttachment(stickerRecord.getUri(),
-                                           stickerRecord.getUri(),
                                            stickerRecord.getContentType(),
                                            AttachmentDatabase.TRANSFER_PROGRESS_DONE,
                                            stickerRecord.getSize(),
@@ -1817,12 +1828,6 @@ public final class PushProcessMessageJob extends BaseJob {
       } else if (conversation.isGroup()) {
         GroupDatabase     groupDatabase = DatabaseFactory.getGroupDatabase(context);
         Optional<GroupId> groupId       = GroupUtil.idFromGroupContext(message.getGroupContext());
-        boolean           isGv2Message  = message.isGroupV2Message();
-
-        if (isGv2Message && !FeatureFlags.groupsV2() && groupDatabase.isUnknownGroup(groupId.get())) {
-          Log.i(TAG, "Ignoring GV2 message for a new group by feature flag.");
-          return true;
-        }
 
         if (groupId.isPresent() && groupDatabase.isUnknownGroup(groupId.get())) {
           return false;

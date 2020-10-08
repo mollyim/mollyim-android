@@ -153,8 +153,8 @@ public final class AttachmentCompressionJob extends BaseJob {
         if (MediaUtil.isJpeg(attachment)) {
           MediaStream stripped = getResizedMedia(context, attachment, constraints);
           attachmentDatabase.updateAttachmentData(attachment, stripped, false);
-          attachmentDatabase.markAttachmentAsTransformed(attachmentId);
         }
+        attachmentDatabase.markAttachmentAsTransformed(attachmentId);
       } else if (constraints.canResize(attachment)) {
         MediaStream resized = getResizedMedia(context, attachment, constraints);
         attachmentDatabase.updateAttachmentData(attachment, resized, false);
@@ -249,7 +249,7 @@ public final class AttachmentCompressionJob extends BaseJob {
 
     try {
       BitmapUtil.ScaleResult scaleResult = BitmapUtil.createScaledBytes(context,
-                                                                        new DecryptableStreamUriLoader.DecryptableUri(attachment.getDataUri()),
+                                                                        new DecryptableStreamUriLoader.DecryptableUri(attachment.getUri()),
                                                                         constraints);
 
       return new MediaStream(new ByteArrayInputStream(scaleResult.getBitmap()),

@@ -236,11 +236,6 @@
     <string name="ConversationActivity_added_to_home_screen">Added to home screen</string>
     <string name="ConversationActivity_calls_not_supported">Calls not supported</string>
     <string name="ConversationActivity_this_device_does_not_appear_to_support_dial_actions">This device does not appear to support dial actions.</string>
-    <string name="ConversationActivity_leave_group">Leave group?</string>
-    <string name="ConversationActivity_are_you_sure_you_want_to_leave_this_group">Are you sure you want to leave this group?</string>
-    <string name="ConversationActivity_choose_new_admin">Choose new admin</string>
-    <string name="ConversationActivity_before_you_leave_you_must_choose_at_least_one_new_admin_for_this_group">Before you leave, you must choose at least one new admin for this group.</string>
-    <string name="ConversationActivity_choose_admin">Choose admin</string>
     <string name="ConversationActivity_transport_insecure_sms">Insecure SMS</string>
     <string name="ConversationActivity_transport_insecure_mms">Insecure MMS</string>
     <string name="ConversationActivity_transport_signal">Signal</string>
@@ -466,6 +461,7 @@
     <string name="AddToGroupActivity_add_to_group">Add to group</string>
     <string name="AddToGroupActivity_add_to_groups">Add to groups</string>
     <string name="AddToGroupActivity_this_person_cant_be_added_to_legacy_groups">This person can\'t be added to legacy groups.</string>
+    <string name="AddToGroupActivity_add">Add</string>
 
     <!-- ChooseNewAdminActivity -->
     <string name="ChooseNewAdminActivity_choose_new_admin">Choose new admin</string>
@@ -503,6 +499,14 @@
     <string name="GroupManagement_invite_single_user">“%1$s” can’t be automatically added to this group by you.\n\nThey’ve been invited to join, and won’t see any group messages until they accept.</string>
     <string name="GroupManagement_learn_more">Learn more</string>
     <string name="GroupManagement_invite_multiple_users">These users can’t be automatically added to this group by you.\n\nThey’ve been invited to join the group, and won’t see any group messages until they accept.</string>
+
+    <!-- LeaveGroupDialog -->
+    <string name="LeaveGroupDialog_leave_group">Leave group?</string>
+    <string name="LeaveGroupDialog_you_will_no_longer_be_able_to_send_or_receive_messages_in_this_group">You will no longer be able to send or receive messages in this group.</string>
+    <string name="LeaveGroupDialog_leave">Leave</string>
+    <string name="LeaveGroupDialog_choose_new_admin">Choose new admin</string>
+    <string name="LeaveGroupDialog_before_you_leave_you_must_choose_at_least_one_new_admin_for_this_group">Before you leave, you must choose at least one new admin for this group.</string>
+    <string name="LeaveGroupDialog_choose_admin">Choose admin</string>
 
     <!-- LinkPreviewsMegaphone -->
     <string name="LinkPreviewsMegaphone_disable">Disable</string>
@@ -555,6 +559,7 @@
         <item quantity="one">Add \"%1$s\" to \"%2$s\"?</item>
         <item quantity="other">Add %3$d members to \"%2$s\"?</item>
     </plurals>
+    <string name="AddMembersActivity__add">Add</string>
 
     <!-- AddGroupDetailsFragment -->
     <string name="AddGroupDetailsFragment__name_this_group">Name this group</string>
@@ -588,8 +593,8 @@
     <string name="ManageGroupActivity_member_requests_and_invites">Member requests &amp; invites</string>
     <string name="ManageGroupActivity_add_members">Add members</string>
     <string name="ManageGroupActivity_edit_group_info">Edit group info</string>
-    <string name="ManageGroupActivity_choose_who_can_edit_the_group_name_avatar_and_disappearing_messages">Choose who can edit the group name, avatar, and disappearing messages.</string>
-    <string name="ManageGroupActivity_choose_who_can_add_or_invite_new_members">Choose who can add or invite new members.</string>
+    <string name="ManageGroupActivity_who_can_add_new_members">Who can add new members?</string>
+    <string name="ManageGroupActivity_who_can_edit_this_groups_info">Who can edit this group\'s info?</string>
     <string name="ManageGroupActivity_group_link">Group link</string>
     <string name="ManageGroupActivity_block_group">Block group</string>
     <string name="ManageGroupActivity_unblock_group">Unblock group</string>
@@ -622,7 +627,9 @@
 
     <string name="ManageGroupActivity_edit_name_and_picture">Edit name and picture</string>
     <string name="ManageGroupActivity_legacy_group">Legacy Group</string>
-    <string name="ManageGroupActivity_legacy_group_learn_more">This is a Legacy Group. To access features like group admins, create a New Group.</string>
+    <string name="ManageGroupActivity_legacy_group_learn_more">This is a Legacy Group. Features like group admins are only available for New Groups.</string>
+    <string name="ManageGroupActivity_this_is_an_insecure_mms_group">This is an insecure MMS Group. To chat privately and access features like group names, invite your contacts to Signal.</string>
+    <string name="ManageGroupActivity_invite_now">Invite now</string>
 
     <!-- GroupMentionSettingDialog -->
     <string name="GroupMentionSettingDialog_notify_me_for_mentions">Notify me for Mentions</string>
@@ -725,6 +732,7 @@
     <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_coming_soon">Joining a group via a link is not yet supported by Signal. This feature will be released in an upcoming update.</string>
     <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_message">The version of Signal you’re using does not support group links. Update to the latest version to join this group via link.</string>
     <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_signal">Update Signal</string>
+    <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_linked_device_message">One or more of your linked devices are running a version of Signal that doesn\'t support group links. Update Signal on your linked device(s) to join this group.</string>
     <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_group_link_is_not_valid">Group link is not valid</string>
 
     <!-- GV2 Request confirmation dialog -->
@@ -1101,8 +1109,8 @@
 
     <!-- OutdatedBuildReminder -->
     <string name="OutdatedBuildReminder_update_now">Update now</string>
+    <string name="OutdatedBuildReminder_your_version_of_signal_will_expire_today">This version of Signal will expire today. Update to the most recent version.</string>
     <plurals name="OutdatedBuildReminder_your_version_of_signal_will_expire_in_n_days">
-        <item quantity="zero">This version of Signal will expire today. Update to the most recent version.</item>
         <item quantity="one">This version of Signal will expire tomorrow. Update to the most recent version.</item>
         <item quantity="other">This version of Signal will expire in %d days. Update to the most recent version.</item>
     </plurals>
@@ -1199,10 +1207,21 @@
     <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">To call %1$s, Signal needs access to your camera</string>
     <string name="WebRtcCallActivity__signal_s">Signal %1$s</string>
     <string name="WebRtcCallActivity__calling">Calling…</string>
+    <string name="WebRtcCallActivity__group_call">Group Call</string>
 
     <!-- WebRtcCallView -->
     <string name="WebRtcCallView__signal_voice_call">Signal voice call…</string>
     <string name="WebRtcCallView__signal_video_call">Signal video call…</string>
+    <string name="WebRtcCallView__start_call">Start Call</string>
+    <string name="WebRtcCallView__group_call">Group Call</string>
+    <string name="WebRtcCallView__view_participants_list">View participants</string>
+    <string name="WebRtcCallView__your_video_is_off">Your video is off</string>
+
+    <!-- CallParticipantsListDialog -->
+    <plurals name="CallParticipantsListDialog_in_this_call_d_people">
+        <item quantity="one">In this call · %1$d person</item>
+        <item quantity="other">In this call · %1$d people</item>
+    </plurals>
 
     <!-- RegistrationActivity -->
     <string name="RegistrationActivity_select_your_country">Select your country</string>
@@ -1687,6 +1706,9 @@
 
     <!-- conversation_item_received -->
     <string name="conversation_item_received__contact_photo_description">Contact photo</string>
+
+    <!-- ConversationUpdateItem -->
+    <string name="ConversationUpdateItem_loading">Loading</string>
 
     <!-- audio_view -->
     <string name="audio_view__play_pause_accessibility_description">Play … Pause</string>
@@ -2474,9 +2496,17 @@
     <string name="KbsMegaphone__well_remind_you_later_creating_a_pin">We\'ll remind you later. Creating a PIN will become mandatory in %1$d days.</string>
     <string name="KbsMegaphone__well_remind_you_later_confirming_your_pin">We\'ll remind you later. Confirming your PIN will become mandatory in %1$d days.</string>
 
-    <!-- Mention Megaphone -->
-    <string name="MentionsMegaphone__introducing_mentions">Introducing @Mentions</string>
-    <string name="MentionsMegaphone__get_someones_attention_in_a_group_by_typing">Get someone\'s attention in a \"New Group\" by typing @</string>
+    <!-- Research Megaphone -->
+    <string name="ResearchMegaphone_tell_signal_what_you_think">Tell Signal what you think</string>
+    <string name="ResearchMegaphone_to_make_signal_the_best_messaging_app_on_the_planet">To make Signal the best messaging app on the planet, we\'d love to hear your feedback.</string>
+    <string name="ResearchMegaphone_learn_more">Learn more</string>
+    <string name="ResearchMegaphone_dismiss">Dismiss</string>
+
+    <string name="ResearchMegaphoneDialog_signal_research">Signal Research</string>
+    <string name="ResearchMegaphoneDialog_we_believe_in_privacy"><![CDATA[<p><b>We believe in privacy.</b></p><p>Signal doesn\'t track you or collect your data. To improve Signal for everyone, we rely on user feedback, <b>and we\'d love yours.</b></p><p>We\'re running a survey to understand how you use Signal. Our survey doesn\'t collect any data that will identify you. If you’re interested in sharing additional feedback, you\'ll have the option to provide contact information.</p><p>If you have a few minutes and feedback to offer, we\'d love to hear from you.</p>]]></string>
+    <string name="ResearchMegaphoneDialog_take_the_survey">Take the survey</string>
+    <string name="ResearchMegaphoneDialog_no_thanks">No thanks</string>
+    <string name="ResearchMegaphoneDialog_the_survey_is_hosted_by_surveygizmo_at_the_secure_domain">The survey is hosted by Surveygizmo at the secure domain surveys.signalusers.org</string>
 
     <!-- transport_selection_list_item -->
     <string name="transport_selection_list_item__transport_icon">Transport icon</string>
@@ -2619,9 +2649,9 @@
     <string name="RecipientBottomSheet_video_call_description">Video call</string>
 
     <string name="RecipientBottomSheet_remove_s_as_group_admin">Remove %1$s as group admin?</string>
-    <string name="RecipientBottomSheet_s_will_be_able_to_edit_group">%1$s will be able to edit this group and its members</string>
+    <string name="RecipientBottomSheet_s_will_be_able_to_edit_group">"%1$s" will be able to edit this group and its members.</string>
 
-    <string name="RecipientBottomSheet_remove_s_from_s">Remove %1$s from "%2$s"?</string>
+    <string name="RecipientBottomSheet_remove_s_from_the_group">Remove %1$s from the group?</string>
     <string name="RecipientBottomSheet_remove">Remove</string>
     <string name="RecipientBottomSheet_copied_to_clipboard">Copied to clipboard</string>
 
@@ -2634,9 +2664,9 @@
     <string name="GroupsLearnMore_legacy_vs_new_groups">Legacy vs. New Groups</string>
     <string name="GroupsLearnMore_what_are_legacy_groups">What are Legacy Groups?</string>
     <string name="GroupsLearnMore_paragraph_1">Legacy Groups are groups that are not compatible with New Group features like admins and more descriptive group updates.</string>
-    <string name="GroupsLearnMore_how_do_i_use_new_groups">How do I use New Groups?</string>
-    <string name="GroupsLearnMore_paragraph_2">Legacy Groups can’t be converted into New Groups, but you can create a New Group with the same members.</string>
-    <string name="GroupsLearnMore_paragraph_3">To create a New Group, all members should update to the latest version of Signal.</string>
+    <string name="GroupsLearnMore_can_i_upgrade_a_legacy_group">Can I upgrade a Legacy Group?</string>
+    <string name="GroupsLearnMore_paragraph_2">Legacy Groups can\'t yet be upgraded to New Groups, but you can create a New Group with the same members if they\'re on the latest version of Signal.</string>
+    <string name="GroupsLearnMore_paragraph_3">Signal will offer a way to upgrade Legacy Groups in the future.</string>
 
     <!-- GroupLinkBottomSheetDialogFragment -->
     <string name="GroupLinkBottomSheet_share_via_signal">Share via Signal</string>

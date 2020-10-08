@@ -397,7 +397,7 @@ public class DefaultMessageNotifier implements MessageNotifier {
                          notificationState.getQuickReplyIntent(context, notifications.get(0).getRecipient()),
                          notificationState.getRemoteReplyIntent(context, notifications.get(0).getRecipient(), replyMethod),
                          replyMethod,
-                         !isSingleNotificationContactJoined);
+                         !isSingleNotificationContactJoined && notificationState.canReply());
 
       builder.addAndroidAutoAction(notificationState.getAndroidAutoReplyIntent(context, notifications.get(0).getRecipient()),
                                    notificationState.getAndroidAutoHeardIntent(context, notificationId), notifications.get(0).getTimestamp());
@@ -427,7 +427,7 @@ public class DefaultMessageNotifier implements MessageNotifier {
 
     Notification notification = builder.build();
     NotificationManagerCompat.from(context).notify(notificationId, notification);
-    Log.i(TAG, "Posted notification. " + notification.toString());
+    Log.i(TAG, "Posted notification.");
   }
 
   private static void sendMultipleThreadNotification(@NonNull Context context,
@@ -547,6 +547,8 @@ public class DefaultMessageNotifier implements MessageNotifier {
       }
 
       if (isUnreadMessage) {
+        boolean canReply = false;
+
         if (KeyCachingService.isLocked(context)) {
           body = SpanUtil.italic(context.getString(R.string.MessageNotifier_locked_message));
         } else if (record.isMms() && !((MmsMessageRecord) record).getSharedContacts().isEmpty()) {
@@ -559,6 +561,9 @@ public class DefaultMessageNotifier implements MessageNotifier {
         } else if (record.isMms() && !record.isMmsNotification() && !((MmsMessageRecord) record).getSlideDeck().getSlides().isEmpty()) {
           body      = ThreadBodyUtil.getFormattedBodyFor(context, record);
           slideDeck = ((MmsMessageRecord) record).getSlideDeck();
+          canReply  = true;
+        } else {
+          canReply  = true;
         }
 
         boolean includeMessage = true;
@@ -569,11 +574,12 @@ public class DefaultMessageNotifier implements MessageNotifier {
         }
 
         if (threadRecipients == null || includeMessage) {
-          notificationState.addNotification(new NotificationItem(id, mms, recipient, conversationRecipient, threadRecipients, threadId, body, timestamp, receivedTimestamp, slideDeck, false, record.isJoined()));
+          notificationState.addNotification(new NotificationItem(id, mms, recipient, conversationRecipient, threadRecipients, threadId, body, timestamp, receivedTimestamp, slideDeck, false, record.isJoined(), canReply));
         }
       }
 
       if (hasUnreadReactions) {
+        CharSequence originalBody = body;
         for (ReactionRecord reaction : record.getReactions()) {
           Recipient reactionSender = Recipient.resolved(reaction.getAuthor());
           if (reactionSender.equals(Recipient.self()) || !record.isOutgoing() || reaction.getDateReceived() <= lastReactionRead) {
@@ -583,7 +589,7 @@ public class DefaultMessageNotifier implements MessageNotifier {
           if (KeyCachingService.isLocked(context)) {
             body = SpanUtil.italic(context.getString(R.string.MessageNotifier_locked_message));
           } else {
-            String   text  = SpanUtil.italic(getReactionMessageBody(context, record)).toString();
+            String   text  = SpanUtil.italic(getReactionMessageBody(context, record, originalBody)).toString();
             String[] parts = text.split(EMOJI_REPLACEMENT_STRING);
 
             SpannableStringBuilder builder = new SpannableStringBuilder();
@@ -603,7 +609,7 @@ public class DefaultMessageNotifier implements MessageNotifier {
           }
 
           if (threadRecipients == null || !threadRecipients.isMuted()) {
-            notificationState.addNotification(new NotificationItem(id, mms, reactionSender, conversationRecipient, threadRecipients, threadId, body, reaction.getDateReceived(), receivedTimestamp, null, true, record.isJoined()));
+            notificationState.addNotification(new NotificationItem(id, mms, reactionSender, conversationRecipient, threadRecipients, threadId, body, reaction.getDateReceived(), receivedTimestamp, null, true, record.isJoined(), false));
           }
         }
       }
@@ -613,9 +619,8 @@ public class DefaultMessageNotifier implements MessageNotifier {
     return notificationState;
   }
 
-  private static CharSequence getReactionMessageBody(@NonNull Context context, @NonNull MessageRecord record) {
-    CharSequence body        = record.getDisplayBody(context);
-    boolean      bodyIsEmpty = TextUtils.isEmpty(body);
+  private static CharSequence getReactionMessageBody(@NonNull Context context, @NonNull MessageRecord record, @NonNull CharSequence body) {
+    boolean bodyIsEmpty = TextUtils.isEmpty(body);
 
     if (MessageRecordUtil.hasSharedContact(record)) {
       Contact       contact = ((MmsMessageRecord) record).getSharedContacts().get(0);

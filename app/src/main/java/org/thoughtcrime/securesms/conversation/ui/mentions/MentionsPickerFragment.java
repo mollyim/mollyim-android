@@ -1,6 +1,7 @@
 package org.thoughtcrime.securesms.conversation.ui.mentions;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,12 +25,14 @@ import java.util.List;
 
 public class MentionsPickerFragment extends LoggingFragment {
 
-  private MentionsPickerAdapter     adapter;
-  private RecyclerView              list;
-  private View                      topDivider;
-  private View                      bottomDivider;
-  private BottomSheetBehavior<View> behavior;
-  private MentionsPickerViewModel   viewModel;
+  private       MentionsPickerAdapter     adapter;
+  private       RecyclerView              list;
+  private       View                      topDivider;
+  private       View                      bottomDivider;
+  private       BottomSheetBehavior<View> behavior;
+  private       MentionsPickerViewModel   viewModel;
+  private final Runnable                  lockSheetAfterListUpdate = () -> behavior.setHideable(false);
+  private final Handler                   handler                  = new Handler();
 
   @Override
   public @Nullable View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -62,6 +65,7 @@ public class MentionsPickerFragment extends LoggingFragment {
   }
 
   private void initializeBehavior() {
+    behavior.setHideable(true);
     behavior.setState(BottomSheetBehavior.STATE_HIDDEN);
 
     behavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
@@ -69,6 +73,7 @@ public class MentionsPickerFragment extends LoggingFragment {
       public void onStateChanged(@NonNull View bottomSheet, int newState) {
         if (newState == BottomSheetBehavior.STATE_HIDDEN) {
           adapter.submitList(Collections.emptyList());
+          showDividers(false);
         } else {
           showDividers(true);
         }
@@ -109,9 +114,10 @@ public class MentionsPickerFragment extends LoggingFragment {
     if (isShowing) {
       list.scrollToPosition(0);
       behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-      list.post(() -> behavior.setHideable(false));
+      handler.post(lockSheetAfterListUpdate);
       showDividers(true);
     } else {
+      handler.removeCallbacks(lockSheetAfterListUpdate);
       behavior.setHideable(true);
       behavior.setState(BottomSheetBehavior.STATE_HIDDEN);
     }

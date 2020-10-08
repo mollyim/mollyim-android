@@ -136,8 +136,7 @@ public class ApplicationDependencies {
       messageSender.update(
               IncomingMessageObserver.getPipe(),
               IncomingMessageObserver.getUnidentifiedPipe(),
-              TextSecurePreferences.isMultiDevice(getApplication()),
-              FeatureFlags.attachmentsV3());
+              TextSecurePreferences.isMultiDevice(getApplication()));
     }
 
     return messageSender;

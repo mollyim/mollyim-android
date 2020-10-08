@@ -213,7 +213,6 @@ public class MmsDatabase extends MessageDatabase {
           "'" + AttachmentDatabase.SIZE + "', " + AttachmentDatabase.TABLE_NAME + "." + AttachmentDatabase.SIZE + ", " +
           "'" + AttachmentDatabase.FILE_NAME + "', " + AttachmentDatabase.TABLE_NAME + "." + AttachmentDatabase.FILE_NAME + ", " +
           "'" + AttachmentDatabase.DATA + "', " + AttachmentDatabase.TABLE_NAME + "." + AttachmentDatabase.DATA + ", " +
-          "'" + AttachmentDatabase.THUMBNAIL + "', " + AttachmentDatabase.TABLE_NAME + "." + AttachmentDatabase.THUMBNAIL + ", " +
           "'" + AttachmentDatabase.CONTENT_TYPE + "', " + AttachmentDatabase.TABLE_NAME + "." + AttachmentDatabase.CONTENT_TYPE + ", " +
           "'" + AttachmentDatabase.CDN_NUMBER + "', " + AttachmentDatabase.TABLE_NAME + "." + AttachmentDatabase.CDN_NUMBER + ", " +
           "'" + AttachmentDatabase.CONTENT_LOCATION + "', " + AttachmentDatabase.TABLE_NAME + "." + AttachmentDatabase.CONTENT_LOCATION + ", " +
@@ -390,7 +389,7 @@ public class MmsDatabase extends MessageDatabase {
   }
 
   @Override
-  public @NonNull Pair<Long, Long> insertMissedCall(@NonNull RecipientId address) {
+  public @NonNull Pair<Long, Long> insertMissedCall(@NonNull RecipientId address, long timestamp) {
     throw new UnsupportedOperationException();
   }
 
@@ -705,6 +704,7 @@ public class MmsDatabase extends MessageDatabase {
     db.update(TABLE_NAME, values, ID_WHERE, new String[] { String.valueOf(messageId) });
 
     DatabaseFactory.getAttachmentDatabase(context).deleteAttachmentsForMessage(messageId);
+    DatabaseFactory.getMentionDatabase(context).deleteMentionsForMessage(messageId);
 
     long threadId = getThreadIdForMessage(messageId);
     DatabaseFactory.getThreadDatabase(context).update(threadId, false);
@@ -1468,6 +1468,9 @@ public class MmsDatabase extends MessageDatabase {
     GroupReceiptDatabase groupReceiptDatabase = DatabaseFactory.getGroupReceiptDatabase(context);
     groupReceiptDatabase.deleteRowsForMessage(messageId);
 
+    MentionDatabase mentionDatabase = DatabaseFactory.getMentionDatabase(context);
+    mentionDatabase.deleteMentionsForMessage(messageId);
+
     SQLiteDatabase database = databaseHelper.getWritableDatabase();
     database.delete(TABLE_NAME, ID_WHERE, new String[] {messageId+""});
     boolean threadDeleted = DatabaseFactory.getThreadDatabase(context).update(threadId, false);
@@ -1602,6 +1605,7 @@ public class MmsDatabase extends MessageDatabase {
   public void deleteAllThreads() {
     DatabaseFactory.getAttachmentDatabase(context).deleteAllAttachments();
     DatabaseFactory.getGroupReceiptDatabase(context).deleteAllRows();
+    DatabaseFactory.getMentionDatabase(context).deleteAllMentions();
 
     SQLiteDatabase database = databaseHelper.getWritableDatabase();
     database.delete(TABLE_NAME, null, null);
