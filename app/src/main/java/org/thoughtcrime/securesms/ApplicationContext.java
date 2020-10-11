@@ -54,6 +54,7 @@ import org.thoughtcrime.securesms.jobs.CreateSignedPreKeyJob;
 import org.thoughtcrime.securesms.jobs.FcmRefreshJob;
 import org.thoughtcrime.securesms.jobs.MultiDeviceContactUpdateJob;
 import org.thoughtcrime.securesms.jobs.PushNotificationReceiveJob;
+import org.thoughtcrime.securesms.jobs.RefreshAttributesJob;
 import org.thoughtcrime.securesms.jobs.RefreshPreKeysJob;
 import org.thoughtcrime.securesms.jobs.RetrieveProfileJob;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
@@ -79,6 +80,7 @@ import org.thoughtcrime.securesms.service.RotateSignedPreKeyListener;
 import org.thoughtcrime.securesms.service.UpdateApkRefreshListener;
 import org.thoughtcrime.securesms.storage.StorageSyncHelper;
 import org.thoughtcrime.securesms.util.FeatureFlags;
+import org.thoughtcrime.securesms.util.PlayServicesUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.Util;
 import org.thoughtcrime.securesms.util.concurrent.SignalExecutors;
@@ -158,10 +160,10 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
     initializeAppDependencies();
     initializeFirstEverAppLaunch();
     initializeApplicationMigrations();
+    initializeGcmCheck();
     initializeMessageRetrieval();
     initializeExpiringMessageManager();
     initializeRevealableMessageManager();
-    initializeGcmCheck();
     initializeSignedPreKeyCheck();
     initializePeriodicTasks();
     initializeCircumvention();
@@ -306,7 +308,7 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
   }
 
   public void initializeMessageRetrieval() {
-    ApplicationDependencies.getIncomingMessageObserver();
+    ApplicationDependencies.getIncomingMessageObserver().start();
   }
 
   public void finalizeMessageRetrieval() {
@@ -348,7 +350,29 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
   }
 
   private void initializeGcmCheck() {
-    if (TextSecurePreferences.isPushRegistered(this)) {
+    if (!TextSecurePreferences.isPushRegistered(this)) {
+      return;
+    }
+
+    PlayServicesUtil.PlayServicesStatus fcmStatus = PlayServicesUtil.getPlayServicesStatus(this);
+
+    if (fcmStatus == PlayServicesUtil.PlayServicesStatus.DISABLED) {
+      TextSecurePreferences.setFcmTokenLastSetTime(this, -1);
+      if (!TextSecurePreferences.isFcmDisabled(this)) {
+        Log.i(TAG, "Play Services are disabled. Disabling FCM.");
+        TextSecurePreferences.setFcmDisabled(this, true);
+        TextSecurePreferences.setFcmToken(this, null);
+        ApplicationDependencies.getJobManager().add(new RefreshAttributesJob());
+      }
+    } else if (fcmStatus == PlayServicesUtil.PlayServicesStatus.SUCCESS &&
+               TextSecurePreferences.isFcmDisabled(this) &&
+               TextSecurePreferences.getFcmTokenLastSetTime(this) < 0) {
+      Log.i(TAG, "Play Services are newly-available. Updating to use FCM.");
+      TextSecurePreferences.setFcmDisabled(this, false);
+      ApplicationDependencies.getJobManager().startChain(new FcmRefreshJob())
+                                                         .then(new RefreshAttributesJob())
+                                                         .enqueue();
+    } else {
       long nextSetTime = TextSecurePreferences.getFcmTokenLastSetTime(this) + TimeUnit.HOURS.toMillis(6);
 
       if (TextSecurePreferences.getFcmToken(this) == null || nextSetTime <= System.currentTimeMillis()) {

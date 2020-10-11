@@ -62,7 +62,9 @@ public class IncomingMessageObserver {
     this.context                   = context;
     this.networkAccess             = ApplicationDependencies.getSignalServiceNetworkAccess();
     this.websocketDrainedListeners = new CopyOnWriteArrayList<>();
+  }
 
+  public void start() {
     new MessageRetrievalThread().start();
 
     if (TextSecurePreferences.isFcmDisabled(context)) {
