@@ -6,8 +6,9 @@ import android.os.Environment;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import org.thoughtcrime.securesms.BuildConfig;
+import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.database.NoExternalStorageException;
+import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 
 import java.io.File;
 
@@ -22,7 +23,9 @@ public class StorageUtil {
       throw new NoExternalStorageException();
     }
 
-    File signal = new File(storage, BuildConfig.BACKUP_DIRECTORY);
+    String appName = ApplicationDependencies.getApplication().getString(R.string.app_name);
+
+    File signal = new File(storage, appName.replace(" Staging", ".staging"));
     File backups = new File(signal, "Backups");
 
     if (!backups.exists()) {

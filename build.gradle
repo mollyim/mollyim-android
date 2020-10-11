@@ -31,7 +31,7 @@ task qa {
     description 'Quality Assurance. Run before pushing.'
     dependsOn (
         ':libsignal-service:test',
-        ':mollyim-android:testProductionReleaseUnitTest',
-        ':mollyim-android:lintProductionRelease',
+        ':mollyim-android:testNonFreeProductionReleaseUnitTest',
+        ':mollyim-android:lintNonFreeProductionRelease',
         ':mollyim-android:assemble' )
 }

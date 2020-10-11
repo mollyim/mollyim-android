@@ -148,6 +148,8 @@ public final class EnterPhoneNumberFragment extends BaseRegistrationFragment {
 
     if (fcmStatus == PlayServicesUtil.PlayServicesStatus.SUCCESS) {
       handleRequestVerification(context, e164number, true);
+    } else if (fcmStatus == PlayServicesUtil.PlayServicesStatus.DISABLED) {
+      handleRequestVerification(context, e164number, false);
     } else if (fcmStatus == PlayServicesUtil.PlayServicesStatus.MISSING) {
       handlePromptForNoPlayServices(context, e164number);
     } else if (fcmStatus == PlayServicesUtil.PlayServicesStatus.NEEDS_UPDATE) {

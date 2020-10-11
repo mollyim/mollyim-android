@@ -1,0 +1,41 @@
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+        jcenter {
+            content {
+                includeVersion 'org.jetbrains.trove4j', 'trove4j', '20160824'
+            }
+        }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.6.3'
+    }
+}
+
+apply plugin: 'com.android.library'
+apply plugin: 'witness'
+apply from: 'witness-verifications.gradle'
+
+repositories {
+    google()
+    mavenCentral()
+    jcenter()
+}
+
+android {
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
+
+    defaultConfig {
+        minSdkVersion 19
+    }
+}
+
+configurations {
+    compileClasspath
+}
+
+dependencies {
+    implementation 'androidx.fragment:fragment:1.1.0'
+}

@@ -15,6 +15,7 @@ public class PlayServicesUtil {
 
   public enum PlayServicesStatus {
     SUCCESS,
+    DISABLED,
     MISSING,
     NEEDS_UPDATE,
     TRANSIENT_ERROR
@@ -48,6 +49,7 @@ public class PlayServicesUtil {
 
         return PlayServicesStatus.NEEDS_UPDATE;
       case ConnectionResult.SERVICE_DISABLED:
+        return PlayServicesStatus.DISABLED;
       case ConnectionResult.SERVICE_MISSING:
       case ConnectionResult.SERVICE_INVALID:
       case ConnectionResult.API_UNAVAILABLE:
