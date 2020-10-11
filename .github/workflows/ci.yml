@@ -8,7 +8,7 @@ jobs:
     env:
       BUILD_SCAN: 1
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - name: Set up JDK 1.8
       uses: actions/setup-java@v1
       with:
@@ -50,8 +50,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create-release.outputs.upload_url }}
-        asset_path: ./molly-apks/staging/release/Molly-staging-release-unsigned-${{ steps.get-version.outputs.VERSION }}.apk
-        asset_name: Molly-staging-release-unsigned-${{ steps.get-version.outputs.VERSION }}.apk
+        asset_path: ./molly-apks/nonFreeStaging/release/Molly-staging-release-unsigned-${{ steps.get-version.outputs.VERSION }}.apk
+        asset_name: Molly-staging-unsigned-${{ steps.get-version.outputs.VERSION }}.apk
         asset_content_type: application/zip
     - name: Upload APK production
       uses: actions/upload-release-asset@v1.0.1
@@ -59,6 +59,24 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create-release.outputs.upload_url }}
-        asset_path: ./molly-apks/production/release/Molly-production-release-unsigned-${{ steps.get-version.outputs.VERSION }}.apk
-        asset_name: Molly-production-release-unsigned-${{ steps.get-version.outputs.VERSION }}.apk
+        asset_path: ./molly-apks/nonFreeProduction/release/Molly-production-release-unsigned-${{ steps.get-version.outputs.VERSION }}.apk
+        asset_name: Molly-production-unsigned-${{ steps.get-version.outputs.VERSION }}.apk
+        asset_content_type: application/zip
+    - name: Upload APK staging OSS
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create-release.outputs.upload_url }}
+        asset_path: ./molly-apks/freeStaging/release/Molly-staging-release-unsigned-${{ steps.get-version.outputs.VERSION }}-FOSS.apk
+        asset_name: Molly-staging-unsigned-${{ steps.get-version.outputs.VERSION }}-FOSS.apk
+        asset_content_type: application/zip
+    - name: Upload APK production OSS
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create-release.outputs.upload_url }}
+        asset_path: ./molly-apks/freeProduction/release/Molly-production-release-unsigned-${{ steps.get-version.outputs.VERSION }}-FOSS.apk
+        asset_name: Molly-production-unsigned-${{ steps.get-version.outputs.VERSION }}-FOSS.apk
         asset_content_type: application/zip
