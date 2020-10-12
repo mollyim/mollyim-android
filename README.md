@@ -20,7 +20,7 @@ You can download the app from GitHub's [Releases](https://github.com/mollyim/mol
     alt="Get it on F-Droid"
     height="80">](https://molly.im/fdroid/)
 
-There are two flavors to choose from: Molly and Molly-FOSS. Learn the differences [below](#free-and-open-source) and choose the right one for you.
+There are two flavors to choose from download: **Molly** and **Molly-FOSS**. Learn the differences [below](#free-and-open-source) and download the right one for you.
 
 ## Features
 
@@ -31,25 +31,25 @@ Molly has unique features compared to Signal:
 - Securely shreds sensitive data from RAM
 - Logging debug messages can be disabled
 
-Besides that, you will find all the features of Signal plus some minor tweaks and improvements. The only exception is the SMS integration, that was removed for compatibility reasons.
+Besides that, you will find all the features of Signal plus some minor tweaks and improvements. The only exception is the SMS integration, that was removed for compatibility.
 
 ## Free and Open-Source
 
-Molly and Signal are both open-source, although the app uses Google's proprietary libraries to support some key features. The FOSS flavour of Molly is a community effort to make it 100% free and open-source.
+Molly is open-source, just like Signal, although the app uses Google's proprietary libraries to support some key features. Molly-FOSS is the community effort to make it 100% free and open-source.
 
 This table lists the current status of the dependencies:
 
 | Feature                                | Signal          | Molly            | Molly-FOSS |
 | -------------------------------------- | --------------- | ---------------- |------------|
-| Push notifications <sup>(1)</sup>      | ✔️ (Google FCM)  | ✔️ (Google FCM)  | ✘          |
+| Push notifications <sup>(1)</sup>      | ✔️ (FCM)         | ✔️ (FCM)         | ✘          |
 | Websocket notifications <sup>(2)</sup> | ✔️               | ✔️               | ✔️          |
 | Location provider                      | ✔️ (Google Maps) | ✔️ (Google Maps) | ✘          |
-| Automatic face blurring                | ✔️ (Google ML)   | ✔️ (Google ML)   | ✘          |
+| Automatic face blurring                | ✔️ (Firebase)    | ✔️ (Firebase)    | ✘          |
 
 <sup>(1)</sup> If you are running a custom ROM and the app fails to register with Play Services, try the FOSS flavor.<br/>
-<sup>(2)</sup> May require to disable the system battery optimizations to receive notifications in background.
+<sup>(2)</sup> You may need to disable the system battery optimizations to receive notifications in background.
 
-You are free to run Molly or Molly-FOSS at any time. Simply install the flavor you prefer, and it will replace any previous version. The app data will be preserved and you will not have to re-register.
+Just install the flavor of Molly you prefer to run, and it will replace any previous version. The data and settings will be preserved so that you do not have to re-register.
 
 ## Compatibility with Signal
 
