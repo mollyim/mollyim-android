@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.components.InputAwareLayout;
 import org.thoughtcrime.securesms.mediasend.Media;
@@ -70,13 +71,22 @@ public class AttachmentKeyboard extends FrameLayout implements InputAwareLayout.
     mediaList.setLayoutManager(new GridLayoutManager(context, 1, GridLayoutManager.HORIZONTAL, false));
     buttonList.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
 
-    buttonAdapter.setButtons(Arrays.asList(
-        AttachmentKeyboardButton.GALLERY,
-        AttachmentKeyboardButton.GIF,
-        AttachmentKeyboardButton.FILE,
-        AttachmentKeyboardButton.CONTACT,
-        AttachmentKeyboardButton.LOCATION
-    ));
+    if (BuildConfig.FLAVOR_OSS.equals("free")) {
+      buttonAdapter.setButtons(Arrays.asList(
+          AttachmentKeyboardButton.GALLERY,
+          AttachmentKeyboardButton.GIF,
+          AttachmentKeyboardButton.FILE,
+          AttachmentKeyboardButton.CONTACT
+      ));
+    } else {
+      buttonAdapter.setButtons(Arrays.asList(
+          AttachmentKeyboardButton.GALLERY,
+          AttachmentKeyboardButton.GIF,
+          AttachmentKeyboardButton.FILE,
+          AttachmentKeyboardButton.CONTACT,
+          AttachmentKeyboardButton.LOCATION
+      ));
+    }
   }
 
   public void setCallback(@NonNull Callback callback) {
