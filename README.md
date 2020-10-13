@@ -37,6 +37,8 @@ Besides that, you will find all the features of Signal plus some minor tweaks an
 
 Molly is open-source, just like Signal, although the app uses Google's proprietary libraries to support some key features. Molly-FOSS is the community effort to make it 100% free and open-source.
 
+Just install the flavor of Molly you prefer to run, and it will replace any previous version. The data and settings will be preserved so that you do not have to re-register.
+
 This table lists the current status of the dependencies:
 
 | Feature                                | Signal          | Molly            | Molly-FOSS |
@@ -48,8 +50,6 @@ This table lists the current status of the dependencies:
 
 <sup>(1)</sup> If you are running a custom ROM and the app fails to register with Play Services, try the FOSS flavor.<br/>
 <sup>(2)</sup> You may need to disable the system battery optimizations to receive notifications in background.
-
-Just install the flavor of Molly you prefer to run, and it will replace any previous version. The data and settings will be preserved so that you do not have to re-register.
 
 ## Compatibility with Signal
 
