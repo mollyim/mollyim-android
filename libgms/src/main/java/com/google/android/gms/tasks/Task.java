@@ -2,6 +2,7 @@ package com.google.android.gms.tasks;
 
 public class Task<T> {
   public void addOnCompleteListener(OnCompleteListener listener) {
+    listener.onComplete(new Task<TResult>());
   }
 
   public Task<T> addOnSuccessListener(OnSuccessListener<T> listener) {
