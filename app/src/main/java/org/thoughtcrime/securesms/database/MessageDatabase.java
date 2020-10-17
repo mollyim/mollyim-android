@@ -124,9 +124,9 @@ public abstract class MessageDatabase extends Database implements MmsSmsColumns 
   public abstract void addFailures(long messageId, List<NetworkFailure> failure);
   public abstract void removeFailure(long messageId, NetworkFailure failure);
 
-  public abstract @NonNull Pair<Long, Long> insertReceivedCall(@NonNull RecipientId address);
-  public abstract @NonNull Pair<Long, Long> insertOutgoingCall(@NonNull RecipientId address);
-  public abstract @NonNull Pair<Long, Long> insertMissedCall(@NonNull RecipientId address, long timestamp);
+  public abstract @NonNull Pair<Long, Long> insertReceivedCall(@NonNull RecipientId address, long expiresIn);
+  public abstract @NonNull Pair<Long, Long> insertOutgoingCall(@NonNull RecipientId address, long expiresIn);
+  public abstract @NonNull Pair<Long, Long> insertMissedCall(@NonNull RecipientId address, long expiresIn, long timestamp);
 
   public abstract Optional<InsertResult> insertMessageInbox(IncomingTextMessage message, long type);
   public abstract Optional<InsertResult> insertMessageInbox(IncomingTextMessage message);

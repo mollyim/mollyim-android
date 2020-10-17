@@ -30,6 +30,7 @@ import org.thoughtcrime.securesms.components.webrtc.BroadcastVideoSink;
 import org.thoughtcrime.securesms.crypto.IdentityKeyUtil;
 import org.thoughtcrime.securesms.crypto.UnidentifiedAccessUtil;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
+import org.thoughtcrime.securesms.database.MessageDatabase;
 import org.thoughtcrime.securesms.database.RecipientDatabase.VibrateState;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.events.CallParticipant;
@@ -421,7 +422,7 @@ public class WebRtcCallService extends Service implements CallManager.Observer,
       Log.i(TAG, "PSTN line is busy.");
       intent.putExtra(EXTRA_BROADCAST, true);
       handleSendBusy(intent);
-      insertMissedCall(remotePeer, true, serverReceivedTimestamp);
+      insertMissedCall(remotePeer.getRecipient(), true, serverReceivedTimestamp);
       return;
     }
 
@@ -430,7 +431,7 @@ public class WebRtcCallService extends Service implements CallManager.Observer,
       intent.putExtra(EXTRA_BROADCAST, true);
       intent.putExtra(EXTRA_HANGUP_TYPE, HangupMessage.Type.NEED_PERMISSION.getCode());
       handleSendHangup(intent);
-      insertMissedCall(remotePeer, true, serverReceivedTimestamp);
+      insertMissedCall(remotePeer.getRecipient(), true, serverReceivedTimestamp);
       return;
     }
 
@@ -553,9 +554,35 @@ public class WebRtcCallService extends Service implements CallManager.Observer,
     }
   }
 
-  private void insertMissedCall(@NonNull RemotePeer remotePeer, boolean signal, long timestamp) {
-    Pair<Long, Long> messageAndThreadId = DatabaseFactory.getSmsDatabase(this).insertMissedCall(remotePeer.getId(), timestamp);
+  private void insertMissedCall(@NonNull Recipient recipient, boolean signal, long timestamp) {
+    long expiresIn = recipient.getExpireMessagesInMillis();
+    Pair<Long, Long> messageAndThreadId = DatabaseFactory.getSmsDatabase(this).insertMissedCall(recipient.getId(), expiresIn, timestamp);
     ApplicationDependencies.getMessageNotifier().updateNotification(this, messageAndThreadId.second(), signal);
+  }
+
+  private void insertDeniedCall(@NonNull Recipient recipient) {
+    long expiresIn = recipient.getExpireMessagesInMillis();
+    DatabaseFactory.getSmsDatabase(this).insertMissedCall(recipient.getId(), expiresIn,  System.currentTimeMillis());
+  }
+
+  private void insertOutgoingCall(@NonNull Recipient recipient) {
+    long expiresIn = recipient.getExpireMessagesInMillis();
+    MessageDatabase database = DatabaseFactory.getSmsDatabase(this);
+    Pair<Long, Long> messageAndThreadId = database.insertOutgoingCall(recipient.getId(), expiresIn);
+    if (expiresIn > 0) {
+      database.markExpireStarted(messageAndThreadId.first());
+      ApplicationContext.getInstance(this).getExpiringMessageManager().scheduleDeletion(messageAndThreadId.first(), false, expiresIn);
+    }
+  }
+
+  private void insertReceivedCall(@NonNull Recipient recipient) {
+    long expiresIn = recipient.getExpireMessagesInMillis();
+    MessageDatabase database = DatabaseFactory.getSmsDatabase(this);
+    Pair<Long, Long> messageAndThreadId = database.insertReceivedCall(recipient.getId(), expiresIn);
+    if (expiresIn > 0) {
+      database.markExpireStarted(messageAndThreadId.first());
+      ApplicationContext.getInstance(this).getExpiringMessageManager().scheduleDeletion(messageAndThreadId.first(), false, expiresIn);
+    }
   }
 
   private void handleDenyCall(Intent intent) {
@@ -573,7 +600,7 @@ public class WebRtcCallService extends Service implements CallManager.Observer,
 
     try {
       callManager.hangup();
-      DatabaseFactory.getSmsDatabase(this).insertMissedCall(activePeer.getId(), System.currentTimeMillis());
+      insertDeniedCall(activePeer.getRecipient());
       terminate(activePeer);
     } catch  (CallException e) {
       callFailure("hangup() failed: ", e);
@@ -710,7 +737,7 @@ public class WebRtcCallService extends Service implements CallManager.Observer,
 
     setCallInProgressNotification(TYPE_OUTGOING_RINGING, activePeer);
 
-    DatabaseFactory.getSmsDatabase(this).insertOutgoingCall(activePeer.getId());
+    insertOutgoingCall(activePeer.getRecipient());
 
     retrieveTurnServers().addListener(new SuccessOnlyListener<List<PeerConnection.IceServer>>(this.activePeer.getState(), this.activePeer.getCallId()) {
         @Override
@@ -802,7 +829,7 @@ public class WebRtcCallService extends Service implements CallManager.Observer,
 
     Log.i(TAG, "handleAcceptCall(): call_id: " + activePeer.getCallId());
 
-    DatabaseFactory.getSmsDatabase(this).insertReceivedCall(activePeer.getId());
+    insertReceivedCall(activePeer.getRecipient());
 
     acceptWithVideo = intent.getBooleanExtra(EXTRA_ANSWER_WITH_VIDEO, false);
 
@@ -1167,7 +1194,7 @@ public class WebRtcCallService extends Service implements CallManager.Observer,
 
     Log.i(TAG, "handleReceivedOfferExpired(): call_id: " + remotePeer.getCallId());
 
-    insertMissedCall(remotePeer, true, remotePeer.getCallStartTimestamp());
+    insertMissedCall(remotePeer.getRecipient(), true, remotePeer.getCallStartTimestamp());
 
     terminate(remotePeer);
   }
@@ -1196,7 +1223,7 @@ public class WebRtcCallService extends Service implements CallManager.Observer,
       stopForeground(true);
     }
 
-    insertMissedCall(remotePeer, true, remotePeer.getCallStartTimestamp());
+    insertMissedCall(remotePeer.getRecipient(), true, remotePeer.getCallStartTimestamp());
 
     terminate(remotePeer);
   }
@@ -1217,7 +1244,7 @@ public class WebRtcCallService extends Service implements CallManager.Observer,
 
     boolean incomingBeforeAccept = remotePeer.getState() == CallState.ANSWERING || remotePeer.getState() == CallState.LOCAL_RINGING;
     if (incomingBeforeAccept) {
-      insertMissedCall(remotePeer, true, remotePeer.getCallStartTimestamp());
+      insertMissedCall(remotePeer.getRecipient(), true, remotePeer.getCallStartTimestamp());
     }
 
     terminate(remotePeer);
@@ -1304,7 +1331,7 @@ public class WebRtcCallService extends Service implements CallManager.Observer,
 
     boolean incomingBeforeAccept = remotePeer.getState() == CallState.ANSWERING || remotePeer.getState() == CallState.LOCAL_RINGING;
     if (incomingBeforeAccept) {
-      insertMissedCall(remotePeer, true, remotePeer.getCallStartTimestamp());
+      insertMissedCall(remotePeer.getRecipient(), true, remotePeer.getCallStartTimestamp());
     }
 
     terminate(remotePeer);
@@ -1320,7 +1347,7 @@ public class WebRtcCallService extends Service implements CallManager.Observer,
     }
 
     if (remotePeer.getState() == CallState.ANSWERING || remotePeer.getState() == CallState.LOCAL_RINGING) {
-      insertMissedCall(remotePeer, true, remotePeer.getCallStartTimestamp());
+      insertMissedCall(remotePeer.getRecipient(), true, remotePeer.getCallStartTimestamp());
     }
 
     terminate(remotePeer);

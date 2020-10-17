@@ -714,6 +714,10 @@ public class Recipient {
     return expireMessages;
   }
 
+  public long getExpireMessagesInMillis() {
+    return getExpireMessages() * 1000L;
+  }
+
   public boolean hasSeenFirstInviteReminder() {
     return insightsBannerTier.seen(InsightsBannerTier.TIER_ONE);
   }

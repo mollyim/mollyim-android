@@ -1,9 +1,11 @@
 package org.thoughtcrime.securesms.conversation;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.ColorFilter;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
+import android.os.AsyncTask;
 import android.text.SpannableString;
 import android.util.AttributeSet;
 import android.view.View;
@@ -19,9 +21,12 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.Transformations;
 
+import org.thoughtcrime.securesms.ApplicationContext;
 import org.thoughtcrime.securesms.BindableConversationItem;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.VerifyIdentityActivity;
+import org.thoughtcrime.securesms.components.ExpirationTimerView;
+import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.database.IdentityDatabase.IdentityRecord;
 import org.thoughtcrime.securesms.database.model.LiveUpdateMessage;
 import org.thoughtcrime.securesms.database.model.MessageRecord;
@@ -54,6 +59,7 @@ public final class ConversationUpdateItem extends LinearLayout
   private TextView                  title;
   private TextView                  body;
   private TextView                  date;
+  private ExpirationTimerView       timer;
   private LiveRecipient             sender;
   private ConversationMessage       conversationMessage;
   private MessageRecord             messageRecord;
@@ -79,6 +85,7 @@ public final class ConversationUpdateItem extends LinearLayout
     this.title = findViewById(R.id.conversation_update_title);
     this.body  = findViewById(R.id.conversation_update_body);
     this.date  = findViewById(R.id.conversation_update_date);
+    this.timer = findViewById(R.id.conversation_update_expiration_timer);
 
     this.setOnClickListener(new InternalClickListener(null));
   }
@@ -192,6 +199,7 @@ public final class ConversationUpdateItem extends LinearLayout
     else                                             setSelected(false);
   }
 
+  @SuppressLint("StaticFieldLeak")
   private void setCallRecord(MessageRecord messageRecord) {
     if      (messageRecord.isIncomingCall()) icon.setImageResource(R.drawable.ic_call_received_grey600_24dp);
     else if (messageRecord.isOutgoingCall()) icon.setImageResource(R.drawable.ic_call_made_grey600_24dp);
@@ -201,6 +209,36 @@ public final class ConversationUpdateItem extends LinearLayout
 
     title.setVisibility(GONE);
     date.setVisibility(View.VISIBLE);
+
+    if (messageRecord.getExpiresIn() > 0 && !messageRecord.isPending()) {
+      timer.setVisibility(View.VISIBLE);
+      timer.setPercentComplete(0);
+
+      if (messageRecord.getExpireStarted() > 0) {
+        timer.setExpirationTime(messageRecord.getExpireStarted(),
+                                messageRecord.getExpiresIn());
+        timer.startAnimation();
+
+        if (timer.isExpired()) {
+          ApplicationContext.getInstance(getContext()).getExpiringMessageManager().checkSchedule();
+        }
+      } else if (!messageRecord.isOutgoing() && !messageRecord.isMediaPending()) {
+        new AsyncTask<Void, Void, Void>() {
+          @Override
+          protected Void doInBackground(Void... params) {
+            long id        = messageRecord.getId();
+            long expiresIn = messageRecord.getExpiresIn();
+
+            DatabaseFactory.getSmsDatabase(getContext()).markExpireStarted(id);
+
+            ApplicationContext.getInstance(getContext()).getExpiringMessageManager().scheduleDeletion(id, false, expiresIn);
+            return null;
+          }
+        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+      }
+    } else {
+      timer.setVisibility(View.GONE);
+    }
   }
 
   private void setTimerRecord(final MessageRecord messageRecord) {
