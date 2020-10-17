@@ -38,11 +38,12 @@ final class GroupV2ConflictMerger implements StorageSyncHelper.ConflictMerger<Si
   public @NonNull SignalGroupV2Record merge(@NonNull SignalGroupV2Record remote, @NonNull SignalGroupV2Record local, @NonNull StorageSyncHelper.KeyGenerator keyGenerator) {
     byte[]  unknownFields  = remote.serializeUnknownFields();
     boolean blocked        = remote.isBlocked();
-    boolean profileSharing = remote.isProfileSharingEnabled() || local.isProfileSharingEnabled();
+    boolean profileSharing = remote.isProfileSharingEnabled();
     boolean archived       = remote.isArchived();
+    boolean forcedUnread   = remote.isForcedUnread();
 
-    boolean matchesRemote = Arrays.equals(unknownFields, remote.serializeUnknownFields()) && blocked == remote.isBlocked() && profileSharing == remote.isProfileSharingEnabled() && archived == remote.isArchived();
-    boolean matchesLocal  = Arrays.equals(unknownFields, local.serializeUnknownFields())  && blocked == local.isBlocked()  && profileSharing == local.isProfileSharingEnabled()  && archived == local.isArchived();
+    boolean matchesRemote = Arrays.equals(unknownFields, remote.serializeUnknownFields()) && blocked == remote.isBlocked() && profileSharing == remote.isProfileSharingEnabled() && archived == remote.isArchived() && forcedUnread == remote.isForcedUnread();
+    boolean matchesLocal  = Arrays.equals(unknownFields, local.serializeUnknownFields())  && blocked == local.isBlocked()  && profileSharing == local.isProfileSharingEnabled()  && archived == local.isArchived()  && forcedUnread == local.isForcedUnread();
 
     if (matchesRemote) {
       return remote;
@@ -53,6 +54,8 @@ final class GroupV2ConflictMerger implements StorageSyncHelper.ConflictMerger<Si
                                     .setUnknownFields(unknownFields)
                                     .setBlocked(blocked)
                                     .setProfileSharingEnabled(blocked)
+                                    .setArchived(archived)
+                                    .setForcedUnread(forcedUnread)
                                     .build();
     }
   }

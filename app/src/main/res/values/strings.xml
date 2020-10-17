@@ -327,7 +327,7 @@
     <string name="ConversationFragment_deleting_messages">Deleting messages…</string>
     <string name="ConversationFragment_delete_for_me">Delete for me</string>
     <string name="ConversationFragment_delete_for_everyone">Delete for everyone</string>
-    <string name="ConversationFragment_this_message_will_be_permanently_deleted_for_everyone">This message will be permanently deleted for everyone in the conversation. Members will be able to see that you deleted a message.</string>
+    <string name="ConversationFragment_this_message_will_be_deleted_for_everyone_in_the_conversation">This message will be deleted for everyone in the conversation if they’re on a recent version of Signal. They will be able to see that you deleted a message.</string>
     <string name="ConversationFragment_quoted_message_not_found">Original message not found</string>
     <string name="ConversationFragment_quoted_message_no_longer_available">Original message no longer available</string>
     <string name="ConversationFragment_failed_to_open_message">Failed to open message</string>
@@ -617,6 +617,10 @@
         <item quantity="one">%d member added.</item>
         <item quantity="other">%d members added.</item>
     </plurals>
+
+    <string name="ManageGroupActivity_only_admins_can_enable_or_disable_the_sharable_group_link">Only admins can enable or disable the sharable group link.</string>
+    <string name="ManageGroupActivity_only_admins_can_enable_or_disable_the_option_to_approve_new_members">Only admins can enable or disable the option to approve new members.</string>
+    <string name="ManageGroupActivity_only_admins_can_reset_the_sharable_group_link">Only admins can reset the sharable group link.</string>
 
     <string name="ManageGroupActivity_you_dont_have_the_rights_to_do_this">You don\'t have the rights to do this</string>
     <string name="ManageGroupActivity_not_capable">Someone you added does not support new groups and needs to update Signal</string>
@@ -1013,6 +1017,12 @@
     <string name="MessageRecord_the_group_link_has_been_turned_on_with_admin_approval_off">The group link has been turned on with admin approval off.</string>
     <string name="MessageRecord_the_group_link_has_been_turned_on_with_admin_approval_on">The group link has been turned on with admin approval on.</string>
     <string name="MessageRecord_the_group_link_has_been_turned_off">The group link has been turned off.</string>
+    <string name="MessageRecord_you_turned_off_admin_approval_for_the_group_link">You turned off admin approval for the group link.</string>
+    <string name="MessageRecord_s_turned_off_admin_approval_for_the_group_link">%1$s turned off admin approval for the group link.</string>
+    <string name="MessageRecord_the_admin_approval_for_the_group_link_has_been_turned_off">The admin approval for the group link has been turned off.</string>
+    <string name="MessageRecord_you_turned_on_admin_approval_for_the_group_link">You turned on admin approval for the group link.</string>
+    <string name="MessageRecord_s_turned_on_admin_approval_for_the_group_link">%1$s turned on admin approval for the group link.</string>
+    <string name="MessageRecord_the_admin_approval_for_the_group_link_has_been_turned_on">The admin approval for the group link has been turned on.</string>
 
     <!-- GV2 group link reset -->
     <string name="MessageRecord_you_reset_the_group_link">You reset the group link.</string>
@@ -1057,6 +1067,7 @@
     <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_they_wont_know_youve_seen_their_messages_until_you_accept">Let %1$s message you and share your name and photo with them? They won\'t know you\'ve seen their message until you accept.</string>
     <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them">Let %1$s message you and share your name and photo with them? You won\'t receive any messages until you unblock them.</string>
     <string name="MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Join this group and share your name and photo with its members? They won\'t know you\'ve seen their messages until you accept.</string>
+    <string name="MessageRequestBottomView_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Join this group? They won’t know you’ve seen their messages until you accept.</string>
     <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">Unblock this group and share your name and photo with its members? You won\'t receive any messages until you unblock them.</string>
     <string name="MessageRequestProfileView_member_of_one_group">Member of %1$s</string>
     <string name="MessageRequestProfileView_member_of_two_groups">Member of %1$s and %2$s</string>
@@ -1447,6 +1458,7 @@
     <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">No safety number to compare was found in the clipboard</string>
     <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Molly needs the Camera permission in order to scan a QR code, but it has been permanently denied. Please continue to app settings, select \"Permissions\", and enable \"Camera\".</string>
     <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">Unable to scan QR code without Camera permission</string>
+    <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">You must first exchange messages in order to view %1$s\'s safety number.</string>
 
     <!-- ViewOnceMessageActivity -->
     <string name="ViewOnceMessageActivity_video_duration" translatable="false">%1$02d:%2$02d</string>

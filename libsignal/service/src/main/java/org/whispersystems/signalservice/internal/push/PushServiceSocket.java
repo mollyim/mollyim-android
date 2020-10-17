@@ -404,12 +404,7 @@ public class PushServiceSocket {
     Response response = makeServiceRequest(String.format(MESSAGE_PATH, ""), "GET", (RequestBody) null, NO_HEADERS, NO_HANDLER, Optional.absent());
     validateServiceResponse(response);
 
-    List<SignalServiceEnvelopeEntity> envelopes;
-    try {
-      envelopes = JsonUtil.fromJson(readBodyString(response.body()), SignalServiceEnvelopeEntityList.class).getMessages();
-    } catch (IOException e) {
-      throw new PushNetworkException(e);
-    }
+    List<SignalServiceEnvelopeEntity> envelopes = readBodyJson(response.body(), SignalServiceEnvelopeEntityList.class).getMessages();
 
     long serverDeliveredTimestamp = 0;
     try {
@@ -1346,11 +1341,7 @@ public class PushServiceSocket {
       @Override
       public void onResponse(Call call, Response response) {
         try (ResponseBody body = validateServiceResponse(response).body()) {
-          try {
-            bodyFuture.set(readBodyString(body));
-          } catch (IOException e) {
-            throw new PushNetworkException(e);
-          }
+          bodyFuture.set(readBodyString(body));
         } catch (IOException e) {
           bodyFuture.setException(e);
         }
@@ -1392,9 +1383,8 @@ public class PushServiceSocket {
   }
 
   private Response validateServiceResponse(Response response) throws NonSuccessfulResponseCodeException, PushNetworkException {
-    int          responseCode    = response.code();
-    String       responseMessage = response.message();
-    ResponseBody responseBody    = response.body();
+    int    responseCode    = response.code();
+    String responseMessage = response.message();
 
     switch (responseCode) {
       case 413:
@@ -1405,58 +1395,23 @@ public class PushServiceSocket {
       case 404:
         throw new NotFoundException("Not found");
       case 409:
-        MismatchedDevices mismatchedDevices;
-
-        try {
-          mismatchedDevices = JsonUtil.fromJson(readBodyString(responseBody), MismatchedDevices.class);
-        } catch (JsonProcessingException e) {
-          Log.w(TAG, e);
-          throw new NonSuccessfulResponseCodeException("Bad response: " + responseCode + " " + responseMessage);
-        } catch (IOException e) {
-          throw new PushNetworkException(e);
-        }
+        MismatchedDevices mismatchedDevices = readResponseJson(response, MismatchedDevices.class);
 
         throw new MismatchedDevicesException(mismatchedDevices);
       case 410:
-        StaleDevices staleDevices;
-
-        try {
-          staleDevices = JsonUtil.fromJson(readBodyString(responseBody), StaleDevices.class);
-        } catch (JsonProcessingException e) {
-          throw new NonSuccessfulResponseCodeException("Bad response: " + responseCode + " " + responseMessage);
-        } catch (IOException e) {
-          throw new PushNetworkException(e);
-        }
+        StaleDevices staleDevices = readResponseJson(response, StaleDevices.class);
 
         throw new StaleDevicesException(staleDevices);
       case 411:
-        DeviceLimit deviceLimit;
-
-        try {
-          deviceLimit = JsonUtil.fromJson(readBodyString(responseBody), DeviceLimit.class);
-        } catch (JsonProcessingException e) {
-          throw new NonSuccessfulResponseCodeException("Bad response: " + responseCode + " " + responseMessage);
-        } catch (IOException e) {
-          throw new PushNetworkException(e);
-        }
+        DeviceLimit deviceLimit = readResponseJson(response, DeviceLimit.class);
 
         throw new DeviceLimitExceededException(deviceLimit);
       case 417:
         throw new ExpectationFailedException();
       case 423:
-        RegistrationLockFailure accountLockFailure;
-
-        try {
-          accountLockFailure = JsonUtil.fromJson(readBodyString(responseBody), RegistrationLockFailure.class);
-        } catch (JsonProcessingException e) {
-          Log.w(TAG, e);
-          throw new NonSuccessfulResponseCodeException("Bad response: " + responseCode + " " + responseMessage);
-        } catch (IOException e) {
-          throw new PushNetworkException(e);
-        }
-
-        AuthCredentials credentials             = accountLockFailure.backupCredentials;
-        String          basicStorageCredentials = credentials != null ? credentials.asBasic() : null;
+        RegistrationLockFailure accountLockFailure      = readResponseJson(response, RegistrationLockFailure.class);
+        AuthCredentials         credentials             = accountLockFailure.backupCredentials;
+        String                  basicStorageCredentials = credentials != null ? credentials.asBasic() : null;
 
         throw new LockedException(accountLockFailure.length,
                                   accountLockFailure.timeRemaining,
@@ -1631,6 +1586,12 @@ public class PushServiceSocket {
   private ResponseBody makeStorageRequest(String authorization, String path, String method, RequestBody body, ResponseCodeHandler responseCodeHandler)
       throws PushNetworkException, NonSuccessfulResponseCodeException
   {
+    return makeStorageRequestResponse(authorization, path, method, body, responseCodeHandler).body();
+  }
+
+  private Response makeStorageRequestResponse(String authorization, String path, String method, RequestBody body, ResponseCodeHandler responseCodeHandler)
+      throws PushNetworkException, NonSuccessfulResponseCodeException
+  {
     ConnectionHolder connectionHolder = getRandom(storageClients, random);
     OkHttpClient     okHttpClient     = connectionHolder.getClient()
                                                         .newBuilder()
@@ -1663,7 +1624,7 @@ public class PushServiceSocket {
       response = call.execute();
 
       if (response.isSuccessful() && response.code() != 204) {
-        return response.body();
+        return response;
       }
     } catch (IOException e) {
       throw new PushNetworkException(e);
@@ -1790,6 +1751,9 @@ public class PushServiceSocket {
    * Converts {@link IOException} on body byte reading to {@link PushNetworkException}.
    */
   private static byte[] readBodyBytes(ResponseBody response) throws PushNetworkException {
+    if (response == null) {
+      throw new PushNetworkException("No body!");
+    }
     try {
       return response.bytes();
     } catch (IOException e) {
@@ -1797,14 +1761,52 @@ public class PushServiceSocket {
     }
   }
 
-  private static String readBodyString(ResponseBody body) throws IOException {
-    if (body != null) {
+  /**
+   * Converts {@link IOException} on body reading to {@link PushNetworkException}.
+   */
+  private static String readBodyString(ResponseBody body) throws PushNetworkException {
+    if (body == null) {
+      throw new PushNetworkException("No body!");
+    }
+
+    try {
       return body.string();
-    } else {
-      throw new IOException("No body!");
+    } catch (IOException e) {
+      throw new PushNetworkException(e);
     }
   }
 
+  /**
+   * Converts {@link IOException} on body reading to {@link PushNetworkException}.
+   * {@link IOException} during json parsing is converted to a {@link NonSuccessfulResponseCodeException}
+   */
+  private static <T> T readBodyJson(ResponseBody body, Class<T> clazz)
+      throws PushNetworkException, NonSuccessfulResponseCodeException
+  {
+    String json = readBodyString(body);
+    try {
+      return JsonUtil.fromJson(json, clazz);
+    } catch (JsonProcessingException e) {
+      Log.w(TAG, e);
+      throw new NonSuccessfulResponseCodeException("Unable to parse entity");
+    } catch (IOException e) {
+      throw new PushNetworkException(e);
+    }
+  }
+
+  /**
+   * Converts {@link IOException} on body reading to {@link PushNetworkException}.
+   * {@link IOException} during json parsing is converted to a {@link NonSuccessfulResponseCodeException} with response code detail.
+   */
+  private static <T> T readResponseJson(Response response, Class<T> clazz)
+      throws PushNetworkException, NonSuccessfulResponseCodeException
+  {
+    try {
+      return readBodyJson(response.body(), clazz);
+    } catch (NonSuccessfulResponseCodeException e) {
+      throw new NonSuccessfulResponseCodeException("Bad response: " + response.code() + " " + response.message());
+    }
+  }
 
   private static class GcmRegistrationId {
 
@@ -1984,16 +1986,31 @@ public class PushServiceSocket {
     return GroupChange.parseFrom(readBodyBytes(response));
   }
 
-  public GroupChanges getGroupsV2GroupHistory(int fromVersion, GroupsV2AuthorizationString authorization)
+  public GroupHistory getGroupsV2GroupHistory(int fromVersion, GroupsV2AuthorizationString authorization)
     throws NonSuccessfulResponseCodeException, PushNetworkException, InvalidProtocolBufferException
   {
-    ResponseBody response = makeStorageRequest(authorization.toString(),
-                                               String.format(Locale.US, GROUPSV2_GROUP_CHANGES, fromVersion),
-                                               "GET",
-                                               null,
-                                               GROUPS_V2_GET_LOGS_HANDLER);
+    Response response = makeStorageRequestResponse(authorization.toString(),
+                                                   String.format(Locale.US, GROUPSV2_GROUP_CHANGES, fromVersion),
+                                                   "GET",
+                                                   null,
+                                                   GROUPS_V2_GET_LOGS_HANDLER);
 
-    return GroupChanges.parseFrom(readBodyBytes(response));
+    GroupChanges groupChanges = GroupChanges.parseFrom(readBodyBytes(response.body()));
+
+    if (response.code() == 206) {
+      String                 contentRangeHeader = response.header("Content-Range");
+      Optional<ContentRange> contentRange       = ContentRange.parse(contentRangeHeader);
+
+      if (contentRange.isPresent()) {
+        Log.i(TAG, "Additional logs for group: " + contentRangeHeader);
+        return new GroupHistory(groupChanges, contentRange);
+      } else {
+        Log.w(TAG, "Unable to parse Content-Range header: " + contentRangeHeader);
+        throw new NonSuccessfulResponseCodeException("Unable to parse content range header on 206");
+      }
+    }
+
+    return new GroupHistory(groupChanges, Optional.absent());
   }
 
   public GroupJoinInfo getGroupJoinInfo(Optional<byte[]> groupLinkPassword, GroupsV2AuthorizationString authorization)
@@ -2007,6 +2024,31 @@ public class PushServiceSocket {
                                                     GROUPS_V2_GET_JOIN_INFO_HANDLER);
 
     return GroupJoinInfo.parseFrom(readBodyBytes(response));
+  }
+
+  public static final class GroupHistory {
+    private final GroupChanges           groupChanges;
+    private final Optional<ContentRange> contentRange;
+
+    public GroupHistory(GroupChanges groupChanges, Optional<ContentRange> contentRange) {
+      this.groupChanges = groupChanges;
+      this.contentRange = contentRange;
+    }
+
+    public GroupChanges getGroupChanges() {
+      return groupChanges;
+    }
+
+    public boolean hasMore() {
+      return contentRange.isPresent();
+    }
+
+    /**
+     * Valid iff {@link #hasMore()}.
+     */
+    public int getNextPageStartGroupRevision() {
+      return contentRange.get().getRangeEnd() + 1;
+    }
   }
 
   private final class ResumeInfo {

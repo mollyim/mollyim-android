@@ -512,7 +512,7 @@ public final class PushProcessMessageJob extends BaseJob {
       Intent     intent            = new Intent(context, WebRtcCallService.class);
       Recipient  recipient         = Recipient.externalHighTrustPush(context, content.getSender());
       RemotePeer remotePeer        = new RemotePeer(recipient.getId());
-      byte[]     remoteIdentityKey = recipient.getIdentityKey();
+      byte[]     remoteIdentityKey = DatabaseFactory.getIdentityDatabase(context).getIdentity(recipient.getId()).transform(record -> record.getIdentityKey().serialize()).orNull();
 
       intent.setAction(WebRtcCallService.ACTION_RECEIVE_OFFER)
             .putExtra(WebRtcCallService.EXTRA_CALL_ID,                    message.getId())
@@ -538,7 +538,7 @@ public final class PushProcessMessageJob extends BaseJob {
     Intent     intent            = new Intent(context, WebRtcCallService.class);
     Recipient  recipient         = Recipient.externalHighTrustPush(context, content.getSender());
     RemotePeer remotePeer        = new RemotePeer(recipient.getId());
-    byte[]     remoteIdentityKey = recipient.getIdentityKey();
+    byte[]     remoteIdentityKey = DatabaseFactory.getIdentityDatabase(context).getIdentity(recipient.getId()).transform(record -> record.getIdentityKey().serialize()).orNull();
 
     intent.setAction(WebRtcCallService.ACTION_RECEIVE_ANSWER)
           .putExtra(WebRtcCallService.EXTRA_CALL_ID,             message.getId())
@@ -1830,7 +1830,7 @@ public final class PushProcessMessageJob extends BaseJob {
         Optional<GroupId> groupId       = GroupUtil.idFromGroupContext(message.getGroupContext());
 
         if (groupId.isPresent() && groupDatabase.isUnknownGroup(groupId.get())) {
-          return false;
+          return sender.isBlocked();
         }
 
         boolean isTextMessage    = message.getBody().isPresent();

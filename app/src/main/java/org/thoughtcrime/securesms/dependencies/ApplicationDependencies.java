@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 
 import org.thoughtcrime.securesms.ApplicationContext;
 import org.thoughtcrime.securesms.BuildConfig;
+import org.thoughtcrime.securesms.KbsEnclave;
 import org.thoughtcrime.securesms.messages.IncomingMessageProcessor;
 import org.thoughtcrime.securesms.messages.BackgroundMessageRetriever;
 import org.thoughtcrime.securesms.groups.GroupsV2AuthorizationMemoryValueCache;
@@ -16,6 +17,7 @@ import org.thoughtcrime.securesms.keyvalue.KeyValueStore;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.megaphone.MegaphoneRepository;
 import org.thoughtcrime.securesms.notifications.MessageNotifier;
+import org.thoughtcrime.securesms.pin.KbsEnclaves;
 import org.thoughtcrime.securesms.push.SignalServiceNetworkAccess;
 import org.thoughtcrime.securesms.recipients.LiveRecipientCache;
 import org.thoughtcrime.securesms.messages.IncomingMessageObserver;
@@ -109,11 +111,11 @@ public class ApplicationDependencies {
     return groupsV2Operations;
   }
 
-  public static synchronized @NonNull KeyBackupService getKeyBackupService() {
+  public static synchronized @NonNull KeyBackupService getKeyBackupService(@NonNull KbsEnclave enclave) {
     return getSignalServiceAccountManager().getKeyBackupService(IasKeyStore.getIasKeyStore(getApplication()),
-                                                                BuildConfig.KBS_ENCLAVE_NAME,
-                                                                Hex.fromStringOrThrow(BuildConfig.KBS_SERVICE_ID),
-                                                                BuildConfig.KBS_MRENCLAVE,
+                                                                enclave.getEnclaveName(),
+                                                                Hex.fromStringOrThrow(enclave.getServiceId()),
+                                                                enclave.getMrEnclave(),
                                                                 10);
   }
 

@@ -152,8 +152,7 @@ public class StorageSyncJob extends BaseJob {
       if (!keyDifference.isEmpty()) {
         Log.i(TAG, "[Remote Newer] There's a difference in keys. Local-only: " + keyDifference.getLocalOnlyKeys().size() + ", Remote-only: " + keyDifference.getRemoteOnlyKeys().size());
 
-        Set<RecipientId>          archivedRecipients   = DatabaseFactory.getThreadDatabase(context).getArchivedRecipients();
-        List<SignalStorageRecord> localOnly            = buildLocalStorageRecords(context, keyDifference.getLocalOnlyKeys(), archivedRecipients);
+        List<SignalStorageRecord> localOnly            = buildLocalStorageRecords(context, keyDifference.getLocalOnlyKeys());
         List<SignalStorageRecord> remoteOnly           = accountManager.readStorageRecords(storageServiceKey, keyDifference.getRemoteOnlyKeys());
         MergeResult               mergeResult          = StorageSyncHelper.resolveConflict(remoteOnly, localOnly);
         WriteOperationResult      writeOperationResult = StorageSyncHelper.createWriteOperation(remoteManifest.get().getVersion(), allLocalStorageKeys, mergeResult);
@@ -184,6 +183,8 @@ public class StorageSyncJob extends BaseJob {
           }
 
           remoteManifestVersion = writeOperationResult.getManifest().getVersion();
+
+          needsMultiDeviceSync = true;
         } else {
           Log.i(TAG, "[Remote Newer] After resolving the conflict, all changes are local. No remote writes needed.");
         }
@@ -191,7 +192,6 @@ public class StorageSyncJob extends BaseJob {
         recipientDatabase.applyStorageSyncUpdates(mergeResult.getLocalContactInserts(), mergeResult.getLocalContactUpdates(), mergeResult.getLocalGroupV1Inserts(), mergeResult.getLocalGroupV1Updates(), mergeResult.getLocalGroupV2Inserts(), mergeResult.getLocalGroupV2Updates());
         storageKeyDatabase.applyStorageSyncUpdates(mergeResult.getLocalUnknownInserts(), mergeResult.getLocalUnknownDeletes());
         StorageSyncHelper.applyAccountStorageSyncUpdates(context, mergeResult.getLocalAccountUpdate());
-        needsMultiDeviceSync = true;
 
         Log.i(TAG, "[Remote Newer] Updating local manifest version to: " + remoteManifestVersion);
         TextSecurePreferences.setStorageManifestVersion(context, remoteManifestVersion);
@@ -212,15 +212,13 @@ public class StorageSyncJob extends BaseJob {
     List<RecipientSettings>       pendingDeletions     = recipientDatabase.getPendingRecipientSyncDeletions();
     Optional<SignalAccountRecord> pendingAccountInsert = StorageSyncHelper.getPendingAccountSyncInsert(context, self);
     Optional<SignalAccountRecord> pendingAccountUpdate = StorageSyncHelper.getPendingAccountSyncUpdate(context, self);
-    Set<RecipientId>              archivedRecipients   = DatabaseFactory.getThreadDatabase(context).getArchivedRecipients();
     Optional<LocalWriteResult>    localWriteResult     = StorageSyncHelper.buildStorageUpdatesForLocal(localManifestVersion,
                                                                                                        allLocalStorageKeys,
                                                                                                        pendingUpdates,
                                                                                                        pendingInsertions,
                                                                                                        pendingDeletions,
                                                                                                        pendingAccountUpdate,
-                                                                                                       pendingAccountInsert,
-                                                                                                       archivedRecipients);
+                                                                                                       pendingAccountInsert);
 
     if (localWriteResult.isPresent()) {
       Log.i(TAG, String.format(Locale.ENGLISH, "[Local Changes] Local changes present. %d updates, %d inserts, %d deletes, account update: %b, account insert: %b.", pendingUpdates.size(), pendingInsertions.size(), pendingDeletions.size(), pendingAccountUpdate.isPresent(), pendingAccountInsert.isPresent()));
@@ -273,7 +271,7 @@ public class StorageSyncJob extends BaseJob {
                                  DatabaseFactory.getStorageKeyDatabase(context).getAllKeys());
   }
 
-  private static @NonNull List<SignalStorageRecord> buildLocalStorageRecords(@NonNull Context context, @NonNull List<StorageId> ids, @NonNull Set<RecipientId> archivedRecipients) {
+  private static @NonNull List<SignalStorageRecord> buildLocalStorageRecords(@NonNull Context context, @NonNull List<StorageId> ids) {
     Recipient          self               = Recipient.self().fresh();
     RecipientDatabase  recipientDatabase  = DatabaseFactory.getRecipientDatabase(context);
     StorageKeyDatabase storageKeyDatabase = DatabaseFactory.getStorageKeyDatabase(context);
@@ -287,10 +285,10 @@ public class StorageSyncJob extends BaseJob {
         case ManifestRecord.Identifier.Type.GROUPV2_VALUE:
           RecipientSettings settings = recipientDatabase.getByStorageId(id.getRaw());
           if (settings != null) {
-            if (settings.getGroupType() == RecipientDatabase.GroupType.SIGNAL_V2 && settings.getGroupMasterKey() == null) {
+            if (settings.getGroupType() == RecipientDatabase.GroupType.SIGNAL_V2 && settings.getSyncExtras().getGroupMasterKey() == null) {
               Log.w(TAG, "Missing master key on gv2 recipient");
             } else {
-              records.add(StorageSyncModels.localToRemoteRecord(settings, archivedRecipients));
+              records.add(StorageSyncModels.localToRemoteRecord(settings));
             }
           } else {
             Log.w(TAG, "Missing local recipient model! Type: " + id.getType());
