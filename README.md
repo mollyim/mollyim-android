@@ -20,7 +20,7 @@ You can download the app from GitHub's [Releases](https://github.com/mollyim/mol
     alt="Get it on F-Droid"
     height="80">](https://molly.im/fdroid/)
 
-There are two flavors to choose from download: **Molly** and **Molly-FOSS**. Learn the differences [below](#free-and-open-source) and download the right one for you.
+There are two flavors to choose from download: **Molly** or **Molly-FOSS**. Learn the differences [below](#free-and-open-source) and download the right one for you.
 
 ## Features
 
@@ -29,15 +29,16 @@ Molly has unique features compared to Signal:
 - Protects database with [passphrase encryption](https://github.com/mollyim/mollyim-android/wiki/Data-Encryption-At-Rest)
 - Locks down the app automatically after you go a certain time without unlocking your device
 - Securely shreds sensitive data from RAM
-- Logging debug messages can be disabled
+- Call notifications disappear together with expiring messages
+- Debug logs can be disabled
 
 Besides that, you will find all the features of Signal plus some minor tweaks and improvements. The only exception is the SMS integration, that was removed for compatibility.
 
 ## Free and Open-Source
 
-Molly is open-source, just like Signal, although the app uses Google's proprietary libraries to support some key features. Molly-FOSS is the community effort to make it 100% free and open-source.
+Molly is open-source just like Signal. But the app uses Google's proprietary code to support some key features. Molly-FOSS is the community effort to make it 100% free and open-source.
 
-Just install the flavor of Molly you prefer to run, and it will replace any previous version. The data and settings will be preserved so that you do not have to re-register.
+You can install the flavor of your choice at any time, and it will replace any previously installed version. The data and settings will be preserved so that you do not have to re-register.
 
 This table lists the current status of the dependencies:
 
