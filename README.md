@@ -77,7 +77,7 @@ And Molly:
 
 Molly supports reproducible builds, so that anyone can run the build process again and reproduce the same APK as the original release.
 
-Please read the [Reproducible Builds](https://github.com/mollyim/mollyim-android/wiki/Reproducible-Builds) page in our [wiki](https://github.com/mollyim/mollyim-android/wiki).
+Please check out the guide in the [reproducible-builds](https://github.com/mollyim/mollyim-android/blob/master/reproducible-builds) directory.
 
 ## Changelog
 

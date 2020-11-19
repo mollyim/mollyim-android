@@ -1,0 +1,9 @@
+version: '3.2'
+services:
+  reproducible-molly:
+    build:
+      context: ..
+      dockerfile: reproducible-builds/Dockerfile
+    command: ./gradlew -Pci assembleRelease
+    volumes:
+      - ./outputs:/molly/app/build/outputs
