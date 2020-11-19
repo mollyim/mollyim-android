@@ -377,7 +377,7 @@ dependencies {
 
     implementation 'me.gosimple:nbvcxz:1.4.3'
 
-    freeImplementation project(':libgms')
+    freeImplementation project(':libfakegms')
 
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.assertj:assertj-core:3.11.1'
