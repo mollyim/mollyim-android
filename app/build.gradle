@@ -13,7 +13,6 @@ buildscript {
         classpath 'com.android.tools.build:gradle:4.1.1'
         classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.1.0'
         classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.10'
-        classpath 'com.archinamon:android-gradle-aspectj:4.2.0'
     }
 }
 
@@ -21,21 +20,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.protobuf'
 apply plugin: 'androidx.navigation.safeargs'
 apply plugin: 'witness'
-apply plugin: 'com.archinamon.aspectj-ext'
 apply from: 'translations.gradle'
 apply from: 'witness-verifications.gradle'
-
-if (getGradle().getStartParameter().getTaskRequests().toString().contains("Internal")) {
-    aspectj {
-        includeJar 'sqlcipher'
-        includeAspectsFromJar 'Signal-Android'
-        java = JavaVersion.VERSION_1_8
-    }
-} else if (getGradle().getStartParameter().getTaskRequests().toString().contains("Test")) {
-    aspectj {
-        compileTests = false
-    }
-}
 
 repositories {
     maven {
@@ -179,7 +165,6 @@ android {
         buildConfigField "String", "ZKGROUP_SERVER_PUBLIC_PARAMS", "\"AMhf5ywVwITZMsff/eCyudZx9JDmkkkbV6PInzG4p8x3VqVJSFiMvnvlEKWuRob/1eaIetR31IYeAbm0NdOuHH8Qi+Rexi1wLlpzIo1gstHWBfZzy1+qHRV5A4TqPp15YzBPm0WSggW6PbSn+F4lf57VCnHF7p8SvzAA2ZZJPYJURt8X7bbg+H3i+PEjH9DXItNEqs2sNcug37xZQDLm7X0=\""
         buildConfigField "String[]", "LANGUAGES", "new String[]{\"" + autoResConfig().collect { s -> s.replace('-r', '_') }.join('", "') + '"}'
         buildConfigField "int", "CANONICAL_VERSION_CODE", "$canonicalVersionCode"
-        buildConfigField "int", "TRACE_EVENT_MAX", "2000"
 
         buildConfigField "String", "CANONICAL_VERSION_NAME", "\"$canonicalVersionName\""
         buildConfigField "boolean", "AUTOMATIC_UPDATES", "false"
