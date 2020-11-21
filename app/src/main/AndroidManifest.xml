@@ -550,11 +550,7 @@
 
     <service android:name=".gcm.FcmFetchService" />
 
-    <service android:name=".gcm.FcmReceiveService">
-        <intent-filter>
-            <action android:name="com.google.firebase.MESSAGING_EVENT" />
-        </intent-filter>
-    </service>
+    <!-- MOLLY: FcmReceiveService moved to nonFree/AndroidManifest.xml -->
 
     <receiver android:name=".notifications.MarkReadReceiver"
               android:enabled="true"
