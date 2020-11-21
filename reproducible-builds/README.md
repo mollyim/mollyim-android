@@ -1,6 +1,6 @@
 # Reproducible Builds
 
-These are the instructions to verify that this source code is exactly the same code that was used to compile the APK distributed on the website.
+Follow these instructions to verify that this source code is exactly the same code that was used to compile the APK distributed on the website.
 
 The [reproducible-builds.org](https://reproducible-builds.org/) project has more information about this general topic.
 
