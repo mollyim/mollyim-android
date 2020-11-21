@@ -9,7 +9,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.3'
+        classpath 'com.android.tools.build:gradle:4.1.0'
         classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.1.0'
         classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.10'
     }
@@ -80,8 +80,8 @@ protobuf {
     }
 }
 
-def canonicalVersionCode = 720
-def canonicalVersionName = "4.73.4"
+def canonicalVersionCode = 736
+def canonicalVersionName = "4.76.3"
 
 def postFixSize = 10
 def abiPostFix = ['universal'   : 0,
@@ -90,33 +90,51 @@ def abiPostFix = ['universal'   : 0,
                   'x86'         : 3,
                   'x86_64'      : 4]
 
-ext {
-    try {
-        commitTag = "git describe --tags --exact-match".execute().text.trim() ?: "untagged"
-        commitTimestamp = "git log -1 --pretty=format:%ct000".execute().text.trim()
-    } catch (ignored) {
-        commitTag = null
-        commitTimestamp = null
-    }
-    buildTimestamp = commitTimestamp ?: new Date().getTime()
+def getCommitTag() {
+    return "git describe --tags --exact-match".execute().text.trim() ?: "untagged"
 }
 
+def getCommitTimestamp() {
+    return "git log -1 --pretty=format:%ct000".execute().text.trim()
+}
+
+def getBuildTimestamp() {
+    try {
+        return getCommitTimestamp()
+    } catch (e) {
+        return new Date().getTime()
+    }
+}
+
+def keystores = [ 'debug'  : loadKeystoreProperties('keystore.debug.properties') ]
+
 android {
-    flavorDimensions 'OSS', 'ENV'
-    compileSdkVersion 28
-    buildToolsVersion '28.0.3'
+    flavorDimensions 'distribution', 'environment'
+    compileSdkVersion 29
+    buildToolsVersion '29.0.3'
     useLibrary 'org.apache.http.legacy'
 
     dexOptions {
         javaMaxHeapSize "4g"
     }
 
+    signingConfigs {
+        if (keystores.debug != null) {
+            debug {
+                storeFile file("${project.rootDir}/${keystores.debug.storeFile}")
+                storePassword keystores.debug.storePassword
+                keyAlias keystores.debug.keyAlias
+                keyPassword keystores.debug.keyPassword
+            }
+        }
+    }
+
     defaultConfig {
         versionCode canonicalVersionCode * postFixSize + abiPostFix['universal']
-        versionName project.hasProperty('ci') ? commitTag : canonicalVersionName
+        versionName project.hasProperty('ci') ? getCommitTag() : canonicalVersionName
 
         minSdkVersion 19
-        targetSdkVersion 28
+        targetSdkVersion 29
         multiDexEnabled true
 
         applicationId basePackageId
@@ -126,7 +144,7 @@ android {
 
         vectorDrawables.useSupportLibrary = true
 
-        buildConfigField "long", "BUILD_TIMESTAMP", "${buildTimestamp}L"
+        buildConfigField "long", "BUILD_TIMESTAMP", getBuildTimestamp() + "L"
         buildConfigField "String", "SIGNAL_URL", "\"https://textsecure-service.whispersystems.org\""
         buildConfigField "String", "STORAGE_URL", "\"https://storage.signal.org\""
         buildConfigField "String", "SIGNAL_CDN_URL", "\"https://cdn.signal.org\""
@@ -146,6 +164,7 @@ android {
         buildConfigField "String", "ZKGROUP_SERVER_PUBLIC_PARAMS", "\"AMhf5ywVwITZMsff/eCyudZx9JDmkkkbV6PInzG4p8x3VqVJSFiMvnvlEKWuRob/1eaIetR31IYeAbm0NdOuHH8Qi+Rexi1wLlpzIo1gstHWBfZzy1+qHRV5A4TqPp15YzBPm0WSggW6PbSn+F4lf57VCnHF7p8SvzAA2ZZJPYJURt8X7bbg+H3i+PEjH9DXItNEqs2sNcug37xZQDLm7X0=\""
         buildConfigField "String[]", "LANGUAGES", "new String[]{\"" + autoResConfig().collect { s -> s.replace('-r', '_') }.join('", "') + '"}'
         buildConfigField "int", "CANONICAL_VERSION_CODE", "$canonicalVersionCode"
+
         buildConfigField "String", "CANONICAL_VERSION_NAME", "\"$canonicalVersionName\""
         buildConfigField "boolean", "AUTOMATIC_UPDATES", "false"
         buildConfigField "String", "NOPLAY_UPDATE_URL", "\"https://updates.signal.org/android\""
@@ -159,6 +178,12 @@ android {
         ndkVersion "21.3.6528147"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    externalNativeBuild {
+        ndkBuild {
+            path file("jni/Android.mk")
+        }
     }
 
     compileOptions {
@@ -182,6 +207,10 @@ android {
 
     buildTypes {
         debug {
+            if (keystores['debug'] != null) {
+                signingConfig signingConfigs.debug
+            }
+            isDefault true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'),
                     'proguard/proguard-firebase-messaging.pro',
@@ -203,6 +232,7 @@ android {
             testProguardFiles 'proguard/proguard-automation.pro',
                     'proguard/proguard.cfg'
         }
+
         release {
             minifyEnabled true
             shrinkResources true
@@ -210,23 +240,25 @@ android {
         }
     }
 
-    externalNativeBuild {
-        ndkBuild {
-            path file("jni/Android.mk")
-        }
-    }
-
     productFlavors {
+        production {
+            dimension 'environment'
+
+            isDefault true
+        }
+
         staging {
-            dimension "ENV"
+            dimension 'environment'
+
             applicationIdSuffix ".staging"
+
             buildConfigField "String", "SIGNAL_URL", "\"https://textsecure-service-staging.whispersystems.org\""
             buildConfigField "String", "STORAGE_URL", "\"https://storage-staging.signal.org\""
             buildConfigField "String", "SIGNAL_CDN_URL", "\"https://cdn-staging.signal.org\""
             buildConfigField "String", "SIGNAL_CDN2_URL", "\"https://cdn2-staging.signal.org\""
             buildConfigField "String", "SIGNAL_CONTACT_DISCOVERY_URL", "\"https://api-staging.directory.signal.org\""
             buildConfigField "String", "SIGNAL_KEY_BACKUP_URL", "\"https://api-staging.backup.signal.org\""
-            buildConfigField "String", "CDS_MRENCLAVE", "\"bd123560b01c8fa92935bc5ae15cd2064e5c45215f23f0bd40364d521329d2ad\""
+            buildConfigField "String", "CDS_MRENCLAVE", "\"c98e00a4e3ff977a56afefe7362a27e4961e4f19e211febfbb19b897e6b80b15\""
             buildConfigField "KbsEnclave", "KBS_ENCLAVE", "new KbsEnclave(\"823a3b2c037ff0cbe305cc48928cfcc97c9ed4a8ca6d49af6f7d6981fb60a4e9\", " +
                                                                          "\"038c40bbbacdc873caa81ac793bb75afde6dfe436a99ab1f15e3f0cbb7434ced\", " +
                                                                          "\"a3baab19ef6ce6f34ab9ebb25ba722725ae44a8872dc0ff08ad6d83a9489de87\")"
@@ -234,15 +266,15 @@ android {
             buildConfigField "String", "UNIDENTIFIED_SENDER_TRUST_ROOT", "\"BbqY1DzohE4NUZoVF+L18oUPrK3kILllLEJh2UnPSsEx\""
             buildConfigField "String", "ZKGROUP_SERVER_PUBLIC_PARAMS", "\"ABSY21VckQcbSXVNCGRYJcfWHiAMZmpTtTELcDmxgdFbtp/bWsSxZdMKzfCp8rvIs8ocCU3B37fT3r4Mi5qAemeGeR2X+/YmOGR5ofui7tD5mDQfstAI9i+4WpMtIe8KC3wU5w3Inq3uNWVmoGtpKndsNfwJrCg0Hd9zmObhypUnSkfYn2ooMOOnBpfdanRtrvetZUayDMSC5iSRcXKpdls=\""
         }
-        production {
-            dimension "ENV"
-        }
+
         free {
-            dimension "OSS"
-            versionNameSuffix "-FOSS"
+            dimension 'distribution'
+            versionNameSuffix '-FOSS'
         }
+
         nonFree {
-            dimension "OSS"
+            dimension 'distribution'
+            isDefault true
         }
     }
 
@@ -317,6 +349,7 @@ dependencies {
 
     implementation 'com.google.android.exoplayer:exoplayer-core:2.9.1'
     implementation 'com.google.android.exoplayer:exoplayer-ui:2.9.1'
+    implementation 'com.google.android.exoplayer:extension-mediasession:2.9.1'
 
     implementation 'org.conscrypt:conscrypt-android:2.0.0'
     implementation 'org.signal:aesgcmprovider:0.0.3'
@@ -326,7 +359,7 @@ dependencies {
 
     implementation 'im.molly:argon2:13.1-1@aar'
 
-    implementation 'org.signal:ringrtc-android:2.7.0'
+    implementation 'org.signal:ringrtc-android:2.7.3'
 
     implementation "me.leolin:ShortcutBadger:1.1.16"
     implementation 'se.emilsjolander:stickylistheaders:2.7.0'
@@ -388,10 +421,11 @@ dependencies {
     testImplementation 'org.powermock:powermock-classloading-xstream:1.7.4'
 
     testImplementation 'androidx.test:core:1.2.0'
-    testImplementation ('org.robolectric:robolectric:4.2') {
+    testImplementation ('org.robolectric:robolectric:4.4') {
         exclude group: 'com.google.protobuf', module: 'protobuf-java'
     }
-    testImplementation 'org.robolectric:shadows-multidex:4.2'
+    testImplementation 'org.robolectric:shadows-multidex:4.4'
+    testImplementation 'org.hamcrest:hamcrest:2.2'
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
@@ -403,17 +437,21 @@ dependencyVerification {
 
 tasks.withType(Test) {
     testLogging {
-        events "skipped", "passed", "failed"
-        showStandardStreams true
-    }
-}
-
-tasks.withType(Test) {
-    testLogging {
         events "failed"
         exceptionFormat "full"
         showCauses true
         showExceptions true
         showStackTraces true
+    }
+}
+
+def loadKeystoreProperties(filename) {
+    def keystorePropertiesFile = file("${project.rootDir}/${filename}")
+    if (keystorePropertiesFile.exists()) {
+        def keystoreProperties = new Properties()
+        keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+        return keystoreProperties;
+    } else {
+        return null;
     }
 }

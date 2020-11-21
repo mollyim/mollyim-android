@@ -52,6 +52,7 @@ import org.thoughtcrime.securesms.dependencies.ApplicationDependencyProvider;
 import org.thoughtcrime.securesms.gcm.FcmJobService;
 import org.thoughtcrime.securesms.jobs.CreateSignedPreKeyJob;
 import org.thoughtcrime.securesms.jobs.FcmRefreshJob;
+import org.thoughtcrime.securesms.jobs.GroupV1MigrationJob;
 import org.thoughtcrime.securesms.jobs.MultiDeviceContactUpdateJob;
 import org.thoughtcrime.securesms.jobs.PushNotificationReceiveJob;
 import org.thoughtcrime.securesms.jobs.RefreshAttributesJob;
@@ -216,6 +217,7 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
     FeatureFlags.refreshIfNecessary();
     ApplicationDependencies.getRecipientCache().warmUp();
     RetrieveProfileJob.enqueueRoutineFetchIfNecessary(this);
+    GroupV1MigrationJob.enqueueRoutineMigrationsIfNecessary(this);
     executePendingContactSync();
     ApplicationDependencies.getFrameRateTracker().begin();
     ApplicationDependencies.getMegaphoneRepository().onAppForegrounded();

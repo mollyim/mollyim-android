@@ -20,6 +20,7 @@ import org.thoughtcrime.securesms.contacts.sync.DirectoryHelper;
 import org.thoughtcrime.securesms.database.RecipientDatabase;
 import org.thoughtcrime.securesms.groups.GroupsV2CapabilityChecker;
 import org.thoughtcrime.securesms.groups.ui.creategroup.details.AddGroupDetailsActivity;
+import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
@@ -47,7 +48,6 @@ public class CreateGroupActivity extends ContactSelectionActivity {
   public static Intent newIntent(@NonNull Context context) {
     Intent intent = new Intent(context, CreateGroupActivity.class);
 
-    intent.putExtra(ContactSelectionListFragment.MULTI_SELECT, true);
     intent.putExtra(ContactSelectionListFragment.REFRESHABLE, false);
     intent.putExtra(ContactSelectionActivity.EXTRA_LAYOUT_RES_ID, R.layout.create_group_activity);
 
@@ -55,8 +55,7 @@ public class CreateGroupActivity extends ContactSelectionActivity {
                                                                   : ContactsCursorLoader.DisplayMode.FLAG_PUSH;
 
     intent.putExtra(ContactSelectionListFragment.DISPLAY_MODE, displayMode);
-    intent.putExtra(ContactSelectionListFragment.SELECTION_LIMIT, FeatureFlags.groupsV2create() ? FeatureFlags.gv2GroupCapacity() - 1
-                                                                                                : ContactSelectionListFragment.NO_LIMIT);
+    intent.putExtra(ContactSelectionListFragment.SELECTION_LIMITS, FeatureFlags.groupLimits().excludingSelf());
 
     return intent;
   }
@@ -156,7 +155,7 @@ public class CreateGroupActivity extends ContactSelectionActivity {
       List<Recipient> recipientsAndSelf = new ArrayList<>(resolved);
       recipientsAndSelf.add(Recipient.self().resolve());
 
-      if (FeatureFlags.groupsV2create()) {
+      if (!SignalStore.internalValues().gv2DoNotCreateGv2Groups()) {
         try {
           GroupsV2CapabilityChecker.refreshCapabilitiesIfNecessary(recipientsAndSelf);
         } catch (IOException e) {

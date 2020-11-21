@@ -92,20 +92,16 @@ public class SignalServiceProfile {
 
   public static class Capabilities {
     @JsonProperty
-    private boolean uuid;
-
-    @JsonProperty
     private boolean gv2;
 
     @JsonProperty
     private boolean storage;
 
+    @JsonProperty("gv1-migration")
+    private boolean gv1Migration;
+
     @JsonCreator
     public Capabilities() {}
-
-    public boolean isUuid() {
-      return uuid;
-    }
 
     public boolean isGv2() {
       return gv2;
@@ -113,6 +109,10 @@ public class SignalServiceProfile {
 
     public boolean isStorage() {
       return storage;
+    }
+
+    public boolean isGv1Migration() {
+      return gv1Migration;
     }
   }
 

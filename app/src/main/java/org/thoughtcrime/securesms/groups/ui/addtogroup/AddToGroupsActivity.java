@@ -44,14 +44,12 @@ public final class AddToGroupsActivity extends ContactSelectionActivity {
   {
     Intent intent = new Intent(context, AddToGroupsActivity.class);
 
-    intent.putExtra(ContactSelectionListFragment.MULTI_SELECT, false);
     intent.putExtra(ContactSelectionListFragment.REFRESHABLE, false);
     intent.putExtra(ContactSelectionListFragment.RECENTS, true);
     intent.putExtra(ContactSelectionActivity.EXTRA_LAYOUT_RES_ID, R.layout.add_to_group_activity);
     intent.putExtra(EXTRA_RECIPIENT_ID, recipientId);
 
     intent.putExtra(ContactSelectionListFragment.DISPLAY_MODE, ContactsCursorLoader.DisplayMode.FLAG_ACTIVE_GROUPS);
-    intent.putExtra(ContactSelectionListFragment.SELECTION_LIMIT, ContactSelectionListFragment.NO_LIMIT);
 
     intent.putParcelableArrayListExtra(ContactSelectionListFragment.CURRENT_SELECTION, new ArrayList<>(currentGroupsMemberOf));
 

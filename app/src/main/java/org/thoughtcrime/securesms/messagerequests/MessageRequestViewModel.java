@@ -12,15 +12,21 @@ import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import org.thoughtcrime.securesms.database.DatabaseFactory;
+import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.groups.ui.GroupChangeFailureReason;
+import org.thoughtcrime.securesms.profiles.spoofing.ReviewUtil;
 import org.thoughtcrime.securesms.recipients.LiveRecipient;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientForeverObserver;
 import org.thoughtcrime.securesms.recipients.RecipientId;
+import org.thoughtcrime.securesms.recipients.RecipientUtil;
+import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.SingleLiveEvent;
 import org.thoughtcrime.securesms.util.concurrent.SignalExecutors;
 import org.thoughtcrime.securesms.util.livedata.LiveDataTriple;
 import org.thoughtcrime.securesms.util.livedata.LiveDataUtil;
+import org.whispersystems.libsignal.util.Pair;
 
 import java.util.Collections;
 import java.util.List;
@@ -34,6 +40,7 @@ public class MessageRequestViewModel extends ViewModel {
   private final MutableLiveData<List<String>>             groups        = new MutableLiveData<>(Collections.emptyList());
   private final MutableLiveData<GroupMemberCount>         memberCount   = new MutableLiveData<>(GroupMemberCount.ZERO);
   private final MutableLiveData<DisplayState>             displayState  = new MutableLiveData<>();
+  private final LiveData<RequestReviewDisplayState>       requestReviewDisplayState;
   private final LiveData<RecipientInfo>                   recipientInfo = Transformations.map(new LiveDataTriple<>(recipient, memberCount, groups),
                                                                                               triple -> new RecipientInfo(triple.first(), triple.second(), triple.third()));
 
@@ -49,8 +56,10 @@ public class MessageRequestViewModel extends ViewModel {
   };
 
   private MessageRequestViewModel(MessageRequestRepository repository) {
-    this.repository  = repository;
-    this.messageData = LiveDataUtil.mapAsync(recipient, this::createMessageDataForRecipient);
+    this.repository                = repository;
+    this.messageData               = LiveDataUtil.mapAsync(recipient, this::createMessageDataForRecipient);
+    this.requestReviewDisplayState = LiveDataUtil.mapAsync(LiveDataUtil.combineLatest(messageData, displayState, MessageDataDisplayStateHolder::new),
+                                                           MessageRequestViewModel::transformHolderToReviewDisplayState);
   }
 
   public void setConversationInfo(@NonNull RecipientId recipientId, long threadId) {
@@ -75,6 +84,10 @@ public class MessageRequestViewModel extends ViewModel {
 
   public LiveData<DisplayState> getMessageRequestDisplayState() {
     return displayState;
+  }
+
+  public LiveData<RequestReviewDisplayState> getRequestReviewDisplayState() {
+    return requestReviewDisplayState;
   }
 
   public LiveData<Recipient> getRecipient() {
@@ -160,6 +173,16 @@ public class MessageRequestViewModel extends ViewModel {
     repository.getMemberCount(liveRecipient.getId(), memberCount::postValue);
   }
 
+  private static RequestReviewDisplayState transformHolderToReviewDisplayState(@NonNull MessageDataDisplayStateHolder holder) {
+    if (holder.messageData.messageClass == MessageClass.INDIVIDUAL && holder.displayState == DisplayState.DISPLAY_MESSAGE_REQUEST) {
+      return ReviewUtil.isRecipientReviewSuggested(holder.messageData.getRecipient().getId())
+          ? RequestReviewDisplayState.SHOWN
+          : RequestReviewDisplayState.HIDDEN;
+    } else {
+      return RequestReviewDisplayState.NONE;
+    }
+  }
+
   @WorkerThread
   private @NonNull MessageData createMessageDataForRecipient(@NonNull Recipient recipient) {
     if (recipient.isBlocked()) {
@@ -168,16 +191,20 @@ public class MessageRequestViewModel extends ViewModel {
       } else {
         return new MessageData(recipient, MessageClass.BLOCKED_INDIVIDUAL);
       }
-    } else if (recipient.isGroup()) {
-      if (recipient.isPushV2Group()) {
-        if (repository.isPendingMember(recipient.requireGroupId().requireV2())) {
-          return new MessageData(recipient, MessageClass.GROUP_V2_INVITE);
-        } else {
-          return new MessageData(recipient, MessageClass.GROUP_V2_ADD);
-        }
+    } else if (recipient.isPushV2Group()) {
+      if (repository.isPendingMember(recipient.requireGroupId().requireV2())) {
+        return new MessageData(recipient, MessageClass.GROUP_V2_INVITE);
       } else {
-        return new MessageData(recipient, MessageClass.GROUP_V1);
+        return new MessageData(recipient, MessageClass.GROUP_V2_ADD);
       }
+    } else if (isLegacyThread(recipient)) {
+      if (recipient.isGroup()) {
+        return new MessageData(recipient, MessageClass.LEGACY_GROUP_V1);
+      } else {
+        return new MessageData(recipient, MessageClass.LEGACY_INDIVIDUAL);
+      }
+    } else if (recipient.isGroup()) {
+      return new MessageData(recipient, MessageClass.GROUP_V1);
     } else {
       return new MessageData(recipient, MessageClass.INDIVIDUAL);
     }
@@ -198,11 +225,21 @@ public class MessageRequestViewModel extends ViewModel {
         case REQUIRED:
           displayState.postValue(DisplayState.DISPLAY_MESSAGE_REQUEST);
           break;
-        case LEGACY:
-          displayState.postValue(DisplayState.DISPLAY_LEGACY);
+        case PRE_MESSAGE_REQUEST:
+          displayState.postValue(DisplayState.DISPLAY_PRE_MESSAGE_REQUEST);
           break;
       }
     });
+  }
+
+  @WorkerThread
+  private boolean isLegacyThread(@NonNull Recipient recipient) {
+    Context context  = ApplicationDependencies.getApplication();
+    Long    threadId = DatabaseFactory.getThreadDatabase(context).getThreadIdFor(recipient.getId());
+
+    return FeatureFlags.modernProfileSharing() &&
+           threadId != null                    &&
+           (RecipientUtil.hasSentMessageInThread(context, threadId) || RecipientUtil.isPreMessageRequestThread(context, threadId));
   }
 
   public static class RecipientInfo {
@@ -246,16 +283,26 @@ public class MessageRequestViewModel extends ViewModel {
   }
 
   public enum DisplayState {
-    DISPLAY_MESSAGE_REQUEST, DISPLAY_LEGACY, DISPLAY_NONE
+    DISPLAY_MESSAGE_REQUEST, DISPLAY_PRE_MESSAGE_REQUEST, DISPLAY_NONE
   }
 
   public enum MessageClass {
     BLOCKED_INDIVIDUAL,
     BLOCKED_GROUP,
+    /** An individual conversation that existed pre-message-requests but doesn't have profile sharing enabled */
+    LEGACY_INDIVIDUAL,
+    /** A V1 group conversation that existed pre-message-requests but doesn't have profile sharing enabled */
+    LEGACY_GROUP_V1,
     GROUP_V1,
     GROUP_V2_INVITE,
     GROUP_V2_ADD,
     INDIVIDUAL
+  }
+
+  public enum RequestReviewDisplayState {
+    HIDDEN,
+    SHOWN,
+    NONE
   }
 
   public static final class MessageData {
@@ -273,6 +320,16 @@ public class MessageRequestViewModel extends ViewModel {
 
     public @NonNull MessageClass getMessageClass() {
       return messageClass;
+    }
+  }
+
+  private static final class MessageDataDisplayStateHolder {
+    private final MessageData  messageData;
+    private final DisplayState displayState;
+
+    private MessageDataDisplayStateHolder(@NonNull MessageData messageData, @NonNull DisplayState displayState) {
+      this.messageData = messageData;
+      this.displayState = displayState;
     }
   }
 

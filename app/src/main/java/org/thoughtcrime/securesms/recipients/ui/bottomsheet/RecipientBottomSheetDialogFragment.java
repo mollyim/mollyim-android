@@ -27,6 +27,7 @@ import org.thoughtcrime.securesms.components.AvatarImageView;
 import org.thoughtcrime.securesms.contacts.avatars.FallbackContactPhoto;
 import org.thoughtcrime.securesms.contacts.avatars.FallbackPhoto80dp;
 import org.thoughtcrime.securesms.groups.GroupId;
+import org.thoughtcrime.securesms.phonenumbers.PhoneNumberFormatter;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientExporter;
 import org.thoughtcrime.securesms.recipients.RecipientId;
@@ -139,25 +140,25 @@ public final class RecipientBottomSheetDialogFragment extends BottomSheetDialogF
         }
       });
       avatar.setAvatar(recipient);
-      if (recipient.isLocalNumber()) {
+      if (recipient.isSelf()) {
         avatar.setOnClickListener(v -> {
           dismiss();
           viewModel.onMessageClicked(requireActivity());
         });
       }
 
-      String name = recipient.isLocalNumber() ? requireContext().getString(R.string.note_to_self)
+      String name = recipient.isSelf() ? requireContext().getString(R.string.note_to_self)
                                               : recipient.getDisplayName(requireContext());
       fullName.setText(name);
       fullName.setVisibility(TextUtils.isEmpty(name) ? View.GONE : View.VISIBLE);
-      if (recipient.isSystemContact() && !recipient.isLocalNumber()) {
+      if (recipient.isSystemContact() && !recipient.isSelf()) {
         fullName.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_profile_circle_outline_16, 0);
         fullName.setCompoundDrawablePadding(ViewUtil.dpToPx(4));
         TextViewCompat.setCompoundDrawableTintList(fullName, ColorStateList.valueOf(ThemeUtil.getThemedColor(requireContext(), R.attr.title_text_color_primary)));
       }
 
-      String usernameNumberString = recipient.hasAUserSetDisplayName(requireContext()) && !recipient.isLocalNumber()
-                                    ? recipient.getSmsAddress().or("").trim()
+      String usernameNumberString = recipient.hasAUserSetDisplayName(requireContext()) && !recipient.isSelf()
+                                    ? recipient.getSmsAddress().transform(PhoneNumberFormatter::prettyPrint).or("").trim()
                                     : "";
       usernameNumber.setText(usernameNumberString);
       usernameNumber.setVisibility(TextUtils.isEmpty(usernameNumberString) ? View.GONE : View.VISIBLE);
@@ -168,24 +169,24 @@ public final class RecipientBottomSheetDialogFragment extends BottomSheetDialogF
         return true;
       });
 
-      noteToSelfDescription.setVisibility(recipient.isLocalNumber() ? View.VISIBLE : View.GONE);
+      noteToSelfDescription.setVisibility(recipient.isSelf() ? View.VISIBLE : View.GONE);
 
       if (RecipientUtil.isBlockable(recipient)) {
         boolean blocked = recipient.isBlocked();
 
-        blockButton  .setVisibility(recipient.isLocalNumber() ||  blocked ? View.GONE : View.VISIBLE);
-        unblockButton.setVisibility(recipient.isLocalNumber() || !blocked ? View.GONE : View.VISIBLE);
+        blockButton  .setVisibility(recipient.isSelf() ||  blocked ? View.GONE : View.VISIBLE);
+        unblockButton.setVisibility(recipient.isSelf() || !blocked ? View.GONE : View.VISIBLE);
       } else {
         blockButton  .setVisibility(View.GONE);
         unblockButton.setVisibility(View.GONE);
       }
 
-      messageButton.setVisibility(!recipient.isLocalNumber() ? View.VISIBLE : View.GONE);
-      secureCallButton.setVisibility(recipient.isRegistered() && !recipient.isLocalNumber() ? View.VISIBLE : View.GONE);
-      insecureCallButton.setVisibility(!recipient.isRegistered() && !recipient.isLocalNumber() ? View.VISIBLE : View.GONE);
-      secureVideoCallButton.setVisibility(recipient.isRegistered() && !recipient.isLocalNumber() ? View.VISIBLE : View.GONE);
+      messageButton.setVisibility(!recipient.isSelf() ? View.VISIBLE : View.GONE);
+      secureCallButton.setVisibility(recipient.isRegistered() && !recipient.isSelf() ? View.VISIBLE : View.GONE);
+      insecureCallButton.setVisibility(!recipient.isRegistered() && !recipient.isSelf() ? View.VISIBLE : View.GONE);
+      secureVideoCallButton.setVisibility(recipient.isRegistered() && !recipient.isSelf() ? View.VISIBLE : View.GONE);
 
-      if (recipient.isSystemContact() || recipient.isGroup() || recipient.isLocalNumber()) {
+      if (recipient.isSystemContact() || recipient.isGroup() || recipient.isSelf()) {
         addContactButton.setVisibility(View.GONE);
       } else {
         addContactButton.setVisibility(View.VISIBLE);

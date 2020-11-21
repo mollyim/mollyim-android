@@ -331,6 +331,22 @@
   <string name="CreateProfileActivity_set_up_your_profile">உங்கள் சுயவிவரத்தை அமைக்கவும்</string>
   <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">உங்கள் சுயவிவரம் முடிவிலிருந்து-முடிவுவரை மறையாக்கப்பட்டது. நீங்கள் புதிய உரையாடல்களைத் தொடங்கும்போது அல்லது ஏற்றுக்கொள்ளும்போது, புதிய குழுக்களில் சேரும்போது உங்கள் சுயவிவரமும் அதற்கான மாற்றங்களும் உங்கள் தொடர்புகளுக்குத் தெரியும்.</string>
   <string name="CreateProfileActivity_set_avatar_description">சின்னம் அமைக்கவும்</string>
+  <!--ChooseBackupFragment-->
+  <string name="ChooseBackupFragment__restore_from_backup">காப்புப்பதிவு பயனர் தரவு  மீட்டமைக்கவா?</string>
+  <string name="ChooseBackupFragment__restore_your_messages_and_media">உள்ளூர் காப்புப்பதிவு பயனர் தரவு உங்கள் செய்திகளையும் ஊடகத்தையும் மீட்டெடுக்கவும். நீங்கள் இப்போது மீட்டமைக்கவில்லை என்றால், நீங்கள் பின்னர் மீட்டெடுக்க முடியாது.</string>
+  <string name="ChooseBackupFragment__learn_more">மேலும் அறிக</string>
+  <!--RestoreBackupFragment-->
+  <string name="RestoreBackupFragment__choose_folder">கோப்புறையைத் தேர்வுசெய்க</string>
+  <string name="RestoreBackupFragment__not_now">இப்போது இல்லை</string>
+  <!--BackupsPreferenceFragment-->
+  <string name="BackupsPreferenceFragment__chat_backups">அரட்டை காப்புப்பிரதிகள்</string>
+  <string name="BackupsPreferenceFragment__create_backup">காப்புப்பதிவு பயனர் தரவு உருவாக்கவும்</string>
+  <string name="BackupsPreferenceFragment__verify_backup_passphrase">காப்புப்பிரதி கடவுச்சொற்றொடரை சரிபார்க்கவும்</string>
+  <string name="BackupsPreferenceFragment__test_your_backup_passphrase">உங்கள் காப்புப்பிரதி கடவுச்சொற்றொடரைச் சோதித்து, அது பொருந்துமா என்பதைச் சரிபார்க்கவும்</string>
+  <string name="BackupsPreferenceFragment__turn_on">இயக்கவும்</string>
+  <string name="BackupsPreferenceFragment__turn_off">அணைக்க</string>
+  <string name="BackupsPreferenceFragment__learn_more">மேலும் அறிக</string>
+  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">காப்புப்பிரதிகளை உருவாக்க Signal கு வெளிப்புற சேமிப்பக அனுமதி தேவைப்படுகிறது, ஆனால் அது நிரந்தரமாக மறுக்கப்பட்டது. பயன்பாடு அமைப்புகளைத் தொடரவும், \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து \"சேமிப்பகத்தை\" இயக்கவும்.</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">பயன்படுத்தப்படும் வழக்கம் : %s</string>
   <string name="CustomDefaultPreference_using_default">பயன்படுத்தப்படும் இயல்புநிலை: %s</string>
@@ -370,6 +386,8 @@
   <string name="DozeReminder_optimize_for_missing_play_services">காணாமல் போன விளையாட்டு சேவைகளை மேம்படுத்தவும்</string>
   <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">இந்த சாதனம் Play சேவைகளை ஆதரிக்காது. செயலற்ற நிலையில் செய்திகளை மீட்டெடுப்பதில் இருந்து Molly லைத் தடுக்கும் கணினி பேட்டரி மேம்படுத்தல்களை முடக்க தட்டவும்.</string>
   <!--ExpiredBuildReminder-->
+  <!--PendingGroupJoinRequestsReminder-->
+  <string name="PendingGroupJoinRequestsReminder_view">காண்க</string>
   <!--ShareActivity-->
   <string name="ShareActivity_share_with">பகிர்</string>
   <string name="ShareActivity_multiple_attachments_are_only_supported">பல இணைப்புகள் படங்கள் மற்றும் வீடியோக்களுக்கு மட்டுமே துணைபுரிகின்றன</string>
@@ -413,6 +431,7 @@
   <string name="GroupManagement_invite_single_user">“%1$s” ஐ தானாக இந்த குழுவில் சேர்க்க முடியாது. குழுவில் சேர அவர்கள் அழைக்கப்பட்டுள்ளனர். எந்தவொரு குழு செய்திகளையும் அவர்கள் ஏற்றுக்கொள்ளும் வரை பார்க்க மாட்டார்கள்.</string>
   <string name="GroupManagement_learn_more">மேலும் அறிக</string>
   <string name="GroupManagement_invite_multiple_users">இந்த பயனர்களை இந்த குழுவில் தானாக உங்களால் சேர்க்க முடியாது. குழுவில் சேர அவர்கள் அழைக்கப்பட்டுள்ளனர், அவர்கள் ஏற்றுக்கொள்ளும் வரை எந்த குழு செய்திகளையும் பார்க்க மாட்டார்கள்.</string>
+  <!--GroupsV1MigrationLearnMoreBottomSheetDialogFragment-->
   <!--LeaveGroupDialog-->
   <string name="LeaveGroupDialog_leave_group">குழுவிலுருந்து விலகலாமா?</string>
   <string name="LeaveGroupDialog_you_will_no_longer_be_able_to_send_or_receive_messages_in_this_group">இந்த குழுவில் நீங்கள் இனி செய்திகளை அனுப்பவோ பெறவோ முடியாது.</string>
@@ -717,19 +736,15 @@
   <string name="MediaSendActivity_tap_here_to_make_this_message_disappear_after_it_is_viewed">இந்த செய்தியைப் பார்த்த பிறகு மறைந்து போக இங்கே தட்டவும்.</string>
   <!--MediaRepository-->
   <string name="MediaRepository_all_media">அனைத்து ஊடகங்களும்</string>
+  <string name="MediaRepository__camera">புகைப்பட கருவி</string>
   <!--MessageRecord-->
   <string name="MessageRecord_unknown">தெரியாத</string>
   <string name="MessageRecord_message_encrypted_with_a_legacy_protocol_version_that_is_no_longer_supported">ஆதரவில்லா Signal-இன் பழைய பதிப்பைப் பயன்படுத்தி மறையாக்கப்பட்ட செய்தி பெறப்பட்டது. தயவுசெய்து அனுப்புநரிடம் மிகச் சமீபத்திய பதிப்பைப் புதுப்பித்து, செய்தியை மீண்டும் அனுப்பச் சொல்லுங்கள்.</string>
   <string name="MessageRecord_left_group">நீங்கள் குழுவை விட்டு விலகினீர்கள்.</string>
   <string name="MessageRecord_you_updated_group">நீங்கள் குழுவைப் புதுப்பித்தீர்கள்.</string>
   <string name="MessageRecord_the_group_was_updated">குழு புதுப்பிக்கப்பட்டது.</string>
-  <string name="MessageRecord_you_called">நீங்கள் அழைத்தீர்கள்</string>
-  <string name="MessageRecord_called_you">தொடர்பு அழைத்தது</string>
-  <string name="MessageRecord_missed_call">தவறிய அழைப்பு</string>
   <string name="MessageRecord_s_updated_group">%s குழு புதுப்பிக்கப்பட்டது .</string>
-  <string name="MessageRecord_s_called_you">%s உங்களை அழைத்தார்</string>
   <string name="MessageRecord_called_s">%sயை அழைத்தீர்கள்</string>
-  <string name="MessageRecord_missed_call_from"> %s இடமிருந்து தவறிய அழைப்பு</string>
   <string name="MessageRecord_s_joined_signal">%s Signal லில் உள்ளது!</string>
   <string name="MessageRecord_you_disabled_disappearing_messages">காணாமல் போகும் செய்திகளை முடக்கியுள்ளீர்கள்.</string>
   <string name="MessageRecord_s_disabled_disappearing_messages">%1$s ஆல் காணாமல் போகும் செய்திகள் முடக்கப்பட்டது .</string>
@@ -832,6 +847,7 @@
   <string name="MessageRecord_you_marked_your_safety_number_with_s_unverified_from_another_device">%s உடனான உங்கள் பாதுகாப்பு எண்ணை சரிபார்க்கப்படாததாக வேறொரு சாதனத்திலிருந்து குறித்தீர்கள்</string>
   <!--MessageRequestBottomView-->
   <string name="MessageRequestBottomView_accept">ஒப்புக்கொள்</string>
+  <string name="MessageRequestBottomView_continue">தொடர்ந்து செல் </string>
   <string name="MessageRequestBottomView_delete">அழி</string>
   <string name="MessageRequestBottomView_block">தடு </string>
   <string name="MessageRequestBottomView_unblock">தடைநீக்கு </string>
@@ -1099,7 +1115,8 @@
   <string name="ThreadRecord_draft">வரைவு:</string>
   <string name="ThreadRecord_called">நீங்கள் அழைத்தீர்கள்</string>
   <string name="ThreadRecord_called_you">உங்களை அழைத்தார்</string>
-  <string name="ThreadRecord_missed_call">தவறிய அழைப்பு</string>
+  <string name="ThreadRecord_missed_audio_call">ஒலி அழைப்பு தவறவிட்டது</string>
+  <string name="ThreadRecord_missed_video_call">காணொளி அழைப்பு தவறவிட்டது</string>
   <string name="ThreadRecord_media_message">பல்லூடகச் செய்தி</string>
   <string name="ThreadRecord_sticker">ஒட்டி</string>
   <string name="ThreadRecord_view_once_photo">காண்க-ஒருமுறை புகைப்படம் </string>
@@ -1335,8 +1352,6 @@
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">தொடர்புகளை மீட்டெடுப்பதில் பிழை, உங்கள் பிணைய இணைப்பைச் சரிபார்க்கவும்</string>
   <string name="ContactSelectionListFragment_username_not_found">பயனர்பெயர் கிடைக்கவில்லை</string>
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">\"%1$s\" Signal பயனர் அல்ல. தயவுசெய்து பயனர்பெயரை சரிபார்த்து மீண்டும் முயற்சிக்கவும்.</string>
-  <string name="ContactSelectionListFragment_okay">சரி</string>
-  <string name="ContactSelectionListFragment_the_group_is_full">குழு நிரம்பியுள்ளது</string>
   <string name="ContactSelectionListFragment_you_do_not_need_to_add_yourself_to_the_group">உங்களை நீங்களே குழுவில் சேர்க்க தேவையில்லை</string>
   <!--blocked_contacts_fragment-->
   <string name="blocked_contacts_fragment__no_blocked_contacts">தடுக்கப்பட்ட தொடர்புகள் இல்லை</string>
@@ -1378,6 +1393,7 @@
   <string name="conversation_item_received__contact_photo_description">தொடர்பின் புகைப்படம்</string>
   <!--ConversationUpdateItem-->
   <string name="ConversationUpdateItem_loading">ஏற்றுதல்</string>
+  <string name="ConversationUpdateItem_learn_more">மேலும் அறிக</string>
   <!--audio_view-->
   <string name="audio_view__play_pause_accessibility_description">விளையாடு … இடைநிறுத்து</string>
   <string name="audio_view__download_accessibility_description">பதிவிறக்க</string>
@@ -1893,6 +1909,7 @@
   <!--media_preview-->
   <string name="media_preview__save_title">சேமி</string>
   <string name="media_preview__forward_title">முன்னனுப்புக</string>
+  <string name="media_preview__share_title">பகிர்</string>
   <string name="media_preview__all_media_title">அனைத்து ஊடகங்களும்</string>
   <!--media_preview_activity-->
   <string name="media_preview_activity__media_content_description">மீடியா முன்னோட்டம்</string>
@@ -2062,6 +2079,7 @@
   <string name="BackupDialog_delete_backups">காப்புப்பிரதிகளை நீக்கவா?</string>
   <string name="BackupDialog_disable_and_delete_all_local_backups">எல்லா உள்ளூர் காப்புப்பிரதிகளையும் முடக்கி நீக்கவா?</string>
   <string name="BackupDialog_delete_backups_statement">காப்புப்பிரதிகளை நீக்கு</string>
+  <string name="BackupDialog_choose_folder">கோப்புறையைத் தேர்வுசெய்க</string>
   <string name="BackupDialog_copied_to_clipboard">கிளிப்போர்டுக்கு நகலெடுக்கப்பட்டது</string>
   <string name="BackupDialog_enter_backup_passphrase_to_verify">சரிபார்க்க உங்கள் காப்புப்பிரதி கடவுச்சொற்றொடரை உள்ளிடவும்</string>
   <string name="BackupDialog_verify">சரிபார்க்கவும்</string>
@@ -2177,5 +2195,16 @@
   <string name="GroupLinkBottomSheet_share">பகிர்</string>
   <string name="GroupLinkBottomSheet_copied_to_clipboard">கிளிப்போர்டுக்கு நகலெடுக்கப்பட்டது</string>
   <string name="GroupLinkBottomSheet_the_link_is_not_currently_active">இணைப்பு தற்போது செயலில் இல்லை</string>
+  <!--VoiceNotePlaybackPreparer-->
+  <!--VoiceNoteMediaDescriptionCompatFactory-->
+  <string name="VoiceNoteMediaDescriptionCompatFactory__s_to_s">%1$s to %2$s</string>
+  <!--StorageUtil-->
+  <!--ReviewCardDialogFragment-->
+  <string name="ReviewCardDialogFragment__remove">நீக்கு</string>
+  <!--ReviewCard-->
+  <string name="ReviewCard__member">உறுப்பினர்</string>
+  <string name="ReviewCard__remove_from_group">குழுவிலிருந்து அகற்று</string>
+  <string name="ReviewCard__block">தடு </string>
+  <string name="ReviewCard__delete">அழி</string>
   <!--EOF-->
 </resources>

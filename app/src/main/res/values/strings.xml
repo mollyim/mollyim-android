@@ -4,6 +4,7 @@
 
     <!-- <string name="install_url" translatable="false">https://signal.org/install</string> -->
     <!-- <string name="donate_url" translatable="false">https://signal.org/donate</string> -->
+    <string name="backup_support_url" translatable="false">https://support.signal.org/hc/articles/360007059752</string>
 
     <string name="yes">Yes</string>
     <string name="no">No</string>
@@ -336,6 +337,10 @@
     <string name="ConversationFragment_outgoing_view_once_media_files_are_automatically_removed">Outgoing view-once media files are automatically removed after they are sent</string>
     <string name="ConversationFragment_you_already_viewed_this_message">You already viewed this message</string>
     <string name="ConversationFragment__you_can_add_notes_for_yourself_in_this_conversation">You can add notes for yourself in this conversation.\nIf your account has any linked devices, new notes will be synced.</string>
+    <string name="ConversationFragment__d_group_members_have_the_same_name">%1$d group members have the same name.</string>
+    <string name="ConversationFragment__tap_to_review">Tap to review</string>
+    <string name="ConversationFragment__review_requests_carefully">Review requests carefully</string>
+    <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Signal found another contact with the same name.</string>
 
     <!-- ConversationListActivity -->
     <string name="ConversationListActivity_there_is_no_browser_installed_on_your_device">There is no browser installed on your device.</string>
@@ -385,6 +390,36 @@
     <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">Your profile is end-to-end encrypted. Your profile and changes to it will be visible to your contacts, when you initiate or accept new conversations, and when you join new groups.</string>
     <string name="CreateProfileActivity_set_avatar_description">Set avatar</string>
 
+    <!-- ChooseBackupFragment -->
+    <string name="ChooseBackupFragment__restore_from_backup">Restore from backup?</string>
+    <string name="ChooseBackupFragment__restore_your_messages_and_media">Restore your messages and media from a local backup. If you don\'t restore now, you won\'t be able to restore later.</string>
+    <string name="ChooseBackupFragment__icon_content_description">Restore from backup icon</string>
+    <string name="ChooseBackupFragment__choose_backup">Choose backup</string>
+    <string name="ChooseBackupFragment__learn_more">Learn more</string>
+
+    <!-- RestoreBackupFragment -->
+    <string name="RestoreBackupFragment__restore_complete">Restore complete</string>
+    <string name="RestoreBackupFragment__to_continue_using_backups_please_choose_a_folder">To continue using backups, please choose a folder. New backups will be saved to this location.</string>
+    <string name="RestoreBackupFragment__choose_folder">Choose folder</string>
+    <string name="RestoreBackupFragment__not_now">Not now</string>
+
+    <!-- BackupsPreferenceFragment -->
+    <string name="BackupsPreferenceFragment__chat_backups">Chat backups</string>
+    <string name="BackupsPreferenceFragment__backups_are_encrypted_with_a_passphrase">Backups are encrypted with a passphrase and stored on your device.</string>
+    <string name="BackupsPreferenceFragment__create_backup">Create backup</string>
+    <string name="BackupsPreferenceFragment__last_backup">Last backup: %1$s</string>
+    <string name="BackupsPreferenceFragment__backup_folder">Backup folder</string>
+    <string name="BackupsPreferenceFragment__verify_backup_passphrase">Verify backup passphrase</string>
+    <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Test your backup passphrase and verify that it matches</string>
+    <string name="BackupsPreferenceFragment__turn_on">Turn on</string>
+    <string name="BackupsPreferenceFragment__turn_off">Turn off</string>
+    <string name="BackupsPreferenceFragment__to_restore_a_backup">To restore a backup, install a new copy of Signal. Open the app and tap "Restore backup", then locate a backup file. %1$s</string>
+    <string name="BackupsPreferenceFragment__learn_more">Learn more</string>
+    <string name="BackupsPreferenceFragment__in_progress">In progress…</string>
+    <string name="BackupsPreferenceFragment__d_so_far">%1$d so far…</string>
+    <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal requires external storage permission in order to create backups, but it has been permanently denied. Please continue to app settings, select \"Permissions\" and enable \"Storage\".</string>
+
+
     <!-- CustomDefaultPreference -->
     <string name="CustomDefaultPreference_using_custom">Using custom: %s</string>
     <string name="CustomDefaultPreference_using_default">Using default: %s</string>
@@ -396,6 +431,7 @@
     <string name="AvatarSelectionBottomSheetDialogFragment__choose_from_gallery">Choose from gallery</string>
     <string name="AvatarSelectionBottomSheetDialogFragment__remove_photo">Remove photo</string>
     <string name="AvatarSelectionBottomSheetDialogFragment__taking_a_photo_requires_the_camera_permission">Taking a photo requires the camera permission.</string>
+    <string name="AvatarSelectionBottomSheetDialogFragment__viewing_your_gallery_requires_the_storage_permission">Viewing your gallery requires the storage permission.</string>
 
     <!-- DateUtils -->
     <string name="DateUtils_just_now">Now</string>
@@ -434,6 +470,13 @@
     <!-- ExpiredBuildReminder -->
     <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">This version of Signal has expired. Update now to send and receive messages.</string>
     <string name="ExpiredBuildReminder_update_now">Update now</string>
+
+    <!-- PendingGroupJoinRequestsReminder -->
+    <plurals name="PendingGroupJoinRequestsReminder_d_pending_member_requests">
+        <item quantity="one">%d pending member request.</item>
+        <item quantity="other">%d pending member requests.</item>
+    </plurals>
+    <string name="PendingGroupJoinRequestsReminder_view">View</string>
 
     <!-- ShareActivity -->
     <string name="ShareActivity_share_with">Share with</string>
@@ -499,6 +542,19 @@
     <string name="GroupManagement_invite_single_user">“%1$s” can’t be automatically added to this group by you.\n\nThey’ve been invited to join, and won’t see any group messages until they accept.</string>
     <string name="GroupManagement_learn_more">Learn more</string>
     <string name="GroupManagement_invite_multiple_users">These users can’t be automatically added to this group by you.\n\nThey’ve been invited to join the group, and won’t see any group messages until they accept.</string>
+
+    <!-- GroupsV1MigrationLearnMoreBottomSheetDialogFragment -->
+    <string name="GroupsV1MigrationLearnMore_what_are_new_groups">What are New Groups?</string>
+    <string name="GroupsV1MigrationLearnMore_new_groups_have_features_like_mentions">New Groups have features like @mentions and group admins, and will support more features in the future.</string>
+    <string name="GroupsV1MigrationLearnMore_all_message_history_and_media_has_been_kept">All message history and media has been kept from before the upgrade.</string>
+    <plurals name="GroupsV1MigrationLearnMore_these_members_will_need_to_accept_an_invite">
+        <item quantity="one">This member will need to accept an invite to join this group again and will not receive group messages until they accept:</item>
+        <item quantity="other">These members will need to accept an invite to join this group again and will not receive group messages until they accept:</item>
+    </plurals>
+    <plurals name="GroupsV1MigrationLearnMore_these_members_are_not_capable_of_joining_new_groups">
+        <item quantity="one">This member is not capable of joining New Groups, and has been removed from the group:</item>
+        <item quantity="other">These members are not capable of joining New Groups, and have been removed from the group:</item>
+    </plurals>
 
     <!-- LeaveGroupDialog -->
     <string name="LeaveGroupDialog_leave_group">Leave group?</string>
@@ -892,6 +948,7 @@
 
     <!-- MediaRepository -->
     <string name="MediaRepository_all_media">All media</string>
+    <string name="MediaRepository__camera">Camera</string>
 
     <!-- MessageRecord -->
     <string name="MessageRecord_unknown">Unknown</string>
@@ -899,19 +956,23 @@
     <string name="MessageRecord_left_group">You have left the group.</string>
     <string name="MessageRecord_you_updated_group">You updated the group.</string>
     <string name="MessageRecord_the_group_was_updated">The group was updated.</string>
-    <string name="MessageRecord_you_called">You called</string>
-    <string name="MessageRecord_called_you">Contact called</string>
-    <string name="MessageRecord_missed_call">Missed call</string>
+    <string name="MessageRecord_you_called_date">You called · %1$s</string>
+    <string name="MessageRecord_missed_audio_call_date">Missed audio call · %1$s</string>
+    <string name="MessageRecord_missed_video_call_date">Missed video call · %1$s</string>
     <string name="MessageRecord_s_updated_group">%s updated the group.</string>
-    <string name="MessageRecord_s_called_you">%s called you</string>
+    <string name="MessageRecord_s_called_you_date">%1$s called you · %2$s</string>
     <string name="MessageRecord_called_s">Called %s</string>
-    <string name="MessageRecord_missed_call_from">Missed call from %s</string>
     <string name="MessageRecord_s_joined_signal">%s is on Signal!</string>
     <string name="MessageRecord_you_disabled_disappearing_messages">You disabled disappearing messages.</string>
     <string name="MessageRecord_s_disabled_disappearing_messages">%1$s disabled disappearing messages.</string>
     <string name="MessageRecord_you_set_disappearing_message_time_to_s">You set the disappearing message timer to %1$s.</string>
     <string name="MessageRecord_s_set_disappearing_message_time_to_s">%1$s set the disappearing message timer to %2$s.</string>
     <string name="MessageRecord_disappearing_message_time_set_to_s">The disappearing message timer has been set to %1$s.</string>
+    <string name="MessageRecord_this_group_was_updated_to_a_new_group">This group was updated to a New Group.</string>
+    <plurals name="MessageRecord_members_couldnt_be_added_to_the_new_group_and_have_been_invited">
+        <item quantity="one">%1$s member couldn\'t be added to the New Group and has been invited to join.</item>
+        <item quantity="other">%1$s members couldn\'t be added to the New Group and have been invited to join.</item>
+    </plurals>
 
     <!-- Profile change updates -->
     <string name="MessageRecord_changed_their_profile_name_to">%1$s changed their profile name to %2$s.</string>
@@ -1061,14 +1122,18 @@
 
     <!-- MessageRequestBottomView -->
     <string name="MessageRequestBottomView_accept">Accept</string>
+    <string name="MessageRequestBottomView_continue">Continue</string>
     <string name="MessageRequestBottomView_delete">Delete</string>
     <string name="MessageRequestBottomView_block">Block</string>
     <string name="MessageRequestBottomView_unblock">Unblock</string>
     <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_they_wont_know_youve_seen_their_messages_until_you_accept">Let %1$s message you and share your name and photo with them? They won\'t know you\'ve seen their message until you accept.</string>
     <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them">Let %1$s message you and share your name and photo with them? You won\'t receive any messages until you unblock them.</string>
+    <string name="MessageRequestBottomView_continue_your_conversation_with_this_group_and_share_your_name_and_photo">Continue your conversation with this group and share your name and photo with its members?</string>
+    <string name="MessageRequestBottomView_continue_your_conversation_with_s_and_share_your_name_and_photo">Continue your conversation with %1$s and share your name and photo with them?</string>
     <string name="MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Join this group and share your name and photo with its members? They won\'t know you\'ve seen their messages until you accept.</string>
     <string name="MessageRequestBottomView_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Join this group? They won’t know you’ve seen their messages until you accept.</string>
     <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">Unblock this group and share your name and photo with its members? You won\'t receive any messages until you unblock them.</string>
+    <string name="MessageRequestBottomView_legacy_learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007459591</string>
     <string name="MessageRequestProfileView_member_of_one_group">Member of %1$s</string>
     <string name="MessageRequestProfileView_member_of_two_groups">Member of %1$s and %2$s</string>
     <string name="MessageRequestProfileView_member_of_many_groups">Member of %1$s, %2$s, and %3$s</string>
@@ -1256,6 +1321,7 @@
     <string name="RegistrationActivity_more_information">More information</string>
     <string name="RegistrationActivity_less_information">Less information</string>
     <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly needs access to your contacts and media in order to connect with friends, exchange messages, and make secure calls</string>
+    <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Molly needs access to your contacts in order to connect with friends, exchange messages, and make secure calls</string>
     <string name="RegistrationActivity_rate_limited_to_service">You\'ve made too many attempts to register this number. Please try again later.</string>
     <string name="RegistrationActivity_unable_to_connect_to_service">Unable to connect to service. Please check network connection and try again.</string>
     <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">To easily verify your phone number, Molly can automatically detect your verification code if you allow Molly to view SMS messages.</string>
@@ -1388,7 +1454,8 @@
     <string name="ThreadRecord_draft">Draft:</string>
     <string name="ThreadRecord_called">You called</string>
     <string name="ThreadRecord_called_you">Called you</string>
-    <string name="ThreadRecord_missed_call">Missed call</string>
+    <string name="ThreadRecord_missed_audio_call">Missed audio call</string>
+    <string name="ThreadRecord_missed_video_call">Missed video call</string>
     <string name="ThreadRecord_media_message">Media message</string>
     <string name="ThreadRecord_sticker">Sticker</string>
     <string name="ThreadRecord_view_once_photo">View-once photo</string>
@@ -1464,7 +1531,7 @@
     <string name="ViewOnceMessageActivity_video_duration" translatable="false">%1$02d:%2$02d</string>
 
     <!-- AudioView -->
-    <string name="AudioView_duration" translatable="false">%1$02d:%2$02d</string>
+    <string name="AudioView_duration" translatable="false">%1$d:%2$02d</string>
 
     <!-- MessageDisplayHelper -->
     <string name="MessageDisplayHelper_bad_encrypted_message">Bad encrypted message</string>
@@ -1499,6 +1566,7 @@
     <string name="MediaPreviewActivity_media_delete_confirmation_message">This will permanently delete this message.</string>
     <string name="MediaPreviewActivity_s_to_s">%1$s to %2$s</string>
     <string name="MediaPreviewActivity_media_no_longer_available">Media no longer available.</string>
+    <string name="MediaPreviewActivity_cant_find_an_app_able_to_share_this_media">Can\'t find an app able to share this media.</string>
 
     <!-- MessageNotifier -->
     <string name="MessageNotifier_d_new_messages_in_d_conversations">%1$d new messages in %2$d conversations</string>
@@ -1544,6 +1612,7 @@
     <string name="NotificationChannel_other">Other</string>
     <string name="NotificationChannel_group_messages">Messages</string>
     <string name="NotificationChannel_missing_display_name">Unknown</string>
+    <string name="NotificationChannel_voice_notes">Voice Notes</string>
 
     <!-- ProfileEditNameFragment -->
     <string name="ProfileEditNameFragment_successfully_set_profile_name">Successfully set profile name.</string>
@@ -1669,9 +1738,15 @@
     <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Error retrieving contacts, check your network connection</string>
     <string name="ContactSelectionListFragment_username_not_found">Username not found</string>
     <string name="ContactSelectionListFragment_s_is_not_a_signal_user">"%1$s" is not a Signal user. Please check the username and try again.</string>
-    <string name="ContactSelectionListFragment_okay">Okay</string>
-    <string name="ContactSelectionListFragment_the_group_is_full">The group is full</string>
     <string name="ContactSelectionListFragment_you_do_not_need_to_add_yourself_to_the_group">You do not need to add yourself to the group</string>
+    <string name="ContactSelectionListFragment_maximum_group_size_reached">Maximum group size reached</string>
+    <string name="ContactSelectionListFragment_signal_groups_can_have_a_maximum_of_d_members">Signal groups can have a maximum of %1$d members.</string>
+    <string name="ContactSelectionListFragment_recommended_member_limit_reached">Recommended member limit reached</string>
+    <string name="ContactSelectionListFragment_signal_groups_perform_best_with_d_members_or_fewer">Signal groups perform best with %1$d members or fewer. Adding more members will cause delays sending and receiving messages.</string>
+    <plurals name="ContactSelectionListFragment_d_members">
+        <item quantity="one">%1$d member</item>
+        <item quantity="other">%1$d members</item>
+    </plurals>
 
     <!-- blocked_contacts_fragment -->
     <string name="blocked_contacts_fragment__no_blocked_contacts">No blocked contacts</string>
@@ -1721,6 +1796,7 @@
 
     <!-- ConversationUpdateItem -->
     <string name="ConversationUpdateItem_loading">Loading</string>
+    <string name="ConversationUpdateItem_learn_more">Learn more</string>
 
     <!-- audio_view -->
     <string name="audio_view__play_pause_accessibility_description">Play … Pause</string>
@@ -2206,6 +2282,7 @@
     <!-- Internal only preferences -->
     <string name="preferences__internal_preferences" translatable="false">Internal Preferences</string>
     <string name="preferences__internal_preferences_groups_v2" translatable="false">Groups V2</string>
+    <string name="preferences__internal_preferences_groups_v1_migration" translatable="false">Groups V1 Migration</string>
     <string name="preferences__internal_do_not_create_gv2" translatable="false">Do not create GV2 groups</string>
     <string name="preferences__internal_do_not_create_gv2_description" translatable="false">Do not attempt to create GV2 groups, i.e. will force creation of GV1 or MMS groups.</string>
     <string name="preferences__internal_force_gv2_invites" translatable="false">Force Invites</string>
@@ -2214,6 +2291,10 @@
     <string name="preferences__internal_ignore_gv2_server_changes_description" translatable="false">Changes in server\'s response will be ignored, causing passive voice update messages if P2P is also ignored.</string>
     <string name="preferences__internal_ignore_gv2_p2p_changes" translatable="false">Ignore P2P changes</string>
     <string name="preferences__internal_ignore_gv2_p2p_changes_description" translatable="false">Changes sent P2P will be ignored. In conjunction with ignoring server changes, will cause passive voice.</string>
+    <string name="preferences__internal_do_not_initiate_automigrate" translatable="false">Disable Auto-Migration Initiation</string>
+    <string name="preferences__internal_do_not_initiate_automigrate_description" translatable="false">Do not attempt to initiate an auto-migration. You will still recognize migrated groups.</string>
+    <string name="preferences__internal_do_not_notify_automigrate" translatable="false">Disable Auto-Migration Notification</string>
+    <string name="preferences__internal_do_not_notify_automigrate_description" translatable="false">Do not attempt to notify other users of an auto-migration. They will have to discover it on their own.</string>
     <string name="preferences__internal_account" translatable="false">Account</string>
     <string name="preferences__internal_refresh_attributes" translatable="false">Refresh attributes</string>
     <string name="preferences__internal_refresh_attributes_description" translatable="false">Forces a write of capabilities on to the server followed by a read.</string>
@@ -2227,6 +2308,9 @@
     <string name="preferences__internal_storage_service" translatable="false">Storage service</string>
     <string name="preferences__internal_force_storage_service_sync" translatable="false">Overwrite remote data</string>
     <string name="preferences__internal_force_storage_service_sync_description" translatable="false">Forces remote storage to match the local device state.</string>
+    <string name="preferences__internal_network" translatable="false">Network</string>
+    <string name="preferences__internal_force_censorship" translatable="false">Force censorship</string>
+    <string name="preferences__internal_force_censorship_description" translatable="false">Force the app to behave as if it is in a country where Signal is censored.</string>
 
     <!-- **************************************** -->
     <!-- menus -->
@@ -2359,6 +2443,7 @@
     <!-- media_preview -->
     <string name="media_preview__save_title">Save</string>
     <string name="media_preview__forward_title">Forward</string>
+    <string name="media_preview__share_title">Share</string>
     <string name="media_preview__all_media_title">All media</string>
 
     <!-- media_preview_activity -->
@@ -2518,7 +2603,7 @@
     <string name="ResearchMegaphoneDialog_we_believe_in_privacy"><![CDATA[<p><b>We believe in privacy.</b></p><p>Signal doesn\'t track you or collect your data. To improve Signal for everyone, we rely on user feedback, <b>and we\'d love yours.</b></p><p>We\'re running a survey to understand how you use Signal. Our survey doesn\'t collect any data that will identify you. If you’re interested in sharing additional feedback, you\'ll have the option to provide contact information.</p><p>If you have a few minutes and feedback to offer, we\'d love to hear from you.</p>]]></string>
     <string name="ResearchMegaphoneDialog_take_the_survey">Take the survey</string>
     <string name="ResearchMegaphoneDialog_no_thanks">No thanks</string>
-    <string name="ResearchMegaphoneDialog_the_survey_is_hosted_by_surveygizmo_at_the_secure_domain">The survey is hosted by Surveygizmo at the secure domain surveys.signalusers.org</string>
+    <string name="ResearchMegaphoneDialog_the_survey_is_hosted_by_alchemer_at_the_secure_domain">The survey is hosted by Alchemer at the secure domain surveys.signalusers.org</string>
 
     <!-- transport_selection_list_item -->
     <string name="transport_selection_list_item__transport_icon">Transport icon</string>
@@ -2535,6 +2620,8 @@
     <string name="PushDecryptJob_unlock_to_view_pending_messages">Unlock to view pending messages</string>
     <string name="enter_backup_passphrase_dialog__backup_passphrase">Backup passphrase</string>
     <string name="backup_enable_dialog__backups_will_be_saved_to_external_storage_and_encrypted_with_the_passphrase_below_you_must_have_this_passphrase_in_order_to_restore_a_backup">Backups will be saved to external storage and encrypted with the passphrase below. You must have this passphrase in order to restore a backup.</string>
+    <string name="backup_enable_dialog__you_must_have_this_passphrase">You must have this passphrase in order to restore a backup.</string>
+    <string name="backup_enable_dialog__folder">Folder</string>
     <string name="backup_enable_dialog__i_have_written_down_this_passphrase">I have written down this passphrase. Without it, I will be unable to restore a backup.</string>
     <string name="registration_activity__restore_backup">Restore backup</string>
     <string name="registration_activity__skip">Skip</string>
@@ -2560,6 +2647,8 @@
     <string name="BackupDialog_delete_backups">Delete backups?</string>
     <string name="BackupDialog_disable_and_delete_all_local_backups">Disable and delete all local backups?</string>
     <string name="BackupDialog_delete_backups_statement">Delete backups</string>
+    <string name="BackupDialog_to_enable_backups_choose_a_folder">To enable backups, choose a folder. Backups will be saved to this location.</string>
+    <string name="BackupDialog_choose_folder">Choose folder</string>
     <string name="BackupDialog_copied_to_clipboard">Copied to clipboard</string>
     <string name="BackupDialog_enter_backup_passphrase_to_verify">Enter your backup passphrase to verify</string>
     <string name="BackupDialog_verify">Verify</string>
@@ -2569,6 +2658,11 @@
     <string name="ChatsPreferenceFragment_last_backup_s">Last backup: %s</string>
     <string name="ChatsPreferenceFragment_in_progress">In progress</string>
     <string name="LocalBackupJob_creating_backup">Creating backup…</string>
+    <string name="LocalBackupJobApi29_backup_failed">Backup failed</string>
+    <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">Your backup directory has been deleted or moved.</string>
+    <string name="LocalBackupJobApi29_your_backup_file_is_too_large">Your backup file is too large to store on this volume.</string>
+    <string name="LocalBackupJobApi29_there_is_not_enough_space">There is not enough space to store your backup.</string>
+    <string name="LocalBackupJobApi29_tap_to_manage_backups">Tap to manage backups.</string>
     <string name="ProgressPreference_d_messages_so_far">%d messages so far</string>
     <string name="RegistrationActivity_please_enter_the_verification_code_sent_to_s">Please enter the verification code sent to %s.</string>
     <string name="RegistrationActivity_wrong_number">Wrong number</string>
@@ -2687,6 +2781,45 @@
     <string name="GroupLinkBottomSheet_share">Share</string>
     <string name="GroupLinkBottomSheet_copied_to_clipboard">Copied to clipboard</string>
     <string name="GroupLinkBottomSheet_the_link_is_not_currently_active">The link is not currently active</string>
+
+    <!-- VoiceNotePlaybackPreparer -->
+    <string name="VoiceNotePlaybackPreparer__could_not_start_playback">Could not start playback.</string>
+
+    <!-- VoiceNoteMediaDescriptionCompatFactory -->
+    <string name="VoiceNoteMediaDescriptionCompatFactory__voice_message">Voice message &#183; %1$s</string>
+    <string name="VoiceNoteMediaDescriptionCompatFactory__s_to_s">%1$s to %2$s</string>
+
+    <!-- StorageUtil -->
+    <string name="StorageUtil__s_s">%1$s/%2$s</string>
+
+    <!-- ReviewCardDialogFragment -->
+    <string name="ReviewCardDialogFragment__review_members">Review Members</string>
+    <string name="ReviewCardDialogFragment__review_request">Review Request</string>
+    <string name="ReviewCardDialogFragment__d_group_members_have_the_same_name">%1$d group members have the same name, review the members below and choose to take action.</string>
+    <string name="ReviewCardDialogFragment__if_youre_not_sure">If you\'re not sure who the request is from, review the contacts below and take action.</string>
+    <string name="ReviewCardDialogFragment__no_other_groups_in_common">No other groups in common.</string>
+    <string name="ReviewCardDialogFragment__no_groups_in_common">No groups in common.</string>
+    <plurals name="ReviewCardDialogFragment__d_other_groups_in_common">
+        <item quantity="one">%d group in common</item>
+        <item quantity="other">%d groups in common</item>
+    </plurals>
+    <plurals name="ReviewCardDialogFragment__d_groups_in_common">
+        <item quantity="one">%d group in common</item>
+        <item quantity="other">%d groups in common</item>
+    </plurals>
+    <string name="ReviewCardDialogFragment__remove_s_from_group">Remove %1$s from group?</string>
+    <string name="ReviewCardDialogFragment__remove">Remove</string>
+    <string name="ReviewCardDialogFragment__failed_to_remove_group_member">Failed to remove group member.</string>
+
+    <!-- ReviewCard -->
+    <string name="ReviewCard__member">Member</string>
+    <string name="ReviewCard__request">Request</string>
+    <string name="ReviewCard__your_contact">Your contact</string>
+    <string name="ReviewCard__remove_from_group">Remove from group</string>
+    <string name="ReviewCard__update_contact">Update contact</string>
+    <string name="ReviewCard__block">Block</string>
+    <string name="ReviewCard__delete">Delete</string>
+    <string name="ReviewCard__recently_changed">Recently changed their profile name from %1$s to %2$s</string>
 
     <!-- EOF -->
 

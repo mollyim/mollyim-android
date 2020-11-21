@@ -127,6 +127,8 @@
   <!--ClientDeprecatedActivity-->
   <string name="ClientDeprecatedActivity_update_signal">Signal আপডেট করুন</string>
   <string name="ClientDeprecatedActivity_update">আপডেট</string>
+  <string name="ClientDeprecatedActivity_dont_update">আপডেট করবেন না</string>
+  <string name="ClientDeprecatedActivity_warning">সতর্কতা</string>
   <!--CommunicationActions-->
   <string name="CommunicationActions_no_browser_found">কোন ওয়েব ব্রাউজার পাওয়া যায়নি।</string>
   <string name="CommunicationActions_no_email_app_found">কোন ইমেইল এপ পাওয়া যায়নি</string>
@@ -178,6 +180,7 @@
   <string name="ConversationItem_download_more"> আরো ডাউনলোড করুন</string>
   <string name="ConversationItem_pending"> মুলতুবী</string>
   <string name="ConversationItem_this_message_was_deleted">এই বার্তাটি মুছে ফেলা হয়েছে।</string>
+  <string name="ConversationItem_you_deleted_this_message">আপনি এই বার্তাটি মুছে দিয়েছিলেন। </string>
   <!--ConversationActivity-->
   <string name="ConversationActivity_reset_secure_session_question">নিরাপদ সেশনটি পুনরায় সেট করবেন?</string>
   <string name="ConversationActivity_this_may_help_if_youre_having_encryption_problems">আপনার এই কথোপকথনে এনক্রিপশন সংক্রান্ত সমস্যা থাকলে এটি সহায়তা করতে পারে। আপনার বার্তা সংরক্ষিত থাকবে।</string>
@@ -207,6 +210,7 @@
   <string name="ConversationActivity_quick_camera_unavailable">ক্যামেরা পাওয়া যাচ্ছেনা</string>
   <string name="ConversationActivity_unable_to_record_audio">অডিও রেকর্ড করা যাচ্ছেনা!</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">আপনার ডিভাইসে এই লিঙ্কটি পরিচালনা করার মত কোনও অ্যাপ পাওয়া যাচ্ছে না।</string>
+  <string name="ConversationActivity_cancel_request">অনুরোধ বাতিল করুন</string>
   <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">অডিও বার্তা পাঠাতে Molly কে আপনার মাইক্রোফোন ব্যাবহারের অনুমতি দিন।</string>
   <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">অডিও বার্তাগুলি প্রেরণের জন্য Molly এর মাইক্রোফোনের অনুমতি প্রয়োজন, কিন্তু এর উপর স্থায়ীভাবে নিষেধাজ্ঞা আরোপ করা হয়েছে। দয়া করে অ্যাপ্লিকেশন সেটিংসে যান, \"অনুমতিগুলি\" নির্বাচন করুন এবং \"মাইক্রোফোন\" সক্ষম করুন|</string>
   <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">%s  কে ফোন করতে Molly এর মাইক্রোফোন এবং ক্যামেরা ব্যাবহারের অনুমতির প্রয়োজন, কিন্তু এর উপর স্থায়ীভাবে নিষেধাজ্ঞা আরোপ করা হয়েছে। দয়া করে এপ সেটিংসে যান, \"অনুমতি\" নির্বাচন করুন এবং \"মাইক্রোফোন\" ও \"ক্যামেরা\" এর অনুমতি সক্ষম করুন।</string>
@@ -319,6 +323,21 @@
   <string name="CreateProfileActivity_profile_photo">প্রোফাইলের ছবি</string>
   <string name="CreateProfileActivity_set_up_your_profile">আপনার প্রোফাইল সেট করুন</string>
   <string name="CreateProfileActivity_set_avatar_description">প্রোফাইলের ছবি সেট করুন</string>
+  <!--ChooseBackupFragment-->
+  <string name="ChooseBackupFragment__restore_from_backup">ব্যাকঅাপ থেকে পুনঃস্থাপন?</string>
+  <string name="ChooseBackupFragment__restore_your_messages_and_media">স্থানীয় ব্যাকঅাপ থেকে আপনার বার্তা এবং মিডিয়া পুনরুদ্ধার করুন। আপনি যদি এখনই পুনরুদ্ধার না করেন তবে আপনি পরে আর পুনরুদ্ধার করতে পারবেন না।</string>
+  <string name="ChooseBackupFragment__learn_more">আরও জানুন</string>
+  <!--RestoreBackupFragment-->
+  <string name="RestoreBackupFragment__choose_folder">ফোল্ডার চয়ন করুন</string>
+  <string name="RestoreBackupFragment__not_now">এখন না</string>
+  <!--BackupsPreferenceFragment-->
+  <string name="BackupsPreferenceFragment__chat_backups">চ্যাট ব্যাকআপসমূহ</string>
+  <string name="BackupsPreferenceFragment__create_backup">ব্যাকঅাপ নির্মাণ করুন</string>
+  <string name="BackupsPreferenceFragment__verify_backup_passphrase">ব্যাকআপ পাসফ্রেজ যাচাই করুন</string>
+  <string name="BackupsPreferenceFragment__turn_on">চালু করুন</string>
+  <string name="BackupsPreferenceFragment__turn_off">বন্ধ করুন</string>
+  <string name="BackupsPreferenceFragment__learn_more">আরও জানুন</string>
+  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">ব্যাকআপগুলি তৈরি করতে Signal এর জন্য বাহ্যিক স্টোরেজ অনুমতি প্রয়োজন, তবে এটি স্থায়ীভাবে অস্বীকার করা হয়েছে। দয়া করে অ্যাপ্লিকেশন সেটিংস যান, \"অনুমতিগুলি\" নির্বাচন করুন এবং \"স্টোরেজ\" সক্ষম করুন।</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">প্রথা ব্যবহৃত : %s</string>
   <string name="CustomDefaultPreference_using_default">ডিফল্ট ব্যবহৃত: %s</string>
@@ -357,6 +376,9 @@
   <string name="DozeReminder_optimize_for_missing_play_services">অনুপস্থিত প্লে সার্ভিসের জন্য অনুকুল করা</string>
   <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">এই ডিভাইস প্লে সার্ভিস সমর্থন করে না। সিস্টেম ব্যাটারি অপ্টিমাইজেশন অক্ষম করতে আলতো চাপুন, যা নিষ্ক্রিয় অবস্থায় বার্তা পুনরুদ্ধার থেকে Molly -কে বাধা দেয়।</string>
   <!--ExpiredBuildReminder-->
+  <string name="ExpiredBuildReminder_update_now">আপডেট করুন</string>
+  <!--PendingGroupJoinRequestsReminder-->
+  <string name="PendingGroupJoinRequestsReminder_view">দেখান</string>
   <!--ShareActivity-->
   <string name="ShareActivity_share_with">এর সাথে শেয়ার করুন</string>
   <string name="ShareActivity_multiple_attachments_are_only_supported">একাধিক সংযুক্তি সমূহ শুধু ছবি ও ভিডিওর ক্ষেত্রে সম্ভব</string>
@@ -388,6 +410,7 @@
   <string name="GroupManagement_access_level_only_admins">শুধুমাত্র এডমিন</string>
   <!--GV2 invites sent-->
   <string name="GroupManagement_learn_more">আরও জানুন</string>
+  <!--GroupsV1MigrationLearnMoreBottomSheetDialogFragment-->
   <!--LeaveGroupDialog-->
   <string name="LeaveGroupDialog_leave_group">গ্রুপ ত্যাগ করবেন?</string>
   <string name="LeaveGroupDialog_you_will_no_longer_be_able_to_send_or_receive_messages_in_this_group">আপনি আর এই গ্রুপে বার্তা প্রেরণ বা গ্রহণ করতে সক্ষম হবেন না।</string>
@@ -622,18 +645,14 @@
   <string name="MediaSendActivity_tap_here_to_make_this_message_disappear_after_it_is_viewed">এই বার্তাটি দেখার পরে অদৃশ্য হয়ে যাওয়ার জন্য এখানে আলতো চাপুন।</string>
   <!--MediaRepository-->
   <string name="MediaRepository_all_media">সমস্ত মিডিয়া</string>
+  <string name="MediaRepository__camera">ক্যামেরা</string>
   <!--MessageRecord-->
   <string name="MessageRecord_unknown">অজানা</string>
   <string name="MessageRecord_message_encrypted_with_a_legacy_protocol_version_that_is_no_longer_supported">Signal এর একটি পুরানো সংস্করণ ব্যবহার করে এনক্রিপ্ট করা একটি বার্তা পেয়েছেন যা আর সমর্থিত নয়। দয়া করে প্রেরককে অতি সাম্প্রতিক সংস্করণে আপডেট করতে এবং বার্তাটি পুনরায় পাঠাতে বলুন।</string>
   <string name="MessageRecord_left_group">আপনি গ্রুপ ত্যাগ করেছেন।</string>
   <string name="MessageRecord_you_updated_group">আপনি গ্রুপ আপডেট করেছেন।</string>
-  <string name="MessageRecord_you_called">আপনি কল করেছিলেন</string>
-  <string name="MessageRecord_called_you">পরিচিতি কল করেছিল</string>
-  <string name="MessageRecord_missed_call">মিসড কল</string>
   <string name="MessageRecord_s_updated_group">%s গ্রুপ আপডেট করেছে।</string>
-  <string name="MessageRecord_s_called_you">%s আপনাকে কল করেছিলো</string>
   <string name="MessageRecord_called_s">%s কল করেছেন</string>
-  <string name="MessageRecord_missed_call_from">%s এর থেকে ব্যর্থ কল</string>
   <string name="MessageRecord_s_joined_signal">%s Signal এ যোগ দিয়েছেন!</string>
   <string name="MessageRecord_you_disabled_disappearing_messages">আপনি অদৃশ্য হয়ে যাওয়া বার্তাগুলি অক্ষম করেছেন।</string>
   <string name="MessageRecord_s_disabled_disappearing_messages">%1$s অদৃশ্য হয়ে যাওয়া বার্তা অক্ষম করেছেন।</string>
@@ -713,6 +732,7 @@
   <string name="MessageRecord_you_marked_your_safety_number_with_s_unverified_from_another_device">আপনি অন্য একটি ডিভাইস থেকে  %s এর নিরাপত্তা নাম্বার অযাচিত নির্বাচন করেছেন</string>
   <!--MessageRequestBottomView-->
   <string name="MessageRequestBottomView_accept">মানছি</string>
+  <string name="MessageRequestBottomView_continue">চলতে থাকুন</string>
   <string name="MessageRequestBottomView_delete">মুছে দিন</string>
   <string name="MessageRequestBottomView_block">অবরূদ্ধ</string>
   <string name="MessageRequestBottomView_unblock">মূক্ত করুন</string>
@@ -755,6 +775,7 @@
   <string name="ExpirationDialog_your_messages_will_not_expire">আপনার বার্তাগুলির মেয়াদ শেষ হবে না।</string>
   <string name="ExpirationDialog_your_messages_will_disappear_s_after_they_have_been_seen">এই কথোপকথনে প্রেরিত এবং প্রাপ্ত কথোপকথন সমূহ তাদের দেখার %s পরে অদৃশ্য হয়ে যাবে।</string>
   <!--OutdatedBuildReminder-->
+  <string name="OutdatedBuildReminder_update_now">আপডেট করুন</string>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">পাসফ্রেজ প্রবেশ করান</string>
   <string name="PassphrasePromptActivity_watermark_content_description">Signal আইকন</string>
@@ -784,6 +805,7 @@
   <string name="PinRestoreLockedFragment_create_your_pin">আপনার পিন তৈরি করুন</string>
   <string name="PinRestoreLockedFragment_create_new_pin">PIN তৈরি করুন</string>
   <!--PinOptOutDialog-->
+  <string name="PinOptOutDialog_warning">সতর্কতা</string>
   <!--RatingManager-->
   <string name="RatingManager_rate_this_app">এই এপটিকে রেটিং দিন</string>
   <string name="RatingManager_if_you_enjoy_using_this_app_please_take_a_moment">আপনি যদি এই অ্যাপ ব্যবহার করে উপভোগ করেন, তবে দয়া করে এটি রেটিং দিতে কিছুক্ষণ সময় দিয়ে আমাদের সহায়তা করুন।</string>
@@ -953,13 +975,13 @@
   <string name="ThreadRecord_draft">ড্রাফ্ট:</string>
   <string name="ThreadRecord_called">আপনি কল করেছিলেন</string>
   <string name="ThreadRecord_called_you">অাপনাকে কল করেছিলো</string>
-  <string name="ThreadRecord_missed_call">ব্যর্থ কল</string>
   <string name="ThreadRecord_media_message">মিডিয়া বার্তা</string>
   <string name="ThreadRecord_sticker">স্টিকার</string>
   <string name="ThreadRecord_view_once_photo">একবার দেখার যোগ্য ছবি</string>
   <string name="ThreadRecord_view_once_video">একবার দেখার যোগ্য ভিডিও</string>
   <string name="ThreadRecord_view_once_media">একবার দেখা যাবে এমন মিডিয়া</string>
   <string name="ThreadRecord_this_message_was_deleted">এই বার্তাটি মুছে ফেলা হয়েছে।</string>
+  <string name="ThreadRecord_you_deleted_this_message">আপনি এই বার্তাটি মুছে দিয়েছিলেন। </string>
   <string name="ThreadRecord_s_is_on_signal">%s Signal এ যোগ দিয়েছেন!</string>
   <string name="ThreadRecord_disappearing_messages_disabled">অদৃশ্য হওয়া বার্তাগুলি অক্ষম করা হয়েছে</string>
   <string name="ThreadRecord_disappearing_message_time_updated_to_s">অদৃশ্য হয়ে যাওয়া বার্তার সময়টি %s এ সেট করা হয়েছে</string>
@@ -1182,8 +1204,6 @@
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">পরিচিতি পুনরুদ্ধারে ত্রুটি, আপনার নেটওয়ার্ক সংযোগটি পরীক্ষা করুন</string>
   <string name="ContactSelectionListFragment_username_not_found">ব্যবহারকারীর নাম খুঁজে পাওয়া যায়নি</string>
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">\"%1$s\" কোনও Signal ব্যবহারকারী নয়। দয়া করে ব্যবহারকারীর নামটি পরীক্ষা করুন এবং আবার চেষ্টা করুন।</string>
-  <string name="ContactSelectionListFragment_okay">ঠিক আছে</string>
-  <string name="ContactSelectionListFragment_the_group_is_full">গ্রুপটি পরিপূর্ণ</string>
   <!--blocked_contacts_fragment-->
   <string name="blocked_contacts_fragment__no_blocked_contacts">কোনও অবরুদ্ধ পরিচিতি নেই</string>
   <!--contact_selection_list_fragment-->
@@ -1219,6 +1239,7 @@
   <string name="conversation_item_received__contact_photo_description">পরিচিতির ছবি</string>
   <!--ConversationUpdateItem-->
   <string name="ConversationUpdateItem_loading">লোড হচ্ছে</string>
+  <string name="ConversationUpdateItem_learn_more">আরও জানুন</string>
   <!--audio_view-->
   <string name="audio_view__play_pause_accessibility_description">চালু…. বিরতি</string>
   <string name="audio_view__download_accessibility_description">ডাউনলোড</string>
@@ -1680,6 +1701,7 @@
   <!--media_preview-->
   <string name="media_preview__save_title">সংরক্ষণ</string>
   <string name="media_preview__forward_title">ফরওয়ার্ড</string>
+  <string name="media_preview__share_title">শেয়ার করুন</string>
   <string name="media_preview__all_media_title">সমস্ত মিডিয়া</string>
   <!--media_preview_activity-->
   <string name="media_preview_activity__media_content_description">মিডিয়া প্রাকদর্শন</string>
@@ -1832,6 +1854,7 @@
   <string name="BackupDialog_delete_backups">ব্যাকআপ মুছে দিন?</string>
   <string name="BackupDialog_disable_and_delete_all_local_backups">সমস্ত স্থানীয় ব্যাকআপ নিস্ক্রীয় করবেন এবং মুছবেন?</string>
   <string name="BackupDialog_delete_backups_statement">ব্যাকআপ মুছে দিন</string>
+  <string name="BackupDialog_choose_folder">ফোল্ডার চয়ন করুন</string>
   <string name="BackupDialog_copied_to_clipboard">ক্লিপবোর্ডে অনুলিপি করা হয়েছে</string>
   <string name="BackupDialog_enter_backup_passphrase_to_verify">যাচাই করতে আপনার ব্যাকআপ পাসফ্রেজটি প্রবেশ করান</string>
   <string name="BackupDialog_verify">যাচাই করুন</string>
@@ -1924,5 +1947,16 @@
   <string name="GroupLinkBottomSheet_copy">অনুলিপি</string>
   <string name="GroupLinkBottomSheet_share">শেয়ার করুন</string>
   <string name="GroupLinkBottomSheet_copied_to_clipboard">ক্লিপবোর্ডে অনুলিপি করা হয়েছে</string>
+  <!--VoiceNotePlaybackPreparer-->
+  <!--VoiceNoteMediaDescriptionCompatFactory-->
+  <string name="VoiceNoteMediaDescriptionCompatFactory__s_to_s">%1$s থেকে %2$s</string>
+  <!--StorageUtil-->
+  <!--ReviewCardDialogFragment-->
+  <string name="ReviewCardDialogFragment__remove">সরান</string>
+  <!--ReviewCard-->
+  <string name="ReviewCard__member">সদস্য</string>
+  <string name="ReviewCard__remove_from_group">গ্রুপ থেকে সরান</string>
+  <string name="ReviewCard__block">অবরূদ্ধ</string>
+  <string name="ReviewCard__delete">মুছে দিন</string>
   <!--EOF-->
 </resources>

@@ -22,6 +22,7 @@ import org.thoughtcrime.securesms.groups.GroupProtoUtil;
 import org.thoughtcrime.securesms.groups.MembershipNotSuitableForV2Exception;
 import org.thoughtcrime.securesms.groups.ui.GroupChangeErrorCallback;
 import org.thoughtcrime.securesms.groups.ui.GroupChangeFailureReason;
+import org.thoughtcrime.securesms.groups.SelectionLimits;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
@@ -41,22 +42,16 @@ final class ManageGroupRepository {
   private static final String TAG = Log.tag(ManageGroupRepository.class);
 
   private final Context context;
-  private final GroupId groupId;
 
-  ManageGroupRepository(@NonNull Context context, @NonNull GroupId groupId) {
-    this.context  = context;
-    this.groupId  = groupId;
+  ManageGroupRepository(@NonNull Context context) {
+    this.context = context;
   }
 
-  public GroupId getGroupId() {
-    return groupId;
+  void getGroupState(@NonNull GroupId groupId, @NonNull Consumer<GroupStateResult> onGroupStateLoaded) {
+    SignalExecutors.BOUNDED.execute(() -> onGroupStateLoaded.accept(getGroupState(groupId)));
   }
 
-  void getGroupState(@NonNull Consumer<GroupStateResult> onGroupStateLoaded) {
-    SignalExecutors.BOUNDED.execute(() -> onGroupStateLoaded.accept(getGroupState()));
-  }
-
-  void getGroupCapacity(@NonNull Consumer<GroupCapacityResult> onGroupCapacityLoaded) {
+  void getGroupCapacity(@NonNull GroupId groupId, @NonNull Consumer<GroupCapacityResult> onGroupCapacityLoaded) {
     SimpleTask.run(SignalExecutors.BOUNDED, () -> {
       GroupDatabase.GroupRecord groupRecord = DatabaseFactory.getGroupDatabase(context).getGroup(groupId).get();
       if (groupRecord.isV2Group()) {
@@ -68,23 +63,23 @@ final class ManageGroupRepository {
 
         members.addAll(pendingMembers);
 
-        return new GroupCapacityResult(members, FeatureFlags.gv2GroupCapacity());
+        return new GroupCapacityResult(members, FeatureFlags.groupLimits());
       } else {
-        return new GroupCapacityResult(groupRecord.getMembers(), ContactSelectionListFragment.NO_LIMIT);
+        return new GroupCapacityResult(groupRecord.getMembers(), FeatureFlags.groupLimits());
       }
     }, onGroupCapacityLoaded::accept);
   }
 
   @WorkerThread
-  private GroupStateResult getGroupState() {
+  private GroupStateResult getGroupState(@NonNull GroupId groupId) {
     ThreadDatabase threadDatabase = DatabaseFactory.getThreadDatabase(context);
-    Recipient      groupRecipient = Recipient.externalGroup(context, groupId);
+    Recipient      groupRecipient = Recipient.externalGroupExact(context, groupId);
     long           threadId       = threadDatabase.getThreadIdFor(groupRecipient);
 
     return new GroupStateResult(threadId, groupRecipient);
   }
 
-  void setExpiration(int newExpirationTime, @NonNull GroupChangeErrorCallback error) {
+  void setExpiration(@NonNull GroupId groupId, int newExpirationTime, @NonNull GroupChangeErrorCallback error) {
     SignalExecutors.UNBOUNDED.execute(() -> {
       try {
         GroupManager.updateGroupTimer(context, groupId.requirePush(), newExpirationTime);
@@ -95,7 +90,7 @@ final class ManageGroupRepository {
     });
   }
 
-  void applyMembershipRightsChange(@NonNull GroupAccessControl newRights, @NonNull GroupChangeErrorCallback error) {
+  void applyMembershipRightsChange(@NonNull GroupId groupId, @NonNull GroupAccessControl newRights, @NonNull GroupChangeErrorCallback error) {
     SignalExecutors.UNBOUNDED.execute(() -> {
       try {
         GroupManager.applyMembershipAdditionRightsChange(context, groupId.requireV2(), newRights);
@@ -106,7 +101,7 @@ final class ManageGroupRepository {
     });
   }
 
-  void applyAttributesRightsChange(@NonNull GroupAccessControl newRights, @NonNull GroupChangeErrorCallback error) {
+  void applyAttributesRightsChange(@NonNull GroupId groupId, @NonNull GroupAccessControl newRights, @NonNull GroupChangeErrorCallback error) {
     SignalExecutors.UNBOUNDED.execute(() -> {
       try {
         GroupManager.applyAttributesRightsChange(context, groupId.requireV2(), newRights);
@@ -117,20 +112,21 @@ final class ManageGroupRepository {
     });
   }
 
-  public void getRecipient(@NonNull Consumer<Recipient> recipientCallback) {
+  public void getRecipient(@NonNull GroupId groupId, @NonNull Consumer<Recipient> recipientCallback) {
     SimpleTask.run(SignalExecutors.BOUNDED,
-                   () -> Recipient.externalGroup(context, groupId),
+                   () -> Recipient.externalGroupExact(context, groupId),
                    recipientCallback::accept);
   }
 
-  void setMuteUntil(long until) {
+  void setMuteUntil(@NonNull GroupId groupId, long until) {
     SignalExecutors.BOUNDED.execute(() -> {
-      RecipientId recipientId = Recipient.externalGroup(context, groupId).getId();
+      RecipientId recipientId = Recipient.externalGroupExact(context, groupId).getId();
       DatabaseFactory.getRecipientDatabase(context).setMuted(recipientId, until);
     });
   }
 
-  void addMembers(@NonNull List<RecipientId> selected,
+  void addMembers(@NonNull GroupId groupId,
+                  @NonNull List<RecipientId> selected,
                   @NonNull AsynchronousCallback.WorkerThread<ManageGroupViewModel.AddMembersResult, GroupChangeFailureReason> callback)
   {
     SignalExecutors.UNBOUNDED.execute(() -> {
@@ -144,10 +140,10 @@ final class ManageGroupRepository {
     });
   }
 
-  void blockAndLeaveGroup(@NonNull GroupChangeErrorCallback error, @NonNull Runnable onSuccess) {
+  void blockAndLeaveGroup(@NonNull GroupId groupId, @NonNull GroupChangeErrorCallback error, @NonNull Runnable onSuccess) {
     SignalExecutors.UNBOUNDED.execute(() -> {
       try {
-        RecipientUtil.block(context, Recipient.externalGroup(context, groupId));
+        RecipientUtil.block(context, Recipient.externalGroupExact(context, groupId));
         onSuccess.run();
       } catch (GroupChangeException | IOException e) {
         Log.w(TAG, e);
@@ -156,9 +152,9 @@ final class ManageGroupRepository {
     });
   }
 
-  void setMentionSetting(RecipientDatabase.MentionSetting mentionSetting) {
+  void setMentionSetting(@NonNull GroupId groupId, RecipientDatabase.MentionSetting mentionSetting) {
     SignalExecutors.BOUNDED.execute(() -> {
-      RecipientId recipientId = Recipient.externalGroup(context, groupId).getId();
+      RecipientId recipientId = Recipient.externalGroupExact(context, groupId).getId();
       DatabaseFactory.getRecipientDatabase(context).setMentionSetting(recipientId, mentionSetting);
     });
   }
@@ -186,33 +182,39 @@ final class ManageGroupRepository {
 
   static final class GroupCapacityResult {
     private final List<RecipientId> members;
-    private final int               totalCapacity;
+    private final SelectionLimits selectionLimits;
 
-    GroupCapacityResult(@NonNull List<RecipientId> members, int totalCapacity) {
-      this.members        = members;
-      this.totalCapacity  = totalCapacity;
+    GroupCapacityResult(@NonNull List<RecipientId> members, @NonNull SelectionLimits selectionLimits) {
+      this.members         = members;
+      this.selectionLimits = selectionLimits;
     }
 
     public @NonNull List<RecipientId> getMembers() {
       return members;
     }
 
-    public int getTotalCapacity() {
-      return totalCapacity;
-    }
-
     public int getSelectionLimit() {
-      if (totalCapacity == ContactSelectionListFragment.NO_LIMIT) {
-        return totalCapacity;
+      if (!selectionLimits.hasHardLimit()) {
+        return ContactSelectionListFragment.NO_LIMIT;
       }
 
       boolean containsSelf = members.indexOf(Recipient.self().getId()) != -1;
 
-      return totalCapacity - (containsSelf ? 1 : 0);
+      return selectionLimits.getHardLimit() - (containsSelf ? 1 : 0);
+    }
+
+    public int getSelectionWarning() {
+      if (!selectionLimits.hasRecommendedLimit()) {
+        return ContactSelectionListFragment.NO_LIMIT;
+      }
+
+      boolean containsSelf = members.indexOf(Recipient.self().getId()) != -1;
+
+      return selectionLimits.getRecommendedLimit() - (containsSelf ? 1 : 0);
     }
 
     public int getRemainingCapacity() {
-      return totalCapacity - members.size();
+      return selectionLimits.getHardLimit() - members.size();
     }
 
     public @NonNull ArrayList<RecipientId> getMembersWithoutSelf() {

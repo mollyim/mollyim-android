@@ -26,6 +26,7 @@ import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.recipients.RecipientUtil;
 import org.thoughtcrime.securesms.sms.MessageSender;
+import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.concurrent.SignalExecutors;
 import org.whispersystems.libsignal.util.guava.Optional;
@@ -74,6 +75,17 @@ final class MessageRequestRepository {
 
   @WorkerThread
   private MessageRequestState findMessageRequestState(@NonNull Recipient recipient, long threadId) {
+    if (recipient.isGroup() && recipient.isPushV2Group()) {
+      GroupDatabase.MemberLevel memberLevel = DatabaseFactory.getGroupDatabase(context)
+                                                             .getGroup(recipient.getId())
+                                                             .transform(g -> g.memberLevel(Recipient.self()))
+                                                             .or(GroupDatabase.MemberLevel.NOT_A_MEMBER);
+
+      if (memberLevel == GroupDatabase.MemberLevel.PENDING_MEMBER) {
+        return MessageRequestState.REQUIRED;
+      }
+    }
+
     if (!RecipientUtil.isMessageRequestAccepted(context, threadId)) {
       if (recipient.isGroup()) {
         GroupDatabase.MemberLevel memberLevel = DatabaseFactory.getGroupDatabase(context)
@@ -87,8 +99,10 @@ final class MessageRequestRepository {
       }
 
       return MessageRequestState.REQUIRED;
+    } else if (FeatureFlags.modernProfileSharing() && !RecipientUtil.isLegacyProfileSharingAccepted(recipient) && threadId > 0) {
+      return MessageRequestState.REQUIRED;
     } else if (RecipientUtil.isPreMessageRequestThread(context, threadId) && !RecipientUtil.isLegacyProfileSharingAccepted(recipient)) {
-      return MessageRequestState.LEGACY;
+      return MessageRequestState.PRE_MESSAGE_REQUEST;
     } else {
       return MessageRequestState.NOT_REQUIRED;
     }
@@ -230,6 +244,7 @@ final class MessageRequestRepository {
     });
   }
 
+  @WorkerThread
   boolean isPendingMember(@NonNull GroupId.V2 groupId) {
     return DatabaseFactory.getGroupDatabase(context).isPendingMember(groupId, Recipient.self());
   }
@@ -248,6 +263,7 @@ final class MessageRequestRepository {
     /** Explicit message request permission is required. */
     REQUIRED,
 
-    LEGACY
+    /** This conversation existed before message requests and needs the old UI */
+    PRE_MESSAGE_REQUEST
   }
 }

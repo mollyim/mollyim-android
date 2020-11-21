@@ -1,18 +1,22 @@
 package org.thoughtcrime.securesms.util;
 
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface.OnClickListener;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
+import android.os.Build;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+
 import org.thoughtcrime.securesms.R;
-import org.thoughtcrime.securesms.database.NoExternalStorageException;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.mms.PartAuthority;
 import org.thoughtcrime.securesms.util.task.ProgressDialogAsyncTask;
@@ -25,6 +29,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
+import java.util.Objects;
 
 public class SaveAttachmentTask extends ProgressDialogAsyncTask<SaveAttachmentTask.Attachment, Void, Pair<Integer, String>> {
   private static final String TAG = SaveAttachmentTask.class.getSimpleName();
@@ -59,7 +64,7 @@ public class SaveAttachmentTask extends ProgressDialogAsyncTask<SaveAttachmentTa
       Context      context      = contextReference.get();
       String       directory    = null;
 
-      if (!StorageUtil.canWriteInSignalStorageDir()) {
+      if (!StorageUtil.canWriteToMediaStore()) {
         return new Pair<>(WRITE_ACCESS_FAILURE, null);
       }
 
@@ -76,55 +81,60 @@ public class SaveAttachmentTask extends ProgressDialogAsyncTask<SaveAttachmentTa
 
       if (attachments.length > 1) return new Pair<>(SUCCESS, null);
       else                        return new Pair<>(SUCCESS, directory);
-    } catch (NoExternalStorageException|IOException ioe) {
+    } catch (IOException ioe) {
       Log.w(TAG, ioe);
       return new Pair<>(FAILURE, null);
     }
   }
 
-  private @Nullable String saveAttachment(Context context, Attachment attachment)
-      throws NoExternalStorageException, IOException
+  private @Nullable String saveAttachment(Context context, Attachment attachment) throws IOException
   {
-    String      contentType = MediaUtil.getCorrectedMimeType(attachment.contentType);
+    String      contentType = Objects.requireNonNull(MediaUtil.getCorrectedMimeType(attachment.contentType));
     String         fileName = attachment.fileName;
 
     if (fileName == null) fileName = generateOutputFileName(contentType, attachment.date);
     fileName = sanitizeOutputFileName(fileName);
 
-    File    outputDirectory = createOutputDirectoryFromContentType(contentType);
-    File          mediaFile = createOutputFile(outputDirectory, fileName);
-    InputStream inputStream = PartAuthority.getAttachmentStream(context, attachment.uri);
+    Uri outputUri = getMediaStoreContentUriForType(contentType);
+    Uri mediaUri  = createOutputUri(outputUri, fileName);
 
-    if (inputStream == null) {
-      return null;
+    try (InputStream inputStream = PartAuthority.getAttachmentStream(context, attachment.uri)) {
+
+      if (inputStream == null) {
+        return null;
+      }
+
+      if (Objects.equals(outputUri.getScheme(), ContentResolver.SCHEME_FILE)) {
+        try (OutputStream outputStream = new FileOutputStream(mediaUri.getPath())) {
+          Util.copy(inputStream, outputStream);
+          MediaScannerConnection.scanFile(context, new String[]{mediaUri.getPath()}, new String[]{contentType}, null);
+        }
+      } else {
+        try (OutputStream outputStream = context.getContentResolver().openOutputStream(mediaUri, "w")) {
+          Util.copy(inputStream, outputStream);
+        }
+      }
     }
 
-    OutputStream outputStream = new FileOutputStream(mediaFile);
-    Util.copy(inputStream, outputStream);
+    if (Build.VERSION.SDK_INT > 28) {
+      ContentValues updatePendingValues = new ContentValues();
+      updatePendingValues.put(MediaStore.MediaColumns.IS_PENDING, 0);
+      getContext().getContentResolver().update(mediaUri, updatePendingValues, null, null);
+    }
 
-    MediaScannerConnection.scanFile(context, new String[]{mediaFile.getAbsolutePath()},
-                                    new String[]{contentType}, null);
-
-    return outputDirectory.getName();
+    return outputUri.getLastPathSegment();
   }
 
-  private File createOutputDirectoryFromContentType(@NonNull String contentType)
-      throws NoExternalStorageException
-  {
-    File outputDirectory;
-
+  private @NonNull Uri getMediaStoreContentUriForType(@NonNull String contentType) {
     if (contentType.startsWith("video/")) {
-      outputDirectory = StorageUtil.getVideoDir();
+      return StorageUtil.getVideoUri();
     } else if (contentType.startsWith("audio/")) {
-      outputDirectory = StorageUtil.getAudioDir();
+      return StorageUtil.getAudioUri();
     } else if (contentType.startsWith("image/")) {
-      outputDirectory = StorageUtil.getImageDir();
+      return StorageUtil.getImageUri();
     } else {
-      outputDirectory = StorageUtil.getDownloadDir();
+      return StorageUtil.getDownloadUri();
     }
-
-    if (!outputDirectory.mkdirs()) Log.w(TAG, "mkdirs() returned false, attempting to continue");
-    return outputDirectory;
   }
 
   private String generateOutputFileName(@NonNull String contentType, long timestamp) {
@@ -142,25 +152,39 @@ public class SaveAttachmentTask extends ProgressDialogAsyncTask<SaveAttachmentTa
     return new File(fileName).getName();
   }
 
-  private File createOutputFile(@NonNull File outputDirectory, @NonNull String fileName)
-      throws IOException
-  {
+  private Uri createOutputUri(@NonNull Uri outputUri, @NonNull String fileName) throws IOException {
     String[] fileParts = getFileNameParts(fileName);
-    String base = fileParts[0];
-    String extension = fileParts[1];
+    String   base      = fileParts[0];
+    String   extension = fileParts[1];
+    String   mimeType  = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
 
-    File outputFile = new File(outputDirectory, base + "." + extension);
+    ContentValues contentValues = new ContentValues();
+    contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName);
+    contentValues.put(MediaStore.MediaColumns.MIME_TYPE, mimeType);
+    contentValues.put(MediaStore.MediaColumns.DATE_ADDED, System.currentTimeMillis());
+    contentValues.put(MediaStore.MediaColumns.DATE_MODIFIED, System.currentTimeMillis());
 
-    int i = 0;
-    while (outputFile.exists()) {
-      outputFile = new File(outputDirectory, base + "-" + (++i) + "." + extension);
+    if (Build.VERSION.SDK_INT > 28) {
+      contentValues.put(MediaStore.MediaColumns.IS_PENDING, 1);
     }
 
-    if (outputFile.isHidden()) {
-      throw new IOException("Specified name would not be visible");
+    if (Build.VERSION.SDK_INT <= 28 && Objects.equals(outputUri.getScheme(), ContentResolver.SCHEME_FILE)) {
+      File     outputDirectory = new File(outputUri.getPath());
+      File     outputFile      = new File(outputDirectory, base + "." + extension);
+
+      int i = 0;
+      while (outputFile.exists()) {
+        outputFile = new File(outputDirectory, base + "-" + (++i) + "." + extension);
+      }
+
+      if (outputFile.isHidden()) {
+        throw new IOException("Specified name would not be visible");
+      }
+
+      return Uri.fromFile(outputFile);
     }
 
-    return outputFile;
+    return getContext().getContentResolver().insert(outputUri, contentValues);
   }
 
   private String[] getFileNameParts(String fileName) {

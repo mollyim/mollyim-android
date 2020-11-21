@@ -295,6 +295,10 @@
   <string name="ConversationFragment_outgoing_view_once_media_files_are_automatically_removed">Versendete einmalig anzeigbare Mediendateien werden nach dem Senden automatisch entfernt</string>
   <string name="ConversationFragment_you_already_viewed_this_message">Du hast diese Nachricht bereits angezeigt</string>
   <string name="ConversationFragment__you_can_add_notes_for_yourself_in_this_conversation">Du kannst in dieser Unterhaltung an dich selbst gerichtete Notizen hinzufügen.\nFalls dein Benutzerkonto gekoppelte Geräte besitzt, werden neue Notizen synchronisiert.</string>
+  <string name="ConversationFragment__d_group_members_have_the_same_name">%1$d Gruppenmitglieder haben denselben Namen.</string>
+  <string name="ConversationFragment__tap_to_review">Zum Prüfen antippen</string>
+  <string name="ConversationFragment__review_requests_carefully">Prüfe Anfragen sorgfältig</string>
+  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Signal hat einen weiteren Kontakt mit demselben Namen gefunden.</string>
   <!--ConversationListActivity-->
   <string name="ConversationListActivity_there_is_no_browser_installed_on_your_device">Auf deinem Gerät ist derzeit kein Browser installiert.</string>
   <!--ConversationListFragment-->
@@ -335,6 +339,32 @@
   <string name="CreateProfileActivity_set_up_your_profile">Richte dein Profil ein</string>
   <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">Dein Profil ist Ende-zu-Ende-verschlüsselt. Dein Profil und Änderungen daran werden für deine Kontakte sichtbar, sobald du neue Unterhaltungen beginnst oder annimmst, oder wenn du neuen Gruppen beitrittst.</string>
   <string name="CreateProfileActivity_set_avatar_description">Avatar festlegen</string>
+  <!--ChooseBackupFragment-->
+  <string name="ChooseBackupFragment__restore_from_backup">Aus Sicherung wiederherstellen?</string>
+  <string name="ChooseBackupFragment__restore_your_messages_and_media">Stelle deine Nachrichten und Medieninhalte aus einer lokalen Datensicherung wieder her. Falls du sie jetzt nicht wiederherstellst, wirst du dies später nicht mehr nachholen können.</string>
+  <string name="ChooseBackupFragment__icon_content_description">Symbol: Aus Datensicherung wiederherstellen</string>
+  <string name="ChooseBackupFragment__choose_backup">Datensicherung wählen</string>
+  <string name="ChooseBackupFragment__learn_more">Mehr erfahren</string>
+  <!--RestoreBackupFragment-->
+  <string name="RestoreBackupFragment__restore_complete">Wiederherstellung abgeschlossen</string>
+  <string name="RestoreBackupFragment__to_continue_using_backups_please_choose_a_folder">Um weiterhin Datensicherungen zu verwenden, wähle bitte einen Ordner. Neue Sicherungen werden dort gespeichert.</string>
+  <string name="RestoreBackupFragment__choose_folder">Ordner wählen</string>
+  <string name="RestoreBackupFragment__not_now">Jetzt nicht</string>
+  <!--BackupsPreferenceFragment-->
+  <string name="BackupsPreferenceFragment__chat_backups">Unterhaltungen sichern</string>
+  <string name="BackupsPreferenceFragment__backups_are_encrypted_with_a_passphrase">Datensicherungen sind mit einer Passphrase verschlüsselt und auf deinem Gerät gespeichert.</string>
+  <string name="BackupsPreferenceFragment__create_backup">Sicherung erstellen</string>
+  <string name="BackupsPreferenceFragment__last_backup">Letzte Sicherung: %1$s</string>
+  <string name="BackupsPreferenceFragment__backup_folder">Ordner für Datensicherung</string>
+  <string name="BackupsPreferenceFragment__verify_backup_passphrase">Sicherungspassphrase überprüfen</string>
+  <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Teste die Passphrase deiner Datensicherung, um dich zu vergewissern, dass du sie öffnen kannst</string>
+  <string name="BackupsPreferenceFragment__turn_on">Einschalten</string>
+  <string name="BackupsPreferenceFragment__turn_off">Ausschalten</string>
+  <string name="BackupsPreferenceFragment__to_restore_a_backup">Um eine Datensicherung wiederherzustellen, installiere Signal neu. Öffne die App, tippe auf »Sicherung wiederherstellen« und wähle dann eine Sicherungsdatei. %1$s</string>
+  <string name="BackupsPreferenceFragment__learn_more">Mehr erfahren</string>
+  <string name="BackupsPreferenceFragment__in_progress">In Arbeit …</string>
+  <string name="BackupsPreferenceFragment__d_so_far">%1$d bisher …</string>
+  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal benötigt zum Erstellen von Datensicherungen die Berechtigung »Speicher«, diese wurde jedoch dauerhaft abgelehnt. Bitte öffne die App-Einstellungen, wähle »Berechtigungen« und aktiviere »Speicher«.</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Personalisiert: %s</string>
   <string name="CustomDefaultPreference_using_default">Standard: %s</string>
@@ -345,6 +375,7 @@
   <string name="AvatarSelectionBottomSheetDialogFragment__choose_from_gallery">Aus Galerie auswählen</string>
   <string name="AvatarSelectionBottomSheetDialogFragment__remove_photo">Foto entfernen</string>
   <string name="AvatarSelectionBottomSheetDialogFragment__taking_a_photo_requires_the_camera_permission">Für das Aufnehmen eines Fotos ist die Kamera-Berechtigung erforderlich.</string>
+  <string name="AvatarSelectionBottomSheetDialogFragment__viewing_your_gallery_requires_the_storage_permission">Zum Anzeigen der Galerie ist die Berechtigung »Speicher« erforderlich.</string>
   <!--DateUtils-->
   <string name="DateUtils_just_now">Jetzt</string>
   <string name="DateUtils_minutes_ago">%dmin</string>
@@ -376,6 +407,12 @@
   <!--ExpiredBuildReminder-->
   <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Diese Signal-Version ist veraltet. Aktualisiere jetzt, um Nachrichten senden und empfangen zu können.</string>
   <string name="ExpiredBuildReminder_update_now">Jetzt aktualisieren</string>
+  <!--PendingGroupJoinRequestsReminder-->
+  <plurals name="PendingGroupJoinRequestsReminder_d_pending_member_requests">
+    <item quantity="one">%d ausstehende Beitrittsanfrage.</item>
+    <item quantity="other">%d ausstehende Beitrittsanfragen.</item>
+  </plurals>
+  <string name="PendingGroupJoinRequestsReminder_view">Anzeigen</string>
   <!--ShareActivity-->
   <string name="ShareActivity_share_with">Teilen mit</string>
   <string name="ShareActivity_multiple_attachments_are_only_supported">Mehrere Anhänge werden nur für Bilder und Videos unterstützt</string>
@@ -420,6 +457,18 @@
   <string name="GroupManagement_invite_single_user">»%1$s« kann von dir nicht automatisch zu dieser Gruppe hinzugefügt werden.\n\nDer Benutzer wurde eingeladen beizutreten, wird aber keine Gruppennachrichten erhalten, bis er die Einladung angenommen hat.</string>
   <string name="GroupManagement_learn_more">Mehr erfahren</string>
   <string name="GroupManagement_invite_multiple_users">Diese Benutzer können von dir nicht automatisch zu dieser Gruppe hinzugefügt werden.\n\nSie wurden eingeladen, der Gruppe beizutreten, werden aber keine Gruppennachrichten erhalten, bis sie die Einladung angenommen haben.</string>
+  <!--GroupsV1MigrationLearnMoreBottomSheetDialogFragment-->
+  <string name="GroupsV1MigrationLearnMore_what_are_new_groups">Was sind Gruppen neuen Typs?</string>
+  <string name="GroupsV1MigrationLearnMore_new_groups_have_features_like_mentions">Gruppen neuen Typs besitzen Funktionen wie @Erwähnungen und Gruppen-Admins und werden zukünftig weitere Funktionen unterstützen.</string>
+  <string name="GroupsV1MigrationLearnMore_all_message_history_and_media_has_been_kept">Der vor der Aktualisierung bestehende Nachrichtenverlauf und die Medieninhalte wurden erhalten.</string>
+  <plurals name="GroupsV1MigrationLearnMore_these_members_will_need_to_accept_an_invite">
+    <item quantity="one">Dieses Mitglied muss eine Einladung zum erneuten Gruppenbeitritt annehmen und wird bis dahin keine Gruppennachrichten erhalten:</item>
+    <item quantity="other">Diese Mitglieder müssen eine Einladung zum erneuten Gruppenbeitritt annehmen und werden bis dahin keine Gruppennachrichten erhalten:</item>
+  </plurals>
+  <plurals name="GroupsV1MigrationLearnMore_these_members_are_not_capable_of_joining_new_groups">
+    <item quantity="one">Dieses Mitglied kann Gruppen neuen Typs nicht beitreten und wurde daher aus der Gruppe entfernt:</item>
+    <item quantity="other">Diese Mitglieder können Gruppen neuen Typs nicht beitreten und wurden daher aus der Gruppe entfernt:</item>
+  </plurals>
   <!--LeaveGroupDialog-->
   <string name="LeaveGroupDialog_leave_group">Gruppe verlassen?</string>
   <string name="LeaveGroupDialog_you_will_no_longer_be_able_to_send_or_receive_messages_in_this_group">Du wirst in dieser Gruppe keine Nachrichten mehr versenden oder empfangen können.</string>
@@ -765,25 +814,30 @@
   <string name="MediaSendActivity_tap_here_to_make_this_message_disappear_after_it_is_viewed">Hier antippen, um diese Nachricht nach dem Ansehen verschwinden zu lassen.</string>
   <!--MediaRepository-->
   <string name="MediaRepository_all_media">Alle Medieninhalte</string>
+  <string name="MediaRepository__camera">Kamera</string>
   <!--MessageRecord-->
   <string name="MessageRecord_unknown">Unbekannt</string>
   <string name="MessageRecord_message_encrypted_with_a_legacy_protocol_version_that_is_no_longer_supported">Eine empfangene Nachricht wurde mit einer alten, nicht mehr unterstützten Version von Signal verschlüsselt. Bitte den Absender, Signal auf die neueste Version zu aktualisieren und die Nachricht erneut zu senden.</string>
   <string name="MessageRecord_left_group">Du hast die Gruppe verlassen.</string>
   <string name="MessageRecord_you_updated_group">Du hast die Gruppe aktualisiert.</string>
   <string name="MessageRecord_the_group_was_updated">Die Gruppe wurde aktualisiert.</string>
-  <string name="MessageRecord_you_called">Ausgehender Anruf</string>
-  <string name="MessageRecord_called_you">Empfangener Anruf</string>
-  <string name="MessageRecord_missed_call">Entgangener Anruf</string>
+  <string name="MessageRecord_you_called_date">Ausgehender Anruf · %1$s</string>
+  <string name="MessageRecord_missed_audio_call_date">Entgangener Sprachanruf · %1$s</string>
+  <string name="MessageRecord_missed_video_call_date">Entgangener Videoanruf · %1$s</string>
   <string name="MessageRecord_s_updated_group">%s hat die Gruppe aktualisiert.</string>
-  <string name="MessageRecord_s_called_you">Empfangener Anruf von %s</string>
+  <string name="MessageRecord_s_called_you_date">Empfangener Anruf von %1$s · %2$s</string>
   <string name="MessageRecord_called_s">Ausgehender Anruf an %s</string>
-  <string name="MessageRecord_missed_call_from">Entgangener Anruf von %s</string>
   <string name="MessageRecord_s_joined_signal">%s nutzt Signal!</string>
   <string name="MessageRecord_you_disabled_disappearing_messages">Du hast verschwindende Nachrichten deaktiviert.</string>
   <string name="MessageRecord_s_disabled_disappearing_messages">%1$s hat verschwindende Nachrichten deaktiviert.</string>
   <string name="MessageRecord_you_set_disappearing_message_time_to_s">Du hast die Ablaufzeit verschwindender Nachrichten auf %1$s festgelegt.</string>
   <string name="MessageRecord_s_set_disappearing_message_time_to_s">%1$s hat die Ablaufzeit verschwindender Nachrichten auf %2$s festgelegt.</string>
   <string name="MessageRecord_disappearing_message_time_set_to_s">Die Ablaufzeit für verschwindende Nachrichten wurde auf %1$s festgelegt.</string>
+  <string name="MessageRecord_this_group_was_updated_to_a_new_group">Diese Gruppe wurde auf eine Gruppe neuen Typs aktualisiert.</string>
+  <plurals name="MessageRecord_members_couldnt_be_added_to_the_new_group_and_have_been_invited">
+    <item quantity="one">%1$s Mitglied konnte der Gruppe neuen Typs nicht hinzugefügt werden und wurde daher eingeladen, beizutreten.</item>
+    <item quantity="other">%1$s Mitglieder konnten der Gruppe neuen Typs nicht hinzugefügt werden und wurden daher eingeladen, beizutreten.</item>
+  </plurals>
   <!--Profile change updates-->
   <string name="MessageRecord_changed_their_profile_name_to">%1$s hat den Profilnamen zu %2$s geändert.</string>
   <string name="MessageRecord_changed_their_profile_name_from_to">%1$s hat den Profilnamen von %2$s zu %3$s geändert.</string>
@@ -912,11 +966,14 @@
   <string name="MessageRecord_you_marked_your_safety_number_with_s_unverified_from_another_device">Du hast deine Sicherheitsnummer mit %s von einem anderen Gerät aus als nicht verifiziert markiert.</string>
   <!--MessageRequestBottomView-->
   <string name="MessageRequestBottomView_accept">Annehmen</string>
+  <string name="MessageRequestBottomView_continue">Fortfahren</string>
   <string name="MessageRequestBottomView_delete">Löschen</string>
   <string name="MessageRequestBottomView_block">Blockieren</string>
   <string name="MessageRequestBottomView_unblock">Freigeben</string>
   <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_they_wont_know_youve_seen_their_messages_until_you_accept">Darf %1$s dir Nachrichten schreiben und deinen Namen und dein Foto sehen? Der Benutzer weiß nicht, dass du seine Nachricht gesehen hast, bis du die Anfrage annimmst.</string>
   <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them">Darf %1$s dir Nachrichten schreiben und deinen Namen und dein Foto sehen? Du wirst keine Nachrichten erhalten, bis du die Unterhaltung freigibst.</string>
+  <string name="MessageRequestBottomView_continue_your_conversation_with_this_group_and_share_your_name_and_photo">Unterhaltung mit dieser Gruppe fortsetzen und deinen Namen und dein Foto mit deren Mitgliedern teilen?</string>
+  <string name="MessageRequestBottomView_continue_your_conversation_with_s_and_share_your_name_and_photo">Unterhaltung mit %1$s fortsetzen und deinen Namen und dein Foto mit diesem Benutzer teilen?</string>
   <string name="MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Möchtest du dieser Gruppe beitreten und deinen Namen und dein Foto mit deren Mitgliedern teilen? Sie wissen nicht, dass du ihre Nachrichten gesehen hast, bis du die Anfrage annimmst.</string>
   <string name="MessageRequestBottomView_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Dieser Gruppe beitreten? Solange du nicht beitrittst, werden die Gruppenmitglieder nicht wissen, dass du ihre Nachrichten gesehen hast.</string>
   <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">Möchtest du diese Gruppe freigeben und deinen Namen und dein Foto mit deren Mitgliedern teilen? Du wirst keine Nachrichten erhalten, bis du die Gruppe freigibst.</string>
@@ -1074,6 +1131,7 @@
   <string name="RegistrationActivity_more_information">Mehr Informationen</string>
   <string name="RegistrationActivity_less_information">Weniger Informationen</string>
   <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly benötigt Zugriff auf deine Kontakte und Medien, damit du Nachrichten an Freunde senden und sichere Anrufe tätigen kannst.</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Molly benötigt Zugriff auf deine Kontakte, damit du Freunde kontaktieren und sichere Anrufe tätigen kannst.</string>
   <string name="RegistrationActivity_rate_limited_to_service">Du hast zu oft versucht, diese Rufnummer zu registrieren. Bitte versuche es später erneut.</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">Keine Verbindung zum Dienst möglich. Bitte überprüfe deine Netzverbindung und versuche es erneut.</string>
   <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">Zum einfachen Verifizieren deiner Rufnummer kann Molly deinen Verifikationscode ermitteln, falls du Molly Zugriff auf deine SMS-Nachrichten gewährst.</string>
@@ -1186,7 +1244,8 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   <string name="ThreadRecord_draft">Entwurf:</string>
   <string name="ThreadRecord_called">Ausgehender Anruf</string>
   <string name="ThreadRecord_called_you">Empfangener Anruf</string>
-  <string name="ThreadRecord_missed_call">Entgangener Anruf</string>
+  <string name="ThreadRecord_missed_audio_call">Entgangener Sprachanruf</string>
+  <string name="ThreadRecord_missed_video_call">Entgangener Videoanruf</string>
   <string name="ThreadRecord_media_message">Nachricht mit Medieninhalten</string>
   <string name="ThreadRecord_sticker">Sticker</string>
   <string name="ThreadRecord_view_once_photo">Einmalig anzeigbares Foto</string>
@@ -1250,6 +1309,7 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">Keine zu vergleichende Sicherheitsnummer in der Zwischenablage gefunden</string>
   <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Molly benötigt die Berechtigung »Kamera« für das Einscannen von QR-Codes, diese wurde jedoch dauerhaft abgelehnt. Bitte öffne die App-Einstellungen, wähle »Berechtigungen« und aktiviere »Kamera«.</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">QR-Codes können ohne die Berechtigung »Kamera« nicht eingescannt werden.</string>
+  <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">Um die Sicherheitsnummer von %1$s sehen zu können, müssen zuerst Nachrichten ausgetauscht werden.</string>
   <!--ViewOnceMessageActivity-->
   <!--AudioView-->
   <!--MessageDisplayHelper-->
@@ -1280,6 +1340,7 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   <string name="MediaPreviewActivity_media_delete_confirmation_message">Dies wird diese Nachricht unwiderruflich löschen.</string>
   <string name="MediaPreviewActivity_s_to_s">%1$s an %2$s</string>
   <string name="MediaPreviewActivity_media_no_longer_available">Medieninhalte nicht mehr verfügbar.</string>
+  <string name="MediaPreviewActivity_cant_find_an_app_able_to_share_this_media">Keine App gefunden, die diesen Medieninhalt teilen kann.</string>
   <!--MessageNotifier-->
   <string name="MessageNotifier_d_new_messages_in_d_conversations">%1$d neue Nachrichten in %2$d Unterhaltungen</string>
   <string name="MessageNotifier_most_recent_from_s">Neueste von: %1$s</string>
@@ -1322,6 +1383,7 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   <string name="NotificationChannel_other">Sonstige</string>
   <string name="NotificationChannel_group_messages">Nachrichten</string>
   <string name="NotificationChannel_missing_display_name">Unbekannt</string>
+  <string name="NotificationChannel_voice_notes">Sprachnachrichten</string>
   <!--ProfileEditNameFragment-->
   <string name="ProfileEditNameFragment_successfully_set_profile_name">Profilname erfolgreich festgelegt.</string>
   <string name="ProfileEditNameFragment_encountered_a_network_error">Ein Netzfehler ist aufgetreten.</string>
@@ -1422,9 +1484,15 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Kontakte konnten nicht abgerufen werden. Überprüfe bitte deine Netzverbindung.</string>
   <string name="ContactSelectionListFragment_username_not_found">Benutzername nicht gefunden</string>
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">»%1$s« ist kein Signal-Nutzer. Bitte überprüfe den Benutzernamen und versuche es erneut.</string>
-  <string name="ContactSelectionListFragment_okay">O. K.</string>
-  <string name="ContactSelectionListFragment_the_group_is_full">Die Gruppe ist voll</string>
   <string name="ContactSelectionListFragment_you_do_not_need_to_add_yourself_to_the_group">Du musst dich nicht selbst zur Gruppe hinzufügen</string>
+  <string name="ContactSelectionListFragment_maximum_group_size_reached">Maximale Gruppengröße erreicht</string>
+  <string name="ContactSelectionListFragment_signal_groups_can_have_a_maximum_of_d_members">Signal-Gruppen können maximal %1$d Mitglieder besitzen.</string>
+  <string name="ContactSelectionListFragment_recommended_member_limit_reached">Empfohlene Mitgliederanzahl erreicht</string>
+  <string name="ContactSelectionListFragment_signal_groups_perform_best_with_d_members_or_fewer">Signal-Gruppen funktionieren am besten mit %1$d oder weniger Mitgliedern. Das Hinzufügen weiterer Mitglieder führt zu Verzögerungen beim Senden und Empfangen von Nachrichten.</string>
+  <plurals name="ContactSelectionListFragment_d_members">
+    <item quantity="one">%1$d Mitglied</item>
+    <item quantity="other">%1$d Mitglieder</item>
+  </plurals>
   <!--blocked_contacts_fragment-->
   <string name="blocked_contacts_fragment__no_blocked_contacts">Keine blockierten Kontakte</string>
   <!--contact_selection_list_fragment-->
@@ -1465,6 +1533,7 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   <string name="conversation_item_received__contact_photo_description">Kontaktbild</string>
   <!--ConversationUpdateItem-->
   <string name="ConversationUpdateItem_loading">Wird geladen …</string>
+  <string name="ConversationUpdateItem_learn_more">Mehr erfahren</string>
   <!--audio_view-->
   <string name="audio_view__play_pause_accessibility_description">Abspielen … Pause</string>
   <string name="audio_view__download_accessibility_description">Herunterladen</string>
@@ -1978,6 +2047,7 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   <!--media_preview-->
   <string name="media_preview__save_title">Speichern</string>
   <string name="media_preview__forward_title">Weiterleiten</string>
+  <string name="media_preview__share_title">Teilen</string>
   <string name="media_preview__all_media_title">Alle Medieninhalte</string>
   <!--media_preview_activity-->
   <string name="media_preview_activity__media_content_description">Medienvorschau</string>
@@ -2112,7 +2182,7 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   <string name="ResearchMegaphoneDialog_we_believe_in_privacy"><![CDATA[<p><b>Wir glauben an Datenschutz.</b></p><p>Signal verfolgt dich nicht und sammelt auch nicht deine Daten. Um Signal für alle zu verbessern, stützen wir uns auf Rückmeldungen der Benutzer, <b>und wir wären sehr an deinen interessiert.</b></p><p>Zum besseren Verständnis darüber, wie du Signal nutzt, führen wir eine Umfrage durch. Unsere Umfrage sammelt keinerlei Daten, die Rückschlüsse auf deine Identität erlauben. Falls du weiteres Feedback geben möchtest, kannst du optional deine Kontaktinformationen hinterlassen.</p><p>Wenn du einige Minuten erübrigen kannst, würden wir sehr gerne von dir hören.</p>]]></string>
   <string name="ResearchMegaphoneDialog_take_the_survey">An Umfrage teilnehmen</string>
   <string name="ResearchMegaphoneDialog_no_thanks">Nein, danke</string>
-  <string name="ResearchMegaphoneDialog_the_survey_is_hosted_by_surveygizmo_at_the_secure_domain">Diese Umfrage wird bei »Surveygizmo« auf der sicheren Domain »surveys.signalusers.org« gehostet.</string>
+  <string name="ResearchMegaphoneDialog_the_survey_is_hosted_by_alchemer_at_the_secure_domain">Diese Umfrage wird bei »Alchemer« auf der sicheren Domain »surveys.signalusers.org« gehostet.</string>
   <!--transport_selection_list_item-->
   <string name="transport_selection_list_item__transport_icon">Übertragungssymbol</string>
   <string name="ConversationListFragment_loading">Wird geladen …</string>
@@ -2128,6 +2198,8 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   <string name="PushDecryptJob_unlock_to_view_pending_messages">Entsperren, um ausstehende Nachrichten anzuzeigen</string>
   <string name="enter_backup_passphrase_dialog__backup_passphrase">Sicherungspassphrase</string>
   <string name="backup_enable_dialog__backups_will_be_saved_to_external_storage_and_encrypted_with_the_passphrase_below_you_must_have_this_passphrase_in_order_to_restore_a_backup">Datensicherungen werden im Gerätespeicher gespeichert und mit der unten genannten Passphrase verschlüsselt. Die Passphrase ist notwendig, um die Sicherung später wiederherzustellen.</string>
+  <string name="backup_enable_dialog__you_must_have_this_passphrase">Du musst über diese Passphrase verfügen, um eine Sicherung wiederherzustellen.</string>
+  <string name="backup_enable_dialog__folder">Ordner</string>
   <string name="backup_enable_dialog__i_have_written_down_this_passphrase">Ich habe mir diese Passphrase notiert. Ohne sie können keine Sicherungen wiederhergestellt werden.</string>
   <string name="registration_activity__restore_backup">Sicherung wiederherstellen</string>
   <string name="registration_activity__skip">Überspringen</string>
@@ -2142,7 +2214,7 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   <string name="RegistrationActivity_backup_failure_downgrade">Datensicherungen neuerer Signal-Versionen können nicht importiert werden</string>
   <string name="RegistrationActivity_incorrect_backup_passphrase">Falsche Sicherungspassphrase</string>
   <string name="RegistrationActivity_checking">Wird überprüft …</string>
-  <string name="RegistrationActivity_d_messages_so_far">%d Nachrichten bisher …</string>
+  <string name="RegistrationActivity_d_messages_so_far">%d Nachrichten bisher …</string>
   <string name="RegistrationActivity_restore_from_backup">Aus Sicherung wiederherstellen?</string>
   <string name="RegistrationActivity_restore_your_messages_and_media_from_a_local_backup">Stelle deine Nachrichten und Medieninhalte aus einer lokalen Datensicherung wieder her. Falls du sie jetzt nicht wiederherstellst, wirst du dies später nicht mehr nachholen können.</string>
   <string name="RegistrationActivity_backup_size_s">Sicherungsgröße: %s</string>
@@ -2153,6 +2225,8 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   <string name="BackupDialog_delete_backups">Sicherungen löschen?</string>
   <string name="BackupDialog_disable_and_delete_all_local_backups">Deaktivieren und alle lokalen Sicherungen löschen?</string>
   <string name="BackupDialog_delete_backups_statement">Sicherungen löschen</string>
+  <string name="BackupDialog_to_enable_backups_choose_a_folder">Um Datensicherungen zu aktivieren, wähle einen Ordner. Sicherungen werden dort gespeichert.</string>
+  <string name="BackupDialog_choose_folder">Ordner wählen</string>
   <string name="BackupDialog_copied_to_clipboard">In Zwischenablage kopiert</string>
   <string name="BackupDialog_enter_backup_passphrase_to_verify">Gib deine Sicherungspassphrase ein</string>
   <string name="BackupDialog_verify">Bestätigen</string>
@@ -2162,6 +2236,11 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   <string name="ChatsPreferenceFragment_last_backup_s">Letzte Sicherung: %s</string>
   <string name="ChatsPreferenceFragment_in_progress">In Arbeit …</string>
   <string name="LocalBackupJob_creating_backup">Sicherung wird erstellt …</string>
+  <string name="LocalBackupJobApi29_backup_failed">Sicherung gescheitert</string>
+  <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">Dein Verzeichnis für die Datensicherung wurde gelöscht oder verschoben.</string>
+  <string name="LocalBackupJobApi29_your_backup_file_is_too_large">Die Datei für die Datensicherung ist zu groß, um auf diesem Laufwerk gespeichert zu werden.</string>
+  <string name="LocalBackupJobApi29_there_is_not_enough_space">Es ist nicht genug Speicherplatz verfügbar, um deine Datensicherung zu speichern.</string>
+  <string name="LocalBackupJobApi29_tap_to_manage_backups">Antippen zum Verwalten von Datensicherungen.</string>
   <string name="ProgressPreference_d_messages_so_far">%d Nachrichten bisher</string>
   <string name="RegistrationActivity_please_enter_the_verification_code_sent_to_s">Bitte gib den an %s gesendeten Verifikationscode ein.</string>
   <string name="RegistrationActivity_wrong_number">Falsche Rufnummer</string>
@@ -2273,5 +2352,39 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   <string name="GroupLinkBottomSheet_share">Teilen</string>
   <string name="GroupLinkBottomSheet_copied_to_clipboard">In Zwischenablage kopiert</string>
   <string name="GroupLinkBottomSheet_the_link_is_not_currently_active">Der Link ist derzeit nicht aktiv</string>
+  <!--VoiceNotePlaybackPreparer-->
+  <string name="VoiceNotePlaybackPreparer__could_not_start_playback">Wiedergabe konnte nicht gestartet werden.</string>
+  <!--VoiceNoteMediaDescriptionCompatFactory-->
+  <string name="VoiceNoteMediaDescriptionCompatFactory__voice_message">Sprachnachricht · %1$s</string>
+  <string name="VoiceNoteMediaDescriptionCompatFactory__s_to_s">%1$s an %2$s</string>
+  <!--StorageUtil-->
+  <string name="StorageUtil__s_s">%1$s/%2$s</string>
+  <!--ReviewCardDialogFragment-->
+  <string name="ReviewCardDialogFragment__review_members">Mitglieder prüfen</string>
+  <string name="ReviewCardDialogFragment__review_request">Anfrage prüfen</string>
+  <string name="ReviewCardDialogFragment__d_group_members_have_the_same_name">%1$d Gruppenmitglieder haben denselben Namen. Prüfe die folgenden Mitglieder und verfahre entsprechend.</string>
+  <string name="ReviewCardDialogFragment__if_youre_not_sure">Falls du dir über die Herkunft der Anfrage unsicher bist, prüfe die folgenden Kontakte und verfahre entsprechend.</string>
+  <string name="ReviewCardDialogFragment__no_other_groups_in_common">Keine anderen gemeinsamen Gruppen.</string>
+  <string name="ReviewCardDialogFragment__no_groups_in_common">Keine gemeinsamen Gruppen.</string>
+  <plurals name="ReviewCardDialogFragment__d_other_groups_in_common">
+    <item quantity="one">%d gemeinsame Gruppe</item>
+    <item quantity="other">%d gemeinsame Gruppen</item>
+  </plurals>
+  <plurals name="ReviewCardDialogFragment__d_groups_in_common">
+    <item quantity="one">%d gemeinsame Gruppe</item>
+    <item quantity="other">%d gemeinsame Gruppen</item>
+  </plurals>
+  <string name="ReviewCardDialogFragment__remove_s_from_group">%1$s aus Gruppe entfernen?</string>
+  <string name="ReviewCardDialogFragment__remove">Entfernen</string>
+  <string name="ReviewCardDialogFragment__failed_to_remove_group_member">Gruppenmitglied konnte nicht entfernt werden.</string>
+  <!--ReviewCard-->
+  <string name="ReviewCard__member">Mitglied</string>
+  <string name="ReviewCard__request">Anfrage</string>
+  <string name="ReviewCard__your_contact">Dein Kontakt</string>
+  <string name="ReviewCard__remove_from_group">Aus Gruppe entfernen</string>
+  <string name="ReviewCard__update_contact">Kontakt aktualisieren</string>
+  <string name="ReviewCard__block">Blockieren</string>
+  <string name="ReviewCard__delete">Löschen</string>
+  <string name="ReviewCard__recently_changed">Profilname wurde kürzlich von %1$s zu %2$s geändert</string>
   <!--EOF-->
 </resources>

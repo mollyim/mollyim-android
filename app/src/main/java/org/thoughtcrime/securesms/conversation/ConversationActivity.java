@@ -39,10 +39,10 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.provider.Browser;
 import android.provider.ContactsContract;
-import android.provider.Telephony;
 import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -69,8 +69,10 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.pm.ShortcutInfoCompat;
 import androidx.core.content.pm.ShortcutManagerCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -97,7 +99,6 @@ import org.thoughtcrime.securesms.VerifyIdentityActivity;
 import org.thoughtcrime.securesms.attachments.Attachment;
 import org.thoughtcrime.securesms.attachments.TombstoneAttachment;
 import org.thoughtcrime.securesms.audio.AudioRecorder;
-import org.thoughtcrime.securesms.audio.AudioSlidePlayer;
 import org.thoughtcrime.securesms.color.MaterialColor;
 import org.thoughtcrime.securesms.components.AnimatingToggle;
 import org.thoughtcrime.securesms.components.ComposeText;
@@ -115,6 +116,7 @@ import org.thoughtcrime.securesms.components.identity.UnverifiedBannerView;
 import org.thoughtcrime.securesms.components.location.SignalPlace;
 import org.thoughtcrime.securesms.components.mention.MentionAnnotation;
 import org.thoughtcrime.securesms.components.reminder.ExpiredBuildReminder;
+import org.thoughtcrime.securesms.components.reminder.PendingGroupJoinRequestsReminder;
 import org.thoughtcrime.securesms.components.reminder.Reminder;
 import org.thoughtcrime.securesms.components.reminder.ReminderView;
 import org.thoughtcrime.securesms.components.reminder.ServiceOutageReminder;
@@ -162,7 +164,9 @@ import org.thoughtcrime.securesms.groups.ui.GroupChangeFailureReason;
 import org.thoughtcrime.securesms.groups.ui.GroupChangeResult;
 import org.thoughtcrime.securesms.groups.ui.GroupErrors;
 import org.thoughtcrime.securesms.groups.ui.LeaveGroupDialog;
+import org.thoughtcrime.securesms.groups.ui.invitesandrequests.ManagePendingAndRequestingMembersActivity;
 import org.thoughtcrime.securesms.groups.ui.managegroup.ManageGroupActivity;
+import org.thoughtcrime.securesms.jobs.GroupV1MigrationJob;
 import org.thoughtcrime.securesms.jobs.GroupV2UpdateSelfProfileKeyJob;
 import org.thoughtcrime.securesms.jobs.RequestGroupV2InfoJob;
 import org.thoughtcrime.securesms.jobs.RetrieveProfileJob;
@@ -202,6 +206,9 @@ import org.thoughtcrime.securesms.mms.VideoSlide;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.permissions.Permissions;
 import org.thoughtcrime.securesms.profiles.GroupShareProfileView;
+import org.thoughtcrime.securesms.profiles.spoofing.ReviewBannerView;
+import org.thoughtcrime.securesms.profiles.spoofing.ReviewCardDialogFragment;
+import org.thoughtcrime.securesms.profiles.spoofing.ReviewUtil;
 import org.thoughtcrime.securesms.providers.BlobProvider;
 import org.thoughtcrime.securesms.reactions.ReactionsBottomSheetDialogFragment;
 import org.thoughtcrime.securesms.reactions.any.ReactWithAnyEmojiBottomSheetDialogFragment;
@@ -238,8 +245,11 @@ import org.thoughtcrime.securesms.util.MediaUtil;
 import org.thoughtcrime.securesms.util.MessageUtil;
 import org.thoughtcrime.securesms.util.PlayStoreUtil;
 import org.thoughtcrime.securesms.util.ServiceUtil;
+import org.thoughtcrime.securesms.util.SmsUtil;
+import org.thoughtcrime.securesms.util.SpanUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.TextSecurePreferences.MediaKeyboardMode;
+import org.thoughtcrime.securesms.util.ThemeUtil;
 import org.thoughtcrime.securesms.util.Util;
 import org.thoughtcrime.securesms.util.ViewUtil;
 import org.thoughtcrime.securesms.util.concurrent.AssertedSuccessListener;
@@ -336,6 +346,7 @@ public class ConversationActivity extends PassphraseRequiredActivity
   protected Stub<ReminderView>         reminderView;
   private   Stub<UnverifiedBannerView> unverifiedBannerView;
   private   Stub<GroupShareProfileView> groupShareProfileView;
+  private   Stub<ReviewBannerView>      reviewBanner;
   private   TypingStatusTextWatcher     typingTextWatcher;
   private   ConversationSearchBottomBar searchNav;
   private   MenuItem                    searchViewItem;
@@ -438,12 +449,14 @@ public class ConversationActivity extends PassphraseRequiredActivity
     initializeStickerObserver();
     initializeViewModel();
     initializeGroupViewModel();
-    if (FeatureFlags.mentions()) initializeMentionsViewModel();
+    initializeMentionsViewModel();
     initializeEnabledCheck();
+    initializePendingRequestsBanner();
     initializeSecurity(recipient.get().isRegistered(), isDefaultSms).addListener(new AssertedSuccessListener<Boolean>() {
       @Override
       public void onSuccess(Boolean result) {
         initializeProfiles();
+        initializeGv1Migration();
         initializeDraft().addListener(new AssertedSuccessListener<Boolean>() {
           @Override
           public void onSuccess(Boolean loadedDraft) {
@@ -551,7 +564,6 @@ public class ConversationActivity extends PassphraseRequiredActivity
 
     fragment.setLastSeen(System.currentTimeMillis());
     markLastSeen();
-    AudioSlidePlayer.stopAll();
     EventBus.getDefault().unregister(this);
   }
 
@@ -830,7 +842,7 @@ public class ConversationActivity extends PassphraseRequiredActivity
       inflater.inflate(R.menu.conversation_add_to_contacts, menu);
     }
 
-    if (recipient != null && recipient.get().isLocalNumber()) {
+    if (recipient != null && recipient.get().isSelf()) {
       if (isSecureText) {
         hideMenuItem(menu, R.id.menu_call_secure);
         hideMenuItem(menu, R.id.menu_video_secure);
@@ -972,9 +984,13 @@ public class ConversationActivity extends PassphraseRequiredActivity
   @Override
   public void onBackPressed() {
     Log.d(TAG, "onBackPressed()");
-    if (reactionOverlay.isShowing())  reactionOverlay.hide();
-    else if (container.isInputOpen()) container.hideCurrentInput(composeText);
-    else                              super.onBackPressed();
+    if (reactionOverlay.isShowing()) {
+      reactionOverlay.hide();
+    } else if (container.isInputOpen()) {
+      container.hideCurrentInput(composeText);
+    } else {
+      super.onBackPressed();
+    }
   }
 
   @Override
@@ -1027,6 +1043,7 @@ public class ConversationActivity extends PassphraseRequiredActivity
     Permissions.with(this)
                .request(Manifest.permission.READ_EXTERNAL_STORAGE)
                .onAllGranted(() -> viewModel.onAttachmentKeyboardOpen())
+               .withPermanentDenialDialog(getString(R.string.AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio))
                .execute();
   }
 
@@ -1208,7 +1225,7 @@ public class ConversationActivity extends PassphraseRequiredActivity
                                           @NonNull Recipient recipient)
   {
     IconCompat icon = IconCompat.createWithAdaptiveBitmap(bitmap);
-    String     name = recipient.isLocalNumber() ? context.getString(R.string.note_to_self)
+    String     name = recipient.isSelf() ? context.getString(R.string.note_to_self)
                                                   : recipient.getDisplayName(context);
 
     ShortcutInfoCompat shortcutInfoCompat = new ShortcutInfoCompat.Builder(context, recipient.getId().serialize() + '-' + System.currentTimeMillis())
@@ -1497,6 +1514,11 @@ public class ConversationActivity extends PassphraseRequiredActivity
     });
   }
 
+  private void initializePendingRequestsBanner() {
+    groupViewModel.getActionableRequestingMembers()
+                  .observe(this, actionablePendingGroupRequests -> updateReminders());
+  }
+
   private ListenableFuture<Boolean> initializeDraftFromDatabase() {
     SettableFuture<Boolean> future = new SettableFuture<>();
 
@@ -1645,6 +1667,8 @@ public class ConversationActivity extends PassphraseRequiredActivity
   }
 
   protected void updateReminders() {
+    Integer            actionableRequestingMembers = groupViewModel.getActionableRequestingMembers().getValue();
+
     if (UnauthorizedReminder.isEligible(this)) {
       reminderView.get().showReminder(new UnauthorizedReminder(this));
     } else if (ExpiredBuildReminder.isEligible()) {
@@ -1653,6 +1677,13 @@ public class ConversationActivity extends PassphraseRequiredActivity
     } else if (ServiceOutageReminder.isEligible(this)) {
       ApplicationDependencies.getJobManager().add(new ServiceOutageDetectionJob());
       reminderView.get().showReminder(new ServiceOutageReminder(this));
+    } else if (actionableRequestingMembers != null && actionableRequestingMembers > 0 && FeatureFlags.groupsV2manageGroupLinks()) {
+      reminderView.get().showReminder(PendingGroupJoinRequestsReminder.create(this, actionableRequestingMembers));
+      reminderView.get().setOnActionClickListener(id -> {
+        if (id == R.id.reminder_action_review_join_requests) {
+          startActivity(ManagePendingAndRequestingMembersActivity.newIntent(this, getRecipient().getGroupId().get().requireV2()));
+        }
+      });
     } else if (reminderView.resolved()) {
       reminderView.get().hide();
     }
@@ -1758,6 +1789,7 @@ public class ConversationActivity extends PassphraseRequiredActivity
     reminderView             = ViewUtil.findStubById(this, R.id.reminder_stub);
     unverifiedBannerView     = ViewUtil.findStubById(this, R.id.unverified_banner_stub);
     groupShareProfileView    = ViewUtil.findStubById(this, R.id.group_share_profile_view_stub);
+    reviewBanner             = ViewUtil.findStubById(this, R.id.review_banner_stub);
     quickAttachmentToggle    = ViewUtil.findById(this, R.id.quick_attachment_toggle);
     inlineAttachmentToggle   = ViewUtil.findById(this, R.id.inline_attachment_container);
     inputPanel               = ViewUtil.findById(this, R.id.bottom_panel);
@@ -1926,6 +1958,7 @@ public class ConversationActivity extends PassphraseRequiredActivity
     groupViewModel = ViewModelProviders.of(this, new ConversationGroupViewModel.Factory()).get(ConversationGroupViewModel.class);
     recipient.observe(this, groupViewModel::onRecipientChange);
     groupViewModel.getGroupActiveState().observe(this, unused -> invalidateOptionsMenu());
+    groupViewModel.getReviewState().observe(this, this::presentGroupReviewBanner);
   }
 
   private void initializeMentionsViewModel() {
@@ -2052,6 +2085,10 @@ public class ConversationActivity extends PassphraseRequiredActivity
     }
 
     RetrieveProfileJob.enqueueAsync(recipient.getId());
+  }
+
+  private void initializeGv1Migration() {
+    GroupV1MigrationJob.enqueuePossibleAutoMigrate(recipient.getId());
   }
 
   private void onRecipientChanged(@NonNull Recipient recipient) {
@@ -2333,7 +2370,7 @@ public class ConversationActivity extends PassphraseRequiredActivity
     if (!TextSecurePreferences.isPushRegistered(this)) return false;
     if (recipient.get().isGroup())                     return false;
 
-    return recipient.get().isLocalNumber();
+    return recipient.get().isSelf();
   }
 
   private boolean isGroupConversation() {
@@ -2986,6 +3023,7 @@ public class ConversationActivity extends PassphraseRequiredActivity
     messageRequestBottomView.setBlockOnClickListener(v -> onMessageRequestBlockClicked(viewModel));
     messageRequestBottomView.setUnblockOnClickListener(v -> onMessageRequestUnblockClicked(viewModel));
 
+    viewModel.getRequestReviewDisplayState().observe(this, this::presentRequestReviewBanner);
     viewModel.getMessageData().observe(this, this::presentMessageRequestBottomViewTo);
     viewModel.getMessageRequestDisplayState().observe(this, this::presentMessageRequestDisplayState);
     viewModel.getFailures().observe(this, this::showGroupChangeErrorToast);
@@ -3011,12 +3049,66 @@ public class ConversationActivity extends PassphraseRequiredActivity
     });
   }
 
+  private void presentRequestReviewBanner(@NonNull MessageRequestViewModel.RequestReviewDisplayState state) {
+    switch (state) {
+      case SHOWN:
+        reviewBanner.get().setVisibility(View.VISIBLE);
+
+        CharSequence message = new SpannableStringBuilder().append(SpanUtil.bold(getString(R.string.ConversationFragment__review_requests_carefully)))
+                                                           .append(" ")
+                                                           .append(getString(R.string.ConversationFragment__signal_found_another_contact_with_the_same_name));
+
+        reviewBanner.get().setBannerMessage(message);
+
+        Drawable drawable = Objects.requireNonNull(ThemeUtil.getThemedDrawable(this, R.attr.menu_info_icon)).mutate();
+        DrawableCompat.setTint(drawable, ThemeUtil.getThemedColor(this, R.attr.icon_tint));
+
+        reviewBanner.get().setBannerIcon(drawable);
+        reviewBanner.get().setOnClickListener(unused -> handleReviewRequest(recipient.getId()));
+        break;
+      case HIDDEN:
+        reviewBanner.get().setVisibility(View.GONE);
+        break;
+      default:
+        break;
+    }
+  }
+
+  private void presentGroupReviewBanner(@NonNull ConversationGroupViewModel.ReviewState groupReviewState) {
+    if (groupReviewState.getCount() > 0) {
+      reviewBanner.get().setVisibility(View.VISIBLE);
+      reviewBanner.get().setBannerMessage(getString(R.string.ConversationFragment__d_group_members_have_the_same_name, groupReviewState.getCount()));
+      reviewBanner.get().setBannerRecipient(groupReviewState.getRecipient());
+      reviewBanner.get().setOnClickListener(unused -> handleReviewGroupMembers(groupReviewState.getGroupId()));
+    } else if (reviewBanner.resolved()) {
+      reviewBanner.get().setVisibility(View.GONE);
+    }
+  }
+
   private void showMessageRequestBusy() {
     messageRequestBottomView.showBusy();
   }
 
   private void hideMessageRequestBusy() {
     messageRequestBottomView.hideBusy();
+  }
+
+  private void handleReviewGroupMembers(@Nullable GroupId.V2 groupId) {
+    if (groupId == null) {
+      return;
+    }
+
+    ReviewCardDialogFragment.createForReviewMembers(groupId)
+                            .show(getSupportFragmentManager(), null);
+  }
+
+  private void handleReviewRequest(@NonNull RecipientId recipientId) {
+    if (recipientId == Recipient.UNKNOWN.getId()) {
+      return;
+    }
+
+    ReviewCardDialogFragment.createForReviewRequest(recipientId)
+                            .show(getSupportFragmentManager(), null);
   }
 
   private void showGroupChangeErrorToast(@NonNull GroupChangeFailureReason e) {
@@ -3237,7 +3329,7 @@ public class ConversationActivity extends PassphraseRequiredActivity
             groupShareProfileView.get().setVisibility(View.GONE);
           }
           break;
-        case DISPLAY_LEGACY:
+        case DISPLAY_PRE_MESSAGE_REQUEST:
           if (recipient.get().isGroup()) {
             groupShareProfileView.get().setRecipient(recipient.get());
             groupShareProfileView.get().setVisibility(View.VISIBLE);

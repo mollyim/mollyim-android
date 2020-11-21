@@ -166,6 +166,16 @@
         <item name="icon_tint">@color/core_grey_75</item>
         <item name="icon_tint_dark">@color/core_grey_15</item>
 
+        <item name="review_card_bg">@drawable/review_card_outline_light</item>
+
+        <item name="folder_icon">@drawable/ic_folder_outline_24</item>
+        <item name="backup_enable_dialog_divider_background">@color/core_grey_20</item>
+        <item name="backup_enable_subhead_color">@color/core_grey_65</item>
+
+        <item name="audio_seek_bar_sent_played_color">@color/core_grey_60</item>
+        <item name="audio_seek_bar_sent_unplayed_color">@color/core_grey_25</item>
+        <item name="audio_play_pause_sent_background_tint">@color/core_white</item>
+
         <item name="insight_modal_background">@drawable/insights_modal_background</item>
         <item name="insight_modal_button_background">@color/core_grey_10</item>
         <item name="insight_title">@color/core_grey_90</item>
@@ -271,6 +281,7 @@
         <item name="conversation_number_picker_text_color_selected">@color/black</item>
         <item name="conversation_sticker_footer_text_color">@color/core_grey_60</item>
         <item name="conversation_sticker_footer_icon_color">@color/core_grey_60</item>
+        <item name="conversation_footer_sent_reveal_dot_color">@color/core_grey_60</item>
         <item name="conversation_sticker_author_color">@color/core_black</item>
         <item name="conversation_popup_theme">@style/ThemeOverlay.AppCompat.Light</item>
         <item name="conversation_title_color">@color/white</item>
@@ -418,6 +429,9 @@
         <item name="message_request_text_color_primary">@color/core_grey_90</item>
         <item name="message_request_text_color_secondary">@color/core_grey_60</item>
 
+        <item name="outlined_action_button">@style/Widget.Signal.Button.OutlinedAction.Light</item>
+        <item name="paragraph_marker">@drawable/paragraph_marker_light</item>
+
         <item name="avatar_selection_take_photo">@drawable/ic_camera_outline_24</item>
         <item name="avatar_selection_pick_photo">@drawable/ic_photo_outline_24</item>
         <item name="avatar_selection_remove_photo">@drawable/ic_trash_outline_24</item>
@@ -442,7 +456,6 @@
         <item name="tooltip_default_color">@color/core_white</item>
 
         <item name="dangerous_button_color">@color/core_red_highlight</item>
-
         <item name="pref_icon_tint">?attr/icon_tint</item>
 
         <item name="pref_divider">@drawable/preference_divider_light</item>
@@ -496,6 +509,16 @@
         <item name="theme_type">dark</item>
         <item name="icon_tint">@color/core_grey_15</item>
         <item name="icon_tint_dark">?icon_tint</item>
+
+        <item name="review_card_bg">@drawable/review_card_outline_dark</item>
+
+        <item name="folder_icon">@drawable/ic_folder_solid_24</item>
+        <item name="backup_enable_dialog_divider_background">@color/core_grey_60</item>
+        <item name="backup_enable_subhead_color">@color/core_grey_25</item>
+
+        <item name="audio_seek_bar_sent_played_color">@color/core_grey_15</item>
+        <item name="audio_seek_bar_sent_unplayed_color">@color/core_grey_60</item>
+        <item name="audio_play_pause_sent_background_tint">@color/core_grey_60</item>
 
         <item name="insight_modal_background">@drawable/insights_modal_background_dark</item>
         <item name="insight_modal_button_background">@color/core_grey_60</item>
@@ -603,6 +626,8 @@
         <item name="conversation_item_reveal_viewed_background_color">?conversation_background</item>
         <item name="conversation_item_delete_for_everyone_text_color">@color/core_grey_15</item>
         <item name="conversation_item_mention_pulse_color">@color/transparent</item>
+        <item name="outlined_action_button">@style/Widget.Signal.Button.OutlinedAction.Dark</item>
+        <item name="paragraph_marker">@drawable/paragraph_marker_dark</item>
 
         <item name="safety_number_change_dialog_button_background">@color/core_grey_75</item>
         <item name="safety_number_change_dialog_button_text_color">@color/core_grey_05</item>
@@ -656,6 +681,7 @@
         <item name="conversation_number_picker_text_color_selected">@color/white</item>
         <item name="conversation_sticker_footer_text_color">@color/core_grey_25</item>
         <item name="conversation_sticker_footer_icon_color">@color/core_grey_25</item>
+        <item name="conversation_footer_sent_reveal_dot_color">@color/core_grey_25</item>
         <item name="conversation_sticker_author_color">@color/core_grey_05</item>
         <item name="conversation_popup_theme">@style/ThemeOverlay.AppCompat.Dark</item>
         <item name="conversation_title_color">@color/transparent_white_90</item>

@@ -52,18 +52,18 @@ public final class GroupsV2CapabilityChecker {
   }
 
   @WorkerThread
-  static boolean allAndSelfSupportGroupsV2AndUuid(@NonNull Collection<RecipientId> recipientIds)
+  static boolean allAndSelfHaveUuidAndSupportGroupsV2(@NonNull Collection<RecipientId> recipientIds)
       throws IOException
   {
     HashSet<RecipientId> recipientIdsSet = new HashSet<>(recipientIds);
 
     recipientIdsSet.add(Recipient.self().getId());
 
-    return allSupportGroupsV2AndUuid(recipientIdsSet);
+    return allHaveUuidAndSupportGroupsV2(recipientIdsSet);
   }
 
   @WorkerThread
-  static boolean allSupportGroupsV2AndUuid(@NonNull Collection<RecipientId> recipientIds)
+  static boolean allHaveUuidAndSupportGroupsV2(@NonNull Collection<RecipientId> recipientIds)
       throws IOException
   {
     Set<RecipientId> recipientIdsSet = new HashSet<>(recipientIds);
@@ -81,7 +81,7 @@ public final class GroupsV2CapabilityChecker {
         Log.w(TAG, "At least one recipient does not support GV2, capability was " + gv2Capability);
 
         noGv2Count++;
-        if (member.isLocalNumber()) {
+        if (member.isSelf()) {
           noSelfGV2Support = true;
         }
       }

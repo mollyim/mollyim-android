@@ -1,6 +1,8 @@
 .classpath
 captures/
 project.properties
+keystore.debug.properties
+keystore.staging.properties
 .project
 .settings
 bin/
@@ -16,7 +18,6 @@ build.log
 build-log.xml
 .gradle
 build
-reproducible-build/
 signing.properties
 library/lib/
 library/obj/
@@ -24,6 +25,5 @@ ffpr
 test/androidTestEspresso/res/values/arrays.xml
 obj/
 .cxx
-*.sh
 pkcs11.password
 dev.keystore

@@ -17,6 +17,7 @@
 package org.thoughtcrime.securesms.mediaoverview;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +36,7 @@ import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.attachments.AttachmentId;
 import org.thoughtcrime.securesms.components.AudioView;
 import org.thoughtcrime.securesms.components.ThumbnailView;
+import org.thoughtcrime.securesms.components.voice.VoiceNotePlaybackState;
 import org.thoughtcrime.securesms.database.MediaDatabase;
 import org.thoughtcrime.securesms.database.MediaDatabase.MediaRecord;
 import org.thoughtcrime.securesms.database.loaders.GroupedThreadMediaLoader.GroupedThreadMedia;
@@ -55,6 +57,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 final class MediaGalleryAllAdapter extends StickyHeaderGridAdapter {
 
@@ -63,6 +66,7 @@ final class MediaGalleryAllAdapter extends StickyHeaderGridAdapter {
   private final GlideRequests                  glideRequests;
   private final ItemClickListener              itemClickListener;
   private final Map<AttachmentId, MediaRecord> selected          = new HashMap<>();
+  private final AudioItemListener              audioItemListener;
 
   private GroupedThreadMedia media;
   private boolean            showFileSizes;
@@ -72,12 +76,6 @@ final class MediaGalleryAllAdapter extends StickyHeaderGridAdapter {
   private static final int GALLERY         = 2;
   private static final int GALLERY_DETAIL  = 3;
   private static final int DOCUMENT_DETAIL = 4;
-
-  void pause(RecyclerView.ViewHolder holder) {
-    if (holder instanceof AudioDetailViewHolder) {
-      ((AudioDetailViewHolder) holder).pause();
-    }
-  }
 
   void detach(RecyclerView.ViewHolder holder) {
     if (holder instanceof SelectableViewHolder) {
@@ -98,15 +96,17 @@ final class MediaGalleryAllAdapter extends StickyHeaderGridAdapter {
                          @NonNull GlideRequests glideRequests,
                          GroupedThreadMedia media,
                          ItemClickListener clickListener,
+                         @NonNull AudioItemListener audioItemListener,
                          boolean showFileSizes,
                          boolean showThread)
   {
-    this.context           = context;
-    this.glideRequests     = glideRequests;
-    this.media             = media;
-    this.itemClickListener = clickListener;
-    this.showFileSizes     = showFileSizes;
-    this.showThread        = showThread;
+    this.context            = context;
+    this.glideRequests      = glideRequests;
+    this.media              = media;
+    this.itemClickListener  = clickListener;
+    this.audioItemListener  = audioItemListener;
+    this.showFileSizes      = showFileSizes;
+    this.showThread         = showThread;
   }
 
   public void setMedia(GroupedThreadMedia media) {
@@ -383,18 +383,18 @@ final class MediaGalleryAllAdapter extends StickyHeaderGridAdapter {
     }
 
     private String getSentFromToString(@NonNull Recipient from, @NonNull Recipient thread) {
-      if (from.isLocalNumber() && from == thread) {
+      if (from.isSelf() && from == thread) {
         return context.getString(R.string.note_to_self);
       }
 
-      if (showThread && (from.isLocalNumber() || thread.isGroup())) {
-        if (from.isLocalNumber()) {
+      if (showThread && (from.isSelf() || thread.isGroup())) {
+        if (from.isSelf()) {
           return context.getString(R.string.MediaOverviewActivity_sent_by_you_to_s, thread.getDisplayName(context));
         } else {
           return context.getString(R.string.MediaOverviewActivity_sent_by_s_to_s, from.getDisplayName(context), thread.getDisplayName(context));
         }
       } else {
-        if (from.isLocalNumber()) {
+        if (from.isSelf()) {
           return context.getString(R.string.MediaOverviewActivity_sent_by_you);
         } else {
           return context.getString(R.string.MediaOverviewActivity_sent_by_s, from.getDisplayName(context));
@@ -437,24 +437,25 @@ final class MediaGalleryAllAdapter extends StickyHeaderGridAdapter {
         throw new AssertionError();
       }
 
-      audioView.setAudio((AudioSlide) slide, true);
+      long mmsId = Objects.requireNonNull(mediaRecord.getAttachment()).getMmsId();
+
+      audioItemListener.unregisterPlaybackStateObserver(audioView.getPlaybackStateObserver());
+      audioView.setAudio((AudioSlide) slide, new AudioViewCallbacksAdapter(audioItemListener, mmsId), true, true);
+      audioItemListener.registerPlaybackStateObserver(audioView.getPlaybackStateObserver());
+
       audioView.setOnClickListener(view -> itemClickListener.onMediaClicked(mediaRecord));
       itemView.setOnClickListener(view -> itemClickListener.onMediaClicked(mediaRecord));
     }
 
     @Override
     void unbind() {
-      audioView.stopPlaybackAndReset();
       super.unbind();
+      audioItemListener.unregisterPlaybackStateObserver(audioView.getPlaybackStateObserver());
     }
 
     @Override
     protected String getFileTypeDescription(@NonNull Context context, @NonNull Slide slide) {
       return context.getString(R.string.MediaOverviewActivity_audio);
-    }
-
-    public void pause() {
-      audioView.stopPlaybackAndReset();
     }
   }
 
@@ -490,8 +491,52 @@ final class MediaGalleryAllAdapter extends StickyHeaderGridAdapter {
     }
   }
 
+  private static final class AudioViewCallbacksAdapter implements AudioView.Callbacks {
+
+    private final AudioItemListener audioItemListener;
+    private final long              messageId;
+
+    private AudioViewCallbacksAdapter(@NonNull AudioItemListener audioItemListener, long messageId) {
+      this.audioItemListener = audioItemListener;
+      this.messageId         = messageId;
+    }
+
+    @Override
+    public void onPlay(@NonNull Uri audioUri, double progress) {
+      audioItemListener.onPlay(audioUri, progress, messageId);
+    }
+
+    @Override
+    public void onPause(@NonNull Uri audioUri) {
+      audioItemListener.onPause(audioUri);
+    }
+
+    @Override
+    public void onSeekTo(@NonNull Uri audioUri, double progress) {
+      audioItemListener.onSeekTo(audioUri, progress);
+    }
+
+    @Override
+    public void onStopAndReset(@NonNull Uri audioUri) {
+      audioItemListener.onStopAndReset(audioUri);
+    }
+
+    @Override
+    public void onProgressUpdated(long durationMillis, long playheadMillis) {
+    }
+  }
+
   interface ItemClickListener {
     void onMediaClicked(@NonNull MediaDatabase.MediaRecord mediaRecord);
     void onMediaLongClicked(MediaDatabase.MediaRecord mediaRecord);
+  }
+
+  interface AudioItemListener {
+    void onPlay(@NonNull Uri audioUri, double progress, long messageId);
+    void onPause(@NonNull Uri audioUri);
+    void onSeekTo(@NonNull Uri audioUri, double progress);
+    void onStopAndReset(@NonNull Uri audioUri);
+    void registerPlaybackStateObserver(@NonNull Observer<VoiceNotePlaybackState> observer);
+    void unregisterPlaybackStateObserver(@NonNull Observer<VoiceNotePlaybackState> observer);
   }
 }

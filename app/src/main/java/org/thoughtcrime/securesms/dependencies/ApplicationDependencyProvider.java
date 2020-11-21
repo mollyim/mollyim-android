@@ -99,7 +99,8 @@ public class ApplicationDependencyProvider implements ApplicationDependencies.Pr
                                             Optional.fromNullable(IncomingMessageObserver.getUnidentifiedPipe()),
                                             Optional.of(new SecurityEventListener(context)),
                                             provideClientZkOperations().getProfileOperations(),
-                                            SignalExecutors.newCachedBoundedExecutor("signal-messages", 1, 16));
+                                            SignalExecutors.newCachedBoundedExecutor("signal-messages", 1, 16),
+                                            FeatureFlags.maxEnvelopeSize());
   }
 
   @Override
@@ -153,12 +154,6 @@ public class ApplicationDependencyProvider implements ApplicationDependencies.Pr
     return new FrameRateTracker(context);
   }
 
-  @Override
-  public @NonNull KeyValueStore provideKeyValueStore() {
-    return new KeyValueStore(context);
-  }
-
-  @Override
   public @NonNull MegaphoneRepository provideMegaphoneRepository() {
     return new MegaphoneRepository(context);
   }

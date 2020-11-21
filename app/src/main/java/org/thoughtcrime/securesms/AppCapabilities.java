@@ -1,5 +1,6 @@
 package org.thoughtcrime.securesms;
 
+import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.whispersystems.signalservice.api.account.AccountAttributes;
 
 public final class AppCapabilities {
@@ -15,6 +16,6 @@ public final class AppCapabilities {
    *                       asking if the user has set a Signal PIN or not.
    */
   public static AccountAttributes.Capabilities getCapabilities(boolean storageCapable) {
-    return new AccountAttributes.Capabilities(UUID_CAPABLE, GV2_CAPABLE, storageCapable);
+    return new AccountAttributes.Capabilities(UUID_CAPABLE, GV2_CAPABLE, storageCapable, FeatureFlags.groupsV1AutoMigration());
   }
 }

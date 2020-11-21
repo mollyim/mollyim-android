@@ -7,9 +7,15 @@
     <attr name="search_view_style" format="reference" />
     <attr name="search_view_style_dark" format="reference" />
 
+    <attr name="review_card_bg" format="reference" />
+
     <attr name="title_text_color_primary" format="color"/>
     <attr name="title_text_color_secondary" format="color"/>
     <attr name="title_text_color_disabled" format="color"/>
+
+    <attr name="folder_icon" format="reference" />
+    <attr name="backup_enable_subhead_color" format="color" />
+    <attr name="backup_enable_dialog_divider_background" format="color" />
 
     <attr name="attachment_type_selector_background" format="color"/>
     <attr name="attachment_document_icon_small" format="reference" />
@@ -90,6 +96,7 @@
     <attr name="conversation_number_picker_text_color_selected" format="reference|color"/>
     <attr name="conversation_sticker_footer_text_color" format="reference|color"/>
     <attr name="conversation_sticker_footer_icon_color" format="reference|color"/>
+    <attr name="conversation_footer_sent_reveal_dot_color" format="color" />
     <attr name="conversation_sticker_author_color" format="reference|color"/>
     <attr name="conversation_popup_theme" format="reference"/>
     <attr name="conversation_title_color" format="reference" />
@@ -136,6 +143,10 @@
     <attr name="quick_mic_icon" format="reference"/>
 
     <attr name="compose_icon_tint" />
+
+    <attr name="audio_seek_bar_sent_played_color" format="color" />
+    <attr name="audio_seek_bar_sent_unplayed_color" format="color" />
+    <attr name="audio_play_pause_sent_background_tint" format="color" />
 
     <attr name="conversation_item_background" format="reference"/>
     <attr name="conversation_item_bubble_background" format="reference|color"/>
@@ -288,6 +299,9 @@
     <attr name="media_overview_grid_view_icon" format="reference"/>
     <attr name="media_overview_list_view_icon" format="reference"/>
 
+    <attr name="outlined_action_button" format="reference" />
+    <attr name="paragraph_marker" format="reference" />
+
     <attr name="shared_contact_details_header_background" format="color"/>
     <attr name="shared_contact_details_titlebar" format="color"/>
     <attr name="shared_contact_item_button_color" format="color"/>
@@ -383,8 +397,10 @@
     <declare-styleable name="AudioView">
         <attr name="foregroundTintColor" format="color" />
         <attr name="backgroundTintColor" format="color" />
+        <attr name="waveformThumbTint" format="color" />
         <attr name="waveformPlayedBarsColor" format="color" />
         <attr name="waveformUnplayedBarsColor" format="color" />
+        <attr name="progressAndPlayTint" format="color" />
         <attr name="small" format="boolean" />
         <attr name="autoRewind" format="boolean" />
     </declare-styleable>
@@ -482,6 +498,7 @@
     <declare-styleable name="ConversationItemFooter">
         <attr name="footer_text_color" format="color" />
         <attr name="footer_icon_color" format="color" />
+        <attr name="footer_reveal_dot_color" format="color" />
     </declare-styleable>
 
     <declare-styleable name="ConversationItemThumbnail">
@@ -583,5 +600,9 @@
 
     <declare-styleable name="ConversationScrollToView">
         <attr name="cstv_scroll_button_src" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="WarningTextView">
+        <attr name="warning_text_color" format="color|reference" />
     </declare-styleable>
 </resources>

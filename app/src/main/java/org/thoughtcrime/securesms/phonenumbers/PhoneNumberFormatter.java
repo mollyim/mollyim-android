@@ -11,6 +11,7 @@ import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
 import com.google.i18n.phonenumbers.ShortNumberInfo;
 
+import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.groups.GroupId;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
@@ -18,6 +19,7 @@ import org.thoughtcrime.securesms.util.Util;
 import org.whispersystems.libsignal.util.Pair;
 import org.whispersystems.libsignal.util.guava.Optional;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
@@ -35,6 +37,11 @@ public class PhoneNumberFormatter {
     add("AC");
   }};
 
+  private static final Set<Integer> NATIONAL_FORMAT_COUNTRY_CODES = new HashSet<>(Arrays.asList(
+      1,  // US
+      44  // UK
+  ));
+
   private static final Pattern US_NO_AREACODE = Pattern.compile("^(\\d{7})$");
   private static final Pattern BR_NO_AREACODE = Pattern.compile("^(9?\\d{8})$");
 
@@ -45,7 +52,6 @@ public class PhoneNumberFormatter {
 
   private final PhoneNumberUtil phoneNumberUtil = PhoneNumberUtil.getInstance();
   private final Pattern         ALPHA_PATTERN   = Pattern.compile("[a-zA-Z]");
-
 
   public static @NonNull PhoneNumberFormatter get(Context context) {
     String localNumber = TextSecurePreferences.getLocalNumber(context);
@@ -79,6 +85,28 @@ public class PhoneNumberFormatter {
   PhoneNumberFormatter(@NonNull String localCountryCode, boolean countryCode) {
     this.localNumber      = Optional.absent();
     this.localCountryCode = localCountryCode;
+  }
+
+  public static @NonNull String prettyPrint(@NonNull String e164) {
+    return get(ApplicationDependencies.getApplication()).prettyPrintFormat(e164);
+  }
+
+  public @NonNull String prettyPrintFormat(@NonNull String e164) {
+    try {
+      Phonenumber.PhoneNumber parsedNumber = phoneNumberUtil.parse(e164, localCountryCode);
+
+      if (localNumber.isPresent()                                        &&
+          localNumber.get().countryCode == parsedNumber.getCountryCode() &&
+          NATIONAL_FORMAT_COUNTRY_CODES.contains(localNumber.get().getCountryCode()))
+      {
+        return phoneNumberUtil.format(parsedNumber, PhoneNumberUtil.PhoneNumberFormat.NATIONAL);
+      } else {
+        return phoneNumberUtil.format(parsedNumber, PhoneNumberUtil.PhoneNumberFormat.INTERNATIONAL);
+      }
+    } catch (NumberParseException e) {
+      Log.w(TAG, "Failed to format number.");
+      return e164;
+    }
   }
 
   public String format(@Nullable String number) {

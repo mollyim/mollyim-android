@@ -76,6 +76,8 @@ import org.whispersystems.signalservice.internal.contacts.entities.KeyBackupRequ
 import org.whispersystems.signalservice.internal.contacts.entities.KeyBackupResponse;
 import org.whispersystems.signalservice.internal.contacts.entities.TokenResponse;
 import org.whispersystems.signalservice.internal.push.exceptions.ForbiddenException;
+import org.whispersystems.signalservice.internal.push.exceptions.GroupExistsException;
+import org.whispersystems.signalservice.internal.push.exceptions.GroupNotFoundException;
 import org.whispersystems.signalservice.internal.push.exceptions.GroupPatchNotAcceptedException;
 import org.whispersystems.signalservice.internal.push.exceptions.MismatchedDevicesException;
 import org.whispersystems.signalservice.internal.push.exceptions.NotInGroupException;
@@ -1108,25 +1110,10 @@ public class PushServiceSocket {
                                                         .connectTimeout(soTimeoutMillis, TimeUnit.MILLISECONDS)
                                                         .readTimeout(soTimeoutMillis, TimeUnit.MILLISECONDS)
                                                         .build();
-    final HttpUrl endpointUrl = HttpUrl.get(connectionHolder.url);
-    final HttpUrl signedHttpUrl;
-    try {
-      signedHttpUrl = HttpUrl.get(signedUrl);
-    } catch (IllegalArgumentException e) {
-      Log.w(TAG, "Server returned a malformed signed url: " + signedUrl);
-      throw new IOException("Server returned a malformed signed url", e);
-    }
 
-    final HttpUrl.Builder urlBuilder = new HttpUrl.Builder().scheme(endpointUrl.scheme())
-                                                            .host(endpointUrl.host())
-                                                            .port(endpointUrl.port())
-                                                            .encodedPath(endpointUrl.encodedPath())
-                                                            .addEncodedPathSegments(signedHttpUrl.encodedPath().substring(1))
-                                                            .encodedQuery(signedHttpUrl.encodedQuery())
-                                                            .encodedFragment(signedHttpUrl.encodedFragment());
-
-    Request.Builder request = new Request.Builder().url(urlBuilder.build())
+    Request.Builder request = new Request.Builder().url(buildConfiguredUrl(connectionHolder, signedUrl))
                                                    .post(RequestBody.create(null, ""));
+
     for (Map.Entry<String, String> header : headers.entrySet()) {
       if (!header.getKey().equalsIgnoreCase("host")) {
         request.header(header.getKey(), header.getValue());
@@ -1186,7 +1173,7 @@ public class PushServiceSocket {
       return file.getTransmittedDigest();
     }
 
-    Request.Builder request = new Request.Builder().url(resumableUrl)
+    Request.Builder request = new Request.Builder().url(buildConfiguredUrl(connectionHolder, resumableUrl))
                                                    .put(file)
                                                    .addHeader("Content-Range", resumeInfo.contentRange);
 
@@ -1229,7 +1216,7 @@ public class PushServiceSocket {
     final long   offset;
     final String contentRange;
 
-    Request.Builder request = new Request.Builder().url(resumableUrl)
+    Request.Builder request = new Request.Builder().url(buildConfiguredUrl(connectionHolder, resumableUrl))
                                                    .put(RequestBody.create(null, ""))
                                                    .addHeader("Content-Range", String.format(Locale.US, "bytes */%d", contentLength));
 
@@ -1277,6 +1264,25 @@ public class PushServiceSocket {
     }
 
     return new ResumeInfo(contentRange, offset);
+  }
+
+  private static HttpUrl buildConfiguredUrl(ConnectionHolder connectionHolder, String url) throws IOException {
+    final HttpUrl endpointUrl = HttpUrl.get(connectionHolder.url);
+    final HttpUrl resumableHttpUrl;
+    try {
+      resumableHttpUrl = HttpUrl.get(url);
+    } catch (IllegalArgumentException e) {
+      throw new IOException("Malformed URL!", e);
+    }
+
+    return new HttpUrl.Builder().scheme(endpointUrl.scheme())
+                                .host(endpointUrl.host())
+                                .port(endpointUrl.port())
+                                .encodedPath(endpointUrl.encodedPath())
+                                .addEncodedPathSegments(resumableHttpUrl.encodedPath().substring(1))
+                                .encodedQuery(resumableHttpUrl.encodedQuery())
+                                .encodedFragment(resumableHttpUrl.encodedFragment())
+                                .build();
   }
 
   private String makeServiceRequest(String urlFragment, String method, String jsonBody)
@@ -1920,10 +1926,15 @@ public class PushServiceSocket {
     return JsonUtil.fromJson(response, CredentialResponse.class);
   }
 
-  private static final ResponseCodeHandler GROUPS_V2_PUT_RESPONSE_HANDLER   = NO_HANDLER;
+  private static final ResponseCodeHandler GROUPS_V2_PUT_RESPONSE_HANDLER   = responseCode -> {
+    if (responseCode == 409) throw new GroupExistsException();
+  };;
   private static final ResponseCodeHandler GROUPS_V2_GET_LOGS_HANDLER       = NO_HANDLER;
   private static final ResponseCodeHandler GROUPS_V2_GET_CURRENT_HANDLER    = responseCode -> {
-    if (responseCode == 403) throw new NotInGroupException();
+    switch (responseCode) {
+      case 403: throw new NotInGroupException();
+      case 404: throw new GroupNotFoundException();
+    }
   };
   private static final ResponseCodeHandler GROUPS_V2_PATCH_RESPONSE_HANDLER = responseCode -> {
     if (responseCode == 400) throw new GroupPatchNotAcceptedException();

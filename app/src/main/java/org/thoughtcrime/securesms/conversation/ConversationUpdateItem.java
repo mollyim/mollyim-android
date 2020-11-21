@@ -1,32 +1,22 @@
 package org.thoughtcrime.securesms.conversation;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.ColorFilter;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
-import android.os.AsyncTask;
+import android.text.Spannable;
 import android.text.SpannableString;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.Transformations;
 
-import org.thoughtcrime.securesms.ApplicationContext;
 import org.thoughtcrime.securesms.BindableConversationItem;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.VerifyIdentityActivity;
-import org.thoughtcrime.securesms.components.ExpirationTimerView;
-import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.database.IdentityDatabase.IdentityRecord;
 import org.thoughtcrime.securesms.database.model.LiveUpdateMessage;
 import org.thoughtcrime.securesms.database.model.MessageRecord;
@@ -35,10 +25,7 @@ import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.mms.GlideRequests;
 import org.thoughtcrime.securesms.recipients.LiveRecipient;
 import org.thoughtcrime.securesms.recipients.Recipient;
-import org.thoughtcrime.securesms.util.DateUtils;
-import org.thoughtcrime.securesms.util.ExpirationUtil;
 import org.thoughtcrime.securesms.util.IdentityUtil;
-import org.thoughtcrime.securesms.util.ThemeUtil;
 import org.thoughtcrime.securesms.util.concurrent.ListenableFuture;
 import org.thoughtcrime.securesms.util.livedata.LiveDataUtil;
 import org.whispersystems.libsignal.util.guava.Optional;
@@ -55,16 +42,14 @@ public final class ConversationUpdateItem extends LinearLayout
 
   private Set<ConversationMessage> batchSelected;
 
-  private ImageView                 icon;
-  private TextView                  title;
-  private TextView                  body;
-  private TextView                  date;
-  private ExpirationTimerView       timer;
-  private LiveRecipient             sender;
-  private ConversationMessage       conversationMessage;
-  private MessageRecord             messageRecord;
-  private Locale                    locale;
-  private LiveData<SpannableString> displayBody;
+  private TextView                body;
+  private TextView                actionButton;
+  private LiveRecipient           sender;
+  private ConversationMessage     conversationMessage;
+  private Optional<MessageRecord> nextMessageRecord;
+  private MessageRecord           messageRecord;
+  private LiveData<Spannable>     displayBody;
+  private EventListener           eventListener;
 
   private final UpdateObserver updateObserver = new UpdateObserver();
   private final SenderObserver senderObserver = new SenderObserver();
@@ -80,12 +65,8 @@ public final class ConversationUpdateItem extends LinearLayout
   @Override
   public void onFinishInflate() {
     super.onFinishInflate();
-
-    this.icon  = findViewById(R.id.conversation_update_icon);
-    this.title = findViewById(R.id.conversation_update_title);
-    this.body  = findViewById(R.id.conversation_update_body);
-    this.date  = findViewById(R.id.conversation_update_date);
-    this.timer = findViewById(R.id.conversation_update_expiration_timer);
+    this.body         = findViewById(R.id.conversation_update_body);
+    this.actionButton = findViewById(R.id.conversation_update_action);
 
     this.setOnClickListener(new InternalClickListener(null));
   }
@@ -104,12 +85,12 @@ public final class ConversationUpdateItem extends LinearLayout
   {
     this.batchSelected = batchSelected;
 
-    bind(lifecycleOwner, conversationMessage, locale);
+    bind(lifecycleOwner, conversationMessage, nextMessageRecord);
   }
 
   @Override
   public void setEventListener(@Nullable EventListener listener) {
-    // No events to report yet
+    this.eventListener = listener;
   }
 
   @Override
@@ -117,29 +98,28 @@ public final class ConversationUpdateItem extends LinearLayout
     return conversationMessage;
   }
 
-  private void bind(@NonNull LifecycleOwner lifecycleOwner, @NonNull ConversationMessage conversationMessage, @NonNull Locale locale) {
+  private void bind(@NonNull LifecycleOwner lifecycleOwner,
+                    @NonNull ConversationMessage conversationMessage,
+                    @NonNull Optional<MessageRecord> nextMessageRecord)
+  {
     this.conversationMessage = conversationMessage;
     this.messageRecord       = conversationMessage.getMessageRecord();
-    this.locale              = locale;
+    this.nextMessageRecord   = nextMessageRecord;
 
     observeSender(lifecycleOwner, messageRecord.getIndividualRecipient());
 
-    UpdateDescription         updateDescription      = Objects.requireNonNull(messageRecord.getUpdateDisplayBody(getContext()));
-    LiveData<String>          liveUpdateMessage      = LiveUpdateMessage.fromMessageDescription(updateDescription);
-    LiveData<SpannableString> spannableStringMessage = toSpannable(loading(liveUpdateMessage));
+    UpdateDescription   updateDescription = Objects.requireNonNull(messageRecord.getUpdateDisplayBody(getContext()));
+    LiveData<Spannable> liveUpdateMessage = LiveUpdateMessage.fromMessageDescription(getContext(), updateDescription);
+    LiveData<Spannable> spannableMessage  = loading(liveUpdateMessage);
 
-    present(conversationMessage);
+    present(conversationMessage, nextMessageRecord);
 
-    observeDisplayBody(lifecycleOwner, spannableStringMessage);
+    observeDisplayBody(lifecycleOwner, spannableMessage);
   }
 
   /** After a short delay, if the main data hasn't shown yet, then a loading message is displayed. */
-  private @NonNull LiveData<String> loading(@NonNull LiveData<String> string) {
-    return LiveDataUtil.until(string, LiveDataUtil.delay(250, getContext().getString(R.string.ConversationUpdateItem_loading)));
-  }
-
-  private static LiveData<SpannableString> toSpannable(LiveData<String> loading) {
-    return Transformations.map(loading, source -> source == null ? null : new SpannableString(source));
+  private @NonNull LiveData<Spannable> loading(@NonNull LiveData<Spannable> string) {
+    return LiveDataUtil.until(string, LiveDataUtil.delay(250, new SpannableString(getContext().getString(R.string.ConversationUpdateItem_loading))));
   }
 
   @Override
@@ -159,7 +139,7 @@ public final class ConversationUpdateItem extends LinearLayout
     }
   }
 
-  private void observeDisplayBody(@NonNull LifecycleOwner lifecycleOwner, @Nullable LiveData<SpannableString> displayBody) {
+  private void observeDisplayBody(@NonNull LifecycleOwner lifecycleOwner, @Nullable LiveData<Spannable> displayBody) {
     if (this.displayBody != displayBody) {
       if (this.displayBody != null) {
         this.displayBody.removeObserver(updateObserver);
@@ -182,128 +162,24 @@ public final class ConversationUpdateItem extends LinearLayout
     }
   }
 
-  private void present(ConversationMessage conversationMessage) {
-    MessageRecord messageRecord = conversationMessage.getMessageRecord();
-    if      (messageRecord.isGroupAction())           setGroupRecord();
-    else if (messageRecord.isCallLog())               setCallRecord(messageRecord);
-    else if (messageRecord.isJoined())                setJoinedRecord();
-    else if (messageRecord.isExpirationTimerUpdate()) setTimerRecord(messageRecord);
-    else if (messageRecord.isEndSession())            setEndSessionRecord();
-    else if (messageRecord.isIdentityUpdate())        setIdentityRecord();
-    else if (messageRecord.isIdentityVerified() ||
-             messageRecord.isIdentityDefault())       setIdentityVerifyUpdate(messageRecord);
-    else if (messageRecord.isProfileChange())         setProfileNameChangeRecord();
-    else                                              throw new AssertionError("Neither group nor log nor joined.");
-
+  private void present(ConversationMessage conversationMessage, @NonNull Optional<MessageRecord> nextMessageRecord) {
     if (batchSelected.contains(conversationMessage)) setSelected(true);
     else                                             setSelected(false);
-  }
 
-  @SuppressLint("StaticFieldLeak")
-  private void setCallRecord(MessageRecord messageRecord) {
-    if      (messageRecord.isIncomingCall()) icon.setImageResource(R.drawable.ic_call_received_grey600_24dp);
-    else if (messageRecord.isOutgoingCall()) icon.setImageResource(R.drawable.ic_call_made_grey600_24dp);
-    else                                     icon.setImageResource(R.drawable.ic_call_missed_grey600_24dp);
-
-    date.setText(DateUtils.getExtendedRelativeTimeSpanString(getContext(), locale, messageRecord.getDateSent()));
-
-    title.setVisibility(GONE);
-    date.setVisibility(View.VISIBLE);
-
-    if (messageRecord.getExpiresIn() > 0 && !messageRecord.isPending()) {
-      timer.setVisibility(View.VISIBLE);
-      timer.setPercentComplete(0);
-
-      if (messageRecord.getExpireStarted() > 0) {
-        timer.setExpirationTime(messageRecord.getExpireStarted(),
-                                messageRecord.getExpiresIn());
-        timer.startAnimation();
-
-        if (timer.isExpired()) {
-          ApplicationContext.getInstance(getContext()).getExpiringMessageManager().checkSchedule();
+    if (conversationMessage.getMessageRecord().isGroupV1MigrationEvent() &&
+        (!nextMessageRecord.isPresent() || !nextMessageRecord.get().isGroupV1MigrationEvent()))
+    {
+      actionButton.setText(R.string.ConversationUpdateItem_learn_more);
+      actionButton.setVisibility(VISIBLE);
+      actionButton.setOnClickListener(v -> {
+        if (batchSelected.isEmpty() && eventListener != null) {
+          eventListener.onGroupMigrationLearnMoreClicked(conversationMessage.getMessageRecord().getGroupV1MigrationEventInvites());
         }
-      } else if (!messageRecord.isOutgoing() && !messageRecord.isMediaPending()) {
-        new AsyncTask<Void, Void, Void>() {
-          @Override
-          protected Void doInBackground(Void... params) {
-            long id        = messageRecord.getId();
-            long expiresIn = messageRecord.getExpiresIn();
-
-            DatabaseFactory.getSmsDatabase(getContext()).markExpireStarted(id);
-
-            ApplicationContext.getInstance(getContext()).getExpiringMessageManager().scheduleDeletion(id, false, expiresIn);
-            return null;
-          }
-        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-      }
+      });
     } else {
-      timer.setVisibility(View.GONE);
+      actionButton.setVisibility(GONE);
+      actionButton.setOnClickListener(null);
     }
-  }
-
-  private void setTimerRecord(final MessageRecord messageRecord) {
-    if (messageRecord.getExpiresIn() > 0) {
-      icon.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_timer_24));
-    } else {
-      icon.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_timer_disabled_24));
-    }
-
-    icon.setColorFilter(getIconTintFilter());
-    title.setText(ExpirationUtil.getExpirationDisplayValue(getContext(), (int)(messageRecord.getExpiresIn() / 1000)));
-
-    title.setVisibility(VISIBLE);
-    date.setVisibility(GONE);
-  }
-
-  private ColorFilter getIconTintFilter() {
-    return new PorterDuffColorFilter(ThemeUtil.getThemedColor(getContext(), R.attr.icon_tint), PorterDuff.Mode.SRC_IN);
-  }
-
-  private void setIdentityRecord() {
-    icon.setImageDrawable(ThemeUtil.getThemedDrawable(getContext(), R.attr.safety_number_icon));
-    icon.setColorFilter(getIconTintFilter());
-
-    title.setVisibility(GONE);
-    date.setVisibility(GONE);
-  }
-
-  private void setIdentityVerifyUpdate(final MessageRecord messageRecord) {
-    if (messageRecord.isIdentityVerified()) icon.setImageResource(R.drawable.ic_check_white_24dp);
-    else                                    icon.setImageResource(R.drawable.ic_info_outline_white_24);
-
-    icon.setColorFilter(getIconTintFilter());
-
-    title.setVisibility(GONE);
-    date.setVisibility(GONE);
-  }
-
-  private void setProfileNameChangeRecord() {
-    icon.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_profile_outline_20));
-    icon.setColorFilter(getIconTintFilter());
-
-    title.setVisibility(GONE);
-    date.setVisibility(GONE);
-  }
-
-  private void setGroupRecord() {
-    icon.setImageDrawable(ThemeUtil.getThemedDrawable(getContext(), R.attr.menu_group_icon));
-    icon.clearColorFilter();
-
-    title.setVisibility(GONE);
-    date.setVisibility(GONE);
-  }
-
-  private void setJoinedRecord() {
-    icon.setImageResource(R.drawable.ic_favorite_grey600_24dp);
-    icon.clearColorFilter();
-
-    title.setVisibility(GONE);
-    date.setVisibility(GONE);
-  }
-
-  private void setEndSessionRecord() {
-    icon.setImageResource(R.drawable.ic_refresh_white_24dp);
-    icon.setColorFilter(getIconTintFilter());
   }
 
   @Override
@@ -315,14 +191,14 @@ public final class ConversationUpdateItem extends LinearLayout
 
     @Override
     public void onChanged(Recipient recipient) {
-      present(conversationMessage);
+      present(conversationMessage, nextMessageRecord);
     }
   }
 
-  private final class UpdateObserver implements Observer<SpannableString> {
+  private final class UpdateObserver implements Observer<Spannable> {
 
     @Override
-    public void onChanged(SpannableString update) {
+    public void onChanged(Spannable update) {
       setBodyText(update);
     }
   }

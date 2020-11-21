@@ -12,6 +12,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.groups.SelectionLimits;
+import org.thoughtcrime.securesms.jobs.RefreshAttributesJob;
 import org.thoughtcrime.securesms.jobs.RemoteConfigRefreshJob;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.logging.Log;
@@ -48,16 +50,20 @@ public final class FeatureFlags {
   private static final long FETCH_INTERVAL = TimeUnit.HOURS.toMillis(2);
 
   private static final String USERNAMES                    = "android.usernames";
-  private static final String GROUPS_V2_CREATE_VERSION     = "android.groupsv2.createVersion";
   private static final String GROUPS_V2_JOIN_VERSION       = "android.groupsv2.joinVersion";
   private static final String GROUPS_V2_LINKS_VERSION      = "android.groupsv2.manageGroupLinksVersion";
-  private static final String GROUPS_V2_CAPACITY           = "global.groupsv2.maxGroupSize";
+  private static final String GROUPS_V2_RECOMMENDED_LIMIT  = "global.groupsv2.maxGroupSize";
+  private static final String GROUPS_V2_HARD_LIMIT         = "global.groupsv2.groupSizeHardLimit";
   private static final String INTERNAL_USER                = "android.internalUser";
-  private static final String MENTIONS                     = "android.mentions";
   private static final String VERIFY_V2                    = "android.verifyV2";
   private static final String PHONE_NUMBER_PRIVACY_VERSION = "android.phoneNumberPrivacyVersion";
   private static final String CLIENT_EXPIRATION            = "android.clientExpiration";
   public  static final String RESEARCH_MEGAPHONE_1         = "research.megaphone.1";
+  public  static final String MODERN_PROFILE_SHARING       = "android.modernProfileSharing";
+  private static final String VIEWED_RECEIPTS              = "android.viewed.receipts";
+  private static final String MAX_ENVELOPE_SIZE            = "android.maxEnvelopeSize";
+  private static final String GV1_AUTO_MIGRATE_VERSION     = "android.groupsv2.autoMigrateVersion";
+  private static final String GV1_MANUAL_MIGRATE_VERSION   = "android.groupsv2.manualMigrateVersion";
 
   /**
    * We will only store remote values for flags in this set. If you want a flag to be controllable
@@ -65,16 +71,20 @@ public final class FeatureFlags {
    */
 
   private static final Set<String> REMOTE_CAPABLE = Sets.newHashSet(
-      GROUPS_V2_CREATE_VERSION,
-      GROUPS_V2_CAPACITY,
+      GROUPS_V2_RECOMMENDED_LIMIT,
+      GROUPS_V2_HARD_LIMIT,
       GROUPS_V2_JOIN_VERSION,
       GROUPS_V2_LINKS_VERSION,
       INTERNAL_USER,
       USERNAMES,
-      MENTIONS,
       VERIFY_V2,
       CLIENT_EXPIRATION,
-      RESEARCH_MEGAPHONE_1
+      RESEARCH_MEGAPHONE_1,
+      MODERN_PROFILE_SHARING,
+      VIEWED_RECEIPTS,
+      MAX_ENVELOPE_SIZE,
+      GV1_AUTO_MIGRATE_VERSION,
+      GV1_MANUAL_MIGRATE_VERSION
   );
 
   /**
@@ -95,7 +105,6 @@ public final class FeatureFlags {
    * more burden on the reader to ensure that the app experience remains consistent.
    */
   private static final Set<String> HOT_SWAPPABLE = Sets.newHashSet(
-      GROUPS_V2_CREATE_VERSION,
       GROUPS_V2_JOIN_VERSION,
       VERIFY_V2,
       CLIENT_EXPIRATION
@@ -120,6 +129,7 @@ public final class FeatureFlags {
    * desired test state.
    */
   private static final Map<String, OnFlagChange> FLAG_CHANGE_LISTENERS = new HashMap<String, OnFlagChange>() {{
+    put(GV1_AUTO_MIGRATE_VERSION, change -> ApplicationDependencies.getJobManager().add(new RefreshAttributesJob()));
   }};
 
   private static final Map<String, Object> REMOTE_VALUES = new TreeMap<>();
@@ -172,12 +182,6 @@ public final class FeatureFlags {
     return getBoolean(USERNAMES, false);
   }
 
-  /** Attempt groups v2 creation. */
-  public static boolean groupsV2create() {
-    return getVersionFlag(GROUPS_V2_CREATE_VERSION) == VersionFlag.ON &&
-           !SignalStore.internalValues().gv2DoNotCreateGv2Groups();
-  }
-
   /** Allow creation and managing of group links. */
   public static boolean groupsV2manageGroupLinks() {
     return getVersionFlag(GROUPS_V2_LINKS_VERSION) == VersionFlag.ON;
@@ -186,8 +190,9 @@ public final class FeatureFlags {
   /**
    * Maximum number of members allowed in a group.
    */
-  public static int gv2GroupCapacity() {
-    return getInteger(GROUPS_V2_CAPACITY, 151);
+  public static SelectionLimits groupLimits() {
+    return new SelectionLimits(getInteger(GROUPS_V2_RECOMMENDED_LIMIT, 151),
+                           getInteger(GROUPS_V2_HARD_LIMIT, 1001));
   }
 
   /**
@@ -220,11 +225,6 @@ public final class FeatureFlags {
     return getBoolean(INTERNAL_USER, false);
   }
 
-  /** Whether or not we allow mentions send support in groups. */
-  public static boolean mentions() {
-    return getBoolean(MENTIONS, false);
-  }
-
   /** Whether or not to use the UUID in verification codes. */
   public static boolean verifyV2() {
     return getBoolean(VERIFY_V2, false);
@@ -246,6 +246,31 @@ public final class FeatureFlags {
    */
   public static boolean phoneNumberPrivacy() {
     return getVersionFlag(PHONE_NUMBER_PRIVACY_VERSION) == VersionFlag.ON;
+  }
+
+  /** Whether or not to show the new profile sharing prompt for legacy conversations. */
+  public static boolean modernProfileSharing() {
+    return getBoolean(MODERN_PROFILE_SHARING, false);
+  }
+
+  /** Whether the user should display the content revealed dot in voice notes. */
+  public static boolean viewedReceipts() {
+    return getBoolean(VIEWED_RECEIPTS, false);
+  }
+
+  /** The max size envelope that is allowed to be sent. */
+  public static int maxEnvelopeSize() {
+    return getInteger(MAX_ENVELOPE_SIZE, 0);
+  }
+
+  /** Whether or not auto-migration from GV1->GV2 is enabled. */
+  public static boolean groupsV1AutoMigration() {
+    return getVersionFlag(GV1_AUTO_MIGRATE_VERSION) == VersionFlag.ON;
+  }
+
+  /** Whether or not manual migration from GV1->GV2 is enabled. */
+  public static boolean groupsV1ManualMigration() {
+    return groupsV1AutoMigration() && getVersionFlag(GV1_MANUAL_MIGRATE_VERSION) == VersionFlag.ON;
   }
 
   /** Only for rendering debug info. */

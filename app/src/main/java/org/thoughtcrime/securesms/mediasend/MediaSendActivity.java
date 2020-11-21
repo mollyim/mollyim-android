@@ -64,7 +64,6 @@ import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.scribbles.ImageEditorFragment;
 import org.thoughtcrime.securesms.util.CharacterCalculator.CharacterState;
-import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.Function3;
 import org.thoughtcrime.securesms.util.IOFunction;
 import org.thoughtcrime.securesms.util.MediaUtil;
@@ -325,7 +324,7 @@ public class MediaSendActivity extends PassphraseRequiredActivity implements Med
       emojiToggle.setOnClickListener(this::onEmojiToggleClicked);
     }
 
-    if (FeatureFlags.mentions()) initializeMentionsViewModel();
+    initializeMentionsViewModel();
     initViewModel();
 
     revealButton.setOnClickListener(v -> viewModel.onRevealButtonToggled());
@@ -828,7 +827,7 @@ public class MediaSendActivity extends PassphraseRequiredActivity implements Med
   private void presentRecipient(@Nullable Recipient recipient) {
     if (recipient == null) {
       composeText.setHint(R.string.MediaSendActivity_message);
-    } else if (recipient.isLocalNumber()) {
+    } else if (recipient.isSelf()) {
       composeText.setHint(getString(R.string.note_to_self), null);
     } else {
       composeText.setHint(getString(R.string.MediaSendActivity_message_to_s, recipient.getDisplayName(this)), null);
