@@ -291,7 +291,7 @@ public class ChangePassphraseDialogFragment extends DialogFragment {
               strength.getError(), strength.getTimeToCrack(), strength.getSuggestion());
       new AlertDialog.Builder(requireActivity())
               .setTitle(R.string.ChangePassphraseDialogFragment_weak_passphrase)
-              .setIconAttribute(R.attr.dialog_alert_icon)
+              .setIcon(R.drawable.ic_warning)
               .setMessage(body)
               .setPositiveButton(android.R.string.ok, null).show();
       return;

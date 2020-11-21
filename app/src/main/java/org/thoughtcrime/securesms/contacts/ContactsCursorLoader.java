@@ -60,6 +60,8 @@ public class ContactsCursorLoader extends CursorLoader {
     public static final int FLAG_ACTIVE_GROUPS   = 1 << 2;
     public static final int FLAG_INACTIVE_GROUPS = 1 << 3;
     public static final int FLAG_SELF            = 1 << 4;
+    public static final int FLAG_BLOCK           = 1 << 5;
+    public static final int FLAG_HIDE_GROUPS_V1  = 1 << 5;
     public static final int FLAG_ALL             = FLAG_PUSH | FLAG_ACTIVE_GROUPS | FLAG_INACTIVE_GROUPS | FLAG_SELF;
   }
 
@@ -266,7 +268,7 @@ public class ContactsCursorLoader extends CursorLoader {
     ThreadDatabase threadDatabase = DatabaseFactory.getThreadDatabase(getContext());
 
     MatrixCursor recentConversations = new MatrixCursor(CONTACT_PROJECTION, RECENT_CONVERSATION_MAX);
-    try (Cursor rawConversations = threadDatabase.getRecentConversationList(RECENT_CONVERSATION_MAX, flagSet(mode, DisplayMode.FLAG_INACTIVE_GROUPS), groupsOnly)) {
+    try (Cursor rawConversations = threadDatabase.getRecentConversationList(RECENT_CONVERSATION_MAX, flagSet(mode, DisplayMode.FLAG_INACTIVE_GROUPS), groupsOnly, hideGroupsV1(mode))) {
       ThreadDatabase.Reader reader = threadDatabase.readerFor(rawConversations);
       ThreadRecord threadRecord;
       while ((threadRecord = reader.getNext()) != null) {
@@ -305,7 +307,7 @@ public class ContactsCursorLoader extends CursorLoader {
 
   private Cursor getGroupsCursor() {
     MatrixCursor groupContacts = new MatrixCursor(CONTACT_PROJECTION);
-    try (GroupDatabase.Reader reader = DatabaseFactory.getGroupDatabase(getContext()).getGroupsFilteredByTitle(filter, flagSet(mode, DisplayMode.FLAG_INACTIVE_GROUPS))) {
+    try (GroupDatabase.Reader reader = DatabaseFactory.getGroupDatabase(getContext()).getGroupsFilteredByTitle(filter, flagSet(mode, DisplayMode.FLAG_INACTIVE_GROUPS), hideGroupsV1(mode))) {
       GroupDatabase.GroupRecord groupRecord;
       while ((groupRecord = reader.getNext()) != null) {
         groupContacts.addRow(new Object[] { groupRecord.getRecipientId().serialize(),
@@ -342,8 +344,13 @@ public class ContactsCursorLoader extends CursorLoader {
   }
 
   private String getUnknownContactTitle() {
-    return getContext().getString(newConversation(mode) ? R.string.contact_selection_list__unknown_contact
-                                                        : R.string.contact_selection_list__unknown_contact_add_to_group);
+    if (blockUser(mode)) {
+      return getContext().getString(R.string.contact_selection_list__unknown_contact_block);
+    } else if (newConversation(mode)) {
+      return getContext().getString(R.string.contact_selection_list__unknown_contact);
+    } else {
+      return getContext().getString(R.string.contact_selection_list__unknown_contact_add_to_group);
+    }
   }
 
   private @NonNull Cursor filterNonPushContacts(@NonNull Cursor cursor) {
@@ -382,6 +389,10 @@ public class ContactsCursorLoader extends CursorLoader {
     return flagSet(mode, DisplayMode.FLAG_SELF);
   }
 
+  private static boolean blockUser(int mode) {
+    return flagSet(mode, DisplayMode.FLAG_BLOCK);
+  }
+
   private static boolean newConversation(int mode) {
     return groupsEnabled(mode);
   }
@@ -400,6 +411,10 @@ public class ContactsCursorLoader extends CursorLoader {
 
   private static boolean groupsOnly(int mode) {
     return mode == DisplayMode.FLAG_ACTIVE_GROUPS;
+  }
+
+  private static boolean hideGroupsV1(int mode) {
+    return flagSet(mode, DisplayMode.FLAG_HIDE_GROUPS_V1);
   }
 
   private static boolean flagSet(int mode, int flag) {

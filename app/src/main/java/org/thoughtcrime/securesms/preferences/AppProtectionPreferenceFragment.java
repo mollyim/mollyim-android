@@ -18,11 +18,10 @@ import androidx.preference.Preference;
 
 import com.google.android.material.snackbar.Snackbar;
 
-import org.thoughtcrime.securesms.ApplicationContext;
 import org.thoughtcrime.securesms.ApplicationPreferencesActivity;
-import org.thoughtcrime.securesms.BlockedContactsActivity;
 import org.thoughtcrime.securesms.ChangePassphraseDialogFragment;
 import org.thoughtcrime.securesms.R;
+import org.thoughtcrime.securesms.blocked.BlockedUsersActivity;
 import org.thoughtcrime.securesms.components.SwitchPreferenceCompat;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
@@ -296,7 +295,7 @@ public class AppProtectionPreferenceFragment extends CorrectedPreferenceFragment
   private class BlockedContactsClickListener implements Preference.OnPreferenceClickListener {
     @Override
     public boolean onPreferenceClick(Preference preference) {
-      Intent intent = new Intent(getActivity(), BlockedContactsActivity.class);
+      Intent intent = new Intent(getActivity(), BlockedUsersActivity.class);
       startActivity(intent);
       return true;
     }
@@ -332,7 +331,7 @@ public class AppProtectionPreferenceFragment extends CorrectedPreferenceFragment
                                                                                           SignalStore.settings().isLinkPreviewsEnabled()));
 
         if (!enabled) {
-          ApplicationContext.getInstance(requireContext()).getTypingStatusRepository().clear();
+          ApplicationDependencies.getTypingStatusRepository().clear();
         }
       });
       return true;

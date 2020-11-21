@@ -25,6 +25,7 @@ import org.thoughtcrime.securesms.crypto.MasterSecretUtil;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.ViewUtil;
+import org.thoughtcrime.securesms.util.WindowUtil;
 
 /**
  * Activity for creating a user's local encryption passphrase.
@@ -44,7 +45,7 @@ public class PassphraseCreateActivity extends PassphraseActivity {
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setStatusBarColor(getResources().getColor(R.color.core_ultramarine));
+    WindowUtil.setStatusBarColor(getWindow(), getResources().getColor(R.color.core_ultramarine));
     setTheme(R.style.TextSecure_LightIntroTheme);
 
     setContentView(R.layout.create_passphrase_activity);

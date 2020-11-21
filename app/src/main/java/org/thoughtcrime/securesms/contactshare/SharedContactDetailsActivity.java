@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
@@ -34,6 +35,7 @@ import org.thoughtcrime.securesms.util.CommunicationActions;
 import org.thoughtcrime.securesms.util.DynamicLanguage;
 import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme;
 import org.thoughtcrime.securesms.util.DynamicTheme;
+import org.thoughtcrime.securesms.util.WindowUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -118,15 +120,7 @@ public class SharedContactDetailsActivity extends PassphraseRequiredActivity {
     getSupportActionBar().setTitle("");
     toolbar.setNavigationOnClickListener(v -> onBackPressed());
 
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-      int[]      attrs = {R.attr.shared_contact_details_titlebar};
-      TypedArray array = obtainStyledAttributes(attrs);
-      int        color = array.getResourceId(0, android.R.color.black);
-
-      array.recycle();
-
-      getWindow().setStatusBarColor(getResources().getColor(color));
-    }
+    WindowUtil.setStatusBarColor(getWindow(), ContextCompat.getColor(this, R.color.shared_contact_details_titlebar));
   }
 
   private void initViews() {

@@ -18,19 +18,20 @@
 package org.thoughtcrime.securesms;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.Preference;
 
+import org.thoughtcrime.securesms.crypto.EncryptedPreferences;
 import org.thoughtcrime.securesms.help.HelpFragment;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.preferences.AdvancedPreferenceFragment;
@@ -45,6 +46,7 @@ import org.thoughtcrime.securesms.preferences.widgets.ProfilePreference;
 import org.thoughtcrime.securesms.preferences.widgets.UsernamePreference;
 import org.thoughtcrime.securesms.profiles.edit.EditProfileActivity;
 import org.thoughtcrime.securesms.recipients.Recipient;
+import org.thoughtcrime.securesms.service.KeyCachingService;
 import org.thoughtcrime.securesms.util.CommunicationActions;
 import org.thoughtcrime.securesms.util.DynamicLanguage;
 import org.thoughtcrime.securesms.util.DynamicTheme;
@@ -60,6 +62,7 @@ import org.thoughtcrime.securesms.util.ThemeUtil;
  */
 
 public class ApplicationPreferencesActivity extends PassphraseRequiredActivity
+    implements EncryptedPreferences.OnSharedPreferenceChangeListener
 {
   public static final String LAUNCH_TO_BACKUPS_FRAGMENT = "launch.to.backups.fragment";
 
@@ -78,8 +81,12 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActivity
   private static final String PREFERENCE_CATEGORY_ADVANCED       = "preference_category_advanced";
   private static final String PREFERENCE_CATEGORY_DONATE         = "preference_category_donate";
 
+  private static final String WAS_CONFIGURATION_UPDATED          = "was_configuration_updated";
+
   private final DynamicTheme    dynamicTheme    = new DynamicTheme();
   private final DynamicLanguage dynamicLanguage = new DynamicLanguage();
+
+  private boolean wasConfigurationUpdated = false;
 
   @Override
   protected void onPreCreate() {
@@ -98,7 +105,15 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActivity
       initFragment(android.R.id.content, new BackupsPreferenceFragment());
     } else if (icicle == null) {
       initFragment(android.R.id.content, new ApplicationPreferenceFragment());
+    } else {
+      wasConfigurationUpdated = icicle.getBoolean(WAS_CONFIGURATION_UPDATED);
     }
+  }
+
+  @Override
+  protected void onSaveInstanceState(@NonNull Bundle outState) {
+    outState.putBoolean(WAS_CONFIGURATION_UPDATED, wasConfigurationUpdated);
+    super.onSaveInstanceState(outState);
   }
 
   @Override
@@ -122,13 +137,34 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActivity
     if (fragmentManager.getBackStackEntryCount() > 0) {
       fragmentManager.popBackStack();
     } else {
-      // TODO [greyson] Navigation
-      Intent intent = new Intent(this, MainActivity.class);
-      intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-      startActivity(intent);
+      if (wasConfigurationUpdated) {
+        setResult(MainActivity.RESULT_CONFIG_CHANGED);
+      } else {
+        setResult(RESULT_OK);
+      }
       finish();
     }
     return true;
+  }
+
+  @Override
+  public void onBackPressed() {
+    onSupportNavigateUp();
+  }
+
+  @Override
+  public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+    if (key.equals(TextSecurePreferences.THEME_PREF)) {
+      DynamicTheme.setDefaultDayNightMode(this);
+      recreate();
+    } else if (key.equals(TextSecurePreferences.LANGUAGE_PREF)) {
+      wasConfigurationUpdated = true;
+      recreate();
+
+      Intent intent = new Intent(this, KeyCachingService.class);
+      intent.setAction(KeyCachingService.LOCALE_CHANGE_EVENT);
+      startService(intent);
+    }
   }
 
   public void pushFragment(@NonNull Fragment fragment) {

@@ -39,6 +39,8 @@ import androidx.annotation.StringRes;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.annimon.stream.Stream;
+
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.contactshare.Contact;
 import org.thoughtcrime.securesms.contactshare.ContactUtil;
@@ -72,6 +74,7 @@ import org.thoughtcrime.securesms.webrtc.CallNotificationBuilder;
 import org.whispersystems.signalservice.internal.util.Util;
 
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Set;
@@ -283,8 +286,9 @@ public class DefaultMessageNotifier implements MessageNotifier {
                                   boolean signal,
                                   int     reminderCount)
   {
-    Cursor telcoCursor = null;
-    Cursor pushCursor  = null;
+    boolean isReminder  = reminderCount > 0;
+    Cursor  telcoCursor = null;
+    Cursor  pushCursor  = null;
 
     try {
       telcoCursor = DatabaseFactory.getMmsSmsDatabase(context).getUnread();
@@ -307,6 +311,8 @@ public class DefaultMessageNotifier implements MessageNotifier {
         lastAudibleNotification = System.currentTimeMillis();
       }
 
+      boolean shouldScheduleReminder = signal;
+
       if (notificationState.hasMultipleThreads()) {
         if (Build.VERSION.SDK_INT >= 23) {
           for (long threadId : notificationState.getThreads()) {
@@ -314,14 +320,15 @@ public class DefaultMessageNotifier implements MessageNotifier {
               sendSingleThreadNotification(context,
                                            new NotificationState(notificationState.getNotificationsForThread(threadId)),
                                            signal && (threadId == targetThread),
-                                           true);
+                                           true,
+                                           isReminder);
             }
           }
         }
 
         sendMultipleThreadNotification(context, notificationState, signal && (Build.VERSION.SDK_INT < 23));
       } else {
-        sendSingleThreadNotification(context, notificationState, signal, false);
+        shouldScheduleReminder = sendSingleThreadNotification(context, notificationState, signal, false, isReminder);
 
         if (isDisplayingSummaryNotification(context)) {
           sendMultipleThreadNotification(context, notificationState, false);
@@ -331,7 +338,18 @@ public class DefaultMessageNotifier implements MessageNotifier {
       cancelOrphanedNotifications(context, notificationState);
       updateBadge(context, notificationState.getMessageCount());
 
-      if (signal) {
+      List<Long> smsIds = new LinkedList<>();
+      List<Long> mmsIds = new LinkedList<>();
+      for (NotificationItem item : notificationState.getNotifications()) {
+        if (item.isMms()) {
+          mmsIds.add(item.getId());
+        } else {
+          smsIds.add(item.getId());
+        }
+      }
+      DatabaseFactory.getMmsSmsDatabase(context).setNotifiedTimestamp(System.currentTimeMillis(), smsIds, mmsIds);
+
+      if (shouldScheduleReminder) {
         scheduleReminder(context, reminderCount);
       }
     } finally {
@@ -352,23 +370,25 @@ public class DefaultMessageNotifier implements MessageNotifier {
     clearReminder(context);
   }
 
-  private static void sendSingleThreadNotification(@NonNull Context context,
-                                                   @NonNull NotificationState notificationState,
-                                                   boolean signal,
-                                                   boolean bundled)
+  private static boolean sendSingleThreadNotification(@NonNull Context context,
+                                                      @NonNull NotificationState notificationState,
+                                                      boolean signal,
+                                                      boolean bundled,
+                                                      boolean isReminder)
   {
     Log.i(TAG, "sendSingleThreadNotification()  signal: " + signal + "  bundled: " + bundled);
 
     if (notificationState.getNotifications().isEmpty()) {
       if (!bundled) cancelActiveNotifications(context);
       Log.i(TAG, "[sendSingleThreadNotification] Empty notification state. Skipping.");
-      return;
+      return false;
     }
 
     NotificationPrivacyPreference      notificationPrivacy = TextSecurePreferences.getNotificationPrivacy(context);
     SingleRecipientNotificationBuilder builder             = new SingleRecipientNotificationBuilder(context, notificationPrivacy);
     List<NotificationItem>             notifications       = notificationState.getNotifications();
     Recipient                          recipient           = notifications.get(0).getRecipient();
+    boolean                            shouldAlert         = signal && (isReminder || Stream.of(notifications).anyMatch(item -> item.getNotifiedTimestamp() == 0));
     int                                notificationId;
 
     if (Build.VERSION.SDK_INT >= 23) {
@@ -383,7 +403,7 @@ public class DefaultMessageNotifier implements MessageNotifier {
                                   notifications.get(0).getText(), notifications.get(0).getSlideDeck());
     builder.setContentIntent(notifications.get(0).getPendingIntent(context));
     builder.setDeleteIntent(notificationState.getDeleteIntent(context));
-    builder.setOnlyAlertOnce(!signal);
+    builder.setOnlyAlertOnce(!shouldAlert);
     builder.setSortKey(String.valueOf(Long.MAX_VALUE - notifications.get(0).getTimestamp()));
 
     long timestamp = notifications.get(0).getTimestamp();
@@ -432,6 +452,8 @@ public class DefaultMessageNotifier implements MessageNotifier {
     Notification notification = builder.build();
     NotificationManagerCompat.from(context).notify(notificationId, notification);
     Log.i(TAG, "Posted notification.");
+
+    return shouldAlert;
   }
 
   private static void sendMultipleThreadNotification(@NonNull Context context,
@@ -448,11 +470,12 @@ public class DefaultMessageNotifier implements MessageNotifier {
     NotificationPrivacyPreference        notificationPrivacy = TextSecurePreferences.getNotificationPrivacy(context);
     MultipleRecipientNotificationBuilder builder             = new MultipleRecipientNotificationBuilder(context, notificationPrivacy);
     List<NotificationItem>               notifications       = notificationState.getNotifications();
+    boolean                              shouldAlert         = signal && Stream.of(notifications).anyMatch(item -> item.getNotifiedTimestamp() == 0);
 
     builder.setMessageCount(notificationState.getMessageCount(), notificationState.getThreadCount());
     builder.setMostRecentSender(notifications.get(0).getIndividualRecipient());
     builder.setDeleteIntent(notificationState.getDeleteIntent(context));
-    builder.setOnlyAlertOnce(!signal);
+    builder.setOnlyAlertOnce(!shouldAlert);
 
     if (Build.VERSION.SDK_INT >= 23) {
       builder.setGroup(NOTIFICATION_GROUP);
@@ -545,6 +568,7 @@ public class DefaultMessageNotifier implements MessageNotifier {
       boolean      isUnreadMessage       = cursor.getInt(cursor.getColumnIndexOrThrow(MmsSmsColumns.READ)) == 0;
       boolean      hasUnreadReactions    = cursor.getInt(cursor.getColumnIndexOrThrow(MmsSmsColumns.REACTIONS_UNREAD)) == 1;
       long         lastReactionRead      = cursor.getLong(cursor.getColumnIndexOrThrow(MmsSmsColumns.REACTIONS_LAST_SEEN));
+      long         notifiedTimestamp     = record.getNotifiedTimestamp();
 
       if (threadId != -1) {
         threadRecipients = DatabaseFactory.getThreadDatabase(context).getRecipientForThreadId(threadId);
@@ -578,7 +602,7 @@ public class DefaultMessageNotifier implements MessageNotifier {
         }
 
         if (threadRecipients == null || includeMessage) {
-          notificationState.addNotification(new NotificationItem(id, mms, recipient, conversationRecipient, threadRecipients, threadId, body, timestamp, receivedTimestamp, slideDeck, false, record.isJoined(), canReply));
+          notificationState.addNotification(new NotificationItem(id, mms, recipient, conversationRecipient, threadRecipients, threadId, body, timestamp, receivedTimestamp, slideDeck, false, record.isJoined(), canReply, notifiedTimestamp));
         }
       }
 
@@ -613,7 +637,7 @@ public class DefaultMessageNotifier implements MessageNotifier {
           }
 
           if (threadRecipients == null || !threadRecipients.isMuted()) {
-            notificationState.addNotification(new NotificationItem(id, mms, reactionSender, conversationRecipient, threadRecipients, threadId, body, reaction.getDateReceived(), receivedTimestamp, null, true, record.isJoined(), false));
+            notificationState.addNotification(new NotificationItem(id, mms, reactionSender, conversationRecipient, threadRecipients, threadId, body, reaction.getDateReceived(), receivedTimestamp, null, true, record.isJoined(), false, 0));
           }
         }
       }
@@ -664,6 +688,10 @@ public class DefaultMessageNotifier implements MessageNotifier {
   private static String getMessageContentType(@NonNull MmsMessageRecord messageRecord) {
     Slide thumbnailSlide = messageRecord.getSlideDeck().getThumbnailSlide();
     if (thumbnailSlide == null) {
+      String slideContentType = messageRecord.getSlideDeck().getFirstSlideContentType();
+      if (slideContentType != null) {
+        return slideContentType;
+      }
       Log.w(TAG, "Could not distinguish view-once content type from message record, defaulting to JPEG");
       return MediaUtil.IMAGE_JPEG;
     }

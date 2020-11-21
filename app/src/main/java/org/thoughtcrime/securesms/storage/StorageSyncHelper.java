@@ -12,7 +12,6 @@ import com.annimon.stream.Stream;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.database.RecipientDatabase;
 import org.thoughtcrime.securesms.database.RecipientDatabase.RecipientSettings;
-import org.thoughtcrime.securesms.database.ThreadDatabase;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.jobs.RetrieveProfileAvatarJob;
 import org.thoughtcrime.securesms.jobs.StorageSyncJob;
@@ -21,6 +20,7 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
+import org.thoughtcrime.securesms.tracing.Trace;
 import org.thoughtcrime.securesms.util.Base64;
 import org.thoughtcrime.securesms.util.SetUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
@@ -35,7 +35,6 @@ import org.whispersystems.signalservice.api.storage.SignalStorageManifest;
 import org.whispersystems.signalservice.api.storage.SignalStorageRecord;
 import org.whispersystems.signalservice.api.storage.StorageId;
 import org.whispersystems.signalservice.api.util.OptionalUtil;
-import org.whispersystems.signalservice.internal.storage.protos.AccountRecord;
 import org.whispersystems.signalservice.internal.storage.protos.ManifestRecord;
 
 import java.nio.ByteBuffer;
@@ -44,7 +43,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -52,6 +50,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+@Trace
 public final class StorageSyncHelper {
 
   private static final String TAG = Log.tag(StorageSyncHelper.class);
@@ -254,7 +253,8 @@ public final class StorageSyncHelper {
    * @return A set of actions that should be applied to resolve the conflict.
    */
   public static @NonNull MergeResult resolveConflict(@NonNull Collection<SignalStorageRecord> remoteOnlyRecords,
-                                                     @NonNull Collection<SignalStorageRecord> localOnlyRecords)
+                                                     @NonNull Collection<SignalStorageRecord> localOnlyRecords,
+                                                     @NonNull GroupV2ExistenceChecker groupExistenceChecker)
   {
     List<SignalContactRecord> remoteOnlyContacts = Stream.of(remoteOnlyRecords).filter(r -> r.getContact().isPresent()).map(r -> r.getContact().get()).toList();
     List<SignalContactRecord> localOnlyContacts  = Stream.of(localOnlyRecords).filter(r -> r.getContact().isPresent()).map(r -> r.getContact().get()).toList();
@@ -278,7 +278,7 @@ public final class StorageSyncHelper {
     }
 
     RecordMergeResult<SignalContactRecord> contactMergeResult = resolveRecordConflict(remoteOnlyContacts, localOnlyContacts, new ContactConflictMerger(localOnlyContacts, Recipient.self()));
-    RecordMergeResult<SignalGroupV1Record> groupV1MergeResult = resolveRecordConflict(remoteOnlyGroupV1, localOnlyGroupV1, new GroupV1ConflictMerger(localOnlyGroupV1));
+    RecordMergeResult<SignalGroupV1Record> groupV1MergeResult = resolveRecordConflict(remoteOnlyGroupV1, localOnlyGroupV1, new GroupV1ConflictMerger(localOnlyGroupV1, groupExistenceChecker));
     RecordMergeResult<SignalGroupV2Record> groupV2MergeResult = resolveRecordConflict(remoteOnlyGroupV2, localOnlyGroupV2, new GroupV2ConflictMerger(localOnlyGroupV2));
     RecordMergeResult<SignalAccountRecord> accountMergeResult = resolveRecordConflict(remoteOnlyAccount, localOnlyAccount, new AccountConflictMerger(localOnlyAccount.isEmpty() ? Optional.absent() : Optional.of(localOnlyAccount.get(0))));
 

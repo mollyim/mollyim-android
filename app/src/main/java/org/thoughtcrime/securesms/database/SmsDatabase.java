@@ -51,7 +51,9 @@ import org.thoughtcrime.securesms.revealable.ViewOnceExpirationInfo;
 import org.thoughtcrime.securesms.sms.IncomingGroupUpdateMessage;
 import org.thoughtcrime.securesms.sms.IncomingTextMessage;
 import org.thoughtcrime.securesms.sms.OutgoingTextMessage;
+import org.thoughtcrime.securesms.tracing.Trace;
 import org.thoughtcrime.securesms.util.Base64;
+import org.thoughtcrime.securesms.util.CursorUtil;
 import org.thoughtcrime.securesms.util.JsonUtils;
 import org.thoughtcrime.securesms.util.SqlUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
@@ -74,6 +76,7 @@ import java.util.Set;
  *
  * @author Moxie Marlinspike
  */
+@Trace
 public class SmsDatabase extends MessageDatabase {
 
   private static final String TAG = SmsDatabase.class.getSimpleName();
@@ -116,7 +119,8 @@ public class SmsDatabase extends MessageDatabase {
                                                                                   REACTIONS              + " BLOB DEFAULT NULL, " +
                                                                                   REACTIONS_UNREAD       + " INTEGER DEFAULT 0, " +
                                                                                   REACTIONS_LAST_SEEN    + " INTEGER DEFAULT -1, " +
-                                                                                  REMOTE_DELETED         + " INTEGER DEFAULT 0);";
+                                                                                  REMOTE_DELETED         + " INTEGER DEFAULT 0, " +
+                                                                                  NOTIFIED_TIMESTAMP     + " INTEGER DEFAULT 0);";
 
   public static final String[] CREATE_INDEXS = {
     "CREATE INDEX IF NOT EXISTS sms_thread_id_index ON " + TABLE_NAME + " (" + THREAD_ID + ");",
@@ -138,7 +142,7 @@ public class SmsDatabase extends MessageDatabase {
       REPLY_PATH_PRESENT, SUBJECT, BODY, SERVICE_CENTER, DELIVERY_RECEIPT_COUNT,
       MISMATCHED_IDENTITIES, SUBSCRIPTION_ID, EXPIRES_IN, EXPIRE_STARTED,
       NOTIFIED, READ_RECEIPT_COUNT, UNIDENTIFIED, REACTIONS, REACTIONS_UNREAD, REACTIONS_LAST_SEEN,
-      REMOTE_DELETED
+      REMOTE_DELETED, NOTIFIED_TIMESTAMP
   };
 
   private final String OUTGOING_INSECURE_MESSAGE_CLAUSE = "(" + TYPE + " & " + Types.BASE_TYPE_MASK + ") = " + Types.BASE_SENT_TYPE + " AND NOT (" + TYPE + " & " + Types.SECURE_MESSAGE_BIT + ")";
@@ -1271,7 +1275,8 @@ public class SmsDatabase extends MessageDatabase {
                                   0,
                                   false,
                                   Collections.emptyList(),
-                                  false);
+                                  false,
+                                  0);
     }
   }
 
@@ -1317,6 +1322,7 @@ public class SmsDatabase extends MessageDatabase {
       boolean              unidentified         = cursor.getInt(cursor.getColumnIndexOrThrow(SmsDatabase.UNIDENTIFIED)) == 1;
       boolean              remoteDelete         = cursor.getInt(cursor.getColumnIndexOrThrow(SmsDatabase.REMOTE_DELETED)) == 1;
       List<ReactionRecord> reactions            = parseReactions(cursor);
+      long                 notifiedTimestamp    = CursorUtil.requireLong(cursor, NOTIFIED_TIMESTAMP);
 
       if (!TextSecurePreferences.isReadReceiptsEnabled(context)) {
         readReceiptCount = 0;
@@ -1331,7 +1337,8 @@ public class SmsDatabase extends MessageDatabase {
                                   dateSent, dateReceived, dateServer, deliveryReceiptCount, type,
                                   threadId, status, mismatches, subscriptionId,
                                   expiresIn, expireStarted,
-                                  readReceiptCount, unidentified, reactions, remoteDelete);
+                                  readReceiptCount, unidentified, reactions, remoteDelete,
+                                  notifiedTimestamp);
     }
 
     private List<IdentityKeyMismatch> getMismatches(String document) {

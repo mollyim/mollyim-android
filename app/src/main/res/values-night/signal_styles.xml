@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Signal.Widget.CompoundButton.RadioButton" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="colorControlNormal">@color/core_grey_20</item>
+    </style>
+
+    <style name="Signal.DayNight.Popup" parent="@style/ThemeOverlay.AppCompat.Dark" />
+
+    <style name="Signal.DayNight.Toolbar.Overflow" parent="@style/Signal.Toolbar.Overflow" />
+
+    <style name="Signal.DayNight.TitleTextStyle" parent="@style/TextSecure.TitleTextStyle.Dark" />
+</resources>

@@ -7,14 +7,14 @@
                   android:layout_height="match_parent"
                   android:orientation="horizontal">
 
-        <ImageView android:id="@+id/action_icon"
+        <androidx.appcompat.widget.AppCompatImageView android:id="@+id/action_icon"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:layout_gravity="center_vertical"
                    android:gravity="center_vertical"
                    android:clickable="true"
                    android:background="@drawable/circle_touch_highlight_background"
-                   android:tint="?conversation_subtitle_color"
+                   android:tint="@color/signal_text_toolbar_subtitle"
                    app:srcCompat="@drawable/ic_search_24" />
 
         <LinearLayout android:id="@+id/toggle_container"
@@ -28,8 +28,8 @@
                       android:layout_weight="1"
                       android:layout_marginStart="5dp"
                       android:hint="@string/giphy_activity_toolbar__search_gifs_and_stickers"
-                      android:textColor="?conversation_title_color"
-                      android:textColorHint="?conversation_subtitle_color"
+                      android:textColor="@color/signal_text_toolbar_title"
+                      android:textColorHint="@color/signal_text_toolbar_subtitle"
                       android:textCursorDrawable="@null"
                       android:maxLines="1"
                       android:singleLine="true"
@@ -39,17 +39,18 @@
                       android:layout_gravity="center_vertical"
                       android:gravity="center_vertical"/>
 
-            <ImageView android:id="@+id/search_clear"
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:layout_gravity="center_vertical"
-                       android:gravity="center_vertical"
-                       android:clickable="true"
-                       android:focusable="true"
-                       android:visibility="invisible"
-                       android:background="@drawable/circle_touch_highlight_background"
-                       android:tint="?conversation_subtitle_color"
-                       app:srcCompat="@drawable/ic_x" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/search_clear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:clickable="true"
+                android:focusable="true"
+                android:visibility="invisible"
+                android:background="@drawable/circle_touch_highlight_background"
+                android:tint="@color/signal_text_toolbar_subtitle"
+                app:srcCompat="@drawable/ic_x" />
 
             <org.thoughtcrime.securesms.components.AnimatingToggle
                     android:id="@+id/button_toggle"

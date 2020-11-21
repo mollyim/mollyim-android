@@ -197,6 +197,12 @@ public class MessageRequestViewModel extends ViewModel {
       } else {
         return new MessageData(recipient, MessageClass.GROUP_V2_ADD);
       }
+    } else if (recipient.isPushV1Group() && FeatureFlags.groupsV1ForcedMigration()) {
+      if (recipient.getParticipants().size() > FeatureFlags.groupLimits().getHardLimit()) {
+        return new MessageData(recipient, MessageClass.DEPRECATED_GROUP_V1_TOO_LARGE);
+      } else {
+        return new MessageData(recipient, MessageClass.DEPRECATED_GROUP_V1);
+      }
     } else if (isLegacyThread(recipient)) {
       if (recipient.isGroup()) {
         return new MessageData(recipient, MessageClass.LEGACY_GROUP_V1);
@@ -225,9 +231,6 @@ public class MessageRequestViewModel extends ViewModel {
         case REQUIRED:
           displayState.postValue(DisplayState.DISPLAY_MESSAGE_REQUEST);
           break;
-        case PRE_MESSAGE_REQUEST:
-          displayState.postValue(DisplayState.DISPLAY_PRE_MESSAGE_REQUEST);
-          break;
       }
     });
   }
@@ -237,8 +240,7 @@ public class MessageRequestViewModel extends ViewModel {
     Context context  = ApplicationDependencies.getApplication();
     Long    threadId = DatabaseFactory.getThreadDatabase(context).getThreadIdFor(recipient.getId());
 
-    return FeatureFlags.modernProfileSharing() &&
-           threadId != null                    &&
+    return threadId != null &&
            (RecipientUtil.hasSentMessageInThread(context, threadId) || RecipientUtil.isPreMessageRequestThread(context, threadId));
   }
 
@@ -283,7 +285,7 @@ public class MessageRequestViewModel extends ViewModel {
   }
 
   public enum DisplayState {
-    DISPLAY_MESSAGE_REQUEST, DISPLAY_PRE_MESSAGE_REQUEST, DISPLAY_NONE
+    DISPLAY_MESSAGE_REQUEST, DISPLAY_NONE
   }
 
   public enum MessageClass {
@@ -293,6 +295,10 @@ public class MessageRequestViewModel extends ViewModel {
     LEGACY_INDIVIDUAL,
     /** A V1 group conversation that existed pre-message-requests but doesn't have profile sharing enabled */
     LEGACY_GROUP_V1,
+    /** A V1 group conversation that is no longer allowed, because we've forced GV2 on. */
+    DEPRECATED_GROUP_V1,
+    /** A V1 group conversation that is no longer allowed, because we've forced GV2 on, but it's also too large to migrate. Nothing we can do. */
+    DEPRECATED_GROUP_V1_TOO_LARGE,
     GROUP_V1,
     GROUP_V2_INVITE,
     GROUP_V2_ADD,
@@ -328,7 +334,7 @@ public class MessageRequestViewModel extends ViewModel {
     private final DisplayState displayState;
 
     private MessageDataDisplayStateHolder(@NonNull MessageData messageData, @NonNull DisplayState displayState) {
-      this.messageData = messageData;
+      this.messageData  = messageData;
       this.displayState = displayState;
     }
   }

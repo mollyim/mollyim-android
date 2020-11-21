@@ -27,6 +27,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
+import android.view.ViewTreeObserver;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.inputmethod.InputMethodManager;
@@ -36,8 +37,11 @@ import androidx.annotation.IdRes;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.core.view.ViewCompat;
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
+import androidx.lifecycle.Lifecycle;
 
 import org.thoughtcrime.securesms.util.concurrent.ListenableFuture;
 import org.thoughtcrime.securesms.util.concurrent.SettableFuture;
@@ -46,6 +50,32 @@ import org.thoughtcrime.securesms.util.views.Stub;
 public final class ViewUtil {
 
   private ViewUtil() {
+  }
+
+  public static void focusAndShowKeyboard(@NonNull View view) {
+    view.requestFocus();
+    if (view.hasWindowFocus()) {
+      showTheKeyboardNow(view);
+    } else {
+      view.getViewTreeObserver().addOnWindowFocusChangeListener(new ViewTreeObserver.OnWindowFocusChangeListener() {
+        @Override
+        public void onWindowFocusChanged(boolean hasFocus) {
+          if (hasFocus) {
+            showTheKeyboardNow(view);
+            view.getViewTreeObserver().removeOnWindowFocusChangeListener(this);
+          }
+        }
+      });
+    }
+  }
+
+  private static void showTheKeyboardNow(@NonNull View view) {
+    if (view.isFocused()) {
+      view.post(() -> {
+        InputMethodManager inputMethodManager = ServiceUtil.getInputMethodManager(view.getContext());
+        inputMethodManager.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
+      });
+    }
   }
 
   public static void setBackground(final @NonNull View v, final @Nullable Drawable drawable) {
@@ -275,5 +305,21 @@ public final class ViewUtil {
         setEnabledRecursive(viewGroup.getChildAt(i), enabled);
       }
     }
+  }
+
+  public static @Nullable Lifecycle getActivityLifecycle(@NonNull View view) {
+    return getActivityLifecycle(view.getContext());
+  }
+
+  private static @Nullable Lifecycle getActivityLifecycle(@Nullable Context context) {
+    if (context instanceof ContextThemeWrapper) {
+      return getActivityLifecycle(((ContextThemeWrapper) context).getBaseContext());
+    }
+
+    if (context instanceof AppCompatActivity) {
+      return ((AppCompatActivity) context).getLifecycle();
+    }
+
+    return null;
   }
 }

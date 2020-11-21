@@ -15,4 +15,5 @@ public final class ContextUtil {
   public static @NonNull Drawable requireDrawable(@NonNull Context context, @DrawableRes int drawable) {
     return Objects.requireNonNull(ContextCompat.getDrawable(context, drawable));
   }
+
 }

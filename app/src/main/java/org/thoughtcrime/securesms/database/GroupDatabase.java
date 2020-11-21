@@ -27,6 +27,7 @@ import org.thoughtcrime.securesms.groups.GroupId;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
+import org.thoughtcrime.securesms.tracing.Trace;
 import org.thoughtcrime.securesms.util.CursorUtil;
 import org.thoughtcrime.securesms.util.SqlUtil;
 import org.whispersystems.libsignal.util.guava.Optional;
@@ -37,14 +38,18 @@ import org.whispersystems.signalservice.api.util.UuidUtil;
 import java.io.Closeable;
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.UUID;
 
+@Trace
 public final class GroupDatabase extends Database {
 
   private static final String TAG = Log.tag(GroupDatabase.class);
@@ -162,6 +167,8 @@ public final class GroupDatabase extends Database {
     values.putNull(FORMER_V1_MEMBERS);
 
     databaseHelper.getWritableDatabase().update(TABLE_NAME, values, GROUP_ID + " = ?", SqlUtil.buildArgs(id));
+
+    Recipient.live(Recipient.externalGroupExact(context, id).getId()).refresh();
   }
 
   Optional<GroupRecord> getGroup(Cursor cursor) {
@@ -213,7 +220,7 @@ public final class GroupDatabase extends Database {
     return noMetadata && noMembers;
   }
 
-  public Reader getGroupsFilteredByTitle(String constraint, boolean includeInactive) {
+  public Reader getGroupsFilteredByTitle(String constraint, boolean includeInactive, boolean excludeV1) {
     String   query;
     String[] queryArgs;
 
@@ -223,6 +230,10 @@ public final class GroupDatabase extends Database {
     } else {
       query     = TITLE + " LIKE ? AND " + ACTIVE + " = ?";
       queryArgs = new String[]{"%" + constraint + "%", "1"};
+    }
+
+    if (excludeV1) {
+      query += " AND " + EXPECTED_V2_ID + " IS NULL";
     }
 
     Cursor cursor = databaseHelper.getReadableDatabase().query(TABLE_NAME, null, query, queryArgs, null, null, TITLE + " COLLATE NOCASE ASC");
@@ -672,7 +683,7 @@ public final class GroupDatabase extends Database {
     return RecipientId.toSerializedList(groupMembers);
   }
 
-  public List<GroupId.V2> getAllGroupV2Ids() {
+  public @NonNull List<GroupId.V2> getAllGroupV2Ids() {
     List<GroupId.V2> result = new LinkedList<>();
 
     try (Cursor cursor = databaseHelper.getReadableDatabase().query(TABLE_NAME, new String[]{ GROUP_ID }, null, null, null, null, null)) {
@@ -681,6 +692,28 @@ public final class GroupDatabase extends Database {
         if (groupId.isV2()) {
           result.add(groupId.requireV2());
         }
+      }
+    }
+
+    return result;
+  }
+
+  /**
+   * Key: The 'expected' V2 ID (i.e. what a V1 ID would map to when migrated)
+   * Value: The matching V1 ID
+   */
+  public @NonNull Map<GroupId.V2, GroupId.V1> getAllExpectedV2Ids() {
+    Map<GroupId.V2, GroupId.V1> result = new HashMap<>();
+
+    String[] projection = new String[]{ GROUP_ID, EXPECTED_V2_ID };
+    String   query      = EXPECTED_V2_ID + " NOT NULL";
+
+    try (Cursor cursor = databaseHelper.getReadableDatabase().query(TABLE_NAME, projection, query, null, null, null, null)) {
+      while (cursor.moveToNext()) {
+        GroupId.V1 groupId    = GroupId.parseOrThrow(cursor.getString(cursor.getColumnIndexOrThrow(GROUP_ID))).requireV1();
+        GroupId.V2 expectedId = GroupId.parseOrThrow(cursor.getString(cursor.getColumnIndexOrThrow(EXPECTED_V2_ID))).requireV2();
+
+        result.put(expectedId, groupId);
       }
     }
 

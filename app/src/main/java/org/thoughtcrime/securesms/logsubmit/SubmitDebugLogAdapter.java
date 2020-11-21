@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.annimon.stream.Stream;
@@ -21,6 +22,8 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class SubmitDebugLogAdapter extends RecyclerView.Adapter<SubmitDebugLogAdapter.LineViewHolder> {
+
+  private static final int MAX_LINE_LENGTH = 1000;
 
   private final List<LogLine> lines;
   private final ScrollManager scrollManager;
@@ -67,6 +70,7 @@ public class SubmitDebugLogAdapter extends RecyclerView.Adapter<SubmitDebugLogAd
     this.lines.addAll(lines);
 
     this.longestLine = Stream.of(lines).reduce(0, (currentMax, line) -> Math.max(currentMax, line.getText().length()));
+    this.longestLine = Math.min(longestLine, MAX_LINE_LENGTH);
 
     notifyDataSetChanged();
   }
@@ -121,19 +125,21 @@ public class SubmitDebugLogAdapter extends RecyclerView.Adapter<SubmitDebugLogAd
     void bind(@NonNull LogLine line, int longestLine, boolean editing, @NonNull ScrollManager scrollManager, @NonNull Listener listener) {
       Context context = itemView.getContext();
 
-      if (line.getText().length() < longestLine) {
+      if (line.getText().length() > longestLine) {
+        text.setText(line.getText().substring(0, longestLine));
+      } else if (line.getText().length() < longestLine) {
         text.setText(padRight(line.getText(), longestLine));
       } else {
         text.setText(line.getText());
       }
 
       switch (line.getStyle()) {
-        case NONE:    text.setTextColor(ThemeUtil.getThemedColor(context, R.attr.debuglog_color_none));    break;
-        case VERBOSE: text.setTextColor(ThemeUtil.getThemedColor(context, R.attr.debuglog_color_verbose)); break;
-        case DEBUG:   text.setTextColor(ThemeUtil.getThemedColor(context, R.attr.debuglog_color_debug));   break;
-        case INFO:    text.setTextColor(ThemeUtil.getThemedColor(context, R.attr.debuglog_color_info));    break;
-        case WARNING: text.setTextColor(ThemeUtil.getThemedColor(context, R.attr.debuglog_color_warn));    break;
-        case ERROR:   text.setTextColor(ThemeUtil.getThemedColor(context, R.attr.debuglog_color_error));   break;
+        case NONE:    text.setTextColor(ContextCompat.getColor(context, R.color.debuglog_color_none));    break;
+        case VERBOSE: text.setTextColor(ContextCompat.getColor(context, R.color.debuglog_color_verbose)); break;
+        case DEBUG:   text.setTextColor(ContextCompat.getColor(context, R.color.debuglog_color_debug));   break;
+        case INFO:    text.setTextColor(ContextCompat.getColor(context, R.color.debuglog_color_info));    break;
+        case WARNING: text.setTextColor(ContextCompat.getColor(context, R.color.debuglog_color_warn));    break;
+        case ERROR:   text.setTextColor(ContextCompat.getColor(context, R.color.debuglog_color_error));   break;
       }
 
       scrollView.setOnScrollListener((newLeft, oldLeft) -> {

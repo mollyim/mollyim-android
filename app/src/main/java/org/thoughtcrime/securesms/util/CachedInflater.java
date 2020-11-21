@@ -1,6 +1,7 @@
 package org.thoughtcrime.securesms.util;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.asynclayoutinflater.view.AsyncLayoutInflater;
 
-import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.logging.Log;
 
 import java.util.Collections;
@@ -51,7 +51,7 @@ public class CachedInflater {
   @MainThread
   @SuppressWarnings("unchecked")
   public <V extends View> V inflate(@LayoutRes int layoutRes, @Nullable ViewGroup parent, boolean attachToRoot) {
-    View cached = ViewCache.getInstance().pull(layoutRes);
+    View cached = ViewCache.getInstance().pull(layoutRes, context.getResources().getConfiguration());
     if (cached != null) {
       if (parent != null && attachToRoot) {
         parent.addView(cached);
@@ -85,14 +85,26 @@ public class CachedInflater {
 
     private final Map<Integer, List<View>> cache = new HashMap<>();
 
-    private long lastClearTime;
+    private long  lastClearTime;
+    private int   nightModeConfiguration;
+    private float fontScale;
 
     static ViewCache getInstance() {
       return INSTANCE;
     }
 
     @MainThread
-    void cacheUntilLimit(Context context, @LayoutRes int layoutRes, @Nullable ViewGroup parent, int limit) {
+    void cacheUntilLimit(@NonNull Context context, @LayoutRes int layoutRes, @Nullable ViewGroup parent, int limit) {
+      Configuration configuration                 = context.getResources().getConfiguration();
+      int           currentNightModeConfiguration = ConfigurationUtil.getNightModeConfiguration(configuration);
+      float         currentFontScale              = ConfigurationUtil.getFontScale(configuration);
+
+      if (nightModeConfiguration != currentNightModeConfiguration || fontScale != currentFontScale) {
+        clear();
+        nightModeConfiguration = currentNightModeConfiguration;
+        fontScale              = currentFontScale;
+      }
+
       AsyncLayoutInflater inflater = new AsyncLayoutInflater(context);
 
       int existingCount = Util.getOrDefault(cache, layoutRes, Collections.emptyList()).size();
@@ -118,7 +130,12 @@ public class CachedInflater {
     }
 
     @MainThread
-    @Nullable View pull(@LayoutRes int layoutRes) {
+    @Nullable View pull(@LayoutRes int layoutRes, @NonNull Configuration configuration) {
+      if (this.nightModeConfiguration != ConfigurationUtil.getNightModeConfiguration(configuration) || this.fontScale != ConfigurationUtil.getFontScale(configuration)) {
+        clear();
+        return null;
+      }
+
       List<View> views = cache.get(layoutRes);
       return  views != null && !views.isEmpty() ? views.remove(0)
                                                 : null;
