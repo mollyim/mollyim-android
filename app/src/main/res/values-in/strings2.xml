@@ -1,3 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="ApplicationPreferencesActivity_privacy_summary_passphrase_registration_locks">Enkripsi database %1$s, Kunci pendaftaran %2$s</string>
+    <string name="ChangePassphraseDialogFragment_generating_keys_this_may_take_a_while">Membuat kunci. Ini mungkin membutuhkan beberapa waktu…</string>
+    <string name="ChangePassphraseDialogFragment_please_choose_a_passphrase_that_will_be_used_to_locally_encrypt_your_data_this_should_be_a_strong_passphrase">Pilih frasa sandi yang akan digunakan untuk mengenkripsi data Anda secara lokal.\n\nFrasa sandi harus kuat.</string>
+    <string name="ChangePassphraseDialogFragment_estimated_time_to_crack_suggestion">%1$s\n\nPerkiraan waktu untuk memecahkan: %2$s.\n\nSaran: %3$s</string>
+    <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">Sekarang Anda dapat mengatur frasa sandi untuk mengenkripsi database. Sampai kuncinya dibuka, Molly tidak dapat menerima pemberitahuan atau panggilan. Ini membantu melindungi data pada perangkat yang hilang atau dicuri.</string>
+    <string name="preferences__protect_molly_database_with_a_passphrase">Lindungi database Molly dengan frasa sandi</string>
+    <string name="arrays__on_inactivity_timeout">Jika Anda memilih waktu tertentu tanpa membuka kunci perangkat Anda</string>
+    <string name="ChangePassphraseDialogFragment_enable">Aktifkan</string>
+    <string name="ChangePassphraseDialogFragment_passphrase">Frasa sandi</string>
+    <string name="ChangePassphraseDialogFragment_weak_passphrase">Frasa sandi lemah!</string>
+    <string name="PassphraseCreateActivity_turn_on_database_encryption">Aktifkan enkripsi database</string>
+    <string name="PassphraseCreateActivity_require_passphrase_to_unlock_molly">Perlu frasa sandi untuk membuka Molly\?</string>
+    <string name="AppProtectionPreferenceFragment_instant">Instan</string>
+    <string name="WipeMemoryService_molly_is_clearing_secrets">Molly sedang membersihkan data yang tidak terenkripsi di RAM</string>
+    <string name="WipeMemoryService_secure_wipe_in_progress">Penghapusan aman sedang berlangsung</string>
+    <string name="preferences__enable_debug_log">Aktifkan log debug</string>
+    <string name="preferences__passphrase_changed">Frasa sandi diubah</string>
+    <string name="preferences__device_lock_timeout">Waktu tunggu penguncian perangkat</string>
+    <string name="preferences__automatic_lockdown">Penguncian otomatis</string>
+    <string name="preferences__passphrase_lock">Enkripsi database</string>
 </resources>

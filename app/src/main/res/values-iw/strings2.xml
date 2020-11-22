@@ -4,4 +4,20 @@
     <string name="preferences__protect_molly_database_with_a_passphrase">הגנת מסד הנתונים של Molly במילת צופן</string>
     <string name="preferences__passphrase_lock">הצפנת מסד נתונים</string>
     <string name="arrays__on_inactivity_timeout">אם התרחקת לזמן מסוים מבלי לשחרר את המכשיר שלך</string>
+    <string name="ChangePassphraseDialogFragment_generating_keys_this_may_take_a_while">המפתחות נוצרים. זאת פעולה מעט ממושכת…</string>
+    <string name="ChangePassphraseDialogFragment_please_choose_a_passphrase_that_will_be_used_to_locally_encrypt_your_data_this_should_be_a_strong_passphrase">נא לבחור מילת צופן שתשמש להצפין את הנתונים שלך מקומית.\n\nזאת חייבת להיות מילת צופן חזקה.</string>
+    <string name="ChangePassphraseDialogFragment_enable">הפעלה</string>
+    <string name="ChangePassphraseDialogFragment_passphrase">מילת צופן</string>
+    <string name="ChangePassphraseDialogFragment_estimated_time_to_crack_suggestion">%1$s\n\nזמן הפריצה המוערך: %2$s.\n\nהצעה: %3$s</string>
+    <string name="ChangePassphraseDialogFragment_weak_passphrase">מילת הצופן חלשה!</string>
+    <string name="PassphraseCreateActivity_turn_on_database_encryption">הפעלת הצפנת מסד נתונים</string>
+    <string name="PassphraseCreateActivity_require_passphrase_to_unlock_molly">לדרוש מילת צופן כדי לשחרר את Molly\?</string>
+    <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">מעתה ניתן להגדיר מילת צופן כדי להצפין את מסד הנתונים, עד לשחרור מסד הנתונים, ל־Molly אין אפשרות לקבל התראות או שיחות. הגדרה זו מסייע להגן מפני אובדן מידע או גניבת מכשיר.</string>
+    <string name="AppProtectionPreferenceFragment_instant">מיידי</string>
+    <string name="WipeMemoryService_molly_is_clearing_secrets">Molly מנקה את הנתונים שאינם מוצפנים שנשארו בזיכרון</string>
+    <string name="WipeMemoryService_secure_wipe_in_progress">מתבצעת מחיקה מאובטחת כעת</string>
+    <string name="ApplicationPreferencesActivity_privacy_summary_passphrase_registration_locks">הצפנת מסד נתונים %1$s, נעילת רישום %2$s</string>
+    <string name="preferences__enable_debug_log">הפעלת יומן ניפוי שגיאות</string>
+    <string name="preferences__passphrase_changed">מילת הצופן הוחלפה</string>
+    <string name="preferences__device_lock_timeout">זמן המתנה לנעילת מכשיר</string>
 </resources>
