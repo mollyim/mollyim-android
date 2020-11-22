@@ -2,8 +2,11 @@ package org.thoughtcrime.securesms.preferences;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
+
 import androidx.annotation.Nullable;
 import androidx.preference.ListPreference;
+import androidx.preference.Preference;
 
 import org.thoughtcrime.securesms.ApplicationPreferencesActivity;
 import org.thoughtcrime.securesms.R;
@@ -18,8 +21,8 @@ public class AppearancePreferenceFragment extends ListSummaryPreferenceFragment 
   public void onCreate(Bundle paramBundle) {
     super.onCreate(paramBundle);
 
-    this.findPreference(TextSecurePreferences.THEME_PREF).setOnPreferenceChangeListener(new ListSummaryListener());
-    this.findPreference(TextSecurePreferences.LANGUAGE_PREF).setOnPreferenceChangeListener(new ListSummaryListener());
+    this.findPreference(TextSecurePreferences.THEME_PREF).setOnPreferenceChangeListener(new AppearanceChangeListener());
+    this.findPreference(TextSecurePreferences.LANGUAGE_PREF).setOnPreferenceChangeListener(new AppearanceChangeListener());
     initializeListSummary((ListPreference)findPreference(TextSecurePreferences.THEME_PREF));
     initializeListSummary((ListPreference)findPreference(TextSecurePreferences.LANGUAGE_PREF));
   }
@@ -32,7 +35,6 @@ public class AppearancePreferenceFragment extends ListSummaryPreferenceFragment 
   @Override
   public void onStart() {
     super.onStart();
-    getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener((ApplicationPreferencesActivity)getActivity());
   }
 
   @Override
@@ -44,7 +46,6 @@ public class AppearancePreferenceFragment extends ListSummaryPreferenceFragment 
   @Override
   public void onStop() {
     super.onStop();
-    getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener((ApplicationPreferencesActivity) getActivity());
   }
 
   public static CharSequence getSummary(Context context) {
@@ -62,5 +63,20 @@ public class AppearancePreferenceFragment extends ListSummaryPreferenceFragment 
     return context.getString(R.string.ApplicationPreferencesActivity_appearance_summary,
                              themeEntries[themeIndex],
                              languageEntries[langIndex]);
+  }
+
+  private class AppearanceChangeListener extends ListSummaryListener {
+    @Override
+    public boolean onPreferenceChange(Preference preference, Object value) {
+      super.onPreferenceChange(preference, value);
+
+      ListPreference listPref = (ListPreference) preference;
+
+      if (!TextUtils.equals(listPref.getValue(), (String) value)) {
+        listPref.setValue((String) value);
+        ((ApplicationPreferencesActivity) requireActivity()).onSharedPreferenceChanged(preference.getSharedPreferences(), preference.getKey());
+      }
+      return false;
+    }
   }
 }
