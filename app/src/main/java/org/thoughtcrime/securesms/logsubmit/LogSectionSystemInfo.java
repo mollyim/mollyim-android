@@ -58,7 +58,7 @@ public class LogSectionSystemInfo implements LogSection {
     builder.append("Play Services : ").append(getPlayServicesString(context)).append("\n");
     builder.append("FCM           : ").append(getFcmString(context)).append("\n");
     builder.append("Locale        : ").append(Locale.getDefault().toString()).append("\n");
-    builder.append("Linked Devices: ").append(TextSecurePreferences.isMultiDevice(context)).append("\n");
+    builder.append("Linked Devices: ").append(getLinkedDevicesString(context)).append("\n");
     builder.append("First Version : ").append(TextSecurePreferences.getFirstInstallVersion(context)).append("\n");
     builder.append("App           : ");
     try {
@@ -89,6 +89,14 @@ public class LogSectionSystemInfo implements LogSection {
   private static @NonNull String getFcmString(@NonNull Context context) {
     try {
       return String.valueOf(!TextSecurePreferences.isFcmDisabled(context));
+    } catch (IllegalStateException e) {
+      return "Unknown";
+    }
+  }
+
+  private static @NonNull String getLinkedDevicesString(@NonNull Context context) {
+    try {
+      return String.valueOf(!TextSecurePreferences.isMultiDevice(context));
     } catch (IllegalStateException e) {
       return "Unknown";
     }
