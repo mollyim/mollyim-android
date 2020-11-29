@@ -11,18 +11,24 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 
 import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.Px;
 import androidx.annotation.RequiresApi;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
 import org.thoughtcrime.securesms.R;
+import org.thoughtcrime.securesms.logging.Log;
+import org.thoughtcrime.securesms.util.MemoryUnitFormat;
 
 import java.util.Locale;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 @RequiresApi(api = 23)
 public final class VideoThumbnailsRangeSelectorView extends VideoThumbnailsView {
+
+  private static final String TAG = Log.tag(VideoThumbnailsRangeSelectorView.class);
 
   private static final long MINIMUM_SELECTABLE_RANGE = TimeUnit.MILLISECONDS.toMicros(500);
   private static final int  ANIMATION_DURATION_MS    = 100;
@@ -63,6 +69,9 @@ public final class VideoThumbnailsRangeSelectorView extends VideoThumbnailsView 
   @ColorInt private int                   thumbHintBackgroundColor;
             private long                  dragStartTimeMs;
             private long                  dragEndTimeMs;
+            private long                  maximumSelectableRangeMicros;
+            private Quality               outputQuality;
+            private long                  qualityAvailableTimeMs;
 
   public VideoThumbnailsRangeSelectorView(final Context context) {
     super(context);
@@ -137,6 +146,18 @@ public final class VideoThumbnailsRangeSelectorView extends VideoThumbnailsView 
       }
     }
 
+    if (setMinValue(getMinValue())) {
+      Log.d(TAG, "Clamped video duration to " + getMaxValue());
+      if (onRangeChangeListener != null) {
+        onRangeChangeListener.onRangeDragEnd(getMinValue(), getMaxValue(), getDuration(), Thumb.MAX);
+      }
+    }
+
+    if (onRangeChangeListener != null) {
+      onRangeChangeListener.onRangeDragEnd(getMinValue(), getMaxValue(), getDuration(), Thumb.MIN);
+      setOutputQuality(onRangeChangeListener.getQuality(getClipDuration(), getDuration()));
+    }
+
     invalidate();
   }
 
@@ -160,6 +181,11 @@ public final class VideoThumbnailsRangeSelectorView extends VideoThumbnailsView 
 
   @Override
   protected void onDraw(final Canvas canvas) {
+    if (thumbHintTextSize > 0) {
+      thumbTimeTextPaint.getTextBounds("0", 0, "0".length(), tempDrawRect);
+      canvas.translate(0, tempDrawRect.height());
+    }
+
     super.onDraw(canvas);
 
     canvas.translate(getPaddingLeft(), getPaddingTop());
@@ -225,6 +251,8 @@ public final class VideoThumbnailsRangeSelectorView extends VideoThumbnailsView 
       if (dragEndTimeMs > 0 && (lastDragThumb == Thumb.MIN || lastDragThumb == Thumb.MAX)) {
         drawTimeHint(canvas, drawableWidth, drawableHeight, lastDragThumb, true);
       }
+
+      drawDurationAndSizeHint(canvas, drawableWidth);
     }
 
     // draw current position marker
@@ -280,12 +308,52 @@ public final class VideoThumbnailsRangeSelectorView extends VideoThumbnailsView 
     }
   }
 
+  private void drawDurationAndSizeHint(Canvas canvas, int drawableWidth) {
+    if (outputQuality == null) return;
+
+    canvas.save();
+    long   microsecondValue = getMaxValue() - getMinValue();
+    long   seconds          = TimeUnit.MICROSECONDS.toSeconds(microsecondValue);
+    String durationAndSize  = String.format(Locale.getDefault(), "%d:%02d • %s", seconds / 60, seconds % 60, MemoryUnitFormat.formatBytes(outputQuality.fileSize, MemoryUnitFormat.MEGA_BYTES, true));
+    float  topBottomPadding = thumbHintTextSize * 0.5f;
+    float  leftRightPadding = thumbHintTextSize * 0.75f;
+
+    thumbTimeTextPaint.getTextBounds(durationAndSize, 0, durationAndSize.length(), tempDrawRect);
+
+    timePillRect.set(tempDrawRect.left - leftRightPadding, tempDrawRect.top - topBottomPadding, tempDrawRect.right + leftRightPadding, tempDrawRect.bottom + topBottomPadding);
+
+    float halfPillWidth  = timePillRect.width()  / 2f;
+    float halfPillHeight = timePillRect.height() / 2f;
+
+    long  animationTime     = Math.min(ANIMATION_DURATION_MS, System.currentTimeMillis() - qualityAvailableTimeMs);
+    float animationPosition = animationTime / (float) ANIMATION_DURATION_MS;
+    float scaleIn           = 0.2f * animationPosition + 0.8f;
+    int   alpha             = (int) (255 * animationPosition);
+
+    canvas.translate(Math.max(halfPillWidth, Math.min((right + left) / 2f, drawableWidth - halfPillWidth)), - 2 * halfPillHeight);
+    canvas.scale(scaleIn, scaleIn);
+    thumbTimeBackgroundPaint.setAlpha(alpha);
+    thumbTimeTextPaint.setAlpha(alpha);
+    canvas.translate(leftRightPadding - halfPillWidth, halfPillHeight);
+    canvas.drawRoundRect(timePillRect, halfPillHeight, halfPillHeight, thumbTimeBackgroundPaint);
+    canvas.drawText(durationAndSize, 0, 0, thumbTimeTextPaint);
+    canvas.restore();
+
+    if (animationTime < ANIMATION_DURATION_MS) {
+      invalidate();
+    }
+  }
+
   public long getMinValue() {
     return minValue == null ? 0 : minValue;
   }
 
   public long getMaxValue() {
     return maxValue == null ? getDuration() : maxValue;
+  }
+
+  public long getClipDuration() {
+    return getMaxValue() - getMinValue();
   }
 
   private boolean setMinValue(long minValue) {
@@ -310,11 +378,18 @@ public final class VideoThumbnailsRangeSelectorView extends VideoThumbnailsView 
     final long duration   = getDuration();
 
     final long minDiff = Math.max(MINIMUM_SELECTABLE_RANGE, pixelToDuration(thumbSizePixels * 2.5f));
+    final long maxDiff = maximumSelectableRangeMicros <= MINIMUM_SELECTABLE_RANGE ? 0 : Math.max(maximumSelectableRangeMicros, pixelToDuration(thumbSizePixels * 2.5f));
 
     if (thumb == Thumb.MIN) {
       newMin = clamp(newMin, 0, currentMax - minDiff);
+      if (maxDiff > 0) {
+        newMax = clamp(newMax, newMin + minDiff, Math.min(newMin + maxDiff, duration));
+      }
     } else {
       newMax = clamp(newMax, currentMin + minDiff, duration);
+      if (maxDiff > 0) {
+        newMin = clamp(newMin, Math.max(0, newMax - maxDiff), newMax - minDiff);
+      }
     }
 
     if (newMin != currentMin || newMax != currentMax) {
@@ -364,6 +439,7 @@ public final class VideoThumbnailsRangeSelectorView extends VideoThumbnailsView 
           onRangeChangeListener.onPositionDrag(dragPosition);
         } else {
           onRangeChangeListener.onRangeDrag(getMinValue(), getMaxValue(), getDuration(), dragThumb);
+          setOutputQuality(onRangeChangeListener.getQuality(getClipDuration(), getDuration()));
         }
       }
       return true;
@@ -375,6 +451,7 @@ public final class VideoThumbnailsRangeSelectorView extends VideoThumbnailsView 
           onRangeChangeListener.onEndPositionDrag(dragPosition);
         } else {
           onRangeChangeListener.onRangeDragEnd(getMinValue(), getMaxValue(), getDuration(), dragThumb);
+          setOutputQuality(onRangeChangeListener.getQuality(getClipDuration(), getDuration()));
         }
         lastDragThumb = dragThumb;
         dragEndTimeMs = System.currentTimeMillis();
@@ -389,6 +466,16 @@ public final class VideoThumbnailsRangeSelectorView extends VideoThumbnailsView 
     }
 
     return true;
+  }
+
+  private void setOutputQuality(@Nullable Quality outputQuality) {
+    if (!Objects.equals(this.outputQuality, outputQuality)) {
+      if (this.outputQuality == null) {
+        qualityAvailableTimeMs = System.currentTimeMillis();
+      }
+      this.outputQuality = outputQuality;
+      invalidate();
+    }
   }
 
   private @Nullable Thumb closestThumb(@Px float x) {
@@ -425,6 +512,10 @@ public final class VideoThumbnailsRangeSelectorView extends VideoThumbnailsView 
     }
   }
 
+  public void setTimeLimit(int t, @NonNull TimeUnit timeUnit) {
+    maximumSelectableRangeMicros = timeUnit.toMicros(t);
+  }
+
   public enum Thumb {
     MIN,
     MAX,
@@ -440,5 +531,34 @@ public final class VideoThumbnailsRangeSelectorView extends VideoThumbnailsView 
     void onRangeDrag(long minValue, long maxValue, long duration, Thumb thumb);
 
     void onRangeDragEnd(long minValue, long maxValue, long duration, Thumb thumb);
+
+    @Nullable Quality getQuality(long clipDurationUs, long totalDurationUs);
+  }
+
+  public static final class Quality {
+    private final long fileSize;
+    private final int  qualityRange;
+
+    public Quality(long fileSize, int qualityRange) {
+      this.fileSize     = fileSize;
+      this.qualityRange = qualityRange;
+    }
+
+    @Override public boolean equals(Object o) {
+      if (!(o instanceof Quality)) {
+        return false;
+      }
+
+      final Quality quality = (Quality) o;
+
+      return fileSize == quality.fileSize &&
+      qualityRange == quality.qualityRange;
+    }
+
+    @Override public int hashCode() {
+      int result = (int) (fileSize ^ (fileSize >>> 32));
+      result = 31 * result + qualityRange;
+      return result;
+    }
   }
 }

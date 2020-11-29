@@ -6,9 +6,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.signal.ringrtc.CallId;
+import org.signal.ringrtc.GroupCall;
 import org.thoughtcrime.securesms.crypto.IdentityKeyParcelable;
 import org.thoughtcrime.securesms.events.WebRtcViewModel;
 import org.thoughtcrime.securesms.logging.Log;
+import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.ringrtc.CameraState;
 import org.thoughtcrime.securesms.ringrtc.IceCandidateParcel;
 import org.thoughtcrime.securesms.ringrtc.RemotePeer;
@@ -36,6 +38,8 @@ import static org.thoughtcrime.securesms.service.WebRtcCallService.EXTRA_CAMERA_
 import static org.thoughtcrime.securesms.service.WebRtcCallService.EXTRA_ENABLE;
 import static org.thoughtcrime.securesms.service.WebRtcCallService.EXTRA_ERROR_CALL_STATE;
 import static org.thoughtcrime.securesms.service.WebRtcCallService.EXTRA_ERROR_IDENTITY_KEY;
+import static org.thoughtcrime.securesms.service.WebRtcCallService.EXTRA_GROUP_CALL_END_REASON;
+import static org.thoughtcrime.securesms.service.WebRtcCallService.EXTRA_GROUP_CALL_HASH;
 import static org.thoughtcrime.securesms.service.WebRtcCallService.EXTRA_GROUP_EXTERNAL_TOKEN;
 import static org.thoughtcrime.securesms.service.WebRtcCallService.EXTRA_ICE_CANDIDATES;
 import static org.thoughtcrime.securesms.service.WebRtcCallService.EXTRA_MULTI_RING;
@@ -75,14 +79,17 @@ public final class WebRtcIntentParser {
   }
 
   public static @NonNull RemotePeer getRemotePeerFromMap(@NonNull Intent intent, @NonNull WebRtcServiceState currentState) {
-    int        remotePeerKey = getRemotePeerKey(intent);
-    RemotePeer remotePeer    = currentState.getCallInfoState().getPeer(remotePeerKey);
+    RemotePeer remotePeer = getNullableRemotePeerFromMap(intent, currentState);
 
     if (remotePeer == null) {
-      throw new AssertionError("No RemotePeer in map for key: " + remotePeerKey + "!");
+      throw new AssertionError("No RemotePeer in map for key: " + getRemotePeerKey(intent) + "!");
     }
 
     return remotePeer;
+  }
+
+  public static @Nullable RemotePeer getNullableRemotePeerFromMap(@NonNull Intent intent, @NonNull WebRtcServiceState currentState) {
+    return currentState.getCallInfoState().getPeer(getRemotePeerKey(intent));
   }
 
   public static int getRemotePeerKey(@NonNull Intent intent) {
@@ -171,15 +178,34 @@ public final class WebRtcIntentParser {
   public static @NonNull CameraState getCameraState(@NonNull Intent intent) {
     return Objects.requireNonNull(intent.getParcelableExtra(EXTRA_CAMERA_STATE));
   }
+
   public static @NonNull WebRtcViewModel.State getErrorCallState(@NonNull Intent intent) {
     return (WebRtcViewModel.State) Objects.requireNonNull(intent.getSerializableExtra(EXTRA_ERROR_CALL_STATE));
   }
 
   public static @NonNull Optional<IdentityKey> getErrorIdentityKey(@NonNull Intent intent) {
-    IdentityKeyParcelable identityKeyParcelable = (IdentityKeyParcelable) intent.getParcelableExtra(EXTRA_ERROR_IDENTITY_KEY);
+    IdentityKeyParcelable identityKeyParcelable = intent.getParcelableExtra(EXTRA_ERROR_IDENTITY_KEY);
     if (identityKeyParcelable != null) {
       return Optional.fromNullable(identityKeyParcelable.get());
     }
     return Optional.absent();
+  }
+
+  public static int getGroupCallHash(@NonNull Intent intent) {
+    return intent.getIntExtra(EXTRA_GROUP_CALL_HASH, 0);
+  }
+
+  public static @NonNull GroupCall.GroupCallEndReason getGroupCallEndReason(@NonNull Intent intent) {
+    int ordinal = intent.getIntExtra(EXTRA_GROUP_CALL_END_REASON, -1);
+
+    if (ordinal >= 0 && ordinal < GroupCall.GroupCallEndReason.values().length) {
+      return GroupCall.GroupCallEndReason.values()[ordinal];
+    }
+
+    return GroupCall.GroupCallEndReason.DEVICE_EXPLICITLY_DISCONNECTED;
+  }
+
+  public static @NonNull RecipientId getRecipientId(@NonNull Intent intent, @NonNull String name) {
+    return RecipientId.from(Objects.requireNonNull(intent.getStringExtra(name)));
   }
 }

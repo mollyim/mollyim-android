@@ -35,7 +35,7 @@ public class SmsSendtoActivity extends PassphraseRequiredActivity {
       nextIntent = new Intent(this, ConversationActivity.class);
       nextIntent.putExtra(ConversationActivity.TEXT_EXTRA, "");
       nextIntent.putExtra(ConversationActivity.THREAD_ID_EXTRA, threadId);
-      nextIntent.putExtra(ConversationActivity.RECIPIENT_EXTRA, recipient.getId());
+      nextIntent.putExtra(ConversationActivity.RECIPIENT_EXTRA, recipient.getId().serialize());
     } else {
       nextIntent = new Intent(this, NewConversationActivity.class);
     }

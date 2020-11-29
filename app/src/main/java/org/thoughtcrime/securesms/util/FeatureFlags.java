@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 
 import com.annimon.stream.Stream;
-import com.google.android.collect.Sets;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -60,19 +59,19 @@ public final class FeatureFlags {
   private static final String PHONE_NUMBER_PRIVACY_VERSION = "android.phoneNumberPrivacyVersion";
   private static final String CLIENT_EXPIRATION            = "android.clientExpiration";
   public  static final String RESEARCH_MEGAPHONE_1         = "research.megaphone.1";
+  public  static final String DONATE_MEGAPHONE             = "android.donate";
   private static final String VIEWED_RECEIPTS              = "android.viewed.receipts";
   private static final String MAX_ENVELOPE_SIZE            = "android.maxEnvelopeSize";
-  private static final String GV1_AUTO_MIGRATE_VERSION     = "android.groupsv2.autoMigrateVersion";
-  private static final String GV1_MANUAL_MIGRATE_VERSION   = "android.groupsv2.manualMigrateVersion";
-  private static final String GV1_FORCED_MIGRATE_VERSION   = "android.groupsv2.forcedMigrateVersion";
   private static final String GROUP_CALLING_VERSION        = "android.groupsv2.callingVersion";
+  private static final String GV1_AUTO_MIGRATE             = "android.groupsV1Migration.auto";
+  private static final String GV1_MANUAL_MIGRATE           = "android.groupsV1Migration.manual";
+  private static final String GV1_FORCED_MIGRATE           = "android.groupsV1Migration.forced";
 
   /**
    * We will only store remote values for flags in this set. If you want a flag to be controllable
    * remotely, place it in here.
    */
-
-  private static final Set<String> REMOTE_CAPABLE = Sets.newHashSet(
+  private static final Set<String> REMOTE_CAPABLE = SetUtil.newHashSet(
       GROUPS_V2_RECOMMENDED_LIMIT,
       GROUPS_V2_HARD_LIMIT,
       GROUPS_V2_JOIN_VERSION,
@@ -82,10 +81,12 @@ public final class FeatureFlags {
       VERIFY_V2,
       CLIENT_EXPIRATION,
       RESEARCH_MEGAPHONE_1,
+      DONATE_MEGAPHONE,
       VIEWED_RECEIPTS,
       MAX_ENVELOPE_SIZE,
-      GV1_AUTO_MIGRATE_VERSION,
-      GV1_MANUAL_MIGRATE_VERSION,
+      GV1_AUTO_MIGRATE,
+      GV1_MANUAL_MIGRATE,
+      GV1_FORCED_MIGRATE,
       GROUP_CALLING_VERSION
   );
 
@@ -106,7 +107,7 @@ public final class FeatureFlags {
    * will be updated arbitrarily at runtime. This will make values more responsive, but also places
    * more burden on the reader to ensure that the app experience remains consistent.
    */
-  private static final Set<String> HOT_SWAPPABLE = Sets.newHashSet(
+  private static final Set<String> HOT_SWAPPABLE = SetUtil.newHashSet(
       GROUPS_V2_JOIN_VERSION,
       VERIFY_V2,
       CLIENT_EXPIRATION,
@@ -116,7 +117,7 @@ public final class FeatureFlags {
   /**
    * Flags in this set will stay true forever once they receive a true value from a remote config.
    */
-  private static final Set<String> STICKY = Sets.newHashSet(
+  private static final Set<String> STICKY = SetUtil.newHashSet(
       VERIFY_V2
     );
 
@@ -132,7 +133,7 @@ public final class FeatureFlags {
    * desired test state.
    */
   private static final Map<String, OnFlagChange> FLAG_CHANGE_LISTENERS = new HashMap<String, OnFlagChange>() {{
-    put(GV1_AUTO_MIGRATE_VERSION, change -> ApplicationDependencies.getJobManager().add(new RefreshAttributesJob()));
+    put(GV1_AUTO_MIGRATE, change -> ApplicationDependencies.getJobManager().add(new RefreshAttributesJob()));
   }};
 
   private static final Map<String, Object> REMOTE_VALUES = new TreeMap<>();
@@ -243,6 +244,11 @@ public final class FeatureFlags {
     return getString(RESEARCH_MEGAPHONE_1, "");
   }
 
+  /** The raw donate megaphone CSV string */
+  public static String donateMegaphone() {
+    return getString(DONATE_MEGAPHONE, "");
+  }
+
   /**
    * Whether the user can choose phone number privacy settings, and;
    * Whether to fetch and store the secondary certificate
@@ -261,24 +267,24 @@ public final class FeatureFlags {
     return getInteger(MAX_ENVELOPE_SIZE, 0);
   }
 
-  /** Whether or not auto-migration from GV1->GV2 is enabled. */
-  public static boolean groupsV1AutoMigration() {
-    return getVersionFlag(GV1_AUTO_MIGRATE_VERSION) == VersionFlag.ON;
-  }
-
-  /** Whether or not manual migration from GV1->GV2 is enabled. */
-  public static boolean groupsV1ManualMigration() {
-    return groupsV1AutoMigration() && getVersionFlag(GV1_MANUAL_MIGRATE_VERSION) == VersionFlag.ON;
-  }
-
   /** Whether or not group calling is enabled. */
   public static boolean groupCalling() {
     return getVersionFlag(GROUP_CALLING_VERSION) == VersionFlag.ON;
   }
 
+  /** Whether or not auto-migration from GV1->GV2 is enabled. */
+  public static boolean groupsV1AutoMigration() {
+    return getBoolean(GV1_AUTO_MIGRATE, false);
+  }
+
+  /** Whether or not manual migration from GV1->GV2 is enabled. */
+  public static boolean groupsV1ManualMigration() {
+    return getBoolean(GV1_MANUAL_MIGRATE, false) && groupsV1AutoMigration();
+  }
+
   /** Whether or not forced migration from GV1->GV2 is enabled. */
   public static boolean groupsV1ForcedMigration() {
-    return groupsV1AutoMigration() && getVersionFlag(GV1_FORCED_MIGRATE_VERSION) == VersionFlag.ON;
+    return getBoolean(GV1_FORCED_MIGRATE, false) && groupsV1ManualMigration() && groupsV1AutoMigration();
   }
 
   /** Only for rendering debug info. */

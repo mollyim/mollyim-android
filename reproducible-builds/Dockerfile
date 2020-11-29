@@ -3,8 +3,8 @@ ARG DEBIAN_RELEASE=buster
 
 FROM openjdk:${JAVA_UPDATE_RELEASE}-${DEBIAN_RELEASE}
 
-ARG ANDROID_SDK_DIST=sdk-tools-linux-4333796.zip
-ARG ANDROID_SDK_SHA256=92ffee5a1d98d856634e8b71132e8a95d96c83a63fde1099be3d86df3106def9
+ARG ANDROID_SDK_DIST=commandlinetools-linux-6858069_latest.zip
+ARG ANDROID_SDK_SHA256=87f6dcf41d4e642e37ba03cb2e387a542aa0bd73cb689a9e7152aad40a6e7a08
 
 RUN apt-get update && apt-get install -y make file
 
@@ -14,7 +14,7 @@ RUN curl -o sdk.zip "https://dl.google.com/android/repository/${ANDROID_SDK_DIST
 RUN echo "${ANDROID_SDK_SHA256}" sdk.zip | sha256sum -c -
 RUN unzip -q -d "${ANDROID_HOME}" sdk.zip && rm sdk.zip
 
-ENV PATH="${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin"
+ENV PATH="${PATH}:${ANDROID_HOME}/cmdline-tools/bin"
 
 RUN mkdir /root/.android && touch /root/.android/repositories.cfg
 RUN yes | sdkmanager --licenses

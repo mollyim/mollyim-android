@@ -2,7 +2,9 @@ package org.thoughtcrime.securesms.scribbles;
 
 import android.animation.Animator;
 import android.content.Context;
+import android.database.Cursor;
 import android.net.Uri;
+import android.provider.OpenableColumns;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
@@ -14,11 +16,15 @@ import androidx.annotation.RequiresApi;
 
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.logging.Log;
-import org.thoughtcrime.securesms.mms.VideoSlide;
 import org.thoughtcrime.securesms.media.DecryptableUriMediaInput;
+import org.thoughtcrime.securesms.mms.VideoSlide;
+import org.thoughtcrime.securesms.util.MediaUtil;
+import org.thoughtcrime.securesms.video.VideoBitRateCalculator;
+import org.thoughtcrime.securesms.video.VideoUtil;
 import org.thoughtcrime.securesms.video.videoconverter.VideoThumbnailsRangeSelectorView;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 /**
  * The HUD (heads-up display) that contains all of the tools for editing video.
@@ -62,7 +68,9 @@ public final class VideoEditorHud extends LinearLayout {
   }
 
   @RequiresApi(api = 23)
-  public void setVideoSource(VideoSlide slide) throws IOException {
+  public void setVideoSource(@NonNull VideoSlide slide, @NonNull VideoBitRateCalculator videoBitRateCalculator, long maxSendSize)
+      throws IOException
+  {
     Uri uri = slide.getUri();
 
     if (uri == null || !slide.hasVideo()) {
@@ -70,6 +78,12 @@ public final class VideoEditorHud extends LinearLayout {
     }
 
     videoTimeLine.setInput(DecryptableUriMediaInput.createForUri(getContext(), uri));
+
+    long size = tryGetUriSize(getContext(), uri, Long.MAX_VALUE);
+
+    if (size > maxSendSize) {
+      videoTimeLine.setTimeLimit(VideoUtil.getMaxVideoUploadDurationInSeconds(), TimeUnit.SECONDS);
+    }
 
     videoTimeLine.setOnRangeChangeListener(new VideoThumbnailsRangeSelectorView.OnRangeChangeListener() {
 
@@ -88,17 +102,25 @@ public final class VideoEditorHud extends LinearLayout {
       }
 
       @Override
-      public void onRangeDrag(long minValue, long maxValue, long duration, VideoThumbnailsRangeSelectorView.Thumb thumb) {
+      public void onRangeDrag(long minValueUs, long maxValueUs, long durationUs, VideoThumbnailsRangeSelectorView.Thumb thumb) {
         if (eventListener != null) {
-          eventListener.onEditVideoDuration(duration, minValue, maxValue, thumb == VideoThumbnailsRangeSelectorView.Thumb.MIN, false);
+          eventListener.onEditVideoDuration(durationUs, minValueUs, maxValueUs, thumb == VideoThumbnailsRangeSelectorView.Thumb.MIN, false);
         }
       }
 
       @Override
-      public void onRangeDragEnd(long minValue, long maxValue, long duration, VideoThumbnailsRangeSelectorView.Thumb thumb) {
+      public void onRangeDragEnd(long minValueUs, long maxValueUs, long durationUs, VideoThumbnailsRangeSelectorView.Thumb thumb) {
         if (eventListener != null) {
-          eventListener.onEditVideoDuration(duration, minValue, maxValue, thumb == VideoThumbnailsRangeSelectorView.Thumb.MIN, true);
+          eventListener.onEditVideoDuration(durationUs, minValueUs, maxValueUs, thumb == VideoThumbnailsRangeSelectorView.Thumb.MIN, true);
         }
+      }
+
+      @Override
+      public VideoThumbnailsRangeSelectorView.Quality getQuality(long clipDurationUs, long totalDurationUs) {
+        int inputBitRate = VideoBitRateCalculator.bitRate(size, TimeUnit.MICROSECONDS.toMillis(totalDurationUs));
+
+        VideoBitRateCalculator.Quality targetQuality = videoBitRateCalculator.getTargetQuality(TimeUnit.MICROSECONDS.toMillis(clipDurationUs), inputBitRate);
+        return new VideoThumbnailsRangeSelectorView.Quality(targetQuality.getFileSizeEstimate(), (int) (100 * targetQuality.getQuality()));
       }
     });
   }
@@ -159,5 +181,30 @@ public final class VideoEditorHud extends LinearLayout {
     void onPlay();
 
     void onSeek(long position, boolean dragComplete);
+  }
+
+  private long tryGetUriSize(@NonNull Context context, @NonNull Uri uri, long defaultValue) {
+    try {
+      return getSize(context, uri);
+    } catch (IOException e) {
+      Log.w(TAG, e);
+      return defaultValue;
+    }
+  }
+
+  private static long getSize(@NonNull Context context, @NonNull Uri uri) throws IOException {
+    long size = 0;
+
+    try (Cursor cursor = context.getContentResolver().query(uri, null, null, null, null)) {
+      if (cursor != null && cursor.moveToFirst() && cursor.getColumnIndex(OpenableColumns.SIZE) >= 0) {
+        size = cursor.getLong(cursor.getColumnIndexOrThrow(OpenableColumns.SIZE));
+      }
+    }
+
+    if (size <= 0) {
+      size = MediaUtil.getMediaSize(context, uri);
+    }
+
+    return size;
   }
 }

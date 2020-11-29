@@ -460,14 +460,11 @@ class MediaSendViewModel extends ViewModel {
     }
 
     MutableLiveData<MediaSendActivityResult> result          = new MutableLiveData<>();
-    Runnable                                 dialogRunnable  = () -> event.postValue(Event.SHOW_RENDER_PROGRESS);
     String                                   trimmedBody     = isViewOnce() ? "" : body.toString().trim();
     List<Media>                              initialMedia    = getSelectedMediaOrDefault();
     List<Mention>                            trimmedMentions = isViewOnce() ? Collections.emptyList() : mentions;
 
     Preconditions.checkState(initialMedia.size() > 0, "No media to send!");
-
-    Util.runOnMainDelayed(dialogRunnable, 250);
 
     MediaRepository.transformMedia(application, initialMedia, modelsToTransform, (oldToNew) -> {
       List<Media> updatedMedia = new ArrayList<>(oldToNew.values());
@@ -499,7 +496,6 @@ class MediaSendViewModel extends ViewModel {
           uploadRepository.deleteAbandonedAttachments();
         }
 
-        Util.cancelRunnableOnMain(dialogRunnable);
         result.postValue(MediaSendActivityResult.forPreUpload(uploadResults, splitBody, transport, isViewOnce(), trimmedMentions));
       });
     });
@@ -676,12 +672,16 @@ class MediaSendViewModel extends ViewModel {
     }
   }
 
+  boolean isSms() {
+    return transport.isSms();
+  }
+
   enum Error {
     ITEM_TOO_LARGE, TOO_MANY_ITEMS, NO_ITEMS, ONLY_ITEM_TOO_LARGE
   }
 
   enum Event {
-    VIEW_ONCE_TOOLTIP, SHOW_RENDER_PROGRESS, HIDE_RENDER_PROGRESS
+    VIEW_ONCE_TOOLTIP
   }
 
   enum Page {

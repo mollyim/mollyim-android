@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 
 import org.signal.ringrtc.CallException;
 import org.signal.ringrtc.CallId;
+import org.signal.ringrtc.GroupCall;
 import org.thoughtcrime.securesms.crypto.IdentityKeyUtil;
 import org.thoughtcrime.securesms.events.CallParticipant;
 import org.thoughtcrime.securesms.events.WebRtcViewModel;
@@ -19,6 +20,7 @@ import org.thoughtcrime.securesms.ringrtc.CameraState;
 import org.thoughtcrime.securesms.ringrtc.IceCandidateParcel;
 import org.thoughtcrime.securesms.ringrtc.RemotePeer;
 import org.thoughtcrime.securesms.service.webrtc.WebRtcData.CallMetadata;
+import org.thoughtcrime.securesms.service.webrtc.WebRtcData.GroupCallUpdateMetadata;
 import org.thoughtcrime.securesms.service.webrtc.WebRtcData.HttpData;
 import org.thoughtcrime.securesms.service.webrtc.WebRtcData.OfferMetadata;
 import org.thoughtcrime.securesms.service.webrtc.WebRtcData.ReceivedOfferMetadata;
@@ -58,6 +60,8 @@ import static org.thoughtcrime.securesms.service.WebRtcCallService.ACTION_ENDED_
 import static org.thoughtcrime.securesms.service.WebRtcCallService.ACTION_ENDED_SIGNALING_FAILURE;
 import static org.thoughtcrime.securesms.service.WebRtcCallService.ACTION_ENDED_TIMEOUT;
 import static org.thoughtcrime.securesms.service.WebRtcCallService.ACTION_FLIP_CAMERA;
+import static org.thoughtcrime.securesms.service.WebRtcCallService.ACTION_GROUP_CALL_ENDED;
+import static org.thoughtcrime.securesms.service.WebRtcCallService.ACTION_GROUP_CALL_UPDATE_MESSAGE;
 import static org.thoughtcrime.securesms.service.WebRtcCallService.ACTION_GROUP_JOINED_MEMBERSHIP_CHANGED;
 import static org.thoughtcrime.securesms.service.WebRtcCallService.ACTION_GROUP_LOCAL_DEVICE_STATE_CHANGED;
 import static org.thoughtcrime.securesms.service.WebRtcCallService.ACTION_GROUP_REMOTE_DEVICE_STATE_CHANGED;
@@ -116,9 +120,12 @@ import static org.thoughtcrime.securesms.service.webrtc.WebRtcIntentParser.getCa
 import static org.thoughtcrime.securesms.service.webrtc.WebRtcIntentParser.getEnable;
 import static org.thoughtcrime.securesms.service.webrtc.WebRtcIntentParser.getErrorCallState;
 import static org.thoughtcrime.securesms.service.webrtc.WebRtcIntentParser.getErrorIdentityKey;
+import static org.thoughtcrime.securesms.service.webrtc.WebRtcIntentParser.getGroupCallEndReason;
+import static org.thoughtcrime.securesms.service.webrtc.WebRtcIntentParser.getGroupCallHash;
 import static org.thoughtcrime.securesms.service.webrtc.WebRtcIntentParser.getGroupMembershipToken;
 import static org.thoughtcrime.securesms.service.webrtc.WebRtcIntentParser.getIceCandidates;
 import static org.thoughtcrime.securesms.service.webrtc.WebRtcIntentParser.getIceServers;
+import static org.thoughtcrime.securesms.service.webrtc.WebRtcIntentParser.getNullableRemotePeerFromMap;
 import static org.thoughtcrime.securesms.service.webrtc.WebRtcIntentParser.getOfferMessageType;
 import static org.thoughtcrime.securesms.service.webrtc.WebRtcIntentParser.getRemotePeer;
 import static org.thoughtcrime.securesms.service.webrtc.WebRtcIntentParser.getRemotePeerFromMap;
@@ -180,7 +187,7 @@ public abstract class WebRtcActionProcessor {
       case ACTION_CALL_CONNECTED:                      return handleCallConnected(currentState, getRemotePeerFromMap(intent, currentState));
       case ACTION_RECEIVED_OFFER_WHILE_ACTIVE:         return handleReceivedOfferWhileActive(currentState, getRemotePeerFromMap(intent, currentState));
       case ACTION_SEND_BUSY:                           return handleSendBusy(currentState, CallMetadata.fromIntent(intent), getBroadcastFlag(intent));
-      case ACTION_CALL_CONCLUDED:                      return handleCallConcluded(currentState, getRemotePeerFromMap(intent, currentState));
+      case ACTION_CALL_CONCLUDED:                      return handleCallConcluded(currentState, getNullableRemotePeerFromMap(intent, currentState));
       case ACTION_REMOTE_VIDEO_ENABLE:                 return handleRemoteVideoEnable(currentState, getEnable(intent));
       case ACTION_RECEIVE_HANGUP:                      return handleReceivedHangup(currentState, CallMetadata.fromIntent(intent), HangupMetadata.fromIntent(intent));
       case ACTION_LOCAL_HANGUP:                        return handleLocalHangup(currentState);
@@ -226,9 +233,11 @@ public abstract class WebRtcActionProcessor {
       case ACTION_GROUP_LOCAL_DEVICE_STATE_CHANGED:    return handleGroupLocalDeviceStateChanged(currentState);
       case ACTION_GROUP_REMOTE_DEVICE_STATE_CHANGED:   return handleGroupRemoteDeviceStateChanged(currentState);
       case ACTION_GROUP_JOINED_MEMBERSHIP_CHANGED:     return handleGroupJoinedMembershipChanged(currentState);
-      case ACTION_GROUP_REQUEST_MEMBERSHIP_PROOF:      return handleGroupRequestMembershipProof(currentState, getGroupMembershipToken(intent));
+      case ACTION_GROUP_REQUEST_MEMBERSHIP_PROOF:      return handleGroupRequestMembershipProof(currentState, getGroupCallHash(intent), getGroupMembershipToken(intent));
       case ACTION_GROUP_REQUEST_UPDATE_MEMBERS:        return handleGroupRequestUpdateMembers(currentState);
       case ACTION_GROUP_UPDATE_RENDERED_RESOLUTIONS:   return handleUpdateRenderedResolutions(currentState);
+      case ACTION_GROUP_CALL_ENDED:                    return handleGroupCallEnded(currentState, getGroupCallHash(intent), getGroupCallEndReason(intent));
+      case ACTION_GROUP_CALL_UPDATE_MESSAGE:           return handleGroupCallUpdateMessage(currentState, GroupCallUpdateMetadata.fromIntent(intent));
 
       case ACTION_HTTP_SUCCESS:                        return handleHttpSuccess(currentState, HttpData.fromIntent(intent));
       case ACTION_HTTP_FAILURE:                        return handleHttpFailure(currentState, HttpData.fromIntent(intent));
@@ -425,7 +434,7 @@ public abstract class WebRtcActionProcessor {
     return currentState;
   }
 
-  protected @NonNull WebRtcServiceState handleCallConcluded(@NonNull WebRtcServiceState currentState, @NonNull RemotePeer remotePeer) {
+  protected @NonNull WebRtcServiceState handleCallConcluded(@NonNull WebRtcServiceState currentState, @Nullable RemotePeer remotePeer) {
     Log.i(tag, "handleCallConcluded not processed");
     return currentState;
   }
@@ -693,7 +702,7 @@ public abstract class WebRtcActionProcessor {
     return currentState;
   }
 
-  protected @NonNull WebRtcServiceState handleGroupRequestMembershipProof(@NonNull WebRtcServiceState currentState, @NonNull byte[] groupMembershipToken) {
+  protected @NonNull WebRtcServiceState handleGroupRequestMembershipProof(@NonNull WebRtcServiceState currentState, int groupCallHash, @NonNull byte[] groupMembershipToken) {
     Log.i(tag, "handleGroupRequestMembershipProof not processed");
     return currentState;
   }
@@ -705,6 +714,16 @@ public abstract class WebRtcActionProcessor {
 
   protected @NonNull WebRtcServiceState handleUpdateRenderedResolutions(@NonNull WebRtcServiceState currentState) {
     Log.i(tag, "handleUpdateRenderedResolutions not processed");
+    return currentState;
+  }
+
+  protected @NonNull WebRtcServiceState handleGroupCallEnded(@NonNull WebRtcServiceState currentState, int groupCallHash, @NonNull GroupCall.GroupCallEndReason groupCallEndReason) {
+    Log.i(tag, "handleGroupCallEnded not processed");
+    return currentState;
+  }
+
+  protected @NonNull WebRtcServiceState handleGroupCallUpdateMessage(@NonNull WebRtcServiceState currentState, @NonNull GroupCallUpdateMetadata groupCallUpdateMetadata) {
+    webRtcInteractor.peekGroupCall(groupCallUpdateMetadata);
     return currentState;
   }
 

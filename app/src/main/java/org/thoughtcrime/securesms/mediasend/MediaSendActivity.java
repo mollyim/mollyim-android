@@ -21,9 +21,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.core.util.Pair;
 import androidx.core.util.Supplier;
 import androidx.fragment.app.Fragment;
@@ -149,7 +147,6 @@ public class MediaSendActivity extends PassphraseRequiredActivity implements Med
   private TextView            charactersLeft;
   private RecyclerView        mediaRail;
   private MediaRailAdapter    mediaRailAdapter;
-  private AlertDialog         progressDialog;
 
   private int visibleHeight;
 
@@ -259,7 +256,7 @@ public class MediaSendActivity extends PassphraseRequiredActivity implements Med
     } else if (!Util.isEmpty(media)) {
       viewModel.onSelectedMediaChanged(this, media);
 
-      Fragment fragment = MediaSendFragment.newInstance(Locale.getDefault());
+      Fragment fragment = MediaSendFragment.newInstance();
       getSupportFragmentManager().beginTransaction()
                                  .replace(R.id.mediasend_fragment_container, fragment, TAG_SEND)
                                  .commit();
@@ -308,7 +305,7 @@ public class MediaSendActivity extends PassphraseRequiredActivity implements Med
 
     sendButton.setTransport(transport);
 
-    countButton.setOnClickListener(v -> navigateToMediaSend(Locale.getDefault()));
+    countButton.setOnClickListener(v -> navigateToMediaSend());
 
     composeText.append(viewModel.getBody());
 
@@ -370,7 +367,7 @@ public class MediaSendActivity extends PassphraseRequiredActivity implements Med
   @Override
   public void onMediaSelected(@NonNull Media media) {
     viewModel.onSingleMediaSelected(this, media);
-    navigateToMediaSend(Locale.getDefault());
+    navigateToMediaSend();
   }
 
   @Override
@@ -460,7 +457,7 @@ public class MediaSendActivity extends PassphraseRequiredActivity implements Med
       Log.i(TAG, "Camera capture stored: " + media.getUri().toString());
 
       viewModel.onMediaCaptured(media);
-      navigateToMediaSend(Locale.getDefault());
+      navigateToMediaSend();
     });
   }
 
@@ -471,7 +468,7 @@ public class MediaSendActivity extends PassphraseRequiredActivity implements Med
 
   @Override
   public void onCameraCountButtonClicked() {
-    navigateToMediaSend(Locale.getDefault());
+    navigateToMediaSend();
   }
 
   @Override
@@ -548,7 +545,11 @@ public class MediaSendActivity extends PassphraseRequiredActivity implements Med
     MediaSendFragment fragment = getMediaSendFragment();
 
     if (fragment != null) {
+      fragment.pausePlayback();
+
+      SimpleProgressDialog.DismissibleDialog dialog = SimpleProgressDialog.showDelayed(this, 300, 0);
       viewModel.onSendClicked(buildModelsToTransform(fragment), recipients, composeText.getMentions()).observe(this, result -> {
+        dialog.dismiss();
         finish();
       });
     } else {
@@ -569,7 +570,14 @@ public class MediaSendActivity extends PassphraseRequiredActivity implements Med
 
     sendButton.setEnabled(false);
 
-    viewModel.onSendClicked(buildModelsToTransform(fragment), Collections.emptyList(), composeText.getMentions()).observe(this, this::setActivityResultAndFinish);
+    fragment.pausePlayback();
+
+    SimpleProgressDialog.DismissibleDialog dialog = SimpleProgressDialog.showDelayed(this, 300, 0);
+    viewModel.onSendClicked(buildModelsToTransform(fragment), Collections.emptyList(), composeText.getMentions())
+             .observe(this, result -> {
+               dialog.dismiss();
+               setActivityResultAndFinish(result);
+             });
   }
 
   private static Map<Media, MediaTransform> buildModelsToTransform(@NonNull MediaSendFragment fragment) {
@@ -770,15 +778,6 @@ public class MediaSendActivity extends PassphraseRequiredActivity implements Med
                       .setOnDismissListener(() -> TextSecurePreferences.setHasSeenViewOnceTooltip(this, true))
                       .show(TooltipPopup.POSITION_ABOVE);
           break;
-        case SHOW_RENDER_PROGRESS:
-          progressDialog = SimpleProgressDialog.show(new ContextThemeWrapper(MediaSendActivity.this, R.style.TextSecure_MediaSendProgressDialog));
-          break;
-        case HIDE_RENDER_PROGRESS:
-          if (progressDialog != null) {
-            progressDialog.dismiss();
-            progressDialog = null;
-          }
-          break;
       }
     });
   }
@@ -841,8 +840,8 @@ public class MediaSendActivity extends PassphraseRequiredActivity implements Med
 
   }
 
-  private void navigateToMediaSend(@NonNull Locale locale) {
-    MediaSendFragment fragment     = MediaSendFragment.newInstance(locale);
+  private void navigateToMediaSend() {
+    MediaSendFragment fragment     = MediaSendFragment.newInstance();
     String            backstackTag = null;
 
     if (getSupportFragmentManager().findFragmentByTag(TAG_SEND) != null) {

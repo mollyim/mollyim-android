@@ -79,7 +79,7 @@ public class PassphraseCreateActivity extends PassphraseActivity {
   }
 
   private void generateSecrets(MasterSecret masterSecret) {
-    MasterSecretUtil.generateAsymmetricMasterSecret(PassphraseCreateActivity.this, masterSecret);
+    MasterSecretUtil.generateAsymmetricMasterSecret(this, masterSecret);
     setMasterSecret(masterSecret);
   }
 }
