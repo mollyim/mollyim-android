@@ -922,12 +922,15 @@ public class ConversationActivity extends PassphraseRequiredActivity
     };
 
     searchViewItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+      private int inputPanelVis;
+
       @Override
       public boolean onMenuItemActionExpand(MenuItem item) {
         searchView.setOnQueryTextListener(queryListener);
         searchViewModel.onSearchOpened();
         searchNav.setVisibility(View.VISIBLE);
         searchNav.setData(0, 0);
+        inputPanelVis = inputPanel.getVisibility();
         inputPanel.setVisibility(View.GONE);
 
         for (int i = 0; i < menu.size(); i++) {
@@ -943,7 +946,7 @@ public class ConversationActivity extends PassphraseRequiredActivity
         searchView.setOnQueryTextListener(null);
         searchViewModel.onSearchClosed();
         searchNav.setVisibility(View.GONE);
-        inputPanel.setVisibility(View.VISIBLE);
+        inputPanel.setVisibility(inputPanelVis);
         fragment.onSearchQueryUpdated(null);
         setBlockedUserState(recipient.get(), isSecureText, isDefaultSms);
         invalidateOptionsMenu();
@@ -1485,7 +1488,7 @@ public class ConversationActivity extends PassphraseRequiredActivity
 
       if (selfMemberShip == null) {
         leftGroup        = false;
-        canSendMessages  = true;
+        canSendMessages  = isSecureText || isDefaultSms;
         canCancelRequest = false;
       } else {
         switch (selfMemberShip) {
