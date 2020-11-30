@@ -22,7 +22,9 @@ import org.thoughtcrime.securesms.jobs.MultiDeviceMessageRequestResponseJob;
 import org.thoughtcrime.securesms.jobs.RotateProfileKeyJob;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.logging.Log;
+import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.storage.StorageSyncHelper;
+import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.whispersystems.libsignal.util.guava.Optional;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
 
@@ -175,6 +177,29 @@ public class RecipientUtil {
     ApplicationDependencies.getJobManager().add(new MultiDeviceBlockedUpdateJob());
     StorageSyncHelper.scheduleSyncForDataChange();
     ApplicationDependencies.getJobManager().add(MultiDeviceMessageRequestResponseJob.forAccept(recipient.getId()));
+  }
+
+  @WorkerThread
+  public static void delete(@NonNull Context context, @NonNull Recipient recipient) {
+    Recipient resolved = recipient.resolve();
+
+    ThreadDatabase threadDatabase = DatabaseFactory.getThreadDatabase(context);
+    long existingThread = threadDatabase.getThreadIdIfExistsFor(resolved.getId());
+    if (existingThread > -1) {
+      threadDatabase.deleteConversation(existingThread);
+      ApplicationDependencies.getMessageNotifier().updateNotification(context);
+    }
+
+    DatabaseFactory.getRecipientDatabase(context).clearFieldsForDeletion(resolved.getId());
+    NotificationChannels.deleteChannelFor(context, resolved);
+
+    if (!resolved.isBlocked()) {
+      ApplicationDependencies.getJobManager().add(new RotateProfileKeyJob());
+    }
+
+    if (TextSecurePreferences.isMultiDevice(context)) {
+      ApplicationDependencies.getJobManager().add(MultiDeviceMessageRequestResponseJob.forDelete(recipient.getId()));
+    }
   }
 
   /**

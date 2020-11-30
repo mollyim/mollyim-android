@@ -54,6 +54,17 @@ public final class BlockUnblockDialog {
                    AlertDialog.Builder::show);
   }
 
+  public static void showDeleteFor(@NonNull Context context,
+                                   @NonNull Lifecycle lifecycle,
+                                   @NonNull Recipient recipient,
+                                   @NonNull Runnable onDelete,
+                                   @NonNull Runnable onBlockAndDelete)
+  {
+    SimpleTask.run(lifecycle,
+        () -> buildDeleteFor(context, recipient, onDelete, onBlockAndDelete),
+        AlertDialog.Builder::show);
+  }
+
   @WorkerThread
   private static AlertDialog.Builder buildBlockFor(@NonNull Context context,
                                                    @NonNull Recipient recipient,
@@ -120,6 +131,33 @@ public final class BlockUnblockDialog {
       builder.setTitle(resources.getString(R.string.BlockUnblockDialog_unblock_s, recipient.getDisplayName(context)));
       builder.setMessage(R.string.BlockUnblockDialog_you_will_be_able_to_call_and_message_each_other);
       builder.setPositiveButton(R.string.RecipientPreferenceActivity_unblock, ((dialog, which) -> onUnblock.run()));
+      builder.setNegativeButton(android.R.string.cancel, null);
+    }
+
+    return builder;
+  }
+
+  @WorkerThread
+  private static AlertDialog.Builder buildDeleteFor(@NonNull Context context,
+                                                    @NonNull Recipient recipient,
+                                                    @NonNull Runnable onDelete,
+                                                    @NonNull Runnable onBlockAndDelete)
+  {
+    recipient = recipient.resolve();
+
+    AlertDialog.Builder builder   = new AlertDialog.Builder(context);
+    Resources           resources = context.getResources();
+
+    builder.setTitle(R.string.BlockUnblockDialog_delete_contact);
+
+    if (!recipient.isBlocked()) {
+      builder.setMessage(resources.getString(R.string.BlockUnblockDialog_your_conversations_with_s_will_be_deleted_deleted_contacts_can_still_call_you_or_send_you_messages, recipient.getDisplayName(context)));
+      builder.setNeutralButton(android.R.string.cancel, null);
+      builder.setNegativeButton(R.string.delete, (d, w) -> onDelete.run());
+      builder.setPositiveButton(R.string.BlockUnblockDialog_block_and_delete, (d, w) -> onBlockAndDelete.run());
+    } else {
+      builder.setMessage(resources.getString(R.string.BlockUnblockDialog_your_conversations_with_s_will_be_deleted, recipient.getDisplayName(context)));
+      builder.setPositiveButton(R.string.delete, ((dialog, which) -> onDelete.run()));
       builder.setNegativeButton(android.R.string.cancel, null);
     }
 

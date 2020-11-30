@@ -1798,6 +1798,23 @@ public class RecipientDatabase extends Database {
     }
   }
 
+  public void clearFieldsForDeletion(@NonNull RecipientId id) {
+    ContentValues valuesToSet = new ContentValues(9);
+    valuesToSet.put(MUTE_UNTIL, 0);
+    valuesToSet.putNull(COLOR);
+    valuesToSet.putNull(NOTIFICATION_CHANNEL);
+    valuesToSet.putNull(MESSAGE_RINGTONE);
+    valuesToSet.put(MESSAGE_VIBRATE, VibrateState.DEFAULT.getId());
+    valuesToSet.putNull(CALL_RINGTONE);
+    valuesToSet.put(CALL_VIBRATE, VibrateState.DEFAULT.getId());
+    valuesToSet.put(LAST_PROFILE_FETCH, 0);
+    valuesToSet.put(PROFILE_SHARING, 0);
+    if (update(id, valuesToSet)) {
+      markDirty(id, DirtyState.UPDATE);
+      StorageSyncHelper.scheduleSyncForDataChange();
+    }
+  }
+
   public Set<String> getAllPhoneNumbers() {
     SQLiteDatabase db      = databaseHelper.getReadableDatabase();
     Set<String>    results = new HashSet<>();

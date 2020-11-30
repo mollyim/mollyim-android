@@ -29,6 +29,7 @@ import com.takisoft.colorpicker.ColorStateDrawable;
 
 import org.thoughtcrime.securesms.AvatarPreviewActivity;
 import org.thoughtcrime.securesms.LoggingFragment;
+import org.thoughtcrime.securesms.MainActivity;
 import org.thoughtcrime.securesms.MediaPreviewActivity;
 import org.thoughtcrime.securesms.MuteDialog;
 import org.thoughtcrime.securesms.R;
@@ -86,6 +87,7 @@ public class ManageRecipientFragment extends LoggingFragment {
   private View                                   blockUnblockCard;
   private TextView                               block;
   private TextView                               unblock;
+  private TextView                               delete;
   private View                                   groupMembershipCard;
   private TextView                               addToAGroup;
   private SwitchCompat                           muteNotificationsSwitch;
@@ -141,6 +143,7 @@ public class ManageRecipientFragment extends LoggingFragment {
     blockUnblockCard            = view.findViewById(R.id.recipient_block_and_leave_card);
     block                       = view.findViewById(R.id.block);
     unblock                     = view.findViewById(R.id.unblock);
+    delete                      = view.findViewById(R.id.delete);
     viewSafetyNumber            = view.findViewById(R.id.view_safety_number);
     groupMembershipCard         = view.findViewById(R.id.recipient_membership_card);
     addToAGroup                 = view.findViewById(R.id.add_to_a_group);
@@ -228,6 +231,8 @@ public class ManageRecipientFragment extends LoggingFragment {
     block.setOnClickListener(v -> viewModel.onBlockClicked(requireActivity()));
     unblock.setOnClickListener(v -> viewModel.onUnblockClicked(requireActivity()));
 
+    delete.setOnClickListener(v -> viewModel.onDeleteClicked(requireActivity()));
+
     muteNotificationsRow.setOnClickListener(v -> {
       if (muteNotificationsSwitch.isEnabled()) {
         muteNotificationsSwitch.toggle();
@@ -250,6 +255,8 @@ public class ManageRecipientFragment extends LoggingFragment {
       block.setVisibility(canBlock ? View.VISIBLE : View.GONE);
       unblock.setVisibility(canBlock ? View.GONE : View.VISIBLE);
     });
+
+    viewModel.getCanDelete().observe(getViewLifecycleOwner(), delete::setEnabled);
 
     messageButton.setOnClickListener(v -> {
       if (fromConversation) {

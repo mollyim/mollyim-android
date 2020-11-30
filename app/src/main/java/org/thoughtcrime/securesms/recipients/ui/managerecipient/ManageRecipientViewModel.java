@@ -2,6 +2,7 @@ package org.thoughtcrime.securesms.recipients.ui.managerecipient;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,7 @@ import com.annimon.stream.Stream;
 
 import org.thoughtcrime.securesms.BlockUnblockDialog;
 import org.thoughtcrime.securesms.ExpirationDialog;
+import org.thoughtcrime.securesms.MainActivity;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.VerifyIdentityActivity;
 import org.thoughtcrime.securesms.database.IdentityDatabase;
@@ -39,6 +41,7 @@ import org.thoughtcrime.securesms.util.DefaultValueLiveData;
 import org.thoughtcrime.securesms.util.ExpirationUtil;
 import org.thoughtcrime.securesms.util.Hex;
 import org.thoughtcrime.securesms.util.Util;
+import org.thoughtcrime.securesms.util.concurrent.SignalExecutors;
 import org.thoughtcrime.securesms.util.livedata.LiveDataUtil;
 
 import java.util.List;
@@ -63,6 +66,7 @@ public final class ManageRecipientViewModel extends ViewModel {
   private final LiveData<Boolean>                                canCollapseMemberList;
   private final DefaultValueLiveData<CollapseState>              groupListCollapseState;
   private final LiveData<Boolean>                                canBlock;
+  private final LiveData<Boolean>                                canDelete;
   private final LiveData<List<GroupMemberEntry.FullMember>>      visibleSharedGroups;
   private final LiveData<String>                                 sharedGroupsCountSummary;
   private final LiveData<Boolean>                                canAddToAGroup;
@@ -85,6 +89,10 @@ public final class ManageRecipientViewModel extends ViewModel {
     manageRecipientRepository.getThreadId(this::onThreadIdLoaded);
 
     LiveData<List<Recipient>> allSharedGroups = LiveDataUtil.mapAsync(this.recipient, r -> manageRecipientRepository.getSharedGroups(r.getId()));
+
+    this.canDelete = LiveDataUtil.combineLatest(LiveDataUtil.mapAsync(this.recipient, Recipient::isSystemContact),
+                                                Transformations.map(allSharedGroups, List::isEmpty),
+                                                (isSystemContact, noSharedGroups) -> !isSystemContact && noSharedGroups);
 
     this.sharedGroupsCountSummary = Transformations.map(allSharedGroups, list -> {
       int size = list.size();
@@ -181,6 +189,10 @@ public final class ManageRecipientViewModel extends ViewModel {
     return canBlock;
   }
 
+  LiveData<Boolean> getCanDelete() {
+    return canDelete;
+  }
+
   void handleExpirationSelection(@NonNull Context context) {
     withRecipient(recipient ->
                   ExpirationDialog.show(context,
@@ -228,6 +240,23 @@ public final class ManageRecipientViewModel extends ViewModel {
 
   void onUnblockClicked(@NonNull FragmentActivity activity) {
     withRecipient(recipient -> BlockUnblockDialog.showUnblockFor(activity, activity.getLifecycle(), recipient, () -> RecipientUtil.unblock(context, recipient)));
+  }
+
+  void onDeleteClicked(@NonNull FragmentActivity activity) {
+    withRecipient(recipient -> BlockUnblockDialog.showDeleteFor(activity, activity.getLifecycle(), recipient,
+        () -> handleContactDeletion(activity, recipient, false),
+        () -> handleContactDeletion(activity, recipient, true)));
+  }
+
+  private void handleContactDeletion(@NonNull Activity activity, @NonNull Recipient recipient, boolean block) {
+    SignalExecutors.BOUNDED.execute(() -> {
+      if (block) {
+        RecipientUtil.blockNonGroup(context, recipient);
+      }
+      RecipientUtil.delete(context, recipient);
+    });
+    activity.startActivity(new Intent(activity, MainActivity.class));
+    activity.overridePendingTransition(R.anim.fade_scale_in, R.anim.slide_to_end);
   }
 
   void onViewSafetyNumberClicked(@NonNull Activity activity, @NonNull IdentityDatabase.IdentityRecord identityRecord) {
