@@ -170,6 +170,7 @@ android {
         buildConfigField "String", "CANONICAL_VERSION_NAME", "\"$canonicalVersionName\""
         buildConfigField "boolean", "AUTOMATIC_UPDATES", "false"
         buildConfigField "String", "NOPLAY_UPDATE_URL", "\"https://updates.signal.org/android\""
+        buildConfigField "String", "BACKUP_FILENAME", "\"" + appName.toLowerCase() + "\""
 
         ndk {
             abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86_64'

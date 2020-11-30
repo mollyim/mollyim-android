@@ -12,6 +12,7 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.documentfile.provider.DocumentFile;
 
 import org.thoughtcrime.securesms.ApplicationPreferencesActivity;
+import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.backup.BackupFileIOError;
 import org.thoughtcrime.securesms.backup.BackupPassphrase;
@@ -86,7 +87,7 @@ public final class LocalBackupJobApi29 extends BaseJob {
       String       backupPassword  = BackupPassphrase.get(context);
       DocumentFile backupDirectory = DocumentFile.fromTreeUri(context, backupDirectoryUri);
       String       timestamp       = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss", Locale.US).format(new Date());
-      String       fileName        = String.format("signal-%s.backup", timestamp);
+      String       fileName        = String.format("%s-%s.backup", BuildConfig.BACKUP_FILENAME, timestamp);
 
       if (backupDirectory == null || !backupDirectory.canWrite()) {
         BackupFileIOError.ACCESS_ERROR.postNotification(context);
