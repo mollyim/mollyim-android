@@ -2363,6 +2363,7 @@ public class ConversationActivity extends PassphraseRequiredActivity
     } else {
       boolean inactivePushGroup = isPushGroupConversation() && !recipient.isActiveGroup();
       inputPanel.setVisibility(inactivePushGroup ? View.GONE : View.VISIBLE);
+      inputPanel.setEnabled(!inactivePushGroup);
       unblockButton.setVisibility(View.GONE);
       inviteButton.setVisibility(View.GONE);
       registerButton.setVisibility(View.GONE);
