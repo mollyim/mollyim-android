@@ -2357,7 +2357,8 @@ public class ConversationActivity extends PassphraseRequiredActivity
     } else if (!isSecureText && !isDefaultSms) {
       unblockButton.setVisibility(View.GONE);
       inputPanel.setVisibility(View.GONE);
-      inviteButton.setVisibility(TextSecurePreferences.isPushRegistered(this) ? View.VISIBLE : View.GONE);
+      boolean canInvite = TextSecurePreferences.isPushRegistered(this) && recipient.getRegistered() != RegisteredState.UNKNOWN;
+      inviteButton.setVisibility(canInvite ? View.VISIBLE : View.GONE);
       registerButton.setVisibility(View.GONE);
     } else {
       boolean inactivePushGroup = isPushGroupConversation() && !recipient.isActiveGroup();
