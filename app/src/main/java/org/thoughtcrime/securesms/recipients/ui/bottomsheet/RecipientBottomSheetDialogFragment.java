@@ -60,8 +60,6 @@ public final class RecipientBottomSheetDialogFragment extends BottomSheetDialogF
   private Button                   secureCallButton;
   private Button                   insecureCallButton;
   private Button                   secureVideoCallButton;
-  private Button                   blockButton;
-  private Button                   unblockButton;
   private Button                   addContactButton;
   private Button                   addToGroupButton;
   private Button                   viewSafetyNumberButton;
@@ -107,8 +105,6 @@ public final class RecipientBottomSheetDialogFragment extends BottomSheetDialogF
     secureCallButton       = view.findViewById(R.id.rbs_secure_call_button);
     insecureCallButton     = view.findViewById(R.id.rbs_insecure_call_button);
     secureVideoCallButton  = view.findViewById(R.id.rbs_video_call_button);
-    blockButton            = view.findViewById(R.id.rbs_block_button);
-    unblockButton          = view.findViewById(R.id.rbs_unblock_button);
     addContactButton       = view.findViewById(R.id.rbs_add_contact_button);
     addToGroupButton       = view.findViewById(R.id.rbs_add_to_group_button);
     viewSafetyNumberButton = view.findViewById(R.id.rbs_view_safety_number_button);
@@ -172,16 +168,6 @@ public final class RecipientBottomSheetDialogFragment extends BottomSheetDialogF
 
       noteToSelfDescription.setVisibility(recipient.isSelf() ? View.VISIBLE : View.GONE);
 
-      if (RecipientUtil.isBlockable(recipient)) {
-        boolean blocked = recipient.isBlocked();
-
-        blockButton  .setVisibility(recipient.isSelf() ||  blocked ? View.GONE : View.VISIBLE);
-        unblockButton.setVisibility(recipient.isSelf() || !blocked ? View.GONE : View.VISIBLE);
-      } else {
-        blockButton  .setVisibility(View.GONE);
-        unblockButton.setVisibility(View.GONE);
-      }
-
       messageButton.setVisibility(!recipient.isSelf() ? View.VISIBLE : View.GONE);
       secureCallButton.setVisibility(recipient.isRegistered() && !recipient.isSelf() ? View.VISIBLE : View.GONE);
       insecureCallButton.setVisibility(!recipient.isRegistered() && !recipient.isSelf() ? View.VISIBLE : View.GONE);
@@ -232,9 +218,6 @@ public final class RecipientBottomSheetDialogFragment extends BottomSheetDialogF
     secureCallButton.setOnClickListener(view -> viewModel.onSecureCallClicked(requireActivity()));
     insecureCallButton.setOnClickListener(view -> viewModel.onInsecureCallClicked(requireActivity()));
     secureVideoCallButton.setOnClickListener(view -> viewModel.onSecureVideoCallClicked(requireActivity()));
-
-    blockButton.setOnClickListener(view -> viewModel.onBlockClicked(requireActivity()));
-    unblockButton.setOnClickListener(view -> viewModel.onUnblockClicked(requireActivity()));
 
     makeGroupAdminButton.setOnClickListener(view -> viewModel.onMakeGroupAdminClicked(requireActivity()));
     removeAdminButton.setOnClickListener(view -> viewModel.onRemoveGroupAdminClicked(requireActivity()));

@@ -128,30 +128,6 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/rbs_block_button"
-            style="@style/Widget.Signal.Button.TextButton.Drawable"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:text="@string/RecipientBottomSheet_block"
-            android:visibility="gone"
-            app:drawableStartCompat="@drawable/ic_block_tinted_24"
-            tools:visibility="visible" />
-
-        <Button
-            android:id="@+id/rbs_unblock_button"
-            style="@style/Widget.Signal.Button.TextButton.Drawable"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:text="@string/RecipientBottomSheet_unblock"
-            android:visibility="gone"
-            app:drawableStartCompat="@drawable/ic_block_tinted_24"
-            tools:visibility="visible" />
-
-        <Button
             android:id="@+id/rbs_add_contact_button"
             style="@style/Widget.Signal.Button.TextButton.Drawable"
             android:layout_width="match_parent"
