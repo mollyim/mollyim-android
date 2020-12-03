@@ -179,6 +179,16 @@ public class TextSecurePreferences {
 
   private static final String STORAGE_MANIFEST_VERSION = "pref_storage_manifest_version";
 
+  public static final String GOOGLE_MAP_TYPE = "pref_google_map_type";
+
+  public static String getGoogleMapType(Context context) {
+    return getStringPreference(context, GOOGLE_MAP_TYPE, "normal");
+  }
+
+  public static void setGoogleMapType(Context context, String value) {
+    setStringPreference(context, GOOGLE_MAP_TYPE, value);
+  }
+
   public static boolean isScreenLockEnabled(@NonNull Context context) {
     return isPassphraseLockEnabled(context);
   }
