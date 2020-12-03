@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+  <string-array name="pref_map_type_entries">
+    <item>@string/preferences__map_normal</item>
+    <item>@string/preferences__map_hybrid</item>
+    <item>@string/preferences__map_satellite</item>
+    <item>@string/preferences__map_terrain</item>
+    <item>@string/preferences__map_none</item>
+  </string-array>
+
+  <string-array name="pref_map_type_values" translatable="false">
+    <item>normal</item>
+    <item>hybrid</item>
+    <item>satellite</item>
+    <item>terrain</item>
+    <item>none</item>
+  </string-array>
+
+</resources>
