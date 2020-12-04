@@ -24,7 +24,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: molly-apk
-        path: app/build/outputs/apk
+        path: app/build/outputs/apk/**/release/*.apk
 
   release:
     name: Release
