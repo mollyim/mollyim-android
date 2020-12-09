@@ -24,6 +24,7 @@ import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.util.AvatarUtil;
 import org.thoughtcrime.securesms.util.ViewUtil;
+import org.webrtc.RendererCommon;
 
 import java.util.Objects;
 
@@ -68,6 +69,14 @@ public class CallParticipantView extends ConstraintLayout {
 
     avatar.setFallbackPhotoProvider(FALLBACK_PHOTO_PROVIDER);
     useLargeAvatar();
+  }
+
+  void setMirror(boolean mirror) {
+    renderer.setMirror(mirror);
+  }
+
+  void setScalingType(@NonNull RendererCommon.ScalingType scalingType) {
+    renderer.setScalingType(scalingType);
   }
 
   void setCallParticipant(@NonNull CallParticipant participant) {
@@ -122,7 +131,8 @@ public class CallParticipantView extends ConstraintLayout {
   }
 
   private void setPipAvatar(@NonNull Recipient recipient) {
-    ContactPhoto         contactPhoto  = recipient.getContactPhoto();
+    ContactPhoto         contactPhoto  = recipient.isSelf() ? new ProfileContactPhoto(Recipient.self(), Recipient.self().getProfileAvatar())
+                                                            : recipient.getContactPhoto();
     FallbackContactPhoto fallbackPhoto = recipient.getFallbackContactPhoto(FALLBACK_PHOTO_PROVIDER);
 
     GlideApp.with(this)
@@ -137,6 +147,11 @@ public class CallParticipantView extends ConstraintLayout {
   }
 
   private static final class FallbackPhotoProvider extends Recipient.FallbackPhotoProvider {
+    @Override
+    public @NonNull FallbackContactPhoto getPhotoForLocalNumber() {
+      return super.getPhotoForRecipientWithoutName();
+    }
+
     @Override
     public @NonNull FallbackContactPhoto getPhotoForRecipientWithoutName() {
       ResourceContactPhoto photo = new ResourceContactPhoto(R.drawable.ic_profile_outline_120);

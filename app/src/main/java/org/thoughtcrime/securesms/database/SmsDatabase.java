@@ -42,6 +42,7 @@ import org.thoughtcrime.securesms.database.model.SmsMessageRecord;
 import org.thoughtcrime.securesms.database.model.databaseprotos.GroupCallUpdateDetails;
 import org.thoughtcrime.securesms.database.model.databaseprotos.ProfileChangeDetails;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.groups.GroupMigrationMembershipChange;
 import org.thoughtcrime.securesms.jobs.TrimThreadJob;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.mms.IncomingMediaMessage;
@@ -72,7 +73,6 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
@@ -471,7 +471,11 @@ public class SmsDatabase extends MessageDatabase {
   }
 
   @Override
-  public boolean incrementReceiptCount(SyncMessageId messageId, long timestamp, boolean deliveryReceipt) {
+  public boolean incrementReceiptCount(SyncMessageId messageId, long timestamp, @NonNull ReceiptType receiptType) {
+    if (receiptType == ReceiptType.VIEWED) {
+      return false;
+    }
+
     SQLiteDatabase database     = databaseHelper.getWritableDatabase();
     boolean        foundMessage = false;
 
@@ -483,7 +487,7 @@ public class SmsDatabase extends MessageDatabase {
         if (Types.isOutgoingMessageType(cursor.getLong(cursor.getColumnIndexOrThrow(TYPE)))) {
           RecipientId theirRecipientId = messageId.getRecipientId();
           RecipientId outRecipientId   = RecipientId.from(cursor.getLong(cursor.getColumnIndexOrThrow(RECIPIENT_ID)));
-          String      columnName       = deliveryReceipt ? DELIVERY_RECEIPT_COUNT : READ_RECEIPT_COUNT;
+          String      columnName       = receiptType.getColumnName();
           boolean     isFirstIncrement = cursor.getLong(cursor.getColumnIndexOrThrow(columnName)) == 0;
 
           if (outRecipientId.equals(theirRecipientId)) {
@@ -507,7 +511,7 @@ public class SmsDatabase extends MessageDatabase {
         }
       }
 
-      if (!foundMessage && deliveryReceipt) {
+      if (!foundMessage && receiptType == ReceiptType.DELIVERY) {
         earlyDeliveryReceiptCache.increment(messageId.getTimetamp(), messageId.getRecipientId());
         return true;
       }
@@ -624,6 +628,16 @@ public class SmsDatabase extends MessageDatabase {
     return updateMessageBodyAndType(messageId, body, Types.TOTAL_MASK, type);
   }
 
+  @Override
+  public @NonNull List<MarkedMessageInfo> getViewedIncomingMessages(long threadId) {
+    return Collections.emptyList();
+  }
+
+  @Override
+  public @Nullable MarkedMessageInfo setIncomingMessageViewed(long messageId) {
+    return null;
+  }
+
   private Pair<Long, Long> updateMessageBodyAndType(long messageId, String body, long maskOff, long maskOn) {
     SQLiteDatabase db = databaseHelper.getWritableDatabase();
     db.execSQL("UPDATE " + TABLE_NAME + " SET " + BODY + " = ?, " +
@@ -674,11 +688,11 @@ public class SmsDatabase extends MessageDatabase {
 
   @Override
   public void insertOrUpdateGroupCall(@NonNull RecipientId groupRecipientId,
-                                               @NonNull RecipientId sender,
-                                               long timestamp,
-                                               @Nullable String messageGroupCallEraId,
-                                               @Nullable String peekGroupCallEraId,
-                                               @NonNull Collection<UUID> peekJoinedUuids)
+                                      @NonNull RecipientId sender,
+                                      long timestamp,
+                                      @Nullable String messageGroupCallEraId,
+                                      @Nullable String peekGroupCallEraId,
+                                      @NonNull Collection<UUID> peekJoinedUuids)
   {
     SQLiteDatabase db        = databaseHelper.getWritableDatabase();
 
@@ -691,6 +705,9 @@ public class SmsDatabase extends MessageDatabase {
       boolean peerEraIdSameAsPrevious = updatePreviousGroupCall(threadId, peekGroupCallEraId, peekJoinedUuids);
 
       if (!peerEraIdSameAsPrevious && !Util.isEmpty(peekGroupCallEraId)) {
+        Recipient self     = Recipient.self();
+        boolean   markRead = peekJoinedUuids.contains(self.requireUuid()) || self.getId().equals(sender);
+
         byte[] updateDetails = GroupCallUpdateDetails.newBuilder()
                                                      .setEraId(Util.emptyIfNull(peekGroupCallEraId))
                                                      .setStartedCallUuid(Recipient.resolved(sender).requireUuid().toString())
@@ -706,7 +723,7 @@ public class SmsDatabase extends MessageDatabase {
         values.put(ADDRESS_DEVICE_ID, 1);
         values.put(DATE_RECEIVED, timestamp);
         values.put(DATE_SENT, timestamp);
-        values.put(READ, 0);
+        values.put(READ, markRead ? 1 : 0);
         values.put(BODY, body);
         values.put(TYPE, Types.GROUP_CALL_TYPE);
         values.put(THREAD_ID, threadId);
@@ -740,6 +757,7 @@ public class SmsDatabase extends MessageDatabase {
 
       GroupCallUpdateDetails groupCallUpdateDetails = GroupCallUpdateDetailsUtil.parse(record.getBody());
       boolean                sameEraId              = groupCallUpdateDetails.getEraId().equals(peekGroupCallEraId) && !Util.isEmpty(peekGroupCallEraId);
+      boolean                containsSelf           = peekJoinedUuids.contains(Recipient.self().requireUuid());
 
       List<String> inCallUuids = sameEraId ? Stream.of(peekJoinedUuids).map(UUID::toString).toList()
                                            : Collections.emptyList();
@@ -748,6 +766,10 @@ public class SmsDatabase extends MessageDatabase {
 
       ContentValues contentValues = new ContentValues();
       contentValues.put(BODY, body);
+
+      if (sameEraId && containsSelf) {
+        contentValues.put(READ, 1);
+      }
 
       db.update(TABLE_NAME, contentValues, ID_WHERE, SqlUtil.buildArgs(record.getId()));
 
@@ -850,11 +872,14 @@ public class SmsDatabase extends MessageDatabase {
   }
 
   @Override
-  public void insertGroupV1MigrationEvents(@NonNull RecipientId recipientId, long threadId, @NonNull List<RecipientId> pendingRecipients) {
+  public void insertGroupV1MigrationEvents(@NonNull RecipientId recipientId,
+                                           long threadId,
+                                           @NonNull GroupMigrationMembershipChange membershipChange)
+  {
     insertGroupV1MigrationNotification(recipientId, threadId);
 
-    if (pendingRecipients.size() > 0) {
-      insertGroupV1MigrationEvent(recipientId, threadId, pendingRecipients);
+    if (!membershipChange.isEmpty()) {
+      insertGroupV1MigrationMembershipChanges(recipientId, threadId, membershipChange);
     }
 
     notifyConversationListeners(threadId);
@@ -862,10 +887,13 @@ public class SmsDatabase extends MessageDatabase {
   }
 
   private void insertGroupV1MigrationNotification(@NonNull RecipientId recipientId, long threadId) {
-    insertGroupV1MigrationEvent(recipientId, threadId, Collections.emptyList());
+    insertGroupV1MigrationMembershipChanges(recipientId, threadId, GroupMigrationMembershipChange.empty());
   }
 
-  private void insertGroupV1MigrationEvent(@NonNull RecipientId recipientId, long threadId, @NonNull List<RecipientId> pendingRecipients) {
+  private void insertGroupV1MigrationMembershipChanges(@NonNull RecipientId recipientId,
+                                                       long threadId,
+                                                       @NonNull GroupMigrationMembershipChange membershipChange)
+  {
     ContentValues values = new ContentValues();
     values.put(RECIPIENT_ID, recipientId.serialize());
     values.put(ADDRESS_DEVICE_ID, 1);
@@ -875,8 +903,8 @@ public class SmsDatabase extends MessageDatabase {
     values.put(TYPE, Types.GV1_MIGRATION_TYPE);
     values.put(THREAD_ID, threadId);
 
-    if (pendingRecipients.size() > 0) {
-      values.put(BODY, RecipientId.toSerializedList(pendingRecipients));
+    if (!membershipChange.isEmpty()) {
+      values.put(BODY, membershipChange.serialize());
     }
 
     databaseHelper.getWritableDatabase().insert(TABLE_NAME, null, values);

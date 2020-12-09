@@ -5,12 +5,12 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.annimon.stream.ComparatorCompat;
 import com.annimon.stream.Stream;
 
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.events.CallParticipant;
 import org.thoughtcrime.securesms.events.WebRtcViewModel;
-import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.ringrtc.CameraState;
 
 import java.util.ArrayList;
@@ -167,11 +167,15 @@ public final class CallParticipantsState {
     WebRtcLocalRenderState localRenderState = determineLocalRenderMode(webRtcViewModel.getLocalParticipant(),
                                                                        oldState.isInPipMode,
                                                                        newShowVideoForOutgoing,
+                                                                       webRtcViewModel.getGroupState().isNotIdle(),
                                                                        webRtcViewModel.getState(),
                                                                        webRtcViewModel.getRemoteParticipants().size(),
                                                                        oldState.isViewingFocusedParticipant);
 
-    CallParticipant focused = oldState.remoteParticipants.isEmpty() ? null : oldState.remoteParticipants.get(0);
+    List<CallParticipant> participantsByLastSpoke = new ArrayList<>(webRtcViewModel.getRemoteParticipants());
+    Collections.sort(participantsByLastSpoke, ComparatorCompat.reversed((p1, p2) -> Long.compare(p1.getLastSpoke(), p2.getLastSpoke())));
+
+    CallParticipant focused = participantsByLastSpoke.isEmpty() ? null : participantsByLastSpoke.get(0);
 
     return new CallParticipantsState(webRtcViewModel.getState(),
                                      webRtcViewModel.getGroupState(),
@@ -188,6 +192,7 @@ public final class CallParticipantsState {
     WebRtcLocalRenderState localRenderState = determineLocalRenderMode(oldState.localParticipant,
                                                                        isInPip,
                                                                        oldState.showVideoForOutgoing,
+                                                                       oldState.getGroupCallState().isNotIdle(),
                                                                        oldState.callState,
                                                                        oldState.getAllRemoteParticipants().size(),
                                                                        oldState.isViewingFocusedParticipant);
@@ -211,6 +216,7 @@ public final class CallParticipantsState {
     WebRtcLocalRenderState localRenderState = determineLocalRenderMode(oldState.localParticipant,
                                                                        oldState.isInPipMode,
                                                                        oldState.showVideoForOutgoing,
+                                                                       oldState.getGroupCallState().isNotIdle(),
                                                                        oldState.callState,
                                                                        oldState.getAllRemoteParticipants().size(),
                                                                        selectedPage == SelectedPage.FOCUSED);
@@ -229,11 +235,12 @@ public final class CallParticipantsState {
   private static @NonNull WebRtcLocalRenderState determineLocalRenderMode(@NonNull CallParticipant localParticipant,
                                                                           boolean isInPip,
                                                                           boolean showVideoForOutgoing,
+                                                                          boolean isNonIdleGroupCall,
                                                                           @NonNull WebRtcViewModel.State callState,
                                                                           int numberOfRemoteParticipants,
                                                                           boolean isViewingFocusedParticipant)
   {
-    boolean                displayLocal     = !isInPip && localParticipant.isVideoEnabled();
+    boolean                displayLocal     = (numberOfRemoteParticipants == 0 || !isInPip) && (isNonIdleGroupCall || localParticipant.isVideoEnabled());
     WebRtcLocalRenderState localRenderState = WebRtcLocalRenderState.GONE;
 
     if (displayLocal || showVideoForOutgoing) {
@@ -243,10 +250,10 @@ public final class CallParticipantsState {
         } else if (numberOfRemoteParticipants == 1) {
           localRenderState = WebRtcLocalRenderState.SMALL_RECTANGLE;
         } else {
-          localRenderState = WebRtcLocalRenderState.LARGE;
+          localRenderState = localParticipant.isVideoEnabled() ? WebRtcLocalRenderState.LARGE : WebRtcLocalRenderState.LARGE_NO_VIDEO;
         }
       } else if (callState != WebRtcViewModel.State.CALL_INCOMING && callState != WebRtcViewModel.State.CALL_DISCONNECTED) {
-        localRenderState = WebRtcLocalRenderState.LARGE;
+        localRenderState = localParticipant.isVideoEnabled() ? WebRtcLocalRenderState.LARGE : WebRtcLocalRenderState.LARGE_NO_VIDEO;
       }
     } else if (callState == WebRtcViewModel.State.CALL_PRE_JOIN) {
       localRenderState = WebRtcLocalRenderState.LARGE_NO_VIDEO;

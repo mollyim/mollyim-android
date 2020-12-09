@@ -81,8 +81,8 @@ protobuf {
     }
 }
 
-def canonicalVersionCode = 746
-def canonicalVersionName = "4.78.5"
+def canonicalVersionCode = 750
+def canonicalVersionName = "4.79.3"
 
 def postFixSize = 10
 def abiPostFix = ['universal'   : 0,
@@ -360,10 +360,11 @@ dependencies {
 
     implementation project(':libsignal-service')
     implementation 'org.signal:zkgroup-android:0.7.0'
-
+    implementation 'org.whispersystems:signal-client-android:0.1.5'
+    implementation 'com.google.protobuf:protobuf-javalite:3.10.0'
     implementation 'im.molly:argon2:13.1-1@aar'
 
-    implementation 'org.signal:ringrtc-android:2.8.3'
+    implementation 'org.signal:ringrtc-android:2.8.5'
 
     implementation "me.leolin:ShortcutBadger:1.1.16"
     implementation 'se.emilsjolander:stickylistheaders:2.7.0'

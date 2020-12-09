@@ -26,6 +26,7 @@ import org.whispersystems.signalservice.api.groupsv2.DecryptedGroupUtil;
 
 import java.io.Closeable;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.thoughtcrime.securesms.groups.v2.processing.GroupsV2StateProcessor.LATEST;
@@ -140,17 +141,25 @@ public final class GroupsV1MigrationUtil {
     DecryptedGroup decryptedGroup = performLocalMigration(context, gv1Id, threadId, groupRecipient);
 
     if (newlyCreated && decryptedGroup != null && !SignalStore.internalValues().disableGv1AutoMigrateNotification()) {
+      Log.i(TAG, "Sending no-op update to notify others.");
       GroupManager.sendNoopUpdate(context, gv2MasterKey, decryptedGroup);
     }
   }
 
   public static void performLocalMigration(@NonNull Context context, @NonNull GroupId.V1 gv1Id) throws IOException
   {
+    Log.i(TAG, "Beginning local migration! V1 ID: " + gv1Id, new Throwable());
     try (Closeable ignored = GroupsV2ProcessingLock.acquireGroupProcessingLock()) {
+      if (DatabaseFactory.getGroupDatabase(context).groupExists(gv1Id.deriveV2MigrationGroupId())) {
+        Log.w(TAG, "Group was already migrated! Could have been waiting for the lock.", new Throwable());
+        return;
+      }
+
       Recipient recipient = Recipient.externalGroupExact(context, gv1Id);
       long      threadId  = DatabaseFactory.getThreadDatabase(context).getThreadIdFor(recipient);
 
       performLocalMigration(context, gv1Id, threadId, recipient);
+      Log.i(TAG, "Migration complete! (" + gv1Id + ", " + threadId + ", " + recipient.getId() + ")", new Throwable());
     } catch (GroupChangeBusyException e) {
       throw new IOException(e);
     }
@@ -162,6 +171,8 @@ public final class GroupsV1MigrationUtil {
                                                                 @NonNull Recipient groupRecipient)
       throws IOException, GroupChangeBusyException
   {
+    Log.i(TAG, "performLocalMigration(" + gv1Id + ", " + threadId + ", " + groupRecipient.getId());
+
     try (Closeable ignored = GroupsV2ProcessingLock.acquireGroupProcessingLock()){
       DecryptedGroup decryptedGroup;
       try {
@@ -174,15 +185,8 @@ public final class GroupsV1MigrationUtil {
         return null;
       }
 
-      List<RecipientId> pendingRecipients = Stream.of(DecryptedGroupUtil.pendingToUuidList(decryptedGroup.getPendingMembersList()))
-                                                  .map(uuid -> Recipient.externalPush(context, uuid, null, false))
-                                                  .filterNot(Recipient::isSelf)
-                                                  .map(Recipient::getId)
-                                                  .toList();
-
       Log.i(TAG, "[Local] Migrating group over to the version we were added to: V" + decryptedGroup.getRevision());
-      DatabaseFactory.getGroupDatabase(context).migrateToV2(gv1Id, decryptedGroup);
-      DatabaseFactory.getSmsDatabase(context).insertGroupV1MigrationEvents(groupRecipient.getId(), threadId, pendingRecipients);
+      DatabaseFactory.getGroupDatabase(context).migrateToV2(threadId, gv1Id, decryptedGroup);
 
       Log.i(TAG, "[Local] Applying all changes since V" + decryptedGroup.getRevision());
       try {

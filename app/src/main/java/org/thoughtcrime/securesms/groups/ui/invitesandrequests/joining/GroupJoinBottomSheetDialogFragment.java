@@ -23,15 +23,13 @@ import org.thoughtcrime.securesms.color.MaterialColor;
 import org.thoughtcrime.securesms.components.AvatarImageView;
 import org.thoughtcrime.securesms.contacts.avatars.FallbackContactPhoto;
 import org.thoughtcrime.securesms.contacts.avatars.ResourceContactPhoto;
-import org.thoughtcrime.securesms.conversation.ConversationActivity;
+import org.thoughtcrime.securesms.conversation.ConversationIntents;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.groups.v2.GroupInviteLinkUrl;
 import org.thoughtcrime.securesms.jobs.RetrieveProfileJob;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.util.BottomSheetUtil;
-import org.thoughtcrime.securesms.util.FeatureFlags;
-import org.thoughtcrime.securesms.util.PlayStoreUtil;
 import org.thoughtcrime.securesms.util.ThemeUtil;
 
 public final class GroupJoinBottomSheetDialogFragment extends BottomSheetDialogFragment {
@@ -101,20 +99,6 @@ public final class GroupJoinBottomSheetDialogFragment extends BottomSheetDialogF
       groupDetails.setText(requireContext().getResources().getQuantityString(R.plurals.GroupJoinBottomSheetDialogFragment_group_dot_d_members, details.getGroupMembershipCount(), details.getGroupMembershipCount()));
 
       switch (getGroupJoinStatus()) {
-        case COMING_SOON:
-          groupJoinExplain.setText(R.string.GroupJoinUpdateRequiredBottomSheetDialogFragment_coming_soon);
-          groupCancelButton.setText(android.R.string.ok);
-          groupJoinButton.setVisibility(View.GONE);
-          break;
-        case UPDATE_TO_JOIN:
-          groupJoinExplain.setText(R.string.GroupJoinUpdateRequiredBottomSheetDialogFragment_update_message);
-          groupJoinButton.setText(R.string.GroupJoinUpdateRequiredBottomSheetDialogFragment_update_signal);
-          groupJoinButton.setOnClickListener(v -> {
-            PlayStoreUtil.openPlayStoreOrOurApkDownloadPage(requireContext());
-            dismiss();
-          });
-          groupJoinButton.setVisibility(View.VISIBLE);
-          break;
         case UPDATE_LINKED_DEVICE_TO_JOIN:
           groupJoinExplain.setText(R.string.GroupJoinUpdateRequiredBottomSheetDialogFragment_update_linked_device_message);
           groupCancelButton.setText(android.R.string.ok);
@@ -152,7 +136,8 @@ public final class GroupJoinBottomSheetDialogFragment extends BottomSheetDialogF
     viewModel.getJoinSuccess().observe(getViewLifecycleOwner(), joinGroupSuccess -> {
         Log.i(TAG, "Group joined, navigating to group");
 
-        Intent intent = ConversationActivity.buildIntent(requireContext(), joinGroupSuccess.getGroupRecipient().getId(), joinGroupSuccess.getGroupThreadId());
+        Intent intent = ConversationIntents.createBuilder(requireContext(), joinGroupSuccess.getGroupRecipient().getId(), joinGroupSuccess.getGroupThreadId())
+                                           .build();
         requireActivity().startActivity(intent);
 
         dismiss();
@@ -161,19 +146,10 @@ public final class GroupJoinBottomSheetDialogFragment extends BottomSheetDialogF
   }
 
   private static ExtendedGroupJoinStatus getGroupJoinStatus() {
-    FeatureFlags.GroupJoinStatus groupJoinStatus = FeatureFlags.clientLocalGroupJoinStatus();
-
-    switch (groupJoinStatus) {
-      case COMING_SOON   : return ExtendedGroupJoinStatus.COMING_SOON;
-      case UPDATE_TO_JOIN: return ExtendedGroupJoinStatus.UPDATE_TO_JOIN;
-      case LOCAL_CAN_JOIN: {
-        if (Recipient.self().getGroupsV2Capability() != Recipient.Capability.SUPPORTED) {
-          return ExtendedGroupJoinStatus.UPDATE_LINKED_DEVICE_TO_JOIN;
-        }
-
-        return ExtendedGroupJoinStatus.LOCAL_CAN_JOIN;
-      }
-      default: throw new AssertionError();
+    if (Recipient.self().getGroupsV2Capability() != Recipient.Capability.SUPPORTED) {
+      return ExtendedGroupJoinStatus.UPDATE_LINKED_DEVICE_TO_JOIN;
+    } else {
+      return ExtendedGroupJoinStatus.LOCAL_CAN_JOIN;
     }
   }
 
@@ -214,12 +190,6 @@ public final class GroupJoinBottomSheetDialogFragment extends BottomSheetDialogF
   }
 
   public enum ExtendedGroupJoinStatus {
-    /** No version of the client that can join V2 groups by link is in production. */
-    COMING_SOON,
-
-    /** A newer version of the client is in production that will allow joining via GV2 group links. */
-    UPDATE_TO_JOIN,
-
     /** Locally we're using a version that can use group links, but one or more linked devices needs updating for GV2. */
     UPDATE_LINKED_DEVICE_TO_JOIN,
 

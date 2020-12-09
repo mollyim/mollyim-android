@@ -5,11 +5,12 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+
 import androidx.annotation.NonNull;
 
-import org.thoughtcrime.securesms.conversation.ConversationActivity;
-
+import org.thoughtcrime.securesms.conversation.ConversationIntents;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
+import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.recipients.Recipient;
 
 public class SmsSendtoActivity extends PassphraseRequiredActivity {
@@ -32,10 +33,9 @@ public class SmsSendtoActivity extends PassphraseRequiredActivity {
       Recipient recipient = Recipient.external(this, getDestinationForSyncAdapter(uri));
       long      threadId  = DatabaseFactory.getThreadDatabase(this).getThreadIdIfExistsFor(recipient.getId());
 
-      nextIntent = new Intent(this, ConversationActivity.class);
-      nextIntent.putExtra(ConversationActivity.TEXT_EXTRA, "");
-      nextIntent.putExtra(ConversationActivity.THREAD_ID_EXTRA, threadId);
-      nextIntent.putExtra(ConversationActivity.RECIPIENT_EXTRA, recipient.getId().serialize());
+      nextIntent = ConversationIntents.createBuilder(this, recipient.getId(), threadId)
+                                      .withDraftText("")
+                                      .build();
     } else {
       nextIntent = new Intent(this, NewConversationActivity.class);
     }

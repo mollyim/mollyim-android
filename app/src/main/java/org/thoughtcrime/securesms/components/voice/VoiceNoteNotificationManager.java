@@ -17,8 +17,7 @@ import com.google.android.exoplayer2.ui.PlayerNotificationManager;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.color.MaterialColor;
 import org.thoughtcrime.securesms.contacts.avatars.ContactColors;
-import org.thoughtcrime.securesms.conversation.ConversationActivity;
-import org.thoughtcrime.securesms.database.ThreadDatabase;
+import org.thoughtcrime.securesms.conversation.ConversationIntents;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
@@ -80,7 +79,7 @@ class VoiceNoteNotificationManager {
     @Override
     public String getCurrentContentTitle(Player player) {
       if (hasMetadata()) {
-        return Objects.requireNonNull(controller.getMetadata().getDescription().getTitle()).toString();
+        return Objects.toString(controller.getMetadata().getDescription().getTitle(), null);
       } else {
         return null;
       }
@@ -90,9 +89,14 @@ class VoiceNoteNotificationManager {
     public @Nullable PendingIntent createCurrentContentIntent(Player player) {
       if (!hasMetadata()) return null;
 
-      RecipientId   recipientId      = RecipientId.from(Objects.requireNonNull(controller.getMetadata().getString(VoiceNoteMediaDescriptionCompatFactory.EXTRA_THREAD_RECIPIENT_ID)));
-      int           startingPosition = (int) controller.getMetadata().getLong(VoiceNoteMediaDescriptionCompatFactory.EXTRA_MESSAGE_POSITION);
-      long          threadId         = controller.getMetadata().getLong(VoiceNoteMediaDescriptionCompatFactory.EXTRA_THREAD_ID);
+      String serializedRecipientId = controller.getMetadata().getString(VoiceNoteMediaDescriptionCompatFactory.EXTRA_THREAD_RECIPIENT_ID);
+      if (serializedRecipientId == null) {
+        return null;
+      }
+
+      RecipientId recipientId      = RecipientId.from(serializedRecipientId);
+      int         startingPosition = (int) controller.getMetadata().getLong(VoiceNoteMediaDescriptionCompatFactory.EXTRA_MESSAGE_POSITION);
+      long        threadId         = controller.getMetadata().getLong(VoiceNoteMediaDescriptionCompatFactory.EXTRA_THREAD_ID);
 
       MaterialColor color;
       try {
@@ -103,11 +107,9 @@ class VoiceNoteNotificationManager {
 
       notificationManager.setColor(color.toNotificationColor(context));
 
-      Intent conversationActivity = ConversationActivity.buildIntent(context,
-                                                                     recipientId,
-                                                                     threadId,
-                                                                     ThreadDatabase.DistributionTypes.DEFAULT,
-                                                                     startingPosition);
+      Intent conversationActivity = ConversationIntents.createBuilder(context, recipientId, threadId)
+                                                       .withStartingPosition(startingPosition)
+                                                       .build();
 
       conversationActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
@@ -134,7 +136,12 @@ class VoiceNoteNotificationManager {
         return null;
       }
 
-      RecipientId currentRecipientId = RecipientId.from(Objects.requireNonNull(controller.getMetadata().getString(VoiceNoteMediaDescriptionCompatFactory.EXTRA_AVATAR_RECIPIENT_ID)));
+      String serializedRecipientId = controller.getMetadata().getString(VoiceNoteMediaDescriptionCompatFactory.EXTRA_AVATAR_RECIPIENT_ID);
+      if (serializedRecipientId == null) {
+        return null;
+      }
+
+      RecipientId currentRecipientId = RecipientId.from(serializedRecipientId);
 
       if (Objects.equals(currentRecipientId, cachedRecipientId) && cachedBitmap != null) {
         return cachedBitmap;
