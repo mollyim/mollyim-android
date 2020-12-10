@@ -56,12 +56,13 @@ public class SignalMapView extends LinearLayout {
 
   public void setGoogleMapType(GoogleMap googleMap) {
     String mapType = TextSecurePreferences.getGoogleMapType(ApplicationDependencies.getApplication());
-
-    if (mapType.equals("hybrid")) { googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID); }
-    else if (mapType.equals("satellite")) { googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE); }
-    else if (mapType.equals("terrain")) { googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN); }
-    else if (mapType.equals("none")) { googleMap.setMapType(GoogleMap.MAP_TYPE_NONE); }
-    else { googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL); }
+    if (googleMap != null) {
+      if (mapType.equals("hybrid"))         { googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID); }
+      else if (mapType.equals("satellite")) { googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE); }
+      else if (mapType.equals("terrain"))   { googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN); }
+      else if (mapType.equals("none"))      { googleMap.setMapType(GoogleMap.MAP_TYPE_NONE); }
+      else                                  { googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL); }
+    }
   }
 
   public ListenableFuture<Bitmap> display(final SignalPlace place) {

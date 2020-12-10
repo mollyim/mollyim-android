@@ -56,6 +56,10 @@ public final class PlacePickerActivity extends AppCompatActivity {
   private AddressLookup            addressLookup;
   private GoogleMap                googleMap;
 
+  private Button btnMapTypeNormal;
+  private Button btnMapTypeSatellite;
+  private Button btnMapTypeTerrain;
+
   public static void startActivityForResultAtCurrentLocation(@NonNull Activity activity, int requestCode) {
     activity.startActivityForResult(new Intent(activity, PlacePickerActivity.class), requestCode);
   }
@@ -73,9 +77,9 @@ public final class PlacePickerActivity extends AppCompatActivity {
     View markerImage = findViewById(R.id.marker_image_view);
     View fab         = findViewById(R.id.place_chosen_button);
 
-    Button btnMapTypeNormal = findViewById(R.id.btnMapTypeNormal);
-    Button btnMapTypeSatellite = findViewById(R.id.btnMapTypeSatellite);
-    Button btnMapTypeTerrain = findViewById(R.id.btnMapTypeTerrain);
+    btnMapTypeNormal = findViewById(R.id.btnMapTypeNormal);
+    btnMapTypeSatellite = findViewById(R.id.btnMapTypeSatellite);
+    btnMapTypeTerrain = findViewById(R.id.btnMapTypeTerrain);
 
     fab.setOnClickListener(v -> finishWithAddress());
 
@@ -153,19 +157,27 @@ public final class PlacePickerActivity extends AppCompatActivity {
 
   private void setMap(GoogleMap googleMap) {
     this.googleMap = googleMap;
-    setGoogleMapType(googleMap);
 
+    if (googleMap != null) {
+      setGoogleMapType(googleMap);
+    } else {
+      // In case there is no Google maps installed:
+      btnMapTypeNormal.setVisibility(View.GONE);
+      btnMapTypeSatellite.setVisibility(View.GONE);
+      btnMapTypeTerrain.setVisibility(View.GONE);
+    }
     moveMapToInitialIfPossible();
   }
 
   private void setGoogleMapType(GoogleMap googleMap) {
     String mapType = TextSecurePreferences.getGoogleMapType(getApplicationContext());
-
-    if (mapType.equals("hybrid")) { googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID); }
-    else if (mapType.equals("satellite")) { googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE); }
-    else if (mapType.equals("terrain")) { googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN); }
-    else if (mapType.equals("none")) { googleMap.setMapType(GoogleMap.MAP_TYPE_NONE); }
-    else { googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL); }
+    if (googleMap != null) {
+      if (mapType.equals("hybrid"))         { googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID); }
+      else if (mapType.equals("satellite")) { googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE); }
+      else if (mapType.equals("terrain"))   { googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN); }
+      else if (mapType.equals("none"))      { googleMap.setMapType(GoogleMap.MAP_TYPE_NONE); }
+      else                                  { googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL); }
+    }
   }
 
   private void moveMapToInitialIfPossible() {
