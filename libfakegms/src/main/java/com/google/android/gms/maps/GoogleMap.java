@@ -10,7 +10,6 @@ public class GoogleMap {
   public static final int MAP_TYPE_SATELLITE = 2;
   public static final int MAP_TYPE_TERRAIN = 3;
   public static final int MAP_TYPE_HYBRID = 4;
-  
 
   public UiSettings getUiSettings() {
     return new UiSettings();

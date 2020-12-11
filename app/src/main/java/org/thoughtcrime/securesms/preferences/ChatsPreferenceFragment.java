@@ -38,16 +38,12 @@ public class ChatsPreferenceFragment extends ListSummaryPreferenceFragment {
     findPreference(TextSecurePreferences.MESSAGE_BODY_TEXT_SIZE_PREF)
         .setOnPreferenceChangeListener(new ListSummaryListener());
 
-    findPreference(TextSecurePreferences.GOOGLE_MAP_TYPE)
-        .setOnPreferenceChangeListener(new ListSummaryListener());
-
     findPreference(TextSecurePreferences.BACKUP).setOnPreferenceClickListener(unused -> {
       goToBackupsPreferenceFragment();
       return true;
     });
 
     initializeListSummary((ListPreference) findPreference(TextSecurePreferences.MESSAGE_BODY_TEXT_SIZE_PREF));
-    initializeListSummary((ListPreference) findPreference(TextSecurePreferences.GOOGLE_MAP_TYPE));
   }
 
   @Override
