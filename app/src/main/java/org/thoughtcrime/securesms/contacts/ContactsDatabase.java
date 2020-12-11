@@ -130,6 +130,16 @@ public class ContactsDatabase {
     }
   }
 
+  public boolean lookupAndDeleteContact(@NonNull Uri contactUri) {
+    Uri uri = ContactsContract.Contacts.lookupContact(context.getContentResolver(), contactUri);
+    if (uri == null) {
+      return false;
+    }
+
+    int rowsDeleted = context.getContentResolver().delete(uri,null,null);
+    return rowsDeleted > 0;
+  }
+
   public @Nullable Cursor getNameDetails(long contactId) {
     String[] projection = new String[] { ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME,
                                          ContactsContract.CommonDataKinds.StructuredName.GIVEN_NAME,

@@ -90,9 +90,7 @@ public final class ManageRecipientViewModel extends ViewModel {
 
     LiveData<List<Recipient>> allSharedGroups = LiveDataUtil.mapAsync(this.recipient, r -> manageRecipientRepository.getSharedGroups(r.getId()));
 
-    this.canDelete = LiveDataUtil.combineLatest(LiveDataUtil.mapAsync(this.recipient, Recipient::isSystemContact),
-                                                Transformations.map(allSharedGroups, List::isEmpty),
-                                                (isSystemContact, noSharedGroups) -> !isSystemContact && noSharedGroups);
+    this.canDelete = Transformations.map(allSharedGroups, List::isEmpty);
 
     this.sharedGroupsCountSummary = Transformations.map(allSharedGroups, list -> {
       int size = list.size();

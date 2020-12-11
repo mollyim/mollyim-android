@@ -143,20 +143,30 @@ public final class BlockUnblockDialog {
                                                     @NonNull Runnable onDelete,
                                                     @NonNull Runnable onBlockAndDelete)
   {
-    recipient = recipient.resolve();
+    final Recipient resolved = recipient.resolve();
 
     AlertDialog.Builder builder   = new AlertDialog.Builder(context);
     Resources           resources = context.getResources();
 
-    builder.setTitle(R.string.BlockUnblockDialog_delete_contact);
+    int messageResId = resolved.isSystemContact() ?
+        R.string.BlockUnblockDialog_your_chat_history_with_s_will_be_deleted_and_s_will_be_removed_from_your_phone_contacts :
+        R.string.BlockUnblockDialog_your_chat_history_with_s_will_be_deleted;
+
+    StringBuilder message = new StringBuilder(resources.getString(messageResId, recipient.getDisplayName(context)));
 
     if (!recipient.isBlocked()) {
-      builder.setMessage(resources.getString(R.string.BlockUnblockDialog_your_conversations_with_s_will_be_deleted_deleted_contacts_can_still_call_you_or_send_you_messages, recipient.getDisplayName(context)));
+      message.append("\n\n");
+      message.append(resources.getString(R.string.BlockUnblockDialog_deleted_contacts_are_still_able_to_call_you_or_send_you_messages));
+    }
+
+    builder.setTitle(resources.getString(R.string.BlockUnblockDialog_delete_this_contact));
+    builder.setMessage(message);
+
+    if (!resolved.isBlocked()) {
       builder.setNeutralButton(android.R.string.cancel, null);
       builder.setNegativeButton(R.string.delete, (d, w) -> onDelete.run());
       builder.setPositiveButton(R.string.BlockUnblockDialog_block_and_delete, (d, w) -> onBlockAndDelete.run());
     } else {
-      builder.setMessage(resources.getString(R.string.BlockUnblockDialog_your_conversations_with_s_will_be_deleted, recipient.getDisplayName(context)));
       builder.setPositiveButton(R.string.delete, ((dialog, which) -> onDelete.run()));
       builder.setNegativeButton(android.R.string.cancel, null);
     }

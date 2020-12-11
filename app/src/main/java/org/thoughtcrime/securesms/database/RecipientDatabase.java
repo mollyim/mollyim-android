@@ -1809,6 +1809,11 @@ public class RecipientDatabase extends Database {
     valuesToSet.put(CALL_VIBRATE, VibrateState.DEFAULT.getId());
     valuesToSet.put(LAST_PROFILE_FETCH, 0);
     valuesToSet.put(PROFILE_SHARING, 0);
+    valuesToSet.put(SYSTEM_INFO_PENDING, 0);
+    valuesToSet.putNull(SYSTEM_DISPLAY_NAME);
+    valuesToSet.putNull(SYSTEM_PHOTO_URI);
+    valuesToSet.putNull(SYSTEM_PHONE_LABEL);
+    valuesToSet.putNull(SYSTEM_CONTACT_URI);
     if (update(id, valuesToSet)) {
       markDirty(id, DirtyState.UPDATE);
       StorageSyncHelper.scheduleSyncForDataChange();

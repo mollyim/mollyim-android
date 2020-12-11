@@ -293,13 +293,13 @@ public class ManageRecipientFragment extends LoggingFragment {
 
   private void presentRecipient(@NonNull Recipient recipient) {
     if (recipient.isSystemContact()) {
-      contactText.setText(R.string.ManageRecipientActivity_this_person_is_in_your_contacts);
+      contactText.setText(R.string.ManageRecipientActivity_this_person_is_in_your_phones_contacts);
       contactIcon.setVisibility(View.VISIBLE);
       contactRow.setOnClickListener(v -> {
         startActivityForResult(new Intent(Intent.ACTION_VIEW, recipient.getContactUri()), REQUEST_CODE_VIEW_CONTACT);
       });
     } else {
-      contactText.setText(R.string.ManageRecipientActivity_add_to_system_contacts);
+      contactText.setText(R.string.ManageRecipientActivity_add_to_your_phones_contacts);
       contactIcon.setVisibility(View.GONE);
       contactRow.setOnClickListener(v -> {
         startActivityForResult(RecipientExporter.export(recipient).asAddContactIntent(), REQUEST_CODE_ADD_CONTACT);

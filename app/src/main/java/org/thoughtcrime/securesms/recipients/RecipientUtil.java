@@ -190,6 +190,10 @@ public class RecipientUtil {
       ApplicationDependencies.getMessageNotifier().updateNotification(context);
     }
 
+    if (recipient.isSystemContact()) {
+      DatabaseFactory.getContactsDatabase(context).lookupAndDeleteContact(recipient.getContactUri());
+    }
+
     DatabaseFactory.getRecipientDatabase(context).clearFieldsForDeletion(resolved.getId());
     NotificationChannels.deleteChannelFor(context, resolved);
 
