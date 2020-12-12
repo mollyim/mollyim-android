@@ -27,27 +27,28 @@ There are two flavors to choose from download: **Molly** or **Molly-FOSS**. Lear
 Molly has unique features compared to Signal:
 
 - Protects database with [passphrase encryption](https://github.com/mollyim/mollyim-android/wiki/Data-Encryption-At-Rest)
-- Locks down the app automatically after you go a certain time without unlocking your device
+- Locks down the app automatically
 - Securely shreds sensitive data from RAM
-- Call notifications disappear together with expiring messages
-- Debug logs can be disabled
+- Allows you to delete contacts and stop sharing your profile
+- Clears call notifications together with expiring messages
+- Disables debug logs
 
-Besides that, you will find all the features of Signal plus some minor tweaks and improvements. The only exception is the SMS integration, that was removed for compatibility.
+Besides that, you will find all the features of Signal plus some minor tweaks and improvements. The only exception is the SMS integration, that is incompatible with Molly security enhancements.
 
 ## Free and Open-Source
 
 Molly is open-source just like Signal. But the app uses Google's proprietary code to support some key features. Molly-FOSS is the community effort to make it 100% free and open-source.
 
-You can install the flavor of your choice at any time, and it will replace any previously installed version. The data and settings will be preserved so that you do not have to re-register.
+You can install the Molly flavor of your choice at any time, and it will replace any previously installed version. The data and settings will be preserved so that you do not have to re-register.
 
 This table lists the current status of the dependencies:
 
 | Feature                                | Signal          | Molly            | Molly-FOSS |
 | -------------------------------------- | --------------- | ---------------- |------------|
-| Push notifications <sup>(1)</sup>      | ✔️ (FCM)         | ✔️ (FCM)         | ✘          |
+| Push notifications <sup>(1)</sup>      | ⚠ (FCM)         | ⚠️ (FCM)         | ✘          |
 | Websocket notifications <sup>(2)</sup> | ✔️               | ✔️               | ✔️          |
-| Location provider                      | ✔️ (Google Maps) | ✔️ (Google Maps) | ✘          |
-| Automatic face blurring                | ✔️ (Firebase)    | ✔️ (Firebase)    | ✘          |
+| Location provider                      | ⚠ (Google Maps) | ⚠ (Google Maps) | ✘          |
+| Automatic face blurring                | ⚠ (Firebase)    | ⚠ (Firebase)    | ✘          |
 
 <sup>(1)</sup> If you are running a custom ROM and the app fails to register with Play Services, try the FOSS flavor.<br/>
 <sup>(2)</sup> You may need to disable the system battery optimizations to receive notifications in background.
@@ -77,7 +78,7 @@ And Molly:
 
 Molly supports reproducible builds, so that anyone can run the build process again and reproduce the same APK as the original release.
 
-Please check out the guide in the [reproducible-builds](https://github.com/mollyim/mollyim-android/blob/master/reproducible-builds) directory.
+Please check the guide in the [reproducible-builds](https://github.com/mollyim/mollyim-android/blob/master/reproducible-builds) directory.
 
 ## Changelog
 
