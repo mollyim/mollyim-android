@@ -46,7 +46,7 @@ public class ApplicationDependencies {
   private static final Object LOCK                    = new Object();
   private static final Object FRAME_RATE_TRACKER_LOCK = new Object();
 
-  private static Provider                 provider;
+  private static Provider                 dependencyProvider;
   private static MessageNotifier          messageNotifier;
   private static TrimThreadsByDateManager trimThreadsByDateManager;
 
@@ -70,14 +70,21 @@ public class ApplicationDependencies {
   @MainThread
   public static void init(@NonNull Provider provider) {
     synchronized (LOCK) {
-      if (ApplicationDependencies.provider != null) {
+      if (ApplicationDependencies.dependencyProvider != null) {
         throw new IllegalStateException("Already initialized!");
       }
 
-      ApplicationDependencies.provider                 = provider;
+      ApplicationDependencies.dependencyProvider       = provider;
       ApplicationDependencies.messageNotifier          = provider.provideMessageNotifier();
       ApplicationDependencies.trimThreadsByDateManager = provider.provideTrimThreadsByDateManager();
     }
+  }
+
+  public static @NonNull Provider getProvider() {
+    if (dependencyProvider == null) {
+      throw new IllegalStateException("ApplicationDependencies not initialized yet");
+    }
+    return dependencyProvider;
   }
 
   public static @NonNull Application getApplication() {
@@ -88,7 +95,7 @@ public class ApplicationDependencies {
     if (accountManager == null) {
       synchronized (LOCK) {
         if (accountManager == null) {
-          accountManager = provider.provideSignalServiceAccountManager();
+          accountManager = getProvider().provideSignalServiceAccountManager();
         }
       }
     }
@@ -113,7 +120,7 @@ public class ApplicationDependencies {
     if (groupsV2Operations == null) {
       synchronized (LOCK) {
         if (groupsV2Operations == null) {
-          groupsV2Operations = provider.provideGroupsV2Operations();
+          groupsV2Operations = getProvider().provideGroupsV2Operations();
         }
       }
     }
@@ -144,7 +151,7 @@ public class ApplicationDependencies {
   public static @NonNull SignalServiceMessageSender getSignalServiceMessageSender() {
     synchronized (LOCK) {
       if (messageSender == null) {
-        messageSender = provider.provideSignalServiceMessageSender();
+        messageSender = getProvider().provideSignalServiceMessageSender();
       } else {
         messageSender.update(
             IncomingMessageObserver.getPipe(),
@@ -160,7 +167,7 @@ public class ApplicationDependencies {
     if (messageReceiver == null) {
       synchronized (LOCK) {
         if (messageReceiver == null) {
-          messageReceiver = provider.provideSignalServiceMessageReceiver();
+          messageReceiver = getProvider().provideSignalServiceMessageReceiver();
         }
       }
     }
@@ -175,14 +182,14 @@ public class ApplicationDependencies {
   }
 
   public static @NonNull SignalServiceNetworkAccess getSignalServiceNetworkAccess() {
-    return provider.provideSignalServiceNetworkAccess();
+    return getProvider().provideSignalServiceNetworkAccess();
   }
 
   public static @NonNull IncomingMessageProcessor getIncomingMessageProcessor() {
     if (incomingMessageProcessor == null) {
       synchronized (LOCK) {
         if (incomingMessageProcessor == null) {
-          incomingMessageProcessor = provider.provideIncomingMessageProcessor();
+          incomingMessageProcessor = getProvider().provideIncomingMessageProcessor();
         }
       }
     }
@@ -194,7 +201,7 @@ public class ApplicationDependencies {
     if (backgroundMessageRetriever == null) {
       synchronized (LOCK) {
         if (backgroundMessageRetriever == null) {
-          backgroundMessageRetriever = provider.provideBackgroundMessageRetriever();
+          backgroundMessageRetriever = getProvider().provideBackgroundMessageRetriever();
         }
       }
     }
@@ -206,7 +213,7 @@ public class ApplicationDependencies {
     if (recipientCache == null) {
       synchronized (LOCK) {
         if (recipientCache == null) {
-          recipientCache = provider.provideRecipientCache();
+          recipientCache = getProvider().provideRecipientCache();
         }
       }
     }
@@ -218,7 +225,7 @@ public class ApplicationDependencies {
     if (jobManager == null) {
       synchronized (LOCK) {
         if (jobManager == null) {
-          jobManager = provider.provideJobManager();
+          jobManager = getProvider().provideJobManager();
         }
       }
     }
@@ -230,7 +237,7 @@ public class ApplicationDependencies {
     if (frameRateTracker == null) {
       synchronized (FRAME_RATE_TRACKER_LOCK) {
         if (frameRateTracker == null) {
-          frameRateTracker = provider.provideFrameRateTracker();
+          frameRateTracker = getProvider().provideFrameRateTracker();
         }
       }
     }
@@ -242,7 +249,7 @@ public class ApplicationDependencies {
     if (megaphoneRepository == null) {
       synchronized (LOCK) {
         if (megaphoneRepository == null) {
-          megaphoneRepository = provider.provideMegaphoneRepository();
+          megaphoneRepository = getProvider().provideMegaphoneRepository();
         }
       }
     }
@@ -254,7 +261,7 @@ public class ApplicationDependencies {
     if (earlyMessageCache == null) {
       synchronized (LOCK) {
         if (earlyMessageCache == null) {
-          earlyMessageCache = provider.provideEarlyMessageCache();
+          earlyMessageCache = getProvider().provideEarlyMessageCache();
         }
       }
     }
@@ -270,7 +277,7 @@ public class ApplicationDependencies {
     if (incomingMessageObserver == null) {
       synchronized (LOCK) {
         if (incomingMessageObserver == null) {
-          incomingMessageObserver = provider.provideIncomingMessageObserver();
+          incomingMessageObserver = getProvider().provideIncomingMessageObserver();
         }
       }
     }
@@ -284,7 +291,7 @@ public class ApplicationDependencies {
 
   public static TypingStatusRepository getTypingStatusRepository() {
     if (typingStatusRepository == null) {
-      typingStatusRepository = provider.provideTypingStatusRepository();
+      typingStatusRepository = getProvider().provideTypingStatusRepository();
     }
 
     return typingStatusRepository;
@@ -292,7 +299,7 @@ public class ApplicationDependencies {
 
   public static TypingStatusSender getTypingStatusSender() {
     if (typingStatusSender == null) {
-      typingStatusSender = provider.provideTypingStatusSender();
+      typingStatusSender = getProvider().provideTypingStatusSender();
     }
 
     return typingStatusSender;
