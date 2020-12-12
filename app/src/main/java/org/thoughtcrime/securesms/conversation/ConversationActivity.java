@@ -1690,7 +1690,6 @@ public class ConversationActivity extends PassphraseRequiredActivity
   private void onSecurityUpdated() {
     Log.i(TAG, "onSecurityUpdated()");
     updateReminders();
-    updateDefaultSubscriptionId(recipient.get().getDefaultSubscriptionId());
   }
 
   protected void updateReminders() {
@@ -1744,11 +1743,6 @@ public class ConversationActivity extends PassphraseRequiredActivity
     } else {
       throw new IllegalArgumentException("Unknown ID: " + reminderActionId);
     }
-  }
-
-  private void updateDefaultSubscriptionId(Optional<Integer> defaultSubscriptionId) {
-    Log.i(TAG, "updateDefaultSubscriptionId(" + defaultSubscriptionId.orNull() + ")");
-    sendButton.setDefaultSubscriptionId(defaultSubscriptionId);
   }
 
   private void initializeMmsEnabledCheck() {
@@ -2160,7 +2154,6 @@ public class ConversationActivity extends PassphraseRequiredActivity
     setBlockedUserState(recipient, isSecureText, isDefaultSms);
     setActionBarColor(recipient.getColor());
     updateReminders();
-    updateDefaultSubscriptionId(recipient.getDefaultSubscriptionId());
     initializeSecurity(isSecureText, isDefaultSms);
 
     if (searchViewItem == null || !searchViewItem.isActionViewExpanded()) {
