@@ -27,7 +27,7 @@ There are two flavors to choose from download: **Molly** or **Molly-FOSS**. Lear
 Molly has unique features compared to Signal:
 
 - Protects database with [passphrase encryption](https://github.com/mollyim/mollyim-android/wiki/Data-Encryption-At-Rest)
-- Locks down the app automatically
+- Locks down the app automatically after you go a certain time without unlocking your device
 - Securely shreds sensitive data from RAM
 - Allows you to delete contacts and stop sharing your profile
 - Clears call notifications together with expiring messages
