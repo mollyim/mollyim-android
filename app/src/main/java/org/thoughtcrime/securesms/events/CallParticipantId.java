@@ -2,7 +2,6 @@ package org.thoughtcrime.securesms.events;
 
 import androidx.annotation.NonNull;
 
-import org.signal.ringrtc.GroupCall;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 
@@ -14,7 +13,7 @@ import java.util.Objects;
  */
 public final class CallParticipantId {
 
-  private static final long DEFAULT_ID = -1;
+  public static final long DEFAULT_ID = -1;
 
   private final long        demuxId;
   private final RecipientId recipientId;

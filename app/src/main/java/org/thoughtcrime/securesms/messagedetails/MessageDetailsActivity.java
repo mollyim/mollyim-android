@@ -3,7 +3,6 @@ package org.thoughtcrime.securesms.messagedetails;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -115,8 +114,8 @@ public final class MessageDetailsActivity extends PassphraseRequiredActivity {
   }
 
   private void initializeActionBar() {
-    assert getSupportActionBar() != null;
-    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    requireSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    requireSupportActionBar().setTitle(R.string.AndroidManifest__message_details);
 
     viewModel.getRecipientColor().observe(this, this::setActionBarColor);
   }

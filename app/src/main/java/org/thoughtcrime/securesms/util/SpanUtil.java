@@ -1,26 +1,19 @@
 package org.thoughtcrime.securesms.util;
 
-import android.content.Context;
-import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Build;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.AbsoluteSizeSpan;
+import android.text.style.BulletSpan;
 import android.text.style.DynamicDrawableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
-import android.text.style.URLSpan;
 
-import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-
-import org.thoughtcrime.securesms.R;
 
 public class SpanUtil {
 
@@ -55,6 +48,12 @@ public class SpanUtil {
   public static CharSequence color(int color, CharSequence sequence) {
     SpannableString spannable = new SpannableString(sequence);
     spannable.setSpan(new ForegroundColorSpan(color), 0, sequence.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+    return spannable;
+  }
+
+  public static @NonNull CharSequence bullet(@NonNull CharSequence sequence) {
+    SpannableString spannable = new SpannableString(sequence);
+    spannable.setSpan(new BulletSpan(), 0, sequence.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
     return spannable;
   }
 

@@ -7,7 +7,7 @@ import org.signal.argon2.Argon2Exception;
 import org.signal.argon2.MemoryCost;
 import org.signal.argon2.Type;
 import org.signal.argon2.Version;
-import org.thoughtcrime.securesms.logging.Log;
+import org.signal.core.util.logging.Log;
 
 /**
  * Based on LUKS https://gitlab.com/cryptsetup/cryptsetup/blob/master/lib/crypto_backend/pbkdf_check.c

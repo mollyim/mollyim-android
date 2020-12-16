@@ -9,13 +9,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 
+import org.signal.core.util.logging.Log;
+import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.jobmanager.impl.DefaultExecutorFactory;
 import org.thoughtcrime.securesms.jobmanager.impl.JsonDataSerializer;
 import org.thoughtcrime.securesms.jobmanager.persistence.JobStorage;
-import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.util.Debouncer;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.Util;
+import org.thoughtcrime.securesms.util.concurrent.FilteredExecutor;
 import org.whispersystems.libsignal.util.guava.Optional;
 
 import java.util.ArrayList;
@@ -57,7 +59,17 @@ public class JobManager implements ConstraintObserver.Notifier {
   public JobManager(@NonNull Application application, @NonNull Configuration configuration) {
     this.application   = application;
     this.configuration = configuration;
-    this.executor      = configuration.getExecutorFactory().newSingleThreadExecutor("signal-JobManager");
+    this.executor      = new FilteredExecutor(configuration.getExecutorFactory().newSingleThreadExecutor("signal-JobManager"),
+                                              () -> {
+                                                 if (Util.isMainThread()) {
+                                                   return true;
+                                                 } else if (DatabaseFactory.inTransaction(application)) {
+                                                   Log.w(TAG, "Tried to add a job while in a transaction!", new Throwable());
+                                                   return true;
+                                                 } else {
+                                                   return false;
+                                                 }
+                                              });
     this.jobTracker    = configuration.getJobTracker();
     this.jobController = new JobController(application,
                                            configuration.getJobStorage(),
@@ -330,10 +342,7 @@ public class JobManager implements ConstraintObserver.Notifier {
   public void flush() {
     CountDownLatch latch = new CountDownLatch(1);
 
-    runOnExecutor(() -> {
-      jobController.flush();
-      latch.countDown();
-    });
+    runOnExecutor(latch::countDown);
 
     try {
       latch.await();

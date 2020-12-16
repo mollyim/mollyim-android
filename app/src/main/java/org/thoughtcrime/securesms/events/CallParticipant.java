@@ -10,10 +10,11 @@ import org.whispersystems.libsignal.IdentityKey;
 
 import java.util.Objects;
 
-public class CallParticipant {
+public final class CallParticipant {
 
-  public static final CallParticipant EMPTY = createRemote(Recipient.UNKNOWN, null, new BroadcastVideoSink(null), false, false, 0);
+  public static final CallParticipant EMPTY = createRemote(new CallParticipantId(Recipient.UNKNOWN), Recipient.UNKNOWN, null, new BroadcastVideoSink(null), false, false, 0, true, 0);
 
+  private final @NonNull  CallParticipantId  callParticipantId;
   private final @NonNull  CameraState        cameraState;
   private final @NonNull  Recipient          recipient;
   private final @Nullable IdentityKey        identityKey;
@@ -21,38 +22,50 @@ public class CallParticipant {
   private final           boolean            videoEnabled;
   private final           boolean            microphoneEnabled;
   private final           long               lastSpoke;
+  private final           boolean            mediaKeysReceived;
+  private final           long               addedToCallTime;
 
   public static @NonNull CallParticipant createLocal(@NonNull CameraState cameraState,
                                                      @NonNull BroadcastVideoSink renderer,
                                                      boolean microphoneEnabled)
   {
-    return new CallParticipant(Recipient.self(),
+    return new CallParticipant(new CallParticipantId(Recipient.self()),
+                               Recipient.self(),
                                null,
                                renderer,
                                cameraState,
                                cameraState.isEnabled() && cameraState.getCameraCount() > 0,
                                microphoneEnabled,
+                               0,
+                               true,
                                0);
   }
 
-  public static @NonNull CallParticipant createRemote(@NonNull Recipient recipient,
+  public static @NonNull CallParticipant createRemote(@NonNull CallParticipantId callParticipantId,
+                                                      @NonNull Recipient recipient,
                                                       @Nullable IdentityKey identityKey,
                                                       @NonNull BroadcastVideoSink renderer,
                                                       boolean audioEnabled,
                                                       boolean videoEnabled,
-                                                      long lastSpoke)
+                                                      long lastSpoke,
+                                                      boolean mediaKeysReceived,
+                                                      long addedToCallTime)
   {
-    return new CallParticipant(recipient, identityKey, renderer, CameraState.UNKNOWN, videoEnabled, audioEnabled, lastSpoke);
+    return new CallParticipant(callParticipantId, recipient, identityKey, renderer, CameraState.UNKNOWN, videoEnabled, audioEnabled, lastSpoke, mediaKeysReceived, addedToCallTime);
   }
 
-  private CallParticipant(@NonNull Recipient recipient,
+  private CallParticipant(@NonNull CallParticipantId callParticipantId,
+                          @NonNull Recipient recipient,
                           @Nullable IdentityKey identityKey,
                           @NonNull BroadcastVideoSink videoSink,
                           @NonNull CameraState cameraState,
                           boolean videoEnabled,
                           boolean microphoneEnabled,
-                          long lastSpoke)
+                          long lastSpoke,
+                          boolean mediaKeysReceived,
+                          long addedToCallTime)
   {
+    this.callParticipantId = callParticipantId;
     this.recipient         = recipient;
     this.identityKey       = identityKey;
     this.videoSink         = videoSink;
@@ -60,14 +73,20 @@ public class CallParticipant {
     this.videoEnabled      = videoEnabled;
     this.microphoneEnabled = microphoneEnabled;
     this.lastSpoke         = lastSpoke;
+    this.mediaKeysReceived = mediaKeysReceived;
+    this.addedToCallTime   = addedToCallTime;
   }
 
   public @NonNull CallParticipant withIdentityKey(@NonNull IdentityKey identityKey) {
-    return new CallParticipant(recipient, identityKey, videoSink, cameraState, videoEnabled, microphoneEnabled, lastSpoke);
+    return new CallParticipant(callParticipantId, recipient, identityKey, videoSink, cameraState, videoEnabled, microphoneEnabled, lastSpoke, mediaKeysReceived, addedToCallTime);
   }
 
   public @NonNull CallParticipant withVideoEnabled(boolean videoEnabled) {
-    return new CallParticipant(recipient, identityKey, videoSink, cameraState, videoEnabled, microphoneEnabled, lastSpoke);
+    return new CallParticipant(callParticipantId, recipient, identityKey, videoSink, cameraState, videoEnabled, microphoneEnabled, lastSpoke, mediaKeysReceived, addedToCallTime);
+  }
+
+  public @NonNull CallParticipantId getCallParticipantId() {
+    return callParticipantId;
   }
 
   public @NonNull Recipient getRecipient() {
@@ -109,14 +128,25 @@ public class CallParticipant {
     return lastSpoke;
   }
 
+  public boolean isMediaKeysReceived() {
+    return mediaKeysReceived;
+  }
+
+  public long getAddedToCallTime() {
+    return addedToCallTime;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     CallParticipant that = (CallParticipant) o;
-    return videoEnabled == that.videoEnabled &&
+    return callParticipantId.equals(that.callParticipantId) &&
+           videoEnabled == that.videoEnabled &&
            microphoneEnabled == that.microphoneEnabled &&
            lastSpoke == that.lastSpoke &&
+           mediaKeysReceived == that.mediaKeysReceived &&
+           addedToCallTime == that.addedToCallTime &&
            cameraState.equals(that.cameraState) &&
            recipient.equals(that.recipient) &&
            Objects.equals(identityKey, that.identityKey) &&
@@ -125,7 +155,7 @@ public class CallParticipant {
 
   @Override
   public int hashCode() {
-    return Objects.hash(cameraState, recipient, identityKey, videoSink, videoEnabled, microphoneEnabled, lastSpoke);
+    return Objects.hash(callParticipantId, cameraState, recipient, identityKey, videoSink, videoEnabled, microphoneEnabled, lastSpoke, mediaKeysReceived, addedToCallTime);
   }
 
   @Override
@@ -137,6 +167,9 @@ public class CallParticipant {
            ", videoSink=" + (videoSink.getEglBase() == null ? "not initialized" : "initialized") +
            ", videoEnabled=" + videoEnabled +
            ", microphoneEnabled=" + microphoneEnabled +
+           ", lastSpoke=" + lastSpoke +
+           ", mediaKeysReceived=" + mediaKeysReceived +
+           ", addedToCallTime=" + addedToCallTime +
            '}';
   }
 }

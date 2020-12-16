@@ -9,9 +9,9 @@ import android.util.Pair;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import net.sqlcipher.database.SQLiteDatabase;
-
 import org.greenrobot.eventbus.EventBus;
+import org.signal.core.util.StreamUtil;
+import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.crypto.AttachmentSecret;
 import org.thoughtcrime.securesms.crypto.ModernDecryptingPartInputStream;
 import org.thoughtcrime.securesms.crypto.ModernEncryptingPartOutputStream;
@@ -19,14 +19,12 @@ import org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper;
 import org.thoughtcrime.securesms.database.model.IncomingSticker;
 import org.thoughtcrime.securesms.database.model.StickerPackRecord;
 import org.thoughtcrime.securesms.database.model.StickerRecord;
-import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.mms.DecryptableStreamUriLoader.DecryptableUri;
 import org.thoughtcrime.securesms.stickers.BlessedPacks;
 import org.thoughtcrime.securesms.stickers.StickerPackInstallEvent;
 import org.thoughtcrime.securesms.tracing.Trace;
 import org.thoughtcrime.securesms.util.CursorUtil;
 import org.thoughtcrime.securesms.util.SqlUtil;
-import org.thoughtcrime.securesms.util.Util;
 
 import java.io.Closeable;
 import java.io.File;
@@ -361,7 +359,7 @@ public class StickerDatabase extends Database {
     File                       partsDirectory = context.getDir(DIRECTORY, Context.MODE_PRIVATE);
     File                       file           = File.createTempFile("sticker", ".mms", partsDirectory);
     Pair<byte[], OutputStream> out            = ModernEncryptingPartOutputStream.createFor(attachmentSecret, file, false);
-    long                       length         = Util.copy(inputStream, out.second);
+    long                       length         = StreamUtil.copy(inputStream, out.second);
 
     return new FileInfo(file, length, out.first);
   }

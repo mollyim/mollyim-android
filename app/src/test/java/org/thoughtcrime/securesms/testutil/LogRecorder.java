@@ -3,11 +3,13 @@ package org.thoughtcrime.securesms.testutil;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
-import org.thoughtcrime.securesms.logging.Log;
+import org.signal.core.util.logging.Log;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.annotation.Nullable;
 
 public final class LogRecorder extends Log.Logger {
 
@@ -57,7 +59,7 @@ public final class LogRecorder extends Log.Logger {
   }
 
   @Override
-  public CharSequence getLog() throws IOException {
+  public @Nullable CharSequence getLogs() {
     return null;
   }
 

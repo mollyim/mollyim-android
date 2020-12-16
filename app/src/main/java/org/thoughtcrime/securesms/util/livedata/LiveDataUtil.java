@@ -9,8 +9,8 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.annimon.stream.function.Predicate;
 
+import org.signal.core.util.concurrent.SignalExecutors;
 import org.thoughtcrime.securesms.util.concurrent.SerialMonoLifoExecutor;
-import org.thoughtcrime.securesms.util.concurrent.SignalExecutors;
 import org.whispersystems.libsignal.util.guava.Function;
 
 import java.util.LinkedHashSet;
@@ -127,6 +127,25 @@ public final class LiveDataUtil {
     });
 
     return mediatorLiveData;
+  }
+
+  /**
+   * Skip the first {@param skip} emissions before emitting everything else.
+   */
+  public static @NonNull <T> LiveData<T> skip(@NonNull LiveData<T> source, int skip) {
+    return new MediatorLiveData<T>() {
+      int skipsRemaining = skip;
+
+      {
+        addSource(source, value -> {
+          if (skipsRemaining <= 0) {
+            setValue(value);
+          } else {
+            skipsRemaining--;
+          }
+        });
+      }
+    };
   }
 
   /**

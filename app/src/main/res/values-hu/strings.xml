@@ -257,6 +257,7 @@
   <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">%1$s hívásához a Mollynak hozzá kell férnie mikrofonodhoz</string>
   <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone_and_camera">%1$s hívásához a Mollynak hozzá kell férnie mikrofonodhoz és kamerádhoz.</string>
   <string name="ConversationActivity__more_options_now_in_group_settings">További opciók mostantól a \"Csoportbeállítások\" menüben</string>
+  <string name="ConversationActivity_join">Belépés</string>
   <!--ConversationAdapter-->
   <plurals name="ConversationAdapter_n_unread_messages">
     <item quantity="one">%d olvasatlan üzenet</item>
@@ -617,7 +618,6 @@
   <string name="ManageGroupActivity_edit_name_and_picture">Név és kép szerkesztése</string>
   <string name="ManageGroupActivity_legacy_group">Régi típusú csoport</string>
   <string name="ManageGroupActivity_legacy_group_learn_more">Ez egy régi típusú csoport. Az újabb funkciók (pl. csoport-adminok) csak az újabb típusú csoportokban érhetőek el.</string>
-  <string name="ManageGroupActivity_this_is_an_insecure_mms_group">Ez egy nem biztonságos MMS-csoport. Titkosított társalgáshoz és pl. a csoportok elnevezésének használatához hívd meg kontaktjaidat a Signalra!</string>
   <string name="ManageGroupActivity_invite_now">Meghívás most</string>
   <!--GroupMentionSettingDialog-->
   <string name="GroupMentionSettingDialog_notify_me_for_mentions">Értesítsen említés esetén</string>
@@ -862,6 +862,7 @@
   <string name="MessageRecord_s_set_disappearing_message_time_to_s">%1$s beállította, hogy az üzenetek ennyi idő után tűnjenek el: %2$s.</string>
   <string name="MessageRecord_disappearing_message_time_set_to_s">Az eltűnő üzenetek új beállítása: %1$s</string>
   <string name="MessageRecord_this_group_was_updated_to_a_new_group">Ez a csoport új típusú csoporttá lett alakítva.</string>
+  <string name="MessageRecord_you_couldnt_be_added_to_the_new_group_and_have_been_invited_to_join">Nem tudtak közvetlenül hozzáadni az új típusú csoporthoz, ezért helyette meghívót kaptál.</string>
   <!--Profile change updates-->
   <string name="MessageRecord_changed_their_profile_name_to">%1$s megváltoztatta profilnevét erre: %2$s</string>
   <string name="MessageRecord_changed_their_profile_name_from_to">%1$s megváltoztatta profilnevét. Korábbi név: %2$s, új név: %3$s</string>
@@ -1138,6 +1139,7 @@ Kérlek telepítsd újra a Google Play Szolgáltatásokat, majd próbáld újra!
   <string name="WebRtcCallView__signal_video_call">Signal videóhívás…</string>
   <string name="WebRtcCallView__start_call">Hívás indítása</string>
   <string name="WebRtcCallView__join_call">Belépés a hívásba</string>
+  <string name="WebRtcCallView__call_is_full">A hívás betelt</string>
   <string name="WebRtcCallView__view_participants_list">Résztvevők megtekintése</string>
   <string name="WebRtcCallView__your_video_is_off">A kamerád ki van kapcsolva</string>
   <string name="WebRtcCallView__connecting">Csatlakozás…</string>
@@ -1149,6 +1151,9 @@ Kérlek telepítsd újra a Google Play Szolgáltatásokat, majd próbáld újra!
     <item quantity="one">Ebben a hívásban · %1$d személy</item>
     <item quantity="other">Ebben a hívásban · %1$d személy</item>
   </plurals>
+  <!--CallParticipantView-->
+  <string name="CallParticipantView__more_info">Részletek</string>
+  <string name="CallParticipantView__you_wont_receive_their_audio_or_video">Nem fogod hallani és látni őket, illetve ők sem téged</string>
   <!--RegistrationActivity-->
   <string name="RegistrationActivity_select_your_country">Saját ország kiválasztása </string>
   <string name="RegistrationActivity_you_must_specify_your_country_code">Meg kell adnod az
@@ -1454,6 +1459,7 @@ Kulcs-csere üzenet érkezett érvénytelen protokoll verzióhoz.
   <string name="WebRtcCallActivity__answered_on_a_linked_device">Fogadva egy társított eszközön.</string>
   <string name="WebRtcCallActivity__declined_on_a_linked_device">Elutasítva egy társított eszközön.</string>
   <string name="WebRtcCallActivity__busy_on_a_linked_device">Foglalt jelzés egy társított eszközön.</string>
+  <string name="GroupCallSafetyNumberChangeNotification__someone_has_joined_this_call_with_a_safety_number_that_has_changed">Valaki olyan csatlakozott a híváshoz, akinek biztonsági azonosítója megváltozott. </string>
   <!--WebRtcCallScreen-->
   <string name="WebRtcCallScreen_new_safety_numbers">A biztonsági számod megváltozott a vele folytatott beszélgetésedhez: %1$s. Ez jelentheti azt, hogy valaki megpróbálja lehallgatni a kommunikációdat, vagy azt, hogy %2$s egyszerűen újratelepítette a Signal-t.
     </string>
@@ -1461,6 +1467,7 @@ Kulcs-csere üzenet érkezett érvénytelen protokoll verzióhoz.
   <string name="WebRtcCallScreen_new_safety_number_title">Új biztonsági szám</string>
   <string name="WebRtcCallScreen_accept">Elfogadás</string>
   <string name="WebRtcCallScreen_end_call">Hívás befejezése</string>
+  <string name="WebRtcCallScreen_swipe_up_to_change_views">Nézetváltás felfelé suhintással</string>
   <!--WebRtcCallScreen V2-->
   <string name="WebRtcCallScreen__decline">Elutasítás</string>
   <string name="WebRtcCallScreen__answer">Válasz</string>
@@ -1569,6 +1576,7 @@ Kulcs-csere üzenet érkezett érvénytelen protokoll verzióhoz.
   <!--ConversationUpdateItem-->
   <string name="ConversationUpdateItem_loading">Betöltés</string>
   <string name="ConversationUpdateItem_learn_more">További információ</string>
+  <string name="ConversationUpdateItem_call_is_full">A hívás betelt</string>
   <!--audio_view-->
   <string name="audio_view__play_pause_accessibility_description">Lejátszás … Szünet</string>
   <string name="audio_view__download_accessibility_description">Letöltés</string>
@@ -1587,6 +1595,7 @@ Kulcs-csere üzenet érkezett érvénytelen protokoll verzióhoz.
   <string name="safety_number_change_dialog__safety_number_changes">Biztonságiszám-változások</string>
   <string name="safety_number_change_dialog__send_anyway">Küldés így is</string>
   <string name="safety_number_change_dialog__call_anyway">Hívás ennek ellenére</string>
+  <string name="safety_number_change_dialog__leave_call">Kilépés a hívásból</string>
   <string name="safety_number_change_dialog__the_following_people_may_have_reinstalled_or_changed_devices">A következő személyek lehet, hogy újratelepítették a Signalt vagy készüléket cseréltek. Ellenőrizd biztonsági számotokat a privacy megőrzése érdekében!</string>
   <string name="safety_number_change_dialog__view">Megtekintés</string>
   <string name="safety_number_change_dialog__previous_verified">Korábban megerősítve</string>
@@ -2420,5 +2429,10 @@ Kulcs-csere üzenet érkezett érvénytelen protokoll verzióhoz.
   <string name="ReviewCard__block">Letiltás</string>
   <string name="ReviewCard__delete">Törlés</string>
   <string name="ReviewCard__recently_changed">Nemrég megváltoztatta profilnevét erről: %1$s erre: %2$s</string>
+  <!--CallParticipantsListUpdatePopupWindow-->
+  <string name="CallParticipantsListUpdatePopupWindow__you_on_another_device">Te (másik eszközön)</string>
+  <!--DeleteAccountFragment-->
+  <string name="DeleteAccountFragment__are_you_sure">Biztosan törölni akarod a fiókod?</string>
+  <!--DeleteAccountCountryPickerFragment-->
   <!--EOF-->
 </resources>

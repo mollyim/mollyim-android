@@ -2,10 +2,10 @@ package org.thoughtcrime.securesms.migrations;
 
 import androidx.annotation.NonNull;
 
+import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.jobmanager.Data;
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobmanager.JobLogger;
-import org.thoughtcrime.securesms.logging.Log;
 
 /**
  * A base class for jobs that are intended to be used in {@link ApplicationMigrations}. Some
@@ -22,7 +22,7 @@ abstract class MigrationJob extends Job {
   MigrationJob(@NonNull Parameters parameters) {
     super(parameters.toBuilder()
                     .setQueue(Parameters.MIGRATION_QUEUE_KEY)
-                    .setMaxInstances(1)
+                    .setMaxInstancesForFactory(1)
                     .setLifespan(Parameters.IMMORTAL)
                     .setMaxAttempts(Parameters.UNLIMITED)
                     .build());

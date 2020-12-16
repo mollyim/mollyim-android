@@ -142,6 +142,7 @@
   <!--CommunicationActions-->
   <string name="CommunicationActions_no_browser_found">未找到网页浏览器。</string>
   <string name="CommunicationActions_no_email_app_found">找不到电子邮件应用程序。</string>
+  <string name="CommunicationActions_send_email">发送邮件</string>
   <string name="CommunicationActions_a_cellular_call_is_already_in_progress">手机通话正在进行。</string>
   <string name="CommunicationActions_start_video_call">发起视频通话？</string>
   <string name="CommunicationActions_start_voice_call">发起语音通话？</string>
@@ -252,6 +253,7 @@
   <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">Molly 需要访问您的麦克风来呼叫 %1$s</string>
   <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone_and_camera">Molly 需要使用您的麦克风和照相机来呼叫 %1$s。</string>
   <string name="ConversationActivity__more_options_now_in_group_settings">“群组设置”现增加了更多选项</string>
+  <string name="ConversationActivity_join">加入</string>
   <!--ConversationAdapter-->
   <plurals name="ConversationAdapter_n_unread_messages">
     <item quantity="other">%d 条未读消息</item>
@@ -463,6 +465,9 @@
   <plurals name="GroupsV1MigrationLearnMore_these_members_will_need_to_accept_an_invite">
     <item quantity="other">这些成员需要再次同意入群邀请来加入群组，其同意前不会收到群组消息：</item>
   </plurals>
+  <plurals name="GroupsV1MigrationLearnMore_these_members_were_removed_from_the_group">
+    <item quantity="other">这些成员已被移出群组，其升级客户端前将无法加入新的群组：</item>
+  </plurals>
   <!--GroupsV1MigrationInitiationBottomSheetDialogFragment-->
   <string name="GroupsV1MigrationInitiation_upgrade_to_new_group">升级到新版群组</string>
   <string name="GroupsV1MigrationInitiation_upgrade_this_group">升级此群组</string>
@@ -559,6 +564,7 @@
   <string name="AddGroupDetailsFragment__create">创建</string>
   <string name="AddGroupDetailsFragment__members">成员</string>
   <string name="AddGroupDetailsFragment__group_name_required">群名称（必填）</string>
+  <string name="AddGroupDetailsFragment__group_name_optional">群组名称（可选）</string>
   <string name="AddGroupDetailsFragment__this_field_is_required">必须填写此项。</string>
   <string name="AddGroupDetailsFragment__groups_require_at_least_two_members">群组至少得包含两位成员。</string>
   <string name="AddGroupDetailsFragment__group_creation_failed">群组创建失败。</string>
@@ -623,7 +629,6 @@
   <string name="ManageGroupActivity_legacy_group_upgrade">这是一个旧版群组，要是使用@提醒和管理员功能，</string>
   <string name="ManageGroupActivity_legacy_group_too_large">由于人数太多，此旧版群组无法升级成新版群组。升级要求人数在%1$d以下。</string>
   <string name="ManageGroupActivity_upgrade_this_group">升级此群组。</string>
-  <string name="ManageGroupActivity_this_is_an_insecure_mms_group">这是个未加密的彩信群组。要使用加密聊天和群组名称等功能，请邀请您的联系人加入 Signal。</string>
   <string name="ManageGroupActivity_invite_now">现在邀请</string>
   <!--GroupMentionSettingDialog-->
   <string name="GroupMentionSettingDialog_notify_me_for_mentions">提到我时通知我</string>
@@ -1149,6 +1154,8 @@
   <plurals name="CallParticipantsListDialog_in_this_call_d_people">
     <item quantity="other">此通话 · %1$d位用户</item>
   </plurals>
+  <!--CallParticipantView-->
+  <string name="CallParticipantView__more_info">更多信息</string>
   <!--RegistrationActivity-->
   <string name="RegistrationActivity_select_your_country">选择国家</string>
   <string name="RegistrationActivity_you_must_specify_your_country_code">必须指定
@@ -1585,6 +1592,7 @@
   <string name="safety_number_change_dialog__safety_number_changes">安全码更变</string>
   <string name="safety_number_change_dialog__send_anyway">仍要发送</string>
   <string name="safety_number_change_dialog__call_anyway">仍要呼叫</string>
+  <string name="safety_number_change_dialog__join_call">加入通话</string>
   <string name="safety_number_change_dialog__the_following_people_may_have_reinstalled_or_changed_devices">以下用户可能重新安装了 Signal 或更换了设备，请重新与之验证安全码以保护您的隐私。</string>
   <string name="safety_number_change_dialog__view">查看</string>
   <string name="safety_number_change_dialog__previous_verified">已验证</string>
@@ -2404,5 +2412,10 @@
   <string name="ReviewCard__block">屏蔽</string>
   <string name="ReviewCard__delete">删除</string>
   <string name="ReviewCard__recently_changed">最近更改了其用户名 %1$s 为 %2$s</string>
+  <!--CallParticipantsListUpdatePopupWindow-->
+  <string name="CallParticipantsListUpdatePopupWindow__you_on_another_device">您（其它设备）</string>
+  <!--DeleteAccountFragment-->
+  <string name="DeleteAccountFragment__are_you_sure">您确定要删除您的账号吗？</string>
+  <!--DeleteAccountCountryPickerFragment-->
   <!--EOF-->
 </resources>

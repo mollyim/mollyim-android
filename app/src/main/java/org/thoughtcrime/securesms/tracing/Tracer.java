@@ -1,45 +1,50 @@
 package org.thoughtcrime.securesms.tracing;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
-/**
- * A class to create Perfetto-compatible traces.
- */
-public interface Tracer {
+import java.util.Map;
 
-  TracerImpl INSTANCE = new TracerImpl();
+public final class Tracer {
 
-  static @NonNull Tracer getInstance() {
+  public static final class TrackId {
+    public static final long DB_LOCK        = -8675309;
+
+    private static final String DB_LOCK_NAME = "Database Lock";
+  }
+
+  private static final Tracer INSTANCE = new Tracer();
+
+
+  public static @NonNull Tracer getInstance() {
     return INSTANCE;
   }
 
-  /**
-   * True if enabled, otherwise false.
-   */
-  boolean isEnabled();
+  public void start(@NonNull String methodName) {
+  }
 
-  /**
-   * Marks the start of a method call. Always follow this with a call to {@link #end(String)}.
-   */
-  void start(@NonNull String methodName);
+  public void start(@NonNull String methodName, long trackId) {
+  }
 
-  /**
-   * Marks the start of a method call. Always follow this with a call to {@link #end(String)}.
-   *
-   * Includes the ability to pass a key-value pair that will be shown in the trace when you click
-   * on the slice.
-   */
-  void start(@NonNull String methodName, @NonNull String key, @NonNull String value);
+  public void start(@NonNull String methodName, @NonNull String key, @Nullable String value) {
+  }
 
-  /**
-   * Marks the end of a method call.
-   */
-  void end(@NonNull String methodName);
+  public void start(@NonNull String methodName, long trackId, @NonNull String key, @Nullable String value) {
+  }
 
-  /**
-   * Serializes the current state of the trace to a Perfetto-compatible byte array. Note that
-   * there's no locking here, and therefore tracing will continue. We're just grabbing a best-effort
-   * snapshot.
-   */
-  @NonNull byte[] serialize();
+  public void start(@NonNull String methodName, @Nullable Map<String, String> values) {
+  }
+
+  public void start(@NonNull String methodName, long trackId, @Nullable Map<String, String> values) {
+  }
+
+  public void end(@NonNull String methodName) {
+  }
+
+  public void end(@NonNull String methodName, long trackId) {
+  }
+
+  public @NonNull byte[] serialize() {
+    return new byte[0];
+  }
 }

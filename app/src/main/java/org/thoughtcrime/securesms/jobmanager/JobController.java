@@ -9,12 +9,12 @@ import androidx.annotation.WorkerThread;
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 
+import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.jobmanager.persistence.ConstraintSpec;
 import org.thoughtcrime.securesms.jobmanager.persistence.DependencySpec;
 import org.thoughtcrime.securesms.jobmanager.persistence.FullSpec;
 import org.thoughtcrime.securesms.jobmanager.persistence.JobSpec;
 import org.thoughtcrime.securesms.jobmanager.persistence.JobStorage;
-import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.util.Debouncer;
 
 import java.util.ArrayList;
@@ -78,11 +78,6 @@ class JobController {
   }
 
   @WorkerThread
-  synchronized void flush() {
-    jobStorage.flush();
-  }
-
-  @WorkerThread
   synchronized void submitNewJobChain(@NonNull List<List<Job>> chain) {
     chain = Stream.of(chain).filterNot(List::isEmpty).toList();
 
@@ -94,7 +89,7 @@ class JobController {
     if (chainExceedsMaximumInstances(chain)) {
       Job solo = chain.get(0).get(0);
       jobTracker.onStateChange(solo, JobTracker.JobState.IGNORED);
-      Log.w(TAG, JobLogger.format(solo, "Already at the max instance count of " + solo.getParameters().getMaxInstances() + ". Skipping."));
+      Log.w(TAG, JobLogger.format(solo, "Already at the max instance count. Factory limit: " + solo.getParameters().getMaxInstancesForFactory() + ", Queue limit: " + solo.getParameters().getMaxInstancesForQueue() + ". Skipping."));
       return;
     }
 
@@ -110,7 +105,7 @@ class JobController {
 
     if (chainExceedsMaximumInstances(chain)) {
       jobTracker.onStateChange(job, JobTracker.JobState.IGNORED);
-      Log.w(TAG, JobLogger.format(job, "Already at the max instance count of " + job.getParameters().getMaxInstances() + ". Skipping."));
+      Log.w(TAG, JobLogger.format(job, "Already at the max instance count. Factory limit: " + job.getParameters().getMaxInstancesForFactory() + ", Queue limit: " + job.getParameters().getMaxInstancesForQueue() + ". Skipping."));
       return;
     }
 
@@ -304,12 +299,22 @@ class JobController {
     if (chain.size() == 1 && chain.get(0).size() == 1) {
       Job solo = chain.get(0).get(0);
 
-      if (solo.getParameters().getMaxInstances() != Job.Parameters.UNLIMITED &&
-          jobStorage.getJobInstanceCount(solo.getFactoryKey()) >= solo.getParameters().getMaxInstances())
-      {
+      boolean exceedsFactory = solo.getParameters().getMaxInstancesForFactory() != Job.Parameters.UNLIMITED &&
+                               jobStorage.getJobCountForFactory(solo.getFactoryKey()) >= solo.getParameters().getMaxInstancesForFactory();
+
+      if (exceedsFactory) {
+        return true;
+      }
+
+      boolean exceedsQueue   = solo.getParameters().getQueue() != null                                    &&
+                               solo.getParameters().getMaxInstancesForQueue() != Job.Parameters.UNLIMITED &&
+                               jobStorage.getJobCountForQueue(solo.getParameters().getQueue()) >= solo.getParameters().getMaxInstancesForQueue();
+
+      if (exceedsQueue) {
         return true;
       }
     }
+
     return false;
   }
 
@@ -350,7 +355,7 @@ class JobController {
                                   job.getParameters().getMaxAttempts(),
                                   job.getParameters().getMaxBackoff(),
                                   job.getParameters().getLifespan(),
-                                  job.getParameters().getMaxInstances(),
+                                  job.getParameters().getMaxInstancesForFactory(),
                                   dataSerializer.serialize(job.serialize()),
                                   null,
                                   false,
@@ -464,7 +469,7 @@ class JobController {
                        jobSpec.getMaxAttempts(),
                        jobSpec.getMaxBackoff(),
                        jobSpec.getLifespan(),
-                       jobSpec.getMaxInstances(),
+                       jobSpec.getMaxInstancesForFactory(),
                        jobSpec.getSerializedData(),
                        dataSerializer.serialize(inputData),
                        jobSpec.isRunning(),

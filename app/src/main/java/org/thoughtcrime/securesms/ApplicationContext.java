@@ -37,6 +37,10 @@ import com.google.android.gms.security.ProviderInstaller;
 
 import org.conscrypt.Conscrypt;
 import org.signal.aesgcmprovider.AesGcmProvider;
+import org.signal.core.util.concurrent.SignalExecutors;
+import org.signal.core.util.logging.Log;
+import org.signal.core.util.logging.LogManager;
+import org.signal.core.util.logging.PersistentLogger;
 import org.signal.glide.SignalGlideCodecs;
 import org.signal.ringrtc.CallManager;
 import org.thoughtcrime.securesms.crypto.IdentityKeyUtil;
@@ -58,9 +62,7 @@ import org.thoughtcrime.securesms.jobs.RefreshPreKeysJob;
 import org.thoughtcrime.securesms.jobs.RetrieveProfileJob;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.logging.CustomSignalProtocolLogger;
-import org.thoughtcrime.securesms.logging.Log;
-import org.thoughtcrime.securesms.logging.LogManager;
-import org.thoughtcrime.securesms.logging.SignalUncaughtExceptionHandler;
+import org.thoughtcrime.securesms.logging.LogSecretProvider;
 import org.thoughtcrime.securesms.migrations.ApplicationMigrations;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.providers.BlobProvider;
@@ -79,12 +81,13 @@ import org.thoughtcrime.securesms.service.RotateSignedPreKeyListener;
 import org.thoughtcrime.securesms.service.UpdateApkRefreshListener;
 import org.thoughtcrime.securesms.storage.StorageSyncHelper;
 import org.thoughtcrime.securesms.tracing.Trace;
+import org.thoughtcrime.securesms.tracing.Tracer;
 import org.thoughtcrime.securesms.util.DynamicTheme;
 import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.PlayServicesUtil;
+import org.thoughtcrime.securesms.util.SignalUncaughtExceptionHandler;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.Util;
-import org.thoughtcrime.securesms.util.concurrent.SignalExecutors;
 import org.thoughtcrime.securesms.util.dynamiclanguage.DynamicLanguageContextWrapper;
 import org.webrtc.voiceengine.WebRtcAudioManager;
 import org.webrtc.voiceengine.WebRtcAudioUtils;
@@ -112,7 +115,6 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
 
   private ExpiringMessageManager expiringMessageManager;
   private ViewOnceMessageManager viewOnceMessageManager;
-  private LogManager             logManager;
 
   private volatile boolean isAppVisible;
   private volatile boolean isAppInitialized;
@@ -132,8 +134,11 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
 
   @Override
   public void onCreate() {
-    super.onCreate();
     Log.i(TAG, "onCreate()");
+    Tracer.getInstance().start("Application#onCreate()");
+    long startTime = System.currentTimeMillis();
+
+    super.onCreate();
 
     initializeSecurityProvider();
     initializeRingRtc();
@@ -147,6 +152,9 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
     initializePassphraseLock();
 
     DynamicTheme.setDefaultDayNightMode(this);
+
+    Log.d(TAG, "onCreate() took " + (System.currentTimeMillis() - startTime) + " ms");
+    Tracer.getInstance().end("Application#onCreate()");
   }
 
   @MainThread
@@ -249,10 +257,6 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
     return isAppVisible;
   }
 
-  public LogManager getLogManager() {
-    return logManager;
-  }
-
   public void checkBuildExpiration() {
     if (Util.getTimeUntilBuildExpiry() <= 0 && !SignalStore.misc().isClientDeprecated()) {
       Log.w(TAG, "Build expired!");
@@ -285,8 +289,9 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
   }
 
   private void initializeLogging() {
-    logManager = new LogManager(this);
-    logManager.setLogging(TextSecurePreferences.isLogEnabled(this));
+    PersistentLogger persistentLogger = new PersistentLogger(this, LogSecretProvider.getOrCreateAttachmentSecret(this), BuildConfig.VERSION_NAME);
+    LogManager.setPersistentLogger(persistentLogger);
+    LogManager.setLogging(TextSecurePreferences.isLogEnabled(this));
 
     SignalProtocolLoggerProvider.setProvider(new CustomSignalProtocolLogger());
   }

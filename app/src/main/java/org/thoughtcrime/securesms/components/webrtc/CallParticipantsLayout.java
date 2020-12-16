@@ -14,7 +14,6 @@ import com.google.android.flexbox.FlexboxLayout;
 
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.events.CallParticipant;
-import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.util.Util;
 import org.thoughtcrime.securesms.util.ViewUtil;
 
@@ -31,6 +30,7 @@ public class CallParticipantsLayout extends FlexboxLayout {
   private static final int CORNER_RADIUS                = ViewUtil.dpToPx(10);
 
   private List<CallParticipant> callParticipants = Collections.emptyList();
+  private CallParticipant       focusedParticipant = null;
   private boolean               shouldRenderInPip;
 
   public CallParticipantsLayout(@NonNull Context context) {
@@ -45,9 +45,10 @@ public class CallParticipantsLayout extends FlexboxLayout {
     super(context, attrs, defStyleAttr);
   }
 
-  void update(@NonNull List<CallParticipant> callParticipants, boolean shouldRenderInPip) {
-    this.callParticipants  = callParticipants;
-    this.shouldRenderInPip = shouldRenderInPip;
+  void update(@NonNull List<CallParticipant> callParticipants, @NonNull CallParticipant focusedParticipant, boolean shouldRenderInPip) {
+    this.callParticipants   = callParticipants;
+    this.focusedParticipant = focusedParticipant;
+    this.shouldRenderInPip  = shouldRenderInPip;
     updateLayout();
   }
 
@@ -56,7 +57,7 @@ public class CallParticipantsLayout extends FlexboxLayout {
 
     if (shouldRenderInPip && Util.hasItems(callParticipants)) {
       updateChildrenCount(1);
-      update(0, 1, callParticipants.get(0));
+      update(0, 1, focusedParticipant);
     } else {
       int count = callParticipants.size();
       updateChildrenCount(count);

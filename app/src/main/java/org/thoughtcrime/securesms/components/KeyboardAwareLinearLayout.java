@@ -21,14 +21,13 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Build.VERSION_CODES;
-
-import androidx.appcompat.widget.LinearLayoutCompat;
-
 import android.util.AttributeSet;
-import org.thoughtcrime.securesms.logging.Log;
 import android.view.Surface;
 import android.view.View;
 
+import androidx.appcompat.widget.LinearLayoutCompat;
+
+import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.util.SecurePreferenceManager;
 import org.thoughtcrime.securesms.util.ServiceUtil;

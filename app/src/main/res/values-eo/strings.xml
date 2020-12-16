@@ -256,6 +256,8 @@
   <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">Por telefoni %1$s, Molly bezonas aliron al via mikrofono</string>
   <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone_and_camera">Por telefoni %1$s, Molly bezonas aliron al via mikrofono kaj fotilo.</string>
   <string name="ConversationActivity__more_options_now_in_group_settings">Pli da elektoj nun en „Grup-agordoj“</string>
+  <string name="ConversationActivity_join">Aniĝi</string>
+  <string name="ConversationActivity_full">Plena</string>
   <!--ConversationAdapter-->
   <plurals name="ConversationAdapter_n_unread_messages">
     <item quantity="one">%d nelegita mesaĝo</item>
@@ -666,7 +668,7 @@
   <string name="ManageGroupActivity_legacy_group_upgrade">Tiu estas malnovtipa grupo. Por uzi eblojn (kiel grupadministrantojn kaj @menciojn),</string>
   <string name="ManageGroupActivity_legacy_group_too_large">Jena malnovtipa grupo ne povas ĝisdatiĝi pro troa grandeco. Maksimuma grupgrando estas %1$d.</string>
   <string name="ManageGroupActivity_upgrade_this_group">ĝisdatigu tiun ĉi grupon.</string>
-  <string name="ManageGroupActivity_this_is_an_insecure_mms_group">Tio estas nesekura MMS-grupo. Por mesaĝi private kaj uzi eblojn kiel grupnomon, invitu viajn kontaktojn al uzo de Signal.</string>
+  <string name="ManageGroupActivity_this_is_an_insecure_mms_group">Tio estas nesekura MMS-grupo. Por mesaĝi private, invitu viajn kontaktojn al Signal.</string>
   <string name="ManageGroupActivity_invite_now">Inviti nun</string>
   <!--GroupMentionSettingDialog-->
   <string name="GroupMentionSettingDialog_notify_me_for_mentions">Sciigi al mi pri mencioj</string>
@@ -1217,6 +1219,8 @@
   <string name="WebRtcCallView__signal_video_call">Signal-vidalvoko…</string>
   <string name="WebRtcCallView__start_call">Ekalvoki</string>
   <string name="WebRtcCallView__join_call">Eniri la alvokon</string>
+  <string name="WebRtcCallView__call_is_full">La alvoko plenas</string>
+  <string name="WebRtcCallView__the_maximum_number_of_d_participants_has_been_Reached_for_this_call">La maksimuma nombro de partoprenantoj (%1$d) estas atingita en tiu alvoko. Reprovu poste.</string>
   <string name="WebRtcCallView__s_group_call">Grupalvoko „%1$s“</string>
   <string name="WebRtcCallView__view_participants_list">Vidi partoprenantojn</string>
   <string name="WebRtcCallView__your_video_is_off">Via kamerao estas malŝaltita</string>
@@ -1236,6 +1240,13 @@
     <item quantity="one">En tiu ĉi alvoko ⋅ %1$d homo</item>
     <item quantity="other">En tiu ĉi alvoko ⋅ %1$d homoj</item>
   </plurals>
+  <!--CallParticipantView-->
+  <string name="CallParticipantView__s_is_blocked">%1$s estas blokata.</string>
+  <string name="CallParticipantView__more_info">Pli da informoj</string>
+  <string name="CallParticipantView__you_wont_receive_their_audio_or_video">Vi ne ricevos ilian sonon aŭ videon, kaj ili ne ricevos viajn.</string>
+  <string name="CallParticipantView__cant_receive_audio_video_from_s">Sono kaj video el %1$s ne riceveblas</string>
+  <string name="CallParticipantView__cant_receive_audio_and_video_from_s">Sono kaj video el %1$s ne riceveblas</string>
+  <string name="CallParticipantView__this_may_be_Because_they_have_not_verified_your_safety_number_change">Eble ili ne kontrolis vian ŝanĝon de sekuriga numero, aŭ estas problemo ĉe ilia aparato, aŭ ili blokis vin.</string>
   <!--RegistrationActivity-->
   <string name="RegistrationActivity_select_your_country">Elektu vian landon</string>
   <string name="RegistrationActivity_you_must_specify_your_country_code">Vi devas specifi vian
@@ -1541,12 +1552,14 @@ Ricevis mesaĝon pri interŝanĝo de ŝlosiloj por nevalida protokola versio.
   <string name="WebRtcCallActivity__answered_on_a_linked_device">Respondita per ligita aparato.</string>
   <string name="WebRtcCallActivity__declined_on_a_linked_device">Malakceptita per ligita aparato.</string>
   <string name="WebRtcCallActivity__busy_on_a_linked_device">Okupita ĉe ligita aparato.</string>
+  <string name="GroupCallSafetyNumberChangeNotification__someone_has_joined_this_call_with_a_safety_number_that_has_changed">Iu eniris tiun ĉi alvokon uzante sekurigan numeron, kiu ŝanĝiĝis.</string>
   <!--WebRtcCallScreen-->
   <string name="WebRtcCallScreen_new_safety_numbers">Via sekuriga numero pro via interparolo kun %1$s ŝanĝiĝis. Tio povas aŭ signifi, ke iu provas interkapti viajn komunikojn, aŭ ke %2$s simple reinstalis Signal-on.</string>
   <string name="WebRtcCallScreen_you_may_wish_to_verify_this_contact">Vi certe volos kontroli vian sekurigan numeron kun ĉi tiu kontakto.</string>
   <string name="WebRtcCallScreen_new_safety_number_title">Nova sekuriga numero</string>
   <string name="WebRtcCallScreen_accept">Akcepti</string>
   <string name="WebRtcCallScreen_end_call">Fini alvokon</string>
+  <string name="WebRtcCallScreen_swipe_up_to_change_views">Ŝovumi supren por ŝanĝi vidojn</string>
   <!--WebRtcCallScreen V2-->
   <string name="WebRtcCallScreen__decline">Malakcepti</string>
   <string name="WebRtcCallScreen__answer">Respondi</string>
@@ -1657,6 +1670,7 @@ Ricevis mesaĝon pri interŝanĝo de ŝlosiloj por nevalida protokola versio.
   <string name="ConversationUpdateItem_learn_more">Scii pli</string>
   <string name="ConversationUpdateItem_join_call">Eniri la alvokon</string>
   <string name="ConversationUpdateItem_return_to_call">Reiri al la alvoko</string>
+  <string name="ConversationUpdateItem_call_is_full">La alvoko plenas</string>
   <!--audio_view-->
   <string name="audio_view__play_pause_accessibility_description">Ludi … Paŭzigi</string>
   <string name="audio_view__download_accessibility_description">Elŝuti</string>
@@ -1675,6 +1689,9 @@ Ricevis mesaĝon pri interŝanĝo de ŝlosiloj por nevalida protokola versio.
   <string name="safety_number_change_dialog__safety_number_changes">Ŝanĝoj pri la sekuriga numero</string>
   <string name="safety_number_change_dialog__send_anyway">Tamen sendi</string>
   <string name="safety_number_change_dialog__call_anyway">Tamen alvoki</string>
+  <string name="safety_number_change_dialog__join_call">Eniri la alvokon</string>
+  <string name="safety_number_change_dialog__continue_call">Daŭrigi la alvokon</string>
+  <string name="safety_number_change_dialog__leave_call">Forlasi la alvokon</string>
   <string name="safety_number_change_dialog__the_following_people_may_have_reinstalled_or_changed_devices">La jenaj homoj eble restarigis aŭ ŝanĝis iliajn aparatojn. Kontrolu vian sekurigan numeron kun ili por certigi vian privatecon.</string>
   <string name="safety_number_change_dialog__view">Montri pli</string>
   <string name="safety_number_change_dialog__previous_verified">Antaŭe kontrolita</string>
@@ -1999,6 +2016,7 @@ Ricevis mesaĝon pri interŝanĝo de ŝlosiloj por nevalida protokola versio.
   <string name="preferences__advanced_pin_settings">Speciala PIN-agordo</string>
   <string name="preferences__free_private_messages_and_calls">Senpagaj privataj mesaĝoj kaj alvokoj al Signal-uzantoj</string>
   <string name="preferences__submit_debug_log">Sendi sencimigan protokolon</string>
+  <string name="preferences__delete_account">Forviŝi konton</string>
   <string name="preferences__support_wifi_calling">Kongrua reĝimo kun „Pervifiaj alvokoj“</string>
   <string name="preferences__enable_if_your_device_supports_sms_mms_delivery_over_wifi">Ebligi tion, se via aparato liveras SMS kaj MMS per vifio (nur ebligi tion, se via aparato uzas „Pervifiajn alvokojn“)</string>
   <string name="preferences__incognito_keyboard">Inkognita klavaro</string>
@@ -2513,5 +2531,32 @@ Ricevis mesaĝon pri interŝanĝo de ŝlosiloj por nevalida protokola versio.
   <string name="ReviewCard__block">Bloki</string>
   <string name="ReviewCard__delete">Forigi</string>
   <string name="ReviewCard__recently_changed">Ŝanĝis sian profilnomon de %1$s al %2$s</string>
+  <!--CallParticipantsListUpdatePopupWindow-->
+  <string name="CallParticipantsListUpdatePopupWindow__s_joined">%1$s eniris</string>
+  <string name="CallParticipantsListUpdatePopupWindow__s_and_s_joined">%1$s kaj %2$s eniris</string>
+  <string name="CallParticipantsListUpdatePopupWindow__s_s_and_s_joined">%1$s, %2$s kaj %3$s eniris</string>
+  <string name="CallParticipantsListUpdatePopupWindow__s_s_and_d_others_joined">%1$s, %2$s kaj %3$d aliaj eniris</string>
+  <string name="CallParticipantsListUpdatePopupWindow__s_left">%1$s eliris</string>
+  <string name="CallParticipantsListUpdatePopupWindow__s_and_s_left">%1$s kaj %2$s eliris</string>
+  <string name="CallParticipantsListUpdatePopupWindow__s_s_and_s_left">%1$s, %2$s kaj %3$s eliris</string>
+  <string name="CallParticipantsListUpdatePopupWindow__s_s_and_d_others_left">%1$s, %2$s kaj %3$d aliaj eliris</string>
+  <string name="CallParticipantsListUpdatePopupWindow__you_on_another_device">Vi (ĉe alia aparato)</string>
+  <string name="CallParticipantsListUpdatePopupWindow__s_on_another_device">%1$s (ĉe alia aparato)</string>
+  <!--DeleteAccountFragment-->
+  <string name="DeleteAccountFragment__deleting_your_account_will">Konsekvenco de la forviŝado de via konto:</string>
+  <string name="DeleteAccountFragment__enter_your_phone_number">Entajpu vian telefonnumeron</string>
+  <string name="DeleteAccountFragment__delete_account">Forviŝi konton</string>
+  <string name="DeleteAccountFragment__delete_your_account_info_and_profile_photo">Forviŝi vian konton kaj profilfoton</string>
+  <string name="DeleteAccountFragment__delete_all_your_messages">Forviŝado de ĉiuj viajn mesaĝojn</string>
+  <string name="DeleteAccountFragment__no_country_code">Neniu landkodo specifita</string>
+  <string name="DeleteAccountFragment__no_number">Neniu numero specifita</string>
+  <string name="DeleteAccountFragment__the_phone_number">La telefonnumero, kiu vi entajpis ne kongruas kun tiu de via konto.</string>
+  <string name="DeleteAccountFragment__are_you_sure">Ĉu vi certas, ke vi volas forviŝi vian konton?</string>
+  <string name="DeleteAccountFragment__this_will_delete_your_signal_account">Tio forviŝos vian Signal-konton, kaj restarigos la aplikaĵon. La aplikaĵo fermiĝos post la plenumigo de la forviŝado.</string>
+  <string name="DeleteAccountFragment__failed_to_delete_account">Malsukcesis forviŝado de la konto. Ĉu estas retkonekto?</string>
+  <string name="DeleteAccountFragment__failed_to_delete_local_data">Malsukcesis forviŝado de lokaj datumoj. Vi povas mane forviŝi lokajn datumojn en la sistemaj agordoj pri la aplikaĵo.</string>
+  <string name="DeleteAccountFragment__launch_app_settings">Malfermi la aplikaĵajn agordojn</string>
+  <!--DeleteAccountCountryPickerFragment-->
+  <string name="DeleteAccountCountryPickerFragment__search_countries">Serĉi landojn</string>
   <!--EOF-->
 </resources>

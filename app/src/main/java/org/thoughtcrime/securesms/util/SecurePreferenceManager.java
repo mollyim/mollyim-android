@@ -3,9 +3,9 @@ package org.thoughtcrime.securesms.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.crypto.EncryptedPreferences;
-import org.thoughtcrime.securesms.logging.Log;
 
 public class SecurePreferenceManager {
 

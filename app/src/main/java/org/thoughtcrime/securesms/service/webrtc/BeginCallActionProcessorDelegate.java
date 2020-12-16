@@ -4,12 +4,13 @@ import android.media.AudioManager;
 
 import androidx.annotation.NonNull;
 
+import org.signal.core.util.logging.Log;
 import org.signal.ringrtc.CallException;
 import org.signal.ringrtc.CallManager;
 import org.thoughtcrime.securesms.components.webrtc.BroadcastVideoSink;
 import org.thoughtcrime.securesms.events.CallParticipant;
+import org.thoughtcrime.securesms.events.CallParticipantId;
 import org.thoughtcrime.securesms.events.WebRtcViewModel;
-import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.ringrtc.RemotePeer;
 import org.thoughtcrime.securesms.service.webrtc.state.WebRtcServiceState;
 import org.thoughtcrime.securesms.util.ServiceUtil;
@@ -41,11 +42,14 @@ public class BeginCallActionProcessorDelegate extends WebRtcActionProcessor {
                                .putRemotePeer(remotePeer)
                                .putParticipant(remotePeer.getRecipient(),
                                                CallParticipant.createRemote(
+                                                       new CallParticipantId(remotePeer.getRecipient()),
                                                        remotePeer.getRecipient(),
                                                        null,
                                                        new BroadcastVideoSink(currentState.getVideoState().getEglBase()),
                                                        true,
                                                        false,
+                                                       0,
+                                                       true,
                                                        0
                                                ))
                                .build();
@@ -81,11 +85,14 @@ public class BeginCallActionProcessorDelegate extends WebRtcActionProcessor {
                        .callState(WebRtcViewModel.State.CALL_INCOMING)
                        .putParticipant(remotePeer.getRecipient(),
                                        CallParticipant.createRemote(
+                                               new CallParticipantId(remotePeer.getRecipient()),
                                                remotePeer.getRecipient(),
                                                null,
                                                new BroadcastVideoSink(currentState.getVideoState().getEglBase()),
                                                true,
                                                false,
+                                               0,
+                                               true,
                                                0
                                        ))
                        .build();

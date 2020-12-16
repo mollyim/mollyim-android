@@ -25,6 +25,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ShortcutManager;
+import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -82,10 +83,13 @@ import com.annimon.stream.Stream;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.google.android.material.button.MaterialButton;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.signal.core.util.concurrent.SignalExecutors;
+import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.BlockUnblockDialog;
 import org.thoughtcrime.securesms.ExpirationDialog;
 import org.thoughtcrime.securesms.GroupMembersDialog;
@@ -134,6 +138,7 @@ import org.thoughtcrime.securesms.contactshare.SimpleTextWatcher;
 import org.thoughtcrime.securesms.conversation.ConversationGroupViewModel.GroupActiveState;
 import org.thoughtcrime.securesms.conversation.ConversationMessage.ConversationMessageFactory;
 import org.thoughtcrime.securesms.conversation.ui.error.SafetyNumberChangeDialog;
+import org.thoughtcrime.securesms.conversation.ui.groupcall.GroupCallViewModel;
 import org.thoughtcrime.securesms.conversation.ui.mentions.MentionsPickerViewModel;
 import org.thoughtcrime.securesms.conversationlist.model.MessageResult;
 import org.thoughtcrime.securesms.crypto.SecurityEvent;
@@ -158,6 +163,7 @@ import org.thoughtcrime.securesms.database.model.MmsMessageRecord;
 import org.thoughtcrime.securesms.database.model.ReactionRecord;
 import org.thoughtcrime.securesms.database.model.StickerRecord;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.events.GroupCallPeekEvent;
 import org.thoughtcrime.securesms.events.ReminderUpdateEvent;
 import org.thoughtcrime.securesms.giph.ui.GiphyActivity;
 import org.thoughtcrime.securesms.groups.GroupChangeException;
@@ -180,7 +186,6 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.linkpreview.LinkPreview;
 import org.thoughtcrime.securesms.linkpreview.LinkPreviewRepository;
 import org.thoughtcrime.securesms.linkpreview.LinkPreviewViewModel;
-import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.maps.PlacePickerActivity;
 import org.thoughtcrime.securesms.mediaoverview.MediaOverviewActivity;
 import org.thoughtcrime.securesms.mediasend.Media;
@@ -263,7 +268,6 @@ import org.thoughtcrime.securesms.util.WindowUtil;
 import org.thoughtcrime.securesms.util.concurrent.AssertedSuccessListener;
 import org.thoughtcrime.securesms.util.concurrent.ListenableFuture;
 import org.thoughtcrime.securesms.util.concurrent.SettableFuture;
-import org.thoughtcrime.securesms.util.concurrent.SignalExecutors;
 import org.thoughtcrime.securesms.util.concurrent.SimpleTask;
 import org.thoughtcrime.securesms.util.views.Stub;
 import org.whispersystems.libsignal.InvalidMessageException;
@@ -365,6 +369,8 @@ public class ConversationActivity extends PassphraseRequiredActivity
   private   View                     requestingMemberBanner;
   private   View                     cancelJoinRequest;
   private   Stub<View>               mentionsSuggestions;
+  private   MaterialButton           joinGroupCallButton;
+  private   boolean                  callingTooltipShown;
 
   private LinkPreviewViewModel         linkPreviewViewModel;
   private ConversationSearchViewModel  searchViewModel;
@@ -372,6 +378,7 @@ public class ConversationActivity extends PassphraseRequiredActivity
   private ConversationViewModel        viewModel;
   private ConversationGroupViewModel   groupViewModel;
   private MentionsPickerViewModel      mentionsViewModel;
+  private GroupCallViewModel           groupCallViewModel;
 
   private LiveRecipient recipient;
   private long          threadId;
@@ -421,6 +428,7 @@ public class ConversationActivity extends PassphraseRequiredActivity
     initializeViewModel(args);
     initializeGroupViewModel();
     initializeMentionsViewModel();
+    initializeGroupCallViewModel();
     initializeEnabledCheck();
     initializePendingRequestsBanner();
     initializeGroupV1MigrationsBanners();
@@ -524,6 +532,10 @@ public class ConversationActivity extends PassphraseRequiredActivity
                              .startChain(new RequestGroupV2InfoJob(groupId))
                              .then(new GroupV2UpdateSelfProfileKeyJob(groupId))
                              .enqueue();
+    }
+
+    if (groupCallViewModel != null) {
+      groupCallViewModel.peekGroupCall(this);
     }
 
     setVisibleThread(threadId);
@@ -810,6 +822,10 @@ public class ConversationActivity extends PassphraseRequiredActivity
     } else if (isGroupConversation()) {
       if (isActiveV2Group && FeatureFlags.groupCalling()) {
         inflater.inflate(R.menu.conversation_callable_groupv2, menu);
+        if (groupCallViewModel != null && Boolean.TRUE.equals(groupCallViewModel.hasActiveGroupCall().getValue())) {
+          hideMenuItem(menu, R.id.menu_video_secure);
+        }
+        showGroupCallingTooltip();
       }
 
       inflater.inflate(R.menu.conversation_group_options, menu);
@@ -1381,7 +1397,7 @@ public class ConversationActivity extends PassphraseRequiredActivity
   }
 
   @Override
-  public void onSendAnywayAfterSafetyNumberChange() {
+  public void onSendAnywayAfterSafetyNumberChange(@NonNull List<RecipientId> changedRecipients) {
     initializeIdentityRecords().addListener(new AssertedSuccessListener<Boolean>() {
       @Override
       public void onSuccess(Boolean result) {
@@ -1845,6 +1861,7 @@ public class ConversationActivity extends PassphraseRequiredActivity
     noLongerMemberBanner   = findViewById(R.id.conversation_no_longer_member_banner);
     requestingMemberBanner = findViewById(R.id.conversation_requesting_banner);
     cancelJoinRequest      = findViewById(R.id.conversation_cancel_request);
+    joinGroupCallButton    = findViewById(R.id.conversation_group_cal_join);
 
     container.addOnKeyboardShownListener(this);
     inputPanel.setListener(this);
@@ -1899,6 +1916,8 @@ public class ConversationActivity extends PassphraseRequiredActivity
     inlineAttachmentButton.setOnClickListener(v -> handleAddAttachment());
 
     reactionOverlay.setOnReactionSelectedListener(this);
+
+    joinGroupCallButton.setOnClickListener(v -> handleVideo(getRecipient()));
   }
 
   protected void initializeActionBar() {
@@ -2055,6 +2074,43 @@ public class ConversationActivity extends PassphraseRequiredActivity
     });
   }
 
+  public void initializeGroupCallViewModel() {
+    groupCallViewModel = ViewModelProviders.of(this, new GroupCallViewModel.Factory()).get(GroupCallViewModel.class);
+
+    recipient.observe(this, r -> {
+      groupCallViewModel.onRecipientChange(this, r);
+    });
+
+    groupCallViewModel.hasActiveGroupCall().observe(this, hasActiveCall -> {
+      invalidateOptionsMenu();
+      joinGroupCallButton.setVisibility(hasActiveCall ? View.VISIBLE : View.GONE);
+    });
+
+    groupCallViewModel.groupCallHasCapacity().observe(this, hasCapacity -> joinGroupCallButton.setText(hasCapacity ? R.string.ConversationActivity_join : R.string.ConversationActivity_full));
+  }
+
+  private void showGroupCallingTooltip() {
+    if (!FeatureFlags.groupCalling() || !SignalStore.tooltips().shouldShowGroupCallingTooltip() || callingTooltipShown) {
+      return;
+    }
+
+    View anchor = findViewById(R.id.menu_video_secure);
+    if (anchor == null) {
+      Log.w(TAG, "Video Call tooltip anchor is null. Skipping tooltip...");
+      return;
+    }
+
+    callingTooltipShown = true;
+
+    SignalStore.tooltips().markGroupCallSpeakerViewSeen();
+    TooltipPopup.forTarget(anchor)
+                .setBackgroundTint(ContextCompat.getColor(this, R.color.signal_accent_green))
+                .setTextColor(getResources().getColor(R.color.core_white))
+                .setText(R.string.ConversationActivity__tap_here_to_start_a_group_call)
+                .setOnDismissListener(() -> SignalStore.tooltips().markGroupCallingTooltipSeen())
+                .show(TooltipPopup.POSITION_BELOW);
+  }
+
   private void showStickerIntroductionTooltip() {
     TextSecurePreferences.setMediaKeyboardMode(this, MediaKeyboardMode.STICKER);
     inputPanel.setMediaKeyboardToggleMode(true);
@@ -2167,6 +2223,10 @@ public class ConversationActivity extends PassphraseRequiredActivity
     if (mentionsViewModel != null) {
       mentionsViewModel.onRecipientChange(recipient);
     }
+
+    if (groupCallViewModel != null) {
+      groupCallViewModel.onRecipientChange(this, recipient);
+    }
   }
 
   @Subscribe(threadMode = ThreadMode.MAIN)
@@ -2185,6 +2245,13 @@ public class ConversationActivity extends PassphraseRequiredActivity
                   .setText(R.string.ConversationActivity_sticker_pack_installed)
                   .setIconGlideModel(event.getIconGlideModel())
                   .show(TooltipPopup.POSITION_ABOVE);
+    }
+  }
+
+  @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+  public void onGroupCallPeekEvent(@NonNull GroupCallPeekEvent event) {
+    if (groupCallViewModel != null) {
+      groupCallViewModel.onGroupCallPeekEvent(event);
     }
   }
 
@@ -2345,8 +2412,13 @@ public class ConversationActivity extends PassphraseRequiredActivity
   private void setActionBarColor(MaterialColor color) {
     ActionBar supportActionBar = getSupportActionBar();
     if (supportActionBar == null) throw new AssertionError();
-    supportActionBar.setBackgroundDrawable(new ColorDrawable(color.toActionBarColor(this)));
+    int actionBarColor = color.toActionBarColor(this);
+    supportActionBar.setBackgroundDrawable(new ColorDrawable(actionBarColor));
     WindowUtil.setStatusBarColor(getWindow(), color.toStatusBarColor(this));
+
+    joinGroupCallButton.setTextColor(actionBarColor);
+    joinGroupCallButton.setIconTint(ColorStateList.valueOf(actionBarColor));
+    joinGroupCallButton.setRippleColor(ColorStateList.valueOf(actionBarColor));
   }
 
   private void setBlockedUserState(Recipient recipient, boolean isSecureText, boolean isDefaultSms) {

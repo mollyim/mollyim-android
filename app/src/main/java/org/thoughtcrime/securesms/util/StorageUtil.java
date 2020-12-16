@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
+import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.database.NoExternalStorageException;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
@@ -23,8 +24,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class StorageUtil {
-
-  public static final String LOG_CACHE_DIRECTORY = "log";
 
   public static File getOrCreateBackupDirectory() throws NoExternalStorageException {
     File storage = Environment.getExternalStorageDirectory();
@@ -92,10 +91,6 @@ public class StorageUtil {
     return storage;
   }
 
-  public static File getLogCacheDirectory(@NonNull Context context) {
-    return new File(context.getCacheDir(), LOG_CACHE_DIRECTORY);
-  }
-
   public static boolean canWriteInSignalStorageDir() {
     File storage;
 
@@ -126,7 +121,7 @@ public class StorageUtil {
   }
 
   public static @NonNull Uri getAudioUri() {
-    if (Build.VERSION.SDK_INT < 21) {
+    if (Build.VERSION.SDK_INT < 29) {
       return getLegacyUri(Environment.DIRECTORY_MUSIC);
     } else {
       return MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;

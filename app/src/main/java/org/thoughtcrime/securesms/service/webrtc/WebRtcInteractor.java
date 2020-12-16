@@ -94,8 +94,8 @@ public class WebRtcInteractor {
     webRtcCallService.sendGroupCallMessage(recipient, groupCallEraId);
   }
 
-  void updateGroupCallUpdateMessage(@NonNull RecipientId groupId, @Nullable String groupCallEraId, @NonNull Collection<UUID> joinedMembers) {
-    webRtcCallService.updateGroupCallUpdateMessage(groupId, groupCallEraId, joinedMembers);
+  void updateGroupCallUpdateMessage(@NonNull RecipientId groupId, @Nullable String groupCallEraId, @NonNull Collection<UUID> joinedMembers, boolean isCallFull) {
+    webRtcCallService.updateGroupCallUpdateMessage(groupId, groupCallEraId, joinedMembers, isCallFull);
   }
 
   void setCallInProgressNotification(int type, @NonNull RemotePeer remotePeer) {
@@ -166,7 +166,7 @@ public class WebRtcInteractor {
     audioManager.startCommunication(preserveSpeakerphone);
   }
 
-  void peekGroupCall(@NonNull WebRtcData.GroupCallUpdateMetadata groupCallUpdateMetadata) {
-    webRtcCallService.peekGroupCall(groupCallUpdateMetadata);
+  void peekGroupCall(@NonNull RecipientId recipientId) {
+    webRtcCallService.peekGroupCall(recipientId);
   }
 }

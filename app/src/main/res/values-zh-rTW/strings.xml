@@ -253,6 +253,8 @@
   <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">如要與 %1$s 通話，Molly 需要存取你的麥克風</string>
   <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone_and_camera">如要與 %1$s 通話，Molly 需要存取你的麥克風與相機。</string>
   <string name="ConversationActivity__more_options_now_in_group_settings">「群組設定」中現有更多選項</string>
+  <string name="ConversationActivity_join">加入</string>
+  <string name="ConversationActivity_full">已滿</string>
   <!--ConversationAdapter-->
   <plurals name="ConversationAdapter_n_unread_messages">
     <item quantity="other">%d 則未讀訊息</item>
@@ -629,7 +631,7 @@
   <string name="ManageGroupActivity_legacy_group_upgrade">這是一個舊版群組。 要連結@提及和管理員等新功能，</string>
   <string name="ManageGroupActivity_legacy_group_too_large">這個舊版群組太大，因此無法升級為新版群組。 最大群組大小為%1$d。</string>
   <string name="ManageGroupActivity_upgrade_this_group">升級此群組。</string>
-  <string name="ManageGroupActivity_this_is_an_insecure_mms_group">這是一個不安全的多媒體訊息群組。要私密聊天並存取群組名稱等功能，請邀請你的聯絡人加入 Signal。</string>
+  <string name="ManageGroupActivity_this_is_an_insecure_mms_group">這是一個不安全的MMS群組。 要私下聊天，請邀請你的聯絡人加入Signal。</string>
   <string name="ManageGroupActivity_invite_now">立即邀請</string>
   <!--GroupMentionSettingDialog-->
   <string name="GroupMentionSettingDialog_notify_me_for_mentions">通知我提及。</string>
@@ -692,7 +694,7 @@
   <string name="ShareableGroupLinkDialogFragment__require_an_admin_to_approve_new_members_joining_via_the_group_link">需要管理員批准通過群組連結加入新成員。</string>
   <string name="ShareableGroupLinkDialogFragment__are_you_sure_you_want_to_reset_the_group_link">你確定要重置群組連結嗎？ 人們將無法再使用當前連結加入該群組。</string>
   <!--GroupLinkShareQrDialogFragment-->
-  <string name="GroupLinkShareQrDialogFragment__qr_code">QR code</string>
+  <string name="GroupLinkShareQrDialogFragment__qr_code">QR 碼</string>
   <string name="GroupLinkShareQrDialogFragment__people_who_scan_this_code_will">掃描此代碼的人將可以加入你的群組。 如果你啟用了該裝置，則管理員仍需要批准新成員。</string>
   <string name="GroupLinkShareQrDialogFragment__share_code">分享代碼</string>
   <!--GV2 Invite Revoke confirmation dialog-->
@@ -1060,8 +1062,8 @@
   <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">抱歉，這不是有效的裝置連結 QR 碼。</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">連結 Signal 裝置？</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">看起來您正在嘗試使用第 3 方掃描器連結 Signal 裝置。為了安全著想，請使用 Signal 重新掃描代碼一次。</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly 需要相機的權限以掃描 QR code，但是現在被設定為永久拒絕使用。請到應用程式設定中，選取「權限」，並啟用「相機」的權限。</string>
-  <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">因為沒有相機的使用權限，所以無法掃描 QR code。</string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly 需要相機的權限以掃描 QR 碼，但是現在被設定為永久拒絕使用。請到應用程式設定中，選取「權限」，並啟用「相機」的權限。</string>
+  <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">因為沒有相機的使用權限，所以無法掃描 QR 碼。</string>
   <!--ExpirationDialog-->
   <string name="ExpirationDialog_disappearing_messages">自動銷毀訊息</string>
   <string name="ExpirationDialog_your_messages_will_not_expire">您的訊息將不會過期。</string>
@@ -1154,6 +1156,8 @@
   <string name="WebRtcCallView__signal_video_call">Signal 視訊電話…</string>
   <string name="WebRtcCallView__start_call">開始通話</string>
   <string name="WebRtcCallView__join_call">加入通話</string>
+  <string name="WebRtcCallView__call_is_full">通話人數已滿</string>
+  <string name="WebRtcCallView__the_maximum_number_of_d_participants_has_been_Reached_for_this_call">此通話已達到最大參加人數%1$d 人。 稍後再試。</string>
   <string name="WebRtcCallView__s_group_call">「%1$s」群組通話</string>
   <string name="WebRtcCallView__view_participants_list">查看參與者</string>
   <string name="WebRtcCallView__your_video_is_off">你的視訊已關閉</string>
@@ -1171,6 +1175,13 @@
   <plurals name="CallParticipantsListDialog_in_this_call_d_people">
     <item quantity="other">在此通話中·%1$d個人</item>
   </plurals>
+  <!--CallParticipantView-->
+  <string name="CallParticipantView__s_is_blocked">%1$s 已經被封鎖</string>
+  <string name="CallParticipantView__more_info">更多資訊</string>
+  <string name="CallParticipantView__you_wont_receive_their_audio_or_video">你將不會收到他們的語音或影片，他們也不會收到你的聲音或影片。</string>
+  <string name="CallParticipantView__cant_receive_audio_video_from_s">無法從 %1$s收到語音 &amp; 影片</string>
+  <string name="CallParticipantView__cant_receive_audio_and_video_from_s">無法從 %1$s 收到語音或影片</string>
+  <string name="CallParticipantView__this_may_be_Because_they_have_not_verified_your_safety_number_change">這可能是因為他們尚未驗證你的變更的安全號碼，他們的裝置有問題或已封鎖了你。</string>
   <!--RegistrationActivity-->
   <string name="RegistrationActivity_select_your_country">選擇您的國家</string>
   <string name="RegistrationActivity_you_must_specify_your_country_code">您必須輸入
@@ -1355,16 +1366,15 @@
   <string name="UsernameEditFragment_usernames_on_signal_are_optional">Signal上的使用者名稱是可選的。 如果你選擇建立使用者名稱，則其他Signal使用者可以透過該用使用者名找到你，並在不知道你的電話號碼的情況下與你聯絡。</string>
   <!--VerifyIdentityActivity-->
   <string name="VerifyIdentityActivity_your_contact_is_running_an_old_version_of_signal">您的聯絡人使用的是舊版本的 Signal。在驗證您的安全碼前請尋求對方先進行更新。</string>
-  <string name="VerifyIdentityActivity_your_contact_is_running_a_newer_version_of_Signal">您的聯絡人使用的是新版本的 Signal，程式無法識別這個聯絡人的二維碼。
-請升級您的 Signal。</string>
-  <string name="VerifyIdentityActivity_the_scanned_qr_code_is_not_a_correctly_formatted_safety_number">掃描的 QR 碼格式不正確。請重新掃一次。</string>
+  <string name="VerifyIdentityActivity_your_contact_is_running_a_newer_version_of_Signal">您的聯絡人正使用較新版本的 Signal，QR 碼格式並不相容。請升級以作比對。</string>
+  <string name="VerifyIdentityActivity_the_scanned_qr_code_is_not_a_correctly_formatted_safety_number">掃描的 QR 碼並非正確格式的安全碼驗證碼。請試著再掃一次。</string>
   <string name="VerifyIdentityActivity_share_safety_number_via">分享安全碼到…</string>
   <string name="VerifyIdentityActivity_our_signal_safety_number">我方 Signal 安全碼：</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">看起來您沒有任何可以分享的應用。</string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">沒有在剪貼簿中發現安全碼，因此無法進行比較</string>
-  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Molly 需要相機的權限以掃描 QR code，但是現在被設定為永久拒絕使用。請到應用程式設定中，選取「權限」，並啟用「相機」的權限。</string>
-  <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">因為沒有「相機」的權限，無法掃描 QR code</string>
-  <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">你必須先交換訊息才能查看%1$s的安全號碼。</string>
+  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Molly 需要相機的權限以掃描 QR 碼，但是現在被設定為永久拒絕使用。請到應用程式設定中，選取「權限」，並啟用「相機」的權限。</string>
+  <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">因為沒有「相機」的權限，無法掃描 QR 碼</string>
+  <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">你必須先交換訊息才能查看 %1$s 的安全碼。</string>
   <!--ViewOnceMessageActivity-->
   <!--AudioView-->
   <!--MessageDisplayHelper-->
@@ -1473,12 +1483,14 @@
   <string name="WebRtcCallActivity__answered_on_a_linked_device">在已連結的裝置回答。</string>
   <string name="WebRtcCallActivity__declined_on_a_linked_device">拒絕在已連結的裝置。</string>
   <string name="WebRtcCallActivity__busy_on_a_linked_device">已連結的裝置忙線。</string>
+  <string name="GroupCallSafetyNumberChangeNotification__someone_has_joined_this_call_with_a_safety_number_that_has_changed">有人加入了此通話，並更改了一個安全碼。</string>
   <!--WebRtcCallScreen-->
   <string name="WebRtcCallScreen_new_safety_numbers">%1$s 的安全碼產生變動。這有可能是有不明人士試圖攔截您的通訊／對話內容，或是因為 %2$s 重新安裝 Signal。</string>
   <string name="WebRtcCallScreen_you_may_wish_to_verify_this_contact">您可能希望驗證這名聯絡人的安全碼。</string>
   <string name="WebRtcCallScreen_new_safety_number_title">新的安全碼</string>
   <string name="WebRtcCallScreen_accept">接受</string>
   <string name="WebRtcCallScreen_end_call">結束通話</string>
+  <string name="WebRtcCallScreen_swipe_up_to_change_views">向上滑動即可變更顯示</string>
   <!--WebRtcCallScreen V2-->
   <string name="WebRtcCallScreen__decline">拒絕</string>
   <string name="WebRtcCallScreen__answer">接聽</string>
@@ -1587,6 +1599,7 @@
   <string name="ConversationUpdateItem_learn_more">了解更多</string>
   <string name="ConversationUpdateItem_join_call">加入通話</string>
   <string name="ConversationUpdateItem_return_to_call">返回通話</string>
+  <string name="ConversationUpdateItem_call_is_full">通話人數已滿</string>
   <!--audio_view-->
   <string name="audio_view__play_pause_accessibility_description">播放 … 暫停</string>
   <string name="audio_view__download_accessibility_description">下載</string>
@@ -1605,7 +1618,10 @@
   <string name="safety_number_change_dialog__safety_number_changes">安全碼變更</string>
   <string name="safety_number_change_dialog__send_anyway">仍然傳送</string>
   <string name="safety_number_change_dialog__call_anyway">無論如何要打電話</string>
-  <string name="safety_number_change_dialog__the_following_people_may_have_reinstalled_or_changed_devices">以下使用者可能已重新安裝或更換了裝置。與他們一起驗證你的安全碼，以確保隱私性。</string>
+  <string name="safety_number_change_dialog__join_call">加入通話</string>
+  <string name="safety_number_change_dialog__continue_call">繼續通話</string>
+  <string name="safety_number_change_dialog__leave_call">離開通話</string>
+  <string name="safety_number_change_dialog__the_following_people_may_have_reinstalled_or_changed_devices">下列的人可能已重新安裝或更換了裝置。請驗證你與他們的安全碼，以確保隱私。</string>
   <string name="safety_number_change_dialog__view">檢視</string>
   <string name="safety_number_change_dialog__previous_verified">先前已驗證</string>
   <!--country_selection_fragment-->
@@ -1737,7 +1753,7 @@
   <string name="unknown_sender_view__add_to_contacts">加入聯絡人</string>
   <string name="unknown_sender_view__don_t_add_but_make_my_profile_visible">不要加入，但讓我的個人資訊可以被看見</string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[如果你希望用 %s 來驗證你的加密的安全性，比對上面的號碼與他們裝置上的號碼。或者，你可以掃描在他們手機上的 QR code，或讓他們掃描您的 QR Code。<a href="https://signal.org/redirect/safety-numbers">瞭解更多</a>]]></string>
+  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[若你希望驗證你與 %s 之間的加密安全性，請比對上面的號碼與他們裝置上的號碼。又或者，你可以掃描在他們手機上的 QR 碼，或讓他們掃描你的 QR 碼。<a href="https://signal.org/redirect/safety-numbers">瞭解更多</a>]]></string>
   <string name="verify_display_fragment__tap_to_scan">點擊掃描</string>
   <string name="verify_display_fragment__loading">載入中…</string>
   <string name="verify_display_fragment__verified">已驗證</string>
@@ -1921,6 +1937,7 @@
   <string name="preferences__advanced_pin_settings">進階PIN碼設定</string>
   <string name="preferences__free_private_messages_and_calls">免費加密訊息與通話至 Signal 使用者</string>
   <string name="preferences__submit_debug_log">送出偵錯日誌</string>
+  <string name="preferences__delete_account">刪除帳號</string>
   <string name="preferences__support_wifi_calling">\"WiFi 呼叫\"相容模式</string>
   <string name="preferences__enable_if_your_device_supports_sms_mms_delivery_over_wifi">如果您的裝置使用 WiFi 傳送簡訊或多媒體訊息，請啟用此選項 (僅當\"WiFi 語音呼叫\"在您的裝置上啟用的時候才可用)</string>
   <string name="preferences__incognito_keyboard">隱私鍵盤</string>
@@ -2387,7 +2404,7 @@
   <!--GroupLinkBottomSheetDialogFragment-->
   <string name="GroupLinkBottomSheet_share_via_signal">透過 Signal 分享</string>
   <string name="GroupLinkBottomSheet_copy">複製</string>
-  <string name="GroupLinkBottomSheet_qr_code">QR Code</string>
+  <string name="GroupLinkBottomSheet_qr_code">QR 碼</string>
   <string name="GroupLinkBottomSheet_share">分享</string>
   <string name="GroupLinkBottomSheet_copied_to_clipboard">已複製到剪貼簿</string>
   <string name="GroupLinkBottomSheet_the_link_is_not_currently_active">連結目前無效</string>
@@ -2426,5 +2443,32 @@
   <string name="ReviewCard__block">封鎖</string>
   <string name="ReviewCard__delete">刪除</string>
   <string name="ReviewCard__recently_changed">最近將他們的個人資料名稱從%1$s更改為%2$s</string>
+  <!--CallParticipantsListUpdatePopupWindow-->
+  <string name="CallParticipantsListUpdatePopupWindow__s_joined">%1$s 已加入</string>
+  <string name="CallParticipantsListUpdatePopupWindow__s_and_s_joined">%1$s 和 %2$s 已加入</string>
+  <string name="CallParticipantsListUpdatePopupWindow__s_s_and_s_joined">%1$s, %2$s 和 %3$s已加入</string>
+  <string name="CallParticipantsListUpdatePopupWindow__s_s_and_d_others_joined">%1$s, %2$s 和 %3$d 及其他人已加入</string>
+  <string name="CallParticipantsListUpdatePopupWindow__s_left">%1$s 離開了</string>
+  <string name="CallParticipantsListUpdatePopupWindow__s_and_s_left">%1$s 和 %2$s 已離開</string>
+  <string name="CallParticipantsListUpdatePopupWindow__s_s_and_s_left">%1$s, %2$s 和 %3$s 已離開</string>
+  <string name="CallParticipantsListUpdatePopupWindow__s_s_and_d_others_left">%1$s, %2$s 和 %3$d 及其他人已離開</string>
+  <string name="CallParticipantsListUpdatePopupWindow__you_on_another_device">你 (在其他的裝置上)</string>
+  <string name="CallParticipantsListUpdatePopupWindow__s_on_another_device">%1$s (在另一台裝置上)</string>
+  <!--DeleteAccountFragment-->
+  <string name="DeleteAccountFragment__deleting_your_account_will">刪除你的帳戶將：</string>
+  <string name="DeleteAccountFragment__enter_your_phone_number">輸入你的電話號碼</string>
+  <string name="DeleteAccountFragment__delete_account">刪除帳號</string>
+  <string name="DeleteAccountFragment__delete_your_account_info_and_profile_photo">刪除你的帳號資訊和個人資料照片</string>
+  <string name="DeleteAccountFragment__delete_all_your_messages">刪除所有訊息</string>
+  <string name="DeleteAccountFragment__no_country_code">未指定國家/地區代碼</string>
+  <string name="DeleteAccountFragment__no_number">未指定號碼</string>
+  <string name="DeleteAccountFragment__the_phone_number">你輸入的電話號碼與你的帳號不符合。</string>
+  <string name="DeleteAccountFragment__are_you_sure">你確定要刪除你的帳號嗎？</string>
+  <string name="DeleteAccountFragment__this_will_delete_your_signal_account">這將刪除你的Signal帳號並重置應用程式。 該過程完成後，該應用程式將關閉。</string>
+  <string name="DeleteAccountFragment__failed_to_delete_account">無法刪除帳號。你有連接網路嗎？</string>
+  <string name="DeleteAccountFragment__failed_to_delete_local_data">刪除資料失敗。你可以在系統應用程式設定中手動清除。</string>
+  <string name="DeleteAccountFragment__launch_app_settings">啟動應用程式設定</string>
+  <!--DeleteAccountCountryPickerFragment-->
+  <string name="DeleteAccountCountryPickerFragment__search_countries">搜索國家</string>
   <!--EOF-->
 </resources>

@@ -12,6 +12,8 @@ import androidx.annotation.WorkerThread;
 
 import com.annimon.stream.Stream;
 
+import org.signal.core.util.concurrent.SignalExecutors;
+import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.color.MaterialColor;
 import org.thoughtcrime.securesms.contacts.avatars.ContactColors;
@@ -31,7 +33,6 @@ import org.thoughtcrime.securesms.database.RecipientDatabase.UnidentifiedAccessM
 import org.thoughtcrime.securesms.database.RecipientDatabase.VibrateState;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.groups.GroupId;
-import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.phonenumbers.NumberUtil;
 import org.thoughtcrime.securesms.phonenumbers.PhoneNumberFormatter;
@@ -39,7 +40,6 @@ import org.thoughtcrime.securesms.profiles.ProfileName;
 import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.StringUtil;
 import org.thoughtcrime.securesms.util.Util;
-import org.thoughtcrime.securesms.util.concurrent.SignalExecutors;
 import org.whispersystems.libsignal.util.guava.Optional;
 import org.whispersystems.libsignal.util.guava.Preconditions;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
@@ -416,32 +416,71 @@ public class Recipient {
   }
 
   public @NonNull String getDisplayName(@NonNull Context context) {
-    String name = Util.getFirstNonEmpty(getName(context),
-                                        getProfileName().toString(),
-                                        PhoneNumberFormatter.prettyPrint(e164),
-                                        email,
-                                        context.getString(R.string.Recipient_unknown));
+    String name = getName(context);
+
+    if (Util.isEmpty(name)) {
+      name = getProfileName().toString();
+    }
+
+    if (Util.isEmpty(name) && !Util.isEmpty(e164)) {
+      name = PhoneNumberFormatter.prettyPrint(e164);
+    }
+
+    if (Util.isEmpty(name)) {
+      name = email;
+    }
+
+    if (Util.isEmpty(name)) {
+      name = context.getString(R.string.Recipient_unknown);
+    }
 
     return StringUtil.isolateBidi(name);
   }
 
   public @NonNull String getDisplayNameOrUsername(@NonNull Context context) {
-    String name = Util.getFirstNonEmpty(getName(context),
-                                        getProfileName().toString(),
-                                        PhoneNumberFormatter.prettyPrint(e164),
-                                        email,
-                                        username,
-                                        context.getString(R.string.Recipient_unknown));
+    String name = getName(context);
+
+    if (Util.isEmpty(name)) {
+      name = getProfileName().toString();
+    }
+
+    if (Util.isEmpty(name) && !Util.isEmpty(e164)) {
+      name = PhoneNumberFormatter.prettyPrint(e164);
+    }
+
+    if (Util.isEmpty(name)) {
+      name = email;
+    }
+
+    if (Util.isEmpty(name)) {
+      name = username;
+    }
+
+    if (Util.isEmpty(name)) {
+      name = context.getString(R.string.Recipient_unknown);
+    }
 
     return StringUtil.isolateBidi(name);
   }
 
   public @NonNull String getMentionDisplayName(@NonNull Context context) {
-    String name = Util.getFirstNonEmpty(isSelf ? getProfileName().toString() : getName(context),
-                                        isSelf ? getName(context) : getProfileName().toString(),
-                                        PhoneNumberFormatter.prettyPrint(e164),
-                                        email,
-                                        context.getString(R.string.Recipient_unknown));
+    String name = isSelf ? getProfileName().toString() : getName(context);
+
+    if (Util.isEmpty(name)) {
+      name = isSelf ? getName(context) : getProfileName().toString();
+    }
+
+    if (Util.isEmpty(name) && !Util.isEmpty(e164)) {
+      name = PhoneNumberFormatter.prettyPrint(e164);
+    }
+
+    if (Util.isEmpty(name)) {
+      name = email;
+    }
+
+    if (Util.isEmpty(name)) {
+      name = context.getString(R.string.Recipient_unknown);
+    }
 
     return StringUtil.isolateBidi(name);
   }

@@ -4,9 +4,7 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
-import org.thoughtcrime.securesms.logging.LogManager;
-
-import java.io.IOException;
+import org.signal.core.util.logging.LogManager;
 
 public class LogSectionLogcat implements LogSection {
 
@@ -17,10 +15,7 @@ public class LogSectionLogcat implements LogSection {
 
   @Override
   public @NonNull CharSequence getContent(@NonNull Context context) {
-    try {
-      return LogManager.getAndroidLogger().getLog();
-    } catch (IOException ioe) {
-      return "Failed to retrieve.";
-    }
+    CharSequence logs = LogManager.getAndroidLogger().getLogs();
+    return logs != null ? logs : "Unable to retrieve logs.";
   }
 }

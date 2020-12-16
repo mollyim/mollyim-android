@@ -4,11 +4,11 @@ import android.content.SharedPreferences;
 
 import androidx.annotation.NonNull;
 
+import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.jobmanager.Data;
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
-import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.util.SecurePreferenceManager;
 
 import static org.thoughtcrime.securesms.keyvalue.SettingsValues.THREAD_TRIM_ENABLED;

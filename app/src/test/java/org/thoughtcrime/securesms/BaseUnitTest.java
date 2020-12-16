@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
-import org.thoughtcrime.securesms.logging.Log;
 
 import org.junit.Before;
 import org.junit.runner.RunWith;
@@ -16,6 +15,7 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.thoughtcrime.securesms.util.SecurePreferenceManager;
+import org.signal.core.util.logging.Log;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyBoolean;

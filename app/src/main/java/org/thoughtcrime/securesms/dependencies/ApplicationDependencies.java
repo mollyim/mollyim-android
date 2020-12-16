@@ -9,6 +9,7 @@ import org.thoughtcrime.securesms.ApplicationContext;
 import org.thoughtcrime.securesms.KbsEnclave;
 import org.thoughtcrime.securesms.components.TypingStatusRepository;
 import org.thoughtcrime.securesms.components.TypingStatusSender;
+import org.thoughtcrime.securesms.database.DatabaseObserver;
 import org.thoughtcrime.securesms.groups.GroupsV2Authorization;
 import org.thoughtcrime.securesms.groups.GroupsV2AuthorizationMemoryValueCache;
 import org.thoughtcrime.securesms.groups.v2.processing.GroupsV2StateProcessor;
@@ -66,6 +67,7 @@ public class ApplicationDependencies {
   private static volatile EarlyMessageCache            earlyMessageCache;
   private static volatile TypingStatusRepository       typingStatusRepository;
   private static volatile TypingStatusSender           typingStatusSender;
+  private static volatile DatabaseObserver             databaseObserver;
 
   @MainThread
   public static void init(@NonNull Provider provider) {
@@ -305,6 +307,18 @@ public class ApplicationDependencies {
     return typingStatusSender;
   }
 
+  public static @NonNull DatabaseObserver getDatabaseObserver() {
+    if (databaseObserver == null) {
+      synchronized (LOCK) {
+        if (databaseObserver == null) {
+          databaseObserver = getProvider().provideDatabaseObserver();
+        }
+      }
+    }
+
+    return databaseObserver;
+  }
+
   public interface Provider {
     @NonNull GroupsV2Operations provideGroupsV2Operations();
     @NonNull SignalServiceAccountManager provideSignalServiceAccountManager();
@@ -323,5 +337,6 @@ public class ApplicationDependencies {
     @NonNull TrimThreadsByDateManager provideTrimThreadsByDateManager();
     @NonNull TypingStatusRepository provideTypingStatusRepository();
     @NonNull TypingStatusSender provideTypingStatusSender();
+    @NonNull DatabaseObserver provideDatabaseObserver();
   }
 }

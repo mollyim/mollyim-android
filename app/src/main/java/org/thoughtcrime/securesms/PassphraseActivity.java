@@ -17,8 +17,8 @@
 package org.thoughtcrime.securesms;
 
 import android.content.Intent;
-import org.thoughtcrime.securesms.logging.Log;
 
+import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.crypto.MasterSecret;
 import org.thoughtcrime.securesms.service.KeyCachingService;
 

@@ -1,41 +1,27 @@
-buildscript {
-    repositories {
-        google()
-        mavenCentral()
-        jcenter {
-            content {
-                includeVersion 'org.jetbrains.trove4j', 'trove4j', '20160824'
-            }
-        }
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.1'
-    }
-}
-
 apply plugin: 'com.android.library'
 apply plugin: 'witness'
 apply from: 'witness-verifications.gradle'
 
-repositories {
-    google()
-    mavenCentral()
-    jcenter()
-}
-
 android {
-    compileSdkVersion 30
-    buildToolsVersion '30.0.2'
+    buildToolsVersion BUILD_TOOL_VERSION
+    compileSdkVersion COMPILE_SDK
 
     defaultConfig {
-        minSdkVersion 19
+        minSdkVersion MINIMUM_SDK
+        targetSdkVersion TARGET_SDK
+    }
+
+    compileOptions {
+        sourceCompatibility JAVA_VERSION
+        targetCompatibility JAVA_VERSION
     }
 }
 
-configurations {
-    compileClasspath
+dependencyVerification {
+    configuration = '(debug|release)RuntimeClasspath'
 }
 
 dependencies {
     implementation 'androidx.fragment:fragment:1.1.0'
+    implementation 'com.google.auto.value:auto-value-annotations:1.6.5'
 }

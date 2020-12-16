@@ -6,6 +6,8 @@ import androidx.annotation.NonNull;
 
 import com.annimon.stream.Stream;
 
+import org.signal.core.util.concurrent.SignalExecutors;
+import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.database.model.ThreadRecord;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
@@ -16,13 +18,11 @@ import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobmanager.JobManager;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
-import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.transport.RetryLaterException;
 import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
-import org.thoughtcrime.securesms.util.concurrent.SignalExecutors;
 import org.whispersystems.signalservice.api.groupsv2.NoCredentialForRedemptionTimeException;
 import org.whispersystems.signalservice.api.push.exceptions.PushNetworkException;
 
@@ -61,6 +61,11 @@ public class GroupV1MigrationJob extends BaseJob {
   }
 
   public static void enqueuePossibleAutoMigrate(@NonNull RecipientId recipientId) {
+    if (!FeatureFlags.groupsV1MigrationJob()) {
+      Log.w(TAG, "Migration job is disabled.");
+      return;
+    }
+
     SignalExecutors.BOUNDED.execute(() -> {
       if (Recipient.resolved(recipientId).isPushV1Group()) {
         ApplicationDependencies.getJobManager().add(new GroupV1MigrationJob(recipientId));
@@ -69,6 +74,11 @@ public class GroupV1MigrationJob extends BaseJob {
   }
 
   public static void enqueueRoutineMigrationsIfNecessary(@NonNull Application application) {
+    if (!FeatureFlags.groupsV1MigrationJob()) {
+      Log.w(TAG, "Migration job is disabled.");
+      return;
+    }
+
     if (!SignalStore.registrationValues().isRegistrationComplete() ||
         !TextSecurePreferences.isPushRegistered(application)       ||
         TextSecurePreferences.getLocalUuid(application) == null)
@@ -82,11 +92,14 @@ public class GroupV1MigrationJob extends BaseJob {
       return;
     }
 
-    long timeSinceRefresh = System.currentTimeMillis() - SignalStore.misc().getLastProfileRefreshTime();
+    long timeSinceRefresh = System.currentTimeMillis() - SignalStore.misc().getLastGv1RoutineMigrationTime();
+
     if (timeSinceRefresh < REFRESH_INTERVAL) {
       Log.i(TAG, "Too soon to refresh. Did the last refresh " + timeSinceRefresh + " ms ago.");
       return;
     }
+
+    SignalStore.misc().setLastGv1RoutineMigrationTime(System.currentTimeMillis());
 
     SignalExecutors.BOUNDED.execute(() -> {
       JobManager         jobManager   = ApplicationDependencies.getJobManager();

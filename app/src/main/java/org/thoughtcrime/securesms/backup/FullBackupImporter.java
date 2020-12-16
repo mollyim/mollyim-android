@@ -14,6 +14,9 @@ import androidx.annotation.NonNull;
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.greenrobot.eventbus.EventBus;
+import org.signal.core.util.Conversions;
+import org.signal.core.util.StreamUtil;
+import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.backup.BackupProtos.Attachment;
 import org.thoughtcrime.securesms.backup.BackupProtos.BackupFrame;
 import org.thoughtcrime.securesms.backup.BackupProtos.DatabaseVersion;
@@ -26,13 +29,10 @@ import org.thoughtcrime.securesms.crypto.ModernEncryptingPartOutputStream;
 import org.thoughtcrime.securesms.database.AttachmentDatabase;
 import org.thoughtcrime.securesms.database.SearchDatabase;
 import org.thoughtcrime.securesms.database.StickerDatabase;
-import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.profiles.AvatarHelper;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.util.BackupUtil;
-import org.thoughtcrime.securesms.util.Conversions;
 import org.thoughtcrime.securesms.util.SqlUtil;
-import org.thoughtcrime.securesms.util.Util;
 import org.whispersystems.libsignal.kdf.HKDFv3;
 import org.whispersystems.libsignal.util.ByteUtil;
 
@@ -238,11 +238,11 @@ public class FullBackupImporter extends FullBackupBase {
         this.in = in;
 
         byte[] headerLengthBytes = new byte[4];
-        Util.readFully(in, headerLengthBytes);
+        StreamUtil.readFully(in, headerLengthBytes);
 
         int headerLength = Conversions.byteArrayToInt(headerLengthBytes);
         byte[] headerFrame = new byte[headerLength];
-        Util.readFully(in, headerFrame);
+        StreamUtil.readFully(in, headerFrame);
 
         BackupFrame frame = BackupFrame.parseFrom(headerFrame);
 
@@ -314,7 +314,7 @@ public class FullBackupImporter extends FullBackupBase {
         byte[] theirMac = new byte[10];
 
         try {
-          Util.readFully(in, theirMac);
+          StreamUtil.readFully(in, theirMac);
         } catch (IOException e) {
           throw new IOException(e);
         }
@@ -330,10 +330,10 @@ public class FullBackupImporter extends FullBackupBase {
     private BackupFrame readFrame(InputStream in) throws IOException {
       try {
         byte[] length = new byte[4];
-        Util.readFully(in, length);
+        StreamUtil.readFully(in, length);
 
         byte[] frame = new byte[Conversions.byteArrayToInt(length)];
-        Util.readFully(in, frame);
+        StreamUtil.readFully(in, frame);
 
         byte[] theirMac = new byte[10];
         System.arraycopy(frame, frame.length - 10, theirMac, 0, theirMac.length);

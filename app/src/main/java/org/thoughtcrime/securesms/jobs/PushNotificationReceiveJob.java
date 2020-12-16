@@ -1,15 +1,16 @@
 package org.thoughtcrime.securesms.jobs;
 
 import android.content.Context;
+
 import androidx.annotation.NonNull;
 
+import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
-import org.thoughtcrime.securesms.messages.BackgroundMessageRetriever;
-import org.thoughtcrime.securesms.messages.RestStrategy;
 import org.thoughtcrime.securesms.jobmanager.Data;
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
-import org.thoughtcrime.securesms.logging.Log;
+import org.thoughtcrime.securesms.messages.BackgroundMessageRetriever;
+import org.thoughtcrime.securesms.messages.RestStrategy;
 import org.whispersystems.signalservice.api.push.exceptions.PushNetworkException;
 
 import java.io.IOException;
@@ -25,7 +26,7 @@ public class PushNotificationReceiveJob extends BaseJob {
                            .addConstraint(NetworkConstraint.KEY)
                            .setQueue("__notification_received")
                            .setMaxAttempts(3)
-                           .setMaxInstances(1)
+                           .setMaxInstancesForFactory(1)
                            .build());
     setContext(context);
   }

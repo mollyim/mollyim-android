@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import androidx.annotation.AttrRes;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,7 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.annimon.stream.Stream;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-import org.thoughtcrime.securesms.ClearProfileAvatarActivity;
+import org.thoughtcrime.securesms.ClearAvatarPromptActivity;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.permissions.Permissions;
 import org.thoughtcrime.securesms.util.ThemeUtil;
@@ -147,8 +146,8 @@ public class AvatarSelectionBottomSheetDialogFragment extends BottomSheetDialogF
       case GALLERY:
         return AvatarSelectionActivity.getIntentForGallery(context);
       case DELETE:
-        return isGroup ? ClearProfileAvatarActivity.createForGroupProfilePhoto()
-                       : ClearProfileAvatarActivity.createForUserProfilePhoto();
+        return isGroup ? ClearAvatarPromptActivity.createForGroupProfilePhoto()
+                       : ClearAvatarPromptActivity.createForUserProfilePhoto();
       default:
         throw new IllegalStateException("Unknown option: " + selectionOption);
     }

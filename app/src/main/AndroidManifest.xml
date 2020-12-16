@@ -111,7 +111,7 @@
     <meta-data android:name="firebase_messaging_auto_init_enabled" android:value="false" />
 
     <activity android:name=".WebRtcCallActivity"
-              android:theme="@style/TextSecure.LightTheme.WebRTCCall"
+              android:theme="@style/TextSecure.DarkTheme.WebRTCCall"
               android:excludeFromRecents="true"
               android:screenOrientation="portrait"
               android:supportsPictureInPicture="true"
@@ -262,7 +262,6 @@
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize" />
 
     <activity android:name=".messagedetails.MessageDetailsActivity"
-              android:label="@string/AndroidManifest__message_details"
               android:windowSoftInputMode="stateHidden"
               android:launchMode="singleTask"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
@@ -354,7 +353,6 @@
                android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
 
     <activity android:name=".logsubmit.SubmitDebugLogActivity"
-              android:label="@string/AndroidManifest__log_submit"
               android:windowSoftInputMode="stateHidden"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
 
@@ -437,17 +435,11 @@
             android:windowSoftInputMode="adjustResize"
             android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
 
-    <activity android:name=".ClearProfileAvatarActivity"
-            android:theme="@style/Theme.AppCompat.Dialog.Alert"
-            android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
-            android:icon="@drawable/clear_profile_avatar"
-            android:label="@string/AndroidManifest_remove_photo">
-
-        <intent-filter>
-            <action android:name="org.thoughtcrime.securesms.action.CLEAR_PROFILE_PHOTO"/>
-            <category android:name="android.intent.category.DEFAULT"/>
-        </intent-filter>
-    </activity>
+    <activity android:name=".ClearAvatarPromptActivity"
+              android:theme="@style/Theme.AppCompat.Dialog.Alert"
+              android:icon="@drawable/clear_profile_avatar"
+              android:label="@string/AndroidManifest_remove_photo"
+              android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
 
     <activity android:name=".contacts.TurnOffContactJoinedNotificationsActivity"
               android:theme="@style/Theme.AppCompat.Dialog.Alert" />
@@ -723,13 +715,6 @@
     </receiver>
 
     <uses-library android:name="org.apache.http.legacy" android:required="false"/>
-
-    <uses-library android:name="com.sec.android.app.multiwindow" android:required="false"/>
-    <meta-data android:name="com.sec.android.support.multiwindow" android:value="true" />
-    <meta-data android:name="com.sec.android.multiwindow.DEFAULT_SIZE_W" android:value="632.0dip" />
-    <meta-data android:name="com.sec.android.multiwindow.DEFAULT_SIZE_H" android:value="598.0dip" />
-    <meta-data android:name="com.sec.android.multiwindow.MINIMUM_SIZE_W" android:value="632.0dip" />
-    <meta-data android:name="com.sec.android.multiwindow.MINIMUM_SIZE_H" android:value="598.0dip" />
 
 </application>
 </manifest>

@@ -12,9 +12,6 @@ public interface JobStorage {
   void init();
 
   @WorkerThread
-  void flush();
-
-  @WorkerThread
   void insertJobs(@NonNull List<FullSpec> fullSpecs);
 
   @WorkerThread
@@ -30,7 +27,10 @@ public interface JobStorage {
   @NonNull List<JobSpec> getJobsInQueue(@NonNull String queue);
 
   @WorkerThread
-  int getJobInstanceCount(@NonNull String factoryKey);
+  int getJobCountForFactory(@NonNull String factoryKey);
+
+  @WorkerThread
+  int getJobCountForQueue(@NonNull String queueKey);
 
   @WorkerThread
   void updateJobRunningState(@NonNull String id, boolean isRunning);

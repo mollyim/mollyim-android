@@ -13,8 +13,7 @@ import androidx.annotation.WorkerThread;
 import com.annimon.stream.Stream;
 import com.google.protobuf.InvalidProtocolBufferException;
 
-import net.sqlcipher.database.SQLiteDatabase;
-
+import org.signal.core.util.logging.Log;
 import org.signal.storageservice.protos.groups.AccessControl;
 import org.signal.storageservice.protos.groups.Member;
 import org.signal.storageservice.protos.groups.local.DecryptedGroup;
@@ -25,7 +24,6 @@ import org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper;
 import org.thoughtcrime.securesms.groups.GroupAccessControl;
 import org.thoughtcrime.securesms.groups.GroupId;
 import org.thoughtcrime.securesms.groups.GroupMigrationMembershipChange;
-import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.tracing.Trace;
@@ -509,9 +507,10 @@ public final class GroupDatabase extends Database {
 
       List<RecipientId> newMembers     = Stream.of(DecryptedGroupUtil.membersToUuidList(decryptedGroup.getMembersList())).map(u -> RecipientId.from(u, null)).toList();
       List<RecipientId> pendingMembers = Stream.of(DecryptedGroupUtil.pendingToUuidList(decryptedGroup.getPendingMembersList())).map(u -> RecipientId.from(u, null)).toList();
-      List<RecipientId> droppedMembers = new ArrayList<>(SetUtil.difference(record.getMembers(), newMembers));
 
       newMembers.addAll(pendingMembers);
+
+      List<RecipientId> droppedMembers = new ArrayList<>(SetUtil.difference(record.getMembers(), newMembers));
 
       if (droppedMembers.size() > 0) {
         contentValues.put(FORMER_V1_MEMBERS, RecipientId.toSerializedList(record.getMembers()));

@@ -5,6 +5,7 @@ import android.Manifest;
 
 import androidx.annotation.NonNull;
 
+import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.backup.BackupFileIOError;
@@ -18,7 +19,6 @@ import org.thoughtcrime.securesms.jobmanager.Data;
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobmanager.JobManager;
 import org.thoughtcrime.securesms.jobmanager.impl.ChargingConstraint;
-import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.permissions.Permissions;
 import org.thoughtcrime.securesms.service.GenericForegroundService;
@@ -47,7 +47,7 @@ public final class LocalBackupJob extends BaseJob {
     JobManager         jobManager = ApplicationDependencies.getJobManager();
     Parameters.Builder parameters = new Parameters.Builder()
                                                   .setQueue(QUEUE)
-                                                  .setMaxInstances(1)
+                                                  .setMaxInstancesForFactory(1)
                                                   .setMaxAttempts(3);
     if (force) {
       jobManager.cancelAllInQueue(QUEUE);
