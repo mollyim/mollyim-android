@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -38,13 +39,13 @@ public class EncryptedPreferences implements SharedPreferences {
   private MasterSecret masterSecret;
   private MasterCipher masterCipher;
 
-  private final List<OnSharedPreferenceChangeListener> listeners;
+  private final CopyOnWriteArrayList<OnSharedPreferenceChangeListener> listeners;
 
-  public EncryptedPreferences(@NonNull String fileName,
-                              @NonNull SharedPreferences sharedPreferences) {
+  private EncryptedPreferences(@NonNull String fileName,
+                               @NonNull SharedPreferences sharedPreferences) {
     this.fileName          = fileName;
     this.sharedPreferences = sharedPreferences;
-    this.listeners         = new ArrayList<>();
+    this.listeners         = new CopyOnWriteArrayList<>();
   }
 
   @NonNull
@@ -375,7 +376,7 @@ public class EncryptedPreferences implements SharedPreferences {
         buffer.position(0);
         int typeId = buffer.getInt();
         EncryptedType type = EncryptedType.fromId(typeId);
-        switch (type) {
+        switch (Objects.requireNonNull(type)) {
           case STRING:
             int stringLength = buffer.getInt();
             ByteBuffer stringSlice = buffer.slice();
