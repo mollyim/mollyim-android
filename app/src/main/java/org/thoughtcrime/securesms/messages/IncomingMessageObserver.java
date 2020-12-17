@@ -270,6 +270,7 @@ public class IncomingMessageObserver {
       builder.setContentTitle(getApplicationContext().getString(R.string.MessageRetrievalService_signal));
       builder.setContentText(getApplicationContext().getString(R.string.MessageRetrievalService_background_connection_enabled));
       builder.setPriority(NotificationCompat.PRIORITY_MIN);
+      builder.setCategory(NotificationCompat.CATEGORY_SERVICE);
       builder.setWhen(0);
       builder.setSmallIcon(R.drawable.ic_signal_background_connection);
       startForeground(FOREGROUND_ID, builder.build());

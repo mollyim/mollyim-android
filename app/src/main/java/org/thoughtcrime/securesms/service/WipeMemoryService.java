@@ -2,7 +2,6 @@ package org.thoughtcrime.securesms.service;
 
 import android.app.ActivityManager;
 import android.app.IntentService;
-import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -187,14 +186,17 @@ public class WipeMemoryService extends IntentService {
     Intent intent = new Intent(this, MainActivity.class);
     PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
     notification = new NotificationCompat.Builder(this, NotificationChannels.LOCKED_STATUS)
-        .setContentTitle(this.getString(R.string.WipeMemoryService_secure_wipe_in_progress))
-        .setContentText(this.getString(R.string.WipeMemoryService_molly_is_clearing_secrets))
-        .setStyle(new NotificationCompat.BigTextStyle().bigText(this.getString(R.string.WipeMemoryService_molly_is_clearing_secrets)))
+        .setOngoing(true)
+        .setContentTitle(getString(R.string.WipeMemoryService_secure_wipe_in_progress))
+        .setContentText(getString(R.string.WipeMemoryService_molly_is_clearing_secrets))
+        .setStyle(new NotificationCompat.BigTextStyle().bigText(getString(R.string.WipeMemoryService_molly_is_clearing_secrets)))
         .setSmallIcon(R.drawable.ic_notification)
+        .setColor(getResources().getColor(R.color.core_ultramarine))
         .setContentIntent(pendingIntent)
         .setShowWhen(false)
         .setProgress(0, 0, true)
-        .setPriority(Notification.PRIORITY_MIN);
+        .setPriority(NotificationCompat.PRIORITY_MIN)
+        .setCategory(NotificationCompat.CATEGORY_PROGRESS);
     startForeground(NOTIFICATION_ID, notification.build());
   }
 

@@ -18,7 +18,6 @@ package org.thoughtcrime.securesms.service;
 
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
-import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -247,9 +246,11 @@ public class KeyCachingService extends Service {
 
     builder.setContentTitle(getString(R.string.KeyCachingService_passphrase_cached));
     builder.setContentText(getString(R.string.KeyCachingService_signal_passphrase_cached));
-    builder.setSmallIcon(R.drawable.icon_cached);
+    builder.setSmallIcon(R.drawable.ic_notification);
+    builder.setColor(getResources().getColor(R.color.core_ultramarine));
     builder.setWhen(0);
-    builder.setPriority(Notification.PRIORITY_MIN);
+    builder.setPriority(NotificationCompat.PRIORITY_LOW);
+    builder.setCategory(NotificationCompat.CATEGORY_STATUS);
 
     builder.addAction(R.drawable.ic_menu_lock_dark, getString(R.string.KeyCachingService_lock), buildLockIntent());
     builder.setContentIntent(buildLaunchIntent());
