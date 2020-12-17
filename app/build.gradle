@@ -37,6 +37,12 @@ repositories {
         }
     }
     maven {
+        url "https://dl.bintray.com/mollyim/maven"
+        content {
+            includeModule 'im.molly', 'ringrtc-android'
+        }
+    }
+    maven {
         url 'https://dl.bintray.com/amulyakhare/maven'
         content {
             includeModule 'com.amulyakhare:com.amulyakhare', 'textdrawable'
@@ -346,12 +352,13 @@ dependencies {
     implementation project(':libsignal-service')
     implementation project(':paging')
     implementation project(':core-util')
+    freeImplementation project(':libfakegms')
     implementation 'org.signal:zkgroup-android:0.7.0'
     implementation 'org.whispersystems:signal-client-android:0.1.5'
     implementation 'com.google.protobuf:protobuf-javalite:3.10.0'
     implementation 'im.molly:argon2:13.1-1@aar'
 
-    implementation 'org.signal:ringrtc-android:2.8.7'
+    implementation 'im.molly:ringrtc-android:2.8.7-1'
 
     implementation "me.leolin:ShortcutBadger:1.1.16"
     implementation 'se.emilsjolander:stickylistheaders:2.7.0'
@@ -397,8 +404,6 @@ dependencies {
     implementation 'dnsjava:dnsjava:2.1.9'
 
     implementation 'me.gosimple:nbvcxz:1.4.3'
-
-    freeImplementation project(':libfakegms')
 
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.assertj:assertj-core:3.11.1'

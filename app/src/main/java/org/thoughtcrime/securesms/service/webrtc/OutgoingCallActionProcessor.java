@@ -115,6 +115,7 @@ public class OutgoingCallActionProcessor extends DeviceAwareActionProcessor {
                                                 callParticipant.getVideoSink(),
                                                 videoState.requireCamera(),
                                                 iceServers,
+                                                null,
                                                 isAlwaysTurn,
                                                 currentState.getCallSetupState().isEnableVideoOnCreate());
     } catch (CallException e) {

@@ -89,6 +89,7 @@ public class IncomingCallActionProcessor extends DeviceAwareActionProcessor {
                                                 callParticipant.getVideoSink(),
                                                 videoState.requireCamera(),
                                                 iceServers,
+                                                null,
                                                 hideIp,
                                                 false);
     } catch (CallException e) {
