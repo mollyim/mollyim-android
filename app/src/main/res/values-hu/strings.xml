@@ -130,7 +130,7 @@
   <string name="CameraContacts_no_signal_contacts">Nincs Signal kontakt</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">A kamera gombbal csak Signal kontaktoknak küldhetsz fotókat.</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">Nem találod, akit keresel?</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">Hívd meg egy ismerősödet Signal-ra!</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">Hívd meg egy ismerősödet Molly-ra!</string>
   <string name="CameraContacts__menu_search">Keresés</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">Eltávolítás</string>
@@ -313,7 +313,7 @@
   <string name="ConversationFragment__d_group_members_have_the_same_name">A csoport %1$d tagjának megegyezik a neve.</string>
   <string name="ConversationFragment__tap_to_review">Koppints az áttekintéshez</string>
   <string name="ConversationFragment__review_requests_carefully">Gondosan nézd át a kéréseket</string>
-  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">A Signal talált egy másik, azonos nevű kontaktot.</string>
+  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">A Molly talált egy másik, azonos nevű kontaktot.</string>
   <!--ConversationListActivity-->
   <string name="ConversationListActivity_there_is_no_browser_installed_on_your_device">Nincs böngésző telepítve a készülékedre.</string>
   <!--ConversationListFragment-->
@@ -375,11 +375,11 @@
   <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Ellenőrzi, hogy a biztonsági mentés jelmondata megfelelő-e</string>
   <string name="BackupsPreferenceFragment__turn_on">Bekapcsolás</string>
   <string name="BackupsPreferenceFragment__turn_off">Kikapcsolás</string>
-  <string name="BackupsPreferenceFragment__to_restore_a_backup">Egy biztonsági mentés visszaállításához először is telepítsd a Signalt! Nyisd meg az alkalmazást, koppints a \"Biztonsági mentés visszaállítása\" feliratra, majd keresd ki a biztonsági mentést tartalmazó fájlt! %1$s</string>
+  <string name="BackupsPreferenceFragment__to_restore_a_backup">Egy biztonsági mentés visszaállításához először is telepítsd a Mollyt! Nyisd meg az alkalmazást, koppints a \"Biztonsági mentés visszaállítása\" feliratra, majd keresd ki a biztonsági mentést tartalmazó fájlt! %1$s</string>
   <string name="BackupsPreferenceFragment__learn_more">További információ</string>
   <string name="BackupsPreferenceFragment__in_progress">Folyamatban…</string>
   <string name="BackupsPreferenceFragment__d_so_far">%1$d eddig…</string>
-  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">A Signal-nak külső tárhely engedélyre van szüksége ahhoz, hogy biztonsági mentést hozzon létre, de ez jelenleg meg van tagadva. Kérlek menj az alkalmazás-beállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Tárhely\"-t.</string>
+  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">A Molly-nak külső tárhely engedélyre van szüksége ahhoz, hogy biztonsági mentést hozzon létre, de ez jelenleg meg van tagadva. Kérlek menj az alkalmazás-beállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Tárhely\"-t.</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Egyéni használata: %s</string>
   <string name="CustomDefaultPreference_using_default">Alapértelmezett használata: %s</string>
@@ -443,7 +443,7 @@
   <string name="GcmBroadcastReceiver_retrieving_a_message">Üzenet letöltése…</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Elhúzódó Signal kommunikációs hiba!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">A Signal nem tudott beregisztrálni a Google Play Szolgáltatásokra. A Signal üzenetek és hívások ezért le lettek tiltva. Kérlek próbálj meg újraregisztrálni a Beállítások &gt; Haladó-ban!</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">A Molly nem tudott beregisztrálni a Google Play Szolgáltatásokra. A Molly üzenetek és hívások ezért le lettek tiltva. Kérlek próbálj meg újraregisztrálni a Beállítások &gt; Haladó-ban!</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">Hiba történt a teljes felbontású GIF letöltése során</string>
   <!--GiphyFragmentPageAdapter-->
@@ -1140,10 +1140,10 @@
   </plurals>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">Add meg a jelmondatot</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Signal ikon</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Molly ikon</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">Jelmondat küldése</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Érvénytelen jelmondat!</string>
-  <string name="PassphrasePromptActivity_unlock_signal">Signal feloldása</string>
+  <string name="PassphrasePromptActivity_unlock_signal">Molly feloldása</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">Térkép</string>
   <string name="PlacePickerActivity_not_a_valid_address">Érvénytelen cím</string>
@@ -1213,8 +1213,8 @@ Kérlek telepítsd újra a Google Play Szolgáltatásokat, majd próbáld újra!
   <string name="RedPhone_got_it">Rendben</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Koppintsd ide a videókép bekapcsolásához</string>
-  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">%1$s hívásához a Signalnak hozzá kell férnie kamerádhoz</string>
-  <string name="WebRtcCallActivity__signal_s">Signal %1$s</string>
+  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">%1$s hívásához a Mollynak hozzá kell férnie kamerádhoz</string>
+  <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
   <string name="WebRtcCallActivity__calling">Hívás…</string>
   <string name="WebRtcCallActivity__group_call">Csoporthívás</string>
   <!--WebRtcCallView-->
@@ -1263,7 +1263,7 @@ telefonszámodat!
 szám (%s) érvénytelen.
  </string>
   <string name="RegistrationActivity_missing_google_play_services">Hiányzó Google Play Szolgáltatások</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Ezen a készüléken hiányzik a Google Play Szolgáltatások. Továbbra is használhatod a Signal-t, de ez a konfiguráció csökkent megbízhatóságot vagy teljesítményt eredményezhet.\n\nHa nem egy hozzáértő felhasználó vagy, aki egy utángyártott Android ROM-ot futtat, vagy ez egy hibának tűnik neked, akkor kérlek vedd fel a kapcsolatot a probléma megoldása érdekében a support@signal.org -gal.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Ezen a készüléken hiányzik a Google Play Szolgáltatások. Továbbra is használhatod a Molly-t, de ez a konfiguráció csökkent megbízhatóságot vagy teljesítményt eredményezhet.\n\nHa nem egy hozzáértő felhasználó vagy, aki egy utángyártott Android ROM-ot futtat, vagy ez egy hibának tűnik neked, akkor kérlek vedd fel a kapcsolatot a probléma megoldása érdekében a support@molly.im -gal.</string>
   <string name="RegistrationActivity_i_understand">Megértettem</string>
   <string name="RegistrationActivity_play_services_error">Play Szolgáltatások hiba</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">A Google Play Szolgáltatások épp frissítés alatt áll, vagy átmenetileg nem elérhető. Kérlek próbáld újra.</string>
@@ -1313,12 +1313,12 @@ szám (%s) érvénytelen.
   <string name="SearchFragment_header_messages">Üzenetek</string>
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">Hozzáadás a Névjegyzékhez</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Meghívás a Signal-ba</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Meghívás a Molly-ba</string>
   <string name="SharedContactDetailsActivity_signal_message">Signal üzenet</string>
   <string name="SharedContactDetailsActivity_signal_call">Signal hívás</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">Hozzáadás a névjegyzékhez</string>
-  <string name="SharedContactView_invite_to_signal">Meghívás a Signal-ba</string>
+  <string name="SharedContactView_invite_to_signal">Meghívás a Molly-ba</string>
   <string name="SharedContactView_message">Signal üzenet</string>
   <!--SignalPinReminders-->
   <string name="SignalPinReminders_well_remind_you_again_later">Később újra emlékeztetünk.</string>
@@ -1524,7 +1524,7 @@ Kulcs-csere üzenet érkezett érvénytelen protokoll verzióhoz.
   <string name="ProfileEditNameFragment_successfully_set_profile_name">A profilnév beállítása sikerült.</string>
   <string name="ProfileEditNameFragment_encountered_a_network_error">Hálózati hiba történt.</string>
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">A gyors válasz nem érhető el, ha a Signal zárolva van!</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">A gyors válasz nem érhető el, ha a Molly zárolva van!</string>
   <string name="QuickResponseService_problem_sending_message">Probléma lépett fel az üzenet küldése során!</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">Mentve ide: %s</string>
@@ -1535,7 +1535,7 @@ Kulcs-csere üzenet érkezett érvénytelen protokoll verzióhoz.
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">Érvénytelen parancsikon</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Új üzenet</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">Videó lejátszása</string>
@@ -1607,7 +1607,7 @@ Kulcs-csere üzenet érkezett érvénytelen protokoll verzióhoz.
   <string name="change_passphrase_activity__repeat_new_passphrase">Új jelmondat megismétlése</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">Adj meg nevet vagy számot</string>
-  <string name="contact_selection_activity__invite_to_signal">Meghívás a Signal-ba</string>
+  <string name="contact_selection_activity__invite_to_signal">Meghívás a Molly-ba</string>
   <string name="contact_selection_activity__new_group">Új csoport</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">Beírt szöveg törlése</string>
@@ -1824,7 +1824,7 @@ Kulcs-csere üzenet érkezett érvénytelen protokoll verzióhoz.
   <string name="redphone_call_card__signal_call">Signal hívás</string>
   <!--registration_activity-->
   <string name="registration_activity__phone_number">TELEFONSZÁM</string>
-  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">A Signal jelenlegi telefonszámod és címjegyzéked felhasználásával adatainak egyszerűvé teszi a kommunikációt. Azon barátaid és ismerőseid, akik már tudják, hogy hogyan érhetnek el telefonon, a jövőben Signal-on is könnyedén megtalálnak.\n\nA regisztráció során néhány névjegyadat is továbbításra kerül a kiszolgálónak. Az adatokat nem tároljuk.</string>
+  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">A Molly jelenlegi telefonszámod és címjegyzéked felhasználásával adatainak egyszerűvé teszi a kommunikációt. Azon barátaid és ismerőseid, akik már tudják, hogy hogyan érhetnek el telefonon, a jövőben Molly-on is könnyedén megtalálnak.\n\nA regisztráció során néhány névjegyadat is továbbításra kerül a kiszolgálónak. Az adatokat nem tároljuk.</string>
   <string name="registration_activity__verify_your_number">Telefonszám ellenőrzése</string>
   <string name="registration_activity__please_enter_your_mobile_number_to_receive_a_verification_code_carrier_rates_may_apply">Kérlek add meg telefonszámod az ellenőrző kód elküldéséhez! Szolgáltatói költségek felmerülhetnek.</string>
   <!--recipients_panel-->
@@ -2184,10 +2184,10 @@ Kulcs-csere üzenet érkezett érvénytelen protokoll verzióhoz.
   <string name="reminder_header_sms_import_text">Koppints a telefonod SMS üzeneteinek átmásolásához a Signal titkosított adatbázisába!</string>
   <string name="reminder_header_push_title">Signal üzenetek és hívások engedélyezése</string>
   <string name="reminder_header_push_text">Tedd jobbá kommunikációs élményedet!</string>
-  <string name="reminder_header_invite_title">Meghívás Signal-ba</string>
+  <string name="reminder_header_invite_title">Meghívás Molly-ba</string>
   <string name="reminder_header_invite_text">Hívd meg %1$s-t, hogy kommunikációtok a következő szintre léphessen!</string>
   <string name="reminder_header_share_title">Hívd meg barátaidat!</string>
-  <string name="reminder_header_share_text">Minél több barátod használja a Signal-t, annál jobbá válik.</string>
+  <string name="reminder_header_share_text">Minél több barátod használja a Molly-t, annál jobbá válik.</string>
   <string name="reminder_header_service_outage_text">A Signal technikai nehézségekkel küzd. Keményen dolgozunk azért, hogy a lehető leghamarabb visszaállítsuk a szolgáltatást.</string>
   <string name="reminder_header_the_latest_signal_features_wont_work">A legújabb Signal funkciók nem fognak működni a jelenleg futó Android verzión. Kérlek frissítsd az eszközt annak érdekében, hogy a jövőben is hozzáférhess a Signal legújabb frissítéseihez!</string>
   <string name="reminder_header_progress">%1$d%%</string>
@@ -2338,7 +2338,7 @@ Kulcs-csere üzenet érkezett érvénytelen protokoll verzióhoz.
   <string name="ConversationActivity_signal_needs_sms_permission_in_order_to_send_an_sms">A Signal-nak szüksége van az SMS engedélyre annak érdekében, hogy képes legyen SMS-t küldeni, de ez jelenleg nincs megadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd az \"SMS\"-t.</string>
   <string name="Permissions_continue">Folytatás</string>
   <string name="Permissions_not_now">Most nem</string>
-  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">A Signal-nak szüksége van a Névjegyek engedélyre annak érdekében, hogy átkutassa a névjegyeid, de ez jelenleg nincs megadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Névjegyek\"-et.</string>
+  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">A Molly-nak szüksége van a Névjegyek engedélyre annak érdekében, hogy átkutassa a névjegyeid, de ez jelenleg nincs megadva. Kérlek menj az alkalmazásbeállításokhoz, válaszd az \"Engedélyek\"-et és engedélyezd a \"Névjegyek\"-et.</string>
   <string name="conversation_activity__enable_signal_messages">SIGNAL ÜZENETEK ENGEDÉLYEZÉSE</string>
   <string name="SQLCipherMigrationHelper_migrating_signal_database">Signal adatbázis migrálása</string>
   <string name="PushDecryptJob_new_locked_message">Új zárolt üzenet</string>
@@ -2493,7 +2493,7 @@ Kulcs-csere üzenet érkezett érvénytelen protokoll verzióhoz.
   <string name="GroupsLearnMore_paragraph_2">A régi típusú csoportokat még nem lehet új típusúvá alakítani, viszont lehetőséged van egy új típusú csoport létrehozására a régivel megegyező csoporttagsággal, amennyiben a tagok rendelkeznek a Signal legújabb verziójával.</string>
   <string name="GroupsLearnMore_paragraph_3">A Signal a jövőben lehetővé fogja tenni a régi típusú csoportok átalakítását új típusúvá.</string>
   <!--GroupLinkBottomSheetDialogFragment-->
-  <string name="GroupLinkBottomSheet_share_via_signal">Megosztás Signallal</string>
+  <string name="GroupLinkBottomSheet_share_via_signal">Megosztás Mollylal</string>
   <string name="GroupLinkBottomSheet_copy">Másolás</string>
   <string name="GroupLinkBottomSheet_qr_code">QR kód</string>
   <string name="GroupLinkBottomSheet_share">Megosztás</string>

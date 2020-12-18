@@ -115,7 +115,7 @@
   <string name="CameraContacts_no_signal_contacts">Tidak ada kontak Signal</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">Anda hanya dapat menggunakan tombol kamera ini untuk mengirim foto-foto ke kontak Signal.</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">Tidak dapat menemukan kontak yang Anda cari?</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">Undang kontak untuk bergabung dengan Signal</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">Undang kontak untuk bergabung dengan Molly</string>
   <string name="CameraContacts__menu_search">Pencarian</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">Hapus</string>
@@ -323,7 +323,7 @@
   <string name="BackupsPreferenceFragment__turn_on">Nyalakan</string>
   <string name="BackupsPreferenceFragment__turn_off">Matikan</string>
   <string name="BackupsPreferenceFragment__learn_more">Pelajari lebih lanjut</string>
-  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal memerlukan izin penyimpanan eksternal untuk membuat cadangan, tetapi saat ini izin ditolak secara permanen. Harap lanjutkan ke menu pengaturan aplikasi, pilih \"Izin\", dan aktifkan \"Penyimpanan\".</string>
+  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly memerlukan izin penyimpanan eksternal untuk membuat cadangan, tetapi saat ini izin ditolak secara permanen. Harap lanjutkan ke menu pengaturan aplikasi, pilih \"Izin\", dan aktifkan \"Penyimpanan\".</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Gunakan pilihan khusus: %s</string>
   <string name="CustomDefaultPreference_using_default">Gunakan pilihan standar: %s</string>
@@ -371,7 +371,7 @@
   <string name="GcmBroadcastReceiver_retrieving_a_message">Mengambil pesan…</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Kegagalan komunikasi Signal permanen!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal tidak dapat melakukan registrasi melalui Google Play Services. Fitur Signal seperti pesan dan panggilan dinonaktifkan, mohon registrasi ulang melalui Pengaturan &gt; Lanjutan.</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly tidak dapat melakukan registrasi melalui Google Play Services. Fitur Molly seperti pesan dan panggilan dinonaktifkan, mohon registrasi ulang melalui Pengaturan &gt; Lanjutan.</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">Kesalahan saat mengambil berkas GIF dengan resolusi penuh</string>
   <!--GiphyFragmentPageAdapter-->
@@ -724,10 +724,10 @@
   <!--OutdatedBuildReminder-->
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">Masukkan frasa sandi</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Ikon Signal</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Ikon Molly</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">Kirim frasa sandi</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Frasa sandi tidak valid!</string>
-  <string name="PassphrasePromptActivity_unlock_signal">Buka kunci Signal</string>
+  <string name="PassphrasePromptActivity_unlock_signal">Buka kunci Molly</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">Peta</string>
   <string name="PlacePickerActivity_not_a_valid_address">Alamat tidak valid</string>
@@ -782,8 +782,8 @@
   <string name="RedPhone_got_it">Paham</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Ketuk di sini untuk menyalakan video Anda</string>
-  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Untuk menelepon %1$s, Signal memerlukan akses kamera Anda</string>
-  <string name="WebRtcCallActivity__signal_s">Signal %1$s</string>
+  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Untuk menelepon %1$s, Molly memerlukan akses kamera Anda</string>
+  <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
   <string name="WebRtcCallActivity__calling">Panggilan…</string>
   <!--WebRtcCallView-->
   <string name="WebRtcCallView__signal_voice_call">Panggilan suara Signal…</string>
@@ -802,7 +802,7 @@
 isikan (%s) tidak valid.
 </string>
   <string name="RegistrationActivity_missing_google_play_services">Google Play Services tidak ditemukan</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Perangkat ini tidak memiliki Google Play Services. Anda tetap dapat menggunakan Signal, namun pengaturan ini bisa mengakibatkan berkurangnya keandalan dan kinerja Signal.\n\nJika Anda bukan pengguna tingkat lanjut, tidak menjalankan Android ROM setelah pembelian, atau yakin yang Anda lihat ini adalah sebuah kekeliruan, mohon menghubungi  support@signal.org untuk membantu penyelesaian masalah.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Perangkat ini tidak memiliki Google Play Services. Anda tetap dapat menggunakan Molly, namun pengaturan ini bisa mengakibatkan berkurangnya keandalan dan kinerja Molly.\n\nJika Anda bukan pengguna tingkat lanjut, tidak menjalankan Android ROM setelah pembelian, atau yakin yang Anda lihat ini adalah sebuah kekeliruan, mohon menghubungi  support@molly.im untuk membantu penyelesaian masalah.</string>
   <string name="RegistrationActivity_i_understand">Saya mengerti</string>
   <string name="RegistrationActivity_play_services_error">Play Services gagal</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Services diperbarui atau untuk sementara tidak tersedia. Silahkan coba lagi.</string>
@@ -849,12 +849,12 @@ isikan (%s) tidak valid.
   <string name="SearchFragment_header_messages">Pesan</string>
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">Tambahkan ke Kontak</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Undang ke Signal</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Undang ke Molly</string>
   <string name="SharedContactDetailsActivity_signal_message">Pesan Signal</string>
   <string name="SharedContactDetailsActivity_signal_call">Panggilan Signal</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">Tambahkan ke Kontak</string>
-  <string name="SharedContactView_invite_to_signal">Undang ke Signal</string>
+  <string name="SharedContactView_invite_to_signal">Undang ke Molly</string>
   <string name="SharedContactView_message">Pesan Signal</string>
   <!--SignalPinReminders-->
   <string name="SignalPinReminders_well_remind_you_again_later">Kami akan mengingatkan Anda lagi nanti.</string>
@@ -1057,7 +1057,7 @@ Menerima pesan pertukaran kunci untuk versi protokol yang tidak valid.
   <string name="ProfileEditNameFragment_successfully_set_profile_name">Nama profil berhasil diterapkan.</string>
   <string name="ProfileEditNameFragment_encountered_a_network_error">Terjadi galat jaringan.</string>
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Tanggapan cepat tidak tersedia ketika Signal sedang dikunci!</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Tanggapan cepat tidak tersedia ketika Molly sedang dikunci!</string>
   <string name="QuickResponseService_problem_sending_message">Terjadi masalah saat mengirim pesan!</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">Disimpan ke %s</string>
@@ -1068,7 +1068,7 @@ Menerima pesan pertukaran kunci untuk versi protokol yang tidak valid.
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">Pintasan tidak valid</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Pesan baru</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">Putar video</string>
@@ -1132,7 +1132,7 @@ Menerima pesan pertukaran kunci untuk versi protokol yang tidak valid.
   <string name="change_passphrase_activity__repeat_new_passphrase">Ulangi frasa sandi baru</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">Masukkan nama atau nomor</string>
-  <string name="contact_selection_activity__invite_to_signal">Undang ke Signal</string>
+  <string name="contact_selection_activity__invite_to_signal">Undang ke Molly</string>
   <string name="contact_selection_activity__new_group">Grup baru</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">Hapus teks yang dimasukkan</string>
@@ -1315,7 +1315,7 @@ Menerima pesan pertukaran kunci untuk versi protokol yang tidak valid.
   <string name="redphone_call_card__signal_call">Panggilan Signal</string>
   <!--registration_activity-->
   <string name="registration_activity__phone_number">NOMOR TELEPON</string>
-  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Signal memudahkan komunikasi dengan menggunakan nomor telepon dan buku alamat yang ada. Teman dan kontak yang sudah tahu cara menghubungi Anda melalui telepon akan dapat dengan mudah menghubungi dengan Signal.\n\nPendaftaran mentransmisikan beberapa informasi kontak ke peladen, tanpa menyimpannya.</string>
+  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Molly memudahkan komunikasi dengan menggunakan nomor telepon dan buku alamat yang ada. Teman dan kontak yang sudah tahu cara menghubungi Anda melalui telepon akan dapat dengan mudah menghubungi dengan Molly.\n\nPendaftaran mentransmisikan beberapa informasi kontak ke peladen, tanpa menyimpannya.</string>
   <string name="registration_activity__verify_your_number">Verifikasi Nomor Anda</string>
   <string name="registration_activity__please_enter_your_mobile_number_to_receive_a_verification_code_carrier_rates_may_apply">Silakan masukkan nomor telepon seluler Anda untuk menerima kode verifikasi. Tarif operator berlaku.</string>
   <!--recipients_panel-->
@@ -1626,10 +1626,10 @@ Menerima pesan pertukaran kunci untuk versi protokol yang tidak valid.
   <string name="reminder_header_sms_import_text">Ketuk untuk menyalin pesan telepon Anda ke dalam basis data Signal yang terenkripsi.</string>
   <string name="reminder_header_push_title">Aktifkan pesan dan panggilan Signal</string>
   <string name="reminder_header_push_text">Tingkatkan pengalaman komunikasi Anda.</string>
-  <string name="reminder_header_invite_title">Undang ke Signal</string>
+  <string name="reminder_header_invite_title">Undang ke Molly</string>
   <string name="reminder_header_invite_text">Bawa percakapan Anda dengan %1$s ke tingkat selanjutnya.</string>
   <string name="reminder_header_share_title">Undang teman Anda!</string>
-  <string name="reminder_header_share_text">Semakin banyak teman menggunakan Signal, semakin lebih baik.</string>
+  <string name="reminder_header_share_text">Semakin banyak teman menggunakan Molly, semakin lebih baik.</string>
   <string name="reminder_header_service_outage_text">Signal mengalami kendala teknis. Kami sedang bekerja keras untuk mengembalikan layanan secepat mungkin.</string>
   <string name="reminder_header_the_latest_signal_features_wont_work">Fitur-fitur terbaru Signal tidak akan bekerja pada Android versi ini. Mohon perbarui perangkat ini untuk menerima pembaruan-pembaruan Signal mendatang.</string>
   <string name="reminder_header_progress">%1$d%%</string>
@@ -1761,7 +1761,7 @@ Menerima pesan pertukaran kunci untuk versi protokol yang tidak valid.
   <string name="ConversationActivity_signal_needs_sms_permission_in_order_to_send_an_sms">Signal memerlukan izin SMS untuk mengirim pesan SMS, namun saat ini izin ditolak secara permanen. Mohon lanjutkan ke pengaturan aplikasi, pilih \"Izin\" dan aktifkan \"SMS\".</string>
   <string name="Permissions_continue">Lanjutkan</string>
   <string name="Permissions_not_now">Nanti saja</string>
-  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Signal memerlukan izin Kontak untuk mencari Kontak Anda, tetapi saat ini izin ditolak secara permanen. Mohon lanjutkan ke pengaturan aplikasi, pilih \"Izin\" dan aktifkan \"Kontak\".</string>
+  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Molly memerlukan izin Kontak untuk mencari Kontak Anda, tetapi saat ini izin ditolak secara permanen. Mohon lanjutkan ke pengaturan aplikasi, pilih \"Izin\" dan aktifkan \"Kontak\".</string>
   <string name="conversation_activity__enable_signal_messages">AKTIFKAN PESAN SIGNAL</string>
   <string name="SQLCipherMigrationHelper_migrating_signal_database">Memindahkan basis data Signal</string>
   <string name="PushDecryptJob_new_locked_message">Pesan terkunci baru</string>

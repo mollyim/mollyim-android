@@ -141,7 +141,7 @@
   <string name="CameraContacts_no_signal_contacts">لا جهات اتصال في Signal</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">يمكنكم استخدام زر الكاميرا لإرسال الصور إلى جهات الاتصال في Signal فقط.</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">لم تجدون من تبحثون عنه؟</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">إرسال دعوة لجهة اتصال للانضمام الى Signal</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">إرسال دعوة لجهة اتصال للانضمام الى Molly</string>
   <string name="CameraContacts__menu_search">بحث</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">إزالة</string>
@@ -414,7 +414,7 @@
   <string name="BackupsPreferenceFragment__turn_on">شغل</string>
   <string name="BackupsPreferenceFragment__turn_off">أطفىء</string>
   <string name="BackupsPreferenceFragment__learn_more">لمعرفة المزيد</string>
-  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">يحتاج Signal إلى إذن سعة التخزين خارجيّة لإنشاء نسخ احتياطية، ولكن تم إيقاف الإذن على نحو دائم. الرجاء زيارة إعدادات التطبيق ثم اختيار \"الأذونات\"، ثم تفعيل \"سعة التخزين\".</string>
+  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">يحتاج Molly إلى إذن سعة التخزين خارجيّة لإنشاء نسخ احتياطية، ولكن تم إيقاف الإذن على نحو دائم. الرجاء زيارة إعدادات التطبيق ثم اختيار \"الأذونات\"، ثم تفعيل \"سعة التخزين\".</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">استخدام التخصيص: %s</string>
   <string name="CustomDefaultPreference_using_default">الاستخدام الافتراضي: %s</string>
@@ -470,7 +470,7 @@
   <string name="GcmBroadcastReceiver_retrieving_a_message">جار استعادة رسالة…</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">فشل دائم في الاتصال ب Signal!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">لم يتمكن Signal من التسجيل عبر خدمات Google Play، وتم تعطيل رسائل ومكالمات Signal. الرجاء محاولة إعادة التسجيل عبر قائمة الإعدادات &gt; ثم اختيار متقدم.</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">لم يتمكن Molly من التسجيل عبر خدمات Google Play، وتم تعطيل رسائل ومكالمات Molly. الرجاء محاولة إعادة التسجيل عبر قائمة الإعدادات &gt; ثم اختيار متقدم.</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">خطأ أثناء جلب كامل دقة صورة GIF</string>
   <!--GiphyFragmentPageAdapter-->
@@ -1099,10 +1099,10 @@
   <string name="OutdatedBuildReminder_update_now">حدِّث الآن</string>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">أدخل العبارة السرية</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">أيقونة Signal</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">أيقونة Molly</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">أدخل العبارة السرية</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">عبارة سرية غير صحيحة!</string>
-  <string name="PassphrasePromptActivity_unlock_signal">فك قفل Signal </string>
+  <string name="PassphrasePromptActivity_unlock_signal">فك قفل Molly </string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">الخريطة</string>
   <string name="PlacePickerActivity_not_a_valid_address">ليس عنوان صالح</string>
@@ -1176,8 +1176,8 @@
   <string name="RedPhone_got_it">عُلم</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">اضغط هنا لتشغيل الفيديو خاصتك. </string>
-  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">للاتصال ب%1$s, يحتاج Signal الصلاحية للوصول إلى الكاميرا</string>
-  <string name="WebRtcCallActivity__signal_s">%1$sSignal</string>
+  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">للاتصال ب%1$s, يحتاج Molly الصلاحية للوصول إلى الكاميرا</string>
+  <string name="WebRtcCallActivity__signal_s">%1$sMolly</string>
   <string name="WebRtcCallActivity__calling">يتم الاتصال…</string>
   <!--WebRtcCallView-->
   <string name="WebRtcCallView__signal_voice_call">مكالمة صوتية على Signal…</string>
@@ -1254,12 +1254,12 @@
   <string name="SearchFragment_header_messages">الرسائل</string>
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">الإضافة إلى جهات الاتصال</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">الدعوة إلى Signal</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">الدعوة إلى Molly</string>
   <string name="SharedContactDetailsActivity_signal_message">رسالة Signal</string>
   <string name="SharedContactDetailsActivity_signal_call">مكالمة Signal</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">الإضافة إلى جهات الاتصال</string>
-  <string name="SharedContactView_invite_to_signal">الدعوة إلى Signal</string>
+  <string name="SharedContactView_invite_to_signal">الدعوة إلى Molly</string>
   <string name="SharedContactView_message">رسالة Signal</string>
   <!--SignalPinReminders-->
   <string name="SignalPinReminders_well_remind_you_again_later">سنعيد تذكيرك لاحقاً.</string>
@@ -1457,7 +1457,7 @@
   <string name="ProfileEditNameFragment_successfully_set_profile_name">تم ضبط اسم الشخصية بنجاح.</string>
   <string name="ProfileEditNameFragment_encountered_a_network_error">حدث خطأ فى الشبكة</string>
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">الردود السريعة غير متاحة عند قفل Signal!</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">الردود السريعة غير متاحة عند قفل Molly!</string>
   <string name="QuickResponseService_problem_sending_message">مشكلة في الإرسال!</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">تم الإحتفاظ به في %s</string>
@@ -1468,7 +1468,7 @@
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">اختصار غير صالح</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">رسالة جديدة</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">شغّل الفيديو</string>
@@ -1541,7 +1541,7 @@
   <string name="change_passphrase_activity__repeat_new_passphrase">إعادة العبارة السرية الجديدة</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">أدخل أسم أو رقم</string>
-  <string name="contact_selection_activity__invite_to_signal">ادعُ إلى Signal</string>
+  <string name="contact_selection_activity__invite_to_signal">ادعُ إلى Molly</string>
   <string name="contact_selection_activity__new_group">مجموعة جديدة</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">امسح النص الذي ادخلته</string>
@@ -2125,10 +2125,10 @@
   <string name="reminder_header_sms_import_text">انقر لنسخ رسائل SMS من على الهاتف إلى قاعدة بيانات Signal المشفرة.</string>
   <string name="reminder_header_push_title">تفعيل رسائل ومكالمات Signal</string>
   <string name="reminder_header_push_text">ترقية التطبيق من أجل تواصل أفضل.</string>
-  <string name="reminder_header_invite_title">دعوة إلى Signal</string>
+  <string name="reminder_header_invite_title">دعوة إلى Molly</string>
   <string name="reminder_header_invite_text">انتقل بالمحادثة مع %1$s  للمستوى التالي.</string>
   <string name="reminder_header_share_title">قم بدعوة أصدقائك!</string>
-  <string name="reminder_header_share_text">كلما ازداد عدد الأصدقاء الذين يستخدمون Signal كلما أصبح Signal أفضل.</string>
+  <string name="reminder_header_share_text">كلما ازداد عدد الأصدقاء الذين يستخدمون Molly كلما أصبح Molly أفضل.</string>
   <string name="reminder_header_service_outage_text">يواجه Signal بعض المشاكل التقنيّة حاليّاً. نعمل بجد لإعادة الخدمة بأسرع وقت ممكن. </string>
   <string name="reminder_header_the_latest_signal_features_wont_work">خصائص Signal الأحدث لن تعمل على هذا الإصدار من Android، يرجى تحديث  الجهاز لتمكين استقبال تحديثات Signal القادمة.</string>
   <string name="reminder_header_progress">%1$d%%</string>
@@ -2301,7 +2301,7 @@
   <string name="ConversationActivity_signal_needs_sms_permission_in_order_to_send_an_sms">يحتاج Signal إلى إذن الرسائل القصيرة SMS من أجل إرسال SMS ولكن تم إيقاف الإذن على نحو دائم. الرجاء زيارة إعدادات التطبيق ثم اختيار \"الأذونات\"، ثم تفعيل \"الرسائل القصيرة SMS\".</string>
   <string name="Permissions_continue">استمرار</string>
   <string name="Permissions_not_now">ليس الآن</string>
-  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">يحتاج Signal إلى أذن الوصول إلى جهات الاتصال من أجل البحث عنها، ولكن تم إيقاف الإذن على نحو دائم. الرجاء زيارة إعدادات التطبيق ثم اختيار \"الأذونات\"، ثم تفعيل \"جهات الاتصال\".</string>
+  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">يحتاج Molly إلى أذن الوصول إلى جهات الاتصال من أجل البحث عنها، ولكن تم إيقاف الإذن على نحو دائم. الرجاء زيارة إعدادات التطبيق ثم اختيار \"الأذونات\"، ثم تفعيل \"جهات الاتصال\".</string>
   <string name="conversation_activity__enable_signal_messages">تفعيل رسائل Signal</string>
   <string name="SQLCipherMigrationHelper_migrating_signal_database">جارٍ نقل قاعدة بيانات Signal</string>
   <string name="PushDecryptJob_new_locked_message">رسالة مُقفلة جديدة</string>

@@ -126,7 +126,7 @@
   <string name="CameraContacts_no_signal_contacts">沒有 Signal 聯絡人</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">你只能使用相機按鈕將照片傳送到 Signal 聯絡人。</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">找不到你要找的人？</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">邀請一個聯絡人來使用 Signal </string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">邀請一個聯絡人來使用 Molly </string>
   <string name="CameraContacts__menu_search">搜尋</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">移除</string>
@@ -301,7 +301,7 @@
   <string name="ConversationFragment__d_group_members_have_the_same_name">%1$d個群組成員有相同的名稱。</string>
   <string name="ConversationFragment__tap_to_review">點按以查看</string>
   <string name="ConversationFragment__review_requests_carefully">仔細審核請求</string>
-  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Signal找到了另一個同名聯絡人。</string>
+  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Molly找到了另一個同名聯絡人。</string>
   <!--ConversationListActivity-->
   <string name="ConversationListActivity_there_is_no_browser_installed_on_your_device">您的裝置上未安裝瀏覽器。</string>
   <!--ConversationListFragment-->
@@ -359,11 +359,11 @@
   <string name="BackupsPreferenceFragment__test_your_backup_passphrase">測試你的備份碼，並驗證其是否相符</string>
   <string name="BackupsPreferenceFragment__turn_on">開啟</string>
   <string name="BackupsPreferenceFragment__turn_off">關閉</string>
-  <string name="BackupsPreferenceFragment__to_restore_a_backup">要回復備份，請安裝新的Signal。 打開應用程式，然後點擊“還原備份”，然後找到一個備份檔案。%1$s</string>
+  <string name="BackupsPreferenceFragment__to_restore_a_backup">要回復備份，請安裝新的Molly。 打開應用程式，然後點擊“還原備份”，然後找到一個備份檔案。%1$s</string>
   <string name="BackupsPreferenceFragment__learn_more">了解更多</string>
   <string name="BackupsPreferenceFragment__in_progress">正在進行中…</string>
   <string name="BackupsPreferenceFragment__d_so_far">%1$d到目前為止…</string>
-  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">為了要建立備份，Signal 需要外部空間的權限，但是已被永久拒絕。請到應用程式設定，選擇「權限」及開啟「儲存」。</string>
+  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">為了要建立備份，Molly 需要外部空間的權限，但是已被永久拒絕。請到應用程式設定，選擇「權限」及開啟「儲存」。</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">使用自訂：%s</string>
   <string name="CustomDefaultPreference_using_default">使用預設：%s</string>
@@ -426,7 +426,7 @@
   <string name="GcmBroadcastReceiver_retrieving_a_message">擷取一則訊息中…</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Signal 持續發生傳輸異常！</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal 無法順利與 Google Play Services 註冊，Signal 訊息與通話已經停用，請嘗試在設定 &gt; 進階中重新註冊。</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly 無法順利與 Google Play Services 註冊，Molly 訊息與通話已經停用，請嘗試在設定 &gt; 進階中重新註冊。</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">在下載完整解析度的 GIF 時發生錯誤</string>
   <!--GiphyFragmentPageAdapter-->
@@ -1080,10 +1080,10 @@
   </plurals>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">輸入自訂密碼</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Signal 圖示</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Molly 圖示</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">送出密碼</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">無效的密碼！</string>
-  <string name="PassphrasePromptActivity_unlock_signal">解鎖 Signal</string>
+  <string name="PassphrasePromptActivity_unlock_signal">解鎖 Molly</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">地圖</string>
   <string name="PlacePickerActivity_not_a_valid_address">非有效的地址</string>
@@ -1151,8 +1151,8 @@
   <string name="RedPhone_got_it">收到</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">輕觸此處以開啟你的視訊</string>
-  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">如要撥電話給 %1$s，Signal 需要存取你的相機</string>
-  <string name="WebRtcCallActivity__signal_s">Signal %1$s</string>
+  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">如要撥電話給 %1$s，Molly 需要存取你的相機</string>
+  <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
   <string name="WebRtcCallActivity__calling">撥號中…</string>
   <string name="WebRtcCallActivity__group_call">群組通話</string>
   <!--WebRtcCallView-->
@@ -1197,7 +1197,7 @@
         號碼 (%s) 是無效的
     </string>
   <string name="RegistrationActivity_missing_google_play_services">找不到 Google Play 服務</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">此裝置缺少 Google Play 服務。你仍然可以使用 Signal，但是此設定可能會降低可靠性或效能。\n\n如果你不是個進階使用者，不是正在執行原廠的 Android ROM，或是你認為你看到的可能是一個錯誤，請聯絡 support@signal.org 來協助你排除故障。</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">此裝置缺少 Google Play 服務。你仍然可以使用 Molly，但是此設定可能會降低可靠性或效能。\n\n如果你不是個進階使用者，不是正在執行原廠的 Android ROM，或是你認為你看到的可能是一個錯誤，請聯絡 support@molly.im 來協助你排除故障。</string>
   <string name="RegistrationActivity_i_understand">我了解</string>
   <string name="RegistrationActivity_play_services_error">Play 服務錯誤</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play 服務正在更新或暫時無法使用。請再重試。</string>
@@ -1246,12 +1246,12 @@
   <string name="SearchFragment_header_messages">訊息</string>
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">新增至連絡人</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">邀請至 Signal</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">邀請至 Molly</string>
   <string name="SharedContactDetailsActivity_signal_message">Signal 訊息</string>
   <string name="SharedContactDetailsActivity_signal_call">Signal 通話</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">新增至連絡人</string>
-  <string name="SharedContactView_invite_to_signal">邀請至 Signal</string>
+  <string name="SharedContactView_invite_to_signal">邀請至 Molly</string>
   <string name="SharedContactView_message">Signal 訊息</string>
   <!--SignalPinReminders-->
   <string name="SignalPinReminders_well_remind_you_again_later">我們稍後會再次提醒你。</string>
@@ -1456,7 +1456,7 @@
   <string name="ProfileEditNameFragment_successfully_set_profile_name">成功設定你的個人資料名稱。</string>
   <string name="ProfileEditNameFragment_encountered_a_network_error">網路連接錯誤</string>
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">當 Signal 鎖定時無法使用快速回覆！</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">當 Molly 鎖定時無法使用快速回覆！</string>
   <string name="QuickResponseService_problem_sending_message">傳送訊息出現問題！</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">儲存到 %s</string>
@@ -1467,7 +1467,7 @@
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">無效的捷徑</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">新訊息</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">播放影片</string>
@@ -1537,7 +1537,7 @@
   <string name="change_passphrase_activity__repeat_new_passphrase">重複新密碼</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">輸入名字或號碼</string>
-  <string name="contact_selection_activity__invite_to_signal">邀請至 Signal</string>
+  <string name="contact_selection_activity__invite_to_signal">邀請至 Molly</string>
   <string name="contact_selection_activity__new_group">新增群組</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">清除已輸入的文字</string>
@@ -1745,7 +1745,7 @@
   <string name="redphone_call_card__signal_call">Signal 通話</string>
   <!--registration_activity-->
   <string name="registration_activity__phone_number">手機號碼</string>
-  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Signal 使用你現在的手機號碼和通訊簿，讓通訊變得簡單。知道如何用手機聯繫你的朋友與聯絡人們，他們會更容易的透過 Signal 與你保持聯絡。\n\n註冊時，會傳輸一些聯絡資訊到伺服器，這些聯絡資訊並不會被儲存。</string>
+  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Molly 使用你現在的手機號碼和通訊簿，讓通訊變得簡單。知道如何用手機聯繫你的朋友與聯絡人們，他們會更容易的透過 Molly 與你保持聯絡。\n\n註冊時，會傳輸一些聯絡資訊到伺服器，這些聯絡資訊並不會被儲存。</string>
   <string name="registration_activity__verify_your_number">驗證你的號碼</string>
   <string name="registration_activity__please_enter_your_mobile_number_to_receive_a_verification_code_carrier_rates_may_apply">請輸入你的行動電話號碼來接收驗證碼。也許要支付簡訊費用。</string>
   <!--recipients_panel-->
@@ -2104,10 +2104,10 @@
   <string name="reminder_header_sms_import_text">按此以複製您手機中的簡訊訊息至 Signal 的加密數據庫中。</string>
   <string name="reminder_header_push_title">啟用 Signal 訊息與通話</string>
   <string name="reminder_header_push_text">升級您的通訊體驗。</string>
-  <string name="reminder_header_invite_title">邀請至 Signal</string>
+  <string name="reminder_header_invite_title">邀請至 Molly</string>
   <string name="reminder_header_invite_text">與 %1$s 一同將你們的對話提升至更高的等級。</string>
   <string name="reminder_header_share_title">邀請您的好友！</string>
-  <string name="reminder_header_share_text">當更多的朋友使用 Signal，它將變得更好。</string>
+  <string name="reminder_header_share_text">當更多的朋友使用 Molly，它將變得更好。</string>
   <string name="reminder_header_service_outage_text">Signal 正遇到技術性的問題。我們正在處理，將盡速的修正並恢復服務。</string>
   <string name="reminder_header_the_latest_signal_features_wont_work">Signal 的新功能無法在此版本的 Android 上使用。請升級此裝置以收到未來 Signal 的更新。</string>
   <string name="reminder_header_progress">%1$d%%</string>
@@ -2251,7 +2251,7 @@
   <string name="ConversationActivity_signal_needs_sms_permission_in_order_to_send_an_sms">Signal 需要\"簡訊\"的權限以傳送訊息，但是現在被設定為永久拒絕存取。請到應用程式設定中，選取\"權限\"，並啟用\"簡訊\"的權限。</string>
   <string name="Permissions_continue">繼續</string>
   <string name="Permissions_not_now">稍後</string>
-  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Signal 需要聯絡人的權限來搜尋聯絡人，但是現在設定為永久拒絕存取。請繼續到\"應用程式\"ˇ的設定中，選擇\"權限\"，接著啟動\"聯絡人\"。</string>
+  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Molly 需要聯絡人的權限來搜尋聯絡人，但是現在設定為永久拒絕存取。請繼續到\"應用程式\"ˇ的設定中，選擇\"權限\"，接著啟動\"聯絡人\"。</string>
   <string name="conversation_activity__enable_signal_messages">啟用 Signal 訊息</string>
   <string name="SQLCipherMigrationHelper_migrating_signal_database">遷移 Signal 資料庫</string>
   <string name="PushDecryptJob_new_locked_message">新的已鎖定訊息</string>
@@ -2406,7 +2406,7 @@
   <string name="GroupsLearnMore_paragraph_2">舊版群組尚不能升級到新群組，但是如果最新版本的Signal上有相同的成員，則可以創建一個新群組。</string>
   <string name="GroupsLearnMore_paragraph_3">Signal將來將提供一種升級舊版群組的方法。</string>
   <!--GroupLinkBottomSheetDialogFragment-->
-  <string name="GroupLinkBottomSheet_share_via_signal">透過 Signal 分享</string>
+  <string name="GroupLinkBottomSheet_share_via_signal">透過 Molly 分享</string>
   <string name="GroupLinkBottomSheet_copy">複製</string>
   <string name="GroupLinkBottomSheet_qr_code">QR 碼</string>
   <string name="GroupLinkBottomSheet_share">分享</string>

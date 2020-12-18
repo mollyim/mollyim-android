@@ -129,7 +129,7 @@
   <string name="CameraContacts_no_signal_contacts"> هیچ مخاطب Signal وجود ندارد</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">شما تنها با استفاده از دکمهٔ دوربین می‌توانید برای مخاطبین Signal عکس ارسال کنید.</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">نمی‌توانید فردی را که دنبالش هستید پیدا کنید؟</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">دعوت یک مخاطب برای پیوستن به Signal</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">دعوت یک مخاطب برای پیوستن به Molly</string>
   <string name="CameraContacts__menu_search">جستجو</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">حذف</string>
@@ -311,7 +311,7 @@
   <string name="ConversationFragment__d_group_members_have_the_same_name">%1$d نفر از اعضای گروه نام یکسان دارند.</string>
   <string name="ConversationFragment__tap_to_review">برای بازنگری ضربه بزنید</string>
   <string name="ConversationFragment__review_requests_carefully">درخواست‌ها را با دقت بازنگری کنید</string>
-  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Signal مخاطب دیگری را با نام یکسان پیدا کرد.</string>
+  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Molly مخاطب دیگری را با نام یکسان پیدا کرد.</string>
   <!--ConversationListActivity-->
   <string name="ConversationListActivity_there_is_no_browser_installed_on_your_device">هیچ مرورگری بر روی دستگاه شما نصب نیست.</string>
   <!--ConversationListFragment-->
@@ -373,11 +373,11 @@
   <string name="BackupsPreferenceFragment__test_your_backup_passphrase">گذرواژهٔ پشتیبان خود را امتحان کرده و از همخوانی داشتن آن اطمینان حاصل کنید.</string>
   <string name="BackupsPreferenceFragment__turn_on">روشن</string>
   <string name="BackupsPreferenceFragment__turn_off">خاموش</string>
-  <string name="BackupsPreferenceFragment__to_restore_a_backup">برای بازگردانی یک پشتیبان، یک نسخهٔ جدید Signal را نصب کنید. برنامه را باز کرده و روی «بازگردانی پشتیبان» ضربه بزنید، سپس فایل پشتیبان را مشخص کنید. %1$s</string>
+  <string name="BackupsPreferenceFragment__to_restore_a_backup">برای بازگردانی یک پشتیبان، یک نسخهٔ جدید Molly را نصب کنید. برنامه را باز کرده و روی «بازگردانی پشتیبان» ضربه بزنید، سپس فایل پشتیبان را مشخص کنید. %1$s</string>
   <string name="BackupsPreferenceFragment__learn_more">بیشتر یاد بگیرید</string>
   <string name="BackupsPreferenceFragment__in_progress">در حال پیشرفت…</string>
   <string name="BackupsPreferenceFragment__d_so_far">%1$d تا بحال…</string>
-  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal برای پشتیبان‌گیری نیاز به مجوز حافظه دارد، اما اجازه آن داده نشده است. لطفاً به تنظیمات برنامه رفته، «مجوزها» را انتخاب کنید و «ذخیره‌سازی» را فعال کنید.</string>
+  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly برای پشتیبان‌گیری نیاز به مجوز حافظه دارد، اما اجازه آن داده نشده است. لطفاً به تنظیمات برنامه رفته، «مجوزها» را انتخاب کنید و «ذخیره‌سازی» را فعال کنید.</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">استفاده از سفارشی: %s</string>
   <string name="CustomDefaultPreference_using_default">استفاده از پیش‌فرض: %s</string>
@@ -441,7 +441,7 @@
   <string name="GcmBroadcastReceiver_retrieving_a_message">در حال بازیابی یک پیام…</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">خرابی دائم در ارتباط Signal!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal قادر نبود تا با خدمات ‌Google Play ثبت‌نام کند. پیام‌ها و تماس‌های Signal غیرفعال شده‌اند، لطفاً از طریق تنظیمات &gt; پیشرفته دوباره ثبت‌نام کنید.</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly قادر نبود تا با خدمات ‌Google Play ثبت‌نام کند. پیام‌ها و تماس‌های Molly غیرفعال شده‌اند، لطفاً از طریق تنظیمات &gt; پیشرفته دوباره ثبت‌نام کنید.</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">خطا در هنگام بازیابی کامل گیف با کیفیت کامل</string>
   <!--GiphyFragmentPageAdapter-->
@@ -1142,10 +1142,10 @@
   </plurals>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">گذرواژه را وارد کنید</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">نگارک Signal</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">نگارک Molly</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">ارسال گذرواژه</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">گذرواژه معتبر نیست!</string>
-  <string name="PassphrasePromptActivity_unlock_signal">باز کردن قفل Signal</string>
+  <string name="PassphrasePromptActivity_unlock_signal">باز کردن قفل Molly</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">نقشه</string>
   <string name="PlacePickerActivity_not_a_valid_address">آدرس معتبر نیست</string>
@@ -1214,8 +1214,8 @@
   <string name="RedPhone_got_it">فهمیدم</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">برای فعال‌سازی ویدیو اینجا کلیک کنید</string>
-  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">برای تماس با%1$s، Signal به دسترسی دوربین شما نیاز دارد</string>
-  <string name="WebRtcCallActivity__signal_s">%1$s Signal</string>
+  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">برای تماس با%1$s، Molly به دسترسی دوربین شما نیاز دارد</string>
+  <string name="WebRtcCallActivity__signal_s">%1$s Molly</string>
   <string name="WebRtcCallActivity__calling">در حال برقراری تماس…</string>
   <string name="WebRtcCallActivity__group_call">تماس گروهی</string>
   <!--WebRtcCallView-->
@@ -1263,7 +1263,7 @@
   <string name="RegistrationActivity_the_number_you_specified_s_is_invalid">شماره‌ای که شما
 مشخص کرده‌اید (%s) معتبر نیست.</string>
   <string name="RegistrationActivity_missing_google_play_services">فاقد خدمات Google Play</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">این دستگاه فاقد خدمات Google Play است. شما می‌توانید به استفاده از Signal ادامه دهید، اما این پیکربندی می‌تواند باعث کاهش اطمینان‌پذیری یا عملکرد شود.\n\n اگر یک کاربر حرفه‌ای یا در حال اجرای یک ROM سفارشی اندروید نیستید یا فکر می‌کنید که این پیام به اشتباه به شما نشان داده شده است، برای دریافت کمک در فرآیند عیب‌یابی با support@signal.org تماس بگیرید.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">این دستگاه فاقد خدمات Google Play است. شما می‌توانید به استفاده از Molly ادامه دهید، اما این پیکربندی می‌تواند باعث کاهش اطمینان‌پذیری یا عملکرد شود.\n\n اگر یک کاربر حرفه‌ای یا در حال اجرای یک ROM سفارشی اندروید نیستید یا فکر می‌کنید که این پیام به اشتباه به شما نشان داده شده است، برای دریافت کمک در فرآیند عیب‌یابی با support@molly.im تماس بگیرید.</string>
   <string name="RegistrationActivity_i_understand">متوجهم</string>
   <string name="RegistrationActivity_play_services_error">خطای خدمات Play</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">خدمات Google Play در حال به‌روزرسانی است یا موقتاً در دسترس نیست. لطفاً دوباره تلاش کنید.</string>
@@ -1313,12 +1313,12 @@
   <string name="SearchFragment_header_messages">پیام‌ها</string>
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">افزودن به مخاطبین</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">دعوت به Signal</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">دعوت به Molly</string>
   <string name="SharedContactDetailsActivity_signal_message">پیام Signal</string>
   <string name="SharedContactDetailsActivity_signal_call">تماس Signal</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">افزودن به مخاطبین</string>
-  <string name="SharedContactView_invite_to_signal">دعوت به Signal</string>
+  <string name="SharedContactView_invite_to_signal">دعوت به Molly</string>
   <string name="SharedContactView_message">پیام Signal</string>
   <!--SignalPinReminders-->
   <string name="SignalPinReminders_well_remind_you_again_later">بعداً دوباره به شما یادآوری خواهیم کرد.</string>
@@ -1523,7 +1523,7 @@
   <string name="ProfileEditNameFragment_successfully_set_profile_name">نام پروفایل با موفقیت ثبت شد.</string>
   <string name="ProfileEditNameFragment_encountered_a_network_error">خطای شبکه رخ داد.</string>
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">پاسخ سریع هنگام قفل بودن Signal در دسترس نیست!</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">پاسخ سریع هنگام قفل بودن Molly در دسترس نیست!</string>
   <string name="QuickResponseService_problem_sending_message">خطا در ارسال پیام!</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">در %s ذخیره شد</string>
@@ -1534,7 +1534,7 @@
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">میانبر نامعتبر</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">پیام جدید</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">پخش ویدئو</string>
@@ -1605,7 +1605,7 @@
   <string name="change_passphrase_activity__repeat_new_passphrase">گذرواژهٔ قدیمی</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">نام یا شماره را وارد کنید</string>
-  <string name="contact_selection_activity__invite_to_signal">دعوت به Signal</string>
+  <string name="contact_selection_activity__invite_to_signal">دعوت به Molly</string>
   <string name="contact_selection_activity__new_group">گروه جدید</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">پاک کردن متن وارد شده</string>
@@ -1822,7 +1822,7 @@
   <string name="redphone_call_card__signal_call">تماس Signal</string>
   <!--registration_activity-->
   <string name="registration_activity__phone_number">شمارهٔ همراه</string>
-  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Signal با کمک شماره و دفترچهٔ تلفن شما ارتباط را آسان می‌کند. دوستان و مخاطبینی که می‌دانند به چه شکل از طریق تلفن با شما تماس بگیرند قادر خواهند بود به آسانی با شما از طریق Signal ارتباط برقرار کنند.\n\nثبت‌نام، برخی اطلاعات مخاطب را به سرور ارسال می‌کند. چیزی ذخیره نمی‌شود.</string>
+  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Molly با کمک شماره و دفترچهٔ تلفن شما ارتباط را آسان می‌کند. دوستان و مخاطبینی که می‌دانند به چه شکل از طریق تلفن با شما تماس بگیرند قادر خواهند بود به آسانی با شما از طریق Molly ارتباط برقرار کنند.\n\nثبت‌نام، برخی اطلاعات مخاطب را به سرور ارسال می‌کند. چیزی ذخیره نمی‌شود.</string>
   <string name="registration_activity__verify_your_number">شمارهٔ خود را تأیید کنید</string>
   <string name="registration_activity__please_enter_your_mobile_number_to_receive_a_verification_code_carrier_rates_may_apply">لطفاً شمارهٔ موبایل خود را جهت دریافت کد تأیید وارد نمایید. اپراتور شما ممکن است مبلغی در ازای این کار دریافت کند.</string>
   <!--recipients_panel-->
@@ -2182,10 +2182,10 @@
   <string name="reminder_header_sms_import_text">برای کپی کردن پیامک‌های تلفن خود به پایگاه دادهٔ رمزگذاری شدهٔ Signal ضربه بزنید.</string>
   <string name="reminder_header_push_title">فعال‌سازی پیام‌ها و تماس‌های Signal</string>
   <string name="reminder_header_push_text">تجربهٔ ارتباطی خود را ارتقا دهید.</string>
-  <string name="reminder_header_invite_title">دعوت به Signal</string>
+  <string name="reminder_header_invite_title">دعوت به Molly</string>
   <string name="reminder_header_invite_text">مکالمهٔ خود با %1$s را به مرحله بعد ببرید.</string>
   <string name="reminder_header_share_title">دوستان خود را دعوت کنید!</string>
-  <string name="reminder_header_share_text">هر چه دوستان بیشتری از Signal استفاده کنند، بهتر می‌شود.</string>
+  <string name="reminder_header_share_text">هر چه دوستان بیشتری از Molly استفاده کنند، بهتر می‌شود.</string>
   <string name="reminder_header_service_outage_text">Signal با مشکلات فنی روبرو است. ما سخت در تلاش برای بازگردانی هرچه سریع‌تر سرویس هستیم.</string>
   <string name="reminder_header_the_latest_signal_features_wont_work">آخرین قابلیت‌های Signal روی این نسخه از اندروید کار نخواهند کرد. لطفاً این دستگاه را ارتقا دهید تا به‌روزرسانی‌های بعدی Signal را دریافت کنید.</string>
   <string name="reminder_header_progress">%%%1$d</string>
@@ -2336,7 +2336,7 @@
   <string name="ConversationActivity_signal_needs_sms_permission_in_order_to_send_an_sms">Signal برای ارسال پیامک نیاز به مجوز پیامک دارد اما این دسترسی به‌ داده نشده است. لطفاً به تنظیمات برنامه‌ رفته، «مجوزها» را انتخاب کنید و «پیامک» را فعال کنید.</string>
   <string name="Permissions_continue">ادامه</string>
   <string name="Permissions_not_now">حالا نه</string>
-  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Signal برای جستجوی مخاطبین نیاز به دسترسی دارد، اما این دسترسی داده نشده است. لطفاً به بخش مدیریت برنامه‌ها در تنظیمات تلفن همراه خود رفته، در بخش «مجوزها» گزینهٔ «مخاطبین» را فعال کنید.</string>
+  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Molly برای جستجوی مخاطبین نیاز به دسترسی دارد، اما این دسترسی داده نشده است. لطفاً به بخش مدیریت برنامه‌ها در تنظیمات تلفن همراه خود رفته، در بخش «مجوزها» گزینهٔ «مخاطبین» را فعال کنید.</string>
   <string name="conversation_activity__enable_signal_messages">فعال‌سازی پیام‌های Signal</string>
   <string name="SQLCipherMigrationHelper_migrating_signal_database">در حال انتقال پایگاه داده Signal</string>
   <string name="PushDecryptJob_new_locked_message">پیام قفل شده جدید</string>
@@ -2491,7 +2491,7 @@
   <string name="GroupsLearnMore_paragraph_2">گروه‌های قدیمی نمی‌توانند به گرو‌ه‌های جدید ارتقا پیدا کنند، اما شما می‌توانید یک گروه جدید با همان اعضا ایجاد کنید در صورتی که همگی از آخرین نسخهٔ Signal استفاده کنند.</string>
   <string name="GroupsLearnMore_paragraph_3">Signal در آینده راهی برای ارتقا گرو‌ه‌های قدیمی ارائه خواهد داد.</string>
   <!--GroupLinkBottomSheetDialogFragment-->
-  <string name="GroupLinkBottomSheet_share_via_signal">اشتراک‌گذاری از طریق Signal</string>
+  <string name="GroupLinkBottomSheet_share_via_signal">اشتراک‌گذاری از طریق Molly</string>
   <string name="GroupLinkBottomSheet_copy">کپی</string>
   <string name="GroupLinkBottomSheet_qr_code">کد QR</string>
   <string name="GroupLinkBottomSheet_share">اشتراک‌گذاری</string>

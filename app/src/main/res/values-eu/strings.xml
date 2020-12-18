@@ -129,7 +129,7 @@
   <string name="CameraContacts_no_signal_contacts">Signal kontakturik ez</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">Signal kontaktuei argazkiak bidaltzeko kamerako botoia erabil dezakezu soilik.</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">Ez al duzu aurkitzen bilatzen ari zarena?</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">Gonbidatu kontaktu bat Signal aplikazaiora batzeko</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">Gonbidatu kontaktu bat Molly aplikazaiora batzeko</string>
   <string name="CameraContacts__menu_search">Bilatu</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">Ezabatu</string>
@@ -308,7 +308,7 @@
   <string name="ConversationFragment__d_group_members_have_the_same_name">%1$d taldeko kide izen bera dute.</string>
   <string name="ConversationFragment__tap_to_review">Ukitu berrikusteko</string>
   <string name="ConversationFragment__review_requests_carefully">Berrikusi eskaerak kontu handiz</string>
-  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Signal-ek izen bera duen beste kontaktu bat topatu du.</string>
+  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Molly-ek izen bera duen beste kontaktu bat topatu du.</string>
   <!--ConversationListActivity-->
   <string name="ConversationListActivity_there_is_no_browser_installed_on_your_device">Zure gailuan ez dago nabigatzailerik instalatuta.</string>
   <!--ConversationListFragment-->
@@ -375,7 +375,7 @@
   <string name="BackupsPreferenceFragment__learn_more">Gehiago jakin</string>
   <string name="BackupsPreferenceFragment__in_progress">Martxan…</string>
   <string name="BackupsPreferenceFragment__d_so_far">%1$d dagoeneko…</string>
-  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal-ek kanpoko memorian gordetzeko baimena behar du babeskopiak egin ahal izateko baina baimena ukatuta izan du beti. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta gaitu \"Biltegiratzea\".</string>
+  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly-ek kanpoko memorian gordetzeko baimena behar du babeskopiak egin ahal izateko baina baimena ukatuta izan du beti. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta gaitu \"Biltegiratzea\".</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Pertsonalizatua: %s</string>
   <string name="CustomDefaultPreference_using_default">Lehenetsia: %s</string>
@@ -437,7 +437,7 @@
   <string name="GcmBroadcastReceiver_retrieving_a_message">Mezu bat berreskuratzen…</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Signal behin betiko komunikazio hutsegitea!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal ez da gai izan Google Play Zerbitzuekin erregistratzeko. Signal mezu eta deiak desgaitu egin dira; mesedez, saiatu bererregistratzen Ezarpenak &gt; Aurreratua menuan.</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly ez da gai izan Google Play Zerbitzuekin erregistratzeko. Molly mezu eta deiak desgaitu egin dira; mesedez, saiatu bererregistratzen Ezarpenak &gt; Aurreratua menuan.</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">Errorea bereizmen osoko GIFa eskuratzerakoan</string>
   <!--GiphyFragmentPageAdapter-->
@@ -1091,10 +1091,10 @@
   </plurals>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">Pasaesaldia idatzi</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Signal ikonoa</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Molly ikonoa</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">Bidali pasaesaldia</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Pasaesaldi baliogabea!</string>
-  <string name="PassphrasePromptActivity_unlock_signal">Desblokeatu Signal</string>
+  <string name="PassphrasePromptActivity_unlock_signal">Desblokeatu Molly</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">Mapa</string>
   <string name="PlacePickerActivity_not_a_valid_address">Ez da baliozko helbide bat</string>
@@ -1163,8 +1163,8 @@
   <string name="RedPhone_got_it">Jasota</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Ukitu hemen bideoa aktibatzeko</string>
-  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">%1$s erabiltzaileari deitzeko, Signalek zure kamera erabiltzeko baimena behar du</string>
-  <string name="WebRtcCallActivity__signal_s">Signal %1$s</string>
+  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">%1$s erabiltzaileari deitzeko, Mollyek zure kamera erabiltzeko baimena behar du</string>
+  <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
   <string name="WebRtcCallActivity__calling">Deitzen…</string>
   <string name="WebRtcCallActivity__group_call">Talde Deia</string>
   <!--WebRtcCallView-->
@@ -1206,7 +1206,7 @@ zehaztu behar duzu
 zenbakia (%s) baliogabea da.
 </string>
   <string name="RegistrationActivity_missing_google_play_services">Ez dira topatzen Google Play-ren zerbitzuak </string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Ez dago Google Play Services-ik gailu honetan. Signal erabili dezakezu, baina konfigurazio honek fidagarritasuna edo errendimendua gutxiagotu dezake.\n\nErabiltzaile aurreratua ez bazara, jatorrizkoa ez den Android ROM bat erabiltzen ari ez bazara edo hau errore bat dela uste baduzu, mesedez jarri zaitez harremanetan support@signal.org helbidean.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Ez dago Google Play Services-ik gailu honetan. Molly erabili dezakezu, baina konfigurazio honek fidagarritasuna edo errendimendua gutxiagotu dezake.\n\nErabiltzaile aurreratua ez bazara, jatorrizkoa ez den Android ROM bat erabiltzen ari ez bazara edo hau errore bat dela uste baduzu, mesedez jarri zaitez harremanetan support@molly.im helbidean.</string>
   <string name="RegistrationActivity_i_understand">Ulertzen dut</string>
   <string name="RegistrationActivity_play_services_error">Play Services-en Errorea</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Services eguneratzen ari da edo tenporalki ez dago erabilgarri. Mesedez, berriro saia zaitez.</string>
@@ -1256,12 +1256,12 @@ zenbakia (%s) baliogabea da.
   <string name="SearchFragment_header_messages">Mezuak</string>
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">Gehitu kontaktu-zerrendan</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Gonbidatu Signal erabiltzera</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Gonbidatu Molly erabiltzera</string>
   <string name="SharedContactDetailsActivity_signal_message">Signal mezua</string>
   <string name="SharedContactDetailsActivity_signal_call">Signal deia</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">Gehitu kontaktu-zerrendan</string>
-  <string name="SharedContactView_invite_to_signal">Gonbidatu Signal erabiltzera</string>
+  <string name="SharedContactView_invite_to_signal">Gonbidatu Molly erabiltzera</string>
   <string name="SharedContactView_message">Signal mezua</string>
   <!--SignalPinReminders-->
   <string name="SignalPinReminders_well_remind_you_again_later">Beranduago gogoraraziko dizugu.</string>
@@ -1466,7 +1466,7 @@ Gakoaren elkar-trukeraro mezua jaso da protokoloaren bertsio baliogabe baterako.
   <string name="ProfileEditNameFragment_successfully_set_profile_name">Profil izen ondo ezarri da.</string>
   <string name="ProfileEditNameFragment_encountered_a_network_error">Sare errore bat izan da.</string>
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Erantzun bizkorra eskuraezina Signal blokeatuta badago!</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Erantzun bizkorra eskuraezina Molly blokeatuta badago!</string>
   <string name="QuickResponseService_problem_sending_message">Arazoa mezua bidaltzen!</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">%s helbidean gordeta</string>
@@ -1477,7 +1477,7 @@ Gakoaren elkar-trukeraro mezua jaso da protokoloaren bertsio baliogabe baterako.
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">Lasterbide baliogabea</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Mezu berria</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">Erreproduzitu bideoa</string>
@@ -1546,7 +1546,7 @@ Gakoaren elkar-trukeraro mezua jaso da protokoloaren bertsio baliogabe baterako.
   <string name="change_passphrase_activity__repeat_new_passphrase">Errepikatu pasaesaldi berria</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">Idatzi izena edo zenbakia</string>
-  <string name="contact_selection_activity__invite_to_signal">Gonbidatu Signal erabiltzera</string>
+  <string name="contact_selection_activity__invite_to_signal">Gonbidatu Molly erabiltzera</string>
   <string name="contact_selection_activity__new_group">Talde berria</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">Garbitu idatzitako testua</string>
@@ -1756,7 +1756,7 @@ Gakoaren elkar-trukeraro mezua jaso da protokoloaren bertsio baliogabe baterako.
   <string name="redphone_call_card__signal_call">Signal deia</string>
   <!--registration_activity-->
   <string name="registration_activity__phone_number">TELEFONO ZENBAKIA</string>
-  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Signalek komunikatzea erraza egiten du, zure telefono zenbaki eta helbide-liburua erabiliz. Zurekin harremanetan nola jarri dakiten lagunek eta kontaktuek modu errazean komunikatu ahal izango dira zurekin Signalen bitartez.\n\nErregistratzeak kontaktuei buruzko zenbait datu igortzen du zerbitzarira. Aipatutako datuak ez dira gordeko.</string>
+  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Mollyek komunikatzea erraza egiten du, zure telefono zenbaki eta helbide-liburua erabiliz. Zurekin harremanetan nola jarri dakiten lagunek eta kontaktuek modu errazean komunikatu ahal izango dira zurekin Mollyen bitartez.\n\nErregistratzeak kontaktuei buruzko zenbait datu igortzen du zerbitzarira. Aipatutako datuak ez dira gordeko.</string>
   <string name="registration_activity__verify_your_number">Zure zenbakia egiaztatzen</string>
   <string name="registration_activity__please_enter_your_mobile_number_to_receive_a_verification_code_carrier_rates_may_apply">Idatzi zure telefono zenbakia egiaztatze-kode bat lortzeko. Telefono-konpainiaren arabera kostua izan dezake mezu honek.</string>
   <!--recipients_panel-->
@@ -2114,10 +2114,10 @@ Gakoaren elkar-trukeraro mezua jaso da protokoloaren bertsio baliogabe baterako.
   <string name="reminder_header_sms_import_text">Ukitu telefonoan diren enkriptatu gabeko SMS mezuak Signal datu-base zifratura kopiatzeko.</string>
   <string name="reminder_header_push_title">Aktibatu Signal mezu eta deiak</string>
   <string name="reminder_header_push_text">Berritu zure komunikazio-esperientzia.</string>
-  <string name="reminder_header_invite_title">Signal erabilitzera gonbidatu</string>
+  <string name="reminder_header_invite_title">Molly erabilitzera gonbidatu</string>
   <string name="reminder_header_invite_text">Hobetu zure %1$s-(e)kiko solasaldia.</string>
   <string name="reminder_header_share_title">Gonbidatu zure lagunak!</string>
-  <string name="reminder_header_share_text">Zenbat eta Signalen adiskide gehiago izan, hobe.</string>
+  <string name="reminder_header_share_text">Zenbat eta Mollyen adiskide gehiago izan, hobe.</string>
   <string name="reminder_header_service_outage_text">Signal arazo teknikoak izaten ari da. Gogor ari gara lanean zerbitzua ahal bezain laster berriro martxan jartzeko.</string>
   <string name="reminder_header_the_latest_signal_features_wont_work">Signalen azkenengo ezaugarriek ez dute funtzionatuko Android bertsio honetan. Mesedez, eguneratu gailua Signalen egunerapenak jasotzeko.</string>
   <string name="reminder_header_progress">%1$d%%</string>
@@ -2423,7 +2423,7 @@ Gakoaren elkar-trukeraro mezua jaso da protokoloaren bertsio baliogabe baterako.
   <string name="GroupsLearnMore_paragraph_2">Jarauntsitako Taldeak oraindik ezin dira Talde Berrietara eguneratu, baina Signalen azkenengo bertsioa baduzu, kide berak dituen Talde Berri bat sortu dezakezu.</string>
   <string name="GroupsLearnMore_paragraph_3">Signalek Jarauntsitako Taldeak eguneratzeko modu bat eskainiko du aurrerantzean.</string>
   <!--GroupLinkBottomSheetDialogFragment-->
-  <string name="GroupLinkBottomSheet_share_via_signal">Partekatu Signal bidez</string>
+  <string name="GroupLinkBottomSheet_share_via_signal">Partekatu Molly bidez</string>
   <string name="GroupLinkBottomSheet_copy">Kopiatu</string>
   <string name="GroupLinkBottomSheet_qr_code">QR Kodea</string>
   <string name="GroupLinkBottomSheet_share">Elkarbanatu</string>

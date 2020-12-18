@@ -332,7 +332,7 @@
   <string name="GcmBroadcastReceiver_retrieving_a_message">Отримуємо повідомлення…</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Постійний збій зв\'язку Signal!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal не зміг зареєструватись у сервісах Google Play. Виклики та повідомлення Signal наразі вимкнено, спробуйте перереєструватися у Налаштуваннях &gt; Додатково.</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly не зміг зареєструватись у сервісах Google Play. Виклики та повідомлення Molly наразі вимкнено, спробуйте перереєструватися у Налаштуваннях &gt; Додатково.</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">Помилка при отриманні GIF у повному розширенні</string>
   <!--GiphyFragmentPageAdapter-->
@@ -487,10 +487,10 @@
   <string name="ExpirationDialog_your_messages_will_disappear_s_after_they_have_been_seen">Усі повідомлення у цій розмові зникнуть через %s після прочитання.</string>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">Введіть фразу-пароль</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Значок Signal</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Значок Molly</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">Ввести фразу-пароль</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Хибна фраза-пароль!</string>
-  <string name="PassphrasePromptActivity_unlock_signal">Розблокувати Signal</string>
+  <string name="PassphrasePromptActivity_unlock_signal">Розблокувати Molly</string>
   <!--PlacePickerActivity-->
   <!--PlayServicesProblemFragment-->
   <string name="PlayServicesProblemFragment_the_version_of_google_play_services_you_have_installed_is_not_functioning">Встановлена версія сервісів Google Play працює некоректно. Перевстановіть сервіси Google Play та спробуйте знову.</string>
@@ -573,12 +573,12 @@
   <string name="SearchFragment_header_messages">Повідомлення</string>
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">Додати до контактів</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Запросити до Signal</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Запросити до Molly</string>
   <string name="SharedContactDetailsActivity_signal_message">Повідомлення Signal</string>
   <string name="SharedContactDetailsActivity_signal_call">Виклик Signal</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">Додати до контактів</string>
-  <string name="SharedContactView_invite_to_signal">Запросити до Signal</string>
+  <string name="SharedContactView_invite_to_signal">Запросити до Molly</string>
   <string name="SharedContactView_message">Повідомлення Signal</string>
   <!--Slide-->
   <string name="Slide_image">Зображення</string>
@@ -708,7 +708,7 @@
   <string name="NotificationChannel_missing_display_name">Невідомо</string>
   <!--ProfileEditNameFragment-->
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Швидка відповідь неможлива, коли Signal заблоковано!</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Швидка відповідь неможлива, коли Molly заблоковано!</string>
   <string name="QuickResponseService_problem_sending_message">Проблема під час надсилання повідомлення!</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">Збережено до %s</string>
@@ -717,7 +717,7 @@
   <string name="SearchToolbar_search">Пошук</string>
   <!--ShortcutLauncherActivity-->
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Нове повідомлення</string>
   <!--ThumbnailView-->
   <!--TransferControlView-->
@@ -764,7 +764,7 @@
   <string name="change_passphrase_activity__repeat_new_passphrase">Повторіть нову фразу-пароль</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">Ввести ім\'я або номер</string>
-  <string name="contact_selection_activity__invite_to_signal">Запросити до Signal</string>
+  <string name="contact_selection_activity__invite_to_signal">Запросити до Molly</string>
   <!--contact_filter_toolbar-->
   <!--contact_selection_group_activity-->
   <string name="contact_selection_group_activity__no_contacts">Контактів не знайдено.</string>
@@ -958,7 +958,7 @@
   <string name="redphone_call_card__signal_call">Виклик Signal </string>
   <!--registration_activity-->
   <string name="registration_activity__phone_number">НОМЕР ТЕЛЕФОНУ</string>
-  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">З Signal дуже легко спілкуватися маючи лише телефонну книги. Друзі та контакти з якими ви вже спілкуєтесь телефоном зможуть легко початки користуватись Signal.\n\nПід час реєстрації передається деяка інформація на сервер але вона не зберігається.</string>
+  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">З Molly дуже легко спілкуватися маючи лише телефонну книги. Друзі та контакти з якими ви вже спілкуєтесь телефоном зможуть легко початки користуватись Molly.\n\nПід час реєстрації передається деяка інформація на сервер але вона не зберігається.</string>
   <string name="registration_activity__verify_your_number">Перевірити ваш номер</string>
   <string name="registration_activity__please_enter_your_mobile_number_to_receive_a_verification_code_carrier_rates_may_apply">Вкажіть ваш мобільний номер, щоб отримати перевірочний код. Вашим оператором може стягуватися плата.</string>
   <!--recipients_panel-->
@@ -1225,10 +1225,10 @@
   <string name="reminder_header_sms_import_text">Торкніться, щоб імпортувати ваші SMS повідомлення у зашифровану базу даних Signal.</string>
   <string name="reminder_header_push_title">Увімкнути повідомлення та виклики Signal</string>
   <string name="reminder_header_push_text">Оновіть досвід вашого спілкування.</string>
-  <string name="reminder_header_invite_title">Запросити до Signal</string>
+  <string name="reminder_header_invite_title">Запросити до Molly</string>
   <string name="reminder_header_invite_text">Спілкуйтеся із %1$s на якісно новому рівні.</string>
   <string name="reminder_header_share_title">Запросити друзів</string>
-  <string name="reminder_header_share_text">Що більше друзів використовують Signal, то кращим він стає.</string>
+  <string name="reminder_header_share_text">Що більше друзів використовують Molly, то кращим він стає.</string>
   <string name="reminder_header_service_outage_text">Signal зазнав технічних труднощів. Ми тяжко працюємо щоб відновити сервіс якомога швидше.</string>
   <!--media_preview-->
   <string name="media_preview__save_title">Зберегти</string>
@@ -1274,7 +1274,7 @@
   <string name="ConversationActivity_signal_needs_sms_permission_in_order_to_send_an_sms">Signal потребує дозволу \"SMS\", але наразі дозволу немає. Будь-ласка, перейдіть до налаштувань додатку, оберіть \"Дозволи\" та увімкніть \"SMS\".</string>
   <string name="Permissions_continue">Продовжити</string>
   <string name="Permissions_not_now">Не зараз</string>
-  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Signal потребує дозволу \"Контакти\", але наразі дозволу немає. Будь-ласка, перейдіть до налаштувань додатку, оберіть \"Дозволи\" та дозвольте \"Контакти\".</string>
+  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Molly потребує дозволу \"Контакти\", але наразі дозволу немає. Будь-ласка, перейдіть до налаштувань додатку, оберіть \"Дозволи\" та дозвольте \"Контакти\".</string>
   <string name="conversation_activity__enable_signal_messages">Дозволити повідомлення Signal</string>
   <string name="SQLCipherMigrationHelper_migrating_signal_database">Міграція бази даних Signal</string>
   <string name="PushDecryptJob_new_locked_message">Нове заблоковане повідомлення</string>

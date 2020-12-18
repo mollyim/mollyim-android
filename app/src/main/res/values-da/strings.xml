@@ -129,7 +129,7 @@
   <string name="CameraContacts_no_signal_contacts">Ingen Signal kontakter</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">Du kan kun bruge kameraknappen, til at sende billeder til Signal kontakter</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">Kan du ikke finde den du leder efter?</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">Inviter en kontakt til at bruge Signal</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">Inviter en kontakt til at bruge Molly</string>
   <string name="CameraContacts__menu_search">Søg</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">Fjern</string>
@@ -309,7 +309,7 @@
   <string name="ConversationFragment__d_group_members_have_the_same_name">%1$d gruppemedlemmer har samme navn</string>
   <string name="ConversationFragment__tap_to_review">Tap for at gennemgå</string>
   <string name="ConversationFragment__review_requests_carefully">Gennemgå anmodninger omhyggeligt</string>
-  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Signal fandt en anden kontakt med samme navn</string>
+  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Molly fandt en anden kontakt med samme navn</string>
   <!--ConversationListActivity-->
   <string name="ConversationListActivity_there_is_no_browser_installed_on_your_device">Ingen browser installeret på enheden</string>
   <!--ConversationListFragment-->
@@ -371,11 +371,11 @@
   <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Test dit kodeord for backup og verificer at det virker</string>
   <string name="BackupsPreferenceFragment__turn_on">Aktivér</string>
   <string name="BackupsPreferenceFragment__turn_off">Déaktiver</string>
-  <string name="BackupsPreferenceFragment__to_restore_a_backup">For at gendanne fra backup, skal du installere Signal igen. Åbn app´en og tab \"Gendan backup\", vælg derefter en backup fil %1$s</string>
+  <string name="BackupsPreferenceFragment__to_restore_a_backup">For at gendanne fra backup, skal du installere Molly igen. Åbn app´en og tab \"Gendan backup\", vælg derefter en backup fil %1$s</string>
   <string name="BackupsPreferenceFragment__learn_more">Læs mere</string>
   <string name="BackupsPreferenceFragment__in_progress">I gang…</string>
   <string name="BackupsPreferenceFragment__d_so_far">%1$d indtil videre…</string>
-  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal kræver tilladelse til at tilgå ekstern placering for at oprette backups, hvilket det er blevet nægtet. Gå venligst via app´ens menu til Indstillinger, vælg \"Tilladelser\" og tilvælg \"Hukommelse\"</string>
+  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly kræver tilladelse til at tilgå ekstern placering for at oprette backups, hvilket det er blevet nægtet. Gå venligst via app´ens menu til Indstillinger, vælg \"Tilladelser\" og tilvælg \"Hukommelse\"</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Anvender tilpasset: %s</string>
   <string name="CustomDefaultPreference_using_default">Anvender standard: %s</string>
@@ -437,7 +437,7 @@
   <string name="GcmBroadcastReceiver_retrieving_a_message">Modtager besked…</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Permanent fejl ved Signal kommunikationen!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal var ude af stand til at registrere med Google Play Services. Signalbeskeder og -opkald blev deaktiveret. Prøv venligst at registrere igen i Indstillinger -&gt; Advanceret</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly var ude af stand til at registrere med Google Play Services. Mollybeskeder og -opkald blev deaktiveret. Prøv venligst at registrere igen i Indstillinger -&gt; Advanceret</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">Fejl opstod ved hentning af GIF i fuld opløsning</string>
   <!--GiphyFragmentPageAdapter-->
@@ -1109,10 +1109,10 @@
   </plurals>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">Indtast kodeord</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Signal ikon</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Molly ikon</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">Tilføj kodeord</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Ugyldigt kodeord!</string>
-  <string name="PassphrasePromptActivity_unlock_signal">Lås Signal op</string>
+  <string name="PassphrasePromptActivity_unlock_signal">Lås Molly op</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">Kort</string>
   <string name="PlacePickerActivity_not_a_valid_address">Ugyldig adresse</string>
@@ -1181,8 +1181,8 @@
   <string name="RedPhone_got_it">Forstået</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Tap her for at starte video</string>
-  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">For at ringe til %1$s kræver Signal tilladelse til at tilgå din kamera</string>
-  <string name="WebRtcCallActivity__signal_s">Signal %1$s</string>
+  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">For at ringe til %1$s kræver Molly tilladelse til at tilgå din kamera</string>
+  <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
   <string name="WebRtcCallActivity__calling">Ringer…</string>
   <string name="WebRtcCallActivity__group_call">Gruppeopkald</string>
   <!--WebRtcCallView-->
@@ -1223,7 +1223,7 @@ telefonnummer
   <string name="RegistrationActivity_the_number_you_specified_s_is_invalid">Det indtastede
 nummer (%s) er ugyldigt</string>
   <string name="RegistrationActivity_missing_google_play_services">Mangler Google Play Services</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Enheden mangler at have Google Play Service installeret. Du kan stadig bruge Signal, men denne konfiguration kan resultere i begrænset stabilitet og ydeevne.\n\nHvis du ikke er en superbruger, ikke kører en alternativ Android ROM eller mener du ser denne besked ved en fejl, bedes du kontakte support@signal.org på engelsk for hjælp</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Enheden mangler at have Google Play Service installeret. Du kan stadig bruge Molly, men denne konfiguration kan resultere i begrænset stabilitet og ydeevne.\n\nHvis du ikke er en superbruger, ikke kører en alternativ Android ROM eller mener du ser denne besked ved en fejl, bedes du kontakte support@molly.im på engelsk for hjælp</string>
   <string name="RegistrationActivity_i_understand">Forstået</string>
   <string name="RegistrationActivity_play_services_error">Play Services fejl</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Services bliver opdateret eller er midlertidigt utilgængelig. Prøv venligst igen</string>
@@ -1273,12 +1273,12 @@ nummer (%s) er ugyldigt</string>
   <string name="SearchFragment_header_messages">Beskeder</string>
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">Føj til kontakter</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Invitér til Signal</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Invitér til Molly</string>
   <string name="SharedContactDetailsActivity_signal_message">Signalbesked</string>
   <string name="SharedContactDetailsActivity_signal_call">Signalopkald</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">Føj til kontakter</string>
-  <string name="SharedContactView_invite_to_signal">Invitér til Signal</string>
+  <string name="SharedContactView_invite_to_signal">Invitér til Molly</string>
   <string name="SharedContactView_message">Signalbesked</string>
   <!--SignalPinReminders-->
   <string name="SignalPinReminders_well_remind_you_again_later">Du bliver mindet om det senere</string>
@@ -1483,7 +1483,7 @@ Modtog en nøgle besked, for en ugyldig protokol-version
   <string name="ProfileEditNameFragment_successfully_set_profile_name">Oprettet profilnavn</string>
   <string name="ProfileEditNameFragment_encountered_a_network_error">Registreret en netværksfejl</string>
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Hurtig svar utilgængelig når Signal er låst!</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Hurtig svar utilgængelig når Molly er låst!</string>
   <string name="QuickResponseService_problem_sending_message">Problem med at sende besked!</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">Gemt til %s</string>
@@ -1494,7 +1494,7 @@ Modtog en nøgle besked, for en ugyldig protokol-version
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">Ugyldig genvej</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Ny besked</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">Afspil video</string>
@@ -1563,7 +1563,7 @@ Modtog en nøgle besked, for en ugyldig protokol-version
   <string name="change_passphrase_activity__repeat_new_passphrase">Gentag nyt kodeord</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">Søg navn eller nummer</string>
-  <string name="contact_selection_activity__invite_to_signal">Invitér til Signal</string>
+  <string name="contact_selection_activity__invite_to_signal">Invitér til Molly</string>
   <string name="contact_selection_activity__new_group">Opret ny gruppe</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">Fjern tekst</string>
@@ -1776,7 +1776,7 @@ Modtog en nøgle besked, for en ugyldig protokol-version
   <string name="redphone_call_card__signal_call">Signal opkald</string>
   <!--registration_activity-->
   <string name="registration_activity__phone_number">TELEFONNUMMER</string>
-  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Signal gør det nemt at kommunikere, ved at bruge dit eksisterende telefonnummer og kontaktbog. Venner og kontakter som allerede ved hvordan de kontakter dig via mobil, vil have nemt ved at komme i kontakt gennem Signal.\n\nRegistreringen overfører nogle kontaktinformationer til serveren. Disse bliver ikke gemt</string>
+  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Molly gør det nemt at kommunikere, ved at bruge dit eksisterende telefonnummer og kontaktbog. Venner og kontakter som allerede ved hvordan de kontakter dig via mobil, vil have nemt ved at komme i kontakt gennem Molly.\n\nRegistreringen overfører nogle kontaktinformationer til serveren. Disse bliver ikke gemt</string>
   <string name="registration_activity__verify_your_number">Verificer dit nummer</string>
   <string name="registration_activity__please_enter_your_mobile_number_to_receive_a_verification_code_carrier_rates_may_apply">Indtast venligst dit mobilnummer, for at modtage en verifikationskode. Takster fra din udbyder kan blive pålagt</string>
   <!--recipients_panel-->
@@ -2134,10 +2134,10 @@ Modtog en nøgle besked, for en ugyldig protokol-version
   <string name="reminder_header_sms_import_text">Tap for at kopiere din telefons SMS beskeder, til Signal´s krypterede database</string>
   <string name="reminder_header_push_title">Aktivér Signalbeskeder og -opkald</string>
   <string name="reminder_header_push_text">Opgrader din oplevelse inden for kommunikation</string>
-  <string name="reminder_header_invite_title">Invitér til Signal</string>
+  <string name="reminder_header_invite_title">Invitér til Molly</string>
   <string name="reminder_header_invite_text">Opgradér din samtale med %1$s</string>
   <string name="reminder_header_share_title">Invitér dine venner!</string>
-  <string name="reminder_header_share_text">Jo flere venner der bruger Signal, desto bedre bliver den</string>
+  <string name="reminder_header_share_text">Jo flere venner der bruger Molly, desto bedre bliver den</string>
   <string name="reminder_header_service_outage_text">Signal oplever tekniske problemer. Vi arbejder hårdt på at genoprette servicen, så hurtigt som muligt!</string>
   <string name="reminder_header_the_latest_signal_features_wont_work">De nyeste Signal-funktioner virker ikke på denne version af Android. Opgrader venligst denne enhed for at modtage fremtidige Signal-opdateringer</string>
   <string name="reminder_header_progress">%1$d %%</string>
@@ -2288,7 +2288,7 @@ Modtog en nøgle besked, for en ugyldig protokol-version
   <string name="ConversationActivity_signal_needs_sms_permission_in_order_to_send_an_sms">Signal kræver tilladelse til at tilgå dine SMS\'er for at kunne sende beskeder, hvilket det er blevet nægtet. Gå venligst via appens menu til Indstillinger, vælg \"Tilladelser\" og tilvælg \"SMS\"  </string>
   <string name="Permissions_continue">Fortsæt</string>
   <string name="Permissions_not_now">Ikke nu</string>
-  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Signal kræver tilladelse til at tilgå dine kontakter, hvilket det er blevet nægtet. Gå venligst via appens menu til Indstillinger, vælg \"Tilladelser\" og tilvælg \"Kontakter\"</string>
+  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Molly kræver tilladelse til at tilgå dine kontakter, hvilket det er blevet nægtet. Gå venligst via appens menu til Indstillinger, vælg \"Tilladelser\" og tilvælg \"Kontakter\"</string>
   <string name="conversation_activity__enable_signal_messages">AKTIVÉR SIGNALBESKEDER</string>
   <string name="SQLCipherMigrationHelper_migrating_signal_database">Migrerer Signal´s database</string>
   <string name="PushDecryptJob_new_locked_message">Ny låst besked</string>
@@ -2444,7 +2444,7 @@ Der er %d dage tilbage</string>
   <string name="GroupsLearnMore_paragraph_2">Forældede grupper kan endnu ikke opgraderes til nye grupper, men du kan oprette en ny gruppe med de samme medlemmer, hvis de har i den nyeste version af Signal</string>
   <string name="GroupsLearnMore_paragraph_3">Signal vil tilbyde en måde at opgradere Forældede grupper på, i fremtiden</string>
   <!--GroupLinkBottomSheetDialogFragment-->
-  <string name="GroupLinkBottomSheet_share_via_signal">Del via Signal</string>
+  <string name="GroupLinkBottomSheet_share_via_signal">Del via Molly</string>
   <string name="GroupLinkBottomSheet_copy">Kopiér</string>
   <string name="GroupLinkBottomSheet_qr_code">QR-kode</string>
   <string name="GroupLinkBottomSheet_share">Del</string>

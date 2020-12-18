@@ -102,7 +102,7 @@
   <string name="CameraContacts_no_signal_contacts">Mboten enten kontak Signal</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">Sampeyan namung saged ngginakaken tombol kamera kangge ngirimaken foto dhateng kontak Signal mawon.</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">Mboten saged manggih tiyang ingkang sampeyan padosi?</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">Ajak kontak ngginakaken Signal</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">Ajak kontak ngginakaken Molly</string>
   <string name="CameraContacts__menu_search">Padosi</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">Icali</string>
@@ -321,7 +321,7 @@
   <string name="GcmBroadcastReceiver_retrieving_a_message">Taksih nampi pesen…</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Komunikasi Signal permanen gagal!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal mboten saged ndaftar kangge Google Play Services. Pesen lan telepon Signal sampun dinonaktifaken, cobi daftaraken malih ing Panatanan &gt; Lajengan.</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly mboten saged ndaftar kangge Google Play Services. Pesen lan telepon Molly sampun dinonaktifaken, cobi daftaraken malih ing Panatanan &gt; Lajengan.</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">Enten masalah kala nampi resolusi penuh kangge GIF</string>
   <!--GiphyFragmentPageAdapter-->
@@ -581,10 +581,10 @@
   <string name="ExpirationDialog_your_messages_will_disappear_s_after_they_have_been_seen">Pesen ingkang dipunkirimaken lan dipuntampi ing obrolan niki bakal ngical %s saksampune dipunwaos.</string>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">Lebetaken tembung sandi</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Ikon Signal</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Ikon Molly</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">Ajengaken tembung sandi</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Tembung sandi mboten valid!</string>
-  <string name="PassphrasePromptActivity_unlock_signal">Bikak Kunci Signal</string>
+  <string name="PassphrasePromptActivity_unlock_signal">Bikak Kunci Molly</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">Peta</string>
   <string name="PlacePickerActivity_not_a_valid_address">Alamat mboten valid</string>
@@ -652,7 +652,7 @@
         serataken (%s) mboten valid.
     </string>
   <string name="RegistrationActivity_missing_google_play_services">Mboten enten Google Play Services</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Mboten enten Google Play Services ing pirantos niki. Sampeyan taksih saged ngginakaken Signal, nanging konfigurasi niki saged ngirangi keandalan lan performanipun.\n\nMenawi sampeyan sanes panggina ingkang lajengan, mboten ngginakaken aftermarket Android ROM, utawi pitados menawi prakawis niki klintu, hubungi support@signal.org supados kami saged mbiantu ingkang wonten kaitanipun kaliyan masalah kasebut.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Mboten enten Google Play Services ing pirantos niki. Sampeyan taksih saged ngginakaken Molly, nanging konfigurasi niki saged ngirangi keandalan lan performanipun.\n\nMenawi sampeyan sanes panggina ingkang lajengan, mboten ngginakaken aftermarket Android ROM, utawi pitados menawi prakawis niki klintu, hubungi support@molly.im supados kami saged mbiantu ingkang wonten kaitanipun kaliyan masalah kasebut.</string>
   <string name="RegistrationActivity_i_understand">Inggih</string>
   <string name="RegistrationActivity_play_services_error">Play Services enten Masalah</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Services taksih dipunenggalaken utawi sakmenika mboten enten. Mangga cobi malih.</string>
@@ -695,12 +695,12 @@
   <string name="SearchFragment_header_messages">Pesen</string>
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">Minggahaken dhateng Kontak</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Ajak ngginakaken Signal</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Ajak ngginakaken Molly</string>
   <string name="SharedContactDetailsActivity_signal_message">Pesen Signal</string>
   <string name="SharedContactDetailsActivity_signal_call">Telepon Signal</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">Minggahaken dhateng Kontak</string>
-  <string name="SharedContactView_invite_to_signal">Ajak ngginakaken Signal</string>
+  <string name="SharedContactView_invite_to_signal">Ajak ngginakaken Molly</string>
   <string name="SharedContactView_message">Pesen Signal</string>
   <!--SignalPinReminders-->
   <!--Slide-->
@@ -889,7 +889,7 @@
   <string name="ProfileEditNameFragment_successfully_set_profile_name">Kedadosan netapaken nami profil.</string>
   <string name="ProfileEditNameFragment_encountered_a_network_error">Enten masalah babagan jaringan.</string>
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Wangsulan sacara gelis mboten kasedhiya kala Signal dikunci!</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Wangsulan sacara gelis mboten kasedhiya kala Molly dikunci!</string>
   <string name="QuickResponseService_problem_sending_message">Enten masalah kala ngirimaken pesen!</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">Disimpen dhateng %s</string>
@@ -900,7 +900,7 @@
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">Trabasan mboten valid</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Pesen enggal</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">Puter video</string>
@@ -961,7 +961,7 @@
   <string name="change_passphrase_activity__repeat_new_passphrase">Serataken malih tembung sandi ingkang enggal</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">Lebetaken nami utawi nomer</string>
-  <string name="contact_selection_activity__invite_to_signal">Ajak ngginakaken Signal</string>
+  <string name="contact_selection_activity__invite_to_signal">Ajak ngginakaken Molly</string>
   <string name="contact_selection_activity__new_group">Grup enggal</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">Brusak teks ingkang dipunlebetaken</string>
@@ -1142,7 +1142,7 @@
   <string name="redphone_call_card__signal_call">Telepon Signal</string>
   <!--registration_activity-->
   <string name="registration_activity__phone_number">NOMER TELEPON</string>
-  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Signal ngaringkesaken komunikasi ngginakaken buku alamat lan nomer telepon sampeyan ingkang sampun enten. Kanca-kanca lan kontak sampeyan ingkang sampun ngertos cara ngontak sampeyan bakal saged ngobrol ngginakaken Signal sacara gampil.\n\nNdaftar Signal bakal nyiaraken ragam informasi kontak dhateng server, nanging informasi kasebut mboten dipunsimpen.</string>
+  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Molly ngaringkesaken komunikasi ngginakaken buku alamat lan nomer telepon sampeyan ingkang sampun enten. Kanca-kanca lan kontak sampeyan ingkang sampun ngertos cara ngontak sampeyan bakal saged ngobrol ngginakaken Molly sacara gampil.\n\nNdaftar Molly bakal nyiaraken ragam informasi kontak dhateng server, nanging informasi kasebut mboten dipunsimpen.</string>
   <string name="registration_activity__verify_your_number">Verifikasi Nomer Telepon Sampeyan</string>
   <string name="registration_activity__please_enter_your_mobile_number_to_receive_a_verification_code_carrier_rates_may_apply">Lebetaken nomer telepon sampeyan kangge nampi kode verifikasi. Mbokmenawi bakal enten biaya operator.</string>
   <!--recipients_panel-->
@@ -1436,10 +1436,10 @@
   <string name="reminder_header_sms_import_text">Tutul kangge nyalin pesen SMS ing telepon sampeyan dados database Signal ingkang dipunenkripsi.</string>
   <string name="reminder_header_push_title">Aktifaken telepon lan pesen Signal</string>
   <string name="reminder_header_push_text">Tingkataken pengalaman komunikasinipun sampeyan.</string>
-  <string name="reminder_header_invite_title">Ajak ngginakaken Signal</string>
+  <string name="reminder_header_invite_title">Ajak ngginakaken Molly</string>
   <string name="reminder_header_invite_text">Tingkataken obrolan sampeyan kaliyan %1$s.</string>
   <string name="reminder_header_share_title">Ajak para kanca!</string>
-  <string name="reminder_header_share_text">Tambah kathah kanca ingkang ngginakaken Signal, tambah ngrenakaken obrolan sampeyan.</string>
+  <string name="reminder_header_share_text">Tambah kathah kanca ingkang ngginakaken Molly, tambah ngrenakaken obrolan sampeyan.</string>
   <string name="reminder_header_service_outage_text">Enten masalah teknis ing Signal. Kami ngupadosaken kangge ndandosi masalah kasebut sagelisipun.</string>
   <string name="reminder_header_the_latest_signal_features_wont_work">Fitur Signal ingkang paling enggal mboten saged dipunradinaken ing versi Android niki. Dandosaken pirantos kangge nampi pangenggalan Signal.</string>
   <string name="reminder_header_progress">%1$d%%</string>
@@ -1540,7 +1540,7 @@
   <string name="ConversationActivity_signal_needs_sms_permission_in_order_to_send_an_sms">Signal betah izin SMS kangge ngirimaken SMS, nanging izin kesebat sampun dipuntolak sacara permanen. Bikak panatanan aplikasi, pileh \"Izin\", lajeng aktifaken \"SMS\".</string>
   <string name="Permissions_continue">Lajengaken</string>
   <string name="Permissions_not_now">Mangke</string>
-  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Signal betah izin Kontak kangge madosi kontak sampeyan, nanging izin kesebat sampun dipuntolak sacara permanen. Bikak panatanan aplikasi, pileh \"Izin\", lajeng aktifaken \"Kontak\".</string>
+  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Molly betah izin Kontak kangge madosi kontak sampeyan, nanging izin kesebat sampun dipuntolak sacara permanen. Bikak panatanan aplikasi, pileh \"Izin\", lajeng aktifaken \"Kontak\".</string>
   <string name="conversation_activity__enable_signal_messages">AKTIFAKEN PESEN SIGNAL</string>
   <string name="SQLCipherMigrationHelper_migrating_signal_database">Taksih mindahi database Signal</string>
   <string name="PushDecryptJob_new_locked_message">Pesen ingkang dipunkunci enggal</string>

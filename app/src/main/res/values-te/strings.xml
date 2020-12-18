@@ -115,7 +115,7 @@
   <string name="CameraContacts_no_signal_contacts">Signal పరిచయాలు లేవు</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">Signal పరిచయాలకు చిత్రాలను పంపడానికి మీరు కెమెరా బటన్‌ను మాత్రమే ఉపయోగించవచ్చు.</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">మీరు వెతుకుతున్న వారిని కనుగొనలేదా?</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">Signal లో చేరడానికి పరిచయాన్ని ఆహ్వానించండి</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">Molly లో చేరడానికి పరిచయాన్ని ఆహ్వానించండి</string>
   <string name="CameraContacts__menu_search">వెతకండి</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">తొలగించు</string>
@@ -361,7 +361,7 @@
   <string name="GcmBroadcastReceiver_retrieving_a_message">సందేశాన్ని తిరిగి పొందుతోంది…</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Signal లో శాశ్వత సమాచార వైఫల్యం!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">గూగ్లె ప్లే సదుపాయలతొ Signal నమోదు కాలెదు. Signal సందెశాలు మరియు  కాల్స్ నిలిపివేయబడ్డాయి. దయచేసి ఆధునిక అమరికలు లో మళ్ళి నమోదు చెసుకొనగలరు.</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">గూగ్లె ప్లే సదుపాయలతొ Molly నమోదు కాలెదు. Molly సందెశాలు మరియు  కాల్స్ నిలిపివేయబడ్డాయి. దయచేసి ఆధునిక అమరికలు లో మళ్ళి నమోదు చెసుకొనగలరు.</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">పూతి స్పష్టత జి.ఐ.ఎఫ్. ను తిరిగి రప్పించుట లొ లొపము</string>
   <!--GiphyFragmentPageAdapter-->
@@ -698,10 +698,10 @@
   <string name="ExpirationDialog_your_messages_will_disappear_s_after_they_have_been_seen">వారు చూసిన తరువాత ఈ సంభాషణ లో పంపిన మరియు అందుకున్న సందేశాలు %s కనిపించదు.</string>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">సంకేతపదమును ప్రవేశపెట్టుము</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Signal చిహ్నం</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Molly చిహ్నం</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">సంకేతపదమును సమర్పించండి</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">చెల్లని సంకేతపదము!</string>
-  <string name="PassphrasePromptActivity_unlock_signal">అన్లాక్ Signal</string>
+  <string name="PassphrasePromptActivity_unlock_signal">అన్లాక్ Molly</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">పటం</string>
   <string name="PlacePickerActivity_not_a_valid_address">చెల్లుబాటు అయ్యే చిరునామా కాదు</string>
@@ -774,7 +774,7 @@
 మీరు పేర్కొన్న
 సంఖ్య (%s) చెల్లదు.</string>
   <string name="RegistrationActivity_missing_google_play_services">గూగుల్ ఫ్లే సేవలు అందుబాటులో లేవు.</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">ఈ పరికరంలో Google Play సేవలు లేవు. మీరు ఇప్పటికీ Signal ఉపయోగించవచ్చు, కానీ ఈ కాన్ఫిగరేషన్ తగ్గిన విశ్వసనీయత లేదా పనితీరును కలిగించవచ్చు. \ N \ n మీరు అధునాతన వినియోగదారు కానట్లయితే, ఒక యాడ్మార్కెట్ Android ROM ను అమలు చేయకపోయినా లేదా మీరు దీనిని తప్పుగా చూస్తున్నారని విశ్వసిస్తారు, దయచేసి support@signal.org </string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">ఈ పరికరంలో Google Play సేవలు లేవు. మీరు ఇప్పటికీ Molly ఉపయోగించవచ్చు, కానీ ఈ కాన్ఫిగరేషన్ తగ్గిన విశ్వసనీయత లేదా పనితీరును కలిగించవచ్చు. \ N \ n మీరు అధునాతన వినియోగదారు కానట్లయితే, ఒక యాడ్మార్కెట్ Android ROM ను అమలు చేయకపోయినా లేదా మీరు దీనిని తప్పుగా చూస్తున్నారని విశ్వసిస్తారు, దయచేసి support@molly.im </string>
   <string name="RegistrationActivity_i_understand">నాకు అర్దం అయ్యినది</string>
   <string name="RegistrationActivity_play_services_error">ప్లే సేవల దోషం.</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">గూగల్ ేవలను నవీకరించుటకు లేదా తాత్కాలికంగా అందుబాటులో చేస్తున్నారు. మళ్ళి ప్రయత్నించండి.</string>
@@ -818,12 +818,12 @@
   <string name="SearchFragment_header_messages">సందేశాలు</string>
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">పరిచయాలకు జోడించు</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Signal కు ఆహ్వానించండి</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Molly కు ఆహ్వానించండి</string>
   <string name="SharedContactDetailsActivity_signal_message">Signal సందేశం</string>
   <string name="SharedContactDetailsActivity_signal_call">Signal కాల్ </string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">పరిచయాలకు జోడించు</string>
-  <string name="SharedContactView_invite_to_signal">Signal కు ఆహ్వానించండి</string>
+  <string name="SharedContactView_invite_to_signal">Molly కు ఆహ్వానించండి</string>
   <string name="SharedContactView_message">Signal సందేశం</string>
   <!--SignalPinReminders-->
   <!--Slide-->
@@ -1007,7 +1007,7 @@
   <string name="ProfileEditNameFragment_successfully_set_profile_name">ప్రొఫైల్ పేరును విజయవంతంగా సెట్ చేయండి.</string>
   <string name="ProfileEditNameFragment_encountered_a_network_error">నెట్‌వర్క్ లోపాన్ని ఎదుర్కొంది.</string>
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Signal బంధించినపుడు తక్షణ స్పందన అందుబాటులొ లేదు!</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Molly బంధించినపుడు తక్షణ స్పందన అందుబాటులొ లేదు!</string>
   <string name="QuickResponseService_problem_sending_message">సందేశాన్ని పంపడంలొ సమస్య!</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">%s కు భద్రపరచడింది</string>
@@ -1018,7 +1018,7 @@
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">చెల్లని సత్వరమార్గం</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">కొత్త సందేశం</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">వీడియో ప్లే చేయండి</string>
@@ -1080,7 +1080,7 @@
   <string name="change_passphrase_activity__repeat_new_passphrase">కొత్త సంకేతపదమును తిరిగి చెప్పు</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">పేరు లేదా నంబరు ఎంటర్ చేయండి</string>
-  <string name="contact_selection_activity__invite_to_signal">Signal కు ఆహ్వానించండి</string>
+  <string name="contact_selection_activity__invite_to_signal">Molly కు ఆహ్వానించండి</string>
   <string name="contact_selection_activity__new_group">కొత్త సమూహం</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">నమోదు చేసిన వచనాన్ని క్లియర్ చేయండి</string>
@@ -1269,7 +1269,7 @@
   <string name="redphone_call_card__signal_call">Signal కాల్ </string>
   <!--registration_activity-->
   <string name="registration_activity__phone_number">ఫోన్ నంబరు</string>
-  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Signal మీ ప్రస్తుత ఫోన్ నంబర్ మరియు చిరునామా పుస్తకం ఉపయోగించి సమాచార మార్పిడి సులభం చేస్తుంది. ఫోన్ ద్వారా మిమ్మల్ని ఎలా సంప్రదించాలో ఇప్పటికే తెలిసిన స్నేహితులు మరియు పరిచయాలు సులభంగా Signal ద్వారా సన్నిహితంగా ఉంటాయి. \ N \ n రిజిస్ట్రేషన్ కొంత సంప్రదింపు సమాచారాన్ని సర్వర్కు బదిలీ చేస్తుంది. ఇది నిల్వ చేయబడలేదు.</string>
+  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Molly మీ ప్రస్తుత ఫోన్ నంబర్ మరియు చిరునామా పుస్తకం ఉపయోగించి సమాచార మార్పిడి సులభం చేస్తుంది. ఫోన్ ద్వారా మిమ్మల్ని ఎలా సంప్రదించాలో ఇప్పటికే తెలిసిన స్నేహితులు మరియు పరిచయాలు సులభంగా Molly ద్వారా సన్నిహితంగా ఉంటాయి. \ N \ n రిజిస్ట్రేషన్ కొంత సంప్రదింపు సమాచారాన్ని సర్వర్కు బదిలీ చేస్తుంది. ఇది నిల్వ చేయబడలేదు.</string>
   <string name="registration_activity__verify_your_number">మీ నంబర్ ని ధృవీకరించండి</string>
   <string name="registration_activity__please_enter_your_mobile_number_to_receive_a_verification_code_carrier_rates_may_apply">దయచేసి ధృవీకరణ కోడ్ను స్వీకరించడానికి మీ మొబైల్ నంబర్ను నమోదు చేయండి. క్యారియర్ రేట్లు వర్తించవచ్చు.</string>
   <!--recipients_panel-->
@@ -1562,10 +1562,10 @@
   <string name="reminder_header_sms_import_text">మీ ఫోన్ లో వున్న యెస్.యం.యెస్ సందెశలను Signal యొక్క ఎన్క్రిప్టెడ్ దత్తాంశస్థానం లోకి నకలు చెయ్యలి అంటె ఇక్కడ నొక్కండి</string>
   <string name="reminder_header_push_title">  Signal సందేశాలు మరియు కాల్స్ ని   ప్రారంభించు</string>
   <string name="reminder_header_push_text">మీ యుక్క కమ్యూనికేషన్ అనుభవం అభివృద్ధి చెయండి</string>
-  <string name="reminder_header_invite_title">Signal కు ఆహ్వానించండి</string>
+  <string name="reminder_header_invite_title">Molly కు ఆహ్వానించండి</string>
   <string name="reminder_header_invite_text">  మీ సంభాషణను %1$s తో  తదుపరి స్థాయికి  తీసికొనివెళ్లు</string>
   <string name="reminder_header_share_title">మీ స్నేహితులను ఆహ్వానించండి!</string>
-  <string name="reminder_header_share_text"> ఎక్కువ మంది స్నేహితులు Signal ఉపయోగిస్తె అది   మరింత మెరుగుపడుతుంది</string>
+  <string name="reminder_header_share_text"> ఎక్కువ మంది స్నేహితులు Molly ఉపయోగిస్తె అది   మరింత మెరుగుపడుతుంది</string>
   <string name="reminder_header_service_outage_text">Signal సాంకేతిక సమస్యలను ఎదుర్కొంటోంది. వీలైనంత త్వరగా సేవని పునరుద్ధరించడానికి మేము కృషి చేస్తున్నాము.</string>
   <string name="reminder_header_the_latest_signal_features_wont_work">Android యొక్క ఈ సంస్కరణలో తాజా Signal లక్షణాలు పనిచేయవు. భవిష్యత్ Signal నవీకరణలను స్వీకరించడానికి దయచేసి ఈ పరికరాన్ని అభివృద్ధి చేయండి.</string>
   <string name="reminder_header_progress">%1$d%%</string>
@@ -1667,7 +1667,7 @@
   <string name="ConversationActivity_signal_needs_sms_permission_in_order_to_send_an_sms">SMS పంపేందుకు Signal SMS అనుమతి అవసరం, కానీ ఇది శాశ్వతంగా తిరస్కరించబడింది. దయచేసి అనువర్తనం సెట్టింగ్లకు కొనసాగించండి, \"అనుమతులు\" ఎంచుకుని, \"SMS\" ను ప్రారంభించండి.</string>
   <string name="Permissions_continue">కొనసాగించు</string>
   <string name="Permissions_not_now">ఇప్పుడు కాదు</string>
-  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">మీ పరిచయాలను శోధించడానికి Signal కాంటాక్ట్స్ అనుమతి అవసరం కానీ ఇది శాశ్వతంగా తిరస్కరించబడింది. దయచేసి అనువర్తనం సెట్టింగ్లకు కొనసాగించండి, \"అనుమతులు\" ఎంచుకోండి మరియు \"పరిచయాలు\" ప్రారంభించండి.</string>
+  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">మీ పరిచయాలను శోధించడానికి Molly కాంటాక్ట్స్ అనుమతి అవసరం కానీ ఇది శాశ్వతంగా తిరస్కరించబడింది. దయచేసి అనువర్తనం సెట్టింగ్లకు కొనసాగించండి, \"అనుమతులు\" ఎంచుకోండి మరియు \"పరిచయాలు\" ప్రారంభించండి.</string>
   <string name="conversation_activity__enable_signal_messages">Signal సందేశాలను ప్రారంభించు</string>
   <string name="SQLCipherMigrationHelper_migrating_signal_database">Signal దత్తాంశమూల తలరింపడుతోంది.</string>
   <string name="PushDecryptJob_new_locked_message">కొత్త లాక్ చేయబడిన సందేశం</string>

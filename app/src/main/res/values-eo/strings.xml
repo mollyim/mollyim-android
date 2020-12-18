@@ -129,7 +129,7 @@
   <string name="CameraContacts_no_signal_contacts">Neniu Signal-kontakto</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">La fotilo-butono uzeblas nur por sendi fotojn al Signal-kontaktoj.</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">Ĉu vi ne trovas tiun, kiun vi serĉas?</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">Inviti kontakton uzi Signal-on</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">Inviti kontakton uzi Molly-on</string>
   <string name="CameraContacts__menu_search">Serĉi</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">Forviŝi</string>
@@ -311,7 +311,7 @@
   <string name="ConversationFragment__d_group_members_have_the_same_name">%1$d grupanoj havas la saman nomon.</string>
   <string name="ConversationFragment__tap_to_review">Tuŝeti por kontroli</string>
   <string name="ConversationFragment__review_requests_carefully">Kontroli la petojn zorgeme</string>
-  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Signal trovis plian kontakton kun la sama nomo.</string>
+  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Molly trovis plian kontakton kun la sama nomo.</string>
   <!--ConversationListActivity-->
   <string name="ConversationListActivity_there_is_no_browser_installed_on_your_device">Ne estas foliumilo instalata sur via aparato.</string>
   <!--ConversationListFragment-->
@@ -373,11 +373,11 @@
   <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Provu vian savkopian pasfrazon kaj kontrolu ties kongruon</string>
   <string name="BackupsPreferenceFragment__turn_on">Aktivigi</string>
   <string name="BackupsPreferenceFragment__turn_off">Malaktivigi</string>
-  <string name="BackupsPreferenceFragment__to_restore_a_backup">Por restaŭri savkopion, instalu novan Signal-on. Malfermu la aplikaĵon kaj tuŝetu „Restaŭri savkopion“, poste elektu dosieron de savkopi. %1$s</string>
+  <string name="BackupsPreferenceFragment__to_restore_a_backup">Por restaŭri savkopion, instalu novan Molly-on. Malfermu la aplikaĵon kaj tuŝetu „Restaŭri savkopion“, poste elektu dosieron de savkopi. %1$s</string>
   <string name="BackupsPreferenceFragment__learn_more">Scii pli</string>
   <string name="BackupsPreferenceFragment__in_progress">Savkopiado…</string>
   <string name="BackupsPreferenceFragment__d_so_far">%1$d ĝis nun…</string>
-  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal bezonas la permeson aliri al ekstera konservejo por krei sekurkopiojn, sed ĝi estis porĉiame malakceptita. Bonvolu daŭrigi al la aplikaĵaj agordoj, elekti „Permesoj“, kaj ŝalti „Konservejo“.</string>
+  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly bezonas la permeson aliri al ekstera konservejo por krei sekurkopiojn, sed ĝi estis porĉiame malakceptita. Bonvolu daŭrigi al la aplikaĵaj agordoj, elekti „Permesoj“, kaj ŝalti „Konservejo“.</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Uzante propran: %s</string>
   <string name="CustomDefaultPreference_using_default">Uzante defaŭltan: %s</string>
@@ -441,7 +441,7 @@
   <string name="GcmBroadcastReceiver_retrieving_a_message">Ricevo de mesaĝo…</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Daŭra miso ĉe Signal-a komunikado!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal ne eblis registri kun „Play Services“ de Google. Signal-aj mesaĝoj kaj alvokoj malŝaltiĝis, bonvolu provi re-registriĝi en Agordoj → Speciala.</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly ne eblis registri kun „Play Services“ de Google. Molly-aj mesaĝoj kaj alvokoj malŝaltiĝis, bonvolu provi re-registriĝi en Agordoj → Speciala.</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">Eraro dum ricevo de plendifina GIF</string>
   <!--GiphyFragmentPageAdapter-->
@@ -1142,10 +1142,10 @@
   </plurals>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">Entajpu pasfrazon</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Signal-piktogramo</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Molly-piktogramo</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">Sendi pasfrazon</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Nevalida pasfrazo!</string>
-  <string name="PassphrasePromptActivity_unlock_signal">Malŝlosi Signal-on</string>
+  <string name="PassphrasePromptActivity_unlock_signal">Malŝlosi Molly-on</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">Mapo</string>
   <string name="PlacePickerActivity_not_a_valid_address">Nevalida adreso</string>
@@ -1214,8 +1214,8 @@
   <string name="RedPhone_got_it">Bone</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Tuŝetu ĉi tie por ebligi vian videon</string>
-  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Por telefoni %1$s, Signal bezonas aliron al via fotilo</string>
-  <string name="WebRtcCallActivity__signal_s">Signal %1$s</string>
+  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Por telefoni %1$s, Molly bezonas aliron al via fotilo</string>
+  <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
   <string name="WebRtcCallActivity__calling">Konektado…</string>
   <string name="WebRtcCallActivity__group_call">Grup-alvoko</string>
   <!--WebRtcCallView-->
@@ -1264,7 +1264,7 @@
         (%s) ne validas.
     </string>
   <string name="RegistrationActivity_missing_google_play_services">Mankantaj „Play Services“ de Google</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Al tiu ĉi aparato mankas la servoj „Play“ el Google. Vi tamen povas uzi Signal-on, sed tio eble rezultigos kelkajn problemojn.\n\nSe vi ne estas spertulo, se vi ne uzas alian Androidan nurlegan memoron („ROM“), aŭ se vi opinias tion erara, bv. kontakti support@signal.org por ricevi helpon.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Al tiu ĉi aparato mankas la servoj „Play“ el Google. Vi tamen povas uzi Molly-on, sed tio eble rezultigos kelkajn problemojn.\n\nSe vi ne estas spertulo, se vi ne uzas alian Androidan nurlegan memoron („ROM“), aŭ se vi opinias tion erara, bv. kontakti support@molly.im por ricevi helpon.</string>
   <string name="RegistrationActivity_i_understand">Mi komprenas</string>
   <string name="RegistrationActivity_play_services_error">Eraro de servoj „Play“</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">La servoj „Play“ el Google ĝisdatiĝas aŭ provizore ne disponeblas. Bv. re-provi.</string>
@@ -1314,12 +1314,12 @@
   <string name="SearchFragment_header_messages">Mesaĝoj</string>
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">Aldoni al kontaktaro</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Inviti al Signal</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Inviti al Molly</string>
   <string name="SharedContactDetailsActivity_signal_message">Signal-mesaĝo</string>
   <string name="SharedContactDetailsActivity_signal_call">Signal-e telefoni</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">Aldoni al kontaktaro</string>
-  <string name="SharedContactView_invite_to_signal">Inviti al Signal</string>
+  <string name="SharedContactView_invite_to_signal">Inviti al Molly</string>
   <string name="SharedContactView_message">Signal-mesaĝo</string>
   <!--SignalPinReminders-->
   <string name="SignalPinReminders_well_remind_you_again_later">Ni memorigos vin poste.</string>
@@ -1524,7 +1524,7 @@ Ricevis mesaĝon pri interŝanĝo de ŝlosiloj por nevalida protokola versio.
   <string name="ProfileEditNameFragment_successfully_set_profile_name">Profilnomo sukcese difinita.</string>
   <string name="ProfileEditNameFragment_encountered_a_network_error">Okazis reta eraro.</string>
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Rapida respondo ne eblas, kiam Signal estas ŝlosita!</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Rapida respondo ne eblas, kiam Molly estas ŝlosita!</string>
   <string name="QuickResponseService_problem_sending_message">Problemo dum sendo de mesaĝo!</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">Konservita al %s</string>
@@ -1535,7 +1535,7 @@ Ricevis mesaĝon pri interŝanĝo de ŝlosiloj por nevalida protokola versio.
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">Nevalida ŝparvojo</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Nova mesaĝo</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">Ludi videaĵon</string>
@@ -1606,7 +1606,7 @@ Ricevis mesaĝon pri interŝanĝo de ŝlosiloj por nevalida protokola versio.
   <string name="change_passphrase_activity__repeat_new_passphrase">Retajpu novan pasfrazon</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">Entajpu nomon aŭ numeron</string>
-  <string name="contact_selection_activity__invite_to_signal">Inviti al Signal</string>
+  <string name="contact_selection_activity__invite_to_signal">Inviti al Molly</string>
   <string name="contact_selection_activity__new_group">Nova grupo</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">Viŝi la entajpitan tekston</string>
@@ -1823,7 +1823,7 @@ Ricevis mesaĝon pri interŝanĝo de ŝlosiloj por nevalida protokola versio.
   <string name="redphone_call_card__signal_call">Signal-alvoko</string>
   <!--registration_activity-->
   <string name="registration_activity__phone_number">TELEFONNUMERO</string>
-  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Signal faciligas komunikon uzante vian ekzistantan telefonnumeron kaj adresaron. Amikoj kaj kontaktoj, kiuj jam scias, kiel telefoni vin, facile kontaktos vin per Signal.\n\nRegistrado sendas kontaktajn informojn al la servilo: ili ne estas konservitaj.</string>
+  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Molly faciligas komunikon uzante vian ekzistantan telefonnumeron kaj adresaron. Amikoj kaj kontaktoj, kiuj jam scias, kiel telefoni vin, facile kontaktos vin per Molly.\n\nRegistrado sendas kontaktajn informojn al la servilo: ili ne estas konservitaj.</string>
   <string name="registration_activity__verify_your_number">Konfirmi vian numeron</string>
   <string name="registration_activity__please_enter_your_mobile_number_to_receive_a_verification_code_carrier_rates_may_apply">Bonvolu entajpi vian poŝtelefonan telefonnumeron por ricevi konfirman kodon per SMS. Eble via sendrata provizanto pagigos al vi la SMS-on.</string>
   <!--recipients_panel-->
@@ -2183,10 +2183,10 @@ Ricevis mesaĝon pri interŝanĝo de ŝlosiloj por nevalida protokola versio.
   <string name="reminder_header_sms_import_text">Tuŝetu por kopii viajn telefonajn SMS al ĉifrita Signal-datumbazo.</string>
   <string name="reminder_header_push_title">Ŝalti Signal-ajn mesaĝojn kaj alvokojn</string>
   <string name="reminder_header_push_text">Plibonigu vian komuniksperton.</string>
-  <string name="reminder_header_invite_title">Inviti al Signal</string>
+  <string name="reminder_header_invite_title">Inviti al Molly</string>
   <string name="reminder_header_invite_text">Alkonduku vian interparolon kun %1$s al pli alta nivelo.</string>
   <string name="reminder_header_share_title">Invitu viajn amikojn!</string>
-  <string name="reminder_header_share_text">Ju pli da amikoj uzas Signal-on, des pli bona ĝi estas.</string>
+  <string name="reminder_header_share_text">Ju pli da amikoj uzas Molly-on, des pli bona ĝi estas.</string>
   <string name="reminder_header_service_outage_text">Signal havas kelkajn teĥnikajn problemojn. Ni laboras diligente por revenigi la servon kiel eble plej rapide.</string>
   <string name="reminder_header_the_latest_signal_features_wont_work">La plej novaj trajtoj de Signal ne funkcias ĉe tiu versio de Android. Bv. ĝisdatigi vian aparaton por ricevi venontajn Signal-ĝisdatigojn.</string>
   <string name="reminder_header_progress">%1$d %%</string>
@@ -2337,7 +2337,7 @@ Ricevis mesaĝon pri interŝanĝo de ŝlosiloj por nevalida protokola versio.
   <string name="ConversationActivity_signal_needs_sms_permission_in_order_to_send_an_sms">Signal bezonas SMS-permeson por sendi SMS-on, sed ĝi estis porĉiame malakceptita. Bonvolu daŭrigi al la aplikaĵaj agordoj, elekti „Permesoj“ kaj ŝalti „SMS“.</string>
   <string name="Permissions_continue">Daŭrigi</string>
   <string name="Permissions_not_now">Ne nun</string>
-  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Signal bezonas permeson legi kontaktojn por serĉi en viaj kontaktoj, sed ĝi estis porĉiame malakceptita. Bonvolu daŭrigi al la aplikaĵaj agordoj, elekti „Permesoj“, kaj ŝalti „Kontaktoj“.</string>
+  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Molly bezonas permeson legi kontaktojn por serĉi en viaj kontaktoj, sed ĝi estis porĉiame malakceptita. Bonvolu daŭrigi al la aplikaĵaj agordoj, elekti „Permesoj“, kaj ŝalti „Kontaktoj“.</string>
   <string name="conversation_activity__enable_signal_messages">ŜALTI SIGNAL-MESAĜOJN</string>
   <string name="SQLCipherMigrationHelper_migrating_signal_database">Transigo de la Signal-datumbazo</string>
   <string name="PushDecryptJob_new_locked_message">Nova ŝlosita mesaĝo</string>
@@ -2492,7 +2492,7 @@ Ricevis mesaĝon pri interŝanĝo de ŝlosiloj por nevalida protokola versio.
   <string name="GroupsLearnMore_paragraph_2">Malnovtipaj grupoj ankoraŭ ne konverteblas al novtipaj grupoj, sed vi povas krei novtipan grupon kun la samaj anoj, se ili havas la lastan version de Signal.</string>
   <string name="GroupsLearnMore_paragraph_3">Signal permesos aliformigi malnovtipajn grupojn estonte.</string>
   <!--GroupLinkBottomSheetDialogFragment-->
-  <string name="GroupLinkBottomSheet_share_via_signal">Kunhavi per Signal</string>
+  <string name="GroupLinkBottomSheet_share_via_signal">Kunhavi per Molly</string>
   <string name="GroupLinkBottomSheet_copy">Kopii</string>
   <string name="GroupLinkBottomSheet_qr_code">QR-kodo</string>
   <string name="GroupLinkBottomSheet_share">Kunhavigi</string>

@@ -132,7 +132,7 @@
   <string name="CameraContacts_no_signal_contacts">Nici un contact Signal</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">Puteți utiliza butonul aparatului foto pentru a trimite fotografii doar la contactele Signal.</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">Nu puteți găsi pe cine căutați?</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">Invitați un contact să se alăture pe Signal</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">Invitați un contact să se alăture pe Molly</string>
   <string name="CameraContacts__menu_search">Căutați</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">Eliminați</string>
@@ -320,7 +320,7 @@
   <string name="ConversationFragment__d_group_members_have_the_same_name">%1$d membrii ai grupului au același nume.</string>
   <string name="ConversationFragment__tap_to_review">Atingeți pentru examinare</string>
   <string name="ConversationFragment__review_requests_carefully">Examinați cu atenție solicitările</string>
-  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Signal a găsit un alt contact cu același nume.</string>
+  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Molly a găsit un alt contact cu același nume.</string>
   <!--ConversationListActivity-->
   <string name="ConversationListActivity_there_is_no_browser_installed_on_your_device">Nu aveți nici un browser instalat pe dispozitivul dvs.</string>
   <!--ConversationListFragment-->
@@ -386,11 +386,11 @@
   <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Testați parola dvs. de backup și verificați că se potrivește</string>
   <string name="BackupsPreferenceFragment__turn_on">Activare</string>
   <string name="BackupsPreferenceFragment__turn_off">Dezactivare</string>
-  <string name="BackupsPreferenceFragment__to_restore_a_backup">Pentru a restabili un backup, instalați o copie nouă Signal. Deschideți aplicația și atingeți \"Restabilire backup\", apoi localizați un fișier de backup. %1$s</string>
+  <string name="BackupsPreferenceFragment__to_restore_a_backup">Pentru a restabili un backup, instalați o copie nouă Molly. Deschideți aplicația și atingeți \"Restabilire backup\", apoi localizați un fișier de backup. %1$s</string>
   <string name="BackupsPreferenceFragment__learn_more">Aflați mai multe</string>
   <string name="BackupsPreferenceFragment__in_progress">În curs de desfășurare…</string>
   <string name="BackupsPreferenceFragment__d_so_far">%1$d până acum…</string>
-  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal necesită permisiunea de acces la stocarea externă pentru a putea crea backup-uri, dar i-a fost refuzat permanent. Vă rog continuați la setări aplicație, selectați \"Permisiuni\" și activați \"Stocare\". </string>
+  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly necesită permisiunea de acces la stocarea externă pentru a putea crea backup-uri, dar i-a fost refuzat permanent. Vă rog continuați la setări aplicație, selectați \"Permisiuni\" și activați \"Stocare\". </string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Personalizat: %s</string>
   <string name="CustomDefaultPreference_using_default">Implicit: %s</string>
@@ -453,7 +453,7 @@
   <string name="GcmBroadcastReceiver_retrieving_a_message">Se obține un mesaj…</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Eroare permanentă de comunicare cu Signal!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal nu s-a putut înregistra la Google Play Services. Mesajele și apelurile Signal au fost dezactivate, te rog încearcă să te înregistrezi din nou din meniul Setări &gt; Avansat.</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly nu s-a putut înregistra la Google Play Services. Mesajele și apelurile Molly au fost dezactivate, te rog încearcă să te înregistrezi din nou din meniul Setări &gt; Avansat.</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">A apărut o eroare la obținerea GIF-ului la rezoluție maximă</string>
   <!--GiphyFragmentPageAdapter-->
@@ -1125,10 +1125,10 @@
   </plurals>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">Introduceți parola</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Pictogramă Signal</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Pictogramă Molly</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">Trimite parola</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Parolă incorectă!</string>
-  <string name="PassphrasePromptActivity_unlock_signal">Deblochează Signal</string>
+  <string name="PassphrasePromptActivity_unlock_signal">Deblochează Molly</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">Hartă</string>
   <string name="PlacePickerActivity_not_a_valid_address">Adresa nu e este validă</string>
@@ -1198,8 +1198,8 @@
   <string name="RedPhone_got_it">Am înțeles</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Atingeți aici pentru a porni video-ul tău</string>
-  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Pentru a apela pe %1$s, Signal are nevoie de acces la camera dvs.</string>
-  <string name="WebRtcCallActivity__signal_s">Signal %1$s</string>
+  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Pentru a apela pe %1$s, Molly are nevoie de acces la camera dvs.</string>
+  <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
   <string name="WebRtcCallActivity__calling">Apel în curs…</string>
   <string name="WebRtcCallActivity__group_call">Apel de grup</string>
   <!--WebRtcCallView-->
@@ -1243,7 +1243,7 @@ numărul dvs. de telefon</string>
   <string name="RegistrationActivity_the_number_you_specified_s_is_invalid">Numărul de telefon
 furnizat (%s) este invalid.</string>
   <string name="RegistrationActivity_missing_google_play_services">Serviciile Google Play lipsesc</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Acestui dispozitiv îi lipsesc serviciile Google Play. Poți utiliza în continuare Signal, însă această configurație poate duce la fiabilitate și performanță redusă.\n\nDacă nu ești un utilizator avansat, nu rulezi un ROM Android aftermarket,  sau crezi că vezi asta în erori, te rog contactează support@signal.org pentru ajutor la depanare.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Acestui dispozitiv îi lipsesc serviciile Google Play. Poți utiliza în continuare Molly, însă această configurație poate duce la fiabilitate și performanță redusă.\n\nDacă nu ești un utilizator avansat, nu rulezi un ROM Android aftermarket,  sau crezi că vezi asta în erori, te rog contactează support@molly.im pentru ajutor la depanare.</string>
   <string name="RegistrationActivity_i_understand">Am înțeles</string>
   <string name="RegistrationActivity_play_services_error">Eroare servicii Play</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Serviciile Google Play se actualizează sau sunt temporar indisponibile. Te rog încearcă din nou.</string>
@@ -1294,12 +1294,12 @@ furnizat (%s) este invalid.</string>
   <string name="SearchFragment_header_messages">Mesaje</string>
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">Adăugați la contacte</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Invitați la Signal</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Invitați la Molly</string>
   <string name="SharedContactDetailsActivity_signal_message">Mesaj Signal</string>
   <string name="SharedContactDetailsActivity_signal_call">Apel Signal</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">Adăugați la contacte</string>
-  <string name="SharedContactView_invite_to_signal">Invitați la Signal</string>
+  <string name="SharedContactView_invite_to_signal">Invitați la Molly</string>
   <string name="SharedContactView_message">Mesaj Signal</string>
   <!--SignalPinReminders-->
   <string name="SignalPinReminders_well_remind_you_again_later">Vă reamintim mai târziu.</string>
@@ -1504,7 +1504,7 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <string name="ProfileEditNameFragment_successfully_set_profile_name">Numele de profil a fost setat cu succes.</string>
   <string name="ProfileEditNameFragment_encountered_a_network_error">A apărut o eroare de rețea.</string>
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Răspunsul rapid nu este disponibil cât timp Signal este blocat!</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Răspunsul rapid nu este disponibil cât timp Molly este blocat!</string>
   <string name="QuickResponseService_problem_sending_message">Problemă la trimiterea mesajului!</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">Salvat în %s</string>
@@ -1515,7 +1515,7 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">Scurtătură invalidă</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Mesaj nou</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">Redați video</string>
@@ -1586,7 +1586,7 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <string name="change_passphrase_activity__repeat_new_passphrase">Repetă parola nouă</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">Introduceți un nume sau un număr</string>
-  <string name="contact_selection_activity__invite_to_signal">Invitați la Signal</string>
+  <string name="contact_selection_activity__invite_to_signal">Invitați la Molly</string>
   <string name="contact_selection_activity__new_group">Grup nou</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">Ștergeți textul introdus</string>
@@ -1810,7 +1810,7 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <string name="redphone_call_card__signal_call">Apel Signal</string>
   <!--registration_activity-->
   <string name="registration_activity__phone_number">NUMĂRUL DE TELEFON</string>
-  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Signal facilitează comunicarea folosind numărul dvs. existent de telefon și agenda telefonului. Prietenii și contactele care știu deja cum să vă contacteze prin telefon vor putea să vă contacteze ușor prin Signal.\n\nÎnregistrarea trimite anumite informații ale contactelor la server. Acestea nu sunt stocate.</string>
+  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Molly facilitează comunicarea folosind numărul dvs. existent de telefon și agenda telefonului. Prietenii și contactele care știu deja cum să vă contacteze prin telefon vor putea să vă contacteze ușor prin Molly.\n\nÎnregistrarea trimite anumite informații ale contactelor la server. Acestea nu sunt stocate.</string>
   <string name="registration_activity__verify_your_number">Verificați numărul dvs.</string>
   <string name="registration_activity__please_enter_your_mobile_number_to_receive_a_verification_code_carrier_rates_may_apply">Vă rog introduceți numărul dvs. de mobil pentru a primi un cod de verificare. Se pot percepe taxe de operator.</string>
   <!--recipients_panel-->
@@ -2171,10 +2171,10 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <string name="reminder_header_sms_import_text">Apasă pentru a copia mesajele SMS din telefon în baza de date criptată Signal.</string>
   <string name="reminder_header_push_title">Activează mesaje și apeluri Signal</string>
   <string name="reminder_header_push_text">Actualizează-ți experiența ta de comunicare.</string>
-  <string name="reminder_header_invite_title">Invită la Signal</string>
+  <string name="reminder_header_invite_title">Invită la Molly</string>
   <string name="reminder_header_invite_text">Treci la următorul nivel al conversației cu %1$s.</string>
   <string name="reminder_header_share_title">Invită-ți prietenii!</string>
-  <string name="reminder_header_share_text">Cu cât mai mulți prieteni utilizează Signal, cu atât devine mai bun.</string>
+  <string name="reminder_header_share_text">Cu cât mai mulți prieteni utilizează Molly, cu atât devine mai bun.</string>
   <string name="reminder_header_service_outage_text">Signal întâmpină dificultăți tehnice. Muncim din greu pentru a restabili serviciul cât mai repede posibil.</string>
   <string name="reminder_header_the_latest_signal_features_wont_work">Ultimele funcționalități Signal nu vor mai rula pe această versiune de Android. Vă rugăm să actualizați acest dispozitiv pentru a putea primi în viitor actualizări de Signal.</string>
   <string name="reminder_header_progress">%1$d%%</string>
@@ -2332,7 +2332,7 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <string name="ConversationActivity_signal_needs_sms_permission_in_order_to_send_an_sms">Signal are nevoie de permisiunea SMS pentru a putea trimite SMS dar i-a fost refuzat accesul permanent. Vă rog navigați în meniul de setări al aplicației, selectați \"Permisiuni\" și activați \"SMS\".</string>
   <string name="Permissions_continue">Continuă</string>
   <string name="Permissions_not_now">Nu acum</string>
-  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Signal are nevoie de permisiunea pentru Contacte pentru a putea căuta în contactele tale dar i-a fost refuzat accesul permanent. Vă rog navigați în meniul de setări al aplicației, selectați \"Permisiuni\" și activați \"Contacte\".</string>
+  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Molly are nevoie de permisiunea pentru Contacte pentru a putea căuta în contactele tale dar i-a fost refuzat accesul permanent. Vă rog navigați în meniul de setări al aplicației, selectați \"Permisiuni\" și activați \"Contacte\".</string>
   <string name="conversation_activity__enable_signal_messages">ACTIVEAZĂ MESAJELE SIGNAL</string>
   <string name="SQLCipherMigrationHelper_migrating_signal_database">Se migrează baza de date Signal </string>
   <string name="PushDecryptJob_new_locked_message">Mesaj nou blocat</string>
@@ -2487,7 +2487,7 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <string name="GroupsLearnMore_paragraph_2">Grupurile vechi nu pot fi încă migrate la cele noi, dar poți crea un Grup Nou cu aceeași membri dacă aceștia folosesc toți ultima versiune de Signal.</string>
   <string name="GroupsLearnMore_paragraph_3">Signal va oferi în viitor o modalitate de actualizare a grupurilor vechi.</string>
   <!--GroupLinkBottomSheetDialogFragment-->
-  <string name="GroupLinkBottomSheet_share_via_signal">Partajează prin Signal</string>
+  <string name="GroupLinkBottomSheet_share_via_signal">Partajează prin Molly</string>
   <string name="GroupLinkBottomSheet_copy">Copy</string>
   <string name="GroupLinkBottomSheet_qr_code">Cod QR</string>
   <string name="GroupLinkBottomSheet_share">Partajați</string>

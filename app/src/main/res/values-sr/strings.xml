@@ -119,7 +119,7 @@
   <string name="CameraContacts_no_signal_contacts">Немате Signal контаката</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">Можете користити дугме камере за слање фотографија само Signal контактима.</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">Не можете наћи оно што тражите?</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">Позовите контакт да се прикључи апликацији Signal</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">Позовите контакт да се прикључи апликацији Molly</string>
   <string name="CameraContacts__menu_search">Тражи</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">Уклони</string>
@@ -359,7 +359,7 @@
   <string name="GcmBroadcastReceiver_retrieving_a_message">Прикупљање поруке…</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Трајни неуспех комуникације Signal-a!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal није успео да се пријави на Гуглов Плеј сервис. Комуникација преко канала података је онемогућена, покушајте поново да се пријавите преко Поставке &gt; Напредно.</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly није успео да се пријави на Гуглов Плеј сервис. Комуникација преко канала података је онемогућена, покушајте поново да се пријавите преко Поставке &gt; Напредно.</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">Грешка при добављању ГИФ сличице пуне резолуције</string>
   <!--GiphyFragmentPageAdapter-->
@@ -554,7 +554,7 @@
   <string name="ExpirationDialog_your_messages_will_disappear_s_after_they_have_been_seen">Примљене и послате поруке ове преписке ће нестати %s након што су погледане.</string>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">Унесите лозинку</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Икона Signal-a</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Икона Molly-a</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">Поднеси лозинку</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Нетачна лозинка!</string>
   <string name="PassphrasePromptActivity_unlock_signal">Откључај Сигнал</string>
@@ -652,12 +652,12 @@
   <string name="SearchFragment_header_messages">Поруке</string>
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">Додај у контакте</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Слање позивнице за Signal</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Слање позивнице за Molly</string>
   <string name="SharedContactDetailsActivity_signal_message">Порука на Signalу</string>
   <string name="SharedContactDetailsActivity_signal_call">Позив на Signalу</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">Додај у контакте</string>
-  <string name="SharedContactView_invite_to_signal">Слање позивнице за Signal</string>
+  <string name="SharedContactView_invite_to_signal">Слање позивнице за Molly</string>
   <string name="SharedContactView_message">Порука на Signalу</string>
   <!--SignalPinReminders-->
   <!--Slide-->
@@ -810,7 +810,7 @@
   <string name="NotificationChannel_missing_display_name">Непозната</string>
   <!--ProfileEditNameFragment-->
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Брзи одговор није доступан ако је Signal закључан!</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Брзи одговор није доступан ако је Molly закључан!</string>
   <string name="QuickResponseService_problem_sending_message">Проблем са слањем поруке!</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">Сачувано у %s</string>
@@ -820,7 +820,7 @@
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">Неважећа пречица</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Нова порука</string>
   <!--ThumbnailView-->
   <!--TransferControlView-->
@@ -873,7 +873,7 @@
   <string name="change_passphrase_activity__repeat_new_passphrase">Поновите нову лозинку</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">Унесите име или број</string>
-  <string name="contact_selection_activity__invite_to_signal">Позивница за Signal</string>
+  <string name="contact_selection_activity__invite_to_signal">Позивница за Molly</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">Обриши унесен текст</string>
   <string name="contact_filter_toolbar__show_keyboard_description">Прикажи тастатуру</string>
@@ -1063,7 +1063,7 @@
   <string name="redphone_call_card__signal_call">Позив на Signalу</string>
   <!--registration_activity-->
   <string name="registration_activity__phone_number">БРОЈ ТЕЛЕФОНА</string>
-  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Signal омогућује једноставну комуникацију користећи ваш број телефона и адресар. Пријатељи и контакти који већ знају како да вас контактирају телефоном ће бити у стању да вас лако контактирају преко Signal-a.\n\nПријава ће пренети неке податке о контакту на сервер. Подаци се не чувају.</string>
+  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Molly омогућује једноставну комуникацију користећи ваш број телефона и адресар. Пријатељи и контакти који већ знају како да вас контактирају телефоном ће бити у стању да вас лако контактирају преко Molly-a.\n\nПријава ће пренети неке податке о контакту на сервер. Подаци се не чувају.</string>
   <string name="registration_activity__verify_your_number">Провери сигурносни број</string>
   <string name="registration_activity__please_enter_your_mobile_number_to_receive_a_verification_code_carrier_rates_may_apply">Унесите број телефона како бисте примили потврдни код. Могућа је наплата СМС услуге</string>
   <!--recipients_panel-->
@@ -1343,10 +1343,10 @@
   <string name="reminder_header_sms_import_text">Тапните да копирате СМС поруке са вашег телефона у шифровану базу Signal-a.</string>
   <string name="reminder_header_push_title">Омогућите поруке и позиве преко Signal-a</string>
   <string name="reminder_header_push_text">Побољшајте комуникацију.</string>
-  <string name="reminder_header_invite_title">Позивница за Signal</string>
+  <string name="reminder_header_invite_title">Позивница за Molly</string>
   <string name="reminder_header_invite_text">Подигните комуникацију са %1$s на идући ниво.</string>
   <string name="reminder_header_share_title">Позовите ваше пријатеље!</string>
-  <string name="reminder_header_share_text">Што га више пријатеља користи, Signal је бољи.</string>
+  <string name="reminder_header_share_text">Што га више пријатеља користи, Molly је бољи.</string>
   <string name="reminder_header_service_outage_text">Signal тренутно има техничких потешкоћа. Трудимо се да што пре повратимо услугу.</string>
   <string name="reminder_header_progress">%1$d %%</string>
   <!--media_preview-->

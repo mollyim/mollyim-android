@@ -135,7 +135,7 @@
   <string name="CameraContacts_no_signal_contacts">Žádné Signal kontakty</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">Tlačítko fotoaparátu můžete použit pouze pro odeslání fotografií kontaktům Signal.</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">Nemůžete najít, koho jste hledali?</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">Pozvěte kontakt do Signal</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">Pozvěte kontakt do Molly</string>
   <string name="CameraContacts__menu_search">Hledat</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">Odebrat</string>
@@ -331,7 +331,7 @@
   <string name="ConversationFragment__d_group_members_have_the_same_name">%1$d členů skupiny má stejné jméno.</string>
   <string name="ConversationFragment__tap_to_review">Klepněte pro prověření</string>
   <string name="ConversationFragment__review_requests_carefully">Požadavky pečlivě prověřte</string>
-  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Signal nalezl jiný kontakt se stejným jménem.</string>
+  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Molly nalezl jiný kontakt se stejným jménem.</string>
   <!--ConversationListActivity-->
   <string name="ConversationListActivity_there_is_no_browser_installed_on_your_device">Nemáte na vašem zařízení nainstalován žádný prohlížeč.</string>
   <!--ConversationListFragment-->
@@ -401,11 +401,11 @@
   <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Otestujte přístupovou frázi pro vaši zálohu a ověřte, že se shoduje</string>
   <string name="BackupsPreferenceFragment__turn_on">Zapnout</string>
   <string name="BackupsPreferenceFragment__turn_off">Vypnout</string>
-  <string name="BackupsPreferenceFragment__to_restore_a_backup">Pro obnovení ze zálohy znovu nainstalujte aplikaci Signal. Spusťte aplikaci a klepněte na \"Obnovení ze zálohy\", pak najděte soubor se zálohou. %1$s</string>
+  <string name="BackupsPreferenceFragment__to_restore_a_backup">Pro obnovení ze zálohy znovu nainstalujte aplikaci Molly. Spusťte aplikaci a klepněte na \"Obnovení ze zálohy\", pak najděte soubor se zálohou. %1$s</string>
   <string name="BackupsPreferenceFragment__learn_more">Zjistit více</string>
   <string name="BackupsPreferenceFragment__in_progress">Probíhá…</string>
   <string name="BackupsPreferenceFragment__d_so_far">%1$d dosud…</string>
-  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal potřebuje oprávnění pro přístup k úložišti, aby mohl vytvářet zálohy, ale toto oprávnění je nyní trvale zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Úložiště\".</string>
+  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly potřebuje oprávnění pro přístup k úložišti, aby mohl vytvářet zálohy, ale toto oprávnění je nyní trvale zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Úložiště\".</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Používá se vlastní: %s</string>
   <string name="CustomDefaultPreference_using_default">Používá se výchozí: %s</string>
@@ -470,7 +470,7 @@
   <string name="GcmBroadcastReceiver_retrieving_a_message">Načítám zprávu…</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Trvalá chyba komunikace Signal!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal se nemůže registrovat k službě Google Play. Zprávy a volání jsou proto zakázány: Prosím zkuste se znovu registrovat v menu Nastavení &gt; Rozšířené.</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly se nemůže registrovat k službě Google Play. Zprávy a volání jsou proto zakázány: Prosím zkuste se znovu registrovat v menu Nastavení &gt; Rozšířené.</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">Chyba při získávání GIF v plném rozlišení</string>
   <!--GiphyFragmentPageAdapter-->
@@ -1262,10 +1262,10 @@
   </plurals>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">Zadat heslo</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Ikona Signal</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Ikona Molly</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">Zadejte heslo</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Chybné heslo!</string>
-  <string name="PassphrasePromptActivity_unlock_signal">Odemknout Signal</string>
+  <string name="PassphrasePromptActivity_unlock_signal">Odemknout Molly</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">Mapa</string>
   <string name="PlacePickerActivity_not_a_valid_address">Neplatná adresa</string>
@@ -1336,8 +1336,8 @@
   <string name="RedPhone_got_it">Rozumím</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Klepnutím sem zapnete své video</string>
-  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Signal potřebuje přístup k vašemu fotoaparátu, pro volání %1$s</string>
-  <string name="WebRtcCallActivity__signal_s">Signal %1$s</string>
+  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Molly potřebuje přístup k vašemu fotoaparátu, pro volání %1$s</string>
+  <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
   <string name="WebRtcCallActivity__calling">Volání…</string>
   <string name="WebRtcCallActivity__group_call">Skupinový hovor</string>
   <!--WebRtcCallView-->
@@ -1390,7 +1390,7 @@ telefonní číslo
 (%s) je neplatné.
 </string>
   <string name="RegistrationActivity_missing_google_play_services">Chybí Google Play služba</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Toto zařízení nepodporuje službu Google Play. Můžete stále používat Signal, ale tato konfigurace může mít za následek snížení spolehlivosti nebo výkonu.\n\n Jestli nejste zkušený uživatel, nepoužíváte alternativní Android ROM nebo si myslíte, že je to chyba, kontaktujte support@signal.org pro pomoc s řešením tohoto problému.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Toto zařízení nepodporuje službu Google Play. Můžete stále používat Molly, ale tato konfigurace může mít za následek snížení spolehlivosti nebo výkonu.\n\n Jestli nejste zkušený uživatel, nepoužíváte alternativní Android ROM nebo si myslíte, že je to chyba, kontaktujte support@molly.im pro pomoc s řešením tohoto problému.</string>
   <string name="RegistrationActivity_i_understand">Rozumím</string>
   <string name="RegistrationActivity_play_services_error">Chyba Google Play </string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Služba Google Play se aktualizuje nebo je dočasně nedostupná. Zkuste to prosím znovu.</string>
@@ -1442,12 +1442,12 @@ telefonní číslo
   <string name="SearchFragment_header_messages">Zprávy</string>
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">Přidat do kontaktů</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Pozvat do Signal</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Pozvat do Molly</string>
   <string name="SharedContactDetailsActivity_signal_message">Zpráva Signal</string>
   <string name="SharedContactDetailsActivity_signal_call">Signal volání</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">Přidat do kontaktů</string>
-  <string name="SharedContactView_invite_to_signal">Pozvat do Signal</string>
+  <string name="SharedContactView_invite_to_signal">Pozvat do Molly</string>
   <string name="SharedContactView_message">Zpráva Signal</string>
   <!--SignalPinReminders-->
   <string name="SignalPinReminders_well_remind_you_again_later">Připomeneme se vám později.</string>
@@ -1653,7 +1653,7 @@ Obdržen požadavek na výměnu klíčů pro neplatnou verzi protokolu.
   <string name="ProfileEditNameFragment_successfully_set_profile_name">Profilové jméno bylo úspěšně nastaveno.</string>
   <string name="ProfileEditNameFragment_encountered_a_network_error">Došlo k chybě v síti.</string>
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Rychlá odpověď není dostupná, pokud je Signal uzamčen!</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Rychlá odpověď není dostupná, pokud je Molly uzamčen!</string>
   <string name="QuickResponseService_problem_sending_message">Problém při odesílání zprávy!</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">Uloženo do %s</string>
@@ -1664,7 +1664,7 @@ Obdržen požadavek na výměnu klíčů pro neplatnou verzi protokolu.
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">Chybná klávesová zkratka</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Nová zpráva</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">Přehrát video</string>
@@ -1737,7 +1737,7 @@ Obdržen požadavek na výměnu klíčů pro neplatnou verzi protokolu.
   <string name="change_passphrase_activity__repeat_new_passphrase">Zopakujte nové heslo</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">Zadejte jméno nebo číslo</string>
-  <string name="contact_selection_activity__invite_to_signal">Pozvat do Signal</string>
+  <string name="contact_selection_activity__invite_to_signal">Pozvat do Molly</string>
   <string name="contact_selection_activity__new_group">Nová skupina</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">Vymazat zadaný text</string>
@@ -1972,7 +1972,7 @@ Obdržen požadavek na výměnu klíčů pro neplatnou verzi protokolu.
   <string name="redphone_call_card__signal_call">Signal volání</string>
   <!--registration_activity-->
   <string name="registration_activity__phone_number">TELEFONNÍ ČÍSLO</string>
-  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Signal umožňuje snadnou komunikaci s použitím vašeho stávajícího telefonního čísla a adresáře kontaktů. Přátelé a ostatní kontakty se s vámi budou moci snadno spojit pomocí aplikace Signal.\n\nRegistrace odesílá některé kontaktní údaje na server, kde ale nejsou uloženy.</string>
+  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Molly umožňuje snadnou komunikaci s použitím vašeho stávajícího telefonního čísla a adresáře kontaktů. Přátelé a ostatní kontakty se s vámi budou moci snadno spojit pomocí aplikace Molly.\n\nRegistrace odesílá některé kontaktní údaje na server, kde ale nejsou uloženy.</string>
   <string name="registration_activity__verify_your_number">Zkontrolujte vaše číslo</string>
   <string name="registration_activity__please_enter_your_mobile_number_to_receive_a_verification_code_carrier_rates_may_apply">Zadejte své mobilní číslo a obdržíte ověřovací kód. Může to být zpoplatněno podle sazeb vašeho operátora.</string>
   <!--recipients_panel-->
@@ -2334,10 +2334,10 @@ Obdržen požadavek na výměnu klíčů pro neplatnou verzi protokolu.
   <string name="reminder_header_sms_import_text">Klepněte pro zkopírování SMS z telefonu do šifrované databáze Signal.</string>
   <string name="reminder_header_push_title">Povolit Signal zprávy a volání</string>
   <string name="reminder_header_push_text">Lepší zážitky z komunikace.</string>
-  <string name="reminder_header_invite_title">Pozvat do Signal</string>
+  <string name="reminder_header_invite_title">Pozvat do Molly</string>
   <string name="reminder_header_invite_text">Posuňte vaši konverzaci s %1$s na vyšší úroveň.</string>
   <string name="reminder_header_share_title">Pozvěte vaše přátele!</string>
-  <string name="reminder_header_share_text">Čím víc bude uživatelů Signal, tím bude lepší.</string>
+  <string name="reminder_header_share_text">Čím víc bude uživatelů Molly, tím bude lepší.</string>
   <string name="reminder_header_service_outage_text">Signal zaznamenal technické potíže. Pracujeme tvrdě na co nejrychlejší obnově služby.</string>
   <string name="reminder_header_the_latest_signal_features_wont_work">Nejnovější funkce aplikace Signal nebudou fungovat s touto verzí Androidu. Prosím aktualizujte své zařízení, abyste mohli používat nové verze aplikace Signal.</string>
   <string name="reminder_header_progress">%1$d%%</string>
@@ -2502,7 +2502,7 @@ Obdržen požadavek na výměnu klíčů pro neplatnou verzi protokolu.
   <string name="ConversationActivity_signal_needs_sms_permission_in_order_to_send_an_sms">Signal potřebuje oprávnění pro přístup k SMS, aby mohl posílat SMS zprávy, ale toto oprávnění je nyní zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"SMS\".</string>
   <string name="Permissions_continue">Pokračovat</string>
   <string name="Permissions_not_now">Teď ne</string>
-  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Signal potřebuje oprávnění pro přístup ke kontaktům, aby je mohl vyhledávat, ale toto oprávnění je nyní zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Kontakty\", </string>
+  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Molly potřebuje oprávnění pro přístup ke kontaktům, aby je mohl vyhledávat, ale toto oprávnění je nyní zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Kontakty\", </string>
   <string name="conversation_activity__enable_signal_messages">POVOLIT ZPRÁVY SIGNAL</string>
   <string name="SQLCipherMigrationHelper_migrating_signal_database">Přesouvám Signal databázi</string>
   <string name="PushDecryptJob_new_locked_message">Nová uzamčená zpráva</string>
@@ -2657,7 +2657,7 @@ Obdržen požadavek na výměnu klíčů pro neplatnou verzi protokolu.
   <string name="GroupsLearnMore_paragraph_2">Starší skupiny zatím nelze aktualizovat na nové skupiny, ale můžete vytvořit novou skupinu se stejnými členy, pokud používají poslední verzi Signal.</string>
   <string name="GroupsLearnMore_paragraph_3">Signal nabídne možnost aktualizovat starší skupiny v budoucnosti.</string>
   <!--GroupLinkBottomSheetDialogFragment-->
-  <string name="GroupLinkBottomSheet_share_via_signal">Sdílet přes Signal</string>
+  <string name="GroupLinkBottomSheet_share_via_signal">Sdílet přes Molly</string>
   <string name="GroupLinkBottomSheet_copy">Kopírovat</string>
   <string name="GroupLinkBottomSheet_qr_code">QR kód</string>
   <string name="GroupLinkBottomSheet_share">Sdílet</string>

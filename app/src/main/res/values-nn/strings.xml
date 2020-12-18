@@ -129,7 +129,7 @@
   <string name="CameraContacts_no_signal_contacts">Ingen Signal-kontaktar</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">Du kan berre bruka kameraknappen til å senda bilde til Signal-kontaktar.</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">Finn du ikkje den du leitar etter?</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">Inviter ein kontakt til Signal</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">Inviter ein kontakt til Molly</string>
   <string name="CameraContacts__menu_search">Søk</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">Fjern</string>
@@ -312,7 +312,7 @@ Viss kontoen din har lenka einingar, så vil nye notat bli synkroniserte.</strin
   <string name="ConversationFragment__d_group_members_have_the_same_name">%1$d gruppemedlemmar har det same namnet.</string>
   <string name="ConversationFragment__tap_to_review">Trykk for å sjå gjennom</string>
   <string name="ConversationFragment__review_requests_carefully">Sjå nøye gjennom førespurnader</string>
-  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Signal fann ein annan kontakt med det same namnet.</string>
+  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Molly fann ein annan kontakt med det same namnet.</string>
   <!--ConversationListActivity-->
   <string name="ConversationListActivity_there_is_no_browser_installed_on_your_device">Denne eininga har ingen nettlesar installert.</string>
   <!--ConversationListFragment-->
@@ -374,11 +374,11 @@ Viss kontoen din har lenka einingar, så vil nye notat bli synkroniserte.</strin
   <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Test passordfrasen for reserverkopiane dine og stadfest at han er rett</string>
   <string name="BackupsPreferenceFragment__turn_on">Skru på</string>
   <string name="BackupsPreferenceFragment__turn_off">Skru av</string>
-  <string name="BackupsPreferenceFragment__to_restore_a_backup">For å gjenoppretta ein reservekopi må du installera Signal på nytt eller på ei ny eining. Opna appen og trykk «Gjenopprett reservekopi» og finn kopi-fila. %1$s</string>
+  <string name="BackupsPreferenceFragment__to_restore_a_backup">For å gjenoppretta ein reservekopi må du installera Molly på nytt eller på ei ny eining. Opna appen og trykk «Gjenopprett reservekopi» og finn kopi-fila. %1$s</string>
   <string name="BackupsPreferenceFragment__learn_more">Lær meir</string>
   <string name="BackupsPreferenceFragment__in_progress">I gang …</string>
   <string name="BackupsPreferenceFragment__d_so_far">%1$d så langt …</string>
-  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal treng tilgang til ekstern lagring for å laga reservekopiar, men tilgangen er permanent avslått. Opna app-innstillingsmenyen og vel «Tilgang» – eventuelt «Tillatelser» – og skru på «Lagring».</string>
+  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly treng tilgang til ekstern lagring for å laga reservekopiar, men tilgangen er permanent avslått. Opna app-innstillingsmenyen og vel «Tilgang» – eventuelt «Tillatelser» – og skru på «Lagring».</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Bruker sjølvvald: %s</string>
   <string name="CustomDefaultPreference_using_default">Bruker standard: %s</string>
@@ -442,7 +442,7 @@ Viss kontoen din har lenka einingar, så vil nye notat bli synkroniserte.</strin
   <string name="GcmBroadcastReceiver_retrieving_a_message">Hentar ei melding …</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Varig Signal-kommunikasjonsfeil.</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal klarte ikkje å registrera seg som Google Play-teneste. Signal-meldingar og samtalar er difor slått av. Prøv å registrera programmet på nytt under Innstillingar &gt; Avansert.</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly klarte ikkje å registrera seg som Google Play-teneste. Molly-meldingar og samtalar er difor slått av. Prøv å registrera programmet på nytt under Innstillingar &gt; Avansert.</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">Klarte ikkje henta GIF i full storleik</string>
   <!--GiphyFragmentPageAdapter-->
@@ -1146,10 +1146,10 @@ Dei er invitert inn, og ser inga gruppemeldingar før dei godtek.</string>
   </plurals>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">Skriv inn passordfrase</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Signal-ikon</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Molly-ikon</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">Send inn passordfrase</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Ugyldig passordfrase.</string>
-  <string name="PassphrasePromptActivity_unlock_signal">Lås opp Signal</string>
+  <string name="PassphrasePromptActivity_unlock_signal">Lås opp Molly</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">Kart</string>
   <string name="PlacePickerActivity_not_a_valid_address">Ikkje ei gyldig adresse</string>
@@ -1220,8 +1220,8 @@ Viss du ikkje klarer å hugsa PIN-en, kan du oppretta ein ny ein. Du kan registr
   <string name="RedPhone_got_it">Ålreit</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Trykk her for å skru på videoen din</string>
-  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Signal treng tilgang til kameraet ditt for å ringa %1$s</string>
-  <string name="WebRtcCallActivity__signal_s">Signal %1$s</string>
+  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Molly treng tilgang til kameraet ditt for å ringa %1$s</string>
+  <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
   <string name="WebRtcCallActivity__calling">Ringer …</string>
   <string name="WebRtcCallActivity__group_call">Gruppesamtale</string>
   <!--WebRtcCallView-->
@@ -1320,12 +1320,12 @@ Ver deg sjølv i kvar einaste melding.</string>
   <string name="SearchFragment_header_messages">Meldingar</string>
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">Legg til som kontakt</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Inviter til Signal</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Inviter til Molly</string>
   <string name="SharedContactDetailsActivity_signal_message">Signal-melding</string>
   <string name="SharedContactDetailsActivity_signal_call">Signal-anrop</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">Legg til i kontaktar</string>
-  <string name="SharedContactView_invite_to_signal">Inviter til Signal</string>
+  <string name="SharedContactView_invite_to_signal">Inviter til Molly</string>
   <string name="SharedContactView_message">Signal-melding</string>
   <!--SignalPinReminders-->
   <string name="SignalPinReminders_well_remind_you_again_later">Me minner deg på dette igjen seinare.</string>
@@ -1529,7 +1529,7 @@ Mottok nøkkelutvekslingsmelding for ugyldig protokollversjon.</string>
   <string name="ProfileEditNameFragment_successfully_set_profile_name">Lagra profilnamnet.</string>
   <string name="ProfileEditNameFragment_encountered_a_network_error">Fekk ein nettverksfeil.</string>
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Hurtigsvar er utilgjengeleg når Signal er låst.</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Hurtigsvar er utilgjengeleg når Molly er låst.</string>
   <string name="QuickResponseService_problem_sending_message">Det oppstod eit problem under sending av melding.</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">Lagra til %s</string>
@@ -1540,7 +1540,7 @@ Mottok nøkkelutvekslingsmelding for ugyldig protokollversjon.</string>
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">Ugyldig snarveg</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Ny melding</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">Snurr film</string>
@@ -1611,7 +1611,7 @@ Mottok nøkkelutvekslingsmelding for ugyldig protokollversjon.</string>
   <string name="change_passphrase_activity__repeat_new_passphrase">Gjenta ny passordfrase</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">Skriv inn namn eller nummer</string>
-  <string name="contact_selection_activity__invite_to_signal">Inviter til Signal</string>
+  <string name="contact_selection_activity__invite_to_signal">Inviter til Molly</string>
   <string name="contact_selection_activity__new_group">Ny gruppe</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">Tøm tekstfeltet</string>
@@ -2191,10 +2191,10 @@ Du er à jour!</string>
   <string name="reminder_header_sms_import_text">Trykk for å kopiera telefonen sin SMS-meldingar til Signal sin krypterte database.</string>
   <string name="reminder_header_push_title">Slå på Signal-meldingar og -samtalar</string>
   <string name="reminder_header_push_text">Oppgrader kommunikasjonsopplevinga.</string>
-  <string name="reminder_header_invite_title">Inviter til Signal</string>
+  <string name="reminder_header_invite_title">Inviter til Molly</string>
   <string name="reminder_header_invite_text">Ta samtalen med %1$s til neste nivå.</string>
   <string name="reminder_header_share_title">Inviter vennane dine!</string>
-  <string name="reminder_header_share_text">Jo fleire vennar som bruker Signal, desto betre vert det.</string>
+  <string name="reminder_header_share_text">Jo fleire vennar som bruker Molly, desto betre vert det.</string>
   <string name="reminder_header_service_outage_text">Signal har for tida tekniske problem. Me jobbar hardt med å få tilbake tenesta så fort som mogleg.</string>
   <string name="reminder_header_the_latest_signal_features_wont_work">Dei nyaste Signal-funksjonane fungerer ikkje i denne utgåva av Android. Oppgrader eininga for å få oppdateringar av Signal.</string>
   <string name="reminder_header_progress">%1$d%%</string>
@@ -2345,7 +2345,7 @@ Du er à jour!</string>
   <string name="ConversationActivity_signal_needs_sms_permission_in_order_to_send_an_sms">Signal treng tilgang til SMS for å senda SMS, men tilgangen er permanent avslått. Opna app-innstillingsmenyen og vel «Tilgang» – eventuelt «Tillatelser» – og skru på «SMS».</string>
   <string name="Permissions_continue">Hald fram</string>
   <string name="Permissions_not_now">Ikkje no</string>
-  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Signal treng tilgang til kontaktar for å søka i kontaktar, men tilgangen er permanent avslått. Opna app-innstillingsmenyen og vel «Tilgang» – eventuelt «Tillatelser» – og skru på «Kontaktar».</string>
+  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Molly treng tilgang til kontaktar for å søka i kontaktar, men tilgangen er permanent avslått. Opna app-innstillingsmenyen og vel «Tilgang» – eventuelt «Tillatelser» – og skru på «Kontaktar».</string>
   <string name="conversation_activity__enable_signal_messages">SKRU PÅ SIGNAL-MELDINGAR</string>
   <string name="SQLCipherMigrationHelper_migrating_signal_database">Migrerer Signal-databasen</string>
   <string name="PushDecryptJob_new_locked_message">Ny låst melding</string>
@@ -2501,7 +2501,7 @@ Du er à jour!</string>
   <string name="GroupsLearnMore_paragraph_2">Eldre grupper kan ikkje enno oppgraderast til Nye grupper, men du kan laga ei Ny gruppe med same medlemmar viss dei alle har den seinaste Signal-utgåva.</string>
   <string name="GroupsLearnMore_paragraph_3">Signal vil etter kvart få støtte for å oppgradera Eldre grupper.</string>
   <!--GroupLinkBottomSheetDialogFragment-->
-  <string name="GroupLinkBottomSheet_share_via_signal">Del med Signal</string>
+  <string name="GroupLinkBottomSheet_share_via_signal">Del med Molly</string>
   <string name="GroupLinkBottomSheet_copy">Kopier</string>
   <string name="GroupLinkBottomSheet_qr_code">QR-kode</string>
   <string name="GroupLinkBottomSheet_share">Del</string>

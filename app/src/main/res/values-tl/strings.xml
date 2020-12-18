@@ -111,7 +111,7 @@
   <string name="CameraContacts_no_signal_contacts">Walang kontak sa Signal</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">Maaari mo lang gamitin ang camera button para magpadala ng mga larawan sa mga kontak sa Signal.</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">Hindi makita ang taong hinahanap mo?</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">Anyayahan ang isang kontak na sumali sa Signal</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">Anyayahan ang isang kontak na sumali sa Molly</string>
   <string name="CameraContacts__menu_search">Maghanap</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">Tanggalin</string>
@@ -351,7 +351,7 @@
   <string name="GcmBroadcastReceiver_retrieving_a_message">May kinukuhang mensahe…</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Permanenteng kabiguan ng Signal sa komunikasyon!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Hindi nagawang magparehistro ng Signal sa Google Play Services. Ang mga mensahe at tawag sa Signal ay na-disable, subukang muling magparehistro sa Settings &gt; Advanced.</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Hindi nagawang magparehistro ng Molly sa Google Play Services. Ang mga mensahe at tawag sa Molly ay na-disable, subukang muling magparehistro sa Settings &gt; Advanced.</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">Nagka-error sa pagkuha ng buong resolution ng GIF</string>
   <!--GiphyFragmentPageAdapter-->
@@ -634,10 +634,10 @@
   <string name="ExpirationDialog_your_messages_will_disappear_s_after_they_have_been_seen">Ang mga mensaheng ipinadala at natanggap sa pag-uusap na ito ay maglalaho %s kapag nakita na ang mga ito. </string>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">Ilagay ang passphrase</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Icon ng Signal</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Icon ng Molly</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">Isumite ang passphrase</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Hindi valid ang passphrase!</string>
-  <string name="PassphrasePromptActivity_unlock_signal">I-unlock ang Signal</string>
+  <string name="PassphrasePromptActivity_unlock_signal">I-unlock ang Molly</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">Mapa</string>
   <string name="PlacePickerActivity_not_a_valid_address">Hindi valid na Address</string>
@@ -704,7 +704,7 @@
         tinukoy (%s) ay hindi valid.
     </string>
   <string name="RegistrationActivity_missing_google_play_services">Nawawala ang Google Play Services</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Nawawala sa device na ito ang Google Play Services. Maaari mo pa ring gamitin ang Signal, ngunit ang configuration na ito ay maaaring magresulta sa kabawasan sa pagiging maaasahan o paggana.\n\nKung ikaw ay advanced na user, hindi gumagamit ng aftermarket na Android ROM, o kaya\'y naniniwala kang hindi mo dapat ito nakikita, makipag-ugnayan sa support@signal.org para makatulong kami sa pag-troubleshoot.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Nawawala sa device na ito ang Google Play Services. Maaari mo pa ring gamitin ang Molly, ngunit ang configuration na ito ay maaaring magresulta sa kabawasan sa pagiging maaasahan o paggana.\n\nKung ikaw ay advanced na user, hindi gumagamit ng aftermarket na Android ROM, o kaya\'y naniniwala kang hindi mo dapat ito nakikita, makipag-ugnayan sa support@molly.im para makatulong kami sa pag-troubleshoot.</string>
   <string name="RegistrationActivity_i_understand">Nauunawaan ko</string>
   <string name="RegistrationActivity_play_services_error">Nagka-error sa Play Services</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Ang Google Play Services ay nag-u-update o kaya\'y pansamantalang hindi available. Pakisubukang muli. </string>
@@ -748,12 +748,12 @@
   <string name="SearchFragment_header_messages">Mga Mensahe</string>
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">Idagdag sa Mga Kontak</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Imbitahan sa Signal</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Imbitahan sa Molly</string>
   <string name="SharedContactDetailsActivity_signal_message">Mensahe sa Signal</string>
   <string name="SharedContactDetailsActivity_signal_call">Tawag sa Signal</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">Idagdag sa Mga Kontak</string>
-  <string name="SharedContactView_invite_to_signal">Imbitahan sa Signal</string>
+  <string name="SharedContactView_invite_to_signal">Imbitahan sa Molly</string>
   <string name="SharedContactView_message">Mensahe sa Signal</string>
   <!--SignalPinReminders-->
   <string name="SignalPinReminders_well_remind_you_again_later">Paaalalahanan ka naming muli kinalaunan.</string>
@@ -955,7 +955,7 @@
   <string name="ProfileEditNameFragment_successfully_set_profile_name">Matagumpay na naitakda ang pangalan ng profile.</string>
   <string name="ProfileEditNameFragment_encountered_a_network_error">Nakatagpo ng error sa network.</string>
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Ang mabilisang tugon ay hindi gagana kapag naka-lock ang Signal!</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Ang mabilisang tugon ay hindi gagana kapag naka-lock ang Molly!</string>
   <string name="QuickResponseService_problem_sending_message">May problema sa pagpapadala ng mensahe!</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">Nai-save sa  %s</string>
@@ -966,7 +966,7 @@
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">Hindi valid na shortcut</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Bagong mensahe</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">I-play ang video</string>
@@ -1028,7 +1028,7 @@
   <string name="change_passphrase_activity__repeat_new_passphrase">Ulitin ang bagong passphrase</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">Ilagay ang pangalan o numero</string>
-  <string name="contact_selection_activity__invite_to_signal">Imbitahan sa Signal</string>
+  <string name="contact_selection_activity__invite_to_signal">Imbitahan sa Molly</string>
   <string name="contact_selection_activity__new_group">Bagong grupo</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">Burahin ang inilagay na text</string>
@@ -1216,7 +1216,7 @@
   <string name="redphone_call_card__signal_call">Tawag sa Signal</string>
   <!--registration_activity-->
   <string name="registration_activity__phone_number">NUMERO NG TELEPONO</string>
-  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Pinadadali ni Signal ang pakikipag-ugnayan gamit ang iyong kasalukuyang numero ng telepono at libro ng address. Gamit ang Signal, madaling makipag-ugnayan sa mga kaibigan at kontak na nakakaalam na kung paano ka ikontak sa pamamagitan ng telepono.\n\nAng pagpaparehistro ay magpapadala ng ilang impormasyon ng kontak sa server. Hindi ito maiimbak.</string>
+  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Pinadadali ni Molly ang pakikipag-ugnayan gamit ang iyong kasalukuyang numero ng telepono at libro ng address. Gamit ang Molly, madaling makipag-ugnayan sa mga kaibigan at kontak na nakakaalam na kung paano ka ikontak sa pamamagitan ng telepono.\n\nAng pagpaparehistro ay magpapadala ng ilang impormasyon ng kontak sa server. Hindi ito maiimbak.</string>
   <string name="registration_activity__verify_your_number">Beripikahin ang Iyong Numero</string>
   <string name="registration_activity__please_enter_your_mobile_number_to_receive_a_verification_code_carrier_rates_may_apply">Pakilagay ang numero ng iyong mobile upang makatanggap ng verification code. Maaaring mailapat ang mga singilin ng Carrier.</string>
   <!--recipients_panel-->
@@ -1532,10 +1532,10 @@
   <string name="reminder_header_sms_import_text">Pindutin upang kopyahin ang mga SMS na mensahe ng iyong telepono papunta sa encrypted na database ng Signal.</string>
   <string name="reminder_header_push_title">I-enable ang mga mensahe at tawag sa Signal</string>
   <string name="reminder_header_push_text">I-upgrade ang iyong karanasang pang-komunikasyon.</string>
-  <string name="reminder_header_invite_title">Imbitahan sa Signal</string>
+  <string name="reminder_header_invite_title">Imbitahan sa Molly</string>
   <string name="reminder_header_invite_text">I-level up ang pag-uusap ninyo ni %1$s.</string>
   <string name="reminder_header_share_title">Imbitahan ang iyong mga kaibigan!</string>
-  <string name="reminder_header_share_text">Mas maraming kaibigang gumagamit ng Signal, mas maganda.</string>
+  <string name="reminder_header_share_text">Mas maraming kaibigang gumagamit ng Molly, mas maganda.</string>
   <string name="reminder_header_service_outage_text">Nakakaranas ng mga teknikal na problema ang Signal. Nagsisikap kaming ibalik ang serbisyo sa lalong madaling panahon.</string>
   <string name="reminder_header_the_latest_signal_features_wont_work">Ang pinakabagong mga feature ng Signal ay hindi gagana sa besyong ito ng Android. Paki-upgrade ang device na ito upang makatangap ng mga update sa Signal sa hinaharap.</string>
   <string name="reminder_header_progress">%1$d%%</string>
@@ -1670,7 +1670,7 @@
   <string name="ConversationActivity_signal_needs_sms_permission_in_order_to_send_an_sms">Kailangan ng Signal ang pahintulot sa SMS upang makapagpadala ng SMS, ngunit ito ay permanenteng ipinagbabawal. Pumunta sa app settings, piliin ang \"Mga Pahintulot\", at i-enable ang  \"SMS\".</string>
   <string name="Permissions_continue">Magpatuloy</string>
   <string name="Permissions_not_now">Hindi ngayon</string>
-  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Kailangan ng Signal ang pahintulot sa Mga Kontak upang maghanap sa iyong mga kontak, ngunit permanente itong ipinagbabawal.  Pumunta sa app settings, piliin ang \"Mga Pahintulot\", at i-enable ang \"Mga Kontak\".</string>
+  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Kailangan ng Molly ang pahintulot sa Mga Kontak upang maghanap sa iyong mga kontak, ngunit permanente itong ipinagbabawal.  Pumunta sa app settings, piliin ang \"Mga Pahintulot\", at i-enable ang \"Mga Kontak\".</string>
   <string name="conversation_activity__enable_signal_messages">I-ENABLE ANG MGA MENSAHE SA SIGNAL</string>
   <string name="SQLCipherMigrationHelper_migrating_signal_database">Inililipat ang database ng Signal</string>
   <string name="PushDecryptJob_new_locked_message">Bagong naka-lock na mensahe</string>

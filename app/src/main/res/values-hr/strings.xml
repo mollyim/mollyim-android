@@ -132,7 +132,7 @@
   <string name="CameraContacts_no_signal_contacts">Nema Signal kontakata</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">Okidač kamere možete samo koristiti za slanje fotografija Signal kontaktima.</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">Niste našli što tražite?</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">Pozovite kontakt da pridruži Signalu</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">Pozovite kontakt da pridruži Mollyu</string>
   <string name="CameraContacts__menu_search">Pretraži</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">Ukloni</string>
@@ -321,7 +321,7 @@
   <string name="ConversationFragment__d_group_members_have_the_same_name">%1$d člana/ova grupe imaju isto ime.</string>
   <string name="ConversationFragment__tap_to_review">Pritisnite za pregled</string>
   <string name="ConversationFragment__review_requests_carefully">Pažljivo pregledajte zahtjeve</string>
-  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Signal je pronašao drugi kontakt s istim imenom.</string>
+  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Molly je pronašao drugi kontakt s istim imenom.</string>
   <!--ConversationListActivity-->
   <string name="ConversationListActivity_there_is_no_browser_installed_on_your_device">Na vašem uređaju nije instaliran preglednik.</string>
   <!--ConversationListFragment-->
@@ -387,11 +387,11 @@
   <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Testirajte vašu lozinku sigurnosne kopije i provjerite je li točna</string>
   <string name="BackupsPreferenceFragment__turn_on">Uključi</string>
   <string name="BackupsPreferenceFragment__turn_off">Isključi</string>
-  <string name="BackupsPreferenceFragment__to_restore_a_backup">Da biste vratili sigurnosnu kopiju, instalirajte novu kopiju Signala. Otvorite aplikaciju i pritisnite \"Vrati sigurnosnu kopiju\", a zatim pronađite datoteku sigurnosne kopije. %1$s</string>
+  <string name="BackupsPreferenceFragment__to_restore_a_backup">Da biste vratili sigurnosnu kopiju, instalirajte novu kopiju Mollya. Otvorite aplikaciju i pritisnite \"Vrati sigurnosnu kopiju\", a zatim pronađite datoteku sigurnosne kopije. %1$s</string>
   <string name="BackupsPreferenceFragment__learn_more">Saznaj više</string>
   <string name="BackupsPreferenceFragment__in_progress">U tijeku…</string>
   <string name="BackupsPreferenceFragment__d_so_far">%1$d za sada…</string>
-  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal zahtijeva dopuštenje za vanjski prostor za pohranu kako bi stvorio sigurnosne kopije, ali je trajno odbijen. Otvorite postavke aplikacije, odaberite \"Dozvole\" i omogućite \"Prostor za pohranu\".</string>
+  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly zahtijeva dopuštenje za vanjski prostor za pohranu kako bi stvorio sigurnosne kopije, ali je trajno odbijen. Otvorite postavke aplikacije, odaberite \"Dozvole\" i omogućite \"Prostor za pohranu\".</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Koristeći prilagođeno: %s</string>
   <string name="CustomDefaultPreference_using_default">Koristeći zadano: %s</string>
@@ -456,7 +456,7 @@
   <string name="GcmBroadcastReceiver_retrieving_a_message">Dohvaćanje poruke….</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Trajna pogreška u komunikaciji Signala!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal se nije uspješno registrirao na Google Play Services. Signal poruke i pozivi su onemogućeni. Pokušajte se ponovno registrirati kroz Postavke &gt; Napredno.</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly se nije uspješno registrirao na Google Play Services. Molly poruke i pozivi su onemogućeni. Pokušajte se ponovno registrirati kroz Postavke &gt; Napredno.</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">Pogreška prilikom dohvaćanja GIF-a pune rezolucije</string>
   <!--GiphyFragmentPageAdapter-->
@@ -1203,10 +1203,10 @@
   </plurals>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">Unesite lozinku</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Signal ikona</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Molly ikona</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">Pošaljite lozinku</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Nevažeća lozinka!</string>
-  <string name="PassphrasePromptActivity_unlock_signal">Otključaj Signal</string>
+  <string name="PassphrasePromptActivity_unlock_signal">Otključaj Molly</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">Mapa</string>
   <string name="PlacePickerActivity_not_a_valid_address">Nevažeća adresa</string>
@@ -1276,8 +1276,8 @@
   <string name="RedPhone_got_it">Shvaćam</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Pritisnite ovdje da biste uključili vaš video</string>
-  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Da biste uputili poziv za %1$s, omogućite Signalu pristup vašoj kameri</string>
-  <string name="WebRtcCallActivity__signal_s">Signal %1$s</string>
+  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Da biste uputili poziv za %1$s, omogućite Mollyu pristup vašoj kameri</string>
+  <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
   <string name="WebRtcCallActivity__calling">Uspostava poziva</string>
   <string name="WebRtcCallActivity__group_call">Grupni poziv</string>
   <!--WebRtcCallView-->
@@ -1325,7 +1325,7 @@ broj telefona</string>
   <string name="RegistrationActivity_the_number_you_specified_s_is_invalid">Broj koji ste unijeli
 (%s) je nevažeći.</string>
   <string name="RegistrationActivity_missing_google_play_services">Google Play Services nije dostupno</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Ovom uređaju nedostaje Google Play Services. I dalje možete koristiti Signal, ali ova konfiguracija može rezultirati smanjenom pouzdanošću ili performansama.\n\nAko niste napredni korisnik, ili ne koristite prilagođeni Android ROM ili vjerujete da ovo greškom vidite, kontaktirajte nas na support@signal.org za pomoć u rješavanju problema.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Ovom uređaju nedostaje Google Play Services. I dalje možete koristiti Molly, ali ova konfiguracija može rezultirati smanjenom pouzdanošću ili performansama.\n\nAko niste napredni korisnik, ili ne koristite prilagođeni Android ROM ili vjerujete da ovo greškom vidite, kontaktirajte nas na support@molly.im za pomoć u rješavanju problema.</string>
   <string name="RegistrationActivity_i_understand">Shvaćam</string>
   <string name="RegistrationActivity_play_services_error">Pogreška Play Servicesa</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Services se trenutno ažurira ili je nedostupno. Pokušajte ponovno kasnije.</string>
@@ -1376,12 +1376,12 @@ broj telefona</string>
   <string name="SearchFragment_header_messages">Poruke</string>
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">Dodaj u kontakte</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Pozovi u Signal</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Pozovi u Molly</string>
   <string name="SharedContactDetailsActivity_signal_message">Signal poruka</string>
   <string name="SharedContactDetailsActivity_signal_call">Signal poziv</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">Dodaj u kontakte</string>
-  <string name="SharedContactView_invite_to_signal">Pozovi u Signal</string>
+  <string name="SharedContactView_invite_to_signal">Pozovi u Molly</string>
   <string name="SharedContactView_message">Signal poruka</string>
   <!--SignalPinReminders-->
   <string name="SignalPinReminders_well_remind_you_again_later">Podsjetiti ćemo vas kasnije.</string>
@@ -1587,7 +1587,7 @@ broj telefona</string>
   <string name="ProfileEditNameFragment_successfully_set_profile_name">Uspješno postavljeno ime profila.</string>
   <string name="ProfileEditNameFragment_encountered_a_network_error">Došlo je do mrežne pogreške.</string>
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Brzi odgovor nije dostupan kada je Signal zaključan!</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Brzi odgovor nije dostupan kada je Molly zaključan!</string>
   <string name="QuickResponseService_problem_sending_message">Pogreška prilikom slanja poruke!</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">Spremljeno u %s</string>
@@ -1598,7 +1598,7 @@ broj telefona</string>
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">Nevažeći prečac</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Nova poruka</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">Reproduciraj video</string>
@@ -1670,7 +1670,7 @@ broj telefona</string>
   <string name="change_passphrase_activity__repeat_new_passphrase">Ponovite novu lozinku</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">Unesite ime ili broj</string>
-  <string name="contact_selection_activity__invite_to_signal">Pozovi u Signal</string>
+  <string name="contact_selection_activity__invite_to_signal">Pozovi u Molly</string>
   <string name="contact_selection_activity__new_group">Nova grupa</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">Očisti unešeni tekst</string>
@@ -1897,7 +1897,7 @@ Uvezi sigurnosnu kopiju običnog teksta. Kompatibilno s \'SMSBackup And Restore\
   <string name="redphone_call_card__signal_call">Signal poziv</string>
   <!--registration_activity-->
   <string name="registration_activity__phone_number">BROJ TELEFONA</string>
-  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Signal olakšava komunikaciju koristeći postojeći broj telefona i kontakte. Prijatelji i kontakti s kojima ste već u kontaktu putem mobilnog uređaja, moći će vas lako kontaktirati putem Signala.\n\nRegistracija prenosi određene podatke o kontaktu na poslužitelj, ali se ne pohranjuje.</string>
+  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Molly olakšava komunikaciju koristeći postojeći broj telefona i kontakte. Prijatelji i kontakti s kojima ste već u kontaktu putem mobilnog uređaja, moći će vas lako kontaktirati putem Mollya.\n\nRegistracija prenosi određene podatke o kontaktu na poslužitelj, ali se ne pohranjuje.</string>
   <string name="registration_activity__verify_your_number">Potvrdite vaš broj</string>
   <string name="registration_activity__please_enter_your_mobile_number_to_receive_a_verification_code_carrier_rates_may_apply">Unesite svoj broj telefona da biste primili potvrdni kôd. Mogu se primijeniti naknade operatera.</string>
   <!--recipients_panel-->
@@ -2258,10 +2258,10 @@ Uvezi sigurnosnu kopiju običnog teksta. Kompatibilno s \'SMSBackup And Restore\
   <string name="reminder_header_sms_import_text">Pritisnite za kopiranje SMS poruka na uređaju u Signalovu šifriranu bazu podataka.</string>
   <string name="reminder_header_push_title">Omogući Signal poruke i pozive</string>
   <string name="reminder_header_push_text">Poboljšaj svoje iskustvo komuniciranja.</string>
-  <string name="reminder_header_invite_title">Pozovi u Signal</string>
+  <string name="reminder_header_invite_title">Pozovi u Molly</string>
   <string name="reminder_header_invite_text">Dovedite svoje razgovore s %1$s na iduću razinu.</string>
   <string name="reminder_header_share_title">Pozovite svoje prijatelje!</string>
-  <string name="reminder_header_share_text">Što više prijatelja koriste Signal, to postaje bolje.</string>
+  <string name="reminder_header_share_text">Što više prijatelja koriste Molly, to postaje bolje.</string>
   <string name="reminder_header_service_outage_text">Signal ima tehničkih poteškoća. Naporno radimo na što bržem vraćanju usluge.</string>
   <string name="reminder_header_the_latest_signal_features_wont_work">Najnovije značajke Signala neće raditi na ovoj verziji Androida. Ažurirajte ovaj uređaj kako bi nastavili dobivati ažuriranja za Signal.</string>
   <string name="reminder_header_progress">%1$d%%</string>
@@ -2419,7 +2419,7 @@ Uvezi sigurnosnu kopiju običnog teksta. Kompatibilno s \'SMSBackup And Restore\
   <string name="ConversationActivity_signal_needs_sms_permission_in_order_to_send_an_sms">Signal zahtijeva dopuštenje za SMS za slanje SMS-a, ali je trajno odbijen. Otvorite postavke aplikacije, odaberite \"Dozvole\" i omogućite \"SMS\".</string>
   <string name="Permissions_continue">Nastavi</string>
   <string name="Permissions_not_now">Ne sada</string>
-  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Signal zahtijeva dopuštenje za kontakte kako bi pretražio vaše kontakte, ali je trajno odbijen. Otvorite postavke aplikacije, odaberite \"Dozvole\" i omogućite \"Kontakti\".</string>
+  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Molly zahtijeva dopuštenje za kontakte kako bi pretražio vaše kontakte, ali je trajno odbijen. Otvorite postavke aplikacije, odaberite \"Dozvole\" i omogućite \"Kontakti\".</string>
   <string name="conversation_activity__enable_signal_messages">OMOGUĆI SIGNAL PORUKE</string>
   <string name="SQLCipherMigrationHelper_migrating_signal_database">Migracija Signal baze podataka</string>
   <string name="PushDecryptJob_new_locked_message">Nova zaključana poruka</string>
@@ -2574,7 +2574,7 @@ Uvezi sigurnosnu kopiju običnog teksta. Kompatibilno s \'SMSBackup And Restore\
   <string name="GroupsLearnMore_paragraph_2">Naslijeđene grupe se još ne mogu nadograditi u Nove grupe, ali možete stvoriti Novu grupu s istim članovima ako su na najnovijoj verziji Signala.</string>
   <string name="GroupsLearnMore_paragraph_3">Signal će u budućnosti ponuditi način za nadogradnju Naslijeđenih grupa.</string>
   <!--GroupLinkBottomSheetDialogFragment-->
-  <string name="GroupLinkBottomSheet_share_via_signal">Podijeli putem Signala</string>
+  <string name="GroupLinkBottomSheet_share_via_signal">Podijeli putem Mollya</string>
   <string name="GroupLinkBottomSheet_copy">Kopiraj</string>
   <string name="GroupLinkBottomSheet_qr_code">QR kôd</string>
   <string name="GroupLinkBottomSheet_share">Podijeli</string>

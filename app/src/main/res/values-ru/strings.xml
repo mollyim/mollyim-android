@@ -135,7 +135,7 @@
   <string name="CameraContacts_no_signal_contacts">Нет контактов Signal</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">Кнопкой камеры можно отправлять фотографии только тем контактам, которые являются пользователями Signal.</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">Не можете найти нужного человека?</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">Пригласите контакт в Signal</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">Пригласите контакт в Molly</string>
   <string name="CameraContacts__menu_search">Поиск</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">Удалить</string>
@@ -331,7 +331,7 @@
   <string name="ConversationFragment__d_group_members_have_the_same_name">%1$d участников группы имеют одинаковое имя.</string>
   <string name="ConversationFragment__tap_to_review">Нажмите, чтобы проверить</string>
   <string name="ConversationFragment__review_requests_carefully">Внимательно проверьте запросы</string>
-  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Signal нашёл другого контакта с тем же именем.</string>
+  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Molly нашёл другого контакта с тем же именем.</string>
   <!--ConversationListActivity-->
   <string name="ConversationListActivity_there_is_no_browser_installed_on_your_device">На вашем устройстве не установлен браузер.</string>
   <!--ConversationListFragment-->
@@ -401,11 +401,11 @@
   <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Испытайте парольную фразу своей резервной копии и убедитесь, что она подходит</string>
   <string name="BackupsPreferenceFragment__turn_on">Включить</string>
   <string name="BackupsPreferenceFragment__turn_off">Отключить</string>
-  <string name="BackupsPreferenceFragment__to_restore_a_backup">Чтобы восстановить из резервной копии, установите новую копию Signal. Откройте приложение и нажмите «Восстановить резервную копию», затем выберите файл резервной копии. %1$s</string>
+  <string name="BackupsPreferenceFragment__to_restore_a_backup">Чтобы восстановить из резервной копии, установите новую копию Molly. Откройте приложение и нажмите «Восстановить резервную копию», затем выберите файл резервной копии. %1$s</string>
   <string name="BackupsPreferenceFragment__learn_more">Узнать больше</string>
   <string name="BackupsPreferenceFragment__in_progress">В процессе…</string>
   <string name="BackupsPreferenceFragment__d_so_far">Уже %1$d…</string>
-  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal требуется разрешение на доступ к хранилищу для создания резервных копий, но оно было вами отклонено. Нажмите «Продолжить», чтобы перейти в настройки приложения, откройте «Разрешения» и включите «Хранилище».</string>
+  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly требуется разрешение на доступ к хранилищу для создания резервных копий, но оно было вами отклонено. Нажмите «Продолжить», чтобы перейти в настройки приложения, откройте «Разрешения» и включите «Хранилище».</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Пользовательское: %s</string>
   <string name="CustomDefaultPreference_using_default">Используется по умолчанию: %s</string>
@@ -471,7 +471,7 @@
   <string name="GcmBroadcastReceiver_retrieving_a_message">Получаем сообщение…</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Неустранимая ошибка соединения!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal не смог зарегистрироваться в Службах Google Play. Сообщения и звонки через Signal отключены, пожалуйста, попробуйте зарегистрироваться снова через Наcтройки &gt; Расширенные.</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly не смог зарегистрироваться в Службах Google Play. Сообщения и звонки через Molly отключены, пожалуйста, попробуйте зарегистрироваться снова через Наcтройки &gt; Расширенные.</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">Ошибка при получении полноразмерного GIF</string>
   <!--GiphyFragmentPageAdapter-->
@@ -1263,10 +1263,10 @@
   </plurals>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">Введите парольную фразу</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Значок Signal</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Значок Molly</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">Подтвердить парольную фразу</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Неверная парольная фраза!</string>
-  <string name="PassphrasePromptActivity_unlock_signal">Разблокировать Signal</string>
+  <string name="PassphrasePromptActivity_unlock_signal">Разблокировать Molly</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">Карта</string>
   <string name="PlacePickerActivity_not_a_valid_address">Недействительный адрес</string>
@@ -1337,8 +1337,8 @@
   <string name="RedPhone_got_it">Понятно</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Нажмите здесь, чтобы включить своё видео</string>
-  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Чтобы позвонить %1$s, Signal необходим доступ к вашей камере</string>
-  <string name="WebRtcCallActivity__signal_s">Signal %1$s</string>
+  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Чтобы позвонить %1$s, Molly необходим доступ к вашей камере</string>
+  <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
   <string name="WebRtcCallActivity__calling">Подключаемся…</string>
   <string name="WebRtcCallActivity__group_call">Групповой звонок</string>
   <!--WebRtcCallView-->
@@ -1385,7 +1385,7 @@
   <string name="RegistrationActivity_invalid_number">Неверный номер</string>
   <string name="RegistrationActivity_the_number_you_specified_s_is_invalid">Указанный вами номер (%s) недействителен.</string>
   <string name="RegistrationActivity_missing_google_play_services">Отсутствуют Службы Google Play</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">На устройстве отсутствуют Службы Google Play. Вы можете продолжить использование Signal, но надёжность или производительность могут снизиться.\n\nЕсли вы не продвинутый пользователь, не используете стороннюю прошивку Android или считаете, что видите это сообщение по ошибке, обратитесь в службу поддержки по адресу support@signal.org для помощи с устранением неполадок.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">На устройстве отсутствуют Службы Google Play. Вы можете продолжить использование Molly, но надёжность или производительность могут снизиться.\n\nЕсли вы не продвинутый пользователь, не используете стороннюю прошивку Android или считаете, что видите это сообщение по ошибке, обратитесь в службу поддержки по адресу support@molly.im для помощи с устранением неполадок.</string>
   <string name="RegistrationActivity_i_understand">Я понимаю</string>
   <string name="RegistrationActivity_play_services_error">Ошибка Служб Google Play</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Службы Google Play обновляются или временно недоступны. Пожалуйста, попробуйте еще раз.</string>
@@ -1437,12 +1437,12 @@
   <string name="SearchFragment_header_messages">Сообщения</string>
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">Добавить в контакты</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Пригласить в Signal</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Пригласить в Molly</string>
   <string name="SharedContactDetailsActivity_signal_message">Сообщение Signal</string>
   <string name="SharedContactDetailsActivity_signal_call">Звонок Signal</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">Добавить в контакты</string>
-  <string name="SharedContactView_invite_to_signal">Пригласить в Signal</string>
+  <string name="SharedContactView_invite_to_signal">Пригласить в Molly</string>
   <string name="SharedContactView_message">Сообщение Signal</string>
   <!--SignalPinReminders-->
   <string name="SignalPinReminders_well_remind_you_again_later">Мы напомним вам позже.</string>
@@ -1648,7 +1648,7 @@
   <string name="ProfileEditNameFragment_successfully_set_profile_name">Имя профиля успешно установлено.</string>
   <string name="ProfileEditNameFragment_encountered_a_network_error">Обнаружена ошибка сети.</string>
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Быстрые ответы недоступны, когда Signal заблокирован!</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Быстрые ответы недоступны, когда Molly заблокирован!</string>
   <string name="QuickResponseService_problem_sending_message">Проблема при отправке сообщения!</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">Сохранено в %s</string>
@@ -1659,7 +1659,7 @@
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">Недопустимый ярлык</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Новое сообщение</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">Воспроизвести видео</string>
@@ -1732,7 +1732,7 @@
   <string name="change_passphrase_activity__repeat_new_passphrase"> Повторите новую парольную фразу</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">Введите имя или номер</string>
-  <string name="contact_selection_activity__invite_to_signal">Пригласить в Signal</string>
+  <string name="contact_selection_activity__invite_to_signal">Пригласить в Molly</string>
   <string name="contact_selection_activity__new_group">Новая группа</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">Стереть введённый текст</string>
@@ -1967,7 +1967,7 @@
   <string name="redphone_call_card__signal_call">Звонок Signal</string>
   <!--registration_activity-->
   <string name="registration_activity__phone_number">НОМЕР ТЕЛЕФОНА</string>
-  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Чтобы упростить общение, Signal использует ваши существующие номер телефона и адресную книгу. Друзья и контакты, которые могут связаться с вами по телефону, с легкостью смогут сделать это и через Signal.\n\nПри регистрации на сервер передается некоторая информация о контактах, но не сохраняется там.</string>
+  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Чтобы упростить общение, Molly использует ваши существующие номер телефона и адресную книгу. Друзья и контакты, которые могут связаться с вами по телефону, с легкостью смогут сделать это и через Molly.\n\nПри регистрации на сервер передается некоторая информация о контактах, но не сохраняется там.</string>
   <string name="registration_activity__verify_your_number">Подтвердите свой номер</string>
   <string name="registration_activity__please_enter_your_mobile_number_to_receive_a_verification_code_carrier_rates_may_apply">Пожалуйста, введите свой номер мобильного телефона для получения кода подтверждения. Вашим оператором может взиматься плата за входящее SMS.</string>
   <!--recipients_panel-->
@@ -2329,10 +2329,10 @@
   <string name="reminder_header_sms_import_text">Нажмите, чтобы скопировать SMS с вашего устройства в зашифрованную базу данных Signal.</string>
   <string name="reminder_header_push_title">Включить звонки и сообщения Signal</string>
   <string name="reminder_header_push_text">Откройте для себя новый уровень общения.</string>
-  <string name="reminder_header_invite_title">Пригласить в Signal</string>
+  <string name="reminder_header_invite_title">Пригласить в Molly</string>
   <string name="reminder_header_invite_text">Начните общаться с %1$s на новом уровне.</string>
   <string name="reminder_header_share_title">Пригласите своих друзей!</string>
-  <string name="reminder_header_share_text">Чем больше друзей пользуется Signal, тем лучше он становится.</string>
+  <string name="reminder_header_share_text">Чем больше друзей пользуется Molly, тем лучше он становится.</string>
   <string name="reminder_header_service_outage_text">У Signal возникли технические неполадки. Мы прилагаем все усилия, чтобы как можно быстрее восстановить обслуживание.</string>
   <string name="reminder_header_the_latest_signal_features_wont_work">Новейшие функции Signal не будут работать на этой версии Android. Пожалуйста, обновите это устройство, чтобы получать будущие обновления Signal.</string>
   <string name="reminder_header_progress">%1$d%%</string>
@@ -2497,7 +2497,7 @@
   <string name="ConversationActivity_signal_needs_sms_permission_in_order_to_send_an_sms">Signal требуется разрешение на доступ к SMS-сообщениям для отправки SMS, но оно было вами отклонено. Нажмите «Продолжить», чтобы перейти в настройки приложения, откройте «Разрешения» и включите «Сообщения» («SMS»).</string>
   <string name="Permissions_continue">Продолжить</string>
   <string name="Permissions_not_now">Не сейчас</string>
-  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Signal требуется разрешение на доступ к контактам для поиска в ваших контактах, но оно было вами отклонено. Нажмите «Продолжить», чтобы перейти в настройки приложения, откройте «Разрешения» и включите «Контакты».</string>
+  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Molly требуется разрешение на доступ к контактам для поиска в ваших контактах, но оно было вами отклонено. Нажмите «Продолжить», чтобы перейти в настройки приложения, откройте «Разрешения» и включите «Контакты».</string>
   <string name="conversation_activity__enable_signal_messages">ВКЛЮЧИТЬ СООБЩЕНИЯ SIGNAL</string>
   <string name="SQLCipherMigrationHelper_migrating_signal_database">Миграция базы данных Signal</string>
   <string name="PushDecryptJob_new_locked_message">Новое заблокированное сообщение</string>
@@ -2652,7 +2652,7 @@
   <string name="GroupsLearnMore_paragraph_2">Старые группы пока не могут быть обновлены до Новых групп, но вы можете создать Новую группу с теми же участниками, если они используют новейшую версию Signal.</string>
   <string name="GroupsLearnMore_paragraph_3">Signal предоставит возможность обновить Старые группы в будущем.</string>
   <!--GroupLinkBottomSheetDialogFragment-->
-  <string name="GroupLinkBottomSheet_share_via_signal">Поделиться через Signal</string>
+  <string name="GroupLinkBottomSheet_share_via_signal">Поделиться через Molly</string>
   <string name="GroupLinkBottomSheet_copy">Копировать</string>
   <string name="GroupLinkBottomSheet_qr_code">QR-код</string>
   <string name="GroupLinkBottomSheet_share">Поделиться</string>

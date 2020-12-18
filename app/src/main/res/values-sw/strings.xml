@@ -108,7 +108,7 @@
   <string name="CameraContacts_no_signal_contacts">Hakuna mawasiliano ya Signal</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">Unaweza kutumia kitufe cha kamera kutuma picha kwa mawasiliano ya Signal.</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">Huwezi kumpata unayemtafuta?</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">Alika mwasiliani wako ajiunge na Signal</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">Alika mwasiliani wako ajiunge na Molly</string>
   <string name="CameraContacts__menu_search">Tafuta</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">Ondoa</string>
@@ -338,7 +338,7 @@
   <string name="GcmBroadcastReceiver_retrieving_a_message">Inaleta ujumbe</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Muda wote mawasiliano ya Signal yanafeli!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal haikuweza kujisajili na Huduma za Google Play. Ujumbe wa Signal na simu zimezimwa, tafadhali jaribu kujiandikisha katika Mipangilio &gt;  Zaidi.</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly haikuweza kujisajili na Huduma za Google Play. Ujumbe wa Molly na simu zimezimwa, tafadhali jaribu kujiandikisha katika Mipangilio &gt;  Zaidi.</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">Hitilafu wakati wa kurejesha GIF kamili ya azimio</string>
   <!--GiphyFragmentPageAdapter-->
@@ -602,10 +602,10 @@ Signal inahitaji ruhusa ya Kamera ili kuskani msimbo wa QR, lakini imekataliwa k
   <string name="ExpirationDialog_your_messages_will_disappear_s_after_they_have_been_seen">Ujumbe utakaotumwa na kupokewa kwenye gumzo hili utatoweka %s baada ya kuonekana.</string>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">Ingiza nenosiri</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Signal ikoni</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Molly ikoni</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">Wasilisha nenosiri</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Nenosiri sio sahihi</string>
-  <string name="PassphrasePromptActivity_unlock_signal">Fungua Signal</string>
+  <string name="PassphrasePromptActivity_unlock_signal">Fungua Molly</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">Ramani</string>
   <string name="PlacePickerActivity_not_a_valid_address">Si anwani halali</string>
@@ -669,7 +669,7 @@ nambari yako ya simu</string>
   <string name="RegistrationActivity_invalid_number">Nambari si sahihi</string>
   <string name="RegistrationActivity_the_number_you_specified_s_is_invalid">Nambari  uliyotaja (%s) sio sahihi</string>
   <string name="RegistrationActivity_missing_google_play_services">Huduma za Google Play zinakosekana</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Kifaa hiki kimekosa huduma za Google Play. Bado unaweza kutumia Signal, lakini usanidi huu unaweza kusababisha upungufu wa kutegemewa au utendaji. \ n\n \ Kama wewe si mtumiaji wa juu, hautumii Android ROM, au unaamini kwamba unaona hili kimakosa, tafadhali wasiliana na support@signal.org kwa usaidizi wa matatizo.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Kifaa hiki kimekosa huduma za Google Play. Bado unaweza kutumia Molly, lakini usanidi huu unaweza kusababisha upungufu wa kutegemewa au utendaji. \ n\n \ Kama wewe si mtumiaji wa juu, hautumii Android ROM, au unaamini kwamba unaona hili kimakosa, tafadhali wasiliana na support@molly.im kwa usaidizi wa matatizo.</string>
   <string name="RegistrationActivity_i_understand">Nimeelewa</string>
   <string name="RegistrationActivity_play_services_error">Hitilafu katika huduma za Play</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Huduma za Google Play zinasasisha au hazipatikani kwa muda. Tafadhali jaribu tena.</string>
@@ -713,12 +713,12 @@ nambari yako ya simu</string>
   <string name="SearchFragment_header_messages">Jumbe</string>
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">Ongeza mawasiliano</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Mwalike kwenye Signal</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Mwalike kwenye Molly</string>
   <string name="SharedContactDetailsActivity_signal_message">Ujumbe wa Signal</string>
   <string name="SharedContactDetailsActivity_signal_call">Simu ya Signal</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">Ongeza kwa wawasiliani</string>
-  <string name="SharedContactView_invite_to_signal">Mwalike kwenye Signal</string>
+  <string name="SharedContactView_invite_to_signal">Mwalike kwenye Molly</string>
   <string name="SharedContactView_message">Ujumbe wa Signal</string>
   <!--SignalPinReminders-->
   <!--Slide-->
@@ -904,7 +904,7 @@ nambari yako ya simu</string>
   <string name="ProfileEditNameFragment_successfully_set_profile_name">Jina lako la wasifa limefanikiwa kuwekwa.</string>
   <string name="ProfileEditNameFragment_encountered_a_network_error">Imekumbana na hitilafu ya mtandao.</string>
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Jibu la haraka halipatikani wakati Signal imefungwa!</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Jibu la haraka halipatikani wakati Molly imefungwa!</string>
   <string name="QuickResponseService_problem_sending_message">Tatizo kutuma ujumbe</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">Imehifadhiwa kwa %s</string>
@@ -915,7 +915,7 @@ nambari yako ya simu</string>
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">Mkato batili</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Signal </string>
+  <string name="SingleRecipientNotificationBuilder_signal">Molly </string>
   <string name="SingleRecipientNotificationBuilder_new_message">Ujumbe mpya</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">Cheza video</string>
@@ -977,7 +977,7 @@ nambari yako ya simu</string>
   <string name="change_passphrase_activity__repeat_new_passphrase">Rudia nenosiri mpya</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">Ingiza jina au nambari</string>
-  <string name="contact_selection_activity__invite_to_signal">Mwalike kwenye Signal</string>
+  <string name="contact_selection_activity__invite_to_signal">Mwalike kwenye Molly</string>
   <string name="contact_selection_activity__new_group">Kikundi kipya</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">Futa matini iliyoingizwa</string>
@@ -1167,7 +1167,7 @@ nambari yako ya simu</string>
   <string name="redphone_call_card__signal_call">Simu ya Signal</string>
   <!--registration_activity-->
   <string name="registration_activity__phone_number">NAMBARI YA SIMU</string>
-  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Signal inarahisisha kuwasiliana kwa kutumia nambari yako ya simu iliyopo na kitabu cha anwani. Marafiki na wawasiliani ambao tayari wanajua jinsi ya kuwasiliana nawe kwa simu wataweza kuwasiliana kwa urahisi na Signal. \ n \ nUsajili unatuma maelezo fulani ya mawasiliano kwenye seva. Hayahifadhiwi.</string>
+  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Molly inarahisisha kuwasiliana kwa kutumia nambari yako ya simu iliyopo na kitabu cha anwani. Marafiki na wawasiliani ambao tayari wanajua jinsi ya kuwasiliana nawe kwa simu wataweza kuwasiliana kwa urahisi na Molly. \ n \ nUsajili unatuma maelezo fulani ya mawasiliano kwenye seva. Hayahifadhiwi.</string>
   <string name="registration_activity__verify_your_number">Hakiki namba yako</string>
   <string name="registration_activity__please_enter_your_mobile_number_to_receive_a_verification_code_carrier_rates_may_apply">Tafadhali ingiza nambari yako ya simu ili upokee nambari ya kuthibitisha. Malipo ya mtoa huduma yatazingatiwa</string>
   <!--recipients_panel-->
@@ -1459,10 +1459,10 @@ nambari yako ya simu</string>
   <string name="reminder_header_sms_import_text">Gonga ili kunakili jumbe za SMS za simu yako kwenye hifadhidata iliyosimbwa.</string>
   <string name="reminder_header_push_title">Wezesha jumbe na simu za Signal</string>
   <string name="reminder_header_push_text">Boresha uzoefu wako wa mawasiliano</string>
-  <string name="reminder_header_invite_title">Alika kwa Signal</string>
+  <string name="reminder_header_invite_title">Alika kwa Molly</string>
   <string name="reminder_header_invite_text">Peleka mazungumzo pamoja %1$s kwenye ngazi inayofuata</string>
   <string name="reminder_header_share_title">Alika marafiki zako</string>
-  <string name="reminder_header_share_text">Marafiki zaidi wanapotumia Signal, Inaimarika zaidi</string>
+  <string name="reminder_header_share_text">Marafiki zaidi wanapotumia Molly, Inaimarika zaidi</string>
   <string name="reminder_header_service_outage_text">Signal inakabiliwa na matatizo ya kiufundi. Tunajitahidi kurejesha huduma haraka iwezekanavyo.</string>
   <string name="reminder_header_the_latest_signal_features_wont_work">Vipengele vya hivi punde zaidi vya Signal havitafanya kwenye toleo hili la Android. Tafadhali boresha kifaa hiki ili upate sasisho zijazo za Signal.</string>
   <string name="reminder_header_progress">%1$d%%</string>
@@ -1596,7 +1596,7 @@ nambari yako ya simu</string>
   <string name="ConversationActivity_signal_needs_sms_permission_in_order_to_send_an_sms">Signal inahitaji idhini ya SMS ili kutuma SMS, lakini imekataliwa kabisa. Tafadhali endelea kwenye mipangilio ya programu, chagua \"Ruhusa\" na uwezeshe \"SMS\".</string>
   <string name="Permissions_continue">Endelea</string>
   <string name="Permissions_not_now">Sio sasa</string>
-  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Signal inahitaji ruhusa ya wawasiliani ili kutafuta wawasiliani wako, lakini imekataliwa kabisa. Tafadhali endelea kwenye mipangilio ya programu, chagua \"Ruhusa\", na uwezeshe\" \"Mawasiliano\".</string>
+  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Molly inahitaji ruhusa ya wawasiliani ili kutafuta wawasiliani wako, lakini imekataliwa kabisa. Tafadhali endelea kwenye mipangilio ya programu, chagua \"Ruhusa\", na uwezeshe\" \"Mawasiliano\".</string>
   <string name="conversation_activity__enable_signal_messages">WEZESHA JUMBE ZA SIGNAL</string>
   <string name="SQLCipherMigrationHelper_migrating_signal_database">Inahamisha hifadhidata ya Signal</string>
   <string name="PushDecryptJob_new_locked_message">Ujumbe mpya uliofungwa</string>

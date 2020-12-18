@@ -118,7 +118,7 @@
   <string name="CameraContacts_no_signal_contacts">Nav Signal kontaktu</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">Jūs variet izmantot kameru tikai, lai sūtītu attēlus Signal kontaktiem.</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">Neatradāt, ko Jūs meklējāt?</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">Uzaicināt kontaktu pievienoties Signal</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">Uzaicināt kontaktu pievienoties Molly</string>
   <string name="CameraContacts__menu_search">Meklēt</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">Noņemt</string>
@@ -392,7 +392,7 @@
   <string name="GcmBroadcastReceiver_retrieving_a_message">Notiek ziņas ielāde…</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Signal sakaru permanenta kļūme!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal neizdevās reģistrēties Google Play pakalpojumos. Signal ziņas un zvani ir atspējoti. Lūdzu, mēģiniet vēlreiz piereģistrēties sadaļā Iestatījumi -&gt; Papildu.</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly neizdevās reģistrēties Google Play pakalpojumos. Molly ziņas un zvani ir atspējoti. Lūdzu, mēģiniet vēlreiz piereģistrēties sadaļā Iestatījumi -&gt; Papildu.</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">Kļūme iegūstot pilnas izšķirtspējas GIF</string>
   <!--GiphyFragmentPageAdapter-->
@@ -752,10 +752,10 @@
   <!--OutdatedBuildReminder-->
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">Ievadiet paroli</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Signal ikona</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Molly ikona</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">Iesniegt paroli</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Nepareiza parole</string>
-  <string name="PassphrasePromptActivity_unlock_signal">Atbloķēt Signal</string>
+  <string name="PassphrasePromptActivity_unlock_signal">Atbloķēt Molly</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">Karte</string>
   <string name="PlacePickerActivity_not_a_valid_address">Nederīga adrese</string>
@@ -816,8 +816,8 @@
   <string name="RedPhone_got_it">Skaidrīte</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Pieskarieties, lai ieslēgtu video</string>
-  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Lai zvanītu %1$s, Signal ir nepieciešama piekļuve Jūsu kamerai</string>
-  <string name="WebRtcCallActivity__signal_s">Signal %1$s</string>
+  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Lai zvanītu %1$s, Molly ir nepieciešama piekļuve Jūsu kamerai</string>
+  <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
   <string name="WebRtcCallActivity__calling">Zvana…</string>
   <!--WebRtcCallView-->
   <string name="WebRtcCallView__signal_voice_call">Signal balss zvans…</string>
@@ -834,7 +834,7 @@ tālruņa numurs
   <string name="RegistrationActivity_invalid_number">Nederīgs numurs</string>
   <string name="RegistrationActivity_the_number_you_specified_s_is_invalid">Numurs, kuru jūs norādījāt (%s) ir nederīgs</string>
   <string name="RegistrationActivity_missing_google_play_services">Jocīgi, trūkst izspiegojošo Google Play pakalpojumu</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Šai ierīcei trūkst izspiegojošo Google Play pakalpojumu. Jūs varat izmantot Signal, taču šī ierīces konfigurācija, iespējams, var rezultēties samazinātā sasniedzamībā.\n\nJa, Jūs neesiet zinošs un advancēts lietotājs, ierīcē neizmantojiet drošāku \"pēctirgus\" Android operētājsistēmu vai arī uzskatiet, ka šo paziņojumu redziet kļūdas pēc, lūdzu, sazinieties ar support@signal.org, lai saņemtu palīdzību.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Šai ierīcei trūkst izspiegojošo Google Play pakalpojumu. Jūs varat izmantot Molly, taču šī ierīces konfigurācija, iespējams, var rezultēties samazinātā sasniedzamībā.\n\nJa, Jūs neesiet zinošs un advancēts lietotājs, ierīcē neizmantojiet drošāku \"pēctirgus\" Android operētājsistēmu vai arī uzskatiet, ka šo paziņojumu redziet kļūdas pēc, lūdzu, sazinieties ar support@molly.im, lai saņemtu palīdzību.</string>
   <string name="RegistrationActivity_i_understand">Skaidrīte</string>
   <string name="RegistrationActivity_play_services_error">Google Play pakalpojumu kļūme</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play pakalpojumi tiek aktualizēti vai īslaicīgi nav pieejami. Lūdzu, mēģiniet vēlreiz.</string>
@@ -883,12 +883,12 @@ tālruņa numurs
   <string name="SearchFragment_header_messages">Ziņas</string>
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">Pievienot kontaktiem</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Uzaicināt uz Signal</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Uzaicināt uz Molly</string>
   <string name="SharedContactDetailsActivity_signal_message">Signal ziņa</string>
   <string name="SharedContactDetailsActivity_signal_call">Signal zvans</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">Pievienot kontaktiem</string>
-  <string name="SharedContactView_invite_to_signal">Uzaicināt uz Signal</string>
+  <string name="SharedContactView_invite_to_signal">Uzaicināt uz Molly</string>
   <string name="SharedContactView_message">Signal ziņa</string>
   <!--SignalPinReminders-->
   <string name="SignalPinReminders_well_remind_you_again_later">Vēlāk atgādināsim vēlreiz.</string>
@@ -1370,7 +1370,7 @@ Saņemts nederīgas protokola versijas atslēgas apmaiņas ziņojums.
   <string name="redphone_call_card__signal_call">Signal zvans</string>
   <!--registration_activity-->
   <string name="registration_activity__phone_number">TĀLRUŅA NUMURS</string>
-  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Signal atvieglo saziņu, izmantojot esošo tālruņa numuru un adrešu grāmatu. Draugi un kontaktpersonas, kas jau zina, kā sazināties ar jums pa tālruni, varēs viegli sazināties, izmantojot Signal.\n\nReģistrācija pārsūta kontaktinformāciju uz serveri. Šī informācija netiek saglabāta.</string>
+  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Molly atvieglo saziņu, izmantojot esošo tālruņa numuru un adrešu grāmatu. Draugi un kontaktpersonas, kas jau zina, kā sazināties ar jums pa tālruni, varēs viegli sazināties, izmantojot Molly.\n\nReģistrācija pārsūta kontaktinformāciju uz serveri. Šī informācija netiek saglabāta.</string>
   <string name="registration_activity__verify_your_number">Pārbaudīt Jūsu Numuru</string>
   <string name="registration_activity__please_enter_your_mobile_number_to_receive_a_verification_code_carrier_rates_may_apply">Lūdzu, ievadiet savu mobilā tālruņa numuru, lai saņemtu verifikācijas kodu. Var tikt piemēroti operatora tarifi.</string>
   <!--recipients_panel-->

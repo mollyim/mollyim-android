@@ -119,7 +119,7 @@
   <string name="CameraContacts_no_signal_contacts">Không có liên hệ Signal</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">Bạn chỉ có thể dùng nút chụp ảnh để gửi ảnh cho các liên hệ Signal.</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">Không tìm thấy người bạn cần tìm?</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">Mời một liên hệ dùng Signal</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">Mời một liên hệ dùng Molly</string>
   <string name="CameraContacts__menu_search">Tìm kiếm</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">Loại bỏ</string>
@@ -335,7 +335,7 @@
   <string name="BackupsPreferenceFragment__turn_on">Bật</string>
   <string name="BackupsPreferenceFragment__turn_off">Tắt</string>
   <string name="BackupsPreferenceFragment__learn_more">Tìm hiểu thêm</string>
-  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal cần quyền truy cập bộ nhớ để tạo bản sao lưu, nhưng đã bị từ chối vĩnh viễn. Vui lòng mở cài đặt ứng dụng, chọn \"Quyền\" và bật \"Bộ nhớ\".</string>
+  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly cần quyền truy cập bộ nhớ để tạo bản sao lưu, nhưng đã bị từ chối vĩnh viễn. Vui lòng mở cài đặt ứng dụng, chọn \"Quyền\" và bật \"Bộ nhớ\".</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Dùng tùy chỉnh: %s</string>
   <string name="CustomDefaultPreference_using_default">Dùng mặc định: %s</string>
@@ -389,7 +389,7 @@
   <string name="GcmBroadcastReceiver_retrieving_a_message">Đang nhận tin nhắn…</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Lỗi thường trực khi giao tiếp qua Signal!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal không thể kết nối với Dịch vụ Google Play. Cuộc gọi và tin nhắn Signal không khả dụng, hãy thử đăng ký lại từ Cài đặt &gt; Nâng cao.</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly không thể kết nối với Dịch vụ Google Play. Cuộc gọi và tin nhắn Molly không khả dụng, hãy thử đăng ký lại từ Cài đặt &gt; Nâng cao.</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">Lỗi khi tải ảnh GIF độ phân giải đầy đủ</string>
   <!--GiphyFragmentPageAdapter-->
@@ -926,10 +926,10 @@
   <!--OutdatedBuildReminder-->
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">Điền mật khẩu</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Biểu tượng Signal</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Biểu tượng Molly</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">Gửi mật khẩu</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Mật khẩu không đúng!</string>
-  <string name="PassphrasePromptActivity_unlock_signal">Mở khóa Signal</string>
+  <string name="PassphrasePromptActivity_unlock_signal">Mở khóa Molly</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">Bản đồ</string>
   <string name="PlacePickerActivity_not_a_valid_address">Không phải địa chỉ hợp lệ</string>
@@ -997,8 +997,8 @@
   <string name="RedPhone_got_it">Đã rõ</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Nhấn để bật camera</string>
-  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Để gọi %1$s, Signal cần quyền truy cập máy ảnh của bạn</string>
-  <string name="WebRtcCallActivity__signal_s">Signal %1$s</string>
+  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Để gọi %1$s, Molly cần quyền truy cập máy ảnh của bạn</string>
+  <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
   <string name="WebRtcCallActivity__calling">Đang gọi…</string>
   <!--WebRtcCallView-->
   <string name="WebRtcCallView__signal_voice_call">Đang gọi âm thanh Signal</string>
@@ -1018,7 +1018,7 @@ mã quốc gia bạn</string>
   <string name="RegistrationActivity_invalid_number">Số không hợp lệ</string>
   <string name="RegistrationActivity_the_number_you_specified_s_is_invalid">Số bạn cung cấp (%s) không hợp lệ.</string>
   <string name="RegistrationActivity_missing_google_play_services">Thiếu Dịch vụ Google Play</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Thiết bị này thiếu Dịch vụ Google Play. Bạn vẫn có thể dùng Signal, nhưng thiết đặt này có thể giảm độ tin cậy và hiệu năng ứng dụng.\n\nNếu bạn không phải người dùng nâng cao, hoặc không dùng ROM Android tự chế, hoặc cho rằng đây là lỗi không đáng có, hãy liên lạc support@signal.org để nhờ hỗ trợ.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Thiết bị này thiếu Dịch vụ Google Play. Bạn vẫn có thể dùng Molly, nhưng thiết đặt này có thể giảm độ tin cậy và hiệu năng ứng dụng.\n\nNếu bạn không phải người dùng nâng cao, hoặc không dùng ROM Android tự chế, hoặc cho rằng đây là lỗi không đáng có, hãy liên lạc support@molly.im để nhờ hỗ trợ.</string>
   <string name="RegistrationActivity_i_understand">Tôi đã hiểu</string>
   <string name="RegistrationActivity_play_services_error">Lỗi Dịch vụ Google Play</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Dịch vụ Google Play đang cập nhật hoặc tạm thời không khả dụng. Hãy thử lại sau.</string>
@@ -1066,12 +1066,12 @@ mã quốc gia bạn</string>
   <string name="SearchFragment_header_messages">Tin nhắn</string>
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">Thêm vào danh bạ</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Mời dùng Signal</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Mời dùng Molly</string>
   <string name="SharedContactDetailsActivity_signal_message">Tin nhắn Signal</string>
   <string name="SharedContactDetailsActivity_signal_call">Cuộc gọi Signal</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">Thêm vào danh bạ</string>
-  <string name="SharedContactView_invite_to_signal">Mời dùng Signal</string>
+  <string name="SharedContactView_invite_to_signal">Mời dùng Molly</string>
   <string name="SharedContactView_message">Tin nhắn Signal</string>
   <!--SignalPinReminders-->
   <string name="SignalPinReminders_well_remind_you_again_later">Chúng tôi sẽ lại nhắc bạn sau.</string>
@@ -1269,7 +1269,7 @@ Nhận thông tin trao đổi mã khóa về phiên bản giao thức không h�
   <string name="ProfileEditNameFragment_successfully_set_profile_name">Đặt tên hồ sơ thành công.</string>
   <string name="ProfileEditNameFragment_encountered_a_network_error">Lỗi mạng.</string>
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Trả lời nhanh không khả dụng khi Signal bị khoá!</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Trả lời nhanh không khả dụng khi Molly bị khoá!</string>
   <string name="QuickResponseService_problem_sending_message">Có vấn đề khi gửi tin nhắn!</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">Đã lưu vào %s</string>
@@ -1280,7 +1280,7 @@ Nhận thông tin trao đổi mã khóa về phiên bản giao thức không h�
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">Shortcut không hợp lệ</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Tin nhắn mới</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">Phát video</string>
@@ -1348,7 +1348,7 @@ Nhận thông tin trao đổi mã khóa về phiên bản giao thức không h�
   <string name="change_passphrase_activity__repeat_new_passphrase">Lặp lại mật khẩu mới</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">Điền tên hoặc số</string>
-  <string name="contact_selection_activity__invite_to_signal">Mời dùng Signal</string>
+  <string name="contact_selection_activity__invite_to_signal">Mời dùng Molly</string>
   <string name="contact_selection_activity__new_group">Tạo nhóm mới</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">Xóa văn bản đã nhập </string>
@@ -1542,7 +1542,7 @@ Nhận thông tin trao đổi mã khóa về phiên bản giao thức không h�
   <string name="redphone_call_card__signal_call">Cuộc gọi Signal</string>
   <!--registration_activity-->
   <string name="registration_activity__phone_number">SỐ ĐIỆN THOẠI</string>
-  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Signal giúp bạn giao tiếp dễ dàng hơn bằng cách sử dụng số điện thoại và danh bạ của bạn. Bạn bè và liên hệ đã liên lạc với bạn qua điện thoại sẽ dễ dàng sử dụng Signal.\n\nViệc đăng kí sẽ gửi một số dữ liệu đến máy chủ. Dữ liệu này không được lưu.</string>
+  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Molly giúp bạn giao tiếp dễ dàng hơn bằng cách sử dụng số điện thoại và danh bạ của bạn. Bạn bè và liên hệ đã liên lạc với bạn qua điện thoại sẽ dễ dàng sử dụng Molly.\n\nViệc đăng kí sẽ gửi một số dữ liệu đến máy chủ. Dữ liệu này không được lưu.</string>
   <string name="registration_activity__verify_your_number">Xác Minh Số Điện Thoại Của Bạn</string>
   <string name="registration_activity__please_enter_your_mobile_number_to_receive_a_verification_code_carrier_rates_may_apply">Vui lòng điền số điện thoại của bạn để nhận mã xác minh. Có thể tính cước phí.</string>
   <!--recipients_panel-->
@@ -1897,10 +1897,10 @@ Nhận thông tin trao đổi mã khóa về phiên bản giao thức không h�
   <string name="reminder_header_sms_import_text">Nhấn để sao chép tin nhắn SMS trên điện thoại vào kho lưu trữ mã hoá của Signal</string>
   <string name="reminder_header_push_title">Bật tin nhắn và cuộc gọi Signal</string>
   <string name="reminder_header_push_text">Nâng cấp trải nghiệm giao tiếp.</string>
-  <string name="reminder_header_invite_title">Mời dùng Signal</string>
+  <string name="reminder_header_invite_title">Mời dùng Molly</string>
   <string name="reminder_header_invite_text"> Hãy nâng cuộc trò chuyện của bạn với %1$s lên tầm cao mới.</string>
   <string name="reminder_header_share_title">Hãy mời bạn bè!</string>
-  <string name="reminder_header_share_text">Càng đông bạn dùng Signal càng vui.</string>
+  <string name="reminder_header_share_text">Càng đông bạn dùng Molly càng vui.</string>
   <string name="reminder_header_service_outage_text">Signal đang gặp trục trặc kĩ thuật. Chúng thôi đang cố hết sức để khôi phục dịch vụ càng sớm càng tốt.</string>
   <string name="reminder_header_the_latest_signal_features_wont_work">Tính năng mới nhất của Signal không hoạt động trên phiên bản Android này. Vui lòng nâng cấp thiết bị để nhận những bản cập nhật Signal trong tương lai.</string>
   <string name="reminder_header_progress">%1$d%%</string>
@@ -2038,7 +2038,7 @@ Nhận thông tin trao đổi mã khóa về phiên bản giao thức không h�
   <string name="ConversationActivity_signal_needs_sms_permission_in_order_to_send_an_sms">Signal cần quyền SMS để gửi SMS, nhưng đã bị từ chối vĩnh viễn. Vui lòng mở cài đặt ứng dụng, chọn \"Qiuyền\" và bật \"SMS\".</string>
   <string name="Permissions_continue">Tiếp tục</string>
   <string name="Permissions_not_now">Để sau</string>
-  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Signal cần quyền truy cập Danh bạ để tìm kiếm liên hệ nhưng đã bị từ chối vĩnh viễn. Vui lòng mở cài đặt ứng dụng, chọn \"Quyền\" và bật \"Danh bạ\".</string>
+  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Molly cần quyền truy cập Danh bạ để tìm kiếm liên hệ nhưng đã bị từ chối vĩnh viễn. Vui lòng mở cài đặt ứng dụng, chọn \"Quyền\" và bật \"Danh bạ\".</string>
   <string name="conversation_activity__enable_signal_messages">Bật tin nhắn Signal</string>
   <string name="SQLCipherMigrationHelper_migrating_signal_database">Đang di dời cơ sở dữ liệu Signal</string>
   <string name="PushDecryptJob_new_locked_message">Tin nhắn đã khoá mới</string>
@@ -2180,7 +2180,7 @@ Nhận thông tin trao đổi mã khóa về phiên bản giao thức không h�
   <string name="GroupsLearnMore_what_are_legacy_groups">Nhóm Cũ là gì?</string>
   <string name="GroupsLearnMore_paragraph_1">Nhóm Cũ là nhóm không tương thích với các tính năng mới như quản trị viên hay cập nhật cụ thể thông tin nhóm.</string>
   <!--GroupLinkBottomSheetDialogFragment-->
-  <string name="GroupLinkBottomSheet_share_via_signal">Chia sẻ qua Signal</string>
+  <string name="GroupLinkBottomSheet_share_via_signal">Chia sẻ qua Molly</string>
   <string name="GroupLinkBottomSheet_copy">Sao chép</string>
   <string name="GroupLinkBottomSheet_qr_code">Mã QR</string>
   <string name="GroupLinkBottomSheet_share">Chia sẻ</string>

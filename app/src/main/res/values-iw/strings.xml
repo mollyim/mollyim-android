@@ -135,7 +135,7 @@
   <string name="CameraContacts_no_signal_contacts">אין אנשי קשר של Signal</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">אתה יכול להשתמש רק בכפתור המצלמה כדי לשלוח תצלומים אל אנשי קשר של Signal.</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">אינך מוצא מה שאתה מחפש?</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">הזמן איש קשר להצטרף אל Signal</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">הזמן איש קשר להצטרף אל Molly</string>
   <string name="CameraContacts__menu_search">חפש</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">הסר</string>
@@ -331,7 +331,7 @@
   <string name="ConversationFragment__d_group_members_have_the_same_name">אל %1$d חברי קבוצה יש אותו שם.</string>
   <string name="ConversationFragment__tap_to_review">הקש כדי לסקור</string>
   <string name="ConversationFragment__review_requests_carefully">סקור בקשות בזהירות</string>
-  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Signal מצא איש קשר אחר עם אותו שם.</string>
+  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Molly מצא איש קשר אחר עם אותו שם.</string>
   <!--ConversationListActivity-->
   <string name="ConversationListActivity_there_is_no_browser_installed_on_your_device">אין דפדפן מותקן במכשיר שלך.</string>
   <!--ConversationListFragment-->
@@ -401,11 +401,11 @@
   <string name="BackupsPreferenceFragment__test_your_backup_passphrase">בחן את משפט־סיסמת הגיבוי שלך ווודא שהוא תואם</string>
   <string name="BackupsPreferenceFragment__turn_on">הפעל</string>
   <string name="BackupsPreferenceFragment__turn_off">כבה</string>
-  <string name="BackupsPreferenceFragment__to_restore_a_backup">כדי לשחזר גיבוי, התקן עותק חדש של Signal. פתח את היישום והקש על \"שחזר גיבוי\", לאחר מכן אתר קובץ גיבוי. %1$s</string>
+  <string name="BackupsPreferenceFragment__to_restore_a_backup">כדי לשחזר גיבוי, התקן עותק חדש של Molly. פתח את היישום והקש על \"שחזר גיבוי\", לאחר מכן אתר קובץ גיבוי. %1$s</string>
   <string name="BackupsPreferenceFragment__learn_more">למד עוד</string>
   <string name="BackupsPreferenceFragment__in_progress">בתהליך…</string>
   <string name="BackupsPreferenceFragment__d_so_far">%1$d עד כה…</string>
-  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal דורש הרשאת אחסון חיצוני על מנת ליצור גיבויים, אבל היא נדחתה לצמיתות. אנא המשך אל הגדרות היישום, בחר \"הרשאות\" ואפשר את \"אחסון\".</string>
+  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly דורש הרשאת אחסון חיצוני על מנת ליצור גיבויים, אבל היא נדחתה לצמיתות. אנא המשך אל הגדרות היישום, בחר \"הרשאות\" ואפשר את \"אחסון\".</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">משתמש בהתאמה אישית: %s</string>
   <string name="CustomDefaultPreference_using_default">משתמש בברירת מחדל: %s</string>
@@ -471,7 +471,7 @@
   <string name="GcmBroadcastReceiver_retrieving_a_message">מאחזר הודעה…</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">כישלון תקשורת קבוע של Signal!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal לא היה יכול להירשם עם שירותי Google Play. הודעות ושיחות של Signal הושבתו, אנא נסה להירשם מחדש בהגדרות &lt; מתקדם.</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly לא היה יכול להירשם עם שירותי Google Play. הודעות ושיחות של Molly הושבתו, אנא נסה להירשם מחדש בהגדרות &lt; מתקדם.</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">שגיאה בעת אחזור קובץ GIF ברזולוציה מלאה</string>
   <!--GiphyFragmentPageAdapter-->
@@ -1264,10 +1264,10 @@
   </plurals>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">הכנס משפט־סיסמה</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">איקון Signal</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">איקון Molly</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">הגש משפט־סיסמה</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">משפט־סיסמה בלתי תקף!</string>
-  <string name="PassphrasePromptActivity_unlock_signal">בטל נעילת Signal</string>
+  <string name="PassphrasePromptActivity_unlock_signal">בטל נעילת Molly</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">מפה</string>
   <string name="PlacePickerActivity_not_a_valid_address">אינה כתובת תקפה</string>
@@ -1338,8 +1338,8 @@
   <string name="RedPhone_got_it">הבנתי</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">הקש כאן כדי להפעיל את צילום הוידאו שלך</string>
-  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">כדי להתקשר אל %1$s, היישום Signal צריך גישה אל המצלמה שלך</string>
-  <string name="WebRtcCallActivity__signal_s">Signal %1$s</string>
+  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">כדי להתקשר אל %1$s, היישום Molly צריך גישה אל המצלמה שלך</string>
+  <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
   <string name="WebRtcCallActivity__calling">מתקשר…</string>
   <string name="WebRtcCallActivity__group_call">שיחה קבוצתית</string>
   <!--WebRtcCallView-->
@@ -1392,7 +1392,7 @@
         שציינת (%s) אינו תקף.
     </string>
   <string name="RegistrationActivity_missing_google_play_services">שירותי Google Play חסרים</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">במכשיר זה חסרים שירותי Google Play. אתה יכול עדין להשתמש ב־Signal, אבל תצורה זו עשויה לגרום לאמינות מופחתת או לביצועים מופחתים.\n\nאם אינך משתמש מתקדם, אינך מריץ ROM של Android שהותקן לאחר רכישה, או שאתה מאמין שאתה רואה זאת בטעות, אנא צור קשר עם support@signal.org לעזרה באיתור תקלות.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">במכשיר זה חסרים שירותי Google Play. אתה יכול עדין להשתמש ב־Molly, אבל תצורה זו עשויה לגרום לאמינות מופחתת או לביצועים מופחתים.\n\nאם אינך משתמש מתקדם, אינך מריץ ROM של Android שהותקן לאחר רכישה, או שאתה מאמין שאתה רואה זאת בטעות, אנא צור קשר עם support@molly.im לעזרה באיתור תקלות.</string>
   <string name="RegistrationActivity_i_understand">אני מבין</string>
   <string name="RegistrationActivity_play_services_error">שגיאת שירותי Play</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">שירותי Google Play מתעדכנים או שהם בלתי זמינים באופן זמני. אנא נסה שוב.</string>
@@ -1444,12 +1444,12 @@
   <string name="SearchFragment_header_messages">הודעות</string>
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">הוסף לאנשי קשר</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">הזמן אל Signal</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">הזמן אל Molly</string>
   <string name="SharedContactDetailsActivity_signal_message">הודעת Signal</string>
   <string name="SharedContactDetailsActivity_signal_call">שיחת Signal</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">הוסף לאנשי קשר</string>
-  <string name="SharedContactView_invite_to_signal">הזמן אל Signal</string>
+  <string name="SharedContactView_invite_to_signal">הזמן אל Molly</string>
   <string name="SharedContactView_message">הודעת Signal</string>
   <!--SignalPinReminders-->
   <string name="SignalPinReminders_well_remind_you_again_later">נזכיר לך שוב מאוחר יותר.</string>
@@ -1655,7 +1655,7 @@
   <string name="ProfileEditNameFragment_successfully_set_profile_name">שם פרופיל נקבע בהצלחה.</string>
   <string name="ProfileEditNameFragment_encountered_a_network_error">היישום נתקל בשגיאת רשת.</string>
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">תגובה מהירה אינה זמינה כאשר Signal נעול!</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">תגובה מהירה אינה זמינה כאשר Molly נעול!</string>
   <string name="QuickResponseService_problem_sending_message">בעיה בשליחת הודעה!</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">נשמר ב־%s</string>
@@ -1666,7 +1666,7 @@
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">קיצור דרך בלתי תקף</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">הודעה חדשה</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">נגן סרטון</string>
@@ -1739,7 +1739,7 @@
   <string name="change_passphrase_activity__repeat_new_passphrase">חזור על משפט־סיסמה חדש</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">הכנס שם או מספר</string>
-  <string name="contact_selection_activity__invite_to_signal">הזמן אל Signal</string>
+  <string name="contact_selection_activity__invite_to_signal">הזמן אל Molly</string>
   <string name="contact_selection_activity__new_group">קבוצה חדשה</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">נקה טקסט מוכנס</string>
@@ -1974,7 +1974,7 @@
   <string name="redphone_call_card__signal_call">שיחת Signal</string>
   <!--registration_activity-->
   <string name="registration_activity__phone_number">מספר טלפון</string>
-  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Signal מקל לתקשר ע״י שימוש במספר הטלפון ובפנקס הכתובות הקיימים שלך. חברים ואנשי קשר שיודעים כבר איך ליצור איתך קשר בטלפון, יוכלו לשמור על קשר בקלות ב־Signal.\n\nהרשמה משדרת מידע מסוים של אנשי קשר אל השרת. המידע אינו מאוחסן.</string>
+  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Molly מקל לתקשר ע״י שימוש במספר הטלפון ובפנקס הכתובות הקיימים שלך. חברים ואנשי קשר שיודעים כבר איך ליצור איתך קשר בטלפון, יוכלו לשמור על קשר בקלות ב־Molly.\n\nהרשמה משדרת מידע מסוים של אנשי קשר אל השרת. המידע אינו מאוחסן.</string>
   <string name="registration_activity__verify_your_number">וודא את המספר שלך</string>
   <string name="registration_activity__please_enter_your_mobile_number_to_receive_a_verification_code_carrier_rates_may_apply">אנא הכנס את המספר הנייד שלך כדי לקבל קוד וידוא. תשלומי מפעיל עשויים לחול.</string>
   <!--recipients_panel-->
@@ -2336,10 +2336,10 @@
   <string name="reminder_header_sms_import_text">הקש כדי להעתיק את הודעות המסרונים של הטלפון שלך לתוך מסד הנתונים המוצפן של Signal.</string>
   <string name="reminder_header_push_title">אפשר הודעות ושיחות של Signal</string>
   <string name="reminder_header_push_text">שדרג את חווית התקשורת שלך.</string>
-  <string name="reminder_header_invite_title">הזמן אל Signal</string>
+  <string name="reminder_header_invite_title">הזמן אל Molly</string>
   <string name="reminder_header_invite_text">קח את השיחות שלך עם %1$s לשלב הבא.</string>
   <string name="reminder_header_share_title">הזמן את חבריך!</string>
-  <string name="reminder_header_share_text">ככל שיותר חברים משתמשים ב-Signal, כך הוא משתפר.</string>
+  <string name="reminder_header_share_text">ככל שיותר חברים משתמשים ב-Molly, כך הוא משתפר.</string>
   <string name="reminder_header_service_outage_text">Signal חווה קשיים טכניים. אנחנו עובדים קשה כדי לשחזר את השירות מהר ככל האפשר.</string>
   <string name="reminder_header_the_latest_signal_features_wont_work">המאפיינים האחרונים של Signal לא יעבדו על גרסה זו של Android. אנא שדרג מכשיר זה כדי לקבל עדכונים עתידיים של Signal.</string>
   <string name="reminder_header_progress">%1$d%%</string>
@@ -2504,7 +2504,7 @@
   <string name="ConversationActivity_signal_needs_sms_permission_in_order_to_send_an_sms">Signal צריך הרשאת מסרונים על מנת לשלוח מסרון, אבל היא נדחתה לצמיתות. אנא המשך אל הגדרות היישום, בחר \"הרשאות\" ואפשר את \"מסרון\".</string>
   <string name="Permissions_continue">המשך</string>
   <string name="Permissions_not_now">לא עכשיו</string>
-  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Signal צריך הרשאת אנשי קשר על מנת לחפש את אנשי הקשר שלך, אבל היא נדחתה לצמיתות. אנא המשך אל הגדרות היישום, בחר \"הרשאות\" ואפשר את \"אנשי קשר\".</string>
+  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Molly צריך הרשאת אנשי קשר על מנת לחפש את אנשי הקשר שלך, אבל היא נדחתה לצמיתות. אנא המשך אל הגדרות היישום, בחר \"הרשאות\" ואפשר את \"אנשי קשר\".</string>
   <string name="conversation_activity__enable_signal_messages">אפשר הודעות SIGNAL</string>
   <string name="SQLCipherMigrationHelper_migrating_signal_database">מהגר מסד נתונים של Signal</string>
   <string name="PushDecryptJob_new_locked_message">הודעה נעולה חדשה</string>
@@ -2659,7 +2659,7 @@
   <string name="GroupsLearnMore_paragraph_2">קבוצות מיושנות אינן יכולות להשתדרג עדין אל קבוצות חדשות, אבל אתה יכול ליצור קבוצה חדשה עם אותם חברי קבוצה אם יש להם את הגרסה האחרונה של Signal.</string>
   <string name="GroupsLearnMore_paragraph_3">Signal יציע דרך לשדרג קבוצות מיושנות בעתיד.</string>
   <!--GroupLinkBottomSheetDialogFragment-->
-  <string name="GroupLinkBottomSheet_share_via_signal">שתף באמצעות Signal</string>
+  <string name="GroupLinkBottomSheet_share_via_signal">שתף באמצעות Molly</string>
   <string name="GroupLinkBottomSheet_copy">העתק</string>
   <string name="GroupLinkBottomSheet_qr_code">קוד QR:</string>
   <string name="GroupLinkBottomSheet_share">שתף</string>

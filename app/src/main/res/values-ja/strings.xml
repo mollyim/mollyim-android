@@ -126,7 +126,7 @@
   <string name="CameraContacts_no_signal_contacts">Signalの連絡先はありません</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">カメラボタンだけでSignalの連絡先へ写真を送信できます。</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">探している人が見つかりませんか？</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">連絡先をSignalへ招待する</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">連絡先をMollyへ招待する</string>
   <string name="CameraContacts__menu_search">検索</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">削除する</string>
@@ -301,7 +301,7 @@
   <string name="ConversationFragment__d_group_members_have_the_same_name">%1$d人のグループメンバーが同じ名前です。</string>
   <string name="ConversationFragment__tap_to_review">タップして確認</string>
   <string name="ConversationFragment__review_requests_carefully">慎重に申請を確認してください</string>
-  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Signalは同じ名前で別の連絡先を見つけました。</string>
+  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Mollyは同じ名前で別の連絡先を見つけました。</string>
   <!--ConversationListActivity-->
   <string name="ConversationListActivity_there_is_no_browser_installed_on_your_device">ブラウザがインストールされていません</string>
   <!--ConversationListFragment-->
@@ -359,11 +359,11 @@
   <string name="BackupsPreferenceFragment__test_your_backup_passphrase">バックアップ用パスフレーズが合っているか確認してください</string>
   <string name="BackupsPreferenceFragment__turn_on">有効にする</string>
   <string name="BackupsPreferenceFragment__turn_off">無効にする</string>
-  <string name="BackupsPreferenceFragment__to_restore_a_backup">バックアップを復元するには、新しいSignalをインストールしてください。その後アプリを開き、「バックアップを復元する」をタップしてバックアップファイルの場所を指定します。 %1$s</string>
+  <string name="BackupsPreferenceFragment__to_restore_a_backup">バックアップを復元するには、新しいMollyをインストールしてください。その後アプリを開き、「バックアップを復元する」をタップしてバックアップファイルの場所を指定します。 %1$s</string>
   <string name="BackupsPreferenceFragment__learn_more">詳しく見る</string>
   <string name="BackupsPreferenceFragment__in_progress">実行しています…</string>
   <string name="BackupsPreferenceFragment__d_so_far">これまで %1$d…</string>
-  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">バックアップを作成するには、Signalに外部ストレージへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「ストレージ」を有効にしてください。</string>
+  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">バックアップを作成するには、Mollyに外部ストレージへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「ストレージ」を有効にしてください。</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">カスタマイズ: %s</string>
   <string name="CustomDefaultPreference_using_default">既定を使用: %s</string>
@@ -426,7 +426,7 @@
   <string name="GcmBroadcastReceiver_retrieving_a_message">メッセージを取得しています…</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Signalの永続的な通信エラー！</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Google Play開発者サービスにSignalを登録できなかったため、Signalのメッセージと通話は無効になっています。設定 &gt; 詳細設定で再登録を試してください。</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Google Play開発者サービスにMollyを登録できなかったため、Mollyのメッセージと通話は無効になっています。設定 &gt; 詳細設定で再登録を試してください。</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">高解像度GIFファイルの取得中にエラーが発生しました</string>
   <!--GiphyFragmentPageAdapter-->
@@ -1080,10 +1080,10 @@
   </plurals>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">パスフレーズを入力してください</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Signalアイコン</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Mollyアイコン</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">パスフレーズを設定する</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">不正なパスフレーズです！</string>
-  <string name="PassphrasePromptActivity_unlock_signal">Signalのロックを解除する</string>
+  <string name="PassphrasePromptActivity_unlock_signal">Mollyのロックを解除する</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">地図</string>
   <string name="PlacePickerActivity_not_a_valid_address">無効なアドレスです</string>
@@ -1151,8 +1151,8 @@
   <string name="RedPhone_got_it">分かりました</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">タップして動画を有効にする</string>
-  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">%1$s と通話するには、Signalにカメラへのアクセスを許可してください。</string>
-  <string name="WebRtcCallActivity__signal_s">Signal %1$s</string>
+  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">%1$s と通話するには、Mollyにカメラへのアクセスを許可してください。</string>
+  <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
   <string name="WebRtcCallActivity__calling">呼び出しています…</string>
   <string name="WebRtcCallActivity__group_call">グループ通話</string>
   <!--WebRtcCallView-->
@@ -1193,7 +1193,7 @@
   <string name="RegistrationActivity_invalid_number">無効な番号</string>
   <string name="RegistrationActivity_the_number_you_specified_s_is_invalid">指定された番号 (%s) は無効です。</string>
   <string name="RegistrationActivity_missing_google_play_services">Google Play開発者サービスがありません</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">この端末にはGoogle Play開発者サービスがありません。Signalは使用できますが、信頼性や性能は下がる可能性があります。\n\n上級者でない方や、メーカー公式のAndroidをご利用の方、何かの間違いだと思う方などは support@signal.org まで連絡してください。</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">この端末にはGoogle Play開発者サービスがありません。Mollyは使用できますが、信頼性や性能は下がる可能性があります。\n\n上級者でない方や、メーカー公式のAndroidをご利用の方、何かの間違いだと思う方などは support@molly.im まで連絡してください。</string>
   <string name="RegistrationActivity_i_understand">分かりました</string>
   <string name="RegistrationActivity_play_services_error">Google Play開発者サービスのエラー</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play開発者サービスは更新中か一時的に使用不能です。再度試してください。</string>
@@ -1242,12 +1242,12 @@
   <string name="SearchFragment_header_messages">メッセージ</string>
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">連絡先に追加</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Signalに招待する</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Mollyに招待する</string>
   <string name="SharedContactDetailsActivity_signal_message">Signalメッセージ</string>
   <string name="SharedContactDetailsActivity_signal_call">Signal通話</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">連絡先に追加</string>
-  <string name="SharedContactView_invite_to_signal">Signalに招待する</string>
+  <string name="SharedContactView_invite_to_signal">Mollyに招待する</string>
   <string name="SharedContactView_message">Signalメッセージ</string>
   <!--SignalPinReminders-->
   <string name="SignalPinReminders_well_remind_you_again_later">あとで再度お知らせします。</string>
@@ -1450,7 +1450,7 @@
   <string name="ProfileEditNameFragment_successfully_set_profile_name">プロフィール名を設定しました。</string>
   <string name="ProfileEditNameFragment_encountered_a_network_error">ネットワークエラーが発生しました。</string>
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Signalのロック中はクイックレスポンスを使えません！</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Mollyのロック中はクイックレスポンスを使えません！</string>
   <string name="QuickResponseService_problem_sending_message">メッセージ送信中に問題が発生しました！</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">%s に保存しました</string>
@@ -1461,7 +1461,7 @@
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">無効なショートカット</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">新着メッセージ</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">動画を再生</string>
@@ -1531,7 +1531,7 @@
   <string name="change_passphrase_activity__repeat_new_passphrase">新しいパスフレーズを再入力</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">名前もしくは番号を入力</string>
-  <string name="contact_selection_activity__invite_to_signal">Signalに招待する</string>
+  <string name="contact_selection_activity__invite_to_signal">Mollyに招待する</string>
   <string name="contact_selection_activity__new_group">新規グループ</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">テキストを消去</string>
@@ -1739,7 +1739,7 @@
   <string name="redphone_call_card__signal_call">Signal通話</string>
   <!--registration_activity-->
   <string name="registration_activity__phone_number">電話番号</string>
-  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Signalはあなたの電話番号とアドレス帳を利用して、コミュニケーションを簡単にします。すでにあなたの電話番号を知っている友人や連絡先は、Signalで手軽にあなたと連絡を取ることができます。\n\n登録を行うと連絡先の情報がサーバに送信されますが、保存はされません。</string>
+  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Mollyはあなたの電話番号とアドレス帳を利用して、コミュニケーションを簡単にします。すでにあなたの電話番号を知っている友人や連絡先は、Mollyで手軽にあなたと連絡を取ることができます。\n\n登録を行うと連絡先の情報がサーバに送信されますが、保存はされません。</string>
   <string name="registration_activity__verify_your_number">番号を確認する</string>
   <string name="registration_activity__please_enter_your_mobile_number_to_receive_a_verification_code_carrier_rates_may_apply">あなたの電話番号を入力して、認証コードを取得してください。通信料金が発生する場合があります。</string>
   <!--recipients_panel-->
@@ -2098,10 +2098,10 @@
   <string name="reminder_header_sms_import_text">タップしてこの電話のSMSメッセージをSignalの暗号化されたデータベースにコピーします。</string>
   <string name="reminder_header_push_title">Signalメッセージと通話の有効化</string>
   <string name="reminder_header_push_text">コミュニケーション体験をアップグレードしてください。</string>
-  <string name="reminder_header_invite_title">Signalへの招待</string>
+  <string name="reminder_header_invite_title">Mollyへの招待</string>
   <string name="reminder_header_invite_text">%1$s との会話を進化させましょう。</string>
   <string name="reminder_header_share_title">友達を招待しましょう！</string>
-  <string name="reminder_header_share_text">より多くの友達がSignalを使えば、より便利になります。</string>
+  <string name="reminder_header_share_text">より多くの友達がMollyを使えば、より便利になります。</string>
   <string name="reminder_header_service_outage_text">Signalは技術的な問題を抱えています。私たちは、これをできるだけ早く解決するよう対応しています。</string>
   <string name="reminder_header_the_latest_signal_features_wont_work">Signalの最新機能は、このバージョンのAndroidには対応しなくなります。今後のSignalのアップデートを受け取るため、この端末をアップグレードしてください。</string>
   <string name="reminder_header_progress">%1$d%%</string>
@@ -2245,7 +2245,7 @@
   <string name="ConversationActivity_signal_needs_sms_permission_in_order_to_send_an_sms">SMSを送信するには、SignalにSMSへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「SMS」を有効にしてください。</string>
   <string name="Permissions_continue">続ける</string>
   <string name="Permissions_not_now">今はしない</string>
-  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">連絡先を検索するには、Signalに連絡先へのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「連絡先」を有効にしてください。</string>
+  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">連絡先を検索するには、Mollyに連絡先へのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「連絡先」を有効にしてください。</string>
   <string name="conversation_activity__enable_signal_messages">Signalメッセージを有効にする</string>
   <string name="SQLCipherMigrationHelper_migrating_signal_database">Signalのデータベースを移行する</string>
   <string name="PushDecryptJob_new_locked_message">ロックされた新着メッセージ</string>
@@ -2400,7 +2400,7 @@
   <string name="GroupsLearnMore_paragraph_2">レガシーグループは新しいグループにアップグレードできませんが、メンバーが最新バージョンのSignalを使用していれば、同じメンバーで新しいグループを作成できます。</string>
   <string name="GroupsLearnMore_paragraph_3">Signalは将来、レガシーグループをアップグレードする手段を提供します。</string>
   <!--GroupLinkBottomSheetDialogFragment-->
-  <string name="GroupLinkBottomSheet_share_via_signal">Signal経由で共有する</string>
+  <string name="GroupLinkBottomSheet_share_via_signal">Molly経由で共有する</string>
   <string name="GroupLinkBottomSheet_copy">コピー</string>
   <string name="GroupLinkBottomSheet_qr_code">QRコード</string>
   <string name="GroupLinkBottomSheet_share">共有</string>

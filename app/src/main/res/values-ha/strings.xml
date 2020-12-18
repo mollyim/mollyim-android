@@ -105,7 +105,7 @@
   <string name="CameraContacts_no_signal_contacts">Baka/ki da abokin sadarwa a Signal</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">Da maballin kyamara kawai zaka/ki iya tura hotuna zuwa lambobin sadarwar Signal dinka/ki.</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">Baka/ki samu wanda kake/kike nema ba?</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">Gayyaci wani/wata ya/ta shiga Signal.</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">Gayyaci wani/wata ya/ta shiga Molly.</string>
   <string name="CameraContacts__menu_search">Duba</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">Cire</string>
@@ -332,7 +332,7 @@
   <string name="GcmBroadcastReceiver_retrieving_a_message">Diban sakwanni.</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Signal na dindindin akwai matsalar sadarwa!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal ya kasa rijista da sabis din Google Play. An kashe sakwanni da kiran Signal, yi kokari ka/ki kara rijista a cikin saitin &gt; Advanced.</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly ya kasa rijista da sabis din Google Play. An kashe sakwanni da kiran Molly, yi kokari ka/ki kara rijista a cikin saitin &gt; Advanced.</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">Ansamu kuskuren karbar cikkakiyar kyawon tarkacen GIF</string>
   <!--GiphyFragmentPageAdapter-->
@@ -592,10 +592,10 @@
   <string name="ExpirationDialog_your_messages_will_disappear_s_after_they_have_been_seen">Sakwanni da aka tura ko karba zasu bace  %s bayan an gansu.</string>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">Shigar da kalaman sirri</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Alamar Signal</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Alamar Molly</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">Sa kalaman sirri</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Kalaman sirrinnan ba na kwarai bane!</string>
-  <string name="PassphrasePromptActivity_unlock_signal">Bude Signal</string>
+  <string name="PassphrasePromptActivity_unlock_signal">Bude Molly</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">Taswira</string>
   <string name="PlacePickerActivity_not_a_valid_address">Wannan adireshin ba na kwarai bane.</string>
@@ -661,7 +661,7 @@
         Ware (%s) ba na kwarai bane.
     </string>
   <string name="RegistrationActivity_missing_google_play_services">Babu Google Play Services</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Babu Google Play Services a wannan na\'urar. Zaka/ki iya amfani da Signal amma wannan saitin na\'ura zai rage dogarar ko kuma karfin aiki.\n\n idan kai/ke ba kwararren mai amfani bane/bace da wannan manhajar, ko baka/ki amfani da aftermarket Android ROM, ko kuma ka/kina ganin wannan a matsayin kuskure, tuntubemu a support@signal.org domin samun taimako wajen bincika matsalar.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Babu Google Play Services a wannan na\'urar. Zaka/ki iya amfani da Molly amma wannan saitin na\'ura zai rage dogarar ko kuma karfin aiki.\n\n idan kai/ke ba kwararren mai amfani bane/bace da wannan manhajar, ko baka/ki amfani da aftermarket Android ROM, ko kuma ka/kina ganin wannan a matsayin kuskure, tuntubemu a support@molly.im domin samun taimako wajen bincika matsalar.</string>
   <string name="RegistrationActivity_i_understand">Na gane</string>
   <string name="RegistrationActivity_play_services_error">Kuskuren Google Play Service</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Services na sabuntuwa ko kuma ba\'a sameshi ba. Kara gwadawa.</string>
@@ -705,12 +705,12 @@
   <string name="SearchFragment_header_messages">Sakwanni</string>
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">Kara lambobin sadarwa</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Gayyace shi/ta Signal.</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Gayyace shi/ta Molly.</string>
   <string name="SharedContactDetailsActivity_signal_message">Sakon Signal</string>
   <string name="SharedContactDetailsActivity_signal_call">Kiran Signal</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">Kara lambobin sadarwa</string>
-  <string name="SharedContactView_invite_to_signal">Gayyace shi/ta Signal.</string>
+  <string name="SharedContactView_invite_to_signal">Gayyace shi/ta Molly.</string>
   <string name="SharedContactView_message">Sakon Signal</string>
   <!--SignalPinReminders-->
   <!--Slide-->
@@ -898,7 +898,7 @@
   <string name="ProfileEditNameFragment_successfully_set_profile_name">An ci nasarar saita sunan furofayil</string>
   <string name="ProfileEditNameFragment_encountered_a_network_error">An samu matsalar sadarwar gizo.</string>
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Baza\'a samu amsan sauri ba idan Signal yana kulle.</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Baza\'a samu amsan sauri ba idan Molly yana kulle.</string>
   <string name="QuickResponseService_problem_sending_message">Matsalar aikar da sako!</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">An ajiye a %s</string>
@@ -909,7 +909,7 @@
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">Wannan gajeren hanya ba na kwarai bane</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Signal.</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Molly.</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Sabon Sako</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">Kunna bidiyo</string>
@@ -971,7 +971,7 @@
   <string name="change_passphrase_activity__repeat_new_passphrase">Maimaita sabon kalmomn sirri</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">Sa suna ko lamba</string>
-  <string name="contact_selection_activity__invite_to_signal">Gayyace shi/ta zuwa Signal.</string>
+  <string name="contact_selection_activity__invite_to_signal">Gayyace shi/ta zuwa Molly.</string>
   <string name="contact_selection_activity__new_group">Sabon rukuni</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">Goge rubutu</string>
@@ -1158,7 +1158,7 @@
   <string name="redphone_call_card__signal_call">Kiran Signal</string>
   <!--registration_activity-->
   <string name="registration_activity__phone_number">LAMBAR WAYA</string>
-  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Signal na saukake hira ta hanyar amfani da ainihin lambar waya da kuma littafin adireshi. Abokai da suke da lambar sadarwarka zasu samu saukin samunka/ki ta Signal.\n\n Yin rijista na daukar bayanan lambobin sadarwa zuwa saba. Ba\'a ajiye yake ba.</string>
+  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Molly na saukake hira ta hanyar amfani da ainihin lambar waya da kuma littafin adireshi. Abokai da suke da lambar sadarwarka zasu samu saukin samunka/ki ta Molly.\n\n Yin rijista na daukar bayanan lambobin sadarwa zuwa saba. Ba\'a ajiye yake ba.</string>
   <string name="registration_activity__verify_your_number">Tabbatar da lambar tsarinka/ki</string>
   <string name="registration_activity__please_enter_your_mobile_number_to_receive_a_verification_code_carrier_rates_may_apply">Dan shigar da lambar wayanka/ki domin samun lambar sirri na tabbatarwa. Akwai adadin kudi da za\'a iya dauka.</string>
   <!--recipients_panel-->
@@ -1450,10 +1450,10 @@
   <string name="reminder_header_sms_import_text">Taba domin kwafa SMS din wayarka/ki zuwa shiryayyen bayanin Signal mai tsaro.</string>
   <string name="reminder_header_push_title">Karfafa kira da sakonnin Signal</string>
   <string name="reminder_header_push_text">Sabunta masaniyar ma\'amalarka/ki.</string>
-  <string name="reminder_header_invite_title">Gayyace shi/ta Signal.</string>
+  <string name="reminder_header_invite_title">Gayyace shi/ta Molly.</string>
   <string name="reminder_header_invite_text">Ka/ki karawa hirarka/ki da %1$s daraja.</string>
   <string name="reminder_header_share_title">Gayyaci abokai</string>
-  <string name="reminder_header_share_text">Signal yafi dadi idan abokai da yawa suna amfani dashi.</string>
+  <string name="reminder_header_share_text">Molly yafi dadi idan abokai da yawa suna amfani dashi.</string>
   <string name="reminder_header_service_outage_text">Signal na fuskantar wasu matsaloli. Muna iya kokarinmu domin dawowa da sabis da wur-wuri.</string>
   <string name="reminder_header_the_latest_signal_features_wont_work">Sabbobin fasalin Signal bazasu yi aiki akan wannan sigar Android ba. Sabunta wannan na\'urar domin samun duk wani sabuntarwar Signal na gaba.</string>
   <string name="reminder_header_progress">%1$d%%</string>
@@ -1554,7 +1554,7 @@
   <string name="ConversationActivity_signal_needs_sms_permission_in_order_to_send_an_sms">Signal na bukatar izinin SMS domin aikawa da SMS, amma an hana wannan damar dindindin. Dan karasa zuwa mazabar saiti manhajar, zabi Izini sannan karfafe SMS.</string>
   <string name="Permissions_continue">Cigaba</string>
   <string name="Permissions_not_now">Ba yanzu ba</string>
-  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Signal na bukatar izinin Lambobin sadarwa domin binciken lambobin sadarwarka/ki, amma anhana wannan damar. Ci gaba da shigar mazabar saitin afilikashon dinnan, zabi \"Izini\" sai kuma a karfafa \"Lambobin sadarwa\".</string>
+  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Molly na bukatar izinin Lambobin sadarwa domin binciken lambobin sadarwarka/ki, amma anhana wannan damar. Ci gaba da shigar mazabar saitin afilikashon dinnan, zabi \"Izini\" sai kuma a karfafa \"Lambobin sadarwa\".</string>
   <string name="conversation_activity__enable_signal_messages">KARFAFA SAKONNIN SIGNAL</string>
   <string name="SQLCipherMigrationHelper_migrating_signal_database">Kauracewar shiryayyen bayanain Signal</string>
   <string name="PushDecryptJob_new_locked_message">Sabon kulellen sako</string>

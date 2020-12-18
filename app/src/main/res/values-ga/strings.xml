@@ -99,7 +99,7 @@
   <string name="CameraContacts_select_signal_recipients">Roghnaigh faighteoirí Signal</string>
   <string name="CameraContacts_no_signal_contacts">Níl aon teagmhálaithe Signal ann</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">Nach féidir an duine atá lorg agat a aimsiú?</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">Tabhair cuireadh do theagmhálaí chuig Signal</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">Tabhair cuireadh do theagmhálaí chuig Molly</string>
   <string name="CameraContacts__menu_search">Cuardaigh</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">Bain é</string>
@@ -438,7 +438,7 @@
   <string name="ExpirationDialog_your_messages_will_disappear_s_after_they_have_been_seen">Imeoidh teachtaireachtaí seolta agus faighte sa chomhrá seo as amharc, %s tar éis iad a léamh.</string>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">Cuir isteach nath faire</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Deilbhín Signal</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Deilbhín Molly</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">Seol isteach an nath faire</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Nath faire neamhbhailí!</string>
   <!--PlacePickerActivity-->
@@ -514,12 +514,12 @@ a shonrú</string>
   <string name="SearchFragment_header_messages">Teachtaireachtaí</string>
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">Cuir leis na teagmhálacha</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Tabhair cuireadh chuig Signal</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Tabhair cuireadh chuig Molly</string>
   <string name="SharedContactDetailsActivity_signal_message">Teachtaireacht Signal</string>
   <string name="SharedContactDetailsActivity_signal_call">Glao Signal</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">Cuir leis na teagmhálacha</string>
-  <string name="SharedContactView_invite_to_signal">Tabhair cuireadh chuig Signal</string>
+  <string name="SharedContactView_invite_to_signal">Tabhair cuireadh chuig Molly</string>
   <string name="SharedContactView_message">Teachtaireacht Signal</string>
   <!--Slide-->
   <string name="Slide_image">Íomhá</string>
@@ -636,7 +636,7 @@ a shonrú</string>
   <string name="NotificationChannel_group_messages">Teachtaireachtaí</string>
   <string name="NotificationChannel_missing_display_name">Anaithnid</string>
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Níl freagairt tapa le fáil agus Signal faoi ghlas.</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Níl freagairt tapa le fáil agus Molly faoi ghlas.</string>
   <string name="QuickResponseService_problem_sending_message">Tharla fadhb ag seoladh na teachtaireachta!</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved">Curtha i dtaisce</string>
@@ -645,7 +645,7 @@ a shonrú</string>
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">Aicearra neamhbhailí</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Teachtaireacht nua</string>
   <!--TransferControlView-->
   <!--UnauthorizedReminder-->
@@ -695,7 +695,7 @@ a shonrú</string>
   <string name="change_passphrase_activity__repeat_new_passphrase">Scríobh arís an nath faire nua</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">Cuir isteach ainm nó uimhir</string>
-  <string name="contact_selection_activity__invite_to_signal">Tabhair cuireadh chuig Signal</string>
+  <string name="contact_selection_activity__invite_to_signal">Tabhair cuireadh chuig Molly</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">Glan an téacs isteach</string>
   <string name="contact_filter_toolbar__show_keyboard_description">Taispeáin an méarchlár</string>
@@ -1081,7 +1081,7 @@ a shonrú</string>
   <string name="reminder_header_sms_import_title">Tabhair isteach SMS an chórais</string>
   <string name="reminder_header_push_title">Cumasaigh teachtaireachtaí agus glaonna Signal</string>
   <string name="reminder_header_push_text">Feabhsaigh do chumarsáid.</string>
-  <string name="reminder_header_invite_title">Tabhair cuireadh chuig Signal</string>
+  <string name="reminder_header_invite_title">Tabhair cuireadh chuig Molly</string>
   <string name="reminder_header_invite_text">Cuir feabhas le do chomhrá le %1$s.</string>
   <string name="reminder_header_share_title">Tabhair cuirí do do chairde!</string>
   <string name="reminder_header_share_text">An mó cairde leat a bhaineann feidhm as Singal, is fearrde é.</string>
@@ -1108,7 +1108,7 @@ a shonrú</string>
   <string name="ConversationActivity_signal_needs_sms_permission_in_order_to_send_an_sms">Tá gá ag Signal leis an cead SMS chun SMS a sheol, ach ní ceadaítear é go deo. Lean ar aghaigh, le do thoil, go socruithe aipe, roghnaigh \"SMS\". </string>
   <string name="Permissions_continue">Lean ar aghaidh</string>
   <string name="Permissions_not_now">Ní anois</string>
-  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Tá gá ag Signal le cead teagmhálaí chun teagmhálaithe a chuardaigh, ach ní ceadaítear é go deo. Lean ar aghaidh, le do thoil, go socruithe aipe, roghnaigh \"Ceadanna\", agus cumasaigh \"Teagmhálaí\". </string>
+  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Tá gá ag Molly le cead teagmhálaí chun teagmhálaithe a chuardaigh, ach ní ceadaítear é go deo. Lean ar aghaidh, le do thoil, go socruithe aipe, roghnaigh \"Ceadanna\", agus cumasaigh \"Teagmhálaí\". </string>
   <string name="conversation_activity__enable_signal_messages">CUMASAIGH TEACHTAIREACHTAÍ SIGNAL</string>
   <string name="PushDecryptJob_new_locked_message">Teachtaireacht ghlasaithe nua</string>
   <!-- Removed by excludeNonTranslatables <string name="ExperienceUpgradeActivity_unlock_to_complete_update">Bain an glas de chun an nuashonrú a chríochnú</string> -->

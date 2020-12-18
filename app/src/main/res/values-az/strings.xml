@@ -314,7 +314,7 @@
   <string name="GcmBroadcastReceiver_retrieving_a_message">Mesajın bərpası…</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Həmişəlik Signal ünsiyyət xətası!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal Google Play Servisləri ilə qeydiyyatdan keçə bilmədi. Signal zəngləri və mesajları deaktivə edildi, lütfən Parametrlər &gt; Daha Geniş seçimlərində yenidən qeydiyyatdan keçməyə cəhd et.</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly Google Play Servisləri ilə qeydiyyatdan keçə bilmədi. Molly zəngləri və mesajları deaktivə edildi, lütfən Parametrlər &gt; Daha Geniş seçimlərində yenidən qeydiyyatdan keçməyə cəhd et.</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">GIF-in tam ölçüdə bərpası prosesində xəta</string>
   <!--GiphyFragmentPageAdapter-->
@@ -473,10 +473,10 @@
   <string name="ExpirationDialog_your_messages_will_disappear_s_after_they_have_been_seen">Bu söhbətləşmədəki göndərilən və qəbul edilən mesajlara baxıldıqdan %s sonra silinəcəkdir.</string>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">Şifrə ifadəsini daxil et</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Signal ikonası</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Molly ikonası</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">Şifrə ifadəsini təqdim et</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Səhv şifrə ifadəsi!</string>
-  <string name="PassphrasePromptActivity_unlock_signal">Signal-ın Kilidini Aç</string>
+  <string name="PassphrasePromptActivity_unlock_signal">Molly-ın Kilidini Aç</string>
   <!--PlacePickerActivity-->
   <!--PlayServicesProblemFragment-->
   <string name="PlayServicesProblemFragment_the_version_of_google_play_services_you_have_installed_is_not_functioning">Quraşdırdığın Google Play Servis versiyası düzgün işləmir. Zəhmət olmasa Google Play Servisini yenidən quraşdır və sına.</string>
@@ -532,7 +532,7 @@
         nömrə (%s) səhvdir.
     </string>
   <string name="RegistrationActivity_missing_google_play_services">Google Play Xidməti Çatışmır</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Bu cihazda Google Play Xidməti yoxdur. Sən yenə də Signal-ı istifadə edə bilərsən, amma o daha az etibarlı olacaq və aşağı performans nümayiş etdirəcək.\n\nƏgər sən qabaqcıl istifadəçi deyilsənsə, ikinci əl Android ROM istifadə etmirsənsə, yaxud da bu xətanı gördüyünü düşünürsənsə, lütfən bizi məlumatlandırmaq üçün support@signal.org ünvanına yaz. </string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Bu cihazda Google Play Xidməti yoxdur. Sən yenə də Molly-ı istifadə edə bilərsən, amma o daha az etibarlı olacaq və aşağı performans nümayiş etdirəcək.\n\nƏgər sən qabaqcıl istifadəçi deyilsənsə, ikinci əl Android ROM istifadə etmirsənsə, yaxud da bu xətanı gördüyünü düşünürsənsə, lütfən bizi məlumatlandırmaq üçün support@molly.im ünvanına yaz. </string>
   <string name="RegistrationActivity_i_understand">Anlayıram</string>
   <string name="RegistrationActivity_play_services_error">Play Xidmət Xətası</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Xidməti yenilənir və ya müvəqqəti işləmir: Zəhmət olmasa bir daha sına.</string>
@@ -567,12 +567,12 @@
   <string name="SearchFragment_header_messages">Mesajlar</string>
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">Əlaqələrə əlavə et</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Signala dəvət et</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Mollya dəvət et</string>
   <string name="SharedContactDetailsActivity_signal_message">Signal Mesajı</string>
   <string name="SharedContactDetailsActivity_signal_call">Signal Zəngi</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">Əlaqələrə əlavə et</string>
-  <string name="SharedContactView_invite_to_signal">Signala dəvət et</string>
+  <string name="SharedContactView_invite_to_signal">Mollya dəvət et</string>
   <string name="SharedContactView_message">Signal Mesajı</string>
   <!--SignalPinReminders-->
   <!--Slide-->
@@ -709,7 +709,7 @@
   <string name="NotificationChannel_missing_display_name">Naməlum</string>
   <!--ProfileEditNameFragment-->
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Signal kilidli olarkən sürətli cavamlar mümkün deyil!</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Molly kilidli olarkən sürətli cavamlar mümkün deyil!</string>
   <string name="QuickResponseService_problem_sending_message">Mesajın göndərilməsində problem var!</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">%s qovluğunda yadda saxlandı</string>
@@ -720,7 +720,7 @@
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">Xətalı qısa yol</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Yeni ismarış</string>
   <!--ThumbnailView-->
   <!--TransferControlView-->
@@ -771,7 +771,7 @@
   <string name="change_passphrase_activity__repeat_new_passphrase">Yeni şifrə ifadəsini təkrarla</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">Ad və ya nömrəni yaz</string>
-  <string name="contact_selection_activity__invite_to_signal">Signal-a dəvət et</string>
+  <string name="contact_selection_activity__invite_to_signal">Molly-a dəvət et</string>
   <!--contact_filter_toolbar-->
   <!--contact_selection_group_activity-->
   <string name="contact_selection_group_activity__no_contacts">Əlaqə yoxdur.</string>
@@ -956,7 +956,7 @@
   <string name="redphone_call_card__signal_call">Signal Zəngi</string>
   <!--registration_activity-->
   <string name="registration_activity__phone_number">TELEFON NÖMRƏ</string>
-  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Signal sənin mövcud telefon nömrəni və əlaqələr kitabçanı istifadə edərək ünsiyyəti asanlaşdırır. Telefon ilə səninlə əlaqə qura bilən bütün dostların eyni zamanda Signal ilə də səninlə ünsiyyət yarada biləcək.\n\nQeydiyyat zamanı bəzi əlaqələr serverə köçürülür. Onlar yaddaşda saxlanmır.</string>
+  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Molly sənin mövcud telefon nömrəni və əlaqələr kitabçanı istifadə edərək ünsiyyəti asanlaşdırır. Telefon ilə səninlə əlaqə qura bilən bütün dostların eyni zamanda Molly ilə də səninlə ünsiyyət yarada biləcək.\n\nQeydiyyat zamanı bəzi əlaqələr serverə köçürülür. Onlar yaddaşda saxlanmır.</string>
   <string name="registration_activity__verify_your_number">Nömrəni Təsdiq Et</string>
   <string name="registration_activity__please_enter_your_mobile_number_to_receive_a_verification_code_carrier_rates_may_apply">Təsdiq şifrəsini əlaqə etmək üçün mobil nömrəni daxil et. Provayder tərəfindən ödəniş tətbiq oluna bilər.</string>
   <!--recipients_panel-->
@@ -1224,10 +1224,10 @@
   <string name="reminder_header_sms_import_text">Telefonunun SMS mesajlarını Signal-ın şifrələnmiş məlumat bazasına daxil etmək üçün kliklə.</string>
   <string name="reminder_header_push_title">Signal mesajlarına və zənglərinə icazə ver</string>
   <string name="reminder_header_push_text">Ünsiyyət təcrübəni daha yaxşı et.</string>
-  <string name="reminder_header_invite_title">Signala dəvət et</string>
+  <string name="reminder_header_invite_title">Mollya dəvət et</string>
   <string name="reminder_header_invite_text">%1$s ilə söhbətləşməni daha üst səviyyəyə qaldır.</string>
   <string name="reminder_header_share_title">Dostlarını dəvət et!</string>
-  <string name="reminder_header_share_text">Signal-ı nə qədər çox dostun istifadə etsə, o qədər də o sənə yararlı olacaq.</string>
+  <string name="reminder_header_share_text">Molly-ı nə qədər çox dostun istifadə etsə, o qədər də o sənə yararlı olacaq.</string>
   <string name="reminder_header_service_outage_text">Signal hal hazırda müəyyən texniki çətinlikləri aradan qaldırır. Xidməti ən qısa zamanda bərpa etmək üçün fasiləsiz olaraq cəhdlər edirik.</string>
   <string name="reminder_header_the_latest_signal_features_wont_work">Android-in bu versiyasında Signal-ın ən son xüsusiyyətləri işləməyəcək. Cihazını yenilə ki, Signal-ın gələcək yeniliklərindən faydalana biləsən.</string>
   <!--media_preview-->
@@ -1276,7 +1276,7 @@
   <string name="ConversationActivity_signal_needs_sms_permission_in_order_to_send_an_sms">SMS göndərə bilməsi üçün Signal-ın SMS seçimlərinə giriş icazəsi olmalıdır ki, o da hal hazırda qadağa edilmişdir. Davam edə bilmək üçün zəhmət olmasa aplikasiya parametrləri menyusuna, oradan isə \"İcazələr bölməsinə keçərək \"SMS\" hissəsini aktivləşdir.</string>
   <string name="Permissions_continue">Davam et</string>
   <string name="Permissions_not_now">İndi yox</string>
-  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Əlaqələrini axtara bilməsi üçün Signal-ın Əlaqələr seçimlərinə giriş icazəsi olmalıdır ki, o da hal hazırda qadağa edilmişdir. Davam edə bilmək üçün zəhmət olmasa aplikasiya parametrləri menyusuna, oradan isə \"İcazələr bölməsinə keçərək \"Əlaqələr\" hissəsini aktivləşdir.</string>
+  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Əlaqələrini axtara bilməsi üçün Molly-ın Əlaqələr seçimlərinə giriş icazəsi olmalıdır ki, o da hal hazırda qadağa edilmişdir. Davam edə bilmək üçün zəhmət olmasa aplikasiya parametrləri menyusuna, oradan isə \"İcazələr bölməsinə keçərək \"Əlaqələr\" hissəsini aktivləşdir.</string>
   <string name="conversation_activity__enable_signal_messages">SIGNAL MESAJLARINI AKTİVLƏŞDİR</string>
   <string name="SQLCipherMigrationHelper_migrating_signal_database">Signal-ın məlumat bazasının miqrasiyası</string>
   <string name="PushDecryptJob_new_locked_message">Yeni kilidli mesaj</string>

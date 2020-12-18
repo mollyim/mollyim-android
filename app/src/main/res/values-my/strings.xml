@@ -86,7 +86,7 @@
   <string name="CameraContacts_you_can_share_with_a_maximum_of_n_conversations">အများဆုံး%dစကားဝိုင်းကိုမျှဝေနိုင်သည်</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">Signal သူငယ်ချင်းထံသို့ ကင်မရာခလုတ်နှိပ်၍ဓာတ်ပုံပို့နိုင်သည်</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">သင်ရှာနေတာမတွေ့ဘူးလား</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">Signal သို့ဝင်ရန်ဖိတ်ခေါ်ပါ</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">Molly သို့ဝင်ရန်ဖိတ်ခေါ်ပါ</string>
   <string name="CameraContacts__menu_search">ရှာရန်</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">ဖယ်ရှားသည် </string>
@@ -288,7 +288,7 @@
   <string name="GcmBroadcastReceiver_retrieving_a_message">message ကိုရယူနေပြီ</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Signal ဆက်သွယ်မှု လုံးဝမလုပ်နိုင်ပါ။</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal ကို Google Play Services ဖြင့် မှတ်ပုံတင်၍မရနိုင်ပါ။ Signal စာတိုနှင့် ဖုန်းခေါ်ဆိုမှု ကိုပိတ်လိုက်သည်။ ပြင်ဆင်ခြင်း &gt; အဆင့်မြင့်တွင် ပြန်လည်မှတ်ပုံတင်ကြည့်ပါ။ </string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly ကို Google Play Services ဖြင့် မှတ်ပုံတင်၍မရနိုင်ပါ။ Molly စာတိုနှင့် ဖုန်းခေါ်ဆိုမှု ကိုပိတ်လိုက်သည်။ ပြင်ဆင်ခြင်း &gt; အဆင့်မြင့်တွင် ပြန်လည်မှတ်ပုံတင်ကြည့်ပါ။ </string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">GIF ပုံ၏ မူရင်းအရည်အသွေးကို ပြသရန်အခက်အခဲရှိ </string>
   <!--GiphyFragmentPageAdapter-->
@@ -426,10 +426,10 @@
   <string name="ExpirationDialog_your_messages_will_disappear_s_after_they_have_been_seen">ယခုစာတွဲတွင် ပေးပို့၊ရယူသော စာများသည် တွေ့ရှိပြီး %s အတွင်းပျက်သွားပါမည်။</string>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">စကားဝှက် ထည့်ပါ။</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Signal ပုံသင်္ကေတ</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Molly ပုံသင်္ကေတ</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">စကားဝှက် တင်သွင်းပါ</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">စကားဝှက် မှားနေသည်</string>
-  <string name="PassphrasePromptActivity_unlock_signal">Signal ကို ပြန်ဖြည်ပါ</string>
+  <string name="PassphrasePromptActivity_unlock_signal">Molly ကို ပြန်ဖြည်ပါ</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">မြေပုံ</string>
   <!--PlayServicesProblemFragment-->
@@ -502,12 +502,12 @@
   <string name="SearchFragment_header_messages">စာများ</string>
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">အဆက်အသွယ်များထဲသို့ ထည့်မည်</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Signal သုံးဖို့ ဖိတ်ရန်</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Molly သုံးဖို့ ဖိတ်ရန်</string>
   <string name="SharedContactDetailsActivity_signal_message">Signal မှ စာများ</string>
   <string name="SharedContactDetailsActivity_signal_call">Signal ခေါ်ဆိုမှု</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">အဆက်အသွယ်များထဲသို့ ထည့်မည်</string>
-  <string name="SharedContactView_invite_to_signal">Signal သုံးဖို့ ဖိတ်ရန်</string>
+  <string name="SharedContactView_invite_to_signal">Molly သုံးဖို့ ဖိတ်ရန်</string>
   <string name="SharedContactView_message">Signal မှ စာများ</string>
   <!--Slide-->
   <string name="Slide_image">ပုံ</string>
@@ -627,7 +627,7 @@
   <string name="NotificationChannel_missing_display_name">မသိ</string>
   <!--ProfileEditNameFragment-->
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Signal လော့ခ်ကျသွားသည့်အခါ ချက်ချင်းမတုံ့ပြန်နိုင်ပါ!</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Molly လော့ခ်ကျသွားသည့်အခါ ချက်ချင်းမတုံ့ပြန်နိုင်ပါ!</string>
   <string name="QuickResponseService_problem_sending_message">စာပို့ခြင်းအခက်အခဲ</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">%s တွင် သိမ်းဆည်းပြီးပါပြီ</string>
@@ -635,7 +635,7 @@
   <string name="SearchToolbar_search">ရှာရန်</string>
   <!--ShortcutLauncherActivity-->
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">စာအသစ်</string>
   <!--ThumbnailView-->
   <!--TransferControlView-->
@@ -682,7 +682,7 @@
   <string name="change_passphrase_activity__repeat_new_passphrase">စကားဝှက်အသစ်ကိုထပ်ထည့်ပါ</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">နာမည် သို့မဟုတ် နံပါတ်ထည့်ပါ</string>
-  <string name="contact_selection_activity__invite_to_signal">Signal သို့ ဖိတ်ခေါ်မည်</string>
+  <string name="contact_selection_activity__invite_to_signal">Molly သို့ ဖိတ်ခေါ်မည်</string>
   <!--contact_filter_toolbar-->
   <!--contact_selection_group_activity-->
   <string name="contact_selection_group_activity__no_contacts">လိပ်စာများ မရှိ။</string>
@@ -845,7 +845,7 @@
   <string name="redphone_call_card__signal_call">Signal ခေါ်ဆိုမှု</string>
   <!--registration_activity-->
   <string name="registration_activity__phone_number">ဖုန်းနံပါတ်</string>
-  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Signal သည် သင့်လက်ရှိဖုန်းနံပါတ် နှင့် လိပ်စာစာအုပ်ကို အသုံးပြု၍ ဆက်သွယ်နိုင်စေသည်။ သင့်ဖုန်းနံပါတ်နှင့်ဆက်သွယ်မှုရှိသည့် မိတ်ဆွေများနှင့် လူများသည် Signal ဖြင့် သင့်ကို အလွယ်တကူဆက်သွယ်နိုင်ပါသည်။ \n\nစာရင်းသွင်းခြင်း ကသင့်အဆက်အသွယ်များ၏အချက်အလက်ကို ဆာဗာသို့ ပေးပို့သည်။ သိမ်းဆည်းထားခြင်းမရှိပါ။ </string>
+  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Molly သည် သင့်လက်ရှိဖုန်းနံပါတ် နှင့် လိပ်စာစာအုပ်ကို အသုံးပြု၍ ဆက်သွယ်နိုင်စေသည်။ သင့်ဖုန်းနံပါတ်နှင့်ဆက်သွယ်မှုရှိသည့် မိတ်ဆွေများနှင့် လူများသည် Molly ဖြင့် သင့်ကို အလွယ်တကူဆက်သွယ်နိုင်ပါသည်။ \n\nစာရင်းသွင်းခြင်း ကသင့်အဆက်အသွယ်များ၏အချက်အလက်ကို ဆာဗာသို့ ပေးပို့သည်။ သိမ်းဆည်းထားခြင်းမရှိပါ။ </string>
   <string name="registration_activity__verify_your_number">မိမိဖုန်းနံပါတ်ကို အတည်ပြုပါ။</string>
   <string name="registration_activity__please_enter_your_mobile_number_to_receive_a_verification_code_carrier_rates_may_apply">အတည်ပြုချက်နံပါတ်အား ရယူနိုင်ရန် မိမိ၏ဖုန်းနံပါတ်အား ရိုက်ထည့်ပါ။ ဖုန်းခေါ်ဆိုခ သို့ စာတိုပို့ဆောင်ခ ကျသင့်မည်ဖြစ်သည်။</string>
   <!--recipients_panel-->
@@ -1102,10 +1102,10 @@
   <string name="reminder_header_sms_import_text">ဖုန်း SMS များကို Signal ရဲ့ encrypted အချက်အလက် သိမ်းဆည်းရာထဲတွင် ကူးသိမ်းဖို့ရန် နှိပ်ပါ။</string>
   <string name="reminder_header_push_title">စာပို့ခြင်းနှင့် ဖုန်းခေါ်ဆိုမှုများကို Signal ဖြင့် လုပ်ဆောင်ပါ။</string>
   <string name="reminder_header_push_text">သင့်ဆက်သွယ်မှုအတွေ့အကြုံကို အဆင့်မြှင့်လိုက်ပါ။</string>
-  <string name="reminder_header_invite_title">Signal သုံးဖို့ ဖိတ်ရန်</string>
+  <string name="reminder_header_invite_title">Molly သုံးဖို့ ဖိတ်ရန်</string>
   <string name="reminder_header_invite_text">စကားဝိုင်းများကို %1$s သုံးပြီး အဆင့်မြှင့်လိုက်ပါ။</string>
   <string name="reminder_header_share_title">သူငယ်ချင်းတွေကို ဖိတ်ခေါ်လိုက်ပါ!</string>
-  <string name="reminder_header_share_text">Signal သုံးတဲ့ သူငယ်ချင်းများလာလေ ပိုကောင်းလေ။</string>
+  <string name="reminder_header_share_text">Molly သုံးတဲ့ သူငယ်ချင်းများလာလေ ပိုကောင်းလေ။</string>
   <string name="reminder_header_service_outage_text">Signal သည် နည်းပညာပိုင်းဆိုင်ရာ အခက်အခဲများ ကြုံတွေ့နေပါသည်။ ဝန်ဆောင်မှုများကို အမြန်ဆုံးပြန်လည်စတင်နိုင်ရန် ကျွနု်ပ်တို့ ကြိုးစားနေပါသည်။</string>
   <!--media_preview-->
   <string name="media_preview__save_title">သိမ်းထားပါ။</string>
@@ -1133,7 +1133,7 @@
   <string name="ConversationActivity_signal_needs_sms_permission_in_order_to_send_an_sms">SMS များပို့နိုင်ရန် မိမိ SMS ကို Signal မှ အသုံးပြုခွင့်ရရန် လိုအပ်သည်။ သို့သော် လုံးဝခွင့်မပြုပါ ဟုရွေးထားပြီး ဖြစ်နေသဖြင့် အပ်ပလီကေးရှင်း အပြင်အဆင်သို့ သွား၍ ခွင့်ပြုချက်များကို ရွေးချယ်ကာ SMS ကို အသုံးပြုနိုင်အောင် ပြုလုပ်ပါ</string>
   <string name="Permissions_continue">ရှေ့ဆက်ပါ</string>
   <string name="Permissions_not_now">အခုမဟုတ်သေးပါ။</string>
-  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">အဆက်အသွယ်များ၏ အချက်အလက်များကို ရှာနိုင်ရန် Signalမှ အဆက်အသွယ်များအား အသုံးပြုခွင့်ရရန်လိုအပ်သည်။ သို့သော် လုံးဝခွင့်မပြုပါဟု ရွေးထားပြီး ဖြစ်နေသဖြင့် ပလီကေးရှင်း အပြင်အဆင်သို့ သွား၍ ခွင့်ပြုချက်များကို ရွေးချယ်ကာ အဆက်အသွယ်များကို အသုံးပြုနိုင်အောင် ပြုလုပ်ပါ။</string>
+  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">အဆက်အသွယ်များ၏ အချက်အလက်များကို ရှာနိုင်ရန် Mollyမှ အဆက်အသွယ်များအား အသုံးပြုခွင့်ရရန်လိုအပ်သည်။ သို့သော် လုံးဝခွင့်မပြုပါဟု ရွေးထားပြီး ဖြစ်နေသဖြင့် ပလီကေးရှင်း အပြင်အဆင်သို့ သွား၍ ခွင့်ပြုချက်များကို ရွေးချယ်ကာ အဆက်အသွယ်များကို အသုံးပြုနိုင်အောင် ပြုလုပ်ပါ။</string>
   <string name="conversation_activity__enable_signal_messages">Signal စာပို့မှုကို လုပ်ဆောင်ပါ</string>
   <string name="SQLCipherMigrationHelper_migrating_signal_database">Signal ၏ အချက်အလက်ထိန်းသိမ်းရာနေရာကို ပြောင်းရွှေ့ခြင်း</string>
   <string name="PushDecryptJob_new_locked_message">lock လုပ်ထားသောစာတိုအသစ်</string>

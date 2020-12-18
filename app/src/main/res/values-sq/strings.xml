@@ -129,7 +129,7 @@
   <string name="CameraContacts_no_signal_contacts">S’ka kontakte Signal</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">Butonin e kamerës mund ta përdorni vetëm për të dërguar foto te kontakte Signal. </string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">S’gjeni dot atë që po kërkoni?</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">Ftoni një kontakt të bëhet pjesë e Signal-it</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">Ftoni një kontakt të bëhet pjesë e Molly-it</string>
   <string name="CameraContacts__menu_search">Kërko</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">Hiqe</string>
@@ -311,7 +311,7 @@
   <string name="ConversationFragment__d_group_members_have_the_same_name">%1$d anëtarë grupi kanë të njëjtin emër.</string>
   <string name="ConversationFragment__tap_to_review">Prekeni që ta shqyrtoni</string>
   <string name="ConversationFragment__review_requests_carefully">Shqyrtojini me kujdes kërkesat</string>
-  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Signal-i gjeti një tjetër kontakt me të njëjtin emër.</string>
+  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Molly-i gjeti një tjetër kontakt me të njëjtin emër.</string>
   <!--ConversationListActivity-->
   <string name="ConversationListActivity_there_is_no_browser_installed_on_your_device">Në pajisjen tuaj s\’ka shfletues të instaluar.</string>
   <!--ConversationListFragment-->
@@ -373,11 +373,11 @@
   <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Testoni frazëkalimin tuaj për kopjeruajtjen dhe verifikoni që përputhet</string>
   <string name="BackupsPreferenceFragment__turn_on">Aktivizoje</string>
   <string name="BackupsPreferenceFragment__turn_off">Çaktivizoje</string>
-  <string name="BackupsPreferenceFragment__to_restore_a_backup">Që të riktheni një kopjeruajtje, instaloni një kopje të re të Signal-it. Hapni aplikacionin dhe prekni “Riktheni kopjeruajtje”, mandej lokalizoni një kartelë kopjeruajtjeje. %1$s</string>
+  <string name="BackupsPreferenceFragment__to_restore_a_backup">Që të riktheni një kopjeruajtje, instaloni një kopje të re të Molly-it. Hapni aplikacionin dhe prekni “Riktheni kopjeruajtje”, mandej lokalizoni një kartelë kopjeruajtjeje. %1$s</string>
   <string name="BackupsPreferenceFragment__learn_more">Mësoni më tepër</string>
   <string name="BackupsPreferenceFragment__in_progress">Në ecuri e sipër…</string>
   <string name="BackupsPreferenceFragment__d_so_far">%1$d deri këtu…</string>
-  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Që të mund të krijohen kopjeruajtje, Signal-i lyp leje mbi depozitë të jashtme, por kjo i është mohuar. Ju lutemi, kaloni te rregullime aplikacioni, përzgjidhni \"Leje\" dhe aktivizoni \"Depozitim\".</string>
+  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Që të mund të krijohen kopjeruajtje, Molly-i lyp leje mbi depozitë të jashtme, por kjo i është mohuar. Ju lutemi, kaloni te rregullime aplikacioni, përzgjidhni \"Leje\" dhe aktivizoni \"Depozitim\".</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Me përdorim të një të përshtaturi: %s</string>
   <string name="CustomDefaultPreference_using_default">Me përdorim parazgjedhjeje: %s</string>
@@ -441,7 +441,7 @@
   <string name="GcmBroadcastReceiver_retrieving_a_message">Po merret një mesazh…</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Dështim i përhershëm komunikimi nga Signal!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal-i s\’arriti të bëjë regjistrimin me Google Play Services. Mesashet dhe thirrjet Signal janë çaktivizuar, ju lutemi, provoni riregjistrimin që nga Rregullime &gt; Të mëtejshme.</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly-i s\’arriti të bëjë regjistrimin me Google Play Services. Mesashet dhe thirrjet Molly janë çaktivizuar, ju lutemi, provoni riregjistrimin që nga Rregullime &gt; Të mëtejshme.</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">Gabim gjatë marrjes së GIF-it me qartësi të plotë</string>
   <!--GiphyFragmentPageAdapter-->
@@ -1145,10 +1145,10 @@ të përditësojnë Signal-in, ose t’i hiqni para krijimit të grupit.</item>
   </plurals>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">Jepni frazëkalimin</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Ikona e Signal-it</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Ikona e Molly-it</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">Parashtroje frazëkalimin</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Frazëkalim i pavlefshëm!</string>
-  <string name="PassphrasePromptActivity_unlock_signal">Shkyçe Signal-in</string>
+  <string name="PassphrasePromptActivity_unlock_signal">Shkyçe Molly-in</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">Hartë</string>
   <string name="PlacePickerActivity_not_a_valid_address">Adresë jo e vlefshme</string>
@@ -1217,8 +1217,8 @@ të përditësojnë Signal-in, ose t’i hiqni para krijimit të grupit.</item>
   <string name="RedPhone_got_it">E mora</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Prekeni këtu që të ktheni te videoja juaj</string>
-  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Për të thirrur %1$s, Signal-i lyp leje përdorimi të kamerës tuaj</string>
-  <string name="WebRtcCallActivity__signal_s">Signal %1$s</string>
+  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Për të thirrur %1$s, Molly-i lyp leje përdorimi të kamerës tuaj</string>
+  <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
   <string name="WebRtcCallActivity__calling">Po thirret…</string>
   <string name="WebRtcCallActivity__group_call">Thirrje Grupi</string>
   <!--WebRtcCallView-->
@@ -1266,7 +1266,7 @@ të përditësojnë Signal-in, ose t’i hiqni para krijimit të grupit.</item>
   <string name="RegistrationActivity_the_number_you_specified_s_is_invalid">Numri që specifikuat
          (%s) është i pavlefshëm.</string>
   <string name="RegistrationActivity_missing_google_play_services">Mungojnë Shërbimet Google Play</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Në këtë pajisje mungojnë Shërbimet Google Play. Mundeni prapëseprapë ta përdorni Signal-in, por ky formësim mund të sjellë qëndrueshmëri ose funksionim të reduktuar.\n\nNëse s\’jeni përdorues i përparuar, s\’po përdorni një ROM Android të modifikuar, ose besoni se po  e shihni gabimisht këtë, ju lutemi, lidhuni me support@signal.org për ndihmë në diagnostikikim.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Në këtë pajisje mungojnë Shërbimet Google Play. Mundeni prapëseprapë ta përdorni Molly-in, por ky formësim mund të sjellë qëndrueshmëri ose funksionim të reduktuar.\n\nNëse s\’jeni përdorues i përparuar, s\’po përdorni një ROM Android të modifikuar, ose besoni se po  e shihni gabimisht këtë, ju lutemi, lidhuni me support@molly.im për ndihmë në diagnostikikim.</string>
   <string name="RegistrationActivity_i_understand">E kuptoj</string>
   <string name="RegistrationActivity_play_services_error">Gabim nga Shërbime Play</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Shërbimet Google Play po përditësohen ose janë përkohësisht jashtë funksionimi. Ju lutemi, riprovoni.</string>
@@ -1316,12 +1316,12 @@ të përditësojnë Signal-in, ose t’i hiqni para krijimit të grupit.</item>
   <string name="SearchFragment_header_messages">Mesazhe</string>
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">Shtoje te Kontaktet</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Ftoje në Signal</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Ftoje në Molly</string>
   <string name="SharedContactDetailsActivity_signal_message">Mesazhe Signal</string>
   <string name="SharedContactDetailsActivity_signal_call">Thirrje përmes Signal-i</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">Shtoje te Kontakte</string>
-  <string name="SharedContactView_invite_to_signal">Ftoje në Signal</string>
+  <string name="SharedContactView_invite_to_signal">Ftoje në Molly</string>
   <string name="SharedContactView_message">Mesazhe Signal</string>
   <!--SignalPinReminders-->
   <string name="SignalPinReminders_well_remind_you_again_later">Do t’jua kujtojmë më vonë.</string>
@@ -1525,7 +1525,7 @@ të përditësojnë Signal-in, ose t’i hiqni para krijimit të grupit.</item>
   <string name="ProfileEditNameFragment_successfully_set_profile_name">Emri i profilit u caktua me sukses.</string>
   <string name="ProfileEditNameFragment_encountered_a_network_error">U has një gabim rrjeti.</string>
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">S\’bëhet dot përgjigje e shpejtë, kur Signal-i është i kyçur!</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">S\’bëhet dot përgjigje e shpejtë, kur Molly-i është i kyçur!</string>
   <string name="QuickResponseService_problem_sending_message">Problem në dërgim mesazhi!</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">U ruajt te %s</string>
@@ -1536,7 +1536,7 @@ të përditësojnë Signal-in, ose t’i hiqni para krijimit të grupit.</item>
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">Shkurtore e pavlefshme</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Mesazh i ri</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">Luaje videon</string>
@@ -1607,7 +1607,7 @@ të përditësojnë Signal-in, ose t’i hiqni para krijimit të grupit.</item>
   <string name="change_passphrase_activity__repeat_new_passphrase">Përsëritni frazëkalimin e ri</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">Jepni emër ose numër</string>
-  <string name="contact_selection_activity__invite_to_signal">Ftojeni në Signal</string>
+  <string name="contact_selection_activity__invite_to_signal">Ftojeni në Molly</string>
   <string name="contact_selection_activity__new_group">Grup i ri</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">Spastro tekstin e dhënë</string>
@@ -1824,7 +1824,7 @@ të përditësojnë Signal-in, ose t’i hiqni para krijimit të grupit.</item>
   <string name="redphone_call_card__signal_call">Thirrje përmes Signal-i</string>
   <!--registration_activity-->
   <string name="registration_activity__phone_number">NUMËR TELEFONI</string>
-  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Signal e bën të lehtë të komunikoni duke përdorur numrin tuaj ekzistues të telefonit dhe librin e adresave. Shokë dhe kontakte, që dinë tashmë si të lidhen me ju përmes telefonit, do të jenë në gjendje të lidhen me ju lehtësisht përmes Signal-it.\n\nRegjistrimi transmeton te shërbyesi disa të dhëna kontakti. Të cilat nuk depozitohen.</string>
+  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Molly e bën të lehtë të komunikoni duke përdorur numrin tuaj ekzistues të telefonit dhe librin e adresave. Shokë dhe kontakte, që dinë tashmë si të lidhen me ju përmes telefonit, do të jenë në gjendje të lidhen me ju lehtësisht përmes Molly-it.\n\nRegjistrimi transmeton te shërbyesi disa të dhëna kontakti. Të cilat nuk depozitohen.</string>
   <string name="registration_activity__verify_your_number">Verifikoni Numrin Tuaj</string>
   <string name="registration_activity__please_enter_your_mobile_number_to_receive_a_verification_code_carrier_rates_may_apply">Ju lutemi, jepni numrin tuaj të celularit, që të merrni një kod verifikimi. Mund të aplikohen tarifa operatori.</string>
   <!--recipients_panel-->
@@ -2186,10 +2186,10 @@ aktivizoni Kyçje Regjistrimi, teksa PIN-i është i çaktivizuar.</string>
   <string name="reminder_header_sms_import_text">Prekeni që të kopjohen mesazhet SMS të telefonit tuaj te baza e fshehtëzuar e të dhënave të Signal-it.</string>
   <string name="reminder_header_push_title">Aktivizo mesazhe dhe thirrje Signal</string>
   <string name="reminder_header_push_text">Përmirësoni komunikimin tuaj.</string>
-  <string name="reminder_header_invite_title">Ftojeni në Signal</string>
+  <string name="reminder_header_invite_title">Ftojeni në Molly</string>
   <string name="reminder_header_invite_text">Kalojeni bisedën tuaj me %1$s një shkallë më sipër.</string>
   <string name="reminder_header_share_title">Ftoni shokët tuaj!</string>
-  <string name="reminder_header_share_text">Sa më shumë shokë që përdorin Signal-in, aq më i mirë bëhet.</string>
+  <string name="reminder_header_share_text">Sa më shumë shokë që përdorin Molly-in, aq më i mirë bëhet.</string>
   <string name="reminder_header_service_outage_text">Signal-i po kalon vështirësi teknike. Po punojmë fort të rikthejmë shërbimin sa më shpejt që të mundet.</string>
   <string name="reminder_header_the_latest_signal_features_wont_work">Veçoritë më të reja të Signal-it, s’do të funksionojnë në këtë version të Android-it. Ju lutemi, përmirësojeni këtë pajisje që të marrë përditësime të ardhshme të Signal-it.</string>
   <string name="reminder_header_progress">%1$d%%</string>
@@ -2342,7 +2342,7 @@ spastrohet dhe krejt lënda do të fshihet.</item>
   <string name="ConversationActivity_signal_needs_sms_permission_in_order_to_send_an_sms">Që të mund të dërgohet një SMS, Signal-i lyp leje SMS-sh, por kjo i është mohuar. Ju lutemi, kaloni te rregullime aplikacioni, përzgjidhni \"Leje\" dhe aktivizoni \"SMS\".</string>
   <string name="Permissions_continue">Vazhdo</string>
   <string name="Permissions_not_now">Jo tani</string>
-  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Që të mund të kërkohet te kontaktet tuaja, Signal-i lyp leje mbi Kontaktet, por kjo i është mohuar. Ju lutemi, kaloni te rregullime aplikacioni, përzgjidhni \"Leje\" dhe aktivizoni \"Kontakte\".</string>
+  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Që të mund të kërkohet te kontaktet tuaja, Molly-i lyp leje mbi Kontaktet, por kjo i është mohuar. Ju lutemi, kaloni te rregullime aplikacioni, përzgjidhni \"Leje\" dhe aktivizoni \"Kontakte\".</string>
   <string name="conversation_activity__enable_signal_messages">AKTIVIZO MESAZHE SIGNAL</string>
   <string name="SQLCipherMigrationHelper_migrating_signal_database">Po migrohet baza e të dhënave Signal</string>
   <string name="PushDecryptJob_new_locked_message">Mesazhe të rinj të kyçur</string>
@@ -2497,7 +2497,7 @@ spastrohet dhe krejt lënda do të fshihet.</item>
   <string name="GroupsLearnMore_paragraph_2">Grupet e Dikurshme s’mund të përmirësohen në Grupe të Rinj, por mundeni të krijoni një Grup të Ri me të njëjtët anëtarë, nëse gjenden nën versionin më të ri të Signal-it.</string>
   <string name="GroupsLearnMore_paragraph_3">Në të ardhmen, Signal-i do të ofrojë një rrugë për përmirësim Grupesh të Dikurshëm.</string>
   <!--GroupLinkBottomSheetDialogFragment-->
-  <string name="GroupLinkBottomSheet_share_via_signal">Ndajeni përmes Signal-i</string>
+  <string name="GroupLinkBottomSheet_share_via_signal">Ndajeni përmes Molly-i</string>
   <string name="GroupLinkBottomSheet_copy">Kopjoje</string>
   <string name="GroupLinkBottomSheet_qr_code">Kod QR</string>
   <string name="GroupLinkBottomSheet_share">Ndajeni Me të Tjerë</string>

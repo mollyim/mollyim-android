@@ -129,7 +129,7 @@
   <string name="CameraContacts_no_signal_contacts">Signal കോൺടാക്റ്റുകളൊന്നുമില്ല</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">Signal കോൺടാക്റ്റുകളിലേക്ക് ഫോട്ടോകൾ അയയ്ക്കാൻ മാത്രമേ നിങ്ങൾക്ക് ക്യാമറ ബട്ടൺ ഉപയോഗിക്കാൻ കഴിയൂ.</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">നിങ്ങൾ ആരെയാണ് തിരയുന്നതെന്ന് കണ്ടെത്താൻ കഴിയുന്നില്ലേ?</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">Signal ൽ ചേരാൻ ഒരു കോൺടാക്റ്റിനെ ക്ഷണിക്കുക</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">Molly ൽ ചേരാൻ ഒരു കോൺടാക്റ്റിനെ ക്ഷണിക്കുക</string>
   <string name="CameraContacts__menu_search">തിരയൽ</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">ഒഴിവാക്കുക</string>
@@ -373,11 +373,11 @@
   <string name="BackupsPreferenceFragment__test_your_backup_passphrase">നിങ്ങളുടെ ബാക്കപ്പ് പാസ്‌ഫ്രെയ്‌സ് പരിശോധിച്ച് അത് പൊരുത്തപ്പെടുന്നുണ്ടോയെന്ന് പരിശോധിക്കുക</string>
   <string name="BackupsPreferenceFragment__turn_on">ഓൺ ചെയ്യുക</string>
   <string name="BackupsPreferenceFragment__turn_off">ഓഫ് ആക്കുക</string>
-  <string name="BackupsPreferenceFragment__to_restore_a_backup">ഒരു ബാക്കപ്പ് റീസ്റ്റോര്‍ ചെയ്യാന്‍, Signal(സിഗ്നലി)ന്റെ ഒരു പുതിയ പകർപ്പ് ഇൻസ്റ്റാൾ ചെയ്യുക. അപ്ലിക്കേഷൻ തുറന്ന്  \"റിസ്റ്റോർ ചെയ്യുക\" ടാപ്പുചെയ്യുക, തുടർന്ന് ഒരു ബാക്കപ്പ് ഫയൽ കണ്ടെത്തുക. %1$s</string>
+  <string name="BackupsPreferenceFragment__to_restore_a_backup">ഒരു ബാക്കപ്പ് റീസ്റ്റോര്‍ ചെയ്യാന്‍, Molly(സിഗ്നലി)ന്റെ ഒരു പുതിയ പകർപ്പ് ഇൻസ്റ്റാൾ ചെയ്യുക. അപ്ലിക്കേഷൻ തുറന്ന്  \"റിസ്റ്റോർ ചെയ്യുക\" ടാപ്പുചെയ്യുക, തുടർന്ന് ഒരു ബാക്കപ്പ് ഫയൽ കണ്ടെത്തുക. %1$s</string>
   <string name="BackupsPreferenceFragment__learn_more">കൂടുതൽ അറിയുക</string>
   <string name="BackupsPreferenceFragment__in_progress">പുരോഗതിയിൽ…</string>
   <string name="BackupsPreferenceFragment__d_so_far">%1$d ഇതുവരെ….</string>
-  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">ബാക്കപ്പുകൾ സൃഷ്ടിക്കുന്നതിന് Signal-ന് ബാഹ്യ സ്റ്റോറജ് ​​അനുമതി ആവശ്യമാണ്, പക്ഷേ ഇത് ശാശ്വതമായി നിരസിക്കപ്പെട്ടു. അപ്ലിക്കേഷൻ ക്രമീകരണങ്ങളിൽ തുടരുക, \"അനുമതികൾ\" തിരഞ്ഞെടുത്ത് \"സ്റ്റോറജ്\" പ്രവർത്തനക്ഷമമാക്കുക.</string>
+  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">ബാക്കപ്പുകൾ സൃഷ്ടിക്കുന്നതിന് Molly-ന് ബാഹ്യ സ്റ്റോറജ് ​​അനുമതി ആവശ്യമാണ്, പക്ഷേ ഇത് ശാശ്വതമായി നിരസിക്കപ്പെട്ടു. അപ്ലിക്കേഷൻ ക്രമീകരണങ്ങളിൽ തുടരുക, \"അനുമതികൾ\" തിരഞ്ഞെടുത്ത് \"സ്റ്റോറജ്\" പ്രവർത്തനക്ഷമമാക്കുക.</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Custom ഉപയോഗിക്കുന്നു: %s</string>
   <string name="CustomDefaultPreference_using_default">Default ഉപയോഗിക്കുന്നു: %s</string>
@@ -440,7 +440,7 @@
   <string name="GcmBroadcastReceiver_retrieving_a_message">ഒരു സന്ദേശം വീണ്ടെടുക്കുന്നു</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">സ്ഥിരമായ Signal ആശയവിനിമയ പരാജയം!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Google Play Services രജിസ്റ്റർ ചെയ്യാൻ Signal ന് കഴിഞ്ഞില്ല. Signal സന്ദേശങ്ങളും കോളുകളും പ്രവർത്തനരഹിതമാക്കി. Settings &gt; Advanced ൽ വീണ്ടും രജിസ്റ്റർ ചെയ്യാൻ ശ്രമിക്കുക.</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Google Play Services രജിസ്റ്റർ ചെയ്യാൻ Molly ന് കഴിഞ്ഞില്ല. Molly സന്ദേശങ്ങളും കോളുകളും പ്രവർത്തനരഹിതമാക്കി. Settings &gt; Advanced ൽ വീണ്ടും രജിസ്റ്റർ ചെയ്യാൻ ശ്രമിക്കുക.</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">GIF പൂർണ്ണ വലിപ്പം വീണ്ടെടുക്കുമ്പോൾ പിശക്</string>
   <!--GiphyFragmentPageAdapter-->
@@ -1140,10 +1140,10 @@
   </plurals>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">പാസ്‌ഫ്രെയ്‌സ് നൽകുക</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Signal ഐക്കൺ</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Molly ഐക്കൺ</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">പാസ്‌ഫ്രെയ്‌സ് സമർപ്പിക്കുക</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">പാസ്‌ഫ്രെയ്‌സ് അസാധുവാണ്!</string>
-  <string name="PassphrasePromptActivity_unlock_signal">Signal അൺലോക്കുചെയ്യുക</string>
+  <string name="PassphrasePromptActivity_unlock_signal">Molly അൺലോക്കുചെയ്യുക</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">മാപ്പ്</string>
   <string name="PlacePickerActivity_not_a_valid_address">സാധുവായ വിലാസമല്ല</string>
@@ -1212,8 +1212,8 @@
   <string name="RedPhone_got_it">മനസ്സിലായി</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">നിങ്ങളുടെ വീഡിയോ ഓൺ ചെയ്യാൻ ഇവിടെ തട്ടുക</string>
-  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">%1$s-യെ വിളിക്കാൻ, Signal-ന് നിങ്ങളുടെ ക്യാമറയിലേക്ക് ആക്സസ് ആവശ്യമാണ്</string>
-  <string name="WebRtcCallActivity__signal_s">Signal %1$s</string>
+  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">%1$s-യെ വിളിക്കാൻ, Molly-ന് നിങ്ങളുടെ ക്യാമറയിലേക്ക് ആക്സസ് ആവശ്യമാണ്</string>
+  <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
   <string name="WebRtcCallActivity__calling">വിളിക്കുന്നു…</string>
   <string name="WebRtcCallActivity__group_call">ഗ്രൂപ്പ് കോൾ </string>
   <!--WebRtcCallView-->
@@ -1256,7 +1256,7 @@
   <string name="RegistrationActivity_the_number_you_specified_s_is_invalid">നിങ്ങൾ വ്യക്തമാക്കിയ നമ്പർ
         (%s) അസാധുവാണ്.</string>
   <string name="RegistrationActivity_missing_google_play_services">Google Play Services കാണുന്നില്ല</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">ഈ ഉപകരണത്തിന് Google Play Services കാണുന്നില്ല. നിങ്ങൾക്ക് ഇപ്പോഴും Signal ഉപയോഗിക്കാം, പക്ഷേ ഈ കോൺഫിഗറേഷൻ വിശ്വാസ്യതയോ പ്രകടനമോ കുറയാൻ കാരണമായേക്കാം.\n\nനിങ്ങൾ ഒരു നൂതന ഉപയോക്താവല്ലെങ്കിൽ, അഥവാ ഒരു വിപണനാനന്തര Android റോം പ്രവർത്തിപ്പിക്കുന്നില്ല, അല്ലെങ്കിൽ നിങ്ങൾ ഇത് തെറ്റായി കാണുന്നുവെന്ന് വിശ്വസിക്കുന്നുവെങ്കിൽ, പ്രശ്‌നപരിഹാരത്തിന്ദ യവായി  support@signal.org-നെ ബന്ധപ്പെടുക.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">ഈ ഉപകരണത്തിന് Google Play Services കാണുന്നില്ല. നിങ്ങൾക്ക് ഇപ്പോഴും Molly ഉപയോഗിക്കാം, പക്ഷേ ഈ കോൺഫിഗറേഷൻ വിശ്വാസ്യതയോ പ്രകടനമോ കുറയാൻ കാരണമായേക്കാം.\n\nനിങ്ങൾ ഒരു നൂതന ഉപയോക്താവല്ലെങ്കിൽ, അഥവാ ഒരു വിപണനാനന്തര Android റോം പ്രവർത്തിപ്പിക്കുന്നില്ല, അല്ലെങ്കിൽ നിങ്ങൾ ഇത് തെറ്റായി കാണുന്നുവെന്ന് വിശ്വസിക്കുന്നുവെങ്കിൽ, പ്രശ്‌നപരിഹാരത്തിന്ദ യവായി  support@molly.im-നെ ബന്ധപ്പെടുക.</string>
   <string name="RegistrationActivity_i_understand">എനിക്ക് മനസിലായി</string>
   <string name="RegistrationActivity_play_services_error">Play Services പിശക്</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Services അപ്‌ഡേറ്റുചെയ്യുന്നു അല്ലെങ്കിൽ താൽക്കാലികമായി ലഭ്യമല്ല. ദയവായി വീണ്ടും ശ്രമിക്കുക.</string>
@@ -1306,12 +1306,12 @@
   <string name="SearchFragment_header_messages">സന്ദേശങ്ങൾ</string>
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">കോൺ‌ടാക്റ്റുകളിലേക്ക് ചേർക്കുക</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Signalലേക്ക് ക്ഷണിക്കുക</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Mollyലേക്ക് ക്ഷണിക്കുക</string>
   <string name="SharedContactDetailsActivity_signal_message">Signal സന്ദേശം</string>
   <string name="SharedContactDetailsActivity_signal_call">Signal കോൾ</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">കോൺ‌ടാക്റ്റുകളിലേക്ക് ചേർക്കുക</string>
-  <string name="SharedContactView_invite_to_signal">Signalലേക്ക് ക്ഷണിക്കുക</string>
+  <string name="SharedContactView_invite_to_signal">Mollyലേക്ക് ക്ഷണിക്കുക</string>
   <string name="SharedContactView_message">Signal സന്ദേശം</string>
   <!--SignalPinReminders-->
   <string name="SignalPinReminders_well_remind_you_again_later">ഞങ്ങൾ നിങ്ങളെ പിന്നീട് ഓർമ്മപ്പെടുത്തും.</string>
@@ -1527,7 +1527,7 @@ grūpp ap‌ḍē</string>
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">കുറുക്കുവഴി അസാധുവാണ്</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">പുതിയ സന്ദേശം</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">വീഡിയോ പ്ലേ ചെയ്യുക</string>
@@ -1597,7 +1597,7 @@ grūpp ap‌ḍē</string>
   <string name="change_passphrase_activity__repeat_new_passphrase">പുതിയ പാസ്‌ഫ്രെയ്‌സ് ആവർത്തിക്കുക</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">പേരോ നമ്പറോ നൽകുക</string>
-  <string name="contact_selection_activity__invite_to_signal">Signalലേക്ക് ക്ഷണിക്കുക</string>
+  <string name="contact_selection_activity__invite_to_signal">Mollyലേക്ക് ക്ഷണിക്കുക</string>
   <string name="contact_selection_activity__new_group">പുതിയ ഗ്രൂപ്പ്</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">നൽകിയ വാചകം മായ്‌ക്കുക</string>
@@ -2174,10 +2174,10 @@ grūpp ap‌ḍē</string>
   <string name="reminder_header_sms_import_text">Signal-ന്റെ എൻ‌ക്രിപ്റ്റ് ചെയ്ത ഡാറ്റാബേസിലേക്ക് നിങ്ങളുടെ ഫോണിലേ SMS സന്ദേശങ്ങൾ പകർത്താൻ ടാപ്പുചെയ്യുക.</string>
   <string name="reminder_header_push_title">Signal സന്ദേശങ്ങളും കോളുകളും പ്രാപ്തമാക്കുക</string>
   <string name="reminder_header_push_text">നിങ്ങളുടെ ആശയവിനിമയ അനുഭവം അപ്‌ഗ്രേഡുചെയ്യു.</string>
-  <string name="reminder_header_invite_title">Signalലേക്ക് ക്ഷണിക്കുക</string>
+  <string name="reminder_header_invite_title">Mollyലേക്ക് ക്ഷണിക്കുക</string>
   <string name="reminder_header_invite_text">%1$s-മായുള്ള നിങ്ങളുടെ സംഭാഷണം അടുത്ത ഘട്ടത്തിലേക്ക് കൊണ്ടുപോകുക.</string>
   <string name="reminder_header_share_title">സുഹൃത്തുക്കളെ ക്ഷണിക്കുക!</string>
-  <string name="reminder_header_share_text">കൂടുതൽ‌ ചങ്ങാതിമാർ‌ Signal ഉപയോഗിക്കുമ്പോൾ‌, അത് കൂടുതൽ‌ മികച്ചതാവും.</string>
+  <string name="reminder_header_share_text">കൂടുതൽ‌ ചങ്ങാതിമാർ‌ Molly ഉപയോഗിക്കുമ്പോൾ‌, അത് കൂടുതൽ‌ മികച്ചതാവും.</string>
   <string name="reminder_header_service_outage_text">Signal ചില സാങ്കേതിക പ്രശ്നങ്ങൾ നേരിടുകയാണ്.  കഴിയുന്നതും വേഗം സേവനം പുനസ്ഥാപിക്കാൻ ഞങ്ങൾ കഠിനപ്രയത്നം നടത്തുകയാണ്.</string>
   <string name="reminder_header_the_latest_signal_features_wont_work">Android- ന്റെ ഈ പതിപ്പിൽ ഏറ്റവും പുതിയ സിഗ്നൽ സവിശേഷതകൾ പ്രവർത്തിക്കില്ല. ഭാവിയിലെ സിഗ്നൽ അപ്‌ഡേറ്റുകൾ ലഭിക്കുന്നതിന് ഈ ഉപകരണം അപ്‌ഗ്രേഡുചെയ്യുക.</string>
   <string name="reminder_header_progress">%1$d%%</string>
@@ -2329,7 +2329,7 @@ grūpp ap‌ḍē</string>
   <string name="ConversationActivity_signal_needs_sms_permission_in_order_to_send_an_sms">ഒരു SMS അയയ്‌ക്കുന്നതിന് Signal-ന് SMS അനുമതി ആവശ്യമാണ്, പക്ഷേ ഇത് ശാശ്വതമായി നിരസിക്കപ്പെട്ടു. അപ്ലിക്കേഷൻ ക്രമീകരണങ്ങളിൽ തുടരുക, \"അനുമതികൾ\" തിരഞ്ഞെടുത്ത് \"SMS\" പ്രവർത്തനക്ഷമമാക്കുക.</string>
   <string name="Permissions_continue">തുടരുക</string>
   <string name="Permissions_not_now">ഇപ്പോൾ വേണ്ട</string>
-  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">നിങ്ങളുടെ കോൺ‌ടാക്റ്റുകൾ‌ തിരയുന്നതിന് Signal-ന് കോൺ‌ടാക്റ്റുകളുടെ അനുമതി ആവശ്യമാണ്, പക്ഷേ ഇത് ശാശ്വതമായി നിരസിച്ചു. അപ്ലിക്കേഷൻ ക്രമീകരണങ്ങളിൽ തുടരുക, \"അനുമതികൾ\" തിരഞ്ഞെടുത്ത് \"കോൺടാക്റ്റുകൾ\" പ്രവർത്തനക്ഷമമാക്കുക.</string>
+  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">നിങ്ങളുടെ കോൺ‌ടാക്റ്റുകൾ‌ തിരയുന്നതിന് Molly-ന് കോൺ‌ടാക്റ്റുകളുടെ അനുമതി ആവശ്യമാണ്, പക്ഷേ ഇത് ശാശ്വതമായി നിരസിച്ചു. അപ്ലിക്കേഷൻ ക്രമീകരണങ്ങളിൽ തുടരുക, \"അനുമതികൾ\" തിരഞ്ഞെടുത്ത് \"കോൺടാക്റ്റുകൾ\" പ്രവർത്തനക്ഷമമാക്കുക.</string>
   <string name="conversation_activity__enable_signal_messages">SIGNAL സന്ദേശങ്ങൾ പ്രവർത്തനക്ഷമമാക്കുക</string>
   <string name="SQLCipherMigrationHelper_migrating_signal_database">Signal ഡാറ്റാബേസ് മൈഗ്രേറ്റുചെയ്യുന്നു</string>
   <string name="PushDecryptJob_new_locked_message">ലോക്കുചെയ്‌ത പുതിയ സന്ദേശം</string>
@@ -2484,7 +2484,7 @@ grūpp ap‌ḍē</string>
   <string name="GroupsLearnMore_paragraph_2">ലെഗസി  (പഴയ) ഗ്രൂപ്പുകളെ ഇതുവരെ പുതിയ ഗ്രൂപ്പുകളിലേക്ക് അപ്ഗ്രേഡ് ചെയ്യാൻ കഴിയില്ല, എന്നാൽ അതേ അംഗങ്ങൾ Signal-ഇന്റെ (സിഗ്നലിന്റെ) ഏറ്റവും പുതിയ വേർഷനിലുണ്ടെങ്കിൽ (പതിപ്പിലാണെങ്കിൽ) നിങ്ങൾക്ക് അവരുമായി ഒരു പുതിയ ഗ്രൂപ്പ് സൃഷ്ടിക്കാൻ കഴിയും.</string>
   <string name="GroupsLearnMore_paragraph_3">ഭാവിയിൽ ലെഗസി ഗ്രൂപ്പുകളെ നവീകരിക്കുന്നതിനുള്ള ഒരു വഴി സിഗ്നൽ വാഗ്ദാനം ചെയ്യും.</string>
   <!--GroupLinkBottomSheetDialogFragment-->
-  <string name="GroupLinkBottomSheet_share_via_signal">Signal വഴി പങ്കിടുക</string>
+  <string name="GroupLinkBottomSheet_share_via_signal">Molly വഴി പങ്കിടുക</string>
   <string name="GroupLinkBottomSheet_copy">കോപ്പി ചെയ്യുക</string>
   <string name="GroupLinkBottomSheet_qr_code">QR (ക്യൂആർ) കോഡ്</string>
   <string name="GroupLinkBottomSheet_share">പങ്കിടുക</string>

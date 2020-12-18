@@ -135,7 +135,7 @@
   <string name="CameraContacts_no_signal_contacts">Dim cysylltiadau Signal</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">Gallwch ddefnyddio botwm y camera dim ond i anfon lluniau i gysylltiadau Signal. </string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">Methu canfod y person rydych yn chwilio amdani/o?</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">Gwahodd cysylltiad i ymuno â Signal</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">Gwahodd cysylltiad i ymuno â Molly</string>
   <string name="CameraContacts__menu_search">Chwilio</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">Tynnu</string>
@@ -333,7 +333,7 @@ Send neges heb ei ddiogelu?</string>
   <string name="ConversationFragment__d_group_members_have_the_same_name">Mae gan aelodau\'r grŵp %1$d yr un enw.</string>
   <string name="ConversationFragment__tap_to_review">Tapio i adolygu</string>
   <string name="ConversationFragment__review_requests_carefully">Adolygu ceisiadau yn ofalus</string>
-  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Daeth Signal o hyd i gyswllt arall gyda\'r un enw.</string>
+  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Daeth Molly o hyd i gyswllt arall gyda\'r un enw.</string>
   <!--ConversationListActivity-->
   <string name="ConversationListActivity_there_is_no_browser_installed_on_your_device">Nid oes porwr wedi\'i osod ar eich dyfais.</string>
   <!--ConversationListFragment-->
@@ -403,11 +403,11 @@ Send neges heb ei ddiogelu?</string>
   <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Profwch eich cyfrinymadrodd wrth gefn a dilysu ei fod yn cydweddu</string>
   <string name="BackupsPreferenceFragment__turn_on">Troi ymlaen</string>
   <string name="BackupsPreferenceFragment__turn_off">Diffodd</string>
-  <string name="BackupsPreferenceFragment__to_restore_a_backup">I adfer copi wrth gefn, gosodwch gopi newydd o Signal. Agorwch yr app a thapio \"Adfer copi wrth gefn\", yna canfod y ffeil wrth gefn. %1$s</string>
+  <string name="BackupsPreferenceFragment__to_restore_a_backup">I adfer copi wrth gefn, gosodwch gopi newydd o Molly. Agorwch yr app a thapio \"Adfer copi wrth gefn\", yna canfod y ffeil wrth gefn. %1$s</string>
   <string name="BackupsPreferenceFragment__learn_more">Dysgu rhagor</string>
   <string name="BackupsPreferenceFragment__in_progress">Cynnydd…</string>
   <string name="BackupsPreferenceFragment__d_so_far">%1$d hyd yn hyn…</string>
-  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Mae ar Signal angen caniatâd storio allanol er mwyn creu copïau wrth gefn, ond fe\'i rwystrwyd yn barhaol. Ewch i ddewislen gosodiadau\'r ap, dewis "Caniatâd", a galluogi "Storio".</string>
+  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Mae ar Molly angen caniatâd storio allanol er mwyn creu copïau wrth gefn, ond fe\'i rwystrwyd yn barhaol. Ewch i ddewislen gosodiadau\'r ap, dewis "Caniatâd", a galluogi "Storio".</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Defnyddio\'r cyfaddas: %s</string>
   <string name="CustomDefaultPreference_using_default">Defnyddio rhagosodedig: %s</string>
@@ -473,7 +473,7 @@ Send neges heb ei ddiogelu?</string>
   <string name="GcmBroadcastReceiver_retrieving_a_message">Estyn neges…</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Methiant cyfathrebu Signal parhaol!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Nid oedd Signal yn gallu cofrestru gyda Google Play Services. Mae negeseuon a galwadau Signal wedi\'u hanalluogi, ceisiwch ailgofrestru yn Gosodiadau &gt; Uwch.</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Nid oedd Molly yn gallu cofrestru gyda Google Play Services. Mae negeseuon a galwadau Molly wedi\'u hanalluogi, ceisiwch ailgofrestru yn Gosodiadau &gt; Uwch.</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">Gwall wrth estyn GIF cydraniad llawn</string>
   <!--GiphyFragmentPageAdapter-->
@@ -1266,10 +1266,10 @@ Send neges heb ei ddiogelu?</string>
   </plurals>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">Rhoi cyfrinymadrodd</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Eicon Signal</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Eicon Molly</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">Cyflwyno cyfrinymadrodd</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Cyfrinair annilys!</string>
-  <string name="PassphrasePromptActivity_unlock_signal">Datgloi Signal</string>
+  <string name="PassphrasePromptActivity_unlock_signal">Datgloi Molly</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">Map</string>
   <string name="PlacePickerActivity_not_a_valid_address">Nid yw\'n Gyfeiriad dilys</string>
@@ -1340,8 +1340,8 @@ Send neges heb ei ddiogelu?</string>
   <string name="RedPhone_got_it">Iawn, rwy\'n deall</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Tapiwch yma i droi eich fideo ymlaen</string>
-  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">I alw %1$s, mae angen i Signal gael mynediad i\'ch camera.</string>
-  <string name="WebRtcCallActivity__signal_s">Signal %1$s</string>
+  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">I alw %1$s, mae angen i Molly gael mynediad i\'ch camera.</string>
+  <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
   <string name="WebRtcCallActivity__calling">Yn galw…</string>
   <string name="WebRtcCallActivity__group_call">Galwad Grŵp</string>
   <!--WebRtcCallView-->
@@ -1394,7 +1394,7 @@ Send neges heb ei ddiogelu?</string>
        ei bennu ( %s) yn annilys.
     </string>
   <string name="RegistrationActivity_missing_google_play_services">Google Play Services Coll</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Nid yw Google Play Services ar y ddyfais hon. Gallwch barhau i ddefnyddio Signal, ond gall y ffurfweddiad hwn arwain at lai o ddibynadwyedd neu berfformiad. \n\nOs nad ydych chi\'n ddefnyddiwr uwch, nac yn rhedeg ROM Android amgen, neu os ydych chi\'n credu eich bod yn gweld hyn trwy gamgymeriad, cysylltwch â support@signal.org er mwyn datrys problemau.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Nid yw Google Play Services ar y ddyfais hon. Gallwch barhau i ddefnyddio Molly, ond gall y ffurfweddiad hwn arwain at lai o ddibynadwyedd neu berfformiad. \n\nOs nad ydych chi\'n ddefnyddiwr uwch, nac yn rhedeg ROM Android amgen, neu os ydych chi\'n credu eich bod yn gweld hyn trwy gamgymeriad, cysylltwch â support@molly.im er mwyn datrys problemau.</string>
   <string name="RegistrationActivity_i_understand">Rwy\'n deall</string>
   <string name="RegistrationActivity_play_services_error">Gwall Play Services</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Mae Google Play Services yn cael eu diweddaru neu nid yw ar gael dros dro. Ceisiwch eto os gwelwch yn dda.</string>
@@ -1446,12 +1446,12 @@ Send neges heb ei ddiogelu?</string>
   <string name="SearchFragment_header_messages">Negeseuon</string>
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">Ychwanegu at Cysylltiadau</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Gwahodd i Signal</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Gwahodd i Molly</string>
   <string name="SharedContactDetailsActivity_signal_message">Neges Signal</string>
   <string name="SharedContactDetailsActivity_signal_call">Galwad Signal</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">Ychwanegu at Cysylltiadau</string>
-  <string name="SharedContactView_invite_to_signal">Gwahodd i Signal</string>
+  <string name="SharedContactView_invite_to_signal">Gwahodd i Molly</string>
   <string name="SharedContactView_message">Neges Signal</string>
   <!--SignalPinReminders-->
   <string name="SignalPinReminders_well_remind_you_again_later">Byddwn yn eich atgoffa\'n hwyrach.</string>
@@ -1657,7 +1657,7 @@ Send neges heb ei ddiogelu?</string>
   <string name="ProfileEditNameFragment_successfully_set_profile_name">Gosodwyd enw proffil yn llwyddiannus.</string>
   <string name="ProfileEditNameFragment_encountered_a_network_error">Profwyd gwall rhwydwaith.</string>
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Nid yw ymateb cyflym ar gael pan fydd Signal wedi\'i gloi!</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Nid yw ymateb cyflym ar gael pan fydd Molly wedi\'i gloi!</string>
   <string name="QuickResponseService_problem_sending_message">Anhawster anfon neges!</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">Wedi\'i gadw i %s</string>
@@ -1668,7 +1668,7 @@ Send neges heb ei ddiogelu?</string>
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">Llwybr byr annilys</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Neges newydd</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">Chwarae fideo</string>
@@ -1741,7 +1741,7 @@ Send neges heb ei ddiogelu?</string>
   <string name="change_passphrase_activity__repeat_new_passphrase">Aildeipio\'r cyfrinair newydd</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">Rhowch enw neu rif</string>
-  <string name="contact_selection_activity__invite_to_signal">Gwahodd i Signal</string>
+  <string name="contact_selection_activity__invite_to_signal">Gwahodd i Molly</string>
   <string name="contact_selection_activity__new_group">Grŵp newydd</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">Clirio\'r testun</string>
@@ -1976,7 +1976,7 @@ Send neges heb ei ddiogelu?</string>
   <string name="redphone_call_card__signal_call">Galwad Signal</string>
   <!--registration_activity-->
   <string name="registration_activity__phone_number">RHIF FFÔN</string>
-  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Mae Signal yn ei gwneud hi\'n hawdd i gyfathrebu trwy ddefnyddio\'ch rhif ffôn a\'ch llyfr cyfeiriadau. Bydd cyfeillion a chysylltiadau sydd eisoes yn gwybod sut i gysylltu â chi dros y ffôn yn gallu cysylltu â Signal yn rhwydd.\n\nMae cofrestru\'n trosglwyddo peth gwybodaeth cyswllt i\'r gweinydd. Nid yw\'n cael ei gadw.</string>
+  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Mae Molly yn ei gwneud hi\'n hawdd i gyfathrebu trwy ddefnyddio\'ch rhif ffôn a\'ch llyfr cyfeiriadau. Bydd cyfeillion a chysylltiadau sydd eisoes yn gwybod sut i gysylltu â chi dros y ffôn yn gallu cysylltu â Molly yn rhwydd.\n\nMae cofrestru\'n trosglwyddo peth gwybodaeth cyswllt i\'r gweinydd. Nid yw\'n cael ei gadw.</string>
   <string name="registration_activity__verify_your_number">Gwirio eich Rhif</string>
   <string name="registration_activity__please_enter_your_mobile_number_to_receive_a_verification_code_carrier_rates_may_apply">Rhowch eich rhif ffôn symudol i dderbyn cod dilysu. Gall cyfraddau darparwr gael eu codi.</string>
   <!--recipients_panel-->
@@ -2338,10 +2338,10 @@ Send neges heb ei ddiogelu?</string>
   <string name="reminder_header_sms_import_text">Tapio i gopïo negeseuon SMS eich ffôn i gronfa ddata amgryptio Signal.</string>
   <string name="reminder_header_push_title">Galluogi negeseuon a galwadau Signal</string>
   <string name="reminder_header_push_text">Diweddarwch eich profiad cyfathrebu.</string>
-  <string name="reminder_header_invite_title">Gwahodd i Signal</string>
+  <string name="reminder_header_invite_title">Gwahodd i Molly</string>
   <string name="reminder_header_invite_text">Cymerwch eich sgwrs gyda %1$s i\'r lefel nesaf.</string>
   <string name="reminder_header_share_title">Gwahoddwch eich ffrindiau!</string>
-  <string name="reminder_header_share_text">Gorau po fwyaf o ffrindiau sy\'n defnyddio Signal.</string>
+  <string name="reminder_header_share_text">Gorau po fwyaf o ffrindiau sy\'n defnyddio Molly.</string>
   <string name="reminder_header_service_outage_text">Mae Signal yn profi anawsterau technegol. Rydym yn gweithio\'n galed i adfer y gwasanaeth cyn gynted ā phosib.</string>
   <string name="reminder_header_the_latest_signal_features_wont_work">Ni fydd y nodwedd diweddaraf yn Signal yn gweithio gyda\'r fersiwn yma o Android. Diweddarwch y ddyfais i dderbyn diweddariadau Signal y dyfodol.</string>
   <string name="reminder_header_progress">%1$d%%</string>
@@ -2506,7 +2506,7 @@ Send neges heb ei ddiogelu?</string>
   <string name="ConversationActivity_signal_needs_sms_permission_in_order_to_send_an_sms">Mae ar Signal angen caniatâd Camera er mwyn anfon SMS, ond fe\'i rwystrwyd yn barhaol. Ewch i ddewislen gosodiadau\'r ap, dewis "Caniatâd", a galluogi "SMS".</string>
   <string name="Permissions_continue">Parhau</string>
   <string name="Permissions_not_now">Nid nawr</string>
-  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Mae ar Signal angen caniatâd Cysylltiadau er mwyn chwilio eich cysylltiadau, ond fe\'i rwystrwyd yn barhaol. Ewch i ddewislen gosodiadau\'r ap, dewis "Caniatâd", a galluogi "Cysylltiadau".</string>
+  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Mae ar Molly angen caniatâd Cysylltiadau er mwyn chwilio eich cysylltiadau, ond fe\'i rwystrwyd yn barhaol. Ewch i ddewislen gosodiadau\'r ap, dewis "Caniatâd", a galluogi "Cysylltiadau".</string>
   <string name="conversation_activity__enable_signal_messages">GALLUOGI NEGESEUON SIGNAL</string>
   <string name="SQLCipherMigrationHelper_migrating_signal_database">Mudo cronfa ddata Signal</string>
   <string name="PushDecryptJob_new_locked_message">Neges wedi\'i gloi newydd</string>
@@ -2661,7 +2661,7 @@ Send neges heb ei ddiogelu?</string>
   <string name="GroupsLearnMore_paragraph_2">Nid oes modd uwchraddio Hen Grwpiau i Grwpiau Newydd eto, ond gallwch greu Grŵp Newydd gyda\'r un aelodau os ydyn nhw ar y fersiwn ddiweddaraf o Signal.</string>
   <string name="GroupsLearnMore_paragraph_3">Bydd Signal yn cynnig ffordd i uwchraddio Hen Etifeddiaeth yn y dyfodol.</string>
   <!--GroupLinkBottomSheetDialogFragment-->
-  <string name="GroupLinkBottomSheet_share_via_signal">Rhannu trwy Signal</string>
+  <string name="GroupLinkBottomSheet_share_via_signal">Rhannu trwy Molly</string>
   <string name="GroupLinkBottomSheet_copy">Copïo</string>
   <string name="GroupLinkBottomSheet_qr_code">Cod QR</string>
   <string name="GroupLinkBottomSheet_share">Rhannu</string>

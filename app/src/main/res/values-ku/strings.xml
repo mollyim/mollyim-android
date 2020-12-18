@@ -296,7 +296,7 @@
   <string name="GcmBroadcastReceiver_retrieving_a_message">…Peyamek tê wergirtin</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Ragihandina Signalê çênabe!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signalê nekarî ligel Google Play Services ê xwe tomar bike. Peyam û bangên Signal ê hatin neçalakkirin. Ji kerema xwe di Sazkarî &gt; Pêşketî de dîsa tomarkirinê biceribîne.</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Mollyê nekarî ligel Google Play Services ê xwe tomar bike. Peyam û bangên Molly ê hatin neçalakkirin. Ji kerema xwe di Sazkarî &gt; Pêşketî de dîsa tomarkirinê biceribîne.</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">Dema GIF a bi averûtiya bilind dihat wergirtin çewtî pêk hat.</string>
   <!--GiphyFragmentPageAdapter-->
@@ -444,10 +444,10 @@
   <string name="ExpirationDialog_your_messages_will_disappear_s_after_they_have_been_seen">Peyamên ku di vê gotûbêjê de hatine şandin û wergiritn dê %s piştî hatin dîtin tune bibin.</string>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">Borînbiwêjê têkeve</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Sembola Signalê</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Sembola Mollyê</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">Borînbiwêjê radest bike</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Borînbiwêja nederbasdar!</string>
-  <string name="PassphrasePromptActivity_unlock_signal">Rakirina qilfê Signalê</string>
+  <string name="PassphrasePromptActivity_unlock_signal">Rakirina qilfê Mollyê</string>
   <!--PlacePickerActivity-->
   <!--PlayServicesProblemFragment-->
   <string name="PlayServicesProblemFragment_the_version_of_google_play_services_you_have_installed_is_not_functioning">Guhertoya Google Play Servicesê ya di amûra te da sazkirî baş naxebite. Ji kerema xwe dîsa saz bike û biceribîne.</string>
@@ -523,12 +523,12 @@
   <string name="SearchFragment_header_messages">Peyam</string>
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">Tevlî berdengan bike</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Vexwîne Signalê</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Vexwîne Mollyê</string>
   <string name="SharedContactDetailsActivity_signal_message">Peyama Signalê</string>
   <string name="SharedContactDetailsActivity_signal_call">Banga Signalê</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">Tevlî berdengan bike</string>
-  <string name="SharedContactView_invite_to_signal">Vexwîne Signalê</string>
+  <string name="SharedContactView_invite_to_signal">Vexwîne Mollyê</string>
   <string name="SharedContactView_message">Peyama Signalê</string>
   <!--Slide-->
   <string name="Slide_image">Wêne</string>
@@ -655,7 +655,7 @@
   <string name="NotificationChannel_missing_display_name">Nenas</string>
   <!--ProfileEditNameFragment-->
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Dema Signal kilîdkirî be zû bersiv nabe!</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Dema Molly kilîdkirî be zû bersiv nabe!</string>
   <string name="QuickResponseService_problem_sending_message">Pirsgirêka şandina peyamê!</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">Li %s hat tomarkirin</string>
@@ -666,7 +666,7 @@
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">Kurterêya nederbasdar</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Peyama nû</string>
   <!--ThumbnailView-->
   <!--TransferControlView-->
@@ -716,7 +716,7 @@
   <string name="change_passphrase_activity__repeat_new_passphrase">Şifreya nû dubare bikin</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">Navek an hejmarek binivîse</string>
-  <string name="contact_selection_activity__invite_to_signal">Vexwîne Signalê</string>
+  <string name="contact_selection_activity__invite_to_signal">Vexwîne Mollyê</string>
   <!--contact_filter_toolbar-->
   <!--contact_selection_group_activity-->
   <string name="contact_selection_group_activity__no_contacts">Berdeng tune ne</string>
@@ -898,7 +898,7 @@
   <string name="redphone_call_card__signal_call">Gaziya Signalê</string>
   <!--registration_activity-->
   <string name="registration_activity__phone_number">HEJMARA TELEFONÊ</string>
-  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Bi Signal ê ragihandin hêsan e. Ew hejmara telefon û pirtûka navnîşana te bikartîne. Heval û têkiliyên te yên ku jixwe dizanin ku wê çawa bi telefonê li te bigerin wê karibin bi rehetî bi Signal ê bi te re têkiliyê deynin.\n\nKiryara tomarbûnê hinek agahî dişîne rajekarê, lê ew vê depo nake.</string>
+  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Bi Molly ê ragihandin hêsan e. Ew hejmara telefon û pirtûka navnîşana te bikartîne. Heval û têkiliyên te yên ku jixwe dizanin ku wê çawa bi telefonê li te bigerin wê karibin bi rehetî bi Molly ê bi te re têkiliyê deynin.\n\nKiryara tomarbûnê hinek agahî dişîne rajekarê, lê ew vê depo nake.</string>
   <string name="registration_activity__verify_your_number">Hejmara Xwe Birastîne</string>
   <string name="registration_activity__please_enter_your_mobile_number_to_receive_a_verification_code_carrier_rates_may_apply">Ji bo standina koda rastandinê, hejmara telefona xwe têkeve. Şirketa telefona te belkî hinek pere bikişîne.</string>
   <!--recipients_panel-->
@@ -1166,10 +1166,10 @@
   <string name="reminder_header_sms_import_text">Ji bo peyamên SMSê yên xwe kopî bikî nav agahîdanka şîfrekirî ya Signalê, bitepîne</string>
   <string name="reminder_header_push_title">Peyam û bangên Signalê çalak bike</string>
   <string name="reminder_header_push_text">Serpêhatiya ragihandina xwe bilind bike.</string>
-  <string name="reminder_header_invite_title">Vexwîne Signalê</string>
+  <string name="reminder_header_invite_title">Vexwîne Mollyê</string>
   <string name="reminder_header_invite_text">Gotûbeja xwe ya bi %1$sre pêş ve bibe.</string>
   <string name="reminder_header_share_title">Hevalên xwe vexwîne!</string>
-  <string name="reminder_header_share_text">Çiqas pir hevalên te Signalê bi kar bînin, ewqas çêtir dibe.</string>
+  <string name="reminder_header_share_text">Çiqas pir hevalên te Mollyê bi kar bînin, ewqas çêtir dibe.</string>
   <string name="reminder_header_service_outage_text">Çend dijwariyên teknîkî pêk tên li ser Signalê. Qasî ji me tê em ji bo bilez wê dirist bikin dixebitin.</string>
   <!--media_preview-->
   <string name="media_preview__save_title">Tomarkirin</string>
@@ -1197,7 +1197,7 @@
   <string name="ConversationActivity_signal_needs_sms_permission_in_order_to_send_an_sms">Ji bo Signal bikaribe SMSan bişîne destûra SMSê pêdivî ye, lê destûr nehatiye dayin. Ji kerema xwe ji sazkariyên sepanan, \"Destûr\"an bibijêre û \"SMS\"ê çalak bike.</string>
   <string name="Permissions_continue">Bidomîne</string>
   <string name="Permissions_not_now">Ne niha</string>
-  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Ji bo têkilî lêgerrîn Signal destûra Têkilî dixwaze, lê ew hat herdemî rakirin. Li \'Şikil\' &gt; \'Destûr\' &gt; \'Têkilî\' destûr bide.</string>
+  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Ji bo têkilî lêgerrîn Molly destûra Têkilî dixwaze, lê ew hat herdemî rakirin. Li \'Şikil\' &gt; \'Destûr\' &gt; \'Têkilî\' destûr bide.</string>
   <string name="conversation_activity__enable_signal_messages">RÊ BIDE PEYAMÊN SIGNALÊ</string>
   <string name="SQLCipherMigrationHelper_migrating_signal_database">Agahîdanka Signalê tê barkirin</string>
   <string name="PushDecryptJob_new_locked_message">Peyama nû ya qufilandî</string>

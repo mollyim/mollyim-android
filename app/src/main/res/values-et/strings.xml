@@ -129,7 +129,7 @@
   <string name="CameraContacts_no_signal_contacts">Signali kontaktid puuduvad</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">Sa saad kasutada vaid kaameranuppu, et saata fotosid Signali kontaktidele.</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">Ei leia, keda otsid?</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">Kutsu kontakt Signaliga liituma</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">Kutsu kontakt Mollyiga liituma</string>
   <string name="CameraContacts__menu_search">Otsi</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">Eemalda</string>
@@ -306,7 +306,7 @@
   <string name="ConversationFragment__you_can_add_notes_for_yourself_in_this_conversation">Saad selles vestluses enda jaoks märkmeid lisada.\nKui su kontol on lingitud seadmeid, sünkroonitakse uued märkmed.</string>
   <string name="ConversationFragment__d_group_members_have_the_same_name">%1$d grupiliikmel on sama nimi.</string>
   <string name="ConversationFragment__tap_to_review">Üle vaatamiseks koputa</string>
-  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Signal leidis teise samanimelise kontakti</string>
+  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Molly leidis teise samanimelise kontakti</string>
   <!--ConversationListActivity-->
   <string name="ConversationListActivity_there_is_no_browser_installed_on_your_device">Sinu seadmesse pole installitud brauserit.</string>
   <!--ConversationListFragment-->
@@ -370,7 +370,7 @@
   <string name="BackupsPreferenceFragment__learn_more">Rohkem infot</string>
   <string name="BackupsPreferenceFragment__in_progress">Töötamine…</string>
   <string name="BackupsPreferenceFragment__d_so_far">Siiani %1$d…</string>
-  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal vajab varukoopiate loomiseks välismälu õigust, ent see on püsivalt keelatud. Palun jätka rakenduse seadetes, vali \"Load\" ning luba \"Mäluruum\".</string>
+  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly vajab varukoopiate loomiseks välismälu õigust, ent see on püsivalt keelatud. Palun jätka rakenduse seadetes, vali \"Load\" ning luba \"Mäluruum\".</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Kasutan kohandatud: %s</string>
   <string name="CustomDefaultPreference_using_default">Kasutan vaikimisi: %s</string>
@@ -432,7 +432,7 @@
   <string name="GcmBroadcastReceiver_retrieving_a_message">Sõnumi hankimine…</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Püsiv Signali ühendusviga!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal ei saanud registreerida teenusega Google Play Services. Signali sõnumid ja kõned on keelatud, palun proovi taas-registreerida menüüs Seaded &gt; Täpsem.</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly ei saanud registreerida teenusega Google Play Services. Mollyi sõnumid ja kõned on keelatud, palun proovi taas-registreerida menüüs Seaded &gt; Täpsem.</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">Täisresolutsiooniga GIFi vastuvõtmisel esines viga</string>
   <!--GiphyFragmentPageAdapter-->
@@ -1019,10 +1019,10 @@
   <string name="OutdatedBuildReminder_update_now">Uuenda kohe</string>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">Sisesta salasõna</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Signali ikoon</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Mollyi ikoon</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">Saada salasõna</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Sobimatu salasõna!</string>
-  <string name="PassphrasePromptActivity_unlock_signal">Lukusta Signal lahti</string>
+  <string name="PassphrasePromptActivity_unlock_signal">Lukusta Molly lahti</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">Kaart</string>
   <string name="PlacePickerActivity_not_a_valid_address">Pole sobiv aadress</string>
@@ -1091,8 +1091,8 @@
   <string name="RedPhone_got_it">Selge</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Klõpsa siia enda video käivitamiseks</string>
-  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Signal vajab kasutajale %1$s helistamiseks juurdepääsu seadme kaamerale</string>
-  <string name="WebRtcCallActivity__signal_s">Signal %1$s</string>
+  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Molly vajab kasutajale %1$s helistamiseks juurdepääsu seadme kaamerale</string>
+  <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
   <string name="WebRtcCallActivity__calling">Helistamine…</string>
   <string name="WebRtcCallActivity__group_call">Grupikõne</string>
   <!--WebRtcCallView-->
@@ -1136,7 +1136,7 @@
         (%s) on sobimatu.
     </string>
   <string name="RegistrationActivity_missing_google_play_services">Puuduvad Google Play teenused</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Seadmest puuduvad Google Play teenused. Sa saad siiski Signalit kasutada, kuid see konfiguratsioon võib põhjustada vähendatud stabiilsust või jõudlust.\n\nKui sa pole edasijõudnud kasutaja, ei käita järelturu Androidi ROMi või arvad, et see on viga, palun kontakteeru support@signal.org, et saada abi probleemi lahendamisel.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Seadmest puuduvad Google Play teenused. Sa saad siiski Mollyit kasutada, kuid see konfiguratsioon võib põhjustada vähendatud stabiilsust või jõudlust.\n\nKui sa pole edasijõudnud kasutaja, ei käita järelturu Androidi ROMi või arvad, et see on viga, palun kontakteeru support@molly.im, et saada abi probleemi lahendamisel.</string>
   <string name="RegistrationActivity_i_understand">Saan aru</string>
   <string name="RegistrationActivity_play_services_error">Play teenuste viga</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play teenused uuenevad või pole hetkel saadaval. Palun proovi uuesti.</string>
@@ -1185,12 +1185,12 @@
   <string name="SearchFragment_header_messages">Sõnumid</string>
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">Lisa kontaktidesse</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Kutsu Signalisse</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Kutsu Mollyisse</string>
   <string name="SharedContactDetailsActivity_signal_message">Signali sõnum</string>
   <string name="SharedContactDetailsActivity_signal_call">Signali kõne</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">Lisa kontaktidesse</string>
-  <string name="SharedContactView_invite_to_signal">Kutsu Signalisse</string>
+  <string name="SharedContactView_invite_to_signal">Kutsu Mollyisse</string>
   <string name="SharedContactView_message">Signali sõnum</string>
   <!--SignalPinReminders-->
   <string name="SignalPinReminders_well_remind_you_again_later">Me tuletame sulle hiljem uuesti meelde.</string>
@@ -1392,7 +1392,7 @@
   <string name="ProfileEditNameFragment_successfully_set_profile_name">Profiilinimi edukalt määratud.</string>
   <string name="ProfileEditNameFragment_encountered_a_network_error">Esines võrgu viga.</string>
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Kiirvastus pole saadaval, kui Signal on lukustatud!</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Kiirvastus pole saadaval, kui Molly on lukustatud!</string>
   <string name="QuickResponseService_problem_sending_message">Sõnumi saatmisel esines probleem!</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">Salvestatud kohta %s</string>
@@ -1403,7 +1403,7 @@
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">Sobimatu otsetee</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Uus sõnum</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">Esita videot</string>
@@ -1474,7 +1474,7 @@
   <string name="change_passphrase_activity__repeat_new_passphrase">Korda uut salasõna</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">Sisesta nimi või number</string>
-  <string name="contact_selection_activity__invite_to_signal">Kutsu Signalisse</string>
+  <string name="contact_selection_activity__invite_to_signal">Kutsu Mollyisse</string>
   <string name="contact_selection_activity__new_group">Uus grupp</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">Tühjenda sisestatud tekst</string>
@@ -1687,7 +1687,7 @@
   <string name="redphone_call_card__signal_call">Signali kõne</string>
   <!--registration_activity-->
   <string name="registration_activity__phone_number">TELEFONINUMBER</string>
-  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Signal teeb suhtlemise lihtsaks, kasutades olemasolevat telefoninumbrit ja aadressiraamatut. Sõbrad ja kontaktid, kes juba saavad sinuga telefoni teel ühendust, saavad ka Signali kaudu seda teha.\n\nRegistreerimine saadab osalist kontaktinfot serverile, seda ei salvestata.</string>
+  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Molly teeb suhtlemise lihtsaks, kasutades olemasolevat telefoninumbrit ja aadressiraamatut. Sõbrad ja kontaktid, kes juba saavad sinuga telefoni teel ühendust, saavad ka Mollyi kaudu seda teha.\n\nRegistreerimine saadab osalist kontaktinfot serverile, seda ei salvestata.</string>
   <string name="registration_activity__verify_your_number">Kinnita oma number</string>
   <string name="registration_activity__please_enter_your_mobile_number_to_receive_a_verification_code_carrier_rates_may_apply">Palun sisesta enda mobiilinumber kinnituskoodi saamiseks. Lisanduvad teenustasud.</string>
   <!--recipients_panel-->
@@ -2040,10 +2040,10 @@
   <string name="reminder_header_sms_import_text">Koputa, et kopeerida oma telefoni SMS-sõnumid Signali krüptitud andmebaasi.</string>
   <string name="reminder_header_push_title">Luba Signali sõnumid ja kõned</string>
   <string name="reminder_header_push_text">Täienda oma suhtluskogemust.</string>
-  <string name="reminder_header_invite_title">Kutsu Signalisse</string>
+  <string name="reminder_header_invite_title">Kutsu Mollyisse</string>
   <string name="reminder_header_invite_text">Vii vestlus kontaktiga %1$s järgmisele tasemele.</string>
   <string name="reminder_header_share_title">Kutsu oma sõpru!</string>
-  <string name="reminder_header_share_text">Mida rohkem sõpru kasutavad Signalit, seda paremaks see muutub.</string>
+  <string name="reminder_header_share_text">Mida rohkem sõpru kasutavad Mollyit, seda paremaks see muutub.</string>
   <string name="reminder_header_service_outage_text">Signalil on hetkel tehnilised probleemid. Töötame selle kallal, et taastada teenus nii kiiresti kui võimalik.</string>
   <string name="reminder_header_the_latest_signal_features_wont_work">Viimatised Signali funktsioonid ei tööta selles Androidi versioonis. Palun uuenda oma seadet, et saada tulevikus Signali uuendusi.</string>
   <string name="reminder_header_progress">%1$d%%</string>
@@ -2191,7 +2191,7 @@
   <string name="ConversationActivity_signal_needs_sms_permission_in_order_to_send_an_sms">Signal vajab SMS-uba, et saata SMSi, ent see on püsivalt keelatud. Palun jätka rakenduse seadetes, vali \"Load\" ja luba \"SMS\".</string>
   <string name="Permissions_continue">Jätka</string>
   <string name="Permissions_not_now">Mitte praegu</string>
-  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Signal vajab kontaktide luba, et otsida su kontakte, ent see on püsivalt keelatud. Palun jätka rakenduse seadetes, vali \"Load\" ja luba \"Kontaktid\".</string>
+  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Molly vajab kontaktide luba, et otsida su kontakte, ent see on püsivalt keelatud. Palun jätka rakenduse seadetes, vali \"Load\" ja luba \"Kontaktid\".</string>
   <string name="conversation_activity__enable_signal_messages">LUBA SIGNALI SÕNUMID</string>
   <string name="SQLCipherMigrationHelper_migrating_signal_database">Migreerin Signali andmebaasi</string>
   <string name="PushDecryptJob_new_locked_message">Uus lukustatud sõnum</string>
@@ -2337,7 +2337,7 @@
   <string name="GroupsLearnMore_paragraph_1">Vana tüüpi grupid on need grupid, mis pole ühilduvad uut tüüpi gruppide funktsionaalsustega nagu administraatorid ja rohkem kirjeldavad grupi muudatused.</string>
   <string name="GroupsLearnMore_can_i_upgrade_a_legacy_group">Kas saan vana tüüpi gruppi uuendada?</string>
   <!--GroupLinkBottomSheetDialogFragment-->
-  <string name="GroupLinkBottomSheet_share_via_signal">Jaga Signal-i kaudu</string>
+  <string name="GroupLinkBottomSheet_share_via_signal">Jaga Molly-i kaudu</string>
   <string name="GroupLinkBottomSheet_copy">Kopeeri</string>
   <string name="GroupLinkBottomSheet_qr_code">QR-kood</string>
   <string name="GroupLinkBottomSheet_share">Jaga</string>

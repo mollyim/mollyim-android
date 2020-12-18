@@ -129,7 +129,7 @@
   <string name="CameraContacts_no_signal_contacts">No hi ha contactes de Signal</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">Només podeu usar el botó de la càmera per enviar fotografies a contactes de Signal.</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">No trobeu qui busqueu?</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">Convideu un contacte a Signal</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">Convideu un contacte a Molly</string>
   <string name="CameraContacts__menu_search">Cerca</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">Suprimeix</string>
@@ -311,7 +311,7 @@
   <string name="ConversationFragment__d_group_members_have_the_same_name">%1$d membres del grup tenen el mateix nom.</string>
   <string name="ConversationFragment__tap_to_review">Feu un toc per revisar-ho</string>
   <string name="ConversationFragment__review_requests_carefully">Reviseu les sol·licituds amb atenció.</string>
-  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">El Signal ha trobat un altre contacte amb el mateix nom.</string>
+  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">El Molly ha trobat un altre contacte amb el mateix nom.</string>
   <!--ConversationListActivity-->
   <string name="ConversationListActivity_there_is_no_browser_installed_on_your_device">No hi ha cap navegador instal·lat al dispositiu.</string>
   <!--ConversationListFragment-->
@@ -373,11 +373,11 @@
   <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Proveu la contrasenya de còpia de seguretat i verifiqueu que coincideix.</string>
   <string name="BackupsPreferenceFragment__turn_on">Activa</string>
   <string name="BackupsPreferenceFragment__turn_off">Desactiva</string>
-  <string name="BackupsPreferenceFragment__to_restore_a_backup">Per restaurar una còpia de seguretat, instal·leu una còpia del Signal. Obriu l\'aplicació i toqueu Restaura la còpia de seguretat. Indiqueu el fitxer de còpia de seguretat. %1$s</string>
+  <string name="BackupsPreferenceFragment__to_restore_a_backup">Per restaurar una còpia de seguretat, instal·leu una còpia del Molly. Obriu l\'aplicació i toqueu Restaura la còpia de seguretat. Indiqueu el fitxer de còpia de seguretat. %1$s</string>
   <string name="BackupsPreferenceFragment__learn_more">Més informació</string>
   <string name="BackupsPreferenceFragment__in_progress">En curs…</string>
   <string name="BackupsPreferenceFragment__d_so_far">%1$d fins ara…</string>
-  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">El Signal necessita el permís de l\'emmagatzematge extern per tal de crear còpies de seguretat. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi l\'emmagatzematge.</string>
+  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">El Molly necessita el permís de l\'emmagatzematge extern per tal de crear còpies de seguretat. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi l\'emmagatzematge.</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Ús de la personalització: %s</string>
   <string name="CustomDefaultPreference_using_default">Per defecte: %s</string>
@@ -441,7 +441,7 @@
   <string name="GcmBroadcastReceiver_retrieving_a_message">Es recupera un missatge…</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">La comunicació del Signal falla contínuament!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">El Signal no s\'ha pogut registrar al Google Play Services. Els missatges i les trucades del Signal s\'han desactivat, registreu-vos de nou a Configuració &gt; Avançada.</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">El Molly no s\'ha pogut registrar al Google Play Services. Els missatges i les trucades del Molly s\'han desactivat, registreu-vos de nou a Configuració &gt; Avançada.</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">S\'ha produït un error en recuperar el GIF a resolució completa</string>
   <!--GiphyFragmentPageAdapter-->
@@ -1141,10 +1141,10 @@
   </plurals>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">Escriviu la contrasenya</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Icona del Signal</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Icona del Molly</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">Envia la contrasenya</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Contrasenya incorrecta!</string>
-  <string name="PassphrasePromptActivity_unlock_signal">Desbloca el Signal</string>
+  <string name="PassphrasePromptActivity_unlock_signal">Desbloca el Molly</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">Mapa</string>
   <string name="PlacePickerActivity_not_a_valid_address">No és una adreça vàlida.</string>
@@ -1213,8 +1213,8 @@
   <string name="RedPhone_got_it">Entesos</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Toqueu aquí per a activar el vídeo</string>
-  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Per trucar a %1$s, el Signal necessita accés a la càmera.</string>
-  <string name="WebRtcCallActivity__signal_s">Trucada del Signal: %1$s</string>
+  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Per trucar a %1$s, el Molly necessita accés a la càmera.</string>
+  <string name="WebRtcCallActivity__signal_s">Trucada del Molly: %1$s</string>
   <string name="WebRtcCallActivity__calling">Es truca…</string>
   <string name="WebRtcCallActivity__group_call">Trucada de grup</string>
   <!--WebRtcCallView-->
@@ -1260,7 +1260,7 @@ número de telèfon</string>
   <string name="RegistrationActivity_the_number_you_specified_s_is_invalid">El número que heu
 especificat (%s) no és vàlid.</string>
   <string name="RegistrationActivity_missing_google_play_services">No hi ha el Google Play Services.</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Aquest dispositiu no té el Google Play Services. Encara podeu usar el Signal, però aquesta configuració pot resultar en una fiabilitat o un rendiment reduïts.\n\nSi no sou un usuari avançat, si no esteu fent servir una ROM d\'Android de mercat secundari o si creieu que esteu veient això com a error, si us plau, poseu-vos en contacte amb support@signal.org per a la resolució de problemes.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Aquest dispositiu no té el Google Play Services. Encara podeu usar el Molly, però aquesta configuració pot resultar en una fiabilitat o un rendiment reduïts.\n\nSi no sou un usuari avançat, si no esteu fent servir una ROM d\'Android de mercat secundari o si creieu que esteu veient això com a error, si us plau, poseu-vos en contacte amb support@molly.im per a la resolució de problemes.</string>
   <string name="RegistrationActivity_i_understand">Ho entenc</string>
   <string name="RegistrationActivity_play_services_error">Error amb el Play Services</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">El Google Play Services s\'està actualitzant o no està disponible. Torneu a provar-ho.</string>
@@ -1310,12 +1310,12 @@ especificat (%s) no és vàlid.</string>
   <string name="SearchFragment_header_messages">Missatges</string>
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">Afegeix als contactes</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Convida al Signal</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Convida al Molly</string>
   <string name="SharedContactDetailsActivity_signal_message">Missatge del Signal</string>
   <string name="SharedContactDetailsActivity_signal_call">Trucada del Signal</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">Afegeix als contactes</string>
-  <string name="SharedContactView_invite_to_signal">Convida al Signal</string>
+  <string name="SharedContactView_invite_to_signal">Convida al Molly</string>
   <string name="SharedContactView_message">Missatge del Signal</string>
   <!--SignalPinReminders-->
   <string name="SignalPinReminders_well_remind_you_again_later">Us ho recordarem més tard.</string>
@@ -1519,7 +1519,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="ProfileEditNameFragment_successfully_set_profile_name">El nom del perfil s\'ha establert correctament.</string>
   <string name="ProfileEditNameFragment_encountered_a_network_error">Hi ha hagut un error de xarxa.</string>
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">La resposta ràpida no és disponible si el Signal està blocat!</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">La resposta ràpida no és disponible si el Molly està blocat!</string>
   <string name="QuickResponseService_problem_sending_message">S\'ha produït un problema en enviar el missatge!</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">Desat a %s</string>
@@ -1530,7 +1530,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">Drecera no vàlida</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Missatge nou</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">Reprodueix el vídeo</string>
@@ -1601,7 +1601,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="change_passphrase_activity__repeat_new_passphrase">Repetiu la contrasenya nova</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">Escriviu un nom o un número</string>
-  <string name="contact_selection_activity__invite_to_signal">Convida al Signal</string>
+  <string name="contact_selection_activity__invite_to_signal">Convida al Molly</string>
   <string name="contact_selection_activity__new_group">Grup nou</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">Neteja el text escrit</string>
@@ -1818,7 +1818,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="redphone_call_card__signal_call">Trucada del Signal</string>
   <!--registration_activity-->
   <string name="registration_activity__phone_number">NÚMERO DE TELÈFON</string>
-  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">El Signal fa que comunicar-se sigui fàcil usant el vostre número de telèfon i el llibre d\'adreces. Les amistats i contactes que ja saben com contactar-vos pel número de telèfon us podran trobar fàcilment al Signal.\n\nEl registre tramet certa informació de contacte al servidor. No s\'emmagatzema.</string>
+  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">El Molly fa que comunicar-se sigui fàcil usant el vostre número de telèfon i el llibre d\'adreces. Les amistats i contactes que ja saben com contactar-vos pel número de telèfon us podran trobar fàcilment al Molly.\n\nEl registre tramet certa informació de contacte al servidor. No s\'emmagatzema.</string>
   <string name="registration_activity__verify_your_number">Verifiqueu el número de telèfon</string>
   <string name="registration_activity__please_enter_your_mobile_number_to_receive_a_verification_code_carrier_rates_may_apply">Marqueu el vostre número de mòbil per rebre un codi de verificació. Pot ser que s\'apliquin càrrecs de l\'operadora.</string>
   <!--recipients_panel-->
@@ -2178,10 +2178,10 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="reminder_header_sms_import_text">Premeu per copiar els missatges SMS del telèfon a la base de dades encriptada del Signal.</string>
   <string name="reminder_header_push_title">Activa els missatges i les trucades del Signal</string>
   <string name="reminder_header_push_text">Actualitza l\'experiència comunicativa.</string>
-  <string name="reminder_header_invite_title">Convida al Signal</string>
+  <string name="reminder_header_invite_title">Convida al Molly</string>
   <string name="reminder_header_invite_text">Eleva la conversa amb %1$s al nivell següent.</string>
   <string name="reminder_header_share_title">Convideu-hi amistats!</string>
-  <string name="reminder_header_share_text">Com més amistats usin el Signal, millor.</string>
+  <string name="reminder_header_share_text">Com més amistats usin el Molly, millor.</string>
   <string name="reminder_header_service_outage_text">El Signal està patint problemes tècnics. Este treballant per a recuperar el servei tan ràpid com sigui possible.</string>
   <string name="reminder_header_the_latest_signal_features_wont_work">Les darreres novetats del Signal no funcionaran en aquesta versió d\'Android. Si us plau, actualitzeu el dispositiu per rebre les futures actualitzacions del Signal.</string>
   <string name="reminder_header_progress">%1$d%%</string>
@@ -2332,7 +2332,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="ConversationActivity_signal_needs_sms_permission_in_order_to_send_an_sms">El Signal necessita el permís d\'SMS per tal d\'enviar missatges SMS, però s\'ha denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi l\'SMS.</string>
   <string name="Permissions_continue">Continua</string>
   <string name="Permissions_not_now">Ara no</string>
-  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">El Signal necessita el permís de l\'aplicació dels contactes per tal de cercar-ne els vostres, però s\'ha denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi els contactes.</string>
+  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">El Molly necessita el permís de l\'aplicació dels contactes per tal de cercar-ne els vostres, però s\'ha denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi els contactes.</string>
   <string name="conversation_activity__enable_signal_messages">ACTIVA ELS MISSATGES DEL SIGNAL</string>
   <string name="SQLCipherMigrationHelper_migrating_signal_database">Migració de la base de dades del Signal</string>
   <string name="PushDecryptJob_new_locked_message">Missatge blocat nou</string>
@@ -2487,7 +2487,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="GroupsLearnMore_paragraph_2">Els grups de llegat no es poden actualitzar a grups nous, però podeu crear un grup nou amb els mateixos membres sempre que tinguin la darrera versió del Signal.</string>
   <string name="GroupsLearnMore_paragraph_3">El Signal oferirà una manera d\'actualitzar els grups de llegat més endavant.</string>
   <!--GroupLinkBottomSheetDialogFragment-->
-  <string name="GroupLinkBottomSheet_share_via_signal">Comparteix per Signal</string>
+  <string name="GroupLinkBottomSheet_share_via_signal">Comparteix per Molly</string>
   <string name="GroupLinkBottomSheet_copy">Copia</string>
   <string name="GroupLinkBottomSheet_qr_code">Codi QR</string>
   <string name="GroupLinkBottomSheet_share">Compartir-lo</string>

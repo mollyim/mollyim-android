@@ -129,7 +129,7 @@
   <string name="CameraContacts_no_signal_contacts">No hay contactos de Signal</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">El botón de la cámara lo puedes usar para enviar fotos a personas en Signal sólamente.</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">¿No encuentras a quien buscas?</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">Invita a una amistad a usar Signal.</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">Invita a una amistad a usar Molly.</string>
   <string name="CameraContacts__menu_search">Buscar</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">Eliminar</string>
@@ -311,7 +311,7 @@
   <string name="ConversationFragment__d_group_members_have_the_same_name">%1$d participantes usan el mismo nombre.</string>
   <string name="ConversationFragment__tap_to_review">Toca para revisar</string>
   <string name="ConversationFragment__review_requests_carefully">Revisa cuidadosamente las solicitudes</string>
-  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Signal ha encontrado otra persona con el mismo nombre.</string>
+  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Molly ha encontrado otra persona con el mismo nombre.</string>
   <!--ConversationListActivity-->
   <string name="ConversationListActivity_there_is_no_browser_installed_on_your_device">No hay ningún navegador instalado</string>
   <!--ConversationListFragment-->
@@ -373,11 +373,11 @@
   <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Verifica que la clave (passphrase) de tu copia de seguridad es correcta</string>
   <string name="BackupsPreferenceFragment__turn_on">Activar</string>
   <string name="BackupsPreferenceFragment__turn_off">Desactivar</string>
-  <string name="BackupsPreferenceFragment__to_restore_a_backup">Para restaurar tus chat con una copia de seguridad, reinstala Signal. Abre Signal y toca en «Restaurar copia» y busca la copia de seguridad. %1$s </string>
+  <string name="BackupsPreferenceFragment__to_restore_a_backup">Para restaurar tus chat con una copia de seguridad, reinstala Molly. Abre Molly y toca en «Restaurar copia» y busca la copia de seguridad. %1$s </string>
   <string name="BackupsPreferenceFragment__learn_more">Saber más</string>
   <string name="BackupsPreferenceFragment__in_progress">En curso …</string>
   <string name="BackupsPreferenceFragment__d_so_far">%1$d por el momento …</string>
-  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal necesita acceso al almacenamiento para crear copias de seguridad. Por favor, ve a la aplicación «Ajustes», selecciona Signal en el menú «Aplicaciones y notificaciones» y en «Permisos» activa «Almacenamiento».</string>
+  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly necesita acceso al almacenamiento para crear copias de seguridad. Por favor, ve a la aplicación «Ajustes», selecciona Molly en el menú «Aplicaciones y notificaciones» y en «Permisos» activa «Almacenamiento».</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Usar personalizado: %s</string>
   <string name="CustomDefaultPreference_using_default">Usar predeterminado: %s</string>
@@ -441,7 +441,7 @@
   <string name="GcmBroadcastReceiver_retrieving_a_message">Recuperando mensaje …</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">¡Fallo permanente de comunicación de Signal!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal fué incapaz de registrarse con Google Play Services. Los mensajes y llamadas de Signal han sido desactivados, por favor, intenta registrarte otra vez en Configuración &gt; Avanzado.</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly fué incapaz de registrarse con Google Play Services. Los mensajes y llamadas de Molly han sido desactivados, por favor, intenta registrarte otra vez en Configuración &gt; Avanzado.</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">Fallo al obtener el GIF a resolución completa</string>
   <!--GiphyFragmentPageAdapter-->
@@ -1142,10 +1142,10 @@
   </plurals>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">Introduce clave de acceso</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Icono de Signal</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Icono de Molly</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">Enviar clave de acceso</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">¡Clave de acceso no válida!</string>
-  <string name="PassphrasePromptActivity_unlock_signal">Desbloquear Signal</string>
+  <string name="PassphrasePromptActivity_unlock_signal">Desbloquear Molly</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">Mapa</string>
   <string name="PlacePickerActivity_not_a_valid_address">La dirección no es válida</string>
@@ -1214,8 +1214,8 @@
   <string name="RedPhone_got_it">Recibido</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Toca aquí para activar tu cámara</string>
-  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Signal necesita acceder a tu cámara para llamar a %1$s.</string>
-  <string name="WebRtcCallActivity__signal_s">Signal %1$s</string>
+  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Molly necesita acceder a tu cámara para llamar a %1$s.</string>
+  <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
   <string name="WebRtcCallActivity__calling">Llamando …</string>
   <string name="WebRtcCallActivity__group_call">Llamada en grupo</string>
   <!--WebRtcCallView-->
@@ -1264,7 +1264,7 @@ número de teléfono
 (%s) no es válido.
 </string>
   <string name="RegistrationActivity_missing_google_play_services">Servicios de Google Play no instalados</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Este dispositivo no dispone de los Servicios de Google Play. Aún así puedes usar Signal pero esta configuración puede resultar en un bajo rendimiento o fiabilidad.\n\nSi no eres un(a) usuari@ avanzad@, no estás ejecutando una ROM personalizada de Android, o crees que estás viendo esto indebidamente, contacta con support@signal.org para solucionar el problema.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Este dispositivo no dispone de los Servicios de Google Play. Aún así puedes usar Molly pero esta configuración puede resultar en un bajo rendimiento o fiabilidad.\n\nSi no eres un(a) usuari@ avanzad@, no estás ejecutando una ROM personalizada de Android, o crees que estás viendo esto indebidamente, contacta con support@molly.im para solucionar el problema.</string>
   <string name="RegistrationActivity_i_understand">Entiendo</string>
   <string name="RegistrationActivity_play_services_error">Fallo en «Play Services»</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Services se está actualizando o está temporalmente suspendido. Por favor, inténtalo de nuevo.</string>
@@ -1314,12 +1314,12 @@ número de teléfono
   <string name="SearchFragment_header_messages">Mensajes</string>
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">Añadir a Contactos</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Invitar a Signal</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Invitar a Molly</string>
   <string name="SharedContactDetailsActivity_signal_message">Mensaje de Signal</string>
   <string name="SharedContactDetailsActivity_signal_call">Llamada de Signal</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">Añadir a Contactos</string>
-  <string name="SharedContactView_invite_to_signal">Invitar a Signal</string>
+  <string name="SharedContactView_invite_to_signal">Invitar a Molly</string>
   <string name="SharedContactView_message">Mensaje de Signal</string>
   <!--SignalPinReminders-->
   <string name="SignalPinReminders_well_remind_you_again_later">Te lo recordaremos de nuevo más tarde.</string>
@@ -1525,7 +1525,7 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="ProfileEditNameFragment_successfully_set_profile_name">Alias establecido con éxito.</string>
   <string name="ProfileEditNameFragment_encountered_a_network_error">Fallo en la conexión de red.</string>
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">¡La respuesta rápida no está disponible cuando Signal está bloqueado!</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">¡La respuesta rápida no está disponible cuando Molly está bloqueado!</string>
   <string name="QuickResponseService_problem_sending_message">¡Hubo un problema al enviar el mensaje!</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">Guardado en %s</string>
@@ -1536,7 +1536,7 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">Atajo no válido</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Signal</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Nuevo mensaje</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">Reproducir vídeo</string>
@@ -1607,7 +1607,7 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="change_passphrase_activity__repeat_new_passphrase">Repetir nueva clave de acceso</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">Introduce un nombre o número</string>
-  <string name="contact_selection_activity__invite_to_signal">Invitar a Signal</string>
+  <string name="contact_selection_activity__invite_to_signal">Invitar a Molly</string>
   <string name="contact_selection_activity__new_group">Nuevo grupo</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">Eliminar texto introducido</string>
@@ -1824,7 +1824,7 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="redphone_call_card__signal_call">Llamada de Signal</string>
   <!--registration_activity-->
   <string name="registration_activity__phone_number">NÚMERO DE TELÉFONO</string>
-  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Signal hace fácil la comunicación usando tu número de teléfono y lista de contactos existentes. Las personas que ya conocen tu teléfono podrán ponerse en contacto contigo a través de Signal.\n\nEl proceso de registro transmite una información mínima y cifrada sobre tus contactos al servidor y éste no almacena tu lista de contactos.</string>
+  <string name="registration_activity__registration_will_transmit_some_contact_information_to_the_server_temporariliy">Molly hace fácil la comunicación usando tu número de teléfono y lista de contactos existentes. Las personas que ya conocen tu teléfono podrán ponerse en contacto contigo a través de Molly.\n\nEl proceso de registro transmite una información mínima y cifrada sobre tus contactos al servidor y éste no almacena tu lista de contactos.</string>
   <string name="registration_activity__verify_your_number">Verifica tu número</string>
   <string name="registration_activity__please_enter_your_mobile_number_to_receive_a_verification_code_carrier_rates_may_apply">Por favor, introduce tu número móvil para recibir el código de verificación por SMS. Puede que tu proveedor aplique un cargo por recibir SMS.</string>
   <!--recipients_panel-->
@@ -2185,10 +2185,10 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="reminder_header_sms_import_text">Toca para copiar los mensajes SMS de tu teléfono a la base de datos cifrada de Signal.</string>
   <string name="reminder_header_push_title">Activa mensajes y llamadas de Signal</string>
   <string name="reminder_header_push_text">Mejora tu experiencia al comunicarte.</string>
-  <string name="reminder_header_invite_title">Invitar a Signal</string>
+  <string name="reminder_header_invite_title">Invitar a Molly</string>
   <string name="reminder_header_invite_text">Lleva tu conversación con %1$s al siguiente nivel.</string>
   <string name="reminder_header_share_title">¡Invita a tus amistades!</string>
-  <string name="reminder_header_share_text">Cuantas más amistades usen Signal, mejor será.</string>
+  <string name="reminder_header_share_text">Cuantas más amistades usen Molly, mejor será.</string>
   <string name="reminder_header_service_outage_text">Signal está experimentando dificultades técnicas. Estamos trabajando duro para restablecer el servicio lo antes posible.</string>
   <string name="reminder_header_the_latest_signal_features_wont_work">Las nuevas prestaciones de Signal no funcionan en esta versión de Android. Actualiza este dispositivo para usar todo el potencial de Signal.</string>
   <string name="reminder_header_progress">%1$d%%</string>
@@ -2339,7 +2339,7 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="ConversationActivity_signal_needs_sms_permission_in_order_to_send_an_sms">Signal necesita acceso a SMS para poder enviar SMS. Por favor, ve a la aplicación «Ajustes», selecciona Signal en el menú «Aplicaciones y notificaciones» y en «Permisos» activa «SMS».</string>
   <string name="Permissions_continue">Adelante</string>
   <string name="Permissions_not_now">Ahora no</string>
-  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Signal necesita acceso a tus contactos para encontrar quien usa Signal. Por favor, ve a la aplicación «Ajustes», selecciona Signal en el menú «Aplicaciones y notificaciones» y en «Permisos» activa «Contactos».</string>
+  <string name="ConversationListActivity_signal_needs_contacts_permission_in_order_to_search_your_contacts_but_it_has_been_permanently_denied">Molly necesita acceso a tus contactos para encontrar quien usa Molly. Por favor, ve a la aplicación «Ajustes», selecciona Molly en el menú «Aplicaciones y notificaciones» y en «Permisos» activa «Contactos».</string>
   <string name="conversation_activity__enable_signal_messages">ACTIVAR MENSAJES DE SIGNAL</string>
   <string name="SQLCipherMigrationHelper_migrating_signal_database">Migrar base de datos de Signal</string>
   <string name="PushDecryptJob_new_locked_message">Nuevo mensaje bloqueado</string>
@@ -2494,7 +2494,7 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="GroupsLearnMore_paragraph_2">Los grupos antiguos todavía no pueden convertirse en grupos nuevos, pero puedes crear un grupo nuevo con la misma gente, si tod@s usan la versión más reciente de Signal.</string>
   <string name="GroupsLearnMore_paragraph_3">Signal ofrecerá la manera de actualizar un grupo antiguo en el futuro.</string>
   <!--GroupLinkBottomSheetDialogFragment-->
-  <string name="GroupLinkBottomSheet_share_via_signal">Compartir vía Signal</string>
+  <string name="GroupLinkBottomSheet_share_via_signal">Compartir vía Molly</string>
   <string name="GroupLinkBottomSheet_copy">Copiar</string>
   <string name="GroupLinkBottomSheet_qr_code">Código QR</string>
   <string name="GroupLinkBottomSheet_share">Compartir</string>
