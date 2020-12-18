@@ -22,6 +22,8 @@ You can download the app from GitHub's [Releases](https://github.com/mollyim/mol
 
 There are two flavors to choose from download: **Molly** or **Molly-FOSS**. Learn the differences [below](#free-and-open-source) and download the right one for you.
 
+Staging releases are also available to download for developing or testing purposes.
+
 ## Features
 
 Molly has unique features compared to Signal:
@@ -39,23 +41,25 @@ Besides that, you will find all the features of Signal plus some minor tweaks an
 
 Molly is open-source just like Signal. But the app uses Google's proprietary code to support some key features. Molly-FOSS is the community effort to make it 100% free and open-source.
 
-You can install the Molly flavor of your choice at any time, and it will replace any previously installed version. The data and settings will be preserved so that you do not have to re-register.
+You can install the flavor of your choice at any time, and it will replace any previously installed version. The data and settings will be preserved so that you do not have to re-register.
 
 This table lists the current status of the dependencies:
 
-| Feature                                | Signal          | Molly            | Molly-FOSS |
-| -------------------------------------- | --------------- | ---------------- |------------|
-| Push notifications <sup>(1)</sup>      | ⚠ (FCM)         | ⚠️ (FCM)         | ✘          |
-| Websocket notifications <sup>(2)</sup> | ✔️               | ✔️               | ✔️          |
-| Location provider                      | ⚠ (Google Maps) | ⚠ (Google Maps) | ✘          |
-| Automatic face blurring                | ⚠ (Firebase)    | ⚠ (Firebase)    | ✘          |
+| Feature                                | Molly-FOSS | Molly            | Signal          |
+| -------------------------------------- | ---------- | ---------------- | --------------- |
+| Push notifications <sup>(1)</sup>      | ✘          | ⚠️ (FCM)         | ⚠ (FCM)         |
+| Websocket notifications <sup>(2)</sup> | ✔️          | ✔️               | ✔️               |
+| Location provider                      | ✘          | ⚠ (Google Maps) | ⚠ (Google Maps) |
+| Automatic face blurring                | ✘          | ⚠ (Firebase)    | ⚠ (Firebase)    |
 
 <sup>(1)</sup> If you are running a custom ROM and the app fails to register with Play Services, try the FOSS flavor.<br/>
 <sup>(2)</sup> You may need to disable the system battery optimizations to receive notifications in background.
 
 ## Compatibility with Signal
 
-Molly and Signal can be installed on the same device. If you need a 2nd number to chat, you can use Molly along with Signal.
+Molly connects to the Signal server, so you can chat with your Signal contacts seamlessly. In this context, please review their [Signal Terms & Privacy Policy](https://signal.org/legal/) before using the app.
+
+Molly and Signal apps can be installed on the same device. If you need a 2nd number to chat, you can use Molly along with Signal.
 
 However, you cannot use the same phone number on both apps at the same time. Only the last app to register will remain active, and the other will go offline. Remember that you are not limited to use only your main phone number, but also any number on you can receive SMS or phone calls at registration.
 
