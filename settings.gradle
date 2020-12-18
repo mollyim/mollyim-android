@@ -7,12 +7,10 @@ include ':libsignal-service'
 include ':libfakegms'
 include ':lintchecks'
 include ':paging'
-include ':paging-app'
 include ':core-util'
 
 project(':app').name = 'mollyim-android'
 project(':paging').projectDir = file('paging/lib')
-project(':paging-app').projectDir = file('paging/app')
 
 project(':libsignal-service').projectDir = file('libsignal/service')
 
