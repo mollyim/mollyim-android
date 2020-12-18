@@ -17,7 +17,9 @@ public class SecureSecretKeySpec implements KeySpec, SecretKey, Destroyable {
 
     private byte[] key;
 
-    private String algorithm;
+    private final String algorithm;
+
+    private final boolean blank;
 
     public SecureSecretKeySpec(byte[] key, String algorithm) {
         if (key == null || algorithm == null) {
@@ -28,6 +30,7 @@ public class SecureSecretKeySpec implements KeySpec, SecretKey, Destroyable {
         }
         this.key = key.clone();
         this.algorithm = algorithm;
+        this.blank = isAllZeros(key);
     }
 
     public SecureSecretKeySpec(byte[] key, int offset, int len, String algorithm) {
@@ -47,6 +50,7 @@ public class SecureSecretKeySpec implements KeySpec, SecretKey, Destroyable {
         this.key = new byte[len];
         this.algorithm = algorithm;
         System.arraycopy(key, offset, this.key, 0, len);
+        this.blank = isAllZeros(key);
     }
 
     public String getAlgorithm()
@@ -81,7 +85,19 @@ public class SecureSecretKeySpec implements KeySpec, SecretKey, Destroyable {
     }
 
     public boolean isDestroyed() {
-        return this.key == null;
+        if (this.key == null) {
+            return true;
+        }
+        return !this.blank && isAllZeros(this.key);
+    }
+
+    private static boolean isAllZeros(byte[] key) {
+        int result = 0;
+        // Time-constant comparison
+        for (byte b : key) {
+            result |= b;
+        }
+        return result == 0;
     }
 
     public int hashCode()
