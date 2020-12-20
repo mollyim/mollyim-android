@@ -677,12 +677,12 @@ public class SmsDatabase extends MessageDatabase {
 
   @Override
   public @NonNull Pair<Long, Long> insertOutgoingCall(@NonNull RecipientId address, long expiresIn, boolean isVideoOffer) {
-    return insertCallLog(address, isVideoOffer ? Types.INCOMING_VIDEO_CALL_TYPE : Types.INCOMING_AUDIO_CALL_TYPE, expiresIn, false, System.currentTimeMillis());
+    return insertCallLog(address, isVideoOffer ? Types.OUTGOING_VIDEO_CALL_TYPE : Types.OUTGOING_AUDIO_CALL_TYPE, expiresIn, false, System.currentTimeMillis());
   }
 
   @Override
   public @NonNull Pair<Long, Long> insertMissedCall(@NonNull RecipientId address, long expiresIn, long timestamp, boolean isVideoOffer) {
-    return insertCallLog(address, isVideoOffer ? Types.INCOMING_VIDEO_CALL_TYPE : Types.INCOMING_AUDIO_CALL_TYPE, expiresIn, true, timestamp);
+    return insertCallLog(address, isVideoOffer ? Types.MISSED_VIDEO_CALL_TYPE : Types.MISSED_AUDIO_CALL_TYPE, expiresIn, true, timestamp);
   }
 
   @Override
