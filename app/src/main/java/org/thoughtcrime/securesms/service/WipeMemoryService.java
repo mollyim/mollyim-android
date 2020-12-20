@@ -120,9 +120,13 @@ public class WipeMemoryService extends IntentService {
 
         memFree = getFreeMemory();
 
-        if (memFree < maxProgress) {
-          progress = Math.max(progress, maxProgress - memFree);
-          showProgress(maxProgress, progress);
+        if (lowMemory) {
+          hideForegroundNotification();
+        } else {
+          if (memFree < maxProgress) {
+            progress = Math.max(progress, maxProgress - memFree);
+            showProgress(maxProgress, progress);
+          }
         }
       }
     } catch (Error ignored) {
@@ -198,6 +202,10 @@ public class WipeMemoryService extends IntentService {
         .setPriority(NotificationCompat.PRIORITY_MIN)
         .setCategory(NotificationCompat.CATEGORY_PROGRESS);
     startForeground(NOTIFICATION_ID, notification.build());
+  }
+
+  private void hideForegroundNotification() {
+    notificationManager.cancel(NOTIFICATION_ID);
   }
 
   private void showProgress(long totalBytes, long progressBytes) {
