@@ -141,7 +141,6 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
     super.onCreate();
 
     initializeSecurityProvider();
-    initializeRingRtc();
     initializeBlobProvider();
     ProcessLifecycleOwner.get().getLifecycle().addObserver(this);
 
@@ -175,6 +174,7 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
     initializeSignedPreKeyCheck();
     initializePeriodicTasks();
     initializeCircumvention();
+    initializeRingRtc();
     initializePendingMessages();
     initializeCleanup();
     initializeGlideCodecs();
