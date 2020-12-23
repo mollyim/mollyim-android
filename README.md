@@ -75,8 +75,9 @@ And Molly:
 
 ## Feedback
 
-- Ask a question on the forum [community.signalusers.org](https://community.signalusers.org/)
 - [Submit bugs and feature requests](https://github.com/mollyim/mollyim-android/issues)
+- Chat with us on the IRC channel **#mollyim** at [Freenode](https://webchat.freenode.net/?channels=%23mollyim) and [Matrix](https://matrix.to/#/#freenode_#mollyim:matrix.org)
+- Ask a question on the forum [community.signalusers.org](https://community.signalusers.org/)
 
 ## Reproducible Builds
 
