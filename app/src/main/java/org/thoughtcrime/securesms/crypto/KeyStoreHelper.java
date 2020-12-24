@@ -1,6 +1,6 @@
 package org.thoughtcrime.securesms.crypto;
 
-
+import android.annotation.TargetApi;
 import android.os.Build;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
@@ -151,11 +151,14 @@ public final class KeyStoreHelper {
   }
 
   @RequiresApi(Build.VERSION_CODES.M)
-  public static SecretKey createKeyStoreEntryHmac() {
+  public static SecretKey createKeyStoreEntryHmac(boolean useStrongBox) {
     try {
       KeyGenerator keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_HMAC_SHA256, ANDROID_KEY_STORE);
 
       KeyGenParameterSpec.Builder keySpecBuilder = new KeyGenParameterSpec.Builder(KEY_ALIAS_HMAC, KeyProperties.PURPOSE_SIGN);
+      if (useStrongBox) {
+        enableStrongBox(keySpecBuilder);
+      }
       KeyGenParameterSpec keyGenParameterSpec = keySpecBuilder.build();
 
       keyGenerator.init(keyGenParameterSpec);
@@ -164,6 +167,11 @@ public final class KeyStoreHelper {
     } catch (NoSuchAlgorithmException | NoSuchProviderException | InvalidAlgorithmParameterException e) {
       throw new AssertionError(e);
     }
+  }
+
+  @TargetApi(28)
+  static void enableStrongBox(final KeyGenParameterSpec.Builder builder) {
+    builder.setIsStrongBoxBacked(true);
   }
 
   @RequiresApi(Build.VERSION_CODES.M)

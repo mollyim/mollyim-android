@@ -19,6 +19,7 @@ package org.thoughtcrime.securesms.crypto;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
@@ -77,8 +78,8 @@ public class MasterSecretUtil {
 
       kdf.findParameters(Util.getAvailMemory(context) / 2);
 
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-        kdf.setHmacKey(KeyStoreHelper.createKeyStoreEntryHmac());
+      if (Build.VERSION.SDK_INT >= 23) {
+        kdf.setHmacKey(KeyStoreHelper.createKeyStoreEntryHmac(hasStrongBox(context)));
       }
 
       byte[] passphraseSalt = generateSalt();
@@ -143,7 +144,7 @@ public class MasterSecretUtil {
       kdf.setParameters(serializedParams);
 
       if (hasKeyStoreSecret) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT < 23) {
           throw new UnrecoverableKeyException("OS downgrade not supported. KeyStore secret exists on platform < M!");
         }
         try {
@@ -170,7 +171,7 @@ public class MasterSecretUtil {
       Arrays.fill(encryptionSecret, (byte) 0);
       Arrays.fill(macSecret, (byte) 0);
 
-      if (!hasKeyStoreSecret && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !isUnencryptedPassphrase(passphrase)) {
+      if (!hasKeyStoreSecret && Build.VERSION.SDK_INT >= 23 && !isUnencryptedPassphrase(passphrase)) {
         Log.i(TAG, "KeyStore is available. Forcing master secret re-encryption to use it.");
         changeMasterSecretPassphrase(context, masterSecret, passphrase);
       }
@@ -331,5 +332,10 @@ public class MasterSecretUtil {
     } catch (GeneralSecurityException e) {
       throw new AssertionError(e);
     }
+  }
+
+  private static boolean hasStrongBox(final Context context) {
+    return Build.VERSION.SDK_INT >= 28 &&
+           context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_STRONGBOX_KEYSTORE);
   }
 }
