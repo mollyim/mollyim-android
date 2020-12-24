@@ -98,9 +98,9 @@ public class WipeMemoryService extends IntentService {
       long maxProgress = memFree;
       long progress = 0;
 
-      while (!lowMemory) {
-        if (memFree < pageSize) {
-          break;
+      while (memFree >= pageSize) {
+        if (lowMemory) {
+          return overwritten;
         }
 
         int pageCount = Math.min(chunkPageLimit, (int) (memFree / pageSize));
@@ -108,25 +108,24 @@ public class WipeMemoryService extends IntentService {
 
         // If returned a NULL pointer, the memory is exhausted.
         if (ptr == 0) {
-          break;
+          return overwritten;
         }
 
         chunks.add(ptr);
 
-        for (int i = 0; (i < pageCount) && !lowMemory; i++) {
+        for (int i = 0; (i < pageCount); i++) {
           wipePage(ptr, i);
           overwritten += pageSize;
+          if (lowMemory) {
+            return overwritten;
+          }
         }
 
         memFree = getFreeMemory();
 
-        if (lowMemory) {
-          hideForegroundNotification();
-        } else {
-          if (memFree < maxProgress) {
-            progress = Math.max(progress, maxProgress - memFree);
-            showProgress(maxProgress, progress);
-          }
+        if (memFree < maxProgress) {
+          progress = Math.max(progress, maxProgress - memFree);
+          showProgress(maxProgress, progress);
         }
       }
     } catch (Error ignored) {
@@ -152,6 +151,7 @@ public class WipeMemoryService extends IntentService {
   @Override
   public void onDestroy() {
     Log.i(TAG, "onDestroy()");
+    hideForegroundNotification();
     super.onDestroy();
   }
 
