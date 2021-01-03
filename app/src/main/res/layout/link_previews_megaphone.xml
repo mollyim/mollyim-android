@@ -68,7 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         style="@style/Button.Borderless"
-        android:text="@string/ok"
+        android:text="@android:string/ok"
         app:layout_constraintStart_toEndOf="@id/linkpreview_megaphone_disable"
         app:layout_constraintTop_toBottomOf="@id/linkpreview_megaphone_content_barrier"
         app:layout_constraintEnd_toEndOf="parent"

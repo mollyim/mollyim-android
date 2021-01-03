@@ -174,7 +174,7 @@ public class ConfirmKbsPinFragment extends BaseKbsPinFragment<ConfirmKbsPinViewM
     new AlertDialog.Builder(requireContext()).setTitle(R.string.ConfirmKbsPinFragment__pin_creation_failed)
                    .setMessage(R.string.ConfirmKbsPinFragment__your_pin_was_not_saved)
                    .setCancelable(false)
-                   .setPositiveButton(R.string.ok, (d, w) -> {
+                   .setPositiveButton(android.R.string.ok, (d, w) -> {
                      d.dismiss();
                      markMegaphoneSeenIfNecessary();
                      requireActivity().setResult(Activity.RESULT_CANCELED);

@@ -1,9 +1,9 @@
 package org.thoughtcrime.securesms.mms;
 
 import com.google.android.mms.ContentType;
-import com.google.android.mms.pdu_alt.CharacterSets;
-import com.google.android.mms.pdu_alt.PduBody;
-import com.google.android.mms.pdu_alt.PduPart;
+import com.google.android.mms.pdu.CharacterSets;
+import com.google.android.mms.pdu.PduBody;
+import com.google.android.mms.pdu.PduPart;
 
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.util.Util;

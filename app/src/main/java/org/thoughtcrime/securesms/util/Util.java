@@ -41,8 +41,8 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresPermission;
 
 import com.annimon.stream.Stream;
-import com.google.android.mms.pdu_alt.CharacterSets;
-import com.google.android.mms.pdu_alt.EncodedStringValue;
+import com.google.android.mms.pdu.CharacterSets;
+import com.google.android.mms.pdu.EncodedStringValue;
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;

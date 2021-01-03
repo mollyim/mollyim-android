@@ -379,10 +379,6 @@ dependencies {
     implementation ('com.tomergoldst.android:tooltips:1.0.6') {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
-    implementation ('com.klinkerapps:android-smsmms:4.0.1') {
-        exclude group: 'com.squareup.okhttp', module: 'okhttp'
-        exclude group: 'com.squareup.okhttp', module: 'okhttp-urlconnection'
-    }
     implementation 'com.annimon:stream:1.1.8'
     implementation ('com.takisoft.fix:colorpicker:0.9.1') {
         exclude group: 'com.android.support', module: 'appcompat-v7'

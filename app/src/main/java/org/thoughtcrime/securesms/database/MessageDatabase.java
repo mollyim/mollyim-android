@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.annimon.stream.Stream;
-import com.google.android.mms.pdu_alt.NotificationInd;
+import com.google.android.mms.pdu.NotificationInd;
 import com.google.protobuf.InvalidProtocolBufferException;
 
 import net.sqlcipher.database.SQLiteStatement;

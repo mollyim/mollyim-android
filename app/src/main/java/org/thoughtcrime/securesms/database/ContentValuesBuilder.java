@@ -18,7 +18,7 @@ package org.thoughtcrime.securesms.database;
 
 import android.content.ContentValues;
 
-import com.google.android.mms.pdu_alt.EncodedStringValue;
+import com.google.android.mms.pdu.EncodedStringValue;
 
 import org.thoughtcrime.securesms.util.Util;
 
