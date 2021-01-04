@@ -27,7 +27,7 @@ public class EncryptedPreferences implements SharedPreferences {
 
   private static final String NULL_VALUE = "__NULL__";
 
-  private static final int MAX_CACHE_SIZE = 20;
+  private static final int MAX_CACHE_SIZE = 50;
   private static final LRUCache<String, Object> cache = new LRUCache<>(MAX_CACHE_SIZE);
 
   private final String fileName;
