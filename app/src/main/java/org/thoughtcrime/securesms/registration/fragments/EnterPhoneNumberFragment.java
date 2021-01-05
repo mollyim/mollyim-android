@@ -87,6 +87,10 @@ public final class EnterPhoneNumberFragment extends BaseRegistrationFragment {
       cancel.setVisibility(View.GONE);
     }
 
+    view.findViewById(R.id.network_settings_button).setOnClickListener(v -> {
+      Navigation.findNavController(v).navigate(EnterPhoneNumberFragmentDirections.actionNetworkSettings());
+    });
+
     RegistrationViewModel model  = getModel();
     NumberViewState       number = model.getNumber();
 

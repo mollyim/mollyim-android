@@ -18,6 +18,10 @@
                 android:title="@string/preferences__privacy"
                 android:icon="@drawable/ic_lock_24"/>
 
+    <Preference android:key="preference_category_network"
+                android:title="@string/preferences__network"
+                android:icon="@drawable/ic_network_24" />
+
     <Preference android:key="preference_category_appearance"
                 android:title="@string/preferences__appearance"
                 android:icon="@drawable/ic_appearance_24"/>

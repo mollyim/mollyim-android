@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="@string/preferences_network__connection">
+
+    <org.thoughtcrime.securesms.preferences.widgets.SignalListPreference
+        android:key="pref_proxy_type"
+        android:title="@string/preferences_network__proxy"
+        android:summary="@string/preferences_network__tunnels_network_traffic"
+        android:entries="@array/pref_proxy_type_entries"
+        android:entryValues="@array/pref_proxy_type_values"
+        android:defaultValue="none" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="proxy_socks"
+        android:layout="@layout/preference_divider" >
+
+        <PreferenceCategory
+            android:title="@string/arrays__socks5">
+
+            <org.thoughtcrime.securesms.preferences.widgets.SignalEditTextPreference
+                android:key="pref_proxy_socks_host"
+                android:title="@string/preferences_network__host"
+                android:summary="@string/preferences_network__hostname_or_ip_address"
+                android:defaultValue="localhost" />
+
+            <org.thoughtcrime.securesms.preferences.widgets.SignalEditTextPreference
+                android:key="pref_proxy_socks_port"
+                android:title="@string/preferences_network__port"
+                android:defaultValue="9050" />
+
+        </PreferenceCategory>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

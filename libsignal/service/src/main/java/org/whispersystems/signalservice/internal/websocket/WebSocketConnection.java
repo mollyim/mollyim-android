@@ -28,6 +28,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import javax.net.SocketFactory;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
@@ -61,6 +62,7 @@ public class WebSocketConnection extends WebSocketListener {
   private final String                        signalAgent;
   private final ConnectivityListener          listener;
   private final SleepTimer                    sleepTimer;
+  private final SocketFactory                 socketFactory;
   private final List<Interceptor>             interceptors;
   private final Optional<Dns>                 dns;
 
@@ -76,6 +78,7 @@ public class WebSocketConnection extends WebSocketListener {
                              ConnectivityListener listener,
                              SleepTimer timer,
                              List<Interceptor> interceptors,
+                             SocketFactory socketFactory,
                              Optional<Dns> dns)
   {
     this.trustStore          = trustStore;
@@ -84,6 +87,7 @@ public class WebSocketConnection extends WebSocketListener {
     this.listener            = listener;
     this.sleepTimer          = timer;
     this.interceptors        = interceptors;
+    this.socketFactory       = socketFactory;
     this.dns                 = dns;
     this.attempts            = 0;
     this.connected           = false;
@@ -107,10 +111,11 @@ public class WebSocketConnection extends WebSocketListener {
         filledUri = wsUri;
       }
 
-      Pair<SSLSocketFactory, X509TrustManager> socketFactory = createTlsSocketFactory(trustStore);
+      Pair<SSLSocketFactory, X509TrustManager> sslSocketFactory = createTlsSocketFactory(trustStore);
 
       OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder()
-                                                           .sslSocketFactory(new Tls12SocketFactory(socketFactory.first()), socketFactory.second())
+                                                           .socketFactory(socketFactory)
+                                                           .sslSocketFactory(new Tls12SocketFactory(sslSocketFactory.first()), sslSocketFactory.second())
                                                            .connectionSpecs(Util.immutableList(ConnectionSpec.RESTRICTED_TLS))
                                                            .readTimeout(KEEPALIVE_TIMEOUT_SECONDS + 10, TimeUnit.SECONDS)
                                                            .dns(dns.or(Dns.SYSTEM))

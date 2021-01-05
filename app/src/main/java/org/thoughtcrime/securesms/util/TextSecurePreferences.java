@@ -16,6 +16,7 @@ import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.keyvalue.SettingsValues;
 import org.thoughtcrime.securesms.lock.RegistrationLockReminders;
+import org.thoughtcrime.securesms.net.ProxyType;
 import org.thoughtcrime.securesms.preferences.widgets.NotificationPrivacyPreference;
 import org.thoughtcrime.securesms.preferences.widgets.PassphraseLockTriggerPreference;
 import org.whispersystems.libsignal.util.Medium;
@@ -91,7 +92,7 @@ public class TextSecurePreferences {
   public  static final String SYSTEM_EMOJI_PREF                = "pref_system_emoji";
   private static final String MULTI_DEVICE_PROVISIONED_PREF    = "pref_multi_device";
   public  static final String DIRECT_CAPTURE_CAMERA_ID         = "pref_direct_capture_camera_id";
-  private static final String ALWAYS_RELAY_CALLS_PREF          = "pref_turn_only";
+  public  static final String ALWAYS_RELAY_CALLS_PREF          = "pref_turn_only";
   private static final String PROFILE_NAME_PREF                = "pref_profile_name";
   private static final String PROFILE_AVATAR_ID_PREF           = "pref_profile_avatar_id";
   public  static final String READ_RECEIPTS_PREF               = "pref_read_receipts";
@@ -121,6 +122,10 @@ public class TextSecurePreferences {
   public  static final String PASSPHRASE_LOCK         = "pref_passphrase_lock";
   public  static final String PASSPHRASE_LOCK_TIMEOUT = "pref_passphrase_lock_timeout";
   public  static final String PASSPHRASE_LOCK_TRIGGER = "pref_passphrase_lock_trigger";
+
+  public  static final String PROXY_TYPE       = "pref_proxy_type";
+  public  static final String PROXY_SOCKS_HOST = "pref_proxy_socks_host";
+  public  static final String PROXY_SOCKS_PORT = "pref_proxy_socks_port";
 
   @Deprecated
   public static final  String REGISTRATION_LOCK_PREF_V1                = "pref_registration_lock";
@@ -212,6 +217,18 @@ public class TextSecurePreferences {
 
   public static void setPassphraseLockTimeout(@NonNull Context context, long value) {
     setLongPreference(context, PASSPHRASE_LOCK_TIMEOUT, value);
+  }
+
+  public static ProxyType getProxyType(@NonNull Context context) {
+    return ProxyType.fromCode(getStringPreference(context, PROXY_TYPE, null));
+  }
+
+  public static String getProxySocksHost(@NonNull Context context) {
+    return getStringPreference(context, PROXY_SOCKS_HOST, "localhost");
+  }
+
+  public static int getProxySocksPort(@NonNull Context context) {
+    return Integer.parseInt(getStringPreference(context, PROXY_SOCKS_PORT, "9050"));
   }
 
   public static boolean isV1RegistrationLockEnabled(@NonNull Context context) {

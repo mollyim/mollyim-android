@@ -41,6 +41,7 @@ import org.thoughtcrime.securesms.preferences.BackupsPreferenceFragment;
 import org.thoughtcrime.securesms.preferences.ChatsPreferenceFragment;
 import org.thoughtcrime.securesms.preferences.CorrectedPreferenceFragment;
 import org.thoughtcrime.securesms.preferences.NotificationsPreferenceFragment;
+import org.thoughtcrime.securesms.preferences.NetworkPreferenceFragment;
 import org.thoughtcrime.securesms.preferences.StoragePreferenceFragment;
 import org.thoughtcrime.securesms.preferences.widgets.ProfilePreference;
 import org.thoughtcrime.securesms.preferences.widgets.UsernamePreference;
@@ -64,6 +65,7 @@ import org.thoughtcrime.securesms.util.TextSecurePreferences;
 public class ApplicationPreferencesActivity extends PassphraseRequiredActivity
     implements EncryptedPreferences.OnSharedPreferenceChangeListener
 {
+  public static final String LAUNCH_TO_NETWORK_FRAGMENT = "launch.to.network.fragment";
   public static final String LAUNCH_TO_BACKUPS_FRAGMENT = "launch.to.backups.fragment";
 
   @SuppressWarnings("unused")
@@ -73,6 +75,7 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActivity
   private static final String PREFERENCE_CATEGORY_USERNAME       = "preference_category_username";
   private static final String PREFERENCE_CATEGORY_NOTIFICATIONS  = "preference_category_notifications";
   private static final String PREFERENCE_CATEGORY_APP_PROTECTION = "preference_category_app_protection";
+  private static final String PREFERENCE_CATEGORY_NETWORK        = "preference_category_network";
   private static final String PREFERENCE_CATEGORY_APPEARANCE     = "preference_category_appearance";
   private static final String PREFERENCE_CATEGORY_CHATS          = "preference_category_chats";
   private static final String PREFERENCE_CATEGORY_STORAGE        = "preference_category_storage";
@@ -101,6 +104,8 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActivity
 
     if (getIntent() != null && getIntent().getCategories() != null && getIntent().getCategories().contains("android.intent.category.NOTIFICATION_PREFERENCES")) {
       initFragment(android.R.id.content, new NotificationsPreferenceFragment());
+    } else if (getIntent() != null && getIntent().getBooleanExtra(LAUNCH_TO_NETWORK_FRAGMENT, false)) {
+      initFragment(android.R.id.content, new NetworkPreferenceFragment());
     } else if (getIntent() != null && getIntent().getBooleanExtra(LAUNCH_TO_BACKUPS_FRAGMENT, false)) {
       initFragment(android.R.id.content, new BackupsPreferenceFragment());
     } else if (icicle == null) {
@@ -190,6 +195,8 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActivity
         .setOnPreferenceClickListener(new CategoryClickListener(PREFERENCE_CATEGORY_NOTIFICATIONS));
       this.findPreference(PREFERENCE_CATEGORY_APP_PROTECTION)
         .setOnPreferenceClickListener(new CategoryClickListener(PREFERENCE_CATEGORY_APP_PROTECTION));
+      this.findPreference(PREFERENCE_CATEGORY_NETWORK)
+          .setOnPreferenceClickListener(new CategoryClickListener(PREFERENCE_CATEGORY_NETWORK));
       this.findPreference(PREFERENCE_CATEGORY_APPEARANCE)
         .setOnPreferenceClickListener(new CategoryClickListener(PREFERENCE_CATEGORY_APPEARANCE));
       this.findPreference(PREFERENCE_CATEGORY_CHATS)
@@ -256,6 +263,8 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActivity
           .setSummary(NotificationsPreferenceFragment.getSummary(getActivity()));
       this.findPreference(PREFERENCE_CATEGORY_APP_PROTECTION)
           .setSummary(AppProtectionPreferenceFragment.getSummary(getActivity()));
+      this.findPreference(PREFERENCE_CATEGORY_NETWORK)
+          .setSummary(NetworkPreferenceFragment.getSummary(getActivity()));
       this.findPreference(PREFERENCE_CATEGORY_APPEARANCE)
           .setSummary(AppearancePreferenceFragment.getSummary(getActivity()));
       this.findPreference(PREFERENCE_CATEGORY_CHATS)
@@ -290,6 +299,9 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActivity
           break;
         case PREFERENCE_CATEGORY_APP_PROTECTION:
           fragment = new AppProtectionPreferenceFragment();
+          break;
+        case PREFERENCE_CATEGORY_NETWORK:
+          fragment = new NetworkPreferenceFragment();
           break;
         case PREFERENCE_CATEGORY_APPEARANCE:
           fragment = new AppearancePreferenceFragment();

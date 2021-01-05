@@ -64,6 +64,7 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.logging.CustomSignalProtocolLogger;
 import org.thoughtcrime.securesms.logging.LogSecretProvider;
 import org.thoughtcrime.securesms.migrations.ApplicationMigrations;
+import org.thoughtcrime.securesms.net.NetworkManager;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.providers.BlobProvider;
 import org.thoughtcrime.securesms.push.SignalServiceNetworkAccess;
@@ -125,7 +126,7 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
   }
 
   public static @NonNull ApplicationContext getInstance(Context context) {
-    return instance;
+    return (ApplicationContext) context.getApplicationContext();
   }
 
   public static @NonNull ApplicationContext getInstance() {
@@ -166,6 +167,7 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
     initializeCrashHandling();
     initializeAppDependencies();
     initializeFirstEverAppLaunch();
+    initializeNetworkSettings();
     initializeApplicationMigrations();
     initializeGcmCheck();
     initializeMessageRetrieval();
@@ -345,6 +347,14 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
       Log.i(TAG, "Setting first install version to " + Util.getCanonicalVersionCode());
       TextSecurePreferences.setFirstInstallVersion(this, Util.getCanonicalVersionCode());
     }
+  }
+
+  private void initializeNetworkSettings() {
+    NetworkManager nm = ApplicationDependencies.getNetworkManager();
+    nm.setProxyChoice(TextSecurePreferences.getProxyType(this));
+    nm.setProxySocksHost(TextSecurePreferences.getProxySocksHost(this));
+    nm.setProxySocksPort(TextSecurePreferences.getProxySocksPort(this));
+    nm.applyConfiguration();
   }
 
   private void initializeGcmCheck() {

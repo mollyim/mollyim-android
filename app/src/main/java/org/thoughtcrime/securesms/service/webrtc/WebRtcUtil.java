@@ -10,12 +10,17 @@ import org.signal.ringrtc.CallManager;
 import org.signal.ringrtc.GroupCall;
 import org.signal.ringrtc.PeekInfo;
 import org.thoughtcrime.securesms.events.WebRtcViewModel;
+import org.thoughtcrime.securesms.net.Network;
 import org.thoughtcrime.securesms.util.ServiceUtil;
 import org.thoughtcrime.securesms.webrtc.locks.LockManager;
+import org.webrtc.PeerConnection;
 import org.whispersystems.libsignal.InvalidKeyException;
 import org.whispersystems.libsignal.ecc.Curve;
 import org.whispersystems.libsignal.ecc.ECPublicKey;
 import org.whispersystems.signalservice.api.messages.calls.OfferMessage;
+
+import java.net.InetSocketAddress;
+import java.net.Proxy;
 
 /**
  * Calling specific helpers.
@@ -80,5 +85,18 @@ public final class WebRtcUtil {
 
   public static boolean isCallFull(@Nullable PeekInfo peekInfo) {
     return peekInfo != null && peekInfo.getMaxDevices() != null && peekInfo.getDeviceCount() >= peekInfo.getMaxDevices();
+  }
+
+  public static PeerConnection.ProxyInfo getProxyInfo() {
+    Proxy proxy = Network.getProxy();
+
+    if (proxy == null || proxy.type() != Proxy.Type.SOCKS || proxy.address() == null) {
+      return null;
+    }
+
+    InetSocketAddress address = (InetSocketAddress) proxy.address();
+    return PeerConnection.ProxyInfo.builder(address.getHostString(), address.getPort())
+                                   .setProxyType(PeerConnection.ProxyType.PROXY_SOCKS5)
+                                   .createProxyInfo();
   }
 }

@@ -37,6 +37,7 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.lock.v2.CreateKbsPinActivity;
 import org.thoughtcrime.securesms.lock.v2.RegistrationLockUtil;
 import org.thoughtcrime.securesms.megaphone.Megaphones;
+import org.thoughtcrime.securesms.net.ProxyType;
 import org.thoughtcrime.securesms.pin.RegistrationLockV2Dialog;
 import org.thoughtcrime.securesms.preferences.widgets.PassphraseLockTriggerPreference;
 import org.thoughtcrime.securesms.recipients.Recipient;
@@ -194,6 +195,8 @@ public class AppProtectionPreferenceFragment extends CorrectedPreferenceFragment
   private void initializeVisibility() {
     findPreference(TextSecurePreferences.PASSPHRASE_LOCK_TIMEOUT)
             .setEnabled(TextSecurePreferences.getPassphraseLockTrigger(requireContext()).isTimeoutEnabled());
+    findPreference(TextSecurePreferences.ALWAYS_RELAY_CALLS_PREF)
+        .setEnabled(TextSecurePreferences.getProxyType(requireContext()) == ProxyType.NONE);
   }
 
   private CharSequence getSummaryForPassphraseLockTrigger(Set<String> triggers) {

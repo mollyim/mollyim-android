@@ -19,6 +19,7 @@ import org.thoughtcrime.securesms.megaphone.MegaphoneRepository;
 import org.thoughtcrime.securesms.messages.BackgroundMessageRetriever;
 import org.thoughtcrime.securesms.messages.IncomingMessageObserver;
 import org.thoughtcrime.securesms.messages.IncomingMessageProcessor;
+import org.thoughtcrime.securesms.net.NetworkManager;
 import org.thoughtcrime.securesms.notifications.MessageNotifier;
 import org.thoughtcrime.securesms.push.SignalServiceNetworkAccess;
 import org.thoughtcrime.securesms.recipients.LiveRecipientCache;
@@ -54,6 +55,7 @@ public class ApplicationDependencies {
   private static volatile SignalServiceAccountManager  accountManager;
   private static volatile SignalServiceMessageSender   messageSender;
   private static volatile SignalServiceMessageReceiver messageReceiver;
+  private static volatile NetworkManager               networkManager;
   private static volatile IncomingMessageObserver      incomingMessageObserver;
   private static volatile IncomingMessageProcessor     incomingMessageProcessor;
   private static volatile BackgroundMessageRetriever   backgroundMessageRetriever;
@@ -185,6 +187,18 @@ public class ApplicationDependencies {
 
   public static @NonNull SignalServiceNetworkAccess getSignalServiceNetworkAccess() {
     return getProvider().provideSignalServiceNetworkAccess();
+  }
+
+  public static @NonNull NetworkManager getNetworkManager() {
+    if (networkManager == null) {
+      synchronized (LOCK) {
+        if (networkManager == null) {
+          networkManager = getProvider().provideNetworkManager();
+        }
+      }
+    }
+
+    return networkManager;
   }
 
   public static @NonNull IncomingMessageProcessor getIncomingMessageProcessor() {
@@ -325,6 +339,7 @@ public class ApplicationDependencies {
     @NonNull SignalServiceMessageSender provideSignalServiceMessageSender();
     @NonNull SignalServiceMessageReceiver provideSignalServiceMessageReceiver();
     @NonNull SignalServiceNetworkAccess provideSignalServiceNetworkAccess();
+    @NonNull NetworkManager provideNetworkManager();
     @NonNull IncomingMessageProcessor provideIncomingMessageProcessor();
     @NonNull BackgroundMessageRetriever provideBackgroundMessageRetriever();
     @NonNull LiveRecipientCache provideRecipientCache();

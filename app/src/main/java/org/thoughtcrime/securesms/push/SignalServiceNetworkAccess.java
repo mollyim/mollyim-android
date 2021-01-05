@@ -7,10 +7,9 @@ import androidx.annotation.Nullable;
 
 import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
-import org.thoughtcrime.securesms.net.CustomDns;
 import org.thoughtcrime.securesms.net.DeprecatedClientPreventionInterceptor;
+import org.thoughtcrime.securesms.net.Network;
 import org.thoughtcrime.securesms.net.RemoteDeprecationDetectorInterceptor;
-import org.thoughtcrime.securesms.net.SequentialDns;
 import org.thoughtcrime.securesms.net.StandardUserAgentInterceptor;
 import org.thoughtcrime.securesms.util.Base64;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
@@ -30,6 +29,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.net.SocketFactory;
+
 import okhttp3.CipherSuite;
 import okhttp3.ConnectionSpec;
 import okhttp3.Dns;
@@ -40,8 +41,6 @@ public class SignalServiceNetworkAccess {
 
   @SuppressWarnings("unused")
   private static final String TAG = SignalServiceNetworkAccess.class.getSimpleName();
-
-  public static final Dns DNS = new SequentialDns(Dns.SYSTEM, new CustomDns("1.1.1.1"));
 
   private static final String COUNTRY_CODE_EGYPT = "+20";
   private static final String COUNTRY_CODE_UAE   = "+971";
@@ -166,7 +165,8 @@ public class SignalServiceNetworkAccess {
     final SignalStorageUrl qatarGoogleStorage    = new SignalStorageUrl("https://www.google.com.qa/storage", SERVICE_REFLECTOR_HOST, trustStore, GMAIL_CONNECTION_SPEC);
 
     final List<Interceptor> interceptors = Arrays.asList(new StandardUserAgentInterceptor(), new RemoteDeprecationDetectorInterceptor(), new DeprecatedClientPreventionInterceptor());
-    final Optional<Dns>     dns          = Optional.of(DNS);
+    final Optional<Dns>     dns           = Optional.of(Network.getDns());
+    final SocketFactory     socketFactory = Network.getSocketFactory();
 
     final byte[] zkGroupServerPublicParams;
 
@@ -184,6 +184,7 @@ public class SignalServiceNetworkAccess {
                                                              new SignalKeyBackupServiceUrl[] {egyptGoogleKbs, baseGoogleKbs, baseAndroidKbs, mapsOneAndroidKbs, mapsTwoAndroidKbs, mailAndroidKbs},
                                                              new SignalStorageUrl[] {egyptGoogleStorage, baseGoogleStorage, baseAndroidStorage, mapsOneAndroidStorage, mapsTwoAndroidStorage, mailAndroidStorage},
                                                              interceptors,
+                                                             socketFactory,
                                                              dns,
                                                              zkGroupServerPublicParams));
 
@@ -194,6 +195,7 @@ public class SignalServiceNetworkAccess {
                                                            new SignalKeyBackupServiceUrl[] {uaeGoogleKbs, baseGoogleKbs, baseAndroidKbs, mapsOneAndroidKbs, mapsTwoAndroidKbs, mailAndroidKbs},
                                                            new SignalStorageUrl[] {uaeGoogleStorage, baseGoogleStorage, baseAndroidStorage, mapsOneAndroidStorage, mapsTwoAndroidStorage, mailAndroidStorage},
                                                            interceptors,
+                                                           socketFactory,
                                                            dns,
                                                            zkGroupServerPublicParams));
 
@@ -204,6 +206,7 @@ public class SignalServiceNetworkAccess {
                                                             new SignalKeyBackupServiceUrl[] {omanGoogleKbs, baseGoogleKbs, baseAndroidKbs, mapsOneAndroidKbs, mapsTwoAndroidKbs, mailAndroidKbs},
                                                             new SignalStorageUrl[] {omanGoogleStorage, baseGoogleStorage, baseAndroidStorage, mapsOneAndroidStorage, mapsTwoAndroidStorage, mailAndroidStorage},
                                                             interceptors,
+                                                            socketFactory,
                                                             dns,
                                                             zkGroupServerPublicParams));
 
@@ -215,6 +218,7 @@ public class SignalServiceNetworkAccess {
                                                              new SignalKeyBackupServiceUrl[] {qatarGoogleKbs, baseGoogleKbs, baseAndroidKbs, mapsOneAndroidKbs, mapsTwoAndroidKbs, mailAndroidKbs},
                                                              new SignalStorageUrl[] {qatarGoogleStorage, baseGoogleStorage, baseAndroidStorage, mapsOneAndroidStorage, mapsTwoAndroidStorage, mailAndroidStorage},
                                                              interceptors,
+                                                             socketFactory,
                                                              dns,
                                                              zkGroupServerPublicParams));
     }};
@@ -226,6 +230,7 @@ public class SignalServiceNetworkAccess {
                                                                   new SignalKeyBackupServiceUrl[] { new SignalKeyBackupServiceUrl(BuildConfig.SIGNAL_KEY_BACKUP_URL, new SignalServiceTrustStore(context)) },
                                                                   new SignalStorageUrl[] {new SignalStorageUrl(BuildConfig.STORAGE_URL, new SignalServiceTrustStore(context))},
                                                                   interceptors,
+                                                                  socketFactory,
                                                                   dns,
                                                                   zkGroupServerPublicParams);
 

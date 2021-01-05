@@ -15,8 +15,8 @@ import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.logging.Log;
 import org.signal.core.util.logging.Scrubber;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.net.Network;
 import org.thoughtcrime.securesms.net.StandardUserAgentInterceptor;
-import org.thoughtcrime.securesms.push.SignalServiceNetworkAccess;
 import org.thoughtcrime.securesms.tracing.Tracer;
 import org.whispersystems.libsignal.util.guava.Optional;
 
@@ -124,7 +124,11 @@ public class SubmitDebugLogRepository {
   @WorkerThread
   private @NonNull String uploadContent(@NonNull String contentType, @NonNull byte[] content) throws IOException {
     try {
-      OkHttpClient client   = new OkHttpClient.Builder().addInterceptor(new StandardUserAgentInterceptor()).dns(SignalServiceNetworkAccess.DNS).build();
+      OkHttpClient client   = new OkHttpClient.Builder()
+                                              .socketFactory(Network.getSocketFactory())
+                                              .addInterceptor(new StandardUserAgentInterceptor())
+                                              .dns(Network.getDns())
+                                              .build();
       Response     response = client.newCall(new Request.Builder().url(API_ENDPOINT).get().build()).execute();
       ResponseBody body     = response.body();
 

@@ -14,8 +14,8 @@ import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.giph.model.GiphyImage;
 import org.thoughtcrime.securesms.giph.model.GiphyResponse;
 import org.thoughtcrime.securesms.net.ContentProxySelector;
+import org.thoughtcrime.securesms.net.Network;
 import org.thoughtcrime.securesms.net.StandardUserAgentInterceptor;
-import org.thoughtcrime.securesms.push.SignalServiceNetworkAccess;
 import org.thoughtcrime.securesms.util.AsyncLoader;
 import org.thoughtcrime.securesms.util.JsonUtils;
 
@@ -41,9 +41,10 @@ public abstract class GiphyLoader extends AsyncLoader<List<GiphyImage>> {
     super(context);
     this.searchString = searchString;
     this.client       = new OkHttpClient.Builder()
+                                        .socketFactory(Network.getSocketFactory())
                                         .proxySelector(new ContentProxySelector())
                                         .addInterceptor(new StandardUserAgentInterceptor())
-                                        .dns(SignalServiceNetworkAccess.DNS)
+                                        .dns(Network.getDns())
                                         .build();
   }
 
