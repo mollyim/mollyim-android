@@ -3,8 +3,8 @@
 dependencyVerification {
     verify = [
 
-        ['androidx.activity:activity:1.0.0',
-         'd1bc9842455c2e534415d88c44df4d52413b478db9093a1ba36324f705f44c3d'],
+        ['androidx.activity:activity:1.1.0',
+         '4f2b35916768032f7d0c20e250e28b29037ed4ce9ebf3da4fcd51bcb0c6067ef'],
 
         ['androidx.annotation:annotation-experimental:1.0.0',
          'b219d2b568e7e4ba534e09f8c2fd242343df6ccbdfbbe938846f5d740e6b0b11'],
@@ -78,8 +78,8 @@ dependencyVerification {
         ['androidx.exifinterface:exifinterface:1.0.0',
          'ee48be10aab8f54efff4c14b77d11e10b9eeee4379d5ef6bf297a2923c55cc11'],
 
-        ['androidx.fragment:fragment:1.1.0',
-         'a14c8b8f2153f128e800fbd266a6beab1c283982a29ec570d2cc05d307d81496'],
+        ['androidx.fragment:fragment:1.2.4',
+         '1dc194942574302bf35dae7b81b82273505ec2d38f81d9258ad5c0448daddd82'],
 
         ['androidx.gridlayout:gridlayout:1.0.0',
          'a7e5dc6f39dbc3dc6ac6d57b02a9c6fd792e80f0e45ddb3bb08e8f03d23c8755'],
@@ -102,35 +102,35 @@ dependencyVerification {
         ['androidx.legacy:legacy-support-v4:1.0.0',
          '78fec1485f0f388a4749022dd51416857127cd2544ae1c3fd0b16589055480b0'],
 
-        ['androidx.lifecycle:lifecycle-common-java8:2.1.0',
+        ['androidx.lifecycle:lifecycle-common-java8:2.2.0',
          'a1ec63c1bb973443cb731d78ec336c5e20e7ee35c89cbb32d36f92c55bb02542'],
 
-        ['androidx.lifecycle:lifecycle-common:2.2.0-alpha05',
+        ['androidx.lifecycle:lifecycle-common:2.2.0',
          '63898dabf7cfe5ec5d7ed8b8c2564c1427be876e1496ead95c2703cf59d3734b'],
 
-        ['androidx.lifecycle:lifecycle-extensions:2.1.0',
-         'bd53c64b038585215b4959c1a388437a3ad525608a31c58e4283c3e371727d4d'],
+        ['androidx.lifecycle:lifecycle-extensions:2.2.0',
+         '648c8de1d10b025d524a2e46ac994fc3f6bf186826c09ec1a62d250bf1b877ae'],
 
-        ['androidx.lifecycle:lifecycle-livedata-core:2.2.0-alpha05',
-         '6df2bcbf3be50a5fa29e9aa09d39437f2d61d17c2c46ef618d65bbac4a4a99fc'],
+        ['androidx.lifecycle:lifecycle-livedata-core:2.2.0',
+         '556c1f3af90aa9d7d0d330565adbf6da71b2429148bac91e07c485f4f9abf614'],
 
-        ['androidx.lifecycle:lifecycle-livedata:2.1.0',
-         '242e446bed3db36f0df0aab0cb7f91060bd2dab7adcad1117adf54e724cd1d26'],
+        ['androidx.lifecycle:lifecycle-livedata:2.2.0',
+         'd83af94860aa9f64cbdc51f40796a7cf55b116f0e6efd752e845c0104c8b16f6'],
 
-        ['androidx.lifecycle:lifecycle-process:2.1.0',
-         '8cddd0c7f4927bbf71fb71fca000786df82cc597c99463d6916ccbe4a205a9ac'],
+        ['androidx.lifecycle:lifecycle-process:2.2.0',
+         '3a977e7778fc8418742d388409daaba7ea8fea8823d21ffb96e4c4236f715070'],
 
-        ['androidx.lifecycle:lifecycle-runtime:2.1.0',
-         'e5173897b965e870651e83d9d5af1742d3f532d58863223a390ce3a194c8312b'],
+        ['androidx.lifecycle:lifecycle-runtime:2.2.0',
+         '2f866c07a1f33a8c9bb69a9545d4f20b4f0628cd0a155432386d7cb081e1e0bc'],
 
-        ['androidx.lifecycle:lifecycle-service:2.1.0',
-         '23516745f34f16ff7850bb1eadd55cf193dd789cba428de4bca120433e3bfd69'],
+        ['androidx.lifecycle:lifecycle-service:2.2.0',
+         'ca2801ffc069555afed8eddd2292130f436956452bc8bbad30fb56f8e4e382a0'],
 
-        ['androidx.lifecycle:lifecycle-viewmodel-savedstate:1.0.0-alpha05',
-         'f503b53f50c4e6c1f9a3d698c4733df6e7a44049fe477ad0b85cc2f460401fbc'],
+        ['androidx.lifecycle:lifecycle-viewmodel-savedstate:2.2.0',
+         '3ce866fb822b20fe2f188f974992869a0a6233fe40acbefcff090d6def5e7f33'],
 
-        ['androidx.lifecycle:lifecycle-viewmodel:2.2.0-alpha05',
-         '7725715491963440ee483e46526cd4f83af1c758e072e97b3eab2115c6f4db35'],
+        ['androidx.lifecycle:lifecycle-viewmodel:2.2.0',
+         '967efab24d6c49dd414a8c0ac4a1cd09b018f0b8bb43b739ad360c4158ebde27'],
 
         ['androidx.loader:loader:1.0.0',
          '11f735cb3b55c458d470bed9e25254375b518b4b1bad6926783a7026db0f5025'],
@@ -162,8 +162,8 @@ dependencyVerification {
         ['androidx.paging:paging-runtime:2.1.2',
          '4e81d8ab584a184e2781c6f0d50b6f00acd11741f759270e7c976ef3307d78a7'],
 
-        ['androidx.preference:preference:1.0.0',
-         'ea9fde25606eb456210ffe9f7e51048abd776b55a34c0cc6608282b5699122d1'],
+        ['androidx.preference:preference:1.1.1',
+         '317dcbc38242aea2f6262c06d51b8a22827e98959967edd40f82600a15cb4bff'],
 
         ['androidx.print:print:1.0.0',
          '1d5c7f3135a1bba661fc373fd72e11eb0a4adbb3396787826dd8e4190d5d9edd'],

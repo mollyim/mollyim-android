@@ -311,7 +311,7 @@
         <item name="android:focusable">false</item>
     </style>
 
-    <style name="PreferenceThemeOverlay.Fix" parent="PreferenceThemeOverlay.v14.Material">
+    <style name="PreferenceThemeOverlay.Fix" parent="PreferenceThemeOverlay">
         <item name="android:divider">@null</item>
         <item name="android:dividerHeight">0dp</item>
     </style>

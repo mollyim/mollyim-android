@@ -4,12 +4,13 @@ package org.thoughtcrime.securesms.preferences;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 
-import androidx.core.view.ViewCompat;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import androidx.preference.Preference;
-import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceDataStore;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceGroupAdapter;
@@ -22,6 +23,8 @@ import org.thoughtcrime.securesms.components.CustomDefaultPreference;
 import org.thoughtcrime.securesms.preferences.widgets.ColorPickerPreference;
 import org.thoughtcrime.securesms.preferences.widgets.ColorPickerPreferenceDialogFragmentCompat;
 import org.thoughtcrime.securesms.util.SecurePreferenceManager;
+
+import java.util.Objects;
 
 public abstract class CorrectedPreferenceFragment extends PreferenceFragmentCompat {
 
@@ -39,14 +42,6 @@ public abstract class CorrectedPreferenceFragment extends PreferenceFragmentComp
   }
 
   protected abstract void onCreateEncryptedPreferences(Bundle savedInstanceState, String rootKey);
-
-  @Override
-  public void onActivityCreated(Bundle savedInstanceState) {
-    super.onActivityCreated(savedInstanceState);
-
-    View lv = getView().findViewById(android.R.id.list);
-    if (lv != null) lv.setPadding(0, 0, 0, 0);
-  }
 
   @Override
   public void onDisplayPreferenceDialog(Preference preference) {
@@ -71,28 +66,27 @@ public abstract class CorrectedPreferenceFragment extends PreferenceFragmentComp
   protected RecyclerView.Adapter onCreateAdapter(PreferenceScreen preferenceScreen) {
     return new PreferenceGroupAdapter(preferenceScreen) {
       @Override
-      public void onBindViewHolder(PreferenceViewHolder holder, int position) {
+      public void onBindViewHolder(@NonNull PreferenceViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
         Preference preference = getItem(position);
-        if (preference instanceof PreferenceCategory) {
-          setZeroPaddingToLayoutChildren(holder.itemView);
-        } else {
-          View iconFrame = holder.itemView.findViewById(R.id.icon_frame);
-          if (iconFrame != null) {
-            iconFrame.setVisibility(preference.getIcon() == null ? View.GONE : View.VISIBLE);
-          }
+        View iconFrame = holder.itemView.findViewById(R.id.icon_frame);
+        if (iconFrame != null) {
+          iconFrame.setVisibility(preference.getIcon() == null ? View.GONE : View.VISIBLE);
         }
       }
     };
   }
 
-  private void setZeroPaddingToLayoutChildren(View view) {
-    if (!(view instanceof ViewGroup)) return;
+  public <T extends Preference> T requirePreference(@NonNull CharSequence key) {
+    return Objects.requireNonNull(super.findPreference(key));
+  }
 
-    ViewGroup viewGroup = (ViewGroup) view;
-    for (int i = 0; i < viewGroup.getChildCount(); i++) {
-      setZeroPaddingToLayoutChildren(viewGroup.getChildAt(i));
-      ViewCompat.setPaddingRelative(viewGroup, 0, viewGroup.getPaddingTop(), ViewCompat.getPaddingEnd(viewGroup), viewGroup.getPaddingBottom());
+  @Nullable
+  protected ActionBar getSupportActionBar() {
+    if (getActivity() instanceof AppCompatActivity) {
+      return ((AppCompatActivity) getActivity()).getSupportActionBar();
+    } else {
+      return null;
     }
   }
 }
