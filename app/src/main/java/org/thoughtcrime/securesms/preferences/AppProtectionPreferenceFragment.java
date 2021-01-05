@@ -359,8 +359,8 @@ public class AppProtectionPreferenceFragment extends CorrectedPreferenceFragment
 
   public static CharSequence getSummary(Context context) {
     final   int    privacySummaryResId = R.string.ApplicationPreferencesActivity_privacy_summary_passphrase_registration_locks;
-    final   String onRes               = context.getString(R.string.ApplicationPreferencesActivity_on);
-    final   String offRes              = context.getString(R.string.ApplicationPreferencesActivity_off);
+    final   String onRes               = context.getString(R.string.ApplicationPreferencesActivity_On);
+    final   String offRes              = context.getString(R.string.ApplicationPreferencesActivity_Off);
     boolean registrationLockEnabled    = RegistrationLockUtil.userHasRegistrationLock(context);
 
     if (!TextSecurePreferences.isPassphraseLockEnabled(context)) {
