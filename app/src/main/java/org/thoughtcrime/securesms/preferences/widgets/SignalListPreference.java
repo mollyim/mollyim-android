@@ -54,7 +54,7 @@ public class SignalListPreference extends ListPreference {
 
   @Override
   public void setSummary(CharSequence summary) {
-    super.setSummary(null);
+    super.setSummary(getSummary());
 
     this.summary = summary;
 
