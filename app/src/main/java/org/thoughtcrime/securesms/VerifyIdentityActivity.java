@@ -286,6 +286,7 @@ public class VerifyIdentityActivity extends PassphraseRequiredActivity implement
       return container;
     }
 
+    @SuppressLint("WrongThread")
     @Override
     public void onCreate(Bundle bundle) {
       super.onCreate(bundle);
