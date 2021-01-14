@@ -75,13 +75,13 @@
   <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Molly требуется разрешение, чтобы показывать ваши недавние фото и видео.</string>
   <string name="AttachmentKeyboard_give_access">Разрешить доступ</string>
   <!--AttachmentManager-->
-  <string name="AttachmentManager_cant_open_media_selection">Не найдено приложение для выбора медиа-файлов.</string>
+  <string name="AttachmentManager_cant_open_media_selection">Не найдено приложение для выбора медиафайлов.</string>
   <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly требуется разрешение на доступ к хранилищу для прикрепления фото, видео или аудио, но оно было вами отклонено. Нажмите «Продолжить», чтобы перейти в настройки приложения, откройте «Разрешения» и включите «Хранилище».</string>
   <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly требуется разрешение на доступ к контактам для прикрепления контактной информации, но оно было вами отклонено. Нажмите «Продолжить», чтобы перейти в настройки приложения, откройте «Разрешения» и включите «Контакты».</string>
   <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly требуется разрешение на доступ к местоположению для прикрепления местоположения, но оно было вами отклонено. Нажмите «Продолжить», чтобы перейти в настройки приложения, откройте «Разрешения» и включите «Местоположение».</string>
   <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">Molly требуется разрешение на доступ к камере, чтобы делать фото, но оно было вами отклонено. Нажмите «Продолжить», чтобы перейти в настройки приложения, откройте «Разрешения» и включите «Камера».</string>
   <!--AttachmentUploadJob-->
-  <string name="AttachmentUploadJob_uploading_media">Загружаем медиа-файл…</string>
+  <string name="AttachmentUploadJob_uploading_media">Загружаем медиафайл…</string>
   <string name="AttachmentUploadJob_compressing_video_start">Сжимаем видео…</string>
   <!--AudioSlidePlayer-->
   <string name="AudioSlidePlayer_error_playing_audio">Ошибка при воспроизведении аудио!</string>
@@ -91,10 +91,10 @@
   <string name="BlockedUsersActivity__blocked_users_will">Заблокированные пользователи не смогут звонить вам или отправлять вам сообщения.</string>
   <string name="BlockedUsersActivity__no_blocked_users">Нет заблокированных пользователей</string>
   <string name="BlockedUsersActivity__block_user">Заблокировать пользователя?</string>
-  <string name="BlockedUserActivity__s_will_not_be_able_to">«%1$s» не сможет звонить вам или отправлять вам сообщения.</string>
+  <string name="BlockedUserActivity__s_will_not_be_able_to">«%1$s» не сможет вам звонить или отправлять сообщения.</string>
   <string name="BlockedUsersActivity__block">Заблокировать</string>
   <string name="BlockedUsersActivity__unblock_user">Разблокировать пользователя?</string>
-  <string name="BlockedUsersActivity__do_you_want_to_unblock_s">Вы хотите разблокировать «%1$s»?</string>
+  <string name="BlockedUsersActivity__do_you_want_to_unblock_s">Хотите разблокировать «%1$s»?</string>
   <string name="BlockedUsersActivity__unblock">Разблокировать</string>
   <!--BlockUnblockDialog-->
   <string name="BlockUnblockDialog_block_and_leave_s">Заблокировать и покинуть %1$s?</string>
@@ -102,7 +102,7 @@
   <string name="BlockUnblockDialog_you_will_no_longer_receive_messages_or_updates">Вы больше не будете получать сообщения и обновления от этой группы, и участники группы не смогут снова добавить вас в неё.</string>
   <string name="BlockUnblockDialog_group_members_wont_be_able_to_add_you">Участники группы не смогут снова добавить вас в неё.</string>
   <string name="BlockUnblockDialog_group_members_will_be_able_to_add_you">Участники группы смогут снова добавить вас в неё.</string>
-  <string name="BlockUnblockDialog_you_will_be_able_to_call_and_message_each_other">Вы сможете отправлять сообщения и звонить друг другу, и ваши имя и фото станут доступны этому человеку.</string>
+  <string name="BlockUnblockDialog_you_will_be_able_to_call_and_message_each_other">Вы сможете отправлять сообщения и звонить друг другу, а ваши имя и фото станут доступны этому контакту.</string>
   <string name="BlockUnblockDialog_blocked_people_wont_be_able_to_call_you_or_send_you_messages">Заблокированные люди не смогут звонить вам или отправлять вам сообщения.</string>
   <string name="BlockUnblockDialog_unblock_s">Разблокировать %1$s?</string>
   <string name="BlockUnblockDialog_unblock">Разблокировать</string>
@@ -143,11 +143,11 @@
   <string name="ClearProfileActivity_remove_group_photo">Удалить фото группы?</string>
   <!--ClientDeprecatedActivity-->
   <string name="ClientDeprecatedActivity_update_signal">Обновите Signal</string>
-  <string name="ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported">Эта версия приложения больше не поддерживается. Чтобы продолжить отправлять и получать сообщения, обновитесь до новейшей версии.</string>
+  <string name="ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported">Эта версия приложения больше не поддерживается. Чтобы и далее отправлять и получать сообщения, обновитесь до последней версии.</string>
   <string name="ClientDeprecatedActivity_update">Обновить</string>
   <string name="ClientDeprecatedActivity_dont_update">Не обновлять</string>
   <string name="ClientDeprecatedActivity_warning">Предупреждение</string>
-  <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">Ваша версия Signal устарела. Вы можете просматривать свою историю сообщений, но не сможете отправлять или получать сообщения до того, как обновитесь.</string>
+  <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">Ваша версия Signal устарела. Вы можете просматривать свою историю сообщений, но не сможете отправлять или получать сообщения, пока не обновитесь.</string>
   <!--CommunicationActions-->
   <string name="CommunicationActions_no_browser_found">Браузер не найден.</string>
   <string name="CommunicationActions_no_email_app_found">Приложение электронной почты не найдено.</string>
@@ -194,7 +194,7 @@
   <string name="ConversationItem_click_to_approve_unencrypted_sms_dialog_title">Отправить как незашифрованное SMS?</string>
   <string name="ConversationItem_click_to_approve_unencrypted_mms_dialog_title">Отправить как незашифрованное MMS?</string>
   <string name="ConversationItem_click_to_approve_unencrypted_dialog_message">Данное сообщение <b>не будет</b> зашифровано, поскольку получатель больше не использует Signal.\n\nОтправить незащищённое сообщение?</string>
-  <string name="ConversationItem_unable_to_open_media">Не найдено приложение, которое может открыть этот медиа-файл.</string>
+  <string name="ConversationItem_unable_to_open_media">Не найдено приложение, которое может открыть этот медиафайл.</string>
   <string name="ConversationItem_copied_text">Скопировано %s</string>
   <string name="ConversationItem_from_s">от %s</string>
   <string name="ConversationItem_to_s">для %s</string>
@@ -232,7 +232,7 @@
   <string name="ConversationActivity_attachment_exceeds_size_limits">Вложение превышает предельный размер для того типа сообщения, которое вы отправляете.</string>
   <string name="ConversationActivity_quick_camera_unavailable">Камера недоступна</string>
   <string name="ConversationActivity_unable_to_record_audio">Не удалось записать аудио!</string>
-  <string name="ConversationActivity_you_cant_send_messages_to_this_group">Вы не можете отправлять сообщения в этой группе, потому что вы уже не являетесь её участником.</string>
+  <string name="ConversationActivity_you_cant_send_messages_to_this_group">Вы не можете отправлять сообщения в этой группе, потому что уже не являетесь её участником.</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">На вашем устройстве нет приложения для открытия этой ссылки.</string>
   <string name="ConversationActivity_your_request_to_join_has_been_sent_to_the_group_admin">Ваш запрос на присоединение был отправлен администратору группы. Вы будете уведомлены, когда он примет решение.</string>
   <string name="ConversationActivity_cancel_request">Отменить запрос</string>
@@ -262,7 +262,7 @@
   <string name="ConversationActivity_delete_and_leave">Удалить и покинуть</string>
   <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">Чтобы позвонить %1$s, Molly необходим доступ к вашему микрофону</string>
   <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone_and_camera">Чтобы позвонить %1$s, Molly необходим доступ к вашим микрофону и камере.</string>
-  <string name="ConversationActivity__more_options_now_in_group_settings">Больше опций теперь в «Настройках группы»</string>
+  <string name="ConversationActivity__more_options_now_in_group_settings">В «Настройках группы» стало больше опций</string>
   <string name="ConversationActivity_join">Войти</string>
   <string name="ConversationActivity_full">Заполнен</string>
   <!--ConversationAdapter-->
@@ -287,10 +287,10 @@
   </plurals>
   <string name="ConversationFragment_save_to_sd_card">Сохранить в хранилище?</string>
   <plurals name="ConversationFragment_saving_n_media_to_storage_warning">
-    <item quantity="one">Сохранение этого медиа-файла в хранилище позволит любым приложениям на вашем устройстве иметь к нему доступ.\n\nПродолжить?</item>
-    <item quantity="few">Сохранение этих %1$d медиа-файлов в хранилище позволит любым приложениям на вашем устройстве иметь к ним доступ.\n\nПродолжить?</item>
-    <item quantity="many">Сохранение этих %1$d медиа-файлов в хранилище позволит любым приложениям на вашем устройстве иметь к ним доступ.\n\nПродолжить?</item>
-    <item quantity="other">Сохранение этих %1$d медиа-файлов в хранилище позволит любым приложениям на вашем устройстве иметь к ним доступ.\n\nПродолжить?</item>
+    <item quantity="one">Сохранение этого медиафайла в хранилище сделает его доступным для любых приложений на вашем устройстве.\n\nПродолжить?</item>
+    <item quantity="few">Сохранение этих %1$d медиафайлов в хранилище сделает их доступными для любых приложений на вашем устройстве.\n\nПродолжить?</item>
+    <item quantity="many">Сохранение этих %1$d медиафайлов в хранилище сделает их доступными для любых приложений на вашем устройстве.\n\nПродолжить?</item>
+    <item quantity="other">Сохранение этих %1$d медиафайлов в хранилище сделает их доступными для любых приложений на вашем устройстве.\n\nПродолжить?</item>
   </plurals>
   <plurals name="ConversationFragment_error_while_saving_attachments_to_sd_card">
     <item quantity="one">Ошибка при сохранении вложения в хранилище!</item>
@@ -319,19 +319,19 @@
   <string name="ConversationFragment_deleting_messages">Удаляем сообщения…</string>
   <string name="ConversationFragment_delete_for_me">Удалить для меня</string>
   <string name="ConversationFragment_delete_for_everyone">Удалить для всех</string>
-  <string name="ConversationFragment_this_message_will_be_deleted_for_everyone_in_the_conversation">Это сообщение будет удалено для всех в этом разговоре, если у них установлена недавняя версия Signal. Они смогут увидеть, что вы удалили сообщение.</string>
+  <string name="ConversationFragment_this_message_will_be_deleted_for_everyone_in_the_conversation">Это сообщение будет удалено для всех участников в этом разговоре, если у них установлена недавняя версия Signal. Они увидят, что вы удалили сообщение.</string>
   <string name="ConversationFragment_quoted_message_not_found">Исходное сообщение не найдено</string>
   <string name="ConversationFragment_quoted_message_no_longer_available">Исходное сообщение больше не доступно</string>
   <string name="ConversationFragment_failed_to_open_message">Не удалось открыть сообщение</string>
   <string name="ConversationFragment_you_can_swipe_to_the_right_reply">Вы можете провести вправо по любому сообщению, чтобы быстро ответить</string>
   <string name="ConversationFragment_you_can_swipe_to_the_left_reply">Вы можете провести влево по любому сообщению, чтобы быстро ответить</string>
-  <string name="ConversationFragment_outgoing_view_once_media_files_are_automatically_removed">Исходящие одноразовые медиа-файлы автоматически удаляются после того, как они были отправлены</string>
+  <string name="ConversationFragment_outgoing_view_once_media_files_are_automatically_removed">Исходящие одноразовые медиафайлы автоматически удаляются после того, как они были отправлены</string>
   <string name="ConversationFragment_you_already_viewed_this_message">Вы уже просмотрели это сообщение</string>
-  <string name="ConversationFragment__you_can_add_notes_for_yourself_in_this_conversation">Вы можете добавлять заметки для себя в этом разговоре.\nЕсли у вашей учётной записи есть привязанные устройства, то новые заметки будут синхронизированы.</string>
+  <string name="ConversationFragment__you_can_add_notes_for_yourself_in_this_conversation">Вы можете добавлять заметки для себя в этом разговоре.\nЕсли у вашей учётной записи есть привязанные устройства, новые заметки будут синхронизированы.</string>
   <string name="ConversationFragment__d_group_members_have_the_same_name">%1$d участников группы имеют одинаковое имя.</string>
   <string name="ConversationFragment__tap_to_review">Нажмите, чтобы проверить</string>
-  <string name="ConversationFragment__review_requests_carefully">Внимательно проверьте запросы</string>
-  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Molly нашёл другого контакта с тем же именем.</string>
+  <string name="ConversationFragment__review_requests_carefully">Внимательно проверяйте запросы</string>
+  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Molly нашёл другой контакт с тем же именем.</string>
   <!--ConversationListActivity-->
   <string name="ConversationListActivity_there_is_no_browser_installed_on_your_device">На вашем устройстве не установлен браузер.</string>
   <!--ConversationListFragment-->
@@ -382,13 +382,13 @@
   <string name="CreateProfileActivity_set_avatar_description">Установить аватар</string>
   <!--ChooseBackupFragment-->
   <string name="ChooseBackupFragment__restore_from_backup">Восстановить из резервной копии?</string>
-  <string name="ChooseBackupFragment__restore_your_messages_and_media">Восстановите сообщения и медиа-файлы из локальной резервной копии. Если вы не сделаете это сейчас, вы не сможете восстановить их позже.</string>
+  <string name="ChooseBackupFragment__restore_your_messages_and_media">Восстановите сообщения и медиафайлы из локальной резервной копии. Если вы не сделаете этого сейчас, вы не сможете восстановить их позже.</string>
   <string name="ChooseBackupFragment__icon_content_description">Значок восстановления из резервной копии</string>
   <string name="ChooseBackupFragment__choose_backup">Выбрать резервную копию</string>
   <string name="ChooseBackupFragment__learn_more">Узнать больше</string>
   <!--RestoreBackupFragment-->
   <string name="RestoreBackupFragment__restore_complete">Восстановление завершено</string>
-  <string name="RestoreBackupFragment__to_continue_using_backups_please_choose_a_folder">Чтобы продолжить резервное копирование, пожалуйста, выберите папку. Новые резервные копии будут сохраняться в этом месте.</string>
+  <string name="RestoreBackupFragment__to_continue_using_backups_please_choose_a_folder">Чтобы продолжить резервное копирование, пожалуйста, выберите папку. Новые резервные копии будут сохраняться в ней.</string>
   <string name="RestoreBackupFragment__choose_folder">Выбрать папку</string>
   <string name="RestoreBackupFragment__not_now">Не сейчас</string>
   <!--BackupsPreferenceFragment-->
@@ -398,7 +398,7 @@
   <string name="BackupsPreferenceFragment__last_backup">Последняя резервная копия: %1$s</string>
   <string name="BackupsPreferenceFragment__backup_folder">Папка резервных копий</string>
   <string name="BackupsPreferenceFragment__verify_backup_passphrase">Проверить парольную фразу резервной копии</string>
-  <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Испытайте парольную фразу своей резервной копии и убедитесь, что она подходит</string>
+  <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Испытайте парольную фразу своей резервной копии и убедитесь, что она работает</string>
   <string name="BackupsPreferenceFragment__turn_on">Включить</string>
   <string name="BackupsPreferenceFragment__turn_off">Отключить</string>
   <string name="BackupsPreferenceFragment__to_restore_a_backup">Чтобы восстановить из резервной копии, установите новую копию Molly. Откройте приложение и нажмите «Восстановить резервную копию», затем выберите файл резервной копии. %1$s</string>
@@ -415,8 +415,8 @@
   <string name="AvatarSelectionBottomSheetDialogFragment__take_photo">Сделать фото</string>
   <string name="AvatarSelectionBottomSheetDialogFragment__choose_from_gallery">Выбрать из галереи</string>
   <string name="AvatarSelectionBottomSheetDialogFragment__remove_photo">Удалить фото</string>
-  <string name="AvatarSelectionBottomSheetDialogFragment__taking_a_photo_requires_the_camera_permission">Для того, чтобы сделать фото, необходимо разрешение на доступ к камере.</string>
-  <string name="AvatarSelectionBottomSheetDialogFragment__viewing_your_gallery_requires_the_storage_permission">Для просмотра вашей галереи требуется разрешение на доступ к хранилищу.</string>
+  <string name="AvatarSelectionBottomSheetDialogFragment__taking_a_photo_requires_the_camera_permission">Чтобы сделать фото, нужно разрешение на доступ к камере.</string>
+  <string name="AvatarSelectionBottomSheetDialogFragment__viewing_your_gallery_requires_the_storage_permission">Для просмотра галереи нужно разрешение на доступ к хранилищу.</string>
   <!--DateUtils-->
   <string name="DateUtils_just_now">Только что</string>
   <string name="DateUtils_minutes_ago">%dм</string>
@@ -444,7 +444,7 @@
   <string name="DocumentView_unnamed_file">Безымянный файл</string>
   <!--DonateMegaphone-->
   <string name="DonateMegaphone_donate_to_signal">Поддержать Signal</string>
-  <string name="DonateMegaphone_Signal_is_powered_by_people_like_you_show_your_support_today">Signal существует благодаря таким людям, как вы. Покажите свою поддержку уже сегодня!</string>
+  <string name="DonateMegaphone_Signal_is_powered_by_people_like_you_show_your_support_today">Signal существует благодаря таким людям, как вы. Пожалуйста. поддержите нас!</string>
   <string name="DonateMegaphone_donate">Пожертвовать</string>
   <string name="DonateMegaphone_no_thanks">Нет, спасибо</string>
   <!--GroupCallingMegaphone-->
@@ -455,7 +455,7 @@
   <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Это устройство не поддерживает Службы Google Play. Нажмите для отключения оптимизации энергопотребления, которая не позволяет Molly получать сообщения, когда он неактивен.</string>
   <!--ExpiredBuildReminder-->
   <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Эта версия Signal устарела. Обновитесь сейчас, чтобы отправлять и получать сообщения.</string>
-  <string name="ExpiredBuildReminder_update_now">Обновить сейчас</string>
+  <string name="ExpiredBuildReminder_update_now">Обновиться</string>
   <!--PendingGroupJoinRequestsReminder-->
   <plurals name="PendingGroupJoinRequestsReminder_d_pending_member_requests">
     <item quantity="one">%d ожидающий запрос на участие</item>
@@ -507,38 +507,38 @@
     <item quantity="many">%d приглашений отправлено</item>
     <item quantity="other">%d приглашений отправлено</item>
   </plurals>
-  <string name="GroupManagement_invite_single_user">«%1$s» не может быть автоматически добавлен(-а) вами в эту группу.\n\nОн(-а) был(-а) приглашен(-а) присоединиться и не увидит никакие сообщения группы до того, как примет приглашение.</string>
+  <string name="GroupManagement_invite_single_user">Вы не можете автоматически добавить «%1$s» в эту группу.\n\nЕму (ей) было отправлено приглашение присоединиться, и он(-а) не увидит сообщения в группе, пока не примет приглашение.</string>
   <string name="GroupManagement_learn_more">Узнать больше</string>
-  <string name="GroupManagement_invite_multiple_users">Эти пользователи не могут быть автоматически добавлены вами в эту группу.\n\nОни были приглашены присоединиться к группе и не увидят никакие сообщения группы до того, как примут приглашение.</string>
+  <string name="GroupManagement_invite_multiple_users">Вы не можете автоматически добавить этих пользователей в эту группу.\n\nИм было отправлено приглашение присоединиться, и они не увидят сообщения в группе, пока не примут приглашение.</string>
   <!--GroupsV1MigrationLearnMoreBottomSheetDialogFragment-->
   <string name="GroupsV1MigrationLearnMore_what_are_new_groups">Что такое Новые группы?</string>
-  <string name="GroupsV1MigrationLearnMore_new_groups_have_features_like_mentions">В Новых группах есть такие функции, как @упоминания и администраторы групп, и они будут поддерживать больше функций в будущем.</string>
-  <string name="GroupsV1MigrationLearnMore_all_message_history_and_media_has_been_kept">Вся история сообщений и все медиа были оставлены при обновлении.</string>
-  <string name="GroupsV1MigrationLearnMore_you_will_need_to_accept_an_invite_to_join_this_group_again">Вам будет необходимо принять приглашение, чтобы заново присоединиться к этой группе. Вы не будете получать сообщения группы до того, как примете его.</string>
+  <string name="GroupsV1MigrationLearnMore_new_groups_have_features_like_mentions">В Новых группах есть такие функции, как @упоминания и администраторы групп, и в будущем они будут поддерживать больше функций.</string>
+  <string name="GroupsV1MigrationLearnMore_all_message_history_and_media_has_been_kept">История сообщений и все медиафайлы при обновлении остались на своих местах.</string>
+  <string name="GroupsV1MigrationLearnMore_you_will_need_to_accept_an_invite_to_join_this_group_again">Вам будет необходимо принять приглашение, чтобы заново присоединиться к этой группе. Вы не будете получать сообщения группы, пока не примете его.</string>
   <plurals name="GroupsV1MigrationLearnMore_these_members_will_need_to_accept_an_invite">
-    <item quantity="one">Этому участнику будет необходимо принять приглашение, чтобы заново присоединиться к этой группе, и он не будут получать сообщения группы до того, как примет приглашение:</item>
-    <item quantity="few">Этим участникам будет необходимо принять приглашение, чтобы заново присоединиться к этой группе, и они не будут получать сообщения группы до того, как примут приглашение:</item>
-    <item quantity="many">Этим участникам будет необходимо принять приглашение, чтобы заново присоединиться к этой группе, и они не будут получать сообщения группы до того, как примут приглашение:</item>
-    <item quantity="other">Этим участникам будет необходимо принять приглашение, чтобы заново присоединиться к этой группе, и они не будут получать сообщения группы до того, как примут приглашение:</item>
+    <item quantity="one">Этому участнику будет необходимо принять приглашение, чтобы заново присоединиться к этой группе, и он не будет получать сообщения группы, пока не примет приглашение:</item>
+    <item quantity="few">Этим участникам будет необходимо принять приглашение, чтобы заново присоединиться к этой группе, и они не будут получать сообщения группы, пока не примут приглашение:</item>
+    <item quantity="many">Этим участникам будет необходимо принять приглашение, чтобы заново присоединиться к этой группе, и они не будут получать сообщения группы, пока не примут приглашение:</item>
+    <item quantity="other">Этим участникам будет необходимо принять приглашение, чтобы заново присоединиться к этой группе, и они не будут получать сообщения группы, пока не примут приглашение:</item>
   </plurals>
   <plurals name="GroupsV1MigrationLearnMore_these_members_were_removed_from_the_group">
-    <item quantity="one">Этот участник был удалён из группы и не сможет присоединиться заново до того, как обновит Signal до новейшей версии:</item>
-    <item quantity="few">Эти участники были удалены из группы и не смогут присоединиться заново до того, как обновят Signal до новейшей версии:</item>
-    <item quantity="many">Эти участники были удалены из группы и не смогут присоединиться заново до того, как обновят Signal до новейшей версии:</item>
-    <item quantity="other">Эти участники были удалены из группы и не смогут присоединиться заново до того, как обновят Signal до новейшей версии:</item>
+    <item quantity="one">Этот участник был удалён из группы и не сможет присоединиться заново, пока не обновит Signal до новейшей версии:</item>
+    <item quantity="few">Эти участники были удалены из группы и не смогут присоединиться заново, пока не обновят Signal до новейшей версии:</item>
+    <item quantity="many">Эти участники были удалены из группы и не смогут присоединиться заново, пока не обновят Signal до новейшей версии:</item>
+    <item quantity="other">Эти участники были удалены из группы и не смогут присоединиться заново, пока не обновят Signal до новейшей версии:</item>
   </plurals>
   <!--GroupsV1MigrationInitiationBottomSheetDialogFragment-->
   <string name="GroupsV1MigrationInitiation_upgrade_to_new_group">Обновление до Новой группы</string>
   <string name="GroupsV1MigrationInitiation_upgrade_this_group">Обновить эту группу</string>
-  <string name="GroupsV1MigrationInitiation_new_groups_have_features_like_mentions">В Новых группах есть такие функции, как @упоминания и администраторы групп, и они будут поддерживать больше функций в будущем.</string>
-  <string name="GroupsV1MigrationInitiation_all_message_history_and_media_will_be_kept">Вся история сообщений и все медиа будут оставлены при обновлении.</string>
+  <string name="GroupsV1MigrationInitiation_new_groups_have_features_like_mentions">В Новых группах есть такие функции, как @упоминания и администраторы групп, и в будущем они будут поддерживать больше функций.</string>
+  <string name="GroupsV1MigrationInitiation_all_message_history_and_media_will_be_kept">История сообщений и все медиафайлы при обновлении останутся на своих местах.</string>
   <string name="GroupsV1MigrationInitiation_encountered_a_network_error">Произошла ошибка сети. Попробуйте ещё раз позже.</string>
   <string name="GroupsV1MigrationInitiation_failed_to_upgrade">Не удалось обновить группу.</string>
   <plurals name="GroupsV1MigrationInitiation_these_members_will_need_to_accept_an_invite">
-    <item quantity="one">Этому участнику будет необходимо принять приглашение, чтобы заново присоединиться к этой группе, и он не будет получать сообщения группы до того, как примет приглашение:</item>
-    <item quantity="few">Этим участникам будет необходимо принять приглашение, чтобы заново присоединиться к этой группе, и они не будут получать сообщения группы до того, как примут приглашение:</item>
-    <item quantity="many">Этим участникам будет необходимо принять приглашение, чтобы заново присоединиться к этой группе, и они не будут получать сообщения группы до того, как примут приглашение:</item>
-    <item quantity="other">Этим участникам будет необходимо принять приглашение, чтобы заново присоединиться к этой группе, и они не будут получать сообщения группы до того, как примут приглашение:</item>
+    <item quantity="one">Этому участнику будет необходимо принять приглашение, чтобы заново присоединиться к этой группе, и он не будет получать сообщения группы, пока не примет приглашение:</item>
+    <item quantity="few">Этим участникам будет необходимо принять приглашение, чтобы заново присоединиться к этой группе, и они не будут получать сообщения группы, пока не примут приглашение:</item>
+    <item quantity="many">Этим участникам будет необходимо принять приглашение, чтобы заново присоединиться к этой группе, и они не будут получать сообщения группы, пока не примут приглашение:</item>
+    <item quantity="other">Этим участникам будет необходимо принять приглашение, чтобы заново присоединиться к этой группе, и они не будут получать сообщения группы, пока не примут приглашение:</item>
   </plurals>
   <plurals name="GroupsV1MigrationInitiation_these_members_are_not_capable_of_joining_new_groups">
     <item quantity="one">Этот участник не может присоединяться к Новым группам и будет удалён из группы:</item>
@@ -547,15 +547,15 @@
     <item quantity="other">Эти участники не могут присоединяться к Новым группам и будут удалены из группы:</item>
   </plurals>
   <!--GroupsV1MigrationInitiationReminder-->
-  <string name="GroupsV1MigrationInitiationReminder_to_access_new_features_like_mentions">Чтобы получить доступ к таким новым функциям, как @упоминания и администраторы групп, обновите эту группу.</string>
+  <string name="GroupsV1MigrationInitiationReminder_to_access_new_features_like_mentions">Чтобы получить доступ к новым функциям, таким как @упоминания и администраторы групп, обновите эту группу.</string>
   <string name="GroupsV1MigrationInitiationReminder_not_now">Не сейчас</string>
   <string name="GroupsV1MigrationInitiationReminder_update_group">Обновить группу</string>
   <!--GroupsV1MigrationSuggestionsReminder-->
   <plurals name="GroupsV1MigrationSuggestionsReminder_members_couldnt_be_added_to_the_new_group">
-    <item quantity="one">%1$d участник не мог быть заново добавлен в Новую группу. Вы хотите добавить его сейчас?</item>
-    <item quantity="few">%1$d участника не могли быть заново добавлены в Новую группу. Вы хотите добавить их сейчас?</item>
-    <item quantity="many">%1$d участников не могли быть заново добавлены в Новую группу. Вы хотите добавить их сейчас?</item>
-    <item quantity="other">%1$d участников не могли быть заново добавлены в Новую группу. Вы хотите добавить их сейчас?</item>
+    <item quantity="one">%1$d участника не удалось автоматически добавить в Новую группу. Добавить сейчас?</item>
+    <item quantity="few">%1$d участников не удалось автоматически добавить в Новую группу. Добавить их сейчас?</item>
+    <item quantity="many">%1$d участников не удалось автоматически добавить в Новую группу. Добавить их сейчас?</item>
+    <item quantity="other">%1$d участников не удалось автоматически добавить в Новую группу. Добавить их сейчас?</item>
   </plurals>
   <plurals name="GroupsV1MigrationSuggestionsReminder_add_members">
     <item quantity="one">Добавить участника</item>
@@ -600,12 +600,12 @@
   <string name="LeaveGroupDialog_you_will_no_longer_be_able_to_send_or_receive_messages_in_this_group">Вы больше не сможете отправлять или получать сообщения в этой группе.</string>
   <string name="LeaveGroupDialog_leave">Покинуть</string>
   <string name="LeaveGroupDialog_choose_new_admin">Выберите нового администратора</string>
-  <string name="LeaveGroupDialog_before_you_leave_you_must_choose_at_least_one_new_admin_for_this_group">Прежде чем покинуть эту группу, вы должны выбрать для неё как минимум одного нового администратора.</string>
+  <string name="LeaveGroupDialog_before_you_leave_you_must_choose_at_least_one_new_admin_for_this_group">Прежде чем покинуть эту группу, вы должны назначить для неё как минимум одного нового администратора.</string>
   <string name="LeaveGroupDialog_choose_admin">Выбрать администратора</string>
   <!--LinkPreviewsMegaphone-->
   <string name="LinkPreviewsMegaphone_disable">Отключить</string>
   <string name="LinkPreviewsMegaphone_preview_any_link">Предпросмотр любой ссылки</string>
-  <string name="LinkPreviewsMegaphone_you_can_now_retrieve_link_previews_directly_from_any_website">Теперь вы можете получать предпросмотры ссылок напрямую от любого сайта для сообщений, которые вы отправляете.</string>
+  <string name="LinkPreviewsMegaphone_you_can_now_retrieve_link_previews_directly_from_any_website">Теперь при отправке сообщений вы можете получать предпросмотры ссылок напрямую с любого сайта.</string>
   <!--LinkPreviewView-->
   <string name="LinkPreviewView_no_link_preview_available">Нет предпросмотра ссылки</string>
   <string name="LinkPreviewView_this_group_link_is_not_active">Эта ссылка на группу неактивна</string>
@@ -661,6 +661,7 @@
   <string name="AddGroupDetailsFragment__create_group">Создать группу</string>
   <string name="AddGroupDetailsFragment__create">Создать</string>
   <string name="AddGroupDetailsFragment__members">Участники</string>
+  <string name="AddGroupDetailsFragment__you_can_add_or_invite_friends_after_creating_this_group">Вы сможете добавить или пригласить друзей после создания этой группы.</string>
   <string name="AddGroupDetailsFragment__group_name_required">Имя группы (обязательно)</string>
   <string name="AddGroupDetailsFragment__group_name_optional">Имя группы (необязательно)</string>
   <string name="AddGroupDetailsFragment__this_field_is_required">Это поле обязательно.</string>
@@ -702,7 +703,7 @@
   <!--ManageGroupActivity-->
   <string name="ManageGroupActivity_disappearing_messages">Исчезающие сообщения</string>
   <string name="ManageGroupActivity_member_requests_and_invites">Запросы на участие и приглашения</string>
-  <string name="ManageGroupActivity_add_members">Добавлять участников</string>
+  <string name="ManageGroupActivity_add_members">Добавить участников</string>
   <string name="ManageGroupActivity_edit_group_info">Редактировать информацию</string>
   <string name="ManageGroupActivity_who_can_add_new_members">Кто может добавлять новых участников?</string>
   <string name="ManageGroupActivity_who_can_edit_this_groups_info">Кто может редактировать информацию этой группы?</string>
@@ -829,13 +830,13 @@
   <!--GroupJoinBottomSheetDialogFragment-->
   <string name="GroupJoinBottomSheetDialogFragment_you_are_already_a_member">Вы уже являетесь участником</string>
   <string name="GroupJoinBottomSheetDialogFragment_join">Присоединиться</string>
-  <string name="GroupJoinBottomSheetDialogFragment_request_to_join">Запросить присоединиться</string>
+  <string name="GroupJoinBottomSheetDialogFragment_request_to_join">Отправить запрос</string>
   <string name="GroupJoinBottomSheetDialogFragment_unable_to_join_group_please_try_again_later">Не удалось присоединиться к группе. Пожалуйста, попробуйте ещё раз позже</string>
   <string name="GroupJoinBottomSheetDialogFragment_encountered_a_network_error">Произошла ошибка сети.</string>
   <string name="GroupJoinBottomSheetDialogFragment_this_group_link_is_not_active">Эта ссылка на группу неактивна</string>
   <string name="GroupJoinBottomSheetDialogFragment_unable_to_get_group_information_please_try_again_later">Не удалось получить информацию группы. Пожалуйста, попробуйте ещё раз позже</string>
   <string name="GroupJoinBottomSheetDialogFragment_direct_join">Вы хотите присоединиться к этой группе и поделиться своими именем и фото с её участниками?</string>
-  <string name="GroupJoinBottomSheetDialogFragment_admin_approval_needed">Администратор этой группы должен принять ваш запрос, прежде чем вы сможете присоединиться к ней. Когда вы запросите присоединиться, ваши имя и фото станут доступны участникам этой группы.</string>
+  <string name="GroupJoinBottomSheetDialogFragment_admin_approval_needed">Администратор этой группы должен принять ваш запрос, прежде чем вы сможете присоединиться к ней. Когда вы отправите запрос, ваши имя и фото станут доступны участникам этой группы.</string>
   <plurals name="GroupJoinBottomSheetDialogFragment_group_dot_d_members">
     <item quantity="one">Группа · %1$d участник</item>
     <item quantity="few">Группа · %1$d участника</item>
@@ -849,6 +850,15 @@
   <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_signal">Обновить Signal</string>
   <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_linked_device_message">Одно или больше из ваших привязанных устройств используют версию Signal, которая не поддерживает ссылки на группы. Обновите Signal на своём(-их) привязанном(-ых) устройстве(-ах), чтобы присоединиться к этой группе.</string>
   <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_group_link_is_not_valid">Ссылка на группу недействительна</string>
+  <!--GroupInviteLinkEnableAndShareBottomSheetDialogFragment-->
+  <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_invite_friends">Пригласить друзей</string>
+  <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_share_a_link_with_friends_to_let_them_quickly_join_this_group">Поделитесь ссылкой с друзьями, чтобы они смогли быстро присоединиться к этой группе.</string>
+  <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_enable_and_share_link">Включить и поделиться</string>
+  <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_share_link">Поделиться ссылкой</string>
+  <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_unable_to_enable_group_link_please_try_again_later">Не удалось включить ссылку на группу. Пожалуйста, попробуйте ещё раз позже.</string>
+  <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_encountered_a_network_error">Произошла ошибка сети.</string>
+  <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_you_dont_have_the_right_to_enable_group_link">У вас нет права включать ссылку на группу. Пожалуйста, попросите администратора группы.</string>
+  <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_you_are_not_currently_a_member_of_the_group">В данный момент вы не являетесь участником группы.</string>
   <!--GV2 Request confirmation dialog-->
   <string name="RequestConfirmationDialog_add_s_to_the_group">Добавить «%1$s» в группу?</string>
   <string name="RequestConfirmationDialog_deny_request_from_s">Отклонить запрос от «%1$s»?</string>
@@ -958,6 +968,10 @@
   <string name="Megaphones_verify_your_signal_pin">Подтвердите свой PIN-код Signal</string>
   <string name="Megaphones_well_occasionally_ask_you_to_verify_your_pin">Иногда мы будем просить вас подтвердить свой PIN-код, чтобы вы его не забывали.</string>
   <string name="Megaphones_verify_pin">Подтвердить PIN-код</string>
+  <string name="Megaphones_get_started">С чего начать</string>
+  <string name="Megaphones_new_group">Новая группа</string>
+  <string name="Megaphones_invite_friends">Пригласить друзей</string>
+  <string name="Megaphones_use_sms">Использовать SMS</string>
   <!--NotificationBarManager-->
   <string name="NotificationBarManager_signal_call_in_progress">Идёт звонок через Signal</string>
   <string name="NotificationBarManager__establishing_signal_call">Начинается звонок через Signal</string>
@@ -1034,6 +1048,7 @@
   <!--GV2 specific-->
   <string name="MessageRecord_you_created_the_group">Вы создали группу.</string>
   <string name="MessageRecord_group_updated">Группа обновлена.</string>
+  <string name="MessageRecord_invite_friends_to_this_group">Пригласите друзей в эту группу, используя ссылку</string>
   <!--GV2 member additions-->
   <string name="MessageRecord_you_added_s">Вы добавили %1$s.</string>
   <string name="MessageRecord_s_added_s">%1$s добавил(-а) %2$s.</string>
@@ -1299,7 +1314,7 @@
   <string name="PinRestoreLockedFragment_create_new_pin">Создать новый PIN-код</string>
   <!--PinOptOutDialog-->
   <string name="PinOptOutDialog_warning">Предупреждение</string>
-  <string name="PinOptOutDialog_if_you_disable_the_pin_you_will_lose_all_data">Если вы отключите PIN-код, то потеряете все данные, когда переустановите Signal (если вы не создадите и восстановите резервную копию вручную). Вы не можете включить блокировку регистрации, когда PIN-код отключён.</string>
+  <string name="PinOptOutDialog_if_you_disable_the_pin_you_will_lose_all_data">Если вы отключите PIN-код, то при переустановке Signal потеряете все данные, если заранее вручную не создадите резервную копию. При отключённом PIN-коде нельзя будет включить блокировку регистрации.</string>
   <string name="PinOptOutDialog_disable_pin">Отключить PIN-код</string>
   <!--RatingManager-->
   <string name="RatingManager_rate_this_app">Оцените это приложение</string>
@@ -1393,7 +1408,7 @@
   <string name="RegistrationActivity_no_browser">Не удалось открыть эту ссылку. Веб-браузер не найден.</string>
   <string name="RegistrationActivity_more_information">Больше информации</string>
   <string name="RegistrationActivity_less_information">Меньше информации</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly необходим доступ к вашим контактам и медиа-файлам для того, чтобы связываться с друзьями, обмениваться сообщениями и совершать защищённые звонки</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly необходим доступ к вашим контактам и медиафайлам, чтобы связываться с друзьями, обмениваться сообщениями и совершать защищённые звонки</string>
   <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Molly необходим доступ к вашим контактам для того, чтобы связываться с друзьями, обмениваться сообщениями и совершать защищённые звонки</string>
   <string name="RegistrationActivity_rate_limited_to_service">Вы сделали слишком много попыток зарегистрировать этот номер. Пожалуйста, попробуйте ещё раз позже.</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">Не удается подключиться к сервису. Пожалуйста, проверьте подключение к сети и повторите попытку.</string>
@@ -1412,8 +1427,10 @@
   <string name="RegistrationActivity_continue_last_attempt">Продолжить (последняя попытка!)</string>
   <string name="RegistrationActivity_take_privacy_with_you_be_yourself_in_every_message">Возьмите\nконфиденциальность\nс собой.\nБудьте собой в каждом сообщении.</string>
   <string name="RegistrationActivity_enter_your_phone_number_to_get_started">Введите свой номер телефона, чтобы начать</string>
+  <string name="RegistrationActivity_enter_your_phone_number">Введите свой номер телефона</string>
   <string name="RegistrationActivity_you_will_receive_a_verification_code">Вы получите код подтверждения. Вашим оператором может взиматься плата за входящее SMS.</string>
   <string name="RegistrationActivity_enter_the_code_we_sent_to_s">Введите код, который мы отправили на %s</string>
+  <string name="RegistrationActivity_make_sure_your_phone_has_a_cellular_signal">Убедитесь, что ваш телефон находится в зоне действия сети и сможет принять SMS или звонок</string>
   <string name="RegistrationActivity_phone_number_description">Номер телефона</string>
   <string name="RegistrationActivity_country_code_description">Код страны</string>
   <string name="RegistrationActivity_call">Позвонить</string>
@@ -1435,6 +1452,7 @@
   <string name="SearchFragment_header_conversations">Разговоры</string>
   <string name="SearchFragment_header_contacts">Контакты</string>
   <string name="SearchFragment_header_messages">Сообщения</string>
+  <!--ShakeToReport-->
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">Добавить в контакты</string>
   <string name="SharedContactDetailsActivity_invite_to_signal">Пригласить в Molly</string>
@@ -1560,6 +1578,12 @@
   <string name="UsernameEditFragment_username_is_invalid">Имя пользователя недействительно.</string>
   <string name="UsernameEditFragment_usernames_must_be_between_a_and_b_characters">Имена пользователей должны содержать от %1$d до %2$d символов.</string>
   <string name="UsernameEditFragment_usernames_on_signal_are_optional">Имена пользователей в Signal необязательны. Если вы решите создать имя пользователя, другие пользователи Signal смогут найти вас по этому имени пользователя и связаться с вами, не зная вашего номера телефона.</string>
+  <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
+    <item quantity="one">%d ваш контакт уже в Signal!</item>
+    <item quantity="few">%d ваших контакта уже в Signal!</item>
+    <item quantity="many">%d ваших контактов уже в Signal!</item>
+    <item quantity="other">%d ваших контактов уже в Signal!</item>
+  </plurals>
   <!--VerifyIdentityActivity-->
   <string name="VerifyIdentityActivity_your_contact_is_running_an_old_version_of_signal">У вашего контакта старая версия Signal. Пожалуйста, попросите его обновиться, чтобы подтвердить код безопасности.</string>
   <string name="VerifyIdentityActivity_your_contact_is_running_a_newer_version_of_Signal">У вашего контакта более новая версия Signal с несовместимым форматом QR-кода. Пожалуйста, обновитесь, чтобы сверить код.</string>
@@ -1593,7 +1617,7 @@
   <string name="KeyCachingService_lock">Блокировать Molly</string>
   <!--MediaPreviewActivity-->
   <string name="MediaPreviewActivity_you">Вы</string>
-  <string name="MediaPreviewActivity_unssuported_media_type">Тип медиа-файла не поддерживается</string>
+  <string name="MediaPreviewActivity_unssuported_media_type">Тип медиафайла не поддерживается</string>
   <string name="MediaPreviewActivity_draft">Черновик</string>
   <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Molly требуется разрешение на доступ к хранилищу для сохранения во внешнее хранилище, но оно было вами отклонено. Нажмите «Продолжить», чтобы перейти в настройки приложения, откройте «Разрешения» и включите «Хранилище».</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">Не удалось сохранить во внешнем хранилище без разрешений</string>
@@ -1601,7 +1625,7 @@
   <string name="MediaPreviewActivity_media_delete_confirmation_message">Это сообщение будет навсегда удалено.</string>
   <string name="MediaPreviewActivity_s_to_s">%1$s для %2$s</string>
   <string name="MediaPreviewActivity_media_no_longer_available">Медиа больше не доступно.</string>
-  <string name="MediaPreviewActivity_cant_find_an_app_able_to_share_this_media">Не найдено приложение, которое может поделиться этим медиа-файлом.</string>
+  <string name="MediaPreviewActivity_cant_find_an_app_able_to_share_this_media">Не найдено приложение, в котором можно поделиться этим медиафайлом.</string>
   <!--MessageNotifier-->
   <string name="MessageNotifier_d_new_messages_in_d_conversations">%1$d новых сообщений в %2$d разговорах</string>
   <string name="MessageNotifier_most_recent_from_s">Последнее от: %1$s</string>
@@ -1805,6 +1829,7 @@
   <string name="ConversationUpdateItem_join_call">Присоединиться к звонку</string>
   <string name="ConversationUpdateItem_return_to_call">Вернуться к звонку</string>
   <string name="ConversationUpdateItem_call_is_full">Звонок заполнен</string>
+  <string name="ConversationUpdateItem_invite_friends">Пригласить друзей</string>
   <!--audio_view-->
   <string name="audio_view__play_pause_accessibility_description">Воспроизведение … Пауза</string>
   <string name="audio_view__download_accessibility_description">Скачать</string>
@@ -2158,7 +2183,7 @@
   <string name="preferences__disable_pin">Отключить PIN-код</string>
   <string name="preferences__enable_pin">Включить PIN-код</string>
   <string name="preferences__if_you_disable_the_pin_you_will_lose_all_data">Если вы отключите PIN-код, то потеряете все данные, когда переустановите Signal (если вы не создадите и восстановите резервную копию вручную). Вы не можете включить блокировку регистрации, когда PIN-код отключён.</string>
-  <string name="preferences__pins_keep_information_stored_with_signal_encrypted_so_only_you_can_access_it">PIN-коды шифруют информацию, хранящуюся в сервисе Signal, так что только вы можете получить к ней доступ. Ваши профиль, настройки и контакты будут восстановлены, если вы переустановите Signal. Ваш PIN-код не нужен для открытия приложения.</string>
+  <string name="preferences__pins_keep_information_stored_with_signal_encrypted_so_only_you_can_access_it">PIN-коды шифруют информацию, хранящуюся в сервисе Signal, чтобы только вы могли иметь в ней к ней доступ. Если вы переустановите Signal, ваши профиль, настройки и контакты будут восстановлены. Чтобы открыть приложение, PIN-код не понадобится.</string>
   <string name="preferences__system_default">По умолчанию</string>
   <string name="preferences__default">По умолчанию</string>
   <string name="preferences__language">Язык (Language)</string>
@@ -2286,7 +2311,7 @@
   <!--conversation_list_fragment-->
   <string name="conversation_list_fragment__fab_content_description">Новый разговор</string>
   <string name="conversation_list_fragment__open_camera_description">Открыть камеру</string>
-  <string name="conversation_list_fragment__give_your_inbox_something_to_write_home_about_get_started_by_messaging_a_friend">Наполните этот экран интересными разговорами! Отправьте другу своё первое сообщение.</string>
+  <string name="conversation_list_fragment__no_chats_yet_get_started_by_messaging_a_friend">Ещё нет чатов.\nОтправьте другу своё первое сообщение.</string>
   <!--conversation_secure_verified-->
   <string name="conversation_secure_verified__menu_reset_secure_session">Сбросить защищенный сеанс</string>
   <!--conversation_muted-->
@@ -2298,7 +2323,7 @@
   <string name="conversation__menu_edit_group">Редактировать группу</string>
   <string name="conversation__menu_group_settings">Настройки группы</string>
   <string name="conversation__menu_leave_group">Покинуть группу</string>
-  <string name="conversation__menu_view_all_media">Все медиа-файлы</string>
+  <string name="conversation__menu_view_all_media">Все медиафайлы</string>
   <string name="conversation__menu_conversation_settings">Настройки разговора</string>
   <string name="conversation__menu_add_shortcut">Добавить на главный экран</string>
   <string name="conversation__menu_pending_members">Участники в ожидании</string>
@@ -2323,8 +2348,6 @@
   <string name="verify_display_fragment_context_menu__copy_to_clipboard">Копировать в буфер обмена</string>
   <string name="verify_display_fragment_context_menu__compare_with_clipboard">Сравнить с буфером обмена</string>
   <!--reminder_header-->
-  <string name="reminder_header_sms_default_title">Использовать для всех SMS</string>
-  <string name="reminder_header_sms_default_text">Нажмите, чтобы сделать Signal своим приложением для SMS по умолчанию</string>
   <string name="reminder_header_sms_import_title">Импортировать SMS из системы</string>
   <string name="reminder_header_sms_import_text">Нажмите, чтобы скопировать SMS с вашего устройства в зашифрованную базу данных Signal.</string>
   <string name="reminder_header_push_title">Включить звонки и сообщения Signal</string>
@@ -2340,7 +2363,7 @@
   <string name="media_preview__save_title">Сохранить</string>
   <string name="media_preview__forward_title">Переслать</string>
   <string name="media_preview__share_title">Поделиться</string>
-  <string name="media_preview__all_media_title">Все медиа-файлы</string>
+  <string name="media_preview__all_media_title">Все медиафайлы</string>
   <!--media_preview_activity-->
   <string name="media_preview_activity__media_content_description">Предпросмотр медиа</string>
   <!--new_conversation_activity-->
@@ -2394,7 +2417,7 @@
   <string name="CreateKbsPinFragment__create_a_new_pin">Создать новый PIN-код</string>
   <string name="CreateKbsPinFragment__you_can_choose_a_new_pin_as_long_as_this_device_is_registered">Вы можете изменить свой PIN-код, пока это устройство зарегистрировано.</string>
   <string name="CreateKbsPinFragment__create_your_pin">Создать PIN-код</string>
-  <string name="CreateKbsPinFragment__pins_keep_information_stored_with_signal_encrypted">PIN-коды шифруют информацию, хранящуюся в сервисе Signal, так что только вы можете получить к ней доступ. Ваши профиль, настройки и контакты будут восстановлены, если вы переустановите Signal. Ваш PIN-код не нужен для открытия приложения.</string>
+  <string name="CreateKbsPinFragment__pins_keep_information_stored_with_signal_encrypted">PIN-коды шифруют информацию, хранящуюся в сервисе Signal, чтобы только вы могли иметь в ней к ней доступ. Если вы переустановите Signal, ваши профиль, настройки и контакты будут восстановлены. Чтобы открыть приложение, PIN-код не понадобится.</string>
   <string name="CreateKbsPinFragment__choose_a_stronger_pin">Придумайте более надёжный PIN-код</string>
   <!--ConfirmKbsPinFragment-->
   <string name="ConfirmKbsPinFragment__pins_dont_match">PIN-коды не совпадают. Попробуйте ещё раз.</string>
@@ -2522,7 +2545,7 @@
   <string name="RegistrationActivity_checking">Проверяем…</string>
   <string name="RegistrationActivity_d_messages_so_far">уже %d сообщений…</string>
   <string name="RegistrationActivity_restore_from_backup">Восстановить из резервной копии?</string>
-  <string name="RegistrationActivity_restore_your_messages_and_media_from_a_local_backup">Восстановите сообщения и медиа-файлы из локальной резервной копии. Если вы не сделаете это сейчас, вы не сможете восстановить их позже.</string>
+  <string name="RegistrationActivity_restore_your_messages_and_media_from_a_local_backup">Восстановите сообщения и медиафайлы из локальной резервной копии. Если вы не сделаете этого сейчас, вы не сможете восстановить их позже.</string>
   <string name="RegistrationActivity_backup_size_s">Размер резервной копии: %s</string>
   <string name="RegistrationActivity_backup_timestamp_s">Время создания резервной копии: %s</string>
   <string name="BackupDialog_enable_local_backups">Включить локальное резервное копирование?</string>
@@ -2534,6 +2557,7 @@
   <string name="BackupDialog_to_enable_backups_choose_a_folder">Чтобы включить резервное копирование, выберите папку. Резервные копии будут сохраняться в этом месте.</string>
   <string name="BackupDialog_choose_folder">Выбрать папку</string>
   <string name="BackupDialog_copied_to_clipboard">Скопировано в буфер обмена</string>
+  <string name="BackupDialog_no_file_picker_available">Нет приложения для выбора файлов.</string>
   <string name="BackupDialog_enter_backup_passphrase_to_verify">Введите парольную фразу своей резервной копии, чтобы проверить её</string>
   <string name="BackupDialog_verify">Подтверждение</string>
   <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">Вы успешно ввели парольную фразу своей резервной копии</string>
@@ -2726,5 +2750,7 @@
   <string name="DeleteAccountFragment__launch_app_settings">Запустить настройки приложения</string>
   <!--DeleteAccountCountryPickerFragment-->
   <string name="DeleteAccountCountryPickerFragment__search_countries">Поиск по странам</string>
+  <!--CreateGroupActivity-->
+  <string name="CreateGroupActivity__skip">Пропустить</string>
   <!--EOF-->
 </resources>

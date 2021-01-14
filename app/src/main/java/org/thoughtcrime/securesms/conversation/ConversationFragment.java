@@ -93,6 +93,7 @@ import org.thoughtcrime.securesms.database.model.MmsMessageRecord;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.groups.GroupId;
 import org.thoughtcrime.securesms.groups.GroupMigrationMembershipChange;
+import org.thoughtcrime.securesms.groups.ui.invitesandrequests.invite.GroupLinkInviteFriendsBottomSheetDialogFragment;
 import org.thoughtcrime.securesms.groups.ui.migration.GroupsV1MigrationInfoBottomSheetDialogFragment;
 import org.thoughtcrime.securesms.jobs.DirectoryRefreshJob;
 import org.thoughtcrime.securesms.jobs.MultiDeviceViewOnceOpenJob;
@@ -121,7 +122,6 @@ import org.thoughtcrime.securesms.sms.MessageSender;
 import org.thoughtcrime.securesms.sms.OutgoingTextMessage;
 import org.thoughtcrime.securesms.stickers.StickerLocator;
 import org.thoughtcrime.securesms.stickers.StickerPackPreviewActivity;
-import org.thoughtcrime.securesms.tracing.Trace;
 import org.thoughtcrime.securesms.util.CachedInflater;
 import org.thoughtcrime.securesms.util.CommunicationActions;
 import org.thoughtcrime.securesms.util.HtmlUtil;
@@ -149,7 +149,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
-@Trace
 @SuppressLint("StaticFieldLeak")
 public class ConversationFragment extends LoggingFragment {
   private static final String TAG = ConversationFragment.class.getSimpleName();
@@ -1419,6 +1418,11 @@ public class ConversationFragment extends LoggingFragment {
     @Override
     public void onJoinGroupCallClicked() {
       CommunicationActions.startVideoCall(requireActivity(), recipient.get());
+    }
+
+    @Override
+    public void onInviteFriendsToGroupClicked(@NonNull GroupId.V2 groupId) {
+      GroupLinkInviteFriendsBottomSheetDialogFragment.show(requireActivity().getSupportFragmentManager(), groupId);
     }
   }
 

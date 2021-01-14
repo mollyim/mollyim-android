@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import org.signal.core.util.logging.Log;
+import org.signal.core.util.tracing.Tracer;
 import org.thoughtcrime.securesms.crypto.MasterSecretUtil;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.jobs.PushNotificationReceiveJob;
@@ -26,7 +27,7 @@ import org.thoughtcrime.securesms.push.SignalServiceNetworkAccess;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.registration.RegistrationNavigationActivity;
 import org.thoughtcrime.securesms.service.KeyCachingService;
-import org.thoughtcrime.securesms.tracing.Tracer;
+import org.thoughtcrime.securesms.util.AppStartup;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
 import java.util.Locale;
@@ -52,6 +53,7 @@ public abstract class PassphraseRequiredActivity extends PassphraseActivity impl
   @Override
   protected final void onCreate(Bundle savedInstanceState) {
     Tracer.getInstance().start(Log.tag(getClass()) + "#onCreate()");
+    AppStartup.getInstance().onCriticalRenderEventStart();
     this.networkAccess = new SignalServiceNetworkAccess(this);
     onPreCreate();
 
@@ -65,6 +67,8 @@ public abstract class PassphraseRequiredActivity extends PassphraseActivity impl
     } else {
       super.onCreate(null);
     }
+
+    AppStartup.getInstance().onCriticalRenderEventEnd();
     Tracer.getInstance().end(Log.tag(getClass()) + "#onCreate()");
   }
 
@@ -226,7 +230,7 @@ public abstract class PassphraseRequiredActivity extends PassphraseActivity impl
 
   private Intent getConversationListIntent() {
     // TODO [greyson] Navigation
-    return new Intent(this, MainActivity.class);
+    return MainActivity.clearTop(this);
   }
 
   private void initializeClearKeyReceiver() {

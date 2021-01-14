@@ -30,7 +30,6 @@ import org.thoughtcrime.securesms.profiles.ProfileName;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.recipients.RecipientUtil;
-import org.thoughtcrime.securesms.tracing.Trace;
 import org.thoughtcrime.securesms.transport.RetryLaterException;
 import org.thoughtcrime.securesms.util.Base64;
 import org.thoughtcrime.securesms.util.IdentityUtil;
@@ -67,7 +66,6 @@ import java.util.concurrent.TimeoutException;
 /**
  * Retrieves a users profile and sets the appropriate local fields.
  */
-@Trace
 public class RetrieveProfileJob extends BaseJob {
 
   public static final String KEY = "RetrieveProfileJob";
@@ -233,6 +231,11 @@ public class RetrieveProfileJob extends BaseJob {
   }
 
   @Override
+  protected boolean shouldTrace() {
+    return true;
+  }
+
+  @Override
   public void onRun() throws IOException, RetryLaterException {
     Stopwatch         stopwatch         = new Stopwatch("RetrieveProfile");
     RecipientDatabase recipientDatabase = DatabaseFactory.getRecipientDatabase(context);
@@ -257,7 +260,7 @@ public class RetrieveProfileJob extends BaseJob {
                                                                    Recipient recipient = pair.first();
 
                                                                    try {
-                                                                     ProfileAndCredential profile = pair.second().get(5, TimeUnit.SECONDS);
+                                                                     ProfileAndCredential profile = pair.second().get(10, TimeUnit.SECONDS);
                                                                      return new Pair<>(recipient, profile);
                                                                    } catch (InterruptedException | TimeoutException e) {
                                                                      retries.add(recipient.getId());

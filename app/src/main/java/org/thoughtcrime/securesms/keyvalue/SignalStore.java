@@ -27,6 +27,7 @@ public final class SignalStore {
   private final SettingsValues           settingsValues;
   private final CertificateValues        certificateValues;
   private final PhoneNumberPrivacyValues phoneNumberPrivacyValues;
+  private final OnboardingValues         onboardingValues;
 
   private SignalStore() {
     this.store                    = new KeyValueStore(ApplicationDependencies.getApplication());
@@ -43,6 +44,7 @@ public final class SignalStore {
     this.settingsValues           = new SettingsValues(store);
     this.certificateValues        = new CertificateValues(store);
     this.phoneNumberPrivacyValues = new PhoneNumberPrivacyValues(store);
+    this.onboardingValues         = new OnboardingValues(store);
   }
 
   public static SignalStore getInstance() {
@@ -69,6 +71,7 @@ public final class SignalStore {
     settings().onFirstEverAppLaunch();
     certificateValues().onFirstEverAppLaunch();
     phoneNumberPrivacy().onFirstEverAppLaunch();
+    onboarding().onFirstEverAppLaunch();
   }
 
   public static @NonNull KbsValues kbsValues() {
@@ -121,6 +124,10 @@ public final class SignalStore {
 
   public static @NonNull PhoneNumberPrivacyValues phoneNumberPrivacy() {
     return getInstance().phoneNumberPrivacyValues;
+  }
+
+  public static @NonNull OnboardingValues onboarding() {
+    return getInstance().onboardingValues;
   }
 
   public static @NonNull GroupsV2AuthorizationSignalStoreCache groupsV2AuthorizationCache() {

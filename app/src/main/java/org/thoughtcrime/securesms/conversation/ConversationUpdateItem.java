@@ -221,10 +221,12 @@ public final class ConversationUpdateItem extends LinearLayout
 
       int text = 0;
       if (Util.hasItems(uuids)) {
-        if (GroupCallUpdateDetailsUtil.parse(conversationMessage.getMessageRecord().getBody()).getIsCallFull()) {
+        if (uuids.contains(TextSecurePreferences.getLocalUuid(getContext()))) {
+          text = R.string.ConversationUpdateItem_return_to_call;
+        } else if (GroupCallUpdateDetailsUtil.parse(conversationMessage.getMessageRecord().getBody()).getIsCallFull()) {
           text = R.string.ConversationUpdateItem_call_is_full;
         } else {
-          text = uuids.contains(TextSecurePreferences.getLocalUuid(getContext())) ? R.string.ConversationUpdateItem_return_to_call : R.string.ConversationUpdateItem_join_call;
+          text = R.string.ConversationUpdateItem_join_call;
         }
       }
 
@@ -240,6 +242,14 @@ public final class ConversationUpdateItem extends LinearLayout
         actionButton.setVisibility(GONE);
         actionButton.setOnClickListener(null);
       }
+    } else if (conversationMessage.getMessageRecord().isSelfCreatedGroup()) {
+      actionButton.setText(R.string.ConversationUpdateItem_invite_friends);
+      actionButton.setVisibility(VISIBLE);
+      actionButton.setOnClickListener(v -> {
+        if (batchSelected.isEmpty() && eventListener != null) {
+          eventListener.onInviteFriendsToGroupClicked(conversationRecipient.requireGroupId().requireV2());
+        }
+      });
     } else {
       if (messageRecord.isCallLog()) {
         presentTimer(messageRecord);

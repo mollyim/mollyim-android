@@ -29,6 +29,7 @@ import org.thoughtcrime.securesms.MainActivity;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.jobs.ProfileUploadJob;
+import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.lock.v2.KbsConstants;
 import org.thoughtcrime.securesms.lock.v2.PinKeyboardType;
 import org.thoughtcrime.securesms.profiles.AvatarHelper;
@@ -227,11 +228,12 @@ public class PinRestoreEntryFragment extends LoggingFragment {
 
   private void handleSuccess() {
     cancelSpinning(pinButton);
+    SignalStore.onboarding().clearAll();
 
     Activity activity = requireActivity();
 
     if (Recipient.self().getProfileName().isEmpty() || !AvatarHelper.hasAvatar(activity, Recipient.self().getId())) {
-      final Intent main    = new Intent(activity, MainActivity.class);
+      final Intent main    = MainActivity.clearTop(activity);
       final Intent profile = EditProfileActivity.getIntentForUserProfile(activity);
 
       profile.putExtra("next_intent", main);
@@ -239,7 +241,7 @@ public class PinRestoreEntryFragment extends LoggingFragment {
     } else {
       RegistrationUtil.maybeMarkRegistrationComplete(requireContext());
       ApplicationDependencies.getJobManager().add(new ProfileUploadJob());
-      startActivity(new Intent(activity, MainActivity.class));
+      startActivity(MainActivity.clearTop(activity));
     }
 
     activity.finish();

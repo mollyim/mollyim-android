@@ -704,6 +704,7 @@
     <string name="AddGroupDetailsFragment__create_group">Create group</string>
     <string name="AddGroupDetailsFragment__create">Create</string>
     <string name="AddGroupDetailsFragment__members">Members</string>
+    <string name="AddGroupDetailsFragment__you_can_add_or_invite_friends_after_creating_this_group">You can add or invite friends after creating this group.</string>
     <string name="AddGroupDetailsFragment__group_name_required">Group name (required)</string>
     <string name="AddGroupDetailsFragment__group_name_optional">Group name (optional)</string>
     <string name="AddGroupDetailsFragment__this_field_is_required">This field is required.</string>
@@ -889,6 +890,18 @@
     <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_linked_device_message">One or more of your linked devices are running a version of Signal that doesn\'t support group links. Update Signal on your linked device(s) to join this group.</string>
     <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_group_link_is_not_valid">Group link is not valid</string>
 
+    <!-- GroupInviteLinkEnableAndShareBottomSheetDialogFragment -->
+    <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_invite_friends">Invite friends</string>
+    <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_share_a_link_with_friends_to_let_them_quickly_join_this_group">Share a link with friends to let them quickly join this group.</string>
+
+    <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_enable_and_share_link">Enable and share link</string>
+    <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_share_link">Share link</string>
+
+    <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_unable_to_enable_group_link_please_try_again_later">Unable to enable group link. Please try again later</string>
+    <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_encountered_a_network_error">Encountered a network error.</string>
+    <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_you_dont_have_the_right_to_enable_group_link">You don\'t have the right to enable the group link. Please ask an admin.</string>
+    <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_you_are_not_currently_a_member_of_the_group">You are not currently a member of the group.</string>
+
     <!-- GV2 Request confirmation dialog -->
     <string name="RequestConfirmationDialog_add_s_to_the_group">Add “%1$s” to the group?</string>
     <string name="RequestConfirmationDialog_deny_request_from_s">Deny request from “%1$s”?</string>
@@ -1002,6 +1015,10 @@
     <string name="Megaphones_verify_your_signal_pin">Verify your Signal PIN</string>
     <string name="Megaphones_well_occasionally_ask_you_to_verify_your_pin">We\'ll occasionally ask you to verify your PIN so that you remember it.</string>
     <string name="Megaphones_verify_pin">Verify PIN</string>
+    <string name="Megaphones_get_started">Get started</string>
+    <string name="Megaphones_new_group">New group</string>
+    <string name="Megaphones_invite_friends">Invite friends</string>
+    <string name="Megaphones_use_sms">Use SMS</string>
 
     <!-- NotificationBarManager -->
     <string name="NotificationBarManager_signal_call_in_progress">Signal call in progress</string>
@@ -1082,6 +1099,7 @@
     <!-- GV2 specific -->
     <string name="MessageRecord_you_created_the_group">You created the group.</string>
     <string name="MessageRecord_group_updated">Group updated.</string>
+    <string name="MessageRecord_invite_friends_to_this_group">Invite friends to this group via a group link</string>
 
     <!-- GV2 member additions -->
     <string name="MessageRecord_you_added_s">You added %1$s.</string>
@@ -1490,8 +1508,10 @@
     <string name="RegistrationActivity_continue_last_attempt">Continue (last attempt!)</string>
     <string name="RegistrationActivity_take_privacy_with_you_be_yourself_in_every_message">Take privacy with you.\nBe yourself in every message.</string>
     <string name="RegistrationActivity_enter_your_phone_number_to_get_started">Enter your phone number to get started</string>
+    <string name="RegistrationActivity_enter_your_phone_number">Enter your phone number</string>
     <string name="RegistrationActivity_you_will_receive_a_verification_code">You will receive a verification code. Carrier rates may apply.</string>
     <string name="RegistrationActivity_enter_the_code_we_sent_to_s">Enter the code we sent to %s</string>
+    <string name="RegistrationActivity_make_sure_your_phone_has_a_cellular_signal">Make sure your phone has a cellular signal to receive your SMS or call</string>
 
     <string name="RegistrationActivity_phone_number_description">Phone number</string>
     <string name="RegistrationActivity_country_code_description">Country code</string>
@@ -1518,6 +1538,14 @@
     <string name="SearchFragment_header_conversations">Conversations</string>
     <string name="SearchFragment_header_contacts">Contacts</string>
     <string name="SearchFragment_header_messages">Messages</string>
+
+    <!-- ShakeToReport -->
+    <string name="ShakeToReport_shake_detected" translatable="false">Shake detected</string>
+    <string name="ShakeToReport_submit_debug_log" translatable="false">Submit debug log?</string>
+    <string name="ShakeToReport_submit" translatable="false">Submit</string>
+    <string name="ShakeToReport_failed_to_submit" translatable="false">Failed to submit :(</string>
+    <string name="ShakeToReport_success" translatable="false">Success!</string>
+    <string name="ShakeToReport_share" translatable="false">Share</string>
 
     <!-- SharedContactDetailsActivity -->
     <string name="SharedContactDetailsActivity_add_to_contacts">Add to Contacts</string>
@@ -1659,6 +1687,11 @@
     <string name="UsernameEditFragment_username_is_invalid">Username is invalid.</string>
     <string name="UsernameEditFragment_usernames_must_be_between_a_and_b_characters">Usernames must be between %1$d and %2$d characters.</string>
     <string name="UsernameEditFragment_usernames_on_signal_are_optional">Usernames on Signal are optional. If you choose to create a username, other Signal users will be able to find you by this username and contact you without knowing your phone number.</string>
+
+    <plurals name="UserNotificationMigrationJob_d_contacts_are_on_signal">
+        <item quantity="one">%d contact is on Signal!</item>
+        <item quantity="other">%d contacts are on Signal!</item>
+    </plurals>
 
     <!-- VerifyIdentityActivity -->
     <string name="VerifyIdentityActivity_your_contact_is_running_an_old_version_of_signal">Your contact is running an old version of Signal. Please ask them to update before verifying your safety number.</string>
@@ -1947,6 +1980,7 @@
     <string name="ConversationUpdateItem_join_call">Join call</string>
     <string name="ConversationUpdateItem_return_to_call">Return to call</string>
     <string name="ConversationUpdateItem_call_is_full">Call is full</string>
+    <string name="ConversationUpdateItem_invite_friends">Invite friends</string>
 
     <!-- audio_view -->
     <string name="audio_view__play_pause_accessibility_description">Play … Pause</string>
@@ -2536,7 +2570,7 @@
     <!-- conversation_list_fragment -->
     <string name="conversation_list_fragment__fab_content_description">New conversation</string>
     <string name="conversation_list_fragment__open_camera_description">Open Camera</string>
-    <string name="conversation_list_fragment__give_your_inbox_something_to_write_home_about_get_started_by_messaging_a_friend">Give your inbox something to write home about. Get started by messaging a friend.</string>
+    <string name="conversation_list_fragment__no_chats_yet_get_started_by_messaging_a_friend">No chats yet.\nGet started by messaging a friend.</string>
 
 
     <!-- conversation_secure_verified -->
@@ -2584,8 +2618,6 @@
     <string name="verify_display_fragment_context_menu__compare_with_clipboard">Compare with clipboard</string>
 
     <!-- reminder_header -->
-    <string name="reminder_header_sms_default_title">Use as default SMS app</string>
-    <string name="reminder_header_sms_default_text">Tap to make Signal your default SMS app.</string>
     <string name="reminder_header_sms_import_title">Import system SMS</string>
     <string name="reminder_header_sms_import_text">Tap to copy your phone\'s SMS messages into Signal\'s encrypted database.</string>
     <string name="reminder_header_push_title">Enable Signal messages and calls</string>
@@ -2808,6 +2840,7 @@
     <string name="BackupDialog_to_enable_backups_choose_a_folder">To enable backups, choose a folder. Backups will be saved to this location.</string>
     <string name="BackupDialog_choose_folder">Choose folder</string>
     <string name="BackupDialog_copied_to_clipboard">Copied to clipboard</string>
+    <string name="BackupDialog_no_file_picker_available">No file picker available.</string>
     <string name="BackupDialog_enter_backup_passphrase_to_verify">Enter your backup passphrase to verify</string>
     <string name="BackupDialog_verify">Verify</string>
     <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">You successfully entered your backup passphrase</string>
@@ -3011,6 +3044,9 @@
 
     <!-- DeleteAccountCountryPickerFragment -->
     <string name="DeleteAccountCountryPickerFragment__search_countries">Search Countries</string>
+
+    <!-- CreateGroupActivity -->
+    <string name="CreateGroupActivity__skip">Skip</string>
 
     <!-- EOF -->
 

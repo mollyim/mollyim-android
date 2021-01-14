@@ -8,6 +8,7 @@ include ':libfakegms'
 include ':lintchecks'
 include ':paging'
 include ':core-util'
+include ':video'
 
 project(':app').name = 'mollyim-android'
 project(':paging').projectDir = file('paging/lib')

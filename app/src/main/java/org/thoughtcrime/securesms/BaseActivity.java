@@ -15,7 +15,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.ActivityOptionsCompat;
 
 import org.signal.core.util.logging.Log;
+import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.service.KeyCachingService;
+import org.thoughtcrime.securesms.util.AppStartup;
 import org.thoughtcrime.securesms.util.ConfigurationUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.dynamiclanguage.DynamicLanguageContextWrapper;
@@ -32,8 +34,10 @@ public abstract class BaseActivity extends AppCompatActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
+    AppStartup.getInstance().onCriticalRenderEventStart();
     logEvent("onCreate()");
     super.onCreate(savedInstanceState);
+    AppStartup.getInstance().onCriticalRenderEventEnd();
   }
 
   @Override
@@ -45,6 +49,9 @@ public abstract class BaseActivity extends AppCompatActivity {
   @Override
   protected void onStart() {
     logEvent("onStart()");
+    try {
+      ApplicationDependencies.getShakeToReport().registerActivity(this);
+    } catch (IllegalStateException ignored) {}
     super.onStart();
   }
 

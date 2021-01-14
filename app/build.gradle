@@ -69,8 +69,8 @@ protobuf {
     }
 }
 
-def canonicalVersionCode = 760
-def canonicalVersionName = "5.0.8"
+def canonicalVersionCode = 768
+def canonicalVersionName = "5.1.8"
 
 def postFixSize = 10
 def abiPostFix = ['universal'   : 0,
@@ -232,6 +232,12 @@ android {
             shrinkResources true
             proguardFiles = buildTypes.debug.proguardFiles
         }
+        perf {
+            initWith debug
+            isDefault false
+            debuggable false
+            matchingFallbacks = ['debug']
+        }
     }
 
     productFlavors {
@@ -328,8 +334,6 @@ dependencies {
     implementation "androidx.camera:camera-view:1.0.0-alpha18"
     implementation "androidx.concurrent:concurrent-futures:1.0.0"
     implementation "androidx.autofill:autofill:1.0.0"
-    implementation "androidx.paging:paging-common:2.1.2"
-    implementation "androidx.paging:paging-runtime:2.1.2"
     nonFreeImplementation 'com.google.firebase:firebase-ml-vision:24.0.3'
     nonFreeImplementation 'com.google.firebase:firebase-ml-vision-face-model:20.0.1'
 
@@ -353,12 +357,14 @@ dependencies {
     implementation project(':paging')
     implementation project(':core-util')
     freeImplementation project(':libfakegms')
+    implementation project(':video')
+
     implementation 'org.signal:zkgroup-android:0.7.0'
     implementation 'org.whispersystems:signal-client-android:0.1.5'
     implementation 'com.google.protobuf:protobuf-javalite:3.10.0'
     implementation 'im.molly:argon2:13.1-1@aar'
 
-    implementation 'im.molly:ringrtc-android:2.8.7-1'
+    implementation 'im.molly:ringrtc-android:2.8.9-1'
 
     implementation "me.leolin:ShortcutBadger:1.1.16"
     implementation 'se.emilsjolander:stickylistheaders:2.7.0'
