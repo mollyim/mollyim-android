@@ -89,6 +89,7 @@ import org.thoughtcrime.securesms.util.PlayServicesUtil;
 import org.thoughtcrime.securesms.util.SignalUncaughtExceptionHandler;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.Util;
+import org.thoughtcrime.securesms.util.VersionTracker;
 import org.thoughtcrime.securesms.util.dynamiclanguage.DynamicLanguageContextWrapper;
 import org.webrtc.voiceengine.WebRtcAudioManager;
 import org.webrtc.voiceengine.WebRtcAudioUtils;
@@ -357,7 +358,7 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
 
   private void initializeFirstEverAppLaunch() {
     if (TextSecurePreferences.getFirstInstallVersion(this) == -1) {
-      if (!SQLCipherOpenHelper.databaseFileExists(this)) {
+      if (!SQLCipherOpenHelper.databaseFileExists(this) || VersionTracker.getDaysSinceFirstInstalled(this) < 365) {
         Log.i(TAG, "First ever app launch!");
         AppInitialization.onFirstEverAppLaunch(this);
       }
