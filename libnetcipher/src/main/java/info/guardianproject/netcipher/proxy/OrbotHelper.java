@@ -61,10 +61,8 @@ public class OrbotHelper implements ProxyHelper {
 
     public final static String ORBOT_PACKAGE_NAME = "org.torproject.android";
     public final static String ORBOT_MARKET_URI = "market://details?id=" + ORBOT_PACKAGE_NAME;
-    public final static String ORBOT_FDROID_URI = "https://f-droid.org/repository/browse/?fdid="
-            + ORBOT_PACKAGE_NAME;
-    public final static String ORBOT_PLAY_URI = "https://play.google.com/store/apps/details?id="
-            + ORBOT_PACKAGE_NAME;
+
+    public final static String ORBOT_INSTALL_URL = "https://www.torproject.org/docs/android.html";
 
     public final static String DEFAULT_PROXY_HOST = "localhost";//"127.0.0.1";
     public final static int DEFAULT_PROXY_HTTP_PORT = 8118;
@@ -259,7 +257,7 @@ public class OrbotHelper implements ProxyHelper {
         }
 
         if (foundPackageName == null) {
-            intent.setData(Uri.parse(ORBOT_FDROID_URI));
+            intent.setData(Uri.parse(ORBOT_INSTALL_URL));
         } else {
             intent.setPackage(foundPackageName);
         }
