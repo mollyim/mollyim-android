@@ -592,7 +592,9 @@ public class OrbotHelper implements ProxyHelper {
     private final Runnable onStatusTimeout = new Runnable() {
         @Override
         public void run() {
-            context.unregisterReceiver(orbotStatusReceiver);
+            try {
+                context.unregisterReceiver(orbotStatusReceiver);
+            } catch (IllegalArgumentException ignored) {}
 
             for (StatusCallback cb : statusCallbacks) {
                 cb.onStatusTimeout();
