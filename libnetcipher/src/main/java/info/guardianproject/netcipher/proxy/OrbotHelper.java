@@ -28,15 +28,17 @@ import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.Log;
+
+import androidx.annotation.Nullable;
+
+import org.signal.core.util.logging.Log;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.WeakHashMap;
 
@@ -52,6 +54,8 @@ import java.util.WeakHashMap;
  * for use.
  */
 public class OrbotHelper implements ProxyHelper {
+
+    private static final String TAG = Log.tag(OrbotHelper.class);
 
     private final static int REQUEST_CODE_STATUS = 100;
 
@@ -158,19 +162,6 @@ public class OrbotHelper implements ProxyHelper {
         return uri.getHost().endsWith(".onion");
     }
 
-    /**
-     * Check if the tor process is running.  This method is very
-     * brittle, and is therefore deprecated in favor of using the
-     * {@link #ACTION_STATUS} {@code Intent} along with the
-     * {@link #requestStartTor(Context)} method.
-     */
-    @Deprecated
-    public static boolean isOrbotRunning(Context context) {
-        int procId = TorServiceUtils.findProcessId(context);
-
-        return (procId != -1);
-    }
-
     public static boolean isOrbotInstalled(Context context) {
         return isAppInstalled(context, ORBOT_PACKAGE_NAME);
     }
@@ -205,19 +196,14 @@ public class OrbotHelper implements ProxyHelper {
      * That reply {@link #ACTION_STATUS} {@code Intent} could say that the user
      * has disabled background starts with the status
      * {@link #STATUS_STARTS_DISABLED}. That means that Orbot ignored this
-     * request.  To directly prompt the user to start Tor, use
-     * {@link #requestShowOrbotStart(Activity)}, which will bring up
-     * Orbot itself for the user to manually start Tor.  Orbot always broadcasts
-     * it's status, so your app will receive those no matter how Tor gets
-     * started.
+     * request.
      *
      * @param context the app {@link Context} will receive the reply
      * @return whether the start request was sent to Orbot
-     * @see #requestShowOrbotStart(Activity activity)
      */
     public static boolean requestStartTor(Context context) {
         if (OrbotHelper.isOrbotInstalled(context)) {
-            Log.i("OrbotHelper", "requestStartTor " + context.getPackageName());
+            Log.i(TAG, "requestStartTor " + context.getPackageName());
             Intent intent = getOrbotStartIntent(context);
             context.sendBroadcast(intent);
             return true;
@@ -248,33 +234,6 @@ public class OrbotHelper implements ProxyHelper {
         return intent;
     }
 
-    /**
-     * First, checks whether Orbot is installed, then checks whether Orbot is
-     * running. If Orbot is installed and not running, then an {@link Intent} is
-     * sent to request the user to start Orbot, which will show the main Orbot screen.
-     * The result will be returned in
-     * {@link Activity#onActivityResult(int requestCode, int resultCode, Intent data)}
-     * with a {@code requestCode} of {@code START_TOR_RESULT}
-     * <p>
-     * Orbot will also always broadcast the status of starting Tor via the
-     * {@link #ACTION_STATUS} Intent, no matter how it is started.
-     *
-     * @param activity the {@code Activity} that gets the result of the
-     *                 {@link #START_TOR_RESULT} request
-     * @return whether the start request was sent to Orbot
-     * @see #requestStartTor(Context context)
-     */
-    public static boolean requestShowOrbotStart(Activity activity) {
-        if (OrbotHelper.isOrbotInstalled(activity)) {
-            if (!OrbotHelper.isOrbotRunning(activity)) {
-                Intent intent = getShowOrbotStartIntent();
-                activity.startActivityForResult(intent, START_TOR_RESULT);
-                return true;
-            }
-        }
-        return false;
-    }
-
     public static Intent getShowOrbotStartIntent() {
         Intent intent = new Intent(ACTION_START_TOR);
         intent.setPackage(ORBOT_PACKAGE_NAME);
@@ -291,7 +250,7 @@ public class OrbotHelper implements ProxyHelper {
 
         String foundPackageName = null;
         for (ResolveInfo r : resInfos) {
-            Log.i("OrbotHelper", "market: " + r.activityInfo.packageName);
+            Log.i(TAG, "market: " + r.activityInfo.packageName);
             if (TextUtils.equals(r.activityInfo.packageName, FDROID_PACKAGE_NAME)
                     || TextUtils.equals(r.activityInfo.packageName, PLAY_PACKAGE_NAME)) {
                 foundPackageName = r.activityInfo.packageName;
@@ -310,11 +269,6 @@ public class OrbotHelper implements ProxyHelper {
     @Override
     public boolean isInstalled(Context context) {
         return isOrbotInstalled(context);
-    }
-
-    @Override
-    public void requestStatus(Context context) {
-        isOrbotRunning(context);
     }
 
     @Override
@@ -344,10 +298,10 @@ public class OrbotHelper implements ProxyHelper {
     private boolean isInstalled = false;
     @Nullable
     private Intent lastStatusIntent = null;
-    private Set<StatusCallback> statusCallbacks =
-            newSetFromMap(new WeakHashMap<StatusCallback, Boolean>());
-    private Set<InstallCallback> installCallbacks =
-            newSetFromMap(new WeakHashMap<InstallCallback, Boolean>());
+    private final Set<StatusCallback> statusCallbacks =
+            Collections.newSetFromMap(new WeakHashMap<>());
+    private final Set<InstallCallback> installCallbacks =
+            Collections.newSetFromMap(new WeakHashMap<>());
     private long statusTimeoutMs = 30000L;
     private long installTimeoutMs = 60000L;
     private boolean validateOrbot = true;
@@ -637,7 +591,7 @@ public class OrbotHelper implements ProxyHelper {
         }
     };
 
-    private Runnable onStatusTimeout = new Runnable() {
+    private final Runnable onStatusTimeout = new Runnable() {
         @Override
         public void run() {
             context.unregisterReceiver(orbotStatusReceiver);
@@ -648,7 +602,7 @@ public class OrbotHelper implements ProxyHelper {
         }
     };
 
-    private BroadcastReceiver orbotInstallReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver orbotInstallReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (TextUtils.equals(intent.getAction(),
@@ -670,7 +624,7 @@ public class OrbotHelper implements ProxyHelper {
         }
     };
 
-    private Runnable onInstallTimeout = new Runnable() {
+    private final Runnable onInstallTimeout = new Runnable() {
         @Override
         public void run() {
             context.unregisterReceiver(orbotInstallReceiver);
@@ -680,28 +634,4 @@ public class OrbotHelper implements ProxyHelper {
             }
         }
     };
-
-    /*
-     *  Licensed to the Apache Software Foundation (ASF) under one or more
-     *  contributor license agreements.  See the NOTICE file distributed with
-     *  this work for additional information regarding copyright ownership.
-     *  The ASF licenses this file to You under the Apache License, Version 2.0
-     *  (the "License"); you may not use this file except in compliance with
-     *  the License.  You may obtain a copy of the License at
-     *
-     *     http://www.apache.org/licenses/LICENSE-2.0
-     *
-     *  Unless required by applicable law or agreed to in writing, software
-     *  distributed under the License is distributed on an "AS IS" BASIS,
-     *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-     *  See the License for the specific language governing permissions and
-     *  limitations under the License.
-     */
-
-    static <E> Set<E> newSetFromMap(Map<E, Boolean> map) {
-        if (map.isEmpty()) {
-            return new SetFromMap<E>(map);
-        }
-        throw new IllegalArgumentException("map not empty");
-    }
 }

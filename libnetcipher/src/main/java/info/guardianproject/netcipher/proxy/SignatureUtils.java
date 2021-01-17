@@ -1,4 +1,4 @@
-/***
+/*
  * Copyright (c) 2014 CommonsWare, LLC
  * <p>
  * Licensed under the Apache License, Version 2.0 (the "License"); you may
@@ -21,8 +21,10 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.ResolveInfo;
 import android.content.pm.Signature;
-import android.support.annotation.Nullable;
-import android.util.Log;
+
+import androidx.annotation.Nullable;
+
+import org.signal.core.util.logging.Log;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -31,27 +33,35 @@ import java.util.List;
 
 public class SignatureUtils {
 
+    private static final String TAG = Log.tag(SignatureUtils.class);
+
     private SignatureUtils() {
         // this is a utility class with only static methods
     }
 
     public static String getOwnSignatureHash(Context context)
             throws
-            NameNotFoundException,
-            NoSuchAlgorithmException {
+            NameNotFoundException {
         return (getSignatureHash(context, context.getPackageName()));
     }
 
     public static String getSignatureHash(Context context, String packageName)
             throws
-            NameNotFoundException,
-            NoSuchAlgorithmException {
-        MessageDigest md = MessageDigest.getInstance("SHA-256");
+            NameNotFoundException {
+        MessageDigest md = getMessageDigestOrThrow();
         Signature sig =
                 context.getPackageManager()
                         .getPackageInfo(packageName, PackageManager.GET_SIGNATURES).signatures[0];
 
         return (toHexStringWithColons(md.digest(sig.toByteArray())));
+    }
+
+    private static MessageDigest getMessageDigestOrThrow() {
+        try {
+            return MessageDigest.getInstance("SHA-256");
+        } catch (NoSuchAlgorithmException e) {
+            throw new AssertionError(e);
+        }
     }
 
     // based on https://stackoverflow.com/a/2197650/115145
@@ -195,11 +205,8 @@ public class SignatureUtils {
                                 "Package has signature hash mismatch: " +
                                         info.activityInfo.packageName);
                     }
-                } catch (NoSuchAlgorithmException e) {
-                    Log.w("SignatureUtils",
-                            "Exception when computing signature hash", e);
                 } catch (NameNotFoundException e) {
-                    Log.w("SignatureUtils",
+                    Log.w(TAG,
                             "Exception when computing signature hash", e);
                 }
             }
@@ -329,11 +336,8 @@ public class SignatureUtils {
                                 "Package has signature hash mismatch: " +
                                         info.activityInfo.packageName);
                     }
-                } catch (NoSuchAlgorithmException e) {
-                    Log.w("SignatureUtils",
-                            "Exception when computing signature hash", e);
                 } catch (NameNotFoundException e) {
-                    Log.w("SignatureUtils",
+                    Log.w(TAG,
                             "Exception when computing signature hash", e);
                 }
             }
@@ -465,16 +469,12 @@ public class SignatureUtils {
                                 "Package has signature hash mismatch: " +
                                         info.activityInfo.packageName);
                     }
-                } catch (NoSuchAlgorithmException e) {
-                    Log.w("SignatureUtils",
-                            "Exception when computing signature hash", e);
                 } catch (NameNotFoundException e) {
-                    Log.w("SignatureUtils",
-                            "Exception when computing signature hash", e);
+                    Log.w(TAG, e);
                 }
             }
         }
 
-        return (result);
+        return result;
     }
 }

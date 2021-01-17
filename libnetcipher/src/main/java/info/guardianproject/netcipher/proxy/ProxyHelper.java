@@ -23,8 +23,6 @@ public interface ProxyHelper {
 
     public boolean isInstalled(Context context);
 
-    public void requestStatus(Context context);
-
     public boolean requestStart(Context context);
 
     public Intent getInstallIntent(Context context);
