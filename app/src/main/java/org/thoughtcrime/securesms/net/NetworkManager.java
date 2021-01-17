@@ -21,10 +21,6 @@ public class NetworkManager {
 
   private static final String TAG = Log.tag(NetworkManager.class);
 
-  public static final int ORBOT_PROXY_PORT = 9050;
-
-  public static final String ORBOT_PROXY_HOST = SocksProxy.LOCAL_HOST;
-
   private final ApplicationContext application;
   private final OrbotHelper        orbotHelper;
 
@@ -79,11 +75,11 @@ public class NetworkManager {
   }
 
   public String getDefaultProxySocksHost() {
-    return ORBOT_PROXY_HOST;
+    return OrbotHelper.DEFAULT_PROXY_HOST;
   }
 
   public int getDefaultProxySocksPort() {
-    return ORBOT_PROXY_PORT;
+    return OrbotHelper.DEFAULT_PROXY_SOCKS_PORT;
   }
 
   public void applyConfiguration() {
@@ -92,7 +88,7 @@ public class NetworkManager {
     if (proxyType == ProxyType.SOCKS5) {
       newProxy = new SocksProxy(proxySocksHost, proxySocksPort);
     } else if (proxyType == ProxyType.ORBOT) {
-      newProxy = new SocksProxy(ORBOT_PROXY_HOST, proxyOrbotPort);
+      newProxy = new SocksProxy(OrbotHelper.DEFAULT_PROXY_HOST, proxyOrbotPort);
     } else {
       newProxy = null;
     }
@@ -128,7 +124,7 @@ public class NetworkManager {
       synchronized (orbotHelper) {
         if (proxyOrbotPort != socksPort) {
           if (proxyType == ProxyType.ORBOT) {
-            configureNetwork(new SocksProxy(ORBOT_PROXY_HOST, socksPort));
+            configureNetwork(new SocksProxy(OrbotHelper.DEFAULT_PROXY_HOST, socksPort));
           }
           proxyOrbotPort = socksPort;
           if (application.isAppVisible()) {
