@@ -14,9 +14,11 @@
 
 package info.guardianproject.netcipher.proxy;
 
+import android.annotation.SuppressLint;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.ResolveInfo;
@@ -39,21 +41,26 @@ public class SignatureUtils {
         // this is a utility class with only static methods
     }
 
-    public static String getOwnSignatureHash(Context context)
+    public static List<String> getOwnSignatureHash(Context context)
             throws
             NameNotFoundException {
         return (getSignatureHash(context, context.getPackageName()));
     }
 
-    public static String getSignatureHash(Context context, String packageName)
+    @SuppressLint("PackageManagerGetSignatures")
+    public static List<String> getSignatureHash(Context context, String packageName)
             throws
             NameNotFoundException {
         MessageDigest md = getMessageDigestOrThrow();
-        Signature sig =
+        PackageInfo packageInfo =
                 context.getPackageManager()
-                        .getPackageInfo(packageName, PackageManager.GET_SIGNATURES).signatures[0];
+                        .getPackageInfo(packageName, PackageManager.GET_SIGNATURES);
 
-        return (toHexStringWithColons(md.digest(sig.toByteArray())));
+        List<String> hashSet = new ArrayList<>();
+        for (Signature sig : packageInfo.signatures) {
+            hashSet.add(toHexStringWithColons(md.digest(sig.toByteArray())));
+        }
+        return (hashSet);
     }
 
     private static MessageDigest getMessageDigestOrThrow() {
@@ -192,8 +199,8 @@ public class SignatureUtils {
         if (receivers != null) {
             for (ResolveInfo info : receivers) {
                 try {
-                    if (sigHashes.contains(getSignatureHash(context,
-                            info.activityInfo.packageName))) {
+                    List<String> hashSet = getSignatureHash(context, info.activityInfo.packageName);
+                    if (hashSet.size() == 1 && sigHashes.contains(hashSet.get(0))) {
                         ComponentName cn =
                                 new ComponentName(info.activityInfo.packageName,
                                         info.activityInfo.name);
@@ -323,8 +330,8 @@ public class SignatureUtils {
         if (activities != null) {
             for (ResolveInfo info : activities) {
                 try {
-                    if (sigHashes.contains(getSignatureHash(context,
-                            info.activityInfo.packageName))) {
+                    List<String> hashSet = getSignatureHash(context, info.activityInfo.packageName);
+                    if (hashSet.size() == 1 && sigHashes.contains(hashSet.get(0))) {
                         ComponentName cn =
                                 new ComponentName(info.activityInfo.packageName,
                                         info.activityInfo.name);
@@ -456,8 +463,8 @@ public class SignatureUtils {
         if (services != null) {
             for (ResolveInfo info : services) {
                 try {
-                    if (sigHashes.contains(getSignatureHash(context,
-                            info.serviceInfo.packageName))) {
+                    List<String> hashSet = getSignatureHash(context, info.activityInfo.packageName);
+                    if (hashSet.size() == 1 && sigHashes.contains(hashSet.get(0))) {
                         ComponentName cn =
                                 new ComponentName(info.serviceInfo.packageName,
                                         info.serviceInfo.name);
