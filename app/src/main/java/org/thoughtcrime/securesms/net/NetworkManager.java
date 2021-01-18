@@ -5,7 +5,11 @@ import android.content.Intent;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.webkit.ProxyConfig;
+import androidx.webkit.ProxyController;
+import androidx.webkit.WebViewFeature;
 
+import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.ApplicationContext;
 import org.thoughtcrime.securesms.R;
@@ -56,7 +60,7 @@ public class NetworkManager {
       orbotStatusCallback = null;
     }
 
-    proxyOrbotPort = SocksProxy.LOCAL_PORT;
+    proxyOrbotPort = SocksProxy.INVALID_PORT;
     proxyType = type;
 
     if (type == ProxyType.ORBOT && isOrbotAvailable()) {
@@ -97,18 +101,42 @@ public class NetworkManager {
   }
 
   private synchronized void configureNetwork(SocksProxy newProxy) {
+    if (!hasProxyChanged(existingProxy, newProxy)) {
+      return;
+    }
+
     Network.setSocksProxy(newProxy);
 
-    if (hasProxyChanged(existingProxy, newProxy)) {
-      for (SignalServiceMessagePipe pipe : Arrays.asList(IncomingMessageObserver.getPipe(),
+    if (WebViewFeature.isFeatureSupported(WebViewFeature.PROXY_OVERRIDE)) {
+      if (newProxy != null) {
+        String newProxyUrl = newProxy.getUrl();
+        if (newProxyUrl == null) {
+          newProxyUrl = "socks://proxy.invalid";
+        }
+        final ProxyConfig proxyConfig = new ProxyConfig.Builder()
+                                                       .addProxyRule(newProxyUrl)
+                                                       .build();
+        ProxyController.getInstance().setProxyOverride(proxyConfig, Runnable::run, this::onProxyOverrideComplete);
+      } else {
+        ProxyController.getInstance().clearProxyOverride(Runnable::run, this::onProxyOverrideComplete);
+      }
+    }
+
+    SignalExecutors.UNBOUNDED.execute(() -> {
+      for (SignalServiceMessagePipe pipe : Arrays.asList(
+          IncomingMessageObserver.getPipe(),
           IncomingMessageObserver.getUnidentifiedPipe())) {
         if (pipe != null) {
           pipe.shutdown();
         }
       }
-    }
+    });
 
     existingProxy = newProxy;
+  }
+
+  private void onProxyOverrideComplete() {
+    Log.d(TAG, "onProxyOverrideComplete");
   }
 
   static private boolean hasProxyChanged(SocksProxy existingProxy, SocksProxy newProxy) {

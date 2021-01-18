@@ -18,6 +18,7 @@ import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.net.NetworkManager;
 import org.thoughtcrime.securesms.net.ProxyType;
+import org.thoughtcrime.securesms.net.SocksProxy;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
 import info.guardianproject.netcipher.proxy.OrbotHelper;
@@ -62,7 +63,12 @@ public class NetworkPreferenceFragment extends ListSummaryPreferenceFragment {
     });
     socksHost.setOnPreferenceChangeListener(((preference, newValue) -> {
       String host = (String) newValue;
-      if (host.isEmpty()) {
+      if (!host.isEmpty()) {
+        if (!SocksProxy.isValidHost(host)) {
+          Toast.makeText(preference.getContext(), R.string.NetworkPreferenceFragment_the_host_you_typed_is_not_valid, Toast.LENGTH_SHORT).show();
+          return false;
+        }
+      } else {
         host = networkManager.getDefaultProxySocksHost();
       }
       networkManager.setProxySocksHost(host);
@@ -80,7 +86,7 @@ public class NetworkPreferenceFragment extends ListSummaryPreferenceFragment {
       int port;
       if (!newValueStr.isEmpty()) {
         port = Integer.parseInt(newValueStr);
-        if (port < 0 || port > 0xFFFF) {
+        if (!SocksProxy.isValidPort(port)) {
           Toast.makeText(preference.getContext(), R.string.NetworkPreferenceFragment_a_valid_port_number_is_between_0_and_65535, Toast.LENGTH_SHORT).show();
           return false;
         }
