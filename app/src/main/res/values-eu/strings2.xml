@@ -1,3 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="RegistrationActivity_network_settings">Sarearen konfigurazioa</string>
+    <string name="ApplicationPreferencesActivity_network_summary">%1$s Proxy-a</string>
+    <string name="NetworkPreferenceFragment_a_valid_port_number_is_between_0_and_65535">Balio duen mendate-zenbaki bat 0 eta 65535 artekoa da</string>
+    <string name="BlockUnblockDialog_deleted_contacts_are_still_able_to_call_you_or_send_you_messages">Ezabatutako kontaktuek dei diezazukete edo mezuak bidal diezazkizukete, blokeatuta egon ezean.</string>
+    <string name="BlockUnblockDialog_your_chat_history_with_s_will_be_deleted_and_s_will_be_removed_from_your_phone_contacts">%1$s duzun txata ezabatu egingo da eta %1$s zure telefono-kontaktuetatik ezabatuko da.</string>
+    <string name="BlockUnblockDialog_your_chat_history_with_s_will_be_deleted">%1$s duzun txata ezabatu egingo da.</string>
+    <string name="BlockUnblockDialog_delete_this_contact">Kontaktu hau ezabatu\?</string>
+    <string name="ManageRecipientActivity_this_person_is_in_your_phones_contacts">Pertsona hori zure telefonoko kontaktuetan dago</string>
+    <string name="ManageRecipientActivity_add_to_your_phones_contacts">Gehitu zure telefonoko kontaktuei</string>
+    <string name="ChangePassphraseDialogFragment_generating_keys_this_may_take_a_while">Giltzak sortzen. Honek denbora behar du…</string>
+    <string name="ChangePassphraseDialogFragment_please_choose_a_passphrase_that_will_be_used_to_locally_encrypt_your_data_this_should_be_a_strong_passphrase">Mesedez, aukeratu zure datuak tokian enkriptatzeko erabiliko den pasahitz-esaldi bat.
+\n
+\nEsaldi gogorra izan beharko luke.</string>
+    <string name="ChangePassphraseDialogFragment_enable">Gaitu</string>
+    <string name="ChangePassphraseDialogFragment_passphrase">Pasahitzaren esaldia</string>
+    <string name="ChangePassphraseDialogFragment_estimated_time_to_crack_suggestion">%1$s
+\n
+\nHausturarako zenbatetsitako denbora: %2$s.
+\n
+\nIradokizuna: %3$s</string>
+    <string name="ChangePassphraseDialogFragment_weak_passphrase">Pasahitzaren esaldia ahula!</string>
+    <string name="PassphraseCreateActivity_turn_on_database_encryption">Datu-basearen enkriptazioa aktibatu</string>
+    <string name="PassphraseCreateActivity_require_passphrase_to_unlock_molly">Pasahitzezko esaldi bat behar duzu Molly desblokeatzeko\?</string>
+    <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">Orain pasahitz-esaldi bat ezar dezakezu datu-basea enkriptatzeko. Desblokeatu arte, Mollyk ezin du jakinarazpenik edo deirik jaso. Horrek lagundu egiten du galdutako edo lapurtutako gailuen datuak babesten.</string>
+    <string name="AppProtectionPreferenceFragment_instant">Momentu batean</string>
+    <string name="WipeMemoryService_molly_is_clearing_secrets">Molly enkriptatu gabeko datuak garbitzen ari da</string>
+    <string name="WipeMemoryService_secure_wipe_in_progress">Garbiketa segurua aribidean</string>
+    <string name="ApplicationPreferencesActivity_privacy_summary_passphrase_registration_locks">Datu-basearen enkriptaketa %1$s, Erregistroa blokeatuta %2$s</string>
+    <string name="preferences_network__tunnels_network_traffic">Tunel sareko trafikoa</string>
+    <string name="preferences_network__hostname_or_ip_address">Host izena edo IP helbidea</string>
+    <string name="preferences_network__port">Portua</string>
+    <string name="preferences_network__host">Host</string>
+    <string name="preferences_network__proxy">Proxy-a</string>
+    <string name="preferences_network__connection">Konexioa</string>
+    <string name="preferences__network">Sarea</string>
+    <string name="preferences__map_none">Bat ere ez</string>
+    <string name="preferences__map_terrain">Lursaila</string>
+    <string name="preferences__map_satellite">Satelitea</string>
+    <string name="preferences__map_hybrid">Hibridoa</string>
+    <string name="preferences__map_normal">Normala</string>
+    <string name="preferences__enable_debug_log">Arazketa-erregistroa gaitu</string>
+    <string name="preferences__passphrase_changed">Pasahitzaren esaldia aldatuta</string>
+    <string name="preferences__device_lock_timeout">Gailua blokeatzeko denbora</string>
+    <string name="preferences__automatic_lockdown">Blokeo automatikoa</string>
+    <string name="preferences__protect_molly_database_with_a_passphrase">Mollyren datu-basea babestu pasahitz-esaldi batekin</string>
+    <string name="preferences__passphrase_lock">Datu-basearen enkriptazioa</string>
+    <string name="arrays__none">Bat ere ez</string>
+    <string name="arrays__on_inactivity_timeout">Denbora-tarte bat zure gailua desblokeatu gabe igarotzen baduzu</string>
 </resources>
