@@ -113,14 +113,7 @@ public class InviteActivity extends PassphraseRequiredActivity implements Contac
     contactFilter.setOnFilterChangedListener(new ContactFilterChangedListener());
     contactFilter.setNavigationIcon(R.drawable.ic_search_conversation_24);
 
-    if (Util.isDefaultSmsProvider(this)) {
-      shareButton.setOnClickListener(new ShareClickListener());
-      smsButton.setOnClickListener(new SmsClickListener());
-    } else {
-      shareButton.setVisibility(View.GONE);
-      smsButton.setOnClickListener(new ShareClickListener());
-      smsButton.setText(R.string.InviteActivity_share);
-    }
+    shareButton.setOnClickListener(new ShareClickListener());
   }
 
   private Animation loadAnimation(@AnimRes int animResId) {
