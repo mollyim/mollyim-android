@@ -2,6 +2,7 @@
 <resources>
   <string name="arrays__on_inactivity_timeout">If you go a certain time without unlocking your device</string>
   <string name="arrays__none">None</string>
+  <string name="arrays__tor_via_orbot">Tor via Orbot</string>
   <string name="arrays__socks5" translatable="false">SOCKS5</string>
   <string name="preferences__passphrase_lock">Database encryption</string>
   <string name="preferences__protect_molly_database_with_a_passphrase">Protect Molly\'s database with a passphrase</string>
@@ -40,8 +41,12 @@
   <string name="BlockUnblockDialog_your_chat_history_with_s_will_be_deleted">Your chat with %1$s will be deleted.</string>
   <string name="BlockUnblockDialog_your_chat_history_with_s_will_be_deleted_and_s_will_be_removed_from_your_phone_contacts">Your chat with %1$s will be deleted and %1$s will be removed from your phone contacts.</string>
   <string name="BlockUnblockDialog_deleted_contacts_are_still_able_to_call_you_or_send_you_messages">Deleted contacts are still able to call you or send you messages, unless they are also blocked.</string>
+  <string name="ProxyManager_successfully_started_orbot">Successfully started Orbot</string>
   <string name="NetworkPreferenceFragment_a_valid_port_number_is_between_0_and_65535">A valid port number is between 0 and 65535</string>
   <string name="NetworkPreferenceFragment_the_host_you_typed_is_not_valid">The host you typed is not valid</string>
+  <string name="NetworkPreferenceFragment_missing_orbot_app">Missing Orbot app</string>
+  <string name="NetworkPreferenceFragment_get_orbot">Get Orbot</string>
+  <string name="NetworkPreferenceFragment_molly_wont_connect_without_orbot_which_is_not_installed_on_this_device">Molly won\'t connect without Orbot, which is not installed on this device.</string>
   <string name="ApplicationPreferencesActivity_network_summary">Proxy %1$s</string>
   <string name="RegistrationActivity_network_settings">Network settings</string>
 </resources>

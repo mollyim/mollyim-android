@@ -346,6 +346,7 @@ dependencies {
     implementation project(':paging')
     implementation project(':core-util')
     freeImplementation project(':libfakegms')
+    implementation project(":libnetcipher")
     implementation project(':video')
 
     implementation 'org.signal:zkgroup-android:0.7.0'

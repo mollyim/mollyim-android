@@ -7,6 +7,7 @@ import org.thoughtcrime.securesms.R;
 
 public enum ProxyType {
   NONE  ("none",  R.string.arrays__none),
+  ORBOT ("orbot", R.string.arrays__tor_via_orbot),
   SOCKS5("socks5", R.string.arrays__socks5);
 
   private final String code;

@@ -19,11 +19,13 @@
 
   <string-array name="pref_proxy_type_entries">
     <item>@string/arrays__none</item>
+    <item>@string/arrays__tor_via_orbot</item>
     <item>@string/arrays__socks5</item>
   </string-array>
 
   <string-array name="pref_proxy_type_values">
     <item>none</item>
+    <item>orbot</item>
     <item>socks5</item>
   </string-array>
 

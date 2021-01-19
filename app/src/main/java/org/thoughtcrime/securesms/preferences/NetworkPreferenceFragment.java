@@ -1,11 +1,14 @@
 package org.thoughtcrime.securesms.preferences;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.preference.EditTextPreference;
 import androidx.preference.ListPreference;
@@ -17,6 +20,8 @@ import org.thoughtcrime.securesms.net.NetworkManager;
 import org.thoughtcrime.securesms.net.ProxyType;
 import org.thoughtcrime.securesms.net.SocksProxy;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
+
+import info.guardianproject.netcipher.proxy.OrbotHelper;
 
 public class NetworkPreferenceFragment extends ListSummaryPreferenceFragment {
 
@@ -39,6 +44,10 @@ public class NetworkPreferenceFragment extends ListSummaryPreferenceFragment {
       @Override
       public boolean onPreferenceChange(Preference preference, Object value) {
         ProxyType type = ProxyType.fromCode((String) value);
+        if (type == ProxyType.ORBOT && !networkManager.isOrbotAvailable()) {
+          promptToInstallOrbot(preference.getContext());
+          return false;
+        }
         networkManager.setProxyChoice(type);
         socksGroup.setVisible(type == ProxyType.SOCKS5);
         return super.onPreferenceChange(preference, value);
@@ -113,5 +122,17 @@ public class NetworkPreferenceFragment extends ListSummaryPreferenceFragment {
   public static CharSequence getSummary(Context context) {
     int proxyTypeResId = TextSecurePreferences.getProxyType(context).getStringResource();
     return context.getString(R.string.ApplicationPreferencesActivity_network_summary, context.getString(proxyTypeResId));
+  }
+
+  void promptToInstallOrbot(@NonNull Context context) {
+    final Intent installIntent = OrbotHelper.getOrbotInstallIntent(context);
+    new AlertDialog.Builder(context)
+                   .setTitle(R.string.NetworkPreferenceFragment_missing_orbot_app)
+                   .setMessage(R.string.NetworkPreferenceFragment_molly_wont_connect_without_orbot_which_is_not_installed_on_this_device)
+                   .setPositiveButton(R.string.NetworkPreferenceFragment_get_orbot, (dialog, which) -> {
+                     startActivity(installIntent);
+                   })
+                   .setNegativeButton(android.R.string.cancel, null)
+                   .show();
   }
 }
