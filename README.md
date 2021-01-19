@@ -14,7 +14,7 @@ Molly is updated every two weeks to include the latest Signal changes and bug fi
 
 ## Download
 
-You can download the app from GitHub's [Releases](https://github.com/mollyim/mollyim-android/releases/latest) page or install it from F-Droid.
+You can download the app from GitHub's [Releases](https://github.com/mollyim/mollyim-android/releases/latest) page or install it from the [Molly F-Droid Repo](https://molly.im/fdroid/):
 
 [<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
     alt="Get it on F-Droid"
@@ -34,6 +34,7 @@ Molly has unique features compared to Signal:
 - Allows you to delete contacts and stop sharing your profile
 - Clears call notifications together with expiring messages
 - Disables debug logs
+- Supports proxy tunneling (SOCKS5)
 
 Besides that, you will find all the features of Signal plus some minor tweaks and improvements. The only exception is the SMS integration, that is incompatible with Molly security enhancements.
 
@@ -50,7 +51,7 @@ This table lists the current status of the dependencies:
 | Push notifications <sup>(1)</sup>      | ✘          | ⚠️ (FCM)         | ⚠ (FCM)         |
 | Websocket notifications <sup>(2)</sup> | ✔️          | ✔️               | ✔️               |
 | Location provider                      | ✘          | ⚠ (Google Maps) | ⚠ (Google Maps) |
-| Automatic face blurring                | ✘          | ⚠ (Firebase)    | ⚠ (Firebase)    |
+| Automatic face blurring                | ✘          | ⚠ (ML Kit)      | ⚠ (ML Kit)      |
 
 <sup>(1)</sup> If you are running a custom ROM and the app fails to register with Play Services, try the FOSS flavor.<br/>
 <sup>(2)</sup> You may need to disable the system battery optimizations to receive notifications in background.
