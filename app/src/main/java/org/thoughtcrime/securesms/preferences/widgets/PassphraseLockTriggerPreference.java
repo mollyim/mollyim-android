@@ -1,11 +1,8 @@
 package org.thoughtcrime.securesms.preferences.widgets;
 
-import android.text.TextUtils;
 import androidx.annotation.NonNull;
-import org.thoughtcrime.securesms.R;
+import org.thoughtcrime.securesms.util.Util;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 public class PassphraseLockTriggerPreference {
@@ -22,5 +19,11 @@ public class PassphraseLockTriggerPreference {
 
   public Set<String> getTriggers() {
     return triggers;
+  }
+
+  @NonNull
+  @Override
+  public String toString() {
+    return triggers.isEmpty() ? "none" : Util.join(triggers, " ");
   }
 }

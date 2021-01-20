@@ -15,6 +15,8 @@ import org.thoughtcrime.securesms.jobmanager.impl.MasterSecretConstraint;
 import org.thoughtcrime.securesms.jobmanager.impl.MasterSecretConstraintObserver;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraintObserver;
+import org.thoughtcrime.securesms.jobmanager.impl.NotInCallConstraint;
+import org.thoughtcrime.securesms.jobmanager.impl.NotInCallConstraintObserver;
 import org.thoughtcrime.securesms.jobmanager.impl.DecryptionsDrainedConstraint;
 import org.thoughtcrime.securesms.jobmanager.impl.DecryptionsDrainedConstraintObserver;
 import org.thoughtcrime.securesms.jobmanager.migrations.PushProcessMessageQueueJobMigration;
@@ -55,6 +57,7 @@ public final class JobManagerFactories {
       put(AttachmentUploadJob.KEY,                   new AttachmentUploadJob.Factory());
       put(AttachmentMarkUploadedJob.KEY,             new AttachmentMarkUploadedJob.Factory());
       put(AttachmentCompressionJob.KEY,              new AttachmentCompressionJob.Factory());
+      put(AutomaticSessionResetJob.KEY,              new AutomaticSessionResetJob.Factory());
       put(AvatarGroupsV1DownloadJob.KEY,             new AvatarGroupsV1DownloadJob.Factory());
       put(AvatarGroupsV2DownloadJob.KEY,             new AvatarGroupsV2DownloadJob.Factory());
       put(CleanPreKeysJob.KEY,                       new CleanPreKeysJob.Factory());
@@ -170,6 +173,7 @@ public final class JobManagerFactories {
       put(NetworkConstraint.KEY,                     new NetworkConstraint.Factory(application));
       put(MasterSecretConstraint.KEY,                new MasterSecretConstraint.Factory(application));
       put(DecryptionsDrainedConstraint.KEY,          new DecryptionsDrainedConstraint.Factory());
+      put(NotInCallConstraint.KEY,                   new NotInCallConstraint.Factory());
     }};
   }
 
@@ -177,7 +181,8 @@ public final class JobManagerFactories {
     return Arrays.asList(new MasterSecretConstraintObserver(application),
                          new ChargingConstraintObserver(application),
                          new NetworkConstraintObserver(application),
-                         new DecryptionsDrainedConstraintObserver());
+                         new DecryptionsDrainedConstraintObserver(),
+                         new NotInCallConstraintObserver());
   }
 
   public static List<JobMigration> getJobMigrations(@NonNull Application application) {
