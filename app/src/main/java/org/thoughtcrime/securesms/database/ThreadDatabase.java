@@ -65,6 +65,7 @@ import org.whispersystems.signalservice.api.storage.SignalGroupV2Record;
 import java.io.Closeable;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -546,10 +547,10 @@ public class ThreadDatabase extends Database {
   }
 
   public Cursor getRecentConversationList(int limit, boolean includeInactiveGroups, boolean hideV1Groups) {
-    return getRecentConversationList(limit, includeInactiveGroups, false, hideV1Groups);
+    return getRecentConversationList(limit, includeInactiveGroups, false, hideV1Groups, false);
   }
 
-  public Cursor getRecentConversationList(int limit, boolean includeInactiveGroups, boolean groupsOnly, boolean hideV1Groups) {
+  public Cursor getRecentConversationList(int limit, boolean includeInactiveGroups, boolean groupsOnly, boolean hideV1Groups, boolean hideSms) {
     SQLiteDatabase db    = databaseHelper.getReadableDatabase();
     String         query = !includeInactiveGroups ? MESSAGE_COUNT + " != 0 AND (" + GroupDatabase.TABLE_NAME + "." + GroupDatabase.ACTIVE + " IS NULL OR " + GroupDatabase.TABLE_NAME + "." + GroupDatabase.ACTIVE + " = 1)"
                                                   : MESSAGE_COUNT + " != 0";
@@ -560,6 +561,11 @@ public class ThreadDatabase extends Database {
 
     if (hideV1Groups) {
       query += " AND " + RecipientDatabase.TABLE_NAME + "." + RecipientDatabase.GROUP_TYPE + " != " + RecipientDatabase.GroupType.SIGNAL_V1.getId();
+    }
+
+    if (hideSms) {
+      query += " AND (" + RecipientDatabase.TABLE_NAME + "." + RecipientDatabase.GROUP_ID + " NOT NULL OR " + RecipientDatabase.TABLE_NAME + "." + RecipientDatabase.REGISTERED + " = " + RecipientDatabase.RegisteredState.REGISTERED.getId() + ")";
+      query += " AND " + RecipientDatabase.TABLE_NAME + "." + RecipientDatabase.FORCE_SMS_SELECTION + " = 0";
     }
 
     query += " AND " + ARCHIVED + " = 0";
@@ -960,6 +966,19 @@ public class ThreadDatabase extends Database {
         return -1;
       }
     }
+  }
+
+  public Map<RecipientId, Long> getThreadIdsIfExistsFor(@NonNull RecipientId ... recipientIds) {
+    SQLiteDatabase db            = databaseHelper.getReadableDatabase();
+    SqlUtil.Query  query         = SqlUtil.buildCollectionQuery(RECIPIENT_ID, Arrays.asList(recipientIds));
+
+    Map<RecipientId, Long> results = new HashMap<>();
+    try (Cursor cursor = db.query(TABLE_NAME, new String[]{ ID, RECIPIENT_ID }, query.getWhere(), query.getWhereArgs(), null, null, null, "1")) {
+      while (cursor != null && cursor.moveToNext()) {
+        results.put(RecipientId.from(CursorUtil.requireString(cursor, RECIPIENT_ID)), CursorUtil.requireLong(cursor, ID));
+      }
+    }
+    return results;
   }
 
   public long getOrCreateValidThreadId(@NonNull Recipient recipient, long candidateId) {

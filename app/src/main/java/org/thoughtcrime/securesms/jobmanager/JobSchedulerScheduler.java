@@ -6,28 +6,24 @@ import android.app.job.JobParameters;
 import android.app.job.JobScheduler;
 import android.app.job.JobService;
 import android.content.ComponentName;
-import android.content.Context;
-import android.content.SharedPreferences;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
+import com.annimon.stream.Collectors;
+import com.annimon.stream.Stream;
+
 import org.signal.core.util.logging.Log;
-import org.thoughtcrime.securesms.crypto.EncryptedPreferences;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.service.KeyCachingService;
 
 import java.util.List;
+import java.util.Locale;
 
 @RequiresApi(26)
-public class JobSchedulerScheduler implements Scheduler {
+public final class JobSchedulerScheduler implements Scheduler {
 
-  private static final String TAG = JobSchedulerScheduler.class.getSimpleName();
-
-  private static final String PREF_NAME    = "JobSchedulerScheduler";
-  private static final String PREF_NEXT_ID = "pref_next_id";
-
-  private static final int MAX_ID = 20;
+  private static final String TAG = Log.tag(JobSchedulerScheduler.class);
 
   private final Application application;
 
@@ -39,14 +35,23 @@ public class JobSchedulerScheduler implements Scheduler {
   @Override
   public void schedule(long delay, @NonNull List<Constraint> constraints) {
     JobScheduler jobScheduler = application.getSystemService(JobScheduler.class);
-    int          currentId    = getCurrentId();
 
-    if (constraints.isEmpty() && jobScheduler.getPendingJob(currentId) != null) {
-      Log.d(TAG, "Skipping JobScheduler enqueue because we have no constraints and there's already one pending.");
+    String constraintNames = constraints.isEmpty() ? ""
+                                                   : Stream.of(constraints)
+                                                           .map(Constraint::getJobSchedulerKeyPart)
+                                                           .withoutNulls()
+                                                           .sorted()
+                                                           .collect(Collectors.joining("-"));
+
+    int jobId = constraintNames.hashCode();
+
+    if (jobScheduler.getPendingJob(jobId) != null) {
       return;
     }
 
-    JobInfo.Builder jobInfoBuilder = new JobInfo.Builder(getAndUpdateNextId(), new ComponentName(application, SystemService.class))
+    Log.i(TAG, String.format(Locale.US, "JobScheduler enqueue of %s (%d)", constraintNames, jobId));
+
+    JobInfo.Builder jobInfoBuilder = new JobInfo.Builder(jobId, new ComponentName(application, SystemService.class))
                                                 .setMinimumLatency(delay)
                                                 .setPersisted(true);
 
@@ -55,21 +60,6 @@ public class JobSchedulerScheduler implements Scheduler {
     }
 
     jobScheduler.schedule(jobInfoBuilder.build());
-  }
-
-  private int getCurrentId() {
-    SharedPreferences prefs = EncryptedPreferences.create(application, PREF_NAME);
-    return prefs.getInt(PREF_NEXT_ID, 0);
-  }
-
-  private int getAndUpdateNextId() {
-    SharedPreferences prefs      = EncryptedPreferences.create(application, PREF_NAME);
-    int               returnedId = prefs.getInt(PREF_NEXT_ID, 0);
-    int               nextId     = returnedId + 1 > MAX_ID ? 0 : returnedId + 1;
-
-    prefs.edit().putInt(PREF_NEXT_ID, nextId).apply();
-
-    return returnedId;
   }
 
   @RequiresApi(api = 26)
@@ -83,6 +73,8 @@ public class JobSchedulerScheduler implements Scheduler {
       }
 
       JobManager jobManager = ApplicationDependencies.getJobManager();
+
+      Log.i(TAG, "Waking due to job: " + params.getJobId());
 
       jobManager.addOnEmptyQueueListener(new JobManager.EmptyQueueListener() {
         @Override

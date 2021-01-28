@@ -299,7 +299,7 @@ public final class EnterPhoneNumberFragment extends BaseRegistrationFragment {
 
   private void initNumber(@NonNull NumberViewState numberViewState) {
     int    countryCode       = numberViewState.getCountryCode();
-    long   number            = numberViewState.getNationalNumber();
+    String number            = numberViewState.getNationalNumber();
     String regionDisplayName = numberViewState.getCountryDisplayName();
 
     this.countryCode.setText(String.valueOf(countryCode));
@@ -309,7 +309,7 @@ public final class EnterPhoneNumberFragment extends BaseRegistrationFragment {
     String regionCode = PhoneNumberUtil.getInstance().getRegionCodeForCountryCode(countryCode);
     setCountryFormatter(regionCode);
 
-    if (number != 0) {
+    if (!TextUtils.isEmpty(number)) {
       this.number.setText(String.valueOf(number));
     }
   }
@@ -363,7 +363,7 @@ public final class EnterPhoneNumberFragment extends BaseRegistrationFragment {
 
     @Override
     public void afterTextChanged(Editable s) {
-      Long number = reformatText(s);
+      String number = reformatText(s);
 
       if (number == null) return;
 
@@ -384,7 +384,7 @@ public final class EnterPhoneNumberFragment extends BaseRegistrationFragment {
     }
   }
 
-  private Long reformatText(Editable s) {
+  private String reformatText(Editable s) {
     if (countryFormatter == null) {
       return null;
     }
@@ -414,7 +414,7 @@ public final class EnterPhoneNumberFragment extends BaseRegistrationFragment {
       return null;
     }
 
-    return Long.parseLong(justDigits.toString());
+    return justDigits.toString();
   }
 
   private void setCountryFormatter(@Nullable String regionCode) {

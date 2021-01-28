@@ -15,12 +15,17 @@ import com.annimon.stream.Stream;
 
 import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.logging.Log;
+import org.thoughtcrime.securesms.TransportOption;
+import org.thoughtcrime.securesms.TransportOptions;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.mediasend.Media;
 import org.thoughtcrime.securesms.mediasend.MediaSendConstants;
+import org.thoughtcrime.securesms.mms.MediaConstraints;
 import org.thoughtcrime.securesms.mms.PartAuthority;
+import org.thoughtcrime.securesms.mms.PushMediaConstraints;
 import org.thoughtcrime.securesms.providers.BlobProvider;
 import org.thoughtcrime.securesms.util.MediaUtil;
+import org.thoughtcrime.securesms.util.Util;
 import org.whispersystems.libsignal.util.guava.Optional;
 
 import java.io.IOException;
@@ -72,7 +77,7 @@ class ShareRepository {
     mimeType = getMimeType(context, uri, mimeType);
 
     if (PartAuthority.isLocalUri(uri)) {
-      return ShareData.forIntentData(uri, mimeType, false);
+      return ShareData.forIntentData(uri, mimeType, false, false);
     } else {
       InputStream stream = context.getContentResolver().openInputStream(uri);
 
@@ -99,8 +104,12 @@ class ShareRepository {
                               .createForMultipleSessionsOnDisk(context);
       }
 
-      return ShareData.forIntentData(blobUri, mimeType, true);
+      return ShareData.forIntentData(blobUri, mimeType, true, isMmsSupported(context, mimeType, size));
     }
+  }
+
+  private boolean isMmsSupported(@NonNull Context context, @NonNull String mimeType, long size) {
+    return false;
   }
 
   @WorkerThread
@@ -160,7 +169,9 @@ class ShareRepository {
     }
 
     if (media.size() > 0) {
-      return ShareData.forMedia(media);
+      boolean isMmsSupported = Stream.of(media)
+                                     .allMatch(m -> isMmsSupported(context, m.getMimeType(), m.getSize()));
+      return ShareData.forMedia(media, isMmsSupported);
     } else {
       return null;
     }
