@@ -19,6 +19,7 @@ import org.thoughtcrime.securesms.ringrtc.IceCandidateParcel;
 import org.thoughtcrime.securesms.ringrtc.RemotePeer;
 import org.thoughtcrime.securesms.service.webrtc.state.VideoState;
 import org.thoughtcrime.securesms.service.webrtc.state.WebRtcServiceState;
+import org.thoughtcrime.securesms.util.NetworkUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.webrtc.locks.LockManager;
 import org.webrtc.PeerConnection;
@@ -91,6 +92,7 @@ public class IncomingCallActionProcessor extends DeviceAwareActionProcessor {
                                                 iceServers,
                                                 WebRtcUtil.getProxyInfo(),
                                                 hideIp,
+                                                NetworkUtil.getCallingBandwidthMode(context),
                                                 false);
     } catch (CallException e) {
       return callFailure(currentState, "Unable to proceed with call: ", e);

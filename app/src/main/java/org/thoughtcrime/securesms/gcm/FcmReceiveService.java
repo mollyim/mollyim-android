@@ -13,6 +13,7 @@ import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.jobs.FcmRefreshJob;
 import org.thoughtcrime.securesms.registration.PushChallengeRequest;
 import org.thoughtcrime.securesms.service.KeyCachingService;
+import org.thoughtcrime.securesms.service.KeyCachingService;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
 public class FcmReceiveService extends FirebaseMessagingService {
@@ -21,9 +22,11 @@ public class FcmReceiveService extends FirebaseMessagingService {
 
   @Override
   public void onMessageReceived(RemoteMessage remoteMessage) {
-    if (KeyCachingService.isLocked()) return;
+    if (KeyCachingService.isLocked()) {
+      return;
+    }
 
-    Log.i(TAG, "FCM message... Delay: " + (System.currentTimeMillis() - remoteMessage.getSentTime()));
+    Log.i(TAG, "onMessageReceived() ID: " + remoteMessage.getMessageId() + ", Delay: " + (System.currentTimeMillis() - remoteMessage.getSentTime()));
 
     String challenge = remoteMessage.getData().get("challenge");
     if (challenge != null) {
@@ -31,6 +34,12 @@ public class FcmReceiveService extends FirebaseMessagingService {
     } else {
       handleReceivedNotification(ApplicationDependencies.getApplication());
     }
+  }
+
+  @Override
+  public void onDeletedMessages() {
+    Log.w(TAG, "onDeleteMessages() -- Messages may have been dropped. Doing a normal message fetch.");
+    handleReceivedNotification(ApplicationDependencies.getApplication());
   }
 
   @Override

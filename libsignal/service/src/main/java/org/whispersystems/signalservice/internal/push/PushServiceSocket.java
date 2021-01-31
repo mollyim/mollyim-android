@@ -54,6 +54,7 @@ import org.whispersystems.signalservice.api.push.exceptions.ConflictException;
 import org.whispersystems.signalservice.api.push.exceptions.ContactManifestMismatchException;
 import org.whispersystems.signalservice.api.push.exceptions.DeprecatedVersionException;
 import org.whispersystems.signalservice.api.push.exceptions.ExpectationFailedException;
+import org.whispersystems.signalservice.api.push.exceptions.MalformedResponseException;
 import org.whispersystems.signalservice.api.push.exceptions.MissingConfigurationException;
 import org.whispersystems.signalservice.api.push.exceptions.NoContentException;
 import org.whispersystems.signalservice.api.push.exceptions.NonSuccessfulResponseCodeException;
@@ -191,8 +192,8 @@ public class PushServiceSocket {
   private static final String PROFILE_PATH              = "/v1/profile/%s";
   private static final String PROFILE_USERNAME_PATH     = "/v1/profile/username/%s";
 
-  private static final String SENDER_CERTIFICATE_PATH         = "/v1/certificate/delivery?includeUuid=true";
-  private static final String SENDER_CERTIFICATE_NO_E164_PATH = "/v1/certificate/delivery?includeUuid=true&includeE164=false";
+  private static final String SENDER_CERTIFICATE_PATH         = "/v1/certificate/delivery";
+  private static final String SENDER_CERTIFICATE_NO_E164_PATH = "/v1/certificate/delivery?includeE164=false";
 
   private static final String KBS_AUTH_PATH                  = "/v1/backup/auth";
 
@@ -624,13 +625,13 @@ public class PushServiceSocket {
         return JsonUtil.fromJson(body, SignalServiceProfile.class);
       } catch (IOException e) {
         Log.w(TAG, e);
-        throw new NonSuccessfulResponseCodeException("Unable to parse entity");
+        throw new MalformedResponseException("Unable to parse entity", e);
       }
     });
   }
 
   public SignalServiceProfile retrieveProfileByUsername(String username, Optional<UnidentifiedAccess> unidentifiedAccess)
-      throws NonSuccessfulResponseCodeException, PushNetworkException
+      throws NonSuccessfulResponseCodeException, PushNetworkException, MalformedResponseException
   {
     String response = makeServiceRequest(String.format(PROFILE_USERNAME_PATH, username), "GET", null, NO_HEADERS, unidentifiedAccess);
 
@@ -638,7 +639,7 @@ public class PushServiceSocket {
       return JsonUtil.fromJson(response, SignalServiceProfile.class);
     } catch (IOException e) {
       Log.w(TAG, e);
-      throw new NonSuccessfulResponseCodeException("Unable to parse entity");
+      throw new MalformedResponseException("Unable to parse entity", e);
     }
   }
 
@@ -657,7 +658,7 @@ public class PushServiceSocket {
   }
 
   private ProfileAndCredential formatProfileAndCredentialBody(ProfileKeyCredentialRequestContext requestContext, String body)
-      throws NonSuccessfulResponseCodeException
+      throws MalformedResponseException
   {
     try {
       SignalServiceProfile signalServiceProfile = JsonUtil.fromJson(body, SignalServiceProfile.class);
@@ -673,7 +674,7 @@ public class PushServiceSocket {
       }
     } catch (IOException e) {
       Log.w(TAG, e);
-      throw new NonSuccessfulResponseCodeException("Unable to parse entity");
+      throw new MalformedResponseException("Unable to parse entity", e);
     }
   }
 
@@ -689,7 +690,7 @@ public class PushServiceSocket {
         return JsonUtil.fromJson(body, SignalServiceProfile.class);
       } catch (IOException e) {
         Log.w(TAG, e);
-        throw new NonSuccessfulResponseCodeException("Unable to parse entity");
+        throw new MalformedResponseException("Unable to parse entity", e);
       }
     });
   }
@@ -708,7 +709,7 @@ public class PushServiceSocket {
    * @return The avatar URL path, if one was written.
    */
   public Optional<String> writeProfile(SignalServiceProfileWrite signalServiceProfileWrite, ProfileAvatarData profileAvatar)
-      throws NonSuccessfulResponseCodeException, PushNetworkException
+      throws NonSuccessfulResponseCodeException, PushNetworkException, MalformedResponseException
   {
     String                        requestBody    = JsonUtil.toJson(signalServiceProfileWrite);
     ProfileAvatarUploadAttributes formAttributes;
@@ -720,7 +721,7 @@ public class PushServiceSocket {
         formAttributes = JsonUtil.fromJson(response, ProfileAvatarUploadAttributes.class);
       } catch (IOException e) {
         Log.w(TAG, e);
-        throw new NonSuccessfulResponseCodeException("Unable to parse entity");
+        throw new MalformedResponseException("Unable to parse entity", e);
       }
 
       uploadToCdn0(AVATAR_UPLOAD_PATH, formAttributes.getAcl(), formAttributes.getKey(),
@@ -757,7 +758,7 @@ public class PushServiceSocket {
   }
 
   public List<ContactTokenDetails> retrieveDirectory(Set<String> contactTokens)
-      throws NonSuccessfulResponseCodeException, PushNetworkException
+      throws NonSuccessfulResponseCodeException, PushNetworkException, MalformedResponseException
   {
     try {
       ContactTokenList        contactTokenList = new ContactTokenList(new LinkedList<>(contactTokens));
@@ -767,7 +768,7 @@ public class PushServiceSocket {
       return activeTokens.getContacts();
     } catch (IOException e) {
       Log.w(TAG, e);
-      throw new NonSuccessfulResponseCodeException("Unable to parse entity");
+      throw new MalformedResponseException("Unable to parse entity", e);
     }
   }
 
@@ -802,7 +803,7 @@ public class PushServiceSocket {
     if (body != null) {
       return JsonUtil.fromJson(body.string(), TokenResponse.class);
     } else {
-      throw new NonSuccessfulResponseCodeException("Empty response!");
+      throw new MalformedResponseException("Empty response!");
     }
   }
 
@@ -814,7 +815,7 @@ public class PushServiceSocket {
     if (body != null) {
       return JsonUtil.fromJson(body.string(), DiscoveryResponse.class);
     } else {
-      throw new NonSuccessfulResponseCodeException("Empty response!");
+      throw new MalformedResponseException("Empty response!");
     }
   }
 
@@ -826,7 +827,7 @@ public class PushServiceSocket {
     if (body != null) {
       return JsonUtil.fromJson(body.string(), KeyBackupResponse.class);
     } else {
-      throw new NonSuccessfulResponseCodeException("Empty response!");
+      throw new MalformedResponseException("Empty response!");
     }
   }
 
@@ -900,23 +901,27 @@ public class PushServiceSocket {
     }
   }
 
-  public AttachmentV2UploadAttributes getAttachmentV2UploadAttributes() throws NonSuccessfulResponseCodeException, PushNetworkException {
+  public AttachmentV2UploadAttributes getAttachmentV2UploadAttributes()
+      throws NonSuccessfulResponseCodeException, PushNetworkException, MalformedResponseException
+  {
     String response = makeServiceRequest(ATTACHMENT_V2_PATH, "GET", null);
     try {
       return JsonUtil.fromJson(response, AttachmentV2UploadAttributes.class);
     } catch (IOException e) {
       Log.w(TAG, e);
-      throw new NonSuccessfulResponseCodeException("Unable to parse entity");
+      throw new MalformedResponseException("Unable to parse entity", e);
     }
   }
 
-  public AttachmentV3UploadAttributes getAttachmentV3UploadAttributes() throws NonSuccessfulResponseCodeException, PushNetworkException {
+  public AttachmentV3UploadAttributes getAttachmentV3UploadAttributes()
+      throws NonSuccessfulResponseCodeException, PushNetworkException, MalformedResponseException
+  {
     String response = makeServiceRequest(ATTACHMENT_V3_PATH, "GET", null);
     try {
       return JsonUtil.fromJson(response, AttachmentV3UploadAttributes.class);
     } catch (IOException e) {
       Log.w(TAG, e);
-      throw new NonSuccessfulResponseCodeException("Unable to parse entity");
+      throw new MalformedResponseException("Unable to parse entity", e);
     }
   }
 
@@ -1054,7 +1059,7 @@ public class PushServiceSocket {
       }
     }
 
-    throw new NonSuccessfulResponseCodeException("Response: " + response);
+    throw new NonSuccessfulResponseCodeException(response.code(), "Response: " + response);
   }
 
   private byte[] uploadToCdn0(String path, String acl, String key, String policy, String algorithm,
@@ -1110,7 +1115,7 @@ public class PushServiceSocket {
       }
 
       if (response.isSuccessful()) return file.getTransmittedDigest();
-      else                         throw new NonSuccessfulResponseCodeException("Response: " + response);
+      else                         throw new NonSuccessfulResponseCodeException(response.code(), "Response: " + response);
     } finally {
       synchronized (connections) {
         connections.remove(call);
@@ -1160,7 +1165,7 @@ public class PushServiceSocket {
       if (response.isSuccessful()) {
         return response.header("location");
       } else {
-        throw new NonSuccessfulResponseCodeException("Response: " + response);
+        throw new NonSuccessfulResponseCodeException(response.code(), "Response: " + response);
       }
     } finally {
       synchronized (connections) {
@@ -1212,7 +1217,7 @@ public class PushServiceSocket {
       }
 
       if (response.isSuccessful()) return file.getTransmittedDigest();
-      else                         throw new NonSuccessfulResponseCodeException("Response: " + response);
+      else                         throw new NonSuccessfulResponseCodeException(response.code(), "Response: " + response);
     } finally {
       synchronized (connections) {
         connections.remove(call);
@@ -1270,7 +1275,7 @@ public class PushServiceSocket {
       } else if (response.code() == 404) {
         throw new ResumeLocationInvalidException();
       } else {
-        throw new NonSuccessfulResponseCodeException("Response: " + response);
+        throw new NonSuccessfulResponseCodeException(response.code(), "Response: " + response);
       }
     } finally {
       synchronized (connections) {
@@ -1301,31 +1306,31 @@ public class PushServiceSocket {
   }
 
   private String makeServiceRequest(String urlFragment, String method, String jsonBody)
-      throws NonSuccessfulResponseCodeException, PushNetworkException
+      throws NonSuccessfulResponseCodeException, PushNetworkException, MalformedResponseException
   {
     return makeServiceRequest(urlFragment, method, jsonBody, NO_HEADERS, NO_HANDLER, Optional.<UnidentifiedAccess>absent());
   }
 
   private String makeServiceRequest(String urlFragment, String method, String jsonBody, Map<String, String> headers)
-      throws NonSuccessfulResponseCodeException, PushNetworkException
+      throws NonSuccessfulResponseCodeException, PushNetworkException, MalformedResponseException
   {
     return makeServiceRequest(urlFragment, method, jsonBody, headers, NO_HANDLER, Optional.<UnidentifiedAccess>absent());
   }
 
   private String makeServiceRequest(String urlFragment, String method, String jsonBody, Map<String, String> headers, ResponseCodeHandler responseCodeHandler)
-      throws NonSuccessfulResponseCodeException, PushNetworkException
+      throws NonSuccessfulResponseCodeException, PushNetworkException, MalformedResponseException
   {
     return makeServiceRequest(urlFragment, method, jsonBody, headers, responseCodeHandler, Optional.<UnidentifiedAccess>absent());
   }
 
   private String makeServiceRequest(String urlFragment, String method, String jsonBody, Map<String, String> headers, Optional<UnidentifiedAccess> unidentifiedAccessKey)
-      throws NonSuccessfulResponseCodeException, PushNetworkException
+      throws NonSuccessfulResponseCodeException, PushNetworkException, MalformedResponseException
   {
     return makeServiceRequest(urlFragment, method, jsonBody, headers, NO_HANDLER, unidentifiedAccessKey);
   }
 
   private String makeServiceRequest(String urlFragment, String method, String jsonBody, Map<String, String> headers, ResponseCodeHandler responseCodeHandler, Optional<UnidentifiedAccess> unidentifiedAccessKey)
-      throws NonSuccessfulResponseCodeException, PushNetworkException
+      throws NonSuccessfulResponseCodeException, PushNetworkException, MalformedResponseException
   {
     ResponseBody responseBody = makeServiceBodyRequest(urlFragment, method, jsonRequestBody(jsonBody), headers, responseCodeHandler, unidentifiedAccessKey);
     try {
@@ -1383,7 +1388,7 @@ public class PushServiceSocket {
                                               Map<String, String> headers,
                                               ResponseCodeHandler responseCodeHandler,
                                               Optional<UnidentifiedAccess> unidentifiedAccessKey)
-      throws NonSuccessfulResponseCodeException, PushNetworkException
+      throws NonSuccessfulResponseCodeException, PushNetworkException, MalformedResponseException
   {
     return makeServiceRequest(urlFragment, method, body, headers, responseCodeHandler, unidentifiedAccessKey).body();
   }
@@ -1394,7 +1399,7 @@ public class PushServiceSocket {
                                       Map<String, String> headers,
                                       ResponseCodeHandler responseCodeHandler,
                                       Optional<UnidentifiedAccess> unidentifiedAccessKey)
-      throws NonSuccessfulResponseCodeException, PushNetworkException
+      throws NonSuccessfulResponseCodeException, PushNetworkException, MalformedResponseException
   {
     Response response = getServiceConnection(urlFragment, method, body, headers, unidentifiedAccessKey);
 
@@ -1403,7 +1408,8 @@ public class PushServiceSocket {
     return validateServiceResponse(response);
   }
 
-  private Response validateServiceResponse(Response response) throws NonSuccessfulResponseCodeException, PushNetworkException {
+  private Response validateServiceResponse(Response response)
+      throws NonSuccessfulResponseCodeException, PushNetworkException, MalformedResponseException {
     int    responseCode    = response.code();
     String responseMessage = response.message();
 
@@ -1412,7 +1418,7 @@ public class PushServiceSocket {
         throw new RateLimitException("Rate limit exceeded: " + responseCode);
       case 401:
       case 403:
-        throw new AuthorizationFailedException("Authorization failed!");
+        throw new AuthorizationFailedException(responseCode, "Authorization failed!");
       case 404:
         throw new NotFoundException("Not found");
       case 409:
@@ -1445,7 +1451,7 @@ public class PushServiceSocket {
     }
 
     if (responseCode != 200 && responseCode != 204) {
-      throw new NonSuccessfulResponseCodeException("Bad response: " + responseCode + " " + responseMessage);
+      throw new NonSuccessfulResponseCodeException(responseCode, "Bad response: " + responseCode + " " + responseMessage);
     }
 
     return response;
@@ -1592,14 +1598,14 @@ public class PushServiceSocket {
     switch (response.code()) {
       case 401:
       case 403:
-        throw new AuthorizationFailedException("Authorization failed!");
+        throw new AuthorizationFailedException(response.code(), "Authorization failed!");
       case 409:
         throw new RemoteAttestationResponseExpiredException("Remote attestation response expired");
       case 429:
         throw new RateLimitException("Rate limit exceeded: " + response.code());
     }
 
-    throw new NonSuccessfulResponseCodeException("Response: " + response);
+    throw new NonSuccessfulResponseCodeException(response.code(), "Response: " + response);
   }
 
   private ResponseBody makeStorageRequest(String authorization, String path, String method, RequestBody body)
@@ -1666,7 +1672,7 @@ public class PushServiceSocket {
         throw new NoContentException("No content!");
       case 401:
       case 403:
-        throw new AuthorizationFailedException("Authorization failed!");
+        throw new AuthorizationFailedException(response.code(), "Authorization failed!");
       case 404:
         throw new NotFoundException("Not found");
       case 409:
@@ -1681,7 +1687,7 @@ public class PushServiceSocket {
         throw new DeprecatedVersionException();
     }
 
-    throw new NonSuccessfulResponseCodeException("Response: " + response);
+    throw new NonSuccessfulResponseCodeException(response.code(), "Response: " + response);
   }
 
   public CallingResponse makeCallingRequest(long requestId, String url, String httpMethod, List<Pair<String, String>> headers, byte[] body) {
@@ -1856,17 +1862,15 @@ public class PushServiceSocket {
 
   /**
    * Converts {@link IOException} on body reading to {@link PushNetworkException}.
-   * {@link IOException} during json parsing is converted to a {@link NonSuccessfulResponseCodeException}
+   * {@link IOException} during json parsing is converted to a {@link MalformedResponseException}
    */
-  private static <T> T readBodyJson(ResponseBody body, Class<T> clazz)
-      throws PushNetworkException, NonSuccessfulResponseCodeException
-  {
+  private static <T> T readBodyJson(ResponseBody body, Class<T> clazz) throws PushNetworkException, MalformedResponseException {
     String json = readBodyString(body);
     try {
       return JsonUtil.fromJson(json, clazz);
     } catch (JsonProcessingException e) {
       Log.w(TAG, e);
-      throw new NonSuccessfulResponseCodeException("Unable to parse entity");
+      throw new MalformedResponseException("Unable to parse entity", e);
     } catch (IOException e) {
       throw new PushNetworkException(e);
     }
@@ -1877,13 +1881,9 @@ public class PushServiceSocket {
    * {@link IOException} during json parsing is converted to a {@link NonSuccessfulResponseCodeException} with response code detail.
    */
   private static <T> T readResponseJson(Response response, Class<T> clazz)
-      throws PushNetworkException, NonSuccessfulResponseCodeException
+      throws PushNetworkException, MalformedResponseException
   {
-    try {
       return readBodyJson(response.body(), clazz);
-    } catch (NonSuccessfulResponseCodeException e) {
-      throw new NonSuccessfulResponseCodeException("Bad response: " + response.code() + " " + response.message());
-    }
   }
 
   private static class GcmRegistrationId {
@@ -2070,7 +2070,7 @@ public class PushServiceSocket {
   }
 
   public GroupHistory getGroupsV2GroupHistory(int fromVersion, GroupsV2AuthorizationString authorization)
-    throws NonSuccessfulResponseCodeException, PushNetworkException, InvalidProtocolBufferException
+    throws IOException, InvalidProtocolBufferException
   {
     Response response = makeStorageRequestResponse(authorization.toString(),
                                                    String.format(Locale.US, GROUPSV2_GROUP_CHANGES, fromVersion),
@@ -2089,7 +2089,7 @@ public class PushServiceSocket {
         return new GroupHistory(groupChanges, contentRange);
       } else {
         Log.w(TAG, "Unable to parse Content-Range header: " + contentRangeHeader);
-        throw new NonSuccessfulResponseCodeException("Unable to parse content range header on 206");
+        throw new MalformedResponseException("Unable to parse content range header on 206");
       }
     }
 
