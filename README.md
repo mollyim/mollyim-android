@@ -8,7 +8,9 @@
 
 ## Introduction
 
-Back in 2018, Signal allowed the user to set a passphrase to secure the local message database. But this option was removed with the introduction of full-disk encryption on Android. Molly brings it back again with additional security features.
+Back in 2018, Signal allowed the user to set a passphrase to secure the local message database. But this option was removed with the introduction of file-based encryption on Android. Molly brings it back again with additional security features.
+
+Molly connects to the Signal server, so you can chat with your Signal contacts seamlessly. Please remember to review their [Signal Terms & Privacy Policy](https://signal.org/legal/) before signing up.
 
 Molly is updated every two weeks to include the latest Signal changes and bug fixes.
 
@@ -31,18 +33,18 @@ Molly has unique features compared to Signal:
 - Protects database with [passphrase encryption](https://github.com/mollyim/mollyim-android/wiki/Data-Encryption-At-Rest)
 - Locks down the app automatically after you go a certain time without unlocking your device
 - Securely shreds sensitive data from RAM
+- Supports proxy tunneling and Orbot
 - Allows you to delete contacts and stop sharing your profile
 - Clears call notifications together with expiring messages
 - Disables debug logs
-- Supports proxy tunneling (SOCKS5)
 
 Besides that, you will find all the features of Signal plus some minor tweaks and improvements. The only exception is the SMS integration, that is incompatible with Molly security enhancements.
 
 ## Free and Open-Source
 
-Molly is open-source just like Signal. But the app uses Google's proprietary code to support some key features. Molly-FOSS is the community effort to make it 100% free and open-source.
+Molly is open-source just like Signal. But both apps use Google's proprietary code to support some key features. Molly-FOSS is the community effort to make it 100% free and open-source.
 
-You can install the flavor of your choice at any time, and it will replace any previously installed version. The data and settings will be preserved so that you do not have to re-register.
+You can install the Molly flavor of your choice at any time, and it will replace any previously installed version. The data and settings will be preserved so that you do not have to re-register.
 
 This table lists the current status of the dependencies:
 
@@ -51,14 +53,11 @@ This table lists the current status of the dependencies:
 | Push notifications <sup>(1)</sup>      | ✘          | ⚠️ (FCM)         | ⚠ (FCM)         |
 | Websocket notifications <sup>(2)</sup> | ✔️          | ✔️               | ✔️               |
 | Location provider                      | ✘          | ⚠ (Google Maps) | ⚠ (Google Maps) |
-| Automatic face blurring                | ✘          | ⚠ (ML Kit)      | ⚠ (ML Kit)      |
 
 <sup>(1)</sup> If you are running a custom ROM and the app fails to register with Play Services, try the FOSS flavor.<br/>
 <sup>(2)</sup> You may need to disable the system battery optimizations to receive notifications in background.
 
 ## Compatibility with Signal
-
-Molly connects to the Signal server, so you can chat with your Signal contacts seamlessly. In this context, please review their [Signal Terms & Privacy Policy](https://signal.org/legal/) before using the app.
 
 Molly and Signal apps can be installed on the same device. If you need a 2nd number to chat, you can use Molly along with Signal.
 
@@ -77,7 +76,7 @@ And Molly:
 ## Feedback
 
 - [Submit bugs and feature requests](https://github.com/mollyim/mollyim-android/issues)
-- Chat with us on the IRC channel **#mollyim** at [Freenode](https://webchat.freenode.net/?channels=%23mollyim) and [Matrix](https://matrix.to/#/#freenode_#mollyim:matrix.org)
+- Join us on the IRC channel **#mollyim** at [Freenode](https://webchat.freenode.net/?channels=%23mollyim) and [Matrix](https://matrix.to/#/#freenode_#mollyim:matrix.org)
 - Ask a question on the forum [community.signalusers.org](https://community.signalusers.org/)
 
 ## Reproducible Builds
@@ -96,6 +95,6 @@ License and legal notices in the original [README](README-ORIG.md).
 
 ## Disclaimer
 
-This project is *NOT* sponsored by Signal Messenger LLC or Signal Foundation.
+This project is *NOT* sponsored by Signal Messenger or Signal Foundation.
 
 The software is produced independently of Signal and carries no guarantee about quality, security or anything else. Use at your own risk.
