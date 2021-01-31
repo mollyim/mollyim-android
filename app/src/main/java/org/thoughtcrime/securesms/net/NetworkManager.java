@@ -40,9 +40,12 @@ public class NetworkManager {
 
   private NetworkManager(@NonNull ApplicationContext application,
                          @NonNull OrbotHelper orbotHelper) {
-    this.application = application;
-    this.orbotHelper = orbotHelper;
-    this.proxyType   = ProxyType.NONE;
+    this.application    = application;
+    this.orbotHelper    = orbotHelper;
+    this.proxyType      = ProxyType.NONE;
+    this.proxySocksHost = SocksProxy.LOCAL_HOST;
+    this.proxySocksPort = SocksProxy.INVALID_PORT;
+    this.proxyOrbotPort = SocksProxy.INVALID_PORT;
   }
 
   @NonNull
@@ -106,23 +109,24 @@ public class NetworkManager {
     }
 
     Network.setSocksProxy(newProxy);
-
-    if (WebViewFeature.isFeatureSupported(WebViewFeature.PROXY_OVERRIDE)) {
-      if (newProxy != null) {
-        String newProxyUrl = newProxy.getUrl();
-        if (newProxyUrl == null) {
-          newProxyUrl = "socks://proxy.invalid";
-        }
-        final ProxyConfig proxyConfig = new ProxyConfig.Builder()
-                                                       .addProxyRule(newProxyUrl)
-                                                       .build();
-        ProxyController.getInstance().setProxyOverride(proxyConfig, Runnable::run, this::onProxyOverrideComplete);
-      } else {
-        ProxyController.getInstance().clearProxyOverride(Runnable::run, this::onProxyOverrideComplete);
-      }
-    }
+    existingProxy = newProxy;
 
     SignalExecutors.UNBOUNDED.execute(() -> {
+      if (WebViewFeature.isFeatureSupported(WebViewFeature.PROXY_OVERRIDE)) {
+        if (newProxy != null) {
+          String newProxyUrl = newProxy.getUrl();
+          if (newProxyUrl == null) {
+            newProxyUrl = "socks://proxy.invalid";
+          }
+          final ProxyConfig proxyConfig = new ProxyConfig.Builder()
+                                                         .addProxyRule(newProxyUrl)
+                                                         .build();
+          ProxyController.getInstance().setProxyOverride(proxyConfig, Runnable::run, this::onProxyOverrideComplete);
+        } else {
+          ProxyController.getInstance().clearProxyOverride(Runnable::run, this::onProxyOverrideComplete);
+        }
+      }
+
       for (SignalServiceMessagePipe pipe : Arrays.asList(
           IncomingMessageObserver.getPipe(),
           IncomingMessageObserver.getUnidentifiedPipe())) {
@@ -131,8 +135,6 @@ public class NetworkManager {
         }
       }
     });
-
-    existingProxy = newProxy;
   }
 
   private void onProxyOverrideComplete() {
