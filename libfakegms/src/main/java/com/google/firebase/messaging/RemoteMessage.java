@@ -9,6 +9,10 @@ public class RemoteMessage {
     return 0;
   }
 
+  public String getMessageId() {
+    return null;
+  }
+
   public static class Data {
     public String get(String challenge) {
       return null;

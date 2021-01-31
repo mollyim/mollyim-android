@@ -15,5 +15,7 @@ public abstract class FirebaseMessagingService extends Service {
 
   public abstract void onMessageReceived(RemoteMessage remoteMessage);
 
+  public abstract void onDeletedMessages();
+
   public abstract void onNewToken(String token);
 }
