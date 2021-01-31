@@ -30,6 +30,7 @@ import org.thoughtcrime.securesms.crypto.UnrecoverableKeyException;
 import org.thoughtcrime.securesms.util.ServiceUtil;
 
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.concurrent.CountDownLatch;
 
 public class ChangePassphraseDialogFragment extends DialogFragment {
@@ -153,7 +154,7 @@ public class ChangePassphraseDialogFragment extends DialogFragment {
     validatorReady = new CountDownLatch(1);
 
     SignalExecutors.BOUNDED.execute(() -> {
-      validator = new PassphraseValidator();
+      validator = new PassphraseValidator(Locale.getDefault());
       validatorReady.countDown();
     });
   }
