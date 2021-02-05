@@ -30,6 +30,7 @@ public final class SignalStore {
   private final PhoneNumberPrivacyValues phoneNumberPrivacyValues;
   private final OnboardingValues         onboardingValues;
   private final WallpaperValues          wallpaperValues;
+  private final ProxyValues              proxyValues;
 
   private SignalStore() {
     this.store                    = new KeyValueStore(ApplicationDependencies.getApplication());
@@ -48,6 +49,7 @@ public final class SignalStore {
     this.phoneNumberPrivacyValues = new PhoneNumberPrivacyValues(store);
     this.onboardingValues         = new OnboardingValues(store);
     this.wallpaperValues          = new WallpaperValues(store);
+    this.proxyValues              = new ProxyValues(store);
   }
 
   public static SignalStore getInstance() {
@@ -76,6 +78,7 @@ public final class SignalStore {
     phoneNumberPrivacy().onFirstEverAppLaunch();
     onboarding().onFirstEverAppLaunch();
     wallpaper().onFirstEverAppLaunch();
+    proxy().onFirstEverAppLaunch();
   }
 
   public static @NonNull KbsValues kbsValues() {
@@ -136,6 +139,10 @@ public final class SignalStore {
 
   public static @NonNull WallpaperValues wallpaper() {
     return getInstance().wallpaperValues;
+  }
+
+  public static @NonNull ProxyValues proxy() {
+    return getInstance().proxyValues;
   }
 
   public static @NonNull GroupsV2AuthorizationSignalStoreCache groupsV2AuthorizationCache() {

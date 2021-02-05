@@ -199,7 +199,7 @@ public abstract class PassphraseRequiredActivity extends PassphraseActivity impl
   }
 
   private Intent getPushRegistrationIntent() {
-    return RegistrationNavigationActivity.newIntentForNewRegistration(this);
+    return RegistrationNavigationActivity.newIntentForNewRegistration(this, getIntent());
   }
 
   private Intent getEnterSignalPinIntent() {

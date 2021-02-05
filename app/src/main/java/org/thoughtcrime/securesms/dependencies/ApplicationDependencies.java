@@ -20,6 +20,7 @@ import org.thoughtcrime.securesms.messages.BackgroundMessageRetriever;
 import org.thoughtcrime.securesms.messages.IncomingMessageObserver;
 import org.thoughtcrime.securesms.messages.IncomingMessageProcessor;
 import org.thoughtcrime.securesms.net.NetworkManager;
+import org.thoughtcrime.securesms.net.PipeConnectivityListener;
 import org.thoughtcrime.securesms.notifications.MessageNotifier;
 import org.thoughtcrime.securesms.push.SignalServiceNetworkAccess;
 import org.thoughtcrime.securesms.recipients.LiveRecipientCache;
@@ -82,8 +83,8 @@ public class ApplicationDependencies {
         throw new IllegalStateException("Already initialized!");
       }
 
-      ApplicationDependencies.dependencyProvider       = provider;
-      ApplicationDependencies.messageNotifier          = provider.provideMessageNotifier();
+      ApplicationDependencies.dependencyProvider = provider;
+      ApplicationDependencies.messageNotifier = provider.provideMessageNotifier();
     }
   }
 
@@ -96,6 +97,10 @@ public class ApplicationDependencies {
 
   public static @NonNull Application getApplication() {
     return ApplicationContext.getInstance();
+  }
+
+  public static @NonNull PipeConnectivityListener getPipeListener() {
+    return getProvider().providePipeListener();
   }
 
   public static @NonNull SignalServiceAccountManager getSignalServiceAccountManager() {
@@ -185,6 +190,30 @@ public class ApplicationDependencies {
   public static void resetSignalServiceMessageReceiver() {
     synchronized (LOCK) {
       messageReceiver = null;
+    }
+  }
+
+  public static void closeConnectionsAfterProxyFailure() {
+    synchronized (LOCK) {
+      if (incomingMessageObserver != null) {
+        incomingMessageObserver.terminateAsync();
+      }
+
+      if (messageSender != null) {
+        messageSender.cancelInFlightRequests();
+      }
+
+      incomingMessageObserver = null;
+      messageReceiver         = null;
+      accountManager          = null;
+      messageSender           = null;
+    }
+  }
+
+  public static void resetNetworkConnectionsAfterProxyChange() {
+    synchronized (LOCK) {
+      getPipeListener().reset();
+      closeConnectionsAfterProxyFailure();
     }
   }
 
@@ -357,6 +386,7 @@ public class ApplicationDependencies {
   }
 
   public interface Provider {
+    @NonNull PipeConnectivityListener providePipeListener();
     @NonNull GroupsV2Operations provideGroupsV2Operations();
     @NonNull SignalServiceAccountManager provideSignalServiceAccountManager();
     @NonNull SignalServiceMessageSender provideSignalServiceMessageSender();

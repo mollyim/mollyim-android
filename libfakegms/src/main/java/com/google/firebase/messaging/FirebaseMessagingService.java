@@ -4,6 +4,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public abstract class FirebaseMessagingService extends Service {
@@ -18,4 +19,8 @@ public abstract class FirebaseMessagingService extends Service {
   public abstract void onDeletedMessages();
 
   public abstract void onNewToken(String token);
+
+  public abstract void onMessageSent(@NonNull String s);
+
+  public abstract void onSendError(@NonNull String s, @NonNull Exception e);
 }

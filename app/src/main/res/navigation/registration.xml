@@ -93,6 +93,7 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
         <action
             android:id="@+id/action_networkSettings"
             app:destination="@id/networkPreferenceFragment"
@@ -100,6 +101,14 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim" />
+
+        <action
+            android:id="@+id/action_editProxy"
+            app:destination="@+id/registrationProxyFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
 
     </fragment>
 
@@ -278,5 +287,11 @@
         android:id="@+id/networkPreferenceFragment"
         android:name="org.thoughtcrime.securesms.preferences.NetworkPreferenceFragment"
         android:label="NetworkPreferenceFragment" />
+
+    <fragment
+        android:id="@+id/registrationProxyFragment"
+        android:name="org.thoughtcrime.securesms.preferences.EditProxyFragment"
+        android:label="fragment_registration_edit_proxy"
+        tools:layout="@layout/edit_proxy_fragment" />
 
 </navigation>

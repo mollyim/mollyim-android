@@ -52,7 +52,6 @@ import org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencyProvider;
 import org.thoughtcrime.securesms.gcm.FcmJobService;
-import org.thoughtcrime.securesms.jobmanager.JobManager;
 import org.thoughtcrime.securesms.jobs.CreateSignedPreKeyJob;
 import org.thoughtcrime.securesms.jobs.FcmRefreshJob;
 import org.thoughtcrime.securesms.jobs.GroupV1MigrationJob;
@@ -176,6 +175,12 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
                             .addBlocking("mark-registration", () -> RegistrationUtil.maybeMarkRegistrationComplete(this))
                             .addBlocking("lifecycle-observer", () -> ProcessLifecycleOwner.get().getLifecycle().addObserver(this))
                             .addBlocking("message-retriever", this::initializeMessageRetrieval)
+                            .addBlocking("proxy-init", () -> {
+                              if (SignalStore.proxy().isProxyEnabled()) {
+                                Log.w(TAG, "Proxy detected. Enabling Conscrypt.setUseEngineSocketByDefault()");
+                                Conscrypt.setUseEngineSocketByDefault(true);
+                              }
+                            })
                             .addNonBlocking(this::initializeRevealableMessageManager)
                             .addNonBlocking(this::initializeSignedPreKeyCheck)
                             .addNonBlocking(this::initializePeriodicTasks)
@@ -353,7 +358,7 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
   }
 
   private void initializeAppDependencies() {
-    ApplicationDependencies.init(new ApplicationDependencyProvider(this, new SignalServiceNetworkAccess(this)));
+    ApplicationDependencies.init(new ApplicationDependencyProvider(this));
   }
 
   private void initializeFirstEverAppLaunch() {

@@ -13,6 +13,10 @@ public class RemoteMessage {
     return null;
   }
 
+  public String getOriginalPriority() {
+    return null;
+  }
+
   public static class Data {
     public String get(String challenge) {
       return null;

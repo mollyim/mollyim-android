@@ -186,6 +186,7 @@ public class SignalServiceNetworkAccess {
                                                              interceptors,
                                                              socketFactory,
                                                              dns,
+                                                             Optional.absent(),
                                                              zkGroupServerPublicParams));
 
       put(COUNTRY_CODE_UAE, new SignalServiceConfiguration(new SignalServiceUrl[] {uaeGoogleService, baseAndroidService, baseGoogleService, mapsOneAndroidService, mapsTwoAndroidService, mailAndroidService},
@@ -197,6 +198,7 @@ public class SignalServiceNetworkAccess {
                                                            interceptors,
                                                            socketFactory,
                                                            dns,
+                                                           Optional.absent(),
                                                            zkGroupServerPublicParams));
 
       put(COUNTRY_CODE_OMAN, new SignalServiceConfiguration(new SignalServiceUrl[] {omanGoogleService, baseAndroidService, baseGoogleService, mapsOneAndroidService, mapsTwoAndroidService, mailAndroidService},
@@ -208,6 +210,7 @@ public class SignalServiceNetworkAccess {
                                                             interceptors,
                                                             socketFactory,
                                                             dns,
+                                                            Optional.absent(),
                                                             zkGroupServerPublicParams));
 
 
@@ -220,6 +223,7 @@ public class SignalServiceNetworkAccess {
                                                              interceptors,
                                                              socketFactory,
                                                              dns,
+                                                             Optional.absent(),
                                                              zkGroupServerPublicParams));
     }};
 
@@ -232,6 +236,7 @@ public class SignalServiceNetworkAccess {
                                                                   interceptors,
                                                                   socketFactory,
                                                                   dns,
+                                                                  SignalStore.proxy().isProxyEnabled() ? Optional.of(SignalStore.proxy().getProxy()) : Optional.absent(),
                                                                   zkGroupServerPublicParams);
 
     this.censoredCountries = this.censorshipConfiguration.keySet().toArray(new String[0]);
@@ -243,7 +248,9 @@ public class SignalServiceNetworkAccess {
   }
 
   public SignalServiceConfiguration getConfiguration(@Nullable String localNumber) {
-    if (localNumber == null) return this.uncensoredConfiguration;
+    if (localNumber == null || SignalStore.proxy().isProxyEnabled()) {
+      return this.uncensoredConfiguration;
+    }
 
     if (SignalStore.internalValues().forcedCensorship()) {
       return this.censorshipConfiguration.get(COUNTRY_CODE_QATAR);
