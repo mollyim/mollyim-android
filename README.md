@@ -33,10 +33,10 @@ Molly has unique features compared to Signal:
 - Protects database with [passphrase encryption](https://github.com/mollyim/mollyim-android/wiki/Data-Encryption-At-Rest)
 - Locks down the app automatically after you go a certain time without unlocking your device
 - Securely shreds sensitive data from RAM
-- Supports proxy tunneling and Orbot
 - Allows you to delete contacts and stop sharing your profile
 - Clears call notifications together with expiring messages
 - Disables debug logs
+- Supports SOCKS proxy and Tor via Orbot
 
 Besides that, you will find all the features of Signal plus some minor tweaks and improvements. The only exception is the SMS integration, that is incompatible with Molly security enhancements.
 
