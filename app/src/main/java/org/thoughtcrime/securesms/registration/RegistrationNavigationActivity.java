@@ -60,19 +60,11 @@ public final class RegistrationNavigationActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_registration_navigation);
     initializeChallengeListener();
-
-    if (getIntent() != null && getIntent().getData() != null) {
-      CommunicationActions.handlePotentialProxyLinkUrl(this, getIntent().getDataString());
-    }
   }
 
   @Override
   protected void onNewIntent(Intent intent) {
     super.onNewIntent(intent);
-
-    if (intent.getData() != null) {
-      CommunicationActions.handlePotentialProxyLinkUrl(this, intent.getDataString());
-    }
   }
 
   @Override

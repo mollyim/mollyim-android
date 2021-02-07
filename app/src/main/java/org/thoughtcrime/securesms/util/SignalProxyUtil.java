@@ -1,69 +1,26 @@
 package org.thoughtcrime.securesms.util;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 import androidx.lifecycle.Observer;
 
-import org.conscrypt.Conscrypt;
 import org.signal.core.util.ThreadUtil;
 import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
-import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.net.PipeConnectivityListener;
 import org.thoughtcrime.securesms.push.AccountManagerFactory;
 import org.whispersystems.signalservice.api.SignalServiceAccountManager;
-import org.whispersystems.signalservice.internal.configuration.SignalProxy;
 
 import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public final class SignalProxyUtil {
 
   private static final String TAG = Log.tag(SignalProxyUtil.class);
 
-  private static final String PROXY_LINK_HOST = "signal.tube";
-
-  private static final Pattern PROXY_LINK_PATTERN = Pattern.compile("^(https|sgnl)://" + PROXY_LINK_HOST + "/#([^:]+).*$");
-  private static final Pattern HOST_PATTERN       = Pattern.compile("^([^:]+).*$");
-
   private SignalProxyUtil() {}
-
-  public static void startListeningToWebsocket() {
-    if (SignalStore.proxy().isProxyEnabled() && ApplicationDependencies.getPipeListener().getState().getValue() == PipeConnectivityListener.State.FAILURE) {
-      Log.w(TAG, "Proxy is in a failed state. Restarting.");
-      ApplicationDependencies.closeConnections();
-    }
-
-    ApplicationDependencies.getIncomingMessageObserver();
-  }
-
-  /**
-   * Handles all things related to enabling a proxy, including saving it and resetting the relevant
-   * network connections.
-   */
-  public static void enableProxy(@NonNull SignalProxy proxy) {
-    SignalStore.proxy().enableProxy(proxy);
-    Conscrypt.setUseEngineSocketByDefault(true);
-    ApplicationDependencies.resetNetworkConnectionsAfterProxyChange();
-    startListeningToWebsocket();
-  }
-
-  /**
-   * Handles all things related to disabling a proxy, including saving the change and resetting the
-   * relevant network connections.
-   */
-  public static void disableProxy() {
-    SignalStore.proxy().disableProxy();
-    Conscrypt.setUseEngineSocketByDefault(false);
-    ApplicationDependencies.resetNetworkConnectionsAfterProxyChange();
-    startListeningToWebsocket();
-  }
 
   /**
    * A blocking call that will wait until the websocket either successfully connects, or fails.
@@ -74,8 +31,6 @@ public final class SignalProxyUtil {
    */
   @WorkerThread
   public static boolean testWebsocketConnection(long timeout) {
-    startListeningToWebsocket();
-
     if (TextSecurePreferences.getLocalNumber(ApplicationDependencies.getApplication()) == null) {
       Log.i(TAG, "User is unregistered! Doing simple check.");
       return testWebsocketConnectionUnregistered(timeout);
@@ -105,61 +60,6 @@ public final class SignalProxyUtil {
     }
 
     return success.get();
-  }
-
-  /**
-   * If this is a valid proxy deep link, this will return the embedded host. If not, it will return
-   * null.
-   */
-  public static @Nullable String parseHostFromProxyDeepLink(@Nullable String proxyLink) {
-    if (proxyLink == null) {
-      return null;
-    }
-
-    Matcher matcher = PROXY_LINK_PATTERN.matcher(proxyLink);
-
-    if (matcher.matches()) {
-      return matcher.group(2);
-    } else {
-      return null;
-    }
-  }
-
-  /**
-   * Takes in an address that could be in various formats, and converts it to the format we should
-   * be storing and connecting to.
-   */
-  public static @NonNull String convertUserEnteredAddressToHost(@NonNull String host) {
-    String parsedHost = SignalProxyUtil.parseHostFromProxyDeepLink(host);
-    if (parsedHost != null) {
-      return parsedHost;
-    }
-
-    Matcher matcher = HOST_PATTERN.matcher(host);
-
-    if (matcher.matches()) {
-      String result = matcher.group(1);
-      return result != null ? result : "";
-    } else {
-      return host;
-    }
-  }
-
-  public static @NonNull String generateProxyUrl(@NonNull String link) {
-    String host   = link;
-    String parsed = parseHostFromProxyDeepLink(link);
-
-    if (parsed != null) {
-      host = parsed;
-    }
-
-    Matcher matcher = HOST_PATTERN.matcher(host);
-
-    if (matcher.matches()) {
-      host = matcher.group(1);
-    }
-
-    return "https://" + PROXY_LINK_HOST + "/#" + host;
   }
 
   private static boolean testWebsocketConnectionUnregistered(long timeout) {

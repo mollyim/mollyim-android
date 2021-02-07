@@ -298,12 +298,6 @@
         android:label="NetworkPreferenceFragment" />
 
     <fragment
-        android:id="@+id/registrationProxyFragment"
-        android:name="org.thoughtcrime.securesms.preferences.EditProxyFragment"
-        android:label="fragment_registration_edit_proxy"
-        tools:layout="@layout/edit_proxy_fragment" />
-
-    <fragment
         android:id="@+id/transferOrRestore"
         android:name="org.thoughtcrime.securesms.devicetransfer.newdevice.TransferOrRestoreFragment"
         tools:layout="@layout/fragment_transfer_restore">

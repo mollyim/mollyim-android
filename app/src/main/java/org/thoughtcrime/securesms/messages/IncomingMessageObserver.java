@@ -47,8 +47,6 @@ public class IncomingMessageObserver {
   public  static final  int FOREGROUND_ID            = 313399;
   private static final long REQUEST_TIMEOUT_MINUTES  = 1;
 
-  private static final AtomicInteger INSTANCE_COUNT = new AtomicInteger(0);
-
   private static volatile SignalServiceMessagePipe pipe             = null;
   private static volatile SignalServiceMessagePipe unidentifiedPipe = null;
 
@@ -63,10 +61,6 @@ public class IncomingMessageObserver {
   private volatile boolean terminated;
 
   public IncomingMessageObserver(@NonNull Application context) {
-    if (INSTANCE_COUNT.incrementAndGet() != 1) {
-      throw new AssertionError("Multiple observers!");
-    }
-
     this.context                    = context;
     this.networkAccess              = ApplicationDependencies.getSignalServiceNetworkAccess();
     this.decryptionDrainedListeners = new CopyOnWriteArrayList<>();
@@ -161,7 +155,7 @@ public class IncomingMessageObserver {
     boolean websocketRegistered = TextSecurePreferences.isWebsocketRegistered(context);
     boolean isGcmDisabled       = TextSecurePreferences.isFcmDisabled(context);
     boolean hasNetwork          = NetworkConstraint.isMet(context);
-    boolean hasProxy            = SignalStore.proxy().isProxyEnabled();
+    boolean hasProxy            = ApplicationDependencies.getNetworkManager().isProxyEnabled();
 
     Log.d(TAG, String.format("Network: %s, Foreground: %s, FCM: %s, Censored: %s, Registered: %s, Websocket Registered: %s, Proxy: %s",
                              hasNetwork, appVisible, !isGcmDisabled, networkAccess.isCensored(context), registered, websocketRegistered, hasProxy));
@@ -182,13 +176,15 @@ public class IncomingMessageObserver {
   }
 
   public void terminateAsync() {
-    INSTANCE_COUNT.decrementAndGet();
-
     SignalExecutors.BOUNDED.execute(() -> {
       Log.w(TAG, "Beginning termination.");
       terminated = true;
-      shutdown(pipe, unidentifiedPipe);
+      shutdown();
     });
+  }
+
+  public void shutdown() {
+    shutdown(pipe, unidentifiedPipe);
   }
 
   private void shutdown(@Nullable SignalServiceMessagePipe pipe, @Nullable SignalServiceMessagePipe unidentifiedPipe) {

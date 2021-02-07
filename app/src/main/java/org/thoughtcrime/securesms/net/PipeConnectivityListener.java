@@ -65,14 +65,7 @@ public class PipeConnectivityListener implements ConnectivityListener {
   public boolean onGenericFailure(Response response, Throwable throwable) {
     Log.w(TAG, "onGenericFailure() Response: " + response, throwable);
     state.postValue(State.FAILURE);
-
-    if (SignalStore.proxy().isProxyEnabled()) {
-      Log.w(TAG, "Encountered an error while we had a proxy set! Terminating the connection to prevent retry spam.");
-      ApplicationDependencies.closeConnections();
-      return false;
-    } else {
-      return true;
-    }
+    return true;
   }
 
   public void reset() {

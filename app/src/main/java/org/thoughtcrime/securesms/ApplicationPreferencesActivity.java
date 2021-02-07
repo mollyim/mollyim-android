@@ -46,7 +46,6 @@ import org.thoughtcrime.securesms.preferences.BackupsPreferenceFragment;
 import org.thoughtcrime.securesms.preferences.ChatsPreferenceFragment;
 import org.thoughtcrime.securesms.preferences.CorrectedPreferenceFragment;
 import org.thoughtcrime.securesms.preferences.DataAndStoragePreferenceFragment;
-import org.thoughtcrime.securesms.preferences.EditProxyFragment;
 import org.thoughtcrime.securesms.preferences.NotificationsPreferenceFragment;
 import org.thoughtcrime.securesms.preferences.NetworkPreferenceFragment;
 import org.thoughtcrime.securesms.preferences.widgets.PaymentsPreference;
@@ -72,10 +71,9 @@ import org.thoughtcrime.securesms.util.TextSecurePreferences;
 public class ApplicationPreferencesActivity extends PassphraseRequiredActivity
     implements EncryptedPreferences.OnSharedPreferenceChangeListener
 {
-  public static final String LAUNCH_TO_NETWORK_FRAGMENT       = "launch.to.network.fragment";
   public static final String LAUNCH_TO_BACKUPS_FRAGMENT       = "launch.to.backups.fragment";
   public static final String LAUNCH_TO_HELP_FRAGMENT          = "launch.to.help.fragment";
-  public static final String LAUNCH_TO_PROXY_FRAGMENT         = "launch.to.proxy.fragment";
+  public static final String LAUNCH_TO_NETWORK_FRAGMENT       = "launch.to.network.fragment";
   public static final String LAUNCH_TO_NOTIFICATIONS_FRAGMENT = "launch.to.notifications.fragment";
 
   @SuppressWarnings("unused")
@@ -115,8 +113,6 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActivity
 
     if (getIntent() != null && getIntent().getCategories() != null && getIntent().getCategories().contains("android.intent.category.NOTIFICATION_PREFERENCES")) {
       initFragment(android.R.id.content, new NotificationsPreferenceFragment());
-    } else if (getIntent() != null && getIntent().getBooleanExtra(LAUNCH_TO_NETWORK_FRAGMENT, false)) {
-      initFragment(android.R.id.content, new NetworkPreferenceFragment());
     } else if (getIntent() != null && getIntent().getBooleanExtra(LAUNCH_TO_BACKUPS_FRAGMENT, false)) {
       initFragment(android.R.id.content, new BackupsPreferenceFragment());
     } else if (getIntent() != null && getIntent().getBooleanExtra(LAUNCH_TO_HELP_FRAGMENT, false)) {
@@ -124,8 +120,8 @@ public class ApplicationPreferencesActivity extends PassphraseRequiredActivity
       bundle.putInt(HelpFragment.START_CATEGORY_INDEX, getIntent().getIntExtra(HelpFragment.START_CATEGORY_INDEX, 0));
 
       initFragment(android.R.id.content, new HelpFragment(), null, bundle);
-    } else if (getIntent() != null && getIntent().getBooleanExtra(LAUNCH_TO_PROXY_FRAGMENT, false)) {
-      initFragment(android.R.id.content, EditProxyFragment.newInstance());
+    } else if (getIntent() != null && getIntent().getBooleanExtra(LAUNCH_TO_NETWORK_FRAGMENT, false)) {
+      initFragment(android.R.id.content, new NetworkPreferenceFragment());
     } else if (getIntent() != null && getIntent().getBooleanExtra(LAUNCH_TO_NOTIFICATIONS_FRAGMENT, false)) {
       initFragment(android.R.id.content, new NotificationsPreferenceFragment());
     } else if (icicle == null) {

@@ -54,6 +54,10 @@ public class NetworkManager {
     return new NetworkManager(ApplicationContext.getInstance(context), OrbotHelper.get(context));
   }
 
+  public boolean isProxyEnabled() {
+    return proxyType != ProxyType.NONE;
+  }
+
   public boolean isOrbotAvailable() {
     return orbotHelper.init();
   }
@@ -128,13 +132,7 @@ public class NetworkManager {
         }
       }
 
-      for (SignalServiceMessagePipe pipe : Arrays.asList(
-          IncomingMessageObserver.getPipe(),
-          IncomingMessageObserver.getUnidentifiedPipe())) {
-        if (pipe != null) {
-          pipe.shutdown();
-        }
-      }
+      ApplicationDependencies.resetNetworkConnectionsAfterProxyChange();
     });
   }
 

@@ -246,8 +246,7 @@ public class SignalServiceMessageReceiver {
                                                             sleepTimer,
                                                             urls.getNetworkInterceptors(),
                                                             urls.getSocketFactory(),
-                                                            urls.getDns(),
-                                                            urls.getSignalProxy());
+                                                            urls.getDns());
 
     return new SignalServiceMessagePipe(webSocket, Optional.of(credentialsProvider), clientZkProfileOperations);
   }
@@ -259,8 +258,7 @@ public class SignalServiceMessageReceiver {
                                                             sleepTimer,
                                                             urls.getNetworkInterceptors(),
                                                             urls.getSocketFactory(),
-                                                            urls.getDns(),
-                                                            urls.getSignalProxy());
+                                                            urls.getDns());
 
     return new SignalServiceMessagePipe(webSocket, Optional.of(credentialsProvider), clientZkProfileOperations);
   }

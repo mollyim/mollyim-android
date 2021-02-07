@@ -43,7 +43,6 @@ public class MainActivity extends PassphraseRequiredActivity {
     navigator.onCreate(savedInstanceState);
 
     handleGroupLinkInIntent(getIntent());
-    handleProxyInIntent(getIntent());
 
     CachedInflater.from(this).clear();
   }
@@ -59,7 +58,6 @@ public class MainActivity extends PassphraseRequiredActivity {
   protected void onNewIntent(Intent intent) {
     super.onNewIntent(intent);
     handleGroupLinkInIntent(intent);
-    handleProxyInIntent(intent);
   }
 
   @Override
@@ -100,13 +98,6 @@ public class MainActivity extends PassphraseRequiredActivity {
     Uri data = intent.getData();
     if (data != null) {
       CommunicationActions.handlePotentialGroupLinkUrl(this, data.toString());
-    }
-  }
-
-  private void handleProxyInIntent(Intent intent) {
-    Uri data = intent.getData();
-    if (data != null) {
-      CommunicationActions.handlePotentialProxyLinkUrl(this, data.toString());
     }
   }
 }

@@ -123,7 +123,6 @@ import org.thoughtcrime.securesms.util.AppStartup;
 import org.thoughtcrime.securesms.util.AvatarUtil;
 import org.thoughtcrime.securesms.util.PlayStoreUtil;
 import org.thoughtcrime.securesms.util.ServiceUtil;
-import org.thoughtcrime.securesms.util.SignalProxyUtil;
 import org.thoughtcrime.securesms.util.SnapToTopDataObserver;
 import org.thoughtcrime.securesms.util.StickyHeaderDecoration;
 import org.thoughtcrime.securesms.util.Stopwatch;
@@ -273,8 +272,6 @@ public class ConversationListFragment extends MainFragment implements ActionMode
     if (activeAdapter != null) {
       activeAdapter.notifyDataSetChanged();
     }
-
-    SignalProxyUtil.startListeningToWebsocket();
   }
 
   @Override
@@ -905,7 +902,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
   }
 
   private void updateProxyStatus(@NonNull PipeConnectivityListener.State state) {
-    if (SignalStore.proxy().isProxyEnabled()) {
+    if (ApplicationDependencies.getNetworkManager().isProxyEnabled()) {
       proxyStatus.setVisibility(View.VISIBLE);
 
       switch (state) {
@@ -927,7 +924,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
 
   private void onProxyStatusClicked() {
     Intent intent = new Intent(requireContext(), ApplicationPreferencesActivity.class);
-    intent.putExtra(ApplicationPreferencesActivity.LAUNCH_TO_PROXY_FRAGMENT, true);
+    intent.putExtra(ApplicationPreferencesActivity.LAUNCH_TO_NETWORK_FRAGMENT, true);
 
     startActivity(intent);
   }

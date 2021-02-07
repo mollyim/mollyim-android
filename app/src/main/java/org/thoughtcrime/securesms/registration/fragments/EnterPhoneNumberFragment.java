@@ -61,12 +61,6 @@ public final class EnterPhoneNumberFragment extends BaseRegistrationFragment {
   private ScrollView             scrollView;
 
   @Override
-  public void onCreate(@Nullable Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setHasOptionsMenu(true);
-  }
-
-  @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
                            Bundle savedInstanceState) {
     return inflater.inflate(R.layout.fragment_registration_enter_phone_number, container, false);
@@ -114,25 +108,6 @@ public final class EnterPhoneNumberFragment extends BaseRegistrationFragment {
     }
 
     countryCode.getInput().setImeOptions(EditorInfo.IME_ACTION_NEXT);
-
-    Toolbar toolbar = view.findViewById(R.id.toolbar);
-    ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
-    ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle(null);
-  }
-
-  @Override
-  public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-    inflater.inflate(R.menu.enter_phone_number, menu);
-  }
-
-  @Override
-  public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-    if (item.getItemId() == R.id.phone_menu_use_proxy) {
-      Navigation.findNavController(requireView()).navigate(EnterPhoneNumberFragmentDirections.actionEditProxy());
-      return true;
-    } else {
-      return false;
-    }
   }
 
   private void setUpNumberInput() {

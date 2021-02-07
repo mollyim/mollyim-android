@@ -231,7 +231,14 @@ public class ApplicationDependencies {
   public static void resetNetworkConnectionsAfterProxyChange() {
     synchronized (LOCK) {
       getPipeListener().reset();
-      closeConnections();
+
+      if (incomingMessageObserver != null) {
+        incomingMessageObserver.shutdown();
+      }
+
+      if (messageSender != null) {
+        messageSender.cancelInFlightRequests();
+      }
     }
   }
 
