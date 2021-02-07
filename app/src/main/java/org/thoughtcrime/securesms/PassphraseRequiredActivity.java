@@ -54,11 +54,14 @@ public abstract class PassphraseRequiredActivity extends PassphraseActivity impl
   protected final void onCreate(Bundle savedInstanceState) {
     Tracer.getInstance().start(Log.tag(getClass()) + "#onCreate()");
     AppStartup.getInstance().onCriticalRenderEventStart();
-    this.networkAccess = new SignalServiceNetworkAccess(this);
     onPreCreate();
 
     final boolean locked = KeyCachingService.isLocked(this);
     routeApplicationState(locked);
+
+    if (!locked) {
+      networkAccess = new SignalServiceNetworkAccess(this);
+    }
 
     if (!isFinishing()) {
       super.onCreate(savedInstanceState);
@@ -79,7 +82,7 @@ public abstract class PassphraseRequiredActivity extends PassphraseActivity impl
   protected void onResume() {
     super.onResume();
 
-    if (networkAccess.isCensored(this)) {
+    if (networkAccess != null && networkAccess.isCensored(this)) {
       ApplicationDependencies.getJobManager().add(new PushNotificationReceiveJob(this));
     }
   }
