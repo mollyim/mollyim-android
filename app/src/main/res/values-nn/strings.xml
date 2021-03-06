@@ -65,6 +65,8 @@
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">Lastar opp media …</string>
   <string name="AttachmentUploadJob_compressing_video_start">Komprimerer video …</string>
+  <!--BackgroundMessageRetriever-->
+  <string name="BackgroundMessageRetriever_checking_for_messages">Ser etter meldingar …</string>
   <!--BlockedUsersActivity-->
   <string name="BlockedUsersActivity__blocked_users">Blokkerte brukarar</string>
   <string name="BlockedUsersActivity__add_blocked_user">Legg til blokkert brukar</string>
@@ -232,6 +234,7 @@
   <string name="ConversationActivity__more_options_now_in_group_settings">Fleire val no i «Gruppeinnstillingar»</string>
   <string name="ConversationActivity_join">Bli med</string>
   <string name="ConversationActivity_full">Fullt</string>
+  <string name="ConversationActivity_error_sending_media">Klarte ikkje senda media</string>
   <!--ConversationAdapter-->
   <plurals name="ConversationAdapter_n_unread_messages">
     <item quantity="one">%d ulesen melding</item>
@@ -474,7 +477,7 @@ Dei er invitert inn, og ser inga gruppemeldingar før dei godtek.</string>
   <!--GroupsV1MigrationInitiationReminder-->
   <string name="GroupsV1MigrationInitiationReminder_to_access_new_features_like_mentions">Oppgrader denne gruppa for å få nye funksjonar som @nemningar og administratorar.</string>
   <string name="GroupsV1MigrationInitiationReminder_not_now">Ikkje no</string>
-  <!-- Removed by excludeNonTranslatables <string name="GroupsV1MigrationInitiationReminder_update_group">Oppdater gruppe</string> -->
+  <string name="GroupsV1MigrationInitiationReminder_upgrade_group">Oppgrader gruppa</string>
   <!--GroupsV1MigrationSuggestionsReminder-->
   <plurals name="GroupsV1MigrationSuggestionsReminder_members_couldnt_be_added_to_the_new_group">
     <item quantity="one">%1$d medlem kunne ikkje bli lagt til i den Nye gruppa igjen. Vil du legga dei til no?</item>
@@ -839,6 +842,11 @@ Dei er invitert inn, og ser inga gruppemeldingar før dei godtek.</string>
   <string name="NotificationBarManager__answer_call">Svar på anrop</string>
   <string name="NotificationBarManager__end_call">Avslutt samtale</string>
   <string name="NotificationBarManager__cancel_call">Avbryt samtale</string>
+  <!--NotificationsMegaphone-->
+  <string name="NotificationsMegaphone_turn_on_notifications">Skru på varsel?</string>
+  <string name="NotificationsMegaphone_never_miss_a_message">Gå aldri glipp av meldingar frå kontaktane og gruppene dine.</string>
+  <string name="NotificationsMegaphone_turn_on">Skru på</string>
+  <string name="NotificationsMegaphone_not_now">Ikkje no</string>
   <!--NotificationMmsMessageRecord-->
   <string name="NotificationMmsMessageRecord_multimedia_message">Multimediemelding</string>
   <string name="NotificationMmsMessageRecord_downloading_mms_message">Lastar ned MMS-melding</string>
@@ -1249,6 +1257,7 @@ Viss du ikkje er ein avansert brukar, ikkje køyrer ein sjølvinstallert Android
   <string name="RegistrationActivity_take_privacy_with_you_be_yourself_in_every_message">Ta personvernet ditt med deg.
 Ver deg sjølv i kvar einaste melding.</string>
   <string name="RegistrationActivity_enter_your_phone_number_to_get_started">Skriv inn telefonnummeret ditt for å komma i gang</string>
+  <string name="RegistrationActivity_enter_your_phone_number">Skriv inn telefonnummeret ditt</string>
   <string name="RegistrationActivity_you_will_receive_a_verification_code">Du vil få ei stadfestingskode. Operatøren din kan ta betalt for meldinga.</string>
   <string name="RegistrationActivity_enter_the_code_we_sent_to_s">Skriv inn koden me sende til %s</string>
   <string name="RegistrationActivity_make_sure_your_phone_has_a_cellular_signal">Pass på at telefonen din har mobilsignal for å motta SMS eller ringa</string>
@@ -1986,6 +1995,7 @@ Mottok nøkkelutvekslingsmelding for ugyldig protokollversjon.</string>
   <string name="preferences_off">Av</string>
   <string name="preferences_on">På</string>
   <string name="preferences_proxy_address">Proxy-adresse</string>
+  <string name="preferences_only_use_a_proxy_if">Berre bruk ein proxy dersom du ikkje kan kopla til Signal med mobildata eller trådlausnett.</string>
   <string name="preferences_share">Del</string>
   <string name="preferences_save">Lagra</string>
   <string name="preferences_connecting_to_proxy">Koplar til proxy …</string>
@@ -1995,6 +2005,7 @@ Mottok nøkkelutvekslingsmelding for ugyldig protokollversjon.</string>
   <string name="preferences_you_are_connected_to_the_proxy">Du er kopla til proxyen. Du kan skru av proxyen når som helst frå Innstillingar.</string>
   <string name="preferences_success">Vellykka</string>
   <string name="preferences_failed_to_connect">Klarte ikkje kopla til</string>
+  <string name="preferences_enter_proxy_address">Skriv inn proxy-adresse</string>
   <string name="configurable_single_select__customize_option">Endra val</string>
   <!--Internal only preferences-->
   <!--****************************************-->
@@ -2341,6 +2352,8 @@ Kom i gang ved å senda ei melding til ein venn.</string>
   <string name="GroupsLearnMore_paragraph_2">Eldre grupper kan ikkje enno oppgraderast til Nye grupper, men du kan laga ei Ny gruppe med same medlemmar viss dei alle har den seinaste Signal-utgåva.</string>
   <string name="GroupsLearnMore_paragraph_3">Signal vil etter kvart få støtte for å oppgradera Eldre grupper.</string>
   <!--GroupLinkBottomSheetDialogFragment-->
+  <string name="GroupLinkBottomSheet_share_hint_requiring_approval">Alle som har denne lenka kan sjå gruppenamnet og -bildet, og be om å bli med. Del lenka med dei du stoler på.</string>
+  <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">Alle som har denne lenka kan sjå gruppenamnet og -bildet, og bli med i gruppa. Del lenka med dei du stoler på.</string>
   <string name="GroupLinkBottomSheet_share_via_signal">Del med Molly</string>
   <string name="GroupLinkBottomSheet_copy">Kopier</string>
   <string name="GroupLinkBottomSheet_qr_code">QR-kode</string>

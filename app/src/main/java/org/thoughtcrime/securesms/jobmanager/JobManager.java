@@ -42,7 +42,7 @@ public class JobManager implements ConstraintObserver.Notifier {
 
   private static final String TAG = JobManager.class.getSimpleName();
 
-  public static final int CURRENT_VERSION = 7;
+  public static final int CURRENT_VERSION = 8;
 
   private final Application   application;
   private final Configuration configuration;
@@ -59,17 +59,7 @@ public class JobManager implements ConstraintObserver.Notifier {
   public JobManager(@NonNull Application application, @NonNull Configuration configuration) {
     this.application   = application;
     this.configuration = configuration;
-    this.executor      = new FilteredExecutor(configuration.getExecutorFactory().newSingleThreadExecutor("signal-JobManager"),
-                                              () -> {
-                                                 if (Util.isMainThread()) {
-                                                   return true;
-                                                 } else if (DatabaseFactory.inTransaction(application)) {
-                                                   Log.w(TAG, "Tried to add a job while in a transaction!", new Throwable());
-                                                   return true;
-                                                 } else {
-                                                   return false;
-                                                 }
-                                              });
+    this.executor      = new FilteredExecutor(configuration.getExecutorFactory().newSingleThreadExecutor("signal-JobManager"), Util::isMainThread);
     this.jobTracker    = configuration.getJobTracker();
     this.jobController = new JobController(application,
                                            configuration.getJobStorage(),
@@ -350,6 +340,31 @@ public class JobManager implements ConstraintObserver.Notifier {
     } catch (InterruptedException e) {
       Log.w(TAG, "Failed to finish flushing.", e);
     }
+  }
+
+  /**
+   * Can tell you if a queue is empty at the time of invocation. It is worth noting that the state
+   * of the queue could change immediately after this method returns due to a call on some other
+   * thread, and you should take that into consideration when using the result. If you want
+   * something to happen within a queue, the safest course of action will always be to create a
+   * job and place it in that queue.
+   *
+   * @return True if requested queue is empty at the time of invocation, otherwise false.
+   */
+  @WorkerThread
+  public boolean isQueueEmpty(@NonNull String queueKey) {
+    return areQueuesEmpty(Collections.singleton(queueKey));
+  }
+
+  /**
+   * See {@link #isQueueEmpty(String)}
+   *
+   * @return True if *all* requested queues are empty at the time of invocation, otherwise false.
+   */
+  @WorkerThread
+  public boolean areQueuesEmpty(@NonNull Set<String> queueKeys) {
+    waitUntilInitialized();
+    return jobController.areQueuesEmpty(queueKeys);
   }
 
   /**

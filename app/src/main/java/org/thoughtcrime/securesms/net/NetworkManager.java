@@ -13,6 +13,7 @@ import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.ApplicationContext;
 import org.thoughtcrime.securesms.R;
+import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.messages.IncomingMessageObserver;
 import org.whispersystems.signalservice.api.SignalServiceMessagePipe;
 
@@ -157,7 +158,7 @@ public class NetworkManager {
             configureNetwork(new SocksProxy(OrbotHelper.DEFAULT_PROXY_HOST, socksPort));
           }
           proxyOrbotPort = socksPort;
-          if (application.isAppVisible()) {
+          if (ApplicationDependencies.getAppForegroundObserver().isForegrounded()) {
             Toast.makeText(application, R.string.ProxyManager_successfully_started_orbot, Toast.LENGTH_SHORT).show();
           }
         }

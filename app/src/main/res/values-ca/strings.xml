@@ -65,6 +65,8 @@
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">Es penja el contingut…</string>
   <string name="AttachmentUploadJob_compressing_video_start">Es comprimeix el vídeo…</string>
+  <!--BackgroundMessageRetriever-->
+  <string name="BackgroundMessageRetriever_checking_for_messages">Es comprova si hi ha missatges…</string>
   <!--BlockedUsersActivity-->
   <string name="BlockedUsersActivity__blocked_users">Usuaris blocats</string>
   <string name="BlockedUsersActivity__add_blocked_user">Afegeix un usuari blocat</string>
@@ -232,6 +234,7 @@
   <string name="ConversationActivity__more_options_now_in_group_settings">Ara hi ha més opcions a la configuració del grup.</string>
   <string name="ConversationActivity_join">Afegeix-m\'hi</string>
   <string name="ConversationActivity_full">Ple</string>
+  <string name="ConversationActivity_error_sending_media">Error en enviar contingut</string>
   <!--ConversationAdapter-->
   <plurals name="ConversationAdapter_n_unread_messages">
     <item quantity="one">%d missatge sense llegir</item>
@@ -469,7 +472,7 @@
   <!--GroupsV1MigrationInitiationReminder-->
   <string name="GroupsV1MigrationInitiationReminder_to_access_new_features_like_mentions">Per accedir a les funcions noves com ara les @mencions i els administradors, actualitzeu aquest grup.</string>
   <string name="GroupsV1MigrationInitiationReminder_not_now">Ara no</string>
-  <!-- Removed by excludeNonTranslatables <string name="GroupsV1MigrationInitiationReminder_update_group">Actualitza el grup</string> -->
+  <string name="GroupsV1MigrationInitiationReminder_upgrade_group">Actualitza el grup</string>
   <!--GroupsV1MigrationSuggestionsReminder-->
   <plurals name="GroupsV1MigrationSuggestionsReminder_members_couldnt_be_added_to_the_new_group">
     <item quantity="one">%1$d membre no s\'ha pogut tornar a afegir al grup nou. Voleu afegir-l\'hi ara?</item>
@@ -834,6 +837,11 @@
   <string name="NotificationBarManager__answer_call">Respon la trucada</string>
   <string name="NotificationBarManager__end_call">Acaba la trucada</string>
   <string name="NotificationBarManager__cancel_call">Cancel·la la trucada</string>
+  <!--NotificationsMegaphone-->
+  <string name="NotificationsMegaphone_turn_on_notifications">Voleu activar les notificacions?</string>
+  <string name="NotificationsMegaphone_never_miss_a_message">No us perdeu mai cap missatge dels contactes i dels grups.</string>
+  <string name="NotificationsMegaphone_turn_on">Activa</string>
+  <string name="NotificationsMegaphone_not_now">Ara no</string>
   <!--NotificationMmsMessageRecord-->
   <string name="NotificationMmsMessageRecord_multimedia_message">Missatge multimèdia</string>
   <string name="NotificationMmsMessageRecord_downloading_mms_message">Es baixa el missatge MMS</string>
@@ -1239,6 +1247,7 @@ especificat (%s) no és vàlid.</string>
   <string name="RegistrationActivity_continue">Continua</string>
   <string name="RegistrationActivity_take_privacy_with_you_be_yourself_in_every_message">Porteu a sobre la privadesa.\nSigueu vosaltres mateixos a cada missatge.</string>
   <string name="RegistrationActivity_enter_your_phone_number_to_get_started">Per començar, marqueu el número de telèfon.</string>
+  <string name="RegistrationActivity_enter_your_phone_number">Marqueu el número de telèfon.</string>
   <string name="RegistrationActivity_you_will_receive_a_verification_code">Rebreu un codi de verificació. La vostra operadora podria aplicar algun càrrec.</string>
   <string name="RegistrationActivity_enter_the_code_we_sent_to_s">Marqueu el codi que hem enviat a %s</string>
   <string name="RegistrationActivity_make_sure_your_phone_has_a_cellular_signal">Assegureu-vos que el telèfon té cobertura per a rebre missatges SMS o trucades.</string>
@@ -1976,6 +1985,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="preferences_off">Inactiu</string>
   <string name="preferences_on">Actiu</string>
   <string name="preferences_proxy_address">Adreça intermediària</string>
+  <string name="preferences_only_use_a_proxy_if">Useu un servidor intermediari només si no sou capaç de connectar-vos al Signal per les dades mòbils o per Wi-Fi.</string>
   <string name="preferences_share">Comparteix-lo</string>
   <string name="preferences_save">Desa</string>
   <string name="preferences_connecting_to_proxy">Es connecta amb l\'intermediari…</string>
@@ -1985,6 +1995,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="preferences_you_are_connected_to_the_proxy">Esteu connectat amb l\'intermediari. Podeu desactivar-lo en qualsevol moment des de la configuració.</string>
   <string name="preferences_success">Correcte</string>
   <string name="preferences_failed_to_connect">Ha fallat la connexió.</string>
+  <string name="preferences_enter_proxy_address">Introduïu l\'adreça del servidor intermediari</string>
   <string name="configurable_single_select__customize_option">Opció de personalització</string>
   <!--Internal only preferences-->
   <!--****************************************-->
@@ -2329,6 +2340,8 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="GroupsLearnMore_paragraph_2">Els grups de llegat no es poden actualitzar a grups nous, però podeu crear un grup nou amb els mateixos membres sempre que tinguin la darrera versió del Signal.</string>
   <string name="GroupsLearnMore_paragraph_3">El Signal oferirà una manera d\'actualitzar els grups de llegat més endavant.</string>
   <!--GroupLinkBottomSheetDialogFragment-->
+  <string name="GroupLinkBottomSheet_share_hint_requiring_approval">Qualsevol persona amb aquest enllaç pot veure el nom i la fotografia del grup i sol·licitar afegir-s\'hi. Compartiu-lo amb gent en qui confieu.</string>
+  <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">Qualsevol persona amb aquest enllaç pot veure el nom i la fotografia del grup i sol·licitar afegir-s\'hi. Compartiu-lo amb gent en qui confieu.</string>
   <string name="GroupLinkBottomSheet_share_via_signal">Comparteix per Molly</string>
   <string name="GroupLinkBottomSheet_copy">Copia</string>
   <string name="GroupLinkBottomSheet_qr_code">Codi QR</string>

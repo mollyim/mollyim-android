@@ -196,11 +196,11 @@ public class MediaSendActivity extends PassphraseRequiredActivity implements Med
     return intent;
   }
 
-  public static Intent buildShareIntent(@NonNull Context context,
-                                        @NonNull List<Media> media,
-                                        @NonNull List<RecipientId> recipientIds,
-                                        @NonNull CharSequence body,
-                                        @NonNull TransportOption transportOption)
+  public static Intent buildShareIntent(@NonNull  Context context,
+                                        @NonNull  List<Media> media,
+                                        @NonNull  List<RecipientId> recipientIds,
+                                        @Nullable CharSequence body,
+                                        @NonNull  TransportOption transportOption)
   {
     Intent intent = new Intent(context, MediaSendActivity.class);
     intent.putParcelableArrayListExtra(KEY_MEDIA, new ArrayList<>(media));
@@ -245,8 +245,15 @@ public class MediaSendActivity extends PassphraseRequiredActivity implements Med
 
     RecipientId recipientId = getIntent().getParcelableExtra(KEY_RECIPIENT);
     if (recipientId != null) {
+      Log.i(TAG, "Preparing for " + recipientId);
       recipient = Recipient.live(recipientId);
     }
+
+    List<RecipientId> recipientIds = getIntent().getParcelableArrayListExtra(KEY_RECIPIENTS);
+    if (recipientIds != null && recipientIds.size() > 0) {
+      Log.i(TAG, "Preparing for " + recipientIds);
+    }
+
 
     viewModel = ViewModelProviders.of(this, new MediaSendViewModel.Factory(getApplication(), new MediaRepository())).get(MediaSendViewModel.class);
     transport = getIntent().getParcelableExtra(KEY_TRANSPORT);
@@ -347,7 +354,6 @@ public class MediaSendActivity extends PassphraseRequiredActivity implements Med
 
     revealButton.setOnClickListener(v -> viewModel.onRevealButtonToggled());
 
-    List<RecipientId> recipientIds = getIntent().getParcelableArrayListExtra(KEY_RECIPIENTS);
     continueButton.setOnClickListener(v -> {
       continueButton.setEnabled(false);
       if (recipientIds == null || recipientIds.isEmpty()) {
@@ -568,22 +574,14 @@ public class MediaSendActivity extends PassphraseRequiredActivity implements Med
 
   @Override
   public void onCameraContactsSendClicked(@NonNull List<Recipient> recipients) {
-    MediaSendFragment fragment = getMediaSendFragment();
-
-    if (fragment != null) {
-      fragment.pausePlayback();
-
-      SimpleProgressDialog.DismissibleDialog dialog = SimpleProgressDialog.showDelayed(this, 300, 0);
-      viewModel.onSendClicked(buildModelsToTransform(fragment), recipients, composeText.getMentions()).observe(this, result -> {
-        dialog.dismiss();
-        setActivityResultAndFinish(result);
-      });
-    } else {
-      throw new AssertionError("No editor fragment available!");
-    }
+    onSend(recipients);
   }
 
   private void onSendClicked() {
+    onSend(Collections.emptyList());
+  }
+
+  private void onSend(@NonNull List<Recipient> recipients) {
     MediaSendFragment fragment = getMediaSendFragment();
 
     if (fragment == null) {
@@ -599,10 +597,14 @@ public class MediaSendActivity extends PassphraseRequiredActivity implements Med
     fragment.pausePlayback();
 
     SimpleProgressDialog.DismissibleDialog dialog = SimpleProgressDialog.showDelayed(this, 300, 0);
-    viewModel.onSendClicked(buildModelsToTransform(fragment), Collections.emptyList(), composeText.getMentions())
+    viewModel.onSendClicked(buildModelsToTransform(fragment), recipients, composeText.getMentions())
              .observe(this, result -> {
                dialog.dismiss();
-               setActivityResultAndFinish(result);
+               if (recipients.size() > 1) {
+                 finishWithoutSettingResults();
+               } else {
+                 setActivityResultAndFinish(result);
+               }
              });
   }
 
@@ -702,7 +704,7 @@ public class MediaSendActivity extends PassphraseRequiredActivity implements Med
           countButton.setVisibility(View.GONE);
           continueButton.setVisibility(View.VISIBLE);
 
-          if (!TextSecurePreferences.hasSeenCameraFirstTooltip(this)) {
+          if (!TextSecurePreferences.hasSeenCameraFirstTooltip(this) && !getIntent().hasExtra(KEY_RECIPIENTS)) {
             TooltipPopup.forTarget(continueButton)
                         .setText(R.string.MediaSendActivity_select_recipients)
                         .show(TooltipPopup.POSITION_ABOVE);
@@ -982,6 +984,14 @@ public class MediaSendActivity extends PassphraseRequiredActivity implements Med
 
   private @Nullable MediaSendFragment getMediaSendFragment() {
     return (MediaSendFragment) getSupportFragmentManager().findFragmentByTag(TAG_SEND);
+  }
+
+  private void finishWithoutSettingResults() {
+    Intent intent = new Intent();
+    setResult(RESULT_OK, intent);
+
+    finish();
+    overridePendingTransition(R.anim.stationary, R.anim.camera_slide_to_bottom);
   }
 
   private void setActivityResultAndFinish(@NonNull MediaSendActivityResult result) {

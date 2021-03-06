@@ -13,8 +13,9 @@ import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.jobs.FcmRefreshJob;
 import org.thoughtcrime.securesms.registration.PushChallengeRequest;
 import org.thoughtcrime.securesms.service.KeyCachingService;
-import org.thoughtcrime.securesms.service.KeyCachingService;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
+
+import java.util.Locale;
 
 public class FcmReceiveService extends FirebaseMessagingService {
 
@@ -27,7 +28,12 @@ public class FcmReceiveService extends FirebaseMessagingService {
       return;
     }
 
-    Log.i(TAG, "onMessageReceived() ID: " + remoteMessage.getMessageId() + ", Delay: " + (System.currentTimeMillis() - remoteMessage.getSentTime()) + ", Original Priority: " + remoteMessage.getOriginalPriority());
+    Log.i(TAG, String.format(Locale.US,
+                             "onMessageReceived() ID: %s, Delay: %d, Priority: %d, Original Priority: %d",
+                             remoteMessage.getMessageId(),
+                             (System.currentTimeMillis() - remoteMessage.getSentTime()),
+                             remoteMessage.getPriority(),
+                             remoteMessage.getOriginalPriority()));
 
     String challenge = remoteMessage.getData().get("challenge");
     if (challenge != null) {

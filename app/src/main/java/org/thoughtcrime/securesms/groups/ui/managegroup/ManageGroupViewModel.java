@@ -48,6 +48,7 @@ import org.thoughtcrime.securesms.util.Util;
 import org.thoughtcrime.securesms.util.livedata.LiveDataUtil;
 import org.thoughtcrime.securesms.util.views.SimpleProgressDialog;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ManageGroupViewModel extends ViewModel {
@@ -129,12 +130,10 @@ public class ManageGroupViewModel extends ViewModel {
                                                          recipient -> {
                                                            boolean showLegacyInfo = recipient.requireGroupId().isV1();
 
-                                                           if (showLegacyInfo && FeatureFlags.groupsV1ManualMigration() && recipient.getParticipants().size() > FeatureFlags.groupLimits().getHardLimit()) {
+                                                           if (showLegacyInfo && recipient.getParticipants().size() > FeatureFlags.groupLimits().getHardLimit()) {
                                                              return GroupInfoMessage.LEGACY_GROUP_TOO_LARGE;
-                                                           } else if (showLegacyInfo && FeatureFlags.groupsV1ManualMigration()) {
-                                                             return GroupInfoMessage.LEGACY_GROUP_UPGRADE;
                                                            } else if (showLegacyInfo) {
-                                                             return GroupInfoMessage.LEGACY_GROUP_LEARN_MORE;
+                                                             return GroupInfoMessage.LEGACY_GROUP_UPGRADE;
                                                            } else if (groupId.isMms()) {
                                                              return GroupInfoMessage.MMS_WARNING;
                                                            } else {
@@ -334,7 +333,7 @@ public class ManageGroupViewModel extends ViewModel {
         intent.putExtra(AddMembersActivity.GROUP_ID, getGroupId().toString());
         intent.putExtra(ContactSelectionListFragment.DISPLAY_MODE, ContactsCursorLoader.DisplayMode.FLAG_PUSH);
         intent.putExtra(ContactSelectionListFragment.SELECTION_LIMITS, new SelectionLimits(capacity.getSelectionWarning(), capacity.getSelectionLimit()));
-        intent.putParcelableArrayListExtra(ContactSelectionListFragment.CURRENT_SELECTION, capacity.getMembersWithoutSelf());
+        intent.putParcelableArrayListExtra(ContactSelectionListFragment.CURRENT_SELECTION, new ArrayList<>(capacity.getMembersWithoutSelf()));
         fragment.startActivityForResult(intent, resultCode);
       }
     });

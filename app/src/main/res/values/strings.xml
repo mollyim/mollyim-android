@@ -83,6 +83,9 @@
     <string name="AttachmentUploadJob_uploading_media">Uploading media…</string>
     <string name="AttachmentUploadJob_compressing_video_start">Compressing video…</string>
 
+    <!-- BackgroundMessageRetriever -->
+    <string name="BackgroundMessageRetriever_checking_for_messages">Checking for messages…</string>
+
     <!-- BlockedUsersActivity -->
     <string name="BlockedUsersActivity__blocked_users">Blocked users</string>
     <string name="BlockedUsersActivity__add_blocked_user">Add blocked user</string>
@@ -272,6 +275,8 @@
 
     <string name="ConversationActivity_join">Join</string>
     <string name="ConversationActivity_full">Full</string>
+
+    <string name="ConversationActivity_error_sending_media">Error sending media</string>
 
     <!-- ConversationAdapter -->
     <plurals name="ConversationAdapter_n_unread_messages">
@@ -969,6 +974,12 @@
     <string name="NotificationBarManager__end_call">End call</string>
     <string name="NotificationBarManager__cancel_call">Cancel call</string>
 
+    <!-- NotificationsMegaphone -->
+    <string name="NotificationsMegaphone_turn_on_notifications">Turn on Notifications?</string>
+    <string name="NotificationsMegaphone_never_miss_a_message">Never miss a message from your contacts and groups.</string>
+    <string name="NotificationsMegaphone_turn_on">Turn on</string>
+    <string name="NotificationsMegaphone_not_now">Not now</string>
+
     <!-- NotificationMmsMessageRecord -->
     <string name="NotificationMmsMessageRecord_multimedia_message">Multimedia message</string>
     <string name="NotificationMmsMessageRecord_downloading_mms_message">Downloading MMS message</string>
@@ -1441,6 +1452,7 @@
     <string name="RegistrationActivity_continue">Continue</string>
     <string name="RegistrationActivity_take_privacy_with_you_be_yourself_in_every_message">Take privacy with you.\nBe yourself in every message.</string>
     <string name="RegistrationActivity_enter_your_phone_number_to_get_started">Enter your phone number to get started</string>
+    <string name="RegistrationActivity_enter_your_phone_number">Enter your phone number</string>
     <string name="RegistrationActivity_you_will_receive_a_verification_code">You will receive a verification code. Carrier rates may apply.</string>
     <string name="RegistrationActivity_enter_the_code_we_sent_to_s">Enter the code we sent to %s</string>
     <string name="RegistrationActivity_make_sure_your_phone_has_a_cellular_signal">Make sure your phone has a cellular signal to receive your SMS or call</string>
@@ -2771,6 +2783,8 @@
     <string name="GroupsLearnMore_paragraph_3">Signal will offer a way to upgrade Legacy Groups in the future.</string>
 
     <!-- GroupLinkBottomSheetDialogFragment -->
+    <string name="GroupLinkBottomSheet_share_hint_requiring_approval">Anyone with this link can view the group\'s name and photo and request to join. Share it with people you trust.</string>
+    <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">Anyone with this link can view the group\'s name and photo and join the group. Share it with people you trust.</string>
     <string name="GroupLinkBottomSheet_share_via_signal">Share via Molly</string>
     <string name="GroupLinkBottomSheet_copy">Copy</string>
     <string name="GroupLinkBottomSheet_qr_code">QR Code</string>

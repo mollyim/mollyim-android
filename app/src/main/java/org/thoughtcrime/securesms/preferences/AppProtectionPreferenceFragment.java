@@ -27,6 +27,7 @@ import org.thoughtcrime.securesms.blocked.BlockedUsersActivity;
 import org.thoughtcrime.securesms.components.SwitchPreferenceCompat;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.jobs.ConversationShortcutUpdateJob;
 import org.thoughtcrime.securesms.jobs.MultiDeviceConfigurationUpdateJob;
 import org.thoughtcrime.securesms.jobs.RefreshAttributesJob;
 import org.thoughtcrime.securesms.keyvalue.KbsValues;
@@ -43,6 +44,7 @@ import org.thoughtcrime.securesms.preferences.widgets.PassphraseLockTriggerPrefe
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.storage.StorageSyncHelper;
 import org.thoughtcrime.securesms.util.CommunicationActions;
+import org.thoughtcrime.securesms.util.ConversationUtil;
 import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
@@ -226,6 +228,7 @@ public class AppProtectionPreferenceFragment extends CorrectedPreferenceFragment
       dialog.setMasterSecretChangedListener(masterSecret -> {
         ((SwitchPreferenceCompat) preference).setChecked(enabled);
         ((ApplicationPreferencesActivity) requireContext()).setMasterSecret(masterSecret);
+        ConversationUtil.refreshRecipientShortcuts();
       });
       dialog.show(requireFragmentManager(), "ChangePassphraseDialogFragment");
 

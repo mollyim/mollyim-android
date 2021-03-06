@@ -5,7 +5,7 @@
   <string name="delete">Eliminar</string>
   <string name="please_wait">Espera, por favor …</string>
   <string name="save">Guardar</string>
-  <string name="note_to_self">Notas personales</string>
+  <string name="note_to_self">Notas privadas</string>
   <!--AbstractNotificationBuilder-->
   <string name="AbstractNotificationBuilder_new_message">Nuevo mensaje</string>
   <!--AlbumThumbnailView-->
@@ -65,6 +65,8 @@
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">Transfiriendo adjunto …</string>
   <string name="AttachmentUploadJob_compressing_video_start">Comprimiendo vídeo …</string>
+  <!--BackgroundMessageRetriever-->
+  <string name="BackgroundMessageRetriever_checking_for_messages">Comprobando mensajes …</string>
   <!--BlockedUsersActivity-->
   <string name="BlockedUsersActivity__blocked_users">Personas bloqueadas</string>
   <string name="BlockedUsersActivity__add_blocked_user">Añadir persona bloqueada</string>
@@ -202,7 +204,7 @@
   <string name="ConversationActivity_unable_to_record_audio">¡No se ha podido grabar la nota de voz!</string>
   <string name="ConversationActivity_you_cant_send_messages_to_this_group">No puedes enviar mensajes a este grupo porque ya no eres participante.</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">No hay ninguna aplicación disponible para abrir este enlace.</string>
-  <string name="ConversationActivity_your_request_to_join_has_been_sent_to_the_group_admin">Se ha enviado tu solicitud de unirte al grupo al admin. Te llegará una notificación con su respuesta. </string>
+  <string name="ConversationActivity_your_request_to_join_has_been_sent_to_the_group_admin">Se ha enviado tu solicitud para unirte al grupo al admin. Te llegará una notificación con su respuesta. </string>
   <string name="ConversationActivity_cancel_request">Cancelar solicitud</string>
   <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Para enviar notas de voz y hacer llamadas, permite a Molly acceder al micrófono.</string>
   <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly necesita acceso al micrófono para enviar notas de voz. Por favor, ve a la aplicación «Ajustes», selecciona Molly en el menú «Aplicaciones y notificaciones» y en «Permisos» activa «Micrófono».</string>
@@ -219,8 +221,8 @@
   <string name="ConversationActivity_no">No</string>
   <string name="ConversationActivity_search_position">%1$d de %2$d</string>
   <string name="ConversationActivity_no_results">Sin resultados</string>
-  <string name="ConversationActivity_sticker_pack_installed">Paquete de cromos instalado</string>
-  <string name="ConversationActivity_new_say_it_with_stickers">¡Novedad!: Dilo con cromos (stickers)</string>
+  <string name="ConversationActivity_sticker_pack_installed">Paquete de stickers instalado</string>
+  <string name="ConversationActivity_new_say_it_with_stickers">¡Novedad!: Dilo con stickers</string>
   <string name="ConversationActivity_cancel">Cancelar</string>
   <string name="ConversationActivity_delete_conversation">¿Eliminar el chat?</string>
   <string name="ConversationActivity_delete_and_leave_group">¿Eliminar y abandonar grupo?</string>
@@ -232,6 +234,7 @@
   <string name="ConversationActivity__more_options_now_in_group_settings">Ahora con más opciones en «Ajustes del grupo»</string>
   <string name="ConversationActivity_join">Unirse</string>
   <string name="ConversationActivity_full">Completa</string>
+  <string name="ConversationActivity_error_sending_media">Fallo al enviar adjunto</string>
   <!--ConversationAdapter-->
   <plurals name="ConversationAdapter_n_unread_messages">
     <item quantity="one">%d mensaje no leído</item>
@@ -319,7 +322,7 @@
   <string name="CreateProfileActivity_error_setting_profile_photo">Fallo al establecer la foto de perfil</string>
   <string name="CreateProfileActivity_problem_setting_profile">Problema al crear el perfil</string>
   <string name="CreateProfileActivity_set_up_your_profile">Completa tu perfil</string>
-  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">Tu perfil está cifrado de extremo a extremo. Sólo es visible para tus contactos, para personas con las que inicies o aceptes un chat nuevo y cuando te unas a nuevos grupos. Nadie más tiene acceso, ni siquiera l@s creador@s de Signal.</string>
+  <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">Tu perfil también está cifrado de extremo a extremo. Solo tus contactos, las personas con las que inicias o aceptas un chat, y quienes participan en los grupos a los que te unes podrán verlo. Nadie más, ni siquiera la gente de Signal.</string>
   <string name="CreateProfileActivity_set_avatar_description">Configurar avatar de perfil</string>
   <!--ChooseBackupFragment-->
   <string name="ChooseBackupFragment__restore_from_backup">¿Restaurar desde copia de seguridad?</string>
@@ -411,7 +414,7 @@
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">Fallo al obtener el GIF a resolución completa</string>
   <!--GiphyFragmentPageAdapter-->
   <string name="GiphyFragmentPagerAdapter_gifs">GIFs</string>
-  <string name="GiphyFragmentPagerAdapter_stickers">Cromos</string>
+  <string name="GiphyFragmentPagerAdapter_stickers">Stickers</string>
   <!--AddToGroupActivity-->
   <string name="AddToGroupActivity_add_member">¿Añadir participante?</string>
   <string name="AddToGroupActivity_add_s_to_s">¿Añadir a %1$s a «%2$s»?</string>
@@ -469,7 +472,7 @@
   <!--GroupsV1MigrationInitiationReminder-->
   <string name="GroupsV1MigrationInitiationReminder_to_access_new_features_like_mentions">Para acceder a funciones que incluyen @menciones y admins, actualiza este grupo.</string>
   <string name="GroupsV1MigrationInitiationReminder_not_now">Ahora no</string>
-  <!-- Removed by excludeNonTranslatables <string name="GroupsV1MigrationInitiationReminder_update_group">Actualizar grupo</string> -->
+  <string name="GroupsV1MigrationInitiationReminder_upgrade_group">Actualizar grupo</string>
   <!--GroupsV1MigrationSuggestionsReminder-->
   <plurals name="GroupsV1MigrationSuggestionsReminder_members_couldnt_be_added_to_the_new_group">
     <item quantity="one">No se ha podido añadir a %1$d participante al nuevo grupo. ¿Deseas hacerlo ahora?</item>
@@ -612,9 +615,9 @@
     <item quantity="one">%d participante añadid@.</item>
     <item quantity="other">%d participantes añadid@s.</item>
   </plurals>
-  <string name="ManageGroupActivity_only_admins_can_enable_or_disable_the_sharable_group_link">Sólo admins pueden activar o desactivar el enlace para compartir el grupo.</string>
+  <string name="ManageGroupActivity_only_admins_can_enable_or_disable_the_sharable_group_link">Sólo admins pueden activar o desactivar el enlace para unirse al grupo.</string>
   <string name="ManageGroupActivity_only_admins_can_enable_or_disable_the_option_to_approve_new_members">Sólo admins pueden activar o desactivar la opción de aprobar nuev@s participantes.</string>
-  <string name="ManageGroupActivity_only_admins_can_reset_the_sharable_group_link">Sólo admins pueden restablecer el enlace para compartir el grupo.</string>
+  <string name="ManageGroupActivity_only_admins_can_reset_the_sharable_group_link">Sólo admins pueden restablecer el enlace para unirse al grupo.</string>
   <string name="ManageGroupActivity_you_dont_have_the_rights_to_do_this">No dispones de permisos para hacerlo</string>
   <string name="ManageGroupActivity_not_capable">Alguien a quien has añadido no soporta el nuevo sistema de grupos y debe actualizar Signal.</string>
   <string name="ManageGroupActivity_failed_to_update_the_group">Fallo al actualizar el grupo</string>
@@ -658,7 +661,7 @@
   <string name="ManageRecipientActivity_on">Activo</string>
   <string name="ManageRecipientActivity_add_to_a_group">Añadir a un grupo</string>
   <string name="ManageRecipientActivity_view_all_groups">Ver todos los grupos</string>
-  <string name="ManageRecipientActivity_see_all">Ver tod@s</string>
+  <string name="ManageRecipientActivity_see_all">Ver todos</string>
   <string name="ManageRecipientActivity_no_groups_in_common">No hay grupos en común</string>
   <plurals name="ManageRecipientActivity_d_groups_in_common">
     <item quantity="one">%d grupo en común</item>
@@ -684,15 +687,15 @@
   <string name="CustomNotificationsDialogFragment__disabled">Desactivada</string>
   <string name="CustomNotificationsDialogFragment__default">Por defecto</string>
   <!--ShareableGroupLinkDialogFragment-->
-  <string name="ShareableGroupLinkDialogFragment__shareable_group_link">Enlace para compartir grupo</string>
+  <string name="ShareableGroupLinkDialogFragment__shareable_group_link">Enlace para unirse al grupo</string>
   <string name="ShareableGroupLinkDialogFragment__manage_and_share">Gestionar y compartir</string>
   <string name="ShareableGroupLinkDialogFragment__group_link">Enlace al grupo</string>
   <string name="ShareableGroupLinkDialogFragment__share">Compartir</string>
   <string name="ShareableGroupLinkDialogFragment__reset_link">Restablecer enlace</string>
   <string name="ShareableGroupLinkDialogFragment__member_requests">Solicitudes de participantes</string>
   <string name="ShareableGroupLinkDialogFragment__approve_new_members">Aprobar solicitudes</string>
-  <string name="ShareableGroupLinkDialogFragment__require_an_admin_to_approve_new_members_joining_via_the_group_link">Al seguir el enlace se genera una solicitud de acceso que debe ser aprobada.</string>
-  <string name="ShareableGroupLinkDialogFragment__are_you_sure_you_want_to_reset_the_group_link">¿Deseas restablecer el enlace para compartir el grupo? Si lo restableces, nadie podrá unirse al chat usando el enlace actual.</string>
+  <string name="ShareableGroupLinkDialogFragment__require_an_admin_to_approve_new_members_joining_via_the_group_link">Con la opción activa se genera una solicitud de acceso al grupo que debe ser aprobada por un(a) admin.</string>
+  <string name="ShareableGroupLinkDialogFragment__are_you_sure_you_want_to_reset_the_group_link">¿Deseas restablecer el enlace para unirse al grupo? Si lo restableces, nadie podrá unirse al chat usando el enlace actual.</string>
   <!--GroupLinkShareQrDialogFragment-->
   <string name="GroupLinkShareQrDialogFragment__qr_code">Código QR</string>
   <string name="GroupLinkShareQrDialogFragment__people_who_scan_this_code_will">Las personas que escaneen este código podrán unirse al grupo. L@s admins deberán aprobar nuev@s participantes si se ha activado esa opción.</string>
@@ -711,24 +714,24 @@
   <string name="GroupJoinBottomSheetDialogFragment_encountered_a_network_error">Fallo en la conexión de red.</string>
   <string name="GroupJoinBottomSheetDialogFragment_this_group_link_is_not_active">Este enlace al grupo no está disponible</string>
   <string name="GroupJoinBottomSheetDialogFragment_unable_to_get_group_information_please_try_again_later">No ha sido posible recuperar los detalles del grupo, por favor inténtalo más tarde</string>
-  <string name="GroupJoinBottomSheetDialogFragment_direct_join">¿Deseas unirte a este grupo y así compartir tu nombre y foto con sus participantes?</string>
-  <string name="GroupJoinBottomSheetDialogFragment_admin_approval_needed">Al seguir el enlace se genera una solicitud de acceso que debe ser aprobada antes de unirte. Al unirte al grupo, tu nombre y foto se compartirán con sus participantes.</string>
+  <string name="GroupJoinBottomSheetDialogFragment_direct_join">¿Deseas unirte a este grupo y compartir tu nombre y foto con sus participantes?</string>
+  <string name="GroupJoinBottomSheetDialogFragment_admin_approval_needed">Un(a) admin de este grupo debe aprobar tu solicitud de acceso para unirte al grupo. Al solicitar unirte, tu nombre y foto se compartirán con sus participantes.</string>
   <plurals name="GroupJoinBottomSheetDialogFragment_group_dot_d_members">
     <item quantity="one">Grupo · %1$d participante</item>
     <item quantity="other">Grupo · %1$d participantes</item>
   </plurals>
   <!--GroupJoinUpdateRequiredBottomSheetDialogFragment-->
   <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_signal_to_use_group_links">Actualiza Signal para usar enlaces a grupos</string>
-  <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_message">La versión de Signal que usas no soporta este enlace para compartir grupos. Actualiza Signal para unirte a este grupo vía enlace.</string>
+  <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_message">La versión de Signal que usas no soporta este enlace para unirse a grupos. Actualiza Signal para unirte a este grupo vía enlace.</string>
   <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_signal">Actualiza Signal</string>
-  <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_linked_device_message">Alguno(s) de tus dispositivos enlazados no soporta enlaces para compartir grupos. Actualiza Signal en esos dispositivos para unirte a este grupo vía enlace.</string>
+  <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_linked_device_message">Alguno(s) de tus dispositivos enlazados no soporta enlaces para unirse a grupos. Actualiza Signal en esos dispositivos para unirte a este grupo vía enlace.</string>
   <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_group_link_is_not_valid">Enlace a grupo inválido</string>
   <!--GroupInviteLinkEnableAndShareBottomSheetDialogFragment-->
   <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_invite_friends">Invitar amistades</string>
   <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_share_a_link_with_friends_to_let_them_quickly_join_this_group">Comparte con tus amistades el enlace a este grupo para que se unan.</string>
   <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_enable_and_share_link">Activar y compartir enlace</string>
   <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_share_link">Compartir enlace</string>
-  <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_unable_to_enable_group_link_please_try_again_later">Fallo al activar el enlace al grupo. Inténtalo más tarde</string>
+  <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_unable_to_enable_group_link_please_try_again_later">Fallo al activar el enlace para unirse al grupo. Inténtalo más tarde</string>
   <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_encountered_a_network_error">Fallo en la conexión de red.</string>
   <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_you_dont_have_the_right_to_enable_group_link">No dispones de permisos para activar el enlace al grupo. Solicítalo a un@ admin.</string>
   <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_you_are_not_currently_a_member_of_the_group">Todavía no participas en este grupo.</string>
@@ -820,7 +823,7 @@
   <string name="Megaphones_tap_and_hold_any_message_to_quicky_share_how_you_feel">Mantén pulsado un mensaje para mostrar cómo te sientes.</string>
   <string name="Megaphones_remind_me_later">Recordar más tarde</string>
   <string name="Megaphones_verify_your_signal_pin">Verifica tu PIN de Signal</string>
-  <string name="Megaphones_well_occasionally_ask_you_to_verify_your_pin">Te preguntaremos ocasionalmente para verificar tu PIN y que así lo puedas recordar.</string>
+  <string name="Megaphones_well_occasionally_ask_you_to_verify_your_pin">Te preguntaremos ocasionalmente verificar tu PIN para que así lo puedas recordar.</string>
   <string name="Megaphones_verify_pin">Verificar PIN</string>
   <string name="Megaphones_get_started">Comenzar</string>
   <string name="Megaphones_new_group">Nuevo grupo</string>
@@ -834,6 +837,11 @@
   <string name="NotificationBarManager__answer_call">Atender llamada</string>
   <string name="NotificationBarManager__end_call">Finalizar llamada</string>
   <string name="NotificationBarManager__cancel_call">Cancelar llamada</string>
+  <!--NotificationsMegaphone-->
+  <string name="NotificationsMegaphone_turn_on_notifications">¿Activar notificaciones?</string>
+  <string name="NotificationsMegaphone_never_miss_a_message">No te pierdas ni un mensaje de tus contactos o grupos.</string>
+  <string name="NotificationsMegaphone_turn_on">Activar</string>
+  <string name="NotificationsMegaphone_not_now">Ahora no</string>
   <!--NotificationMmsMessageRecord-->
   <string name="NotificationMmsMessageRecord_multimedia_message">Mensaje multimedia</string>
   <string name="NotificationMmsMessageRecord_downloading_mms_message">Descargando mensaje MMS</string>
@@ -899,7 +907,7 @@
   <string name="MessageRecord_you_added_s">Has añadido a %1$s.</string>
   <string name="MessageRecord_s_added_s">%1$s ha añadido a %2$s.</string>
   <string name="MessageRecord_s_added_you">%1$s te ha añadido al grupo.</string>
-  <string name="MessageRecord_you_joined_the_group">Te has incorporado al grupo.</string>
+  <string name="MessageRecord_you_joined_the_group">Te has unido al grupo.</string>
   <string name="MessageRecord_s_joined_the_group">%1$s se ha unido al grupo.</string>
   <!--GV2 member removals-->
   <string name="MessageRecord_you_removed_s">Has expulsado a «%1$s».</string>
@@ -971,25 +979,25 @@
   <string name="MessageRecord_s_changed_who_can_edit_group_membership_to_s">%1$s ha actualizado quien puede añadir participantes al grupo a «%2$s».</string>
   <string name="MessageRecord_who_can_edit_group_membership_has_been_changed_to_s">Ahora, «%1$s» pueden añadir participantes al grupo.</string>
   <!--GV2 group link invite access level change-->
-  <string name="MessageRecord_you_turned_on_the_group_link_with_admin_approval_off">Has activado el enlace para compartir el grupo sin necesitar confirmación de admin.</string>
-  <string name="MessageRecord_you_turned_on_the_group_link_with_admin_approval_on">Has activado el enlace para compartir el grupo tras confirmación de admin.</string>
-  <string name="MessageRecord_you_turned_off_the_group_link">Has desactivado el enlace para compartir el grupo.</string>
-  <string name="MessageRecord_s_turned_on_the_group_link_with_admin_approval_off">%1$s ha activado el enlace para compartir el grupo sin necesitar confirmación de admin.</string>
-  <string name="MessageRecord_s_turned_on_the_group_link_with_admin_approval_on">%1$s ha activado el enlace para compartir el grupo tras confirmación de admin.</string>
-  <string name="MessageRecord_s_turned_off_the_group_link">%1$s ha desactivado el enlace para compartir el grupo.</string>
-  <string name="MessageRecord_the_group_link_has_been_turned_on_with_admin_approval_off">Se ha activado el enlace para compartir el grupo sin necesitar confirmación de admin.</string>
-  <string name="MessageRecord_the_group_link_has_been_turned_on_with_admin_approval_on">Se ha activado el enlace para compartir el grupo tras confirmación de admin.</string>
-  <string name="MessageRecord_the_group_link_has_been_turned_off">Se ha desactivado el enlace para compartir el grupo.</string>
-  <string name="MessageRecord_you_turned_off_admin_approval_for_the_group_link">Has desactivado la confirmación de admin para compartir el grupo vía enlace.</string>
-  <string name="MessageRecord_s_turned_off_admin_approval_for_the_group_link">%1$s ha desactivado la confirmación de admin para compartir el grupo vía enlace.</string>
-  <string name="MessageRecord_the_admin_approval_for_the_group_link_has_been_turned_off">Se ha desactivado la función de compartir el chat en grupo vía enlace.</string>
-  <string name="MessageRecord_you_turned_on_admin_approval_for_the_group_link">Has activado la confirmación de admin para compartir el grupo vía enlace.</string>
-  <string name="MessageRecord_s_turned_on_admin_approval_for_the_group_link">%1$s ha activado la confirmación de admin para compartir el grupo vía enlace.</string>
-  <string name="MessageRecord_the_admin_approval_for_the_group_link_has_been_turned_on">Se ha activado la función de compartir el chat en grupo vía enlace.</string>
+  <string name="MessageRecord_you_turned_on_the_group_link_with_admin_approval_off">Has activado el enlace para unirse al grupo sin confirmación de admin.</string>
+  <string name="MessageRecord_you_turned_on_the_group_link_with_admin_approval_on">Has activado el enlace para unirse al grupo tras confirmación de admin.</string>
+  <string name="MessageRecord_you_turned_off_the_group_link">Has desactivado el enlace para unirse al grupo.</string>
+  <string name="MessageRecord_s_turned_on_the_group_link_with_admin_approval_off">%1$s ha activado el enlace para unirse al grupo sin confirmación de admin.</string>
+  <string name="MessageRecord_s_turned_on_the_group_link_with_admin_approval_on">%1$s ha activado el enlace para unirse al grupo tras confirmación de admin.</string>
+  <string name="MessageRecord_s_turned_off_the_group_link">%1$s ha desactivado el enlace para unirse al grupo.</string>
+  <string name="MessageRecord_the_group_link_has_been_turned_on_with_admin_approval_off">Se ha activado el enlace para unirse al grupo sin confirmación de admin.</string>
+  <string name="MessageRecord_the_group_link_has_been_turned_on_with_admin_approval_on">Se ha activado el enlace para unirse al grupo tras confirmación de admin.</string>
+  <string name="MessageRecord_the_group_link_has_been_turned_off">Se ha desactivado el enlace para unirse al grupo.</string>
+  <string name="MessageRecord_you_turned_off_admin_approval_for_the_group_link">Has desactivado la confirmación de admin para unirse al grupo vía enlace.</string>
+  <string name="MessageRecord_s_turned_off_admin_approval_for_the_group_link">%1$s ha desactivado la confirmación de admin para unirse al grupo vía enlace.</string>
+  <string name="MessageRecord_the_admin_approval_for_the_group_link_has_been_turned_off">Se a confirmación de admin para unirse al grupo vía enlace.</string>
+  <string name="MessageRecord_you_turned_on_admin_approval_for_the_group_link">Has activado la confirmación de admin para unirse al grupo vía enlace.</string>
+  <string name="MessageRecord_s_turned_on_admin_approval_for_the_group_link">%1$s ha activado la confirmación de admin para unirse al grupo vía enlace.</string>
+  <string name="MessageRecord_the_admin_approval_for_the_group_link_has_been_turned_on">Se ha activado la confirmación de admin para unirse al grupo vía enlace.</string>
   <!--GV2 group link reset-->
-  <string name="MessageRecord_you_reset_the_group_link">Has restablecido el enlace para compartir el grupo.</string>
-  <string name="MessageRecord_s_reset_the_group_link">%1$s ha restablecido el enlace para compartir el grupo.</string>
-  <string name="MessageRecord_the_group_link_has_been_reset">Se ha restablecido el enlace para compartir el grupo.</string>
+  <string name="MessageRecord_you_reset_the_group_link">Has restablecido el enlace para unirse al grupo.</string>
+  <string name="MessageRecord_s_reset_the_group_link">%1$s ha restablecido el enlace para unirse al grupo.</string>
+  <string name="MessageRecord_the_group_link_has_been_reset">Se ha restablecido el enlace para unirse al grupo.</string>
   <!--GV2 group link joins-->
   <string name="MessageRecord_you_joined_the_group_via_the_group_link">Te has unido al grupo vía enlace.</string>
   <string name="MessageRecord_s_joined_the_group_via_the_group_link">%1$s se ha unido al grupo vía enlace.</string>
@@ -997,17 +1005,17 @@
   <string name="MessageRecord_you_sent_a_request_to_join_the_group">Has enviado una solicitud para unirte al grupo.</string>
   <string name="MessageRecord_s_requested_to_join_via_the_group_link">%1$s ha solicitado unirse al grupo vía enlace.</string>
   <!--GV2 group link approvals-->
-  <string name="MessageRecord_s_approved_your_request_to_join_the_group">%1$s ha aprobado tu solicitud de unirte al grupo.</string>
-  <string name="MessageRecord_s_approved_a_request_to_join_the_group_from_s">%1$s ha aprobado la solicitud de %2$s de unirse al grupo.</string>
-  <string name="MessageRecord_you_approved_a_request_to_join_the_group_from_s">Has aprobado la solicitud de unirse al grupo de %1$s.</string>
-  <string name="MessageRecord_your_request_to_join_the_group_has_been_approved">Se ha aprobado tu solicitud de unirte al grupo.</string>
-  <string name="MessageRecord_a_request_to_join_the_group_from_s_has_been_approved">Se ha aprobado la solicitud de %1$s de unirse al grupo.</string>
+  <string name="MessageRecord_s_approved_your_request_to_join_the_group">%1$s ha aprobado tu solicitud para unirte al grupo.</string>
+  <string name="MessageRecord_s_approved_a_request_to_join_the_group_from_s">%1$s ha aprobado la solicitud de %2$s para unirse al grupo.</string>
+  <string name="MessageRecord_you_approved_a_request_to_join_the_group_from_s">Has aprobado la solicitud de %1$s para unirse al grupo.</string>
+  <string name="MessageRecord_your_request_to_join_the_group_has_been_approved">Se ha aprobado tu solicitud para unirte al grupo.</string>
+  <string name="MessageRecord_a_request_to_join_the_group_from_s_has_been_approved">Se ha aprobado la solicitud de %1$s para unirse al grupo.</string>
   <!--GV2 group link deny-->
-  <string name="MessageRecord_your_request_to_join_the_group_has_been_denied_by_an_admin">Un(a) admin ha denegado tu solicitud de unirte al grupo.</string>
-  <string name="MessageRecord_s_denied_a_request_to_join_the_group_from_s">%1$s ha denegado la solicitud de %2$s de unirse al grupo.</string>
-  <string name="MessageRecord_a_request_to_join_the_group_from_s_has_been_denied">Se ha denegado la solicitud de %1$s de unirse al grupo.</string>
-  <string name="MessageRecord_you_canceled_your_request_to_join_the_group">Has retirado tu solicitud de unirte al grupo.</string>
-  <string name="MessageRecord_s_canceled_their_request_to_join_the_group">%1$s ha retirado su solicitud de unirse al grupo.</string>
+  <string name="MessageRecord_your_request_to_join_the_group_has_been_denied_by_an_admin">Un(a) admin ha denegado tu solicitud para unirte al grupo.</string>
+  <string name="MessageRecord_s_denied_a_request_to_join_the_group_from_s">%1$s ha denegado la solicitud de %2$s para unirse al grupo.</string>
+  <string name="MessageRecord_a_request_to_join_the_group_from_s_has_been_denied">Se ha denegado la solicitud de %1$s para unirse al grupo.</string>
+  <string name="MessageRecord_you_canceled_your_request_to_join_the_group">Has retirado tu solicitud para unirte al grupo.</string>
+  <string name="MessageRecord_s_canceled_their_request_to_join_the_group">%1$s ha retirado su solicitud para unirse al grupo.</string>
   <!--End of GV2 specific update messages-->
   <string name="MessageRecord_your_safety_number_with_s_has_changed">Tus cifras de seguridad con %s han cambiado.</string>
   <string name="MessageRecord_you_marked_your_safety_number_with_s_verified">Has marcado tus cifras de seguridad con %s como verificadas.</string>
@@ -1040,13 +1048,13 @@
   <string name="MessageRequestBottomView_delete">Eliminar</string>
   <string name="MessageRequestBottomView_block">Bloquear</string>
   <string name="MessageRequestBottomView_unblock">Desbloquear</string>
-  <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_they_wont_know_youve_seen_their_messages_until_you_accept">¿Deseas que %1$s te envíe mensajes y así compartir tu nombre y foto? Esta persona no sabrá que has visto sus mensajes hasta que aceptes.</string>
-  <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them">¿Deseas que %1$s te envíe mensajes y así compartir tu nombre y foto? Esta persona no sabrá que has visto sus mensajes hasta que aceptes.</string>
-  <string name="MessageRequestBottomView_continue_your_conversation_with_this_group_and_share_your_name_and_photo">¿Deseas chatear con este grupo y así compartir tu nombre y foto con sus participantes?</string>
+  <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_they_wont_know_youve_seen_their_messages_until_you_accept">¿Deseas que %1$s te envíe mensajes y compartir tu nombre y foto? Esta persona no sabrá que has visto sus mensajes hasta que aceptes.</string>
+  <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them">¿Deseas que %1$s te envíe mensajes y compartir tu nombre y foto? Esta persona no sabrá que has visto sus mensajes hasta que aceptes.</string>
+  <string name="MessageRequestBottomView_continue_your_conversation_with_this_group_and_share_your_name_and_photo">¿Deseas chatear con este grupo y compartir tu nombre y foto con sus participantes?</string>
   <string name="MessageRequestBottomView_upgrade_this_group_to_activate_new_features">Actualiza este grupo para activar funciones como @menciones y admins. L@s participantes que no comparten su nombre o foto de perfil con este grupo recibirán una invitación para unirse.</string>
   <string name="MessageRequestBottomView_this_legacy_group_can_no_longer_be_used">Este grupo antiguo no es válido porque es demasiado grande. El tamaño máximo de grupo es de %1$d participantes.</string>
-  <string name="MessageRequestBottomView_continue_your_conversation_with_s_and_share_your_name_and_photo">¿Deseas chatear con %1$s y así compartir tu nombre y foto con esta persona?</string>
-  <string name="MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">¿Deseas unirte a este grupo y así compartir tu nombre y foto con sus participantes? No sabrán que has visto sus mensajes hasta que aceptes.</string>
+  <string name="MessageRequestBottomView_continue_your_conversation_with_s_and_share_your_name_and_photo">¿Deseas chatear con %1$s y compartir tu nombre y foto con esta persona?</string>
+  <string name="MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">¿Deseas unirte a este grupo y compartir tu nombre y foto con sus participantes? No sabrán que has visto sus mensajes hasta que aceptes.</string>
   <string name="MessageRequestBottomView_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">¿Deseas unirte a este grupo? Sus participantes no sabrán que has visto sus mensajes hasta que aceptes.</string>
   <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">¿Desbloquear este grupo y compartir tu nombre y foto con sus participantes? No recibirás ningún mensaje del grupo hasta que lo desbloquees.</string>
   <string name="MessageRequestProfileView_member_of_one_group">Participa en %1$s</string>
@@ -1105,6 +1113,7 @@
   <string name="PassphrasePromptActivity_ok_button_content_description">Enviar clave de acceso</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">¡Clave de acceso no válida!</string>
   <string name="PassphrasePromptActivity_unlock_signal">Desbloquear Molly</string>
+  <string name="PassphrasePromptActivity_signal_android_lock_screen">Signal Android - Pantalla bloqueada</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">Mapa</string>
   <string name="PlacePickerActivity_drop_pin">Situar chincheta</string>
@@ -1115,15 +1124,15 @@
   <string name="PinRestoreEntryFragment_incorrect_pin">PIN incorrecto</string>
   <string name="PinRestoreEntryFragment_skip_pin_entry">¿Omitir selección de PIN?</string>
   <string name="PinRestoreEntryFragment_need_help">¿Necesitas ayuda?</string>
-  <string name="PinRestoreEntryFragment_your_pin_is_a_d_digit_code">El PIN de Signal es un código de %1$d+ dígitos creado por ti que puede constar de cifras y letras o sólo cifras. Si no recuerdas tu PIN, podrás crear uno nuevo. Podrás registrar y usar tu cuenta pero perderás tu perfil, alias, grupos y personas bloqueadas.</string>
-  <string name="PinRestoreEntryFragment_if_you_cant_remember_your_pin">Si no puedes recordar tu PIN, puedes crear uno nuevo. Podrás registrar y usar tu cuenta pero perderás tu perfil, alias, grupos y personas bloqueadas.</string>
+  <string name="PinRestoreEntryFragment_your_pin_is_a_d_digit_code">El PIN de Signal es un código de %1$d+ dígitos creado por ti que puede constar de cifras y letras o sólo cifras. Si no recuerdas tu PIN, podrás crear uno nuevo. Podrás registrar y usar tu cuenta pero perderás tu perfil, contactos, grupos y personas bloqueadas.</string>
+  <string name="PinRestoreEntryFragment_if_you_cant_remember_your_pin">Si no puedes recordar tu PIN, puedes crear uno nuevo. Podrás registrar y usar tu cuenta pero perderás tu perfil, contactos, grupos y personas bloqueadas.</string>
   <string name="PinRestoreEntryFragment_create_new_pin">Cear nuevo PIN</string>
   <string name="PinRestoreEntryFragment_contact_support">Contactar soporte técnico</string>
   <string name="PinRestoreEntryFragment_cancel">Cancelar</string>
   <string name="PinRestoreEntryFragment_skip">Omitir</string>
   <plurals name="PinRestoreEntryFragment_you_have_d_attempt_remaining">
-    <item quantity="one">Te queda %1$d intento. Cuando lo agotes, podrás crear un nuevo PIN. Podrás registrar y usar tu cuenta pero perderás los ajustes guardados, incluyendo los datos de tu perfil.</item>
-    <item quantity="other">Te quedan %1$d intentos. Cuando los agotes, podrás crear un nuevo PIN. Podrás registrar y usar tu cuenta pero perderás tu perfil, alias, grupos y personas bloqueadas.</item>
+    <item quantity="one">Te queda %1$d intento. Cuando lo agotes, podrás crear un nuevo PIN. Podrás registrar y usar tu cuenta pero perderás tu perfil, contactos, grupos y personas bloqueadas.</item>
+    <item quantity="other">Te quedan %1$d intentos. Cuando los agotes, podrás crear un nuevo PIN. Podrás registrar y usar tu cuenta pero perderás tu perfil, contactos, grupos y personas bloqueadas.</item>
   </plurals>
   <string name="PinRestoreEntryFragment_signal_registration_need_help_with_pin">Registro en Signal - Ayuda con el PIN en Android</string>
   <string name="PinRestoreEntryFragment_enter_alphanumeric_pin">Introducir PIN alfanumérico</string>
@@ -1242,6 +1251,7 @@ número de teléfono
   <string name="RegistrationActivity_continue">Adelante</string>
   <string name="RegistrationActivity_take_privacy_with_you_be_yourself_in_every_message">Lleva la privacidad contigo.\nSé tú mism@ en todos tus mensajes.</string>
   <string name="RegistrationActivity_enter_your_phone_number_to_get_started">Introduce tu número de teléfono para comenzar</string>
+  <string name="RegistrationActivity_enter_your_phone_number">Introduce tu número de teléfono</string>
   <string name="RegistrationActivity_you_will_receive_a_verification_code">Recibirás un código de verificación SMS. Se aplican las tarifas de tu operador.</string>
   <string name="RegistrationActivity_enter_the_code_we_sent_to_s">Introduce el código que hemos enviado a %s</string>
   <string name="RegistrationActivity_make_sure_your_phone_has_a_cellular_signal">Asegúrate que tu teléfono tiene cobertura para recibir SMS o llamadas</string>
@@ -1283,7 +1293,7 @@ número de teléfono
   <string name="SignalPinReminders_well_remind_you_again_in_a_month">Te lo recordaremos de nuevo en un mes.</string>
   <!--Slide-->
   <string name="Slide_image">Imagen</string>
-  <string name="Slide_sticker">Cromo</string>
+  <string name="Slide_sticker">Sticker</string>
   <string name="Slide_audio">Audio</string>
   <string name="Slide_video">Vídeo</string>
   <!--SmsMessageRecord-->
@@ -1300,13 +1310,13 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="SmsMessageRecord_this_message_could_not_be_processed_because_it_was_sent_from_a_newer_version">Fallo al procesar el mensaje, ya que ha sido enviado con una versión más actual de Signal. Puedes pedir a la persona que vuelva a enviar el mensaje tras haber actualizado tu versión de Signal.</string>
   <string name="SmsMessageRecord_error_handling_incoming_message">Fallo al procesar el mensaje recibido.</string>
   <!--StickerManagementActivity-->
-  <string name="StickerManagementActivity_stickers">Cromos</string>
+  <string name="StickerManagementActivity_stickers">Stickers</string>
   <!--StickerManagementAdapter-->
-  <string name="StickerManagementAdapter_installed_stickers">Cromos instalados </string>
-  <string name="StickerManagementAdapter_stickers_you_received">Cromos recibidos</string>
+  <string name="StickerManagementAdapter_installed_stickers">Stickers instalados </string>
+  <string name="StickerManagementAdapter_stickers_you_received">Stickers recibidos</string>
   <string name="StickerManagementAdapter_signal_artist_series">Paquetes de Artistas de Signal</string>
-  <string name="StickerManagementAdapter_no_stickers_installed">No hay ningún cromo instalado </string>
-  <string name="StickerManagementAdapter_stickers_from_incoming_messages_will_appear_here">Los cromos recibidos en mensajes aparecerán aquí</string>
+  <string name="StickerManagementAdapter_no_stickers_installed">No hay ningún sticker instalado </string>
+  <string name="StickerManagementAdapter_stickers_from_incoming_messages_will_appear_here">Los stickers recibidos en mensajes aparecerán aquí</string>
   <string name="StickerManagementAdapter_untitled">Sin nombre</string>
   <string name="StickerManagementAdapter_unknown">Desconocido</string>
   <!--StickerPackPreviewActivity-->
@@ -1314,8 +1324,8 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="StickerPackPreviewActivity_unknown">Desconocido</string>
   <string name="StickerPackPreviewActivity_install">Instalar</string>
   <string name="StickerPackPreviewActivity_remove">Eliminar</string>
-  <string name="StickerPackPreviewActivity_stickers">Cromos (stickers)</string>
-  <string name="StickerPackPreviewActivity_failed_to_load_sticker_pack">Fallo al cargar el paquete de cromos</string>
+  <string name="StickerPackPreviewActivity_stickers">Stickers</string>
+  <string name="StickerPackPreviewActivity_failed_to_load_sticker_pack">Fallo al cargar el paquete de stickers</string>
   <!--SubmitDebugLogActivity-->
   <string name="SubmitDebugLogActivity_edit">Editar</string>
   <string name="SubmitDebugLogActivity_done">Hecho</string>
@@ -1343,7 +1353,7 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="ThreadRecord_missed_audio_call">Llamada perdida</string>
   <string name="ThreadRecord_missed_video_call">Vídeollamada perdida</string>
   <string name="ThreadRecord_media_message">Mensaje multimedia</string>
-  <string name="ThreadRecord_sticker">Cromo</string>
+  <string name="ThreadRecord_sticker">Sticker</string>
   <string name="ThreadRecord_view_once_photo">Foto para ver una vez</string>
   <string name="ThreadRecord_view_once_video">Vídeo para ver una vez</string>
   <string name="ThreadRecord_view_once_media">Adjunto para ver una vez</string>
@@ -1455,7 +1465,7 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="MessageNotifier_reacted_s_to_your_file">Reacción a tu fichero: %1$s.</string>
   <string name="MessageNotifier_reacted_s_to_your_audio">Reacción a tu audio: %1$s.</string>
   <string name="MessageNotifier_reacted_s_to_your_view_once_media">Reacción a tu adjunto para ver una vez: %1$s.</string>
-  <string name="MessageNotifier_reacted_s_to_your_sticker">Reacción a tu cromo: %1$s.</string>
+  <string name="MessageNotifier_reacted_s_to_your_sticker">Reacción a tu sticker: %1$s.</string>
   <string name="MessageNotifier_this_message_was_deleted">Mensaje eliminado.</string>
   <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">¿Desactivar las notificaciones cuando una persona comience a usar Signal? Puedes volver a activarlas en los ajustes de Signal &gt; Notificaciones.</string>
   <!--Notification Channels-->
@@ -1597,7 +1607,7 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="QuoteView_video">Vídeo</string>
   <string name="QuoteView_photo">Foto</string>
   <string name="QuoteView_view_once_media">Adjunto para ver una vez</string>
-  <string name="QuoteView_sticker">Cromo</string>
+  <string name="QuoteView_sticker">Sticker</string>
   <string name="QuoteView_you">Tú</string>
   <string name="QuoteView_original_missing">No se encuentra el mensaje original </string>
   <!--conversation_fragment-->
@@ -1666,7 +1676,7 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
     <item quantity="other">%d otros</item>
   </plurals>
   <!--giphy_activity-->
-  <string name="giphy_activity_toolbar__search_gifs_and_stickers">Buscar GIFs y cromos</string>
+  <string name="giphy_activity_toolbar__search_gifs_and_stickers">Buscar GIFs y stickers</string>
   <!--giphy_fragment-->
   <string name="giphy_fragment__nothing_found">No se encontró nada</string>
   <!--log_submit_activity-->
@@ -1768,7 +1778,7 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="AndroidManifest_remove_photo">Eliminar foto</string>
   <!--Message Requests Megaphone-->
   <string name="MessageRequestsMegaphone__message_requests">Solicitudes de chat</string>
-  <string name="MessageRequestsMegaphone__users_can_now_choose_to_accept">Ahora, puedes aceptar o rechazar solicitudes de chat. El nombre de perfil o alias ayuda a saber quien escribe.</string>
+  <string name="MessageRequestsMegaphone__users_can_now_choose_to_accept">Ahora, puedes aceptar o rechazar solicitudes de chat. El nombre de perfil ayuda a saber quien escribe.</string>
   <string name="MessageRequestsMegaphone__add_profile_name">Añadir nombre al perfil</string>
   <!--HelpFragment-->
   <string name="HelpFragment__have_you_read_our_faq_yet">¿Ya has leído nuestras FAQ?</string>
@@ -1900,7 +1910,7 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="preferences__disable_pin">Desactivar PIN</string>
   <string name="preferences__enable_pin">Activar PIN</string>
   <string name="preferences__if_you_disable_the_pin_you_will_lose_all_data">Al desactivar el PIN perderás todos los datos de tu cuenta al volver a instalar Signal, a menos que hagas una copia de seguridad manual y la restaures. No puedes activar el bloqueo se registro mientras el PIN esté desactivado.</string>
-  <string name="preferences__pins_keep_information_stored_with_signal_encrypted_so_only_you_can_access_it">El PIN permite activar el bloqueo de registro de tu número y almacena tu cuenta cifrada en el servidor de Signal de forma que sólo tú puedes acceder a ella. Ni siquiera l@s creador@s de Signal tienen acceso. Tu perfil, alias, grupos y personas bloqueadas se recuperarán al reinstalar Signal. No necesitas el PIN para abrir la aplicación.</string>
+  <string name="preferences__pins_keep_information_stored_with_signal_encrypted_so_only_you_can_access_it">El PIN permite activar el bloqueo de registro de tu número y almacena tu cuenta cifrada en el servidor de Signal de forma que sólo tú puedes acceder a ella. Ni siquiera la gente de Signal tiene acceso. Con el PIN, tu perfil, contactos, grupos y personas bloqueadas se recuperarán al reinstalar Signal. No necesitas el PIN para abrir la aplicación.</string>
   <string name="preferences__system_default">Predeterminado del sistema</string>
   <string name="preferences__language">Idioma</string>
   <string name="preferences__signal_messages_and_calls">Mensajes y llamadas de Signal</string>
@@ -1908,8 +1918,8 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="preferences__free_private_messages_and_calls">Llamadas y mensajes cifrados a través de Signal ¡gratis! </string>
   <string name="preferences__submit_debug_log">Enviar registro de depuración</string>
   <string name="preferences__delete_account">Eliminar cuenta</string>
-  <string name="preferences__support_wifi_calling">Modo de compatibilidad «Llamada por WiFi»</string>
-  <string name="preferences__enable_if_your_device_supports_sms_mms_delivery_over_wifi">Actívalo si tu dispositivo utiliza entrega de SMS/MMS vía WiFi (actívalo sólo cuando «Llamada por WiFi» esté activada en el dispositivo)</string>
+  <string name="preferences__support_wifi_calling">Modo de compatibilidad «Llamada por Wi-Fi»</string>
+  <string name="preferences__enable_if_your_device_supports_sms_mms_delivery_over_wifi">Actívalo si tu dispositivo utiliza entrega de SMS/MMS vía Wi-Fi (actívalo sólo cuando «Llamada por Wi-Fi» esté activada en el dispositivo)</string>
   <string name="preferences__incognito_keyboard">Teclado en modo incógnito</string>
   <string name="preferences__read_receipts">Notificaciones de lectura</string>
   <string name="preferences__if_read_receipts_are_disabled_you_wont_be_able_to_see_read_receipts">Si las notificaciones de lectura están desactivadas, no podrás comprobar cuándo se han leído tus mensajes.</string>
@@ -1920,7 +1930,7 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="preferences_chats__when_using_mobile_data">Al usar datos móviles</string>
   <string name="preferences_chats__when_using_wifi">Al usar Wi-Fi</string>
   <string name="preferences_chats__when_roaming">En itinerancia (roaming)</string>
-  <string name="preferences_chats__media_auto_download">Autodescarga de adjuntos</string>
+  <string name="preferences_chats__media_auto_download">Descarga automática de adjuntos</string>
   <string name="preferences_chats__message_history">Historial de mensajes</string>
   <string name="preferences_storage__storage_usage">Uso de almacenamiento</string>
   <string name="preferences_storage__photos">Fotos</string>
@@ -1981,15 +1991,17 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="preferences_off">Inactivo</string>
   <string name="preferences_on">Activo</string>
   <string name="preferences_proxy_address">Dirección del proxy</string>
+  <string name="preferences_only_use_a_proxy_if">Un proxy sólo es necesario en el caso que Signal no pueda conectarse a su servidor en una red Wi-Fi o en la red móvil.</string>
   <string name="preferences_share">Compartir</string>
   <string name="preferences_save">Guardar</string>
   <string name="preferences_connecting_to_proxy">Conectando con el proxy …</string>
   <string name="preferences_connected_to_proxy">Conectada con el proxy</string>
   <string name="preferences_connection_failed">Fallo al conectarse</string>
-  <string name="preferences_couldnt_connect_to_the_proxy">No se ha podido conectar en el proxy. Comprueba la dirección e inténtalo de nuevo.</string>
+  <string name="preferences_couldnt_connect_to_the_proxy">No se ha podido conectar con el proxy. Comprueba la dirección e inténtalo de nuevo.</string>
   <string name="preferences_you_are_connected_to_the_proxy">Signal está conectada con el proxy. Puedes desactivar el proxy en cualquier momento desde los Ajustes.</string>
   <string name="preferences_success">Funcionó</string>
   <string name="preferences_failed_to_connect">Fallo al conectar</string>
+  <string name="preferences_enter_proxy_address">Introduce la dirección del proxy</string>
   <string name="configurable_single_select__customize_option">Personalizar opción</string>
   <!--Internal only preferences-->
   <!--****************************************-->
@@ -2021,12 +2033,12 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <!--conversation_insecure-->
   <string name="conversation_insecure__invite">Invitar</string>
   <!--conversation_list_batch-->
-  <string name="conversation_list_batch__menu_delete_selected">Eliminar seleccionado</string>
+  <string name="conversation_list_batch__menu_delete_selected">Eliminar selección</string>
   <string name="conversation_list_batch__menu_pin_selected">Fijar chat(s)</string>
   <string name="conversation_list_batch__menu_unpin_selected">No fijar chat(s)</string>
   <string name="conversation_list_batch__menu_select_all">Seleccionar todo</string>
-  <string name="conversation_list_batch_archive__menu_archive_selected">Archivo seleccionado</string>
-  <string name="conversation_list_batch_unarchive__menu_unarchive_selected">Archivo deseleccionado</string>
+  <string name="conversation_list_batch_archive__menu_archive_selected">Archivar selección</string>
+  <string name="conversation_list_batch_unarchive__menu_unarchive_selected">Desarchivar selección</string>
   <string name="conversation_list_batch__menu_mark_as_read">Marcar como leídos</string>
   <string name="conversation_list_batch__menu_mark_as_unread">Marcar como no leídos</string>
   <!--conversation_list-->
@@ -2130,7 +2142,7 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="CreateKbsPinFragment__create_a_new_pin">Crear nuevo PIN</string>
   <string name="CreateKbsPinFragment__you_can_choose_a_new_pin_as_long_as_this_device_is_registered">Puedes modificar tu PIN, siempre que este dispositivo esté registrado.</string>
   <string name="CreateKbsPinFragment__create_your_pin">Crea tu PIN</string>
-  <string name="CreateKbsPinFragment__pins_keep_information_stored_with_signal_encrypted">El PIN permite activar el bloqueo de registro de tu número y almacena tu cuenta cifrada en el servidor de Signal de forma que sólo tú puedes acceder a ella. Ni siquiera l@s creador@s de Signal tienen acceso. Tu perfil, alias, grupos y personas bloqueadas se recuperarán al reinstalar Signal. No necesitas el PIN para abrir la aplicación.</string>
+  <string name="CreateKbsPinFragment__pins_keep_information_stored_with_signal_encrypted">El PIN permite activar el bloqueo de registro de tu número y almacena tu cuenta cifrada en el servidor de Signal de forma que sólo tú puedes acceder a ella. Ni siquiera la gente de Signal tiene acceso. Con el PIN, tu perfil, contactos, grupos y personas bloqueadas se recuperarán al reinstalar Signal. No necesitas el PIN para abrir la aplicación.</string>
   <string name="CreateKbsPinFragment__choose_a_stronger_pin">Selecciona un PIN más complejo</string>
   <!--ConfirmKbsPinFragment-->
   <string name="ConfirmKbsPinFragment__pins_dont_match">El PIN no coincide. Inténtalo de nuevo.</string>
@@ -2142,7 +2154,7 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="ConfirmKbsPinFragment__creating_pin">Creando PIN …</string>
   <!--KbsSplashFragment-->
   <string name="KbsSplashFragment__introducing_pins">¡El PIN ha llegado!</string>
-  <string name="KbsSplashFragment__pins_keep_information_stored_with_signal_encrypted">El PIN permite activar el bloqueo de registro de tu número y almacena tu cuenta cifrada en el servidor de Signal de forma que sólo tú puedes acceder a ella. Ni siquiera l@s creador@s de Signal tienen acceso. Tu perfil, alias, grupos y personas bloqueadas se recuperarán al reinstalar Signal. No necesitas el PIN para abrir la aplicación.</string>
+  <string name="KbsSplashFragment__pins_keep_information_stored_with_signal_encrypted">El PIN permite activar el bloqueo de registro de tu número y almacena tu cuenta cifrada en el servidor de Signal de forma que sólo tú puedes acceder a ella. Ni siquiera la gente de Signal tiene acceso. Con el PIN, tu perfil, contactos, grupos y personas bloqueadas se recuperarán al reinstalar Signal. No necesitas el PIN para abrir la aplicación.</string>
   <string name="KbsSplashFragment__learn_more">Saber más</string>
   <string name="KbsSplashFragment__registration_lock_equals_pin">Bloqueo de registro = PIN</string>
   <string name="KbsSplashFragment__your_registration_lock_is_now_called_a_pin">El bloqueo de registro ahora se llama PIN y permite más funciones. Actualiza ahora.</string>
@@ -2159,7 +2171,7 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="KbsReminderDialog__incorrect_pin_try_again">PIN incorrecto. Inténtalo de nuevo.</string>
   <!--AccountLockedFragment-->
   <string name="AccountLockedFragment__account_locked">Cuenta bloqueada</string>
-  <string name="AccountLockedFragment__your_account_has_been_locked_to_protect_your_privacy">Tu cuenta ha sido bloqueada para proteger tu privacidad y seguridad. Después de %1$d días con tu cuenta inactiva, podrás volver a registrar tu cuenta sin necesidad de tu PIN. Previamente se eliminará tu perfil, alias, grupos y personas bloqueadas.</string>
+  <string name="AccountLockedFragment__your_account_has_been_locked_to_protect_your_privacy">Tu cuenta ha sido bloqueada para proteger tu privacidad y seguridad. Después de %1$d días con tu cuenta inactiva, podrás volver a registrar tu cuenta con un nuevo PIN. Previamente se eliminará tu perfil, contactos, grupos y personas bloqueadas.</string>
   <string name="AccountLockedFragment__next">Siguiente</string>
   <string name="AccountLockedFragment__learn_more">Saber más</string>
   <!--KbsLockFragment-->
@@ -2176,15 +2188,15 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="RegistrationLockFragment__signal_registration_need_help_with_pin_for_android_v2_pin">Registro en Signal - Ayuda necesaria con el PIN para Android (PIN v2)</string>
   <plurals name="RegistrationLockFragment__for_your_privacy_and_security_there_is_no_way_to_recover">
     <item quantity="one">Para proteger tu privacidad y seguridad, no hay manera de recuperar tu PIN. Si no lo puedes recordar, podrás verificar tu cuenta por SMS tras %1$d día de inactividad. En este caso, tu cuenta se eliminará junto con tu perfil, alias, grupos y personas bloqueadas.</item>
-    <item quantity="other">Para proteger tu privacidad y seguridad, no hay manera de recuperar tu PIN. Si no lo puedes recordar, podrás verificar tu cuenta por SMS tras %1$d días de inactividad. En este caso, tu cuenta se eliminará junto con tu perfil, alias, grupos y personas bloqueadas.</item>
+    <item quantity="other">Para proteger tu privacidad y seguridad, no hay manera de recuperar tu PIN. Si no lo puedes recordar, podrás verificar tu cuenta por SMS tras %1$d días de inactividad. En este caso, tu cuenta se eliminará junto con tu perfil, contactos, grupos y personas bloqueadas.</item>
   </plurals>
   <plurals name="RegistrationLockFragment__incorrect_pin_d_attempts_remaining">
     <item quantity="one">PIN incorrecto. Te queda %1$d intento.</item>
     <item quantity="other">PIN incorrecto. Te quedan %1$d intentos.</item>
   </plurals>
   <plurals name="RegistrationLockFragment__if_you_run_out_of_attempts_your_account_will_be_locked_for_d_days">
-    <item quantity="one">Si superas el número de intentos, tu cuenta quedará bloqueada por %1$d día. Después de %1$d día con tu cuenta inactiva, podrás volver a registrarte sin tu PIN. Previamente, tu cuenta se eliminará junto con tu perfil, alias, grupos y personas bloqueadas.</item>
-    <item quantity="other">Si superas el número de intentos, tu cuenta quedará bloqueada por %1$d días. Después de %1$d días con tu cuenta inactiva, podrás volver a registrarte sin tu PIN. Previamente, tu cuenta se eliminará junto con tu perfil, alias, grupos y personas bloqueadas.</item>
+    <item quantity="one">Si superas el número de intentos, tu cuenta quedará bloqueada por %1$d día. Después de %1$d día con tu cuenta inactiva, podrás volver a registrarte con un nuevo PIN. Previamente, tu cuenta se eliminará junto con tu perfil, alias, grupos y personas bloqueadas.</item>
+    <item quantity="other">Si superas el número de intentos, tu cuenta quedará bloqueada por %1$d días. Después de %1$d días con tu cuenta inactiva, podrás volver a registrarte con un nuevo PIN. Previamente, tu cuenta se eliminará junto con tu perfil, contactos, grupos y personas bloqueadas.</item>
   </plurals>
   <plurals name="RegistrationLockFragment__you_have_d_attempts_remaining">
     <item quantity="one">Te queda %1$d intento.</item>
@@ -2198,7 +2210,7 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="CalleeMustAcceptMessageRequestDialogFragment__s_will_get_a_message_request_from_you">%1$s recibirá tu solicitud de chat. Podrás llamar en cuanto la acepte.</string>
   <!--KBS Megaphone-->
   <string name="KbsMegaphone__create_a_pin">Crear PIN</string>
-  <string name="KbsMegaphone__pins_keep_information_thats_stored_with_signal_encrytped">El PIN permite activar el bloqueo de registro de tu número y almacena tu cuenta cifrada en el servidor de Signal de forma que sólo tú puedes acceder a ella. Ni siquiera l@s creador@s de Signal tienen acceso.</string>
+  <string name="KbsMegaphone__pins_keep_information_thats_stored_with_signal_encrytped">El PIN permite activar el bloqueo de registro de tu número y almacena tu cuenta cifrada en el servidor de Signal de forma que sólo tú puedes acceder a ella. Ni siquiera la gente de Signal tiene acceso.</string>
   <string name="KbsMegaphone__create_pin">Crea tu PIN</string>
   <!--Research Megaphone-->
   <string name="ResearchMegaphone_tell_signal_what_you_think">Cuéntanos qué piensas de Signal</string>
@@ -2282,13 +2294,13 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="preferences_app_protection__create_a_pin">Crear PIN</string>
   <string name="preferences_app_protection__change_your_pin">Modificar PIN</string>
   <string name="preferences_app_protection__pin_reminders">Recordatorios de PIN</string>
-  <string name="preferences_app_protection__pins_keep_information_stored_with_signal_encrypted">El PIN permite activar el bloqueo de registro de tu número y almacena tu cuenta cifrada en el servidor de Signal de forma que sólo tú puedes acceder a ella. Ni siquiera l@s creador@s de Signal tienen acceso. Tu perfil, alias, grupos y personas bloqueadas se recuperarán al reinstalar Signal.</string>
+  <string name="preferences_app_protection__pins_keep_information_stored_with_signal_encrypted">El PIN permite activar el bloqueo de registro de tu número y almacena tu cuenta cifrada en el servidor de Signal de forma que sólo tú puedes acceder a ella. Ni siquiera la gente de Signal tiene acceso. Con el PIN, tu perfil, contactos, grupos y personas bloqueadas se recuperarán al reinstalar Signal.</string>
   <string name="preferences_app_protection__add_extra_security_by_requiring_your_signal_pin_to_register">Añade un nivel de seguridad extra al usar tu PIN de Signal para que sólo tú puedas registrar tu número al volver a instalar Signal.</string>
   <string name="preferences_app_protection__reminders_help_you_remember_your_pin">Los recordatorios del PIN te ayudan a no olvidarlo ya que no se puede recuperar. Con el tiempo te preguntaremos con menos frecuencia. Si los desactivas, anota tu PIN en un lugar seguro o guárdalo en un gestor de contraseñas.</string>
   <string name="preferences_app_protection__turn_off">Desactivar</string>
   <string name="preferences_app_protection__confirm_pin">Confirmar PIN</string>
   <string name="preferences_app_protection__confirm_your_signal_pin">Confirma tu PIN de Signal</string>
-  <string name="preferences_app_protection__make_sure_you_memorize_or_securely_store_your_pin">Asegúrate de memorizar o anotar tu PIN de forma segura ya que no se puede recuperar. Si olvidas tu PIN, perderás tu perfil, alias, grupos y personas bloqueadas al volver a registrar tu cuenta de Signal.</string>
+  <string name="preferences_app_protection__make_sure_you_memorize_or_securely_store_your_pin">Asegúrate de memorizar o anotar tu PIN de forma segura ya que no se puede recuperar. Si olvidas tu PIN, perderás tu perfil, contactos, grupos y personas bloqueadas al volver a registrar tu cuenta de Signal.</string>
   <string name="preferences_app_protection__incorrect_pin_try_again">PIN incorrecto. Inténtalo de nuevo.</string>
   <string name="preferences_app_protection__failed_to_enable_registration_lock">Fallo al activar el bloqueo de registro.</string>
   <string name="preferences_app_protection__failed_to_disable_registration_lock">Fallo al desactivar el bloqueo de registro.</string>
@@ -2334,6 +2346,8 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="GroupsLearnMore_paragraph_2">Los grupos antiguos todavía no pueden convertirse en grupos nuevos, pero puedes crear un grupo nuevo con la misma gente, si tod@s usan la versión más reciente de Signal.</string>
   <string name="GroupsLearnMore_paragraph_3">Signal ofrecerá la manera de actualizar un grupo antiguo en el futuro.</string>
   <!--GroupLinkBottomSheetDialogFragment-->
+  <string name="GroupLinkBottomSheet_share_hint_requiring_approval">Quienquiera que reciba este enlace puede ver el nombre del grupo, su avatar y solicitar unirse. Compártelo con gente en quien confíes.</string>
+  <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">Quienquiera que reciba este enlace puede ver el nombre del grupo, su avatar y unirse al grupo. Compártelo con gente en quien confíes.</string>
   <string name="GroupLinkBottomSheet_share_via_signal">Compartir vía Molly</string>
   <string name="GroupLinkBottomSheet_copy">Copiar</string>
   <string name="GroupLinkBottomSheet_qr_code">Código QR</string>

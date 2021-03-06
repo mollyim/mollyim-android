@@ -13,8 +13,12 @@ public class RemoteMessage {
     return null;
   }
 
-  public String getOriginalPriority() {
-    return null;
+  public int getOriginalPriority() {
+    return 0;
+  }
+
+  public int getPriority() {
+    return 0;
   }
 
   public static class Data {

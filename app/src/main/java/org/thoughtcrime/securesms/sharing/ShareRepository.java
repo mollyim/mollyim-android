@@ -28,6 +28,7 @@ import org.thoughtcrime.securesms.mms.PartAuthority;
 import org.thoughtcrime.securesms.providers.BlobProvider;
 import org.thoughtcrime.securesms.util.MediaUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
+import org.thoughtcrime.securesms.util.UriUtil;
 import org.thoughtcrime.securesms.util.Util;
 import org.whispersystems.libsignal.util.guava.Optional;
 
@@ -77,6 +78,10 @@ class ShareRepository {
       return ShareData.forPrimitiveTypes();
     }
 
+    if (!UriUtil.isValidExternalUri(context, uri)) {
+      throw new IOException("Invalid external URI!");
+    }
+
     mimeType = getMimeType(context, uri, mimeType);
 
     if (PartAuthority.isLocalUri(uri)) {
@@ -104,7 +109,8 @@ class ShareRepository {
                               .forData(stream, size)
                               .withMimeType(mimeType)
                               .withFileName(fileName)
-                              .createForMultipleSessionsOnDisk(context);
+                              .createForSingleSessionOnDisk(context);
+        // TODO Convert to multi-session after file drafts are fixed.
       }
 
       return ShareData.forIntentData(blobUri, mimeType, true, isMmsSupported(context, mimeType, size));

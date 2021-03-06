@@ -2,6 +2,7 @@ package org.thoughtcrime.securesms.util;
 
 import android.os.Build;
 import android.text.TextUtils;
+import android.util.TimeUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
@@ -16,6 +17,7 @@ import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.groups.SelectionLimits;
 import org.thoughtcrime.securesms.jobs.RemoteConfigRefreshJob;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
+import org.thoughtcrime.securesms.messageprocessingalarm.MessageProcessReceiver;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -57,13 +59,10 @@ public final class FeatureFlags {
   private static final String VERIFY_V2                         = "android.verifyV2";
   private static final String PHONE_NUMBER_PRIVACY_VERSION      = "android.phoneNumberPrivacyVersion";
   private static final String CLIENT_EXPIRATION                 = "android.clientExpiration";
-  public  static final String RESEARCH_MEGAPHONE_1              = "research.megaphone.1";
   public  static final String DONATE_MEGAPHONE                  = "android.donate";
   private static final String VIEWED_RECEIPTS                   = "android.viewed.receipts";
   private static final String GROUP_CALLING                     = "android.groupsv2.calling.2";
-  private static final String GV1_MANUAL_MIGRATE                = "android.groupsV1Migration.manual";
   private static final String GV1_FORCED_MIGRATE                = "android.groupsV1Migration.forced";
-  private static final String GV1_MIGRATION_JOB                 = "android.groupsV1Migration.job";
   private static final String SEND_VIEWED_RECEIPTS              = "android.sendViewedReceipts";
   private static final String CUSTOM_VIDEO_MUXER                = "android.customVideoMuxer";
   private static final String CDS_REFRESH_INTERVAL              = "cds.syncInterval.seconds";
@@ -75,6 +74,7 @@ public final class FeatureFlags {
   private static final String SHARE_SELECTION_LIMIT             = "android.share.limit";
   private static final String ANIMATED_STICKER_MIN_MEMORY       = "android.animatedStickerMinMemory";
   private static final String ANIMATED_STICKER_MIN_TOTAL_MEMORY = "android.animatedStickerMinTotalMemory";
+  private static final String MESSAGE_PROCESSOR_ALARM_INTERVAL  = "android.messageProcessor.alarmIntervalMins";
 
   /**
    * We will only store remote values for flags in this set. If you want a flag to be controllable
@@ -88,11 +88,8 @@ public final class FeatureFlags {
       USERNAMES,
       VERIFY_V2,
       CLIENT_EXPIRATION,
-      RESEARCH_MEGAPHONE_1,
       DONATE_MEGAPHONE,
       VIEWED_RECEIPTS,
-      GV1_MIGRATION_JOB,
-      GV1_MANUAL_MIGRATE,
       GV1_FORCED_MIGRATE,
       GROUP_CALLING,
       SEND_VIEWED_RECEIPTS,
@@ -106,7 +103,8 @@ public final class FeatureFlags {
       OKHTTP_AUTOMATIC_RETRY,
       SHARE_SELECTION_LIMIT,
       ANIMATED_STICKER_MIN_MEMORY,
-      ANIMATED_STICKER_MIN_TOTAL_MEMORY
+      ANIMATED_STICKER_MIN_TOTAL_MEMORY,
+      MESSAGE_PROCESSOR_ALARM_INTERVAL
   );
 
   @VisibleForTesting
@@ -137,7 +135,6 @@ public final class FeatureFlags {
       VERIFY_V2,
       CLIENT_EXPIRATION,
       GROUP_CALLING,
-      GV1_MIGRATION_JOB,
       CUSTOM_VIDEO_MUXER,
       CDS_REFRESH_INTERVAL,
       GROUP_NAME_MAX_LENGTH,
@@ -148,7 +145,8 @@ public final class FeatureFlags {
       OKHTTP_AUTOMATIC_RETRY,
       SHARE_SELECTION_LIMIT,
       ANIMATED_STICKER_MIN_MEMORY,
-      ANIMATED_STICKER_MIN_TOTAL_MEMORY
+      ANIMATED_STICKER_MIN_TOTAL_MEMORY,
+      MESSAGE_PROCESSOR_ALARM_INTERVAL
   );
 
   /**
@@ -171,6 +169,7 @@ public final class FeatureFlags {
    * desired test state.
    */
   private static final Map<String, OnFlagChange> FLAG_CHANGE_LISTENERS = new HashMap<String, OnFlagChange>() {{
+    put(MESSAGE_PROCESSOR_ALARM_INTERVAL, change -> MessageProcessReceiver.startOrUpdateAlarm(ApplicationDependencies.getApplication()));
   }};
 
   private static final Map<String, Object> REMOTE_VALUES = new TreeMap<>();
@@ -246,11 +245,6 @@ public final class FeatureFlags {
     return getString(CLIENT_EXPIRATION, null);
   }
 
-  /** The raw research megaphone CSV string */
-  public static String researchMegaphone() {
-    return getString(RESEARCH_MEGAPHONE_1, "");
-  }
-
   /** The raw donate megaphone CSV string */
   public static String donateMegaphone() {
     return getString(DONATE_MEGAPHONE, "");
@@ -274,19 +268,9 @@ public final class FeatureFlags {
     return Build.VERSION.SDK_INT > 19 && getBoolean(GROUP_CALLING, false);
   }
 
-  /** Whether or not we should run the job to proactively migrate groups. */
-  public static boolean groupsV1MigrationJob() {
-    return getBoolean(GV1_MIGRATION_JOB, false);
-  }
-
-  /** Whether or not manual migration from GV1->GV2 is enabled. */
-  public static boolean groupsV1ManualMigration() {
-    return getBoolean(GV1_MANUAL_MIGRATE, false);
-  }
-
   /** Whether or not forced migration from GV1->GV2 is enabled. */
   public static boolean groupsV1ForcedMigration() {
-    return getBoolean(GV1_FORCED_MIGRATE, false) && groupsV1ManualMigration();
+    return getBoolean(GV1_FORCED_MIGRATE, false);
   }
 
   /** Whether or not to send viewed receipts. */
@@ -477,6 +461,11 @@ public final class FeatureFlags {
     } else {
       return VersionFlag.ON_IN_FUTURE_VERSION;
     }
+  }
+
+  public static long getBackgroundMessageProcessDelay() {
+    int delayMinutes = getInteger(MESSAGE_PROCESSOR_ALARM_INTERVAL, (int) TimeUnit.HOURS.toMinutes(6));
+    return TimeUnit.MINUTES.toMillis(delayMinutes);
   }
 
   private enum VersionFlag {

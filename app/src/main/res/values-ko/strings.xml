@@ -35,7 +35,7 @@
   <string name="ApplicationPreferencesActivity_appearance_summary">테마 %1$s, 언어 %2$s</string>
   <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">등록 잠금을 위해 PIN이 필요합니다. PIN을 비활성화하려면 먼저 등록 잠금을 비활성화하세요.</string>
   <string name="ApplicationPreferencesActivity_pin_created">PIN이 생성되었습니다.</string>
-  <string name="ApplicationPreferencesActivity_pin_disabled">PIN 사용이 중지되었습니다.</string>
+  <string name="ApplicationPreferencesActivity_pin_disabled">PIN 사용이 비활성화 되었습니다.</string>
   <string name="ApplicationPreferencesActivity_hide">숨기기</string>
   <string name="ApplicationPreferencesActivity_hide_reminder">리마인더를 숨기시겠습니까?</string>
   <!--AppProtectionPreferenceFragment-->
@@ -64,6 +64,8 @@
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">미디어 업로드 중…</string>
   <string name="AttachmentUploadJob_compressing_video_start">동영상 압축 중…</string>
+  <!--BackgroundMessageRetriever-->
+  <string name="BackgroundMessageRetriever_checking_for_messages">새로운 메시지를 확인 중입니다…</string>
   <!--BlockedUsersActivity-->
   <string name="BlockedUsersActivity__blocked_users">차단된 사용자</string>
   <string name="BlockedUsersActivity__add_blocked_user">차단된 사용자 추가</string>
@@ -116,7 +118,7 @@
   <string name="ClearProfileActivity_remove_profile_photo">프로필 사진을 삭제하시겠습니까?</string>
   <string name="ClearProfileActivity_remove_group_photo">그룹 사진을 지우시겠습니까?</string>
   <!--ClientDeprecatedActivity-->
-  <string name="ClientDeprecatedActivity_update_signal">시그널 업데이트하기</string>
+  <string name="ClientDeprecatedActivity_update_signal">시그널 최신 버전으로 업데이트</string>
   <string name="ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported">이 버전의 앱은 더 이상 지원되지 않습니다. 메시지를 주고받을려면, 가장 최근 버전으로 업데이트해주세요</string>
   <string name="ClientDeprecatedActivity_update">업데이트</string>
   <string name="ClientDeprecatedActivity_dont_update">업데이트하지 않음</string>
@@ -277,6 +279,8 @@
   <string name="ConversationFragment_contact_us">문의하기</string>
   <string name="ConversationFragment_verify">검증</string>
   <string name="ConversationFragment_not_now">나중에</string>
+  <string name="ConversationFragment_your_safety_number_with_s_changed">%s과/와의 안전 번호가 변경됐습니다.</string>
+  <string name="ConversationFragment_your_safety_number_with_s_changed_likey_because_they_reinstalled_signal">%s과/와의 안전 번호가 변경됐습니다. 이는 상대방이 Signal을 재설치했거나 사용 기기를 변경했기 때문일 가능성이 높습니다. 새로운 안전 번호를 인증하려면 \"인증\" 버튼을 탭하십시오. 이 절차는 선택적입니다.</string>
   <plurals name="ConversationListFragment_delete_selected_conversations">
     <item quantity="other">선택한 대화를 삭제하시겠습니까?</item>
   </plurals>
@@ -351,6 +355,8 @@
   <string name="DateUtils_today">오늘</string>
   <string name="DateUtils_yesterday">어제</string>
   <!--DecryptionFailedDialog-->
+  <string name="DecryptionFailedDialog_chat_session_refreshed">챗 세션 새로고침됨</string>
+  <string name="DecryptionFailedDialog_signal_uses_end_to_end_encryption">Signal은 단대단 암호화를 사용하면 귀하의 대화 세션을 때때로 새로 고침해야 할  수 있습니다. 이는 대화의 보안에 영향을 미치지 않으나, 이로 인해 연락처로부터의 메시지를 수신하지 못하는 경우도 발생할 수 있습니다. 이와 같은 경우, 상대방에게 메시지 재발송을 요청할 수 있습니다.</string>
   <!--DeviceListActivity-->
   <string name="DeviceListActivity_unlink_s">\'%s\' 기기를 연결 해제하시겠습니까?</string>
   <string name="DeviceListActivity_by_unlinking_this_device_it_will_no_longer_be_able_to_send_or_receive">기기를 연결 해제하면 메시지를 보내거나 받을 수 없습니다.</string>
@@ -448,7 +454,7 @@
   <!--GroupsV1MigrationInitiationReminder-->
   <string name="GroupsV1MigrationInitiationReminder_to_access_new_features_like_mentions">그룹을 업그레이드하여 @멘션 및 관리자와 같은 새로운 기능에 액세스하세요.</string>
   <string name="GroupsV1MigrationInitiationReminder_not_now">나중에</string>
-  <!-- Removed by excludeNonTranslatables <string name="GroupsV1MigrationInitiationReminder_update_group">그룹 업데이트</string> -->
+  <string name="GroupsV1MigrationInitiationReminder_upgrade_group">그룹 업그레이드</string>
   <!--GroupsV1MigrationSuggestionsReminder-->
   <plurals name="GroupsV1MigrationSuggestionsReminder_members_couldnt_be_added_to_the_new_group">
     <item quantity="other">%1$d명의 멤버를 새 그룹에 다시 추가할 수 없습니다. 지금 추가하시겠습니까?</item>
@@ -566,6 +572,7 @@
   <string name="ManageGroupActivity_mute_notifications">대화 알림 끄기</string>
   <string name="ManageGroupActivity_custom_notifications">맞춤형 알림</string>
   <string name="ManageGroupActivity_mentions">언급</string>
+  <string name="ManageGroupActivity_chat_wallpaper">채팅방 배경</string>
   <string name="ManageGroupActivity_until_s">%1$s까지</string>
   <string name="ManageGroupActivity_off">꺼짐</string>
   <string name="ManageGroupActivity_on">켜짐</string>
@@ -597,14 +604,19 @@
   <string name="GroupMentionSettingDialog_always_notify_me">항상 알림받기</string>
   <string name="GroupMentionSettingDialog_dont_notify_me">알림 받지않기</string>
   <!--ManageProfileFragment-->
+  <string name="ManageProfileFragment_profile_name">프로필 이름</string>
   <string name="ManageProfileFragment_username">사용자 이름</string>
   <string name="ManageProfileFragment_about">정보</string>
+  <string name="ManageProfileFragment_write_a_few_words_about_yourself">자신에 대해 간략하게 소개해보세요</string>
   <string name="ManageProfileFragment_your_name">내 이름</string>
+  <string name="ManageProfileFragment_your_username">당신의 사용자 이름</string>
+  <string name="ManageProfileFragment_failed_to_set_avatar">아바타 설정을 실패했습니다.</string>
   <!--ManageRecipientActivity-->
   <string name="ManageRecipientActivity_add_to_system_contacts">시스템 연락처에 추가</string>
   <string name="ManageRecipientActivity_this_person_is_in_your_contacts">이 사람은 내 연락처에 있습니다.</string>
   <string name="ManageRecipientActivity_disappearing_messages">사라지는 메시지</string>
   <string name="ManageRecipientActivity_chat_color">대화창 색</string>
+  <string name="ManageRecipientActivity_chat_wallpaper">채팅방 배경</string>
   <string name="ManageRecipientActivity_block">차단</string>
   <string name="ManageRecipientActivity_unblock">차단 해제</string>
   <string name="ManageRecipientActivity_view_safety_number">안전 번호 보기</string>
@@ -781,6 +793,11 @@
   <string name="NotificationBarManager__answer_call">전화 수락</string>
   <string name="NotificationBarManager__end_call">전화 종료</string>
   <string name="NotificationBarManager__cancel_call">전화 취소</string>
+  <!--NotificationsMegaphone-->
+  <string name="NotificationsMegaphone_turn_on_notifications">알림을 켜시겠습니까?</string>
+  <string name="NotificationsMegaphone_never_miss_a_message">내 연락처와 그룹의 메시지를 놓치지 마세요.</string>
+  <string name="NotificationsMegaphone_turn_on">켜기</string>
+  <string name="NotificationsMegaphone_not_now">나중에</string>
   <!--NotificationMmsMessageRecord-->
   <string name="NotificationMmsMessageRecord_multimedia_message">멀티미디어 메시지</string>
   <string name="NotificationMmsMessageRecord_downloading_mms_message">MMS 메시지 다운로드 중</string>
@@ -824,6 +841,7 @@
   <string name="MessageRecord_disappearing_message_time_set_to_s">사라지는 메시지 타이머가 %1$s(으)로 설정되었습니다.</string>
   <string name="MessageRecord_this_group_was_updated_to_a_new_group">그룹이 새 그룹으로 업데이트되었습니다.</string>
   <string name="MessageRecord_you_couldnt_be_added_to_the_new_group_and_have_been_invited_to_join">귀하를 새 그룹에 추가할 수 없었으며 가입하도록 초대되었습니다.</string>
+  <string name="MessageRecord_chat_session_refreshed">챗 세션 새로고침됨</string>
   <plurals name="MessageRecord_members_couldnt_be_added_to_the_new_group_and_have_been_invited">
     <item quantity="other">%1$s명의 멤버를 새 그룹에 추가할 수 없었으며 가입하도록 초대되었습니다.</item>
   </plurals>
@@ -1037,6 +1055,7 @@
   <string name="PassphrasePromptActivity_ok_button_content_description">암호 제출</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">잘못된 암호입니다!</string>
   <string name="PassphrasePromptActivity_unlock_signal">Signal 잠금 해제</string>
+  <string name="PassphrasePromptActivity_signal_android_lock_screen">Signal Android - 잠금 화면</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">지도</string>
   <string name="PlacePickerActivity_drop_pin">고정</string>
@@ -1131,6 +1150,11 @@
   <string name="CallParticipantView__cant_receive_audio_and_video_from_s">%1$s 님의 음성 및 동영상 수신 불가</string>
   <string name="CallParticipantView__this_may_be_Because_they_have_not_verified_your_safety_number_change">이는 안전 번호 변경을 확인하지 않았거나, 기기에 문제가 있거나 사용자를 차단했기 때문일 수 있습니다.</string>
   <!--ProxyBottomSheetFragment-->
+  <string name="ProxyBottomSheetFragment_proxy_server">프록시 서버</string>
+  <string name="ProxyBottomSheetFragment_proxy_address">프록시 주소</string>
+  <string name="ProxyBottomSheetFragment_do_you_want_to_use_this_proxy_address">이 프록시 주소를 사용하시겠습니까?</string>
+  <string name="ProxyBottomSheetFragment_use_proxy">프록시 사용하기</string>
+  <string name="ProxyBottomSheetFragment_successfully_connected_to_proxy">프록시에 성공적으로 연결됨</string>
   <!--RegistrationActivity-->
   <string name="RegistrationActivity_select_your_country">국가 선택</string>
   <string name="RegistrationActivity_you_must_specify_your_country_code">국가 번호를
@@ -1165,6 +1189,7 @@
   <string name="RegistrationActivity_continue">확인</string>
   <string name="RegistrationActivity_take_privacy_with_you_be_yourself_in_every_message">내 개인 정보는 내 손에서만.\n안전하게 메시지를 보내세요.</string>
   <string name="RegistrationActivity_enter_your_phone_number_to_get_started">시작하려면 휴대 전화 번호를 입력하세요.</string>
+  <string name="RegistrationActivity_enter_your_phone_number">전화번호를 입력하세요.</string>
   <string name="RegistrationActivity_you_will_receive_a_verification_code">인증 코드를 보내드립니다. 통신사 요금이 적용될 수 있습니다.</string>
   <string name="RegistrationActivity_enter_the_code_we_sent_to_s">%s 번호로 보낸 코드를 입력해 주세요.</string>
   <string name="RegistrationActivity_make_sure_your_phone_has_a_cellular_signal">SMS 또는 전화를 수신하려면 휴대전화에서 데이터 네트워크가 켜져 있어야 합니다.</string>
@@ -1249,6 +1274,7 @@
   <string name="SubmitDebugLogActivity_copy_this_url_and_add_it_to_your_issue">다음 URL을 복사하여 문제 보고서 또는 지원 이메일에 추가하세요. \n\n<b>%1$s</b></string>
   <string name="SubmitDebugLogActivity_share">공유</string>
   <!--SupportEmailUtil-->
+  <string name="SupportEmailUtil_filter">필터:</string>
   <string name="SupportEmailUtil_device_info">기기 정보:</string>
   <string name="SupportEmailUtil_android_version">안드로이드 버전:</string>
   <string name="SupportEmailUtil_signal_version">Molly 버전:</string>
@@ -1285,6 +1311,7 @@
   <string name="ThreadRecord_voice_message">음성 메시지</string>
   <string name="ThreadRecord_file">파일</string>
   <string name="ThreadRecord_video">동영상</string>
+  <string name="ThreadRecord_chat_session_refreshed">챗 세션 새로고침됨</string>
   <!--UpdateApkReadyListener-->
   <string name="UpdateApkReadyListener_Signal_update">Signal 업데이트</string>
   <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">새 Signal 버전 출시, 탭하여 업데이트</string>
@@ -1616,13 +1643,24 @@
   <string name="CreateProfileActivity_custom_mms_group_names_and_photos_will_only_be_visible_to_you">사용자 정의 MMS 그룹 이름과 사진은 나에게만 표시됩니다.</string>
   <!--EditAboutFragment-->
   <string name="EditAboutFragment_about">정보</string>
+  <string name="EditAboutFragment_write_a_few_words_about_yourself">자신에 대해 간략하게 소개해보세요…</string>
+  <string name="EditAboutFragment_count">%1$d/%2$d</string>
+  <string name="EditAboutFragment_speak_freely">자유롭게 말하기</string>
+  <string name="EditAboutFragment_encrypted">암호화됨</string>
+  <string name="EditAboutFragment_be_kind">친절함</string>
+  <string name="EditAboutFragment_coffee_lover">커피 애호가</string>
+  <string name="EditAboutFragment_free_to_chat">채팅 해도 됨</string>
+  <string name="EditAboutFragment_taking_a_break">쉬는 중</string>
+  <string name="EditAboutFragment_working_on_something_new">새로운 것에 도전하는 중</string>
   <!--EditProfileFragment-->
   <string name="EditProfileFragment__edit_group_name_and_photo">그룹 이름 및 사진 수정</string>
   <string name="EditProfileFragment__group_name">그룹 이름</string>
   <!--EditProfileNameFragment-->
   <string name="EditProfileNameFragment_your_name">내 이름</string>
+  <string name="EditProfileNameFragment_first_name">이름</string>
   <string name="EditProfileNameFragment_last_name_optional">성(선택 사항)</string>
   <string name="EditProfileNameFragment_save">저장</string>
+  <string name="EditProfileNameFragment_failed_to_save_due_to_network_issues_try_again_later">네트워크 문제로 인해 저장에 실패했습니다. 나중에 다시 시도해보세요.</string>
   <!--recipient_preferences_activity-->
   <string name="recipient_preference_activity__shared_media">공유된 미디어</string>
   <!--recipients_panel-->
@@ -1731,6 +1769,8 @@
   <string name="preferences__use_signal_for_viewing_and_storing_all_incoming_multimedia_messages">Signal에서 모든 수신 멀티미디어 메시지 받기</string>
   <string name="preferences__pref_enter_sends_title">엔터 키로 메시지 보내기</string>
   <string name="preferences__pressing_the_enter_key_will_send_text_messages">엔터 키로 메시지 보내기</string>
+  <string name="preferences__pref_use_address_book_photos">주소록 사진 사용하기</string>
+  <string name="preferences__display_contact_photos_from_your_address_book_if_available">가능할 경우 주소록에 있는 연락처 사진들을 보이기</string>
   <string name="preferences__generate_link_previews">링크 미리보기 생성</string>
   <string name="preferences__retrieve_link_previews_from_websites_for_messages">보내는 메시지에 첨부된 웹 사이트의 링크 미리보기를 불러옵니다.</string>
   <string name="preferences__choose_identity">내 연락처 선택</string>
@@ -1782,6 +1822,7 @@
   <string name="preferences__mmsc_password">MMSC 비밀번호</string>
   <string name="preferences__sms_delivery_reports">SMS 전송 확인</string>
   <string name="preferences__request_a_delivery_report_for_each_sms_message_you_send">SMS 메시지를 보낼 때마다 전송 확인 요청</string>
+  <string name="preferences__data_and_storage">데이터와 저장소</string>
   <string name="preferences__storage">저장 공간</string>
   <string name="preferences__conversation_length_limit">대화 저장 한도</string>
   <string name="preferences__keep_messages">메시지 보관</string>
@@ -1791,6 +1832,7 @@
   <string name="preferences__dark_theme">어둡게</string>
   <string name="preferences__appearance">모양</string>
   <string name="preferences__theme">테마</string>
+  <string name="preferences__chat_wallpaper">채팅방 배경</string>
   <string name="preferences__disable_pin">PIN 비활성화</string>
   <string name="preferences__enable_pin">PIN 사용하기</string>
   <string name="preferences__if_you_disable_the_pin_you_will_lose_all_data">PIN을 비활성화하면 수동으로 백업 및 복원하지 않는 한 Signal을 다시 등록할 때 모든 데이터가 손실됩니다. PIN이 비활성화되어 있는 동안에는 등록 잠금을 켤 수 없습니다.</string>
@@ -1809,6 +1851,7 @@
   <string name="preferences__if_read_receipts_are_disabled_you_wont_be_able_to_see_read_receipts">읽은 메시지 기능이 꺼져 있다면, 다른 사람이 메시지를 읽었는지 확인할 수 없습니다.</string>
   <string name="preferences__typing_indicators">입력 안내</string>
   <string name="preferences__if_typing_indicators_are_disabled_you_wont_be_able_to_see_typing_indicators">입력 안내 기능이 꺼져 있다면, 다른 사람이 메시지를 쓰고 있는지 확인할 수 없습니다.</string>
+  <string name="preferences__request_keyboard_to_disable_personalized_learning">키보드 개인화 학습 비활성화 요청하기. 이 설정은 결과를 보장하지 않으며, 귀하의 키보드가 이 요청을 무시할 수도 있습니다.</string>
   <string name="preferences_app_protection__blocked_users">차단된 사용자</string>
   <string name="preferences_chats__when_using_mobile_data">모바일 데이터 사용 시</string>
   <string name="preferences_chats__when_using_wifi">Wi-Fi 사용 시</string>
@@ -1844,8 +1887,13 @@
   <string name="preferences_app_protection__app_access">앱 액세스</string>
   <string name="preferences_app_protection__communication">연결</string>
   <string name="preferences_chats__chats">대화</string>
+  <string name="preferences_data_and_storage__manage_storage">저장공간 관리하기</string>
   <string name="preferences_data_and_storage__calls">전화</string>
+  <string name="preferences_data_and_storage__use_less_data_for_calls">통화에 더 적은 양의 데이터 사용하기</string>
   <string name="preferences_data_and_storage__never">없음</string>
+  <string name="preferences_data_and_storage__wifi_and_cellular">Wi-Fi 및 셀룰러</string>
+  <string name="preferences_data_and_storage__cellular_only">셀룰러 데이터만 사용</string>
+  <string name="preference_data_and_storage__using_less_data_may_improve_calls_on_bad_networks">더 적은 양의 데이터를 사용하는 것은 망품질이 낮은 네트워크에서의 통화 품질을 개선할 수 있습니다</string>
   <string name="preferences_notifications__messages">메시지</string>
   <string name="preferences_notifications__events">이벤트</string>
   <string name="preferences_notifications__in_chat_sounds">대화 내 사운드</string>
@@ -1864,10 +1912,22 @@
   <string name="preferences_communication__sealed_sender_allow_from_anyone_description">연락처에 없는 사람과 프로필을 공유하지 않은 사람이 나에게 보내는 메시지에도 발신자 암호화를 허용합니다.</string>
   <string name="preferences_communication__sealed_sender_learn_more">더 알아보기</string>
   <string name="preferences_setup_a_username">사용자 이름 설정하기</string>
+  <string name="preferences_proxy">프록시</string>
+  <string name="preferences_use_proxy">프록시 사용하기</string>
   <string name="preferences_off">꺼짐</string>
   <string name="preferences_on">켜짐</string>
+  <string name="preferences_proxy_address">프록시 주소</string>
+  <string name="preferences_only_use_a_proxy_if">데이터나 Wi-Fi를 통한 Signal 연결에 실패할 경우에만 프록시를 사용하십시오.</string>
   <string name="preferences_share">공유</string>
   <string name="preferences_save">저장</string>
+  <string name="preferences_connecting_to_proxy">프록시에 연결 중…</string>
+  <string name="preferences_connected_to_proxy">프록시에 연결됨</string>
+  <string name="preferences_connection_failed">연결 실패함</string>
+  <string name="preferences_couldnt_connect_to_the_proxy">프록시에 연결할 수 없었습니다. 프록시 주소를 확인해보시고 다시 시도하십시오.</string>
+  <string name="preferences_you_are_connected_to_the_proxy">프록시에 연결됐습니다. 설정에서 언제든 프록시 연결을 종료할 수 있습니다.</string>
+  <string name="preferences_success">성공</string>
+  <string name="preferences_failed_to_connect">연결 실패함</string>
+  <string name="preferences_enter_proxy_address">프록시 주소 입력하기</string>
   <string name="configurable_single_select__customize_option">옵션 설정하기</string>
   <!--Internal only preferences-->
   <!--****************************************-->
@@ -2048,6 +2108,8 @@
   <string name="RegistrationLockFragment__incorrect_pin">잘못된 번호</string>
   <string name="RegistrationLockFragment__forgot_your_pin">번호를 잊으셨나요?</string>
   <string name="RegistrationLockFragment__not_many_tries_left">얼마 남지 않았습니다!</string>
+  <string name="RegistrationLockFragment__signal_registration_need_help_with_pin_for_android_v1_pin">Signal 등록 - Android용 PIN 설정에 도움이 필요합니다 (v1 PIN)</string>
+  <string name="RegistrationLockFragment__signal_registration_need_help_with_pin_for_android_v2_pin">Signal 등록 - Android용 PIN 설정에 도움이 필요합니다 (v2 PIN)</string>
   <plurals name="RegistrationLockFragment__for_your_privacy_and_security_there_is_no_way_to_recover">
     <item quantity="other">개인 정보 보호와 보안을 위해 번호를 복원할 수는 없습니다. 번호를 잊었다면 계정을 사용하지 않은 지 %1$d일 후 SMS로 다시 인증할 수 있습니다. 해당 경우, 계정이 정리되어 모든 내용이 삭제됩니다.</item>
   </plurals>
@@ -2276,17 +2338,44 @@
   <!--ShareActivity-->
   <string name="ShareActivity__share">공유</string>
   <string name="ShareActivity__send">보내기</string>
+  <string name="ShareActivity__s_comma">%1$s,</string>
+  <string name="ShareActivity__sharing_to_multiple_chats_is">여러 개의 채팅방에 공유하기는 Signal 메시지에서만 지원됩니다</string>
   <!--MultiShareDialogs-->
+  <string name="MultiShareDialogs__failed_to_send_to_some_users">일부 사용자에 대한 보내기가 실패했습니다</string>
+  <string name="MultiShareDialogs__you_can_only_share_with_up_to">%1$d개의 채팅방과만 공유할 수 있습니다</string>
   <!--ShareInterstitialActivity-->
   <string name="ShareInterstitialActivity__forward_message">메시지 전달</string>
   <!--ChatWallpaperActivity-->
+  <string name="ChatWallpaperActivity__chat_wallpaper">채팅방 배경</string>
   <!--ChatWallpaperFragment-->
+  <string name="ChatWallpaperFragment__set_wallpaper">배경 설정하기</string>
+  <string name="ChatWallpaperFragment__dark_theme_dims_wallpaper">어두움 테마는 배경을 흐리게 합니다</string>
+  <string name="ChatWallpaperFragment__clear_wallpaper">배경 제거하기</string>
+  <string name="ChatWallpaperFragment__clear_wallpaper_for_this_chat">이 채팅방의 배경을 제거하시겠습니까?</string>
+  <string name="ChatWallpaperFragment__clear_wallpaper_this_will_not">배경을 제거하시겠습니까? 귀하의 채팅방에 임의로 설정한 배경들은 제거되지 않습니다.</string>
+  <string name="ChatWallpaperFragment__reset_all_wallpapers">모든 배경 초기화하기</string>
+  <string name="ChatWallpaperFragment__reset_all_wallpapers_including_custom">귀하의 채팅방에 임의로 설정한 배경들을 포함한 모든 배경들을 초기화하시겠습니까?</string>
+  <string name="ChatWallpaperFragment__contact_name">연락처 이름</string>
   <string name="ChatWallpaperFragment__reset">초기화</string>
+  <string name="ChatWallpaperFragment__clear">제거</string>
+  <string name="ChatWallpaperFragment__wallpaper_preview_description">배경 미리보기</string>
   <!--ChatWallpaperSelectionFragment-->
+  <string name="ChatWallpaperSelectionFragment__choose_from_photos">사진에서 선택하기</string>
+  <string name="ChatWallpaperSelectionFragment__presets">프리셋</string>
   <!--ChatWallpaperPreviewActivity-->
   <string name="ChatWallpaperPreviewActivity__preview">미리보기</string>
+  <string name="ChatWallpaperPreviewActivity__set_wallpaper">배경 설정하기</string>
+  <string name="ChatWallpaperPreviewActivity__swipe_to_preview_more_wallpapers">더 많은 배경들을 미리보기하기 위해 화면을 쓸어보세요</string>
+  <string name="ChatWallpaperPreviewActivity__set_wallpaper_for_all_chats">모든 채팅방에 배경 설정하기</string>
+  <string name="ChatWallpaperPreviewActivity__set_wallpaper_for_s">%1$s에 배경 설정하기</string>
   <string name="ChatWallpaperPreviewActivity__viewing_your_gallery_requires_the_storage_permission">갤러리를 보려면 저장 권한이 필요합니다.</string>
   <!--WallpaperImageSelectionActivity-->
+  <string name="WallpaperImageSelectionActivity__choose_wallpaper_image">배경 사진을 선택하세요</string>
   <!--WallpaperCropActivity-->
+  <string name="WallpaperCropActivity__pinch_to_zoom_drag_to_adjust">확대하기 위해서는 화면 위에 두 손가락을 모으거나 멀어지게 조작하시고, 조정하기 위해서는 손가락으로 끌어보세요.</string>
+  <string name="WallpaperCropActivity__set_wallpaper_for_all_chats">모든 채팅방에 배경 설정하기.</string>
+  <string name="WallpaperCropActivity__set_wallpaper_for_s">%s에 배경 설정하기.</string>
+  <string name="WallpaperCropActivity__error_setting_wallpaper">배경 설정 중 문제가 발생했습니다.</string>
+  <string name="WallpaperCropActivity__blur_photo">사진 블러하기</string>
   <!--EOF-->
 </resources>

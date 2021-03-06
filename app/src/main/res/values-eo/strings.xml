@@ -65,6 +65,8 @@
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">Alŝuto de aŭdvidaĵo…</string>
   <string name="AttachmentUploadJob_compressing_video_start">Densigo de la videaĵo…</string>
+  <!--BackgroundMessageRetriever-->
+  <string name="BackgroundMessageRetriever_checking_for_messages">Kontrolo pri mesaĝoj…</string>
   <!--BlockedUsersActivity-->
   <string name="BlockedUsersActivity__blocked_users">Blokataj uzantoj</string>
   <string name="BlockedUsersActivity__add_blocked_user">Aldoni blokatan uzanton</string>
@@ -202,7 +204,7 @@
   <string name="ConversationActivity_unable_to_record_audio">Ne eblas registri sonaĵon!</string>
   <string name="ConversationActivity_you_cant_send_messages_to_this_group">Vi ne povas sendi mesaĝojn al tiu grupo, ĉar vi ne plu partoprenas en ĝi.</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">Estas neniu aplikaĵo disponebla por trakti ĉi tiun ligilon ĉe via aparato.</string>
-  <string name="ConversationActivity_your_request_to_join_has_been_sent_to_the_group_admin">Via peto por aniĝi sendiĝis al grupadministranto. Oni diras al vi per sciigo, kiam ŝi aŭ ĝi respondas.</string>
+  <string name="ConversationActivity_your_request_to_join_has_been_sent_to_the_group_admin">Via peto por aniĝi sendiĝis al la grupadministranto. Oni diras al vi per sciigo, kiam ŝi aŭ ĝi respondas.</string>
   <string name="ConversationActivity_cancel_request">Nuligi la peton</string>
   <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Por registri aŭdajn mesaĝojn, donu al Molly permeson uzi vian mikrofonon.</string>
   <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly bezonas la Mikrofono-permeson por sendi aŭdajn mesaĝojn, sed ĝi estis porĉiame malakceptita. Bonvolu daŭrigi al la aplikaĵaj agordoj, elekti „Permesoj“, kaj ŝalti „Mikrofono“.</string>
@@ -232,6 +234,7 @@
   <string name="ConversationActivity__more_options_now_in_group_settings">Pli da elektoj nun en „Grup-agordoj“</string>
   <string name="ConversationActivity_join">Aniĝi</string>
   <string name="ConversationActivity_full">Plena</string>
+  <string name="ConversationActivity_error_sending_media">Eraro dum sendado de aŭdvidaĵo</string>
   <!--ConversationAdapter-->
   <plurals name="ConversationAdapter_n_unread_messages">
     <item quantity="one">%d nelegita mesaĝo</item>
@@ -469,7 +472,7 @@
   <!--GroupsV1MigrationInitiationReminder-->
   <string name="GroupsV1MigrationInitiationReminder_to_access_new_features_like_mentions">Por uzi @menciojn kaj grupadministrantojn, ĝisdatigu tiun ĉi grupon.</string>
   <string name="GroupsV1MigrationInitiationReminder_not_now">Ne nun</string>
-  <!-- Removed by excludeNonTranslatables <string name="GroupsV1MigrationInitiationReminder_update_group">Aktualigi grupon</string> -->
+  <string name="GroupsV1MigrationInitiationReminder_upgrade_group">Ĝisdatigi la grupon</string>
   <!--GroupsV1MigrationSuggestionsReminder-->
   <plurals name="GroupsV1MigrationSuggestionsReminder_members_couldnt_be_added_to_the_new_group">
     <item quantity="one">%1$d ano ne povis re-aldoniĝi al la novtipa grupo. Ĉu vi volas aldoni ŝin aŭ lin nun?</item>
@@ -834,6 +837,11 @@
   <string name="NotificationBarManager__answer_call">Respondi alvokon</string>
   <string name="NotificationBarManager__end_call">Fini alvokon</string>
   <string name="NotificationBarManager__cancel_call">Nuligi alvokon</string>
+  <!--NotificationsMegaphone-->
+  <string name="NotificationsMegaphone_turn_on_notifications">Ĉu ŝalti sciigojn?</string>
+  <string name="NotificationsMegaphone_never_miss_a_message">Neniam preterlasu mesaĝon el viaj kontaktoj kaj grupoj.</string>
+  <string name="NotificationsMegaphone_turn_on">Aktivigi</string>
+  <string name="NotificationsMegaphone_not_now">Ne nun</string>
   <!--NotificationMmsMessageRecord-->
   <string name="NotificationMmsMessageRecord_multimedia_message">Aŭdvida mesaĝo</string>
   <string name="NotificationMmsMessageRecord_downloading_mms_message">Elŝutado de MMS-mesaĝo</string>
@@ -1091,7 +1099,7 @@
   <!--ExpirationDialog-->
   <string name="ExpirationDialog_disappearing_messages">Memviŝontaj mesaĝoj</string>
   <string name="ExpirationDialog_your_messages_will_not_expire">Viaj mesaĝoj ne senvalidiĝos.</string>
-  <string name="ExpirationDialog_your_messages_will_disappear_s_after_they_have_been_seen">Mesaĝoj senditaj kaj ricevitaj en tiu ĉi interparolo malaperos %s post ilia lego.</string>
+  <string name="ExpirationDialog_your_messages_will_disappear_s_after_they_have_been_seen">Mesaĝoj senditaj kaj ricevitaj en tiu ĉi interparolo malaperos %s post sia legiĝo.</string>
   <!--OutdatedBuildReminder-->
   <string name="OutdatedBuildReminder_update_now">Ĝisdatigi nun</string>
   <string name="OutdatedBuildReminder_your_version_of_signal_will_expire_today">Tiu versio de Signal senvalidiĝos hodiaŭ. Ĝisdatigu al plej nova versio.</string>
@@ -1243,6 +1251,7 @@
   <string name="RegistrationActivity_continue">Daŭrigi</string>
   <string name="RegistrationActivity_take_privacy_with_you_be_yourself_in_every_message">Kunprenu privatecon.\nEstu vi mem en ĉiu mesaĝo.</string>
   <string name="RegistrationActivity_enter_your_phone_number_to_get_started">Entajpu vian telefonnumeron unue</string>
+  <string name="RegistrationActivity_enter_your_phone_number">Entajpu vian telefonnumeron</string>
   <string name="RegistrationActivity_you_will_receive_a_verification_code">Vi ricevos konfirman kodon per SMS. Eble via sendrata provizanto pagigos al vi la SMS-on.</string>
   <string name="RegistrationActivity_enter_the_code_we_sent_to_s">Bv. entajpi la kontrolkodon senditan al %s.</string>
   <string name="RegistrationActivity_make_sure_your_phone_has_a_cellular_signal">Kontrolu, ĉu via telefono havas ĉelan signalon por ricevi SMS-on aŭ alvokon</string>
@@ -1347,7 +1356,7 @@ Ricevis mesaĝon pri interŝanĝo de ŝlosiloj por nevalida protokola versio.
   <string name="ThreadRecord_view_once_photo">Nurunufoje videbla foto</string>
   <string name="ThreadRecord_view_once_video">Nurunufoje videbla videaĵo</string>
   <string name="ThreadRecord_view_once_media">Nurunufoje videbla aŭdvidaĵo</string>
-  <string name="ThreadRecord_this_message_was_deleted">Tiu ĉi mesaĝo forviŝiĝis.</string>
+  <string name="ThreadRecord_this_message_was_deleted">Tiu ĉi mesaĝo estis forviŝita.</string>
   <string name="ThreadRecord_you_deleted_this_message">Vi forviŝis tiun mesaĝon.</string>
   <string name="ThreadRecord_s_is_on_signal">%s estas ĉe Signal!</string>
   <string name="ThreadRecord_disappearing_messages_disabled">Memviŝontaj mesaĝoj malŝaltita</string>
@@ -1456,7 +1465,7 @@ Ricevis mesaĝon pri interŝanĝo de ŝlosiloj por nevalida protokola versio.
   <string name="MessageNotifier_reacted_s_to_your_audio">Reagis per %1$s al via aŭdaĵo.</string>
   <string name="MessageNotifier_reacted_s_to_your_view_once_media">Reagis per %1$s al via nurunufoje videbla videaĵo.</string>
   <string name="MessageNotifier_reacted_s_to_your_sticker">Reagis per %1$s al via glumarko.</string>
-  <string name="MessageNotifier_this_message_was_deleted">Tiu ĉi mesaĝo forviŝiĝis.</string>
+  <string name="MessageNotifier_this_message_was_deleted">Tiu ĉi mesaĝo estis forviŝita.</string>
   <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Ĉu malŝalti sciigojn pri aliĝo de kontakto al Signal? Vi povos reŝalti ilin ĉe Signal → Agordoj → Sciigoj.</string>
   <!--Notification Channels-->
   <string name="NotificationChannel_messages">Defaŭlta</string>
@@ -1981,6 +1990,7 @@ Ricevis mesaĝon pri interŝanĝo de ŝlosiloj por nevalida protokola versio.
   <string name="preferences_off">Malŝaltita</string>
   <string name="preferences_on">Ŝaltita</string>
   <string name="preferences_proxy_address">Prokura adreso</string>
+  <string name="preferences_only_use_a_proxy_if">Uzi prokurilon, nur se vi ne povas konekti al Signal per ĉela aŭ vifia konekto.</string>
   <string name="preferences_share">Kunhavigi</string>
   <string name="preferences_save">Konservi</string>
   <string name="preferences_connecting_to_proxy">Konektado al prokurilo…</string>
@@ -1990,6 +2000,7 @@ Ricevis mesaĝon pri interŝanĝo de ŝlosiloj por nevalida protokola versio.
   <string name="preferences_you_are_connected_to_the_proxy">Vi estas konektita al la prokurilo. Vi povas malŝalti ĝin pere de la agordoj.</string>
   <string name="preferences_success">Sukceso</string>
   <string name="preferences_failed_to_connect">Malsukcesis konekto</string>
+  <string name="preferences_enter_proxy_address">Entajpi prokuran adreson</string>
   <string name="configurable_single_select__customize_option">Elekti opcion</string>
   <!--Internal only preferences-->
   <!--****************************************-->
@@ -2334,6 +2345,8 @@ Ricevis mesaĝon pri interŝanĝo de ŝlosiloj por nevalida protokola versio.
   <string name="GroupsLearnMore_paragraph_2">Malnovtipaj grupoj ankoraŭ ne konverteblas al novtipaj grupoj, sed vi povas krei novtipan grupon kun la samaj anoj, se ili havas la lastan version de Signal.</string>
   <string name="GroupsLearnMore_paragraph_3">Signal permesos novtipigi malnovtipajn grupojn estonte.</string>
   <!--GroupLinkBottomSheetDialogFragment-->
+  <string name="GroupLinkBottomSheet_share_hint_requiring_approval">Per tiu ligilo, ĉiu ajn povas vidi la nomon kaj la foton de la grupo, kaj peti aniĝon. Kunhavigu la ligilon kun homoj, kiujn vi fidas.</string>
+  <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">Per tiu ligilo, ĉiu ajn povas vidi la nomon kaj la foton de la grupo, kaj  povas aniĝi. Kunhavigu la ligilon kun homoj, kiujn vi fidas.</string>
   <string name="GroupLinkBottomSheet_share_via_signal">Kunhavi per Molly</string>
   <string name="GroupLinkBottomSheet_copy">Kopii</string>
   <string name="GroupLinkBottomSheet_qr_code">QR-kodo</string>

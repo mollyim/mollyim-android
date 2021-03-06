@@ -65,6 +65,8 @@
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">Laddar upp media…</string>
   <string name="AttachmentUploadJob_compressing_video_start">Komprimerar video…</string>
+  <!--BackgroundMessageRetriever-->
+  <string name="BackgroundMessageRetriever_checking_for_messages">Söker efter meddelanden…</string>
   <!--BlockedUsersActivity-->
   <string name="BlockedUsersActivity__blocked_users">Blockerade användare</string>
   <string name="BlockedUsersActivity__add_blocked_user">Lägg till blockerad användare</string>
@@ -232,6 +234,7 @@
   <string name="ConversationActivity__more_options_now_in_group_settings">Fler alternativ nu i \"Gruppinställningar\"</string>
   <string name="ConversationActivity_join">Gå med</string>
   <string name="ConversationActivity_full">Fullt</string>
+  <string name="ConversationActivity_error_sending_media">Fel vid sändning av media</string>
   <!--ConversationAdapter-->
   <plurals name="ConversationAdapter_n_unread_messages">
     <item quantity="one">%d oläst meddelande</item>
@@ -469,7 +472,7 @@
   <!--GroupsV1MigrationInitiationReminder-->
   <string name="GroupsV1MigrationInitiationReminder_to_access_new_features_like_mentions">För att få tillgång till nya funktioner som @omnämnanden och administratörer, uppgradera denna grupp.</string>
   <string name="GroupsV1MigrationInitiationReminder_not_now">Inte nu</string>
-  <!-- Removed by excludeNonTranslatables <string name="GroupsV1MigrationInitiationReminder_update_group">Uppdatera grupp</string> -->
+  <string name="GroupsV1MigrationInitiationReminder_upgrade_group">Uppgradera grupp</string>
   <!--GroupsV1MigrationSuggestionsReminder-->
   <plurals name="GroupsV1MigrationSuggestionsReminder_members_couldnt_be_added_to_the_new_group">
     <item quantity="one">%1$d medlem kunde inte läggas till igen i den Nya gruppen. Vill du lägga till medlemmen nu?</item>
@@ -560,9 +563,9 @@
   <string name="AddGroupDetailsFragment__create">Skapa</string>
   <string name="AddGroupDetailsFragment__members">Medlemmar</string>
   <string name="AddGroupDetailsFragment__you_can_add_or_invite_friends_after_creating_this_group">Du kan lägga till eller bjuda in vänner efter att du har skapat denna grupp.</string>
-  <string name="AddGroupDetailsFragment__group_name_required">Gruppnamn (krävs)</string>
+  <string name="AddGroupDetailsFragment__group_name_required">Gruppnamn (obligatoriskt)</string>
   <string name="AddGroupDetailsFragment__group_name_optional">Gruppnamn (valfritt)</string>
-  <string name="AddGroupDetailsFragment__this_field_is_required">Detta fält krävs.</string>
+  <string name="AddGroupDetailsFragment__this_field_is_required">Detta fält är obligatoriskt.</string>
   <string name="AddGroupDetailsFragment__group_creation_failed">Det gick inte att skapa grupp.</string>
   <string name="AddGroupDetailsFragment__try_again_later">Försök igen senare.</string>
   <string name="AddGroupDetailsFragment__youve_selected_a_contact_that_doesnt">Du har valt en kontakt som inte stöder Signal-grupper, så denna grupp kommer använda MMS.</string>
@@ -834,6 +837,11 @@
   <string name="NotificationBarManager__answer_call">Svara på samtal</string>
   <string name="NotificationBarManager__end_call">Avsluta samtal</string>
   <string name="NotificationBarManager__cancel_call">Avbryt samtal</string>
+  <!--NotificationsMegaphone-->
+  <string name="NotificationsMegaphone_turn_on_notifications">Slå på notiser?</string>
+  <string name="NotificationsMegaphone_never_miss_a_message">Missa aldrig ett meddelande från dina kontakter och grupper.</string>
+  <string name="NotificationsMegaphone_turn_on">Aktivera</string>
+  <string name="NotificationsMegaphone_not_now">Inte nu</string>
   <!--NotificationMmsMessageRecord-->
   <string name="NotificationMmsMessageRecord_multimedia_message">Multimediameddelande</string>
   <string name="NotificationMmsMessageRecord_downloading_mms_message">Hämtar av MMS-meddelande</string>
@@ -1239,6 +1247,7 @@ angav (%s) är ogiltigt.</string>
   <string name="RegistrationActivity_continue">Fortsätt</string>
   <string name="RegistrationActivity_take_privacy_with_you_be_yourself_in_every_message">Ta med dig sekretess.\nVar dig själv i varje meddelande.</string>
   <string name="RegistrationActivity_enter_your_phone_number_to_get_started">Ange ditt telefonnummer för att komma igång</string>
+  <string name="RegistrationActivity_enter_your_phone_number">Ange ditt telefonnummer</string>
   <string name="RegistrationActivity_you_will_receive_a_verification_code">Du kommer att få en verifieringskod. Din operatör kan ta betalt för det. </string>
   <string name="RegistrationActivity_enter_the_code_we_sent_to_s">Ange koden vi skickade till %s</string>
   <string name="RegistrationActivity_make_sure_your_phone_has_a_cellular_signal">Se till att din telefon har en mobilsignal för att ta emot ditt SMS eller samtal</string>
@@ -1693,7 +1702,7 @@ Tog emot meddelande för nyckelutbyte för ogiltig protokollversion.</string>
   <string name="prompt_mms_activity__signal_requires_mms_settings_to_deliver_media_and_group_messages">Signal kräver MMS-inställningar för att leverera medie- och gruppmeddelanden via din mobiloperatör. Din enhet gör inte denna information tillgänglig, vilket ibland stämmer för låsta enheter och andra restriktiva konfigurationer.</string>
   <string name="prompt_mms_activity__to_send_media_and_group_messages_tap_ok">För att skicka medie- och gruppmeddelande, tryck på \"OK\" och slutför de begärda inställningarna. MMS-inställningarna för din operatör kan i allmänhet hittas genom att söka efter \"din operatör-APN\". Du kommer bara att behöva göra detta en gång.</string>
   <!--profile_create_activity-->
-  <string name="CreateProfileActivity_first_name_required">Förnamn (krävs)</string>
+  <string name="CreateProfileActivity_first_name_required">Förnamn (obligatoriskt)</string>
   <string name="CreateProfileActivity_last_name_optional">Efternamn (valfritt)</string>
   <string name="CreateProfileActivity_next">Nästa</string>
   <string name="CreateProfileActivity__username">Användarnamn</string>
@@ -1976,6 +1985,7 @@ Tog emot meddelande för nyckelutbyte för ogiltig protokollversion.</string>
   <string name="preferences_off">Av</string>
   <string name="preferences_on">På</string>
   <string name="preferences_proxy_address">Proxyadress</string>
+  <string name="preferences_only_use_a_proxy_if">Använd endast en proxy om du inte kan ansluta till Signal på mobil eller Wi-Fi.</string>
   <string name="preferences_share">Dela</string>
   <string name="preferences_save">Spara</string>
   <string name="preferences_connecting_to_proxy">Ansluter till proxy…</string>
@@ -1985,6 +1995,7 @@ Tog emot meddelande för nyckelutbyte för ogiltig protokollversion.</string>
   <string name="preferences_you_are_connected_to_the_proxy">Du är ansluten till proxyen. Du kan stänga av proxyn när som helst från Inställningar.</string>
   <string name="preferences_success">Lyckades</string>
   <string name="preferences_failed_to_connect">Det gick inte att ansluta</string>
+  <string name="preferences_enter_proxy_address">Ange proxyadress</string>
   <string name="configurable_single_select__customize_option">Anpassa alternativet</string>
   <!--Internal only preferences-->
   <!--****************************************-->
@@ -2209,7 +2220,7 @@ Tog emot meddelande för nyckelutbyte för ogiltig protokollversion.</string>
   <string name="transport_selection_list_item__transport_icon">Transportikon</string>
   <string name="ConversationListFragment_loading">Hämtar in…</string>
   <string name="CallNotificationBuilder_connecting">Ansluter…</string>
-  <string name="Permissions_permission_required">Behörighet saknas</string>
+  <string name="Permissions_permission_required">Behörighet krävs</string>
   <string name="ConversationActivity_signal_needs_sms_permission_in_order_to_send_an_sms">Signal behöver behörigheten SMS för att skicka SMS men det har avvisats permanent. Vänligen fortsätt till inställningsmenyn för Appar och aviseringar, välj \"Behörigheter\" och aktivera \"SMS\".</string>
   <string name="Permissions_continue">Fortsätt</string>
   <string name="Permissions_not_now">Inte nu</string>
@@ -2329,6 +2340,8 @@ Tog emot meddelande för nyckelutbyte för ogiltig protokollversion.</string>
   <string name="GroupsLearnMore_paragraph_2">Äldre grupper kan ännu inte uppgraderas till Nya grupper, men du kan skapa en Ny grupp med samma medlemmar om de använder den senaste versionen av Signal.</string>
   <string name="GroupsLearnMore_paragraph_3">Signal kommer att erbjuda ett sätt att uppgradera Äldre grupper i framtiden.</string>
   <!--GroupLinkBottomSheetDialogFragment-->
+  <string name="GroupLinkBottomSheet_share_hint_requiring_approval">Alla med denna länk kan se gruppens namn och foto och begära att gå med. Dela det med personer du litar på.</string>
+  <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">Alla som har denna länk kan se gruppens namn och foto och gå med i gruppen. Dela det med personer du litar på.</string>
   <string name="GroupLinkBottomSheet_share_via_signal">Dela via Molly</string>
   <string name="GroupLinkBottomSheet_copy">Kopiera</string>
   <string name="GroupLinkBottomSheet_qr_code">QR Kod</string>

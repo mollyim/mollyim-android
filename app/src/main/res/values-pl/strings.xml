@@ -67,6 +67,8 @@
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">Wysyłanie multimediów…</string>
   <string name="AttachmentUploadJob_compressing_video_start">Kompresja wideo…</string>
+  <!--BackgroundMessageRetriever-->
+  <string name="BackgroundMessageRetriever_checking_for_messages">Szukam nowych wiadomości…</string>
   <!--BlockedUsersActivity-->
   <string name="BlockedUsersActivity__blocked_users">Zablokowani użytkownicy</string>
   <string name="BlockedUsersActivity__add_blocked_user">Dodaj zablokowanego użytkownika</string>
@@ -234,6 +236,7 @@
   <string name="ConversationActivity__more_options_now_in_group_settings">Teraz więcej opcji w \"Ustawienia grupy\"</string>
   <string name="ConversationActivity_join">Dołącz</string>
   <string name="ConversationActivity_full">Pełne</string>
+  <string name="ConversationActivity_error_sending_media">Błąd przy wysyłaniu multimediów</string>
   <!--ConversationAdapter-->
   <plurals name="ConversationAdapter_n_unread_messages">
     <item quantity="one">%d nieprzeczytana wiadomość</item>
@@ -503,7 +506,7 @@
   <!--GroupsV1MigrationInitiationReminder-->
   <string name="GroupsV1MigrationInitiationReminder_to_access_new_features_like_mentions">Zaktualizuj tę grupę, aby uzyskać dostęp do takich nowych funkcji jak @wzmianki i administratorzy.</string>
   <string name="GroupsV1MigrationInitiationReminder_not_now">Nie teraz</string>
-  <!-- Removed by excludeNonTranslatables <string name="GroupsV1MigrationInitiationReminder_update_group">Aktualizuj grupę</string> -->
+  <string name="GroupsV1MigrationInitiationReminder_upgrade_group">Ulepsz grupę</string>
   <!--GroupsV1MigrationSuggestionsReminder-->
   <plurals name="GroupsV1MigrationSuggestionsReminder_members_couldnt_be_added_to_the_new_group">
     <item quantity="one">%1$d członek nie mógł zostać ponownie dodany do Nowej grupy. Czy chcesz go teraz dodać?</item>
@@ -920,6 +923,11 @@
   <string name="NotificationBarManager__answer_call">Odbierz</string>
   <string name="NotificationBarManager__end_call">Zakończ</string>
   <string name="NotificationBarManager__cancel_call">Anuluj</string>
+  <!--NotificationsMegaphone-->
+  <string name="NotificationsMegaphone_turn_on_notifications">Włączyć powiadomienia?</string>
+  <string name="NotificationsMegaphone_never_miss_a_message">Nie przegap wiadomości od kontaktów i grup.</string>
+  <string name="NotificationsMegaphone_turn_on">Włącz</string>
+  <string name="NotificationsMegaphone_not_now">Nie teraz</string>
   <!--NotificationMmsMessageRecord-->
   <string name="NotificationMmsMessageRecord_multimedia_message">Wiadomość multimedialna</string>
   <string name="NotificationMmsMessageRecord_downloading_mms_message">Pobieranie wiadomości MMS</string>
@@ -1360,6 +1368,7 @@
   <string name="RegistrationActivity_continue">Kontynuuj</string>
   <string name="RegistrationActivity_take_privacy_with_you_be_yourself_in_every_message">Weź prywatność w swoje ręce.\nBądź sobą w każdej wiadomości.</string>
   <string name="RegistrationActivity_enter_your_phone_number_to_get_started">Aby rozpocząć, wprowadź swój numer telefonu</string>
+  <string name="RegistrationActivity_enter_your_phone_number">Podaj swój numer telefonu</string>
   <string name="RegistrationActivity_you_will_receive_a_verification_code">Otrzymasz kod weryfikacyjny. Mogą obowiązywać stawki operatora.</string>
   <string name="RegistrationActivity_enter_the_code_we_sent_to_s">Wprowadź kod, który wysłaliśmy na %s</string>
   <string name="RegistrationActivity_make_sure_your_phone_has_a_cellular_signal">Upewnij się, że Twój telefon ma połączenie z siecią komórkową, aby otrzymać wiadomość SMS lub połączenie</string>
@@ -2120,6 +2129,7 @@ Otrzymano wiadomość wymiany klucz dla niepoprawnej wersji protokołu.</string>
   <string name="preferences_off">Wyłączone</string>
   <string name="preferences_on">Włączone</string>
   <string name="preferences_proxy_address">Adres proxy</string>
+  <string name="preferences_only_use_a_proxy_if">Używaj proxy tylko, jeśli nie możesz połączyć się z Signal przez sieć komórkową, ani Wi-Fi.</string>
   <string name="preferences_share">Udostępnij</string>
   <string name="preferences_save">Zapisz</string>
   <string name="preferences_connecting_to_proxy">Łączenie z serwerem proxy…</string>
@@ -2129,6 +2139,7 @@ Otrzymano wiadomość wymiany klucz dla niepoprawnej wersji protokołu.</string>
   <string name="preferences_you_are_connected_to_the_proxy">Zostałeś(aś) połączony(a) z serwerem proxy. W każdej chwili możesz wyłączyć proxy w Ustawieniach.</string>
   <string name="preferences_success">Sukces</string>
   <string name="preferences_failed_to_connect">Nie udało się połączyć</string>
+  <string name="preferences_enter_proxy_address">Podaj adres proxy</string>
   <string name="configurable_single_select__customize_option">Dostosuj opcję</string>
   <!--Internal only preferences-->
   <!--****************************************-->
@@ -2487,6 +2498,8 @@ Otrzymano wiadomość wymiany klucz dla niepoprawnej wersji protokołu.</string>
   <string name="GroupsLearnMore_paragraph_2">Stare grupy nie mogą jeszcze zostać zaktualizowane do Nowych grup, ale możesz stworzyć Nową grupę z tymi samymi członkami, jeśli korzystają oni z najnowszej wersji Signal.</string>
   <string name="GroupsLearnMore_paragraph_3">W przyszłości Signal zaoferuje możliwość zaktualizowania Starych grup</string>
   <!--GroupLinkBottomSheetDialogFragment-->
+  <string name="GroupLinkBottomSheet_share_hint_requiring_approval">Każdy, kto ma dostęp do tego linku, może zobaczyć nazwę i zdjęcie grupy, i poprosić o przyjęcie. Udostępniaj go zaufanym osobom.</string>
+  <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">Każdy, kto ma dostęp do tego linku, może zobaczyć nazwę i zdjęcie grupy, i do niej dołączyć. Udostępniaj go zaufanym osobom.</string>
   <string name="GroupLinkBottomSheet_share_via_signal">Udostępnij przez Molly</string>
   <string name="GroupLinkBottomSheet_copy">Kopiuj</string>
   <string name="GroupLinkBottomSheet_qr_code">Kod QR</string>

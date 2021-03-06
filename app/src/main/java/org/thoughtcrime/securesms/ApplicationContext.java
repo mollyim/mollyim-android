@@ -27,9 +27,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.lifecycle.DefaultLifecycleObserver;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.ProcessLifecycleOwner;
 import androidx.multidex.MultiDexApplication;
 
 import com.google.android.gms.security.ProviderInstaller;
@@ -63,6 +60,7 @@ import org.thoughtcrime.securesms.jobs.RetrieveProfileJob;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.logging.CustomSignalProtocolLogger;
 import org.thoughtcrime.securesms.logging.LogSecretProvider;
+import org.thoughtcrime.securesms.messageprocessingalarm.MessageProcessReceiver;
 import org.thoughtcrime.securesms.migrations.ApplicationMigrations;
 import org.thoughtcrime.securesms.net.NetworkManager;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
@@ -81,6 +79,7 @@ import org.thoughtcrime.securesms.service.RotateSenderCertificateListener;
 import org.thoughtcrime.securesms.service.RotateSignedPreKeyListener;
 import org.thoughtcrime.securesms.service.UpdateApkRefreshListener;
 import org.thoughtcrime.securesms.storage.StorageSyncHelper;
+import org.thoughtcrime.securesms.util.AppForegroundObserver;
 import org.thoughtcrime.securesms.util.AppStartup;
 import org.thoughtcrime.securesms.util.DynamicTheme;
 import org.thoughtcrime.securesms.util.FeatureFlags;
@@ -107,7 +106,7 @@ import java.util.concurrent.TimeUnit;
  *
  * @author Moxie Marlinspike
  */
-public class ApplicationContext extends MultiDexApplication implements DefaultLifecycleObserver {
+public class ApplicationContext extends MultiDexApplication implements AppForegroundObserver.Listener {
 
   private static final String TAG = ApplicationContext.class.getSimpleName();
 
@@ -116,7 +115,6 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
   private ExpiringMessageManager expiringMessageManager;
   private ViewOnceMessageManager viewOnceMessageManager;
 
-  private volatile boolean isAppVisible;
   private volatile boolean isAppInitialized;
 
   public ApplicationContext() {
@@ -139,15 +137,12 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
     super.onCreate();
 
     initializeSecurityProvider();
-    initializeBlobProvider();
     if (Build.VERSION.SDK_INT < 21) {
       AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
     DynamicTheme.setDefaultDayNightMode(this);
 
     initializePassphraseLock();
-
-    ProcessLifecycleOwner.get().getLifecycle().addObserver(this);
   }
 
   private void onCreateUnlock() {
@@ -167,13 +162,14 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
                             .addBlocking("crash-handling", this::initializeCrashHandling)
                             .addBlocking("eat-db", () -> DatabaseFactory.getInstance(this))
                             .addBlocking("app-dependencies", this::initializeAppDependencies)
+                            .addBlocking("notification-channels", () -> NotificationChannels.create(this))
                             .addBlocking("first-launch", this::initializeFirstEverAppLaunch)
                             .addBlocking("network-settings", this::initializeNetworkSettings)
                             .addBlocking("gcm-check", this::initializeGcmCheck)
                             .addBlocking("app-migrations", this::initializeApplicationMigrations)
                             .addBlocking("ring-rtc", this::initializeRingRtc)
                             .addBlocking("mark-registration", () -> RegistrationUtil.maybeMarkRegistrationComplete(this))
-                            .addBlocking("lifecycle-observer", () -> ProcessLifecycleOwner.get().getLifecycle().addObserver(this))
+                            .addBlocking("lifecycle-observer", () -> ApplicationDependencies.getAppForegroundObserver().addListener(this))
                             .addBlocking("message-retriever", this::initializeMessageRetrieval)
                             .addBlocking("proxy-init", () -> {
                               if (SignalStore.proxy().isProxyEnabled()) {
@@ -181,6 +177,7 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
                                 Conscrypt.setUseEngineSocketByDefault(true);
                               }
                             })
+                            .addBlocking("blob-provider", this::initializeBlobProvider)
                             .addNonBlocking(this::initializeRevealableMessageManager)
                             .addNonBlocking(this::initializeSignedPreKeyCheck)
                             .addNonBlocking(this::initializePeriodicTasks)
@@ -193,7 +190,6 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
                             .addNonBlocking(StorageSyncHelper::scheduleRoutineSync)
                             .addNonBlocking(() -> ApplicationDependencies.getJobManager().beginJobLoop())
                             .addPostRender(this::initializeExpiringMessageManager)
-                            .addPostRender(() -> NotificationChannels.create(this))
                             .execute();
 
     Log.d(TAG, "onCreateUnlock() took " + (System.currentTimeMillis() - startTime) + " ms");
@@ -201,9 +197,8 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
   }
 
   @Override
-  public void onStart(@NonNull LifecycleOwner owner) {
+  public void onForeground() {
     long startTime = System.currentTimeMillis();
-    isAppVisible = true;
     Log.i(TAG, "App is now visible.");
 
     if (!KeyCachingService.isLocked()) {
@@ -229,8 +224,7 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
   }
 
   @Override
-  public void onStop(@NonNull LifecycleOwner owner) {
-    isAppVisible = false;
+  public void onBackground() {
     Log.i(TAG, "App is no longer visible.");
     if (!KeyCachingService.isLocked()) {
       onStopUnlock();
@@ -282,10 +276,6 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
 
   public ViewOnceMessageManager getViewOnceMessageManager() {
     return viewOnceMessageManager;
-  }
-
-  public boolean isAppVisible() {
-    return isAppVisible;
   }
 
   public void checkBuildExpiration() {
@@ -445,6 +435,7 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
     DirectoryRefreshListener.schedule(this);
     LocalBackupListener.schedule(this);
     RotateSenderCertificateListener.schedule(this);
+    MessageProcessReceiver.startOrUpdateAlarm(this);
 
     if (BuildConfig.AUTOMATIC_UPDATES) {
       UpdateApkRefreshListener.schedule(this);
@@ -510,7 +501,7 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
       if (Build.VERSION.SDK_INT >= 26) {
         FcmJobService.schedule(this);
       } else {
-        ApplicationDependencies.getJobManager().add(new PushNotificationReceiveJob(this));
+        ApplicationDependencies.getJobManager().add(new PushNotificationReceiveJob());
       }
       TextSecurePreferences.setNeedsMessagePull(this, false);
     }
@@ -518,7 +509,7 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
 
   @WorkerThread
   private void initializeBlobProvider() {
-    BlobProvider.getInstance().onSessionStart(this);
+    BlobProvider.getInstance().initialize(this);
   }
 
   @WorkerThread

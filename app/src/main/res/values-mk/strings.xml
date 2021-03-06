@@ -31,7 +31,7 @@
   <string name="ApplicationPreferencesActivity_off">исклучено</string>
   <string name="ApplicationPreferencesActivity_Off">Исклучено</string>
   <string name="ApplicationPreferencesActivity_sms_mms_summary">SMS %1$s, MMS %2$s</string>
-  <string name="ApplicationPreferencesActivity_privacy_summary">Заклучување на екранот %1$s; Заклучување на регистрацијата %2$s</string>
+  <string name="ApplicationPreferencesActivity_privacy_summary">Заклучување на екранот %1$s. Заклучување на регистрацијата %2$s</string>
   <string name="ApplicationPreferencesActivity_appearance_summary">Тема %1$s, Јазик %2$s</string>
   <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">PIN кодовите се потребни за заклучување на регистрацијата. За да ги исклучите PIN кодовите, Ве молиме прво исклучете го заклучувањето на регистрацијата.</string>
   <string name="ApplicationPreferencesActivity_pin_created">PIN-от е создаден.</string>
@@ -65,6 +65,8 @@
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">Прикачувам медија…</string>
   <string name="AttachmentUploadJob_compressing_video_start">Компресирам видео…</string>
+  <!--BackgroundMessageRetriever-->
+  <string name="BackgroundMessageRetriever_checking_for_messages">Проверувам пораки…</string>
   <!--BlockedUsersActivity-->
   <string name="BlockedUsersActivity__blocked_users">Блокирани корисници</string>
   <string name="BlockedUsersActivity__add_blocked_user">Додај блокиран корисник</string>
@@ -232,6 +234,7 @@
   <string name="ConversationActivity__more_options_now_in_group_settings">Повеќе опции во „Групни поставувања“</string>
   <string name="ConversationActivity_join">Приклучи сѐ</string>
   <string name="ConversationActivity_full">Полно е</string>
+  <string name="ConversationActivity_error_sending_media">Грешка при испраќање на медија</string>
   <!--ConversationAdapter-->
   <plurals name="ConversationAdapter_n_unread_messages">
     <item quantity="one">%d непрочитана порака</item>
@@ -469,7 +472,7 @@
   <!--GroupsV1MigrationInitiationReminder-->
   <string name="GroupsV1MigrationInitiationReminder_to_access_new_features_like_mentions">За пристап до нови опции како @спомнувања и администратори надградете ја оваа група.</string>
   <string name="GroupsV1MigrationInitiationReminder_not_now">Не сега</string>
-  <!-- Removed by excludeNonTranslatables <string name="GroupsV1MigrationInitiationReminder_update_group">Ажурирај група</string> -->
+  <string name="GroupsV1MigrationInitiationReminder_upgrade_group">Надгради група</string>
   <!--GroupsV1MigrationSuggestionsReminder-->
   <plurals name="GroupsV1MigrationSuggestionsReminder_members_couldnt_be_added_to_the_new_group">
     <item quantity="one">%1$d член не можеше да биде повторно додаден во нова група. Дали сакате да го додадете сега?</item>
@@ -834,6 +837,11 @@
   <string name="NotificationBarManager__answer_call">Одговори на повикот</string>
   <string name="NotificationBarManager__end_call">Заврши го повикот</string>
   <string name="NotificationBarManager__cancel_call">Откажи повик</string>
+  <!--NotificationsMegaphone-->
+  <string name="NotificationsMegaphone_turn_on_notifications">Да вклучам известувања?</string>
+  <string name="NotificationsMegaphone_never_miss_a_message">Никогаш не пропуштајте порака од Вашите контакти и групи.</string>
+  <string name="NotificationsMegaphone_turn_on">Вклучи</string>
+  <string name="NotificationsMegaphone_not_now">Не сега</string>
   <!--NotificationMmsMessageRecord-->
   <string name="NotificationMmsMessageRecord_multimedia_message">Мултимедијална порака</string>
   <string name="NotificationMmsMessageRecord_downloading_mms_message">Преземам MMS порака</string>
@@ -1106,6 +1114,7 @@
   <string name="PassphrasePromptActivity_ok_button_content_description">Пратете лозинка</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Погрешна лозинка!</string>
   <string name="PassphrasePromptActivity_unlock_signal">Отклучи го Molly</string>
+  <string name="PassphrasePromptActivity_signal_android_lock_screen">Signal Android - Заклучувен екран</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">Мапа</string>
   <string name="PlacePickerActivity_drop_pin">Фрли покажувач</string>
@@ -1158,7 +1167,7 @@
   <!--RedPhone-->
   <string name="RedPhone_answering">Одговарам…</string>
   <string name="RedPhone_ending_call">Завршувам повик…</string>
-  <string name="RedPhone_ringing">Ѕвонење…</string>
+  <string name="RedPhone_ringing">Ѕвонам…</string>
   <string name="RedPhone_busy">Зафатено</string>
   <string name="RedPhone_recipient_unavailable">Примателот не е достапен. </string>
   <string name="RedPhone_network_failed">Мрежата падна!</string>
@@ -1203,6 +1212,11 @@
   <string name="CallParticipantView__cant_receive_audio_and_video_from_s">Не можам да добијам аудио и видео од %1$s</string>
   <string name="CallParticipantView__this_may_be_Because_they_have_not_verified_your_safety_number_change">Ова може да се случува бидејќи тие го немаат проверено Вашиот сигурносен број по промената, има некаков проблем со нивниот уред или пак Ве имаат блокирано.</string>
   <!--ProxyBottomSheetFragment-->
+  <string name="ProxyBottomSheetFragment_proxy_server">Proxy сервер</string>
+  <string name="ProxyBottomSheetFragment_proxy_address">Proxy адреса</string>
+  <string name="ProxyBottomSheetFragment_do_you_want_to_use_this_proxy_address">Дали сакате да ја користите оваа proxy адресa?</string>
+  <string name="ProxyBottomSheetFragment_use_proxy">Користи proxy</string>
+  <string name="ProxyBottomSheetFragment_successfully_connected_to_proxy">Успешно се поврзав со proxy серверот.</string>
   <!--RegistrationActivity-->
   <string name="RegistrationActivity_select_your_country">Изберете држава</string>
   <string name="RegistrationActivity_you_must_specify_your_country_code">Внесете го повикувачкиот број
@@ -1235,6 +1249,7 @@
   <string name="RegistrationActivity_continue">Продолжи</string>
   <string name="RegistrationActivity_take_privacy_with_you_be_yourself_in_every_message">Понесете ја приватноста со Вас.\nБидете свои во секоја порака. </string>
   <string name="RegistrationActivity_enter_your_phone_number_to_get_started">Внесете го Вашиот телефонски број за да започнете</string>
+  <string name="RegistrationActivity_enter_your_phone_number">Внесете го Вашиот телефонски број</string>
   <string name="RegistrationActivity_you_will_receive_a_verification_code">Ќе добиете код за проверка. Можно е да важат цените од операторот.</string>
   <string name="RegistrationActivity_enter_the_code_we_sent_to_s">Внесете го кодот што Ви го испративме на %s</string>
   <string name="RegistrationActivity_make_sure_your_phone_has_a_cellular_signal">Осигурајте се дека Вашиот телефон има мобилен сигнал за да ја примите вашата SMS порака или повик</string>
@@ -1967,10 +1982,22 @@
   <string name="preferences_communication__sealed_sender_allow_from_anyone_description">Овозможете го запечатениот испраќач за дојдовни пораки од нерегистрирани контакти и луѓе со кои не сте го споделиле Вашиот профил.</string>
   <string name="preferences_communication__sealed_sender_learn_more">Дознајте повеќе</string>
   <string name="preferences_setup_a_username">Поставете корисничко име</string>
+  <string name="preferences_proxy">Proxy</string>
+  <string name="preferences_use_proxy">Користи proxy</string>
   <string name="preferences_off">Исклучи</string>
   <string name="preferences_on">Вклучено</string>
+  <string name="preferences_proxy_address">Proxy адреса</string>
+  <string name="preferences_only_use_a_proxy_if">Користете proxy само ако не можете да се поврзете на Signal преку мобилна или Wi-Fi мрежа.</string>
   <string name="preferences_share">Сподели</string>
   <string name="preferences_save">Зачувај</string>
+  <string name="preferences_connecting_to_proxy">Се поврзувам на proxy…</string>
+  <string name="preferences_connected_to_proxy">Се поврзав на proxy</string>
+  <string name="preferences_connection_failed">Врската не успеа</string>
+  <string name="preferences_couldnt_connect_to_the_proxy">Не упсеав да се поврзам за proxy серверот. Проверете ја proxy адресата и пробајте пак.</string>
+  <string name="preferences_you_are_connected_to_the_proxy">Поврзани сте за proxy. Можете да го исклучите proxy серверот во било кое време во поставувањата.</string>
+  <string name="preferences_success">Успешно се поврзав</string>
+  <string name="preferences_failed_to_connect">Не успеав да се поврзам</string>
+  <string name="preferences_enter_proxy_address">Внесете proxy адреса</string>
   <string name="configurable_single_select__customize_option">Сопствена опција</string>
   <!--Internal only preferences-->
   <!--****************************************-->
@@ -2153,6 +2180,8 @@
   <string name="RegistrationLockFragment__incorrect_pin">Погрешен PIN</string>
   <string name="RegistrationLockFragment__forgot_your_pin">Го заборавивте Вашиот PIN?</string>
   <string name="RegistrationLockFragment__not_many_tries_left">Не ви преостанаа повеќе обиди!</string>
+  <string name="RegistrationLockFragment__signal_registration_need_help_with_pin_for_android_v1_pin">Signal регистрација - Помош со PIN за Android (v1 PIN)</string>
+  <string name="RegistrationLockFragment__signal_registration_need_help_with_pin_for_android_v2_pin">Signal регистрација - Помош со PIN за Android (v2 PIN)</string>
   <plurals name="RegistrationLockFragment__for_your_privacy_and_security_there_is_no_way_to_recover">
     <item quantity="one">За вашата приватност и безбедност, нема начин да го повратите вашиот ПИН. Ако не можете да се сетите на вашиот ПИН, можете да го ре-верификувате со СМС после %1$d ден на неактивност. Во овој случај, вашата сметка со целата нејзина содржина ќе биде избришана.</item>
     <item quantity="other">За Вашата приватност и безбедност, нема начин да го повратите Вашиот PIN. Ако не можете да се сетите на Вашиот PIN, можете да го проверите со SMS по %1$d денови неактивност. Во овој случај, Вашата сметка со целата нејзина содржина ќе биде избришана.</item>
@@ -2313,6 +2342,8 @@
   <string name="GroupsLearnMore_paragraph_2">Застарените групи сѐ уште не можат да бидат надградени во нови групи, но затоа можете да создадете нова група со истите членови се доколку сите ја користат најновата верзија на Signal.</string>
   <string name="GroupsLearnMore_paragraph_3">Signal ќе нуди начин за надградба од застарени групи во иднина.</string>
   <!--GroupLinkBottomSheetDialogFragment-->
+  <string name="GroupLinkBottomSheet_share_hint_requiring_approval">Секој кој што го има линкот може да ги види името и сликата на групата како и да побара да се приклучи. Споделете го линкот само со луѓе на кои што им верувате.</string>
+  <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">Секој кој што го има линкот може да ги види името и сликата на групата, како и да побара да се приклучи. Споделете го линкот само со луѓе на кои што им верувате.</string>
   <string name="GroupLinkBottomSheet_share_via_signal">Сподели преку Molly</string>
   <string name="GroupLinkBottomSheet_copy">Копирај</string>
   <string name="GroupLinkBottomSheet_qr_code">QR код</string>

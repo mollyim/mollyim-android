@@ -69,8 +69,8 @@ protobuf {
     }
 }
 
-def canonicalVersionCode = 785
-def canonicalVersionName = "5.3.12"
+def canonicalVersionCode = 798
+def canonicalVersionName = "5.4.12"
 
 def postFixSize = 100
 def abiPostFix = ['universal'   : 0,
@@ -87,10 +87,18 @@ def getCommitTimestamp() {
     return "git log -1 --pretty=format:%ct000".execute().text.trim()
 }
 
+def getCommitHash() {
+    try {
+        return "git rev-parse --short HEAD".execute().text.trim()
+    } catch (ignored) {
+        return ""
+    }
+}
+
 def getBuildTimestamp() {
     try {
         return getCommitTimestamp()
-    } catch (e) {
+    } catch (ignored) {
         return new Date().getTime()
     }
 }
@@ -136,6 +144,7 @@ android {
         vectorDrawables.useSupportLibrary = true
 
         buildConfigField "long", "BUILD_TIMESTAMP", getBuildTimestamp() + "L"
+        buildConfigField "String", "GIT_HASH", "\"${getCommitHash()}\""
         buildConfigField "String", "SIGNAL_URL", "\"https://textsecure-service.whispersystems.org\""
         buildConfigField "String", "STORAGE_URL", "\"https://storage.signal.org\""
         buildConfigField "String", "SIGNAL_CDN_URL", "\"https://cdn.signal.org\""
@@ -350,11 +359,11 @@ dependencies {
     implementation project(':video')
 
     implementation 'org.signal:zkgroup-android:0.7.0'
-    implementation 'org.whispersystems:signal-client-android:0.1.5'
+    implementation 'org.whispersystems:signal-client-android:0.1.7'
     implementation 'com.google.protobuf:protobuf-javalite:3.10.0'
     implementation 'im.molly:argon2:13.1-1@aar'
 
-    implementation 'im.molly:ringrtc-android:2.9.0-1'
+    implementation 'im.molly:ringrtc-android:2.9.2-1'
 
     implementation "me.leolin:ShortcutBadger:1.1.16"
     implementation 'se.emilsjolander:stickylistheaders:2.7.0'
@@ -388,7 +397,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'recyclerview-v7'
     }
 
-    implementation 'com.airbnb.android:lottie:3.0.7'
+    implementation 'com.airbnb.android:lottie:3.6.0'
 
     implementation 'com.codewaves.stickyheadergrid:stickyheadergrid:0.9.4'
     implementation 'com.github.dmytrodanylyk.circular-progress-button:library:1.1.3-S2'

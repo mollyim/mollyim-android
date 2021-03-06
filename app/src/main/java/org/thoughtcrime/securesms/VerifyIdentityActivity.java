@@ -60,9 +60,11 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.color.MaterialColor;
 import org.thoughtcrime.securesms.components.camera.CameraView;
+import org.thoughtcrime.securesms.crypto.DatabaseSessionLock;
 import org.thoughtcrime.securesms.crypto.IdentityKeyParcelable;
 import org.thoughtcrime.securesms.crypto.IdentityKeyUtil;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
@@ -78,7 +80,6 @@ import org.thoughtcrime.securesms.recipients.LiveRecipient;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.storage.StorageSyncHelper;
-import org.thoughtcrime.securesms.util.DynamicDarkActionBarTheme;
 import org.thoughtcrime.securesms.util.DynamicTheme;
 import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.IdentityUtil;
@@ -91,13 +92,12 @@ import org.whispersystems.libsignal.fingerprint.Fingerprint;
 import org.whispersystems.libsignal.fingerprint.FingerprintParsingException;
 import org.whispersystems.libsignal.fingerprint.FingerprintVersionMismatchException;
 import org.whispersystems.libsignal.fingerprint.NumericFingerprintGenerator;
+import org.whispersystems.signalservice.api.SignalSessionLock;
 import org.whispersystems.signalservice.api.util.UuidUtil;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.util.Locale;
-
-import static org.whispersystems.libsignal.SessionCipher.SESSION_LOCK;
 
 /**
  * Activity for verifying identity keys.
@@ -113,7 +113,7 @@ public class VerifyIdentityActivity extends PassphraseRequiredActivity implement
   private static final String IDENTITY_EXTRA  = "recipient_identity";
   private static final String VERIFIED_EXTRA  = "verified_state";
 
-  private final DynamicTheme dynamicTheme = new DynamicDarkActionBarTheme();
+  private final DynamicTheme dynamicTheme = new DynamicTheme();
 
   private final VerifyDisplayFragment displayFragment = new VerifyDisplayFragment();
   private final VerifyScanFragment    scanFragment    = new VerifyScanFragment();
@@ -160,11 +160,6 @@ public class VerifyIdentityActivity extends PassphraseRequiredActivity implement
   protected void onCreate(Bundle state, boolean ready) {
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     getSupportActionBar().setTitle(R.string.AndroidManifest__verify_safety_number);
-
-    LiveRecipient recipient = Recipient.live(getIntent().getParcelableExtra(RECIPIENT_EXTRA));
-    recipient.observe(this, r -> setActionBarNotificationBarColor(r.getColor()));
-
-    setActionBarNotificationBarColor(recipient.get().getColor());
 
     Bundle extras = new Bundle();
     extras.putParcelable(VerifyDisplayFragment.RECIPIENT_ID, getIntent().getParcelableExtra(RECIPIENT_EXTRA));
@@ -307,6 +302,7 @@ public class VerifyIdentityActivity extends PassphraseRequiredActivity implement
       byte[] localId;
       byte[] remoteId;
 
+      //noinspection WrongThread
       Recipient resolved = recipient.resolve();
 
       if (FeatureFlags.verifyV2() && resolved.getUuid().isPresent()) {
@@ -623,36 +619,35 @@ public class VerifyIdentityActivity extends PassphraseRequiredActivity implement
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
-      new AsyncTask<Recipient, Void, Void>() {
-        @Override
-        protected Void doInBackground(Recipient... params) {
-          synchronized (SESSION_LOCK) {
-            if (isChecked) {
-              Log.i(TAG, "Saving identity: " + params[0].getId());
-              DatabaseFactory.getIdentityDatabase(getActivity())
-                             .saveIdentity(params[0].getId(),
-                                           remoteIdentity,
-                                           VerifiedStatus.VERIFIED, false,
-                                           System.currentTimeMillis(), true);
-            } else {
-              DatabaseFactory.getIdentityDatabase(getActivity())
-                             .setVerified(params[0].getId(),
-                                          remoteIdentity,
-                                          VerifiedStatus.DEFAULT);
-            }
+      final Recipient   recipient   = this.recipient.get();
+      final RecipientId recipientId = recipient.getId();
 
-            ApplicationDependencies.getJobManager()
-                                   .add(new MultiDeviceVerifiedUpdateJob(recipient.getId(),
-                                                                         remoteIdentity,
-                                                                         isChecked ? VerifiedStatus.VERIFIED :
-                                                                                     VerifiedStatus.DEFAULT));
-            StorageSyncHelper.scheduleSyncForDataChange();
-
-            IdentityUtil.markIdentityVerified(getActivity(), recipient.get(), isChecked, false);
+      SignalExecutors.BOUNDED.execute(() -> {
+        try (SignalSessionLock.Lock unused = DatabaseSessionLock.INSTANCE.acquire()) {
+          if (isChecked) {
+            Log.i(TAG, "Saving identity: " + recipientId);
+            DatabaseFactory.getIdentityDatabase(getActivity())
+                           .saveIdentity(recipientId,
+                                         remoteIdentity,
+                                         VerifiedStatus.VERIFIED, false,
+                                         System.currentTimeMillis(), true);
+          } else {
+            DatabaseFactory.getIdentityDatabase(getActivity())
+                           .setVerified(recipientId,
+                                        remoteIdentity,
+                                        VerifiedStatus.DEFAULT);
           }
-          return null;
+
+          ApplicationDependencies.getJobManager()
+                                 .add(new MultiDeviceVerifiedUpdateJob(recipientId,
+                                                                       remoteIdentity,
+                                                                       isChecked ? VerifiedStatus.VERIFIED
+                                                                                 : VerifiedStatus.DEFAULT));
+          StorageSyncHelper.scheduleSyncForDataChange();
+
+          IdentityUtil.markIdentityVerified(getActivity(), recipient, isChecked, false);
         }
-      }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, recipient.get());
+      });
     }
   }
 

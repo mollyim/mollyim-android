@@ -1,14 +1,15 @@
 package org.thoughtcrime.securesms.util;
 
 import android.content.Context;
-import android.os.AsyncTask;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 
+import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.R;
+import org.thoughtcrime.securesms.crypto.DatabaseSessionLock;
 import org.thoughtcrime.securesms.crypto.storage.TextSecureIdentityKeyStore;
 import org.thoughtcrime.securesms.crypto.storage.TextSecureSessionStore;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
@@ -29,37 +30,32 @@ import org.thoughtcrime.securesms.sms.OutgoingIdentityVerifiedMessage;
 import org.thoughtcrime.securesms.sms.OutgoingTextMessage;
 import org.thoughtcrime.securesms.util.concurrent.ListenableFuture;
 import org.thoughtcrime.securesms.util.concurrent.SettableFuture;
+import org.thoughtcrime.securesms.util.concurrent.SimpleTask;
 import org.whispersystems.libsignal.IdentityKey;
 import org.whispersystems.libsignal.SignalProtocolAddress;
 import org.whispersystems.libsignal.state.IdentityKeyStore;
 import org.whispersystems.libsignal.state.SessionRecord;
 import org.whispersystems.libsignal.state.SessionStore;
 import org.whispersystems.libsignal.util.guava.Optional;
+import org.whispersystems.signalservice.api.SignalSessionLock;
 import org.whispersystems.signalservice.api.messages.multidevice.VerifiedMessage;
 
 import java.util.List;
 
-import static org.whispersystems.libsignal.SessionCipher.SESSION_LOCK;
+public final class IdentityUtil {
 
-public class IdentityUtil {
+  private IdentityUtil() {}
 
-  private static final String TAG = IdentityUtil.class.getSimpleName();
+  private static final String TAG = Log.tag(IdentityUtil.class);
 
   public static ListenableFuture<Optional<IdentityRecord>> getRemoteIdentityKey(final Context context, final Recipient recipient) {
-    final SettableFuture<Optional<IdentityRecord>> future = new SettableFuture<>();
+    final SettableFuture<Optional<IdentityRecord>> future      = new SettableFuture<>();
+    final RecipientId                              recipientId = recipient.getId();
 
-    new AsyncTask<Recipient, Void, Optional<IdentityRecord>>() {
-      @Override
-      protected Optional<IdentityRecord> doInBackground(Recipient... recipient) {
-        return DatabaseFactory.getIdentityDatabase(context)
-                              .getIdentity(recipient[0].getId());
-      }
-
-      @Override
-      protected void onPostExecute(Optional<IdentityRecord> result) {
-        future.set(result);
-      }
-    }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, recipient);
+    SimpleTask.run(SignalExecutors.BOUNDED,
+                   () -> DatabaseFactory.getIdentityDatabase(context)
+                                        .getIdentity(recipientId),
+                   future::set);
 
     return future;
   }
@@ -147,7 +143,7 @@ public class IdentityUtil {
   }
 
   public static void saveIdentity(Context context, String user, IdentityKey identityKey) {
-    synchronized (SESSION_LOCK) {
+    try(SignalSessionLock.Lock unused = DatabaseSessionLock.INSTANCE.acquire()) {
       IdentityKeyStore      identityKeyStore = new TextSecureIdentityKeyStore(context);
       SessionStore          sessionStore     = new TextSecureSessionStore(context);
       SignalProtocolAddress address          = new SignalProtocolAddress(user, 1);
@@ -164,7 +160,7 @@ public class IdentityUtil {
   }
 
   public static void processVerifiedMessage(Context context, VerifiedMessage verifiedMessage) {
-    synchronized (SESSION_LOCK) {
+    try(SignalSessionLock.Lock unused = DatabaseSessionLock.INSTANCE.acquire()) {
       IdentityDatabase         identityDatabase = DatabaseFactory.getIdentityDatabase(context);
       Recipient                recipient        = Recipient.externalPush(context, verifiedMessage.getDestination());
       Optional<IdentityRecord> identityRecord   = identityDatabase.getIdentity(recipient.getId());

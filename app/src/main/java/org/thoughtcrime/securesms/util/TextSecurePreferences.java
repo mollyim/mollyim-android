@@ -58,7 +58,6 @@ public class TextSecurePreferences {
   private static final String GCM_PASSWORD_PREF                = "pref_gcm_password";
   private static final String PROMPTED_PUSH_REGISTRATION_PREF  = "pref_prompted_push_registration";
   private static final String PROMPTED_OPTIMIZE_DOZE_PREF      = "pref_prompted_optimize_doze";
-  private static final String SIGNALING_KEY_PREF               = "pref_signaling_key";
   public  static final String DIRECTORY_FRESH_TIME_PREF        = "pref_directory_refresh_time";
   private static final String UPDATE_APK_REFRESH_TIME_PREF     = "pref_update_apk_refresh_time";
   private static final String UPDATE_APK_DOWNLOAD_ID           = "pref_update_apk_download_id";
@@ -648,10 +647,6 @@ public class TextSecurePreferences {
 
   public static void setPushServerPassword(Context context, String password) {
     setStringPreference(context, GCM_PASSWORD_PREF, password);
-  }
-
-  public static String getSignalingKey(Context context) {
-    return getStringPreference(context, SIGNALING_KEY_PREF, null);
   }
 
   public static boolean isEnterImeKeyEnabled(Context context) {
