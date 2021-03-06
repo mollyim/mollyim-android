@@ -752,15 +752,6 @@
         android:name=".jobmanager.AlarmManagerScheduler$RetryReceiver"
         android:enabled="@bool/enable_alarm_manager" />
 
-    <!-- Probably don't need this one -->
-    <receiver
-        android:name=".jobmanager.BootReceiver"
-        android:enabled="true">
-        <intent-filter>
-            <action android:name="android.intent.action.BOOT_COMPLETED" />
-        </intent-filter>
-    </receiver>
-
     <uses-library android:name="org.apache.http.legacy" android:required="false"/>
 
 </application>

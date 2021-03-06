@@ -3,7 +3,6 @@ package org.thoughtcrime.securesms.messageprocessingalarm;
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
@@ -17,6 +16,7 @@ import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.jobmanager.JobTracker;
 import org.thoughtcrime.securesms.jobs.PushNotificationReceiveJob;
+import org.thoughtcrime.securesms.service.ExportedBroadcastReceiver;
 import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.whispersystems.libsignal.util.guava.Optional;
 
@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * On received message, runs a job to poll for messages.
  */
-public final class MessageProcessReceiver extends BroadcastReceiver {
+public final class MessageProcessReceiver extends ExportedBroadcastReceiver {
 
   private static final String TAG = Log.tag(MessageProcessReceiver.class);
 
@@ -37,7 +37,7 @@ public final class MessageProcessReceiver extends BroadcastReceiver {
 
   @Override
   @SuppressLint("StaticFieldLeak")
-  public void onReceive(@NonNull Context context, @NonNull Intent intent) {
+  public void onReceiveUnlock(@NonNull Context context, @NonNull Intent intent) {
     Log.i(TAG, String.format("onReceive(%s)", intent.getAction()));
 
     if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {

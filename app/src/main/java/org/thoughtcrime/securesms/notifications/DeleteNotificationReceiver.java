@@ -1,15 +1,14 @@
 package org.thoughtcrime.securesms.notifications;
 
-
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 
+import org.thoughtcrime.securesms.service.ExportedBroadcastReceiver;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 
-public class DeleteNotificationReceiver extends BroadcastReceiver {
+public class DeleteNotificationReceiver extends ExportedBroadcastReceiver {
 
   public static String DELETE_NOTIFICATION_ACTION = "org.thoughtcrime.securesms.DELETE_NOTIFICATION";
 
@@ -17,7 +16,7 @@ public class DeleteNotificationReceiver extends BroadcastReceiver {
   public static String EXTRA_MMS = "is_mms";
 
   @Override
-  public void onReceive(final Context context, Intent intent) {
+  public void onReceiveUnlock(final Context context, Intent intent) {
     if (DELETE_NOTIFICATION_ACTION.equals(intent.getAction())) {
       ApplicationDependencies.getMessageNotifier().clearReminder(context);
 
