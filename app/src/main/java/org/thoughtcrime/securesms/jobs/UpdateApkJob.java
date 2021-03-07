@@ -19,6 +19,7 @@ import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.jobmanager.Data;
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
+import org.thoughtcrime.securesms.net.Network;
 import org.thoughtcrime.securesms.service.UpdateApkReadyListener;
 import org.thoughtcrime.securesms.util.FileUtils;
 import org.thoughtcrime.securesms.util.Hex;
@@ -29,6 +30,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.MessageDigest;
+import java.util.Collections;
+import java.util.List;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -64,12 +67,17 @@ public class UpdateApkJob extends BaseJob {
 
   @Override
   public void onRun() throws IOException, PackageManager.NameNotFoundException {
-    if (!BuildConfig.AUTOMATIC_UPDATES) return;
+    if (!TextSecurePreferences.isUpdateApkEnabled(context)) {
+      return;
+    }
 
     Log.i(TAG, "Checking for APK update...");
 
-    OkHttpClient client  = new OkHttpClient();
-    Request      request = new Request.Builder().url(String.format("%s/latest.json", BuildConfig.NOPLAY_UPDATE_URL)).build();
+    OkHttpClient client = new OkHttpClient.Builder()
+                                          .socketFactory(Network.getSocketFactory())
+                                          .dns(Network.getDns())
+                                          .build();
+    Request request = new Request.Builder().url(String.format("%s/index-v1.json", BuildConfig.FDROID_UPDATE_URL)).build();
 
     Response response = client.newCall(request).execute();
 
@@ -77,13 +85,24 @@ public class UpdateApkJob extends BaseJob {
       throw new IOException("Bad response: " + response.message());
     }
 
-    UpdateDescriptor updateDescriptor = JsonUtils.fromJson(response.body().string(), UpdateDescriptor.class);
+    RepoIndex repoIndex = JsonUtils.fromJson(response.body().string(), RepoIndex.class);
+    if (repoIndex.packages == null ||
+        repoIndex.packages.appReleases == null ||
+        repoIndex.packages.appReleases.isEmpty()) {
+      return;
+    }
+    Collections.sort(repoIndex.packages.appReleases);
+
+    UpdateDescriptor updateDescriptor = repoIndex.packages.appReleases.get(0);
     byte[]           digest           = Hex.fromStringCondensed(updateDescriptor.getDigest());
 
     Log.i(TAG, "Got descriptor: " + updateDescriptor);
 
     if (updateDescriptor.getVersionCode() > getVersionCode()) {
-      DownloadStatus downloadStatus = getDownloadStatus(updateDescriptor.getUrl(), digest);
+      Uri uri = Uri.parse(BuildConfig.FDROID_UPDATE_URL).buildUpon()
+                                                        .appendPath(updateDescriptor.getApkName())
+                                                        .build();
+      DownloadStatus downloadStatus = getDownloadStatus(uri, digest);
 
       Log.i(TAG, "Download status: "  + downloadStatus.getStatus());
 
@@ -92,7 +111,7 @@ public class UpdateApkJob extends BaseJob {
         handleDownloadNotify(downloadStatus.getDownloadId());
       } else if (downloadStatus.getStatus() == DownloadStatus.Status.MISSING) {
         Log.i(TAG, "Download status missing, starting download...");
-        handleDownloadStart(updateDescriptor.getUrl(), updateDescriptor.getVersionName(), digest);
+        handleDownloadStart(uri, updateDescriptor.getVersionName(), digest);
       }
     }
   }
@@ -114,7 +133,7 @@ public class UpdateApkJob extends BaseJob {
     return packageInfo.versionCode;
   }
 
-  private DownloadStatus getDownloadStatus(String uri, byte[] theirDigest) {
+  private DownloadStatus getDownloadStatus(Uri uri, byte[] theirDigest) {
     DownloadManager       downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
     DownloadManager.Query query           = new DownloadManager.Query();
 
@@ -133,7 +152,7 @@ public class UpdateApkJob extends BaseJob {
         long   downloadId        = cursor.getLong(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_ID));
         byte[] digest            = getDigestForDownloadId(downloadId);
 
-        if (jobRemoteUri != null && jobRemoteUri.equals(uri) && downloadId == pendingDownloadId) {
+        if (jobRemoteUri != null && jobRemoteUri.equals(uri.toString()) && downloadId == pendingDownloadId) {
 
           if (jobStatus == DownloadManager.STATUS_SUCCESSFUL    &&
               digest != null && pendingDigest != null           &&
@@ -153,17 +172,17 @@ public class UpdateApkJob extends BaseJob {
     }
   }
 
-  private void handleDownloadStart(String uri, String versionName, byte[] digest) {
+  private void handleDownloadStart(Uri uri, String versionName, byte[] digest) {
     clearPreviousDownloads(context);
 
     DownloadManager         downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
-    DownloadManager.Request downloadRequest = new DownloadManager.Request(Uri.parse(uri));
+    DownloadManager.Request downloadRequest = new DownloadManager.Request(uri);
 
     downloadRequest.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI);
-    downloadRequest.setTitle("Downloading Signal update");
-    downloadRequest.setDescription("Downloading Signal " + versionName);
+    downloadRequest.setTitle("Downloading Molly update");
+    downloadRequest.setDescription("Downloading Molly " + versionName);
     downloadRequest.setVisibleInDownloadsUi(false);
-    downloadRequest.setDestinationInExternalFilesDir(context, null, "signal-update.apk");
+    downloadRequest.setDestinationInExternalFilesDir(context, null, "molly-update.apk");
     downloadRequest.setNotificationVisibility(DownloadManager.Request.VISIBILITY_HIDDEN);
 
     long downloadId = downloadManager.enqueue(downloadRequest);
@@ -215,7 +234,7 @@ public class UpdateApkJob extends BaseJob {
     }
 
     for (File file : directory.listFiles()) {
-      if (file.getName().startsWith("signal-update")) {
+      if (file.getName().startsWith("molly-update")) {
         if (file.delete()) {
           Log.d(TAG, "Deleted " + file.getName());
         }
@@ -223,7 +242,17 @@ public class UpdateApkJob extends BaseJob {
     }
   }
 
-  private static class UpdateDescriptor {
+  private static class RepoIndex {
+    @JsonProperty
+    PackageIndex packages;
+  }
+
+  private static class PackageIndex {
+    @JsonProperty(BuildConfig.APPLICATION_ID)
+    List<UpdateDescriptor> appReleases;
+  }
+
+  private static class UpdateDescriptor implements Comparable<UpdateDescriptor> {
     @JsonProperty
     private int versionCode;
 
@@ -231,11 +260,15 @@ public class UpdateApkJob extends BaseJob {
     private String versionName;
 
     @JsonProperty
-    private String url;
+    private String apkName;
 
     @JsonProperty
-    private String sha256sum;
+    private String hash;
 
+    @Override
+    public int compareTo(UpdateDescriptor o) {
+      return Integer.compare(o.versionCode, versionCode);
+    }
 
     public int getVersionCode() {
       return versionCode;
@@ -245,16 +278,16 @@ public class UpdateApkJob extends BaseJob {
       return versionName;
     }
 
-    public String getUrl() {
-      return url;
+    public String getApkName() {
+      return apkName;
     }
 
     public @NonNull String toString() {
-      return "["  + versionCode + ", " + versionName + ", " + url + "]";
+      return "["  + versionCode + ", " + versionName + ", " + apkName + "]";
     }
 
     public String getDigest() {
-      return sha256sum;
+      return hash;
     }
   }
 

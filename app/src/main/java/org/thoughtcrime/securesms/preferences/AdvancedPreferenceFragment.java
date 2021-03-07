@@ -27,14 +27,18 @@ import org.signal.core.util.logging.LogManager;
 import org.thoughtcrime.securesms.ApplicationPreferencesActivity;
 import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.R;
+import org.thoughtcrime.securesms.components.SwitchPreferenceCompat;
 import org.thoughtcrime.securesms.contacts.ContactAccessor;
 import org.thoughtcrime.securesms.contacts.ContactIdentityManager;
 import org.thoughtcrime.securesms.delete.DeleteAccountFragment;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.jobs.UpdateApkJob;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.logsubmit.SubmitDebugLogActivity;
+import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.phonenumbers.PhoneNumberFormatter;
 import org.thoughtcrime.securesms.registration.RegistrationNavigationActivity;
+import org.thoughtcrime.securesms.service.UpdateApkRefreshListener;
 import org.thoughtcrime.securesms.util.DynamicTheme;
 import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
@@ -68,6 +72,7 @@ public class AdvancedPreferenceFragment extends CorrectedPreferenceFragment {
     submitDebugLog.setEnabled(TextSecurePreferences.isLogEnabled(getContext()));
 
     findPreference(TextSecurePreferences.LOG_ENABLED).setOnPreferenceChangeListener(new EnableLogClickListener());
+    findPreference(TextSecurePreferences.UPDATE_APK_ENABLED).setOnPreferenceChangeListener(new ApkUpdateClickListener());
 
     Preference pinSettings = this.findPreference(ADVANCED_PIN_PREF);
     pinSettings.setOnPreferenceClickListener(preference -> {
@@ -293,6 +298,22 @@ public class AdvancedPreferenceFragment extends CorrectedPreferenceFragment {
       findPreference(SUBMIT_DEBUG_LOG_PREF).setEnabled(enabled);
 
       return true;
+    }
+  }
+
+  private static class ApkUpdateClickListener implements Preference.OnPreferenceChangeListener {
+    @Override
+    public boolean onPreferenceChange(final Preference preference, Object newValue) {
+      boolean enabled = (boolean) newValue;
+      ((SwitchPreferenceCompat) preference).setChecked(enabled);
+
+      NotificationChannels.create(preference.getContext());
+      if (enabled) {
+        UpdateApkRefreshListener.schedule(preference.getContext());
+        ApplicationDependencies.getJobManager().add(new UpdateApkJob());
+      }
+
+      return false;
     }
   }
 }

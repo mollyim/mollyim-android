@@ -24,6 +24,11 @@
         app:isPreferenceVisible="false" />
 
     <org.thoughtcrime.securesms.components.SwitchPreferenceCompat
+        android:key="pref_update_apk_enabled"
+        android:title="@string/preferences__autoupdate_molly"
+        android:summary="@string/preferences__periodically_check_for_new_releases_and_ask_to_install_them"/>
+
+    <org.thoughtcrime.securesms.components.SwitchPreferenceCompat
         android:defaultValue="true"
         android:key="pref_log_enabled"
         android:title="@string/preferences__enable_debug_log"/>

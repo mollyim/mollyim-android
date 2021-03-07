@@ -16,7 +16,7 @@ public class UpdateApkRefreshListener extends PersistentAlarmManagerListener {
 
   private static final String TAG = UpdateApkRefreshListener.class.getSimpleName();
 
-  private static final long INTERVAL = TimeUnit.HOURS.toMillis(6);
+  private static final long INTERVAL = TimeUnit.HOURS.toMillis(22);
 
   @Override
   protected long getNextScheduledExecutionTime(Context context) {
@@ -27,7 +27,7 @@ public class UpdateApkRefreshListener extends PersistentAlarmManagerListener {
   protected long onAlarm(Context context, long scheduledTime) {
     Log.i(TAG, "onAlarm...");
 
-    if (scheduledTime != 0 && BuildConfig.AUTOMATIC_UPDATES) {
+    if (scheduledTime != 0) {
       Log.i(TAG, "Queueing APK update job...");
       ApplicationDependencies.getJobManager().add(new UpdateApkJob());
     }

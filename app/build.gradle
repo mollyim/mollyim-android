@@ -167,8 +167,7 @@ android {
         buildConfigField "int", "CANONICAL_VERSION_CODE", "$canonicalVersionCode"
 
         buildConfigField "String", "CANONICAL_VERSION_NAME", "\"$canonicalVersionName\""
-        buildConfigField "boolean", "AUTOMATIC_UPDATES", "false"
-        buildConfigField "String", "NOPLAY_UPDATE_URL", "\"https://updates.signal.org/android\""
+        buildConfigField "String", "FDROID_UPDATE_URL", "\"https://molly.im/fdroid/repo\""
         buildConfigField "String", "BACKUP_FILENAME", "\"" + appName.toLowerCase() + "\""
 
         ndk {
@@ -269,6 +268,7 @@ android {
         free {
             dimension 'distribution'
             versionNameSuffix '-FOSS'
+            buildConfigField "String", "FDROID_UPDATE_URL", "\"https://molly.im/fdroid/foss/repo\""
         }
 
         nonFree {

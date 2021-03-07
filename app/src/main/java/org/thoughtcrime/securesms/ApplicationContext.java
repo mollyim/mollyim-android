@@ -437,7 +437,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
     RotateSenderCertificateListener.schedule(this);
     MessageProcessReceiver.startOrUpdateAlarm(this);
 
-    if (BuildConfig.AUTOMATIC_UPDATES) {
+    if (TextSecurePreferences.isUpdateApkEnabled(this)) {
       UpdateApkRefreshListener.schedule(this);
     }
   }
