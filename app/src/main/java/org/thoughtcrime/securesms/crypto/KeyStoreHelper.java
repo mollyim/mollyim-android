@@ -45,7 +45,6 @@ public final class KeyStoreHelper {
 
   private static final String ANDROID_KEY_STORE = "AndroidKeyStore";
   private static final String KEY_ALIAS         = "SignalSecret";
-  private static final String KEY_ALIAS_HMAC    = "MollySecret";
 
   @RequiresApi(Build.VERSION_CODES.M)
   public static SealedData seal(@NonNull byte[] input) {
@@ -152,11 +151,11 @@ public final class KeyStoreHelper {
   }
 
   @RequiresApi(Build.VERSION_CODES.M)
-  public static SecretKey createKeyStoreEntryHmac(boolean useStrongBox) {
+  public static SecretKey createKeyStoreEntryHmac(String keyAlias, boolean useStrongBox) {
     try {
       KeyGenerator keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_HMAC_SHA256, ANDROID_KEY_STORE);
 
-      KeyGenParameterSpec.Builder keySpecBuilder = new KeyGenParameterSpec.Builder(KEY_ALIAS_HMAC, KeyProperties.PURPOSE_SIGN);
+      KeyGenParameterSpec.Builder keySpecBuilder = new KeyGenParameterSpec.Builder(keyAlias, KeyProperties.PURPOSE_SIGN);
       if (useStrongBox) {
         enableStrongBox(keySpecBuilder);
       }
@@ -175,13 +174,26 @@ public final class KeyStoreHelper {
     builder.setIsStrongBoxBacked(true);
   }
 
-  @RequiresApi(Build.VERSION_CODES.M)
-  public static SecretKey getKeyStoreEntryHmac() throws UnrecoverableEntryException {
+  @RequiresApi(23)
+  public static SecretKey getKeyStoreEntryHmac(String keyAlias) throws UnrecoverableEntryException {
     try {
       KeyStore keyStore = KeyStore.getInstance(ANDROID_KEY_STORE);
       keyStore.load(null);
 
-      return ((KeyStore.SecretKeyEntry) keyStore.getEntry(KEY_ALIAS_HMAC, null)).getSecretKey();
+      return ((KeyStore.SecretKeyEntry) keyStore.getEntry(keyAlias, null)).getSecretKey();
+    } catch (KeyStoreException | IOException | NoSuchAlgorithmException | CertificateException e) {
+      throw new AssertionError(e);
+    }
+  }
+
+  @RequiresApi(23)
+  public static void deleteKeyStoreEntry(String keyAlias) {
+    try {
+      KeyStore keyStore = KeyStore.getInstance(ANDROID_KEY_STORE);
+      keyStore.load(null);
+      if (keyStore.containsAlias(keyAlias)) {
+        keyStore.deleteEntry(keyAlias);
+      }
     } catch (KeyStoreException | IOException | NoSuchAlgorithmException | CertificateException e) {
       throw new AssertionError(e);
     }

@@ -20,7 +20,6 @@ package org.thoughtcrime.securesms.crypto;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -41,6 +40,7 @@ import java.security.GeneralSecurityException;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableEntryException;
 import java.util.Arrays;
+import java.util.UUID;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -62,6 +62,8 @@ public class MasterSecretUtil {
 
   private static final String PREFERENCES_NAME = "MasterKeys";
 
+  private static final String KEY_ALIAS_DEFAULT = "MollySecret";
+
   private static final String ASYMMETRIC_LOCAL_PUBLIC_DJB   = "asymmetric_master_secret_curve25519_public";
   private static final String ASYMMETRIC_LOCAL_PRIVATE_DJB  = "asymmetric_master_secret_curve25519_private";
 
@@ -69,9 +71,16 @@ public class MasterSecretUtil {
                                                    MasterSecret masterSecret,
                                                    char[] newPassphrase)
   {
+    SharedPreferences.Editor prefs = context.getSharedPreferences(PREFERENCES_NAME, 0).edit();
+
+    String keyStoreAlias = null;
+    String savedKeyStoreAlias = retrieve(context, "keystore_alias", KEY_ALIAS_DEFAULT);
+
     SecureSecretKeySpec secretKey;
 
-    if (!isUnencryptedPassphrase(newPassphrase)) {
+    if (isUnencryptedPassphrase(newPassphrase)) {
+      secretKey = getUnencryptedKey();
+    } else {
       PassphraseBasedKdf kdf = new PassphraseBasedKdf();
 
       System.gc();
@@ -79,23 +88,17 @@ public class MasterSecretUtil {
       kdf.findParameters(Util.getAvailMemory(context) / 2);
 
       if (Build.VERSION.SDK_INT >= 23) {
-        kdf.setHmacKey(KeyStoreHelper.createKeyStoreEntryHmac(hasStrongBox(context)));
+        keyStoreAlias = UUID.randomUUID().toString();
+        kdf.setHmacKey(KeyStoreHelper.createKeyStoreEntryHmac(keyStoreAlias, hasStrongBox(context)));
       }
 
       byte[] passphraseSalt = generateSalt();
 
-      if (!context.getSharedPreferences(PREFERENCES_NAME, 0).edit()
-          .putString("passphrase_salt", Base64.encodeBytes(passphraseSalt))
-          .putString("kdf_parameters", kdf.getParameters())
-          .putLong("kdf_elapsed", kdf.getElapsedTimeMillis())
-          .putBoolean("keystore_initialized", kdf.getHmacKey() != null)
-          .commit()) {
-        throw new AssertionError("failed to save preferences in MasterSecretUtil");
-      }
+      prefs.putString("passphrase_salt", Base64.encodeBytes(passphraseSalt));
+      prefs.putString("kdf_parameters", kdf.getParameters());
+      prefs.putLong("kdf_elapsed", kdf.getElapsedTimeMillis());
 
       secretKey = kdf.deriveKey(newPassphrase, passphraseSalt);
-    } else {
-      secretKey = getUnencryptedKey();
     }
 
     byte[] encryptionIV          = generateIV();
@@ -106,12 +109,18 @@ public class MasterSecretUtil {
     Arrays.fill(combinedSecrets, (byte) 0);
     secretKey.destroy();
 
-    if (!context.getSharedPreferences(PREFERENCES_NAME, 0).edit()
-        .putString("encryption_iv", Base64.encodeBytes(encryptionIV))
-        .putString("master_secret", Base64.encodeBytes(encryptedMasterSecret))
-        .putBoolean("passphrase_initialized", true)
-        .commit()) {
+    prefs.putString("encryption_iv", Base64.encodeBytes(encryptionIV));
+    prefs.putString("master_secret", Base64.encodeBytes(encryptedMasterSecret));
+    prefs.putBoolean("passphrase_initialized", true);
+    prefs.putBoolean("keystore_initialized", keyStoreAlias != null);
+    prefs.putString("keystore_alias", keyStoreAlias);
+
+    if (!prefs.commit()) {
       throw new AssertionError("failed to save preferences in MasterSecretUtil");
+    }
+
+    if (Build.VERSION.SDK_INT >= 23 && savedKeyStoreAlias != null) {
+      KeyStoreHelper.deleteKeyStoreEntry(savedKeyStoreAlias);
     }
   }
 
@@ -136,9 +145,11 @@ public class MasterSecretUtil {
     byte[]  encryptedMasterSecret = retrieve(context, "master_secret");
     byte[]  encryptionIV          = retrieve(context, "encryption_iv");
     boolean hasKeyStoreSecret     = retrieve(context, "keystore_initialized", false);
+    String  keyStoreAlias         = retrieve(context, "keystore_alias", KEY_ALIAS_DEFAULT);
 
-    if (!isUnencryptedPassphrase(passphrase))
-    {
+    if (isUnencryptedPassphrase(passphrase)) {
+      secretKey = getUnencryptedKey();
+    } else {
       PassphraseBasedKdf kdf = new PassphraseBasedKdf();
 
       kdf.setParameters(serializedParams);
@@ -148,15 +159,13 @@ public class MasterSecretUtil {
           throw new UnrecoverableKeyException("OS downgrade not supported. KeyStore secret exists on platform < M!");
         }
         try {
-          kdf.setHmacKey(KeyStoreHelper.getKeyStoreEntryHmac());
+          kdf.setHmacKey(KeyStoreHelper.getKeyStoreEntryHmac(keyStoreAlias));
         } catch (UnrecoverableEntryException e) {
           throw new UnrecoverableKeyException(e);
         }
       }
 
       secretKey = kdf.deriveKey(passphrase, passphraseSalt);
-    } else {
-      secretKey = getUnencryptedKey();
     }
 
     try {
