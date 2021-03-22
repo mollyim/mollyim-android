@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 
 import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.logging.Log;
+import org.thoughtcrime.securesms.crypto.DatabaseSessionLock;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.database.RecipientDatabase;
 import org.thoughtcrime.securesms.database.RecipientDatabase.MissingRecipientException;
@@ -16,6 +17,7 @@ import org.thoughtcrime.securesms.database.ThreadDatabase;
 import org.thoughtcrime.securesms.database.model.ThreadRecord;
 import org.thoughtcrime.securesms.util.LRUCache;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
+import org.whispersystems.signalservice.api.SignalSessionLock;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -30,16 +32,14 @@ public final class LiveRecipientCache {
   private static final int CACHE_MAX      = 1000;
   private static final int CACHE_WARM_MAX = 500;
 
-  private static final Object SELF_LOCK = new Object();
-
   private final Context                         context;
   private final RecipientDatabase               recipientDatabase;
   private final Map<RecipientId, LiveRecipient> recipients;
   private final LiveRecipient                   unknown;
 
-  @GuardedBy("SELF_LOCK")
-  private RecipientId localRecipientId;
-  private boolean     warmedUp;
+  private volatile RecipientId localRecipientId;
+
+  private boolean warmedUp;
 
   @SuppressLint("UseSparseArrays")
   public LiveRecipientCache(@NonNull Context context) {
@@ -111,22 +111,20 @@ public final class LiveRecipientCache {
   }
 
   @NonNull Recipient getSelf() {
-    synchronized (SELF_LOCK) {
+    if (localRecipientId == null) {
+      UUID   localUuid = TextSecurePreferences.getLocalUuid(context);
+      String localE164 = TextSecurePreferences.getLocalNumber(context);
+
+      if (localUuid != null) {
+        localRecipientId = recipientDatabase.getByUuid(localUuid).or(recipientDatabase.getByE164(localE164)).orNull();
+      } else if (localE164 != null) {
+        localRecipientId = recipientDatabase.getByE164(localE164).orNull();
+      } else {
+        throw new IllegalStateException("Tried to call getSelf() before local data was set!");
+      }
+
       if (localRecipientId == null) {
-        UUID   localUuid = TextSecurePreferences.getLocalUuid(context);
-        String localE164 = TextSecurePreferences.getLocalNumber(context);
-
-        if (localUuid != null) {
-          localRecipientId = recipientDatabase.getByUuid(localUuid).or(recipientDatabase.getByE164(localE164)).orNull();
-        } else if (localE164 != null) {
-          localRecipientId = recipientDatabase.getByE164(localE164).orNull();
-        } else {
-          throw new IllegalStateException("Tried to call getSelf() before local data was set!");
-        }
-
-        if (localRecipientId == null) {
-          throw new MissingRecipientException(localRecipientId);
-        }
+        throw new MissingRecipientException(null);
       }
     }
 

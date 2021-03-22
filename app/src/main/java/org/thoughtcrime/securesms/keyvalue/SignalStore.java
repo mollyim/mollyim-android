@@ -1,11 +1,14 @@
 package org.thoughtcrime.securesms.keyvalue;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 import androidx.preference.PreferenceDataStore;
 
-import org.thoughtcrime.securesms.database.model.databaseprotos.Wallpaper;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.util.SignalUncaughtExceptionHandler;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Simple, encrypted key-value store.
@@ -73,12 +76,43 @@ public final class SignalStore {
     tooltips().onFirstEverAppLaunch();
     misc().onFirstEverAppLaunch();
     internalValues().onFirstEverAppLaunch();
+    emojiValues().onFirstEverAppLaunch();
     settings().onFirstEverAppLaunch();
     certificateValues().onFirstEverAppLaunch();
     phoneNumberPrivacy().onFirstEverAppLaunch();
     onboarding().onFirstEverAppLaunch();
     wallpaper().onFirstEverAppLaunch();
     proxy().onFirstEverAppLaunch();
+  }
+
+  public static List<String> getKeysToIncludeInBackup() {
+    List<String> keys = new ArrayList<>();
+    keys.addAll(kbsValues().getKeysToIncludeInBackup());
+    keys.addAll(registrationValues().getKeysToIncludeInBackup());
+    keys.addAll(pinValues().getKeysToIncludeInBackup());
+    keys.addAll(remoteConfigValues().getKeysToIncludeInBackup());
+    keys.addAll(storageServiceValues().getKeysToIncludeInBackup());
+    keys.addAll(uiHints().getKeysToIncludeInBackup());
+    keys.addAll(tooltips().getKeysToIncludeInBackup());
+    keys.addAll(misc().getKeysToIncludeInBackup());
+    keys.addAll(internalValues().getKeysToIncludeInBackup());
+    keys.addAll(emojiValues().getKeysToIncludeInBackup());
+    keys.addAll(settings().getKeysToIncludeInBackup());
+    keys.addAll(certificateValues().getKeysToIncludeInBackup());
+    keys.addAll(phoneNumberPrivacy().getKeysToIncludeInBackup());
+    keys.addAll(onboarding().getKeysToIncludeInBackup());
+    keys.addAll(wallpaper().getKeysToIncludeInBackup());
+    keys.addAll(proxy().getKeysToIncludeInBackup());
+    return keys;
+  }
+
+  /**
+   * Forces the store to re-fetch all of it's data from the database.
+   * Should only be used for testing!
+   */
+  @VisibleForTesting
+  public static void resetCache() {
+    getInstance().store.resetCache();
   }
 
   public static @NonNull KbsValues kbsValues() {

@@ -380,7 +380,7 @@
   <string name="DeviceListActivity_network_failed">Netværksfejl!</string>
   <!--DeviceListItem-->
   <string name="DeviceListItem_unnamed_device">Unavngivet enhed</string>
-  <string name="DeviceListItem_linked_s">Tilkoblet %s</string>
+  <string name="DeviceListItem_linked_s">Forbundet %s</string>
   <string name="DeviceListItem_last_active_s">Sidste aktive %s</string>
   <string name="DeviceListItem_today">I dag</string>
   <!--DocumentView-->
@@ -391,7 +391,7 @@
   <string name="DonateMegaphone_donate">Doner</string>
   <string name="DonateMegaphone_no_thanks">Nej tak</string>
   <!--GroupCallingMegaphone-->
-  <string name="GroupCallingMegaphone__introducing_group_calls">Introducerer gruppesamtaler</string>
+  <string name="GroupCallingMegaphone__introducing_group_calls">Introducerer Gruppesamtaler</string>
   <string name="GroupCallingMegaphone__open_a_new_group_to_start">Åbn en ny gruppe for at starte en gratis krypteret gruppesamtale</string>
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">Optimér for manglende Play Services</string>
@@ -840,7 +840,7 @@
   <string name="NotificationBarManager__cancel_call">Afbryd opkald</string>
   <!--NotificationsMegaphone-->
   <string name="NotificationsMegaphone_turn_on_notifications">Slå meddelelser til?</string>
-  <string name="NotificationsMegaphone_never_miss_a_message">Gå aldrig glip af en besked fra dine kontaktpersoner og grupper.</string>
+  <string name="NotificationsMegaphone_never_miss_a_message">Gå aldrig glip af en besked fra dine kontakter og grupper.</string>
   <string name="NotificationsMegaphone_turn_on">Aktivér</string>
   <string name="NotificationsMegaphone_not_now">Ikke nu</string>
   <!--NotificationMmsMessageRecord-->
@@ -887,14 +887,14 @@
   <string name="MessageRecord_disappearing_message_time_set_to_s">Beskeder med tidsudløb blev tidsindstilet til %1$s</string>
   <string name="MessageRecord_this_group_was_updated_to_a_new_group">Gruppen blev opdateret til en ny gruppe</string>
   <string name="MessageRecord_you_couldnt_be_added_to_the_new_group_and_have_been_invited_to_join">Du kunne ikke føjes til den nye gruppe, og er blevet inviteret til at deltage.</string>
-  <string name="MessageRecord_chat_session_refreshed">Chatsession opdateret</string>
+  <string name="MessageRecord_chat_session_refreshed">Chatsession genopfrisket</string>
   <plurals name="MessageRecord_members_couldnt_be_added_to_the_new_group_and_have_been_invited">
     <item quantity="one">En bruger kunne ikke blive tilføjet til den nye gruppe og er blevet inviteret til at deltage.</item>
-    <item quantity="other">%1$s medlemmer kunne ikke blive tilføjet til den nye gruppe og er blevet inviteret til at deltage.</item>
+    <item quantity="other">%1$s medlemmer kunne ikke tilføjes den nye gruppe og er blevet inviteret til at deltage.</item>
   </plurals>
   <plurals name="MessageRecord_members_couldnt_be_added_to_the_new_group_and_have_been_removed">
     <item quantity="one">En bruger kunne ikke tilføjes til den nye gruppe og er blevet fjernet.</item>
-    <item quantity="other">%1$s brugere kunne ikke tilføjes til den nye gruppe og er blevet fjernet.</item>
+    <item quantity="other">%1$s medlemmer kunne ikke tilføjes den nye gruppe og er blevet fjernet.</item>
   </plurals>
   <!--Profile change updates-->
   <string name="MessageRecord_changed_their_profile_name_to">%1$s ændrede deres profilnavn til %2$s</string>
@@ -1025,23 +1025,23 @@
   <string name="MessageRecord_you_marked_your_safety_number_with_s_unverified_from_another_device">Du har markeret dit sikkerhedsnummer med %s som ubekræftet fra en anden enhed</string>
   <!--Group Calling update messages-->
   <string name="MessageRecord_s_started_a_group_call_s">%1$s startede en gruppesamtale · %2$s</string>
-  <string name="MessageRecord_s_is_in_the_group_call_s">%1$s deltager i gruppesamtalen · %2$s</string>
-  <string name="MessageRecord_you_are_in_the_group_call_s1">Du er i gruppesamtalen · %1$s</string>
-  <string name="MessageRecord_s_and_s_are_in_the_group_call_s1">%1$s og %2$s deltager i gruppesamtalen · %3$s</string>
+  <string name="MessageRecord_s_is_in_the_group_call_s">%1$s er med i gruppesamtalen · %2$s</string>
+  <string name="MessageRecord_you_are_in_the_group_call_s1">I er med i gruppesamtalen · %1$s</string>
+  <string name="MessageRecord_s_and_s_are_in_the_group_call_s1">%1$s og %2$s er med i gruppesamtalen · %3$s</string>
   <string name="MessageRecord_group_call_s">Gruppesamtale · %1$s</string>
   <string name="MessageRecord_s_started_a_group_call">%1$s startede en gruppesamtale</string>
-  <string name="MessageRecord_s_is_in_the_group_call">%1$s deltager i gruppesamtalen</string>
-  <string name="MessageRecord_you_are_in_the_group_call">Du er i gruppesamtalen</string>
-  <string name="MessageRecord_s_and_s_are_in_the_group_call">%1$s og %2$s deltager i gruppesamtalen</string>
+  <string name="MessageRecord_s_is_in_the_group_call">%1$s er med i gruppesamtalen</string>
+  <string name="MessageRecord_you_are_in_the_group_call">I er med i gruppesamtalen</string>
+  <string name="MessageRecord_s_and_s_are_in_the_group_call">%1$s og %2$s er med i gruppesamtalen</string>
   <string name="MessageRecord_group_call">Gruppesamtale</string>
   <string name="MessageRecord_you">Dig</string>
   <plurals name="MessageRecord_s_s_and_d_others_are_in_the_group_call_s">
     <item quantity="one">%1$s, %2$s, og %3$d andre deltager i gruppesamtalen · %4$s</item>
-    <item quantity="other">%1$s, %2$s, og %3$d andre deltager i gruppesamtalen · %4$s</item>
+    <item quantity="other">%1$s, %2$s, og %3$d andre er med i gruppesamtalen · %4$s</item>
   </plurals>
   <plurals name="MessageRecord_s_s_and_d_others_are_in_the_group_call">
     <item quantity="one">%1$s, %2$s, og %3$d andre deltager i gruppesamtalen</item>
-    <item quantity="other">%1$s, %2$s, og %3$d andre deltager i gruppesamtalen</item>
+    <item quantity="other">%1$s, %2$s, og %3$d andre er med i gruppesamtalen</item>
   </plurals>
   <!--MessageRequestBottomView-->
   <string name="MessageRequestBottomView_accept">Godkend</string>
@@ -1152,7 +1152,6 @@
   <string name="RatingManager_rate_now">Bedøm nu!</string>
   <string name="RatingManager_no_thanks">Nej tak</string>
   <string name="RatingManager_later">Senere</string>
-  <string name="RatingManager_whoops_the_play_store_app_does_not_appear_to_be_installed">Ups, det ser ud til at Play Butik ikke er installeret på din enhed</string>
   <!--ReactionsBottomSheetDialogFragment-->
   <string name="ReactionsBottomSheetDialogFragment_all">Alle · %1$d</string>
   <!--ReactionsConversationView-->
@@ -1210,7 +1209,7 @@
   <string name="CallParticipantView__you_wont_receive_their_audio_or_video">Du vil ikke modtage deres lyd og billede og de vil ikke modtage dine.</string>
   <string name="CallParticipantView__cant_receive_audio_video_from_s">Der modtages ikke lyd &amp; video fra %1$s</string>
   <string name="CallParticipantView__cant_receive_audio_and_video_from_s">Der modtages ikke lyd og video fra %1$s</string>
-  <string name="CallParticipantView__this_may_be_Because_they_have_not_verified_your_safety_number_change">Dette kan skyldes at de ikke har verificeret dit skifte af sikkerhedsnummer, det er et problem med deres enhed eller at de har blokeret dig.</string>
+  <string name="CallParticipantView__this_may_be_Because_they_have_not_verified_your_safety_number_change">Dette kan skyldes, at de ikke har bekræftet dit sikkerhedsnummerændring, der er et problem med deres enhed, eller de har blokeret dig.</string>
   <!--ProxyBottomSheetFragment-->
   <string name="ProxyBottomSheetFragment_proxy_server">Proxy server</string>
   <string name="ProxyBottomSheetFragment_proxy_address">Proxy-adresse</string>
@@ -1373,7 +1372,7 @@ Modtog en nøgle besked, for en ugyldig protokol-version
   <string name="ThreadRecord_voice_message">Talebesked</string>
   <string name="ThreadRecord_file">Fil</string>
   <string name="ThreadRecord_video">Video</string>
-  <string name="ThreadRecord_chat_session_refreshed">Chatsession opdateret</string>
+  <string name="ThreadRecord_chat_session_refreshed">Chatsession genopfrisket</string>
   <!--UpdateApkReadyListener-->
   <string name="UpdateApkReadyListener_Signal_update">Opdater Molly</string>
   <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">En ny version af Molly er tilgængelig, tap for at opdatere</string>
@@ -1511,7 +1510,7 @@ Modtog en nøgle besked, for en ugyldig protokol-version
   <string name="WebRtcCallActivity__answered_on_a_linked_device">Besvaret på en forbundet enhed</string>
   <string name="WebRtcCallActivity__declined_on_a_linked_device">Afvist på en forbundet enhed</string>
   <string name="WebRtcCallActivity__busy_on_a_linked_device">Optaget på en forbundet enhed</string>
-  <string name="GroupCallSafetyNumberChangeNotification__someone_has_joined_this_call_with_a_safety_number_that_has_changed">Nogen har tilsluttet sig opkaldet med et ændret sikkerhedsnummer.</string>
+  <string name="GroupCallSafetyNumberChangeNotification__someone_has_joined_this_call_with_a_safety_number_that_has_changed">Nogen har deltaget i samtalen med et ændret sikkerhedsnummer.</string>
   <!--WebRtcCallScreen-->
   <string name="WebRtcCallScreen_swipe_up_to_change_views">Stryg op for at skifte skærm</string>
   <!--WebRtcCallScreen V2-->
@@ -1596,7 +1595,7 @@ Modtog en nøgle besked, for en ugyldig protokol-version
   <string name="ConversationUpdateItem_loading">Henter</string>
   <string name="ConversationUpdateItem_learn_more">Læs mere</string>
   <string name="ConversationUpdateItem_join_call">Deltag i samtalen</string>
-  <string name="ConversationUpdateItem_return_to_call">Tilbage til opkald</string>
+  <string name="ConversationUpdateItem_return_to_call">Tilbage til samtalen</string>
   <string name="ConversationUpdateItem_call_is_full">Samtalen er fuld</string>
   <string name="ConversationUpdateItem_invite_friends">Invitér venner</string>
   <!--audio_view-->
@@ -1617,8 +1616,8 @@ Modtog en nøgle besked, for en ugyldig protokol-version
   <string name="safety_number_change_dialog__send_anyway">Send alligevel</string>
   <string name="safety_number_change_dialog__call_anyway">Ring alligevel</string>
   <string name="safety_number_change_dialog__join_call">Deltag i samtalen</string>
-  <string name="safety_number_change_dialog__continue_call">Fortsæt samtale</string>
-  <string name="safety_number_change_dialog__leave_call">Forlad samtale</string>
+  <string name="safety_number_change_dialog__continue_call">Fortsæt samtalen</string>
+  <string name="safety_number_change_dialog__leave_call">Forlad samtalen</string>
   <string name="safety_number_change_dialog__the_following_people_may_have_reinstalled_or_changed_devices">Følgende personer kan have geninstalleret eller skiftet enheder. Bekræft dit sikkerhedsnummer med dem for at sikre privatlivets fred</string>
   <string name="safety_number_change_dialog__view">Vis</string>
   <string name="safety_number_change_dialog__previous_verified">Tidligere bekræftet</string>
@@ -1713,7 +1712,7 @@ Modtog en nøgle besked, for en ugyldig protokol-version
   <string name="CreateProfileActivity_next">Næste</string>
   <string name="CreateProfileActivity__username">Brugernavn</string>
   <string name="CreateProfileActivity__create_a_username">Opret et brugernavn</string>
-  <string name="CreateProfileActivity_custom_mms_group_names_and_photos_will_only_be_visible_to_you">Tilpassede MMS gruppe navne og billeder vil kun være synlige for dig.</string>
+  <string name="CreateProfileActivity_custom_mms_group_names_and_photos_will_only_be_visible_to_you">Tilpassede MMS-gruppenavne og billeder vil kun være synlige for dig.</string>
   <!--EditAboutFragment-->
   <string name="EditAboutFragment_about">Om</string>
   <string name="EditAboutFragment_write_a_few_words_about_yourself">Skriv et par ord om dig selv…</string>
@@ -1724,14 +1723,14 @@ Modtog en nøgle besked, for en ugyldig protokol-version
   <string name="EditAboutFragment_coffee_lover">Kaffeelsker</string>
   <string name="EditAboutFragment_free_to_chat">Gratis at chatte</string>
   <string name="EditAboutFragment_taking_a_break">Tager en pause</string>
-  <string name="EditAboutFragment_working_on_something_new">Arbejder med noget nyt</string>
+  <string name="EditAboutFragment_working_on_something_new">Arbejder på noget nyt</string>
   <!--EditProfileFragment-->
   <string name="EditProfileFragment__edit_group_name_and_photo">Rediger gruppenavn og foto</string>
   <string name="EditProfileFragment__group_name">Gruppenavn</string>
   <!--EditProfileNameFragment-->
   <string name="EditProfileNameFragment_your_name">Dit navn</string>
   <string name="EditProfileNameFragment_first_name">Fornavn</string>
-  <string name="EditProfileNameFragment_last_name_optional">Efternavn (frivilligt)</string>
+  <string name="EditProfileNameFragment_last_name_optional">Efternavn (valgfrit)</string>
   <string name="EditProfileNameFragment_save">Gem</string>
   <string name="EditProfileNameFragment_failed_to_save_due_to_network_issues_try_again_later">Det lykkedes ikke at gemme pga. netværksproblemer. Prøv igen senere.</string>
   <!--recipient_preferences_activity-->
@@ -1788,11 +1787,19 @@ Modtog en nøgle besked, for en ugyldig protokol-version
   <string name="HelpFragment__include_debug_log">Inkludér fejllog</string>
   <string name="HelpFragment__whats_this">Hvad er det?</string>
   <string name="HelpFragment__how_do_you_feel">Hvordan har du det? (Frivilligt)</string>
+  <string name="HelpFragment__tell_us_why_youre_reaching_out">Fortæl os hvorfor du har kontaktet os.</string>
   <string name="HelpFragment__support_info">Support Info</string>
   <string name="HelpFragment__signal_android_support_request">Signal Android support spørgsmål</string>
   <string name="HelpFragment__debug_log">Fejllog:</string>
   <string name="HelpFragment__could_not_upload_logs">Fejl ved afsendelse af logs</string>
   <string name="HelpFragment__please_be_as_descriptive_as_possible">Beskriv venligst problemet så præcist som muligt, for at sikre vi bedst forstår det</string>
+  <string-array name="HelpFragment__categories">
+    <item>Noget virker ikke</item>
+    <item>Funktionsanmodning</item>
+    <item>Spørgsmål</item>
+    <item>Feedback</item>
+    <item>Andet</item>
+  </string-array>
   <!--ReactWithAnyEmojiBottomSheetDialogFragment-->
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__this_message">Denne besked</string>
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__recently_used">Senest brugte</string>
@@ -1843,8 +1850,8 @@ Modtog en nøgle besked, for en ugyldig protokol-version
   <string name="preferences__use_signal_for_viewing_and_storing_all_incoming_multimedia_messages">Brug Signal til alle indgående MMS\'er</string>
   <string name="preferences__pref_enter_sends_title">[Enter] sender besked</string>
   <string name="preferences__pressing_the_enter_key_will_send_text_messages">Tap på [Enter] sender beskeden</string>
-  <string name="preferences__pref_use_address_book_photos">Brug fotos i adressebogen</string>
-  <string name="preferences__display_contact_photos_from_your_address_book_if_available">Vis kontaktbilleder fra din adressebog, hvis de er tilgængelige</string>
+  <string name="preferences__pref_use_address_book_photos">Brug billeder i adressebogen</string>
+  <string name="preferences__display_contact_photos_from_your_address_book_if_available">Vis kontaktbilleder fra din adressebog, hvis tilgængelige</string>
   <string name="preferences__generate_link_previews">Generer eksempelvisning af link</string>
   <string name="preferences__retrieve_link_previews_from_websites_for_messages">Hent eksempelvisninger af links direkte fra websteder til beskeder, som du sender.</string>
   <string name="preferences__choose_identity">Vælg identitet</string>
@@ -1896,7 +1903,7 @@ Modtog en nøgle besked, for en ugyldig protokol-version
   <string name="preferences__mmsc_password">MMSC Kodeord</string>
   <string name="preferences__sms_delivery_reports">Leveringsrapporter for SMS</string>
   <string name="preferences__request_a_delivery_report_for_each_sms_message_you_send">Modtag leveringsrapporter for hver SMS besked du sender</string>
-  <string name="preferences__data_and_storage">Data og lagring</string>
+  <string name="preferences__data_and_storage">Data og lager</string>
   <string name="preferences__storage">Hukommelse</string>
   <string name="preferences__conversation_length_limit">Max. grænse for samtaler</string>
   <string name="preferences__keep_messages">Bevar beskeder</string>
@@ -1961,7 +1968,7 @@ Modtog en nøgle besked, for en ugyldig protokol-version
   <string name="preferences_app_protection__app_access">App adgang</string>
   <string name="preferences_app_protection__communication">Kommunikation</string>
   <string name="preferences_chats__chats">Chats</string>
-  <string name="preferences_data_and_storage__manage_storage">Håndtér lagring</string>
+  <string name="preferences_data_and_storage__manage_storage">Håndtér lager</string>
   <string name="preferences_data_and_storage__calls">Opkald</string>
   <string name="preferences_data_and_storage__use_less_data_for_calls">Brug færre data til opkald</string>
   <string name="preferences_data_and_storage__never">Aldrig</string>
@@ -2053,7 +2060,7 @@ Modtog en nøgle besked, for en ugyldig protokol-version
   <!--conversation_list_fragment-->
   <string name="conversation_list_fragment__fab_content_description">Ny samtale</string>
   <string name="conversation_list_fragment__open_camera_description">Åbn kamera</string>
-  <string name="conversation_list_fragment__no_chats_yet_get_started_by_messaging_a_friend">Ingen chats endnu.\nKom i gang ved at sende en besked til en ven.</string>
+  <string name="conversation_list_fragment__no_chats_yet_get_started_by_messaging_a_friend">Ingen chats endnu.\nKom i gang - send en besked til en ven.</string>
   <!--conversation_secure_verified-->
   <string name="conversation_secure_verified__menu_reset_secure_session">Gendan sikker forbindelse</string>
   <!--conversation_muted-->
@@ -2184,8 +2191,8 @@ Modtog en nøgle besked, for en ugyldig protokol-version
   <string name="RegistrationLockFragment__incorrect_pin">Forkert PIN</string>
   <string name="RegistrationLockFragment__forgot_your_pin">Glemt din PIN?</string>
   <string name="RegistrationLockFragment__not_many_tries_left">Ikke mange forsøg tilbage!</string>
-  <string name="RegistrationLockFragment__signal_registration_need_help_with_pin_for_android_v1_pin">Registrering af Signal - Brug for hjælp til PIN til Android (v1 PIN)</string>
-  <string name="RegistrationLockFragment__signal_registration_need_help_with_pin_for_android_v2_pin">Registrering af Signal - Brug for hjælp til PIN til Android (v2 PIN)</string>
+  <string name="RegistrationLockFragment__signal_registration_need_help_with_pin_for_android_v1_pin">Signal-registrering - Brug for hjælp med PIN-kode til Android (v1 PIN)</string>
+  <string name="RegistrationLockFragment__signal_registration_need_help_with_pin_for_android_v2_pin">Signal-registrering - Brug for hjælp med PIN-kode til Android (v2 PIN)</string>
   <plurals name="RegistrationLockFragment__for_your_privacy_and_security_there_is_no_way_to_recover">
     <item quantity="one">For dit privatliv og din sikkerheds skyld, er det ikke muligt at gendanne din PIN. Hvis du ikke kan huske din PIN, kan du verificere med SMS på ny efter %1$d dages inaktivitet. I sådant tilfælde, vil din konto blive fjernet og alt indhold slettet</item>
     <item quantity="other">For dit privatliv og din sikkerheds skyld, er det ikke muligt at gendanne din PIN. Hvis du ikke kan huske din PIN, kan du verificere med SMS på ny efter %1$d dages inaktivitet. I sådant tilfælde, vil din konto blive fjernet og alt indhold slettet</item>
@@ -2240,9 +2247,13 @@ Modtog en nøgle besked, for en ugyldig protokol-version
   <string name="backup_enable_dialog__folder">Mappe</string>
   <string name="backup_enable_dialog__i_have_written_down_this_passphrase">Jeg har nedskrevet koden. Uden den vil jeg ikke have mulighed for at gendanne fra backup.</string>
   <string name="registration_activity__restore_backup">Gendan backup</string>
+  <string name="registration_activity__transfer_or_restore_account">Overfør eller gendan konto</string>
+  <string name="registration_activity__transfer_account">Overfør konto</string>
   <string name="registration_activity__skip">Spring over</string>
   <string name="preferences_chats__chat_backups">Backup chats</string>
   <string name="preferences_chats__backup_chats_to_external_storage">Backup chats til ekstern placering</string>
+  <string name="preferences_chats__transfer_account">Overfør konto</string>
+  <string name="preferences_chats__transfer_account_to_a_new_android_device">Overfør konto til en ny Android-enhed</string>
   <string name="RegistrationActivity_enter_backup_passphrase">Skriv kodeord for backup</string>
   <string name="RegistrationActivity_restore">Gendan</string>
   <string name="RegistrationActivity_backup_failure_downgrade">Kan ikke importere backups fra nyere versioner af Signal</string>
@@ -2316,6 +2327,118 @@ Modtog en nøgle besked, for en ugyldig protokol-version
   <string name="prompt_passphrase_activity__signal_is_locked">Molly er låst</string>
   <string name="prompt_passphrase_activity__tap_to_unlock">TAP FOR AT LÅSE OP</string>
   <string name="Recipient_unknown">Ukendt</string>
+  <!--TransferOrRestoreFragment-->
+  <string name="TransferOrRestoreFragment__transfer_or_restore_account">Overfør eller gendan konto</string>
+  <string name="TransferOrRestoreFragment__if_you_have_previously_registered_a_signal_account">Hvis du tidligere har registreret en Signal-konto, kan du overføre eller gendanne din konto og beskeder</string>
+  <string name="TransferOrRestoreFragment__transfer_from_android_device">Overfør fra Android-enhed</string>
+  <string name="TransferOrRestoreFragment__transfer_your_account_and_messages_from_your_old_android_device">Overfør din konto og beskeder fra din gamle Android-enhed. Du skal have adgang til din gamle enhed.</string>
+  <string name="TransferOrRestoreFragment__you_need_access_to_your_old_device">Du skal have adgang til din gamle enhed.</string>
+  <string name="TransferOrRestoreFragment__restore_from_backup">Gendan fra sikkerhedskopi</string>
+  <string name="TransferOrRestoreFragment__restore_your_messages_from_a_local_backup">Gendan dine beskeder fra en lokal sikkerhedskopi. Hvis du ikke gendanner nu, kan du ikke gøre det senere.</string>
+  <!--NewDeviceTransferInstructionsFragment-->
+  <string name="NewDeviceTransferInstructions__open_signal_on_your_old_android_phone">Åbn Signal på din gamle Android-telefon.</string>
+  <string name="NewDeviceTransferInstructions__continue">Fortsæt</string>
+  <string name="NewDeviceTransferInstructions__first_bullet">1.</string>
+  <string name="NewDeviceTransferInstructions__tap_on_your_profile_photo_in_the_top_left_to_open_settings">Tryk på dit profilbillede øverst til venstre for at åbne Indstillinger</string>
+  <string name="NewDeviceTransferInstructions__second_bullet">2.</string>
+  <string name="NewDeviceTransferInstructions__tap_on_chats">Tryk på \"Chats\"</string>
+  <string name="NewDeviceTransferInstructions__third_bullet">3.</string>
+  <string name="NewDeviceTransferInstructions__tap_transfer_account_and_then_continue_on_both_devices">Tryk på \"Overfør konto\" og derefter \"Fortsæt\" på begge enheder</string>
+  <!--NewDeviceTransferSetupFragment-->
+  <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">Forbereder forbindelse til den gamle Android-enhed…</string>
+  <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">Tager et øjeblik, vil snart være klar</string>
+  <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">Venter på, at den gamle Android-enhed forbinder…</string>
+  <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Signal kræver placeringstilladelsen for at opspore og forbinde din gamle Android-enhed.</string>
+  <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Signal kræver placeringstjenester aktiveret for at opspore og forbinde med din gamle Android-enhed.</string>
+  <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Signal kræver Wi-Fi til for at opspore og forbinde med din gamle Android-enhed. Wi-Fi skal være tændt, men det behøver ikke at være forbundet til et Wi-Fi-netværk.</string>
+  <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Beklager, denne enhed understøtter ikke Wi-Fi Direct. Signal bruger Wi-Fi Direct til at opspore og forbinde med din gamle Android-enhed. Du kan stadig gendanne en sikkerhedskopi for at gendanne din konto fra din gamle Android-enhed.</string>
+  <string name="NewDeviceTransferSetup__restore_a_backup">Gendan en sikkerhedskopi</string>
+  <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Der opstod en uventet fejl under forbindelsesforsøg til din gamle Android-enhed.</string>
+  <!--OldDeviceTransferSetupFragment-->
+  <string name="OldDeviceTransferSetup__searching_for_new_android_device">Søger efter ny Android-enhed…</string>
+  <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Signal kræver placeringstilladelsen for at opspore og forbinde med din nye Android-enhed.</string>
+  <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Signal kræver placeringstjenester aktiveret for at opspore og forbinde med din nye Android-enhed.</string>
+  <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Signal kræver Wi-Fi til for at opspore og forbinde med din nye Android-enhed. Wi-Fi skal være tændt, men det behøver ikke at være forbundet til et Wi-Fi-netværk.</string>
+  <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Beklager, denne enhed understøtter ikke Wi-Fi Direct. Signal bruger Wi-Fi Direct til at opspore og forbinde med din nye Android-enhed. Du kan stadig gendanne en sikkerhedskopi for at gendanne din konto fra din nye Android-enhed.</string>
+  <string name="OldDeviceTransferSetup__create_a_backup">Opret en sikkerhedskopi</string>
+  <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Der opstod en uventet fejl under forbindelsesforsøg til din nye Android-enhed.</string>
+  <!--DeviceTransferSetupFragment-->
+  <string name="DeviceTransferSetup__unable_to_open_wifi_settings">Wi-Fi-indstillinger kan ikke åbnes. Slå Wi-Fi til manuelt.</string>
+  <string name="DeviceTransferSetup__grant_location_permission">Tildel placeringstilladelser</string>
+  <string name="DeviceTransferSetup__turn_on_location_services">Slå placeringstjenester til</string>
+  <string name="DeviceTransferSetup__unable_to_open_location_settings">Placeringsindstillinger kan ikke åbnes.</string>
+  <string name="DeviceTransferSetup__turn_on_wifi">Aktiver Wi-Fi</string>
+  <string name="DeviceTransferSetup__error_connecting">Forbindelsesfejl</string>
+  <string name="DeviceTransferSetup__retry">Prøv igen</string>
+  <string name="DeviceTransferSetup__submit_debug_logs">Indsend fejlfindingslogfiler</string>
+  <string name="DeviceTransferSetup__verify_code">Bekræft kode</string>
+  <string name="DeviceTransferSetup__verify_that_the_code_below_matches_on_both_of_your_devices">Bekræft, at nedenstående kode matcher på begge dine enheder. Tryk derefter på Fortsæt.</string>
+  <string name="DeviceTransferSetup__the_numbers_do_not_match">Numrene stemmer ikke overens</string>
+  <string name="DeviceTransferSetup__continue">Fortsæt</string>
+  <string name="DeviceTransferSetup__number_is_not_the_same">Nummeret er ikke det samme</string>
+  <string name="DeviceTransferSetup__if_the_numbers_on_your_devices_do_not_match_its_possible_you_connected_to_the_wrong_device">Hvis numrene på dine enheder ikke stemmer overens, er det muligt, at du er forbundet til den forkerte enhed. For at løse dette skal du stoppe overførslen og prøve igen, og holde begge dine enheder tætte.</string>
+  <string name="DeviceTransferSetup__stop_transfer">Stop overførslen</string>
+  <string name="DeviceTransferSetup__unable_to_discover_old_device">Den gamle enhed kan ikke opspores</string>
+  <string name="DeviceTransferSetup__unable_to_discover_new_device">Den nye enhed kan ikke opspores</string>
+  <string name="DeviceTransferSetup__make_sure_the_following_permissions_are_enabled">Sørg for følgende tilladelser og tjenester er aktiveret:</string>
+  <string name="DeviceTransferSetup__location_permission">Placeringstilladelse</string>
+  <string name="DeviceTransferSetup__location_services">Placeringstjenester</string>
+  <string name="DeviceTransferSetup__wifi">Wi-fi</string>
+  <string name="DeviceTransferSetup__on_the_wifi_direct_screen_remove_all_remembered_groups_and_unlink_any_invited_or_connected_devices">På WiFi Direct-skærmen skal du fjerne alle huskede grupper og fjerne linket til inviterede eller forbundne enheder.</string>
+  <string name="DeviceTransferSetup__wifi_direct_screen">WiFi Direct-skærm</string>
+  <string name="DeviceTransferSetup__try_turning_wifi_off_and_on_on_both_devices">Prøv at slå Wi-Fi fra og til på begge enheder.</string>
+  <string name="DeviceTransferSetup__make_sure_both_devices_are_in_transfer_mode">Sørg for begge enheder er i overførselstilstand.</string>
+  <string name="DeviceTransferSetup__go_to_support_page">Gå til supportsiden</string>
+  <string name="DeviceTransferSetup__try_again">Prøv igen</string>
+  <string name="DeviceTransferSetup__waiting_for_other_device">Venter på anden enhed</string>
+  <string name="DeviceTransferSetup__tap_continue_on_your_other_device_to_start_the_transfer">Tryk på Fortsæt på din anden enhed for at starte overførslen.</string>
+  <string name="DeviceTransferSetup__tap_continue_on_your_other_device">Tryk på Fortsæt på din anden enhed…</string>
+  <!--NewDeviceTransferFragment-->
+  <string name="NewDeviceTransfer__cannot_transfer_from_a_newer_version_of_signal">Der kan ikke overføres fra en nyere version af Signal</string>
+  <!--DeviceTransferFragment-->
+  <string name="DeviceTransfer__transferring_data">Overfører data</string>
+  <string name="DeviceTransfer__keep_both_devices_near_each_other">Hold begge enheder tæt ved hinanden. Sluk ikke for enhederne, og hold Signal åbent. Overførsler er end-to-end krypteret</string>
+  <string name="DeviceTransfer__d_messages_so_far">%1$d beskeder indtil videre…</string>
+  <string name="DeviceTransfer__cancel">Annullér</string>
+  <string name="DeviceTransfer__try_again">Prøv igen</string>
+  <string name="DeviceTransfer__stop_transfer_question">Stop overførslen?</string>
+  <string name="DeviceTransfer__stop_transfer">Stop overførslen</string>
+  <string name="DeviceTransfer__all_transfer_progress_will_be_lost">Al overførselsfremgang vil gå tabt.</string>
+  <string name="DeviceTransfer__transfer_failed">Overførslen fejlede</string>
+  <string name="DeviceTransfer__unable_to_transfer">Der kan ikke overføres</string>
+  <!--OldDeviceTransferInstructionsFragment-->
+  <string name="OldDeviceTransferInstructions__transfer_account">Overfør konto</string>
+  <string name="OldDeviceTransferInstructions__you_can_transfer_your_signal_account_when_setting_up_signal_on_a_new_android_device">Du kan overføre din Signal konto ved opsætning af Signal på en ny Android-enhed. Før du fortsætter:</string>
+  <string name="OldDeviceTransferInstructions__first_bullet">1.</string>
+  <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Hent Signal på din nye Android-enhed</string>
+  <string name="OldDeviceTransferInstructions__second_bullet">2.</string>
+  <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">Tryk på \"Overfør eller gendan konto\"</string>
+  <string name="OldDeviceTransferInstructions__third_bullet">3.</string>
+  <string name="OldDeviceTransferInstructions__select_transfer_from_android_device_when_prompted_and_then_continue">Vælg \"Overfør fra Android-enhed\", hvis bedt om det, og derefter \"Fortsæt\". Hold begge enheder i nærheden.</string>
+  <string name="OldDeviceTransferInstructions__continue">Fortsæt</string>
+  <!--OldDeviceTransferComplete-->
+  <string name="OldDeviceTransferComplete__transfer_complete">Overførslen fuldført</string>
+  <string name="OldDeviceTransferComplete__go_to_your_new_device">Gå til din nye enhed</string>
+  <string name="OldDeviceTransferComplete__your_signal_data_has_Been_transferred_to_your_new_device">Dine Signal-data er blevet overført til din nye enhed. For at fuldføre overførslen, skal du fortsætte med registreringen på din nye enhed.</string>
+  <string name="OldDeviceTransferComplete__close">Luk</string>
+  <!--NewDeviceTransferComplete-->
+  <string name="NewDeviceTransferComplete__transfer_successful">Overførslen gennemført</string>
+  <string name="NewDeviceTransferComplete__transfer_complete">Overførslen fuldført</string>
+  <string name="NewDeviceTransferComplete__to_complete_the_transfer_process_you_must_continue_registration">For at fuldføre overførslen, skal du fortsætte med registreringen.</string>
+  <string name="NewDeviceTransferComplete__continue_registration">Fortsæt registreringen</string>
+  <!--DeviceToDeviceTransferService-->
+  <string name="DeviceToDeviceTransferService_content_title">Kontooverførsel</string>
+  <string name="DeviceToDeviceTransferService_status_ready">Forbereder forbindelse til den anden Android-enhed…</string>
+  <string name="DeviceToDeviceTransferService_status_starting_up">Forbereder forbindelse til den anden Android-enhed…</string>
+  <string name="DeviceToDeviceTransferService_status_discovery">Søger efter din anden Android-enhed…</string>
+  <string name="DeviceToDeviceTransferService_status_network_connected">Forbinder til den anden Android-enhed…</string>
+  <string name="DeviceToDeviceTransferService_status_verification_required">Bekræftelse er påkrævet</string>
+  <string name="DeviceToDeviceTransferService_status_service_connected">Overfører kontoen…</string>
+  <!--OldDeviceTransferLockedDialog-->
+  <string name="OldDeviceTransferLockedDialog__complete_registration_on_your_new_device">Gennemfør registreringen på din nye enhed</string>
+  <string name="OldDeviceTransferLockedDialog__your_signal_account_has_been_transferred_to_your_new_device">Din Signal-konto er blevet overført til din nye enhed, men du skal gennemføre registreringen på den for at fortsætte. Signal vil være inaktivt på denne enhed.</string>
+  <string name="OldDeviceTransferLockedDialog__done">Udført</string>
+  <string name="OldDeviceTransferLockedDialog__cancel_and_activate_this_device">Annuller og aktiver denne enhed</string>
   <!--RecipientBottomSheet-->
   <string name="RecipientBottomSheet_block">Blokér</string>
   <string name="RecipientBottomSheet_unblock">Fjern blokering</string>
@@ -2410,7 +2533,7 @@ Modtog en nøgle besked, for en ugyldig protokol-version
   <string name="DeleteAccountFragment__delete_all_your_messages">Slet alle dine beskeder</string>
   <string name="DeleteAccountFragment__no_country_code">Ingen landekode angivet</string>
   <string name="DeleteAccountFragment__no_number">Intet nummer angivet</string>
-  <string name="DeleteAccountFragment__the_phone_number">Det indtastede telefonnummer stemmer ikke overens med din kontos.</string>
+  <string name="DeleteAccountFragment__the_phone_number">Det indtastede telefonnummer matcher ikke med kontoen.</string>
   <string name="DeleteAccountFragment__are_you_sure">Er du sikker på, du vil slette din konto?</string>
   <string name="DeleteAccountFragment__this_will_delete_your_signal_account">Dette vil slette din Signal-konto og nulstille applikationen. Appen vil lukke når processen er færdig.</string>
   <string name="DeleteAccountFragment__failed_to_delete_account">Kontoen kunne ikke slettes . Har du en internetforbindelse?</string>

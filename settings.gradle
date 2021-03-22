@@ -10,9 +10,14 @@ include ':lintchecks'
 include ':paging'
 include ':core-util'
 include ':video'
+include ':device-transfer'
+include ':device-transfer-app'
 
 project(':app').name = 'mollyim-android'
 project(':paging').projectDir = file('paging/lib')
+
+project(':device-transfer').projectDir = file('device-transfer/lib')
+project(':device-transfer-app').projectDir = file('device-transfer/app')
 
 project(':libsignal-service').projectDir = file('libsignal/service')
 

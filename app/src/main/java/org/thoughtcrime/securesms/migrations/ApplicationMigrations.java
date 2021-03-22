@@ -40,7 +40,7 @@ public class ApplicationMigrations {
 
   private static final int LEGACY_CANONICAL_VERSION = 455;
 
-  public static final int CURRENT_VERSION = 27;
+  public static final int CURRENT_VERSION = 28;
 
   private static final class Version {
     static final int SWOON_STICKERS      = 10;
@@ -61,6 +61,7 @@ public class ApplicationMigrations {
     static final int USER_NOTIFICATION   = 25;
     static final int DAY_BY_DAY_STICKERS = 26;
     static final int BLOB_LOCATION       = 27;
+    static final int SYSTEM_NAME_SPLIT   = 28;
   }
 
   /**
@@ -248,6 +249,10 @@ public class ApplicationMigrations {
 
     if (lastSeenVersion < Version.BLOB_LOCATION) {
       jobs.put(Version.BLOB_LOCATION, new BlobStorageLocationMigrationJob());
+    }
+
+    if (lastSeenVersion < Version.SYSTEM_NAME_SPLIT) {
+      jobs.put(Version.SYSTEM_NAME_SPLIT, new DirectoryRefreshMigrationJob());
     }
 
     return jobs;

@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.net.DeprecatedClientPreventionInterceptor;
+import org.thoughtcrime.securesms.net.DeviceTransferBlockingInterceptor;
 import org.thoughtcrime.securesms.net.Network;
 import org.thoughtcrime.securesms.net.RemoteDeprecationDetectorInterceptor;
 import org.thoughtcrime.securesms.net.StandardUserAgentInterceptor;
@@ -177,7 +178,10 @@ public class SignalServiceNetworkAccess {
 
     final String[] fastUrls = {"https://cdn.sstatic.net", "https://github.githubassets.com", "https://pinterest.com", "https://open.scdn.co", "https://www.redditstatic.com"};
 
-    final List<Interceptor> interceptors = Arrays.asList(new StandardUserAgentInterceptor(), new RemoteDeprecationDetectorInterceptor(), new DeprecatedClientPreventionInterceptor());
+    final List<Interceptor> interceptors = Arrays.asList(new StandardUserAgentInterceptor(),
+                                                         new RemoteDeprecationDetectorInterceptor(),
+                                                         new DeprecatedClientPreventionInterceptor(),
+                                                         DeviceTransferBlockingInterceptor.getInstance());
     final Optional<Dns>     dns           = Optional.of(Network.getDns());
     final SocketFactory     socketFactory = Network.getSocketFactory();
 

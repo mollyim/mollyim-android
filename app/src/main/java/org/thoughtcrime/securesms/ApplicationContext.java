@@ -33,6 +33,7 @@ import com.google.android.gms.security.ProviderInstaller;
 
 import org.conscrypt.Conscrypt;
 import org.signal.aesgcmprovider.AesGcmProvider;
+import org.signal.core.util.ThreadUtil;
 import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.logging.Log;
 import org.signal.core.util.logging.LogManager;
@@ -260,7 +261,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
     finalizeMessageRetrieval();
     unregisterKeyEventReceiver();
 
-    Util.runOnMainDelayed(() -> {
+    ThreadUtil.runOnMainDelayed(() -> {
       ApplicationDependencies.getJobManager().shutdown(TimeUnit.SECONDS.toMillis(10));
       KeyCachingService.clearMasterSecret();
       WipeMemoryService.run(this, true);

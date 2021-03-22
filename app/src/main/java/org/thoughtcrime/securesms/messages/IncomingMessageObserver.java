@@ -111,6 +111,10 @@ public class IncomingMessageObserver {
     context.stopService(new Intent(context, ForegroundService.class));
   }
 
+  public synchronized void notifyRegistrationChanged() {
+    notifyAll();
+  }
+
   public synchronized void addDecryptionDrainedListener(@NonNull Runnable listener) {
     decryptionDrainedListeners.add(listener);
     if (decryptionDrained) {

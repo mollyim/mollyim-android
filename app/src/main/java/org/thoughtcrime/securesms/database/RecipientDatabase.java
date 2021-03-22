@@ -39,7 +39,6 @@ import org.thoughtcrime.securesms.groups.v2.processing.GroupsV2StateProcessor;
 import org.thoughtcrime.securesms.jobs.RefreshAttributesJob;
 import org.thoughtcrime.securesms.jobs.RequestGroupV2InfoJob;
 import org.thoughtcrime.securesms.jobs.RetrieveProfileJob;
-import org.thoughtcrime.securesms.mms.PartAuthority;
 import org.thoughtcrime.securesms.profiles.AvatarHelper;
 import org.thoughtcrime.securesms.profiles.ProfileName;
 import org.thoughtcrime.securesms.recipients.Recipient;
@@ -113,7 +112,9 @@ public class RecipientDatabase extends Database {
   private static final String DEFAULT_SUBSCRIPTION_ID   = "default_subscription_id";
   private static final String MESSAGE_EXPIRATION_TIME   = "message_expiration_time";
   public  static final String REGISTERED                = "registered";
-  public  static final String SYSTEM_DISPLAY_NAME       = "system_display_name";
+  public  static final String SYSTEM_JOINED_NAME        = "system_display_name";
+  public  static final String SYSTEM_FAMILY_NAME        = "system_family_name";
+  public  static final String SYSTEM_GIVEN_NAME         = "system_given_name";
   private static final String SYSTEM_PHOTO_URI          = "system_photo_uri";
   public  static final String SYSTEM_PHONE_TYPE         = "system_phone_type";
   public  static final String SYSTEM_PHONE_LABEL        = "system_phone_label";
@@ -157,7 +158,7 @@ public class RecipientDatabase extends Database {
       ID, UUID, USERNAME, PHONE, EMAIL, GROUP_ID, GROUP_TYPE,
       BLOCKED, MESSAGE_RINGTONE, CALL_RINGTONE, MESSAGE_VIBRATE, CALL_VIBRATE, MUTE_UNTIL, COLOR, SEEN_INVITE_REMINDER, DEFAULT_SUBSCRIPTION_ID, MESSAGE_EXPIRATION_TIME, REGISTERED,
       PROFILE_KEY, PROFILE_KEY_CREDENTIAL,
-      SYSTEM_DISPLAY_NAME, SYSTEM_PHOTO_URI, SYSTEM_PHONE_LABEL, SYSTEM_PHONE_TYPE, SYSTEM_CONTACT_URI,
+      SYSTEM_JOINED_NAME, SYSTEM_GIVEN_NAME, SYSTEM_FAMILY_NAME, SYSTEM_PHOTO_URI, SYSTEM_PHONE_LABEL, SYSTEM_PHONE_TYPE, SYSTEM_CONTACT_URI,
       PROFILE_GIVEN_NAME, PROFILE_FAMILY_NAME, SIGNAL_PROFILE_AVATAR, PROFILE_SHARING, LAST_PROFILE_FETCH,
       NOTIFICATION_CHANNEL,
       UNIDENTIFIED_ACCESS_MODE,
@@ -170,15 +171,15 @@ public class RecipientDatabase extends Database {
   };
 
   private static final String[] ID_PROJECTION              = new String[]{ID};
-  private static final String[] SEARCH_PROJECTION          = new String[]{ID, SYSTEM_DISPLAY_NAME, PHONE, EMAIL, SYSTEM_PHONE_LABEL, SYSTEM_PHONE_TYPE, REGISTERED, ABOUT, ABOUT_EMOJI, "COALESCE(" + nullIfEmpty(PROFILE_JOINED_NAME) + ", " + nullIfEmpty(PROFILE_GIVEN_NAME) + ") AS " + SEARCH_PROFILE_NAME, "COALESCE(" + nullIfEmpty(SYSTEM_DISPLAY_NAME) + ", " + nullIfEmpty(PROFILE_JOINED_NAME) + ", " + nullIfEmpty(PROFILE_GIVEN_NAME) + ", " + nullIfEmpty(USERNAME) + ") AS " + SORT_NAME};
-  public  static final String[] SEARCH_PROJECTION_NAMES    = new String[]{ID, SYSTEM_DISPLAY_NAME, PHONE, EMAIL, SYSTEM_PHONE_LABEL, SYSTEM_PHONE_TYPE, REGISTERED, ABOUT, ABOUT_EMOJI, SEARCH_PROFILE_NAME, SORT_NAME};
+  private static final String[] SEARCH_PROJECTION          = new String[]{ID, SYSTEM_JOINED_NAME, PHONE, EMAIL, SYSTEM_PHONE_LABEL, SYSTEM_PHONE_TYPE, REGISTERED, ABOUT, ABOUT_EMOJI, "COALESCE(" + nullIfEmpty(PROFILE_JOINED_NAME) + ", " + nullIfEmpty(PROFILE_GIVEN_NAME) + ") AS " + SEARCH_PROFILE_NAME, "COALESCE(" + nullIfEmpty(SYSTEM_JOINED_NAME) + ", " + nullIfEmpty(SYSTEM_GIVEN_NAME) + ", " + nullIfEmpty(PROFILE_JOINED_NAME) + ", " + nullIfEmpty(PROFILE_GIVEN_NAME) + ", " + nullIfEmpty(USERNAME) + ") AS " + SORT_NAME};
+  public  static final String[] SEARCH_PROJECTION_NAMES    = new String[]{ID, SYSTEM_JOINED_NAME, PHONE, EMAIL, SYSTEM_PHONE_LABEL, SYSTEM_PHONE_TYPE, REGISTERED, ABOUT, ABOUT_EMOJI, SEARCH_PROFILE_NAME, SORT_NAME};
   private static final String[] TYPED_RECIPIENT_PROJECTION = Stream.of(RECIPIENT_PROJECTION)
                                                                    .map(columnName -> TABLE_NAME + "." + columnName)
                                                                    .toList().toArray(new String[0]);
 
   static final String[] TYPED_RECIPIENT_PROJECTION_NO_ID = Arrays.copyOfRange(TYPED_RECIPIENT_PROJECTION, 1, TYPED_RECIPIENT_PROJECTION.length);
 
-  private static final String[] MENTION_SEARCH_PROJECTION  = new String[]{ID, removeWhitespace("COALESCE(" + nullIfEmpty(SYSTEM_DISPLAY_NAME) + ", " + nullIfEmpty(PROFILE_JOINED_NAME) + ", " + nullIfEmpty(PROFILE_GIVEN_NAME) + ", " + nullIfEmpty(USERNAME) + ", " + nullIfEmpty(PHONE) + ")") + " AS " + SORT_NAME};
+  private static final String[] MENTION_SEARCH_PROJECTION  = new String[]{ID, removeWhitespace("COALESCE(" + nullIfEmpty(SYSTEM_JOINED_NAME) + ", " + nullIfEmpty(SYSTEM_GIVEN_NAME) + ", " + nullIfEmpty(PROFILE_JOINED_NAME) + ", " + nullIfEmpty(PROFILE_GIVEN_NAME) + ", " + nullIfEmpty(USERNAME) + ", " + nullIfEmpty(PHONE) + ")") + " AS " + SORT_NAME};
 
   public static final String[] CREATE_INDEXS = new String[] {
       "CREATE INDEX IF NOT EXISTS recipient_dirty_index ON " + TABLE_NAME + " (" + DIRTY + ");",
@@ -339,7 +340,9 @@ public class RecipientDatabase extends Database {
                                             DEFAULT_SUBSCRIPTION_ID   + " INTEGER DEFAULT -1, " +
                                             MESSAGE_EXPIRATION_TIME   + " INTEGER DEFAULT 0, " +
                                             REGISTERED                + " INTEGER DEFAULT " + RegisteredState.UNKNOWN.getId() + ", " +
-                                            SYSTEM_DISPLAY_NAME       + " TEXT DEFAULT NULL, " +
+                                            SYSTEM_GIVEN_NAME         + " TEXT DEFAULT NULL, " +
+                                            SYSTEM_FAMILY_NAME        + " TEXT DEFAULT NULL, " +
+                                            SYSTEM_JOINED_NAME        + " TEXT DEFAULT NULL, " +
                                             SYSTEM_PHOTO_URI          + " TEXT DEFAULT NULL, " +
                                             SYSTEM_PHONE_LABEL        + " TEXT DEFAULT NULL, " +
                                             SYSTEM_PHONE_TYPE         + " INTEGER DEFAULT -1, " +
@@ -698,7 +701,7 @@ public class RecipientDatabase extends Database {
       } else {
         Optional<RecipientId> remapped = RemappedRecords.getInstance().getRecipient(context, id);
         if (remapped.isPresent()) {
-          Log.w(TAG, "Missing recipient, but found it in the remapped records.");
+          Log.w(TAG, "Missing recipient for " + id + ", but found it in the remapped records as " + remapped.get());
           return getRecipientSettings(remapped.get());
         } else {
           throw new MissingRecipientException(id);
@@ -809,17 +812,18 @@ public class RecipientDatabase extends Database {
     }
   }
 
-  public void applyStorageSyncUpdates(@NonNull Collection<SignalContactRecord>               contactInserts,
-                                      @NonNull Collection<RecordUpdate<SignalContactRecord>> contactUpdates,
-                                      @NonNull Collection<SignalGroupV1Record>               groupV1Inserts,
-                                      @NonNull Collection<RecordUpdate<SignalGroupV1Record>> groupV1Updates,
-                                      @NonNull Collection<SignalGroupV2Record>               groupV2Inserts,
-                                      @NonNull Collection<RecordUpdate<SignalGroupV2Record>> groupV2Updates)
+  public boolean applyStorageSyncUpdates(@NonNull Collection<SignalContactRecord>               contactInserts,
+                                         @NonNull Collection<RecordUpdate<SignalContactRecord>> contactUpdates,
+                                         @NonNull Collection<SignalGroupV1Record>               groupV1Inserts,
+                                         @NonNull Collection<RecordUpdate<SignalGroupV1Record>> groupV1Updates,
+                                         @NonNull Collection<SignalGroupV2Record>               groupV2Inserts,
+                                         @NonNull Collection<RecordUpdate<SignalGroupV2Record>> groupV2Updates)
   {
     SQLiteDatabase   db               = databaseHelper.getWritableDatabase();
     IdentityDatabase identityDatabase = DatabaseFactory.getIdentityDatabase(context);
     ThreadDatabase   threadDatabase   = DatabaseFactory.getThreadDatabase(context);
     Set<RecipientId> needsRefresh     = new HashSet<>();
+    boolean          forcePush        = false;
 
     db.beginTransaction();
 
@@ -908,7 +912,9 @@ public class RecipientDatabase extends Database {
         RecipientId recipientId = getByStorageKeyOrThrow(update.getNew().getId().getRaw());
 
         if (StorageSyncHelper.profileKeyChanged(update)) {
-          clearProfileKeyCredential(recipientId);
+          ContentValues clearValues = new ContentValues(1);
+          clearValues.putNull(PROFILE_KEY_CREDENTIAL);
+          update(recipientId, clearValues);
         }
 
         try {
@@ -939,12 +945,17 @@ public class RecipientDatabase extends Database {
       }
 
       for (SignalGroupV1Record insert : groupV1Inserts) {
-        db.insertOrThrow(TABLE_NAME, null, getValuesForStorageGroupV1(insert));
+        long id = db.insertWithOnConflict(TABLE_NAME, null, getValuesForStorageGroupV1(insert), SQLiteDatabase.CONFLICT_IGNORE);
 
-        Recipient recipient = Recipient.externalGroupExact(context, GroupId.v1orThrow(insert.getGroupId()));
+        if (id < 0) {
+          Log.w(TAG, "Duplicate GV1 entry detected! Ignoring, suggesting force-push.");
+          forcePush = true;
+        } else {
+          Recipient recipient = Recipient.externalGroupExact(context, GroupId.v1orThrow(insert.getGroupId()));
 
-        threadDatabase.applyStorageSyncUpdate(recipient.getId(), insert);
-        needsRefresh.add(recipient.getId());
+          threadDatabase.applyStorageSyncUpdate(recipient.getId(), insert);
+          needsRefresh.add(recipient.getId());
+        }
       }
 
       for (RecordUpdate<SignalGroupV1Record> update : groupV1Updates) {
@@ -1012,6 +1023,8 @@ public class RecipientDatabase extends Database {
     for (RecipientId id : needsRefresh) {
       Recipient.live(id).refresh();
     }
+
+    return forcePush;
   }
 
   public void applyStorageSyncUpdates(@NonNull StorageId storageId, SignalAccountRecord update) {
@@ -1142,7 +1155,7 @@ public class RecipientDatabase extends Database {
 
     return values;
   }
-
+  
   private static @NonNull ContentValues getValuesForStorageGroupV2(@NonNull SignalGroupV2Record groupV2) {
     ContentValues values = new ContentValues();
     values.put(GROUP_ID, GroupId.v2(groupV2.getMasterKeyOrThrow()).toString());
@@ -1264,7 +1277,9 @@ public class RecipientDatabase extends Database {
     int     registeredState            = CursorUtil.requireInt(cursor, REGISTERED);
     String  profileKeyString           = CursorUtil.requireString(cursor, PROFILE_KEY);
     String  profileKeyCredentialString = CursorUtil.requireString(cursor, PROFILE_KEY_CREDENTIAL);
-    String  systemDisplayName          = CursorUtil.requireString(cursor, SYSTEM_DISPLAY_NAME);
+    String  systemGivenName            = CursorUtil.requireString(cursor, SYSTEM_GIVEN_NAME);
+    String  systemFamilyName           = CursorUtil.requireString(cursor, SYSTEM_FAMILY_NAME);
+    String  systemDisplayName          = CursorUtil.requireString(cursor, SYSTEM_JOINED_NAME);
     String  systemContactPhoto         = CursorUtil.requireString(cursor, SYSTEM_PHOTO_URI);
     String  systemPhoneLabel           = CursorUtil.requireString(cursor, SYSTEM_PHONE_LABEL);
     String  systemContactUri           = CursorUtil.requireString(cursor, SYSTEM_CONTACT_URI);
@@ -1350,6 +1365,7 @@ public class RecipientDatabase extends Database {
                                  RegisteredState.fromId(registeredState),
                                  profileKey,
                                  profileKeyCredential,
+                                 ProfileName.fromParts(systemGivenName, systemFamilyName),
                                  systemDisplayName,
                                  systemContactPhoto,
                                  systemPhoneLabel,
@@ -1743,7 +1759,7 @@ public class RecipientDatabase extends Database {
 
   public @NonNull List<RecipientId> getSimilarRecipientIds(@NonNull Recipient recipient) {
     SQLiteDatabase db   = databaseHelper.getReadableDatabase();
-    String[] projection = SqlUtil.buildArgs(ID, "COALESCE(" + nullIfEmpty(SYSTEM_DISPLAY_NAME) + ", " + nullIfEmpty(PROFILE_JOINED_NAME) + ") AS checked_name");
+    String[] projection = SqlUtil.buildArgs(ID, "COALESCE(" + nullIfEmpty(SYSTEM_JOINED_NAME) + ", " + nullIfEmpty(PROFILE_JOINED_NAME) + ") AS checked_name");
     String   where      =  "checked_name = ?";
 
     String[] arguments = SqlUtil.buildArgs(recipient.getProfileName().toString());
@@ -2030,7 +2046,9 @@ public class RecipientDatabase extends Database {
     valuesToSet.put(LAST_PROFILE_FETCH, 0);
     valuesToSet.put(PROFILE_SHARING, 0);
     valuesToSet.put(SYSTEM_INFO_PENDING, 0);
-    valuesToSet.putNull(SYSTEM_DISPLAY_NAME);
+    valuesToSet.putNull(SYSTEM_GIVEN_NAME);
+    valuesToSet.putNull(SYSTEM_FAMILY_NAME);
+    valuesToSet.putNull(SYSTEM_JOINED_NAME);
     valuesToSet.putNull(SYSTEM_PHOTO_URI);
     valuesToSet.putNull(SYSTEM_PHONE_LABEL);
     valuesToSet.putNull(SYSTEM_CONTACT_URI);
@@ -2268,7 +2286,7 @@ public class RecipientDatabase extends Database {
     SQLiteDatabase    db      = databaseHelper.getReadableDatabase();
     List<RecipientId> results = new LinkedList<>();
 
-    try (Cursor cursor = db.query(TABLE_NAME, ID_PROJECTION, SYSTEM_DISPLAY_NAME + " IS NOT NULL AND " + SYSTEM_DISPLAY_NAME + " != \"\"", null, null, null, null)) {
+    try (Cursor cursor = db.query(TABLE_NAME, ID_PROJECTION, SYSTEM_JOINED_NAME + " IS NOT NULL AND " + SYSTEM_JOINED_NAME + " != \"\"", null, null, null, null)) {
       while (cursor != null && cursor.moveToNext()) {
         results.add(RecipientId.from(cursor.getLong(cursor.getColumnIndexOrThrow(ID))));
       }
@@ -2281,7 +2299,7 @@ public class RecipientDatabase extends Database {
     String   selection = BLOCKED    + " = ? AND "                                                     +
                          REGISTERED + " = ? AND "                                                     +
                          GROUP_ID   + " IS NULL AND "                                                 +
-                         "(" + SYSTEM_DISPLAY_NAME + " NOT NULL OR " + PROFILE_SHARING + " = ?) AND " +
+                         "(" + SYSTEM_JOINED_NAME + " NOT NULL OR " + PROFILE_SHARING + " = ?) AND " +
                          "(" + SORT_NAME + " NOT NULL OR " + USERNAME + " NOT NULL)";
     String[] args;
 
@@ -2292,7 +2310,7 @@ public class RecipientDatabase extends Database {
       args       = new String[] { "0", String.valueOf(RegisteredState.REGISTERED.getId()), "1", Recipient.self().getId().serialize() };
     }
 
-    String   orderBy   = SORT_NAME + ", " + SYSTEM_DISPLAY_NAME + ", " + SEARCH_PROFILE_NAME + ", " + USERNAME + ", " + PHONE;
+    String   orderBy   = SORT_NAME + ", " + SYSTEM_JOINED_NAME + ", " + SEARCH_PROFILE_NAME + ", " + USERNAME + ", " + PHONE;
 
     return databaseHelper.getReadableDatabase().query(TABLE_NAME, SEARCH_PROJECTION, selection, args, null, null, orderBy);
   }
@@ -2303,7 +2321,7 @@ public class RecipientDatabase extends Database {
     String   selection = BLOCKED     + " = ? AND " +
                          REGISTERED  + " = ? AND " +
                          GROUP_ID    + " IS NULL AND " +
-                         "(" + SYSTEM_DISPLAY_NAME + " NOT NULL OR " + PROFILE_SHARING + " = ?) AND " +
+                         "(" + SYSTEM_JOINED_NAME + " NOT NULL OR " + PROFILE_SHARING + " = ?) AND " +
                          "(" +
                            PHONE     + " GLOB ? OR " +
                            SORT_NAME + " GLOB ? OR " +
@@ -2318,7 +2336,7 @@ public class RecipientDatabase extends Database {
       args       = new String[] { "0", String.valueOf(RegisteredState.REGISTERED.getId()), "1", query, query, query, String.valueOf(Recipient.self().getId().toLong()) };
     }
 
-    String   orderBy   = SORT_NAME + ", " + SYSTEM_DISPLAY_NAME + ", " + SEARCH_PROFILE_NAME + ", " + PHONE;
+    String   orderBy   = SORT_NAME + ", " + SYSTEM_JOINED_NAME + ", " + SEARCH_PROFILE_NAME + ", " + PHONE;
 
     return databaseHelper.getReadableDatabase().query(TABLE_NAME, SEARCH_PROJECTION, selection, args, null, null, orderBy);
   }
@@ -2327,10 +2345,10 @@ public class RecipientDatabase extends Database {
     String   selection = BLOCKED    + " = ? AND " +
                          REGISTERED + " != ? AND " +
                          GROUP_ID   + " IS NULL AND " +
-                         SYSTEM_DISPLAY_NAME + " NOT NULL AND " +
+                         SYSTEM_CONTACT_URI + " NOT NULL AND " +
                          "(" + PHONE + " NOT NULL OR " + EMAIL + " NOT NULL)";
     String[] args      = new String[] { "0", String.valueOf(RegisteredState.REGISTERED.getId()) };
-    String   orderBy   = SYSTEM_DISPLAY_NAME + ", " + PHONE;
+    String   orderBy   = SYSTEM_JOINED_NAME + ", " + PHONE;
 
     return databaseHelper.getReadableDatabase().query(TABLE_NAME, SEARCH_PROJECTION, selection, args, null, null, orderBy);
   }
@@ -2341,15 +2359,15 @@ public class RecipientDatabase extends Database {
     String   selection = BLOCKED    + " = ? AND " +
                          REGISTERED + " != ? AND " +
                          GROUP_ID   + " IS NULL AND " +
-                         SYSTEM_DISPLAY_NAME + " NOT NULL AND " +
+                         SYSTEM_CONTACT_URI + " NOT NULL AND " +
                          "(" + PHONE + " NOT NULL OR " + EMAIL + " NOT NULL) AND " +
                          "(" +
-                           PHONE               + " GLOB ? OR " +
-                           EMAIL               + " GLOB ? OR " +
-                           SYSTEM_DISPLAY_NAME + " GLOB ?" +
+                           PHONE              + " GLOB ? OR " +
+                           EMAIL              + " GLOB ? OR " +
+                           SYSTEM_JOINED_NAME + " GLOB ?" +
                          ")";
     String[] args      = new String[] { "0", String.valueOf(RegisteredState.REGISTERED.getId()), query, query, query };
-    String   orderBy   = SYSTEM_DISPLAY_NAME + ", " + PHONE;
+    String   orderBy   = SYSTEM_JOINED_NAME + ", " + PHONE;
 
     return databaseHelper.getReadableDatabase().query(TABLE_NAME, SEARCH_PROJECTION, selection, args, null, null, orderBy);
   }
@@ -2426,7 +2444,7 @@ public class RecipientDatabase extends Database {
     String   selection = REGISTERED + " = ? AND " +
                          GROUP_ID   + " IS NULL AND " +
                          ID         + " != ? AND " +
-                         "(" + SYSTEM_DISPLAY_NAME + " NOT NULL OR " + ID + " IN (" + subquery + "))";
+                         "(" + SYSTEM_CONTACT_URI + " NOT NULL OR " + ID + " IN (" + subquery + "))";
     String[] args      = new String[] { String.valueOf(RegisteredState.REGISTERED.getId()), Recipient.self().getId().serialize() };
 
     List<Recipient> recipients = new ArrayList<>();
@@ -2726,7 +2744,9 @@ public class RecipientDatabase extends Database {
     uuidValues.put(DEFAULT_SUBSCRIPTION_ID, e164Settings.getDefaultSubscriptionId().or(-1));
     uuidValues.put(MESSAGE_EXPIRATION_TIME, uuidSettings.getExpireMessages() > 0 ? uuidSettings.getExpireMessages() : e164Settings.getExpireMessages());
     uuidValues.put(REGISTERED, RegisteredState.REGISTERED.getId());
-    uuidValues.put(SYSTEM_DISPLAY_NAME, e164Settings.getSystemDisplayName());
+    uuidValues.put(SYSTEM_GIVEN_NAME, e164Settings.getSystemProfileName().getGivenName());
+    uuidValues.put(SYSTEM_FAMILY_NAME, e164Settings.getSystemProfileName().getFamilyName());
+    uuidValues.put(SYSTEM_JOINED_NAME, e164Settings.getSystemProfileName().toString());
     uuidValues.put(SYSTEM_PHOTO_URI, e164Settings.getSystemContactPhotoUri());
     uuidValues.put(SYSTEM_PHONE_LABEL, e164Settings.getSystemPhoneLabel());
     uuidValues.put(SYSTEM_CONTACT_URI, e164Settings.getSystemContactUri());
@@ -2837,14 +2857,19 @@ public class RecipientDatabase extends Database {
     }
 
     public void setSystemContactInfo(@NonNull RecipientId id,
-                                     @Nullable String displayName,
+                                     @NonNull ProfileName systemProfileName,
+                                     @Nullable String systemDisplayName,
                                      @Nullable String photoUri,
                                      @Nullable String systemPhoneLabel,
                                      int systemPhoneType,
                                      @Nullable String systemContactUri)
     {
       ContentValues dirtyQualifyingValues = new ContentValues();
-      dirtyQualifyingValues.put(SYSTEM_DISPLAY_NAME, displayName);
+      String        joinedName            = Util.firstNonNull(systemDisplayName, systemProfileName.toString());
+
+      dirtyQualifyingValues.put(SYSTEM_GIVEN_NAME, systemProfileName.getGivenName());
+      dirtyQualifyingValues.put(SYSTEM_FAMILY_NAME, systemProfileName.getFamilyName());
+      dirtyQualifyingValues.put(SYSTEM_JOINED_NAME, joinedName);
 
       if (update(id, dirtyQualifyingValues)) {
         markDirty(id, DirtyState.UPDATE);
@@ -2857,10 +2882,10 @@ public class RecipientDatabase extends Database {
       refreshQualifyingValues.put(SYSTEM_CONTACT_URI, systemContactUri);
 
       boolean updatedValues = update(id, refreshQualifyingValues);
-      boolean updatedColor  = displayName != null && setColorIfNotSetInternal(id, ContactColors.generateFor(displayName));
+      boolean updatedColor  = !TextUtils.isEmpty(joinedName) && setColorIfNotSetInternal(id, ContactColors.generateFor(joinedName));
 
       if (updatedValues || updatedColor) {
-        pendingContactInfoMap.put(id, new PendingContactInfo(displayName, photoUri, systemPhoneLabel, systemContactUri));
+        pendingContactInfoMap.put(id, new PendingContactInfo(systemProfileName, photoUri, systemPhoneLabel, systemContactUri));
       }
 
       ContentValues otherValues = new ContentValues();
@@ -2895,7 +2920,9 @@ public class RecipientDatabase extends Database {
       ContentValues values = new ContentValues(5);
 
       values.put(SYSTEM_INFO_PENDING, 0);
-      values.put(SYSTEM_DISPLAY_NAME, (String) null);
+      values.put(SYSTEM_GIVEN_NAME, (String) null);
+      values.put(SYSTEM_FAMILY_NAME, (String) null);
+      values.put(SYSTEM_JOINED_NAME, (String) null);
       values.put(SYSTEM_PHOTO_URI, (String) null);
       values.put(SYSTEM_PHONE_LABEL, (String) null);
       values.put(SYSTEM_CONTACT_URI, (String) null);
@@ -2936,6 +2963,7 @@ public class RecipientDatabase extends Database {
     private final RegisteredState                 registered;
     private final byte[]                          profileKey;
     private final ProfileKeyCredential            profileKeyCredential;
+    private final ProfileName                     systemProfileName;
     private final String                          systemDisplayName;
     private final String                          systemContactPhoto;
     private final String                          systemPhoneLabel;
@@ -2978,6 +3006,7 @@ public class RecipientDatabase extends Database {
                       @NonNull  RegisteredState registered,
                       @Nullable byte[] profileKey,
                       @Nullable ProfileKeyCredential profileKeyCredential,
+                      @NonNull ProfileName systemProfileName,
                       @Nullable String systemDisplayName,
                       @Nullable String systemContactPhoto,
                       @Nullable String systemPhoneLabel,
@@ -3018,6 +3047,7 @@ public class RecipientDatabase extends Database {
       this.registered                  = registered;
       this.profileKey                  = profileKey;
       this.profileKeyCredential        = profileKeyCredential;
+      this.systemProfileName           = systemProfileName;
       this.systemDisplayName           = systemDisplayName;
       this.systemContactPhoto          = systemContactPhoto;
       this.systemPhoneLabel            = systemPhoneLabel;
@@ -3122,7 +3152,11 @@ public class RecipientDatabase extends Database {
       return profileKeyCredential;
     }
 
-    public @Nullable String getSystemDisplayName() {
+    public @NonNull ProfileName getSystemProfileName() {
+      return systemProfileName;
+    }
+
+    public @NonNull String getSystemDisplayName() {
       return systemDisplayName;
     }
 
@@ -3310,13 +3344,13 @@ public class RecipientDatabase extends Database {
 
   private static class PendingContactInfo {
 
-    private final String displayName;
-    private final String photoUri;
-    private final String phoneLabel;
-    private final String contactUri;
+    private final ProfileName profileName;
+    private final String      photoUri;
+    private final String      phoneLabel;
+    private final String      contactUri;
 
-    private PendingContactInfo(String displayName, String photoUri, String phoneLabel, String contactUri) {
-      this.displayName = displayName;
+    private PendingContactInfo(@NonNull ProfileName systemProfileName, String photoUri, String phoneLabel, String contactUri) {
+      this.profileName = systemProfileName;
       this.photoUri    = photoUri;
       this.phoneLabel  = phoneLabel;
       this.contactUri  = contactUri;
