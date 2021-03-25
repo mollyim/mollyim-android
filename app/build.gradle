@@ -86,7 +86,7 @@ def getCommitTimestamp() {
 
 def getCommitHash() {
     try {
-        return "git rev-parse --short HEAD".execute().text.trim()
+        return "git rev-parse HEAD".execute().text.trim()
     } catch (ignored) {
         return ""
     }

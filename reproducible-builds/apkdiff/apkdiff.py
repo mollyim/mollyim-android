@@ -5,9 +5,7 @@ import fnmatch
 from zipfile import ZipFile
 
 class ApkDiff:
-    # resources.arsc is ignored due to https://issuetracker.google.com/issues/110237303
-    # May be fixed in Android Gradle Plugin 3.4
-    IGNORE_FILES = ["META-INF/MANIFEST.MF", "META-INF/*.RSA", "META-INF/*.SF", "resources.arsc"]
+    IGNORE_FILES = ["META-INF/MANIFEST.MF", "META-INF/*.RSA", "META-INF/*.SF"]
 
     def compare(self, sourceApk, destinationApk):
         sourceZip      = ZipFile(sourceApk, 'r')
