@@ -20,11 +20,11 @@
     <string name="preferences__automatic_lockdown">Автоматическая блокировка</string>
     <string name="preferences__passphrase_lock">Шифрование базы данных</string>
     <string name="arrays__on_inactivity_timeout">Если вы уйдете какое-то время без разблокировки устройства</string>
-    <string name="preferences__map_none">Никакая</string>
+    <string name="preferences__map_none">Никто</string>
     <string name="preferences__map_terrain">Местность</string>
     <string name="preferences__map_satellite">Спутник</string>
     <string name="preferences__map_hybrid">Гибрид</string>
-    <string name="preferences__map_normal">Нормальная</string>
+    <string name="preferences__map_normal">Обычный</string>
     <string name="arrays__none">Нет</string>
     <string name="NetworkPreferenceFragment_a_valid_port_number_is_between_0_and_65535">Допустимый номер порта от 0 до 65535</string>
     <string name="RegistrationActivity_network_settings">Настройки сети</string>
@@ -46,6 +46,8 @@
     <string name="NetworkPreferenceFragment_molly_wont_connect_without_orbot_which_is_not_installed_on_this_device">Molly не подключится без Orbot, который не установлен на этом устройстве.</string>
     <string name="NetworkPreferenceFragment_get_orbot">Установить Orbot</string>
     <string name="NetworkPreferenceFragment_missing_orbot_app">Отсутствует приложение Orbot</string>
-    <string name="ProxyManager_successfully_started_orbot">Orbot успешно запущен</string>
+    <string name="ProxyManager_successfully_started_orbot">Orbot начал</string>
     <string name="arrays__tor_via_orbot">Tor через Orbot</string>
+    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Периодически проверяйте новые релизы и просите их установить</string>
+    <string name="preferences__autoupdate_molly">Автообновление Molly</string>
 </resources>
