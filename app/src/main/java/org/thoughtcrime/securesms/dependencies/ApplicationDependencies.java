@@ -25,6 +25,7 @@ import org.thoughtcrime.securesms.notifications.MessageNotifier;
 import org.thoughtcrime.securesms.push.SignalServiceNetworkAccess;
 import org.thoughtcrime.securesms.recipients.LiveRecipientCache;
 import org.thoughtcrime.securesms.service.TrimThreadsByDateManager;
+import org.thoughtcrime.securesms.service.webrtc.SignalCallManager;
 import org.thoughtcrime.securesms.shakereport.ShakeToReport;
 import org.thoughtcrime.securesms.util.AppForegroundObserver;
 import org.thoughtcrime.securesms.util.EarlyMessageCache;
@@ -77,6 +78,7 @@ public class ApplicationDependencies {
   private static volatile DatabaseObserver             databaseObserver;
   private static volatile TrimThreadsByDateManager     trimThreadsByDateManager;
   private static volatile ShakeToReport                shakeToReport;
+  private static volatile SignalCallManager            signalCallManager;
 
   @MainThread
   public static void init(@NonNull Provider provider) {
@@ -404,6 +406,18 @@ public class ApplicationDependencies {
     return shakeToReport;
   }
 
+  public static @NonNull SignalCallManager getSignalCallManager() {
+    if (signalCallManager == null) {
+      synchronized (LOCK) {
+        if (signalCallManager == null) {
+          signalCallManager = getProvider().provideSignalCallManager();
+        }
+      }
+    }
+
+    return signalCallManager;
+  }
+
   public static @NonNull AppForegroundObserver getAppForegroundObserver() {
     return appForegroundObserver;
   }
@@ -432,5 +446,6 @@ public class ApplicationDependencies {
     @NonNull DatabaseObserver provideDatabaseObserver();
     @NonNull ShakeToReport provideShakeToReport();
     @NonNull AppForegroundObserver provideAppForegroundObserver();
+    @NonNull SignalCallManager provideSignalCallManager();
   }
 }

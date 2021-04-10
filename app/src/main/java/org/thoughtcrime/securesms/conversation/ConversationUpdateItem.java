@@ -26,6 +26,7 @@ import org.thoughtcrime.securesms.BindableConversationItem;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.VerifyIdentityActivity;
 import org.thoughtcrime.securesms.components.ExpirationTimerView;
+import org.thoughtcrime.securesms.conversation.ui.error.EnableCallNotificationSettingsDialog;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.database.IdentityDatabase.IdentityRecord;
 import org.thoughtcrime.securesms.database.model.GroupCallUpdateDetailsUtil;
@@ -56,7 +57,7 @@ import java.util.concurrent.ExecutionException;
 public final class ConversationUpdateItem extends FrameLayout
                                           implements BindableConversationItem
 {
-  private static final String TAG = ConversationUpdateItem.class.getSimpleName();
+  private static final String TAG = Log.tag(ConversationUpdateItem.class);
 
   private Set<ConversationMessage> batchSelected;
 
@@ -255,10 +256,10 @@ public final class ConversationUpdateItem extends FrameLayout
       actionButton.setVisibility(VISIBLE);
       actionButton.setOnClickListener(v -> {
         if (batchSelected.isEmpty() && eventListener != null) {
-          eventListener.onGroupMigrationLearnMoreClicked(conversationMessage.getMessageRecord().getGroupV1MigrationMembershipChanges());
+          eventListener.onGroupMigrationLearnMoreClicked(messageRecord.getGroupV1MigrationMembershipChanges());
         }
       });
-    } else if (conversationMessage.getMessageRecord().isFailedDecryptionType() &&
+    } else if (messageRecord.isFailedDecryptionType() &&
               (!nextMessageRecord.isPresent() || !nextMessageRecord.get().isFailedDecryptionType()))
     {
       actionButton.setText(R.string.ConversationUpdateItem_learn_more);
@@ -268,15 +269,15 @@ public final class ConversationUpdateItem extends FrameLayout
           eventListener.onDecryptionFailedLearnMoreClicked();
         }
       });
-    } else if (conversationMessage.getMessageRecord().isIdentityUpdate()) {
+    } else if (messageRecord.isIdentityUpdate()) {
       actionButton.setText(R.string.ConversationUpdateItem_learn_more);
       actionButton.setVisibility(VISIBLE);
       actionButton.setOnClickListener(v -> {
         if (batchSelected.isEmpty() && eventListener != null) {
-          eventListener.onSafetyNumberLearnMoreClicked(conversationMessage.getMessageRecord().getIndividualRecipient());
+          eventListener.onSafetyNumberLearnMoreClicked(messageRecord.getIndividualRecipient());
         }
       });
-    } else if (conversationMessage.getMessageRecord().isGroupCall()) {
+    } else if (messageRecord.isGroupCall()) {
       UpdateDescription updateDescription = MessageRecord.getGroupCallUpdateDescription(getContext(), conversationMessage.getMessageRecord().getBody(), true);
       Collection<UUID>  uuids             = updateDescription.getMentioned();
 
@@ -284,7 +285,7 @@ public final class ConversationUpdateItem extends FrameLayout
       if (Util.hasItems(uuids)) {
         if (uuids.contains(TextSecurePreferences.getLocalUuid(getContext()))) {
           text = R.string.ConversationUpdateItem_return_to_call;
-        } else if (GroupCallUpdateDetailsUtil.parse(conversationMessage.getMessageRecord().getBody()).getIsCallFull()) {
+        } else if (GroupCallUpdateDetailsUtil.parse(messageRecord.getBody()).getIsCallFull()) {
           text = R.string.ConversationUpdateItem_call_is_full;
         } else {
           text = R.string.ConversationUpdateItem_join_call;
@@ -303,7 +304,7 @@ public final class ConversationUpdateItem extends FrameLayout
         actionButton.setVisibility(GONE);
         actionButton.setOnClickListener(null);
       }
-    } else if (conversationMessage.getMessageRecord().isSelfCreatedGroup()) {
+    } else if (messageRecord.isSelfCreatedGroup()) {
       actionButton.setText(R.string.ConversationUpdateItem_invite_friends);
       actionButton.setVisibility(VISIBLE);
       actionButton.setOnClickListener(v -> {
@@ -312,11 +313,21 @@ public final class ConversationUpdateItem extends FrameLayout
         }
       });
     } else {
+      if ((messageRecord.isMissedAudioCall() || messageRecord.isMissedVideoCall()) && EnableCallNotificationSettingsDialog.shouldShow(getContext())) {
+        actionButton.setVisibility(VISIBLE);
+        actionButton.setText(R.string.ConversationUpdateItem_enable_call_notifications);
+        actionButton.setOnClickListener(v -> {
+          if (eventListener != null) {
+            eventListener.onEnableCallNotificationsClicked();
+          }
+        });
+      } else {
+        actionButton.setVisibility(GONE);
+        actionButton.setOnClickListener(null);
+      }
       if (messageRecord.isCallLog()) {
         presentTimer(messageRecord);
       }
-      actionButton.setVisibility(GONE);
-      actionButton.setOnClickListener(null);
     }
   }
 

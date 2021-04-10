@@ -44,20 +44,26 @@ public class BluetoothStateManager {
   private boolean          wantsConnection  = false;
 
   public BluetoothStateManager(@NonNull Context context, @Nullable BluetoothStateListener listener) {
-    this.context                     = context.getApplicationContext();
-    this.bluetoothAdapter            = BluetoothAdapter.getDefaultAdapter();
+    this.context = context.getApplicationContext();
+
+    BluetoothAdapter localAdapter = BluetoothAdapter.getDefaultAdapter();
+    if (localAdapter == null) {
+      this.bluetoothAdapter = null;
+      this.listener         = null;
+      this.destroyed        = new AtomicBoolean(true);
+      return;
+    }
+
+    this.bluetoothAdapter            = localAdapter;
+    this.bluetoothScoReceiver        = new BluetoothScoReceiver();
+    this.bluetoothConnectionReceiver = new BluetoothConnectionReceiver();
     this.listener                    = listener;
     this.destroyed                   = new AtomicBoolean(false);
 
-    if (this.bluetoothAdapter == null)
-      return;
-
     requestHeadsetProxyProfile();
 
-    this.bluetoothConnectionReceiver = new BluetoothConnectionReceiver();
     this.context.registerReceiver(bluetoothConnectionReceiver, new IntentFilter(BluetoothHeadset.ACTION_CONNECTION_STATE_CHANGED));
 
-    this.bluetoothScoReceiver = new BluetoothScoReceiver();
     Intent sticky = this.context.registerReceiver(bluetoothScoReceiver, new IntentFilter(getScoChangeIntent()));
 
     if (sticky != null) {
@@ -226,7 +232,7 @@ public class BluetoothStateManager {
   }
 
   public interface BluetoothStateListener {
-    public void onBluetoothStateChanged(boolean isAvailable);
+    void onBluetoothStateChanged(boolean isAvailable);
   }
 
 }

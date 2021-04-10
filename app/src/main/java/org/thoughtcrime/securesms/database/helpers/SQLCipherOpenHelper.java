@@ -82,7 +82,7 @@ import java.util.Set;
 public class SQLCipherOpenHelper extends SQLiteOpenHelper implements SignalDatabase {
 
   @SuppressWarnings("unused")
-  private static final String TAG = SQLCipherOpenHelper.class.getSimpleName();
+  private static final String TAG = Log.tag(SQLCipherOpenHelper.class);
 
   private static final int REACTIONS_UNREAD_INDEX           = 39;
   private static final int RESUMABLE_DOWNLOADS              = 40;

@@ -19,7 +19,7 @@ import java.util.Locale;
 
 public class FcmReceiveService extends FirebaseMessagingService {
 
-  private static final String TAG = FcmReceiveService.class.getSimpleName();
+  private static final String TAG = Log.tag(FcmReceiveService.class);
 
 
   @Override

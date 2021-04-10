@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.util.PushCharacterCalculator;
 
 import java.util.LinkedList;
@@ -14,7 +15,7 @@ import static org.thoughtcrime.securesms.TransportOption.Type;
 
 public class TransportOptions {
 
-  private static final String TAG = TransportOptions.class.getSimpleName();
+  private static final String TAG = Log.tag(TransportOptions.class);
 
   private final List<OnTransportChangedListener> listeners = new LinkedList<>();
 

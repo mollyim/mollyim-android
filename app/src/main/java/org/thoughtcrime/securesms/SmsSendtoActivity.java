@@ -15,7 +15,7 @@ import org.thoughtcrime.securesms.recipients.Recipient;
 
 public class SmsSendtoActivity extends PassphraseRequiredActivity {
 
-  private static final String TAG = SmsSendtoActivity.class.getSimpleName();
+  private static final String TAG = Log.tag(SmsSendtoActivity.class);
 
   @Override
   protected void onCreate(Bundle savedInstanceState, boolean ready) {

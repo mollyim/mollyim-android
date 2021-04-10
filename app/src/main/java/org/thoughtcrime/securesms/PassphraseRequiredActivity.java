@@ -36,7 +36,7 @@ import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import java.util.Locale;
 
 public abstract class PassphraseRequiredActivity extends PassphraseActivity implements MasterSecretListener {
-  private static final String TAG = PassphraseRequiredActivity.class.getSimpleName();
+  private static final String TAG = Log.tag(PassphraseRequiredActivity.class);
 
   public static final String LOCALE_EXTRA      = "locale_extra";
   public static final String NEXT_INTENT_EXTRA = "next_intent";
