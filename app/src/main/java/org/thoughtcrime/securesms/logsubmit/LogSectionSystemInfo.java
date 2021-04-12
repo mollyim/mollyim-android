@@ -14,6 +14,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 
 import org.thoughtcrime.securesms.BuildConfig;
+import org.thoughtcrime.securesms.service.KeyCachingService;
 import org.thoughtcrime.securesms.util.AppSignatureUtil;
 import org.thoughtcrime.securesms.util.ByteUnit;
 import org.thoughtcrime.securesms.util.CensorshipUtil;
@@ -41,6 +42,8 @@ public class LogSectionSystemInfo implements LogSection {
     final PackageManager pm      = context.getPackageManager();
     final StringBuilder  builder = new StringBuilder();
 
+    boolean locked = KeyCachingService.isLocked();
+
     builder.append("Time          : ").append(System.currentTimeMillis()).append('\n');
     builder.append("Manufacturer  : ").append(Build.MANUFACTURER).append("\n");
     builder.append("Model         : ").append(Build.MODEL).append("\n");
@@ -57,12 +60,12 @@ public class LogSectionSystemInfo implements LogSection {
     builder.append("Memclass      : ").append(getMemoryClass(context)).append("\n");
     builder.append("MemInfo       : ").append(getMemoryInfo(context)).append("\n");
     builder.append("OS Host       : ").append(Build.HOST).append("\n");
-    builder.append("Censored      : ").append(getCensoredString(context)).append("\n");
+    builder.append("Censored      : ").append(locked ? "Unknown" : CensorshipUtil.isCensored(context)).append("\n");
     builder.append("Play Services : ").append(getPlayServicesString(context)).append("\n");
-    builder.append("FCM           : ").append(getFcmString(context)).append("\n");
+    builder.append("FCM           : ").append(locked ? "Unknown" : !TextSecurePreferences.isFcmDisabled(context)).append("\n");
     builder.append("BkgRestricted : ").append(Build.VERSION.SDK_INT >= 28 ? DeviceProperties.isBackgroundRestricted(context) : "N/A").append("\n");
     builder.append("Locale        : ").append(Locale.getDefault().toString()).append("\n");
-    builder.append("Linked Devices: ").append(getLinkedDevicesString(context)).append("\n");
+    builder.append("Linked Devices: ").append(locked ? "Unknown" : !TextSecurePreferences.isMultiDevice(context)).append("\n");
     builder.append("First Version : ").append(TextSecurePreferences.getFirstInstallVersion(context)).append("\n");
     builder.append("Days Installed: ").append(VersionTracker.getDaysSinceFirstInstalled(context)).append("\n");
     builder.append("App           : ");
@@ -82,30 +85,6 @@ public class LogSectionSystemInfo implements LogSection {
     builder.append("Package       : ").append(BuildConfig.APPLICATION_ID).append(" (").append(getSigningString(context)).append(")");
 
     return builder;
-  }
-
-  private static @NonNull String getCensoredString(@NonNull Context context) {
-    try {
-      return String.valueOf(CensorshipUtil.isCensored(context));
-    } catch (IllegalStateException e) {
-      return "Unknown";
-    }
-  }
-
-  private static @NonNull String getFcmString(@NonNull Context context) {
-    try {
-      return String.valueOf(!TextSecurePreferences.isFcmDisabled(context));
-    } catch (IllegalStateException e) {
-      return "Unknown";
-    }
-  }
-
-  private static @NonNull String getLinkedDevicesString(@NonNull Context context) {
-    try {
-      return String.valueOf(!TextSecurePreferences.isMultiDevice(context));
-    } catch (IllegalStateException e) {
-      return "Unknown";
-    }
   }
 
   private static @NonNull String getMemoryUsage() {
