@@ -32,7 +32,9 @@ import android.os.SystemClock;
 
 import androidx.core.app.NotificationCompat;
 
+import org.greenrobot.eventbus.EventBus;
 import org.signal.core.util.logging.Log;
+import org.signal.devicetransfer.TransferStatus;
 import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.DummyActivity;
 import org.thoughtcrime.securesms.MainActivity;
@@ -175,8 +177,9 @@ public class KeyCachingService extends Service {
 
     pendingAlarm = false;
 
-    if (ApplicationMigrations.isUpdate(this)) {
-      Log.w(TAG, "Cannot clear key during update.");
+    if (ApplicationMigrations.isUpdate(this) ||
+        EventBus.getDefault().getStickyEvent(TransferStatus.class) != null) {
+      Log.w(TAG, "Cannot clear key during update or device transfer.");
       return;
     }
 
