@@ -19,10 +19,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.InviteActivity;
 import org.thoughtcrime.securesms.R;
-import org.thoughtcrime.securesms.conversationlist.ConversationListFragment;
 import org.thoughtcrime.securesms.groups.ui.creategroup.CreateGroupActivity;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
-import org.thoughtcrime.securesms.util.SmsUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +60,6 @@ public class OnboardingMegaphoneView extends FrameLayout {
 
     private static final int TYPE_GROUP  = 0;
     private static final int TYPE_INVITE = 1;
-    private static final int TYPE_SMS    = 2;
 
     private final Context                   context;
     private final MegaphoneActionController controller;
@@ -97,7 +94,6 @@ public class OnboardingMegaphoneView extends FrameLayout {
       switch (viewType) {
         case TYPE_GROUP:  return new GroupCardViewHolder(view);
         case TYPE_INVITE: return new InviteCardViewHolder(view);
-        case TYPE_SMS:    return new SmsCardViewHolder(view);
         default:          throw new IllegalStateException("Invalid viewType! " + viewType);
       }
     }
@@ -132,10 +128,6 @@ public class OnboardingMegaphoneView extends FrameLayout {
 
       if (SignalStore.onboarding().shouldShowInviteFriends()) {
         data.add(TYPE_INVITE);
-      }
-
-      if (SignalStore.onboarding().shouldShowSms(context)) {
-        data.add(TYPE_SMS);
       }
 
       return data;
@@ -228,35 +220,6 @@ public class OnboardingMegaphoneView extends FrameLayout {
     @Override
     void onCloseClicked() {
       SignalStore.onboarding().setShowInviteFriends(false);
-    }
-  }
-
-  private static class SmsCardViewHolder extends CardViewHolder {
-
-    public SmsCardViewHolder(@NonNull View itemView) {
-      super(itemView);
-    }
-
-    @Override
-    int getButtonStringRes() {
-      return R.string.Megaphones_use_sms;
-    }
-
-    @Override
-    int getImageRes() {
-      return R.drawable.ic_megaphone_use_sms;
-    }
-
-    @Override
-    void onActionClicked(@NonNull MegaphoneActionController controller) {
-      Intent intent = SmsUtil.getSmsRoleIntent(controller.getMegaphoneActivity());
-      controller.onMegaphoneNavigationRequested(intent, ConversationListFragment.SMS_ROLE_REQUEST_CODE);
-      SignalStore.onboarding().setShowSms(false);
-    }
-
-    @Override
-    void onCloseClicked() {
-      SignalStore.onboarding().setShowSms(false);
     }
   }
 }
