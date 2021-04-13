@@ -55,14 +55,16 @@ public final class LiveUpdateMessage {
     return LiveDataUtil.mapAsync(Recipient.live(recipientId).getLiveDataResolved(), createStringInBackground);
   }
 
-  private static @NonNull SpannableString toSpannable(@NonNull Context context, @NonNull UpdateDescription updateDescription, @NonNull String string, @ColorInt int defaultTint) {
-    boolean  isDarkTheme      = ThemeUtil.isDarkTheme(context);
-    int      drawableResource = updateDescription.getIconResource();
-    int      tint             = isDarkTheme ? updateDescription.getDarkTint() : updateDescription.getLightTint();
+  public static int getMessageThemedColor(@NonNull Context context, @NonNull UpdateDescription updateDescription, @ColorInt int defaultTint) {
+    boolean  isDarkTheme = ThemeUtil.isDarkTheme(context);
+    int      tint        = isDarkTheme ? updateDescription.getDarkTint() : updateDescription.getLightTint();
 
-    if (tint == 0) {
-      tint = defaultTint;
-    }
+    return tint == 0 ? defaultTint : tint;
+  }
+
+  private static @NonNull SpannableString toSpannable(@NonNull Context context, @NonNull UpdateDescription updateDescription, @NonNull String string, @ColorInt int defaultTint) {
+    int drawableResource = updateDescription.getIconResource();
+    int tint             = getMessageThemedColor(context, updateDescription, defaultTint);
 
     if (drawableResource == 0) {
       return new SpannableString(string);

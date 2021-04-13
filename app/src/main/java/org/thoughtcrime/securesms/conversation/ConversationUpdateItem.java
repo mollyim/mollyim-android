@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -167,6 +168,10 @@ public final class ConversationUpdateItem extends FrameLayout
 
     present(conversationMessage, nextMessageRecord, conversationRecipient);
 
+    if (messageRecord.isCallLog()) {
+      setTimerColor(updateDescription, textColor);
+    }
+
     presentBackground(shouldCollapse(messageRecord, previousMessageRecord),
                       shouldCollapse(messageRecord, nextMessageRecord),
                       hasWallpaper);
@@ -278,7 +283,7 @@ public final class ConversationUpdateItem extends FrameLayout
         }
       });
     } else if (messageRecord.isGroupCall()) {
-      UpdateDescription updateDescription = MessageRecord.getGroupCallUpdateDescription(getContext(), conversationMessage.getMessageRecord().getBody(), true);
+      UpdateDescription updateDescription = MessageRecord.getGroupCallUpdateDescription(getContext(), messageRecord.getBody(), true);
       Collection<UUID>  uuids             = updateDescription.getMentioned();
 
       int text = 0;
@@ -359,6 +364,10 @@ public final class ConversationUpdateItem extends FrameLayout
     } else {
       timer.setVisibility(View.GONE);
     }
+  }
+
+  private void setTimerColor(@NonNull UpdateDescription updateDescription, @ColorInt int defaultTint) {
+    timer.setColorFilter(LiveUpdateMessage.getMessageThemedColor(getContext(), updateDescription, defaultTint));
   }
 
   private void presentBackground(boolean collapseAbove, boolean collapseBelow, boolean hasWallpaper) {
