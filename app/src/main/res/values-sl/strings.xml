@@ -2517,18 +2517,18 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
   <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">Priprava za povezavo s staro androidno napravo …</string>
   <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">Samo trenutek …</string>
   <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">Čakanje na povezavo s staro andoidno napravo …</string>
-  <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Za zaznavo in povezavo z vašo staro androidno napravo potrebuje Signal dovoljenje za dostop do lokacije.</string>
+  <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Za zaznavo in povezavo z vašo staro androidno napravo potrebuje Molly dovoljenje za dostop do lokacije.</string>
   <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Za zaznavo in povezavo z vašo staro androidno napravo morajo biti na vaši napravi vklopljene lokacijske storitve.</string>
   <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Za zaznavo in povezavo z vašo staro androidno napravo, mora biti vklopljen Wi-Fi, a ni nujno, da je naprava povezana na Wi-Fi omrežje.</string>
-  <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Vaša naprava žal ne omogoča funkcije Wi-Fi Direct. Signal uporablja Wi-Fi Direct za zaznavo in povezavo s staro androidno napravo. Še vedno pa lahko obnovite svoj račun Signal z uvozom podatkov iz varnostne kopije s stare naprave.</string>
+  <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Vaša naprava žal ne omogoča funkcije Wi-Fi Direct. Molly uporablja Wi-Fi Direct za zaznavo in povezavo s staro androidno napravo. Še vedno pa lahko obnovite svoj račun Molly z uvozom podatkov iz varnostne kopije s stare naprave.</string>
   <string name="NewDeviceTransferSetup__restore_a_backup">Obnovi iz varnostne kopije</string>
   <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Pri poskusu povezave z vašo staro androidno napravo je prišlo do nepričakovane napake.</string>
   <!--OldDeviceTransferSetupFragment-->
   <string name="OldDeviceTransferSetup__searching_for_new_android_device">Iskanje vaše nove androidne naprave …</string>
-  <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Za zaznavo in povezavo z vašo novo androidno napravo potrebuje Signal dovoljenje za dostop do lokacije.</string>
+  <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Za zaznavo in povezavo z vašo novo androidno napravo potrebuje Molly dovoljenje za dostop do lokacije.</string>
   <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Za zaznavo in povezavo z vašo novo androidno napravo morate imeti vklopljene lokacijske storitve.</string>
   <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Za zaznavo in povezavo z vašo novo androidno napravo morate imeti vklopjen Wi-Fi, a ni nujno, da je naprava povezana na Wi-Fi omrežje.</string>
-  <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Vaša naprava žal ne omogoča funkcije Wi-Fi Direct. Signal uporablja Wi-Fi Direct za zaznavo in povezavo z vašo novo androidno napravo. Še vedno pa lahko ustvarite lokalno varnostno kopijo in jo prenesete na novo napravo.</string>
+  <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Vaša naprava žal ne omogoča funkcije Wi-Fi Direct. Molly uporablja Wi-Fi Direct za zaznavo in povezavo z vašo novo androidno napravo. Še vedno pa lahko ustvarite lokalno varnostno kopijo in jo prenesete na novo napravo.</string>
   <string name="OldDeviceTransferSetup__create_a_backup">Ustvari varnostno kopijo</string>
   <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Pri poskusu povezave z vašo novo androidno napravo je prišlo do nepričakovane napake.</string>
   <!--DeviceTransferSetupFragment-->
@@ -2566,7 +2566,7 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
   <string name="NewDeviceTransfer__cannot_transfer_from_a_newer_version_of_signal">Prenos iz novejše različice Signala ni mogoč</string>
   <!--DeviceTransferFragment-->
   <string name="DeviceTransfer__transferring_data">Poteka prenos podatkov</string>
-  <string name="DeviceTransfer__keep_both_devices_near_each_other">Napravi naj bosta v neposredni bližini. Ne izklapljajte naprav in pustite Signal odprt. Prenos je med obema napravama je šifriran od-konca-do-konca.</string>
+  <string name="DeviceTransfer__keep_both_devices_near_each_other">Napravi naj bosta v neposredni bližini. Ne izklapljajte naprav in pustite Molly odprt. Prenos je med obema napravama je šifriran od-konca-do-konca.</string>
   <string name="DeviceTransfer__d_messages_so_far">Prenešenih %1$d sporočil …</string>
   <string name="DeviceTransfer__cancel">Prekliči</string>
   <string name="DeviceTransfer__try_again">Poskusi znova</string>
@@ -2579,7 +2579,7 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
   <string name="OldDeviceTransferInstructions__transfer_account">Prenesi račun</string>
   <string name="OldDeviceTransferInstructions__you_can_transfer_your_signal_account_when_setting_up_signal_on_a_new_android_device">Svoj račun Signal lahko prenesete ob nastavljanju aplikacije na novi androidni napravi. Pred začetkom:</string>
   <string name="OldDeviceTransferInstructions__first_bullet">1.</string>
-  <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">namestite Signal na novi androidni napravi</string>
+  <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">namestite Molly na novi androidni napravi</string>
   <string name="OldDeviceTransferInstructions__second_bullet">2.</string>
   <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">tapnite na \"Prenos ali obnovitev računa\"</string>
   <string name="OldDeviceTransferInstructions__third_bullet">3.</string>

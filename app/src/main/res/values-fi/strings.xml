@@ -2359,18 +2359,18 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">Valmistellaan yhteyttä vanhaan Android-laitteeseesi…</string>
   <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">Kohtapuoliin pitäisi olla valmista</string>
   <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">Odotetaan että vanha Android-laite ottaa yhteyttä…</string>
-  <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Signal tarvitsee luvan sijaintitietoihin vanhan Android-laitteesi löytämiseen ja yhdistämiseen.</string>
+  <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Molly tarvitsee luvan sijaintitietoihin vanhan Android-laitteesi löytämiseen ja yhdistämiseen.</string>
   <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Sijaintipalveluiden täytyy olla päällä jotta vanha Android-laitteesi voidaan löytää ja yhdistää.</string>
-  <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Signal tarvitsee Wi-Fi:ä vanhan Android-laitteesi löytämiseen ja yhdistämiseen. Wi-Fi:n pitää olla päällä, mutta sen ei tarvitse olla yhdistettynä mihinkään.</string>
-  <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Näyttää siltä että laitteesi ei tue Wi-Fi Direct:iä. Signal käyttää Wi-Fi Direct:iä vanhan Android-laitteesi löytämiseen ja yhdistämiseen. Voit silti siirtää tietosi varmuuskopion avulla vanhasta laitteestasi.</string>
+  <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Molly tarvitsee Wi-Fi:ä vanhan Android-laitteesi löytämiseen ja yhdistämiseen. Wi-Fi:n pitää olla päällä, mutta sen ei tarvitse olla yhdistettynä mihinkään.</string>
+  <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Näyttää siltä että laitteesi ei tue Wi-Fi Direct:iä. Molly käyttää Wi-Fi Direct:iä vanhan Android-laitteesi löytämiseen ja yhdistämiseen. Voit silti siirtää tietosi varmuuskopion avulla vanhasta laitteestasi.</string>
   <string name="NewDeviceTransferSetup__restore_a_backup">Palauta varmuuskopio</string>
   <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Tapahtui odottamaton virhe yritettäessä otta yhteyttä vanhaan Android-laitteeseesi.</string>
   <!--OldDeviceTransferSetupFragment-->
   <string name="OldDeviceTransferSetup__searching_for_new_android_device">Etsitään uutta Android-laitetta…</string>
-  <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Signal tarvitsee luvan sijaintitietoihin uuden Android-laitteesi löytämiseen ja yhdistämiseen.</string>
+  <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Molly tarvitsee luvan sijaintitietoihin uuden Android-laitteesi löytämiseen ja yhdistämiseen.</string>
   <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Sijaintipalveluiden täytyy olla päällä jotta uusi Android-laitteesi voidaan löytää ja yhdistää.</string>
-  <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Signal tarvitsee Wi-Fi:ä uuden Android-laitteesi löytämiseen ja yhdistämiseen. Wi-Fi:n pitää olla päällä, mutta sen ei tarvitse olla yhdistettynä mihinkään.</string>
-  <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Näyttää siltä että laitteesi ei tue Wi-Fi Direct:iä. Signal käyttää Wi-Fi Direct:iä uuden Android-laitteesi löytämiseen ja yhdistämiseen. Voit silti siirtää tietosi varmuuskopion avulla uuteen laitteeseesi.</string>
+  <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Molly tarvitsee Wi-Fi:ä uuden Android-laitteesi löytämiseen ja yhdistämiseen. Wi-Fi:n pitää olla päällä, mutta sen ei tarvitse olla yhdistettynä mihinkään.</string>
+  <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Näyttää siltä että laitteesi ei tue Wi-Fi Direct:iä. Molly käyttää Wi-Fi Direct:iä uuden Android-laitteesi löytämiseen ja yhdistämiseen. Voit silti siirtää tietosi varmuuskopion avulla uuteen laitteeseesi.</string>
   <string name="OldDeviceTransferSetup__create_a_backup">Luo varmuuskopio</string>
   <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Tapahtui odottamaton virhe yritettäessä otta yhteyttä uuteen Android-laitteeseesi.</string>
   <!--DeviceTransferSetupFragment-->
@@ -2408,7 +2408,7 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <string name="NewDeviceTransfer__cannot_transfer_from_a_newer_version_of_signal">Siirto uudemmasta Signal-versiosta ei ole mahdollista</string>
   <!--DeviceTransferFragment-->
   <string name="DeviceTransfer__transferring_data">Siirretään tietoja</string>
-  <string name="DeviceTransfer__keep_both_devices_near_each_other">Pidä laitteet lähekkäin. Älä sammuta niitä ja pidä Signal päällä. Siirto on päästä päähän salattu.</string>
+  <string name="DeviceTransfer__keep_both_devices_near_each_other">Pidä laitteet lähekkäin. Älä sammuta niitä ja pidä Molly päällä. Siirto on päästä päähän salattu.</string>
   <string name="DeviceTransfer__d_messages_so_far">%1$dviestiä tähän asti…</string>
   <string name="DeviceTransfer__cancel">Peruuta</string>
   <string name="DeviceTransfer__try_again">Yritä uudelleen</string>
@@ -2421,7 +2421,7 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <string name="OldDeviceTransferInstructions__transfer_account">Siirrä tili</string>
   <string name="OldDeviceTransferInstructions__you_can_transfer_your_signal_account_when_setting_up_signal_on_a_new_android_device">Voit siirtää Signal-tilisi ottaessasi Signalin käyttöön uudella Android-laitteellasi. Ennen kuin jatkat:</string>
   <string name="OldDeviceTransferInstructions__first_bullet">1.</string>
-  <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Lataa Signal uuteen Android-laiteeseesi</string>
+  <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Lataa Molly uuteen Android-laiteeseesi</string>
   <string name="OldDeviceTransferInstructions__second_bullet">2.</string>
   <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">Napauta \'Siirrä tai palauta tili\'</string>
   <string name="OldDeviceTransferInstructions__third_bullet">3.</string>

@@ -2287,18 +2287,18 @@
   <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">正在准备连接至旧的 Android 设备…</string>
   <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">请稍等，将很快准备就绪</string>
   <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">正在等待旧的 Android 设备连接…</string>
-  <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Signal 需位置权限，以发现并连接旧的 Android 设备。</string>
-  <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Signal 需已启用的位置服务，以发现并连接旧的 Android 设备。</string>
-  <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Signal 需开启的 Wi-Fi，以发现并连接旧的 Android 设备。Wi-Fi 需开启但不必连接 Wi-Fi 网络。</string>
-  <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">抱歉，该设备好像不支持 Wi-Fi Direct。Signal 通过 Wi-Fi Direct 来发现并连接旧的 Android 设备。仍可通过从旧的 Android 设备还原帐户来还原备份。</string>
+  <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Molly 需位置权限，以发现并连接旧的 Android 设备。</string>
+  <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Molly 需已启用的位置服务，以发现并连接旧的 Android 设备。</string>
+  <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Molly 需开启的 Wi-Fi，以发现并连接旧的 Android 设备。Wi-Fi 需开启但不必连接 Wi-Fi 网络。</string>
+  <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">抱歉，该设备好像不支持 Wi-Fi Direct。Molly 通过 Wi-Fi Direct 来发现并连接旧的 Android 设备。仍可通过从旧的 Android 设备还原帐户来还原备份。</string>
   <string name="NewDeviceTransferSetup__restore_a_backup">还原备份</string>
   <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">尝试连接旧的 Android 设备时，发生意外错误。</string>
   <!--OldDeviceTransferSetupFragment-->
   <string name="OldDeviceTransferSetup__searching_for_new_android_device">正在搜索新的 Android 设备…</string>
-  <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Signal 需位置权限，以发现并连接新的 Android 设备。</string>
-  <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Signal 需已启用的位置服务，以发现并连接新的 Android 设备。</string>
-  <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Signal 需开启的 Wi-Fi，以发现并连接新的 Android 设备。Wi-Fi 需开启但不必连接 Wi-Fi 网络。</string>
-  <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">抱歉，该设备好像不支持 Wi-Fi Direct。Signal 通过 Wi-Fi Direct 来发现并连接新的 Android 设备。仍可通过从新的 Android 设备还原帐户来还原备份。</string>
+  <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Molly 需位置权限，以发现并连接新的 Android 设备。</string>
+  <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Molly 需已启用的位置服务，以发现并连接新的 Android 设备。</string>
+  <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Molly 需开启的 Wi-Fi，以发现并连接新的 Android 设备。Wi-Fi 需开启但不必连接 Wi-Fi 网络。</string>
+  <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">抱歉，该设备好像不支持 Wi-Fi Direct。Molly 通过 Wi-Fi Direct 来发现并连接新的 Android 设备。仍可通过从新的 Android 设备还原帐户来还原备份。</string>
   <string name="OldDeviceTransferSetup__create_a_backup">创建备份</string>
   <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">尝试连接新的 Android 设备时，发生意外错误。</string>
   <!--DeviceTransferSetupFragment-->
@@ -2336,7 +2336,7 @@
   <string name="NewDeviceTransfer__cannot_transfer_from_a_newer_version_of_signal">无法从较新版 Signal 转移</string>
   <!--DeviceTransferFragment-->
   <string name="DeviceTransfer__transferring_data">正在转移数据</string>
-  <string name="DeviceTransfer__keep_both_devices_near_each_other">请确保两个设备互相贴近。不要关闭设备，并保持 Signal 运行。转移是端对端加密的。</string>
+  <string name="DeviceTransfer__keep_both_devices_near_each_other">请确保两个设备互相贴近。不要关闭设备，并保持 Molly 运行。转移是端对端加密的。</string>
   <string name="DeviceTransfer__d_messages_so_far">目前 %1$d 消息…</string>
   <string name="DeviceTransfer__cancel">取消</string>
   <string name="DeviceTransfer__try_again">重试</string>
@@ -2349,7 +2349,7 @@
   <string name="OldDeviceTransferInstructions__transfer_account">转移帐户</string>
   <string name="OldDeviceTransferInstructions__you_can_transfer_your_signal_account_when_setting_up_signal_on_a_new_android_device">在新的 Android 设备上设置 Signal 时，可转移您的 Signal 帐户。在继续下一步之前：</string>
   <string name="OldDeviceTransferInstructions__first_bullet">1.</string>
-  <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">在新的 Android 设备上下载 Signal</string>
+  <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">在新的 Android 设备上下载 Molly</string>
   <string name="OldDeviceTransferInstructions__second_bullet">2.</string>
   <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">点击“转移或还原帐户”</string>
   <string name="OldDeviceTransferInstructions__third_bullet">3.</string>

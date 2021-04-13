@@ -2360,18 +2360,18 @@ Tog emot meddelande för nyckelutbyte för ogiltig protokollversion.</string>
   <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">Förbereder för anslutning till gammal Android-enhet…</string>
   <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">Det tar ett stund, borde vara klart snart</string>
   <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">Väntar på att en gammal Android-enhet ska ansluta…</string>
-  <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Signal behöver platsbehörighet för att upptäcka och ansluta till din gamla Android-enhet.</string>
-  <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Signal behöver platstjänster aktiverade för att upptäcka och ansluta till din gamla Android-enhet.</string>
-  <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Wi-Fi behöver vara aktiverat för att Signal ska upptäcka och ansluta till din gamla Android-enhet. Wi-Fi måste vara på men det behöver inte vara anslutet till ett Wi-Fi-nätverk.</string>
-  <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Tyvärr verkar den här enheten inte stöda Wi-Fi Direct. Signal använder Wi-Fi Direct för att upptäcka och ansluta till din gamla Android-enhet. Du kan fortfarande återställa en säkerhetskopia för att återställa ditt konto från din gamla Android-enhet.</string>
+  <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Molly behöver platsbehörighet för att upptäcka och ansluta till din gamla Android-enhet.</string>
+  <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Molly behöver platstjänster aktiverade för att upptäcka och ansluta till din gamla Android-enhet.</string>
+  <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Wi-Fi behöver vara aktiverat för att Molly ska upptäcka och ansluta till din gamla Android-enhet. Wi-Fi måste vara på men det behöver inte vara anslutet till ett Wi-Fi-nätverk.</string>
+  <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Tyvärr verkar den här enheten inte stöda Wi-Fi Direct. Molly använder Wi-Fi Direct för att upptäcka och ansluta till din gamla Android-enhet. Du kan fortfarande återställa en säkerhetskopia för att återställa ditt konto från din gamla Android-enhet.</string>
   <string name="NewDeviceTransferSetup__restore_a_backup">Återställ en säkerhetskopia</string>
   <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Ett oväntat fel uppstod när du försökte ansluta till din gamla Android-enhet.</string>
   <!--OldDeviceTransferSetupFragment-->
   <string name="OldDeviceTransferSetup__searching_for_new_android_device">Söker efter en ny Android-enhet…</string>
-  <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Signal behöver platsbehörighet för att upptäcka och ansluta till din nya Android-enhet.</string>
-  <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Signal behöver platstjänster aktiverade för att upptäcka och ansluta till din nya Android-enhet.</string>
-  <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Wi-Fi behöver vara aktiverat för att Signal ska upptäcka och ansluta till din nya Android-enhet. Wi-Fi måste vara aktiverat men det behöver inte vara anslutet till ett Wi-Fi-nätverk.</string>
-  <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Tyvärr verkar den här enheten inte stöda Wi-Fi Direct. Signal använder Wi-Fi Direct för att upptäcka och ansluta till din nya Android-enhet. Du kan fortfarande skapa en säkerhetskopia för att återställa ditt konto på din nya Android-enhet.</string>
+  <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Molly behöver platsbehörighet för att upptäcka och ansluta till din nya Android-enhet.</string>
+  <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Molly behöver platstjänster aktiverade för att upptäcka och ansluta till din nya Android-enhet.</string>
+  <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Wi-Fi behöver vara aktiverat för att Molly ska upptäcka och ansluta till din nya Android-enhet. Wi-Fi måste vara aktiverat men det behöver inte vara anslutet till ett Wi-Fi-nätverk.</string>
+  <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Tyvärr verkar den här enheten inte stöda Wi-Fi Direct. Molly använder Wi-Fi Direct för att upptäcka och ansluta till din nya Android-enhet. Du kan fortfarande skapa en säkerhetskopia för att återställa ditt konto på din nya Android-enhet.</string>
   <string name="OldDeviceTransferSetup__create_a_backup">Skapa en säkerhetskopia</string>
   <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Ett oväntat fel uppstod när du försökte ansluta till din nya Android-enhet.</string>
   <!--DeviceTransferSetupFragment-->
@@ -2409,7 +2409,7 @@ Tog emot meddelande för nyckelutbyte för ogiltig protokollversion.</string>
   <string name="NewDeviceTransfer__cannot_transfer_from_a_newer_version_of_signal">Det går inte att överföra från en nyare version av Signal</string>
   <!--DeviceTransferFragment-->
   <string name="DeviceTransfer__transferring_data">Överför data</string>
-  <string name="DeviceTransfer__keep_both_devices_near_each_other">Håll båda enheterna nära varandra. Stäng inte av enheterna och håll Signal öppen. Överföringarna är ände-till-ände-krypterade.</string>
+  <string name="DeviceTransfer__keep_both_devices_near_each_other">Håll båda enheterna nära varandra. Stäng inte av enheterna och håll Molly öppen. Överföringarna är ände-till-ände-krypterade.</string>
   <string name="DeviceTransfer__d_messages_so_far">%1$d meddelanden hittills…</string>
   <string name="DeviceTransfer__cancel">Avbryt</string>
   <string name="DeviceTransfer__try_again">Försök igen</string>
@@ -2422,7 +2422,7 @@ Tog emot meddelande för nyckelutbyte för ogiltig protokollversion.</string>
   <string name="OldDeviceTransferInstructions__transfer_account">Överför konto</string>
   <string name="OldDeviceTransferInstructions__you_can_transfer_your_signal_account_when_setting_up_signal_on_a_new_android_device">Du kan överföra ditt Signal-konto när du ställer in Signal på en ny Android-enhet. Innan du fortsätter:</string>
   <string name="OldDeviceTransferInstructions__first_bullet">1.</string>
-  <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Hämta Signal på din nya Android-enhet</string>
+  <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Hämta Molly på din nya Android-enhet</string>
   <string name="OldDeviceTransferInstructions__second_bullet">2.</string>
   <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">Tryck på \"Överför eller återställ konto\"</string>
   <string name="OldDeviceTransferInstructions__third_bullet">3.</string>

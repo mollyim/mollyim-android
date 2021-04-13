@@ -2353,18 +2353,18 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">Es prepara la connexió amb un dispositiu Android antic…</string>
   <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">Un moment, hauria d’estar llest aviat…</string>
   <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">S\'espera que el dispositiu Android antic es connecti…</string>
-  <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">El Signal necessita el permís d’ubicació per descobrir i connectar-se al dispositiu antic d\'Android.</string>
-  <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">El Signal necessita els serveis d’ubicació habilitats per descobrir i connectar-se al dispositiu antic d\'Android.</string>
-  <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">El Signal necessita la connexió Wi-Fi per descobrir i connectar-se al dispositiu antic d\'Android. La Wi-Fi ha d’estar activa, però no ha d’estar connectat a una xarxa Wi-Fi.</string>
-  <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Sembla que aquest dispositiu no admet Wi-Fi Direct. El Signal usa Wi-Fi Direct per descobrir i connectar-se al dispositiu antic d\'Android. Encara podeu restaurar una còpia de seguretat per restaurar el compte des del dispositiu d\'Android antic.</string>
+  <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">El Molly necessita el permís d’ubicació per descobrir i connectar-se al dispositiu antic d\'Android.</string>
+  <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">El Molly necessita els serveis d’ubicació habilitats per descobrir i connectar-se al dispositiu antic d\'Android.</string>
+  <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">El Molly necessita la connexió Wi-Fi per descobrir i connectar-se al dispositiu antic d\'Android. La Wi-Fi ha d’estar activa, però no ha d’estar connectat a una xarxa Wi-Fi.</string>
+  <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Sembla que aquest dispositiu no admet Wi-Fi Direct. El Molly usa Wi-Fi Direct per descobrir i connectar-se al dispositiu antic d\'Android. Encara podeu restaurar una còpia de seguretat per restaurar el compte des del dispositiu d\'Android antic.</string>
   <string name="NewDeviceTransferSetup__restore_a_backup">Restaura una còpia de seguretat</string>
   <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">S\'ha produït un error inesperat en intentar connectar al dispositiu d\'Android antic.</string>
   <!--OldDeviceTransferSetupFragment-->
   <string name="OldDeviceTransferSetup__searching_for_new_android_device">Se cerca un dispositiu d\'Android nou…</string>
-  <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">El Signal necessita el permís d’ubicació per descobrir i connectar-se al dispositiu d\'Android nou.</string>
-  <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">El Signal necessita els serveis d’ubicació habilitats per descobrir i connectar-se al dispositiu d\'Android nou.</string>
-  <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">El Signal necessita la connexió Wi-Fi per descobrir i connectar-se al dispositiu d\'Android nou. La Wi-Fi ha d’estar activa, però no ha d’estar connectat a una xarxa Wi-Fi.</string>
-  <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Sembla que aquest dispositiu no admet Wi-Fi Direct. El Signal usa Wi-Fi Direct per descobrir i connectar-se al dispositiu d\'Android nou. Encara podeu restaurar una còpia de seguretat per restaurar el compte des del dispositiu d\'Android nou.</string>
+  <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">El Molly necessita el permís d’ubicació per descobrir i connectar-se al dispositiu d\'Android nou.</string>
+  <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">El Molly necessita els serveis d’ubicació habilitats per descobrir i connectar-se al dispositiu d\'Android nou.</string>
+  <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">El Molly necessita la connexió Wi-Fi per descobrir i connectar-se al dispositiu d\'Android nou. La Wi-Fi ha d’estar activa, però no ha d’estar connectat a una xarxa Wi-Fi.</string>
+  <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Sembla que aquest dispositiu no admet Wi-Fi Direct. El Molly usa Wi-Fi Direct per descobrir i connectar-se al dispositiu d\'Android nou. Encara podeu restaurar una còpia de seguretat per restaurar el compte des del dispositiu d\'Android nou.</string>
   <string name="OldDeviceTransferSetup__create_a_backup">Crea una còpia de seguretat</string>
   <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">S\'ha produït un error inesperat en intentar connectar al dispositiu d\'Android nou.</string>
   <!--DeviceTransferSetupFragment-->
@@ -2402,7 +2402,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="NewDeviceTransfer__cannot_transfer_from_a_newer_version_of_signal">No es pot fer la transferència des de versions més recents del Signal.</string>
   <!--DeviceTransferFragment-->
   <string name="DeviceTransfer__transferring_data">Es transfereixen dades</string>
-  <string name="DeviceTransfer__keep_both_devices_near_each_other">Mantingueu els dos dispositius a prop l’un de l’altre. No els apagueu i mantingueu el Signal obert. Les transferències estan encriptades d\'extrem a extrem.</string>
+  <string name="DeviceTransfer__keep_both_devices_near_each_other">Mantingueu els dos dispositius a prop l’un de l’altre. No els apagueu i mantingueu el Molly obert. Les transferències estan encriptades d\'extrem a extrem.</string>
   <string name="DeviceTransfer__d_messages_so_far">%1$d missatges fins ara…</string>
   <string name="DeviceTransfer__cancel">Cancel·la</string>
   <string name="DeviceTransfer__try_again">Torna a provar-ho</string>
@@ -2415,7 +2415,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="OldDeviceTransferInstructions__transfer_account">Transfereix el compte</string>
   <string name="OldDeviceTransferInstructions__you_can_transfer_your_signal_account_when_setting_up_signal_on_a_new_android_device">Podeu transferir el compte del Signal quan el configureu en un dispositiu d\'Android nou. Abans de continuar:</string>
   <string name="OldDeviceTransferInstructions__first_bullet">1.</string>
-  <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Baixeu el Signal al dispositiu d\'Android nou.</string>
+  <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Baixeu el Molly al dispositiu d\'Android nou.</string>
   <string name="OldDeviceTransferInstructions__second_bullet">2.</string>
   <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">Toqueu Transfereix o restaura el compte</string>
   <string name="OldDeviceTransferInstructions__third_bullet">3.</string>
