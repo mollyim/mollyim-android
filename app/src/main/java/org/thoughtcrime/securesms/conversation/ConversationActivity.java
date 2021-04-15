@@ -183,6 +183,7 @@ import org.thoughtcrime.securesms.jobs.GroupV2UpdateSelfProfileKeyJob;
 import org.thoughtcrime.securesms.jobs.RequestGroupV2InfoJob;
 import org.thoughtcrime.securesms.jobs.RetrieveProfileJob;
 import org.thoughtcrime.securesms.jobs.ServiceOutageDetectionJob;
+import org.thoughtcrime.securesms.keyvalue.PaymentsValues;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.linkpreview.LinkPreview;
 import org.thoughtcrime.securesms.linkpreview.LinkPreviewRepository;
@@ -217,6 +218,7 @@ import org.thoughtcrime.securesms.mms.SlideFactory.MediaType;
 import org.thoughtcrime.securesms.mms.StickerSlide;
 import org.thoughtcrime.securesms.mms.VideoSlide;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
+import org.thoughtcrime.securesms.payments.CanNotSendPaymentDialog;
 import org.thoughtcrime.securesms.permissions.Permissions;
 import org.thoughtcrime.securesms.profiles.spoofing.ReviewBannerView;
 import org.thoughtcrime.securesms.profiles.spoofing.ReviewCardDialogFragment;
@@ -481,7 +483,7 @@ public class ConversationActivity extends PassphraseRequiredActivity
   protected void onNewIntent(Intent intent) {
     super.onNewIntent(intent);
     Log.i(TAG, "onNewIntent()");
-
+    
     if (isFinishing()) {
       Log.w(TAG, "Activity is finishing...");
       return;
@@ -1098,6 +1100,14 @@ public class ConversationActivity extends PassphraseRequiredActivity
       case LOCATION:
         AttachmentManager.selectLocation(this, PICK_LOCATION);
         break;
+      case PAYMENT:
+        if (recipient.get().hasProfileKeyCredential()) {
+          AttachmentManager.selectPayment(this, recipient.getId());
+        } else {
+          CanNotSendPaymentDialog.show(this);
+        }
+        break;
+
     }
 
     container.hideCurrentInput(composeText);
@@ -1419,12 +1429,34 @@ public class ConversationActivity extends PassphraseRequiredActivity
         viewModel.getRecentMedia().observe(this, media -> attachmentKeyboardStub.get().onMediaChanged(media));
         attachmentKeyboardStub.get().setCallback(this);
         attachmentKeyboardStub.get().setWallpaperEnabled(recipient.get().hasWallpaper());
+
+        updatePaymentsAvailable();
+
         container.show(composeText, attachmentKeyboardStub.get());
 
         viewModel.onAttachmentKeyboardOpen();
       }
     } else {
       handleManualMmsRequired();
+    }
+  }
+
+  private void updatePaymentsAvailable() {
+    if (!attachmentKeyboardStub.resolved()) {
+      return;
+    }
+
+    PaymentsValues paymentsValues = SignalStore.paymentsValues();
+
+    if (paymentsValues.getPaymentsAvailability().isSendAllowed() &&
+        !recipient.get().isSelf()                                &&
+        !recipient.get().isGroup()                               &&
+        recipient.get().isRegistered()                           &&
+        !recipient.get().isForceSmsSelection())
+    {
+      attachmentKeyboardStub.get().filterAttachmentKeyboardButtons(null);
+    } else {
+      attachmentKeyboardStub.get().filterAttachmentKeyboardButtons(btn -> btn != AttachmentKeyboardButton.PAYMENT);
     }
   }
 
@@ -2294,6 +2326,7 @@ public class ConversationActivity extends PassphraseRequiredActivity
     titleView.setVerified(identityRecords.isVerified());
     setBlockedUserState(recipient, isSecureText, isDefaultSms);
     updateReminders();
+    updatePaymentsAvailable();
     initializeSecurity(isSecureText, isDefaultSms);
 
     if (searchViewItem == null || !searchViewItem.isActionViewExpanded()) {

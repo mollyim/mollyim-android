@@ -38,6 +38,9 @@
   <string name="ApplicationPreferencesActivity_pin_disabled">PIN desativado.</string>
   <string name="ApplicationPreferencesActivity_hide">Ocultar</string>
   <string name="ApplicationPreferencesActivity_hide_reminder">Ocultar lembrete?</string>
+  <string name="ApplicationPreferencesActivity_record_payments_recovery_phrase">Gravar frase de recuperação de pagamentos</string>
+  <string name="ApplicationPreferencesActivity_record_phrase">Gravar frase</string>
+  <string name="ApplicationPreferencesActivity_before_you_can_disable_your_pin">Antes de desativar o seu PIN, você deverá registar a sua frase de recuperação de pagamentos para garantir que pode recuperar a sua conta de pagamentos. </string>
   <!--AppProtectionPreferenceFragment-->
   <plurals name="AppProtectionPreferenceFragment_minutes">
     <item quantity="one">%d minuto</item>
@@ -57,6 +60,7 @@
   <string name="AttachmentKeyboard_location">Localização</string>
   <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">O Molly necessita de permissão para exibir as suas fotografias e vídeos.</string>
   <string name="AttachmentKeyboard_give_access">Conceder acesso</string>
+  <string name="AttachmentKeyboard_payment">Pagamento</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">Não foi possível encontrar uma aplicação para selecionar a multimédia.</string>
   <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">O Molly requer permissão de acesso ao armazenamento de forma a poder anexar fotografias, vídeo e áudio, mas esta foi negada permanentemente. Por favor, aceda ao menu de definições das aplicações do seu telemóvel, selecione a aplicação Molly, e em \"Permissões\" ative \"Armazenamento\" ou \"Memória\". </string>
@@ -163,7 +167,7 @@
   <string name="ConversationItem_error_not_sent_tap_for_details">Não enviada, toque para mais detalhes</string>
   <string name="ConversationItem_error_partially_not_delivered">Enviada parcialmente, toque para mais detalhes</string>
   <string name="ConversationItem_error_network_not_delivered">Falha no envio</string>
-  <string name="ConversationItem_received_key_exchange_message_tap_to_process">Foi recebida uma mensagem para intercâmbio de chaves, toque para processar.</string>
+  <string name="ConversationItem_received_key_exchange_message_tap_to_process">Foi recebida uma mensagem para troca de chaves, toque para processar.</string>
   <string name="ConversationItem_group_action_left">%1$s abandonou o grupo.</string>
   <string name="ConversationItem_click_to_approve_unencrypted">Falha ao enviar, toque para enviar pelo modo inseguro</string>
   <string name="ConversationItem_click_to_approve_unencrypted_sms_dialog_title">Recorrer a SMS não encriptado?</string>
@@ -309,7 +313,7 @@
     <item quantity="other">%d conversas movidas para a caixa de entrada</item>
   </plurals>
   <!--ConversationListItem-->
-  <string name="ConversationListItem_key_exchange_message">Mensagem de intercâmbio de chaves</string>
+  <string name="ConversationListItem_key_exchange_message">Mensagem de troca de chaves</string>
   <!--ConversationListItemAction-->
   <string name="ConversationListItemAction_archived_conversations_d">Conversas arquivadas (%d)</string>
   <!--ConversationTitleView-->
@@ -1240,7 +1244,7 @@
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">O Google Play Services está a ser atualizado ou está temporariamente indisponível. Por favor, tente novamente.</string>
   <string name="RegistrationActivity_terms_and_privacy">Termos e Política de privacidade</string>
   <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">O Molly necessita de aceder aos seus contactos e armazenamento de forma a poder ligar-se com os seus amigos, trocar mensagens e efetuar chamadas seguras.</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">O Molly necessita de aceder aos seus contactos de forma a poder ligar-se a amigos, partilhar mensagens e fazer chamadas seguras</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">O Molly necessita de aceder aos seus contactos de forma a poder ligar-se a amigos, trocar mensagens e fazer chamadas seguras</string>
   <string name="RegistrationActivity_rate_limited_to_service">Fez demasiadas tentativas para registar este número. Por favor, tente mais tarde.</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">Não foi possível ligar ao serviço. Por favor, verifique a sua ligação à rede e tente novamente.</string>
   <plurals name="RegistrationActivity_debug_log_hint">
@@ -1299,10 +1303,10 @@
   <string name="Slide_video">Vídeo</string>
   <!--SmsMessageRecord-->
   <string name="SmsMessageRecord_received_corrupted_key_exchange_message">Recebida mensagem corrompida
-        de intercâmbio de chaves!
+        de troca de chaves!
     </string>
   <string name="SmsMessageRecord_received_key_exchange_message_for_invalid_protocol_version">
-       Recebida mensagem de intercâmbio de chaves para uma versão inválida do protocolo.
+       Recebida mensagem de troca de chaves para uma versão inválida do protocolo.
     </string>
   <string name="SmsMessageRecord_received_message_with_new_safety_number_tap_to_process">Recebida uma mensagem com um número de segurança novo. Toque para a processar e exibir.</string>
   <string name="SmsMessageRecord_secure_session_reset">Reiniciou a sessão segura.</string>
@@ -1411,7 +1415,7 @@
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">Não foi encontrado na área de transferência nenhum número de segurança com o qual comparar </string>
   <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">O Molly requer permissão de acesso à câmara para ler códigos QR, mas esta foi negada permanentemente. Por favor, aceda às definições das aplicações do seu telemóvel, seleccione a aplicação Molly e nas \"Permissões\" ative a \"Câmara\".</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">Não é possível ler um código QR sem permissão de acesso à câmara.</string>
-  <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">Primeiro deverá partilhar mensagens de forma a poder ver o número de segurança de %1$s.</string>
+  <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">Primeiro deverá trocar mensagens de forma a poder ver o número de segurança de %1$s.</string>
   <!--ViewOnceMessageActivity-->
   <!--AudioView-->
   <!--MessageDisplayHelper-->
@@ -1815,6 +1819,7 @@
     <item>Questão</item>
     <item>Feedback</item>
     <item>Outro</item>
+    <item>Pagamentos</item>
   </string-array>
   <!--ReactWithAnyEmojiBottomSheetDialogFragment-->
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__this_message">Esta mensagem</string>
@@ -1859,6 +1864,7 @@
     <item quantity="other">%dh </item>
   </plurals>
   <!--preferences.xml-->
+  <string name="preferences_beta">Beta</string>
   <string name="preferences__sms_mms">SMS e MMS</string>
   <string name="preferences__pref_all_sms_title">Receber todos os SMS</string>
   <string name="preferences__pref_all_mms_title">Receber todos os MMS</string>
@@ -1922,6 +1928,8 @@
   <string name="preferences__request_a_delivery_report_for_each_sms_message_you_send">Pedir um aviso de entrega para cada mensagem de SMS enviada</string>
   <string name="preferences__data_and_storage">Dados e armazenamento</string>
   <string name="preferences__storage">Armazenamento</string>
+  <string name="preferences__payments">Pagamentos</string>
+  <string name="preferences__payments_beta">Pagamentos (Beta)</string>
   <string name="preferences__conversation_length_limit">Limite máximo das conversas</string>
   <string name="preferences__keep_messages">Manter mensagens</string>
   <string name="preferences__clear_message_history">Eliminar histórico de mensagens</string>
@@ -2028,6 +2036,137 @@
   <string name="preferences_enter_proxy_address">Introduza o endereço proxy</string>
   <string name="configurable_single_select__customize_option">Personalizar opção</string>
   <!--Internal only preferences-->
+  <!--Payments-->
+  <string name="PaymentsActivityFragment__all_activity">Toda a atividade</string>
+  <string name="PaymentsAllActivityFragment__all">Tudo</string>
+  <string name="PaymentsAllActivityFragment__sent">Enviada</string>
+  <string name="PaymentsAllActivityFragment__received">Recebida</string>
+  <string name="PaymentsHomeFragment__introducing_payments">Introdução aos pagamentos (Beta)</string>
+  <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Utilize o Molly para enviar e receber MobileCoin, uma nova privacidade focada na moeda digital. Ative para começar a utilizar.</string>
+  <string name="PaymentsHomeFragment__activate_payments">Ativar os pagamentos</string>
+  <string name="PaymentsHomeFragment__activating_payments">A ativar pagamentos…</string>
+  <string name="PaymentsHomeFragment__restore_payments_account">Restaurar a conta de pagamentos</string>
+  <string name="PaymentsHomeFragment__no_recent_activity_yet">Ainda sem atividade recente</string>
+  <string name="PaymentsHomeFragment__pending_requests">Pedidos pendentes</string>
+  <string name="PaymentsHomeFragment__recent_activity">Atividade recente</string>
+  <string name="PaymentsHomeFragment__see_all">Ver tudo</string>
+  <string name="PaymentsHomeFragment__add_funds">Adicionar fundos</string>
+  <string name="PaymentsHomeFragment__send">Enviar</string>
+  <string name="PaymentsHomeFragment__sent_s">Enviado(s) %1$s</string>
+  <string name="PaymentsHomeFragment__received_s">Recebido(s) %1$s</string>
+  <string name="PaymentsHomeFragment__transfer_to_exchange">Transferir para trocar</string>
+  <string name="PaymentsHomeFragment__currency_conversion">Conversão de moeda</string>
+  <string name="PaymentsHomeFragment__deactivate_payments">Desativar pagamentos</string>
+  <string name="PaymentsHomeFragment__recovery_phrase">Frase de recuperação</string>
+  <string name="PaymentsHomeFragment__help">Ajuda</string>
+  <string name="PaymentsHomeFragment__coin_cleanup_fee">Taxa de limpeza de moedas</string>
+  <string name="PaymentsHomeFragment__sent_payment">Pagamento enviado</string>
+  <string name="PaymentsHomeFragment__received_payment">Pagamento recebido</string>
+  <string name="PaymentsHomeFragment__processing_payment">A processar pagamento</string>
+  <string name="PaymentsHomeFragment__unknown_amount">---</string>
+  <string name="PaymentsHomeFragment__currency_conversion_not_available">Conversão de moeda não disponível</string>
+  <string name="PaymentsHomeFragment__cant_display_currency_conversion">Não é possível exibir a conversão de moeda. Verifique a ligação do seu telemóvel e tente novamente. </string>
+  <string name="PaymentsHomeFragment__payments_is_not_available_in_your_region">Os pagamentos não se encontram disponíveis para a sua região.</string>
+  <string name="PaymentsHomeFragment__could_not_enable_payments">Não foi possível ativar os pagamentos. Tente novamente mais tarde.</string>
+  <string name="PaymentsHomeFragment__deactivate_payments_question">Desativar os pagamentos?</string>
+  <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">Você não poderá enviar ou receber MobileCoin no Molly se desativar os pagamentos. </string>
+  <string name="PaymentsHomeFragment__deactivate">Desativar</string>
+  <string name="PaymentsHomeFragment__continue">Continuar</string>
+  <string name="PaymentsHomeFragment__balance_is_not_currently_available">O saldo não se encontra atualmente disponível</string>
+  <string name="PaymentsHomeFragment__payments_deactivated">Pagamentos desativados.</string>
+  <string name="PaymentsHomeFragment__payment_failed">Falha de pagamento</string>
+  <string name="PaymentsHomeFragment__details">Detalhes</string>
+  <string name="PaymentsHomeFragment__you_can_use_signal_to_send">Você pode utilizar o Molly para enviar e receber MobileCoin. Todos os pagamentos estão sujeitos aos \'Termos de utilização\' de MobileCoins e MobileCoin Wallet. Este é um recurso beta, então você pode encontrar alguns problemas de pagamentos ou saldos que poderá perder e que não poderão ser recuperados.</string>
+  <string name="PaymentsHomeFragment__activate">Ativar</string>
+  <string name="PaymentsHomeFragment__view_mobile_coin_terms">Ver termos da MobileCoin</string>
+  <string name="PaymentsHomeFragment__payments_not_available">Os pagamentos no Molly já não estão disponíveis. Você ainda pode transferir fundos para uma troca, mas deixou de poder enviar e receber pagamentos ou adicionar fundos. </string>
+  <!--PaymentsAddMoneyFragment-->
+  <string name="PaymentsAddMoneyFragment__add_funds">Adicionar fundos</string>
+  <string name="PaymentsAddMoneyFragment__your_wallet_address">O endereço da sua carteira</string>
+  <string name="PaymentsAddMoneyFragment__copy">Copiar</string>
+  <string name="PaymentsAddMoneyFragment__copied_to_clipboard">Copiado para a área de transferência</string>
+  <string name="PaymentsAddMoneyFragment__to_add_funds">Para adicionar fundos, envie MobileCoin para o endereço da sua carteira. Inicie uma transação a partir da sua conta numa troca compatível com MobileCoin e, em seguida, digitalize o código QR ou copie o endereço da carteira. </string>
+  <!--PaymentsDetailsFragment-->
+  <string name="PaymentsDetailsFragment__details">Detalhes</string>
+  <string name="PaymentsDetailsFragment__status">Estado</string>
+  <string name="PaymentsDetailsFragment__submitting_payment">A submeter pagamento…</string>
+  <string name="PaymentsDetailsFragment__processing_payment">A processar pagamento…</string>
+  <string name="PaymentsDetailsFragment__payment_complete">Pagamento concluido</string>
+  <string name="PaymentsDetailsFragment__payment_failed">Falha de pagamento</string>
+  <string name="PaymentsDetailsFragment__network_fee">Taxa de rede</string>
+  <string name="PaymentsDetailsFragment__sent_by">Enviado por</string>
+  <string name="PaymentsDetailsFragment__sent_to_s">Enviado por %1$s</string>
+  <string name="PaymentsDetailsFragment__you_on_s_at_s">Você em %1$s às %2$s</string>
+  <string name="PaymentsDetailsFragment__s_on_s_at_s">%1$s em %2$s às %3$s</string>
+  <string name="PaymentsDetailsFragment__to">Para</string>
+  <string name="PaymentsDetailsFragment__from">De</string>
+  <string name="PaymentsDetailsFragment__information">Os detalhes de pagamento incluindo o montante de pagamento e o horário da transação, são parte da MobileCoin Ledger.</string>
+  <string name="PaymentsDetailsFragment__coin_cleanup_fee">Taxa de limpeza de moedas</string>
+  <string name="PaymentsDetailsFragment__coin_cleanup_information">É cobrada uma \"taxa de limpeza de moedas\" que se encontra na sua posse não podem ser combinadas para completar a transação. A limpeza irá permitir-lhe que continue a enviar pagamentos.</string>
+  <string name="PaymentsDetailsFragment__no_details_available">Sem mais detalhes relevantes para esta transação</string>
+  <string name="PaymentsDetailsFragment__sent_payment">Pagamento enviado</string>
+  <string name="PaymentsDetailsFragment__received_payment">Pagamento recebido</string>
+  <string name="PaymentsDeatilsFragment__payment_completed_s">Pagamento concluido %1$s</string>
+  <string name="PaymentsDetailsFragment__block_number">Bloquear número</string>
+  <!--PaymentsTransferFragment-->
+  <string name="PaymentsTransferFragment__transfer">Transferir</string>
+  <string name="PaymentsTransferFragment__scan_qr_code">Ler código QR</string>
+  <string name="PaymentsTransferFragment__to_scan_or_enter_wallet_address">Para: Digitalize ou introduza o endereço da carteira</string>
+  <string name="PaymentsTransferFragment__you_can_transfer">Você pode transferir o MobileCoin ao terminar uma transferência para o endereço da carteira fornecido pela troca. O endereço da carteira é a sequência de números e letras mais comumente abaixo do código QR.</string>
+  <string name="PaymentsTransferFragment__next">Seguinte</string>
+  <string name="PaymentsTransferFragment__invalid_address">Endereço inválido</string>
+  <string name="PaymentsTransferFragment__check_the_wallet_address">Confirme o endereço da carteira para a qual está a tentar transferir e tente novamente.</string>
+  <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">Não pode transferir para o seu próprio endereço da carteira Molly. Introduza o endereço de carteira  da sua conta numa transação suportada.</string>
+  <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">Para digitalizar um código QR, o Molly necessita de aceder à câmara.</string>
+  <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">O Molly necessita de permissão de Câmara para capturar um código QR. Vá até às definições, selecione \"Permissões\" e, ative \"Câmara\".</string>
+  <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">Para digitalizar um código QR, o Molly necessita de aceder à câmara.</string>
+  <string name="PaymentsTransferFragment__settings">Definições</string>
+  <!--PaymentsTransferQrScanFragment-->
+  <string name="PaymentsTransferQrScanFragment__scan_address_qr_code">Digitalizar código QR do endereço</string>
+  <string name="PaymentsTransferQrScanFragment__scan_the_address_qr_code_of_the_payee">Digitalize o código QR do endereço do beneficiário</string>
+  <!--CreatePaymentFragment-->
+  <string name="CreatePaymentFragment__request">Pedido</string>
+  <string name="CreatePaymentFragment__pay">Pagar</string>
+  <string name="CreatePaymentFragment__available_balance_s">Saldo disponível: %1$s</string>
+  <string name="CreatePaymentFragment__toggle_content_description">Alternar</string>
+  <string name="CreatePaymentFragment__1">1</string>
+  <string name="CreatePaymentFragment__2">2</string>
+  <string name="CreatePaymentFragment__3">3</string>
+  <string name="CreatePaymentFragment__4">4</string>
+  <string name="CreatePaymentFragment__5">5</string>
+  <string name="CreatePaymentFragment__6">6</string>
+  <string name="CreatePaymentFragment__7">7</string>
+  <string name="CreatePaymentFragment__8">8</string>
+  <string name="CreatePaymentFragment__9">9</string>
+  <string name="CreatePaymentFragment__decimal">.</string>
+  <string name="CreatePaymentFragment__0">0</string>
+  <string name="CreatePaymentFragment__lt">&lt;</string>
+  <string name="CreatePaymentFragment__backspace">Backspace</string>
+  <string name="CreatePaymentFragment__add_note">Adicionar nota</string>
+  <string name="CreatePaymentFragment__conversions_are_just_estimates">As conversas são apenas estimativas e poderão não ser precisas.</string>
+  <!--EditNoteFragment-->
+  <string name="EditNoteFragment_note">Nota</string>
+  <!--ConfirmPaymentFragment-->
+  <string name="ConfirmPayment__confirm_payment">Confirmar pagamento</string>
+  <string name="ConfirmPayment__network_fee">Taxa de rede</string>
+  <string name="ConfirmPayment__error_getting_fee">Erro ao tentar obter taxa</string>
+  <string name="ConfirmPayment__estimated_s">Estimado %1$s</string>
+  <string name="ConfirmPayment__to">Para</string>
+  <string name="ConfirmPayment__total_amount">Montante total</string>
+  <string name="ConfirmPayment__balance_s">Saldo: %1$s</string>
+  <string name="ConfirmPayment__submitting_payment">A submeter pagamento…</string>
+  <string name="ConfirmPayment__processing_payment">A processar pagamento…</string>
+  <string name="ConfirmPayment__payment_complete">Pagamento concluido</string>
+  <string name="ConfirmPayment__payment_failed">Falha de pagamento</string>
+  <string name="ConfirmPayment__payment_will_continue_processing">O pagamento irá continuar a ser processado</string>
+  <string name="ConfirmPaymentFragment__invalid_recipient">Destinatário inválido</string>
+  <string name="ConfirmPaymentFragment__this_person_has_not_activated_payments">Este utilizador não ativou os pagamentos</string>
+  <string name="ConfirmPaymentFragment__unable_to_request_a_network_fee">Não foi possível pedir uma taxa de rede. Para continuar este pagamento, clique em OK e tente novamente.</string>
+  <!--CurrencyAmountFormatter_s_at_s-->
+  <string name="CurrencyAmountFormatter_s_at_s">%1$s em %2$s</string>
+  <!--SetCurrencyFragment-->
+  <string name="SetCurrencyFragment__set_currency">Definir moeda</string>
+  <string name="SetCurrencyFragment__all_currencies">Todas as moedas</string>
   <!--****************************************-->
   <!--menus-->
   <!--****************************************-->
@@ -2456,6 +2595,11 @@
   <string name="OldDeviceTransferLockedDialog__your_signal_account_has_been_transferred_to_your_new_device">A sua conta do Signal foi transferida para o seu novo dispositivo, mas você deverá concluir o seu registo para continuar. O Signal ficará inativo neste dispositivo. </string>
   <string name="OldDeviceTransferLockedDialog__done">Concluído</string>
   <string name="OldDeviceTransferLockedDialog__cancel_and_activate_this_device">Cancelar e ativar este dispositivo</string>
+  <!--AdvancedPreferenceFragment-->
+  <string name="AdvancedPreferenceFragment__transfer_mob_balance">Transferir saldo MOB?</string>
+  <string name="AdvancedPreferenceFragment__you_have_a_balance_of_s">Tem um saldo de %1$s. Se não transferir os seus fundos para outro endereço de carteira antes de eliminar a sua conta, você irá perdê-lo para sempre.</string>
+  <string name="AdvancedPreferenceFragment__dont_transfer">Não transferir</string>
+  <string name="AdvancedPreferenceFragment__transfer">Transferir</string>
   <!--RecipientBottomSheet-->
   <string name="RecipientBottomSheet_block">Bloquear</string>
   <string name="RecipientBottomSheet_unblock">Desbloquear</string>
@@ -2548,6 +2692,7 @@
   <string name="DeleteAccountFragment__delete_account">Eliminar conta</string>
   <string name="DeleteAccountFragment__delete_your_account_info_and_profile_photo">Eliminar a sua informação de conta e fotografia de perfil</string>
   <string name="DeleteAccountFragment__delete_all_your_messages">Eliminar todas as suas mensagens</string>
+  <string name="DeleteAccountFragment__delete_s_in_your_payments_account">Eliminar %1$s na sua conta de pagamentos</string>
   <string name="DeleteAccountFragment__no_country_code">Sem código de país especificado</string>
   <string name="DeleteAccountFragment__no_number">Sem número especificado</string>
   <string name="DeleteAccountFragment__the_phone_number">O número de telemóvel que introduziu não coincide com as suas contas.</string>
@@ -2602,5 +2747,83 @@
   <string name="WallpaperCropActivity__set_wallpaper_for_s">Definir fundo de ecrã para %s.</string>
   <string name="WallpaperCropActivity__error_setting_wallpaper">Ocorreu um erro ao tentar definir o fundo de ecrã.</string>
   <string name="WallpaperCropActivity__blur_photo">Desfocar fotografia</string>
+  <!--InfoCard-->
+  <string name="payment_info_card_about_mobilecoin">Acerca da MobileCoin</string>
+  <string name="payment_info_card_mobilecoin_is_a_new_privacy_focused_digital_currency">MobileCoin é uma privacidade nova focada em moeda digital.</string>
+  <string name="payment_info_card_adding_funds">Adicionando fundos</string>
+  <string name="payment_info_card_you_can_add_funds_for_use_in">Você pode adicionar fundos para utilizar no Molly ao adicionar a MobileCoin ao seu endereço de carteira.</string>
+  <string name="payment_info_card_cashing_out">Tirar dinheiro</string>
+  <string name="payment_info_card_you_can_cash_out_mobilecoin">Você pode tirar o dinheiro da MobileCoin a qualquer momento numa transferência que suporte a MobileCoin. Apenas necessita de fazer uma transferência para a sua conta nessa troca.</string>
+  <string name="payment_info_card_hide_this_card">Ocultar este cartão?</string>
+  <string name="payment_info_card_hide">Ocultar</string>
+  <string name="payment_info_card_record_recovery_phrase">Gravar a frase de recuperação</string>
+  <string name="payment_info_card_your_recovery_phrase_gives_you">A sua frase de recuperação dá-lhe outra forma de restaurar a sua conta de pagamentos.</string>
+  <string name="payment_info_card_record_your_phrase">Gravar a sua frase</string>
+  <string name="payment_info_card_update_your_pin">Atualizar o seu PIN</string>
+  <string name="payment_info_card_with_a_high_balance">Com um saldo alto, você poderá querer atualizar para um PIN alfanumérico ou adicionar mais proteção à sua conta.</string>
+  <string name="payment_info_card_update_pin">Atualizar PIN</string>
+  <!--DeactivateWalletFragment-->
+  <string name="DeactivateWalletFragment__deactivate_wallet">Desativar carteira</string>
+  <string name="DeactivateWalletFragment__your_balance">O seu saldo</string>
+  <string name="DeactivateWalletFragment__its_recommended_that_you">É recomendado que transfira os seus fundos para outro endereço de carteira antes de desativar os pagamentos. Se escolher não transferir os seus fundos agora, eles irão permanecer na sua carteira ligada ao Molly caso reative os pagamentos.</string>
+  <string name="DeactivateWalletFragment__transfer_remaining_balance">Transferir o saldo restante</string>
+  <string name="DeactivateWalletFragment__deactivate_without_transferring">Desativar sem transferir</string>
+  <string name="DeactivateWalletFragment__deactivate">Desativar</string>
+  <string name="DeactivateWalletFragment__deactivate_without_transferring_question">Desativar sem transferir?</string>
+  <string name="DeactivateWalletFragment__your_balance_will_remain">O seu saldo irá ficar na sua carteira ligada ao Molly caso escolha reativar os pagamentos.</string>
+  <string name="DeactivateWalletFragment__error_deactivating_wallet">Erro ao desativar a carteira.</string>
+  <!--PaymentsRecoveryStartFragment-->
+  <string name="PaymentsRecoveryStartFragment__recovery_phrase">Recuperar frase</string>
+  <string name="PaymentsRecoveryStartFragment__view_recovery_phrase">Ver frase de recuperação</string>
+  <string name="PaymentsRecoveryStartFragment__enter_recovery_phrase">Introduzir a frase de recuperação</string>
+  <string name="PaymentsRecoveryStartFragment__your_balance_will_automatically_restore">O seu saldo será restaurado automaticamente quando você reinstalar o Signal se você confirmar o PIN do Signal. Você também pode restaurar o seu saldo utilizando uma frase de recuperação, que é uma frase única para si de %1$d palavras. Anote-a e guarde-a num local seguro.</string>
+  <string name="PaymentsRecoveryStartFragment__your_recovery_phrase_is_a">A sua frase de recuperação é uma frase única para si com %1$d palavras. Utilize esta frase para restaurar o seu saldo.</string>
+  <string name="PaymentsRecoveryStartFragment__start">Iniciar</string>
+  <string name="PaymentsRecoveryStartFragment__enter_manually">Introduzir manualmente</string>
+  <string name="PaymentsRecoveryStartFragment__paste_from_clipboard">Copiar da área de transferência</string>
+  <!--PaymentsRecoveryPasteFragment-->
+  <string name="PaymentsRecoveryPasteFragment__paste_recovery_phrase">Colar frase de recuperação</string>
+  <string name="PaymentsRecoveryPasteFragment__recovery_phrase">Frase de recuperação</string>
+  <string name="PaymentsRecoveryPasteFragment__next">Seguinte</string>
+  <string name="PaymentsRecoveryPasteFragment__invalid_recovery_phrase">Frase de recuperação inválida</string>
+  <string name="PaymentsRecoveryPasteFragment__make_sure">Certifique-se que introduziu %1$d palavras e tente novamente.</string>
+  <!--PaymentsRecoveryPhraseFragment-->
+  <string name="PaymentsRecoveryPhraseFragment__next">Seguinte</string>
+  <string name="PaymentsRecoveryPhraseFragment__edit">Editar</string>
+  <string name="PaymentsRecoveryPhraseFragment__previous">Anterior</string>
+  <string name="PaymentsRecoveryPhraseFragment__your_recovery_phrase">A sua frase de recuperação</string>
+  <string name="PaymentsRecoveryPhraseFragment__write_down_the_following_d_words">Anote as %1$d palavras seguintes em ordem. Guarde a sua lista num local seguro.</string>
+  <string name="PaymentsRecoveryPhraseFragment__make_sure_youve_entered">Certifique-se que introduziu a frase corretamente.</string>
+  <string name="PaymentsRecoveryPhraseFragment__do_not_screenshot_or_send_by_email">Não faça uma captura de ecrã ou envie um e-mail.</string>
+  <string name="PaymentsRecoveryPhraseFragment__payments_account_restored">Conta de pagamentos restaurada.</string>
+  <string name="PaymentsRecoveryPhraseFragment__invalid_recovery_phrase">Frase de recuperação inválida</string>
+  <string name="PaymentsRecoveryPhraseFragment__make_sure_youve_entered_your_phrase_correctly_and_try_again">Certifique-se que introduziu a frase corretamente e tente de novo.</string>
+  <string name="PaymentsRecoveryPhraseFragment__copy_to_clipboard">Copiar para a área de transferência?</string>
+  <string name="PaymentsRecoveryPhraseFragment__if_you_choose_to_store">Se você optar por armazenar a sua frase de recuperação digitalmente, certifique-se de que ela esteja armazenada com segurança num local da sua confiança. </string>
+  <string name="PaymentsRecoveryPhraseFragment__copy">Copiar</string>
+  <!--PaymentsRecoveryPhraseConfirmFragment-->
+  <string name="PaymentRecoveryPhraseConfirmFragment__confirm_recovery_phrase">Confirmar frase de recuperação</string>
+  <string name="PaymentRecoveryPhraseConfirmFragment__enter_the_following_words">Introduza as seguintes palavras da sua frase de recuperação.</string>
+  <string name="PaymentRecoveryPhraseConfirmFragment__word_d">Palavra %1$d</string>
+  <string name="PaymentRecoveryPhraseConfirmFragment__see_phrase_again">Ver frase novamente</string>
+  <string name="PaymentRecoveryPhraseConfirmFragment__done">Concluído</string>
+  <string name="PaymentRecoveryPhraseConfirmFragment__recovery_phrase_confirmed">Recuperação de frase confirmada</string>
+  <!--PaymentsRecoveryEntryFragment-->
+  <string name="PaymentsRecoveryEntryFragment__enter_recovery_phrase">Introduzir a frase de recuperação</string>
+  <string name="PaymentsRecoveryEntryFragment__enter_word_d">Introduza a palavra %1$d</string>
+  <string name="PaymentsRecoveryEntryFragment__word_d">Palavra %1$d</string>
+  <string name="PaymentsRecoveryEntryFragment__next">Seguinte</string>
+  <string name="PaymentsRecoveryEntryFragment__invalid_word">Palavra inválida</string>
+  <!--ClearClipboardAlarmReceiver-->
+  <string name="ClearClipboardAlarmReceiver__clipboard_cleared">Área de transferência limpa.</string>
+  <!--PaymentNotificationsView-->
+  <string name="PaymentNotificationsView__view">Ver</string>
+  <!--UnreadPayments-->
+  <string name="UnreadPayments__s_sent_you_s">%1$s enviou-lhe %2$s</string>
+  <string name="UnreadPayments__d_new_payment_notifications">%1$d notificações de pagamento novas</string>
+  <!--CanNotSendPaymentDialog-->
+  <string name="CanNotSendPaymentDialog__cant_send_payment">Não é possível enviar o pagamento</string>
+  <string name="CanNotSendPaymentDialog__to_send_a_payment_to_this_user">Para enviar um pagamento para este utilizador, ele precisa de aceitar uma mensagem sua de pedido. Envie-lhe uma mensagem para criar um pedido de mensagem.</string>
+  <string name="CanNotSendPaymentDialog__send_a_message">Enviar uma mensagem</string>
   <!--EOF-->
 </resources>

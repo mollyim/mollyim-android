@@ -86,12 +86,18 @@ public class IdentityKeyUtil {
   }
 
   public static void generateIdentityKeys(Context context) {
+    IdentityKeyPair identityKeyPair = generateIdentityKeyPair();
+
+    save(context, IDENTITY_PUBLIC_KEY_PREF, Base64.encodeBytes(identityKeyPair.getPublicKey().serialize()));
+    save(context, IDENTITY_PRIVATE_KEY_PREF, Base64.encodeBytes(identityKeyPair.getPrivateKey().serialize()));
+  }
+
+  public static IdentityKeyPair generateIdentityKeyPair() {
     ECKeyPair    djbKeyPair     = Curve.generateKeyPair();
     IdentityKey  djbIdentityKey = new IdentityKey(djbKeyPair.getPublicKey());
     ECPrivateKey djbPrivateKey  = djbKeyPair.getPrivateKey();
 
-    save(context, IDENTITY_PUBLIC_KEY_PREF, Base64.encodeBytes(djbIdentityKey.serialize()));
-    save(context, IDENTITY_PRIVATE_KEY_PREF, Base64.encodeBytes(djbPrivateKey.serialize()));
+    return new IdentityKeyPair(djbIdentityKey, djbPrivateKey);
   }
 
   public static List<BackupProtos.SharedPreference> getBackupRecord(@NonNull Context context) {

@@ -1804,13 +1804,6 @@ Tog emot meddelande för nyckelutbyte för ogiltig protokollversion.</string>
   <string name="HelpFragment__debug_log">Felsökningslogg:</string>
   <string name="HelpFragment__could_not_upload_logs">Det gick inte att ladda upp loggar</string>
   <string name="HelpFragment__please_be_as_descriptive_as_possible">Vänligen var så beskrivande som möjligt för att hjälpa oss att förstå problemet.</string>
-  <string-array name="HelpFragment__categories">
-    <item>Något fungerar inte</item>
-    <item>Funktionsbegäran</item>
-    <item>Fråga</item>
-    <item>Återkoppling</item>
-    <item>Annat</item>
-  </string-array>
   <!--ReactWithAnyEmojiBottomSheetDialogFragment-->
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__this_message">Detta meddelande</string>
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__recently_used">Senaste använda</string>
@@ -1854,6 +1847,7 @@ Tog emot meddelande för nyckelutbyte för ogiltig protokollversion.</string>
     <item quantity="other">%dh</item>
   </plurals>
   <!--preferences.xml-->
+  <string name="preferences_beta">Beta</string>
   <string name="preferences__sms_mms">SMS och MMS</string>
   <string name="preferences__pref_all_sms_title">Ta emot alla SMS</string>
   <string name="preferences__pref_all_mms_title">Använd för alla MMS</string>
@@ -1917,6 +1911,8 @@ Tog emot meddelande för nyckelutbyte för ogiltig protokollversion.</string>
   <string name="preferences__request_a_delivery_report_for_each_sms_message_you_send">Begär en leveransrapport för varje SMS-meddelande du skickar</string>
   <string name="preferences__data_and_storage">Data och lagring</string>
   <string name="preferences__storage">Lagring</string>
+  <string name="preferences__payments">Betalningar</string>
+  <string name="preferences__payments_beta">Betalningar (Beta)</string>
   <string name="preferences__conversation_length_limit">Gräns för konversationslängd</string>
   <string name="preferences__keep_messages">Spara meddelanden</string>
   <string name="preferences__clear_message_history">Rensa meddelandehistorik</string>
@@ -2023,6 +2019,43 @@ Tog emot meddelande för nyckelutbyte för ogiltig protokollversion.</string>
   <string name="preferences_enter_proxy_address">Ange proxyadress</string>
   <string name="configurable_single_select__customize_option">Anpassa alternativet</string>
   <!--Internal only preferences-->
+  <!--Payments-->
+  <string name="PaymentsAllActivityFragment__all">Alla</string>
+  <string name="PaymentsAllActivityFragment__sent">Skickad</string>
+  <string name="PaymentsAllActivityFragment__received">Mottagen</string>
+  <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Använd Molly för att skicka och ta emot MobileCoin, en ny digital valuta med fokus på integritet. Aktivera för att komma igång.</string>
+  <string name="PaymentsHomeFragment__activate_payments">Aktivera betalningar</string>
+  <string name="PaymentsHomeFragment__see_all">Se alla</string>
+  <string name="PaymentsHomeFragment__send">Skicka</string>
+  <string name="PaymentsHomeFragment__help">Hjälp</string>
+  <string name="PaymentsHomeFragment__continue">Fortsätt</string>
+  <string name="PaymentsHomeFragment__details">Detaljer</string>
+  <string name="PaymentsHomeFragment__activate">Aktivera</string>
+  <!--PaymentsAddMoneyFragment-->
+  <string name="PaymentsAddMoneyFragment__copy">Kopiera</string>
+  <string name="PaymentsAddMoneyFragment__copied_to_clipboard">Kopierade till urklipp</string>
+  <!--PaymentsDetailsFragment-->
+  <string name="PaymentsDetailsFragment__details">Detaljer</string>
+  <string name="PaymentsDetailsFragment__status">Status</string>
+  <string name="PaymentsDetailsFragment__to">Till</string>
+  <string name="PaymentsDetailsFragment__from">Från</string>
+  <!--PaymentsTransferFragment-->
+  <string name="PaymentsTransferFragment__scan_qr_code">Skanna QR-kod</string>
+  <string name="PaymentsTransferFragment__next">Nästa</string>
+  <string name="PaymentsTransferFragment__invalid_address">Ogiltig adress</string>
+  <string name="PaymentsTransferFragment__settings">Inställningar</string>
+  <!--PaymentsTransferQrScanFragment-->
+  <!--CreatePaymentFragment-->
+  <string name="CreatePaymentFragment__request">Förfrågan</string>
+  <string name="CreatePaymentFragment__pay">Betala</string>
+  <string name="CreatePaymentFragment__toggle_content_description">Växla</string>
+  <!--EditNoteFragment-->
+  <string name="EditNoteFragment_note">Anteckning</string>
+  <!--ConfirmPaymentFragment-->
+  <string name="ConfirmPayment__to">Till</string>
+  <!--CurrencyAmountFormatter_s_at_s-->
+  <!--SetCurrencyFragment-->
+  <string name="SetCurrencyFragment__all_currencies">Alla valutor</string>
   <!--****************************************-->
   <!--menus-->
   <!--****************************************-->
@@ -2451,6 +2484,7 @@ Tog emot meddelande för nyckelutbyte för ogiltig protokollversion.</string>
   <string name="OldDeviceTransferLockedDialog__your_signal_account_has_been_transferred_to_your_new_device">Ditt Signal-konto har överförts till din nya enhet, men du måste slutföra registreringen på den för att fortsätta. Signal kommer att vara inaktiv på denna enhet.</string>
   <string name="OldDeviceTransferLockedDialog__done">Klar</string>
   <string name="OldDeviceTransferLockedDialog__cancel_and_activate_this_device">Avbryt och aktivera denna enhet</string>
+  <!--AdvancedPreferenceFragment-->
   <!--RecipientBottomSheet-->
   <string name="RecipientBottomSheet_block">Blockera</string>
   <string name="RecipientBottomSheet_unblock">Avblockera</string>
@@ -2597,5 +2631,28 @@ Tog emot meddelande för nyckelutbyte för ogiltig protokollversion.</string>
   <string name="WallpaperCropActivity__set_wallpaper_for_s">Ställ in bakgrund för %s.</string>
   <string name="WallpaperCropActivity__error_setting_wallpaper">Fel vid inställning av bakgrund.</string>
   <string name="WallpaperCropActivity__blur_photo">Sudda foto</string>
+  <!--InfoCard-->
+  <string name="payment_info_card_about_mobilecoin">Om MobileCoin</string>
+  <string name="payment_info_card_hide">Dölj</string>
+  <string name="payment_info_card_update_pin">Uppdatera PIN-kod</string>
+  <!--DeactivateWalletFragment-->
+  <!--PaymentsRecoveryStartFragment-->
+  <string name="PaymentsRecoveryStartFragment__start">Starta</string>
+  <!--PaymentsRecoveryPasteFragment-->
+  <string name="PaymentsRecoveryPasteFragment__next">Nästa</string>
+  <!--PaymentsRecoveryPhraseFragment-->
+  <string name="PaymentsRecoveryPhraseFragment__next">Nästa</string>
+  <string name="PaymentsRecoveryPhraseFragment__edit">Ändra</string>
+  <string name="PaymentsRecoveryPhraseFragment__copy">Kopiera</string>
+  <!--PaymentsRecoveryPhraseConfirmFragment-->
+  <string name="PaymentRecoveryPhraseConfirmFragment__done">Klar</string>
+  <!--PaymentsRecoveryEntryFragment-->
+  <string name="PaymentsRecoveryEntryFragment__next">Nästa</string>
+  <!--ClearClipboardAlarmReceiver-->
+  <!--PaymentNotificationsView-->
+  <string name="PaymentNotificationsView__view">Visa</string>
+  <!--UnreadPayments-->
+  <!--CanNotSendPaymentDialog-->
+  <string name="CanNotSendPaymentDialog__send_a_message">Skicka ett meddelande</string>
   <!--EOF-->
 </resources>

@@ -57,6 +57,7 @@
   <string name="AttachmentKeyboard_location">مکان</string>
   <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">سیگنال به دسترسی برای نشان دادن عکس‌ها و ویدئوهای شما احتیاج دارد.</string>
   <string name="AttachmentKeyboard_give_access">دسترسی داده شود</string>
+  <string name="AttachmentKeyboard_payment">پرداخت</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">برنامه‌ای برای انتخاب رسانه پیدا نشد.</string>
   <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">سیگنال برای پیوست کردن فایل‌های صوتی و تصویری نیاز به دسترسی به حافظه دارد، اما این اجازه داده نشده است. لطفاً به بخش مدیریت برنامه‌ها در تنظیمات تلفن همراه خود رفته، در بخش «مجوزها» گزینهٔ «ذخیره‌سازی» را فعال کنید.</string>
@@ -696,7 +697,7 @@
   <string name="ShareableGroupLinkDialogFragment__reset_link">بازنشانی پیوند</string>
   <string name="ShareableGroupLinkDialogFragment__member_requests">درخواست‌های عضویت</string>
   <string name="ShareableGroupLinkDialogFragment__approve_new_members">تأیید اعضای جدید</string>
-  <string name="ShareableGroupLinkDialogFragment__require_an_admin_to_approve_new_members_joining_via_the_group_link">نیاز به یک مدیر برای تأیید اعضای جدید که از طریق پیوند گروه می‌پیوندند.</string>
+  <string name="ShareableGroupLinkDialogFragment__require_an_admin_to_approve_new_members_joining_via_the_group_link">نیاز به یک مدیر برای تأیید اعضای جدیدی که از طریق پیوند گروه می‌پیوندند.</string>
   <string name="ShareableGroupLinkDialogFragment__are_you_sure_you_want_to_reset_the_group_link">آیا از بازنشانی پیوند گروه اطمینان دارید؟ افراد دیگر نمی‌توانند با استفاده از پیوند فعلی به گروه بپیوندند.</string>
   <!--GroupLinkShareQrDialogFragment-->
   <string name="GroupLinkShareQrDialogFragment__qr_code">کد QR</string>
@@ -1808,13 +1809,6 @@
   <string name="HelpFragment__debug_log">گزارش اشکال‌زدایی:</string>
   <string name="HelpFragment__could_not_upload_logs">بارگذاری گزارش‌ها موفق نبود</string>
   <string name="HelpFragment__please_be_as_descriptive_as_possible">توضیح هر چه بهتر شما، به ما در فهم اشکال کمک خواهد کرد.</string>
-  <string-array name="HelpFragment__categories">
-    <item>مشکلی پیش آمده است</item>
-    <item>درخواست قابلیت جدید</item>
-    <item>سؤال</item>
-    <item>بازخورد</item>
-    <item>سایر</item>
-  </string-array>
   <!--ReactWithAnyEmojiBottomSheetDialogFragment-->
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__this_message">این پیام</string>
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__recently_used">اخیراً استفاده شده</string>
@@ -1921,6 +1915,7 @@
   <string name="preferences__request_a_delivery_report_for_each_sms_message_you_send">درخواست گزارش تحویل برای هر پیامکی که ارسال می‌کنید</string>
   <string name="preferences__data_and_storage">داده‌ها و حافظه</string>
   <string name="preferences__storage">حافظه</string>
+  <string name="preferences__payments">پرداخت‌ها</string>
   <string name="preferences__conversation_length_limit">محدودیت طول مکالمه</string>
   <string name="preferences__keep_messages">نگاه داشتن پیام‌ها</string>
   <string name="preferences__clear_message_history">پاک کردن تاریخچهٔ پیام</string>
@@ -2027,6 +2022,45 @@
   <string name="preferences_enter_proxy_address">نشانی پروکسی را وارد کنید</string>
   <string name="configurable_single_select__customize_option">سفارشی‌سازی</string>
   <!--Internal only preferences-->
+  <!--Payments-->
+  <string name="PaymentsAllActivityFragment__all">همه</string>
+  <string name="PaymentsAllActivityFragment__sent">ارسال شد</string>
+  <string name="PaymentsAllActivityFragment__received">دریافت شد</string>
+  <string name="PaymentsHomeFragment__see_all">مشاهدهٔ همه</string>
+  <string name="PaymentsHomeFragment__send">ارسال</string>
+  <string name="PaymentsHomeFragment__help">راهنمایی</string>
+  <string name="PaymentsHomeFragment__continue">ادامه</string>
+  <string name="PaymentsHomeFragment__details">جزئیات</string>
+  <!--PaymentsAddMoneyFragment-->
+  <string name="PaymentsAddMoneyFragment__copy">کپی</string>
+  <string name="PaymentsAddMoneyFragment__copied_to_clipboard">روی کلیپ‌بورد کپی شد</string>
+  <!--PaymentsDetailsFragment-->
+  <string name="PaymentsDetailsFragment__details">جزئیات</string>
+  <string name="PaymentsDetailsFragment__status">وضعیت</string>
+  <string name="PaymentsDetailsFragment__to">به</string>
+  <string name="PaymentsDetailsFragment__from">از</string>
+  <!--PaymentsTransferFragment-->
+  <string name="PaymentsTransferFragment__scan_qr_code">کد QR را اسکن کنید</string>
+  <string name="PaymentsTransferFragment__next">بعدی</string>
+  <string name="PaymentsTransferFragment__settings">تنظیمات</string>
+  <!--PaymentsTransferQrScanFragment-->
+  <!--CreatePaymentFragment-->
+  <string name="CreatePaymentFragment__request">درخواست</string>
+  <string name="CreatePaymentFragment__1">۱</string>
+  <string name="CreatePaymentFragment__2">۲</string>
+  <string name="CreatePaymentFragment__3">۳</string>
+  <string name="CreatePaymentFragment__4">۴</string>
+  <string name="CreatePaymentFragment__5">۵</string>
+  <string name="CreatePaymentFragment__6">۶</string>
+  <string name="CreatePaymentFragment__7">۷</string>
+  <string name="CreatePaymentFragment__8">۸</string>
+  <string name="CreatePaymentFragment__9">۹</string>
+  <string name="CreatePaymentFragment__0">۰</string>
+  <!--EditNoteFragment-->
+  <!--ConfirmPaymentFragment-->
+  <string name="ConfirmPayment__to">به</string>
+  <!--CurrencyAmountFormatter_s_at_s-->
+  <!--SetCurrencyFragment-->
   <!--****************************************-->
   <!--menus-->
   <!--****************************************-->
@@ -2455,6 +2489,7 @@
   <string name="OldDeviceTransferLockedDialog__your_signal_account_has_been_transferred_to_your_new_device">حساب کاربری سیگنال شما به دستگاه جدید شما انتقال یافت، اما برای ادامه باید ثبت‌نام را در آن کامل کنید. سیگنال روی این دستگاه غیرفعال خواهد بود.</string>
   <string name="OldDeviceTransferLockedDialog__done">انجام شد</string>
   <string name="OldDeviceTransferLockedDialog__cancel_and_activate_this_device">لغو و فعال‌سازی این دستگاه</string>
+  <!--AdvancedPreferenceFragment-->
   <!--RecipientBottomSheet-->
   <string name="RecipientBottomSheet_block">مسدود کردن</string>
   <string name="RecipientBottomSheet_unblock">رفع مسدودیت</string>
@@ -2578,7 +2613,7 @@
   <string name="ChatWallpaperFragment__clear_wallpaper_for_this_chat">پاک کردن کاغذدیواری برای این گفتگو؟</string>
   <string name="ChatWallpaperFragment__clear_wallpaper_this_will_not">پاک کردن کاغذ دیواری؟ این کار کاغذدیواری‌های سفارشی دیگر را که جداگانه برای گفتگوهای‌تان انتخاب کردید پاک نمی‌کند.</string>
   <string name="ChatWallpaperFragment__reset_all_wallpapers">بازنشانی همهٔ کاغذدیواری‌ها</string>
-  <string name="ChatWallpaperFragment__reset_all_wallpapers_including_custom">بازنشانی تمامی کاغذدیواری‌ها، شامل کاغذدیواری‌های سفارشی که جداگانه برای گفتگوهای‌تان انتخاب کردید؟</string>
+  <string name="ChatWallpaperFragment__reset_all_wallpapers_including_custom">بازنشانی همهٔ کاغذدیواری‌ها، شامل کاغذدیواری‌های سفارشی که جداگانه برای گفتگوهای‌تان انتخاب کردید؟</string>
   <string name="ChatWallpaperFragment__contact_name">نام مخاطب</string>
   <string name="ChatWallpaperFragment__reset">بازنشانی</string>
   <string name="ChatWallpaperFragment__clear">پاک کردن</string>
@@ -2601,5 +2636,28 @@
   <string name="WallpaperCropActivity__set_wallpaper_for_s">تنظیم کاغذدیواری برای %s.</string>
   <string name="WallpaperCropActivity__error_setting_wallpaper">خطا در تنظیم کاغذدیواری.</string>
   <string name="WallpaperCropActivity__blur_photo">مات کردن عکس</string>
+  <!--InfoCard-->
+  <string name="payment_info_card_hide">مخفی‌سازی</string>
+  <string name="payment_info_card_update_pin">به‌روزرسانی پین</string>
+  <!--DeactivateWalletFragment-->
+  <!--PaymentsRecoveryStartFragment-->
+  <string name="PaymentsRecoveryStartFragment__start">شروع</string>
+  <!--PaymentsRecoveryPasteFragment-->
+  <string name="PaymentsRecoveryPasteFragment__next">بعدی</string>
+  <!--PaymentsRecoveryPhraseFragment-->
+  <string name="PaymentsRecoveryPhraseFragment__next">بعدی</string>
+  <string name="PaymentsRecoveryPhraseFragment__edit">ویرایش</string>
+  <string name="PaymentsRecoveryPhraseFragment__previous">قبلی</string>
+  <string name="PaymentsRecoveryPhraseFragment__copy">کپی</string>
+  <!--PaymentsRecoveryPhraseConfirmFragment-->
+  <string name="PaymentRecoveryPhraseConfirmFragment__done">انجام شد</string>
+  <!--PaymentsRecoveryEntryFragment-->
+  <string name="PaymentsRecoveryEntryFragment__next">بعدی</string>
+  <!--ClearClipboardAlarmReceiver-->
+  <!--PaymentNotificationsView-->
+  <string name="PaymentNotificationsView__view">نمایش</string>
+  <!--UnreadPayments-->
+  <!--CanNotSendPaymentDialog-->
+  <string name="CanNotSendPaymentDialog__send_a_message">ارسال پیام</string>
   <!--EOF-->
 </resources>

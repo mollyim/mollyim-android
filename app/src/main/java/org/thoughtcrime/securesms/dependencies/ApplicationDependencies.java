@@ -22,6 +22,7 @@ import org.thoughtcrime.securesms.messages.IncomingMessageProcessor;
 import org.thoughtcrime.securesms.net.NetworkManager;
 import org.thoughtcrime.securesms.net.PipeConnectivityListener;
 import org.thoughtcrime.securesms.notifications.MessageNotifier;
+import org.thoughtcrime.securesms.payments.Payments;
 import org.thoughtcrime.securesms.push.SignalServiceNetworkAccess;
 import org.thoughtcrime.securesms.recipients.LiveRecipientCache;
 import org.thoughtcrime.securesms.service.TrimThreadsByDateManager;
@@ -77,6 +78,7 @@ public class ApplicationDependencies {
   private static volatile TypingStatusSender           typingStatusSender;
   private static volatile DatabaseObserver             databaseObserver;
   private static volatile TrimThreadsByDateManager     trimThreadsByDateManager;
+  private static volatile Payments                     payments;
   private static volatile ShakeToReport                shakeToReport;
   private static volatile SignalCallManager            signalCallManager;
 
@@ -394,6 +396,18 @@ public class ApplicationDependencies {
     return databaseObserver;
   }
 
+  public static @NonNull Payments getPayments() {
+    if (payments == null) {
+      synchronized (LOCK) {
+        if (payments == null) {
+          payments = getProvider().providePayments(getSignalServiceAccountManager());
+        }
+      }
+    }
+
+    return payments;
+  }
+
   public static @NonNull ShakeToReport getShakeToReport() {
     if (shakeToReport == null) {
       synchronized (LOCK) {
@@ -444,6 +458,7 @@ public class ApplicationDependencies {
     @NonNull TypingStatusRepository provideTypingStatusRepository();
     @NonNull TypingStatusSender provideTypingStatusSender();
     @NonNull DatabaseObserver provideDatabaseObserver();
+    @NonNull Payments providePayments(@NonNull SignalServiceAccountManager signalServiceAccountManager);
     @NonNull ShakeToReport provideShakeToReport();
     @NonNull AppForegroundObserver provideAppForegroundObserver();
     @NonNull SignalCallManager provideSignalCallManager();
