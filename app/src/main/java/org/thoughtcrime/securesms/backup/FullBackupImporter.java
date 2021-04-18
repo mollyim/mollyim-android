@@ -17,6 +17,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.signal.core.util.Conversions;
 import org.signal.core.util.StreamUtil;
 import org.signal.core.util.logging.Log;
+import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.backup.BackupProtos.Attachment;
 import org.thoughtcrime.securesms.backup.BackupProtos.BackupFrame;
 import org.thoughtcrime.securesms.backup.BackupProtos.DatabaseVersion;
@@ -35,6 +36,7 @@ import org.thoughtcrime.securesms.keyvalue.KeyValueDataSet;
 import org.thoughtcrime.securesms.profiles.AvatarHelper;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.util.BackupUtil;
+import org.thoughtcrime.securesms.util.SecurePreferenceManager;
 import org.thoughtcrime.securesms.util.SqlUtil;
 import org.whispersystems.libsignal.kdf.HKDFv3;
 import org.whispersystems.libsignal.util.ByteUtil;
@@ -49,6 +51,7 @@ import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -246,9 +249,21 @@ public class FullBackupImporter extends FullBackupBase {
     KeyValueDatabase.getInstance(ApplicationDependencies.getApplication()).writeDataSet(dataSet, Collections.emptyList());
   }
 
+  private static final List<String> defaultSharedPreferencesFileNames = Arrays.asList(
+      BuildConfig.SIGNAL_PACKAGE_NAME + "_preferences",
+      BuildConfig.APPLICATION_ID + "_preferences",
+      SecurePreferenceManager.getSecurePreferencesName()
+  );
+
   @SuppressLint("ApplySharedPref")
   private static void processPreference(@NonNull Context context, SharedPreference preference) {
-    SharedPreferences preferences = EncryptedPreferences.create(context, preference.getFile());
+    SharedPreferences preferences;
+
+    if (defaultSharedPreferencesFileNames.contains(preference.getFile())) {
+      preferences = SecurePreferenceManager.getSecurePreferences(context);
+    } else {
+      preferences = EncryptedPreferences.create(context, preference.getFile());
+    }
 
     if (preference.hasValue()) {
       preferences.edit().putString(preference.getKey(), preference.getValue()).commit();

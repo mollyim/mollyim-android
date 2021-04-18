@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
 import org.signal.core.util.logging.Log;
+import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.backup.BackupProtos;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
@@ -230,10 +231,15 @@ public class TextSecurePreferences {
                                                                 MEDIA_DOWNLOAD_WIFI_PREF,
                                                                 MEDIA_DOWNLOAD_ROAMING_PREF};
 
+  private static final String[] booleanPreferencesToBackupMolly = {
+      LOG_ENABLED,
+      UPDATE_APK_ENABLED
+  };
+
   public static List<BackupProtos.SharedPreference> getPreferencesToSaveToBackup(@NonNull Context context) {
     SharedPreferences                   preferences  = SecurePreferenceManager.getSecurePreferences(context);
     List<BackupProtos.SharedPreference> backupProtos = new ArrayList<>();
-    String                              defaultFile  = context.getPackageName() + "_preferences";
+    String                              defaultFile  = BuildConfig.SIGNAL_PACKAGE_NAME + "_preferences";
 
     for (String booleanPreference : booleanPreferencesToBackup) {
       if (preferences.contains(booleanPreference)) {
@@ -262,6 +268,16 @@ public class TextSecurePreferences {
                                                       .setKey(stringSetPreference)
                                                       .setIsStringSetValue(true)
                                                       .addAllStringSetValue(preferences.getStringSet(stringSetPreference, Collections.emptySet()))
+                                                      .build());
+      }
+    }
+
+    for (String booleanPreference : booleanPreferencesToBackupMolly) {
+      if (preferences.contains(booleanPreference)) {
+        backupProtos.add(BackupProtos.SharedPreference.newBuilder()
+                                                      .setFile(SecurePreferenceManager.getSecurePreferencesName())
+                                                      .setKey(booleanPreference)
+                                                      .setBooleanValue(preferences.getBoolean(booleanPreference, false))
                                                       .build());
       }
     }

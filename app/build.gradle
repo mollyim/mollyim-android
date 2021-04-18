@@ -138,6 +138,11 @@ android {
         resValue 'string', 'install_url', installUrl
         resValue 'string', 'donate_url', donateUrl
 
+        buildConfigField "String", "SIGNAL_PACKAGE_NAME", "\"org.thoughtcrime.securesms\""
+        buildConfigField "String", "CANONICAL_VERSION_NAME", "\"$canonicalVersionName\""
+        buildConfigField "String", "FDROID_UPDATE_URL", "\"https://molly.im/fdroid/repo\""
+        buildConfigField "String", "BACKUP_FILENAME", "\"" + appName.toLowerCase() + "\""
+
         vectorDrawables.useSupportLibrary = true
 
         buildConfigField "long", "BUILD_TIMESTAMP", getBuildTimestamp() + "L"
@@ -164,10 +169,6 @@ android {
         buildConfigField "int", "CANONICAL_VERSION_CODE", "$canonicalVersionCode"
         buildConfigField "String", "DEFAULT_CURRENCIES", "\"EUR,AUD,GBP,CAD,CNY\""
         buildConfigField "int[]", "MOBILE_COIN_REGIONS", "new int[]{44}"
-
-        buildConfigField "String", "CANONICAL_VERSION_NAME", "\"$canonicalVersionName\""
-        buildConfigField "String", "FDROID_UPDATE_URL", "\"https://molly.im/fdroid/repo\""
-        buildConfigField "String", "BACKUP_FILENAME", "\"" + appName.toLowerCase() + "\""
 
         ndk {
             abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86_64'
@@ -253,6 +254,7 @@ android {
             dimension 'environment'
 
             applicationIdSuffix ".staging"
+            buildConfigField "String", "SIGNAL_PACKAGE_NAME", "\"org.thoughtcrime.securesms.staging\""
 
             buildConfigField "String", "SIGNAL_URL", "\"https://textsecure-service-staging.whispersystems.org\""
             buildConfigField "String", "STORAGE_URL", "\"https://storage-staging.signal.org\""
