@@ -60,6 +60,9 @@ import org.thoughtcrime.securesms.util.ServiceUtil;
 
 import java.util.Arrays;
 
+import static com.google.android.material.textfield.TextInputLayout.END_ICON_NONE;
+import static com.google.android.material.textfield.TextInputLayout.END_ICON_PASSWORD_TOGGLE;
+
 /**
  * Activity that prompts for a user's passphrase.
  *
@@ -69,8 +72,8 @@ public class PassphrasePromptActivity extends PassphraseActivity {
 
   private static final String TAG = PassphrasePromptActivity.class.getSimpleName();
 
-  private DynamicIntroTheme dynamicTheme    = new DynamicIntroTheme();
-  private DynamicLanguage   dynamicLanguage = new DynamicLanguage();
+  private final DynamicIntroTheme dynamicTheme    = new DynamicIntroTheme();
+  private final DynamicLanguage   dynamicLanguage = new DynamicLanguage();
 
   private View                   passphraseAuthContainer;
   private TextInputLayout        passphraseLayout;
@@ -94,6 +97,7 @@ public class PassphrasePromptActivity extends PassphraseActivity {
     super.onResume();
     dynamicTheme.onResume(this);
     dynamicLanguage.onResume(this);
+    passphraseInput.requestFocus();
   }
 
   @Override
@@ -133,7 +137,9 @@ public class PassphrasePromptActivity extends PassphraseActivity {
   }
 
   private static Intent chainIntents(@NonNull Intent sourceIntent, @Nullable Intent nextIntent) {
-    if (nextIntent != null) sourceIntent.putExtra("next_intent", nextIntent);
+    if (nextIntent != null) {
+      sourceIntent.putExtra("next_intent", nextIntent);
+    }
     return sourceIntent;
   }
 
@@ -165,8 +171,8 @@ public class PassphrasePromptActivity extends PassphraseActivity {
     okButton                = findViewById(R.id.ok_button);
     successView             = findViewById(R.id.success);
 
+    toolbar.setTitle("");
     setSupportActionBar(toolbar);
-    getSupportActionBar().setTitle("");
 
     SpannableString hint = new SpannableString(getString(R.string.PassphrasePromptActivity_enter_passphrase));
     hint.setSpan(new RelativeSizeSpan(0.9f), 0, hint.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
@@ -212,7 +218,7 @@ public class PassphrasePromptActivity extends PassphraseActivity {
       passphraseInput.clearFocus();
     }
     passphraseLayout.setEnabled(enabled);
-    passphraseLayout.setPasswordVisibilityToggleEnabled(enabled);
+    passphraseLayout.setEndIconMode(enabled ? END_ICON_PASSWORD_TOGGLE : END_ICON_NONE);
     okButton.setClickable(enabled);
   }
 
