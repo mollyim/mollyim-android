@@ -11,7 +11,6 @@
     <string name="PassphraseCreateActivity_turn_on_database_encryption">Activer le chiffrement de la base de données</string>
     <string name="PassphraseCreateActivity_require_passphrase_to_unlock_molly">Exiger une phrase secrète pour déverrouiller Molly \?</string>
     <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">Vous pouvez maintenant définir une phrase secrète pour chiffrer la base de données. Tant qu’elle n’est pas déverrouillée, Molly ne peut pas recevoir de notifications ni d’appels. Ceci permet de protéger les données sur les appareils perdus ou volés.</string>
-    <string name="WipeMemoryService_molly_is_clearing_secrets">Molly efface les données non chiffrées qui restent dans la mémoire vive</string>
     <string name="WipeMemoryService_secure_wipe_in_progress">Effacement de sécurité en cours</string>
     <string name="ApplicationPreferencesActivity_privacy_summary_passphrase_registration_locks">Chiffrement de la base de données %1$s, Verrouillage d’inscription %2$s</string>
     <string name="preferences__passphrase_changed">Phrase secrète changée</string>
@@ -46,7 +45,7 @@
     <string name="preferences__map_satellite">Satellite</string>
     <string name="preferences__map_hybrid">Hybride</string>
     <string name="preferences__map_normal">Normale</string>
-    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Vérifier régulièrement les nouvelles versions et demander à les installer</string>
+    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Vérifier régulièrement les nouvelles versions et demander à les installer.</string>
     <string name="preferences__autoupdate_molly">Mettre à jour Molly automatiquement</string>
     <string name="arrays__tor_via_orbot">Tor via Orbot</string>
     <string name="arrays__none">Aucun</string>

@@ -16,7 +16,6 @@
     <string name="PassphraseCreateActivity_turn_on_database_encryption">Veri tabanı şifrelemeyi aç</string>
     <string name="PassphraseCreateActivity_require_passphrase_to_unlock_molly">Molly\'nin kilidini açmak için parola gereksin mi\?</string>
     <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">Artık veri tabanını şifrelemek için bir parola belirleyebilirsiniz. Kilidi açılana kadar, Molly bildirim veya çağrı alamaz. Bu, kaybolan veya çalınan aygıtlardaki verilerin korunmasına yardımcı olur.</string>
-    <string name="WipeMemoryService_molly_is_clearing_secrets">Molly RAM\'de kalan şifrelenmemiş verileri siliyor</string>
     <string name="preferences__passphrase_changed">Parola değiştirildi</string>
     <string name="preferences__protect_molly_database_with_a_passphrase">Molly\'nin veri tabanını bir parola ile koruyun</string>
     <string name="preferences__passphrase_lock">Veri tabanı şifreleme</string>
@@ -48,6 +47,7 @@
     <string name="NetworkPreferenceFragment_missing_orbot_app">Orbot uygulaması yok</string>
     <string name="ProxyManager_successfully_started_orbot">Orbot başlatıldı</string>
     <string name="arrays__tor_via_orbot">Orbot aracılığıyla Tor</string>
-    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Düzenli aralıklarla yeni sürümleri denetle ve kurmayı iste</string>
+    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Düzenli aralıklarla yeni sürümleri denetle ve kurmayı iste.</string>
     <string name="preferences__autoupdate_molly">Molly\'i otomatik güncelle</string>
+    <string name="WipeMemoryService_clearing_unencrypted_data_remain_in_ram">RAM\'de kalan şifrelenmemiş veriler temizleniyor</string>
 </resources>

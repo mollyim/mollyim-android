@@ -13,7 +13,6 @@
     <string name="PassphraseCreateActivity_turn_on_database_encryption">Включите шифрование базы данных</string>
     <string name="PassphraseCreateActivity_require_passphrase_to_unlock_molly">Требовать кодовую фразу для разблокировки Молли\?</string>
     <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">Теперь вы можете установить парольную фразу для шифрования базы данных. Пока она не разблокирована, Молли не может получать уведомления или звонки. Это помогает защитить данные на потерянных или украденных устройствах.</string>
-    <string name="WipeMemoryService_molly_is_clearing_secrets">Молли очищает незашифрованные данные, оставшиеся в ОЗУ</string>
     <string name="WipeMemoryService_secure_wipe_in_progress">Выполняется безопасная очистка</string>
     <string name="preferences__passphrase_changed">Кодовая фраза изменена</string>
     <string name="preferences__device_lock_timeout">Тайм-аут блокировки устройства</string>
@@ -48,6 +47,6 @@
     <string name="NetworkPreferenceFragment_missing_orbot_app">Отсутствует приложение Orbot</string>
     <string name="ProxyManager_successfully_started_orbot">Orbot начал</string>
     <string name="arrays__tor_via_orbot">Tor через Orbot</string>
-    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Периодически проверяйте новые релизы и просите их установить</string>
+    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Периодически проверяйте новые релизы и просите их установить.</string>
     <string name="preferences__autoupdate_molly">Автообновление Molly</string>
 </resources>
