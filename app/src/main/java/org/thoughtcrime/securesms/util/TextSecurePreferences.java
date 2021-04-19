@@ -72,7 +72,6 @@ public class TextSecurePreferences {
   private static final String SIGNED_PREKEY_ROTATION_TIME_PREF = "pref_signed_pre_key_rotation_time";
 
   private static final String IN_THREAD_NOTIFICATION_PREF      = "pref_key_inthread_notifications";
-  private static final String SHOW_INVITE_REMINDER_PREF        = "pref_show_invite_reminder";
   public  static final String MESSAGE_BODY_TEXT_SIZE_PREF      = "pref_message_body_text_size";
 
   private static final String LOCAL_REGISTRATION_ID_PREF       = "pref_local_registration_id";
@@ -215,7 +214,6 @@ public class TextSecurePreferences {
                                                               CALL_NOTIFICATIONS_PREF,
                                                               CALL_VIBRATE_PREF,
                                                               NEW_CONTACTS_NOTIFICATIONS,
-                                                              SHOW_INVITE_REMINDER_PREF,
                                                               SYSTEM_EMOJI_PREF,
                                                               ENTER_SENDS_PREF};
 
@@ -817,10 +815,6 @@ public class TextSecurePreferences {
     Log.i(TAG, "Setting push registered: " + registered);
     setBooleanPreference(context, REGISTERED_GCM_PREF, registered);
     ApplicationDependencies.getIncomingMessageObserver().notifyRegistrationChanged();
-  }
-
-  public static boolean isShowInviteReminders(Context context) {
-    return getBooleanPreference(context, SHOW_INVITE_REMINDER_PREF, true);
   }
 
   public static String getLanguage(Context context) {
