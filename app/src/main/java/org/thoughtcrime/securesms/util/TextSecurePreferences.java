@@ -46,8 +46,6 @@ public class TextSecurePreferences {
   public  static final String LANGUAGE_PREF                    = "pref_language";
 
   private static final String LAST_VERSION_CODE_PREF           = "last_version_code";
-  private static final String LAST_EXPERIENCE_VERSION_PREF     = "last_experience_version_code";
-  private static final String EXPERIENCE_DISMISSED_PREF        = "experience_dismissed";
   public  static final String RINGTONE_PREF                    = "pref_key_ringtone";
   public  static final String VIBRATE_PREF                     = "pref_key_vibrate";
   private static final String NOTIFICATION_PREF                = "pref_key_enable_notifications";
@@ -165,7 +163,6 @@ public class TextSecurePreferences {
   private static final String UNIDENTIFIED_ACCESS_CERTIFICATE_ROTATION_TIME_PREF = "pref_unidentified_access_certificate_rotation_time";
   public  static final String UNIVERSAL_UNIDENTIFIED_ACCESS                      = "pref_universal_unidentified_access";
   public  static final String SHOW_UNIDENTIFIED_DELIVERY_INDICATORS              = "pref_show_unidentifed_delivery_indicators";
-  private static final String UNIDENTIFIED_DELIVERY_ENABLED                      = "pref_unidentified_delivery_enabled";
 
   public static final String TYPING_INDICATORS = "pref_typing_indicators";
 
@@ -669,14 +666,6 @@ public class TextSecurePreferences {
     return getBooleanPreference(context, SHOW_UNIDENTIFIED_DELIVERY_INDICATORS, false);
   }
 
-  public static void setIsUnidentifiedDeliveryEnabled(Context context, boolean enabled) {
-    setBooleanPreference(context, UNIDENTIFIED_DELIVERY_ENABLED, enabled);
-  }
-
-  public static boolean isUnidentifiedDeliveryEnabled(Context context) {
-    return getBooleanPreference(context, UNIDENTIFIED_DELIVERY_ENABLED, true);
-  }
-
   public static long getSignedPreKeyRotationTime(Context context) {
     return getLongPreference(context, SIGNED_PREKEY_ROTATION_TIME_PREF, 0L);
   }
@@ -785,22 +774,6 @@ public class TextSecurePreferences {
     if (!setIntegerPrefrenceBlocking(context, LAST_VERSION_CODE_PREF, versionCode)) {
       throw new IOException("couldn't write version code to sharedpreferences");
     }
-  }
-
-  public static int getLastExperienceVersionCode(Context context) {
-    return getIntegerPreference(context, LAST_EXPERIENCE_VERSION_PREF, Util.getCanonicalVersionCode());
-  }
-
-  public static void setLastExperienceVersionCode(Context context, int versionCode) {
-    setIntegerPrefrence(context, LAST_EXPERIENCE_VERSION_PREF, versionCode);
-  }
-
-  public static int getExperienceDismissedVersionCode(Context context) {
-    return getIntegerPreference(context, EXPERIENCE_DISMISSED_PREF, 0);
-  }
-
-  public static void setExperienceDismissedVersionCode(Context context, int versionCode) {
-    setIntegerPrefrence(context, EXPERIENCE_DISMISSED_PREF, versionCode);
   }
 
   public static String getTheme(Context context) {
