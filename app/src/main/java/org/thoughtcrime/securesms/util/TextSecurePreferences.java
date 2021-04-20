@@ -166,6 +166,8 @@ public class TextSecurePreferences {
 
   public static final String TYPING_INDICATORS = "pref_typing_indicators";
 
+  private static final String BLOCK_UNKNOWN = "pref_block_unknown";
+
   public static final String LINK_PREVIEWS = "pref_link_previews";
 
   private static final String GIF_GRID_LAYOUT = "pref_gif_grid_layout";
@@ -228,7 +230,8 @@ public class TextSecurePreferences {
 
   private static final String[] booleanPreferencesToBackupMolly = {
       LOG_ENABLED,
-      UPDATE_APK_ENABLED
+      UPDATE_APK_ENABLED,
+      BLOCK_UNKNOWN,
   };
 
   public static List<BackupProtos.SharedPreference> getPreferencesToSaveToBackup(@NonNull Context context) {
@@ -502,6 +505,14 @@ public class TextSecurePreferences {
 
   public static void setTypingIndicatorsEnabled(Context context, boolean enabled) {
     setBooleanPreference(context, TYPING_INDICATORS, enabled);
+  }
+
+  public static boolean isBlockUnknownEnabled(@NonNull Context context) {
+    return getBooleanPreference(context, BLOCK_UNKNOWN, false);
+  }
+
+  public static void setBlockUnknownEnabled(@NonNull Context context, boolean value) {
+    setBooleanPreference(context, BLOCK_UNKNOWN, value);
   }
 
   /**

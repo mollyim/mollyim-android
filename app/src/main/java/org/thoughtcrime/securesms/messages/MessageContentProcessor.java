@@ -1793,7 +1793,10 @@ public final class MessageContentProcessor {
       return true;
     }
 
-    Recipient sender = Recipient.externalHighTrustPush(context, content.getSender());
+    Recipient sndr = Recipient.externalHighTrustPush(context, content.getSender());
+
+    boolean isKnownSender = sndr.isSystemContact() || sndr.isProfileSharing();
+    boolean isBlocked     = sndr.isBlocked() || (!isKnownSender && TextSecurePreferences.isBlockUnknownEnabled(context));
 
     if (content.getDataMessage().isPresent()) {
       SignalServiceDataMessage message      = content.getDataMessage().get();
@@ -1815,7 +1818,7 @@ public final class MessageContentProcessor {
         }
 
         if (groupId.isPresent() && groupDatabase.isUnknownGroup(groupId.get())) {
-          return sender.isBlocked();
+          return isBlocked;
         }
 
         boolean isTextMessage    = message.getBody().isPresent();
@@ -1826,14 +1829,14 @@ public final class MessageContentProcessor {
         boolean isGroupActive    = groupId.isPresent() && groupDatabase.isActive(groupId.get());
         boolean isLeaveMessage   = message.getGroupContext().isPresent() && message.getGroupContext().get().getGroupV1Type() == SignalServiceGroup.Type.QUIT;
 
-        return (isContentMessage && !isGroupActive) || (sender.isBlocked() && !isLeaveMessage && !isGv2Update);
+        return (isContentMessage && !isGroupActive) || (isBlocked && !isLeaveMessage && !isGv2Update);
       } else {
-        return sender.isBlocked();
+        return isBlocked;
       }
     } else if (content.getCallMessage().isPresent()) {
-      return sender.isBlocked();
+      return isBlocked;
     } else if (content.getTypingMessage().isPresent()) {
-      if (sender.isBlocked()) {
+      if (isBlocked) {
         return true;
       }
 
