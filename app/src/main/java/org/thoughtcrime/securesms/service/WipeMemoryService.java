@@ -71,6 +71,7 @@ public class WipeMemoryService extends IntentService {
   @Override
   public int onStartCommand(@Nullable Intent intent, int flags, int startId) {
     if (restart) {
+      stopService(new Intent(this, KeyCachingService.class));
       killProcess();
     }
     return super.onStartCommand(intent, flags, startId);

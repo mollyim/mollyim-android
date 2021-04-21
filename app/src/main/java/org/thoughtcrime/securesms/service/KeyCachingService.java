@@ -107,7 +107,7 @@ public class KeyCachingService extends Service {
 
   @Override
   public int onStartCommand(Intent intent, int flags, int startId) {
-    if (intent == null) {
+    if (intent == null || (intent.getAction() != null && isLocked())) {
       return START_NOT_STICKY;
     }
     Log.d(TAG, "onStartCommand, " + intent.getAction());
@@ -172,7 +172,7 @@ public class KeyCachingService extends Service {
   private void handleClearKey() {
     Log.i(TAG, "handleClearKey");
 
-    pendingAlarm = false;
+    cancelTimeout();
 
     if (ApplicationMigrations.isUpdate(this) ||
         EventBus.getDefault().getStickyEvent(TransferStatus.class) != null) {
@@ -205,8 +205,10 @@ public class KeyCachingService extends Service {
     }
   }
 
-  private void scheduleTimeout(long timeoutSeconds) {
-    if (pendingAlarm) return;
+  private synchronized void scheduleTimeout(long timeoutSeconds) {
+    if (pendingAlarm) {
+      return;
+    }
 
     Log.i(TAG, "Starting timeout: " + timeoutSeconds + " s.");
 
@@ -222,10 +224,11 @@ public class KeyCachingService extends Service {
     pendingAlarm = true;
   }
 
-  private void cancelTimeout() {
+  private synchronized void cancelTimeout() {
+    pendingAlarm = false;
+
     AlarmManager alarmManager = ServiceUtil.getAlarmManager(this);
     alarmManager.cancel(buildExpirationIntent());
-    pendingAlarm = false;
 
     Log.i(TAG, "Timeout canceled");
   }
