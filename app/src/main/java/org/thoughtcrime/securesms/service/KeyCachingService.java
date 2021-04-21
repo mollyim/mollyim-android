@@ -16,7 +16,6 @@
  */
 package org.thoughtcrime.securesms.service;
 
-import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -24,7 +23,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.AsyncTask;
 import android.os.Binder;
 import android.os.Build;
 import android.os.IBinder;
@@ -33,6 +31,7 @@ import android.os.SystemClock;
 import androidx.core.app.NotificationCompat;
 
 import org.greenrobot.eventbus.EventBus;
+import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.logging.Log;
 import org.signal.devicetransfer.TransferStatus;
 import org.thoughtcrime.securesms.BuildConfig;
@@ -108,7 +107,9 @@ public class KeyCachingService extends Service {
 
   @Override
   public int onStartCommand(Intent intent, int flags, int startId) {
-    if (intent == null) return START_NOT_STICKY;
+    if (intent == null) {
+      return START_NOT_STICKY;
+    }
     Log.d(TAG, "onStartCommand, " + intent.getAction());
 
     if (intent.getAction() != null) {
@@ -136,7 +137,9 @@ public class KeyCachingService extends Service {
     super.onDestroy();
     Log.w(TAG, "KCS Is Being Destroyed!");
     unregisterScreenReceiver();
-    if (locking) clearMasterSecret();
+    if (locking) {
+      clearMasterSecret();
+    }
   }
 
   /**
@@ -150,7 +153,6 @@ public class KeyCachingService extends Service {
     startActivity(intent);
   }
 
-  @SuppressLint("StaticFieldLeak")
   private void handleCacheKey() {
     Log.i(TAG, "handleCacheKey");
 
@@ -160,18 +162,13 @@ public class KeyCachingService extends Service {
       startTimeoutIfAppropriate();
     }
 
-    new AsyncTask<Void, Void, Void>() {
-      @Override
-      protected Void doInBackground(Void... params) {
-        if (!ApplicationMigrations.isUpdate(KeyCachingService.this)) {
-          ApplicationDependencies.getMessageNotifier().updateNotification(KeyCachingService.this);
-        }
-        return null;
+    SignalExecutors.BOUNDED.execute(() -> {
+      if (!ApplicationMigrations.isUpdate(KeyCachingService.this)) {
+        ApplicationDependencies.getMessageNotifier().updateNotification(KeyCachingService.this);
       }
-    }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    });
   }
 
-  @SuppressLint("StaticFieldLeak")
   private void handleClearKey() {
     Log.i(TAG, "handleClearKey");
 
@@ -187,13 +184,9 @@ public class KeyCachingService extends Service {
 
     sendPackageBroadcast(CLEAR_KEY_EVENT);
 
-    new AsyncTask<Void, Void, Void>() {
-      @Override
-      protected Void doInBackground(Void... params) {
-        ApplicationDependencies.getMessageNotifier().clearNotifications(KeyCachingService.this, true);
-        return null;
-      }
-    }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    SignalExecutors.BOUNDED.execute(() -> {
+      ApplicationDependencies.getMessageNotifier().clearNotifications(KeyCachingService.this, true);
+    });
   }
 
   private void handleLocaleChanged() {
@@ -220,7 +213,7 @@ public class KeyCachingService extends Service {
     long at = SystemClock.elapsedRealtime() + TimeUnit.SECONDS.toMillis(timeoutSeconds);
 
     AlarmManager alarmManager = ServiceUtil.getAlarmManager(this);
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+    if (Build.VERSION.SDK_INT >= 23) {
       alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, at, buildExpirationIntent());
     } else {
       alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, at, buildExpirationIntent());
@@ -311,7 +304,7 @@ public class KeyCachingService extends Service {
     unregisterReceiver(screenReceiver);
   }
 
-  private BroadcastReceiver screenReceiver = new BroadcastReceiver() {
+  private final BroadcastReceiver screenReceiver = new BroadcastReceiver() {
     public void onReceive(Context context, Intent intent) {
       String action = intent.getAction();
       Log.d(TAG, "onReceive, " + action);
