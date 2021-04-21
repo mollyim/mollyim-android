@@ -215,6 +215,7 @@ public class WipeMemoryService extends IntentService {
         .setShowWhen(false)
         .setProgress(0, 0, true)
         .setPriority(NotificationCompat.PRIORITY_MIN)
+        .setVisibility(NotificationCompat.VISIBILITY_SECRET)
         .setCategory(NotificationCompat.CATEGORY_PROGRESS);
     startForeground(NOTIFICATION_ID, notification.build());
   }
