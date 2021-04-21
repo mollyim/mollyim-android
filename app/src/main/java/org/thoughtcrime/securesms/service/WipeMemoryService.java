@@ -57,6 +57,8 @@ public class WipeMemoryService extends IntentService {
 
   private PowerManager.WakeLock busyWakeLock;
 
+  private long lastProgressNotification;
+
   public static void run(Context context, boolean restartApp) {
     restart = restartApp;
     startForegroundService(context);
@@ -225,6 +227,12 @@ public class WipeMemoryService extends IntentService {
   }
 
   private void showProgress(long totalBytes, long progressBytes) {
+    long now = System.currentTimeMillis();
+    if (now - lastProgressNotification < 250L) {
+      // Updating too frequently
+      return;
+    }
+    lastProgressNotification = now;
     notification.setProgress((int) (totalBytes / 1024), (int) (progressBytes / 1024), false);
     notificationManager.notify(NOTIFICATION_ID, notification.build());
   }
