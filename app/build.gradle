@@ -138,9 +138,6 @@ android {
 
         applicationId basePackageId
 
-        resValue 'string', 'install_url', installUrl
-        resValue 'string', 'donate_url', donateUrl
-
         buildConfigField "String", "SIGNAL_PACKAGE_NAME", "\"org.thoughtcrime.securesms\""
         buildConfigField "String", "CANONICAL_VERSION_NAME", "\"$canonicalVersionName\""
         buildConfigField "String", "FDROID_UPDATE_URL", "\"https://molly.im/fdroid/repo\""

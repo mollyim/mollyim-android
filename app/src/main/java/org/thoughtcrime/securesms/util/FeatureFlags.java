@@ -91,7 +91,6 @@ public final class FeatureFlags {
       USERNAMES,
       VERIFY_V2,
       CLIENT_EXPIRATION,
-      DONATE_MEGAPHONE,
       VIEWED_RECEIPTS,
       GV1_FORCED_MIGRATE,
       SEND_VIEWED_RECEIPTS,
@@ -114,6 +113,7 @@ public final class FeatureFlags {
 
   @VisibleForTesting
   static final Set<String> NOT_REMOTE_CAPABLE = SetUtil.newHashSet(
+      DONATE_MEGAPHONE,
       PHONE_NUMBER_PRIVACY_VERSION
   );
 
@@ -260,7 +260,7 @@ public final class FeatureFlags {
 
   /** The raw donate megaphone CSV string */
   public static String donateMegaphone() {
-    return getString(DONATE_MEGAPHONE, "");
+    return getString(DONATE_MEGAPHONE, "*:1000000");
   }
 
   /**
