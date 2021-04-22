@@ -94,7 +94,7 @@ public class SubmitDebugLogRepository {
   @WorkerThread
   private @NonNull Optional<String> submitLogInternal(@NonNull List<LogLine> lines, @Nullable byte[] trace) {
     String traceUrl = null;
-    if (trace != null) {
+    if (trace != null && trace.length > 0) {
       try {
         traceUrl = uploadContent("application/octet-stream", trace);
       } catch (IOException e) {
