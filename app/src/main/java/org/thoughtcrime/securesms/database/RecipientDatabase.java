@@ -144,6 +144,7 @@ public class RecipientDatabase extends Database {
   private static final String WALLPAPER_URI             = "wallpaper_file";
   public  static final String ABOUT                     = "about";
   public  static final String ABOUT_EMOJI               = "about_emoji";
+  // MOLLY: Add new fields to clearFieldsForDeletion
 
   public  static final String SEARCH_PROFILE_NAME      = "search_signal_profile";
   private static final String SORT_NAME                = "sort_name";
@@ -2218,6 +2219,11 @@ public class RecipientDatabase extends Database {
     valuesToSet.putNull(SYSTEM_PHOTO_URI);
     valuesToSet.putNull(SYSTEM_PHONE_LABEL);
     valuesToSet.putNull(SYSTEM_CONTACT_URI);
+    valuesToSet.putNull(LAST_SESSION_RESET);
+    valuesToSet.putNull(WALLPAPER);
+    valuesToSet.putNull(WALLPAPER_URI);
+    valuesToSet.putNull(ABOUT);
+    valuesToSet.putNull(ABOUT_EMOJI);
     if (update(id, valuesToSet)) {
       markDirty(id, DirtyState.UPDATE);
       StorageSyncHelper.scheduleSyncForDataChange();
