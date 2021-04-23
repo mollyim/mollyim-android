@@ -24,4 +24,7 @@ class NoopLogger extends Log.Logger {
 
   @Override
   public void blockUntilAllWritesFinished() { }
+
+  @Override
+  public void clear() {}
 }

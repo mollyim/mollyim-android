@@ -58,11 +58,6 @@ public final class LogRecorder extends Log.Logger {
   public void clear() {
   }
 
-  @Override
-  public @Nullable CharSequence getLogs() {
-    return null;
-  }
-
   public List<Entry> getVerbose() {
     return verbose;
   }

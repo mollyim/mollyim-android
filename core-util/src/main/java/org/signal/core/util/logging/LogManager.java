@@ -1,51 +1,65 @@
 package org.signal.core.util.logging;
 
+import androidx.annotation.Nullable;
+
 public class LogManager {
 
   private static final String TAG = Log.tag(LogManager.class);
 
+  private static final NoopLogger    noopLogger    = new NoopLogger();
   private static final AndroidLogger androidLogger = new AndroidLogger();
 
   private static PersistentLogger persistentLogger;
 
-  private static Log.Logger[] loggers = { androidLogger };
+  private static Log.Logger compoundLogger = new CompoundLogger(androidLogger);
 
-  public static Log.Logger getAndroidLogger() {
+  private static Log.InternalCheck internalCheck = () -> false;
+
+  public static AndroidLogger getAndroidLogger() {
     return androidLogger;
   }
 
-  public static Log.Logger getPersistentLogger() {
-    Log.Logger logger = persistentLogger;
-    if (persistentLogger == null) {
-      logger = new EmptyLogger();
-    }
-    return logger;
+  public static @Nullable PersistentLogger getPersistentLogger() {
+    return persistentLogger;
   }
 
-  public static void setPersistentLogger(PersistentLogger logger) {
-    persistentLogger = logger;
+  public static void setInternalCheck(Log.InternalCheck internalCheck) {
+    LogManager.internalCheck = internalCheck;
+  }
+
+  public static void setPersistentLogger(PersistentLogger persistentLogger) {
+    LogManager.persistentLogger = persistentLogger;
   }
 
   public static void setLogging(boolean enabled) {
     if (enabled) {
       setLoggers(androidLogger, persistentLogger);
     } else {
-      setLoggers(new EmptyLogger());
+      setLoggers(noopLogger);
     }
   }
 
   public static void wipeLogs() {
-    androidLogger.clear();
-    if (persistentLogger != null) {
-      persistentLogger.clear();
+    getAndroidLogger().clear();
+    PersistentLogger local = getPersistentLogger();
+    if (local != null) {
+      local.clear();
     }
   }
 
-  static Log.Logger[] getLoggers() {
-    return LogManager.loggers;
+  static Log.Logger getLogger() {
+    return compoundLogger;
+  }
+
+  static Log.Logger getInternal() {
+    if (internalCheck.isInternal()) {
+      return compoundLogger;
+    } else {
+      return noopLogger;
+    }
   }
 
   static void setLoggers(Log.Logger... loggers) {
-    LogManager.loggers = loggers;
+    compoundLogger = new CompoundLogger(loggers);
   }
 }

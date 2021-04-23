@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 
 import org.signal.core.util.logging.LogManager;
+import org.signal.core.util.logging.PersistentLogger;
 
 public class LogSectionLogger implements LogSection {
 
@@ -15,7 +16,11 @@ public class LogSectionLogger implements LogSection {
 
   @Override
   public @NonNull CharSequence getContent(@NonNull Context context) {
-    CharSequence logs = LogManager.getPersistentLogger().getLogs();
+    PersistentLogger persistentLogger = LogManager.getPersistentLogger();
+    if (persistentLogger == null) {
+      return "Logs not available";
+    }
+    CharSequence logs = persistentLogger.getLogs();
     return logs != null ? logs : "Unable to retrieve logs.";
   }
 }

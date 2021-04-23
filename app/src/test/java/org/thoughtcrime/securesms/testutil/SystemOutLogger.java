@@ -1,7 +1,5 @@
 package org.thoughtcrime.securesms.testutil;
 
-import androidx.annotation.Nullable;
-
 import org.signal.core.util.logging.Log;
 
 public final class SystemOutLogger extends Log.Logger {
@@ -40,12 +38,6 @@ public final class SystemOutLogger extends Log.Logger {
 
   @Override
   public void clear() { }
-
-  @Nullable
-  @Override
-  public CharSequence getLogs() {
-    return null;
-  }
 
   private void printlnFormatted(char level, String tag, String message, Throwable t) {
     System.out.println(format(level, tag, message, t));

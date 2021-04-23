@@ -53,7 +53,6 @@ public class AndroidLogger extends Log.Logger {
     } catch (IOException ignored) {}
   }
 
-  @Override
   @WorkerThread
   public @Nullable CharSequence getLogs() {
     try {

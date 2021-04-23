@@ -62,4 +62,11 @@ class CompoundLogger extends Log.Logger {
       logger.blockUntilAllWritesFinished();
     }
   }
+
+  @Override
+  public void clear() {
+    for (Log.Logger logger : loggers) {
+      logger.clear();
+    }
+  }
 }

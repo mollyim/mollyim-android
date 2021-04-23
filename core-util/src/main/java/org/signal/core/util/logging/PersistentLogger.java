@@ -117,7 +117,6 @@ public final class PersistentLogger extends Log.Logger {
     });
   }
 
-  @Override
   @WorkerThread
   public @Nullable CharSequence getLogs() {
     CountDownLatch                latch = new CountDownLatch(1);
