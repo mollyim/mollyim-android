@@ -1064,8 +1064,8 @@
   <string name="MessageRequestBottomView_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Bu gruba katılınsın mı? Kabul edene kadar iletilerini gördüğünüzü bilmeyecekler.</string>
   <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">Bu grubun engelini kaldırmak ve adınızla fotonuzu üyeleri ile paylaşmak istiyor musunuz? Engeli kaldırana kadar hiçbir ileti almayacaksınız.</string>
   <string name="MessageRequestProfileView_member_of_one_group">%1$s grubuna üye</string>
-  <string name="MessageRequestProfileView_member_of_two_groups">%1$s ve %2$s gruplarına üye</string>
-  <string name="MessageRequestProfileView_member_of_many_groups">%1$s, %2$s ve %3$s gruplarına üye</string>
+  <string name="MessageRequestProfileView_member_of_two_groups">%1$s ve %2$s grubuna üye</string>
+  <string name="MessageRequestProfileView_member_of_many_groups">%1$s, %2$s ve %3$s grubuna üye</string>
   <plurals name="MessageRequestProfileView_members">
     <item quantity="one">%1$d üye</item>
     <item quantity="other">%1$d üye</item>
@@ -1472,16 +1472,17 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <string name="MessageNotifier_this_message_was_deleted">Bu ileti silindi.</string>
   <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Kişi katıldı Signal bildirimlerini kapatmak mı istiyorsunuz? Signal &gt; Ayarlar &gt; Bildirimler kısmında tekrar açabilirsiniz.</string>
   <!--Notification Channels-->
-  <string name="NotificationChannel_messages">Varsayılan</string>
+  <string name="NotificationChannel_channel_messages">İletiler</string>
   <string name="NotificationChannel_calls">Aramalar</string>
   <string name="NotificationChannel_failures">Hatalar</string>
   <string name="NotificationChannel_backups">Yedekler</string>
   <string name="NotificationChannel_locked_status">Kilit durumu</string>
   <string name="NotificationChannel_app_updates">Uygulama güncellemeleri</string>
   <string name="NotificationChannel_other">Diğer</string>
-  <string name="NotificationChannel_group_messages">İletiler</string>
+  <string name="NotificationChannel_group_chats">Konuşmalar</string>
   <string name="NotificationChannel_missing_display_name">Bilinmeyen</string>
   <string name="NotificationChannel_voice_notes">Sesli Notlar</string>
+  <string name="NotificationChannel_contact_joined_signal">Kişi Signal\'e katıldı</string>
   <string name="NotificationChannels__no_activity_available_to_open_notification_channel_settings">Bildirim kanal ayarlarını açmak için mevcut bir faaliyet yok</string>
   <!--ProfileEditNameFragment-->
   <!--QuickResponseService-->
@@ -2777,6 +2778,7 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <string name="UnreadPayments__d_new_payment_notifications">%1$d yeni ödeme bildirimi</string>
   <!--CanNotSendPaymentDialog-->
   <string name="CanNotSendPaymentDialog__cant_send_payment">Ödeme gönderilemiyor</string>
+  <string name="CanNotSendPaymentDialog__to_send_a_payment_to_this_user">Bu kullanıcıya ödeme göndermek için sizden gelen bir ileti isteğini kabul etmesi gerekiyor. Kendisine bir ileti göndererek ileti isteği oluşturun.</string>
   <string name="CanNotSendPaymentDialog__send_a_message">Bir ileti gönderin</string>
   <!--EOF-->
 </resources>

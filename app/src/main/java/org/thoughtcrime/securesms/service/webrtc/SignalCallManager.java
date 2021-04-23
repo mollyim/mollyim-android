@@ -22,7 +22,6 @@ import org.signal.ringrtc.HttpHeader;
 import org.signal.ringrtc.Remote;
 import org.signal.storageservice.protos.groups.GroupExternalCredential;
 import org.signal.zkgroup.VerificationFailedException;
-import org.thoughtcrime.securesms.ApplicationContext;
 import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.WebRtcCallActivity;
 import org.thoughtcrime.securesms.crypto.UnidentifiedAccessUtil;
@@ -680,8 +679,7 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
     Pair<Long, Long> messageAndThreadId = database.insertOutgoingCall(recipient.getId(), expiresIn, isVideoOffer);
     if (expiresIn > 0) {
       database.markExpireStarted(messageAndThreadId.first());
-      ApplicationContext.getInstance(context).getExpiringMessageManager()
-                                             .scheduleDeletion(messageAndThreadId.first(), false, expiresIn);
+      ApplicationDependencies.getExpiringMessageManager().scheduleDeletion(messageAndThreadId.first(), false, expiresIn);
     }
   }
 
@@ -691,8 +689,7 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
     Pair<Long, Long> messageAndThreadId = database.insertReceivedCall(recipient.getId(), expiresIn, isVideoOffer);
     if (expiresIn > 0) {
       database.markExpireStarted(messageAndThreadId.first());
-      ApplicationContext.getInstance(context).getExpiringMessageManager()
-                                             .scheduleDeletion(messageAndThreadId.first(), false, expiresIn);
+      ApplicationDependencies.getExpiringMessageManager().scheduleDeletion(messageAndThreadId.first(), false, expiresIn);
     }
   }
 

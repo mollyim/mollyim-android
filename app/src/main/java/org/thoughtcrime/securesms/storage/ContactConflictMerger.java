@@ -96,7 +96,7 @@ class ContactConflictMerger implements StorageSyncHelper.ConflictMerger<SignalCo
   }
 
   @Override
-  public @NonNull SignalContactRecord merge(@NonNull SignalContactRecord remote, @NonNull SignalContactRecord local, @NonNull StorageSyncHelper.KeyGenerator keyGenerator) {
+  public @NonNull SignalContactRecord merge(@NonNull SignalContactRecord remote, @NonNull SignalContactRecord local, @NonNull StorageKeyGenerator keyGenerator) {
     String givenName;
     String familyName;
 

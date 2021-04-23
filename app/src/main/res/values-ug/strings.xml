@@ -1426,10 +1426,10 @@
   <!--MuteDialog-->
   <string name="MuteDialog_mute_notifications">ئۈنسىز ئۇقتۇرۇش</string>
   <!--ApplicationMigrationService-->
-  <string name="ApplicationMigrationService_import_in_progress">ئىمپورت قىلىۋاتىدۇ</string>
-  <string name="ApplicationMigrationService_importing_text_messages">تېكىست ئۇچۇرلىرىنى ئىمپورت قىلىۋاتىدۇ</string>
-  <string name="ApplicationMigrationService_import_complete">كىرگۈزۈش تاماملاندى</string>
-  <string name="ApplicationMigrationService_system_database_import_is_complete">سېسىتما ساندانىنى ئىمپورت قىلىش تۈگىدى.</string>
+  <string name="ApplicationMigrationService_import_in_progress">ئەكىرىش داۋاملىشىۋاتىدۇ</string>
+  <string name="ApplicationMigrationService_importing_text_messages">تېكىست ئۇچۇرلىرىنى ئەكىرىۋاتىدۇ</string>
+  <string name="ApplicationMigrationService_import_complete">ئەكىرىش تاماملاندى</string>
+  <string name="ApplicationMigrationService_system_database_import_is_complete">سېسىتما ساندانىنى ئەكىرىش تۈگىدى.</string>
   <!--KeyCachingService-->
   <string name="KeyCachingService_signal_passphrase_cached">نوقۇپ ئېچىڭ.</string>
   <string name="KeyCachingService_passphrase_cached">Molly ئېچىلىپ كەتتى.</string>
@@ -1474,16 +1474,17 @@
   <string name="MessageNotifier_this_message_was_deleted">بۇ ئۇچۇر ئۆچۈرۈلگەن</string>
   <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">ئالاقەداشلار Signal غا قوشۇلغانلىق ئۇقتۇرۇشىنى تاقامسىز؟ سىز Signal &gt; تەڭشەكلەر&gt;ئۇقتۇرۇشتىن قايتا قوزغىتالايسىز.</string>
   <!--Notification Channels-->
-  <string name="NotificationChannel_messages">سۈكۈتتە</string>
+  <string name="NotificationChannel_channel_messages">ئۇچۇرلار</string>
   <string name="NotificationChannel_calls">چاقىرىشلار</string>
   <string name="NotificationChannel_failures">مەغلۇبىيەت</string>
   <string name="NotificationChannel_backups">زاپاسلار</string>
   <string name="NotificationChannel_locked_status">قۇلۇپ ھالىتى</string>
   <string name="NotificationChannel_app_updates">ئەپ يېڭىلاش</string>
   <string name="NotificationChannel_other">باشقىلار</string>
-  <string name="NotificationChannel_group_messages">ئۇچۇرلار</string>
+  <string name="NotificationChannel_group_chats">سۆھبەتلەر</string>
   <string name="NotificationChannel_missing_display_name">نامەلۇم</string>
   <string name="NotificationChannel_voice_notes">ئۈن خاتىرە</string>
+  <string name="NotificationChannel_contact_joined_signal">ئالاقاداش Signal غا قېتىلدى</string>
   <string name="NotificationChannels__no_activity_available_to_open_notification_channel_settings">ئۇقتۇرۇش قانال تەڭشەكلىرىنى ئاچىدىغان پائالىيەت يوق.</string>
   <!--ProfileEditNameFragment-->
   <!--QuickResponseService-->
@@ -1500,6 +1501,7 @@
   <!--SingleRecipientNotificationBuilder-->
   <string name="SingleRecipientNotificationBuilder_signal">Molly </string>
   <string name="SingleRecipientNotificationBuilder_new_message">يېڭى ئۇچۇر</string>
+  <string name="SingleRecipientNotificationBuilder_message_request">ئۇچۇر ئىلتىماسى</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">سىن قويۇش</string>
   <string name="ThumbnailView_Has_a_caption_description">خەتلىك</string>
@@ -2719,7 +2721,7 @@
   <string name="ChatWallpaperActivity__chat_wallpaper">سۆھبەت تام قەغەز</string>
   <!--ChatWallpaperFragment-->
   <string name="ChatWallpaperFragment__set_wallpaper">تام قەغىزىنى بېكىتىش</string>
-  <string name="ChatWallpaperFragment__dark_theme_dims_wallpaper">قاراڭغۇ ئۇسلۇب تام قەغىزىنى گىرەمسەنلەشتۈرىدۇ</string>
+  <string name="ChatWallpaperFragment__dark_theme_dims_wallpaper">قاراڭغۇ ئۇسلۇب تام قەغىزىنى گىرىمسەنلەشتۈرىدۇ</string>
   <string name="ChatWallpaperFragment__clear_wallpaper">تام قەغىزىنى تازىلىۋەت</string>
   <string name="ChatWallpaperFragment__clear_wallpaper_for_this_chat">بۇ سۆھبەتنىڭ تام قەغىزىنى تازىلىۋېتەمسىز؟</string>
   <string name="ChatWallpaperFragment__clear_wallpaper_this_will_not">تام قەغىزىنى تازىلاشمۇ؟ بۇ سىزنىڭ سۆھبەتلىرىڭىز ئۈچۈن خاسلاشتۇرغان تام قەغەزلىرىڭىزنى تازىلىۋەتمەيدۇ. </string>

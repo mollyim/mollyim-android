@@ -23,8 +23,10 @@ public interface MessageNotifier {
   void updateNotification(@NonNull Context context, long threadId, @NonNull BubbleUtil.BubbleState defaultBubbleState);
   void updateNotification(@NonNull Context context, long threadId, boolean signal);
   void updateNotification(@NonNull Context context, long threadId, boolean signal, int reminderCount, @NonNull BubbleUtil.BubbleState defaultBubbleState);
-  void clearNotifications(@NonNull Context context, boolean clearDelayed);
+  void clearNotifications(@NonNull Context context);
   void clearReminder(@NonNull Context context);
+  void addStickyThread(long threadId, long earliestTimestamp);
+  void removeStickyThread(long threadId);
 
 
   class ReminderReceiver extends BroadcastReceiver {

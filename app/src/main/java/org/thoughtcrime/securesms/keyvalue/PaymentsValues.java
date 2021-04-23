@@ -111,7 +111,7 @@ public final class PaymentsValues extends SignalStoreValues {
 //    if (!TextSecurePreferences.isPushRegistered(context) ||
 //        !GeographicalRestrictions.e164Allowed(TextSecurePreferences.getLocalNumber(context)))
 //    {
-//      return PaymentsAvailability.NOT_IN_REGION;
+      return PaymentsAvailability.NOT_IN_REGION;
 //    }
 //
 //    if (FeatureFlags.payments()) {
@@ -127,7 +127,6 @@ public final class PaymentsValues extends SignalStoreValues {
 //        return PaymentsAvailability.DISABLED_REMOTELY;
 //      }
 //    }
-    return PaymentsAvailability.NOT_IN_REGION;
   }
 
   @WorkerThread

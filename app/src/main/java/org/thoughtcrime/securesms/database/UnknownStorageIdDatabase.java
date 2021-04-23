@@ -7,21 +7,27 @@ import android.database.Cursor;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.annimon.stream.Stream;
+
 import org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper;
 import org.thoughtcrime.securesms.util.Base64;
+import org.thoughtcrime.securesms.util.SqlUtil;
+import org.whispersystems.libsignal.util.guava.Preconditions;
 import org.whispersystems.signalservice.api.storage.SignalStorageRecord;
 import org.whispersystems.signalservice.api.storage.StorageId;
+import org.whispersystems.signalservice.internal.storage.protos.SignalStorage;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
  * A list of storage keys whose types we do not currently have syncing logic for. We need to
  * remember that these keys exist so that we don't blast any data away.
  */
-public class StorageKeyDatabase extends Database {
+public class UnknownStorageIdDatabase extends Database {
 
   private static final String TABLE_NAME = "storage_key";
   private static final String ID         = "_id";
@@ -36,11 +42,11 @@ public class StorageKeyDatabase extends Database {
       "CREATE INDEX IF NOT EXISTS storage_key_type_index ON " + TABLE_NAME + " (" + TYPE + ");"
   };
 
-  public StorageKeyDatabase(Context context, SQLCipherOpenHelper databaseHelper) {
+  public UnknownStorageIdDatabase(Context context, SQLCipherOpenHelper databaseHelper) {
     super(context, databaseHelper);
   }
 
-  public List<StorageId> getAllKeys() {
+  public List<StorageId> getAllIds() {
     List<StorageId> keys = new ArrayList<>();
 
     try (Cursor cursor = databaseHelper.getReadableDatabase().query(TABLE_NAME, null, null, null, null, null, null)) {
@@ -79,26 +85,39 @@ public class StorageKeyDatabase extends Database {
 
     db.beginTransaction();
     try {
-      for (SignalStorageRecord insert : inserts) {
-        ContentValues values = new ContentValues();
-        values.put(TYPE, insert.getType());
-        values.put(STORAGE_ID, Base64.encodeBytes(insert.getId().getRaw()));
-
-        db.insert(TABLE_NAME, null, values);
-      }
-
-      String deleteQuery = STORAGE_ID + " = ?";
-
-      for (SignalStorageRecord delete : deletes) {
-        String[] args = new String[] { Base64.encodeBytes(delete.getId().getRaw()) };
-        db.delete(TABLE_NAME, deleteQuery, args);
-      }
+      insert(inserts);
+      delete(Stream.of(deletes).map(SignalStorageRecord::getId).toList());
 
       db.setTransactionSuccessful();
     } finally {
       db.endTransaction();
     }
+  }
 
+  public void insert(@NonNull Collection<SignalStorageRecord> inserts) {
+    SQLiteDatabase db = databaseHelper.getWritableDatabase();
+
+    Preconditions.checkArgument(db.inTransaction(), "Must be in a transaction!");
+
+    for (SignalStorageRecord insert : inserts) {
+      ContentValues values = new ContentValues();
+      values.put(TYPE, insert.getType());
+      values.put(STORAGE_ID, Base64.encodeBytes(insert.getId().getRaw()));
+
+      db.insert(TABLE_NAME, null, values);
+    }
+  }
+
+  public void delete(@NonNull Collection<StorageId> deletes) {
+    SQLiteDatabase db          = databaseHelper.getWritableDatabase();
+    String         deleteQuery = STORAGE_ID + " = ?";
+
+    Preconditions.checkArgument(db.inTransaction(), "Must be in a transaction!");
+
+    for (StorageId id : deletes) {
+      String[] args = SqlUtil.buildArgs(Base64.encodeBytes(id.getRaw()));
+      db.delete(TABLE_NAME, deleteQuery, args);
+    }
   }
 
   public void deleteByType(int type) {

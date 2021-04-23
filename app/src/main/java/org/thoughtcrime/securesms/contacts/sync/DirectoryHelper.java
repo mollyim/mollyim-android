@@ -194,7 +194,7 @@ public class DirectoryHelper {
 
     if (newRegisteredState != originalRegisteredState) {
       ApplicationDependencies.getJobManager().add(new MultiDeviceContactUpdateJob());
-      ApplicationDependencies.getJobManager().add(new StorageSyncJob());
+      ApplicationDependencies.getJobManager().add(StorageSyncJob.create());
 
       if (notifyOfNewUsers && newRegisteredState == RegisteredState.REGISTERED && recipient.resolve().isSystemContact()) {
         notifyNewUsers(context, Collections.singletonList(recipient.getId()));
@@ -342,7 +342,6 @@ public class DirectoryHelper {
         String mimeType = getMimeType(cursor);
 
         if (!isPhoneMimeType(mimeType)) {
-          Log.w(TAG, "Ignoring unwanted mime type: " + mimeType);
           continue;
         }
 

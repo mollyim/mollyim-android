@@ -12,6 +12,7 @@ import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.storage.StorageSyncHelper;
+import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.whispersystems.libsignal.util.guava.Optional;
 import org.whispersystems.signalservice.api.SignalServiceAccountManager;
 import org.whispersystems.signalservice.api.push.exceptions.PushNetworkException;
@@ -75,6 +76,9 @@ public class StorageAccountRestoreJob extends BaseJob {
       return;
     }
 
+    Log.i(TAG, "Updating local manifest version to 0.");
+    TextSecurePreferences.setStorageManifestVersion(context, 0);
+
     Optional<StorageId> accountId = manifest.get().getAccountStorageId();
 
     if (!accountId.isPresent()) {
@@ -99,8 +103,7 @@ public class StorageAccountRestoreJob extends BaseJob {
 
 
     Log.i(TAG, "Applying changes locally...");
-    StorageId selfStorageId = StorageId.forAccount(Recipient.self().getStorageServiceId());
-    StorageSyncHelper.applyAccountStorageSyncUpdates(context, selfStorageId, accountRecord, false);
+    StorageSyncHelper.applyAccountStorageSyncUpdates(context, Recipient.self(), accountRecord, false);
 
     JobManager jobManager = ApplicationDependencies.getJobManager();
 

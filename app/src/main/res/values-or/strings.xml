@@ -33,11 +33,13 @@
   <string name="ApplicationPreferencesActivity_sms_mms_summary">ଏସଏମଏସ  %1$s ଏମଏମଏସ %2$s</string>
   <string name="ApplicationPreferencesActivity_privacy_summary">ଚିତ୍ରପଟ୍ଟ ତାଲା %1$s,ପଞ୍ଜିକରଣ ତାଲା %2$s</string>
   <string name="ApplicationPreferencesActivity_appearance_summary">ଥିମ୍ %1$s, ଭାଷା %2$s</string>
-  <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock"> ପଞ୍ଜୀକରଣ ଲକ୍ ପାଇଁ PIN ଗୁଡିକ ଆବଶ୍ୟକ | PIN ଗୁଡିକ ଅକ୍ଷମ କରିବାକୁ, ଦୟାକରି ପ୍ରଥମେ ପଞ୍ଜୀକରଣ ଲକ୍ ଅକ୍ଷମ କରନ୍ତୁ |</string>
+  <string name="ApplicationPreferencesActivity_pins_are_required_for_registration_lock">ପଞ୍ଜୀକରଣ ଲକ୍ ପାଇଁ PIN ଗୁଡିକ ଆବଶ୍ୟକ | PIN ଗୁଡିକ ଅକ୍ଷମ କରିବାକୁ, ଦୟାକରି ପ୍ରଥମେ ପଞ୍ଜୀକରଣ ଲକ୍ ଅକ୍ଷମ କରନ୍ତୁ |</string>
   <string name="ApplicationPreferencesActivity_pin_created">ପିନ୍ ସୃଷ୍ଟି କରାଗଲା।</string>
   <string name="ApplicationPreferencesActivity_pin_disabled">ପିନ୍ ଅକ୍ଷମ ଅଟେ।</string>
   <string name="ApplicationPreferencesActivity_hide">ଲୁଚାନ୍ତୁ</string>
   <string name="ApplicationPreferencesActivity_hide_reminder">ସ୍ମରଣିକା ଲୁଚାଇବେ କି?</string>
+  <string name="ApplicationPreferencesActivity_record_payments_recovery_phrase">ପେମେଣ୍ଟ ପୁନରୁଦ୍ଧାର ବାକ୍ୟାଂଶ ରେକର୍ଡ଼୍ କରନ୍ତୁ</string>
+  <string name="ApplicationPreferencesActivity_record_phrase">ବାକ୍ୟାଂଶ ରେକର୍ଡ଼୍ କରନ୍ତୁ</string>
   <!--AppProtectionPreferenceFragment-->
   <plurals name="AppProtectionPreferenceFragment_minutes">
     <item quantity="one">%d ମିନିଟ୍</item>
@@ -1466,16 +1468,17 @@
   <string name="MessageNotifier_this_message_was_deleted">ଏହି ବାର୍ତ୍ତା ବିଲୋପ କରାଯାଇଛି।</string>
   <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">ସମ୍ପର୍କ Signal ରେ ଯୋଗ ଦେଲେ ବନ୍ଦ କରନ୍ତୁ? Signal  &amp; gt ରେ ଆପଣ ସେମାନଙ୍କୁ ପୁନର୍ବାର ସକ୍ଷମ କରିପାରିବେ; ସେଟିଂସମୂହ &amp; gt; ବିଜ୍ଞପ୍ତିଗୁଡିକ</string>
   <!--Notification Channels-->
-  <string name="NotificationChannel_messages">ଡିଫଲ୍ଟ</string>
+  <string name="NotificationChannel_channel_messages">ବାର୍ତ୍ତା</string>
   <string name="NotificationChannel_calls">କଲ୍</string>
   <string name="NotificationChannel_failures">ବିଫଳତା</string>
   <string name="NotificationChannel_backups">ନକଲ ସଂରକ୍ଷଣ</string>
   <string name="NotificationChannel_locked_status">ତାଲା ସ୍ଥିତି</string>
   <string name="NotificationChannel_app_updates">ଆପ୍ ଅଦ୍ୟତନଗୁଡ଼ିକ</string>
   <string name="NotificationChannel_other">ଅନ୍ୟ</string>
-  <string name="NotificationChannel_group_messages">ବାର୍ତ୍ତା</string>
+  <string name="NotificationChannel_group_chats">ବାର୍ତ୍ତାଳାପ</string>
   <string name="NotificationChannel_missing_display_name">ଅଜଣା</string>
   <string name="NotificationChannel_voice_notes">ଧ୍ୱନି ନୋଟ</string>
+  <string name="NotificationChannel_contact_joined_signal">ସମ୍ପର୍କ Signal ରେ ଯୋଗଦେଲେ</string>
   <!--ProfileEditNameFragment-->
   <!--QuickResponseService-->
   <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Molly ଲକ୍ ହୋଇଥିଲେ ଶୀଘ୍ର ପ୍ରତିକ୍ରିୟା ଉପଲବ୍ଧ ନାହିଁ!</string>

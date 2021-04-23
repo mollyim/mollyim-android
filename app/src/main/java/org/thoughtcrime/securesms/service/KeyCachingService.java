@@ -41,6 +41,7 @@ import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.crypto.MasterSecret;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.migrations.ApplicationMigrations;
+import org.thoughtcrime.securesms.notifications.MessageNotifier;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.util.DynamicLanguage;
 import org.thoughtcrime.securesms.util.ServiceUtil;
@@ -185,7 +186,9 @@ public class KeyCachingService extends Service {
     sendPackageBroadcast(CLEAR_KEY_EVENT);
 
     SignalExecutors.BOUNDED.execute(() -> {
-      ApplicationDependencies.getMessageNotifier().clearNotifications(KeyCachingService.this, true);
+      MessageNotifier messageNotifier = ApplicationDependencies.getMessageNotifier();
+      messageNotifier.cancelDelayedNotifications();
+      messageNotifier.clearNotifications(KeyCachingService.this);
     });
   }
 

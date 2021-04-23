@@ -25,6 +25,8 @@ import org.thoughtcrime.securesms.notifications.MessageNotifier;
 import org.thoughtcrime.securesms.payments.Payments;
 import org.thoughtcrime.securesms.push.SignalServiceNetworkAccess;
 import org.thoughtcrime.securesms.recipients.LiveRecipientCache;
+import org.thoughtcrime.securesms.revealable.ViewOnceMessageManager;
+import org.thoughtcrime.securesms.service.ExpiringMessageManager;
 import org.thoughtcrime.securesms.service.TrimThreadsByDateManager;
 import org.thoughtcrime.securesms.service.webrtc.SignalCallManager;
 import org.thoughtcrime.securesms.shakereport.ShakeToReport;
@@ -78,6 +80,8 @@ public class ApplicationDependencies {
   private static volatile TypingStatusSender           typingStatusSender;
   private static volatile DatabaseObserver             databaseObserver;
   private static volatile TrimThreadsByDateManager     trimThreadsByDateManager;
+  private static volatile ViewOnceMessageManager       viewOnceMessageManager;
+  private static volatile ExpiringMessageManager       expiringMessageManager;
   private static volatile Payments                     payments;
   private static volatile ShakeToReport                shakeToReport;
   private static volatile SignalCallManager            signalCallManager;
@@ -193,12 +197,6 @@ public class ApplicationDependencies {
   }
 
   public static @NonNull SignalServiceMessageReceiver getSignalServiceMessageReceiver() {
-    SignalServiceMessageReceiver local = messageReceiver;
-
-    if (local != null) {
-      return local;
-    }
-
     synchronized (LOCK) {
       if (messageReceiver == null) {
         messageReceiver = getProvider().provideSignalServiceMessageReceiver();
@@ -368,9 +366,37 @@ public class ApplicationDependencies {
     return trimThreadsByDateManager;
   }
 
+  public static @NonNull ViewOnceMessageManager getViewOnceMessageManager() {
+    if (viewOnceMessageManager == null) {
+      synchronized (LOCK) {
+        if (viewOnceMessageManager == null) {
+          viewOnceMessageManager = getProvider().provideViewOnceMessageManager();
+        }
+      }
+    }
+
+    return viewOnceMessageManager;
+  }
+
+  public static @NonNull ExpiringMessageManager getExpiringMessageManager() {
+    if (expiringMessageManager == null) {
+      synchronized (LOCK) {
+        if (expiringMessageManager == null) {
+          expiringMessageManager = getProvider().provideExpiringMessageManager();
+        }
+      }
+    }
+
+    return expiringMessageManager;
+  }
+
   public static TypingStatusRepository getTypingStatusRepository() {
     if (typingStatusRepository == null) {
-      typingStatusRepository = getProvider().provideTypingStatusRepository();
+      synchronized (LOCK) {
+        if (typingStatusRepository == null) {
+          typingStatusRepository = getProvider().provideTypingStatusRepository();
+        }
+      }
     }
 
     return typingStatusRepository;
@@ -378,7 +404,11 @@ public class ApplicationDependencies {
 
   public static TypingStatusSender getTypingStatusSender() {
     if (typingStatusSender == null) {
-      typingStatusSender = getProvider().provideTypingStatusSender();
+      synchronized (LOCK) {
+        if (typingStatusSender == null) {
+          typingStatusSender = getProvider().provideTypingStatusSender();
+        }
+      }
     }
 
     return typingStatusSender;
@@ -455,6 +485,8 @@ public class ApplicationDependencies {
     @NonNull MessageNotifier provideMessageNotifier();
     @NonNull IncomingMessageObserver provideIncomingMessageObserver();
     @NonNull TrimThreadsByDateManager provideTrimThreadsByDateManager();
+    @NonNull ViewOnceMessageManager provideViewOnceMessageManager();
+    @NonNull ExpiringMessageManager provideExpiringMessageManager();
     @NonNull TypingStatusRepository provideTypingStatusRepository();
     @NonNull TypingStatusSender provideTypingStatusSender();
     @NonNull DatabaseObserver provideDatabaseObserver();

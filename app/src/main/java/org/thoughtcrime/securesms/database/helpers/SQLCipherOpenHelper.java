@@ -43,7 +43,7 @@ import org.thoughtcrime.securesms.database.SignedPreKeyDatabase;
 import org.thoughtcrime.securesms.database.SmsDatabase;
 import org.thoughtcrime.securesms.database.SqlCipherDatabaseHook;
 import org.thoughtcrime.securesms.database.StickerDatabase;
-import org.thoughtcrime.securesms.database.StorageKeyDatabase;
+import org.thoughtcrime.securesms.database.UnknownStorageIdDatabase;
 import org.thoughtcrime.securesms.database.ThreadDatabase;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.groups.GroupId;
@@ -134,8 +134,9 @@ public class SQLCipherOpenHelper extends SQLiteOpenHelper implements SignalDatab
   private static final int ABOUT                            = 89;
   private static final int SPLIT_SYSTEM_NAMES               = 90;
   private static final int PAYMENTS                         = 91;
+  private static final int CLEAN_STORAGE_IDS                = 92;
 
-  private static final int    DATABASE_VERSION = 91;
+  private static final int    DATABASE_VERSION = 92;
   private static final String DATABASE_NAME    = "signal.db";
 
   private final Context        context;
@@ -164,7 +165,7 @@ public class SQLCipherOpenHelper extends SQLiteOpenHelper implements SignalDatab
     db.execSQL(SignedPreKeyDatabase.CREATE_TABLE);
     db.execSQL(SessionDatabase.CREATE_TABLE);
     db.execSQL(StickerDatabase.CREATE_TABLE);
-    db.execSQL(StorageKeyDatabase.CREATE_TABLE);
+    db.execSQL(UnknownStorageIdDatabase.CREATE_TABLE);
     db.execSQL(MentionDatabase.CREATE_TABLE);
     db.execSQL(PaymentDatabase.CREATE_TABLE);
     executeStatements(db, SearchDatabase.CREATE_TABLE);
@@ -179,7 +180,7 @@ public class SQLCipherOpenHelper extends SQLiteOpenHelper implements SignalDatab
     executeStatements(db, GroupDatabase.CREATE_INDEXS);
     executeStatements(db, GroupReceiptDatabase.CREATE_INDEXES);
     executeStatements(db, StickerDatabase.CREATE_INDEXES);
-    executeStatements(db, StorageKeyDatabase.CREATE_INDEXES);
+    executeStatements(db, UnknownStorageIdDatabase.CREATE_INDEXES);
     executeStatements(db, MentionDatabase.CREATE_INDEXES);
     executeStatements(db, PaymentDatabase.CREATE_INDEXES);
 
@@ -760,6 +761,13 @@ public class SQLCipherOpenHelper extends SQLiteOpenHelper implements SignalDatab
         db.execSQL("CREATE INDEX IF NOT EXISTS timestamp_direction_index ON payments (timestamp, direction);");
         db.execSQL("CREATE INDEX IF NOT EXISTS timestamp_index ON payments (timestamp);");
         db.execSQL("CREATE UNIQUE INDEX IF NOT EXISTS receipt_public_key_index ON payments (receipt_public_key);");
+      }
+
+      if (oldVersion < CLEAN_STORAGE_IDS) {
+        ContentValues values = new ContentValues();
+        values.putNull("storage_service_key");
+        int count = db.update("recipient", values, "storage_service_key NOT NULL AND ((phone NOT NULL AND INSTR(phone, '+') = 0) OR (group_id NOT NULL AND (LENGTH(group_id) != 85 and LENGTH(group_id) != 53)))", null);
+        Log.i(TAG, "There were " + count + " bad rows that had their storageID removed.");
       }
 
       db.setTransactionSuccessful();

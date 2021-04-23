@@ -37,12 +37,15 @@ import org.thoughtcrime.securesms.net.NetworkManager;
 import org.thoughtcrime.securesms.net.PipeConnectivityListener;
 import org.thoughtcrime.securesms.notifications.DefaultMessageNotifier;
 import org.thoughtcrime.securesms.notifications.MessageNotifier;
+import org.thoughtcrime.securesms.notifications.v2.MessageNotifierV2;
 import org.thoughtcrime.securesms.notifications.OptimizedMessageNotifier;
 import org.thoughtcrime.securesms.payments.MobileCoinConfig;
 import org.thoughtcrime.securesms.payments.Payments;
 import org.thoughtcrime.securesms.push.SecurityEventListener;
 import org.thoughtcrime.securesms.push.SignalServiceNetworkAccess;
 import org.thoughtcrime.securesms.recipients.LiveRecipientCache;
+import org.thoughtcrime.securesms.revealable.ViewOnceMessageManager;
+import org.thoughtcrime.securesms.service.ExpiringMessageManager;
 import org.thoughtcrime.securesms.service.TrimThreadsByDateManager;
 import org.thoughtcrime.securesms.service.webrtc.SignalCallManager;
 import org.thoughtcrime.securesms.shakereport.ShakeToReport;
@@ -189,7 +192,7 @@ public class ApplicationDependencyProvider implements ApplicationDependencies.Pr
 
   @Override
   public @NonNull MessageNotifier provideMessageNotifier() {
-    return new OptimizedMessageNotifier(new DefaultMessageNotifier());
+    return new OptimizedMessageNotifier(context);
   }
 
   @Override
@@ -200,6 +203,16 @@ public class ApplicationDependencyProvider implements ApplicationDependencies.Pr
   @Override
   public @NonNull TrimThreadsByDateManager provideTrimThreadsByDateManager() {
     return new TrimThreadsByDateManager(context);
+  }
+
+  @Override
+  public @NonNull ViewOnceMessageManager provideViewOnceMessageManager() {
+    return new ViewOnceMessageManager(context);
+  }
+
+  @Override
+  public @NonNull ExpiringMessageManager provideExpiringMessageManager() {
+    return new ExpiringMessageManager(context);
   }
 
   @Override

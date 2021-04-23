@@ -1118,8 +1118,8 @@
   <string name="MessageRequestBottomView_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Придружите се групи? Неће знати да сте им прочитали поруке док не прихватите.</string>
   <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">Да ли желите да одблокирате ову групу и да са њеним члановима поделите ваше име и слику? Нећете добити ни једну поруку док је не одблокирате.</string>
   <string name="MessageRequestProfileView_member_of_one_group">Члан %1$s</string>
-  <string name="MessageRequestProfileView_member_of_two_groups">Члан од %1$s и %2$s</string>
-  <string name="MessageRequestProfileView_member_of_many_groups">Члан од %1$s, %2$s, и %3$s</string>
+  <string name="MessageRequestProfileView_member_of_two_groups">Члан %1$s и %2$s</string>
+  <string name="MessageRequestProfileView_member_of_many_groups">Члан %1$s, %2$s, и %3$s</string>
   <plurals name="MessageRequestProfileView_members">
     <item quantity="one">%1$d члан</item>
     <item quantity="few">%1$d члан(ов)а</item>
@@ -1535,16 +1535,17 @@
   <string name="MessageNotifier_this_message_was_deleted">Ова порука је избрисана.</string>
   <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Искључити нотификације контакта који се придружио Signal-у? Можете их поново омогућити у Signal &gt; Подешавања &gt; Нотификације.</string>
   <!--Notification Channels-->
-  <string name="NotificationChannel_messages">Подразумеван</string>
+  <string name="NotificationChannel_channel_messages">Поруке</string>
   <string name="NotificationChannel_calls">Позиви</string>
   <string name="NotificationChannel_failures">Грешке</string>
   <string name="NotificationChannel_backups">Резерве</string>
   <string name="NotificationChannel_locked_status">Закључај стање</string>
   <string name="NotificationChannel_app_updates">Листа ажурирања</string>
   <string name="NotificationChannel_other">Остало</string>
-  <string name="NotificationChannel_group_messages">Поруке</string>
+  <string name="NotificationChannel_group_chats">Ћаскања</string>
   <string name="NotificationChannel_missing_display_name">Непозната</string>
   <string name="NotificationChannel_voice_notes">Гласовне белешке</string>
+  <string name="NotificationChannel_contact_joined_signal">Контакт се придружио Signalу</string>
   <string name="NotificationChannels__no_activity_available_to_open_notification_channel_settings">Није доступна активност да би се отворила подешавања канала нотификације.</string>
   <!--ProfileEditNameFragment-->
   <!--QuickResponseService-->
@@ -1561,6 +1562,7 @@
   <!--SingleRecipientNotificationBuilder-->
   <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Нова порука</string>
+  <string name="SingleRecipientNotificationBuilder_message_request">Захтев за разговор</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">Пусти видео</string>
   <string name="ThumbnailView_Has_a_caption_description">Има натпис</string>

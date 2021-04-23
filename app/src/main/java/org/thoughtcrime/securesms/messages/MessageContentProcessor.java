@@ -14,12 +14,12 @@ import com.annimon.stream.Stream;
 import org.signal.core.util.logging.Log;
 import org.signal.ringrtc.CallId;
 import org.signal.zkgroup.profiles.ProfileKey;
-import org.thoughtcrime.securesms.ApplicationContext;
 import org.thoughtcrime.securesms.attachments.Attachment;
 import org.thoughtcrime.securesms.attachments.DatabaseAttachment;
 import org.thoughtcrime.securesms.attachments.PointerAttachment;
 import org.thoughtcrime.securesms.attachments.TombstoneAttachment;
 import org.thoughtcrime.securesms.attachments.UriAttachment;
+import org.thoughtcrime.securesms.components.emoji.EmojiUtil;
 import org.thoughtcrime.securesms.contactshare.Contact;
 import org.thoughtcrime.securesms.contactshare.ContactModelMapper;
 import org.thoughtcrime.securesms.crypto.ProfileKeyUtil;
@@ -82,6 +82,7 @@ import org.thoughtcrime.securesms.mms.OutgoingSecureMediaMessage;
 import org.thoughtcrime.securesms.mms.QuoteModel;
 import org.thoughtcrime.securesms.mms.SlideDeck;
 import org.thoughtcrime.securesms.mms.StickerSlide;
+import org.thoughtcrime.securesms.notifications.MarkReadReceiver;
 import org.thoughtcrime.securesms.notifications.MessageNotifier;
 import org.thoughtcrime.securesms.payments.MobileCoinPublicAddress;
 import org.thoughtcrime.securesms.recipients.Recipient;
@@ -141,6 +142,7 @@ import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -690,6 +692,11 @@ public final class MessageContentProcessor {
   private void handleReaction(@NonNull SignalServiceContent content, @NonNull SignalServiceDataMessage message) {
     SignalServiceDataMessage.Reaction reaction = message.getReaction().get();
 
+    if (!EmojiUtil.isEmoji(context, reaction.getEmoji())) {
+      Log.w(TAG, "Reaction text is not a valid emoji! Ignoring the message.");
+      return;
+    }
+
     Recipient     targetAuthor  = Recipient.externalPush(context, reaction.getTargetAuthor());
     MessageRecord targetMessage = DatabaseFactory.getMmsSmsDatabase(context).getMessageFor(reaction.getTargetSentTimestamp(), targetAuthor.getId());
 
@@ -980,21 +987,30 @@ public final class MessageContentProcessor {
 
   private void handleSynchronizeReadMessage(@NonNull List<ReadMessage> readMessages, long envelopeTimestamp)
   {
+    Map<Long, Long> threadToLatestRead = new HashMap<>();
     for (ReadMessage readMessage : readMessages) {
-      List<Pair<Long, Long>> expiringText  = DatabaseFactory.getSmsDatabase(context).setTimestampRead(new SyncMessageId(Recipient.externalPush(context, readMessage.getSender()).getId(), readMessage.getTimestamp()), envelopeTimestamp);
-      List<Pair<Long, Long>> expiringMedia = DatabaseFactory.getMmsDatabase(context).setTimestampRead(new SyncMessageId(Recipient.externalPush(context, readMessage.getSender()).getId(), readMessage.getTimestamp()), envelopeTimestamp);
+      List<Pair<Long, Long>> expiringText  = DatabaseFactory.getSmsDatabase(context).setTimestampRead(new SyncMessageId(Recipient.externalPush(context, readMessage.getSender()).getId(), readMessage.getTimestamp()),
+                                                                                                      envelopeTimestamp,
+                                                                                                      threadToLatestRead);
+      List<Pair<Long, Long>> expiringMedia = DatabaseFactory.getMmsDatabase(context).setTimestampRead(new SyncMessageId(Recipient.externalPush(context, readMessage.getSender()).getId(), readMessage.getTimestamp()),
+                                                                                                      envelopeTimestamp,
+                                                                                                      threadToLatestRead);
 
       for (Pair<Long, Long> expiringMessage : expiringText) {
-        ApplicationContext.getInstance(context)
-                          .getExpiringMessageManager()
-                          .scheduleDeletion(expiringMessage.first(), false, envelopeTimestamp, expiringMessage.second());
+        ApplicationDependencies.getExpiringMessageManager()
+                               .scheduleDeletion(expiringMessage.first(), false, envelopeTimestamp, expiringMessage.second());
       }
 
       for (Pair<Long, Long> expiringMessage : expiringMedia) {
-        ApplicationContext.getInstance(context)
-                          .getExpiringMessageManager()
-                          .scheduleDeletion(expiringMessage.first(), true, envelopeTimestamp, expiringMessage.second());
+        ApplicationDependencies.getExpiringMessageManager()
+                               .scheduleDeletion(expiringMessage.first(), true, envelopeTimestamp, expiringMessage.second());
       }
+    }
+
+    List<MessageDatabase.MarkedMessageInfo> markedMessages = DatabaseFactory.getThreadDatabase(context).setReadSince(threadToLatestRead, false);
+    if (Util.hasItems(markedMessages)) {
+      Log.i(TAG, "Updating past messages: " + markedMessages.size());
+      MarkReadReceiver.process(context, markedMessages);
     }
 
     MessageNotifier messageNotifier = ApplicationDependencies.getMessageNotifier();
@@ -1087,7 +1103,7 @@ public final class MessageContentProcessor {
       ApplicationDependencies.getJobManager().add(new TrimThreadJob(insertResult.get().getThreadId()));
 
       if (message.isViewOnce()) {
-        ApplicationContext.getInstance(context).getViewOnceMessageManager().scheduleIfNecessary();
+        ApplicationDependencies.getViewOnceMessageManager().scheduleIfNecessary();
       }
     }
   }
@@ -1174,11 +1190,11 @@ public final class MessageContentProcessor {
 
       if (message.getMessage().getExpiresInSeconds() > 0) {
         database.markExpireStarted(messageId, message.getExpirationStartTimestamp());
-        ApplicationContext.getInstance(context)
-                          .getExpiringMessageManager()
-                          .scheduleDeletion(messageId, true,
-                              message.getExpirationStartTimestamp(),
-                              message.getMessage().getExpiresInSeconds() * 1000L);
+        ApplicationDependencies.getExpiringMessageManager()
+                               .scheduleDeletion(messageId,
+                                                 true,
+                                                 message.getExpirationStartTimestamp(),
+                                                 message.getMessage().getExpiresInSeconds() * 1000L);
       }
 
       if (recipients.isSelf()) {
@@ -1334,9 +1350,8 @@ public final class MessageContentProcessor {
 
     if (expiresInMillis > 0) {
       database.markExpireStarted(messageId, message.getExpirationStartTimestamp());
-      ApplicationContext.getInstance(context)
-                        .getExpiringMessageManager()
-                        .scheduleDeletion(messageId, isGroup, message.getExpirationStartTimestamp(), expiresInMillis);
+      ApplicationDependencies.getExpiringMessageManager()
+                             .scheduleDeletion(messageId, isGroup, message.getExpirationStartTimestamp(), expiresInMillis);
     }
 
     if (recipient.isSelf()) {

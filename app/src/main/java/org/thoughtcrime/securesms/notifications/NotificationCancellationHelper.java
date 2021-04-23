@@ -19,7 +19,9 @@ import org.thoughtcrime.securesms.util.BubbleUtil;
 import org.thoughtcrime.securesms.util.ConversationUtil;
 import org.thoughtcrime.securesms.util.ServiceUtil;
 
+import java.util.Collections;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * Consolidates Notification Cancellation logic to one class.
@@ -36,6 +38,10 @@ public final class NotificationCancellationHelper {
 
   private NotificationCancellationHelper() {}
 
+  public static void cancelAllMessageNotifications(@NonNull Context context) {
+    cancelAllMessageNotifications(context, Collections.emptySet());
+  }
+
   /**
    * Cancels all Message-Based notifications. Specifically, this is any notification that is not the
    * summary notification assigned to the {@link DefaultMessageNotifier#NOTIFICATION_GROUP} group.
@@ -43,7 +49,7 @@ public final class NotificationCancellationHelper {
    * We utilize our wrapped cancellation methods and a counter to make sure that we do not lose
    * bubble notifications that do not have unread messages in them.
    */
-  static void cancelAllMessageNotifications(@NonNull Context context) {
+  public static void cancelAllMessageNotifications(@NonNull Context context, @NonNull Set<Integer> stickyNotifications) {
     if (Build.VERSION.SDK_INT >= 23) {
       try {
         NotificationManager     notifications       = ServiceUtil.getNotificationManager(context);
@@ -53,7 +59,7 @@ public final class NotificationCancellationHelper {
         for (StatusBarNotification activeNotification : activeNotifications) {
           if (isSingleThreadNotification(activeNotification)) {
             activeCount++;
-            if (cancel(context, activeNotification.getId())) {
+            if (!stickyNotifications.contains(activeNotification.getId()) && cancel(context, activeNotification.getId())) {
               activeCount--;
             }
           }
@@ -69,6 +75,32 @@ public final class NotificationCancellationHelper {
       }
     } else {
       cancelLegacy(context, NotificationIds.MESSAGE_SUMMARY);
+    }
+  }
+
+  public static void cancelMessageSummaryIfSoleNotification(@NonNull Context context) {
+    if (Build.VERSION.SDK_INT >= 23) {
+      try {
+        NotificationManager     notifications       = ServiceUtil.getNotificationManager(context);
+        StatusBarNotification[] activeNotifications = notifications.getActiveNotifications();
+        boolean                 soleMessageSummary  = false;
+
+        for (StatusBarNotification activeNotification : activeNotifications) {
+          if (isSingleThreadNotification(activeNotification)) {
+            soleMessageSummary = false;
+            break;
+          } else if (activeNotification.getId() == NotificationIds.MESSAGE_SUMMARY) {
+            soleMessageSummary = true;
+          }
+        }
+
+        if (soleMessageSummary) {
+          Log.d(TAG, "Cancelling sole message summary");
+          cancelLegacy(context, NotificationIds.MESSAGE_SUMMARY);
+        }
+      } catch (Throwable e) {
+        Log.w(TAG, e);
+      }
     }
   }
 

@@ -1479,16 +1479,17 @@ Mottok nøkkelutvekslingsmelding for ugyldig protokollversjon.</string>
   <string name="MessageNotifier_this_message_was_deleted">Meldinga er sletta</string>
   <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Skru av varsel når ein kontakt blir med i Signal? Du kan skru på igjen varselet i Signal &gt; Innstillingar &gt; Varsel.</string>
   <!--Notification Channels-->
-  <string name="NotificationChannel_messages">Standard</string>
+  <string name="NotificationChannel_channel_messages">Meldingar</string>
   <string name="NotificationChannel_calls">Samtalar</string>
   <string name="NotificationChannel_failures">Feil</string>
   <string name="NotificationChannel_backups">Reservekopiar</string>
   <string name="NotificationChannel_locked_status">Låsestatus</string>
   <string name="NotificationChannel_app_updates">Programoppdateringar</string>
   <string name="NotificationChannel_other">Anna</string>
-  <string name="NotificationChannel_group_messages">Meldingar</string>
+  <string name="NotificationChannel_group_chats">Samtalar</string>
   <string name="NotificationChannel_missing_display_name">Ukjend</string>
   <string name="NotificationChannel_voice_notes">Talenotat</string>
+  <string name="NotificationChannel_contact_joined_signal">Ein kontakt tok i bruk Signal!</string>
   <string name="NotificationChannels__no_activity_available_to_open_notification_channel_settings">Ingen aktivitet tilgjengeleg for å opna innstillingane for varselkanalen.</string>
   <!--ProfileEditNameFragment-->
   <!--QuickResponseService-->
@@ -1505,6 +1506,7 @@ Mottok nøkkelutvekslingsmelding for ugyldig protokollversjon.</string>
   <!--SingleRecipientNotificationBuilder-->
   <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Ny melding</string>
+  <string name="SingleRecipientNotificationBuilder_message_request">Meldingsspørsmål</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">Snurr film</string>
   <string name="ThumbnailView_Has_a_caption_description">Har bildetekst</string>

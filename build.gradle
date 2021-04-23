@@ -1,11 +1,17 @@
 buildscript {
+    ext.kotlin_version = '1.4.32'
     repositories {
         google()
         mavenCentral()
         jcenter {
             content {
                 includeVersion 'org.jetbrains.trove4j', 'trove4j', '20160824'
-                includeGroupByRegex "com\\.archinamon.*"
+            }
+        }
+        maven {
+            url "https://plugins.gradle.org/m2/"
+            content {
+                includeModule 'org.jlleitschuh.gradle', 'ktlint-gradle'
             }
         }
     }
@@ -13,6 +19,8 @@ buildscript {
         classpath 'com.android.tools.build:gradle:4.1.1'
         classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.1.0'
         classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.10'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jlleitschuh.gradle:ktlint-gradle:10.0.0"
     }
 }
 
@@ -65,5 +73,6 @@ task qa {
     dependsOn ':libsignal-service:test',
               ':mollyim-android:testNonFreeProductionReleaseUnitTest',
               ':mollyim-android:lintNonFreeProductionRelease',
+              ':mollyim-android:ktlintCheck',
               ':mollyim-android:assemble'
 }

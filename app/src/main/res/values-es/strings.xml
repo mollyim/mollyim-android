@@ -292,7 +292,7 @@
   <string name="ConversationFragment_verify">Verificar</string>
   <string name="ConversationFragment_not_now">Ahora no</string>
   <string name="ConversationFragment_your_safety_number_with_s_changed">Tus cifras de seguridad con %s han cambiado</string>
-  <string name="ConversationFragment_your_safety_number_with_s_changed_likey_because_they_reinstalled_signal">Tus cifras de seguridad con %s han cambiado. Probablemente porque esta persona ha reinstalado Signal o cambiado de dispositivo. Toca para verificar las nuevas cifras de seguridad. Esta verificación es opcional.</string>
+  <string name="ConversationFragment_your_safety_number_with_s_changed_likey_because_they_reinstalled_signal">Tus cifras de seguridad con %s han cambiado. Probablemente porque ha reinstalado Signal o cambiado de dispositivo. Toca para verificar las nuevas cifras de seguridad. Esta verificación es opcional.</string>
   <plurals name="ConversationListFragment_delete_selected_conversations">
     <item quantity="one">¿Eliminar el chat seleccionado?</item>
     <item quantity="other">¿Eliminar los chats seleccionados?</item>
@@ -1475,16 +1475,17 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="MessageNotifier_this_message_was_deleted">Mensaje eliminado.</string>
   <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">¿Desactivar las notificaciones cuando una persona comience a usar Signal? Puedes volver a activarlas en los ajustes de Signal &gt; Notificaciones.</string>
   <!--Notification Channels-->
-  <string name="NotificationChannel_messages">Por defecto</string>
+  <string name="NotificationChannel_channel_messages">Mensajes</string>
   <string name="NotificationChannel_calls">Llamadas</string>
   <string name="NotificationChannel_failures">Fallos</string>
   <string name="NotificationChannel_backups">Copias de seguridad</string>
   <string name="NotificationChannel_locked_status">Estado de bloqueo</string>
   <string name="NotificationChannel_app_updates">Actualizaciones de la aplicación</string>
   <string name="NotificationChannel_other">Otros</string>
-  <string name="NotificationChannel_group_messages">Mensajes</string>
+  <string name="NotificationChannel_group_chats">Chats</string>
   <string name="NotificationChannel_missing_display_name">Desconocido</string>
   <string name="NotificationChannel_voice_notes">Notas de voz</string>
+  <string name="NotificationChannel_contact_joined_signal">Alguien comienza a usar Signal</string>
   <string name="NotificationChannels__no_activity_available_to_open_notification_channel_settings">No hay actividad disponible para abrir el canal de notificaciones en «Ajustes».</string>
   <!--ProfileEditNameFragment-->
   <!--QuickResponseService-->
@@ -1501,6 +1502,7 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <!--SingleRecipientNotificationBuilder-->
   <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Nuevo mensaje</string>
+  <string name="SingleRecipientNotificationBuilder_message_request">Solicitud de chat</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">Reproducir vídeo</string>
   <string name="ThumbnailView_Has_a_caption_description">Contiene una explicación</string>
@@ -2077,7 +2079,7 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="PaymentsHomeFragment__payments_deactivated">Pagos desactivados.</string>
   <string name="PaymentsHomeFragment__payment_failed">Fallo en el pago</string>
   <string name="PaymentsHomeFragment__details">Detalles</string>
-  <string name="PaymentsHomeFragment__you_can_use_signal_to_send">Puedes usar Molly para recibir y enviar MobileCoin. Todos los pagos están sujetos a las condiciones de uso de MobileCoins y la cartera de MobileCoin. Esta es una característica en fase beta por lo que te encontrarás con problemas y podrás perder tus fondos.</string>
+  <string name="PaymentsHomeFragment__you_can_use_signal_to_send">Puedes usar Molly para recibir y enviar MobileCoin. Todos los pagos están sujetos a las condiciones de uso de MobileCoin y su cartera. Esta es una característica en fase beta por lo que te encontrarás con problemas y podrás perder tus fondos.</string>
   <string name="PaymentsHomeFragment__activate">Activar</string>
   <string name="PaymentsHomeFragment__view_mobile_coin_terms">Ver los términos de uso de MobileCoin</string>
   <string name="PaymentsHomeFragment__payments_not_available">Los pagos en Molly no están disponibles. Todavía puedes transferir tus fondos a un «exchange» pero no podrás recibir o enviar más pagos a través de Molly.</string>
@@ -2097,8 +2099,8 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="PaymentsDetailsFragment__network_fee">Tasa de la red</string>
   <string name="PaymentsDetailsFragment__sent_by">Enviado por</string>
   <string name="PaymentsDetailsFragment__sent_to_s">Enviado a %1$s</string>
-  <string name="PaymentsDetailsFragment__you_on_s_at_s">Tú el %1$s a %2$s</string>
-  <string name="PaymentsDetailsFragment__s_on_s_at_s">%1$s el %2$s a %3$s</string>
+  <string name="PaymentsDetailsFragment__you_on_s_at_s">Ti el %1$s a las %2$s</string>
+  <string name="PaymentsDetailsFragment__s_on_s_at_s">%1$s el %2$s a las %3$s</string>
   <string name="PaymentsDetailsFragment__to">Para</string>
   <string name="PaymentsDetailsFragment__from">De</string>
   <string name="PaymentsDetailsFragment__information">Los detalles de la transacción incluyen la cantidad y fecha del pago, pero no el origen y el destino, y figuran en el libro-registro de MobileCoin. </string>
@@ -2164,7 +2166,7 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="ConfirmPaymentFragment__this_person_has_not_activated_payments">Esta persona no ha activado los pagos</string>
   <string name="ConfirmPaymentFragment__unable_to_request_a_network_fee">No es posible calcular la tasa de la red. Para continuar con este pago, toca en OK e inténtalo de nuevo.</string>
   <!--CurrencyAmountFormatter_s_at_s-->
-  <string name="CurrencyAmountFormatter_s_at_s">%1$s el %2$s</string>
+  <string name="CurrencyAmountFormatter_s_at_s">%1$s a las %2$s</string>
   <!--SetCurrencyFragment-->
   <string name="SetCurrencyFragment__set_currency">Fijar moneda</string>
   <string name="SetCurrencyFragment__all_currencies">Moneda</string>

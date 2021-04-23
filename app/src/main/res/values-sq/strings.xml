@@ -1475,16 +1475,17 @@ të përditësojnë Signal-in, ose t’i hiqni para krijimit të grupit.</item>
   <string name="MessageNotifier_this_message_was_deleted">Ky mesazh u fshi.</string>
   <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Të çaktivizohen njoftime Signal për kontakte të sapoardhur? Mund t’i aktivizoni sërish që nga Signal &gt; Rregullime &gt; Njoftime.</string>
   <!--Notification Channels-->
-  <string name="NotificationChannel_messages">Parazgjedhje</string>
+  <string name="NotificationChannel_channel_messages">Mesazhe</string>
   <string name="NotificationChannel_calls">Thirrje</string>
   <string name="NotificationChannel_failures">Dështime</string>
   <string name="NotificationChannel_backups">Kopjeruajtje</string>
   <string name="NotificationChannel_locked_status">Gjendje kyçjeje</string>
   <string name="NotificationChannel_app_updates">Përditësime aplikacioni</string>
   <string name="NotificationChannel_other">Tjetër</string>
-  <string name="NotificationChannel_group_messages">Mesazhe</string>
+  <string name="NotificationChannel_group_chats">Fjalosje</string>
   <string name="NotificationChannel_missing_display_name">I panjohur</string>
   <string name="NotificationChannel_voice_notes">Shënime Zanore</string>
+  <string name="NotificationChannel_contact_joined_signal">Kontakti zuri të përdorë Signal-in</string>
   <string name="NotificationChannels__no_activity_available_to_open_notification_channel_settings">S’ka veprimtari për hapje rregullimesh kanali njoftimesh.</string>
   <!--ProfileEditNameFragment-->
   <!--QuickResponseService-->
@@ -1501,6 +1502,7 @@ të përditësojnë Signal-in, ose t’i hiqni para krijimit të grupit.</item>
   <!--SingleRecipientNotificationBuilder-->
   <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Mesazh i ri</string>
+  <string name="SingleRecipientNotificationBuilder_message_request">Kërkesë mesazhi</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">Luaje videon</string>
   <string name="ThumbnailView_Has_a_caption_description">Ka përshkrim</string>
@@ -2104,6 +2106,7 @@ aktivizoni Kyçje Regjistrimi, teksa PIN-i është i çaktivizuar.</string>
   <string name="PaymentsDetailsFragment__to">Për</string>
   <string name="PaymentsDetailsFragment__from">Nga</string>
   <string name="PaymentsDetailsFragment__information">Hollësi transaksioni, përfshi llogari pagesash dhe kohë transaksioni, janë pjesë e MobileCoin Ledger.</string>
+  <string name="PaymentsDetailsFragment__coin_cleanup_fee">Tarifë Coin Cleanup</string>
   <string name="PaymentsDetailsFragment__no_details_available">S’ka hollësi të mëtejshme për këtë transaksion</string>
   <string name="PaymentsDetailsFragment__sent_payment">Pagesë e dërguar</string>
   <string name="PaymentsDetailsFragment__received_payment">Pagesë e marrë</string>

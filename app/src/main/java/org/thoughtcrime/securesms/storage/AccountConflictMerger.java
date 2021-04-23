@@ -46,7 +46,7 @@ class AccountConflictMerger implements StorageSyncHelper.ConflictMerger<SignalAc
   }
 
   @Override
-  public @NonNull SignalAccountRecord merge(@NonNull SignalAccountRecord remote, @NonNull SignalAccountRecord local, @NonNull StorageSyncHelper.KeyGenerator keyGenerator) {
+  public @NonNull SignalAccountRecord merge(@NonNull SignalAccountRecord remote, @NonNull SignalAccountRecord local, @NonNull StorageKeyGenerator keyGenerator) {
     String givenName;
     String familyName;
 

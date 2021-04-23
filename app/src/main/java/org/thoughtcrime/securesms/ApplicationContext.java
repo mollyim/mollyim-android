@@ -111,9 +111,6 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
 
   private static ApplicationContext instance;
 
-  private ExpiringMessageManager expiringMessageManager;
-  private ViewOnceMessageManager viewOnceMessageManager;
-
   private volatile boolean isAppInitialized;
 
   public ApplicationContext() {
@@ -177,6 +174,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
                               }
                             })
                             .addBlocking("blob-provider", this::initializeBlobProvider)
+                            .addBlocking("feature-flags", FeatureFlags::init)
                             .addNonBlocking(this::initializeRevealableMessageManager)
                             .addNonBlocking(this::initializeSignedPreKeyCheck)
                             .addNonBlocking(this::initializePeriodicTasks)
@@ -184,7 +182,6 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
                             .addNonBlocking(this::initializePendingMessages)
                             .addNonBlocking(this::initializeCleanup)
                             .addNonBlocking(this::initializeGlideCodecs)
-                            .addNonBlocking(FeatureFlags::init)
                             .addNonBlocking(RefreshPreKeysJob::scheduleIfNecessary)
                             .addNonBlocking(StorageSyncHelper::scheduleRoutineSync)
                             .addNonBlocking(() -> ApplicationDependencies.getJobManager().beginJobLoop())
@@ -266,17 +263,6 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
     }, TimeUnit.SECONDS.toMillis(1));
   }
 
-  public ExpiringMessageManager getExpiringMessageManager() {
-    if (expiringMessageManager == null) {
-      initializeExpiringMessageManager();
-    }
-    return expiringMessageManager;
-  }
-
-  public ViewOnceMessageManager getViewOnceMessageManager() {
-    return viewOnceMessageManager;
-  }
-
   public void checkBuildExpiration() {
     if (Util.getTimeUntilBuildExpiry() <= 0 && !SignalStore.misc().isClientDeprecated()) {
       Log.w(TAG, "Build expired!");
@@ -310,6 +296,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
 
   private void initializeLogging() {
     PersistentLogger persistentLogger = new PersistentLogger(this, LogSecretProvider.getOrCreateAttachmentSecret(this), BuildConfig.VERSION_NAME);
+    LogManager.setInternalCheck(FeatureFlags::internalUser);
     LogManager.setPersistentLogger(persistentLogger);
     LogManager.setLogging(TextSecurePreferences.isLogEnabled(this));
 
@@ -414,19 +401,19 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
   }
 
   private void initializeExpiringMessageManager() {
-    this.expiringMessageManager = new ExpiringMessageManager(this);
+    ApplicationDependencies.getExpiringMessageManager().checkSchedule();
   }
 
   private void finalizeExpiringMessageManager() {
-    this.expiringMessageManager.quit();
+    ApplicationDependencies.getExpiringMessageManager().quit();
   }
 
   private void initializeRevealableMessageManager() {
-    this.viewOnceMessageManager = new ViewOnceMessageManager(this);
+    ApplicationDependencies.getViewOnceMessageManager().scheduleIfNecessary();
   }
 
   private void finalizeRevealableMessageManager() {
-    this.viewOnceMessageManager.quit();
+    ApplicationDependencies.getViewOnceMessageManager().quit();
   }
 
   private void initializePeriodicTasks() {
