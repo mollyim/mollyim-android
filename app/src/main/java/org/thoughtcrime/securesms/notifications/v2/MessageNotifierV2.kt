@@ -133,7 +133,7 @@ class MessageNotifierV2(context: Application) : MessageNotifier {
     stickyThreads.keys.retainAll { retainStickyThreadIds.contains(it) }
 
     if (state.isEmpty) {
-      clearNotifications(context);
+      clearNotifications(context)
       return
     }
 
