@@ -1,0 +1,19 @@
+name: Docker
+
+on: [ push, pull_request ]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build with Docker Compose
+      run: docker-compose up
+      working-directory: reproducible-builds
+    - name: Upload APKs
+      uses: actions/upload-artifact@v2
+      with:
+        name: molly-apk-docker
+        path: reproducible-builds/outputs/apk/**/release/*.apk
+        if-no-files-found: error
