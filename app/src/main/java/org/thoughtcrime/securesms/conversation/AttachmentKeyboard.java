@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.annimon.stream.Stream;
 import com.annimon.stream.function.Predicate;
 
+import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.components.InputAwareLayout;
 import org.thoughtcrime.securesms.mediasend.Media;
@@ -26,13 +27,21 @@ import java.util.List;
 
 public class AttachmentKeyboard extends FrameLayout implements InputAwareLayout.InputView {
 
-  private static final List<AttachmentKeyboardButton> DEFAULT_BUTTONS = Arrays.asList(
+  private static final List<AttachmentKeyboardButton> DEFAULT_BUTTONS_NON_FREE = Arrays.asList(
       AttachmentKeyboardButton.GALLERY,
       AttachmentKeyboardButton.GIF,
       AttachmentKeyboardButton.FILE,
       AttachmentKeyboardButton.PAYMENT,
       AttachmentKeyboardButton.CONTACT,
       AttachmentKeyboardButton.LOCATION
+  );
+
+  private static final List<AttachmentKeyboardButton> DEFAULT_BUTTONS_FREE = Arrays.asList(
+      AttachmentKeyboardButton.GALLERY,
+      AttachmentKeyboardButton.GIF,
+      AttachmentKeyboardButton.FILE,
+      AttachmentKeyboardButton.PAYMENT,
+      AttachmentKeyboardButton.CONTACT
   );
 
   private View                            container;
@@ -52,6 +61,14 @@ public class AttachmentKeyboard extends FrameLayout implements InputAwareLayout.
   public AttachmentKeyboard(@NonNull Context context, @Nullable AttributeSet attrs) {
     super(context, attrs);
     init(context);
+  }
+
+  private List<AttachmentKeyboardButton> getDefaultButtons() {
+    //noinspection ConstantConditions
+    if (BuildConfig.FLAVOR_distribution.equals("free")) {
+      return DEFAULT_BUTTONS_FREE;
+    }
+    return DEFAULT_BUTTONS_NON_FREE;
   }
 
   private void init(@NonNull Context context) {
@@ -82,7 +99,7 @@ public class AttachmentKeyboard extends FrameLayout implements InputAwareLayout.
     mediaList.setLayoutManager(new GridLayoutManager(context, 1, GridLayoutManager.HORIZONTAL, false));
     buttonList.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
 
-    buttonAdapter.setButtons(DEFAULT_BUTTONS);
+    buttonAdapter.setButtons(getDefaultButtons());
   }
 
   public void setCallback(@NonNull Callback callback) {
@@ -91,9 +108,9 @@ public class AttachmentKeyboard extends FrameLayout implements InputAwareLayout.
 
   public void filterAttachmentKeyboardButtons(@Nullable Predicate<AttachmentKeyboardButton> buttonPredicate) {
     if (buttonPredicate == null) {
-      buttonAdapter.setButtons(DEFAULT_BUTTONS);
+      buttonAdapter.setButtons(getDefaultButtons());
     } else {
-      buttonAdapter.setButtons(Stream.of(DEFAULT_BUTTONS).filter(buttonPredicate).toList());
+      buttonAdapter.setButtons(Stream.of(getDefaultButtons()).filter(buttonPredicate).toList());
     }
   }
 
