@@ -13,7 +13,11 @@ import org.osmdroid.events.ScrollEvent;
 import org.osmdroid.events.ZoomEvent;
 
 public class GoogleMap {
+  public static final int MAP_TYPE_NONE = 0;
   public static final int MAP_TYPE_NORMAL = 1;
+  public static final int MAP_TYPE_SATELLITE = 2;
+  public static final int MAP_TYPE_TERRAIN = 3;
+  public static final int MAP_TYPE_HYBRID = 4;
 
   private final MapView     mapView;
   private final UiSettings  uiSettings  = new UiSettings();

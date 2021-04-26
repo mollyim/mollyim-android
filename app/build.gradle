@@ -145,6 +145,7 @@ android {
         buildConfigField "String", "CANONICAL_VERSION_NAME", "\"$canonicalVersionName\""
         buildConfigField "String", "FDROID_UPDATE_URL", "\"https://molly.im/fdroid/repo\""
         buildConfigField "String", "BACKUP_FILENAME", "\"" + appName.toLowerCase() + "\""
+        buildConfigField "boolean", "USE_OSM", "false"
 
         vectorDrawables.useSupportLibrary = true
 
@@ -279,6 +280,7 @@ android {
             dimension 'distribution'
             versionNameSuffix '-FOSS'
             buildConfigField "String", "FDROID_UPDATE_URL", "\"https://molly.im/fdroid/foss/repo\""
+            buildConfigField "boolean", "USE_OSM", "true"
         }
 
         nonFree {
@@ -355,6 +357,8 @@ dependencies {
 
     nonFreeImplementation 'com.google.android.gms:play-services-maps:16.1.0'
     nonFreeImplementation 'com.google.android.gms:play-services-auth:16.0.1'
+
+    freeImplementation 'org.osmdroid:osmdroid-android:6.1.8'
 
     implementation 'com.google.android.exoplayer:exoplayer-core:2.9.1'
     implementation 'com.google.android.exoplayer:exoplayer-ui:2.9.1'
