@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,13 +22,24 @@ import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.net.NetworkManager;
 import org.thoughtcrime.securesms.net.ProxyType;
 import org.thoughtcrime.securesms.net.SocksProxy;
+import org.thoughtcrime.securesms.util.SignalProxyUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
+import org.thoughtcrime.securesms.util.concurrent.ListenableFuture;
+import org.thoughtcrime.securesms.util.concurrent.SettableFuture;
+import org.thoughtcrime.securesms.util.concurrent.SimpleTask;
+
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 
 import info.guardianproject.netcipher.proxy.OrbotHelper;
 
 public class NetworkPreferenceFragment extends ListSummaryPreferenceFragment {
 
   private final NetworkManager networkManager;
+
+  private Preference networkState;
+
+  private SettableFuture<Boolean> connected;
 
   public NetworkPreferenceFragment() {
     networkManager = ApplicationDependencies.getNetworkManager();
@@ -34,6 +48,9 @@ public class NetworkPreferenceFragment extends ListSummaryPreferenceFragment {
   @Override
   public void onCreate(Bundle icicle) {
     super.onCreate(icicle);
+
+    networkState = requirePreference("pref_network_connection_state");
+    clearTestResult(networkState);
 
     ListPreference     proxyType  = requirePreference(TextSecurePreferences.PROXY_TYPE);
     Preference         socksGroup = requirePreference("proxy_socks");
@@ -50,6 +67,7 @@ public class NetworkPreferenceFragment extends ListSummaryPreferenceFragment {
         }
         networkManager.setProxyChoice(type);
         socksGroup.setVisible(type == ProxyType.SOCKS5);
+        clearTestResult(networkState);
         return super.onPreferenceChange(preference, value);
       }
     });
@@ -73,6 +91,7 @@ public class NetworkPreferenceFragment extends ListSummaryPreferenceFragment {
       }
       networkManager.setProxySocksHost(host);
       socksHost.setText(host);
+      clearTestResult(networkState);
       return false;
     }));
 
@@ -95,6 +114,7 @@ public class NetworkPreferenceFragment extends ListSummaryPreferenceFragment {
       }
       networkManager.setProxySocksPort(port);
       socksPort.setText(String.valueOf(port));
+      clearTestResult(networkState);
       return false;
     }));
   }
@@ -116,7 +136,71 @@ public class NetworkPreferenceFragment extends ListSummaryPreferenceFragment {
   @Override
   public void onPause() {
     super.onPause();
-    networkManager.applyConfiguration();
+    if (networkManager.applyProxyConfig()) {
+      ApplicationDependencies.resetNetworkConnectionsAfterProxyChange();
+    }
+  }
+
+  public boolean onTestConnectionClicked(Preference preference) {
+    preference.setOnPreferenceClickListener(null);
+
+    if (networkManager.isProxyEnabled()) {
+      preference.setSummary(R.string.preferences_connecting_to_proxy);
+    } else {
+      preference.setSummary(R.string.preferences_network__connecting);
+    }
+
+    networkManager.applyProxyConfig();
+    ApplicationDependencies.resetNetworkConnectionsAfterProxyChange();
+
+    connected = new SettableFuture<>();
+    connected.addListener(new ListenableFuture.Listener<Boolean>() {
+      @Override
+      public void onSuccess(Boolean result) {
+        preference.setSummary(getTestResultString(result));
+      }
+
+      @Override
+      public void onFailure(ExecutionException e) {
+        preference.setSummary(null);
+      }
+    });
+
+    SimpleTask.run(getViewLifecycleOwner().getLifecycle(),
+        () -> SignalProxyUtil.testWebsocketConnection(TimeUnit.SECONDS.toMillis(10))
+        , result -> {
+      connected.set(result);
+      preference.setOnPreferenceClickListener(this::onTestConnectionClicked);
+    });
+
+    return true;
+  }
+
+  private void clearTestResult(Preference preference) {
+    if (connected != null) {
+      connected.cancel(false);
+    }
+
+    preference.setSummary(null);
+    preference.setOnPreferenceClickListener(this::onTestConnectionClicked);
+  }
+
+  private Spannable getTestResultString(boolean succeeded) {
+    int statusResId;
+    int colorResId;
+
+    if (succeeded) {
+      statusResId = R.string.preferences_network__online;
+      colorResId  = R.color.signal_accent_green;
+    } else {
+      statusResId = R.string.preferences_connection_failed;
+      colorResId  = R.color.signal_alert_primary;
+    }
+
+    Spannable spanned = new SpannableString(getString(statusResId));
+    spanned.setSpan(new ForegroundColorSpan(getResources().getColor(colorResId)), 0, spanned.length(), 0);
+
+    return spanned;
   }
 
   public static CharSequence getSummary(Context context) {
@@ -124,7 +208,7 @@ public class NetworkPreferenceFragment extends ListSummaryPreferenceFragment {
     return context.getString(R.string.ApplicationPreferencesActivity_network_summary, context.getString(proxyTypeResId));
   }
 
-  void promptToInstallOrbot(@NonNull Context context) {
+  private void promptToInstallOrbot(@NonNull Context context) {
     final Intent installIntent = OrbotHelper.getOrbotInstallIntent(context);
     new AlertDialog.Builder(context)
                    .setTitle(R.string.NetworkPreferenceFragment_missing_orbot_app)

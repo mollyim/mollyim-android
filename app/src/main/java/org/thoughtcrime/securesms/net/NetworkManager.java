@@ -94,7 +94,7 @@ public class NetworkManager {
     return OrbotHelper.DEFAULT_PROXY_SOCKS_PORT;
   }
 
-  public void applyConfiguration() {
+  public boolean applyProxyConfig() {
     SocksProxy newProxy;
 
     if (proxyType == ProxyType.SOCKS5) {
@@ -105,12 +105,12 @@ public class NetworkManager {
       newProxy = null;
     }
 
-    configureNetwork(newProxy);
+    return configureProxy(newProxy);
   }
 
-  private synchronized void configureNetwork(SocksProxy newProxy) {
+  private synchronized boolean configureProxy(SocksProxy newProxy) {
     if (!hasProxyChanged(existingProxy, newProxy)) {
-      return;
+      return false;
     }
 
     Network.setSocksProxy(newProxy);
@@ -131,9 +131,9 @@ public class NetworkManager {
           ProxyController.getInstance().clearProxyOverride(Runnable::run, this::onProxyOverrideComplete);
         }
       }
-
-      ApplicationDependencies.resetNetworkConnectionsAfterProxyChange();
     });
+
+    return true;
   }
 
   private void onProxyOverrideComplete() {
@@ -153,7 +153,9 @@ public class NetworkManager {
       synchronized (orbotHelper) {
         if (proxyOrbotPort != socksPort) {
           if (proxyType == ProxyType.ORBOT) {
-            configureNetwork(new SocksProxy(OrbotHelper.DEFAULT_PROXY_HOST, socksPort));
+            if (configureProxy(new SocksProxy(OrbotHelper.DEFAULT_PROXY_HOST, socksPort))) {
+              ApplicationDependencies.resetNetworkConnectionsAfterProxyChange();
+            }
           }
           proxyOrbotPort = socksPort;
           if (ApplicationDependencies.getAppForegroundObserver().isForegrounded()) {

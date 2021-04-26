@@ -353,7 +353,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
     nm.setProxyChoice(TextSecurePreferences.getProxyType(this));
     nm.setProxySocksHost(TextSecurePreferences.getProxySocksHost(this));
     nm.setProxySocksPort(TextSecurePreferences.getProxySocksPort(this));
-    nm.applyConfiguration();
+    nm.applyProxyConfig();
   }
 
   private void initializeGcmCheck() {

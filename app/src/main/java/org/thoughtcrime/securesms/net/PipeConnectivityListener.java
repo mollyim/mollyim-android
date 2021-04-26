@@ -41,7 +41,10 @@ public class PipeConnectivityListener implements ConnectivityListener {
   @Override
   public void onConnecting() {
     Log.i(TAG, "onConnecting()");
-    state.postValue(State.CONNECTING);
+
+    if (state.getValue() != State.FAILURE) {
+      state.postValue(State.CONNECTING);
+    }
   }
 
   @Override

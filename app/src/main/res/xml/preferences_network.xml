@@ -3,16 +3,22 @@
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <Preference
+        android:key="pref_network_connection_state"
+        android:title="@string/preferences_network__check_connection" />
+
+    <PreferenceCategory android:layout="@layout/preference_divider" />
+
     <PreferenceCategory
         android:title="@string/preferences_network__connection">
 
-    <org.thoughtcrime.securesms.preferences.widgets.SignalListPreference
-        android:key="pref_proxy_type"
-        android:title="@string/preferences_network__proxy"
-        android:summary="@string/preferences_network__tunnels_network_traffic"
-        android:entries="@array/pref_proxy_type_entries"
-        android:entryValues="@array/pref_proxy_type_values"
-        android:defaultValue="none" />
+        <org.thoughtcrime.securesms.preferences.widgets.SignalListPreference
+            android:key="pref_proxy_type"
+            android:title="@string/preferences_use_proxy"
+            android:summary="@string/preferences_network__tunnels_network_traffic"
+            android:entries="@array/pref_proxy_type_entries"
+            android:entryValues="@array/pref_proxy_type_values"
+            android:defaultValue="none" />
 
     </PreferenceCategory>
 
