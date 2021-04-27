@@ -5,14 +5,14 @@
     <string name="WipeMemoryService_secure_wipe_in_progress">Sicherheitswischen läuft</string>
     <string name="ApplicationPreferencesActivity_privacy_summary_passphrase_registration_locks">Datenbankverschlüsselung %1$s, Registrierungssperre %2$s</string>
     <string name="ChangePassphraseDialogFragment_generating_keys_this_may_take_a_while">Generierung von Schlüsseln. Dies kann eine Weile dauern …</string>
-    <string name="ChangePassphraseDialogFragment_please_choose_a_passphrase_that_will_be_used_to_locally_encrypt_your_data_this_should_be_a_strong_passphrase">Bitte wählen Sie einen Passwortsatz, mit dem Ihre Daten lokal verschlüsselt werden.\n\nDies sollte ein starker Passwortsatz sein.</string>
+    <string name="ChangePassphraseDialogFragment_please_choose_a_passphrase_that_will_be_used_to_locally_encrypt_your_data_this_should_be_a_strong_passphrase">Bitte wähle einen Passwortsatz, mit dem deine Daten lokal verschlüsselt werden.\n\nDies sollte ein starker Passwortsatz sein.</string>
     <string name="ChangePassphraseDialogFragment_enable">Aktivieren</string>
     <string name="ChangePassphraseDialogFragment_passphrase">Passwortsatz</string>
     <string name="ChangePassphraseDialogFragment_estimated_time_to_crack_suggestion">%1$s\n\nGeschätzte Zeit zum Knacken: %2$s.\n\nVorschlag: %3$s</string>
     <string name="ChangePassphraseDialogFragment_weak_passphrase">Schwache Passwortsatz!</string>
     <string name="PassphraseCreateActivity_turn_on_database_encryption">Datenbankverschlüsselung einschalten</string>
     <string name="PassphraseCreateActivity_require_passphrase_to_unlock_molly">Passwortsatz benötigen, um Molly freizuschalten\?</string>
-    <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">Jetzt können Sie eine Passwortsatz festlegen, um die Datenbank zu verschlüsseln. Bis zum Entsperren kann Molly keine Benachrichtigungen oder Anrufe empfangen. Dies schützt Daten auf verlorenen oder gestohlenen Geräten.</string>
+    <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">Jetzt kannst du eine Passwortsatz festlegen, um die Datenbank zu verschlüsseln. Bis zum Entsperren kann Molly keine Benachrichtigungen oder Anrufe empfangen. Dies schützt Daten auf verlorenen oder gestohlenen Geräten.</string>
     <string name="preferences__passphrase_changed">Passwortsatz geändert</string>
     <string name="preferences__device_lock_timeout">Zeitlimit für Gerätesperre</string>
     <string name="preferences__automatic_lockdown">Automatische Sperrung</string>
@@ -49,4 +49,6 @@
     <string name="preferences__autoupdate_molly">Molly automatisch aktualisieren</string>
     <string name="arrays__tor_via_orbot">Tor über Orbot</string>
     <string name="arrays__none">Keine</string>
+    <string name="preferences__block_users_youve_never_been_in_contact_with_and_who_are_not_saved_in_your_contacts">Benutzer blockieren, mit denen du noch nie in Kontakt warst und die nicht in deinen Kontakten gespeichert sind.</string>
+    <string name="preferences__block_unknown">Unbekannte blockieren</string>
 </resources>
