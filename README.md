@@ -12,7 +12,7 @@ Back in 2018, Signal allowed the user to set a passphrase to secure the local me
 
 Molly connects to the Signal server, so you can chat with your Signal contacts seamlessly. Please remember to review their [Signal Terms & Privacy Policy](https://signal.org/legal/) before signing up.
 
-Molly is updated every two weeks to include the latest Signal changes and bug fixes.
+Every two weeks Molly is updated to include the latest features and bug fixes from Signal.
 
 ## Download
 
@@ -24,15 +24,16 @@ You can download the app from GitHub's [Releases](https://github.com/mollyim/mol
 
 There are two flavors to choose from download: **Molly** or **Molly-FOSS**. Learn the differences [below](#free-and-open-source) and download the right one for you.
 
-Staging releases are also available to download for developing or testing purposes.
+Pre-releases are also available to download for development or beta testing.
 
 ## Features
 
 Molly has unique features compared to Signal:
 
 - Protects database with [passphrase encryption](https://github.com/mollyim/mollyim-android/wiki/Data-Encryption-At-Rest)
-- Locks down the app automatically after you go a certain time without unlocking your device
+- Locks down the app automatically
 - Securely shreds sensitive data from RAM
+- Permits to block unknown senders
 - Allows you to delete contacts and stop sharing your profile
 - Clears call notifications together with expiring messages
 - Disables debug logs
@@ -65,12 +66,10 @@ However, you cannot use the same phone number on both apps at the same time. Onl
 
 ## Backups
 
-Backups are fully compatible. Signal [backups](https://support.signal.org/hc/en-us/articles/360007059752-Backup-and-Restore-Messages) can be restored in Molly and the other way around. To do that, simply rename the backup file and copy it into the expected path, so the app can find the backup to restore during installation.
+Backups are fully compatible. Signal [backups](https://support.signal.org/hc/en-us/articles/360007059752-Backup-and-Restore-Messages) can be restored in Molly, and the other way around, simply by choosing the backup folder and file.
 
-The path within internal storage where backups are written by Signal:
+For older versions of Android, you might need to rename the backup file and copy it into the expected path, so the app can find the backup to restore during installation. Those are the locations within internal storage where backups are written by default:
 - `Signal/Backups/Signal-year-month-date-time.backup`
-
-And Molly:
 - `Molly/Backups/Molly-year-month-date-time.backup`
 
 ## Feedback
@@ -81,7 +80,7 @@ And Molly:
 
 ## Reproducible Builds
 
-Molly supports reproducible builds, so that anyone can run the build process again and reproduce the same APK as the original release.
+Molly supports reproducible builds, so that anyone can run the build process again to reproduce the same APK as the original release.
 
 Please check the guide in the [reproducible-builds](https://github.com/mollyim/mollyim-android/blob/master/reproducible-builds) directory.
 
