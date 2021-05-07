@@ -34,15 +34,9 @@ repositories {
         }
     }
     maven {
-        url "https://dl.bintray.com/mollyim/maven"
+        url "https://raw.github.com/mollyim/maven/master/ringrtc/releases/"
         content {
             includeModule 'im.molly', 'ringrtc-android'
-        }
-    }
-    maven {
-        url 'https://dl.bintray.com/amulyakhare/maven'
-        content {
-            includeModule 'com.amulyakhare:com.amulyakhare', 'textdrawable'
         }
     }
     google()
