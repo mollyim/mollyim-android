@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="preferences__enable_debug_log">Abilita il log di debug</string>
+    <string name="preferences__enable_debug_log">Abilita il registro di debug</string>
     <string name="AppProtectionPreferenceFragment_instant">Immediato</string>
     <string name="ChangePassphraseDialogFragment_estimated_time_to_crack_suggestion">%1$s\n\nTempo stimato per trovare la passphrase: %2$s.\n\nSuggerimento: %3$s</string>
     <string name="ChangePassphraseDialogFragment_generating_keys_this_may_take_a_while">Generazione di chiavi. Questo potrebbe richiedere un po\' di tempo…</string>
@@ -49,6 +49,9 @@
     <string name="preferences__autoupdate_molly">Aggiorna automaticamente Molly</string>
     <string name="arrays__tor_via_orbot">Tor tramite Orbot</string>
     <string name="arrays__none">Nessuno</string>
-    <string name="preferences__block_users_youve_never_been_in_contact_with_and_who_are_not_saved_in_your_contacts">Blocca gli utenti con cui non sei mai stato/a in contatto e che non sono salvati nei tuoi contatti.</string>
+    <string name="preferences__block_users_youve_never_been_in_contact_with_and_who_are_not_saved_in_your_contacts">Blocca gli utenti con cui non sei mai stato/a in contatto e quelli non salvati come contatti.</string>
     <string name="preferences__block_unknown">Blocca gli sconosciuti</string>
+    <string name="preferences_network__online">In linea</string>
+    <string name="preferences_network__connecting">Connessione…</string>
+    <string name="preferences_network__check_connection">Controlla la connessione</string>
 </resources>
