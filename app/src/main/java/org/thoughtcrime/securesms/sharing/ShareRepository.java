@@ -1,8 +1,6 @@
 package org.thoughtcrime.securesms.sharing;
 
-import android.Manifest;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.OpenableColumns;
@@ -11,25 +9,21 @@ import android.util.Pair;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
-import androidx.core.content.ContextCompat;
 
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 
 import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.logging.Log;
-import org.thoughtcrime.securesms.TransportOption;
-import org.thoughtcrime.securesms.TransportOptions;
+import org.thoughtcrime.securesms.attachments.Attachment;
+import org.thoughtcrime.securesms.attachments.UriAttachment;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.mediasend.Media;
 import org.thoughtcrime.securesms.mediasend.MediaSendConstants;
-import org.thoughtcrime.securesms.mms.MediaConstraints;
 import org.thoughtcrime.securesms.mms.PartAuthority;
 import org.thoughtcrime.securesms.providers.BlobProvider;
 import org.thoughtcrime.securesms.util.MediaUtil;
-import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.UriUtil;
-import org.thoughtcrime.securesms.util.Util;
 import org.whispersystems.libsignal.util.guava.Optional;
 
 import java.io.IOException;
@@ -113,11 +107,15 @@ class ShareRepository {
         // TODO Convert to multi-session after file drafts are fixed.
       }
 
-      return ShareData.forIntentData(blobUri, mimeType, true, isMmsSupported(context, mimeType, size));
+      return ShareData.forIntentData(blobUri, mimeType, true, isMmsSupported(context, asUriAttachment(blobUri, mimeType, size)));
     }
   }
 
-  private boolean isMmsSupported(@NonNull Context context, @NonNull String mimeType, long size) {
+  private @NonNull UriAttachment asUriAttachment(@NonNull Uri uri, @NonNull String mimeType, long size) {
+    return new UriAttachment(uri, mimeType, -1, size, null, false, false, false, false, null, null, null, null, null);
+  }
+
+  private boolean isMmsSupported(@NonNull Context context, @NonNull Attachment attachment) {
     return false;
   }
 
@@ -167,6 +165,7 @@ class ShareRepository {
                           size,
                           duration,
                           false,
+                          false,
                           Optional.of(Media.ALL_MEDIA_BUCKET_ID),
                           Optional.absent(),
                           Optional.absent()));
@@ -179,7 +178,7 @@ class ShareRepository {
 
     if (media.size() > 0) {
       boolean isMmsSupported = Stream.of(media)
-                                     .allMatch(m -> isMmsSupported(context, m.getMimeType(), m.getSize()));
+                                     .allMatch(m -> isMmsSupported(context, asUriAttachment(m.getUri(), m.getMimeType(), m.getSize())));
       return ShareData.forMedia(media, isMmsSupported);
     } else {
       return null;

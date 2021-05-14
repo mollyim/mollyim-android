@@ -1111,8 +1111,9 @@
   <string name="MessageRequestBottomView_this_legacy_group_can_no_longer_be_used">Acest grup vechi nu mai poate fi utilizat deoarece este prea mare. Dimensiunea maximă a grupului este de %1$d.</string>
   <string name="MessageRequestBottomView_continue_your_conversation_with_s_and_share_your_name_and_photo">Continuați conversația dvs. cu %1$s și vă împărtășiți numele și fotografia cu el/ea?</string>
   <string name="MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Vă alăturaţi acestui grup și împărtășiți numele și fotografia cu membrii săi? Nu vor ști că le-ai văzut mesajele până nu accepți.</string>
-  <string name="MessageRequestBottomView_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Vă alăturați la grup? Nu vor ști că le-ați văzut mesajele până nu veți accepta.</string>
+  <string name="MessageRequestBottomView_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Vă alăturați acestui grup? Nu vor ști că le-ați văzut mesajele până nu veți accepta.</string>
   <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">Deblocați acest grup și împărtășiți numele și fotografia cu membrii săi? Nu veți primi niciun mesaj până când nu îi deblocați.</string>
+  <string name="MessageRequestProfileView_view">Vizualizare</string>
   <string name="MessageRequestProfileView_member_of_one_group">Membru al %1$s</string>
   <string name="MessageRequestProfileView_member_of_two_groups">Membru al %1$s și %2$s</string>
   <string name="MessageRequestProfileView_member_of_many_groups">Membru al %1$s, %2$s, și %3$s</string>
@@ -1218,6 +1219,7 @@
   <string name="ReactionsConversationView_plus">+%1$d</string>
   <!--ReactionsRecipientAdapter-->
   <string name="ReactionsRecipientAdapter_you">Tu</string>
+  <!--RecaptchaRequiredBottomSheetFragment-->
   <!--RecipientPreferencesActivity-->
   <string name="RecipientPreferenceActivity_block">Blochează</string>
   <string name="RecipientPreferenceActivity_unblock">Deblochează</string>
@@ -1278,6 +1280,7 @@
   <string name="ProxyBottomSheetFragment_do_you_want_to_use_this_proxy_address">Doriți să folosiți această adresă proxy?</string>
   <string name="ProxyBottomSheetFragment_use_proxy">Utilizează proxy</string>
   <string name="ProxyBottomSheetFragment_successfully_connected_to_proxy">Conectat cu succes la proxy.</string>
+  <!--RecaptchaProofActivity-->
   <!--RegistrationActivity-->
   <string name="RegistrationActivity_select_your_country">Alegeți ţara dvs.</string>
   <string name="RegistrationActivity_you_must_specify_your_country_code">Trebuie să introduceți
@@ -1555,6 +1558,7 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <!--SingleRecipientNotificationBuilder-->
   <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Mesaj nou</string>
+  <string name="SingleRecipientNotificationBuilder_you">Dvs.</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">Redați video</string>
   <string name="ThumbnailView_Has_a_caption_description">Are un titlu</string>
@@ -1664,6 +1668,8 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <string name="ConversationUpdateItem_call_is_full">Numărul maxim de participanți a fost atins</string>
   <string name="ConversationUpdateItem_invite_friends">Invită prieteni</string>
   <string name="ConversationUpdateItem_enable_call_notifications">Activare notificări pentru apeluri</string>
+  <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">Niciun grup în comun. Examinați solicitările cu atenție.</string>
+  <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">Nu există contacte în acest grup. Examinați solicitările cu atenție.</string>
   <!--audio_view-->
   <string name="audio_view__play_pause_accessibility_description">Redare … Pauză</string>
   <string name="audio_view__download_accessibility_description">Descarcă</string>
@@ -1690,7 +1696,15 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <!--EnableCallNotificationSettingsDialog__call_notifications_checklist-->
   <string name="EnableCallNotificationSettingsDialog__call_notifications_enabled">Notificările pentru apeluri sunt activate.</string>
   <string name="EnableCallNotificationSettingsDialog__enable_call_notifications">Activare notificări pentru apeluri</string>
+  <string name="EnableCallNotificationSettingsDialog__enable_background_activity">Activare activitate de fundal</string>
+  <string name="EnableCallNotificationSettingsDialog__everything_looks_good_now">Acum totul arată bine!</string>
+  <string name="EnableCallNotificationSettingsDialog__to_receive_call_notifications_tap_here_and_turn_on_show_notifications">Pentru a primi notificări de apel, atingeți aici și activați \"Afișare notificări”.</string>
+  <string name="EnableCallNotificationSettingsDialog__to_receive_call_notifications_tap_here_and_turn_on_notifications">Pentru a primi notificări de apel, atingeți aici și activați notificările și asigurați-vă că sunetul și fereastra pop-up sunt activate.</string>
+  <string name="EnableCallNotificationSettingsDialog__to_receive_call_notifications_tap_here_and_enable_background_activity_in_battery_settings">Pentru a primi notificări de apel, atingeți aici și activați activitatea de fundal în setările de \"Baterie\".</string>
   <string name="EnableCallNotificationSettingsDialog__settings">Setări</string>
+  <string name="EnableCallNotificationSettingsDialog__to_receive_call_notifications_tap_settings_and_turn_on_show_notifications">Pentru a primi notificări de apel, atingeți Setări și activați „Afișare notificări”.</string>
+  <string name="EnableCallNotificationSettingsDialog__to_receive_call_notifications_tap_settings_and_turn_on_notifications">Pentru a primi notificări de apel, atingeți Setări și activați notificările și asigurați-vă că sunetul și fereastra pop-up sunt activate.</string>
+  <string name="EnableCallNotificationSettingsDialog__to_receive_call_notifications_tap_settings_and_enable_background_activity_in_battery_settings">Pentru a primi notificări de apel, atingeți Setări și activați activitatea de fundal în setările de \"Baterie”.</string>
   <!--country_selection_fragment-->
   <string name="country_selection_fragment__loading_countries">Se încarcă țările…</string>
   <string name="country_selection_fragment__search">Căutați</string>
@@ -1751,7 +1765,7 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
     <item quantity="other">%d alții</item>
   </plurals>
   <!--giphy_activity-->
-  <string name="giphy_activity_toolbar__search_gifs_and_stickers">Căutați GIF-uri și autocolante</string>
+  <string name="giphy_activity_toolbar__search_gifs">Căutare GIF-uri</string>
   <!--giphy_fragment-->
   <string name="giphy_fragment__nothing_found">Nu s-a găsit nimic</string>
   <!--log_submit_activity-->
@@ -1796,9 +1810,9 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <string name="EditAboutFragment_count">%1$d/%2$d</string>
   <string name="EditAboutFragment_speak_freely">Vorbește liber</string>
   <string name="EditAboutFragment_encrypted">Criptat</string>
-  <string name="EditAboutFragment_be_kind">Fii bun</string>
-  <string name="EditAboutFragment_coffee_lover">Iubitor de cafea</string>
-  <string name="EditAboutFragment_free_to_chat">Disponibil pentru conversații</string>
+  <string name="EditAboutFragment_be_kind">Fii bun/ă</string>
+  <string name="EditAboutFragment_coffee_lover">Pasionat/ă de cafea</string>
+  <string name="EditAboutFragment_free_to_chat">Disponibil/ă pentru conversații</string>
   <string name="EditAboutFragment_taking_a_break">Într-o pauză</string>
   <string name="EditAboutFragment_working_on_something_new">Lucrez la ceva nou</string>
   <!--EditProfileFragment-->
@@ -1870,6 +1884,14 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <string name="HelpFragment__debug_log">Jurnalul de depanare:</string>
   <string name="HelpFragment__could_not_upload_logs">Nu s-au putut încărca jurnalele</string>
   <string name="HelpFragment__please_be_as_descriptive_as_possible">Vă rugăm să fiți cât mai descriptivi pentru a ne ajuta să înțelegem problema.</string>
+  <string-array name="HelpFragment__categories">
+    <item>Ceva nu funcționează</item>
+    <item>Solicitare funcționalitate nouă</item>
+    <item>Întrebare</item>
+    <item>Opinie</item>
+    <item>Altceva</item>
+    <item>Plăți</item>
+  </string-array>
   <!--ReactWithAnyEmojiBottomSheetDialogFragment-->
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__this_message">Acest mesaj</string>
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__recently_used">Utilizate recent</string>
@@ -2005,9 +2027,9 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <string name="preferences__enable_if_your_device_supports_sms_mms_delivery_over_wifi">Activează dacă dispozitivul tău trimite SMS/MMS prin WiFi (activează atunci când \"Apelare WiFi\" este activat pe dispozitivul tău)</string>
   <string name="preferences__incognito_keyboard">Tastatură incognito</string>
   <string name="preferences__read_receipts">Confirmări de citire</string>
-  <string name="preferences__if_read_receipts_are_disabled_you_wont_be_able_to_see_read_receipts">Dacă confirmările de citire sunt dezactivate, nu veți putea vedea confirmările de citire de la ceilalți.</string>
+  <string name="preferences__if_read_receipts_are_disabled_you_wont_be_able_to_see_read_receipts">Dacă dezactivați confirmările de citire, nu veți putea vedea confirmări de citire de la ceilalți.</string>
   <string name="preferences__typing_indicators">Indicatori tastare</string>
-  <string name="preferences__if_typing_indicators_are_disabled_you_wont_be_able_to_see_typing_indicators">Dacă indicatorii de tastare sunt dezactivați, nu vei putea vedea indicatorii de tastare de la ceilalți.</string>
+  <string name="preferences__if_typing_indicators_are_disabled_you_wont_be_able_to_see_typing_indicators">Dacă dezactivați indicatorii de tastare, nu veți putea vedea indicatori de tastare de la ceilalți.</string>
   <string name="preferences__request_keyboard_to_disable_personalized_learning">Solicitați tastaturii dezactivarea învățării personalizate. Această setare nu este o garanție și este posibil ca tastatura dvs. să o ignore.</string>
   <string name="preferences_app_protection__blocked_users">Utilizatori blocați</string>
   <string name="preferences_chats__when_using_mobile_data">Când se utilizează datele mobile </string>
@@ -2037,7 +2059,7 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <string name="preferences_storage__s_messages">%1$s mesaje</string>
   <string name="preferences_storage__custom">Specific</string>
   <string name="preferences_advanced__use_system_emoji">Foloseşte emoji de sistem</string>
-  <string name="preferences_advanced__disable_signal_built_in_emoji_support">Dezactivați icoanele emoji oferite de Signal </string>
+  <string name="preferences_advanced__disable_signal_built_in_emoji_support">Dezactivați icon-urile emoji oferite de Signal </string>
   <string name="preferences_advanced__relay_all_calls_through_the_signal_server_to_avoid_revealing_your_ip_address">Redirecționați toate apelurile către serverul Signal pentru a evita aflarea adresei IP de către contact tău. Activarea va reduce calitatea apelului.</string>
   <string name="preferences_advanced__always_relay_calls">Redirecționează întotdeauna apelurile</string>
   <string name="preferences_app_protection__who_can">Cine poate…</string>
@@ -2064,7 +2086,7 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <string name="preferences_notifications__priority">Prioritate</string>
   <string name="preferences_communication__category_sealed_sender">Expeditor ascuns</string>
   <string name="preferences_communication__sealed_sender_display_indicators">Afișează indicatoare</string>
-  <string name="preferences_communication__sealed_sender_display_indicators_description">Afișează o icoană de status când selectezi \"Detalii mesaj\" din mesajele care au fost trimise folosind funcția expeditor ascuns.</string>
+  <string name="preferences_communication__sealed_sender_display_indicators_description">Afișează un icon de status când selectezi \"Detalii mesaj\" din mesajele care au fost trimise folosind funcția expeditor ascuns.</string>
   <string name="preferences_communication__sealed_sender_allow_from_anyone">Permite oricui</string>
   <string name="preferences_communication__sealed_sender_allow_from_anyone_description">Activează funcția de expeditor ascuns pentru mesajele primite de la non-contacte și persoane cu care nu ai partajat profilul tău.</string>
   <string name="preferences_communication__sealed_sender_learn_more">Aflați mai multe</string>
@@ -2088,6 +2110,7 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <string name="configurable_single_select__customize_option">Personalizați opțiunea</string>
   <!--Internal only preferences-->
   <!--Payments-->
+  <string name="PaymentsActivityFragment__all_activity">Toată activitatea</string>
   <string name="PaymentsAllActivityFragment__all">Toate</string>
   <string name="PaymentsAllActivityFragment__sent">Trimis</string>
   <string name="PaymentsAllActivityFragment__received">Primit</string>
@@ -2097,7 +2120,9 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <string name="PaymentsHomeFragment__see_all">Vezi tot</string>
   <string name="PaymentsHomeFragment__send">Trimiteți</string>
   <string name="PaymentsHomeFragment__help">Ajutor</string>
+  <string name="PaymentsHomeFragment__unknown_amount">---</string>
   <string name="PaymentsHomeFragment__continue">Continuă</string>
+  <string name="PaymentsHomeFragment__payment_failed">Plata a eșuat</string>
   <string name="PaymentsHomeFragment__details">Detalii</string>
   <!--PaymentsAddMoneyFragment-->
   <string name="PaymentsAddMoneyFragment__copy">Copy</string>
@@ -2105,11 +2130,15 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <!--PaymentsDetailsFragment-->
   <string name="PaymentsDetailsFragment__details">Detalii</string>
   <string name="PaymentsDetailsFragment__status">Stare</string>
+  <string name="PaymentsDetailsFragment__payment_complete">Plată finalizată</string>
+  <string name="PaymentsDetailsFragment__payment_failed">Plata a eșuat</string>
   <string name="PaymentsDetailsFragment__to">Către</string>
   <string name="PaymentsDetailsFragment__from">De la</string>
   <!--PaymentsTransferFragment-->
+  <string name="PaymentsTransferFragment__transfer">Transfer</string>
   <string name="PaymentsTransferFragment__scan_qr_code">Scanează codul QR</string>
   <string name="PaymentsTransferFragment__next">Următorul</string>
+  <string name="PaymentsTransferFragment__invalid_address">Adresă invalidă</string>
   <string name="PaymentsTransferFragment__settings">Setări</string>
   <!--PaymentsTransferQrScanFragment-->
   <!--CreatePaymentFragment-->
@@ -2123,12 +2152,18 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <string name="CreatePaymentFragment__7">7</string>
   <string name="CreatePaymentFragment__8">8</string>
   <string name="CreatePaymentFragment__9">9</string>
+  <string name="CreatePaymentFragment__decimal">.</string>
   <string name="CreatePaymentFragment__0">0</string>
+  <string name="CreatePaymentFragment__lt">&lt;</string>
   <!--EditNoteFragment-->
   <string name="EditNoteFragment_note">Notă</string>
   <!--ConfirmPaymentFragment-->
   <string name="ConfirmPayment__to">Către</string>
+  <string name="ConfirmPayment__total_amount">Suma totală</string>
+  <string name="ConfirmPayment__payment_complete">Plată finalizată</string>
+  <string name="ConfirmPayment__payment_failed">Plata a eșuat</string>
   <!--CurrencyAmountFormatter_s_at_s-->
+  <string name="CurrencyAmountFormatter_s_at_s">%1$s la %2$s</string>
   <!--SetCurrencyFragment-->
   <string name="SetCurrencyFragment__all_currencies">Toate monedele</string>
   <!--****************************************-->
@@ -2461,6 +2496,7 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <string name="NewDeviceTransferInstructions__open_signal_on_your_old_android_phone">Deschideți Signal pe vechiul dvs. telefon Android</string>
   <string name="NewDeviceTransferInstructions__continue">Continuă</string>
   <string name="NewDeviceTransferInstructions__first_bullet">1.</string>
+  <string name="NewDeviceTransferInstructions__tap_on_your_profile_photo_in_the_top_left_to_open_settings">Atingeți poza dvs. de profil in colțul din stânga sus pentru a deschide Setările</string>
   <string name="NewDeviceTransferInstructions__second_bullet">2.</string>
   <string name="NewDeviceTransferInstructions__third_bullet">3.</string>
   <!--NewDeviceTransferSetupFragment-->
@@ -2517,6 +2553,7 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <string name="OldDeviceTransferLockedDialog__your_signal_account_has_been_transferred_to_your_new_device">Contul dvs. Signal a fost transferat pe noul dispozitiv, dar trebuie să continuați înregistrarea pentru a continua. Signal o să fie dezactivat pe acest dispozitv.</string>
   <string name="OldDeviceTransferLockedDialog__done">Gata</string>
   <!--AdvancedPreferenceFragment-->
+  <string name="AdvancedPreferenceFragment__transfer">Transfer</string>
   <!--RecipientBottomSheet-->
   <string name="RecipientBottomSheet_block">Blochează</string>
   <string name="RecipientBottomSheet_unblock">Deblochează</string>
@@ -2673,6 +2710,7 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <!--DeactivateWalletFragment-->
   <!--PaymentsRecoveryStartFragment-->
   <string name="PaymentsRecoveryStartFragment__start">Start</string>
+  <string name="PaymentsRecoveryStartFragment__enter_manually">Introduceți manual</string>
   <!--PaymentsRecoveryPasteFragment-->
   <string name="PaymentsRecoveryPasteFragment__next">Următorul</string>
   <!--PaymentsRecoveryPhraseFragment-->
@@ -2681,14 +2719,22 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <string name="PaymentsRecoveryPhraseFragment__previous">Înapoi</string>
   <string name="PaymentsRecoveryPhraseFragment__copy">Copy</string>
   <!--PaymentsRecoveryPhraseConfirmFragment-->
+  <string name="PaymentRecoveryPhraseConfirmFragment__word_d">Cuvânt %1$d</string>
   <string name="PaymentRecoveryPhraseConfirmFragment__done">Gata</string>
   <!--PaymentsRecoveryEntryFragment-->
+  <string name="PaymentsRecoveryEntryFragment__word_d">Cuvânt %1$d</string>
   <string name="PaymentsRecoveryEntryFragment__next">Următorul</string>
+  <string name="PaymentsRecoveryEntryFragment__invalid_word">Cuvânt invalid</string>
   <!--ClearClipboardAlarmReceiver-->
   <!--PaymentNotificationsView-->
   <string name="PaymentNotificationsView__view">Vizualizare</string>
   <!--UnreadPayments-->
   <!--CanNotSendPaymentDialog-->
   <string name="CanNotSendPaymentDialog__send_a_message">Trimite mesaj</string>
+  <!--GroupsInCommonMessageRequest-->
+  <string name="GroupsInCommonMessageRequest__you_have_no_groups_in_common_with_this_person">Nu aveți grupuri în comun cu această persoană. Examinați cu atenție solicitările înainte de a accepta pentru a evita mesajele nedorite.</string>
+  <string name="GroupsInCommonMessageRequest__none_of_your_contacts_or_people_you_chat_with_are_in_this_group">Niciuna dintre persoanele de contact sau persoanele cu care conversați nu fac parte din acest grup. Examinați cu atenție solicitările înainte de a accepta pentru a evita mesajele nedorite.</string>
+  <string name="GroupsInCommonMessageRequest__about_message_requests">Despre solicitări mesaj</string>
+  <string name="GroupsInCommonMessageRequest__okay">Okay</string>
   <!--EOF-->
 </resources>

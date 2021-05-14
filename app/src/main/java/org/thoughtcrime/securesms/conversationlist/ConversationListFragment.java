@@ -114,6 +114,8 @@ import org.thoughtcrime.securesms.payments.preferences.PaymentsActivity;
 import org.thoughtcrime.securesms.payments.preferences.details.PaymentDetailsFragmentArgs;
 import org.thoughtcrime.securesms.payments.preferences.details.PaymentDetailsParcelable;
 import org.thoughtcrime.securesms.permissions.Permissions;
+import org.thoughtcrime.securesms.ratelimit.RecaptchaProofActivity;
+import org.thoughtcrime.securesms.ratelimit.RecaptchaProofBottomSheetFragment;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.service.KeyCachingService;
 import org.thoughtcrime.securesms.sms.MessageSender;
@@ -271,6 +273,11 @@ public class ConversationListFragment extends MainFragment implements ActionMode
 
     if (activeAdapter != null) {
       activeAdapter.notifyDataSetChanged();
+    }
+
+    if (SignalStore.rateLimit().needsRecaptcha()) {
+      Log.i(TAG, "Recaptcha required.");
+      RecaptchaProofBottomSheetFragment.show(getChildFragmentManager());
     }
   }
 

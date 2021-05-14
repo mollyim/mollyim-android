@@ -170,6 +170,7 @@
   <string name="ConversationItem_error_network_not_delivered">Send mislykkedes</string>
   <string name="ConversationItem_received_key_exchange_message_tap_to_process">Udvekslingsnøgle er modtaget. Tap for at fortsætte</string>
   <string name="ConversationItem_group_action_left">%1$s har forladt gruppen</string>
+  <string name="ConversationItem_send_paused">Send sat på pause</string>
   <string name="ConversationItem_click_to_approve_unencrypted">Fejl ved afsendelse, tap for at sende standard besked</string>
   <string name="ConversationItem_click_to_approve_unencrypted_sms_dialog_title">Godkend ukrypteret SMS?</string>
   <string name="ConversationItem_click_to_approve_unencrypted_mms_dialog_title">Godkend ukrypteret MMS?</string>
@@ -1065,6 +1066,7 @@
   <string name="MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Tilmeld dig gruppen og del dit navn og foto med dens medlemmer? De ved ikke, at du har set deres beskeder, før du accepterer</string>
   <string name="MessageRequestBottomView_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Bliv medlem af gruppen? De ved ikke at du har set deres beskeder, før du accepterer</string>
   <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">Fjern blokering af gruppen og del dit navn og foto med dens medlemmer? Du modtager ikke nogen beskeder, før du fjerner blokeringen</string>
+  <string name="MessageRequestProfileView_view">Vis</string>
   <string name="MessageRequestProfileView_member_of_one_group">Medlem af %1$s</string>
   <string name="MessageRequestProfileView_member_of_two_groups">Medlem af %1$s og %2$s</string>
   <string name="MessageRequestProfileView_member_of_many_groups">Medlem af %1$s, %2$s og %3$s</string>
@@ -1165,6 +1167,10 @@
   <string name="ReactionsConversationView_plus">+%1$d</string>
   <!--ReactionsRecipientAdapter-->
   <string name="ReactionsRecipientAdapter_you">Dig</string>
+  <!--RecaptchaRequiredBottomSheetFragment-->
+  <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">Bekræft for at fortsætte beskedskrivning</string>
+  <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">For at hjælpe med at forhindre spam på Molly, skal du gennemføre bekræftelsen.</string>
+  <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">Efter bekræftelse kan du fortsætte med at sende beskeder. Alle beskeder, der er sat på pause, sendes automatisk.</string>
   <!--RecipientPreferencesActivity-->
   <string name="RecipientPreferenceActivity_block">Blokér</string>
   <string name="RecipientPreferenceActivity_unblock">Fjern blokering</string>
@@ -1223,6 +1229,9 @@
   <string name="ProxyBottomSheetFragment_do_you_want_to_use_this_proxy_address">Vil du bruge denne proxy-adresse?</string>
   <string name="ProxyBottomSheetFragment_use_proxy">Brug proxy</string>
   <string name="ProxyBottomSheetFragment_successfully_connected_to_proxy">Forbundet til proxy.</string>
+  <!--RecaptchaProofActivity-->
+  <string name="RecaptchaProofActivity_failed_to_submit">Det lykkedes ikke at indsende</string>
+  <string name="RecaptchaProofActivity_complete_verification">Gennemfør bekræftelsen</string>
   <!--RegistrationActivity-->
   <string name="RegistrationActivity_select_your_country">Vælg land</string>
   <string name="RegistrationActivity_you_must_specify_your_country_code">Du skal vælge din
@@ -1453,6 +1462,8 @@ Modtog en nøgle besked, for en ugyldig protokol-version
   <string name="MessageNotifier_message_delivery_failed">Levering af besked mislykkedes</string>
   <string name="MessageNotifier_failed_to_deliver_message">Kunne ikke levere besked</string>
   <string name="MessageNotifier_error_delivering_message">Fejl ved levering af besked</string>
+  <string name="MessageNotifier_message_delivery_paused">Levering af besked sat på pause.</string>
+  <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Bekræft for at fortsætte beskedskrivning på Molly.</string>
   <string name="MessageNotifier_mark_all_as_read">Markér alle som læst</string>
   <string name="MessageNotifier_mark_read">Markér som læst</string>
   <string name="MessageNotifier_turn_off_these_notifications">Deaktiver disse notifikationer</string>
@@ -1503,6 +1514,7 @@ Modtog en nøgle besked, for en ugyldig protokol-version
   <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Ny besked</string>
   <string name="SingleRecipientNotificationBuilder_message_request">Beskedanmodning</string>
+  <string name="SingleRecipientNotificationBuilder_you">Dig</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">Afspil video</string>
   <string name="ThumbnailView_Has_a_caption_description">Har en billedtekst</string>
@@ -1609,6 +1621,8 @@ Modtog en nøgle besked, for en ugyldig protokol-version
   <string name="ConversationUpdateItem_call_is_full">Samtalen er fuld</string>
   <string name="ConversationUpdateItem_invite_friends">Invitér venner</string>
   <string name="ConversationUpdateItem_enable_call_notifications">Aktiver opkaldsmeddelelser</string>
+  <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">Ingen grupper til fælles. Gennemgå anmodninger omhyggeligt.</string>
+  <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">Ingen kontakter i gruppen. Gennemgå anmodninger omhyggeligt. </string>
   <!--audio_view-->
   <string name="audio_view__play_pause_accessibility_description">Play … Pause</string>
   <string name="audio_view__download_accessibility_description">Download</string>
@@ -1698,7 +1712,7 @@ Modtog en nøgle besked, for en ugyldig protokol-version
     <item quantity="other">%d mere</item>
   </plurals>
   <!--giphy_activity-->
-  <string name="giphy_activity_toolbar__search_gifs_and_stickers">Søg GIF\'s og animationer</string>
+  <string name="giphy_activity_toolbar__search_gifs">Søg i GIF\'er</string>
   <!--giphy_fragment-->
   <string name="giphy_fragment__nothing_found">Fandt ingenting</string>
   <!--log_submit_activity-->
@@ -2828,5 +2842,10 @@ Modtog en nøgle besked, for en ugyldig protokol-version
   <string name="CanNotSendPaymentDialog__cant_send_payment">Betalingen kan ikke sendes</string>
   <string name="CanNotSendPaymentDialog__to_send_a_payment_to_this_user">For at sende en betaling til denne bruger, skal de acceptere en beskedanmodning fra dig. Skriv til dem for at oprette en beskedanmodning.</string>
   <string name="CanNotSendPaymentDialog__send_a_message">Send en besked</string>
+  <!--GroupsInCommonMessageRequest-->
+  <string name="GroupsInCommonMessageRequest__you_have_no_groups_in_common_with_this_person">Du har ingen grupper til fælles med denne person. Gennemgå anmodninger nøje, inden du accepterer for at undgå uønskede beskeder.</string>
+  <string name="GroupsInCommonMessageRequest__none_of_your_contacts_or_people_you_chat_with_are_in_this_group">Ingen af dine kontakter eller personer, du chatter med, er i gruppen. Gennemgå anmodninger nøje, inden du accepterer for at undgå uønskede beskeder.</string>
+  <string name="GroupsInCommonMessageRequest__about_message_requests">Ang. beskedanmodning</string>
+  <string name="GroupsInCommonMessageRequest__okay">Okay</string>
   <!--EOF-->
 </resources>

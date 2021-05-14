@@ -986,6 +986,7 @@
   <string name="MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Tu dixwazî tevlî vê komê bibî û nav û wêneyê xwe bi endamên komê re parve bikî? Heta tu qebûl nekî ew ê nizanibin ku te peyamên wan dîtiye.</string>
   <string name="MessageRequestBottomView_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Li tevlî vê komê bibî? Heta tu qebûl nekî ew ê nizanibin ku te peyamên wan dîtine.</string>
   <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">Tu dixwazî astenga vê komê rakî û nav û wêneyê xwe bi endamên komê re parve bikî? Heta ku tu astengê ranekî tu yê ti peyaman wernegirî.</string>
+  <string name="MessageRequestProfileView_view">Nîşan bide</string>
   <string name="MessageRequestProfileView_member_of_one_group">Endamê koma %1$s\'ê</string>
   <string name="MessageRequestProfileView_member_of_two_groups">Endamê komên %1$s û %2$s\'ê</string>
   <string name="MessageRequestProfileView_member_of_many_groups">Endamê komên %1$s, %2$s û %3$s\'ê</string>
@@ -1071,6 +1072,7 @@
   <string name="ReactionsConversationView_plus">+%1$d</string>
   <!--ReactionsRecipientAdapter-->
   <string name="ReactionsRecipientAdapter_you">Tu</string>
+  <!--RecaptchaRequiredBottomSheetFragment-->
   <!--RecipientPreferencesActivity-->
   <string name="RecipientPreferenceActivity_block">Asteng bike</string>
   <string name="RecipientPreferenceActivity_unblock">Astengê rake</string>
@@ -1129,6 +1131,7 @@
   <string name="ProxyBottomSheetFragment_do_you_want_to_use_this_proxy_address">Tu dixwazê ve navnîşana proxy yê bikar bînî?</string>
   <string name="ProxyBottomSheetFragment_use_proxy">Proxy bikar bîne</string>
   <string name="ProxyBottomSheetFragment_successfully_connected_to_proxy">Bi serkeftî proxy yê va hate girêdan</string>
+  <!--RecaptchaProofActivity-->
   <!--RegistrationActivity-->
   <string name="RegistrationActivity_select_your_country">Welatê xwe hilbijêre</string>
   <string name="RegistrationActivity_you_must_specify_your_country_code">Divê tu koda welatê xwe
@@ -1396,6 +1399,7 @@
   <!--SingleRecipientNotificationBuilder-->
   <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Peyama nû</string>
+  <string name="SingleRecipientNotificationBuilder_you">Tu</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">Vîdyoyê lêde</string>
   <string name="ThumbnailView_Has_a_caption_description">Sernavê wê heye</string>
@@ -1574,7 +1578,6 @@
     <item quantity="other">%d ên din</item>
   </plurals>
   <!--giphy_activity-->
-  <string name="giphy_activity_toolbar__search_gifs_and_stickers">Li GIF û stîkeran bigere</string>
   <!--giphy_fragment-->
   <string name="giphy_fragment__nothing_found">Tiştek nehate dîtin</string>
   <!--log_submit_activity-->
@@ -2393,5 +2396,7 @@
   <!--UnreadPayments-->
   <!--CanNotSendPaymentDialog-->
   <string name="CanNotSendPaymentDialog__send_a_message">Peyamekê bişîne</string>
+  <!--GroupsInCommonMessageRequest-->
+  <string name="GroupsInCommonMessageRequest__okay">Baş e</string>
   <!--EOF-->
 </resources>

@@ -1059,6 +1059,7 @@
   <string name="MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">ഈ ഗ്രൂപ്പിൽ ചേര്‍ൻ, നിങ്ങളുടെ പേരും ഫോട്ടോയും അതിന്റെ അംഗങ്ങളുമായി പങ്കിടണോ? നിങ്ങൾ സ്വീകരിക്കുന്നതുവരെ നിങ്ങൾ അവരുടെ സന്ദേശങ്ങൾ കണ്ടതായി അവർക്ക് അറിയില്ല.</string>
   <string name="MessageRequestBottomView_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">ഈ ഗ്രൂപ്പിൽ ചേരണോ? നിങ്ങൾ സ്വീകരിക്കുന്നതുവരെ അവരുടെ സന്ദേശങ്ങൾ കണ്ടതായി അവർക്ക് അറിയില്ല.</string>
   <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">ഈ ഗ്രൂപ്പിനെ അൺ‌ബ്ലോക്ക് ചെയ്ത് നിങ്ങളുടെ പേരും ഫോട്ടോയും അതിന്റെ അംഗങ്ങളുമായി പങ്കിടണോ? നിങ്ങൾ അൺ‌ബ്ലോക്ക് ചെയ്യുന്നതു വരെ നിങ്ങൾക്ക് സന്ദേശങ്ങളൊന്നും ലഭിക്കില്ല.</string>
+  <string name="MessageRequestProfileView_view">കാണുക</string>
   <string name="MessageRequestProfileView_member_of_one_group">%1$s അംഗം</string>
   <string name="MessageRequestProfileView_member_of_two_groups">%1$s, %2$s എന്നിവയിലെ അംഗം</string>
   <string name="MessageRequestProfileView_member_of_many_groups">%1$s, %2$s, %3$s ലെ അംഗം</string>
@@ -1158,6 +1159,7 @@
   <string name="ReactionsConversationView_plus">+%1$d</string>
   <!--ReactionsRecipientAdapter-->
   <string name="ReactionsRecipientAdapter_you">നിങ്ങൾ</string>
+  <!--RecaptchaRequiredBottomSheetFragment-->
   <!--RecipientPreferencesActivity-->
   <string name="RecipientPreferenceActivity_block">തടയുക</string>
   <string name="RecipientPreferenceActivity_unblock">തടഞ്ഞത് മാറ്റുക</string>
@@ -1216,6 +1218,7 @@
   <string name="ProxyBottomSheetFragment_do_you_want_to_use_this_proxy_address">ഈ പ്രോക്സി വിലാസം നിങ്ങൾക്ക് ഉപയോഗിക്കണോ?</string>
   <string name="ProxyBottomSheetFragment_use_proxy">പ്രോക്സി ഉപയോഗിക്കുക</string>
   <string name="ProxyBottomSheetFragment_successfully_connected_to_proxy">പ്രോക്‌സിയിലേക്ക് ബന്ധിപ്പിച്ചു</string>
+  <!--RecaptchaProofActivity-->
   <!--RegistrationActivity-->
   <string name="RegistrationActivity_select_your_country">നിങ്ങളുടെ രാജ്യം തിരഞ്ഞെടുക്കുക</string>
   <string name="RegistrationActivity_you_must_specify_your_country_code">നിങ്ങളുടെ രാജ്യ കോഡ് വ്യക്തമാക്കണം</string>
@@ -1488,6 +1491,7 @@
   <!--SingleRecipientNotificationBuilder-->
   <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">പുതിയ സന്ദേശം</string>
+  <string name="SingleRecipientNotificationBuilder_you">നിങ്ങൾ</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">വീഡിയോ പ്ലേ ചെയ്യുക</string>
   <string name="ThumbnailView_Has_a_caption_description">ഒരു അടിക്കുറിപ്പ് ഉണ്ട്</string>
@@ -1672,7 +1676,6 @@
     <item quantity="other">%d പേർ</item>
   </plurals>
   <!--giphy_activity-->
-  <string name="giphy_activity_toolbar__search_gifs_and_stickers">GIF-കളും സ്റ്റിക്കറുകളും തിരയുക</string>
   <!--giphy_fragment-->
   <string name="giphy_fragment__nothing_found">ഒന്നും കണ്ടെത്തിയില്ല</string>
   <!--log_submit_activity-->
@@ -2548,5 +2551,7 @@
   <!--UnreadPayments-->
   <!--CanNotSendPaymentDialog-->
   <string name="CanNotSendPaymentDialog__send_a_message">ഒരു മെസ്സേജ് അയക്കുക</string>
+  <!--GroupsInCommonMessageRequest-->
+  <string name="GroupsInCommonMessageRequest__okay">ശരി</string>
   <!--EOF-->
 </resources>

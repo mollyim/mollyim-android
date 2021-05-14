@@ -31,7 +31,7 @@ public final class RegistrationUtil {
     {
       Log.i(TAG, "Marking registration completed.", new Throwable());
       SignalStore.registrationValues().setRegistrationComplete();
-      ApplicationDependencies.getJobManager().startChain(StorageSyncJob.create())
+      ApplicationDependencies.getJobManager().startChain(new StorageSyncJob())
                                              .then(new DirectoryRefreshJob(false))
                                              .enqueue();
     } else if (!SignalStore.registrationValues().isRegistrationComplete()) {

@@ -1273,6 +1273,7 @@
   <string name="MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">الانضمام إلى هذه المجموعة ومشاركة اسمك وصورتك مع أعضائها؟ لن يعرفوا أنك قرأت رسالتهم حتى توافق.</string>
   <string name="MessageRequestBottomView_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">هل تود الانضمام إلى هذه المجموعة؟ لن يعرفوا أنك قرأت رسائلهم إلا إذا وافقت.</string>
   <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">إزالة الحظر عن هذه المجموعة ومشاركة اسمك وصورتك مع أعضائها؟ لن تتلقى أية رسائل حتى تزيل الحظر.</string>
+  <string name="MessageRequestProfileView_view">إظهار</string>
   <string name="MessageRequestProfileView_member_of_one_group">عضو في %1$s</string>
   <string name="MessageRequestProfileView_member_of_two_groups">عضو في %1$s و%2$s</string>
   <string name="MessageRequestProfileView_member_of_many_groups">عضو في %1$s و%2$s و%3$s</string>
@@ -1393,6 +1394,7 @@
   <string name="ReactionsConversationView_plus">+%1$d</string>
   <!--ReactionsRecipientAdapter-->
   <string name="ReactionsRecipientAdapter_you">أنت</string>
+  <!--RecaptchaRequiredBottomSheetFragment-->
   <!--RecipientPreferencesActivity-->
   <string name="RecipientPreferenceActivity_block">حظر</string>
   <string name="RecipientPreferenceActivity_unblock">رفع الحظر</string>
@@ -1459,6 +1461,7 @@
   <string name="ProxyBottomSheetFragment_do_you_want_to_use_this_proxy_address">ألديك رغبة في استخدام عنوان الوكيل هذا ؟</string>
   <string name="ProxyBottomSheetFragment_use_proxy">استخدم الوكيل</string>
   <string name="ProxyBottomSheetFragment_successfully_connected_to_proxy">نجح في الاتصال بالوكيل.</string>
+  <!--RecaptchaProofActivity-->
   <!--RegistrationActivity-->
   <string name="RegistrationActivity_select_your_country">يجب عليك اختيار بلدك</string>
   <string name="RegistrationActivity_you_must_specify_your_country_code">يجب عليك تحديد رمز دولتك</string>
@@ -1742,6 +1745,7 @@
   <!--SingleRecipientNotificationBuilder-->
   <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">رسالة جديدة</string>
+  <string name="SingleRecipientNotificationBuilder_you">أنت</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">شغّل الفيديو</string>
   <string name="ThumbnailView_Has_a_caption_description">فيه تعليق</string>
@@ -1962,7 +1966,6 @@
     <item quantity="other">%d آخرون</item>
   </plurals>
   <!--giphy_activity-->
-  <string name="giphy_activity_toolbar__search_gifs_and_stickers">ابحث في الصور المتحركة والملصقات</string>
   <!--giphy_fragment-->
   <string name="giphy_fragment__nothing_found">لم نعثر على شيء</string>
   <!--log_submit_activity-->
@@ -2716,6 +2719,7 @@
   <!--OldDeviceTransferInstructionsFragment-->
   <string name="OldDeviceTransferInstructions__transfer_account">نقل الحساب</string>
   <string name="OldDeviceTransferInstructions__first_bullet">1.</string>
+  <string name="OldDeviceTransferInstructions__select_transfer_from_android_device_when_prompted_and_then_continue">يُرجى تحديد « نقل انطلاقا من جهاز أندرويد » عند ظهورها، ثم \"استمر\". يُرجى جعل الجهازين قريبين من بعضهما.</string>
   <string name="OldDeviceTransferInstructions__continue">الاِستِمرار</string>
   <!--OldDeviceTransferComplete-->
   <string name="OldDeviceTransferComplete__close">إغلاق</string>
@@ -2904,5 +2908,7 @@
   <!--UnreadPayments-->
   <!--CanNotSendPaymentDialog-->
   <string name="CanNotSendPaymentDialog__send_a_message">إرسال رسالة</string>
+  <!--GroupsInCommonMessageRequest-->
+  <string name="GroupsInCommonMessageRequest__okay">حسنا</string>
   <!--EOF-->
 </resources>

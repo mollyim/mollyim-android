@@ -10,6 +10,9 @@ import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.signal.core.util.logging.Log;
 import org.signal.paging.PagedData;
 import org.signal.paging.PagingConfig;
@@ -19,9 +22,10 @@ import org.thoughtcrime.securesms.database.DatabaseObserver;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.mediasend.Media;
 import org.thoughtcrime.securesms.mediasend.MediaRepository;
+import org.thoughtcrime.securesms.ratelimit.RecaptchaRequiredEvent;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
-import org.thoughtcrime.securesms.recipients.RecipientUtil;
+import org.thoughtcrime.securesms.util.SingleLiveEvent;
 import org.thoughtcrime.securesms.util.livedata.LiveDataUtil;
 import org.thoughtcrime.securesms.wallpaper.ChatWallpaper;
 import org.whispersystems.libsignal.util.Pair;
@@ -29,7 +33,7 @@ import org.whispersystems.libsignal.util.Pair;
 import java.util.List;
 import java.util.Objects;
 
-class ConversationViewModel extends ViewModel {
+public class ConversationViewModel extends ViewModel {
 
   private static final String TAG = Log.tag(ConversationViewModel.class);
 
@@ -47,6 +51,7 @@ class ConversationViewModel extends ViewModel {
   private final DatabaseObserver.Observer           messageObserver;
   private final MutableLiveData<RecipientId>        recipientId;
   private final LiveData<ChatWallpaper>             wallpaper;
+  private final SingleLiveEvent<Event>              events;
 
   private ConversationIntents.Args args;
   private int                      jumpToPosition;
@@ -60,6 +65,7 @@ class ConversationViewModel extends ViewModel {
     this.showScrollButtons      = new MutableLiveData<>(false);
     this.hasUnreadMentions      = new MutableLiveData<>(false);
     this.recipientId            = new MutableLiveData<>();
+    this.events                 = new SingleLiveEvent<>();
     this.pagingController       = new ProxyPagingController();
     this.messageObserver        = pagingController::onDataInvalidated;
 
@@ -72,12 +78,14 @@ class ConversationViewModel extends ViewModel {
     });
 
     LiveData<Pair<Long, PagedData<ConversationMessage>>> pagedDataForThreadId = Transformations.map(metadata, data -> {
-      final int startPosition;
+      int                                 startPosition;
+      ConversationData.MessageRequestData messageRequestData = data.getMessageRequestData();
+
       if (data.shouldJumpToMessage()) {
         startPosition = data.getJumpToPosition();
-      } else if (data.isMessageRequestAccepted() && data.shouldScrollToLastSeen()) {
+      } else if (messageRequestData.isMessageRequestAccepted() && data.shouldScrollToLastSeen()) {
         startPosition = data.getLastSeenPosition();
-      } else if (data.isMessageRequestAccepted()) {
+      } else if (messageRequestData.isMessageRequestAccepted()) {
         startPosition = data.getLastScrolledPosition();
       } else {
         startPosition = data.getThreadSize();
@@ -86,7 +94,7 @@ class ConversationViewModel extends ViewModel {
       ApplicationDependencies.getDatabaseObserver().unregisterObserver(messageObserver);
       ApplicationDependencies.getDatabaseObserver().registerConversationObserver(data.getThreadId(), messageObserver);
 
-      ConversationDataSource dataSource = new ConversationDataSource(context, data.getThreadId());
+      ConversationDataSource dataSource = new ConversationDataSource(context, data.getThreadId(), messageRequestData);
       PagingConfig           config     = new PagingConfig.Builder()
                                                           .setPageSize(25)
                                                           .setBufferPages(3)
@@ -107,6 +115,8 @@ class ConversationViewModel extends ViewModel {
     wallpaper            = Transformations.distinctUntilChanged(Transformations.map(Transformations.switchMap(recipientId,
                                                                                                               id -> Recipient.live(id).getLiveData()),
                                                                                     Recipient::getWallpaper));
+
+    EventBus.getDefault().register(this);
   }
 
   void onAttachmentKeyboardOpen() {
@@ -141,6 +151,10 @@ class ConversationViewModel extends ViewModel {
 
   @NonNull LiveData<ChatWallpaper> getWallpaper() {
     return wallpaper;
+  }
+
+  @NonNull LiveData<Event> getEvents() {
+    return events;
   }
 
   void setHasUnreadMentions(boolean hasUnreadMentions) {
@@ -183,10 +197,20 @@ class ConversationViewModel extends ViewModel {
     return Objects.requireNonNull(args);
   }
 
+  @Subscribe(threadMode = ThreadMode.POSTING)
+  public void onRecaptchaRequiredEvent(@NonNull RecaptchaRequiredEvent event) {
+    events.postValue(Event.SHOW_RECAPTCHA);
+  }
+
   @Override
   protected void onCleared() {
     super.onCleared();
     ApplicationDependencies.getDatabaseObserver().unregisterObserver(messageObserver);
+    EventBus.getDefault().unregister(this);
+  }
+
+  enum Event {
+    SHOW_RECAPTCHA
   }
 
   static class Factory extends ViewModelProvider.NewInstanceFactory {

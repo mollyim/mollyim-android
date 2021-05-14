@@ -168,6 +168,7 @@
   <string name="ConversationItem_error_network_not_delivered">傳送失敗</string>
   <string name="ConversationItem_received_key_exchange_message_tap_to_process">接收到金鑰交換訊息，按此開始處理。</string>
   <string name="ConversationItem_group_action_left">%1$s 已經離開群組。</string>
+  <string name="ConversationItem_send_paused">傳送已暫停</string>
   <string name="ConversationItem_click_to_approve_unencrypted">傳送失敗，輕觸改用不安全的遞補方式</string>
   <string name="ConversationItem_click_to_approve_unencrypted_sms_dialog_title">改用未加密的簡訊作為遞補方式？</string>
   <string name="ConversationItem_click_to_approve_unencrypted_mms_dialog_title">改用未加密的多媒體訊息作為遞補方式？</string>
@@ -1011,6 +1012,7 @@
   <string name="MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">加入該群組並與其成員分享你的名字和照片嗎？ 在你接受之前，他們不會知道你已看到他們的訊息。</string>
   <string name="MessageRequestBottomView_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">要加入這個群組？ 在你接受之前，他們不會知道你已看過他們的訊息。</string>
   <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">取消封鎖此群組並與其成員分享你的名字和照片？ 除非你取消阻止它們，否則你將不會收到任何訊息。</string>
+  <string name="MessageRequestProfileView_view">檢視</string>
   <string name="MessageRequestProfileView_member_of_one_group">%1$s的成員</string>
   <string name="MessageRequestProfileView_member_of_two_groups">%1$s及%2$s的成員</string>
   <string name="MessageRequestProfileView_member_of_many_groups">%1$s、%2$s、及%3$s的成員</string>
@@ -1105,6 +1107,10 @@
   <string name="ReactionsConversationView_plus">+%1$d</string>
   <!--ReactionsRecipientAdapter-->
   <string name="ReactionsRecipientAdapter_you">你</string>
+  <!--RecaptchaRequiredBottomSheetFragment-->
+  <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">驗證以繼續傳送訊息</string>
+  <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">為了協助防止Molly上的垃圾訊息，請完成驗證。</string>
+  <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">驗證後，你可以繼續進行訊息傳送。 任何暫停的訊息將自動傳送。</string>
   <!--RecipientPreferencesActivity-->
   <string name="RecipientPreferenceActivity_block">封鎖</string>
   <string name="RecipientPreferenceActivity_unblock">解除封鎖</string>
@@ -1161,6 +1167,9 @@
   <string name="ProxyBottomSheetFragment_do_you_want_to_use_this_proxy_address">你要使用此代理伺服器位址嗎？</string>
   <string name="ProxyBottomSheetFragment_use_proxy">使用代理伺服器</string>
   <string name="ProxyBottomSheetFragment_successfully_connected_to_proxy">成功連接到代理伺服器。</string>
+  <!--RecaptchaProofActivity-->
+  <string name="RecaptchaProofActivity_failed_to_submit">提交失敗</string>
+  <string name="RecaptchaProofActivity_complete_verification">完成驗證</string>
   <!--RegistrationActivity-->
   <string name="RegistrationActivity_select_your_country">選擇您的國家</string>
   <string name="RegistrationActivity_you_must_specify_your_country_code">您必須輸入
@@ -1387,6 +1396,8 @@
   <string name="MessageNotifier_message_delivery_failed">訊息送達失敗。</string>
   <string name="MessageNotifier_failed_to_deliver_message">無法送達訊息。</string>
   <string name="MessageNotifier_error_delivering_message">送達訊息時發生錯誤。</string>
+  <string name="MessageNotifier_message_delivery_paused">訊息傳送已暫停。</string>
+  <string name="MessageNotifier_verify_to_continue_messaging_on_signal">驗證以繼續在Molly上進行訊息傳送。</string>
   <string name="MessageNotifier_mark_all_as_read">全部標示為已讀</string>
   <string name="MessageNotifier_mark_read">標示已讀</string>
   <string name="MessageNotifier_turn_off_these_notifications">關閉這些通知</string>
@@ -1437,6 +1448,7 @@
   <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">新訊息</string>
   <string name="SingleRecipientNotificationBuilder_message_request">訊息要求</string>
+  <string name="SingleRecipientNotificationBuilder_you">你</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">播放影片</string>
   <string name="ThumbnailView_Has_a_caption_description">有一個標題</string>
@@ -1540,6 +1552,8 @@
   <string name="ConversationUpdateItem_call_is_full">通話人數已滿</string>
   <string name="ConversationUpdateItem_invite_friends">邀請好友</string>
   <string name="ConversationUpdateItem_enable_call_notifications">啟用通話通知</string>
+  <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">沒有共同的群組。 請仔細檢查請求。</string>
+  <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">這個群組中沒有聯絡人。請仔細檢查請求。</string>
   <!--audio_view-->
   <string name="audio_view__play_pause_accessibility_description">播放 … 暫停</string>
   <string name="audio_view__download_accessibility_description">下載</string>
@@ -1623,7 +1637,7 @@
     <item quantity="other">另 %d 人</item>
   </plurals>
   <!--giphy_activity-->
-  <string name="giphy_activity_toolbar__search_gifs_and_stickers">搜尋動態圖檔與貼圖</string>
+  <string name="giphy_activity_toolbar__search_gifs">搜尋 GIF</string>
   <!--giphy_fragment-->
   <string name="giphy_fragment__nothing_found">未找到任何東西</string>
   <!--log_submit_activity-->
@@ -2742,5 +2756,10 @@
   <string name="CanNotSendPaymentDialog__cant_send_payment">無法傳送付款</string>
   <string name="CanNotSendPaymentDialog__to_send_a_payment_to_this_user">要向該使用者付款，他們需要接受你的訊息要求。 向他們傳送訊息以建立訊息要求。</string>
   <string name="CanNotSendPaymentDialog__send_a_message">傳送一則訊息</string>
+  <!--GroupsInCommonMessageRequest-->
+  <string name="GroupsInCommonMessageRequest__you_have_no_groups_in_common_with_this_person">你沒有與此人在相同的群組。 接受之前，請仔細檢查請求，以避免出現不必要的訊息。</string>
+  <string name="GroupsInCommonMessageRequest__none_of_your_contacts_or_people_you_chat_with_are_in_this_group">你的聯絡人或與之聊天的人均不在此群組中。 接受之前，請仔細檢查請求，以避免出現不必要的訊息。</string>
+  <string name="GroupsInCommonMessageRequest__about_message_requests">關於訊息請求</string>
+  <string name="GroupsInCommonMessageRequest__okay">好的</string>
   <!--EOF-->
 </resources>

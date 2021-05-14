@@ -3,14 +3,14 @@
   <string name="yes">అవును</string>
   <string name="no">కాదు</string>
   <string name="delete">తొలగించండి</string>
-  <string name="please_wait">దయచేసి వేచి ఉండండి…</string>
+  <string name="please_wait">దయచేసి వేచి ఉండండి...</string>
   <string name="save">భద్రపరుచు</string>
   <string name="note_to_self">స్వీయ గమనిక</string>
   <!--AbstractNotificationBuilder-->
   <string name="AbstractNotificationBuilder_new_message">కొత్త సందేశం</string>
   <!--AlbumThumbnailView-->
   <!--ApplicationMigrationActivity-->
-  <string name="ApplicationMigrationActivity__signal_is_updating">Signal నవీకరిస్తోంది …</string>
+  <string name="ApplicationMigrationActivity__signal_is_updating">Signal నవీకరిస్తోంది ...</string>
   <!--ApplicationPreferencesActivity-->
   <string name="ApplicationPreferencesActivity_currently_s">ప్రస్తుతంగా: %s</string>
   <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">మీరింకా సంకేతపదమును సెట్ చేయలేదు!</string>
@@ -63,8 +63,8 @@
   <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">సంప్రదింపు సమాచారాన్ని అటాచ్ చేయడానికి Molly కాంటాక్ట్స్ అనుమతి అవసరం, కానీ అది శాశ్వతంగా తిరస్కరించబడింది. దయచేసి అనువర్తన సెట్టింగ్ల మెనుకి కొనసాగండి, \"అనుమతులు\" ఎంచుకోండి మరియు \"పరిచయాలు\" ప్రారంభించండి.</string>
   <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">ఒక స్థానాన్ని అటాచ్ చేయడానికి Mollyకి నగర అనుమతి అవసరం, కానీ ఇది శాశ్వతంగా తిరస్కరించబడింది. దయచేసి అనువర్తనం సెట్టింగ్ల మెనుకి కొనసాగండి, \"అనుమతులు\" ఎంచుకోండి మరియు \"స్థానం\" ని ప్రారంభించండి.</string>
   <!--AttachmentUploadJob-->
-  <string name="AttachmentUploadJob_uploading_media">మీడియాను అప్‌లోడ్ చేస్తోంది …</string>
-  <string name="AttachmentUploadJob_compressing_video_start">వీడియోను కుదించడం …</string>
+  <string name="AttachmentUploadJob_uploading_media">మీడియాను అప్‌లోడ్ చేస్తోంది ...</string>
+  <string name="AttachmentUploadJob_compressing_video_start">వీడియోను కుదించడం ...</string>
   <!--BackgroundMessageRetriever-->
   <string name="BackgroundMessageRetriever_checking_for_messages">సందేశాల కోసం తనిఖీ చేస్తోంది…</string>
   <!--BlockedUsersActivity-->
@@ -264,15 +264,15 @@
     <item quantity="other">%1$d జత పరిచినది దాచిపెడుతున్నాము</item>
   </plurals>
   <plurals name="ConversationFragment_saving_n_attachments_to_sd_card">
-    <item quantity="one"> జత పరిచినది నిల్వలొ దాచిపెడుతున్నాము…</item>
-    <item quantity="other">%1$d జత పరిచినది నిల్వలొ దాచిపెడుతున్నాము…</item>
+    <item quantity="one"> జత పరిచినది నిల్వలొ దాచిపెడుతున్నాము...</item>
+    <item quantity="other">%1$d జత పరిచినది నిల్వలొ దాచిపెడుతున్నాము...</item>
   </plurals>
   <string name="ConversationFragment_pending">  పెండింగ్</string>
   <string name="ConversationFragment_push">సమాచారం(Signal)</string>
   <string name="ConversationFragment_mms">ఎమ్మెమ్మెస్</string>
   <string name="ConversationFragment_sms">ఎస్సెమ్మెస్</string>
   <string name="ConversationFragment_deleting">తొలగిపోతున్నాయ్</string>
-  <string name="ConversationFragment_deleting_messages">సందేశాలను తొలగిస్తోంది …</string>
+  <string name="ConversationFragment_deleting_messages">సందేశాలను తొలగిస్తోంది ...</string>
   <string name="ConversationFragment_delete_for_me">నాకు మాత్రమే తొలగించు</string>
   <string name="ConversationFragment_delete_for_everyone">అందరికి తొలగించు</string>
   <string name="ConversationFragment_this_message_will_be_deleted_for_everyone_in_the_conversation">సంభాషణలోని ప్రతిఒక్కరూ Signal యొక్క ఇటీవలి వెర్షన్ లో ఉంటే ఈ సందేశం తొలగించబడుతుంది. మీరు సందేశాన్ని తొలగించారని వారు చూడగలరు.</string>
@@ -302,7 +302,7 @@
     <item quantity="other">శాశ్వతంగా %1$d ఎంపిక సంభాషణలు తొలగిస్తుంది.</item>
   </plurals>
   <string name="ConversationListFragment_deleting">తొలగిపోతున్నాయ్</string>
-  <string name="ConversationListFragment_deleting_selected_conversations">ఎంపిక చేసిన సంభాషణలను తొలగించబడుతున్నాయి…</string>
+  <string name="ConversationListFragment_deleting_selected_conversations">ఎంపిక చేసిన సంభాషణలను తొలగించబడుతున్నాయి...</string>
   <plurals name="ConversationListFragment_conversations_archived">
     <item quantity="one">సంభాషణ  భద్రపరచబడినది</item>
     <item quantity="other">%d సంభాషణలు  భద్రపరచబడినవి</item>
@@ -351,8 +351,8 @@
   <string name="BackupsPreferenceFragment__turn_off">తీసివేయు</string>
   <string name="BackupsPreferenceFragment__to_restore_a_backup">ప్రత్యామ్నాయము‌ను పునరుద్ధరించడానికి, Molly యొక్క క్రొత్త కాపీని ఇన్‌స్టాల్ చేయండి. అనువర్తనాన్ని తెరిచి, \"ప్రత్యామ్నాయము పునరుద్ధరించు\" నొక్కండి, ఆపై బ్యాకప్ ఫైల్‌ను కనుగొనండి. %1$s</string>
   <string name="BackupsPreferenceFragment__learn_more">ఇంకా నేర్చుకో</string>
-  <string name="BackupsPreferenceFragment__in_progress">పురోగతిలో ఉన్నది…</string>
-  <string name="BackupsPreferenceFragment__d_so_far">ఇప్పటి వరకు %1$d…</string>
+  <string name="BackupsPreferenceFragment__in_progress">పురోగతిలో ఉన్నది...</string>
+  <string name="BackupsPreferenceFragment__d_so_far">ఇప్పటి వరకు %1$d...</string>
   <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">ప్రత్యామ్నాయను సృష్టించడానికి Molly బాహ్య నిల్వ అనుమతి అవసరం, కానీ ఇది శాశ్వతంగా తిరస్కరించబడింది. దయచేసి అనువర్తనం సెట్టింగ్లకు కొనసాగించండి, \"అనుమతులు\" ఎంచుకుని, \"నిల్వ\" ను ప్రారంభించండి.</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">అనుకూలీకరణ ఉపయోగించి: %s</string>
@@ -389,8 +389,8 @@
   <!--DocumentView-->
   <string name="DocumentView_unnamed_file">పేరులేని పంక్తి</string>
   <!--DonateMegaphone-->
-  <string name="DonateMegaphone_donate_to_signal">Molly కు దానం చేయండి</string>
-  <string name="DonateMegaphone_Signal_is_powered_by_people_like_you_show_your_support_today">Molly మీ లాంటి వారిచే నడుపబడుతోంది. ఈ రోజే మీ మద్దతు చూపించండి!.</string>
+  <string name="DonateMegaphone_donate_to_signal">Signal కు దానం చేయండి</string>
+  <string name="DonateMegaphone_Signal_is_powered_by_people_like_you_show_your_support_today">Signal మీ లాంటి వారిచే నడుపబడుతోంది. ఈ రోజే మీ మద్దతు చూపించండి!.</string>
   <string name="DonateMegaphone_donate">విరాళమిచ్చు</string>
   <string name="DonateMegaphone_no_thanks">అవసరం లేదు</string>
   <!--GroupCallingMegaphone-->
@@ -612,6 +612,7 @@
   <string name="ManageGroupActivity_mentions">ప్రస్తావనలు</string>
   <string name="ManageGroupActivity_chat_wallpaper">సంభాషణ వాల్పేపర్</string>
   <string name="ManageGroupActivity_until_s">వరకు %1$s</string>
+  <string name="ManageGroupActivity_always">ఎల్లప్పుడూ</string>
   <string name="ManageGroupActivity_off">ఆఫ్</string>
   <string name="ManageGroupActivity_on">ఆన్</string>
   <string name="ManageGroupActivity_view_all_members">సభ్యులందరినీ చూడండి</string>
@@ -664,6 +665,7 @@
   <string name="ManageRecipientActivity_mute_notifications">  ప్రకటనలను మ్యూట్లో ఉంచు</string>
   <string name="ManageRecipientActivity_custom_notifications">అనుకూల ప్రకటనలను</string>
   <string name="ManageRecipientActivity_until_s">వరకు %1$s</string>
+  <string name="ManageRecipientActivity_always">ఎల్లప్పుడూ</string>
   <string name="ManageRecipientActivity_off">ఆఫ్</string>
   <string name="ManageRecipientActivity_on">ఆన్</string>
   <string name="ManageRecipientActivity_add_to_a_group">సమూహానికి జోడించండి</string>
@@ -759,7 +761,7 @@
   <string name="InviteActivity_share_with_contacts">పరిచయాలతో భాగస్వామ్యం చేయండి</string>
   <string name="InviteActivity_choose_how_to_share">ఎలా భాగస్వామ్యం చేయాలో ఎంచుకోండి</string>
   <string name="InviteActivity_cancel">రద్దు</string>
-  <string name="InviteActivity_sending">పంపుతోంది …</string>
+  <string name="InviteActivity_sending">పంపుతోంది ...</string>
   <string name="InviteActivity_invitations_sent">ఆహ్వనం పంపబడింది!</string>
   <string name="InviteActivity_invite_to_signal">Molly కు  ఆహ్వానించండి</string>
   <plurals name="InviteActivity_send_sms_to_friends">
@@ -798,9 +800,9 @@
     <item quantity="other">ఇది ఎంచుకున్న%1$dఫైళ్ళను శాశ్వతంగా తొలగిస్తుంది. ఈ అంశాలతో అనుబంధించబడిన ఏదైనా సందేశ వచనం కూడా తొలగించబడుతుంది.</item>
   </plurals>
   <string name="MediaOverviewActivity_Media_delete_progress_title">తొలగిపోతున్నాయ్</string>
-  <string name="MediaOverviewActivity_Media_delete_progress_message">సందేశాలను తొలగిస్తోంది …</string>
+  <string name="MediaOverviewActivity_Media_delete_progress_message">సందేశాలను తొలగిస్తోంది ...</string>
   <string name="MediaOverviewActivity_Select_all">అన్నీ ఎంచుకో</string>
-  <string name="MediaOverviewActivity_collecting_attachments">జోడింపులను సేకరిస్తోంది …</string>
+  <string name="MediaOverviewActivity_collecting_attachments">జోడింపులను సేకరిస్తోంది ...</string>
   <string name="MediaOverviewActivity_Sort_by">ఆమరిక</string>
   <string name="MediaOverviewActivity_Newest">సరికొత్త</string>
   <string name="MediaOverviewActivity_Oldest">పాతది </string>
@@ -857,7 +859,7 @@
   <string name="MediaPickerActivity_send_to">%sపంపే</string>
   <string name="MediaPickerActivity__menu_open_camera">కెమెరా తెరువు</string>
   <!--MediaSendActivity-->
-  <string name="MediaSendActivity_add_a_caption">శీర్షికను జోడించండి…</string>
+  <string name="MediaSendActivity_add_a_caption">శీర్షికను జోడించండి...</string>
   <string name="MediaSendActivity_an_item_was_removed_because_it_exceeded_the_size_limit">పరిమాణం పరిమితిని మించినందున అంశం తీసివేయబడింది</string>
   <string name="MediaSendActivity_camera_unavailable">కెమెరా అందుబాటులో లేదు.</string>
   <string name="MediaSendActivity_message_to_s">%sకు సందేశం</string>
@@ -1064,6 +1066,7 @@
   <string name="MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">ఈ గుంపులో చేరండి మరియు మీ పేరు మరియు ఫోటోను దాని సభ్యులతో పంచుకోవాలా? మీరు అంగీకరించే వరకు మీరు వారి సందేశాలను చూశారని వారికి తెలియదు.</string>
   <string name="MessageRequestBottomView_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">ఈ గుంపులో చేరాలా? మీరు అంగీకరించే వరకు మీరు వారి సందేశాలను చూశారని వారికి తెలియదు.</string>
   <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">ఈ గుంపును అన్‌బ్లాక్ చేసి, మీ పేరు మరియు ఫోటోను దాని సభ్యులతో పంచుకోవాలా? మీరు వాటిని అన్‌బ్లాక్ చేసే వరకు మీకు సందేశాలు రావు.</string>
+  <string name="MessageRequestProfileView_view">వీక్షణ</string>
   <string name="MessageRequestProfileView_member_of_one_group">%1$s సభ్యుడు</string>
   <string name="MessageRequestProfileView_member_of_two_groups">%1$sమరియు %2$sసభ్యుడు</string>
   <string name="MessageRequestProfileView_member_of_many_groups">%1$s,%2$s, మరియు%3$s సభ్యుడు</string>
@@ -1165,6 +1168,7 @@
   <string name="ReactionsConversationView_plus">+%1$d</string>
   <!--ReactionsRecipientAdapter-->
   <string name="ReactionsRecipientAdapter_you">మీరు</string>
+  <!--RecaptchaRequiredBottomSheetFragment-->
   <!--RecipientPreferencesActivity-->
   <string name="RecipientPreferenceActivity_block">నిరోధించు</string>
   <string name="RecipientPreferenceActivity_unblock">అనుమతించు</string>
@@ -1173,7 +1177,7 @@
   <!--RedPhone-->
   <string name="RedPhone_answering">సమాధానం…</string>
   <string name="RedPhone_ending_call">కాల్ ముగిసింది…</string>
-  <string name="RedPhone_ringing">మోగుతున్నది…</string>
+  <string name="RedPhone_ringing">మోగుతున్నది...</string>
   <string name="RedPhone_busy">పనిలో ఉన్నారు </string>
   <string name="RedPhone_recipient_unavailable">గ్రహీత అందుబాటులోలేరు</string>
   <string name="RedPhone_network_failed">నెట్వర్క్ విఫలమైంది</string>
@@ -1184,7 +1188,7 @@
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">మీ వీడియోను ప్రారంభించడానికి ఇక్కడ నొక్కండి</string>
   <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">%1$s కి కాల్ చేయడానికి, Molly కు మీ కెమెరాకు ప్రాప్యత అవసరం</string>
   <string name="WebRtcCallActivity__signal_s">Molly  %1$s</string>
-  <string name="WebRtcCallActivity__calling">కాలింగ్…</string>
+  <string name="WebRtcCallActivity__calling">కాలింగ్...</string>
   <!--WebRtcCallView-->
   <string name="WebRtcCallView__signal_voice_call">Signal వాయిస్ కాల్…</string>
   <string name="WebRtcCallView__signal_video_call">Signal వీడియో కాల్</string>
@@ -1195,7 +1199,7 @@
   <string name="WebRtcCallView__s_group_call">\"%1$s\" గ్రూప్ కాల్</string>
   <string name="WebRtcCallView__view_participants_list">పాల్గొనేవారిని చూడు</string>
   <string name="WebRtcCallView__your_video_is_off">మీ వీడియో ఆఫ్‌లో ఉంది</string>
-  <string name="WebRtcCallView__reconnecting">తిరిగి కనెక్ట్ చేస్తోంది…</string>
+  <string name="WebRtcCallView__reconnecting">తిరిగి కనెక్ట్ చేస్తోంది...</string>
   <string name="WebRtcCallView__joining">చేరడం…</string>
   <string name="WebRtcCallView__disconnected">డిస్కనెక్ట్</string>
   <string name="WebRtcCallView__no_one_else_is_here">మరెవరూ ఇక్కడ లేరు</string>
@@ -1223,6 +1227,7 @@
   <string name="ProxyBottomSheetFragment_do_you_want_to_use_this_proxy_address">మీరు ఈ ప్రాక్సీ చిరునామాను ఉపయోగించాలనుకుంటున్నారా?</string>
   <string name="ProxyBottomSheetFragment_use_proxy">ప్రాక్సీని ఉపయోగించండి</string>
   <string name="ProxyBottomSheetFragment_successfully_connected_to_proxy">ప్రాక్సీకి విజయవంతంగా కనెక్ట్ చేయబడింది.</string>
+  <!--RecaptchaProofActivity-->
   <!--RegistrationActivity-->
   <string name="RegistrationActivity_select_your_country">మీ దేశాన్ని ఎంచుకోండి</string>
   <string name="RegistrationActivity_you_must_specify_your_country_code">మీరు మీ దేశం కోడ్
@@ -1406,7 +1411,7 @@
   <string name="VerifyIdentityActivity_your_contact_is_running_an_old_version_of_signal">మీ పరిచయం Signal యొక్క ఒక పాత వెర్షన్ను పై నడుస్థుంది. మీ భద్రత సంఖ్య ధ్రువీకరించే ముందుగా అప్డేట్ కోరండి.</string>
   <string name="VerifyIdentityActivity_your_contact_is_running_a_newer_version_of_Signal">మీ పరిచయం అననుకూల QR కోడ్ ఫార్మాట్ Signal యొక్క కొత్త సంస్కరణను అమలు చేస్తోంది. దయచేసి పోల్చడానికి అప్డేట్ చెయండీ.</string>
   <string name="VerifyIdentityActivity_the_scanned_qr_code_is_not_a_correctly_formatted_safety_number">స్కాన్ QR కోడ్ సంఖ్య ధృవీకరణ సరైన ఫార్మాట్ భద్రత కోడ్ కాదు. దయచేసి మళ్ళీ స్కానింగ్ చెయండీ.</string>
-  <string name="VerifyIdentityActivity_share_safety_number_via">దీని ద్వారా భద్రతా నంబర్‌ను భాగస్వామ్యం చేయండి …</string>
+  <string name="VerifyIdentityActivity_share_safety_number_via">దీని ద్వారా భద్రతా నంబర్‌ను భాగస్వామ్యం చేయండి ...</string>
   <string name="VerifyIdentityActivity_our_signal_safety_number">మన Signal భద్రత సంఖ్య:</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">మీరు పంచుకొనడానికి మీ దగ్గర వేరే యాప్స్ లేనట్టు కనబడుతుంది.</string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard"> ఏ భద్రతకు సంఖ్య పోల్చడానికి క్లిప్బోర్డ్కు లొ కనుగొనబడింది</string>
@@ -1497,6 +1502,7 @@
   <!--SingleRecipientNotificationBuilder-->
   <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">కొత్త సందేశం</string>
+  <string name="SingleRecipientNotificationBuilder_you">మీరు</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">వీడియో ప్లే చేయండి</string>
   <string name="ThumbnailView_Has_a_caption_description">శీర్షిక ఉంది</string>
@@ -1542,7 +1548,7 @@
   <string name="contact_filter_toolbar__show_dial_pad_description">డయల్‌ప్యాడ్ చూపించు</string>
   <!--contact_selection_group_activity-->
   <string name="contact_selection_group_activity__no_contacts">పరిచయాలు లేవు</string>
-  <string name="contact_selection_group_activity__finding_contacts">పరిచయాలు లోడ్ అవుతున్నాయి …</string>
+  <string name="contact_selection_group_activity__finding_contacts">పరిచయాలు లోడ్ అవుతున్నాయి ...</string>
   <!--single_contact_selection_activity-->
   <string name="SingleContactSelectionActivity_contact_photo">పరిచయస్థుల ఫొటో</string>
   <!--ContactSelectionListFragment-->
@@ -1603,7 +1609,7 @@
   <string name="ConversationUpdateItem_call_is_full">కాల్ నిండింది</string>
   <string name="ConversationUpdateItem_invite_friends">స్నేహితులను ఆహ్వానించండి</string>
   <!--audio_view-->
-  <string name="audio_view__play_pause_accessibility_description">నడుపు … నిలుపు</string>
+  <string name="audio_view__play_pause_accessibility_description">నడుపు ... నిలుపు</string>
   <string name="audio_view__download_accessibility_description">దిగుమతి</string>
   <!--QuoteView-->
   <string name="QuoteView_audio">ఆడియో</string>
@@ -1628,7 +1634,7 @@
   <!--EnableCallNotificationSettingsDialog__call_notifications_checklist-->
   <string name="EnableCallNotificationSettingsDialog__settings">అమరికలు</string>
   <!--country_selection_fragment-->
-  <string name="country_selection_fragment__loading_countries">దేశాలు లోడ్ అవుతున్నాయి…</string>
+  <string name="country_selection_fragment__loading_countries">దేశాలు లోడ్ అవుతున్నాయి...</string>
   <string name="country_selection_fragment__search">వెతకండి</string>
   <string name="country_selection_fragment__no_matching_countries">సరిపోయే దేశాలు లేవు</string>
   <!--device_add_fragment-->
@@ -1681,7 +1687,6 @@
     <item quantity="other">%dఇతరులు </item>
   </plurals>
   <!--giphy_activity-->
-  <string name="giphy_activity_toolbar__search_gifs_and_stickers">జిఫ్‌లు మరియు స్టిక్కర్లు వెతుకు</string>
   <!--giphy_fragment-->
   <string name="giphy_fragment__nothing_found">ఏమీ దొరకలేదు</string>
   <!--log_submit_activity-->
@@ -1746,7 +1751,7 @@
   <!--verify_display_fragment-->
   <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[మీరు మీ ఎన్క్రిప్షన్ యొక్క భద్రతను ధృవీకరించాలనుకుంటే %s, వారి పరికరంలో ఉన్న సంఖ్యతో ఉన్న సంఖ్యను సరిపోల్చండి. ప్రత్యామ్నాయంగా, మీరు వారి ఫోన్లో కోడ్ను స్కాన్ చేయవచ్చు లేదా మీ కోడ్ను స్కాన్ చేయమని అడగవచ్చు. <a href="https://signal.org/redirect/safety-numbers">ఇంకా నేర్చుకో.</a>]]></string>
   <string name="verify_display_fragment__tap_to_scan">స్కాన్ నొక్కండి</string>
-  <string name="verify_display_fragment__loading">లోడ్…</string>
+  <string name="verify_display_fragment__loading">లోడ్...</string>
   <string name="verify_display_fragment__verified">ధృవీకరించబడింది</string>
   <!--verify_identity-->
   <string name="verify_identity__share_safety_number">భద్రతా సంఖ్యను పంచు</string>
@@ -1816,6 +1821,7 @@
   <string name="arrays__mute_for_one_hour">1 గంట నిశబ్దంగా ఉంచు</string>
   <string name="arrays__mute_for_one_day">1 రోజు నిశబ్దంగా ఉంచు</string>
   <string name="arrays__mute_for_seven_days">7 రోజులు నిశబ్దంగా ఉంచు</string>
+  <string name="arrays__always">ఎల్లప్పుడూ</string>
   <string name="arrays__settings_default">అప్రమేయ అమరికలు</string>
   <string name="arrays__enabled">చేతనం అయింది</string>
   <string name="arrays__disabled">అచేతనం అయింది</string>
@@ -1889,7 +1895,7 @@
   <string name="preferences__slow">మెల్లిగా</string>
   <string name="preferences__help">సహాయం</string>
   <string name="preferences__advanced">ఆధునిక</string>
-  <string name="preferences__donate_to_signal">Molly కు దానం చేయండి</string>
+  <string name="preferences__donate_to_signal">Signal కు దానం చేయండి</string>
   <string name="preferences__privacy">గోప్యత</string>
   <string name="preferences__mms_user_agent">ఎమ్మెమ్మెస్  వినియోగ ప్రతినిధి</string>
   <string name="preferences__advanced_mms_access_point_names"> కరదీపిక తో ఎమ్మెమ్మెస్ సర్దుబాటు చేయి</string>
@@ -1902,6 +1908,7 @@
   <string name="preferences__request_a_delivery_report_for_each_sms_message_you_send">మీరు పంపే ప్రతి SMS కోసం బట్వాడా నివేదికను అభ్యర్థించండి</string>
   <string name="preferences__data_and_storage">డేటా మరియు నిల్వ</string>
   <string name="preferences__storage">నిల్వ</string>
+  <string name="preferences__payments">చెల్లింపులు</string>
   <string name="preferences__conversation_length_limit">సంభాషణ విస్తృతికి పరిమితి</string>
   <string name="preferences__keep_messages">సందేశాలను ఉంచు</string>
   <string name="preferences__clear_message_history">సందేశ చరిత్రను తొలగించు</string>
@@ -2257,8 +2264,8 @@
   <string name="ResearchMegaphoneDialog_the_survey_is_hosted_by_alchemer_at_the_secure_domain">ఈ సర్వేను Alchemer సురక్షిత డొమైన్ సsurveys.signalusers.org వద్ద హోస్ట్ చేసారు</string>
   <!--transport_selection_list_item-->
   <string name="transport_selection_list_item__transport_icon">రవాణా చిహ్నం</string>
-  <string name="ConversationListFragment_loading">లోడ్…</string>
-  <string name="CallNotificationBuilder_connecting">కలుస్తుంది…</string>
+  <string name="ConversationListFragment_loading">లోడ్...</string>
+  <string name="CallNotificationBuilder_connecting">కలుస్తుంది...</string>
   <string name="Permissions_permission_required">అనుమతి అవసరం</string>
   <string name="ConversationActivity_signal_needs_sms_permission_in_order_to_send_an_sms">SMS పంపేందుకు Signal SMS అనుమతి అవసరం, కానీ ఇది శాశ్వతంగా తిరస్కరించబడింది. దయచేసి అనువర్తనం సెట్టింగ్లకు కొనసాగించండి, \"అనుమతులు\" ఎంచుకుని, \"SMS\" ను ప్రారంభించండి.</string>
   <string name="Permissions_continue">కొనసాగించు</string>
@@ -2280,7 +2287,7 @@
   <string name="RegistrationActivity_restore">పునరుద్ధరించు</string>
   <string name="RegistrationActivity_backup_failure_downgrade">Signal యొక్క నూతన సంస్కరణల నుండి ప్రత్యామ్నాయను దిగుమతి చేయలేరు</string>
   <string name="RegistrationActivity_incorrect_backup_passphrase">సరికాని ప్రత్యామ్నాయ పాస్ఫ్రేజ్</string>
-  <string name="RegistrationActivity_checking">తనిఖీ చేస్తోంది…</string>
+  <string name="RegistrationActivity_checking">తనిఖీ చేస్తోంది...</string>
   <string name="RegistrationActivity_d_messages_so_far">ఇప్పటివరకు %d సందేశాలు</string>
   <string name="RegistrationActivity_restore_from_backup">ప్రత్యామ్నాయ నుండి పునరుద్ధరించాలా?</string>
   <string name="RegistrationActivity_restore_your_messages_and_media_from_a_local_backup">స్థానిక ప్రత్యామ్నాయ నుండి మీ సందేశాలు మరియు మీడియాను పునరుద్ధరించండి. మీరు ఇప్పుడు పునరుద్ధరించకపోతే, తర్వాత మీరు పునరుద్ధరించలేరు.</string>
@@ -2300,7 +2307,7 @@
   <string name="BackupDialog_verify">నిర్ధారించబడిన</string>
   <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">మీరు మీ ప్రత్యామ్నాయములు పాస్‌ఫ్రేజ్‌ని విజయవంతంగా నమోదు చేశారు</string>
   <string name="BackupDialog_passphrase_was_not_correct">పాస్‌ఫ్రేజ్ సరైనది కాదు</string>
-  <string name="LocalBackupJob_creating_backup">ప్రత్యామ్నాయను సృష్టిస్తోంది …</string>
+  <string name="LocalBackupJob_creating_backup">ప్రత్యామ్నాయను సృష్టిస్తోంది ...</string>
   <string name="LocalBackupJobApi29_backup_failed">ప్రత్యామ్నాయ విఫలమైంది</string>
   <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">మీ చాట్ బ్యాకప్ తొలగించబడినధి లేదా తరలించబడినవి</string>
   <string name="LocalBackupJobApi29_your_backup_file_is_too_large">మీ ప్రత్యామ్నాయములు ఫైల్ ఈ వాల్యూమ్‌లో నిల్వ చేయడానికి చాలా పెద్దది.</string>
@@ -2524,11 +2531,13 @@
   <string name="payment_info_card_update_pin">పిన్‌ను నవీకరించండి</string>
   <!--DeactivateWalletFragment-->
   <!--PaymentsRecoveryStartFragment-->
+  <string name="PaymentsRecoveryStartFragment__start">ప్రారంభించండి</string>
   <!--PaymentsRecoveryPasteFragment-->
   <string name="PaymentsRecoveryPasteFragment__next">తరువాత</string>
   <!--PaymentsRecoveryPhraseFragment-->
   <string name="PaymentsRecoveryPhraseFragment__next">తరువాత</string>
   <string name="PaymentsRecoveryPhraseFragment__edit">సరిచేయు</string>
+  <string name="PaymentsRecoveryPhraseFragment__previous">మునుపటి</string>
   <string name="PaymentsRecoveryPhraseFragment__copy">నకలు</string>
   <!--PaymentsRecoveryPhraseConfirmFragment-->
   <string name="PaymentRecoveryPhraseConfirmFragment__done">పూర్తి</string>
@@ -2540,5 +2549,7 @@
   <!--UnreadPayments-->
   <!--CanNotSendPaymentDialog-->
   <string name="CanNotSendPaymentDialog__send_a_message">సందేశం పంపండి</string>
+  <!--GroupsInCommonMessageRequest-->
+  <string name="GroupsInCommonMessageRequest__okay">సరే</string>
   <!--EOF-->
 </resources>

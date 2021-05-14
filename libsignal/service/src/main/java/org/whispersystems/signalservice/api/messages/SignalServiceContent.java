@@ -36,6 +36,7 @@ import org.whispersystems.signalservice.api.messages.multidevice.SignalServiceSy
 import org.whispersystems.signalservice.api.messages.multidevice.StickerPackOperationMessage;
 import org.whispersystems.signalservice.api.messages.multidevice.VerifiedMessage;
 import org.whispersystems.signalservice.api.messages.multidevice.ViewOnceOpenMessage;
+import org.whispersystems.signalservice.api.messages.multidevice.ViewedMessage;
 import org.whispersystems.signalservice.api.messages.shared.SharedContact;
 import org.whispersystems.signalservice.api.payments.Money;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
@@ -46,6 +47,7 @@ import org.whispersystems.signalservice.internal.push.UnsupportedDataMessageProt
 import org.whispersystems.signalservice.internal.serialize.SignalServiceAddressProtobufSerializer;
 import org.whispersystems.signalservice.internal.serialize.SignalServiceMetadataProtobufSerializer;
 import org.whispersystems.signalservice.internal.serialize.protos.SignalServiceContentProto;
+import org.whispersystems.util.FlagUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -462,6 +464,21 @@ public final class SignalServiceContent {
       }
 
       return SignalServiceSyncMessage.forRead(readMessages);
+    }
+
+    if (content.getViewedList().size() > 0) {
+      List<ViewedMessage> viewedMessages = new LinkedList<>();
+
+      for (SignalServiceProtos.SyncMessage.Viewed viewed : content.getViewedList()) {
+        if (SignalServiceAddress.isValidAddress(viewed.getSenderUuid(), viewed.getSenderE164())) {
+          SignalServiceAddress address = new SignalServiceAddress(UuidUtil.parseOrNull(viewed.getSenderUuid()), viewed.getSenderE164());
+          viewedMessages.add(new ViewedMessage(address, viewed.getTimestamp()));
+        } else {
+          Log.w(TAG, "Encountered an invalid ReadMessage! Ignoring.");
+        }
+      }
+
+      return SignalServiceSyncMessage.forViewed(viewedMessages);
     }
 
     if (content.hasViewOnceOpen()) {
@@ -976,8 +993,9 @@ public final class SignalServiceContent {
                                               pointer.getWidth(), pointer.getHeight(),
                                               pointer.hasDigest() ? Optional.of(pointer.getDigest().toByteArray()) : Optional.<byte[]>absent(),
                                               pointer.hasFileName() ? Optional.of(pointer.getFileName()) : Optional.<String>absent(),
-                                              (pointer.getFlags() & SignalServiceProtos.AttachmentPointer.Flags.VOICE_MESSAGE_VALUE) != 0,
-                                              (pointer.getFlags() & SignalServiceProtos.AttachmentPointer.Flags.BORDERLESS_VALUE) != 0,
+                                              (pointer.getFlags() & FlagUtil.toBinaryFlag(SignalServiceProtos.AttachmentPointer.Flags.VOICE_MESSAGE_VALUE)) != 0,
+                                              (pointer.getFlags() & FlagUtil.toBinaryFlag(SignalServiceProtos.AttachmentPointer.Flags.BORDERLESS_VALUE)) != 0,
+                                              (pointer.getFlags() & FlagUtil.toBinaryFlag(SignalServiceProtos.AttachmentPointer.Flags.GIF_VALUE)) != 0,
                                               pointer.hasCaption() ? Optional.of(pointer.getCaption()) : Optional.<String>absent(),
                                               pointer.hasBlurHash() ? Optional.of(pointer.getBlurHash()) : Optional.<String>absent(),
                                               pointer.hasUploadTimestamp() ? pointer.getUploadTimestamp() : 0);
@@ -1035,6 +1053,7 @@ public final class SignalServiceContent {
                                                     Optional.<byte[]>absent(), 0, 0,
                                                     Optional.fromNullable(pointer.hasDigest() ? pointer.getDigest().toByteArray() : null),
                                                     Optional.<String>absent(),
+                                                    false,
                                                     false,
                                                     false,
                                                     Optional.<String>absent(),

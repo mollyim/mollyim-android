@@ -56,7 +56,7 @@
   <!--AttachmentKeyboard-->
   <string name="AttachmentKeyboard_gallery">Галерија</string>
   <string name="AttachmentKeyboard_gif">ГИФ</string>
-  <string name="AttachmentKeyboard_file">Фајл</string>
+  <string name="AttachmentKeyboard_file">Датотека</string>
   <string name="AttachmentKeyboard_contact">Контакт</string>
   <string name="AttachmentKeyboard_location">Локација</string>
   <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Сигналу су потребне дозволе да прикаже ваше слике и видео.</string>
@@ -118,7 +118,7 @@
   <string name="CameraContacts_you_can_only_use_the_camera_button">Можете користити дугме камере за слање фотографија само Signal контактима.</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">Не можете наћи оно што тражите?</string>
   <string name="CameraContacts_invite_a_contact_to_join_signal">Позовите контакт да се прикључи апликацији Molly</string>
-  <string name="CameraContacts__menu_search">Тражи</string>
+  <string name="CameraContacts__menu_search">Претрага</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">Уклони</string>
   <string name="ClearProfileActivity_remove_profile_photo">Да уклоним профилну слику?</string>
@@ -170,6 +170,7 @@
   <string name="ConversationItem_error_network_not_delivered">Слање није успело</string>
   <string name="ConversationItem_received_key_exchange_message_tap_to_process">Примљена порука размене кључева, тапните за обраду.</string>
   <string name="ConversationItem_group_action_left">%1$s напусти групу.</string>
+  <string name="ConversationItem_send_paused">Слање паузирано</string>
   <string name="ConversationItem_click_to_approve_unencrypted">Слање није успело, тапните за необезбеђену одступницу</string>
   <string name="ConversationItem_click_to_approve_unencrypted_sms_dialog_title">Да одступим на нешифровани СМС?</string>
   <string name="ConversationItem_click_to_approve_unencrypted_mms_dialog_title">Да одступим на нешифровани ММС?</string>
@@ -400,8 +401,8 @@
   <!--DocumentView-->
   <string name="DocumentView_unnamed_file">Датотека без имена</string>
   <!--DonateMegaphone-->
-  <string name="DonateMegaphone_donate_to_signal">Донирајте услузи Molly</string>
-  <string name="DonateMegaphone_Signal_is_powered_by_people_like_you_show_your_support_today">Molly покрећу особе попут Вас. Покажите своју подршку већ данас!</string>
+  <string name="DonateMegaphone_donate_to_signal">Донирајте услузи Signal</string>
+  <string name="DonateMegaphone_Signal_is_powered_by_people_like_you_show_your_support_today">Signal покрећу особе попут Вас. Покажите своју подршку већ данас!</string>
   <string name="DonateMegaphone_donate">Донирај</string>
   <string name="DonateMegaphone_no_thanks">Не, хвала</string>
   <!--GroupCallingMegaphone-->
@@ -1117,6 +1118,7 @@
   <string name="MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Да ли желите да се придружите овој групи и да са њеним члановима поделите ваше име и слику? Неће знати да сте прочитали поруке док не прихватите.</string>
   <string name="MessageRequestBottomView_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Придружите се групи? Неће знати да сте им прочитали поруке док не прихватите.</string>
   <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">Да ли желите да одблокирате ову групу и да са њеним члановима поделите ваше име и слику? Нећете добити ни једну поруку док је не одблокирате.</string>
+  <string name="MessageRequestProfileView_view">Приказ</string>
   <string name="MessageRequestProfileView_member_of_one_group">Члан %1$s</string>
   <string name="MessageRequestProfileView_member_of_two_groups">Члан %1$s и %2$s</string>
   <string name="MessageRequestProfileView_member_of_many_groups">Члан %1$s, %2$s, и %3$s</string>
@@ -1222,6 +1224,10 @@
   <string name="ReactionsConversationView_plus">+%1$d</string>
   <!--ReactionsRecipientAdapter-->
   <string name="ReactionsRecipientAdapter_you">Ви</string>
+  <!--RecaptchaRequiredBottomSheetFragment-->
+  <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">Верификујте да би се наставило преписивање</string>
+  <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Да бисте спречили спем у Signаl-у, испуните верификацију.</string>
+  <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">Након верификације, можете наставити са порукама. Било која паузирана порука ће аутоматски бити послана.</string>
   <!--RecipientPreferencesActivity-->
   <string name="RecipientPreferenceActivity_block">Блокирај</string>
   <string name="RecipientPreferenceActivity_unblock">Одблокирај</string>
@@ -1282,6 +1288,9 @@
   <string name="ProxyBottomSheetFragment_do_you_want_to_use_this_proxy_address">Да ли желите да користите ову прокси адресу?</string>
   <string name="ProxyBottomSheetFragment_use_proxy">Користи проки</string>
   <string name="ProxyBottomSheetFragment_successfully_connected_to_proxy">Успешно повезан са прокси сервером.</string>
+  <!--RecaptchaProofActivity-->
+  <string name="RecaptchaProofActivity_failed_to_submit">Неуспех слања</string>
+  <string name="RecaptchaProofActivity_complete_verification">Довршите верификацију</string>
   <!--RegistrationActivity-->
   <string name="RegistrationActivity_select_your_country">Изаберите вашу државу</string>
   <string name="RegistrationActivity_you_must_specify_your_country_code">Морате навести позивни број
@@ -1513,6 +1522,8 @@
   <string name="MessageNotifier_message_delivery_failed">Испорука поруке није успела.</string>
   <string name="MessageNotifier_failed_to_deliver_message">Не успех да испоручим поруку.</string>
   <string name="MessageNotifier_error_delivering_message">Грешка при испоруци поруке.</string>
+  <string name="MessageNotifier_message_delivery_paused">Испорука поруке је паузирана.</string>
+  <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Верификујте да би се наставило преписивање на Molly-у.</string>
   <string name="MessageNotifier_mark_all_as_read">Означи све прочитаним</string>
   <string name="MessageNotifier_mark_read">Означи прочитаним</string>
   <string name="MessageNotifier_turn_off_these_notifications">Искључи ова обавештења</string>
@@ -1563,6 +1574,7 @@
   <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Нова порука</string>
   <string name="SingleRecipientNotificationBuilder_message_request">Захтев за разговор</string>
+  <string name="SingleRecipientNotificationBuilder_you">Ви</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">Пусти видео</string>
   <string name="ThumbnailView_Has_a_caption_description">Има натпис</string>
@@ -1673,6 +1685,8 @@
   <string name="ConversationUpdateItem_call_is_full">Позив је пун</string>
   <string name="ConversationUpdateItem_invite_friends">Позивница пријатељима</string>
   <string name="ConversationUpdateItem_enable_call_notifications">Обавештења о позиву</string>
+  <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">Нема заједничких група. Пажљиво прегледајте захтеве.</string>
+  <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">Нема контаката у овој групи. Пажљиво прегледајте захтеве.</string>
   <!--audio_view-->
   <string name="audio_view__play_pause_accessibility_description">Пусти … Заустави</string>
   <string name="audio_view__download_accessibility_description">Преузми</string>
@@ -1768,7 +1782,7 @@
     <item quantity="other">%d осталих</item>
   </plurals>
   <!--giphy_activity-->
-  <string name="giphy_activity_toolbar__search_gifs_and_stickers">Тражите ГИФ сличице и налепнице</string>
+  <string name="giphy_activity_toolbar__search_gifs">Тражи GIF-ове</string>
   <!--giphy_fragment-->
   <string name="giphy_fragment__nothing_found">Нема резултата</string>
   <!--log_submit_activity-->
@@ -1990,7 +2004,7 @@
   <string name="preferences__slow">Споро</string>
   <string name="preferences__help">Помоћ</string>
   <string name="preferences__advanced">Напредно</string>
-  <string name="preferences__donate_to_signal">Донирајте услузи Molly</string>
+  <string name="preferences__donate_to_signal">Донирајте услузи Signal</string>
   <string name="preferences__privacy">Приватност</string>
   <string name="preferences__mms_user_agent">ММС кориснички агент</string>
   <string name="preferences__advanced_mms_access_point_names">Ручне ММС поставке</string>
@@ -2910,5 +2924,10 @@
   <string name="CanNotSendPaymentDialog__cant_send_payment">Не може да се пошаље уплата</string>
   <string name="CanNotSendPaymentDialog__to_send_a_payment_to_this_user">Да бисте послали уплате овом кориснику, потребно је да прихвати ваш захтев. Пошаљите чу поруку да бисте креирали захтев за поруке.</string>
   <string name="CanNotSendPaymentDialog__send_a_message">Пошаљи поруку</string>
+  <!--GroupsInCommonMessageRequest-->
+  <string name="GroupsInCommonMessageRequest__you_have_no_groups_in_common_with_this_person">Немате заједничких група са овом особом. Пажљиво прегледајте захтеве пре него што прихватите тако да бисте избегли нежељене поруке.</string>
+  <string name="GroupsInCommonMessageRequest__none_of_your_contacts_or_people_you_chat_with_are_in_this_group">Ниједан од ваших контаката или људи са којима разговарате су у овој групи. Пажљиво прегледајте захтеве пре него што прихватите тако да бисте избегли нежељене поруке.</string>
+  <string name="GroupsInCommonMessageRequest__about_message_requests">О захтеву за разговор</string>
+  <string name="GroupsInCommonMessageRequest__okay">У реду</string>
   <!--EOF-->
 </resources>

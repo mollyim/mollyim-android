@@ -59,6 +59,7 @@ import java.util.concurrent.TimeUnit;
 
 
 import mobi.upod.timedurationpicker.TimeDurationPickerDialog;
+import mobi.upod.timedurationpicker.TimeDurationPicker;
 
 public class AppProtectionPreferenceFragment extends CorrectedPreferenceFragment {
 

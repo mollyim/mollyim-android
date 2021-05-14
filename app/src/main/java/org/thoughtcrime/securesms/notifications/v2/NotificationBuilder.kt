@@ -68,7 +68,7 @@ sealed class NotificationBuilder(protected val context: Context) {
   abstract fun addMarkAsReadActionActual(state: NotificationStateV2)
   abstract fun setPriority(priority: Int)
   abstract fun setAlarms(recipient: Recipient?)
-  abstract fun setTicker(ticker: CharSequence)
+  abstract fun setTicker(ticker: CharSequence?)
   abstract fun addTurnOffJoinedNotificationsAction(pendingIntent: PendingIntent)
   abstract fun setAutoCancel(autoCancel: Boolean)
   abstract fun build(): Notification
@@ -100,8 +100,8 @@ sealed class NotificationBuilder(protected val context: Context) {
     }
   }
 
-  fun setWhen(notificationItem: NotificationItemV2) {
-    if (notificationItem.timestamp != 0L) {
+  fun setWhen(notificationItem: NotificationItemV2?) {
+    if (notificationItem != null && notificationItem.timestamp != 0L) {
       setWhen(notificationItem.timestamp)
     }
   }
@@ -136,12 +136,12 @@ sealed class NotificationBuilder(protected val context: Context) {
     }
   }
 
-  fun setSummaryContentText(recipient: Recipient) {
-    if (privacy.isDisplayContact) {
+  fun setSummaryContentText(recipient: Recipient?) {
+    if (privacy.isDisplayContact && recipient != null) {
       setContentText(context.getString(R.string.MessageNotifier_most_recent_from_s, recipient.getDisplayName(context)))
     }
 
-    recipient.notificationChannel?.let { channel -> setChannelId(channel) }
+    recipient?.notificationChannel?.let { channel -> setChannelId(channel) }
   }
 
   fun setLights() {
@@ -244,8 +244,8 @@ sealed class NotificationBuilder(protected val context: Context) {
 
       val self: PersonCompat = PersonCompat.Builder()
         .setBot(false)
-        .setName(Recipient.self().getDisplayName(context))
-        .setIcon(Recipient.self().getContactDrawable(context).toLargeBitmap(context).toIconCompat())
+        .setName(if (includeShortcut) Recipient.self().getDisplayName(context) else context.getString(R.string.SingleRecipientNotificationBuilder_you))
+        .setIcon(if (includeShortcut) Recipient.self().getContactDrawable(context).toLargeBitmap(context).toIconCompat() else null)
         .build()
 
       val messagingStyle: NotificationCompat.MessagingStyle = NotificationCompat.MessagingStyle(self)
@@ -332,10 +332,18 @@ sealed class NotificationBuilder(protected val context: Context) {
     }
 
     override fun setGroup(group: String) {
+      if (Build.VERSION.SDK_INT < 24) {
+        return
+      }
+
       builder.setGroup(group)
     }
 
     override fun setGroupAlertBehavior(behavior: Int) {
+      if (Build.VERSION.SDK_INT < 24) {
+        return
+      }
+
       builder.setGroupAlertBehavior(behavior)
     }
 
@@ -367,7 +375,7 @@ sealed class NotificationBuilder(protected val context: Context) {
       builder.setContentText(contentText)
     }
 
-    override fun setTicker(ticker: CharSequence) {
+    override fun setTicker(ticker: CharSequence?) {
       builder.setTicker(ticker)
     }
 
@@ -479,19 +487,10 @@ sealed class NotificationBuilder(protected val context: Context) {
     }
 
     override fun addMessagesActual(conversation: NotificationConversation, includeShortcut: Boolean) {
-      val bigPictureUri: Uri? = conversation.getSlideBigPictureUri(context)
-      if (bigPictureUri != null) {
-        builder.style = Notification.BigPictureStyle()
-          .bigPicture(bigPictureUri.toBitmap(context, BIG_PICTURE_DIMEN))
-          .setSummaryText(conversation.getContentText(context))
-          .bigLargeIcon(null as Bitmap?)
-        return
-      }
-
       val self: Person = Person.Builder()
         .setBot(false)
-        .setName(Recipient.self().getDisplayName(context))
-        .setIcon(Recipient.self().getContactDrawable(context).toLargeBitmap(context).toIcon())
+        .setName(if (includeShortcut) Recipient.self().getDisplayName(context) else context.getString(R.string.SingleRecipientNotificationBuilder_you))
+        .setIcon(if (includeShortcut) Recipient.self().getContactDrawable(context).toLargeBitmap(context).toIcon() else null)
         .build()
 
       val messagingStyle: Notification.MessagingStyle = Notification.MessagingStyle(self)
@@ -599,7 +598,7 @@ sealed class NotificationBuilder(protected val context: Context) {
       builder.setContentText(contentText)
     }
 
-    override fun setTicker(ticker: CharSequence) {
+    override fun setTicker(ticker: CharSequence?) {
       builder.setTicker(ticker)
     }
 

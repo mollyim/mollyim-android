@@ -169,6 +169,7 @@
   <string name="ConversationItem_error_network_not_delivered">Sending feila</string>
   <string name="ConversationItem_received_key_exchange_message_tap_to_process">Melding for nøkkelutveksling motteken. Trykk for å behandla.</string>
   <string name="ConversationItem_group_action_left">%1$s har forlate gruppa.</string>
+  <string name="ConversationItem_send_paused">Sending på vent</string>
   <string name="ConversationItem_click_to_approve_unencrypted">Feil ved sending, trykk for å senda med utrygg alternativ metode</string>
   <string name="ConversationItem_click_to_approve_unencrypted_sms_dialog_title">Vil du bruka ukryptert SMS som reserveløysing?</string>
   <string name="ConversationItem_click_to_approve_unencrypted_mms_dialog_title">Vil du bruka ukryptert MMS som reserveløysing?</string>
@@ -1069,6 +1070,7 @@ Dei er invitert inn, og ser inga gruppemeldingar før dei godtek.</string>
   <string name="MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Vil du bli med i denne gruppa og dela namnet og bildet ditt med medlemmane? Dei får ikkje vita at du har sett meldingane deira før du godkjenner.</string>
   <string name="MessageRequestBottomView_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Bli med i gruppa? Dei vil ikkje vita at du har sett meldingane deira før du godtek.</string>
   <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">Vil du bli avblokkera denne gruppa og dela namnet og bildet ditt med medlemmane? Du får inga meldingar før du avblokkerer dei.</string>
+  <string name="MessageRequestProfileView_view">Vis</string>
   <string name="MessageRequestProfileView_member_of_one_group">Medlem av %1$s</string>
   <string name="MessageRequestProfileView_member_of_two_groups">Medlem av %1$s og %2$s</string>
   <string name="MessageRequestProfileView_member_of_many_groups">Medlem av %1$s, %2$s og %3$s</string>
@@ -1170,6 +1172,10 @@ Viss du ikkje klarer å hugsa PIN-en, kan du oppretta ein ny ein. Du kan registr
   <string name="ReactionsConversationView_plus">+%1$d</string>
   <!--ReactionsRecipientAdapter-->
   <string name="ReactionsRecipientAdapter_you">Du</string>
+  <!--RecaptchaRequiredBottomSheetFragment-->
+  <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">Stadfest for å halda fram med meldingar</string>
+  <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Fullfør stadfestinga for å hjelpa oss å unngå spam på Molly</string>
+  <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">Etter stadfesting kan du halda fram med meldingar. Meldingar som er på vent vil bli sende automatisk.</string>
   <!--RecipientPreferencesActivity-->
   <string name="RecipientPreferenceActivity_block">Blokker</string>
   <string name="RecipientPreferenceActivity_unblock">Fjern blokkering</string>
@@ -1228,6 +1234,9 @@ Viss du ikkje klarer å hugsa PIN-en, kan du oppretta ein ny ein. Du kan registr
   <string name="ProxyBottomSheetFragment_do_you_want_to_use_this_proxy_address">Vil du bruka denne proxy-adressa?</string>
   <string name="ProxyBottomSheetFragment_use_proxy">Bruk proxy</string>
   <string name="ProxyBottomSheetFragment_successfully_connected_to_proxy">Klarte å kopla til proxy.</string>
+  <!--RecaptchaProofActivity-->
+  <string name="RecaptchaProofActivity_failed_to_submit">Klarte ikkje senda</string>
+  <string name="RecaptchaProofActivity_complete_verification">Fullfør stadfesting</string>
   <!--RegistrationActivity-->
   <string name="RegistrationActivity_select_your_country">Vel land</string>
   <string name="RegistrationActivity_you_must_specify_your_country_code">Du må oppgje
@@ -1457,6 +1466,8 @@ Mottok nøkkelutvekslingsmelding for ugyldig protokollversjon.</string>
   <string name="MessageNotifier_message_delivery_failed">Feil ved meldingslevering.</string>
   <string name="MessageNotifier_failed_to_deliver_message">Klarte ikkje å levera melding.</string>
   <string name="MessageNotifier_error_delivering_message">Feil under levering av melding.</string>
+  <string name="MessageNotifier_message_delivery_paused">Meldingssending på vent.</string>
+  <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Stadfest for å halda fram med Molly-meldingar.</string>
   <string name="MessageNotifier_mark_all_as_read">Merk alle som lesne</string>
   <string name="MessageNotifier_mark_read">Merk lesen</string>
   <string name="MessageNotifier_turn_off_these_notifications">Skru av desse varsla</string>
@@ -1507,6 +1518,7 @@ Mottok nøkkelutvekslingsmelding for ugyldig protokollversjon.</string>
   <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Ny melding</string>
   <string name="SingleRecipientNotificationBuilder_message_request">Meldingsspørsmål</string>
+  <string name="SingleRecipientNotificationBuilder_you">Du</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">Snurr film</string>
   <string name="ThumbnailView_Has_a_caption_description">Har bildetekst</string>
@@ -1613,6 +1625,8 @@ Mottok nøkkelutvekslingsmelding for ugyldig protokollversjon.</string>
   <string name="ConversationUpdateItem_call_is_full">Samtalen er fylt opp</string>
   <string name="ConversationUpdateItem_invite_friends">Inviter vennar</string>
   <string name="ConversationUpdateItem_enable_call_notifications">Skru på samtalevarsel</string>
+  <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">Ingen felles grupper. Sjå nøye gjennom førespurnader.</string>
+  <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">Ingen kontaktar i denne gruppa. Sjå nøye gjennom førespurnader.</string>
   <!--audio_view-->
   <string name="audio_view__play_pause_accessibility_description">Spel … pause</string>
   <string name="audio_view__download_accessibility_description">Last ned</string>
@@ -1702,7 +1716,7 @@ Mottok nøkkelutvekslingsmelding for ugyldig protokollversjon.</string>
     <item quantity="other">%d andre</item>
   </plurals>
   <!--giphy_activity-->
-  <string name="giphy_activity_toolbar__search_gifs_and_stickers">Søk Gif-ar og klistremerke</string>
+  <string name="giphy_activity_toolbar__search_gifs">Søk Gif-ar</string>
   <!--giphy_fragment-->
   <string name="giphy_fragment__nothing_found">Ikkje noko funne</string>
   <!--log_submit_activity-->
@@ -2834,5 +2848,10 @@ Kom i gang ved å senda ei melding til ein venn.</string>
   <string name="CanNotSendPaymentDialog__cant_send_payment">Kan ikkje senda betaling</string>
   <string name="CanNotSendPaymentDialog__to_send_a_payment_to_this_user">For å betala til denne brukaren må dei godta ein meldingsførespurnad frå deg. Send ei melding til dei for å laga ein meldingsførespurnad.</string>
   <string name="CanNotSendPaymentDialog__send_a_message">Send ei melding</string>
+  <!--GroupsInCommonMessageRequest-->
+  <string name="GroupsInCommonMessageRequest__you_have_no_groups_in_common_with_this_person">Du har ingen felles grupper med denne personen. Sjå nøye gjennom førespurnader før du godkjenner for å unngå uønska meldingar.</string>
+  <string name="GroupsInCommonMessageRequest__none_of_your_contacts_or_people_you_chat_with_are_in_this_group">Ingen av kontaktane eller personane du pratar med er i denne gruppa. Sjå nøye gjennom førespurnader før du godkjenner for å unngå uønska meldingar.</string>
+  <string name="GroupsInCommonMessageRequest__about_message_requests">Om meldingsspørsmål</string>
+  <string name="GroupsInCommonMessageRequest__okay">Greitt</string>
   <!--EOF-->
 </resources>

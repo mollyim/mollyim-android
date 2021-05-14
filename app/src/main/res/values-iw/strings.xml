@@ -171,6 +171,7 @@
   <string name="ConversationItem_error_network_not_delivered">השליחה נכשלה</string>
   <string name="ConversationItem_received_key_exchange_message_tap_to_process">הודעת החלפת מפתחות התקבלה, הקש כדי לעבד.</string>
   <string name="ConversationItem_group_action_left">%1$s עזב את הקבוצה.</string>
+  <string name="ConversationItem_send_paused">שליחה מושהית</string>
   <string name="ConversationItem_click_to_approve_unencrypted">שליחה נכשלה, הקש לנסיגה בלתי מאובטחת</string>
   <string name="ConversationItem_click_to_approve_unencrypted_sms_dialog_title">לסגת אל מסרון בלתי מוצפן?</string>
   <string name="ConversationItem_click_to_approve_unencrypted_mms_dialog_title">לסגת אל MMS בלתי מוצפן?</string>
@@ -1170,6 +1171,7 @@
   <string name="MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">להצטרף אל קבוצה זו ולשתף את השם והתמונה שלך עם חברי הקבוצה? חברי הקבוצה לא יידעו שראית את ההודעה שלהם עד שלא תאשר.</string>
   <string name="MessageRequestBottomView_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">להצטרף אל קבוצה זו? הקבוצה לא תידע שראית את ההודעות שלה עד שתאשר.</string>
   <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">לשחרר חסימת קבוצה זו ולשתף את השם והתמונה שלך עם חברי הקבוצה? לא תקבל הודעות כלשהן עד שתשחרר חסימה.</string>
+  <string name="MessageRequestProfileView_view">הצג</string>
   <string name="MessageRequestProfileView_member_of_one_group">חבר קבוצה של %1$s</string>
   <string name="MessageRequestProfileView_member_of_two_groups">חבר קבוצה של %1$s ושל %2$s</string>
   <string name="MessageRequestProfileView_member_of_many_groups">חבר קבוצה של %1$s, %2$s ושל %3$s</string>
@@ -1280,6 +1282,10 @@
   <string name="ReactionsConversationView_plus">+%1$d</string>
   <!--ReactionsRecipientAdapter-->
   <string name="ReactionsRecipientAdapter_you">אתה</string>
+  <!--RecaptchaRequiredBottomSheetFragment-->
+  <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">וודא כדי להמשיך להתכתב</string>
+  <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">כדי לעזור למנוע זבל ב‏‏־Molly, אנא השלם וידוא.</string>
+  <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">לאחר וידוא, אתה יכול להמשיך להתכתב. הודעות מושהות כלשהן יישלחו באופן אוטומטי.</string>
   <!--RecipientPreferencesActivity-->
   <string name="RecipientPreferenceActivity_block">חסום</string>
   <string name="RecipientPreferenceActivity_unblock">שחרר חסימה</string>
@@ -1342,6 +1348,9 @@
   <string name="ProxyBottomSheetFragment_do_you_want_to_use_this_proxy_address">האם אתה רוצה להשתמש בכתובת יפוי כוח זו?</string>
   <string name="ProxyBottomSheetFragment_use_proxy">השתמש ביפוי כוח</string>
   <string name="ProxyBottomSheetFragment_successfully_connected_to_proxy">התחברת בהצלחה אל יפוי כוח.</string>
+  <!--RecaptchaProofActivity-->
+  <string name="RecaptchaProofActivity_failed_to_submit">נכשל בשליחה</string>
+  <string name="RecaptchaProofActivity_complete_verification">וידוא הושלם</string>
   <!--RegistrationActivity-->
   <string name="RegistrationActivity_select_your_country">בחר את מדינתך</string>
   <string name="RegistrationActivity_you_must_specify_your_country_code">אתה חייב לציין את
@@ -1577,6 +1586,8 @@
   <string name="MessageNotifier_message_delivery_failed">מסירת הודעה נכשלה.</string>
   <string name="MessageNotifier_failed_to_deliver_message">נכשל למסור הודעה.</string>
   <string name="MessageNotifier_error_delivering_message">שגיאה במסירת הודעה.</string>
+  <string name="MessageNotifier_message_delivery_paused">מסירת הודעה הושהתה.</string>
+  <string name="MessageNotifier_verify_to_continue_messaging_on_signal">וודא כדי להמשיך להתכתב ב־Molly.</string>
   <string name="MessageNotifier_mark_all_as_read">סמן שהכל נקרא</string>
   <string name="MessageNotifier_mark_read">סמן כנקרא</string>
   <string name="MessageNotifier_turn_off_these_notifications">כבה התראות אלו</string>
@@ -1627,6 +1638,7 @@
   <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">הודעה חדשה</string>
   <string name="SingleRecipientNotificationBuilder_message_request">בקשת הודעה</string>
+  <string name="SingleRecipientNotificationBuilder_you">את/ה</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">נגן סרטון</string>
   <string name="ThumbnailView_Has_a_caption_description">יש כיתוב</string>
@@ -1739,6 +1751,8 @@
   <string name="ConversationUpdateItem_call_is_full">השיחה מלאה</string>
   <string name="ConversationUpdateItem_invite_friends">הזמן חברים</string>
   <string name="ConversationUpdateItem_enable_call_notifications">אפשר התראות שיחה</string>
+  <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">אין קבוצות במשותף. סקור בקשות בזהירות.</string>
+  <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">אין אנשי קשר בקבוצה הזאת. סקור בקשות בזהירות.</string>
   <!--audio_view-->
   <string name="audio_view__play_pause_accessibility_description">נגן … השהה</string>
   <string name="audio_view__download_accessibility_description">הורד</string>
@@ -1840,7 +1854,7 @@
     <item quantity="other">%d אחרים</item>
   </plurals>
   <!--giphy_activity-->
-  <string name="giphy_activity_toolbar__search_gifs_and_stickers">חפש קבצי GIF ומדבקות</string>
+  <string name="giphy_activity_toolbar__search_gifs">חפש תמונות GIF</string>
   <!--giphy_fragment-->
   <string name="giphy_fragment__nothing_found">שום דבר לא נמצא</string>
   <!--log_submit_activity-->
@@ -2992,5 +3006,10 @@
   <string name="CanNotSendPaymentDialog__cant_send_payment">לא ניתן לשלוח תשלום</string>
   <string name="CanNotSendPaymentDialog__to_send_a_payment_to_this_user">כדי לשלוח תשלום אל המשתמש הזה, הוא צריך לאשר בקשת הודעה ממך. שלח לו הודעה כדי ליצור בקשת הודעה.</string>
   <string name="CanNotSendPaymentDialog__send_a_message">שלח הודעה</string>
+  <!--GroupsInCommonMessageRequest-->
+  <string name="GroupsInCommonMessageRequest__you_have_no_groups_in_common_with_this_person">אין לך קבוצות משותפות עם האיש הזה. סקור בקשות בזהירות טרם אישור שלהן כדי להימנע מהודעות בלתי רצויות.</string>
+  <string name="GroupsInCommonMessageRequest__none_of_your_contacts_or_people_you_chat_with_are_in_this_group">אף אחד מחברי הקבוצה שלך או האנשים שאתה מתכתב איתם נמצאים בקבוצה הזאת. סקור בקשות בזהירות טרם אישור שלהן כדי להימנע מהודעות בלתי רצויות.</string>
+  <string name="GroupsInCommonMessageRequest__about_message_requests">על אודות בקשות הודעה</string>
+  <string name="GroupsInCommonMessageRequest__okay">בסדר</string>
   <!--EOF-->
 </resources>

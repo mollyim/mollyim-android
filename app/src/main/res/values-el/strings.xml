@@ -1061,6 +1061,7 @@
   <string name="MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Θέλεις να μπεις στην ομάδα και να μοιραστείς το όνομα και τη φωτογραφία σου με τα μέλη της; Δεν θα ξέρουν ότι έχεις δει τα μηνύματά τους μέχρι να δεχτείς.</string>
   <string name="MessageRequestBottomView_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Θέλεις να μπεις σε αυτή την ομάδα; Δεν θα γνωρίζουν οτι έχεις δει τα μηνυματά τους μέχρι να δεχτείς.</string>
   <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">Θέλεις να καταργηθεί η φραγή αυτής της ομάδας και να μοιραστεί το όνομα και η φωτογραφία σου με τα μέλη της; Δεν θα λάβεις κανένα μήνυμα μέχρι να καταργήσεις τη φραγή της.</string>
+  <string name="MessageRequestProfileView_view">Εμφάνιση</string>
   <string name="MessageRequestProfileView_member_of_one_group">Μέλος του %1$s</string>
   <string name="MessageRequestProfileView_member_of_two_groups">Μέλος των %1$s και %2$s</string>
   <string name="MessageRequestProfileView_member_of_many_groups">Μέλος των %1$s, %2$s, και %3$s</string>
@@ -1160,6 +1161,7 @@
   <string name="ReactionsConversationView_plus">+%1$d</string>
   <!--ReactionsRecipientAdapter-->
   <string name="ReactionsRecipientAdapter_you">Εσύ</string>
+  <!--RecaptchaRequiredBottomSheetFragment-->
   <!--RecipientPreferencesActivity-->
   <string name="RecipientPreferenceActivity_block">Φραγή</string>
   <string name="RecipientPreferenceActivity_unblock">Κατάργηση φραγής</string>
@@ -1218,6 +1220,7 @@
   <string name="ProxyBottomSheetFragment_do_you_want_to_use_this_proxy_address">Θέλεις να χρησιμοποιήσεις αυτή τη διεύθυνση proxy;</string>
   <string name="ProxyBottomSheetFragment_use_proxy">Χρήση proxy</string>
   <string name="ProxyBottomSheetFragment_successfully_connected_to_proxy">Επιτυχής σύνδεση στο proxy.</string>
+  <!--RecaptchaProofActivity-->
   <!--RegistrationActivity-->
   <string name="RegistrationActivity_select_your_country">Διάλεξε τη χώρα σου</string>
   <string name="RegistrationActivity_you_must_specify_your_country_code">Πρέπει να γράψεις τον
@@ -1483,7 +1486,7 @@
   <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Η γρήγορη απάντηση δεν είναι διαθέσιμη όταν το Molly είναι κλειδωμένο!</string>
   <string name="QuickResponseService_problem_sending_message">Πρόβλημα με την αποστολή μηνύματος!</string>
   <!--SaveAttachmentTask-->
-  <string name="SaveAttachmentTask_saved_to">Αποθηκεύτηκε σε %s</string>
+  <string name="SaveAttachmentTask_saved_to">Αποθηκεύτηκε στο %s</string>
   <string name="SaveAttachmentTask_saved">Αποθηκεύτηκε</string>
   <!--SearchToolbar-->
   <string name="SearchToolbar_search">Αναζήτηση</string>
@@ -1494,6 +1497,7 @@
   <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Νέο μήνυμα</string>
   <string name="SingleRecipientNotificationBuilder_message_request">Αίτημα μηνύματος</string>
+  <string name="SingleRecipientNotificationBuilder_you">Εσύ</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">Αναπαραγωγή βίντεο</string>
   <string name="ThumbnailView_Has_a_caption_description">Έχει λεζάντα</string>
@@ -1600,6 +1604,8 @@
   <string name="ConversationUpdateItem_call_is_full">Η κλήση είναι γεμάτη</string>
   <string name="ConversationUpdateItem_invite_friends">Πρόσκληση φίλων</string>
   <string name="ConversationUpdateItem_enable_call_notifications">Ενεργοποίηση ειδοποιήσεων κλήσεων</string>
+  <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">Χωρίς κοινές ομάδες. Έλεγξε τα αιτήματα προσεκτικά.</string>
+  <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">Ομάδα με καμία γνωστή επαφή. Έλεγξε τα αιτήματα προσεκτικά.</string>
   <!--audio_view-->
   <string name="audio_view__play_pause_accessibility_description">Αναπαραγωγή … Παύση</string>
   <string name="audio_view__download_accessibility_description">Λήψη</string>
@@ -1689,7 +1695,7 @@
     <item quantity="other">%d άλλοι/ες</item>
   </plurals>
   <!--giphy_activity-->
-  <string name="giphy_activity_toolbar__search_gifs_and_stickers">Αναζήτηση GIF και αυτοκολλήτων</string>
+  <string name="giphy_activity_toolbar__search_gifs">Αναζήτηση GIF</string>
   <!--giphy_fragment-->
   <string name="giphy_fragment__nothing_found">Δε βρέθηκε τίποτα</string>
   <!--log_submit_activity-->
@@ -1807,6 +1813,14 @@
   <string name="HelpFragment__debug_log">Αρχείο εντοπισμού σφαλμάτων:</string>
   <string name="HelpFragment__could_not_upload_logs">Δεν μπόρεσαν να ανέβουν τα αρχεία καταγραφής</string>
   <string name="HelpFragment__please_be_as_descriptive_as_possible">Παρακαλούμε να είσαι όσο γίνεται πιο περιγραφικός/ή για να μας βοηθήσεις να καταλάβουμε το πρόβλημα.</string>
+  <string-array name="HelpFragment__categories">
+    <item>Κάτι δεν λειτουργεί</item>
+    <item>Αίτημα λειτουργίας</item>
+    <item>Ερώτηση</item>
+    <item>Σχόλια</item>
+    <item>Άλλο</item>
+    <item>Πληρωμές</item>
+  </string-array>
   <!--ReactWithAnyEmojiBottomSheetDialogFragment-->
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__this_message">Αυτό το μήνυμα</string>
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__recently_used">Πρόσφατα χρησιμοποιημένα</string>
@@ -1915,6 +1929,7 @@
   <string name="preferences__data_and_storage">Δεδομένα και αποθηκευτικός χώρος</string>
   <string name="preferences__storage">Αποθηκευτικός χώρος</string>
   <string name="preferences__payments">Πληρωμές</string>
+  <string name="preferences__payments_beta">Πληρωμή (Beta)</string>
   <string name="preferences__conversation_length_limit">Όριο μεγέθους συνομιλίας</string>
   <string name="preferences__keep_messages">Διατήρηση μηνυμάτων</string>
   <string name="preferences__clear_message_history">Εκκαθάριση ιστορικού μηνυμάτων</string>
@@ -2022,23 +2037,41 @@
   <string name="configurable_single_select__customize_option">Προσαρμογή ρύθμισης</string>
   <!--Internal only preferences-->
   <!--Payments-->
+  <string name="PaymentsActivityFragment__all_activity">Όλη η δραστηριότητα</string>
   <string name="PaymentsAllActivityFragment__all">Όλοι/ες</string>
   <string name="PaymentsAllActivityFragment__sent">Στάλθηκε στις</string>
   <string name="PaymentsAllActivityFragment__received">Ελήφθη</string>
+  <string name="PaymentsHomeFragment__activate_payments">Ενεργοποίηση πληρωμών</string>
+  <string name="PaymentsHomeFragment__activating_payments">Ενεργοποίηση πληρωμών…</string>
   <string name="PaymentsHomeFragment__see_all">Προβολή όλων</string>
   <string name="PaymentsHomeFragment__send">Αποστολή</string>
+  <string name="PaymentsHomeFragment__currency_conversion">Μετατροπή νομίσματος</string>
+  <string name="PaymentsHomeFragment__deactivate_payments">Απενεργοποίηση πληρωμών</string>
+  <string name="PaymentsHomeFragment__recovery_phrase">Φράση ανάκτησης</string>
   <string name="PaymentsHomeFragment__help">Βοήθεια</string>
+  <string name="PaymentsHomeFragment__unknown_amount">---</string>
+  <string name="PaymentsHomeFragment__deactivate_payments_question">Απενεργοποίηση πληρωμών;</string>
+  <string name="PaymentsHomeFragment__deactivate">Απενεργοποίηση</string>
   <string name="PaymentsHomeFragment__continue">Συνέχεια</string>
+  <string name="PaymentsHomeFragment__payment_failed">Η πληρωμή απέτυχε</string>
   <string name="PaymentsHomeFragment__details">Λεπτομέρειες</string>
+  <string name="PaymentsHomeFragment__activate">Ενεργοποίηση</string>
+  <string name="PaymentsHomeFragment__view_mobile_coin_terms">Προβολή όρων MobileCoin</string>
   <!--PaymentsAddMoneyFragment-->
   <string name="PaymentsAddMoneyFragment__copy">Αντιγραφή</string>
   <string name="PaymentsAddMoneyFragment__copied_to_clipboard">Αντιγράφηκε στο πρόχειρο</string>
   <!--PaymentsDetailsFragment-->
   <string name="PaymentsDetailsFragment__details">Λεπτομέρειες</string>
   <string name="PaymentsDetailsFragment__status">Κατάσταση</string>
+  <string name="PaymentsDetailsFragment__processing_payment">Επεξεργασία πληρωμής…</string>
+  <string name="PaymentsDetailsFragment__payment_complete">Η πληρωμή ολοκληρώθηκε</string>
+  <string name="PaymentsDetailsFragment__payment_failed">Η πληρωμή απέτυχε</string>
+  <string name="PaymentsDetailsFragment__network_fee">Χρέωση δικτύου</string>
   <string name="PaymentsDetailsFragment__to">Προς</string>
   <string name="PaymentsDetailsFragment__from">Από</string>
+  <string name="PaymentsDetailsFragment__block_number">Φραγή αριθμού</string>
   <!--PaymentsTransferFragment-->
+  <string name="PaymentsTransferFragment__transfer">Μεταφορά</string>
   <string name="PaymentsTransferFragment__scan_qr_code">Σκανάρισμα κωδικού QR</string>
   <string name="PaymentsTransferFragment__next">Επόμενο</string>
   <string name="PaymentsTransferFragment__settings">Ρυθμίσεις</string>
@@ -2046,12 +2079,35 @@
   <!--CreatePaymentFragment-->
   <string name="CreatePaymentFragment__request">Αίτημα</string>
   <string name="CreatePaymentFragment__pay">Πληρωμή</string>
+  <string name="CreatePaymentFragment__1">1</string>
+  <string name="CreatePaymentFragment__2">2</string>
+  <string name="CreatePaymentFragment__3">3</string>
+  <string name="CreatePaymentFragment__4">4</string>
+  <string name="CreatePaymentFragment__5">5</string>
+  <string name="CreatePaymentFragment__6">6</string>
+  <string name="CreatePaymentFragment__7">7</string>
+  <string name="CreatePaymentFragment__8">8</string>
+  <string name="CreatePaymentFragment__9">9</string>
+  <string name="CreatePaymentFragment__decimal">.</string>
+  <string name="CreatePaymentFragment__0">0</string>
+  <string name="CreatePaymentFragment__lt">&lt;</string>
+  <string name="CreatePaymentFragment__add_note">Προσθήκη σημείωσης</string>
   <!--EditNoteFragment-->
   <string name="EditNoteFragment_note">Σημείωση</string>
   <!--ConfirmPaymentFragment-->
+  <string name="ConfirmPayment__network_fee">Χρέωση δικτύου</string>
   <string name="ConfirmPayment__to">Προς</string>
+  <string name="ConfirmPayment__total_amount">Συνολικό ποσό</string>
+  <string name="ConfirmPayment__balance_s">Υπόλοιπο: %1$s</string>
+  <string name="ConfirmPayment__processing_payment">Επεξεργασία πληρωμής…</string>
+  <string name="ConfirmPayment__payment_complete">Η πληρωμή ολοκληρώθηκε</string>
+  <string name="ConfirmPayment__payment_failed">Η πληρωμή απέτυχε</string>
+  <string name="ConfirmPaymentFragment__invalid_recipient">Μη έγκυρος παραλήπτης</string>
   <!--CurrencyAmountFormatter_s_at_s-->
+  <string name="CurrencyAmountFormatter_s_at_s">%1$s στις %2$s</string>
   <!--SetCurrencyFragment-->
+  <string name="SetCurrencyFragment__set_currency">Ορισμός νομίσματος</string>
+  <string name="SetCurrencyFragment__all_currencies">Όλα τα νομίσματα</string>
   <!--****************************************-->
   <!--menus-->
   <!--****************************************-->
@@ -2481,6 +2537,7 @@
   <string name="OldDeviceTransferLockedDialog__done">Τέλος</string>
   <string name="OldDeviceTransferLockedDialog__cancel_and_activate_this_device">Ακύρωση και ενεργοποίηση αυτής της συσκευής</string>
   <!--AdvancedPreferenceFragment-->
+  <string name="AdvancedPreferenceFragment__transfer">Μεταφορά</string>
   <!--RecipientBottomSheet-->
   <string name="RecipientBottomSheet_block">Φραγή</string>
   <string name="RecipientBottomSheet_unblock">Κατάργηση φραγής</string>
@@ -2628,12 +2685,16 @@
   <string name="WallpaperCropActivity__error_setting_wallpaper">Σφάλμα κατά τον ορισμό ταπετσαρίας.</string>
   <string name="WallpaperCropActivity__blur_photo">Θόλωμα φωτογραφίας</string>
   <!--InfoCard-->
+  <string name="payment_info_card_about_mobilecoin">Σχετικά με το MobileCoin</string>
   <string name="payment_info_card_hide">Απόκρυψη</string>
   <string name="payment_info_card_update_pin">Ανανέωση PIN</string>
   <!--DeactivateWalletFragment-->
+  <string name="DeactivateWalletFragment__deactivate">Απενεργοποίηση</string>
   <!--PaymentsRecoveryStartFragment-->
+  <string name="PaymentsRecoveryStartFragment__recovery_phrase">Φράση ανάκτησης</string>
   <string name="PaymentsRecoveryStartFragment__start">Εκκίνηση</string>
   <!--PaymentsRecoveryPasteFragment-->
+  <string name="PaymentsRecoveryPasteFragment__recovery_phrase">Φράση ανάκτησης</string>
   <string name="PaymentsRecoveryPasteFragment__next">Επόμενο</string>
   <!--PaymentsRecoveryPhraseFragment-->
   <string name="PaymentsRecoveryPhraseFragment__next">Επόμενο</string>
@@ -2641,8 +2702,10 @@
   <string name="PaymentsRecoveryPhraseFragment__previous">Προηγούμενο</string>
   <string name="PaymentsRecoveryPhraseFragment__copy">Αντιγραφή</string>
   <!--PaymentsRecoveryPhraseConfirmFragment-->
+  <string name="PaymentRecoveryPhraseConfirmFragment__word_d">Λέξη %1$d</string>
   <string name="PaymentRecoveryPhraseConfirmFragment__done">Τέλος</string>
   <!--PaymentsRecoveryEntryFragment-->
+  <string name="PaymentsRecoveryEntryFragment__word_d">Λέξη %1$d</string>
   <string name="PaymentsRecoveryEntryFragment__next">Επόμενο</string>
   <!--ClearClipboardAlarmReceiver-->
   <!--PaymentNotificationsView-->
@@ -2650,5 +2713,10 @@
   <!--UnreadPayments-->
   <!--CanNotSendPaymentDialog-->
   <string name="CanNotSendPaymentDialog__send_a_message">Στείλε ένα μήνυμα</string>
+  <!--GroupsInCommonMessageRequest-->
+  <string name="GroupsInCommonMessageRequest__you_have_no_groups_in_common_with_this_person">Δεν είσαι σε κοινές ομάδες με αυτό το άτομο. Έλεγξε τα αιτήματα προσεκτικά πριν αποδεχτείς, για να γλιτώσεις ανεπιθύμητα μηνύματα.</string>
+  <string name="GroupsInCommonMessageRequest__none_of_your_contacts_or_people_you_chat_with_are_in_this_group">Καμία από τις επαφές σου ή τα άτομα με τα οποία συνομιλείς δεν είναι σε αυτή την ομάδα. Έλεγξε τα αιτήματα προσεκτικά πριν αποδεχτείς, για να γλιτώσεις ανεπιθύμητα μηνύματα.</string>
+  <string name="GroupsInCommonMessageRequest__about_message_requests">Σχετικά με αιτήματα μηνυμάτων</string>
+  <string name="GroupsInCommonMessageRequest__okay">Εντάξει</string>
   <!--EOF-->
 </resources>

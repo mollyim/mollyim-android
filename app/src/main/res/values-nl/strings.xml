@@ -170,6 +170,7 @@
   <string name="ConversationItem_error_network_not_delivered">Verzenden is mislukt</string>
   <string name="ConversationItem_received_key_exchange_message_tap_to_process">Sleuteluitwisselingsbericht ontvangen, tik hier om het te verwerken.</string>
   <string name="ConversationItem_group_action_left">%1$s heeft de groep verlaten.</string>
+  <string name="ConversationItem_send_paused">Verzending is gepauzeerd</string>
   <string name="ConversationItem_click_to_approve_unencrypted">Verzenden is mislukt, tik om onbeveiligd te verzenden</string>
   <string name="ConversationItem_click_to_approve_unencrypted_sms_dialog_title">Terugvallen naar onversleutelde sms?</string>
   <string name="ConversationItem_click_to_approve_unencrypted_mms_dialog_title">Terugvallen naar onversleutelde mms?</string>
@@ -286,8 +287,8 @@
   <string name="ConversationFragment_you_already_viewed_this_message">Je hebt dit eenmaligeweergave-bericht al weergegeven</string>
   <string name="ConversationFragment__you_can_add_notes_for_yourself_in_this_conversation">Je kunt in dit speciale gesprek notities voor jezelf achterlaten.\nAls je de Signal app op een ander apparaat gekoppeld hebt, dan worden alle notities van na het moment van koppelen gesynchroniseerd. Je kunt dus notities toevoegen en teruglezen vanaf al je gekoppelde apparaten.</string>
   <string name="ConversationFragment__d_group_members_have_the_same_name">%1$d groepsleden hebben dezelfde naam.</string>
-  <string name="ConversationFragment__tap_to_review">Tik hier om te evalueren</string>
-  <string name="ConversationFragment__review_requests_carefully">Evalueer verzoeken zorgvuldig</string>
+  <string name="ConversationFragment__tap_to_review">Tik hier om te vergelijken</string>
+  <string name="ConversationFragment__review_requests_carefully">Overweeg dit verzoek zorgvuldig</string>
   <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Molly heeft een ander contactpersoon gevonden met dezelfde naam.</string>
   <string name="ConversationFragment_contact_us">Neem contact met ons op</string>
   <string name="ConversationFragment_verify">Verifiëren</string>
@@ -390,8 +391,8 @@
   <!--DocumentView-->
   <string name="DocumentView_unnamed_file">Onbenoemd bestand</string>
   <!--DonateMegaphone-->
-  <string name="DonateMegaphone_donate_to_signal">Aan Molly doneren</string>
-  <string name="DonateMegaphone_Signal_is_powered_by_people_like_you_show_your_support_today">Molly wordt onder andere gefinancierd door donaties van mensen zoals jij. Zou je ons willen steunen?</string>
+  <string name="DonateMegaphone_donate_to_signal">Aan Signal doneren</string>
+  <string name="DonateMegaphone_Signal_is_powered_by_people_like_you_show_your_support_today">Signal wordt onder andere gefinancierd door donaties van mensen zoals jij. Zou je ons willen steunen?</string>
   <string name="DonateMegaphone_donate">Doneren</string>
   <string name="DonateMegaphone_no_thanks">Nee</string>
   <!--GroupCallingMegaphone-->
@@ -1066,6 +1067,7 @@
   <string name="MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Wil je lid worden van deze groep, en sta je toe dat alle leden van de groep je profielnaam, -foto en -omschrijving kunnen zien?</string>
   <string name="MessageRequestBottomView_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Lid worden van deze groep? De leden van de groep zullen niet kunnen zien dat je hun berichten hebt gelezen zolang je de uitnodiging nog niet hebt geaccepteerd.</string>
   <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">Wil je weer berichten van deze groep ontvangen, en sta je toe dat alle leden van de groep je profielnaam, -foto en -omschrijving kunnen zien? Je zult geen berichten ontvangen en je profiel zal voor de leden van deze groep niet worden bijgewerkt totdat je de groep hebt gedeblokkeerd.</string>
+  <string name="MessageRequestProfileView_view">Weergeven</string>
   <string name="MessageRequestProfileView_member_of_one_group">Lid van %1$s</string>
   <string name="MessageRequestProfileView_member_of_two_groups">Lid van %1$s en %2$s</string>
   <string name="MessageRequestProfileView_member_of_many_groups">Lid van %1$s, %2$s en %3$s</string>
@@ -1166,6 +1168,10 @@
   <string name="ReactionsConversationView_plus">+%1$d</string>
   <!--ReactionsRecipientAdapter-->
   <string name="ReactionsRecipientAdapter_you">Jij</string>
+  <!--RecaptchaRequiredBottomSheetFragment-->
+  <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">Je moet je telefoonnummer verifiëren om door te kunnen gaan met het verzenden van berichten</string>
+  <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Om Molly te helpen spam te voorkomen is het nodig dat je je telefoonnummer verifieert.</string>
+  <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">Je kunt doorgaan met het verzenden van berichten nadat je je telefoonnummer hebt geverifieerd. Enig bericht waarvan verzending is gepauzeerd zal dan automatisch verzonden worden.</string>
   <!--RecipientPreferencesActivity-->
   <string name="RecipientPreferenceActivity_block">Blokkeren</string>
   <string name="RecipientPreferenceActivity_unblock">Deblokkeren</string>
@@ -1224,6 +1230,9 @@
   <string name="ProxyBottomSheetFragment_do_you_want_to_use_this_proxy_address">Wil je dit proxyadres gebruiken?</string>
   <string name="ProxyBottomSheetFragment_use_proxy">Proxy gebruiken</string>
   <string name="ProxyBottomSheetFragment_successfully_connected_to_proxy">Sucesvol verbonden met de proxy.</string>
+  <!--RecaptchaProofActivity-->
+  <string name="RecaptchaProofActivity_failed_to_submit">Indienen is mislukt</string>
+  <string name="RecaptchaProofActivity_complete_verification">Verificatie voltooien</string>
   <!--RegistrationActivity-->
   <string name="RegistrationActivity_select_your_country">Selecteer je land</string>
   <string name="RegistrationActivity_you_must_specify_your_country_code">Je moet jouw
@@ -1440,7 +1449,7 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <string name="KeyCachingService_passphrase_cached">Molly is ontgrendeld</string>
   <string name="KeyCachingService_lock">Vergrendel Molly</string>
   <!--MediaPreviewActivity-->
-  <string name="MediaPreviewActivity_you">jou</string>
+  <string name="MediaPreviewActivity_you">Door jou verzonden</string>
   <string name="MediaPreviewActivity_unssuported_media_type">Niet-ondersteund mediatype</string>
   <string name="MediaPreviewActivity_draft">Concept</string>
   <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Molly heeft toegang tot externe opslagruimte nodig om iets op te slaan op de externe opslag, maar deze toegang is pertinent geweigerd. Ga naar de instellingen voor deze app, tik op ‘Machtigingen’ en schakel ‘Opslagruimte’ in.</string>
@@ -1457,6 +1466,8 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <string name="MessageNotifier_message_delivery_failed">Berichtaflevering mislukt.</string>
   <string name="MessageNotifier_failed_to_deliver_message">Het bericht afleveren is mislukt.</string>
   <string name="MessageNotifier_error_delivering_message">Fout bij afleveren bericht.</string>
+  <string name="MessageNotifier_message_delivery_paused">Berichten-aflevering is gepauzeerd.</string>
+  <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Verifieer je telefoonnummer om door te kunnen gaan met het verzenden en ontvangen van berichten via Molly.</string>
   <string name="MessageNotifier_mark_all_as_read">Alles markeren als gelezen</string>
   <string name="MessageNotifier_mark_read">Markeren als gelezen</string>
   <string name="MessageNotifier_turn_off_these_notifications">Dit soort meldingen uitschakelen</string>
@@ -1507,6 +1518,7 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Nieuw bericht</string>
   <string name="SingleRecipientNotificationBuilder_message_request">Gespreksverzoek</string>
+  <string name="SingleRecipientNotificationBuilder_you">Jij</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">Video afspelen</string>
   <string name="ThumbnailView_Has_a_caption_description">Heeft een bijschrift</string>
@@ -1590,7 +1602,7 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <string name="conversation_activity__quick_attachment_drawer_toggle_camera_description">Camera overzicht weergeven/verbergen</string>
   <string name="conversation_activity__quick_attachment_drawer_record_and_send_audio_description">Geluid opnemen en verzenden</string>
   <string name="conversation_activity__quick_attachment_drawer_lock_record_description">Vergrendel opnemen van audio</string>
-  <string name="conversation_activity__enable_signal_for_sms">Gebruik Signal voor sms</string>
+  <string name="conversation_activity__enable_signal_for_sms">Signal gebruiken om een sms-bericht te verzenden</string>
   <string name="conversation_activity__message_could_not_be_sent">het bericht kon niet worden verzonden. Ga na dat je apparaat verbonden is met internet of met je sms-provider en probeer het opnieuw.</string>
   <!--conversation_input_panel-->
   <string name="conversation_input_panel__slide_to_cancel">Veeg om te annuleren</string>
@@ -1613,6 +1625,8 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <string name="ConversationUpdateItem_call_is_full">De oproep is vol</string>
   <string name="ConversationUpdateItem_invite_friends">Kennissen uitnodigen</string>
   <string name="ConversationUpdateItem_enable_call_notifications">Oproepmeldingen inschakelen</string>
+  <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">Je hebt met deze persoon geen gemeenschappelijke groep: overweeg dit gespreksverzoek zorgvuldig.</string>
+  <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">Er is in deze groep geen lid met wie je al een gesprek voert: overweeg deze uitnodiging zorgvuldig.</string>
   <!--audio_view-->
   <string name="audio_view__play_pause_accessibility_description">Afspelen … Pauzeren</string>
   <string name="audio_view__download_accessibility_description">Downloaden</string>
@@ -1702,7 +1716,7 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
     <item quantity="other">%d anderen</item>
   </plurals>
   <!--giphy_activity-->
-  <string name="giphy_activity_toolbar__search_gifs_and_stickers">GIFs en stickers zoeken</string>
+  <string name="giphy_activity_toolbar__search_gifs">GIFs zoeken</string>
   <!--giphy_fragment-->
   <string name="giphy_fragment__nothing_found">Niets gevonden</string>
   <!--log_submit_activity-->
@@ -1843,10 +1857,10 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <!--arrays.xml-->
   <string name="arrays__use_default">Gebruik systeemstandaard</string>
   <string name="arrays__use_custom">Gebruik eigen instelling</string>
-  <string name="arrays__mute_for_one_hour">Demp voor 1 uur</string>
-  <string name="arrays__mute_for_eight_hours">Demp voor 8 uur</string>
-  <string name="arrays__mute_for_one_day">Demp voor 1 dag</string>
-  <string name="arrays__mute_for_seven_days">Demp voor 7 dagen</string>
+  <string name="arrays__mute_for_one_hour">1 uur lang dempen</string>
+  <string name="arrays__mute_for_eight_hours">8 uur lang dempen</string>
+  <string name="arrays__mute_for_one_day">1 dag lang dempen</string>
+  <string name="arrays__mute_for_seven_days">7 dagen lang dempen</string>
   <string name="arrays__always">Voor altijd</string>
   <string name="arrays__settings_default">Gebruik systeemstandaard</string>
   <string name="arrays__enabled">Ingeschakeld</string>
@@ -1880,7 +1894,7 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <string name="preferences__pref_enter_sends_title">Enter-toets verzendt</string>
   <string name="preferences__pressing_the_enter_key_will_send_text_messages">Gebruik de Enter-toets voor het verzenden van tekstberichten</string>
   <string name="preferences__pref_use_address_book_photos">Profielfoto uit systeemadresboek</string>
-  <string name="preferences__display_contact_photos_from_your_address_book_if_available">Gebruik indien beschikbaar de profielfoto uit je eigen systeemadresboek weer, in plaats van de profielfoto welke anderen voor zichzelf hebben ingesteld.</string>
+  <string name="preferences__display_contact_photos_from_your_address_book_if_available">Geef indien beschikbaar de profielfoto uit je eigen systeemadresboek weer, in plaats van de profielfoto welke anderen voor henzelf hebben ingesteld.</string>
   <string name="preferences__generate_link_previews">Voorbeeldafbeeldingen genereren</string>
   <string name="preferences__retrieve_link_previews_from_websites_for_messages">Sta Signal toe om voor elke verwijzing naar een website die je verzendt een voorbeeldafbeelding genereren en aan je bericht bij te voegen. Echter, als je dit inschakelt zouden websites kunnen detecteren dat je hen in je bericht vermeldt.</string>
   <string name="preferences__choose_identity">Identiteit kiezen</string>
@@ -1922,7 +1936,7 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <string name="preferences__slow">Langzaam</string>
   <string name="preferences__help">Hulp</string>
   <string name="preferences__advanced">Geavanceerd</string>
-  <string name="preferences__donate_to_signal">Aan Molly doneren</string>
+  <string name="preferences__donate_to_signal">Aan Signal doneren</string>
   <string name="preferences__privacy">Privacy</string>
   <string name="preferences__mms_user_agent">Mms-gebruikersagent</string>
   <string name="preferences__advanced_mms_access_point_names">Handmatige mms-instellingen</string>
@@ -2030,7 +2044,7 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <string name="preferences_off">Uit</string>
   <string name="preferences_on">Aan</string>
   <string name="preferences_proxy_address">Proxyadres</string>
-  <string name="preferences_only_use_a_proxy_if">Gebruik alleen een proxy als de app niet uit zichzelf in staat is om verbinding te maken met Signal\'s servers, ander heeft het geen toegevoegde waarde maar levert het wel vertraging op.</string>
+  <string name="preferences_only_use_a_proxy_if">Gebruik alleen een proxy als de app niet uit zichzelf in staat is om verbinding te maken met Signal\'s servers, want anders heeft het geen toegevoegde waarde maar levert het wel vertraging op.</string>
   <string name="preferences_share">Proxyadres delen via andere app</string>
   <string name="preferences_save">Opslaan</string>
   <string name="preferences_connecting_to_proxy">Aan het verbinden met de proxy …</string>
@@ -2655,10 +2669,10 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <string name="BlockedUsersActivity__failed_to_block_s">“%1$s” blokkeren is mislukt.</string>
   <string name="BlockedUsersActivity__s_has_been_unblocked">“%1$s” is gedeblokkeerd.</string>
   <!--ReviewCardDialogFragment-->
-  <string name="ReviewCardDialogFragment__review_members">Groepsleden evalueren</string>
-  <string name="ReviewCardDialogFragment__review_request">Verzoek evalueren</string>
-  <string name="ReviewCardDialogFragment__d_group_members_have_the_same_name">%1$d groepsleden hebben dezelfde namen. Evalueer de groepsleden hieronder en neem actie indien nodig.</string>
-  <string name="ReviewCardDialogFragment__if_youre_not_sure">Evalueer de contactpersonen hieronder en onderneem actie als je niet zeker bent van wie het verzoek afkomstig is.</string>
+  <string name="ReviewCardDialogFragment__review_members">Groepsleden vergelijken</string>
+  <string name="ReviewCardDialogFragment__review_request">Lidmaatschapsverzoeken vergelijken</string>
+  <string name="ReviewCardDialogFragment__d_group_members_have_the_same_name">%1$d groepsleden hebben dezelfde naam. Vergelijk deze groepsleden hieronder en neem actie indien je denkt dat een van hen zich probeert voor te doen als de ander.</string>
+  <string name="ReviewCardDialogFragment__if_youre_not_sure">Vergelijk als je niet zeker bent van wie het lidmaatschapsverzoek afkomstig is de personen hieronder  en neem actie indien je denkt dat een van hen zich probeert voor te doen als de ander.</string>
   <string name="ReviewCardDialogFragment__no_other_groups_in_common">Geen andere gemeenschappelijke groepen.</string>
   <string name="ReviewCardDialogFragment__no_groups_in_common">Geen gemeenschappelijke groepen.</string>
   <plurals name="ReviewCardDialogFragment__d_other_groups_in_common">
@@ -2674,7 +2688,7 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <string name="ReviewCardDialogFragment__failed_to_remove_group_member">Het verwijderen van een groepslid is mislukt.</string>
   <!--ReviewCard-->
   <string name="ReviewCard__member">Lid</string>
-  <string name="ReviewCard__request">Verzoek</string>
+  <string name="ReviewCard__request">Lidmaatschapsverzoek</string>
   <string name="ReviewCard__your_contact">Je contactpersoon</string>
   <string name="ReviewCard__remove_from_group">Van de groep verwijderen</string>
   <string name="ReviewCard__update_contact">Contactpersoon bijwerken</string>
@@ -2832,5 +2846,10 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <string name="CanNotSendPaymentDialog__cant_send_payment">Kan overschrijving niet verzenden</string>
   <string name="CanNotSendPaymentDialog__to_send_a_payment_to_this_user">Deze persoon moet eerst een gespreksverzoek van je aanvaarden voor je kunt overschrijven naar deze persoon.</string>
   <string name="CanNotSendPaymentDialog__send_a_message">Een bericht verzenden</string>
+  <!--GroupsInCommonMessageRequest-->
+  <string name="GroupsInCommonMessageRequest__you_have_no_groups_in_common_with_this_person">Je hebt geen gemeenschappelijke groep met deze persoon. Overweeg zorgvuldig of je dit gespreksverzoek wilt accepteren om ongewenste berichten te vermijden.</string>
+  <string name="GroupsInCommonMessageRequest__none_of_your_contacts_or_people_you_chat_with_are_in_this_group">Er zijn geen leden met wie je al een gesprek voert in deze groep. Overweeg zorgvuldig of je deze groepsuitnodiging wilt accepteren om ongewenste berichten te vermijden.</string>
+  <string name="GroupsInCommonMessageRequest__about_message_requests">Over gespreksverzoeken</string>
+  <string name="GroupsInCommonMessageRequest__okay">Oké</string>
   <!--EOF-->
 </resources>

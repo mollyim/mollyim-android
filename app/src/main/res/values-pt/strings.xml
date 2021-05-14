@@ -17,7 +17,7 @@
   <string name="ApplicationPreferencesActivity_disable_passphrase">Desativar frase-chave?</string>
   <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Isto irá desbloquear permanentemente o Molly e as notificações de mensagens.</string>
   <string name="ApplicationPreferencesActivity_disable">Desativar</string>
-  <string name="ApplicationPreferencesActivity_unregistering">A eliminar o registo…</string>
+  <string name="ApplicationPreferencesActivity_unregistering">A eliminar o registo...</string>
   <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">A eliminar o registo do serviço de mensagens e chamadas do Molly…</string>
   <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Desativar as mensagens e chamadas do Molly?</string>
   <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Desative as mensagens e chamadas do Molly eliminando o seu registo do servidor. Será necessário registar novamente o seu número de telefone caso as pretenda utilizar novamente no futuro.</string>
@@ -70,7 +70,7 @@
   <string name="AttachmentUploadJob_uploading_media">A carregar multimédia…</string>
   <string name="AttachmentUploadJob_compressing_video_start">A comprimir vídeo…</string>
   <!--BackgroundMessageRetriever-->
-  <string name="BackgroundMessageRetriever_checking_for_messages">A procurar por mensagens…</string>
+  <string name="BackgroundMessageRetriever_checking_for_messages">A procurar por mensagens...</string>
   <!--BlockedUsersActivity-->
   <string name="BlockedUsersActivity__blocked_users">Utilizadores bloqueados</string>
   <string name="BlockedUsersActivity__add_blocked_user">Adicionar utilizador bloqueado</string>
@@ -169,6 +169,7 @@
   <string name="ConversationItem_error_network_not_delivered">Falha no envio</string>
   <string name="ConversationItem_received_key_exchange_message_tap_to_process">Foi recebida uma mensagem para troca de chaves, toque para processar.</string>
   <string name="ConversationItem_group_action_left">%1$s abandonou o grupo.</string>
+  <string name="ConversationItem_send_paused">Envio em pausa</string>
   <string name="ConversationItem_click_to_approve_unencrypted">Falha ao enviar, toque para enviar pelo modo inseguro</string>
   <string name="ConversationItem_click_to_approve_unencrypted_sms_dialog_title">Recorrer a SMS não encriptado?</string>
   <string name="ConversationItem_click_to_approve_unencrypted_mms_dialog_title">Recorrer a MMS não encriptado?</string>
@@ -351,8 +352,8 @@
   <string name="BackupsPreferenceFragment__turn_off">Desativar</string>
   <string name="BackupsPreferenceFragment__to_restore_a_backup">Para poder restaurar uma cópia de segurança, instale uma nova cópia do Molly. Abra a aplicação e toque em \"Restaurar cópia de segurança\", aqui localize o ficheiro com a cópia de segurança. %1$s</string>
   <string name="BackupsPreferenceFragment__learn_more">Saber mais</string>
-  <string name="BackupsPreferenceFragment__in_progress">Em progresso…</string>
-  <string name="BackupsPreferenceFragment__d_so_far">%1$d até ao momento…</string>
+  <string name="BackupsPreferenceFragment__in_progress">Em progresso...</string>
+  <string name="BackupsPreferenceFragment__d_so_far">%1$d até ao momento...</string>
   <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">O Molly requer permissão de acesso ao armazenamento externo para criar cópias de segurança, mas esta foi negada permanentemente. Por favor, aceda às definições das aplicações do seu telemóvel, selecione a aplicação Molly e nas \"Permissões\" ative \"Armazenamento\".</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Usar a opção personalizada: %s</string>
@@ -389,8 +390,8 @@
   <!--DocumentView-->
   <string name="DocumentView_unnamed_file">Ficheiro sem nome</string>
   <!--DonateMegaphone-->
-  <string name="DonateMegaphone_donate_to_signal">Doar ao Molly</string>
-  <string name="DonateMegaphone_Signal_is_powered_by_people_like_you_show_your_support_today">O Molly é feito por pessoas como você. Mostre mesmo hoje o seu apoio!</string>
+  <string name="DonateMegaphone_donate_to_signal">Doar ao Signal</string>
+  <string name="DonateMegaphone_Signal_is_powered_by_people_like_you_show_your_support_today">O Signal é feito por pessoas como você. Mostre mesmo hoje o seu apoio!</string>
   <string name="DonateMegaphone_donate">Doar</string>
   <string name="DonateMegaphone_no_thanks">Não, obrigado</string>
   <!--GroupCallingMegaphone-->
@@ -758,7 +759,7 @@
   <string name="InviteActivity_share_with_contacts">Partilhar com os contactos</string>
   <string name="InviteActivity_choose_how_to_share">Escolha como partilhar</string>
   <string name="InviteActivity_cancel">Cancelar</string>
-  <string name="InviteActivity_sending">A enviar…</string>
+  <string name="InviteActivity_sending">A enviar...</string>
   <string name="InviteActivity_invitations_sent">Convites enviados!</string>
   <string name="InviteActivity_invite_to_signal">Convidar para o Molly</string>
   <plurals name="InviteActivity_send_sms_to_friends">
@@ -1064,6 +1065,7 @@
   <string name="MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Deseja juntar-se a este grupo e partilhar o seu nome e fotografia com os seus membros? Eles não sabem que viu as mensagens deles até que aceite.</string>
   <string name="MessageRequestBottomView_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Juntar-se a este grupo? Eles não saberão que viu as mensagens deles até que aceite o convite.</string>
   <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">Deseja desbloquear este grupo e partilhar o seu nome e fotografia com os seus membros? Você não receberá nenhuma mensagem até que o desbloqueie.</string>
+  <string name="MessageRequestProfileView_view">Ver</string>
   <string name="MessageRequestProfileView_member_of_one_group">Membro de %1$s</string>
   <string name="MessageRequestProfileView_member_of_two_groups">Membro de %1$s e %2$s</string>
   <string name="MessageRequestProfileView_member_of_many_groups">Membro de %1$s, %2$s e %3$s</string>
@@ -1163,15 +1165,19 @@
   <string name="ReactionsConversationView_plus">+%1$d</string>
   <!--ReactionsRecipientAdapter-->
   <string name="ReactionsRecipientAdapter_you">Você</string>
+  <!--RecaptchaRequiredBottomSheetFragment-->
+  <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">Verifique para continuar a conversar</string>
+  <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Para ajudar a prevenir o spam no Molly, termine a verificação.</string>
+  <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">Depois de verificar, pode continuar a conversar. Todas as mensagens em pausa serão enviadas.</string>
   <!--RecipientPreferencesActivity-->
   <string name="RecipientPreferenceActivity_block">Bloquear</string>
   <string name="RecipientPreferenceActivity_unblock">Desbloquear</string>
   <!--RecipientProvider-->
   <string name="RecipientProvider_unnamed_group">Grupo sem nome</string>
   <!--RedPhone-->
-  <string name="RedPhone_answering">A atender…</string>
-  <string name="RedPhone_ending_call">A terminar chamada…</string>
-  <string name="RedPhone_ringing">A tocar…</string>
+  <string name="RedPhone_answering">A atender...</string>
+  <string name="RedPhone_ending_call">A terminar chamada...</string>
+  <string name="RedPhone_ringing">A tocar...</string>
   <string name="RedPhone_busy">Ocupado</string>
   <string name="RedPhone_recipient_unavailable">Destinatário indisponível</string>
   <string name="RedPhone_network_failed">Falha de rede!</string>
@@ -1182,10 +1188,10 @@
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Toque aqui para ativar a sua câmara</string>
   <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Para telefonar a %1$s, o Molly necessita de aceder à sua câmara</string>
   <string name="WebRtcCallActivity__signal_s">Chamada Molly %1$s</string>
-  <string name="WebRtcCallActivity__calling">A chamar…</string>
+  <string name="WebRtcCallActivity__calling">A chamar...</string>
   <!--WebRtcCallView-->
-  <string name="WebRtcCallView__signal_voice_call">Chamada de voz do Signal…</string>
-  <string name="WebRtcCallView__signal_video_call">Chamada de vídeo do Signal…</string>
+  <string name="WebRtcCallView__signal_voice_call">Chamada de voz do Signal...</string>
+  <string name="WebRtcCallView__signal_video_call">Chamada de vídeo do Signal...</string>
   <string name="WebRtcCallView__start_call">Iniciar chamada</string>
   <string name="WebRtcCallView__join_call">Entrar na chamada</string>
   <string name="WebRtcCallView__call_is_full">A chamada encontra-se cheia</string>
@@ -1193,8 +1199,8 @@
   <string name="WebRtcCallView__s_group_call">\"%1$s\"  - Chamada de grupo</string>
   <string name="WebRtcCallView__view_participants_list">Ver participantes</string>
   <string name="WebRtcCallView__your_video_is_off">O seu vídeo encontra-se desligado</string>
-  <string name="WebRtcCallView__reconnecting">A ligar novamente…</string>
-  <string name="WebRtcCallView__joining">A entrar…</string>
+  <string name="WebRtcCallView__reconnecting">A ligar novamente...</string>
+  <string name="WebRtcCallView__joining">A entrar...</string>
   <string name="WebRtcCallView__disconnected">Desligado</string>
   <string name="WebRtcCallView__no_one_else_is_here">Não se encontra mais ninguém aqui</string>
   <string name="WebRtcCallView__s_is_in_this_call">%1$s está nesta chamada</string>
@@ -1221,6 +1227,9 @@
   <string name="ProxyBottomSheetFragment_do_you_want_to_use_this_proxy_address">Deseja utilizar este endereço de proxy?</string>
   <string name="ProxyBottomSheetFragment_use_proxy">Utilizar proxy</string>
   <string name="ProxyBottomSheetFragment_successfully_connected_to_proxy">Ligado com sucesso ao proxy.</string>
+  <!--RecaptchaProofActivity-->
+  <string name="RecaptchaProofActivity_failed_to_submit">Falha ao submeter</string>
+  <string name="RecaptchaProofActivity_complete_verification">Verificação completa</string>
   <!--RegistrationActivity-->
   <string name="RegistrationActivity_select_your_country">Escolha o seu país</string>
   <string name="RegistrationActivity_you_must_specify_your_country_code">Deverá escolher o seu
@@ -1452,6 +1461,8 @@
   <string name="MessageNotifier_message_delivery_failed">Falha na entrega de mensagem.</string>
   <string name="MessageNotifier_failed_to_deliver_message">Falha na entrega da mensagem.</string>
   <string name="MessageNotifier_error_delivering_message">Erro ao entregar a mensagem.</string>
+  <string name="MessageNotifier_message_delivery_paused">Entrega de mensagens em pausa.</string>
+  <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Verifique para continuar a conversar no Molly.</string>
   <string name="MessageNotifier_mark_all_as_read">Marcar tudo como lido</string>
   <string name="MessageNotifier_mark_read">Marcar como lida</string>
   <string name="MessageNotifier_turn_off_these_notifications">Desativar estas notificações</string>
@@ -1502,6 +1513,7 @@
   <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Nova mensagem</string>
   <string name="SingleRecipientNotificationBuilder_message_request">Pedido de mensagem</string>
+  <string name="SingleRecipientNotificationBuilder_you">Você</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">Reproduzir vídeo</string>
   <string name="ThumbnailView_Has_a_caption_description">Tem uma legenda</string>
@@ -1608,6 +1620,8 @@
   <string name="ConversationUpdateItem_call_is_full">A chamada encontra-se completa</string>
   <string name="ConversationUpdateItem_invite_friends">Convidar amigos</string>
   <string name="ConversationUpdateItem_enable_call_notifications">Activar notificações de chamadas</string>
+  <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">Sem grupos em comum. Reveja os pedidos com cuidado.</string>
+  <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">Sem contactos neste grupo. Reveja os pedidos com cuidado.</string>
   <!--audio_view-->
   <string name="audio_view__play_pause_accessibility_description">Play … Pausa</string>
   <string name="audio_view__download_accessibility_description">Download</string>
@@ -1697,7 +1711,7 @@
     <item quantity="other">%d outros</item>
   </plurals>
   <!--giphy_activity-->
-  <string name="giphy_activity_toolbar__search_gifs_and_stickers">Pesquisar GIFs e autocolantes</string>
+  <string name="giphy_activity_toolbar__search_gifs">Pesquisar GIFs</string>
   <!--giphy_fragment-->
   <string name="giphy_fragment__nothing_found">Não foi encontrado nada</string>
   <!--log_submit_activity-->
@@ -1737,7 +1751,7 @@
   <string name="CreateProfileActivity_custom_mms_group_names_and_photos_will_only_be_visible_to_you">Nome personalizados de grupos MMS e fotografias apenas serão visíveis para si.</string>
   <!--EditAboutFragment-->
   <string name="EditAboutFragment_about">Acerca</string>
-  <string name="EditAboutFragment_write_a_few_words_about_yourself">Escreva algumas palavras acerca de si…</string>
+  <string name="EditAboutFragment_write_a_few_words_about_yourself">Escreva algumas palavras acerca de si...</string>
   <string name="EditAboutFragment_count">%1$d/%2$d</string>
   <string name="EditAboutFragment_speak_freely">Fale à vontade</string>
   <string name="EditAboutFragment_encrypted">Encriptado(a)</string>
@@ -1762,7 +1776,7 @@
   <!--verify_display_fragment-->
   <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Se pretende verificar a segurança da sua encriptação ponta-a-ponta com o contacto %s, compare o número acima com o equivalente no dispositivo do seu contacto. Em alternativa, poderá fazer a digitalização do código QR exibido no outro dispositivo ou pedir que façam digitalização do seu código. <a href="https://signal.org/redirect/safety-numbers">Saber mais</a>]]></string>
   <string name="verify_display_fragment__tap_to_scan">Toque para ler</string>
-  <string name="verify_display_fragment__loading">A carregar…</string>
+  <string name="verify_display_fragment__loading">A carregar...</string>
   <string name="verify_display_fragment__verified">Verificado</string>
   <!--verify_identity-->
   <string name="verify_identity__share_safety_number">Partilhar número de segurança</string>
@@ -1917,7 +1931,7 @@
   <string name="preferences__slow">Lento</string>
   <string name="preferences__help">Ajuda</string>
   <string name="preferences__advanced">Avançado</string>
-  <string name="preferences__donate_to_signal">Doar ao Molly</string>
+  <string name="preferences__donate_to_signal">Doar ao Signal</string>
   <string name="preferences__privacy">Privacidade</string>
   <string name="preferences__mms_user_agent">Agente do utilizador de MMS</string>
   <string name="preferences__advanced_mms_access_point_names">Definições manuais de MMS</string>
@@ -1991,7 +2005,7 @@
   <string name="preferences_advanced__disable_signal_built_in_emoji_support">Desativar o suporte de emojis próprios do Signal</string>
   <string name="preferences_advanced__relay_all_calls_through_the_signal_server_to_avoid_revealing_your_ip_address">Passar todas as chamadas pelo servidor do Signal para evitar revelar o seu endereço IP ao destinatário. Ativar esta opção irá reduzir a qualidade da chamada.</string>
   <string name="preferences_advanced__always_relay_calls">Retransmitir todas as chamadas</string>
-  <string name="preferences_app_protection__who_can">Quem pode…</string>
+  <string name="preferences_app_protection__who_can">Quem pode...</string>
   <string name="preferences_app_protection__app_access">Acesso da aplicação</string>
   <string name="preferences_app_protection__communication">Comunicação</string>
   <string name="preferences_chats__chats">Conversas</string>
@@ -2028,7 +2042,7 @@
   <string name="preferences_only_use_a_proxy_if">Apenas utilize um proxy se você não conseguir ligar-se ao Signal através dos dados móveis ou Wi-Fi. </string>
   <string name="preferences_share">Partilhar</string>
   <string name="preferences_save">Guardar</string>
-  <string name="preferences_connecting_to_proxy">A ligar ao proxy…</string>
+  <string name="preferences_connecting_to_proxy">A ligar ao proxy...</string>
   <string name="preferences_connected_to_proxy">Ligado ao proxy</string>
   <string name="preferences_connection_failed">Falha de ligação</string>
   <string name="preferences_couldnt_connect_to_the_proxy">Não é possível ligar ao proxy. Consulte o endereço de proxy e tente novamente.</string>
@@ -2046,7 +2060,7 @@
   <string name="PaymentsHomeFragment__introducing_payments">Introdução aos pagamentos (Beta)</string>
   <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Utilize o Molly para enviar e receber MobileCoin, uma nova privacidade focada na moeda digital. Ative para começar a utilizar.</string>
   <string name="PaymentsHomeFragment__activate_payments">Ativar os pagamentos</string>
-  <string name="PaymentsHomeFragment__activating_payments">A ativar pagamentos…</string>
+  <string name="PaymentsHomeFragment__activating_payments">A ativar pagamentos...</string>
   <string name="PaymentsHomeFragment__restore_payments_account">Restaurar a conta de pagamentos</string>
   <string name="PaymentsHomeFragment__no_recent_activity_yet">Ainda sem atividade recente</string>
   <string name="PaymentsHomeFragment__pending_requests">Pedidos pendentes</string>
@@ -2091,8 +2105,8 @@
   <!--PaymentsDetailsFragment-->
   <string name="PaymentsDetailsFragment__details">Detalhes</string>
   <string name="PaymentsDetailsFragment__status">Estado</string>
-  <string name="PaymentsDetailsFragment__submitting_payment">A submeter pagamento…</string>
-  <string name="PaymentsDetailsFragment__processing_payment">A processar pagamento…</string>
+  <string name="PaymentsDetailsFragment__submitting_payment">A submeter pagamento...</string>
+  <string name="PaymentsDetailsFragment__processing_payment">A processar pagamento...</string>
   <string name="PaymentsDetailsFragment__payment_complete">Pagamento concluido</string>
   <string name="PaymentsDetailsFragment__payment_failed">Falha de pagamento</string>
   <string name="PaymentsDetailsFragment__network_fee">Taxa de rede</string>
@@ -2156,8 +2170,8 @@
   <string name="ConfirmPayment__to">Para</string>
   <string name="ConfirmPayment__total_amount">Montante total</string>
   <string name="ConfirmPayment__balance_s">Saldo: %1$s</string>
-  <string name="ConfirmPayment__submitting_payment">A submeter pagamento…</string>
-  <string name="ConfirmPayment__processing_payment">A processar pagamento…</string>
+  <string name="ConfirmPayment__submitting_payment">A submeter pagamento...</string>
+  <string name="ConfirmPayment__processing_payment">A processar pagamento...</string>
   <string name="ConfirmPayment__payment_complete">Pagamento concluido</string>
   <string name="ConfirmPayment__payment_failed">Falha de pagamento</string>
   <string name="ConfirmPayment__payment_will_continue_processing">O pagamento irá continuar a ser processado</string>
@@ -2316,7 +2330,7 @@
   <string name="ConfirmKbsPinFragment__your_pin_was_not_saved">O seu PIN não foi guardado. Iremos pedir-lhe para criar o PIN mais tarde.</string>
   <string name="ConfirmKbsPinFragment__pin_created">PIN criado.</string>
   <string name="ConfirmKbsPinFragment__re_enter_your_pin">Reintroduza o seu PIN</string>
-  <string name="ConfirmKbsPinFragment__creating_pin">A criar PIN…</string>
+  <string name="ConfirmKbsPinFragment__creating_pin">A criar PIN...</string>
   <!--KbsSplashFragment-->
   <string name="KbsSplashFragment__introducing_pins">Introdução aos PINs</string>
   <string name="KbsSplashFragment__pins_keep_information_stored_with_signal_encrypted">Os PINs mantém encriptada a informação guardada no Signal de forma a que apenas você lhe possa aceder. O seu perfil, definições e contactos serão restaurados quando reinstalar o Signal. Não necessita do seu PIN para abrir a aplicação.</string>
@@ -2389,8 +2403,8 @@
   <string name="ResearchMegaphoneDialog_the_survey_is_hosted_by_alchemer_at_the_secure_domain">O inquérito tem o host da Alchemer no domínio seguro surveys.signalusers.org</string>
   <!--transport_selection_list_item-->
   <string name="transport_selection_list_item__transport_icon">Ícone de transporte</string>
-  <string name="ConversationListFragment_loading">A carregar…</string>
-  <string name="CallNotificationBuilder_connecting">A ligar…</string>
+  <string name="ConversationListFragment_loading">A carregar...</string>
+  <string name="CallNotificationBuilder_connecting">A ligar...</string>
   <string name="Permissions_permission_required">Permissão necessária</string>
   <string name="ConversationActivity_signal_needs_sms_permission_in_order_to_send_an_sms">O Signal requer permissão de acesso a SMS para enviar uma mensagem SMS, mas esta foi negada permanentemente. Por favor, aceda às definições das aplicações do seu telemóvel, selecione a aplicação Signal e, nas \"Permissões\" ative \"SMS\".</string>
   <string name="Permissions_continue">Continuar</string>
@@ -2503,9 +2517,9 @@
   <string name="NewDeviceTransferInstructions__third_bullet">3.</string>
   <string name="NewDeviceTransferInstructions__tap_transfer_account_and_then_continue_on_both_devices">Toque em \'Transferir conta\' e depois em \'Continuar\' em ambos os dispositivos</string>
   <!--NewDeviceTransferSetupFragment-->
-  <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">A preparar para ligar para um dispositivo Android antigo…</string>
+  <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">A preparar para ligar para um dispositivo Android antigo...</string>
   <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">Aguarde um momento, deverá estar pronto muito em breve</string>
-  <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">A aguardar pelo dispositivo Android antigo para ligar…</string>
+  <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">A aguardar pelo dispositivo Android antigo para ligar...</string>
   <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">O Molly necessita da permissão de localização para poder encontrar e depois ligar-se ao seu dispositivo Android antigo.</string>
   <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">O Molly necessita que os serviços de localização se encontrem ativos para poder encontrar e depois ligar-se ao seu dispositivo Android antigo.</string>
   <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">O Molly necessita de Wi-Fi para poder descobrir e ligar-se ao seu dispositivo Android antigo. O Wi-Fi precisa estar ligado, mas não precisa estar ligado a uma rede Wi-Fi.</string>
@@ -2513,7 +2527,7 @@
   <string name="NewDeviceTransferSetup__restore_a_backup">Restaurar uma cópia de segurança</string>
   <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Ocorreu um erro inesperado ao tentar ligar ao seu dispositivo Android antigo.</string>
   <!--OldDeviceTransferSetupFragment-->
-  <string name="OldDeviceTransferSetup__searching_for_new_android_device">A pesquisar por um dispositivo Android novo…</string>
+  <string name="OldDeviceTransferSetup__searching_for_new_android_device">A pesquisar por um dispositivo Android novo...</string>
   <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">O Molly necessita da permissão de localização para poder encontrar e depois ligar-se ao seu dispositivo Android novo.</string>
   <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">O Molly necessita que os serviços de localização se encontrem ativos para poder encontrar e depois ligar-se ao seu dispositivo Android novo.</string>
   <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">O Molly necessita de Wi-Fi para poder descobrir e ligar-se ao seu dispositivo Android novo. O Wi-Fi precisa estar ligado, mas não precisa estar ligado a uma rede Wi-Fi.</string>
@@ -2550,13 +2564,13 @@
   <string name="DeviceTransferSetup__try_again">Tentar novamente</string>
   <string name="DeviceTransferSetup__waiting_for_other_device">A aguardar por outro dispositivo</string>
   <string name="DeviceTransferSetup__tap_continue_on_your_other_device_to_start_the_transfer">Toque em \'Continuar\' no seu outro dispositivo para iniciar a transferência.</string>
-  <string name="DeviceTransferSetup__tap_continue_on_your_other_device">Toque em \'Continuar\' no seu outro dispositivo…</string>
+  <string name="DeviceTransferSetup__tap_continue_on_your_other_device">Toque em \'Continuar\' no seu outro dispositivo...</string>
   <!--NewDeviceTransferFragment-->
   <string name="NewDeviceTransfer__cannot_transfer_from_a_newer_version_of_signal">Não é possível transferir a partir de versões mais recentes do Signal</string>
   <!--DeviceTransferFragment-->
   <string name="DeviceTransfer__transferring_data">A transferir dados</string>
   <string name="DeviceTransfer__keep_both_devices_near_each_other">Mantenha ambos o dispositivos próximos um do outro. Não desligue os dispositivos e mantenha o Molly aberto. As transferÊncia são encriptadas ponta-a-ponta.</string>
-  <string name="DeviceTransfer__d_messages_so_far">%1$d mensagens até ao momento…</string>
+  <string name="DeviceTransfer__d_messages_so_far">%1$d mensagens até ao momento...</string>
   <string name="DeviceTransfer__cancel">Cancelar</string>
   <string name="DeviceTransfer__try_again">Tentar novamente</string>
   <string name="DeviceTransfer__stop_transfer_question">Parar transferência?</string>
@@ -2586,12 +2600,12 @@
   <string name="NewDeviceTransferComplete__continue_registration">Continuar registo</string>
   <!--DeviceToDeviceTransferService-->
   <string name="DeviceToDeviceTransferService_content_title">Transferir conta</string>
-  <string name="DeviceToDeviceTransferService_status_ready">A preparar para se ligar ao seu outro dispositivo Android…</string>
-  <string name="DeviceToDeviceTransferService_status_starting_up">A preparar para se ligar ao seu outro dispositivo Android…</string>
-  <string name="DeviceToDeviceTransferService_status_discovery">A procurar o seu outro dispositivo Android…</string>
-  <string name="DeviceToDeviceTransferService_status_network_connected">A ligar ao seu outro dispositivo Android…</string>
+  <string name="DeviceToDeviceTransferService_status_ready">A preparar para se ligar ao seu outro dispositivo Android...</string>
+  <string name="DeviceToDeviceTransferService_status_starting_up">A preparar para se ligar ao seu outro dispositivo Android...</string>
+  <string name="DeviceToDeviceTransferService_status_discovery">A procurar o seu outro dispositivo Android...</string>
+  <string name="DeviceToDeviceTransferService_status_network_connected">A ligar ao seu outro dispositivo Android...</string>
   <string name="DeviceToDeviceTransferService_status_verification_required">Necessária verificação</string>
-  <string name="DeviceToDeviceTransferService_status_service_connected">A transferir conta…</string>
+  <string name="DeviceToDeviceTransferService_status_service_connected">A transferir conta...</string>
   <!--OldDeviceTransferLockedDialog-->
   <string name="OldDeviceTransferLockedDialog__complete_registration_on_your_new_device">Termine o registo no seu dispositivo novo</string>
   <string name="OldDeviceTransferLockedDialog__your_signal_account_has_been_transferred_to_your_new_device">A sua conta do Signal foi transferida para o seu novo dispositivo, mas você deverá concluir o seu registo para continuar. O Signal ficará inativo neste dispositivo. </string>
@@ -2827,5 +2841,10 @@
   <string name="CanNotSendPaymentDialog__cant_send_payment">Não é possível enviar o pagamento</string>
   <string name="CanNotSendPaymentDialog__to_send_a_payment_to_this_user">Para enviar um pagamento para este utilizador, ele precisa de aceitar uma mensagem sua de pedido. Envie-lhe uma mensagem para criar um pedido de mensagem.</string>
   <string name="CanNotSendPaymentDialog__send_a_message">Enviar uma mensagem</string>
+  <!--GroupsInCommonMessageRequest-->
+  <string name="GroupsInCommonMessageRequest__you_have_no_groups_in_common_with_this_person">Não tem grupos em comum com esta pessoa. Reveja os pedidos com cuidado antes de aceitar para evitar mensagens indesejadas.</string>
+  <string name="GroupsInCommonMessageRequest__none_of_your_contacts_or_people_you_chat_with_are_in_this_group">Nenhum dos seus contactos ou pessoas com quem conversa estão neste grupo. Reveja os pedidos com cuidado antes de os aceitar para evitar mensagens indesejáveis.</string>
+  <string name="GroupsInCommonMessageRequest__about_message_requests">Acerca dos pedidos de mensagem</string>
+  <string name="GroupsInCommonMessageRequest__okay">Ok</string>
   <!--EOF-->
 </resources>

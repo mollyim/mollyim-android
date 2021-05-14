@@ -423,6 +423,10 @@ public abstract class MessageRecord extends DisplayRecord {
     return SmsDatabase.Types.isContentBundleKeyExchange(type);
   }
 
+  public boolean isRateLimited() {
+    return SmsDatabase.Types.isRateLimited(type);
+  }
+
   public boolean isIdentityUpdate() {
     return SmsDatabase.Types.isIdentityUpdate(type);
   }
@@ -487,6 +491,10 @@ public abstract class MessageRecord extends DisplayRecord {
 
   public boolean isFailedDecryptionType() {
     return MmsSmsColumns.Types.isFailedDecryptType(type);
+  }
+
+  public boolean isInMemoryMessageRecord() {
+    return false;
   }
 
   protected static SpannableString emphasisAdded(String sequence) {

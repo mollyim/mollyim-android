@@ -38,6 +38,7 @@
   <string name="ApplicationPreferencesActivity_pin_disabled">Tunnusluku poistettu käytöstä.</string>
   <string name="ApplicationPreferencesActivity_hide">Piilota</string>
   <string name="ApplicationPreferencesActivity_hide_reminder">Piilotetaanko muistutus?</string>
+  <string name="ApplicationPreferencesActivity_before_you_can_disable_your_pin">Ennen tunnusluvun ottamista pois käytöstä ota ylös palautuslause, joka tarvitaan tilin palauttamiseen.</string>
   <!--AppProtectionPreferenceFragment-->
   <plurals name="AppProtectionPreferenceFragment_minutes">
     <item quantity="one">%d minuutti</item>
@@ -57,6 +58,7 @@
   <string name="AttachmentKeyboard_location">Sijainti</string>
   <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Molly tarvitsee käyttöoikeutta kuvien ja videoiden näyttämistä varten.</string>
   <string name="AttachmentKeyboard_give_access">Myönnä käyttöoikeus</string>
+  <string name="AttachmentKeyboard_payment">Maksu</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">Median valintaan ei löytynyt sovellusta.</string>
   <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly tarvitsee lupaa käyttää laitteesi tallennustilaa kuvien, videoiden tai äänitiedostojen liittämistä varten, mutta tämä käyttöoikeus on pysyvästi evätty Mollyilta. Voit muuttaa tätä menemällä sovellusten asetuksiin, valitsemalla \"Sovelluksen käyttöoikeudet\" ja laittamalla päälle \"Tallennustila\".</string>
@@ -326,7 +328,7 @@
   <string name="CreateProfileActivity_set_avatar_description">Aseta kuvake</string>
   <!--ChooseBackupFragment-->
   <string name="ChooseBackupFragment__restore_from_backup">Palautetaanko varmuuskopiosta?</string>
-  <string name="ChooseBackupFragment__restore_your_messages_and_media">Palauta viestisi ja mediasi paikallisesta varmuuskopiostasi. Jos et palauta niitä nyt, et voi palauttaa niitä enää myöhemmin.</string>
+  <string name="ChooseBackupFragment__restore_your_messages_and_media">Palauta viestit ja mediasisältö laitteeseen tallennetusta varmuuskopiosta. Palauttaminen ei ole mahdollista myöhemmin.</string>
   <string name="ChooseBackupFragment__icon_content_description">Palauta varmuuskopio -kuvake</string>
   <string name="ChooseBackupFragment__choose_backup">Valitse varmuuskopio</string>
   <string name="ChooseBackupFragment__learn_more">Lue lisää</string>
@@ -337,15 +339,15 @@
   <string name="RestoreBackupFragment__not_now">Ei nyt</string>
   <!--BackupsPreferenceFragment-->
   <string name="BackupsPreferenceFragment__chat_backups">Keskustelujen varmuuskopiot</string>
-  <string name="BackupsPreferenceFragment__backups_are_encrypted_with_a_passphrase">Varmuuskopiot salataan tunnuslauseella ja tallennetaan laitteellesi.</string>
+  <string name="BackupsPreferenceFragment__backups_are_encrypted_with_a_passphrase">Varmuuskopio salataan salalauseella ja tallennetaan laitteeseen.</string>
   <string name="BackupsPreferenceFragment__create_backup">Luo varmuuskopio</string>
   <string name="BackupsPreferenceFragment__last_backup">Varmuuskopioitu viimeksi: %1$s</string>
   <string name="BackupsPreferenceFragment__backup_folder">Varmuuskopiokansio</string>
   <string name="BackupsPreferenceFragment__verify_backup_passphrase">Varmenna varmuuskopion salalause</string>
-  <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Tarkista varmuuskopiosi salalause ja varmista että se täsmää</string>
+  <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Tarkista varmuuskopion salalause ja varmista että se täsmää</string>
   <string name="BackupsPreferenceFragment__turn_on">Ota käyttöön</string>
   <string name="BackupsPreferenceFragment__turn_off">Poista käytöstä</string>
-  <string name="BackupsPreferenceFragment__to_restore_a_backup">Palauta varmuuskopio asentamalla uusi Mollyin kopio. Avaa sovellus, napauta \"Palauta varmuuskopio\" ja etsi sitten varmuuskopiotiedosto. %1$s</string>
+  <string name="BackupsPreferenceFragment__to_restore_a_backup">Palauta varmuuskopio asentamalla Molly uudelleen tai uuteen laitteeseen. Avaa sovellus, napauta Palauta varmuuskopio ja etsi sitten varmuuskopiotiedosto. %1$s</string>
   <string name="BackupsPreferenceFragment__learn_more">Lue lisää</string>
   <string name="BackupsPreferenceFragment__in_progress">Käsitellään…</string>
   <string name="BackupsPreferenceFragment__d_so_far">%1$d tähän mennessä…</string>
@@ -385,8 +387,8 @@
   <!--DocumentView-->
   <string name="DocumentView_unnamed_file">Nimeämätön tiedosto</string>
   <!--DonateMegaphone-->
-  <string name="DonateMegaphone_donate_to_signal">Lahjoita Mollyille</string>
-  <string name="DonateMegaphone_Signal_is_powered_by_people_like_you_show_your_support_today">Mollyia kehittävät kaltaisesi ihmiset. Näytä taitosi tänään!</string>
+  <string name="DonateMegaphone_donate_to_signal">Lahjoita Signalille</string>
+  <string name="DonateMegaphone_Signal_is_powered_by_people_like_you_show_your_support_today">Signalia kehittävät kaltaisesi ihmiset. Näytä taitosi tänään!</string>
   <string name="DonateMegaphone_donate">Lahjoita</string>
   <string name="DonateMegaphone_no_thanks">Ei kiitos</string>
   <!--GroupCallingMegaphone-->
@@ -1060,6 +1062,7 @@
   <string name="MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Liitytäänkö tähän ryhmään ja näytetäänkö nimesi ja profiilikuvasi sen jäsenille? He eivät tiedä että olet nähnyt heidän viestinsä ennen hyväksymistä.</string>
   <string name="MessageRequestBottomView_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Haluatko liittyä tähän ryhmään? He eivät tiedä, että olet nähnyt heidän viestinsä ennen hyväksymistä.</string>
   <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">Poistetaanko tämän ryhmän esto ja näytetäänkö nimesi ja profiilikuvasi sen jäsenille? Et saa viestejä ennen eston poistamista.</string>
+  <string name="MessageRequestProfileView_view">Näytä</string>
   <string name="MessageRequestProfileView_member_of_one_group">Jäsen ryhmässä %1$s</string>
   <string name="MessageRequestProfileView_member_of_two_groups">Jäsen ryhmissä %1$s ja %2$s</string>
   <string name="MessageRequestProfileView_member_of_many_groups">Jäsen ryhmissä %1$s, %2$s ja %3$s</string>
@@ -1159,6 +1162,7 @@
   <string name="ReactionsConversationView_plus">+%1$d</string>
   <!--ReactionsRecipientAdapter-->
   <string name="ReactionsRecipientAdapter_you">Sinä</string>
+  <!--RecaptchaRequiredBottomSheetFragment-->
   <!--RecipientPreferencesActivity-->
   <string name="RecipientPreferenceActivity_block">Estä</string>
   <string name="RecipientPreferenceActivity_unblock">Poista esto</string>
@@ -1217,6 +1221,7 @@
   <string name="ProxyBottomSheetFragment_do_you_want_to_use_this_proxy_address">Haluatko käyttää tätä proxyn osoitetta?</string>
   <string name="ProxyBottomSheetFragment_use_proxy">Käytä proxyä</string>
   <string name="ProxyBottomSheetFragment_successfully_connected_to_proxy">Yhteyden muodostaminen proxyyn onnistui.</string>
+  <!--RecaptchaProofActivity-->
   <!--RegistrationActivity-->
   <string name="RegistrationActivity_select_your_country">Valitse maasi</string>
   <string name="RegistrationActivity_you_must_specify_your_country_code">Suuntanumero täytyy
@@ -1492,6 +1497,8 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <!--SingleRecipientNotificationBuilder-->
   <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Uusi viesti</string>
+  <string name="SingleRecipientNotificationBuilder_message_request">Viestipyyntö</string>
+  <string name="SingleRecipientNotificationBuilder_you">Sinä</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">Toista video</string>
   <string name="ThumbnailView_Has_a_caption_description">Sisältää kuvatekstin</string>
@@ -1598,6 +1605,8 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <string name="ConversationUpdateItem_call_is_full">Puhelu on täynnä</string>
   <string name="ConversationUpdateItem_invite_friends">Kutsu ystäviä</string>
   <string name="ConversationUpdateItem_enable_call_notifications">Näytä ilmoitukset puheluista</string>
+  <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">Ei yhteisiä ryhmiä. Tarkista pyynnöt huolellisesti.</string>
+  <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">Ei kontakteja tässä ryhmässä. Tarkista pyynnöt huolellisesti.</string>
   <!--audio_view-->
   <string name="audio_view__play_pause_accessibility_description">Soita … Keskeytä</string>
   <string name="audio_view__download_accessibility_description">Lataa</string>
@@ -1687,7 +1696,7 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
     <item quantity="other">%d muuta</item>
   </plurals>
   <!--giphy_activity-->
-  <string name="giphy_activity_toolbar__search_gifs_and_stickers">Etsi GIF:ejä ja tarroja</string>
+  <string name="giphy_activity_toolbar__search_gifs">Etsi GIFfejä</string>
   <!--giphy_fragment-->
   <string name="giphy_fragment__nothing_found">Ei hakutuloksia</string>
   <!--log_submit_activity-->
@@ -1867,7 +1876,7 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <string name="preferences__enable_passphrase">Ota käyttöön näytön lukitus salalauseella</string>
   <string name="preferences__lock_signal_and_message_notifications_with_a_passphrase">Lukitse näyttö ja ilmoitukset salalauseella</string>
   <string name="preferences__screen_security">Näytön suojaus</string>
-  <string name="preferences__disable_screen_security_to_allow_screen_shots">Estä kuvakaappaukset Viimeksi käytetyt sovellukset -näkymästä sekä sovelluksen sisältä</string>
+  <string name="preferences__disable_screen_security_to_allow_screen_shots">Estä näyttökuvat Viimeksi käytetyt sovellukset -näkymästä sekä sovelluksen sisältä</string>
   <string name="preferences__auto_lock_signal_after_a_specified_time_interval_of_inactivity">Lukitse automaattisesti salalauseella, jos Signalia ei ole käytetty määriteltynä aikavälinä</string>
   <string name="preferences__inactivity_timeout_passphrase">Ajasta lukitus</string>
   <string name="preferences__inactivity_timeout_interval">Automaattisen lukituksen aikaväli</string>
@@ -1899,7 +1908,7 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <string name="preferences__slow">Hidas</string>
   <string name="preferences__help">Tuki </string>
   <string name="preferences__advanced">Lisäasetukset</string>
-  <string name="preferences__donate_to_signal">Lahjoita Mollyille</string>
+  <string name="preferences__donate_to_signal">Lahjoita Signalille</string>
   <string name="preferences__privacy">Yksityisyys</string>
   <string name="preferences__mms_user_agent">MMS User Agent</string>
   <string name="preferences__advanced_mms_access_point_names">Manuaaliset MMS-asetukset</string>
@@ -2025,6 +2034,7 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <string name="PaymentsAllActivityFragment__all">Kaikki</string>
   <string name="PaymentsAllActivityFragment__sent">Lähetetty</string>
   <string name="PaymentsAllActivityFragment__received">Vastaanotettu</string>
+  <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">MobileCoin on uusi yksityisyyden suojaan keskittyvä digitaalinen valuutta. Aloita ottamalla käyttöön.</string>
   <string name="PaymentsHomeFragment__activate_payments">Aktivoi maksut</string>
   <string name="PaymentsHomeFragment__activating_payments">Aktivoidaan maksut…</string>
   <string name="PaymentsHomeFragment__recent_activity">Viimeaikainen toiminta</string>
@@ -2034,6 +2044,7 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <string name="PaymentsHomeFragment__sent_s">Lähetettiin %1$s</string>
   <string name="PaymentsHomeFragment__received_s">Vastaanotettiin %1$s</string>
   <string name="PaymentsHomeFragment__currency_conversion">Valuuttamuunnos</string>
+  <string name="PaymentsHomeFragment__recovery_phrase">Palautuslause</string>
   <string name="PaymentsHomeFragment__help">Tuki </string>
   <string name="PaymentsHomeFragment__sent_payment">Maksu lähetetty</string>
   <string name="PaymentsHomeFragment__received_payment">Maksu vastaanotettu</string>
@@ -2041,15 +2052,22 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <string name="PaymentsHomeFragment__unknown_amount">---</string>
   <string name="PaymentsHomeFragment__currency_conversion_not_available">Valuuttamuunnos ei saatavilla</string>
   <string name="PaymentsHomeFragment__cant_display_currency_conversion">Valuuttamuunnoksen näyttäminen ei onnistu. Tarkista verkkoyhteytesi ja yritä uudelleen.</string>
+  <string name="PaymentsHomeFragment__deactivate_payments_question">Poistetaanko maksut käytöstä?</string>
+  <string name="PaymentsHomeFragment__deactivate">Poista käytöstä</string>
   <string name="PaymentsHomeFragment__continue">Jatka</string>
+  <string name="PaymentsHomeFragment__balance_is_not_currently_available">Saldo ei ole saatavilla tällä hetkellä.</string>
+  <string name="PaymentsHomeFragment__payments_deactivated">Maksut otettu pois käytöstä</string>
   <string name="PaymentsHomeFragment__payment_failed">Maksu epäonnistui</string>
   <string name="PaymentsHomeFragment__details">Lisätietoja</string>
   <string name="PaymentsHomeFragment__activate">Aktivoi</string>
+  <string name="PaymentsHomeFragment__view_mobile_coin_terms">Näytä MobileCoin sanasto</string>
+  <string name="PaymentsHomeFragment__payments_not_available">Maksut eivät ole enää saatavilla Mollyissa. Varat voi yhä siirtää toiseen kauppapaikkaan, mutta varojen lisääminen tai maksujen lähettäminen ja vastaanottaminen ei ole enää mahdollista.</string>
   <!--PaymentsAddMoneyFragment-->
   <string name="PaymentsAddMoneyFragment__add_funds">Lisää varoja</string>
   <string name="PaymentsAddMoneyFragment__your_wallet_address">Lompakkosi osoite</string>
   <string name="PaymentsAddMoneyFragment__copy">Kopioi</string>
   <string name="PaymentsAddMoneyFragment__copied_to_clipboard">Kopioitu leikepöydälle</string>
+  <string name="PaymentsAddMoneyFragment__to_add_funds">Lisää varoja lähettämällä MobileCoineja lompakko-osoitteeseen. Aloita siirto tililtäsi MobileCoin-yhteensopivalla kauppapaikalla ja sitten skannaamalla QR-koodi tai kopioimalla lompakon osoite.</string>
   <!--PaymentsDetailsFragment-->
   <string name="PaymentsDetailsFragment__details">Lisätietoja</string>
   <string name="PaymentsDetailsFragment__status">Tila</string>
@@ -2057,14 +2075,19 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <string name="PaymentsDetailsFragment__processing_payment">Käsitellään maksua…</string>
   <string name="PaymentsDetailsFragment__payment_complete">Maksu valmis</string>
   <string name="PaymentsDetailsFragment__payment_failed">Maksu epäonnistui</string>
+  <string name="PaymentsDetailsFragment__network_fee">Verkkomaksu</string>
   <string name="PaymentsDetailsFragment__to">Vastaanottajat</string>
   <string name="PaymentsDetailsFragment__from">Lähettäjä</string>
+  <string name="PaymentsDetailsFragment__information">Tapahtuman tiedot kuten summa ja aika tallennetaan MobileCoiniin.</string>
+  <string name="PaymentsDetailsFragment__coin_cleanup_information">Jos siirtoon vaadittavat kolikot eivät mene tasan, veloitetaan \"kolikonjärjestelymaksu\". Järjestelyn jälkeen maksujen lähettäminen on jälleen mahdollista.</string>
   <string name="PaymentsDetailsFragment__sent_payment">Maksu lähetetty</string>
   <string name="PaymentsDetailsFragment__received_payment">Maksu vastaanotettu</string>
   <string name="PaymentsDetailsFragment__block_number">Estä numero</string>
   <!--PaymentsTransferFragment-->
   <string name="PaymentsTransferFragment__transfer">Siirrä</string>
   <string name="PaymentsTransferFragment__scan_qr_code">Skannaa QR-koodi</string>
+  <string name="PaymentsTransferFragment__to_scan_or_enter_wallet_address">Vastaanottaja: skannaa tai syötä lompakko-osoite</string>
+  <string name="PaymentsTransferFragment__you_can_transfer">MobileCoin-siirron voi tehdä yhteensopivan kauppapaikan lompakko-osoitteeseen, joka on tyypillisesti kirjaimista ja numeroista koostuva merkkisarja QR-koodin alapuolella.</string>
   <string name="PaymentsTransferFragment__next">Seuraava</string>
   <string name="PaymentsTransferFragment__invalid_address">Virheellinen osoite</string>
   <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">Molly tarvitsee luvan kameran käyttämiseen skannatakseen QR-koodin.</string>
@@ -2085,10 +2108,17 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <string name="CreatePaymentFragment__8">8</string>
   <string name="CreatePaymentFragment__9">9</string>
   <string name="CreatePaymentFragment__0">0</string>
+  <string name="CreatePaymentFragment__lt">&lt;</string>
+  <string name="CreatePaymentFragment__add_note">Lisää viesti</string>
+  <string name="CreatePaymentFragment__conversions_are_just_estimates">Muunnokset ovat vain arvioita ja saattavat olla epätarkkoja.</string>
   <!--EditNoteFragment-->
+  <string name="EditNoteFragment_note">Huomautus</string>
   <!--ConfirmPaymentFragment-->
   <string name="ConfirmPayment__confirm_payment">Vahvista maksu</string>
+  <string name="ConfirmPayment__network_fee">Verkkomaksu</string>
   <string name="ConfirmPayment__to">Vastaanottajat</string>
+  <string name="ConfirmPayment__total_amount">Yhteensä</string>
+  <string name="ConfirmPayment__balance_s">Saldo: %1$s</string>
   <string name="ConfirmPayment__submitting_payment">Lähetetään maksua…</string>
   <string name="ConfirmPayment__processing_payment">Käsitellään maksua…</string>
   <string name="ConfirmPayment__payment_complete">Maksu valmis</string>
@@ -2330,9 +2360,9 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <string name="PushDecryptJob_unlock_to_view_pending_messages">Näytä odottavat viestit avaamalla lukitus</string>
   <string name="enter_backup_passphrase_dialog__backup_passphrase">Varmuuskopion salalause</string>
   <string name="backup_enable_dialog__backups_will_be_saved_to_external_storage_and_encrypted_with_the_passphrase_below_you_must_have_this_passphrase_in_order_to_restore_a_backup">Varmuuskopiot tallennetaan laitteesi tallennustilaan ja ne salataan allaolevalla salalauseella. Ilman tätä salalausetta et voi palauttaa varmuuskopiota.</string>
-  <string name="backup_enable_dialog__you_must_have_this_passphrase">Sinulla on oltava tämä tunnuslause varmuuskopion palauttamiseksi.</string>
+  <string name="backup_enable_dialog__you_must_have_this_passphrase">Varmuuskopion palauttamiseen vaaditaan salalause.</string>
   <string name="backup_enable_dialog__folder">Kansio</string>
-  <string name="backup_enable_dialog__i_have_written_down_this_passphrase">Olen kirjoittanut ylös tämän salalauseen. Ilman sitä, en pysty palauttamaan varmuuskopiota.</string>
+  <string name="backup_enable_dialog__i_have_written_down_this_passphrase">Olen kirjoittanut ylös tämän salalauseen, joka on välttämätön varmuuskopion palauttamiseen.</string>
   <string name="registration_activity__restore_backup">Palauta varmuuskopio</string>
   <string name="registration_activity__transfer_or_restore_account">Siirrä tai palauta tili</string>
   <string name="registration_activity__transfer_account">Siirrä tili</string>
@@ -2349,8 +2379,8 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <string name="RegistrationActivity_d_messages_so_far">%d viestiä tähän mennessä…</string>
   <string name="RegistrationActivity_restore_from_backup">Palautetaanko varmuuskopiosta?</string>
   <string name="RegistrationActivity_restore_your_messages_and_media_from_a_local_backup">Palauta viestisi ja mediasi paikallisesta varmuuskopiostasi. Jos et palauta niitä nyt, et voi palauttaa niitä enää myöhemmin.</string>
-  <string name="RegistrationActivity_backup_size_s">Varmuuskopion koko: %s</string>
-  <string name="RegistrationActivity_backup_timestamp_s">Varmuuskopion aikaleima: %s</string>
+  <string name="RegistrationActivity_backup_size_s">Koko: %s</string>
+  <string name="RegistrationActivity_backup_timestamp_s">Varmuuskopioitu: %s</string>
   <string name="BackupDialog_enable_local_backups">Otetaanko paikalliset varmuuskopiot käyttöön?</string>
   <string name="BackupDialog_enable_backups">Ota varmuuskopiot käyttöön</string>
   <string name="BackupDialog_please_acknowledge_your_understanding_by_marking_the_confirmation_check_box">Ilmaise ymmäryksesi ruksaamalla valintaruutu.</string>
@@ -2676,15 +2706,30 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <string name="WallpaperCropActivity__error_setting_wallpaper">Taustakuvan asettaminen epäonnistui.</string>
   <string name="WallpaperCropActivity__blur_photo">Sumenna valokuva</string>
   <!--InfoCard-->
+  <string name="payment_info_card_about_mobilecoin">Tietoa MobileCoinista</string>
+  <string name="payment_info_card_mobilecoin_is_a_new_privacy_focused_digital_currency">MobileCoin on uusi yksityisyyden suojaan keskittyvä digitaalinen valuutta.</string>
   <string name="payment_info_card_adding_funds">Lisätään varoja</string>
+  <string name="payment_info_card_you_can_add_funds_for_use_in">Lisää varoja Mollyissa käyttöä varten lähettämällä MobileCoineja lompakko-osoitteeseen.</string>
+  <string name="payment_info_card_cashing_out">Nostaminen</string>
+  <string name="payment_info_card_you_can_cash_out_mobilecoin">MobileCoinit voi nostaa rahana milloin tahansa MobileCoin-yhteensopivalla kauppapaikalla siirtämällä rahat sillä sijaitsevalle tilille.</string>
+  <string name="payment_info_card_hide_this_card">Piilota tämä kortti?</string>
   <string name="payment_info_card_hide">Piilota</string>
-  <string name="payment_info_card_update_your_pin">Päivitä PIN</string>
+  <string name="payment_info_card_record_recovery_phrase">Tallenna palautuslause</string>
+  <string name="payment_info_card_your_recovery_phrase_gives_you">Palautuslauseella voi palauttaa tilin, jos tavanomaiset kirjautumismenetelmät eivät toimi.</string>
+  <string name="payment_info_card_update_your_pin">Päivitä tunnusluku</string>
+  <string name="payment_info_card_with_a_high_balance">Tili kannattaa suojata aakkosnumeerisella suojakoodilla, erityisesti jos sen kate on korkea.</string>
   <string name="payment_info_card_update_pin">Päivitä tunnusluku</string>
   <!--DeactivateWalletFragment-->
+  <string name="DeactivateWalletFragment__your_balance">Saldosi</string>
+  <string name="DeactivateWalletFragment__deactivate">Poista käytöstä</string>
+  <string name="DeactivateWalletFragment__your_balance_will_remain">Varat säilytetään Molly-tiliin liitetyssä lompakossa siltä varalta jos maksut otetaan uudestaan käyttöön.</string>
   <!--PaymentsRecoveryStartFragment-->
+  <string name="PaymentsRecoveryStartFragment__recovery_phrase">Palautuslause</string>
   <string name="PaymentsRecoveryStartFragment__start">Aloita</string>
+  <string name="PaymentsRecoveryStartFragment__enter_manually">Syötä käsin</string>
   <string name="PaymentsRecoveryStartFragment__paste_from_clipboard">Liitä leikepöydältä</string>
   <!--PaymentsRecoveryPasteFragment-->
+  <string name="PaymentsRecoveryPasteFragment__recovery_phrase">Palautuslause</string>
   <string name="PaymentsRecoveryPasteFragment__next">Seuraava</string>
   <string name="PaymentsRecoveryPasteFragment__make_sure">Varmista että olet syöttänyt %1$d sanaa ja yritä uudelleen.</string>
   <!--PaymentsRecoveryPhraseFragment-->
@@ -2692,7 +2737,10 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <string name="PaymentsRecoveryPhraseFragment__edit">Muokkaa</string>
   <string name="PaymentsRecoveryPhraseFragment__previous">Edellinen</string>
   <string name="PaymentsRecoveryPhraseFragment__write_down_the_following_d_words">Kirjoita muistiin seuraavat %1$d sanaa järjestyksessä. Laita lista talteen turvalliseen paikkaan.</string>
-  <string name="PaymentsRecoveryPhraseFragment__copy_to_clipboard">Kopioi leikepöydälle?</string>
+  <string name="PaymentsRecoveryPhraseFragment__do_not_screenshot_or_send_by_email">Älä ota näyttökuvaa tai lähetä sähköpostitse.</string>
+  <string name="PaymentsRecoveryPhraseFragment__payments_account_restored">Maksutili palautettu.</string>
+  <string name="PaymentsRecoveryPhraseFragment__copy_to_clipboard">Kopioidaanko leikepöydälle?</string>
+  <string name="PaymentsRecoveryPhraseFragment__if_you_choose_to_store">Jos salalause säilytetään digitaalisesti, tulee paikan olla turvallinen.</string>
   <string name="PaymentsRecoveryPhraseFragment__copy">Kopioi</string>
   <!--PaymentsRecoveryPhraseConfirmFragment-->
   <string name="PaymentRecoveryPhraseConfirmFragment__word_d">Sana %1$d</string>
@@ -2710,6 +2758,12 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <string name="UnreadPayments__d_new_payment_notifications">%1$d uutta maksuilmoitusta</string>
   <!--CanNotSendPaymentDialog-->
   <string name="CanNotSendPaymentDialog__cant_send_payment">Maksun lähetys ei ole mahdollista</string>
+  <string name="CanNotSendPaymentDialog__to_send_a_payment_to_this_user">Hyväksy käyttäjän lähettämä viestipyyntö maksujen lähettämiseksi. Aloita viestin lähettäminen luomalla viestipyyntö.</string>
   <string name="CanNotSendPaymentDialog__send_a_message">Lähetä viesti</string>
+  <!--GroupsInCommonMessageRequest-->
+  <string name="GroupsInCommonMessageRequest__you_have_no_groups_in_common_with_this_person">Et kuulu samoihin ryhmiin tämän henkilön kanssa. Käy pyynnöt tarkasti läpi ennen hyväksymistä vältääksesi epätoivotut viestit.</string>
+  <string name="GroupsInCommonMessageRequest__none_of_your_contacts_or_people_you_chat_with_are_in_this_group">Ryhmässä ei ole ketään kontakteistasi tai ihmisistä joiden kanssa puhut. Käy pyynnöt tarkasti läpi ennen hyväksymistä välttääksesi epätoivotut viestit.</string>
+  <string name="GroupsInCommonMessageRequest__about_message_requests">Tietoa viestipyynnöistä</string>
+  <string name="GroupsInCommonMessageRequest__okay">Selvä</string>
   <!--EOF-->
 </resources>

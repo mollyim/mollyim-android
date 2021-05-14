@@ -19,8 +19,11 @@ import org.thoughtcrime.securesms.megaphone.MegaphoneRepository;
 import org.thoughtcrime.securesms.messages.BackgroundMessageRetriever;
 import org.thoughtcrime.securesms.messages.IncomingMessageObserver;
 import org.thoughtcrime.securesms.messages.IncomingMessageProcessor;
+import org.thoughtcrime.securesms.net.ContentProxySelector;
+import org.thoughtcrime.securesms.net.Network;
 import org.thoughtcrime.securesms.net.NetworkManager;
 import org.thoughtcrime.securesms.net.PipeConnectivityListener;
+import org.thoughtcrime.securesms.net.StandardUserAgentInterceptor;
 import org.thoughtcrime.securesms.notifications.MessageNotifier;
 import org.thoughtcrime.securesms.payments.Payments;
 import org.thoughtcrime.securesms.push.SignalServiceNetworkAccess;
@@ -41,6 +44,8 @@ import org.whispersystems.signalservice.api.SignalServiceAccountManager;
 import org.whispersystems.signalservice.api.SignalServiceMessageReceiver;
 import org.whispersystems.signalservice.api.SignalServiceMessageSender;
 import org.whispersystems.signalservice.api.groupsv2.GroupsV2Operations;
+
+import okhttp3.OkHttpClient;
 
 /**
  * Location for storing and retrieving application-scoped singletons. Users must call
@@ -83,8 +88,9 @@ public class ApplicationDependencies {
   private static volatile ViewOnceMessageManager       viewOnceMessageManager;
   private static volatile ExpiringMessageManager       expiringMessageManager;
   private static volatile Payments                     payments;
-  private static volatile ShakeToReport                shakeToReport;
   private static volatile SignalCallManager            signalCallManager;
+  private static volatile ShakeToReport                shakeToReport;
+  private static volatile OkHttpClient                 okHttpClient;
 
   @MainThread
   public static void init(@NonNull Provider provider) {
@@ -467,6 +473,22 @@ public class ApplicationDependencies {
     }
 
     return signalCallManager;
+  }
+
+  public static @NonNull OkHttpClient getOkHttpClient() {
+    if (okHttpClient == null) {
+      synchronized (LOCK) {
+        if (okHttpClient == null) {
+          okHttpClient = new OkHttpClient.Builder()
+              .socketFactory(Network.getSocketFactory())
+              .addInterceptor(new StandardUserAgentInterceptor())
+              .dns(Network.getDns())
+              .build();
+        }
+      }
+    }
+
+    return okHttpClient;
   }
 
   public static @NonNull AppForegroundObserver getAppForegroundObserver() {

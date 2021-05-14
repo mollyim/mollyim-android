@@ -59,6 +59,7 @@
   <string name="AttachmentKeyboard_location">Lokacija</string>
   <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Aplikacija Molly rabi dovoljenje za prikaz vaših fotografij in videov.</string>
   <string name="AttachmentKeyboard_give_access">Dodeli dostop</string>
+  <string name="AttachmentKeyboard_payment">Plačilo</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">Ne najdem aplikacije za izbor datotek.</string>
   <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Dostop do shrambe je bil trajno onemogočen. Aplikacija Molly potrebuje dovoljenje za dostop do sistemskega pomnilnika za pripenjanje fotografij, videa in zvoka k sporočilom. Prosimo, pojdite v meni Nastavitve aplikacij, izberite \"Dovoljenja\" in omogočite dovoljenje pod postavko \"Shramba\".</string>
@@ -167,6 +168,7 @@
   <string name="ConversationItem_error_network_not_delivered">Pošiljanje ni uspelo</string>
   <string name="ConversationItem_received_key_exchange_message_tap_to_process">Prejeta informacija o izmenjavi ključev. Kliknite za obdelavo.</string>
   <string name="ConversationItem_group_action_left">Uporabnik/ca %1$s je zapustil/a skupino.</string>
+  <string name="ConversationItem_send_paused">Pošiljanje ustavljeno</string>
   <string name="ConversationItem_click_to_approve_unencrypted">Pošiljanje ni uspelo, tapnite za nezavarovan SMS</string>
   <string name="ConversationItem_click_to_approve_unencrypted_sms_dialog_title">Preklopim na nešifriran SMS?</string>
   <string name="ConversationItem_click_to_approve_unencrypted_mms_dialog_title">Preklopim na nešifriran MMS?</string>
@@ -1166,6 +1168,7 @@
   <string name="MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Se želite pridružiti skupini in z njenimi člani/cami deliti svoje ime in fotografijo? Dokler se ne pridružite, ne bodo vedeli/e, da ste videli njihova sporočila.</string>
   <string name="MessageRequestBottomView_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Se želite pridružiti skupini? Dokler se ne pridružite, skupina ne bo vedela, da ste videli njena sporočila.</string>
   <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">Želite omogočiti članom/icam skupine, da vam pošiljajo sporočila in z njimi deliti svoje ime in fotografijo? Dokler jih ne odblokirate, od njih ne boste prejemali sporočil.</string>
+  <string name="MessageRequestProfileView_view">Preglej</string>
   <string name="MessageRequestProfileView_member_of_one_group">Član/ica skupine %1$s</string>
   <string name="MessageRequestProfileView_member_of_two_groups">Član/ica skupin %1$s in %2$s</string>
   <string name="MessageRequestProfileView_member_of_many_groups">Član/ica skupin %1$s, %2$s in %3$s</string>
@@ -1275,6 +1278,10 @@
   <string name="ReactionsConversationView_plus">+%1$d</string>
   <!--ReactionsRecipientAdapter-->
   <string name="ReactionsRecipientAdapter_you">Vi</string>
+  <!--RecaptchaRequiredBottomSheetFragment-->
+  <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">Za nadaljevanje sporočanja se verificirajte</string>
+  <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Da bi preprečili nezaželeno pošto, prosimo dokončajte postopek verifikacije.</string>
+  <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">Po dokončanem postopku verifikacije lahko nadaljujete s sporočanjem. Vsa ustavljena sporočila bodo avtomatično poslana.</string>
   <!--RecipientPreferencesActivity-->
   <string name="RecipientPreferenceActivity_block">Blokiraj</string>
   <string name="RecipientPreferenceActivity_unblock">Odblokiraj</string>
@@ -1337,6 +1344,9 @@
   <string name="ProxyBottomSheetFragment_do_you_want_to_use_this_proxy_address">Želite uporabljati ta naslov proksi?</string>
   <string name="ProxyBottomSheetFragment_use_proxy">Uporabi proksi</string>
   <string name="ProxyBottomSheetFragment_successfully_connected_to_proxy">Uspešno povezani s strežnikom proksi.</string>
+  <!--RecaptchaProofActivity-->
+  <string name="RecaptchaProofActivity_failed_to_submit">Neuspešna oddaja</string>
+  <string name="RecaptchaProofActivity_complete_verification">Dokončajte verifikacijo</string>
   <!--RegistrationActivity-->
   <string name="RegistrationActivity_select_your_country">Izberite svojo državo</string>
   <string name="RegistrationActivity_you_must_specify_your_country_code">Navesti morate mednarodno kodo svoje države</string>
@@ -1564,6 +1574,8 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
   <string name="MessageNotifier_message_delivery_failed">Dostava sporočila ni uspela.</string>
   <string name="MessageNotifier_failed_to_deliver_message">Neuspešna dostava sporočila.</string>
   <string name="MessageNotifier_error_delivering_message">Napaka pri dostavi sporočila.</string>
+  <string name="MessageNotifier_message_delivery_paused">Dostava sporočil je ustavljena.</string>
+  <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Za nadaljevanje sporočanja na Mollyu se verificirajte.</string>
   <string name="MessageNotifier_mark_all_as_read">Označi vse kot prebrano</string>
   <string name="MessageNotifier_mark_read">Označi kot prebrano</string>
   <string name="MessageNotifier_turn_off_these_notifications">Izklopi ta obvestila</string>
@@ -1613,6 +1625,8 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
   <!--SingleRecipientNotificationBuilder-->
   <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Novo sporočilo</string>
+  <string name="SingleRecipientNotificationBuilder_message_request">Prošnja za pogovor</string>
+  <string name="SingleRecipientNotificationBuilder_you">Vi</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">Predvajaj video</string>
   <string name="ThumbnailView_Has_a_caption_description">Ima besedilo</string>
@@ -1826,7 +1840,7 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
     <item quantity="other">%d drugih</item>
   </plurals>
   <!--giphy_activity-->
-  <string name="giphy_activity_toolbar__search_gifs_and_stickers">Iskanje po GIF-ih in nalepkah</string>
+  <string name="giphy_activity_toolbar__search_gifs">Iskanje po GIFih</string>
   <!--giphy_fragment-->
   <string name="giphy_fragment__nothing_found">Nič ni bilo najdeno</string>
   <!--log_submit_activity-->
@@ -1946,6 +1960,14 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
   <string name="HelpFragment__debug_log">Sistemska zabeležba:</string>
   <string name="HelpFragment__could_not_upload_logs">Sistemska zabeležba ni bila prenešena</string>
   <string name="HelpFragment__please_be_as_descriptive_as_possible">Pri opisu napake bodite čim bolj natančni, da bomo lažje razumeli za kaj gre.</string>
+  <string-array name="HelpFragment__categories">
+    <item>Nekaj ne deluje</item>
+    <item>Predlog za novo funkcijo</item>
+    <item>Vprašanje</item>
+    <item>Odziv</item>
+    <item>Drugo</item>
+    <item>Plačila</item>
+  </string-array>
   <!--ReactWithAnyEmojiBottomSheetDialogFragment-->
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__this_message">To sporočilo</string>
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__recently_used">Nedavno uporabljeno</string>
@@ -2164,15 +2186,31 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
   <string name="configurable_single_select__customize_option">Nastavitve po meri</string>
   <!--Internal only preferences-->
   <!--Payments-->
+  <string name="PaymentsActivityFragment__all_activity">Vse dejavnosti</string>
   <string name="PaymentsAllActivityFragment__all">Vse</string>
   <string name="PaymentsAllActivityFragment__sent">Poslano:</string>
   <string name="PaymentsAllActivityFragment__received">Prejeto</string>
+  <string name="PaymentsHomeFragment__introducing_payments">Predstavljamo vam Plačila (Beta)</string>
+  <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Uporabljajte Molly za pošiljanje in prejemanje nove digitalne valute MobileCoin, specializirane za zasebnost. Vklopite in začnite.</string>
+  <string name="PaymentsHomeFragment__activate_payments">Vklopi Plačila</string>
+  <string name="PaymentsHomeFragment__activating_payments">Vklapljanje Plačil …</string>
+  <string name="PaymentsHomeFragment__restore_payments_account">Obnovitev računa za plačila</string>
+  <string name="PaymentsHomeFragment__no_recent_activity_yet">Brez nedavnih dejavnosti</string>
+  <string name="PaymentsHomeFragment__pending_requests">Čakajoče prošnje</string>
+  <string name="PaymentsHomeFragment__recent_activity">Nedavne dejavnosti</string>
   <string name="PaymentsHomeFragment__see_all">Prikaz vseh</string>
+  <string name="PaymentsHomeFragment__add_funds">Dodaj sredstva</string>
   <string name="PaymentsHomeFragment__send">Pošlji</string>
+  <string name="PaymentsHomeFragment__sent_s">Poslano: %1$s</string>
+  <string name="PaymentsHomeFragment__received_s">Prejeto: %1$s</string>
+  <string name="PaymentsHomeFragment__transfer_to_exchange">Prenesi v menjalnico</string>
+  <string name="PaymentsHomeFragment__currency_conversion">Pretvorba valut</string>
+  <string name="PaymentsHomeFragment__deactivate_payments">Izklop Plačil</string>
   <string name="PaymentsHomeFragment__help">Pomoč</string>
   <string name="PaymentsHomeFragment__continue">Nadaljuj</string>
   <string name="PaymentsHomeFragment__details">Podrobnosti</string>
   <!--PaymentsAddMoneyFragment-->
+  <string name="PaymentsAddMoneyFragment__add_funds">Dodaj sredstva</string>
   <string name="PaymentsAddMoneyFragment__copy">Kopiraj</string>
   <string name="PaymentsAddMoneyFragment__copied_to_clipboard">Kopirano v odložišče</string>
   <!--PaymentsDetailsFragment-->
@@ -2805,6 +2843,7 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
   <!--PaymentsRecoveryPhraseFragment-->
   <string name="PaymentsRecoveryPhraseFragment__next">Naprej</string>
   <string name="PaymentsRecoveryPhraseFragment__edit">Uredi</string>
+  <string name="PaymentsRecoveryPhraseFragment__previous">Nazaj</string>
   <string name="PaymentsRecoveryPhraseFragment__copy">Kopiraj</string>
   <!--PaymentsRecoveryPhraseConfirmFragment-->
   <string name="PaymentRecoveryPhraseConfirmFragment__done">OK</string>
@@ -2816,5 +2855,8 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
   <!--UnreadPayments-->
   <!--CanNotSendPaymentDialog-->
   <string name="CanNotSendPaymentDialog__send_a_message">Pošlji sporočilo</string>
+  <!--GroupsInCommonMessageRequest-->
+  <string name="GroupsInCommonMessageRequest__you_have_no_groups_in_common_with_this_person">S to osebo nimate nobene skupne skupine. Preverite zahtevke, da se izognete nezaželjenim spoločilom.</string>
+  <string name="GroupsInCommonMessageRequest__okay">Okej</string>
   <!--EOF-->
 </resources>

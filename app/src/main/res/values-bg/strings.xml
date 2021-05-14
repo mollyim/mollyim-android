@@ -1056,6 +1056,7 @@
   <string name="MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Присъединете се към тази група и споделете вашето име и снимка с нейните членове? Те няма да разберат, че сте видели съобщенията им, докато не приемете.</string>
   <string name="MessageRequestBottomView_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Присъединете се към тази група? Те няма да разберат, че сте виждали съобщенията им, докато не приемете.</string>
   <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">Разблокирайте тази група? Няма да получавате никакви съобщения, преди да ги разблокирате.</string>
+  <string name="MessageRequestProfileView_view">Преглед</string>
   <string name="MessageRequestProfileView_member_of_one_group">Член на %1$s</string>
   <string name="MessageRequestProfileView_member_of_two_groups">Член на %1$s и %2$s</string>
   <string name="MessageRequestProfileView_member_of_many_groups">Член на %1$s, %2$s и %3$s</string>
@@ -1156,6 +1157,7 @@
   <string name="ReactionsConversationView_plus">+%1$d</string>
   <!--ReactionsRecipientAdapter-->
   <string name="ReactionsRecipientAdapter_you">Ти</string>
+  <!--RecaptchaRequiredBottomSheetFragment-->
   <!--RecipientPreferencesActivity-->
   <string name="RecipientPreferenceActivity_block">Блокиране</string>
   <string name="RecipientPreferenceActivity_unblock">Отблокиране</string>
@@ -1214,6 +1216,7 @@
   <string name="ProxyBottomSheetFragment_do_you_want_to_use_this_proxy_address">Желаеш ли да използваш този прокси адрес?</string>
   <string name="ProxyBottomSheetFragment_use_proxy">Използвай прокси</string>
   <string name="ProxyBottomSheetFragment_successfully_connected_to_proxy">Успешна връзка към проксито.</string>
+  <!--RecaptchaProofActivity-->
   <!--RegistrationActivity-->
   <string name="RegistrationActivity_select_your_country">Изберете държавата си</string>
   <string name="RegistrationActivity_you_must_specify_your_country_code">Трябва да посочите
@@ -1489,6 +1492,7 @@
   <!--SingleRecipientNotificationBuilder-->
   <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Ново съобщение</string>
+  <string name="SingleRecipientNotificationBuilder_you">Ти</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">Възпроизвеждане на видео</string>
   <string name="ThumbnailView_Has_a_caption_description">Има надпис</string>
@@ -1673,7 +1677,6 @@
     <item quantity="other">%d други</item>
   </plurals>
   <!--giphy_activity-->
-  <string name="giphy_activity_toolbar__search_gifs_and_stickers">Търсене сред GIF-ове и стикери</string>
   <!--giphy_fragment-->
   <string name="giphy_fragment__nothing_found">Няма нищо открито</string>
   <!--log_submit_activity-->
@@ -2531,5 +2534,7 @@
   <!--UnreadPayments-->
   <!--CanNotSendPaymentDialog-->
   <string name="CanNotSendPaymentDialog__send_a_message">Изпрати съобщение</string>
+  <!--GroupsInCommonMessageRequest-->
+  <string name="GroupsInCommonMessageRequest__okay">Добре</string>
   <!--EOF-->
 </resources>

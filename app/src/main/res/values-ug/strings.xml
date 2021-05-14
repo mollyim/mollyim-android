@@ -5,7 +5,7 @@
   <string name="delete">ئۆچۈر</string>
   <string name="please_wait">سەل كۈتۈڭ…</string>
   <string name="save">ساقلا</string>
-  <string name="note_to_self">ئۆزۈمگە خاتىرە</string>
+  <string name="note_to_self">ئۆزۈمگە ئەسلەتمە</string>
   <!--AbstractNotificationBuilder-->
   <string name="AbstractNotificationBuilder_new_message">يېڭى ئۇچۇر</string>
   <!--AlbumThumbnailView-->
@@ -28,8 +28,8 @@
   <string name="ApplicationPreferencesActivity_touch_to_make_signal_your_default_sms_app">چېكىلسە Signal سۈكۈتتىكى قىسقا ئۇچۇر ئەپىگە تەڭشىلىدۇ</string>
   <string name="ApplicationPreferencesActivity_on">ئاچ</string>
   <string name="ApplicationPreferencesActivity_On">ئاچ</string>
-  <string name="ApplicationPreferencesActivity_off">ياپ</string>
-  <string name="ApplicationPreferencesActivity_Off">ياپ</string>
+  <string name="ApplicationPreferencesActivity_off">تاقاق</string>
+  <string name="ApplicationPreferencesActivity_Off">تاقاق</string>
   <string name="ApplicationPreferencesActivity_sms_mms_summary">قىسقا ئۇچۇر%1$s, كۆپ ۋاسىتە ئۇچۇر%2$s</string>
   <string name="ApplicationPreferencesActivity_privacy_summary">ئېكران قۇلۇپى %1$s، تىزىملىتىش قۇلۇپى %2$s</string>
   <string name="ApplicationPreferencesActivity_appearance_summary">تېما%1$s, تىل%2$s</string>
@@ -47,7 +47,7 @@
     <item quantity="other">%d مىنۇت</item>
   </plurals>
   <!--DraftDatabase-->
-  <string name="DraftDatabase_Draft_image_snippet">(سۈرەت)</string>
+  <string name="DraftDatabase_Draft_image_snippet">(رەسىم)</string>
   <string name="DraftDatabase_Draft_audio_snippet">(ئۈن)</string>
   <string name="DraftDatabase_Draft_video_snippet">(سىن)</string>
   <string name="DraftDatabase_Draft_location_snippet">(ئورنى)</string>
@@ -63,7 +63,7 @@
   <string name="AttachmentKeyboard_payment">چىقىم</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">ۋاسىتە تاللىغۇدەك بىر ئەپ تاپالمىدى.</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly رەسىم ، سىن ياكى ئاۋاز ھۆججەتلىرىنى قوشۇش ئۈچۈن ساقلىغۇچ ھوقۇقى تەلەپ قىلىدۇ، ئەمما ئۇ مەڭگۈلۈك رەت قىلىندى. ئەپ تەڭشىكى تىزىملىكىدىن، «ھوقۇقلار» نى تاللاپ ۋە «ساقلىغۇچ» نى قوزغىتىڭ.</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly رەسىم ، سىن ياكى ئۈن ھۆججەتلىرىنى قوشۇش ئۈچۈن ساقلىغۇچ ھوقۇقى تەلەپ قىلىدۇ، ئەمما ئۇ مەڭگۈلۈك رەت قىلىندى. ئەپ تەڭشىكى تىزىملىكىدىن، «ھوقۇقلار» نى تاللاپ ۋە «ساقلىغۇچ» نى قوزغىتىڭ.</string>
   <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">ئالاقىلىشىش ئۇچۇرلىرىنى چاپلاش ئۈچۈن Molly ئالاقەداشلار ھوقۇقى تەلەپ قىلىدۇ، ئەمما ئۇ مەڭگۈلۈك رەت قىلىندى. ئەپ تەڭشىكى تىزىملىكىدىن «ھوقۇقلار» نى تاللاپ، «ئالاقەداشلار» نى قوزغىتىڭ.</string>
   <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly ئورۇن بەلگىلەش ئۈچۈن ئورۇن ھوقۇقى تەلەپ قىلىدۇ، ئەمما ئۇ مەڭگۈلۈك رەت قىلىندى. ئەپ تەڭشىكى تىزىملىكىگە بېرىڭ، «ھوقۇقلار» نى تاللاڭ ۋە «ئورۇن» نى قوزغىتىڭ.</string>
   <!--AttachmentUploadJob-->
@@ -169,6 +169,7 @@
   <string name="ConversationItem_error_network_not_delivered">ئەۋەتەلمىدى</string>
   <string name="ConversationItem_received_key_exchange_message_tap_to_process">ئاچقۇچ ئالماشتۇرۇش ئۇچۇرى تاپشۇرۇۋېلىندى ، بىر تەرەپ قىلىش ئۈچۈن چېكىڭ.</string>
   <string name="ConversationItem_group_action_left">%1$s گۇرۇپپىدىن ئايرىلدى.</string>
+  <string name="ConversationItem_send_paused">يوللاش ۋاقىتلىق توختىتىلدى</string>
   <string name="ConversationItem_click_to_approve_unencrypted">ئەۋەتەلمىدى ، چېكىلسە شىفىرلىماي ئەۋەتىدۇ</string>
   <string name="ConversationItem_click_to_approve_unencrypted_sms_dialog_title">شىفىرلانمىغان قىسقا ئۇچۇرغا چېكىنەمسىز؟</string>
   <string name="ConversationItem_click_to_approve_unencrypted_mms_dialog_title">شىفىرلانمىغان MMS غا چېكىنەمسىز؟</string>
@@ -210,8 +211,8 @@
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">ئۈسكۈنىڭىزدە بۇ ئۇلانمىنى بىر تەرەپ قىلالايدىغان ئەپ يوق.</string>
   <string name="ConversationActivity_your_request_to_join_has_been_sent_to_the_group_admin">قوشۇلۇش تەلىپىڭىز گۇرۇپپا باشقۇرغۇچىسىغا ئەۋەتىلدى. ئۇلار قارار قىلغاندا سىزگە ئۇقتۇرۇلىدۇ.</string>
   <string name="ConversationActivity_cancel_request">ئىلتىماستىن ۋاز كەچ</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">ئاۋازلىق ئۇچۇر يوللاش ئۈچۈن، Molly نىڭ مىكروفونىڭىزنى زىيارەت قىلىشىغا رۇخسەت قىلىڭ.</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">ئاۋازلىق ئۇچۇر يوللاش ئۈچۈن Molly مىكروفون ھوقۇقى تەلەپ قىلىدۇ، ئەمما ئۇ مەڭگۈلۈك رەت قىلىندى. ئەپ تەڭشىكى تىزىملىكىدىن «ھوقۇقلار» نى تاللاپ ۋە «مىكروفون» نى قوزغىتىڭ.</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">ئۈنلىك ئۇچۇر يوللاش ئۈچۈن، Molly نىڭ مىكروفونىڭىزنى زىيارەت قىلىشىغا رۇخسەت قىلىڭ.</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">ئۈنلىك ئۇچۇر يوللاش ئۈچۈن Molly مىكروفون ھوقۇقى تەلەپ قىلىدۇ، ئەمما ئۇ مەڭگۈلۈك رەت قىلىندى. ئەپ تەڭشىكى تىزىملىكىدىن «ھوقۇقلار» نى تاللاپ ۋە «مىكروفون» نى قوزغىتىڭ.</string>
   <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">سىز %sنى چاقىرىش ئۈچۈن Molly مىكروفون ۋە كامېرا ھوقۇقىغا ئېھتىياجلىق، ئەمما ئۇلار مەڭگۈلۈك رەت قىلىندى. ئەپ تەڭشىكىدىن، «ھوقۇقلار» نى تاللاپ ۋە «مىكروفون» ۋە «كامېرا» نى قوزغىتىڭ.</string>
   <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">رەسىم ۋە سىنغا ئېلىش ئۈچۈن ، Molly نىڭ كامېرانى زىيارەت قىلىشىغا يول قويۇڭ.</string>
   <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">رەسىم تارتىش ياكى سىنغا ئېلىش ئۈچۈن Molly كامېرا ھوقۇقىغا موھتاج ، ئەمما ئۇ مەڭگۈلۈك رەت قىلىندى. ئەپ تەڭشەكلىرىدىن، «ھوقۇقلار» نى تاللاپ ۋە «كامېرا» نى قوزغىتىڭ.</string>
@@ -348,7 +349,7 @@
   <string name="BackupsPreferenceFragment__verify_backup_passphrase">زاپاسلاش پارولىنى دەلىللەڭ</string>
   <string name="BackupsPreferenceFragment__test_your_backup_passphrase">زاپاسلاش پارولىڭىزنى سىناپ بېقىڭ ھەمدە ئۇنىڭ ماس كەلگەن-كەلمىگەنلىكىنى دەلىللەڭ</string>
   <string name="BackupsPreferenceFragment__turn_on">ئاچ</string>
-  <string name="BackupsPreferenceFragment__turn_off">ئەت</string>
+  <string name="BackupsPreferenceFragment__turn_off">تاقا</string>
   <string name="BackupsPreferenceFragment__to_restore_a_backup">زاپاسلاشنى ئەسلىگە كەلتۈرۈش ئۈچۈن ، Molly بىر يېڭى نەشرىنى قاچىلاڭ. ئاندىن ئەپنى ئېچىپ «زاپاسلاشنى ئەسلىگە كەلتۈرۈش» نى چېكىڭ، ئاندىن زاپاس ھۆججىتىنى كۆرسىتىپ بېرىڭ.%1$s</string>
   <string name="BackupsPreferenceFragment__learn_more">كۆپرەك ئۆگىنىش</string>
   <string name="BackupsPreferenceFragment__in_progress">داۋام قىلىۋاتىدۇ…</string>
@@ -389,8 +390,8 @@
   <!--DocumentView-->
   <string name="DocumentView_unnamed_file">ئىسىمسىز ھۆججەت</string>
   <!--DonateMegaphone-->
-  <string name="DonateMegaphone_donate_to_signal">Molly غا ئىئانە قىلىڭ</string>
-  <string name="DonateMegaphone_Signal_is_powered_by_people_like_you_show_your_support_today">Molly سىزگە ئوخشاش كىشىلەر تەرىپىدىن ماڭدۇرۇلغان. بۈگۈن بىزنى قوللىشىڭىزنى كۆرسىتىڭ!</string>
+  <string name="DonateMegaphone_donate_to_signal">Signal غا ئىئانە قىلىڭ</string>
+  <string name="DonateMegaphone_Signal_is_powered_by_people_like_you_show_your_support_today">Signal سىزگە ئوخشاش كىشىلەر تەرىپىدىن ماڭدۇرۇلغان. بۈگۈن بىزنى قوللىشىڭىزنى كۆرسىتىڭ!</string>
   <string name="DonateMegaphone_donate">ئىئانە قىلىڭ</string>
   <string name="DonateMegaphone_no_thanks">ياق، رەھمەت</string>
   <!--GroupCallingMegaphone-->
@@ -613,7 +614,7 @@
   <string name="ManageGroupActivity_chat_wallpaper">سۆھبەت تام قەغەز</string>
   <string name="ManageGroupActivity_until_s">%1$s غىچە</string>
   <string name="ManageGroupActivity_always">ھەمىشە</string>
-  <string name="ManageGroupActivity_off">ئەت</string>
+  <string name="ManageGroupActivity_off">تاقاق</string>
   <string name="ManageGroupActivity_on">ئاچ</string>
   <string name="ManageGroupActivity_view_all_members">ھەممە ئەزالارنى كۆرسەت</string>
   <string name="ManageGroupActivity_see_all">ھەممىنى كۆرسەت</string>
@@ -664,7 +665,7 @@
   <string name="ManageRecipientActivity_custom_notifications">ئىختىيارىچە ئۇقتۇرۇش</string>
   <string name="ManageRecipientActivity_until_s">%1$s غىچە</string>
   <string name="ManageRecipientActivity_always">ھەمىشە</string>
-  <string name="ManageRecipientActivity_off">ئەت</string>
+  <string name="ManageRecipientActivity_off">تاقاق</string>
   <string name="ManageRecipientActivity_on">ئاچ</string>
   <string name="ManageRecipientActivity_add_to_a_group">گۇرۇپپىغا قوش</string>
   <string name="ManageRecipientActivity_view_all_groups">ھەممە گۇرۇپپىنى كۆرسەت</string>
@@ -714,36 +715,36 @@
     <item quantity="other">%1$s ئەۋەتكەن %2$d تەكلىپنى بىكار قىلامسىز؟</item>
   </plurals>
   <!--GroupJoinBottomSheetDialogFragment-->
-  <string name="GroupJoinBottomSheetDialogFragment_you_are_already_a_member">سىز بۇ توپنىڭ ئەزاسى</string>
+  <string name="GroupJoinBottomSheetDialogFragment_you_are_already_a_member">بۇ گۇرۇپپىنىڭ ئەزاسى</string>
   <string name="GroupJoinBottomSheetDialogFragment_join">قوشۇل</string>
-  <string name="GroupJoinBottomSheetDialogFragment_request_to_join">توپقا قوشۇلۇش ئىلتىماسى</string>
-  <string name="GroupJoinBottomSheetDialogFragment_unable_to_join_group_please_try_again_later">توپقا قوشۇلالمايدۇ. سەل تۇرۇپ قايتا سىناڭ</string>
+  <string name="GroupJoinBottomSheetDialogFragment_request_to_join">گۇرۇپپىغا قوشۇلۇش ئىلتىماسى</string>
+  <string name="GroupJoinBottomSheetDialogFragment_unable_to_join_group_please_try_again_later">گۇرۇپپىغا قوشۇلالمايدۇ. سەل تۇرۇپ قايتا سىناڭ</string>
   <string name="GroupJoinBottomSheetDialogFragment_encountered_a_network_error">تور خاتالىقىغا يولۇقتى.</string>
   <string name="GroupJoinBottomSheetDialogFragment_this_group_link_is_not_active">بۇ گۇرۇپپىنىڭ ئۇلانمىسى ئاكتىپ ئەمەس</string>
-  <string name="GroupJoinBottomSheetDialogFragment_unable_to_get_group_information_please_try_again_later">توپ ئۇچۇرىغا ئېرىشەلمىدى، سەل تۇرۇپ قايتا سىناڭ</string>
-  <string name="GroupJoinBottomSheetDialogFragment_direct_join">توپقا قوشۇلۇپ ئىسىم ۋە سۈرىتىڭىزنى توپ ئەزالىرى بىلەن ھەمبەھىرلىنەمسىز؟</string>
-  <string name="GroupJoinBottomSheetDialogFragment_admin_approval_needed">بۇ توپنىڭ باشقۇرغۇچىسى دەلىللىگەندىن كېيىن ئاندىن توپقا قوشۇلالايسىز، سىز توپقا كىرىشنى ئىلتىماس قىلغاندا، ئىسىم ۋە سۈرىتىڭىز ئۇنىڭ ئەزالىرى بىلەن ھەمبەھىرلىنىدۇ.</string>
+  <string name="GroupJoinBottomSheetDialogFragment_unable_to_get_group_information_please_try_again_later">گۇرۇپپا ئۇچۇرىغا ئېرىشەلمىدى، سەل تۇرۇپ قايتا سىناڭ</string>
+  <string name="GroupJoinBottomSheetDialogFragment_direct_join">گۇرۇپپىغا قوشۇلۇپ ئىسىم ۋە سۈرىتىڭىزنى گۇرۇپپا ئەزالىرى بىلەن ھەمبەھىرلىنەمسىز؟</string>
+  <string name="GroupJoinBottomSheetDialogFragment_admin_approval_needed">بۇ گۇرۇپپىنىڭ باشقۇرغۇچىسى دەلىللىگەندىن كېيىن ئاندىن گۇرۇپپىغا قوشۇلالايسىز، سىز گۇرۇپپىغا كىرىشنى ئىلتىماس قىلغاندا، ئىسىم ۋە سۈرىتىڭىز ئۇنىڭ ئەزالىرى بىلەن ھەمبەھىرلىنىدۇ.</string>
   <plurals name="GroupJoinBottomSheetDialogFragment_group_dot_d_members">
     <item quantity="one">توپ. %1$d ئەزا</item>
-    <item quantity="other">توپ. %1$d ئەزا</item>
+    <item quantity="other">گۇرۇپپا. %1$d ئەزا</item>
   </plurals>
   <!--GroupJoinUpdateRequiredBottomSheetDialogFragment-->
-  <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_signal_to_use_group_links">توپ ئۇلانمىسىنى ئىشلىتىش ئۈچۈن Signal نى يېڭىلاڭ</string>
-  <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_message">سىز ئىشلىتىۋاتقان Signal نەشرى توپ ئۇلانمىسىنى قوللىمايدۇ. توپ ئۇلانمىسى ئارقىلىق قوشۇلماقچى بولسىڭىز ئەڭ يېڭى نەشرىگە يېڭىلاڭ.</string>
+  <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_signal_to_use_group_links">گۇرۇپپا ئۇلانمىسىنى ئىشلىتىش ئۈچۈن Signal نى يېڭىلاڭ</string>
+  <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_message">سىز ئىشلىتىۋاتقان Signal نەشرى گۇرۇپپا ئۇلانمىسىنى قوللىمايدۇ. گۇرۇپپا ئۇلانمىسى ئارقىلىق قوشۇلماقچى بولسىڭىز ئەڭ يېڭى نەشرىگە يېڭىلاڭ.</string>
   <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_signal">Signal نى يېڭىلاش</string>
-  <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_linked_device_message">سىز ئىشلىتىۋاتقان بىر ياكى بىر قانچە ئۈسكۈنىدىكى Signal  نەشرى توپ ئۇلانمىسىنى قوللىمايدۇ. ئۇلانغان ئۈسكۈنىڭىزدىكى Signal  نەشرىنى يېڭىلاپ بۇ توپقا قوشۇلۇڭ.</string>
-  <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_group_link_is_not_valid">توپ ئۇلانمىسى ئىناۋەتسىز</string>
+  <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_update_linked_device_message">سىز ئىشلىتىۋاتقان بىر ياكى بىر قانچە ئۈسكۈنىدىكى Signal  نەشرى توپ ئۇلانمىسىنى قوللىمايدۇ. ئۇلانغان ئۈسكۈنىڭىزدىكى Signal  نەشرىنى يېڭىلاپ بۇ گۇرۇپپىغا قوشۇلۇڭ.</string>
+  <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_group_link_is_not_valid">گۇرۇپپا ئۇلانمىسى ئىناۋەتسىز</string>
   <!--GroupInviteLinkEnableAndShareBottomSheetDialogFragment-->
   <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_invite_friends">دوستلىرىڭىزنى تەكلىپ قىلىڭ</string>
-  <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_share_a_link_with_friends_to_let_them_quickly_join_this_group">ئۇلانمىنى ھەمبەھىرلەش ئارقىلىق دوستلارنىڭ بۇ توپقا كىرىشىنى تېزلىتەلەيسىز.</string>
+  <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_share_a_link_with_friends_to_let_them_quickly_join_this_group">ئۇلانمىنى ھەمبەھىرلەش ئارقىلىق دوستلارنىڭ بۇ گۇرۇپپىغا كىرىشىنى تېزلىتەلەيسىز.</string>
   <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_enable_and_share_link">قوزغىتىپ ئۇلانمىنى ھەمبەھىرلەيدۇ</string>
   <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_share_link">ئۇلانما ھەمبەھىر</string>
-  <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_unable_to_enable_group_link_please_try_again_later">توپ ئۇلانمىسىنى قوزغىتالمىدى. سەل تۇرۇپ قايتا سىناڭ</string>
+  <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_unable_to_enable_group_link_please_try_again_later">گۇرۇپپا ئۇلانمىسىنى قوزغىتالمىدى. سەل تۇرۇپ قايتا سىناڭ</string>
   <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_encountered_a_network_error">تور خاتالىقىغا يولۇقتى.</string>
-  <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_you_dont_have_the_right_to_enable_group_link">سىزنىڭ توپ ئۇلانمىسىنى قوزغىتىش ھوقۇقىڭىز يوق. باشقۇرغۇچى بىلەن ئالاقىلىشىڭ.</string>
-  <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_you_are_not_currently_a_member_of_the_group">سىز ھازىر بۇ توپنىڭ ئەزاسى ئەمەس.</string>
+  <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_you_dont_have_the_right_to_enable_group_link">سىزنىڭ گۇرۇپپا ئۇلانمىسىنى قوزغىتىش ھوقۇقىڭىز يوق. باشقۇرغۇچى بىلەن ئالاقىلىشىڭ.</string>
+  <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_you_are_not_currently_a_member_of_the_group">سىز ھازىر بۇ گۇرۇپپىنىڭ ئەزاسى ئەمەس.</string>
   <!--GV2 Request confirmation dialog-->
-  <string name="RequestConfirmationDialog_add_s_to_the_group">«%1$s» نى توپقا قوشامدۇ؟</string>
+  <string name="RequestConfirmationDialog_add_s_to_the_group">«%1$s» نى گۇرۇپپىغا قوشامدۇ؟</string>
   <string name="RequestConfirmationDialog_deny_request_from_s">«%1$s» ئىلتىماسى رەت قىلىنامدۇ؟</string>
   <string name="RequestConfirmationDialog_add">قوشۇش</string>
   <string name="RequestConfirmationDialog_deny">رەت قىلىش</string>
@@ -820,7 +821,7 @@
   <string name="MediaOverviewActivity_file">ھۆججەت</string>
   <string name="MediaOverviewActivity_audio">ئۈن</string>
   <string name="MediaOverviewActivity_video">سىن</string>
-  <string name="MediaOverviewActivity_image">سۈرەت</string>
+  <string name="MediaOverviewActivity_image">رەسىم</string>
   <string name="MediaOverviewActivity_sent_by_s">يوللىغۇچى %1$s</string>
   <string name="MediaOverviewActivity_sent_by_you">سىز يوللىغىنى</string>
   <string name="MediaOverviewActivity_sent_by_s_to_s">%1$s دىن %2$s غا يوللانغان</string>
@@ -833,7 +834,7 @@
   <string name="Megaphones_well_occasionally_ask_you_to_verify_your_pin">ئەستە تۇتۇشىڭىز ئۈچۈن بەزىدە PIN دەلىللىشىڭىزنى سورايمىز.</string>
   <string name="Megaphones_verify_pin">PIN دەلىللەش</string>
   <string name="Megaphones_get_started">ئىشلىتىشكە باشلاش</string>
-  <string name="Megaphones_new_group">يېڭى توپ</string>
+  <string name="Megaphones_new_group">يېڭى گۇرۇپپا</string>
   <string name="Megaphones_invite_friends">دوستلىرىڭىزنى تەكلىپ قىلىڭ</string>
   <string name="Megaphones_use_sms">قىسقا ئۇچۇر ئىشلىتىش</string>
   <!--NotificationBarManager-->
@@ -847,7 +848,7 @@
   <string name="NotificationBarManager__cancel_call">چاقىرىشتىن ۋاز كەچ</string>
   <!--NotificationsMegaphone-->
   <string name="NotificationsMegaphone_turn_on_notifications">ئۇقتۇرۇشنى قوزغىتامدۇ؟</string>
-  <string name="NotificationsMegaphone_never_miss_a_message">ئالاقەداش ۋە توپنىڭ ئۇچۇرلىرىنى ھەرگىز ئۆتكۈزۈۋەتمەيدۇ.</string>
+  <string name="NotificationsMegaphone_never_miss_a_message">ئالاقەداش ۋە گۇرۇپپىنىڭ ئۇچۇرلىرىنى ھەرگىز ئۆتكۈزۈۋەتمەيدۇ.</string>
   <string name="NotificationsMegaphone_turn_on">ئاچ</string>
   <string name="NotificationsMegaphone_not_now">ھازىر ئەمەس</string>
   <!--NotificationMmsMessageRecord-->
@@ -884,7 +885,7 @@
   <string name="MessageRecord_you_called_date">چاقىرغىنىڭىز. %1$s</string>
   <string name="MessageRecord_missed_audio_call_date">سۆزلەشمىگەن ئۈن چاقىرىش. %1$s</string>
   <string name="MessageRecord_missed_video_call_date">سۆزلەشمىگەن سىن چاقىرىش. %1$s</string>
-  <string name="MessageRecord_s_updated_group">%s توپنى يېڭىلىدى.</string>
+  <string name="MessageRecord_s_updated_group">%s گۇرۇپپىنى يېڭىلىدى.</string>
   <string name="MessageRecord_s_called_you_date">%1$s سىزنى چاقىرغان. %2$s</string>
   <string name="MessageRecord_s_joined_signal">Signal غا%s قوشۇلدى!</string>
   <string name="MessageRecord_you_disabled_disappearing_messages">سىز غايىب ئۇچۇرنى چەكلىدىڭىز.</string>
@@ -893,15 +894,15 @@
   <string name="MessageRecord_s_set_disappearing_message_time_to_s">%1$s غايىب ئۇچۇر ۋاقتىنى %2$s قا تەڭشىدى.</string>
   <string name="MessageRecord_disappearing_message_time_set_to_s">غايىب ئۇچۇر ۋاقتى %1$s قا تەڭشەلدى.</string>
   <string name="MessageRecord_this_group_was_updated_to_a_new_group">بۇ گۇرۇپپا «يېڭى گۇرۇپپا»غا يېڭىلاندى.</string>
-  <string name="MessageRecord_you_couldnt_be_added_to_the_new_group_and_have_been_invited_to_join">تەكلىپ قىلىنمىغۇچە يېڭى توپقا قوشۇلالمايسىز.</string>
+  <string name="MessageRecord_you_couldnt_be_added_to_the_new_group_and_have_been_invited_to_join">تەكلىپ قىلىنمىغۇچە يېڭى گۇرۇپپىغا قوشۇلالمايسىز.</string>
   <string name="MessageRecord_chat_session_refreshed">سۆھبەت يېڭىلاندى</string>
   <plurals name="MessageRecord_members_couldnt_be_added_to_the_new_group_and_have_been_invited">
     <item quantity="one">تەكلىپ قىلىنمىغۇچە بىر ئەزا يېڭى توپقا قوشۇلالمايدۇ.</item>
-    <item quantity="other">تەكلىپ قىلىنمىغۇچە %1$s ئەزا يېڭى توپقا قوشۇلالمايدۇ.</item>
+    <item quantity="other">تەكلىپ قىلىنمىغۇچە %1$s ئەزا يېڭى گۇرۇپپىغا قوشۇلالمايدۇ.</item>
   </plurals>
   <plurals name="MessageRecord_members_couldnt_be_added_to_the_new_group_and_have_been_removed">
     <item quantity="one">بىر ئەزانى يېڭى توپقا قوشقىلى بولمايدۇ، چىقىرىۋېتىلدى.</item>
-    <item quantity="other">%1$s ئەزانى يېڭى توپقا قوشقىلى بولمايدۇ، چىقىرىۋېتىلدى.</item>
+    <item quantity="other">%1$s ئەزانى يېڭى گۇرۇپپىغا قوشقىلى بولمايدۇ، چىقىرىۋېتىلدى.</item>
   </plurals>
   <!--Profile change updates-->
   <string name="MessageRecord_changed_their_profile_name_to">%1$s تەخەللۇسىنى %2$s غا ئۆزگەرتتى.</string>
@@ -914,9 +915,9 @@
   <!--GV2 member additions-->
   <string name="MessageRecord_you_added_s">سىز  %1$sنى قوشتىڭىز.</string>
   <string name="MessageRecord_s_added_s">%2$s نى %1$s قوشتى.</string>
-  <string name="MessageRecord_s_added_you">سىزنى %1$s توپقا قوشتى.</string>
+  <string name="MessageRecord_s_added_you">سىزنى %1$s گۇرۇپپىغا قوشتى.</string>
   <string name="MessageRecord_you_joined_the_group">گۇرۇپپىغا قوشۇلدىڭىز.</string>
-  <string name="MessageRecord_s_joined_the_group">توپقا %1$s قوشۇلدى.</string>
+  <string name="MessageRecord_s_joined_the_group">گۇرۇپپىغا %1$s قوشۇلدى.</string>
   <!--GV2 member removals-->
   <string name="MessageRecord_you_removed_s">%1$s نى چىقىرىۋەتتىڭىز</string>
   <string name="MessageRecord_s_removed_s">%1$s %2$s نى چىقىرىۋەتتى</string>
@@ -937,93 +938,93 @@
   <string name="MessageRecord_s_is_no_longer_an_admin">%1$s باشقۇرغۇچى ئەمەس.</string>
   <string name="MessageRecord_you_are_no_longer_an_admin">سىز باشقۇرغۇچى ئەمەس.</string>
   <!--GV2 invitations-->
-  <string name="MessageRecord_you_invited_s_to_the_group">توپقا%1$s نى تەكلىپ قىلدىڭىز.</string>
-  <string name="MessageRecord_s_invited_you_to_the_group">سىزنى توپقا %1$s تەكلىپ قىلدى.</string>
+  <string name="MessageRecord_you_invited_s_to_the_group">گۇرۇپپىغا%1$s نى تەكلىپ قىلدىڭىز.</string>
+  <string name="MessageRecord_s_invited_you_to_the_group">سىزنى گۇرۇپپىغا %1$s تەكلىپ قىلدى.</string>
   <plurals name="MessageRecord_s_invited_members">
-    <item quantity="one">بۇ توپقا بىر كىشىنى %1$s تەكلىپ قىلدى.</item>
-    <item quantity="other">بۇ توپقا %2$d كىشىنى %1$sتەكلىپ قىلدى.</item>
+    <item quantity="one">بۇ گۇرۇپپىغا بىر كىشىنى %1$s تەكلىپ قىلدى.</item>
+    <item quantity="other">بۇ گۇرۇپپىغا %2$d كىشىنى %1$sتەكلىپ قىلدى.</item>
   </plurals>
   <string name="MessageRecord_you_were_invited_to_the_group">گۇرۇپپىغا تەكلىپ قىلىندىڭىز.</string>
   <plurals name="MessageRecord_d_people_were_invited_to_the_group">
-    <item quantity="one">بۇ توپقا 1 كىشى تەكلىپ قىلىندى.</item>
-    <item quantity="other">بۇ توپقا %1$d كىشى تەكلىپ قىلىندى.</item>
+    <item quantity="one">بۇ گۇرۇپپىغا 1 كىشى تەكلىپ قىلىندى.</item>
+    <item quantity="other">بۇ گۇرۇپپىغا %1$d كىشى تەكلىپ قىلىندى.</item>
   </plurals>
   <!--GV2 invitation revokes-->
   <plurals name="MessageRecord_you_revoked_invites">
-    <item quantity="one">توپقا كىرىش تەكلىپىدىن بىرنى بىكار قىلدىڭىز.</item>
-    <item quantity="other">توپقا كىرىش تەكلىپىدىن %1$d بىكار قىلدىڭىز.</item>
+    <item quantity="one">گۇرۇپپىغا كىرىش تەكلىپىدىن بىرنى بىكار قىلدىڭىز.</item>
+    <item quantity="other">گۇرۇپپىغا كىرىش تەكلىپىدىن %1$d بىكار قىلدىڭىز.</item>
   </plurals>
   <plurals name="MessageRecord_s_revoked_invites">
-    <item quantity="one">توپقا كىرىش تەكلىپىدىن بىرنى %1$s بىكار قىلدى.</item>
-    <item quantity="other">توپقا كىرىش تەكلىپىدىن %2$d نى %1$s بىكار قىلدى.</item>
+    <item quantity="one">گۇرۇپپىغا كىرىش تەكلىپىدىن بىرنى %1$s بىكار قىلدى.</item>
+    <item quantity="other">گۇرۇپپىغا كىرىش تەكلىپىدىن %2$d نى %1$s بىكار قىلدى.</item>
   </plurals>
-  <string name="MessageRecord_someone_declined_an_invitation_to_the_group">بىرەيلەن توپقا كىرىش تەكلىپىنى قوبۇل قىلمىدى.</string>
-  <string name="MessageRecord_you_declined_the_invitation_to_the_group">توپقا كىرىش تەكلىپىنى قوبۇل قىلمىدىڭىز.</string>
-  <string name="MessageRecord_s_revoked_your_invitation_to_the_group">سىزنىڭ توپقا كىرىش تەكلىپىڭىزنى %1$s بىكار قىلدى.</string>
-  <string name="MessageRecord_an_admin_revoked_your_invitation_to_the_group">بىر باشقۇرغۇچى توپقا كىرىش تەكلىپىڭىزنى بىكار قىلدى.</string>
+  <string name="MessageRecord_someone_declined_an_invitation_to_the_group">بىرەيلەن گۇرۇپپىغا كىرىش تەكلىپىنى قوبۇل قىلمىدى.</string>
+  <string name="MessageRecord_you_declined_the_invitation_to_the_group">گۇرۇپپىغا كىرىش تەكلىپىنى قوبۇل قىلمىدىڭىز.</string>
+  <string name="MessageRecord_s_revoked_your_invitation_to_the_group">سىزنىڭ گۇرۇپپىغا كىرىش تەكلىپىڭىزنى %1$s بىكار قىلدى.</string>
+  <string name="MessageRecord_an_admin_revoked_your_invitation_to_the_group">بىر باشقۇرغۇچى گۇرۇپپىغا كىرىش تەكلىپىڭىزنى بىكار قىلدى.</string>
   <plurals name="MessageRecord_d_invitations_were_revoked">
     <item quantity="one">توپقا كىرىش تەكلىپىدىن بىرى بىكار قىلىندى.</item>
-    <item quantity="other">توپقا كىرىش تەكلىپىدىن %1$d بىكار قىلىندى.</item>
+    <item quantity="other">گۇرۇپپىغا كىرىش تەكلىپىدىن %1$d بىكار قىلىندى.</item>
   </plurals>
   <!--GV2 invitation acceptance-->
-  <string name="MessageRecord_you_accepted_invite">توپقا كىرىش تەكلىپىگە قوشۇلدىڭىز.</string>
-  <string name="MessageRecord_s_accepted_invite">توپقا كىرىش تەكلىپىنى %1$s قوبۇل قىلدى.</string>
+  <string name="MessageRecord_you_accepted_invite">گۇرۇپپىغا كىرىش تەكلىپىگە قوشۇلدىڭىز.</string>
+  <string name="MessageRecord_s_accepted_invite">گۇرۇپپىغا كىرىش تەكلىپىنى %1$s قوبۇل قىلدى.</string>
   <string name="MessageRecord_you_added_invited_member_s">تەكلىپ قىلىنغان ئەزا %1$s قوشتىڭىز.</string>
   <string name="MessageRecord_s_added_invited_member_s">تەكلىپ قىلىنغان ئەزا %2$s نى %1$s قوشتى.</string>
   <!--GV2 title change-->
-  <string name="MessageRecord_you_changed_the_group_name_to_s">توپ ئاتىنى «%1$s» غا ئۆزگەرتتىڭىز.</string>
-  <string name="MessageRecord_s_changed_the_group_name_to_s">%1$s  توپ ئاتىنى «%2$s» غا ئۆزگەرتتى.</string>
-  <string name="MessageRecord_the_group_name_has_changed_to_s">توپ ئاتى «%1$s» غا ئۆزگەرتىلدى.</string>
+  <string name="MessageRecord_you_changed_the_group_name_to_s">گۇرۇپپا ئاتىنى «%1$s» غا ئۆزگەرتتىڭىز.</string>
+  <string name="MessageRecord_s_changed_the_group_name_to_s">%1$s  گۇرۇپپىغا ئاتىنى «%2$s» غا ئۆزگەرتتى.</string>
+  <string name="MessageRecord_the_group_name_has_changed_to_s">گۇرۇپپا ئاتى «%1$s» غا ئۆزگەرتىلدى.</string>
   <!--GV2 avatar change-->
   <string name="MessageRecord_you_changed_the_group_avatar">گۇرۇپپا باش سۈرىتىنى ئۆزگەرتتىڭىز.</string>
   <string name="MessageRecord_s_changed_the_group_avatar">%1$s گۇرۇپپا باش سۈرىتىنى ئۆزگەرتتى.</string>
   <string name="MessageRecord_the_group_group_avatar_has_been_changed">گۇرۇپپا باش سۈرىتى ئۆزگەردى.</string>
   <!--GV2 attribute access level change-->
-  <string name="MessageRecord_you_changed_who_can_edit_group_info_to_s">توپ ئۇچۇرىنى كىم تەھرىرلەشنى «%1$s» غا ئۆزگەرتتىڭىز.</string>
-  <string name="MessageRecord_s_changed_who_can_edit_group_info_to_s">%1$s توپ ئۇچۇرىنى كىم تەھرىرلەشنى «%2$s» غا ئۆزگەرتتى.</string>
-  <string name="MessageRecord_who_can_edit_group_info_has_been_changed_to_s">توپ ئۇچۇرىنى كىم تەھرىرلەش «%1$s» غا ئۆزگەرتىلدى.</string>
+  <string name="MessageRecord_you_changed_who_can_edit_group_info_to_s">گۇرۇپپا ئۇچۇرىنى كىم تەھرىرلەشنى «%1$s» غا ئۆزگەرتتىڭىز.</string>
+  <string name="MessageRecord_s_changed_who_can_edit_group_info_to_s">%1$s گۇرۇپپا ئۇچۇرىنى كىم تەھرىرلەشنى «%2$s» غا ئۆزگەرتتى.</string>
+  <string name="MessageRecord_who_can_edit_group_info_has_been_changed_to_s">گۇرۇپپا ئۇچۇرىنى كىم تەھرىرلەش «%1$s» غا ئۆزگەرتىلدى.</string>
   <!--GV2 membership access level change-->
-  <string name="MessageRecord_you_changed_who_can_edit_group_membership_to_s">توپ ئەزالىقىنى كىم تەھرىرلەشنى «%1$s» غا ئۆزگەرتتىڭىز.</string>
-  <string name="MessageRecord_s_changed_who_can_edit_group_membership_to_s">%1$s توپ ئەزالىقىنى كىم تەھرىرلەشنى «%2$s» غا ئۆزگەرتتى.</string>
-  <string name="MessageRecord_who_can_edit_group_membership_has_been_changed_to_s">توپ ئەزالىقىنى كىم تەھرىرلەش «%1$s» غا ئۆزگەرتىلدى.</string>
+  <string name="MessageRecord_you_changed_who_can_edit_group_membership_to_s">گۇرۇپپا ئەزالىقىنى كىم تەھرىرلەشنى «%1$s» غا ئۆزگەرتتىڭىز.</string>
+  <string name="MessageRecord_s_changed_who_can_edit_group_membership_to_s">%1$s گۇرۇپپا ئەزالىقىنى كىم تەھرىرلەشنى «%2$s» غا ئۆزگەرتتى.</string>
+  <string name="MessageRecord_who_can_edit_group_membership_has_been_changed_to_s">گۇرۇپپا ئەزالىقىنى كىم تەھرىرلەش «%1$s» غا ئۆزگەرتىلدى.</string>
   <!--GV2 group link invite access level change-->
-  <string name="MessageRecord_you_turned_on_the_group_link_with_admin_approval_off">توپ ئۇلانمىسىنى باشقۇرغۇچى دەلىللىمەسلىكنى قوزغاتتىڭىز.</string>
-  <string name="MessageRecord_you_turned_on_the_group_link_with_admin_approval_on">توپ ئۇلانمىسىنى باشقۇرغۇچى دەلىللەشنى قوزغاتتىڭىز.</string>
-  <string name="MessageRecord_you_turned_off_the_group_link">توپ ئۇلانمىسىنى چەكلىدىڭىز.</string>
-  <string name="MessageRecord_s_turned_on_the_group_link_with_admin_approval_off">توپ ئۇلانمىسىنى باشقۇرغۇچى دەلىللىمەسلىكنى %1$s قوزغاتتى.</string>
-  <string name="MessageRecord_s_turned_on_the_group_link_with_admin_approval_on">توپ ئۇلانمىسىنى باشقۇرغۇچى دەلىللەشنى %1$s قوزغاتتى.</string>
-  <string name="MessageRecord_s_turned_off_the_group_link">توپ ئۇلانمىسىنى %1$s چەكلىدى.</string>
-  <string name="MessageRecord_the_group_link_has_been_turned_on_with_admin_approval_off">توپ ئۇلانمىسىنى باشقۇرغۇچى دەلىللىمەسلىك قوزغىتىلدى.</string>
-  <string name="MessageRecord_the_group_link_has_been_turned_on_with_admin_approval_on">توپ ئۇلانمىسىنى باشقۇرغۇچى دەلىللەش قوزغىتىلدى.</string>
-  <string name="MessageRecord_the_group_link_has_been_turned_off">توپ ئۇلانمىسى چەكلەندى.</string>
-  <string name="MessageRecord_you_turned_off_admin_approval_for_the_group_link">توپ ئۇلانمىسىنى باشقۇرغۇچى دەلىللەشنى چەكلىدىڭىز.</string>
-  <string name="MessageRecord_s_turned_off_admin_approval_for_the_group_link">توپ ئۇلانمىسىنى باشقۇرغۇچى دەلىللەشنى %1$s چەكلىدى.</string>
-  <string name="MessageRecord_the_admin_approval_for_the_group_link_has_been_turned_off">توپ ئۇلانمىسىنى باشقۇرغۇچى دەلىللەش چەكلەندى.</string>
-  <string name="MessageRecord_you_turned_on_admin_approval_for_the_group_link">توپ ئۇلانمىسىنى باشقۇرغۇچى دەلىللەشنى قوزغاتتىڭىز.</string>
-  <string name="MessageRecord_s_turned_on_admin_approval_for_the_group_link">توپ ئۇلانمىسىنى باشقۇرغۇچى دەلىللەشنى %1$s قوزغاتتى.</string>
-  <string name="MessageRecord_the_admin_approval_for_the_group_link_has_been_turned_on">توپ ئۇلانمىسىنى باشقۇرغۇچى دەلىللەش قوزغىتىلدى.</string>
+  <string name="MessageRecord_you_turned_on_the_group_link_with_admin_approval_off">گۇرۇپپا ئۇلانمىسىنى باشقۇرغۇچى دەلىللىمەسلىكنى قوزغاتتىڭىز.</string>
+  <string name="MessageRecord_you_turned_on_the_group_link_with_admin_approval_on">گۇرۇپپا ئۇلانمىسىنى باشقۇرغۇچى دەلىللەشنى قوزغاتتىڭىز.</string>
+  <string name="MessageRecord_you_turned_off_the_group_link">گۇرۇپپا ئۇلانمىسىنى چەكلىدىڭىز.</string>
+  <string name="MessageRecord_s_turned_on_the_group_link_with_admin_approval_off">گۇرۇپپا ئۇلانمىسىنى باشقۇرغۇچى دەلىللىمەسلىكنى %1$s قوزغاتتى.</string>
+  <string name="MessageRecord_s_turned_on_the_group_link_with_admin_approval_on">گۇرۇپپا ئۇلانمىسىنى باشقۇرغۇچى دەلىللەشنى %1$s قوزغاتتى.</string>
+  <string name="MessageRecord_s_turned_off_the_group_link">گۇرۇپپا ئۇلانمىسىنى %1$s چەكلىدى.</string>
+  <string name="MessageRecord_the_group_link_has_been_turned_on_with_admin_approval_off">گۇرۇپپا ئۇلانمىسىنى باشقۇرغۇچى دەلىللىمەسلىك قوزغىتىلدى.</string>
+  <string name="MessageRecord_the_group_link_has_been_turned_on_with_admin_approval_on">گۇرۇپپا ئۇلانمىسىنى باشقۇرغۇچى دەلىللەش قوزغىتىلدى.</string>
+  <string name="MessageRecord_the_group_link_has_been_turned_off">گۇرۇپپا ئۇلانمىسى چەكلەندى.</string>
+  <string name="MessageRecord_you_turned_off_admin_approval_for_the_group_link">گۇرۇپپا ئۇلانمىسىنى باشقۇرغۇچى دەلىللەشنى چەكلىدىڭىز.</string>
+  <string name="MessageRecord_s_turned_off_admin_approval_for_the_group_link">گۇرۇپپا ئۇلانمىسىنى باشقۇرغۇچى دەلىللەشنى %1$s چەكلىدى.</string>
+  <string name="MessageRecord_the_admin_approval_for_the_group_link_has_been_turned_off">گۇرۇپپا ئۇلانمىسىنى باشقۇرغۇچى دەلىللەش چەكلەندى.</string>
+  <string name="MessageRecord_you_turned_on_admin_approval_for_the_group_link">گۇرۇپپا ئۇلانمىسىنى باشقۇرغۇچى دەلىللەشنى قوزغاتتىڭىز.</string>
+  <string name="MessageRecord_s_turned_on_admin_approval_for_the_group_link">گۇرۇپپا ئۇلانمىسىنى باشقۇرغۇچى دەلىللەشنى %1$s قوزغاتتى.</string>
+  <string name="MessageRecord_the_admin_approval_for_the_group_link_has_been_turned_on">گۇرۇپپا ئۇلانمىسىنى باشقۇرغۇچى دەلىللەش قوزغىتىلدى.</string>
   <!--GV2 group link reset-->
-  <string name="MessageRecord_you_reset_the_group_link">توپ ئۇلانمىسىنى ئەسلىگە قايتۇردىڭىز.</string>
-  <string name="MessageRecord_s_reset_the_group_link">توپ ئۇلانمىسىنى %1$s ئەسلىگە قايتۇردى.</string>
-  <string name="MessageRecord_the_group_link_has_been_reset">توپ ئۇلانمىسى ئەسلىگە قايتۇرۇلدى.</string>
+  <string name="MessageRecord_you_reset_the_group_link">گۇرۇپپا ئۇلانمىسىنى ئەسلىگە قايتۇردىڭىز.</string>
+  <string name="MessageRecord_s_reset_the_group_link">گۇرۇپپا ئۇلانمىسىنى %1$s ئەسلىگە قايتۇردى.</string>
+  <string name="MessageRecord_the_group_link_has_been_reset">گۇرۇپپا ئۇلانمىسى ئەسلىگە قايتۇرۇلدى.</string>
   <!--GV2 group link joins-->
-  <string name="MessageRecord_you_joined_the_group_via_the_group_link">توپ ئۇلانمىسى ئارقىلىق توپقا قوشۇلدىڭىز.</string>
-  <string name="MessageRecord_s_joined_the_group_via_the_group_link">%1$s توپ ئۇلانمىسى ئارقىلىق توپقا قوشۇلدى.</string>
+  <string name="MessageRecord_you_joined_the_group_via_the_group_link">گۇرۇپپا ئۇلانمىسى ئارقىلىق گۇرۇپپىغا قوشۇلدىڭىز.</string>
+  <string name="MessageRecord_s_joined_the_group_via_the_group_link">%1$s گۇرۇپپا ئۇلانمىسى ئارقىلىق گۇرۇپپىغا قوشۇلدى.</string>
   <!--GV2 group link requests-->
-  <string name="MessageRecord_you_sent_a_request_to_join_the_group">توپقا قوشۇلۇش ئىلتىماسى يوللىدىڭىز.</string>
-  <string name="MessageRecord_s_requested_to_join_via_the_group_link">%1$s توپ ئۇلانمىسى ئارقىلىق توپقا قوشۇلۇشنى ئىلتىماس قىلدى.</string>
+  <string name="MessageRecord_you_sent_a_request_to_join_the_group">گۇرۇپپىغا قوشۇلۇش ئىلتىماسى يوللىدىڭىز.</string>
+  <string name="MessageRecord_s_requested_to_join_via_the_group_link">%1$s گۇرۇپپا ئۇلانمىسى ئارقىلىق گۇرۇپپىغا قوشۇلۇشنى ئىلتىماس قىلدى.</string>
   <!--GV2 group link approvals-->
-  <string name="MessageRecord_s_approved_your_request_to_join_the_group">توپقا قوشۇلۇش ئىلتىماسىڭىزنى %1$s نى تەستىقلىدى.</string>
-  <string name="MessageRecord_s_approved_a_request_to_join_the_group_from_s">%2$s نىڭ توپقا قوشۇلۇش ئىلتىماسىنى %1$s تەستىقلىدى.</string>
-  <string name="MessageRecord_you_approved_a_request_to_join_the_group_from_s">%1$s نىڭ توپقا قوشۇلۇش ئىلتىماسىنى تەستىقلىدىڭىز.</string>
-  <string name="MessageRecord_your_request_to_join_the_group_has_been_approved">توپقا قوشۇلۇش ئىلتىماسىڭىز تەستىقلاندى.</string>
-  <string name="MessageRecord_a_request_to_join_the_group_from_s_has_been_approved">%1$s نىڭ توپقا قوشۇلۇش ئىلتىماسى تەستىقلاندى.</string>
+  <string name="MessageRecord_s_approved_your_request_to_join_the_group">گۇرۇپپىغا قوشۇلۇش ئىلتىماسىڭىزنى %1$s نى تەستىقلىدى.</string>
+  <string name="MessageRecord_s_approved_a_request_to_join_the_group_from_s">%2$s نىڭ گۇرۇپپىغا قوشۇلۇش ئىلتىماسىنى %1$s تەستىقلىدى.</string>
+  <string name="MessageRecord_you_approved_a_request_to_join_the_group_from_s">%1$s نىڭ گۇرۇپپىغا قوشۇلۇش ئىلتىماسىنى تەستىقلىدىڭىز.</string>
+  <string name="MessageRecord_your_request_to_join_the_group_has_been_approved">گۇرۇپپىغا قوشۇلۇش ئىلتىماسىڭىز تەستىقلاندى.</string>
+  <string name="MessageRecord_a_request_to_join_the_group_from_s_has_been_approved">%1$s نىڭ گۇرۇپپىغا قوشۇلۇش ئىلتىماسى تەستىقلاندى.</string>
   <!--GV2 group link deny-->
-  <string name="MessageRecord_your_request_to_join_the_group_has_been_denied_by_an_admin">توپقا قوشۇلۇش ئىلتىماسىڭىزنى بىر باشقۇرغۇچى رەت قىلدى.</string>
-  <string name="MessageRecord_s_denied_a_request_to_join_the_group_from_s">%2$s نىڭ توپقا قوشۇلۇش ئىلتىماسىنى %1$s رەت قىلدى.</string>
-  <string name="MessageRecord_a_request_to_join_the_group_from_s_has_been_denied">%1$s نىڭ توپقا قوشۇلۇش ئىلتىماسى رەت قىلىندى.</string>
-  <string name="MessageRecord_you_canceled_your_request_to_join_the_group">توپقا قوشۇلۇش ئىلتىماسىڭىزدىن ۋاز كەچتىڭىز.</string>
-  <string name="MessageRecord_s_canceled_their_request_to_join_the_group">%1$s توپقا قوشۇلۇش ئىلتىماسىدىن ۋاز كەچتى.</string>
+  <string name="MessageRecord_your_request_to_join_the_group_has_been_denied_by_an_admin">گۇرۇپپىغا قوشۇلۇش ئىلتىماسىڭىزنى بىر باشقۇرغۇچى رەت قىلدى.</string>
+  <string name="MessageRecord_s_denied_a_request_to_join_the_group_from_s">%2$s نىڭ گۇرۇپپىغا قوشۇلۇش ئىلتىماسىنى %1$s رەت قىلدى.</string>
+  <string name="MessageRecord_a_request_to_join_the_group_from_s_has_been_denied">%1$s نىڭ گۇرۇپپىغا قوشۇلۇش ئىلتىماسى رەت قىلىندى.</string>
+  <string name="MessageRecord_you_canceled_your_request_to_join_the_group">گۇرۇپپىغا قوشۇلۇش ئىلتىماسىڭىزدىن ۋاز كەچتىڭىز.</string>
+  <string name="MessageRecord_s_canceled_their_request_to_join_the_group">%1$s گۇرۇپپىغا قوشۇلۇش ئىلتىماسىدىن ۋاز كەچتى.</string>
   <!--End of GV2 specific update messages-->
   <string name="MessageRecord_your_safety_number_with_s_has_changed">سىزنىڭ %s بىلەن بولغان بىخەتەرلىك نومۇرىڭىز ئۆزگەردى.</string>
   <string name="MessageRecord_you_marked_your_safety_number_with_s_verified">سىز %s بىلەن بولغان بىخەتەرلىك نومۇرىڭىزغا دەلىللەندى بەلگىسى سالدىڭىز.</string>
@@ -1031,24 +1032,24 @@
   <string name="MessageRecord_you_marked_your_safety_number_with_s_unverified">سىز %s بىلەن بولغان بىخەتەرلىك نومۇرىڭىزغا دەلىللەنمىدى بەلگىسى سالدىڭىز.</string>
   <string name="MessageRecord_you_marked_your_safety_number_with_s_unverified_from_another_device">باشقا بىر ئۈسكۈنىدە  %s بىلەن بولغان بىخەتەرلىك نومۇرىڭىزغا دەلىللەنمىدى بەلگىسى سالدىڭىز.</string>
   <!--Group Calling update messages-->
-  <string name="MessageRecord_s_started_a_group_call_s">%1$s توپ چاقىرىشىنى باشلىدى. %2$s</string>
-  <string name="MessageRecord_s_is_in_the_group_call_s">%1$s توپ چاقىرىشىدا. %2$s</string>
-  <string name="MessageRecord_you_are_in_the_group_call_s1">سىز توپ چاقىرىشىدا. %1$s</string>
-  <string name="MessageRecord_s_and_s_are_in_the_group_call_s1">%1$s ۋە %2$s توپ چاقىرىشىدا. %3$s</string>
-  <string name="MessageRecord_group_call_s">توپ چاقىرىشى. %1$s</string>
-  <string name="MessageRecord_s_started_a_group_call">%1$s توپ چاقىرىشىنى باشلىدى.</string>
-  <string name="MessageRecord_s_is_in_the_group_call">%1$s توپ چاقىرىشىدا</string>
-  <string name="MessageRecord_you_are_in_the_group_call">سىز بۇ توپ چاقىرىشىدا</string>
-  <string name="MessageRecord_s_and_s_are_in_the_group_call">%1$s ۋە %2$s توپ چاقىرىشىدا.</string>
-  <string name="MessageRecord_group_call">توپ چاقىرىشى</string>
+  <string name="MessageRecord_s_started_a_group_call_s">%1$s گۇرۇپپىغا چاقىرىشىنى باشلىدى. %2$s</string>
+  <string name="MessageRecord_s_is_in_the_group_call_s">%1$s گۇرۇپپا چاقىرىقىدا. %2$s</string>
+  <string name="MessageRecord_you_are_in_the_group_call_s1">سىز گۇرۇپپا چاقىرىقىدا. %1$s</string>
+  <string name="MessageRecord_s_and_s_are_in_the_group_call_s1">%1$s ۋە %2$s گۇرۇپپا چاقىرىقىدا. %3$s</string>
+  <string name="MessageRecord_group_call_s">گۇرۇپپا چاقىرىشى. %1$s</string>
+  <string name="MessageRecord_s_started_a_group_call">%1$s گۇرۇپپا چاقىرىقىنى باشلىدى.</string>
+  <string name="MessageRecord_s_is_in_the_group_call">%1$s گۇرۇپپا چاقىرىقىدا</string>
+  <string name="MessageRecord_you_are_in_the_group_call">سىز بۇ گۇرۇپپا چاقىرىقىدا</string>
+  <string name="MessageRecord_s_and_s_are_in_the_group_call">%1$s ۋە %2$s گۇرۇپپا چاقىرىقىدا.</string>
+  <string name="MessageRecord_group_call">گۇرۇپپا چاقىرىقى</string>
   <string name="MessageRecord_you">سىز</string>
   <plurals name="MessageRecord_s_s_and_d_others_are_in_the_group_call_s">
     <item quantity="one">%1$s، %2$s ۋە باشقا %3$d ئەزا توپ چاقىرىشىدا. %4$s</item>
-    <item quantity="other">%1$s، %2$s ۋە باشقا %3$d ئەزا توپ چاقىرىشىدا. %4$s</item>
+    <item quantity="other">%1$s، %2$s ۋە باشقا %3$d ئەزا گۇرۇپپا چاقىرىقىدا. %4$s</item>
   </plurals>
   <plurals name="MessageRecord_s_s_and_d_others_are_in_the_group_call">
     <item quantity="one">%1$s، %2$s ۋە باشقا %3$d ئەزا توپ چاقىرىشىدا.</item>
-    <item quantity="other">%1$s، %2$s ۋە باشقا %3$d ئەزا توپ چاقىرىشىدا.</item>
+    <item quantity="other">%1$s، %2$s ۋە باشقا %3$d ئەزا گۇرۇپپا چاقىرىقىدا.</item>
   </plurals>
   <!--MessageRequestBottomView-->
   <string name="MessageRequestBottomView_accept">قوبۇل قىلىش</string>
@@ -1059,12 +1060,13 @@
   <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_they_wont_know_youve_seen_their_messages_until_you_accept">%1$s نىڭ سىزگە ئۇچۇر يوللاپ ھەمدە ئات ۋە سۈرەتلىرىڭىزنى ھەمبەھىرلەشكە يول قويامسىز؟ سىز قوشۇلۇشتىن ئىلگىرى ئۇلار سىزنىڭ ئۇچۇرنى كۆرگىنىڭىزنى بىلمەيدۇ.</string>
   <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them">%1$s نىڭ سىزگە ئۇچۇر يوللاپ ھەمدە ئات ۋە سۈرەتلىرىڭىزنى ھەمبەھىرلەشكە يول قويامسىز؟ سىز ئۇلارنى چەكلىۋېتىشتىن ئىلگىرى ھېچقانداق ئۇچۇر تاپشۇرۇۋالمايسىز.</string>
   <string name="MessageRequestBottomView_continue_your_conversation_with_this_group_and_share_your_name_and_photo">بۇ گۇرۇپپا بىلەن بولغان سۆھبىتىڭىزنى داۋاملاشتۇرامسىز ھەمدە ئىسمىڭىز ۋە سۈرىتىڭىزنى گۇرۇپپا ئەزالىرى بىلەن ئورتاقلىشامسىز؟</string>
-  <string name="MessageRequestBottomView_upgrade_this_group_to_activate_new_features">يېڭى ئىقتىدارلاردىن @ئاتاش ۋە باشقۇرۇشنى ئاكتىپلاش ئۈچۈن بۇ توپنى يۈكسەلتىڭ. بۇ توپتا ئات ۋە سۈرەتنى ھەمبەھىرلىمىگەن ئەزالارغا توپقا قوشۇلۇش تەكلىپى يوللىنىدۇ.</string>
-  <string name="MessageRequestBottomView_this_legacy_group_can_no_longer_be_used">كونا توپتا ئادەم بەك كۆپ بولغانلىقتىن ئىشلەتكىلى بولمايدۇ. توپتىكى ئەزا سانىنىڭ چېكى %1$d.</string>
+  <string name="MessageRequestBottomView_upgrade_this_group_to_activate_new_features">يېڭى ئىقتىدارلاردىن @ئاتاش ۋە باشقۇرۇشنى ئاكتىپلاش ئۈچۈن بۇ گۇرۇپپىنى يۈكسەلتىڭ. بۇ گۇرۇپپىدا ئات ۋە سۈرەتنى ھەمبەھىرلىمىگەن ئەزالارغا گۇرۇپپىغا قوشۇلۇش تەكلىپى يوللىنىدۇ.</string>
+  <string name="MessageRequestBottomView_this_legacy_group_can_no_longer_be_used">كونا گۇرۇپپىدا ئادەم بەك كۆپ بولغانلىقتىن ئىشلەتكىلى بولمايدۇ. گۇرۇپپىدىكى ئەزا سانىنىڭ چېكى %1$d.</string>
   <string name="MessageRequestBottomView_continue_your_conversation_with_s_and_share_your_name_and_photo">%1$s بىلەن بولغان سۆھبىتىڭىزنى داۋاملاشتۇرامسىز ھەمدە ئىسمىڭىز ۋە سۈرىتىڭىزنى ئۇلار بىلەن ئورتاقلىشامسىز؟</string>
-  <string name="MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">بۇ توپقا قوشۇلۇپ ئات ۋە باش سۈرەتنى توپ ئەزالىرىغا ھەمبەھىرلەمسىز؟ سىز تەكلىپنى قوبۇل قىلىشتىن ئىلگىرى توپ ئەزالىرى ئۇلار ئەۋەتكەن ئۇچۇرنى كۆرگەنلىكىڭىزنى بىلمەيدۇ.</string>
-  <string name="MessageRequestBottomView_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">توپقا قوشۇلامسىز؟ سىز قوشۇلمىغىچە ئۇلارنىڭ ئۇچۇرلىرىنى كۆرگەنلىكىڭىزنى ئۇلار بىلمەيدۇ.</string>
-  <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">بۇ توپنى چەكلەپ ھەمدە ئات ۋە باش سۈرىتىڭىزنى ھەمبەھىرلەشكە يول قويامسىز؟ سىز ئۇلارنى چەكلىۋېتىشتىن ئىلگىرى ھېچقانداق ئۇچۇر تاپشۇرۇۋالمايسىز.</string>
+  <string name="MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">بۇ گۇرۇپپىغا قوشۇلۇپ ئات ۋە باش سۈرەتنى گۇرۇپپا ئەزالىرىغا ھەمبەھىرلەمسىز؟ سىز تەكلىپنى قوبۇل قىلىشتىن ئىلگىرى گۇرۇپپا ئەزالىرى ئۇلار ئەۋەتكەن ئۇچۇرنى كۆرگەنلىكىڭىزنى بىلمەيدۇ.</string>
+  <string name="MessageRequestBottomView_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">گۇرۇپپىغا قوشۇلامسىز؟ سىز قوشۇلمىغىچە ئۇلارنىڭ ئۇچۇرلىرىنى كۆرگەنلىكىڭىزنى ئۇلار بىلمەيدۇ.</string>
+  <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">بۇ گۇرۇپپىنى چەكلەپ ھەمدە ئات ۋە باش سۈرىتىڭىزنى ھەمبەھىرلەشكە يول قويامسىز؟ سىز ئۇلارنى چەكلىۋېتىشتىن ئىلگىرى ھېچقانداق ئۇچۇر تاپشۇرۇۋالمايسىز.</string>
+  <string name="MessageRequestProfileView_view">كۆرسەت</string>
   <string name="MessageRequestProfileView_member_of_one_group">%1$s ئەزاسى</string>
   <string name="MessageRequestProfileView_member_of_two_groups">%1$s ۋە %2$s نىڭ ئەزاسى</string>
   <string name="MessageRequestProfileView_member_of_many_groups">%1$s،%2$s ۋە %3$s نىڭ ئەزاسى</string>
@@ -1078,7 +1080,7 @@
   </plurals>
   <plurals name="MessageRequestProfileView_member_of_d_additional_groups">
     <item quantity="one">%d  قوشۇمچە توپ</item>
-    <item quantity="other"> %d قوشۇمچە توپ</item>
+    <item quantity="other"> %d قوشۇمچە گۇرۇپپا</item>
   </plurals>
   <!--PassphraseChangeActivity-->
   <string name="PassphraseChangeActivity_passphrases_dont_match_exclamation">پارول ماس كەلمىدى!</string>
@@ -1164,11 +1166,15 @@
   <string name="ReactionsConversationView_plus">+%1$d</string>
   <!--ReactionsRecipientAdapter-->
   <string name="ReactionsRecipientAdapter_you">سىز</string>
+  <!--RecaptchaRequiredBottomSheetFragment-->
+  <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">ئۇچۇرلىشىشنى داۋاملاشتۇرۇش ئۈچۈن دەلىللەش زۆرۈر</string>
+  <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Molly دا ئەخلەت خەتنىڭ ئالدىنى ئېلىش ئۈچۈن، دەلىللەشنى تاماملاڭ.</string>
+  <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">دەلىللىگەندىن كېيىن، ئۇچۇر يوللاشنى داۋاملاشتۇرالايسىز. ۋاقىتلىق توختىتىلغان ھەر قانداق ئۇچۇر ئۆزلۈكىدىن يوللىنىدۇ.</string>
   <!--RecipientPreferencesActivity-->
   <string name="RecipientPreferenceActivity_block">چەكلەش</string>
   <string name="RecipientPreferenceActivity_unblock">قالدۇرۇش</string>
   <!--RecipientProvider-->
-  <string name="RecipientProvider_unnamed_group">ئاتسىز توپ</string>
+  <string name="RecipientProvider_unnamed_group">ئاتسىز گۇرۇپپا</string>
   <!--RedPhone-->
   <string name="RedPhone_answering">جاۋاب بېرىۋاتىدۇ…</string>
   <string name="RedPhone_ending_call">چاقىرىشنى ئاخىرلاشتۇرۇۋاتىدۇ…</string>
@@ -1191,7 +1197,7 @@
   <string name="WebRtcCallView__join_call">چاقىرىققا قېتىل</string>
   <string name="WebRtcCallView__call_is_full">چاقىرىق توشتى</string>
   <string name="WebRtcCallView__the_maximum_number_of_d_participants_has_been_Reached_for_this_call">بۇ چاقىرىقنىڭ قېتىلغۇچىلىرى%1$d چېكىگە يەتتى. سەل تۇرۇپ قايتا سىناڭ.</string>
-  <string name="WebRtcCallView__s_group_call">«%1$s» توپ چاقىرىقى</string>
+  <string name="WebRtcCallView__s_group_call">«%1$s» گۇرۇپپا چاقىرىقى</string>
   <string name="WebRtcCallView__view_participants_list">قېتىلغۇچىلارنى كۆرۈش</string>
   <string name="WebRtcCallView__your_video_is_off">سىنىڭىز ئېتىك</string>
   <string name="WebRtcCallView__reconnecting">قايتا ئۇلىنىۋاتىدۇ…</string>
@@ -1222,6 +1228,9 @@
   <string name="ProxyBottomSheetFragment_do_you_want_to_use_this_proxy_address">بۇ ۋاكالەتچى ئادرېسنى ئىشلىتەمسىز؟</string>
   <string name="ProxyBottomSheetFragment_use_proxy">ۋاكالەتچى ئىشلىتىش</string>
   <string name="ProxyBottomSheetFragment_successfully_connected_to_proxy">ۋاكالەتچىگە مۇۋەپپەقىيەتلىك باغلاندى.</string>
+  <!--RecaptchaProofActivity-->
+  <string name="RecaptchaProofActivity_failed_to_submit">تاپشۇرالمىدى</string>
+  <string name="RecaptchaProofActivity_complete_verification">دەلىللەش تامام</string>
   <!--RegistrationActivity-->
   <string name="RegistrationActivity_select_your_country">دۆلىتىڭىزنى تاللاڭ</string>
   <string name="RegistrationActivity_you_must_specify_your_country_code">دۆلىتىڭىزنىڭ كودىنى ئېنىق
@@ -1266,10 +1275,10 @@
   <string name="RegistrationActivity_call">چاقىر</string>
   <!--RegistrationLockV2Dialog-->
   <string name="RegistrationLockV2Dialog_turn_on_registration_lock">تىزىملىتىش قۇلۇپىنى ئاچامسىز؟</string>
-  <string name="RegistrationLockV2Dialog_turn_off_registration_lock">تىزىملىتىش قۇلۇپىنى ئېتەمسىز؟</string>
+  <string name="RegistrationLockV2Dialog_turn_off_registration_lock">تىزىملىتىش قۇلۇپىنى تاقامسىز؟</string>
   <string name="RegistrationLockV2Dialog_if_you_forget_your_signal_pin_when_registering_again">ئەگەر Signal غا قايتا تىزىملاتقىنىڭىزدا Signal PIN نى ئۇنتۇپ قالغان بولسىڭىز، ھېساباتىڭىزنى 7 كۈن قۇلۇپلاپ سالىسىز.</string>
   <string name="RegistrationLockV2Dialog_turn_on">ئېچىش</string>
-  <string name="RegistrationLockV2Dialog_turn_off">ئېتىش</string>
+  <string name="RegistrationLockV2Dialog_turn_off">تاقا</string>
   <!--RevealableMessageView-->
   <string name="RevealableMessageView_view_photo">سۈرەت كۆرسەت</string>
   <string name="RevealableMessageView_view_video">سىن كۆرسەت</string>
@@ -1298,7 +1307,7 @@
   <string name="SignalPinReminders_well_remind_you_again_in_a_couple_weeks">بىر قانچە ھەپتىدىن كېيىن سىزنى قايتا ئەسكەرتىمىز.</string>
   <string name="SignalPinReminders_well_remind_you_again_in_a_month">بىر ئايدىن كېيىن سىزنى قايتا ئەسكەرتىمىز.</string>
   <!--Slide-->
-  <string name="Slide_image">سۈرەت</string>
+  <string name="Slide_image">رەسىم</string>
   <string name="Slide_sticker">چىراي ئىپادە</string>
   <string name="Slide_audio">ئۈن</string>
   <string name="Slide_video">سىن</string>
@@ -1348,8 +1357,8 @@
   <string name="SupportEmailUtil_registration_lock">تىزىملاش قۇلۇپى:</string>
   <string name="SupportEmailUtil_locale">تىل:</string>
   <!--ThreadRecord-->
-  <string name="ThreadRecord_group_updated">توپ يېڭىلاندى</string>
-  <string name="ThreadRecord_left_the_group">توپتىن ئايرىلدى</string>
+  <string name="ThreadRecord_group_updated">گۇرۇپپا يېڭىلاندى</string>
+  <string name="ThreadRecord_left_the_group">گۇرۇپپىدىن ئايرىلدى</string>
   <string name="ThreadRecord_secure_session_reset">بىخەتەر سۆزلەشكۈ ئەسلىگە قايتۇرۇلدى.</string>
   <string name="ThreadRecord_draft">ئارگىنال:</string>
   <string name="ThreadRecord_called">چاقىرغىنىڭىز</string>
@@ -1452,6 +1461,8 @@
   <string name="MessageNotifier_message_delivery_failed">ئۇچۇرنى يەتكۈزەلمىدى.</string>
   <string name="MessageNotifier_failed_to_deliver_message">ئۇچۇرنى يەتكۈزەلمىدى.</string>
   <string name="MessageNotifier_error_delivering_message">ئۇچۇر يەتكۈزۈشتە خاتالىق كۆرۈلدى.</string>
+  <string name="MessageNotifier_message_delivery_paused">ئۇچۇر يەتكۈزۈش ۋاقىتلىق توختىدى.</string>
+  <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Molly دا ئۇچۇر يوللاشنى داۋاملاشتۇرۇش ئۈچۈن دەلىللەش زۆرۈر.</string>
   <string name="MessageNotifier_mark_all_as_read">ھەممىسى ئوقۇلدى</string>
   <string name="MessageNotifier_mark_read">ئوقۇلدى</string>
   <string name="MessageNotifier_turn_off_these_notifications">بۇ ئۇقتۇرۇشلارنى تاقا</string>
@@ -1466,7 +1477,7 @@
   <string name="MessageNotifier_unknown_contact_message">ئالاقىلەشكۈچى</string>
   <string name="MessageNotifier_reacted_s_to_s">«%2$s» غا قايتۇرغان ئىنكاس %1$s.</string>
   <string name="MessageNotifier_reacted_s_to_your_video">سىنىڭىزغا %1$s ئىنكاس قايتۇردى.</string>
-  <string name="MessageNotifier_reacted_s_to_your_image">سۈرىتىڭىزگە %1$s ئىنكاس قايتۇردى.</string>
+  <string name="MessageNotifier_reacted_s_to_your_image">رەسىمىڭىزگە%1$s ئىنكاس قايتۇردى.</string>
   <string name="MessageNotifier_reacted_s_to_your_file">ھۆججىتىڭىز %1$s ئىنكاس قايتۇردى.</string>
   <string name="MessageNotifier_reacted_s_to_your_audio">ئۈنىڭىزگە %1$s ئىنكاس قايتۇردى.</string>
   <string name="MessageNotifier_reacted_s_to_your_view_once_media">كۆرۈن-غايىپ ۋاسىتىڭىزگە %1$s ئىنكاس قايتۇردى.</string>
@@ -1483,7 +1494,7 @@
   <string name="NotificationChannel_other">باشقىلار</string>
   <string name="NotificationChannel_group_chats">سۆھبەتلەر</string>
   <string name="NotificationChannel_missing_display_name">نامەلۇم</string>
-  <string name="NotificationChannel_voice_notes">ئۈن خاتىرە</string>
+  <string name="NotificationChannel_voice_notes">ئاۋازلىق ئەسلەتمە</string>
   <string name="NotificationChannel_contact_joined_signal">ئالاقاداش Signal غا قېتىلدى</string>
   <string name="NotificationChannels__no_activity_available_to_open_notification_channel_settings">ئۇقتۇرۇش قانال تەڭشەكلىرىنى ئاچىدىغان پائالىيەت يوق.</string>
   <!--ProfileEditNameFragment-->
@@ -1502,6 +1513,7 @@
   <string name="SingleRecipientNotificationBuilder_signal">Molly </string>
   <string name="SingleRecipientNotificationBuilder_new_message">يېڭى ئۇچۇر</string>
   <string name="SingleRecipientNotificationBuilder_message_request">ئۇچۇر ئىلتىماسى</string>
+  <string name="SingleRecipientNotificationBuilder_you">سىز</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">سىن قويۇش</string>
   <string name="ThumbnailView_Has_a_caption_description">خەتلىك</string>
@@ -1540,7 +1552,7 @@
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">ئات ياكى نومۇر كىرگۈزۈڭ</string>
   <string name="contact_selection_activity__invite_to_signal">Molly ئىشلىتىش تەكلىپى</string>
-  <string name="contact_selection_activity__new_group">يېڭى توپ</string>
+  <string name="contact_selection_activity__new_group">يېڭى گۇرۇپپا</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">كىرگۈزگەن خەتنى تازىلاش</string>
   <string name="contact_filter_toolbar__show_keyboard_description">ھەرپتاختا كۆرسەت</string>
@@ -1555,11 +1567,11 @@
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">ئالاقەداش ئېرىشىشتە خاتالىق كۆرۈلدى، تور باغلىنىشىڭىزنى تەكشۈرۈڭ</string>
   <string name="ContactSelectionListFragment_username_not_found">ئىشلەتكۈچى ئىسمى تېپىلمىدى</string>
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">«%1$s» تېخى Signal ئىشلەتكۈچىسى ئەمەس. ئىشلەتكۈچى ئاتىنى تەكشۈرۈپ ئاندىن قايتا سىناڭ.</string>
-  <string name="ContactSelectionListFragment_you_do_not_need_to_add_yourself_to_the_group">ئۆزىڭىزنى توپقا قوشۇشىڭىز ھاجەتسىز</string>
-  <string name="ContactSelectionListFragment_maximum_group_size_reached">توپنىڭ ئادەم سانى چېكىگە يەتتى</string>
-  <string name="ContactSelectionListFragment_signal_groups_can_have_a_maximum_of_d_members">Signal  توپى %1$d ئەزانى سىغدۇرالايدۇ.</string>
+  <string name="ContactSelectionListFragment_you_do_not_need_to_add_yourself_to_the_group">ئۆزىڭىزنى گۇرۇپپىغا قوشۇشىڭىز ھاجەتسىز</string>
+  <string name="ContactSelectionListFragment_maximum_group_size_reached">گۇرۇپپىنىڭ ئادەم سانى چېكىگە يەتتى</string>
+  <string name="ContactSelectionListFragment_signal_groups_can_have_a_maximum_of_d_members">Signal  گۇرۇپپىسى %1$d ئەزانى سىغدۇرالايدۇ.</string>
   <string name="ContactSelectionListFragment_recommended_member_limit_reached">تەۋسىيە ئەزا چېكىگە يەتتى</string>
-  <string name="ContactSelectionListFragment_signal_groups_perform_best_with_d_members_or_fewer">ئەزا سانى %1$d ياكى ئاز بولغاندا Signal توپىنىڭ ئىقتىدارى ئەڭ ياخشى. تېخىمۇ كۆپ ئەزا قوشۇلسا ئۇچۇر يوللاش ۋە تاپشۇرۇۋېلىش سەل كېچىكىدۇ.</string>
+  <string name="ContactSelectionListFragment_signal_groups_perform_best_with_d_members_or_fewer">ئەزا سانى %1$d ياكى ئاز بولغاندا Signal گۇرۇپپىسىنىڭ ئىقتىدارى ئەڭ ياخشى. تېخىمۇ كۆپ ئەزا قوشۇلسا ئۇچۇر يوللاش ۋە تاپشۇرۇۋېلىش سەل كېچىكىدۇ.</string>
   <plurals name="ContactSelectionListFragment_d_members">
     <item quantity="one">1</item>
     <item quantity="other">0</item>
@@ -1583,8 +1595,8 @@
   <string name="conversation_activity__emoji_toggle_description">ئىپادە كۇنۇپكا تاختىسىنى ئالماشتۇر</string>
   <string name="conversation_activity__attachment_thumbnail">قوشۇمچىنىڭ كىچىك سۈرىتى</string>
   <string name="conversation_activity__quick_attachment_drawer_toggle_camera_description">تېز كامېرا قوشۇمچە تارتمىسىغا ئالماشتۇر</string>
-  <string name="conversation_activity__quick_attachment_drawer_record_and_send_audio_description">ئاۋاز قوشۇمچىسىنى ئۇنگە ئال ۋە ئەۋەت</string>
-  <string name="conversation_activity__quick_attachment_drawer_lock_record_description">ئاۋاز قوشۇمچىسىنى ئۈنگەئېلىشنى قۇلۇپلا</string>
+  <string name="conversation_activity__quick_attachment_drawer_record_and_send_audio_description">ئۈن قوشۇمچىسىنى ئۇنگە ئال ۋە ئەۋەت</string>
+  <string name="conversation_activity__quick_attachment_drawer_lock_record_description">ئۈن قوشۇمچىسىنى ئۈنگەئېلىشنى قۇلۇپلا</string>
   <string name="conversation_activity__enable_signal_for_sms">Signal بىلەن ئۇچۇرلىشىشىنى ئاچ</string>
   <string name="conversation_activity__message_could_not_be_sent">ئۇچۇر ئەۋەتىلەلمىدى. ئۇلىنىشڭىزنى تەكشۈرۈپ قايتا سىناڭ.</string>
   <!--conversation_input_panel-->
@@ -1608,6 +1620,8 @@
   <string name="ConversationUpdateItem_call_is_full">چاقىرىق توشتى</string>
   <string name="ConversationUpdateItem_invite_friends">دوستلىرىڭىزنى تەكلىپ قىلىڭ</string>
   <string name="ConversationUpdateItem_enable_call_notifications">چاقىرىش ئۇقتۇرۇشلىرىنى قوزغات</string>
+  <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">ھېچقانداق ئورتاق گۇرۇپپا يوق. تەلەپلەرنى ئەستايىدىللىق بىلەن تەكشۈرۈڭ.</string>
+  <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">بۇ گۇرۇپپىدا ھېچقانداق ئەزا يوق. تەلەپلەرنى ئەستايىدىللىق بىلەن تەكشۈرۈڭ.</string>
   <!--audio_view-->
   <string name="audio_view__play_pause_accessibility_description">قوي… تورمۇزلا</string>
   <string name="audio_view__download_accessibility_description">چۈشۈر</string>
@@ -1655,7 +1669,7 @@
   <string name="device_list_fragment__no_devices_linked">ھېچقانداق ئۈسكۈنە باغلانمىدى</string>
   <string name="device_list_fragment__link_new_device">يېڭى ئۈسكىنە باغلا</string>
   <!--expiration-->
-  <string name="expiration_off">ئەت</string>
+  <string name="expiration_off">تاقاق</string>
   <plurals name="expiration_seconds">
     <item quantity="one">1</item>
     <item quantity="other">0</item>
@@ -1697,7 +1711,7 @@
     <item quantity="other">0</item>
   </plurals>
   <!--giphy_activity-->
-  <string name="giphy_activity_toolbar__search_gifs_and_stickers">چىراي ئىپادە ۋە GIF رەسىم ئىزدەش</string>
+  <string name="giphy_activity_toolbar__search_gifs">‫GIF ئىزدە</string>
   <!--giphy_fragment-->
   <string name="giphy_fragment__nothing_found">ھىچنېمە تېپىلمىدى</string>
   <!--log_submit_activity-->
@@ -1722,12 +1736,12 @@
     <item quantity="one">1</item>
     <item quantity="other">0</item>
   </plurals>
-  <string name="GroupUtil_group_name_is_now">ھازىرقى توپ ئاتى «%1$s».</string>
+  <string name="GroupUtil_group_name_is_now">ھازىرقى گۇرۇپپا ئاتى «%1$s».</string>
   <!--prompt_passphrase_activity-->
   <string name="prompt_passphrase_activity__unlock">قۇلۇپ ئاچ</string>
   <!--prompt_mms_activity-->
-  <string name="prompt_mms_activity__signal_requires_mms_settings_to_deliver_media_and_group_messages">سىمسىز تېلېگراف سودىگىرىڭىزنىڭ تورى ئارقىلىق كۆپ ۋاسىتە ئۇچۇر ۋە توپ ئۇچۇرى يوللاشتا، Signal كۆپ ۋاسىتە ئۇچۇر تەڭشىكىنى زىيارەت قىلىشقا ئېھتىياجلىق. ئۈسكۈنىڭىزدىن بۇ ئۇچۇرلارغا ئېرىشكىلى بولمىدى، قۇلۇپلانغان ئۈسكۈنە ياكى چەكلىك سەپلىمىلىك ئۈسكۈنىلەردە مۇشۇنىڭغا ئوخشاش ئەھۋال مەۋجۇت.</string>
-  <string name="prompt_mms_activity__to_send_media_and_group_messages_tap_ok">ۋاسىتە ۋە توپ ئۇچۇرى يوللاشتا، «جەزملە» نى چېكىپ زۆرۈر تەڭشەكلەرنى تاماملاش كېرەك. كۆپ ۋاسىتە ئۇچۇر تەڭشىكىنى تېلېگراف سودىگىرىڭىزنىڭ «تېلگراف سودىگەر APN» دىن تاپالايسىز. بۇ مەشغۇلاتنى بىرلا قېتىم قىلىسىز.</string>
+  <string name="prompt_mms_activity__signal_requires_mms_settings_to_deliver_media_and_group_messages">سىمسىز تېلېگراف سودىگىرىڭىزنىڭ تورى ئارقىلىق كۆپ ۋاسىتە ئۇچۇر ۋە گۇرۇپپا ئۇچۇرى يوللاشتا، Signal كۆپ ۋاسىتە ئۇچۇر تەڭشىكىنى زىيارەت قىلىشقا ئېھتىياجلىق. ئۈسكۈنىڭىزدىن بۇ ئۇچۇرلارغا ئېرىشكىلى بولمىدى، قۇلۇپلانغان ئۈسكۈنە ياكى چەكلىك سەپلىمىلىك ئۈسكۈنىلەردە مۇشۇنىڭغا ئوخشاش ئەھۋال مەۋجۇت.</string>
+  <string name="prompt_mms_activity__to_send_media_and_group_messages_tap_ok">ۋاسىتە ۋە گۇرۇپپا ئۇچۇرى يوللاشتا، «جەزملە» نى چېكىپ زۆرۈر تەڭشەكلەرنى تاماملاش كېرەك. كۆپ ۋاسىتە ئۇچۇر تەڭشىكىنى تېلېگراف سودىگىرىڭىزنىڭ «تېلگراف سودىگەر APN» دىن تاپالايسىز. بۇ مەشغۇلاتنى بىرلا قېتىم قىلىسىز.</string>
   <!--profile_create_activity-->
   <string name="CreateProfileActivity_first_name_required">ئات (زۆرۈر)</string>
   <string name="CreateProfileActivity_last_name_optional">تەگئات (تاللاشچان)</string>
@@ -1747,8 +1761,8 @@
   <string name="EditAboutFragment_taking_a_break">ئارام ئارايلى</string>
   <string name="EditAboutFragment_working_on_something_new">يېڭىلىقنى سىنايلى</string>
   <!--EditProfileFragment-->
-  <string name="EditProfileFragment__edit_group_name_and_photo">توپ ئاتى ۋە باش سۈرەت تەھرىر</string>
-  <string name="EditProfileFragment__group_name">توپ ئاتى</string>
+  <string name="EditProfileFragment__edit_group_name_and_photo">گۇرۇپپا ئاتى ۋە باش سۈرەت تەھرىر</string>
+  <string name="EditProfileFragment__group_name">گۇرۇپپا ئاتى</string>
   <!--EditProfileNameFragment-->
   <string name="EditProfileNameFragment_your_name">ئىسمىڭىز</string>
   <string name="EditProfileNameFragment_first_name">ئات</string>
@@ -1917,7 +1931,7 @@
   <string name="preferences__slow">ئاستا</string>
   <string name="preferences__help">ياردەم</string>
   <string name="preferences__advanced">ئالىي</string>
-  <string name="preferences__donate_to_signal">Molly غا ئىئانە قىلىڭ</string>
+  <string name="preferences__donate_to_signal">Signal غا ئىئانە قىلىڭ</string>
   <string name="preferences__privacy">مەخپىيەتلىك</string>
   <string name="preferences__mms_user_agent">MMS ئىشلەتكۈچى ۋەكىلى</string>
   <string name="preferences__advanced_mms_access_point_names">MMS نىڭ قولدا تەڭشەكلىرى</string>
@@ -1986,7 +2000,7 @@
   <string name="preferences_storage__thirty_days">30 كۈن</string>
   <string name="preferences_storage__none">ھېچنېمە</string>
   <string name="preferences_storage__s_messages">%1$s ئۇچۇرلار</string>
-  <string name="preferences_storage__custom">ئۆزلەشتۈرمە</string>
+  <string name="preferences_storage__custom">ئىختىيارى</string>
   <string name="preferences_advanced__use_system_emoji">سېسىتما ئىپادىسىنى قوللان</string>
   <string name="preferences_advanced__disable_signal_built_in_emoji_support">Signal نىڭ ئىچكى ئىپادە قوللاشلىرىنى ئېتىۋەت</string>
   <string name="preferences_advanced__relay_all_calls_through_the_signal_server_to_avoid_revealing_your_ip_address">IP ئادرېسىڭىزنىڭ باشقىلارغا كۆرۈنۈپ قېلىشىدىن ساقلىنىش ئۈچۈن، بارلىق چاقىرىقلارنى Signal مۇلازىمېتىر ئارقىلىق ئالاقىداشلىرىڭىزغا ئۇلاپ يوللاڭ. قوزغاتسىڭىز چاقىرىق سۈپىتىنى تۆۋەنلىتىشى مۈمكىن.</string>
@@ -2017,12 +2031,12 @@
   <string name="preferences_communication__sealed_sender_display_indicators">ئېكران كۆرسەتكۈچىلىرى</string>
   <string name="preferences_communication__sealed_sender_display_indicators_description">يوشۇرۇن ئەۋەتكۈچىدىن كەلگەن ئۇچۇرلاردا «ئۇچۇر تەپسىلاتى» تاللانغاندا، ھالەت سىمبەلگىسىنى كۆرسەت.</string>
   <string name="preferences_communication__sealed_sender_allow_from_anyone">ھەممىسىدن قوبۇل قىل</string>
-  <string name="preferences_communication__sealed_sender_allow_from_anyone_description">ئالاقەداشلىرىڭ ئارىسىدا بولمىغان ياكى ئارخىپىڭنى ھەمبەھرلىمىگەن كىشىلەردىن، يوشۇرۇن ئەۋەتكۈچىلەرنىڭمۇ ئۇچۇرلىرىنى قوبۇل قىلىشنى ئاكتىپ قىل. </string>
+  <string name="preferences_communication__sealed_sender_allow_from_anyone_description">ئالاقەداشلىرىڭ ئارىسىدا بولمىغان ياكى ئارخىپىڭنى ھەمبەھىرلىمىگەن كىشىلەردىن، يوشۇرۇن ئەۋەتكۈچى ئۇچۇرلىرىنى قوبۇل قىلىشنى ئاكتىپلا.</string>
   <string name="preferences_communication__sealed_sender_learn_more">كۆپرەك ئۆگىنىش</string>
   <string name="preferences_setup_a_username">بىز ئىشلەتكۈچى ئىسمى سەپلە</string>
   <string name="preferences_proxy">ۋاكالەتچى</string>
   <string name="preferences_use_proxy">ۋاكالەتچى ئىشلىتىش</string>
-  <string name="preferences_off">ئەت</string>
+  <string name="preferences_off">تاقاق</string>
   <string name="preferences_on">ئاچ</string>
   <string name="preferences_proxy_address">ۋاكالەتچى ئادرېس</string>
   <string name="preferences_only_use_a_proxy_if">پەقەت Wi-Fi  ياكى يانفون تورى بىلەن Signal غا ئۇلىنىش مۈمكىن بولمىغاندا، ۋاكالەتچى ئىشلىتىڭ.</string>
@@ -2213,7 +2227,7 @@
   <string name="conversation_list__chats">سۆھبەتلەر</string>
   <string name="conversation_list__you_can_only_pin_up_to_d_chats">سىز %1$d سۆھبەتنىلا قوندۇرالايسىز</string>
   <!--conversation_list_item_view-->
-  <string name="conversation_list_item_view__contact_photo_image">ئالاقەداش سۈرەت</string>
+  <string name="conversation_list_item_view__contact_photo_image">ئالاقەداش فوتو رەسىمى</string>
   <string name="conversation_list_item_view__archived">ئارخىپلاشتۇرۇلدى</string>
   <!--conversation_list_fragment-->
   <string name="conversation_list_fragment__fab_content_description">يېڭى سۆھبەت</string>
@@ -2226,7 +2240,7 @@
   <!--conversation_unmuted-->
   <string name="conversation_unmuted__mute_notifications">ئۈنسىز ئۇقتۇرۇش</string>
   <!--conversation-->
-  <string name="conversation__menu_group_settings">توپ تەڭشەكلەر</string>
+  <string name="conversation__menu_group_settings">گۇرۇپپا تەڭشەكلەر</string>
   <string name="conversation__menu_leave_group">گۇرۇپپىدىن ئايرىلىڭ</string>
   <string name="conversation__menu_view_all_media">بارلىق مېدىيا</string>
   <string name="conversation__menu_conversation_settings">سۆھبەت تەڭشەكلەر</string>
@@ -2242,7 +2256,7 @@
   <string name="conversation_group_options__conversation">سۆھبەت</string>
   <string name="conversation_group_options__broadcast">تارقىتىش</string>
   <!--text_secure_normal-->
-  <string name="text_secure_normal__menu_new_group">يېڭى توپ</string>
+  <string name="text_secure_normal__menu_new_group">يېڭى گۇرۇپپا</string>
   <string name="text_secure_normal__menu_settings">تەڭشەكلەر</string>
   <string name="text_secure_normal__menu_clear_passphrase">قۇلۇپ</string>
   <string name="text_secure_normal__mark_all_as_read">ھەممىسى ئوقۇلدى</string>
@@ -2372,7 +2386,7 @@
     <item quantity="other">%1$d ئۇرۇنۇش قالدى</item>
   </plurals>
   <!--CalleeMustAcceptMessageRequestDialogFragment-->
-  <string name="CalleeMustAcceptMessageRequestDialogFragment__s_will_get_a_message_request_from_you">%1$s ئۇچۇر ئىلتىماسىڭىزنى تاپشۇرۇۋالىدۇ. ئىلتىماسىڭىزغا قوشۇلغاندىن كېيىن ئۇنىڭ بىلەن بىر قېتىم سۆزلىشەلەيسىز.</string>
+  <string name="CalleeMustAcceptMessageRequestDialogFragment__s_will_get_a_message_request_from_you">%1$s ئۇچۇر ئىلتىماسىڭىزنى تاپشۇرۇۋالىدۇ. ئىلتىماسىڭىزغا قوشۇلغاندىن كېيىن ئۇنىڭ بىلەن سۆزلىشەلەيسىز.</string>
   <!--KBS Megaphone-->
   <string name="KbsMegaphone__create_a_pin">بىر PIN قۇرۇڭ</string>
   <string name="KbsMegaphone__pins_keep_information_thats_stored_with_signal_encrytped">Signal ئۇچۇر ساقلىغاندا PIN ئارقىلىق شىفىرلايدۇ.</string>
@@ -2466,7 +2480,7 @@
   <string name="preferences_app_protection__pins_keep_information_stored_with_signal_encrypted">PINلەر Signalدا ساقلانغان ئۇچۇرلارنى مەخپىيلەشتۈرۈپ ساقلايدۇ. شۇڭا سىزلا زىيارەت قىلالايسىز. ئارخىپىڭىز، سەپلىمىلىرىڭىز ۋە ئالاقەداشلىرىڭىز Signal نى قايتا قاچىلىغىنىڭىزدا ئەسلىگە كەلتۈرىلىدۇ.</string>
   <string name="preferences_app_protection__add_extra_security_by_requiring_your_signal_pin_to_register">Signal PIN نى مەجبۇرىي ھالەتكە ئەكىلىپ، Signal نى تېلېفون نومۇرىڭىز بىلەن بىرلىكتە قايتا تىزىملىتىش ئارقىلىق، يەنىمۇ بىخەتەر قىلالايسىز.</string>
   <string name="preferences_app_protection__reminders_help_you_remember_your_pin">PIN نى ئەسلىگە كەلتۈرگىلى بولمىغاچقا، ئەسكەرتكۈچ ئۇنى سىزنىڭ پىششىق ئېىسىڭىزدە تۇتىۋېلىشىڭىزغا ياردەم قىلىدۇ. بارا-بارا تېخىمۇ ئاز سورىغۇسى.</string>
-  <string name="preferences_app_protection__turn_off">ئەت</string>
+  <string name="preferences_app_protection__turn_off">تاقا</string>
   <string name="preferences_app_protection__confirm_pin">PIN نى جەزىملەڭ</string>
   <string name="preferences_app_protection__confirm_your_signal_pin">Signal PIN نىڭىزنى جەزىملەڭ</string>
   <string name="preferences_app_protection__make_sure_you_memorize_or_securely_store_your_pin">PIN نى ئەسلىگە كەلتۈرگىلى بولمىغاچقا، ئۇنى ئەستە ساقلىۋالغىنىڭىزغا ياكى بىخەتەر بىر يەردە ساقلىغىنىڭىزغا كاپالەتلىك قىلىڭ. ئەگەر Signal ھېسابىڭىزنى قايتىدىن تىزىملاتسىڭىز، مەلۇماتلىرىڭىزنى يوقىتىشىڭىز مۈمكىن.</string>
@@ -2699,7 +2713,7 @@
   <string name="DeleteAccountFragment__no_number">نومۇر كۆرسىتىلمىدى</string>
   <string name="DeleteAccountFragment__the_phone_number">كىرگۈزگەن تېلېفون نومۇرىڭىز ھېساباتىڭىزنىڭكى بىلەن ئوخشاش ئەمەس</string>
   <string name="DeleteAccountFragment__are_you_sure">راستلا ھېساباتىڭىزنى ئۆچۈرۈۋېتەمسىز؟</string>
-  <string name="DeleteAccountFragment__this_will_delete_your_signal_account">بۇ سىزنىڭ Signal ھېساباتىڭىزنى ئۆچۈرىدۇ ۋە قوللانما دېتالىڭىزنىمۇ قايتىدىن تەڭشەيدۇ. ئەپ بۇ جەريان تاماملانغاندىن كېيىن ئېتىلىدۇ.</string>
+  <string name="DeleteAccountFragment__this_will_delete_your_signal_account">بۇ مەشغۇلات Signal ھېساباتىنى ئۆچۈرۈپ، ئەپنى ئەسلىگە قايتۇرىدۇ. بۇ مەشغۇلات تاماملانغاندا ئەپ تاقىلىدۇ.</string>
   <string name="DeleteAccountFragment__failed_to_delete_account">ھېساباتىڭىزنى ئۆچۈرۈش مەغلۇپ بولدى. تور ئۇلىنىشىڭىز بارمۇ؟</string>
   <string name="DeleteAccountFragment__failed_to_delete_local_data">يەرلىكتىكى مەلۇماتلىرىڭىزنى ئۆچۈرۈش مەغلۇپ بولدى. سىز سىستېما قوللانما دېتاللىرى تەڭشەكلىرىدىن قولدا تازىلىۋەتسىڭىز بولىدۇ.</string>
   <string name="DeleteAccountFragment__launch_app_settings">ئەپ تەڭشەكلىرىنى قوزغات</string>
@@ -2765,7 +2779,7 @@
   <string name="payment_info_card_with_a_high_balance">قالدۇقىڭىز يۇقىرى بولسا، بەلكىم سان-ھەرپلىك بىر PIN غا يېڭىلاپ، ھېساباتىڭىزنى تېخىمۇ بەكرەك قوغدىغىڭىز كېلىشى مۈمكىن.</string>
   <string name="payment_info_card_update_pin">PIN يېڭىلا</string>
   <!--DeactivateWalletFragment-->
-  <string name="DeactivateWalletFragment__deactivate_wallet">ھەمياننى ئاكتىپسىزلە</string>
+  <string name="DeactivateWalletFragment__deactivate_wallet">ھەمياننى ئاكتىپسىزلا</string>
   <string name="DeactivateWalletFragment__your_balance">قالدۇقىڭىز</string>
   <string name="DeactivateWalletFragment__its_recommended_that_you">چىقىمنى ئاكتىپسىزلاشتىن بۇرۇن مەبلىغىڭىزنى باشقا ھەميان ئادرېسىغا يۆتكەش تەۋسىيە قىلىنىدۇ. ئەگەر ھازىر مەبلىغىڭىزنى يۆتكىمەسلىكنى تاللىسىڭىز ، چىقىمنى قايتا ئاكتىپلىسىڭىز ئۇلار Molly غا باغلانغان ھەميانىڭىزدا قالىدۇ.</string>
   <string name="DeactivateWalletFragment__transfer_remaining_balance">قالغان قالدۇقنى يۆتكە</string>
@@ -2827,5 +2841,10 @@
   <string name="CanNotSendPaymentDialog__cant_send_payment">چىقىم يوللىنالمىدى</string>
   <string name="CanNotSendPaymentDialog__to_send_a_payment_to_this_user">بۇ ئىشلەتكۈچىگە بىر چىقىم يوللاش ئۈچۈن، ئۇلار سىزدىن كەلگەن بىر ئۇچۇر ئىلتىماسىنى قوبۇل قىلىشى كېرەك. ئۇچۇر ئىلتىماسىنى قۇرۇشى ئۈچۈن ئۇلارغا بىر ئۇچۇر ئەۋەتىڭ. </string>
   <string name="CanNotSendPaymentDialog__send_a_message">بىز ئۇچۇر يوللا</string>
+  <!--GroupsInCommonMessageRequest-->
+  <string name="GroupsInCommonMessageRequest__you_have_no_groups_in_common_with_this_person">بۇ كىشى بىلەن ئورتاق گۇرۇپپىڭىز يوق. كېرەكسىز ئۇچۇرلاردىن ساقلىنىش ئۈچۈن قوشۇلۇشتىن ئىلگىرى تەلەپلەرنى ئەستايىدىللىق بىلەن تەكشۈرۈڭ.</string>
+  <string name="GroupsInCommonMessageRequest__none_of_your_contacts_or_people_you_chat_with_are_in_this_group">بۇ گۇرۇپپىدا ئالاقەداشلىرىڭىز ياكى سىز پاراڭلاشقان كىشى يوق كېرەكسىز ئۇچۇرلاردىن ساقلىنىش ئۈچۈن قوشۇلۇشتىن ئىلگىرى تەلەپلەرنى ئەستايىدىللىق بىلەن تەكشۈرۈڭ.</string>
+  <string name="GroupsInCommonMessageRequest__about_message_requests">ئۇچۇر ئىلتىماسى ھەققىدە</string>
+  <string name="GroupsInCommonMessageRequest__okay">جەزملە</string>
   <!--EOF-->
 </resources>
