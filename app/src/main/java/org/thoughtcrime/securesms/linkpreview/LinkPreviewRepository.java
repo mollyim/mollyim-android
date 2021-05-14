@@ -80,6 +80,7 @@ public class LinkPreviewRepository {
                                   .socketFactory(Network.getSocketFactory())
                                   .cache(null)
                                   .addInterceptor(new UserAgentInterceptor("WhatsApp/2"))
+                                  .dns(Network.getDns())
                                   .build();
   }
 
