@@ -10,10 +10,10 @@ import org.thoughtcrime.securesms.ApplicationContext;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.util.ServiceUtil;
 
-public class ExpirationListener extends BroadcastReceiver {
+public class ExpirationListener extends ExportedBroadcastReceiver {
 
   @Override
-  public void onReceive(Context context, Intent intent) {
+  public void onReceiveUnlock(Context context, Intent intent) {
     ApplicationDependencies.getExpiringMessageManager().checkSchedule();
   }
 
