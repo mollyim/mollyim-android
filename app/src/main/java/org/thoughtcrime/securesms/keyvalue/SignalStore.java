@@ -15,7 +15,7 @@ import java.util.List;
  */
 public final class SignalStore {
 
-  private static SignalStore instance;
+  private static volatile SignalStore instance;
 
   private final KeyValueStore            store;
   private final KbsValues                kbsValues;
