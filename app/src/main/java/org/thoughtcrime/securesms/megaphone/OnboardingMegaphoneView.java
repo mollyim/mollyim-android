@@ -21,6 +21,9 @@ import org.thoughtcrime.securesms.InviteActivity;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.groups.ui.creategroup.CreateGroupActivity;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
+import org.thoughtcrime.securesms.notifications.NotificationChannels;
+import org.thoughtcrime.securesms.service.UpdateApkRefreshListener;
+import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +63,7 @@ public class OnboardingMegaphoneView extends FrameLayout {
 
     private static final int TYPE_GROUP  = 0;
     private static final int TYPE_INVITE = 1;
+    private static final int TYPE_UPDATE = 2;
 
     private final Context                   context;
     private final MegaphoneActionController controller;
@@ -94,6 +98,7 @@ public class OnboardingMegaphoneView extends FrameLayout {
       switch (viewType) {
         case TYPE_GROUP:  return new GroupCardViewHolder(view);
         case TYPE_INVITE: return new InviteCardViewHolder(view);
+        case TYPE_UPDATE: return new UpdateCardViewHolder(view);
         default:          throw new IllegalStateException("Invalid viewType! " + viewType);
       }
     }
@@ -128,6 +133,10 @@ public class OnboardingMegaphoneView extends FrameLayout {
 
       if (SignalStore.onboarding().shouldShowInviteFriends()) {
         data.add(TYPE_INVITE);
+      }
+
+      if (SignalStore.onboarding().shouldShowEnableApkUpdate(context)) {
+        data.add(TYPE_UPDATE);
       }
 
       return data;
@@ -220,6 +229,37 @@ public class OnboardingMegaphoneView extends FrameLayout {
     @Override
     void onCloseClicked() {
       SignalStore.onboarding().setShowInviteFriends(false);
+    }
+  }
+
+  private static class UpdateCardViewHolder extends CardViewHolder {
+
+    public UpdateCardViewHolder(@NonNull View itemView) {
+      super(itemView);
+    }
+
+    @Override
+    int getButtonStringRes() {
+      return R.string.Megaphones_automatic_check_for_updates;
+    }
+
+    @Override
+    int getImageRes() {
+      return R.drawable.ic_megaphone_use_sms;
+    }
+
+    @Override
+    void onActionClicked(@NonNull MegaphoneActionController controller) {
+      Context context = controller.getMegaphoneActivity();
+      TextSecurePreferences.setUpdateApkEnabled(context, true);
+      NotificationChannels.create(context);
+      UpdateApkRefreshListener.schedule(context);
+      SignalStore.onboarding().setShowEnableApkUpdate(false);
+    }
+
+    @Override
+    void onCloseClicked() {
+      SignalStore.onboarding().setShowEnableApkUpdate(false);
     }
   }
 }

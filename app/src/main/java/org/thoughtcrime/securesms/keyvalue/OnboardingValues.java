@@ -4,8 +4,8 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
-import org.thoughtcrime.securesms.phonenumbers.PhoneNumberFormatter;
-import org.thoughtcrime.securesms.util.Util;
+import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
 import java.util.Collections;
 import java.util.List;
@@ -35,13 +35,13 @@ public final class OnboardingValues extends SignalStoreValues {
   public void clearAll() {
     setShowNewGroup(false);
     setShowInviteFriends(false);
-    setShowSms(false);
+    setShowEnableApkUpdate(false);
   }
 
   public boolean hasOnboarding(@NonNull Context context) {
     return shouldShowNewGroup()      ||
            shouldShowInviteFriends() ||
-           shouldShowSms(context);
+           shouldShowEnableApkUpdate(context);
   }
 
   public void setShowNewGroup(boolean value) {
@@ -60,11 +60,11 @@ public final class OnboardingValues extends SignalStoreValues {
     return getBoolean(SHOW_INVITE_FRIENDS, false);
   }
 
-  public void setShowSms(boolean value) {
-    putBoolean(SHOW_SMS, value);
+  public void setShowEnableApkUpdate(boolean value) {
+    TextSecurePreferences.setUpdateApkShowOnboardingEnabled(ApplicationDependencies.getApplication(), value);
   }
 
-  public boolean shouldShowSms(@NonNull Context context) {
-    return false;
+  public boolean shouldShowEnableApkUpdate(@NonNull Context context) {
+    return !TextSecurePreferences.isUpdateApkEnabled(context) && TextSecurePreferences.isUpdateApkShowOnboardingEnabled(context);
   }
 }

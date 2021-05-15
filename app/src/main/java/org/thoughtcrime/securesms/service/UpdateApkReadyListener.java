@@ -63,6 +63,7 @@ public class UpdateApkReadyListener extends BroadcastReceiver {
 
     PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
 
+    NotificationChannels.create(context);
     Notification notification = new NotificationCompat.Builder(context, NotificationChannels.APP_UPDATES)
         .setOngoing(true)
         .setContentTitle(context.getString(R.string.UpdateApkReadyListener_Signal_update))
