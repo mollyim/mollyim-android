@@ -894,9 +894,6 @@ public class ConversationListFragment extends MainFragment implements ActionMode
       emptyState.get().setVisibility(View.VISIBLE);
       fab.startPulse(3 * 1000);
       cameraFab.startPulse(3 * 1000);
-
-      SignalStore.onboarding().setShowNewGroup(true);
-      SignalStore.onboarding().setShowInviteFriends(true);
     } else {
       list.setVisibility(View.VISIBLE);
       fab.stopPulse();
