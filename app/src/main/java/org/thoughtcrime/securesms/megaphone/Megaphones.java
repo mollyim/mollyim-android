@@ -99,7 +99,7 @@ public final class Megaphones {
       put(Event.LINK_PREVIEWS, shouldShowLinkPreviewsMegaphone(context) ? ALWAYS : NEVER);
       put(Event.CLIENT_DEPRECATED, SignalStore.misc().isClientDeprecated() ? ALWAYS : NEVER);
       put(Event.RESEARCH, shouldShowResearchMegaphone(context) ? ShowForDurationSchedule.showForDays(7) : NEVER);
-      put(Event.DONATE, shouldShowDonateMegaphone(context) ? ShowForDurationSchedule.showForDays(7) : NEVER);
+      put(Event.DONATE_MOLLY, shouldShowDonateMegaphone(context) ? ShowForDurationSchedule.showForDays(7) : NEVER);
       put(Event.GROUP_CALLING, shouldShowGroupCallingMegaphone() ? ALWAYS : NEVER);
       put(Event.ONBOARDING, shouldShowOnboardingMegaphone(context) ? ALWAYS : NEVER);
       put(Event.NOTIFICATIONS, shouldShowNotificationsMegaphone(context) ? RecurringSchedule.every(TimeUnit.DAYS.toMillis(30)) : NEVER);
@@ -122,7 +122,7 @@ public final class Megaphones {
         return buildClientDeprecatedMegaphone(context);
       case RESEARCH:
         return buildResearchMegaphone(context);
-      case DONATE:
+      case DONATE_MOLLY:
         return buildDonateMegaphone(context);
       case GROUP_CALLING:
         return buildGroupCallingMegaphone(context);
@@ -242,10 +242,10 @@ public final class Megaphones {
   }
 
   private static @NonNull Megaphone buildDonateMegaphone(@NonNull Context context) {
-    return new Megaphone.Builder(Event.DONATE, Megaphone.Style.BASIC)
+    return new Megaphone.Builder(Event.DONATE_MOLLY, Megaphone.Style.BASIC)
                         .disableSnooze()
-                        .setTitle(R.string.DonateMegaphone_donate_to_signal)
-                        .setBody(R.string.DonateMegaphone_Signal_is_powered_by_people_like_you_show_your_support_today)
+                        .setTitle(R.string.DonateMegaphone_molly_is_free_software)
+                        .setBody(R.string.DonateMegaphone_please_consider_supporting_our_open_collective_if_you_love_it)
                         .setImage(R.drawable.ic_donate_megaphone)
                         .setActionButton(R.string.DonateMegaphone_donate, (megaphone, controller) -> {
                           controller.onMegaphoneCompleted(megaphone.getEvent());
@@ -354,7 +354,7 @@ public final class Megaphones {
     LINK_PREVIEWS("link_previews"),
     CLIENT_DEPRECATED("client_deprecated"),
     RESEARCH("research"),
-    DONATE("donate"),
+    DONATE_MOLLY("donate_molly"),
     GROUP_CALLING("group_calling"),
     ONBOARDING("onboarding"),
     NOTIFICATIONS("notifications");
