@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
 import org.signal.core.util.logging.Log;
+import org.signal.core.util.logging.LogManager;
 import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.backup.BackupProtos;
@@ -23,6 +24,7 @@ import org.thoughtcrime.securesms.net.ProxyType;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.preferences.widgets.NotificationPrivacyPreference;
 import org.thoughtcrime.securesms.preferences.widgets.PassphraseLockTriggerPreference;
+import org.thoughtcrime.securesms.service.UpdateApkRefreshListener;
 import org.whispersystems.libsignal.util.Medium;
 import org.whispersystems.signalservice.api.util.UuidUtil;
 
@@ -287,6 +289,16 @@ public class TextSecurePreferences {
   public static void onPostBackupRestore(@NonNull Context context) {
     if (NotificationChannels.supported() && SecurePreferenceManager.getSecurePreferences(context).contains(VIBRATE_PREF)) {
       NotificationChannels.updateMessageVibrate(context, isNotificationVibrateEnabled(context));
+    }
+
+    if (!isLogEnabled(context)) {
+      LogManager.setLogging(false);
+      LogManager.wipeLogs();
+    }
+
+    if (isUpdateApkEnabled(context)) {
+      NotificationChannels.create(context);
+      UpdateApkRefreshListener.schedule(context);
     }
   }
 
