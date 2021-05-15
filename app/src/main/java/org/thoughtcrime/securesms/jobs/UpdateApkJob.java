@@ -178,7 +178,6 @@ public class UpdateApkJob extends BaseJob {
     DownloadManager         downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
     DownloadManager.Request downloadRequest = new DownloadManager.Request(uri);
 
-    downloadRequest.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI);
     downloadRequest.setTitle("Downloading Molly update");
     downloadRequest.setDescription("Downloading Molly " + versionName);
     downloadRequest.setVisibleInDownloadsUi(false);
