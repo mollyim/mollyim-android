@@ -28,5 +28,9 @@ RUN sdkmanager \
     "extras;google;m2repository" \
     "extras;android;m2repository"
 
-COPY . /molly
+COPY gradlew /molly/
+COPY gradle /molly/gradle/
+RUN /molly/gradlew --version
+
+COPY . /molly/
 WORKDIR /molly
