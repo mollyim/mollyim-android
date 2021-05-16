@@ -1,7 +1,5 @@
 apply plugin: 'java-library'
 apply plugin: 'com.google.protobuf'
-apply plugin: 'maven'
-apply plugin: 'signing'
 apply plugin: 'witness'
 apply plugin: 'idea'
 apply from: 'witness-verifications.gradle'
@@ -61,76 +59,6 @@ protobuf {
 idea {
     module {
         generatedSourceDirs += file("${protobuf.generatedFilesBaseDir}/main/java")
-    }
-}
-
-def isReleaseBuild() {
-    return version.contains("SNAPSHOT") == false
-}
-
-def getReleaseRepositoryUrl() {
-    return hasProperty('sonatypeRepo') ? sonatypeRepo
-            : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
-}
-
-def getRepositoryUsername() {
-    return hasProperty('whisperSonatypeUsername') ? whisperSonatypeUsername : ""
-}
-
-def getRepositoryPassword() {
-    return hasProperty('whisperSonatypePassword') ? whisperSonatypePassword : ""
-}
-
-signing {
-    required { isReleaseBuild() && gradle.taskGraph.hasTask("uploadArchives") }
-    sign configurations.archives
-}
-
-uploadArchives {
-    configuration = configurations.archives
-    repositories.mavenDeployer {
-        beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
-        repository(url: getReleaseRepositoryUrl()) {
-            authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
-        }
-
-        pom.project {
-            name 'signal-service-java'
-            packaging 'jar'
-            description 'Signal Service communication library for Java'
-            url 'https://github.com/WhisperSystems/libsignal-service-java'
-
-            scm {
-                url 'scm:git@github.com:WhisperSystems/libsignal-service-java.git'
-                connection 'scm:git@github.com:WhisperSystems/libsignal-service-java.git'
-                developerConnection 'scm:git@github.com:WhisperSystems/libsignal-service-java.git'
-            }
-
-            licenses {
-                license {
-                    name 'GPLv3'
-                    url 'https://www.gnu.org/licenses/gpl-3.0.txt'
-                    distribution 'repo'
-                }
-            }
-
-            developers {
-                developer {
-                    name 'Moxie Marlinspike'
-                }
-            }
-        }
-    }
-}
-
-task installArchives(type: Upload) {
-    description "Installs the artifacts to the local Maven repository."
-    configuration = configurations['archives']
-    repositories {
-        mavenDeployer {
-            repository url: "file://${System.properties['user.home']}/.m2/repository"
-        }
     }
 }
 
