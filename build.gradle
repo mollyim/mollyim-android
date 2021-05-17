@@ -57,6 +57,11 @@ subprojects {
             }
         }
     }
+
+    tasks.withType(AbstractArchiveTask).configureEach {
+        preserveFileTimestamps = false
+        reproducibleFileOrder = true
+    }
 }
 
 gradleEnterprise {
