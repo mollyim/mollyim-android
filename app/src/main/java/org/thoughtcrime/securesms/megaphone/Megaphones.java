@@ -245,7 +245,7 @@ public final class Megaphones {
     return new Megaphone.Builder(Event.DONATE_MOLLY, Megaphone.Style.BASIC)
                         .disableSnooze()
                         .setTitle(R.string.DonateMegaphone_molly_is_free_software)
-                        .setBody(R.string.DonateMegaphone_if_you_enjoy_using_it_please_consider_supporting_our_open_collective)
+                        .setBody(R.string.DonateMegaphone_we_maintain_molly_with_your_support_consider_donating_at_open_collective)
                         .setImage(R.drawable.ic_donate_megaphone)
                         .setActionButton(R.string.DonateMegaphone_donate, (megaphone, controller) -> {
                           controller.onMegaphoneCompleted(megaphone.getEvent());
