@@ -3,7 +3,7 @@
   <string name="yes">ဟုတ်ကဲ့</string>
   <string name="no">မလုပ်ပါ</string>
   <string name="delete">ဖျက်ပါ</string>
-  <string name="please_wait">ခဏစောင့်ပါ</string>
+  <string name="please_wait">ခဏစောင့်ပါ…</string>
   <string name="save">သိမ်းထားမည်</string>
   <string name="note_to_self">မိမိမှတ်စု</string>
   <!--AbstractNotificationBuilder-->
@@ -52,7 +52,7 @@
   <string name="DraftDatabase_Draft_location_snippet">(တည်နေရာ) </string>
   <string name="DraftDatabase_Draft_quote_snippet">(ပြန်လည်ပေးပို့လာသောစာတို)</string>
   <!--AttachmentKeyboard-->
-  <string name="AttachmentKeyboard_gallery">ဓာတ်ပုံနှင့်ဗီဒီယိုများသိမ်းဆည်းရာ</string>
+  <string name="AttachmentKeyboard_gallery">ဓါတ်ပုံပြခန်း</string>
   <string name="AttachmentKeyboard_gif">လှုပ်ရှားနေသောရုပ်ပုံ</string>
   <string name="AttachmentKeyboard_file">ဖိုင်</string>
   <string name="AttachmentKeyboard_contact">အဆက်အသွယ်</string>
@@ -69,7 +69,7 @@
   <string name="AttachmentUploadJob_uploading_media">မီဒီယာဖိုင်တင်နေသည်</string>
   <string name="AttachmentUploadJob_compressing_video_start">ဗီဒီယိုကိုချုံ့နေသည်</string>
   <!--BackgroundMessageRetriever-->
-  <string name="BackgroundMessageRetriever_checking_for_messages">မက်ဆေ့ချ်များစစ်ဆေးနေသည် …</string>
+  <string name="BackgroundMessageRetriever_checking_for_messages">မက်ဆေ့များ စစ်နေပါသည်…</string>
   <!--BlockedUsersActivity-->
   <string name="BlockedUsersActivity__blocked_users">ဘလော့ထားသော သုံးစွဲသူများ</string>
   <string name="BlockedUsersActivity__add_blocked_user">ဘလော့ထားသော သုံးစွဲသူကို ထည့်ပါ</string>
@@ -92,7 +92,6 @@
   <string name="BlockUnblockDialog_unblock_s">%1$s ကို ဘလော့ဖြည်မည်လား?</string>
   <string name="BlockUnblockDialog_block">ဘလော့မည်</string>
   <string name="BlockUnblockDialog_block_and_leave">ဘလော့ပြီး ထွက်မည်</string>
-  <string name="BlockUnblockDialog_block_and_delete">ဘလော့ပြီး ဖျက်မည်</string>
   <!--BucketedThreadMedia-->
   <string name="BucketedThreadMedia_Today">ယနေ့ </string>
   <string name="BucketedThreadMedia_Yesterday">မနေ့က </string>
@@ -457,9 +456,9 @@
     <item quantity="other">အဖွဲ့ဝင်များသည် အဖွဲ့အသစ်များသို့ ဝင်ရောက်နိုင်ခြင်း မရှိသောကြောင့် အဖွဲ့မှဖယ်ရှားခံရလိမ့်မည်။</item>
   </plurals>
   <!--GroupsV1MigrationInitiationReminder-->
-  <string name="GroupsV1MigrationInitiationReminder_to_access_new_features_like_mentions">@mentions နှင့် အက်မင် ကဲ့သို့သောအင်္ဂါရပ်အသစ်များကို အသုံးပြုရန် ဤအုပ်စုကိုအဆင့်မြှင့်ပါ။</string>
-  <string name="GroupsV1MigrationInitiationReminder_not_now">ယခု မလုပ်ဆောင်သေးပါ။</string>
-  <string name="GroupsV1MigrationInitiationReminder_upgrade_group">ဤအုပ်စုကို အဆင့်မြှင့်မည်။</string>
+  <!-- Removed by excludeNonTranslatables <string name="GroupsV1MigrationInitiationReminder_to_access_new_features_like_mentions">@mentions နှင့် အက်မင် ကဲ့သို့သောအင်္ဂါရပ်အသစ်များကို အသုံးပြုရန် ဤအုပ်စုကိုအဆင့်မြှင့်ပါ။</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="GroupsV1MigrationInitiationReminder_not_now">ယခု မလုပ်ဆောင်သေးပါ။</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="GroupsV1MigrationInitiationReminder_upgrade_group">ဤအုပ်စုကို အဆင့်မြှင့်မည်။</string> -->
   <!--GroupsV1MigrationSuggestionsReminder-->
   <plurals name="GroupsV1MigrationSuggestionsReminder_members_couldnt_be_added_to_the_new_group">
     <item quantity="other">အဖွဲ့ဝင်အသစ် %1$d ယောက်ကို အုပ်စုသစ်သို့ ပြန်ထည့်၍ မရပါ။ သူတို့ကို သင်ယခု ထည့်သွင်း လိုသလား။</item>
@@ -577,7 +576,6 @@
   <string name="ManageGroupActivity_mute_notifications">အသိပေးချက်ကို ပိတ်ပါ</string>
   <string name="ManageGroupActivity_custom_notifications">စိတ်ကြိုက်သတိပေးချက်များ</string>
   <string name="ManageGroupActivity_mentions">မန်းရှင်းများ</string>
-  <string name="ManageGroupActivity_chat_wallpaper">စကားပြောဆိုမှု၏ နောက်ခံပုံ</string>
   <string name="ManageGroupActivity_until_s">အထိ%1$s</string>
   <string name="ManageGroupActivity_always">အမြဲ</string>
   <string name="ManageGroupActivity_off">ပိတ်ပါ</string>
@@ -792,6 +790,7 @@
   <string name="Megaphones_new_group">အဖွဲ့သစ်</string>
   <string name="Megaphones_invite_friends">သူငယ်ချင်းများကို ဖိတ်ပါ</string>
   <string name="Megaphones_use_sms">SMS ကိုသုံးပါ</string>
+  <string name="Megaphones_appearance">ပုံပန်းသဏ္ဌာန်</string>
   <!--NotificationBarManager-->
   <string name="NotificationBarManager_signal_call_in_progress">Signal ဖုန်းခေါ်နေသည်</string>
   <string name="NotificationBarManager__establishing_signal_call">Signal ဖုန်းခေါ်ဆိုမှုစတင်နေသည်</string>
@@ -922,6 +921,7 @@
   <string name="MessageRecord_you_changed_the_group_name_to_s">သင်သည် အဖွဲ့ အမည်ကို %1$s သို့ ပြောင်းလိုက်သည်။</string>
   <string name="MessageRecord_s_changed_the_group_name_to_s">%1$sသည် အဖွဲ့အမည်ကို %2$s သို့ ပြောင်းလိုက်သည်။ </string>
   <string name="MessageRecord_the_group_name_has_changed_to_s">အဖွဲ့အမည်ကို %1$s သို့ ပြောင်းထားသည်။</string>
+  <!--GV2 description change-->
   <!--GV2 avatar change-->
   <string name="MessageRecord_you_changed_the_group_avatar">သင်သည် အဖွဲ့ကိုယ်စားပြုရုပ်ပုံကို ပြောင်းလဲခဲ့သည်။</string>
   <string name="MessageRecord_s_changed_the_group_avatar">%1$s သည် အဖွဲ့ကိုယ်စားပြုရုပ်ပုံကို ပြောင်းလဲခဲ့သည်။</string>
@@ -1047,10 +1047,6 @@
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">သင်သည် Signal သုံးသောဖုန်းအား 3rd party scanner ဖြင့်ချိတ်ဆက်အတည်ပြုနေပုံရသည်။ လုံခြုံမှုရှိစေရန် ကုဒ်အား Signal အတွင်းတွင်ပါသော scanner ဖြင့်ပြန်ဖတ်ပါ။</string>
   <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">QR Code အားစစ်ဆေးနိုင်ရန် မိမိ ကင်မရာကို Mollyမှ အသုံးပြုခွင့်ရရန်လိုအပ်သည်။ သို့သော် အမြဲတမ်းတွက် ခွင့်မပြုပါ ဟုရွေးထားပြီး ဖြစ်နေသဖြင့် အပ်ပလီကေးရှင်း အပြင်အဆင်သို့ သွား၍ ခွင့်ပြုချက်များကို ရွေးချယ်ကာ ကင်မရာကို အသုံးပြုနိုင်အောင် ပြုလုပ်ပါ။</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">ကင်မရာကို ခွင့်ပြုချက် မပေးထားဘဲ QR ကုတ်ကို စကန်ဖတ်၍ မရပါ</string>
-  <!--ExpirationDialog-->
-  <string name="ExpirationDialog_disappearing_messages">စာများအား ပျောက်သွားစေခြင်း</string>
-  <string name="ExpirationDialog_your_messages_will_not_expire">သင့်စာသည် အချိန်သတ်မှတ်ချက်မရှိပါ။</string>
-  <string name="ExpirationDialog_your_messages_will_disappear_s_after_they_have_been_seen">ယခုစာတွဲတွင် ပေးပို့၊ရယူသော စာများသည် တွေ့ရှိပြီး %s အတွင်းပျက်သွားပါမည်။</string>
   <!--OutdatedBuildReminder-->
   <string name="OutdatedBuildReminder_update_now">ယခု အပ်ဒိတ် လုပ်ပါ</string>
   <string name="OutdatedBuildReminder_your_version_of_signal_will_expire_today">၎င်း Signal ဗားရှင်းသည် ဒီနေ့ သက်တမ်းကုန်ပါလိမ့်မယ်။ နောက်ဆုံးဗားရှင်းသို့ အပ်ဒိတ်ပြုလုပ်ပါ။</string>
@@ -1157,6 +1153,7 @@
   <string name="CallParticipantView__cant_receive_audio_video_from_s">%1$s မှ အသံနှင့် ဗီဒီယို မရရှိနိုင်ပါ</string>
   <string name="CallParticipantView__cant_receive_audio_and_video_from_s">%1$s မှ အသံနှင့် ဗီဒီယို မရရှိနိုင်ပါ</string>
   <string name="CallParticipantView__this_may_be_Because_they_have_not_verified_your_safety_number_change">သင့် လုံခြုံရေးနံပါတ် ပြောင်းလဲမှုကို ၎င်းတို့မှ အတည်မပြုရသေးသောကြောင့် သို့မဟုတ် ၎င်းတို့စက်တွင် ပျက်ကွက်မှုဖြစ်ခဲ့သောကြောင့် သို့မဟုတ် ၎င်းတို့မှ သင့်ကို ပိတ်ပယ်ထားခြင်းကြောင့် တို့ဖြစ်နိုင်ပါသည်။</string>
+  <!--CallToastPopupWindow-->
   <!--ProxyBottomSheetFragment-->
   <string name="ProxyBottomSheetFragment_proxy_server">ကြားခံဆာဗာ</string>
   <string name="ProxyBottomSheetFragment_proxy_address">ကြားခံလိပ်စာ</string>
@@ -1223,12 +1220,12 @@
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">အဆက်အသွယ်များထဲသို့ ထည့်မည်</string>
   <string name="SharedContactDetailsActivity_invite_to_signal">Molly သုံးဖို့ ဖိတ်ရန်</string>
-  <string name="SharedContactDetailsActivity_signal_message">Signal မှ မက်ဆေ့ချ်</string>
+  <string name="SharedContactDetailsActivity_signal_message">Signal မက်ဆေ့ချ်</string>
   <string name="SharedContactDetailsActivity_signal_call">Signal ခေါ်ဆိုမှု</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">အဆက်အသွယ်များထဲသို့ ထည့်မည်</string>
   <string name="SharedContactView_invite_to_signal">Molly သုံးဖို့ ဖိတ်ရန်</string>
-  <string name="SharedContactView_message">Signal မှ စာများ</string>
+  <string name="SharedContactView_message">Signal မက်ဆေ့ချ်</string>
   <!--SignalPinReminders-->
   <string name="SignalPinReminders_well_remind_you_again_later">နောက်မှ သင့်ကို ပြန်သတိပေးမည်။</string>
   <string name="SignalPinReminders_well_remind_you_again_tomorrow">မနက်ဖြန်မှ သင့်ကို ပြန်သတိပေးမည်။</string>
@@ -1508,7 +1505,7 @@
     <item quantity="other">%1$dအဖွဲ့ဝင်များ</item>
   </plurals>
   <!--conversation_activity-->
-  <string name="conversation_activity__type_message_push">Signal ဖြင့် စာပေးပို့ခြင်း</string>
+  <string name="conversation_activity__type_message_push">Signal မက်ဆေ့ချ်</string>
   <string name="conversation_activity__type_message_sms_insecure">မလုံခြုံသော SMS</string>
   <string name="conversation_activity__type_message_mms_insecure">မလုံခြုံသော MMS</string>
   <string name="conversation_activity__from_sim_name">%1$s မှ</string>
@@ -1545,6 +1542,7 @@
   <string name="ConversationUpdateItem_enable_call_notifications">ခေါ်ဆိုမှု သတိပေးချက်များ ဖွင့်မယ်</string>
   <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">တူညီသော အဖွဲ့များ မရှိပါ။ တောင်းခံမှုများကို သေချာစွာ သုံးသပ်ပါ။</string>
   <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">၎င်းအဖွဲ့ထဲတွင် အဆက်အသွယ်များ မရှိပါ။ တောင်းခံမှုများကို သေချာစွာ သုံးသပ်ပါ။</string>
+  <string name="ConversationUpdateItem_view">ကြည့်မယ်</string>
   <!--audio_view-->
   <string name="audio_view__play_pause_accessibility_description">ဖွင့်မယ် … ခေတ္တရပ်မယ်</string>
   <string name="audio_view__download_accessibility_description">ကူးဆွဲသည်</string>
@@ -1677,7 +1675,7 @@
   <string name="EditAboutFragment_taking_a_break">အနားယူခြင်း</string>
   <string name="EditAboutFragment_working_on_something_new">အရာအသစ်တစ်ခု ကိုလုပ်ဆောင်နေသည်</string>
   <!--EditProfileFragment-->
-  <string name="EditProfileFragment__edit_group_name_and_photo">အဖွဲ့အမည်နှင့် ဓါတ်ပုံကို ပြောင်းလဲပြုပြင်မယ်</string>
+  <string name="EditProfileFragment__edit_group">အဖွဲ့ကို ပြင်မည်</string>
   <string name="EditProfileFragment__group_name">အဖွဲ့နာမည်</string>
   <!--EditProfileNameFragment-->
   <string name="EditProfileNameFragment_your_name">သင့်အမည်</string>
@@ -1745,14 +1743,6 @@
   <string name="HelpFragment__debug_log">ပျက်ကွက်မှုဖြေရှင်းသည့် မှတ်တမ်းစာ -</string>
   <string name="HelpFragment__could_not_upload_logs">မှတ်တမ်းများ မတင်သွင်းနိုင်ပါ</string>
   <string name="HelpFragment__please_be_as_descriptive_as_possible">ကျွနှ်ပ်တို့နားလည်နိုင်ရန် ကိစ္စအကြောင်းကို တတ်နိုင်သမျှ ဖေါ်ပြပေးပါ။</string>
-  <string-array name="HelpFragment__categories">
-    <item>အရာတစ်ခု အလုပ်မလုပ်ပါ</item>
-    <item>အင်္ဂါရပ်တောင်းဆိုချက်</item>
-    <item>မေးခွန်း</item>
-    <item>တုံ့ပြန်ချက်</item>
-    <item>အခြား</item>
-    <item>ငွေပေးချေမှုများ</item>
-  </string-array>
   <!--ReactWithAnyEmojiBottomSheetDialogFragment-->
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__this_message">၎င်းမက်ဆေ့ချ်</string>
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__recently_used">နောက်ဆုံးသုံးခဲ့သော</string>
@@ -1888,7 +1878,6 @@
   <string name="preferences__if_read_receipts_are_disabled_you_wont_be_able_to_see_read_receipts">စာဖတ်ပြီး​ကြောင်းပြသည်ကို ပိတ်ထားပါက တခြားသူများထံမှ ဖတ်ပြီး​ကြောင်းပြသည်ကိုလည်း မြင်ရမည်မဟုတ်ပါ။</string>
   <string name="preferences__typing_indicators">စာရိုက်ညွှန်ကိန်းများ</string>
   <string name="preferences__if_typing_indicators_are_disabled_you_wont_be_able_to_see_typing_indicators">စာရိုက်ညွှန်ကိန်းများကို ပိတ်ထားပါက အခြားသူများမှ စာရိုက်ညွှန်းကိန်းများကို သင်မမြင်နိုင်ပါ။</string>
-  <string name="preferences__request_keyboard_to_disable_personalized_learning">ကိုယ်ပိုင်လေ့လာမှုကို ပိတ်ထားရန် ကီးဘုတ်သို့ တောင်းခံပါ။ ဤချိန်ညှိချက်သည် အာမခံချက်မဟုတ်ပါ၊ သင်၏ ကီးဘုတ်သည် ၎င်းကို လျစ်လျူရှုနိုင်လိမ့်မည်။</string>
   <string name="preferences_app_protection__blocked_users">ပိတ်ထားသောအသုံးပြုသူများ</string>
   <string name="preferences_chats__when_using_mobile_data">မိုဘိုင်းအင်တာနက်ကို အသုံးပြုသည့်အခါ </string>
   <string name="preferences_chats__when_using_wifi">ဝိုင်ဖိုင်ကို အသုံးပြုသည့်အခါ </string>
@@ -1928,8 +1917,8 @@
   <string name="preferences_data_and_storage__calls">ဖုန်းခေါ်ဆိုမှုများ</string>
   <string name="preferences_data_and_storage__use_less_data_for_calls">ခေါ်ဆိုမှုများအတွက် ဒေတာလျော့သုံးမယ်</string>
   <string name="preferences_data_and_storage__never">ဘယ်တော့မှမ</string>
-  <string name="preferences_data_and_storage__wifi_and_cellular">ဝိုင်ဖိုင်နှင့်ဆယ်လူလာ</string>
-  <string name="preferences_data_and_storage__cellular_only">ဆယ်လူလာအတွက်သာ</string>
+  <!-- Removed by excludeNonTranslatables <string name="preferences_data_and_storage__wifi_and_cellular">ဝိုင်ဖိုင်နှင့်ဆယ်လူလာ</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="preferences_data_and_storage__cellular_only">ဆယ်လူလာအတွက်သာ</string> -->
   <string name="preference_data_and_storage__using_less_data_may_improve_calls_on_bad_networks">မကောင်းသော ချိတ်ဆက်မှုလိုင်းပေါ်တွင် ဒေတာပိုနည်းစွာသုံးလျှင် ခေါ်ဆိုမှုများ ပိုကြည်လင်ကောင်းမွန် နိုင်ပါသည်</string>
   <string name="preferences_notifications__messages">စာများ</string>
   <string name="preferences_notifications__events">ပွဲများ</string>
@@ -2421,7 +2410,6 @@
   <string name="NewDeviceTransferInstructions__first_bullet">၁။</string>
   <string name="NewDeviceTransferInstructions__tap_on_your_profile_photo_in_the_top_left_to_open_settings">ထိပ်ဘယ်ဘက်၌ရှိသော သင့်ပရိုဖိုင်းပုံပေါ်အား နှိပ်၍ အပြင်အဆင်သို့သွားနိုင်ပါသည်</string>
   <string name="NewDeviceTransferInstructions__second_bullet">၂။</string>
-  <string name="NewDeviceTransferInstructions__tap_on_chats">\"ချက်တင်များ\" ပေါ်သို့ နှိပ်ပါ</string>
   <string name="NewDeviceTransferInstructions__third_bullet">၃။</string>
   <string name="NewDeviceTransferInstructions__tap_transfer_account_and_then_continue_on_both_devices">\"အကောင့်လွှဲမယ်\" ပေါ်သို့ နှိပ်၍ စက် ၂ ခုလုံးပေါ်တွင် \"ဆက်လက်ရန်\" ဆက်နှိပ်ပါ</string>
   <!--NewDeviceTransferSetupFragment-->
@@ -2630,7 +2618,7 @@
   <!--ShareActivity-->
   <string name="ShareActivity__share">ဝေမျှမည်</string>
   <string name="ShareActivity__send">ပေးပို့မည်</string>
-  <string name="ShareActivity__s_comma">%1$s,</string>
+  <!-- Removed by excludeNonTranslatables <string name="ShareActivity__s_comma">%1$s,</string> -->
   <string name="ShareActivity__sharing_to_multiple_chats_is">စကားပြောဆိုမှုပေါင်းစုံများနှင့် ဝေမျှခြင်းအတွက် Signal မက်ဆေ့ချ်များကိုသာ ပံ့ပိုးပါသည်</string>
   <!--MultiShareDialogs-->
   <string name="MultiShareDialogs__failed_to_send_to_some_users">အသုံးပြုသူများသို့ပေးပို့ရန်မအောင်မြင်ပါ</string>
@@ -2640,17 +2628,13 @@
   <!--ChatWallpaperActivity-->
   <string name="ChatWallpaperActivity__chat_wallpaper">စကားပြောဆိုမှု၏ နောက်ခံပုံ</string>
   <!--ChatWallpaperFragment-->
+  <string name="ChatWallpaperFragment__chat_color">စကားပြောဆိုမှု၏ အရောင်</string>
   <string name="ChatWallpaperFragment__set_wallpaper">နောက်ခံပုံ တပ်မယ်</string>
-  <string name="ChatWallpaperFragment__dark_theme_dims_wallpaper">အနက်ရောင် အပြင်အဆင်သည် နောက်ခံကို မှိန်စေပါသည်</string>
-  <string name="ChatWallpaperFragment__clear_wallpaper">နောက်ခံပုံ ရှင်းမယ်</string>
-  <string name="ChatWallpaperFragment__clear_wallpaper_for_this_chat">၎င်းစကားပြောဆိုမှုအတွက် နောက်ခံပုံကို ရှင်းမည်လား?</string>
-  <string name="ChatWallpaperFragment__clear_wallpaper_this_will_not">နောက်ခံပုံ ရှင်းမည်လား? ၎င်းလုပ်ခြင်းကြောင့် သင့်စကားပြောဆိုမှုများအတွက် စိတ်ကြိုက်တပ်ထားသော နောက်ခံပုံများ မဖယ်ရှင်းပါ။</string>
-  <string name="ChatWallpaperFragment__reset_all_wallpapers">နောက်ခံပုံများအားလုံးကို ပြန်တပ်ဆင်ပြောင်းလဲမယ်</string>
-  <string name="ChatWallpaperFragment__reset_all_wallpapers_including_custom">နောက်ခံပုံများအားလုံးကို ပြန်တပ်ဆင်ပြောင်းလဲမယ်၊ သင့် စကားပြောဆိုမှုများအတွက် စိတ်ကြိုက်တပ်ဆင်ထားသော နောက်ခံပုံများ အပါဝင်?</string>
   <string name="ChatWallpaperFragment__contact_name">ဆက်သွယ်အမည်</string>
   <string name="ChatWallpaperFragment__reset">ရီဆက်ချမည်</string>
   <string name="ChatWallpaperFragment__clear">ဖယ်ရှားမည်</string>
   <string name="ChatWallpaperFragment__wallpaper_preview_description">နောက်ခံပုံ ကြိုကြည့်ခြင်း</string>
+  <string name="ChatWallpaperFragment__reset_all_wallpapers">နောက်ခံပုံများအားလုံးကို ပြန်တပ်ဆင်ပြောင်းလဲမယ်</string>
   <!--ChatWallpaperSelectionFragment-->
   <string name="ChatWallpaperSelectionFragment__choose_from_photos">ဓာတ်ပုံများမှရွေးချယ်မည်</string>
   <string name="ChatWallpaperSelectionFragment__presets">ကြိုတင်သတ်မှတ်ထားသောအရာများ</string>
@@ -2752,5 +2736,59 @@
   <string name="GroupsInCommonMessageRequest__none_of_your_contacts_or_people_you_chat_with_are_in_this_group">၎င်းအဖွဲ့ထဲတွင် သင်၏ အဆက်အသွယ်များ သို့မဟုတ် သင်နှင့် စကားပြောဆိုထားသူများ တစ်ယောက်မှ မရှိပါ။ အလိုမရှိသော မက်ဆေ့ချ်များကို မလက်ခံမီ တောင်းဆိုမှုများကို သေချာစွာ သုံးသပ်ပါ။</string>
   <string name="GroupsInCommonMessageRequest__about_message_requests">မက်ဆေ့ခ်ျတောင်းဆိုမှုများ အကြောင်း</string>
   <string name="GroupsInCommonMessageRequest__okay">အိုကေ</string>
+  <!--GroupDescriptionDialog-->
+  <!--QualitySelectorBottomSheetDialog-->
+  <string name="QualitySelectorBottomSheetDialog__high">မြင့်သော</string>
+  <!--AppSettingsFragment-->
+  <!--AccountSettingsFragment-->
+  <string name="AccountSettingsFragment__account">အကောင့်</string>
+  <!--ChatsSettingsFragment-->
+  <string name="ChatsSettingsFragment__enter_key_sends">ထည့်ထားတဲ့ ကီးပို့ပါ</string>
+  <!--SmsSettingsFragment-->
+  <string name="SmsSettingsFragment__use_as_default_sms_app">ပုံသေ SMS app အဖြစ် သုံးပါ။</string>
+  <!--NotificationsSettingsFragment-->
+  <string name="NotificationsSettingsFragment__messages">မက်ဆေ့ချ်များ</string>
+  <string name="NotificationsSettingsFragment__calls">ဖုန်းခေါ်ဆိုမှုများ</string>
+  <string name="NotificationsSettingsFragment__notify_when">ဖြစ်ခဲ့လျှင် အသိပေးပါ…</string>
+  <!--PrivacySettingsFragment-->
+  <string name="PrivacySettingsFragment__blocked">ပိတ်ပယ်ထားသည်</string>
+  <string name="PrivacySettingsFragment__messaging">မက်ဆေ့ချ်ပေးပို့ခြင်း</string>
+  <string name="PrivacySettingsFragment__disappearing_messages">ပျောက်ကွယ်မည့် မက်ဆေ့ချ်များ</string>
+  <string name="PrivacySettingsFragment__block_screenshots_in_the_recents_list_and_inside_the_app">မကြာသေးမီ စာရင်းနှင့် app အတွင်း Screenshot များကို တားမြစ်ပါ</string>
+  <!--AdvancedPrivacySettingsFragment-->
+  <!--ExpireTimerSettingsFragment-->
+  <string name="ExpireTimerSettingsFragment__off">ပိတ်ထားမယ်</string>
+  <string name="ExpireTimerSettingsFragment__1_week">၁ ပတ်</string>
+  <string name="ExpireTimerSettingsFragment__1_day">၁ ရက်</string>
+  <string name="ExpireTimerSettingsFragment__8_hours">၈ နာရီ</string>
+  <string name="ExpireTimerSettingsFragment__1_hour">၁ နာရီ</string>
+  <string name="ExpireTimerSettingsFragment__set">တပ်ဆင်မယ်</string>
+  <string name="ExpireTimerSettingsFragment__save">သိမ်းမယ်</string>
+  <string name="CustomExpireTimerSelectorView__minutes">မိနစ်</string>
+  <string name="CustomExpireTimerSelectorView__hours">နာရီ</string>
+  <!--HelpSettingsFragment-->
+  <string name="HelpSettingsFragment__contact_us">ကျွန်ုပ်တို့ကိုဆက်သွယ်ရန်</string>
+  <string name="HelpSettingsFragment__version">ဗားရှင်း</string>
+  <string name="HelpSettingsFragment__terms_amp_privacy_policy">လိုက်နာဆောင်ရွက်ရမည့် အချက်များ</string>
+  <!--DataAndStorageSettingsFragment-->
+  <string name="DataAndStorageSettingsFragment__calls">ဖုန်းခေါ်ဆိုမှုများ</string>
+  <!--ChatColorSelectionFragment-->
+  <string name="ChatColorSelectionFragment__chat_color">စကားပြောဆိုမှု၏ အရောင်</string>
+  <string name="ChatColorSelectionFragment__edit">ပြင်မယ်</string>
+  <string name="ChatColorSelectionFragment__delete">ဖျက်မယ်</string>
+  <!--CustomChatColorCreatorFragment-->
+  <!--CustomChatColorCreatorFragmentPage-->
+  <string name="CustomChatColorCreatorFragmentPage__save">သိမ်းမယ်</string>
+  <!--ChatColorGradientTool-->
+  <!--EditReactionsFragment-->
+  <string name="EditReactionsFragment__reset">ရီဆက်ချမည်</string>
+  <string name="EditReactionsFragment_save">သိမ်းမယ်</string>
+  <!--ChatColorsMegaphone-->
+  <string name="ChatColorsMegaphone__appearance">ပုံပန်းသဏ္ဌာန်</string>
+  <string name="ChatColorsMegaphone__not_now">ယခု မလုပ်ဆောင်သေးပါ။</string>
+  <!--KeyboardPagerFragment-->
+  <string name="KeyboardPagerFragment_stickers">စတစ်ကာများ </string>
+  <string name="KeyboardPagerFragment_backspace">Backspace</string>
+  <!--StickerSearchDialogFragment-->
   <!--EOF-->
 </resources>

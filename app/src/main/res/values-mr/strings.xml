@@ -88,7 +88,6 @@
   <string name="BlockUnblockDialog_unblock_s">%1$sअनब्लॉक करायचे?</string>
   <string name="BlockUnblockDialog_block">अवरोधित करा</string>
   <string name="BlockUnblockDialog_block_and_leave">अवरोधित करा आणि पडा</string>
-  <string name="BlockUnblockDialog_block_and_delete">अवरोधित करा आणि हटवा</string>
   <!--BucketedThreadMedia-->
   <string name="BucketedThreadMedia_Today">आज</string>
   <string name="BucketedThreadMedia_Yesterday">काल</string>
@@ -468,9 +467,9 @@
     <item quantity="other">हे सदस्य नवीन गटांमध्ये सामील होण्यास सक्षम नाहीत, आणि त्यामधून काढले जातील:</item>
   </plurals>
   <!--GroupsV1MigrationInitiationReminder-->
-  <string name="GroupsV1MigrationInitiationReminder_to_access_new_features_like_mentions">@उल्लेख आणि अॅडमिन सारखे वैशिष्ट्ये अॅक्सेस करण्यासाठी, हा गट श्रेणीसुधारित करा.</string>
-  <string name="GroupsV1MigrationInitiationReminder_not_now">आता नाही</string>
-  <string name="GroupsV1MigrationInitiationReminder_upgrade_group">गटात श्रेणीसुधारणा करा</string>
+  <!-- Removed by excludeNonTranslatables <string name="GroupsV1MigrationInitiationReminder_to_access_new_features_like_mentions">@उल्लेख आणि अॅडमिन सारखे वैशिष्ट्ये अॅक्सेस करण्यासाठी, हा गट श्रेणीसुधारित करा.</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="GroupsV1MigrationInitiationReminder_not_now">आता नाही</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="GroupsV1MigrationInitiationReminder_upgrade_group">गटात श्रेणीसुधारणा करा</string> -->
   <!--GroupsV1MigrationSuggestionsReminder-->
   <plurals name="GroupsV1MigrationSuggestionsReminder_members_couldnt_be_added_to_the_new_group">
     <item quantity="one">%1$d सदस्य नवीन गटात पुन्हा जोडणे शक्य झाले नाही. आपल्याला त्याला आता जोडायचे आहे का?</item>
@@ -603,7 +602,6 @@
   <string name="ManageGroupActivity_mute_notifications">सूचना म्यूट करा</string>
   <string name="ManageGroupActivity_custom_notifications">सानुकूल सूचना</string>
   <string name="ManageGroupActivity_mentions">उल्लेख</string>
-  <string name="ManageGroupActivity_chat_wallpaper">चॅट वॉलपेपर</string>
   <string name="ManageGroupActivity_until_s">%1$s पर्यंत</string>
   <string name="ManageGroupActivity_off">बंद</string>
   <string name="ManageGroupActivity_on">चालू</string>
@@ -827,6 +825,7 @@
   <string name="Megaphones_new_group">नवीन गट</string>
   <string name="Megaphones_invite_friends">मित्रांना आमंत्रित करा</string>
   <string name="Megaphones_use_sms">SMS वापरा</string>
+  <string name="Megaphones_appearance">स्वरूप</string>
   <!--NotificationBarManager-->
   <string name="NotificationBarManager_signal_call_in_progress">Signal कॉल प्रगती मध्ये</string>
   <string name="NotificationBarManager__establishing_signal_call">Signal कॉल प्रस्थापित करत आहे</string>
@@ -964,6 +963,7 @@
   <string name="MessageRecord_you_changed_the_group_name_to_s">आपण गट नाव \"%1$s\" वर बदलले.</string>
   <string name="MessageRecord_s_changed_the_group_name_to_s">%1$s ने गट नाव \"%2$s\" वर बदलले.</string>
   <string name="MessageRecord_the_group_name_has_changed_to_s">गट नाव \"%1$s\" वर बदलले गेले आहे.</string>
+  <!--GV2 description change-->
   <!--GV2 avatar change-->
   <string name="MessageRecord_you_changed_the_group_avatar">आपण गट अवतार बदलला आहे.</string>
   <string name="MessageRecord_s_changed_the_group_avatar">%1$s ने गट अवतार बदलला आहे.</string>
@@ -1095,10 +1095,6 @@
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">आपण 3य पक्ष स्कॅनर वापरून Signal डिव्हाईस लिंक करण्याचा प्रयत्न करत आहात. आपल्या सुरक्षेसाठी, कृपया Signal मध्ये कोड पुन्हा स्कॅन करा.</string>
   <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">QR कोड स्कॅन करण्यासाठी Molly ला कॅमेरा परवानगीची आवश्यकता असते, पण ती कायमची नाकारली गेली आहे. कृपया अॅप सेटिंग मेनू मध्ये सुरू ठेवा, \"परवानग्या\" निवडा, आणि \"कॅमेरा\" सक्षम करा.</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">कॅमेरा परवानगी विनाQR कोड स्कॅन करण्यास अक्षम</string>
-  <!--ExpirationDialog-->
-  <string name="ExpirationDialog_disappearing_messages">हरवणारे संदेश</string>
-  <string name="ExpirationDialog_your_messages_will_not_expire">आपले संदेश कालबाह्य होणार नाहीत.</string>
-  <string name="ExpirationDialog_your_messages_will_disappear_s_after_they_have_been_seen">या संभाषणामध्ये पाठविलेले आणि प्राप्त झालेले संदेश बघितल्यावर %s नंतर हरवतील.</string>
   <!--OutdatedBuildReminder-->
   <string name="OutdatedBuildReminder_update_now">आता अद्ययावत करा</string>
   <string name="OutdatedBuildReminder_your_version_of_signal_will_expire_today">Signal ची ही आवृत्ती आज कालबाह्य होईल. सर्वात अलीकडील आवृत्तीवर अद्यतनित करा.</string>
@@ -1209,6 +1205,7 @@
   <string name="CallParticipantView__cant_receive_audio_video_from_s">%1$s कडून ऑडिओ आणि व्हिडिओ प्राप्त करू शकत नाही</string>
   <string name="CallParticipantView__cant_receive_audio_and_video_from_s">%1$s कडून ऑडिओ आणि व्हिडिओ प्राप्त करू शकत नाही</string>
   <string name="CallParticipantView__this_may_be_Because_they_have_not_verified_your_safety_number_change">त्यांनी आपला सुरक्षितता नंबर बदल सत्यापित न केल्यामुळे, त्यांच्या डिव्हाईसमध्ये काहीतरी समस्या असल्यामुळे, किंवा त्यांनी आपल्याला ब्लॉक केल्यामुळे असे असू शकते.</string>
+  <!--CallToastPopupWindow-->
   <!--ProxyBottomSheetFragment-->
   <string name="ProxyBottomSheetFragment_proxy_server">प्रॉक्सी सर्व्हर</string>
   <string name="ProxyBottomSheetFragment_proxy_address">प्रॉक्सी पत्ता</string>
@@ -1598,6 +1595,7 @@
   <string name="ConversationUpdateItem_return_to_call">कॉलवर परत या </string>
   <string name="ConversationUpdateItem_call_is_full">कॉल पूर्ण आहे</string>
   <string name="ConversationUpdateItem_invite_friends">मित्रांना आमंत्रित करा</string>
+  <string name="ConversationUpdateItem_view">बघा</string>
   <!--audio_view-->
   <string name="audio_view__play_pause_accessibility_description">प्ले करा … विराम द्या</string>
   <string name="audio_view__download_accessibility_description">डाऊनलोड करा</string>
@@ -1726,7 +1724,7 @@
   <string name="EditAboutFragment_taking_a_break">आराम करत आहे</string>
   <string name="EditAboutFragment_working_on_something_new">काहीतरी नवीन काम करत आहे</string>
   <!--EditProfileFragment-->
-  <string name="EditProfileFragment__edit_group_name_and_photo">गट नाव आणि फोटो संपादित करा</string>
+  <string name="EditProfileFragment__edit_group">गट संपादन करा</string>
   <string name="EditProfileFragment__group_name">गट नाव</string>
   <!--EditProfileNameFragment-->
   <string name="EditProfileNameFragment_your_name">आपले नाव</string>
@@ -1924,7 +1922,6 @@
   <string name="preferences__if_read_receipts_are_disabled_you_wont_be_able_to_see_read_receipts">जर आपल्या वाचल्याचा पावत्या अक्षम असतील तर आपल्याला इतरांकडूनही त्या मिळणार नाहीत.</string>
   <string name="preferences__typing_indicators">टाईपिंग निर्देशक</string>
   <string name="preferences__if_typing_indicators_are_disabled_you_wont_be_able_to_see_typing_indicators">जर टाईपिंग निर्देशक अक्षम केले आहेत, तर इतरांकडून आपल्याला टाईपिंग निर्देशक बघता येणार नाही.</string>
-  <string name="preferences__request_keyboard_to_disable_personalized_learning">वैयक्तिकृत शिकणे अक्षम करण्यासाठी कीबोर्डला विनंती करा. ही सेटिंग गॅरंटी नाही, आणि आपला कीबोर्ड याकडे दुर्लक्ष करू शकतो.</string>
   <string name="preferences_app_protection__blocked_users">अवरोधित वापरकर्ते</string>
   <string name="preferences_chats__when_using_mobile_data">मोबाईल डेटा वापरताना</string>
   <string name="preferences_chats__when_using_wifi">Wi-Fi वापरताना</string>
@@ -1964,8 +1961,8 @@
   <string name="preferences_data_and_storage__calls">कॉल</string>
   <string name="preferences_data_and_storage__use_less_data_for_calls">कॉल करिता कमी डेटा वापरा</string>
   <string name="preferences_data_and_storage__never">कधीही नाही</string>
-  <string name="preferences_data_and_storage__wifi_and_cellular">WiFi आणि सेल्यूलर</string>
-  <string name="preferences_data_and_storage__cellular_only">फक्त सेल्यूलर</string>
+  <!-- Removed by excludeNonTranslatables <string name="preferences_data_and_storage__wifi_and_cellular">WiFi आणि सेल्यूलर</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="preferences_data_and_storage__cellular_only">फक्त सेल्यूलर</string> -->
   <string name="preference_data_and_storage__using_less_data_may_improve_calls_on_bad_networks">कमी डेटा वापरल्याने खराब नेटवर्कवर कॉल सुधारित होऊ शकतात</string>
   <string name="preferences_notifications__messages">संदेश</string>
   <string name="preferences_notifications__events">इव्हेंट</string>
@@ -2473,7 +2470,7 @@
   <!--ShareActivity-->
   <string name="ShareActivity__share">सामायिक करा</string>
   <string name="ShareActivity__send">पाठवा</string>
-  <string name="ShareActivity__s_comma">%1$s,</string>
+  <!-- Removed by excludeNonTranslatables <string name="ShareActivity__s_comma">%1$s,</string> -->
   <string name="ShareActivity__sharing_to_multiple_chats_is">अनेक चॅट यांना शेअर करणे फक्त Signal संदेशांसाठी समर्थित आहे</string>
   <!--MultiShareDialogs-->
   <string name="MultiShareDialogs__failed_to_send_to_some_users">काही वापरकर्त्यांना पाठवण्यात अयशस्वी</string>
@@ -2483,17 +2480,13 @@
   <!--ChatWallpaperActivity-->
   <string name="ChatWallpaperActivity__chat_wallpaper">चॅट वॉलपेपर</string>
   <!--ChatWallpaperFragment-->
+  <string name="ChatWallpaperFragment__chat_color">चॅट रंग</string>
   <string name="ChatWallpaperFragment__set_wallpaper">वॉलपेपर सेट करा</string>
-  <string name="ChatWallpaperFragment__dark_theme_dims_wallpaper">गडद थीम वॉलपेपर अस्पष्ट बनवतो</string>
-  <string name="ChatWallpaperFragment__clear_wallpaper">वॉलपेपर साफ करा</string>
-  <string name="ChatWallpaperFragment__clear_wallpaper_for_this_chat">या चॅटसाठी वॉलपेपर साफ करायचा?</string>
-  <string name="ChatWallpaperFragment__clear_wallpaper_this_will_not">वॉलपेपर साफ करायचा? आपण आपल्या चॅटसाठी सेट केलेले सानुकूलित वॉलपेपर हे साफ करणार नाही.</string>
-  <string name="ChatWallpaperFragment__reset_all_wallpapers">सर्व वॉलपेपर रीसेट करा</string>
-  <string name="ChatWallpaperFragment__reset_all_wallpapers_including_custom">सर्व वॉलपेपर रीसेट करा. आपण आपल्या चॅटसाठी सेट केलेले सानुकूलित वॉलपेपर देखील?</string>
   <string name="ChatWallpaperFragment__contact_name">संपर्क नाव</string>
   <string name="ChatWallpaperFragment__reset">रीसेट करा</string>
   <string name="ChatWallpaperFragment__clear">साफ करा</string>
   <string name="ChatWallpaperFragment__wallpaper_preview_description">वॉलपेपर पुनरावलोकन</string>
+  <string name="ChatWallpaperFragment__reset_all_wallpapers">सर्व वॉलपेपर रीसेट करा</string>
   <!--ChatWallpaperSelectionFragment-->
   <string name="ChatWallpaperSelectionFragment__choose_from_photos">फोटोमधून निवडा</string>
   <string name="ChatWallpaperSelectionFragment__presets">प्रीसेट</string>
@@ -2535,5 +2528,57 @@
   <string name="CanNotSendPaymentDialog__send_a_message">एक संदेश पाठवा</string>
   <!--GroupsInCommonMessageRequest-->
   <string name="GroupsInCommonMessageRequest__okay">ठीक आहे</string>
+  <!--GroupDescriptionDialog-->
+  <!--QualitySelectorBottomSheetDialog-->
+  <string name="QualitySelectorBottomSheetDialog__high">उंच</string>
+  <!--AppSettingsFragment-->
+  <!--AccountSettingsFragment-->
+  <!--ChatsSettingsFragment-->
+  <string name="ChatsSettingsFragment__enter_key_sends">प्रविष्ट करा की पाठवते</string>
+  <!--SmsSettingsFragment-->
+  <string name="SmsSettingsFragment__use_as_default_sms_app">पूर्वनिर्धारित SMS अॅप म्हणून वापरा</string>
+  <!--NotificationsSettingsFragment-->
+  <string name="NotificationsSettingsFragment__messages">संदेश</string>
+  <string name="NotificationsSettingsFragment__calls">कॉल</string>
+  <!--PrivacySettingsFragment-->
+  <string name="PrivacySettingsFragment__blocked">अवरोधित केले</string>
+  <string name="PrivacySettingsFragment__messaging">संदेशन</string>
+  <string name="PrivacySettingsFragment__disappearing_messages">हरवणारे संदेश</string>
+  <string name="PrivacySettingsFragment__block_screenshots_in_the_recents_list_and_inside_the_app">अलीकडील यादीमध्ये आणि अॅपच्या आत स्क्रीनशॉट अवरोधित करा</string>
+  <!--AdvancedPrivacySettingsFragment-->
+  <!--ExpireTimerSettingsFragment-->
+  <string name="ExpireTimerSettingsFragment__off">बंद</string>
+  <string name="ExpireTimerSettingsFragment__1_week">1 आठवडा</string>
+  <string name="ExpireTimerSettingsFragment__1_day">1 दिवस</string>
+  <string name="ExpireTimerSettingsFragment__1_hour">1 तास</string>
+  <string name="ExpireTimerSettingsFragment__5_minutes">5 मिनिटे</string>
+  <string name="ExpireTimerSettingsFragment__30_seconds">30 सेकंद</string>
+  <string name="ExpireTimerSettingsFragment__set">सेट करा</string>
+  <string name="ExpireTimerSettingsFragment__save">जतन करा</string>
+  <!--HelpSettingsFragment-->
+  <string name="HelpSettingsFragment__contact_us">आमच्याशी संपर्क साधा</string>
+  <string name="HelpSettingsFragment__version">आवृत्ती</string>
+  <string name="HelpSettingsFragment__debug_log">डीबग लॉग</string>
+  <string name="HelpSettingsFragment__terms_amp_privacy_policy">अटी आणि गोपनीयता धोरण</string>
+  <!--DataAndStorageSettingsFragment-->
+  <string name="DataAndStorageSettingsFragment__calls">कॉल</string>
+  <!--ChatColorSelectionFragment-->
+  <string name="ChatColorSelectionFragment__chat_color">चॅट रंग</string>
+  <string name="ChatColorSelectionFragment__edit">संपादन</string>
+  <string name="ChatColorSelectionFragment__delete">हटवा</string>
+  <!--CustomChatColorCreatorFragment-->
+  <!--CustomChatColorCreatorFragmentPage-->
+  <string name="CustomChatColorCreatorFragmentPage__save">जतन करा</string>
+  <!--ChatColorGradientTool-->
+  <!--EditReactionsFragment-->
+  <string name="EditReactionsFragment__reset">रीसेट करा</string>
+  <string name="EditReactionsFragment_save">जतन करा</string>
+  <!--ChatColorsMegaphone-->
+  <string name="ChatColorsMegaphone__appearance">स्वरूप</string>
+  <string name="ChatColorsMegaphone__not_now">आता नाही</string>
+  <!--KeyboardPagerFragment-->
+  <string name="KeyboardPagerFragment_emoji">ईमोजी</string>
+  <string name="KeyboardPagerFragment_stickers">स्टिकर</string>
+  <!--StickerSearchDialogFragment-->
   <!--EOF-->
 </resources>

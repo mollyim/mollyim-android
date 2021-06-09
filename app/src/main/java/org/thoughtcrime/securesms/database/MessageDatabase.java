@@ -34,6 +34,7 @@ import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.revealable.ViewOnceExpirationInfo;
 import org.thoughtcrime.securesms.sms.IncomingTextMessage;
 import org.thoughtcrime.securesms.sms.OutgoingTextMessage;
+import org.thoughtcrime.securesms.util.CursorUtil;
 import org.thoughtcrime.securesms.util.JsonUtils;
 import org.thoughtcrime.securesms.util.SqlUtil;
 import org.thoughtcrime.securesms.util.Util;
@@ -76,6 +77,7 @@ public abstract class MessageDatabase extends Database implements MmsSmsColumns 
   public abstract int getMessageCountForThread(long threadId);
   public abstract int getMessageCountForThread(long threadId, long beforeTime);
   abstract int getMessageCountForThreadSummary(long threadId);
+  public abstract boolean hasMeaningfulMessage(long threadId);
   public abstract Optional<MmsNotificationInfo> getNotification(long messageId);
 
   public abstract Cursor getExpirationStartedMessages();
@@ -156,7 +158,8 @@ public abstract class MessageDatabase extends Database implements MmsSmsColumns 
   public abstract Optional<InsertResult> insertMessageInbox(IncomingMediaMessage retrieved, String contentLocation, long threadId) throws MmsException;
   public abstract Pair<Long, Long> insertMessageInbox(@NonNull NotificationInd notification, int subscriptionId);
   public abstract Optional<InsertResult> insertSecureDecryptedMessageInbox(IncomingMediaMessage retrieved, long threadId) throws MmsException;
-  public abstract @NonNull InsertResult insertDecryptionFailedMessage(@NonNull RecipientId recipientId, long senderDeviceId, long sentTimestamp);
+  public abstract @NonNull InsertResult insertChatSessionRefreshedMessage(@NonNull RecipientId recipientId, long senderDeviceId, long sentTimestamp);
+  public abstract void insertBadDecryptMessage(@NonNull RecipientId recipientId, int senderDevice, long sentTimestamp, long receivedTimestamp, long threadId);
   public abstract long insertMessageOutbox(long threadId, OutgoingTextMessage message, boolean forceSms, long date, InsertListener insertListener);
   public abstract long insertMessageOutbox(@NonNull OutgoingMediaMessage message, long threadId, boolean forceSms, @Nullable SmsDatabase.InsertListener insertListener) throws MmsException;
   public abstract long insertMessageOutbox(@NonNull OutgoingMediaMessage message, long threadId, boolean forceSms, int defaultReceiptStatus, @Nullable SmsDatabase.InsertListener insertListener) throws MmsException;
@@ -401,6 +404,25 @@ public abstract class MessageDatabase extends Database implements MmsSmsColumns 
     } catch (IOException e) {
       Log.w(TAG, e);
     }
+  }
+
+  public @NonNull List<ReportSpamData> getReportSpamMessageServerGuids(long threadId, long timestamp) {
+    SQLiteDatabase db    = databaseHelper.getReadableDatabase();
+    String         query = THREAD_ID + " = ? AND " + getDateReceivedColumnName() + " <= ?";
+    String[]       args  = SqlUtil.buildArgs(threadId, timestamp);
+
+    List<ReportSpamData> data = new ArrayList<>();
+    try (Cursor cursor = db.query(getTableName(), new String[] { RECIPIENT_ID, SERVER_GUID, getDateReceivedColumnName() }, query, args, null, null, getDateReceivedColumnName() + " DESC", "3")) {
+      while (cursor.moveToNext()) {
+        RecipientId id         = RecipientId.from(CursorUtil.requireLong(cursor, RECIPIENT_ID));
+        String      serverGuid = CursorUtil.requireString(cursor, SERVER_GUID);
+        long        dateReceived = CursorUtil.requireLong(cursor, getDateReceivedColumnName());
+        if (!Util.isEmpty(serverGuid)) {
+          data.add(new ReportSpamData(id, serverGuid, dateReceived));
+        }
+      }
+    }
+    return data;
   }
 
   protected static List<ReactionRecord> parseReactions(@NonNull Cursor cursor) {
@@ -769,5 +791,29 @@ public abstract class MessageDatabase extends Database implements MmsSmsColumns 
     MessageRecord getNext();
     MessageRecord getCurrent();
     void close();
+  }
+
+  public static class ReportSpamData {
+    private final RecipientId recipientId;
+    private final String      serverGuid;
+    private final long        dateReceived;
+
+    public ReportSpamData(RecipientId recipientId, String serverGuid, long dateReceived) {
+      this.recipientId  = recipientId;
+      this.serverGuid   = serverGuid;
+      this.dateReceived = dateReceived;
+    }
+
+    public @NonNull RecipientId getRecipientId() {
+      return recipientId;
+    }
+
+    public @NonNull String getServerGuid() {
+      return serverGuid;
+    }
+
+    public long getDateReceived() {
+      return dateReceived;
+    }
   }
 }

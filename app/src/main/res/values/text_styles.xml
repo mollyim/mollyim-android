@@ -22,6 +22,10 @@
         <item name="android:letterSpacing" tools:ignore="NewApi">0.01</item>
     </style>
 
+    <style name="Signal.Text.Preview.Secondary">
+        <item name="android:textColor">@color/signal_text_secondary</item>
+    </style>
+
     <style name="Signal.Text.Preview.Medium">
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
@@ -48,7 +52,7 @@
     </style>
 
     <style name="Signal.Text.Caption.MessageReceived">
-        <item name="android:textColor">@color/conversation_item_received_text_secondary_color</item>
+        <item name="android:textColor">@color/conversation_item_sent_text_secondary_color</item>
         <item name="android:shadowRadius">0</item>
         <item name="android:alpha">0.7</item>
     </style>
@@ -67,6 +71,11 @@
 
     <style name="TextAppearance.Signal.Title2.Bold">
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Signal.Title2.MaterialDialog">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
     </style>
 
     <style name="TextAppearance.Signal.Headline.Insights" parent="">
@@ -146,6 +155,10 @@
         <item name="android:textSize">13sp</item>
     </style>
 
+    <style name="TextAppearance.Signal.Subtitle.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="TextAppearance.Signal.Subtitle2" parent="@style/TextAppearance.MaterialComponents.Subtitle2">
     </style>
 
@@ -162,6 +175,12 @@
     <style name="Signal.Text.MessageRequest.Description" parent="Base.TextAppearance.AppCompat.Subhead">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/signal_text_secondary</item>
+    </style>
+
+    <style name="Signal.Text.Title" parent="Base.TextAppearance.AppCompat.Title">
+    </style>
+
+    <style name="Signal.Text.Title.SettingsBio">
     </style>
 
 </resources>

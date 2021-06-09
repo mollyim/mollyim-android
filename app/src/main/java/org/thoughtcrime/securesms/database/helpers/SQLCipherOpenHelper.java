@@ -22,11 +22,17 @@ import net.sqlcipher.database.SQLiteDatabase;
 import net.sqlcipher.database.SQLiteOpenHelper;
 
 import org.signal.core.util.logging.Log;
+import org.thoughtcrime.securesms.color.MaterialColor;
 import org.thoughtcrime.securesms.contacts.avatars.ContactColorsLegacy;
+import org.thoughtcrime.securesms.conversation.colors.AvatarColor;
+import org.thoughtcrime.securesms.conversation.colors.ChatColors;
+import org.thoughtcrime.securesms.conversation.colors.ChatColorsMapper;
 import org.thoughtcrime.securesms.crypto.DatabaseSecret;
 import org.thoughtcrime.securesms.crypto.MasterSecret;
 import org.thoughtcrime.securesms.database.AttachmentDatabase;
+import org.thoughtcrime.securesms.database.ChatColorsDatabase;
 import org.thoughtcrime.securesms.database.DraftDatabase;
+import org.thoughtcrime.securesms.database.EmojiSearchDatabase;
 import org.thoughtcrime.securesms.database.GroupDatabase;
 import org.thoughtcrime.securesms.database.GroupReceiptDatabase;
 import org.thoughtcrime.securesms.database.IdentityDatabase;
@@ -34,10 +40,13 @@ import org.thoughtcrime.securesms.database.MentionDatabase;
 import org.thoughtcrime.securesms.database.MmsDatabase;
 import org.thoughtcrime.securesms.database.OneTimePreKeyDatabase;
 import org.thoughtcrime.securesms.database.PaymentDatabase;
+import org.thoughtcrime.securesms.database.PendingRetryReceiptDatabase;
 import org.thoughtcrime.securesms.database.PushDatabase;
 import org.thoughtcrime.securesms.database.RecipientDatabase;
 import org.thoughtcrime.securesms.database.RemappedRecordsDatabase;
 import org.thoughtcrime.securesms.database.SearchDatabase;
+import org.thoughtcrime.securesms.database.SenderKeyDatabase;
+import org.thoughtcrime.securesms.database.SenderKeySharedDatabase;
 import org.thoughtcrime.securesms.database.SessionDatabase;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.database.SignedPreKeyDatabase;
@@ -50,6 +59,7 @@ import org.thoughtcrime.securesms.database.model.databaseprotos.ReactionList;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.groups.GroupId;
 import org.thoughtcrime.securesms.jobs.RefreshPreKeysJob;
+import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.phonenumbers.PhoneNumberFormatter;
 import org.thoughtcrime.securesms.profiles.AvatarHelper;
@@ -67,6 +77,7 @@ import org.thoughtcrime.securesms.util.SqlUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.Triple;
 import org.thoughtcrime.securesms.util.Util;
+import org.whispersystems.signalservice.api.push.DistributionId;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -77,6 +88,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 
 public class SQLCipherOpenHelper extends SQLiteOpenHelper implements SignalDatabase {
@@ -144,8 +156,13 @@ public class SQLCipherOpenHelper extends SQLiteOpenHelper implements SignalDatab
   private static final int CLEAN_REACTION_NOTIFICATIONS     = 96;
   private static final int STORAGE_SERVICE_REFACTOR         = 97;
   private static final int CLEAR_MMS_STORAGE_IDS            = 98;
+  private static final int SERVER_GUID                      = 99;
+  private static final int CHAT_COLORS                      = 100;
+  private static final int AVATAR_COLORS                    = 101;
+  private static final int EMOJI_SEARCH                     = 102;
+  private static final int SENDER_KEY                       = 103;
 
-  private static final int    DATABASE_VERSION = 98;
+  private static final int    DATABASE_VERSION = 103;
   private static final String DATABASE_NAME    = "signal.db";
 
   private final Context        context;
@@ -173,10 +190,15 @@ public class SQLCipherOpenHelper extends SQLiteOpenHelper implements SignalDatab
     db.execSQL(OneTimePreKeyDatabase.CREATE_TABLE);
     db.execSQL(SignedPreKeyDatabase.CREATE_TABLE);
     db.execSQL(SessionDatabase.CREATE_TABLE);
+    db.execSQL(SenderKeyDatabase.CREATE_TABLE);
+    db.execSQL(SenderKeySharedDatabase.CREATE_TABLE);
+    db.execSQL(PendingRetryReceiptDatabase.CREATE_TABLE);
     db.execSQL(StickerDatabase.CREATE_TABLE);
     db.execSQL(UnknownStorageIdDatabase.CREATE_TABLE);
     db.execSQL(MentionDatabase.CREATE_TABLE);
     db.execSQL(PaymentDatabase.CREATE_TABLE);
+    db.execSQL(ChatColorsDatabase.CREATE_TABLE);
+    db.execSQL(EmojiSearchDatabase.CREATE_TABLE);
     executeStatements(db, SearchDatabase.CREATE_TABLE);
     executeStatements(db, RemappedRecordsDatabase.CREATE_TABLE);
 
@@ -194,6 +216,7 @@ public class SQLCipherOpenHelper extends SQLiteOpenHelper implements SignalDatab
     executeStatements(db, PaymentDatabase.CREATE_INDEXES);
 
     if (context.getDatabasePath(ClassicOpenHelper.NAME).exists()) {
+      throw new AssertionError("Unsupported Signal database: version is too old");
     }
   }
 
@@ -925,6 +948,87 @@ public class SQLCipherOpenHelper extends SQLiteOpenHelper implements SignalDatab
         int deleteCount = db.update("recipient", deleteValues, "storage_service_key NOT NULL AND (group_type = 1 OR (group_type = 0 AND phone IS NULL AND uuid IS NULL))", null);
 
         Log.d(TAG, "Cleared storageIds from " + deleteCount + " rows. They were either MMS groups or empty contacts.");
+      }
+
+      if (oldVersion < SERVER_GUID) {
+        db.execSQL("ALTER TABLE sms ADD COLUMN server_guid TEXT DEFAULT NULL");
+        db.execSQL("ALTER TABLE mms ADD COLUMN server_guid TEXT DEFAULT NULL");
+      }
+
+      if (oldVersion < CHAT_COLORS) {
+        db.execSQL("ALTER TABLE recipient ADD COLUMN chat_colors BLOB DEFAULT NULL");
+        db.execSQL("ALTER TABLE recipient ADD COLUMN custom_chat_colors_id INTEGER DEFAULT 0");
+        db.execSQL("CREATE TABLE chat_colors (" +
+                   "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                   "chat_colors BLOB)");
+
+        Set<Map.Entry<MaterialColor, ChatColors>> entrySet = ChatColorsMapper.getEntrySet();
+        String                                    where    = "color = ? AND group_id is NULL";
+
+        for (Map.Entry<MaterialColor, ChatColors> entry : entrySet) {
+          String[]      whereArgs = SqlUtil.buildArgs(entry.getKey().serialize());
+          ContentValues values    = new ContentValues(2);
+
+          values.put("chat_colors", entry.getValue().serialize().toByteArray());
+          values.put("custom_chat_colors_id", entry.getValue().getId().getLongValue());
+
+          db.update("recipient", values, where, whereArgs);
+        }
+      }
+
+      if (oldVersion < AVATAR_COLORS) {
+        try (Cursor cursor  = db.query("recipient", new String[] { "_id" }, "color IS NULL", null, null, null, null)) {
+          while (cursor.moveToNext()) {
+            long id = cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
+
+            ContentValues values = new ContentValues(1);
+            values.put("color", AvatarColor.random().serialize());
+
+            db.update("recipient", values, "_id = ?", new String[] { String.valueOf(id) });
+          }
+        }
+      }
+
+      if (oldVersion < EMOJI_SEARCH) {
+        db.execSQL("CREATE VIRTUAL TABLE emoji_search USING fts5(label, emoji UNINDEXED)");
+      }
+
+      if (oldVersion < SENDER_KEY && !SqlUtil.tableExists(db, "sender_keys")) {
+        db.execSQL("CREATE TABLE sender_keys (_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                                             "recipient_id INTEGER NOT NULL, " +
+                                             "device INTEGER NOT NULL, " +
+                                             "distribution_id TEXT NOT NULL, " +
+                                             "record BLOB NOT NULL, " +
+                                             "created_at INTEGER NOT NULL, " +
+                                             "UNIQUE(recipient_id, device, distribution_id) ON CONFLICT REPLACE)");
+
+        db.execSQL("CREATE TABLE sender_key_shared (_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                                                   "distribution_id TEXT NOT NULL, " +
+                                                   "address TEXT NOT NULL, " +
+                                                   "device INTEGER NOT NULL, " +
+                                                   "UNIQUE(distribution_id, address, device) ON CONFLICT REPLACE)");
+
+        db.execSQL("CREATE TABLE pending_retry_receipts (_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                                                        "author TEXT NOT NULL, " +
+                                                        "device INTEGER NOT NULL, " +
+                                                        "sent_timestamp INTEGER NOT NULL, " +
+                                                        "received_timestamp TEXT NOT NULL, " +
+                                                        "thread_id INTEGER NOT NULL, " +
+                                                        "UNIQUE(author, sent_timestamp) ON CONFLICT REPLACE);");
+
+        db.execSQL("ALTER TABLE groups ADD COLUMN distribution_id TEXT DEFAULT NULL");
+        db.execSQL("CREATE UNIQUE INDEX IF NOT EXISTS group_distribution_id_index ON groups (distribution_id)");
+
+        try (Cursor cursor = db.query("groups", new String[] { "group_id" }, "LENGTH(group_id) = 85", null, null, null, null)) {
+          while (cursor.moveToNext()) {
+            String        groupId = cursor.getString(cursor.getColumnIndexOrThrow("group_id"));
+            ContentValues values  = new ContentValues();
+
+            values.put("distribution_id", DistributionId.create().toString());
+
+            db.update("groups", values, "group_id = ?", new String[] { groupId });
+          }
+        }
       }
 
       db.setTransactionSuccessful();

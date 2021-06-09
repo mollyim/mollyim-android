@@ -244,23 +244,15 @@ final class GroupManagerV2 {
     @WorkerThread
     @NonNull GroupManager.GroupActionResult createGroup(@NonNull Collection<RecipientId> members,
                                                         @Nullable String name,
-                                                        @Nullable byte[] avatar)
-        throws GroupChangeFailedException, IOException, MembershipNotSuitableForV2Exception
-    {
-      return createGroup(name, avatar, members);
-    }
-
-    @WorkerThread
-    private @NonNull GroupManager.GroupActionResult createGroup(@Nullable String name,
-                                                                @Nullable byte[] avatar,
-                                                                @NonNull Collection<RecipientId> members)
+                                                        @Nullable byte[] avatar,
+                                                        int disappearingMessagesTimer)
         throws GroupChangeFailedException, IOException, MembershipNotSuitableForV2Exception
     {
       GroupSecretParams groupSecretParams = GroupSecretParams.generate();
       DecryptedGroup    decryptedGroup;
 
       try {
-        decryptedGroup = createGroupOnServer(groupSecretParams, name, avatar, members, Member.Role.DEFAULT, 0);
+        decryptedGroup = createGroupOnServer(groupSecretParams, name, avatar, members, Member.Role.DEFAULT, disappearingMessagesTimer);
       } catch (GroupAlreadyExistsException e) {
         throw new GroupChangeFailedException(e);
       }
@@ -345,12 +337,16 @@ final class GroupManagerV2 {
     }
 
     @WorkerThread
-    @NonNull GroupManager.GroupActionResult updateGroupTitleAndAvatar(@Nullable String title, @Nullable byte[] avatarBytes, boolean avatarChanged)
+    @NonNull GroupManager.GroupActionResult updateGroupTitleDescriptionAndAvatar(@Nullable String title, @Nullable String description, @Nullable byte[] avatarBytes, boolean avatarChanged)
       throws GroupChangeFailedException, GroupInsufficientRightsException, IOException, GroupNotAMemberException
     {
       try {
         GroupChange.Actions.Builder change = title != null ? groupOperations.createModifyGroupTitle(title)
                                                            : GroupChange.Actions.newBuilder();
+
+        if (description != null) {
+          change.setModifyDescription(groupOperations.createModifyGroupDescription(description));
+        }
 
         if (avatarChanged) {
           String cdnKey = avatarBytes != null ? groupsV2Api.uploadAvatar(avatarBytes, groupSecretParams, authorization.getAuthorizationForToday(selfUuid, groupSecretParams))

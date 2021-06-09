@@ -20,7 +20,6 @@ import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.migrations.StorageServiceMigrationJob;
 import org.thoughtcrime.securesms.recipients.Recipient;
-import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.storage.AccountRecordProcessor;
 import org.thoughtcrime.securesms.storage.ContactRecordProcessor;
 import org.thoughtcrime.securesms.storage.GroupV1RecordProcessor;
@@ -32,8 +31,6 @@ import org.thoughtcrime.securesms.storage.StorageSyncHelper.WriteOperationResult
 import org.thoughtcrime.securesms.storage.StorageSyncModels;
 import org.thoughtcrime.securesms.storage.StorageSyncValidations;
 import org.thoughtcrime.securesms.transport.RetryLaterException;
-import org.thoughtcrime.securesms.util.FeatureFlags;
-import org.thoughtcrime.securesms.util.SetUtil;
 import org.thoughtcrime.securesms.util.Stopwatch;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.Util;
@@ -51,7 +48,6 @@ import org.whispersystems.signalservice.api.storage.SignalStorageRecord;
 import org.whispersystems.signalservice.api.storage.StorageId;
 import org.whispersystems.signalservice.api.storage.StorageKey;
 import org.whispersystems.signalservice.internal.storage.protos.ManifestRecord;
-import org.whispersystems.signalservice.internal.storage.protos.SignalStorage;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -60,8 +56,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -216,14 +210,14 @@ public class StorageSyncJob extends BaseJob {
 
     stopwatch.split("remote-manifest");
 
-    Recipient self                 = Recipient.self().fresh();
+    Recipient self                 = freshSelf();
     boolean   needsMultiDeviceSync = false;
     boolean   needsForcePush       = false;
 
     if (self.getStorageServiceId() == null) {
       Log.w(TAG, "No storageId for self. Generating.");
       DatabaseFactory.getRecipientDatabase(context).updateStorageId(self.getId(), StorageSyncHelper.generateKey());
-      self = Recipient.self().fresh();
+      self = freshSelf();
     }
 
     Log.i(TAG, "Our version: " + localManifest.getVersion() + ", their version: " + remoteManifest.getVersion());
@@ -231,7 +225,7 @@ public class StorageSyncJob extends BaseJob {
     if (remoteManifest.getVersion() > localManifest.getVersion()) {
       Log.i(TAG, "[Remote Sync] Newer manifest version found!");
 
-      List<StorageId>    localStorageIdsBeforeMerge = getAllLocalStorageIds(context, Recipient.self().fresh());
+      List<StorageId>    localStorageIdsBeforeMerge = getAllLocalStorageIds(context, self);
       IdDifferenceResult idDifference               = StorageSyncHelper.findIdDifference(remoteManifest.getStorageIds(), localStorageIdsBeforeMerge);
 
       if (idDifference.hasTypeMismatches()) {
@@ -269,19 +263,22 @@ public class StorageSyncJob extends BaseJob {
             remoteGv2.add(remote.getGroupV2().get());
           } else if (remote.getAccount().isPresent()) {
             remoteAccount.add(remote.getAccount().get());
-          } else {
+          } else if (remote.getId().isUnknown()) {
             remoteUnknown.add(remote);
+          } else {
+            Log.w(TAG, "Bad record! Type is a known value (" + remote.getId().getType() + "), but doesn't have a matching inner record. Dropping it.");
           }
         }
 
         db.beginTransaction();
         try {
+          self = freshSelf();
+
           new ContactRecordProcessor(context, self).process(remoteContacts, StorageSyncHelper.KEY_GENERATOR);
           new GroupV1RecordProcessor(context).process(remoteGv1, StorageSyncHelper.KEY_GENERATOR);
           new GroupV2RecordProcessor(context).process(remoteGv2, StorageSyncHelper.KEY_GENERATOR);
+          self = freshSelf();
           new AccountRecordProcessor(context, self).process(remoteAccount, StorageSyncHelper.KEY_GENERATOR);
-
-          self = Recipient.self().fresh();
 
           List<SignalStorageRecord> unknownInserts = remoteUnknown;
           List<StorageId>           unknownDeletes = Stream.of(idDifference.getLocalOnlyIds()).filter(StorageId::isUnknown).toList();
@@ -315,7 +312,9 @@ public class StorageSyncJob extends BaseJob {
 
     db.beginTransaction();
     try {
-      List<StorageId>           localStorageIds = getAllLocalStorageIds(context, Recipient.self().fresh());
+      self = freshSelf();
+
+      List<StorageId>           localStorageIds = getAllLocalStorageIds(context, self);
       IdDifferenceResult        idDifference    = StorageSyncHelper.findIdDifference(remoteManifest.getStorageIds(), localStorageIds);
       List<SignalStorageRecord> remoteInserts   = buildLocalStorageRecords(context, self, idDifference.getLocalOnlyIds());
       List<byte[]>              remoteDeletes   = Stream.of(idDifference.getRemoteOnlyIds()).map(StorageId::getRaw).toList();
@@ -367,7 +366,7 @@ public class StorageSyncJob extends BaseJob {
   private static @NonNull List<StorageId> getAllLocalStorageIds(@NonNull Context context, @NonNull Recipient self) {
     return Util.concatenatedList(DatabaseFactory.getRecipientDatabase(context).getContactStorageSyncIds(),
                                  Collections.singletonList(StorageId.forAccount(self.getStorageServiceId())),
-                                 DatabaseFactory.getUnknownStorageIdDatabase(context).getAllIds());
+                                 DatabaseFactory.getUnknownStorageIdDatabase(context).getAllUnknownIds());
   }
 
   private static @NonNull List<SignalStorageRecord> buildLocalStorageRecords(@NonNull Context context, @NonNull Recipient self, @NonNull Collection<StorageId> ids) {
@@ -414,6 +413,11 @@ public class StorageSyncJob extends BaseJob {
     }
 
     return records;
+  }
+
+  private static @NonNull Recipient freshSelf() {
+    Recipient.self().live().refresh();
+    return Recipient.self();
   }
 
   private static final class MissingGv2MasterKeyError extends Error {}

@@ -89,7 +89,6 @@
   <string name="BlockUnblockDialog_unblock_s">Отблокирай %1$s?</string>
   <string name="BlockUnblockDialog_block">Блокиране</string>
   <string name="BlockUnblockDialog_block_and_leave">Блокиране и напускане</string>
-  <string name="BlockUnblockDialog_block_and_delete">Блокиране и изтриване</string>
   <!--BucketedThreadMedia-->
   <string name="BucketedThreadMedia_Today">Днес</string>
   <string name="BucketedThreadMedia_Yesterday">Вчера</string>
@@ -469,9 +468,9 @@
     <item quantity="other">Тези членове нямат възможност за присъединяване в нови групи и ще бъдат премахнати от групата:</item>
   </plurals>
   <!--GroupsV1MigrationInitiationReminder-->
-  <string name="GroupsV1MigrationInitiationReminder_to_access_new_features_like_mentions">Обновете тази група за достъп до нови функционалности като @споменаване и администратори.</string>
-  <string name="GroupsV1MigrationInitiationReminder_not_now">Не сега</string>
-  <string name="GroupsV1MigrationInitiationReminder_upgrade_group">Надграждане на група</string>
+  <!-- Removed by excludeNonTranslatables <string name="GroupsV1MigrationInitiationReminder_to_access_new_features_like_mentions">Обновете тази група за достъп до нови функционалности като @споменаване и администратори.</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="GroupsV1MigrationInitiationReminder_not_now">Не сега</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="GroupsV1MigrationInitiationReminder_upgrade_group">Надграждане на група</string> -->
   <!--GroupsV1MigrationSuggestionsReminder-->
   <plurals name="GroupsV1MigrationSuggestionsReminder_members_couldnt_be_added_to_the_new_group">
     <item quantity="one">%1$d член не можа да бъде добавен към новата група. Искате ли да го/я добавите сега?</item>
@@ -604,7 +603,6 @@
   <string name="ManageGroupActivity_mute_notifications">Тих режим за известия</string>
   <string name="ManageGroupActivity_custom_notifications">Персонализирани известия</string>
   <string name="ManageGroupActivity_mentions">Споменавания</string>
-  <string name="ManageGroupActivity_chat_wallpaper">Тапет на чата</string>
   <string name="ManageGroupActivity_until_s">До %1$s</string>
   <string name="ManageGroupActivity_always">Винаги</string>
   <string name="ManageGroupActivity_off">Деактивирано</string>
@@ -830,6 +828,7 @@
   <string name="Megaphones_new_group">Нова група</string>
   <string name="Megaphones_invite_friends">Покани приятели</string>
   <string name="Megaphones_use_sms">Ползвай SMS</string>
+  <string name="Megaphones_appearance">Облик</string>
   <!--NotificationBarManager-->
   <string name="NotificationBarManager_signal_call_in_progress">Протича Signal разговор</string>
   <string name="NotificationBarManager__establishing_signal_call">Установяване на Signal разговор</string>
@@ -965,6 +964,7 @@
   <string name="MessageRecord_you_changed_the_group_name_to_s">Вие променихте името на групата на \"%1$s\".</string>
   <string name="MessageRecord_s_changed_the_group_name_to_s">%1$s промени името на групата на \"%2$s\".</string>
   <string name="MessageRecord_the_group_name_has_changed_to_s">Името на групата бе променено на \"%1$s\".</string>
+  <!--GV2 description change-->
   <!--GV2 avatar change-->
   <string name="MessageRecord_you_changed_the_group_avatar">Сменихте аватара на групата.</string>
   <string name="MessageRecord_s_changed_the_group_avatar">%1$s смени аватара на групата.</string>
@@ -1096,10 +1096,6 @@
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Изглежда се опитвате да свържете Signal устройство с външна скенер програма. За Ваша сигурност, моля сканирайте кодът повторно използвайки Signal.</string>
   <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly се нуждае от достъп до камерата Ви, за да може да сканирва QR кодове, но той му е отказан. Моля, отидете на настройки в менюто и изберете \"Разрешения\" и \"Камера\".</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Неуспешно сканирване на QR код без разрешение за достъп до камерата</string>
-  <!--ExpirationDialog-->
-  <string name="ExpirationDialog_disappearing_messages">Изчезващи съобщения</string>
-  <string name="ExpirationDialog_your_messages_will_not_expire">Съобщенията няма да изчезват.</string>
-  <string name="ExpirationDialog_your_messages_will_disappear_s_after_they_have_been_seen">Изпратени и получени съобщения в този разговор ще изчезнат %s след изпращането им.</string>
   <!--OutdatedBuildReminder-->
   <string name="OutdatedBuildReminder_update_now">Обнови сега</string>
   <string name="OutdatedBuildReminder_your_version_of_signal_will_expire_today">Тази версия на Signal ще изтече днес. Актуализирайте до най-новата версия.</string>
@@ -1210,6 +1206,7 @@
   <string name="CallParticipantView__cant_receive_audio_video_from_s">Не може да приемате аудио и видео от %1$s</string>
   <string name="CallParticipantView__cant_receive_audio_and_video_from_s">Не може да приемате аудио и видео от %1$s</string>
   <string name="CallParticipantView__this_may_be_Because_they_have_not_verified_your_safety_number_change">Това може да се дължи на факта, че те не са проверили промяната на номера ви за безопасност, има проблем с устройството им или са ви блокирали.</string>
+  <!--CallToastPopupWindow-->
   <!--ProxyBottomSheetFragment-->
   <string name="ProxyBottomSheetFragment_proxy_server">Прокси сървър</string>
   <string name="ProxyBottomSheetFragment_proxy_address">Прокси адрес</string>
@@ -1598,6 +1595,7 @@
   <string name="ConversationUpdateItem_return_to_call">Върнете се към разговор</string>
   <string name="ConversationUpdateItem_call_is_full">Обаждането е пълно</string>
   <string name="ConversationUpdateItem_invite_friends">Покани приятели</string>
+  <string name="ConversationUpdateItem_view">Преглед</string>
   <!--audio_view-->
   <string name="audio_view__play_pause_accessibility_description">Пусни … Пауза</string>
   <string name="audio_view__download_accessibility_description">Изтегляне</string>
@@ -1726,7 +1724,7 @@
   <string name="EditAboutFragment_taking_a_break">В почивка</string>
   <string name="EditAboutFragment_working_on_something_new">Работи по нещо ново</string>
   <!--EditProfileFragment-->
-  <string name="EditProfileFragment__edit_group_name_and_photo">Редактирайте името и снимката на групата</string>
+  <string name="EditProfileFragment__edit_group">Промяна на групата</string>
   <string name="EditProfileFragment__group_name">Име на групата</string>
   <!--EditProfileNameFragment-->
   <string name="EditProfileNameFragment_your_name">Вашето име</string>
@@ -1926,7 +1924,6 @@
   <string name="preferences__if_read_receipts_are_disabled_you_wont_be_able_to_see_read_receipts">Ако Вашите потвърждения за прочитане са деактивирани няма да можете да видите потвържденията за прочитане от други.</string>
   <string name="preferences__typing_indicators">Индикатори за писане</string>
   <string name="preferences__if_typing_indicators_are_disabled_you_wont_be_able_to_see_typing_indicators">Ако индикаторите за писане са декативирани, няма да можете да видите индикаторите на другите хора.</string>
-  <string name="preferences__request_keyboard_to_disable_personalized_learning">Поискай клавиатурата да изключи персонализирано научване. Тази настройка не е гарантирана, и клавиатурата ти може да я игнорира.</string>
   <string name="preferences_app_protection__blocked_users">Блокирани потребители</string>
   <string name="preferences_chats__when_using_mobile_data">Когато се използва мобилен интернет</string>
   <string name="preferences_chats__when_using_wifi">Когато се използва Wi-Fi</string>
@@ -1966,8 +1963,8 @@
   <string name="preferences_data_and_storage__calls">Обаждания</string>
   <string name="preferences_data_and_storage__use_less_data_for_calls">Използвайте по-малко данни за разговори</string>
   <string name="preferences_data_and_storage__never">Никога</string>
-  <string name="preferences_data_and_storage__wifi_and_cellular">WiFi и клетъчни</string>
-  <string name="preferences_data_and_storage__cellular_only">Само клетъчни</string>
+  <!-- Removed by excludeNonTranslatables <string name="preferences_data_and_storage__wifi_and_cellular">WiFi и клетъчни</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="preferences_data_and_storage__cellular_only">Само клетъчни</string> -->
   <string name="preference_data_and_storage__using_less_data_may_improve_calls_on_bad_networks">Използването на по-малко данни може да подобри обажданията в лоши мрежи</string>
   <string name="preferences_notifications__messages">Съобщения</string>
   <string name="preferences_notifications__events">Събития</string>
@@ -2474,7 +2471,7 @@
   <!--ShareActivity-->
   <string name="ShareActivity__share">Споделяне</string>
   <string name="ShareActivity__send">Изпращане</string>
-  <string name="ShareActivity__s_comma">%1$s,</string>
+  <!-- Removed by excludeNonTranslatables <string name="ShareActivity__s_comma">%1$s,</string> -->
   <string name="ShareActivity__sharing_to_multiple_chats_is">Споделяне с множество чатове се подържа само за Signal съобщения</string>
   <!--MultiShareDialogs-->
   <string name="MultiShareDialogs__failed_to_send_to_some_users">Неуспешно изпращане до някои потребители</string>
@@ -2484,17 +2481,13 @@
   <!--ChatWallpaperActivity-->
   <string name="ChatWallpaperActivity__chat_wallpaper">Тапет на чата</string>
   <!--ChatWallpaperFragment-->
+  <string name="ChatWallpaperFragment__chat_color">Чат цвят</string>
   <string name="ChatWallpaperFragment__set_wallpaper">Задай тапет</string>
-  <string name="ChatWallpaperFragment__dark_theme_dims_wallpaper">Тъмният облик замръчнява тапета</string>
-  <string name="ChatWallpaperFragment__clear_wallpaper">Премахване на тапета</string>
-  <string name="ChatWallpaperFragment__clear_wallpaper_for_this_chat">Премахване на тапета на този чат?</string>
-  <string name="ChatWallpaperFragment__clear_wallpaper_this_will_not">Премахване на тапета? Това няма да премахне персонализирани тапети, които си задал в своите чатове.</string>
-  <string name="ChatWallpaperFragment__reset_all_wallpapers">Премахване на всички тапети</string>
-  <string name="ChatWallpaperFragment__reset_all_wallpapers_including_custom">Премахване на всички тапети, включително персонализарни тапети, които си задал в своите чатове?</string>
   <string name="ChatWallpaperFragment__contact_name">Име на контакта</string>
   <string name="ChatWallpaperFragment__reset">Рестартирай</string>
   <string name="ChatWallpaperFragment__clear">Изчистване</string>
   <string name="ChatWallpaperFragment__wallpaper_preview_description">Преглед на тапета</string>
+  <string name="ChatWallpaperFragment__reset_all_wallpapers">Премахване на всички тапети</string>
   <!--ChatWallpaperSelectionFragment-->
   <string name="ChatWallpaperSelectionFragment__choose_from_photos">Избери от снимки</string>
   <string name="ChatWallpaperSelectionFragment__presets">Предварително зададени</string>
@@ -2536,5 +2529,56 @@
   <string name="CanNotSendPaymentDialog__send_a_message">Изпрати съобщение</string>
   <!--GroupsInCommonMessageRequest-->
   <string name="GroupsInCommonMessageRequest__okay">Добре</string>
+  <!--GroupDescriptionDialog-->
+  <!--QualitySelectorBottomSheetDialog-->
+  <string name="QualitySelectorBottomSheetDialog__high">Високо</string>
+  <!--AppSettingsFragment-->
+  <!--AccountSettingsFragment-->
+  <!--ChatsSettingsFragment-->
+  <string name="ChatsSettingsFragment__enter_key_sends">Клавишът Enter се използва за изпращане</string>
+  <!--SmsSettingsFragment-->
+  <string name="SmsSettingsFragment__use_as_default_sms_app">Използване като SMS програма по подразбиране</string>
+  <!--NotificationsSettingsFragment-->
+  <string name="NotificationsSettingsFragment__messages">Съобщения</string>
+  <string name="NotificationsSettingsFragment__calls">Обаждания</string>
+  <!--PrivacySettingsFragment-->
+  <string name="PrivacySettingsFragment__blocked">Блокиране</string>
+  <string name="PrivacySettingsFragment__disappearing_messages">Изчезващи съобщения</string>
+  <string name="PrivacySettingsFragment__block_screenshots_in_the_recents_list_and_inside_the_app">Забраняване на автоматично копиране на екрана в списка с често използвани програми и в самата програма.</string>
+  <!--AdvancedPrivacySettingsFragment-->
+  <!--ExpireTimerSettingsFragment-->
+  <string name="ExpireTimerSettingsFragment__off">Деактивирани</string>
+  <string name="ExpireTimerSettingsFragment__1_week">1 седмица</string>
+  <string name="ExpireTimerSettingsFragment__1_day">1 ден</string>
+  <string name="ExpireTimerSettingsFragment__8_hours">8 часа</string>
+  <string name="ExpireTimerSettingsFragment__1_hour">1 час</string>
+  <string name="ExpireTimerSettingsFragment__5_minutes">5 минути</string>
+  <string name="ExpireTimerSettingsFragment__30_seconds">30 секунди</string>
+  <string name="ExpireTimerSettingsFragment__save">Запази</string>
+  <!--HelpSettingsFragment-->
+  <string name="HelpSettingsFragment__contact_us">Свържете се с нас</string>
+  <string name="HelpSettingsFragment__version">Версия</string>
+  <string name="HelpSettingsFragment__debug_log">Отчет за грешки</string>
+  <string name="HelpSettingsFragment__terms_amp_privacy_policy">Условия и Политика за поверителност</string>
+  <!--DataAndStorageSettingsFragment-->
+  <string name="DataAndStorageSettingsFragment__calls">Обаждания</string>
+  <!--ChatColorSelectionFragment-->
+  <string name="ChatColorSelectionFragment__chat_color">Чат цвят</string>
+  <string name="ChatColorSelectionFragment__edit">Редакция</string>
+  <string name="ChatColorSelectionFragment__delete">Изтрий</string>
+  <!--CustomChatColorCreatorFragment-->
+  <!--CustomChatColorCreatorFragmentPage-->
+  <string name="CustomChatColorCreatorFragmentPage__save">Запази</string>
+  <!--ChatColorGradientTool-->
+  <!--EditReactionsFragment-->
+  <string name="EditReactionsFragment__reset">Рестартирай</string>
+  <string name="EditReactionsFragment_save">Запази</string>
+  <!--ChatColorsMegaphone-->
+  <string name="ChatColorsMegaphone__appearance">Облик</string>
+  <string name="ChatColorsMegaphone__not_now">Не сега</string>
+  <!--KeyboardPagerFragment-->
+  <string name="KeyboardPagerFragment_emoji">Емоджи</string>
+  <string name="KeyboardPagerFragment_stickers">Стикери</string>
+  <!--StickerSearchDialogFragment-->
   <!--EOF-->
 </resources>

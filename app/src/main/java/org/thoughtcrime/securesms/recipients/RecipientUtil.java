@@ -11,6 +11,7 @@ import com.annimon.stream.Stream;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.contacts.sync.DirectoryHelper;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
+import org.thoughtcrime.securesms.database.GroupDatabase;
 import org.thoughtcrime.securesms.database.RecipientDatabase.RegisteredState;
 import org.thoughtcrime.securesms.database.ThreadDatabase;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
@@ -22,7 +23,9 @@ import org.thoughtcrime.securesms.jobs.MultiDeviceBlockedUpdateJob;
 import org.thoughtcrime.securesms.jobs.MultiDeviceMessageRequestResponseJob;
 import org.thoughtcrime.securesms.jobs.RotateProfileKeyJob;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
+import org.thoughtcrime.securesms.mms.OutgoingExpirationUpdateMessage;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
+import org.thoughtcrime.securesms.sms.MessageSender;
 import org.thoughtcrime.securesms.storage.StorageSyncHelper;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.whispersystems.libsignal.util.guava.Optional;
@@ -292,6 +295,45 @@ public class RecipientUtil {
            threadRecipient.isSystemContact()  ||
            !threadRecipient.isRegistered()    ||
            threadRecipient.isForceSmsSelection();
+  }
+
+  /**
+   * @return True if this recipient should already have your profile key, otherwise false.
+   */
+  public static boolean shouldHaveProfileKey(@NonNull Context context, @NonNull Recipient recipient) {
+    if (recipient.isBlocked()) {
+      return false;
+    }
+
+    if (recipient.isProfileSharing()) {
+      return true;
+    } else {
+      GroupDatabase groupDatabase = DatabaseFactory.getGroupDatabase(context);
+      return groupDatabase.getPushGroupsContainingMember(recipient.getId())
+                          .stream()
+                          .anyMatch(GroupDatabase.GroupRecord::isV2Group);
+
+    }
+  }
+
+  /**
+   * Checks if a universal timer is set and if the thread should have it set on it. Attempts to abort quickly and perform
+   * minimal database access.
+   */
+  @WorkerThread
+  public static boolean setAndSendUniversalExpireTimerIfNecessary(@NonNull Context context, @NonNull Recipient recipient, long threadId) {
+    int defaultTimer = SignalStore.settings().getUniversalExpireTimer();
+    if (defaultTimer == 0 || recipient.isGroup() || recipient.getExpireMessages() != 0) {
+      return false;
+    }
+
+    if (threadId == -1 || !DatabaseFactory.getMmsSmsDatabase(context).hasMeaningfulMessage(threadId)) {
+      DatabaseFactory.getRecipientDatabase(context).setExpireMessages(recipient.getId(), defaultTimer);
+      OutgoingExpirationUpdateMessage outgoingMessage = new OutgoingExpirationUpdateMessage(recipient, System.currentTimeMillis(), defaultTimer * 1000L);
+      MessageSender.send(context, outgoingMessage, DatabaseFactory.getThreadDatabase(context).getThreadIdFor(recipient), false, null);
+      return true;
+    }
+    return false;
   }
 
   @WorkerThread

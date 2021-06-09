@@ -17,7 +17,7 @@
   <string name="ApplicationPreferencesActivity_disable_passphrase">Desativar frase-chave?</string>
   <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Isto irá desbloquear permanentemente o Molly e as notificações de mensagens.</string>
   <string name="ApplicationPreferencesActivity_disable">Desativar</string>
-  <string name="ApplicationPreferencesActivity_unregistering">A eliminar o registo...</string>
+  <string name="ApplicationPreferencesActivity_unregistering">A eliminar o registo…</string>
   <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">A eliminar o registo do serviço de mensagens e chamadas do Molly…</string>
   <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Desativar as mensagens e chamadas do Molly?</string>
   <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Desative as mensagens e chamadas do Molly eliminando o seu registo do servidor. Será necessário registar novamente o seu número de telefone caso as pretenda utilizar novamente no futuro.</string>
@@ -70,7 +70,7 @@
   <string name="AttachmentUploadJob_uploading_media">A carregar multimédia…</string>
   <string name="AttachmentUploadJob_compressing_video_start">A comprimir vídeo…</string>
   <!--BackgroundMessageRetriever-->
-  <string name="BackgroundMessageRetriever_checking_for_messages">A procurar por mensagens...</string>
+  <string name="BackgroundMessageRetriever_checking_for_messages">A procurar por mensagens…</string>
   <!--BlockedUsersActivity-->
   <string name="BlockedUsersActivity__blocked_users">Utilizadores bloqueados</string>
   <string name="BlockedUsersActivity__add_blocked_user">Adicionar utilizador bloqueado</string>
@@ -93,7 +93,7 @@
   <string name="BlockUnblockDialog_unblock_s">Desbloquear %1$s?</string>
   <string name="BlockUnblockDialog_block">Bloquear</string>
   <string name="BlockUnblockDialog_block_and_leave">Bloquear e abandonar</string>
-  <string name="BlockUnblockDialog_block_and_delete">Bloquear e eliminar</string>
+  <string name="BlockUnblockDialog_report_spam_and_block">Reportar spam e bloquear</string>
   <!--BucketedThreadMedia-->
   <string name="BucketedThreadMedia_Today">Hoje</string>
   <string name="BucketedThreadMedia_Yesterday">Ontem</string>
@@ -146,8 +146,8 @@
   <string name="ContactsCursorLoader_recent_chats">Conversas recentes</string>
   <string name="ContactsCursorLoader_contacts">Contactos</string>
   <string name="ContactsCursorLoader_groups">Grupos</string>
-  <string name="ContactsCursorLoader_phone_number_search">Pesquisar número de telefone</string>
-  <string name="ContactsCursorLoader_username_search">Pesquisar nome de utilizador</string>
+  <string name="ContactsCursorLoader_phone_number_search">Procurar número de telefone</string>
+  <string name="ContactsCursorLoader_username_search">Procurar nome de utilizador</string>
   <!--ContactsDatabase-->
   <string name="ContactsDatabase_message_s">Mensagem %s</string>
   <string name="ContactsDatabase_signal_call_s">Chamada do Signal %s</string>
@@ -240,6 +240,10 @@
   <string name="ConversationActivity_join">Entrar</string>
   <string name="ConversationActivity_full">Cheio(a)</string>
   <string name="ConversationActivity_error_sending_media">Erro ao enviar multimédia</string>
+  <string name="ConversationActivity__reported_as_spam_and_blocked">Reportado como spam e bloqueado.</string>
+  <string name="ConversationActivity_gifs_have_moved">Os GIFs foram movidos</string>
+  <string name="ConversationActivity_look_for_gifs_next_to_emoji_and_stickers">Procure GIFs próximo de emoji e autocolantes.</string>
+  <string name="ConversationActivity__gifs_are_now_here">Os GIFs chegaram.</string>
   <!--ConversationAdapter-->
   <plurals name="ConversationAdapter_n_unread_messages">
     <item quantity="one">%d mensagem não lida</item>
@@ -352,8 +356,8 @@
   <string name="BackupsPreferenceFragment__turn_off">Desativar</string>
   <string name="BackupsPreferenceFragment__to_restore_a_backup">Para poder restaurar uma cópia de segurança, instale uma nova cópia do Molly. Abra a aplicação e toque em \"Restaurar cópia de segurança\", aqui localize o ficheiro com a cópia de segurança. %1$s</string>
   <string name="BackupsPreferenceFragment__learn_more">Saber mais</string>
-  <string name="BackupsPreferenceFragment__in_progress">Em progresso...</string>
-  <string name="BackupsPreferenceFragment__d_so_far">%1$d até ao momento...</string>
+  <string name="BackupsPreferenceFragment__in_progress">Em progresso…</string>
+  <string name="BackupsPreferenceFragment__d_so_far">%1$d até ao momento…</string>
   <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">O Molly requer permissão de acesso ao armazenamento externo para criar cópias de segurança, mas esta foi negada permanentemente. Por favor, aceda às definições das aplicações do seu telemóvel, selecione a aplicação Molly e nas \"Permissões\" ative \"Armazenamento\".</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Usar a opção personalizada: %s</string>
@@ -475,9 +479,9 @@
     <item quantity="other">Estes membros não são capazes de se juntarem a \'Novos grupos\', e serão removidos do grupo:</item>
   </plurals>
   <!--GroupsV1MigrationInitiationReminder-->
-  <string name="GroupsV1MigrationInitiationReminder_to_access_new_features_like_mentions">Para aceder a novos recursos como @menções e administradores, faça o upgrade deste grupo.</string>
-  <string name="GroupsV1MigrationInitiationReminder_not_now">Agora não</string>
-  <string name="GroupsV1MigrationInitiationReminder_upgrade_group">Upgrade do grupo</string>
+  <!-- Removed by excludeNonTranslatables <string name="GroupsV1MigrationInitiationReminder_to_access_new_features_like_mentions">Para aceder a novos recursos como @menções e administradores, faça o upgrade deste grupo.</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="GroupsV1MigrationInitiationReminder_not_now">Agora não</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="GroupsV1MigrationInitiationReminder_upgrade_group">Upgrade do grupo</string> -->
   <!--GroupsV1MigrationSuggestionsReminder-->
   <plurals name="GroupsV1MigrationSuggestionsReminder_members_couldnt_be_added_to_the_new_group">
     <item quantity="one">%1$d membro não pode ser readicionado ao \'Novo grupo\'. Deseja adiciona-lo novamente?</item>
@@ -610,7 +614,7 @@
   <string name="ManageGroupActivity_mute_notifications">Silenciar notificações</string>
   <string name="ManageGroupActivity_custom_notifications">Notificações personalizadas</string>
   <string name="ManageGroupActivity_mentions">Menções</string>
-  <string name="ManageGroupActivity_chat_wallpaper">Fundo de ecrã de conversas</string>
+  <string name="ManageGroupActivity_chat_color_and_wallpaper">Cor e fundo de ecrã da conversa</string>
   <string name="ManageGroupActivity_until_s">Até %1$s</string>
   <string name="ManageGroupActivity_always">Sempre</string>
   <string name="ManageGroupActivity_off">Off</string>
@@ -638,6 +642,8 @@
   <string name="ManageGroupActivity_upgrade_this_group">faça o upgrade deste grupo.</string>
   <string name="ManageGroupActivity_this_is_an_insecure_mms_group">Este é um Grupo MMS inseguro. Para conversar de forma privada, convide os seus contactos para o Signal.</string>
   <string name="ManageGroupActivity_invite_now">Convidar agora</string>
+  <string name="ManageGroupActivity_more">mais</string>
+  <string name="ManageGroupActivity_add_group_description">Adicionar descrição do grupo…</string>
   <!--GroupMentionSettingDialog-->
   <string name="GroupMentionSettingDialog_notify_me_for_mentions">Notificar-me quando for \'Mencionado\'</string>
   <string name="GroupMentionSettingDialog_receive_notifications_when_youre_mentioned_in_muted_chats">Receber notificações quando for mencionado em chats silenciados?</string>
@@ -759,7 +765,7 @@
   <string name="InviteActivity_share_with_contacts">Partilhar com os contactos</string>
   <string name="InviteActivity_choose_how_to_share">Escolha como partilhar</string>
   <string name="InviteActivity_cancel">Cancelar</string>
-  <string name="InviteActivity_sending">A enviar...</string>
+  <string name="InviteActivity_sending">A enviar…</string>
   <string name="InviteActivity_invitations_sent">Convites enviados!</string>
   <string name="InviteActivity_invite_to_signal">Convidar para o Molly</string>
   <plurals name="InviteActivity_send_sms_to_friends">
@@ -836,6 +842,7 @@
   <string name="Megaphones_new_group">Novo grupo</string>
   <string name="Megaphones_invite_friends">Convidar amigos</string>
   <string name="Megaphones_use_sms">Utilizar SMS</string>
+  <string name="Megaphones_appearance">Aspeto</string>
   <!--NotificationBarManager-->
   <string name="NotificationBarManager_signal_call_in_progress">Chamada do Signal em curso</string>
   <string name="NotificationBarManager__establishing_signal_call">A estabelecer chamada do Signal</string>
@@ -974,6 +981,10 @@
   <string name="MessageRecord_you_changed_the_group_name_to_s">Você alterou o nome do grupo para \"%1$s\".</string>
   <string name="MessageRecord_s_changed_the_group_name_to_s">%1$s alterou o nome do grupo para \"%2$s\".</string>
   <string name="MessageRecord_the_group_name_has_changed_to_s">O nome do grupo foi alterado para \"%1$s\".</string>
+  <!--GV2 description change-->
+  <string name="MessageRecord_you_changed_the_group_description">Você alterou a descrição do grupo.</string>
+  <string name="MessageRecord_s_changed_the_group_description">%1$s alterou a descrição do grupo.</string>
+  <string name="MessageRecord_the_group_description_has_changed">Foi alterada a descrição do grupo.</string>
   <!--GV2 avatar change-->
   <string name="MessageRecord_you_changed_the_group_avatar">Você alterou o avatar do grupo.</string>
   <string name="MessageRecord_s_changed_the_group_avatar">%1$s alterou o avatar do grupo.</string>
@@ -1104,10 +1115,6 @@
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Parece estar a tentar associar um dispositivo Signal através de um digitalizador externo. Para sua segurança, digitalize o código através do Signal.</string>
   <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">O Molly requer permissão de acesso à câmara para ler códigos QR, mas esta foi negada permanentemente. Por favor, aceda às definições das aplicações do seu telemóvel, selecione o Molly e nas \"Permissões\" ative a \"Câmara\".</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Não é possível ler um código QR sem ter a permissão de acesso à câmara.</string>
-  <!--ExpirationDialog-->
-  <string name="ExpirationDialog_disappearing_messages">Destruição de mensagens</string>
-  <string name="ExpirationDialog_your_messages_will_not_expire">As suas mensagens não serão destruídas.</string>
-  <string name="ExpirationDialog_your_messages_will_disappear_s_after_they_have_been_seen">As mensagens enviadas e recebidas nesta conversa irão ser destruídas %s após serem vistas.</string>
   <!--OutdatedBuildReminder-->
   <string name="OutdatedBuildReminder_update_now">Atualizar agora</string>
   <string name="OutdatedBuildReminder_your_version_of_signal_will_expire_today">Esta versão do Signal expira hoje. Atualize para a versão mais recente.</string>
@@ -1175,9 +1182,9 @@
   <!--RecipientProvider-->
   <string name="RecipientProvider_unnamed_group">Grupo sem nome</string>
   <!--RedPhone-->
-  <string name="RedPhone_answering">A atender...</string>
-  <string name="RedPhone_ending_call">A terminar chamada...</string>
-  <string name="RedPhone_ringing">A tocar...</string>
+  <string name="RedPhone_answering">A atender…</string>
+  <string name="RedPhone_ending_call">A terminar chamada…</string>
+  <string name="RedPhone_ringing">A tocar…</string>
   <string name="RedPhone_busy">Ocupado</string>
   <string name="RedPhone_recipient_unavailable">Destinatário indisponível</string>
   <string name="RedPhone_network_failed">Falha de rede!</string>
@@ -1188,10 +1195,10 @@
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Toque aqui para ativar a sua câmara</string>
   <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Para telefonar a %1$s, o Molly necessita de aceder à sua câmara</string>
   <string name="WebRtcCallActivity__signal_s">Chamada Molly %1$s</string>
-  <string name="WebRtcCallActivity__calling">A chamar...</string>
+  <string name="WebRtcCallActivity__calling">A chamar…</string>
   <!--WebRtcCallView-->
-  <string name="WebRtcCallView__signal_voice_call">Chamada de voz do Signal...</string>
-  <string name="WebRtcCallView__signal_video_call">Chamada de vídeo do Signal...</string>
+  <string name="WebRtcCallView__signal_voice_call">Chamada de voz do Signal…</string>
+  <string name="WebRtcCallView__signal_video_call">Chamada de vídeo do Signal…</string>
   <string name="WebRtcCallView__start_call">Iniciar chamada</string>
   <string name="WebRtcCallView__join_call">Entrar na chamada</string>
   <string name="WebRtcCallView__call_is_full">A chamada encontra-se cheia</string>
@@ -1199,12 +1206,13 @@
   <string name="WebRtcCallView__s_group_call">\"%1$s\"  - Chamada de grupo</string>
   <string name="WebRtcCallView__view_participants_list">Ver participantes</string>
   <string name="WebRtcCallView__your_video_is_off">O seu vídeo encontra-se desligado</string>
-  <string name="WebRtcCallView__reconnecting">A ligar novamente...</string>
-  <string name="WebRtcCallView__joining">A entrar...</string>
+  <string name="WebRtcCallView__reconnecting">A ligar novamente…</string>
+  <string name="WebRtcCallView__joining">A entrar…</string>
   <string name="WebRtcCallView__disconnected">Desligado</string>
   <string name="WebRtcCallView__no_one_else_is_here">Não se encontra mais ninguém aqui</string>
   <string name="WebRtcCallView__s_is_in_this_call">%1$s está nesta chamada</string>
   <string name="WebRtcCallView__s_and_s_are_in_this_call">%1$s e %2$s estão nesta chamada</string>
+  <string name="WebRtcCallView__s_is_presenting">%1$s está a apresentar</string>
   <plurals name="WebRtcCallView__s_s_and_d_others_are_in_this_call">
     <item quantity="one">%1$s, %2$s, e %3$d outro estão nesta chamada </item>
     <item quantity="other">%1$s, %2$s, e outros %3$d estão nesta chamada</item>
@@ -1221,6 +1229,8 @@
   <string name="CallParticipantView__cant_receive_audio_video_from_s">Não pode receber áudio e vídeo de %1$s</string>
   <string name="CallParticipantView__cant_receive_audio_and_video_from_s">Não pode receber áudio e vídeo de %1$s</string>
   <string name="CallParticipantView__this_may_be_Because_they_have_not_verified_your_safety_number_change">Isto poderá dever-se a ele(s) ainda não ter(em) verificado a alteração do seu número de segurança, a existir um problema com os dispositivos dele(s), ou porque ele(s) o bloquearam.</string>
+  <!--CallToastPopupWindow-->
+  <string name="CallToastPopupWindow__swipe_to_view_screen_share">Deslize para ver o ecrã de partilha</string>
   <!--ProxyBottomSheetFragment-->
   <string name="ProxyBottomSheetFragment_proxy_server">Servidor proxy</string>
   <string name="ProxyBottomSheetFragment_proxy_address">Endereço proxy</string>
@@ -1349,6 +1359,7 @@
   <string name="SubmitDebugLogActivity_success">Efetuado com sucesso!</string>
   <string name="SubmitDebugLogActivity_copy_this_url_and_add_it_to_your_issue">Copie este URL e adicione-o ao seu relatório de problema ou e-mail de pedido de apoio:\n\n<b>%1$s</b></string>
   <string name="SubmitDebugLogActivity_share">Partilhar</string>
+  <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online">Este registo será publicado online para ser consultado pelos contribuidores. Poderá analisá-lo e editá-lo antes do seu carregamento.</string>
   <!--SupportEmailUtil-->
   <string name="SupportEmailUtil_filter">Filtro:</string>
   <string name="SupportEmailUtil_device_info">Informação do dispositivo:</string>
@@ -1505,8 +1516,8 @@
   <string name="SaveAttachmentTask_saved_to">Guardado em %s</string>
   <string name="SaveAttachmentTask_saved">Guardado</string>
   <!--SearchToolbar-->
-  <string name="SearchToolbar_search">Pesquisar</string>
-  <string name="SearchToolbar_search_for_conversations_contacts_and_messages">Pesquisar por conversas, contactos e mensagens</string>
+  <string name="SearchToolbar_search">Procurar</string>
+  <string name="SearchToolbar_search_for_conversations_contacts_and_messages">Procurar por conversas, contactos e mensagens</string>
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">Atalho inválido</string>
   <!--SingleRecipientNotificationBuilder-->
@@ -1622,6 +1633,8 @@
   <string name="ConversationUpdateItem_enable_call_notifications">Activar notificações de chamadas</string>
   <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">Sem grupos em comum. Reveja os pedidos com cuidado.</string>
   <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">Sem contactos neste grupo. Reveja os pedidos com cuidado.</string>
+  <string name="ConversationUpdateItem_view">Ver</string>
+  <string name="ConversationUpdateItem_the_disappearing_message_time_will_be_set_to_s_when_you_message_them">O tempo para a destruição de mensagens será definido para %1$s quando você enviar mensagens.</string>
   <!--audio_view-->
   <string name="audio_view__play_pause_accessibility_description">Play … Pausa</string>
   <string name="audio_view__download_accessibility_description">Download</string>
@@ -1659,7 +1672,7 @@
   <string name="EnableCallNotificationSettingsDialog__to_receive_call_notifications_tap_settings_and_enable_background_activity_in_battery_settings">Para receber notificações de chamadas, toque em \'Definições\'i e ative ativar atividade em segundo plano nas definições de \"Bateria\".</string>
   <!--country_selection_fragment-->
   <string name="country_selection_fragment__loading_countries">A carregar lista de países…</string>
-  <string name="country_selection_fragment__search">Pesquisar</string>
+  <string name="country_selection_fragment__search">Procurar</string>
   <string name="country_selection_fragment__no_matching_countries">Sem países correspondentes</string>
   <!--device_add_fragment-->
   <string name="device_add_fragment__scan_the_qr_code_displayed_on_the_device_to_link">Leia o código QR apresentado no dispositivo no qual deseja associar</string>
@@ -1711,7 +1724,7 @@
     <item quantity="other">%d outros</item>
   </plurals>
   <!--giphy_activity-->
-  <string name="giphy_activity_toolbar__search_gifs">Pesquisar GIFs</string>
+  <string name="giphy_activity_toolbar__search_gifs">Procurar GIFs</string>
   <!--giphy_fragment-->
   <string name="giphy_fragment__nothing_found">Não foi encontrado nada</string>
   <!--log_submit_activity-->
@@ -1749,9 +1762,10 @@
   <string name="CreateProfileActivity__username">Nome de utilizador</string>
   <string name="CreateProfileActivity__create_a_username">Criar um nome de utilizador</string>
   <string name="CreateProfileActivity_custom_mms_group_names_and_photos_will_only_be_visible_to_you">Nome personalizados de grupos MMS e fotografias apenas serão visíveis para si.</string>
+  <string name="CreateProfileActivity_group_descriptions_will_be_visible_to_members_of_this_group_and_people_who_have_been_invited">As descrições do grupo serão visíveis para os membros deste grupo e para as pessoas que foram convidadas</string>
   <!--EditAboutFragment-->
   <string name="EditAboutFragment_about">Acerca</string>
-  <string name="EditAboutFragment_write_a_few_words_about_yourself">Escreva algumas palavras acerca de si...</string>
+  <string name="EditAboutFragment_write_a_few_words_about_yourself">Escreva algumas palavras acerca de si…</string>
   <string name="EditAboutFragment_count">%1$d/%2$d</string>
   <string name="EditAboutFragment_speak_freely">Fale à vontade</string>
   <string name="EditAboutFragment_encrypted">Encriptado(a)</string>
@@ -1761,8 +1775,9 @@
   <string name="EditAboutFragment_taking_a_break">A fazer uma pausa</string>
   <string name="EditAboutFragment_working_on_something_new">A trabalhar em algo novo</string>
   <!--EditProfileFragment-->
-  <string name="EditProfileFragment__edit_group_name_and_photo">Editar nome e fotografia do grupo</string>
+  <string name="EditProfileFragment__edit_group">Editar o grupo</string>
   <string name="EditProfileFragment__group_name">Nome do grupo</string>
+  <string name="EditProfileFragment__group_description">Descrição do grupo</string>
   <!--EditProfileNameFragment-->
   <string name="EditProfileNameFragment_your_name">O seu nome</string>
   <string name="EditProfileNameFragment_first_name">Primeiro nome</string>
@@ -1776,7 +1791,7 @@
   <!--verify_display_fragment-->
   <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Se pretende verificar a segurança da sua encriptação ponta-a-ponta com o contacto %s, compare o número acima com o equivalente no dispositivo do seu contacto. Em alternativa, poderá fazer a digitalização do código QR exibido no outro dispositivo ou pedir que façam digitalização do seu código. <a href="https://signal.org/redirect/safety-numbers">Saber mais</a>]]></string>
   <string name="verify_display_fragment__tap_to_scan">Toque para ler</string>
-  <string name="verify_display_fragment__loading">A carregar...</string>
+  <string name="verify_display_fragment__loading">A carregar…</string>
   <string name="verify_display_fragment__verified">Verificado</string>
   <!--verify_identity-->
   <string name="verify_identity__share_safety_number">Partilhar número de segurança</string>
@@ -1830,11 +1845,12 @@
   <string name="HelpFragment__could_not_upload_logs">Não é possível fazer o upload de relatórios</string>
   <string name="HelpFragment__please_be_as_descriptive_as_possible">Por favor, seja tão descritivo quanto possível para nos ajudar a perceber o problema.</string>
   <string-array name="HelpFragment__categories">
-    <item>Algo não está a funcionar</item>
-    <item>Pedido de recurso</item>
-    <item>Questão</item>
+    <item>-- Ppr favor, selecione uma opção --</item>
+    <item>Alguma coisa não está a funcionar</item>
+    <item>Pedido de função</item>
+    <item>Pergunta</item>
     <item>Feedback</item>
-    <item>Outro</item>
+    <item>Outro(s)</item>
     <item>Pagamentos</item>
   </string-array>
   <!--ReactWithAnyEmojiBottomSheetDialogFragment-->
@@ -1955,6 +1971,7 @@
   <string name="preferences__appearance">Aspeto</string>
   <string name="preferences__theme">Tema</string>
   <string name="preferences__chat_wallpaper">Fundo de ecrã de conversas</string>
+  <string name="preferences__chat_color_and_wallpaper">Cor e fundo de ecrã da conversa</string>
   <string name="preferences__disable_pin">Desativar PIN</string>
   <string name="preferences__enable_pin">Ativar PIN</string>
   <string name="preferences__if_you_disable_the_pin_you_will_lose_all_data">Se você desativar o PIN, todos os dados serão perdidos ao registar-se novamente no Sinal, a menos que faça uma cópia de segurnaça e o restaure manualmente. Você não pode ativar o \'Bloqueio de registo\' enquanto o PIN estiver desativado.</string>
@@ -1973,7 +1990,8 @@
   <string name="preferences__if_read_receipts_are_disabled_you_wont_be_able_to_see_read_receipts">Se os recibos de leitura forem desativados, não poderá ver os recibos de leitura relativos às mensagens enviadas.</string>
   <string name="preferences__typing_indicators">Indicadores de escrita</string>
   <string name="preferences__if_typing_indicators_are_disabled_you_wont_be_able_to_see_typing_indicators">Se os indicadores de escrita estiverem desativados, não poderá ver os indicadores de escrita relativos a outros utilizadores.</string>
-  <string name="preferences__request_keyboard_to_disable_personalized_learning">Solicitar ao teclado para desativar a aprendizagem personalizada. Esta configuração não está garantida e o seu teclado poderá ignorá-la.</string>
+  <string name="preferences__request_keyboard_to_disable">Pedir ao teclado para desligar a aprendizagem de palavras.</string>
+  <string name="preferences__this_setting_is_not_a_guarantee">Esta configuração não está garantida e o seu teclado poderá ignorá-la.</string>
   <string name="preferences_app_protection__blocked_users">Utilizadores bloqueados</string>
   <string name="preferences_chats__when_using_mobile_data">Ao utilizar os dados móveis</string>
   <string name="preferences_chats__when_using_wifi">Ao utilizar o Wi-Fi</string>
@@ -2005,7 +2023,7 @@
   <string name="preferences_advanced__disable_signal_built_in_emoji_support">Desativar o suporte de emojis próprios do Signal</string>
   <string name="preferences_advanced__relay_all_calls_through_the_signal_server_to_avoid_revealing_your_ip_address">Passar todas as chamadas pelo servidor do Signal para evitar revelar o seu endereço IP ao destinatário. Ativar esta opção irá reduzir a qualidade da chamada.</string>
   <string name="preferences_advanced__always_relay_calls">Retransmitir todas as chamadas</string>
-  <string name="preferences_app_protection__who_can">Quem pode...</string>
+  <string name="preferences_app_protection__who_can">Quem pode…</string>
   <string name="preferences_app_protection__app_access">Acesso da aplicação</string>
   <string name="preferences_app_protection__communication">Comunicação</string>
   <string name="preferences_chats__chats">Conversas</string>
@@ -2013,8 +2031,8 @@
   <string name="preferences_data_and_storage__calls">Chamadas</string>
   <string name="preferences_data_and_storage__use_less_data_for_calls">Utilizar menos dados para as chamadas</string>
   <string name="preferences_data_and_storage__never">Nunca</string>
-  <string name="preferences_data_and_storage__wifi_and_cellular">Wi-Fi e dados móveis</string>
-  <string name="preferences_data_and_storage__cellular_only">Apenas dados móveis</string>
+  <!-- Removed by excludeNonTranslatables <string name="preferences_data_and_storage__wifi_and_cellular">Wi-Fi e dados móveis</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="preferences_data_and_storage__cellular_only">Apenas dados móveis</string> -->
   <string name="preference_data_and_storage__using_less_data_may_improve_calls_on_bad_networks">A utilização de menos dados poderá melhorar as chamadas em redes más</string>
   <string name="preferences_notifications__messages">Mensagens</string>
   <string name="preferences_notifications__events">Eventos</string>
@@ -2042,7 +2060,7 @@
   <string name="preferences_only_use_a_proxy_if">Apenas utilize um proxy se você não conseguir ligar-se ao Signal através dos dados móveis ou Wi-Fi. </string>
   <string name="preferences_share">Partilhar</string>
   <string name="preferences_save">Guardar</string>
-  <string name="preferences_connecting_to_proxy">A ligar ao proxy...</string>
+  <string name="preferences_connecting_to_proxy">A ligar ao proxy…</string>
   <string name="preferences_connected_to_proxy">Ligado ao proxy</string>
   <string name="preferences_connection_failed">Falha de ligação</string>
   <string name="preferences_couldnt_connect_to_the_proxy">Não é possível ligar ao proxy. Consulte o endereço de proxy e tente novamente.</string>
@@ -2060,7 +2078,7 @@
   <string name="PaymentsHomeFragment__introducing_payments">Introdução aos pagamentos (Beta)</string>
   <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Utilize o Molly para enviar e receber MobileCoin, uma nova privacidade focada na moeda digital. Ative para começar a utilizar.</string>
   <string name="PaymentsHomeFragment__activate_payments">Ativar os pagamentos</string>
-  <string name="PaymentsHomeFragment__activating_payments">A ativar pagamentos...</string>
+  <string name="PaymentsHomeFragment__activating_payments">A ativar pagamentos…</string>
   <string name="PaymentsHomeFragment__restore_payments_account">Restaurar a conta de pagamentos</string>
   <string name="PaymentsHomeFragment__no_recent_activity_yet">Ainda sem atividade recente</string>
   <string name="PaymentsHomeFragment__pending_requests">Pedidos pendentes</string>
@@ -2105,8 +2123,8 @@
   <!--PaymentsDetailsFragment-->
   <string name="PaymentsDetailsFragment__details">Detalhes</string>
   <string name="PaymentsDetailsFragment__status">Estado</string>
-  <string name="PaymentsDetailsFragment__submitting_payment">A submeter pagamento...</string>
-  <string name="PaymentsDetailsFragment__processing_payment">A processar pagamento...</string>
+  <string name="PaymentsDetailsFragment__submitting_payment">A submeter pagamento…</string>
+  <string name="PaymentsDetailsFragment__processing_payment">A processar pagamento…</string>
   <string name="PaymentsDetailsFragment__payment_complete">Pagamento concluido</string>
   <string name="PaymentsDetailsFragment__payment_failed">Falha de pagamento</string>
   <string name="PaymentsDetailsFragment__network_fee">Taxa de rede</string>
@@ -2170,8 +2188,8 @@
   <string name="ConfirmPayment__to">Para</string>
   <string name="ConfirmPayment__total_amount">Montante total</string>
   <string name="ConfirmPayment__balance_s">Saldo: %1$s</string>
-  <string name="ConfirmPayment__submitting_payment">A submeter pagamento...</string>
-  <string name="ConfirmPayment__processing_payment">A processar pagamento...</string>
+  <string name="ConfirmPayment__submitting_payment">A submeter pagamento…</string>
+  <string name="ConfirmPayment__processing_payment">A processar pagamento…</string>
   <string name="ConfirmPayment__payment_complete">Pagamento concluido</string>
   <string name="ConfirmPayment__payment_failed">Falha de pagamento</string>
   <string name="ConfirmPayment__payment_will_continue_processing">O pagamento irá continuar a ser processado</string>
@@ -2222,7 +2240,7 @@
   <string name="conversation_list_batch__menu_mark_as_unread">Marcar como por ler</string>
   <!--conversation_list-->
   <string name="conversation_list_settings_shortcut">Atalho para definições</string>
-  <string name="conversation_list_search_description">Pesquisar</string>
+  <string name="conversation_list_search_description">Procurar</string>
   <string name="conversation_list__pinned">Afixada</string>
   <string name="conversation_list__chats">Conversas</string>
   <string name="conversation_list__you_can_only_pin_up_to_d_chats">Apenas pode afixar até %1$d conversas</string>
@@ -2330,7 +2348,7 @@
   <string name="ConfirmKbsPinFragment__your_pin_was_not_saved">O seu PIN não foi guardado. Iremos pedir-lhe para criar o PIN mais tarde.</string>
   <string name="ConfirmKbsPinFragment__pin_created">PIN criado.</string>
   <string name="ConfirmKbsPinFragment__re_enter_your_pin">Reintroduza o seu PIN</string>
-  <string name="ConfirmKbsPinFragment__creating_pin">A criar PIN...</string>
+  <string name="ConfirmKbsPinFragment__creating_pin">A criar PIN…</string>
   <!--KbsSplashFragment-->
   <string name="KbsSplashFragment__introducing_pins">Introdução aos PINs</string>
   <string name="KbsSplashFragment__pins_keep_information_stored_with_signal_encrypted">Os PINs mantém encriptada a informação guardada no Signal de forma a que apenas você lhe possa aceder. O seu perfil, definições e contactos serão restaurados quando reinstalar o Signal. Não necessita do seu PIN para abrir a aplicação.</string>
@@ -2403,8 +2421,8 @@
   <string name="ResearchMegaphoneDialog_the_survey_is_hosted_by_alchemer_at_the_secure_domain">O inquérito tem o host da Alchemer no domínio seguro surveys.signalusers.org</string>
   <!--transport_selection_list_item-->
   <string name="transport_selection_list_item__transport_icon">Ícone de transporte</string>
-  <string name="ConversationListFragment_loading">A carregar...</string>
-  <string name="CallNotificationBuilder_connecting">A ligar...</string>
+  <string name="ConversationListFragment_loading">A carregar…</string>
+  <string name="CallNotificationBuilder_connecting">A ligar…</string>
   <string name="Permissions_permission_required">Permissão necessária</string>
   <string name="ConversationActivity_signal_needs_sms_permission_in_order_to_send_an_sms">O Signal requer permissão de acesso a SMS para enviar uma mensagem SMS, mas esta foi negada permanentemente. Por favor, aceda às definições das aplicações do seu telemóvel, selecione a aplicação Signal e, nas \"Permissões\" ative \"SMS\".</string>
   <string name="Permissions_continue">Continuar</string>
@@ -2513,13 +2531,13 @@
   <string name="NewDeviceTransferInstructions__first_bullet">1.</string>
   <string name="NewDeviceTransferInstructions__tap_on_your_profile_photo_in_the_top_left_to_open_settings">Toque na sua fotografia de perfil no canto superior esquerdo para abrir as \'Definições\'</string>
   <string name="NewDeviceTransferInstructions__second_bullet">2.</string>
-  <string name="NewDeviceTransferInstructions__tap_on_chats">Toque em \'Conversas\'</string>
+  <string name="NewDeviceTransferInstructions__tap_on_account">Toque em \'Conta\'</string>
   <string name="NewDeviceTransferInstructions__third_bullet">3.</string>
   <string name="NewDeviceTransferInstructions__tap_transfer_account_and_then_continue_on_both_devices">Toque em \'Transferir conta\' e depois em \'Continuar\' em ambos os dispositivos</string>
   <!--NewDeviceTransferSetupFragment-->
-  <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">A preparar para ligar para um dispositivo Android antigo...</string>
+  <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">A preparar para ligar para um dispositivo Android antigo…</string>
   <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">Aguarde um momento, deverá estar pronto muito em breve</string>
-  <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">A aguardar pelo dispositivo Android antigo para ligar...</string>
+  <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">A aguardar pelo dispositivo Android antigo para ligar…</string>
   <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">O Molly necessita da permissão de localização para poder encontrar e depois ligar-se ao seu dispositivo Android antigo.</string>
   <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">O Molly necessita que os serviços de localização se encontrem ativos para poder encontrar e depois ligar-se ao seu dispositivo Android antigo.</string>
   <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">O Molly necessita de Wi-Fi para poder descobrir e ligar-se ao seu dispositivo Android antigo. O Wi-Fi precisa estar ligado, mas não precisa estar ligado a uma rede Wi-Fi.</string>
@@ -2527,7 +2545,7 @@
   <string name="NewDeviceTransferSetup__restore_a_backup">Restaurar uma cópia de segurança</string>
   <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Ocorreu um erro inesperado ao tentar ligar ao seu dispositivo Android antigo.</string>
   <!--OldDeviceTransferSetupFragment-->
-  <string name="OldDeviceTransferSetup__searching_for_new_android_device">A pesquisar por um dispositivo Android novo...</string>
+  <string name="OldDeviceTransferSetup__searching_for_new_android_device">A pesquisar por um dispositivo Android novo…</string>
   <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">O Molly necessita da permissão de localização para poder encontrar e depois ligar-se ao seu dispositivo Android novo.</string>
   <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">O Molly necessita que os serviços de localização se encontrem ativos para poder encontrar e depois ligar-se ao seu dispositivo Android novo.</string>
   <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">O Molly necessita de Wi-Fi para poder descobrir e ligar-se ao seu dispositivo Android novo. O Wi-Fi precisa estar ligado, mas não precisa estar ligado a uma rede Wi-Fi.</string>
@@ -2564,13 +2582,13 @@
   <string name="DeviceTransferSetup__try_again">Tentar novamente</string>
   <string name="DeviceTransferSetup__waiting_for_other_device">A aguardar por outro dispositivo</string>
   <string name="DeviceTransferSetup__tap_continue_on_your_other_device_to_start_the_transfer">Toque em \'Continuar\' no seu outro dispositivo para iniciar a transferência.</string>
-  <string name="DeviceTransferSetup__tap_continue_on_your_other_device">Toque em \'Continuar\' no seu outro dispositivo...</string>
+  <string name="DeviceTransferSetup__tap_continue_on_your_other_device">Toque em \'Continuar\' no seu outro dispositivo…</string>
   <!--NewDeviceTransferFragment-->
   <string name="NewDeviceTransfer__cannot_transfer_from_a_newer_version_of_signal">Não é possível transferir a partir de versões mais recentes do Signal</string>
   <!--DeviceTransferFragment-->
   <string name="DeviceTransfer__transferring_data">A transferir dados</string>
   <string name="DeviceTransfer__keep_both_devices_near_each_other">Mantenha ambos o dispositivos próximos um do outro. Não desligue os dispositivos e mantenha o Molly aberto. As transferÊncia são encriptadas ponta-a-ponta.</string>
-  <string name="DeviceTransfer__d_messages_so_far">%1$d mensagens até ao momento...</string>
+  <string name="DeviceTransfer__d_messages_so_far">%1$d mensagens até ao momento…</string>
   <string name="DeviceTransfer__cancel">Cancelar</string>
   <string name="DeviceTransfer__try_again">Tentar novamente</string>
   <string name="DeviceTransfer__stop_transfer_question">Parar transferência?</string>
@@ -2600,12 +2618,12 @@
   <string name="NewDeviceTransferComplete__continue_registration">Continuar registo</string>
   <!--DeviceToDeviceTransferService-->
   <string name="DeviceToDeviceTransferService_content_title">Transferir conta</string>
-  <string name="DeviceToDeviceTransferService_status_ready">A preparar para se ligar ao seu outro dispositivo Android...</string>
-  <string name="DeviceToDeviceTransferService_status_starting_up">A preparar para se ligar ao seu outro dispositivo Android...</string>
-  <string name="DeviceToDeviceTransferService_status_discovery">A procurar o seu outro dispositivo Android...</string>
-  <string name="DeviceToDeviceTransferService_status_network_connected">A ligar ao seu outro dispositivo Android...</string>
+  <string name="DeviceToDeviceTransferService_status_ready">A preparar para se ligar ao seu outro dispositivo Android…</string>
+  <string name="DeviceToDeviceTransferService_status_starting_up">A preparar para se ligar ao seu outro dispositivo Android…</string>
+  <string name="DeviceToDeviceTransferService_status_discovery">A procurar o seu outro dispositivo Android…</string>
+  <string name="DeviceToDeviceTransferService_status_network_connected">A ligar ao seu outro dispositivo Android…</string>
   <string name="DeviceToDeviceTransferService_status_verification_required">Necessária verificação</string>
-  <string name="DeviceToDeviceTransferService_status_service_connected">A transferir conta...</string>
+  <string name="DeviceToDeviceTransferService_status_service_connected">A transferir conta…</string>
   <!--OldDeviceTransferLockedDialog-->
   <string name="OldDeviceTransferLockedDialog__complete_registration_on_your_new_device">Termine o registo no seu dispositivo novo</string>
   <string name="OldDeviceTransferLockedDialog__your_signal_account_has_been_transferred_to_your_new_device">A sua conta do Signal foi transferida para o seu novo dispositivo, mas você deverá concluir o seu registo para continuar. O Signal ficará inativo neste dispositivo. </string>
@@ -2718,13 +2736,13 @@
   <string name="DeleteAccountFragment__failed_to_delete_local_data">Falha ao eliminar os dados locais. Pode limpá-los manualmente nas definições das aplicações no sistema.</string>
   <string name="DeleteAccountFragment__launch_app_settings">Iniciar as Definições das aplicações</string>
   <!--DeleteAccountCountryPickerFragment-->
-  <string name="DeleteAccountCountryPickerFragment__search_countries">Pesquisar países</string>
+  <string name="DeleteAccountCountryPickerFragment__search_countries">Procurar países</string>
   <!--CreateGroupActivity-->
   <string name="CreateGroupActivity__skip">Saltar</string>
   <!--ShareActivity-->
   <string name="ShareActivity__share">Partilhar</string>
   <string name="ShareActivity__send">Enviar</string>
-  <string name="ShareActivity__s_comma">%1$s,</string>
+  <!-- Removed by excludeNonTranslatables <string name="ShareActivity__s_comma">%1$s,</string> -->
   <string name="ShareActivity__sharing_to_multiple_chats_is">A partilha para várias conversas é apenas suportada para mensagens do Signal</string>
   <!--MultiShareDialogs-->
   <string name="MultiShareDialogs__failed_to_send_to_some_users">Falha ao enviar para alguns utilizadores</string>
@@ -2734,17 +2752,25 @@
   <!--ChatWallpaperActivity-->
   <string name="ChatWallpaperActivity__chat_wallpaper">Fundo de ecrã de conversas</string>
   <!--ChatWallpaperFragment-->
+  <string name="ChatWallpaperFragment__chat_color">Cor da conversa</string>
+  <string name="ChatWallpaperFragment__reset_chat_colors">Repor cores das conversas</string>
+  <string name="ChatWallpaperFragment__reset_chat_color">Repor cor da conversa</string>
+  <string name="ChatWallpaperFragment__reset_chat_color_question">Repor cor da conversa?</string>
   <string name="ChatWallpaperFragment__set_wallpaper">Definir fundo de ecrã</string>
-  <string name="ChatWallpaperFragment__dark_theme_dims_wallpaper">Fundo escuro com pouco brilho</string>
-  <string name="ChatWallpaperFragment__clear_wallpaper">Limpar fundo de ecrã</string>
-  <string name="ChatWallpaperFragment__clear_wallpaper_for_this_chat">Limpar fundo de ecrã para esta conversa?</string>
-  <string name="ChatWallpaperFragment__clear_wallpaper_this_will_not">Limpar fundo de ecrã? Isto não irá limpar fundos de ecrã personalizados que tenha definido para as suas conversas.</string>
-  <string name="ChatWallpaperFragment__reset_all_wallpapers">Repor todos os fundos de ecrã</string>
-  <string name="ChatWallpaperFragment__reset_all_wallpapers_including_custom">Repor todos os fundos de ecrã, incluindo os fundos de ecrã personalizados que definiu para as suas conversas?</string>
+  <string name="ChatWallpaperFragment__dark_mode_dims_wallpaper">O modo escuro escurece o fundo de ecrã</string>
   <string name="ChatWallpaperFragment__contact_name">Nome de contacto</string>
   <string name="ChatWallpaperFragment__reset">Reiniciar</string>
   <string name="ChatWallpaperFragment__clear">Limpar</string>
   <string name="ChatWallpaperFragment__wallpaper_preview_description">Pré-visualização de fundo de ecrã</string>
+  <string name="ChatWallpaperFragment__would_you_like_to_override_all_chat_colors">Deseja modificar todas as cores das conversas?</string>
+  <string name="ChatWallpaperFragment__would_you_like_to_override_all_wallpapers">Deseja modificar todos os fundos de ecrã?</string>
+  <string name="ChatWallpaperFragment__reset_default_colors">Repor cores padrão</string>
+  <string name="ChatWallpaperFragment__reset_all_colors">Repor todas as cores</string>
+  <string name="ChatWallpaperFragment__reset_default_wallpaper">Repor fundos de ecrã padrão</string>
+  <string name="ChatWallpaperFragment__reset_all_wallpapers">Repor todos os fundos de ecrã</string>
+  <string name="ChatWallpaperFragment__reset_wallpapers">Repor fundos de ecrã</string>
+  <string name="ChatWallpaperFragment__reset_wallpaper">Repor fundo de ecrã</string>
+  <string name="ChatWallpaperFragment__reset_wallpaper_question">Repor fundo de ecrã?</string>
   <!--ChatWallpaperSelectionFragment-->
   <string name="ChatWallpaperSelectionFragment__choose_from_photos">Escolher das fotografias</string>
   <string name="ChatWallpaperSelectionFragment__presets">Predefinições</string>
@@ -2846,5 +2872,129 @@
   <string name="GroupsInCommonMessageRequest__none_of_your_contacts_or_people_you_chat_with_are_in_this_group">Nenhum dos seus contactos ou pessoas com quem conversa estão neste grupo. Reveja os pedidos com cuidado antes de os aceitar para evitar mensagens indesejáveis.</string>
   <string name="GroupsInCommonMessageRequest__about_message_requests">Acerca dos pedidos de mensagem</string>
   <string name="GroupsInCommonMessageRequest__okay">Ok</string>
+  <string name="ChatColorSelectionFragment__heres_a_preview_of_the_chat_color">Aqui está uma simulação da cor da conversa.</string>
+  <string name="ChatColorSelectionFragment__the_color_is_visible_to_only_you">A cor é visível apenas para si.</string>
+  <!--GroupDescriptionDialog-->
+  <string name="GroupDescriptionDialog__group_description">Descrição do grupo</string>
+  <!--QualitySelectorBottomSheetDialog-->
+  <string name="QualitySelectorBottomSheetDialog__standard">Standard</string>
+  <string name="QualitySelectorBottomSheetDialog__faster_less_data">Mais rápido, menos dados</string>
+  <string name="QualitySelectorBottomSheetDialog__high">Elevada</string>
+  <string name="QualitySelectorBottomSheetDialog__slower_more_data">Mais lento, mais dados</string>
+  <string name="QualitySelectorBottomSheetDialog__photo_quality">Qualidade das fotografias</string>
+  <!--AppSettingsFragment-->
+  <string name="AppSettingsFragment__invite_your_friends">Convide os seus amigos</string>
+  <!--AccountSettingsFragment-->
+  <string name="AccountSettingsFragment__account">Conta</string>
+  <string name="AccountSettingsFragment__youll_be_asked_less_frequently">Ser-lhe-á pedido menos frequentemente ao longo do tempo</string>
+  <string name="AccountSettingsFragment__require_your_signal_pin">Exija o seu PIN do Signal para registar novamente o seu número de telefone com o Signal.</string>
+  <!--ChatsSettingsFragment-->
+  <string name="ChatsSettingsFragment__keyboard">Teclado</string>
+  <string name="ChatsSettingsFragment__enter_key_sends">Tecla de Enter envia</string>
+  <!--SmsSettingsFragment-->
+  <string name="SmsSettingsFragment__use_as_default_sms_app">Definir como aplicação de SMS pré-definida</string>
+  <!--NotificationsSettingsFragment-->
+  <string name="NotificationsSettingsFragment__messages">Mensagens</string>
+  <string name="NotificationsSettingsFragment__calls">Chamadas</string>
+  <string name="NotificationsSettingsFragment__notify_when">Notificar-me quando…</string>
+  <string name="NotificationsSettingsFragment__contact_joins_signal">Um contacto juntou-se ao Signal</string>
+  <!--PrivacySettingsFragment-->
+  <string name="PrivacySettingsFragment__blocked">Utilizadores bloqueados</string>
+  <string name="PrivacySettingsFragment__d_contacts">%1$d contactos</string>
+  <string name="PrivacySettingsFragment__messaging">Mensagens</string>
+  <string name="PrivacySettingsFragment__disappearing_messages">Destruição de mensagens</string>
+  <string name="PrivacySettingsFragment__app_security">Segurança da aplicação</string>
+  <string name="PrivacySettingsFragment__block_screenshots_in_the_recents_list_and_inside_the_app">Bloquear a captura de ecrã na lista de aplicações recentes abertas e dentro da aplicação</string>
+  <string name="PrivacySettingsFragment__signal_message_and_calls">As mensagens e chamadas do Signal, retransmitem sempre as chamadas e emissor selado</string>
+  <string name="PrivacySettingsFragment__default_timer_for_new_changes">Temporizador padrão para conversas novas</string>
+  <string name="PrivacySettingsFragment__set_a_default_disappearing_message_timer_for_all_new_chats_started_by_you">Defina um tempo padrão para a destruição de mensagens de todas as conversas novas iniciadas por si.</string>
+  <!--AdvancedPrivacySettingsFragment-->
+  <string name="AdvancedPrivacySettingsFragment__show_status_icon">Exibir ícone de estado</string>
+  <string name="AdvancedPrivacySettingsFragment__show_an_icon">Exibe um ícone nos detalhes das mensagens quando elas foram entregues utilizando o emissor selado.</string>
+  <!--ExpireTimerSettingsFragment-->
+  <string name="ExpireTimerSettingsFragment__when_enabled_new_messages_sent_and_received_in_new_chats_started_by_you_will_disappear_after_they_have_been_seen">Quando ativado, as novas mensagens enviadas e recebidas em conversas novas que tenham sido iniciadas por si irão ser destruídas após terem sido lidas.</string>
+  <string name="ExpireTimerSettingsFragment__when_enabled_new_messages_sent_and_received_in_this_chat_will_disappear_after_they_have_been_seen">Quando ativado, as novas mensagens enviadas e recebidas nesta conversa irão ser destruídas após terem sido lidas.</string>
+  <string name="ExpireTimerSettingsFragment__off">Off</string>
+  <string name="ExpireTimerSettingsFragment__4_weeks">4 semanas</string>
+  <string name="ExpireTimerSettingsFragment__1_week">1 semana</string>
+  <string name="ExpireTimerSettingsFragment__1_day">1 dia</string>
+  <string name="ExpireTimerSettingsFragment__8_hours">8 horas</string>
+  <string name="ExpireTimerSettingsFragment__1_hour">1 hora</string>
+  <string name="ExpireTimerSettingsFragment__5_minutes">5 minutos</string>
+  <string name="ExpireTimerSettingsFragment__30_seconds">30 segundos</string>
+  <string name="ExpireTimerSettingsFragment__custom_time">Temporizador personalizado</string>
+  <string name="ExpireTimerSettingsFragment__set">Definir</string>
+  <string name="ExpireTimerSettingsFragment__save">Guardar</string>
+  <string name="CustomExpireTimerSelectorView__seconds">segundos</string>
+  <string name="CustomExpireTimerSelectorView__minutes">minutos</string>
+  <string name="CustomExpireTimerSelectorView__hours">horas</string>
+  <string name="CustomExpireTimerSelectorView__days">dias</string>
+  <string name="CustomExpireTimerSelectorView__weeks">semanas</string>
+  <!--HelpSettingsFragment-->
+  <string name="HelpSettingsFragment__support_center">Centro de suporte</string>
+  <string name="HelpSettingsFragment__contact_us">Contacte-nos</string>
+  <string name="HelpSettingsFragment__version">Versão</string>
+  <string name="HelpSettingsFragment__debug_log">Relatório de depuração</string>
+  <string name="HelpSettingsFragment__terms_amp_privacy_policy">Termos e Política de privacidade</string>
+  <string name="HelpFragment__copyright_signal_messenger">Copyright Signal Messenger</string>
+  <string name="HelpFragment__licenced_under_the_gplv3">Distribuição guiada pela licença GPLv3</string>
+  <!--DataAndStorageSettingsFragment-->
+  <string name="DataAndStorageSettingsFragment__calls">Chamadas</string>
+  <!--ChatColorSelectionFragment-->
+  <string name="ChatColorSelectionFragment__auto">Auto</string>
+  <string name="ChatColorSelectionFragment__use_custom_colors">Utilizar cores personalizadas</string>
+  <string name="ChatColorSelectionFragment__chat_color">Cor da conversa</string>
+  <string name="ChatColorSelectionFragment__edit">Editar</string>
+  <string name="ChatColorSelectionFragment__duplicate">Duplicar</string>
+  <string name="ChatColorSelectionFragment__delete">Eliminar</string>
+  <string name="ChatColorSelectionFragment__delete_color">Eliminar cor</string>
+  <plurals name="ChatColorSelectionFragment__this_custom_color_is_used">
+    <item quantity="one">Esta cor personalizada é utilizada em %1$d conversa. Deseja eliminá-la para todas as conversas?</item>
+    <item quantity="other">Esta cor personalizada é utilizada em %1$d conversas. Deseja eliminá-la para todas as conversas?</item>
+  </plurals>
+  <!--CustomChatColorCreatorFragment-->
+  <string name="CustomChatColorCreatorFragment__solid">Sólida</string>
+  <string name="CustomChatColorCreatorFragment__gradient">Gradiente</string>
+  <string name="CustomChatColorCreatorFragment__hue">Tom</string>
+  <string name="CustomChatColorCreatorFragment__saturation">Saturação</string>
+  <!--CustomChatColorCreatorFragmentPage-->
+  <string name="CustomChatColorCreatorFragmentPage__save">Guardar</string>
+  <string name="CustomChatColorCreatorFragmentPage__edit_color">Editar cor</string>
+  <plurals name="CustomChatColorCreatorFragmentPage__this_color_is_used">
+    <item quantity="one">Esta cor é utilizada em %1$d conversa. Deseja guardar as alterações em todas as conversas?</item>
+    <item quantity="other">Esta cor é utilizada em %1$d conversas. Deseja guardar as alterações em todas as conversas?</item>
+  </plurals>
+  <!--ChatColorGradientTool-->
+  <string name="ChatColorGradientTool_top_edge_selector">Seletor da borda superior</string>
+  <string name="ChatColorGradientTool_bottom_edge_selector">Seletor da borda inferior</string>
+  <!--EditReactionsFragment-->
+  <string name="EditReactionsFragment__customize_reactions">Personalizar reações</string>
+  <string name="EditReactionsFragment__tap_to_replace_an_emoji">Toque para substituir um emoji</string>
+  <string name="EditReactionsFragment__reset">Reiniciar</string>
+  <string name="EditReactionsFragment_save">Guardar</string>
+  <string name="ChatColorSelectionFragment__auto_matches_the_color_to_the_wallpaper">Faz corresponder automaticamente a cor com o fundo de ecrã</string>
+  <string name="CustomChatColorCreatorFragment__drag_to_change_the_direction_of_the_gradient">Arraste para alterar a orientação do gradiente</string>
+  <!--ChatColorsMegaphone-->
+  <string name="ChatColorsMegaphone__new_chat_colors">Novas cores de conversas</string>
+  <string name="ChatColorsMegaphone__we_switched_up_chat_colors">Trocamos as cores das conversas para lhe dar mais opções e facilitar a leitura das conversas.</string>
+  <string name="ChatColorsMegaphone__appearance">Aspeto</string>
+  <string name="ChatColorsMegaphone__not_now">Agora não</string>
+  <!--KeyboardPagerFragment-->
+  <string name="KeyboardPagerFragment_emoji">Emoji</string>
+  <string name="KeyboardPagerFragment_open_emoji_search">Abrir a pesquisa de emoji</string>
+  <string name="KeyboardPagerFragment_open_sticker_search">Abrir a pesquisa de autocolantes</string>
+  <string name="KeyboardPagerFragment_open_gif_search">Abrir a pesquisa de GIFs</string>
+  <string name="KeyboardPagerFragment_stickers">Autocolantes</string>
+  <string name="KeyboardPagerFragment_backspace">Backspace</string>
+  <string name="KeyboardPagerFragment_gifs">Gifs</string>
+  <string name="KeyboardPagerFragment_search_emoji">Procurar emoji</string>
+  <string name="KeyboardPagerfragment_back_to_emoji">Voltar aos emoji</string>
+  <string name="KeyboardPagerfragment_clear_search_entry">Limpar a entrada de pesquisa</string>
+  <string name="KeyboardPagerFragment_search_giphy">Procurar GIPHY</string>
+  <!--StickerSearchDialogFragment-->
+  <string name="StickerSearchDialogFragment_search_stickers">Procurar autocolantes</string>
+  <string name="StickerSearchDialogFragment_no_results_found">Não foram encontrados resultados</string>
+  <string name="EmojiSearchFragment__no_results_found">Não foram encontrados resultados</string>
+  <string name="NotificationsSettingsFragment__unknown_ringtone">Toque desconhecido</string>
   <!--EOF-->
 </resources>

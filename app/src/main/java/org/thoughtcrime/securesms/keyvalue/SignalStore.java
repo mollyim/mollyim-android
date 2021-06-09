@@ -36,6 +36,7 @@ public final class SignalStore {
   private final PaymentsValues           paymentsValues;
   private final ProxyValues              proxyValues;
   private final RateLimitValues          rateLimitValues;
+  private final ChatColorsValues         chatColorsValues;
 
   private SignalStore() {
     this.store                    = new KeyValueStore(ApplicationDependencies.getApplication());
@@ -57,6 +58,7 @@ public final class SignalStore {
     this.paymentsValues           = new PaymentsValues(store);
     this.proxyValues              = new ProxyValues(store);
     this.rateLimitValues          = new RateLimitValues(store);
+    this.chatColorsValues         = new ChatColorsValues(store);
   }
 
   public static SignalStore getInstance() {
@@ -89,6 +91,7 @@ public final class SignalStore {
     paymentsValues().onFirstEverAppLaunch();
     proxy().onFirstEverAppLaunch();
     rateLimit().onFirstEverAppLaunch();
+    chatColorsValues().onFirstEverAppLaunch();
   }
 
   public static List<String> getKeysToIncludeInBackup() {
@@ -111,6 +114,7 @@ public final class SignalStore {
     keys.addAll(paymentsValues().getKeysToIncludeInBackup());
     keys.addAll(proxy().getKeysToIncludeInBackup());
     keys.addAll(rateLimit().getKeysToIncludeInBackup());
+    keys.addAll(chatColorsValues().getKeysToIncludeInBackup());
     return keys;
   }
 
@@ -193,6 +197,10 @@ public final class SignalStore {
 
   public static @NonNull RateLimitValues rateLimit() {
     return getInstance().rateLimitValues;
+  }
+
+  public static @NonNull ChatColorsValues chatColorsValues() {
+    return INSTANCE.chatColorsValues;
   }
 
   public static @NonNull GroupsV2AuthorizationSignalStoreCache groupsV2AuthorizationCache() {

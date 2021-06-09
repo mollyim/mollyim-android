@@ -95,7 +95,7 @@
   <string name="BlockUnblockDialog_unblock_s">לשחרר חסימה של %1$s?</string>
   <string name="BlockUnblockDialog_block">חסום</string>
   <string name="BlockUnblockDialog_block_and_leave">חסום ועזוב</string>
-  <string name="BlockUnblockDialog_block_and_delete">חסום ומחק</string>
+  <string name="BlockUnblockDialog_report_spam_and_block">דווח על זבל וחסום</string>
   <!--BucketedThreadMedia-->
   <string name="BucketedThreadMedia_Today">היום</string>
   <string name="BucketedThreadMedia_Yesterday">אתמול</string>
@@ -242,6 +242,10 @@
   <string name="ConversationActivity_join">הצטרף</string>
   <string name="ConversationActivity_full">מלאה</string>
   <string name="ConversationActivity_error_sending_media">שגיאה בשליחת מדיה</string>
+  <string name="ConversationActivity__reported_as_spam_and_blocked">דֻּוַּח כזבל ונחסם.</string>
+  <string name="ConversationActivity_gifs_have_moved">קבצי GIF הועברו</string>
+  <string name="ConversationActivity_look_for_gifs_next_to_emoji_and_stickers">חפש קבצי GIF ליד אימוג\'י ומדבקות.</string>
+  <string name="ConversationActivity__gifs_are_now_here">קבצי GIF נמצאים כאן עכשיו.</string>
   <!--ConversationAdapter-->
   <plurals name="ConversationAdapter_n_unread_messages">
     <item quantity="one">הודעה %d לא נקראה</item>
@@ -509,9 +513,9 @@
     <item quantity="other">חברי קבוצה אלו אינם מסוגלים להצטרף אל קבוצות חדשות, והם יוסרו מהקבוצה:</item>
   </plurals>
   <!--GroupsV1MigrationInitiationReminder-->
-  <string name="GroupsV1MigrationInitiationReminder_to_access_new_features_like_mentions">כדי להשיג גישה אל מאפיינים חדשים כמו @אזכורים ומנהלנים, שדרג קבוצה זו.</string>
-  <string name="GroupsV1MigrationInitiationReminder_not_now">לא עכשיו</string>
-  <string name="GroupsV1MigrationInitiationReminder_upgrade_group">שדרג קבוצה</string>
+  <!-- Removed by excludeNonTranslatables <string name="GroupsV1MigrationInitiationReminder_to_access_new_features_like_mentions">כדי להשיג גישה אל מאפיינים חדשים כמו @אזכורים ומנהלנים, שדרג קבוצה זו.</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="GroupsV1MigrationInitiationReminder_not_now">לא עכשיו</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="GroupsV1MigrationInitiationReminder_upgrade_group">שדרג קבוצה</string> -->
   <!--GroupsV1MigrationSuggestionsReminder-->
   <plurals name="GroupsV1MigrationSuggestionsReminder_members_couldnt_be_added_to_the_new_group">
     <item quantity="one">%1$d חבר קבוצה לא היה יכול להתווסף מחדש אל הקבוצה החדשה. האם אתה רוצה להוסיף אותו עכשיו?</item>
@@ -674,7 +678,7 @@
   <string name="ManageGroupActivity_mute_notifications">השתק התראות</string>
   <string name="ManageGroupActivity_custom_notifications">התראות מותאמות אישית</string>
   <string name="ManageGroupActivity_mentions">אזכורים</string>
-  <string name="ManageGroupActivity_chat_wallpaper">טפט התכתבות</string>
+  <string name="ManageGroupActivity_chat_color_and_wallpaper">צבע התכתבות וטפט</string>
   <string name="ManageGroupActivity_until_s">עד %1$s</string>
   <string name="ManageGroupActivity_always">תמיד</string>
   <string name="ManageGroupActivity_off">כבוי</string>
@@ -704,6 +708,8 @@
   <string name="ManageGroupActivity_upgrade_this_group">שדרג קבוצה זו.</string>
   <string name="ManageGroupActivity_this_is_an_insecure_mms_group">זוהי קבוצת MMS בלתי מאובטחת. כדי להתכתב באופן פרטי, הזמן את אנשי הקשר שלך אל Signal.</string>
   <string name="ManageGroupActivity_invite_now">הזמן עכשיו</string>
+  <string name="ManageGroupActivity_more">עוד</string>
+  <string name="ManageGroupActivity_add_group_description">הוסף תיאור קבוצה…</string>
   <!--GroupMentionSettingDialog-->
   <string name="GroupMentionSettingDialog_notify_me_for_mentions">יידע אותי לגבי אזכורים</string>
   <string name="GroupMentionSettingDialog_receive_notifications_when_youre_mentioned_in_muted_chats">לקבל התראות כאשר אתה מוזכר בהתכתבויות מושתקות?</string>
@@ -922,6 +928,7 @@
   <string name="Megaphones_new_group">קבוצה חדשה</string>
   <string name="Megaphones_invite_friends">הזמן חברים</string>
   <string name="Megaphones_use_sms">השתמש במסרון</string>
+  <string name="Megaphones_appearance">מראה</string>
   <!--NotificationBarManager-->
   <string name="NotificationBarManager_signal_call_in_progress">שיחת Signal בתהליך</string>
   <string name="NotificationBarManager__establishing_signal_call">מקים שיחת Signal</string>
@@ -1076,6 +1083,10 @@
   <string name="MessageRecord_you_changed_the_group_name_to_s">שינית את שם הקבוצה אל \"%1$s\".</string>
   <string name="MessageRecord_s_changed_the_group_name_to_s">%1$s שינה את שם הקבוצה אל \"%2$s\".</string>
   <string name="MessageRecord_the_group_name_has_changed_to_s">שם הקבוצה השתנה אל \"%1$s\".</string>
+  <!--GV2 description change-->
+  <string name="MessageRecord_you_changed_the_group_description">שינית את תיאור הקבוצה.</string>
+  <string name="MessageRecord_s_changed_the_group_description">%1$s שינה/שינתה את תיאור הקבוצה.</string>
+  <string name="MessageRecord_the_group_description_has_changed">תיאור הקבוצה השתנה.</string>
   <!--GV2 avatar change-->
   <string name="MessageRecord_you_changed_the_group_avatar">שינית את יצגן הקבוצה.</string>
   <string name="MessageRecord_s_changed_the_group_avatar">%1$s שינה את יצגן הקבוצה.</string>
@@ -1217,10 +1228,6 @@
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">נראה שאתה מנסה לקשר מכשיר Signal ע״י שימוש בסורק צד־שלישי. למען הגנתך, אנא סרוק את הקוד שוב מתוך Signal.</string>
   <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly צריך את הרשאת המצלמה על מנת לסרוק קוד QR, אבל היא נדחתה לצמיתות. אנא המשך אל הגדרות היישום, בחר \"הרשאות\" ואפשר את \"מצלמה\".</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">לא היה ניתן לסרוק קוד QR ללא הרשאת המצלמה</string>
-  <!--ExpirationDialog-->
-  <string name="ExpirationDialog_disappearing_messages">הודעות נעלמות</string>
-  <string name="ExpirationDialog_your_messages_will_not_expire">ההודעות שלך לא יפוגו.</string>
-  <string name="ExpirationDialog_your_messages_will_disappear_s_after_they_have_been_seen">הודעות שנשלחות ומתקבלות בשיחה זו ייעלמו %s אחרי שייראו.</string>
   <!--OutdatedBuildReminder-->
   <string name="OutdatedBuildReminder_update_now">עדכן עכשיו</string>
   <string name="OutdatedBuildReminder_your_version_of_signal_will_expire_today">גרסה זו של Signal תפוג היום. עדכן אל הגרסה האחרונה.</string>
@@ -1322,6 +1329,7 @@
   <string name="WebRtcCallView__no_one_else_is_here">אף אחד אחר לא כאן</string>
   <string name="WebRtcCallView__s_is_in_this_call">%1$s בשיחה זו</string>
   <string name="WebRtcCallView__s_and_s_are_in_this_call">%1$s וגם %2$s בשיחה זו</string>
+  <string name="WebRtcCallView__s_is_presenting">%1$s משתף/ת מסך</string>
   <plurals name="WebRtcCallView__s_s_and_d_others_are_in_this_call">
     <item quantity="one">%1$s, %2$s, ועוד %3$d אחר בשיחה זו</item>
     <item quantity="two">%1$s, %2$s, ועוד %3$d אחרים בשיחה זו </item>
@@ -1342,6 +1350,8 @@
   <string name="CallParticipantView__cant_receive_audio_video_from_s">לא ניתן לקבל שמע ווידאו מן %1$s</string>
   <string name="CallParticipantView__cant_receive_audio_and_video_from_s">לא ניתן לקבל שמע ווידאו מן %1$s</string>
   <string name="CallParticipantView__this_may_be_Because_they_have_not_verified_your_safety_number_change">ייתכן שזה מאחר שהם לא וידאו את שינוי מספר הביטחון שלך, או שיש בעיה עם המכשיר שלהם, או שהם חסמו אותך.</string>
+  <!--CallToastPopupWindow-->
+  <string name="CallToastPopupWindow__swipe_to_view_screen_share">החלק כדי להציג שיתוף מסך</string>
   <!--ProxyBottomSheetFragment-->
   <string name="ProxyBottomSheetFragment_proxy_server">שרת יפוי כוח</string>
   <string name="ProxyBottomSheetFragment_proxy_address">כתובת יפוי כוח</string>
@@ -1472,6 +1482,7 @@
   <string name="SubmitDebugLogActivity_success">הצלחה!</string>
   <string name="SubmitDebugLogActivity_copy_this_url_and_add_it_to_your_issue">העתק כתובת זו והוסף אותה אל דוח הסוגיות שלך או דוא״ל התמיכה שלך:\n\n<b>%1$s</b></string>
   <string name="SubmitDebugLogActivity_share">שתף</string>
+  <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online">יומן זה יפורסם באופן ציבורי ומקוון עבור מתנדבים כדי שיצפו בו, ניתן לבחון ולערוך אותו לפני העלאה.</string>
   <!--SupportEmailUtil-->
   <string name="SupportEmailUtil_filter">סנן:</string>
   <string name="SupportEmailUtil_device_info">מידע מכשיר:</string>
@@ -1753,6 +1764,8 @@
   <string name="ConversationUpdateItem_enable_call_notifications">אפשר התראות שיחה</string>
   <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">אין קבוצות במשותף. סקור בקשות בזהירות.</string>
   <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">אין אנשי קשר בקבוצה הזאת. סקור בקשות בזהירות.</string>
+  <string name="ConversationUpdateItem_view">הצג</string>
+  <string name="ConversationUpdateItem_the_disappearing_message_time_will_be_set_to_s_when_you_message_them">הזמן של ההודעות הנעלמות יוגדר אל %1$s כאשר אתה מתכתב עם הצד השני.</string>
   <!--audio_view-->
   <string name="audio_view__play_pause_accessibility_description">נגן … השהה</string>
   <string name="audio_view__download_accessibility_description">הורד</string>
@@ -1894,6 +1907,7 @@
   <string name="CreateProfileActivity__username">שם משתמש</string>
   <string name="CreateProfileActivity__create_a_username">צור שם משתמש</string>
   <string name="CreateProfileActivity_custom_mms_group_names_and_photos_will_only_be_visible_to_you">שמות ותמונות של קבוצת MMS מותאמת אישית יהיו גלויים רק לך.</string>
+  <string name="CreateProfileActivity_group_descriptions_will_be_visible_to_members_of_this_group_and_people_who_have_been_invited">תיאורי קבוצה יהיו גלויים אל חברי הקבוצה הזאת ואל אנשים שהוזמנו.</string>
   <!--EditAboutFragment-->
   <string name="EditAboutFragment_about">אודות</string>
   <string name="EditAboutFragment_write_a_few_words_about_yourself">כתוב כמה מילים על עצמך…</string>
@@ -1906,8 +1920,9 @@
   <string name="EditAboutFragment_taking_a_break">לוקח הפסקה</string>
   <string name="EditAboutFragment_working_on_something_new">עובד על משהו חדש</string>
   <!--EditProfileFragment-->
-  <string name="EditProfileFragment__edit_group_name_and_photo">ערוך את השם והתמונה של הקבוצה</string>
+  <string name="EditProfileFragment__edit_group">ערוך קבוצה</string>
   <string name="EditProfileFragment__group_name">שם קבוצה</string>
+  <string name="EditProfileFragment__group_description">תיאור קבוצה</string>
   <!--EditProfileNameFragment-->
   <string name="EditProfileNameFragment_your_name">שמך</string>
   <string name="EditProfileNameFragment_first_name">שם פרטי</string>
@@ -1975,6 +1990,7 @@
   <string name="HelpFragment__could_not_upload_logs">לא היה ניתן להעלות יומן</string>
   <string name="HelpFragment__please_be_as_descriptive_as_possible">אנא הייה מפורט ככל האפשר כדי לעזור לנו להבין את הסוגייה.</string>
   <string-array name="HelpFragment__categories">
+    <item>-- אנא בחר אפשרות --</item>
     <item>משהו לא עובד</item>
     <item>בקשת מאפיין</item>
     <item>שאלה</item>
@@ -2102,6 +2118,7 @@
   <string name="preferences__appearance">מראה</string>
   <string name="preferences__theme">ערכת נושא</string>
   <string name="preferences__chat_wallpaper">טפט התכתבות</string>
+  <string name="preferences__chat_color_and_wallpaper">צבע התכתבות וטפט</string>
   <string name="preferences__disable_pin">השבת PIN</string>
   <string name="preferences__enable_pin">אפשר PIN</string>
   <string name="preferences__if_you_disable_the_pin_you_will_lose_all_data">אם תשבית את ה־PIN, תאבד את כל הנתונים כאשר תירשם מחדש אל Signal אלא אם תגבה ותשחזר באופן ידני. אינך יכול להפעיל נעילת הרשמה בזמן שה־PIN מושבת.</string>
@@ -2120,7 +2137,8 @@
   <string name="preferences__if_read_receipts_are_disabled_you_wont_be_able_to_see_read_receipts">אם אישורי קריאה מושבתים, לא תוכל לראות אישורי קריאה מאחרים.</string>
   <string name="preferences__typing_indicators">מחווני הקלדה</string>
   <string name="preferences__if_typing_indicators_are_disabled_you_wont_be_able_to_see_typing_indicators">אם מחווני הקלדה מושבתים, לא תוכל לראות מחווני הקלדה מאחרים.</string>
-  <string name="preferences__request_keyboard_to_disable_personalized_learning">בקש מהמקלדת להשבית למידה מותאמת אישית. הגדרה זו אינה מובטחת, והמקלדת שלך עשויה להתעלם ממנה.</string>
+  <string name="preferences__request_keyboard_to_disable">בקש מהמקלדת להשבית למידה מותאמת אישית.</string>
+  <string name="preferences__this_setting_is_not_a_guarantee">הגדרה זו אינה מובטחת, והמקלדת שלך עשויה להתעלם ממנה.</string>
   <string name="preferences_app_protection__blocked_users">משתמשים חסומים</string>
   <string name="preferences_chats__when_using_mobile_data">בעת שימוש בנתונים ניידים</string>
   <string name="preferences_chats__when_using_wifi">בעת שימוש ב־Wi-Fi</string>
@@ -2160,8 +2178,8 @@
   <string name="preferences_data_and_storage__calls">שיחות</string>
   <string name="preferences_data_and_storage__use_less_data_for_calls">השתמש בפחות נתונים עבור שיחות</string>
   <string name="preferences_data_and_storage__never">אף פעם</string>
-  <string name="preferences_data_and_storage__wifi_and_cellular">WiFi וסלולרי</string>
-  <string name="preferences_data_and_storage__cellular_only">סלולרי בלבד</string>
+  <!-- Removed by excludeNonTranslatables <string name="preferences_data_and_storage__wifi_and_cellular">WiFi וסלולרי</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="preferences_data_and_storage__cellular_only">סלולרי בלבד</string> -->
   <string name="preference_data_and_storage__using_less_data_may_improve_calls_on_bad_networks">שימוש בפחות נתונים עשוי לשפר שיחות על רשתות גרועות</string>
   <string name="preferences_notifications__messages">הודעות</string>
   <string name="preferences_notifications__events">אירועים</string>
@@ -2674,7 +2692,7 @@
   <string name="NewDeviceTransferInstructions__first_bullet">1.</string>
   <string name="NewDeviceTransferInstructions__tap_on_your_profile_photo_in_the_top_left_to_open_settings">הקש על תמונת הפרופיל שלך בקצה העליון השמאלי כדי לפתוח הגדרות</string>
   <string name="NewDeviceTransferInstructions__second_bullet">2.</string>
-  <string name="NewDeviceTransferInstructions__tap_on_chats">הקש על \"התכתבויות\"</string>
+  <string name="NewDeviceTransferInstructions__tap_on_account">הקש על \"חשבון\"</string>
   <string name="NewDeviceTransferInstructions__third_bullet">3.</string>
   <string name="NewDeviceTransferInstructions__tap_transfer_account_and_then_continue_on_both_devices">הקש על \"העבר חשבון\" ואז \"המשך\" בשני המכשירים</string>
   <!--NewDeviceTransferSetupFragment-->
@@ -2889,7 +2907,7 @@
   <!--ShareActivity-->
   <string name="ShareActivity__share">שתף</string>
   <string name="ShareActivity__send">שלח</string>
-  <string name="ShareActivity__s_comma">%1$s,</string>
+  <!-- Removed by excludeNonTranslatables <string name="ShareActivity__s_comma">%1$s,</string> -->
   <string name="ShareActivity__sharing_to_multiple_chats_is">העברה הלאה אל התכתבויות רבות נתמכת רק עבור הודעות Signal</string>
   <!--MultiShareDialogs-->
   <string name="MultiShareDialogs__failed_to_send_to_some_users">נכשל בשליחה אל כמה משתמשים</string>
@@ -2899,17 +2917,25 @@
   <!--ChatWallpaperActivity-->
   <string name="ChatWallpaperActivity__chat_wallpaper">טפט התכתבות</string>
   <!--ChatWallpaperFragment-->
+  <string name="ChatWallpaperFragment__chat_color">צבע התכתבות</string>
+  <string name="ChatWallpaperFragment__reset_chat_colors">אפס צבעי התכתבות</string>
+  <string name="ChatWallpaperFragment__reset_chat_color">אפס צבע התכתבות</string>
+  <string name="ChatWallpaperFragment__reset_chat_color_question">לאפס צבע התכתבות?</string>
   <string name="ChatWallpaperFragment__set_wallpaper">הגדר טפט</string>
-  <string name="ChatWallpaperFragment__dark_theme_dims_wallpaper">ערכת נושא כהה מעמעמת טפטים</string>
-  <string name="ChatWallpaperFragment__clear_wallpaper">נקה טפט</string>
-  <string name="ChatWallpaperFragment__clear_wallpaper_for_this_chat">לנקות טפט עבור התכתבות זו?</string>
-  <string name="ChatWallpaperFragment__clear_wallpaper_this_will_not">לנקות טפט? זה לא ינקה טפטים מותאמים אישית שהגדרת עבור ההתכתבויות שלך.</string>
-  <string name="ChatWallpaperFragment__reset_all_wallpapers">אפס את כל הטפטים</string>
-  <string name="ChatWallpaperFragment__reset_all_wallpapers_including_custom">לנקות את כל הטפטים, כולל טפטים מותאמים אישית שהגדרת עבור ההתכתבויות שלך?</string>
+  <string name="ChatWallpaperFragment__dark_mode_dims_wallpaper">מצב כהה מעמעם טפט</string>
   <string name="ChatWallpaperFragment__contact_name">שם איש קשר</string>
   <string name="ChatWallpaperFragment__reset">אפס</string>
   <string name="ChatWallpaperFragment__clear">נקה</string>
   <string name="ChatWallpaperFragment__wallpaper_preview_description">תצוגה מקדימה של טפט</string>
+  <string name="ChatWallpaperFragment__would_you_like_to_override_all_chat_colors">האם אתה רוצה לדרוס את כל צבעי ההתכתבות?</string>
+  <string name="ChatWallpaperFragment__would_you_like_to_override_all_wallpapers">האם אתה רוצה לדרוס את כל הטפטים?</string>
+  <string name="ChatWallpaperFragment__reset_default_colors">אפס צבעי ברירת מחדל</string>
+  <string name="ChatWallpaperFragment__reset_all_colors">אפס את כל הצבעים</string>
+  <string name="ChatWallpaperFragment__reset_default_wallpaper">אפס טפט ברירת מחדל</string>
+  <string name="ChatWallpaperFragment__reset_all_wallpapers">אפס את כל הטפטים</string>
+  <string name="ChatWallpaperFragment__reset_wallpapers">אפס טפטים</string>
+  <string name="ChatWallpaperFragment__reset_wallpaper">אפס טפט</string>
+  <string name="ChatWallpaperFragment__reset_wallpaper_question">לאפס טפט?</string>
   <!--ChatWallpaperSelectionFragment-->
   <string name="ChatWallpaperSelectionFragment__choose_from_photos">בחר מתוך תמונות</string>
   <string name="ChatWallpaperSelectionFragment__presets">קדם־הגדרות</string>
@@ -3011,5 +3037,133 @@
   <string name="GroupsInCommonMessageRequest__none_of_your_contacts_or_people_you_chat_with_are_in_this_group">אף אחד מחברי הקבוצה שלך או האנשים שאתה מתכתב איתם נמצאים בקבוצה הזאת. סקור בקשות בזהירות טרם אישור שלהן כדי להימנע מהודעות בלתי רצויות.</string>
   <string name="GroupsInCommonMessageRequest__about_message_requests">על אודות בקשות הודעה</string>
   <string name="GroupsInCommonMessageRequest__okay">בסדר</string>
+  <string name="ChatColorSelectionFragment__heres_a_preview_of_the_chat_color">הנה תצוגה מקדימה של צבע ההתכתבות.</string>
+  <string name="ChatColorSelectionFragment__the_color_is_visible_to_only_you">הצבע גלוי רק לך.</string>
+  <!--GroupDescriptionDialog-->
+  <string name="GroupDescriptionDialog__group_description">תיאור קבוצה</string>
+  <!--QualitySelectorBottomSheetDialog-->
+  <string name="QualitySelectorBottomSheetDialog__standard">תקנית</string>
+  <string name="QualitySelectorBottomSheetDialog__faster_less_data">מהירה יותר, פחות נתונים</string>
+  <string name="QualitySelectorBottomSheetDialog__high">גבוה</string>
+  <string name="QualitySelectorBottomSheetDialog__slower_more_data">איטית יותר, יותר נתונים</string>
+  <string name="QualitySelectorBottomSheetDialog__photo_quality">איכות תמונה</string>
+  <!--AppSettingsFragment-->
+  <string name="AppSettingsFragment__invite_your_friends">הזמן את חבריך</string>
+  <!--AccountSettingsFragment-->
+  <string name="AccountSettingsFragment__account">חשבון</string>
+  <string name="AccountSettingsFragment__youll_be_asked_less_frequently">תישאל לעיתים פחות תכופות עם הזמן</string>
+  <string name="AccountSettingsFragment__require_your_signal_pin">דרוש את ה־PIN של Signal שלך כדי להירשם שוב אל Signal עם מספר הטלפון שלך</string>
+  <!--ChatsSettingsFragment-->
+  <string name="ChatsSettingsFragment__keyboard">מקלדת</string>
+  <string name="ChatsSettingsFragment__enter_key_sends">מקש Enter שולח</string>
+  <!--SmsSettingsFragment-->
+  <string name="SmsSettingsFragment__use_as_default_sms_app">השתמש כיישום המסרונים ברירת המחדל</string>
+  <!--NotificationsSettingsFragment-->
+  <string name="NotificationsSettingsFragment__messages">הודעות</string>
+  <string name="NotificationsSettingsFragment__calls">שיחות</string>
+  <string name="NotificationsSettingsFragment__notify_when">יידע כאשר…</string>
+  <string name="NotificationsSettingsFragment__contact_joins_signal">איש קשר מצטרף אל Signal</string>
+  <!--PrivacySettingsFragment-->
+  <string name="PrivacySettingsFragment__blocked">חסום</string>
+  <string name="PrivacySettingsFragment__d_contacts">%1$d אנשי קשר</string>
+  <string name="PrivacySettingsFragment__messaging">תכתובת</string>
+  <string name="PrivacySettingsFragment__disappearing_messages">הודעות נעלמות</string>
+  <string name="PrivacySettingsFragment__app_security">אבטחת יישום</string>
+  <string name="PrivacySettingsFragment__block_screenshots_in_the_recents_list_and_inside_the_app">חסום צילומי מסך ברשימת האחרונים ובתוך היישום</string>
+  <string name="PrivacySettingsFragment__signal_message_and_calls">הודעות ושיחות של Signal, ממסר שיחות תמיד, ושולח אטום</string>
+  <string name="PrivacySettingsFragment__default_timer_for_new_changes">קוצב זמן ברירת מחדל עבור התכתבויות חדשות</string>
+  <string name="PrivacySettingsFragment__set_a_default_disappearing_message_timer_for_all_new_chats_started_by_you">הגדר קוצב זמן ברירת מחדל של הודעות נעלמות עבור כל ההתכתבויות החדשות שהותחלו על ידך.</string>
+  <!--AdvancedPrivacySettingsFragment-->
+  <string name="AdvancedPrivacySettingsFragment__show_status_icon">הראה איקון מעמד</string>
+  <string name="AdvancedPrivacySettingsFragment__show_an_icon">הראה איקון בפרטי הודעה כאשר היא נשלחה ע״י שימוש בשולח אטום.</string>
+  <!--ExpireTimerSettingsFragment-->
+  <string name="ExpireTimerSettingsFragment__when_enabled_new_messages_sent_and_received_in_new_chats_started_by_you_will_disappear_after_they_have_been_seen">כאשר מאופשר, הודעות חדשות אשר נשלחות ומתקבלות בהתכתבויות חדשות שהותחלו על ידך ייעלמו לאחר שייראו.</string>
+  <string name="ExpireTimerSettingsFragment__when_enabled_new_messages_sent_and_received_in_this_chat_will_disappear_after_they_have_been_seen">כאשר מאופשר, הודעות חדשות אשר נשלחות ומתקבלות בהתכתבות זו ייעלמו לאחר שייראו.</string>
+  <string name="ExpireTimerSettingsFragment__off">כבוי</string>
+  <string name="ExpireTimerSettingsFragment__4_weeks">4 שבועות</string>
+  <string name="ExpireTimerSettingsFragment__1_week">שבוע</string>
+  <string name="ExpireTimerSettingsFragment__1_day">יום</string>
+  <string name="ExpireTimerSettingsFragment__8_hours">8 שעות</string>
+  <string name="ExpireTimerSettingsFragment__1_hour">שעה</string>
+  <string name="ExpireTimerSettingsFragment__5_minutes">5 דקות</string>
+  <string name="ExpireTimerSettingsFragment__30_seconds">30 שניות</string>
+  <string name="ExpireTimerSettingsFragment__custom_time">זמן מותאם אישית</string>
+  <string name="ExpireTimerSettingsFragment__set">הגדר</string>
+  <string name="ExpireTimerSettingsFragment__save">שמור</string>
+  <string name="CustomExpireTimerSelectorView__seconds">שניות</string>
+  <string name="CustomExpireTimerSelectorView__minutes">דקות</string>
+  <string name="CustomExpireTimerSelectorView__hours">שעות</string>
+  <string name="CustomExpireTimerSelectorView__days">ימים</string>
+  <string name="CustomExpireTimerSelectorView__weeks">שבועות</string>
+  <!--HelpSettingsFragment-->
+  <string name="HelpSettingsFragment__support_center">מרכז תמיכה</string>
+  <string name="HelpSettingsFragment__contact_us">צור קשר</string>
+  <string name="HelpSettingsFragment__version">גרסה</string>
+  <string name="HelpSettingsFragment__debug_log">יומן תקלים</string>
+  <string name="HelpSettingsFragment__terms_amp_privacy_policy">תנאים ומדיניות פרטיות</string>
+  <string name="HelpFragment__copyright_signal_messenger">זכויות יוצרים Signal Messenger</string>
+  <string name="HelpFragment__licenced_under_the_gplv3">ברישיון תחת GPLv3</string>
+  <!--DataAndStorageSettingsFragment-->
+  <string name="DataAndStorageSettingsFragment__calls">שיחות</string>
+  <!--ChatColorSelectionFragment-->
+  <string name="ChatColorSelectionFragment__auto">אוטומטי</string>
+  <string name="ChatColorSelectionFragment__use_custom_colors">השתמש בצבעים מותאמים אישית</string>
+  <string name="ChatColorSelectionFragment__chat_color">צבע התכתבות</string>
+  <string name="ChatColorSelectionFragment__edit">ערוך</string>
+  <string name="ChatColorSelectionFragment__duplicate">שכפל</string>
+  <string name="ChatColorSelectionFragment__delete">מחק</string>
+  <string name="ChatColorSelectionFragment__delete_color">מחק צבע</string>
+  <plurals name="ChatColorSelectionFragment__this_custom_color_is_used">
+    <item quantity="one">צבע מותאם אישית זה נמצא בשימוש בהתכתבות %1$d. האם אתה רוצה למחוק אותו עבור כל ההתכתבויות?</item>
+    <item quantity="two">צבע מותאם אישית זה נמצא בשימוש ב־%1$d התכתבויות. האם אתה רוצה למחוק אותו עבור כל ההתכתבויות?</item>
+    <item quantity="many">צבע מותאם אישית זה נמצא בשימוש ב־%1$d התכתבויות. האם אתה רוצה למחוק אותו עבור כל ההתכתבויות? </item>
+    <item quantity="other">צבע מותאם אישית זה נמצא בשימוש ב־%1$d התכתבויות. האם אתה רוצה למחוק אותו עבור כל ההתכתבויות?</item>
+  </plurals>
+  <!--CustomChatColorCreatorFragment-->
+  <string name="CustomChatColorCreatorFragment__solid">מוצק</string>
+  <string name="CustomChatColorCreatorFragment__gradient">שיפוע</string>
+  <string name="CustomChatColorCreatorFragment__hue">גוון</string>
+  <string name="CustomChatColorCreatorFragment__saturation">רוויה</string>
+  <!--CustomChatColorCreatorFragmentPage-->
+  <string name="CustomChatColorCreatorFragmentPage__save">שמור</string>
+  <string name="CustomChatColorCreatorFragmentPage__edit_color">ערוך צבע</string>
+  <plurals name="CustomChatColorCreatorFragmentPage__this_color_is_used">
+    <item quantity="one">צבע זה נמצא בשימוש בהתכתבות %1$d. האם אתה רוצה לשמור שינויים עבור כל ההתכתבויות?</item>
+    <item quantity="two">צבע זה נמצא בשימוש ב־%1$d התכתבויות. האם אתה רוצה לשמור שינויים עבור כל ההתכתבויות?</item>
+    <item quantity="many">צבע זה נמצא בשימוש ב־%1$d התכתבויות. האם אתה רוצה לשמור שינויים עבור כל ההתכתבויות?</item>
+    <item quantity="other">צבע זה נמצא בשימוש ב־%1$d התכתבויות. האם אתה רוצה לשמור שינויים עבור כל ההתכתבויות?</item>
+  </plurals>
+  <!--ChatColorGradientTool-->
+  <string name="ChatColorGradientTool_top_edge_selector">בוחר קצה עליון</string>
+  <string name="ChatColorGradientTool_bottom_edge_selector">בוחר קצה תחתון</string>
+  <!--EditReactionsFragment-->
+  <string name="EditReactionsFragment__customize_reactions">התאם אישית תגובות</string>
+  <string name="EditReactionsFragment__tap_to_replace_an_emoji">הקש כדי להחליף אימוג\'י</string>
+  <string name="EditReactionsFragment__reset">אפס</string>
+  <string name="EditReactionsFragment_save">שמור</string>
+  <string name="ChatColorSelectionFragment__auto_matches_the_color_to_the_wallpaper">מתאים באופן אוטומטי את הצבע אל הטפט</string>
+  <string name="CustomChatColorCreatorFragment__drag_to_change_the_direction_of_the_gradient">גרור את השינוי אל כיוון השיפוע</string>
+  <!--ChatColorsMegaphone-->
+  <string name="ChatColorsMegaphone__new_chat_colors">צבעי התכתבות חדשים</string>
+  <string name="ChatColorsMegaphone__we_switched_up_chat_colors">החלפנו צבעי התכתבות כדי לתת לך יותר אפשרויות ולעשות התכתבויות קלות יותר לקריאה.</string>
+  <string name="ChatColorsMegaphone__appearance">מראה</string>
+  <string name="ChatColorsMegaphone__not_now">לא עכשיו</string>
+  <!--KeyboardPagerFragment-->
+  <string name="KeyboardPagerFragment_emoji">אמוג\'י</string>
+  <string name="KeyboardPagerFragment_open_emoji_search">פתח חיפוש אימוג\'י</string>
+  <string name="KeyboardPagerFragment_open_sticker_search">פתח חיפוש מדבקות</string>
+  <string name="KeyboardPagerFragment_open_gif_search">פתח חיפוש GIF</string>
+  <string name="KeyboardPagerFragment_stickers">מדבקות</string>
+  <string name="KeyboardPagerFragment_backspace">מקש חזרה</string>
+  <string name="KeyboardPagerFragment_gifs">קבצי GIF</string>
+  <string name="KeyboardPagerFragment_search_emoji">חפש אימוג\'י</string>
+  <string name="KeyboardPagerfragment_back_to_emoji">חזור אל אימוג\'י</string>
+  <string name="KeyboardPagerfragment_clear_search_entry">נקה רשומת חיפוש</string>
+  <string name="KeyboardPagerFragment_search_giphy">חפש GIPHY</string>
+  <!--StickerSearchDialogFragment-->
+  <string name="StickerSearchDialogFragment_search_stickers">חפש מדבקות</string>
+  <string name="StickerSearchDialogFragment_no_results_found">תוצאות לא נמצאו</string>
+  <string name="EmojiSearchFragment__no_results_found">תוצאות לא נמצאו</string>
+  <string name="NotificationsSettingsFragment__unknown_ringtone">צלצול בלתי ידוע</string>
   <!--EOF-->
 </resources>

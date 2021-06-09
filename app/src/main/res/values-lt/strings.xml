@@ -95,7 +95,7 @@
   <string name="BlockUnblockDialog_unblock_s">Atblokuoti %1$s?</string>
   <string name="BlockUnblockDialog_block">Užblokuoti</string>
   <string name="BlockUnblockDialog_block_and_leave">Užblokuoti ir išeiti</string>
-  <string name="BlockUnblockDialog_block_and_delete">Užblokuoti ir ištrinti</string>
+  <string name="BlockUnblockDialog_report_spam_and_block">Pranešti apie brukalą ir užblokuoti</string>
   <!--BucketedThreadMedia-->
   <string name="BucketedThreadMedia_Today">Šiandien</string>
   <string name="BucketedThreadMedia_Yesterday">Vakar</string>
@@ -242,6 +242,10 @@
   <string name="ConversationActivity_join">Prisijungti</string>
   <string name="ConversationActivity_full">Pilnas</string>
   <string name="ConversationActivity_error_sending_media">Klaida siunčiant mediją</string>
+  <string name="ConversationActivity__reported_as_spam_and_blocked">Pranešta apie brukalą ir užblokuota.</string>
+  <string name="ConversationActivity_gifs_have_moved">GIF atvaizdai perkelti</string>
+  <string name="ConversationActivity_look_for_gifs_next_to_emoji_and_stickers">GIF atvaizdų ieškokite šalia šypsenėlių ir lipdukų.</string>
+  <string name="ConversationActivity__gifs_are_now_here">Nuo šiol, GIF atvaizdai yra čia.</string>
   <!--ConversationAdapter-->
   <plurals name="ConversationAdapter_n_unread_messages">
     <item quantity="one">%d neskaityta žinutė</item>
@@ -509,9 +513,9 @@
     <item quantity="other">Šie nariai negali prisijungti prie naujosios grupės ir todėl bus iš jos pašalinti:</item>
   </plurals>
   <!--GroupsV1MigrationInitiationReminder-->
-  <string name="GroupsV1MigrationInitiationReminder_to_access_new_features_like_mentions">Norėdami naudotis tokiomis ypatybėmis kaip @paminėjimai ir administratoriai, naujinkite šią grupę.</string>
-  <string name="GroupsV1MigrationInitiationReminder_not_now">Ne dabar</string>
-  <string name="GroupsV1MigrationInitiationReminder_upgrade_group">Naujinti grupę</string>
+  <!-- Removed by excludeNonTranslatables <string name="GroupsV1MigrationInitiationReminder_to_access_new_features_like_mentions">Norėdami naudotis tokiomis ypatybėmis kaip @paminėjimai ir administratoriai, naujinkite šią grupę.</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="GroupsV1MigrationInitiationReminder_not_now">Ne dabar</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="GroupsV1MigrationInitiationReminder_upgrade_group">Naujinti grupę</string> -->
   <!--GroupsV1MigrationSuggestionsReminder-->
   <plurals name="GroupsV1MigrationSuggestionsReminder_members_couldnt_be_added_to_the_new_group">
     <item quantity="one">%1$d nario nepavyko iš naujo pridėti į naująją grupę. Ar norite pridėti jį dabar?</item>
@@ -674,7 +678,7 @@
   <string name="ManageGroupActivity_mute_notifications">Išjungti pranešimus</string>
   <string name="ManageGroupActivity_custom_notifications">Tinkinti pranešimai</string>
   <string name="ManageGroupActivity_mentions">Paminėjimai</string>
-  <string name="ManageGroupActivity_chat_wallpaper">Pokalbio fonas</string>
+  <string name="ManageGroupActivity_chat_color_and_wallpaper">Pokalbio spalva ir fonas</string>
   <string name="ManageGroupActivity_until_s">Iki %1$s</string>
   <string name="ManageGroupActivity_always">Visada</string>
   <string name="ManageGroupActivity_off">Išjungta</string>
@@ -704,6 +708,8 @@
   <string name="ManageGroupActivity_upgrade_this_group">naujinkite šią grupę.</string>
   <string name="ManageGroupActivity_this_is_an_insecure_mms_group">Tai yra nesaugi MMS grupė. Norėdami kalbėtis privačiai, pakvieskite savo adresatus į Signal.</string>
   <string name="ManageGroupActivity_invite_now">Pakviesti dabar</string>
+  <string name="ManageGroupActivity_more">daugiau</string>
+  <string name="ManageGroupActivity_add_group_description">Pridėti grupės aprašą…</string>
   <!--GroupMentionSettingDialog-->
   <string name="GroupMentionSettingDialog_notify_me_for_mentions">Pranešti apie paminėjimus</string>
   <string name="GroupMentionSettingDialog_receive_notifications_when_youre_mentioned_in_muted_chats">Gauti pranešimus, kai jus pamini pokalbiuose, kuriuose pranešimai yra išjungti?</string>
@@ -922,6 +928,7 @@
   <string name="Megaphones_new_group">Nauja grupė</string>
   <string name="Megaphones_invite_friends">Pakviesti draugus</string>
   <string name="Megaphones_use_sms">Naudokite SMS</string>
+  <string name="Megaphones_appearance">Išvaizda</string>
   <!--NotificationBarManager-->
   <string name="NotificationBarManager_signal_call_in_progress">Signal skambutis yra eigoje</string>
   <string name="NotificationBarManager__establishing_signal_call">Užmezgiamas Signal skambutis</string>
@@ -1076,6 +1083,10 @@
   <string name="MessageRecord_you_changed_the_group_name_to_s">Jūs pakeitėte grupės pavadinimą į „%1$s“.</string>
   <string name="MessageRecord_s_changed_the_group_name_to_s">%1$s pakeitė grupės pavadinimą į „%2$s“.</string>
   <string name="MessageRecord_the_group_name_has_changed_to_s">Grupės pavadinimas pasikeitė į „%1$s“.</string>
+  <!--GV2 description change-->
+  <string name="MessageRecord_you_changed_the_group_description">Jūs pakeitėte grupės aprašą.</string>
+  <string name="MessageRecord_s_changed_the_group_description">%1$s pakeitė grupės aprašą.</string>
+  <string name="MessageRecord_the_group_description_has_changed">Grupės aprašas pakeistas.</string>
   <!--GV2 avatar change-->
   <string name="MessageRecord_you_changed_the_group_avatar">Jūs pakeitėte grupės avatarą.</string>
   <string name="MessageRecord_s_changed_the_group_avatar">%1$s pakeitė grupės avatarą.</string>
@@ -1217,10 +1228,6 @@
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Atrodo, kad bandote susieti Signal įrenginį, naudodami trečiųjų šalių skenerį. Jūsų saugumui, dar kartą nuskenuokite kodą, naudodami Signal.</string>
   <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Norint skenuoti QR kodą, Molly reikia kameros leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymų meniu, pasirinkite „Leidimai“ ir įjunkite „Kamerą“.</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Nepavyksta nuskenuoti QR kodo be kameros leidimo</string>
-  <!--ExpirationDialog-->
-  <string name="ExpirationDialog_disappearing_messages">Išnykstančios žinutės</string>
-  <string name="ExpirationDialog_your_messages_will_not_expire">Jūsų žinučių galiojimas nesibaigs.</string>
-  <string name="ExpirationDialog_your_messages_will_disappear_s_after_they_have_been_seen">Šiame pokalbyje išsiųstos ir gautos žinutės išnyks %s po to, kai jos buvo pamatytos.</string>
   <!--OutdatedBuildReminder-->
   <string name="OutdatedBuildReminder_update_now">Atnaujinti dabar</string>
   <string name="OutdatedBuildReminder_your_version_of_signal_will_expire_today">Šiandien nustos galioti ši Signal versija. Atnaujinkite Signal iki naujausios versijos.</string>
@@ -1283,6 +1290,9 @@
   <!--ReactionsRecipientAdapter-->
   <string name="ReactionsRecipientAdapter_you">Jūs</string>
   <!--RecaptchaRequiredBottomSheetFragment-->
+  <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">Patvirtinkite, norėdami tęsti susirašinėjimą</string>
+  <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Siekdami neleisti brukalo Molly programėlėje, prašome jūsų užbaigti patvirtinimą.</string>
+  <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">Po patvirtinimo galėsite tęsti susirašinėjimą. Visos pristabdytos žinutės bus automatiškai išsiųstos.</string>
   <!--RecipientPreferencesActivity-->
   <string name="RecipientPreferenceActivity_block">Užblokuoti</string>
   <string name="RecipientPreferenceActivity_unblock">Atblokuoti</string>
@@ -1319,6 +1329,7 @@
   <string name="WebRtcCallView__no_one_else_is_here">Čia daugiau nieko nėra</string>
   <string name="WebRtcCallView__s_is_in_this_call">%1$s yra šiame skambutyje</string>
   <string name="WebRtcCallView__s_and_s_are_in_this_call">%1$s ir %2$s yra šiame skambutyje</string>
+  <string name="WebRtcCallView__s_is_presenting">%1$s pristatinėja</string>
   <plurals name="WebRtcCallView__s_s_and_d_others_are_in_this_call">
     <item quantity="one">%1$s, %2$s ir dar %3$d žmogus yra šiame skambutyje</item>
     <item quantity="few">%1$s, %2$s ir dar %3$d žmonės yra šiame skambutyje</item>
@@ -1339,6 +1350,8 @@
   <string name="CallParticipantView__cant_receive_audio_video_from_s">Negalima gauti garso ir vaizdo iš %1$s</string>
   <string name="CallParticipantView__cant_receive_audio_and_video_from_s">Negalima gauti garso ir vaizdo iš %1$s</string>
   <string name="CallParticipantView__this_may_be_Because_they_have_not_verified_your_safety_number_change">Taip gali būti dėl to, kad šis naudotojas nepatvirtino jūsų saugumo numerio pasikeitimo, atsirado problemų su naudotojo įrenginiu arba jis jus užblokavo.</string>
+  <!--CallToastPopupWindow-->
+  <string name="CallToastPopupWindow__swipe_to_view_screen_share">Perbraukite, norėdami matyti ekrano bendrinimą</string>
   <!--ProxyBottomSheetFragment-->
   <string name="ProxyBottomSheetFragment_proxy_server">Įgaliotasis serveris</string>
   <string name="ProxyBottomSheetFragment_proxy_address">Įgaliotojo serverio adresas</string>
@@ -1347,6 +1360,7 @@
   <string name="ProxyBottomSheetFragment_successfully_connected_to_proxy">Sėkmingai prisijungta prie įgaliotojo serverio.</string>
   <!--RecaptchaProofActivity-->
   <string name="RecaptchaProofActivity_failed_to_submit">Nepavyko pateikti</string>
+  <string name="RecaptchaProofActivity_complete_verification">Užbaigti patvirtinimą</string>
   <!--RegistrationActivity-->
   <string name="RegistrationActivity_select_your_country">Pasirinkite savo šalį</string>
   <string name="RegistrationActivity_you_must_specify_your_country_code">Jūs privalote nurodyti savo
@@ -1468,6 +1482,7 @@
   <string name="SubmitDebugLogActivity_success">Įvykdyta!</string>
   <string name="SubmitDebugLogActivity_copy_this_url_and_add_it_to_your_issue">Nukopijuokite šį URL ir pridėkite jį į savo pranešimą apie klaidą ar palaikymo el. laišką:\n\n<b>%1$s</b></string>
   <string name="SubmitDebugLogActivity_share">Bendrinti</string>
+  <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online">Šis žurnalas bus viešai paskelbtas internete talkininkams peržiūrėti. Jūs galite jį išnagrinėti ir, prieš išsiųsdami, paredaguoti.</string>
   <!--SupportEmailUtil-->
   <string name="SupportEmailUtil_filter">Filtras:</string>
   <string name="SupportEmailUtil_device_info">Įrenginio informacija:</string>
@@ -1583,6 +1598,7 @@
   <string name="MessageNotifier_failed_to_deliver_message">Nepavyko pristatyti žinutės.</string>
   <string name="MessageNotifier_error_delivering_message">Klaida, pristatant žinutę.</string>
   <string name="MessageNotifier_message_delivery_paused">Žinučių pristatymas pristabdytas.</string>
+  <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Patvirtinkite, norėdami tęsti susirašinėjimą per Molly.</string>
   <string name="MessageNotifier_mark_all_as_read">Žymėti visas kaip skaitytas</string>
   <string name="MessageNotifier_mark_read">Žymėti kaip skaitytą</string>
   <string name="MessageNotifier_turn_off_these_notifications">Išjungti šiuos pranešimus</string>
@@ -1718,7 +1734,7 @@
   <string name="conversation_activity__sim_n">SIM %1$d</string>
   <string name="conversation_activity__send">Siųsti</string>
   <string name="conversation_activity__compose_description">Žinutės rašymas</string>
-  <string name="conversation_activity__emoji_toggle_description">Perjungti jaustukų klaviatūrą</string>
+  <string name="conversation_activity__emoji_toggle_description">Perjungti šypsenėlių klaviatūrą</string>
   <string name="conversation_activity__attachment_thumbnail">Priedo miniatiūra</string>
   <string name="conversation_activity__quick_attachment_drawer_toggle_camera_description">Perjungti sparčiosios kameros priedų stalčių</string>
   <string name="conversation_activity__quick_attachment_drawer_record_and_send_audio_description">Įrašyti ir siųsti garso įrašo priedą</string>
@@ -1748,6 +1764,8 @@
   <string name="ConversationUpdateItem_enable_call_notifications">Įjungti pranešimus apie skambučius</string>
   <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">Nėra jokių bendrų grupių. Atidžiai peržiūrėkite prašymus.</string>
   <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">Šioje grupėje nėra jokių adresatų. Atidžiai peržiūrėkite prašymus.</string>
+  <string name="ConversationUpdateItem_view">Rodyti</string>
+  <string name="ConversationUpdateItem_the_disappearing_message_time_will_be_set_to_s_when_you_message_them">Kai rašysite jiems žinutes, išnykstančių žinučių laikas bus nustatytas į %1$s.</string>
   <!--audio_view-->
   <string name="audio_view__play_pause_accessibility_description">Atkurti … Pristabdyti</string>
   <string name="audio_view__download_accessibility_description">Atsisiųsti</string>
@@ -1889,6 +1907,7 @@
   <string name="CreateProfileActivity__username">Naudotojo vardas</string>
   <string name="CreateProfileActivity__create_a_username">Sukurti naudotojo vardą</string>
   <string name="CreateProfileActivity_custom_mms_group_names_and_photos_will_only_be_visible_to_you">Tinkinti MMS grupės vardai ir nuotraukos bus matomi tik jums.</string>
+  <string name="CreateProfileActivity_group_descriptions_will_be_visible_to_members_of_this_group_and_people_who_have_been_invited">Grupės aprašus matys šios grupės nariai ir į grupę pakviesti žmonės.</string>
   <!--EditAboutFragment-->
   <string name="EditAboutFragment_about">Apie</string>
   <string name="EditAboutFragment_write_a_few_words_about_yourself">Parašykite kelis žodžius apie save…</string>
@@ -1901,8 +1920,9 @@
   <string name="EditAboutFragment_taking_a_break">Man pertrauka</string>
   <string name="EditAboutFragment_working_on_something_new">Dirbu ties kažkuo nauju</string>
   <!--EditProfileFragment-->
-  <string name="EditProfileFragment__edit_group_name_and_photo">Taisyti grupės pavadinimą ir nuotrauką</string>
+  <string name="EditProfileFragment__edit_group">Taisyti grupę</string>
   <string name="EditProfileFragment__group_name">Grupės pavadinimas</string>
+  <string name="EditProfileFragment__group_description">Grupės aprašas</string>
   <!--EditProfileNameFragment-->
   <string name="EditProfileNameFragment_your_name">Jūsų vardas</string>
   <string name="EditProfileNameFragment_first_name">Vardas</string>
@@ -1970,6 +1990,7 @@
   <string name="HelpFragment__could_not_upload_logs">Nepavyko atnaujinti žurnalų</string>
   <string name="HelpFragment__please_be_as_descriptive_as_possible">Kaip įmanoma išsamiau aprašykite problemą, kad lengviau ją suprastume.</string>
   <string-array name="HelpFragment__categories">
+    <item>-- Pasirinkite parinktį --</item>
     <item>Kažkas neveikia</item>
     <item>Prašymas pridėti naują ypatybę</item>
     <item>Klausimas</item>
@@ -2012,7 +2033,7 @@
   <string name="arrays__large">Didelis</string>
   <string name="arrays__extra_large">Labai didelis</string>
   <string name="arrays__default">Numatytoji</string>
-  <string name="arrays__high">Didžiausia</string>
+  <string name="arrays__high">Aukšta</string>
   <string name="arrays__max">Maksimali</string>
   <!--plurals.xml-->
   <plurals name="hours_ago">
@@ -2097,6 +2118,7 @@
   <string name="preferences__appearance">Išvaizda</string>
   <string name="preferences__theme">Apipavidalinimas</string>
   <string name="preferences__chat_wallpaper">Pokalbio fonas</string>
+  <string name="preferences__chat_color_and_wallpaper">Pokalbio spalva ir fonas</string>
   <string name="preferences__disable_pin">Išjungti PIN kodą</string>
   <string name="preferences__enable_pin">Įjungti PIN kodą</string>
   <string name="preferences__if_you_disable_the_pin_you_will_lose_all_data">Jei išjungsite PIN kodą, tuomet registruodamiesi iš naujo Signal programėlėje, prarasite visus duomenis, nebent rankiniu būdu pasidarysite atsarginę kopiją ir ją atkursite. Tol, kol PIN kodas yra išjungtas, negalėsite įjungti Registracijos užrakto.</string>
@@ -2115,7 +2137,8 @@
   <string name="preferences__if_read_receipts_are_disabled_you_wont_be_able_to_see_read_receipts">Jeigu pranešimai apie žinučių skaitymą yra išjungti, jūs negalėsite matyti kitų žmonių pranešimų apie žinučių skaitymą.</string>
   <string name="preferences__typing_indicators">Rašymo indikatoriai</string>
   <string name="preferences__if_typing_indicators_are_disabled_you_wont_be_able_to_see_typing_indicators">Išjungę rašymo indikatorius, nebegalėsite matyti kitų žmonių rašymo indikatorių.</string>
-  <string name="preferences__request_keyboard_to_disable_personalized_learning">Prašyti klaviatūros išjungti suasmenintą mokymąsi. Šis nustatymas nieko negarantuoja ir jūsų klaviatūra gali jo nepaisyti.</string>
+  <string name="preferences__request_keyboard_to_disable">Prašyti klaviatūros išjungti suasmenintą mokymąsi.</string>
+  <string name="preferences__this_setting_is_not_a_guarantee">Šis nustatymas nieko negarantuoja ir jūsų klaviatūra gali jo nepaisyti.</string>
   <string name="preferences_app_protection__blocked_users">Užblokuoti naudotojai</string>
   <string name="preferences_chats__when_using_mobile_data">Naudojant mobiliuosius duomenis</string>
   <string name="preferences_chats__when_using_wifi">Naudojant belaidį ryšį (Wi-Fi)</string>
@@ -2143,8 +2166,8 @@
   <string name="preferences_storage__none">Nėra</string>
   <string name="preferences_storage__s_messages">%1$s žinučių</string>
   <string name="preferences_storage__custom">Tinkintai</string>
-  <string name="preferences_advanced__use_system_emoji">Naudoti sistemos jaustukus</string>
-  <string name="preferences_advanced__disable_signal_built_in_emoji_support">Išjungti Signal įtaisytą jaustukų palaikymą</string>
+  <string name="preferences_advanced__use_system_emoji">Naudoti sistemos šypsenėles</string>
+  <string name="preferences_advanced__disable_signal_built_in_emoji_support">Išjungti Signal įtaisytą šypsenėlių palaikymą</string>
   <string name="preferences_advanced__relay_all_calls_through_the_signal_server_to_avoid_revealing_your_ip_address">Retransliuoti visus skambučius per Signal serverį, kad būtų išvengta jūsų IP adreso atskleidimo jūsų adresatui. Įjungus, pablogės skambučių kokybė.</string>
   <string name="preferences_advanced__always_relay_calls">Visada retransliuoti skambučius</string>
   <string name="preferences_app_protection__who_can">Kas gali…</string>
@@ -2155,8 +2178,8 @@
   <string name="preferences_data_and_storage__calls">Skambučiai</string>
   <string name="preferences_data_and_storage__use_less_data_for_calls">Naudoti skambučiams mažiau duomenų</string>
   <string name="preferences_data_and_storage__never">Niekada</string>
-  <string name="preferences_data_and_storage__wifi_and_cellular">Belaidis (WiFi) ir mobilusis ryšys</string>
-  <string name="preferences_data_and_storage__cellular_only">Tik mobilusis ryšys</string>
+  <!-- Removed by excludeNonTranslatables <string name="preferences_data_and_storage__wifi_and_cellular">Belaidis (WiFi) ir mobilusis ryšys</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="preferences_data_and_storage__cellular_only">Tik mobilusis ryšys</string> -->
   <string name="preference_data_and_storage__using_less_data_may_improve_calls_on_bad_networks">Mažesnis duomenų naudojimas gali pagerinti skambučių kokybę bloguose tinkluose</string>
   <string name="preferences_notifications__messages">Žinutės</string>
   <string name="preferences_notifications__events">Įvykiai</string>
@@ -2669,7 +2692,7 @@
   <string name="NewDeviceTransferInstructions__first_bullet">1.</string>
   <string name="NewDeviceTransferInstructions__tap_on_your_profile_photo_in_the_top_left_to_open_settings">Viršutiniame kairiajame kampe bakstelėkite ant savo profilio nuotraukos, kad būtų atverti Nustatymai</string>
   <string name="NewDeviceTransferInstructions__second_bullet">2.</string>
-  <string name="NewDeviceTransferInstructions__tap_on_chats">Bakstelėkite ant „Pokalbiai“</string>
+  <string name="NewDeviceTransferInstructions__tap_on_account">Bakstelėkite ant „Paskyra“</string>
   <string name="NewDeviceTransferInstructions__third_bullet">3.</string>
   <string name="NewDeviceTransferInstructions__tap_transfer_account_and_then_continue_on_both_devices">Abiejuose įrenginiuose bakstelėkite „Perkelti paskyrą“, o tuomet „Tęsti“</string>
   <!--NewDeviceTransferSetupFragment-->
@@ -2884,7 +2907,7 @@
   <!--ShareActivity-->
   <string name="ShareActivity__share">Bendrinti</string>
   <string name="ShareActivity__send">Siųsti</string>
-  <string name="ShareActivity__s_comma">%1$s,</string>
+  <!-- Removed by excludeNonTranslatables <string name="ShareActivity__s_comma">%1$s,</string> -->
   <string name="ShareActivity__sharing_to_multiple_chats_is">Bendrinimas su keliais pokalbiais yra palaikomas tik Signal žinutėms</string>
   <!--MultiShareDialogs-->
   <string name="MultiShareDialogs__failed_to_send_to_some_users">Nepavyko išsiųsti kai kuriems naudotojams</string>
@@ -2894,17 +2917,25 @@
   <!--ChatWallpaperActivity-->
   <string name="ChatWallpaperActivity__chat_wallpaper">Pokalbio fonas</string>
   <!--ChatWallpaperFragment-->
+  <string name="ChatWallpaperFragment__chat_color">Pokalbio spalva</string>
+  <string name="ChatWallpaperFragment__reset_chat_colors">Atstatyti pokalbio spalvas</string>
+  <string name="ChatWallpaperFragment__reset_chat_color">Atstatyti pokalbio spalvą</string>
+  <string name="ChatWallpaperFragment__reset_chat_color_question">Atstatyti pokalbio spalvą?</string>
   <string name="ChatWallpaperFragment__set_wallpaper">Nustatyti foną</string>
-  <string name="ChatWallpaperFragment__dark_theme_dims_wallpaper">Tamsus apipavidalinimas pritemdo foną</string>
-  <string name="ChatWallpaperFragment__clear_wallpaper">Išvalyti foną</string>
-  <string name="ChatWallpaperFragment__clear_wallpaper_for_this_chat">Išvalyti šio pokalbio foną?</string>
-  <string name="ChatWallpaperFragment__clear_wallpaper_this_will_not">Išvalyti foną? Tai neišvalys tinkintų fonų, kuriuos nustatėte savo pokalbiams.</string>
-  <string name="ChatWallpaperFragment__reset_all_wallpapers">Atstatyti visus fonus</string>
-  <string name="ChatWallpaperFragment__reset_all_wallpapers_including_custom">Atstatyti visus fonus, įskaitant tinkintus fonus, kuriuos nustatėte savo pokalbiams?</string>
+  <string name="ChatWallpaperFragment__dark_mode_dims_wallpaper">Tamsi veiksena pritemdo foną</string>
   <string name="ChatWallpaperFragment__contact_name">Adresato vardas</string>
   <string name="ChatWallpaperFragment__reset">Atstatyti</string>
   <string name="ChatWallpaperFragment__clear">Išvalyti</string>
   <string name="ChatWallpaperFragment__wallpaper_preview_description">Fono peržiūra</string>
+  <string name="ChatWallpaperFragment__would_you_like_to_override_all_chat_colors">Ar norėtumėte nustelbti visų pokalbių spalvas?</string>
+  <string name="ChatWallpaperFragment__would_you_like_to_override_all_wallpapers">Ar norėtumėte nustelbti visus fonus?</string>
+  <string name="ChatWallpaperFragment__reset_default_colors">Atstatyti numatytąsias spalvas</string>
+  <string name="ChatWallpaperFragment__reset_all_colors">Atstatyti visas spalvas</string>
+  <string name="ChatWallpaperFragment__reset_default_wallpaper">Atstatyti numatytąjį foną</string>
+  <string name="ChatWallpaperFragment__reset_all_wallpapers">Atstatyti visus fonus</string>
+  <string name="ChatWallpaperFragment__reset_wallpapers">Atstatyti fonus</string>
+  <string name="ChatWallpaperFragment__reset_wallpaper">Atstatyti foną</string>
+  <string name="ChatWallpaperFragment__reset_wallpaper_question">Atstatyti foną?</string>
   <!--ChatWallpaperSelectionFragment-->
   <string name="ChatWallpaperSelectionFragment__choose_from_photos">Pasirinkti iš nuotraukų</string>
   <string name="ChatWallpaperSelectionFragment__presets">Išankstinės parinktys</string>
@@ -3006,5 +3037,133 @@
   <string name="GroupsInCommonMessageRequest__none_of_your_contacts_or_people_you_chat_with_are_in_this_group">Šioje grupėje nėra nei vieno jūsų adresato ar žmogaus, su kuriuo bendraujate. Prieš priimdami, atidžiai peržiūrėkite prašymus, kad išvengtumėte nepageidaujamų žinučių.</string>
   <string name="GroupsInCommonMessageRequest__about_message_requests">Apie žinučių užklausas</string>
   <string name="GroupsInCommonMessageRequest__okay">Gerai</string>
+  <string name="ChatColorSelectionFragment__heres_a_preview_of_the_chat_color">Štai pokalbio spalvos peržiūra.</string>
+  <string name="ChatColorSelectionFragment__the_color_is_visible_to_only_you">Spalva yra matoma tik jums.</string>
+  <!--GroupDescriptionDialog-->
+  <string name="GroupDescriptionDialog__group_description">Grupės aprašas</string>
+  <!--QualitySelectorBottomSheetDialog-->
+  <string name="QualitySelectorBottomSheetDialog__standard">Standartinė</string>
+  <string name="QualitySelectorBottomSheetDialog__faster_less_data">Greičiau, mažiau duomenų</string>
+  <string name="QualitySelectorBottomSheetDialog__high">Aukšta</string>
+  <string name="QualitySelectorBottomSheetDialog__slower_more_data">Lėčiau, daugiau duomenų</string>
+  <string name="QualitySelectorBottomSheetDialog__photo_quality">Nuotraukų kokybė</string>
+  <!--AppSettingsFragment-->
+  <string name="AppSettingsFragment__invite_your_friends">Pakvieskite savo draugus</string>
+  <!--AccountSettingsFragment-->
+  <string name="AccountSettingsFragment__account">Paskyra</string>
+  <string name="AccountSettingsFragment__youll_be_asked_less_frequently">Bėgant laikui, jūsų bus klausiama vis rečiau</string>
+  <string name="AccountSettingsFragment__require_your_signal_pin">Norint vėl registruoti jūsų telefono numerį su Signal, reikalauti jūsų Signal PIN kodo</string>
+  <!--ChatsSettingsFragment-->
+  <string name="ChatsSettingsFragment__keyboard">Klaviatūra</string>
+  <string name="ChatsSettingsFragment__enter_key_sends">„Enter“ (Įvedimo) klavišas išsiunčia</string>
+  <!--SmsSettingsFragment-->
+  <string name="SmsSettingsFragment__use_as_default_sms_app">Naudoti kaip numatytąją SMS programėlę</string>
+  <!--NotificationsSettingsFragment-->
+  <string name="NotificationsSettingsFragment__messages">Žinutės</string>
+  <string name="NotificationsSettingsFragment__calls">Skambučiai</string>
+  <string name="NotificationsSettingsFragment__notify_when">Pranešti, kai…</string>
+  <string name="NotificationsSettingsFragment__contact_joins_signal">Adresatas prisijungia prie Signal</string>
+  <!--PrivacySettingsFragment-->
+  <string name="PrivacySettingsFragment__blocked">Užblokuotas</string>
+  <string name="PrivacySettingsFragment__d_contacts">%1$d adresatų</string>
+  <string name="PrivacySettingsFragment__messaging">Susirašinėjimas</string>
+  <string name="PrivacySettingsFragment__disappearing_messages">Išnykstančios žinutės</string>
+  <string name="PrivacySettingsFragment__app_security">Programėlės saugumas</string>
+  <string name="PrivacySettingsFragment__block_screenshots_in_the_recents_list_and_inside_the_app">Blokuoti ekrano kopijas paskiausiųjų sąraše ir programėlės viduje</string>
+  <string name="PrivacySettingsFragment__signal_message_and_calls">Signal žinutės ir skambučiai, visada retransliuoti skambučius ir užantspauduotas siuntėjas</string>
+  <string name="PrivacySettingsFragment__default_timer_for_new_changes">Numatytasis laikmatis naujuose pokalbiuose</string>
+  <string name="PrivacySettingsFragment__set_a_default_disappearing_message_timer_for_all_new_chats_started_by_you">Nustatyti numatytąjį išnykstančių žinučių laikmatį visiems jūsų pradėtiems naujiems pokalbiams.</string>
+  <!--AdvancedPrivacySettingsFragment-->
+  <string name="AdvancedPrivacySettingsFragment__show_status_icon">Rodyti būsenos piktogramą</string>
+  <string name="AdvancedPrivacySettingsFragment__show_an_icon">Išsamesnėje žinučių informacijoje rodyti piktogramą tais atvejais, kai jos buvo pristatytos naudojant užantspauduotą siuntėją.</string>
+  <!--ExpireTimerSettingsFragment-->
+  <string name="ExpireTimerSettingsFragment__when_enabled_new_messages_sent_and_received_in_new_chats_started_by_you_will_disappear_after_they_have_been_seen">Kai įjungta, jūsų pradėtuose naujuose pokalbiuose naujos išsiųstos ir gautos žinutės išnyks po to, kai bus perskaitytos.</string>
+  <string name="ExpireTimerSettingsFragment__when_enabled_new_messages_sent_and_received_in_this_chat_will_disappear_after_they_have_been_seen">Kai įjungta, šiame pokalbyje naujos išsiųstos ir gautos žinutės išnyks po to, kai bus perskaitytos.</string>
+  <string name="ExpireTimerSettingsFragment__off">Išjungta</string>
+  <string name="ExpireTimerSettingsFragment__4_weeks">4 savaitės</string>
+  <string name="ExpireTimerSettingsFragment__1_week">1 savaitė</string>
+  <string name="ExpireTimerSettingsFragment__1_day">1 diena</string>
+  <string name="ExpireTimerSettingsFragment__8_hours">8 valandos</string>
+  <string name="ExpireTimerSettingsFragment__1_hour">1 valanda</string>
+  <string name="ExpireTimerSettingsFragment__5_minutes">5 minutės</string>
+  <string name="ExpireTimerSettingsFragment__30_seconds">30 sekundžių</string>
+  <string name="ExpireTimerSettingsFragment__custom_time">Tinkintas laikas</string>
+  <string name="ExpireTimerSettingsFragment__set">Nustatyti</string>
+  <string name="ExpireTimerSettingsFragment__save">Įrašyti</string>
+  <string name="CustomExpireTimerSelectorView__seconds">sek.</string>
+  <string name="CustomExpireTimerSelectorView__minutes">min.</string>
+  <string name="CustomExpireTimerSelectorView__hours">val.</string>
+  <string name="CustomExpireTimerSelectorView__days">d.</string>
+  <string name="CustomExpireTimerSelectorView__weeks">sav.</string>
+  <!--HelpSettingsFragment-->
+  <string name="HelpSettingsFragment__support_center">Palaikymo centras</string>
+  <string name="HelpSettingsFragment__contact_us">Susisiekite su mumis</string>
+  <string name="HelpSettingsFragment__version">Versija</string>
+  <string name="HelpSettingsFragment__debug_log">Derinimo žurnalas</string>
+  <string name="HelpSettingsFragment__terms_amp_privacy_policy">Sąlygos ir Privatumo politika</string>
+  <string name="HelpFragment__copyright_signal_messenger">Autorių teisės Signal pokalbių programėlė</string>
+  <string name="HelpFragment__licenced_under_the_gplv3">Licencijuota pagal GPLv3</string>
+  <!--DataAndStorageSettingsFragment-->
+  <string name="DataAndStorageSettingsFragment__calls">Skambučiai</string>
+  <!--ChatColorSelectionFragment-->
+  <string name="ChatColorSelectionFragment__auto">Auto</string>
+  <string name="ChatColorSelectionFragment__use_custom_colors">Naudoti tinkintas spalvas</string>
+  <string name="ChatColorSelectionFragment__chat_color">Pokalbio spalva</string>
+  <string name="ChatColorSelectionFragment__edit">Taisyti</string>
+  <string name="ChatColorSelectionFragment__duplicate">Dubliuoti</string>
+  <string name="ChatColorSelectionFragment__delete">Ištrinti</string>
+  <string name="ChatColorSelectionFragment__delete_color">Ištrinti spalvą</string>
+  <plurals name="ChatColorSelectionFragment__this_custom_color_is_used">
+    <item quantity="one">Ši tinkinta spalva yra naudojama %1$d pokalbyje. Ar norite ją ištrinti visuose pokalbiuose?</item>
+    <item quantity="few">Ši tinkinta spalva yra naudojama %1$d pokalbiuose. Ar norite ją ištrinti visuose pokalbiuose?</item>
+    <item quantity="many">Ši tinkinta spalva yra naudojama %1$d pokalbių. Ar norite ją ištrinti visuose pokalbiuose?</item>
+    <item quantity="other">Ši tinkinta spalva yra naudojama %1$d pokalbyje. Ar norite ją ištrinti visuose pokalbiuose?</item>
+  </plurals>
+  <!--CustomChatColorCreatorFragment-->
+  <string name="CustomChatColorCreatorFragment__solid">Vientisa</string>
+  <string name="CustomChatColorCreatorFragment__gradient">Gradientas</string>
+  <string name="CustomChatColorCreatorFragment__hue">Atspalvis</string>
+  <string name="CustomChatColorCreatorFragment__saturation">Sodrumas</string>
+  <!--CustomChatColorCreatorFragmentPage-->
+  <string name="CustomChatColorCreatorFragmentPage__save">Įrašyti</string>
+  <string name="CustomChatColorCreatorFragmentPage__edit_color">Taisyti spalvą</string>
+  <plurals name="CustomChatColorCreatorFragmentPage__this_color_is_used">
+    <item quantity="one">Ši spalva yra naudojama %1$d pokalbyje. Ar norite įrašyti pakeitimus visuose pokalbiuose?</item>
+    <item quantity="few">Ši spalva yra naudojama %1$d pokalbiuose. Ar norite įrašyti pakeitimus visuose pokalbiuose?</item>
+    <item quantity="many">Ši spalva yra naudojama %1$d pokalbių. Ar norite įrašyti pakeitimus visuose pokalbiuose?</item>
+    <item quantity="other">Ši spalva yra naudojama %1$d pokalbyje. Ar norite įrašyti pakeitimus visuose pokalbiuose?</item>
+  </plurals>
+  <!--ChatColorGradientTool-->
+  <string name="ChatColorGradientTool_top_edge_selector">Viršutinio krašto parinkiklis</string>
+  <string name="ChatColorGradientTool_bottom_edge_selector">Apatinio krašto parinkiklis</string>
+  <!--EditReactionsFragment-->
+  <string name="EditReactionsFragment__customize_reactions">Tinkinti reakcijas</string>
+  <string name="EditReactionsFragment__tap_to_replace_an_emoji">Bakstelėkite, norėdami pakeisti šypsenėlę</string>
+  <string name="EditReactionsFragment__reset">Atstatyti</string>
+  <string name="EditReactionsFragment_save">Įrašyti</string>
+  <string name="ChatColorSelectionFragment__auto_matches_the_color_to_the_wallpaper">Auto priderina spalvą prie fono</string>
+  <string name="CustomChatColorCreatorFragment__drag_to_change_the_direction_of_the_gradient">Tempkite, norėdami keisti gradiento kryptį</string>
+  <!--ChatColorsMegaphone-->
+  <string name="ChatColorsMegaphone__new_chat_colors">Naujos pokalbių spalvos</string>
+  <string name="ChatColorsMegaphone__we_switched_up_chat_colors">Mes perjungėme pokalbių spalvas, kad suteiktume jums daugiau parinkčių ir palengvintume pokalbių skaitymą.</string>
+  <string name="ChatColorsMegaphone__appearance">Išvaizda</string>
+  <string name="ChatColorsMegaphone__not_now">Ne dabar</string>
+  <!--KeyboardPagerFragment-->
+  <string name="KeyboardPagerFragment_emoji">Šypsenėlės</string>
+  <string name="KeyboardPagerFragment_open_emoji_search">Atverti šypsenėlių paiešką</string>
+  <string name="KeyboardPagerFragment_open_sticker_search">Atverti lipdukų paiešką</string>
+  <string name="KeyboardPagerFragment_open_gif_search">Atverti GIF paiešką</string>
+  <string name="KeyboardPagerFragment_stickers">Lipdukai</string>
+  <string name="KeyboardPagerFragment_backspace">Naikinimas</string>
+  <string name="KeyboardPagerFragment_gifs">GIF atvaizdai</string>
+  <string name="KeyboardPagerFragment_search_emoji">Ieškoti šypsenėlių</string>
+  <string name="KeyboardPagerfragment_back_to_emoji">Atgal į šypsenėles</string>
+  <string name="KeyboardPagerfragment_clear_search_entry">Išvalyti paieškos įrašą</string>
+  <string name="KeyboardPagerFragment_search_giphy">Ieškoti GIPHY</string>
+  <!--StickerSearchDialogFragment-->
+  <string name="StickerSearchDialogFragment_search_stickers">Ieškoti lipdukų</string>
+  <string name="StickerSearchDialogFragment_no_results_found">Nerasta jokių rezultatų</string>
+  <string name="EmojiSearchFragment__no_results_found">Nerasta jokių rezultatų</string>
+  <string name="NotificationsSettingsFragment__unknown_ringtone">Nežinoma skambučio melodija</string>
   <!--EOF-->
 </resources>

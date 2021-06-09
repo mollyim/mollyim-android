@@ -10,19 +10,14 @@ import com.annimon.stream.Stream;
 
 import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.logging.Log;
-import org.thoughtcrime.securesms.color.MaterialColor;
-import org.thoughtcrime.securesms.color.MaterialColors;
 import org.thoughtcrime.securesms.contacts.sync.DirectoryHelper;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.database.GroupDatabase;
 import org.thoughtcrime.securesms.database.IdentityDatabase;
 import org.thoughtcrime.securesms.database.ThreadDatabase;
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
-import org.thoughtcrime.securesms.jobs.MultiDeviceContactUpdateJob;
-import org.thoughtcrime.securesms.mms.OutgoingExpirationUpdateMessage;
+import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
-import org.thoughtcrime.securesms.sms.MessageSender;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -62,14 +57,6 @@ final class ManageRecipientRepository {
                                                   .orNull()));
   }
 
-  void setExpiration(int newExpirationTime) {
-    SignalExecutors.BOUNDED.execute(() -> {
-      DatabaseFactory.getRecipientDatabase(context).setExpireMessages(recipientId, newExpirationTime);
-      OutgoingExpirationUpdateMessage outgoingMessage = new OutgoingExpirationUpdateMessage(Recipient.resolved(recipientId), System.currentTimeMillis(), newExpirationTime * 1000L);
-      MessageSender.send(context, outgoingMessage, getThreadId(), false, null);
-    });
-  }
-
   void getGroupMembership(@NonNull Consumer<List<RecipientId>> onComplete) {
     SignalExecutors.BOUNDED.execute(() -> {
       GroupDatabase                   groupDatabase   = DatabaseFactory.getGroupDatabase(context);
@@ -90,16 +77,6 @@ final class ManageRecipientRepository {
 
   void setMuteUntil(long until) {
     SignalExecutors.BOUNDED.execute(() -> DatabaseFactory.getRecipientDatabase(context).setMuted(recipientId, until));
-  }
-
-  void setColor(int color) {
-    SignalExecutors.BOUNDED.execute(() -> {
-      MaterialColor selectedColor = MaterialColors.CONVERSATION_PALETTE.getByColor(context, color);
-      if (selectedColor != null) {
-        DatabaseFactory.getRecipientDatabase(context).setColor(recipientId, selectedColor);
-        ApplicationDependencies.getJobManager().add(new MultiDeviceContactUpdateJob(recipientId));
-      }
-    });
   }
 
   void refreshRecipient() {
@@ -125,5 +102,14 @@ final class ManageRecipientRepository {
 
   void getActiveGroupCount(@NonNull Consumer<Integer> onComplete) {
     SignalExecutors.BOUNDED.execute(() -> onComplete.accept(DatabaseFactory.getGroupDatabase(context).getActiveGroupCount()));
+  }
+
+  @WorkerThread
+  boolean hasCustomNotifications(Recipient recipient) {
+    if (recipient.getNotificationChannel() != null || !NotificationChannels.supported()) {
+      return true;
+    }
+
+    return NotificationChannels.updateWithShortcutBasedChannel(context, recipient);
   }
 }

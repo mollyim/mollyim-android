@@ -24,6 +24,7 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.service.UpdateApkRefreshListener;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
+import org.thoughtcrime.securesms.wallpaper.ChatWallpaperActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,9 +62,10 @@ public class OnboardingMegaphoneView extends FrameLayout {
 
   private static class CardAdapter extends RecyclerView.Adapter<CardViewHolder> implements ActionClickListener {
 
-    private static final int TYPE_GROUP  = 0;
-    private static final int TYPE_INVITE = 1;
-    private static final int TYPE_UPDATE = 2;
+    private static final int TYPE_GROUP      = 0;
+    private static final int TYPE_INVITE     = 1;
+    private static final int TYPE_UPDATE     = 2;
+    private static final int TYPE_APPEARANCE = 3;
 
     private final Context                   context;
     private final MegaphoneActionController controller;
@@ -96,10 +98,11 @@ public class OnboardingMegaphoneView extends FrameLayout {
     public @NonNull CardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
       View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.onboarding_megaphone_list_item, parent, false);
       switch (viewType) {
-        case TYPE_GROUP:  return new GroupCardViewHolder(view);
-        case TYPE_INVITE: return new InviteCardViewHolder(view);
-        case TYPE_UPDATE: return new UpdateCardViewHolder(view);
-        default:          throw new IllegalStateException("Invalid viewType! " + viewType);
+        case TYPE_GROUP:      return new GroupCardViewHolder(view);
+        case TYPE_INVITE:     return new InviteCardViewHolder(view);
+        case TYPE_UPDATE:     return new UpdateCardViewHolder(view);
+        case TYPE_APPEARANCE: return new AppearanceCardViewHolder(view);
+        default:              throw new IllegalStateException("Invalid viewType! " + viewType);
       }
     }
 
@@ -137,6 +140,10 @@ public class OnboardingMegaphoneView extends FrameLayout {
 
       if (SignalStore.onboarding().shouldShowEnableApkUpdate(context)) {
         data.add(TYPE_UPDATE);
+      }
+
+      if (SignalStore.onboarding().shouldShowAppearance()) {
+        data.add(TYPE_APPEARANCE);
       }
 
       return data;
@@ -260,6 +267,34 @@ public class OnboardingMegaphoneView extends FrameLayout {
     @Override
     void onCloseClicked() {
       SignalStore.onboarding().setShowEnableApkUpdate(false);
+    }
+  }
+
+  private static class AppearanceCardViewHolder extends CardViewHolder {
+
+    public AppearanceCardViewHolder(@NonNull View itemView) {
+      super(itemView);
+    }
+
+    @Override
+    int getButtonStringRes() {
+      return R.string.Megaphones_appearance;
+    }
+
+    @Override
+    int getImageRes() {
+      return R.drawable.ic_signal_appearance;
+    }
+
+    @Override
+    void onActionClicked(@NonNull MegaphoneActionController controller) {
+      controller.onMegaphoneNavigationRequested(ChatWallpaperActivity.createIntent(controller.getMegaphoneActivity()));
+      SignalStore.onboarding().setShowAppearance(false);
+    }
+
+    @Override
+    void onCloseClicked() {
+      SignalStore.onboarding().setShowAppearance(false);
     }
   }
 }

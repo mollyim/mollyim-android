@@ -6,22 +6,28 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.annimon.stream.Stream;
 
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.components.emoji.EmojiKeyboardProvider.EmojiEventListener;
 import org.thoughtcrime.securesms.components.emoji.EmojiPageViewGridAdapter.VariationSelectorListener;
+import org.thoughtcrime.securesms.util.MappingModelList;
+import org.thoughtcrime.securesms.util.ViewUtil;
 
 public class EmojiPageView extends FrameLayout implements VariationSelectorListener {
   private static final String TAG = Log.tag(EmojiPageView.class);
 
   private EmojiPageModel                   model;
-  private EmojiPageViewGridAdapter         adapter;
+  private AdapterFactory                   adapterFactory;
   private RecyclerView                     recyclerView;
-  private GridLayoutManager                layoutManager;
+  private RecyclerView.LayoutManager       layoutManager;
   private RecyclerView.OnItemTouchListener scrollDisabler;
   private VariationSelectorListener        variationSelectorListener;
   private EmojiVariationSelectorPopup      popup;
@@ -31,34 +37,74 @@ public class EmojiPageView extends FrameLayout implements VariationSelectorListe
                        @NonNull VariationSelectorListener variationSelectorListener,
                        boolean allowVariations)
   {
+    this(context, emojiSelectionListener, variationSelectorListener, allowVariations, new GridLayoutManager(context, 8), R.layout.emoji_display_item);
+  }
+
+  public EmojiPageView(@NonNull Context context,
+                       @NonNull EmojiEventListener emojiSelectionListener,
+                       @NonNull VariationSelectorListener variationSelectorListener,
+                       boolean allowVariations,
+                       @NonNull RecyclerView.LayoutManager layoutManager,
+                       @LayoutRes int displayItemLayoutResId)
+  {
     super(context);
     final View view = LayoutInflater.from(getContext()).inflate(R.layout.emoji_grid_layout, this, true);
 
     this.variationSelectorListener = variationSelectorListener;
 
-    recyclerView   = view.findViewById(R.id.emoji);
-    layoutManager  = new GridLayoutManager(context, 8);
-    scrollDisabler = new ScrollDisabler();
-    popup          = new EmojiVariationSelectorPopup(context, emojiSelectionListener);
-    adapter        = new EmojiPageViewGridAdapter(EmojiProvider.getInstance(context),
-                                                  popup,
-                                                  emojiSelectionListener,
-                                                  this,
-                                                  allowVariations);
+    this.recyclerView   = view.findViewById(R.id.emoji);
+    this.layoutManager  = layoutManager;
+    this.scrollDisabler = new ScrollDisabler();
+    this.popup          = new EmojiVariationSelectorPopup(context, emojiSelectionListener);
+    this.adapterFactory = () -> new EmojiPageViewGridAdapter(popup,
+                                                             emojiSelectionListener,
+                                                             this,
+                                                             allowVariations,
+                                                             displayItemLayoutResId);
 
     recyclerView.setLayoutManager(layoutManager);
-    recyclerView.setAdapter(adapter);
+    recyclerView.setItemAnimator(null);
+  }
+
+  public void presentForEmojiKeyboard() {
+    recyclerView.setPadding(recyclerView.getPaddingLeft(),
+                            recyclerView.getPaddingTop(),
+                            recyclerView.getPaddingRight(),
+                            recyclerView.getPaddingBottom() + ViewUtil.dpToPx(56));
+
+    recyclerView.setClipToPadding(false);
   }
 
   public void onSelected() {
-    if (model.isDynamic() && adapter != null) {
-      adapter.notifyDataSetChanged();
+    if (model.isDynamic() && recyclerView.getAdapter() != null) {
+      recyclerView.getAdapter().notifyDataSetChanged();
     }
   }
 
-  public void setModel(EmojiPageModel model) {
+  public void setModel(@Nullable EmojiPageModel model) {
     this.model = model;
-    adapter.setEmoji(model.getDisplayEmoji());
+
+    EmojiPageViewGridAdapter adapter = adapterFactory.create();
+    recyclerView.setAdapter(adapter);
+    adapter.submitList(getMappingModelList());
+  }
+
+  public void bindSearchableAdapter(@Nullable EmojiPageModel model) {
+    this.model = model;
+
+    EmojiPageViewGridAdapter adapter = adapterFactory.create();
+    recyclerView.setAdapter(adapter);
+    adapter.submitList(getMappingModelList());
+  }
+
+  private @NonNull MappingModelList getMappingModelList() {
+    MappingModelList mappingModels = new MappingModelList();
+
+    if (model != null) {
+      mappingModels.addAll(Stream.of(model.getDisplayEmoji()).map(EmojiPageViewGridAdapter.EmojiModel::new).toList());
+    }
+
+    return mappingModels;
   }
 
   @Override
@@ -70,8 +116,12 @@ public class EmojiPageView extends FrameLayout implements VariationSelectorListe
 
   @Override
   protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-    int idealWidth = getContext().getResources().getDimensionPixelOffset(R.dimen.emoji_drawer_item_width);
-    layoutManager.setSpanCount(Math.max(w / idealWidth, 1));
+    if (layoutManager instanceof GridLayoutManager) {
+      int idealWidth  = getContext().getResources().getDimensionPixelOffset(R.dimen.emoji_drawer_item_width);
+      int spanCount = Math.max(w / idealWidth, 1);
+
+      ((GridLayoutManager) layoutManager).setSpanCount(spanCount);
+    }
   }
 
   @Override
@@ -102,5 +152,9 @@ public class EmojiPageView extends FrameLayout implements VariationSelectorListe
 
     @Override
     public void onRequestDisallowInterceptTouchEvent(boolean b) { }
+  }
+
+  private interface AdapterFactory {
+    EmojiPageViewGridAdapter create();
   }
 }

@@ -84,8 +84,11 @@ import org.whispersystems.signalservice.internal.contacts.entities.KeyBackupResp
 import org.whispersystems.signalservice.internal.contacts.entities.TokenResponse;
 import org.whispersystems.signalservice.internal.push.exceptions.ForbiddenException;
 import org.whispersystems.signalservice.internal.push.exceptions.GroupExistsException;
+import org.whispersystems.signalservice.internal.push.exceptions.GroupMismatchedDevicesException;
 import org.whispersystems.signalservice.internal.push.exceptions.GroupNotFoundException;
 import org.whispersystems.signalservice.internal.push.exceptions.GroupPatchNotAcceptedException;
+import org.whispersystems.signalservice.internal.push.exceptions.GroupStaleDevicesException;
+import org.whispersystems.signalservice.internal.push.exceptions.InvalidUnidentifiedAccessHeaderException;
 import org.whispersystems.signalservice.internal.push.exceptions.MismatchedDevicesException;
 import org.whispersystems.signalservice.internal.push.exceptions.NotInGroupException;
 import org.whispersystems.signalservice.internal.push.exceptions.PaymentsRegionException;
@@ -188,6 +191,7 @@ public class PushServiceSocket {
   private static final String DIRECTORY_AUTH_PATH       = "/v1/directory/auth";
   private static final String DIRECTORY_FEEDBACK_PATH   = "/v1/directory/feedback-v3/%s";
   private static final String MESSAGE_PATH              = "/v1/messages/%s";
+  private static final String GROUP_MESSAGE_PATH        = "/v1/messages/multi_recipient?ts=%s&online=%s";
   private static final String SENDER_ACK_MESSAGE_PATH   = "/v1/messages/%s/%d";
   private static final String UUID_ACK_MESSAGE_PATH     = "/v1/messages/uuid/%s";
   private static final String ATTACHMENT_V2_PATH        = "/v2/attachments/form/upload";
@@ -223,6 +227,8 @@ public class PushServiceSocket {
 
   private static final String SUBMIT_RATE_LIMIT_CHALLENGE       = "/v1/challenge";
   private static final String REQUEST_RATE_LIMIT_PUSH_CHALLENGE = "/v1/challenge/push";
+
+  private static final String REPORT_SPAM = "/v1/messages/report/%s/%s";
 
   private static final String SERVER_DELIVERED_TIMESTAMP_HEADER = "X-Signal-Timestamp";
 
@@ -402,6 +408,64 @@ public class PushServiceSocket {
   public byte[] getUuidOnlySenderCertificate() throws IOException {
     String responseText = makeServiceRequest(SENDER_CERTIFICATE_NO_E164_PATH, "GET", null);
     return JsonUtil.fromJson(responseText, SenderCertificate.class).getCertificate();
+  }
+
+  public SendGroupMessageResponse sendGroupMessage(byte[] body, byte[] joinedUnidentifiedAccess, long timestamp, boolean online)
+      throws IOException
+  {
+    ServiceConnectionHolder connectionHolder = (ServiceConnectionHolder) getRandom(serviceClients, random);
+
+    String path = String.format(Locale.US, GROUP_MESSAGE_PATH, timestamp, online);
+
+    Request.Builder requestBuilder = new Request.Builder();
+    requestBuilder.url(String.format("%s%s", connectionHolder.getUrl(), path));
+    requestBuilder.put(RequestBody.create(MediaType.get("application/vnd.signal-messenger.mrm"), body));
+    requestBuilder.addHeader("Unidentified-Access-Key", Base64.encodeBytes(joinedUnidentifiedAccess));
+
+    if (signalAgent != null) {
+      requestBuilder.addHeader("X-Signal-Agent", signalAgent);
+    }
+
+    if (connectionHolder.getHostHeader().isPresent()) {
+      requestBuilder.addHeader("Host", connectionHolder.getHostHeader().get());
+    }
+
+    Call call = connectionHolder.getUnidentifiedClient().newCall(requestBuilder.build());
+
+    synchronized (connections) {
+      connections.add(call);
+    }
+
+    Response response;
+
+    try {
+      response = call.execute();
+    } catch (IOException e) {
+      throw new PushNetworkException(e);
+    } finally {
+      synchronized (connections) {
+        connections.remove(call);
+      }
+    }
+
+    switch (response.code()) {
+      case 200:
+        return readBodyJson(response.body(), SendGroupMessageResponse.class);
+      case 401:
+        throw new InvalidUnidentifiedAccessHeaderException();
+      case 404:
+        throw new NotFoundException("At least one unregistered user in message send.");
+      case 409:
+        GroupMismatchedDevices[] mismatchedDevices = readBodyJson(response.body(), GroupMismatchedDevices[].class);
+        throw new GroupMismatchedDevicesException(mismatchedDevices);
+      case 410:
+        GroupStaleDevices[] staleDevices = readBodyJson(response.body(), GroupStaleDevices[].class);
+        throw new GroupStaleDevicesException(staleDevices);
+      case 508:
+        throw new ServerRejectedException();
+      default:
+        throw new NonSuccessfulResponseCodeException(response.code());
+    }
   }
 
   public SendMessageResponse sendMessage(OutgoingPushMessageList bundle, Optional<UnidentifiedAccess> unidentifiedAccess)
@@ -1499,7 +1563,7 @@ public class PushServiceSocket {
         throw new ServerRejectedException();
     }
 
-    if (responseCode != 200 && responseCode != 204) {
+    if (responseCode != 200 && responseCode != 202 && responseCode != 204) {
       throw new NonSuccessfulResponseCodeException(responseCode, "Bad response: " + responseCode + " " + responseMessage);
     }
 
@@ -2182,6 +2246,12 @@ public class PushServiceSocket {
       Log.w(TAG, e);
       throw new MalformedResponseException("Unable to parse entity", e);
     }
+  }
+
+  public void reportSpam(String e164, String serverGuid)
+      throws NonSuccessfulResponseCodeException, MalformedResponseException, PushNetworkException
+  {
+    makeServiceRequest(String.format(REPORT_SPAM, e164, serverGuid), "POST", "");
   }
 
   public static final class GroupHistory {

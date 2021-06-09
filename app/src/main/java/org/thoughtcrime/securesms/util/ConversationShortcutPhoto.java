@@ -24,7 +24,6 @@ import org.thoughtcrime.securesms.contacts.avatars.FallbackPhoto80dp;
 import org.thoughtcrime.securesms.contacts.avatars.GeneratedContactPhoto;
 import org.thoughtcrime.securesms.contacts.avatars.SystemContactPhoto;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
-import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.mms.GlideApp;
 import org.thoughtcrime.securesms.mms.GlideRequest;
 import org.thoughtcrime.securesms.profiles.AvatarHelper;
@@ -177,9 +176,9 @@ public final class ConversationShortcutPhoto implements Key {
         photoSource = R.drawable.ic_profile_80;
       }
 
-      FallbackContactPhoto photo   = recipient.isSelf() || recipient.isGroup() ? new FallbackPhoto80dp(photoSource, recipient.getColor().toAvatarColor(context))
+      FallbackContactPhoto photo   = recipient.isSelf() || recipient.isGroup() ? new FallbackPhoto80dp(photoSource, recipient.getAvatarColor().colorInt())
                                                                                : new ShortcutGeneratedContactPhoto(recipient.getDisplayName(context), photoSource, ViewUtil.dpToPx(80), ViewUtil.dpToPx(28));
-      Bitmap               toWrap  = DrawableUtil.toBitmap(photo.asDrawable(context, recipient.getColor().toAvatarColor(context)), ViewUtil.dpToPx(80), ViewUtil.dpToPx(80));
+      Bitmap               toWrap  = DrawableUtil.toBitmap(photo.asDrawable(context, recipient.getAvatarColor().colorInt()), ViewUtil.dpToPx(80), ViewUtil.dpToPx(80));
       Bitmap               wrapped = DrawableUtil.wrapBitmapForShortcutInfo(toWrap);
 
       toWrap.recycle();

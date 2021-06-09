@@ -1,7 +1,5 @@
 package org.thoughtcrime.securesms.util;
 
-import android.app.Application;
-import android.os.Build;
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
@@ -62,9 +60,6 @@ public final class FeatureFlags {
   private static final String PHONE_NUMBER_PRIVACY_VERSION      = "android.phoneNumberPrivacyVersion";
   private static final String CLIENT_EXPIRATION                 = "android.clientExpiration";
   public  static final String DONATE_MEGAPHONE                  = "android.donate";
-  private static final String VIEWED_RECEIPTS                   = "android.viewed.receipts";
-  private static final String GV1_FORCED_MIGRATE                = "android.groupsV1Migration.forced.2";
-  private static final String SEND_VIEWED_RECEIPTS              = "android.sendViewedReceipts";
   private static final String CUSTOM_VIDEO_MUXER                = "android.customVideoMuxer";
   private static final String CDS_REFRESH_INTERVAL              = "cds.syncInterval.seconds";
   private static final String AUTOMATIC_SESSION_RESET           = "android.automaticSessionReset.2";
@@ -77,9 +72,11 @@ public final class FeatureFlags {
   private static final String ANIMATED_STICKER_MIN_TOTAL_MEMORY = "android.animatedStickerMinTotalMemory";
   private static final String MESSAGE_PROCESSOR_ALARM_INTERVAL  = "android.messageProcessor.alarmIntervalMins";
   private static final String MESSAGE_PROCESSOR_DELAY           = "android.messageProcessor.foregroundDelayMs";
-  private static final String NOTIFICATION_REWRITE              = "android.notificationRewrite";
-  private static final String MP4_GIF_SEND_SUPPORT              = "android.mp4GifSendSupport";
+  private static final String MP4_GIF_SEND_SUPPORT              = "android.mp4GifSendSupport.2";
   private static final String MEDIA_QUALITY_LEVELS              = "android.mediaQuality.levels";
+  private static final String RETRY_RECEIPT_LIFESPAN            = "android.retryReceiptLifespan";
+  private static final String RETRY_RESPOND_MAX_AGE             = "android.retryRespondMaxAge";
+  private static final String SENDER_KEY                        = "android.senderKey";
 
   /**
    * We will only store remote values for flags in this set. If you want a flag to be controllable
@@ -94,9 +91,6 @@ public final class FeatureFlags {
       USERNAMES,
       VERIFY_V2,
       CLIENT_EXPIRATION,
-      VIEWED_RECEIPTS,
-      GV1_FORCED_MIGRATE,
-      SEND_VIEWED_RECEIPTS,
       CUSTOM_VIDEO_MUXER,
       CDS_REFRESH_INTERVAL,
       GROUP_NAME_MAX_LENGTH,
@@ -110,9 +104,11 @@ public final class FeatureFlags {
       ANIMATED_STICKER_MIN_TOTAL_MEMORY,
       MESSAGE_PROCESSOR_ALARM_INTERVAL,
       MESSAGE_PROCESSOR_DELAY,
-      NOTIFICATION_REWRITE,
       MP4_GIF_SEND_SUPPORT,
-      MEDIA_QUALITY_LEVELS
+      MEDIA_QUALITY_LEVELS,
+      RETRY_RECEIPT_LIFESPAN,
+      RETRY_RESPOND_MAX_AGE,
+      SENDER_KEY
   );
 
   @VisibleForTesting
@@ -156,10 +152,10 @@ public final class FeatureFlags {
       ANIMATED_STICKER_MIN_TOTAL_MEMORY,
       MESSAGE_PROCESSOR_ALARM_INTERVAL,
       MESSAGE_PROCESSOR_DELAY,
-      GV1_FORCED_MIGRATE,
-      NOTIFICATION_REWRITE,
       MP4_GIF_SEND_SUPPORT,
-      MEDIA_QUALITY_LEVELS
+      MEDIA_QUALITY_LEVELS,
+      RETRY_RECEIPT_LIFESPAN,
+      RETRY_RESPOND_MAX_AGE
   );
 
   /**
@@ -276,21 +272,6 @@ public final class FeatureFlags {
     return getVersionFlag(PHONE_NUMBER_PRIVACY_VERSION) == VersionFlag.ON;
   }
 
-  /** Whether the user should display the content revealed dot in voice notes. */
-  public static boolean viewedReceipts() {
-    return getBoolean(VIEWED_RECEIPTS, false);
-  }
-
-  /** Whether or not forced migration from GV1->GV2 is enabled. */
-  public static boolean groupsV1ForcedMigration() {
-    return getBoolean(GV1_FORCED_MIGRATE, false);
-  }
-
-  /** Whether or not to send viewed receipts. */
-  public static boolean sendViewedReceipts() {
-    return getBoolean(SEND_VIEWED_RECEIPTS, false);
-  }
-
   /** Whether to use the custom streaming muxer or built in android muxer. */
   public static boolean useStreamingVideoMuxer() {
     return getBoolean(CUSTOM_VIDEO_MUXER, false);
@@ -346,17 +327,27 @@ public final class FeatureFlags {
     return getInteger(ANIMATED_STICKER_MIN_TOTAL_MEMORY, (int) ByteUnit.GIGABYTES.toMegabytes(3));
   }
 
-  /** Whether or not to use the new notification system. */
-  public static boolean useNewNotificationSystem() {
-    return Build.VERSION.SDK_INT >= 26 || getBoolean(NOTIFICATION_REWRITE, false);
-  }
-
   public static boolean mp4GifSendSupport() {
     return getBoolean(MP4_GIF_SEND_SUPPORT, false);
   }
 
   public static @Nullable String getMediaQualityLevels() {
     return getString(MEDIA_QUALITY_LEVELS, "");
+  }
+
+  /** How long to wait before considering a retry to be a failure. */
+  public static long retryReceiptLifespan() {
+    return getLong(RETRY_RECEIPT_LIFESPAN, TimeUnit.HOURS.toMillis(1));
+  }
+
+  /** How old a message is allowed to be while still resending in response to a retry receipt . */
+  public static long retryRespondMaxAge() {
+    return getLong(RETRY_RESPOND_MAX_AGE, TimeUnit.DAYS.toMillis(1));
+  }
+
+  /** Whether or not sending using sender key is enabled. */
+  public static boolean senderKey() {
+    return getBoolean(SENDER_KEY, false);
   }
 
   /** Only for rendering debug info. */
@@ -540,6 +531,24 @@ public final class FeatureFlags {
         return Integer.parseInt((String) remote);
       } catch (NumberFormatException e) {
         Log.w(TAG, "Expected an int for key '" + key + "', but got something else! Falling back to the default.");
+      }
+    }
+
+    return defaultValue;
+  }
+
+  private static long getLong(@NonNull String key, long defaultValue) {
+    Long forced = (Long) FORCED_VALUES.get(key);
+    if (forced != null) {
+      return forced;
+    }
+
+    Object remote = REMOTE_VALUES.get(key);
+    if (remote instanceof String) {
+      try {
+        return Long.parseLong((String) remote);
+      } catch (NumberFormatException e) {
+        Log.w(TAG, "Expected a long for key '" + key + "', but got something else! Falling back to the default.");
       }
     }
 

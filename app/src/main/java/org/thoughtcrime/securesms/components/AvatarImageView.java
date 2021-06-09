@@ -23,11 +23,11 @@ import com.bumptech.glide.load.resource.bitmap.DownsampleStrategy;
 
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.R;
-import org.thoughtcrime.securesms.color.MaterialColor;
-import org.thoughtcrime.securesms.contacts.avatars.ContactColors;
 import org.thoughtcrime.securesms.contacts.avatars.ContactPhoto;
 import org.thoughtcrime.securesms.contacts.avatars.ProfileContactPhoto;
 import org.thoughtcrime.securesms.contacts.avatars.ResourceContactPhoto;
+import org.thoughtcrime.securesms.conversation.colors.AvatarColor;
+import org.thoughtcrime.securesms.conversation.colors.ChatColors;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.groups.ui.managegroup.ManageGroupActivity;
 import org.thoughtcrime.securesms.mms.GlideApp;
@@ -73,6 +73,7 @@ public final class AvatarImageView extends AppCompatImageView {
   private OnClickListener                 listener;
   private Recipient.FallbackPhotoProvider fallbackPhotoProvider;
   private boolean                         blurred;
+  private ChatColors                      chatColors;
 
   private @Nullable RecipientContactPhoto recipientContactPhoto;
   private @NonNull  Drawable              unknownRecipientDrawable;
@@ -97,10 +98,11 @@ public final class AvatarImageView extends AppCompatImageView {
       typedArray.recycle();
     }
 
-    outlinePaint = ThemeUtil.isDarkTheme(getContext()) ? DARK_THEME_OUTLINE_PAINT : LIGHT_THEME_OUTLINE_PAINT;
+    outlinePaint = ThemeUtil.isDarkTheme(context) ? DARK_THEME_OUTLINE_PAINT : LIGHT_THEME_OUTLINE_PAINT;
 
-    unknownRecipientDrawable = new ResourceContactPhoto(R.drawable.ic_profile_outline_40, R.drawable.ic_profile_outline_20).asDrawable(getContext(), ContactColors.UNKNOWN_COLOR.toConversationColor(getContext()), inverted);
+    unknownRecipientDrawable = new ResourceContactPhoto(R.drawable.ic_profile_outline_40, R.drawable.ic_profile_outline_20).asDrawable(context, AvatarColor.UNKNOWN.colorInt(), inverted);
     blurred                  = false;
+    chatColors               = null;
   }
 
   @Override
@@ -171,10 +173,12 @@ public final class AvatarImageView extends AppCompatImageView {
                                                                                                                                      Recipient.self().getProfileAvatar()))
                                                                                  : new RecipientContactPhoto(recipient);
 
-      boolean shouldBlur = recipient.shouldBlurAvatar();
+      boolean    shouldBlur = recipient.shouldBlurAvatar();
+      ChatColors chatColors = recipient.getChatColors();
 
-      if (!photo.equals(recipientContactPhoto) || shouldBlur != blurred) {
+      if (!photo.equals(recipientContactPhoto) || shouldBlur != blurred || !Objects.equals(chatColors, this.chatColors)) {
         requestManager.clear(this);
+        this.chatColors       = chatColors;
         recipientContactPhoto = photo;
 
         Drawable fallbackContactPhotoDrawable = size == SIZE_SMALL ? photo.recipient.getSmallFallbackContactPhotoDrawable(getContext(), inverted, fallbackPhotoProvider)
@@ -207,12 +211,12 @@ public final class AvatarImageView extends AppCompatImageView {
       requestManager.clear(this);
       if (fallbackPhotoProvider != null) {
         setImageDrawable(fallbackPhotoProvider.getPhotoForRecipientWithoutName()
-                                              .asDrawable(getContext(), MaterialColor.STEEL.toAvatarColor(getContext()), inverted));
+                                              .asDrawable(getContext(), AvatarColor.UNKNOWN.colorInt(), inverted));
       } else {
         setImageDrawable(unknownRecipientDrawable);
       }
 
-      super.setOnClickListener(listener);
+      disableQuickContact();
     }
   }
 
@@ -240,11 +244,11 @@ public final class AvatarImageView extends AppCompatImageView {
 
   public void setImageBytesForGroup(@Nullable byte[] avatarBytes,
                                     @Nullable Recipient.FallbackPhotoProvider fallbackPhotoProvider,
-                                    @NonNull MaterialColor color)
+                                    @NonNull AvatarColor color)
   {
     Drawable fallback = Util.firstNonNull(fallbackPhotoProvider, Recipient.DEFAULT_FALLBACK_PHOTO_PROVIDER)
                             .getPhotoForGroup()
-                            .asDrawable(getContext(), color.toAvatarColor(getContext()));
+                            .asDrawable(getContext(), color.colorInt());
 
     GlideApp.with(this)
             .load(avatarBytes)
@@ -285,7 +289,7 @@ public final class AvatarImageView extends AppCompatImageView {
       if (other == null) return false;
 
       return other.recipient.equals(recipient) &&
-             other.recipient.getColor().equals(recipient.getColor()) &&
+             other.recipient.getChatColors().equals(recipient.getChatColors()) &&
              other.ready == ready &&
              Objects.equals(other.contactPhoto, contactPhoto);
     }

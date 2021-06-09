@@ -27,6 +27,7 @@ public interface MmsSmsColumns {
   public static final String REACTIONS_UNREAD         = "reactions_unread";
   public static final String REACTIONS_LAST_SEEN      = "reactions_last_seen";
   public static final String REMOTE_DELETED           = "remote_deleted";
+  public static final String SERVER_GUID              = "server_guid";
 
   /**
    * For storage efficiency, all types are stored within a single 64-bit integer column in the
@@ -73,6 +74,7 @@ public interface MmsSmsColumns {
     protected static final long INCOMING_VIDEO_CALL_TYPE           = 10;
     protected static final long OUTGOING_VIDEO_CALL_TYPE           = 11;
     protected static final long GROUP_CALL_TYPE                    = 12;
+    protected static final long BAD_DECRYPT_TYPE                   = 13;
 
     protected static final long BASE_INBOX_TYPE                    = 20;
     protected static final long BASE_OUTBOX_TYPE                   = 21;
@@ -195,6 +197,10 @@ public interface MmsSmsColumns {
       return (type & BASE_TYPE_MASK) == INVALID_MESSAGE_TYPE;
     }
 
+    public static boolean isBadDecryptType(long type) {
+      return (type & BASE_TYPE_MASK) == BAD_DECRYPT_TYPE;
+    }
+
     public static boolean isSecureType(long type) {
       return (type & SECURE_MESSAGE_BIT) != 0;
     }
@@ -297,7 +303,7 @@ public interface MmsSmsColumns {
       return (type & GROUP_QUIT_BIT) != 0;
     }
 
-    public static boolean isFailedDecryptType(long type) {
+    public static boolean isChatSessionRefresh(long type) {
       return (type & ENCRYPTION_REMOTE_FAILED_BIT) != 0;
     }
 

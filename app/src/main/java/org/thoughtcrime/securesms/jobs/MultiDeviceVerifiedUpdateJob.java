@@ -10,6 +10,7 @@ import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.jobmanager.Data;
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
+import org.thoughtcrime.securesms.net.NotPushRegisteredException;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.recipients.RecipientUtil;
@@ -23,6 +24,7 @@ import org.whispersystems.signalservice.api.messages.multidevice.SignalServiceSy
 import org.whispersystems.signalservice.api.messages.multidevice.VerifiedMessage;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
 import org.whispersystems.signalservice.api.push.exceptions.PushNetworkException;
+import org.whispersystems.signalservice.api.push.exceptions.ServerRejectedException;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -86,6 +88,10 @@ public class MultiDeviceVerifiedUpdateJob extends BaseJob {
 
   @Override
   public void onRun() throws IOException, UntrustedIdentityException {
+    if (!Recipient.self().isRegistered()) {
+      throw new NotPushRegisteredException();
+    }
+
     try {
       if (!TextSecurePreferences.isMultiDevice(context)) {
         Log.i(TAG, "Not multi device...");
@@ -103,8 +109,8 @@ public class MultiDeviceVerifiedUpdateJob extends BaseJob {
       SignalServiceAddress          verifiedAddress      = RecipientUtil.toSignalServiceAddress(context, recipient);
       VerifiedMessage               verifiedMessage      = new VerifiedMessage(verifiedAddress, new IdentityKey(identityKey, 0), verifiedState, timestamp);
 
-      messageSender.sendMessage(SignalServiceSyncMessage.forVerified(verifiedMessage),
-                                UnidentifiedAccessUtil.getAccessFor(context, recipient));
+      messageSender.sendSyncMessage(SignalServiceSyncMessage.forVerified(verifiedMessage),
+                                    UnidentifiedAccessUtil.getAccessFor(context, recipient));
     } catch (InvalidKeyException e) {
       throw new IOException(e);
     }
@@ -125,6 +131,7 @@ public class MultiDeviceVerifiedUpdateJob extends BaseJob {
 
   @Override
   public boolean onShouldRetry(@NonNull Exception exception) {
+    if (exception instanceof ServerRejectedException) return false;
     return exception instanceof PushNetworkException;
   }
 

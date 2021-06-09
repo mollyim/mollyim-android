@@ -93,7 +93,7 @@
   <string name="BlockUnblockDialog_unblock_s">Ikkje blokker %1$s?</string>
   <string name="BlockUnblockDialog_block">Blokker</string>
   <string name="BlockUnblockDialog_block_and_leave">Blokker og forlat</string>
-  <string name="BlockUnblockDialog_block_and_delete">Blokker og slett</string>
+  <string name="BlockUnblockDialog_report_spam_and_block">Rapporter som søppel og blokker</string>
   <!--BucketedThreadMedia-->
   <string name="BucketedThreadMedia_Today">I dag</string>
   <string name="BucketedThreadMedia_Yesterday">I går</string>
@@ -240,6 +240,10 @@
   <string name="ConversationActivity_join">Bli med</string>
   <string name="ConversationActivity_full">Fullt</string>
   <string name="ConversationActivity_error_sending_media">Klarte ikkje senda media</string>
+  <string name="ConversationActivity__reported_as_spam_and_blocked">Rapportert som søppel og blokkert</string>
+  <string name="ConversationActivity_gifs_have_moved">GIF-ar har flytta</string>
+  <string name="ConversationActivity_look_for_gifs_next_to_emoji_and_stickers">Du finn GIF-ane med emojiane og klistremerkar.</string>
+  <string name="ConversationActivity__gifs_are_now_here">GIF-ane er her no.</string>
   <!--ConversationAdapter-->
   <plurals name="ConversationAdapter_n_unread_messages">
     <item quantity="one">%d ulesen melding</item>
@@ -480,9 +484,9 @@ Dei er invitert inn, og ser inga gruppemeldingar før dei godtek.</string>
     <item quantity="other">Desse medlemmane kan ikkje bli med i Nye grupper og blir derfor fjerna frå gruppa:</item>
   </plurals>
   <!--GroupsV1MigrationInitiationReminder-->
-  <string name="GroupsV1MigrationInitiationReminder_to_access_new_features_like_mentions">Oppgrader denne gruppa for å få nye funksjonar som @nemningar og administratorar.</string>
-  <string name="GroupsV1MigrationInitiationReminder_not_now">Ikkje no</string>
-  <string name="GroupsV1MigrationInitiationReminder_upgrade_group">Oppgrader gruppa</string>
+  <!-- Removed by excludeNonTranslatables <string name="GroupsV1MigrationInitiationReminder_to_access_new_features_like_mentions">Oppgrader denne gruppa for å få nye funksjonar som @nemningar og administratorar.</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="GroupsV1MigrationInitiationReminder_not_now">Ikkje no</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="GroupsV1MigrationInitiationReminder_upgrade_group">Oppgrader gruppa</string> -->
   <!--GroupsV1MigrationSuggestionsReminder-->
   <plurals name="GroupsV1MigrationSuggestionsReminder_members_couldnt_be_added_to_the_new_group">
     <item quantity="one">%1$d medlem kunne ikkje bli lagt til i den Nye gruppa igjen. Vil du legga dei til no?</item>
@@ -615,7 +619,7 @@ Dei er invitert inn, og ser inga gruppemeldingar før dei godtek.</string>
   <string name="ManageGroupActivity_mute_notifications">Ikkje vis varsel</string>
   <string name="ManageGroupActivity_custom_notifications">Eigendefinerte varsel</string>
   <string name="ManageGroupActivity_mentions">Omtalar</string>
-  <string name="ManageGroupActivity_chat_wallpaper">Samtalebakgrunnsbilde</string>
+  <string name="ManageGroupActivity_chat_color_and_wallpaper">Samtalefarge og -bakgrunnsbilde</string>
   <string name="ManageGroupActivity_until_s">Fram til %1$s</string>
   <string name="ManageGroupActivity_always">Alltid</string>
   <string name="ManageGroupActivity_off">Av</string>
@@ -643,6 +647,8 @@ Dei er invitert inn, og ser inga gruppemeldingar før dei godtek.</string>
   <string name="ManageGroupActivity_upgrade_this_group">oppgrader denne gruppa.</string>
   <string name="ManageGroupActivity_this_is_an_insecure_mms_group">Dette er ei usikker MMS-gruppe. Inviter kontaktane dine til Signal for å prata privat.</string>
   <string name="ManageGroupActivity_invite_now">Inviter no</string>
+  <string name="ManageGroupActivity_more">meir</string>
+  <string name="ManageGroupActivity_add_group_description">Legg til gruppeskildring …</string>
   <!--GroupMentionSettingDialog-->
   <string name="GroupMentionSettingDialog_notify_me_for_mentions">Varsla meg ved Omtalar</string>
   <string name="GroupMentionSettingDialog_receive_notifications_when_youre_mentioned_in_muted_chats">Få varsel når du blir nemnt i dempa samtalar?</string>
@@ -841,6 +847,7 @@ Dei er invitert inn, og ser inga gruppemeldingar før dei godtek.</string>
   <string name="Megaphones_new_group">Ny gruppe</string>
   <string name="Megaphones_invite_friends">Inviter vennar</string>
   <string name="Megaphones_use_sms">Bruk SMS</string>
+  <string name="Megaphones_appearance">Utsjåande</string>
   <!--NotificationBarManager-->
   <string name="NotificationBarManager_signal_call_in_progress">Signal-samtale i gang</string>
   <string name="NotificationBarManager__establishing_signal_call">Set opp Signal-anrop</string>
@@ -979,6 +986,10 @@ Dei er invitert inn, og ser inga gruppemeldingar før dei godtek.</string>
   <string name="MessageRecord_you_changed_the_group_name_to_s">Du endra gruppenamnet til «%1$s».</string>
   <string name="MessageRecord_s_changed_the_group_name_to_s">%1$s endra gruppenamnet til «%2$s».</string>
   <string name="MessageRecord_the_group_name_has_changed_to_s">Gruppenamnet vart endra til «%1$s».</string>
+  <!--GV2 description change-->
+  <string name="MessageRecord_you_changed_the_group_description">Du endra gruppeskildringa.</string>
+  <string name="MessageRecord_s_changed_the_group_description">%1$s endra gruppeskildringa.</string>
+  <string name="MessageRecord_the_group_description_has_changed">Gruppeskildringa er endra.</string>
   <!--GV2 avatar change-->
   <string name="MessageRecord_you_changed_the_group_avatar">Du endra gruppebildet.</string>
   <string name="MessageRecord_s_changed_the_group_avatar">%1$s endra gruppebildet.</string>
@@ -1109,10 +1120,6 @@ Dei er invitert inn, og ser inga gruppemeldingar før dei godtek.</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Det ser ut som at du prøver å kopla ei eining til Signal ved hjelp av ein tredjepartsskannar. For din eigen tryggleik må du skanna koden på nytt via Signal.</string>
   <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly treng tilgang til kameraet for å skanna QR-kodar, men tilgangen er permanent avslått. Opna app-innstillingsmenyen og vel «Tilgang» – eventuelt «Tillatelser» – og skru på «Kamera».</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Kan ikkje skanna QR-kodar utan tilgang til kameraet</string>
-  <!--ExpirationDialog-->
-  <string name="ExpirationDialog_disappearing_messages">Utløpstid for meldingar</string>
-  <string name="ExpirationDialog_your_messages_will_not_expire">Meldingar går ikkje ut på tid.</string>
-  <string name="ExpirationDialog_your_messages_will_disappear_s_after_they_have_been_seen">Meldingar du sender og mottek i denne samtalen forsvinn %s etter at dei er lesne.</string>
   <!--OutdatedBuildReminder-->
   <string name="OutdatedBuildReminder_update_now">Oppdater no</string>
   <string name="OutdatedBuildReminder_your_version_of_signal_will_expire_today">Denne utgåva av Signal går ut på dato i dag. Oppdater til den nyaste utgåva.</string>
@@ -1174,7 +1181,7 @@ Viss du ikkje klarer å hugsa PIN-en, kan du oppretta ein ny ein. Du kan registr
   <string name="ReactionsRecipientAdapter_you">Du</string>
   <!--RecaptchaRequiredBottomSheetFragment-->
   <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">Stadfest for å halda fram med meldingar</string>
-  <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Fullfør stadfestinga for å hjelpa oss å unngå spam på Molly</string>
+  <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Fullfør stadfestinga for å hjelpa oss å unngå søppelmeldingar på Molly</string>
   <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">Etter stadfesting kan du halda fram med meldingar. Meldingar som er på vent vil bli sende automatisk.</string>
   <!--RecipientPreferencesActivity-->
   <string name="RecipientPreferenceActivity_block">Blokker</string>
@@ -1212,6 +1219,7 @@ Viss du ikkje klarer å hugsa PIN-en, kan du oppretta ein ny ein. Du kan registr
   <string name="WebRtcCallView__no_one_else_is_here">Du er åleine her</string>
   <string name="WebRtcCallView__s_is_in_this_call">%1$s er i denne samtalen</string>
   <string name="WebRtcCallView__s_and_s_are_in_this_call">%1$s og %2$s er i denne samtalen</string>
+  <string name="WebRtcCallView__s_is_presenting">%1$s deler skjerm</string>
   <plurals name="WebRtcCallView__s_s_and_d_others_are_in_this_call">
     <item quantity="one">%1$s, %2$s og %3$d til er i denne samtalen</item>
     <item quantity="other">%1$s, %2$s og %3$d til er i denne samtalen</item>
@@ -1228,6 +1236,8 @@ Viss du ikkje klarer å hugsa PIN-en, kan du oppretta ein ny ein. Du kan registr
   <string name="CallParticipantView__cant_receive_audio_video_from_s">Kan ikkje motta lyd &amp; video frå %1$s</string>
   <string name="CallParticipantView__cant_receive_audio_and_video_from_s">Kan ikkje motta lyd og video frå %1$s</string>
   <string name="CallParticipantView__this_may_be_Because_they_have_not_verified_your_safety_number_change">Dette kan vera fordi dei ikkje har godkjend det nye tryggleiksnummeret ditt, dei har eit problem med eininga si, eller dei har blokkert deg.</string>
+  <!--CallToastPopupWindow-->
+  <string name="CallToastPopupWindow__swipe_to_view_screen_share">Sveip for å visa skjermdeling</string>
   <!--ProxyBottomSheetFragment-->
   <string name="ProxyBottomSheetFragment_proxy_server">Proxy-tenar</string>
   <string name="ProxyBottomSheetFragment_proxy_address">Proxy-adresse</string>
@@ -1354,6 +1364,7 @@ Mottok nøkkelutvekslingsmelding for ugyldig protokollversjon.</string>
   <string name="SubmitDebugLogActivity_success">Fullført!</string>
   <string name="SubmitDebugLogActivity_copy_this_url_and_add_it_to_your_issue">Kopier denne URL-en og legg han til feilrapporten eller e-posten til support:\n\n<b>%1$s</b></string>
   <string name="SubmitDebugLogActivity_share">Del</string>
+  <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online">Loggen vil vera tilgjengeleg på nett slik at deltakarar i prosjektet kan sjå han. Du kan sjå gjennom og redigera før opplasting.</string>
   <!--SupportEmailUtil-->
   <string name="SupportEmailUtil_filter">Filter:</string>
   <string name="SupportEmailUtil_device_info">Einingsinfo:</string>
@@ -1627,6 +1638,8 @@ Mottok nøkkelutvekslingsmelding for ugyldig protokollversjon.</string>
   <string name="ConversationUpdateItem_enable_call_notifications">Skru på samtalevarsel</string>
   <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">Ingen felles grupper. Sjå nøye gjennom førespurnader.</string>
   <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">Ingen kontaktar i denne gruppa. Sjå nøye gjennom førespurnader.</string>
+  <string name="ConversationUpdateItem_view">Vis</string>
+  <string name="ConversationUpdateItem_the_disappearing_message_time_will_be_set_to_s_when_you_message_them">Utløpstida for meldingar blir endra til %1$s når du sender dei ei melding.</string>
   <!--audio_view-->
   <string name="audio_view__play_pause_accessibility_description">Spel … pause</string>
   <string name="audio_view__download_accessibility_description">Last ned</string>
@@ -1754,6 +1767,7 @@ Mottok nøkkelutvekslingsmelding for ugyldig protokollversjon.</string>
   <string name="CreateProfileActivity__username">Brukarnamn</string>
   <string name="CreateProfileActivity__create_a_username">Lag eit brukarnamn</string>
   <string name="CreateProfileActivity_custom_mms_group_names_and_photos_will_only_be_visible_to_you">Eigendefinerte namn og bilde på MMS-grupper er berre synlege for deg.</string>
+  <string name="CreateProfileActivity_group_descriptions_will_be_visible_to_members_of_this_group_and_people_who_have_been_invited">Gruppeskildringar er synlege for medlemmar av gruppa og dei som er inviterte.</string>
   <!--EditAboutFragment-->
   <string name="EditAboutFragment_about">Om</string>
   <string name="EditAboutFragment_write_a_few_words_about_yourself">Skriv nokre ord om deg sjølv …</string>
@@ -1766,8 +1780,9 @@ Mottok nøkkelutvekslingsmelding for ugyldig protokollversjon.</string>
   <string name="EditAboutFragment_taking_a_break">Tar ein pause</string>
   <string name="EditAboutFragment_working_on_something_new">Jobbar med noko nytt</string>
   <!--EditProfileFragment-->
-  <string name="EditProfileFragment__edit_group_name_and_photo">Rediger gruppenamn og bilde</string>
+  <string name="EditProfileFragment__edit_group">Rediger gruppa</string>
   <string name="EditProfileFragment__group_name">Gruppenamn</string>
+  <string name="EditProfileFragment__group_description">Gruppeskildring</string>
   <!--EditProfileNameFragment-->
   <string name="EditProfileNameFragment_your_name">Namnet ditt</string>
   <string name="EditProfileNameFragment_first_name">Fornamn</string>
@@ -1835,11 +1850,12 @@ Mottok nøkkelutvekslingsmelding for ugyldig protokollversjon.</string>
   <string name="HelpFragment__could_not_upload_logs">Klarte ikkje lasta opp loggar</string>
   <string name="HelpFragment__please_be_as_descriptive_as_possible">Beskriv problemet så utfyllande som mogleg slik at me kan forstå kva som skjer.</string>
   <string-array name="HelpFragment__categories">
-    <item>Det fungerer ikkje</item>
-    <item>Idé til ny funksjon</item>
+    <item>-- Vel eit alternativ --</item>
+    <item>Noko fungerer ikkje</item>
+    <item>Forslag til funksjonalitet</item>
     <item>Spørsmål</item>
     <item>Tilbakemelding</item>
-    <item>Ymse</item>
+    <item>Anna</item>
     <item>Betalingar</item>
   </string-array>
   <!--ReactWithAnyEmojiBottomSheetDialogFragment-->
@@ -1960,6 +1976,7 @@ Mottok nøkkelutvekslingsmelding for ugyldig protokollversjon.</string>
   <string name="preferences__appearance">Utsjåande</string>
   <string name="preferences__theme">Tema</string>
   <string name="preferences__chat_wallpaper">Samtalebakgrunnsbilde</string>
+  <string name="preferences__chat_color_and_wallpaper">Samtalefarge og -bakgrunnsbilde</string>
   <string name="preferences__disable_pin">Skru av PIN</string>
   <string name="preferences__enable_pin">Skru på PIN</string>
   <string name="preferences__if_you_disable_the_pin_you_will_lose_all_data">Viss du skrur av PIN, mistar du all data når du omregistrerer Signal (med mindre du manuelt tar reservekopi og gjenopprettar). Du kan heller ikkje skru på registreringslås utan PIN.</string>
@@ -1978,7 +1995,8 @@ Mottok nøkkelutvekslingsmelding for ugyldig protokollversjon.</string>
   <string name="preferences__if_read_receipts_are_disabled_you_wont_be_able_to_see_read_receipts">Viss du har skrudd av lesekvitteringar, får du heller ikkje sjå andre sine lesekvitteringar.</string>
   <string name="preferences__typing_indicators">Tastevisning</string>
   <string name="preferences__if_typing_indicators_are_disabled_you_wont_be_able_to_see_typing_indicators">Viss tastevisning er av, kan du heller ikkje sjå når andre tastar.</string>
-  <string name="preferences__request_keyboard_to_disable_personalized_learning">Be tastaturet om å skru av personleg læring. Denne innstillinga gir ingen garantiar, og tastaturet ditt står fritt til å oversjå han.</string>
+  <string name="preferences__request_keyboard_to_disable">Be tastaturet om å skru av persontilpassa læring.</string>
+  <string name="preferences__this_setting_is_not_a_guarantee">Denne innstillinga er ingen garanti, og tastaturet ditt står fritt til å ignorera ho.</string>
   <string name="preferences_app_protection__blocked_users">Blokkerte brukarar</string>
   <string name="preferences_chats__when_using_mobile_data">Ved bruk av mobildata</string>
   <string name="preferences_chats__when_using_wifi">Ved bruk av trådlausnett</string>
@@ -2018,8 +2036,8 @@ Mottok nøkkelutvekslingsmelding for ugyldig protokollversjon.</string>
   <string name="preferences_data_and_storage__calls">Samtalar</string>
   <string name="preferences_data_and_storage__use_less_data_for_calls">Bruk mindre data for oppringingar</string>
   <string name="preferences_data_and_storage__never">Aldri</string>
-  <string name="preferences_data_and_storage__wifi_and_cellular">Trådlaus og mobildata</string>
-  <string name="preferences_data_and_storage__cellular_only">Berre mobildata</string>
+  <!-- Removed by excludeNonTranslatables <string name="preferences_data_and_storage__wifi_and_cellular">Trådlaus og mobildata</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="preferences_data_and_storage__cellular_only">Berre mobildata</string> -->
   <string name="preference_data_and_storage__using_less_data_may_improve_calls_on_bad_networks">Mindre databruk kan forbetra samtalar på dårlege nettverk</string>
   <string name="preferences_notifications__messages">Meldingar</string>
   <string name="preferences_notifications__events">Hendingar</string>
@@ -2520,7 +2538,7 @@ Kom i gang ved å senda ei melding til ein venn.</string>
   <string name="NewDeviceTransferInstructions__first_bullet">1.</string>
   <string name="NewDeviceTransferInstructions__tap_on_your_profile_photo_in_the_top_left_to_open_settings">Trykk på profilbildet øverst til venstre for å opna Innstillingar</string>
   <string name="NewDeviceTransferInstructions__second_bullet">2.</string>
-  <string name="NewDeviceTransferInstructions__tap_on_chats">Trykk på «Samtalar»</string>
+  <string name="NewDeviceTransferInstructions__tap_on_account">Trykk på «Konto»</string>
   <string name="NewDeviceTransferInstructions__third_bullet">3.</string>
   <string name="NewDeviceTransferInstructions__tap_transfer_account_and_then_continue_on_both_devices">Trykk «Overfør konto» og så «Hald fram» på begge einingane</string>
   <!--NewDeviceTransferSetupFragment-->
@@ -2731,7 +2749,7 @@ Kom i gang ved å senda ei melding til ein venn.</string>
   <!--ShareActivity-->
   <string name="ShareActivity__share">Del</string>
   <string name="ShareActivity__send">Send</string>
-  <string name="ShareActivity__s_comma">%1$s,</string>
+  <!-- Removed by excludeNonTranslatables <string name="ShareActivity__s_comma">%1$s,</string> -->
   <string name="ShareActivity__sharing_to_multiple_chats_is">Sending til fleire samtalar er berre støtta for Signal-meldingar</string>
   <!--MultiShareDialogs-->
   <string name="MultiShareDialogs__failed_to_send_to_some_users">Klarte ikkje senda til visse brukarar</string>
@@ -2741,17 +2759,25 @@ Kom i gang ved å senda ei melding til ein venn.</string>
   <!--ChatWallpaperActivity-->
   <string name="ChatWallpaperActivity__chat_wallpaper">Samtalebakgrunnsbilde</string>
   <!--ChatWallpaperFragment-->
+  <string name="ChatWallpaperFragment__chat_color">Samtalefarge</string>
+  <string name="ChatWallpaperFragment__reset_chat_colors">Nullstill samtalefargar</string>
+  <string name="ChatWallpaperFragment__reset_chat_color">Nullstill samtalefarge</string>
+  <string name="ChatWallpaperFragment__reset_chat_color_question">Nullstill samtalefarge?</string>
   <string name="ChatWallpaperFragment__set_wallpaper">Vel bakgrunnsbilde</string>
-  <string name="ChatWallpaperFragment__dark_theme_dims_wallpaper">Mørkt tema dimmar bakgrunnsbildet</string>
-  <string name="ChatWallpaperFragment__clear_wallpaper">Fjern bakgrunnsbildet</string>
-  <string name="ChatWallpaperFragment__clear_wallpaper_for_this_chat">Fjern bakgrunnsbildet for denne samtalen?</string>
-  <string name="ChatWallpaperFragment__clear_wallpaper_this_will_not">Tøm bakgrunnsbildet? Dette vil ikkje fjerna eigne bakgrunnar du har valt for dine samtalar.</string>
-  <string name="ChatWallpaperFragment__reset_all_wallpapers">Nullstill alle bakgrunnsbilde</string>
-  <string name="ChatWallpaperFragment__reset_all_wallpapers_including_custom">Fjern alle bakgrunnar, inkludert eigne bakgrunnar du har valt for dine samtalar?</string>
+  <string name="ChatWallpaperFragment__dark_mode_dims_wallpaper">Mørkt tema dimmar bakgrunnsbildet</string>
   <string name="ChatWallpaperFragment__contact_name">Kontaktnamn</string>
   <string name="ChatWallpaperFragment__reset">Tilbakestill</string>
   <string name="ChatWallpaperFragment__clear">Fjern</string>
   <string name="ChatWallpaperFragment__wallpaper_preview_description">Førehandsvisning av bakgrunn</string>
+  <string name="ChatWallpaperFragment__would_you_like_to_override_all_chat_colors">Vil du overstyra alle samtalefargar?</string>
+  <string name="ChatWallpaperFragment__would_you_like_to_override_all_wallpapers">Vil du overstyra alle bakgrunnsbilde?</string>
+  <string name="ChatWallpaperFragment__reset_default_colors">Nullstill standardfargar</string>
+  <string name="ChatWallpaperFragment__reset_all_colors">Nullstill alle fargar</string>
+  <string name="ChatWallpaperFragment__reset_default_wallpaper">Nullstill standardbakgrunnsbilde</string>
+  <string name="ChatWallpaperFragment__reset_all_wallpapers">Nullstill alle bakgrunnsbilde</string>
+  <string name="ChatWallpaperFragment__reset_wallpapers">Nullstill bakgrunnsbilde</string>
+  <string name="ChatWallpaperFragment__reset_wallpaper">Nullstill bakgrunnsbilde</string>
+  <string name="ChatWallpaperFragment__reset_wallpaper_question">Nullstill bakgrunnsbilde?</string>
   <!--ChatWallpaperSelectionFragment-->
   <string name="ChatWallpaperSelectionFragment__choose_from_photos">Vel frå bilde</string>
   <string name="ChatWallpaperSelectionFragment__presets">Forval</string>
@@ -2853,5 +2879,129 @@ Kom i gang ved å senda ei melding til ein venn.</string>
   <string name="GroupsInCommonMessageRequest__none_of_your_contacts_or_people_you_chat_with_are_in_this_group">Ingen av kontaktane eller personane du pratar med er i denne gruppa. Sjå nøye gjennom førespurnader før du godkjenner for å unngå uønska meldingar.</string>
   <string name="GroupsInCommonMessageRequest__about_message_requests">Om meldingsspørsmål</string>
   <string name="GroupsInCommonMessageRequest__okay">Greitt</string>
+  <string name="ChatColorSelectionFragment__heres_a_preview_of_the_chat_color">Her kan du sjå korleis samtalefargen blir.</string>
+  <string name="ChatColorSelectionFragment__the_color_is_visible_to_only_you">Denne fargen er berre synleg for deg.</string>
+  <!--GroupDescriptionDialog-->
+  <string name="GroupDescriptionDialog__group_description">Gruppeskildring</string>
+  <!--QualitySelectorBottomSheetDialog-->
+  <string name="QualitySelectorBottomSheetDialog__standard">Standard</string>
+  <string name="QualitySelectorBottomSheetDialog__faster_less_data">Raskare, mindre data</string>
+  <string name="QualitySelectorBottomSheetDialog__high">Høg</string>
+  <string name="QualitySelectorBottomSheetDialog__slower_more_data">Treigare, meir data</string>
+  <string name="QualitySelectorBottomSheetDialog__photo_quality">Bildekvalitet</string>
+  <!--AppSettingsFragment-->
+  <string name="AppSettingsFragment__invite_your_friends">Inviter vennane dine</string>
+  <!--AccountSettingsFragment-->
+  <string name="AccountSettingsFragment__account">Konto</string>
+  <string name="AccountSettingsFragment__youll_be_asked_less_frequently">Du blir spurd sjeldnare over tid</string>
+  <string name="AccountSettingsFragment__require_your_signal_pin">Be om Signal PIN-en for å registrera telefonnummeret ditt med Signal igjen</string>
+  <!--ChatsSettingsFragment-->
+  <string name="ChatsSettingsFragment__keyboard">Tastatur</string>
+  <string name="ChatsSettingsFragment__enter_key_sends">Send med linjeskift</string>
+  <!--SmsSettingsFragment-->
+  <string name="SmsSettingsFragment__use_as_default_sms_app">Bruk som standard SMS-program</string>
+  <!--NotificationsSettingsFragment-->
+  <string name="NotificationsSettingsFragment__messages">Meldingar</string>
+  <string name="NotificationsSettingsFragment__calls">Samtalar</string>
+  <string name="NotificationsSettingsFragment__notify_when">Varsla når …</string>
+  <string name="NotificationsSettingsFragment__contact_joins_signal">Kontakt blir med i Signal</string>
+  <!--PrivacySettingsFragment-->
+  <string name="PrivacySettingsFragment__blocked">Blokkert</string>
+  <string name="PrivacySettingsFragment__d_contacts">%1$d kontaktar</string>
+  <string name="PrivacySettingsFragment__messaging">Meldingar</string>
+  <string name="PrivacySettingsFragment__disappearing_messages">Forsvinnande meldingar</string>
+  <string name="PrivacySettingsFragment__app_security">App-tryggleik</string>
+  <string name="PrivacySettingsFragment__block_screenshots_in_the_recents_list_and_inside_the_app">Ikkje tillat å ta skjermbilde frå sist brukte-lista eller frå programmet</string>
+  <string name="PrivacySettingsFragment__signal_message_and_calls">Signal-meldingar og samtalar, alltid vidaresend samtalar, og forsegla sendar</string>
+  <string name="PrivacySettingsFragment__default_timer_for_new_changes">Standard nedtelling for nye samtalar</string>
+  <string name="PrivacySettingsFragment__set_a_default_disappearing_message_timer_for_all_new_chats_started_by_you">Lag ei standard utløpstid for meldingar i alle nye samtalar du startar.</string>
+  <!--AdvancedPrivacySettingsFragment-->
+  <string name="AdvancedPrivacySettingsFragment__show_status_icon">Vis statusikon</string>
+  <string name="AdvancedPrivacySettingsFragment__show_an_icon">Vis eit ikon i meldingsdetaljane når dei er leverte med forsegla sendar.</string>
+  <!--ExpireTimerSettingsFragment-->
+  <string name="ExpireTimerSettingsFragment__when_enabled_new_messages_sent_and_received_in_new_chats_started_by_you_will_disappear_after_they_have_been_seen">Når dette er skrudd på, vil nye meldingar som blir sende og mottekne i nye samtalar som du startar forsvinna etter at dei er lesne.</string>
+  <string name="ExpireTimerSettingsFragment__when_enabled_new_messages_sent_and_received_in_this_chat_will_disappear_after_they_have_been_seen">Når dette er skrudd på, vil nye meldingar som blir sende og mottekne i denne samtalen forsvinna etter at dei er lesne.</string>
+  <string name="ExpireTimerSettingsFragment__off">Av</string>
+  <string name="ExpireTimerSettingsFragment__4_weeks">4 veker</string>
+  <string name="ExpireTimerSettingsFragment__1_week">1 veke</string>
+  <string name="ExpireTimerSettingsFragment__1_day">1 dag</string>
+  <string name="ExpireTimerSettingsFragment__8_hours">8 timar</string>
+  <string name="ExpireTimerSettingsFragment__1_hour">1 time</string>
+  <string name="ExpireTimerSettingsFragment__5_minutes">5 minutt</string>
+  <string name="ExpireTimerSettingsFragment__30_seconds">30 sekund</string>
+  <string name="ExpireTimerSettingsFragment__custom_time">Anna intervall</string>
+  <string name="ExpireTimerSettingsFragment__set">Vel</string>
+  <string name="ExpireTimerSettingsFragment__save">Lagra</string>
+  <string name="CustomExpireTimerSelectorView__seconds">sekund</string>
+  <string name="CustomExpireTimerSelectorView__minutes">minutt</string>
+  <string name="CustomExpireTimerSelectorView__hours">timar</string>
+  <string name="CustomExpireTimerSelectorView__days">dagar</string>
+  <string name="CustomExpireTimerSelectorView__weeks">veker</string>
+  <!--HelpSettingsFragment-->
+  <string name="HelpSettingsFragment__support_center">Support-senter</string>
+  <string name="HelpSettingsFragment__contact_us">Ta kontakt</string>
+  <string name="HelpSettingsFragment__version">Versjon</string>
+  <string name="HelpSettingsFragment__debug_log">Feilsøkingslogg</string>
+  <string name="HelpSettingsFragment__terms_amp_privacy_policy">Vilkår &amp; personvernreglar</string>
+  <string name="HelpFragment__copyright_signal_messenger">Opphavsrett Signal Messenger</string>
+  <string name="HelpFragment__licenced_under_the_gplv3">Lisensiert under GPLv3</string>
+  <!--DataAndStorageSettingsFragment-->
+  <string name="DataAndStorageSettingsFragment__calls">Samtalar</string>
+  <!--ChatColorSelectionFragment-->
+  <string name="ChatColorSelectionFragment__auto">Auto</string>
+  <string name="ChatColorSelectionFragment__use_custom_colors">Bruk eigne fargar</string>
+  <string name="ChatColorSelectionFragment__chat_color">Samtalefarge</string>
+  <string name="ChatColorSelectionFragment__edit">Endra</string>
+  <string name="ChatColorSelectionFragment__duplicate">Kopier</string>
+  <string name="ChatColorSelectionFragment__delete">Slett</string>
+  <string name="ChatColorSelectionFragment__delete_color">Slett farge</string>
+  <plurals name="ChatColorSelectionFragment__this_custom_color_is_used">
+    <item quantity="one">Denne eigenvalde fargen er brukt i %1$d samtale. Vil du sletta han for alle samtalar?</item>
+    <item quantity="other">Denne eigenvalde fargen er brukt i %1$d samtalar. Vil du sletta han for alle samtalar?</item>
+  </plurals>
+  <!--CustomChatColorCreatorFragment-->
+  <string name="CustomChatColorCreatorFragment__solid">Einsfarga</string>
+  <string name="CustomChatColorCreatorFragment__gradient">Overgang</string>
+  <string name="CustomChatColorCreatorFragment__hue">Tone</string>
+  <string name="CustomChatColorCreatorFragment__saturation">Metting</string>
+  <!--CustomChatColorCreatorFragmentPage-->
+  <string name="CustomChatColorCreatorFragmentPage__save">Lagra</string>
+  <string name="CustomChatColorCreatorFragmentPage__edit_color">Endra farge</string>
+  <plurals name="CustomChatColorCreatorFragmentPage__this_color_is_used">
+    <item quantity="one">Denne fargen er brukt i %1$d samtale. Vil du lagra endringar for alle samtalar?</item>
+    <item quantity="other">Denne fargen er brukt i %1$d samtalar. Vil du lagra endringar for alle samtalar?</item>
+  </plurals>
+  <!--ChatColorGradientTool-->
+  <string name="ChatColorGradientTool_top_edge_selector">Toppkantveljar</string>
+  <string name="ChatColorGradientTool_bottom_edge_selector">Botnkantveljar</string>
+  <!--EditReactionsFragment-->
+  <string name="EditReactionsFragment__customize_reactions">Tilpass reaksjonar</string>
+  <string name="EditReactionsFragment__tap_to_replace_an_emoji">Trykk for å bytta ut ein emoji</string>
+  <string name="EditReactionsFragment__reset">Tilbakestill</string>
+  <string name="EditReactionsFragment_save">Lagra</string>
+  <string name="ChatColorSelectionFragment__auto_matches_the_color_to_the_wallpaper">Vel automatisk ein farge som passar bakgrunnsbildet</string>
+  <string name="CustomChatColorCreatorFragment__drag_to_change_the_direction_of_the_gradient">Dra for å endra retninga på gradienten</string>
+  <!--ChatColorsMegaphone-->
+  <string name="ChatColorsMegaphone__new_chat_colors">Nye samtalefargar</string>
+  <string name="ChatColorsMegaphone__we_switched_up_chat_colors">Me har bytta rundt på samtalefargane for å gi deg fleire val og gjera samtalen lettare å lesa</string>
+  <string name="ChatColorsMegaphone__appearance">Utsjåande</string>
+  <string name="ChatColorsMegaphone__not_now">Ikkje no</string>
+  <!--KeyboardPagerFragment-->
+  <string name="KeyboardPagerFragment_emoji">Emoji</string>
+  <string name="KeyboardPagerFragment_open_emoji_search">Opna emoji-søk</string>
+  <string name="KeyboardPagerFragment_open_sticker_search">Opna klistremerkesøk</string>
+  <string name="KeyboardPagerFragment_open_gif_search">Opna gif-søk</string>
+  <string name="KeyboardPagerFragment_stickers">Klistremerke</string>
+  <string name="KeyboardPagerFragment_backspace">Visk ut</string>
+  <string name="KeyboardPagerFragment_gifs">Gif-ar</string>
+  <string name="KeyboardPagerFragment_search_emoji">Søk etter emoji</string>
+  <string name="KeyboardPagerfragment_back_to_emoji">Tilbake til emoji</string>
+  <string name="KeyboardPagerfragment_clear_search_entry">Tøm søkefelt</string>
+  <string name="KeyboardPagerFragment_search_giphy">Søk i GIPHY</string>
+  <!--StickerSearchDialogFragment-->
+  <string name="StickerSearchDialogFragment_search_stickers">Søk etter klistremerke</string>
+  <string name="StickerSearchDialogFragment_no_results_found">Ingen resultat</string>
+  <string name="EmojiSearchFragment__no_results_found">Ingen resultat</string>
+  <string name="NotificationsSettingsFragment__unknown_ringtone">Ukjend ringelyd</string>
   <!--EOF-->
 </resources>

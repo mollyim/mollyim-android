@@ -283,19 +283,38 @@ public class MediaUtil {
   }
 
   public static boolean isImageType(String contentType) {
-    return (null != contentType) && contentType.startsWith("image/");
+    if (contentType == null) {
+      return false;
+    }
+
+    return contentType.startsWith("image/") ||
+           contentType.equals(MediaStore.Images.Media.CONTENT_TYPE);
   }
 
   public static boolean isAudioType(String contentType) {
-    return (null != contentType) && contentType.startsWith("audio/");
+    if (contentType == null) {
+      return false;
+    }
+
+    return contentType.startsWith("audio/") ||
+           contentType.equals(MediaStore.Audio.Media.CONTENT_TYPE);
   }
 
   public static boolean isVideoType(String contentType) {
-    return (null != contentType) && contentType.startsWith("video/");
+    if (contentType == null) {
+      return false;
+    }
+
+    return contentType.startsWith("video/") ||
+           contentType.equals(MediaStore.Video.Media.CONTENT_TYPE);
   }
 
   public static boolean isImageOrVideoType(String contentType) {
     return isImageType(contentType) || isVideoType(contentType);
+  }
+
+  public static boolean isImageAndNotGif(@NonNull String contentType) {
+    return isImageType(contentType) && !isGif(contentType);
   }
 
   public static boolean isLongTextType(String contentType) {

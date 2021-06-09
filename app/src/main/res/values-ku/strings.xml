@@ -88,7 +88,6 @@
   <string name="BlockUnblockDialog_unblock_s">Astenga %1$s rake?</string>
   <string name="BlockUnblockDialog_block">Asteng bike</string>
   <string name="BlockUnblockDialog_block_and_leave">Asteng bike û Derkeve</string>
-  <string name="BlockUnblockDialog_block_and_delete">Asteng bike û Jê bibe</string>
   <!--BucketedThreadMedia-->
   <string name="BucketedThreadMedia_Today">Îro</string>
   <string name="BucketedThreadMedia_Yesterday">Doh</string>
@@ -454,8 +453,8 @@
     <item quantity="other">Ev endam nikarin tevlî Komên Nû bibin, û ew ê ji komê bên derxistin:</item>
   </plurals>
   <!--GroupsV1MigrationInitiationReminder-->
-  <string name="GroupsV1MigrationInitiationReminder_to_access_new_features_like_mentions">Ji bo çalakkirina taybetiyên wekî @behskirin û rêveberan, vê komê bilind bike.</string>
-  <string name="GroupsV1MigrationInitiationReminder_not_now">Ne niha</string>
+  <!-- Removed by excludeNonTranslatables <string name="GroupsV1MigrationInitiationReminder_to_access_new_features_like_mentions">Ji bo çalakkirina taybetiyên wekî @behskirin û rêveberan, vê komê bilind bike.</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="GroupsV1MigrationInitiationReminder_not_now">Ne niha</string> -->
   <!--GroupsV1MigrationSuggestionsReminder-->
   <plurals name="GroupsV1MigrationSuggestionsReminder_members_couldnt_be_added_to_the_new_group">
     <item quantity="one">%1$d endam li komê nehat tevlîkirin. Tu dixwazî aniha tevlî bikî?</item>
@@ -572,7 +571,6 @@
   <string name="ManageGroupActivity_mute_notifications">Danezanan bêdeng bike</string>
   <string name="ManageGroupActivity_custom_notifications">Danezanên taybet</string>
   <string name="ManageGroupActivity_mentions">Behskirin</string>
-  <string name="ManageGroupActivity_chat_wallpaper">Paşrûya gotûbêjê</string>
   <string name="ManageGroupActivity_until_s">Heta tarîxa: %1$s</string>
   <string name="ManageGroupActivity_off">Girtî</string>
   <string name="ManageGroupActivity_on">Vekirî</string>
@@ -904,6 +902,7 @@
   <string name="MessageRecord_you_changed_the_group_name_to_s">Te navê komê wekî \"%1$s\" guherand.</string>
   <string name="MessageRecord_s_changed_the_group_name_to_s">%1$s navê komê wekî \"%2$s\" guherand.</string>
   <string name="MessageRecord_the_group_name_has_changed_to_s">Navê komê wekî \"%1$s\" hate guhertin.</string>
+  <!--GV2 description change-->
   <!--GV2 avatar change-->
   <string name="MessageRecord_you_changed_the_group_avatar">Te wêneyê komê guherand.</string>
   <string name="MessageRecord_s_changed_the_group_avatar">%1$s, wêneyê komê guherand.</string>
@@ -1026,10 +1025,6 @@
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Xuya ye ku tu hewl didî bi pişkînereke nenas QR kodê venêrînî. Ji bo parastina xwe, ji kerema xwe re kodê di signalê de dîsa venêrîne.</string>
   <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly, ji bo venêrîna QR kodê destûra kamerayê hewce dike, lê ew destûr bi awayekî mayinde hatiye redkirin. Ji kerema xwe re, biçe sazkariyên sepanê \"Destûr\"ê bibijêre û \"Kamera\"yê çalak bike.</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Bêyî destûra Kamerayê QR kod nayê venêrîn</string>
-  <!--ExpirationDialog-->
-  <string name="ExpirationDialog_disappearing_messages">Peyamên wenda dibin</string>
-  <string name="ExpirationDialog_your_messages_will_not_expire">Ew ê peyamên te wenda nebin.</string>
-  <string name="ExpirationDialog_your_messages_will_disappear_s_after_they_have_been_seen">Peyamên ku di vê axiftinê de hatine şandin û wergirtin, piştî hatin dîtin %s ew ê wenda bibin.</string>
   <!--OutdatedBuildReminder-->
   <string name="OutdatedBuildReminder_update_now">Aniha nû bike</string>
   <string name="OutdatedBuildReminder_your_version_of_signal_will_expire_today">Ev guhertoya Signalê ew ê îro dema wê biqede. Guhertoya herî dawî saz bike.</string>
@@ -1125,6 +1120,7 @@
   <string name="CallParticipantView__cant_receive_audio_video_from_s">Ji %1$s deng û vîdyo nayên stendin</string>
   <string name="CallParticipantView__cant_receive_audio_and_video_from_s">Ji %1$s deng û vîdyo nayên stendin</string>
   <string name="CallParticipantView__this_may_be_Because_they_have_not_verified_your_safety_number_change">Dibe ku sedema vê; piştrastnekirina guherîna nimreya te ya ewlehiyê, pirsgirêkeke di cîhaza wan de an jî astengbûna te bin.</string>
+  <!--CallToastPopupWindow-->
   <!--ProxyBottomSheetFragment-->
   <string name="ProxyBottomSheetFragment_proxy_server">Proxy server</string>
   <string name="ProxyBottomSheetFragment_proxy_address">Navnîşana proxy</string>
@@ -1500,6 +1496,7 @@
   <string name="ConversationUpdateItem_return_to_call">Vegere gerînê</string>
   <string name="ConversationUpdateItem_call_is_full">Gerîn tije ye</string>
   <string name="ConversationUpdateItem_invite_friends">Hevalên xwe vexwîne</string>
+  <string name="ConversationUpdateItem_view">Nîşan bide</string>
   <!--audio_view-->
   <string name="audio_view__play_pause_accessibility_description">Lêde …Bisekinîne</string>
   <string name="audio_view__download_accessibility_description">Daxîne</string>
@@ -1626,7 +1623,7 @@
   <string name="EditAboutFragment_taking_a_break">Bêhna xwe vedide</string>
   <string name="EditAboutFragment_working_on_something_new">Li ser tiştên nû dixebite</string>
   <!--EditProfileFragment-->
-  <string name="EditProfileFragment__edit_group_name_and_photo">Nav û wêneyê komê sererast bike</string>
+  <string name="EditProfileFragment__edit_group">Komê sererast bike</string>
   <string name="EditProfileFragment__group_name">Navê komê</string>
   <!--EditProfileNameFragment-->
   <string name="EditProfileNameFragment_your_name">Navê te</string>
@@ -1857,8 +1854,8 @@
   <string name="preferences_data_and_storage__calls">Gerîn</string>
   <string name="preferences_data_and_storage__use_less_data_for_calls">Ji bo gerînan daneyên kêmtir bi kar bîne</string>
   <string name="preferences_data_and_storage__never">Qet</string>
-  <string name="preferences_data_and_storage__wifi_and_cellular">WiFi û Hucreyî</string>
-  <string name="preferences_data_and_storage__cellular_only">Tenê hucreyî</string>
+  <!-- Removed by excludeNonTranslatables <string name="preferences_data_and_storage__wifi_and_cellular">WiFi û Hucreyî</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="preferences_data_and_storage__cellular_only">Tenê hucreyî</string> -->
   <string name="preference_data_and_storage__using_less_data_may_improve_calls_on_bad_networks">Dibe ku rewşa axaftinên we baştir be ger hun hindik data bikar bînin.</string>
   <string name="preferences_notifications__messages">Peyam</string>
   <string name="preferences_notifications__events">Çalakî</string>
@@ -2337,7 +2334,7 @@
   <!--ShareActivity-->
   <string name="ShareActivity__share">Parve bike</string>
   <string name="ShareActivity__send">Bişîne</string>
-  <string name="ShareActivity__s_comma">%1$s,</string>
+  <!-- Removed by excludeNonTranslatables <string name="ShareActivity__s_comma">%1$s,</string> -->
   <string name="ShareActivity__sharing_to_multiple_chats_is">Parvekirina zêdetir axaftina tenê ji bo peyamên Signal tê piştgirîkirin</string>
   <!--MultiShareDialogs-->
   <string name="MultiShareDialogs__failed_to_send_to_some_users">Ji hinek bikarhêneran re nehate şandin</string>
@@ -2347,16 +2344,13 @@
   <!--ChatWallpaperActivity-->
   <string name="ChatWallpaperActivity__chat_wallpaper">Paşrûya gotûbêjê</string>
   <!--ChatWallpaperFragment-->
+  <string name="ChatWallpaperFragment__chat_color">Rengê gotûbêjê</string>
   <string name="ChatWallpaperFragment__set_wallpaper">Paşrûyê saz bike</string>
-  <string name="ChatWallpaperFragment__dark_theme_dims_wallpaper">Rûkara tarî paşrûyê reş dike</string>
-  <string name="ChatWallpaperFragment__clear_wallpaper">Paşrûyê rake</string>
-  <string name="ChatWallpaperFragment__clear_wallpaper_for_this_chat">Ji bo vê gotûbêjê paşrûyê rake?</string>
-  <string name="ChatWallpaperFragment__clear_wallpaper_this_will_not">Paşrûyê rake? Ev dê paşrûyên taybet ên ku te ji bo gotûbêjên xwe saz kirine raneke.</string>
-  <string name="ChatWallpaperFragment__reset_all_wallpapers">Hemû paşrûyan rake</string>
   <string name="ChatWallpaperFragment__contact_name">Navê kesî</string>
   <string name="ChatWallpaperFragment__reset">Reset bike</string>
   <string name="ChatWallpaperFragment__clear">Paqij bike</string>
   <string name="ChatWallpaperFragment__wallpaper_preview_description">Pêşdîtina paşrûyê</string>
+  <string name="ChatWallpaperFragment__reset_all_wallpapers">Hemû paşrûyan rake</string>
   <!--ChatWallpaperSelectionFragment-->
   <string name="ChatWallpaperSelectionFragment__choose_from_photos">Ji nav wêneyan hilbijêre</string>
   <string name="ChatWallpaperSelectionFragment__presets">Berê hazir</string>
@@ -2398,5 +2392,47 @@
   <string name="CanNotSendPaymentDialog__send_a_message">Peyamekê bişîne</string>
   <!--GroupsInCommonMessageRequest-->
   <string name="GroupsInCommonMessageRequest__okay">Baş e</string>
+  <!--GroupDescriptionDialog-->
+  <!--QualitySelectorBottomSheetDialog-->
+  <string name="QualitySelectorBottomSheetDialog__high">Bilind</string>
+  <!--AppSettingsFragment-->
+  <!--AccountSettingsFragment-->
+  <!--ChatsSettingsFragment-->
+  <string name="ChatsSettingsFragment__enter_key_sends">Bişkoka \"Enter\"ê dişîne</string>
+  <!--SmsSettingsFragment-->
+  <string name="SmsSettingsFragment__use_as_default_sms_app">Wek bernameya SMSê ya jixweber bi kar bîne.</string>
+  <!--NotificationsSettingsFragment-->
+  <string name="NotificationsSettingsFragment__messages">Peyam</string>
+  <string name="NotificationsSettingsFragment__calls">Gerîn</string>
+  <!--PrivacySettingsFragment-->
+  <string name="PrivacySettingsFragment__blocked">Yên Astengkirî</string>
+  <string name="PrivacySettingsFragment__disappearing_messages">Peyamên wenda dibin</string>
+  <string name="PrivacySettingsFragment__block_screenshots_in_the_recents_list_and_inside_the_app">Di lîsteya sepanên dawîn de û di nav sepanê de girtina wêneyê ekranê asteng bike</string>
+  <!--AdvancedPrivacySettingsFragment-->
+  <!--ExpireTimerSettingsFragment-->
+  <string name="ExpireTimerSettingsFragment__off">Girtî</string>
+  <string name="ExpireTimerSettingsFragment__1_week">1 hefte</string>
+  <string name="ExpireTimerSettingsFragment__1_day">1 roj</string>
+  <string name="ExpireTimerSettingsFragment__1_hour">1 saet</string>
+  <string name="ExpireTimerSettingsFragment__5_minutes">5 deqe</string>
+  <string name="ExpireTimerSettingsFragment__30_seconds">30 saniye</string>
+  <string name="ExpireTimerSettingsFragment__save">Tomar bike</string>
+  <!--HelpSettingsFragment-->
+  <string name="HelpSettingsFragment__contact_us">Bi me re têkeve têkiliyê</string>
+  <string name="HelpSettingsFragment__version">Guherto</string>
+  <string name="HelpSettingsFragment__debug_log">Tomargeha neqandina çewtiyan</string>
+  <string name="HelpSettingsFragment__terms_amp_privacy_policy">Merc û Polîtîkaya Nihêniyê</string>
+  <!--DataAndStorageSettingsFragment-->
+  <string name="DataAndStorageSettingsFragment__calls">Gerîn</string>
+  <!--ChatColorSelectionFragment-->
+  <string name="ChatColorSelectionFragment__chat_color">Rengê gotûbêjê</string>
+  <string name="ChatColorSelectionFragment__edit">Sererast bike</string>
+  <string name="ChatColorSelectionFragment__delete">Jê bibe</string>
+  <!--CustomChatColorCreatorFragment-->
+  <!--CustomChatColorCreatorFragmentPage-->
+  <string name="CustomChatColorCreatorFragmentPage__save">Tomar bike</string>
+  <!--ChatColorGradientTool-->
+  <!--EditReactionsFragment-->
+  <string name="EditReactionsFragment_save">Tomar bike</string>
   <!--EOF-->
 </resources>

@@ -28,7 +28,6 @@ public final class SignalAccountRecord implements SignalRecord {
   private final Optional<String>         avatarUrlPath;
   private final Optional<byte[]>         profileKey;
   private final List<PinnedConversation> pinnedConversations;
-  private final boolean                  preferContactAvatars;
   private final Payments                 payments;
 
   public SignalAccountRecord(StorageId id, AccountRecord proto) {
@@ -41,7 +40,6 @@ public final class SignalAccountRecord implements SignalRecord {
     this.profileKey           = OptionalUtil.absentIfEmpty(proto.getProfileKey());
     this.avatarUrlPath        = OptionalUtil.absentIfEmpty(proto.getAvatarUrlPath());
     this.pinnedConversations  = new ArrayList<>(proto.getPinnedConversationsCount());
-    this.preferContactAvatars = proto.getPreferContactAvatars();
     this.payments             = new Payments(proto.getPayments().getEnabled(), OptionalUtil.absentIfEmpty(proto.getPayments().getEntropy()));
 
     for (AccountRecord.PinnedConversation conversation : proto.getPinnedConversationsList()) {
@@ -121,12 +119,20 @@ public final class SignalAccountRecord implements SignalRecord {
         diff.add("PinnedConversations");
       }
 
-      if (!Objects.equals(this.preferContactAvatars, that.preferContactAvatars)) {
+      if (!Objects.equals(this.isPreferContactAvatars(), that.isPreferContactAvatars())) {
         diff.add("PreferContactAvatars");
       }
 
       if (!Objects.equals(this.payments, that.payments)) {
-        diff.add("PreferContactAvatars");
+        diff.add("Payments");
+      }
+
+      if (this.getUniversalExpireTimer() != that.getUniversalExpireTimer()) {
+        diff.add("UniversalExpireTimer");
+      }
+
+      if (!Objects.equals(this.isPrimarySendsSms(), that.isPrimarySendsSms())) {
+        diff.add("PrimarySendsSms");
       }
 
       if (!Objects.equals(this.hasUnknownFields(), that.hasUnknownFields())) {
@@ -200,11 +206,19 @@ public final class SignalAccountRecord implements SignalRecord {
   }
 
   public boolean isPreferContactAvatars() {
-    return preferContactAvatars;
+    return proto.getPreferContactAvatars();
   }
 
   public Payments getPayments() {
     return payments;
+  }
+
+  public int getUniversalExpireTimer() {
+    return proto.getUniversalExpireTimer();
+  }
+
+  public boolean isPrimarySendsSms() {
+    return proto.getPrimarySendsSms();
   }
 
   AccountRecord toProto() {
@@ -442,7 +456,6 @@ public final class SignalAccountRecord implements SignalRecord {
 
     public Builder setPreferContactAvatars(boolean preferContactAvatars) {
       builder.setPreferContactAvatars(preferContactAvatars);
-
       return this;
     }
 
@@ -459,6 +472,16 @@ public final class SignalAccountRecord implements SignalRecord {
 
       builder.setPayments(paymentsBuilder);
 
+      return this;
+    }
+
+    public Builder setUniversalExpireTimer(int timer) {
+      builder.setUniversalExpireTimer(timer);
+      return this;
+    }
+
+    public Builder setPrimarySendsSms(boolean primarySendsSms) {
+      builder.setPrimarySendsSms(primarySendsSms);
       return this;
     }
 

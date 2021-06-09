@@ -69,7 +69,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import org.signal.core.util.StreamUtil;
 import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.logging.Log;
-import org.thoughtcrime.securesms.ApplicationPreferencesActivity;
 import org.thoughtcrime.securesms.LoggingFragment;
 import org.thoughtcrime.securesms.PassphraseRequiredActivity;
 import org.thoughtcrime.securesms.R;
@@ -81,6 +80,7 @@ import org.thoughtcrime.securesms.components.MaskView;
 import org.thoughtcrime.securesms.components.TooltipPopup;
 import org.thoughtcrime.securesms.components.TypingStatusRepository;
 import org.thoughtcrime.securesms.components.recyclerview.SmoothScrollingLinearLayoutManager;
+import org.thoughtcrime.securesms.components.settings.app.AppSettingsActivity;
 import org.thoughtcrime.securesms.components.voice.VoiceNoteMediaController;
 import org.thoughtcrime.securesms.components.voice.VoiceNotePlaybackState;
 import org.thoughtcrime.securesms.contactshare.Contact;
@@ -89,6 +89,8 @@ import org.thoughtcrime.securesms.contactshare.SharedContactDetailsActivity;
 import org.thoughtcrime.securesms.conversation.ConversationAdapter.ItemClickListener;
 import org.thoughtcrime.securesms.conversation.ConversationAdapter.StickyHeaderViewHolder;
 import org.thoughtcrime.securesms.conversation.ConversationMessage.ConversationMessageFactory;
+import org.thoughtcrime.securesms.conversation.colors.Colorizer;
+import org.thoughtcrime.securesms.conversation.colors.ColorizerView;
 import org.thoughtcrime.securesms.conversation.ui.error.EnableCallNotificationSettingsDialog;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.database.MessageDatabase;
@@ -100,14 +102,17 @@ import org.thoughtcrime.securesms.database.model.MessageRecord;
 import org.thoughtcrime.securesms.database.model.MmsMessageRecord;
 import org.thoughtcrime.securesms.database.model.ReactionRecord;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.giph.mp4.GiphyMp4Playable;
+import org.thoughtcrime.securesms.giph.mp4.GiphyMp4PlaybackController;
 import org.thoughtcrime.securesms.giph.mp4.GiphyMp4PlaybackPolicy;
 import org.thoughtcrime.securesms.giph.mp4.GiphyMp4ProjectionPlayerHolder;
-import org.thoughtcrime.securesms.giph.mp4.GiphyMp4PlaybackController;
 import org.thoughtcrime.securesms.giph.mp4.GiphyMp4ProjectionRecycler;
 import org.thoughtcrime.securesms.groups.GroupId;
 import org.thoughtcrime.securesms.groups.GroupMigrationMembershipChange;
 import org.thoughtcrime.securesms.groups.ui.invitesandrequests.invite.GroupLinkInviteFriendsBottomSheetDialogFragment;
+import org.thoughtcrime.securesms.groups.ui.managegroup.dialogs.GroupDescriptionDialog;
 import org.thoughtcrime.securesms.groups.ui.migration.GroupsV1MigrationInfoBottomSheetDialogFragment;
+import org.thoughtcrime.securesms.groups.v2.GroupDescriptionUtil;
 import org.thoughtcrime.securesms.jobs.DirectoryRefreshJob;
 import org.thoughtcrime.securesms.jobs.MultiDeviceViewOnceOpenJob;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
@@ -197,7 +202,6 @@ public class ConversationFragment extends LoggingFragment {
   private ConversationScrollToView    scrollToMentionButton;
   private TextView                    scrollDateHeader;
   private ConversationBannerView      conversationBanner;
-  private ConversationBannerView      emptyConversationBanner;
   private MessageRequestViewModel     messageRequestViewModel;
   private MessageCountsViewModel      messageCountsViewModel;
   private ConversationViewModel       conversationViewModel;
@@ -211,9 +215,11 @@ public class ConversationFragment extends LoggingFragment {
   private int                         pulsePosition = -1;
   private VoiceNoteMediaController    voiceNoteMediaController;
   private View                        toolbarShadow;
+  private ColorizerView               colorizerView;
   private Stopwatch                   startupStopwatch;
 
   private GiphyMp4ProjectionRecycler giphyMp4ProjectionRecycler;
+  private Colorizer                  colorizer;
 
   public static void prepare(@NonNull Context context) {
     FrameLayout parent = new FrameLayout(context);
@@ -237,15 +243,18 @@ public class ConversationFragment extends LoggingFragment {
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle bundle) {
     final View view = inflater.inflate(R.layout.conversation_fragment, container, false);
-    videoContainer          = view.findViewById(R.id.video_container);
-    list                    = view.findViewById(android.R.id.list);
-    composeDivider          = view.findViewById(R.id.compose_divider);
+    videoContainer = view.findViewById(R.id.video_container);
+    list           = view.findViewById(android.R.id.list);
+    composeDivider = view.findViewById(R.id.compose_divider);
 
-    scrollToBottomButton    = view.findViewById(R.id.scroll_to_bottom);
-    scrollToMentionButton   = view.findViewById(R.id.scroll_to_mention);
-    scrollDateHeader        = view.findViewById(R.id.scroll_date_header);
-    emptyConversationBanner = view.findViewById(R.id.empty_conversation_banner);
-    toolbarShadow           = requireActivity().findViewById(R.id.conversation_toolbar_shadow);
+    scrollToBottomButton  = view.findViewById(R.id.scroll_to_bottom);
+    scrollToMentionButton = view.findViewById(R.id.scroll_to_mention);
+    scrollDateHeader      = view.findViewById(R.id.scroll_date_header);
+    toolbarShadow         = requireActivity().findViewById(R.id.conversation_toolbar_shadow);
+    colorizerView         = view.findViewById(R.id.conversation_colorizer_view);
+
+    ConversationIntents.Args args = ConversationIntents.Args.from(requireActivity().getIntent());
+    colorizerView.setBackground(args.getChatColors().getChatBubbleMask());
 
     final LinearLayoutManager layoutManager = new SmoothScrollingLinearLayoutManager(getActivity(), true);
     list.setHasFixedSize(false);
@@ -271,7 +280,7 @@ public class ConversationFragment extends LoggingFragment {
                                                                conversationMessage.getMessageRecord(),
                                                                messageRequestViewModel.shouldShowMessageRequest()),
             this::handleReplyMessage,
-            giphyMp4ProjectionRecycler
+            this::onViewHolderPositionTranslated
     ).attachToRecyclerView(list);
 
     setupListLayoutListeners();
@@ -308,6 +317,19 @@ public class ConversationFragment extends LoggingFragment {
     scrollToMentionButton.setOnClickListener(v -> scrollToNextMention());
 
     updateToolbarDependentMargins();
+
+    colorizer = new Colorizer(colorizerView);
+    colorizer.attachToRecyclerView(list);
+
+    conversationViewModel.getChatColors().observe(getViewLifecycleOwner(), chatColors -> colorizer.onChatColorsChanged(chatColors));
+    conversationViewModel.getNameColorsMap().observe(getViewLifecycleOwner(), nameColorsMap -> {
+      colorizer.onNameColorsChanged(nameColorsMap);
+
+      ConversationAdapter adapter = getListAdapter();
+      if (adapter != null) {
+        adapter.notifyDataSetChanged();
+      }
+    });
 
     return view;
   }
@@ -351,10 +373,12 @@ public class ConversationFragment extends LoggingFragment {
   private void setListVerticalTranslation() {
     if (list.canScrollVertically(1) || list.canScrollVertically(-1) || list.getChildCount() == 0) {
       list.setTranslationY(0);
+      colorizerView.setTranslationY(0);
       list.setOverScrollMode(RecyclerView.OVER_SCROLL_IF_CONTENT_SCROLLS);
     } else {
       int chTop = list.getChildAt(list.getChildCount() - 1).getTop();
       list.setTranslationY(Math.min(0, -chTop));
+      colorizerView.setTranslationY(Math.min(0, -chTop));
       list.setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
     }
 
@@ -465,6 +489,16 @@ public class ConversationFragment extends LoggingFragment {
     }
   }
 
+  private void onViewHolderPositionTranslated(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+    if (viewHolder instanceof GiphyMp4Playable) {
+      giphyMp4ProjectionRecycler.updateDisplay(recyclerView, (GiphyMp4Playable) viewHolder);
+    }
+
+    if (colorizer != null) {
+      colorizer.applyClipPathsToMaskedGradient(recyclerView);
+    }
+  }
+
   private int getStartPosition() {
     return conversationViewModel.getArgs().getStartingPosition();
   }
@@ -479,7 +513,6 @@ public class ConversationFragment extends LoggingFragment {
 
     messageRequestViewModel.getRecipientInfo().observe(getViewLifecycleOwner(), recipientInfo -> {
       presentMessageRequestProfileView(requireContext(), recipientInfo, conversationBanner);
-      presentMessageRequestProfileView(requireContext(), recipientInfo, emptyConversationBanner);
     });
 
     messageRequestViewModel.getMessageData().observe(getViewLifecycleOwner(), data -> {
@@ -490,7 +523,7 @@ public class ConversationFragment extends LoggingFragment {
     });
   }
 
-  private static void presentMessageRequestProfileView(@NonNull Context context, @NonNull MessageRequestViewModel.RecipientInfo recipientInfo, @Nullable ConversationBannerView conversationBanner) {
+  private void presentMessageRequestProfileView(@NonNull Context context, @NonNull MessageRequestViewModel.RecipientInfo recipientInfo, @Nullable ConversationBannerView conversationBanner) {
     if (conversationBanner == null) {
       return;
     }
@@ -534,7 +567,22 @@ public class ConversationFragment extends LoggingFragment {
     }
 
     if (groups.isEmpty() || isSelf) {
-      conversationBanner.hideDescription();
+      if (TextUtils.isEmpty(recipientInfo.getGroupDescription())) {
+        conversationBanner.setLinkifyDescription(false);
+        conversationBanner.hideDescription();
+      } else {
+        conversationBanner.setLinkifyDescription(true);
+        boolean linkifyWebLinks = recipientInfo.getMessageRequestState() == MessageRequestState.NONE;
+        conversationBanner.showDescription();
+        GroupDescriptionUtil.setText(context,
+                                     conversationBanner.getDescription(),
+                                     recipientInfo.getGroupDescription(),
+                                     linkifyWebLinks,
+                                     () -> GroupDescriptionDialog.show(getChildFragmentManager(),
+                                                                       recipient.getDisplayName(context),
+                                                                       recipientInfo.getGroupDescription(),
+                                                                       linkifyWebLinks));
+      }
     } else {
       final String description;
 
@@ -589,9 +637,18 @@ public class ConversationFragment extends LoggingFragment {
   }
 
   private void initializeListAdapter() {
-    if (this.recipient != null && this.threadId != -1) {
+    if (threadId == -1) {
+      toolbarShadow.setVisibility(View.GONE);
+    }
+
+    if (this.recipient != null) {
+      if (getListAdapter() != null && getListAdapter().isForRecipientId(this.recipient.getId())) {
+        Log.d(TAG, "List adapter already initialized for " + this.recipient.getId());
+        return;
+      }
+
       Log.d(TAG, "Initializing adapter for " + recipient.getId());
-      ConversationAdapter adapter = new ConversationAdapter(this, GlideApp.with(this), locale, selectionClickListener, this.recipient.get(), new AttachmentMediaSourceFactory(requireContext()));
+      ConversationAdapter adapter = new ConversationAdapter(this, GlideApp.with(this), locale, selectionClickListener, this.recipient.get(), new AttachmentMediaSourceFactory(requireContext()), colorizer);
       adapter.setPagingController(conversationViewModel.getPagingController());
       list.setAdapter(adapter);
       setInlineDateDecoration(adapter);
@@ -600,8 +657,6 @@ public class ConversationFragment extends LoggingFragment {
       adapter.registerAdapterDataObserver(snapToTopDataObserver);
 
       setLastSeen(conversationViewModel.getLastSeen());
-
-      emptyConversationBanner.setVisibility(View.GONE);
 
       adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
         @Override
@@ -614,9 +669,6 @@ public class ConversationFragment extends LoggingFragment {
           });
         }
       });
-    } else if (threadId == -1) {
-      emptyConversationBanner.setVisibility(View.VISIBLE);
-      toolbarShadow.setVisibility(View.GONE);
     }
   }
 
@@ -647,7 +699,8 @@ public class ConversationFragment extends LoggingFragment {
         replacedByIncomingMessage = false;
       }
 
-      typingView.setTypists(GlideApp.with(ConversationFragment.this), recipients, recipient.get().isGroup());
+      Recipient resolved = recipient.get();
+      typingView.setTypists(GlideApp.with(ConversationFragment.this), recipients, resolved.isGroup(), resolved.hasWallpaper());
 
       ConversationAdapter adapter = getListAdapter();
 
@@ -709,6 +762,7 @@ public class ConversationFragment extends LoggingFragment {
     menu.findItem(R.id.menu_context_save_attachment).setVisible(menuState.shouldShowSaveAttachmentAction());
     menu.findItem(R.id.menu_context_resend).setVisible(menuState.shouldShowResendAction());
     menu.findItem(R.id.menu_context_copy).setVisible(menuState.shouldShowCopyAction());
+    menu.findItem(R.id.menu_context_delete_message).setVisible(menuState.shouldShowDeleteAction());
   }
 
   private @Nullable ConversationAdapter getListAdapter() {
@@ -739,7 +793,9 @@ public class ConversationFragment extends LoggingFragment {
       snapToTopDataObserver.requestScrollPosition(0);
       conversationViewModel.onConversationDataAvailable(recipient.getId(), threadId, -1);
       messageCountsViewModel.setThreadId(threadId);
+      markReadHelper = new MarkReadHelper(threadId, requireContext());
       initializeListAdapter();
+      initializeTypingObserver();
     }
   }
 
@@ -1101,6 +1157,10 @@ public class ConversationFragment extends LoggingFragment {
     }
   }
 
+  public @NonNull Colorizer getColorizer() {
+    return Objects.requireNonNull(colorizer);
+  }
+
   @SuppressWarnings("CodeBlock2Expr")
   public void jumpToMessage(@NonNull RecipientId author, long timestamp, @Nullable Runnable onMessageNotFound) {
     SimpleTask.run(getLifecycle(), () -> {
@@ -1212,7 +1272,6 @@ public class ConversationFragment extends LoggingFragment {
         toolbar.getGlobalVisibleRect(rect);
         ViewUtil.setTopMargin(scrollDateHeader, rect.bottom + ViewUtil.dpToPx(8));
         ViewUtil.setTopMargin(conversationBanner, rect.bottom + ViewUtil.dpToPx(16));
-        ViewUtil.setTopMargin(emptyConversationBanner, rect.bottom + ViewUtil.dpToPx(16));
         toolbar.getViewTreeObserver().removeOnGlobalLayoutListener(this);
       }
     });
@@ -1543,20 +1602,24 @@ public class ConversationFragment extends LoggingFragment {
     }
 
     @Override
-    public void onDecryptionFailedLearnMoreClicked() {
+    public void onChatSessionRefreshLearnMoreClicked() {
       new AlertDialog.Builder(requireContext())
           .setView(R.layout.decryption_failed_dialog)
           .setPositiveButton(android.R.string.ok, (d, w) -> {
             d.dismiss();
           })
           .setNeutralButton(R.string.ConversationFragment_contact_us, (d, w) -> {
-            Intent intent = new Intent(requireContext(), ApplicationPreferencesActivity.class);
-            intent.putExtra(ApplicationPreferencesActivity.LAUNCH_TO_HELP_FRAGMENT, true);
-
-            startActivity(intent);
+            startActivity(AppSettingsActivity.help(requireContext(), 0));
             d.dismiss();
           })
           .show();
+    }
+
+    @Override
+    public void onBadDecryptLearnMoreClicked(@NonNull RecipientId author) {
+      SimpleTask.run(getLifecycle(),
+                     () -> Recipient.resolved(author).getDisplayName(requireContext()),
+                     name -> BadDecryptLearnMoreDialog.show(getParentFragmentManager(), name, recipient.get().isGroup()));
     }
 
     @Override
@@ -1625,6 +1688,13 @@ public class ConversationFragment extends LoggingFragment {
             .setNeutralButton(R.string.GroupsInCommonMessageRequest__about_message_requests, (d, w) -> CommunicationActions.openBrowserLink(requireContext(), getString(R.string.GroupsInCommonMessageRequest__support_article)))
             .setPositiveButton(R.string.GroupsInCommonMessageRequest__okay, null)
             .show();
+      }
+    }
+
+    @Override
+    public void onViewGroupDescriptionChange(@Nullable GroupId groupId, @NonNull String description, boolean isMessageRequestAccepted) {
+      if (groupId != null) {
+        GroupDescriptionDialog.show(getChildFragmentManager(), groupId, description, isMessageRequestAccepted);
       }
     }
   }

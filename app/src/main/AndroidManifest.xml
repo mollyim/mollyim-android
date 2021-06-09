@@ -92,6 +92,9 @@
 
     <!-- MOLLY: Maps SDK stuff moved to nonFree/AndroidManifest.xml -->
 
+    <meta-data android:name="com.google.android.gms.car.application"
+               android:resource="@xml/automotive_app_desc" />
+
     <meta-data android:name="firebase_analytics_collection_deactivated" android:value="true" />
     <meta-data android:name="google_analytics_adid_collection_enabled" android:value="false" />
     <meta-data android:name="firebase_messaging_auto_init_enabled" android:value="false" />
@@ -129,6 +132,14 @@
             <category android:name="android.intent.category.DEFAULT" />
             <category android:name="android.intent.category.BROWSABLE" />
             <data android:scheme="tsdevice"/>
+        </intent-filter>
+
+        <intent-filter>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="sgnl"
+                  android:host="linkdevice"/>
         </intent-filter>
     </activity>
 
@@ -272,6 +283,11 @@
               android:windowSoftInputMode="stateAlwaysHidden"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
 
+    <activity android:name=".recipients.ui.disappearingmessages.RecipientDisappearingMessagesActivity"
+              android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+              android:theme="@style/Signal.DayNight.NoActionBar"
+              android:windowSoftInputMode="adjustResize"/>
+
     <activity android:name=".migrations.ApplicationMigrationActivity"
               android:theme="@style/NoAnimation.Theme.AppCompat.Light.DarkActionBar"
               android:launchMode="singleTask"
@@ -315,8 +331,9 @@
     <activity android:name=".VerifyIdentityActivity"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
 
-    <activity android:name=".ApplicationPreferencesActivity"
+    <activity android:name=".components.settings.app.AppSettingsActivity"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+              android:theme="@style/Signal.DayNight.NoActionBar"
               android:windowSoftInputMode="adjustResize">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
@@ -433,7 +450,7 @@
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
 
     <activity android:name=".scribbles.ImageEditorStickerSelectActivity"
-              android:theme="@style/TextSecure.DarkTheme"
+              android:theme="@style/Signal.DayNight.NoActionBar"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
 
     <activity android:name=".profiles.edit.EditProfileActivity"
@@ -536,6 +553,10 @@
               android:screenOrientation="portrait"
               android:theme="@style/Theme.Signal.WallpaperCropper" />
 
+    <activity android:name=".reactions.edit.EditReactionsActivity"
+              android:theme="@style/Theme.Signal.DayNight.NoActionBar"
+              android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
+
     <service android:enabled="true" android:name=".service.webrtc.WebRtcCallService"/>
     <service android:enabled="true" android:exported="false" android:name=".service.KeyCachingService"/>
     <service android:enabled="true" android:exported="false" android:name=".service.WipeMemoryService"/>
@@ -597,23 +618,11 @@
         </intent-filter>
     </receiver>
 
-    <receiver android:name=".notifications.AndroidAutoHeardReceiver"
-              android:exported="false">
-        <intent-filter>
-          <action android:name="org.thoughtcrime.securesms.notifications.ANDROID_AUTO_HEARD"/>
-        </intent-filter>
-    </receiver>
-
-    <receiver android:name=".notifications.AndroidAutoReplyReceiver"
-              android:exported="false">
-        <intent-filter>
-          <action android:name="org.thoughtcrime.securesms.notifications.ANDROID_AUTO_REPLY"/>
-        </intent-filter>
-    </receiver>
-
     <receiver android:name=".service.ExpirationListener" />
 
     <receiver android:name=".revealable.ViewOnceMessageManager$ViewOnceAlarm" />
+
+    <receiver android:name=".service.PendingRetryReceiptManager$PendingRetryReceiptAlarm" />
 
     <receiver android:name=".service.TrimThreadsByDateManager$TrimThreadsByDateAlarm" />
 

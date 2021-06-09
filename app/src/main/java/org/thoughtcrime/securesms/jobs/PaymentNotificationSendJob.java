@@ -9,12 +9,14 @@ import org.thoughtcrime.securesms.database.PaymentDatabase;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.jobmanager.Data;
 import org.thoughtcrime.securesms.jobmanager.Job;
+import org.thoughtcrime.securesms.net.NotPushRegisteredException;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.recipients.RecipientUtil;
 import org.thoughtcrime.securesms.transport.RetryLaterException;
 import org.whispersystems.libsignal.util.guava.Optional;
 import org.whispersystems.signalservice.api.SignalServiceMessageSender;
+import org.whispersystems.signalservice.api.crypto.ContentHint;
 import org.whispersystems.signalservice.api.crypto.UnidentifiedAccessPair;
 import org.whispersystems.signalservice.api.messages.SendMessageResult;
 import org.whispersystems.signalservice.api.messages.SignalServiceDataMessage;
@@ -75,10 +77,14 @@ public final class PaymentNotificationSendJob extends BaseJob {
 
   @Override
   protected void onRun() throws Exception {
+    if (!Recipient.self().isRegistered()) {
+      throw new NotPushRegisteredException();
+    }
+
     PaymentDatabase                  paymentDatabase    = DatabaseFactory.getPaymentDatabase(context);
     Recipient                        recipient          = Recipient.resolved(recipientId);
     SignalServiceMessageSender       messageSender      = ApplicationDependencies.getSignalServiceMessageSender();
-    SignalServiceAddress             addresses          = RecipientUtil.toSignalServiceAddress(context, recipient);
+    SignalServiceAddress             address            = RecipientUtil.toSignalServiceAddress(context, recipient);
     Optional<UnidentifiedAccessPair> unidentifiedAccess = UnidentifiedAccessUtil.getAccessFor(context, recipient);
 
     PaymentDatabase.PaymentTransaction payment = paymentDatabase.getPayment(uuid);
@@ -97,7 +103,7 @@ public final class PaymentNotificationSendJob extends BaseJob {
                                                                    .withPayment(new SignalServiceDataMessage.Payment(new SignalServiceDataMessage.PaymentNotification(payment.getReceipt(), payment.getNote())))
                                                                    .build();
 
-    SendMessageResult sendMessageResult = messageSender.sendMessage(addresses, unidentifiedAccess, dataMessage);
+    SendMessageResult sendMessageResult = messageSender.sendDataMessage(address, unidentifiedAccess, ContentHint.DEFAULT, dataMessage);
 
     if (sendMessageResult.getIdentityFailure() != null) {
       Log.w(TAG, "Identity failure for " + recipient.getId());
@@ -113,6 +119,7 @@ public final class PaymentNotificationSendJob extends BaseJob {
   @Override
   protected boolean onShouldRetry(@NonNull Exception e) {
     if (e instanceof ServerRejectedException) return false;
+    if (e instanceof NotPushRegisteredException) return false;
     return e instanceof IOException ||
            e instanceof RetryLaterException;
   }

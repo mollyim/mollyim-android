@@ -22,6 +22,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.util.Pair;
 import androidx.core.util.Supplier;
 import androidx.fragment.app.Fragment;
@@ -52,10 +53,16 @@ import org.thoughtcrime.securesms.components.mention.MentionAnnotation;
 import org.thoughtcrime.securesms.contactshare.SimpleTextWatcher;
 import org.thoughtcrime.securesms.conversation.ui.mentions.MentionsPickerViewModel;
 import org.thoughtcrime.securesms.imageeditor.model.EditorModel;
+import org.thoughtcrime.securesms.keyboard.KeyboardPage;
+import org.thoughtcrime.securesms.keyboard.KeyboardPagerViewModel;
+import org.thoughtcrime.securesms.keyboard.emoji.EmojiKeyboardPageFragment;
+import org.thoughtcrime.securesms.keyboard.emoji.search.EmojiSearchFragment;
+import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.mediapreview.MediaRailAdapter;
 import org.thoughtcrime.securesms.mediasend.MediaSendViewModel.HudState;
 import org.thoughtcrime.securesms.mediasend.MediaSendViewModel.ViewOnceState;
 import org.thoughtcrime.securesms.mms.GlideApp;
+import org.thoughtcrime.securesms.mms.SentMediaQuality;
 import org.thoughtcrime.securesms.permissions.Permissions;
 import org.thoughtcrime.securesms.providers.BlobProvider;
 import org.thoughtcrime.securesms.recipients.LiveRecipient;
@@ -105,7 +112,10 @@ public class MediaSendActivity extends PassphraseRequiredActivity implements Med
                                                                                       ViewTreeObserver.OnGlobalLayoutListener,
                                                                                       MediaRailAdapter.RailItemListener,
                                                                                       InputAwareLayout.OnKeyboardShownListener,
-                                                                                      InputAwareLayout.OnKeyboardHiddenListener
+                                                                                      InputAwareLayout.OnKeyboardHiddenListener,
+                                                                                      EmojiKeyboardProvider.EmojiEventListener,
+                                                                                      EmojiKeyboardPageFragment.Callback,
+                                                                                      EmojiSearchFragment.Callback
 {
   private static final String TAG = Log.tag(MediaSendActivity.class);
 
@@ -141,6 +151,7 @@ public class MediaSendActivity extends PassphraseRequiredActivity implements Med
   private TextView            countButtonText;
   private View                continueButton;
   private ImageView           revealButton;
+  private AppCompatImageView  qualityButton;
   private EmojiEditText       captionText;
   private EmojiToggle         emojiToggle;
   private Stub<MediaKeyboard> emojiDrawer;
@@ -236,6 +247,7 @@ public class MediaSendActivity extends PassphraseRequiredActivity implements Med
     countButtonText     = findViewById(R.id.mediasend_count_button_text);
     continueButton      = findViewById(R.id.mediasend_continue_button);
     revealButton        = findViewById(R.id.mediasend_reveal_toggle);
+    qualityButton       = findViewById(R.id.mediasend_quality_toggle);
     captionText         = findViewById(R.id.mediasend_caption);
     emojiToggle         = findViewById(R.id.mediasend_emoji_toggle);
     charactersLeft      = findViewById(R.id.mediasend_characters_left);
@@ -343,7 +355,7 @@ public class MediaSendActivity extends PassphraseRequiredActivity implements Med
       return isSend;
     });
 
-    if (TextSecurePreferences.isSystemEmojiPreferred(this)) {
+    if (SignalStore.settings().isPreferSystemEmoji()) {
       emojiToggle.setVisibility(View.GONE);
     } else {
       emojiToggle.setOnClickListener(this::onEmojiToggleClicked);
@@ -353,6 +365,8 @@ public class MediaSendActivity extends PassphraseRequiredActivity implements Med
     initViewModel();
 
     revealButton.setOnClickListener(v -> viewModel.onRevealButtonToggled());
+
+    qualityButton.setOnClickListener(v -> QualitySelectorBottomSheetDialog.show(getSupportFragmentManager()));
 
     continueButton.setOnClickListener(v -> {
       continueButton.setEnabled(false);
@@ -598,7 +612,7 @@ public class MediaSendActivity extends PassphraseRequiredActivity implements Med
     fragment.pausePlayback();
 
     SimpleProgressDialog.DismissibleDialog dialog = SimpleProgressDialog.showDelayed(this, 300, 0);
-    viewModel.onSendClicked(buildModelsToTransform(fragment), recipients, composeText.getMentions())
+    viewModel.onSendClicked(buildModelsToTransform(fragment, viewModel.getSentMediaQuality().getValue()), recipients, composeText.getMentions())
              .observe(this, result -> {
                dialog.dismiss();
                if (recipients.size() > 1) {
@@ -609,9 +623,9 @@ public class MediaSendActivity extends PassphraseRequiredActivity implements Med
              });
   }
 
-  private static Map<Media, MediaTransform> buildModelsToTransform(@NonNull MediaSendFragment fragment) {
-    List<Media>             mediaList      = fragment.getAllMedia();
-    Map<Uri, Object>        savedState     = fragment.getSavedState();
+  private static Map<Media, MediaTransform> buildModelsToTransform(@NonNull MediaSendFragment fragment, @Nullable SentMediaQuality sentMediaQuality) {
+    List<Media>                mediaList      = fragment.getAllMedia();
+    Map<Uri, Object>           savedState     = fragment.getSavedState();
     Map<Media, MediaTransform> modelsToRender = new HashMap<>();
 
     for (Media media : mediaList) {
@@ -630,11 +644,19 @@ public class MediaSendActivity extends PassphraseRequiredActivity implements Med
           modelsToRender.put(media, new VideoTrimTransform(data));
         }
       }
+
+      if (sentMediaQuality == SentMediaQuality.HIGH) {
+        MediaTransform existingTransform = modelsToRender.get(media);
+        if (existingTransform == null) {
+          modelsToRender.put(media, new SentMediaQualityTransform(sentMediaQuality));
+        } else {
+          modelsToRender.put(media, new CompositeMediaTransform(existingTransform, new SentMediaQualityTransform(sentMediaQuality)));
+        }
+      }
     }
 
     return modelsToRender;
   }
-
 
   private void onAddMediaClicked(@NonNull String bucketId) {
     Permissions.with(this)
@@ -680,8 +702,6 @@ public class MediaSendActivity extends PassphraseRequiredActivity implements Med
 
       if (state.getRailState() == MediaSendViewModel.RailState.VIEWABLE) {
         captionBackground = R.color.core_grey_90;
-      } else if (state.getViewOnceState() == ViewOnceState.ENABLED) {
-        captionBackground = 0;
       } else if (isMentionPickerShowing){
         captionBackground = R.color.signal_background_dialog;
       }
@@ -729,11 +749,11 @@ public class MediaSendActivity extends PassphraseRequiredActivity implements Med
       switch (state.getViewOnceState()) {
         case ENABLED:
           revealButton.setVisibility(View.VISIBLE);
-          revealButton.setImageResource(R.drawable.ic_view_once_32);
+          revealButton.setImageResource(R.drawable.ic_view_once_28);
           break;
         case DISABLED:
           revealButton.setVisibility(View.VISIBLE);
-          revealButton.setImageResource(R.drawable.ic_view_infinite_32);
+          revealButton.setImageResource(R.drawable.ic_view_infinite_28);
           break;
         case GONE:
           revealButton.setVisibility(View.GONE);
@@ -762,6 +782,9 @@ public class MediaSendActivity extends PassphraseRequiredActivity implements Med
         composeRow.setVisibility(View.VISIBLE);
       }
     });
+
+    viewModel.getShowMediaQualityToggle().observe(this, show -> qualityButton.setVisibility(show && !Util.isLowMemory(this) ? View.VISIBLE : View.GONE));
+    viewModel.getSentMediaQuality().observe(this, q -> qualityButton.setImageResource(q == SentMediaQuality.STANDARD ? R.drawable.ic_quality_standard_32 : R.drawable.ic_quality_high_32));
 
     viewModel.getSelectedMedia().observe(this, media -> {
       mediaRailAdapter.setMedia(media);
@@ -970,17 +993,9 @@ public class MediaSendActivity extends PassphraseRequiredActivity implements Med
 
   private void onEmojiToggleClicked(View v) {
     if (!emojiDrawer.resolved()) {
-      emojiDrawer.get().setProviders(0, new EmojiKeyboardProvider(this, new EmojiKeyboardProvider.EmojiEventListener() {
-        @Override
-        public void onKeyEvent(KeyEvent keyEvent) {
-          getActiveInputField().dispatchKeyEvent(keyEvent);
-        }
+      KeyboardPagerViewModel keyboardPagerViewModel = ViewModelProviders.of(this).get(KeyboardPagerViewModel.class);
+      keyboardPagerViewModel.setOnlyPage(KeyboardPage.EMOJI);
 
-        @Override
-        public void onEmojiSelected(String emoji) {
-          getActiveInputField().insertEmoji(emoji);
-        }
-      }));
       emojiToggle.attach(emojiDrawer.get());
     }
 
@@ -989,6 +1004,16 @@ public class MediaSendActivity extends PassphraseRequiredActivity implements Med
     } else {
       hud.hideSoftkey(composeText, () -> hud.post(() -> hud.show(composeText, emojiDrawer.get())));
     }
+  }
+
+  @Override
+  public void onKeyEvent(KeyEvent keyEvent) {
+    getActiveInputField().dispatchKeyEvent(keyEvent);
+  }
+
+  @Override
+  public void onEmojiSelected(String emoji) {
+    getActiveInputField().insertEmoji(emoji);
   }
 
   private @Nullable MediaSendFragment getMediaSendFragment() {
@@ -1012,6 +1037,20 @@ public class MediaSendActivity extends PassphraseRequiredActivity implements Med
     overridePendingTransition(R.anim.stationary, R.anim.camera_slide_to_bottom);
   }
 
+  @Override
+  public void openEmojiSearch() {
+    if (emojiDrawer.resolved()) {
+      emojiDrawer.get().onOpenEmojiSearch();
+    }
+  }
+
+  @Override
+  public void closeEmojiSearch() {
+    if (emojiDrawer.resolved()) {
+      emojiDrawer.get().onCloseEmojiSearch();
+    }
+  }
+
   private class ComposeKeyPressedListener implements View.OnKeyListener, View.OnClickListener, TextWatcher, View.OnFocusChangeListener {
 
     int beforeLength;
@@ -1020,7 +1059,7 @@ public class MediaSendActivity extends PassphraseRequiredActivity implements Med
     public boolean onKey(View v, int keyCode, KeyEvent event) {
       if (event.getAction() == KeyEvent.ACTION_DOWN) {
         if (keyCode == KeyEvent.KEYCODE_ENTER) {
-          if (TextSecurePreferences.isEnterSendsEnabled(getApplicationContext())) {
+          if (SignalStore.settings().isEnterKeySends()) {
             sendButton.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER));
             sendButton.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_ENTER));
             return true;
@@ -1050,7 +1089,11 @@ public class MediaSendActivity extends PassphraseRequiredActivity implements Med
     public void onTextChanged(CharSequence s, int start, int before,int count) {}
 
     @Override
-    public void onFocusChange(View v, boolean hasFocus) {}
+    public void onFocusChange(View v, boolean hasFocus) {
+      if (hasFocus && hud.getCurrentInput() == emojiDrawer.get()) {
+        hud.showSoftkey(composeText);
+      }
+    }
   }
 
   private class MentionPickerPlacer implements ViewTreeObserver.OnGlobalLayoutListener {

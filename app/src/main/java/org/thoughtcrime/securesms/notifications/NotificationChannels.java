@@ -29,7 +29,10 @@ import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.database.RecipientDatabase;
 import org.thoughtcrime.securesms.database.RecipientDatabase.VibrateState;
+import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.recipients.Recipient;
+import org.thoughtcrime.securesms.recipients.RecipientId;
+import org.thoughtcrime.securesms.util.ConversationUtil;
 import org.thoughtcrime.securesms.util.ServiceUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
@@ -37,11 +40,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
+
+import static org.thoughtcrime.securesms.util.ConversationUtil.CONVERSATION_SUPPORT_VERSION;
 
 public class NotificationChannels {
 
   private static final String TAG = Log.tag(NotificationChannels.class);
+
+  private static final long[] EMPTY_VIBRATION_PATTERN = new long[] { 0 };
 
   private static class Version {
     static final int MESSAGES_CATEGORY   = 2;
@@ -158,11 +167,11 @@ public class NotificationChannels {
     if (recipient.getId().isUnknown()) return null;
 
     VibrateState vibrateState     = recipient.getMessageVibrate();
-    boolean      vibrationEnabled = vibrateState == VibrateState.DEFAULT ? TextSecurePreferences.isNotificationVibrateEnabled(context) : vibrateState == VibrateState.ENABLED;
+    boolean      vibrationEnabled = vibrateState == VibrateState.DEFAULT ? SignalStore.settings().isMessageVibrateEnabled() : vibrateState == VibrateState.ENABLED;
     Uri          messageRingtone  = recipient.getMessageRingtone() != null ? recipient.getMessageRingtone() : getMessageRingtone(context);
     String       displayName      = recipient.getDisplayName(context);
 
-    return createChannelFor(context, generateChannelIdFor(recipient), displayName, messageRingtone, vibrationEnabled);
+    return createChannelFor(context, generateChannelIdFor(recipient), displayName, messageRingtone, vibrationEnabled, ConversationUtil.getShortcutId(recipient));
   }
 
   /**
@@ -172,7 +181,8 @@ public class NotificationChannels {
                                                                @NonNull String channelId,
                                                                @NonNull String displayName,
                                                                @Nullable Uri messageSound,
-                                                               boolean vibrationEnabled)
+                                                               boolean vibrationEnabled,
+                                                               @Nullable String shortcutId)
   {
     if (!supported()) {
       return null;
@@ -180,14 +190,18 @@ public class NotificationChannels {
 
     NotificationChannel channel   = new NotificationChannel(channelId, displayName, NotificationManager.IMPORTANCE_HIGH);
 
-    setLedPreference(channel, TextSecurePreferences.getNotificationLedColor(context));
+    setLedPreference(channel, SignalStore.settings().getMessageLedColor());
     channel.setGroup(CATEGORY_MESSAGES);
-    channel.enableVibration(vibrationEnabled);
+    setVibrationEnabled(channel, vibrationEnabled);
 
     if (messageSound != null) {
       channel.setSound(messageSound, new AudioAttributes.Builder().setContentType(AudioAttributes.CONTENT_TYPE_UNKNOWN)
                                                                   .setUsage(AudioAttributes.USAGE_NOTIFICATION_COMMUNICATION_INSTANT)
                                                                   .build());
+    }
+
+    if (Build.VERSION.SDK_INT >= CONVERSATION_SUPPORT_VERSION && shortcutId != null) {
+      channel.setConversationId(getMessagesChannel(context), shortcutId);
     }
 
     NotificationManager notificationManager = ServiceUtil.getNotificationManager(context);
@@ -357,7 +371,7 @@ public class NotificationChannels {
     }
     Log.i(TAG, "Updating default vibrate with value: " + enabled);
 
-    updateMessageChannel(context, channel -> channel.enableVibration(enabled));
+    updateMessageChannel(context, channel -> setVibrationEnabled(channel, enabled));
   }
 
   /**
@@ -375,13 +389,32 @@ public class NotificationChannels {
 
     boolean enabled      = vibrateState == VibrateState.DEFAULT ? getMessageVibrate(context) : vibrateState == VibrateState.ENABLED;
     String  newChannelId = generateChannelIdFor(recipient);
-    boolean success      = updateExistingChannel(ServiceUtil.getNotificationManager(context),
-                                                 recipient.getNotificationChannel(),
-                                                 newChannelId,
-                                                 channel -> channel.enableVibration(enabled));
+
+    boolean success = updateExistingChannel(ServiceUtil.getNotificationManager(context),
+                                            recipient.getNotificationChannel(),
+                                            newChannelId,
+                                            channel -> setVibrationEnabled(channel, enabled));
 
     DatabaseFactory.getRecipientDatabase(context).setNotificationChannel(recipient.getId(), success ? newChannelId : null);
     ensureCustomChannelConsistency(context);
+  }
+
+  /**
+   * Some devices don't seem to respect the vibration flag on a notification channel. To disable, we
+   * instead set the pattern to be empty.
+   *
+   * Note: Calling {@link NotificationChannel#setVibrationPattern(long[])} with null will clear the empty
+   * vibration pattern (if any) but also set the enable vibration flag to false, hence the two steps to enable.
+   * Likewise, setting the pattern to any non-zero length array will set enable vibration flag to true.
+   */
+  @TargetApi(26)
+  private static void setVibrationEnabled(@NonNull NotificationChannel channel, boolean enabled) {
+    if (enabled) {
+      channel.setVibrationPattern(null);
+      channel.enableVibration(true);
+    } else {
+      channel.setVibrationPattern(EMPTY_VIBRATION_PATTERN);
+    }
   }
 
   /**
@@ -444,6 +477,32 @@ public class NotificationChannels {
   }
 
   /**
+   * Attempt to update a recipient with shortcut based notification channel if the system made one for us and we don't
+   * have a channel set yet.
+   *
+   * @return true if a shortcut based notification channel was found and then associated with the recipient, false otherwise
+   */
+  @WorkerThread
+  public static boolean updateWithShortcutBasedChannel(@NonNull Context context, @NonNull Recipient recipient) {
+    if (Build.VERSION.SDK_INT >= CONVERSATION_SUPPORT_VERSION && TextUtils.isEmpty(recipient.getNotificationChannel())) {
+      String shortcutId = ConversationUtil.getShortcutId(recipient);
+
+      Optional<NotificationChannel> channel = ServiceUtil.getNotificationManager(context)
+                                                         .getNotificationChannels()
+                                                         .stream()
+                                                         .filter(c -> Objects.equals(shortcutId, c.getConversationId()))
+                                                         .findFirst();
+
+      if (channel.isPresent()) {
+        Log.i(TAG, "Conversation channel created outside of app, while running. Update " + recipient.getId() + " to use '" + channel.get().getId() + "'");
+        DatabaseFactory.getRecipientDatabase(context).setNotificationChannel(recipient.getId(), channel.get().getId());
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
    * Updates the name of an existing channel to match the recipient's current name. Will have no
    * effect if the recipient doesn't have an existing valid channel.
    */
@@ -494,8 +553,24 @@ public class NotificationChannels {
       if (existingChannel.getId().startsWith(CONTACT_PREFIX) && !customChannelIds.contains(existingChannel.getId())) {
         Log.i(TAG, "Consistency: Deleting channel '"+ existingChannel.getId() + "' because the DB has no record of it.");
         notificationManager.deleteNotificationChannel(existingChannel.getId());
+      } else if (existingChannel.getId().startsWith(MESSAGES_PREFIX) &&
+                 Build.VERSION.SDK_INT >= CONVERSATION_SUPPORT_VERSION &&
+                 existingChannel.getConversationId() != null)
+      {
+        if (customChannelIds.contains(existingChannel.getId())) {
+          continue;
+        }
+
+        RecipientId id = ConversationUtil.getRecipientId(existingChannel.getConversationId());
+        if (id != null) {
+          Log.i(TAG, "Consistency: Conversation channel created outside of app, update " + id + " to use '" + existingChannel.getId() + "'");
+          db.setNotificationChannel(id, existingChannel.getId());
+        } else {
+          Log.i(TAG, "Consistency: Conversation channel created outside of app with no matching recipient, deleting channel '" + existingChannel.getId() + "'");
+          notificationManager.deleteNotificationChannel(existingChannel.getId());
+        }
       } else if (existingChannel.getId().startsWith(MESSAGES_PREFIX) && !existingChannel.getId().equals(getMessagesChannel(context))) {
-        Log.i(TAG, "Consistency: Deleting channel '"+ existingChannel.getId() + "' because it's out of date.");
+        Log.i(TAG, "Consistency: Deleting channel '" + existingChannel.getId() + "' because it's out of date.");
         notificationManager.deleteNotificationChannel(existingChannel.getId());
       }
     }
@@ -523,16 +598,15 @@ public class NotificationChannels {
     NotificationChannel joinEvents   = new NotificationChannel(JOIN_EVENTS, context.getString(R.string.NotificationChannel_contact_joined_signal), NotificationManager.IMPORTANCE_DEFAULT);
 
     messages.setGroup(CATEGORY_MESSAGES);
-    messages.enableVibration(TextSecurePreferences.isNotificationVibrateEnabled(context));
-    messages.setSound(TextSecurePreferences.getNotificationRingtone(context), getRingtoneAudioAttributes());
-    setLedPreference(messages, TextSecurePreferences.getNotificationLedColor(context));
+    setVibrationEnabled(messages, SignalStore.settings().isMessageVibrateEnabled());
+    messages.setSound(SignalStore.settings().getMessageNotificationSound(), getRingtoneAudioAttributes());
+    setLedPreference(messages, SignalStore.settings().getMessageLedColor());
 
     calls.setShowBadge(false);
     backups.setShowBadge(false);
     lockedStatus.setShowBadge(false);
     other.setShowBadge(false);
-    other.setVibrationPattern(new long[]{0});
-    other.enableVibration(true);
+    setVibrationEnabled(other, false);
     voiceNotes.setShowBadge(false);
     joinEvents.setShowBadge(false);
 
@@ -595,6 +669,10 @@ public class NotificationChannels {
     copy.setShowBadge(original.canShowBadge());
     copy.setLightColor(original.getLightColor());
     copy.enableLights(original.shouldShowLights());
+
+    if (Build.VERSION.SDK_INT >= CONVERSATION_SUPPORT_VERSION && original.getConversationId() != null) {
+      copy.setConversationId(original.getParentChannelId(), original.getConversationId());
+    }
 
     return copy;
   }

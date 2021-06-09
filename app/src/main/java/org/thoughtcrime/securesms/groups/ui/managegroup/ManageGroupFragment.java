@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,7 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.ViewCompat;
+import androidx.core.widget.TextViewCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -32,21 +34,24 @@ import org.thoughtcrime.securesms.MediaPreviewActivity;
 import org.thoughtcrime.securesms.MuteDialog;
 import org.thoughtcrime.securesms.PushContactSelectionActivity;
 import org.thoughtcrime.securesms.R;
-import org.thoughtcrime.securesms.color.MaterialColor;
 import org.thoughtcrime.securesms.components.AvatarImageView;
 import org.thoughtcrime.securesms.components.ThreadPhotoRailView;
+import org.thoughtcrime.securesms.components.emoji.EmojiTextView;
 import org.thoughtcrime.securesms.contacts.avatars.FallbackContactPhoto;
 import org.thoughtcrime.securesms.contacts.avatars.FallbackPhoto80dp;
+import org.thoughtcrime.securesms.conversation.colors.AvatarColor;
 import org.thoughtcrime.securesms.groups.GroupId;
 import org.thoughtcrime.securesms.groups.ui.GroupChangeFailureReason;
 import org.thoughtcrime.securesms.groups.ui.GroupErrors;
 import org.thoughtcrime.securesms.groups.ui.GroupMemberListView;
 import org.thoughtcrime.securesms.groups.ui.LeaveGroupDialog;
 import org.thoughtcrime.securesms.groups.ui.invitesandrequests.ManagePendingAndRequestingMembersActivity;
+import org.thoughtcrime.securesms.groups.ui.managegroup.dialogs.GroupDescriptionDialog;
 import org.thoughtcrime.securesms.groups.ui.managegroup.dialogs.GroupInviteSentDialog;
 import org.thoughtcrime.securesms.groups.ui.managegroup.dialogs.GroupRightsDialog;
 import org.thoughtcrime.securesms.groups.ui.managegroup.dialogs.GroupsLearnMoreBottomSheetDialogFragment;
 import org.thoughtcrime.securesms.groups.ui.migration.GroupsV1MigrationInitiationBottomSheetDialogFragment;
+import org.thoughtcrime.securesms.groups.v2.GroupDescriptionUtil;
 import org.thoughtcrime.securesms.mediaoverview.MediaOverviewActivity;
 import org.thoughtcrime.securesms.mms.GlideApp;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
@@ -54,12 +59,14 @@ import org.thoughtcrime.securesms.profiles.edit.EditProfileActivity;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.recipients.ui.bottomsheet.RecipientBottomSheetDialogFragment;
+import org.thoughtcrime.securesms.recipients.ui.disappearingmessages.RecipientDisappearingMessagesActivity;
 import org.thoughtcrime.securesms.recipients.ui.notifications.CustomNotificationsDialogFragment;
 import org.thoughtcrime.securesms.recipients.ui.sharablegrouplink.ShareableGroupLinkDialogFragment;
 import org.thoughtcrime.securesms.util.AsynchronousCallback;
 import org.thoughtcrime.securesms.util.DateUtils;
 import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.LifecycleCursorWrapper;
+import org.thoughtcrime.securesms.util.LongClickMovementMethod;
 import org.thoughtcrime.securesms.util.ViewUtil;
 import org.thoughtcrime.securesms.util.views.LearnMoreTextView;
 import org.thoughtcrime.securesms.util.views.SimpleProgressDialog;
@@ -84,6 +91,7 @@ public class ManageGroupFragment extends LoggingFragment {
   private TextView                           pendingAndRequestingCount;
   private Toolbar                            toolbar;
   private TextView                           groupName;
+  private EmojiTextView                      groupDescription;
   private LearnMoreTextView                  groupInfoText;
   private TextView                           memberCountUnderAvatar;
   private TextView                           memberCountAboveList;
@@ -116,14 +124,7 @@ public class ManageGroupFragment extends LoggingFragment {
   private View                               toggleAllMembers;
   private View                               groupLinkRow;
   private TextView                           groupLinkButton;
-  private View                               wallpaperButton;
-
-  private final Recipient.FallbackPhotoProvider fallbackPhotoProvider = new Recipient.FallbackPhotoProvider() {
-    @Override
-    public @NonNull FallbackContactPhoto getPhotoForGroup() {
-      return new FallbackPhoto80dp(R.drawable.ic_group_80, MaterialColor.ULTRAMARINE.toAvatarColor(requireContext()));
-    }
-  };
+  private TextView                           wallpaperButton;
 
   static ManageGroupFragment newInstance(@NonNull String groupId) {
     ManageGroupFragment fragment = new ManageGroupFragment();
@@ -145,6 +146,7 @@ public class ManageGroupFragment extends LoggingFragment {
     avatar                      = view.findViewById(R.id.group_avatar);
     toolbar                     = view.findViewById(R.id.toolbar);
     groupName                   = view.findViewById(R.id.name);
+    groupDescription            = view.findViewById(R.id.manage_group_description);
     groupInfoText               = view.findViewById(R.id.manage_group_info_text);
     memberCountUnderAvatar      = view.findViewById(R.id.member_count);
     memberCountAboveList        = view.findViewById(R.id.member_count_2);
@@ -220,8 +222,6 @@ public class ManageGroupFragment extends LoggingFragment {
       }
     });
 
-    avatar.setFallbackPhotoProvider(fallbackPhotoProvider);
-
     toolbar.setNavigationOnClickListener(v -> requireActivity().onBackPressed());
     toolbar.setOnMenuItemClickListener(this::onMenuItemSelected);
     toolbar.inflateMenu(R.menu.manage_group_fragment);
@@ -233,9 +233,11 @@ public class ManageGroupFragment extends LoggingFragment {
     });
 
     viewModel.getTitle().observe(getViewLifecycleOwner(), groupName::setText);
+    viewModel.getDescription().observe(getViewLifecycleOwner(), this::updateGroupDescription);
     viewModel.getMemberCountSummary().observe(getViewLifecycleOwner(), memberCountUnderAvatar::setText);
     viewModel.getFullMemberCountSummary().observe(getViewLifecycleOwner(), memberCountAboveList::setText);
     viewModel.getGroupRecipient().observe(getViewLifecycleOwner(), groupRecipient -> {
+      avatar.setFallbackPhotoProvider(new FallbackPhotoProvider(groupRecipient.getAvatarColor()));
       avatar.setRecipient(groupRecipient);
       avatar.setOnClickListener(v -> {
         FragmentActivity activity = requireActivity();
@@ -245,6 +247,10 @@ public class ManageGroupFragment extends LoggingFragment {
       customNotificationsRow.setOnClickListener(v -> CustomNotificationsDialogFragment.create(groupRecipient.getId())
                                                                                       .show(requireFragmentManager(), DIALOG_TAG));
       wallpaperButton.setOnClickListener(v -> startActivity(ChatWallpaperActivity.createIntent(requireContext(), groupRecipient.getId())));
+
+      Drawable colorCircle = groupRecipient.getChatColors().asCircle();
+      colorCircle.setBounds(0, 0, ViewUtil.dpToPx(16), ViewUtil.dpToPx(16));
+      TextViewCompat.setCompoundDrawablesRelative(wallpaperButton, null, null, colorCircle, null);
     });
 
     if (groupId.isV2()) {
@@ -273,7 +279,12 @@ public class ManageGroupFragment extends LoggingFragment {
 
     viewModel.getDisappearingMessageTimer().observe(getViewLifecycleOwner(), string -> disappearingMessages.setText(string));
 
-    disappearingMessagesRow.setOnClickListener(v -> viewModel.handleExpirationSelection());
+    disappearingMessagesRow.setOnClickListener(v -> {
+      Recipient recipient = viewModel.getGroupRecipient().getValue();
+      if (recipient != null) {
+        startActivity(RecipientDisappearingMessagesActivity.forRecipient(requireContext(), recipient.getId()));
+      }
+    });
     blockGroup.setOnClickListener(v -> viewModel.blockAndLeave(requireActivity()));
     unblockGroup.setOnClickListener(v -> viewModel.unblock(requireActivity()));
 
@@ -432,6 +443,33 @@ public class ManageGroupFragment extends LoggingFragment {
     }
   }
 
+  private void updateGroupDescription(@NonNull ManageGroupViewModel.Description description) {
+    if (!TextUtils.isEmpty(description.getDescription()) || description.canEditDescription()) {
+      groupDescription.setVisibility(View.VISIBLE);
+      groupDescription.setMovementMethod(LongClickMovementMethod.getInstance(requireContext()));
+      memberCountUnderAvatar.setVisibility(View.GONE);
+    } else {
+      groupDescription.setVisibility(View.GONE);
+      groupDescription.setMovementMethod(null);
+      memberCountUnderAvatar.setVisibility(View.VISIBLE);
+    }
+
+    if (TextUtils.isEmpty(description.getDescription())) {
+      if (description.canEditDescription()) {
+        groupDescription.setOverflowText(null);
+        groupDescription.setText(R.string.ManageGroupActivity_add_group_description);
+        groupDescription.setOnClickListener(v -> startActivity(EditProfileActivity.getIntentForGroupProfile(requireActivity(), getGroupId())));
+      }
+    } else {
+      groupDescription.setOnClickListener(null);
+      GroupDescriptionUtil.setText(requireContext(),
+                                   groupDescription,
+                                   description.getDescription(),
+                                   description.shouldLinkifyWebLinks(),
+                                   () -> GroupDescriptionDialog.show(getChildFragmentManager(), getGroupId(), null, description.shouldLinkifyWebLinks()));
+    }
+  }
+
   @Override
   public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
@@ -466,4 +504,18 @@ public class ManageGroupFragment extends LoggingFragment {
       });
     }
   }
+
+  private final class FallbackPhotoProvider extends Recipient.FallbackPhotoProvider {
+
+    private final AvatarColor groupColors;
+
+    private FallbackPhotoProvider(@NonNull AvatarColor groupColors) {
+      this.groupColors = groupColors;
+    }
+
+    @Override
+    public @NonNull FallbackContactPhoto getPhotoForGroup() {
+      return new FallbackPhoto80dp(R.drawable.ic_group_80, groupColors.colorInt());
+    }
+  };
 }

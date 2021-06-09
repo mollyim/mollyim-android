@@ -408,7 +408,7 @@ public final class GroupsV2StateProcessor {
           Log.d(TAG, "Skipping profile key changes only update message");
         } else {
           boolean insert = true;
-          if (entry.getChange() != null && DecryptedGroupUtil.changeIsEmpty(entry.getChange())) {
+          if (entry.getChange() != null && DecryptedGroupUtil.changeIsEmpty(entry.getChange()) && previousGroupState != null) {
             if (FeatureFlags.internalUser()) {
               Log.w(TAG, "Empty group update message seen. Inserting anyway.");
             } else {
@@ -521,7 +521,7 @@ public final class GroupsV2StateProcessor {
       } else {
         MessageDatabase            smsDatabase  = DatabaseFactory.getSmsDatabase(context);
         RecipientId                sender       = RecipientId.from(editor.get(), null);
-        IncomingTextMessage        incoming     = new IncomingTextMessage(sender, -1, timestamp, timestamp, "", Optional.of(groupId), 0, false);
+        IncomingTextMessage        incoming     = new IncomingTextMessage(sender, -1, timestamp, timestamp, "", Optional.of(groupId), 0, false, null);
         IncomingGroupUpdateMessage groupMessage = new IncomingGroupUpdateMessage(incoming, decryptedGroupV2Context);
 
         if (!smsDatabase.insertMessageInbox(groupMessage).isPresent()) {

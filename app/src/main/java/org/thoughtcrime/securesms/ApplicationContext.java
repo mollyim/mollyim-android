@@ -53,6 +53,7 @@ import org.thoughtcrime.securesms.emoji.EmojiSource;
 import org.thoughtcrime.securesms.gcm.FcmJobService;
 import org.thoughtcrime.securesms.jobs.CreateSignedPreKeyJob;
 import org.thoughtcrime.securesms.jobs.DownloadLatestEmojiDataJob;
+import org.thoughtcrime.securesms.jobs.EmojiSearchIndexDownloadJob;
 import org.thoughtcrime.securesms.jobs.FcmRefreshJob;
 import org.thoughtcrime.securesms.jobs.GroupV1MigrationJob;
 import org.thoughtcrime.securesms.jobs.MultiDeviceContactUpdateJob;
@@ -171,6 +172,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
                             .addBlocking("blob-provider", this::initializeBlobProvider)
                             .addBlocking("feature-flags", FeatureFlags::init)
                             .addNonBlocking(this::initializeRevealableMessageManager)
+                            .addNonBlocking(this::initializePendingRetryReceiptManager)
                             .addNonBlocking(this::initializeSignedPreKeyCheck)
                             .addNonBlocking(this::initializePeriodicTasks)
                             .addNonBlocking(this::initializeCircumvention)
@@ -181,9 +183,11 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
                             .addNonBlocking(StorageSyncHelper::scheduleRoutineSync)
                             .addNonBlocking(() -> ApplicationDependencies.getJobManager().beginJobLoop())
                             .addNonBlocking(EmojiSource::refresh)
-                            .addNonBlocking(() -> DownloadLatestEmojiDataJob.scheduleIfNecessary(this))
                             .addPostRender(() -> RateLimitUtil.retryAllRateLimitedMessages(this))
                             .addPostRender(this::initializeExpiringMessageManager)
+                            .addPostRender(() -> SignalStore.settings().setDefaultSms(Util.isDefaultSmsProvider(this)))
+                            .addPostRender(() -> DownloadLatestEmojiDataJob.scheduleIfNecessary(this))
+                            .addPostRender(EmojiSearchIndexDownloadJob::scheduleIfNecessary)
                             .execute();
 
     Log.d(TAG, "onCreateUnlock() took " + (System.currentTimeMillis() - startTime) + " ms");
@@ -412,6 +416,10 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
 
   private void finalizeRevealableMessageManager() {
     ApplicationDependencies.getViewOnceMessageManager().quit();
+  }
+
+  private void initializePendingRetryReceiptManager() {
+    ApplicationDependencies.getPendingRetryReceiptManager().scheduleIfNecessary();
   }
 
   private void initializePeriodicTasks() {

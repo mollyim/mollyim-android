@@ -109,6 +109,6 @@ public class ServiceUtil {
   }
 
   public static KeyguardManager getKeyguardManager(@NonNull Context context) {
-    return (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
+    return ContextCompat.getSystemService(context, KeyguardManager.class);
   }
 }

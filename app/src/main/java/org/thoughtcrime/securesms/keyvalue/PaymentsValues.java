@@ -106,27 +106,27 @@ public final class PaymentsValues extends SignalStoreValues {
    * Applies feature flags and region restrictions to return an enum which describes the available feature set for the user.
    */
   public PaymentsAvailability getPaymentsAvailability() {
-//    Context context = ApplicationDependencies.getApplication();
-//
-//    if (!TextSecurePreferences.isPushRegistered(context) ||
-//        !GeographicalRestrictions.e164Allowed(TextSecurePreferences.getLocalNumber(context)))
-//    {
+    Context context = ApplicationDependencies.getApplication();
+
+    if (!TextSecurePreferences.isPushRegistered(context) ||
+        !GeographicalRestrictions.e164Allowed(TextSecurePreferences.getLocalNumber(context)))
+    {
       return PaymentsAvailability.NOT_IN_REGION;
-//    }
-//
-//    if (FeatureFlags.payments()) {
-//      if (mobileCoinPaymentsEnabled()) {
-//        return PaymentsAvailability.WITHDRAW_AND_SEND;
-//      } else {
-//        return PaymentsAvailability.REGISTRATION_AVAILABLE;
-//      }
-//    } else {
-//      if (mobileCoinPaymentsEnabled()) {
-//        return PaymentsAvailability.WITHDRAW_ONLY;
-//      } else {
-//        return PaymentsAvailability.DISABLED_REMOTELY;
-//      }
-//    }
+    }
+
+    if (FeatureFlags.payments()) {
+      if (mobileCoinPaymentsEnabled()) {
+        return PaymentsAvailability.WITHDRAW_AND_SEND;
+      } else {
+        return PaymentsAvailability.REGISTRATION_AVAILABLE;
+      }
+    } else {
+      if (mobileCoinPaymentsEnabled()) {
+        return PaymentsAvailability.WITHDRAW_ONLY;
+      } else {
+        return PaymentsAvailability.DISABLED_REMOTELY;
+      }
+    }
   }
 
   @WorkerThread
@@ -308,6 +308,9 @@ public final class PaymentsValues extends SignalStoreValues {
                              Currency.getInstance(DEFAULT_CURRENCY_CODE));
   }
 
+  /**
+   * Does not trigger a storage sync.
+   */
   public void setEnabledAndEntropy(boolean enabled, @Nullable Entropy entropy) {
     KeyValueStore.Writer writer = getStore().beginWrite();
 
@@ -317,8 +320,6 @@ public final class PaymentsValues extends SignalStoreValues {
 
     writer.putBoolean(MOB_PAYMENTS_ENABLED, enabled)
           .commit();
-
-    StorageSyncHelper.scheduleSyncForDataChange();
   }
 
   @WorkerThread

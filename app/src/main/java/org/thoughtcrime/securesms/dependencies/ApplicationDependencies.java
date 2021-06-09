@@ -10,6 +10,7 @@ import org.thoughtcrime.securesms.KbsEnclave;
 import org.thoughtcrime.securesms.components.TypingStatusRepository;
 import org.thoughtcrime.securesms.components.TypingStatusSender;
 import org.thoughtcrime.securesms.database.DatabaseObserver;
+import org.thoughtcrime.securesms.database.model.PendingRetryReceiptModel;
 import org.thoughtcrime.securesms.groups.GroupsV2Authorization;
 import org.thoughtcrime.securesms.groups.GroupsV2AuthorizationMemoryValueCache;
 import org.thoughtcrime.securesms.groups.v2.processing.GroupsV2StateProcessor;
@@ -30,6 +31,7 @@ import org.thoughtcrime.securesms.push.SignalServiceNetworkAccess;
 import org.thoughtcrime.securesms.recipients.LiveRecipientCache;
 import org.thoughtcrime.securesms.revealable.ViewOnceMessageManager;
 import org.thoughtcrime.securesms.service.ExpiringMessageManager;
+import org.thoughtcrime.securesms.service.PendingRetryReceiptManager;
 import org.thoughtcrime.securesms.service.TrimThreadsByDateManager;
 import org.thoughtcrime.securesms.service.webrtc.SignalCallManager;
 import org.thoughtcrime.securesms.shakereport.ShakeToReport;
@@ -91,6 +93,7 @@ public class ApplicationDependencies {
   private static volatile SignalCallManager            signalCallManager;
   private static volatile ShakeToReport                shakeToReport;
   private static volatile OkHttpClient                 okHttpClient;
+  private static volatile PendingRetryReceiptManager   pendingRetryReceiptManager;
 
   @MainThread
   public static void init(@NonNull Provider provider) {
@@ -391,6 +394,18 @@ public class ApplicationDependencies {
     return viewOnceMessageManager;
   }
 
+  public static @NonNull PendingRetryReceiptManager getPendingRetryReceiptManager() {
+    if (pendingRetryReceiptManager == null) {
+      synchronized (LOCK) {
+        if (pendingRetryReceiptManager == null) {
+          pendingRetryReceiptManager = provider.providePendingRetryReceiptManager();
+        }
+      }
+    }
+
+    return pendingRetryReceiptManager;
+  }
+
   public static @NonNull ExpiringMessageManager getExpiringMessageManager() {
     if (expiringMessageManager == null) {
       synchronized (LOCK) {
@@ -523,5 +538,6 @@ public class ApplicationDependencies {
     @NonNull ShakeToReport provideShakeToReport();
     @NonNull AppForegroundObserver provideAppForegroundObserver();
     @NonNull SignalCallManager provideSignalCallManager();
+    @NonNull PendingRetryReceiptManager providePendingRetryReceiptManager();
   }
 }

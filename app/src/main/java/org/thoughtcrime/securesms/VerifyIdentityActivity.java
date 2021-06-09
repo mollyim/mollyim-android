@@ -218,12 +218,6 @@ public class VerifyIdentityActivity extends PassphraseRequiredActivity implement
     Permissions.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
   }
 
-  private void setActionBarNotificationBarColor(MaterialColor color) {
-    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(color.toActionBarColor(this)));
-
-    WindowUtil.setStatusBarColor(getWindow(), color.toStatusBarColor(this));
-  }
-
   public static class VerifyDisplayFragment extends Fragment implements CompoundButton.OnCheckedChangeListener {
 
     public static final String RECIPIENT_ID    = "recipient_id";
@@ -421,11 +415,9 @@ public class VerifyIdentityActivity extends PassphraseRequiredActivity implement
         } else {
           Toast.makeText(getActivity(), R.string.VerifyIdentityActivity_your_contact_is_running_an_old_version_of_signal, Toast.LENGTH_LONG).show();
         }
-      } catch (FingerprintParsingException e) {
+      } catch (Exception e) {
         Log.w(TAG, e);
         Toast.makeText(getActivity(), R.string.VerifyIdentityActivity_the_scanned_qr_code_is_not_a_correctly_formatted_safety_number, Toast.LENGTH_LONG).show();
-      } catch (UnsupportedEncodingException e) {
-        throw new AssertionError(e);
       }
     }
 

@@ -1,6 +1,7 @@
 package org.thoughtcrime.securesms.recipients.ui.managerecipient;
 
 import android.app.Activity;
+import android.app.NotificationChannel;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -20,7 +21,6 @@ import com.annimon.stream.Stream;
 import org.signal.core.util.ThreadUtil;
 import org.signal.core.util.concurrent.SignalExecutors;
 import org.thoughtcrime.securesms.BlockUnblockDialog;
-import org.thoughtcrime.securesms.ExpirationDialog;
 import org.thoughtcrime.securesms.MainActivity;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.VerifyIdentityActivity;
@@ -83,7 +83,7 @@ public final class ManageRecipientViewModel extends ViewModel {
     this.groupListCollapseState    = new DefaultValueLiveData<>(CollapseState.COLLAPSED);
     this.disappearingMessageTimer  = Transformations.map(this.recipient, r -> ExpirationUtil.getExpirationDisplayValue(context, r.getExpireMessages()));
     this.muteState                 = Transformations.map(this.recipient, r -> new MuteState(r.getMuteUntil(), r.isMuted()));
-    this.hasCustomNotifications    = Transformations.map(this.recipient, r -> r.getNotificationChannel() != null || !NotificationChannels.supported());
+    this.hasCustomNotifications    = LiveDataUtil.mapAsync(this.recipient, manageRecipientRepository::hasCustomNotifications);
     this.canBlock                  = Transformations.map(this.recipient, r -> RecipientUtil.isBlockable(r) && !r.isBlocked());
     this.canUnblock                = Transformations.map(this.recipient, Recipient::isBlocked);
     this.internalDetails           = Transformations.map(this.recipient, this::populateInternalDetails);
@@ -197,13 +197,6 @@ public final class ManageRecipientViewModel extends ViewModel {
     return canDelete;
   }
 
-  void handleExpirationSelection(@NonNull Context context) {
-    withRecipient(recipient ->
-                  ExpirationDialog.show(context,
-                                        recipient.getExpireMessages(),
-                                        manageRecipientRepository::setExpiration));
-  }
-
   void setMuteUntil(long muteUntil) {
     manageRecipientRepository.setMuteUntil(muteUntil);
   }
@@ -273,10 +266,6 @@ public final class ManageRecipientViewModel extends ViewModel {
 
   LiveData<String> getSharedGroupsCountSummary() {
     return sharedGroupsCountSummary;
-  }
-
-  void onSelectColor(int color) {
-   manageRecipientRepository.setColor(color);
   }
 
   void onGroupClicked(@NonNull Activity activity, @NonNull Recipient recipient) {

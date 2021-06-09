@@ -13,6 +13,7 @@ import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.database.model.MessageRecord;
 import org.thoughtcrime.securesms.database.model.MmsMessageRecord;
+import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.preferences.widgets.NotificationPrivacyPreference;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.util.DateUtils;
@@ -64,10 +65,10 @@ class VoiceNoteMediaDescriptionCompatFactory {
     extras.putString(EXTRA_AVATAR_RECIPIENT_ID, avatarRecipient.getId().serialize());
     extras.putLong(EXTRA_MESSAGE_POSITION, startingPosition);
     extras.putLong(EXTRA_THREAD_ID, messageRecord.getThreadId());
-    extras.putString(EXTRA_COLOR, threadRecipient.getColor().serialize());
+    extras.putLong(EXTRA_COLOR, threadRecipient.getChatColors().asSingleColor());
     extras.putLong(EXTRA_MESSAGE_ID, messageRecord.getId());
 
-    NotificationPrivacyPreference preference = TextSecurePreferences.getNotificationPrivacy(context);
+    NotificationPrivacyPreference preference = SignalStore.settings().getMessageNotificationsPrivacy();
 
     String title;
     if (preference.isDisplayContact() && threadRecipient.isGroup()) {

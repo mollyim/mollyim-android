@@ -89,7 +89,6 @@
   <string name="BlockUnblockDialog_unblock_s">%1$s를 차단 해제할까요?</string>
   <string name="BlockUnblockDialog_block">차단</string>
   <string name="BlockUnblockDialog_block_and_leave">그룹 나가고 차단하기</string>
-  <string name="BlockUnblockDialog_block_and_delete">차단하고 삭제하기</string>
   <!--BucketedThreadMedia-->
   <string name="BucketedThreadMedia_Today">오늘</string>
   <string name="BucketedThreadMedia_Yesterday">어제</string>
@@ -453,9 +452,9 @@
     <item quantity="other">이 멤버들은 새 그룹에 가입할 수 없으며 그룹에서 제거됩니다.</item>
   </plurals>
   <!--GroupsV1MigrationInitiationReminder-->
-  <string name="GroupsV1MigrationInitiationReminder_to_access_new_features_like_mentions">그룹을 업그레이드하여 @멘션 및 관리자와 같은 새로운 기능에 액세스하세요.</string>
-  <string name="GroupsV1MigrationInitiationReminder_not_now">나중에</string>
-  <string name="GroupsV1MigrationInitiationReminder_upgrade_group">그룹 업그레이드</string>
+  <!-- Removed by excludeNonTranslatables <string name="GroupsV1MigrationInitiationReminder_to_access_new_features_like_mentions">그룹을 업그레이드하여 @멘션 및 관리자와 같은 새로운 기능에 액세스하세요.</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="GroupsV1MigrationInitiationReminder_not_now">나중에</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="GroupsV1MigrationInitiationReminder_upgrade_group">그룹 업그레이드</string> -->
   <!--GroupsV1MigrationSuggestionsReminder-->
   <plurals name="GroupsV1MigrationSuggestionsReminder_members_couldnt_be_added_to_the_new_group">
     <item quantity="other">%1$d명의 멤버를 새 그룹에 다시 추가할 수 없습니다. 지금 추가하시겠습니까?</item>
@@ -573,7 +572,6 @@
   <string name="ManageGroupActivity_mute_notifications">대화 알림 끄기</string>
   <string name="ManageGroupActivity_custom_notifications">맞춤형 알림</string>
   <string name="ManageGroupActivity_mentions">언급</string>
-  <string name="ManageGroupActivity_chat_wallpaper">채팅방 배경</string>
   <string name="ManageGroupActivity_until_s">%1$s까지</string>
   <string name="ManageGroupActivity_always">항상</string>
   <string name="ManageGroupActivity_off">꺼짐</string>
@@ -788,6 +786,7 @@
   <string name="Megaphones_new_group">새 그룹</string>
   <string name="Megaphones_invite_friends">친구 초대</string>
   <string name="Megaphones_use_sms">SMS 사용하기</string>
+  <string name="Megaphones_appearance">모양</string>
   <!--NotificationBarManager-->
   <string name="NotificationBarManager_signal_call_in_progress">Signal 전화 중</string>
   <string name="NotificationBarManager__establishing_signal_call">Signal 전화 연결 중</string>
@@ -917,6 +916,7 @@
   <string name="MessageRecord_you_changed_the_group_name_to_s">그룹 이름을 \"%1$s\"로 바꾸었습니다.</string>
   <string name="MessageRecord_s_changed_the_group_name_to_s">%1$s 님이 그룹 이름을 \'%2$s\'(으)로 변경했습니다.</string>
   <string name="MessageRecord_the_group_name_has_changed_to_s">그룹 이름이 \"%1$s\"로 바뀌었습니다.</string>
+  <!--GV2 description change-->
   <!--GV2 avatar change-->
   <string name="MessageRecord_you_changed_the_group_avatar">그룹 아바타를 변경하였습니다.</string>
   <string name="MessageRecord_s_changed_the_group_avatar">%1$s가 그룹 아바타를 변경하였습니다.</string>
@@ -1043,10 +1043,6 @@
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">제삼자 스캐너를 사용해 Signal 기기를 연결하려는 것 같습니다. 안전한 사용을 위해 Signal에서 다시 코드를 스캔해 주세요.</string>
   <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Signal에서 QR 코드를 읽으려면 카메라 권한이 필요하지만 현재 거부되어 있습니다. 앱 설정 메뉴에서 \'권한\'을 선택한 후 \'카메라\' 항목을 허용해 주세요.</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">카메라 권한이 없어 QR 코드를 스캔할 수 없음</string>
-  <!--ExpirationDialog-->
-  <string name="ExpirationDialog_disappearing_messages">사라지는 메시지</string>
-  <string name="ExpirationDialog_your_messages_will_not_expire">내 메시지들은 만료되지 않습니다.</string>
-  <string name="ExpirationDialog_your_messages_will_disappear_s_after_they_have_been_seen">대화에서 주고 받은 메시지들은 보고나서 %s 후에 사라집니다.</string>
   <!--OutdatedBuildReminder-->
   <string name="OutdatedBuildReminder_update_now">지금 업데이트하세요.</string>
   <string name="OutdatedBuildReminder_your_version_of_signal_will_expire_today">이 Signal 버전은 오늘 만료됩니다. 최신 버전으로 업데이트하세요.</string>
@@ -1153,6 +1149,7 @@
   <string name="CallParticipantView__cant_receive_audio_video_from_s">%1$s 님의 음성 &amp; 동영상 수신 불가</string>
   <string name="CallParticipantView__cant_receive_audio_and_video_from_s">%1$s 님의 음성 및 동영상 수신 불가</string>
   <string name="CallParticipantView__this_may_be_Because_they_have_not_verified_your_safety_number_change">이는 안전 번호 변경을 확인하지 않았거나, 기기에 문제가 있거나 사용자를 차단했기 때문일 수 있습니다.</string>
+  <!--CallToastPopupWindow-->
   <!--ProxyBottomSheetFragment-->
   <string name="ProxyBottomSheetFragment_proxy_server">프록시 서버</string>
   <string name="ProxyBottomSheetFragment_proxy_address">프록시 주소</string>
@@ -1541,6 +1538,7 @@
   <string name="ConversationUpdateItem_return_to_call">통화로 돌아가기</string>
   <string name="ConversationUpdateItem_call_is_full">통화 참가자 수 최대</string>
   <string name="ConversationUpdateItem_invite_friends">친구 초대</string>
+  <string name="ConversationUpdateItem_view">보기</string>
   <!--audio_view-->
   <string name="audio_view__play_pause_accessibility_description">재생 … 일시 정지</string>
   <string name="audio_view__download_accessibility_description">다운로드</string>
@@ -1667,7 +1665,7 @@
   <string name="EditAboutFragment_taking_a_break">쉬는 중</string>
   <string name="EditAboutFragment_working_on_something_new">새로운 것에 도전하는 중</string>
   <!--EditProfileFragment-->
-  <string name="EditProfileFragment__edit_group_name_and_photo">그룹 이름 및 사진 수정</string>
+  <string name="EditProfileFragment__edit_group">그룹 편집</string>
   <string name="EditProfileFragment__group_name">그룹 이름</string>
   <!--EditProfileNameFragment-->
   <string name="EditProfileNameFragment_your_name">내 이름</string>
@@ -1869,7 +1867,6 @@
   <string name="preferences__if_read_receipts_are_disabled_you_wont_be_able_to_see_read_receipts">읽은 메시지 기능이 꺼져 있다면, 다른 사람이 메시지를 읽었는지 확인할 수 없습니다.</string>
   <string name="preferences__typing_indicators">입력 안내</string>
   <string name="preferences__if_typing_indicators_are_disabled_you_wont_be_able_to_see_typing_indicators">입력 안내 기능이 꺼져 있다면, 다른 사람이 메시지를 쓰고 있는지 확인할 수 없습니다.</string>
-  <string name="preferences__request_keyboard_to_disable_personalized_learning">키보드 개인화 학습 비활성화 요청하기. 이 설정은 결과를 보장하지 않으며, 귀하의 키보드가 이 요청을 무시할 수도 있습니다.</string>
   <string name="preferences_app_protection__blocked_users">차단된 사용자</string>
   <string name="preferences_chats__when_using_mobile_data">모바일 데이터 사용 시</string>
   <string name="preferences_chats__when_using_wifi">Wi-Fi 사용 시</string>
@@ -1909,8 +1906,8 @@
   <string name="preferences_data_and_storage__calls">전화</string>
   <string name="preferences_data_and_storage__use_less_data_for_calls">통화에 더 적은 양의 데이터 사용하기</string>
   <string name="preferences_data_and_storage__never">없음</string>
-  <string name="preferences_data_and_storage__wifi_and_cellular">Wi-Fi 및 셀룰러</string>
-  <string name="preferences_data_and_storage__cellular_only">셀룰러 데이터만 사용</string>
+  <!-- Removed by excludeNonTranslatables <string name="preferences_data_and_storage__wifi_and_cellular">Wi-Fi 및 셀룰러</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="preferences_data_and_storage__cellular_only">셀룰러 데이터만 사용</string> -->
   <string name="preference_data_and_storage__using_less_data_may_improve_calls_on_bad_networks">더 적은 양의 데이터를 사용하는 것은 망품질이 낮은 네트워크에서의 통화 품질을 개선할 수 있습니다</string>
   <string name="preferences_notifications__messages">메시지</string>
   <string name="preferences_notifications__events">이벤트</string>
@@ -2415,7 +2412,7 @@
   <!--ShareActivity-->
   <string name="ShareActivity__share">공유</string>
   <string name="ShareActivity__send">보내기</string>
-  <string name="ShareActivity__s_comma">%1$s,</string>
+  <!-- Removed by excludeNonTranslatables <string name="ShareActivity__s_comma">%1$s,</string> -->
   <string name="ShareActivity__sharing_to_multiple_chats_is">여러 개의 채팅방에 공유하기는 Signal 메시지에서만 지원됩니다</string>
   <!--MultiShareDialogs-->
   <string name="MultiShareDialogs__failed_to_send_to_some_users">일부 사용자에 대한 보내기가 실패했습니다</string>
@@ -2425,17 +2422,13 @@
   <!--ChatWallpaperActivity-->
   <string name="ChatWallpaperActivity__chat_wallpaper">채팅방 배경</string>
   <!--ChatWallpaperFragment-->
+  <string name="ChatWallpaperFragment__chat_color">대화창 색</string>
   <string name="ChatWallpaperFragment__set_wallpaper">배경 설정하기</string>
-  <string name="ChatWallpaperFragment__dark_theme_dims_wallpaper">어두움 테마는 배경을 흐리게 합니다</string>
-  <string name="ChatWallpaperFragment__clear_wallpaper">배경 제거하기</string>
-  <string name="ChatWallpaperFragment__clear_wallpaper_for_this_chat">이 채팅방의 배경을 제거하시겠습니까?</string>
-  <string name="ChatWallpaperFragment__clear_wallpaper_this_will_not">배경을 제거하시겠습니까? 귀하의 채팅방에 임의로 설정한 배경들은 제거되지 않습니다.</string>
-  <string name="ChatWallpaperFragment__reset_all_wallpapers">모든 배경 초기화하기</string>
-  <string name="ChatWallpaperFragment__reset_all_wallpapers_including_custom">귀하의 채팅방에 임의로 설정한 배경들을 포함한 모든 배경들을 초기화하시겠습니까?</string>
   <string name="ChatWallpaperFragment__contact_name">연락처 이름</string>
   <string name="ChatWallpaperFragment__reset">초기화</string>
   <string name="ChatWallpaperFragment__clear">제거</string>
   <string name="ChatWallpaperFragment__wallpaper_preview_description">배경 미리보기</string>
+  <string name="ChatWallpaperFragment__reset_all_wallpapers">모든 배경 초기화하기</string>
   <!--ChatWallpaperSelectionFragment-->
   <string name="ChatWallpaperSelectionFragment__choose_from_photos">사진에서 선택하기</string>
   <string name="ChatWallpaperSelectionFragment__presets">프리셋</string>
@@ -2482,5 +2475,60 @@
   <string name="CanNotSendPaymentDialog__send_a_message">메시지 보내기</string>
   <!--GroupsInCommonMessageRequest-->
   <string name="GroupsInCommonMessageRequest__okay">확인</string>
+  <!--GroupDescriptionDialog-->
+  <!--QualitySelectorBottomSheetDialog-->
+  <string name="QualitySelectorBottomSheetDialog__high">높음</string>
+  <!--AppSettingsFragment-->
+  <!--AccountSettingsFragment-->
+  <!--ChatsSettingsFragment-->
+  <string name="ChatsSettingsFragment__enter_key_sends">엔터 키로 메시지 보내기</string>
+  <!--SmsSettingsFragment-->
+  <string name="SmsSettingsFragment__use_as_default_sms_app">기본 SMS 앱으로 사용</string>
+  <!--NotificationsSettingsFragment-->
+  <string name="NotificationsSettingsFragment__messages">메시지</string>
+  <string name="NotificationsSettingsFragment__calls">전화</string>
+  <!--PrivacySettingsFragment-->
+  <string name="PrivacySettingsFragment__blocked">차단함</string>
+  <string name="PrivacySettingsFragment__messaging">메시징</string>
+  <string name="PrivacySettingsFragment__disappearing_messages">사라지는 메시지</string>
+  <string name="PrivacySettingsFragment__block_screenshots_in_the_recents_list_and_inside_the_app">최근 사용 목록/개요 및 앱 내 스크린샷 차단</string>
+  <!--AdvancedPrivacySettingsFragment-->
+  <!--ExpireTimerSettingsFragment-->
+  <string name="ExpireTimerSettingsFragment__off">꺼짐</string>
+  <string name="ExpireTimerSettingsFragment__1_week">1주</string>
+  <string name="ExpireTimerSettingsFragment__1_day">1일</string>
+  <string name="ExpireTimerSettingsFragment__8_hours">8시간</string>
+  <string name="ExpireTimerSettingsFragment__1_hour">1시간</string>
+  <string name="ExpireTimerSettingsFragment__5_minutes">5분</string>
+  <string name="ExpireTimerSettingsFragment__30_seconds">30초</string>
+  <string name="ExpireTimerSettingsFragment__set">설정</string>
+  <string name="ExpireTimerSettingsFragment__save">저장</string>
+  <string name="CustomExpireTimerSelectorView__minutes">분</string>
+  <string name="CustomExpireTimerSelectorView__hours">시간</string>
+  <!--HelpSettingsFragment-->
+  <string name="HelpSettingsFragment__contact_us">문의하기</string>
+  <string name="HelpSettingsFragment__version">버전</string>
+  <string name="HelpSettingsFragment__debug_log">디버그 로그</string>
+  <string name="HelpSettingsFragment__terms_amp_privacy_policy">이용 약관 &amp; 개인 정보 보호 정책</string>
+  <!--DataAndStorageSettingsFragment-->
+  <string name="DataAndStorageSettingsFragment__calls">전화</string>
+  <!--ChatColorSelectionFragment-->
+  <string name="ChatColorSelectionFragment__chat_color">대화창 색</string>
+  <string name="ChatColorSelectionFragment__edit">수정</string>
+  <string name="ChatColorSelectionFragment__delete">삭제</string>
+  <!--CustomChatColorCreatorFragment-->
+  <!--CustomChatColorCreatorFragmentPage-->
+  <string name="CustomChatColorCreatorFragmentPage__save">저장</string>
+  <!--ChatColorGradientTool-->
+  <!--EditReactionsFragment-->
+  <string name="EditReactionsFragment__reset">초기화</string>
+  <string name="EditReactionsFragment_save">저장</string>
+  <!--ChatColorsMegaphone-->
+  <string name="ChatColorsMegaphone__appearance">모양</string>
+  <string name="ChatColorsMegaphone__not_now">나중에</string>
+  <!--KeyboardPagerFragment-->
+  <string name="KeyboardPagerFragment_emoji">이모지</string>
+  <string name="KeyboardPagerFragment_stickers">스티커</string>
+  <!--StickerSearchDialogFragment-->
   <!--EOF-->
 </resources>

@@ -89,7 +89,6 @@
   <string name="BlockUnblockDialog_unblock_s">%1$s کو غیر مسدود کریں؟</string>
   <string name="BlockUnblockDialog_block">بلاک</string>
   <string name="BlockUnblockDialog_block_and_leave">مسدود اور چھوڑو</string>
-  <string name="BlockUnblockDialog_block_and_delete">بلاک کریں اور حذف کریں</string>
   <!--BucketedThreadMedia-->
   <string name="BucketedThreadMedia_Today">آج</string>
   <string name="BucketedThreadMedia_Yesterday">کل</string>
@@ -470,9 +469,9 @@
     <item quantity="other">یہ ممبر نئے گروپس میں شامل ہونے کے اہل نہیں ہیں ، اور انہیں گروپ سے نکال دیا جائے گا:</item>
   </plurals>
   <!--GroupsV1MigrationInitiationReminder-->
-  <string name="GroupsV1MigrationInitiationReminder_to_access_new_features_like_mentions">@ذکر, خصوصیات اور منتظمین جیسی نئی خصوصیات تک رسائی حاصل کرنے کے لیئے اس گروپ کو اپ گریڈ کریں۔</string>
-  <string name="GroupsV1MigrationInitiationReminder_not_now">ابھی نہیں</string>
-  <string name="GroupsV1MigrationInitiationReminder_upgrade_group">گروپ کو اپ گریڈ کریں</string>
+  <!-- Removed by excludeNonTranslatables <string name="GroupsV1MigrationInitiationReminder_to_access_new_features_like_mentions">@ذکر, خصوصیات اور منتظمین جیسی نئی خصوصیات تک رسائی حاصل کرنے کے لیئے اس گروپ کو اپ گریڈ کریں۔</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="GroupsV1MigrationInitiationReminder_not_now">ابھی نہیں</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="GroupsV1MigrationInitiationReminder_upgrade_group">گروپ کو اپ گریڈ کریں</string> -->
   <!--GroupsV1MigrationSuggestionsReminder-->
   <plurals name="GroupsV1MigrationSuggestionsReminder_members_couldnt_be_added_to_the_new_group">
     <item quantity="one">نئے گروپ میں %1$d ممبر کو دوبارہ شامل نہیں کیا جاسکا۔ کیا آپ انہیں ابھی شامل کرنا چاہتے ہیں؟</item>
@@ -605,7 +604,6 @@
   <string name="ManageGroupActivity_mute_notifications">خاموش اطلاعات</string>
   <string name="ManageGroupActivity_custom_notifications">اپنی مرضی کے مطابق اطلاعات</string>
   <string name="ManageGroupActivity_mentions">ذکر</string>
-  <string name="ManageGroupActivity_chat_wallpaper">چیٹ وال پیپر</string>
   <string name="ManageGroupActivity_until_s">جب تک %1$s</string>
   <string name="ManageGroupActivity_off">بند کریں</string>
   <string name="ManageGroupActivity_on">چلائیں</string>
@@ -829,6 +827,7 @@
   <string name="Megaphones_new_group">نیا گروپ</string>
   <string name="Megaphones_invite_friends">دوستوں کو مدعو کریں</string>
   <string name="Megaphones_use_sms">ایس ایم ایس کا استعمال کریں</string>
+  <string name="Megaphones_appearance">ظہور ہونا</string>
   <!--NotificationBarManager-->
   <string name="NotificationBarManager_signal_call_in_progress">signal کال پروگریس میں ہے</string>
   <string name="NotificationBarManager__establishing_signal_call">Signal کال قائم ہو رہی ہے</string>
@@ -966,6 +965,7 @@
   <string name="MessageRecord_you_changed_the_group_name_to_s">آپ نے گروپ کا نام تبدیل کرکے \"%1$s\" کردیا۔</string>
   <string name="MessageRecord_s_changed_the_group_name_to_s">%1$s نے گروپ کا نام تبدیل کرکے \"%2$s\" کردیا۔</string>
   <string name="MessageRecord_the_group_name_has_changed_to_s">گروپ کا نام تبدیل کر کے \"%1$s\" کر دیا گیا ہے۔</string>
+  <!--GV2 description change-->
   <!--GV2 avatar change-->
   <string name="MessageRecord_you_changed_the_group_avatar">آپ نے گروپ کا اوتار بدلا۔</string>
   <string name="MessageRecord_s_changed_the_group_avatar">%1$s نے گروپ کا اوتار بدلا۔</string>
@@ -1096,10 +1096,6 @@
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">ایسا لگتا ہے کہ آپ 3rd پارٹی اسکینر کا استعمال کرتے ہوئے Signal ڈیوائس سے منسلک کرنے کی کوشش کر رہے ہیں۔ آپ کے تحفظ کے لئے ، براہ کرم Signal میں سے دوبارہ کوڈ اسکین کریں۔</string>
   <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly کو QR کوڈ سکین کرنے کیلئے کیمرہ کی اجازت کی ضرورت ہے، لیکن اس کو مستقل طور پر رد کر دیا گیا۔ براہ کرم ایپ کی ترتیبات میں جا کر\"اجازت نامہ\"کا انتخاب کریں اور \"کیمرہ\" کو فعال کریں۔</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">کیمرہ کی اجازت کے بغیر QR کوڈ سکین کرنا ممکن نہیں</string>
-  <!--ExpirationDialog-->
-  <string name="ExpirationDialog_disappearing_messages">پیغامات غائب ہو رہے ہیں</string>
-  <string name="ExpirationDialog_your_messages_will_not_expire">آپ کے پیغامات کی میعاد ختم نہیں ہوگی۔</string>
-  <string name="ExpirationDialog_your_messages_will_disappear_s_after_they_have_been_seen">اس گفتگو میں بھیجے اور وصول کیے گیں پیغامات دیکھنے کے بعد %s ختم ہوجائیں گے۔</string>
   <!--OutdatedBuildReminder-->
   <string name="OutdatedBuildReminder_update_now">تازہ ترین کریں. </string>
   <string name="OutdatedBuildReminder_your_version_of_signal_will_expire_today">Signal کا یہ ورژن آج ختم ہوجائے گا۔ تازہ ترین ورژن میں تازہ کاری کریں۔</string>
@@ -1210,6 +1206,7 @@
   <string name="CallParticipantView__cant_receive_audio_video_from_s">آڈیو وصول نہیں کر سکتے ہیں۔ %1$s سے ویڈیو</string>
   <string name="CallParticipantView__cant_receive_audio_and_video_from_s">%1$s سے آڈیو اور ویڈیو موصول نہیں ہوسکتی ہے</string>
   <string name="CallParticipantView__this_may_be_Because_they_have_not_verified_your_safety_number_change">اس کی وجہ یہ ہوسکتی ہے کہ انہوں نے آپ کے حفاظتی نمبر میں تبدیلی کی توثیق نہیں کی ہے ، ان کے آلے میں کوئی مسئلہ ہے یا انہوں نے آپ کو مسدود کردیا ہے۔</string>
+  <!--CallToastPopupWindow-->
   <!--ProxyBottomSheetFragment-->
   <string name="ProxyBottomSheetFragment_proxy_server">پراکسی سرور</string>
   <string name="ProxyBottomSheetFragment_proxy_address">پراکسی ایڈریس</string>
@@ -1593,6 +1590,7 @@
   <string name="ConversationUpdateItem_return_to_call">کال پر واپس جائیں</string>
   <string name="ConversationUpdateItem_call_is_full">کال پوری ہے</string>
   <string name="ConversationUpdateItem_invite_friends">دوستوں کو مدعو کریں</string>
+  <string name="ConversationUpdateItem_view">دیکھیں</string>
   <!--audio_view-->
   <string name="audio_view__play_pause_accessibility_description">چلائیں ۔۔۔ روکیں</string>
   <string name="audio_view__download_accessibility_description">ڈاؤن لوڈ کریں</string>
@@ -1721,7 +1719,7 @@
   <string name="EditAboutFragment_taking_a_break">ایک وقفے پر</string>
   <string name="EditAboutFragment_working_on_something_new">کسی نئی چیز پر کام کرنا</string>
   <!--EditProfileFragment-->
-  <string name="EditProfileFragment__edit_group_name_and_photo">گروپ کے نام اور تصویر میں ترمیم کریں</string>
+  <string name="EditProfileFragment__edit_group">گروپ میں ترمیم کریں</string>
   <string name="EditProfileFragment__group_name">گروپ کا نام</string>
   <!--EditProfileNameFragment-->
   <string name="EditProfileNameFragment_your_name">آپ کا نام</string>
@@ -1919,7 +1917,6 @@
   <string name="preferences__if_read_receipts_are_disabled_you_wont_be_able_to_see_read_receipts">اگر پڑھنے کی رسیدیں غیر فعال کردی گئی ہیں تو ، آپ دوسروں کی پڑھی ہوئی رسیدیں نہیں دیکھ پائیں گے۔</string>
   <string name="preferences__typing_indicators">ٹائپنگ انڈیکیٹرز</string>
   <string name="preferences__if_typing_indicators_are_disabled_you_wont_be_able_to_see_typing_indicators">اگر ٹائپنگ اندیکیٹرز غیر فعال ہیں، آپ دوسروں سے ٹائپنگ انڈیکیٹرز دیکھنے کے قابل نہیں ہیں۔</string>
-  <string name="preferences__request_keyboard_to_disable_personalized_learning">ذاتی سیکھنے کو غیر فعال کرنے کے لئے کی بورڈ سے درخواست کریں۔ یہ ترتیب ضمانت نہیں ہے ، اور آپ کا کی بورڈ اسے نظرانداز کرسکتا ہے۔</string>
   <string name="preferences_app_protection__blocked_users">مسدود صارفین</string>
   <string name="preferences_chats__when_using_mobile_data">جب موبائل ڈیٹا استعمال کریں</string>
   <string name="preferences_chats__when_using_wifi">جب وائی فائی استعمال کریں</string>
@@ -1959,8 +1956,8 @@
   <string name="preferences_data_and_storage__calls">کالز</string>
   <string name="preferences_data_and_storage__use_less_data_for_calls">کالوں کے لئے کم ڈیٹا استعمال کریں</string>
   <string name="preferences_data_and_storage__never">کبھی نہیں</string>
-  <string name="preferences_data_and_storage__wifi_and_cellular">وائی فائی اور سیلولر</string>
-  <string name="preferences_data_and_storage__cellular_only">صرف سیلولر</string>
+  <!-- Removed by excludeNonTranslatables <string name="preferences_data_and_storage__wifi_and_cellular">وائی فائی اور سیلولر</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="preferences_data_and_storage__cellular_only">صرف سیلولر</string> -->
   <string name="preference_data_and_storage__using_less_data_may_improve_calls_on_bad_networks">کم ڈیٹا کا استعمال خراب نیٹ ورکس پر کالوں کو بہتر بنا سکتا ہے</string>
   <string name="preferences_notifications__messages">پیغامات</string>
   <string name="preferences_notifications__events">تقریبات</string>
@@ -2468,7 +2465,7 @@
   <!--ShareActivity-->
   <string name="ShareActivity__share">اشتراک کریں</string>
   <string name="ShareActivity__send">بھیجیں</string>
-  <string name="ShareActivity__s_comma">%1$s,</string>
+  <!-- Removed by excludeNonTranslatables <string name="ShareActivity__s_comma">%1$s,</string> -->
   <string name="ShareActivity__sharing_to_multiple_chats_is">متعدد چیٹس پر اشتراک صرف Signal پیغامات کیلئے معاون ہے</string>
   <!--MultiShareDialogs-->
   <string name="MultiShareDialogs__failed_to_send_to_some_users">کچھ صارفین کو بھیجنے میں ناکام</string>
@@ -2478,17 +2475,13 @@
   <!--ChatWallpaperActivity-->
   <string name="ChatWallpaperActivity__chat_wallpaper">چیٹ وال پیپر</string>
   <!--ChatWallpaperFragment-->
+  <string name="ChatWallpaperFragment__chat_color">چیٹ کا رنگ</string>
   <string name="ChatWallpaperFragment__set_wallpaper">وال پیپر سیٹ کریں</string>
-  <string name="ChatWallpaperFragment__dark_theme_dims_wallpaper">سیاہ تھیم وال پیپر کو مدھم کرتا ہے</string>
-  <string name="ChatWallpaperFragment__clear_wallpaper">وال پیپر صاف کریں</string>
-  <string name="ChatWallpaperFragment__clear_wallpaper_for_this_chat">اس چیٹ کے لئے وال پیپر صاف کریں؟</string>
-  <string name="ChatWallpaperFragment__clear_wallpaper_this_will_not">وال پیپر صاف کریں؟ اس سے وہ کسٹم وال پیپر صاف نہیں ہوں گے جو آپ نے اپنی چیٹس کے لیئے رکھے ہیں۔</string>
-  <string name="ChatWallpaperFragment__reset_all_wallpapers">تمام وال پیپر کو دوبارہ ترتیب دیں</string>
-  <string name="ChatWallpaperFragment__reset_all_wallpapers_including_custom">آپ نے اپنی چیٹس کیلئے مرتب کردہ کسٹم وال پیپرز سمیت تمام وال پیپرز کو دوبارہ ترتیب دیں۔</string>
   <string name="ChatWallpaperFragment__contact_name">رابطے کا نام</string>
   <string name="ChatWallpaperFragment__reset">دوبارہ بحال کریں</string>
   <string name="ChatWallpaperFragment__clear">صاف</string>
   <string name="ChatWallpaperFragment__wallpaper_preview_description">وال پیپر پیش نظارہ</string>
+  <string name="ChatWallpaperFragment__reset_all_wallpapers">تمام وال پیپر کو دوبارہ ترتیب دیں</string>
   <!--ChatWallpaperSelectionFragment-->
   <string name="ChatWallpaperSelectionFragment__choose_from_photos">فوٹو میں سے انتخاب کریں</string>
   <string name="ChatWallpaperSelectionFragment__presets">پریسیٹس</string>
@@ -2530,5 +2523,57 @@
   <string name="CanNotSendPaymentDialog__send_a_message">پیغام بھیجیں</string>
   <!--GroupsInCommonMessageRequest-->
   <string name="GroupsInCommonMessageRequest__okay">ٹھیک ہے</string>
+  <!--GroupDescriptionDialog-->
+  <!--QualitySelectorBottomSheetDialog-->
+  <string name="QualitySelectorBottomSheetDialog__high">اونچا</string>
+  <!--AppSettingsFragment-->
+  <!--AccountSettingsFragment-->
+  <!--ChatsSettingsFragment-->
+  <string name="ChatsSettingsFragment__enter_key_sends">بھیجے گئے key داخل کریں</string>
+  <!--SmsSettingsFragment-->
+  <string name="SmsSettingsFragment__use_as_default_sms_app">پہلے سے طے شدہ ایس ایم ایس ایپ استعمال کریں</string>
+  <!--NotificationsSettingsFragment-->
+  <string name="NotificationsSettingsFragment__messages">پیغامات</string>
+  <string name="NotificationsSettingsFragment__calls">کالز</string>
+  <!--PrivacySettingsFragment-->
+  <string name="PrivacySettingsFragment__blocked">بلاک ہوگیا</string>
+  <string name="PrivacySettingsFragment__messaging">پیغام رسانی</string>
+  <string name="PrivacySettingsFragment__disappearing_messages">پیغامات غائب ہو رہے ہیں</string>
+  <string name="PrivacySettingsFragment__block_screenshots_in_the_recents_list_and_inside_the_app">حالیہ فہرست میں سکرین شاٹ بلاک کریں اور ایپ کے اندر</string>
+  <!--AdvancedPrivacySettingsFragment-->
+  <!--ExpireTimerSettingsFragment-->
+  <string name="ExpireTimerSettingsFragment__off">بند کریں</string>
+  <string name="ExpireTimerSettingsFragment__1_week">1 ہفتہ</string>
+  <string name="ExpireTimerSettingsFragment__1_day">1 دن </string>
+  <string name="ExpireTimerSettingsFragment__1_hour">1 گھنٹا</string>
+  <string name="ExpireTimerSettingsFragment__5_minutes">5 منٹس</string>
+  <string name="ExpireTimerSettingsFragment__30_seconds">30 سیکنڈز</string>
+  <string name="ExpireTimerSettingsFragment__set">سیٹ کریں</string>
+  <string name="ExpireTimerSettingsFragment__save">محفوظ کریں</string>
+  <!--HelpSettingsFragment-->
+  <string name="HelpSettingsFragment__contact_us">ہم سے رابطہ کریں</string>
+  <string name="HelpSettingsFragment__version">ورژن</string>
+  <string name="HelpSettingsFragment__debug_log">ڈی بگ لاگ</string>
+  <string name="HelpSettingsFragment__terms_amp_privacy_policy">شرائط &amp;amp:رازداری کی پالیسی</string>
+  <!--DataAndStorageSettingsFragment-->
+  <string name="DataAndStorageSettingsFragment__calls">کالز</string>
+  <!--ChatColorSelectionFragment-->
+  <string name="ChatColorSelectionFragment__chat_color">چیٹ کا رنگ</string>
+  <string name="ChatColorSelectionFragment__edit">ترتیب دیں</string>
+  <string name="ChatColorSelectionFragment__delete">حذف کریں</string>
+  <!--CustomChatColorCreatorFragment-->
+  <!--CustomChatColorCreatorFragmentPage-->
+  <string name="CustomChatColorCreatorFragmentPage__save">محفوظ کریں</string>
+  <!--ChatColorGradientTool-->
+  <!--EditReactionsFragment-->
+  <string name="EditReactionsFragment__reset">دوبارہ بحال کریں</string>
+  <string name="EditReactionsFragment_save">محفوظ کریں</string>
+  <!--ChatColorsMegaphone-->
+  <string name="ChatColorsMegaphone__appearance">ظہور ہونا</string>
+  <string name="ChatColorsMegaphone__not_now">ابھی نہیں</string>
+  <!--KeyboardPagerFragment-->
+  <string name="KeyboardPagerFragment_emoji">ایموجی</string>
+  <string name="KeyboardPagerFragment_stickers">اسٹیکرز</string>
+  <!--StickerSearchDialogFragment-->
   <!--EOF-->
 </resources>

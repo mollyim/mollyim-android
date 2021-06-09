@@ -17,7 +17,6 @@ import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
 
@@ -27,23 +26,23 @@ import org.thoughtcrime.securesms.BindableConversationItem;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.VerifyIdentityActivity;
 import org.thoughtcrime.securesms.components.ExpirationTimerView;
+import org.thoughtcrime.securesms.conversation.colors.Colorizer;
 import org.thoughtcrime.securesms.conversation.ui.error.EnableCallNotificationSettingsDialog;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.database.IdentityDatabase.IdentityRecord;
 import org.thoughtcrime.securesms.database.model.GroupCallUpdateDetailsUtil;
 import org.thoughtcrime.securesms.database.model.InMemoryMessageRecord;
-import org.thoughtcrime.securesms.database.model.InMemoryMessageRecord;
 import org.thoughtcrime.securesms.database.model.LiveUpdateMessage;
 import org.thoughtcrime.securesms.database.model.MessageRecord;
 import org.thoughtcrime.securesms.database.model.UpdateDescription;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
-import org.thoughtcrime.securesms.giph.mp4.GiphyMp4Projection;
 import org.thoughtcrime.securesms.mms.GlideRequests;
 import org.thoughtcrime.securesms.recipients.LiveRecipient;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.service.ExpiringMessageManager;
 import org.thoughtcrime.securesms.util.DateUtils;
 import org.thoughtcrime.securesms.util.IdentityUtil;
+import org.thoughtcrime.securesms.util.Projection;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.ThemeUtil;
 import org.thoughtcrime.securesms.util.Util;
@@ -54,6 +53,8 @@ import org.thoughtcrime.securesms.video.exo.AttachmentMediaSourceFactory;
 import org.whispersystems.libsignal.util.guava.Optional;
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
@@ -74,6 +75,7 @@ public final class ConversationUpdateItem extends FrameLayout
   private Recipient                 conversationRecipient;
   private Optional<MessageRecord>   nextMessageRecord;
   private MessageRecord             messageRecord;
+  private boolean                   isMessageRequestAccepted;
   private LiveData<SpannableString> displayBody;
   private ExpirationTimerView       timer;
   private EventListener             eventListener;
@@ -117,11 +119,12 @@ public final class ConversationUpdateItem extends FrameLayout
                    boolean hasWallpaper,
                    boolean isMessageRequestAccepted,
                    @NonNull AttachmentMediaSourceFactory attachmentMediaSourceFactory,
-                   boolean allowedToPlayInline)
+                   boolean allowedToPlayInline,
+                   @NonNull Colorizer colorizer)
   {
     this.batchSelected = batchSelected;
 
-    bind(lifecycleOwner, conversationMessage, previousMessageRecord, nextMessageRecord, conversationRecipient, hasWallpaper);
+    bind(lifecycleOwner, conversationMessage, previousMessageRecord, nextMessageRecord, conversationRecipient, hasWallpaper, isMessageRequestAccepted);
   }
 
   @Override
@@ -139,12 +142,14 @@ public final class ConversationUpdateItem extends FrameLayout
                     @NonNull Optional<MessageRecord> previousMessageRecord,
                     @NonNull Optional<MessageRecord> nextMessageRecord,
                     @NonNull Recipient conversationRecipient,
-                    boolean hasWallpaper)
+                    boolean hasWallpaper,
+                    boolean isMessageRequestAccepted)
   {
-    this.conversationMessage   = conversationMessage;
-    this.messageRecord         = conversationMessage.getMessageRecord();
-    this.nextMessageRecord     = nextMessageRecord;
-    this.conversationRecipient = conversationRecipient;
+    this.conversationMessage      = conversationMessage;
+    this.messageRecord            = conversationMessage.getMessageRecord();
+    this.nextMessageRecord        = nextMessageRecord;
+    this.conversationRecipient    = conversationRecipient;
+    this.isMessageRequestAccepted = isMessageRequestAccepted;
 
     senderObserver.observe(lifecycleOwner, messageRecord.getIndividualRecipient());
 
@@ -173,7 +178,7 @@ public final class ConversationUpdateItem extends FrameLayout
 
     observeDisplayBody(lifecycleOwner, spannableMessage);
 
-    present(conversationMessage, nextMessageRecord, conversationRecipient);
+    present(conversationMessage, nextMessageRecord, conversationRecipient, isMessageRequestAccepted);
 
     if (messageRecord.isCallLog()) {
       setTimerColor(updateDescription, textColor);
@@ -216,13 +221,18 @@ public final class ConversationUpdateItem extends FrameLayout
   }
 
   @Override
-  public @NonNull GiphyMp4Projection getProjection(@NonNull RecyclerView recyclerView) {
+  public @NonNull Projection getProjection(@NonNull ViewGroup recyclerView) {
     throw new UnsupportedOperationException("ConversationUpdateItems cannot be projected into.");
   }
 
   @Override
   public boolean canPlayContent() {
     return false;
+  }
+
+  @Override
+  public @NonNull List<Projection> getColorizerProjections() {
+    return Collections.emptyList();
   }
 
   static final class RecipientObserverManager {
@@ -278,7 +288,8 @@ public final class ConversationUpdateItem extends FrameLayout
 
   private void present(@NonNull ConversationMessage conversationMessage,
                        @NonNull Optional<MessageRecord> nextMessageRecord,
-                       @NonNull Recipient conversationRecipient)
+                       @NonNull Recipient conversationRecipient,
+                       boolean isMessageRequestAccepted)
   {
     if (batchSelected.contains(conversationMessage)) setSelected(true);
     else                                             setSelected(false);
@@ -295,14 +306,14 @@ public final class ConversationUpdateItem extends FrameLayout
           eventListener.onGroupMigrationLearnMoreClicked(messageRecord.getGroupV1MigrationMembershipChanges());
         }
       });
-    } else if (messageRecord.isFailedDecryptionType() &&
-              (!nextMessageRecord.isPresent() || !nextMessageRecord.get().isFailedDecryptionType()))
+    } else if (messageRecord.isChatSessionRefresh() &&
+               (!nextMessageRecord.isPresent() || !nextMessageRecord.get().isChatSessionRefresh()))
     {
       actionButton.setText(R.string.ConversationUpdateItem_learn_more);
       actionButton.setVisibility(VISIBLE);
       actionButton.setOnClickListener(v -> {
         if (batchSelected.isEmpty() && eventListener != null) {
-          eventListener.onDecryptionFailedLearnMoreClicked();
+          eventListener.onChatSessionRefreshLearnMoreClicked();
         }
       });
     } else if (messageRecord.isIdentityUpdate()) {
@@ -355,6 +366,24 @@ public final class ConversationUpdateItem extends FrameLayout
       actionButton.setOnClickListener(v -> {
         if (eventListener != null) {
           eventListener.onInMemoryMessageClicked(inMemoryMessageRecord);
+        }
+      });
+    } else if (messageRecord.isGroupV2DescriptionUpdate()) {
+      actionButton.setVisibility(VISIBLE);
+      actionButton.setText(R.string.ConversationUpdateItem_view);
+      actionButton.setOnClickListener(v -> {
+        if (eventListener != null) {
+          eventListener.onViewGroupDescriptionChange(conversationRecipient.getGroupId().orNull(), messageRecord.getGroupV2DescriptionUpdate(), isMessageRequestAccepted);
+        }
+      });
+    } else if (messageRecord.isBadDecryptType() &&
+               (!nextMessageRecord.isPresent() || !nextMessageRecord.get().isBadDecryptType()))
+    {
+      actionButton.setText(R.string.ConversationUpdateItem_learn_more);
+      actionButton.setVisibility(VISIBLE);
+      actionButton.setOnClickListener(v -> {
+        if (batchSelected.isEmpty() && eventListener != null) {
+          eventListener.onBadDecryptLearnMoreClicked(messageRecord.getRecipient().getId());
         }
       });
     } else {
@@ -493,7 +522,7 @@ public final class ConversationUpdateItem extends FrameLayout
     public void onChanged(Recipient recipient) {
       if (recipient.getId() == conversationRecipient.getId() && (conversationRecipient == null || !conversationRecipient.hasSameContent(recipient))) {
         conversationRecipient = recipient;
-        present(conversationMessage, nextMessageRecord, conversationRecipient);
+        present(conversationMessage, nextMessageRecord, conversationRecipient, isMessageRequestAccepted);
       }
     }
   }

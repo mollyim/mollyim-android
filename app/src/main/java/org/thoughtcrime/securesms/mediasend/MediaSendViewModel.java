@@ -23,6 +23,7 @@ import org.thoughtcrime.securesms.database.model.Mention;
 import org.thoughtcrime.securesms.mms.MediaConstraints;
 import org.thoughtcrime.securesms.mms.OutgoingMediaMessage;
 import org.thoughtcrime.securesms.mms.OutgoingSecureMediaMessage;
+import org.thoughtcrime.securesms.mms.SentMediaQuality;
 import org.thoughtcrime.securesms.mms.Slide;
 import org.thoughtcrime.securesms.providers.BlobProvider;
 import org.thoughtcrime.securesms.recipients.Recipient;
@@ -34,6 +35,7 @@ import org.thoughtcrime.securesms.util.MessageUtil;
 import org.thoughtcrime.securesms.util.SingleLiveEvent;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.Util;
+import org.thoughtcrime.securesms.util.livedata.LiveDataUtil;
 import org.whispersystems.libsignal.util.guava.Optional;
 import org.whispersystems.libsignal.util.guava.Preconditions;
 
@@ -65,6 +67,8 @@ class MediaSendViewModel extends ViewModel {
   private final MutableLiveData<HudState>          hudState;
   private final SingleLiveEvent<Error>             error;
   private final SingleLiveEvent<Event>             event;
+  private final MutableLiveData<SentMediaQuality>  sentMediaQuality;
+  private final LiveData<Boolean>                  showMediaQualityToggle;
   private final Map<Uri, Object>                   savedDrawState;
 
   private TransportOption  transport;
@@ -85,33 +89,34 @@ class MediaSendViewModel extends ViewModel {
   private RailState     railState;
   private ViewOnceState viewOnceState;
 
-
   private @Nullable Recipient recipient;
 
   private MediaSendViewModel(@NonNull Application application,
                              @NonNull MediaRepository repository,
                              @NonNull MediaUploadRepository uploadRepository)
   {
-    this.application       = application;
-    this.repository        = repository;
-    this.uploadRepository  = uploadRepository;
-    this.selectedMedia     = new MutableLiveData<>();
-    this.bucketMedia       = new MutableLiveData<>();
-    this.mostRecentMedia   = new MutableLiveData<>();
-    this.position          = new MutableLiveData<>();
-    this.bucketId          = new MutableLiveData<>();
-    this.folders           = new MutableLiveData<>();
-    this.hudState          = new MutableLiveData<>();
-    this.error             = new SingleLiveEvent<>();
-    this.event             = new SingleLiveEvent<>();
-    this.savedDrawState    = new HashMap<>();
-    this.lastCameraCapture = Optional.absent();
-    this.body              = "";
-    this.buttonState       = ButtonState.GONE;
-    this.railState         = RailState.GONE;
-    this.viewOnceState     = ViewOnceState.GONE;
-    this.page              = Page.UNKNOWN;
-    this.preUploadEnabled  = true;
+    this.application            = application;
+    this.repository             = repository;
+    this.uploadRepository       = uploadRepository;
+    this.selectedMedia          = new MutableLiveData<>();
+    this.bucketMedia            = new MutableLiveData<>();
+    this.mostRecentMedia        = new MutableLiveData<>();
+    this.position               = new MutableLiveData<>();
+    this.bucketId               = new MutableLiveData<>();
+    this.folders                = new MutableLiveData<>();
+    this.hudState               = new MutableLiveData<>();
+    this.error                  = new SingleLiveEvent<>();
+    this.event                  = new SingleLiveEvent<>();
+    this.sentMediaQuality       = new MutableLiveData<>(SentMediaQuality.STANDARD);
+    this.savedDrawState         = new HashMap<>();
+    this.lastCameraCapture      = Optional.absent();
+    this.body                   = "";
+    this.buttonState            = ButtonState.GONE;
+    this.railState              = RailState.GONE;
+    this.viewOnceState          = ViewOnceState.GONE;
+    this.page                   = Page.UNKNOWN;
+    this.preUploadEnabled       = true;
+    this.showMediaQualityToggle = LiveDataUtil.mapAsync(this.selectedMedia, s -> s.stream().anyMatch(m -> MediaUtil.isImageAndNotGif(m.getMimeType())));
 
     position.setValue(-1);
   }
@@ -455,6 +460,16 @@ class MediaSendViewModel extends ViewModel {
     savedDrawState.putAll(state);
   }
 
+  public void setSentMediaQuality(@NonNull SentMediaQuality newQuality) {
+    if (newQuality == sentMediaQuality.getValue()) {
+      return;
+    }
+
+    sentMediaQuality.setValue(newQuality);
+    preUploadEnabled = false;
+    uploadRepository.cancelAllUploads();
+  }
+
   @NonNull LiveData<MediaSendActivityResult> onSendClicked(Map<Media, MediaTransform> modelsToTransform, @NonNull List<Recipient> recipients, @NonNull List<Mention> mentions) {
     if (isSms && recipients.size() > 0) {
       throw new IllegalStateException("Provided recipients to send to, but this is SMS!");
@@ -561,6 +576,14 @@ class MediaSendViewModel extends ViewModel {
     return viewOnceState == ViewOnceState.ENABLED;
   }
 
+  @NonNull LiveData<SentMediaQuality> getSentMediaQuality() {
+    return sentMediaQuality;
+  }
+
+  @NonNull LiveData<Boolean> getShowMediaQualityToggle() {
+    return showMediaQualityToggle;
+  }
+
   @NonNull MediaConstraints getMediaConstraints() {
     return mediaConstraints;
   }
@@ -583,10 +606,10 @@ class MediaSendViewModel extends ViewModel {
   }
 
   private HudState buildHudState() {
-    List<Media>   selectedMedia         = getSelectedMediaOrDefault();
-    int           selectionCount        = selectedMedia.size();
-    ButtonState   updatedButtonState    = buttonState == ButtonState.COUNT && selectionCount == 0 ? ButtonState.GONE : buttonState;
-    boolean       updatedCaptionVisible = captionVisible && (selectedMedia.size() > 1 || (selectedMedia.size() > 0 && selectedMedia.get(0).getCaption().isPresent()));
+    List<Media> selectedMedia         = getSelectedMediaOrDefault();
+    int         selectionCount        = selectedMedia.size();
+    ButtonState updatedButtonState    = buttonState == ButtonState.COUNT && selectionCount == 0 ? ButtonState.GONE : buttonState;
+    boolean     updatedCaptionVisible = captionVisible && (selectedMedia.size() > 1 || (selectedMedia.size() > 0 && selectedMedia.get(0).getCaption().isPresent()));
 
     return new HudState(hudVisible, composeVisible, updatedCaptionVisible, selectionCount, updatedButtonState, railState, viewOnceState);
   }
@@ -704,12 +727,12 @@ class MediaSendViewModel extends ViewModel {
 
   static class HudState {
 
-    private final boolean     hudVisible;
-    private final boolean     composeVisible;
-    private final boolean     captionVisible;
-    private final int         selectionCount;
-    private final ButtonState buttonState;
-    private final RailState   railState;
+    private final boolean       hudVisible;
+    private final boolean       composeVisible;
+    private final boolean       captionVisible;
+    private final int           selectionCount;
+    private final ButtonState   buttonState;
+    private final RailState     railState;
     private final ViewOnceState viewOnceState;
 
     HudState(boolean hudVisible,
@@ -720,13 +743,13 @@ class MediaSendViewModel extends ViewModel {
              @NonNull RailState railState,
              @NonNull ViewOnceState viewOnceState)
     {
-      this.hudVisible      = hudVisible;
-      this.composeVisible  = composeVisible;
-      this.captionVisible  = captionVisible;
-      this.selectionCount  = selectionCount;
-      this.buttonState     = buttonState;
-      this.railState       = railState;
-      this.viewOnceState = viewOnceState;
+      this.hudVisible     = hudVisible;
+      this.composeVisible = composeVisible;
+      this.captionVisible = captionVisible;
+      this.selectionCount = selectionCount;
+      this.buttonState    = buttonState;
+      this.railState      = railState;
+      this.viewOnceState  = viewOnceState;
     }
 
     public boolean isHudVisible() {

@@ -16,6 +16,8 @@
     <attr name="emoji_category_flags" format="reference"/>
     <attr name="emoji_category_emoticons" format="reference"/>
 
+    <attr name="settingsToolbarStyle" format="reference" />
+
     <attr name="contact_filter_toolbar_icon_tint" format="color" />
 
     <declare-styleable name="CustomDefaultPreference">
@@ -277,5 +279,17 @@
     <declare-styleable name="MoneyView">
         <attr name="always_show_sign" format="boolean" />
         <attr name="money" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="ChatColorPreviewView">
+        <attr name="ccpv_chat_bubble_count" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="KeyboardPageSearchView">
+        <attr name="show_always" format="boolean" />
+        <attr name="search_bar_tint" format="color|reference" />
+        <attr name="search_icon_tint" format="color|reference" />
+        <attr name="search_hint" format="string|reference" />
+        <attr name="click_only" format="boolean" />
     </declare-styleable>
 </resources>
