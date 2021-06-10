@@ -8,5 +8,4 @@ data class DataAndStorageSettingsState(
   val wifiAutoDownloadValues: Set<String>,
   val roamingAutoDownloadValues: Set<String>,
   val callBandwidthMode: CallBandwidthMode,
-  val isProxyEnabled: Boolean
 )

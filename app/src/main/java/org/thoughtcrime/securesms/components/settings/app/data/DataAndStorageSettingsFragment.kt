@@ -98,18 +98,6 @@ class DataAndStorageSettingsFragment : DSLSettingsFragment(R.string.preferences_
       textPref(
         summary = DSLSettingsText.from(R.string.preference_data_and_storage__using_less_data_may_improve_calls_on_bad_networks)
       )
-
-      dividerPref()
-
-      sectionHeaderPref(R.string.preferences_proxy)
-
-      clickPref(
-        title = DSLSettingsText.from(R.string.preferences_use_proxy),
-        summary = DSLSettingsText.from(if (state.isProxyEnabled) R.string.preferences_on else R.string.preferences_off),
-        onClick = {
-          Navigation.findNavController(requireView()).navigate(R.id.action_dataAndStorageSettingsFragment_to_editProxyFragment)
-        }
-      )
     }
   }
 }

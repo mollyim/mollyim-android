@@ -37,7 +37,7 @@ class AppSettingsActivity : DSLSettingsActivity() {
         StartLocation.BACKUPS -> AppSettingsFragmentDirections.actionDirectToBackupsPreferenceFragment()
         StartLocation.HELP -> AppSettingsFragmentDirections.actionDirectToHelpFragment()
           .setStartCategoryIndex(intent.getIntExtra(HelpFragment.START_CATEGORY_INDEX, 0))
-        StartLocation.PROXY -> AppSettingsFragmentDirections.actionDirectToEditProxyFragment()
+        StartLocation.PROXY -> AppSettingsFragmentDirections.actionDirectToNetworkPreferenceFragment()
         StartLocation.NOTIFICATIONS -> AppSettingsFragmentDirections.actionDirectToNotificationsSettingsFragment()
       }
     }

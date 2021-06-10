@@ -60,6 +60,13 @@
             app:popEnterAnim="@anim/fragment_close_enter"
             app:popExitAnim="@anim/fragment_close_exit"  />
         <action
+            android:id="@+id/action_appSettingsFragment_to_networkPreferenceFragment"
+            app:destination="@id/networkPreferenceFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit"  />
+        <action
             android:id="@+id/action_appSettingsFragment_to_dataAndStorageSettingsFragment"
             app:destination="@id/dataAndStorageSettingsFragment"
             app:enterAnim="@anim/fragment_open_enter"
@@ -296,6 +303,15 @@
     <include app:graph="@navigation/app_settings_expire_timer" />
     <!-- endregion -->
 
+    <!-- region Network -->
+
+    <fragment
+        android:id="@+id/networkPreferenceFragment"
+        android:name="org.thoughtcrime.securesms.components.settings.app.wrapped.WrappedNetworkPreferenceFragment"
+        android:label="network_preference_fragment" />
+
+    <!-- endregion -->
+
     <!-- region Data and Storage -->
 
     <fragment
@@ -309,24 +325,12 @@
             app:exitAnim="@anim/fragment_open_exit"
             app:popEnterAnim="@anim/fragment_close_enter"
             app:popExitAnim="@anim/fragment_close_exit" />
-        <action
-            android:id="@+id/action_dataAndStorageSettingsFragment_to_editProxyFragment"
-            app:destination="@id/editProxyFragment"
-            app:enterAnim="@anim/fragment_open_enter"
-            app:exitAnim="@anim/fragment_open_exit"
-            app:popEnterAnim="@anim/fragment_close_enter"
-            app:popExitAnim="@anim/fragment_close_exit" />
     </fragment>
 
     <fragment
         android:id="@+id/storagePreferenceFragment"
         android:name="org.thoughtcrime.securesms.components.settings.app.wrapped.WrappedStoragePreferenceFragment"
         android:label="storage_preference_fragment" />
-
-    <fragment
-        android:id="@+id/editProxyFragment"
-        android:name="org.thoughtcrime.securesms.components.settings.app.wrapped.WrappedEditProxyFragment"
-        android:label="edit_proxy_fragment" />
 
     <!-- endregion -->
 
@@ -394,8 +398,10 @@
         app:popExitAnim="@anim/fragment_close_exit" />
 
     <action
-        android:id="@+id/action_direct_to_editProxyFragment"
-        app:destination="@id/editProxyFragment"
+        android:id="@+id/action_direct_to_networkPreferenceFragment"
+        app:destination="@id/networkPreferenceFragment"
+        app:popUpTo="@id/appSettingsFragment"
+        app:popUpToInclusive="true"
         app:enterAnim="@anim/fragment_open_enter"
         app:exitAnim="@anim/fragment_open_exit"
         app:popEnterAnim="@anim/fragment_close_enter"

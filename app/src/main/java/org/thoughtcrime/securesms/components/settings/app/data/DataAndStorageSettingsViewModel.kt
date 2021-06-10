@@ -62,7 +62,6 @@ class DataAndStorageSettingsViewModel(
       ApplicationDependencies.getApplication()
     ),
     callBandwidthMode = SignalStore.settings().callBandwidthMode,
-    isProxyEnabled = SignalStore.proxy().isProxyEnabled
   )
 
   class Factory(
