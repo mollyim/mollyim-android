@@ -2096,7 +2096,6 @@ public class ConversationActivity extends PassphraseRequiredActivity
 
       boolean           isSystemEmojiPreferred = SignalStore.settings().isPreferSystemEmoji();
       MediaKeyboardMode keyboardMode           = TextSecurePreferences.getMediaKeyboardMode(this);
-      boolean           stickerIntro           = !TextSecurePreferences.hasSeenStickerIntroTooltip(this);
 
       if (stickersAvailable) {
         inputPanel.showMediaKeyboardToggle(true);
@@ -2111,7 +2110,6 @@ public class ConversationActivity extends PassphraseRequiredActivity
             inputPanel.setMediaKeyboardToggleMode(KeyboardPage.GIF);
             break;
         }
-        if (stickerIntro) showStickerIntroductionTooltip();
       }
 
       if (emojiDrawerStub.resolved()) {
@@ -2208,21 +2206,6 @@ public class ConversationActivity extends PassphraseRequiredActivity
                 .setText(R.string.ConversationActivity__tap_here_to_start_a_group_call)
                 .setOnDismissListener(() -> SignalStore.tooltips().markGroupCallingTooltipSeen())
                 .show(TooltipPopup.POSITION_BELOW);
-  }
-
-  private void showStickerIntroductionTooltip() {
-    TextSecurePreferences.setMediaKeyboardMode(this, MediaKeyboardMode.STICKER);
-    inputPanel.setMediaKeyboardToggleMode(KeyboardPage.STICKER);
-
-    TooltipPopup.forTarget(inputPanel.getMediaKeyboardToggleAnchorView())
-                .setBackgroundTint(getResources().getColor(R.color.core_ultramarine))
-                .setTextColor(getResources().getColor(R.color.core_white))
-                .setText(R.string.ConversationActivity_new_say_it_with_stickers)
-                .setOnDismissListener(() -> {
-                  TextSecurePreferences.setHasSeenStickerIntroTooltip(this, true);
-                  EventBus.getDefault().removeStickyEvent(StickerPackInstallEvent.class);
-                })
-                .show(TooltipPopup.POSITION_ABOVE);
   }
 
   @Override
@@ -2350,8 +2333,6 @@ public class ConversationActivity extends PassphraseRequiredActivity
 
   @Subscribe(threadMode =  ThreadMode.MAIN, sticky = true)
   public void onStickerPackInstalled(final StickerPackInstallEvent event) {
-    if (!TextSecurePreferences.hasSeenStickerIntroTooltip(this)) return;
-
     EventBus.getDefault().removeStickyEvent(event);
 
     if (!inputPanel.isStickerMode()) {

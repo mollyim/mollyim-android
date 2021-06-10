@@ -2,7 +2,6 @@ package org.thoughtcrime.securesms.components.settings.app.privacy
 
 import android.content.Context
 import android.content.DialogInterface
-import android.content.Intent
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.TextAppearanceSpan
@@ -15,12 +14,12 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
-import androidx.preference.PreferenceManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import mobi.upod.timedurationpicker.TimeDurationPicker
 import mobi.upod.timedurationpicker.TimeDurationPickerDialog
 import org.signal.core.util.logging.Log
-import org.thoughtcrime.securesms.PassphraseChangeActivity
+import org.thoughtcrime.securesms.ChangePassphraseDialogFragment
+import org.thoughtcrime.securesms.PassphraseActivity
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.ClickPreference
 import org.thoughtcrime.securesms.components.settings.ClickPreferenceViewHolder
@@ -31,19 +30,17 @@ import org.thoughtcrime.securesms.components.settings.DSLSettingsText
 import org.thoughtcrime.securesms.components.settings.PreferenceModel
 import org.thoughtcrime.securesms.components.settings.PreferenceViewHolder
 import org.thoughtcrime.securesms.components.settings.configure
-import org.thoughtcrime.securesms.crypto.MasterSecretUtil
 import org.thoughtcrime.securesms.keyvalue.PhoneNumberPrivacyValues
 import org.thoughtcrime.securesms.keyvalue.PhoneNumberPrivacyValues.PhoneNumberListingMode
-import org.thoughtcrime.securesms.service.KeyCachingService
+import org.thoughtcrime.securesms.preferences.widgets.PassphraseLockTriggerPreference
 import org.thoughtcrime.securesms.util.CommunicationActions
 import org.thoughtcrime.securesms.util.ConversationUtil
 import org.thoughtcrime.securesms.util.ExpirationUtil
 import org.thoughtcrime.securesms.util.FeatureFlags
 import org.thoughtcrime.securesms.util.MappingAdapter
-import org.thoughtcrime.securesms.util.ServiceUtil
+import org.thoughtcrime.securesms.util.SecurePreferenceManager
 import org.thoughtcrime.securesms.util.SpanUtil
 import org.thoughtcrime.securesms.util.TextSecurePreferences
-import java.lang.Integer.max
 import java.util.Locale
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
@@ -52,6 +49,9 @@ import kotlin.collections.LinkedHashMap
 private val TAG = Log.tag(PrivacySettingsFragment::class.java)
 
 class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privacy) {
+
+  private val passphraseLockTriggerValues by lazy { resources.getStringArray(R.array.pref_passphrase_lock_trigger_entries) }
+  private val passphraseLockTriggerLabels by lazy { resources.getStringArray(R.array.pref_passphrase_lock_trigger_values) }
 
   private lateinit var viewModel: PrivacySettingsViewModel
 
@@ -73,7 +73,7 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
   override fun bindAdapter(adapter: DSLSettingsAdapter) {
     adapter.registerFactory(ValueClickPreference::class.java, MappingAdapter.LayoutFactory(::ValueClickPreferenceViewHolder, R.layout.value_click_preference_item))
 
-    val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+    val sharedPreferences = SecurePreferenceManager.getSecurePreferences(requireContext())
     val repository = PrivacySettingsRepository()
     val factory = PrivacySettingsViewModel.Factory(sharedPreferences, repository)
     viewModel = ViewModelProviders.of(this, factory)[PrivacySettingsViewModel::class.java]
@@ -85,12 +85,89 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
 
   private fun getConfiguration(state: PrivacySettingsState): DSLConfiguration {
     return configure {
+      sectionHeaderPref(DSLSettingsText.from(R.string.PrivacySettingsFragment_data_at_rest))
+
+      switchPref(
+        title = DSLSettingsText.from(R.string.preferences__passphrase_lock),
+        summary = DSLSettingsText.from(R.string.preferences__protect_molly_database_with_a_passphrase),
+        isChecked = state.passphraseLock,
+        onClick = {
+          val enabled = !state.passphraseLock
+          val mode = if (enabled) ChangePassphraseDialogFragment.MODE_ENABLE else ChangePassphraseDialogFragment.MODE_DISABLE
+
+          val dialog = ChangePassphraseDialogFragment.newInstance(mode)
+          dialog.setMasterSecretChangedListener { masterSecret ->
+            viewModel.setPassphraseLockEnabled(enabled)
+            (activity as PassphraseActivity).setMasterSecret(masterSecret)
+            ConversationUtil.refreshRecipientShortcuts()
+          }
+          dialog.show(parentFragmentManager, "ChangePassphraseDialogFragment")
+        }
+      )
+
+      clickPref(
+        title = DSLSettingsText.from(R.string.preferences__change_passphrase),
+        isEnabled = state.passphraseLock,
+        onClick = {
+          val dialog = ChangePassphraseDialogFragment.newInstance()
+          dialog.setMasterSecretChangedListener { masterSecret ->
+            masterSecret.close()
+            Toast.makeText(
+              activity,
+              R.string.preferences__passphrase_changed,
+              Toast.LENGTH_LONG
+            ).show()
+          }
+          dialog.show(parentFragmentManager, "ChangePassphraseDialogFragment")
+        }
+      )
+
+      multiSelectPref(
+        title = DSLSettingsText.from(R.string.preferences__automatic_lockdown),
+        listItems = passphraseLockTriggerLabels,
+        selected = passphraseLockTriggerValues.map { state.passphraseLockTriggerValues.contains(it) }.toBooleanArray(),
+        isEnabled = state.passphraseLock,
+        onSelected = {
+          val resultSet = it.mapIndexed { index, selected -> if (selected) passphraseLockTriggerValues[index] else null }.filterNotNull().toSet()
+          viewModel.setPassphraseLockTrigger(resultSet)
+        }
+      )
+
+      clickPref(
+        title = DSLSettingsText.from(R.string.preferences__device_lock_timeout),
+        summary = DSLSettingsText.from(getDeviceLockTimeoutSummary(state.passphraseLockTimeout)),
+        isEnabled = state.passphraseLock && PassphraseLockTriggerPreference(state.passphraseLockTriggerValues).isTimeoutEnabled,
+        onClick = {
+          TimeDurationPickerDialog(
+            context,
+            { _: TimeDurationPicker?, duration: Long ->
+              val timeoutSeconds = TimeUnit.MILLISECONDS.toSeconds(duration)
+              viewModel.setPassphraseLockTimeout(timeoutSeconds)
+            },
+            0, TimeDurationPicker.HH_MM_SS
+          ).show()
+        }
+      )
+
+      dividerPref()
+
+      sectionHeaderPref(R.string.preferences_app_protection__blocked_users)
+
       clickPref(
         title = DSLSettingsText.from(R.string.PrivacySettingsFragment__blocked),
         summary = DSLSettingsText.from(getString(R.string.PrivacySettingsFragment__d_contacts, state.blockedCount)),
         onClick = {
           Navigation.findNavController(requireView())
             .navigate(R.id.action_privacySettingsFragment_to_blockedUsersActivity)
+        }
+      )
+
+      switchPref(
+        title = DSLSettingsText.from(R.string.preferences__block_unknown),
+        summary = DSLSettingsText.from(getString(R.string.preferences__block_users_youve_never_been_in_contact_with_and_who_are_not_saved_in_your_contacts)),
+        isChecked = state.blockUnknown,
+        onClick = {
+          viewModel.setBlockUnknownEnabled(!state.blockUnknown)
         }
       )
 
@@ -159,108 +236,6 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
 
       sectionHeaderPref(R.string.PrivacySettingsFragment__app_security)
 
-      if (state.isObsoletePasswordEnabled) {
-        switchPref(
-          title = DSLSettingsText.from(R.string.preferences__enable_passphrase),
-          summary = DSLSettingsText.from(R.string.preferences__lock_signal_and_message_notifications_with_a_passphrase),
-          isChecked = true,
-          onClick = {
-            MaterialAlertDialogBuilder(requireContext()).apply {
-              setTitle(R.string.ApplicationPreferencesActivity_disable_passphrase)
-              setMessage(R.string.ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications)
-              setIcon(R.drawable.ic_warning)
-              setPositiveButton(R.string.ApplicationPreferencesActivity_disable) { _, _ ->
-                MasterSecretUtil.changeMasterSecretPassphrase(
-                  activity,
-                  KeyCachingService.getMasterSecret(context),
-                  MasterSecretUtil.UNENCRYPTED_PASSPHRASE
-                )
-                TextSecurePreferences.setPasswordDisabled(activity, true)
-                val intent = Intent(activity, KeyCachingService::class.java)
-                intent.action = KeyCachingService.DISABLE_ACTION
-                requireActivity().startService(intent)
-                viewModel.refresh()
-              }
-              setNegativeButton(android.R.string.cancel, null)
-              show()
-            }
-          }
-        )
-
-        clickPref(
-          title = DSLSettingsText.from(R.string.preferences__change_passphrase),
-          summary = DSLSettingsText.from(R.string.preferences__change_your_passphrase),
-          onClick = {
-            if (MasterSecretUtil.isPassphraseInitialized(activity)) {
-              startActivity(Intent(activity, PassphraseChangeActivity::class.java))
-            } else {
-              Toast.makeText(
-                activity,
-                R.string.ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet,
-                Toast.LENGTH_LONG
-              ).show()
-            }
-          }
-        )
-
-        switchPref(
-          title = DSLSettingsText.from(R.string.preferences__inactivity_timeout_passphrase),
-          summary = DSLSettingsText.from(R.string.preferences__auto_lock_signal_after_a_specified_time_interval_of_inactivity),
-          isChecked = state.isObsoletePasswordTimeoutEnabled,
-          onClick = {
-            viewModel.setObsoletePasswordTimeoutEnabled(!state.isObsoletePasswordEnabled)
-          }
-        )
-
-        clickPref(
-          title = DSLSettingsText.from(R.string.preferences__inactivity_timeout_interval),
-          onClick = {
-            TimeDurationPickerDialog(
-              context,
-              { _: TimeDurationPicker?, duration: Long ->
-                val timeoutMinutes = max(TimeUnit.MILLISECONDS.toMinutes(duration).toInt(), 1)
-                viewModel.setObsoletePasswordTimeout(timeoutMinutes)
-              },
-              0, TimeDurationPicker.HH_MM
-            ).show()
-          }
-        )
-      } else {
-        val isKeyguardSecure = ServiceUtil.getKeyguardManager(requireContext()).isKeyguardSecure
-
-        switchPref(
-          title = DSLSettingsText.from(R.string.preferences_app_protection__screen_lock),
-          summary = DSLSettingsText.from(R.string.preferences_app_protection__lock_signal_access_with_android_screen_lock_or_fingerprint),
-          isChecked = state.screenLock && isKeyguardSecure,
-          isEnabled = isKeyguardSecure,
-          onClick = {
-            viewModel.setScreenLockEnabled(!state.screenLock)
-
-            val intent = Intent(requireContext(), KeyCachingService::class.java)
-            intent.action = KeyCachingService.LOCK_TOGGLED_EVENT
-            requireContext().startService(intent)
-
-            ConversationUtil.refreshRecipientShortcuts()
-          }
-        )
-
-        clickPref(
-          title = DSLSettingsText.from(R.string.preferences_app_protection__screen_lock_inactivity_timeout),
-          summary = DSLSettingsText.from(getScreenLockInactivityTimeoutSummary(state.screenLockActivityTimeout)),
-          isEnabled = isKeyguardSecure && state.screenLock,
-          onClick = {
-            TimeDurationPickerDialog(
-              context,
-              { _: TimeDurationPicker?, duration: Long ->
-                val timeoutSeconds = TimeUnit.MILLISECONDS.toSeconds(duration)
-                viewModel.setScreenLockTimeout(timeoutSeconds)
-              },
-              0, TimeDurationPicker.HH_MM
-            ).show()
-          }
-        )
-      }
-
       switchPref(
         title = DSLSettingsText.from(R.string.preferences__screen_security),
         summary = DSLSettingsText.from(R.string.PrivacySettingsFragment__block_screenshots_in_the_recents_list_and_inside_the_app),
@@ -301,15 +276,17 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
     }
   }
 
-  private fun getScreenLockInactivityTimeoutSummary(timeoutSeconds: Long): String {
+  private fun getDeviceLockTimeoutSummary(timeoutSeconds: Long): String {
     val hours = TimeUnit.SECONDS.toHours(timeoutSeconds)
     val minutes =
       TimeUnit.SECONDS.toMinutes(timeoutSeconds) - TimeUnit.SECONDS.toHours(timeoutSeconds) * 60
+    val seconds =
+      TimeUnit.SECONDS.toSeconds(timeoutSeconds) - TimeUnit.SECONDS.toMinutes(timeoutSeconds) * 60
 
     return if (timeoutSeconds <= 0) {
-      getString(R.string.AppProtectionPreferenceFragment_none)
+      getString(R.string.AppProtectionPreferenceFragment_instant)
     } else {
-      String.format(Locale.getDefault(), "%02d:%02d:00", hours, minutes)
+      String.format(Locale.getDefault(), "%02d:%02d:%02d", hours, minutes, seconds)
     }
   }
 

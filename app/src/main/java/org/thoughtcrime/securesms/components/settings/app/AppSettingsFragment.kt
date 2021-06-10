@@ -103,6 +103,14 @@ class AppSettingsFragment : DSLSettingsFragment(R.string.text_secure_normal__men
       )
 
       clickPref(
+        title = DSLSettingsText.from(R.string.preferences__network),
+        iconId = R.drawable.ic_network_24,
+        onClick = {
+          Navigation.findNavController(requireView()).navigate(R.id.action_appSettingsFragment_to_networkPreferenceFragment)
+        }
+      )
+
+      clickPref(
         title = DSLSettingsText.from(R.string.preferences__data_and_storage),
         iconId = R.drawable.ic_archive_24dp,
         onClick = {

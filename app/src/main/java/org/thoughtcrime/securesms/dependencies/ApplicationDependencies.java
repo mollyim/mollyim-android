@@ -398,7 +398,7 @@ public class ApplicationDependencies {
     if (pendingRetryReceiptManager == null) {
       synchronized (LOCK) {
         if (pendingRetryReceiptManager == null) {
-          pendingRetryReceiptManager = provider.providePendingRetryReceiptManager();
+          pendingRetryReceiptManager = getProvider().providePendingRetryReceiptManager();
         }
       }
     }

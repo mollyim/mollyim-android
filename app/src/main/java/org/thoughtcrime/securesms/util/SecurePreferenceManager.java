@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.BuildConfig;
+import org.thoughtcrime.securesms.components.KeyboardAwareLinearLayout;
 import org.thoughtcrime.securesms.crypto.EncryptedPreferences;
 
 public class SecurePreferenceManager {
@@ -22,8 +23,8 @@ public class SecurePreferenceManager {
         case TextSecurePreferences.FIRST_INSTALL_VERSION:
         case TextSecurePreferences.SYSTEM_EMOJI_PREF:
         case TextSecurePreferences.DIRECTORY_FRESH_TIME_PREF:
-        case "keyboard_height_landscape":
-        case "keyboard_height_portrait":
+        case KeyboardAwareLinearLayout.KEYBOARD_HEIGHT_LANDSCAPE:
+        case KeyboardAwareLinearLayout.KEYBOARD_HEIGHT_PORTRAIT:
           return false;
         default:
           return true;

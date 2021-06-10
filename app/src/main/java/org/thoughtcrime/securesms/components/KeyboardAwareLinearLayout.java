@@ -46,6 +46,9 @@ import java.util.Set;
 public class KeyboardAwareLinearLayout extends LinearLayoutCompat {
   private static final String TAG = Log.tag(KeyboardAwareLinearLayout.class);
 
+  public static final String KEYBOARD_HEIGHT_LANDSCAPE = "keyboard_height_landscape";
+  public static final String KEYBOARD_HEIGHT_PORTRAIT  = "keyboard_height_portrait";
+
   private final Rect                          rect                       = new Rect();
   private final Set<OnKeyboardHiddenListener> hiddenListeners            = new HashSet<>();
   private final Set<OnKeyboardShownListener>  shownListeners             = new HashSet<>();
@@ -203,24 +206,24 @@ public class KeyboardAwareLinearLayout extends LinearLayoutCompat {
 
   private int getKeyboardLandscapeHeight() {
     int keyboardHeight = SecurePreferenceManager.getSecurePreferences(getContext())
-                                          .getInt("keyboard_height_landscape", defaultCustomKeyboardSize);
+                                                .getInt(KEYBOARD_HEIGHT_LANDSCAPE, defaultCustomKeyboardSize);
     return Util.clamp(keyboardHeight, minCustomKeyboardSize, getRootView().getHeight() - minCustomKeyboardTopMarginLandscape);
   }
 
   private int getKeyboardPortraitHeight() {
     int keyboardHeight = SecurePreferenceManager.getSecurePreferences(getContext())
-                                          .getInt("keyboard_height_portrait", defaultCustomKeyboardSize);
+                                                .getInt(KEYBOARD_HEIGHT_PORTRAIT, defaultCustomKeyboardSize);
     return Util.clamp(keyboardHeight, minCustomKeyboardSize, getRootView().getHeight() - minCustomKeyboardTopMarginPortrait);
   }
 
   private void setKeyboardPortraitHeight(int height) {
     SecurePreferenceManager.getSecurePreferences(getContext())
-                     .edit().putInt("keyboard_height_portrait", height).apply();
+                           .edit().putInt(KEYBOARD_HEIGHT_PORTRAIT, height).apply();
   }
 
   private void setKeyboardLandscapeHeight(int height) {
     SecurePreferenceManager.getSecurePreferences(getContext())
-                     .edit().putInt("keyboard_height_landscape", height).apply();
+                           .edit().putInt(KEYBOARD_HEIGHT_LANDSCAPE, height).apply();
   }
 
   public void postOnKeyboardClose(final Runnable runnable) {

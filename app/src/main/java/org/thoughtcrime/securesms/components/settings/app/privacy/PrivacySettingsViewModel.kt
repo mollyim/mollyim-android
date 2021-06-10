@@ -28,6 +28,11 @@ class PrivacySettingsViewModel(
     }
   }
 
+  fun setBlockUnknownEnabled(enabled: Boolean) {
+    TextSecurePreferences.setBlockUnknownEnabled(ApplicationDependencies.getApplication(), enabled)
+    refresh()
+  }
+
   fun setReadReceiptsEnabled(enabled: Boolean) {
     sharedPreferences.edit().putBoolean(TextSecurePreferences.READ_RECEIPTS_PREF, enabled).apply()
     repository.syncReadReceiptState()
@@ -40,13 +45,18 @@ class PrivacySettingsViewModel(
     refresh()
   }
 
-  fun setScreenLockEnabled(enabled: Boolean) {
-    sharedPreferences.edit().putBoolean(TextSecurePreferences.SCREEN_LOCK, enabled).apply()
+  fun setPassphraseLockEnabled(enabled: Boolean) {
+    TextSecurePreferences.setPassphraseLockEnabled(ApplicationDependencies.getApplication(), enabled)
     refresh()
   }
 
-  fun setScreenLockTimeout(seconds: Long) {
-    TextSecurePreferences.setScreenLockTimeout(ApplicationDependencies.getApplication(), seconds)
+  fun setPassphraseLockTrigger(resultSet: Set<String>) {
+    sharedPreferences.edit().putStringSet(TextSecurePreferences.PASSPHRASE_LOCK_TRIGGER, resultSet).apply()
+    refresh()
+  }
+
+  fun setPassphraseLockTimeout(seconds: Long) {
+    sharedPreferences.edit().putLong(TextSecurePreferences.PASSPHRASE_LOCK_TIMEOUT, seconds).apply()
     refresh()
   }
 
@@ -73,16 +83,6 @@ class PrivacySettingsViewModel(
     refresh()
   }
 
-  fun setObsoletePasswordTimeoutEnabled(enabled: Boolean) {
-    sharedPreferences.edit().putBoolean(TextSecurePreferences.PASSPHRASE_TIMEOUT_PREF, enabled).apply()
-    refresh()
-  }
-
-  fun setObsoletePasswordTimeout(minutes: Int) {
-    TextSecurePreferences.setPassphraseTimeoutInterval(ApplicationDependencies.getApplication(), minutes)
-    refresh()
-  }
-
   fun refresh() {
     store.update(this::updateState)
   }
@@ -90,17 +90,16 @@ class PrivacySettingsViewModel(
   private fun getState(): PrivacySettingsState {
     return PrivacySettingsState(
       blockedCount = 0,
+      blockUnknown = TextSecurePreferences.isBlockUnknownEnabled(ApplicationDependencies.getApplication()),
       readReceipts = TextSecurePreferences.isReadReceiptsEnabled(ApplicationDependencies.getApplication()),
       typingIndicators = TextSecurePreferences.isTypingIndicatorsEnabled(ApplicationDependencies.getApplication()),
-      screenLock = TextSecurePreferences.isScreenLockEnabled(ApplicationDependencies.getApplication()),
-      screenLockActivityTimeout = TextSecurePreferences.getScreenLockTimeout(ApplicationDependencies.getApplication()),
+      passphraseLock = TextSecurePreferences.isPassphraseLockEnabled(ApplicationDependencies.getApplication()),
+      passphraseLockTriggerValues = TextSecurePreferences.getPassphraseLockTrigger(ApplicationDependencies.getApplication()).triggers,
+      passphraseLockTimeout = TextSecurePreferences.getPassphraseLockTimeout(ApplicationDependencies.getApplication()),
       screenSecurity = TextSecurePreferences.isScreenSecurityEnabled(ApplicationDependencies.getApplication()),
       incognitoKeyboard = TextSecurePreferences.isIncognitoKeyboardEnabled(ApplicationDependencies.getApplication()),
       seeMyPhoneNumber = SignalStore.phoneNumberPrivacy().phoneNumberSharingMode,
       findMeByPhoneNumber = SignalStore.phoneNumberPrivacy().phoneNumberListingMode,
-      isObsoletePasswordEnabled = !TextSecurePreferences.isPasswordDisabled(ApplicationDependencies.getApplication()),
-      isObsoletePasswordTimeoutEnabled = TextSecurePreferences.isPassphraseTimeoutEnabled(ApplicationDependencies.getApplication()),
-      obsoletePasswordTimeout = TextSecurePreferences.getPassphraseTimeoutInterval(ApplicationDependencies.getApplication()),
       universalExpireTimer = SignalStore.settings().universalExpireTimer
     )
   }

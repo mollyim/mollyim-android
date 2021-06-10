@@ -289,6 +289,10 @@ public class TextSecurePreferences {
   }
 
   public static void onPostBackupRestore(@NonNull Context context) {
+    setTheme(context, SignalStore.settings().getTheme());
+    setLanguage(context, SignalStore.settings().getLanguage());
+    setSystemEmojiPreferred(context, SignalStore.settings().isPreferSystemEmoji());
+
     if (NotificationChannels.supported()) {
       NotificationChannels.updateMessageVibrate(context, SignalStore.settings().isMessageVibrateEnabled());
     }
@@ -324,10 +328,6 @@ public class TextSecurePreferences {
 
   public static long getPassphraseLockTimeout(@NonNull Context context) {
     return getLongPreference(context, PASSPHRASE_LOCK_TIMEOUT, 0);
-  }
-
-  public static void setPassphraseLockTimeout(@NonNull Context context, long value) {
-    setLongPreference(context, PASSPHRASE_LOCK_TIMEOUT, value);
   }
 
   public static ProxyType getProxyType(@NonNull Context context) {
@@ -803,11 +803,12 @@ public class TextSecurePreferences {
     }
   }
 
-  /**
-   * @deprecated Use {@link SettingsValues#getTheme()} via {@link org.thoughtcrime.securesms.keyvalue.SignalStore} instead.
-   */
   public static String getTheme(Context context) {
     return getStringPreference(context, THEME_PREF, DynamicTheme.systemThemeAvailable() ? DynamicTheme.SYSTEM : DynamicTheme.LIGHT);
+  }
+
+  public static void setTheme(Context context, String theme) {
+    setStringPreference(context, THEME_PREF, theme);
   }
 
   public static boolean isPushRegistered(Context context) {
@@ -826,16 +827,10 @@ public class TextSecurePreferences {
     }
   }
 
-  /**
-   * @deprecated Use {@link SettingsValues#getLanguage()} via {@link org.thoughtcrime.securesms.keyvalue.SignalStore} instead.
-   */
   public static String getLanguage(Context context) {
     return getStringPreference(context, LANGUAGE_PREF, "zz");
   }
 
-  /**
-   * @deprecated Use {@link SettingsValues#setLanguage(String)} via {@link org.thoughtcrime.securesms.keyvalue.SignalStore} instead.
-   */
   public static void setLanguage(Context context, String language) {
     setStringPreference(context, LANGUAGE_PREF, language);
   }
@@ -922,9 +917,12 @@ public class TextSecurePreferences {
     setStringPreference(context, LED_BLINK_PREF_CUSTOM, pattern);
   }
 
-  @Deprecated
   public static boolean isSystemEmojiPreferred(Context context) {
     return getBooleanPreference(context, SYSTEM_EMOJI_PREF, false);
+  }
+
+  public static void setSystemEmojiPreferred(Context context, boolean useSystemEmoji) {
+    setBooleanPreference(context, SYSTEM_EMOJI_PREF, useSystemEmoji);
   }
 
   public static @NonNull Set<String> getMobileMediaDownloadAllowed(Context context) {
@@ -1023,10 +1021,6 @@ public class TextSecurePreferences {
 
   public static void setNeedsMessagePull(Context context, boolean needsMessagePull) {
     setBooleanPreference(context, NEEDS_MESSAGE_PULL, needsMessagePull);
-  }
-
-  public static boolean hasSeenStickerIntroTooltip(Context context) {
-    return true;
   }
 
   public static void setMediaKeyboardMode(Context context, MediaKeyboardMode mode) {

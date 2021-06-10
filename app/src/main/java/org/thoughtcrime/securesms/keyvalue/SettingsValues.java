@@ -184,6 +184,7 @@ public final class SettingsValues extends SignalStoreValues {
 
   public void setTheme(@NonNull String theme) {
     putString(THEME, theme);
+    TextSecurePreferences.setTheme(ApplicationDependencies.getApplication(), theme);
     onConfigurationSettingChanged.postValue(THEME);
   }
 
@@ -200,6 +201,7 @@ public final class SettingsValues extends SignalStoreValues {
   }
 
   public void setLanguage(@NonNull String language) {
+    // MOLLY: Keep language setting in SharedPreferences
     TextSecurePreferences.setLanguage(ApplicationDependencies.getApplication(), language);
     onConfigurationSettingChanged.postValue(LANGUAGE);
   }
@@ -210,6 +212,7 @@ public final class SettingsValues extends SignalStoreValues {
 
   public void setPreferSystemEmoji(boolean useSystemEmoji) {
     putBoolean(PREFER_SYSTEM_EMOJI, useSystemEmoji);
+    TextSecurePreferences.setSystemEmojiPreferred(ApplicationDependencies.getApplication(), useSystemEmoji);
   }
 
   public boolean isEnterKeySends() {
@@ -229,7 +232,7 @@ public final class SettingsValues extends SignalStoreValues {
   }
 
   public boolean isSmsDeliveryReportsEnabled() {
-    return getBoolean(SMS_DELIVERY_REPORTS_ENABLED, TextSecurePreferences.isSmsDeliveryReportsEnabled(ApplicationDependencies.getApplication()));
+    return getBoolean(SMS_DELIVERY_REPORTS_ENABLED, false);
   }
 
   public void setSmsDeliveryReportsEnabled(boolean smsDeliveryReportsEnabled) {
@@ -237,7 +240,7 @@ public final class SettingsValues extends SignalStoreValues {
   }
 
   public boolean isWifiCallingCompatibilityModeEnabled() {
-    return getBoolean(WIFI_CALLING_COMPATIBILITY_MODE_ENABLED, TextSecurePreferences.isWifiSmsEnabled(ApplicationDependencies.getApplication()));
+    return getBoolean(WIFI_CALLING_COMPATIBILITY_MODE_ENABLED, false);
   }
 
   public void setWifiCallingCompatibilityModeEnabled(boolean wifiCallingCompatibilityModeEnabled) {

@@ -13,7 +13,6 @@ import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProviders
-import androidx.preference.PreferenceManager
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.DSLConfiguration
 import org.thoughtcrime.securesms.components.settings.DSLSettingsAdapter
@@ -28,6 +27,7 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.notifications.NotificationChannels
 import org.thoughtcrime.securesms.util.MappingAdapter
 import org.thoughtcrime.securesms.util.RingtoneUtil
+import org.thoughtcrime.securesms.util.SecurePreferenceManager
 import org.thoughtcrime.securesms.util.ViewUtil
 
 private const val MESSAGE_SOUND_SELECT: Int = 1
@@ -68,7 +68,7 @@ class NotificationsSettingsFragment : DSLSettingsFragment(R.string.preferences__
       MappingAdapter.LayoutFactory(::LedColorPreferenceViewHolder, R.layout.dsl_preference_item)
     )
 
-    val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+    val sharedPreferences = SecurePreferenceManager.getSecurePreferences(requireContext())
     val factory = NotificationsSettingsViewModel.Factory(sharedPreferences)
 
     viewModel = ViewModelProviders.of(this, factory)[NotificationsSettingsViewModel::class.java]

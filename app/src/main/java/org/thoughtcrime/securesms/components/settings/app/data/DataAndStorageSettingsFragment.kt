@@ -2,13 +2,13 @@ package org.thoughtcrime.securesms.components.settings.app.data
 
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
-import androidx.preference.PreferenceManager
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.DSLConfiguration
 import org.thoughtcrime.securesms.components.settings.DSLSettingsAdapter
 import org.thoughtcrime.securesms.components.settings.DSLSettingsFragment
 import org.thoughtcrime.securesms.components.settings.DSLSettingsText
 import org.thoughtcrime.securesms.components.settings.configure
+import org.thoughtcrime.securesms.util.SecurePreferenceManager
 import org.thoughtcrime.securesms.util.Util
 import org.thoughtcrime.securesms.webrtc.CallBandwidthMode
 import kotlin.math.abs
@@ -28,7 +28,7 @@ class DataAndStorageSettingsFragment : DSLSettingsFragment(R.string.preferences_
   }
 
   override fun bindAdapter(adapter: DSLSettingsAdapter) {
-    val preferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+    val preferences = SecurePreferenceManager.getSecurePreferences(requireContext())
     val repository = DataAndStorageSettingsRepository()
     val factory = DataAndStorageSettingsViewModel.Factory(preferences, repository)
     viewModel = ViewModelProviders.of(this, factory)[DataAndStorageSettingsViewModel::class.java]
