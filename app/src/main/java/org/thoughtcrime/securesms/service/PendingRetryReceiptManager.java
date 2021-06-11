@@ -1,7 +1,6 @@
 package org.thoughtcrime.securesms.service;
 
 import android.app.Application;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
@@ -75,12 +74,12 @@ public final class PendingRetryReceiptManager extends TimedEventManager<PendingR
     setAlarm(application, delay, PendingRetryReceiptAlarm.class);
   }
 
-  public static class PendingRetryReceiptAlarm extends BroadcastReceiver {
+  public static class PendingRetryReceiptAlarm extends ExportedBroadcastReceiver {
 
     private static final String TAG = Log.tag(PendingRetryReceiptAlarm.class);
 
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onReceiveUnlock(Context context, Intent intent) {
       Log.d(TAG, "onReceive()");
       ApplicationDependencies.getPendingRetryReceiptManager().scheduleIfNecessary();
     }

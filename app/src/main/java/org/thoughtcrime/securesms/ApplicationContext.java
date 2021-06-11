@@ -253,7 +253,6 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
 
     stopService(new Intent(this, WebRtcCallService.class));
 
-    finalizeRevealableMessageManager();
     finalizeExpiringMessageManager();
     finalizeMessageRetrieval();
     unregisterKeyEventReceiver();
@@ -412,10 +411,6 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
 
   private void initializeRevealableMessageManager() {
     ApplicationDependencies.getViewOnceMessageManager().scheduleIfNecessary();
-  }
-
-  private void finalizeRevealableMessageManager() {
-    ApplicationDependencies.getViewOnceMessageManager().quit();
   }
 
   private void initializePendingRetryReceiptManager() {

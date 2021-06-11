@@ -1,7 +1,6 @@
 package org.thoughtcrime.securesms.revealable;
 
 import android.app.Application;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
@@ -16,6 +15,7 @@ import org.thoughtcrime.securesms.database.AttachmentDatabase;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.database.MessageDatabase;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.service.ExportedBroadcastReceiver;
 import org.thoughtcrime.securesms.service.TimedEventManager;
 
 /**
@@ -73,12 +73,12 @@ public class ViewOnceMessageManager extends TimedEventManager<ViewOnceExpiration
     setAlarm(application, delay, ViewOnceAlarm.class);
   }
 
-  public static class ViewOnceAlarm extends BroadcastReceiver {
+  public static class ViewOnceAlarm extends ExportedBroadcastReceiver {
 
     private static final String TAG = Log.tag(ViewOnceAlarm.class);
 
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onReceiveUnlock(Context context, Intent intent) {
       Log.d(TAG, "onReceive()");
       ApplicationDependencies.getViewOnceMessageManager().scheduleIfNecessary();
     }

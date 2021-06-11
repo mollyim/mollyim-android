@@ -1,7 +1,6 @@
 package org.thoughtcrime.securesms.service;
 
 import android.app.Application;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
@@ -79,12 +78,12 @@ public class TrimThreadsByDateManager extends TimedEventManager<TrimThreadsByDat
     setAlarm(application, delay, TrimThreadsByDateAlarm.class);
   }
 
-  public static class TrimThreadsByDateAlarm extends BroadcastReceiver {
+  public static class TrimThreadsByDateAlarm extends ExportedBroadcastReceiver {
 
     private static final String TAG = Log.tag(TrimThreadsByDateAlarm.class);
 
     @Override
-    public void onReceive(@NonNull Context context, @NonNull Intent intent) {
+    public void onReceiveUnlock(@NonNull Context context, @NonNull Intent intent) {
       Log.d(TAG, "onReceive()");
       ApplicationDependencies.getTrimThreadsByDateManager().scheduleIfNecessary();
     }

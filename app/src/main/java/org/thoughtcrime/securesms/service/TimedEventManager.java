@@ -15,8 +15,6 @@ import androidx.annotation.WorkerThread;
 
 import org.thoughtcrime.securesms.util.ServiceUtil;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
 /**
  * Class to help manage scheduling events to happen in the future, whether the app is open or not.
  */
@@ -25,19 +23,12 @@ public abstract class TimedEventManager<E> {
   private final Application application;
   private final Handler     handler;
 
-  private final AtomicBoolean quitting;
-
   public TimedEventManager(@NonNull Application application, @NonNull String threadName) {
     HandlerThread handlerThread = new HandlerThread(threadName);
     handlerThread.start();
 
     this.application = application;
     this.handler     = new Handler(handlerThread.getLooper());
-    this.quitting    = new AtomicBoolean(false);
-  }
-
-  public void quit() {
-    quitting.set(true);
   }
 
   /**
@@ -47,7 +38,9 @@ public abstract class TimedEventManager<E> {
   public void scheduleIfNecessary() {
     handler.removeCallbacksAndMessages(null);
 
-    if (quitting.get()) return;
+    if (KeyCachingService.isLocked()) {
+      return;
+    }
 
     handler.post(() -> {
       E event = getNextClosestEvent();
@@ -56,7 +49,9 @@ public abstract class TimedEventManager<E> {
         long delay = getDelayForEvent(event);
 
         handler.postDelayed(() -> {
-          executeEvent(event);
+          if (!KeyCachingService.isLocked()) {
+            executeEvent(event);
+          }
           scheduleIfNecessary();
         }, delay);
 
@@ -93,7 +88,7 @@ public abstract class TimedEventManager<E> {
   /**
    * Helper method to set an alarm.
    */
-  protected static void setAlarm(@NonNull Context context, long delay, @NonNull Class alarmClass) {
+  protected static void setAlarm(@NonNull Context context, long delay, @NonNull Class<? extends ExportedBroadcastReceiver> alarmClass) {
     Intent        intent        = new Intent(context, alarmClass);
     PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
     AlarmManager  alarmManager  = ServiceUtil.getAlarmManager(context);
