@@ -293,7 +293,8 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
                          .updatePreviousGroupCall(threadId,
                                                   peekInfo.getEraId(),
                                                   peekInfo.getJoinedMembers(),
-                                                  WebRtcUtil.isCallFull(peekInfo));
+                                                  WebRtcUtil.isCallFull(peekInfo),
+                                                  group.getExpireMessagesInMillis());
 
           ApplicationDependencies.getMessageNotifier().updateNotification(context, threadId, true, 0, BubbleUtil.BubbleState.HIDDEN);
 

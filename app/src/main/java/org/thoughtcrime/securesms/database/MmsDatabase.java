@@ -499,7 +499,7 @@ public class MmsDatabase extends MessageDatabase {
   }
 
   @Override
-  public boolean updatePreviousGroupCall(long threadId, @Nullable String peekGroupCallEraId, @NonNull Collection<UUID> peekJoinedUuids, boolean isCallFull) {
+  public boolean updatePreviousGroupCall(long threadId, @Nullable String peekGroupCallEraId, @NonNull Collection<UUID> peekJoinedUuids, boolean isCallFull, long expiresIn) {
     throw new UnsupportedOperationException();
   }
 
@@ -1662,6 +1662,11 @@ public class MmsDatabase extends MessageDatabase {
     notifyStickerListeners();
     notifyStickerPackListeners();
     return threadDeleted;
+  }
+
+  @Override
+  public boolean deleteExpiringMessage(long messageId) {
+    return deleteMessage(messageId);
   }
 
   @Override

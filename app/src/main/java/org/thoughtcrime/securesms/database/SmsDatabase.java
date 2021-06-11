@@ -734,7 +734,8 @@ public class SmsDatabase extends MessageDatabase {
     SQLiteDatabase db                      = databaseHelper.getWritableDatabase();
     Recipient      recipient               = Recipient.resolved(groupRecipientId);
     long           threadId                = DatabaseFactory.getThreadDatabase(context).getThreadIdFor(recipient);
-    boolean        peerEraIdSameAsPrevious = updatePreviousGroupCall(threadId, peekGroupCallEraId, peekJoinedUuids, isCallFull);
+    long           expiresIn               = recipient.getExpireMessagesInMillis();
+    boolean        peerEraIdSameAsPrevious = updatePreviousGroupCall(threadId, peekGroupCallEraId, peekJoinedUuids, isCallFull, expiresIn);
 
     try {
       db.beginTransaction();
@@ -858,7 +859,7 @@ public class SmsDatabase extends MessageDatabase {
   }
 
   @Override
-  public boolean updatePreviousGroupCall(long threadId, @Nullable String peekGroupCallEraId, @NonNull Collection<UUID> peekJoinedUuids, boolean isCallFull) {
+  public boolean updatePreviousGroupCall(long threadId, @Nullable String peekGroupCallEraId, @NonNull Collection<UUID> peekJoinedUuids, boolean isCallFull, long expiresIn) {
     SQLiteDatabase db        = databaseHelper.getWritableDatabase();
     String         where     = TYPE + " = ? AND " + THREAD_ID + " = ?";
     String[]       args      = SqlUtil.buildArgs(Types.GROUP_CALL_TYPE, threadId);
@@ -882,6 +883,15 @@ public class SmsDatabase extends MessageDatabase {
 
       ContentValues contentValues = new ContentValues();
       contentValues.put(BODY, body);
+
+      if (inCallUuids.isEmpty()) {
+        if (sameEraId && record.getExpireStarted() == 0) {
+          contentValues.put(EXPIRES_IN, expiresIn);
+        }
+      } else {
+        contentValues.put(EXPIRES_IN, 0);
+        contentValues.put(EXPIRE_STARTED, 0);
+      }
 
       if (sameEraId && containsSelf) {
         contentValues.put(READ, 1);
@@ -1302,6 +1312,21 @@ public class SmsDatabase extends MessageDatabase {
     long           threadId = getThreadIdForMessage(messageId);
 
     db.delete(TABLE_NAME, ID_WHERE, new String[] {messageId+""});
+
+    boolean threadDeleted = DatabaseFactory.getThreadDatabase(context).update(threadId, false, true);
+
+    notifyConversationListeners(threadId);
+    return threadDeleted;
+  }
+
+  @Override
+  public boolean deleteExpiringMessage(long messageId) {
+    Log.d(TAG, "deleteMessage(" + messageId + ")");
+
+    SQLiteDatabase db       = databaseHelper.getWritableDatabase();
+    long           threadId = getThreadIdForMessage(messageId);
+
+    db.delete(TABLE_NAME, ID + " = ? AND " + EXPIRE_STARTED + " > 0", new String[] {messageId+""});
 
     boolean threadDeleted = DatabaseFactory.getThreadDatabase(context).update(threadId, false, true);
 

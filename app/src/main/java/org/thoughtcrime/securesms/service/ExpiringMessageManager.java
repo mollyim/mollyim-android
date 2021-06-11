@@ -109,8 +109,8 @@ public class ExpiringMessageManager {
         }
 
         if (expiredMessage != null) {
-          if (expiredMessage.mms) mmsDatabase.deleteMessage(expiredMessage.id);
-          else                    smsDatabase.deleteMessage(expiredMessage.id);
+          if (expiredMessage.mms) mmsDatabase.deleteExpiringMessage(expiredMessage.id);
+          else                    smsDatabase.deleteExpiringMessage(expiredMessage.id);
         }
       }
     }

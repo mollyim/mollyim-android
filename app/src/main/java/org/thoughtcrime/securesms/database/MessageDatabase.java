@@ -151,7 +151,7 @@ public abstract class MessageDatabase extends Database implements MmsSmsColumns 
                                                @NonNull RecipientId sender,
                                                long timestamp,
                                                @Nullable String messageGroupCallEraId);
-  public abstract boolean updatePreviousGroupCall(long threadId, @Nullable String peekGroupCallEraId, @NonNull Collection<UUID> peekJoinedUuids, boolean isCallFull);
+  public abstract boolean updatePreviousGroupCall(long threadId, @Nullable String peekGroupCallEraId, @NonNull Collection<UUID> peekJoinedUuids, boolean isCallFull, long expiresIn);
 
   public abstract Optional<InsertResult> insertMessageInbox(IncomingTextMessage message, long type);
   public abstract Optional<InsertResult> insertMessageInbox(IncomingTextMessage message);
@@ -167,6 +167,7 @@ public abstract class MessageDatabase extends Database implements MmsSmsColumns 
   public abstract void insertGroupV1MigrationEvents(@NonNull RecipientId recipientId, long threadId, @NonNull GroupMigrationMembershipChange membershipChange);
 
   public abstract boolean deleteMessage(long messageId);
+  public abstract boolean deleteExpiringMessage(long messageId);
   abstract void deleteThread(long threadId);
   abstract void deleteMessagesInThreadBeforeDate(long threadId, long date);
   abstract void deleteThreads(@NonNull Set<Long> threadIds);
