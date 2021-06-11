@@ -7,3 +7,5 @@ services:
     command: ./gradlew -Pci assembleRelease
     volumes:
       - ./outputs:/molly/app/build/outputs
+    environment:
+      - BUILD_SCAN
