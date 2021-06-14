@@ -32,7 +32,7 @@ public abstract class MediaConstraints {
   }
 
   public static MediaConstraints getMmsMediaConstraints(int subscriptionId) {
-    return new PushMediaConstraints();
+    return new PushMediaConstraints(null);
   }
 
   public abstract int getImageMaxWidth(Context context);

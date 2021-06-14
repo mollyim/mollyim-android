@@ -322,6 +322,11 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
   }
 
   @Override
+  public void updateTimestamps() {
+    getActiveFooter(messageRecord).setMessageRecord(messageRecord, locale);
+  }
+
+  @Override
   protected void onDetachedFromWindow() {
     ConversationSwipeAnimationHelper.update(this, 0f, 1f);
     unbind();
@@ -1732,6 +1737,7 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
         intent.putExtra(MediaPreviewActivity.DATE_EXTRA, messageRecord.getTimestamp());
         intent.putExtra(MediaPreviewActivity.SIZE_EXTRA, slide.asAttachment().getSize());
         intent.putExtra(MediaPreviewActivity.CAPTION_EXTRA, slide.getCaption().orNull());
+        intent.putExtra(MediaPreviewActivity.IS_VIDEO_GIF, slide.isVideoGif());
         intent.putExtra(MediaPreviewActivity.LEFT_IS_RECENT_EXTRA, false);
 
         context.startActivity(intent);

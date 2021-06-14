@@ -140,7 +140,7 @@ import org.thoughtcrime.securesms.conversation.ConversationMessage.ConversationM
 import org.thoughtcrime.securesms.conversation.ui.error.SafetyNumberChangeDialog;
 import org.thoughtcrime.securesms.conversation.ui.groupcall.GroupCallViewModel;
 import org.thoughtcrime.securesms.conversation.ui.mentions.MentionsPickerViewModel;
-import org.thoughtcrime.securesms.conversationlist.model.MessageResult;
+import org.thoughtcrime.securesms.search.MessageResult;
 import org.thoughtcrime.securesms.crypto.DatabaseSessionLock;
 import org.thoughtcrime.securesms.crypto.SecurityEvent;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
@@ -1458,6 +1458,7 @@ public class ConversationActivity extends PassphraseRequiredActivity
 
   @Override
   public void onSendAnywayAfterSafetyNumberChange(@NonNull List<RecipientId> changedRecipients) {
+    Log.d(TAG, "onSendAnywayAfterSafetyNumberChange");
     initializeIdentityRecords().addListener(new AssertedSuccessListener<Boolean>() {
       @Override
       public void onSuccess(Boolean result) {
@@ -1468,6 +1469,7 @@ public class ConversationActivity extends PassphraseRequiredActivity
 
   @Override
   public void onMessageResentAfterSafetyNumberChange() {
+    Log.d(TAG, "onMessageResentAfterSafetyNumberChange");
     initializeIdentityRecords().addListener(new AssertedSuccessListener<Boolean>() {
       @Override
       public void onSuccess(Boolean result) { }
@@ -1915,6 +1917,7 @@ public class ConversationActivity extends PassphraseRequiredActivity
     cancelJoinRequest      = findViewById(R.id.conversation_cancel_request);
     joinGroupCallButton    = findViewById(R.id.conversation_group_call_join);
 
+    container.setIsBubble(isInBubble());
     container.addOnKeyboardShownListener(this);
     inputPanel.setListener(this);
     inputPanel.setMediaListener(this);
@@ -2072,7 +2075,7 @@ public class ConversationActivity extends PassphraseRequiredActivity
 
       if (!result.getResults().isEmpty()) {
         MessageResult messageResult = result.getResults().get(result.getPosition());
-        fragment.jumpToMessage(messageResult.messageRecipient.getId(), messageResult.receivedTimestampMs, searchViewModel::onMissingResult);
+        fragment.jumpToMessage(messageResult.getMessageRecipient().getId(), messageResult.getReceivedTimestampMs(), searchViewModel::onMissingResult);
       }
 
       searchNav.setData(result.getPosition(), result.getResults().size());

@@ -200,7 +200,7 @@ public final class SignalStore {
   }
 
   public static @NonNull ChatColorsValues chatColorsValues() {
-    return INSTANCE.chatColorsValues;
+    return getInstance().chatColorsValues;
   }
 
   public static @NonNull GroupsV2AuthorizationSignalStoreCache groupsV2AuthorizationCache() {

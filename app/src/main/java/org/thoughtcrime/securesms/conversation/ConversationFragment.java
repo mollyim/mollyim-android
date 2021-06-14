@@ -220,6 +220,7 @@ public class ConversationFragment extends LoggingFragment {
 
   private GiphyMp4ProjectionRecycler giphyMp4ProjectionRecycler;
   private Colorizer                  colorizer;
+  private ConversationUpdateTick     conversationUpdateTick;
 
   public static void prepare(@NonNull Context context) {
     FrameLayout parent = new FrameLayout(context);
@@ -331,6 +332,9 @@ public class ConversationFragment extends LoggingFragment {
       }
     });
 
+    conversationUpdateTick = new ConversationUpdateTick(this::updateConversationItemTimestamps);
+    getViewLifecycleOwner().getLifecycle().addObserver(conversationUpdateTick);
+
     return view;
   }
 
@@ -384,6 +388,13 @@ public class ConversationFragment extends LoggingFragment {
 
     int offset = WindowUtil.isStatusBarPresent(requireActivity().getWindow()) ? ViewUtil.getStatusBarHeight(list) : 0;
     listener.onListVerticalTranslationChanged(list.getTranslationY() - offset);
+  }
+
+  private void updateConversationItemTimestamps() {
+    ConversationAdapter conversationAdapter = getListAdapter();
+    if (conversationAdapter != null) {
+      getListAdapter().updateTimestamps();
+    }
   }
 
   @Override

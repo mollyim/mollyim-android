@@ -90,8 +90,8 @@ import org.thoughtcrime.securesms.components.reminder.UnauthorizedReminder;
 import org.thoughtcrime.securesms.components.settings.app.AppSettingsActivity;
 import org.thoughtcrime.securesms.conversation.ConversationFragment;
 import org.thoughtcrime.securesms.conversationlist.model.Conversation;
-import org.thoughtcrime.securesms.conversationlist.model.MessageResult;
-import org.thoughtcrime.securesms.conversationlist.model.SearchResult;
+import org.thoughtcrime.securesms.search.MessageResult;
+import org.thoughtcrime.securesms.search.SearchResult;
 import org.thoughtcrime.securesms.conversationlist.model.UnreadPayments;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.database.MessageDatabase.MarkedMessageInfo;
@@ -387,12 +387,12 @@ public class ConversationListFragment extends MainFragment implements ActionMode
   @Override
   public void onMessageClicked(@NonNull MessageResult message) {
     SimpleTask.run(getViewLifecycleOwner().getLifecycle(), () -> {
-      int startingPosition = DatabaseFactory.getMmsSmsDatabase(getContext()).getMessagePositionInConversation(message.threadId, message.receivedTimestampMs);
+      int startingPosition = DatabaseFactory.getMmsSmsDatabase(getContext()).getMessagePositionInConversation(message.getThreadId(), message.getReceivedTimestampMs());
       return Math.max(0, startingPosition);
     }, startingPosition -> {
       hideKeyboard();
-      getNavigator().goToConversation(message.conversationRecipient.getId(),
-                                      message.threadId,
+      getNavigator().goToConversation(message.getConversationRecipient().getId(),
+                                      message.getThreadId(),
                                       ThreadDatabase.DistributionTypes.DEFAULT,
                                       startingPosition);
     });
@@ -468,7 +468,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
         public void onSearchTextChange(String text) {
           String trimmed = text.trim();
 
-          viewModel.updateQuery(trimmed);
+          viewModel.onSearchQueryUpdated(trimmed);
 
           if (trimmed.length() > 0) {
             if (activeAdapter != searchAdapter) {
