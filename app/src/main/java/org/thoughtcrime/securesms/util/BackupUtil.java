@@ -88,12 +88,14 @@ public class BackupUtil {
   }
 
   public static void deleteOldBackups() {
-    Log.i(TAG, "Deleting older backups");
+    int maxFiles = TextSecurePreferences.getBackupMaxFiles(ApplicationDependencies.getApplication());
+
+    Log.i(TAG, "Deleting older backups. Keep " + maxFiles + " max.");
 
     try {
       List<BackupInfo> backups = getAllBackupsNewestFirst();
 
-      for (int i = 2; i < backups.size(); i++) {
+      for (int i = maxFiles; i < backups.size(); i++) {
         backups.get(i).delete();
       }
     } catch (NoExternalStorageException e) {

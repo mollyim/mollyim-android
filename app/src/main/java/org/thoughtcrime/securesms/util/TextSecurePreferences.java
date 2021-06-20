@@ -39,6 +39,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public class TextSecurePreferences {
 
@@ -127,6 +128,8 @@ public class TextSecurePreferences {
   private static final String BACKUP_PASSPHRASE           = "pref_backup_passphrase";
   private static final String ENCRYPTED_BACKUP_PASSPHRASE = "pref_encrypted_backup_passphrase";
   private static final String BACKUP_TIME                 = "pref_backup_next_time";
+  private static final String BACKUP_INTERVAL             = "pref_backup_interval";
+  private static final String BACKUP_MAX_FILES            = "pref_backup_max_files";
 
   public static final String TRANSFER = "pref_transfer";
 
@@ -425,6 +428,22 @@ public class TextSecurePreferences {
 
   public static long getNextBackupTime(@NonNull Context context) {
     return getLongPreference(context, BACKUP_TIME, -1);
+  }
+
+  public static void setBackupInternal(@NonNull Context context, long value) {
+    setLongPreference(context, BACKUP_INTERVAL, value);
+  }
+
+  public static long getBackupInternal(@NonNull Context context) {
+    return getLongPreference(context, BACKUP_INTERVAL, TimeUnit.DAYS.toMillis(1));
+  }
+
+  public static void setBackupMaxFiles(@NonNull Context context, int value) {
+    setIntegerPrefrence(context, BACKUP_MAX_FILES, value);
+  }
+
+  public static int getBackupMaxFiles(@NonNull Context context) {
+    return getIntegerPreference(context, BACKUP_MAX_FILES, 2);
   }
 
   public static int getNextPreKeyId(@NonNull Context context) {

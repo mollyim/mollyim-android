@@ -10,11 +10,7 @@ import org.thoughtcrime.securesms.jobs.LocalBackupJob;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
-import java.util.concurrent.TimeUnit;
-
 public class LocalBackupListener extends PersistentAlarmManagerListener {
-
-  private static final long INTERVAL = TimeUnit.DAYS.toMillis(1);
 
   @Override
   protected long getNextScheduledExecutionTime(Context context) {
@@ -37,7 +33,7 @@ public class LocalBackupListener extends PersistentAlarmManagerListener {
   }
 
   public static long setNextBackupTimeToIntervalFromNow(@NonNull Context context) {
-    long nextTime = System.currentTimeMillis() + INTERVAL;
+    long nextTime = System.currentTimeMillis() + TextSecurePreferences.getBackupInternal(context);
     TextSecurePreferences.setNextBackupTime(context, nextTime);
 
     return nextTime;
