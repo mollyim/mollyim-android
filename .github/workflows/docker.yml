@@ -14,8 +14,12 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Build with Docker Compose
-      run: docker-compose up
+    - name: Build Docker image
+      run: docker-compose build
+      working-directory: reproducible-builds
+
+    - name: Build APKs
+      run: docker-compose run reproducible-molly
       working-directory: reproducible-builds
 
     - name: Log checksums
