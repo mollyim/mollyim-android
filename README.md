@@ -31,14 +31,15 @@ Pre-releases are also available to download for development or beta testing.
 
 Molly has unique features compared to Signal:
 
-- Protects database with [passphrase encryption](https://github.com/mollyim/mollyim-android/wiki/Data-Encryption-At-Rest)
-- Locks down the app automatically
-- Securely shreds sensitive data from RAM
-- Permits to block unknown senders
-- Allows you to delete contacts and stop sharing your profile
-- Clears call notifications together with expiring messages
-- Disables debug logs
-- Supports SOCKS proxy and Tor via Orbot
+- **Data encryption at rest** - Protect the database with [passphrase encryption](https://github.com/mollyim/mollyim-android/wiki/Data-Encryption-At-Rest)
+- **Secure RAM wiper** - Securely shred sensitive data from device memory
+- **Automatic lock** - Lock the app automatically under certain conditions
+- **Block unknown contacts** - Block messages and calls from unknown senders for security and anti-spam
+- **Contact deletion** - Allows you to delete contacts and stop sharing your profile
+- **Disappearing call history** - Clear call notifications together with expiring messages
+- **Debug logs are optional** - Android logging can be disabled
+- **Custom backup scheduling** - Choose between daily or weekly interval and the number of backups to retain
+- **SOCKS proxy and Tor support** - Tunnel app nework traffic via proxy and Orbot
 
 Besides that, you will find all the features of Signal plus some minor tweaks and improvements. The only exception is the SMS integration, that is incompatible with Molly security enhancements.
 
@@ -76,7 +77,7 @@ For older versions of Android, you might need to rename the backup file and copy
 ## Feedback
 
 - [Submit bugs and feature requests](https://github.com/mollyim/mollyim-android/issues)
-- Join us on the IRC channel **#mollyim** at [Matrix](https://matrix.to/#/#mollyim:matrix.org)
+- Join us on the chat room **#mollyim** at [Matrix](https://matrix.to/#/#mollyim:matrix.org)
 - Ask a question on the forum [community.signalusers.org](https://community.signalusers.org/)
 
 ## Reproducible Builds
