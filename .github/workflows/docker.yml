@@ -75,8 +75,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create-release.outputs.upload_url }}
-          asset_path: ./molly-apk-docker/nonFreeProduction/release/Molly-production-release-unsigned-${{ steps.get-version.outputs.VERSION }}.apk
-          asset_name: Molly-production-unsigned-${{ steps.get-version.outputs.VERSION }}.apk
+          asset_path: ./molly-apk-docker/nonFreeProd/release/Molly-prod-release-unsigned-${{ steps.get-version.outputs.VERSION }}.apk
+          asset_name: Molly-unsigned-${{ steps.get-version.outputs.VERSION }}.apk
           asset_content_type: application/zip
 
       - name: Upload APK staging FOSS
@@ -97,6 +97,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create-release.outputs.upload_url }}
-          asset_path: ./molly-apk-docker/freeProduction/release/Molly-production-release-unsigned-${{ steps.get-version.outputs.VERSION }}-FOSS.apk
-          asset_name: Molly-production-unsigned-${{ steps.get-version.outputs.VERSION }}-FOSS.apk
+          asset_path: ./molly-apk-docker/freeProd/release/Molly-prod-release-unsigned-${{ steps.get-version.outputs.VERSION }}-FOSS.apk
+          asset_name: Molly-unsigned-${{ steps.get-version.outputs.VERSION }}-FOSS.apk
           asset_content_type: application/zip

@@ -131,7 +131,7 @@ public class SmsDatabase extends MessageDatabase {
     "CREATE INDEX IF NOT EXISTS sms_read_index ON " + TABLE_NAME + " (" + READ + ");",
     "CREATE INDEX IF NOT EXISTS sms_read_and_notified_and_thread_id_index ON " + TABLE_NAME + "(" + READ + "," + NOTIFIED + ","  + THREAD_ID + ");",
     "CREATE INDEX IF NOT EXISTS sms_type_index ON " + TABLE_NAME + " (" + TYPE + ");",
-    "CREATE INDEX IF NOT EXISTS sms_date_sent_index ON " + TABLE_NAME + " (" + DATE_SENT + ");",
+    "CREATE INDEX IF NOT EXISTS sms_date_sent_index ON " + TABLE_NAME + " (" + DATE_SENT + ", " + RECIPIENT_ID + ", " + THREAD_ID + ");",
     "CREATE INDEX IF NOT EXISTS sms_date_server_index ON " + TABLE_NAME + " (" + DATE_SERVER + ");",
     "CREATE INDEX IF NOT EXISTS sms_thread_date_index ON " + TABLE_NAME + " (" + THREAD_ID + ", " + DATE_RECEIVED + ");",
     "CREATE INDEX IF NOT EXISTS sms_reactions_unread_index ON " + TABLE_NAME + " (" + REACTIONS_UNREAD + ");"
@@ -414,15 +414,25 @@ public class SmsDatabase extends MessageDatabase {
   public void markAsRemoteDelete(long id) {
     SQLiteDatabase db = databaseHelper.getWritableDatabase();
 
-    ContentValues values = new ContentValues();
-    values.put(REMOTE_DELETED, 1);
-    values.putNull(BODY);
-    values.putNull(REACTIONS);
-    db.update(TABLE_NAME, values, ID_WHERE, new String[] { String.valueOf(id) });
+    long threadId;
 
-    long threadId = getThreadIdForMessage(id);
+    db.beginTransaction();
+    try {
+      ContentValues values = new ContentValues();
+      values.put(REMOTE_DELETED, 1);
+      values.putNull(BODY);
+      values.putNull(REACTIONS);
+      db.update(TABLE_NAME, values, ID_WHERE, new String[] { String.valueOf(id) });
 
-    DatabaseFactory.getThreadDatabase(context).update(threadId, false);
+      threadId = getThreadIdForMessage(id);
+
+      DatabaseFactory.getThreadDatabase(context).update(threadId, false);
+      DatabaseFactory.getMessageLogDatabase(context).deleteAllRelatedToMessage(id, false);
+
+      db.setTransactionSuccessful();
+    } finally {
+      db.endTransaction();
+    }
     notifyConversationListeners(threadId);
   }
 
@@ -897,10 +907,13 @@ public class SmsDatabase extends MessageDatabase {
         contentValues.put(READ, 1);
       }
 
-      db.update(TABLE_NAME, contentValues, ID_WHERE, SqlUtil.buildArgs(record.getId()));
-    }
+      SqlUtil.Query query   = SqlUtil.buildTrueUpdateQuery(ID_WHERE, SqlUtil.buildArgs(record.getId()), contentValues);
+      boolean       updated = db.update(TABLE_NAME, contentValues, query.getWhere(), query.getWhereArgs()) > 0;
 
-    notifyConversationListeners(threadId);
+      if (updated) {
+        notifyConversationListeners(threadId);
+      }
+    }
 
     return sameEraId;
   }
@@ -1308,12 +1321,23 @@ public class SmsDatabase extends MessageDatabase {
   public boolean deleteMessage(long messageId) {
     Log.d(TAG, "deleteMessage(" + messageId + ")");
 
-    SQLiteDatabase db       = databaseHelper.getWritableDatabase();
-    long           threadId = getThreadIdForMessage(messageId);
+    SQLiteDatabase db = databaseHelper.getWritableDatabase();
 
-    db.delete(TABLE_NAME, ID_WHERE, new String[] {messageId+""});
+    long    threadId;
+    boolean threadDeleted;
 
-    boolean threadDeleted = DatabaseFactory.getThreadDatabase(context).update(threadId, false, true);
+    db.beginTransaction();
+    try {
+      threadId = getThreadIdForMessage(messageId);
+
+      db.delete(TABLE_NAME, ID_WHERE, new String[] { messageId + "" });
+
+      threadDeleted = DatabaseFactory.getThreadDatabase(context).update(threadId, false, true);
+
+      db.setTransactionSuccessful();
+    } finally {
+      db.endTransaction();
+    }
 
     notifyConversationListeners(threadId);
     return threadDeleted;
@@ -1344,16 +1368,22 @@ public class SmsDatabase extends MessageDatabase {
     return getSmsMessage(messageId);
   }
 
-  private boolean isDuplicate(IncomingTextMessage message, long threadId) {
-    SQLiteDatabase database = databaseHelper.getReadableDatabase();
-    Cursor         cursor   = database.query(TABLE_NAME, null, DATE_SENT + " = ? AND " + RECIPIENT_ID + " = ? AND " + THREAD_ID + " = ?",
-                                             new String[]{String.valueOf(message.getSentTimestampMillis()), message.getSender().serialize(), String.valueOf(threadId)},
-                                             null, null, null, "1");
-
+  @Override
+  public @Nullable MessageRecord getMessageRecordOrNull(long messageId) {
     try {
-      return cursor != null && cursor.moveToFirst();
-    } finally {
-      if (cursor != null) cursor.close();
+      return getSmsMessage(messageId);
+    } catch (NoSuchMessageException e) {
+      return null;
+    }
+  }
+
+  private boolean isDuplicate(IncomingTextMessage message, long threadId) {
+    SQLiteDatabase db    = databaseHelper.getReadableDatabase();
+    String         query = DATE_SENT + " = ? AND " + RECIPIENT_ID + " = ? AND " + THREAD_ID + " = ?";
+    String[]       args  = SqlUtil.buildArgs(message.getSentTimestampMillis(), message.getSender().serialize(), threadId);
+
+    try (Cursor cursor = db.query(TABLE_NAME, new String[] { "1" }, query, args, null, null, null, "1")) {
+      return cursor.moveToFirst();
     }
   }
 
@@ -1361,6 +1391,7 @@ public class SmsDatabase extends MessageDatabase {
   void deleteThread(long threadId) {
     Log.d(TAG, "deleteThread(" + threadId + ")");
     SQLiteDatabase db = databaseHelper.getWritableDatabase();
+
     db.delete(TABLE_NAME, THREAD_ID + " = ?", new String[] {threadId+""});
   }
 

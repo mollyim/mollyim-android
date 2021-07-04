@@ -1,53 +1,72 @@
 package org.thoughtcrime.securesms.keyboard.emoji
 
+import android.content.Context
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.emoji.EmojiKeyboardProvider
+import org.thoughtcrime.securesms.components.emoji.EmojiPageModel
+import org.thoughtcrime.securesms.components.emoji.EmojiPageViewGridAdapter
+import org.thoughtcrime.securesms.components.emoji.EmojiPageViewGridAdapter.EmojiHeader
 import org.thoughtcrime.securesms.components.emoji.RecentEmojiPageModel
+import org.thoughtcrime.securesms.components.emoji.parsing.EmojiTree
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
 import org.thoughtcrime.securesms.emoji.EmojiCategory
-import org.thoughtcrime.securesms.emoji.EmojiSource
+import org.thoughtcrime.securesms.emoji.EmojiSource.Companion.latest
+import org.thoughtcrime.securesms.keyboard.emoji.EmojiKeyboardPageCategoryMappingModel.EmojiCategoryMappingModel
 import org.thoughtcrime.securesms.util.DefaultValueLiveData
+import org.thoughtcrime.securesms.util.MappingModel
 import org.thoughtcrime.securesms.util.MappingModelList
+import org.thoughtcrime.securesms.util.livedata.LiveDataUtil
 
-class EmojiKeyboardPageViewModel : ViewModel() {
+class EmojiKeyboardPageViewModel(repository: EmojiKeyboardPageRepository) : ViewModel() {
 
   private val internalSelectedKey = DefaultValueLiveData<String>(getStartingTab())
 
   val selectedKey: LiveData<String>
     get() = internalSelectedKey
 
-  val categories: LiveData<MappingModelList> = Transformations.map(internalSelectedKey) { selected ->
-    MappingModelList().apply {
-      add(EmojiKeyboardPageCategoryMappingModel.RecentsMappingModel(selected == EmojiKeyboardPageCategoryMappingModel.RecentsMappingModel.KEY))
+  val allEmojiModels: MutableLiveData<List<EmojiPageModel>> = MutableLiveData()
+  val pages: LiveData<MappingModelList>
+  val categories: LiveData<MappingModelList>
 
-      EmojiCategory.values().forEach {
-        add(EmojiKeyboardPageCategoryMappingModel.EmojiCategoryMappingModel(it, it.key == selected))
+  init {
+    repository.getEmoji(allEmojiModels::postValue)
+
+    pages = LiveDataUtil.mapAsync(allEmojiModels) { models ->
+      val list = MappingModelList()
+      models.forEach { pageModel ->
+        list += if (RecentEmojiPageModel.KEY == pageModel.key) {
+          EmojiHeader(pageModel.key, R.string.ReactWithAnyEmojiBottomSheetDialogFragment__recently_used)
+        } else {
+          val category = EmojiCategory.forKey(pageModel.key)
+          EmojiHeader(pageModel.key, category.getCategoryLabel())
+        }
+
+        list += pageModel.toMappingModels()
       }
+
+      list
     }
-  }
 
-  val pages: LiveData<MappingModelList> = Transformations.map(categories) { categories ->
-    MappingModelList().apply {
-      categories.forEach {
-        add(getPageForCategory(it as EmojiKeyboardPageCategoryMappingModel))
+    categories = LiveDataUtil.combineLatest(allEmojiModels, internalSelectedKey) { models, selectedKey ->
+      val list = MappingModelList()
+      list += models.map { m ->
+        if (RecentEmojiPageModel.KEY == m.key) {
+          EmojiKeyboardPageCategoryMappingModel.RecentsMappingModel(m.key == selectedKey)
+        } else {
+          val category = EmojiCategory.forKey(m.key)
+          EmojiCategoryMappingModel(category, category.key == selectedKey)
+        }
       }
+      list
     }
   }
 
   fun onKeySelected(key: String) {
     internalSelectedKey.value = key
-  }
-
-  private fun getPageForCategory(mappingModel: EmojiKeyboardPageCategoryMappingModel): EmojiPageMappingModel {
-    val page = if (mappingModel.key == EmojiKeyboardPageCategoryMappingModel.RecentsMappingModel.KEY) {
-      RecentEmojiPageModel(ApplicationDependencies.getApplication(), EmojiKeyboardProvider.RECENT_STORAGE_KEY)
-    } else {
-      EmojiSource.latest.displayPages.first { it.iconAttr == mappingModel.iconId }
-    }
-
-    return EmojiPageMappingModel(mappingModel.key, page)
   }
 
   fun addToRecents(emoji: String) {
@@ -57,10 +76,33 @@ class EmojiKeyboardPageViewModel : ViewModel() {
   companion object {
     fun getStartingTab(): String {
       return if (RecentEmojiPageModel.hasRecents(ApplicationDependencies.getApplication(), EmojiKeyboardProvider.RECENT_STORAGE_KEY)) {
-        EmojiKeyboardPageCategoryMappingModel.RecentsMappingModel.KEY
+        RecentEmojiPageModel.KEY
       } else {
         EmojiCategory.PEOPLE.key
       }
+    }
+  }
+
+  class Factory(context: Context) : ViewModelProvider.Factory {
+
+    private val repository = EmojiKeyboardPageRepository(context)
+
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+      return requireNotNull(modelClass.cast(EmojiKeyboardPageViewModel(repository)))
+    }
+  }
+}
+
+private fun EmojiPageModel.toMappingModels(): List<MappingModel<*>> {
+  val emojiTree: EmojiTree = latest.emojiTree
+
+  return displayEmoji.map {
+    val isTextEmoji = EmojiCategory.EMOTICONS.key == key || (RecentEmojiPageModel.KEY == key && emojiTree.getEmoji(it.value, 0, it.value.length) == null)
+
+    if (isTextEmoji) {
+      EmojiPageViewGridAdapter.EmojiTextModel(key, it)
+    } else {
+      EmojiPageViewGridAdapter.EmojiModel(key, it)
     }
   }
 }

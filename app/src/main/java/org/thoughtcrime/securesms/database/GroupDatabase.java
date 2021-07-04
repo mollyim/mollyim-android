@@ -22,6 +22,9 @@ import org.signal.zkgroup.InvalidInputException;
 import org.signal.zkgroup.groups.GroupMasterKey;
 import org.thoughtcrime.securesms.crypto.SenderKeyUtil;
 import org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper;
+import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.groups.v2.processing.GroupsV2StateProcessor;
+import org.thoughtcrime.securesms.jobs.RequestGroupV2InfoJob;
 import org.whispersystems.signalservice.api.push.DistributionId;
 import org.thoughtcrime.securesms.groups.GroupAccessControl;
 import org.thoughtcrime.securesms.groups.GroupId;
@@ -241,7 +244,7 @@ private static final String[] GROUP_PROJECTION = {
     return noMetadata && noMembers;
   }
 
-  public Reader getGroupsFilteredByTitle(String constraint, boolean includeInactive, boolean excludeV1) {
+  public Reader getGroupsFilteredByTitle(String constraint, boolean includeInactive, boolean excludeV1, boolean excludeMms) {
     String   query;
     String[] queryArgs;
 
@@ -255,6 +258,10 @@ private static final String[] GROUP_PROJECTION = {
 
     if (excludeV1) {
       query += " AND " + EXPECTED_V2_ID + " IS NULL";
+    }
+
+    if (excludeMms) {
+      query += " AND " + MMS + " = 0";
     }
 
     Cursor cursor = databaseHelper.getReadableDatabase().query(TABLE_NAME, null, query, queryArgs, null, null, TITLE + " COLLATE NOCASE ASC");
@@ -435,6 +442,47 @@ private static final String[] GROUP_PROJECTION = {
     create(groupId, groupState.getTitle(), Collections.emptyList(), null, null, groupMasterKey, groupState);
 
     return groupId;
+  }
+
+  /**
+   * There was a point in time where we weren't properly responding to group creates on linked devices. This would result in us having a Recipient entry for the
+   * group, but we'd either be missing the group entry, or that entry would be missing a master key. This method fixes this scenario.
+   */
+  public void fixMissingMasterKey(@NonNull GroupMasterKey groupMasterKey) {
+    GroupId.V2 groupId = GroupId.v2(groupMasterKey);
+
+    if (getGroupV1ByExpectedV2(groupId).isPresent()) {
+      throw new MissedGroupMigrationInsertException(groupId);
+    }
+
+    SQLiteDatabase db = databaseHelper.getWritableDatabase();
+
+    db.beginTransaction();
+    try {
+      String        query  = GROUP_ID + " = ?";
+      String[]      args   = SqlUtil.buildArgs(groupId);
+      ContentValues values = new ContentValues();
+
+      values.put(V2_MASTER_KEY, groupMasterKey.serialize());
+
+      int updated = db.update(TABLE_NAME, values, query, args);
+
+      if (updated < 1) {
+        Log.w(TAG, "No group entry. Creating restore placeholder for " + groupId);
+        create(groupMasterKey, DecryptedGroup.newBuilder()
+                                             .setRevision(GroupsV2StateProcessor.RESTORE_PLACEHOLDER_REVISION)
+                                             .build());
+      } else {
+        Log.w(TAG, "Had a group entry, but it was missing a master key. Updated.");
+      }
+
+      db.setTransactionSuccessful();
+    } finally {
+      db.endTransaction();
+    }
+
+    Log.w(TAG, "Scheduling request for latest group info for " + groupId);
+    ApplicationDependencies.getJobManager().add(new RequestGroupV2InfoJob(groupId));
   }
 
   /**

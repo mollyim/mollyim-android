@@ -430,7 +430,7 @@ public class ThreadDatabase extends Database {
       db.endTransaction();
     }
 
-    notifyConversationListeners(threadIdToSinceTimestamp.keySet());
+    notifyVerboseConversationListeners(threadIdToSinceTimestamp.keySet());
     notifyConversationListListeners();
 
     if (needsSync) {
@@ -543,7 +543,8 @@ public class ThreadDatabase extends Database {
     }
 
     if (hideSms) {
-      query += " AND (" + RecipientDatabase.TABLE_NAME + "." + RecipientDatabase.GROUP_ID + " NOT NULL OR " + RecipientDatabase.TABLE_NAME + "." + RecipientDatabase.REGISTERED + " = " + RecipientDatabase.RegisteredState.REGISTERED.getId() + ")";
+      query += " AND ((" + RecipientDatabase.TABLE_NAME + "." + RecipientDatabase.GROUP_ID + " NOT NULL AND " + RecipientDatabase.TABLE_NAME + "." + RecipientDatabase.GROUP_TYPE + " != " + RecipientDatabase.GroupType.MMS.getId() + ")" +
+               " OR " + RecipientDatabase.TABLE_NAME + "." + RecipientDatabase.REGISTERED + " = " + RecipientDatabase.RegisteredState.REGISTERED.getId() + ")";
       query += " AND " + RecipientDatabase.TABLE_NAME + "." + RecipientDatabase.FORCE_SMS_SELECTION + " = 0";
     }
 
@@ -959,6 +960,7 @@ public class ThreadDatabase extends Database {
 
     db.beginTransaction();
     try {
+      DatabaseFactory.getMessageLogDatabase(context).deleteAll();
       DatabaseFactory.getSmsDatabase(context).deleteAllThreads();
       DatabaseFactory.getMmsDatabase(context).deleteAllThreads();
       DatabaseFactory.getDraftDatabase(context).clearAllDrafts();

@@ -14,19 +14,21 @@ import androidx.recyclerview.widget.RecyclerView
 import org.thoughtcrime.securesms.R
 
 abstract class DSLSettingsFragment(
-  @StringRes private val titleId: Int,
+  @StringRes private val titleId: Int = -1,
   @MenuRes private val menuId: Int = -1,
   @LayoutRes layoutId: Int = R.layout.dsl_settings_fragment
 ) : Fragment(layoutId) {
 
   private lateinit var recyclerView: RecyclerView
-  private lateinit var toolbarShadowHelper: ToolbarShadowHelper
+  private lateinit var scrollAnimationHelper: OnScrollAnimationHelper
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     val toolbar: Toolbar = view.findViewById(R.id.toolbar)
     val toolbarShadow: View = view.findViewById(R.id.toolbar_shadow)
 
-    toolbar.setTitle(titleId)
+    if (titleId != -1) {
+      toolbar.setTitle(titleId)
+    }
 
     toolbar.setNavigationOnClickListener {
       requireActivity().onBackPressed()
@@ -39,18 +41,17 @@ abstract class DSLSettingsFragment(
 
     recyclerView = view.findViewById(R.id.recycler)
     recyclerView.edgeEffectFactory = EdgeEffectFactory()
-    toolbarShadowHelper = ToolbarShadowHelper(toolbarShadow)
+    scrollAnimationHelper = getOnScrollAnimationHelper(toolbarShadow)
     val adapter = DSLSettingsAdapter()
 
     recyclerView.adapter = adapter
-    recyclerView.addOnScrollListener(toolbarShadowHelper)
+    recyclerView.addOnScrollListener(scrollAnimationHelper)
 
     bindAdapter(adapter)
   }
 
-  override fun onResume() {
-    super.onResume()
-    toolbarShadowHelper.onScrolled(recyclerView, 0, 0)
+  protected open fun getOnScrollAnimationHelper(toolbarShadow: View): OnScrollAnimationHelper {
+    return ToolbarShadowAnimationHelper(toolbarShadow)
   }
 
   abstract fun bindAdapter(adapter: DSLSettingsAdapter)
@@ -66,31 +67,71 @@ abstract class DSLSettingsFragment(
     }
   }
 
-  class ToolbarShadowHelper(private val toolbarShadow: View) : RecyclerView.OnScrollListener() {
+  abstract class OnScrollAnimationHelper : RecyclerView.OnScrollListener() {
+    private var lastAnimationState = AnimationState.NONE
 
-    private var lastAnimationState = ToolbarAnimationState.NONE
+    protected open val duration: Long = 250L
 
     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-      val newAnimationState =
-        if (recyclerView.canScrollVertically(-1)) ToolbarAnimationState.SHOW else ToolbarAnimationState.HIDE
+      val newAnimationState = getAnimationState(recyclerView)
 
       if (newAnimationState == lastAnimationState) {
         return
       }
 
+      if (lastAnimationState == AnimationState.NONE) {
+        setImmediateState(recyclerView)
+        return
+      }
+
       when (newAnimationState) {
-        ToolbarAnimationState.NONE -> throw AssertionError()
-        ToolbarAnimationState.HIDE -> toolbarShadow.animate().alpha(0f)
-        ToolbarAnimationState.SHOW -> toolbarShadow.animate().alpha(1f)
+        AnimationState.NONE -> throw AssertionError()
+        AnimationState.HIDE -> hide(duration)
+        AnimationState.SHOW -> show(duration)
       }
 
       lastAnimationState = newAnimationState
     }
+
+    fun setImmediateState(recyclerView: RecyclerView) {
+      val newAnimationState = getAnimationState(recyclerView)
+
+      when (newAnimationState) {
+        AnimationState.NONE -> throw AssertionError()
+        AnimationState.HIDE -> hide(0L)
+        AnimationState.SHOW -> show(0L)
+      }
+
+      lastAnimationState = newAnimationState
+    }
+
+    protected open fun getAnimationState(recyclerView: RecyclerView): AnimationState {
+      return if (recyclerView.canScrollVertically(-1)) AnimationState.SHOW else AnimationState.HIDE
+    }
+
+    protected abstract fun show(duration: Long)
+
+    protected abstract fun hide(duration: Long)
+
+    enum class AnimationState {
+      NONE,
+      HIDE,
+      SHOW
+    }
   }
 
-  private enum class ToolbarAnimationState {
-    NONE,
-    HIDE,
-    SHOW
+  open class ToolbarShadowAnimationHelper(private val toolbarShadow: View) : OnScrollAnimationHelper() {
+
+    override fun show(duration: Long) {
+      toolbarShadow.animate()
+        .setDuration(duration)
+        .alpha(1f)
+    }
+
+    override fun hide(duration: Long) {
+      toolbarShadow.animate()
+        .setDuration(duration)
+        .alpha(0f)
+    }
   }
 }

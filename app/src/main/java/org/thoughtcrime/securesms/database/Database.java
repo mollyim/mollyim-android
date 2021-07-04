@@ -54,6 +54,14 @@ public abstract class Database {
     notifyVerboseConversationListeners(threadId);
   }
 
+  protected void notifyVerboseConversationListeners(Set<Long> threadIds) {
+    ApplicationDependencies.getDatabaseObserver().notifyVerboseConversationListeners(threadIds);
+
+    for (long threadId : threadIds) {
+      notifyVerboseConversationListeners(threadId);
+    }
+  }
+
   protected void notifyVerboseConversationListeners(long threadId) {
     ApplicationDependencies.getDatabaseObserver().notifyVerboseConversationListeners(threadId);
     context.getContentResolver().notifyChange(DatabaseContentProviders.Conversation.getVerboseUriForThread(threadId), null);
@@ -68,6 +76,7 @@ public abstract class Database {
   }
 
   protected void notifyStickerPackListeners() {
+    ApplicationDependencies.getDatabaseObserver().notifyStickerPackObservers();
     context.getContentResolver().notifyChange(DatabaseContentProviders.StickerPack.CONTENT_URI, null);
   }
 

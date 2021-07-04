@@ -84,6 +84,7 @@ import org.thoughtcrime.securesms.service.webrtc.WebRtcCallService;
 import org.thoughtcrime.securesms.storage.StorageSyncHelper;
 import org.thoughtcrime.securesms.util.AppForegroundObserver;
 import org.thoughtcrime.securesms.util.AppStartup;
+import org.thoughtcrime.securesms.util.ByteUnit;
 import org.thoughtcrime.securesms.util.DynamicTheme;
 import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.PlayServicesUtil;
@@ -188,6 +189,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
                             .addPostRender(() -> SignalStore.settings().setDefaultSms(Util.isDefaultSmsProvider(this)))
                             .addPostRender(() -> DownloadLatestEmojiDataJob.scheduleIfNecessary(this))
                             .addPostRender(EmojiSearchIndexDownloadJob::scheduleIfNecessary)
+                            .addPostRender(() -> DatabaseFactory.getMessageLogDatabase(this).trimOldMessages(System.currentTimeMillis(), FeatureFlags.retryRespondMaxAge()))
                             .execute();
 
     Log.d(TAG, "onCreateUnlock() took " + (System.currentTimeMillis() - startTime) + " ms");
@@ -296,7 +298,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
   }
 
   private void initializeLogging() {
-    PersistentLogger persistentLogger = new PersistentLogger(this, LogSecretProvider.getOrCreateAttachmentSecret(this), BuildConfig.VERSION_NAME);
+    PersistentLogger persistentLogger = new PersistentLogger(this, LogSecretProvider.getOrCreateAttachmentSecret(this), BuildConfig.VERSION_NAME, FeatureFlags.internalUser() ? 15 : 7, ByteUnit.KILOBYTES.toBytes(300));
     LogManager.setInternalCheck(FeatureFlags::internalUser);
     LogManager.setPersistentLogger(persistentLogger);
     LogManager.setLogging(TextSecurePreferences.isLogEnabled(this));

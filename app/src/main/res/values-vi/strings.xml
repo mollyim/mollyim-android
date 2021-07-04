@@ -619,31 +619,10 @@
   <string name="ManageProfileFragment_your_username">Tên người dùng của bạn</string>
   <string name="ManageProfileFragment_failed_to_set_avatar">Không thể đặt ảnh đại diện</string>
   <!--ManageRecipientActivity-->
-  <string name="ManageRecipientActivity_add_to_system_contacts">Thêm vào danh bạ điện thoại</string>
-  <string name="ManageRecipientActivity_this_person_is_in_your_contacts">Người này có trong danh bạ của bạn</string>
-  <string name="ManageRecipientActivity_disappearing_messages">Tin nhắn tự hủy</string>
-  <string name="ManageRecipientActivity_chat_color">Màu trò chuyện</string>
-  <string name="ManageRecipientActivity_chat_wallpaper">Ảnh nền cuộc trò chuyện</string>
-  <string name="ManageRecipientActivity_block">Chặn</string>
-  <string name="ManageRecipientActivity_unblock">Bỏ chặn</string>
-  <string name="ManageRecipientActivity_view_safety_number">Xem mã số an toàn</string>
-  <string name="ManageRecipientActivity_mute_notifications">Tạm im thông báo</string>
-  <string name="ManageRecipientActivity_custom_notifications">Thông báo tuỳ chỉnh</string>
-  <string name="ManageRecipientActivity_until_s">Cho đến %1$s</string>
-  <string name="ManageRecipientActivity_always">Luôn luôn</string>
-  <string name="ManageRecipientActivity_off">Tắt</string>
-  <string name="ManageRecipientActivity_on">Bật</string>
-  <string name="ManageRecipientActivity_add_to_a_group">Thêm vào một nhóm</string>
-  <string name="ManageRecipientActivity_view_all_groups">Hiển thị tất cả nhóm</string>
-  <string name="ManageRecipientActivity_see_all">Xem tất cả</string>
   <string name="ManageRecipientActivity_no_groups_in_common">Không có nhóm chung</string>
   <plurals name="ManageRecipientActivity_d_groups_in_common">
     <item quantity="other">Có %d nhóm chung</item>
   </plurals>
-  <string name="ManageRecipientActivity_message_description">Tin nhắn</string>
-  <string name="ManageRecipientActivity_voice_call_description">Gọi thoại</string>
-  <string name="ManageRecipientActivity_insecure_voice_call_description">Gọi thoại không bảo mật</string>
-  <string name="ManageRecipientActivity_video_call_description">Gọi video</string>
   <plurals name="GroupMemberList_invited">
     <item quantity="other">%1$s đã mời %2$d người</item>
   </plurals>
@@ -798,6 +777,7 @@
   <string name="NotificationBarManager_signal_call_in_progress">Đang tiến hành cuộc gọi Signal </string>
   <string name="NotificationBarManager__establishing_signal_call">Đang thiết lập cuộc gọi Signal</string>
   <string name="NotificationBarManager__incoming_signal_call">Cuộc gọi đến Signal</string>
+  <string name="NotificationBarManager__stopping_signal_call_service">Dừng dịch vụ gọi thoại Signal</string>
   <string name="NotificationBarManager__deny_call">Từ chối cuộc gọi</string>
   <string name="NotificationBarManager__answer_call">Trả lời cuộc gọi</string>
   <string name="NotificationBarManager__end_call">Kết thúc cuộc gọi.</string>
@@ -817,6 +797,8 @@
   <!--MediaSendActivity-->
   <string name="MediaSendActivity_add_a_caption">Thêm chú thích…</string>
   <string name="MediaSendActivity_an_item_was_removed_because_it_exceeded_the_size_limit">Một mục đã bị bỏ chọn vì quá kích cỡ giới hạn</string>
+  <string name="MediaSendActivity_an_item_was_removed_because_it_had_an_unknown_type">Một mục đã được loại bỏ vì không rõ định dạng</string>
+  <string name="MediaSendActivity_an_item_was_removed_because_it_exceeded_the_size_limit_or_had_an_unknown_type">Một mục đã được loại bỏ vì quá giới hạn kích cỡ hoặc không rõ định dạng</string>
   <string name="MediaSendActivity_camera_unavailable">Máy ảnh không khả dụng</string>
   <string name="MediaSendActivity_message_to_s">Tin nhắn đến %s</string>
   <string name="MediaSendActivity_message">Tin nhắn</string>
@@ -1321,6 +1303,7 @@ Nhận thông tin trao đổi mã khóa về phiên bản giao thức không h�
   <string name="ThreadRecord_you_marked_verified">Bạn đã xác minh</string>
   <string name="ThreadRecord_you_marked_unverified">Bạn đã hủy xác minh</string>
   <string name="ThreadRecord_message_could_not_be_processed">Không thể xử lí tin nhắn</string>
+  <string name="ThreadRecord_delivery_issue">Lỗi chuyển tin nhắn</string>
   <string name="ThreadRecord_message_request">Yêu cầu gửi Tin nhắn</string>
   <string name="ThreadRecord_photo">Ảnh</string>
   <string name="ThreadRecord_gif">Ảnh GIF</string>
@@ -1587,7 +1570,9 @@ Nhận thông tin trao đổi mã khóa về phiên bản giao thức không h�
   <string name="EnableCallNotificationSettingsDialog__enable_call_notifications">Bật thông báo cuộc gọi</string>
   <string name="EnableCallNotificationSettingsDialog__enable_background_activity">Bật hoạt động dưới nền</string>
   <string name="EnableCallNotificationSettingsDialog__everything_looks_good_now">Mọi thứ có vẻ đã ổn!</string>
+  <string name="EnableCallNotificationSettingsDialog__to_receive_call_notifications_tap_here_and_turn_on_show_notifications">Để bật thông báo cuộc gọi, hãy nhấn vào đây và bật \"Hiện thông báo.\"</string>
   <string name="EnableCallNotificationSettingsDialog__settings">Cài đặt</string>
+  <string name="EnableCallNotificationSettingsDialog__to_receive_call_notifications_tap_settings_and_turn_on_show_notifications">Để nhận thông báo cuộc gọi, hãy vào Cài đặt và bật \"Hiện thông báo.\"</string>
   <!--country_selection_fragment-->
   <string name="country_selection_fragment__loading_countries">Đang tải các quốc gia…</string>
   <string name="country_selection_fragment__search">Tìm kiếm</string>
@@ -2373,7 +2358,7 @@ Nhận thông tin trao đổi mã khóa về phiên bản giao thức không h�
   <string name="RecipientBottomSheet_add_to_a_group">Thêm vào một nhóm</string>
   <string name="RecipientBottomSheet_add_to_another_group">Thêm vào một nhóm khác</string>
   <string name="RecipientBottomSheet_view_safety_number">Xem số an toàn</string>
-  <string name="RecipientBottomSheet_make_group_admin">Đặt làm quản trị viên</string>
+  <string name="RecipientBottomSheet_make_admin">Đặt admin</string>
   <string name="RecipientBottomSheet_remove_as_admin">Bỏ quyền quản trị</string>
   <string name="RecipientBottomSheet_remove_from_group">Xóa khỏi nhóm</string>
   <string name="RecipientBottomSheet_message_description">Tin nhắn</string>
@@ -2582,5 +2567,39 @@ Nhận thông tin trao đổi mã khóa về phiên bản giao thức không h�
   <string name="KeyboardPagerFragment_emoji">Emoji</string>
   <string name="KeyboardPagerFragment_stickers">Nhãn dán</string>
   <!--StickerSearchDialogFragment-->
+  <!--ConversationSettingsFragment-->
+  <string name="ConversationSettingsFragment__message">Tin nhắn</string>
+  <string name="ConversationSettingsFragment__video">Video</string>
+  <string name="ConversationSettingsFragment__audio">Âm thanh</string>
+  <string name="ConversationSettingsFragment__call">Gọi</string>
+  <string name="ConversationSettingsFragment__mute">Im lặng</string>
+  <string name="ConversationSettingsFragment__muted">Đã tắt tiếng</string>
+  <string name="ConversationSettingsFragment__search">Tìm kiếm</string>
+  <string name="ConversationSettingsFragment__disappearing_messages">Tin nhắn tự hủy</string>
+  <string name="ConversationSettingsFragment__view_safety_number">Xem mã số an toàn</string>
+  <string name="ConversationSettingsFragment__block">Chặn</string>
+  <string name="ConversationSettingsFragment__block_group">Chặn nhóm</string>
+  <string name="ConversationSettingsFragment__unblock">Bỏ chặn</string>
+  <string name="ConversationSettingsFragment__unblock_group">Bỏ chặn nhóm</string>
+  <string name="ConversationSettingsFragment__add_to_a_group">Thêm vào một nhóm</string>
+  <string name="ConversationSettingsFragment__see_all">Xem tất cả</string>
+  <string name="ConversationSettingsFragment__add_members">Thêm thành viên</string>
+  <string name="ConversationSettingsFragment__permissions">Quyền</string>
+  <string name="ConversationSettingsFragment__group_link">Đường dẫn nhóm</string>
+  <string name="ConversationSettingsFragment__unmute">Tắt tạm im</string>
+  <string name="ConversationSettingsFragment__phone_number">Số điện thoại</string>
+  <!--PermissionsSettingsFragment-->
+  <string name="PermissionsSettingsFragment__add_members">Thêm thành viên</string>
+  <string name="PermissionsSettingsFragment__edit_group_info">Sửa thông tin nhóm</string>
+  <string name="PermissionsSettingsFragment__all_members">Tất cả thành viên</string>
+  <string name="PermissionsSettingsFragment__only_admins">Chỉ quản trị viên</string>
+  <string name="PermissionsSettingsFragment__who_can_add_new_members">Ai có thể thêm thành viên mới?</string>
+  <string name="PermissionsSettingsFragment__who_can_edit_this_groups_info">Ai có thể chỉnh sửa thông tin nhóm này?</string>
+  <!--SoundsAndNotificationsSettingsFragment-->
+  <string name="SoundsAndNotificationsSettingsFragment__mute_notifications">Tạm im thông báo</string>
+  <string name="SoundsAndNotificationsSettingsFragment__not_muted">Không tắt thông báo</string>
+  <string name="SoundsAndNotificationsSettingsFragment__mentions">Nhắc tên</string>
+  <string name="SoundsAndNotificationsSettingsFragment__custom_notifications">Thông báo tuỳ chỉnh</string>
+  <!--StickerKeyboard-->
   <!--EOF-->
 </resources>

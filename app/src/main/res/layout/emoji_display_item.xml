@@ -1,45 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?selectableItemBackground"
-    android:padding="2dp">
-
-    <ImageView
-        android:id="@+id/emoji_image"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:paddingStart="6dp"
-        android:paddingTop="6dp"
-        android:paddingEnd="6dp"
-        android:scaleType="fitCenter"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/ic_emoji_smiley_24" />
-
-    <org.thoughtcrime.securesms.components.emoji.AsciiEmojiView
-        android:id="@+id/emoji_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="6dp"
-        android:paddingTop="6dp"
-        android:paddingEnd="6dp"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    android:background="?selectableItemBackgroundBorderless"
+    tools:layout_height="60dp">
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/emoji_variation_hint"
-        android:layout_width="7dp"
-        android:layout_height="7dp"
-        android:tint="@color/core_grey_25"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:srcCompat="@drawable/triangle_bottom_right_corner" />
+        android:id="@+id/emoji_image"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_gravity="center"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        tools:src="@drawable/ic_emoji_smiley_24" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

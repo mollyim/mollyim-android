@@ -7,6 +7,8 @@ apply plugin: 'witness'
 apply plugin: 'org.jlleitschuh.gradle.ktlint'
 apply from: 'translations.gradle'
 apply from: 'witness-verifications.gradle'
+apply plugin: 'org.jetbrains.kotlin.android'
+apply plugin: 'app.cash.exhaustive'
 
 repositories {
     maven {
@@ -57,8 +59,8 @@ protobuf {
     }
 }
 
-def canonicalVersionCode = 866
-def canonicalVersionName = "5.14.5"
+def canonicalVersionCode = 873
+def canonicalVersionName = "5.15.6"
 
 def postFixSize = 100
 def abiPostFix = ['universal'   : 0,
@@ -101,6 +103,7 @@ android {
     useLibrary 'org.apache.http.legacy'
 
     kotlinOptions {
+        jvmTarget = "1.8"
         freeCompilerArgs = ["-Xallow-result-return-type"]
     }
 
@@ -147,6 +150,8 @@ android {
         buildConfigField "String", "SIGNAL_SERVICE_STATUS_URL", "\"uptime.signal.org\""
         buildConfigField "String", "SIGNAL_KEY_BACKUP_URL", "\"https://api.backup.signal.org\""
         buildConfigField "String", "SIGNAL_SFU_URL", "\"https://sfu.voip.signal.org\""
+        buildConfigField "String[]", "SIGNAL_SFU_INTERNAL_NAMES", "new String[]{\"Test\", \"Staging\"}"
+        buildConfigField "String[]", "SIGNAL_SFU_INTERNAL_URLS", "new String[]{\"https://sfu.test.voip.signal.org\", \"https://sfu.staging.voip.signal.org\"}"
         buildConfigField "String", "CONTENT_PROXY_HOST", "\"contentproxy.signal.org\""
         buildConfigField "int", "CONTENT_PROXY_PORT", "443"
         buildConfigField "String", "SIGNAL_AGENT", "\"OWA\""
@@ -163,6 +168,10 @@ android {
         buildConfigField "int[]", "MOBILE_COIN_REGIONS", "new int[]{44}"
         buildConfigField "String", "GIPHY_API_KEY", "\"3o6ZsYH6U6Eri53TXy\""
         buildConfigField "String", "RECAPTCHA_PROOF_URL", "\"https://signalcaptchas.org/challenge/generate.html\""
+
+        // MOLLY: Replace BUILD_DISTRIBUTION_TYPE by FLAVOR_distribution
+        buildConfigField "String", "BUILD_ENVIRONMENT_TYPE", "\"unset\""
+        buildConfigField "String", "BUILD_VARIANT_TYPE", "\"unset\""
 
         ndk {
             abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86_64'
@@ -226,22 +235,26 @@ android {
                     'proguard/proguard.cfg'
             testProguardFiles 'proguard/proguard-automation.pro',
                     'proguard/proguard.cfg'
+
+            buildConfigField "String", "BUILD_VARIANT_TYPE", "\"Debug\""
         }
 
         release {
             minifyEnabled true
             shrinkResources true
             proguardFiles = buildTypes.debug.proguardFiles
+            buildConfigField "String", "BUILD_VARIANT_TYPE", "\"Release\""
         }
     }
 
     productFlavors {
-        production {
+        prod {
             dimension 'environment'
 
             isDefault true
 
             buildConfigField "String", "MOBILE_COIN_ENVIRONMENT", "\"mainnet\""
+            buildConfigField "String", "BUILD_ENVIRONMENT_TYPE", "\"Prod\""
         }
 
         staging {
@@ -265,6 +278,8 @@ android {
             buildConfigField "String", "ZKGROUP_SERVER_PUBLIC_PARAMS", "\"ABSY21VckQcbSXVNCGRYJcfWHiAMZmpTtTELcDmxgdFbtp/bWsSxZdMKzfCp8rvIs8ocCU3B37fT3r4Mi5qAemeGeR2X+/YmOGR5ofui7tD5mDQfstAI9i+4WpMtIe8KC3wU5w3Inq3uNWVmoGtpKndsNfwJrCg0Hd9zmObhypUnSkfYn2ooMOOnBpfdanRtrvetZUayDMSC5iSRcXKpdls=\""
             buildConfigField "String", "MOBILE_COIN_ENVIRONMENT", "\"testnet\""
             buildConfigField "String", "RECAPTCHA_PROOF_URL", "\"https://signalcaptchas.org/staging/challenge/generate.html\""
+
+            buildConfigField "String", "BUILD_ENVIRONMENT_TYPE", "\"Staging\""
         }
 
         free {
@@ -340,7 +355,7 @@ dependencies {
     implementation "androidx.concurrent:concurrent-futures:1.0.0"
     implementation "androidx.autofill:autofill:1.0.0"
 
-    nonFreeImplementation ('com.google.firebase:firebase-messaging:20.2.0') {
+    nonFreeImplementation ('com.google.firebase:firebase-messaging:22.0.0') {
         exclude group: 'com.google.firebase', module: 'firebase-core'
         exclude group: 'com.google.firebase', module: 'firebase-analytics'
         exclude group: 'com.google.firebase', module: 'firebase-measurement-connector'
@@ -447,7 +462,7 @@ dependencies {
 }
 
 dependencyVerification {
-    configuration = '(free|nonFree)(Staging|Production)(Debug|Release)RuntimeClasspath'
+    configuration = '(free|nonFree)(Staging|Prod)(Debug|Release)RuntimeClasspath'
 }
 
 tasks.withType(Test) {

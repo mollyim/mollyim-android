@@ -652,32 +652,11 @@
   <string name="ManageProfileFragment_your_username">Το όνομα χρήστη σου</string>
   <string name="ManageProfileFragment_failed_to_set_avatar">Αποτυχία ορισμού εικόνας προφίλ</string>
   <!--ManageRecipientActivity-->
-  <string name="ManageRecipientActivity_add_to_system_contacts">Προσθήκη στις επαφές συστήματος</string>
-  <string name="ManageRecipientActivity_this_person_is_in_your_contacts">Αυτό το άτομο είναι στις επαφές σου</string>
-  <string name="ManageRecipientActivity_disappearing_messages">Μηνύματα που εξαφανίζονται</string>
-  <string name="ManageRecipientActivity_chat_color">Χρώμα συνομιλίας</string>
-  <string name="ManageRecipientActivity_chat_wallpaper">Ταπετσαρία συνομιλίας</string>
-  <string name="ManageRecipientActivity_block">Φραγή</string>
-  <string name="ManageRecipientActivity_unblock">Κατάργηση φραγής</string>
-  <string name="ManageRecipientActivity_view_safety_number">Προβολή αριθμού ασφαλείας</string>
-  <string name="ManageRecipientActivity_mute_notifications">Σίγαση ειδοποιήσεων</string>
-  <string name="ManageRecipientActivity_custom_notifications">Προσαρμοσμένες ειδοποιήσεις</string>
-  <string name="ManageRecipientActivity_until_s">Μέχρι %1$s</string>
-  <string name="ManageRecipientActivity_always">Πάντα</string>
-  <string name="ManageRecipientActivity_off">Ανενεργό</string>
-  <string name="ManageRecipientActivity_on">Ενεργό</string>
-  <string name="ManageRecipientActivity_add_to_a_group">Προσθήκη σε μια ομάδα</string>
-  <string name="ManageRecipientActivity_view_all_groups">Προβολή όλων των ομάδων</string>
-  <string name="ManageRecipientActivity_see_all">Προβολή όλων</string>
   <string name="ManageRecipientActivity_no_groups_in_common">Καμία κοινή ομάδα</string>
   <plurals name="ManageRecipientActivity_d_groups_in_common">
     <item quantity="one">%d κοινή ομάδα</item>
     <item quantity="other">%d κοινές ομάδες</item>
   </plurals>
-  <string name="ManageRecipientActivity_message_description">Μήνυμα</string>
-  <string name="ManageRecipientActivity_voice_call_description">Βιντεοκλήση</string>
-  <string name="ManageRecipientActivity_insecure_voice_call_description">Μη ασφαλής κλήση φωνής</string>
-  <string name="ManageRecipientActivity_video_call_description">Βιντεοκλήση</string>
   <plurals name="GroupMemberList_invited">
     <item quantity="one">Ο/Η %1$s προσκάλεσε 1 άτομο</item>
     <item quantity="other">Ο/Η %1$s προσκάλεσε %2$d άτομα</item>
@@ -861,6 +840,8 @@
   <!--MediaSendActivity-->
   <string name="MediaSendActivity_add_a_caption">Προσθήκη λεζάντας…</string>
   <string name="MediaSendActivity_an_item_was_removed_because_it_exceeded_the_size_limit">Ένα αντικείμενο αφαιρέθηκε επειδή ήταν μεγαλύτερο από το όριο μεγέθους</string>
+  <string name="MediaSendActivity_an_item_was_removed_because_it_had_an_unknown_type">Ένα αντικείμενο αφαιρέθηκε επειδή είχε άγνωστο τύπο</string>
+  <string name="MediaSendActivity_an_item_was_removed_because_it_exceeded_the_size_limit_or_had_an_unknown_type">Ένα αντικείμενο αφαιρέθηκε επειδή είχε υπερβεί το όριο μεγέθους ή επειδή είχε άγνωστο τύπο</string>
   <string name="MediaSendActivity_camera_unavailable">Η κάμερα δεν είναι διαθέσιμη.</string>
   <string name="MediaSendActivity_message_to_s">Μήνυμα προς τον/την %s</string>
   <string name="MediaSendActivity_message">Μήνυμα</string>
@@ -1802,6 +1783,7 @@
   <string name="message_details_recipient_header__delivered_to">Παραδόθηκε σε</string>
   <string name="message_details_recipient_header__read_by">Διαβάστηκε από</string>
   <string name="message_details_recipient_header__not_sent">Δε στάλθηκε</string>
+  <string name="message_details_recipient_header__viewed">Διαβάστηκε από</string>
   <!--message_Details_recipient-->
   <string name="message_details_recipient__failed_to_send">Αποτυχία αποστολής</string>
   <string name="message_details_recipient__new_safety_number">Νέος αριθμός ασφαλείας</string>
@@ -1847,6 +1829,7 @@
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__symbols">Σύμβολα</string>
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__flags">Σημαίες</string>
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__emoticons">Emoticons</string>
+  <string name="ReactWithAnyEmojiBottomSheetDialogFragment__no_results_found">Δε βρέθηκαν αποτελέσματα</string>
   <!--arrays.xml-->
   <string name="arrays__use_default">Χρήση προκαθορισμένου</string>
   <string name="arrays__use_custom">Χρήση προσαρμοσμένου</string>
@@ -1972,6 +1955,8 @@
   <string name="preferences__if_read_receipts_are_disabled_you_wont_be_able_to_see_read_receipts">Αν τα αποδεικτικά ανάγνωσης είναι απενεργοποιημένα, δε θα μπορείς να δεις αποδεικτικά ανάγνωσης από άλλους/ες.</string>
   <string name="preferences__typing_indicators">Δείκτες πληκτρολόγησης</string>
   <string name="preferences__if_typing_indicators_are_disabled_you_wont_be_able_to_see_typing_indicators">Αν οι δείκτες πληκτρολόγησης είναι απενεργοποιημένοι, δε θα μπορείς να δεις δείκτες πληκτρολόγησης από άλλους/ες.</string>
+  <string name="preferences__request_keyboard_to_disable">Να ζητηθεί από το πληκτρολόγιο να απενεργοποιήσει τη προσωποποιημένη μάθηση.</string>
+  <string name="preferences__this_setting_is_not_a_guarantee">Αυτή η ρύθμιση δεν αποτελεί εγγύηση, και το πληκτρολόγιό σου μπορεί να την αγνοήσει.</string>
   <string name="preferences_app_protection__blocked_users">Φραγμένοι χρήστες/τριες</string>
   <string name="preferences_chats__when_using_mobile_data">Όταν χρησιμοποιούνται δεδομένα</string>
   <string name="preferences_chats__when_using_wifi">Όταν χρησιμοποιείται WiFi</string>
@@ -2558,7 +2543,7 @@
   <string name="RecipientBottomSheet_add_to_a_group">Προσθήκη σε μια ομάδα</string>
   <string name="RecipientBottomSheet_add_to_another_group">Προσθήκη σε άλλη ομάδα</string>
   <string name="RecipientBottomSheet_view_safety_number">Προβολή αριθμού ασφαλείας</string>
-  <string name="RecipientBottomSheet_make_group_admin">Ορισμός ως διαχειριστή ομάδας</string>
+  <string name="RecipientBottomSheet_make_admin">Ορισμός ως διαχειριστή</string>
   <string name="RecipientBottomSheet_remove_as_admin">Αφαίρεση διαχειριστή</string>
   <string name="RecipientBottomSheet_remove_from_group">Αφαίρεση απ\' την ομάδα</string>
   <string name="RecipientBottomSheet_message_description">Μήνυμα</string>
@@ -2658,6 +2643,7 @@
   <!--ShareActivity-->
   <string name="ShareActivity__share">Μοιράσου</string>
   <string name="ShareActivity__send">Αποστολή</string>
+  <string name="ShareActivity__comma_s">, %1$s</string>
   <string name="ShareActivity__sharing_to_multiple_chats_is">Ο διαμοιρασμός σε πολλαπλές συνομιλίες υποστηρίζεται μόνο για μηνύματα Signal.</string>
   <!--MultiShareDialogs-->
   <string name="MultiShareDialogs__failed_to_send_to_some_users">Αποτυχία αποστολής σε μερικούς χρήστες</string>
@@ -2728,6 +2714,7 @@
   <string name="PaymentsRecoveryEntryFragment__word_d">Λέξη %1$d</string>
   <string name="PaymentsRecoveryEntryFragment__next">Επόμενο</string>
   <!--ClearClipboardAlarmReceiver-->
+  <string name="ClearClipboardAlarmReceiver__clipboard_cleared">Το πρόχειρο εκκαθαρίστηκε.</string>
   <!--PaymentNotificationsView-->
   <string name="PaymentNotificationsView__view">Εμφάνιση</string>
   <!--UnreadPayments-->
@@ -2862,5 +2849,49 @@
   <string name="StickerSearchDialogFragment_no_results_found">Δε βρέθηκαν αποτελέσματα</string>
   <string name="EmojiSearchFragment__no_results_found">Δε βρέθηκαν αποτελέσματα</string>
   <string name="NotificationsSettingsFragment__unknown_ringtone">Άγνωστος ήχος κλήσης</string>
+  <!--ConversationSettingsFragment-->
+  <string name="ConversationSettingsFragment__send_message">Αποστολή μηνύματος</string>
+  <string name="ConversationSettingsFragment__start_video_call">Έναρξη βιντεοκλήσης</string>
+  <string name="ConversationSettingsFragment__start_audio_call">Έναρξη κλήσης ήχου</string>
+  <string name="ConversationSettingsFragment__message">Μήνυμα</string>
+  <string name="ConversationSettingsFragment__video">Βίντεο</string>
+  <string name="ConversationSettingsFragment__audio">Αρχείο ήχου</string>
+  <string name="ConversationSettingsFragment__call">Κλήση</string>
+  <string name="ConversationSettingsFragment__mute">Σίγαση</string>
+  <string name="ConversationSettingsFragment__muted">Σε σίγαση</string>
+  <string name="ConversationSettingsFragment__search">Αναζήτηση</string>
+  <string name="ConversationSettingsFragment__disappearing_messages">Μηνύματα που εξαφανίζονται</string>
+  <string name="ConversationSettingsFragment__sounds_and_notifications">Ήχοι &amp; ειδοποιήσεις</string>
+  <string name="ConversationSettingsFragment__contact_details">Λεπτομέρειες επαφής</string>
+  <string name="ConversationSettingsFragment__view_safety_number">Προβολή αριθμού ασφαλείας</string>
+  <string name="ConversationSettingsFragment__block">Αποκλεισμός</string>
+  <string name="ConversationSettingsFragment__block_group">Φραγή ομάδας</string>
+  <string name="ConversationSettingsFragment__unblock">Κατάργηση αποκλεισμού</string>
+  <string name="ConversationSettingsFragment__unblock_group">Κατάργηση φραγής ομάδας</string>
+  <string name="ConversationSettingsFragment__add_to_a_group">Προσθήκη σε μια ομάδα</string>
+  <string name="ConversationSettingsFragment__see_all">Προβολή όλων</string>
+  <string name="ConversationSettingsFragment__add_members">Προσθήκη μελών</string>
+  <string name="ConversationSettingsFragment__permissions">Άδειες</string>
+  <string name="ConversationSettingsFragment__requests_and_invites">Αιτήματα &amp; προσκλήσεις</string>
+  <string name="ConversationSettingsFragment__group_link">Σύνδεσμος ομάδας</string>
+  <string name="ConversationSettingsFragment__add_as_a_contact">Προσθήκη ως επαφή</string>
+  <string name="ConversationSettingsFragment__unmute">Αναίρεση σίγασης</string>
+  <string name="ConversationSettingsFragment__conversation_muted_until_s">Η συνομιλία είναι σε σίγαση έως %1$s</string>
+  <string name="ConversationSettingsFragment__conversation_muted_forever">Η συνομιλία είνα σε σίγαση για πάντα</string>
+  <string name="ConversationSettingsFragment__phone_number">Αριθμός τηλεφώνου</string>
+  <!--PermissionsSettingsFragment-->
+  <string name="PermissionsSettingsFragment__add_members">Προσθήκη μελών</string>
+  <string name="PermissionsSettingsFragment__edit_group_info">Επεξεργασία πληροφοριών ομάδας</string>
+  <string name="PermissionsSettingsFragment__all_members">Όλα τα μέλη</string>
+  <string name="PermissionsSettingsFragment__only_admins">Μόνο διαχειριστές</string>
+  <string name="PermissionsSettingsFragment__who_can_add_new_members">Ποιοί μπορούν να προσθέσουν νέα μέλη;</string>
+  <string name="PermissionsSettingsFragment__who_can_edit_this_groups_info">Ποιοί μπορούν να επεξεργαστούν τις πληροφορίες της ομάδας;</string>
+  <!--SoundsAndNotificationsSettingsFragment-->
+  <string name="SoundsAndNotificationsSettingsFragment__mute_notifications">Σίγαση ειδοποιήσεων</string>
+  <string name="SoundsAndNotificationsSettingsFragment__not_muted">Μη σιγασμένο</string>
+  <string name="SoundsAndNotificationsSettingsFragment__muted_until_s">Σε σίγαση έως %1$s</string>
+  <string name="SoundsAndNotificationsSettingsFragment__mentions">Αναφορές</string>
+  <string name="SoundsAndNotificationsSettingsFragment__custom_notifications">Προσαρμογή ειδοποιήσεων</string>
+  <!--StickerKeyboard-->
   <!--EOF-->
 </resources>
