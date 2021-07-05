@@ -25,6 +25,7 @@ import com.google.android.material.snackbar.Snackbar
 import org.thoughtcrime.securesms.AvatarPreviewActivity
 import org.thoughtcrime.securesms.BlockUnblockDialog
 import org.thoughtcrime.securesms.InviteActivity
+import org.thoughtcrime.securesms.MainActivity
 import org.thoughtcrime.securesms.MediaPreviewActivity
 import org.thoughtcrime.securesms.MuteDialog
 import org.thoughtcrime.securesms.PushContactSelectionActivity
@@ -87,6 +88,8 @@ class ConversationSettingsFragment : DSLSettingsFragment(
 ) {
 
   private val alertTint by lazy { ContextCompat.getColor(requireContext(), R.color.signal_alert_primary) }
+  private val disableTint by lazy { ContextCompat.getColor(requireContext(), R.color.core_grey_50) }
+
   private val blockIcon by lazy {
     ContextUtil.requireDrawable(requireContext(), R.drawable.ic_block_tinted_24).apply {
       colorFilter = PorterDuffColorFilter(alertTint, PorterDuff.Mode.SRC_IN)
@@ -95,6 +98,18 @@ class ConversationSettingsFragment : DSLSettingsFragment(
 
   private val unblockIcon by lazy {
     ContextUtil.requireDrawable(requireContext(), R.drawable.ic_block_tinted_24)
+  }
+
+  private val deleteIcon by lazy {
+    ContextUtil.requireDrawable(requireContext(), R.drawable.ic_trash_24).apply {
+      colorFilter = PorterDuffColorFilter(alertTint, PorterDuff.Mode.SRC_IN)
+    }
+  }
+
+  private val deleteIconDisabled by lazy {
+    ContextUtil.requireDrawable(requireContext(), R.drawable.ic_trash_24).apply {
+      colorFilter = PorterDuffColorFilter(disableTint, PorterDuff.Mode.SRC_IN)
+    }
   }
 
   private val leaveIcon by lazy {
@@ -402,7 +417,7 @@ class ConversationSettingsFragment : DSLSettingsFragment(
           }
           ContactLinkState.ADD -> {
             clickPref(
-              title = DSLSettingsText.from(R.string.ConversationSettingsFragment__add_as_a_contact),
+              title = DSLSettingsText.from(R.string.ConversationSettingsFragment__add_to_your_phones_contacts),
               icon = DSLSettingsIcon.from(R.drawable.ic_plus_24),
               onClick = {
                 startActivityForResult(RecipientExporter.export(state.recipient).asAddContactIntent(), REQUEST_CODE_ADD_CONTACT)
@@ -635,6 +650,27 @@ class ConversationSettingsFragment : DSLSettingsFragment(
             }
           }
         )
+
+        state.withRecipientSettingsState { recipientState ->
+          clickPref(
+            title = DSLSettingsText.from(R.string.delete, if (recipientState.canDelete) alertTint else disableTint),
+            icon = DSLSettingsIcon.from(if (recipientState.canDelete) deleteIcon else deleteIconDisabled),
+            isEnabled = recipientState.canDelete,
+            onClick = {
+              BlockUnblockDialog.showDeleteFor(
+                requireContext(), viewLifecycleOwner.lifecycle, state.recipient,
+                {
+                  viewModel.delete(false)
+                  startActivity(Intent(requireContext(), MainActivity::class.java))
+                },
+                {
+                  viewModel.delete(true)
+                  startActivity(Intent(requireContext(), MainActivity::class.java))
+                }
+              )
+            }
+          )
+        }
       }
     }
   }

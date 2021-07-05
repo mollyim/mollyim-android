@@ -94,6 +94,8 @@ sealed class ConversationSettingsViewModel(
 
   abstract fun unblock()
 
+  abstract fun delete(block: Boolean)
+
   abstract fun onAddToGroup()
 
   abstract fun onAddToGroupComplete(selected: List<RecipientId>, onComplete: () -> Unit)
@@ -167,6 +169,7 @@ sealed class ConversationSettingsViewModel(
             val expanded = recipientSettings.groupsInCommonExpanded
             state.copy(
               specificSettingsState = recipientSettings.copy(
+                canDelete = groupsInCommon.isEmpty(),
                 allGroupsInCommon = groupsInCommon,
                 groupsInCommon = if (expanded) groupsInCommon else groupsInCommon.take(5),
                 canShowMoreGroupsInCommon = !expanded && groupsInCommon.size > 5
@@ -233,6 +236,10 @@ sealed class ConversationSettingsViewModel(
 
     override fun unblock() {
       repository.unblock(recipientId)
+    }
+
+    override fun delete(block: Boolean) {
+      repository.delete(recipientId, block)
     }
 
     override fun disableProfileSharing() {
@@ -438,6 +445,8 @@ sealed class ConversationSettingsViewModel(
     override fun unblock() {
       repository.unblock(groupId)
     }
+
+    override fun delete(block: Boolean) = Unit
 
     override fun initiateGroupUpgrade() {
       repository.getExternalPossiblyMigratedGroupRecipientId(groupId) {

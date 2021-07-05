@@ -44,6 +44,7 @@ sealed class SpecificSettingsState {
 
   data class RecipientSettingsState(
     val identityRecord: IdentityDatabase.IdentityRecord? = null,
+    val canDelete: Boolean = false,
     val allGroupsInCommon: List<Recipient> = listOf(),
     val groupsInCommon: List<Recipient> = listOf(),
     val selfHasGroups: Boolean = false,

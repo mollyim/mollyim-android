@@ -62,8 +62,6 @@ public final class RecipientBottomSheetDialogFragment extends BottomSheetDialogF
   private TextView                 fullName;
   private TextView                 about;
   private TextView                 usernameNumber;
-  private Button                   blockButton;
-  private Button                   unblockButton;
   private Button                   addContactButton;
   private Button                   contactDetailsButton;
   private Button                   addToGroupButton;
@@ -109,8 +107,6 @@ public final class RecipientBottomSheetDialogFragment extends BottomSheetDialogF
     fullName               = view.findViewById(R.id.rbs_full_name);
     about                  = view.findViewById(R.id.rbs_about);
     usernameNumber         = view.findViewById(R.id.rbs_username_number);
-    blockButton            = view.findViewById(R.id.rbs_block_button);
-    unblockButton          = view.findViewById(R.id.rbs_unblock_button);
     addContactButton       = view.findViewById(R.id.rbs_add_contact_button);
     contactDetailsButton   = view.findViewById(R.id.rbs_contact_details_button);
     addToGroupButton       = view.findViewById(R.id.rbs_add_to_group_button);
@@ -186,16 +182,6 @@ public final class RecipientBottomSheetDialogFragment extends BottomSheetDialogF
       });
 
       noteToSelfDescription.setVisibility(recipient.isSelf() ? View.VISIBLE : View.GONE);
-
-      if (RecipientUtil.isBlockable(recipient)) {
-        boolean blocked = recipient.isBlocked();
-
-        blockButton  .setVisibility(recipient.isSelf() ||  blocked ? View.GONE : View.VISIBLE);
-        unblockButton.setVisibility(recipient.isSelf() || !blocked ? View.GONE : View.VISIBLE);
-      } else {
-        blockButton  .setVisibility(View.GONE);
-        unblockButton.setVisibility(View.GONE);
-      }
 
       ButtonStripPreference.State  buttonStripState = new ButtonStripPreference.State(
           /* isMessageAvailable = */ !recipient.isSelf(),
@@ -278,9 +264,6 @@ public final class RecipientBottomSheetDialogFragment extends BottomSheetDialogF
       dismiss();
       viewModel.onAvatarClicked(requireActivity());
     });
-
-    blockButton.setOnClickListener(view -> viewModel.onBlockClicked(requireActivity()));
-    unblockButton.setOnClickListener(view -> viewModel.onUnblockClicked(requireActivity()));
 
     makeGroupAdminButton.setOnClickListener(view -> viewModel.onMakeGroupAdminClicked(requireActivity()));
     removeAdminButton.setOnClickListener(view -> viewModel.onRemoveGroupAdminClicked(requireActivity()));

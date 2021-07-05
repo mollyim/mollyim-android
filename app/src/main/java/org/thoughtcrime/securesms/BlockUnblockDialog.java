@@ -60,8 +60,8 @@ public final class BlockUnblockDialog {
                                    @NonNull Runnable onBlockAndDelete)
   {
     SimpleTask.run(lifecycle,
-        () -> buildDeleteFor(context, recipient, onDelete, onBlockAndDelete),
-        AlertDialog.Builder::show);
+                   () -> buildDeleteFor(context, recipient, onDelete, onBlockAndDelete),
+                   AlertDialog.Builder::show);
   }
 
   @WorkerThread
@@ -144,7 +144,7 @@ public final class BlockUnblockDialog {
   {
     final Recipient resolved = recipient.resolve();
 
-    AlertDialog.Builder builder   = new AlertDialog.Builder(context);
+    AlertDialog.Builder builder   = new MaterialAlertDialogBuilder(context);
     Resources           resources = context.getResources();
 
     int messageResId = resolved.isSystemContact() ?
