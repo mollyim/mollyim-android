@@ -211,7 +211,8 @@ public class ConversationItemFooter extends LinearLayout {
   }
 
   private void presentInsecureIndicator(@NonNull MessageRecord messageRecord) {
-    insecureIndicatorView.setVisibility(messageRecord.isSecure() ? View.GONE : View.VISIBLE);
+    boolean isSecure = messageRecord.isSecure() || messageRecord.isPush();
+    insecureIndicatorView.setVisibility(isSecure ? View.GONE : View.VISIBLE);
   }
 
   private void presentDeliveryStatus(@NonNull MessageRecord messageRecord) {
