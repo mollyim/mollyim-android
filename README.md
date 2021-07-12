@@ -39,7 +39,7 @@ Molly has unique features compared to Signal:
 - **Disappearing call history** - Clear call notifications together with expiring messages
 - **Debug logs are optional** - Android logging can be disabled
 - **Custom backup scheduling** - Choose between daily or weekly interval and the number of backups to retain
-- **SOCKS proxy and Tor support** - Tunnel app nework traffic via proxy and Orbot
+- **SOCKS proxy and Tor support** - Tunnel app network traffic via proxy and Orbot
 
 Besides that, you will find all the features of Signal plus some minor tweaks and improvements. The only exception is the SMS integration, that is incompatible with Molly security enhancements.
 
