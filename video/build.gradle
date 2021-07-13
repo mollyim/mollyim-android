@@ -24,7 +24,7 @@ dependencyVerification {
 dependencies {
     lintChecks project(':lintchecks')
 
-    api 'androidx.annotation:annotation:1.1.0'
+    api 'androidx.annotation:annotation:1.2.0'
 
     implementation project(':core-util')
 
