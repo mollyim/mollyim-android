@@ -77,8 +77,8 @@ For older versions of Android, you might need to rename the backup file and copy
 ## Feedback
 
 - [Submit bugs and feature requests](https://github.com/mollyim/mollyim-android/issues)
-- Join us on the chat room **#mollyim** at [Matrix](https://matrix.to/#/#mollyim:matrix.org)
-- Ask a question on the forum [community.signalusers.org](https://community.signalusers.org/)
+- Join us on the chat room [#mollyim](https://matrix.to/#/#mollyim:matrix.org) at Matrix
+- For news and tips & tricks follow [@mollyimapp](https://twitter.com/mollyimapp) on Twitter
 
 ## Reproducible Builds
 
