@@ -295,7 +295,7 @@ public class IncomingMessageObserver {
 
       NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), NotificationChannels.OTHER);
       builder.setContentTitle(getApplicationContext().getString(R.string.MessageRetrievalService_signal));
-      builder.setContentText(getApplicationContext().getString(R.string.MessageRetrievalService_background_connection_enabled));
+      builder.setContentText(getApplicationContext().getString(R.string.MessageRetrievalService_ready_to_receive_messages));
       builder.setPriority(NotificationCompat.PRIORITY_MIN);
       builder.setCategory(NotificationCompat.CATEGORY_SERVICE);
       builder.setWhen(0);
