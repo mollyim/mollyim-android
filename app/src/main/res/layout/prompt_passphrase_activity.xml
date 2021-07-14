@@ -9,32 +9,28 @@
                 android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize">
-
-        <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_launcher_foreground"
-                android:layout_gravity="center"/>
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
 
     </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
-            android:id="@+id/password_auth_container"
+        android:id="@+id/password_auth_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="8dp">
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_margin="8dp">
-
-        <TextView android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="32dp"
-                  android:layout_marginBottom="36dp"
-                  android:text="@string/prompt_passphrase_activity__signal_is_locked"
-                  android:gravity="center_horizontal"
-                  android:textSize="28sp"/>
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="36dp"
+            android:text="@string/prompt_passphrase_activity__signal_is_locked"
+            style="@style/Signal.Text.Headline"
+            android:textStyle="bold"
+            android:gravity="center_horizontal" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/passphrase_layout"
@@ -72,19 +68,19 @@
                 app:cpb_textIdle="@string/prompt_passphrase_activity__unlock"
                 app:cpb_cornerRadius="4dp"
                 app:cpb_selectorIdle="@drawable/progress_button_state"
-                app:cpb_colorIndicator="@color/core_ultramarine"
+                app:cpb_colorIndicator="@color/signal_accent_primary"
                 app:cpb_colorProgress="@color/transparent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
-            <org.thoughtcrime.securesms.components.SquareImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/success"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_gravity="center_horizontal"
-                android:tint="@color/green_500"
-                android:src="@drawable/ic_check_white_48dp"
+                android:tint="@color/signal_accent_primary"
+                app:srcCompat="@drawable/ic_check_outline_22"
                 android:visibility="gone" />
 
         </FrameLayout>

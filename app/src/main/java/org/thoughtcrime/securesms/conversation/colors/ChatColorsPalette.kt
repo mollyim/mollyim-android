@@ -13,7 +13,7 @@ object ChatColorsPalette {
       ChatColors.Id.BuiltIn,
       ChatColors.LinearGradient(
         180.0f,
-        intArrayOf(0xFF0552F0.toInt(), 0xFF2C6BED.toInt()),
+        intArrayOf(0xFF5F4BF1.toInt(), 0xFF7B68EE.toInt()),
         floatArrayOf(0f, 1f)
       )
     )
@@ -44,7 +44,7 @@ object ChatColorsPalette {
     val BLUE = ChatColors.forColor(ChatColors.Id.BuiltIn, 0xFF336BA3.toInt())
 
     @JvmField
-    val INDIGO = ChatColors.forColor(ChatColors.Id.BuiltIn, 0xFF6058CA.toInt())
+    val INDIGO = ChatColors.forColor(ChatColors.Id.BuiltIn, 0xFF2C6BED.toInt())
 
     @JvmField
     val VIOLET = ChatColors.forColor(ChatColors.Id.BuiltIn, 0xFF9932CB.toInt())

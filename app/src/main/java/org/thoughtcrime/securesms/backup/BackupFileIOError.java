@@ -40,7 +40,7 @@ public enum BackupFileIOError {
   public void postNotification(@NonNull Context context) {
     PendingIntent pendingIntent           = PendingIntent.getActivity(context, -1, AppSettingsActivity.backups(context), 0);
     Notification backupFailedNotification = new NotificationCompat.Builder(context, NotificationChannels.FAILURES)
-                                                                  .setSmallIcon(R.drawable.ic_signal_backup)
+                                                                  .setSmallIcon(R.drawable.ic_notification)
                                                                   .setContentTitle(context.getString(titleId))
                                                                   .setContentText(context.getString(messageId))
                                                                   .setContentIntent(pendingIntent)

@@ -85,7 +85,7 @@ public final class NewDeviceTransferSetupFragment extends DeviceTransferSetupFra
   protected void startTransfer() {
     PendingIntent pendingIntent = PendingIntent.getActivity(requireContext(), 0, MainActivity.clearTop(requireContext()), 0);
 
-    TransferNotificationData notificationData = new TransferNotificationData(NotificationIds.DEVICE_TRANSFER, NotificationChannels.BACKUPS, R.drawable.ic_signal_backup);
+    TransferNotificationData notificationData = new TransferNotificationData(NotificationIds.DEVICE_TRANSFER, NotificationChannels.BACKUPS, R.drawable.ic_notification);
     DeviceToDeviceTransferService.startServer(requireContext(), new NewDeviceServerTask(), notificationData, pendingIntent);
   }
 }

@@ -89,7 +89,7 @@ public final class LocalBackupJob extends BaseJob {
     try (NotificationController notification = GenericForegroundService.startForegroundTask(context,
                                                                      context.getString(R.string.LocalBackupJob_creating_backup),
                                                                      NotificationChannels.BACKUPS,
-                                                                     R.drawable.ic_signal_backup))
+                                                                     R.drawable.ic_notification))
     {
       notification.setIndeterminateProgress();
 
