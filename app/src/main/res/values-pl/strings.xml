@@ -54,6 +54,7 @@
   <string name="DraftDatabase_Draft_video_snippet">(wideo)</string>
   <string name="DraftDatabase_Draft_location_snippet">(lokalizacja)</string>
   <string name="DraftDatabase_Draft_quote_snippet">(odpowiedź)</string>
+  <string name="DraftDatabase_Draft_voice_note">(Wiadomość głosowa)</string>
   <!--AttachmentKeyboard-->
   <string name="AttachmentKeyboard_gallery">Galeria</string>
   <string name="AttachmentKeyboard_gif">GIF</string>
@@ -890,6 +891,7 @@
   <string name="MediaOverviewActivity_audio">Dźwięk</string>
   <string name="MediaOverviewActivity_video">Wideo</string>
   <string name="MediaOverviewActivity_image">Obraz</string>
+  <string name="MediaOverviewActivity_voice_message">Wiadomość głosowa</string>
   <string name="MediaOverviewActivity_sent_by_s">Wysłano przez %1$s</string>
   <string name="MediaOverviewActivity_sent_by_you">Wysłano przez Ciebie</string>
   <string name="MediaOverviewActivity_sent_by_s_to_s">Wysłano przez %1$s do %2$s</string>
@@ -949,6 +951,9 @@
   <!--MediaRepository-->
   <string name="MediaRepository_all_media">Wszystkie multimedia</string>
   <string name="MediaRepository__camera">Aparat</string>
+  <!--MessageDecryptionUtil-->
+  <string name="MessageDecryptionUtil_failed_to_decrypt_message">Nie udało się odszyfrować wiadomości</string>
+  <string name="MessageDecryptionUtil_tap_to_send_a_debug_log">Stuknij, aby wysłać log debugowania</string>
   <!--MessageRecord-->
   <string name="MessageRecord_unknown">Nieznany</string>
   <string name="MessageRecord_message_encrypted_with_a_legacy_protocol_version_that_is_no_longer_supported">Otrzymano szyfrowaną wiadomość wysłaną przy użyciu starej wersji Signal, która nie jest już wspierana. Poproś nadawcę tej wiadomości o zaktualizowanie aplikacji do najnowszej wersji i przesłanie wiadomości ponownie.</string>
@@ -3100,6 +3105,7 @@ Otrzymano wiadomość wymiany klucz dla niepoprawnej wersji protokołu.</string>
     <item quantity="many">Ten własny kolor jest używany w %1$d rozmowach. Czy chcesz usunąć go ze wszystkich rozmów?</item>
     <item quantity="other">Ten własny kolor jest używany w %1$d rozmowach. Czy chcesz usunąć go ze wszystkich rozmów?</item>
   </plurals>
+  <string name="ChatColorSelectionFragment__delete_chat_color">Usunąć kolor czatu?</string>
   <!--CustomChatColorCreatorFragment-->
   <string name="CustomChatColorCreatorFragment__solid">Kolor</string>
   <string name="CustomChatColorCreatorFragment__gradient">Gradient</string>
@@ -3194,5 +3200,11 @@ Otrzymano wiadomość wymiany klucz dla niepoprawnej wersji protokołu.</string>
   <string name="SoundsAndNotificationsSettingsFragment__custom_notifications">Niestandardowe powiadomienia</string>
   <!--StickerKeyboard-->
   <string name="StickerKeyboard__recently_used">Ostatnio używane</string>
+  <!--PlaybackSpeedToggleTextView-->
+  <string name="PlaybackSpeedToggleTextView__p5x">.5x</string>
+  <string name="PlaybackSpeedToggleTextView__1x">1x</string>
+  <string name="PlaybackSpeedToggleTextView__2x">2x</string>
+  <!--VoiceNotePlayerView-->
+  <string name="VoiceNotePlayerView__s_dot_s">%1$s · %2$s</string>
   <!--EOF-->
 </resources>

@@ -6,19 +6,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import org.thoughtcrime.securesms.R
-import org.thoughtcrime.securesms.components.emoji.EmojiKeyboardProvider
 import org.thoughtcrime.securesms.components.emoji.EmojiPageModel
-import org.thoughtcrime.securesms.components.emoji.EmojiPageViewGridAdapter
 import org.thoughtcrime.securesms.components.emoji.EmojiPageViewGridAdapter.EmojiHeader
 import org.thoughtcrime.securesms.components.emoji.RecentEmojiPageModel
-import org.thoughtcrime.securesms.components.emoji.parsing.EmojiTree
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
 import org.thoughtcrime.securesms.emoji.EmojiCategory
-import org.thoughtcrime.securesms.emoji.EmojiSource.Companion.latest
 import org.thoughtcrime.securesms.keyboard.emoji.EmojiKeyboardPageCategoryMappingModel.EmojiCategoryMappingModel
 import org.thoughtcrime.securesms.util.DefaultValueLiveData
-import org.thoughtcrime.securesms.util.MappingModel
 import org.thoughtcrime.securesms.util.MappingModelList
+import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.thoughtcrime.securesms.util.livedata.LiveDataUtil
 
 class EmojiKeyboardPageViewModel(repository: EmojiKeyboardPageRepository) : ViewModel() {
@@ -70,12 +66,12 @@ class EmojiKeyboardPageViewModel(repository: EmojiKeyboardPageRepository) : View
   }
 
   fun addToRecents(emoji: String) {
-    RecentEmojiPageModel(ApplicationDependencies.getApplication(), EmojiKeyboardProvider.RECENT_STORAGE_KEY).onCodePointSelected(emoji)
+    RecentEmojiPageModel(ApplicationDependencies.getApplication(), TextSecurePreferences.RECENT_STORAGE_KEY).onCodePointSelected(emoji)
   }
 
   companion object {
     fun getStartingTab(): String {
-      return if (RecentEmojiPageModel.hasRecents(ApplicationDependencies.getApplication(), EmojiKeyboardProvider.RECENT_STORAGE_KEY)) {
+      return if (RecentEmojiPageModel.hasRecents(ApplicationDependencies.getApplication(), TextSecurePreferences.RECENT_STORAGE_KEY)) {
         RecentEmojiPageModel.KEY
       } else {
         EmojiCategory.PEOPLE.key
@@ -89,20 +85,6 @@ class EmojiKeyboardPageViewModel(repository: EmojiKeyboardPageRepository) : View
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
       return requireNotNull(modelClass.cast(EmojiKeyboardPageViewModel(repository)))
-    }
-  }
-}
-
-private fun EmojiPageModel.toMappingModels(): List<MappingModel<*>> {
-  val emojiTree: EmojiTree = latest.emojiTree
-
-  return displayEmoji.map {
-    val isTextEmoji = EmojiCategory.EMOTICONS.key == key || (RecentEmojiPageModel.KEY == key && emojiTree.getEmoji(it.value, 0, it.value.length) == null)
-
-    if (isTextEmoji) {
-      EmojiPageViewGridAdapter.EmojiTextModel(key, it)
-    } else {
-      EmojiPageViewGridAdapter.EmojiModel(key, it)
     }
   }
 }

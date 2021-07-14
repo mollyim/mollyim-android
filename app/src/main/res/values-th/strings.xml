@@ -760,6 +760,7 @@
   <string name="MediaOverviewActivity_audio">เสียง</string>
   <string name="MediaOverviewActivity_video">วิดีโอ</string>
   <string name="MediaOverviewActivity_image">รูปภาพ</string>
+  <string name="MediaOverviewActivity_voice_message">ข้อความเสียง</string>
   <string name="MediaOverviewActivity_sent_by_s">ส่งโดย %1$s</string>
   <string name="MediaOverviewActivity_sent_by_you">ส่งโดยคุณ</string>
   <string name="MediaOverviewActivity_sent_by_s_to_s">ส่งโดย %1$s ถึง %2$s</string>
@@ -814,6 +815,7 @@
   <!--MediaRepository-->
   <string name="MediaRepository_all_media">สื่อทั้งหมด</string>
   <string name="MediaRepository__camera">กล้อง</string>
+  <!--MessageDecryptionUtil-->
   <!--MessageRecord-->
   <string name="MessageRecord_unknown">ไม่ทราบ</string>
   <string name="MessageRecord_message_encrypted_with_a_legacy_protocol_version_that_is_no_longer_supported">ได้รับข้อความที่เข้ารหัสลับด้วย Signal รุ่นเก่าที่ไม่รองรับอีกต่อไปแล้ว โปรดขอให้ผู้ส่งปรับปรุงแอปเป็นรุ่นล่าสุดและส่งข้อความอีกครั้ง</string>
@@ -2833,5 +2835,8 @@
   <string name="SoundsAndNotificationsSettingsFragment__mentions">การกล่าวถึง</string>
   <string name="SoundsAndNotificationsSettingsFragment__custom_notifications">การแจ้งเตือนที่กำหนดเอง</string>
   <!--StickerKeyboard-->
+  <!--PlaybackSpeedToggleTextView-->
+  <!--VoiceNotePlayerView-->
+  <string name="VoiceNotePlayerView__s_dot_s">%1$s · %2$s</string>
   <!--EOF-->
 </resources>

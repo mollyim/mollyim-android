@@ -81,7 +81,7 @@ import org.thoughtcrime.securesms.components.TooltipPopup;
 import org.thoughtcrime.securesms.components.TypingStatusRepository;
 import org.thoughtcrime.securesms.components.recyclerview.SmoothScrollingLinearLayoutManager;
 import org.thoughtcrime.securesms.components.settings.app.AppSettingsActivity;
-import org.thoughtcrime.securesms.components.voice.VoiceNoteMediaController;
+import org.thoughtcrime.securesms.components.voice.VoiceNoteMediaControllerOwner;
 import org.thoughtcrime.securesms.components.voice.VoiceNotePlaybackState;
 import org.thoughtcrime.securesms.contactshare.Contact;
 import org.thoughtcrime.securesms.contactshare.ContactUtil;
@@ -213,7 +213,6 @@ public class ConversationFragment extends LoggingFragment {
   private Animation                   mentionButtonOutAnimation;
   private OnScrollListener            conversationScrollListener;
   private int                         pulsePosition = -1;
-  private VoiceNoteMediaController    voiceNoteMediaController;
   private View                        toolbarShadow;
   private ColorizerView               colorizerView;
   private Stopwatch                   startupStopwatch;
@@ -335,6 +334,9 @@ public class ConversationFragment extends LoggingFragment {
     conversationUpdateTick = new ConversationUpdateTick(this::updateConversationItemTimestamps);
     getViewLifecycleOwner().getLifecycle().addObserver(conversationUpdateTick);
 
+    listener.getVoiceNoteMediaController().getVoiceNotePlayerViewState().observe(getViewLifecycleOwner(), state -> conversationViewModel.setInlinePlayerVisible(state.isPresent()));
+    conversationViewModel.getScrollDateTopMargin().observe(getViewLifecycleOwner(), topMargin -> ViewUtil.setTopMargin(scrollDateHeader, topMargin));
+
     return view;
   }
 
@@ -407,7 +409,6 @@ public class ConversationFragment extends LoggingFragment {
     initializeResources();
     initializeMessageRequestViewModel();
     initializeListAdapter();
-    voiceNoteMediaController = new VoiceNoteMediaController((AppCompatActivity) requireActivity());
   }
 
   @Override
@@ -1281,15 +1282,14 @@ public class ConversationFragment extends LoggingFragment {
       public void onGlobalLayout() {
         Rect rect = new Rect();
         toolbar.getGlobalVisibleRect(rect);
-        ViewUtil.setTopMargin(scrollDateHeader, rect.bottom + ViewUtil.dpToPx(8));
+        conversationViewModel.setToolbarBottom(rect.bottom + ViewUtil.dpToPx(8));
         ViewUtil.setTopMargin(conversationBanner, rect.bottom + ViewUtil.dpToPx(16));
         toolbar.getViewTreeObserver().removeOnGlobalLayoutListener(this);
       }
     });
-
   }
 
-  public interface ConversationFragmentListener {
+  public interface ConversationFragmentListener extends VoiceNoteMediaControllerOwner {
     void setThreadId(long threadId);
     void handleReplyMessage(ConversationMessage conversationMessage);
     void onMessageActionToolbarOpened();
@@ -1303,6 +1303,12 @@ public class ConversationFragment extends LoggingFragment {
     void onListVerticalTranslationChanged(float translationY);
     void onMessageWithErrorClicked(@NonNull MessageRecord messageRecord);
     void handleReactionDetails(@NonNull MaskView.MaskTarget maskTarget);
+    void onVoiceNotePause(@NonNull Uri uri);
+    void onVoiceNotePlay(@NonNull Uri uri, long messageId, double progress);
+    void onVoiceNoteSeekTo(@NonNull Uri uri, double progress);
+    void onVoiceNotePlaybackSpeedChanged(@NonNull Uri uri, float speed);
+    void onRegisterVoiceNoteCallbacks(@NonNull Observer<VoiceNotePlaybackState> onPlaybackStartObserver);
+    void onUnregisterVoiceNoteCallbacks(@NonNull Observer<VoiceNotePlaybackState> onPlaybackStartObserver);
   }
 
   private class ConversationScrollListener extends OnScrollListener {
@@ -1579,27 +1585,32 @@ public class ConversationFragment extends LoggingFragment {
 
     @Override
     public void onVoiceNotePause(@NonNull Uri uri) {
-      voiceNoteMediaController.pausePlayback(uri);
+      listener.onVoiceNotePause(uri);
     }
 
     @Override
     public void onVoiceNotePlay(@NonNull Uri uri, long messageId, double progress) {
-      voiceNoteMediaController.startConsecutivePlayback(uri, messageId, progress);
+      listener.onVoiceNotePlay(uri, messageId, progress);
     }
 
     @Override
     public void onVoiceNoteSeekTo(@NonNull Uri uri, double progress) {
-      voiceNoteMediaController.seekToPosition(uri, progress);
+      listener.onVoiceNoteSeekTo(uri, progress);
+    }
+
+    @Override
+    public void onVoiceNotePlaybackSpeedChanged(@NonNull Uri uri, float speed) {
+      listener.onVoiceNotePlaybackSpeedChanged(uri, speed);
     }
 
     @Override
     public void onRegisterVoiceNoteCallbacks(@NonNull Observer<VoiceNotePlaybackState> onPlaybackStartObserver) {
-      voiceNoteMediaController.getVoiceNotePlaybackState().observe(getViewLifecycleOwner(), onPlaybackStartObserver);
+      listener.onRegisterVoiceNoteCallbacks(onPlaybackStartObserver);
     }
 
     @Override
     public void onUnregisterVoiceNoteCallbacks(@NonNull Observer<VoiceNotePlaybackState> onPlaybackStartObserver) {
-      voiceNoteMediaController.getVoiceNotePlaybackState().removeObserver(onPlaybackStartObserver);
+      listener.onUnregisterVoiceNoteCallbacks(onPlaybackStartObserver);
     }
 
     @Override

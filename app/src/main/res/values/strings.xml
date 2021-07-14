@@ -69,6 +69,7 @@
     <string name="DraftDatabase_Draft_video_snippet">(video)</string>
     <string name="DraftDatabase_Draft_location_snippet">(location)</string>
     <string name="DraftDatabase_Draft_quote_snippet">(reply)</string>
+    <string name="DraftDatabase_Draft_voice_note">(Voice message)</string>
 
     <!-- AttachmentKeyboard -->
     <string name="AttachmentKeyboard_gallery">Gallery</string>
@@ -942,6 +943,7 @@
     <string name="MediaOverviewActivity_image">Image</string>
     <string name="MediaOverviewActivity_detail_line_2_part" translatable="false">%1$s &#183; %2$s</string>
     <string name="MediaOverviewActivity_detail_line_3_part" translatable="false">%1$s &#183; %2$s &#183; %3$s</string>
+    <string name="MediaOverviewActivity_voice_message">Voice message</string>
 
     <string name="MediaOverviewActivity_sent_by_s">Sent by %1$s</string>
     <string name="MediaOverviewActivity_sent_by_you">Sent by you</string>
@@ -1007,6 +1009,10 @@
     <!-- MediaRepository -->
     <string name="MediaRepository_all_media">All media</string>
     <string name="MediaRepository__camera">Camera</string>
+
+    <!-- MessageDecryptionUtil -->
+    <string name="MessageDecryptionUtil_failed_to_decrypt_message">Failed to decrypt message</string>
+    <string name="MessageDecryptionUtil_tap_to_send_a_debug_log">Tap to send a debug log</string>
 
     <!-- MessageRecord -->
     <string name="MessageRecord_unknown">Unknown</string>
@@ -2454,6 +2460,7 @@
     <string name="preferences__internal_delete_all_dynamic_shortcuts" translatable="false">Delete all dynamic shortcuts</string>
     <string name="preferences__internal_click_to_delete_all_dynamic_shortcuts" translatable="false">Click to delete all dynamic shortcuts</string>
     <string name="preferences__internal_disable_profile_sharing" translatable="false">Disable Profile Sharing</string>
+    <string name="preferences__internal_delete_session" translatable="false">Delete Session</string>
     <string name="preferences__internal_sender_key" translatable="false">Sender Key</string>
     <string name="preferences__internal_clear_all_state" translatable="false">Clear all state</string>
     <string name="preferences__internal_click_to_delete_all_sender_key_state" translatable="false">Click to delete all sender key state</string>
@@ -2461,6 +2468,8 @@
     <string name="preferences__internal_click_to_delete_all_sharing_state" translatable="false">Click to delete all sharing state</string>
     <string name="preferences__internal_remove_two_person_minimum" translatable="false">Remove 2 person minimum</string>
     <string name="preferences__internal_remove_the_requirement_that_you_need" translatable="false">Remove the requirement that you  need at least 2 recipients to use sender key.</string>
+    <string name="preferences__internal_delay_resends" translatable="false">Delay resends</string>
+    <string name="preferences__internal_delay_resending_messages_in_response_to_retry_receipts" translatable="false">Delay resending messages in response to retry receipts by 10 seconds.</string>
     <string name="preferences__internal_calling" translatable="false">Group call server</string>
     <string name="preferences__internal_calling_default" translatable="false">Default</string>
     <string name="preferences__internal_calling_s_server" translatable="false">%1$s server</string>
@@ -3492,6 +3501,7 @@
         <item quantity="one">This custom color is used in %1$d chat. Do you want to delete it for all chats?</item>
         <item quantity="other">This custom color is used in %1$d chats. Do you want to delete it for all chats?</item>
     </plurals>
+    <string name="ChatColorSelectionFragment__delete_chat_color">Delete chat color?</string>
 
     <!-- CustomChatColorCreatorFragment -->
     <string name="CustomChatColorCreatorFragment__solid">Solid</string>
@@ -3595,6 +3605,14 @@
 
     <!-- StickerKeyboard -->
     <string name="StickerKeyboard__recently_used">Recently used</string>
+
+    <!-- PlaybackSpeedToggleTextView -->
+    <string name="PlaybackSpeedToggleTextView__p5x">.5x</string>
+    <string name="PlaybackSpeedToggleTextView__1x">1x</string>
+    <string name="PlaybackSpeedToggleTextView__2x">2x</string>
+
+    <!-- VoiceNotePlayerView -->
+    <string name="VoiceNotePlayerView__s_dot_s">%1$s · %2$s</string>
 
     <!-- EOF -->
 

@@ -52,6 +52,7 @@
   <string name="DraftDatabase_Draft_video_snippet">(video)</string>
   <string name="DraftDatabase_Draft_location_snippet">(plats)</string>
   <string name="DraftDatabase_Draft_quote_snippet">(svar)</string>
+  <string name="DraftDatabase_Draft_voice_note">(Röstmeddelande)</string>
   <!--AttachmentKeyboard-->
   <string name="AttachmentKeyboard_gallery">Galleri</string>
   <string name="AttachmentKeyboard_gif">GIF</string>
@@ -804,6 +805,7 @@
   <string name="MediaOverviewActivity_audio">Ljud</string>
   <string name="MediaOverviewActivity_video">Video</string>
   <string name="MediaOverviewActivity_image">Bild</string>
+  <string name="MediaOverviewActivity_voice_message">Röstmeddelande</string>
   <string name="MediaOverviewActivity_sent_by_s">Skickad av %1$s</string>
   <string name="MediaOverviewActivity_sent_by_you">Skickad av dig</string>
   <string name="MediaOverviewActivity_sent_by_s_to_s">Skickad av %1$s till %2$s</string>
@@ -861,6 +863,9 @@
   <!--MediaRepository-->
   <string name="MediaRepository_all_media">Alla media</string>
   <string name="MediaRepository__camera">Kamera</string>
+  <!--MessageDecryptionUtil-->
+  <string name="MessageDecryptionUtil_failed_to_decrypt_message">Det gick inte att dekryptera meddelandet</string>
+  <string name="MessageDecryptionUtil_tap_to_send_a_debug_log">Tryck för att skicka en felsökningslogg</string>
   <!--MessageRecord-->
   <string name="MessageRecord_unknown">Okänd</string>
   <string name="MessageRecord_message_encrypted_with_a_legacy_protocol_version_that_is_no_longer_supported">Tog emot ett meddelande som krypterats med en gammal version av Signal som inte längre stöds. Vänligen be avsändaren om att uppdatera till den senaste versionen och skicka om meddelandet.</string>
@@ -1838,7 +1843,7 @@ Tog emot meddelande för nyckelutbyte för ogiltig protokollversion.</string>
   </string-array>
   <!--ReactWithAnyEmojiBottomSheetDialogFragment-->
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__this_message">Detta meddelande</string>
-  <string name="ReactWithAnyEmojiBottomSheetDialogFragment__recently_used">Senaste använda</string>
+  <string name="ReactWithAnyEmojiBottomSheetDialogFragment__recently_used">Nyligen använda</string>
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__smileys_and_people">Humörsymboler &amp; personer</string>
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__nature">Natur</string>
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__food">Mat</string>
@@ -3009,6 +3014,7 @@ Tog emot meddelande för nyckelutbyte för ogiltig protokollversion.</string>
   <string name="ConversationSettingsFragment__unmute">Ljud på</string>
   <string name="ConversationSettingsFragment__conversation_muted_until_s">Konversation tystad till %1$s</string>
   <string name="ConversationSettingsFragment__conversation_muted_forever">Konversation tystad för alltid</string>
+  <string name="ConversationSettingsFragment__copied_phone_number_to_clipboard">Kopierat telefonnummer till urklipp.</string>
   <string name="ConversationSettingsFragment__phone_number">Telefonnummer</string>
   <!--PermissionsSettingsFragment-->
   <string name="PermissionsSettingsFragment__add_members">Lägg till medlemmar</string>
@@ -3026,5 +3032,12 @@ Tog emot meddelande för nyckelutbyte för ogiltig protokollversion.</string>
   <string name="SoundsAndNotificationsSettingsFragment__do_not_notify">Meddela inte</string>
   <string name="SoundsAndNotificationsSettingsFragment__custom_notifications">Anpassade aviseringar</string>
   <!--StickerKeyboard-->
+  <string name="StickerKeyboard__recently_used">Nyligen använda</string>
+  <!--PlaybackSpeedToggleTextView-->
+  <string name="PlaybackSpeedToggleTextView__p5x">.5x</string>
+  <string name="PlaybackSpeedToggleTextView__1x">1x</string>
+  <string name="PlaybackSpeedToggleTextView__2x">2x</string>
+  <!--VoiceNotePlayerView-->
+  <string name="VoiceNotePlayerView__s_dot_s">%1$s · %2$s</string>
   <!--EOF-->
 </resources>

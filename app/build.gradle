@@ -59,8 +59,8 @@ protobuf {
     }
 }
 
-def canonicalVersionCode = 873
-def canonicalVersionName = "5.15.6"
+def canonicalVersionCode = 877
+def canonicalVersionName = "5.16.3"
 
 def postFixSize = 100
 def abiPostFix = ['universal'   : 0,
@@ -389,7 +389,7 @@ dependencies {
 
     implementation 'im.molly:argon2:13.1-1@aar'
 
-    implementation 'im.molly:ringrtc-android:2.10.1-1'
+    implementation 'im.molly:ringrtc-android:2.10.6-1'
 
     implementation "me.leolin:ShortcutBadger:1.1.22"
     implementation 'se.emilsjolander:stickylistheaders:2.7.0'
@@ -454,6 +454,8 @@ dependencies {
     testImplementation 'org.robolectric:shadows-multidex:4.4'
     testImplementation 'org.hamcrest:hamcrest:2.2'
 
+    testImplementation(testFixtures(project(":libsignal-service")))
+
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
@@ -483,4 +485,10 @@ def loadKeystoreProperties(filename) {
     } else {
         return null;
     }
+}
+
+def getDateSuffix() {
+    def date = new Date()
+    def formattedDate = date.format('yyyy-MM-dd-HH:mm')
+    return formattedDate
 }

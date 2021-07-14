@@ -103,6 +103,11 @@ public class SaveAttachmentTask extends ProgressDialogAsyncTask<SaveAttachmentTa
     Uri           mediaUri     = createOutputUri(outputUri, contentType, fileName);
     ContentValues updateValues = new ContentValues();
 
+    if (mediaUri == null) {
+      Log.w(TAG, "Failed to create mediaUri for " + contentType);
+      return null;
+    }
+
     try (InputStream inputStream = PartAuthority.getAttachmentStream(context, attachment.uri)) {
 
       if (inputStream == null) {
@@ -176,13 +181,18 @@ public class SaveAttachmentTask extends ProgressDialogAsyncTask<SaveAttachmentTa
     return new File(fileName).getName();
   }
 
-  private Uri createOutputUri(@NonNull Uri outputUri, @NonNull String contentType, @NonNull String fileName)
+  private @Nullable Uri createOutputUri(@NonNull Uri outputUri, @NonNull String contentType, @NonNull String fileName)
       throws IOException
   {
     String[] fileParts = getFileNameParts(fileName);
     String   base      = fileParts[0];
     String   extension = fileParts[1];
     String   mimeType  = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
+
+    if (MediaUtil.isOctetStream(mimeType) && MediaUtil.isImageVideoOrAudioType(contentType)) {
+      Log.d(TAG, "MimeTypeMap returned octet stream for media, changing to provided content type [" + contentType + "] instead.");
+      mimeType = contentType;
+    }
 
     ContentValues contentValues = new ContentValues();
     contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName);

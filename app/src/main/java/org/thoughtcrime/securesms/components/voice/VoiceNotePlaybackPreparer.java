@@ -23,6 +23,8 @@ import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.database.NoSuchMessageException;
 import org.thoughtcrime.securesms.database.model.MessageRecord;
+import org.thoughtcrime.securesms.recipients.Recipient;
+import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.util.MessageRecordUtil;
 import org.thoughtcrime.securesms.util.Util;
 import org.thoughtcrime.securesms.util.concurrent.SimpleTask;
@@ -46,11 +48,12 @@ final class VoiceNotePlaybackPreparer implements MediaSessionConnector.PlaybackP
   public static final Uri NEXT_URI = Uri.parse("file:///android_asset/sounds/state-change_confirm-down.ogg");
   public static final Uri END_URI  = Uri.parse("file:///android_asset/sounds/state-change_confirm-up.ogg");
 
-  private final Context                     context;
-  private final SimpleExoPlayer             player;
+  private final Context                      context;
+  private final SimpleExoPlayer              player;
   private final VoiceNoteQueueDataAdapter    queueDataAdapter;
   private final AttachmentMediaSourceFactory mediaSourceFactory;
-  private final ConcatenatingMediaSource     dataSource;
+  private final ConcatenatingMediaSource    dataSource;
+  private final VoiceNotePlaybackParameters voiceNotePlaybackParameters;
 
   private boolean canLoadMore;
   private Uri     latestUri = Uri.EMPTY;
@@ -58,13 +61,15 @@ final class VoiceNotePlaybackPreparer implements MediaSessionConnector.PlaybackP
   VoiceNotePlaybackPreparer(@NonNull Context context,
                             @NonNull SimpleExoPlayer player,
                             @NonNull VoiceNoteQueueDataAdapter queueDataAdapter,
-                            @NonNull AttachmentMediaSourceFactory mediaSourceFactory)
+                            @NonNull AttachmentMediaSourceFactory mediaSourceFactory,
+                            @NonNull VoiceNotePlaybackParameters voiceNotePlaybackParameters)
   {
     this.context            = context;
     this.player             = player;
     this.queueDataAdapter   = queueDataAdapter;
     this.mediaSourceFactory = mediaSourceFactory;
-    this.dataSource         = new ConcatenatingMediaSource();
+    this.dataSource                  = new ConcatenatingMediaSource();
+    this.voiceNotePlaybackParameters = voiceNotePlaybackParameters;
   }
 
   @Override
@@ -92,6 +97,7 @@ final class VoiceNotePlaybackPreparer implements MediaSessionConnector.PlaybackP
     Log.d(TAG, "onPrepareFromUri: " + uri);
 
     long    messageId      = extras.getLong(VoiceNoteMediaController.EXTRA_MESSAGE_ID);
+    long    threadId       = extras.getLong(VoiceNoteMediaController.EXTRA_THREAD_ID);
     double  progress       = extras.getDouble(VoiceNoteMediaController.EXTRA_PROGRESS, 0);
     boolean singlePlayback = extras.getBoolean(VoiceNoteMediaController.EXTRA_PLAY_SINGLE, false);
 
@@ -101,7 +107,11 @@ final class VoiceNotePlaybackPreparer implements MediaSessionConnector.PlaybackP
     SimpleTask.run(EXECUTOR,
                    () -> {
                      if (singlePlayback) {
-                       return loadMediaDescriptionForSinglePlayback(messageId);
+                       if (messageId != -1) {
+                         return loadMediaDescriptionForSinglePlayback(messageId);
+                       } else {
+                         return loadMediaDescriptionForDraftPlayback(threadId, uri);
+                       }
                      } else {
                        return loadMediaDescriptionsForConsecutivePlayback(messageId);
                      }
@@ -119,7 +129,10 @@ final class VoiceNotePlaybackPreparer implements MediaSessionConnector.PlaybackP
                          @Override
                          public void onTimelineChanged(Timeline timeline, @Nullable Object manifest, int reason) {
                            if (timeline.getWindowCount() >= window) {
+                             player.setPlayWhenReady(false);
+                             player.setPlaybackParameters(voiceNotePlaybackParameters.getParameters());
                              player.seekTo(window, (long) (player.getDuration() * progress));
+                             player.setPlayWhenReady(true);
                              player.removeListener(this);
                            }
                          }
@@ -254,6 +267,10 @@ final class VoiceNotePlaybackPreparer implements MediaSessionConnector.PlaybackP
       Log.w(TAG, "Could not find message.", e);
       return Collections.emptyList();
     }
+  }
+
+  private @NonNull List<MediaDescriptionCompat> loadMediaDescriptionForDraftPlayback(long threadId, @NonNull Uri draftUri) {
+    return Collections.singletonList(VoiceNoteMediaDescriptionCompatFactory.buildMediaDescription(context, threadId, draftUri));
   }
 
   @WorkerThread

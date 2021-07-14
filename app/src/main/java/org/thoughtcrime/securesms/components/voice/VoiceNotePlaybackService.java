@@ -26,6 +26,7 @@ import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.LoadControl;
+import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.audio.AudioAttributes;
@@ -35,15 +36,15 @@ import com.google.android.exoplayer2.ui.PlayerNotificationManager;
 
 import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.logging.Log;
+import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.database.MessageDatabase;
-import org.thoughtcrime.securesms.database.MmsSmsDatabase;
-import org.thoughtcrime.securesms.database.model.MmsMessageRecord;
+import org.thoughtcrime.securesms.database.model.MessageId;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.jobs.MultiDeviceViewedUpdateJob;
 import org.thoughtcrime.securesms.jobs.SendViewedReceiptJob;
 import org.thoughtcrime.securesms.recipients.RecipientId;
-import org.thoughtcrime.securesms.util.FeatureFlags;
+import org.thoughtcrime.securesms.service.KeyCachingService;
 import org.thoughtcrime.securesms.video.exo.AttachmentMediaSourceFactory;
 
 import java.util.Collections;
@@ -53,6 +54,8 @@ import java.util.List;
  * Android Service responsible for playback of voice notes.
  */
 public class VoiceNotePlaybackService extends MediaBrowserServiceCompat {
+
+  public static final String ACTION_NEXT_PLAYBACK_SPEED = "org.thoughtcrime.securesms.components.voice.VoiceNotePlaybackService.action.next_playback_speed";
 
   private static final String TAG                 = Log.tag(VoiceNotePlaybackService.class);
   private static final String EMPTY_ROOT_ID       = "empty-root-id";
@@ -69,11 +72,13 @@ public class VoiceNotePlaybackService extends MediaBrowserServiceCompat {
   private PlaybackStateCompat.Builder  stateBuilder;
   private SimpleExoPlayer              player;
   private BecomingNoisyReceiver        becomingNoisyReceiver;
+  private KeyClearedReceiver           keyClearedReceiver;
   private VoiceNoteNotificationManager voiceNoteNotificationManager;
   private VoiceNoteQueueDataAdapter    queueDataAdapter;
   private VoiceNotePlaybackPreparer    voiceNotePlaybackPreparer;
   private VoiceNoteProximityManager    voiceNoteProximityManager;
   private boolean                      isForegroundService;
+  private VoiceNotePlaybackParameters  voiceNotePlaybackParameters;
 
   private final LoadControl loadControl = new DefaultLoadControl.Builder()
                                                                 .setBufferDurationsMs(Integer.MAX_VALUE,
@@ -87,10 +92,13 @@ public class VoiceNotePlaybackService extends MediaBrowserServiceCompat {
     super.onCreate();
 
     mediaSession                 = new MediaSessionCompat(this, TAG);
+    voiceNotePlaybackParameters  = new VoiceNotePlaybackParameters(mediaSession);
     stateBuilder                 = new PlaybackStateCompat.Builder()
-                                                          .setActions(SUPPORTED_ACTIONS);
-    mediaSessionConnector        = new MediaSessionConnector(mediaSession, null);
+                                                          .setActions(SUPPORTED_ACTIONS)
+                                                          .addCustomAction(ACTION_NEXT_PLAYBACK_SPEED, "speed", R.drawable.ic_toggle_24);
+    mediaSessionConnector        = new MediaSessionConnector(mediaSession, new VoiceNotePlaybackController(voiceNotePlaybackParameters));
     becomingNoisyReceiver        = new BecomingNoisyReceiver(this, mediaSession.getSessionToken());
+    keyClearedReceiver           = new KeyClearedReceiver(this, mediaSession.getSessionToken());
     player                       = ExoPlayerFactory.newSimpleInstance(this, new DefaultRenderersFactory(this), new DefaultTrackSelector(), loadControl);
     queueDataAdapter             = new VoiceNoteQueueDataAdapter();
     voiceNoteNotificationManager = new VoiceNoteNotificationManager(this,
@@ -100,7 +108,7 @@ public class VoiceNotePlaybackService extends MediaBrowserServiceCompat {
 
     AttachmentMediaSourceFactory mediaSourceFactory = new AttachmentMediaSourceFactory(this);
 
-    voiceNotePlaybackPreparer = new VoiceNotePlaybackPreparer(this, player, queueDataAdapter, mediaSourceFactory);
+    voiceNotePlaybackPreparer = new VoiceNotePlaybackPreparer(this, player, queueDataAdapter, mediaSourceFactory, voiceNotePlaybackParameters);
     voiceNoteProximityManager = new VoiceNoteProximityManager(this, player, queueDataAdapter);
 
     mediaSession.setPlaybackState(stateBuilder.build());
@@ -117,6 +125,7 @@ public class VoiceNotePlaybackService extends MediaBrowserServiceCompat {
     setSessionToken(mediaSession.getSessionToken());
 
     mediaSession.setActive(true);
+    keyClearedReceiver.register();
   }
 
   @Override
@@ -132,6 +141,7 @@ public class VoiceNotePlaybackService extends MediaBrowserServiceCompat {
     mediaSession.setActive(false);
     mediaSession.release();
     becomingNoisyReceiver.unregister();
+    keyClearedReceiver.unregister();
     player.release();
   }
 
@@ -150,6 +160,7 @@ public class VoiceNotePlaybackService extends MediaBrowserServiceCompat {
   }
 
   private class VoiceNotePlayerEventListener implements Player.EventListener {
+
     @Override
     public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
       switch (playbackState) {
@@ -182,9 +193,19 @@ public class VoiceNotePlaybackService extends MediaBrowserServiceCompat {
       }
 
       if (reason == Player.DISCONTINUITY_REASON_PERIOD_TRANSITION) {
-        MediaDescriptionCompat mediaDescriptionCompat = queueDataAdapter.getMediaDescription(currentWindowIndex);
         sendViewedReceiptForCurrentWindowIndex();
+        MediaDescriptionCompat mediaDescriptionCompat = queueDataAdapter.getMediaDescription(currentWindowIndex);
         Log.d(TAG, "onPositionDiscontinuity: current window uri: " + mediaDescriptionCompat.getMediaUri());
+
+        PlaybackParameters playbackParameters = getPlaybackParametersForWindowPosition(currentWindowIndex);
+
+        final float speed = playbackParameters != null ? playbackParameters.speed : 1f;
+        if (speed != player.getPlaybackParameters().speed) {
+          player.setPlayWhenReady(false);
+          player.setPlaybackParameters(playbackParameters);
+          player.seekTo(currentWindowIndex, 1);
+          player.setPlayWhenReady(true);
+        }
       }
 
       boolean isWithinThreshold = currentWindowIndex < LOAD_MORE_THRESHOLD ||
@@ -200,6 +221,18 @@ public class VoiceNotePlaybackService extends MediaBrowserServiceCompat {
       Log.w(TAG, "ExoPlayer error occurred:", error);
       voiceNoteProximityManager.onPlayerError();
     }
+  }
+
+  private @Nullable PlaybackParameters getPlaybackParametersForWindowPosition(int currentWindowIndex) {
+    if (isAudioMessage(currentWindowIndex)) {
+      return voiceNotePlaybackParameters.getParameters();
+    } else {
+      return null;
+    }
+  }
+
+  private boolean isAudioMessage(int currentWindowIndex) {
+    return currentWindowIndex % 2 == 0;
   }
 
   private void sendViewedReceiptForCurrentWindowIndex() {
@@ -225,7 +258,8 @@ public class VoiceNotePlaybackService extends MediaBrowserServiceCompat {
         if (markedMessageInfo != null) {
           ApplicationDependencies.getJobManager().add(new SendViewedReceiptJob(markedMessageInfo.getThreadId(),
                                                                                recipientId,
-                                                                               markedMessageInfo.getSyncMessageId().getTimetamp()));
+                                                                               markedMessageInfo.getSyncMessageId().getTimetamp(),
+                                                                               new MessageId(messageId, true)));
           MultiDeviceViewedUpdateJob.enqueue(Collections.singletonList(markedMessageInfo.getSyncMessageId()));
         }
       });
@@ -248,6 +282,46 @@ public class VoiceNotePlaybackService extends MediaBrowserServiceCompat {
       stopForeground(true);
       isForegroundService = false;
       stopSelf();
+    }
+  }
+
+  /**
+   * Receiver to stop playback and kill the notification if user locks signal via screen lock.
+   */
+  private static class KeyClearedReceiver extends BroadcastReceiver {
+    private static final IntentFilter KEY_CLEARED_FILTER = new IntentFilter(KeyCachingService.CLEAR_KEY_EVENT);
+
+    private final Context               context;
+    private final MediaControllerCompat controller;
+
+    private boolean registered;
+
+    private KeyClearedReceiver(@NonNull Context context, @NonNull MediaSessionCompat.Token token) {
+      this.context = context;
+      try {
+        this.controller = new MediaControllerCompat(context, token);
+      } catch (RemoteException e) {
+        throw new IllegalArgumentException("Failed to create controller from token", e);
+      }
+    }
+
+    void register() {
+      if (!registered) {
+        context.registerReceiver(this, KEY_CLEARED_FILTER);
+        registered = true;
+      }
+    }
+
+    void unregister() {
+      if (registered) {
+        context.unregisterReceiver(this);
+        registered = false;
+      }
+    }
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+      controller.getTransportControls().stop();
     }
   }
 

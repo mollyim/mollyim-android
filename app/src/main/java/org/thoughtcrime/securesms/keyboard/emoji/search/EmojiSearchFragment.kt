@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.KeyboardAwareLinearLayout
-import org.thoughtcrime.securesms.components.emoji.EmojiKeyboardProvider
+import org.thoughtcrime.securesms.components.emoji.EmojiEventListener
 import org.thoughtcrime.securesms.components.emoji.EmojiPageView
 import org.thoughtcrime.securesms.components.emoji.EmojiPageViewGridAdapter
 import org.thoughtcrime.securesms.keyboard.emoji.KeyboardPageSearchView
@@ -36,21 +36,29 @@ class EmojiSearchFragment : Fragment(R.layout.emoji_search_fragment), EmojiPageV
     viewModel = ViewModelProviders.of(this, factory)[EmojiSearchViewModel::class.java]
 
     val keyboardAwareLinearLayout: KeyboardAwareLinearLayout = view.findViewById(R.id.kb_aware_layout)
-    val eventListener: EmojiKeyboardProvider.EmojiEventListener = requireNotNull(findListener())
+    val eventListener: EmojiEventListener = requireNotNull(findListener())
     val searchBar: KeyboardPageSearchView = view.findViewById(R.id.emoji_search_view)
     val resultsContainer: FrameLayout = view.findViewById(R.id.emoji_search_results_container)
     val noResults: TextView = view.findViewById(R.id.emoji_search_empty)
-    val emojiPageView = EmojiPageView(requireContext(), eventListener, this, true, LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false), R.layout.emoji_search_result_display_item)
+    val emojiPageView = EmojiPageView(
+      requireContext(),
+      eventListener,
+      this,
+      true,
+      LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false),
+      R.layout.emoji_display_item_list,
+      R.layout.emoji_text_display_item_list
+    )
 
     resultsContainer.addView(emojiPageView)
 
     searchBar.presentForEmojiSearch()
     searchBar.callbacks = SearchCallbacks()
 
-    viewModel.pageModel.observe(viewLifecycleOwner) { pageModel ->
-      emojiPageView.setModel(pageModel)
+    viewModel.emojiList.observe(viewLifecycleOwner) { results ->
+      emojiPageView.setList(results.emojiList)
 
-      if (pageModel.emoji.isNotEmpty() || pageModel.iconAttr == R.attr.emoji_category_recent) {
+      if (results.emojiList.isNotEmpty() || results.isRecents) {
         emojiPageView.visibility = View.VISIBLE
         noResults.visibility = View.GONE
       } else {

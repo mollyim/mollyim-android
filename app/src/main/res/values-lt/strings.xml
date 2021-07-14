@@ -54,6 +54,7 @@
   <string name="DraftDatabase_Draft_video_snippet">(vaizdo įrašas)</string>
   <string name="DraftDatabase_Draft_location_snippet">(vieta)</string>
   <string name="DraftDatabase_Draft_quote_snippet">(atsakymas)</string>
+  <string name="DraftDatabase_Draft_voice_note">(Balso žinutė)</string>
   <!--AttachmentKeyboard-->
   <string name="AttachmentKeyboard_gallery">Galerija</string>
   <string name="AttachmentKeyboard_gif">GIF</string>
@@ -890,6 +891,7 @@
   <string name="MediaOverviewActivity_audio">Garso įrašai</string>
   <string name="MediaOverviewActivity_video">Vaizdo įrašai</string>
   <string name="MediaOverviewActivity_image">Paveikslas</string>
+  <string name="MediaOverviewActivity_voice_message">Balso žinutė</string>
   <string name="MediaOverviewActivity_sent_by_s">Išsiuntė %1$s</string>
   <string name="MediaOverviewActivity_sent_by_you">Išsiuntėte jūs</string>
   <string name="MediaOverviewActivity_sent_by_s_to_s">%1$s išsiuntė naudotojui ar grupei %2$s</string>
@@ -949,6 +951,9 @@
   <!--MediaRepository-->
   <string name="MediaRepository_all_media">Visa medija</string>
   <string name="MediaRepository__camera">Kamera</string>
+  <!--MessageDecryptionUtil-->
+  <string name="MessageDecryptionUtil_failed_to_decrypt_message">Nepavyko iššifruoti žinutės</string>
+  <string name="MessageDecryptionUtil_tap_to_send_a_debug_log">Bakstelėkite norėdami siųsti derinimo žurnalą</string>
   <!--MessageRecord-->
   <string name="MessageRecord_unknown">Nežinoma</string>
   <string name="MessageRecord_message_encrypted_with_a_legacy_protocol_version_that_is_no_longer_supported">Gauta žinutė buvo užšifruota, naudojant seną Signal versiją, kuri daugiau nebepalaikoma. Paprašykite siuntėjo atnaujinti savo programėlę į naujausią versiją ir iš naujo išsiųsti žinutę.</string>
@@ -3108,6 +3113,7 @@
     <item quantity="many">Ši tinkinta spalva yra naudojama %1$d pokalbių. Ar norite ją ištrinti visuose pokalbiuose?</item>
     <item quantity="other">Ši tinkinta spalva yra naudojama %1$d pokalbyje. Ar norite ją ištrinti visuose pokalbiuose?</item>
   </plurals>
+  <string name="ChatColorSelectionFragment__delete_chat_color">Ištrinti pokalbio spalvą?</string>
   <!--CustomChatColorCreatorFragment-->
   <string name="CustomChatColorCreatorFragment__solid">Vientisa</string>
   <string name="CustomChatColorCreatorFragment__gradient">Gradientas</string>
@@ -3159,11 +3165,11 @@
   <string name="ConversationSettingsFragment__start_video_call">Pradėti vaizdo skambutį</string>
   <string name="ConversationSettingsFragment__start_audio_call">Pradėti garso skambutį</string>
   <string name="ConversationSettingsFragment__message">Žinutė</string>
-  <string name="ConversationSettingsFragment__video">Vaizdo įrašas</string>
-  <string name="ConversationSettingsFragment__audio">Garsas</string>
+  <string name="ConversationSettingsFragment__video">Vaizdo skambutis</string>
+  <string name="ConversationSettingsFragment__audio">Garso skambutis</string>
   <string name="ConversationSettingsFragment__call">Skambinti</string>
-  <string name="ConversationSettingsFragment__mute">Nutildyti</string>
-  <string name="ConversationSettingsFragment__muted">Nutildyta(-s)</string>
+  <string name="ConversationSettingsFragment__mute">Išjungti pranešimus</string>
+  <string name="ConversationSettingsFragment__muted">Pranešimai išjungti</string>
   <string name="ConversationSettingsFragment__search">Ieškoti</string>
   <string name="ConversationSettingsFragment__disappearing_messages">Išnykstančios žinutės</string>
   <string name="ConversationSettingsFragment__sounds_and_notifications">Garsai ir pranešimai</string>
@@ -3202,5 +3208,11 @@
   <string name="SoundsAndNotificationsSettingsFragment__custom_notifications">Tinkinti pranešimai</string>
   <!--StickerKeyboard-->
   <string name="StickerKeyboard__recently_used">Paskiausi</string>
+  <!--PlaybackSpeedToggleTextView-->
+  <string name="PlaybackSpeedToggleTextView__p5x">0,5x</string>
+  <string name="PlaybackSpeedToggleTextView__1x">1x</string>
+  <string name="PlaybackSpeedToggleTextView__2x">2x</string>
+  <!--VoiceNotePlayerView-->
+  <string name="VoiceNotePlayerView__s_dot_s">%1$s · %2$s</string>
   <!--EOF-->
 </resources>

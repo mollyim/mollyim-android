@@ -10,7 +10,6 @@ import org.thoughtcrime.securesms.KbsEnclave;
 import org.thoughtcrime.securesms.components.TypingStatusRepository;
 import org.thoughtcrime.securesms.components.TypingStatusSender;
 import org.thoughtcrime.securesms.database.DatabaseObserver;
-import org.thoughtcrime.securesms.database.model.PendingRetryReceiptModel;
 import org.thoughtcrime.securesms.groups.GroupsV2Authorization;
 import org.thoughtcrime.securesms.groups.GroupsV2AuthorizationMemoryValueCache;
 import org.thoughtcrime.securesms.groups.v2.processing.GroupsV2StateProcessor;
@@ -20,7 +19,7 @@ import org.thoughtcrime.securesms.megaphone.MegaphoneRepository;
 import org.thoughtcrime.securesms.messages.BackgroundMessageRetriever;
 import org.thoughtcrime.securesms.messages.IncomingMessageObserver;
 import org.thoughtcrime.securesms.messages.IncomingMessageProcessor;
-import org.thoughtcrime.securesms.net.ContentProxySelector;
+import org.thoughtcrime.securesms.database.PendingRetryReceiptCache;
 import org.thoughtcrime.securesms.net.Network;
 import org.thoughtcrime.securesms.net.NetworkManager;
 import org.thoughtcrime.securesms.net.PipeConnectivityListener;
@@ -94,6 +93,7 @@ public class ApplicationDependencies {
   private static volatile ShakeToReport                shakeToReport;
   private static volatile OkHttpClient                 okHttpClient;
   private static volatile PendingRetryReceiptManager   pendingRetryReceiptManager;
+  private static volatile PendingRetryReceiptCache     pendingRetryReceiptCache;
 
   @MainThread
   public static void init(@NonNull Provider provider) {
@@ -510,6 +510,18 @@ public class ApplicationDependencies {
     return appForegroundObserver;
   }
 
+  public static @NonNull PendingRetryReceiptCache getPendingRetryReceiptCache() {
+    if (pendingRetryReceiptCache == null) {
+      synchronized (LOCK) {
+        if (pendingRetryReceiptCache == null) {
+          pendingRetryReceiptCache = getProvider().providePendingRetryReceiptCache();
+        }
+      }
+    }
+
+    return pendingRetryReceiptCache;
+  }
+
 
   public interface Provider {
     @NonNull PipeConnectivityListener providePipeListener();
@@ -539,5 +551,6 @@ public class ApplicationDependencies {
     @NonNull AppForegroundObserver provideAppForegroundObserver();
     @NonNull SignalCallManager provideSignalCallManager();
     @NonNull PendingRetryReceiptManager providePendingRetryReceiptManager();
+    @NonNull PendingRetryReceiptCache providePendingRetryReceiptCache();
   }
 }

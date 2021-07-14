@@ -33,6 +33,7 @@ import org.thoughtcrime.securesms.megaphone.MegaphoneRepository;
 import org.thoughtcrime.securesms.messages.BackgroundMessageRetriever;
 import org.thoughtcrime.securesms.messages.IncomingMessageObserver;
 import org.thoughtcrime.securesms.messages.IncomingMessageProcessor;
+import org.thoughtcrime.securesms.database.PendingRetryReceiptCache;
 import org.thoughtcrime.securesms.net.NetworkManager;
 import org.thoughtcrime.securesms.net.PipeConnectivityListener;
 import org.thoughtcrime.securesms.notifications.MessageNotifier;
@@ -259,6 +260,11 @@ public class ApplicationDependencyProvider implements ApplicationDependencies.Pr
   @Override
   public @NonNull PendingRetryReceiptManager providePendingRetryReceiptManager() {
     return new PendingRetryReceiptManager(context);
+  }
+
+  @Override
+  public @NonNull PendingRetryReceiptCache providePendingRetryReceiptCache() {
+    return new PendingRetryReceiptCache(context);
   }
 
   private static class DynamicCredentialsProvider implements CredentialsProvider {

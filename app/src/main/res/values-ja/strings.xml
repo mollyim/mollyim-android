@@ -50,6 +50,7 @@
   <string name="DraftDatabase_Draft_video_snippet">(動画)</string>
   <string name="DraftDatabase_Draft_location_snippet">(位置情報)</string>
   <string name="DraftDatabase_Draft_quote_snippet">(返信)</string>
+  <string name="DraftDatabase_Draft_voice_note">(音声メッセージ)</string>
   <!--AttachmentKeyboard-->
   <string name="AttachmentKeyboard_gallery">ギャラリー</string>
   <string name="AttachmentKeyboard_gif">GIF</string>
@@ -760,6 +761,7 @@
   <string name="MediaOverviewActivity_audio">音声</string>
   <string name="MediaOverviewActivity_video">動画</string>
   <string name="MediaOverviewActivity_image">画像</string>
+  <string name="MediaOverviewActivity_voice_message">音声メッセージ</string>
   <string name="MediaOverviewActivity_sent_by_s">%1$s が送信</string>
   <string name="MediaOverviewActivity_sent_by_you">あなたが送信</string>
   <string name="MediaOverviewActivity_sent_by_s_to_s">%1$s が %2$s に送信</string>
@@ -816,6 +818,9 @@
   <!--MediaRepository-->
   <string name="MediaRepository_all_media">すべてのメディア</string>
   <string name="MediaRepository__camera">カメラ</string>
+  <!--MessageDecryptionUtil-->
+  <string name="MessageDecryptionUtil_failed_to_decrypt_message">メッセージの復号に失敗しました</string>
+  <string name="MessageDecryptionUtil_tap_to_send_a_debug_log">タップしてデバッグログを送信します</string>
   <!--MessageRecord-->
   <string name="MessageRecord_unknown">不明</string>
   <string name="MessageRecord_message_encrypted_with_a_legacy_protocol_version_that_is_no_longer_supported">受信したメッセージはサポート外の古いSignalで暗号化されています。送信者にSignalをアップデートして再送するよう依頼してください。</string>
@@ -2761,6 +2766,7 @@
   <plurals name="ChatColorSelectionFragment__this_custom_color_is_used">
     <item quantity="other">この色は%1$d件のチャットで使用されています。すべてのチャットで削除しますか？</item>
   </plurals>
+  <string name="ChatColorSelectionFragment__delete_chat_color">チャットの色を削除しますか？</string>
   <!--CustomChatColorCreatorFragment-->
   <string name="CustomChatColorCreatorFragment__solid">無地</string>
   <string name="CustomChatColorCreatorFragment__gradient">グラデーション</string>
@@ -2833,6 +2839,7 @@
   <string name="ConversationSettingsFragment__unmute">ミュートを解除</string>
   <string name="ConversationSettingsFragment__conversation_muted_until_s">チャットは%1$sまでミュートされます</string>
   <string name="ConversationSettingsFragment__conversation_muted_forever">チャットは常にミュートされます</string>
+  <string name="ConversationSettingsFragment__copied_phone_number_to_clipboard">電話番号をクリップボードにコピーしました。</string>
   <string name="ConversationSettingsFragment__phone_number">電話番号</string>
   <!--PermissionsSettingsFragment-->
   <string name="PermissionsSettingsFragment__add_members">メンバーの追加</string>
@@ -2850,5 +2857,12 @@
   <string name="SoundsAndNotificationsSettingsFragment__do_not_notify">通知しない</string>
   <string name="SoundsAndNotificationsSettingsFragment__custom_notifications">カスタム通知</string>
   <!--StickerKeyboard-->
+  <string name="StickerKeyboard__recently_used">最近使ったもの</string>
+  <!--PlaybackSpeedToggleTextView-->
+  <string name="PlaybackSpeedToggleTextView__p5x">0.5x</string>
+  <string name="PlaybackSpeedToggleTextView__1x">1x</string>
+  <string name="PlaybackSpeedToggleTextView__2x">2x</string>
+  <!--VoiceNotePlayerView-->
+  <string name="VoiceNotePlayerView__s_dot_s">%1$s · %2$s</string>
   <!--EOF-->
 </resources>

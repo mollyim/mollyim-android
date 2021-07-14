@@ -790,6 +790,7 @@
   <string name="MediaOverviewActivity_audio">Аудио</string>
   <string name="MediaOverviewActivity_video">Видео</string>
   <string name="MediaOverviewActivity_image">Изображение</string>
+  <string name="MediaOverviewActivity_voice_message">Гласово съобщение</string>
   <string name="MediaOverviewActivity_sent_by_s">Изпратено от %1$s</string>
   <string name="MediaOverviewActivity_sent_by_you">Изпратено от тебе</string>
   <string name="MediaOverviewActivity_sent_by_s_to_s">Изпратено от %1$s до %2$s</string>
@@ -842,6 +843,7 @@
   <!--MediaRepository-->
   <string name="MediaRepository_all_media">Всички прикачените файлове</string>
   <string name="MediaRepository__camera">Камера</string>
+  <!--MessageDecryptionUtil-->
   <!--MessageRecord-->
   <string name="MessageRecord_unknown">Непознат</string>
   <string name="MessageRecord_message_encrypted_with_a_legacy_protocol_version_that_is_no_longer_supported">Получихте съобщение криптирано със стара версия на Signal, която вече не се поддържа. Моля, помолете изпращача да обнови версията си и да препрати съобщението.</string>
@@ -2590,5 +2592,8 @@
   <string name="SoundsAndNotificationsSettingsFragment__mentions">Споменавания</string>
   <string name="SoundsAndNotificationsSettingsFragment__custom_notifications">Персонализирани известия</string>
   <!--StickerKeyboard-->
+  <!--PlaybackSpeedToggleTextView-->
+  <!--VoiceNotePlayerView-->
+  <string name="VoiceNotePlayerView__s_dot_s">%1$s · %2$s</string>
   <!--EOF-->
 </resources>

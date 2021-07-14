@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.thoughtcrime.securesms.R;
-import org.thoughtcrime.securesms.components.emoji.EmojiKeyboardProvider.EmojiEventListener;
 import org.thoughtcrime.securesms.components.emoji.EmojiPageViewGridAdapter.EmojiHeader;
 import org.thoughtcrime.securesms.components.emoji.EmojiPageViewGridAdapter.EmojiNoResultsModel;
 import org.thoughtcrime.securesms.components.emoji.EmojiPageViewGridAdapter.VariationSelectorListener;
@@ -27,6 +26,7 @@ import org.thoughtcrime.securesms.util.MappingModel;
 import org.thoughtcrime.securesms.util.MappingModelList;
 import org.thoughtcrime.securesms.util.ViewUtil;
 
+import java.util.List;
 import java.util.Optional;
 
 public class EmojiPageView extends RecyclerView implements VariationSelectorListener {
@@ -60,26 +60,26 @@ public class EmojiPageView extends RecyclerView implements VariationSelectorList
                        @NonNull VariationSelectorListener variationSelectorListener,
                        boolean allowVariations,
                        @NonNull LinearLayoutManager layoutManager,
-                       @LayoutRes int displayItemLayoutResId)
+                       @LayoutRes int displayEmojiLayoutResId,
+                       @LayoutRes int displayEmoticonLayoutResId)
   {
     super(context);
-    initialize(emojiSelectionListener, variationSelectorListener, allowVariations, layoutManager, displayItemLayoutResId);
+    initialize(emojiSelectionListener, variationSelectorListener, allowVariations, layoutManager, displayEmojiLayoutResId, displayEmoticonLayoutResId);
   }
 
   public void initialize(@NonNull EmojiEventListener emojiSelectionListener,
                          @NonNull VariationSelectorListener variationSelectorListener,
                          boolean allowVariations)
   {
-    initialize(emojiSelectionListener, variationSelectorListener, allowVariations, new GridLayoutManager(getContext(), 8), R.layout.emoji_display_item);
-    Drawable drawable = DrawableUtil.tint(ContextUtil.requireDrawable(getContext(), R.drawable.triangle_bottom_right_corner), ContextCompat.getColor(getContext(), R.color.signal_button_secondary_text_disabled));
-    addItemDecoration(new EmojiItemDecoration(allowVariations, drawable));
+    initialize(emojiSelectionListener, variationSelectorListener, allowVariations, new GridLayoutManager(getContext(), 8), R.layout.emoji_display_item_grid, R.layout.emoji_text_display_item_grid);
   }
 
   public void initialize(@NonNull EmojiEventListener emojiSelectionListener,
                          @NonNull VariationSelectorListener variationSelectorListener,
                          boolean allowVariations,
                          @NonNull LinearLayoutManager layoutManager,
-                         @LayoutRes int displayItemLayoutResId)
+                         @LayoutRes int displayEmojiLayoutResId,
+                         @LayoutRes int displayEmoticonLayoutResId)
   {
     this.variationSelectorListener = variationSelectorListener;
 
@@ -90,7 +90,8 @@ public class EmojiPageView extends RecyclerView implements VariationSelectorList
                                                              emojiSelectionListener,
                                                              this,
                                                              allowVariations,
-                                                             displayItemLayoutResId);
+                                                             displayEmojiLayoutResId,
+                                                             displayEmoticonLayoutResId);
 
     if (this.layoutManager instanceof GridLayoutManager) {
       GridLayoutManager gridLayout = (GridLayoutManager) this.layoutManager;
@@ -109,6 +110,9 @@ public class EmojiPageView extends RecyclerView implements VariationSelectorList
     }
 
     setLayoutManager(layoutManager);
+
+    Drawable drawable = DrawableUtil.tint(ContextUtil.requireDrawable(getContext(), R.drawable.triangle_bottom_right_corner), ContextCompat.getColor(getContext(), R.color.signal_button_secondary_text_disabled));
+    addItemDecoration(new EmojiItemDecoration(allowVariations, drawable));
   }
 
   public void presentForEmojiKeyboard() {
@@ -126,7 +130,7 @@ public class EmojiPageView extends RecyclerView implements VariationSelectorList
     }
   }
 
-  public void setList(@NonNull MappingModelList list) {
+  public void setList(@NonNull List<MappingModel<?>> list) {
     this.model = null;
     EmojiPageViewGridAdapter adapter = adapterFactory.create();
     setAdapter(adapter);

@@ -844,6 +844,7 @@
   <string name="MediaOverviewActivity_audio">Audio</string>
   <string name="MediaOverviewActivity_video">Video</string>
   <string name="MediaOverviewActivity_image">Imagine</string>
+  <string name="MediaOverviewActivity_voice_message">Mesaj vocal</string>
   <string name="MediaOverviewActivity_sent_by_s">Trimis de %1$s</string>
   <string name="MediaOverviewActivity_sent_by_you">Trimis de dvs.</string>
   <string name="MediaOverviewActivity_sent_by_s_to_s">Trimis de %1$s către %2$s</string>
@@ -902,6 +903,7 @@
   <!--MediaRepository-->
   <string name="MediaRepository_all_media">Toate fișierele media</string>
   <string name="MediaRepository__camera">Cameră foto</string>
+  <!--MessageDecryptionUtil-->
   <!--MessageRecord-->
   <string name="MessageRecord_unknown">Necunoscut</string>
   <string name="MessageRecord_message_encrypted_with_a_legacy_protocol_version_that_is_no_longer_supported">Ai primit un mesaj care a fost criptat cu o versiune mai veche de Signal care nu mai este suportată. Roagă-l pe expeditor să-și actualizeze aplicația la ultima versiune și să retrimită mesajul.</string>
@@ -2982,6 +2984,7 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <string name="ConversationSettingsFragment__unmute">Activare sunet notificări</string>
   <string name="ConversationSettingsFragment__conversation_muted_until_s">Conversaţia este acum silenţiosă până la %1$s</string>
   <string name="ConversationSettingsFragment__conversation_muted_forever">Conversația este silenţiosă pentru totdeauna</string>
+  <string name="ConversationSettingsFragment__copied_phone_number_to_clipboard">Numărul de telefon a fost copiat în clipboard.</string>
   <string name="ConversationSettingsFragment__phone_number">Număr de telefon</string>
   <!--PermissionsSettingsFragment-->
   <string name="PermissionsSettingsFragment__add_members">Adăugare membri</string>
@@ -2999,5 +3002,9 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <string name="SoundsAndNotificationsSettingsFragment__do_not_notify">Nu mă anunța</string>
   <string name="SoundsAndNotificationsSettingsFragment__custom_notifications">Notificări personalizate</string>
   <!--StickerKeyboard-->
+  <string name="StickerKeyboard__recently_used">Utilizate recent</string>
+  <!--PlaybackSpeedToggleTextView-->
+  <!--VoiceNotePlayerView-->
+  <string name="VoiceNotePlayerView__s_dot_s">%1$s · %2$s</string>
   <!--EOF-->
 </resources>

@@ -181,6 +181,7 @@ public class TextSecurePreferences {
   private static final String GIF_GRID_LAYOUT = "pref_gif_grid_layout";
 
   private static final String MEDIA_KEYBOARD_MODE = "pref_media_keyboard_mode";
+  public  static final String RECENT_STORAGE_KEY  = "pref_recent_emoji2";
 
   private static final String VIEW_ONCE_TOOLTIP_SEEN = "pref_revealable_message_tooltip_seen";
 
