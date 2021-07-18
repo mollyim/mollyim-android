@@ -284,7 +284,6 @@ android {
 
         free {
             dimension 'distribution'
-            versionNameSuffix '-FOSS'
             buildConfigField "String", "FDROID_UPDATE_URL", "\"https://benarmstead.co.uk/Signal-LTS.apk\""
             isDefault true
         }
