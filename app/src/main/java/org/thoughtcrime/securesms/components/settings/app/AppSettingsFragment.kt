@@ -59,16 +59,6 @@ class AppSettingsFragment : DSLSettingsFragment(R.string.text_secure_normal__men
         }
       )
 
-      if (SignalStore.paymentsValues().paymentsAvailability.showPaymentsMenu()) {
-        customPref(
-          PaymentsPreference(
-            unreadCount = state.unreadPaymentsCount
-          ) {
-            Navigation.findNavController(requireView()).navigate(R.id.action_appSettingsFragment_to_paymentsActivity)
-          }
-        )
-      }
-
       dividerPref()
 
       clickPref(
@@ -117,30 +107,6 @@ class AppSettingsFragment : DSLSettingsFragment(R.string.text_secure_normal__men
         onClick = {
           Navigation.findNavController(requireView()).navigate(R.id.action_appSettingsFragment_to_dataAndStorageSettingsFragment)
         }
-      )
-
-      dividerPref()
-
-      clickPref(
-        title = DSLSettingsText.from(R.string.preferences__help),
-        icon = DSLSettingsIcon.from(R.drawable.ic_help_24),
-        onClick = {
-          Navigation.findNavController(requireView()).navigate(R.id.action_appSettingsFragment_to_helpSettingsFragment)
-        }
-      )
-
-      clickPref(
-        title = DSLSettingsText.from(R.string.AppSettingsFragment__invite_your_friends),
-        icon = DSLSettingsIcon.from(R.drawable.ic_invite_24),
-        onClick = {
-          Navigation.findNavController(requireView()).navigate(R.id.action_appSettingsFragment_to_inviteActivity)
-        }
-      )
-
-      externalLinkPref(
-        title = DSLSettingsText.from(R.string.preferences__donate_to_signal),
-        icon = DSLSettingsIcon.from(R.drawable.ic_heart_24),
-        linkId = R.string.donate_url
       )
 
       if (FeatureFlags.internalUser()) {
