@@ -97,6 +97,7 @@ public class SendReadReceiptJob extends BaseJob {
    * maximum size.
    */
   public static void enqueue(long threadId, @NonNull RecipientId recipientId, List<MarkedMessageInfo> markedMessageInfos) {
+    /*
     JobManager                    jobManager      = ApplicationDependencies.getJobManager();
     List<List<MarkedMessageInfo>> messageIdChunks = Util.chunk(markedMessageInfos, MAX_TIMESTAMPS);
 
@@ -110,6 +111,7 @@ public class SendReadReceiptJob extends BaseJob {
 
       jobManager.add(new SendReadReceiptJob(threadId, recipientId, sentTimestamps, messageIds));
     }
+    */
   }
 
   @Override
@@ -165,6 +167,7 @@ public class SendReadReceiptJob extends BaseJob {
     SendMessageResult result = messageSender.sendReceipt(remoteAddress,
                                                          UnidentifiedAccessUtil.getAccessFor(context, Recipient.resolved(recipientId)),
                                                          receiptMessage);
+
 
     if (Util.hasItems(messageIds)) {
       DatabaseFactory.getMessageLogDatabase(context).insertIfPossible(recipientId, timestamp, result, ContentHint.IMPLICIT, messageIds);
