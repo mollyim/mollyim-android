@@ -286,11 +286,11 @@ android {
             dimension 'distribution'
             versionNameSuffix '-FOSS'
             buildConfigField "String", "FDROID_UPDATE_URL", "\"https://molly.im/fdroid/foss/repo\""
+            isDefault true
         }
 
         nonFree {
             dimension 'distribution'
-            isDefault true
         }
     }
 
