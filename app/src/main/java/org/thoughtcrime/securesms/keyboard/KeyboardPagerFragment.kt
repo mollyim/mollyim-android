@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModelProviders
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.emoji.MediaKeyboard
 import org.thoughtcrime.securesms.keyboard.emoji.EmojiKeyboardPageFragment
-import org.thoughtcrime.securesms.keyboard.gif.GifKeyboardPageFragment
 import org.thoughtcrime.securesms.keyboard.sticker.StickerKeyboardPageFragment
 import org.thoughtcrime.securesms.util.visible
 import kotlin.reflect.KClass
@@ -17,7 +16,6 @@ class KeyboardPagerFragment : Fragment(R.layout.keyboard_pager_fragment) {
 
   private lateinit var emojiButton: View
   private lateinit var stickerButton: View
-  private lateinit var gifButton: View
   private lateinit var viewModel: KeyboardPagerViewModel
 
   private val fragments: MutableMap<KClass<*>, Fragment> = mutableMapOf()
@@ -26,7 +24,6 @@ class KeyboardPagerFragment : Fragment(R.layout.keyboard_pager_fragment) {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     emojiButton = view.findViewById(R.id.keyboard_pager_fragment_emoji)
     stickerButton = view.findViewById(R.id.keyboard_pager_fragment_sticker)
-    gifButton = view.findViewById(R.id.keyboard_pager_fragment_gif)
 
     viewModel = ViewModelProviders.of(requireActivity())[KeyboardPagerViewModel::class.java]
 
@@ -34,12 +31,10 @@ class KeyboardPagerFragment : Fragment(R.layout.keyboard_pager_fragment) {
     viewModel.pages().observe(viewLifecycleOwner) { pages ->
       emojiButton.visible = pages.contains(KeyboardPage.EMOJI) && pages.size > 1
       stickerButton.visible = pages.contains(KeyboardPage.STICKER) && pages.size > 1
-      gifButton.visible = pages.contains(KeyboardPage.GIF) && pages.size > 1
     }
 
     emojiButton.setOnClickListener { viewModel.switchToPage(KeyboardPage.EMOJI) }
     stickerButton.setOnClickListener { viewModel.switchToPage(KeyboardPage.STICKER) }
-    gifButton.setOnClickListener { viewModel.switchToPage(KeyboardPage.GIF) }
   }
 
   override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -50,11 +45,9 @@ class KeyboardPagerFragment : Fragment(R.layout.keyboard_pager_fragment) {
   private fun onPageSelected(page: KeyboardPage) {
     emojiButton.isSelected = page == KeyboardPage.EMOJI
     stickerButton.isSelected = page == KeyboardPage.STICKER
-    gifButton.isSelected = page == KeyboardPage.GIF
 
     when (page) {
       KeyboardPage.EMOJI -> displayEmojiPage()
-      KeyboardPage.GIF -> displayGifPage()
       KeyboardPage.STICKER -> displayStickerPage()
     }
 
@@ -62,8 +55,6 @@ class KeyboardPagerFragment : Fragment(R.layout.keyboard_pager_fragment) {
   }
 
   private fun displayEmojiPage() = displayPage(::EmojiKeyboardPageFragment)
-
-  private fun displayGifPage() = displayPage(::GifKeyboardPageFragment)
 
   private fun displayStickerPage() = displayPage(::StickerKeyboardPageFragment)
 

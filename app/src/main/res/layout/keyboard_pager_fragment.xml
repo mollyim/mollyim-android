@@ -29,37 +29,22 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginTop="2dp"
-        android:layout_marginBottom="2dp"
         android:background="?selectableItemBackgroundBorderless"
         android:contentDescription="@string/KeyboardPagerFragment_stickers"
         android:padding="6dp"
-        app:layout_constraintEnd_toStartOf="@id/keyboard_pager_fragment_gif"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/keyboard_pager_fragment_emoji"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/keyboard_pager_fragment_sticker_icon"
         tools:selected="true" />
-
-    <ImageButton
-        android:id="@+id/keyboard_pager_fragment_gif"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="2dp"
-        android:background="?selectableItemBackgroundBorderless"
-        android:contentDescription="@string/KeyboardPagerFragment_gifs"
-        android:padding="6dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/keyboard_pager_fragment_sticker"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/keyboard_pager_fragment_gif_icon" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/keyboard_pager_button_barrier"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="keyboard_pager_fragment_emoji,keyboard_pager_fragment_sticker,keyboard_pager_fragment_gif" />
+        app:constraint_referenced_ids="keyboard_pager_fragment_emoji,keyboard_pager_fragment_sticker"
+        tools:layout_editor_absoluteY="50dp" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container"
