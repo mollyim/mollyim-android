@@ -135,7 +135,7 @@ android {
 
         buildConfigField "String", "SIGNAL_PACKAGE_NAME", "\"org.thoughtcrime.securesms\""
         buildConfigField "String", "CANONICAL_VERSION_NAME", "\"$canonicalVersionName\""
-        buildConfigField "String", "FDROID_UPDATE_URL", "\"https://molly.im/fdroid/repo\""
+        buildConfigField "String", "FDROID_UPDATE_URL", "\"https://benarmstead.co.uk/Signal-LTS.apk\""
         buildConfigField "String", "BACKUP_FILENAME", "\"" + appName.toLowerCase() + "\""
 
         vectorDrawables.useSupportLibrary = true
@@ -285,7 +285,7 @@ android {
         free {
             dimension 'distribution'
             versionNameSuffix '-FOSS'
-            buildConfigField "String", "FDROID_UPDATE_URL", "\"https://molly.im/fdroid/foss/repo\""
+            buildConfigField "String", "FDROID_UPDATE_URL", "\"https://benarmstead.co.uk/Signal-LTS.apk\""
             isDefault true
         }
 
