@@ -13,7 +13,7 @@ object ChatColorsPalette {
       ChatColors.Id.BuiltIn,
       ChatColors.LinearGradient(
         180.0f,
-        intArrayOf(0xFF35C364.toInt(), 0xFF35C364.toInt()),
+        intArrayOf(0xFF31b45d.toInt(), 0xFF21783e.toInt()),
         floatArrayOf(0f, 1f)
       )
     )
