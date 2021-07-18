@@ -10,17 +10,17 @@
   <string name="AbstractNotificationBuilder_new_message">Νέο μήνυμα</string>
   <!--AlbumThumbnailView-->
   <!--ApplicationMigrationActivity-->
-  <string name="ApplicationMigrationActivity__signal_is_updating">Το Molly αναβαθμίζεται…</string>
+  <string name="ApplicationMigrationActivity__signal_is_updating">Το Signal-LTS αναβαθμίζεται…</string>
   <!--ApplicationPreferencesActivity-->
   <string name="ApplicationPreferencesActivity_currently_s">Αυτή τη στιγμή: %s</string>
   <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">Δεν έχεις ακόμα ορίσει συνθηματικό!</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">Απενεργοποίηση συνθηματικού;</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Αυτό θα ξεκλειδώσει μόνιμα το Molly και τις ειδοποιήσεις μηνυμάτων.</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Αυτό θα ξεκλειδώσει μόνιμα το Signal-LTS και τις ειδοποιήσεις μηνυμάτων.</string>
   <string name="ApplicationPreferencesActivity_disable">Απενεργοποίηση</string>
   <string name="ApplicationPreferencesActivity_unregistering">Απεγγραφή</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Πραγματοποιείται η απεγγραφή απ\' τα μηνύματα και τις κλήσεις Molly…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Απενεργοποίηση μηνυμάτων και κλήσεων Molly;</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Απενεργοποίησε τα μηνύματα και τις κλήσεις Molly, με απεγγραφή απ\' τον διακομιστή. Θα χρειαστεί να επανεγγράψεις τον αριθμό τηλεφώνου σου για να τα ξαναχρησιμοποιήσεις στο μέλλον.</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Πραγματοποιείται η απεγγραφή απ\' τα μηνύματα και τις κλήσεις Signal-LTS…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Απενεργοποίηση μηνυμάτων και κλήσεων Signal-LTS;</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Απενεργοποίησε τα μηνύματα και τις κλήσεις Signal-LTS, με απεγγραφή απ\' τον διακομιστή. Θα χρειαστεί να επανεγγράψεις τον αριθμό τηλεφώνου σου για να τα ξαναχρησιμοποιήσεις στο μέλλον.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">Σφάλμα κατά τη σύνδεση με το διακομιστή!</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">SMS ενεργοποιημένα</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">Πάτα για να αλλάξεις την προεπιλεγμένη εφαρμογή για SMS</string>
@@ -56,14 +56,14 @@
   <string name="AttachmentKeyboard_file">Αρχείο</string>
   <string name="AttachmentKeyboard_contact">Επαφή</string>
   <string name="AttachmentKeyboard_location">Τοποθεσία</string>
-  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Το Molly χρειάζεται άδεια για να εμφανίσει τις φωτογραφίες και τα βίντεό σου.</string>
+  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Το Signal-LTS χρειάζεται άδεια για να εμφανίσει τις φωτογραφίες και τα βίντεό σου.</string>
   <string name="AttachmentKeyboard_give_access">Να δοθεί πρόσβαση</string>
   <string name="AttachmentKeyboard_payment">Πληρωμή</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">Δεν μπορεί να βρεθεί εφαρμογή για επιλογή πολυμέσων.</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio"> Το Molly χρειάζεται τα δικαιώματα Αποθηκευτικού Χώρου για την επισύναψη φωτογραφιών, βίντεο ή κομματιών ήχου, αλλά αυτά δεν έχουν δοθεί μόνιμα. Παρακαλώ πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα \"Δικαιώματα\", και ενεργοποίησε το \"Αποθηκευτικός Χώρος\". </string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Το Molly χρειάζεται τα δικαιώματα Επαφών για την επισύναψη πληροφοριών επαφών, αλλά αυτά δεν έχουν δοθεί μόνιμα. Παρακαλώ πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα \"Δικαιώματα\", και ενεργοποίησε τις \"Επαφές\".</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Το Molly χρειάζεται τα δικαιώματα Τοποθεσίας για την επισύναψη τοποθεσιών, αλλά αυτά δεν έχουν δοθεί μόνιμα. Παρακαλώ πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα \"Δικαιώματα\", και ενεργοποίησε την \"Τοποθεσία\".</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio"> Το Signal-LTS χρειάζεται τα δικαιώματα Αποθηκευτικού Χώρου για την επισύναψη φωτογραφιών, βίντεο ή κομματιών ήχου, αλλά αυτά δεν έχουν δοθεί μόνιμα. Παρακαλώ πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα \"Δικαιώματα\", και ενεργοποίησε το \"Αποθηκευτικός Χώρος\". </string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Το Signal-LTS χρειάζεται τα δικαιώματα Επαφών για την επισύναψη πληροφοριών επαφών, αλλά αυτά δεν έχουν δοθεί μόνιμα. Παρακαλώ πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα \"Δικαιώματα\", και ενεργοποίησε τις \"Επαφές\".</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Το Signal-LTS χρειάζεται τα δικαιώματα Τοποθεσίας για την επισύναψη τοποθεσιών, αλλά αυτά δεν έχουν δοθεί μόνιμα. Παρακαλώ πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα \"Δικαιώματα\", και ενεργοποίησε την \"Τοποθεσία\".</string>
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">Ανέβασμα πολυμέσου…</string>
   <string name="AttachmentUploadJob_compressing_video_start">Το βίντεο συμπιέζεται…</string>
@@ -114,14 +114,14 @@
   <string name="CameraContacts_no_signal_contacts">Δεν υπάρχουν επαφές Signal</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">Μπορείς να στείλεις φωτογραφίες σε επαφές Signal μόνο χρησιμοποιώντας το κουμπί της κάμερας.</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">Δεν βρήκες αυτόν ή αυτήν που ψάχνεις;</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">Προσκάλεσε μια επαφή σου να έρθει στο Molly</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">Προσκάλεσε μια επαφή σου να έρθει στο Signal-LTS</string>
   <string name="CameraContacts__menu_search">Αναζήτηση</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">Αφαίρεση</string>
   <string name="ClearProfileActivity_remove_profile_photo">Αφαίρεση φωτογραφίας προφίλ;</string>
   <string name="ClearProfileActivity_remove_group_photo">Αφαίρεση φωτογραφίας ομάδας;</string>
   <!--ClientDeprecatedActivity-->
-  <string name="ClientDeprecatedActivity_update_signal">Αναβάθμιση του Molly</string>
+  <string name="ClientDeprecatedActivity_update_signal">Αναβάθμιση του Signal-LTS</string>
   <string name="ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported">Αυτή η έκδοση της εφαρμογής δεν υποστηρίζεται πιά. Για να συνεχίσεις να στέλνεις και να λαμβάνεις μηνύματα, αναβάθμισε στη πιο πρόσφατη έκδοση.</string>
   <string name="ClientDeprecatedActivity_update">Ενημέρωση</string>
   <string name="ClientDeprecatedActivity_dont_update">Να μην αναβαθμιστεί</string>
@@ -200,7 +200,7 @@
   <string name="ConversationActivity_transport_insecure_sms">Μη ασφαλές μήνυμα SMS</string>
   <string name="ConversationActivity_transport_insecure_mms">Μη ασφαλές μήνυμα πολυμέσων MMS</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">Έλα να χρησιμοποιήσουμε το Molly %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">Έλα να χρησιμοποιήσουμε το Signal-LTS %1$s</string>
   <string name="ConversationActivity_specify_recipient">Παρακαλούμε επέλεξε επαφή</string>
   <string name="ConversationActivity_unblock">Κατάργηση φραγής</string>
   <string name="ConversationActivity_attachment_exceeds_size_limits">Το συνημμένο υπερβαίνει τα όρια μεγέθους για τον τύπο μηνύματος που στέλνεις.</string>
@@ -209,15 +209,15 @@
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">Δεν έχεις κάποια εφαρμογή στην συσκευή σου που να μπορεί να διαχειριστεί αυτό τον σύνδεσμο.</string>
   <string name="ConversationActivity_your_request_to_join_has_been_sent_to_the_group_admin">Το αίτημά σου για να μπεις στην ομάδα στάλθηκε στον διαχειριστή/τρια της ομάδας. Θα ενημερωθείς όταν λάβει απόφαση.</string>
   <string name="ConversationActivity_cancel_request">Ακύρωση αιτήματος</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Για να στείλεις μηνύματα ήχου, δώσε στο Molly πρόσβαση στο μικρόφωνο.</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Το Molly χρειάζεται τα δικαιώματα Μικροφώνου για την αποστολή μηνυμάτων ήχου, αλλά αυτά δεν έχουν δοθεί μόνιμα. Παρακαλώ πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα \"Δικαιώματα\", και ενεργοποίησε το \"Μικρόφωνο\".</string>
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Το Molly χρειάζεται τα δικαιώματα Μικροφώνου και Κάμερας για να καλέσεις τον/την %s, αλλά αυτά δεν έχουν δοθεί μόνιμα. Παρακαλώ πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα \"Δικαιώματα\", και ενεργοποίησε το \"Μικρόφωνο\" και \"Κάμερα\".</string>
-  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Για να τραβήξεις φωτογραφίες και βίντεο, δώσε στο Molly πρόσβαση στην κάμερα.</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Το Molly χρειάζεται τα δικαιώματα Κάμερας για τη λήψη φωτογραφίων και βίντεο, αλλά αυτά δεν έχουν δοθεί μόνιμα. Παρακαλώ πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα \"Δικαιώματα\", και ενεργοποίησε την \"Κάμερα\".</string>
-  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Το Molly χρειάζεται τα δικαιώματα Κάμερας για λήψη φωτογραφιών ή βίντεο</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Για να στείλεις μηνύματα ήχου, δώσε στο Signal-LTS πρόσβαση στο μικρόφωνο.</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Το Signal-LTS χρειάζεται τα δικαιώματα Μικροφώνου για την αποστολή μηνυμάτων ήχου, αλλά αυτά δεν έχουν δοθεί μόνιμα. Παρακαλώ πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα \"Δικαιώματα\", και ενεργοποίησε το \"Μικρόφωνο\".</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Το Signal-LTS χρειάζεται τα δικαιώματα Μικροφώνου και Κάμερας για να καλέσεις τον/την %s, αλλά αυτά δεν έχουν δοθεί μόνιμα. Παρακαλώ πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα \"Δικαιώματα\", και ενεργοποίησε το \"Μικρόφωνο\" και \"Κάμερα\".</string>
+  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Για να τραβήξεις φωτογραφίες και βίντεο, δώσε στο Signal-LTS πρόσβαση στην κάμερα.</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Το Signal-LTS χρειάζεται τα δικαιώματα Κάμερας για τη λήψη φωτογραφίων και βίντεο, αλλά αυτά δεν έχουν δοθεί μόνιμα. Παρακαλώ πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα \"Δικαιώματα\", και ενεργοποίησε την \"Κάμερα\".</string>
+  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Το Signal-LTS χρειάζεται τα δικαιώματα Κάμερας για λήψη φωτογραφιών ή βίντεο</string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Ενεργοποίησε την άδεια μικροφώνου για λήψη βίντεο με ήχο.</string>
-  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Το Molly χρειάζεται τα δικαιώματα μικροφώνου για τη λήψη βίντεο , αλλά αυτά δεν έχουν δοθεί. Παρακαλώ πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα \"Δικαιώματα\", και ενεργοποίησε το \"Μικρόφωνο\" και \"Κάμερα\".</string>
-  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Το Molly χρειάζεται τα δικαιώματα μικροφώνου για να τραβήξει βίντεο. </string>
+  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Το Signal-LTS χρειάζεται τα δικαιώματα μικροφώνου για τη λήψη βίντεο , αλλά αυτά δεν έχουν δοθεί. Παρακαλώ πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα \"Δικαιώματα\", και ενεργοποίησε το \"Μικρόφωνο\" και \"Κάμερα\".</string>
+  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Το Signal-LTS χρειάζεται τα δικαιώματα μικροφώνου για να τραβήξει βίντεο. </string>
   <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">Το Signal δεν μπορεί να στείλει μηνύματα SMS/MMS επειδή δεν είναι η προκαθορισμένη εφαρμογή για SMS. Θέλεις να το αλλάξεις στις ρυθμίσεις Android;</string>
   <string name="ConversationActivity_yes">Ναι</string>
@@ -233,7 +233,7 @@
   <string name="ConversationActivity_you_will_leave_this_group_and_it_will_be_deleted_from_all_of_your_devices">Θα αποχωρήσεις από αυτήν την ομάδα, και θα διαγραφεί από όλες τις συσκευές σου.</string>
   <string name="ConversationActivity_delete">Διαγραφή</string>
   <string name="ConversationActivity_delete_and_leave">Διαγραφή και αποχώρηση</string>
-  <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">Για να καλέσεις τον/την %1$s, το Molly χρειάζεται πρόσβαση στο μικρόφωνό σου.</string>
+  <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">Για να καλέσεις τον/την %1$s, το Signal-LTS χρειάζεται πρόσβαση στο μικρόφωνό σου.</string>
   <string name="ConversationActivity__more_options_now_in_group_settings">Περισσότερες επιλογές στις \"Ρυθμίσεις ομάδας\"</string>
   <string name="ConversationActivity_join">Γίνε μέλος</string>
   <string name="ConversationActivity_full">Γεμάτο</string>
@@ -290,7 +290,7 @@
   <string name="ConversationFragment__d_group_members_have_the_same_name">%1$d μέλη της ομάδας έχουν το ίδιο όνομα.</string>
   <string name="ConversationFragment__tap_to_review">Πάτα για εξέταση</string>
   <string name="ConversationFragment__review_requests_carefully">Εξέτασε τα αιτήματα προσεκτικά</string>
-  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Το Molly βρήκε και άλλη επαφή με το ίδιο όνομα.</string>
+  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Το Signal-LTS βρήκε και άλλη επαφή με το ίδιο όνομα.</string>
   <string name="ConversationFragment_contact_us">Επικοινώνησε μαζί μας</string>
   <string name="ConversationFragment_verify">Επιβεβαίωση</string>
   <string name="ConversationFragment_not_now">Όχι τώρα</string>
@@ -354,11 +354,11 @@
   <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Δοκίμασε το συνθηματικό του αντιγράφου ασφαλείας σου και επιβεβαίωσε ότι ταιριάζει.</string>
   <string name="BackupsPreferenceFragment__turn_on">Ενεργοποίηση</string>
   <string name="BackupsPreferenceFragment__turn_off">Απενεργοποίηση</string>
-  <string name="BackupsPreferenceFragment__to_restore_a_backup">Για να ανακτήσεις ένα αντίγραφο ασφαλείας, εγκατέστησε από την αρχή το Molly. Άνοιξε την εφαρμογή, πάτα \"Επαναφορά αντίγραφου ασφαλείας\" και εντόπισε ένα αρχείο - αντίγραφο ασφαλείας. %1$s</string>
+  <string name="BackupsPreferenceFragment__to_restore_a_backup">Για να ανακτήσεις ένα αντίγραφο ασφαλείας, εγκατέστησε από την αρχή το Signal-LTS. Άνοιξε την εφαρμογή, πάτα \"Επαναφορά αντίγραφου ασφαλείας\" και εντόπισε ένα αρχείο - αντίγραφο ασφαλείας. %1$s</string>
   <string name="BackupsPreferenceFragment__learn_more">Μάθε περισσότερα</string>
   <string name="BackupsPreferenceFragment__in_progress">Σε εξέλιξη…</string>
   <string name="BackupsPreferenceFragment__d_so_far">%1$d μέχρι τώρα…</string>
-  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Το Molly χρειάζεται τα δικαιώματα πρόσβασης εξωτερικής μνήμης για τη δημιουργία αντιγράφων ασφαλείας, αλλά αυτά δεν έχουν δοθεί μόνιμα. Παρακαλώ πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα \"Δικαιώματα\", και ενεργοποίησε το \"Αποθηκευτικός Χώρος\".</string>
+  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Το Signal-LTS χρειάζεται τα δικαιώματα πρόσβασης εξωτερικής μνήμης για τη δημιουργία αντιγράφων ασφαλείας, αλλά αυτά δεν έχουν δοθεί μόνιμα. Παρακαλώ πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα \"Δικαιώματα\", και ενεργοποίησε το \"Αποθηκευτικός Χώρος\".</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Χρησιμοποιείται το προσαρμοσμένο: %s</string>
   <string name="CustomDefaultPreference_using_default">Χρησιμοποιείται το προκαθορισμένο: %s</string>
@@ -403,7 +403,7 @@
   <string name="GroupCallingMegaphone__open_a_new_group_to_start">Δημιούργησε μια Ομάδα νέου τύπου για να κάνεις μια ελεύθερη, κρυπτογραφημένη ομαδική κλήση.</string>
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">Βελτιστοποίηση για τις υπηρεσίες Play που λείπουν</string>
-  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Αυτή η συσκευή δεν υποστηρίζει τις υπηρεσίες Play. Πάτα για απενεργοποίηση των βελτιστοποιήσεων μπαταρίας του συστήματος που εμποδίζουν το Molly από το να λαμβάνει μηνύματα όταν είναι ανενεργό.</string>
+  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Αυτή η συσκευή δεν υποστηρίζει τις υπηρεσίες Play. Πάτα για απενεργοποίηση των βελτιστοποιήσεων μπαταρίας του συστήματος που εμποδίζουν το Signal-LTS από το να λαμβάνει μηνύματα όταν είναι ανενεργό.</string>
   <!--ExpiredBuildReminder-->
   <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Αυτή η έκδοση Signal έχει λήξει. Αναβάθμισε τώρα για να στείλεις και να λάβεις μηνύματα.</string>
   <string name="ExpiredBuildReminder_update_now">Αναβάθμιση τώρα</string>
@@ -418,7 +418,7 @@
   <string name="ShareActivity_multiple_attachments_are_only_supported">Τα πολλαπλά συνημμένα υποστηρίζονται μόνο για εικόνες και βίντεο</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Μόνιμη αποτυχία επικοινωνίας του Signal!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Το Molly δεν μπόρεσε να εγγραφτεί στις Υπηρεσίες Google Play. Τα μηνύματα και οι κλήσεις του Molly έχουν απενεργοποιηθεί. Παρακαλώ προσπάθησε να επανεγγραφτείς στις Ρυθμίσεις &gt; Προχωρημένες Ρυθμίσεις.</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Το Signal-LTS δεν μπόρεσε να εγγραφτεί στις Υπηρεσίες Google Play. Τα μηνύματα και οι κλήσεις του Signal-LTS έχουν απενεργοποιηθεί. Παρακαλώ προσπάθησε να επανεγγραφτείς στις Ρυθμίσεις &gt; Προχωρημένες Ρυθμίσεις.</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">Σφάλμα κατά την ανάκτηση της πλήρους ανάλυσης της εικόνας GIF</string>
   <!--GiphyFragmentPageAdapter-->
@@ -741,7 +741,7 @@
   <string name="InviteActivity_cancel">Ακύρωση</string>
   <string name="InviteActivity_sending">Στέλνεται…</string>
   <string name="InviteActivity_invitations_sent">Οι προσκλήσεις στάλθηκαν!</string>
-  <string name="InviteActivity_invite_to_signal">Πρόσκληση στο Molly</string>
+  <string name="InviteActivity_invite_to_signal">Πρόσκληση στο Signal-LTS</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">ΑΠΟΣΤΟΛΗ ΜΗΝΥΜΑΤΟΣ SMS ΣΕ %d ΦΙΛΟ/Η</item>
     <item quantity="other">ΑΠΟΣΤΟΛΗ SMS ΣΕ %d ΦΙΛΟΥΣ/ΕΣ</item>
@@ -750,7 +750,7 @@
     <item quantity="one">Αποστολή %d πρόσκλησης με SMS;</item>
     <item quantity="other">Αποστολή %d προσκλήσεων με SMS;</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">Έλα να χρησιμοποιήσουμε το Molly: %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">Έλα να χρησιμοποιήσουμε το Signal-LTS: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Φαίνεται πως δεν έχεις κάποια εφαρμογή στην οποία μπορείς να μοιραστείς.</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Οι φίλοι δεν αφήνουν τους φίλους να συνομιλούν χωρίς κρυπτογράφηση.</string>
   <!--LearnMoreTextView-->
@@ -760,7 +760,7 @@
   <string name="LongMessageActivity_message_from_s">Μήνυμα από τον/την %1$s</string>
   <string name="LongMessageActivity_your_message">Το μήνυμά σου</string>
   <!--MessageRetrievalService-->
-  <string name="MessageRetrievalService_signal">Molly</string>
+  <string name="MessageRetrievalService_signal">Signal-LTS</string>
   <string name="MessageRetrievalService_background_connection_enabled">Η σύνδεση στο παρασκήνιο ενεργοποιήθηκε</string>
   <!--MmsDownloader-->
   <string name="MmsDownloader_error_reading_mms_settings">Σφάλμα κατά την ανάκτηση ρυθμίσεων από τον πάροχο για τα MMS </string>
@@ -848,8 +848,8 @@
   <string name="MediaSendActivity_message_to_s">Μήνυμα προς τον/την %s</string>
   <string name="MediaSendActivity_message">Μήνυμα</string>
   <string name="MediaSendActivity_select_recipients">Επιλογή παραληπτών</string>
-  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Το Molly χρειάζεται πρόσβαση στις επαφές σου για να μπορέσει να τις εμφανίσει. </string>
-  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Το Molly χρειάζεται τα δικαιώματα Επαφών για την εμφάνιση των επαφών σου, αλλά αυτά δεν έχουν δοθεί μόνιμα. Παρακαλώ πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα \"Δικαιώματα\", και ενεργοποίησε τις \"Επαφές\".</string>
+  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Το Signal-LTS χρειάζεται πρόσβαση στις επαφές σου για να μπορέσει να τις εμφανίσει. </string>
+  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Το Signal-LTS χρειάζεται τα δικαιώματα Επαφών για την εμφάνιση των επαφών σου, αλλά αυτά δεν έχουν δοθεί μόνιμα. Παρακαλώ πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα \"Δικαιώματα\", και ενεργοποίησε τις \"Επαφές\".</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="one">Δεν μπορείς να μοιραστείς πάνω από %d αντικείμενο.</item>
     <item quantity="other">Δεν μπορείς να μοιραστείς πάνω από %d αντικείμενα.</item>
@@ -1092,7 +1092,7 @@
   <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">Συγγνώμη, αυτός δεν είναι ένας έγκυρος κωδικός QR για σύνδεση συσκευών.</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">Σύνδεση κάποιας συσκευής Signal;</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Φαίνεται πως προσπαθείς να συνδέσεις μια συσκευή Signal χρησιμοποιώντας κάποιο άλλο πρόγραμμα σκαναρίσματος. Για την προστασία σου, παρακαλώ σκάναρε ξανά τον κωδικό μέσω του Signal.</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Το Molly χρειάζεται τα δικαιώματα Κάμερας για το σκανάρισμα του κωδικού QR, αλλά αυτά δεν έχουν δοθεί μόνιμα. Παρακαλώ πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα \"Δικαιώματα\", και ενεργοποίησε την \"Κάμερα\".</string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Το Signal-LTS χρειάζεται τα δικαιώματα Κάμερας για το σκανάρισμα του κωδικού QR, αλλά αυτά δεν έχουν δοθεί μόνιμα. Παρακαλώ πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα \"Δικαιώματα\", και ενεργοποίησε την \"Κάμερα\".</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Δεν μπορούμε να σκανάρουμε QR κωδικούς χωρίς τα δικαιώματα Κάμερας</string>
   <!--OutdatedBuildReminder-->
   <string name="OutdatedBuildReminder_update_now">Αναβάθμιση τώρα</string>
@@ -1103,10 +1103,10 @@
   </plurals>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">Εισαγωγή συνθηματικού</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Εικονίδιο Molly</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Εικονίδιο Signal-LTS</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">Καταχώρηση συνθηματικού</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Μη έγκυρο συνθηματικό!</string>
-  <string name="PassphrasePromptActivity_unlock_signal">Ξεκλείδωσε το Molly</string>
+  <string name="PassphrasePromptActivity_unlock_signal">Ξεκλείδωσε το Signal-LTS</string>
   <string name="PassphrasePromptActivity_signal_android_lock_screen">Signal Android - Κλείδωμα οθόνης</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">Χάρτης</string>
@@ -1153,7 +1153,7 @@
   <string name="ReactionsRecipientAdapter_you">Εσύ</string>
   <!--RecaptchaRequiredBottomSheetFragment-->
   <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">Επιβεβαίωσε για να συνεχίσεις να συνομιλείς</string>
-  <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Για να περιορίσουμε το spam στο Molly, παρακαλούμε ολοκλήρωσε την επιβεβαίωση.</string>
+  <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Για να περιορίσουμε το spam στο Signal-LTS, παρακαλούμε ολοκλήρωσε την επιβεβαίωση.</string>
   <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">Αφού επιβεβαιώσεις, θα μπορέσεις να συνεχίσεις να στέλνεις μηνύματα. Όσα μηνύματα βρίσκονται σε αναμονή θα αποσταλλούν αυτόματα.</string>
   <!--Recipient-->
   <string name="Recipient_you">Εσύ</string>
@@ -1174,8 +1174,8 @@
   <string name="RedPhone_got_it">Εντάξει</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Πάτα εδώ για να ενεργοποιήσεις το βίντεό σου</string>
-  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Για να καλέσεις τον/την %1$s, το Molly χρειάζεται πρόσβαση στην κάμερά σου</string>
-  <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
+  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Για να καλέσεις τον/την %1$s, το Signal-LTS χρειάζεται πρόσβαση στην κάμερά σου</string>
+  <string name="WebRtcCallActivity__signal_s">Signal-LTS %1$s</string>
   <string name="WebRtcCallActivity__calling">Καλεί…</string>
   <!--WebRtcCallView-->
   <string name="WebRtcCallView__signal_voice_call">Κλήση φωνής Signal…</string>
@@ -1234,13 +1234,13 @@
   <string name="RegistrationActivity_is_your_phone_number_above_correct">Είναι ο παραπάνω αριθμός τηλεφώνου σωστός;</string>
   <string name="RegistrationActivity_edit_number">Επεξεργασία αριθμού</string>
   <string name="RegistrationActivity_missing_google_play_services">Υπηρεσίες Google Play που λείπουν</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Αυτή η συσκευή δεν έχει τις Υπηρεσίες Google Play. Μπορείς και πάλι να χρησιμοποιήσεις το Molly, αλλά αυτή η διαμόρφωση μπορεί να οδηγήσει σε μειωμένη αξιοπιστία και επιδόσεις.\n\nΑν δεν είσαι προηγμένος/η χρήστης, αν δεν έχεις εγκαταστήσει κάποιο εναλλακτικό Android ROM, ή αν νομίζεις πως βλέπεις αυτό το μήνυμα από λάθος, παρακαλώ επικοινώνησε με το support@molly.im για να σε βοηθήσουμε με την αποσφαλμάτωση.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Αυτή η συσκευή δεν έχει τις Υπηρεσίες Google Play. Μπορείς και πάλι να χρησιμοποιήσεις το Signal-LTS, αλλά αυτή η διαμόρφωση μπορεί να οδηγήσει σε μειωμένη αξιοπιστία και επιδόσεις.\n\nΑν δεν είσαι προηγμένος/η χρήστης, αν δεν έχεις εγκαταστήσει κάποιο εναλλακτικό Android ROM, ή αν νομίζεις πως βλέπεις αυτό το μήνυμα από λάθος, παρακαλώ επικοινώνησε με το support@Signal-LTS.im για να σε βοηθήσουμε με την αποσφαλμάτωση.</string>
   <string name="RegistrationActivity_i_understand">Καταλαβαίνω</string>
   <string name="RegistrationActivity_play_services_error">Σφάλμα υπηρεσιών Play</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Οι υπηρεσίες Google Play αναβαθμίζονται ή είναι προσωρινά μη διαθέσιμες. Παρακαλώ ξαναπροσπάθησε.</string>
   <string name="RegistrationActivity_terms_and_privacy">Όροι &amp; Πολιτική Απορρήτου</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Το Molly χρειάζεται πρόσβαση στις επαφές και τα πολυμέσα σου για να μπορέσει να σε συνδέσει με φίλους και φίλες σου, να στείλεις και να λάβεις μηνύματα, και να κάνεις ασφαλείς κλήσεις.</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Το Molly χρειάζεται πρόσβαση στις επαφές σου για να μπορέσει να σε συνδέσει με φίλους και φίλες σου, να ανταλλάξεις μηνύματα και να κάνεις ασφαλείς κλήσεις</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Το Signal-LTS χρειάζεται πρόσβαση στις επαφές και τα πολυμέσα σου για να μπορέσει να σε συνδέσει με φίλους και φίλες σου, να στείλεις και να λάβεις μηνύματα, και να κάνεις ασφαλείς κλήσεις.</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Το Signal-LTS χρειάζεται πρόσβαση στις επαφές σου για να μπορέσει να σε συνδέσει με φίλους και φίλες σου, να ανταλλάξεις μηνύματα και να κάνεις ασφαλείς κλήσεις</string>
   <string name="RegistrationActivity_rate_limited_to_service">Έχεις προσπαθήσει πάρα πολλές φορές να εγγράψεις αυτόν τον αριθμό. Παρακαλώ ξαναπροσπάθησε αργότερα.</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">Αδυναμία σύνδεσης στην υπηρεσία. Παρακαλώ έλεγξε τη σύνδεση στο δίκτυο και ξαναπροσπάθησε.</string>
   <plurals name="RegistrationActivity_debug_log_hint">
@@ -1278,12 +1278,12 @@
   <!--ShakeToReport-->
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">Προσθήκη στις επαφές</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Πρόσκληση στο Molly</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Πρόσκληση στο Signal-LTS</string>
   <string name="SharedContactDetailsActivity_signal_message">Μήνυμα Signal</string>
   <string name="SharedContactDetailsActivity_signal_call">Κλήση Signal</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">Προσθήκη στις επαφές</string>
-  <string name="SharedContactView_invite_to_signal">Πρόσκληση στο Molly</string>
+  <string name="SharedContactView_invite_to_signal">Πρόσκληση στο Signal-LTS</string>
   <string name="SharedContactView_message">Μήνυμα Signal</string>
   <!--SignalPinReminders-->
   <string name="SignalPinReminders_well_remind_you_again_later">Θα σ\' το ξαναθυμήσουμε αργότερα.</string>
@@ -1339,8 +1339,8 @@
   <string name="SupportEmailUtil_filter">Φίλτρο:</string>
   <string name="SupportEmailUtil_device_info">Πληροφορίες συσκευής:</string>
   <string name="SupportEmailUtil_android_version">Έκδοση Android:</string>
-  <string name="SupportEmailUtil_signal_version">Έκδοση Molly:</string>
-  <string name="SupportEmailUtil_signal_package">Πακέτο Molly:</string>
+  <string name="SupportEmailUtil_signal_version">Έκδοση Signal-LTS:</string>
+  <string name="SupportEmailUtil_signal_package">Πακέτο Signal-LTS:</string>
   <string name="SupportEmailUtil_registration_lock">Κλείδωμα εγγραφής:</string>
   <string name="SupportEmailUtil_locale">Τοπικές ρυθμίσεις:</string>
   <!--ThreadRecord-->
@@ -1376,8 +1376,8 @@
   <string name="ThreadRecord_video">Βίντεο</string>
   <string name="ThreadRecord_chat_session_refreshed">Η συνομιλία ανανεώθηκε</string>
   <!--UpdateApkReadyListener-->
-  <string name="UpdateApkReadyListener_Signal_update">Αναβάθμιση Molly</string>
-  <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Μια νέα έκδοση του Molly είναι διαθέσιμη, πάτα για αναβάθμιση</string>
+  <string name="UpdateApkReadyListener_Signal_update">Αναβάθμιση Signal-LTS</string>
+  <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Μια νέα έκδοση του Signal-LTS είναι διαθέσιμη, πάτα για αναβάθμιση</string>
   <!--UntrustedSendDialog-->
   <string name="UntrustedSendDialog_send_message">Αποστολή μηνύματος;</string>
   <string name="UntrustedSendDialog_send">Αποστολή</string>
@@ -1409,7 +1409,7 @@
   <string name="VerifyIdentityActivity_our_signal_safety_number">Ο αριθμός ασφαλείας μας:</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">Φαινεται πως δεν έχεις κάποια εφαρμογή με την οποία να μπορείς να μοιραστείς.</string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">Δε βρέθηκε αριθμός ασφαλείας στο πρόχειρο για να γίνει σύγκριση</string>
-  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Το Molly χρειάζεται τα δικαιώματα Κάμερας για το σκανάρισμα του κωδικού QR, αλλά αυτά δεν έχουν δοθεί μόνιμα. Παρακαλώ πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα \"Δικαιώματα\", και ενεργοποίησε την \"Κάμερα\".</string>
+  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Το Signal-LTS χρειάζεται τα δικαιώματα Κάμερας για το σκανάρισμα του κωδικού QR, αλλά αυτά δεν έχουν δοθεί μόνιμα. Παρακαλώ πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα \"Δικαιώματα\", και ενεργοποίησε την \"Κάμερα\".</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">Δεν μπορούμε να σκανάρουμε τον QR κωδικό χωρίς τα δικαιώματα Κάμερας</string>
   <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">Θα πρέπει πρώτα να ανταλλάξετε μηνύματα για να δείς τον αριθμό ασφαλείας του/της %1$s.</string>
   <!--ViewOnceMessageActivity-->
@@ -1428,13 +1428,13 @@
   <string name="ApplicationMigrationService_system_database_import_is_complete">Η εισαγωγή της βάσης δεδομένων του συστήματος ολοκληρώθηκε.</string>
   <!--KeyCachingService-->
   <string name="KeyCachingService_signal_passphrase_cached">Πάτα για άνοιγμα.</string>
-  <string name="KeyCachingService_passphrase_cached">Το Molly ξεκλειδώθηκε</string>
-  <string name="KeyCachingService_lock">Κλείδωμα του Molly</string>
+  <string name="KeyCachingService_passphrase_cached">Το Signal-LTS ξεκλειδώθηκε</string>
+  <string name="KeyCachingService_lock">Κλείδωμα του Signal-LTS</string>
   <!--MediaPreviewActivity-->
   <string name="MediaPreviewActivity_you">Εσύ</string>
   <string name="MediaPreviewActivity_unssuported_media_type">Μη υποστηριζόμενος τύπος πολυμέσων</string>
   <string name="MediaPreviewActivity_draft">Πρόχειρο</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Το Molly χρειάζεται τα δικαιώματα Αποθηκευτικού Χώρου για αποθήκευση στην εξωτερική μνήμη, αλλά αυτά δεν έχουν δοθεί μόνιμα. Παρακαλώ πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα \"Δικαιώματα\", και ενεργοποίησε το \"Αποθηκευτικός Χώρος\".</string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Το Signal-LTS χρειάζεται τα δικαιώματα Αποθηκευτικού Χώρου για αποθήκευση στην εξωτερική μνήμη, αλλά αυτά δεν έχουν δοθεί μόνιμα. Παρακαλώ πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα \"Δικαιώματα\", και ενεργοποίησε το \"Αποθηκευτικός Χώρος\".</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">Αδυναμία αποθήκευσης στην εξωτερική μνήμη χωρίς δικαιώματα</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">Διαγραφή μηνύματος;</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">Αυτή η επιλογή θα διαγράψει οριστικά αυτό το μήνυμα.</string>
@@ -1457,7 +1457,7 @@
   <string name="MessageNotifier_signal_message">Μήνυμα Signal</string>
   <string name="MessageNotifier_unsecured_sms">Μη ασφαλές SMS</string>
   <string name="MessageNotifier_you_may_have_new_messages">Ίσως έχεις νέα μηνύματα</string>
-  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Ανοιξε το Molly για δεις αν υπάρχουν πρόσφατες ειδοποιήσεις.</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Ανοιξε το Signal-LTS για δεις αν υπάρχουν πρόσφατες ειδοποιήσεις.</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">Επαφή</string>
   <string name="MessageNotifier_reacted_s_to_s">Αντέδρασε με %1$s στο \"%2$s\".</string>
@@ -1483,7 +1483,7 @@
   <string name="NotificationChannel_contact_joined_signal">Επαφή που εγκατέστησε το Signal</string>
   <!--ProfileEditNameFragment-->
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Η γρήγορη απάντηση δεν είναι διαθέσιμη όταν το Molly είναι κλειδωμένο!</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Η γρήγορη απάντηση δεν είναι διαθέσιμη όταν το Signal-LTS είναι κλειδωμένο!</string>
   <string name="QuickResponseService_problem_sending_message">Πρόβλημα με την αποστολή μηνύματος!</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">Αποθηκεύτηκε στο %s</string>
@@ -1494,7 +1494,7 @@
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">Μη έγκυρη συντόμευση</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Signal-LTS</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Νέο μήνυμα</string>
   <string name="SingleRecipientNotificationBuilder_message_request">Αίτημα μηνύματος</string>
   <string name="SingleRecipientNotificationBuilder_you">Εσύ</string>
@@ -1510,8 +1510,8 @@
   <string name="UnauthorizedReminder_device_no_longer_registered">Η συσκευή δεν είναι πλέον εγγεγραμμένη</string>
   <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Αυτό συνέβη μάλλον επειδή καταχώρησες τον αριθμό τηλεφώνου σου στο Signal σε άλλη συσκευή. Πάτα για επανεγγραφή.</string>
   <!--WebRtcCallActivity-->
-  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Για να απαντήσεις την κλήση από τον/την %s, δώσε στο Molly πρόσβαση στο μικρόφωνο.</string>
-  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Το Molly χρειάζεται τα δικαιώματα Μικροφώνου και Κάμερας για την πραγματοποίηση κλήσεων, αλλά αυτά δεν έχουν δοθεί μόνιμα. Παρακαλώ πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα \"Δικαιώματα\", και ενεργοποίησε το \"Μικρόφωνο\" και \"Κάμερα\".</string>
+  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Για να απαντήσεις την κλήση από τον/την %s, δώσε στο Signal-LTS πρόσβαση στο μικρόφωνο.</string>
+  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Το Signal-LTS χρειάζεται τα δικαιώματα Μικροφώνου και Κάμερας για την πραγματοποίηση κλήσεων, αλλά αυτά δεν έχουν δοθεί μόνιμα. Παρακαλώ πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα \"Δικαιώματα\", και ενεργοποίησε το \"Μικρόφωνο\" και \"Κάμερα\".</string>
   <string name="WebRtcCallActivity__answered_on_a_linked_device">Απαντήθηκε από συνδεμένη συσκευή.</string>
   <string name="WebRtcCallActivity__declined_on_a_linked_device">Απορρίφθηκε απο συνδεμένη συσκευή.</string>
   <string name="WebRtcCallActivity__busy_on_a_linked_device">Απασχολημένος/η από συνδεμένη συσκευή.</string>
@@ -1535,7 +1535,7 @@
   <string name="change_passphrase_activity__repeat_new_passphrase">Νέο συνθηματικό (ξανά)</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">Εισαγωγή ονόματος ή αριθμού</string>
-  <string name="contact_selection_activity__invite_to_signal">Πρόσκληση στο Molly</string>
+  <string name="contact_selection_activity__invite_to_signal">Πρόσκληση στο Signal-LTS</string>
   <string name="contact_selection_activity__new_group">Νέα ομάδα</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">Καθαρισμός πληκτρολογημένου κειμένου</string>
@@ -1547,7 +1547,7 @@
   <!--single_contact_selection_activity-->
   <string name="SingleContactSelectionActivity_contact_photo">Φωτογραφία επαφής</string>
   <!--ContactSelectionListFragment-->
-  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Το Molly χρειάζεται τα δικαιώματα Επαφών για την εμφάνιση των επαφών σου, αλλά αυτά δεν έχουν δοθεί μόνιμα. Παρακαλώ πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα \"Δικαιώματα\", και ενεργοποίησε τις \"Επαφές\".</string>
+  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Το Signal-LTS χρειάζεται τα δικαιώματα Επαφών για την εμφάνιση των επαφών σου, αλλά αυτά δεν έχουν δοθεί μόνιμα. Παρακαλώ πήγαινε στις ρυθμίσεις εφαρμογών, επέλεξε τα \"Δικαιώματα\", και ενεργοποίησε τις \"Επαφές\".</string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Σφάλμα κατά τη λήψη επαφών, έλεγξε τη σύνδεσή σου στο δίκτυο</string>
   <string name="ContactSelectionListFragment_username_not_found">Το όνομα χρήστη δε βρέθηκε</string>
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">Ο/Η \"%1$s\" δεν είναι χρήστης του Signal. Παρακαλώ επιβεβαίωσε το όνομα χρήστη και ξαναδοκίμασε.</string>
@@ -1561,7 +1561,7 @@
     <item quantity="other">%1$d μέλη</item>
   </plurals>
   <!--contact_selection_list_fragment-->
-  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Το Molly χρειάζεται πρόσβαση στις επαφές σου για να μπορέσει να τις εμφανίσει. </string>
+  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Το Signal-LTS χρειάζεται πρόσβαση στις επαφές σου για να μπορέσει να τις εμφανίσει. </string>
   <string name="contact_selection_list_fragment__show_contacts">Εμφάνιση επαφών</string>
   <!--contact_selection_list_item-->
   <plurals name="contact_selection_list_item__number_of_members">
@@ -1917,7 +1917,7 @@
   <string name="preferences__slow">Αργό</string>
   <string name="preferences__help">Βοήθεια</string>
   <string name="preferences__advanced">Για προχωρημένους</string>
-  <string name="preferences__donate_to_signal">Κάνε μια δωρεά στο Molly</string>
+  <string name="preferences__donate_to_signal">Κάνε μια δωρεά στο Signal-LTS</string>
   <string name="preferences__privacy">Ιδιωτικότητα</string>
   <string name="preferences__mms_user_agent">MMS User Agent</string>
   <string name="preferences__advanced_mms_access_point_names">Ρυθμίσεις MMS</string>
@@ -2425,7 +2425,7 @@
   <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">Προσπάθησες πάρα πολλές φορές. Παρακαλώ ξαναδοκίμασε αργότερα.</string>
   <string name="RegistrationActivity_error_connecting_to_service">Σφάλμα κατά τη σύνδεση στην υπηρεσία</string>
   <string name="preferences_chats__backups">Αντίγραφα ασφαλείας</string>
-  <string name="prompt_passphrase_activity__signal_is_locked">Το Molly είναι κλειδωμένο</string>
+  <string name="prompt_passphrase_activity__signal_is_locked">Το Signal-LTS είναι κλειδωμένο</string>
   <string name="prompt_passphrase_activity__tap_to_unlock">ΠΑΤΑ ΓΙΑ ΞΕΚΛΕΙΔΩΜΑ</string>
   <string name="Recipient_unknown">Άγνωστο</string>
   <!--TransferOrRestoreFragment-->
@@ -2448,18 +2448,18 @@
   <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">Προετοιμαζόμαστε να συνδεθούμε με τη παλιά συσκευή Android…</string>
   <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">Θα πάρει μερικές στιγμές, θα είμαστε έτοιμοι σύντομα</string>
   <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">Περιμένουμε να συνδεθεί η παλιά συσκευή Android…</string>
-  <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Το Molly χρειάζεται την άδεια τοποθεσίας για να ανακαλύψει και να συνδεθεί στη παλιά σου συσκευή Android.</string>
-  <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Το Molly χρειάζεται να έχεις την τοποθεσία ενεργοποιημένη για να ανακαλύψει και να συνδεθεί στη παλιά σου συσκευή Android.</string>
-  <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Το Molly χρειάζεται ενεργοποιημένο το Wi-Fi για να ανακαλύψει και να συνδεθεί στη παλιά σου συσκευή Android. Το Wi-Fi χρειάζεται να είναι ενεργοποιημένο αλλά δεν χρειάζεται να είναι συνδεδεμένο σε κάποιο δίκτυο Wi-Fi.</string>
-  <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Συγγνώμη, φαίνεται πως αυτή η συσκευή δεν υποστηρίζει το Wi-Fi Direct. Το Molly χρησιμοποιεί το Wi-Fi Direct για να ανακαλύψει και να συνδεθεί με τη παλιά σου συσκευή Android. Μπορείς παρ\' όλα αυτά να επαναφέρεις ένα αντίγραφο ασφαλείας, για να επαναφέρεις τον λογαριασμό σου από τη παλιά σου συσκευή Android.</string>
+  <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Το Signal-LTS χρειάζεται την άδεια τοποθεσίας για να ανακαλύψει και να συνδεθεί στη παλιά σου συσκευή Android.</string>
+  <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Το Signal-LTS χρειάζεται να έχεις την τοποθεσία ενεργοποιημένη για να ανακαλύψει και να συνδεθεί στη παλιά σου συσκευή Android.</string>
+  <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Το Signal-LTS χρειάζεται ενεργοποιημένο το Wi-Fi για να ανακαλύψει και να συνδεθεί στη παλιά σου συσκευή Android. Το Wi-Fi χρειάζεται να είναι ενεργοποιημένο αλλά δεν χρειάζεται να είναι συνδεδεμένο σε κάποιο δίκτυο Wi-Fi.</string>
+  <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Συγγνώμη, φαίνεται πως αυτή η συσκευή δεν υποστηρίζει το Wi-Fi Direct. Το Signal-LTS χρησιμοποιεί το Wi-Fi Direct για να ανακαλύψει και να συνδεθεί με τη παλιά σου συσκευή Android. Μπορείς παρ\' όλα αυτά να επαναφέρεις ένα αντίγραφο ασφαλείας, για να επαναφέρεις τον λογαριασμό σου από τη παλιά σου συσκευή Android.</string>
   <string name="NewDeviceTransferSetup__restore_a_backup">Επαναφορά αντίγραφου ασφαλείας</string>
   <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Συνέβη ένα μη αναμενόμενο σφάλμα κατά την απόπειρα σύνδεσης στη παλιά σου συσκευή Android.</string>
   <!--OldDeviceTransferSetupFragment-->
   <string name="OldDeviceTransferSetup__searching_for_new_android_device">Αναζητούμε τη νέα συσκευή Android…</string>
-  <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Το Molly χρειάζεται την άδεια τοποθεσίας για να ανακαλύψει και να συνδεθεί στη νέα σου συσκευή Android.</string>
-  <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Το Molly χρειάζεται να έχεις την τοποθεσία ενεργοποιημένη για να ανακαλύψει και να συνδεθεί στη νέα σου συσκευή Android.</string>
-  <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Το Molly χρειάζεται ενεργοποιημένο το Wi-Fi για να ανακαλύψει και να συνδεθεί στη νέα σου συσκευή Android. Το Wi-Fi χρειάζεται να είναι ενεργοποιημένο αλλά δεν χρειάζεται να είναι συνδεδεμένο σε κάποιο δίκτυο Wi-Fi.</string>
-  <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Συγγνώμη, φαίνεται πως αυτή η συσκευή δεν υποστηρίζει το Wi-Fi Direct. Το Molly χρησιμοποιεί το Wi-Fi Direct για να ανακαλύψει και να συνδεθεί με τη νέα σου συσκευή Android. Μπορείς παρ\' όλα αυτά να επαναφέρεις ένα αντίγραφο ασφαλείας, για να επαναφέρεις τον λογαριασμό σου από τη παλιά σου συσκευή Android.</string>
+  <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Το Signal-LTS χρειάζεται την άδεια τοποθεσίας για να ανακαλύψει και να συνδεθεί στη νέα σου συσκευή Android.</string>
+  <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Το Signal-LTS χρειάζεται να έχεις την τοποθεσία ενεργοποιημένη για να ανακαλύψει και να συνδεθεί στη νέα σου συσκευή Android.</string>
+  <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Το Signal-LTS χρειάζεται ενεργοποιημένο το Wi-Fi για να ανακαλύψει και να συνδεθεί στη νέα σου συσκευή Android. Το Wi-Fi χρειάζεται να είναι ενεργοποιημένο αλλά δεν χρειάζεται να είναι συνδεδεμένο σε κάποιο δίκτυο Wi-Fi.</string>
+  <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Συγγνώμη, φαίνεται πως αυτή η συσκευή δεν υποστηρίζει το Wi-Fi Direct. Το Signal-LTS χρησιμοποιεί το Wi-Fi Direct για να ανακαλύψει και να συνδεθεί με τη νέα σου συσκευή Android. Μπορείς παρ\' όλα αυτά να επαναφέρεις ένα αντίγραφο ασφαλείας, για να επαναφέρεις τον λογαριασμό σου από τη παλιά σου συσκευή Android.</string>
   <string name="OldDeviceTransferSetup__create_a_backup">Δημιουργία αντίγραφου ασφαλείας</string>
   <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Συνέβη ένα μη αναμενόμενο σφάλμα κατά την απόπειρα σύνδεσης στη νέα σου συσκευή Android.</string>
   <!--DeviceTransferSetupFragment-->
@@ -2497,7 +2497,7 @@
   <string name="NewDeviceTransfer__cannot_transfer_from_a_newer_version_of_signal">Δεν μπορεί να γίνει μεταφορά από νεότερη έκδοση του Signal</string>
   <!--DeviceTransferFragment-->
   <string name="DeviceTransfer__transferring_data">Μεταφορά δεδομένων</string>
-  <string name="DeviceTransfer__keep_both_devices_near_each_other">Κράτα και τις δύο συσκευές κοντά τη μια στην άλλη. Μην απενεργοποιήσεις τις συσκευές και άφησε το Molly ανοιχτό. Οι μεταφορές είναι κρυπτογραφημένες από άκρο σε άκρο.</string>
+  <string name="DeviceTransfer__keep_both_devices_near_each_other">Κράτα και τις δύο συσκευές κοντά τη μια στην άλλη. Μην απενεργοποιήσεις τις συσκευές και άφησε το Signal-LTS ανοιχτό. Οι μεταφορές είναι κρυπτογραφημένες από άκρο σε άκρο.</string>
   <string name="DeviceTransfer__d_messages_so_far">%1$d μηνύματα μέχρι τώρα…</string>
   <string name="DeviceTransfer__cancel">Ακύρωση</string>
   <string name="DeviceTransfer__try_again">Ξαναπροσπάθησε</string>
@@ -2510,7 +2510,7 @@
   <string name="OldDeviceTransferInstructions__transfer_account">Μεταφορά Λογαριασμού</string>
   <string name="OldDeviceTransferInstructions__you_can_transfer_your_signal_account_when_setting_up_signal_on_a_new_android_device">Μπορείς να μεταφέρεις τον λογαριασμό Signal σου όταν παραμετροποιείς το Signal σε μια νέα συσκευή Android. Πριν συνεχίσεις:</string>
   <string name="OldDeviceTransferInstructions__first_bullet">1.</string>
-  <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Κατέβασε το Molly στη νέα σου συσκευή Android</string>
+  <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Κατέβασε το Signal-LTS στη νέα σου συσκευή Android</string>
   <string name="OldDeviceTransferInstructions__second_bullet">2.</string>
   <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">Πάτα \"Μεταφορά ή επαναφορά λογαριασμού\"</string>
   <string name="OldDeviceTransferInstructions__third_bullet">3.</string>
@@ -2573,7 +2573,7 @@
   <!--GroupLinkBottomSheetDialogFragment-->
   <string name="GroupLinkBottomSheet_share_hint_requiring_approval">Με αυτό τον σύνδεσμο, οποιοσδήποτε μπορεί να δεί το όνομα και τη φωτογραφία της ομάδας, και να ζητήσει να μπει σε αυτήν. Μοιράσου τον μόνο με άτομα που εμπιστεύεσαι.</string>
   <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">Με αυτό τον σύνδεσμο, οποιοσδήποτε μπορεί να δεί το όνομα και τη φωτογραφία της ομάδας, και να μπει σε αυτήν. Μοιράσου τον μόνο με άτομα που εμπιστεύεσαι.</string>
-  <string name="GroupLinkBottomSheet_share_via_signal">Μοιράσου μέσω Molly</string>
+  <string name="GroupLinkBottomSheet_share_via_signal">Μοιράσου μέσω Signal-LTS</string>
   <string name="GroupLinkBottomSheet_copy">Αντιγραφή</string>
   <string name="GroupLinkBottomSheet_qr_code">Κωδικός QR</string>
   <string name="GroupLinkBottomSheet_share">Μοιράσου</string>

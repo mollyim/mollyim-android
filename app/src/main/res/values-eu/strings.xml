@@ -10,17 +10,17 @@
   <string name="AbstractNotificationBuilder_new_message">Mezu berria</string>
   <!--AlbumThumbnailView-->
   <!--ApplicationMigrationActivity-->
-  <string name="ApplicationMigrationActivity__signal_is_updating">Molly eguneratzen ari da…</string>
+  <string name="ApplicationMigrationActivity__signal_is_updating">Signal-LTS eguneratzen ari da…</string>
   <!--ApplicationPreferencesActivity-->
   <string name="ApplicationPreferencesActivity_currently_s">Une honetan: %s</string>
   <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">Oraindik ez duzu pasaesaldia ezarri!</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">Desaktibatu nahi duzu pasaesaldia?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Molly eta mezu jakinarazpenak iraunkorki desbloketuako dira.</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Signal-LTS eta mezu jakinarazpenak iraunkorki desbloketuako dira.</string>
   <string name="ApplicationPreferencesActivity_disable">Desaktibatu</string>
   <string name="ApplicationPreferencesActivity_unregistering">Deserregistratzen</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Deserregistratzen Molly mezu eta deietatik…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Desaktibatu Molly-en mezuak eta deiak?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Desaktibatu Molly-en mezu eta deiak zerbitzaritik deserregistratuz. Zure telefono zenbakia bererregistratu beharko duzu mezu eta deiak berriro erabili ahal izateko.</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Deserregistratzen Signal-LTS mezu eta deietatik…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Desaktibatu Signal-LTS-en mezuak eta deiak?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Desaktibatu Signal-LTS-en mezu eta deiak zerbitzaritik deserregistratuz. Zure telefono zenbakia bererregistratu beharko duzu mezu eta deiak berriro erabili ahal izateko.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">Errorea zerbitzariarekin konektatzerakoan!</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">SMS Aktibatuta</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">Ukitu zure SMS aplikazio lehenetsia aldatzeko</string>
@@ -59,9 +59,9 @@
   <string name="AttachmentKeyboard_give_access">Eman Baimena</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">Ez da multimedia fitxategia aukeratzeko aplikaziorik aurkitu.</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly aplikazioak Gordailurako baimena behar du argazkiak, bideoak edo audioak bidaltzeko, baina ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Gordailua\".</string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly aplikazioak Kontaktuetarako baimena behar du kontaktuak atzitu ahal izateko, baina ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Kontaktuak\".</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly aplikazioak Kokapenerako baimena behar du kokalekuak bidali ahal izateko baina ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Kokalekua\".</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signal-LTS aplikazioak Gordailurako baimena behar du argazkiak, bideoak edo audioak bidaltzeko, baina ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Gordailua\".</string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Signal-LTS aplikazioak Kontaktuetarako baimena behar du kontaktuak atzitu ahal izateko, baina ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Kontaktuak\".</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Signal-LTS aplikazioak Kokapenerako baimena behar du kokalekuak bidali ahal izateko baina ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Kokalekua\".</string>
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">Multimedia igotzen…</string>
   <string name="AttachmentUploadJob_compressing_video_start">Bideoa konprimatzen…</string>
@@ -111,14 +111,14 @@
   <string name="CameraContacts_no_signal_contacts">Signal kontakturik ez</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">Signal kontaktuei argazkiak bidaltzeko kamerako botoia erabil dezakezu soilik.</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">Ez al duzu aurkitzen bilatzen ari zarena?</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">Gonbidatu kontaktu bat Molly aplikazaiora batzeko</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">Gonbidatu kontaktu bat Signal-LTS aplikazaiora batzeko</string>
   <string name="CameraContacts__menu_search">Bilatu</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">Ezabatu</string>
   <string name="ClearProfileActivity_remove_profile_photo">Profileko argazkia ezabatu?</string>
   <string name="ClearProfileActivity_remove_group_photo">Taldeko argazkia ezabatu?</string>
   <!--ClientDeprecatedActivity-->
-  <string name="ClientDeprecatedActivity_update_signal">Eguneratu Molly</string>
+  <string name="ClientDeprecatedActivity_update_signal">Eguneratu Signal-LTS</string>
   <string name="ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported">Aplikazioaren bertsio honek jadanik ez dauka bermerik. Mezuak jasotzen eta bidaltzen jarraitzeko, eguneratu azken bertsiora.</string>
   <string name="ClientDeprecatedActivity_update">Eguneratu</string>
   <string name="ClientDeprecatedActivity_dont_update">Ez Eguneratu</string>
@@ -205,15 +205,15 @@
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">Ez dago erabil daitekeen aplikaziorik lotura hau kudeatzeko zure gailuan.</string>
   <string name="ConversationActivity_your_request_to_join_has_been_sent_to_the_group_admin">Taldean sartzeko zure eskaera taldeko administratzaileari bidali zaio. Jakinaraziko zaizu erabaki bat hartzen duenean.</string>
   <string name="ConversationActivity_cancel_request">Bertan behera utzi eskaera</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Audio mezuak bidaltzeko, zure mikrofonoa erabiltzeko baimena eman Molly-i.</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Audio mezuak bidaltzeko, zure mikrofonoa erabiltzeko baimena eman Signal-LTS-i.</string>
   <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Mollyek Mikrofonorako baimena behar du audio mezuak bidaltzeko, baina ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Mikrofonoa\"</string>
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly aplikazioak Mikronofoa eta Kamera baimenak behar ditu %skontaktuari deitzeko, baina ukatu egin dizkiozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Mikrofonoa\" eta \"Kamera\"</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Signal-LTS aplikazioak Mikronofoa eta Kamera baimenak behar ditu %skontaktuari deitzeko, baina ukatu egin dizkiozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Mikrofonoa\" eta \"Kamera\"</string>
   <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Argazkiak eta bideoak grabatzeko, eman baimena Mollyi kamera erabiltzeko.</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Molly aplikazioak Kamera baimena behar du argazkiak eta bideoak egiteko, baina ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Kamera\".</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signal-LTS aplikazioak Kamera baimena behar du argazkiak eta bideoak egiteko, baina ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta aktibatu \"Kamera\".</string>
   <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Mollyek Kamera baimena behar du argazkiak eta bideoak egiteko</string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Gaitu mikrofonorako baimena soinua duten bideoak grabatu ahal izateko.</string>
-  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Molly aplikazioak bideoak grabatu ahal izateko mikrofonorako baimenak behar ditu, baina ukatu egin dira. Mesedez, joan zaitez aplikazioaren ezarpenetara, aukeratu  \"Baimenak\" eta gaitu \"Mikrofonoa\" eta \"Kamera\".</string>
-  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Molly aplikazioak mikrofonorako baimena behar du bideoak grabatu ahal izateko.</string>
+  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signal-LTS aplikazioak bideoak grabatu ahal izateko mikrofonorako baimenak behar ditu, baina ukatu egin dira. Mesedez, joan zaitez aplikazioaren ezarpenetara, aukeratu  \"Baimenak\" eta gaitu \"Mikrofonoa\" eta \"Kamera\".</string>
+  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signal-LTS aplikazioak mikrofonorako baimena behar du bideoak grabatu ahal izateko.</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s%2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">Signal aplikazioak ezin ditu SMS/MMSak bidali zure defektuzko SMS aplikazioa ez delako. Androiden ezarpenetara joan eta hau aldatu nahi duzu?</string>
   <string name="ConversationActivity_yes">Bai</string>
@@ -282,7 +282,7 @@
   <string name="ConversationFragment__d_group_members_have_the_same_name">%1$d taldeko kide izen bera dute.</string>
   <string name="ConversationFragment__tap_to_review">Ukitu berrikusteko</string>
   <string name="ConversationFragment__review_requests_carefully">Berrikusi eskaerak kontu handiz</string>
-  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Molly-ek izen bera duen beste kontaktu bat topatu du.</string>
+  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Signal-LTS-ek izen bera duen beste kontaktu bat topatu du.</string>
   <string name="ConversationFragment_contact_us">Harremanetan jarri gurekin</string>
   <string name="ConversationFragment_verify">Baieztatu</string>
   <string name="ConversationFragment_not_now">Orain ez</string>
@@ -351,7 +351,7 @@
   <string name="BackupsPreferenceFragment__learn_more">Gehiago jakin</string>
   <string name="BackupsPreferenceFragment__in_progress">Martxan…</string>
   <string name="BackupsPreferenceFragment__d_so_far">%1$d dagoeneko…</string>
-  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly-ek kanpoko memorian gordetzeko baimena behar du babeskopiak egin ahal izateko baina baimena ukatuta izan du beti. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta gaitu \"Biltegiratzea\".</string>
+  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal-LTS-ek kanpoko memorian gordetzeko baimena behar du babeskopiak egin ahal izateko baina baimena ukatuta izan du beti. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta gaitu \"Biltegiratzea\".</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Pertsonalizatua: %s</string>
   <string name="CustomDefaultPreference_using_default">Lehenetsia: %s</string>
@@ -396,7 +396,7 @@
   <string name="GroupCallingMegaphone__open_a_new_group_to_start">Ireki Talde Berria zifratutako talde-dei bat egiteko</string>
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">Optimizatu Google Play-ren zerbitzuetarko</string>
-  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Gailu honek ez dauka Play Services erabiltzerik. Molly irekita ez dagoenean, sistemaren bateria optimizazioek galarazten diote mezuak jasotzea. Ukitu sistemaren bateria optimizazioak desaktibatzeko.</string>
+  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Gailu honek ez dauka Play Services erabiltzerik. Signal-LTS irekita ez dagoenean, sistemaren bateria optimizazioek galarazten diote mezuak jasotzea. Ukitu sistemaren bateria optimizazioak desaktibatzeko.</string>
   <!--ExpiredBuildReminder-->
   <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Signalen bertsio hau iraungi da. Eguneratu orain mezuak bidali eta jaso ahal izateko.</string>
   <string name="ExpiredBuildReminder_update_now">Eguneratu orain</string>
@@ -411,7 +411,7 @@
   <string name="ShareActivity_multiple_attachments_are_only_supported">Eranskin anitzak bakarrik irudi eta bideoetan onartzen dira</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Signal behin betiko komunikazio hutsegitea!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly ez da gai izan Google Play Zerbitzuekin erregistratzeko. Molly mezu eta deiak desgaitu egin dira; mesedez, saiatu bererregistratzen Ezarpenak &gt; Aurreratua menuan.</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal-LTS ez da gai izan Google Play Zerbitzuekin erregistratzeko. Signal-LTS mezu eta deiak desgaitu egin dira; mesedez, saiatu bererregistratzen Ezarpenak &gt; Aurreratua menuan.</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">Errorea bereizmen osoko GIFa eskuratzerakoan</string>
   <!--GiphyFragmentPageAdapter-->
@@ -731,7 +731,7 @@
   <string name="InviteActivity_cancel">Utzi</string>
   <string name="InviteActivity_sending">Bidaltzen…</string>
   <string name="InviteActivity_invitations_sent">Gonbidapenak bidali dira!</string>
-  <string name="InviteActivity_invite_to_signal">Gonbidatu Molly erabiltzera</string>
+  <string name="InviteActivity_invite_to_signal">Gonbidatu Signal-LTS erabiltzera</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">BIDALI SMS MEZUA LAGUN %dI</item>
     <item quantity="other">BIDALI SMS MEZUA %d LAGUNI</item>
@@ -750,7 +750,7 @@
   <string name="LongMessageActivity_message_from_s">Honen mezua: %1$s</string>
   <string name="LongMessageActivity_your_message">Zure mezua</string>
   <!--MessageRetrievalService-->
-  <string name="MessageRetrievalService_signal">Molly</string>
+  <string name="MessageRetrievalService_signal">Signal-LTS</string>
   <string name="MessageRetrievalService_background_connection_enabled">Atzeko planoko konexioa gaituta</string>
   <!--MmsDownloader-->
   <string name="MmsDownloader_error_reading_mms_settings">Errorea hari gabeko hornitzailearen MMS ezarpenak irakurtzerakoan</string>
@@ -836,7 +836,7 @@
   <string name="MediaSendActivity_message">Mezua</string>
   <string name="MediaSendActivity_select_recipients">Aukeratu hartzaileak</string>
   <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Singalek zure kontaktuak lortzeko baimena behar du erakutsi ahal izateko.</string>
-  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Molly-ek Kontaktuen baimena behar du zure kontaktuak erakusteko baina ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\", eta gaitu \"Kontaktuak\".</string>
+  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Signal-LTS-ek Kontaktuen baimena behar du zure kontaktuak erakusteko baina ukatu egin diozu. Joan aplikazioaren ezarpenetara, aukeratu \"Baimenak\", eta gaitu \"Kontaktuak\".</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="one">Ezin duzu elementu %d baino gehiago partekatu</item>
     <item quantity="other">Ezin duzu %d elementu baino gehiago partekatu.</item>
@@ -1087,10 +1087,10 @@
   </plurals>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">Pasaesaldia idatzi</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Molly ikonoa</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Signal-LTS ikonoa</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">Bidali pasaesaldia</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Pasaesaldi baliogabea!</string>
-  <string name="PassphrasePromptActivity_unlock_signal">Desblokeatu Molly</string>
+  <string name="PassphrasePromptActivity_unlock_signal">Desblokeatu Signal-LTS</string>
   <string name="PassphrasePromptActivity_signal_android_lock_screen">Signal Android - Blokeatu pantaila</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">Mapa</string>
@@ -1156,7 +1156,7 @@
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Ukitu hemen bideoa aktibatzeko</string>
   <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">%1$s erabiltzaileari deitzeko, Mollyek zure kamera erabiltzeko baimena behar du</string>
-  <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
+  <string name="WebRtcCallActivity__signal_s">Signal-LTS %1$s</string>
   <string name="WebRtcCallActivity__calling">Deitzen…</string>
   <!--WebRtcCallView-->
   <string name="WebRtcCallView__signal_voice_call">Signal ahots deia…</string>
@@ -1215,7 +1215,7 @@ zenbakia (%s) baliogabea da.
   <string name="RegistrationActivity_is_your_phone_number_above_correct">Zure telefono zenbaki hori zuzena da?</string>
   <string name="RegistrationActivity_edit_number">Zenbakia editatu</string>
   <string name="RegistrationActivity_missing_google_play_services">Ez dira topatzen Google Play-ren zerbitzuak </string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Ez dago Google Play Services-ik gailu honetan. Molly erabili dezakezu, baina konfigurazio honek fidagarritasuna edo errendimendua gutxiagotu dezake.\n\nErabiltzaile aurreratua ez bazara, jatorrizkoa ez den Android ROM bat erabiltzen ari ez bazara edo hau errore bat dela uste baduzu, mesedez jarri zaitez harremanetan support@molly.im helbidean.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Ez dago Google Play Services-ik gailu honetan. Signal-LTS erabili dezakezu, baina konfigurazio honek fidagarritasuna edo errendimendua gutxiagotu dezake.\n\nErabiltzaile aurreratua ez bazara, jatorrizkoa ez den Android ROM bat erabiltzen ari ez bazara edo hau errore bat dela uste baduzu, mesedez jarri zaitez harremanetan support@Signal-LTS.im helbidean.</string>
   <string name="RegistrationActivity_i_understand">Ulertzen dut</string>
   <string name="RegistrationActivity_play_services_error">Play Services-en Errorea</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Services eguneratzen ari da edo tenporalki ez dago erabilgarri. Mesedez, berriro saia zaitez.</string>
@@ -1259,12 +1259,12 @@ zenbakia (%s) baliogabea da.
   <!--ShakeToReport-->
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">Gehitu kontaktu-zerrendan</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Gonbidatu Molly erabiltzera</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Gonbidatu Signal-LTS erabiltzera</string>
   <string name="SharedContactDetailsActivity_signal_message">Signal mezua</string>
   <string name="SharedContactDetailsActivity_signal_call">Signal deia</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">Gehitu kontaktu-zerrendan</string>
-  <string name="SharedContactView_invite_to_signal">Gonbidatu Molly erabiltzera</string>
+  <string name="SharedContactView_invite_to_signal">Gonbidatu Signal-LTS erabiltzera</string>
   <string name="SharedContactView_message">Signal mezua</string>
   <!--SignalPinReminders-->
   <string name="SignalPinReminders_well_remind_you_again_later">Beranduago gogoraraziko dizugu.</string>
@@ -1321,8 +1321,8 @@ Gakoaren elkar-trukeraro mezua jaso da protokoloaren bertsio baliogabe baterako.
   <string name="SupportEmailUtil_filter">Filtroa:</string>
   <string name="SupportEmailUtil_device_info">Gailuari buruzko informazioa:</string>
   <string name="SupportEmailUtil_android_version">Android bertsioa:</string>
-  <string name="SupportEmailUtil_signal_version">Molly bertsioa:</string>
-  <string name="SupportEmailUtil_signal_package">Molly paketea:</string>
+  <string name="SupportEmailUtil_signal_version">Signal-LTS bertsioa:</string>
+  <string name="SupportEmailUtil_signal_package">Signal-LTS paketea:</string>
   <string name="SupportEmailUtil_registration_lock">Erregistratzeko blokeoa:</string>
   <string name="SupportEmailUtil_locale">Hizkuntza:</string>
   <!--ThreadRecord-->
@@ -1357,7 +1357,7 @@ Gakoaren elkar-trukeraro mezua jaso da protokoloaren bertsio baliogabe baterako.
   <string name="ThreadRecord_video">Bideoa</string>
   <string name="ThreadRecord_chat_session_refreshed">Txataren sesioa eguneratu egin da</string>
   <!--UpdateApkReadyListener-->
-  <string name="UpdateApkReadyListener_Signal_update">Molly eguneratu</string>
+  <string name="UpdateApkReadyListener_Signal_update">Signal-LTS eguneratu</string>
   <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Mollyaren bertsio berria dago, sakatu eguneratzeko</string>
   <!--UntrustedSendDialog-->
   <string name="UntrustedSendDialog_send_message">Mezua bidali?</string>
@@ -1409,8 +1409,8 @@ Gakoaren elkar-trukeraro mezua jaso da protokoloaren bertsio baliogabe baterako.
   <string name="ApplicationMigrationService_system_database_import_is_complete">Sistemaren datu-basea inportatu da</string>
   <!--KeyCachingService-->
   <string name="KeyCachingService_signal_passphrase_cached">Ukitu irekitzeko.</string>
-  <string name="KeyCachingService_passphrase_cached">Molly desblokeatuta dago</string>
-  <string name="KeyCachingService_lock">Blokeatu Molly</string>
+  <string name="KeyCachingService_passphrase_cached">Signal-LTS desblokeatuta dago</string>
+  <string name="KeyCachingService_lock">Blokeatu Signal-LTS</string>
   <!--MediaPreviewActivity-->
   <string name="MediaPreviewActivity_you">Zu</string>
   <string name="MediaPreviewActivity_unssuported_media_type">Multimedia fitxategi mota ez-onartua</string>
@@ -1438,7 +1438,7 @@ Gakoaren elkar-trukeraro mezua jaso da protokoloaren bertsio baliogabe baterako.
   <string name="MessageNotifier_signal_message">Signal mezua</string>
   <string name="MessageNotifier_unsecured_sms">SMS ez segurua</string>
   <string name="MessageNotifier_you_may_have_new_messages">Agian mezu berriak dituzu</string>
-  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Ireki Molly azken jakinarazpenak egiaztatzeko.</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Ireki Signal-LTS azken jakinarazpenak egiaztatzeko.</string>
   <string name="MessageNotifier_contact_message">%1$s%2$s</string>
   <string name="MessageNotifier_unknown_contact_message">Kontaktua</string>
   <string name="MessageNotifier_reacted_s_to_s">%1$s izan da \"%2$s\"rekiko erreakzioa.</string>
@@ -1464,7 +1464,7 @@ Gakoaren elkar-trukeraro mezua jaso da protokoloaren bertsio baliogabe baterako.
   <string name="NotificationChannel_contact_joined_signal">Kontaktua orain Signalen dago</string>
   <!--ProfileEditNameFragment-->
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Erantzun bizkorra eskuraezina Molly blokeatuta badago!</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Erantzun bizkorra eskuraezina Signal-LTS blokeatuta badago!</string>
   <string name="QuickResponseService_problem_sending_message">Arazoa mezua bidaltzen!</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">%s helbidean gordeta</string>
@@ -1475,7 +1475,7 @@ Gakoaren elkar-trukeraro mezua jaso da protokoloaren bertsio baliogabe baterako.
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">Lasterbide baliogabea</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Signal-LTS</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Mezu berria</string>
   <string name="SingleRecipientNotificationBuilder_you">Zu</string>
   <!--ThumbnailView-->
@@ -1515,7 +1515,7 @@ Gakoaren elkar-trukeraro mezua jaso da protokoloaren bertsio baliogabe baterako.
   <string name="change_passphrase_activity__repeat_new_passphrase">Errepikatu pasaesaldi berria</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">Idatzi izena edo zenbakia</string>
-  <string name="contact_selection_activity__invite_to_signal">Gonbidatu Molly erabiltzera</string>
+  <string name="contact_selection_activity__invite_to_signal">Gonbidatu Signal-LTS erabiltzera</string>
   <string name="contact_selection_activity__new_group">Talde berria</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">Garbitu idatzitako testua</string>
@@ -1871,7 +1871,7 @@ Gakoaren elkar-trukeraro mezua jaso da protokoloaren bertsio baliogabe baterako.
   <string name="preferences__slow">Motela</string>
   <string name="preferences__help">Laguntza</string>
   <string name="preferences__advanced">Aurreratua</string>
-  <string name="preferences__donate_to_signal">Molly-i dohaintza eman</string>
+  <string name="preferences__donate_to_signal">Signal-LTS-i dohaintza eman</string>
   <string name="preferences__privacy">Pribatutasuna</string>
   <string name="preferences__mms_user_agent">MMS erabiltzaile-agentea</string>
   <string name="preferences__advanced_mms_access_point_names">MMS eskuzko ezarpenak</string>
@@ -2336,7 +2336,7 @@ Gakoaren elkar-trukeraro mezua jaso da protokoloaren bertsio baliogabe baterako.
   <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">Saiakera asko egin dituzu. Mesedez, saia zaitez berriro beranduago.</string>
   <string name="RegistrationActivity_error_connecting_to_service">Errorea zerbitzura konektatzean</string>
   <string name="preferences_chats__backups">Babes-kopiak</string>
-  <string name="prompt_passphrase_activity__signal_is_locked">Molly blokeatuta dago</string>
+  <string name="prompt_passphrase_activity__signal_is_locked">Signal-LTS blokeatuta dago</string>
   <string name="prompt_passphrase_activity__tap_to_unlock">SAKATU DESBLOKEATZEKO</string>
   <string name="Recipient_unknown">Ezezaguna</string>
   <!--TransferOrRestoreFragment-->
@@ -2393,7 +2393,7 @@ Gakoaren elkar-trukeraro mezua jaso da protokoloaren bertsio baliogabe baterako.
   <string name="GroupsLearnMore_paragraph_2">Jarauntsitako Taldeak oraindik ezin dira Talde Berrietara eguneratu, baina Signalen azkenengo bertsioa baduzu, kide berak dituen Talde Berri bat sortu dezakezu.</string>
   <string name="GroupsLearnMore_paragraph_3">Signalek Jarauntsitako Taldeak eguneratzeko modu bat eskainiko du aurrerantzean.</string>
   <!--GroupLinkBottomSheetDialogFragment-->
-  <string name="GroupLinkBottomSheet_share_via_signal">Partekatu Molly bidez</string>
+  <string name="GroupLinkBottomSheet_share_via_signal">Partekatu Signal-LTS bidez</string>
   <string name="GroupLinkBottomSheet_copy">Kopiatu</string>
   <string name="GroupLinkBottomSheet_qr_code">QR Kodea</string>
   <string name="GroupLinkBottomSheet_share">Elkarbanatu</string>

@@ -10,17 +10,17 @@
   <string name="AbstractNotificationBuilder_new_message">Nová správa</string>
   <!--AlbumThumbnailView-->
   <!--ApplicationMigrationActivity-->
-  <string name="ApplicationMigrationActivity__signal_is_updating">Molly sa aktualizuje…</string>
+  <string name="ApplicationMigrationActivity__signal_is_updating">Signal-LTS sa aktualizuje…</string>
   <!--ApplicationPreferencesActivity-->
   <string name="ApplicationPreferencesActivity_currently_s">Aktuálne: %s</string>
   <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">Ešte ste si nenastavili heslo!</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">Vypnúť heslo?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Toto natrvalo odomkne Molly a upozornenia na správy.</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Toto natrvalo odomkne Signal-LTS a upozornenia na správy.</string>
   <string name="ApplicationPreferencesActivity_disable">Vypnúť</string>
   <string name="ApplicationPreferencesActivity_unregistering">Rušenie registrácie</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Rušenie registrácie Molly správ a hovorov…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Vypnúť Molly správy a hovory?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Zakážte Molly správy a hovory zrušením registrácie zo serveru. Pre ich opätovné použitie budete musieť svoje telefónne číslo znovu zaregistrovať.</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Rušenie registrácie Signal-LTS správ a hovorov…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Vypnúť Signal-LTS správy a hovory?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Zakážte Signal-LTS správy a hovory zrušením registrácie zo serveru. Pre ich opätovné použitie budete musieť svoje telefónne číslo znovu zaregistrovať.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">Chyba pripojenia na server!</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">SMS povolené</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">Dotykom nastavte predvolenú aplikáciu pre SMS.</string>
@@ -60,14 +60,14 @@
   <string name="AttachmentKeyboard_file">Súbor</string>
   <string name="AttachmentKeyboard_contact">Kontakt</string>
   <string name="AttachmentKeyboard_location">Poloha</string>
-  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Na zobrazenie vašich fotiek a videí k nim Molly potrebuje prístup.</string>
+  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Na zobrazenie vašich fotiek a videí k nim Signal-LTS potrebuje prístup.</string>
   <string name="AttachmentKeyboard_give_access">Udeliť prístup</string>
   <string name="AttachmentKeyboard_payment">Platba</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">Nenašla sa aplikácia pre výber médií.</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly potrebuje prístup k úložisku aby k správam mohol pridať obrázkové, video a zvukové prílohy, ale prístup bol natrvalo zakázaný. Prosím v nastaveniach aplikácií zvoľte \"Oprávnenia\", a povoľte \"Úložisko\".</string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly potrebuje prístup ku kontaktom aby k správam mohol pripojiť informácie o kontakte, ale prístup bol natrvalo zakázaný. Prosím v nastaveniach aplikácií zvoľte \"Oprávnenia\", a povoľte \"Kontakty\".</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly potrebuje prístup k polohe aby k správam mohol pripojiť informácie o polohe, ale prístup bol natrvalo zakázaný. Prosím v nastaveniach aplikácií zvoľte \"Oprávnenia\", a povoľte \"Poloha\".</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signal-LTS potrebuje prístup k úložisku aby k správam mohol pridať obrázkové, video a zvukové prílohy, ale prístup bol natrvalo zakázaný. Prosím v nastaveniach aplikácií zvoľte \"Oprávnenia\", a povoľte \"Úložisko\".</string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Signal-LTS potrebuje prístup ku kontaktom aby k správam mohol pripojiť informácie o kontakte, ale prístup bol natrvalo zakázaný. Prosím v nastaveniach aplikácií zvoľte \"Oprávnenia\", a povoľte \"Kontakty\".</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Signal-LTS potrebuje prístup k polohe aby k správam mohol pripojiť informácie o polohe, ale prístup bol natrvalo zakázaný. Prosím v nastaveniach aplikácií zvoľte \"Oprávnenia\", a povoľte \"Poloha\".</string>
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">Nahrávanie prílohy…</string>
   <string name="AttachmentUploadJob_compressing_video_start">Komprimuje sa video…</string>
@@ -118,14 +118,14 @@
   <string name="CameraContacts_no_signal_contacts">Žiadne kontakty Signal</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">Na odoslanie fotiek kontaktom Signal môžete použiť tlačidlo fotoaparátu.</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">Nenašli ste hľadaný kontakt?</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">Pozvite kontakt, aby použival Molly</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">Pozvite kontakt, aby použival Signal-LTS</string>
   <string name="CameraContacts__menu_search">Hľadať</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">Odstrániť</string>
   <string name="ClearProfileActivity_remove_profile_photo">Odstrániť profilovú fotku?</string>
   <string name="ClearProfileActivity_remove_group_photo">Odstrániť fotku skupiny?</string>
   <!--ClientDeprecatedActivity-->
-  <string name="ClientDeprecatedActivity_update_signal">Aktualizovať Molly</string>
+  <string name="ClientDeprecatedActivity_update_signal">Aktualizovať Signal-LTS</string>
   <string name="ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported">Táto verzia aplikácie už nie je podporovaná. Aby ste mohli ďalej posielať a prijímať správy, aktualizujte na najnovšiu verziu.</string>
   <string name="ClientDeprecatedActivity_update">Aktualizovať</string>
   <string name="ClientDeprecatedActivity_dont_update">Neaktualizovať</string>
@@ -204,7 +204,7 @@
   <string name="ConversationActivity_transport_insecure_sms">Nezabezpečená SMS</string>
   <string name="ConversationActivity_transport_insecure_mms">Nezabezpečená MMS</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">Prejdime na Molly %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">Prejdime na Signal-LTS %1$s</string>
   <string name="ConversationActivity_specify_recipient">Prosím vyberte kontakt</string>
   <string name="ConversationActivity_unblock">Odblokovať</string>
   <string name="ConversationActivity_attachment_exceeds_size_limits">Príloha presahuje limit veľkosti pre tento typ správy.</string>
@@ -213,15 +213,15 @@
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">Vo vašom zariadení nie je aplikácia schopná otvoriť tento odkaz.</string>
   <string name="ConversationActivity_your_request_to_join_has_been_sent_to_the_group_admin">Vaša žiadosť o členstvo bola odoslaná administrátorovi skupiny. Keď na ňu zareaguje, dostanete oznámenie.</string>
   <string name="ConversationActivity_cancel_request">Zrušiť žiadosť</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Pre posielanie zvukových správ potrebuje Molly prístup k mikrofónu.</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly potrebuje prístup k mikrofónu aby mohol posielať zvukové správy, ale prístup bol natrvalo zakázaný. Prosím v nastaveniach aplikácií zvoľte \"Oprávnenia\", a povoľte \"Mikrofón\".</string>
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly potrebuje prístup k mikrofónu a fotoaparátu aby mohol zavolať %s, ale prístup bol natrvalo zakázaný. Prosím v nastaveniach aplikácií zvoľte \"Oprávnenia\", a povoľte \"Mikrofón\" a \"Fotoaparát\".</string>
-  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Pre fotenie a nahrávanie videa potrebuje Molly prístup k fotoaparátu.</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Molly potrebuje prístup k fotoaparátu aby mohol vytvárať fotografie a video, ale prístup bol natrvalo zakázaný. Prosím v nastaveniach aplikácií zvoľte \"Oprávnenia\", a povoľte \"Fotoaparát\".</string>
-  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Molly potrebuje prístup k Fotoaparátu, aby mohol vytvárať fotografie a videá</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Pre posielanie zvukových správ potrebuje Signal-LTS prístup k mikrofónu.</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Signal-LTS potrebuje prístup k mikrofónu aby mohol posielať zvukové správy, ale prístup bol natrvalo zakázaný. Prosím v nastaveniach aplikácií zvoľte \"Oprávnenia\", a povoľte \"Mikrofón\".</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Signal-LTS potrebuje prístup k mikrofónu a fotoaparátu aby mohol zavolať %s, ale prístup bol natrvalo zakázaný. Prosím v nastaveniach aplikácií zvoľte \"Oprávnenia\", a povoľte \"Mikrofón\" a \"Fotoaparát\".</string>
+  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Pre fotenie a nahrávanie videa potrebuje Signal-LTS prístup k fotoaparátu.</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signal-LTS potrebuje prístup k fotoaparátu aby mohol vytvárať fotografie a video, ale prístup bol natrvalo zakázaný. Prosím v nastaveniach aplikácií zvoľte \"Oprávnenia\", a povoľte \"Fotoaparát\".</string>
+  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signal-LTS potrebuje prístup k Fotoaparátu, aby mohol vytvárať fotografie a videá</string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Pre snímanie videí so zvukom povoľte prístup k mikrofónu.</string>
-  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Molly potrebuje pre nahrávanie videí prístup k mikrofónu, no ten bol zamietnutý. Pokračujte, prosím, do nastavení aplikácie, vyberte „Povolenia“ a povoľte „Mikrofón“ a „Fotoaparát“.</string>
-  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Molly potrebuje pre nahrávanie videí prístup k mikrofónu.</string>
+  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signal-LTS potrebuje pre nahrávanie videí prístup k mikrofónu, no ten bol zamietnutý. Pokračujte, prosím, do nastavení aplikácie, vyberte „Povolenia“ a povoľte „Mikrofón“ a „Fotoaparát“.</string>
+  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signal-LTS potrebuje pre nahrávanie videí prístup k mikrofónu.</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">Signal nemôže odosielať SMS/MMS, pretože nie je prednastavenou SMS aplikáciou. Chcete to zmeniť v nastaveniach Androidu?</string>
   <string name="ConversationActivity_yes">Áno</string>
@@ -237,7 +237,7 @@
   <string name="ConversationActivity_you_will_leave_this_group_and_it_will_be_deleted_from_all_of_your_devices">Opustíte túto skupinu a vymažete ju zo všetkých vašich zariadení.</string>
   <string name="ConversationActivity_delete">Vymazať</string>
   <string name="ConversationActivity_delete_and_leave">Odstrániť a opustiť</string>
-  <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">Pre volanie %1$s potrebuje Molly prístup k vášmu mikrofónu</string>
+  <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">Pre volanie %1$s potrebuje Signal-LTS prístup k vášmu mikrofónu</string>
   <string name="ConversationActivity__more_options_now_in_group_settings">Viac nových možností v sekcii \"Nastavenia skupiny\"</string>
   <string name="ConversationActivity_join">Pridať sa</string>
   <string name="ConversationActivity_full">Plný</string>
@@ -306,7 +306,7 @@
   <string name="ConversationFragment__d_group_members_have_the_same_name">%1$d členovia skupiny majú rovnaké meno.</string>
   <string name="ConversationFragment__tap_to_review">Ťuknite pre kontrolu</string>
   <string name="ConversationFragment__review_requests_carefully">Požiadavky pozorne overte</string>
-  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Molly našiel ďalší kontakt s rovnakým menom.</string>
+  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Signal-LTS našiel ďalší kontakt s rovnakým menom.</string>
   <string name="ConversationFragment_contact_us">Kontaktujte nás</string>
   <string name="ConversationFragment_verify">Overiť</string>
   <string name="ConversationFragment_not_now">Teraz nie</string>
@@ -382,7 +382,7 @@
   <string name="BackupsPreferenceFragment__learn_more">Dozvedieť sa viac</string>
   <string name="BackupsPreferenceFragment__in_progress">Prebieha…</string>
   <string name="BackupsPreferenceFragment__d_so_far">Zatiaľ %1$d…</string>
-  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly potrebuje prístup k úložisku aby mohol vytvárať zálohy, ale prístup bol natrvalo zakázaný. Prosím, v nastaveniach aplikácií zvoľte \"Oprávnenia\" a povoľte \"Úložisko\".</string>
+  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal-LTS potrebuje prístup k úložisku aby mohol vytvárať zálohy, ale prístup bol natrvalo zakázaný. Prosím, v nastaveniach aplikácií zvoľte \"Oprávnenia\" a povoľte \"Úložisko\".</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Používa sa vlastné: %s</string>
   <string name="CustomDefaultPreference_using_default">Používa sa predvolené: %s</string>
@@ -444,7 +444,7 @@
   <string name="ShareActivity_multiple_attachments_are_only_supported">Viaceré prílohy sú podporované iba pre obrázky a videá</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Trvalá chyba komunikácie Signal!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly sa nebol schopný registrovať k službám Google Play. Molly správy a hovory boli vypnuté, prosím zaregistrujte sa opätovne cez Nastavenia &gt; Rozšírené.</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal-LTS sa nebol schopný registrovať k službám Google Play. Signal-LTS správy a hovory boli vypnuté, prosím zaregistrujte sa opätovne cez Nastavenia &gt; Rozšírené.</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">Chyba pri prijímaní GIFu v plnom rozlíšení</string>
   <!--GiphyFragmentPageAdapter-->
@@ -831,7 +831,7 @@
     <item quantity="many">Odoslať %d SMS pozvánok? </item>
     <item quantity="other">Odoslať %d SMS pozvánok? </item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">Prejdime na Molly: %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">Prejdime na Signal-LTS: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Vyzerá to, že nemáte žiadne aplikácie kam by ste mohli zdieľať.</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Priatelia nenechávajú priateľov chatovať nešifrovane.</string>
   <!--LearnMoreTextView-->
@@ -841,7 +841,7 @@
   <string name="LongMessageActivity_message_from_s">Správa od %1$s</string>
   <string name="LongMessageActivity_your_message">Vaša správa</string>
   <!--MessageRetrievalService-->
-  <string name="MessageRetrievalService_signal">Molly</string>
+  <string name="MessageRetrievalService_signal">Signal-LTS</string>
   <string name="MessageRetrievalService_background_connection_enabled">Pripojenie na pozadí zapnuté</string>
   <!--MmsDownloader-->
   <string name="MmsDownloader_error_reading_mms_settings">Chyba pri načítaní MMS nastavení poskytovateľa</string>
@@ -937,8 +937,8 @@
   <string name="MediaSendActivity_message_to_s">Správa pre %s</string>
   <string name="MediaSendActivity_message">Správa</string>
   <string name="MediaSendActivity_select_recipients">Vybrať príjemcov</string>
-  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Molly potrebuje prístup k Vašim kontaktom, aby ich mohol zobraziť.</string>
-  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Molly potrebuje prístup k povoleniu Kontakty, aby mohol zobraziť vaše kontakty, ale prístup bol natrvalo zakázaný. Prejdite do nastavení aplikácie, zvoľte \"Povolenia\", a povoľte \"Kontakty\".</string>
+  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Signal-LTS potrebuje prístup k Vašim kontaktom, aby ich mohol zobraziť.</string>
+  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Signal-LTS potrebuje prístup k povoleniu Kontakty, aby mohol zobraziť vaše kontakty, ale prístup bol natrvalo zakázaný. Prejdite do nastavení aplikácie, zvoľte \"Povolenia\", a povoľte \"Kontakty\".</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="one">Nemôžete zdieľať viac ako %d položku.</item>
     <item quantity="few">Nemôžete zdieľať viac ako %d položiky.</item>
@@ -1207,7 +1207,7 @@
   <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">Tento QR kód neslúži na pridanie zariadenia.</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">Pridať zariadenie so Signalom?</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Vyzerá to, že sa snažíte pripojiť zariadenie Signal cez skener tretej strany. Pre vašu bezpečnosť, prosím naskenujte kód znovu priamo zo Signalu.</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly potrebuje prístup k fotoaparátu aby mohol naskenovať QR kód, ale prístup bol natrvalo zakázaný. Prosím v nastaveniach aplikácií zvoľte \"Oprávnenia\", a povoľte \"Fotoaparát\".</string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Signal-LTS potrebuje prístup k fotoaparátu aby mohol naskenovať QR kód, ale prístup bol natrvalo zakázaný. Prosím v nastaveniach aplikácií zvoľte \"Oprávnenia\", a povoľte \"Fotoaparát\".</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Nedá sa naskenovať QR kód bez povolenia prístupu k fotoaparátu</string>
   <!--OutdatedBuildReminder-->
   <string name="OutdatedBuildReminder_update_now">Aktualizujte teraz</string>
@@ -1220,10 +1220,10 @@
   </plurals>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">Zadajte heslo</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Molly ikona</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Signal-LTS ikona</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">Odoslať heslo</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Nesprávne heslo!</string>
-  <string name="PassphrasePromptActivity_unlock_signal">Odomknúť Molly</string>
+  <string name="PassphrasePromptActivity_unlock_signal">Odomknúť Signal-LTS</string>
   <string name="PassphrasePromptActivity_signal_android_lock_screen">Signal Android - Zámok obrazovky</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">Mapa</string>
@@ -1272,7 +1272,7 @@
   <string name="ReactionsRecipientAdapter_you">Vy</string>
   <!--RecaptchaRequiredBottomSheetFragment-->
   <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">Pre pokračovanie v zasielaní správ overte</string>
-  <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Ak chcete zabrániť spamu v Molly, dokončite overenie.</string>
+  <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Ak chcete zabrániť spamu v Signal-LTS, dokončite overenie.</string>
   <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">Po overení, môžete pokračovať v zasielaní správ. Pozastavené správy sa automaticky odošlú.</string>
   <!--Recipient-->
   <string name="Recipient_you">Vy</string>
@@ -1293,8 +1293,8 @@
   <string name="RedPhone_got_it">Chápem</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Ťuknite sem pre spustenie videa</string>
-  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Pre volanie %1$s potrebuje Molly prístup k vašej kamere</string>
-  <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
+  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Pre volanie %1$s potrebuje Signal-LTS prístup k vašej kamere</string>
+  <string name="WebRtcCallActivity__signal_s">Signal-LTS %1$s</string>
   <string name="WebRtcCallActivity__calling">Uskutočňovanie hovoru…</string>
   <!--WebRtcCallView-->
   <string name="WebRtcCallView__signal_voice_call">Signal hlasový hovor…</string>
@@ -1361,13 +1361,13 @@ telefónne číslo
   <string name="RegistrationActivity_is_your_phone_number_above_correct">Je vaše telefónne číslo, uvedené vyššie, správne?</string>
   <string name="RegistrationActivity_edit_number">Úprav číslo</string>
   <string name="RegistrationActivity_missing_google_play_services">Chýba služba Google Play</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">V tomto zariadení chýba služba Google Play. Molly môžete používať aj tak, ale táto konfigurácia môže mať za následok nespoľahlivosť a nižší výkon.\n\nAk nie ste pokročilý užívateľ, nepoužívate neoficiálny ROM telefónu alebo si myslíte, že sa vám toto hlásenie nemalo zobrazovať, kontaktujte nás na support@molly.im pre vyriešenie problému.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">V tomto zariadení chýba služba Google Play. Signal-LTS môžete používať aj tak, ale táto konfigurácia môže mať za následok nespoľahlivosť a nižší výkon.\n\nAk nie ste pokročilý užívateľ, nepoužívate neoficiálny ROM telefónu alebo si myslíte, že sa vám toto hlásenie nemalo zobrazovať, kontaktujte nás na support@Signal-LTS.im pre vyriešenie problému.</string>
   <string name="RegistrationActivity_i_understand">Rozumiem</string>
   <string name="RegistrationActivity_play_services_error">Chyba služby Google Play</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Služba Google Play sa aktualizuje, alebo je dočasne nedostupná. Prosím, skúste to znova.</string>
   <string name="RegistrationActivity_terms_and_privacy">Podmienky a Zásady ochrany osobných údajov</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly potrebuje prístup k vašim kontaktom a médiám aby sa mohol spojiť s vašimi priateľmi, posielať správy a uskutočniť zabezpečené hovory</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Molly potrebuje prístup k vašim kontaktom, aby sa mohol spojiť s vašimi priateľmi, posielať správy a uskutočniť zabezpečené hovory</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Signal-LTS potrebuje prístup k vašim kontaktom a médiám aby sa mohol spojiť s vašimi priateľmi, posielať správy a uskutočniť zabezpečené hovory</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Signal-LTS potrebuje prístup k vašim kontaktom, aby sa mohol spojiť s vašimi priateľmi, posielať správy a uskutočniť zabezpečené hovory</string>
   <string name="RegistrationActivity_rate_limited_to_service">Urobili ste príliš veľa pokusov o zaregistrovanie tohto čísla. Prosím, skúste to znovu neskôr.</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">Nepodarilo sa pripojiť k službe. Prosím, overte Vaše sieťové pripojenie a skúste to znovu.</string>
   <plurals name="RegistrationActivity_debug_log_hint">
@@ -1471,7 +1471,7 @@ Bola prijatá správa výmeny kľúčov s neplatnou verziou protokolu.
   <string name="SupportEmailUtil_device_info">Info o zariadení:</string>
   <string name="SupportEmailUtil_android_version">Verzia Androidu:</string>
   <string name="SupportEmailUtil_signal_version">Verzia Mollyu:</string>
-  <string name="SupportEmailUtil_signal_package">Molly balíček:</string>
+  <string name="SupportEmailUtil_signal_package">Signal-LTS balíček:</string>
   <string name="SupportEmailUtil_registration_lock">Registračný zámok:</string>
   <string name="SupportEmailUtil_locale">Miestne nastavenia:</string>
   <!--ThreadRecord-->
@@ -1542,7 +1542,7 @@ Bola prijatá správa výmeny kľúčov s neplatnou verziou protokolu.
   <string name="VerifyIdentityActivity_our_signal_safety_number">Naše Signal bezpečnostné číslo:</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">Vyzerá to, že nemáte žiadne aplikácie kam by sa dalo zdieľať.</string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">V schránke sa nenašlo žiadne bezpečnostné číslo pre porovnanie</string>
-  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Molly potrebuje prístup k fotoaparátu aby mohol naskenovať QR kód, ale prístup bol natrvalo zakázaný. Prosím v nastaveniach aplikácií zvoľte \"Oprávnenia\", a povoľte \"Fotoaparát\".</string>
+  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Signal-LTS potrebuje prístup k fotoaparátu aby mohol naskenovať QR kód, ale prístup bol natrvalo zakázaný. Prosím v nastaveniach aplikácií zvoľte \"Oprávnenia\", a povoľte \"Fotoaparát\".</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">Nedá sa naskenovať QR kód bez povolenia prístupu k fotoaparátu</string>
   <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">Než uvidíte bezpečnostné číslo používateľa %1$s, musíte si najprv poslať správu.</string>
   <!--ViewOnceMessageActivity-->
@@ -1561,13 +1561,13 @@ Bola prijatá správa výmeny kľúčov s neplatnou verziou protokolu.
   <string name="ApplicationMigrationService_system_database_import_is_complete">Import systémovej databázy je dokončený.</string>
   <!--KeyCachingService-->
   <string name="KeyCachingService_signal_passphrase_cached">Dotykom otvor.</string>
-  <string name="KeyCachingService_passphrase_cached">Molly je odomknutý</string>
-  <string name="KeyCachingService_lock">Zamknúť Molly</string>
+  <string name="KeyCachingService_passphrase_cached">Signal-LTS je odomknutý</string>
+  <string name="KeyCachingService_lock">Zamknúť Signal-LTS</string>
   <!--MediaPreviewActivity-->
   <string name="MediaPreviewActivity_you">Vy</string>
   <string name="MediaPreviewActivity_unssuported_media_type">Nepodporovaný typ súboru</string>
   <string name="MediaPreviewActivity_draft">Koncept</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Molly potrebuje prístup k úložisku aby mohol ukladať dáta na externé úložisko, ale prístup bol natrvalo zakázaný. Prosím v nastaveniach aplikácií zvoľte \"Oprávnenia\", a povoľte \"Úložisko\".</string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Signal-LTS potrebuje prístup k úložisku aby mohol ukladať dáta na externé úložisko, ale prístup bol natrvalo zakázaný. Prosím v nastaveniach aplikácií zvoľte \"Oprávnenia\", a povoľte \"Úložisko\".</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">Bez povolenia sa nedá zapisovať na externé úložisko</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">Vymazať správu?</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">Týmto natrvalo odstánite túto správu.</string>
@@ -1582,7 +1582,7 @@ Bola prijatá správa výmeny kľúčov s neplatnou verziou protokolu.
   <string name="MessageNotifier_failed_to_deliver_message">Správu sa nepodarilo doručiť.</string>
   <string name="MessageNotifier_error_delivering_message">Chyba doručovania správy.</string>
   <string name="MessageNotifier_message_delivery_paused">Doručenie správy bolo pozastavené.</string>
-  <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Pre pokračovanie v zasielaní správ overte v Molly.</string>
+  <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Pre pokračovanie v zasielaní správ overte v Signal-LTS.</string>
   <string name="MessageNotifier_mark_all_as_read">Označiť všetko ako prečítané</string>
   <string name="MessageNotifier_mark_read">Označiť ako prečítané</string>
   <string name="MessageNotifier_turn_off_these_notifications">Vypnúť tieto upozornenia</string>
@@ -1592,7 +1592,7 @@ Bola prijatá správa výmeny kľúčov s neplatnou verziou protokolu.
   <string name="MessageNotifier_signal_message">Signal správa</string>
   <string name="MessageNotifier_unsecured_sms">Nezabezpečená SMS</string>
   <string name="MessageNotifier_you_may_have_new_messages">Pravdepodobne máte nové správy</string>
-  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Otvorte Molly pre kontrolu nedávnych upozornení.</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Otvorte Signal-LTS pre kontrolu nedávnych upozornení.</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">Kontakt</string>
   <string name="MessageNotifier_reacted_s_to_s">reagoval/a na „%2$s“: %1$s.</string>
@@ -1619,7 +1619,7 @@ Bola prijatá správa výmeny kľúčov s neplatnou verziou protokolu.
   <string name="NotificationChannels__no_activity_available_to_open_notification_channel_settings">Na otvorenie nastavení kanála upozornení nie je k dispozícii žiadna aktivita.</string>
   <!--ProfileEditNameFragment-->
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Rýchla odpoveď nie je dostupná, keď je Molly zamknutý!</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Rýchla odpoveď nie je dostupná, keď je Signal-LTS zamknutý!</string>
   <string name="QuickResponseService_problem_sending_message">Problém pri odosielaní správy!</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">Uložené do %s</string>
@@ -1630,7 +1630,7 @@ Bola prijatá správa výmeny kľúčov s neplatnou verziou protokolu.
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">Neplatná skratka</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Signal-LTS</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Nová správa</string>
   <string name="SingleRecipientNotificationBuilder_message_request">Žiadosť o správu</string>
   <string name="SingleRecipientNotificationBuilder_you">Vy</string>
@@ -1649,7 +1649,7 @@ Bola prijatá správa výmeny kľúčov s neplatnou verziou protokolu.
   <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Dôvodom je pravdepodobne to, že ste Vaše telefónne číslo zaregistrovali v Signalu na inom zariadení.</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Pre prijatie hovoru od %s musíte povoliť Mollyu prístup k mikrofónu.</string>
-  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Molly potrebuje prístup k mikrofónu a fotoaparátu aby mohol volať alebo prijímať hovory, ale prístup bol natrvalo zakázaný. Prosím v nastaveniach aplikácií zvoľte \"Oprávnenia\", a povoľte \"Mikrofón\" a \"Fotoaparát\".</string>
+  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Signal-LTS potrebuje prístup k mikrofónu a fotoaparátu aby mohol volať alebo prijímať hovory, ale prístup bol natrvalo zakázaný. Prosím v nastaveniach aplikácií zvoľte \"Oprávnenia\", a povoľte \"Mikrofón\" a \"Fotoaparát\".</string>
   <string name="WebRtcCallActivity__answered_on_a_linked_device">Prijaté na pripojenom zariadení.</string>
   <string name="WebRtcCallActivity__declined_on_a_linked_device">Odmietnuté na pripojenom zariadení.</string>
   <string name="WebRtcCallActivity__busy_on_a_linked_device">Zaneprázdnené na pripojenom zariadení.</string>
@@ -1685,7 +1685,7 @@ Bola prijatá správa výmeny kľúčov s neplatnou verziou protokolu.
   <!--single_contact_selection_activity-->
   <string name="SingleContactSelectionActivity_contact_photo">Fotka kontaktu</string>
   <!--ContactSelectionListFragment-->
-  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Molly potrebuje prístup ku kontaktom aby mohol zobraziť Vaše kontakty, ale prístup bol natrvalo zakázaný. Prosím v nastaveniach aplikácií zvoľte \"Oprávnenia\", a povoľte \"Kontakty\".</string>
+  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Signal-LTS potrebuje prístup ku kontaktom aby mohol zobraziť Vaše kontakty, ale prístup bol natrvalo zakázaný. Prosím v nastaveniach aplikácií zvoľte \"Oprávnenia\", a povoľte \"Kontakty\".</string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Nepodarilo sa načítať kontakty. Skontrolujte svoje sieťové pripojenie</string>
   <string name="ContactSelectionListFragment_username_not_found">Používateľské meno sa nenašlo</string>
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">„%1$s“ nie je používateľ Signalu. Skontrolujte používateľské meno a skúste znova.</string>
@@ -1701,7 +1701,7 @@ Bola prijatá správa výmeny kľúčov s neplatnou verziou protokolu.
     <item quantity="other">%1$d členov</item>
   </plurals>
   <!--contact_selection_list_fragment-->
-  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly potrebuje prístup k Vašim kontaktom, aby ich mohol zobraziť.</string>
+  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Signal-LTS potrebuje prístup k Vašim kontaktom, aby ich mohol zobraziť.</string>
   <string name="contact_selection_list_fragment__show_contacts">Ukázať Kontakty</string>
   <!--contact_selection_list_item-->
   <plurals name="contact_selection_list_item__number_of_members">
@@ -2084,7 +2084,7 @@ Bola prijatá správa výmeny kľúčov s neplatnou verziou protokolu.
   <string name="preferences__slow">Pomaly</string>
   <string name="preferences__help">Pomocník</string>
   <string name="preferences__advanced">Rozšírené</string>
-  <string name="preferences__donate_to_signal">Prispieť na Molly</string>
+  <string name="preferences__donate_to_signal">Prispieť na Signal-LTS</string>
   <string name="preferences__privacy">Súkromie</string>
   <string name="preferences__mms_user_agent">MMS používateľský agent</string>
   <string name="preferences__advanced_mms_access_point_names">Manuálne MMS nastavenia</string>
@@ -2213,7 +2213,7 @@ Bola prijatá správa výmeny kľúčov s neplatnou verziou protokolu.
   <string name="PaymentsAllActivityFragment__sent">Odoslaná</string>
   <string name="PaymentsAllActivityFragment__received">Prijatá</string>
   <string name="PaymentsHomeFragment__introducing_payments">Predstavujeme platby (Beta)</string>
-  <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Pomocou Molly môžete odosielať a prijímať MobileCoin, novú digitálnu menu zameranú na súkromie. Ak chcete začať, aktivujte.</string>
+  <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Pomocou Signal-LTS môžete odosielať a prijímať MobileCoin, novú digitálnu menu zameranú na súkromie. Ak chcete začať, aktivujte.</string>
   <string name="PaymentsHomeFragment__activate_payments">Aktivovať platby</string>
   <string name="PaymentsHomeFragment__activating_payments">Aktivujú sa platby…</string>
   <string name="PaymentsHomeFragment__restore_payments_account">Obnovte platobný účet</string>
@@ -2240,17 +2240,17 @@ Bola prijatá správa výmeny kľúčov s neplatnou verziou protokolu.
   <string name="PaymentsHomeFragment__payments_is_not_available_in_your_region">Platby nie sú k dispozícii vo vašej oblasti.</string>
   <string name="PaymentsHomeFragment__could_not_enable_payments">Nepodarilo sa povoliť platby. Skúste to znova neskôr.</string>
   <string name="PaymentsHomeFragment__deactivate_payments_question">Deaktivovať platby?</string>
-  <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">Ak deaktivujete platby, nebudete môcť odosielať ani prijímať MobileCoin v Molly.</string>
+  <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">Ak deaktivujete platby, nebudete môcť odosielať ani prijímať MobileCoin v Signal-LTS.</string>
   <string name="PaymentsHomeFragment__deactivate">Deaktivovať</string>
   <string name="PaymentsHomeFragment__continue">Pokračovať</string>
   <string name="PaymentsHomeFragment__balance_is_not_currently_available">Zostatok nie je momentálne k dispozícii.</string>
   <string name="PaymentsHomeFragment__payments_deactivated">Platby sú deaktivované.</string>
   <string name="PaymentsHomeFragment__payment_failed">Platba zlyhala</string>
   <string name="PaymentsHomeFragment__details">Podrobnosti</string>
-  <string name="PaymentsHomeFragment__you_can_use_signal_to_send">Pomocou Molly môžete odosielať a prijímať MobileCoiny. Všetky platby podliehajú Podmienkam používania pre MobileCoins a MobileCoin Wallet. Toto je funkcia beta verzie, takže sa môžete stretnúť s určitými problémami a platby, alebo zostatky, ktoré môžete stratiť, nie je možné obnoviť.</string>
+  <string name="PaymentsHomeFragment__you_can_use_signal_to_send">Pomocou Signal-LTS môžete odosielať a prijímať MobileCoiny. Všetky platby podliehajú Podmienkam používania pre MobileCoins a MobileCoin Wallet. Toto je funkcia beta verzie, takže sa môžete stretnúť s určitými problémami a platby, alebo zostatky, ktoré môžete stratiť, nie je možné obnoviť.</string>
   <string name="PaymentsHomeFragment__activate">Aktivovať</string>
   <string name="PaymentsHomeFragment__view_mobile_coin_terms">Zobraziť podmienky MobileCoin</string>
-  <string name="PaymentsHomeFragment__payments_not_available">Platby v službe Molly už nie sú k dispozícii. Stále môžete prevádzať prostriedky na burzu, ale už nemôžete posielať a prijímať platby ani pridávať prostriedky.</string>
+  <string name="PaymentsHomeFragment__payments_not_available">Platby v službe Signal-LTS už nie sú k dispozícii. Stále môžete prevádzať prostriedky na burzu, ale už nemôžete posielať a prijímať platby ani pridávať prostriedky.</string>
   <!--PaymentsAddMoneyFragment-->
   <string name="PaymentsAddMoneyFragment__add_funds">Pridať prostriedky</string>
   <string name="PaymentsAddMoneyFragment__your_wallet_address">Adresa vašej peňaženky</string>
@@ -2287,10 +2287,10 @@ Bola prijatá správa výmeny kľúčov s neplatnou verziou protokolu.
   <string name="PaymentsTransferFragment__next">Ďalší</string>
   <string name="PaymentsTransferFragment__invalid_address">Neplatná adresa</string>
   <string name="PaymentsTransferFragment__check_the_wallet_address">Skontrolujte adresu peňaženky, do ktorej sa snažíte previesť peniaze, a skúste to znovu.</string>
-  <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">Nemôžete vykonať prevod na adresu vašej Molly peňaženky. Zadajte adresu peňaženky z vášho účtu v podporovanej burze.</string>
-  <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">Na naskenovanie QR kódu potrebuje Molly prístup k fotoaparátu.</string>
-  <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Pre načítanie QR kódu potrebuje Molly prístup k Fotoaparátu. Prosím v nastaveniach aplikácií zvoľte \"Oprávnenia\", a povoľte \"Fotoaparát\".</string>
-  <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">Na naskenovanie QR kódu potrebuje Molly prístup k fotoaparátu.</string>
+  <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">Nemôžete vykonať prevod na adresu vašej Signal-LTS peňaženky. Zadajte adresu peňaženky z vášho účtu v podporovanej burze.</string>
+  <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">Na naskenovanie QR kódu potrebuje Signal-LTS prístup k fotoaparátu.</string>
+  <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Pre načítanie QR kódu potrebuje Signal-LTS prístup k Fotoaparátu. Prosím v nastaveniach aplikácií zvoľte \"Oprávnenia\", a povoľte \"Fotoaparát\".</string>
+  <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">Na naskenovanie QR kódu potrebuje Signal-LTS prístup k fotoaparátu.</string>
   <string name="PaymentsTransferFragment__settings">Nastavenia</string>
   <!--PaymentsTransferQrScanFragment-->
   <string name="PaymentsTransferQrScanFragment__scan_address_qr_code">Naskenujte QR kód adresu</string>
@@ -2665,7 +2665,7 @@ Bola prijatá správa výmeny kľúčov s neplatnou verziou protokolu.
   <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">Urobili ste príliš veľa pokusov. Prosím, skúste to znovu neskôr.</string>
   <string name="RegistrationActivity_error_connecting_to_service">Chyba pri pripájaní k službe</string>
   <string name="preferences_chats__backups">Zálohy</string>
-  <string name="prompt_passphrase_activity__signal_is_locked">Molly je zamknutý</string>
+  <string name="prompt_passphrase_activity__signal_is_locked">Signal-LTS je zamknutý</string>
   <string name="prompt_passphrase_activity__tap_to_unlock">ŤUKNUTÍM ODOMKNITE</string>
   <string name="Recipient_unknown">Neznáme</string>
   <!--TransferOrRestoreFragment-->
@@ -2689,18 +2689,18 @@ Bola prijatá správa výmeny kľúčov s neplatnou verziou protokolu.
   <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">Pripravuje sa pripojenie do starého Android zariadenia…</string>
   <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">Chvíľku strpenia, onedlho by malo byť hotovo</string>
   <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">Čaká sa na pripojenie starého Android zariadenia…</string>
-  <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Molly potrebuje prístup k polohe, aby mohol objaviť a pripojiť sa k vášmu starému Android zariadeniu.</string>
-  <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Aby Molly mohol objaviť a pripojiť sa k vášmu starému Android zariadeniu, musia byť zapnuté služby polohy.</string>
-  <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Molly potrebuje Wi-Fi, aby mohol objaviť a pripojiť sa k vášmu starému Android zariadeniu. Wi-Fi musí byť zapnuté, ale nemusí byť pripojené k žiadnej Wi-Fi sieti.</string>
-  <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Je nám ľúto, ale vyzerá to, že toto zariadenie nepodporuje Wi-Fi Direct. Molly používa Wi-Fi Direct na objavenie a pripojenie sa ku vášmu starému Android zariadeniu. Môžete ale urobiť obnovu zo zálohy a tým obnoviť vaše konto zo svojho starého Android zariadenia.</string>
+  <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Signal-LTS potrebuje prístup k polohe, aby mohol objaviť a pripojiť sa k vášmu starému Android zariadeniu.</string>
+  <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Aby Signal-LTS mohol objaviť a pripojiť sa k vášmu starému Android zariadeniu, musia byť zapnuté služby polohy.</string>
+  <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Signal-LTS potrebuje Wi-Fi, aby mohol objaviť a pripojiť sa k vášmu starému Android zariadeniu. Wi-Fi musí byť zapnuté, ale nemusí byť pripojené k žiadnej Wi-Fi sieti.</string>
+  <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Je nám ľúto, ale vyzerá to, že toto zariadenie nepodporuje Wi-Fi Direct. Signal-LTS používa Wi-Fi Direct na objavenie a pripojenie sa ku vášmu starému Android zariadeniu. Môžete ale urobiť obnovu zo zálohy a tým obnoviť vaše konto zo svojho starého Android zariadenia.</string>
   <string name="NewDeviceTransferSetup__restore_a_backup">Obnoviť zálohu</string>
   <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Počas pripájania sa k vášmu starému Android zariadeniu sa stala neočakávaná chyba.</string>
   <!--OldDeviceTransferSetupFragment-->
   <string name="OldDeviceTransferSetup__searching_for_new_android_device">Hľadá sa nové Android zariadenie…</string>
-  <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Molly potrebuje prístup k polohe, aby mohol objaviť a pripojiť sa k vášmu novému Android zariadeniu.</string>
-  <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Aby Molly mohol objaviť a pripojiť sa k vášmu novému Android zariadeniu, musia byť zapnuté služby polohy.</string>
-  <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Molly potrebuje Wi-Fi, aby mohol objaviť a pripojiť sa k vášmu novému Android zariadeniu. Wi-Fi musí byť zapnuté, ale nemusí byť pripojené k žiadnej Wi-Fi sieti.</string>
-  <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Je nám ľúto, ale vyzerá to, že toto zariadenie nepodporuje Wi-Fi Direct. Molly používa Wi-Fi Direct na objavenie a pripojenie sa ku vášmu novému Android zariadeniu. Môžete ale urobiť obnovu zo zálohy a tým obnoviť vaše konto do svojho nového Android zariadenia.</string>
+  <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Signal-LTS potrebuje prístup k polohe, aby mohol objaviť a pripojiť sa k vášmu novému Android zariadeniu.</string>
+  <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Aby Signal-LTS mohol objaviť a pripojiť sa k vášmu novému Android zariadeniu, musia byť zapnuté služby polohy.</string>
+  <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Signal-LTS potrebuje Wi-Fi, aby mohol objaviť a pripojiť sa k vášmu novému Android zariadeniu. Wi-Fi musí byť zapnuté, ale nemusí byť pripojené k žiadnej Wi-Fi sieti.</string>
+  <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Je nám ľúto, ale vyzerá to, že toto zariadenie nepodporuje Wi-Fi Direct. Signal-LTS používa Wi-Fi Direct na objavenie a pripojenie sa ku vášmu novému Android zariadeniu. Môžete ale urobiť obnovu zo zálohy a tým obnoviť vaše konto do svojho nového Android zariadenia.</string>
   <string name="OldDeviceTransferSetup__create_a_backup">Vytvoriť zálohu</string>
   <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Počas pripájania sa k vášmu novému Android zariadeniu sa stala neočakávaná chyba.</string>
   <!--DeviceTransferSetupFragment-->
@@ -2738,7 +2738,7 @@ Bola prijatá správa výmeny kľúčov s neplatnou verziou protokolu.
   <string name="NewDeviceTransfer__cannot_transfer_from_a_newer_version_of_signal">Presun nie je možný z novších verzií aplikácie Signal</string>
   <!--DeviceTransferFragment-->
   <string name="DeviceTransfer__transferring_data">Prenášajú sa dáta</string>
-  <string name="DeviceTransfer__keep_both_devices_near_each_other">Ponechajte obe zariadenia blízko seba. Nevypínajte zariadenia a nechajte Molly otvorený. Prenosy sú zabezpečené prostredníctvom koncového šifrovania.</string>
+  <string name="DeviceTransfer__keep_both_devices_near_each_other">Ponechajte obe zariadenia blízko seba. Nevypínajte zariadenia a nechajte Signal-LTS otvorený. Prenosy sú zabezpečené prostredníctvom koncového šifrovania.</string>
   <string name="DeviceTransfer__d_messages_so_far">Zatiaľ %1$d správ…</string>
   <string name="DeviceTransfer__cancel">Zrušiť</string>
   <string name="DeviceTransfer__try_again">Skúsiť znova</string>
@@ -2751,7 +2751,7 @@ Bola prijatá správa výmeny kľúčov s neplatnou verziou protokolu.
   <string name="OldDeviceTransferInstructions__transfer_account">Preniesť účet</string>
   <string name="OldDeviceTransferInstructions__you_can_transfer_your_signal_account_when_setting_up_signal_on_a_new_android_device">Pri prvom nastavení Signalu na novom zariadení naň môžete presunúť svoj Signal účet. Predtým, než budete pokračovať:</string>
   <string name="OldDeviceTransferInstructions__first_bullet">1.</string>
-  <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Stiahnite Molly na svojom novom Android zariadení</string>
+  <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Stiahnite Signal-LTS na svojom novom Android zariadení</string>
   <string name="OldDeviceTransferInstructions__second_bullet">2.</string>
   <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">Ťuknite na \"Preniesť alebo obnoviť účet\"</string>
   <string name="OldDeviceTransferInstructions__third_bullet">3.</string>
@@ -2817,7 +2817,7 @@ Bola prijatá správa výmeny kľúčov s neplatnou verziou protokolu.
   <!--GroupLinkBottomSheetDialogFragment-->
   <string name="GroupLinkBottomSheet_share_hint_requiring_approval">Každý, kto má tento odkaz, môže vidieť názov a fotku tejto skupiny a požiadať o členstvo. Zdieľajte ho s ľuďmi, ktorým dôverujete.</string>
   <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">Každý, kto má tento odkaz, môže vidieť názov a fotku tejto skupiny a stať sa jej členom. Zdieľajte ho s ľuďmi, ktorým dôverujete.</string>
-  <string name="GroupLinkBottomSheet_share_via_signal">Zdieľať cez Molly</string>
+  <string name="GroupLinkBottomSheet_share_via_signal">Zdieľať cez Signal-LTS</string>
   <string name="GroupLinkBottomSheet_copy">Kopírovať</string>
   <string name="GroupLinkBottomSheet_qr_code">QR kód</string>
   <string name="GroupLinkBottomSheet_share">Zdieľať</string>
@@ -2948,7 +2948,7 @@ Bola prijatá správa výmeny kľúčov s neplatnou verziou protokolu.
   <string name="payment_info_card_about_mobilecoin">Čo je MobileCoin</string>
   <string name="payment_info_card_mobilecoin_is_a_new_privacy_focused_digital_currency">MobileCoin je nová digitálna mena zameraná na súkromie.</string>
   <string name="payment_info_card_adding_funds">Pridávanie finančných prostriedkov</string>
-  <string name="payment_info_card_you_can_add_funds_for_use_in">Prostriedky na použitie v službe Molly môžete pridať poslaním MobileCoinov na adresu vašej peňaženky.</string>
+  <string name="payment_info_card_you_can_add_funds_for_use_in">Prostriedky na použitie v službe Signal-LTS môžete pridať poslaním MobileCoinov na adresu vašej peňaženky.</string>
   <string name="payment_info_card_cashing_out">Vyberanie hotovosti</string>
   <string name="payment_info_card_you_can_cash_out_mobilecoin">MobileCoin si kedykoľvek môžete zmeniť na hotovosť v zmenárni, ktorá podporuje MobileCoin. Jednoducho vykonajte prevod na váš účet v danej zmenárni.</string>
   <string name="payment_info_card_hide_this_card">Skryť túto kartu?</string>
@@ -2962,12 +2962,12 @@ Bola prijatá správa výmeny kľúčov s neplatnou verziou protokolu.
   <!--DeactivateWalletFragment-->
   <string name="DeactivateWalletFragment__deactivate_wallet">Deaktivovať peňaženku</string>
   <string name="DeactivateWalletFragment__your_balance">Váš zostatok</string>
-  <string name="DeactivateWalletFragment__its_recommended_that_you">Odporúčame, aby ste pred deaktiváciou platieb vaše prostriedky previedli na adresu inej peňaženky. Ak sa rozhodnete, že vaše prostriedky neprevediete teraz, zostanú v peňaženke prepojenej so Molly, ak platby reaktivujete.</string>
+  <string name="DeactivateWalletFragment__its_recommended_that_you">Odporúčame, aby ste pred deaktiváciou platieb vaše prostriedky previedli na adresu inej peňaženky. Ak sa rozhodnete, že vaše prostriedky neprevediete teraz, zostanú v peňaženke prepojenej so Signal-LTS, ak platby reaktivujete.</string>
   <string name="DeactivateWalletFragment__transfer_remaining_balance">Previesť zostávajúcu čiastku</string>
   <string name="DeactivateWalletFragment__deactivate_without_transferring">Deaktivovať bez prevodu</string>
   <string name="DeactivateWalletFragment__deactivate">Deaktivovať</string>
   <string name="DeactivateWalletFragment__deactivate_without_transferring_question">Deaktivovať bez prevodu?</string>
-  <string name="DeactivateWalletFragment__your_balance_will_remain">V prípade, že  sa rozhodnete opätovne aktivovať platby, váš zostatok zostane vo vašej peňaženke prepojenej so službou Molly.</string>
+  <string name="DeactivateWalletFragment__your_balance_will_remain">V prípade, že  sa rozhodnete opätovne aktivovať platby, váš zostatok zostane vo vašej peňaženke prepojenej so službou Signal-LTS.</string>
   <string name="DeactivateWalletFragment__error_deactivating_wallet">Chyba pri deaktivácii peňaženky.</string>
   <!--PaymentsRecoveryStartFragment-->
   <string name="PaymentsRecoveryStartFragment__recovery_phrase">Fráza na obnovenie</string>

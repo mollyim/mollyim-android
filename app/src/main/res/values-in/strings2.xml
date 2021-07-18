@@ -4,14 +4,14 @@
     <string name="ChangePassphraseDialogFragment_generating_keys_this_may_take_a_while">Membuat kunci. Ini mungkin membutuhkan beberapa waktu…</string>
     <string name="ChangePassphraseDialogFragment_please_choose_a_passphrase_that_will_be_used_to_locally_encrypt_your_data_this_should_be_a_strong_passphrase">Pilih frasa sandi yang akan digunakan untuk mengenkripsi data Anda secara lokal.\n\nFrasa sandi harus kuat.</string>
     <string name="ChangePassphraseDialogFragment_estimated_time_to_crack_suggestion">%1$s\n\nPerkiraan waktu untuk memecahkan: %2$s.\n\nSaran: %3$s</string>
-    <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">Sekarang Anda dapat mengatur frasa sandi untuk mengenkripsi database. Sampai kuncinya dibuka, Molly tidak dapat menerima pemberitahuan atau panggilan. Ini membantu melindungi data pada perangkat yang hilang atau dicuri.</string>
-    <string name="preferences__protect_molly_database_with_a_passphrase">Lindungi database Molly dengan frasa sandi</string>
+    <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">Sekarang Anda dapat mengatur frasa sandi untuk mengenkripsi database. Sampai kuncinya dibuka, Signal-LTS tidak dapat menerima pemberitahuan atau panggilan. Ini membantu melindungi data pada perangkat yang hilang atau dicuri.</string>
+    <string name="preferences__protect_molly_database_with_a_passphrase">Lindungi database Signal-LTS dengan frasa sandi</string>
     <string name="arrays__on_inactivity_timeout">Jika Anda memilih waktu tertentu tanpa membuka kunci perangkat Anda</string>
     <string name="ChangePassphraseDialogFragment_enable">Aktifkan</string>
     <string name="ChangePassphraseDialogFragment_passphrase">Frasa sandi</string>
     <string name="ChangePassphraseDialogFragment_weak_passphrase">Frasa sandi lemah!</string>
     <string name="PassphraseCreateActivity_turn_on_database_encryption">Aktifkan enkripsi database</string>
-    <string name="PassphraseCreateActivity_require_passphrase_to_unlock_molly">Perlu frasa sandi untuk membuka Molly\?</string>
+    <string name="PassphraseCreateActivity_require_passphrase_to_unlock_molly">Perlu frasa sandi untuk membuka Signal-LTS\?</string>
     <string name="AppProtectionPreferenceFragment_instant">Instan</string>
     <string name="WipeMemoryService_secure_wipe_in_progress">Penghapusan aman sedang berlangsung</string>
     <string name="preferences__enable_debug_log">Aktifkan log debug</string>
@@ -22,7 +22,7 @@
     <string name="preferences_network__tunnels_network_traffic">tunnels lalu lintas jaringan</string>
     <string name="RegistrationActivity_network_settings">Setelan jaringan</string>
     <string name="ApplicationPreferencesActivity_network_summary">Proksi %1$s</string>
-    <string name="NetworkPreferenceFragment_molly_wont_connect_without_orbot_which_is_not_installed_on_this_device">Molly tidak akan terhubung tanpa Orbot, yang tidak diinstal pada perangkat ini.</string>
+    <string name="NetworkPreferenceFragment_molly_wont_connect_without_orbot_which_is_not_installed_on_this_device">Signal-LTS tidak akan terhubung tanpa Orbot, yang tidak diinstal pada perangkat ini.</string>
     <string name="NetworkPreferenceFragment_get_orbot">Dapatkan Orbot</string>
     <string name="NetworkPreferenceFragment_missing_orbot_app">Aplikasi Orbot tidak ditemukan</string>
     <string name="NetworkPreferenceFragment_the_host_you_typed_is_not_valid">Host yang Anda ketikkan tidak valid</string>
@@ -47,6 +47,6 @@
     <string name="arrays__tor_via_orbot">Tor melalui Orbot</string>
     <string name="arrays__none">Tidak ada</string>
     <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Periksa rilis baru secara berkala dan minta untuk menginstalnya.</string>
-    <string name="preferences__autoupdate_molly">Pembaruan otomatis Molly</string>
+    <string name="preferences__autoupdate_molly">Pembaruan otomatis Signal-LTS</string>
     <string name="BlockUnblockDialog_block_and_delete">Blok dan Hapus</string>
 </resources>

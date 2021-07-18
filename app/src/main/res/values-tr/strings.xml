@@ -10,17 +10,17 @@
   <string name="AbstractNotificationBuilder_new_message">Yeni ileti</string>
   <!--AlbumThumbnailView-->
   <!--ApplicationMigrationActivity-->
-  <string name="ApplicationMigrationActivity__signal_is_updating">Molly güncelleniyor…</string>
+  <string name="ApplicationMigrationActivity__signal_is_updating">Signal-LTS güncelleniyor…</string>
   <!--ApplicationPreferencesActivity-->
   <string name="ApplicationPreferencesActivity_currently_s">Şu anda: %s</string>
   <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">Henüz bir parola belirlemediniz!</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">Parolayı devre dışı bırak?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Bu işlem Molly ve ileti bildirimlerinin kilidini kalıcı olarak açacaktır.</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Bu işlem Signal-LTS ve ileti bildirimlerinin kilidini kalıcı olarak açacaktır.</string>
   <string name="ApplicationPreferencesActivity_disable">Devre dışı bırak</string>
   <string name="ApplicationPreferencesActivity_unregistering">Kayıt siliniyor</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Molly ileti ve aramalarından kaydınız siliniyor…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Molly iletilerini ve aramalarını devre dışı bırak?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Sunucudaki kaydınızı silerek Molly iletilerini ve aramalarını devre dışı bırakın. Bu özellikleri gelecekte yeniden kullanabilmeniz için telefon numaranızı tekrar kaydetmeniz gerekir.</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Signal-LTS ileti ve aramalarından kaydınız siliniyor…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Signal-LTS iletilerini ve aramalarını devre dışı bırak?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Sunucudaki kaydınızı silerek Signal-LTS iletilerini ve aramalarını devre dışı bırakın. Bu özellikleri gelecekte yeniden kullanabilmeniz için telefon numaranızı tekrar kaydetmeniz gerekir.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">Sunucuya bağlanırken hata!</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">SMS Etkin</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">Varsayılan SMS uygulamanızı değiştirmek için dokunun</string>
@@ -58,14 +58,14 @@
   <string name="AttachmentKeyboard_file">Dosya</string>
   <string name="AttachmentKeyboard_contact">Kişi</string>
   <string name="AttachmentKeyboard_location">Konum</string>
-  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Molly\'in fotoğraf ve videolarınızı göstermek için erişim iznine ihtiyacı var.</string>
+  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Signal-LTS\'in fotoğraf ve videolarınızı göstermek için erişim iznine ihtiyacı var.</string>
   <string name="AttachmentKeyboard_give_access">İzin Ver</string>
   <string name="AttachmentKeyboard_payment">Ödeme</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">İçerik seçebilecek uygulama bulunamıyor.</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly, fotoğraflar, videolar, veya ses ekleyebilmek için Depolama iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Depolama\"yı etkinleştirin.</string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly, iletişim bilgilerini eklemek için Kişiler iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Kişiler\"i etkinleştirin.</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly, konum bilgisi eklemek için Konum iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Konum\"u etkinleştirin.</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signal-LTS, fotoğraflar, videolar, veya ses ekleyebilmek için Depolama iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Depolama\"yı etkinleştirin.</string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Signal-LTS, iletişim bilgilerini eklemek için Kişiler iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Kişiler\"i etkinleştirin.</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Signal-LTS, konum bilgisi eklemek için Konum iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Konum\"u etkinleştirin.</string>
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">İçerik yükleniyor…</string>
   <string name="AttachmentUploadJob_compressing_video_start">Video sıkıştırılıyor…</string>
@@ -116,14 +116,14 @@
   <string name="CameraContacts_no_signal_contacts">Hiç Signal kişiniz yok</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">Kamera tuşunu yalnızca Signal kişilerine fotoğraf göndermek için kullanabilirsiniz.</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">Aradığınız kişiyi bulamadınız mı?</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">Molly\'e katılması için bir kişiyi davet edin</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">Signal-LTS\'e katılması için bir kişiyi davet edin</string>
   <string name="CameraContacts__menu_search">Ara</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">Kaldır</string>
   <string name="ClearProfileActivity_remove_profile_photo">Profil fotoğrafı kaldırılsın mı?</string>
   <string name="ClearProfileActivity_remove_group_photo">Grup fotoğrafı kaldırılsın mı?</string>
   <!--ClientDeprecatedActivity-->
-  <string name="ClientDeprecatedActivity_update_signal">Molly\'i Güncelle</string>
+  <string name="ClientDeprecatedActivity_update_signal">Signal-LTS\'i Güncelle</string>
   <string name="ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported">Uygulamanın bu sürümü artık desteklenmiyor. İleti göndermeye ve almaya devam etmek için en son sürüme güncelleyin.</string>
   <string name="ClientDeprecatedActivity_update">Güncelle</string>
   <string name="ClientDeprecatedActivity_dont_update">Güncelleme</string>
@@ -202,7 +202,7 @@
   <string name="ConversationActivity_transport_insecure_sms">Şifresiz SMS</string>
   <string name="ConversationActivity_transport_insecure_mms">Şifresiz MMS</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">Molly uygulamasından konuşalım %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">Signal-LTS uygulamasından konuşalım %1$s</string>
   <string name="ConversationActivity_specify_recipient">Lütfen bir kişi seçin</string>
   <string name="ConversationActivity_unblock">Engeli kaldır</string>
   <string name="ConversationActivity_attachment_exceeds_size_limits">Eklenti gönderdiğiniz ileti türü için olan boyut limitini aşıyor.</string>
@@ -211,15 +211,15 @@
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">Cihazınızda bu bağlantıyı işleyebilecek uygulama bulunmamaktadır.</string>
   <string name="ConversationActivity_your_request_to_join_has_been_sent_to_the_group_admin">Katılma isteğiniz grup yöneticisine gönderildi. İsteğiniz yanıtlandığı zaman haberdar edileceksiniz.</string>
   <string name="ConversationActivity_cancel_request">İsteği İptal Et</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Sesli ileti göndermek için Molly\'in mikrofonunuza erişmesine izin verin.</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly, sesli iletiler göndermek için Mikrofon iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Mikrofon\"u etkinleştirin.</string>
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly, %s ile arama yapmanız için Mikrofon ve Kamera iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, \"Mikrofon\" ve \"Kamera\"yı etkinleştirin.</string>
-  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Fotoğraf veya video çekmek için, Molly\'in kameraya erişmesine izin verin.</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Molly, fotoğraf veya video çekmek için Kamera iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Kamera\"yı etkinleştirin.</string>
-  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Molly fotoğraf veya video çekebilmek için kamera erişimine ihtiyaç duyar</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Sesli ileti göndermek için Signal-LTS\'in mikrofonunuza erişmesine izin verin.</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Signal-LTS, sesli iletiler göndermek için Mikrofon iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Mikrofon\"u etkinleştirin.</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Signal-LTS, %s ile arama yapmanız için Mikrofon ve Kamera iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, \"Mikrofon\" ve \"Kamera\"yı etkinleştirin.</string>
+  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Fotoğraf veya video çekmek için, Signal-LTS\'in kameraya erişmesine izin verin.</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signal-LTS, fotoğraf veya video çekmek için Kamera iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Kamera\"yı etkinleştirin.</string>
+  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signal-LTS fotoğraf veya video çekebilmek için kamera erişimine ihtiyaç duyar</string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Sesli videolar kaydedebilmek için mikrofon erişim iznini etkinleştirin.</string>
-  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Molly videolar kaydedebilmek için mikrofon erişimine ihtiyaç duyar, ama bu erişim reddedilmiş. Lütfen uygulama ayarlarına girip, \"İzinler\"i seçin, sonrasında \"Mikrofon\" ve \"Kamera\"yı etkinleştirin.</string>
-  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Molly video kaydedebilmek için mikrofon erişimine izin duyar.</string>
+  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signal-LTS videolar kaydedebilmek için mikrofon erişimine ihtiyaç duyar, ama bu erişim reddedilmiş. Lütfen uygulama ayarlarına girip, \"İzinler\"i seçin, sonrasında \"Mikrofon\" ve \"Kamera\"yı etkinleştirin.</string>
+  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signal-LTS video kaydedebilmek için mikrofon erişimine izin duyar.</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">Signal varsayılan SMS uygulaması olmadığı için SMS/MMS iletileri gönderemiyor. Bunu Android ayarlarınızdan değiştirmek ister misiniz?</string>
   <string name="ConversationActivity_yes">Evet</string>
@@ -235,7 +235,7 @@
   <string name="ConversationActivity_you_will_leave_this_group_and_it_will_be_deleted_from_all_of_your_devices">Bu gruptan ayrılacaksınız ve tüm cihazlarınızdan silinecek.</string>
   <string name="ConversationActivity_delete">Sil</string>
   <string name="ConversationActivity_delete_and_leave">Sil ve ayrıl</string>
-  <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">%1$s ile arama yapmanız için, Molly\'in mikrofonunuza erişime ihtiyacı var.</string>
+  <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">%1$s ile arama yapmanız için, Signal-LTS\'in mikrofonunuza erişime ihtiyacı var.</string>
   <string name="ConversationActivity__more_options_now_in_group_settings">\"Grup ayarları\" artık daha fazla seçeneğe sahip</string>
   <string name="ConversationActivity_join">Katıl</string>
   <string name="ConversationActivity_full">Dolu</string>
@@ -292,7 +292,7 @@
   <string name="ConversationFragment__d_group_members_have_the_same_name">%1$d grup üyesi aynı ada sahip.</string>
   <string name="ConversationFragment__tap_to_review">Gözden geçirmek için dokunun</string>
   <string name="ConversationFragment__review_requests_carefully">İstekleri dikkatlice inceleyin</string>
-  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Molly aynı ada sahip başka bir kişi buldu.</string>
+  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Signal-LTS aynı ada sahip başka bir kişi buldu.</string>
   <string name="ConversationFragment_contact_us">Bizimle iletişime geçin</string>
   <string name="ConversationFragment_verify">Doğrula</string>
   <string name="ConversationFragment_not_now">Şimdi değil</string>
@@ -356,11 +356,11 @@
   <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Yedek parolanızı deneyin ve eşleştiğinden emin olun</string>
   <string name="BackupsPreferenceFragment__turn_on">Aç</string>
   <string name="BackupsPreferenceFragment__turn_off">Kapat</string>
-  <string name="BackupsPreferenceFragment__to_restore_a_backup">Bir yedeği geri yüklemek için, yeni bir Molly kopyası kurun ve \"Yedeği geri yükle\" dokunun ve yedek dosyasını seçin. %1$s</string>
+  <string name="BackupsPreferenceFragment__to_restore_a_backup">Bir yedeği geri yüklemek için, yeni bir Signal-LTS kopyası kurun ve \"Yedeği geri yükle\" dokunun ve yedek dosyasını seçin. %1$s</string>
   <string name="BackupsPreferenceFragment__learn_more">Dahasını öğrenin</string>
   <string name="BackupsPreferenceFragment__in_progress">Devam ediyor…</string>
   <string name="BackupsPreferenceFragment__d_so_far">Şu ana kadar %1$d…</string>
-  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly, yedek oluşturabilmek için Depolama iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Depolama\"yı etkinleştirin.</string>
+  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal-LTS, yedek oluşturabilmek için Depolama iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Depolama\"yı etkinleştirin.</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Özelleştirilmiş \'%s\' kullanılıyor</string>
   <string name="CustomDefaultPreference_using_default">Varsayılan \'%s\' kullanılıyor</string>
@@ -405,7 +405,7 @@
   <string name="GroupCallingMegaphone__open_a_new_group_to_start">Ücretsiz ve şifreli grup araması başlatmak için yeni bir Grup açın.</string>
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">Eksik Google Play Hizmetleri için optimize et</string>
-  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Bu cihaz Play Hizmetlerini desteklemiyor. Molly etkin değilken ileti almasını engelleyebilecek pil iyileştirmelerini devre dışı bırakmak için dokunun.</string>
+  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Bu cihaz Play Hizmetlerini desteklemiyor. Signal-LTS etkin değilken ileti almasını engelleyebilecek pil iyileştirmelerini devre dışı bırakmak için dokunun.</string>
   <!--ExpiredBuildReminder-->
   <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Signal\'in bu sürümü kullanım dışı kaldı. İleti gönderip alabilmek için şimdi güncelleyin.</string>
   <string name="ExpiredBuildReminder_update_now">Şimdi güncelle</string>
@@ -420,7 +420,7 @@
   <string name="ShareActivity_multiple_attachments_are_only_supported">Çoklu ekler sadece resim ve dosyalarda destekleniyor</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Kalıcı Signal haberleşme hatası!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly Google Play Hizmetleri\'ne kaydolamadı. Molly iletileri ve aramaları devre dışı bırakıldı, lütfen Ayarlar &gt; Gelişmiş kısmından tekrar kaydolmayı deneyin.</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal-LTS Google Play Hizmetleri\'ne kaydolamadı. Signal-LTS iletileri ve aramaları devre dışı bırakıldı, lütfen Ayarlar &gt; Gelişmiş kısmından tekrar kaydolmayı deneyin.</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">Tam çözünürlüklü GIF alınırken hata</string>
   <!--GiphyFragmentPageAdapter-->
@@ -744,7 +744,7 @@
   <string name="InviteActivity_cancel">İptal</string>
   <string name="InviteActivity_sending">Gönderiliyor…</string>
   <string name="InviteActivity_invitations_sent">Davetler gönderildi!</string>
-  <string name="InviteActivity_invite_to_signal">Molly\'e davet et</string>
+  <string name="InviteActivity_invite_to_signal">Signal-LTS\'e davet et</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">%d ARKADAŞINA SMS GÖNDER</item>
     <item quantity="other">%d ARKADAŞINA SMS GÖNDER</item>
@@ -753,7 +753,7 @@
     <item quantity="one">%d SMS daveti gönderilsin mi?</item>
     <item quantity="other">%d SMS daveti gönderilsin mi?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">Hadi Molly\'e geçelim: %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">Hadi Signal-LTS\'e geçelim: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Paylaşmak için herhangi bir uygulamanız yok gibi görünüyor.</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Arkadaşlar, arkadaşlarının şifresiz konuşmalarına izin vermez.</string>
   <!--LearnMoreTextView-->
@@ -763,7 +763,7 @@
   <string name="LongMessageActivity_message_from_s">%1$s kişisinden ileti</string>
   <string name="LongMessageActivity_your_message">İletiniz</string>
   <!--MessageRetrievalService-->
-  <string name="MessageRetrievalService_signal">Molly</string>
+  <string name="MessageRetrievalService_signal">Signal-LTS</string>
   <string name="MessageRetrievalService_background_connection_enabled">Arkaplan bağlantısı etkinleştirildi</string>
   <!--MmsDownloader-->
   <string name="MmsDownloader_error_reading_mms_settings">Kablosuz MMS sağlayıcısı ayarları okunurken hata</string>
@@ -851,8 +851,8 @@
   <string name="MediaSendActivity_message_to_s">%s kişisine ileti</string>
   <string name="MediaSendActivity_message">İleti</string>
   <string name="MediaSendActivity_select_recipients">Alıcıları seçin</string>
-  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Molly\'in kişilerinizi gösterebilmek için erişime ihtiyacı var.</string>
-  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Kişilerinizi göstermek için Molly\'in kişiler iznine ihtiyacı var fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulamanın ayarlarına girip \"İzinleri\" seçin ve \"Kişileri\" etkinleştirin.</string>
+  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Signal-LTS\'in kişilerinizi gösterebilmek için erişime ihtiyacı var.</string>
+  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Kişilerinizi göstermek için Signal-LTS\'in kişiler iznine ihtiyacı var fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulamanın ayarlarına girip \"İzinleri\" seçin ve \"Kişileri\" etkinleştirin.</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="one">%d öğeden daha fazlasını paylaşamazsınız.</item>
     <item quantity="other">%d öğeden daha fazlasını paylaşamazsınız.</item>
@@ -1096,7 +1096,7 @@
   <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">Üzgünüz, bu geçerli bir cihaz bağlama karekodu değil.</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">Bir Signal cihazı bağlansın mı?</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Üçüncül bir tarafın tarayıcısı ile taramaya çalışıyorsunuz gibi gözüküyor. Güvenliğiniz için, lütfen kodu Signal\'in içerisinden tekrar tarayın.</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly, bir karekod taramak için Kamera iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Kamera\"yı etkinleştirin.</string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Signal-LTS, bir karekod taramak için Kamera iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Kamera\"yı etkinleştirin.</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Kamera izni olmadan karekod taranamıyor.</string>
   <!--OutdatedBuildReminder-->
   <string name="OutdatedBuildReminder_update_now">Şimdi güncelle</string>
@@ -1107,10 +1107,10 @@
   </plurals>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">Parola girin</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Molly simgesi</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Signal-LTS simgesi</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">Parola gir</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Geçersiz parola!</string>
-  <string name="PassphrasePromptActivity_unlock_signal">Molly\'in Kilidini Aç</string>
+  <string name="PassphrasePromptActivity_unlock_signal">Signal-LTS\'in Kilidini Aç</string>
   <string name="PassphrasePromptActivity_signal_android_lock_screen">Signal Android - Kilit Ekranı</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">Harita</string>
@@ -1157,7 +1157,7 @@
   <string name="ReactionsRecipientAdapter_you">Siz</string>
   <!--RecaptchaRequiredBottomSheetFragment-->
   <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">İleti gönderimine devam etmek için doğrulayın</string>
-  <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Molly\'de istenmeyen iletileri önlemek için, lütfen doğrulamayı tamamlayın.</string>
+  <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Signal-LTS\'de istenmeyen iletileri önlemek için, lütfen doğrulamayı tamamlayın.</string>
   <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">Doğrulamadan sonra, ileti göndermeye devam edebilirsiniz. Tüm duraklatılmış iletiler otomatik olarak gönderilecektir.</string>
   <!--Recipient-->
   <string name="Recipient_you">Siz</string>
@@ -1178,8 +1178,8 @@
   <string name="RedPhone_got_it">Anladım</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Görüntünüzü açmak için buraya dokunun</string>
-  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">%1$s ile arama yapmanız için, Molly\'in kameranıza erişime ihtiyacı var</string>
-  <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
+  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">%1$s ile arama yapmanız için, Signal-LTS\'in kameranıza erişime ihtiyacı var</string>
+  <string name="WebRtcCallActivity__signal_s">Signal-LTS %1$s</string>
   <string name="WebRtcCallActivity__calling">Aranıyor…</string>
   <!--WebRtcCallView-->
   <string name="WebRtcCallView__signal_voice_call">Signal sesli arama…</string>
@@ -1242,13 +1242,13 @@
   <string name="RegistrationActivity_is_your_phone_number_above_correct">Yukarıdaki telefon numaranız doğru mu?</string>
   <string name="RegistrationActivity_edit_number">Numarayı düzenle</string>
   <string name="RegistrationActivity_missing_google_play_services">Google Play Hizmetleri eksik</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Bu cihazda Google Play Hizmetleri bulunmamakta. Molly\'i kullanmaya devam edebilirsiniz ancak bu yapılandırma şekli azaltılmış güvenirlik veya performans gibi sonuçları doğurabilir. \n\nEğer ileri düzey kullanıcı değilseniz, alternatif Android ROM kullanmıyorsanız, veya bunu bir hata olarak görüyorsanız, lütfen sorun giderme konusunda yardım almak için support@molly.im adresinden iletişime geçiniz</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Bu cihazda Google Play Hizmetleri bulunmamakta. Signal-LTS\'i kullanmaya devam edebilirsiniz ancak bu yapılandırma şekli azaltılmış güvenirlik veya performans gibi sonuçları doğurabilir. \n\nEğer ileri düzey kullanıcı değilseniz, alternatif Android ROM kullanmıyorsanız, veya bunu bir hata olarak görüyorsanız, lütfen sorun giderme konusunda yardım almak için support@Signal-LTS.im adresinden iletişime geçiniz</string>
   <string name="RegistrationActivity_i_understand">Anladım</string>
   <string name="RegistrationActivity_play_services_error">Play Hizmetleri Hatası</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Hizmetleri güncelleniyor veya geçiçi olarak kullanılamaz durumda. Lütfen tekrar deneyiniz.</string>
   <string name="RegistrationActivity_terms_and_privacy">Koşullar ve Gizlilik İlkesi</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Kişilerinizle iletişim kurabilmeniz ve güvenli aramalar yapabilmeniz için Molly\'in Kişilerinize ve Depolamanıza erişime ihtiyacı var</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Kişilerinizle iletişim kurabilmeniz ve güvenli aramalar yapabilmeniz için Molly\'in Kişilerinize erişime ihtiyacı var</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Kişilerinizle iletişim kurabilmeniz ve güvenli aramalar yapabilmeniz için Signal-LTS\'in Kişilerinize ve Depolamanıza erişime ihtiyacı var</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Kişilerinizle iletişim kurabilmeniz ve güvenli aramalar yapabilmeniz için Signal-LTS\'in Kişilerinize erişime ihtiyacı var</string>
   <string name="RegistrationActivity_rate_limited_to_service">Bu numarayı kaydettirmek için çok fazla deneme yaptınız. Lütfen daha sonra tekrar deneyiniz.</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">Hizmete bağlanılamadı. Lütfen ağ bağlantınızı kontrol edip tekrar deneyin. </string>
   <plurals name="RegistrationActivity_debug_log_hint">
@@ -1286,12 +1286,12 @@
   <!--ShakeToReport-->
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">Kişilere Ekle</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Molly\'e davet et</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Signal-LTS\'e davet et</string>
   <string name="SharedContactDetailsActivity_signal_message">Signal İletisi</string>
   <string name="SharedContactDetailsActivity_signal_call">Signal Araması</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">Kişilere Ekle</string>
-  <string name="SharedContactView_invite_to_signal">Molly\'e davet et</string>
+  <string name="SharedContactView_invite_to_signal">Signal-LTS\'e davet et</string>
   <string name="SharedContactView_message">Signal İletisi</string>
   <!--SignalPinReminders-->
   <string name="SignalPinReminders_well_remind_you_again_later">Size daha sonra hatırlatacağız</string>
@@ -1347,8 +1347,8 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <string name="SupportEmailUtil_filter">Filtre:</string>
   <string name="SupportEmailUtil_device_info">Cihaz bilgisi:</string>
   <string name="SupportEmailUtil_android_version">Android sürümü:</string>
-  <string name="SupportEmailUtil_signal_version">Molly sürümü:</string>
-  <string name="SupportEmailUtil_signal_package">Molly paketi:</string>
+  <string name="SupportEmailUtil_signal_version">Signal-LTS sürümü:</string>
+  <string name="SupportEmailUtil_signal_package">Signal-LTS paketi:</string>
   <string name="SupportEmailUtil_registration_lock">Kayıt kilidi:</string>
   <string name="SupportEmailUtil_locale">Dil:</string>
   <!--ThreadRecord-->
@@ -1384,8 +1384,8 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <string name="ThreadRecord_video">Video</string>
   <string name="ThreadRecord_chat_session_refreshed">Konuşma oturumu yenilendi</string>
   <!--UpdateApkReadyListener-->
-  <string name="UpdateApkReadyListener_Signal_update">Molly güncellemesi</string>
-  <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Molly\'in yeni sürümü mevcut, güncellemek için dokunun</string>
+  <string name="UpdateApkReadyListener_Signal_update">Signal-LTS güncellemesi</string>
+  <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Signal-LTS\'in yeni sürümü mevcut, güncellemek için dokunun</string>
   <!--UntrustedSendDialog-->
   <string name="UntrustedSendDialog_send_message">İleti gönderilsin mi?</string>
   <string name="UntrustedSendDialog_send">Gönder</string>
@@ -1417,7 +1417,7 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <string name="VerifyIdentityActivity_our_signal_safety_number">Signal güvenlik numaramız:</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">Paylaşmak için herhangi bir uygulamanız yok gibi görünüyor. </string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">Panoda karşılaştırılacak bir güvenlik numarası bulunamadı</string>
-  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Molly, bir karekod taramak için Kamera iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Kamera\"yı etkinleştirin.</string>
+  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Signal-LTS, bir karekod taramak için Kamera iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Kamera\"yı etkinleştirin.</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">Kamera izni olmadan karekod taranamıyor.</string>
   <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">%1$s\'in güvenli numarasını görmek için önce ona ileti gönderip almanız gerekiyor.</string>
   <!--ViewOnceMessageActivity-->
@@ -1436,13 +1436,13 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <string name="ApplicationMigrationService_system_database_import_is_complete">Sistem veritabanı aktarması tamamlandı.</string>
   <!--KeyCachingService-->
   <string name="KeyCachingService_signal_passphrase_cached">Açmak için dokunun.</string>
-  <string name="KeyCachingService_passphrase_cached">Molly kilidi açık</string>
-  <string name="KeyCachingService_lock">Molly\'i Kilitle</string>
+  <string name="KeyCachingService_passphrase_cached">Signal-LTS kilidi açık</string>
+  <string name="KeyCachingService_lock">Signal-LTS\'i Kilitle</string>
   <!--MediaPreviewActivity-->
   <string name="MediaPreviewActivity_you">Siz</string>
   <string name="MediaPreviewActivity_unssuported_media_type">Desteklenmeyen içerik türü</string>
   <string name="MediaPreviewActivity_draft">Taslak</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Molly, harici depolamaya kaydedebilmek için Depolama iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Depolama\"yı etkinleştirin.</string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Signal-LTS, harici depolamaya kaydedebilmek için Depolama iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Depolama\"yı etkinleştirin.</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">İzinler olmadan harici depolamaya kaydedilemiyor</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">İletiyi sil?</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">Bu eylem bu iletiyi kalıcı olarak silecektir.</string>
@@ -1457,7 +1457,7 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <string name="MessageNotifier_failed_to_deliver_message">İleti teslim edilemedi.</string>
   <string name="MessageNotifier_error_delivering_message">İleti tesliminde hata.</string>
   <string name="MessageNotifier_message_delivery_paused">İleti gönderimi duraklatıldı</string>
-  <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Molly\'de ileti göndermeye devam etmek için doğrulamayı tamamlayın</string>
+  <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Signal-LTS\'de ileti göndermeye devam etmek için doğrulamayı tamamlayın</string>
   <string name="MessageNotifier_mark_all_as_read">Tümünü okundu işaretle</string>
   <string name="MessageNotifier_mark_read">Okundu işaretle</string>
   <string name="MessageNotifier_turn_off_these_notifications">Bu bildirimleri kapat</string>
@@ -1467,7 +1467,7 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <string name="MessageNotifier_signal_message">Signal İletisi</string>
   <string name="MessageNotifier_unsecured_sms">Şifresiz SMS</string>
   <string name="MessageNotifier_you_may_have_new_messages">Yeni iletileriniz olabilir</string>
-  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Yakın zamandaki bildirimler için Molly\'i açın.</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Yakın zamandaki bildirimler için Signal-LTS\'i açın.</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">Kişi</string>
   <string name="MessageNotifier_reacted_s_to_s">\"%2$s\" iletisine karşılık verdi: %1$s</string>
@@ -1494,7 +1494,7 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <string name="NotificationChannels__no_activity_available_to_open_notification_channel_settings">Bildirim kanal ayarlarını açmak için mevcut bir faaliyet yok</string>
   <!--ProfileEditNameFragment-->
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Molly kilitliyken hızlı cevap kullanılamaz!</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Signal-LTS kilitliyken hızlı cevap kullanılamaz!</string>
   <string name="QuickResponseService_problem_sending_message">İleti gönderilirken hata!</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">%s konumuna kaydedildi</string>
@@ -1505,7 +1505,7 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">Geçersiz kısayol</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Signal-LTS</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Yeni ileti</string>
   <string name="SingleRecipientNotificationBuilder_message_request">İleti isteği</string>
   <string name="SingleRecipientNotificationBuilder_you">Siz</string>
@@ -1521,8 +1521,8 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <string name="UnauthorizedReminder_device_no_longer_registered">Cihaz artık kayıtlı değil</string>
   <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Bunun nedeni büyük olasılıkla telefon numaranızın farklı bir cihazda Signal\'e kaydedilmiş olmasıdır. Tekrar kaydetmek için dokunun.</string>
   <!--WebRtcCallActivity-->
-  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">%s tarafından gelen aramayı yanıtlamak için, Molly\'in mikrofonunuza erişmesine izin verin.</string>
-  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Molly, arama yapmak ve almak için Mikrofon ve Kamera iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, \"Mikrofon\" ve \"Kamera\"yı etkinleştirin.</string>
+  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">%s tarafından gelen aramayı yanıtlamak için, Signal-LTS\'in mikrofonunuza erişmesine izin verin.</string>
+  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Signal-LTS, arama yapmak ve almak için Mikrofon ve Kamera iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, \"Mikrofon\" ve \"Kamera\"yı etkinleştirin.</string>
   <string name="WebRtcCallActivity__answered_on_a_linked_device">Bağlı cihazdan yanıtlandı.</string>
   <string name="WebRtcCallActivity__declined_on_a_linked_device">Bağlı cihazdan reddedildi.</string>
   <string name="WebRtcCallActivity__busy_on_a_linked_device">Bağlı cihazda meşgul.</string>
@@ -1546,7 +1546,7 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <string name="change_passphrase_activity__repeat_new_passphrase">Yeni parolayı tekrarlayın</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">İsim veya numara girin</string>
-  <string name="contact_selection_activity__invite_to_signal">Molly\'e davet et</string>
+  <string name="contact_selection_activity__invite_to_signal">Signal-LTS\'e davet et</string>
   <string name="contact_selection_activity__new_group">Yeni grup</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">Yazılı metni temizle</string>
@@ -1558,7 +1558,7 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <!--single_contact_selection_activity-->
   <string name="SingleContactSelectionActivity_contact_photo">Kişi Fotoğrafı</string>
   <!--ContactSelectionListFragment-->
-  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Molly, kişileriniz gösterebilmek için Kişiler iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Kişiler\"i etkinleştirin.</string>
+  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Signal-LTS, kişileriniz gösterebilmek için Kişiler iznine ihtiyaç duyar, fakat bu izin kalıcı olarak reddedilmiş. Lütfen uygulama ayarları menüsüne girip \"İzinler\" kısmını seçin, ve \"Kişiler\"i etkinleştirin.</string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Kişiler alınırken hata oluştu, ağ bağlantınızı kontrol edin</string>
   <string name="ContactSelectionListFragment_username_not_found">Kullanıcı adı bulunamadı</string>
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">\"%1$s\" bir Signal kullanıcısı değil. Lütfen kullanıcı adını kontrol edin ve tekrar deneyin.</string>
@@ -1572,7 +1572,7 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
     <item quantity="other">%1$d üye</item>
   </plurals>
   <!--contact_selection_list_fragment-->
-  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly\'in kişilerinizi gösterebilmek için erişime ihtiyacı var.</string>
+  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Signal-LTS\'in kişilerinizi gösterebilmek için erişime ihtiyacı var.</string>
   <string name="contact_selection_list_fragment__show_contacts">Kişileri Görüntüle</string>
   <!--contact_selection_list_item-->
   <plurals name="contact_selection_list_item__number_of_members">
@@ -1937,7 +1937,7 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <string name="preferences__slow">Yavaş</string>
   <string name="preferences__help">Yardım</string>
   <string name="preferences__advanced">Gelişmiş</string>
-  <string name="preferences__donate_to_signal">Molly\'e Bağış Yap</string>
+  <string name="preferences__donate_to_signal">Signal-LTS\'e Bağış Yap</string>
   <string name="preferences__privacy">Gizlilik</string>
   <string name="preferences__mms_user_agent">MMS Kullanıcı Aracı</string>
   <string name="preferences__advanced_mms_access_point_names">Manuel MMS ayarları</string>
@@ -2066,7 +2066,7 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <string name="PaymentsAllActivityFragment__sent">Gönderildi</string>
   <string name="PaymentsAllActivityFragment__received">Alındı</string>
   <string name="PaymentsHomeFragment__introducing_payments">Ödemeler tanıtımı (Beta)</string>
-  <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Yeni gizlilik odaklı dijital para birimi MobileCoin alıp göndermek için Molly kullanın. Başlamak için etkinleştirin.</string>
+  <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Yeni gizlilik odaklı dijital para birimi MobileCoin alıp göndermek için Signal-LTS kullanın. Başlamak için etkinleştirin.</string>
   <string name="PaymentsHomeFragment__activate_payments">Ödemeleri Etkinleştir</string>
   <string name="PaymentsHomeFragment__activating_payments">Ödemeler etkinleştiriliyor…</string>
   <string name="PaymentsHomeFragment__restore_payments_account">Ödemeler hesabını geri getir</string>
@@ -2100,10 +2100,10 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <string name="PaymentsHomeFragment__payments_deactivated">Ödemeler devre dışı bırakıldı.</string>
   <string name="PaymentsHomeFragment__payment_failed">Ödeme başarısız oldu</string>
   <string name="PaymentsHomeFragment__details">Detaylar</string>
-  <string name="PaymentsHomeFragment__you_can_use_signal_to_send">Molly\'i MobileCoin alıp göndermek için kullanabilirsiniz. Tüm ödemeler MobileCoin ve MobileCoin Wallet Kullanım Koşullarına tabidir. Bu beta bir özelliktir, bu nedenle kimi sorunlarla karşılabilirsiniz ve kaybettiğiniz ödemeleri veya bakiyeyi kurtaramayabilirsiniz.</string>
+  <string name="PaymentsHomeFragment__you_can_use_signal_to_send">Signal-LTS\'i MobileCoin alıp göndermek için kullanabilirsiniz. Tüm ödemeler MobileCoin ve MobileCoin Wallet Kullanım Koşullarına tabidir. Bu beta bir özelliktir, bu nedenle kimi sorunlarla karşılabilirsiniz ve kaybettiğiniz ödemeleri veya bakiyeyi kurtaramayabilirsiniz.</string>
   <string name="PaymentsHomeFragment__activate">Etkinleştir</string>
   <string name="PaymentsHomeFragment__view_mobile_coin_terms">MobileCoin şartlarını görüntüle</string>
-  <string name="PaymentsHomeFragment__payments_not_available">Molly\'de Ödemeler artık mevcut değil. Yine de kambiyoya para aktarabilirsiniz ancak ödeme alıp gönderemez veya para ekleyemezsiniz.</string>
+  <string name="PaymentsHomeFragment__payments_not_available">Signal-LTS\'de Ödemeler artık mevcut değil. Yine de kambiyoya para aktarabilirsiniz ancak ödeme alıp gönderemez veya para ekleyemezsiniz.</string>
   <!--PaymentsAddMoneyFragment-->
   <string name="PaymentsAddMoneyFragment__add_funds">Para ekle</string>
   <string name="PaymentsAddMoneyFragment__your_wallet_address">Cüzdan Adresiniz</string>
@@ -2140,10 +2140,10 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <string name="PaymentsTransferFragment__next">İleri</string>
   <string name="PaymentsTransferFragment__invalid_address">Geçersiz adres</string>
   <string name="PaymentsTransferFragment__check_the_wallet_address">Aktarmaya çalıştığınız cüzdan adresini denetleyin ve tekrar deneyin.</string>
-  <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">Kendi Molly cüzdan adresinize aktarma yapamazsınız. Desteklenen bir kambiyodaki hesabınızdaki cüzdan adresini girin.</string>
-  <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">Karekod taramak için Molly\'in kameranıza erişime ihtiyacı var.</string>
-  <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Karekod okumak için Molly Kamera izninie ihtiyaç duyuyor. Ayarlara gidin, \"İzinler\"i seçin ve \"Kamera\"yı etkinleştirin.</string>
-  <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">Karekod taramak için Molly\'in kameranıza erişime ihtiyacı var.</string>
+  <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">Kendi Signal-LTS cüzdan adresinize aktarma yapamazsınız. Desteklenen bir kambiyodaki hesabınızdaki cüzdan adresini girin.</string>
+  <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">Karekod taramak için Signal-LTS\'in kameranıza erişime ihtiyacı var.</string>
+  <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Karekod okumak için Signal-LTS Kamera izninie ihtiyaç duyuyor. Ayarlara gidin, \"İzinler\"i seçin ve \"Kamera\"yı etkinleştirin.</string>
+  <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">Karekod taramak için Signal-LTS\'in kameranıza erişime ihtiyacı var.</string>
   <string name="PaymentsTransferFragment__settings">Ayarlar</string>
   <!--PaymentsTransferQrScanFragment-->
   <string name="PaymentsTransferQrScanFragment__scan_address_qr_code">Adres Kare Kodunu Tara</string>
@@ -2504,7 +2504,7 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">Çok fazla deneme yaptınız. Lütfen daha sonra tekrar deneyiniz.</string>
   <string name="RegistrationActivity_error_connecting_to_service">Hizmete bağlanırken hata</string>
   <string name="preferences_chats__backups">Yedekler</string>
-  <string name="prompt_passphrase_activity__signal_is_locked">Molly kilitli</string>
+  <string name="prompt_passphrase_activity__signal_is_locked">Signal-LTS kilitli</string>
   <string name="prompt_passphrase_activity__tap_to_unlock">AÇMAK İÇİN DOKUNUN</string>
   <string name="Recipient_unknown">Bilinmeyen</string>
   <!--TransferOrRestoreFragment-->
@@ -2528,18 +2528,18 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">Eski Android cihaza bağlanmaya hazırlanılıyor…</string>
   <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">Biraz bekleyin, yakında hazır olacak</string>
   <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">Eski Android cihazın bağlanması bekleniyor…</string>
-  <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Molly eski Android cihazınızı keşfetmek ve bağlamak için konum erişimine ihtiyaç duyar</string>
-  <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Molly eski Android cihazınızı keşfetmek ve bağlamak için konum hizmetlerinin etkinleştirilmesine ihtiyaç duyar</string>
-  <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Molly eski Android cihazınızı keşfetmek ve bağlamak için kablosuzun etkinleştirilmesine ihtiyaç duyar. Kablosuzun açık olması gereklidir fakat herhangi bir kablosuz ağa bağlı olması gerekli değildir.</string>
-  <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Üzgünüz, görünüşe göre bu cihaz Wi-Fi Direct desteklemiyor. Molly eski Android cihazınızı keşfetmek ve bağlamak için Wi-Fi Direct kullanır. Eski Android cihazınızdaki hesabınızı geri yüklemek için yedek kullanabilirsiniz.</string>
+  <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Signal-LTS eski Android cihazınızı keşfetmek ve bağlamak için konum erişimine ihtiyaç duyar</string>
+  <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Signal-LTS eski Android cihazınızı keşfetmek ve bağlamak için konum hizmetlerinin etkinleştirilmesine ihtiyaç duyar</string>
+  <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Signal-LTS eski Android cihazınızı keşfetmek ve bağlamak için kablosuzun etkinleştirilmesine ihtiyaç duyar. Kablosuzun açık olması gereklidir fakat herhangi bir kablosuz ağa bağlı olması gerekli değildir.</string>
+  <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Üzgünüz, görünüşe göre bu cihaz Wi-Fi Direct desteklemiyor. Signal-LTS eski Android cihazınızı keşfetmek ve bağlamak için Wi-Fi Direct kullanır. Eski Android cihazınızdaki hesabınızı geri yüklemek için yedek kullanabilirsiniz.</string>
   <string name="NewDeviceTransferSetup__restore_a_backup">Yedeği geri yükle</string>
   <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Eski Android cihazınıza bağlanmaya çalışılırken beklenmedik bir hata oluştu.</string>
   <!--OldDeviceTransferSetupFragment-->
   <string name="OldDeviceTransferSetup__searching_for_new_android_device">Yeni Android cihaz aranıyor…</string>
-  <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Molly yeni Android cihazınızı keşfetmek ve bağlamak için konum erişimine ihtiyaç duyar</string>
-  <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Molly yeni Android cihazınızı keşfetmek ve bağlamak için konum hizmetlerinin etkinleştirilmesine ihtiyaç duyar</string>
-  <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Molly yeni Android cihazınızı keşfetmek ve bağlamak için kablosuzun etkinleştirilmesine ihtiyaç duyar. Kablosuzun açık olması gereklidir fakat herhangi bir kablosuz ağa bağlı olması gerekli değildir.</string>
-  <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Üzgünüz, görünüşe göre bu cihaz Wi-Fi Direct desteklemiyor. Molly yeni Android cihazınızı keşfetmek ve bağlamak için Wi-Fi Direct kullanır. Yeni Android cihazınıza hesabınızı geri yüklemek için yedek kullanabilirsiniz.</string>
+  <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Signal-LTS yeni Android cihazınızı keşfetmek ve bağlamak için konum erişimine ihtiyaç duyar</string>
+  <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Signal-LTS yeni Android cihazınızı keşfetmek ve bağlamak için konum hizmetlerinin etkinleştirilmesine ihtiyaç duyar</string>
+  <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Signal-LTS yeni Android cihazınızı keşfetmek ve bağlamak için kablosuzun etkinleştirilmesine ihtiyaç duyar. Kablosuzun açık olması gereklidir fakat herhangi bir kablosuz ağa bağlı olması gerekli değildir.</string>
+  <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Üzgünüz, görünüşe göre bu cihaz Wi-Fi Direct desteklemiyor. Signal-LTS yeni Android cihazınızı keşfetmek ve bağlamak için Wi-Fi Direct kullanır. Yeni Android cihazınıza hesabınızı geri yüklemek için yedek kullanabilirsiniz.</string>
   <string name="OldDeviceTransferSetup__create_a_backup">Yedek oluştur</string>
   <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Yeni Android cihazınıza bağlanmaya çalışılırken beklenmedik bir hata oluştu.</string>
   <!--DeviceTransferSetupFragment-->
@@ -2577,7 +2577,7 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <string name="NewDeviceTransfer__cannot_transfer_from_a_newer_version_of_signal">Daha yeni bir Signal sürümünden aktarım yapılamaz</string>
   <!--DeviceTransferFragment-->
   <string name="DeviceTransfer__transferring_data">Veri aktarılıyor</string>
-  <string name="DeviceTransfer__keep_both_devices_near_each_other">Her iki aygıtı birbirine yakın tutun. Aygıtları kapatmayın ve Molly\'i açık tutun. Aktarımlar uçtan uça şifrelidir.</string>
+  <string name="DeviceTransfer__keep_both_devices_near_each_other">Her iki aygıtı birbirine yakın tutun. Aygıtları kapatmayın ve Signal-LTS\'i açık tutun. Aktarımlar uçtan uça şifrelidir.</string>
   <string name="DeviceTransfer__d_messages_so_far">Şimdiye kadar %1$d ileti…</string>
   <string name="DeviceTransfer__cancel">İptal</string>
   <string name="DeviceTransfer__try_again">Tekrar dene</string>
@@ -2590,7 +2590,7 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <string name="OldDeviceTransferInstructions__transfer_account">Hesabı Aktar</string>
   <string name="OldDeviceTransferInstructions__you_can_transfer_your_signal_account_when_setting_up_signal_on_a_new_android_device">Signal\'i yeni bir Android aygıtına kurarken, Signal hesabınızı aktarabilirsiniz. Devam etmeden önce:</string>
   <string name="OldDeviceTransferInstructions__first_bullet">1.</string>
-  <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Molly\'i yeni Android aygıtınıza indirin</string>
+  <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Signal-LTS\'i yeni Android aygıtınıza indirin</string>
   <string name="OldDeviceTransferInstructions__second_bullet">2.</string>
   <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">\"Hesabı aktar veya geri yükle\"ye dokunun</string>
   <string name="OldDeviceTransferInstructions__third_bullet">3.</string>
@@ -2656,7 +2656,7 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <!--GroupLinkBottomSheetDialogFragment-->
   <string name="GroupLinkBottomSheet_share_hint_requiring_approval">Bu bağlantıya sahip herkes grubun ismini ve fotoğrafını görebilir, katılma isteğinde bulunabilir. Güvendiğiniz kişilerle paylaşın.</string>
   <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">Bu bağlantıya sahip herkes grubun ismini ve fotoğrafını görebilir, katılabilir Güvendiğiniz kişilerle paylaşın.</string>
-  <string name="GroupLinkBottomSheet_share_via_signal">Molly ile Paylaş</string>
+  <string name="GroupLinkBottomSheet_share_via_signal">Signal-LTS ile Paylaş</string>
   <string name="GroupLinkBottomSheet_copy">Kopyala</string>
   <string name="GroupLinkBottomSheet_qr_code">Karekod</string>
   <string name="GroupLinkBottomSheet_share">Paylaş</string>
@@ -2783,7 +2783,7 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <string name="payment_info_card_about_mobilecoin">MobileCoin Hakkında</string>
   <string name="payment_info_card_mobilecoin_is_a_new_privacy_focused_digital_currency">MobileCoin, gizlilik odaklı yeni bir dijital para birimidir.</string>
   <string name="payment_info_card_adding_funds">Para ekleme</string>
-  <string name="payment_info_card_you_can_add_funds_for_use_in">Cüzdan adresinize MobileCoin göndererek Molly\'de kullanmak için para ekleyebilirsiniz.</string>
+  <string name="payment_info_card_you_can_add_funds_for_use_in">Cüzdan adresinize MobileCoin göndererek Signal-LTS\'de kullanmak için para ekleyebilirsiniz.</string>
   <string name="payment_info_card_cashing_out">Nakit çıkışı</string>
   <string name="payment_info_card_you_can_cash_out_mobilecoin">İstediğiniz zaman MobileCoin destekleyen herhangi bir kambiyoda nakde çevirebilirsiniz. Sadece bu kambiyodaki hesabınıza aktarım yapmanız gerektiğini unutmayın.</string>
   <string name="payment_info_card_hide_this_card">Bu kartı sakla?</string>
@@ -2797,12 +2797,12 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <!--DeactivateWalletFragment-->
   <string name="DeactivateWalletFragment__deactivate_wallet">Cüzdanı Devre Dışı Bırak</string>
   <string name="DeactivateWalletFragment__your_balance">Bakiyeniz</string>
-  <string name="DeactivateWalletFragment__its_recommended_that_you">Ödemeleri devre dışı bırakmadan önce mevcut bakiyenizi başka bir cüzdana aktarmanızı öneriyoruz. Eğer paranızı şimdi aktarmamayı seçerseniz, ödemeleri devre dışı bıraktığınızda Molly\'e bağlı cüzdanınızda kalacaktır.</string>
+  <string name="DeactivateWalletFragment__its_recommended_that_you">Ödemeleri devre dışı bırakmadan önce mevcut bakiyenizi başka bir cüzdana aktarmanızı öneriyoruz. Eğer paranızı şimdi aktarmamayı seçerseniz, ödemeleri devre dışı bıraktığınızda Signal-LTS\'e bağlı cüzdanınızda kalacaktır.</string>
   <string name="DeactivateWalletFragment__transfer_remaining_balance">Kalan bakiyeyi aktar</string>
   <string name="DeactivateWalletFragment__deactivate_without_transferring">Aktarmadan devre dışı bırak</string>
   <string name="DeactivateWalletFragment__deactivate">Devre dışı bırak</string>
   <string name="DeactivateWalletFragment__deactivate_without_transferring_question">Aktarmadan devre dışı bırakılsın mı?</string>
-  <string name="DeactivateWalletFragment__your_balance_will_remain">Ödemeleri tekrar etkinleştirmeyi seçerseniz, bakiyeniz Molly\'e bağlı cüzdanınızda kalacaktır.</string>
+  <string name="DeactivateWalletFragment__your_balance_will_remain">Ödemeleri tekrar etkinleştirmeyi seçerseniz, bakiyeniz Signal-LTS\'e bağlı cüzdanınızda kalacaktır.</string>
   <string name="DeactivateWalletFragment__error_deactivating_wallet">Cüzdanı devre dışı bırakırken bir hata oldu.</string>
   <!--PaymentsRecoveryStartFragment-->
   <string name="PaymentsRecoveryStartFragment__recovery_phrase">Kurtarma parolası</string>

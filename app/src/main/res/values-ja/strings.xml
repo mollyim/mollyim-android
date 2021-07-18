@@ -10,17 +10,17 @@
   <string name="AbstractNotificationBuilder_new_message">新着メッセージ</string>
   <!--AlbumThumbnailView-->
   <!--ApplicationMigrationActivity-->
-  <string name="ApplicationMigrationActivity__signal_is_updating">Mollyをアップデートしています…</string>
+  <string name="ApplicationMigrationActivity__signal_is_updating">Signal-LTSをアップデートしています…</string>
   <!--ApplicationPreferencesActivity-->
   <string name="ApplicationPreferencesActivity_currently_s">現在: %s</string>
   <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">パスフレーズが設定されていません！</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">パスフレーズを無効にしますか？</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Mollyとメッセージ通知のロックを恒久的に解除します。</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Signal-LTSとメッセージ通知のロックを恒久的に解除します。</string>
   <string name="ApplicationPreferencesActivity_disable">無効</string>
   <string name="ApplicationPreferencesActivity_unregistering">登録を解除しています</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Mollyメッセージと通話の登録を解除しています…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Mollyでのメッセージや通話を無効にしますか？</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">サーバから登録を削除することで、Mollyでのメッセージや通話を無効にします。再びMollyを使用するには、電話番号を再登録する必要があります。</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Signal-LTSメッセージと通話の登録を解除しています…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Signal-LTSでのメッセージや通話を無効にしますか？</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">サーバから登録を削除することで、Signal-LTSでのメッセージや通話を無効にします。再びSignal-LTSを使用するには、電話番号を再登録する必要があります。</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">サーバ接続中にエラーが発生しました！</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">SMS有効</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">タッチして規定のSMSアプリを変更します</string>
@@ -57,14 +57,14 @@
   <string name="AttachmentKeyboard_file">ファイル</string>
   <string name="AttachmentKeyboard_contact">連絡先</string>
   <string name="AttachmentKeyboard_location">場所</string>
-  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">写真や動画を表示するには、Mollyに許可が必要です。</string>
+  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">写真や動画を表示するには、Signal-LTSに許可が必要です。</string>
   <string name="AttachmentKeyboard_give_access">アクセスを許可する</string>
   <string name="AttachmentKeyboard_payment">支払い</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">メディアを選択するアプリが見つかりません。</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">写真や動画、音声データを添付するには、Mollyにストレージへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アクセス許可」で「ストレージ」を有効にしてください。</string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">連絡先情報を添付するには、Mollyに連絡先へのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「連絡先」を有効にしてください。</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">位置情報を添付するには、Mollyに位置情報へのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「位置情報」を有効にしてください。</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">写真や動画、音声データを添付するには、Signal-LTSにストレージへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アクセス許可」で「ストレージ」を有効にしてください。</string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">連絡先情報を添付するには、Signal-LTSに連絡先へのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「連絡先」を有効にしてください。</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">位置情報を添付するには、Signal-LTSに位置情報へのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「位置情報」を有効にしてください。</string>
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">メディアをアップロードしています…</string>
   <string name="AttachmentUploadJob_compressing_video_start">動画を圧縮しています…</string>
@@ -115,14 +115,14 @@
   <string name="CameraContacts_no_signal_contacts">Signalの連絡先はありません</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">カメラボタンだけでSignalの連絡先へ写真を送信できます。</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">探している人が見つかりませんか？</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">連絡先をMollyへ招待する</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">連絡先をSignal-LTSへ招待する</string>
   <string name="CameraContacts__menu_search">検索</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">削除する</string>
   <string name="ClearProfileActivity_remove_profile_photo">プロフィール画像を削除しますか？</string>
   <string name="ClearProfileActivity_remove_group_photo">グループアイコンを削除しますか？</string>
   <!--ClientDeprecatedActivity-->
-  <string name="ClientDeprecatedActivity_update_signal">Mollyをアップデートしてください</string>
+  <string name="ClientDeprecatedActivity_update_signal">Signal-LTSをアップデートしてください</string>
   <string name="ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported">このバージョンはサポートされていません。メッセージの送受信を続けるには、最新バージョンにアップデートしてください。</string>
   <string name="ClientDeprecatedActivity_update">アップデートする</string>
   <string name="ClientDeprecatedActivity_dont_update">アップデートしない</string>
@@ -201,7 +201,7 @@
   <string name="ConversationActivity_transport_insecure_sms">安全でないSMS</string>
   <string name="ConversationActivity_transport_insecure_mms">安全でないMMS</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">メッセージアプリをMollyにしましょう %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">メッセージアプリをSignal-LTSにしましょう %1$s</string>
   <string name="ConversationActivity_specify_recipient">連絡先を選択してください</string>
   <string name="ConversationActivity_unblock">ブロックを解除します</string>
   <string name="ConversationActivity_attachment_exceeds_size_limits">添付ファイルのサイズが、送信するメッセージタイプに応じた制限を超えています。</string>
@@ -210,15 +210,15 @@
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">このリンクを扱えるアプリがインストールされていません</string>
   <string name="ConversationActivity_your_request_to_join_has_been_sent_to_the_group_admin">あなたの参加申請はグループ管理者に送信されました。応答があると通知されます。</string>
   <string name="ConversationActivity_cancel_request">申請をキャンセル</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">音声メッセージを送るには、Mollyのマイクへのアクセスを許可してください。</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">音声メッセージを添付するには、Mollyにマイクへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「マイク」を有効にしてください。</string>
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">%s と通話するには、Mollyにマイクとカメラへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「マイク」と「カメラ」を有効にしてください。</string>
-  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">写真や動画を撮るには、Mollyにカメラへのアクセスを許可してください。</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">写真や動画を撮るには、Mollyにカメラへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「カメラ」を有効にしてください。</string>
-  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">写真や動画を撮るにはMollyにカメラへのアクセス許可が必要です</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">音声メッセージを送るには、Signal-LTSのマイクへのアクセスを許可してください。</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">音声メッセージを添付するには、Signal-LTSにマイクへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「マイク」を有効にしてください。</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">%s と通話するには、Signal-LTSにマイクとカメラへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「マイク」と「カメラ」を有効にしてください。</string>
+  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">写真や動画を撮るには、Signal-LTSにカメラへのアクセスを許可してください。</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">写真や動画を撮るには、Signal-LTSにカメラへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「カメラ」を有効にしてください。</string>
+  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">写真や動画を撮るにはSignal-LTSにカメラへのアクセス許可が必要です</string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">音声付きで動画を撮影するためにマイクへのアクセスを許可します。</string>
-  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">動画を撮るには、Mollyにマイクへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「マイク」と「カメラ」を有効にしてください。</string>
-  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">動画を撮るには、Mollyにマイクへのアクセス許可が必要です。</string>
+  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">動画を撮るには、Signal-LTSにマイクへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「マイク」と「カメラ」を有効にしてください。</string>
+  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">動画を撮るには、Signal-LTSにマイクへのアクセス許可が必要です。</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">Signalは規定のSMSアプリになっていないため、SMSやMMSのメッセージを送信できません。Androidの設定を変更しますか？</string>
   <string name="ConversationActivity_yes">はい</string>
@@ -234,7 +234,7 @@
   <string name="ConversationActivity_you_will_leave_this_group_and_it_will_be_deleted_from_all_of_your_devices">このグループから抜けて、すべての端末から削除します。</string>
   <string name="ConversationActivity_delete">削除する</string>
   <string name="ConversationActivity_delete_and_leave">削除して抜ける</string>
-  <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">%1$sと通話するには、Mollyにマイクへのアクセスを許可してください。</string>
+  <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">%1$sと通話するには、Signal-LTSにマイクへのアクセスを許可してください。</string>
   <string name="ConversationActivity__more_options_now_in_group_settings">「グループ設定」のオプションが増えました</string>
   <string name="ConversationActivity_join">参加する</string>
   <string name="ConversationActivity_full">満席</string>
@@ -285,7 +285,7 @@
   <string name="ConversationFragment__d_group_members_have_the_same_name">%1$d人のグループメンバーが同じ名前です。</string>
   <string name="ConversationFragment__tap_to_review">タップして確認</string>
   <string name="ConversationFragment__review_requests_carefully">慎重に申請を確認してください</string>
-  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Mollyは同じ名前で別の連絡先を見つけました。</string>
+  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Signal-LTSは同じ名前で別の連絡先を見つけました。</string>
   <string name="ConversationFragment_contact_us">お問い合わせ</string>
   <string name="ConversationFragment_verify">検証する</string>
   <string name="ConversationFragment_not_now">今はしない</string>
@@ -345,11 +345,11 @@
   <string name="BackupsPreferenceFragment__test_your_backup_passphrase">バックアップ用パスフレーズが合っているか確認してください</string>
   <string name="BackupsPreferenceFragment__turn_on">有効にする</string>
   <string name="BackupsPreferenceFragment__turn_off">無効にする</string>
-  <string name="BackupsPreferenceFragment__to_restore_a_backup">バックアップを復元するには、新しいMollyをインストールしてください。その後アプリを開き、「バックアップを復元する」をタップしてバックアップファイルの場所を指定します。 %1$s</string>
+  <string name="BackupsPreferenceFragment__to_restore_a_backup">バックアップを復元するには、新しいSignal-LTSをインストールしてください。その後アプリを開き、「バックアップを復元する」をタップしてバックアップファイルの場所を指定します。 %1$s</string>
   <string name="BackupsPreferenceFragment__learn_more">詳しく見る</string>
   <string name="BackupsPreferenceFragment__in_progress">実行しています…</string>
   <string name="BackupsPreferenceFragment__d_so_far">これまで %1$d…</string>
-  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">バックアップを作成するには、Mollyに外部ストレージへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「ストレージ」を有効にしてください。</string>
+  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">バックアップを作成するには、Signal-LTSに外部ストレージへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「ストレージ」を有効にしてください。</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">カスタマイズ: %s</string>
   <string name="CustomDefaultPreference_using_default">既定を使用: %s</string>
@@ -394,7 +394,7 @@
   <string name="GroupCallingMegaphone__open_a_new_group_to_start">新しいグループで暗号化されたグループ通話を始めましょう</string>
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">Google Play開発者サービスの不在に対応する</string>
-  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">この端末はGoogle Play開発者サービスをサポートしていません。Mollyがいつでもメッセージを受信できるよう、タップしてバッテリー最適化機能を無効にしてください。</string>
+  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">この端末はGoogle Play開発者サービスをサポートしていません。Signal-LTSがいつでもメッセージを受信できるよう、タップしてバッテリー最適化機能を無効にしてください。</string>
   <!--ExpiredBuildReminder-->
   <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">このバージョンのSignalは期限が切れています。メッセージを送受信するには、アップデートしてください。</string>
   <string name="ExpiredBuildReminder_update_now">アップデートする</string>
@@ -408,7 +408,7 @@
   <string name="ShareActivity_multiple_attachments_are_only_supported">画像と動画以外のファイルを複数添付することはできません。</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Signalの永続的な通信エラー！</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Google Play開発者サービスにMollyを登録できなかったため、Mollyのメッセージと通話は無効になっています。設定 &gt; 詳細設定で再登録を試してください。</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Google Play開発者サービスにSignal-LTSを登録できなかったため、Signal-LTSのメッセージと通話は無効になっています。設定 &gt; 詳細設定で再登録を試してください。</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">高解像度GIFファイルの取得中にエラーが発生しました</string>
   <!--GiphyFragmentPageAdapter-->
@@ -707,14 +707,14 @@
   <string name="InviteActivity_cancel">キャンセル</string>
   <string name="InviteActivity_sending">送信しています…</string>
   <string name="InviteActivity_invitations_sent">招待を送信しました！</string>
-  <string name="InviteActivity_invite_to_signal">Mollyに招待する</string>
+  <string name="InviteActivity_invite_to_signal">Signal-LTSに招待する</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="other">SMSを友達%d人に送る</item>
   </plurals>
   <plurals name="InviteActivity_send_sms_invites">
     <item quantity="other">SMS招待状%d件を送信しますか？</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">メッセージアプリをMollyにしましょう: %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">メッセージアプリをSignal-LTSにしましょう: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">共有先として使えるアプリがないようです。</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">友達とのチャットを暗号化しましょう。</string>
   <!--LearnMoreTextView-->
@@ -724,7 +724,7 @@
   <string name="LongMessageActivity_message_from_s">%1$s からのメッセージ</string>
   <string name="LongMessageActivity_your_message">あなたのメッセージ</string>
   <!--MessageRetrievalService-->
-  <string name="MessageRetrievalService_signal">Molly</string>
+  <string name="MessageRetrievalService_signal">Signal-LTS</string>
   <string name="MessageRetrievalService_background_connection_enabled">バックグラウンド通信は有効です</string>
   <!--MmsDownloader-->
   <string name="MmsDownloader_error_reading_mms_settings">携帯電話事業者のMMS設定の読み込み中にエラーが発生しました</string>
@@ -808,8 +808,8 @@
   <string name="MediaSendActivity_message_to_s">%s へのメッセージ</string>
   <string name="MediaSendActivity_message">メッセージ</string>
   <string name="MediaSendActivity_select_recipients">宛先を選択</string>
-  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">連絡先を表示するには、Mollyに連絡先へのアクセスが必要です。</string>
-  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">連絡先を表示するには、Mollyに連絡先へのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「連絡先」を有効にしてください。</string>
+  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">連絡先を表示するには、Signal-LTSに連絡先へのアクセスが必要です。</string>
+  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">連絡先を表示するには、Signal-LTSに連絡先へのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「連絡先」を有効にしてください。</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="other">%d個を超えるアイテムは共有できません。</item>
   </plurals>
@@ -1041,7 +1041,7 @@
   <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">この端末リンク用QRコードは正しくありません。</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">Signal端末をリンクしますか？</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">サードパーティのスキャナを使って端末をリンクしようとしていますが、安全のためSignal内からもう一度コードをスキャンしてください。</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">QRコードをスキャンするには、Mollyにカメラへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「カメラ」を有効にしてください。</string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">QRコードをスキャンするには、Signal-LTSにカメラへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「カメラ」を有効にしてください。</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">カメラへのアクセス許可がないとQRコードをスキャンできません</string>
   <!--OutdatedBuildReminder-->
   <string name="OutdatedBuildReminder_update_now">アップデートする</string>
@@ -1051,10 +1051,10 @@
   </plurals>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">パスフレーズを入力してください</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Mollyアイコン</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Signal-LTSアイコン</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">パスフレーズを設定する</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">不正なパスフレーズです！</string>
-  <string name="PassphrasePromptActivity_unlock_signal">Mollyのロックを解除する</string>
+  <string name="PassphrasePromptActivity_unlock_signal">Signal-LTSのロックを解除する</string>
   <string name="PassphrasePromptActivity_signal_android_lock_screen">Signal Android - ロック画面</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">地図</string>
@@ -1100,7 +1100,7 @@
   <string name="ReactionsRecipientAdapter_you">あなた</string>
   <!--RecaptchaRequiredBottomSheetFragment-->
   <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">メッセージ送受信のため認証してください</string>
-  <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Mollyがスパムを回避するために、認証を完了していください。</string>
+  <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Signal-LTSがスパムを回避するために、認証を完了していください。</string>
   <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">認証後は、メッセージの送受信を再開できます。保留中のメッセージは、自動で送信されます。</string>
   <!--Recipient-->
   <string name="Recipient_you">あなた</string>
@@ -1121,8 +1121,8 @@
   <string name="RedPhone_got_it">分かりました</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">タップして動画を有効にする</string>
-  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">%1$s と通話するには、Mollyにカメラへのアクセスを許可してください。</string>
-  <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
+  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">%1$s と通話するには、Signal-LTSにカメラへのアクセスを許可してください。</string>
+  <string name="WebRtcCallActivity__signal_s">Signal-LTS %1$s</string>
   <string name="WebRtcCallActivity__calling">呼び出しています…</string>
   <!--WebRtcCallView-->
   <string name="WebRtcCallView__signal_voice_call">Signal音声通話…</string>
@@ -1177,13 +1177,13 @@
   <string name="RegistrationActivity_is_your_phone_number_above_correct">あなたの電話番号はこれで合っていますか？</string>
   <string name="RegistrationActivity_edit_number">番号を編集する</string>
   <string name="RegistrationActivity_missing_google_play_services">Google Play開発者サービスがありません</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">この端末にはGoogle Play開発者サービスがありません。Mollyは使用できますが、信頼性や性能は下がる可能性があります。\n\n上級者でない方や、メーカー公式のAndroidをご利用の方、何かの間違いだと思う方などは support@molly.im まで連絡してください。</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">この端末にはGoogle Play開発者サービスがありません。Signal-LTSは使用できますが、信頼性や性能は下がる可能性があります。\n\n上級者でない方や、メーカー公式のAndroidをご利用の方、何かの間違いだと思う方などは support@Signal-LTS.im まで連絡してください。</string>
   <string name="RegistrationActivity_i_understand">分かりました</string>
   <string name="RegistrationActivity_play_services_error">Google Play開発者サービスのエラー</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play開発者サービスは更新中か一時的に使用不能です。再度試してください。</string>
   <string name="RegistrationActivity_terms_and_privacy">使用条件とプライバシーポリシー</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">友達とつながったり、メッセージを交換したり、安全な通話をするには、Mollyに連絡先やメディアへのアクセス許可が必要です。</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">友達とつながったり、メッセージを交換したり、安全な通話をするには、Mollyに連絡先へのアクセス許可が必要です。</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">友達とつながったり、メッセージを交換したり、安全な通話をするには、Signal-LTSに連絡先やメディアへのアクセス許可が必要です。</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">友達とつながったり、メッセージを交換したり、安全な通話をするには、Signal-LTSに連絡先へのアクセス許可が必要です。</string>
   <string name="RegistrationActivity_rate_limited_to_service">この番号の登録試行回数が多すぎます。あとで再度試してください。</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">サービスに接続できませんでした。ネットワークの接続を確認してから、再度試してください。</string>
   <plurals name="RegistrationActivity_debug_log_hint">
@@ -1220,12 +1220,12 @@
   <!--ShakeToReport-->
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">連絡先に追加</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Mollyに招待する</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Signal-LTSに招待する</string>
   <string name="SharedContactDetailsActivity_signal_message">Signalメッセージ</string>
   <string name="SharedContactDetailsActivity_signal_call">Signal通話</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">連絡先に追加</string>
-  <string name="SharedContactView_invite_to_signal">Mollyに招待する</string>
+  <string name="SharedContactView_invite_to_signal">Signal-LTSに招待する</string>
   <string name="SharedContactView_message">Signalメッセージ</string>
   <!--SignalPinReminders-->
   <string name="SignalPinReminders_well_remind_you_again_later">あとで再度お知らせします。</string>
@@ -1280,8 +1280,8 @@
   <string name="SupportEmailUtil_filter">フィルタ:</string>
   <string name="SupportEmailUtil_device_info">Device info:</string>
   <string name="SupportEmailUtil_android_version">Android version:</string>
-  <string name="SupportEmailUtil_signal_version">Molly version:</string>
-  <string name="SupportEmailUtil_signal_package">Molly package:</string>
+  <string name="SupportEmailUtil_signal_version">Signal-LTS version:</string>
+  <string name="SupportEmailUtil_signal_package">Signal-LTS package:</string>
   <string name="SupportEmailUtil_registration_lock">Registration lock:</string>
   <string name="SupportEmailUtil_locale">Locale:</string>
   <!--ThreadRecord-->
@@ -1317,8 +1317,8 @@
   <string name="ThreadRecord_video">動画</string>
   <string name="ThreadRecord_chat_session_refreshed">セッションが更新されました</string>
   <!--UpdateApkReadyListener-->
-  <string name="UpdateApkReadyListener_Signal_update">Mollyアップデート</string>
-  <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">新バージョンのMollyを利用できます。タップしてアップデートします。</string>
+  <string name="UpdateApkReadyListener_Signal_update">Signal-LTSアップデート</string>
+  <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">新バージョンのSignal-LTSを利用できます。タップしてアップデートします。</string>
   <!--UntrustedSendDialog-->
   <string name="UntrustedSendDialog_send_message">メッセージを送信しますか？</string>
   <string name="UntrustedSendDialog_send">送信する</string>
@@ -1349,7 +1349,7 @@
   <string name="VerifyIdentityActivity_our_signal_safety_number">私たちのSignal安全番号:</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">共有先として使えるアプリがないようです。</string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">クリップボードで安全番号が見つかりませんでした</string>
-  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">QRコードをスキャンするには、Mollyにカメラへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「カメラ」を有効にしてください。</string>
+  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">QRコードをスキャンするには、Signal-LTSにカメラへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「カメラ」を有効にしてください。</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">カメラへのアクセス許可がないとQRコードをスキャンできません</string>
   <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">%1$s の安全番号を表示するには、初めにメッセージの交換が必要です。</string>
   <!--ViewOnceMessageActivity-->
@@ -1368,13 +1368,13 @@
   <string name="ApplicationMigrationService_system_database_import_is_complete">システムデータベースのインポートが完了しました。</string>
   <!--KeyCachingService-->
   <string name="KeyCachingService_signal_passphrase_cached">タッチして開く</string>
-  <string name="KeyCachingService_passphrase_cached">Mollyのロックが解除されています</string>
-  <string name="KeyCachingService_lock">Mollyをロック</string>
+  <string name="KeyCachingService_passphrase_cached">Signal-LTSのロックが解除されています</string>
+  <string name="KeyCachingService_lock">Signal-LTSをロック</string>
   <!--MediaPreviewActivity-->
   <string name="MediaPreviewActivity_you">あなた</string>
   <string name="MediaPreviewActivity_unssuported_media_type">サポートされないメディアタイプ</string>
   <string name="MediaPreviewActivity_draft">下書き</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">外部ストレージにデータを保存するには、Mollyにストレージへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「ストレージ」を有効にしてください。</string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">外部ストレージにデータを保存するには、Signal-LTSにストレージへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「ストレージ」を有効にしてください。</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">ストレージへのアクセス許可がないと外部ストレージに保存できません</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">メッセージを削除しますか？</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">このメッセージを完全に削除します。</string>
@@ -1389,7 +1389,7 @@
   <string name="MessageNotifier_failed_to_deliver_message">メッセージの配信に失敗しました。</string>
   <string name="MessageNotifier_error_delivering_message">メッセージの配信中にエラーが発生しました。</string>
   <string name="MessageNotifier_message_delivery_paused">メッセージの配送が保留されました。</string>
-  <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Mollyでのメッセージ送受信を続けるため、認証してください。</string>
+  <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Signal-LTSでのメッセージ送受信を続けるため、認証してください。</string>
   <string name="MessageNotifier_mark_all_as_read">すべて既読にする</string>
   <string name="MessageNotifier_mark_read">既読にする</string>
   <string name="MessageNotifier_turn_off_these_notifications">これらの通知を無効にする</string>
@@ -1399,7 +1399,7 @@
   <string name="MessageNotifier_signal_message">Signalメッセージ</string>
   <string name="MessageNotifier_unsecured_sms">安全でないSMS</string>
   <string name="MessageNotifier_you_may_have_new_messages">新着メッセージがあるかもしれません</string>
-  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">最近の通知を確認するにはMollyを開いてください。</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">最近の通知を確認するにはSignal-LTSを開いてください。</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">連絡先</string>
   <string name="MessageNotifier_reacted_s_to_s">「%2$s」に %1$s</string>
@@ -1426,7 +1426,7 @@
   <string name="NotificationChannels__no_activity_available_to_open_notification_channel_settings">通知チャネルの設定を開くためのアクティビティがありません。</string>
   <!--ProfileEditNameFragment-->
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Mollyのロック中はクイックレスポンスを使えません！</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Signal-LTSのロック中はクイックレスポンスを使えません！</string>
   <string name="QuickResponseService_problem_sending_message">メッセージ送信中に問題が発生しました！</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">%s に保存しました</string>
@@ -1437,7 +1437,7 @@
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">無効なショートカット</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Signal-LTS</string>
   <string name="SingleRecipientNotificationBuilder_new_message">新着メッセージ</string>
   <string name="SingleRecipientNotificationBuilder_message_request">メッセージ申請</string>
   <string name="SingleRecipientNotificationBuilder_you">あなた</string>
@@ -1452,8 +1452,8 @@
   <string name="UnauthorizedReminder_device_no_longer_registered">この端末はもう登録されていません</string>
   <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">これはおそらく別の端末でSignalに登録されたことが原因です。タップして再登録します。</string>
   <!--WebRtcCallActivity-->
-  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">%s からの着信に出るには、Mollyにマイクへのアクセスを許可してください。</string>
-  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">通話するには、Mollyにマイクとカメラへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「マイク」と「カメラ」を有効にしてください。</string>
+  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">%s からの着信に出るには、Signal-LTSにマイクへのアクセスを許可してください。</string>
+  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">通話するには、Signal-LTSにマイクとカメラへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「マイク」と「カメラ」を有効にしてください。</string>
   <string name="WebRtcCallActivity__answered_on_a_linked_device">リンクした端末で応答しました。</string>
   <string name="WebRtcCallActivity__declined_on_a_linked_device">リンクした端末で拒否しました。</string>
   <string name="WebRtcCallActivity__busy_on_a_linked_device">リンクした端末で通話中です。</string>
@@ -1477,7 +1477,7 @@
   <string name="change_passphrase_activity__repeat_new_passphrase">新しいパスフレーズを再入力</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">名前もしくは番号を入力</string>
-  <string name="contact_selection_activity__invite_to_signal">Mollyに招待する</string>
+  <string name="contact_selection_activity__invite_to_signal">Signal-LTSに招待する</string>
   <string name="contact_selection_activity__new_group">新規グループ</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">テキストを消去</string>
@@ -1489,7 +1489,7 @@
   <!--single_contact_selection_activity-->
   <string name="SingleContactSelectionActivity_contact_photo">連絡先の写真</string>
   <!--ContactSelectionListFragment-->
-  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">連絡先を表示するには、Mollyに連絡先へのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「連絡先」を有効にしてください。</string>
+  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">連絡先を表示するには、Signal-LTSに連絡先へのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「連絡先」を有効にしてください。</string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">連絡先の取得中にエラーが発生しました。ネットワーク接続を確認してください。</string>
   <string name="ContactSelectionListFragment_username_not_found">ユーザー名が見つかりませんでした</string>
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">「%1$s」はSignalユーザーではありません。ユーザー名を確認してもう一度試してください。</string>
@@ -1502,7 +1502,7 @@
     <item quantity="other">メンバー %1$d人</item>
   </plurals>
   <!--contact_selection_list_fragment-->
-  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">連絡先を表示するには、Mollyに連絡先へのアクセスを許可してください。</string>
+  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">連絡先を表示するには、Signal-LTSに連絡先へのアクセスを許可してください。</string>
   <string name="contact_selection_list_fragment__show_contacts">連絡先を表示</string>
   <!--contact_selection_list_item-->
   <plurals name="contact_selection_list_item__number_of_members">
@@ -1858,7 +1858,7 @@
   <string name="preferences__slow">遅い</string>
   <string name="preferences__help">ヘルプ</string>
   <string name="preferences__advanced">詳細設定</string>
-  <string name="preferences__donate_to_signal">Mollyへの寄付</string>
+  <string name="preferences__donate_to_signal">Signal-LTSへの寄付</string>
   <string name="preferences__privacy">プライバシー</string>
   <string name="preferences__mms_user_agent">MMSユーザーエージェント</string>
   <string name="preferences__advanced_mms_access_point_names">手動MMS設定</string>
@@ -1987,7 +1987,7 @@
   <string name="PaymentsAllActivityFragment__sent">送信</string>
   <string name="PaymentsAllActivityFragment__received">受信</string>
   <string name="PaymentsHomeFragment__introducing_payments">支払い機能のご紹介 (ベータ)</string>
-  <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Mollyで、プライバシーを考慮した仮想通貨MobileCoinを利用できます。利用するには機能を有効化してください。</string>
+  <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Signal-LTSで、プライバシーを考慮した仮想通貨MobileCoinを利用できます。利用するには機能を有効化してください。</string>
   <string name="PaymentsHomeFragment__activate_payments">支払い機能を有効化</string>
   <string name="PaymentsHomeFragment__see_all">すべて表示</string>
   <string name="PaymentsHomeFragment__send">送信する</string>
@@ -2007,7 +2007,7 @@
   <string name="PaymentsHomeFragment__payments_deactivated">支払い機能を停止</string>
   <string name="PaymentsHomeFragment__details">詳細</string>
   <string name="PaymentsHomeFragment__activate">同意</string>
-  <string name="PaymentsHomeFragment__payments_not_available">Mollyの支払い機能はもう利用できません。残金は取引所に移行できますが、送金や入金は今後できません。</string>
+  <string name="PaymentsHomeFragment__payments_not_available">Signal-LTSの支払い機能はもう利用できません。残金は取引所に移行できますが、送金や入金は今後できません。</string>
   <!--PaymentsAddMoneyFragment-->
   <string name="PaymentsAddMoneyFragment__your_wallet_address">あなたのウォレットアドレス</string>
   <string name="PaymentsAddMoneyFragment__copy">コピー</string>
@@ -2031,8 +2031,8 @@
   <string name="PaymentsTransferFragment__you_can_transfer">取引所のウォレットアドレスへの送金を完了することで、MobileCoinを送金できます。ウォレットアドレスは、QRコードの下にある文字列です。</string>
   <string name="PaymentsTransferFragment__next">次へ</string>
   <string name="PaymentsTransferFragment__invalid_address">無効なアドレス</string>
-  <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">QRコードをスキャンするには、Mollyにカメラへのアクセス許可が必要です。</string>
-  <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">QRコードをスキャンするには、Mollyにカメラへのアクセス許可が必要です。</string>
+  <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">QRコードをスキャンするには、Signal-LTSにカメラへのアクセス許可が必要です。</string>
+  <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">QRコードをスキャンするには、Signal-LTSにカメラへのアクセス許可が必要です。</string>
   <string name="PaymentsTransferFragment__settings">設定</string>
   <!--PaymentsTransferQrScanFragment-->
   <!--CreatePaymentFragment-->
@@ -2371,7 +2371,7 @@
   <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">試行回数が多すぎます。あとで再度試してください。</string>
   <string name="RegistrationActivity_error_connecting_to_service">サービスへの接続中にエラーが発生しました</string>
   <string name="preferences_chats__backups">バックアップ</string>
-  <string name="prompt_passphrase_activity__signal_is_locked">Mollyはロックされています</string>
+  <string name="prompt_passphrase_activity__signal_is_locked">Signal-LTSはロックされています</string>
   <string name="prompt_passphrase_activity__tap_to_unlock">タップしてロック解除</string>
   <string name="Recipient_unknown">不明</string>
   <!--TransferOrRestoreFragment-->
@@ -2394,18 +2394,18 @@
   <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">古いAndroid端末への接続を準備しています…</string>
   <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">しばらくお待ちください</string>
   <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">古いAndroid端末との接続を待っています…</string>
-  <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">古いAndroid端末を検出し接続するには、Mollyに位置情報へのアクセス許可が必要です。</string>
+  <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">古いAndroid端末を検出し接続するには、Signal-LTSに位置情報へのアクセス許可が必要です。</string>
   <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">古いAndroid端末を検出し接続するには、位置情報サービスを有効にする必要があります。</string>
-  <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Mollyが古いAndroid端末を検出して接続するには、Wi-Fiが有効になっている必要があります。ただし、Wi-Fiネットワークに接続されている必要はありません。</string>
-  <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">この端末はWi-Fi Directに対応していないようです。Mollyは、Wi-Fi Directを使って古いAndroid端末を検出し、接続します。古いAndroid端末からアカウントを復元するために、バックアップを復元することは可能です。</string>
+  <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Signal-LTSが古いAndroid端末を検出して接続するには、Wi-Fiが有効になっている必要があります。ただし、Wi-Fiネットワークに接続されている必要はありません。</string>
+  <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">この端末はWi-Fi Directに対応していないようです。Signal-LTSは、Wi-Fi Directを使って古いAndroid端末を検出し、接続します。古いAndroid端末からアカウントを復元するために、バックアップを復元することは可能です。</string>
   <string name="NewDeviceTransferSetup__restore_a_backup">バックアップを復元</string>
   <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">古いAndroid端末への接続時に、予期しないエラーが発生しました。</string>
   <!--OldDeviceTransferSetupFragment-->
   <string name="OldDeviceTransferSetup__searching_for_new_android_device">新しいAndroid端末を探しています…</string>
-  <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">新しいAndroid端末を検出し接続するには、Mollyに位置情報へのアクセス許可が必要です。</string>
+  <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">新しいAndroid端末を検出し接続するには、Signal-LTSに位置情報へのアクセス許可が必要です。</string>
   <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">新しいAndroid端末を検出し接続するには、位置情報サービスを有効にする必要があります。</string>
-  <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Mollyが新しいAndroid端末を検出して接続するには、Wi-Fiが有効になっている必要があります。ただし、Wi-Fiネットワークに接続されている必要はありません。</string>
-  <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">申し訳ありませんが、この端末はWi-Fi Directに対応していないようです。Mollyは、Wi-Fi Directを使って新しいAndroid端末を検出し、接続します。新しいAndroid端末でアカウントを復元するために、バックアップを作成することは可能です。</string>
+  <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Signal-LTSが新しいAndroid端末を検出して接続するには、Wi-Fiが有効になっている必要があります。ただし、Wi-Fiネットワークに接続されている必要はありません。</string>
+  <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">申し訳ありませんが、この端末はWi-Fi Directに対応していないようです。Signal-LTSは、Wi-Fi Directを使って新しいAndroid端末を検出し、接続します。新しいAndroid端末でアカウントを復元するために、バックアップを作成することは可能です。</string>
   <string name="OldDeviceTransferSetup__create_a_backup">バックアップを作成</string>
   <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">新しいAndroid端末への接続時に、予期しないエラーが発生しました。</string>
   <!--DeviceTransferSetupFragment-->
@@ -2443,7 +2443,7 @@
   <string name="NewDeviceTransfer__cannot_transfer_from_a_newer_version_of_signal">より新しいバージョンのSignalからは移行できません</string>
   <!--DeviceTransferFragment-->
   <string name="DeviceTransfer__transferring_data">データを移行しています</string>
-  <string name="DeviceTransfer__keep_both_devices_near_each_other">端末同士を近づけてください。どちらの端末も電源を切らず、Mollyを開いたままにしてください。転送はエンドツーエンドで暗号化されます。</string>
+  <string name="DeviceTransfer__keep_both_devices_near_each_other">端末同士を近づけてください。どちらの端末も電源を切らず、Signal-LTSを開いたままにしてください。転送はエンドツーエンドで暗号化されます。</string>
   <string name="DeviceTransfer__d_messages_so_far">%1$d件のメッセージ…</string>
   <string name="DeviceTransfer__cancel">キャンセル</string>
   <string name="DeviceTransfer__try_again">もう一度試す</string>
@@ -2456,7 +2456,7 @@
   <string name="OldDeviceTransferInstructions__transfer_account">アカウントの移行</string>
   <string name="OldDeviceTransferInstructions__you_can_transfer_your_signal_account_when_setting_up_signal_on_a_new_android_device">新しいAndroid端末でSignalを設定する際、以下の前であれば、あなたのSignalアカウントを移行できます:</string>
   <string name="OldDeviceTransferInstructions__first_bullet">1.</string>
-  <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">新しいAndroid端末でMollyをダウンロードしてください</string>
+  <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">新しいAndroid端末でSignal-LTSをダウンロードしてください</string>
   <string name="OldDeviceTransferInstructions__second_bullet">2.</string>
   <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">「アカウントの移行または復元」をタップしてください</string>
   <string name="OldDeviceTransferInstructions__third_bullet">3.</string>
@@ -2518,7 +2518,7 @@
   <!--GroupLinkBottomSheetDialogFragment-->
   <string name="GroupLinkBottomSheet_share_hint_requiring_approval">誰でもこのリンクから、グループの名前やアイコンを見たり、参加を申請できます。信頼できる人と共有してください。</string>
   <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">誰でもこのリンクから、グループの名前やアイコンを見たり、グループに参加できます。信頼できる人と共有してください。</string>
-  <string name="GroupLinkBottomSheet_share_via_signal">Molly経由で共有する</string>
+  <string name="GroupLinkBottomSheet_share_via_signal">Signal-LTS経由で共有する</string>
   <string name="GroupLinkBottomSheet_copy">コピー</string>
   <string name="GroupLinkBottomSheet_qr_code">QRコード</string>
   <string name="GroupLinkBottomSheet_share">共有</string>
@@ -2652,7 +2652,7 @@
   <string name="payment_info_card_update_pin">PINをアップデート</string>
   <!--DeactivateWalletFragment-->
   <string name="DeactivateWalletFragment__deactivate">支払い機能を停止</string>
-  <string name="DeactivateWalletFragment__your_balance_will_remain">残高は、支払いを再開した時に、Mollyにリンクされたウォレットに残ります。</string>
+  <string name="DeactivateWalletFragment__your_balance_will_remain">残高は、支払いを再開した時に、Signal-LTSにリンクされたウォレットに残ります。</string>
   <!--PaymentsRecoveryStartFragment-->
   <string name="PaymentsRecoveryStartFragment__recovery_phrase">リカバリーフレーズ</string>
   <string name="PaymentsRecoveryStartFragment__start">開始</string>

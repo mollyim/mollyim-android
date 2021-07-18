@@ -10,17 +10,17 @@
   <string name="AbstractNotificationBuilder_new_message">Neue Nachricht</string>
   <!--AlbumThumbnailView-->
   <!--ApplicationMigrationActivity-->
-  <string name="ApplicationMigrationActivity__signal_is_updating">Molly wird aktualisiert …</string>
+  <string name="ApplicationMigrationActivity__signal_is_updating">Signal-LTS wird aktualisiert …</string>
   <!--ApplicationPreferencesActivity-->
   <string name="ApplicationPreferencesActivity_currently_s">Derzeit: %s</string>
   <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">Du hast noch keine Passphrase festgelegt!</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">Passphrase deaktivieren?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Dies entsperrt dauerhaft Molly und Benachrichtigungen über Nachrichten.</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Dies entsperrt dauerhaft Signal-LTS und Benachrichtigungen über Nachrichten.</string>
   <string name="ApplicationPreferencesActivity_disable">Deaktivieren</string>
   <string name="ApplicationPreferencesActivity_unregistering">Registrierung löschen</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Registrierung für Molly-Nachrichten und ‑Anrufe wird gelöscht …</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Molly-Nachrichten und ‑Anrufe deaktivieren?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Molly-Nachrichten und ‑Anrufe durch Löschen deiner Registrierung vom Server deaktivieren. Du wirst deine Rufnummer erneut registrieren müssen, um zukünftig wieder verschlüsselt zu kommunizieren.</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Registrierung für Signal-LTS-Nachrichten und ‑Anrufe wird gelöscht …</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Signal-LTS-Nachrichten und ‑Anrufe deaktivieren?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Signal-LTS-Nachrichten und ‑Anrufe durch Löschen deiner Registrierung vom Server deaktivieren. Du wirst deine Rufnummer erneut registrieren müssen, um zukünftig wieder verschlüsselt zu kommunizieren.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">Fehler beim Verbinden mit Server!</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">SMS aktiviert</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">Antippen, um Standard-SMS-App zu ändern</string>
@@ -59,14 +59,14 @@
   <string name="AttachmentKeyboard_file">Datei</string>
   <string name="AttachmentKeyboard_contact">Kontakt</string>
   <string name="AttachmentKeyboard_location">Standort</string>
-  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Molly benötigt die Berechtigung, deine Fotos und Videos anzuzeigen.</string>
+  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Signal-LTS benötigt die Berechtigung, deine Fotos und Videos anzuzeigen.</string>
   <string name="AttachmentKeyboard_give_access">Zugriff gewähren</string>
   <string name="AttachmentKeyboard_payment">Zahlung</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">Keine App zur Auswahl der Medieninhalte gefunden.</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly benötigt die Berechtigung »Speicher« für das Anhängen von Fotos, Videos oder Audiodateien, diese wurde jedoch dauerhaft abgelehnt. Bitte öffne die App-Einstellungen, wähle »Berechtigungen« und aktiviere »Speicher«.</string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly benötigt die Berechtigung »Kontakte« für das Anhängen von Kontaktinformationen, diese wurde jedoch dauerhaft abgelehnt. Bitte öffne die App-Einstellungen, wähle »Berechtigungen« und aktiviere »Kontakte«.</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly benötigt die Berechtigung »Standort« für das Anhängen von Standorten, diese wurde jedoch dauerhaft abgelehnt. Bitte öffne die App-Einstellungen, wähle »Berechtigungen« und aktiviere »Standort«.</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signal-LTS benötigt die Berechtigung »Speicher« für das Anhängen von Fotos, Videos oder Audiodateien, diese wurde jedoch dauerhaft abgelehnt. Bitte öffne die App-Einstellungen, wähle »Berechtigungen« und aktiviere »Speicher«.</string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Signal-LTS benötigt die Berechtigung »Kontakte« für das Anhängen von Kontaktinformationen, diese wurde jedoch dauerhaft abgelehnt. Bitte öffne die App-Einstellungen, wähle »Berechtigungen« und aktiviere »Kontakte«.</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Signal-LTS benötigt die Berechtigung »Standort« für das Anhängen von Standorten, diese wurde jedoch dauerhaft abgelehnt. Bitte öffne die App-Einstellungen, wähle »Berechtigungen« und aktiviere »Standort«.</string>
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">Medieninhalte werden hochgeladen …</string>
   <string name="AttachmentUploadJob_compressing_video_start">Video wird komprimiert …</string>
@@ -117,14 +117,14 @@
   <string name="CameraContacts_no_signal_contacts">Keine Signal-Kontakte</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">Mit der Kameraschaltfläche kannst du Fotos nur an Signal-Kontakte senden.</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">Die gesuchte Person nicht gefunden?</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">Lade einen Kontakt zu Molly ein</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">Lade einen Kontakt zu Signal-LTS ein</string>
   <string name="CameraContacts__menu_search">Suchen</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">Entfernen</string>
   <string name="ClearProfileActivity_remove_profile_photo">Profilfoto entfernen?</string>
   <string name="ClearProfileActivity_remove_group_photo">Gruppenfoto entfernen?</string>
   <!--ClientDeprecatedActivity-->
-  <string name="ClientDeprecatedActivity_update_signal">Molly aktualisieren</string>
+  <string name="ClientDeprecatedActivity_update_signal">Signal-LTS aktualisieren</string>
   <string name="ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported">Diese Signal-Version wird nicht mehr unterstützt. Um weiterhin Nachrichten senden und empfangen zu können, aktualisiere auf neueste Version.</string>
   <string name="ClientDeprecatedActivity_update">Aktualisieren</string>
   <string name="ClientDeprecatedActivity_dont_update">Nicht aktualisieren</string>
@@ -203,7 +203,7 @@
   <string name="ConversationActivity_transport_insecure_sms">Unverschlüsselte SMS</string>
   <string name="ConversationActivity_transport_insecure_mms">Unverschlüsselte MMS</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">Lass uns zu »Molly« wechseln: %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">Lass uns zu »Signal-LTS« wechseln: %1$s</string>
   <string name="ConversationActivity_specify_recipient">Bitte einen Kontakt auswählen</string>
   <string name="ConversationActivity_unblock">Freigeben</string>
   <string name="ConversationActivity_attachment_exceeds_size_limits">Anhang zu groß für die zu sendende Nachrichtenart.</string>
@@ -212,15 +212,15 @@
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">Auf deinem Gerät ist derzeit keine App installiert, die mit diesem Link umgehen kann.</string>
   <string name="ConversationActivity_your_request_to_join_has_been_sent_to_the_group_admin">Deine Beitrittsanfrage wurde an den Gruppen-Admin gesendet. Du wirst benachrichtigt, sobald er über sie entschieden hat.</string>
   <string name="ConversationActivity_cancel_request">Anfrage abbrechen</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Zum Versenden von Sprachnachrichten benötigt Molly Zugriff auf dein Mikrofon.</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly benötigt die Berechtigung »Mikrofon« für das Senden von Sprachnachrichten, diese wurde jedoch dauerhaft abgelehnt. Bitte öffne die App-Einstellungen, wähle »Berechtigungen« und aktiviere »Mikrofon«.</string>
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly benötigt die Berechtigungen »Mikrofon« und »Kamera«, um %s anzurufen, diese wurden jedoch dauerhaft abgelehnt. Bitte öffne die App-Einstellungen, wähle »Berechtigungen« und aktiviere »Mikrofon« und »Kamera«.</string>
-  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Zum Aufnehmen von Fotos und Videos benötigt Molly Zugriff auf deine Kamera.</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Molly benötigt die Berechtigung »Kamera« für die Aufnahme von Fotos oder Videos, diese wurde jedoch dauerhaft abgelehnt. Bitte öffne die App-Einstellungen, wähle »Berechtigungen« und aktiviere »Kamera«.</string>
-  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Molly benötigt die Berechtigung »Kamera«, um Fotos oder Videos aufzunehmen.</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Zum Versenden von Sprachnachrichten benötigt Signal-LTS Zugriff auf dein Mikrofon.</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Signal-LTS benötigt die Berechtigung »Mikrofon« für das Senden von Sprachnachrichten, diese wurde jedoch dauerhaft abgelehnt. Bitte öffne die App-Einstellungen, wähle »Berechtigungen« und aktiviere »Mikrofon«.</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Signal-LTS benötigt die Berechtigungen »Mikrofon« und »Kamera«, um %s anzurufen, diese wurden jedoch dauerhaft abgelehnt. Bitte öffne die App-Einstellungen, wähle »Berechtigungen« und aktiviere »Mikrofon« und »Kamera«.</string>
+  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Zum Aufnehmen von Fotos und Videos benötigt Signal-LTS Zugriff auf deine Kamera.</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signal-LTS benötigt die Berechtigung »Kamera« für die Aufnahme von Fotos oder Videos, diese wurde jedoch dauerhaft abgelehnt. Bitte öffne die App-Einstellungen, wähle »Berechtigungen« und aktiviere »Kamera«.</string>
+  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signal-LTS benötigt die Berechtigung »Kamera«, um Fotos oder Videos aufzunehmen.</string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Aktiviere die Berechtigung »Mikrofon«, um Videos mit Ton aufzunehmen.</string>
-  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Molly benötigt die Berechtigung »Mikrofon«, um Videos aufzunehmen, diese wurde jedoch abgelehnt. Bitte öffne die App-Einstellungen, wähle »Berechtigungen« und aktiviere »Mikrofon« und »Kamera«.</string>
-  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Molly benötigt die Berechtigung »Mikrofon«, um Videos aufzunehmen.</string>
+  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signal-LTS benötigt die Berechtigung »Mikrofon«, um Videos aufzunehmen, diese wurde jedoch abgelehnt. Bitte öffne die App-Einstellungen, wähle »Berechtigungen« und aktiviere »Mikrofon« und »Kamera«.</string>
+  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signal-LTS benötigt die Berechtigung »Mikrofon«, um Videos aufzunehmen.</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">Signal kann keine SMS/MMS versenden, da es nicht als Standard-App für SMS festgelegt ist. Möchtest du dies in den Android-Einstellungen ändern?</string>
   <string name="ConversationActivity_yes">Ja</string>
@@ -236,7 +236,7 @@
   <string name="ConversationActivity_you_will_leave_this_group_and_it_will_be_deleted_from_all_of_your_devices">Du wirst diese Gruppe verlassen und sie wird von all deinen Geräten gelöscht werden.</string>
   <string name="ConversationActivity_delete">Löschen</string>
   <string name="ConversationActivity_delete_and_leave">Löschen und verlassen</string>
-  <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">Um %1$s anzurufen, benötigt Molly Zugriff auf dein Mikrofon.</string>
+  <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">Um %1$s anzurufen, benötigt Signal-LTS Zugriff auf dein Mikrofon.</string>
   <string name="ConversationActivity__more_options_now_in_group_settings">Jetzt mehr Optionen in »Gruppeneinstellungen«</string>
   <string name="ConversationActivity_join">Beitreten</string>
   <string name="ConversationActivity_full">Voll</string>
@@ -293,7 +293,7 @@
   <string name="ConversationFragment__d_group_members_have_the_same_name">%1$d Gruppenmitglieder haben denselben Namen.</string>
   <string name="ConversationFragment__tap_to_review">Zum Prüfen antippen</string>
   <string name="ConversationFragment__review_requests_carefully">Prüfe Anfragen sorgfältig</string>
-  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Molly hat einen weiteren Kontakt mit demselben Namen gefunden.</string>
+  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Signal-LTS hat einen weiteren Kontakt mit demselben Namen gefunden.</string>
   <string name="ConversationFragment_contact_us">Kontaktiere uns</string>
   <string name="ConversationFragment_verify">Verifizieren</string>
   <string name="ConversationFragment_not_now">Jetzt nicht</string>
@@ -357,11 +357,11 @@
   <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Teste die Passphrase deiner Datensicherung und vergewissere dich, dass du sie öffnen kannst</string>
   <string name="BackupsPreferenceFragment__turn_on">Einschalten</string>
   <string name="BackupsPreferenceFragment__turn_off">Ausschalten</string>
-  <string name="BackupsPreferenceFragment__to_restore_a_backup">Um eine Datensicherung wiederherzustellen, installiere Molly neu. Öffne die App, tippe auf »Sicherung wiederherstellen« und wähle dann eine Sicherungsdatei. %1$s</string>
+  <string name="BackupsPreferenceFragment__to_restore_a_backup">Um eine Datensicherung wiederherzustellen, installiere Signal-LTS neu. Öffne die App, tippe auf »Sicherung wiederherstellen« und wähle dann eine Sicherungsdatei. %1$s</string>
   <string name="BackupsPreferenceFragment__learn_more">Mehr erfahren</string>
   <string name="BackupsPreferenceFragment__in_progress">In Bearbeitung …</string>
   <string name="BackupsPreferenceFragment__d_so_far">%1$d bisher …</string>
-  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly benötigt zum Erstellen von Datensicherungen die Berechtigung »Speicher«, diese wurde jedoch dauerhaft abgelehnt. Bitte öffne die App-Einstellungen, wähle »Berechtigungen« und aktiviere »Speicher«.</string>
+  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal-LTS benötigt zum Erstellen von Datensicherungen die Berechtigung »Speicher«, diese wurde jedoch dauerhaft abgelehnt. Bitte öffne die App-Einstellungen, wähle »Berechtigungen« und aktiviere »Speicher«.</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Personalisiert: %s</string>
   <string name="CustomDefaultPreference_using_default">Standard: %s</string>
@@ -406,7 +406,7 @@
   <string name="GroupCallingMegaphone__open_a_new_group_to_start">Öffne eine Gruppe neuen Typs, um einen kostenlosen und verschlüsselten Gruppenanruf zu starten</string>
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">Für Betrieb ohne Google-Play-Dienste optimieren</string>
-  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Dieses Gerät unterstützt keine Google-Play-Dienste. Antippen, um Akkuoptimierungen zu deaktivieren, die Molly daran hindern, Nachrichten im Hintergrund zu empfangen.</string>
+  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Dieses Gerät unterstützt keine Google-Play-Dienste. Antippen, um Akkuoptimierungen zu deaktivieren, die Signal-LTS daran hindern, Nachrichten im Hintergrund zu empfangen.</string>
   <!--ExpiredBuildReminder-->
   <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Diese Signal-Version ist veraltet. Aktualisiere jetzt, um Nachrichten senden und empfangen zu können.</string>
   <string name="ExpiredBuildReminder_update_now">Jetzt aktualisieren</string>
@@ -421,7 +421,7 @@
   <string name="ShareActivity_multiple_attachments_are_only_supported">Mehrere Anhänge werden nur für Bilder und Videos unterstützt</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Dauerhafter Signal-Kommunikationsfehler!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly konnte nicht für die Google-Play-Dienste registriert werden. Molly-Nachrichten und ‑Anrufe wurden daher deaktiviert. Bitte registriere Molly erneut in Molly → Einstellungen → Datenschutz → Erweiterte Einstellungen.</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal-LTS konnte nicht für die Google-Play-Dienste registriert werden. Signal-LTS-Nachrichten und ‑Anrufe wurden daher deaktiviert. Bitte registriere Signal-LTS erneut in Signal-LTS → Einstellungen → Datenschutz → Erweiterte Einstellungen.</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">Fehler beim Abruf des GIFs in voller Auflösung</string>
   <!--GiphyFragmentPageAdapter-->
@@ -745,7 +745,7 @@
   <string name="InviteActivity_cancel">Abbrechen</string>
   <string name="InviteActivity_sending">Wird versendet …</string>
   <string name="InviteActivity_invitations_sent">Einladungen versendet!</string>
-  <string name="InviteActivity_invite_to_signal">Zu Molly einladen</string>
+  <string name="InviteActivity_invite_to_signal">Zu Signal-LTS einladen</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">SMS AN %d FREUND SENDEN</item>
     <item quantity="other">SMS AN %d FREUNDE SENDEN</item>
@@ -754,7 +754,7 @@
     <item quantity="one">%d SMS-Einladung senden?</item>
     <item quantity="other">%d SMS-Einladungen senden?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">Lass uns zu »Molly« wechseln: %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">Lass uns zu »Signal-LTS« wechseln: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Es sieht so aus, als hättest du keine zum Teilen geeignete Apps installiert.</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Freunde lassen Freunde nicht unverschlüsselt kommunizieren.</string>
   <!--LearnMoreTextView-->
@@ -764,7 +764,7 @@
   <string name="LongMessageActivity_message_from_s">Nachricht von %1$s</string>
   <string name="LongMessageActivity_your_message">Deine Nachricht</string>
   <!--MessageRetrievalService-->
-  <string name="MessageRetrievalService_signal">Molly</string>
+  <string name="MessageRetrievalService_signal">Signal-LTS</string>
   <string name="MessageRetrievalService_background_connection_enabled">Hintergrundverbindung aktiviert</string>
   <!--MmsDownloader-->
   <string name="MmsDownloader_error_reading_mms_settings">MMS-Einstellungen des Mobilfunkanbieters konnten nicht gelesen werden</string>
@@ -852,8 +852,8 @@
   <string name="MediaSendActivity_message_to_s">Nachricht an %s</string>
   <string name="MediaSendActivity_message">Nachricht</string>
   <string name="MediaSendActivity_select_recipients">Empfänger auswählen</string>
-  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Molly benötigt Zugriff auf deine Kontakte, um sie anzeigen zu können.</string>
-  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Molly benötigt die Berechtigung »Kontakte« für das Anzeigen deiner Kontakte, diese wurde jedoch dauerhaft abgelehnt. Bitte öffne die App-Einstellungen, wähle »Berechtigungen« und aktiviere »Kontakte«.</string>
+  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Signal-LTS benötigt Zugriff auf deine Kontakte, um sie anzeigen zu können.</string>
+  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Signal-LTS benötigt die Berechtigung »Kontakte« für das Anzeigen deiner Kontakte, diese wurde jedoch dauerhaft abgelehnt. Bitte öffne die App-Einstellungen, wähle »Berechtigungen« und aktiviere »Kontakte«.</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="one">Du kannst nicht mehr als %d Element teilen.</item>
     <item quantity="other">Du kannst nicht mehr als %d Elemente teilen.</item>
@@ -1097,7 +1097,7 @@
   <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">Dies ist leider kein gültiger QR-Code zur Gerätekopplung.</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">Signal-Gerät koppeln?</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Du versuchst offenbar, ein Signal-Gerät mithilfe einer fremden Scanner-App zu koppeln. Bitte scanne den QR-Code zu deinem Schutz direkt aus Signal ein.</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly benötigt die Berechtigung »Kamera« für das Einscannen von QR-Codes, diese wurde jedoch dauerhaft abgelehnt. Bitte öffne die App-Einstellungen, wähle »Berechtigungen« und aktiviere »Kamera«.</string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Signal-LTS benötigt die Berechtigung »Kamera« für das Einscannen von QR-Codes, diese wurde jedoch dauerhaft abgelehnt. Bitte öffne die App-Einstellungen, wähle »Berechtigungen« und aktiviere »Kamera«.</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">QR-Codes können ohne die Berechtigung »Kamera« nicht eingescannt werden.</string>
   <!--OutdatedBuildReminder-->
   <string name="OutdatedBuildReminder_update_now">Jetzt aktualisieren</string>
@@ -1108,10 +1108,10 @@
   </plurals>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">Passphrase eingeben</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Molly-Symbol</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Signal-LTS-Symbol</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">Passphrase übermitteln</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Passphrase ungültig!</string>
-  <string name="PassphrasePromptActivity_unlock_signal">Molly entsperren</string>
+  <string name="PassphrasePromptActivity_unlock_signal">Signal-LTS entsperren</string>
   <string name="PassphrasePromptActivity_signal_android_lock_screen">Signal Android – Sperrbildschirm</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">Karte</string>
@@ -1158,7 +1158,7 @@
   <string name="ReactionsRecipientAdapter_you">Du</string>
   <!--RecaptchaRequiredBottomSheetFragment-->
   <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">Verifizieren zum Senden weiterer Nachrichten</string>
-  <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Hilf dabei, Spam auf Molly zu verhindern, und schließe die Verifikation ab.</string>
+  <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Hilf dabei, Spam auf Signal-LTS zu verhindern, und schließe die Verifikation ab.</string>
   <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">Nach abgeschlossener Verifikation kannst du wieder Nachrichten senden. Alle pausierten Nachrichten werden dann automatisch versendet.</string>
   <!--Recipient-->
   <string name="Recipient_you">Du</string>
@@ -1179,8 +1179,8 @@
   <string name="RedPhone_got_it">Verstanden</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Hier antippen, um deine Videoübertragung anzuschalten</string>
-  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Um %1$s anzurufen, benötigt Molly Zugriff auf deine Kamera</string>
-  <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
+  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Um %1$s anzurufen, benötigt Signal-LTS Zugriff auf deine Kamera</string>
+  <string name="WebRtcCallActivity__signal_s">Signal-LTS %1$s</string>
   <string name="WebRtcCallActivity__calling">Anrufen …</string>
   <!--WebRtcCallView-->
   <string name="WebRtcCallView__signal_voice_call">Signal-Sprachanruf …</string>
@@ -1237,13 +1237,13 @@
   <string name="RegistrationActivity_is_your_phone_number_above_correct">Ist deine angezeigte Rufnummer korrekt?</string>
   <string name="RegistrationActivity_edit_number">Rufnummer bearbeiten</string>
   <string name="RegistrationActivity_missing_google_play_services">Fehlende Google-Play-Dienste</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Auf diesem Gerät fehlen die Google-Play-Dienste. Molly kann immer noch verwendet werden, allerdings beeinträchtigt diese Konfiguration eventuell die Zuverlässigkeit oder die Leistung.\n\nFalls du kein erfahrener Nutzer bist, kein Custom-ROM verwendest oder glaubst, dass diese Meldung irrtümlich angezeigt wird, kontaktiere bitte support@molly.im für Hilfe bei der Problembehandlung.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Auf diesem Gerät fehlen die Google-Play-Dienste. Signal-LTS kann immer noch verwendet werden, allerdings beeinträchtigt diese Konfiguration eventuell die Zuverlässigkeit oder die Leistung.\n\nFalls du kein erfahrener Nutzer bist, kein Custom-ROM verwendest oder glaubst, dass diese Meldung irrtümlich angezeigt wird, kontaktiere bitte support@Signal-LTS.im für Hilfe bei der Problembehandlung.</string>
   <string name="RegistrationActivity_i_understand">Verstanden</string>
   <string name="RegistrationActivity_play_services_error">Fehler bei den Google-Play-Diensten</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google-Play-Dienste werden aktualisiert oder sind vorübergehend nicht verfügbar. Bitte versuche es erneut.</string>
   <string name="RegistrationActivity_terms_and_privacy">Nutzungsbedingungen und Datenschutzerklärung</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly benötigt Zugriff auf deine Kontakte und Medien, damit du Nachrichten an Freunde senden und sichere Anrufe tätigen kannst.</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Molly benötigt Zugriff auf deine Kontakte, damit du Freunde kontaktieren und sichere Anrufe tätigen kannst.</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Signal-LTS benötigt Zugriff auf deine Kontakte und Medien, damit du Nachrichten an Freunde senden und sichere Anrufe tätigen kannst.</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Signal-LTS benötigt Zugriff auf deine Kontakte, damit du Freunde kontaktieren und sichere Anrufe tätigen kannst.</string>
   <string name="RegistrationActivity_rate_limited_to_service">Du hast zu oft versucht, diese Rufnummer zu registrieren. Bitte versuche es später erneut.</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">Keine Verbindung zum Dienst möglich. Bitte überprüfe deine Netzverbindung und versuche es erneut.</string>
   <plurals name="RegistrationActivity_debug_log_hint">
@@ -1281,12 +1281,12 @@
   <!--ShakeToReport-->
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">Zu Kontakten hinzufügen</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Zu Molly einladen</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Zu Signal-LTS einladen</string>
   <string name="SharedContactDetailsActivity_signal_message">Signal-Nachricht</string>
   <string name="SharedContactDetailsActivity_signal_call">Signal-Anruf</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">Zu Kontakten hinzufügen</string>
-  <string name="SharedContactView_invite_to_signal">Zu Molly einladen</string>
+  <string name="SharedContactView_invite_to_signal">Zu Signal-LTS einladen</string>
   <string name="SharedContactView_message">Signal-Nachricht</string>
   <!--SignalPinReminders-->
   <string name="SignalPinReminders_well_remind_you_again_later">Wir erinnern dich später.</string>
@@ -1341,8 +1341,8 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   <string name="SupportEmailUtil_filter">Filter:</string>
   <string name="SupportEmailUtil_device_info">Geräteinformationen:</string>
   <string name="SupportEmailUtil_android_version">Android-Version:</string>
-  <string name="SupportEmailUtil_signal_version">Molly-Version:</string>
-  <string name="SupportEmailUtil_signal_package">Molly-Paket:</string>
+  <string name="SupportEmailUtil_signal_version">Signal-LTS-Version:</string>
+  <string name="SupportEmailUtil_signal_package">Signal-LTS-Paket:</string>
   <string name="SupportEmailUtil_registration_lock">Registrierungssperre:</string>
   <string name="SupportEmailUtil_locale">Region:</string>
   <!--ThreadRecord-->
@@ -1378,8 +1378,8 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   <string name="ThreadRecord_video">Video</string>
   <string name="ThreadRecord_chat_session_refreshed">Unterhaltungssitzung aktualisiert</string>
   <!--UpdateApkReadyListener-->
-  <string name="UpdateApkReadyListener_Signal_update">Molly-Aktualisierung</string>
-  <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Eine neue Molly-Version ist verfügbar. Zum Aktualisieren antippen.</string>
+  <string name="UpdateApkReadyListener_Signal_update">Signal-LTS-Aktualisierung</string>
+  <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Eine neue Signal-LTS-Version ist verfügbar. Zum Aktualisieren antippen.</string>
   <!--UntrustedSendDialog-->
   <string name="UntrustedSendDialog_send_message">Nachricht senden?</string>
   <string name="UntrustedSendDialog_send">Senden</string>
@@ -1411,7 +1411,7 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   <string name="VerifyIdentityActivity_our_signal_safety_number">Unsere Signal-Sicherheitsnummer:</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">Anscheinend hast du keine zum Teilen geeigneten Apps installiert.</string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">Keine zu vergleichende Sicherheitsnummer in der Zwischenablage gefunden</string>
-  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Molly benötigt die Berechtigung »Kamera« für das Einscannen von QR-Codes, diese wurde jedoch dauerhaft abgelehnt. Bitte öffne die App-Einstellungen, wähle »Berechtigungen« und aktiviere »Kamera«.</string>
+  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Signal-LTS benötigt die Berechtigung »Kamera« für das Einscannen von QR-Codes, diese wurde jedoch dauerhaft abgelehnt. Bitte öffne die App-Einstellungen, wähle »Berechtigungen« und aktiviere »Kamera«.</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">QR-Codes können ohne die Berechtigung »Kamera« nicht eingescannt werden.</string>
   <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">Du musst zuerst Nachrichten mit %1$s austauschen, um eure Sicherheitsnummer sehen zu können.</string>
   <!--ViewOnceMessageActivity-->
@@ -1430,13 +1430,13 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   <string name="ApplicationMigrationService_system_database_import_is_complete">Importieren der Systemdatenbank abgeschlossen.</string>
   <!--KeyCachingService-->
   <string name="KeyCachingService_signal_passphrase_cached">Zum Öffnen antippen.</string>
-  <string name="KeyCachingService_passphrase_cached">Molly ist entsperrt</string>
-  <string name="KeyCachingService_lock">Molly sperren</string>
+  <string name="KeyCachingService_passphrase_cached">Signal-LTS ist entsperrt</string>
+  <string name="KeyCachingService_lock">Signal-LTS sperren</string>
   <!--MediaPreviewActivity-->
   <string name="MediaPreviewActivity_you">Du</string>
   <string name="MediaPreviewActivity_unssuported_media_type">Nicht unterstützter Medieninhalt</string>
   <string name="MediaPreviewActivity_draft">Entwurf</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Molly benötigt die Berechtigung »Speicher« für das Speichern in den Gerätespeicher, diese wurde jedoch dauerhaft abgelehnt. Bitte öffne die App-Einstellungen, wähle »Berechtigungen« und aktiviere »Speicher«.</string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Signal-LTS benötigt die Berechtigung »Speicher« für das Speichern in den Gerätespeicher, diese wurde jedoch dauerhaft abgelehnt. Bitte öffne die App-Einstellungen, wähle »Berechtigungen« und aktiviere »Speicher«.</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">Speichern in den Gerätespeicher ohne Berechtigungen nicht möglich.</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">Nachricht löschen?</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">Dies wird diese Nachricht unwiderruflich löschen.</string>
@@ -1451,7 +1451,7 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   <string name="MessageNotifier_failed_to_deliver_message">Nachricht konnte nicht zugestellt werden.</string>
   <string name="MessageNotifier_error_delivering_message">Fehler beim Zustellen der Nachricht</string>
   <string name="MessageNotifier_message_delivery_paused">Nachrichtenzustellung pausiert.</string>
-  <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Verifizieren zum Senden weiterer Nachrichten auf Molly.</string>
+  <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Verifizieren zum Senden weiterer Nachrichten auf Signal-LTS.</string>
   <string name="MessageNotifier_mark_all_as_read">Alle gelesen</string>
   <string name="MessageNotifier_mark_read">Gelesen</string>
   <string name="MessageNotifier_turn_off_these_notifications">Diese Benachrichtigungen ausschalten</string>
@@ -1461,7 +1461,7 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   <string name="MessageNotifier_signal_message">Signal-Nachricht</string>
   <string name="MessageNotifier_unsecured_sms">Unverschlüsselte SMS</string>
   <string name="MessageNotifier_you_may_have_new_messages">Du hast vielleicht neue Nachrichten</string>
-  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Öffne Molly, um nach neuen Benachrichtigungen zu sehen.</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Öffne Signal-LTS, um nach neuen Benachrichtigungen zu sehen.</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">Kontakt</string>
   <string name="MessageNotifier_reacted_s_to_s">Hat mit %1$s reagiert auf: »%2$s«.</string>
@@ -1488,7 +1488,7 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   <string name="NotificationChannels__no_activity_available_to_open_notification_channel_settings">Keine Aktivität verfügbar, um die Einstellungen für den Benachrichtigungskanal zu öffnen.</string>
   <!--ProfileEditNameFragment-->
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Schnellantwort nicht verfügbar, solange Molly gesperrt ist!</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Schnellantwort nicht verfügbar, solange Signal-LTS gesperrt ist!</string>
   <string name="QuickResponseService_problem_sending_message">Problem beim Senden der Nachricht!</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">In %s gespeichert</string>
@@ -1499,7 +1499,7 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">Ungültige Verknüpfung</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Signal-LTS</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Neue Nachricht</string>
   <string name="SingleRecipientNotificationBuilder_message_request">Unterhaltungsanfrage</string>
   <string name="SingleRecipientNotificationBuilder_you">Du</string>
@@ -1515,8 +1515,8 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   <string name="UnauthorizedReminder_device_no_longer_registered">Gerät nicht mehr registriert</string>
   <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Wahrscheinlich hast du deine Rufnummer mit Signal auf einem anderen Gerät registriert. Zum erneuten Registrieren antippen.</string>
   <!--WebRtcCallActivity-->
-  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Um den Anruf von %s anzunehmen, erlaube Molly Zugriff auf dein Mikrofon.</string>
-  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Molly benötigt für Anrufe die Berechtigungen »Mikrofon« und »Kamera«, diese wurden jedoch dauerhaft abgelehnt. Bitte öffne die App-Einstellungen, wähle »Berechtigungen« und aktiviere »Mikrofon« und »Kamera«.</string>
+  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Um den Anruf von %s anzunehmen, erlaube Signal-LTS Zugriff auf dein Mikrofon.</string>
+  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Signal-LTS benötigt für Anrufe die Berechtigungen »Mikrofon« und »Kamera«, diese wurden jedoch dauerhaft abgelehnt. Bitte öffne die App-Einstellungen, wähle »Berechtigungen« und aktiviere »Mikrofon« und »Kamera«.</string>
   <string name="WebRtcCallActivity__answered_on_a_linked_device">Auf einem gekoppelten Gerät angenommen.</string>
   <string name="WebRtcCallActivity__declined_on_a_linked_device">Auf einem gekoppelten Gerät abgelehnt.</string>
   <string name="WebRtcCallActivity__busy_on_a_linked_device">Auf einem gekoppelten Gerät besetzt.</string>
@@ -1540,7 +1540,7 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   <string name="change_passphrase_activity__repeat_new_passphrase">Neue Passphrase wiederholen</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">Name/Nummer eingeben</string>
-  <string name="contact_selection_activity__invite_to_signal">Zu Molly einladen</string>
+  <string name="contact_selection_activity__invite_to_signal">Zu Signal-LTS einladen</string>
   <string name="contact_selection_activity__new_group">Neue Gruppe</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">Texteingabe leeren</string>
@@ -1552,7 +1552,7 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   <!--single_contact_selection_activity-->
   <string name="SingleContactSelectionActivity_contact_photo">Kontaktbild</string>
   <!--ContactSelectionListFragment-->
-  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Molly benötigt zum Anzeigen deiner Kontakte die Berechtigung »Kontakte«, diese wurde jedoch dauerhaft abgelehnt. Bitte öffne die App-Einstellungen, wähle »Berechtigungen« und aktiviere »Kontakte«.</string>
+  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Signal-LTS benötigt zum Anzeigen deiner Kontakte die Berechtigung »Kontakte«, diese wurde jedoch dauerhaft abgelehnt. Bitte öffne die App-Einstellungen, wähle »Berechtigungen« und aktiviere »Kontakte«.</string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Kontakte konnten nicht abgerufen werden. Überprüfe bitte deine Netzverbindung.</string>
   <string name="ContactSelectionListFragment_username_not_found">Nutzername nicht gefunden</string>
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">»%1$s« ist kein Signal-Nutzer. Bitte überprüfe den Nutzernamen und versuche es erneut.</string>
@@ -1566,7 +1566,7 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
     <item quantity="other">%1$d Mitglieder</item>
   </plurals>
   <!--contact_selection_list_fragment-->
-  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly benötigt Zugriff auf deine Kontakte, um sie anzeigen zu können.</string>
+  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Signal-LTS benötigt Zugriff auf deine Kontakte, um sie anzeigen zu können.</string>
   <string name="contact_selection_list_fragment__show_contacts">Kontakte anzeigen</string>
   <!--contact_selection_list_item-->
   <plurals name="contact_selection_list_item__number_of_members">
@@ -1931,7 +1931,7 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   <string name="preferences__slow">Langsam</string>
   <string name="preferences__help">Hilfe</string>
   <string name="preferences__advanced">Erweiterte Einstellungen</string>
-  <string name="preferences__donate_to_signal">An Molly spenden</string>
+  <string name="preferences__donate_to_signal">An Signal-LTS spenden</string>
   <string name="preferences__privacy">Datenschutz</string>
   <string name="preferences__mms_user_agent">MMS-Nutzer-Agent</string>
   <string name="preferences__advanced_mms_access_point_names">Manuelle MMS-Einstellungen</string>
@@ -2060,7 +2060,7 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   <string name="PaymentsAllActivityFragment__sent">Gesendet</string>
   <string name="PaymentsAllActivityFragment__received">Empfangen</string>
   <string name="PaymentsHomeFragment__introducing_payments">Neu: Zahlungen (Beta)</string>
-  <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Nutze Molly für das Senden und Empfangen von MobileCoin, einer neuen und auf Datenschutz ausgerichteten digitalen Währung. Aktivieren, um loszulegen.</string>
+  <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Nutze Signal-LTS für das Senden und Empfangen von MobileCoin, einer neuen und auf Datenschutz ausgerichteten digitalen Währung. Aktivieren, um loszulegen.</string>
   <string name="PaymentsHomeFragment__activate_payments">Zahlungen aktivieren</string>
   <string name="PaymentsHomeFragment__activating_payments">Zahlungen werden aktiviert …</string>
   <string name="PaymentsHomeFragment__restore_payments_account">Zahlungskonto wiederherstellen </string>
@@ -2087,17 +2087,17 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   <string name="PaymentsHomeFragment__payments_is_not_available_in_your_region">Zahlungen sind in deiner Region nicht verfügbar.</string>
   <string name="PaymentsHomeFragment__could_not_enable_payments">Zahlungen konnten nicht aktiviert werden. Bitte versuche es später erneut.</string>
   <string name="PaymentsHomeFragment__deactivate_payments_question">Zahlungen deaktivieren?</string>
-  <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">Du wirst in Molly keine MobileCoin senden oder empfangen können, falls du Zahlungen deaktivierst.</string>
+  <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">Du wirst in Signal-LTS keine MobileCoin senden oder empfangen können, falls du Zahlungen deaktivierst.</string>
   <string name="PaymentsHomeFragment__deactivate">Deaktivieren</string>
   <string name="PaymentsHomeFragment__continue">Fortfahren</string>
   <string name="PaymentsHomeFragment__balance_is_not_currently_available">Kontostand ist aktuell nicht verfügbar.</string>
   <string name="PaymentsHomeFragment__payments_deactivated">Zahlungen deaktiviert.</string>
   <string name="PaymentsHomeFragment__payment_failed">Zahlung gescheitert</string>
   <string name="PaymentsHomeFragment__details">Details</string>
-  <string name="PaymentsHomeFragment__you_can_use_signal_to_send">Du kannst Molly verwenden, um MobileCoin zu senden und zu empfangen. Alle Zahlungen unterliegen den Nutzungsbedingungen für MobileCoins und die MobileCoin-Wallet. Dies ist eine Beta-Funktion, daher können einige Probleme auftreten und eventuell verlorene Zahlungen oder Kontostände nicht wiederhergestellt werden.</string>
+  <string name="PaymentsHomeFragment__you_can_use_signal_to_send">Du kannst Signal-LTS verwenden, um MobileCoin zu senden und zu empfangen. Alle Zahlungen unterliegen den Nutzungsbedingungen für MobileCoins und die MobileCoin-Wallet. Dies ist eine Beta-Funktion, daher können einige Probleme auftreten und eventuell verlorene Zahlungen oder Kontostände nicht wiederhergestellt werden.</string>
   <string name="PaymentsHomeFragment__activate">Aktivieren</string>
   <string name="PaymentsHomeFragment__view_mobile_coin_terms">MobileCoin-Bedingungen anzeigen</string>
-  <string name="PaymentsHomeFragment__payments_not_available">Zahlungen in Molly sind nicht mehr verfügbar. Du kannst weiterhin Guthaben an eine Handelsplattform überweisen, aber keine Zahlungen senden und empfangen oder Guthaben hinzufügen.</string>
+  <string name="PaymentsHomeFragment__payments_not_available">Zahlungen in Signal-LTS sind nicht mehr verfügbar. Du kannst weiterhin Guthaben an eine Handelsplattform überweisen, aber keine Zahlungen senden und empfangen oder Guthaben hinzufügen.</string>
   <!--PaymentsAddMoneyFragment-->
   <string name="PaymentsAddMoneyFragment__add_funds">Guthaben hinzufügen</string>
   <string name="PaymentsAddMoneyFragment__your_wallet_address">Deine Wallet-Adresse</string>
@@ -2134,10 +2134,10 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   <string name="PaymentsTransferFragment__next">Weiter</string>
   <string name="PaymentsTransferFragment__invalid_address">Ungültige Adresse</string>
   <string name="PaymentsTransferFragment__check_the_wallet_address">Überprüfe die Wallet-Adresse, an die du überweisen möchtest, und versuche es erneut. </string>
-  <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">Du kannst nicht an die Adresse deines eigenen Molly-Wallets überweisen. Gib die Wallet-Adresse deines Kontos bei einer unterstützen Handelsplattform ein.</string>
-  <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">Um QR-Codes einzuscannen, benötigt Molly Zugriff auf deine Kamera</string>
-  <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Molly benötigt die Berechtigung »Kamera« für das Einscannen von QR-Codes. Bitte öffne die App-Einstellungen, wähle »Berechtigungen« und aktiviere »Kamera«.</string>
-  <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">Um QR-Codes einzuscannen, benötigt Molly Zugriff auf deine Kamera</string>
+  <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">Du kannst nicht an die Adresse deines eigenen Signal-LTS-Wallets überweisen. Gib die Wallet-Adresse deines Kontos bei einer unterstützen Handelsplattform ein.</string>
+  <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">Um QR-Codes einzuscannen, benötigt Signal-LTS Zugriff auf deine Kamera</string>
+  <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Signal-LTS benötigt die Berechtigung »Kamera« für das Einscannen von QR-Codes. Bitte öffne die App-Einstellungen, wähle »Berechtigungen« und aktiviere »Kamera«.</string>
+  <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">Um QR-Codes einzuscannen, benötigt Signal-LTS Zugriff auf deine Kamera</string>
   <string name="PaymentsTransferFragment__settings">Einstellungen</string>
   <!--PaymentsTransferQrScanFragment-->
   <string name="PaymentsTransferQrScanFragment__scan_address_qr_code">Adress-QR-Code einscannen</string>
@@ -2498,7 +2498,7 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">Du hast zu viele Versuche benötigt. Bitte versuche es später erneut.</string>
   <string name="RegistrationActivity_error_connecting_to_service">Fehler beim Verbinden mit Dienst</string>
   <string name="preferences_chats__backups">Datensicherungen</string>
-  <string name="prompt_passphrase_activity__signal_is_locked">Molly ist gesperrt</string>
+  <string name="prompt_passphrase_activity__signal_is_locked">Signal-LTS ist gesperrt</string>
   <string name="prompt_passphrase_activity__tap_to_unlock">ZUM ENTSPERREN ANTIPPEN</string>
   <string name="Recipient_unknown">Unbekannt</string>
   <!--TransferOrRestoreFragment-->
@@ -2522,18 +2522,18 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">Verbindung zum alten Android-Gerät wird vorbereitet …</string>
   <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">Etwas Geduld bitte, sollte bald bereit sein</string>
   <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">Warten auf Verbindung mit altem Android-Gerät …</string>
-  <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Molly benötigt die Berechtigung »Standort«, um dein altes Android-Gerät zu erkennen und zu verbinden.</string>
-  <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Molly benötigt aktivierte Standortdienste, um dein altes Android-Gerät zu erkennen und zu verbinden.</string>
-  <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Molly benötigt eingeschaltetes WLAN, um dein altes Android-Gerät zu erkennen und zu verbinden. WLAN muss zwar eingeschaltet, aber nicht mit einem WLAN-Netzwerk verbunden sein.</string>
-  <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Leider scheint dieses Gerät »Wi-Fi Direct« nicht zu unterstützen. Molly verwendet »Wi-Fi Direct«, um dein altes Android-Gerät zu erkennen und zu verbinden. Du kannst jedoch stattdessen eine Datensicherung wiederherstellen, um das Konto deines alten Android-Geräts zu verwenden.</string>
+  <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Signal-LTS benötigt die Berechtigung »Standort«, um dein altes Android-Gerät zu erkennen und zu verbinden.</string>
+  <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Signal-LTS benötigt aktivierte Standortdienste, um dein altes Android-Gerät zu erkennen und zu verbinden.</string>
+  <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Signal-LTS benötigt eingeschaltetes WLAN, um dein altes Android-Gerät zu erkennen und zu verbinden. WLAN muss zwar eingeschaltet, aber nicht mit einem WLAN-Netzwerk verbunden sein.</string>
+  <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Leider scheint dieses Gerät »Wi-Fi Direct« nicht zu unterstützen. Signal-LTS verwendet »Wi-Fi Direct«, um dein altes Android-Gerät zu erkennen und zu verbinden. Du kannst jedoch stattdessen eine Datensicherung wiederherstellen, um das Konto deines alten Android-Geräts zu verwenden.</string>
   <string name="NewDeviceTransferSetup__restore_a_backup">Eine Datensicherung wiederherstellen</string>
   <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Beim Versuch, eine Verbindung zu deinem alten Android-Gerät herzustellen, ist ein unerwarteter Fehler aufgetreten. </string>
   <!--OldDeviceTransferSetupFragment-->
   <string name="OldDeviceTransferSetup__searching_for_new_android_device">Nach neuem Android-Gerät wird gesucht …</string>
-  <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Molly benötigt die Berechtigung »Standort«, um dein neues Android-Gerät zu erkennen und zu verbinden.</string>
-  <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Molly benötigt aktivierte Standortdienste, um dein neues Android-Gerät zu erkennen und zu verbinden.</string>
-  <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Molly benötigt eingeschaltetes WLAN, um dein neues Android-Gerät zu erkennen und zu verbinden. WLAN muss zwar eingeschaltet, aber nicht mit einem WLAN-Netzwerk verbunden sein.</string>
-  <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Leider scheint dieses Gerät »Wi-Fi Direct« nicht zu unterstützen. Molly verwendet »Wi-Fi Direct«, um dein neues Android-Gerät zu erkennen und zu verbinden. Du kannst jedoch stattdessen eine Datensicherung erstellen, um dein Konto auf deinem neuen Android-Gerät wiederherzustellen.</string>
+  <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Signal-LTS benötigt die Berechtigung »Standort«, um dein neues Android-Gerät zu erkennen und zu verbinden.</string>
+  <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Signal-LTS benötigt aktivierte Standortdienste, um dein neues Android-Gerät zu erkennen und zu verbinden.</string>
+  <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Signal-LTS benötigt eingeschaltetes WLAN, um dein neues Android-Gerät zu erkennen und zu verbinden. WLAN muss zwar eingeschaltet, aber nicht mit einem WLAN-Netzwerk verbunden sein.</string>
+  <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Leider scheint dieses Gerät »Wi-Fi Direct« nicht zu unterstützen. Signal-LTS verwendet »Wi-Fi Direct«, um dein neues Android-Gerät zu erkennen und zu verbinden. Du kannst jedoch stattdessen eine Datensicherung erstellen, um dein Konto auf deinem neuen Android-Gerät wiederherzustellen.</string>
   <string name="OldDeviceTransferSetup__create_a_backup">Eine Datensicherung erstellen</string>
   <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Beim Versuch, eine Verbindung zu deinem neuen Android-Gerät herzustellen, ist ein unerwarteter Fehler aufgetreten. </string>
   <!--DeviceTransferSetupFragment-->
@@ -2571,7 +2571,7 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   <string name="NewDeviceTransfer__cannot_transfer_from_a_newer_version_of_signal">Übertragung von neueren Signal-Versionen nicht möglich</string>
   <!--DeviceTransferFragment-->
   <string name="DeviceTransfer__transferring_data">Datenübertragung</string>
-  <string name="DeviceTransfer__keep_both_devices_near_each_other">Positioniere beide Geräte nahe beieinander. Schalte keines davon aus und lass Molly geöffnet. Übertragungen sind Ende-zu-Ende-verschlüsselt.</string>
+  <string name="DeviceTransfer__keep_both_devices_near_each_other">Positioniere beide Geräte nahe beieinander. Schalte keines davon aus und lass Signal-LTS geöffnet. Übertragungen sind Ende-zu-Ende-verschlüsselt.</string>
   <string name="DeviceTransfer__d_messages_so_far">%1$d Nachrichten bisher …</string>
   <string name="DeviceTransfer__cancel">Abbrechen</string>
   <string name="DeviceTransfer__try_again">Erneut versuchen</string>
@@ -2584,7 +2584,7 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   <string name="OldDeviceTransferInstructions__transfer_account">Konto übertragen</string>
   <string name="OldDeviceTransferInstructions__you_can_transfer_your_signal_account_when_setting_up_signal_on_a_new_android_device">Du kannst dein Signal-Konto übertragen, wenn du Signal auf einem neuen Android-Gerät einrichtest. Bevor du fortfährst:</string>
   <string name="OldDeviceTransferInstructions__first_bullet">1.</string>
-  <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Installiere Molly auf deinem neuen Android-Gerät</string>
+  <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Installiere Signal-LTS auf deinem neuen Android-Gerät</string>
   <string name="OldDeviceTransferInstructions__second_bullet">2.</string>
   <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">Tippe auf »Konto übertragen oder wiederherstellen«</string>
   <string name="OldDeviceTransferInstructions__third_bullet">3.</string>
@@ -2650,7 +2650,7 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   <!--GroupLinkBottomSheetDialogFragment-->
   <string name="GroupLinkBottomSheet_share_hint_requiring_approval">Jeder mit diesem Link kann Name und Foto der Gruppe sehen und auch Beitrittsanfragen stellen. Teile ihn mit Personen, denen du vertraust.</string>
   <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">Jeder mit diesem Link kann Name und Foto der Gruppe sehen und ihr auch beitreten. Teile ihn mit Personen, denen du vertraust.</string>
-  <string name="GroupLinkBottomSheet_share_via_signal">Über Molly teilen</string>
+  <string name="GroupLinkBottomSheet_share_via_signal">Über Signal-LTS teilen</string>
   <string name="GroupLinkBottomSheet_copy">Kopieren</string>
   <string name="GroupLinkBottomSheet_qr_code">QR-Code</string>
   <string name="GroupLinkBottomSheet_share">Teilen</string>
@@ -2777,7 +2777,7 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   <string name="payment_info_card_about_mobilecoin">Über MobileCoin</string>
   <string name="payment_info_card_mobilecoin_is_a_new_privacy_focused_digital_currency">MobileCoin ist eine neue, auf Datenschutz ausgerichtete digitale Währung.</string>
   <string name="payment_info_card_adding_funds">Hinzufügen von Guthaben</string>
-  <string name="payment_info_card_you_can_add_funds_for_use_in">Du kannst Guthaben für die Verwendung in Molly hinzufügen, indem du MobileCoin an deine Wallet-Adresse sendest.</string>
+  <string name="payment_info_card_you_can_add_funds_for_use_in">Du kannst Guthaben für die Verwendung in Signal-LTS hinzufügen, indem du MobileCoin an deine Wallet-Adresse sendest.</string>
   <string name="payment_info_card_cashing_out">Auszahlungen</string>
   <string name="payment_info_card_you_can_cash_out_mobilecoin">Du kannst MobileCoin jederzeit auf einer Handelsplattform, die MobileCoin unterstützt, auszahlen lassen. Überweise das Guthaben einfach auf dein Konto bei dieser Handelsplattform.</string>
   <string name="payment_info_card_hide_this_card">Diese Karte ausblenden?</string>
@@ -2791,12 +2791,12 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   <!--DeactivateWalletFragment-->
   <string name="DeactivateWalletFragment__deactivate_wallet">Wallet deaktivieren</string>
   <string name="DeactivateWalletFragment__your_balance">Dein Kontostand</string>
-  <string name="DeactivateWalletFragment__its_recommended_that_you">Es ist empfehlenswert, vor dem Deaktivieren von Zahlungen dein Guthaben an eine andere Wallet-Adresse zu überweisen. Falls du entscheidest, dein Guthaben nicht jetzt zu überweisen, verbleibt es in deinem mit Molly verbundenen Wallet, bis du Zahlungen wieder aktivierst.</string>
+  <string name="DeactivateWalletFragment__its_recommended_that_you">Es ist empfehlenswert, vor dem Deaktivieren von Zahlungen dein Guthaben an eine andere Wallet-Adresse zu überweisen. Falls du entscheidest, dein Guthaben nicht jetzt zu überweisen, verbleibt es in deinem mit Signal-LTS verbundenen Wallet, bis du Zahlungen wieder aktivierst.</string>
   <string name="DeactivateWalletFragment__transfer_remaining_balance">Verbleibenden Kontostand überweisen</string>
   <string name="DeactivateWalletFragment__deactivate_without_transferring">Ohne Überweisen deaktivieren</string>
   <string name="DeactivateWalletFragment__deactivate">Deaktivieren</string>
   <string name="DeactivateWalletFragment__deactivate_without_transferring_question">Ohne Überweisen deaktivieren?</string>
-  <string name="DeactivateWalletFragment__your_balance_will_remain">Dein Kontostand verbleibt in deinem mit Molly verbundenen Wallet, falls du Zahlungen wieder aktivierst.</string>
+  <string name="DeactivateWalletFragment__your_balance_will_remain">Dein Kontostand verbleibt in deinem mit Signal-LTS verbundenen Wallet, falls du Zahlungen wieder aktivierst.</string>
   <string name="DeactivateWalletFragment__error_deactivating_wallet">Fehler beim Deaktivieren des Wallets.</string>
   <!--PaymentsRecoveryStartFragment-->
   <string name="PaymentsRecoveryStartFragment__recovery_phrase">Wiederherstellungsphrase</string>

@@ -10,17 +10,17 @@
   <string name="AbstractNotificationBuilder_new_message">Missatge nou</string>
   <!--AlbumThumbnailView-->
   <!--ApplicationMigrationActivity-->
-  <string name="ApplicationMigrationActivity__signal_is_updating">El Molly s\'actualitza…</string>
+  <string name="ApplicationMigrationActivity__signal_is_updating">El Signal-LTS s\'actualitza…</string>
   <!--ApplicationPreferencesActivity-->
   <string name="ApplicationPreferencesActivity_currently_s">Actualment: %s</string>
   <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">Encara no heu establert cap contrasenya.</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">Voleu desactivar la contrasenya?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">El Molly i les notificacions es desblocaran permanentment.</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">El Signal-LTS i les notificacions es desblocaran permanentment.</string>
   <string name="ApplicationPreferencesActivity_disable">Desactiva</string>
   <string name="ApplicationPreferencesActivity_unregistering">Cancel·lació del registre</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Es cancel·la el registre per als missatges i les trucades del Molly…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Voleu desactivarr els missatges i les trucades del Molly?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Desactiveu els missatges i les trucades del Molly cancel·lant el registre del servidor. Haureu de tornar a registrar el número de telèfon per usar-los de nou.</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Es cancel·la el registre per als missatges i les trucades del Signal-LTS…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Voleu desactivarr els missatges i les trucades del Signal-LTS?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Desactiveu els missatges i les trucades del Signal-LTS cancel·lant el registre del servidor. Haureu de tornar a registrar el número de telèfon per usar-los de nou.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">S\'ha produït un error en connectar amb el servidor.</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">SMS activats</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">Toqueu per canviar l\'aplicació d\'SMS predeterminada</string>
@@ -59,14 +59,14 @@
   <string name="AttachmentKeyboard_file">Fitxer</string>
   <string name="AttachmentKeyboard_contact">Contacte</string>
   <string name="AttachmentKeyboard_location">Ubicació</string>
-  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">El Molly necessita permís per mostrar les vostres fotografies i vídeos.</string>
+  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">El Signal-LTS necessita permís per mostrar les vostres fotografies i vídeos.</string>
   <string name="AttachmentKeyboard_give_access">Permet-hi l\'accés</string>
   <string name="AttachmentKeyboard_payment">Pagament</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">No s\'ha trobat cap aplicació compatible.</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">El Molly necessita el permís de l\'emmagatzematge per tal d\'adjuntar fotografies, vídeos o àudio, però s\'ha denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi l\'emmagatzematge.</string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">El Molly necessita el permís de l\'aplicació dels contactes per tal d\'adjuntar-ne informació, però s\'ha denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi els contactes.</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">El Molly necessita el permís de la ubicació per tal d\'adjuntar-ne informació, però s\'ha denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi la ubicació.</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">El Signal-LTS necessita el permís de l\'emmagatzematge per tal d\'adjuntar fotografies, vídeos o àudio, però s\'ha denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi l\'emmagatzematge.</string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">El Signal-LTS necessita el permís de l\'aplicació dels contactes per tal d\'adjuntar-ne informació, però s\'ha denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi els contactes.</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">El Signal-LTS necessita el permís de la ubicació per tal d\'adjuntar-ne informació, però s\'ha denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi la ubicació.</string>
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">Es penja el contingut…</string>
   <string name="AttachmentUploadJob_compressing_video_start">Es comprimeix el vídeo…</string>
@@ -117,14 +117,14 @@
   <string name="CameraContacts_no_signal_contacts">No hi ha contactes de Signal</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">Només podeu usar el botó de la càmera per enviar fotografies a contactes de Signal.</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">No trobeu qui busqueu?</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">Convideu un contacte a Molly</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">Convideu un contacte a Signal-LTS</string>
   <string name="CameraContacts__menu_search">Cerca</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">Suprimeix</string>
   <string name="ClearProfileActivity_remove_profile_photo">Voleu suprimir la foto de perfil?</string>
   <string name="ClearProfileActivity_remove_group_photo">Voleu suprimir la foto del grup?</string>
   <!--ClientDeprecatedActivity-->
-  <string name="ClientDeprecatedActivity_update_signal">Actualitza el Molly</string>
+  <string name="ClientDeprecatedActivity_update_signal">Actualitza el Signal-LTS</string>
   <string name="ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported">Aquesta versió de l\'aplicació ja no té assistència. Per continuar enviant i rebent missatges, actualitzeu-la a la darrera versió.</string>
   <string name="ClientDeprecatedActivity_update">Actualitza-la</string>
   <string name="ClientDeprecatedActivity_dont_update">No l\'actualitzis</string>
@@ -203,7 +203,7 @@
   <string name="ConversationActivity_transport_insecure_sms">SMS no segur</string>
   <string name="ConversationActivity_transport_insecure_mms">MMS no segur</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">Canviem al Molly, %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">Canviem al Signal-LTS, %1$s</string>
   <string name="ConversationActivity_specify_recipient">Trieu un contacte</string>
   <string name="ConversationActivity_unblock">Desbloca</string>
   <string name="ConversationActivity_attachment_exceeds_size_limits">El fitxer adjunt excedeix la mida màxima per a aquest tipus de missatges.</string>
@@ -212,15 +212,15 @@
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">No hi ha cap aplicació que pugui obrir aquest enllaç.</string>
   <string name="ConversationActivity_your_request_to_join_has_been_sent_to_the_group_admin">La sol·licitud per afegir-vos-hi s\'ha enviat a l\'administrador/a del grup. Rebreu una notificació quan la resolguin.</string>
   <string name="ConversationActivity_cancel_request">Cancel·la la sol·licitud</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Per enviar missatges d\'àudio, permeteu que el Molly tingui accés al micròfon.</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">El Molly necessita el permís del micròfon per tal d\'enviar missatges d\'àudio, però s\'ha denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi el micròfon.</string>
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">El Molly necessita el permís del micròfon i de la càmera per tal de trucar a %s, però s\'han denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi el micròfon i la càmera.</string>
-  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Per captar fotografies i vídeos, permeteu que el Molly tingui accés a la càmera.</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">El Molly necessita el permís de la càmera per tal de fer fotografies i vídeos, però s\'ha denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi la càmera.</string>
-  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">El Molly necessita el permís de la càmera per fer fotografies i vídeos.</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Per enviar missatges d\'àudio, permeteu que el Signal-LTS tingui accés al micròfon.</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">El Signal-LTS necessita el permís del micròfon per tal d\'enviar missatges d\'àudio, però s\'ha denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi el micròfon.</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">El Signal-LTS necessita el permís del micròfon i de la càmera per tal de trucar a %s, però s\'han denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi el micròfon i la càmera.</string>
+  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Per captar fotografies i vídeos, permeteu que el Signal-LTS tingui accés a la càmera.</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">El Signal-LTS necessita el permís de la càmera per tal de fer fotografies i vídeos, però s\'ha denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi la càmera.</string>
+  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">El Signal-LTS necessita el permís de la càmera per fer fotografies i vídeos.</string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Activeu el permís del micròfon per capturar vídeos amb so.</string>
-  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">El Molly necessita el permís del micròfon per gravar vídeos, però s\'han denegat. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi el micròfon i la càmera.</string>
-  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">El Molly necessita el permís del telèfon per gravar vídeos.</string>
+  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">El Signal-LTS necessita el permís del micròfon per gravar vídeos, però s\'han denegat. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi el micròfon i la càmera.</string>
+  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">El Signal-LTS necessita el permís del telèfon per gravar vídeos.</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">El Signal no pot enviar missatges SMS / MMS perquè no és la vostra aplicació d\'SMS predeterminada. Voleu canviar-ho a la configuració d\'Android?</string>
   <string name="ConversationActivity_yes">Sí</string>
@@ -236,7 +236,7 @@
   <string name="ConversationActivity_you_will_leave_this_group_and_it_will_be_deleted_from_all_of_your_devices">Abandonareu aquest grup i se suprimirà de tots els dispositius.</string>
   <string name="ConversationActivity_delete">Suprimeix</string>
   <string name="ConversationActivity_delete_and_leave">Suprimeix-lo i abandona\'l</string>
-  <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">Per trucar a %1$s, el Molly necessita accés al micròfon.</string>
+  <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">Per trucar a %1$s, el Signal-LTS necessita accés al micròfon.</string>
   <string name="ConversationActivity__more_options_now_in_group_settings">Ara hi ha més opcions a la configuració del grup.</string>
   <string name="ConversationActivity_join">Afegeix-m\'hi</string>
   <string name="ConversationActivity_full">Ple</string>
@@ -293,7 +293,7 @@
   <string name="ConversationFragment__d_group_members_have_the_same_name">%1$d membres del grup tenen el mateix nom.</string>
   <string name="ConversationFragment__tap_to_review">Feu un toc per revisar-ho</string>
   <string name="ConversationFragment__review_requests_carefully">Reviseu les sol·licituds amb atenció.</string>
-  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">El Molly ha trobat un altre contacte amb el mateix nom.</string>
+  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">El Signal-LTS ha trobat un altre contacte amb el mateix nom.</string>
   <string name="ConversationFragment_contact_us">Contacteu-nos</string>
   <string name="ConversationFragment_verify">Verificació</string>
   <string name="ConversationFragment_not_now">Ara no</string>
@@ -357,11 +357,11 @@
   <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Proveu la contrasenya de còpia de seguretat i verifiqueu que coincideix.</string>
   <string name="BackupsPreferenceFragment__turn_on">Activa</string>
   <string name="BackupsPreferenceFragment__turn_off">Desactiva</string>
-  <string name="BackupsPreferenceFragment__to_restore_a_backup">Per restaurar una còpia de seguretat, instal·leu una còpia del Molly. Obriu l\'aplicació i toqueu Restaura la còpia de seguretat. Indiqueu el fitxer de còpia de seguretat. %1$s</string>
+  <string name="BackupsPreferenceFragment__to_restore_a_backup">Per restaurar una còpia de seguretat, instal·leu una còpia del Signal-LTS. Obriu l\'aplicació i toqueu Restaura la còpia de seguretat. Indiqueu el fitxer de còpia de seguretat. %1$s</string>
   <string name="BackupsPreferenceFragment__learn_more">Més informació</string>
   <string name="BackupsPreferenceFragment__in_progress">En curs…</string>
   <string name="BackupsPreferenceFragment__d_so_far">%1$d fins ara…</string>
-  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">El Molly necessita el permís de l\'emmagatzematge extern per tal de crear còpies de seguretat. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi l\'emmagatzematge.</string>
+  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">El Signal-LTS necessita el permís de l\'emmagatzematge extern per tal de crear còpies de seguretat. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi l\'emmagatzematge.</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Ús de la personalització: %s</string>
   <string name="CustomDefaultPreference_using_default">Per defecte: %s</string>
@@ -406,7 +406,7 @@
   <string name="GroupCallingMegaphone__open_a_new_group_to_start">Obriu un grup nou per iniciar una trucada de grup encriptada</string>
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">Optimitza per a la no presència dels Play Services</string>
-  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">El dispositiu no és compatible amb Play Services. Toqueu per desactivar les optimitzacions de la bateria que impedeixen que el Molly rebi missatges quan estigui inactiu.</string>
+  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">El dispositiu no és compatible amb Play Services. Toqueu per desactivar les optimitzacions de la bateria que impedeixen que el Signal-LTS rebi missatges quan estigui inactiu.</string>
   <!--ExpiredBuildReminder-->
   <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Aquesta versió del Signal ha vençut. Actualitzeu-la ara per enviar i rebre missatges.</string>
   <string name="ExpiredBuildReminder_update_now">Actualitza-la ara</string>
@@ -421,7 +421,7 @@
   <string name="ShareActivity_multiple_attachments_are_only_supported">Els adjunts múltiples només s\'admeten per a imatges i vídeos.</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">La comunicació del Signal falla contínuament!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">El Molly no s\'ha pogut registrar al Google Play Services. Els missatges i les trucades del Molly s\'han desactivat, registreu-vos de nou a Configuració &gt; Avançada.</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">El Signal-LTS no s\'ha pogut registrar al Google Play Services. Els missatges i les trucades del Signal-LTS s\'han desactivat, registreu-vos de nou a Configuració &gt; Avançada.</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">S\'ha produït un error en recuperar el GIF a resolució completa</string>
   <!--GiphyFragmentPageAdapter-->
@@ -745,7 +745,7 @@
   <string name="InviteActivity_cancel">Cancel·la</string>
   <string name="InviteActivity_sending">S\'envia…</string>
   <string name="InviteActivity_invitations_sent">Invitacions enviades!</string>
-  <string name="InviteActivity_invite_to_signal">Convida al Molly</string>
+  <string name="InviteActivity_invite_to_signal">Convida al Signal-LTS</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">ENVIA L\'SMS A %d AMISTAT</item>
     <item quantity="other">ENVIA L\'SMS A %d AMISTATS</item>
@@ -754,7 +754,7 @@
     <item quantity="one">Voleu enviar %d invitació SMS?</item>
     <item quantity="other">Voleu enviar %d invitacions SMS?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">Canviem al Molly: %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">Canviem al Signal-LTS: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Sembla que no teniu cap aplicació on compartir-ho.</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Les amistats no deixen que les seves amistats xerrin sense encriptació.</string>
   <!--LearnMoreTextView-->
@@ -764,7 +764,7 @@
   <string name="LongMessageActivity_message_from_s">Missatge de %1$s</string>
   <string name="LongMessageActivity_your_message">El vostre missatge</string>
   <!--MessageRetrievalService-->
-  <string name="MessageRetrievalService_signal">Molly</string>
+  <string name="MessageRetrievalService_signal">Signal-LTS</string>
   <string name="MessageRetrievalService_background_connection_enabled">S\'ha activat la connexió en segon pla</string>
   <!--MmsDownloader-->
   <string name="MmsDownloader_error_reading_mms_settings">S\'ha produït un error en llegir la configuració d\'MMS de l\'operador</string>
@@ -852,8 +852,8 @@
   <string name="MediaSendActivity_message_to_s">Missatge per a %s</string>
   <string name="MediaSendActivity_message">Missatge</string>
   <string name="MediaSendActivity_select_recipients">Seleccioneu destinataris</string>
-  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">El Molly necessita accés als contactes per tal de mostrar-los.</string>
-  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">El Molly necessita el permís de l\'aplicació de contactes per tal de mostrar-ne els vostres, però s\'ha denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi els contactes.</string>
+  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">El Signal-LTS necessita accés als contactes per tal de mostrar-los.</string>
+  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">El Signal-LTS necessita el permís de l\'aplicació de contactes per tal de mostrar-ne els vostres, però s\'ha denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi els contactes.</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="one">No podeu compartir més de %d elements.</item>
     <item quantity="other">No podeu compartir més de %d elements.</item>
@@ -1098,7 +1098,7 @@
   <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">Això no és un codi QR amb enllaç vàlid.</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">Voleu enllaçar un dispositiu de Signal?</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Sembla que esteu provant d\'enllaçar un dispositiu de Signal amb un escàner extern. Per seguretat, torneu a escanejar el codi dins del Signal.</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">El Molly necessita el permís de la càmera per tal d\'escanejar un codi QR, però s\'ha denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi la càmera.</string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">El Signal-LTS necessita el permís de la càmera per tal d\'escanejar un codi QR, però s\'ha denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi la càmera.</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">No es pot escanejar un codi QR sense permís de la càmera.</string>
   <!--OutdatedBuildReminder-->
   <string name="OutdatedBuildReminder_update_now">Actualitza-la ara</string>
@@ -1109,10 +1109,10 @@
   </plurals>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">Escriviu la contrasenya</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Icona del Molly</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Icona del Signal-LTS</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">Envia la contrasenya</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Contrasenya incorrecta!</string>
-  <string name="PassphrasePromptActivity_unlock_signal">Desbloca el Molly</string>
+  <string name="PassphrasePromptActivity_unlock_signal">Desbloca el Signal-LTS</string>
   <string name="PassphrasePromptActivity_signal_android_lock_screen">Signal Android - Bloca la pantalla</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">Mapa</string>
@@ -1159,7 +1159,7 @@
   <string name="ReactionsRecipientAdapter_you">Vós</string>
   <!--RecaptchaRequiredBottomSheetFragment-->
   <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">Verifiqueu-ho per continuar la missatgeria</string>
-  <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Per ajudar a prevenir el correu brossa al Molly, completeu la verificació.</string>
+  <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Per ajudar a prevenir el correu brossa al Signal-LTS, completeu la verificació.</string>
   <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">Després de verificar-ho, podeu continuar enviant missatges. Qualsevol missatge interromput s\'enviarà automàticament.</string>
   <!--Recipient-->
   <string name="Recipient_you">Vós</string>
@@ -1180,8 +1180,8 @@
   <string name="RedPhone_got_it">Entesos</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Toqueu aquí per activar el vídeo</string>
-  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Per trucar a %1$s, el Molly necessita accés a la càmera.</string>
-  <string name="WebRtcCallActivity__signal_s">Trucada del Molly: %1$s</string>
+  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Per trucar a %1$s, el Signal-LTS necessita accés a la càmera.</string>
+  <string name="WebRtcCallActivity__signal_s">Trucada del Signal-LTS: %1$s</string>
   <string name="WebRtcCallActivity__calling">Es truca…</string>
   <!--WebRtcCallView-->
   <string name="WebRtcCallView__signal_voice_call">Trucada de veu del Signal…</string>
@@ -1241,13 +1241,13 @@ especificat (%s) no és vàlid.</string>
   <string name="RegistrationActivity_is_your_phone_number_above_correct">Aquest número de telèfon és correcte?</string>
   <string name="RegistrationActivity_edit_number">Edita el número</string>
   <string name="RegistrationActivity_missing_google_play_services">No hi ha el Google Play Services.</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Aquest dispositiu no té el Google Play Services. Encara podeu usar el Molly, però aquesta configuració pot resultar en una fiabilitat o un rendiment reduïts.\n\nSi no sou un usuari avançat, si no esteu fent servir una ROM d\'Android de mercat secundari o si creieu que esteu veient això com a error, si us plau, poseu-vos en contacte amb support@molly.im per a la resolució de problemes.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Aquest dispositiu no té el Google Play Services. Encara podeu usar el Signal-LTS, però aquesta configuració pot resultar en una fiabilitat o un rendiment reduïts.\n\nSi no sou un usuari avançat, si no esteu fent servir una ROM d\'Android de mercat secundari o si creieu que esteu veient això com a error, si us plau, poseu-vos en contacte amb support@Signal-LTS.im per a la resolució de problemes.</string>
   <string name="RegistrationActivity_i_understand">Ho entenc</string>
   <string name="RegistrationActivity_play_services_error">Error amb el Play Services</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">El Google Play Services s\'està actualitzant o no està disponible. Torneu a provar-ho.</string>
   <string name="RegistrationActivity_terms_and_privacy">Termes i política de privadesa</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">El Molly necessita accés als contactes i als continguts multimèdia per tal de connectar amb amistats, intercanviar-hi missatges i fer trucades amb seguretat.</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">El Molly necessita accés als contactes per tal de connectar amb amistats, intercanviar-hi missatges i fer trucades amb seguretat.</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">El Signal-LTS necessita accés als contactes i als continguts multimèdia per tal de connectar amb amistats, intercanviar-hi missatges i fer trucades amb seguretat.</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">El Signal-LTS necessita accés als contactes per tal de connectar amb amistats, intercanviar-hi missatges i fer trucades amb seguretat.</string>
   <string name="RegistrationActivity_rate_limited_to_service">Heu fet massa intents per registrar aquest número. Si us plau, torneu-ho a provar més tard.</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">No es pot connectar al servei. Si us plau, comproveu la connexió de xarxa i torneu-ho a provar.</string>
   <plurals name="RegistrationActivity_debug_log_hint">
@@ -1285,12 +1285,12 @@ especificat (%s) no és vàlid.</string>
   <!--ShakeToReport-->
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">Afegeix als contactes</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Convida al Molly</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Convida al Signal-LTS</string>
   <string name="SharedContactDetailsActivity_signal_message">Missatge del Signal</string>
   <string name="SharedContactDetailsActivity_signal_call">Trucada del Signal</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">Afegeix als contactes</string>
-  <string name="SharedContactView_invite_to_signal">Convida al Molly</string>
+  <string name="SharedContactView_invite_to_signal">Convida al Signal-LTS</string>
   <string name="SharedContactView_message">Missatge del Signal</string>
   <!--SignalPinReminders-->
   <string name="SignalPinReminders_well_remind_you_again_later">Us ho recordarem més tard.</string>
@@ -1346,8 +1346,8 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="SupportEmailUtil_filter">Filtre:</string>
   <string name="SupportEmailUtil_device_info">Informació del dispositiu:</string>
   <string name="SupportEmailUtil_android_version">Versió d\'Android:</string>
-  <string name="SupportEmailUtil_signal_version">Versió del Molly:</string>
-  <string name="SupportEmailUtil_signal_package">Paquet del Molly:</string>
+  <string name="SupportEmailUtil_signal_version">Versió del Signal-LTS:</string>
+  <string name="SupportEmailUtil_signal_package">Paquet del Signal-LTS:</string>
   <string name="SupportEmailUtil_registration_lock">Bloqueig de registre:</string>
   <string name="SupportEmailUtil_locale">Llengua:</string>
   <!--ThreadRecord-->
@@ -1383,8 +1383,8 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="ThreadRecord_video">Vídeo</string>
   <string name="ThreadRecord_chat_session_refreshed">S\'ha refrescat la sessió.</string>
   <!--UpdateApkReadyListener-->
-  <string name="UpdateApkReadyListener_Signal_update">Actualització del Molly</string>
-  <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Hi ha disponible una versió nova del Molly. Toqueu per actualitzar-lo</string>
+  <string name="UpdateApkReadyListener_Signal_update">Actualització del Signal-LTS</string>
+  <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Hi ha disponible una versió nova del Signal-LTS. Toqueu per actualitzar-lo</string>
   <!--UntrustedSendDialog-->
   <string name="UntrustedSendDialog_send_message">Voleu enviar el missatge?</string>
   <string name="UntrustedSendDialog_send">Envia</string>
@@ -1416,7 +1416,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="VerifyIdentityActivity_our_signal_safety_number">El nostre número de seguretat:</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">Sembla que no teniu cap aplicació on compartir-ho.</string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">No s\'ha trobat cap número de seguretat al porta-retalls</string>
-  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">El Molly necessita el permís de la càmera per tal d\'escanejar un codi QR, però s\'ha denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi la càmera.</string>
+  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">El Signal-LTS necessita el permís de la càmera per tal d\'escanejar un codi QR, però s\'ha denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi la càmera.</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">No es pot escanejar un codi QR sense permís de la càmera.</string>
   <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">Primer heu d\'intercanviar missatges per tal de veure el número de seguretat de %1$s.</string>
   <!--ViewOnceMessageActivity-->
@@ -1435,13 +1435,13 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="ApplicationMigrationService_system_database_import_is_complete">La importació de la base de dades del sistema s\'ha completat.</string>
   <!--KeyCachingService-->
   <string name="KeyCachingService_signal_passphrase_cached">Toqueu per obrir-ho.</string>
-  <string name="KeyCachingService_passphrase_cached">S\'ha desblocat el Molly</string>
-  <string name="KeyCachingService_lock">Bloca el Molly</string>
+  <string name="KeyCachingService_passphrase_cached">S\'ha desblocat el Signal-LTS</string>
+  <string name="KeyCachingService_lock">Bloca el Signal-LTS</string>
   <!--MediaPreviewActivity-->
   <string name="MediaPreviewActivity_you">Jo</string>
   <string name="MediaPreviewActivity_unssuported_media_type">Tipus de fitxer no compatible</string>
   <string name="MediaPreviewActivity_draft">Esborrany</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">El Molly necessita el permís de l\'emmagatzematge per tal de desar en un emmagatzematge extern, però s\'ha denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi l\'emmagatzematge.</string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">El Signal-LTS necessita el permís de l\'emmagatzematge per tal de desar en un emmagatzematge extern, però s\'ha denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi l\'emmagatzematge.</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">No es pot desar en un emmagatzematge extern sense permís.</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">Voleu suprimir el missatge?</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">Aquest missatge se suprimirà permanentment.</string>
@@ -1456,7 +1456,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="MessageNotifier_failed_to_deliver_message">No s\'ha pogut entregar el missatge.</string>
   <string name="MessageNotifier_error_delivering_message">S\'ha produït un error en entregar el missatge.</string>
   <string name="MessageNotifier_message_delivery_paused">Lliurament de missatge interromput</string>
-  <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Verifiqueu-ho per continuar la missatgeria al Molly.</string>
+  <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Verifiqueu-ho per continuar la missatgeria al Signal-LTS.</string>
   <string name="MessageNotifier_mark_all_as_read">Marca-ho tot com a llegit</string>
   <string name="MessageNotifier_mark_read">Marca\'l com a llegit</string>
   <string name="MessageNotifier_turn_off_these_notifications">Desactiva aquestes notificacions</string>
@@ -1466,7 +1466,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="MessageNotifier_signal_message">Missatge del Signal</string>
   <string name="MessageNotifier_unsecured_sms">SMS no segur</string>
   <string name="MessageNotifier_you_may_have_new_messages">Potser teniu missatges nous.</string>
-  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Obre el Molly per comprovar si hi ha notificacions noves.</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Obre el Signal-LTS per comprovar si hi ha notificacions noves.</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">Contacte</string>
   <string name="MessageNotifier_reacted_s_to_s">%1$s ha reaccionat a : \"%2$s\".</string>
@@ -1493,7 +1493,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="NotificationChannels__no_activity_available_to_open_notification_channel_settings">No hi ha activitat disponible per obrir la configuració del canal de notificacions.</string>
   <!--ProfileEditNameFragment-->
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">La resposta ràpida no és disponible si el Molly està blocat!</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">La resposta ràpida no és disponible si el Signal-LTS està blocat!</string>
   <string name="QuickResponseService_problem_sending_message">S\'ha produït un problema en enviar el missatge!</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">Desat a %s</string>
@@ -1504,7 +1504,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">Drecera no vàlida</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Signal-LTS</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Missatge nou</string>
   <string name="SingleRecipientNotificationBuilder_message_request">Sol·licitud de missatge</string>
   <string name="SingleRecipientNotificationBuilder_you">Vós</string>
@@ -1520,8 +1520,8 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="UnauthorizedReminder_device_no_longer_registered">El dispositiu ja no està registrat.</string>
   <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Potser és així perquè vau registrar el número de telèfon al Signal des d\'un dispositiu diferent. Feu un toc per a tornar a registrar-lo.</string>
   <!--WebRtcCallActivity-->
-  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Per respondre una trucada de %s, permeteu que el Molly tingui accés al micròfon.</string>
-  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">El Molly necessita el permís del micròfon i de la càmera per tal de fer o rebre trucades, però s\'han denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi el micròfon i la càmera.</string>
+  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Per respondre una trucada de %s, permeteu que el Signal-LTS tingui accés al micròfon.</string>
+  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">El Signal-LTS necessita el permís del micròfon i de la càmera per tal de fer o rebre trucades, però s\'han denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi el micròfon i la càmera.</string>
   <string name="WebRtcCallActivity__answered_on_a_linked_device">S\'ha respost en un dispositiu enllaçat.</string>
   <string name="WebRtcCallActivity__declined_on_a_linked_device">S\'ha rebutjat en un dispositiu enllaçat.</string>
   <string name="WebRtcCallActivity__busy_on_a_linked_device">Ocupat/da en un dispositiu enllaçat</string>
@@ -1545,7 +1545,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="change_passphrase_activity__repeat_new_passphrase">Repetiu la contrasenya nova</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">Escriviu un nom o un número</string>
-  <string name="contact_selection_activity__invite_to_signal">Convida al Molly</string>
+  <string name="contact_selection_activity__invite_to_signal">Convida al Signal-LTS</string>
   <string name="contact_selection_activity__new_group">Grup nou</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">Neteja el text escrit</string>
@@ -1557,7 +1557,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <!--single_contact_selection_activity-->
   <string name="SingleContactSelectionActivity_contact_photo">Foto del contacte</string>
   <!--ContactSelectionListFragment-->
-  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">El Molly necessita el permís de l\'aplicació dels contactes per tal de mostrar-ne els vostres, però s\'ha denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi els contactes.</string>
+  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">El Signal-LTS necessita el permís de l\'aplicació dels contactes per tal de mostrar-ne els vostres, però s\'ha denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi els contactes.</string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Error en recuperar els contactes. Comproveu la connexió de xarxa.</string>
   <string name="ContactSelectionListFragment_username_not_found">No s\'ha trobat el nom d\'usuari.</string>
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">%1$s no és un usuari del Signal. Si us plau, comproveu-ne el nom i torneu-ho a provar.</string>
@@ -1571,7 +1571,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
     <item quantity="other">%1$d membres</item>
   </plurals>
   <!--contact_selection_list_fragment-->
-  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">El Molly necessita accés als contactes per tal de mostrar-los.</string>
+  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">El Signal-LTS necessita accés als contactes per tal de mostrar-los.</string>
   <string name="contact_selection_list_fragment__show_contacts">Mostra els contactes</string>
   <!--contact_selection_list_item-->
   <plurals name="contact_selection_list_item__number_of_members">
@@ -1936,7 +1936,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="preferences__slow">Lent</string>
   <string name="preferences__help">Ajuda</string>
   <string name="preferences__advanced">Avançat</string>
-  <string name="preferences__donate_to_signal">Feu una donació a Molly</string>
+  <string name="preferences__donate_to_signal">Feu una donació a Signal-LTS</string>
   <string name="preferences__privacy">Privadesa</string>
   <string name="preferences__mms_user_agent">Agent usuari dels MMS</string>
   <string name="preferences__advanced_mms_access_point_names">Configuració manual dels MMS</string>
@@ -2065,7 +2065,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="PaymentsAllActivityFragment__sent">Enviat</string>
   <string name="PaymentsAllActivityFragment__received">Rebut</string>
   <string name="PaymentsHomeFragment__introducing_payments">S\'introdueixen els pagaments (beta)</string>
-  <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Useu el Molly per enviar i rebre MobileCoin, una moneda digital nova centrada en la privadesa. Activeu-ho per començar.</string>
+  <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Useu el Signal-LTS per enviar i rebre MobileCoin, una moneda digital nova centrada en la privadesa. Activeu-ho per començar.</string>
   <string name="PaymentsHomeFragment__activate_payments">Activa els pagaments</string>
   <string name="PaymentsHomeFragment__activating_payments">S\'activen els pagaments…</string>
   <string name="PaymentsHomeFragment__restore_payments_account">Restaura el compte de pagaments</string>
@@ -2092,17 +2092,17 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="PaymentsHomeFragment__payments_is_not_available_in_your_region">Els pagaments no estan disponibles a la vostra regió.</string>
   <string name="PaymentsHomeFragment__could_not_enable_payments">No s\'han pogut activar els pagaments. Torneu-ho a provar més tard.</string>
   <string name="PaymentsHomeFragment__deactivate_payments_question">Voleu desactivar els pagaments?</string>
-  <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">No podreu enviar ni rebre MobileCoin al Molly si desactiveu els pagaments.</string>
+  <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">No podreu enviar ni rebre MobileCoin al Signal-LTS si desactiveu els pagaments.</string>
   <string name="PaymentsHomeFragment__deactivate">Desactiva\'ls</string>
   <string name="PaymentsHomeFragment__continue">Continua</string>
   <string name="PaymentsHomeFragment__balance_is_not_currently_available">El saldo actualment no està disponible.</string>
   <string name="PaymentsHomeFragment__payments_deactivated">Pagaments desactivats</string>
   <string name="PaymentsHomeFragment__payment_failed">Ha fallat el pagament.</string>
   <string name="PaymentsHomeFragment__details">Detalls</string>
-  <string name="PaymentsHomeFragment__you_can_use_signal_to_send">Podeu usar el Molly per enviar i rebre MobileCoin. Tots els pagaments estan subjectes a les Condicions d\'ús de MobileCoins i MobileCoin Wallet. Aquesta és una funció beta, de manera que és possible que tingueu problemes i que no es puguin recuperar pagaments o saldos que poguéssiu perdre.</string>
+  <string name="PaymentsHomeFragment__you_can_use_signal_to_send">Podeu usar el Signal-LTS per enviar i rebre MobileCoin. Tots els pagaments estan subjectes a les Condicions d\'ús de MobileCoins i MobileCoin Wallet. Aquesta és una funció beta, de manera que és possible que tingueu problemes i que no es puguin recuperar pagaments o saldos que poguéssiu perdre.</string>
   <string name="PaymentsHomeFragment__activate">Activa\'ls</string>
   <string name="PaymentsHomeFragment__view_mobile_coin_terms">Vegeu els termes de MobileCoin</string>
-  <string name="PaymentsHomeFragment__payments_not_available">Els pagaments al Molly ja no estan disponibles. Encara podeu transferir fons a un intercanvi, però ja no podeu enviar ni rebre pagaments ni afegir-hi fons.</string>
+  <string name="PaymentsHomeFragment__payments_not_available">Els pagaments al Signal-LTS ja no estan disponibles. Encara podeu transferir fons a un intercanvi, però ja no podeu enviar ni rebre pagaments ni afegir-hi fons.</string>
   <!--PaymentsAddMoneyFragment-->
   <string name="PaymentsAddMoneyFragment__add_funds">Afegeix fons</string>
   <string name="PaymentsAddMoneyFragment__your_wallet_address">La vostra adreça de cartera</string>
@@ -2139,10 +2139,10 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="PaymentsTransferFragment__next">Següent</string>
   <string name="PaymentsTransferFragment__invalid_address">Adreça no vàlida</string>
   <string name="PaymentsTransferFragment__check_the_wallet_address">Comproveu l\'adreça de cartera a la qual intenteu fer una transferència i torneu-ho a provar.</string>
-  <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">No podeu fer una transferència a la vostra adreça de cartera del Molly. Introduïu l\'adreça de la cartera des del compte amb un intercanvi compatible.</string>
-  <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">Per escanejar un codi QR, el Molly necessita accés a la càmera.</string>
-  <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">El Molly necessita el permís de la càmera per capturar un codi QR. Aneu a la configuració, seleccioneu Permisos i activeu la càmera.</string>
-  <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">Per escanejar un codi QR, el Molly necessita accés a la càmera.</string>
+  <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">No podeu fer una transferència a la vostra adreça de cartera del Signal-LTS. Introduïu l\'adreça de la cartera des del compte amb un intercanvi compatible.</string>
+  <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">Per escanejar un codi QR, el Signal-LTS necessita accés a la càmera.</string>
+  <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">El Signal-LTS necessita el permís de la càmera per capturar un codi QR. Aneu a la configuració, seleccioneu Permisos i activeu la càmera.</string>
+  <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">Per escanejar un codi QR, el Signal-LTS necessita accés a la càmera.</string>
   <string name="PaymentsTransferFragment__settings">Configuració</string>
   <!--PaymentsTransferQrScanFragment-->
   <string name="PaymentsTransferQrScanFragment__scan_address_qr_code">Escaneja el codi QR de l\'adreça</string>
@@ -2503,7 +2503,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">Massa intents. Si us plau, torneu-ho a provar més tard.</string>
   <string name="RegistrationActivity_error_connecting_to_service">Error en connectar al servei</string>
   <string name="preferences_chats__backups">Còpies de seguretat</string>
-  <string name="prompt_passphrase_activity__signal_is_locked">El Molly està blocat</string>
+  <string name="prompt_passphrase_activity__signal_is_locked">El Signal-LTS està blocat</string>
   <string name="prompt_passphrase_activity__tap_to_unlock">TOQUEU PER DESBLOCAR-LO</string>
   <string name="Recipient_unknown">Desconegut</string>
   <!--TransferOrRestoreFragment-->
@@ -2527,18 +2527,18 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">Es prepara la connexió amb un dispositiu Android antic…</string>
   <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">Un moment, hauria d’estar llest aviat…</string>
   <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">S\'espera que el dispositiu Android antic es connecti…</string>
-  <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">El Molly necessita el permís d’ubicació per descobrir i connectar-se al dispositiu antic d\'Android.</string>
-  <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">El Molly necessita els serveis d’ubicació habilitats per descobrir i connectar-se al dispositiu antic d\'Android.</string>
-  <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">El Molly necessita la connexió Wi-Fi per descobrir i connectar-se al dispositiu antic d\'Android. La Wi-Fi ha d’estar activa, però no ha d’estar connectat a una xarxa Wi-Fi.</string>
-  <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Sembla que aquest dispositiu no admet Wi-Fi Direct. El Molly usa Wi-Fi Direct per descobrir i connectar-se al dispositiu antic d\'Android. Encara podeu restaurar una còpia de seguretat per restaurar el compte des del dispositiu d\'Android antic.</string>
+  <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">El Signal-LTS necessita el permís d’ubicació per descobrir i connectar-se al dispositiu antic d\'Android.</string>
+  <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">El Signal-LTS necessita els serveis d’ubicació habilitats per descobrir i connectar-se al dispositiu antic d\'Android.</string>
+  <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">El Signal-LTS necessita la connexió Wi-Fi per descobrir i connectar-se al dispositiu antic d\'Android. La Wi-Fi ha d’estar activa, però no ha d’estar connectat a una xarxa Wi-Fi.</string>
+  <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Sembla que aquest dispositiu no admet Wi-Fi Direct. El Signal-LTS usa Wi-Fi Direct per descobrir i connectar-se al dispositiu antic d\'Android. Encara podeu restaurar una còpia de seguretat per restaurar el compte des del dispositiu d\'Android antic.</string>
   <string name="NewDeviceTransferSetup__restore_a_backup">Restaura una còpia de seguretat</string>
   <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">S\'ha produït un error inesperat en intentar connectar al dispositiu d\'Android antic.</string>
   <!--OldDeviceTransferSetupFragment-->
   <string name="OldDeviceTransferSetup__searching_for_new_android_device">Se cerca un dispositiu d\'Android nou…</string>
-  <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">El Molly necessita el permís d’ubicació per descobrir i connectar-se al dispositiu d\'Android nou.</string>
-  <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">El Molly necessita els serveis d’ubicació habilitats per descobrir i connectar-se al dispositiu d\'Android nou.</string>
-  <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">El Molly necessita la connexió Wi-Fi per descobrir i connectar-se al dispositiu d\'Android nou. La Wi-Fi ha d’estar activa, però no ha d’estar connectat a una xarxa Wi-Fi.</string>
-  <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Sembla que aquest dispositiu no admet Wi-Fi Direct. El Molly usa Wi-Fi Direct per descobrir i connectar-se al dispositiu d\'Android nou. Encara podeu restaurar una còpia de seguretat per restaurar el compte des del dispositiu d\'Android nou.</string>
+  <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">El Signal-LTS necessita el permís d’ubicació per descobrir i connectar-se al dispositiu d\'Android nou.</string>
+  <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">El Signal-LTS necessita els serveis d’ubicació habilitats per descobrir i connectar-se al dispositiu d\'Android nou.</string>
+  <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">El Signal-LTS necessita la connexió Wi-Fi per descobrir i connectar-se al dispositiu d\'Android nou. La Wi-Fi ha d’estar activa, però no ha d’estar connectat a una xarxa Wi-Fi.</string>
+  <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Sembla que aquest dispositiu no admet Wi-Fi Direct. El Signal-LTS usa Wi-Fi Direct per descobrir i connectar-se al dispositiu d\'Android nou. Encara podeu restaurar una còpia de seguretat per restaurar el compte des del dispositiu d\'Android nou.</string>
   <string name="OldDeviceTransferSetup__create_a_backup">Crea una còpia de seguretat</string>
   <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">S\'ha produït un error inesperat en intentar connectar al dispositiu d\'Android nou.</string>
   <!--DeviceTransferSetupFragment-->
@@ -2576,7 +2576,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="NewDeviceTransfer__cannot_transfer_from_a_newer_version_of_signal">No es pot fer la transferència des de versions més recents del Signal.</string>
   <!--DeviceTransferFragment-->
   <string name="DeviceTransfer__transferring_data">Es transfereixen dades</string>
-  <string name="DeviceTransfer__keep_both_devices_near_each_other">Mantingueu els dos dispositius a prop l’un de l’altre. No els apagueu i mantingueu el Molly obert. Les transferències estan encriptades d\'extrem a extrem.</string>
+  <string name="DeviceTransfer__keep_both_devices_near_each_other">Mantingueu els dos dispositius a prop l’un de l’altre. No els apagueu i mantingueu el Signal-LTS obert. Les transferències estan encriptades d\'extrem a extrem.</string>
   <string name="DeviceTransfer__d_messages_so_far">%1$d missatges fins ara…</string>
   <string name="DeviceTransfer__cancel">Cancel·la</string>
   <string name="DeviceTransfer__try_again">Torna a provar-ho</string>
@@ -2589,7 +2589,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="OldDeviceTransferInstructions__transfer_account">Transfereix el compte</string>
   <string name="OldDeviceTransferInstructions__you_can_transfer_your_signal_account_when_setting_up_signal_on_a_new_android_device">Podeu transferir el compte del Signal quan el configureu en un dispositiu d\'Android nou. Abans de continuar:</string>
   <string name="OldDeviceTransferInstructions__first_bullet">1.</string>
-  <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Baixeu el Molly al dispositiu d\'Android nou.</string>
+  <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Baixeu el Signal-LTS al dispositiu d\'Android nou.</string>
   <string name="OldDeviceTransferInstructions__second_bullet">2.</string>
   <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">Toqueu Transfereix o restaura el compte</string>
   <string name="OldDeviceTransferInstructions__third_bullet">3.</string>
@@ -2655,7 +2655,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <!--GroupLinkBottomSheetDialogFragment-->
   <string name="GroupLinkBottomSheet_share_hint_requiring_approval">Qualsevol persona amb aquest enllaç pot veure el nom i la fotografia del grup i sol·licitar afegir-s\'hi. Compartiu-lo amb gent en qui confieu.</string>
   <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">Qualsevol persona amb aquest enllaç pot veure el nom i la fotografia del grup i sol·licitar afegir-s\'hi. Compartiu-lo amb gent en qui confieu.</string>
-  <string name="GroupLinkBottomSheet_share_via_signal">Comparteix per Molly</string>
+  <string name="GroupLinkBottomSheet_share_via_signal">Comparteix per Signal-LTS</string>
   <string name="GroupLinkBottomSheet_copy">Copia</string>
   <string name="GroupLinkBottomSheet_qr_code">Codi QR</string>
   <string name="GroupLinkBottomSheet_share">Compartir-lo</string>
@@ -2782,7 +2782,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="payment_info_card_about_mobilecoin">Quant a MobileCoin</string>
   <string name="payment_info_card_mobilecoin_is_a_new_privacy_focused_digital_currency">MobileCoin és una moneda digital nova centrada en la privadesa.</string>
   <string name="payment_info_card_adding_funds">Afegir-hi fons</string>
-  <string name="payment_info_card_you_can_add_funds_for_use_in">Podeu afegir fons per usar-los al Molly enviant MobileCoin a la vostra adreça de cartera.</string>
+  <string name="payment_info_card_you_can_add_funds_for_use_in">Podeu afegir fons per usar-los al Signal-LTS enviant MobileCoin a la vostra adreça de cartera.</string>
   <string name="payment_info_card_cashing_out">Passar per caixa</string>
   <string name="payment_info_card_you_can_cash_out_mobilecoin">Podeu cobrar els MobileCoin en qualsevol moment amb un intercanvi que admeti MobileCoin. Només heu de fer una transferència al vostre compte amb aquest intercanvi.</string>
   <string name="payment_info_card_hide_this_card">Voleu amagar aquesta targeta?</string>
@@ -2796,12 +2796,12 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <!--DeactivateWalletFragment-->
   <string name="DeactivateWalletFragment__deactivate_wallet">Desactiva la cartera</string>
   <string name="DeactivateWalletFragment__your_balance">El saldo</string>
-  <string name="DeactivateWalletFragment__its_recommended_that_you">Es recomana transferir els fons a una altra adreça de cartera abans de desactivar els pagaments. Si decidiu no transferir els fons ara, quedaran a la cartera enllaçada al Molly si reactiveu els pagaments.</string>
+  <string name="DeactivateWalletFragment__its_recommended_that_you">Es recomana transferir els fons a una altra adreça de cartera abans de desactivar els pagaments. Si decidiu no transferir els fons ara, quedaran a la cartera enllaçada al Signal-LTS si reactiveu els pagaments.</string>
   <string name="DeactivateWalletFragment__transfer_remaining_balance">Transfereix el saldo restant</string>
   <string name="DeactivateWalletFragment__deactivate_without_transferring">Desactiveu-ho sense transferència</string>
   <string name="DeactivateWalletFragment__deactivate">Desactiva\'ls</string>
   <string name="DeactivateWalletFragment__deactivate_without_transferring_question">Voleu desactivar els fons sense transferir-los?</string>
-  <string name="DeactivateWalletFragment__your_balance_will_remain">El saldo es mantindrà a la cartera enllaçada amb el Molly si decidiu reactivar els pagaments.</string>
+  <string name="DeactivateWalletFragment__your_balance_will_remain">El saldo es mantindrà a la cartera enllaçada amb el Signal-LTS si decidiu reactivar els pagaments.</string>
   <string name="DeactivateWalletFragment__error_deactivating_wallet">Error en desactivar la cartera</string>
   <!--PaymentsRecoveryStartFragment-->
   <string name="PaymentsRecoveryStartFragment__recovery_phrase">Frase de recuperació</string>

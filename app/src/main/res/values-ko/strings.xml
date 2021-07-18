@@ -10,7 +10,7 @@
   <string name="AbstractNotificationBuilder_new_message">새 메시지</string>
   <!--AlbumThumbnailView-->
   <!--ApplicationMigrationActivity-->
-  <string name="ApplicationMigrationActivity__signal_is_updating">Molly 업데이트 중…</string>
+  <string name="ApplicationMigrationActivity__signal_is_updating">Signal-LTS 업데이트 중…</string>
   <!--ApplicationPreferencesActivity-->
   <string name="ApplicationPreferencesActivity_currently_s">현재: %s</string>
   <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">암호가 설정되지 않았습니다!</string>
@@ -276,7 +276,7 @@
   <string name="ConversationFragment__d_group_members_have_the_same_name">%1$d명의 그룹 멤버가 이름이 같습니다.</string>
   <string name="ConversationFragment__tap_to_review">탭하여 검토하세요.</string>
   <string name="ConversationFragment__review_requests_carefully">신중하게 요청을 검토하세요.</string>
-  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Molly이 같은 이름의 다른 연락처를 찾았습니다.</string>
+  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Signal-LTS이 같은 이름의 다른 연락처를 찾았습니다.</string>
   <string name="ConversationFragment_contact_us">문의하기</string>
   <string name="ConversationFragment_verify">검증</string>
   <string name="ConversationFragment_not_now">나중에</string>
@@ -696,14 +696,14 @@
   <string name="InviteActivity_cancel">취소</string>
   <string name="InviteActivity_sending">보내는 중…</string>
   <string name="InviteActivity_invitations_sent">초대를 보냈습니다!</string>
-  <string name="InviteActivity_invite_to_signal">Molly로 초대</string>
+  <string name="InviteActivity_invite_to_signal">Signal-LTS로 초대</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="other">친구 %d명에게 SMS 보내기</item>
   </plurals>
   <plurals name="InviteActivity_send_sms_invites">
     <item quantity="other">SMS 초대 %d개를 보내시겠습니까?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">Molly로 같이 옮겨요! %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">Signal-LTS로 같이 옮겨요! %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">공유하기 위해 사용할 수 있는 앱이 없습니다.</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">좋은 친구라면 친구의 메시지도 암호화해 주세요.</string>
   <!--LearnMoreTextView-->
@@ -713,7 +713,7 @@
   <string name="LongMessageActivity_message_from_s">%1$s에게서 온 메시지</string>
   <string name="LongMessageActivity_your_message">내 메시지</string>
   <!--MessageRetrievalService-->
-  <string name="MessageRetrievalService_signal">Molly</string>
+  <string name="MessageRetrievalService_signal">Signal-LTS</string>
   <string name="MessageRetrievalService_background_connection_enabled">백그라운드 연결이 활성화됨</string>
   <!--MmsDownloader-->
   <string name="MmsDownloader_error_reading_mms_settings">이동 통신사 MMS 설정 읽기 중 오류 발생</string>
@@ -1033,7 +1033,7 @@
   </plurals>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">암호 입력</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Molly 아이콘</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Signal-LTS 아이콘</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">암호 제출</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">잘못된 암호입니다!</string>
   <string name="PassphrasePromptActivity_unlock_signal">Signal 잠금 해제</string>
@@ -1201,12 +1201,12 @@
   <!--ShakeToReport-->
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">연락처에 추가</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Molly로 초대</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Signal-LTS로 초대</string>
   <string name="SharedContactDetailsActivity_signal_message">Signal 메시지</string>
   <string name="SharedContactDetailsActivity_signal_call">Signal 전화</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">연락처에 추가</string>
-  <string name="SharedContactView_invite_to_signal">Molly로 초대</string>
+  <string name="SharedContactView_invite_to_signal">Signal-LTS로 초대</string>
   <string name="SharedContactView_message">Signal 메시지</string>
   <!--SignalPinReminders-->
   <string name="SignalPinReminders_well_remind_you_again_later">나중에 다시 알려드리겠습니다.</string>
@@ -1263,7 +1263,7 @@
   <string name="SupportEmailUtil_filter">필터:</string>
   <string name="SupportEmailUtil_device_info">기기 정보:</string>
   <string name="SupportEmailUtil_android_version">안드로이드 버전:</string>
-  <string name="SupportEmailUtil_signal_version">Molly 버전:</string>
+  <string name="SupportEmailUtil_signal_version">Signal-LTS 버전:</string>
   <string name="SupportEmailUtil_signal_package">시그널 패키지:</string>
   <string name="SupportEmailUtil_registration_lock">등록 잠금:</string>
   <string name="SupportEmailUtil_locale">언어:</string>
@@ -1300,7 +1300,7 @@
   <string name="ThreadRecord_video">동영상</string>
   <string name="ThreadRecord_chat_session_refreshed">챗 세션 새로고침됨</string>
   <!--UpdateApkReadyListener-->
-  <string name="UpdateApkReadyListener_Signal_update">Molly 업데이트</string>
+  <string name="UpdateApkReadyListener_Signal_update">Signal-LTS 업데이트</string>
   <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">새 Signal 버전 출시, 탭하여 업데이트</string>
   <!--UntrustedSendDialog-->
   <string name="UntrustedSendDialog_send_message">메시지를 보내시겠습니까?</string>
@@ -1352,7 +1352,7 @@
   <!--KeyCachingService-->
   <string name="KeyCachingService_signal_passphrase_cached">터치하여 여세요.</string>
   <string name="KeyCachingService_passphrase_cached">Signal이 잠금 해제됨</string>
-  <string name="KeyCachingService_lock">Molly 잠금</string>
+  <string name="KeyCachingService_lock">Signal-LTS 잠금</string>
   <!--MediaPreviewActivity-->
   <string name="MediaPreviewActivity_you">나</string>
   <string name="MediaPreviewActivity_unssuported_media_type">지원되지 않는 미디어 형식</string>
@@ -1417,7 +1417,7 @@
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">잘못된 단축키</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Signal-LTS</string>
   <string name="SingleRecipientNotificationBuilder_new_message">새 메시지</string>
   <string name="SingleRecipientNotificationBuilder_message_request">메시지 요청</string>
   <string name="SingleRecipientNotificationBuilder_you">나</string>
@@ -1457,7 +1457,7 @@
   <string name="change_passphrase_activity__repeat_new_passphrase">새 암호 다시 입력</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">이름 또는 전화번호 입력</string>
-  <string name="contact_selection_activity__invite_to_signal">Molly로 초대</string>
+  <string name="contact_selection_activity__invite_to_signal">Signal-LTS로 초대</string>
   <string name="contact_selection_activity__new_group">새 그룹</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">입력된 텍스트 삭제</string>
@@ -2267,7 +2267,7 @@
   <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">많이 시도했습니다. 다시 시도해 주세요.</string>
   <string name="RegistrationActivity_error_connecting_to_service">서비스 연결 중 오류 발생</string>
   <string name="preferences_chats__backups">백업</string>
-  <string name="prompt_passphrase_activity__signal_is_locked">Molly이 잠김</string>
+  <string name="prompt_passphrase_activity__signal_is_locked">Signal-LTS이 잠김</string>
   <string name="prompt_passphrase_activity__tap_to_unlock">탭하여 잠금 해제</string>
   <string name="Recipient_unknown">알 수 없음</string>
   <!--TransferOrRestoreFragment-->

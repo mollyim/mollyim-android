@@ -10,17 +10,17 @@
   <string name="AbstractNotificationBuilder_new_message">Neges newydd</string>
   <!--AlbumThumbnailView-->
   <!--ApplicationMigrationActivity-->
-  <string name="ApplicationMigrationActivity__signal_is_updating">Mae Molly yn diweddaru…</string>
+  <string name="ApplicationMigrationActivity__signal_is_updating">Mae Signal-LTS yn diweddaru…</string>
   <!--ApplicationPreferencesActivity-->
   <string name="ApplicationPreferencesActivity_currently_s">Yn gyfredol: %s</string>
   <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">Nid ydych wedi gosod cyfrinymadrodd eto!</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">Analluogi\'r cyfrinymadrodd?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Bydd hyn yn datgloi Molly a hysbysiadau negeseuon yn barhaol.</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Bydd hyn yn datgloi Signal-LTS a hysbysiadau negeseuon yn barhaol.</string>
   <string name="ApplicationPreferencesActivity_disable">Analluogi</string>
   <string name="ApplicationPreferencesActivity_unregistering">Datgofrestru</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Dadgofrestru o negeseuon a galwadau Molly…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Analluogi negeseuon a galwadau Molly?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Analluogi negeseuon a galwadau Molly drwy ddadgofrestru o\'r gweinydd. Bydd angen i chi ailgofrestru eich rhif ffón i\'w defnyddio eto\'n y dyfodol.</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Dadgofrestru o negeseuon a galwadau Signal-LTS…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Analluogi negeseuon a galwadau Signal-LTS?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Analluogi negeseuon a galwadau Signal-LTS drwy ddadgofrestru o\'r gweinydd. Bydd angen i chi ailgofrestru eich rhif ffón i\'w defnyddio eto\'n y dyfodol.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">Gwall cysylltu â\'r gweinydd!</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">Galluogwyd SMS</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">Cyffyrddwch i newid eich rhaglen SMS ragosodedig</string>
@@ -61,14 +61,14 @@
   <string name="AttachmentKeyboard_file">Ffeil</string>
   <string name="AttachmentKeyboard_contact">Cysylltiad</string>
   <string name="AttachmentKeyboard_location">Lleoliad</string>
-  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Mae Molly angen caniatâd i ddangos eich lluniau a\'ch fideos diweddar.</string>
+  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Mae Signal-LTS angen caniatâd i ddangos eich lluniau a\'ch fideos diweddar.</string>
   <string name="AttachmentKeyboard_give_access">Caniatáu Mynediad</string>
   <string name="AttachmentKeyboard_payment">Taliad</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">Methu canfod rhaglen i ddewis cyfryngau.</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Mae ar Molly angen caniatâd Storio er mwyn atodi lluniau, fideos neu sain, ond mae wedi\'i wrthod yn barhaol. Ewch i ddewislen gosodiadau\'r ap, dewis "Caniatâd", a galluogi "Storio".</string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Mae ar Molly angen caniatâd Cysylltiadau er mwyn atodi manylion cyswllt, ond fe\'i rwystrwyd yn barhaol. Ewch i ddewislen gosodiadau\'r ap, dewis "Caniatâd", a galluogi "Cysylltiadau".</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Mae ar Molly angen caniatâd Lleoliad er mwyn atodi manylion lleoliad, ond fe\'i rwystrwyd yn barhaol. Ewch i ddewislen gosodiadau\'r ap, dewis "Caniatâd", a galluogi "Lleoliadau".</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Mae ar Signal-LTS angen caniatâd Storio er mwyn atodi lluniau, fideos neu sain, ond mae wedi\'i wrthod yn barhaol. Ewch i ddewislen gosodiadau\'r ap, dewis "Caniatâd", a galluogi "Storio".</string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Mae ar Signal-LTS angen caniatâd Cysylltiadau er mwyn atodi manylion cyswllt, ond fe\'i rwystrwyd yn barhaol. Ewch i ddewislen gosodiadau\'r ap, dewis "Caniatâd", a galluogi "Cysylltiadau".</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Mae ar Signal-LTS angen caniatâd Lleoliad er mwyn atodi manylion lleoliad, ond fe\'i rwystrwyd yn barhaol. Ewch i ddewislen gosodiadau\'r ap, dewis "Caniatâd", a galluogi "Lleoliadau".</string>
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">Llwytho cyfrwng…</string>
   <string name="AttachmentUploadJob_compressing_video_start">Cywasgu fideo…</string>
@@ -119,14 +119,14 @@
   <string name="CameraContacts_no_signal_contacts">Dim cysylltiadau Signal</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">Gallwch ddefnyddio botwm y camera dim ond i anfon lluniau i gysylltiadau Signal. </string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">Methu canfod y person rydych yn chwilio amdani/o?</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">Gwahodd cysylltiad i ymuno â Molly</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">Gwahodd cysylltiad i ymuno â Signal-LTS</string>
   <string name="CameraContacts__menu_search">Chwilio</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">Tynnu</string>
   <string name="ClearProfileActivity_remove_profile_photo">Tynnu\'r llun proffil?</string>
   <string name="ClearProfileActivity_remove_group_photo">Tynnu llun y grŵp?</string>
   <!--ClientDeprecatedActivity-->
-  <string name="ClientDeprecatedActivity_update_signal">Diweddaru Molly</string>
+  <string name="ClientDeprecatedActivity_update_signal">Diweddaru Signal-LTS</string>
   <string name="ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported">Nid yw\'r fersiwn hon o\'r ap yn cael ei chefnogi mwyach. I barhau i anfon a derbyn negeseuon, diweddarwch nhw i\'r fersiwn ddiweddaraf.</string>
   <string name="ClientDeprecatedActivity_update">Diweddaru</string>
   <string name="ClientDeprecatedActivity_dont_update">Peidio â Diweddaru</string>
@@ -207,7 +207,7 @@ Send neges heb ei ddiogelu?</string>
   <string name="ConversationActivity_transport_insecure_sms">SMS aniogel</string>
   <string name="ConversationActivity_transport_insecure_mms">MMS anniogel</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">Gadewch i ni newid i Molly %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">Gadewch i ni newid i Signal-LTS %1$s</string>
   <string name="ConversationActivity_specify_recipient">Dewiswch gyswllt</string>
   <string name="ConversationActivity_unblock">Dadrwystro</string>
   <string name="ConversationActivity_attachment_exceeds_size_limits">Mae atodiad yn fwy na therfynau maint y math o neges rydych chi\'n ei hanfon.</string>
@@ -216,15 +216,15 @@ Send neges heb ei ddiogelu?</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">Nid oes ap ar gael i drin y ddolen hon ar eich dyfais.</string>
   <string name="ConversationActivity_your_request_to_join_has_been_sent_to_the_group_admin">Mae eich cais i ymuno wedi\'i anfon at weinyddiaeth y grŵp. Fe gewch hysbysiad pan fyddan nhw\'n gweithredu.</string>
   <string name="ConversationActivity_cancel_request">Diddymu\'r Cais</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">I anfon negeseuon sain, caniatewch i Molly gael mynediad i\'ch meicroffon.</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Mae ar Molly angen caniatâd Meicroffon i anfon negeseuon sain, ond mae wed\'i atal yn barhaol. Ewch i osodiadau\'r ap, dewis "Caniatâd", a galluogi "Microffon".</string>
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Mae ar Molly angen caniatâd Meicroffon a Chamera i alw %s, ond mae wedi\'i atal yn barhaol. Ewch i osodiadau\'r ap, dewis "Caniatâd", a galluogi "Microffon" a "Chamera".</string>
-  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">I gipio lluniau a fideo, caniatewch i Molly gael mynediad i\'r camera.</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Mae ar Molly angen caniatâd Camera er mwyn atodi tynnu lluniau neu fideos, ond fe\'i rwystrwyd yn barhaol. Ewch i ddewislen gosodiadau\'r ap, dewis "Caniatâd", a galluogi "Camera".</string>
-  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Angen Molly angen caniatâd camera i dynnu lluniau neu fideo</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">I anfon negeseuon sain, caniatewch i Signal-LTS gael mynediad i\'ch meicroffon.</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Mae ar Signal-LTS angen caniatâd Meicroffon i anfon negeseuon sain, ond mae wed\'i atal yn barhaol. Ewch i osodiadau\'r ap, dewis "Caniatâd", a galluogi "Microffon".</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Mae ar Signal-LTS angen caniatâd Meicroffon a Chamera i alw %s, ond mae wedi\'i atal yn barhaol. Ewch i osodiadau\'r ap, dewis "Caniatâd", a galluogi "Microffon" a "Chamera".</string>
+  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">I gipio lluniau a fideo, caniatewch i Signal-LTS gael mynediad i\'r camera.</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Mae ar Signal-LTS angen caniatâd Camera er mwyn atodi tynnu lluniau neu fideos, ond fe\'i rwystrwyd yn barhaol. Ewch i ddewislen gosodiadau\'r ap, dewis "Caniatâd", a galluogi "Camera".</string>
+  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Angen Signal-LTS angen caniatâd camera i dynnu lluniau neu fideo</string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Galluogi caniatâd meicroffon i gipio fideo gyda sain.</string>
-  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Mae Molly ange caniatâd meicroffon i recordio fideos, and mae wedi ei atal. Ewch i osodiadau\'r ap, dewis \"Caniatâd\" a galluogi \"Meicroffon\" a \"Camera\".</string>
-  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Mae Molly ange caniatad meicroffon i recordio fideos.</string>
+  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Mae Signal-LTS ange caniatâd meicroffon i recordio fideos, and mae wedi ei atal. Ewch i osodiadau\'r ap, dewis \"Caniatâd\" a galluogi \"Meicroffon\" a \"Camera\".</string>
+  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Mae Signal-LTS ange caniatad meicroffon i recordio fideos.</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">Nid yw Signal yn gallu anfon negeseuon SMS/MMS gan nad yw eich ap ragosodedig SMS.Hoffech chi newid hyn yn eich gosodiadau Android?</string>
   <string name="ConversationActivity_yes">Iawn</string>
@@ -240,7 +240,7 @@ Send neges heb ei ddiogelu?</string>
   <string name="ConversationActivity_you_will_leave_this_group_and_it_will_be_deleted_from_all_of_your_devices">Byddwch yn gadael y grŵp hwn, a bydd yn cael ei ddileu o\'ch holl ddyfeisiau.</string>
   <string name="ConversationActivity_delete">Dileu</string>
   <string name="ConversationActivity_delete_and_leave">Dileu a gadael</string>
-  <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">I alw %1$s mae angen i Molly gael mynediad i’ch meicroffon.</string>
+  <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">I alw %1$s mae angen i Signal-LTS gael mynediad i’ch meicroffon.</string>
   <string name="ConversationActivity__more_options_now_in_group_settings">Rhagor o ddewisiadau yn \"Gosodiadau Grŵp\"</string>
   <string name="ConversationActivity_join">Ymuno</string>
   <string name="ConversationActivity_full">Llawn</string>
@@ -309,7 +309,7 @@ Send neges heb ei ddiogelu?</string>
   <string name="ConversationFragment__d_group_members_have_the_same_name">Mae gan aelodau\'r grŵp %1$d yr un enw.</string>
   <string name="ConversationFragment__tap_to_review">Tapio i adolygu</string>
   <string name="ConversationFragment__review_requests_carefully">Adolygu ceisiadau yn ofalus</string>
-  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Daeth Molly o hyd i gyswllt arall gyda\'r un enw.</string>
+  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Daeth Signal-LTS o hyd i gyswllt arall gyda\'r un enw.</string>
   <string name="ConversationFragment_contact_us">Cysylltu â ni</string>
   <string name="ConversationFragment_verify">Dilysu</string>
   <string name="ConversationFragment_not_now">Nid nawr</string>
@@ -381,11 +381,11 @@ Send neges heb ei ddiogelu?</string>
   <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Profwch eich cyfrinymadrodd wrth gefn a dilysu ei fod yn cydweddu</string>
   <string name="BackupsPreferenceFragment__turn_on">Troi ymlaen</string>
   <string name="BackupsPreferenceFragment__turn_off">Diffodd</string>
-  <string name="BackupsPreferenceFragment__to_restore_a_backup">I adfer copi wrth gefn, gosodwch gopi newydd o Molly. Agorwch yr app a thapio \"Adfer copi wrth gefn\", yna canfod y ffeil wrth gefn. %1$s</string>
+  <string name="BackupsPreferenceFragment__to_restore_a_backup">I adfer copi wrth gefn, gosodwch gopi newydd o Signal-LTS. Agorwch yr app a thapio \"Adfer copi wrth gefn\", yna canfod y ffeil wrth gefn. %1$s</string>
   <string name="BackupsPreferenceFragment__learn_more">Dysgu rhagor</string>
   <string name="BackupsPreferenceFragment__in_progress">Cynnydd…</string>
   <string name="BackupsPreferenceFragment__d_so_far">%1$d hyd yn hyn…</string>
-  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Mae ar Molly angen caniatâd storio allanol er mwyn creu copïau wrth gefn, ond fe’i rwystrwyd yn barhaol. Ewch i ddewislen gosodiadau’r ap, dewis "Caniatâd", a galluogi "Storio".</string>
+  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Mae ar Signal-LTS angen caniatâd storio allanol er mwyn creu copïau wrth gefn, ond fe’i rwystrwyd yn barhaol. Ewch i ddewislen gosodiadau’r ap, dewis "Caniatâd", a galluogi "Storio".</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Defnyddio\'r cyfaddas: %s</string>
   <string name="CustomDefaultPreference_using_default">Defnyddio rhagosodedig: %s</string>
@@ -430,7 +430,7 @@ Send neges heb ei ddiogelu?</string>
   <string name="GroupCallingMegaphone__open_a_new_group_to_start">Agorwch Grŵp Newydd i gychwyn galwad grŵp amgrypiedig am ddim</string>
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">Optimeiddio ar gyfer Play Services coll</string>
-  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Nid yw\'r ddyfais hon yn cefnogi Play Services Tapiwch i analluogi gwelliannau batri system sy\'n atal Molly rhag adfer negeseuon tra\'n anweithredol.</string>
+  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Nid yw\'r ddyfais hon yn cefnogi Play Services Tapiwch i analluogi gwelliannau batri system sy\'n atal Signal-LTS rhag adfer negeseuon tra\'n anweithredol.</string>
   <!--ExpiredBuildReminder-->
   <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Mae\'r fersiwn hon o Signal wedi dod i ben. Diweddarwch nawr i anfon a derbyn negeseuon.</string>
   <string name="ExpiredBuildReminder_update_now">Diweddaru nawr</string>
@@ -447,7 +447,7 @@ Send neges heb ei ddiogelu?</string>
   <string name="ShareActivity_multiple_attachments_are_only_supported">Dim ond ar gyfer delweddau a fideos y mae atodiadau lluosog yn cael eu cynnal</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Methiant cyfathrebu Signal parhaol!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Nid oedd Molly yn gallu cofrestru gyda Google Play Services. Mae negeseuon a galwadau Molly wedi\'u hanalluogi, ceisiwch ailgofrestru yn Gosodiadau &gt; Uwch.</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Nid oedd Signal-LTS yn gallu cofrestru gyda Google Play Services. Mae negeseuon a galwadau Signal-LTS wedi\'u hanalluogi, ceisiwch ailgofrestru yn Gosodiadau &gt; Uwch.</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">Gwall wrth estyn GIF cydraniad llawn</string>
   <!--GiphyFragmentPageAdapter-->
@@ -821,7 +821,7 @@ Send neges heb ei ddiogelu?</string>
   <string name="InviteActivity_cancel">Diddymu</string>
   <string name="InviteActivity_sending">Yn anfon…</string>
   <string name="InviteActivity_invitations_sent">Gwahoddiadau wedi\'u anfon!</string>
-  <string name="InviteActivity_invite_to_signal">Gwahodd i Molly</string>
+  <string name="InviteActivity_invite_to_signal">Gwahodd i Signal-LTS</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">ANFON SMS AT %d FFRIND</item>
     <item quantity="two">ANFON SMS AT %d FFRIND</item>
@@ -834,7 +834,7 @@ Send neges heb ei ddiogelu?</string>
     <item quantity="many">Anfon gwahoddiad SMS at %d?</item>
     <item quantity="other">Anfon gwahoddiad SMS at %d?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">Gadewch i ni newid i Molly %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">Gadewch i ni newid i Signal-LTS %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Mae\'n edrych fel nad oes gennych unrhyw apiau i\'w rhannu.</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Dyw ffrindiau ddim yn gadael i ffrindiau sgwrsio heb amgryptiad.</string>
   <!--LearnMoreTextView-->
@@ -844,7 +844,7 @@ Send neges heb ei ddiogelu?</string>
   <string name="LongMessageActivity_message_from_s">Neges gan %1$s</string>
   <string name="LongMessageActivity_your_message">Eich neges</string>
   <!--MessageRetrievalService-->
-  <string name="MessageRetrievalService_signal">Molly</string>
+  <string name="MessageRetrievalService_signal">Signal-LTS</string>
   <string name="MessageRetrievalService_background_connection_enabled">Cysylltiad cefndir wedi\'i alluogi</string>
   <!--MmsDownloader-->
   <string name="MmsDownloader_error_reading_mms_settings">Gwall wrth ddarllen gosodiadau darparwr MMS diwifr</string>
@@ -940,8 +940,8 @@ Send neges heb ei ddiogelu?</string>
   <string name="MediaSendActivity_message_to_s">Neges i %s</string>
   <string name="MediaSendActivity_message">Neges</string>
   <string name="MediaSendActivity_select_recipients">Dewis derbynwyr</string>
-  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Mae ar Molly angen mynediad i\'ch cysylltiadau er mwyn eu harddangos.</string>
-  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Mae Molly angen caniatad Contacts er mwyn dangos eich cysylltiadau, ond mae wedi ei wrthod yn barhaol. Ewch i osodiadau\'r ap, dewis \"Permissions\", a galluogi \"Contacts\".</string>
+  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Mae ar Signal-LTS angen mynediad i\'ch cysylltiadau er mwyn eu harddangos.</string>
+  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Mae Signal-LTS angen caniatad Contacts er mwyn dangos eich cysylltiadau, ond mae wedi ei wrthod yn barhaol. Ewch i osodiadau\'r ap, dewis \"Permissions\", a galluogi \"Contacts\".</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="one">Nid oes modd rhannu mwy na %d eitem.</item>
     <item quantity="two">Nid oes modd rhannu mwy na %d eitem.</item>
@@ -1213,7 +1213,7 @@ Send neges heb ei ddiogelu?</string>
   <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">Nid yw hwn yn god QR dilys i gysylltu dyfais.</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">Cysylltu â dyfais Signal?</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Mae\'n edrych fel eich bod yn ceisio cysylltu dyfais Signal gan ddefnyddio sganiwr trydydd parti. Er eich diogelwch, sganiwch y cod eto o fewn Signal.</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Mae ar Molly angen caniatâd Camera er mwyn sganio cod QR, ond fe\'i rwystrwyd yn barhaol. Ewch i ddewislen gosodiadau\'r ap, dewis "Caniatâd", a galluogi "Camera".</string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Mae ar Signal-LTS angen caniatâd Camera er mwyn sganio cod QR, ond fe\'i rwystrwyd yn barhaol. Ewch i ddewislen gosodiadau\'r ap, dewis "Caniatâd", a galluogi "Camera".</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Methu sganio cod QR heb ganiatâd y Camera</string>
   <!--OutdatedBuildReminder-->
   <string name="OutdatedBuildReminder_update_now">Diweddaru nawr</string>
@@ -1226,10 +1226,10 @@ Send neges heb ei ddiogelu?</string>
   </plurals>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">Rhoi cyfrinymadrodd</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Eicon Molly</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Eicon Signal-LTS</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">Cyflwyno cyfrinymadrodd</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Cyfrinymadrodd annilys!</string>
-  <string name="PassphrasePromptActivity_unlock_signal">Datgloi Molly</string>
+  <string name="PassphrasePromptActivity_unlock_signal">Datgloi Signal-LTS</string>
   <string name="PassphrasePromptActivity_signal_android_lock_screen">Signal Android - Sgrin Cloi</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">Map</string>
@@ -1278,7 +1278,7 @@ Send neges heb ei ddiogelu?</string>
   <string name="ReactionsRecipientAdapter_you">Chi</string>
   <!--RecaptchaRequiredBottomSheetFragment-->
   <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">Gwiriwch i barhau sgwrsio</string>
-  <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">I helpu atal sothach ar Molly cwblhewch gwirio os gwelwch yn dda.</string>
+  <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">I helpu atal sothach ar Signal-LTS cwblhewch gwirio os gwelwch yn dda.</string>
   <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">Ar ôl gwirio, gallwch barhau i sgwrsio. Bydd unrhyw negeseuon sydd wedi\'u oedi yn cael eu hanfon yn awtomatig.</string>
   <!--Recipient-->
   <string name="Recipient_you">Chi</string>
@@ -1299,8 +1299,8 @@ Send neges heb ei ddiogelu?</string>
   <string name="RedPhone_got_it">Iawn, rwy\'n deall</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Tapiwch yma i droi eich fideo ymlaen</string>
-  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">I alw %1$s, mae angen i Molly gael mynediad i\'ch camera.</string>
-  <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
+  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">I alw %1$s, mae angen i Signal-LTS gael mynediad i\'ch camera.</string>
+  <string name="WebRtcCallActivity__signal_s">Signal-LTS %1$s</string>
   <string name="WebRtcCallActivity__calling">Yn galw…</string>
   <!--WebRtcCallView-->
   <string name="WebRtcCallView__signal_voice_call">Galwad llais Signal…</string>
@@ -1367,13 +1367,13 @@ Send neges heb ei ddiogelu?</string>
   <string name="RegistrationActivity_is_your_phone_number_above_correct">A yw\'ch rhif ffôn uchod yn gywir?</string>
   <string name="RegistrationActivity_edit_number">Golygu\'r rhif</string>
   <string name="RegistrationActivity_missing_google_play_services">Google Play Services Coll</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Nid yw Google Play Services ar y ddyfais hon. Gallwch barhau i ddefnyddio Molly, ond gall y ffurfweddiad hwn arwain at lai o ddibynadwyedd neu berfformiad. \n\nOs nad ydych chi\'n ddefnyddiwr uwch, nac yn rhedeg ROM Android amgen, neu os ydych chi\'n credu eich bod yn gweld hyn trwy gamgymeriad, cysylltwch â support@molly.im er mwyn datrys problemau.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Nid yw Google Play Services ar y ddyfais hon. Gallwch barhau i ddefnyddio Signal-LTS, ond gall y ffurfweddiad hwn arwain at lai o ddibynadwyedd neu berfformiad. \n\nOs nad ydych chi\'n ddefnyddiwr uwch, nac yn rhedeg ROM Android amgen, neu os ydych chi\'n credu eich bod yn gweld hyn trwy gamgymeriad, cysylltwch â support@Signal-LTS.im er mwyn datrys problemau.</string>
   <string name="RegistrationActivity_i_understand">Rwy\'n deall</string>
   <string name="RegistrationActivity_play_services_error">Gwall Play Services</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Mae Google Play Services yn cael eu diweddaru neu nid yw ar gael dros dro. Ceisiwch eto os gwelwch yn dda.</string>
   <string name="RegistrationActivity_terms_and_privacy">Telerau a Pholisi Preifatrwydd</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Mae ar Molly angen mynediad i\'ch cysylltiadau a\'ch cyfryngau er mwyn cysylltu â ffrindiau, cyfnewid negeseuon, a gwneud galwadau diogel</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Mae Molly angen mynediad i\'ch cysylltiadau er mwyn cysylltu â ffrindiau, cyfnewid negeseuon, a gwneud galwadau diogel</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Mae ar Signal-LTS angen mynediad i\'ch cysylltiadau a\'ch cyfryngau er mwyn cysylltu â ffrindiau, cyfnewid negeseuon, a gwneud galwadau diogel</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Mae Signal-LTS angen mynediad i\'ch cysylltiadau er mwyn cysylltu â ffrindiau, cyfnewid negeseuon, a gwneud galwadau diogel</string>
   <string name="RegistrationActivity_rate_limited_to_service">Rydych wedi ceisio cofrestri\'r rhif hwn gormod o weithiau. Ceisiwch eto\'n hwyrach.</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">Methu cysylltu â\'r gwasanaeth. Gwiriwch y cysylltiad rhwydwaith a cheisio eto.</string>
   <plurals name="RegistrationActivity_debug_log_hint">
@@ -1413,12 +1413,12 @@ Send neges heb ei ddiogelu?</string>
   <!--ShakeToReport-->
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">Ychwanegu at Cysylltiadau</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Gwahodd i Molly</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Gwahodd i Signal-LTS</string>
   <string name="SharedContactDetailsActivity_signal_message">Neges Signal</string>
   <string name="SharedContactDetailsActivity_signal_call">Galwad Signal</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">Ychwanegu at Cysylltiadau</string>
-  <string name="SharedContactView_invite_to_signal">Gwahodd i Molly</string>
+  <string name="SharedContactView_invite_to_signal">Gwahodd i Signal-LTS</string>
   <string name="SharedContactView_message">Neges Signal</string>
   <!--SignalPinReminders-->
   <string name="SignalPinReminders_well_remind_you_again_later">Byddwn yn eich atgoffa\'n hwyrach.</string>
@@ -1476,8 +1476,8 @@ Send neges heb ei ddiogelu?</string>
   <string name="SupportEmailUtil_filter">Hidl:</string>
   <string name="SupportEmailUtil_device_info">Manylion y ddyfais:</string>
   <string name="SupportEmailUtil_android_version">Fersiwn Android:</string>
-  <string name="SupportEmailUtil_signal_version">Fersiwn Molly:</string>
-  <string name="SupportEmailUtil_signal_package">Pecyn Molly:</string>
+  <string name="SupportEmailUtil_signal_version">Fersiwn Signal-LTS:</string>
+  <string name="SupportEmailUtil_signal_package">Pecyn Signal-LTS:</string>
   <string name="SupportEmailUtil_registration_lock">Clo cofrestru:</string>
   <string name="SupportEmailUtil_locale">Locale:</string>
   <!--ThreadRecord-->
@@ -1513,8 +1513,8 @@ Send neges heb ei ddiogelu?</string>
   <string name="ThreadRecord_video">Fideo</string>
   <string name="ThreadRecord_chat_session_refreshed">Adnewyddwyd y sesiwn sgwrsio</string>
   <!--UpdateApkReadyListener-->
-  <string name="UpdateApkReadyListener_Signal_update">Diweddariad Molly</string>
-  <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Mae fersiwn newydd o Molly ar gael. Tapiwch i ddiweddaru</string>
+  <string name="UpdateApkReadyListener_Signal_update">Diweddariad Signal-LTS</string>
+  <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Mae fersiwn newydd o Signal-LTS ar gael. Tapiwch i ddiweddaru</string>
   <!--UntrustedSendDialog-->
   <string name="UntrustedSendDialog_send_message">Anfon neges?</string>
   <string name="UntrustedSendDialog_send">Anfon</string>
@@ -1548,7 +1548,7 @@ Send neges heb ei ddiogelu?</string>
   <string name="VerifyIdentityActivity_our_signal_safety_number">Ein rhif diogelwch Signal:</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">Mae\'n edrych fel nad oes gennych unrhyw apiau i\'w rhannu.</string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">Dim rhif diogelwch i\'w gymharu yn y clipfwrdd</string>
-  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Mae ar Molly angen caniatâd Camera er mwyn sganio cod QR, ond fe\'i rwystrwyd yn barhaol. Ewch i ddewislen gosodiadau\'r ap, dewis "Caniatâd", a galluogi "Camera".</string>
+  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Mae ar Signal-LTS angen caniatâd Camera er mwyn sganio cod QR, ond fe\'i rwystrwyd yn barhaol. Ewch i ddewislen gosodiadau\'r ap, dewis "Caniatâd", a galluogi "Camera".</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">Methu sganio cod QR heb ganiatâd y Camera</string>
   <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">Yn gyntaf rhaid i chi gyfnewid negeseuon er mwyn gweld rhif diogelwch %1$s.</string>
   <!--ViewOnceMessageActivity-->
@@ -1567,13 +1567,13 @@ Send neges heb ei ddiogelu?</string>
   <string name="ApplicationMigrationService_system_database_import_is_complete">Mewnforio cronfa ddata system wedi\'i chwblhau.</string>
   <!--KeyCachingService-->
   <string name="KeyCachingService_signal_passphrase_cached">Cyffwrdd i agor.</string>
-  <string name="KeyCachingService_passphrase_cached">Mae Molly wedi\'i ddatgloi</string>
-  <string name="KeyCachingService_lock">Cloi Molly</string>
+  <string name="KeyCachingService_passphrase_cached">Mae Signal-LTS wedi\'i ddatgloi</string>
+  <string name="KeyCachingService_lock">Cloi Signal-LTS</string>
   <!--MediaPreviewActivity-->
   <string name="MediaPreviewActivity_you">Chi</string>
   <string name="MediaPreviewActivity_unssuported_media_type">Math o gyfrwng heb ei gynnal</string>
   <string name="MediaPreviewActivity_draft">Drafft</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Mae ar Molly angen caniatâd Storio er mwyn cadw i storfa allanol, ond fe\'i rwystrwyd yn barhaol. Ewch i ddewislen gosodiadau\'r ap, dewis "Caniatâd", a galluogi "Storfa".</string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Mae ar Signal-LTS angen caniatâd Storio er mwyn cadw i storfa allanol, ond fe\'i rwystrwyd yn barhaol. Ewch i ddewislen gosodiadau\'r ap, dewis "Caniatâd", a galluogi "Storfa".</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">Methu cadw i storfa allanol heb ganiatâd</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">Dileu neges?</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">Bydd hyn yn dileu yn barhaol y neges hon.</string>
@@ -1588,7 +1588,7 @@ Send neges heb ei ddiogelu?</string>
   <string name="MessageNotifier_failed_to_deliver_message">Methu trosglwyddo neges.</string>
   <string name="MessageNotifier_error_delivering_message">Gwall wrth drosglwyddo neges.</string>
   <string name="MessageNotifier_message_delivery_paused">Oedwyd anfon y neges.</string>
-  <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Gwirio i barhau â negeseu ar Molly.</string>
+  <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Gwirio i barhau â negeseu ar Signal-LTS.</string>
   <string name="MessageNotifier_mark_all_as_read">Marcio popeth wedi\'i ddarllen</string>
   <string name="MessageNotifier_mark_read">Marcio wedi\'i ddarllen</string>
   <string name="MessageNotifier_turn_off_these_notifications">Diffodd yr hysbysiadau hyn</string>
@@ -1598,7 +1598,7 @@ Send neges heb ei ddiogelu?</string>
   <string name="MessageNotifier_signal_message">Neges Signal</string>
   <string name="MessageNotifier_unsecured_sms">SMS anniogel</string>
   <string name="MessageNotifier_you_may_have_new_messages">Efallai fod gennych negeseuon newydd</string>
-  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Agorwch Molly i weld hysbysiadau diweddar.</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Agorwch Signal-LTS i weld hysbysiadau diweddar.</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">Cysylltiad</string>
   <string name="MessageNotifier_reacted_s_to_s">Ymatebodd %1$s i \"%2$s\".</string>
@@ -1625,7 +1625,7 @@ Send neges heb ei ddiogelu?</string>
   <string name="NotificationChannels__no_activity_available_to_open_notification_channel_settings">Dim gweithgaredd ar gael i agor gosodiadau sianel hysbysu.</string>
   <!--ProfileEditNameFragment-->
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Nid yw ymateb cyflym ar gael pan fydd Molly wedi\'i gloi!</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Nid yw ymateb cyflym ar gael pan fydd Signal-LTS wedi\'i gloi!</string>
   <string name="QuickResponseService_problem_sending_message">Anhawster anfon neges!</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">Wedi\'i gadw i %s</string>
@@ -1636,7 +1636,7 @@ Send neges heb ei ddiogelu?</string>
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">Llwybr byr annilys</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Signal-LTS</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Neges newydd</string>
   <string name="SingleRecipientNotificationBuilder_message_request">Cais am neges</string>
   <string name="SingleRecipientNotificationBuilder_you">Chi</string>
@@ -1654,8 +1654,8 @@ Send neges heb ei ddiogelu?</string>
   <string name="UnauthorizedReminder_device_no_longer_registered">Nid yw\'r ddyfais wedi\'i chofrestru bellach</string>
   <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Mae hyn yn debygol oherwydd eich bod wedi cofrestru\'ch rhif ffôn gyda Signal ar ddyfais wahanol. Tapiwch i ailgofrestru.</string>
   <!--WebRtcCallActivity-->
-  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">I ateb yr alwad o %s, rhowch fynediad i\'ch meicroffon i Molly.</string>
-  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Mae Molly yn gofyn am ganiatâd Microffon a Chamera er mwyn gwneud neu dderbyn galwadau, ond fe\'i rwystrwyd yn barhaol. Ewch i ddewislen gosodiadau\'r ap, dewis "Caniatâd", a galluogi "Microffon" a "Camera".</string>
+  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">I ateb yr alwad o %s, rhowch fynediad i\'ch meicroffon i Signal-LTS.</string>
+  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Mae Signal-LTS yn gofyn am ganiatâd Microffon a Chamera er mwyn gwneud neu dderbyn galwadau, ond fe\'i rwystrwyd yn barhaol. Ewch i ddewislen gosodiadau\'r ap, dewis "Caniatâd", a galluogi "Microffon" a "Camera".</string>
   <string name="WebRtcCallActivity__answered_on_a_linked_device">Wedi\'i ateb ar ddyfais gysylltiedig.</string>
   <string name="WebRtcCallActivity__declined_on_a_linked_device">Wedi\'i werthod ar ddyfais gysylltiedig.</string>
   <string name="WebRtcCallActivity__busy_on_a_linked_device">Yn brysur ar ddyfais gysylltiedig.</string>
@@ -1679,7 +1679,7 @@ Send neges heb ei ddiogelu?</string>
   <string name="change_passphrase_activity__repeat_new_passphrase">Aildeipio\'r cyfrinair newydd</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">Rhowch enw neu rif</string>
-  <string name="contact_selection_activity__invite_to_signal">Gwahodd i Molly</string>
+  <string name="contact_selection_activity__invite_to_signal">Gwahodd i Signal-LTS</string>
   <string name="contact_selection_activity__new_group">Grŵp newydd</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">Clirio\'r testun</string>
@@ -1691,7 +1691,7 @@ Send neges heb ei ddiogelu?</string>
   <!--single_contact_selection_activity-->
   <string name="SingleContactSelectionActivity_contact_photo">Llun Cyswllt</string>
   <!--ContactSelectionListFragment-->
-  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Mae ar Molly angen caniatâd Cysylltiadau er mwyn dangos eich cysylltiadau, ond fe\'i rwystrwyd yn barhaol. Ewch i ddewislen gosodiadau\'r ap, dewis "Caniatâd", a galluogi "Cysylltiadau".</string>
+  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Mae ar Signal-LTS angen caniatâd Cysylltiadau er mwyn dangos eich cysylltiadau, ond fe\'i rwystrwyd yn barhaol. Ewch i ddewislen gosodiadau\'r ap, dewis "Caniatâd", a galluogi "Cysylltiadau".</string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Gwall wrth estyn cysylltiadau, gwiriwch eich cysylltiad rhwydwaith</string>
   <string name="ContactSelectionListFragment_username_not_found">Heb ganfod enw defnyddiwr</string>
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">Nid yw \"%1$s\" yn ddefnyddiwr Signal. Gwiriwch yn enw defnyddiwr a cheisiwch eto.</string>
@@ -1707,7 +1707,7 @@ Send neges heb ei ddiogelu?</string>
     <item quantity="other">%1$d aelod</item>
   </plurals>
   <!--contact_selection_list_fragment-->
-  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Mae ar Molly angen mynediad i\'ch cysylltiadau er mwyn eu harddangos.</string>
+  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Mae ar Signal-LTS angen mynediad i\'ch cysylltiadau er mwyn eu harddangos.</string>
   <string name="contact_selection_list_fragment__show_contacts">Dangos Cysylltiadau</string>
   <!--contact_selection_list_item-->
   <plurals name="contact_selection_list_item__number_of_members">
@@ -2090,7 +2090,7 @@ Send neges heb ei ddiogelu?</string>
   <string name="preferences__slow">Araf</string>
   <string name="preferences__help">Cymorth</string>
   <string name="preferences__advanced">Uwch</string>
-  <string name="preferences__donate_to_signal">Cyfrannu at Molly</string>
+  <string name="preferences__donate_to_signal">Cyfrannu at Signal-LTS</string>
   <string name="preferences__privacy">Preifatrwydd</string>
   <string name="preferences__mms_user_agent">Asiant Defnyddiwr MMS</string>
   <string name="preferences__advanced_mms_access_point_names">Gosodiadau MMS â llaw</string>
@@ -2219,7 +2219,7 @@ Send neges heb ei ddiogelu?</string>
   <string name="PaymentsAllActivityFragment__sent">Anfonwyd</string>
   <string name="PaymentsAllActivityFragment__received">Derbyniwyd</string>
   <string name="PaymentsHomeFragment__introducing_payments">Yn cyflwyno taliadau (Beta)</string>
-  <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Defnyddiwch Molly i anfon a derbyn MobileCoin, arian cyfred digidol newydd sy\'n canolbwyntio ar breifatrwydd. Gweithredwch i ddechrau.</string>
+  <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Defnyddiwch Signal-LTS i anfon a derbyn MobileCoin, arian cyfred digidol newydd sy\'n canolbwyntio ar breifatrwydd. Gweithredwch i ddechrau.</string>
   <string name="PaymentsHomeFragment__activate_payments">Cychwyn Taliadau</string>
   <string name="PaymentsHomeFragment__activating_payments">Yn cychwyn taliadau…</string>
   <string name="PaymentsHomeFragment__restore_payments_account">Adfer cyfrif taliadau</string>
@@ -2246,17 +2246,17 @@ Send neges heb ei ddiogelu?</string>
   <string name="PaymentsHomeFragment__payments_is_not_available_in_your_region">Nid oes taliadau ar gael yn eich rhanbarth.</string>
   <string name="PaymentsHomeFragment__could_not_enable_payments">Methu galluogi taliadau. Rhowch gynnig arall arni yn nes ymlaen.</string>
   <string name="PaymentsHomeFragment__deactivate_payments_question">Dadweithredu Taliadau?</string>
-  <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">Ni fydd modd i chi anfon na derbyn MobileCoin in Molly os byddwch yn dadwethredu taliadau.</string>
+  <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">Ni fydd modd i chi anfon na derbyn MobileCoin in Signal-LTS os byddwch yn dadwethredu taliadau.</string>
   <string name="PaymentsHomeFragment__deactivate">Dadweithredu</string>
   <string name="PaymentsHomeFragment__continue">Parhau</string>
   <string name="PaymentsHomeFragment__balance_is_not_currently_available">Nid oes balans ar gael ar hyn o bryd.</string>
   <string name="PaymentsHomeFragment__payments_deactivated">Taliadau wedi\'u ddadweithredu.</string>
   <string name="PaymentsHomeFragment__payment_failed">Methodd y taliad</string>
   <string name="PaymentsHomeFragment__details">Manylion</string>
-  <string name="PaymentsHomeFragment__you_can_use_signal_to_send">Gallwch ddefnyddio Molly i anfon a derbyn MobileCoin. Mae\'r holl daliadau yn ddarostyngedig i\'r Telerau Defnyddio ar gyfer MobileCoins a\'r Waled MobileCoin. Mae hon yn nodwedd beta felly efallai profwch anawsterau ac nad oes modd adennill taliadau neu falansau y gallech eu colli. </string>
+  <string name="PaymentsHomeFragment__you_can_use_signal_to_send">Gallwch ddefnyddio Signal-LTS i anfon a derbyn MobileCoin. Mae\'r holl daliadau yn ddarostyngedig i\'r Telerau Defnyddio ar gyfer MobileCoins a\'r Waled MobileCoin. Mae hon yn nodwedd beta felly efallai profwch anawsterau ac nad oes modd adennill taliadau neu falansau y gallech eu colli. </string>
   <string name="PaymentsHomeFragment__activate">Cychwyn</string>
   <string name="PaymentsHomeFragment__view_mobile_coin_terms">Gweld telerau MobileCoin</string>
-  <string name="PaymentsHomeFragment__payments_not_available">Nid yw taliadau yn Molly ar gael bellach. Gallwch barhau i drosglwyddo arian i gyfnewidfa ond ni allwch anfon a derbyn taliadau mwyach nac ychwanegu arian.</string>
+  <string name="PaymentsHomeFragment__payments_not_available">Nid yw taliadau yn Signal-LTS ar gael bellach. Gallwch barhau i drosglwyddo arian i gyfnewidfa ond ni allwch anfon a derbyn taliadau mwyach nac ychwanegu arian.</string>
   <!--PaymentsAddMoneyFragment-->
   <string name="PaymentsAddMoneyFragment__add_funds">Ychwanegu arian</string>
   <string name="PaymentsAddMoneyFragment__your_wallet_address">Cyfeiriad Eich Waled</string>
@@ -2293,10 +2293,10 @@ Send neges heb ei ddiogelu?</string>
   <string name="PaymentsTransferFragment__next">Nesaf</string>
   <string name="PaymentsTransferFragment__invalid_address">Cyfeiriad annilys</string>
   <string name="PaymentsTransferFragment__check_the_wallet_address">Gwiriwch y cyfeiriad waled rydych chi\'n ceisio ei drosglwyddo iddo a rhoi cynnig arall arno.</string>
-  <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">Nid oes modd i chi drosglwyddo i\'ch cyfeiriad waled Molly eich hun. Rhowch gyfeiriad y waled o\'ch cyfrif mewn cyfnewidfa sy\'n cael ei gefnogi.</string>
-  <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">I sganio cod QR, mae Molly angen mynediad i\'r camera.</string>
-  <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Mae Molly angen caniatâd y Camera i gipio\'r cod QR. Ewch i osodiadau, dewiswch \"Caniatâd\", a galluogi \"Camera\".</string>
-  <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">I sganio cod QR, mae Molly angen mynediad i\'r camera.</string>
+  <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">Nid oes modd i chi drosglwyddo i\'ch cyfeiriad waled Signal-LTS eich hun. Rhowch gyfeiriad y waled o\'ch cyfrif mewn cyfnewidfa sy\'n cael ei gefnogi.</string>
+  <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">I sganio cod QR, mae Signal-LTS angen mynediad i\'r camera.</string>
+  <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Mae Signal-LTS angen caniatâd y Camera i gipio\'r cod QR. Ewch i osodiadau, dewiswch \"Caniatâd\", a galluogi \"Camera\".</string>
+  <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">I sganio cod QR, mae Signal-LTS angen mynediad i\'r camera.</string>
   <string name="PaymentsTransferFragment__settings">Gosodiadau</string>
   <!--PaymentsTransferQrScanFragment-->
   <string name="PaymentsTransferQrScanFragment__scan_address_qr_code">Sganio Cod QR Cyfeiriad</string>
@@ -2671,7 +2671,7 @@ Send neges heb ei ddiogelu?</string>
   <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">Rydych wedi ceisio gormod o weithiau. Ceisiwch eto\'n hwyrach.</string>
   <string name="RegistrationActivity_error_connecting_to_service">Gwall wrth gysylltu â gwasanaeth</string>
   <string name="preferences_chats__backups">Copïau wrth gefn</string>
-  <string name="prompt_passphrase_activity__signal_is_locked">Mae Molly wedi\'i gloi</string>
+  <string name="prompt_passphrase_activity__signal_is_locked">Mae Signal-LTS wedi\'i gloi</string>
   <string name="prompt_passphrase_activity__tap_to_unlock">TAPIO I DDATGLOI</string>
   <string name="Recipient_unknown">Anhysbys</string>
   <!--TransferOrRestoreFragment-->
@@ -2695,18 +2695,18 @@ Send neges heb ei ddiogelu?</string>
   <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">Yn paratoi i gysylltu â hen ddyfais Android…</string>
   <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">Dylai cymryd eiliad, bydd yn barod cyn bo hir</string>
   <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">Yn aros i hen ddyfais Android i gysylltu…</string>
-  <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Mae angen caniatâd lleoliad ar Molly i ddarganfod a chysylltu â\'ch hen ddyfais Android.</string>
-  <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Mae angen gwasanaethau lleoliad ar Molly sydd wedi\'u galluogi i ddarganfod a chysylltu â\'ch hen ddyfais Android.</string>
-  <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Mae angen diwifr ar Molly i ddarganfod a chysylltu â\'ch hen ddyfais Android. Mae angen i\'r diwifr fod ymlaen ond nid oes rhaid ei gysylltu â rhwydwaith diwifr.</string>
-  <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Ymddiheuriadau, mae\'n ymddangos nad yw\'r ddyfais hon yn cefnogi Wi-Fi Direct. Mae Molly yn defnyddio Wi-Fi Direct i ddarganfod a chysylltu â\'ch hen ddyfais Android. Gallwch barhau i adfer copi wrth gefn i adfer eich cyfrif o\'ch hen ddyfais Android.</string>
+  <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Mae angen caniatâd lleoliad ar Signal-LTS i ddarganfod a chysylltu â\'ch hen ddyfais Android.</string>
+  <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Mae angen gwasanaethau lleoliad ar Signal-LTS sydd wedi\'u galluogi i ddarganfod a chysylltu â\'ch hen ddyfais Android.</string>
+  <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Mae angen diwifr ar Signal-LTS i ddarganfod a chysylltu â\'ch hen ddyfais Android. Mae angen i\'r diwifr fod ymlaen ond nid oes rhaid ei gysylltu â rhwydwaith diwifr.</string>
+  <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Ymddiheuriadau, mae\'n ymddangos nad yw\'r ddyfais hon yn cefnogi Wi-Fi Direct. Mae Signal-LTS yn defnyddio Wi-Fi Direct i ddarganfod a chysylltu â\'ch hen ddyfais Android. Gallwch barhau i adfer copi wrth gefn i adfer eich cyfrif o\'ch hen ddyfais Android.</string>
   <string name="NewDeviceTransferSetup__restore_a_backup">Adfer y copi wrth gefn</string>
   <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Digwyddodd gwall annisgwyl wrth geisio cysylltu â\'ch hen ddyfais Android.</string>
   <!--OldDeviceTransferSetupFragment-->
   <string name="OldDeviceTransferSetup__searching_for_new_android_device">Yn chwilio am ddyfais Android newydd…</string>
-  <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Mae angen caniatâd lleoliad ar Molly i ddarganfod a chysylltu â\'ch dyfais Android newydd.</string>
-  <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Mae angen gwasanaethau lleoliad ar Molly sydd wedi\'u galluogi i ddarganfod a chysylltu â\'ch dyfais Android newydd.</string>
-  <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Mae angen diwifr ar Molly i ddarganfod a chysylltu â\'ch dyfais Android newydd. Mae angen i ddiwifr fod ymlaen ond nid oes rhaid ei gysylltu â rhwydwaith diwifr.</string>
-  <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Ymddiheuriadau, mae\'n ymddangos nad yw\'r ddyfais hon yn cefnogi Wi-Fi Direct. Mae Molly yn defnyddio Wi-Fi Direct i ddarganfod a chysylltu â\'ch dyfais Android newydd. Gallwch barhau i greu copi wrth gefn i adfer eich cyfrif ar eich dyfais Android newydd.</string>
+  <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Mae angen caniatâd lleoliad ar Signal-LTS i ddarganfod a chysylltu â\'ch dyfais Android newydd.</string>
+  <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Mae angen gwasanaethau lleoliad ar Signal-LTS sydd wedi\'u galluogi i ddarganfod a chysylltu â\'ch dyfais Android newydd.</string>
+  <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Mae angen diwifr ar Signal-LTS i ddarganfod a chysylltu â\'ch dyfais Android newydd. Mae angen i ddiwifr fod ymlaen ond nid oes rhaid ei gysylltu â rhwydwaith diwifr.</string>
+  <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Ymddiheuriadau, mae\'n ymddangos nad yw\'r ddyfais hon yn cefnogi Wi-Fi Direct. Mae Signal-LTS yn defnyddio Wi-Fi Direct i ddarganfod a chysylltu â\'ch dyfais Android newydd. Gallwch barhau i greu copi wrth gefn i adfer eich cyfrif ar eich dyfais Android newydd.</string>
   <string name="OldDeviceTransferSetup__create_a_backup">Creu copi wrth gefn</string>
   <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Digwyddodd gwall annisgwyl wrth geisio cysylltu â\'ch dyfais Android newydd.</string>
   <!--DeviceTransferSetupFragment-->
@@ -2744,7 +2744,7 @@ Send neges heb ei ddiogelu?</string>
   <string name="NewDeviceTransfer__cannot_transfer_from_a_newer_version_of_signal">Nid oes modd trosglwyddo o fersiynau mwy newydd o Signal</string>
   <!--DeviceTransferFragment-->
   <string name="DeviceTransfer__transferring_data">Yn trosglwyddo data</string>
-  <string name="DeviceTransfer__keep_both_devices_near_each_other">Cadwch y ddwy ddyfais yn agos at ei gilydd. Peidiwch â diffodd y dyfeisiau a chadwch Molly ar agor. Mae trosglwyddiadau wedi\'u hamgryptio o\'r dechrau i\'r diwedd.</string>
+  <string name="DeviceTransfer__keep_both_devices_near_each_other">Cadwch y ddwy ddyfais yn agos at ei gilydd. Peidiwch â diffodd y dyfeisiau a chadwch Signal-LTS ar agor. Mae trosglwyddiadau wedi\'u hamgryptio o\'r dechrau i\'r diwedd.</string>
   <string name="DeviceTransfer__d_messages_so_far">%1$d neges hyd yma…</string>
   <string name="DeviceTransfer__cancel">Canslo</string>
   <string name="DeviceTransfer__try_again">Ceisio eto</string>
@@ -2757,7 +2757,7 @@ Send neges heb ei ddiogelu?</string>
   <string name="OldDeviceTransferInstructions__transfer_account">Trosglwyddo Cyfrif</string>
   <string name="OldDeviceTransferInstructions__you_can_transfer_your_signal_account_when_setting_up_signal_on_a_new_android_device">Gallwch drosglwyddo\'ch cyfrif Signal wrth osod Signal ar ddyfais Android newydd. Cyn parhau:</string>
   <string name="OldDeviceTransferInstructions__first_bullet">1.</string>
-  <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Llwythwch Molly ar i\'ch dyfais Android newydd</string>
+  <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Llwythwch Signal-LTS ar i\'ch dyfais Android newydd</string>
   <string name="OldDeviceTransferInstructions__second_bullet">2.</string>
   <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">Tapiwch ar \"Trosglwyddo neu adfer cyfrif\"</string>
   <string name="OldDeviceTransferInstructions__third_bullet">3.</string>
@@ -2823,7 +2823,7 @@ Send neges heb ei ddiogelu?</string>
   <!--GroupLinkBottomSheetDialogFragment-->
   <string name="GroupLinkBottomSheet_share_hint_requiring_approval">Gall unrhyw un sydd â\'r ddolen hon weld enw a llun o\'r grŵp a gofyn i ymuno. Rhannwch hi gyda phobl rydych yn ymddiried ynddyn nhw.</string>
   <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">Gall unrhyw un sydd â\'r ddolen hon weld enw a llun o\'r grŵp a gofyn i gael ymuno. Rhannwch hi gyda phobl rydych yn ymddiried ynddyn nhw.</string>
-  <string name="GroupLinkBottomSheet_share_via_signal">Rhannu trwy Molly</string>
+  <string name="GroupLinkBottomSheet_share_via_signal">Rhannu trwy Signal-LTS</string>
   <string name="GroupLinkBottomSheet_copy">Copïo</string>
   <string name="GroupLinkBottomSheet_qr_code">Cod QR</string>
   <string name="GroupLinkBottomSheet_share">Rhannu</string>
@@ -2954,7 +2954,7 @@ Send neges heb ei ddiogelu?</string>
   <string name="payment_info_card_about_mobilecoin">Ynghylch MobileCoin</string>
   <string name="payment_info_card_mobilecoin_is_a_new_privacy_focused_digital_currency">Mae MobileCoin yn arian digidol newydd sy\'n canolbwyntio ar breifatrwydd.</string>
   <string name="payment_info_card_adding_funds">Ychwanegu arian</string>
-  <string name="payment_info_card_you_can_add_funds_for_use_in">Gallwch ychwanegu arian i\'w ddefnyddio yn Molly trwy anfon MobileCoin i\'ch cyfeiriad waled.</string>
+  <string name="payment_info_card_you_can_add_funds_for_use_in">Gallwch ychwanegu arian i\'w ddefnyddio yn Signal-LTS trwy anfon MobileCoin i\'ch cyfeiriad waled.</string>
   <string name="payment_info_card_cashing_out">Tynnu arian allan</string>
   <string name="payment_info_card_you_can_cash_out_mobilecoin">Gallwch dynnu allan o MobileCoin ar unrhyw bryd ar gyfnewidfa sy\'n cefnogi MobileCoin. Dim ond trosglwyddo i\'ch cyfrif yn y gyfnewidfa honno.</string>
   <string name="payment_info_card_hide_this_card">Cuddio\'r cerdyn hwn?</string>
@@ -2968,12 +2968,12 @@ Send neges heb ei ddiogelu?</string>
   <!--DeactivateWalletFragment-->
   <string name="DeactivateWalletFragment__deactivate_wallet">Dadweithredu\'r Waled</string>
   <string name="DeactivateWalletFragment__your_balance">Eich balans</string>
-  <string name="DeactivateWalletFragment__its_recommended_that_you">Rydym yn argymell eich bod yn trosglwyddo\'ch arian i gyfeiriad waled arall cyn dadweithredu taliadau. Os dewiswch beidio â throsglwyddo\'ch arian nawr, byddant yn aros yn eich waled sy\'n gysylltiedig â Molly os byddwch yn ail weithredu taliadau.</string>
+  <string name="DeactivateWalletFragment__its_recommended_that_you">Rydym yn argymell eich bod yn trosglwyddo\'ch arian i gyfeiriad waled arall cyn dadweithredu taliadau. Os dewiswch beidio â throsglwyddo\'ch arian nawr, byddant yn aros yn eich waled sy\'n gysylltiedig â Signal-LTS os byddwch yn ail weithredu taliadau.</string>
   <string name="DeactivateWalletFragment__transfer_remaining_balance">Trosglwyddo\'r balans sy\'n weddill</string>
   <string name="DeactivateWalletFragment__deactivate_without_transferring">Dadweithredu heb drosglwyddo</string>
   <string name="DeactivateWalletFragment__deactivate">Dadweithredu</string>
   <string name="DeactivateWalletFragment__deactivate_without_transferring_question">Dadweithredu heb drosglwyddo?</string>
-  <string name="DeactivateWalletFragment__your_balance_will_remain">Bydd eich balans yn aros yn eich waled sy\'n gysylltiedig â Molly os byddwch chi\'n dewis ail weithredu eich taliadau.</string>
+  <string name="DeactivateWalletFragment__your_balance_will_remain">Bydd eich balans yn aros yn eich waled sy\'n gysylltiedig â Signal-LTS os byddwch chi\'n dewis ail weithredu eich taliadau.</string>
   <string name="DeactivateWalletFragment__error_deactivating_wallet">Gwall wrth ddadweithredu\'r waled.</string>
   <!--PaymentsRecoveryStartFragment-->
   <string name="PaymentsRecoveryStartFragment__recovery_phrase">Ymadrodd adfer</string>

@@ -10,17 +10,17 @@
   <string name="AbstractNotificationBuilder_new_message">Mesaj nou</string>
   <!--AlbumThumbnailView-->
   <!--ApplicationMigrationActivity-->
-  <string name="ApplicationMigrationActivity__signal_is_updating">Molly se actualizează…</string>
+  <string name="ApplicationMigrationActivity__signal_is_updating">Signal-LTS se actualizează…</string>
   <!--ApplicationPreferencesActivity-->
   <string name="ApplicationPreferencesActivity_currently_s">Acum: %s</string>
   <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">Nu ați setat încă o parolă!</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">Dezactivez parola?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Această acțiune va debloca permanent Molly și notificările pentru mesaje.</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Această acțiune va debloca permanent Signal-LTS și notificările pentru mesaje.</string>
   <string name="ApplicationPreferencesActivity_disable">Dezactivați</string>
   <string name="ApplicationPreferencesActivity_unregistering">Se anulează înregistrarea</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Se dezabonează de la mesajele și apelurile Molly…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Dezactivați mesajele și apelurile Molly? </string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Dezactivați mesajele și apeluri Molly prin dezabonarea de la server. Va trebui să vă re-înregistrezi numărul dvs. de telefon pentru a putea să le folosiți din nou în viitor.</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Se dezabonează de la mesajele și apelurile Signal-LTS…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Dezactivați mesajele și apelurile Signal-LTS? </string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Dezactivați mesajele și apeluri Signal-LTS prin dezabonarea de la server. Va trebui să vă re-înregistrezi numărul dvs. de telefon pentru a putea să le folosiți din nou în viitor.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">Eroare de conectare la server!</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">SMS Activat</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">Atinge pentru a schimba aplicaţia implicită de SMS </string>
@@ -56,14 +56,14 @@
   <string name="AttachmentKeyboard_file">Fișier</string>
   <string name="AttachmentKeyboard_contact">Contact</string>
   <string name="AttachmentKeyboard_location">Locație</string>
-  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Molly are nevoie de permisiune pentru a afișa poze și videouri.</string>
+  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Signal-LTS are nevoie de permisiune pentru a afișa poze și videouri.</string>
   <string name="AttachmentKeyboard_give_access">Permite accesul</string>
   <string name="AttachmentKeyboard_payment">Plăți</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">Nu pot găsi o aplicație pentru selecție media.</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly are nevoie de permisiunea pentru spațiul de stocare pentru a putea atașa poze, filme sau audio, dar i-a fost refuzat accesul permanent. Vă rog navigați în meniul de setări al aplicației, selectați \"Permisiuni\" și activați \"Spațiu de stocare\".</string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly are nevoie de permisiunea pentru Contacte pentru a putea atașa informații despre contacte dar i-a fost refuzat accesul permanent. Vă rog navigați în meniul de setări al aplicației, selectați \"Permisiuni\" și activați \"Contacte\".</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly are nevoie de permisiunea pentru Locație pentru a putea atașa o locație dar i-a fost refuzat accesul permanent. Vă rog navigați în meniul de setări al aplicației, selectați \"Permisiuni\" și activați \"Locație\".</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signal-LTS are nevoie de permisiunea pentru spațiul de stocare pentru a putea atașa poze, filme sau audio, dar i-a fost refuzat accesul permanent. Vă rog navigați în meniul de setări al aplicației, selectați \"Permisiuni\" și activați \"Spațiu de stocare\".</string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Signal-LTS are nevoie de permisiunea pentru Contacte pentru a putea atașa informații despre contacte dar i-a fost refuzat accesul permanent. Vă rog navigați în meniul de setări al aplicației, selectați \"Permisiuni\" și activați \"Contacte\".</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Signal-LTS are nevoie de permisiunea pentru Locație pentru a putea atașa o locație dar i-a fost refuzat accesul permanent. Vă rog navigați în meniul de setări al aplicației, selectați \"Permisiuni\" și activați \"Locație\".</string>
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">Se încarcă media…</string>
   <string name="AttachmentUploadJob_compressing_video_start">Se comprimă video-ul…</string>
@@ -114,14 +114,14 @@
   <string name="CameraContacts_no_signal_contacts">Nici un contact Signal</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">Puteți utiliza butonul aparatului foto pentru a trimite fotografii doar la contactele Signal.</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">Nu puteți găsi pe cine căutați?</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">Invitați un contact să se alăture pe Molly</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">Invitați un contact să se alăture pe Signal-LTS</string>
   <string name="CameraContacts__menu_search">Căutați</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">Eliminați</string>
   <string name="ClearProfileActivity_remove_profile_photo">Elimin poza de profil?</string>
   <string name="ClearProfileActivity_remove_group_photo">Eliminați poza de grup?</string>
   <!--ClientDeprecatedActivity-->
-  <string name="ClientDeprecatedActivity_update_signal">Actualizați Molly</string>
+  <string name="ClientDeprecatedActivity_update_signal">Actualizați Signal-LTS</string>
   <string name="ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported">Această versiune a aplicației nu mai este suportată. Pentru a continua să trimiteți și să primiți mesaje, actualizați la cea mai recentă versiune.</string>
   <string name="ClientDeprecatedActivity_update">Actualizează</string>
   <string name="ClientDeprecatedActivity_dont_update">Nu actualizați</string>
@@ -200,7 +200,7 @@
   <string name="ConversationActivity_transport_insecure_sms">SMS nesecurizat</string>
   <string name="ConversationActivity_transport_insecure_mms">MMS nesecurizat</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">Hai să folosim Molly %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">Hai să folosim Signal-LTS %1$s</string>
   <string name="ConversationActivity_specify_recipient">Vă rog alegeți un contact</string>
   <string name="ConversationActivity_unblock">Deblochează</string>
   <string name="ConversationActivity_attachment_exceeds_size_limits">Atașamentul depășește limita de mărime pentru tipul de mesaj pe care vreți să-l trimiteți.</string>
@@ -209,15 +209,15 @@
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">Nu există nici o aplicație disponibilă pe dispozitivul tău care să poată deschide acest link.</string>
   <string name="ConversationActivity_your_request_to_join_has_been_sent_to_the_group_admin">Solicitarea dvs. de înscriere a fost trimisă administratorului grupului. Veți fi anunțat când vor lua acțiuni.</string>
   <string name="ConversationActivity_cancel_request">Anulați cererea</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Pentru a trimite mesaje audio, permite-i aplicației Molly accesul la microfonul tău.</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly are nevoie de permisiunea pentru Microfon pentru a putea trimite mesaje audio dar i-a fost refuzat accesul permanent. Vă rugăm să navigați în meniul de setări al aplicației, selectați \"Permisiuni\" și activați \"Microfon\".</string>
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly are nevoie de permisiunile pentru Microfon și Cameră pentru a putea apela pe %s dar i-a fost refuzat accesul permanent. Vă rog navigați în meniul de setări al aplicației, selectați \"Permisiuni\" și activați \"Microfon\" și \"Cameră\".</string>
-  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Pentru a captura poze sau filme, permite-i Molly accesul la cameră.</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Molly are nevoie de permisiunea pentru Cameră pentru a captura poze sau filme dar i-a fost refuzat accesul permanent. Vă rog navigați în meniul de setări al aplicației, selectați \"Permisiuni\" și activați \"Cameră\".</string>
-  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Molly are nevoie de permisiunea pentru Cameră pentru a captura poze sau filme</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Pentru a trimite mesaje audio, permite-i aplicației Signal-LTS accesul la microfonul tău.</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Signal-LTS are nevoie de permisiunea pentru Microfon pentru a putea trimite mesaje audio dar i-a fost refuzat accesul permanent. Vă rugăm să navigați în meniul de setări al aplicației, selectați \"Permisiuni\" și activați \"Microfon\".</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Signal-LTS are nevoie de permisiunile pentru Microfon și Cameră pentru a putea apela pe %s dar i-a fost refuzat accesul permanent. Vă rog navigați în meniul de setări al aplicației, selectați \"Permisiuni\" și activați \"Microfon\" și \"Cameră\".</string>
+  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Pentru a captura poze sau filme, permite-i Signal-LTS accesul la cameră.</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signal-LTS are nevoie de permisiunea pentru Cameră pentru a captura poze sau filme dar i-a fost refuzat accesul permanent. Vă rog navigați în meniul de setări al aplicației, selectați \"Permisiuni\" și activați \"Cameră\".</string>
+  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signal-LTS are nevoie de permisiunea pentru Cameră pentru a captura poze sau filme</string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Activați permisiunea pentru microfon pentru a captura video-uri cu sunet.</string>
-  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Molly are nevoie de permisiunea pentru microfon pentru a putea înregistra video-uri, dar i-a fost refuzată. Vă rog navigați în meniul de setări al aplicației, selectați \"Permisiuni\" și activați \"Microfon\" și \"Cameră\".</string>
-  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Molly are nevoie de permisiunea pentru microfon pentru a înregistra video-uri.</string>
+  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signal-LTS are nevoie de permisiunea pentru microfon pentru a putea înregistra video-uri, dar i-a fost refuzată. Vă rog navigați în meniul de setări al aplicației, selectați \"Permisiuni\" și activați \"Microfon\" și \"Cameră\".</string>
+  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signal-LTS are nevoie de permisiunea pentru microfon pentru a înregistra video-uri.</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">Signal nu poate trimite mesaje SMS/MMS pentru că nu este aplicația implicită de SMS. Doriți să schimbați asta în setările dvs. Android?</string>
   <string name="ConversationActivity_yes">Da</string>
@@ -233,7 +233,7 @@
   <string name="ConversationActivity_you_will_leave_this_group_and_it_will_be_deleted_from_all_of_your_devices">Veți părăsi acest grup și va fi șters de pe toate dispozitivele dvs.</string>
   <string name="ConversationActivity_delete">Șterge</string>
   <string name="ConversationActivity_delete_and_leave">Ștergeți și părăsiți</string>
-  <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">Pentru a apela pe %1$s, Molly are nevoie de acces la microfonul dvs.</string>
+  <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">Pentru a apela pe %1$s, Signal-LTS are nevoie de acces la microfonul dvs.</string>
   <string name="ConversationActivity__more_options_now_in_group_settings">Acum mai multe opțiuni în \"Setări grup\"</string>
   <string name="ConversationActivity_join">Alăturați-vă</string>
   <string name="ConversationActivity_full">Plină</string>
@@ -296,7 +296,7 @@
   <string name="ConversationFragment__d_group_members_have_the_same_name">%1$d membri ai grupului au același nume.</string>
   <string name="ConversationFragment__tap_to_review">Atingeți pentru examinare</string>
   <string name="ConversationFragment__review_requests_carefully">Examinați cu atenție solicitările</string>
-  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Molly a găsit un alt contact cu același nume.</string>
+  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Signal-LTS a găsit un alt contact cu același nume.</string>
   <string name="ConversationFragment_contact_us">Contactați-ne</string>
   <string name="ConversationFragment_verify">Verifică</string>
   <string name="ConversationFragment_not_now">Nu acum</string>
@@ -364,11 +364,11 @@
   <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Testați parola dvs. de backup și verificați că se potrivește</string>
   <string name="BackupsPreferenceFragment__turn_on">Activare</string>
   <string name="BackupsPreferenceFragment__turn_off">Dezactivare</string>
-  <string name="BackupsPreferenceFragment__to_restore_a_backup">Pentru a restabili un backup, instalați o copie nouă Molly. Deschideți aplicația și atingeți \"Restabilire backup\", apoi selectați un fișier de backup. %1$s</string>
+  <string name="BackupsPreferenceFragment__to_restore_a_backup">Pentru a restabili un backup, instalați o copie nouă Signal-LTS. Deschideți aplicația și atingeți \"Restabilire backup\", apoi selectați un fișier de backup. %1$s</string>
   <string name="BackupsPreferenceFragment__learn_more">Aflați mai multe</string>
   <string name="BackupsPreferenceFragment__in_progress">În curs de desfășurare…</string>
   <string name="BackupsPreferenceFragment__d_so_far">%1$d până acum…</string>
-  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly necesită permisiunea de acces la stocarea externă pentru a putea crea backup-uri, dar i-a fost refuzat permanent. Vă rog continuați la setări aplicație, selectați \"Permisiuni\" și activați \"Stocare\". </string>
+  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal-LTS necesită permisiunea de acces la stocarea externă pentru a putea crea backup-uri, dar i-a fost refuzat permanent. Vă rog continuați la setări aplicație, selectați \"Permisiuni\" și activați \"Stocare\". </string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Personalizat: %s</string>
   <string name="CustomDefaultPreference_using_default">Implicit: %s</string>
@@ -413,7 +413,7 @@
   <string name="GroupCallingMegaphone__open_a_new_group_to_start">Deschideți un grup nou pentru a începe un apel gratuit de grup criptat</string>
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">Optimizează pentru lipsa serviciilor Play</string>
-  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Acest dispozitiv nu suportă serviciile Play. Apasă pentru a dezactiva optimizarea de sistem a bateriei care împiedică Molly să preia mesajele cât timp este inactivă.</string>
+  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Acest dispozitiv nu suportă serviciile Play. Apasă pentru a dezactiva optimizarea de sistem a bateriei care împiedică Signal-LTS să preia mesajele cât timp este inactivă.</string>
   <!--ExpiredBuildReminder-->
   <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Această versiune a Signal a expirat. Actualizați acum pentru a trimite și primi mesaje.</string>
   <string name="ExpiredBuildReminder_update_now">Actualizează acum</string>
@@ -429,7 +429,7 @@
   <string name="ShareActivity_multiple_attachments_are_only_supported">Atașamentele multiple sunt suportate doar pentru imagini și videouri</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Eroare permanentă de comunicare cu Signal!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly nu s-a putut înregistra la Google Play Services. Mesajele și apelurile Molly au fost dezactivate, te rog încearcă să te înregistrezi din nou din meniul Setări &gt; Avansat.</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal-LTS nu s-a putut înregistra la Google Play Services. Mesajele și apelurile Signal-LTS au fost dezactivate, te rog încearcă să te înregistrezi din nou din meniul Setări &gt; Avansat.</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">A apărut o eroare la obținerea GIF-ului la rezoluție maximă</string>
   <!--GiphyFragmentPageAdapter-->
@@ -778,7 +778,7 @@
   <string name="InviteActivity_cancel">Anulați</string>
   <string name="InviteActivity_sending">Se trimite…</string>
   <string name="InviteActivity_invitations_sent">Invitațiile au fost trimise!</string>
-  <string name="InviteActivity_invite_to_signal">Invitați la Molly</string>
+  <string name="InviteActivity_invite_to_signal">Invitați la Signal-LTS</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">TRIMITE SMS LA %d PRIETEN</item>
     <item quantity="few">TRIMITE SMS LA %d PRIETENI</item>
@@ -789,7 +789,7 @@
     <item quantity="few">Trimit %d invitații prin SMS?</item>
     <item quantity="other">Trimit %d invitații prin SMS?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">Hai să folosim Molly: %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">Hai să folosim Signal-LTS: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Se pare că nu ai aplicații cu care să poți distribui.</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Prietenii nu-și lasă prietenii să converseze necriptat.</string>
   <!--LearnMoreTextView-->
@@ -799,7 +799,7 @@
   <string name="LongMessageActivity_message_from_s">Mesaj de la %1$s</string>
   <string name="LongMessageActivity_your_message">Mesajul dvs.</string>
   <!--MessageRetrievalService-->
-  <string name="MessageRetrievalService_signal">Molly</string>
+  <string name="MessageRetrievalService_signal">Signal-LTS</string>
   <string name="MessageRetrievalService_background_connection_enabled">Conexiune în fundal activată</string>
   <!--MmsDownloader-->
   <string name="MmsDownloader_error_reading_mms_settings">Eroare la citirea setărilor MMS ale operatorului wireless</string>
@@ -891,8 +891,8 @@
   <string name="MediaSendActivity_message_to_s">Mesaj către %s</string>
   <string name="MediaSendActivity_message">Mesaj</string>
   <string name="MediaSendActivity_select_recipients">Selectați destinatarii</string>
-  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Molly are nevoie de acces la contactele tale pentru a le afișa.</string>
-  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Molly are nevoie de permisiunea pentru Contacte pentru a putea afișa contactele tale dar i-a fost refuzat accesul permanent. Vă rog navigați în meniul de setări al aplicației, selectați \"Permisiuni\" și activați \"Contacte\".</string>
+  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Signal-LTS are nevoie de acces la contactele tale pentru a le afișa.</string>
+  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Signal-LTS are nevoie de permisiunea pentru Contacte pentru a putea afișa contactele tale dar i-a fost refuzat accesul permanent. Vă rog navigați în meniul de setări al aplicației, selectați \"Permisiuni\" și activați \"Contacte\".</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="one">Nu puteți distribui mai mult de %d element.</item>
     <item quantity="few">Nu puteți distribui mai mult de %d element.</item>
@@ -1149,7 +1149,7 @@
   <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">Ne pare rău, acest cod de asociere QR este invalid.</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">Asociez un dispozitiv Signal?</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Se pare că încercați să asociați un dispozitiv Signal folosind un scaner terț. Pentru protecția dvs, vă rugăm să scanați din nou codul din interiorul aplicației Signal.</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly are nevoie de permisiunea pentru Cameră pentru a scana un cod QR dar i-a fost refuzat accesul permanent. Vă rog navigați în meniul de setări al aplicației, selectați \"Permisiuni\" și activați \"Cameră\".</string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Signal-LTS are nevoie de permisiunea pentru Cameră pentru a scana un cod QR dar i-a fost refuzat accesul permanent. Vă rog navigați în meniul de setări al aplicației, selectați \"Permisiuni\" și activați \"Cameră\".</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Codul QR nu poate fi scanat fără permisiunea pentru Cameră</string>
   <!--OutdatedBuildReminder-->
   <string name="OutdatedBuildReminder_update_now">Actualizează acum</string>
@@ -1161,10 +1161,10 @@
   </plurals>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">Introduceți parola</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Pictogramă Molly</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Pictogramă Signal-LTS</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">Trimite parola</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Parolă incorectă!</string>
-  <string name="PassphrasePromptActivity_unlock_signal">Deblochează Molly</string>
+  <string name="PassphrasePromptActivity_unlock_signal">Deblochează Signal-LTS</string>
   <string name="PassphrasePromptActivity_signal_android_lock_screen">Signal Android - Ecran de blocare</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">Hartă</string>
@@ -1212,7 +1212,7 @@
   <string name="ReactionsRecipientAdapter_you">Tu</string>
   <!--RecaptchaRequiredBottomSheetFragment-->
   <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">Verificați pentru a continua conversația</string>
-  <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Pentru a ajuta la prevenirea spam-ului pe Molly, vă rugăm să completați verificarea.</string>
+  <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Pentru a ajuta la prevenirea spam-ului pe Signal-LTS, vă rugăm să completați verificarea.</string>
   <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">După verificare, puteți continua să trimiteți mesaje. Toate mesajele aflate în pauză vor fi trimise automat.</string>
   <!--Recipient-->
   <string name="Recipient_you">Dvs.</string>
@@ -1233,8 +1233,8 @@
   <string name="RedPhone_got_it">Am înțeles</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Atingeți aici pentru a porni video-ul tău</string>
-  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Pentru a apela pe %1$s, Molly are nevoie de acces la camera dvs.</string>
-  <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
+  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Pentru a apela pe %1$s, Signal-LTS are nevoie de acces la camera dvs.</string>
+  <string name="WebRtcCallActivity__signal_s">Signal-LTS %1$s</string>
   <string name="WebRtcCallActivity__calling">Apel în curs…</string>
   <!--WebRtcCallView-->
   <string name="WebRtcCallView__signal_voice_call">Apel vocal Signal…</string>
@@ -1296,13 +1296,13 @@ furnizat (%s) este invalid.</string>
   <string name="RegistrationActivity_is_your_phone_number_above_correct">Numărul dvs. de telefon de mai sus este corect?</string>
   <string name="RegistrationActivity_edit_number">Editează număr</string>
   <string name="RegistrationActivity_missing_google_play_services">Serviciile Google Play lipsesc</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Acestui dispozitiv îi lipsesc serviciile Google Play. Poți utiliza în continuare Molly, însă această configurație poate duce la fiabilitate și performanță redusă.\n\nDacă nu ești un utilizator avansat, nu rulezi un ROM Android aftermarket,  sau crezi că vezi asta în erori, te rog contactează support@molly.im pentru ajutor la depanare.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Acestui dispozitiv îi lipsesc serviciile Google Play. Poți utiliza în continuare Signal-LTS, însă această configurație poate duce la fiabilitate și performanță redusă.\n\nDacă nu ești un utilizator avansat, nu rulezi un ROM Android aftermarket,  sau crezi că vezi asta în erori, te rog contactează support@Signal-LTS.im pentru ajutor la depanare.</string>
   <string name="RegistrationActivity_i_understand">Am înțeles</string>
   <string name="RegistrationActivity_play_services_error">Eroare servicii Play</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Serviciile Google Play se actualizează sau sunt temporar indisponibile. Te rog încearcă din nou.</string>
   <string name="RegistrationActivity_terms_and_privacy">Termeni &amp; Politica de confidențialitate</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly are nevoie de acces la contactele tale și media pentru a putea facilita comunicarea cu prietenii tăi, schimba mesaje și pentru a efectua apeluri securizate</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Molly are nevoie de acces la contactele tale pentru a putea facilita comunicarea cu prietenii tăi, schimba mesaje și pentru a efectua apeluri securizate</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Signal-LTS are nevoie de acces la contactele tale și media pentru a putea facilita comunicarea cu prietenii tăi, schimba mesaje și pentru a efectua apeluri securizate</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Signal-LTS are nevoie de acces la contactele tale pentru a putea facilita comunicarea cu prietenii tăi, schimba mesaje și pentru a efectua apeluri securizate</string>
   <string name="RegistrationActivity_rate_limited_to_service">Ați făcut prea multe încercări de înregistrare a acestui număr. Vă rugăm să încercați din nou mai târziu.</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">Nu s-a putut realiza conexiunea la serviciu. Te rog verifică conexiunea la rețea și încearcă din nou.</string>
   <plurals name="RegistrationActivity_debug_log_hint">
@@ -1341,12 +1341,12 @@ furnizat (%s) este invalid.</string>
   <!--ShakeToReport-->
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">Adăugați la contacte</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Invitați la Molly</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Invitați la Signal-LTS</string>
   <string name="SharedContactDetailsActivity_signal_message">Mesaj Signal</string>
   <string name="SharedContactDetailsActivity_signal_call">Apel Signal</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">Adăugați la contacte</string>
-  <string name="SharedContactView_invite_to_signal">Invitați la Molly</string>
+  <string name="SharedContactView_invite_to_signal">Invitați la Signal-LTS</string>
   <string name="SharedContactView_message">Mesaj Signal</string>
   <!--SignalPinReminders-->
   <string name="SignalPinReminders_well_remind_you_again_later">Vă reamintim mai târziu.</string>
@@ -1403,8 +1403,8 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <string name="SupportEmailUtil_filter">Filtru:</string>
   <string name="SupportEmailUtil_device_info">Informații dispozitiv:</string>
   <string name="SupportEmailUtil_android_version">Versiune Android:</string>
-  <string name="SupportEmailUtil_signal_version">Versiune Molly:</string>
-  <string name="SupportEmailUtil_signal_package">Pachet Molly:</string>
+  <string name="SupportEmailUtil_signal_version">Versiune Signal-LTS:</string>
+  <string name="SupportEmailUtil_signal_package">Pachet Signal-LTS:</string>
   <string name="SupportEmailUtil_registration_lock">Blocarea înregistrării:</string>
   <string name="SupportEmailUtil_locale">Limba:</string>
   <!--ThreadRecord-->
@@ -1440,8 +1440,8 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <string name="ThreadRecord_video">Video</string>
   <string name="ThreadRecord_chat_session_refreshed">Sesiunea conversației a fost resetată</string>
   <!--UpdateApkReadyListener-->
-  <string name="UpdateApkReadyListener_Signal_update">Actualizare Molly</string>
-  <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">O nouă versiune de Molly este disponibilă, apasă pentru actualizare</string>
+  <string name="UpdateApkReadyListener_Signal_update">Actualizare Signal-LTS</string>
+  <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">O nouă versiune de Signal-LTS este disponibilă, apasă pentru actualizare</string>
   <!--UntrustedSendDialog-->
   <string name="UntrustedSendDialog_send_message">Trimit mesajul?</string>
   <string name="UntrustedSendDialog_send">Trimiteți</string>
@@ -1474,7 +1474,7 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <string name="VerifyIdentityActivity_our_signal_safety_number">Numărul nostru de siguranță:</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">Se pare că nu ai aplicații cu care să poți distribui.</string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">Nu s-a găsit nici un număr de siguranță în clipboard pentru a fi comparat.</string>
-  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Molly are nevoie de permisiunea pentru Cameră pentru a scana un cod QR dar i-a fost refuzat accesul permanent. Vă rog navigați în meniul de setări al aplicației, selectați \"Permisiuni\" și activați \"Cameră\".</string>
+  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Signal-LTS are nevoie de permisiunea pentru Cameră pentru a scana un cod QR dar i-a fost refuzat accesul permanent. Vă rog navigați în meniul de setări al aplicației, selectați \"Permisiuni\" și activați \"Cameră\".</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">Codul QR nu poate fi scanat fără permisiunea pentru Cameră</string>
   <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">Mai întâi trebuie să faceți schimb de mesaje pentru a vizualiza numărul de siguranță al lui %1$s</string>
   <!--ViewOnceMessageActivity-->
@@ -1493,13 +1493,13 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <string name="ApplicationMigrationService_system_database_import_is_complete">Importul bazei de date de sistem este complet.</string>
   <!--KeyCachingService-->
   <string name="KeyCachingService_signal_passphrase_cached">Atingeți pentru a-l deschide.</string>
-  <string name="KeyCachingService_passphrase_cached">Molly este deblocat</string>
-  <string name="KeyCachingService_lock">Blocați Molly</string>
+  <string name="KeyCachingService_passphrase_cached">Signal-LTS este deblocat</string>
+  <string name="KeyCachingService_lock">Blocați Signal-LTS</string>
   <!--MediaPreviewActivity-->
   <string name="MediaPreviewActivity_you">Tu</string>
   <string name="MediaPreviewActivity_unssuported_media_type">Tip media nesuportat</string>
   <string name="MediaPreviewActivity_draft">Ciornă</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Molly are nevoie de permisiunea pentru spațiul de stocare extern pentru a salva pe spațiul de stocare extern, dar i-a fost refuzat accesul permanent. Vă rog navigați în meniul de setări al aplicației, selectați \"Permisiuni\" și activați \"Spațiu de stocare\".</string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Signal-LTS are nevoie de permisiunea pentru spațiul de stocare extern pentru a salva pe spațiul de stocare extern, dar i-a fost refuzat accesul permanent. Vă rog navigați în meniul de setări al aplicației, selectați \"Permisiuni\" și activați \"Spațiu de stocare\".</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">Nu se poate salva pe spațiu de stocare extern fără permisiune</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">Șterg mesajul?</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">Această acțiune va șterge permanent mesajul.</string>
@@ -1514,7 +1514,7 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <string name="MessageNotifier_failed_to_deliver_message">Mesajul nu a putut fi trimis.</string>
   <string name="MessageNotifier_error_delivering_message">A apărut o eroare la trimiterea mesajului.</string>
   <string name="MessageNotifier_message_delivery_paused">Livrarea mesajelor a fost întreruptă.</string>
-  <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Verificați pentru a continua conversația pe Molly.</string>
+  <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Verificați pentru a continua conversația pe Signal-LTS.</string>
   <string name="MessageNotifier_mark_all_as_read">Marchează tot ca citit</string>
   <string name="MessageNotifier_mark_read">Marchează ca citit</string>
   <string name="MessageNotifier_turn_off_these_notifications">Dezactivați aceste notificări</string>
@@ -1524,7 +1524,7 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <string name="MessageNotifier_signal_message">Mesaj Signal</string>
   <string name="MessageNotifier_unsecured_sms">SMS nesecurizat</string>
   <string name="MessageNotifier_you_may_have_new_messages">S-ar putea să aveți mesaje noi</string>
-  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Deschideți Molly pentru a verifica notificările recente.</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Deschideți Signal-LTS pentru a verifica notificările recente.</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">Contact</string>
   <string name="MessageNotifier_reacted_s_to_s">A reacționat cu %1$s la: \"%2$s\".</string>
@@ -1551,7 +1551,7 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <string name="NotificationChannels__no_activity_available_to_open_notification_channel_settings">Nu există activitate disponibilă pentru a deschide setările canalului de notificare.</string>
   <!--ProfileEditNameFragment-->
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Răspunsul rapid nu este disponibil cât timp Molly este blocat!</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Răspunsul rapid nu este disponibil cât timp Signal-LTS este blocat!</string>
   <string name="QuickResponseService_problem_sending_message">Problemă la trimiterea mesajului!</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">Salvat în %s</string>
@@ -1562,7 +1562,7 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">Scurtătură invalidă</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Signal-LTS</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Mesaj nou</string>
   <string name="SingleRecipientNotificationBuilder_message_request">Cerere mesaj</string>
   <string name="SingleRecipientNotificationBuilder_you">Dvs.</string>
@@ -1579,8 +1579,8 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <string name="UnauthorizedReminder_device_no_longer_registered">Dispozitivul nu mai este înregistrat</string>
   <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Acest fapt este posibil pentru că ai înregistrat numărul tău de telefon la Signal de pe un dispozitiv diferit. Apasă pentru a te înregistra din nou.</string>
   <!--WebRtcCallActivity-->
-  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Pentru a răspunde apelului de la %s, oferă-i Molly acces la microfonul tău.</string>
-  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Molly are nevoie de permisiunile pentru Microfon și Cameră pentru a putea primi apeluri dar i-a fost refuzat accesul permanent. Vă rog navigați în meniul de setări al aplicației, selectați \"Permisiuni\" și activați \"Microfon\" și \"Cameră\".</string>
+  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Pentru a răspunde apelului de la %s, oferă-i Signal-LTS acces la microfonul tău.</string>
+  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Signal-LTS are nevoie de permisiunile pentru Microfon și Cameră pentru a putea primi apeluri dar i-a fost refuzat accesul permanent. Vă rog navigați în meniul de setări al aplicației, selectați \"Permisiuni\" și activați \"Microfon\" și \"Cameră\".</string>
   <string name="WebRtcCallActivity__answered_on_a_linked_device">Răspuns de pe un dispozitiv asociat.</string>
   <string name="WebRtcCallActivity__declined_on_a_linked_device">Respins de pe un dispozitiv asociat.</string>
   <string name="WebRtcCallActivity__busy_on_a_linked_device">Ocupat de pe un dispozitiv asociat.</string>
@@ -1604,7 +1604,7 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <string name="change_passphrase_activity__repeat_new_passphrase">Repetă parola nouă</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">Introduceți un nume sau un număr</string>
-  <string name="contact_selection_activity__invite_to_signal">Invitați la Molly</string>
+  <string name="contact_selection_activity__invite_to_signal">Invitați la Signal-LTS</string>
   <string name="contact_selection_activity__new_group">Grup nou</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">Ștergeți textul introdus</string>
@@ -1616,7 +1616,7 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <!--single_contact_selection_activity-->
   <string name="SingleContactSelectionActivity_contact_photo">Poză contact</string>
   <!--ContactSelectionListFragment-->
-  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Molly are nevoie de permisiunea pentru Contacte pentru a putea afișa contactele tale dar i-a fost refuzat accesul permanent. Vă rog navigați în meniul de setări al aplicației, selectați \"Permisiuni\" și activați \"Contacte\".</string>
+  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Signal-LTS are nevoie de permisiunea pentru Contacte pentru a putea afișa contactele tale dar i-a fost refuzat accesul permanent. Vă rog navigați în meniul de setări al aplicației, selectați \"Permisiuni\" și activați \"Contacte\".</string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Eroare la obținerea contactelor, verifică conexiune la rețea.</string>
   <string name="ContactSelectionListFragment_username_not_found">Numele de utilizator nu a fost găsit</string>
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">\"%1$s\" nu este un utilizator de Signal. Verificați numele de utilizator și încercați din nou.</string>
@@ -1631,7 +1631,7 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
     <item quantity="other">%1$d membri</item>
   </plurals>
   <!--contact_selection_list_fragment-->
-  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly are nevoie de acces la contactele tale pentru a le afișa.</string>
+  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Signal-LTS are nevoie de acces la contactele tale pentru a le afișa.</string>
   <string name="contact_selection_list_fragment__show_contacts">Afișează contactele</string>
   <!--contact_selection_list_item-->
   <plurals name="contact_selection_list_item__number_of_members">
@@ -2005,7 +2005,7 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <string name="preferences__slow">Încet</string>
   <string name="preferences__help">Ajutor</string>
   <string name="preferences__advanced">Avansat</string>
-  <string name="preferences__donate_to_signal">Donați pentru Molly</string>
+  <string name="preferences__donate_to_signal">Donați pentru Signal-LTS</string>
   <string name="preferences__privacy">Confidenţialitate</string>
   <string name="preferences__mms_user_agent">MMS User Agent</string>
   <string name="preferences__advanced_mms_access_point_names">Setări MMS manuale</string>
@@ -2135,7 +2135,7 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <string name="PaymentsAllActivityFragment__sent">Trimis</string>
   <string name="PaymentsAllActivityFragment__received">Primit</string>
   <string name="PaymentsHomeFragment__introducing_payments">Vă prezentăm plăți (Beta)</string>
-  <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Utilizați Molly pentru a trimite și primi MobileCoin, o nouă monedă digitală axată pe confidențialitate. Activați pentru a începe.</string>
+  <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Utilizați Signal-LTS pentru a trimite și primi MobileCoin, o nouă monedă digitală axată pe confidențialitate. Activați pentru a începe.</string>
   <string name="PaymentsHomeFragment__activate_payments">Activare Plăți</string>
   <string name="PaymentsHomeFragment__recent_activity">Activități recente</string>
   <string name="PaymentsHomeFragment__see_all">Vezi tot</string>
@@ -2523,7 +2523,7 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">Ai făcut prea multe încercări. Vă rugăm să încercați din nou mai târziu.</string>
   <string name="RegistrationActivity_error_connecting_to_service">Eroare de conectare la serviciu</string>
   <string name="preferences_chats__backups">Backup-uri</string>
-  <string name="prompt_passphrase_activity__signal_is_locked">Molly este blocat</string>
+  <string name="prompt_passphrase_activity__signal_is_locked">Signal-LTS este blocat</string>
   <string name="prompt_passphrase_activity__tap_to_unlock">ATINGEȚI PENTRU DEBLOCARE</string>
   <string name="Recipient_unknown">Necunoscut</string>
   <!--TransferOrRestoreFragment-->
@@ -2547,14 +2547,14 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">Se pregătește conectarea la un dispozitiv Android vechi…</string>
   <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">Durează un moment, ar trebui să fie gata în curând</string>
   <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">Se așteaptă conectarea vechiul dispozitiv Android…</string>
-  <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Molly are nevoie de permisiunea de localizare pentru a descoperi și a se conecta la vechiul dispozitiv Android.</string>
-  <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Molly are nevoie de servicii de localizare activate pentru a descoperi și a vă conecta cu vechiul dispozitiv Android.</string>
+  <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Signal-LTS are nevoie de permisiunea de localizare pentru a descoperi și a se conecta la vechiul dispozitiv Android.</string>
+  <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Signal-LTS are nevoie de servicii de localizare activate pentru a descoperi și a vă conecta cu vechiul dispozitiv Android.</string>
   <string name="NewDeviceTransferSetup__restore_a_backup">Restaurare backup</string>
   <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">A apărut o eroare neașteptată în timpul încercării de a vă conecta la vechiul dispozitiv Android.</string>
   <!--OldDeviceTransferSetupFragment-->
   <string name="OldDeviceTransferSetup__searching_for_new_android_device">Se caută un dispozitiv nou Android …</string>
-  <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Molly are nevoie de permisiunea de localizare pentru a descoperi și a se conecta la noul dispozitiv Android.</string>
-  <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Molly are nevoie de servicii de localizare activate pentru a descoperi și a vă conecta cu noul dispozitiv Android.</string>
+  <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Signal-LTS are nevoie de permisiunea de localizare pentru a descoperi și a se conecta la noul dispozitiv Android.</string>
+  <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Signal-LTS are nevoie de servicii de localizare activate pentru a descoperi și a vă conecta cu noul dispozitiv Android.</string>
   <string name="OldDeviceTransferSetup__create_a_backup">Creează backup</string>
   <!--DeviceTransferSetupFragment-->
   <string name="DeviceTransferSetup__grant_location_permission">Acordați permisiunea pentru locație</string>
@@ -2589,7 +2589,7 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <string name="NewDeviceTransfer__cannot_transfer_from_a_newer_version_of_signal">Nu se poate transfera dintr-o versiune mai nouă de Signal</string>
   <!--DeviceTransferFragment-->
   <string name="DeviceTransfer__transferring_data">Se transmit datele</string>
-  <string name="DeviceTransfer__keep_both_devices_near_each_other">Țineți ambele dispozitive unul lângă altul. Nu opriți dispozitivele și mențineți Molly deschis. Transferurile sunt criptate integral.</string>
+  <string name="DeviceTransfer__keep_both_devices_near_each_other">Țineți ambele dispozitive unul lângă altul. Nu opriți dispozitivele și mențineți Signal-LTS deschis. Transferurile sunt criptate integral.</string>
   <string name="DeviceTransfer__d_messages_so_far">%1$d mesaje până acum…</string>
   <string name="DeviceTransfer__cancel">Anulare</string>
   <string name="DeviceTransfer__try_again">Încercați din nou</string>
@@ -2602,7 +2602,7 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <string name="OldDeviceTransferInstructions__transfer_account">Transfer cont</string>
   <string name="OldDeviceTransferInstructions__you_can_transfer_your_signal_account_when_setting_up_signal_on_a_new_android_device">Vă puteți transfera contul Signal când configurați Signal pe un dispozitiv Android nou. Înainte de a continua:</string>
   <string name="OldDeviceTransferInstructions__first_bullet">1.</string>
-  <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Descărcați Molly pe noul dispozitiv Android</string>
+  <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Descărcați Signal-LTS pe noul dispozitiv Android</string>
   <string name="OldDeviceTransferInstructions__second_bullet">2.</string>
   <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">Atingeți \"Transfer sau restaurare cont\"</string>
   <string name="OldDeviceTransferInstructions__third_bullet">3.</string>
@@ -2661,7 +2661,7 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <!--GroupLinkBottomSheetDialogFragment-->
   <string name="GroupLinkBottomSheet_share_hint_requiring_approval">Oricine cu această adresă poate vedea numele și fotografia grupului și poate solicita o cerere de alăturare la grup. Distribuiți adresa cu persoanele de încredere.</string>
   <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">Oricine cu această adresă poate vedea numele grupului și membrii săi și se poate alătura grupului. Distribuiți adresa cu persoanele de încredere.</string>
-  <string name="GroupLinkBottomSheet_share_via_signal">Distribuire prin Molly</string>
+  <string name="GroupLinkBottomSheet_share_via_signal">Distribuire prin Signal-LTS</string>
   <string name="GroupLinkBottomSheet_copy">Copy</string>
   <string name="GroupLinkBottomSheet_qr_code">Cod QR</string>
   <string name="GroupLinkBottomSheet_share">Distribuiți</string>

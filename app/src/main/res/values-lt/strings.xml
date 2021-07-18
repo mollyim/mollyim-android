@@ -10,17 +10,17 @@
   <string name="AbstractNotificationBuilder_new_message">Nauja žinutė</string>
   <!--AlbumThumbnailView-->
   <!--ApplicationMigrationActivity-->
-  <string name="ApplicationMigrationActivity__signal_is_updating">Molly yra atnaujinama…</string>
+  <string name="ApplicationMigrationActivity__signal_is_updating">Signal-LTS yra atnaujinama…</string>
   <!--ApplicationPreferencesActivity-->
   <string name="ApplicationPreferencesActivity_currently_s">Šiuo metu: %s</string>
   <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">Jūs dar nesate nustatę slaptafrazės!</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">Išjungti slaptafrazę?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Tai visiems laikams atrakins Molly ir žinučių pranešimus.</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Tai visiems laikams atrakins Signal-LTS ir žinučių pranešimus.</string>
   <string name="ApplicationPreferencesActivity_disable">Išjungti</string>
   <string name="ApplicationPreferencesActivity_unregistering">Išregistruojama</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Išregistruojama iš Molly žinučių ir skambučių…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Išjungti Molly žinutes ir skambučius?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Išjunkite Molly žinutes ir skambučius išsiregistruodami iš serverio. Norėdami vėl jais naudotis, jūs turėsite iš naujo užregistruoti savo telefono numerį.</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Išregistruojama iš Signal-LTS žinučių ir skambučių…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Išjungti Signal-LTS žinutes ir skambučius?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Išjunkite Signal-LTS žinutes ir skambučius išsiregistruodami iš serverio. Norėdami vėl jais naudotis, jūs turėsite iš naujo užregistruoti savo telefono numerį.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">Klaida prisijungiant prie serverio!</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">SMS įjungta</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">Prilieskite, kad pakeistumėte numatytąją SMS programėlę</string>
@@ -61,14 +61,14 @@
   <string name="AttachmentKeyboard_file">Failas</string>
   <string name="AttachmentKeyboard_contact">Adresatas</string>
   <string name="AttachmentKeyboard_location">Vieta</string>
-  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Molly reikia leidimo rodyti jūsų nuotraukas ir vaizdo įrašus.</string>
+  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Signal-LTS reikia leidimo rodyti jūsų nuotraukas ir vaizdo įrašus.</string>
   <string name="AttachmentKeyboard_give_access">Suteikti prieigą</string>
   <string name="AttachmentKeyboard_payment">Mokėjimas</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">Nerasta programėlė medijos pasirinkimui.</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Norint pridėti nuotraukas, vaizdo įrašus ar garsą, Molly reikia saugyklos leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymų meniu, pasirinkite „Leidimai“ ir įjunkite „Saugyklą“.</string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Norint pridėti kontaktinę informaciją, Molly reikia adresatų leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymų meniu, pasirinkite „Leidimai“ ir įjunkite „Adresatus“.</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Norint pridėti vietą, Molly reikia vietos leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymų meniu, pasirinkite „Leidimai“ ir įjunkite „Vietą“.</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Norint pridėti nuotraukas, vaizdo įrašus ar garsą, Signal-LTS reikia saugyklos leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymų meniu, pasirinkite „Leidimai“ ir įjunkite „Saugyklą“.</string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Norint pridėti kontaktinę informaciją, Signal-LTS reikia adresatų leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymų meniu, pasirinkite „Leidimai“ ir įjunkite „Adresatus“.</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Norint pridėti vietą, Signal-LTS reikia vietos leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymų meniu, pasirinkite „Leidimai“ ir įjunkite „Vietą“.</string>
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">Nusiunčiama medija…</string>
   <string name="AttachmentUploadJob_compressing_video_start">Glaudinamas vaizdo įrašas…</string>
@@ -119,14 +119,14 @@
   <string name="CameraContacts_no_signal_contacts">Nėra Signal adresatų</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">Galite naudoti kameros mygtuką tik tam, kad siųstumėte nuotraukas Signal adresatams.</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">Nerandate ieškomo žmogaus?</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">Pakvieskite adresatą prisijungti prie Molly</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">Pakvieskite adresatą prisijungti prie Signal-LTS</string>
   <string name="CameraContacts__menu_search">Ieškoti</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">Šalinti</string>
   <string name="ClearProfileActivity_remove_profile_photo">Šalinti profilio nuotrauką?</string>
   <string name="ClearProfileActivity_remove_group_photo">Šalinti grupės nuotrauką?</string>
   <!--ClientDeprecatedActivity-->
-  <string name="ClientDeprecatedActivity_update_signal">Atnaujinti Molly</string>
+  <string name="ClientDeprecatedActivity_update_signal">Atnaujinti Signal-LTS</string>
   <string name="ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported">Ši programėlės versija daugiau nebepalaikoma. Norėdami ir toliau siųsti bei gauti žinutes, atnaujinkite programėlę iki naujausios versijos.</string>
   <string name="ClientDeprecatedActivity_update">Atnaujinti</string>
   <string name="ClientDeprecatedActivity_dont_update">Neatnaujinti</string>
@@ -205,7 +205,7 @@
   <string name="ConversationActivity_transport_insecure_sms">Nesaugi SMS</string>
   <string name="ConversationActivity_transport_insecure_mms">Nesaugi MMS</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">Persijunkime į Molly %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">Persijunkime į Signal-LTS %1$s</string>
   <string name="ConversationActivity_specify_recipient">Pasirinkite adresatą</string>
   <string name="ConversationActivity_unblock">Atblokuoti</string>
   <string name="ConversationActivity_attachment_exceeds_size_limits">Priedas viršija jūsų siunčiamos žinutės tipui leidžiamą dydį.</string>
@@ -214,15 +214,15 @@
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">Nėra prieinamos programėlės, kuri galėtų apdoroti šią nuorodą jūsų įrenginyje.</string>
   <string name="ConversationActivity_your_request_to_join_has_been_sent_to_the_group_admin">Jūsų prašymas prisijungti prie grupės buvo išsiųstas grupės administratoriui. Jums bus pranešta, kai jis atliks tam tikrus veiksmus.</string>
   <string name="ConversationActivity_cancel_request">Panaikinti prašymą</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Norėdami siųsti garso žinutes, leiskite Molly prieigą prie mikrofono.</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Norint siųsti garso žinutes, Molly reikia mikrofono leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymus, pasirinkite „Leidimai“ ir įjunkite „Mikrofoną“.</string>
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Norint skambinti %s, programai Molly reikia mikrofono ir kameros leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymus, pasirinkite „Leidimai“ ir įjunkite „Mikrofoną“ ir „Kamerą“.</string>
-  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Norėdami fotografuoti ir filmuoti vaizdo įrašus, leiskite Molly prieigą prie kameros.</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Norint fotografuoti, Molly reikia kameros leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymų meniu, pasirinkite „Leidimai“ ir įjunkite „Kamerą“.</string>
-  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Norint fotografuoti ar filmuoti, Molly reikalinga prieiga prie kameros</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Norėdami siųsti garso žinutes, leiskite Signal-LTS prieigą prie mikrofono.</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Norint siųsti garso žinutes, Signal-LTS reikia mikrofono leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymus, pasirinkite „Leidimai“ ir įjunkite „Mikrofoną“.</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Norint skambinti %s, programai Signal-LTS reikia mikrofono ir kameros leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymus, pasirinkite „Leidimai“ ir įjunkite „Mikrofoną“ ir „Kamerą“.</string>
+  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Norėdami fotografuoti ir filmuoti vaizdo įrašus, leiskite Signal-LTS prieigą prie kameros.</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Norint fotografuoti, Signal-LTS reikia kameros leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymų meniu, pasirinkite „Leidimai“ ir įjunkite „Kamerą“.</string>
+  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Norint fotografuoti ar filmuoti, Signal-LTS reikalinga prieiga prie kameros</string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Norėdami įrašinėti vaizdo įrašus su garsu, įjunkite prieigą prie mikrofono.</string>
-  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Norint įrašinėti vaizdo įrašus, Molly reikia mikrofono leidimo, tačiau jis buvo uždraustas. Pereikite į programėlės nustatymus, pasirinkite „Leidimai“ ir įjunkite „Mikrofoną“ ir „Kamerą“.</string>
-  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Norint įrašinėti vaizdo įrašus, Molly reikalingas mikrofono leidimas.</string>
+  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Norint įrašinėti vaizdo įrašus, Signal-LTS reikia mikrofono leidimo, tačiau jis buvo uždraustas. Pereikite į programėlės nustatymus, pasirinkite „Leidimai“ ir įjunkite „Mikrofoną“ ir „Kamerą“.</string>
+  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Norint įrašinėti vaizdo įrašus, Signal-LTS reikalingas mikrofono leidimas.</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">Signal negali siųsti SMS/MMS žinučių, nes ji nėra jūsų numatytoji SMS programėlė. Ar norėtumėte tai pakeisti savo Android nustatymuose?</string>
   <string name="ConversationActivity_yes">Taip</string>
@@ -238,7 +238,7 @@
   <string name="ConversationActivity_you_will_leave_this_group_and_it_will_be_deleted_from_all_of_your_devices">Jūs išeisite iš šios grupės ir ji bus ištrinta iš visų jūsų įrenginių.</string>
   <string name="ConversationActivity_delete">Ištrinti</string>
   <string name="ConversationActivity_delete_and_leave">Ištrinti ir išeiti</string>
-  <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">Norint skambinti %1$s, Molly reikia prieigos prie jūsų mikrofono</string>
+  <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">Norint skambinti %1$s, Signal-LTS reikia prieigos prie jūsų mikrofono</string>
   <string name="ConversationActivity__more_options_now_in_group_settings">Dabar, daugiau parinkčių „Grupės nustatymuose“</string>
   <string name="ConversationActivity_join">Prisijungti</string>
   <string name="ConversationActivity_full">Pilnas</string>
@@ -307,7 +307,7 @@
   <string name="ConversationFragment__d_group_members_have_the_same_name">%1$d grupės nariai(-ių) turi tokį patį vardą.</string>
   <string name="ConversationFragment__tap_to_review">Bakstelėkite, norėdami peržiūrėti</string>
   <string name="ConversationFragment__review_requests_carefully">Atidžiai peržiūrėkite prašymus</string>
-  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Molly rado kitą adresatą tokiu pačiu vardu.</string>
+  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Signal-LTS rado kitą adresatą tokiu pačiu vardu.</string>
   <string name="ConversationFragment_contact_us">Susisiekite su mumis</string>
   <string name="ConversationFragment_verify">Patvirtinti</string>
   <string name="ConversationFragment_not_now">Ne dabar</string>
@@ -379,11 +379,11 @@
   <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Išbandyti savo atsarginės kopijos slaptafrazę ir patikrinti ar ji sutampa</string>
   <string name="BackupsPreferenceFragment__turn_on">Įjungti</string>
   <string name="BackupsPreferenceFragment__turn_off">Išjungti</string>
-  <string name="BackupsPreferenceFragment__to_restore_a_backup">Norėdami atkurti atsarginę kopiją, įsidiekite naują Molly kopiją. Atverkite programėlę ir bakstelėkite ant „Atkurti atsarginę kopiją“, o tuomet nustatykite atsarginės kopijos failo vietą. %1$s</string>
+  <string name="BackupsPreferenceFragment__to_restore_a_backup">Norėdami atkurti atsarginę kopiją, įsidiekite naują Signal-LTS kopiją. Atverkite programėlę ir bakstelėkite ant „Atkurti atsarginę kopiją“, o tuomet nustatykite atsarginės kopijos failo vietą. %1$s</string>
   <string name="BackupsPreferenceFragment__learn_more">Sužinoti daugiau</string>
   <string name="BackupsPreferenceFragment__in_progress">Vykdoma…</string>
   <string name="BackupsPreferenceFragment__d_so_far">Jau %1$d…</string>
-  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Norint daryti atsargines kopijas, Molly reikia išorinės saugyklos leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymus, pasirinkite „Leidimai“ ir įjunkite „Saugyklą“.</string>
+  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Norint daryti atsargines kopijas, Signal-LTS reikia išorinės saugyklos leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymus, pasirinkite „Leidimai“ ir įjunkite „Saugyklą“.</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Naudojamas tinkintas: %s</string>
   <string name="CustomDefaultPreference_using_default">Naudojamas numatytasis: %s</string>
@@ -428,7 +428,7 @@
   <string name="GroupCallingMegaphone__open_a_new_group_to_start">Atverkite naująją grupę norėdami pradėti nemokamą šifruotą grupės skambutį</string>
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">Optimizuoti trūkstamoms „Play“ paslaugoms</string>
-  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Šis įrenginys nepalaiko „Play“ paslaugų. Bakstelėkite, norėdami išjungti sistemos baterijos optimizavimus, kurie neleidžia Molly gauti žinučių tol, kol įrenginys yra neaktyvus.</string>
+  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Šis įrenginys nepalaiko „Play“ paslaugų. Bakstelėkite, norėdami išjungti sistemos baterijos optimizavimus, kurie neleidžia Signal-LTS gauti žinučių tol, kol įrenginys yra neaktyvus.</string>
   <!--ExpiredBuildReminder-->
   <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Ši Signal versija nebegalioja. Norėdami siųsti ir gauti žinutes, atnaujinkite programėlę dabar.</string>
   <string name="ExpiredBuildReminder_update_now">Atnaujinti dabar</string>
@@ -445,7 +445,7 @@
   <string name="ShareActivity_multiple_attachments_are_only_supported">Keli priedai yra palaikomi tik paveikslams ir vaizdo įrašams</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Ilgalaikė Signal susisiekimo triktis!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly nepavyko prisiregistruoti prie „Google Play“ paslaugų. Molly žinutės ir skambučiai buvo išjungti, prašome pabandyti iš naujo registruotis skyrelyje Nustatymai (angl. Settings) &gt; Išplėstiniai (angl. Advanced).</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal-LTS nepavyko prisiregistruoti prie „Google Play“ paslaugų. Signal-LTS žinutės ir skambučiai buvo išjungti, prašome pabandyti iš naujo registruotis skyrelyje Nustatymai (angl. Settings) &gt; Išplėstiniai (angl. Advanced).</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">Klaida, gaunant pilnos raiškos GIF</string>
   <!--GiphyFragmentPageAdapter-->
@@ -819,7 +819,7 @@
   <string name="InviteActivity_cancel">Atsisakyti</string>
   <string name="InviteActivity_sending">Siunčiama…</string>
   <string name="InviteActivity_invitations_sent">Pakvietimai išsiųsti!</string>
-  <string name="InviteActivity_invite_to_signal">Pakviesti į Molly</string>
+  <string name="InviteActivity_invite_to_signal">Pakviesti į Signal-LTS</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">SIŲSTI SMS %d DRAUGUI</item>
     <item quantity="few">SIŲSTI SMS %d DRAUGAMS</item>
@@ -832,7 +832,7 @@
     <item quantity="many">Siųsti %d SMS pakvietimų?</item>
     <item quantity="other">Siųsti %d SMS pakvietimų?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">Persijunkime į Molly: %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">Persijunkime į Signal-LTS: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Atrodo, kad neturite programėlių su kuriomis bendrinti.</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Draugai neleidžia draugams kalbėtis nešifruotai.</string>
   <!--LearnMoreTextView-->
@@ -842,7 +842,7 @@
   <string name="LongMessageActivity_message_from_s">Žinutė nuo %1$s</string>
   <string name="LongMessageActivity_your_message">Jūsų žinutė</string>
   <!--MessageRetrievalService-->
-  <string name="MessageRetrievalService_signal">Molly</string>
+  <string name="MessageRetrievalService_signal">Signal-LTS</string>
   <string name="MessageRetrievalService_background_connection_enabled">Foninis ryšys įjungtas</string>
   <!--MmsDownloader-->
   <string name="MmsDownloader_error_reading_mms_settings">Klaida, skaitant belaidžio tiekėjo MMS nustatymus</string>
@@ -938,8 +938,8 @@
   <string name="MediaSendActivity_message_to_s">Žinutė skirta %s</string>
   <string name="MediaSendActivity_message">Žinutė</string>
   <string name="MediaSendActivity_select_recipients">Pasirinkti gavėjus</string>
-  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Norint rodyti jūsų adresatus, Molly reikia prieigos prie jų.</string>
-  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Norint rodyti jūsų adresatus, Molly reikia adresatų leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymų meniu, pasirinkite „Leidimai“ ir įjunkite „Adresatus“.</string>
+  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Norint rodyti jūsų adresatus, Signal-LTS reikia prieigos prie jų.</string>
+  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Norint rodyti jūsų adresatus, Signal-LTS reikia adresatų leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymų meniu, pasirinkite „Leidimai“ ir įjunkite „Adresatus“.</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="one">Jūs negalite bendrinti daugiau nei %d elementą.</item>
     <item quantity="few">Jūs negalite bendrinti daugiau nei %d elementų.</item>
@@ -1211,7 +1211,7 @@
   <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">Atleiskite, tai nėra teisingas įrenginio nuorodos QR kodas.</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">Susieti Signal įrenginį?</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Atrodo, kad bandote susieti Signal įrenginį, naudodami trečiųjų šalių skenerį. Jūsų saugumui, dar kartą nuskenuokite kodą, naudodami Signal.</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Norint skenuoti QR kodą, Molly reikia kameros leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymų meniu, pasirinkite „Leidimai“ ir įjunkite „Kamerą“.</string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Norint skenuoti QR kodą, Signal-LTS reikia kameros leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymų meniu, pasirinkite „Leidimai“ ir įjunkite „Kamerą“.</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Nepavyksta nuskenuoti QR kodo be kameros leidimo</string>
   <!--OutdatedBuildReminder-->
   <string name="OutdatedBuildReminder_update_now">Atnaujinti dabar</string>
@@ -1224,10 +1224,10 @@
   </plurals>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">Įveskite slaptafrazę</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Molly piktograma</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Signal-LTS piktograma</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">Pateikti slaptafrazę</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Neteisinga slaptafrazė!</string>
-  <string name="PassphrasePromptActivity_unlock_signal">Atrakinti Molly</string>
+  <string name="PassphrasePromptActivity_unlock_signal">Atrakinti Signal-LTS</string>
   <string name="PassphrasePromptActivity_signal_android_lock_screen">Signal Android - Ekrano užraktas</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">Žemėlapis</string>
@@ -1276,7 +1276,7 @@
   <string name="ReactionsRecipientAdapter_you">Jūs</string>
   <!--RecaptchaRequiredBottomSheetFragment-->
   <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">Patvirtinkite, norėdami tęsti susirašinėjimą</string>
-  <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Siekdami neleisti brukalo Molly programėlėje, prašome jūsų užbaigti patvirtinimą.</string>
+  <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Siekdami neleisti brukalo Signal-LTS programėlėje, prašome jūsų užbaigti patvirtinimą.</string>
   <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">Po patvirtinimo galėsite tęsti susirašinėjimą. Visos pristabdytos žinutės bus automatiškai išsiųstos.</string>
   <!--Recipient-->
   <string name="Recipient_you">Jūs</string>
@@ -1297,8 +1297,8 @@
   <string name="RedPhone_got_it">Supratau</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Bakstelėkite čia, norėdami įjungti savo vaizdą</string>
-  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Norint skambinti %1$s, Molly reikia prieigos prie jūsų kameros</string>
-  <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
+  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Norint skambinti %1$s, Signal-LTS reikia prieigos prie jūsų kameros</string>
+  <string name="WebRtcCallActivity__signal_s">Signal-LTS %1$s</string>
   <string name="WebRtcCallActivity__calling">Skambinama…</string>
   <!--WebRtcCallView-->
   <string name="WebRtcCallView__signal_voice_call">Signal balso skambutis…</string>
@@ -1365,13 +1365,13 @@
   <string name="RegistrationActivity_is_your_phone_number_above_correct">Ar jūsų telefono numeris aukščiau yra teisingas?</string>
   <string name="RegistrationActivity_edit_number">Taisyti numerį</string>
   <string name="RegistrationActivity_missing_google_play_services">Trūksta „Google Play“ paslaugų</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Šiame įrenginyje nėra „Google Play“ paslaugų. Jūs vis tiek galite naudoti Molly, tačiau tokia konfigūracija gali sąlygoti mažesnį patikimumą ir našumą.\n\nJeigu jūs nesate pažengęs naudotojas, nenaudojate atsarginių dalių Android ROM ar manote, jog matote tai per klaidą, tuomet pagalbai ir nesklandumų šalinimui susisiekite su support@molly.im.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Šiame įrenginyje nėra „Google Play“ paslaugų. Jūs vis tiek galite naudoti Signal-LTS, tačiau tokia konfigūracija gali sąlygoti mažesnį patikimumą ir našumą.\n\nJeigu jūs nesate pažengęs naudotojas, nenaudojate atsarginių dalių Android ROM ar manote, jog matote tai per klaidą, tuomet pagalbai ir nesklandumų šalinimui susisiekite su support@Signal-LTS.im.</string>
   <string name="RegistrationActivity_i_understand">Aš suprantu</string>
   <string name="RegistrationActivity_play_services_error">„Play“ paslaugų klaida</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">„Google Play“ paslaugos yra atnaujinamos arba laikinai neprieinamos. Prašome bandyti dar kartą.</string>
   <string name="RegistrationActivity_terms_and_privacy">Sąlygos ir Privatumo politika</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Norinti susisiekti su draugais, keistis žinutėmis ir saugiai skambinti, Molly reikia prieigos prie jūsų adresatų ir medijos</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Norinti susisiekti su draugais, keistis žinutėmis ir saugiai skambinti, Molly reikia prieigos prie jūsų adresatų</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Norinti susisiekti su draugais, keistis žinutėmis ir saugiai skambinti, Signal-LTS reikia prieigos prie jūsų adresatų ir medijos</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Norinti susisiekti su draugais, keistis žinutėmis ir saugiai skambinti, Signal-LTS reikia prieigos prie jūsų adresatų</string>
   <string name="RegistrationActivity_rate_limited_to_service">Atlikote per daug bandymų užregistruoti šį numerį. Vėliau bandykite dar kartą.</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">Nepavyksta prisijungti prie paslaugos. Patikrinkite tinklo ryšį ir bandykite dar kartą.</string>
   <plurals name="RegistrationActivity_debug_log_hint">
@@ -1411,12 +1411,12 @@
   <!--ShakeToReport-->
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">Pridėti į adresatus</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Pakviesti į Molly</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Pakviesti į Signal-LTS</string>
   <string name="SharedContactDetailsActivity_signal_message">Signal žinutė</string>
   <string name="SharedContactDetailsActivity_signal_call">Signal skambutis</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">Pridėti į adresatus</string>
-  <string name="SharedContactView_invite_to_signal">Pakviesti į Molly</string>
+  <string name="SharedContactView_invite_to_signal">Pakviesti į Signal-LTS</string>
   <string name="SharedContactView_message">Signal žinutė</string>
   <!--SignalPinReminders-->
   <string name="SignalPinReminders_well_remind_you_again_later">Vėliau priminsime jums dar kartą.</string>
@@ -1474,8 +1474,8 @@
   <string name="SupportEmailUtil_filter">Filtras:</string>
   <string name="SupportEmailUtil_device_info">Įrenginio informacija:</string>
   <string name="SupportEmailUtil_android_version">Android versija:</string>
-  <string name="SupportEmailUtil_signal_version">Molly versija:</string>
-  <string name="SupportEmailUtil_signal_package">Molly paketas:</string>
+  <string name="SupportEmailUtil_signal_version">Signal-LTS versija:</string>
+  <string name="SupportEmailUtil_signal_package">Signal-LTS paketas:</string>
   <string name="SupportEmailUtil_registration_lock">Registracijos užraktas:</string>
   <string name="SupportEmailUtil_locale">Lokalė:</string>
   <!--ThreadRecord-->
@@ -1511,8 +1511,8 @@
   <string name="ThreadRecord_video">Vaizdo įrašai</string>
   <string name="ThreadRecord_chat_session_refreshed">Pokalbio seansas atnaujintas</string>
   <!--UpdateApkReadyListener-->
-  <string name="UpdateApkReadyListener_Signal_update">Molly atnaujinimas</string>
-  <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Yra prieinama nauja Molly versija, bakstelėkite, norėdami atnaujinti</string>
+  <string name="UpdateApkReadyListener_Signal_update">Signal-LTS atnaujinimas</string>
+  <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Yra prieinama nauja Signal-LTS versija, bakstelėkite, norėdami atnaujinti</string>
   <!--UntrustedSendDialog-->
   <string name="UntrustedSendDialog_send_message">Siųsti žinutę?</string>
   <string name="UntrustedSendDialog_send">Siųsti</string>
@@ -1546,7 +1546,7 @@
   <string name="VerifyIdentityActivity_our_signal_safety_number">Mūsų Signal saugumo numeris:</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">Atrodo, kad neturite programėlių su kuriomis dalintis.</string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">Iškarpinėje palyginimui nebuvo rasta jokio saugumo numerio</string>
-  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Norint skenuoti QR kodą, Molly reikia kameros leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymų meniu, pasirinkite „Leidimai“ ir įjunkite „Kamerą“.</string>
+  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Norint skenuoti QR kodą, Signal-LTS reikia kameros leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymų meniu, pasirinkite „Leidimai“ ir įjunkite „Kamerą“.</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">Nepavyksta nuskenuoti QR kodo be kameros leidimo</string>
   <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">Norėdami matyti naudotojo %1$s saugumo numerį, iš pradžių, turite apsikeisti su juo žinutėmis.</string>
   <!--ViewOnceMessageActivity-->
@@ -1565,13 +1565,13 @@
   <string name="ApplicationMigrationService_system_database_import_is_complete">Sistemos duomenų bazės importavimas užbaigtas.</string>
   <!--KeyCachingService-->
   <string name="KeyCachingService_signal_passphrase_cached">Prilieskite, kad atvertumėte.</string>
-  <string name="KeyCachingService_passphrase_cached">Molly yra atrakinta</string>
-  <string name="KeyCachingService_lock">Užrakinti Molly</string>
+  <string name="KeyCachingService_passphrase_cached">Signal-LTS yra atrakinta</string>
+  <string name="KeyCachingService_lock">Užrakinti Signal-LTS</string>
   <!--MediaPreviewActivity-->
   <string name="MediaPreviewActivity_you">Jūs</string>
   <string name="MediaPreviewActivity_unssuported_media_type">Nepalaikomas medijos tipas</string>
   <string name="MediaPreviewActivity_draft">Juodraštis</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Norint įrašyti į išorinę saugyklą, Molly reikia saugyklos leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymus, pasirinkite „Leidimai“ ir įjunkite „Saugyklą“.</string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Norint įrašyti į išorinę saugyklą, Signal-LTS reikia saugyklos leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymus, pasirinkite „Leidimai“ ir įjunkite „Saugyklą“.</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">Nepavyksta įrašyti į išorinę saugyklą be leidimų</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">Ištrinti žinutę?</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">Tai visiems laikams ištrins šią žinutę.</string>
@@ -1586,7 +1586,7 @@
   <string name="MessageNotifier_failed_to_deliver_message">Nepavyko pristatyti žinutės.</string>
   <string name="MessageNotifier_error_delivering_message">Klaida, pristatant žinutę.</string>
   <string name="MessageNotifier_message_delivery_paused">Žinučių pristatymas pristabdytas.</string>
-  <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Patvirtinkite, norėdami tęsti susirašinėjimą per Molly.</string>
+  <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Patvirtinkite, norėdami tęsti susirašinėjimą per Signal-LTS.</string>
   <string name="MessageNotifier_mark_all_as_read">Žymėti visas kaip skaitytas</string>
   <string name="MessageNotifier_mark_read">Žymėti kaip skaitytą</string>
   <string name="MessageNotifier_turn_off_these_notifications">Išjungti šiuos pranešimus</string>
@@ -1596,7 +1596,7 @@
   <string name="MessageNotifier_signal_message">Signal žinutė</string>
   <string name="MessageNotifier_unsecured_sms">Neapsaugota SMS</string>
   <string name="MessageNotifier_you_may_have_new_messages">Gali būti, kad gavote naujų žinučių</string>
-  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Atverkite Molly, norėdami patikrinti paskiausius pranešimus.</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Atverkite Signal-LTS, norėdami patikrinti paskiausius pranešimus.</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">Adresatas</string>
   <string name="MessageNotifier_reacted_s_to_s">Sureagavo %1$s į: „%2$s“.</string>
@@ -1623,7 +1623,7 @@
   <string name="NotificationChannels__no_activity_available_to_open_notification_channel_settings">Nėra prieinamos veiklos, kad būtų atverti pranešimų kanalo nustatymai.</string>
   <!--ProfileEditNameFragment-->
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Spartusis atsakymas neprieinamas, kai Molly yra užrakinta!</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Spartusis atsakymas neprieinamas, kai Signal-LTS yra užrakinta!</string>
   <string name="QuickResponseService_problem_sending_message">Problemos siunčiant žinutę!</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">Įrašyta į %s</string>
@@ -1634,7 +1634,7 @@
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">Neteisingas šaukinys</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Signal-LTS</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Nauja žinutė</string>
   <string name="SingleRecipientNotificationBuilder_message_request">Žinutės užklausa</string>
   <string name="SingleRecipientNotificationBuilder_you">Jūs</string>
@@ -1652,8 +1652,8 @@
   <string name="UnauthorizedReminder_device_no_longer_registered">Įrenginys daugiau nebėra registruotas</string>
   <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Tai yra tikėtina, nes registravote savo telefono numerį su Signal kitame įrenginyje. Bakstelėkite, norėdami registruoti iš naujo.</string>
   <!--WebRtcCallActivity-->
-  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Norėdami atsiliepti į skambutį nuo %s, suteikite Molly prieigą prie mikrofono.</string>
-  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Norint skambinti ar gauti skambučius, Molly reikia mikrofono ir kameros leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymus, pasirinkite „Leidimai“ ir įjunkite „Mikrofoną“ ir „Kamerą“.</string>
+  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Norėdami atsiliepti į skambutį nuo %s, suteikite Signal-LTS prieigą prie mikrofono.</string>
+  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Norint skambinti ar gauti skambučius, Signal-LTS reikia mikrofono ir kameros leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymus, pasirinkite „Leidimai“ ir įjunkite „Mikrofoną“ ir „Kamerą“.</string>
   <string name="WebRtcCallActivity__answered_on_a_linked_device">Atsiliepta susietame įrenginyje.</string>
   <string name="WebRtcCallActivity__declined_on_a_linked_device">Atmesta susietame įrenginyje.</string>
   <string name="WebRtcCallActivity__busy_on_a_linked_device">Užimta susietame įrenginyje.</string>
@@ -1677,7 +1677,7 @@
   <string name="change_passphrase_activity__repeat_new_passphrase">Pakartokite naują slaptafrazę</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">Įveskite vardą ar numerį</string>
-  <string name="contact_selection_activity__invite_to_signal">Pakviesti į Molly</string>
+  <string name="contact_selection_activity__invite_to_signal">Pakviesti į Signal-LTS</string>
   <string name="contact_selection_activity__new_group">Nauja grupė</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">Išvalyti įvestą tekstą</string>
@@ -1689,7 +1689,7 @@
   <!--single_contact_selection_activity-->
   <string name="SingleContactSelectionActivity_contact_photo">Adresato nuotrauka</string>
   <!--ContactSelectionListFragment-->
-  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Norint rodyti jūsų adresatus, Molly reikia adresatų leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymų meniu, pasirinkite „Leidimai“ ir įjunkite „Adresatus“.</string>
+  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Norint rodyti jūsų adresatus, Signal-LTS reikia adresatų leidimo, tačiau jis buvo visam laikui uždraustas. Pereikite į programėlės nustatymų meniu, pasirinkite „Leidimai“ ir įjunkite „Adresatus“.</string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Klaida gaunant adresatus, patikrinkite tinklo ryšį</string>
   <string name="ContactSelectionListFragment_username_not_found">Naudotojo vardas nerastas</string>
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">„%1$s“ nėra Signal naudotojas. Patikrinkite naudotojo vardą ir bandykite dar kartą.</string>
@@ -1705,7 +1705,7 @@
     <item quantity="other">%1$d narys</item>
   </plurals>
   <!--contact_selection_list_fragment-->
-  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Norint rodyti jūsų adresatus, Molly reikia prieigos prie jų.</string>
+  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Norint rodyti jūsų adresatus, Signal-LTS reikia prieigos prie jų.</string>
   <string name="contact_selection_list_fragment__show_contacts">Rodyti adresatus</string>
   <!--contact_selection_list_item-->
   <plurals name="contact_selection_list_item__number_of_members">
@@ -2088,7 +2088,7 @@
   <string name="preferences__slow">Lėtas</string>
   <string name="preferences__help">Pagalba</string>
   <string name="preferences__advanced">Išplėstiniai</string>
-  <string name="preferences__donate_to_signal">Paaukokite Molly programėlei</string>
+  <string name="preferences__donate_to_signal">Paaukokite Signal-LTS programėlei</string>
   <string name="preferences__privacy">Privatumas</string>
   <string name="preferences__mms_user_agent">MMS naudotojo agentas</string>
   <string name="preferences__advanced_mms_access_point_names">Rankiniai MMS nustatymai</string>
@@ -2217,7 +2217,7 @@
   <string name="PaymentsAllActivityFragment__sent">Išsiųsta</string>
   <string name="PaymentsAllActivityFragment__received">Gauta</string>
   <string name="PaymentsHomeFragment__introducing_payments">Pristatome mokėjimus (Beta)</string>
-  <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Naudoti Molly „MobileCoin“, naujos į privatumą sutelktos skaitmeninės valiutos, siuntimui ir gavimui. Aktyvuokite, norėdami pradėti.</string>
+  <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Naudoti Signal-LTS „MobileCoin“, naujos į privatumą sutelktos skaitmeninės valiutos, siuntimui ir gavimui. Aktyvuokite, norėdami pradėti.</string>
   <string name="PaymentsHomeFragment__activate_payments">Aktyvuoti mokėjimus</string>
   <string name="PaymentsHomeFragment__activating_payments">Aktyvuojami mokėjimai…</string>
   <string name="PaymentsHomeFragment__restore_payments_account">Atkurti mokėjimų paskyrą</string>
@@ -2244,17 +2244,17 @@
   <string name="PaymentsHomeFragment__payments_is_not_available_in_your_region">Mokėjimai yra neprieinami jūsų regione.</string>
   <string name="PaymentsHomeFragment__could_not_enable_payments">Nepavyko įjungti mokėjimų. Vėliau bandykite dar kartą.</string>
   <string name="PaymentsHomeFragment__deactivate_payments_question">Pasyvinti mokėjimus?</string>
-  <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">Pasyvinę mokėjimus, negalėsite Molly programėlėje siųsti ar gauti „MobileCoin“ valiutą.</string>
+  <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">Pasyvinę mokėjimus, negalėsite Signal-LTS programėlėje siųsti ar gauti „MobileCoin“ valiutą.</string>
   <string name="PaymentsHomeFragment__deactivate">Pasyvinti</string>
   <string name="PaymentsHomeFragment__continue">Tęsti</string>
   <string name="PaymentsHomeFragment__balance_is_not_currently_available">Šiuo metu likutis neprieinamas.</string>
   <string name="PaymentsHomeFragment__payments_deactivated">Mokėjimai yra pasyvinti.</string>
   <string name="PaymentsHomeFragment__payment_failed">Mokėjimas patyrė nesėkmę</string>
   <string name="PaymentsHomeFragment__details">Išsamesnė informacija</string>
-  <string name="PaymentsHomeFragment__you_can_use_signal_to_send">Galite naudoti Molly, kad siųstumėte ir gautumėte „MobileCoin“ valiutą. Visiems mokėjimams taikomos sąlygos, aprėpiančios naudojimąsi „MobileCoins“ valiuta ir „MobileCoin“ pinigine. Tai yra beta ypatybė, todėl galite susidurti su kai kuriomis problemomis, o jūsų prarastų mokėjimų ir likučių negalima bus atkurti. </string>
+  <string name="PaymentsHomeFragment__you_can_use_signal_to_send">Galite naudoti Signal-LTS, kad siųstumėte ir gautumėte „MobileCoin“ valiutą. Visiems mokėjimams taikomos sąlygos, aprėpiančios naudojimąsi „MobileCoins“ valiuta ir „MobileCoin“ pinigine. Tai yra beta ypatybė, todėl galite susidurti su kai kuriomis problemomis, o jūsų prarastų mokėjimų ir likučių negalima bus atkurti. </string>
   <string name="PaymentsHomeFragment__activate">Aktyvuoti</string>
   <string name="PaymentsHomeFragment__view_mobile_coin_terms">Rodyti „MobileCoin“ sąlygas</string>
-  <string name="PaymentsHomeFragment__payments_not_available">Mokėjimai Molly programėlėje daugiau nebeprieinami. Jūs vis dar galite pervesti lėšas į valiutos keitimo punktą, bet nebegalite siųsti ir gauti mokėjimų ar pridėti lėšų.</string>
+  <string name="PaymentsHomeFragment__payments_not_available">Mokėjimai Signal-LTS programėlėje daugiau nebeprieinami. Jūs vis dar galite pervesti lėšas į valiutos keitimo punktą, bet nebegalite siųsti ir gauti mokėjimų ar pridėti lėšų.</string>
   <!--PaymentsAddMoneyFragment-->
   <string name="PaymentsAddMoneyFragment__add_funds">Pridėti lėšų</string>
   <string name="PaymentsAddMoneyFragment__your_wallet_address">Jūsų piniginės adresas</string>
@@ -2291,10 +2291,10 @@
   <string name="PaymentsTransferFragment__next">Kitas</string>
   <string name="PaymentsTransferFragment__invalid_address">Neteisingas adresas</string>
   <string name="PaymentsTransferFragment__check_the_wallet_address">Patikrinkite piniginės, į kurią bandote pervesti, adresą ir bandykite dar kartą.</string>
-  <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">Negalite pervesti į savo asmeninės Molly piniginės adresą. Įveskite piniginės adresą iš paskyros, kuri yra palaikomame valiutos keitimo punkte.</string>
-  <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">Norint nuskenuoti QR kodą, Molly reikia prieigos prie kameros.</string>
-  <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Norint nuskenuoti QR kodą, Molly reikia kameros leidimo. Pereikite į Nustatymus, pasirinkite „Leidimai“ ir įjunkite „Kamerą“.</string>
-  <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">Norint nuskenuoti QR kodą, Molly reikia prieigos prie kameros.</string>
+  <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">Negalite pervesti į savo asmeninės Signal-LTS piniginės adresą. Įveskite piniginės adresą iš paskyros, kuri yra palaikomame valiutos keitimo punkte.</string>
+  <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">Norint nuskenuoti QR kodą, Signal-LTS reikia prieigos prie kameros.</string>
+  <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Norint nuskenuoti QR kodą, Signal-LTS reikia kameros leidimo. Pereikite į Nustatymus, pasirinkite „Leidimai“ ir įjunkite „Kamerą“.</string>
+  <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">Norint nuskenuoti QR kodą, Signal-LTS reikia prieigos prie kameros.</string>
   <string name="PaymentsTransferFragment__settings">Nustatymai</string>
   <!--PaymentsTransferQrScanFragment-->
   <string name="PaymentsTransferQrScanFragment__scan_address_qr_code">Skenuoti adreso QR kodą</string>
@@ -2669,7 +2669,7 @@
   <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">Atlikote per daug bandymų. Vėliau bandykite dar kartą.</string>
   <string name="RegistrationActivity_error_connecting_to_service">Klaida, jungiantis prie paslaugos</string>
   <string name="preferences_chats__backups">Atsarginės kopijos</string>
-  <string name="prompt_passphrase_activity__signal_is_locked">Molly yra užrakinta</string>
+  <string name="prompt_passphrase_activity__signal_is_locked">Signal-LTS yra užrakinta</string>
   <string name="prompt_passphrase_activity__tap_to_unlock">BAKSTELĖKITE, NORĖDAMI ATRAKINTI</string>
   <string name="Recipient_unknown">Nežinoma</string>
   <!--TransferOrRestoreFragment-->
@@ -2693,18 +2693,18 @@
   <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">Ruošiamasi prisijungti prie senojo „Android“ įrenginio…</string>
   <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">Dar minutėlę, netrukus turėtų būti paruošta</string>
   <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">Laukiama, kol prisijungs senasis „Android“ įrenginys…</string>
-  <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Molly yra reikalingas įrenginio vietos leidimas tam, kad galėtų atrasti ir prisijungti prie jūsų senojo „Android“ įrenginio.</string>
-  <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Molly reikia įjungtų vietos paslaugų, kad galėtų atrasti ir prisijungti prie jūsų senojo „Android“ įrenginio. </string>
-  <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Molly reikia įjungto belaidžio (Wi-Fi) ryšio, kad atrastų ir prisijungtų prie jūsų senojo „Android“ įrenginio. Belaidis (Wi-Fi) ryšys turi būti įjungtas, tačiau įrenginys neprivalo būti prisijungęs prie belaidžio (Wi-Fi) tinklo.</string>
-  <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Atleiskite, atrodo, kad šis įrenginys nepalaiko „Wi-Fi Direct“. Molly naudoja „Wi-Fi Direct“, kad atrastų ir prisijungtų prie jūsų senojo „Android“ įrenginio. Norėdami atkurti savo paskyrą iš senojo „Android“ įrenginio, vis dar galite atkurti atsarginę kopiją.</string>
+  <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Signal-LTS yra reikalingas įrenginio vietos leidimas tam, kad galėtų atrasti ir prisijungti prie jūsų senojo „Android“ įrenginio.</string>
+  <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Signal-LTS reikia įjungtų vietos paslaugų, kad galėtų atrasti ir prisijungti prie jūsų senojo „Android“ įrenginio. </string>
+  <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Signal-LTS reikia įjungto belaidžio (Wi-Fi) ryšio, kad atrastų ir prisijungtų prie jūsų senojo „Android“ įrenginio. Belaidis (Wi-Fi) ryšys turi būti įjungtas, tačiau įrenginys neprivalo būti prisijungęs prie belaidžio (Wi-Fi) tinklo.</string>
+  <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Atleiskite, atrodo, kad šis įrenginys nepalaiko „Wi-Fi Direct“. Signal-LTS naudoja „Wi-Fi Direct“, kad atrastų ir prisijungtų prie jūsų senojo „Android“ įrenginio. Norėdami atkurti savo paskyrą iš senojo „Android“ įrenginio, vis dar galite atkurti atsarginę kopiją.</string>
   <string name="NewDeviceTransferSetup__restore_a_backup">Atkurti atsarginę kopiją</string>
   <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Atsirado netikėta klaida, bandant prisijungti prie jūsų senojo „Android“ įrenginio.</string>
   <!--OldDeviceTransferSetupFragment-->
   <string name="OldDeviceTransferSetup__searching_for_new_android_device">Ieškoma naujojo „Android“ įrenginio…</string>
-  <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Molly yra reikalingas įrenginio vietos leidimas tam, kad galėtų atrasti ir prisijungti prie jūsų naujojo „Android“ įrenginio.</string>
-  <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Molly reikia įjungtų vietos paslaugų, kad galėtų atrasti ir prisijungti prie jūsų naujojo „Android“ įrenginio. </string>
-  <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Molly reikia įjungto belaidžio (Wi-Fi) ryšio, kad atrastų ir prisijungtų prie jūsų naujojo „Android“ įrenginio. Belaidis (Wi-Fi) ryšys turi būti įjungtas, tačiau įrenginys neprivalo būti prisijungęs prie belaidžio (Wi-Fi) tinklo.</string>
-  <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Atleiskite, atrodo, kad šis įrenginys nepalaiko „Wi-Fi Direct“. Molly naudoja „Wi-Fi Direct“, kad atrastų ir prisijungtų prie jūsų naujojo „Android“ įrenginio. Norėdami atkurti savo paskyrą naujajame „Android“ įrenginyje, vis dar galite padaryti atsarginę kopiją.</string>
+  <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Signal-LTS yra reikalingas įrenginio vietos leidimas tam, kad galėtų atrasti ir prisijungti prie jūsų naujojo „Android“ įrenginio.</string>
+  <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Signal-LTS reikia įjungtų vietos paslaugų, kad galėtų atrasti ir prisijungti prie jūsų naujojo „Android“ įrenginio. </string>
+  <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Signal-LTS reikia įjungto belaidžio (Wi-Fi) ryšio, kad atrastų ir prisijungtų prie jūsų naujojo „Android“ įrenginio. Belaidis (Wi-Fi) ryšys turi būti įjungtas, tačiau įrenginys neprivalo būti prisijungęs prie belaidžio (Wi-Fi) tinklo.</string>
+  <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Atleiskite, atrodo, kad šis įrenginys nepalaiko „Wi-Fi Direct“. Signal-LTS naudoja „Wi-Fi Direct“, kad atrastų ir prisijungtų prie jūsų naujojo „Android“ įrenginio. Norėdami atkurti savo paskyrą naujajame „Android“ įrenginyje, vis dar galite padaryti atsarginę kopiją.</string>
   <string name="OldDeviceTransferSetup__create_a_backup">Daryti atsarginę kopiją</string>
   <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Atsirado netikėta klaida, bandant prisijungti prie jūsų naujojo „Android“ įrenginio.</string>
   <!--DeviceTransferSetupFragment-->
@@ -2742,7 +2742,7 @@
   <string name="NewDeviceTransfer__cannot_transfer_from_a_newer_version_of_signal">Negalima perkelti iš naujesnių Signal versijų</string>
   <!--DeviceTransferFragment-->
   <string name="DeviceTransfer__transferring_data">Duomenų perkėlimas</string>
-  <string name="DeviceTransfer__keep_both_devices_near_each_other">Laikykite įrenginius vieną šalia kito. Neišjunkite įrenginių ir palikite Molly atvertą. Perkėlimai yra šifruoti ištisiniu būdu.</string>
+  <string name="DeviceTransfer__keep_both_devices_near_each_other">Laikykite įrenginius vieną šalia kito. Neišjunkite įrenginių ir palikite Signal-LTS atvertą. Perkėlimai yra šifruoti ištisiniu būdu.</string>
   <string name="DeviceTransfer__d_messages_so_far">Jau %1$d žinučių…</string>
   <string name="DeviceTransfer__cancel">Atsisakyti</string>
   <string name="DeviceTransfer__try_again">Bandykite dar kartą</string>
@@ -2755,7 +2755,7 @@
   <string name="OldDeviceTransferInstructions__transfer_account">Perkelti paskyrą</string>
   <string name="OldDeviceTransferInstructions__you_can_transfer_your_signal_account_when_setting_up_signal_on_a_new_android_device">Galite perkelti savo Signal paskyrą, kai naujajame „Android“ įrenginyje nusistatote Signal. Prieš tęsdami:</string>
   <string name="OldDeviceTransferInstructions__first_bullet">1.</string>
-  <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Savo naujajame „Android“ įrenginyje atsisiųskite Molly</string>
+  <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Savo naujajame „Android“ įrenginyje atsisiųskite Signal-LTS</string>
   <string name="OldDeviceTransferInstructions__second_bullet">2.</string>
   <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">Bakstelėkite ant „Perkelti ar atkurti paskyrą“</string>
   <string name="OldDeviceTransferInstructions__third_bullet">3.</string>
@@ -2821,7 +2821,7 @@
   <!--GroupLinkBottomSheetDialogFragment-->
   <string name="GroupLinkBottomSheet_share_hint_requiring_approval">Kiekvienas, turintis šią nuorodą, gali peržiūrėti grupės pavadinimą ir nuotrauką bei gali prašyti prisijungti prie grupės. Bendrinkite nuorodą su žmonėmis, kuriais pasitikite.</string>
   <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">Kiekvienas, turintis šią nuorodą, gali peržiūrėti grupės pavadinimą ir nuotrauką bei gali prisijungti prie grupės. Bendrinkite nuorodą su žmonėmis, kuriais pasitikite.</string>
-  <string name="GroupLinkBottomSheet_share_via_signal">Bendrinti per Molly</string>
+  <string name="GroupLinkBottomSheet_share_via_signal">Bendrinti per Signal-LTS</string>
   <string name="GroupLinkBottomSheet_copy">Kopijuoti</string>
   <string name="GroupLinkBottomSheet_qr_code">QR kodas</string>
   <string name="GroupLinkBottomSheet_share">Bendrinti</string>
@@ -2952,7 +2952,7 @@
   <string name="payment_info_card_about_mobilecoin">Apie „MobileCoin“</string>
   <string name="payment_info_card_mobilecoin_is_a_new_privacy_focused_digital_currency">„MobileCoin“ yra nauja į privatumą sutelkta skaitmeninė valiuta.</string>
   <string name="payment_info_card_adding_funds">Lėšų pridėjimas</string>
-  <string name="payment_info_card_you_can_add_funds_for_use_in">Galite pridėti lėšas, skirtas naudoti Molly programėlėje, išsiųsdami „MobileCoin“ valiutą į savo piniginės adresą.</string>
+  <string name="payment_info_card_you_can_add_funds_for_use_in">Galite pridėti lėšas, skirtas naudoti Signal-LTS programėlėje, išsiųsdami „MobileCoin“ valiutą į savo piniginės adresą.</string>
   <string name="payment_info_card_cashing_out">Pinigų išgryninimas</string>
   <string name="payment_info_card_you_can_cash_out_mobilecoin">„MobileCoin“ valiutą bet kuriuo metu galite išgryninti valiutos keitimo punktuose, kurie palaiko „MobileCoin“. Tiesiog, atlikite pervedimą į savo sąskaitą tame valiutos keitimo punkte.</string>
   <string name="payment_info_card_hide_this_card">Slėpti šią kortelę?</string>
@@ -2966,12 +2966,12 @@
   <!--DeactivateWalletFragment-->
   <string name="DeactivateWalletFragment__deactivate_wallet">Pasyvinti piniginę</string>
   <string name="DeactivateWalletFragment__your_balance">Jūsų likutis</string>
-  <string name="DeactivateWalletFragment__its_recommended_that_you">Rekomenduojama, kad prieš pasyvindami mokėjimus, pervestumėte savo lėšas į kitos piniginės adresą. Jei dabar pasirinksite nepervesti lėšų, jos išliks jūsų piniginėje susietos su Molly tam atvejui, jei pasirinksite iš naujo aktyvuoti mokėjimus.</string>
+  <string name="DeactivateWalletFragment__its_recommended_that_you">Rekomenduojama, kad prieš pasyvindami mokėjimus, pervestumėte savo lėšas į kitos piniginės adresą. Jei dabar pasirinksite nepervesti lėšų, jos išliks jūsų piniginėje susietos su Signal-LTS tam atvejui, jei pasirinksite iš naujo aktyvuoti mokėjimus.</string>
   <string name="DeactivateWalletFragment__transfer_remaining_balance">Pervesti likusį likutį</string>
   <string name="DeactivateWalletFragment__deactivate_without_transferring">Pasyvinti be pervedimo</string>
   <string name="DeactivateWalletFragment__deactivate">Pasyvinti</string>
   <string name="DeactivateWalletFragment__deactivate_without_transferring_question">Pasyvinti be pervedimo?</string>
-  <string name="DeactivateWalletFragment__your_balance_will_remain">Jūsų likutis išliks jūsų piniginėje susietas su Molly tam atvejui, jei pasirinksite iš naujo aktyvuoti mokėjimus.</string>
+  <string name="DeactivateWalletFragment__your_balance_will_remain">Jūsų likutis išliks jūsų piniginėje susietas su Signal-LTS tam atvejui, jei pasirinksite iš naujo aktyvuoti mokėjimus.</string>
   <string name="DeactivateWalletFragment__error_deactivating_wallet">Klaida pasyvinant piniginę.</string>
   <!--PaymentsRecoveryStartFragment-->
   <string name="PaymentsRecoveryStartFragment__recovery_phrase">Atkūrimo frazė</string>

@@ -65,7 +65,7 @@
   <string name="AttachmentKeyboard_payment">Уплата</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">Нема апликације за избор медијума.</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly захтева дозовле за меморију како би могао слати фотографије, видео снимке или аудио снимке, али су трајно забрањене. Молимо Вас идите у мени за подешавања и дозволите приступ меморији.</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signal-LTS захтева дозовле за меморију како би могао слати фотографије, видео снимке или аудио снимке, али су трајно забрањене. Молимо Вас идите у мени за подешавања и дозволите приступ меморији.</string>
   <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Сигнал захтева приступ вашим контактима, али му је дозвола трајно забрањена. Молимо вас да у апликацији за подешавање телефона Сигналу дозволите пруиступ контактима.</string>
   <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Сигнал захтева приступ вашој локацији за додавање локације у порукама, али му је дозвола трајно забрањена. Молимо вас да у апликацији за подешавање телефона Сигналу дозволите пруиступ локацији.</string>
   <!--AttachmentUploadJob-->
@@ -118,14 +118,14 @@
   <string name="CameraContacts_no_signal_contacts">Немате Signal контаката</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">Можете користити дугме камере за слање фотографија само Signal контактима.</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">Не можете наћи оно што тражите?</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">Позовите контакт да се прикључи апликацији Molly</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">Позовите контакт да се прикључи апликацији Signal-LTS</string>
   <string name="CameraContacts__menu_search">Претрага</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">Уклони</string>
   <string name="ClearProfileActivity_remove_profile_photo">Да уклоним профилну слику?</string>
   <string name="ClearProfileActivity_remove_group_photo">Уклонити фотографију групе?</string>
   <!--ClientDeprecatedActivity-->
-  <string name="ClientDeprecatedActivity_update_signal">Ажурирај Molly</string>
+  <string name="ClientDeprecatedActivity_update_signal">Ажурирај Signal-LTS</string>
   <string name="ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported">Верзија ове апликације више није подржана. Да бисте наставили са слањем и примањем порука, ажурирајте апликацију на најновију верзију.</string>
   <string name="ClientDeprecatedActivity_update">Сачувај</string>
   <string name="ClientDeprecatedActivity_dont_update">Немој да ажурираш</string>
@@ -204,7 +204,7 @@
   <string name="ConversationActivity_transport_insecure_sms">Необезбеђени СМС</string>
   <string name="ConversationActivity_transport_insecure_mms">Необезбеђени ММС</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">Пребацимо се на Molly %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">Пребацимо се на Signal-LTS %1$s</string>
   <string name="ConversationActivity_specify_recipient">Одредите примаоца</string>
   <string name="ConversationActivity_unblock">Одблокирај</string>
   <string name="ConversationActivity_attachment_exceeds_size_limits">Прилог прекорачује ограничење величине за тип поруке коју шаљете.</string>
@@ -213,15 +213,15 @@
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">Нема апликације за руковање овом везом на вашем уређају.</string>
   <string name="ConversationActivity_your_request_to_join_has_been_sent_to_the_group_admin">Ваш захтев за придруживање је послат администратору групе. Бићете обавештени када администратори предузму мере.</string>
   <string name="ConversationActivity_cancel_request">Откажи захтев</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Да бисте послали аудио поруку, одобрите Molly-у дозволе за коришћење микрофона.</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly захтева дозволе за коришћење микрофона како би могао да шаље аудио поруке, али му је дозбола блокирана за стално. Молимо Вас да уђете у подешавања уређаја, изаберите „Апликације, затим „Дозволе“ и одобрите коришћење микрофона апликацији Molly.</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Да бисте послали аудио поруку, одобрите Signal-LTS-у дозволе за коришћење микрофона.</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Signal-LTS захтева дозволе за коришћење микрофона како би могао да шаље аудио поруке, али му је дозбола блокирана за стално. Молимо Вас да уђете у подешавања уређаја, изаберите „Апликације, затим „Дозволе“ и одобрите коришћење микрофона апликацији Signal-LTS.</string>
   <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Сигнал захтева приступ микрофону и камери да би успоставио позив са %s, али су му дозволе трајно забрањене. Молимо вас да у апликацији за подешавање телефона Сигналу дозволите пруиступ микрофону и камери.</string>
   <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Да бисте направили нову фотографију или видео запис, дозволите Сигналу да приступи камери.</string>
   <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Сигнал захтева приступ камери да би фотографисао и снимао, али су му дозволе трајно забрањене. Молимо вас да у апликацији за подешавање телефона Сигналу дозволите пруиступ камери.</string>
   <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Сигналу је потребан приступ камери да би фотографисао и снимао видео записе.</string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Омогућите приступ микрофону да бисте забележили видео са звуком.</string>
-  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Апликацији Molly су потребне дозволе за микрофон за снимање видео снимака, али су те дозволе одбијене. Наставите у подешавања апликације, одаберите „Дозволе“ и омогућите „Микрофон“ и „Камера“.</string>
-  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Апликацији Molly су потребне дозволе за микрофон за снимање видео снимака.</string>
+  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Апликацији Signal-LTS су потребне дозволе за микрофон за снимање видео снимака, али су те дозволе одбијене. Наставите у подешавања апликације, одаберите „Дозволе“ и омогућите „Микрофон“ и „Камера“.</string>
+  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Апликацији Signal-LTS су потребне дозволе за микрофон за снимање видео снимака.</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">Апликација Signal не може да шаље SMS/MMS поруке зато што није Ваша подразумевана апликација. Да ли бисте желели да ово промените у својим Android подешавањима?</string>
   <string name="ConversationActivity_yes">Да</string>
@@ -237,7 +237,7 @@
   <string name="ConversationActivity_you_will_leave_this_group_and_it_will_be_deleted_from_all_of_your_devices">Напустићете групу и преписка ће бити обрисана са ваших свих уређаја.</string>
   <string name="ConversationActivity_delete">Обриши</string>
   <string name="ConversationActivity_delete_and_leave">Избриши и напусти</string>
-  <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">Да бисте позвали контакт %1$s, апликацији Molly је потребан приступ Вашем микрофону.</string>
+  <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">Да бисте позвали контакт %1$s, апликацији Signal-LTS је потребан приступ Вашем микрофону.</string>
   <string name="ConversationActivity__more_options_now_in_group_settings">Сада више опција у „Поставке групе“</string>
   <string name="ConversationActivity_join">Придружи се</string>
   <string name="ConversationActivity_full">Пуно</string>
@@ -300,7 +300,7 @@
   <string name="ConversationFragment__d_group_members_have_the_same_name">%1$d чланова групе имају исти назив.</string>
   <string name="ConversationFragment__tap_to_review">Додирните за преглед</string>
   <string name="ConversationFragment__review_requests_carefully">Пажљиво прегледајте захтеве</string>
-  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Услуга Molly је пронашла други контакт са истим називом.</string>
+  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Услуга Signal-LTS је пронашла други контакт са истим називом.</string>
   <string name="ConversationFragment_contact_us">Контактирај нас</string>
   <string name="ConversationFragment_verify">Овери</string>
   <string name="ConversationFragment_not_now">Не сада</string>
@@ -368,11 +368,11 @@
   <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Тестирајте своју фразу за пролаз резервне копије и верификујте да ли се подудара</string>
   <string name="BackupsPreferenceFragment__turn_on">Укључи</string>
   <string name="BackupsPreferenceFragment__turn_off">Искључи</string>
-  <string name="BackupsPreferenceFragment__to_restore_a_backup">Да бисте вратили из резервне копије, инсталирајте нову копију апликације Molly. Отворите апликацију и додирните „Врати рез. копију“, а затим пронађите датотеку резервне копије. %1$s</string>
+  <string name="BackupsPreferenceFragment__to_restore_a_backup">Да бисте вратили из резервне копије, инсталирајте нову копију апликације Signal-LTS. Отворите апликацију и додирните „Врати рез. копију“, а затим пронађите датотеку резервне копије. %1$s</string>
   <string name="BackupsPreferenceFragment__learn_more">Сазнај више</string>
   <string name="BackupsPreferenceFragment__in_progress">У току…</string>
   <string name="BackupsPreferenceFragment__d_so_far">%1$d досад…</string>
-  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Апликација Molly захтева дозволу спољној меморији да би правила резервне копије, али је трајно одбијено. Наставите до подешавања апликације, одаберите „Дозволе“ и омогућите ставку „Меморија“.</string>
+  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Апликација Signal-LTS захтева дозволу спољној меморији да би правила резервне копије, али је трајно одбијено. Наставите до подешавања апликације, одаберите „Дозволе“ и омогућите ставку „Меморија“.</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Користим посебно: %s</string>
   <string name="CustomDefaultPreference_using_default">Користим подразумевано: %s</string>
@@ -417,7 +417,7 @@
   <string name="GroupCallingMegaphone__open_a_new_group_to_start">Отворите нову групу да бисте започели бесплатан шифровани групни позив</string>
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">Оптимизуј за недостајуће Плеј сервисе</string>
-  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Овај уређај не подржава Плеј сервисе. Тапните да искључите системску оптимизацију потрошње батерије која спречава добављање порука док је Molly неактиван.</string>
+  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Овај уређај не подржава Плеј сервисе. Тапните да искључите системску оптимизацију потрошње батерије која спречава добављање порука док је Signal-LTS неактиван.</string>
   <!--ExpiredBuildReminder-->
   <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Ова верзија апликације Signal је истекла. Ажурирајте сада да бисте слали и примали поруке.</string>
   <string name="ExpiredBuildReminder_update_now">Ажурирај сада</string>
@@ -433,7 +433,7 @@
   <string name="ShareActivity_multiple_attachments_are_only_supported">Вишеструки прилози су само подржани за слике и видео снимке</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Трајни неуспех комуникације Signal-a!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly није успео да се пријави на Гуглов Плеј сервис. Комуникација преко канала података је онемогућена, покушајте поново да се пријавите преко Поставке &gt; Напредно.</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal-LTS није успео да се пријави на Гуглов Плеј сервис. Комуникација преко канала података је онемогућена, покушајте поново да се пријавите преко Поставке &gt; Напредно.</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">Грешка при добављању ГИФ сличице пуне резолуције</string>
   <!--GiphyFragmentPageAdapter-->
@@ -782,7 +782,7 @@
   <string name="InviteActivity_cancel">Одустани</string>
   <string name="InviteActivity_sending">Шаље се…</string>
   <string name="InviteActivity_invitations_sent">Позивнице послате!</string>
-  <string name="InviteActivity_invite_to_signal">Слање позивнице за Molly</string>
+  <string name="InviteActivity_invite_to_signal">Слање позивнице за Signal-LTS</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">ПОШАЉИ СМС ЗА %d ПРИЈАТЕЉА</item>
     <item quantity="few">ПОШАЉИ СМС ЗА %d ПРИЈАТЕЉА</item>
@@ -793,7 +793,7 @@
     <item quantity="few">Послати %d СМС позивнице?</item>
     <item quantity="other">Послати %d СМС позивница?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">Пребацимо се на Molly: %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">Пребацимо се на Signal-LTS: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Изгледа да немате ниједну апликацију преко које бисте могли да делите.</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Пријатељи не допуштају пријатељима да ћаскају небезбедно.</string>
   <!--LearnMoreTextView-->
@@ -803,7 +803,7 @@
   <string name="LongMessageActivity_message_from_s">Порука од %1$s</string>
   <string name="LongMessageActivity_your_message">Ваша порука</string>
   <!--MessageRetrievalService-->
-  <string name="MessageRetrievalService_signal">Molly</string>
+  <string name="MessageRetrievalService_signal">Signal-LTS</string>
   <string name="MessageRetrievalService_background_connection_enabled">Позадинска веза активна</string>
   <!--MmsDownloader-->
   <string name="MmsDownloader_error_reading_mms_settings">Грешка читања поставки ММС послужиоца</string>
@@ -896,7 +896,7 @@
   <string name="MediaSendActivity_message">Порука</string>
   <string name="MediaSendActivity_select_recipients">Изаберите примаоце</string>
   <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Сигналу је потребан приступ вашим контактима како би их приказао.</string>
-  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Molly захтева приступ вашим контактима да би их показао, али му је дозвола трајно забрањена. Молимо вас да у апликацији за подешавање телефона Molly-у дозволите пруиступ контактима.</string>
+  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Signal-LTS захтева приступ вашим контактима да би их показао, али му је дозвола трајно забрањена. Молимо вас да у апликацији за подешавање телефона Signal-LTS-у дозволите пруиступ контактима.</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="one">Не можете поделити више од %d ставке.</item>
     <item quantity="few">Не можете поделити више од %d ставке.</item>
@@ -1155,7 +1155,7 @@
   <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">Нажалост, ово није исправан бар-кôд везе уређаја.</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">Повезати Signal уређај?</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Изгледа да покушавате повезати Signal уређај користећи спољашњи читач бар-кôда. Због сопствене заштите, очитајте кôд поново помоћу Signal-a.</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly захтева приступ камери да би скенирао QR кôд, али су му дозволе трајно забрањене. Молимо вас да у апликацији за подешавање телефона Molly-у дозволите пруиступ камери.</string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Signal-LTS захтева приступ камери да би скенирао QR кôд, али су му дозволе трајно забрањене. Молимо вас да у апликацији за подешавање телефона Signal-LTS-у дозволите пруиступ камери.</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Није могуће скенирати QR кôд без дозволе камере</string>
   <!--OutdatedBuildReminder-->
   <string name="OutdatedBuildReminder_update_now">Ажурирај сада</string>
@@ -1167,7 +1167,7 @@
   </plurals>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">Унесите лозинку</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Икона Molly-a</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Икона Signal-LTS-a</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">Поднеси лозинку</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Нетачна лозинка!</string>
   <string name="PassphrasePromptActivity_unlock_signal">Откључај Сигнал</string>
@@ -1239,8 +1239,8 @@
   <string name="RedPhone_got_it">Важи</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Кликните овде да укључите вашу камеру</string>
-  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Да бисте позвали %1$s, апликацији Molly је потребан приступ Вашој камери.</string>
-  <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
+  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Да бисте позвали %1$s, апликацији Signal-LTS је потребан приступ Вашој камери.</string>
+  <string name="WebRtcCallActivity__signal_s">Signal-LTS %1$s</string>
   <string name="WebRtcCallActivity__calling">Позивам…</string>
   <!--WebRtcCallView-->
   <string name="WebRtcCallView__signal_voice_call">Signal гласовни позив…</string>
@@ -1305,13 +1305,13 @@
   <string name="RegistrationActivity_is_your_phone_number_above_correct">Да ли је тачан ваш број телефона изнад?</string>
   <string name="RegistrationActivity_edit_number">Измени број</string>
   <string name="RegistrationActivity_missing_google_play_services">Недостају Google Play сервиси</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Овом уређају недостају Google Play сервиси. И даље можете користити Molly, али таква конфигурација може довести до умањене поузданости или перформансе.\n\nАко нисте напредни корисник, не користитие прилагођени Android ROM или верујете да је ово грешка, контактирајте support@molly.im за додатну помоћ.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Овом уређају недостају Google Play сервиси. И даље можете користити Signal-LTS, али таква конфигурација може довести до умањене поузданости или перформансе.\n\nАко нисте напредни корисник, не користитие прилагођени Android ROM или верујете да је ово грешка, контактирајте support@Signal-LTS.im за додатну помоћ.</string>
   <string name="RegistrationActivity_i_understand">Разумем</string>
   <string name="RegistrationActivity_play_services_error">Грешка Play сервиса</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play сервиси се ажурирају или су привремено недоступни. Покушајте поново касније.</string>
   <string name="RegistrationActivity_terms_and_privacy">Услови и политика приватности</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly-у је потребан приступ вашем именику и медијима да бисте могли ступити у везу са пријатељима, размењивати поруке и водити сигурне позиве</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Molly-у је потребан приступ вашем именику да бисте могли ступити у контакт са пријатељима, размењивати поруке и водити сигурне позиве</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Signal-LTS-у је потребан приступ вашем именику и медијима да бисте могли ступити у везу са пријатељима, размењивати поруке и водити сигурне позиве</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Signal-LTS-у је потребан приступ вашем именику да бисте могли ступити у контакт са пријатељима, размењивати поруке и водити сигурне позиве</string>
   <string name="RegistrationActivity_rate_limited_to_service">Превише пута сте покушали да региструјете овај број. Покушајте поново касније.</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">Није могуће успоставити везу са сервисом. Проверите да ли сте повезани на интернет и покушајте поново.</string>
   <plurals name="RegistrationActivity_debug_log_hint">
@@ -1350,12 +1350,12 @@
   <!--ShakeToReport-->
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">Додај у контакте</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Слање позивнице за Molly</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Слање позивнице за Signal-LTS</string>
   <string name="SharedContactDetailsActivity_signal_message">Порука на Signalу</string>
   <string name="SharedContactDetailsActivity_signal_call">Позив на Signalу</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">Додај у контакте</string>
-  <string name="SharedContactView_invite_to_signal">Слање позивнице за Molly</string>
+  <string name="SharedContactView_invite_to_signal">Слање позивнице за Signal-LTS</string>
   <string name="SharedContactView_message">Порука на Signalу</string>
   <!--SignalPinReminders-->
   <string name="SignalPinReminders_well_remind_you_again_later">Подсетићемо вас поново касније.</string>
@@ -1411,8 +1411,8 @@
   <string name="SupportEmailUtil_filter">Филтер:</string>
   <string name="SupportEmailUtil_device_info">Инфо о уређају:</string>
   <string name="SupportEmailUtil_android_version">Верзија Андроида:</string>
-  <string name="SupportEmailUtil_signal_version">Верзија Molly-а:</string>
-  <string name="SupportEmailUtil_signal_package">Molly пакет:</string>
+  <string name="SupportEmailUtil_signal_version">Верзија Signal-LTS-а:</string>
+  <string name="SupportEmailUtil_signal_package">Signal-LTS пакет:</string>
   <string name="SupportEmailUtil_registration_lock">Закључавање регистрације:</string>
   <string name="SupportEmailUtil_locale">Локално:</string>
   <!--ThreadRecord-->
@@ -1448,8 +1448,8 @@
   <string name="ThreadRecord_video">Видео запис</string>
   <string name="ThreadRecord_chat_session_refreshed">Чет сесија је освежена</string>
   <!--UpdateApkReadyListener-->
-  <string name="UpdateApkReadyListener_Signal_update">Надоградња Molly-a</string>
-  <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Ново издање Molly-a је доступно, тапните за надоградњу</string>
+  <string name="UpdateApkReadyListener_Signal_update">Надоградња Signal-LTS-a</string>
+  <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Ново издање Signal-LTS-a је доступно, тапните за надоградњу</string>
   <!--UntrustedSendDialog-->
   <string name="UntrustedSendDialog_send_message">Да пошаљем поруку?</string>
   <string name="UntrustedSendDialog_send">Пошаљи</string>
@@ -1482,7 +1482,7 @@
   <string name="VerifyIdentityActivity_our_signal_safety_number">Наш Signal безбедносни број:</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">Изгледа да немате ниједну апликацију преко које бисте могли да делите.</string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">У остави нема безбедносног броја за упоређивање.</string>
-  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Molly захтева приступ камери да би скенирао QR кôд, али су му дозволе трајно забрањене. Молимо вас да у апликацији за подешавање телефона Molly-у дозволите пруиступ камери.</string>
+  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Signal-LTS захтева приступ камери да би скенирао QR кôд, али су му дозволе трајно забрањене. Молимо вас да у апликацији за подешавање телефона Signal-LTS-у дозволите пруиступ камери.</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">Није могуће скенирати QR кôд без дозволе камере</string>
   <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">Прво морате разменити поруке са %1$s да бисте видели његов сигурносни број.</string>
   <!--ViewOnceMessageActivity-->
@@ -1501,13 +1501,13 @@
   <string name="ApplicationMigrationService_system_database_import_is_complete">Увоз системске базе података је завршен.</string>
   <!--KeyCachingService-->
   <string name="KeyCachingService_signal_passphrase_cached">Тапните за отварање.</string>
-  <string name="KeyCachingService_passphrase_cached">Molly је откључан</string>
-  <string name="KeyCachingService_lock">Закључај Molly</string>
+  <string name="KeyCachingService_passphrase_cached">Signal-LTS је откључан</string>
+  <string name="KeyCachingService_lock">Закључај Signal-LTS</string>
   <!--MediaPreviewActivity-->
   <string name="MediaPreviewActivity_you">Ви</string>
   <string name="MediaPreviewActivity_unssuported_media_type">Неподржан тип медијума</string>
   <string name="MediaPreviewActivity_draft">Нацрт</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Апликација Molly захтева дозволу меморији да би сачувавала на спољној меморији, али је трајно одбијено. Наставите до подешавања апликације, одаберите „Дозволе“ и омогућите ставку „Меморија“.</string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Апликација Signal-LTS захтева дозволу меморији да би сачувавала на спољној меморији, али је трајно одбијено. Наставите до подешавања апликације, одаберите „Дозволе“ и омогућите ставку „Меморија“.</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">Није могуће сачувати у спољном меморији без дозвола</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">Обрисати поруку?</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">Ово ће трајно да обрише ову поруку.</string>
@@ -1522,7 +1522,7 @@
   <string name="MessageNotifier_failed_to_deliver_message">Не успех да испоручим поруку.</string>
   <string name="MessageNotifier_error_delivering_message">Грешка при испоруци поруке.</string>
   <string name="MessageNotifier_message_delivery_paused">Испорука поруке је паузирана.</string>
-  <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Верификујте да би се наставило преписивање на Molly-у.</string>
+  <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Верификујте да би се наставило преписивање на Signal-LTS-у.</string>
   <string name="MessageNotifier_mark_all_as_read">Означи све прочитаним</string>
   <string name="MessageNotifier_mark_read">Означи прочитаним</string>
   <string name="MessageNotifier_turn_off_these_notifications">Искључи ова обавештења</string>
@@ -1559,7 +1559,7 @@
   <string name="NotificationChannels__no_activity_available_to_open_notification_channel_settings">Није доступна активност да би се отворила подешавања канала нотификације.</string>
   <!--ProfileEditNameFragment-->
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Брзи одговор није доступан ако је Molly закључан!</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Брзи одговор није доступан ако је Signal-LTS закључан!</string>
   <string name="QuickResponseService_problem_sending_message">Проблем са слањем поруке!</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">Сачувано у %s</string>
@@ -1570,7 +1570,7 @@
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">Неважећа пречица</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Signal-LTS</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Нова порука</string>
   <string name="SingleRecipientNotificationBuilder_message_request">Захтев за разговор</string>
   <string name="SingleRecipientNotificationBuilder_you">Ви</string>
@@ -1587,8 +1587,8 @@
   <string name="UnauthorizedReminder_device_no_longer_registered">Уређај више није регистрован</string>
   <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Могуће је да је ваш број телефона регистрован на Signal на другом уређају. Кликнути овде за понављање регистрације.</string>
   <!--WebRtcCallActivity-->
-  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Да бисте одговорили на позив од %s, „Molly“-у је потребан приступ Вашем микрофону.</string>
-  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Molly захтева приступ микрофону и камери да би успоставио или примио позив, али су му дозволе трајно забрањене. Молимо вас да у апликацији за подешавање телефона Molly-у дозволите пруиступ микрофону и камери.</string>
+  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Да бисте одговорили на позив од %s, „Signal-LTS“-у је потребан приступ Вашем микрофону.</string>
+  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Signal-LTS захтева приступ микрофону и камери да би успоставио или примио позив, али су му дозволе трајно забрањене. Молимо вас да у апликацији за подешавање телефона Signal-LTS-у дозволите пруиступ микрофону и камери.</string>
   <string name="WebRtcCallActivity__answered_on_a_linked_device">Одговорено на другом уређају.</string>
   <string name="WebRtcCallActivity__declined_on_a_linked_device">Одбијено на другом уређају.</string>
   <string name="WebRtcCallActivity__busy_on_a_linked_device">У току на другом уређају.</string>
@@ -1612,7 +1612,7 @@
   <string name="change_passphrase_activity__repeat_new_passphrase">Поновите нову лозинку</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">Унесите име или број</string>
-  <string name="contact_selection_activity__invite_to_signal">Позивница за Molly</string>
+  <string name="contact_selection_activity__invite_to_signal">Позивница за Signal-LTS</string>
   <string name="contact_selection_activity__new_group">Нова група</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">Обриши унесен текст</string>
@@ -1624,7 +1624,7 @@
   <!--single_contact_selection_activity-->
   <string name="SingleContactSelectionActivity_contact_photo">Фотографија контакта</string>
   <!--ContactSelectionListFragment-->
-  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Molly захтева приступ вашим контактима да би их показао, али му је дозвола трајно забрањена. Молимо вас да у апликацији за подешавање телефона Molly-у дозволите пруиступ контактима.</string>
+  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Signal-LTS захтева приступ вашим контактима да би их показао, али му је дозвола трајно забрањена. Молимо вас да у апликацији за подешавање телефона Signal-LTS-у дозволите пруиступ контактима.</string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Грешка при преузимања контакта, проверите вашу везу са мрежом.</string>
   <string name="ContactSelectionListFragment_username_not_found">Корисник није пронађен</string>
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">„%1$s“ није корисник Signal-а. Проверите корисничко име и поновите.</string>
@@ -2014,7 +2014,7 @@
   <string name="preferences__slow">Споро</string>
   <string name="preferences__help">Помоћ</string>
   <string name="preferences__advanced">Напредно</string>
-  <string name="preferences__donate_to_signal">Донирајте услузи Molly</string>
+  <string name="preferences__donate_to_signal">Донирајте услузи Signal-LTS</string>
   <string name="preferences__privacy">Приватност</string>
   <string name="preferences__mms_user_agent">ММС кориснички агент</string>
   <string name="preferences__advanced_mms_access_point_names">Ручне ММС поставке</string>
@@ -2143,7 +2143,7 @@
   <string name="PaymentsAllActivityFragment__sent">Послато</string>
   <string name="PaymentsAllActivityFragment__received">Примљено</string>
   <string name="PaymentsHomeFragment__introducing_payments">Увођење уплате (Beta)</string>
-  <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Користите Molly за слање и примање MobileCoin, нова дигитална валута фокусирана на приватност. Активирајте за почетак.</string>
+  <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Користите Signal-LTS за слање и примање MobileCoin, нова дигитална валута фокусирана на приватност. Активирајте за почетак.</string>
   <string name="PaymentsHomeFragment__activate_payments">Активирати уплате</string>
   <string name="PaymentsHomeFragment__activating_payments">Активирање уплате…</string>
   <string name="PaymentsHomeFragment__restore_payments_account">Вратити налог уплате</string>
@@ -2170,17 +2170,17 @@
   <string name="PaymentsHomeFragment__payments_is_not_available_in_your_region">Уплате нису доступне у вашем региону.</string>
   <string name="PaymentsHomeFragment__could_not_enable_payments">Не могу да омогућим уплате. Покушајте поново касније.</string>
   <string name="PaymentsHomeFragment__deactivate_payments_question">Деактивирати уплате?</string>
-  <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">Нећете моћи да пошаљете или примите MobileCoin у Molly ако деактивирате уплате.</string>
+  <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">Нећете моћи да пошаљете или примите MobileCoin у Signal-LTS ако деактивирате уплате.</string>
   <string name="PaymentsHomeFragment__deactivate">Деактивирати</string>
   <string name="PaymentsHomeFragment__continue">Настави</string>
   <string name="PaymentsHomeFragment__balance_is_not_currently_available">Салдо није тренутно доступан.</string>
   <string name="PaymentsHomeFragment__payments_deactivated">Уплате деактивиране.</string>
   <string name="PaymentsHomeFragment__payment_failed">Неуспешна уплата</string>
   <string name="PaymentsHomeFragment__details">Опширније</string>
-  <string name="PaymentsHomeFragment__you_can_use_signal_to_send">Можете да користите Molly да бисте послали и примили MobileCoin. Сва плаћања подлежу условима коришћења за MobileCoins  и новчаник MobileCoin-а. Ово је бета карактеристика, тако да можете наићи на грешке и плаћања или салто које можете изгубити не можете се вратити.</string>
+  <string name="PaymentsHomeFragment__you_can_use_signal_to_send">Можете да користите Signal-LTS да бисте послали и примили MobileCoin. Сва плаћања подлежу условима коришћења за MobileCoins  и новчаник MobileCoin-а. Ово је бета карактеристика, тако да можете наићи на грешке и плаћања или салто које можете изгубити не можете се вратити.</string>
   <string name="PaymentsHomeFragment__activate">Активирај</string>
   <string name="PaymentsHomeFragment__view_mobile_coin_terms">Погледајте појмове MobileCoin-а</string>
-  <string name="PaymentsHomeFragment__payments_not_available">Плаћања у Molly-у више није доступна. И даље можете преносити средства на размену, али више не можете да шаљете и примате уплате или да додате средства.</string>
+  <string name="PaymentsHomeFragment__payments_not_available">Плаћања у Signal-LTS-у више није доступна. И даље можете преносити средства на размену, али више не можете да шаљете и примате уплате или да додате средства.</string>
   <!--PaymentsAddMoneyFragment-->
   <string name="PaymentsAddMoneyFragment__add_funds">Додај средства</string>
   <string name="PaymentsAddMoneyFragment__your_wallet_address">Адреса Вашег новчаника</string>
@@ -2217,10 +2217,10 @@
   <string name="PaymentsTransferFragment__next">Даље</string>
   <string name="PaymentsTransferFragment__invalid_address">Погрешна адреса</string>
   <string name="PaymentsTransferFragment__check_the_wallet_address">Проверите адресу новчаника који покушавате да пребаците и покушате поново.</string>
-  <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">Не можете пренети на своју адресу новчаника Molly-а. Унесите адресу новчаника са свог налога на подржаној размени.</string>
-  <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">Да бисте скенирали QR кôд, Molly-у је потребан приступ камери.</string>
-  <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Molly захтева приступ камери да би фотографисао QR кôд. Идите на подешавања, изаберите „Дозволе“ и омогућите „Камера“.</string>
-  <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">Да бисте скенирали QR кôд, Molly-у је потребан приступ камери.</string>
+  <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">Не можете пренети на своју адресу новчаника Signal-LTS-а. Унесите адресу новчаника са свог налога на подржаној размени.</string>
+  <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">Да бисте скенирали QR кôд, Signal-LTS-у је потребан приступ камери.</string>
+  <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Signal-LTS захтева приступ камери да би фотографисао QR кôд. Идите на подешавања, изаберите „Дозволе“ и омогућите „Камера“.</string>
+  <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">Да бисте скенирали QR кôд, Signal-LTS-у је потребан приступ камери.</string>
   <string name="PaymentsTransferFragment__settings">Подешавања</string>
   <!--PaymentsTransferQrScanFragment-->
   <string name="PaymentsTransferQrScanFragment__scan_address_qr_code">Скенирајте адресу QR кôда</string>
@@ -2588,7 +2588,7 @@
   <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">Начинили сте превише покушаја. Пробајте поново касније.</string>
   <string name="RegistrationActivity_error_connecting_to_service">Грешка повезивања са услугом</string>
   <string name="preferences_chats__backups">Резерве</string>
-  <string name="prompt_passphrase_activity__signal_is_locked">Molly је закључан</string>
+  <string name="prompt_passphrase_activity__signal_is_locked">Signal-LTS је закључан</string>
   <string name="prompt_passphrase_activity__tap_to_unlock">ТАПНИ ЗА ОТКЉУЧАВАЊЕ</string>
   <string name="Recipient_unknown">Непозната</string>
   <!--TransferOrRestoreFragment-->
@@ -2612,18 +2612,18 @@
   <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">Припрема за повезивање на стари Android уређај…</string>
   <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">Потребно је мало времена, треба да буде спремно ускоро</string>
   <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">Чека се да се стари Android уређај повеже…</string>
-  <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Molly-у је потребна дозвола локације за откривање и повезивање са вашим старим Android уређајем.</string>
-  <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Molly-у је потребна да локације буде упаљена за откривање и повезивање са вашим старим Android уређајем.</string>
-  <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Molly-у је потребно Wi-Fi за откривање и повезивање са својим старим Android уређајем. Wi-Fi мора бити укључен, али не мора бити повезано са Wi-Fi мрежом.</string>
-  <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Извините, чини се да овај уређај не подржава Wi-Fi Direct. Molly користи Wi-Fi Direct да би открио и повезивао са старим Android уређајем. И даље можете да вратите резервну копију да бисте вратили свој рачун са свог старог Android уређаја.</string>
+  <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Signal-LTS-у је потребна дозвола локације за откривање и повезивање са вашим старим Android уређајем.</string>
+  <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Signal-LTS-у је потребна да локације буде упаљена за откривање и повезивање са вашим старим Android уређајем.</string>
+  <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Signal-LTS-у је потребно Wi-Fi за откривање и повезивање са својим старим Android уређајем. Wi-Fi мора бити укључен, али не мора бити повезано са Wi-Fi мрежом.</string>
+  <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Извините, чини се да овај уређај не подржава Wi-Fi Direct. Signal-LTS користи Wi-Fi Direct да би открио и повезивао са старим Android уређајем. И даље можете да вратите резервну копију да бисте вратили свој рачун са свог старог Android уређаја.</string>
   <string name="NewDeviceTransferSetup__restore_a_backup">Поврати бекап</string>
   <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Дошло је до неочекиване грешке приликом покушаја повезивања са својим старим Android уређајем.</string>
   <!--OldDeviceTransferSetupFragment-->
   <string name="OldDeviceTransferSetup__searching_for_new_android_device">Тражење новог Android уређаја…</string>
-  <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Molly-у је потребна дозвола локације за откривање и повезивање на ваш нови Android уређај.</string>
-  <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Molly-у је потребно да локација буде упаљена за откривање и повезивање на ваш нови Android уређај.</string>
-  <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Molly-у је потребно Wi-Fi за откривање и повезивање са својим новим Android уређајем. Wi-Fi мора бити укључен, али не мора бити повезано са Wi-Fi мрежом.</string>
-  <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Извините, чини се да овај уређај не подржава Wi-Fi Direct. Molly користи Wi-Fi Direct да би открио и повезивао са новим Android уређајем. И даље можете да креирате резервну копију да бисте вратили свој рачун на свој нови Android уређаја.</string>
+  <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Signal-LTS-у је потребна дозвола локације за откривање и повезивање на ваш нови Android уређај.</string>
+  <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Signal-LTS-у је потребно да локација буде упаљена за откривање и повезивање на ваш нови Android уређај.</string>
+  <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Signal-LTS-у је потребно Wi-Fi за откривање и повезивање са својим новим Android уређајем. Wi-Fi мора бити укључен, али не мора бити повезано са Wi-Fi мрежом.</string>
+  <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Извините, чини се да овај уређај не подржава Wi-Fi Direct. Signal-LTS користи Wi-Fi Direct да би открио и повезивао са новим Android уређајем. И даље можете да креирате резервну копију да бисте вратили свој рачун на свој нови Android уређаја.</string>
   <string name="OldDeviceTransferSetup__create_a_backup">Направи бекап</string>
   <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Дошло је до неочекиване грешке приликом покушаја повезивања са својим новим Android уређајем.</string>
   <!--DeviceTransferSetupFragment-->
@@ -2675,7 +2675,7 @@
   <string name="OldDeviceTransferInstructions__transfer_account">Пренесите налог</string>
   <string name="OldDeviceTransferInstructions__you_can_transfer_your_signal_account_when_setting_up_signal_on_a_new_android_device">Можете да пренете свој Signal рачун приликом подешавања Signal на новом Android уређају. Пре наставка:</string>
   <string name="OldDeviceTransferInstructions__first_bullet">1.</string>
-  <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Преузмите Molly на свом новом Android уређају</string>
+  <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Преузмите Signal-LTS на свом новом Android уређају</string>
   <string name="OldDeviceTransferInstructions__second_bullet">2.</string>
   <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">Додирните „Пренос или враћање налога“</string>
   <string name="OldDeviceTransferInstructions__third_bullet">3.</string>
@@ -2741,7 +2741,7 @@
   <!--GroupLinkBottomSheetDialogFragment-->
   <string name="GroupLinkBottomSheet_share_hint_requiring_approval">Свако са овом везом може да види име и слику ове групе и да затражи да се придружи. Поделите везу са људима у које имате поверења.</string>
   <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">Свако са овом везом може да види име и слику ове групе и да се придружи. Поделите везу са људима у које имате поверења.</string>
-  <string name="GroupLinkBottomSheet_share_via_signal">Поделите Molly-ом</string>
+  <string name="GroupLinkBottomSheet_share_via_signal">Поделите Signal-LTS-ом</string>
   <string name="GroupLinkBottomSheet_copy">Копирај</string>
   <string name="GroupLinkBottomSheet_qr_code">QR кôд</string>
   <string name="GroupLinkBottomSheet_share">Поделите</string>
@@ -2870,7 +2870,7 @@
   <string name="payment_info_card_about_mobilecoin">О MobileCoin-у</string>
   <string name="payment_info_card_mobilecoin_is_a_new_privacy_focused_digital_currency">MobileCoin је нова дигитална валута фокусирана на приватност.</string>
   <string name="payment_info_card_adding_funds">Додавање средства</string>
-  <string name="payment_info_card_you_can_add_funds_for_use_in">Средства за употребу можете додати у Molly-у слањем MobileCoin-а на адресу свог новчаника.</string>
+  <string name="payment_info_card_you_can_add_funds_for_use_in">Средства за употребу можете додати у Signal-LTS-у слањем MobileCoin-а на адресу свог новчаника.</string>
   <string name="payment_info_card_cashing_out">Уновчити</string>
   <string name="payment_info_card_you_can_cash_out_mobilecoin">Можете да уновчите MobileCoin у било којем тренутку на размени која подржава MobileCoin. Само пренесите на свој рачун на тој размени.</string>
   <string name="payment_info_card_hide_this_card">Сакрити ову картицу?</string>
@@ -2884,12 +2884,12 @@
   <!--DeactivateWalletFragment-->
   <string name="DeactivateWalletFragment__deactivate_wallet">Деактивирати новчаник</string>
   <string name="DeactivateWalletFragment__your_balance">Ваш салдо</string>
-  <string name="DeactivateWalletFragment__its_recommended_that_you">Препоручује се да преносите средства на другу адресу новчаника пре деактивирања плаћања. Ако одлучите да не преносите своја средства сада, они ће остати у вашем новчанику везаном за Molly ако поново активирате уплате.</string>
+  <string name="DeactivateWalletFragment__its_recommended_that_you">Препоручује се да преносите средства на другу адресу новчаника пре деактивирања плаћања. Ако одлучите да не преносите своја средства сада, они ће остати у вашем новчанику везаном за Signal-LTS ако поново активирате уплате.</string>
   <string name="DeactivateWalletFragment__transfer_remaining_balance">Пренос преосталог салда</string>
   <string name="DeactivateWalletFragment__deactivate_without_transferring">Деактивирање без преноса података</string>
   <string name="DeactivateWalletFragment__deactivate">Деактивирати</string>
   <string name="DeactivateWalletFragment__deactivate_without_transferring_question">Деактивирање без преноса података?</string>
-  <string name="DeactivateWalletFragment__your_balance_will_remain">Ваш салдо ће остати у вашем новчанику везаном за Molly ако поново активирате уплате.</string>
+  <string name="DeactivateWalletFragment__your_balance_will_remain">Ваш салдо ће остати у вашем новчанику везаном за Signal-LTS ако поново активирате уплате.</string>
   <string name="DeactivateWalletFragment__error_deactivating_wallet">Грешка деактивирајући новчаник.</string>
   <!--PaymentsRecoveryStartFragment-->
   <string name="PaymentsRecoveryStartFragment__recovery_phrase">Фраза опоравка</string>

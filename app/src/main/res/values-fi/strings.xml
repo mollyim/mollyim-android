@@ -10,7 +10,7 @@
   <string name="AbstractNotificationBuilder_new_message">Uusi viesti</string>
   <!--AlbumThumbnailView-->
   <!--ApplicationMigrationActivity-->
-  <string name="ApplicationMigrationActivity__signal_is_updating">Molly päivittyy…</string>
+  <string name="ApplicationMigrationActivity__signal_is_updating">Signal-LTS päivittyy…</string>
   <!--ApplicationPreferencesActivity-->
   <string name="ApplicationPreferencesActivity_currently_s">Tällä hetkellä: %s</string>
   <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">Et ole vielä määritellyt salalausetta!</string>
@@ -18,9 +18,9 @@
   <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Tämä avaa Mollyin ja viesti-ilmoitusten lukituksen pysyvästi.</string>
   <string name="ApplicationPreferencesActivity_disable">Poista käytöstä</string>
   <string name="ApplicationPreferencesActivity_unregistering">Puretaan rekisteröintiä</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Puretaan rekisteröintiä Molly-viesteistä ja -puheluista…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Otetaanko Molly-viestit ja -puhelut pois käytöstä?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Tämä ottaa Molly-viestit ja -puhelut pois käytöstä  purkamalla rekisteröitymisesi palvelimelta. Jos haluat käyttää niitä jatkossa, täytyy sinun rekisteröityä puhelinnumerollasi uudelleen.</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Puretaan rekisteröintiä Signal-LTS-viesteistä ja -puheluista…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Otetaanko Signal-LTS-viestit ja -puhelut pois käytöstä?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Tämä ottaa Signal-LTS-viestit ja -puhelut pois käytöstä  purkamalla rekisteröitymisesi palvelimelta. Jos haluat käyttää niitä jatkossa, täytyy sinun rekisteröityä puhelinnumerollasi uudelleen.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">Virhe yhdistettäessä palvelimeen!</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">Tekstiviestit käytössä</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">Kosketa, jos haluat vaihtaa oletustekstiviestisovellustasi</string>
@@ -58,14 +58,14 @@
   <string name="AttachmentKeyboard_file">Tiedosto</string>
   <string name="AttachmentKeyboard_contact">Yhteystieto</string>
   <string name="AttachmentKeyboard_location">Sijainti</string>
-  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Molly tarvitsee käyttöoikeutta kuvien ja videoiden näyttämistä varten.</string>
+  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Signal-LTS tarvitsee käyttöoikeutta kuvien ja videoiden näyttämistä varten.</string>
   <string name="AttachmentKeyboard_give_access">Myönnä käyttöoikeus</string>
   <string name="AttachmentKeyboard_payment">Maksu</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">Median valintaan ei löytynyt sovellusta.</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly tarvitsee lupaa käyttää laitteesi tallennustilaa kuvien, videoiden tai äänitiedostojen liittämistä varten, mutta tämä käyttöoikeus on pysyvästi evätty Mollyilta. Voit muuttaa tätä menemällä sovellusten asetuksiin, valitsemalla \"Sovelluksen käyttöoikeudet\" ja laittamalla päälle \"Tallennustila\".</string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly tarvitsee lupaa käyttää laitteesi yhteystietoja oman yhteystietolistansa käsittelyä varten, mutta tämä käyttöoikeus on pysyvästi evätty Mollyilta. Voit muuttaa tätä menemällä sovellusten asetuksiin, valitsemalla \"Sovelluksen käyttöoikeudet\" ja laittamalla päälle \"Yhteystiedot\".</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly tarvitsee lupaa käyttää sijaintitietoja sijainnin liittämistä varten, mutta tämä käyttöoikeus on pysyvästi evätty Mollyilta. Voit muuttaa tätä menemällä sovellusten asetuksiin, valitsemalla \"Sovelluksen käyttöoikeudet\" ja laittamalla päälle \"Sijainti\".</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signal-LTS tarvitsee lupaa käyttää laitteesi tallennustilaa kuvien, videoiden tai äänitiedostojen liittämistä varten, mutta tämä käyttöoikeus on pysyvästi evätty Mollyilta. Voit muuttaa tätä menemällä sovellusten asetuksiin, valitsemalla \"Sovelluksen käyttöoikeudet\" ja laittamalla päälle \"Tallennustila\".</string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Signal-LTS tarvitsee lupaa käyttää laitteesi yhteystietoja oman yhteystietolistansa käsittelyä varten, mutta tämä käyttöoikeus on pysyvästi evätty Mollyilta. Voit muuttaa tätä menemällä sovellusten asetuksiin, valitsemalla \"Sovelluksen käyttöoikeudet\" ja laittamalla päälle \"Yhteystiedot\".</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Signal-LTS tarvitsee lupaa käyttää sijaintitietoja sijainnin liittämistä varten, mutta tämä käyttöoikeus on pysyvästi evätty Mollyilta. Voit muuttaa tätä menemällä sovellusten asetuksiin, valitsemalla \"Sovelluksen käyttöoikeudet\" ja laittamalla päälle \"Sijainti\".</string>
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">Lähetetään media…</string>
   <string name="AttachmentUploadJob_compressing_video_start">Pakataan videota…</string>
@@ -123,7 +123,7 @@
   <string name="ClearProfileActivity_remove_profile_photo">Poistetaanko profiilikuva?</string>
   <string name="ClearProfileActivity_remove_group_photo">Poistetaanko ryhmän kuva?</string>
   <!--ClientDeprecatedActivity-->
-  <string name="ClientDeprecatedActivity_update_signal">Päivitä Molly</string>
+  <string name="ClientDeprecatedActivity_update_signal">Päivitä Signal-LTS</string>
   <string name="ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported">Tätä sovelluksen versiota ei enää tueta. Jatka Signalin käyttämistä päivittämällä uusimpaan versioon.</string>
   <string name="ClientDeprecatedActivity_update">Päivitä</string>
   <string name="ClientDeprecatedActivity_dont_update">Älä päivitä</string>
@@ -211,15 +211,15 @@
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">Laitteessasi ei ole sovellusta, jolla linkki voidaan avata.</string>
   <string name="ConversationActivity_your_request_to_join_has_been_sent_to_the_group_admin">Liittymispyyntösi on lähetetty ryhmän ylläpitäjälle. Saat ilmoituksen, kun he tekevät päätöksen.</string>
   <string name="ConversationActivity_cancel_request">Peruuta pyyntö</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Jotta voit lähettää ääniviestejä, Molly tarvitsee lupaa käyttää mikrofonia.</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly tarvitsee lupaa käyttää mikrofonia äänitiedostojen lähettämistä varten, mutta tämä käyttöoikeus on pysyvästi evätty Mollyilta. Voit muuttaa tätä menemällä sovellusten asetuksiin, valitsemalla \"Sovelluksen käyttöoikeudet\" ja laittamalla päälle \"Mikrofoni\".</string>
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly tarvitsee lupaa käyttää laitteesi mikrofonia ja kameraa yhteystiedolle %s soittamista varten, mutta tämä käyttöoikeus on pysyvästi evätty Mollyilta. Voit muuttaa tätä menemällä sovellusten asetuksiin, valitsemalla \"Sovelluksen käyttöoikeudet\" ja laittamalla päälle \"Mikrofoni\" ja \"Kamera\".</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Jotta voit lähettää ääniviestejä, Signal-LTS tarvitsee lupaa käyttää mikrofonia.</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Signal-LTS tarvitsee lupaa käyttää mikrofonia äänitiedostojen lähettämistä varten, mutta tämä käyttöoikeus on pysyvästi evätty Mollyilta. Voit muuttaa tätä menemällä sovellusten asetuksiin, valitsemalla \"Sovelluksen käyttöoikeudet\" ja laittamalla päälle \"Mikrofoni\".</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Signal-LTS tarvitsee lupaa käyttää laitteesi mikrofonia ja kameraa yhteystiedolle %s soittamista varten, mutta tämä käyttöoikeus on pysyvästi evätty Mollyilta. Voit muuttaa tätä menemällä sovellusten asetuksiin, valitsemalla \"Sovelluksen käyttöoikeudet\" ja laittamalla päälle \"Mikrofoni\" ja \"Kamera\".</string>
   <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Jotta voit ottaa kuvia ja videoita, anna Mollyille lupaa käyttää kameraa.</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Molly tarvitsee lupaa käyttää laitteesi kameraa kuvien ja videoiden ottamista varten, mutta tämä käyttöoikeus on pysyvästi evätty Mollyilta. Voit muuttaa tätä menemällä sovellusten asetuksiin, valitsemalla \"Sovelluksen käyttöoikeudet\" ja laittamalla päälle \"Kamera\".</string>
-  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Molly tarvitsee kameran käyttöoikeutta kuvien ja videoiden ottamista varten.</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signal-LTS tarvitsee lupaa käyttää laitteesi kameraa kuvien ja videoiden ottamista varten, mutta tämä käyttöoikeus on pysyvästi evätty Mollyilta. Voit muuttaa tätä menemällä sovellusten asetuksiin, valitsemalla \"Sovelluksen käyttöoikeudet\" ja laittamalla päälle \"Kamera\".</string>
+  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signal-LTS tarvitsee kameran käyttöoikeutta kuvien ja videoiden ottamista varten.</string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Myönnä mikrofonin käyttöoikeus, jotta voit tallentaa äänellisiä videoita.</string>
-  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Molly tarvitsee mikrofonin käyttöoikeutta videoiden tallennusta varten, mutta ne on evätty. Jatka sovellusasetuksiin, valitse \"käyttöoikeudet\" ja ota käyttöön \"mikrofoni\" ja \"kamera\".</string>
-  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Molly tarvitsee mikrofonin käyttöoikeutta videoiden tallennusta varten.</string>
+  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signal-LTS tarvitsee mikrofonin käyttöoikeutta videoiden tallennusta varten, mutta ne on evätty. Jatka sovellusasetuksiin, valitse \"käyttöoikeudet\" ja ota käyttöön \"mikrofoni\" ja \"kamera\".</string>
+  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signal-LTS tarvitsee mikrofonin käyttöoikeutta videoiden tallennusta varten.</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">Signal ei voi lähettää SMS/MMS-viestejä, koska se ei ole oletus tekstiviestisovellus. Haluatko muuttaa tätä Androidin asetuksissa?</string>
   <string name="ConversationActivity_yes">Kyllä</string>
@@ -235,7 +235,7 @@
   <string name="ConversationActivity_you_will_leave_this_group_and_it_will_be_deleted_from_all_of_your_devices">Poistut tästä ryhmästä ja se poistetaan kaikilta laitteiltasi.</string>
   <string name="ConversationActivity_delete">Poista</string>
   <string name="ConversationActivity_delete_and_leave">Poista ja poistu</string>
-  <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">Jotta voit soittaa yhteystiedolle %1$s, Molly tarvitsee lupaa käyttää mikrofonia.</string>
+  <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">Jotta voit soittaa yhteystiedolle %1$s, Signal-LTS tarvitsee lupaa käyttää mikrofonia.</string>
   <string name="ConversationActivity__more_options_now_in_group_settings">Ryhmän asetuksissa on nyt lisää vaihtoehtoja</string>
   <string name="ConversationActivity_join">Liity</string>
   <string name="ConversationActivity_full">Täynnä</string>
@@ -292,7 +292,7 @@
   <string name="ConversationFragment__d_group_members_have_the_same_name">%1$d ryhmän jäsenellä on sama nimi.</string>
   <string name="ConversationFragment__tap_to_review">Tarkista napauttamalla</string>
   <string name="ConversationFragment__review_requests_carefully">Tarkista pyynnöt huolellisesti</string>
-  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Molly löysi toisen yhteystiedon samalla nimellä.</string>
+  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Signal-LTS löysi toisen yhteystiedon samalla nimellä.</string>
   <string name="ConversationFragment_contact_us">Ota yhteyttä</string>
   <string name="ConversationFragment_verify">Varmenna</string>
   <string name="ConversationFragment_not_now">Ei nyt</string>
@@ -356,11 +356,11 @@
   <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Tarkista varmuuskopion salalause ja varmista että se täsmää</string>
   <string name="BackupsPreferenceFragment__turn_on">Ota käyttöön</string>
   <string name="BackupsPreferenceFragment__turn_off">Poista käytöstä</string>
-  <string name="BackupsPreferenceFragment__to_restore_a_backup">Palauta varmuuskopio asentamalla Molly uudelleen tai uuteen laitteeseen. Avaa sovellus, napauta Palauta varmuuskopio ja etsi sitten varmuuskopiotiedosto. %1$s</string>
+  <string name="BackupsPreferenceFragment__to_restore_a_backup">Palauta varmuuskopio asentamalla Signal-LTS uudelleen tai uuteen laitteeseen. Avaa sovellus, napauta Palauta varmuuskopio ja etsi sitten varmuuskopiotiedosto. %1$s</string>
   <string name="BackupsPreferenceFragment__learn_more">Lue lisää</string>
   <string name="BackupsPreferenceFragment__in_progress">Käsitellään…</string>
   <string name="BackupsPreferenceFragment__d_so_far">%1$d tähän mennessä…</string>
-  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly tarvitsee lupaa käyttää laitteesi tallennustilaa varmuuskopioiden luomista varten, mutta tämä käyttöoikeus on pysyvästi evätty Mollyilta. Voit muuttaa tätä menemällä sovellusten asetuksiin, valitsemalla \"Sovelluksen käyttöoikeudet\" ja laittamalla päälle \"Tallennustila\".</string>
+  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal-LTS tarvitsee lupaa käyttää laitteesi tallennustilaa varmuuskopioiden luomista varten, mutta tämä käyttöoikeus on pysyvästi evätty Mollyilta. Voit muuttaa tätä menemällä sovellusten asetuksiin, valitsemalla \"Sovelluksen käyttöoikeudet\" ja laittamalla päälle \"Tallennustila\".</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Käytä mukautettua: %s</string>
   <string name="CustomDefaultPreference_using_default">Käytä oletusta: %s</string>
@@ -420,7 +420,7 @@
   <string name="ShareActivity_multiple_attachments_are_only_supported">Useiden tiedostojen liittämistä tuetaan vain kuvilla ja videoilla</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Pysyvä Signal-yhteysvirhe!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly ei voinut rekisteröityä Google Play Services -palveluun, minkä vuoksi Molly-viestit ja puhelut ovat otettu pois käytöstä. Kokeile rekisteröityä uudelleen Mollyin lisäasetuksista.</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal-LTS ei voinut rekisteröityä Google Play Services -palveluun, minkä vuoksi Signal-LTS-viestit ja puhelut ovat otettu pois käytöstä. Kokeile rekisteröityä uudelleen Mollyin lisäasetuksista.</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">Täysikokoisen GIF:n lataaminen epäonnistui</string>
   <!--GiphyFragmentPageAdapter-->
@@ -763,7 +763,7 @@
   <string name="LongMessageActivity_message_from_s">Viesti lähettäjältä: %1$s</string>
   <string name="LongMessageActivity_your_message">Sinun viestisi</string>
   <!--MessageRetrievalService-->
-  <string name="MessageRetrievalService_signal">Molly</string>
+  <string name="MessageRetrievalService_signal">Signal-LTS</string>
   <string name="MessageRetrievalService_background_connection_enabled">Taustayhteys päällä</string>
   <!--MmsDownloader-->
   <string name="MmsDownloader_error_reading_mms_settings">Operaattorin multimediaviestiasetusten lukuvirhe</string>
@@ -849,8 +849,8 @@
   <string name="MediaSendActivity_message_to_s">Vastaanottaja: %s</string>
   <string name="MediaSendActivity_message">Viesti</string>
   <string name="MediaSendActivity_select_recipients">Valitse vastaanottajat</string>
-  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Molly tarvitsee luvan yhteystietoihisi, jotta se voisi näyttää ne.</string>
-  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Molly tarvitsee lupaa käyttää laitteesi yhteystietoja niiden näyttämistä varten, mutta tämä käyttöoikeus on pysyvästi evätty Mollyilta. Jatka sovellusten asetuksiin, valitse \"Sovelluksen käyttöoikeudet\" ja laita päälle  \"Yhteystiedot\".</string>
+  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Signal-LTS tarvitsee luvan yhteystietoihisi, jotta se voisi näyttää ne.</string>
+  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Signal-LTS tarvitsee lupaa käyttää laitteesi yhteystietoja niiden näyttämistä varten, mutta tämä käyttöoikeus on pysyvästi evätty Mollyilta. Jatka sovellusten asetuksiin, valitse \"Sovelluksen käyttöoikeudet\" ja laita päälle  \"Yhteystiedot\".</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="one">Et voi jakaa useampaa kuin %d kappaletta.</item>
     <item quantity="other">Voit jakaa enintään %d kappaletta.</item>
@@ -1093,7 +1093,7 @@
   <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">Valitettavasti tämä ei ole laitteen yhdistämiseksi tarkoitettu QR-koodi.</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">Yhdistetäänkö Signal-laite?</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Vaikuttaa siltä, että yrität yhdistää laitetta käyttämällä Signalin ulkopuolista skannaussovellusta. Oman turvallisuutesi vuoksi skannaa QR-koodi uudelleen Signalilla itsellään.</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly tarvitsee lupaa käyttää kameraa QR-koodien skannaamista varten, mutta tämä käyttöoikeus on pysyvästi evätty Mollyilta. Voit muuttaa tätä menemällä sovellusten asetuksiin, valitsemalla \"Sovelluksen käyttöoikeudet\" ja laittamalla päälle \"Kamera\".</string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Signal-LTS tarvitsee lupaa käyttää kameraa QR-koodien skannaamista varten, mutta tämä käyttöoikeus on pysyvästi evätty Mollyilta. Voit muuttaa tätä menemällä sovellusten asetuksiin, valitsemalla \"Sovelluksen käyttöoikeudet\" ja laittamalla päälle \"Kamera\".</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">QR-koodin skannaus ei onnistu ilman kameran käyttöoikeutta.</string>
   <!--OutdatedBuildReminder-->
   <string name="OutdatedBuildReminder_update_now">Päivitä nyt</string>
@@ -1104,7 +1104,7 @@
   </plurals>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">Syötä salalause</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Molly-kuvake</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Signal-LTS-kuvake</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">Syötä salalause</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Salalause ei kelpaa!</string>
   <string name="PassphrasePromptActivity_unlock_signal">Avaa Mollyin lukitus</string>
@@ -1175,8 +1175,8 @@
   <string name="RedPhone_got_it">Selvä</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Ota video käyttöön napauttamalla tästä</string>
-  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Jotta voit soittaa yhteystiedolle %1$s, Molly tarvitsee lupaa käyttää kameraa.</string>
-  <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
+  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Jotta voit soittaa yhteystiedolle %1$s, Signal-LTS tarvitsee lupaa käyttää kameraa.</string>
+  <string name="WebRtcCallActivity__signal_s">Signal-LTS %1$s</string>
   <string name="WebRtcCallActivity__calling">Soitetaan…</string>
   <!--WebRtcCallView-->
   <string name="WebRtcCallView__signal_voice_call">Signal-puhelu…</string>
@@ -1236,13 +1236,13 @@ puhelinnumero</string>
   <string name="RegistrationActivity_is_your_phone_number_above_correct">Onko yllä oleva puhelinnumero oikea?</string>
   <string name="RegistrationActivity_edit_number">Muokkaa numeroa</string>
   <string name="RegistrationActivity_missing_google_play_services">Google Play -palvelut puuttuvat</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Google Play -palvelut puuttuvat tästä laitteesta. Molly toimii myös ilman niitä, mutta kaikki ominaisuudet eivät välttämättä toimi yhtä hyvin.\n\nJos et ole edistyneempi käyttäjä, et käytä epävirallista Android-versiota tai tämä viesti on mielestäsi aiheeton, pyydä apua osoitteesta support@molly.im.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Google Play -palvelut puuttuvat tästä laitteesta. Signal-LTS toimii myös ilman niitä, mutta kaikki ominaisuudet eivät välttämättä toimi yhtä hyvin.\n\nJos et ole edistyneempi käyttäjä, et käytä epävirallista Android-versiota tai tämä viesti on mielestäsi aiheeton, pyydä apua osoitteesta support@Signal-LTS.im.</string>
   <string name="RegistrationActivity_i_understand">Selvä</string>
   <string name="RegistrationActivity_play_services_error">Play-palvelujen virhe</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play -palveluita päivitetään tai ne eivät ole käytettävissä. Yritä myöhemmin uudelleen.</string>
   <string name="RegistrationActivity_terms_and_privacy">Käyttöehdot ja yksityisyydensuoja</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly tarvitsee lupaa käyttää yhteystietojasi ja mediaa, jotta voit olla yhteydessä ystäviisi, viestitellä ja soitella turvallisesti.</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Molly tarvitsee lupaa käyttää yhteystietojasi, jotta voit olla yhteydessä ystäviisi, viestitellä ja soitella turvallisesti.</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Signal-LTS tarvitsee lupaa käyttää yhteystietojasi ja mediaa, jotta voit olla yhteydessä ystäviisi, viestitellä ja soitella turvallisesti.</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Signal-LTS tarvitsee lupaa käyttää yhteystietojasi, jotta voit olla yhteydessä ystäviisi, viestitellä ja soitella turvallisesti.</string>
   <string name="RegistrationActivity_rate_limited_to_service">Olet yrittänyt rekisteröidä tätä numeroa liian monta kertaa. Yritä myöhemmin uudelleen.</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">Yhteyttä ei voitu muodostaa palveluun. Tarkista verkkoyhteytesi ja yritä uudelleen.</string>
   <plurals name="RegistrationActivity_debug_log_hint">
@@ -1341,8 +1341,8 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <string name="SupportEmailUtil_filter">Suodatin:</string>
   <string name="SupportEmailUtil_device_info">Laitetiedot:</string>
   <string name="SupportEmailUtil_android_version">Android-versio:</string>
-  <string name="SupportEmailUtil_signal_version">Molly-versio:</string>
-  <string name="SupportEmailUtil_signal_package">Molly-ohjelmistopaketti:</string>
+  <string name="SupportEmailUtil_signal_version">Signal-LTS-versio:</string>
+  <string name="SupportEmailUtil_signal_package">Signal-LTS-ohjelmistopaketti:</string>
   <string name="SupportEmailUtil_registration_lock">Rekisteröintiesto:</string>
   <string name="SupportEmailUtil_locale">Sijainti:</string>
   <!--ThreadRecord-->
@@ -1378,7 +1378,7 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <string name="ThreadRecord_video">Video</string>
   <string name="ThreadRecord_chat_session_refreshed">Keskustelutuokio on virkistetty</string>
   <!--UpdateApkReadyListener-->
-  <string name="UpdateApkReadyListener_Signal_update">Molly-päivitys</string>
+  <string name="UpdateApkReadyListener_Signal_update">Signal-LTS-päivitys</string>
   <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Uusi versio Mollyista on saatavilla. Päivitä napauttamalla.</string>
   <!--UntrustedSendDialog-->
   <string name="UntrustedSendDialog_send_message">Lähetetäänkö viesti?</string>
@@ -1411,7 +1411,7 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <string name="VerifyIdentityActivity_our_signal_safety_number">Signal-turvanumeromme:</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">Näyttää siltä, ettei sinulla ole yhtään sovellusta, johon jakaa.</string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">Leikepöydältä ei löytynyt turvanumeroa, johon verrata</string>
-  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Molly tarvitsee lupaa käyttää kameraa QR-koodien skannaamista varten, mutta tämä käyttöoikeus on pysyvästi evätty Mollyilta. Voit muuttaa tätä menemällä sovellusten asetuksiin, valitsemalla \"Sovelluksen käyttöoikeudet\" ja laittamalla päälle \"Kamera\".</string>
+  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Signal-LTS tarvitsee lupaa käyttää kameraa QR-koodien skannaamista varten, mutta tämä käyttöoikeus on pysyvästi evätty Mollyilta. Voit muuttaa tätä menemällä sovellusten asetuksiin, valitsemalla \"Sovelluksen käyttöoikeudet\" ja laittamalla päälle \"Kamera\".</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">QR-koodin skannaus ei onnistu ilman kameran käyttöoikeutta.</string>
   <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">Voit nähdä käyttäjän %1$s turvanumeron lähettämällä ensin viestin.</string>
   <!--ViewOnceMessageActivity-->
@@ -1431,12 +1431,12 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <!--KeyCachingService-->
   <string name="KeyCachingService_signal_passphrase_cached">Siirry takaisin sovellukseen koskettamalla tästä.</string>
   <string name="KeyCachingService_passphrase_cached">Mollyin lukitus on auki</string>
-  <string name="KeyCachingService_lock">Lukitse Molly</string>
+  <string name="KeyCachingService_lock">Lukitse Signal-LTS</string>
   <!--MediaPreviewActivity-->
   <string name="MediaPreviewActivity_you">Sinä</string>
   <string name="MediaPreviewActivity_unssuported_media_type">Median tyyppiä ei tueta</string>
   <string name="MediaPreviewActivity_draft">Luonnos</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Molly tarvitsee lupaa käyttää laitteesi tallennustilaa tallentaakseen sinne, mutta tämä käyttöoikeus on pysyvästi evätty Mollyilta. Voit muuttaa tätä menemällä sovellusten asetuksiin, valitsemalla \"Sovelluksen käyttöoikeudet\" ja laittamalla päälle \"Tallennustila\".</string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Signal-LTS tarvitsee lupaa käyttää laitteesi tallennustilaa tallentaakseen sinne, mutta tämä käyttöoikeus on pysyvästi evätty Mollyilta. Voit muuttaa tätä menemällä sovellusten asetuksiin, valitsemalla \"Sovelluksen käyttöoikeudet\" ja laittamalla päälle \"Tallennustila\".</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">Tallennus ulkoiseen tallennustilaan ei onnistu ilman käyttöoikeutta.</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">Poistetaanko viesti?</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">Viesti poistetaan pysyvästi.</string>
@@ -1461,7 +1461,7 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <string name="MessageNotifier_signal_message">Signal-viesti</string>
   <string name="MessageNotifier_unsecured_sms">Salaamaton tekstiviesti</string>
   <string name="MessageNotifier_you_may_have_new_messages">Olet saattanut saada uusia viestejä</string>
-  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Tarkista tuoreet ilmoitukset avaamalla Molly.</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Tarkista tuoreet ilmoitukset avaamalla Signal-LTS.</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">Yhteystieto</string>
   <string name="MessageNotifier_reacted_s_to_s">Reagoi %1$s viestiin %2$s.</string>
@@ -1488,7 +1488,7 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <string name="NotificationChannels__no_activity_available_to_open_notification_channel_settings">Ei aktiviteettia saatavilla jonka kautta avata kanava-asetukset.</string>
   <!--ProfileEditNameFragment-->
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Pikavastaus ei toimi, kun Molly on lukittu!</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Pikavastaus ei toimi, kun Signal-LTS on lukittu!</string>
   <string name="QuickResponseService_problem_sending_message">Ongelma viestin lähettämisessä!</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">Tallennettu: %s</string>
@@ -1499,7 +1499,7 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">Virheellinen pikakuvake</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Signal-LTS</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Uusi viesti</string>
   <string name="SingleRecipientNotificationBuilder_message_request">Viestipyyntö</string>
   <string name="SingleRecipientNotificationBuilder_you">Sinä</string>
@@ -1516,7 +1516,7 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Todennäköisesti olet rekisteröitynyt Signaliin toisella laitteella. Rekisteröidy uudelleen napauttamalla.</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Jotta voit vastata kontaktin %s puheluun, anna Mollyille lupa käyttää mikrofonia.</string>
-  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Molly tarvitsee lupaa käyttää mikrofonia ja kameraa puheluiden soittamista ja vastaanottamista varten, mutta nämä käyttöoikeudet ovat pysyvästi evätty Mollyilta. Voit muuttaa tätä menemällä sovellusten asetuksiin, valitsemalla \"Sovelluksen käyttöoikeudet\" ja laittamalla päälle \"Mikrofoni\" ja \"Kamera\".</string>
+  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Signal-LTS tarvitsee lupaa käyttää mikrofonia ja kameraa puheluiden soittamista ja vastaanottamista varten, mutta nämä käyttöoikeudet ovat pysyvästi evätty Mollyilta. Voit muuttaa tätä menemällä sovellusten asetuksiin, valitsemalla \"Sovelluksen käyttöoikeudet\" ja laittamalla päälle \"Mikrofoni\" ja \"Kamera\".</string>
   <string name="WebRtcCallActivity__answered_on_a_linked_device">Vastattu yhdistetyllä laitteella.</string>
   <string name="WebRtcCallActivity__declined_on_a_linked_device">Hylätty yhdistetyllä laitteella.</string>
   <string name="WebRtcCallActivity__busy_on_a_linked_device">Varattu yhdistetyllä laitteella.</string>
@@ -1552,7 +1552,7 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <!--single_contact_selection_activity-->
   <string name="SingleContactSelectionActivity_contact_photo">Yhteystiedon kuva</string>
   <!--ContactSelectionListFragment-->
-  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Molly tarvitsee lupaa käyttää laitteesi yhteystietoja voidakseen näyttää ne, mutta tämä käyttöoikeus on pysyvästi evätty Mollyilta. Voit muuttaa tätä menemällä sovellusten asetuksiin, valitsemalla \"Sovelluksen käyttöoikeudet\" ja laittamalla päälle \"Yhteystiedot\".</string>
+  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Signal-LTS tarvitsee lupaa käyttää laitteesi yhteystietoja voidakseen näyttää ne, mutta tämä käyttöoikeus on pysyvästi evätty Mollyilta. Voit muuttaa tätä menemällä sovellusten asetuksiin, valitsemalla \"Sovelluksen käyttöoikeudet\" ja laittamalla päälle \"Yhteystiedot\".</string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Yhteystietojen haussa tapahtui virhe. Tarkista verkkoyhteytesi.</string>
   <string name="ContactSelectionListFragment_username_not_found">Käyttäjätunnusta ei löydy</string>
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">%1$s ei käytä Signalia. Tarkista käyttäjätunnus ja yritä uudelleen.</string>
@@ -1566,7 +1566,7 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
     <item quantity="other">%1$d jäsentä</item>
   </plurals>
   <!--contact_selection_list_fragment-->
-  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly tarvitsee luvan yhteystietoihisi, jotta se voisi näyttää ne.</string>
+  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Signal-LTS tarvitsee luvan yhteystietoihisi, jotta se voisi näyttää ne.</string>
   <string name="contact_selection_list_fragment__show_contacts">Näytä yhteystiedot</string>
   <!--contact_selection_list_item-->
   <plurals name="contact_selection_list_item__number_of_members">
@@ -2121,8 +2121,8 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <string name="PaymentsTransferFragment__you_can_transfer">MobileCoin-siirron voi tehdä yhteensopivan kauppapaikan lompakko-osoitteeseen, joka on tyypillisesti kirjaimista ja numeroista koostuva merkkisarja QR-koodin alapuolella.</string>
   <string name="PaymentsTransferFragment__next">Seuraava</string>
   <string name="PaymentsTransferFragment__invalid_address">Virheellinen osoite</string>
-  <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">Molly tarvitsee luvan kameran käyttämiseen skannatakseen QR-koodin.</string>
-  <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">Molly tarvitsee luvan kameran käyttämiseen skannatakseen QR-koodin.</string>
+  <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">Signal-LTS tarvitsee luvan kameran käyttämiseen skannatakseen QR-koodin.</string>
+  <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">Signal-LTS tarvitsee luvan kameran käyttämiseen skannatakseen QR-koodin.</string>
   <string name="PaymentsTransferFragment__settings">Asetukset</string>
   <!--PaymentsTransferQrScanFragment-->
   <string name="PaymentsTransferQrScanFragment__scan_address_qr_code">Skannaa osoitteen QR-koodi</string>
@@ -2478,7 +2478,7 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">Olet tehnyt liian monta yritystä. Yritä myöhemmin uudelleen.</string>
   <string name="RegistrationActivity_error_connecting_to_service">Palveluunyhdistämisvirhe</string>
   <string name="preferences_chats__backups">Varmuuskopiot</string>
-  <string name="prompt_passphrase_activity__signal_is_locked">Molly on lukittu</string>
+  <string name="prompt_passphrase_activity__signal_is_locked">Signal-LTS on lukittu</string>
   <string name="prompt_passphrase_activity__tap_to_unlock">AVAA NAPAUTTAMALLA</string>
   <string name="Recipient_unknown">Tuntematon</string>
   <!--TransferOrRestoreFragment-->
@@ -2501,18 +2501,18 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">Valmistellaan yhteyttä vanhaan Android-laitteeseesi…</string>
   <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">Kohtapuoliin pitäisi olla valmista</string>
   <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">Odotetaan että vanha Android-laite ottaa yhteyttä…</string>
-  <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Molly tarvitsee luvan sijaintitietoihin vanhan Android-laitteesi löytämiseen ja yhdistämiseen.</string>
+  <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Signal-LTS tarvitsee luvan sijaintitietoihin vanhan Android-laitteesi löytämiseen ja yhdistämiseen.</string>
   <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Sijaintipalveluiden täytyy olla päällä jotta vanha Android-laitteesi voidaan löytää ja yhdistää.</string>
-  <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Molly tarvitsee Wi-Fi:ä vanhan Android-laitteesi löytämiseen ja yhdistämiseen. Wi-Fi:n pitää olla päällä, mutta sen ei tarvitse olla yhdistettynä mihinkään.</string>
-  <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Näyttää siltä että laitteesi ei tue Wi-Fi Direct:iä. Molly käyttää Wi-Fi Direct:iä vanhan Android-laitteesi löytämiseen ja yhdistämiseen. Voit silti siirtää tietosi varmuuskopion avulla vanhasta laitteestasi.</string>
+  <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Signal-LTS tarvitsee Wi-Fi:ä vanhan Android-laitteesi löytämiseen ja yhdistämiseen. Wi-Fi:n pitää olla päällä, mutta sen ei tarvitse olla yhdistettynä mihinkään.</string>
+  <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Näyttää siltä että laitteesi ei tue Wi-Fi Direct:iä. Signal-LTS käyttää Wi-Fi Direct:iä vanhan Android-laitteesi löytämiseen ja yhdistämiseen. Voit silti siirtää tietosi varmuuskopion avulla vanhasta laitteestasi.</string>
   <string name="NewDeviceTransferSetup__restore_a_backup">Palauta varmuuskopio</string>
   <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Tapahtui odottamaton virhe yritettäessä otta yhteyttä vanhaan Android-laitteeseesi.</string>
   <!--OldDeviceTransferSetupFragment-->
   <string name="OldDeviceTransferSetup__searching_for_new_android_device">Etsitään uutta Android-laitetta…</string>
-  <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Molly tarvitsee luvan sijaintitietoihin uuden Android-laitteesi löytämiseen ja yhdistämiseen.</string>
+  <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Signal-LTS tarvitsee luvan sijaintitietoihin uuden Android-laitteesi löytämiseen ja yhdistämiseen.</string>
   <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Sijaintipalveluiden täytyy olla päällä jotta uusi Android-laitteesi voidaan löytää ja yhdistää.</string>
-  <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Molly tarvitsee Wi-Fi:ä uuden Android-laitteesi löytämiseen ja yhdistämiseen. Wi-Fi:n pitää olla päällä, mutta sen ei tarvitse olla yhdistettynä mihinkään.</string>
-  <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Näyttää siltä että laitteesi ei tue Wi-Fi Direct:iä. Molly käyttää Wi-Fi Direct:iä uuden Android-laitteesi löytämiseen ja yhdistämiseen. Voit silti siirtää tietosi varmuuskopion avulla uuteen laitteeseesi.</string>
+  <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Signal-LTS tarvitsee Wi-Fi:ä uuden Android-laitteesi löytämiseen ja yhdistämiseen. Wi-Fi:n pitää olla päällä, mutta sen ei tarvitse olla yhdistettynä mihinkään.</string>
+  <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Näyttää siltä että laitteesi ei tue Wi-Fi Direct:iä. Signal-LTS käyttää Wi-Fi Direct:iä uuden Android-laitteesi löytämiseen ja yhdistämiseen. Voit silti siirtää tietosi varmuuskopion avulla uuteen laitteeseesi.</string>
   <string name="OldDeviceTransferSetup__create_a_backup">Luo varmuuskopio</string>
   <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Tapahtui odottamaton virhe yritettäessä otta yhteyttä uuteen Android-laitteeseesi.</string>
   <!--DeviceTransferSetupFragment-->
@@ -2550,7 +2550,7 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <string name="NewDeviceTransfer__cannot_transfer_from_a_newer_version_of_signal">Siirto uudemmasta Signal-versiosta ei ole mahdollista</string>
   <!--DeviceTransferFragment-->
   <string name="DeviceTransfer__transferring_data">Siirretään tietoja</string>
-  <string name="DeviceTransfer__keep_both_devices_near_each_other">Pidä laitteet lähekkäin. Älä sammuta niitä ja pidä Molly päällä. Siirto on päästä päähän salattu.</string>
+  <string name="DeviceTransfer__keep_both_devices_near_each_other">Pidä laitteet lähekkäin. Älä sammuta niitä ja pidä Signal-LTS päällä. Siirto on päästä päähän salattu.</string>
   <string name="DeviceTransfer__d_messages_so_far">%1$dviestiä tähän asti…</string>
   <string name="DeviceTransfer__cancel">Peruuta</string>
   <string name="DeviceTransfer__try_again">Yritä uudelleen</string>
@@ -2563,7 +2563,7 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <string name="OldDeviceTransferInstructions__transfer_account">Siirrä tili</string>
   <string name="OldDeviceTransferInstructions__you_can_transfer_your_signal_account_when_setting_up_signal_on_a_new_android_device">Voit siirtää Signal-tilisi ottaessasi Signalin käyttöön uudella Android-laitteellasi. Ennen kuin jatkat:</string>
   <string name="OldDeviceTransferInstructions__first_bullet">1.</string>
-  <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Lataa Molly uuteen Android-laiteeseesi</string>
+  <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Lataa Signal-LTS uuteen Android-laiteeseesi</string>
   <string name="OldDeviceTransferInstructions__second_bullet">2.</string>
   <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">Napauta \'Siirrä tai palauta tili\'</string>
   <string name="OldDeviceTransferInstructions__third_bullet">3.</string>
@@ -2766,7 +2766,7 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <string name="DeactivateWalletFragment__deactivate_wallet">Poista Wallet käytöstä</string>
   <string name="DeactivateWalletFragment__your_balance">Saldosi</string>
   <string name="DeactivateWalletFragment__deactivate">Poista käytöstä</string>
-  <string name="DeactivateWalletFragment__your_balance_will_remain">Varat säilytetään Molly-tiliin liitetyssä lompakossa siltä varalta jos maksut otetaan uudestaan käyttöön.</string>
+  <string name="DeactivateWalletFragment__your_balance_will_remain">Varat säilytetään Signal-LTS-tiliin liitetyssä lompakossa siltä varalta jos maksut otetaan uudestaan käyttöön.</string>
   <!--PaymentsRecoveryStartFragment-->
   <string name="PaymentsRecoveryStartFragment__recovery_phrase">Palautuslause</string>
   <string name="PaymentsRecoveryStartFragment__enter_recovery_phrase">Syötä palautuslause</string>

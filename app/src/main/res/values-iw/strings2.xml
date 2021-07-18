@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="preferences__automatic_lockdown">נעילה אוטומטית</string>
-    <string name="preferences__protect_molly_database_with_a_passphrase">הגנת מסד הנתונים של Molly במילת צופן</string>
+    <string name="preferences__protect_molly_database_with_a_passphrase">הגנת מסד הנתונים של Signal-LTS במילת צופן</string>
     <string name="preferences__passphrase_lock">הצפנת מסד נתונים</string>
     <string name="arrays__on_inactivity_timeout">אם התרחקת לזמן מסוים מבלי לשחרר את המכשיר שלך</string>
     <string name="ChangePassphraseDialogFragment_generating_keys_this_may_take_a_while">המפתחות נוצרים. זאת פעולה מעט ממושכת…</string>
@@ -11,8 +11,8 @@
     <string name="ChangePassphraseDialogFragment_estimated_time_to_crack_suggestion">%1$s\n\nזמן הפריצה המוערך: %2$s.\n\nהצעה: %3$s</string>
     <string name="ChangePassphraseDialogFragment_weak_passphrase">מילת הצופן חלשה!</string>
     <string name="PassphraseCreateActivity_turn_on_database_encryption">הפעלת הצפנת מסד נתונים</string>
-    <string name="PassphraseCreateActivity_require_passphrase_to_unlock_molly">לדרוש מילת צופן כדי לשחרר את Molly\?</string>
-    <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">מעתה ניתן להגדיר מילת צופן כדי להצפין את מסד הנתונים, עד לשחרור מסד הנתונים, ל־Molly אין אפשרות לקבל התראות או שיחות. הגדרה זו מסייע להגן מפני אובדן מידע או גניבת מכשיר.</string>
+    <string name="PassphraseCreateActivity_require_passphrase_to_unlock_molly">לדרוש מילת צופן כדי לשחרר את Signal-LTS\?</string>
+    <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">מעתה ניתן להגדיר מילת צופן כדי להצפין את מסד הנתונים, עד לשחרור מסד הנתונים, ל־Signal-LTS אין אפשרות לקבל התראות או שיחות. הגדרה זו מסייע להגן מפני אובדן מידע או גניבת מכשיר.</string>
     <string name="AppProtectionPreferenceFragment_instant">מיידי</string>
     <string name="WipeMemoryService_secure_wipe_in_progress">מתבצעת מחיקה מאובטחת כעת</string>
     <string name="ApplicationPreferencesActivity_privacy_summary_passphrase_registration_locks">הצפנת מסד נתונים %1$s, נעילת רישום %2$s</string>
@@ -21,7 +21,7 @@
     <string name="preferences__device_lock_timeout">זמן המתנה לנעילת מכשיר</string>
     <string name="RegistrationActivity_network_settings">הגדרות רשת</string>
     <string name="ApplicationPreferencesActivity_network_summary">פרוקסי %1$s</string>
-    <string name="NetworkPreferenceFragment_molly_wont_connect_without_orbot_which_is_not_installed_on_this_device">Molly לא תתחבר ללא Orbot, שאינו מותקן במכשיר זה.</string>
+    <string name="NetworkPreferenceFragment_molly_wont_connect_without_orbot_which_is_not_installed_on_this_device">Signal-LTS לא תתחבר ללא Orbot, שאינו מותקן במכשיר זה.</string>
     <string name="NetworkPreferenceFragment_get_orbot">קבלו את Orbot</string>
     <string name="NetworkPreferenceFragment_missing_orbot_app">אפליקציה Orbot חסרה</string>
     <string name="NetworkPreferenceFragment_the_host_you_typed_is_not_valid">המארח שהקלדת אינו חוקי</string>
@@ -45,12 +45,12 @@
     <string name="preferences__map_hybrid">היברידי</string>
     <string name="preferences__map_normal">נורמלי</string>
     <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">תבדוק באופן קבוע לשחרורים חדשים ותבקש להתקין אותם.</string>
-    <string name="preferences__autoupdate_molly">עדכון אוטומטי Molly</string>
+    <string name="preferences__autoupdate_molly">עדכון אוטומטי Signal-LTS</string>
     <string name="arrays__tor_via_orbot">Tor דרך Orbot</string>
     <string name="arrays__none">אין</string>
     <string name="Megaphones_automatic_check_for_updates">לבדוק אוטומטית אם יש עדכונים</string>
-    <string name="DonateMegaphone_we_maintain_molly_with_your_support_consider_donating_at_open_collective">אנו מתחזקים את Molly עם התמיכה שלך! מוטב לשקול לתרום לנו דרך Open Collective.</string>
-    <string name="DonateMegaphone_molly_is_free_software">Molly היא במסגרת תכנה חופשית</string>
+    <string name="DonateMegaphone_we_maintain_molly_with_your_support_consider_donating_at_open_collective">אנו מתחזקים את Signal-LTS עם התמיכה שלך! מוטב לשקול לתרום לנו דרך Open Collective.</string>
+    <string name="DonateMegaphone_molly_is_free_software">Signal-LTS היא במסגרת תכנה חופשית</string>
     <string name="preferences_network__online">מקוון</string>
     <string name="preferences_network__connecting">מתבצעת התחברות…</string>
     <string name="preferences_network__check_connection">בדיקת החיבור</string>

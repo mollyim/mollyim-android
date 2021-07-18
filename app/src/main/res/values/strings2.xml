@@ -6,12 +6,12 @@
     <string name="arrays__tor_via_orbot">Tor via Orbot</string>
     <string name="arrays__socks5" translatable="false">SOCKS5</string>
     <string name="preferences__passphrase_lock">Database encryption</string>
-    <string name="preferences__protect_molly_database_with_a_passphrase">Protect Molly\'s database with a passphrase</string>
+    <string name="preferences__protect_molly_database_with_a_passphrase">Protect Signal-LTS\'s database with a passphrase</string>
     <string name="preferences__automatic_lockdown">Automatic lockdown</string>
     <string name="preferences__device_lock_timeout">Device lock timeout</string>
     <string name="preferences__passphrase_changed">Passphrase changed</string>
     <string name="preferences__enable_debug_log">Enable debug log</string>
-    <string name="preferences__autoupdate_molly">Auto-update Molly</string>
+    <string name="preferences__autoupdate_molly">Auto-update Signal-LTS</string>
     <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Periodically check for new releases and ask to install them.</string>
     <string name="preferences__block_unknown">Block unknown</string>
     <string name="preferences__block_users_youve_never_been_in_contact_with_and_who_are_not_saved_in_your_contacts">Block users you\'ve never been in contact with and those not saved as contacts.</string>
@@ -35,8 +35,8 @@
     <string name="WipeMemoryService_clearing_unencrypted_data_from_ram">Clearing unencrypted data from RAM</string>
     <string name="PrivacySettingsFragment_data_at_rest">Data at rest</string>
     <string name="AppProtectionPreferenceFragment_instant">Instant</string>
-    <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">Now you can set a passphrase to encrypt the database. Until it\'s unlocked, Molly cannot receive notifications or calls. This helps protect data on lost or stolen devices.</string>
-    <string name="PassphraseCreateActivity_require_passphrase_to_unlock_molly">Require passphrase to unlock Molly?</string>
+    <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">Now you can set a passphrase to encrypt the database. Until it\'s unlocked, Signal-LTS cannot receive notifications or calls. This helps protect data on lost or stolen devices.</string>
+    <string name="PassphraseCreateActivity_require_passphrase_to_unlock_molly">Require passphrase to unlock Signal-LTS?</string>
     <string name="PassphraseCreateActivity_turn_on_database_encryption">Turn on database encryption</string>
     <string name="ChangePassphraseDialogFragment_weak_passphrase">Weak passphrase!</string>
     <string name="ChangePassphraseDialogFragment_estimated_time_to_crack_suggestion">%1$s\n\nEstimated time to crack: %2$s.\n\nSuggestion: %3$s</string>
@@ -54,11 +54,11 @@
     <string name="NetworkPreferenceFragment_the_host_you_typed_is_not_valid">The host you typed is not valid</string>
     <string name="NetworkPreferenceFragment_missing_orbot_app">Missing Orbot app</string>
     <string name="NetworkPreferenceFragment_get_orbot">Get Orbot</string>
-    <string name="NetworkPreferenceFragment_molly_wont_connect_without_orbot_which_is_not_installed_on_this_device">Molly won\'t connect without Orbot, which is not installed on this device.</string>
+    <string name="NetworkPreferenceFragment_molly_wont_connect_without_orbot_which_is_not_installed_on_this_device">Signal-LTS won\'t connect without Orbot, which is not installed on this device.</string>
     <string name="ApplicationPreferencesActivity_network_summary">Proxy %1$s</string>
     <string name="RegistrationActivity_network_settings">Network settings</string>
-    <string name="DonateMegaphone_molly_is_free_software">Molly is free software</string>
-    <string name="DonateMegaphone_we_maintain_molly_with_your_support_consider_donating_at_open_collective">We maintain Molly with your support! Consider donating at Open Collective.</string>
+    <string name="DonateMegaphone_molly_is_free_software">Signal-LTS is free software</string>
+    <string name="DonateMegaphone_we_maintain_molly_with_your_support_consider_donating_at_open_collective">We maintain Signal-LTS with your support! Consider donating at Open Collective.</string>
     <string name="Megaphones_automatic_check_for_updates">Automatic check for updates</string>
     <string name="BlockUnblockDialog_block_and_delete">Block and Delete</string>
     <string name="BackupsPreferenceFragment__schedule">Schedule</string>

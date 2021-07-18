@@ -10,17 +10,17 @@
   <string name="AbstractNotificationBuilder_new_message">新消息</string>
   <!--AlbumThumbnailView-->
   <!--ApplicationMigrationActivity-->
-  <string name="ApplicationMigrationActivity__signal_is_updating">Molly 正在更新…</string>
+  <string name="ApplicationMigrationActivity__signal_is_updating">Signal-LTS 正在更新…</string>
   <!--ApplicationPreferencesActivity-->
   <string name="ApplicationPreferencesActivity_currently_s">当前：%s</string>
   <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">您尚未设置密码！</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">禁用密码？</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">这将永久解锁 Molly 和消息通知。</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">这将永久解锁 Signal-LTS 和消息通知。</string>
   <string name="ApplicationPreferencesActivity_disable">禁用</string>
   <string name="ApplicationPreferencesActivity_unregistering">注销</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">注销 Molly 消息和呼叫…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">禁用 Molly 消息和呼叫？</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">从服务器注销将禁用 Molly 消息和呼叫。如果以后想要使用这些功能，那么需使用手机号码重新注册。</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">注销 Signal-LTS 消息和呼叫…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">禁用 Signal-LTS 消息和呼叫？</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">从服务器注销将禁用 Signal-LTS 消息和呼叫。如果以后想要使用这些功能，那么需使用手机号码重新注册。</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">连接服务出错！</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">已启用短信</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">点击修改默认短信应用</string>
@@ -58,14 +58,14 @@
   <string name="AttachmentKeyboard_file">文件</string>
   <string name="AttachmentKeyboard_contact">联系人</string>
   <string name="AttachmentKeyboard_location">位置</string>
-  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Molly 需相应权限以显示图片和视频。</string>
+  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Signal-LTS 需相应权限以显示图片和视频。</string>
   <string name="AttachmentKeyboard_give_access">给予权限</string>
   <string name="AttachmentKeyboard_payment">付款</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">未找到选择媒体的应用。</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly 需“存储”权限，来发送图片、视频和音频，但该权限已永久禁用。请访问应用设置菜单，选择“权限”并启用“存储”。</string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly 需“通讯录”权限，来发送通讯录信息，但是该权限已永久禁用。请访问应用设置菜单，选择“权限”并启用“通讯录”。</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly 需“位置”权限，来发送位置信息，但是该权限已永久禁用。请访问应用设置菜单，选择“权限”并启用“位置”。</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signal-LTS 需“存储”权限，来发送图片、视频和音频，但该权限已永久禁用。请访问应用设置菜单，选择“权限”并启用“存储”。</string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Signal-LTS 需“通讯录”权限，来发送通讯录信息，但是该权限已永久禁用。请访问应用设置菜单，选择“权限”并启用“通讯录”。</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Signal-LTS 需“位置”权限，来发送位置信息，但是该权限已永久禁用。请访问应用设置菜单，选择“权限”并启用“位置”。</string>
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">上传媒体中…</string>
   <string name="AttachmentUploadJob_compressing_video_start">压缩视频中…</string>
@@ -116,14 +116,14 @@
   <string name="CameraContacts_no_signal_contacts">没有 Signal 联系人</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">仅可通过相机按钮来发送照片给 Signal 联系人。</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">未找到联系人？</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">邀请联系人加入 Molly</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">邀请联系人加入 Signal-LTS</string>
   <string name="CameraContacts__menu_search">搜索</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">删除</string>
   <string name="ClearProfileActivity_remove_profile_photo">删除头像</string>
   <string name="ClearProfileActivity_remove_group_photo">删除群组头像？</string>
   <!--ClientDeprecatedActivity-->
-  <string name="ClientDeprecatedActivity_update_signal">升级 Molly</string>
+  <string name="ClientDeprecatedActivity_update_signal">升级 Signal-LTS</string>
   <string name="ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported">此版本 Signal 已过期，升级到最新版本后才能收发消息。</string>
   <string name="ClientDeprecatedActivity_update">更新</string>
   <string name="ClientDeprecatedActivity_dont_update">不要更新</string>
@@ -202,7 +202,7 @@
   <string name="ConversationActivity_transport_insecure_sms">不安全短信</string>
   <string name="ConversationActivity_transport_insecure_mms">不安全彩信</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">用 Molly 来聊天吧 %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">用 Signal-LTS 来聊天吧 %1$s</string>
   <string name="ConversationActivity_specify_recipient">请选择联系人</string>
   <string name="ConversationActivity_unblock">取消屏蔽</string>
   <string name="ConversationActivity_attachment_exceeds_size_limits">附件超过当前消息类型的大小限制。</string>
@@ -211,15 +211,15 @@
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">你的设备上没有处理该链接的应用。</string>
   <string name="ConversationActivity_your_request_to_join_has_been_sent_to_the_group_admin">您的入群申请已发送给群组管理员，您将在管理员作出决定后收到通知。</string>
   <string name="ConversationActivity_cancel_request">撤回申请</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">如需发送语音，请允许 Molly 使用麦克风。</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly 需“麦克风”权限，来发送音频，但该权限已永久禁用。请访问应用设置菜单，选择“权限”并启用“麦克风”。</string>
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly 需“麦克风”和“相机”权限，来呼叫 %s，但这些权限已永久禁用。请访问应用设置菜单，选择“权限”并启用“麦克风”和“相机”。</string>
-  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">要拍照或录像，请允许 Molly 访问相机。</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Molly 需“相机”权限，来拍摄图片或视频，但该权限已永久禁用。请访问应用设置菜单，选择“权限”并启用“相机”。</string>
-  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Molly 需要相机权限以拍摄照片或视频</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">如需发送语音，请允许 Signal-LTS 使用麦克风。</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Signal-LTS 需“麦克风”权限，来发送音频，但该权限已永久禁用。请访问应用设置菜单，选择“权限”并启用“麦克风”。</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Signal-LTS 需“麦克风”和“相机”权限，来呼叫 %s，但这些权限已永久禁用。请访问应用设置菜单，选择“权限”并启用“麦克风”和“相机”。</string>
+  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">要拍照或录像，请允许 Signal-LTS 访问相机。</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signal-LTS 需“相机”权限，来拍摄图片或视频，但该权限已永久禁用。请访问应用设置菜单，选择“权限”并启用“相机”。</string>
+  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signal-LTS 需要相机权限以拍摄照片或视频</string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">开启麦克风权限以录制有声视频。</string>
-  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Molly 需“麦克风”权限，来录制视频，但该权限已永久禁用。请访问应用设置菜单，选择“权限”并启用“麦克风”。</string>
-  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Molly 需要麦克风权限以录制视频。</string>
+  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signal-LTS 需“麦克风”权限，来录制视频，但该权限已永久禁用。请访问应用设置菜单，选择“权限”并启用“麦克风”。</string>
+  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signal-LTS 需要麦克风权限以录制视频。</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">Signal 不是默认的短信应用，不能发送短信或彩信。是否修改安卓系统的相应设置？</string>
   <string name="ConversationActivity_yes">是</string>
@@ -235,7 +235,7 @@
   <string name="ConversationActivity_you_will_leave_this_group_and_it_will_be_deleted_from_all_of_your_devices">你将离开这个组，它将从你所有的设备中删除。</string>
   <string name="ConversationActivity_delete">删除</string>
   <string name="ConversationActivity_delete_and_leave">删除并离开</string>
-  <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">Molly 需要访问您的麦克风来呼叫 %1$s</string>
+  <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">Signal-LTS 需要访问您的麦克风来呼叫 %1$s</string>
   <string name="ConversationActivity__more_options_now_in_group_settings">“群组设置”现增加了更多选项</string>
   <string name="ConversationActivity_join">加入</string>
   <string name="ConversationActivity_full">已满</string>
@@ -286,7 +286,7 @@
   <string name="ConversationFragment__d_group_members_have_the_same_name">%1$d 位群组成员的名字相同。</string>
   <string name="ConversationFragment__tap_to_review">点击开始审查</string>
   <string name="ConversationFragment__review_requests_carefully">请仔细审查请求</string>
-  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Molly 碰到了一个同名的联系人。</string>
+  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Signal-LTS 碰到了一个同名的联系人。</string>
   <string name="ConversationFragment_contact_us">联系我们</string>
   <string name="ConversationFragment_verify">验证</string>
   <string name="ConversationFragment_not_now">稍后再说</string>
@@ -346,11 +346,11 @@
   <string name="BackupsPreferenceFragment__test_your_backup_passphrase">测试备份密码并验证是否匹配</string>
   <string name="BackupsPreferenceFragment__turn_on">开启</string>
   <string name="BackupsPreferenceFragment__turn_off">关闭</string>
-  <string name="BackupsPreferenceFragment__to_restore_a_backup">如需还原备份，请重新安装 Molly，然后打开该应用并点击“还原备份”，接着打开备份文件。%1$s</string>
+  <string name="BackupsPreferenceFragment__to_restore_a_backup">如需还原备份，请重新安装 Signal-LTS，然后打开该应用并点击“还原备份”，接着打开备份文件。%1$s</string>
   <string name="BackupsPreferenceFragment__learn_more">了解更多</string>
   <string name="BackupsPreferenceFragment__in_progress">正在进行…</string>
   <string name="BackupsPreferenceFragment__d_so_far">%1$d 到目前为止…</string>
-  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly 需外部存储权限，来创建备份，但该权限已永久禁用。请访问应用设置菜单，选择“权限”并启用“存储”。</string>
+  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal-LTS 需外部存储权限，来创建备份，但该权限已永久禁用。请访问应用设置菜单，选择“权限”并启用“存储”。</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">使用定制：%s</string>
   <string name="CustomDefaultPreference_using_default">使用默认：%s</string>
@@ -395,7 +395,7 @@
   <string name="GroupCallingMegaphone__open_a_new_group_to_start">打开一个新版群组来开始一次免费的加密群语音通话</string>
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">缺失 Google Play 服务时优化</string>
-  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">该设备不支持 Google Play 服务。点击禁用系统电池优化，防止 Molly 非活动时无法获取新消息。</string>
+  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">该设备不支持 Google Play 服务。点击禁用系统电池优化，防止 Signal-LTS 非活动时无法获取新消息。</string>
   <!--ExpiredBuildReminder-->
   <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">此 Signal 版本已过期，请升级到最新版本以继续收发消息。</string>
   <string name="ExpiredBuildReminder_update_now">现在升级</string>
@@ -409,7 +409,7 @@
   <string name="ShareActivity_multiple_attachments_are_only_supported">多个附件只支持图像和视频</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Signal 持续连接失效！</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly 无法注册 Google Play 服务。Molly 消息和呼叫已禁用。请尝试在设置 &gt; 高级中重新注册。</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal-LTS 无法注册 Google Play 服务。Signal-LTS 消息和呼叫已禁用。请尝试在设置 &gt; 高级中重新注册。</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">获取原始分辨率的 GIF 图片时出错</string>
   <!--GiphyFragmentPageAdapter-->
@@ -708,14 +708,14 @@
   <string name="InviteActivity_cancel">取消</string>
   <string name="InviteActivity_sending">正在发送…</string>
   <string name="InviteActivity_invitations_sent">邀请已发送！</string>
-  <string name="InviteActivity_invite_to_signal">邀请使用 Molly</string>
+  <string name="InviteActivity_invite_to_signal">邀请使用 Signal-LTS</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="other">发送短袖给 %d 好友</item>
   </plurals>
   <plurals name="InviteActivity_send_sms_invites">
     <item quantity="other">发送 %d 个短信邀请？</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">用 Molly 来聊天吧：%1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">用 Signal-LTS 来聊天吧：%1$s</string>
   <string name="InviteActivity_no_app_to_share_to">看起来设备上没有可用于分享的应用。</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">朋友之间需要加密聊天工具。</string>
   <!--LearnMoreTextView-->
@@ -725,7 +725,7 @@
   <string name="LongMessageActivity_message_from_s">来自 %1$s 的消息</string>
   <string name="LongMessageActivity_your_message">您的消息</string>
   <!--MessageRetrievalService-->
-  <string name="MessageRetrievalService_signal">Molly</string>
+  <string name="MessageRetrievalService_signal">Signal-LTS</string>
   <string name="MessageRetrievalService_background_connection_enabled">后台连接已启用</string>
   <!--MmsDownloader-->
   <string name="MmsDownloader_error_reading_mms_settings">读取运营商彩信设置时出错</string>
@@ -809,8 +809,8 @@
   <string name="MediaSendActivity_message_to_s">发送消息至 %s</string>
   <string name="MediaSendActivity_message">消息</string>
   <string name="MediaSendActivity_select_recipients">选择接收人</string>
-  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">为了显示联系人，Molly 需其访问权限。</string>
-  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Molly 需“联系人”权限，来显示你的联系人，但该权限已永久禁用。请访问应用设置菜单，选择“权限”并启用“联系人”。</string>
+  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">为了显示联系人，Signal-LTS 需其访问权限。</string>
+  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Signal-LTS 需“联系人”权限，来显示你的联系人，但该权限已永久禁用。请访问应用设置菜单，选择“权限”并启用“联系人”。</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="other">分享最多不可超过 %d 个条目。</item>
   </plurals>
@@ -1043,7 +1043,7 @@
   <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">抱歉，设备关联二维码无效。</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">关联 Signal 设备？</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">您好像在使用第三方扫描应用来关联 Signal 设备。出于安全考量，请使用 Signal 再次扫描二维码。</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly 需“相机”权限，来扫描二维码，但该权限已永久禁用。请访问应用设置菜单，选择“权限”并启用“相机”。</string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Signal-LTS 需“相机”权限，来扫描二维码，但该权限已永久禁用。请访问应用设置菜单，选择“权限”并启用“相机”。</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">没有“相机”权限，无法扫描二维码</string>
   <!--OutdatedBuildReminder-->
   <string name="OutdatedBuildReminder_update_now">现在升级</string>
@@ -1053,10 +1053,10 @@
   </plurals>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">输入密码</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Molly 图标</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Signal-LTS 图标</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">提交密码</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">无效密码！</string>
-  <string name="PassphrasePromptActivity_unlock_signal">解锁 Molly</string>
+  <string name="PassphrasePromptActivity_unlock_signal">解锁 Signal-LTS</string>
   <string name="PassphrasePromptActivity_signal_android_lock_screen">Signal Android - 锁定屏幕</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">地图</string>
@@ -1102,7 +1102,7 @@
   <string name="ReactionsRecipientAdapter_you">您</string>
   <!--RecaptchaRequiredBottomSheetFragment-->
   <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">验证以继续发送消息</string>
-  <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">为了防止 Molly 垃圾消息，请完成验证。</string>
+  <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">为了防止 Signal-LTS 垃圾消息，请完成验证。</string>
   <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">验证之后，可继续发送消息。任何暂停消息将自动发送。</string>
   <!--Recipient-->
   <string name="Recipient_you">您</string>
@@ -1123,8 +1123,8 @@
   <string name="RedPhone_got_it">知道了</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">点击这里以启用视频</string>
-  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Molly 需要访问您的麦克风来呼叫 %1$s</string>
-  <string name="WebRtcCallActivity__signal_s">Molly 呼叫 %1$s</string>
+  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Signal-LTS 需要访问您的麦克风来呼叫 %1$s</string>
+  <string name="WebRtcCallActivity__signal_s">Signal-LTS 呼叫 %1$s</string>
   <string name="WebRtcCallActivity__calling">呼叫中…</string>
   <!--WebRtcCallView-->
   <string name="WebRtcCallView__signal_voice_call">Signal 语音通话…</string>
@@ -1185,13 +1185,13 @@
   <string name="RegistrationActivity_is_your_phone_number_above_correct">上方的电话号码是否正确？</string>
   <string name="RegistrationActivity_edit_number">编辑号码</string>
   <string name="RegistrationActivity_missing_google_play_services">Google Play 服务缺失</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">设备缺少 Google Play 服务框架，可使用 Molly，但功能与稳定性将受到影响。\n\n如果您不是高级用户，或者运行的为原厂安卓系统，或者认为该提示有误，请联系 support@molly.im 获取帮助。</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">设备缺少 Google Play 服务框架，可使用 Signal-LTS，但功能与稳定性将受到影响。\n\n如果您不是高级用户，或者运行的为原厂安卓系统，或者认为该提示有误，请联系 support@Signal-LTS.im 获取帮助。</string>
   <string name="RegistrationActivity_i_understand">我明白。</string>
   <string name="RegistrationActivity_play_services_error">Google Play 服务错误</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play 服务正在更新或者暂时不可用，请稍后再试。</string>
   <string name="RegistrationActivity_terms_and_privacy">条款和隐私政策</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">为了联系朋友，交换消息与进行加密呼叫，Molly 需要访问联系人和媒体。</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">为了联系朋友，交换消息与进行加密呼叫，Molly 需要访问联系人和媒体。</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">为了联系朋友，交换消息与进行加密呼叫，Signal-LTS 需要访问联系人和媒体。</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">为了联系朋友，交换消息与进行加密呼叫，Signal-LTS 需要访问联系人和媒体。</string>
   <string name="RegistrationActivity_rate_limited_to_service">您尝试注册此号码次数过多，请稍候再试。</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">无法连接到 Signal 服务，请检查网络连接并重试。</string>
   <plurals name="RegistrationActivity_debug_log_hint">
@@ -1228,12 +1228,12 @@
   <!--ShakeToReport-->
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">添加到联系人</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">邀请使用 Molly</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">邀请使用 Signal-LTS</string>
   <string name="SharedContactDetailsActivity_signal_message">Signal 消息</string>
   <string name="SharedContactDetailsActivity_signal_call">Signal 呼叫</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">添加到联系人</string>
-  <string name="SharedContactView_invite_to_signal">邀请使用 Molly</string>
+  <string name="SharedContactView_invite_to_signal">邀请使用 Signal-LTS</string>
   <string name="SharedContactView_message">Signal 消息</string>
   <!--SignalPinReminders-->
   <string name="SignalPinReminders_well_remind_you_again_later">稍后提示。</string>
@@ -1292,8 +1292,8 @@
   <string name="SupportEmailUtil_filter">筛选器：</string>
   <string name="SupportEmailUtil_device_info">设备信息：</string>
   <string name="SupportEmailUtil_android_version">Android版本：</string>
-  <string name="SupportEmailUtil_signal_version">Molly版本:</string>
-  <string name="SupportEmailUtil_signal_package">Molly 软件包：</string>
+  <string name="SupportEmailUtil_signal_version">Signal-LTS版本:</string>
+  <string name="SupportEmailUtil_signal_package">Signal-LTS 软件包：</string>
   <string name="SupportEmailUtil_registration_lock">注册锁定：</string>
   <string name="SupportEmailUtil_locale">语言环境：</string>
   <!--ThreadRecord-->
@@ -1329,8 +1329,8 @@
   <string name="ThreadRecord_video">视频</string>
   <string name="ThreadRecord_chat_session_refreshed">聊天会话已刷新</string>
   <!--UpdateApkReadyListener-->
-  <string name="UpdateApkReadyListener_Signal_update">Molly 更新</string>
-  <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Molly 新版本可用，点击升级</string>
+  <string name="UpdateApkReadyListener_Signal_update">Signal-LTS 更新</string>
+  <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Signal-LTS 新版本可用，点击升级</string>
   <!--UntrustedSendDialog-->
   <string name="UntrustedSendDialog_send_message">发送消息？</string>
   <string name="UntrustedSendDialog_send">发送</string>
@@ -1361,7 +1361,7 @@
   <string name="VerifyIdentityActivity_our_signal_safety_number">我们的 Signal 安全码：</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">看起来设备上没有可用于分享的应用。</string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">剪切板没有可比较的安全码</string>
-  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Molly 需“相机”权限，来扫描二维码，但该权限已永久禁用。请访问应用设置菜单，选择“权限”并启用“相机”。</string>
+  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Signal-LTS 需“相机”权限，来扫描二维码，但该权限已永久禁用。请访问应用设置菜单，选择“权限”并启用“相机”。</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">没有“相机”权限，无法扫描二维码</string>
   <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">为了查看 %1$s 的安全码，必须首先交换消息。</string>
   <!--ViewOnceMessageActivity-->
@@ -1380,13 +1380,13 @@
   <string name="ApplicationMigrationService_system_database_import_is_complete">系统数据库导入完毕。</string>
   <!--KeyCachingService-->
   <string name="KeyCachingService_signal_passphrase_cached">点击开启。</string>
-  <string name="KeyCachingService_passphrase_cached">Molly 已解锁</string>
-  <string name="KeyCachingService_lock">锁定 Molly</string>
+  <string name="KeyCachingService_passphrase_cached">Signal-LTS 已解锁</string>
+  <string name="KeyCachingService_lock">锁定 Signal-LTS</string>
   <!--MediaPreviewActivity-->
   <string name="MediaPreviewActivity_you">您</string>
   <string name="MediaPreviewActivity_unssuported_media_type">不支持的媒体类型</string>
   <string name="MediaPreviewActivity_draft">草稿</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Molly 需“存储”权限，来保存文件至外部存储，但该权限已永久禁用。请访问应用设置菜单，选择“权限”并启用“存储”。</string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Signal-LTS 需“存储”权限，来保存文件至外部存储，但该权限已永久禁用。请访问应用设置菜单，选择“权限”并启用“存储”。</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">没有权限，无法保存至外部存储</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">删除消息？</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">这将永久删除该消息。</string>
@@ -1401,7 +1401,7 @@
   <string name="MessageNotifier_failed_to_deliver_message">消息发送失败。</string>
   <string name="MessageNotifier_error_delivering_message">发送消息出错。</string>
   <string name="MessageNotifier_message_delivery_paused">消息发送已暂停。</string>
-  <string name="MessageNotifier_verify_to_continue_messaging_on_signal">验证以继续在 Molly 上发送消息。</string>
+  <string name="MessageNotifier_verify_to_continue_messaging_on_signal">验证以继续在 Signal-LTS 上发送消息。</string>
   <string name="MessageNotifier_mark_all_as_read">全部已读</string>
   <string name="MessageNotifier_mark_read">已读</string>
   <string name="MessageNotifier_turn_off_these_notifications">关闭这些通知</string>
@@ -1411,7 +1411,7 @@
   <string name="MessageNotifier_signal_message">Signal 消息</string>
   <string name="MessageNotifier_unsecured_sms">不安全短信</string>
   <string name="MessageNotifier_you_may_have_new_messages">您有新的消息</string>
-  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">打开 Molly 查看最近通知。</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">打开 Signal-LTS 查看最近通知。</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">联系人</string>
   <string name="MessageNotifier_reacted_s_to_s">对：“%2$s”回应 %1$s。</string>
@@ -1438,7 +1438,7 @@
   <string name="NotificationChannels__no_activity_available_to_open_notification_channel_settings">无可用活动以打开通知渠道设置。</string>
   <!--ProfileEditNameFragment-->
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Molly 锁定时不可使用快速回复。</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Signal-LTS 锁定时不可使用快速回复。</string>
   <string name="QuickResponseService_problem_sending_message">发送消息时出现问题！</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">已保存至 %s</string>
@@ -1449,7 +1449,7 @@
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">无效的快捷方式</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Signal-LTS</string>
   <string name="SingleRecipientNotificationBuilder_new_message">新消息</string>
   <string name="SingleRecipientNotificationBuilder_message_request">消息请求</string>
   <string name="SingleRecipientNotificationBuilder_you">您</string>
@@ -1464,8 +1464,8 @@
   <string name="UnauthorizedReminder_device_no_longer_registered">设备已注销</string>
   <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">这很可能是您在其他设备上使用号码注册了 Signal。点击重新注册。</string>
   <!--WebRtcCallActivity-->
-  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">为了接听 %s 的来电，请允许 Molly 访问麦克风。</string>
-  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Molly 需“麦克风”和“相机”权限，来进行通话，但该权限已永久禁用。请访问应用设置菜单，选择“权限”并启用“麦克风”和“相机”。</string>
+  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">为了接听 %s 的来电，请允许 Signal-LTS 访问麦克风。</string>
+  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Signal-LTS 需“麦克风”和“相机”权限，来进行通话，但该权限已永久禁用。请访问应用设置菜单，选择“权限”并启用“麦克风”和“相机”。</string>
   <string name="WebRtcCallActivity__answered_on_a_linked_device">已在在其它设备上接听。</string>
   <string name="WebRtcCallActivity__declined_on_a_linked_device">已在其它设备上拒接。</string>
   <string name="WebRtcCallActivity__busy_on_a_linked_device">在其它设备上忙碌未接。</string>
@@ -1489,7 +1489,7 @@
   <string name="change_passphrase_activity__repeat_new_passphrase">重复新密码</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">请输入名称或号码</string>
-  <string name="contact_selection_activity__invite_to_signal">邀请使用 Molly</string>
+  <string name="contact_selection_activity__invite_to_signal">邀请使用 Signal-LTS</string>
   <string name="contact_selection_activity__new_group">新建群组</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">清除已输入文字</string>
@@ -1501,7 +1501,7 @@
   <!--single_contact_selection_activity-->
   <string name="SingleContactSelectionActivity_contact_photo">联系人图片</string>
   <!--ContactSelectionListFragment-->
-  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Molly 需“联系人”权限，来显示联系人，但该权限已永久禁用。请访问应用设置菜单，选择“权限”并启用“联系人”。</string>
+  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Signal-LTS 需“联系人”权限，来显示联系人，但该权限已永久禁用。请访问应用设置菜单，选择“权限”并启用“联系人”。</string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">获取联系人出错，请检查您的网络连接</string>
   <string name="ContactSelectionListFragment_username_not_found">未找到该用户名</string>
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">“%1$s”不是 Signal 用户，请检查用户名并重试。</string>
@@ -1514,7 +1514,7 @@
     <item quantity="other">%1$d 个成员</item>
   </plurals>
   <!--contact_selection_list_fragment-->
-  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">为了显示联系人，Molly 需要其访问权限。</string>
+  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">为了显示联系人，Signal-LTS 需要其访问权限。</string>
   <string name="contact_selection_list_fragment__show_contacts">显示联系人</string>
   <!--contact_selection_list_item-->
   <plurals name="contact_selection_list_item__number_of_members">
@@ -1870,7 +1870,7 @@
   <string name="preferences__slow">缓慢</string>
   <string name="preferences__help">帮助</string>
   <string name="preferences__advanced">高级</string>
-  <string name="preferences__donate_to_signal">捐赠 Molly</string>
+  <string name="preferences__donate_to_signal">捐赠 Signal-LTS</string>
   <string name="preferences__privacy">隐私</string>
   <string name="preferences__mms_user_agent">彩信用户代理</string>
   <string name="preferences__advanced_mms_access_point_names">手动设置彩信</string>
@@ -1999,7 +1999,7 @@
   <string name="PaymentsAllActivityFragment__sent">发送</string>
   <string name="PaymentsAllActivityFragment__received">接收</string>
   <string name="PaymentsHomeFragment__introducing_payments">推出付款功能（Beta 版）</string>
-  <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">使用 Molly 收发 MobileCoin，一种关注隐私的新数字货币。请激活开始使用。</string>
+  <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">使用 Signal-LTS 收发 MobileCoin，一种关注隐私的新数字货币。请激活开始使用。</string>
   <string name="PaymentsHomeFragment__activate_payments">激活付款</string>
   <string name="PaymentsHomeFragment__activating_payments">正在激活付款…</string>
   <string name="PaymentsHomeFragment__restore_payments_account">还原付款帐户</string>
@@ -2026,17 +2026,17 @@
   <string name="PaymentsHomeFragment__payments_is_not_available_in_your_region">您所在地区付款不可用。</string>
   <string name="PaymentsHomeFragment__could_not_enable_payments">无法启用付款，请稍后重试。</string>
   <string name="PaymentsHomeFragment__deactivate_payments_question">是否停用付款？</string>
-  <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">停用付款之后，将无法在 Molly 中收发 MobileCoin。</string>
+  <string name="PaymentsHomeFragment__you_will_not_be_able_to_send">停用付款之后，将无法在 Signal-LTS 中收发 MobileCoin。</string>
   <string name="PaymentsHomeFragment__deactivate">停用</string>
   <string name="PaymentsHomeFragment__continue">继续</string>
   <string name="PaymentsHomeFragment__balance_is_not_currently_available">余额当前不可用。</string>
   <string name="PaymentsHomeFragment__payments_deactivated">付款已停用。</string>
   <string name="PaymentsHomeFragment__payment_failed">付款失败</string>
   <string name="PaymentsHomeFragment__details">更多</string>
-  <string name="PaymentsHomeFragment__you_can_use_signal_to_send">可使用 Molly 收发 MobileCoin。全部付款遵守 MobileCoins 以及 MobileCoin Wallet 的使用条款。付款当前仍为 beta 功能，可能出现一些故障，可能丢失付款或余额且不可恢复。</string>
+  <string name="PaymentsHomeFragment__you_can_use_signal_to_send">可使用 Signal-LTS 收发 MobileCoin。全部付款遵守 MobileCoins 以及 MobileCoin Wallet 的使用条款。付款当前仍为 beta 功能，可能出现一些故障，可能丢失付款或余额且不可恢复。</string>
   <string name="PaymentsHomeFragment__activate">激活</string>
   <string name="PaymentsHomeFragment__view_mobile_coin_terms">查看 MobileCoin 条款</string>
-  <string name="PaymentsHomeFragment__payments_not_available">Molly 的付款不再可用，不过您仍可将资金转移至交易平台，但是不再能够收发付款或添加资金。</string>
+  <string name="PaymentsHomeFragment__payments_not_available">Signal-LTS 的付款不再可用，不过您仍可将资金转移至交易平台，但是不再能够收发付款或添加资金。</string>
   <!--PaymentsAddMoneyFragment-->
   <string name="PaymentsAddMoneyFragment__add_funds">添加资金</string>
   <string name="PaymentsAddMoneyFragment__your_wallet_address">您的钱包地址</string>
@@ -2073,10 +2073,10 @@
   <string name="PaymentsTransferFragment__next">下一步</string>
   <string name="PaymentsTransferFragment__invalid_address">无效地址</string>
   <string name="PaymentsTransferFragment__check_the_wallet_address">请检查转帐至的钱包地址，然后重试。</string>
-  <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">无法向您的 Molly 钱包地址转帐。请输入支持的交易平台帐户的钱包地址。</string>
-  <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">为了扫描二维码，Molly 需摄像头访问权限。</string>
-  <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Molly 需“相机”权限，来扫描二维码。请访问设置菜单，选择“权限”并启用“相机”。</string>
-  <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">为了扫描二维码，Molly 需摄像头访问权限。</string>
+  <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">无法向您的 Signal-LTS 钱包地址转帐。请输入支持的交易平台帐户的钱包地址。</string>
+  <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">为了扫描二维码，Signal-LTS 需摄像头访问权限。</string>
+  <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Signal-LTS 需“相机”权限，来扫描二维码。请访问设置菜单，选择“权限”并启用“相机”。</string>
+  <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">为了扫描二维码，Signal-LTS 需摄像头访问权限。</string>
   <string name="PaymentsTransferFragment__settings">设置</string>
   <!--PaymentsTransferQrScanFragment-->
   <string name="PaymentsTransferQrScanFragment__scan_address_qr_code">扫描地址二维码</string>
@@ -2430,7 +2430,7 @@
   <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">您的尝试次数过多，请稍候再试。</string>
   <string name="RegistrationActivity_error_connecting_to_service">连接服务出错</string>
   <string name="preferences_chats__backups">备份</string>
-  <string name="prompt_passphrase_activity__signal_is_locked">Molly 已锁定</string>
+  <string name="prompt_passphrase_activity__signal_is_locked">Signal-LTS 已锁定</string>
   <string name="prompt_passphrase_activity__tap_to_unlock">点击解锁</string>
   <string name="Recipient_unknown">未知</string>
   <!--TransferOrRestoreFragment-->
@@ -2454,18 +2454,18 @@
   <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">正在准备连接至旧的 Android 设备…</string>
   <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">请稍等，将很快准备就绪</string>
   <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">正在等待旧的 Android 设备连接…</string>
-  <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Molly 需位置权限，以发现并连接旧的 Android 设备。</string>
-  <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Molly 需已启用的位置服务，以发现并连接旧的 Android 设备。</string>
-  <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Molly 需开启的 Wi-Fi，以发现并连接旧的 Android 设备。Wi-Fi 需开启但不必连接 Wi-Fi 网络。</string>
-  <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">抱歉，该设备好像不支持 Wi-Fi Direct。Molly 通过 Wi-Fi Direct 来发现并连接旧的 Android 设备。仍可通过从旧的 Android 设备还原帐户来还原备份。</string>
+  <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Signal-LTS 需位置权限，以发现并连接旧的 Android 设备。</string>
+  <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Signal-LTS 需已启用的位置服务，以发现并连接旧的 Android 设备。</string>
+  <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Signal-LTS 需开启的 Wi-Fi，以发现并连接旧的 Android 设备。Wi-Fi 需开启但不必连接 Wi-Fi 网络。</string>
+  <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">抱歉，该设备好像不支持 Wi-Fi Direct。Signal-LTS 通过 Wi-Fi Direct 来发现并连接旧的 Android 设备。仍可通过从旧的 Android 设备还原帐户来还原备份。</string>
   <string name="NewDeviceTransferSetup__restore_a_backup">还原备份</string>
   <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">尝试连接旧的 Android 设备时，发生意外错误。</string>
   <!--OldDeviceTransferSetupFragment-->
   <string name="OldDeviceTransferSetup__searching_for_new_android_device">正在搜索新的 Android 设备…</string>
-  <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Molly 需位置权限，以发现并连接新的 Android 设备。</string>
-  <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Molly 需已启用的位置服务，以发现并连接新的 Android 设备。</string>
-  <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Molly 需开启的 Wi-Fi，以发现并连接新的 Android 设备。Wi-Fi 需开启但不必连接 Wi-Fi 网络。</string>
-  <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">抱歉，该设备好像不支持 Wi-Fi Direct。Molly 通过 Wi-Fi Direct 来发现并连接新的 Android 设备。仍可通过从新的 Android 设备还原帐户来还原备份。</string>
+  <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Signal-LTS 需位置权限，以发现并连接新的 Android 设备。</string>
+  <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Signal-LTS 需已启用的位置服务，以发现并连接新的 Android 设备。</string>
+  <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Signal-LTS 需开启的 Wi-Fi，以发现并连接新的 Android 设备。Wi-Fi 需开启但不必连接 Wi-Fi 网络。</string>
+  <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">抱歉，该设备好像不支持 Wi-Fi Direct。Signal-LTS 通过 Wi-Fi Direct 来发现并连接新的 Android 设备。仍可通过从新的 Android 设备还原帐户来还原备份。</string>
   <string name="OldDeviceTransferSetup__create_a_backup">创建备份</string>
   <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">尝试连接新的 Android 设备时，发生意外错误。</string>
   <!--DeviceTransferSetupFragment-->
@@ -2503,7 +2503,7 @@
   <string name="NewDeviceTransfer__cannot_transfer_from_a_newer_version_of_signal">无法从较新版 Signal 转移</string>
   <!--DeviceTransferFragment-->
   <string name="DeviceTransfer__transferring_data">正在转移数据</string>
-  <string name="DeviceTransfer__keep_both_devices_near_each_other">请确保两个设备互相贴近。不要关闭设备，并保持 Molly 运行。转移是端对端加密的。</string>
+  <string name="DeviceTransfer__keep_both_devices_near_each_other">请确保两个设备互相贴近。不要关闭设备，并保持 Signal-LTS 运行。转移是端对端加密的。</string>
   <string name="DeviceTransfer__d_messages_so_far">目前 %1$d 消息…</string>
   <string name="DeviceTransfer__cancel">取消</string>
   <string name="DeviceTransfer__try_again">重试</string>
@@ -2516,7 +2516,7 @@
   <string name="OldDeviceTransferInstructions__transfer_account">转移帐户</string>
   <string name="OldDeviceTransferInstructions__you_can_transfer_your_signal_account_when_setting_up_signal_on_a_new_android_device">在新的 Android 设备上设置 Signal 时，可转移您的 Signal 帐户。在继续下一步之前：</string>
   <string name="OldDeviceTransferInstructions__first_bullet">1.</string>
-  <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">在新的 Android 设备上下载 Molly</string>
+  <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">在新的 Android 设备上下载 Signal-LTS</string>
   <string name="OldDeviceTransferInstructions__second_bullet">2.</string>
   <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">点击“转移或还原帐户”</string>
   <string name="OldDeviceTransferInstructions__third_bullet">3.</string>
@@ -2582,7 +2582,7 @@
   <!--GroupLinkBottomSheetDialogFragment-->
   <string name="GroupLinkBottomSheet_share_hint_requiring_approval">任何人都能凭此链接查看群组名称和头像，并提交入群申请。请仅分享给您信任的人。</string>
   <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">任何人都能凭此链接查看群组名称和头像，并加入群组。请仅分享给您信任的人。</string>
-  <string name="GroupLinkBottomSheet_share_via_signal">通过 Molly 分享</string>
+  <string name="GroupLinkBottomSheet_share_via_signal">通过 Signal-LTS 分享</string>
   <string name="GroupLinkBottomSheet_copy">复制</string>
   <string name="GroupLinkBottomSheet_qr_code">QR 代码</string>
   <string name="GroupLinkBottomSheet_share">分享</string>
@@ -2707,7 +2707,7 @@
   <string name="payment_info_card_about_mobilecoin">关于 MobileCoin</string>
   <string name="payment_info_card_mobilecoin_is_a_new_privacy_focused_digital_currency">MobileCoin 是一种关注隐私的新数字货币。</string>
   <string name="payment_info_card_adding_funds">正在添加资金</string>
-  <string name="payment_info_card_you_can_add_funds_for_use_in">通过将 MobileCoin 发送至钱包地址，即可在 Molly 中添加并使用资金。</string>
+  <string name="payment_info_card_you_can_add_funds_for_use_in">通过将 MobileCoin 发送至钱包地址，即可在 Signal-LTS 中添加并使用资金。</string>
   <string name="payment_info_card_cashing_out">兑现</string>
   <string name="payment_info_card_you_can_cash_out_mobilecoin">在支持 MobileCoin 的交易平台上，可随时兑现 MobileCoin。只需在该交易平台上，将资金转移至您的帐户。</string>
   <string name="payment_info_card_hide_this_card">是否隐藏该卡片？</string>
@@ -2721,12 +2721,12 @@
   <!--DeactivateWalletFragment-->
   <string name="DeactivateWalletFragment__deactivate_wallet">停用钱包</string>
   <string name="DeactivateWalletFragment__your_balance">您的余额</string>
-  <string name="DeactivateWalletFragment__its_recommended_that_you">在停用付款之前，建议您将资金转移至其他钱包地址。如果当前选择不转移，在重新激活付款时，您的资金将保留在 Molly 关联的钱包内。</string>
+  <string name="DeactivateWalletFragment__its_recommended_that_you">在停用付款之前，建议您将资金转移至其他钱包地址。如果当前选择不转移，在重新激活付款时，您的资金将保留在 Signal-LTS 关联的钱包内。</string>
   <string name="DeactivateWalletFragment__transfer_remaining_balance">转移剩余余额</string>
   <string name="DeactivateWalletFragment__deactivate_without_transferring">停用而不转移</string>
   <string name="DeactivateWalletFragment__deactivate">停用</string>
   <string name="DeactivateWalletFragment__deactivate_without_transferring_question">是否停用而不转移？</string>
-  <string name="DeactivateWalletFragment__your_balance_will_remain">当重新激活付款时，您的余额将保留在 Molly 关联的钱包内。</string>
+  <string name="DeactivateWalletFragment__your_balance_will_remain">当重新激活付款时，您的余额将保留在 Signal-LTS 关联的钱包内。</string>
   <string name="DeactivateWalletFragment__error_deactivating_wallet">停用钱包出错。</string>
   <!--PaymentsRecoveryStartFragment-->
   <string name="PaymentsRecoveryStartFragment__recovery_phrase">恢复短语</string>

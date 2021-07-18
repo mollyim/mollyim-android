@@ -23,12 +23,12 @@
   </plurals> -->
   <!-- Removed by excludeNonTranslatables <string name="ApplicationPreferencesActivity_delete">Pichana</string> -->
   <string name="ApplicationPreferencesActivity_disable_passphrase">Paskachikta manachu rikuchina kan</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Kayka Molly unanchata, shinallata chaski willachitapash chaysiri rikuchinka.</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Kayka Signal-LTS unanchata, shinallata chaski willachitapash chaysiri rikuchinka.</string>
   <string name="ApplicationPreferencesActivity_disable">Mana rikuchina</string>
   <string name="ApplicationPreferencesActivity_unregistering">Llukshirikunki</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Molly ukumanta anchurikunki…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Chaskikunata, kayachikunatapash Molly ukumanta anchuchinayanchu</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Kayka chaskikunata Molly ukumanta mana rikuchinkachu, servidor ukupi tiyashkakunata pichashpa. Kutinlla Mollyta charinkapak munashpaka, kutinmi kikinpa williwilliwan killkarina kanki.</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Signal-LTS ukumanta anchurikunki…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Chaskikunata, kayachikunatapash Signal-LTS ukumanta anchuchinayanchu</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Kayka chaskikunata Signal-LTS ukumanta mana rikuchinkachu, servidor ukupi tiyashkakunata pichashpa. Kutinlla Mollyta charinkapak munashpaka, kutinmi kikinpa williwilliwan killkarina kanki.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">¡Mana servidor ukuman yaykuyta ushankichu!</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">SMS paskashkakunami kan</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">Kay Signal ukupi SMS chayamuchun munashpaka kaypi llapipay</string>
@@ -54,9 +54,9 @@
   <string name="DraftDatabase_Draft_quote_snippet">(kutichina)</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">Kayta rikuchinkapakka mana aplicacionta taririnchu.</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly ari nichun munanmi shuyuman, uyayman, shuyukuyurikmanpash yaykunkapak, shinapash mana arinirishkachu.  \"Menú de configuración\" ukuman yaykushpa \"Permisos\" nikukta llapipay, \"Almacenamiento\" paskarichun.</string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly ari nichun munanmi kikinpa yupaymashikunapaman yaykunkapak, shinapash mana arinirishkachu. \"Menú de configuración\" ukuman yaykushpa \"Permisos\" nikukta llapipay, \"Contactos\" paskarichun.</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly ari nichun munanmi kikin maypikakta yachankapak,  shinapash mana arinirishkachu. \"Menú de configuración\" ukuman yaykushpa \"Permisos\" nikukta llapipay, \"Ubicación\" paskarichun.</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signal-LTS ari nichun munanmi shuyuman, uyayman, shuyukuyurikmanpash yaykunkapak, shinapash mana arinirishkachu.  \"Menú de configuración\" ukuman yaykushpa \"Permisos\" nikukta llapipay, \"Almacenamiento\" paskarichun.</string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Signal-LTS ari nichun munanmi kikinpa yupaymashikunapaman yaykunkapak, shinapash mana arinirishkachu. \"Menú de configuración\" ukuman yaykushpa \"Permisos\" nikukta llapipay, \"Contactos\" paskarichun.</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Signal-LTS ari nichun munanmi kikin maypikakta yachankapak,  shinapash mana arinirishkachu. \"Menú de configuración\" ukuman yaykushpa \"Permisos\" nikukta llapipay, \"Ubicación\" paskarichun.</string>
   <!-- Removed by excludeNonTranslatables <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">Signal ari nichun munanmi kikinpa shuyullukchikman yaykunkapak, shinapash mana arinirishkachu. \"Menú de configuración\" ukuman yaykushpa \"Permisos\" nikukta llapipay, \"Cámara\" paskarichun.</string> -->
   <!--AttachmentUploadJob-->
   <!--AudioSlidePlayer-->
@@ -137,7 +137,7 @@
   <string name="ConversationActivity_transport_insecure_sms">SMS mana allikakta yacharinchu</string>
   <string name="ConversationActivity_transport_insecure_mms">MMS mana allikakta yacharinchu</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">Molly ukuman yallishunchik: %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">Signal-LTS ukuman yallishunchik: %1$s</string>
   <!-- Removed by excludeNonTranslatables <string name="ConversationActivity_error_leaving_group">Tantanakuymanta mana llukshita usharirkachu</string> -->
   <string name="ConversationActivity_specify_recipient">Ama shina kashpa, shuk yupaymashita akllapay</string>
   <!-- Removed by excludeNonTranslatables <string name="ConversationActivity_unblock_this_contact_question">Kay yupaymashita pakashkamanta llukchinayanchu</string> -->
@@ -147,13 +147,13 @@
   <!-- Removed by excludeNonTranslatables <string name="ConversationActivity_quick_camera_unavailable">Shuyullukchik illanmi</string> -->
   <string name="ConversationActivity_unable_to_record_audio">¡Uyayka mana rurarirkachu!</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">Nima aplicación mana tiyanchu, kikinpa antahillaypi tinki ushankapak.</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Chaski uyayta kachankapak Molly ukuta rimachikman yaykuchun saki.</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly ari nichun munanmi kikinpa Rimachikman yaykunkapak, shinapash mana arinirishkachu. \"Menú de configuración\" ukuman yaykushpa \"Permisos\" nikukta llapipay, \"Micrófono\" paskarichun.</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Chaski uyayta kachankapak Signal-LTS ukuta rimachikman yaykuchun saki.</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Signal-LTS ari nichun munanmi kikinpa Rimachikman yaykunkapak, shinapash mana arinirishkachu. \"Menú de configuración\" ukuman yaykushpa \"Permisos\" nikukta llapipay, \"Micrófono\" paskarichun.</string>
   <!-- Removed by excludeNonTranslatables <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">%s yupaymashita kayachinkapakka, Signal mutsunmi rimachikman shinallata shuyullukchikman yaykunkapak.</string> -->
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly ari nichun munanmi kikinpa Rimachikman Shuyullukchimanpash %s kayankapak, shinapash mana arinirishkachu. \"Menú de configuración\" ukuman yaykushpa \"Permisos\" nikukta llapipay, \"Micrófono\" y \"Cámara\" paskarichun.</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Signal-LTS ari nichun munanmi kikinpa Rimachikman Shuyullukchimanpash %s kayankapak, shinapash mana arinirishkachu. \"Menú de configuración\" ukuman yaykushpa \"Permisos\" nikukta llapipay, \"Micrófono\" y \"Cámara\" paskarichun.</string>
   <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Shuyuta, shinallata shuyukuyurikta hapinkapakka, shuyullukchikman Mollyta yaykuchun sakipay.</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Molly ari nichun munanmi kikinpa shuyullukchikman yaykunkapak, shuyukunata, shuyukuyurikkunatapash llukchinkapak, shinapash mana arinirishkachu. \"Menú de configuración\" ukuman yaykushpa \"Permisos\" nikukta llapipay, \"Cámara\" paskarichun.</string>
-  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Molly ari nichun munanmi shuyullukchikman yaykunkapak, shuyuta shinallata shuyukurikta llukchinkapak.</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signal-LTS ari nichun munanmi kikinpa shuyullukchikman yaykunkapak, shuyukunata, shuyukuyurikkunatapash llukchinkapak, shinapash mana arinirishkachu. \"Menú de configuración\" ukuman yaykushpa \"Permisos\" nikukta llapipay, \"Cámara\" paskarichun.</string>
+  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signal-LTS ari nichun munanmi shuyullukchikman yaykunkapak, shuyuta shinallata shuyukurikta llukchinkapak.</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s%2$s</string>
   <string name="ConversationActivity_yes">Ari</string>
   <string name="ConversationActivity_no">Mana</string>
@@ -262,7 +262,7 @@
   <!--DocumentView-->
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">Google Play mana yanapay paktaymanta ashtawan allichipay</string>
-  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Kay antahillayka mana Google Play yanapayta chaski ushanchu. Kaypi llapishpa riti mirachita anchuchi, Molly chaskita ushachun kikin na internetpi kakpipash.</string>
+  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Kay antahillayka mana Google Play yanapayta chaski ushanchu. Kaypi llapishpa riti mirachita anchuchi, Signal-LTS chaskita ushachun kikin na internetpi kakpipash.</string>
   <!--ShareActivity-->
   <string name="ShareActivity_share_with">Payman kachay</string>
   <!--ExperienceUpgradeActivity-->
@@ -283,7 +283,7 @@
   <!--GcmBroadcastReceiver-->
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">¡Manapacha Signal ukuman yaykuyta usharinchu!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly mana Google Play Services ukuwan killkarita usharkachu. Chaskita shinallata kayachitapash Molly ukupi anchuchishkami, kutinlla killkaripay Configuración &gt; Avanzado ukuman yaykushpa.</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal-LTS mana Google Play Services ukuwan killkarita usharkachu. Chaskita shinallata kayachitapash Signal-LTS ukupi anchuchishkami, kutinlla killkaripay Configuración &gt; Avanzado ukuman yaykushpa.</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">Mana tukuy GIF alli rikurita ushanchu</string>
   <!--GiphyFragmentPageAdapter-->
@@ -322,7 +322,7 @@
   <string name="InviteActivity_sending">Kachakun…</string>
   <!-- Removed by excludeNonTranslatables <string name="InviteActivity_heart_content_description">Shunku</string> -->
   <string name="InviteActivity_invitations_sent">¡Kumpitaykunata kachashka!</string>
-  <string name="InviteActivity_invite_to_signal">Molly ukuman kayachiy</string>
+  <string name="InviteActivity_invite_to_signal">Signal-LTS ukuman kayachiy</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">MASHIMAN %d KILLKANA SMS</item>
     <item quantity="other">MASHIKUNAMAN %d  SMS KACHAY</item>
@@ -340,7 +340,7 @@
   <!-- Removed by excludeNonTranslatables <string name="MessageDetailsRecipient_new_safety_number">Mushuk wakaychik yupay</string> -->
   <!--LongMessageActivity-->
   <!--MessageRetrievalService-->
-  <string name="MessageRetrievalService_signal">Molly</string>
+  <string name="MessageRetrievalService_signal">Signal-LTS</string>
   <string name="MessageRetrievalService_background_connection_enabled">Washa washalla paskarishka sakirin</string>
   <!--MmsDownloader-->
   <string name="MmsDownloader_error_reading_mms_settings">Internetpa MMS configuracionta mana killkakatita usharinchu</string>
@@ -369,7 +369,7 @@
   <!--MediaPickerActivity-->
   <!--MediaPickerItemFragment-->
   <!--MediaSendActivity-->
-  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Molly mutsunmi kikinpa mashi yupaykunaman yaykushpa rikuchinkapak.</string>
+  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Signal-LTS mutsunmi kikinpa mashi yupaykunaman yaykushpa rikuchinkapak.</string>
   <!--MediaRepository-->
   <string name="MediaRepository_all_media">Tukuylla uyayrikuchik</string>
   <!--MessageRecord-->
@@ -415,7 +415,7 @@
   <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">Kishpichiway, QR unanchaka mana allichu.</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">Shuk Signal antahillayta kimichinayanchu</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Signal ukuman shuk antahillayta kimichinkapak munakunki yarin \"3\". Kikin allita rurankapak Signal ukuman yaykushpa paskarina unanchata riksichipay.</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly ari nichun munanmi kikinpa shuyullukchikman yaykushpa pakalla QR  unanchata hapinkapak,  shinapash mana arinirishkachu. Menú de configuración ukuman katishpa \"Permisos\" nikukta llapipay, \"Cámara\" paskarichun.</string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Signal-LTS ari nichun munanmi kikinpa shuyullukchikman yaykushpa pakalla QR  unanchata hapinkapak,  shinapash mana arinirishkachu. Menú de configuración ukuman katishpa \"Permisos\" nikukta llapipay, \"Cámara\" paskarichun.</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">QR unanchata mana shuyurikchayta ushanchikchu, manara shuyurikcha ari nikpika.</string>
   <!--ExpirationDialog-->
   <!-- Removed by excludeNonTranslatables <string name="ExpirationDialog_disappearing_messages">Chaski anchurichun</string> -->
@@ -477,7 +477,7 @@ riksichinami kanki
 (%s) mana alli kanchu
 </string>
   <string name="RegistrationActivity_missing_google_play_services">Servicios de Google Play illanmi</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Kay antahillayka mana tarinchu Google Play yanapayta. Shinapash Molly ukuka paskarinrami ashallata riksichinkapak, .\n\nMana allipacha mashi kashpaka, ROM Android mushukyachishkata  mana rikunata ushankichu, shina kakpika support@molly.im yanapayta maskapay llakita allichinkapak.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Kay antahillayka mana tarinchu Google Play yanapayta. Shinapash Signal-LTS ukuka paskarinrami ashallata riksichinkapak, .\n\nMana allipacha mashi kashpaka, ROM Android mushukyachishkata  mana rikunata ushankichu, shina kakpika support@Signal-LTS.im yanapayta maskapay llakita allichinkapak.</string>
   <string name="RegistrationActivity_i_understand">Hamutanimi</string>
   <string name="RegistrationActivity_play_services_error">\"Play Services\" wakllimi</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Services mushukyakunmi mana kashpaka ashalla pachata wañushkami. Kutinlla kallaripay.</string>
@@ -485,9 +485,9 @@ riksichinami kanki
   <!-- Removed by excludeNonTranslatables <string name="RegistrationActivity_no_browser">Mana tinkirikta mana paskayta usharinchu. Mana internet panka tiyanchu.</string> -->
   <!-- Removed by excludeNonTranslatables <string name="RegistrationActivity_more_information">Ashtawan willaykuna</string> -->
   <!-- Removed by excludeNonTranslatables <string name="RegistrationActivity_less_information">Pishiyachik willaykunata</string> -->
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly mutsunmi kikinpa mashi yupaykunaman yaykushpa mashikunawan rimarinkapak, killkarinkapak shinallata alli kayachikunata rurankapak.</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Signal-LTS mutsunmi kikinpa mashi yupaykunaman yaykushpa mashikunawan rimarinkapak, killkarinkapak shinallata alli kayachikunata rurankapak.</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">Mana tinkiritay usharinchu. Rikupay internet tiyanchu, shinashpa kutinlla kallarinkapak.</string>
-  <!-- Removed by excludeNonTranslatables <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">Pankalla kikinpa yupayta riksinkapak Molly paymanta pakalla yupayta chaskita ushan, killkana SMS paskarya kakpi.</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">Pankalla kikinpa yupayta riksinkapak Signal-LTS paymanta pakalla yupayta chaskita ushan, killkana SMS paskarya kakpi.</string> -->
   <string name="RegistrationActivity_continue">Katina</string>
   <string name="RegistrationActivity_call">Kayachina</string>
   <!--RevealableMessageView-->
@@ -503,12 +503,12 @@ riksichinami kanki
   <string name="SearchFragment_header_messages">Chaskikuna</string>
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">Yupaymashiman churay</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Molly ukuman kayachiy</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Signal-LTS ukuman kayachiy</string>
   <string name="SharedContactDetailsActivity_signal_message">Signal chaski</string>
   <string name="SharedContactDetailsActivity_signal_call">Signalwan kayachipay</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">Yupaymashiman churay</string>
-  <string name="SharedContactView_invite_to_signal">Molly ukuman kayachiy</string>
+  <string name="SharedContactView_invite_to_signal">Signal-LTS ukuman kayachiy</string>
   <string name="SharedContactView_message">Signal chaski</string>
   <!--Slide-->
   <string name="Slide_image">Shuyu</string>
@@ -549,8 +549,8 @@ Shuk ranti pakallayupay chaski chayamurka, shuk ñawpa mana alli protocolo kashk
   <string name="ThreadRecord_you_marked_verified">Ari nishkanki </string>
   <string name="ThreadRecord_you_marked_unverified">Manara ari ninki</string>
   <!--UpdateApkReadyListener-->
-  <string name="UpdateApkReadyListener_Signal_update">Molly mushukyarina tiyan</string>
-  <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Mushukyachina Molly tiyan, mushukyachinkapak kaypi llapi.</string>
+  <string name="UpdateApkReadyListener_Signal_update">Signal-LTS mushukyarina tiyan</string>
+  <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Mushukyachina Signal-LTS tiyan, mushukyachinkapak kaypi llapi.</string>
   <!--UnknownSenderView-->
   <!-- Removed by excludeNonTranslatables <string name="UnknownSenderView_block_s">Anchuchinayanchu %s</string> -->
   <!-- Removed by excludeNonTranslatables <string name="UnknownSenderView_blocked_contacts_will_no_longer_be_able_to_send_you_messages_or_call_you">Anchuchishka yupaymashikuna mana killkayta kayachita ushankachu.</string> -->
@@ -575,7 +575,7 @@ Shuk ranti pakallayupay chaski chayamurka, shuk ñawpa mana alli protocolo kashk
   <string name="VerifyIdentityActivity_our_signal_safety_number">Ñukanchikpa Signal pakalla yupaykuna:</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">Kaykunata kachankapakka nima aplicación illanmi yarin.</string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">Mana pakalla yupayta tarirkanchikchu chimpapurankapak panka allichik ukuwan.</string>
-  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Molly ari nichun munanmi kikinpa shuyullukchikman yaykushpa pakalla unancha QR hapinkapak,  shinapash mana arinirishkachu. Katipay menú de configuración ukuman, \"Permisos\" nikukta llapipay, \"Cámara\" paskarichun.</string>
+  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Signal-LTS ari nichun munanmi kikinpa shuyullukchikman yaykushpa pakalla unancha QR hapinkapak,  shinapash mana arinirishkachu. Katipay menú de configuración ukuman, \"Permisos\" nikukta llapipay, \"Cámara\" paskarichun.</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">QR unanchata mana rikuyta ushankichu, shuyurikchata manara ari nishpaka.</string>
   <!--ViewOnceMessageActivity-->
   <!--MessageDisplayHelper-->
@@ -596,13 +596,13 @@ Shuk ranti pakallayupay chaski chayamurka, shuk ñawpa mana alli protocolo kashk
   <!--KeyCachingService-->
   <string name="KeyCachingService_signal_passphrase_cached">Paskankapak llapi.</string>
   <!-- Removed by excludeNonTranslatables <string name="KeyCachingService_signal_passphrase_cached_with_lock">Paskankapak llapi, mana kashpaka wichanapi wichankapak  llapi.</string> -->
-  <string name="KeyCachingService_passphrase_cached">Molly yaykunallami kan.</string>
+  <string name="KeyCachingService_passphrase_cached">Signal-LTS yaykunallami kan.</string>
   <string name="KeyCachingService_lock">Mollyta pakana</string>
   <!--MediaPreviewActivity-->
   <string name="MediaPreviewActivity_you">Kikin</string>
   <string name="MediaPreviewActivity_unssuported_media_type">Tiyashkakunapa imashinakayka mana chaypurachu. </string>
   <string name="MediaPreviewActivity_draft">Pichak</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Molly ari nichun munanmi kanllapi allichina ukuman (SDcard, USB) yaykushpa allichinkapak, shinapash mana arinirishkachu.  \"Menú de configuración\" ukuman yaykushpa \"Permisos\" nikukta llapipay, \"Almacenamiento\" paskarichun.</string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Signal-LTS ari nichun munanmi kanllapi allichina ukuman (SDcard, USB) yaykushpa allichinkapak, shinapash mana arinirishkachu.  \"Menú de configuración\" ukuman yaykushpa \"Permisos\" nikukta llapipay, \"Almacenamiento\" paskarichun.</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">Kanllapi allichita mana ushanchikchu kikin mana arinikpika.</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">Chaskita pichanayanchu</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">Kayka kay chaskita pichankapachami.</string>
@@ -634,7 +634,7 @@ Shuk ranti pakallayupay chaski chayamurka, shuk ñawpa mana alli protocolo kashk
   <string name="NotificationChannel_missing_display_name">Mana riksishka</string>
   <!--ProfileEditNameFragment-->
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Molly  pakashka kakpika ñapash kutichitaka mana usharinchu</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Signal-LTS  pakashka kakpika ñapash kutichitaka mana usharinchu</string>
   <string name="QuickResponseService_problem_sending_message">Chaskita kachakushpa shuk llakimi rikurirka</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">Kaypi allichishka %s</string>
@@ -644,7 +644,7 @@ Shuk ranti pakallayupay chaski chayamurka, shuk ñawpa mana alli protocolo kashk
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">Ñapash chayak mana allichu</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Signal-LTS</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Mushuk chaski</string>
   <!--ThumbnailView-->
   <!--TransferControlView-->
@@ -654,8 +654,8 @@ Shuk ranti pakallayupay chaski chayamurka, shuk ñawpa mana alli protocolo kashk
   <!--VideoPlayer-->
   <!-- Removed by excludeNonTranslatables <string name="VideoPlayer_error_playing_video">Shuyukuyurita mana purichi usharkachu.</string> -->
   <!--WebRtcCallActivity-->
-  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">%skayachikukta kutichinkapakka, rimachikman Molly yaykuchun sakipay. </string>
-  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Molly ari nichun munanmi kikinpa rimachikman shuyullukchimanpash kayankapak, shinapash mana arinirishkachu. \"Menú de configuración\" ukuman yaykushpa \"Permisos\" nikukta llapipay, \"Micrófono\" y \"Cámara\" paskarichun. </string>
+  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">%skayachikukta kutichinkapakka, rimachikman Signal-LTS yaykuchun sakipay. </string>
+  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Signal-LTS ari nichun munanmi kikinpa rimachikman shuyullukchimanpash kayankapak, shinapash mana arinirishkachu. \"Menú de configuración\" ukuman yaykushpa \"Permisos\" nikukta llapipay, \"Micrófono\" y \"Cámara\" paskarichun. </string>
   <!--WebRtcCallScreen-->
   <!-- Removed by excludeNonTranslatables <string name="WebRtcCallScreen_new_safety_numbers">Kikin paywan rimarinkapak yupay wakaychishkaka  %1$smushukyarishkami. Kayka willakunmi shukkuna yaykunkapak munakukta, mana kashpaka %2$sSignal aplicacionmi kutin churarishka.</string> -->
   <!-- Removed by excludeNonTranslatables <string name="WebRtcCallScreen_you_may_wish_to_verify_this_contact">Kikinpa yupay wakaychikta kay yupay mashiwan kutin rikunkapak munankiman.</string> -->
@@ -690,7 +690,7 @@ Shuk ranti pakallayupay chaski chayamurka, shuk ñawpa mana alli protocolo kashk
   <string name="change_passphrase_activity__repeat_new_passphrase">Mushuk paskachikta kutin killkay</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">Shutita manakashpaka yupayta churapay</string>
-  <string name="contact_selection_activity__invite_to_signal">Molly ukuman kayachiy</string>
+  <string name="contact_selection_activity__invite_to_signal">Signal-LTS ukuman kayachiy</string>
   <!--contact_filter_toolbar-->
   <!--contact_selection_group_activity-->
   <string name="contact_selection_group_activity__no_contacts">Mana yupay mashikuna tiyanchu.</string>
@@ -698,12 +698,12 @@ Shuk ranti pakallayupay chaski chayamurka, shuk ñawpa mana alli protocolo kashk
   <!--single_contact_selection_activity-->
   <string name="SingleContactSelectionActivity_contact_photo">Yupay mashipa shuyu</string>
   <!--ContactSelectionListFragment-->
-  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Molly ari nichun munanmi mashi yupaykunata, kikinpa mashi yupaykunata rikuchinkapak, shinapash mana arinirishkachu. \"Menú de configuración\" ukuman yaykushpa \"Permisos\" nikukta llapipay, \"Contactos\" paskarichun.</string>
+  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Signal-LTS ari nichun munanmi mashi yupaykunata, kikinpa mashi yupaykunata rikuchinkapak, shinapash mana arinirishkachu. \"Menú de configuración\" ukuman yaykushpa \"Permisos\" nikukta llapipay, \"Contactos\" paskarichun.</string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Mashi yupaykunata uryakuchita mana usharirkachu, internet tiyakta mana tiyakta rikupay </string>
   <!--blocked_contacts_fragment-->
   <!-- Removed by excludeNonTranslatables <string name="blocked_contacts_fragment__no_blocked_contacts">Pakashka mashi yupaykuna mana tiyanchu</string> -->
   <!--contact_selection_list_fragment-->
-  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly mutsunmi kikinpa mashi yupaykunaman yaykushpa rikuchinkapak.</string>
+  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Signal-LTS mutsunmi kikinpa mashi yupaykunaman yaykushpa rikuchinkapak.</string>
   <string name="contact_selection_list_fragment__show_contacts">Mashi yupaykunata rikuchina</string>
   <!--conversation_activity-->
   <string name="conversation_activity__type_message_push">Signal chaski</string>
@@ -1243,7 +1243,7 @@ Shuk ranti pakallayupay chaski chayamurka, shuk ñawpa mana alli protocolo kashk
   <!-- Removed by excludeNonTranslatables <string name="RegistrationLockDialog_disable_registration_lock_pin">PIN killkashkata anchuchinayanchu</string> -->
   <!-- Removed by excludeNonTranslatables <string name="RegistrationLockDialog_disable">Mana rikuchina.</string> -->
   <string name="preferences_chats__backups">Wakaychikpa chayshinakuna</string>
-  <string name="prompt_passphrase_activity__signal_is_locked">Molly anchuchishkami kan</string>
+  <string name="prompt_passphrase_activity__signal_is_locked">Signal-LTS anchuchishkami kan</string>
   <string name="prompt_passphrase_activity__tap_to_unlock">LLAPI APAMUNKAPAK</string>
   <!-- Removed by excludeNonTranslatables <string name="RegistrationLockDialog_reminder">Yuyarinkapak:</string> -->
   <!-- Removed by excludeNonTranslatables <string name="recipient_preferences__about">Willay</string> -->

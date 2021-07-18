@@ -10,17 +10,17 @@
   <string name="AbstractNotificationBuilder_new_message">Tin nhắn mới</string>
   <!--AlbumThumbnailView-->
   <!--ApplicationMigrationActivity-->
-  <string name="ApplicationMigrationActivity__signal_is_updating">Molly đang cập nhật…</string>
+  <string name="ApplicationMigrationActivity__signal_is_updating">Signal-LTS đang cập nhật…</string>
   <!--ApplicationPreferencesActivity-->
   <string name="ApplicationPreferencesActivity_currently_s">Hiện thời: %s</string>
   <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">Bạn chưa thiết lập mật khẩu!</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">Tắt mật khẩu?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Thao tác này sẽ vĩnh viễn mở khóa Molly và thông báo tin nhắn.</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Thao tác này sẽ vĩnh viễn mở khóa Signal-LTS và thông báo tin nhắn.</string>
   <string name="ApplicationPreferencesActivity_disable">Tắt</string>
   <string name="ApplicationPreferencesActivity_unregistering">Huỷ đăng ký</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Đang hủy đăng ký khỏi Molly…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Tắt tin nhắn và cuộc gọi Molly?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Tắt Molly bằng cách hủy đăng ký khỏi máy chủ. Bạn sẽ cần phải đăng ký lại số điện thoại của bạn để sử dụng trong tương lai.</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Đang hủy đăng ký khỏi Signal-LTS…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Tắt tin nhắn và cuộc gọi Signal-LTS?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Tắt Signal-LTS bằng cách hủy đăng ký khỏi máy chủ. Bạn sẽ cần phải đăng ký lại số điện thoại của bạn để sử dụng trong tương lai.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">Lỗi kết nối đến máy chủ!</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">Đã bật SMS</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">Nhấn để đổi ứng dụng SMS mặc định</string>
@@ -54,13 +54,13 @@
   <string name="AttachmentKeyboard_file">Tệp</string>
   <string name="AttachmentKeyboard_contact">Liên hệ</string>
   <string name="AttachmentKeyboard_location">Vị trí</string>
-  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Molly cần quyền truy cập bộ nhớ để hiển thị ảnh và video của bạn.</string>
+  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Signal-LTS cần quyền truy cập bộ nhớ để hiển thị ảnh và video của bạn.</string>
   <string name="AttachmentKeyboard_give_access">Cấp quyền</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">Không tìm thấy ứng dụng để chọn tệp đa phương tiện.</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly cần quyền truy cập Bộ nhớ để đính kèm ảnh, video hoặc âm thanh, nhưng đã bị từ chối vĩnh viễn. Vui lòng mở cài đặt ứng dụng, chọn \"Quyền\" và bật \"Bộ nhớ\".</string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly cần quyền truy cập Danh bạ để đính kèm thông tin liên lạc nhưng đã bị từ chối vĩnh viễn. Vui lòng mở cài đặt ứng dụng, chọn \"Quyền\" và bật \"Danh bạ\".</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly cần quyền truy cập Vị trí để đính kèm vị trí, nhưng đã bị từ chối vĩnh viễn. Vui lòng mở cài đặt ứng dụng, chọn \"Quyền\" và bật \"Vị trí\".</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signal-LTS cần quyền truy cập Bộ nhớ để đính kèm ảnh, video hoặc âm thanh, nhưng đã bị từ chối vĩnh viễn. Vui lòng mở cài đặt ứng dụng, chọn \"Quyền\" và bật \"Bộ nhớ\".</string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Signal-LTS cần quyền truy cập Danh bạ để đính kèm thông tin liên lạc nhưng đã bị từ chối vĩnh viễn. Vui lòng mở cài đặt ứng dụng, chọn \"Quyền\" và bật \"Danh bạ\".</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Signal-LTS cần quyền truy cập Vị trí để đính kèm vị trí, nhưng đã bị từ chối vĩnh viễn. Vui lòng mở cài đặt ứng dụng, chọn \"Quyền\" và bật \"Vị trí\".</string>
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">Đang tải tệp lên…</string>
   <string name="AttachmentUploadJob_compressing_video_start">Đang nén video…</string>
@@ -111,14 +111,14 @@
   <string name="CameraContacts_no_signal_contacts">Không có liên hệ Signal</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">Bạn chỉ có thể dùng nút chụp ảnh để gửi ảnh cho các liên hệ Signal.</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">Không tìm thấy người bạn cần tìm?</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">Mời một liên hệ dùng Molly</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">Mời một liên hệ dùng Signal-LTS</string>
   <string name="CameraContacts__menu_search">Tìm kiếm</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">Xoá</string>
   <string name="ClearProfileActivity_remove_profile_photo">Gỡ ảnh đại diện?</string>
   <string name="ClearProfileActivity_remove_group_photo">Gỡ ảnh nhóm?</string>
   <!--ClientDeprecatedActivity-->
-  <string name="ClientDeprecatedActivity_update_signal">Cập nhật Molly</string>
+  <string name="ClientDeprecatedActivity_update_signal">Cập nhật Signal-LTS</string>
   <string name="ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported">Phiên bản ứng dụng này không còn được hỗ trợ. Để tiếp tục gửi và nhận tin nhắn, vui lòng cập nhật lên phiên bản mới nhất.</string>
   <string name="ClientDeprecatedActivity_update">Cập nhật</string>
   <string name="ClientDeprecatedActivity_dont_update">Không cập nhật</string>
@@ -197,7 +197,7 @@
   <string name="ConversationActivity_transport_insecure_sms">SMS không bảo mật</string>
   <string name="ConversationActivity_transport_insecure_mms">MMS không bảo mật</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">Hãy chuyển sang dùng Molly %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">Hãy chuyển sang dùng Signal-LTS %1$s</string>
   <string name="ConversationActivity_specify_recipient">Vui lòng chọn một liên lạc</string>
   <string name="ConversationActivity_unblock">Bỏ chặn</string>
   <string name="ConversationActivity_attachment_exceeds_size_limits">Tệp đính kèm vượt quá giới hạn kích cỡ cho loại tin nhắn mà bạn đang gửi.</string>
@@ -206,15 +206,15 @@
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">Không ứng dụng nào trên điện thoại bạn có thể xử lí liên kết này.</string>
   <string name="ConversationActivity_your_request_to_join_has_been_sent_to_the_group_admin">Yêu cầu tham gia nhóm của bạn đã được gửi tới quản trị viên nhóm. Bạn sẽ được thông báo khi họ đưa ra quyết định.</string>
   <string name="ConversationActivity_cancel_request">Hủy yêu cầu</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Để gửi tin nhắn âm thanh, hãy cho phép Molly truy cập micro điện thoại.</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly cần quyền truy cập Micro để gửi tin nhắn âm thanh, nhưng đã bị từ chối vĩnh viễn. Vui lòng mở cài đặt ứng dụng, chọn \"Quyền\" và bật \"Micro\".</string>
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly cần quyền truy cập Micro và Máy ảnh để gọi %s, nhưng đã bị từ chối vĩnh viễn. Vui lòng mở cài đặt ứng dụng, chọn \"Quyền\" và bật \"Micro\" và \"Máy ảnh\"</string>
-  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Để chụp ảnh, hãy cho phép Molly truy cập máy ảnh.</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Molly cần quyền truy cập Máy ảnh để chụp ảnh và quay video, nhưng đã bị từ chối vĩnh viễn. Vui lòng mở cài đặt ứng dụng, chọn \"Quyền\" và bật \"Máy ảnh\".</string>
-  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Molly cần quyền truy cập Máy ảnh để chụp ảnh và quay video</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Để gửi tin nhắn âm thanh, hãy cho phép Signal-LTS truy cập micro điện thoại.</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Signal-LTS cần quyền truy cập Micro để gửi tin nhắn âm thanh, nhưng đã bị từ chối vĩnh viễn. Vui lòng mở cài đặt ứng dụng, chọn \"Quyền\" và bật \"Micro\".</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Signal-LTS cần quyền truy cập Micro và Máy ảnh để gọi %s, nhưng đã bị từ chối vĩnh viễn. Vui lòng mở cài đặt ứng dụng, chọn \"Quyền\" và bật \"Micro\" và \"Máy ảnh\"</string>
+  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Để chụp ảnh, hãy cho phép Signal-LTS truy cập máy ảnh.</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signal-LTS cần quyền truy cập Máy ảnh để chụp ảnh và quay video, nhưng đã bị từ chối vĩnh viễn. Vui lòng mở cài đặt ứng dụng, chọn \"Quyền\" và bật \"Máy ảnh\".</string>
+  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signal-LTS cần quyền truy cập Máy ảnh để chụp ảnh và quay video</string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Cho phép quyền truy cập micro để ghi âm thanh khi quay video.</string>
-  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Molly cần quyền truy cập micro để quay video nhưng đã bị từ chối. Vui lòng mở cài đặt ứng dụng, chọn \"Quyền\" và bật \"Micro\" và \"Máy ảnh\".</string>
-  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Molly cần quyền truy cập micro để quay video.</string>
+  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signal-LTS cần quyền truy cập micro để quay video nhưng đã bị từ chối. Vui lòng mở cài đặt ứng dụng, chọn \"Quyền\" và bật \"Micro\" và \"Máy ảnh\".</string>
+  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signal-LTS cần quyền truy cập micro để quay video.</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s%2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">Signal không thể gửi SMS/MMS vì Signal không phải ứng dụng SMS mặc định. Bạn có muốn thay đổi trong cài đặt Android?</string>
   <string name="ConversationActivity_yes">Có</string>
@@ -230,7 +230,7 @@
   <string name="ConversationActivity_you_will_leave_this_group_and_it_will_be_deleted_from_all_of_your_devices">Bạn sẽ rời nhóm, và lịch sử trò chuyện sẽ bị xóa trên tất cả các thiết bị của bạn.</string>
   <string name="ConversationActivity_delete">Xóa</string>
   <string name="ConversationActivity_delete_and_leave">Xóa và rời khỏi</string>
-  <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">Để gọi %1$s, Molly cần quyền truy cập micro của bạn</string>
+  <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">Để gọi %1$s, Signal-LTS cần quyền truy cập micro của bạn</string>
   <string name="ConversationActivity__more_options_now_in_group_settings">Nhiều thiết đặt hơn trong \"Cài đặt nhóm\"</string>
   <string name="ConversationActivity_join">Tham gia</string>
   <string name="ConversationActivity_full">Đầy</string>
@@ -281,7 +281,7 @@
   <string name="ConversationFragment__d_group_members_have_the_same_name">%1$d thành viên nhóm có cùng tên.</string>
   <string name="ConversationFragment__tap_to_review">Nhấn để xem lại</string>
   <string name="ConversationFragment__review_requests_carefully">Kiểm tra yêu cầu một cách kĩ lưỡng</string>
-  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Molly tìm thấy một liên hệ cùng tên.</string>
+  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Signal-LTS tìm thấy một liên hệ cùng tên.</string>
   <string name="ConversationFragment_contact_us">Liên hệ với chúng tôi</string>
   <string name="ConversationFragment_verify">Xác minh</string>
   <string name="ConversationFragment_not_now">Để sau</string>
@@ -341,11 +341,11 @@
   <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Kiểm tra mật khẩu sao lưu của bạn xem có khớp không</string>
   <string name="BackupsPreferenceFragment__turn_on">Bật</string>
   <string name="BackupsPreferenceFragment__turn_off">Tắt</string>
-  <string name="BackupsPreferenceFragment__to_restore_a_backup">Để khôi phục bản sao lưu, hãy cài đặt phiên bản mới nhất của Molly. Sau đó, mở ứng dụng và nhấn vào \"Khôi phục bản sao lưu\" rồi chọn vị trí bản sao lưu. %1$s</string>
+  <string name="BackupsPreferenceFragment__to_restore_a_backup">Để khôi phục bản sao lưu, hãy cài đặt phiên bản mới nhất của Signal-LTS. Sau đó, mở ứng dụng và nhấn vào \"Khôi phục bản sao lưu\" rồi chọn vị trí bản sao lưu. %1$s</string>
   <string name="BackupsPreferenceFragment__learn_more">Tìm hiểu thêm</string>
   <string name="BackupsPreferenceFragment__in_progress">Đang thực hiện…</string>
   <string name="BackupsPreferenceFragment__d_so_far">Đã được %1$d…</string>
-  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly cần quyền truy cập bộ nhớ để tạo bản sao lưu, nhưng đã bị từ chối vĩnh viễn. Vui lòng mở cài đặt ứng dụng, chọn \"Quyền\" và bật \"Bộ nhớ\".</string>
+  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal-LTS cần quyền truy cập bộ nhớ để tạo bản sao lưu, nhưng đã bị từ chối vĩnh viễn. Vui lòng mở cài đặt ứng dụng, chọn \"Quyền\" và bật \"Bộ nhớ\".</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Dùng tùy chỉnh: %s</string>
   <string name="CustomDefaultPreference_using_default">Dùng mặc định: %s</string>
@@ -390,7 +390,7 @@
   <string name="GroupCallingMegaphone__open_a_new_group_to_start">Mở một Nhóm Mới để bắt đầu một cuộc gọi nhóm bảo mật</string>
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">Tối ưu hóa khi không có dịch vụ Google Play</string>
-  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Thiết bị này không hỗ trợ dịch vụ Google Play. Nhấn để tắt tính năng tối ưu hóa pin khiến Molly không thể nhận tin nhắn duới nền.</string>
+  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Thiết bị này không hỗ trợ dịch vụ Google Play. Nhấn để tắt tính năng tối ưu hóa pin khiến Signal-LTS không thể nhận tin nhắn duới nền.</string>
   <!--ExpiredBuildReminder-->
   <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Phiên bản này của Signal đã hết hạn. Cập nhật ngay để gửi và nhận tin nhắn.</string>
   <string name="ExpiredBuildReminder_update_now">Cập nhật ngay</string>
@@ -404,7 +404,7 @@
   <string name="ShareActivity_multiple_attachments_are_only_supported">Gửi nhiều tệp đính kèm chỉ áp dụng cho ảnh và video</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Lỗi thường trực khi giao tiếp qua Signal!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly không thể kết nối với Dịch vụ Google Play. Cuộc gọi và tin nhắn Molly không khả dụng, hãy thử đăng ký lại từ Cài đặt &gt; Nâng cao.</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal-LTS không thể kết nối với Dịch vụ Google Play. Cuộc gọi và tin nhắn Signal-LTS không khả dụng, hãy thử đăng ký lại từ Cài đặt &gt; Nâng cao.</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">Lỗi khi tải ảnh GIF độ phân giải đầy đủ</string>
   <!--GiphyFragmentPageAdapter-->
@@ -703,14 +703,14 @@
   <string name="InviteActivity_cancel">Hủy bỏ</string>
   <string name="InviteActivity_sending">Đang gửi…</string>
   <string name="InviteActivity_invitations_sent">Đã gửi lời mời!</string>
-  <string name="InviteActivity_invite_to_signal">Mời dùng Molly</string>
+  <string name="InviteActivity_invite_to_signal">Mời dùng Signal-LTS</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="other">GỬI SMS ĐẾN %d BẠN</item>
   </plurals>
   <plurals name="InviteActivity_send_sms_invites">
     <item quantity="other">GỬI %d LỜI MỜI QUA SMS?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">Hãy chuyển sang dùng Molly: %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">Hãy chuyển sang dùng Signal-LTS: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Có vẻ như bạn không có bất kỳ ứng dụng nào để chia sẻ.</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Một người bạn tốt không để bạn mình nhắn tin không mã hoá.</string>
   <!--LearnMoreTextView-->
@@ -720,7 +720,7 @@
   <string name="LongMessageActivity_message_from_s">Tin nhắn từ %1$s</string>
   <string name="LongMessageActivity_your_message">Tin nhắn của bạn</string>
   <!--MessageRetrievalService-->
-  <string name="MessageRetrievalService_signal">Molly</string>
+  <string name="MessageRetrievalService_signal">Signal-LTS</string>
   <string name="MessageRetrievalService_background_connection_enabled">Kết nối duới nền đã chạy</string>
   <!--MmsDownloader-->
   <string name="MmsDownloader_error_reading_mms_settings">Lỗi xem cài đặt nhà cung cấp MMS không dây</string>
@@ -804,8 +804,8 @@
   <string name="MediaSendActivity_message_to_s">Tin nhắn đến %s</string>
   <string name="MediaSendActivity_message">Tin nhắn</string>
   <string name="MediaSendActivity_select_recipients">Chọn người nhận</string>
-  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Molly cần quyền truy cập danh bạ để hiển thị chúng.</string>
-  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Molly cần quyền truy cập Danh bạ để hiển thị các liên hệ của bạn, nhưng đã bị từ chối vĩnh viễn. Vui lòng mở cài đặt ứng dụng, chọn \"Quyền\" và bật \"Danh bạ\".</string>
+  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Signal-LTS cần quyền truy cập danh bạ để hiển thị chúng.</string>
+  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Signal-LTS cần quyền truy cập Danh bạ để hiển thị các liên hệ của bạn, nhưng đã bị từ chối vĩnh viễn. Vui lòng mở cài đặt ứng dụng, chọn \"Quyền\" và bật \"Danh bạ\".</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="other">Bạn không thể chia sẻ quá %d mục.</item>
   </plurals>
@@ -1035,7 +1035,7 @@
   <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">Xin lỗi, đây không phải mã QR liên kết thiết bị chính xác.</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">Liên kết một thiết bị dùng Signal?</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Có vẻ như bạn đang cố liên kết một thiết bị dùng Signal bằng phần mềm quét bên thứ 3. Để bảo vệ mình, hãy quét lại đoạn mã sử dụng Signal.</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly cần quyền truy cập Máy ảnh để quét mã QR, nhưng đã bị từ chối vĩnh viễn. Vui lòng mở cài đặt ứng dụng, chọn \"Quyền\" và bật \"Máy ảnh\".</string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Signal-LTS cần quyền truy cập Máy ảnh để quét mã QR, nhưng đã bị từ chối vĩnh viễn. Vui lòng mở cài đặt ứng dụng, chọn \"Quyền\" và bật \"Máy ảnh\".</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Không thể quét mã QR khi không có quyền truy cập Máy ảnh</string>
   <!--OutdatedBuildReminder-->
   <string name="OutdatedBuildReminder_update_now">Cập nhật ngay</string>
@@ -1045,10 +1045,10 @@
   </plurals>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">Điền mật khẩu</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Biểu tượng Molly</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Biểu tượng Signal-LTS</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">Gửi mật khẩu</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Mật khẩu không đúng!</string>
-  <string name="PassphrasePromptActivity_unlock_signal">Mở khóa Molly</string>
+  <string name="PassphrasePromptActivity_unlock_signal">Mở khóa Signal-LTS</string>
   <string name="PassphrasePromptActivity_signal_android_lock_screen">Signal Android - Màn hình Khoá</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">Bản đồ</string>
@@ -1094,7 +1094,7 @@
   <string name="ReactionsRecipientAdapter_you">Bạn</string>
   <!--RecaptchaRequiredBottomSheetFragment-->
   <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">Hãy xác minh để tiếp tục nhắn tin.</string>
-  <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Để giúp hạn chế spam trên Molly, vui lòng thực hiện xác minh.</string>
+  <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Để giúp hạn chế spam trên Signal-LTS, vui lòng thực hiện xác minh.</string>
   <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">Sau khi xác minh, bạn có thể tiếp tục nhắn tin. Những tin nhắn đang tạm dừng sẽ được tự động gửi.</string>
   <!--Recipient-->
   <string name="Recipient_you">Bạn</string>
@@ -1115,8 +1115,8 @@
   <string name="RedPhone_got_it">Đã rõ</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Nhấn để bật camera</string>
-  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Để gọi %1$s, Molly cần quyền truy cập máy ảnh của bạn</string>
-  <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
+  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Để gọi %1$s, Signal-LTS cần quyền truy cập máy ảnh của bạn</string>
+  <string name="WebRtcCallActivity__signal_s">Signal-LTS %1$s</string>
   <string name="WebRtcCallActivity__calling">Đang gọi…</string>
   <!--WebRtcCallView-->
   <string name="WebRtcCallView__signal_voice_call">Đang gọi âm thanh Signal</string>
@@ -1173,13 +1173,13 @@ mã quốc gia bạn</string>
   <string name="RegistrationActivity_is_your_phone_number_above_correct">Số điện thoại của bạn ở trên đã chính xác chưa?</string>
   <string name="RegistrationActivity_edit_number">Sửa số</string>
   <string name="RegistrationActivity_missing_google_play_services">Thiếu Dịch vụ Google Play</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Thiết bị này thiếu Dịch vụ Google Play. Bạn vẫn có thể dùng Molly, nhưng thiết đặt này có thể giảm độ tin cậy và hiệu năng ứng dụng.\n\nNếu bạn không phải người dùng nâng cao, hoặc không dùng ROM Android tự chế, hoặc cho rằng đây là lỗi không đáng có, hãy liên lạc support@molly.im để nhờ hỗ trợ.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Thiết bị này thiếu Dịch vụ Google Play. Bạn vẫn có thể dùng Signal-LTS, nhưng thiết đặt này có thể giảm độ tin cậy và hiệu năng ứng dụng.\n\nNếu bạn không phải người dùng nâng cao, hoặc không dùng ROM Android tự chế, hoặc cho rằng đây là lỗi không đáng có, hãy liên lạc support@Signal-LTS.im để nhờ hỗ trợ.</string>
   <string name="RegistrationActivity_i_understand">Tôi đã hiểu</string>
   <string name="RegistrationActivity_play_services_error">Lỗi Dịch vụ Google Play</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Dịch vụ Google Play đang cập nhật hoặc tạm thời không khả dụng. Hãy thử lại sau.</string>
   <string name="RegistrationActivity_terms_and_privacy">Điều khoản &amp; Quyền riêng tư</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly cần quyền truy cập danh bạ và bộ nhớ để kết nối với bạn bè, trao đổi tin nhắn và gọi điện.</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Molly cần truy cập danh bạ của bạn để kết nối với bạn bè của bạn, trao đổi tin nhắn, và thực hiện cuộc gọi bảo mật</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Signal-LTS cần quyền truy cập danh bạ và bộ nhớ để kết nối với bạn bè, trao đổi tin nhắn và gọi điện.</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Signal-LTS cần truy cập danh bạ của bạn để kết nối với bạn bè của bạn, trao đổi tin nhắn, và thực hiện cuộc gọi bảo mật</string>
   <string name="RegistrationActivity_rate_limited_to_service">Bạn đã thử đăng kí số điện thoại này quá nhiều lần. Vui lòng thử lại sau.</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">Không thể kết nối với dịch vụ. Vui lòng kiểm tra đuờng truyền mạng và thử lại.</string>
   <plurals name="RegistrationActivity_debug_log_hint">
@@ -1216,12 +1216,12 @@ mã quốc gia bạn</string>
   <!--ShakeToReport-->
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">Thêm vào danh bạ</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Mời dùng Molly</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Mời dùng Signal-LTS</string>
   <string name="SharedContactDetailsActivity_signal_message">Tin nhắn Signal</string>
   <string name="SharedContactDetailsActivity_signal_call">Cuộc gọi Signal</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">Thêm vào danh bạ</string>
-  <string name="SharedContactView_invite_to_signal">Mời dùng Molly</string>
+  <string name="SharedContactView_invite_to_signal">Mời dùng Signal-LTS</string>
   <string name="SharedContactView_message">Tin nhắn Signal</string>
   <!--SignalPinReminders-->
   <string name="SignalPinReminders_well_remind_you_again_later">Chúng tôi sẽ lại nhắc bạn sau.</string>
@@ -1277,8 +1277,8 @@ Nhận thông tin trao đổi mã khóa về phiên bản giao thức không h�
   <string name="SupportEmailUtil_filter">Bộ lọc:</string>
   <string name="SupportEmailUtil_device_info">Thông tin thiết bị:</string>
   <string name="SupportEmailUtil_android_version">Phiên bản Android:</string>
-  <string name="SupportEmailUtil_signal_version">Phiên bản Molly:</string>
-  <string name="SupportEmailUtil_signal_package">Gói Molly:</string>
+  <string name="SupportEmailUtil_signal_version">Phiên bản Signal-LTS:</string>
+  <string name="SupportEmailUtil_signal_package">Gói Signal-LTS:</string>
   <string name="SupportEmailUtil_registration_lock">Khóa đăng kí:</string>
   <string name="SupportEmailUtil_locale">Vùng:</string>
   <!--ThreadRecord-->
@@ -1314,8 +1314,8 @@ Nhận thông tin trao đổi mã khóa về phiên bản giao thức không h�
   <string name="ThreadRecord_video">Video</string>
   <string name="ThreadRecord_chat_session_refreshed">Đã làm mới phiên trò chuyện</string>
   <!--UpdateApkReadyListener-->
-  <string name="UpdateApkReadyListener_Signal_update">Cập nhật Molly</string>
-  <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Đã có phiên bản mới của Molly, nhấn để cập nhật</string>
+  <string name="UpdateApkReadyListener_Signal_update">Cập nhật Signal-LTS</string>
+  <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Đã có phiên bản mới của Signal-LTS, nhấn để cập nhật</string>
   <!--UntrustedSendDialog-->
   <string name="UntrustedSendDialog_send_message">Gửi tin nhắn?</string>
   <string name="UntrustedSendDialog_send">Gửi</string>
@@ -1346,7 +1346,7 @@ Nhận thông tin trao đổi mã khóa về phiên bản giao thức không h�
   <string name="VerifyIdentityActivity_our_signal_safety_number">Mã số an toàn Signal của chúng ta:</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">Có vẻ như bạn không có bất kỳ ứng dụng nào để chia sẻ.</string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">Không tìm thấy mã số an toàn trong clipboard</string>
-  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Molly cần quyền truy cập Máy ảnh để quét mã QR, nhưng đã bị từ chối vĩnh viễn. Vui lòng mở cài đặt ứng dụng, chọn \"Quyền\" và bật \"Máy ảnh\".</string>
+  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Signal-LTS cần quyền truy cập Máy ảnh để quét mã QR, nhưng đã bị từ chối vĩnh viễn. Vui lòng mở cài đặt ứng dụng, chọn \"Quyền\" và bật \"Máy ảnh\".</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">Không thể quét mã QR khi không có quyền truy cập Máy ảnh</string>
   <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">Bạn phải trao đổi tin nhắn trước để xem được mã số an toàn của %1$s.</string>
   <!--ViewOnceMessageActivity-->
@@ -1365,13 +1365,13 @@ Nhận thông tin trao đổi mã khóa về phiên bản giao thức không h�
   <string name="ApplicationMigrationService_system_database_import_is_complete">Hoàn tất nhập cơ sở dữ liệu hệ thống.</string>
   <!--KeyCachingService-->
   <string name="KeyCachingService_signal_passphrase_cached">Chạm để mở.</string>
-  <string name="KeyCachingService_passphrase_cached">Đã mở khóa Molly </string>
-  <string name="KeyCachingService_lock">Khoá Molly</string>
+  <string name="KeyCachingService_passphrase_cached">Đã mở khóa Signal-LTS </string>
+  <string name="KeyCachingService_lock">Khoá Signal-LTS</string>
   <!--MediaPreviewActivity-->
   <string name="MediaPreviewActivity_you">Bạn</string>
   <string name="MediaPreviewActivity_unssuported_media_type">Không hỗ trợ định dạng đa phương tiện này</string>
   <string name="MediaPreviewActivity_draft">Nháp</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Molly cần quyền truy cập Bộ nhớ để lưu tệp vào bộ nhớ, nhưng đã bị từ chối vĩnh viễn. Vui lòng mở cài đặt ứng dụng, chọn \"Quyền\" và bật \"Bộ nhớ\".</string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Signal-LTS cần quyền truy cập Bộ nhớ để lưu tệp vào bộ nhớ, nhưng đã bị từ chối vĩnh viễn. Vui lòng mở cài đặt ứng dụng, chọn \"Quyền\" và bật \"Bộ nhớ\".</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">Không thể lưu tệp vào bộ nhớ khi không có quyền</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">Xoá tin nhắn?</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">Thao tác này sẽ xóa vĩnh viễn tin nhắn này.</string>
@@ -1386,7 +1386,7 @@ Nhận thông tin trao đổi mã khóa về phiên bản giao thức không h�
   <string name="MessageNotifier_failed_to_deliver_message">Không thể gửi tin nhắn.</string>
   <string name="MessageNotifier_error_delivering_message">Có lỗi khi gửi tin nhắn.</string>
   <string name="MessageNotifier_message_delivery_paused">Đang tạm dừng nhắn tin.</string>
-  <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Hãy xác minh để tiếp tục nhắn tin trên Molly.</string>
+  <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Hãy xác minh để tiếp tục nhắn tin trên Signal-LTS.</string>
   <string name="MessageNotifier_mark_all_as_read">Đánh dấu đã đọc tất cả</string>
   <string name="MessageNotifier_mark_read">Đánh dấu đã đọc</string>
   <string name="MessageNotifier_turn_off_these_notifications">Tắt các thông báo này</string>
@@ -1396,7 +1396,7 @@ Nhận thông tin trao đổi mã khóa về phiên bản giao thức không h�
   <string name="MessageNotifier_signal_message">Tin nhắn Signal</string>
   <string name="MessageNotifier_unsecured_sms">SMS không bảo mật</string>
   <string name="MessageNotifier_you_may_have_new_messages">Bạn có thể có tin nhắn mới</string>
-  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Mở Molly để xem thông báo gần đây.</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Mở Signal-LTS để xem thông báo gần đây.</string>
   <string name="MessageNotifier_contact_message">%1$s%2$s</string>
   <string name="MessageNotifier_unknown_contact_message">Liên hệ</string>
   <string name="MessageNotifier_reacted_s_to_s">Đã bày tỏ cảm xúc %1$s cho \"%2$s\".</string>
@@ -1422,7 +1422,7 @@ Nhận thông tin trao đổi mã khóa về phiên bản giao thức không h�
   <string name="NotificationChannel_contact_joined_signal">Liên hệ bắt đầu dùng Signal</string>
   <!--ProfileEditNameFragment-->
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Trả lời nhanh không khả dụng khi Molly bị khoá!</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Trả lời nhanh không khả dụng khi Signal-LTS bị khoá!</string>
   <string name="QuickResponseService_problem_sending_message">Có vấn đề khi gửi tin nhắn!</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">Đã lưu vào %s</string>
@@ -1433,7 +1433,7 @@ Nhận thông tin trao đổi mã khóa về phiên bản giao thức không h�
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">Shortcut không hợp lệ</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Signal-LTS</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Tin nhắn mới</string>
   <string name="SingleRecipientNotificationBuilder_message_request">Yêu cầu nhắn tin</string>
   <string name="SingleRecipientNotificationBuilder_you">Bạn</string>
@@ -1448,8 +1448,8 @@ Nhận thông tin trao đổi mã khóa về phiên bản giao thức không h�
   <string name="UnauthorizedReminder_device_no_longer_registered">Thiết bị không còn được đăng kí</string>
   <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Nguyên nhân có thể do bạn đăng kí số điện thoại Signal trên một thiết bị khác. Nhấn để tái đăng kí.</string>
   <!--WebRtcCallActivity-->
-  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Để trả lời cuộc gọi từ %s, vui lòng cấp quyền truy cập Micro cho Molly.</string>
-  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Molly cần quyền truy cập Micro và Máy ảnh để nhận cuộc gọi và gọi, nhưng đã bị từ chối vĩnh viễn. Vui lòng mở cài đặt ứng dụng, chọn \"Quyền\" và bật \"Micro\" và \"Máy ảnh\"</string>
+  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Để trả lời cuộc gọi từ %s, vui lòng cấp quyền truy cập Micro cho Signal-LTS.</string>
+  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Signal-LTS cần quyền truy cập Micro và Máy ảnh để nhận cuộc gọi và gọi, nhưng đã bị từ chối vĩnh viễn. Vui lòng mở cài đặt ứng dụng, chọn \"Quyền\" và bật \"Micro\" và \"Máy ảnh\"</string>
   <string name="WebRtcCallActivity__answered_on_a_linked_device">Đã trả lời trên một thiết bị liên kết.</string>
   <string name="WebRtcCallActivity__declined_on_a_linked_device">Đã từ chối trên một thiết bị liên kết.</string>
   <string name="WebRtcCallActivity__busy_on_a_linked_device">Đã để máy bận trên một thiết bị liên kết.</string>
@@ -1473,7 +1473,7 @@ Nhận thông tin trao đổi mã khóa về phiên bản giao thức không h�
   <string name="change_passphrase_activity__repeat_new_passphrase">Lặp lại mật khẩu mới</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">Điền tên hoặc số</string>
-  <string name="contact_selection_activity__invite_to_signal">Mời dùng Molly</string>
+  <string name="contact_selection_activity__invite_to_signal">Mời dùng Signal-LTS</string>
   <string name="contact_selection_activity__new_group">Tạo nhóm mới</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">Xóa văn bản đã nhập </string>
@@ -1485,7 +1485,7 @@ Nhận thông tin trao đổi mã khóa về phiên bản giao thức không h�
   <!--single_contact_selection_activity-->
   <string name="SingleContactSelectionActivity_contact_photo">Ảnh liên hệ</string>
   <!--ContactSelectionListFragment-->
-  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Molly cần quyền truy cập Danh bạ để hiển thị thông tin liên lạc nhưng đã bị từ chối vĩnh viễn. Vui lòng mở cài đặt ứng dụng, chọn \"Quyền\" và bật \"Danh bạ\".</string>
+  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Signal-LTS cần quyền truy cập Danh bạ để hiển thị thông tin liên lạc nhưng đã bị từ chối vĩnh viễn. Vui lòng mở cài đặt ứng dụng, chọn \"Quyền\" và bật \"Danh bạ\".</string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Lỗi nhận liên hệ, vui lòng kiểm tra kết nối mạng</string>
   <string name="ContactSelectionListFragment_username_not_found">Không tìm thấy tên người dùng</string>
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">\"%1$s\" không phải người dùng Signal. Hãy kiểm tra tên người dùng và thử lại.</string>
@@ -1498,7 +1498,7 @@ Nhận thông tin trao đổi mã khóa về phiên bản giao thức không h�
     <item quantity="other">%1$d thành viên</item>
   </plurals>
   <!--contact_selection_list_fragment-->
-  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly cần quyền truy cập danh bạ để hiển thị chúng.</string>
+  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Signal-LTS cần quyền truy cập danh bạ để hiển thị chúng.</string>
   <string name="contact_selection_list_fragment__show_contacts">Hiển thị danh bạ</string>
   <!--contact_selection_list_item-->
   <plurals name="contact_selection_list_item__number_of_members">
@@ -1831,7 +1831,7 @@ Nhận thông tin trao đổi mã khóa về phiên bản giao thức không h�
   <string name="preferences__slow">Chậm</string>
   <string name="preferences__help">Hỗ trợ</string>
   <string name="preferences__advanced">Nâng cao</string>
-  <string name="preferences__donate_to_signal">Ủng hộ Molly</string>
+  <string name="preferences__donate_to_signal">Ủng hộ Signal-LTS</string>
   <string name="preferences__privacy">Riêng tư</string>
   <string name="preferences__mms_user_agent">MMS User Agent</string>
   <string name="preferences__advanced_mms_access_point_names">Thiết đặt MMS bằng tay</string>
@@ -2282,7 +2282,7 @@ Nhận thông tin trao đổi mã khóa về phiên bản giao thức không h�
   <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">Bạn đã thử quá nhiều lần. Vui lòng thử lại sau.</string>
   <string name="RegistrationActivity_error_connecting_to_service">Lỗi kết nối tới dịch vụ</string>
   <string name="preferences_chats__backups">Sao lưu</string>
-  <string name="prompt_passphrase_activity__signal_is_locked">Molly đã khoá</string>
+  <string name="prompt_passphrase_activity__signal_is_locked">Signal-LTS đã khoá</string>
   <string name="prompt_passphrase_activity__tap_to_unlock">NHẤN ĐỂ MỞ KHOÁ</string>
   <string name="Recipient_unknown">Vô danh</string>
   <!--TransferOrRestoreFragment-->
@@ -2302,17 +2302,17 @@ Nhận thông tin trao đổi mã khóa về phiên bản giao thức không h�
   <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">Đang chuẩn bị kết nối với thiết bị Android cũ…</string>
   <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">Chỉ mất một lúc, sẽ hoàn thành sớm thôi</string>
   <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">Đang chờ kết nối với thiết bị Android cũ…</string>
-  <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Molly cần quyền truy cập vị trí để kết nối và ngắt kết nối với thiết bị Android cũ của bạn.</string>
-  <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Molly cần dịch vụ Vị trí được bật để kết nối và ngắt kết nối với thiết bị Android cũ của bạn.</string>
-  <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Molly cần Wi-Fi được bật để phát hiện và kết nối với thiết bị Android cũ của bạn. Wi-Fi cần được bật nhưng không bắt buộc phải kết nối với một mạng Wi-Fi nào đó.</string>
-  <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Xin lỗi, có vẻ như thiết bị này không hỗ trợ Wi-Fi Direct. Molly sử dụng Wi-Fi Direct để phát hiện và kết nối với thiết bị Android cũ của bạn. Bạn vẫn có thể khôi phục sao lưu hoặc khôi phục tài khoản trên thiết bị Android cũ của bạn.</string>
+  <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Signal-LTS cần quyền truy cập vị trí để kết nối và ngắt kết nối với thiết bị Android cũ của bạn.</string>
+  <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Signal-LTS cần dịch vụ Vị trí được bật để kết nối và ngắt kết nối với thiết bị Android cũ của bạn.</string>
+  <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Signal-LTS cần Wi-Fi được bật để phát hiện và kết nối với thiết bị Android cũ của bạn. Wi-Fi cần được bật nhưng không bắt buộc phải kết nối với một mạng Wi-Fi nào đó.</string>
+  <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Xin lỗi, có vẻ như thiết bị này không hỗ trợ Wi-Fi Direct. Signal-LTS sử dụng Wi-Fi Direct để phát hiện và kết nối với thiết bị Android cũ của bạn. Bạn vẫn có thể khôi phục sao lưu hoặc khôi phục tài khoản trên thiết bị Android cũ của bạn.</string>
   <string name="NewDeviceTransferSetup__restore_a_backup">Khôi phục bản sao lưu</string>
   <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Lỗi không xác định khi đang cố gắng kết nối với thiết bị Android cũ của bạn.</string>
   <!--OldDeviceTransferSetupFragment-->
-  <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Molly cần quyền truy cập vị trí để kết nối và ngắt kết nối với thiết bị Android mới của bạn.</string>
-  <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Molly cần dịch vụ Vị trí được bật để kết nối và ngắt kết nối với thiết bị Android mới của bạn.</string>
-  <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Molly cần Wi-Fi được bật để phát hiện và kết nối với thiết bị Android mới của bạn. Wi-Fi cần được bật nhưng không bắt buộc phải kết nối với một mạng Wi-Fi nào đó.</string>
-  <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Xin lỗi, có vẻ như thiết bị này không hỗ trợ Wi-Fi Direct. Molly sử dụng Wi-Fi Direct để phát hiện và kết nối với thiết bị Android mới của bạn. Bạn vẫn có thể tạo bản sao lưu để khôi phục tài khoản trên thiết bị Android mới của bạn.</string>
+  <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Signal-LTS cần quyền truy cập vị trí để kết nối và ngắt kết nối với thiết bị Android mới của bạn.</string>
+  <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Signal-LTS cần dịch vụ Vị trí được bật để kết nối và ngắt kết nối với thiết bị Android mới của bạn.</string>
+  <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Signal-LTS cần Wi-Fi được bật để phát hiện và kết nối với thiết bị Android mới của bạn. Wi-Fi cần được bật nhưng không bắt buộc phải kết nối với một mạng Wi-Fi nào đó.</string>
+  <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Xin lỗi, có vẻ như thiết bị này không hỗ trợ Wi-Fi Direct. Signal-LTS sử dụng Wi-Fi Direct để phát hiện và kết nối với thiết bị Android mới của bạn. Bạn vẫn có thể tạo bản sao lưu để khôi phục tài khoản trên thiết bị Android mới của bạn.</string>
   <string name="OldDeviceTransferSetup__create_a_backup">Tạo bản sao lưu</string>
   <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Lỗi không xác định khi đang cố gắng kết nối với thiết bị Android mới của bạn.</string>
   <!--DeviceTransferSetupFragment-->
@@ -2385,7 +2385,7 @@ Nhận thông tin trao đổi mã khóa về phiên bản giao thức không h�
   <!--GroupLinkBottomSheetDialogFragment-->
   <string name="GroupLinkBottomSheet_share_hint_requiring_approval">Bất cứ ai với đường dẫn này có thể xem tên và ảnh nhóm và gửi yêu cầu tham gia. Chỉ chia sẻ với những người mà bạn tin tưởng.</string>
   <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">Bất cứ ai với đường dẫn này có thể xem tên và ảnh nhóm và tham gia nhóm. Chỉ chia sẻ với những người mà bạn tin tưởng.</string>
-  <string name="GroupLinkBottomSheet_share_via_signal">Chia sẻ qua Molly</string>
+  <string name="GroupLinkBottomSheet_share_via_signal">Chia sẻ qua Signal-LTS</string>
   <string name="GroupLinkBottomSheet_copy">Sao chép</string>
   <string name="GroupLinkBottomSheet_qr_code">Mã QR</string>
   <string name="GroupLinkBottomSheet_share">Chia sẻ</string>

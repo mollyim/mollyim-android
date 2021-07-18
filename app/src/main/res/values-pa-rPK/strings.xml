@@ -10,7 +10,7 @@
   <string name="AbstractNotificationBuilder_new_message">نواں سنیہا</string>
   <!--AlbumThumbnailView-->
   <!--ApplicationMigrationActivity-->
-  <string name="ApplicationMigrationActivity__signal_is_updating">Molly اپ ڈیٹ ہو رئیا اے</string>
+  <string name="ApplicationMigrationActivity__signal_is_updating">Signal-LTS اپ ڈیٹ ہو رئیا اے</string>
   <!--ApplicationPreferencesActivity-->
   <string name="ApplicationPreferencesActivity_currently_s">ہونڑی: %s</string>
   <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">تسیں اجے تائیں پاس فریز مقرر نئیں کیتا اے!</string>
@@ -25,12 +25,12 @@
   </plurals> -->
   <!-- Removed by excludeNonTranslatables <string name="ApplicationPreferencesActivity_delete">مٹا دیو</string> -->
   <string name="ApplicationPreferencesActivity_disable_passphrase">پاس فریز غیر فعال کردئی اے ؟</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications"> ایہدے نال Mollyتے سنیہیاں دی اطلاعواں بمیشاں لئی ان لاک ہو جان گیاں۔</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications"> ایہدے نال Signal-LTSتے سنیہیاں دی اطلاعواں بمیشاں لئی ان لاک ہو جان گیاں۔</string>
   <string name="ApplicationPreferencesActivity_disable">غیر فعال کرو</string>
   <string name="ApplicationPreferencesActivity_unregistering">غیر رجسٹر کرنا</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls"> Molly سنیہیاں تے کالز توں غیررجسٹر کر رئیا اے…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls"> Molly سنیہیاں تے کالز نوں غیر فعال کردئی اے؟</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">سرور توں غیر رجسٹر کر کے Molly سنیہیاں تے کالز نوں غیر فعال کرو۔ مستقبل اچ ایہناں نوں دوبارہ ورتن لئی تہانوں اپناں فون نمبر فیر رجسٹر کرن دی لوڑھ پئے گی۔</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls"> Signal-LTS سنیہیاں تے کالز توں غیررجسٹر کر رئیا اے…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls"> Signal-LTS سنیہیاں تے کالز نوں غیر فعال کردئی اے؟</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">سرور توں غیر رجسٹر کر کے Signal-LTS سنیہیاں تے کالز نوں غیر فعال کرو۔ مستقبل اچ ایہناں نوں دوبارہ ورتن لئی تہانوں اپناں فون نمبر فیر رجسٹر کرن دی لوڑھ پئے گی۔</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">سرور توں منسلک ہون اچ نقص اے!</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">SMS فعال کیتا</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">اپنے ڈیفالٹ SMS ایپ تے بدلن لئی بٹن دبو</string>
@@ -62,13 +62,13 @@
   <string name="AttachmentKeyboard_file">فائل</string>
   <string name="AttachmentKeyboard_contact">رابطہ</string>
   <string name="AttachmentKeyboard_location">تھاں</string>
-  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">تہاڈیاں تصویراں تے ویذیوز وکھان لئی Molly نوں تہاڈی اجازت دی لوڑھ اے۔</string>
+  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">تہاڈیاں تصویراں تے ویذیوز وکھان لئی Signal-LTS نوں تہاڈی اجازت دی لوڑھ اے۔</string>
   <string name="AttachmentKeyboard_give_access">رسائی دیوو</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">میڈیا چنن لئی اک ایپ نئیں لبھ رئیا ۔</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">تصویراں، ویڈیو، یاں آڈیو نوں منسلک کرن لئی Molly نوں اسٹوریج اجازت دی لوڑھ ہندی اے، پر ایہدے توں ہمیشاں لئی منع کیتا گیا اے۔ مہربانی کر کے ایپ دیاں ترتیباں دے مینیو اچ جاری رکھو، \"اجازتاں\" چنو، تے \"اسٹوریج\" فعال کرو۔</string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">رابطے دی معلومات منسلک کرن لئی Molly نوں رابطے دی اجازت دی لوڑھ ہندی ہ اے، پر ایہدے توں ہمیشاں لئی منع کیتا گیا اے۔ مہربانی کر کے ایپ دیاں ترتیباں دے مینیو تے جاری رکھو، \"اجازتاں\" چن، تے \"رابطے\" فعال کرو۔</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">اک تھاں منسلک کرن لئی Molly نوں تھاں دی اجازت دی لوڑھ ہندی اے، پر ایہدے توں ہمیشاں لئی منع کیتا گیا اے۔ مہربانی کر کے ایپ دیاں ترتیباں دے مینیو تے جاری رکھو، \"اجازتاں\" منتخب کرو، تے \"تھاں\" فعال کرو۔</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">تصویراں، ویڈیو، یاں آڈیو نوں منسلک کرن لئی Signal-LTS نوں اسٹوریج اجازت دی لوڑھ ہندی اے، پر ایہدے توں ہمیشاں لئی منع کیتا گیا اے۔ مہربانی کر کے ایپ دیاں ترتیباں دے مینیو اچ جاری رکھو، \"اجازتاں\" چنو، تے \"اسٹوریج\" فعال کرو۔</string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">رابطے دی معلومات منسلک کرن لئی Signal-LTS نوں رابطے دی اجازت دی لوڑھ ہندی ہ اے، پر ایہدے توں ہمیشاں لئی منع کیتا گیا اے۔ مہربانی کر کے ایپ دیاں ترتیباں دے مینیو تے جاری رکھو، \"اجازتاں\" چن، تے \"رابطے\" فعال کرو۔</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">اک تھاں منسلک کرن لئی Signal-LTS نوں تھاں دی اجازت دی لوڑھ ہندی اے، پر ایہدے توں ہمیشاں لئی منع کیتا گیا اے۔ مہربانی کر کے ایپ دیاں ترتیباں دے مینیو تے جاری رکھو، \"اجازتاں\" منتخب کرو، تے \"تھاں\" فعال کرو۔</string>
   <!-- Removed by excludeNonTranslatables <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">تصویراں لین لئی Signal نوں کمیرے دی اجازت دی لوڑھ ہندی اے، پر ایہدے توں ہمیشاں لئی منع کیتا گیا اے۔ مہربانی کر کے ایپ دیاں ترتیباں دے مینیو تے جاری رکھو، \"اجازتاں\" چن، تے \"کیمرہ\" فعال کرو۔</string> -->
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">میڈیا اپ لوڈ کر رئیا اے…</string>
@@ -108,7 +108,7 @@
   <string name="CameraContacts_no_signal_contacts">کوئی Signal رابطے نئیں </string>
   <string name="CameraContacts_you_can_only_use_the_camera_button"> Signal رابطے نوں تصویر گھلن لئی تسیں صرف کیمرہ بٹن ورت سکدے او۔</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for"> جنہوں تسیں لبھدے پئے او اوہ نئیں لبھ رئیا؟</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal"> Mollyاچ شامل ہون لئی اک رابطے نوں سدھو </string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal"> Signal-LTSاچ شامل ہون لئی اک رابطے نوں سدھو </string>
   <string name="CameraContacts__menu_search">لبھو</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">ہٹاؤ</string>
@@ -181,7 +181,7 @@
   <string name="ConversationActivity_transport_insecure_sms">غیر محفوظ SMS</string>
   <string name="ConversationActivity_transport_insecure_mms">غیر محفوظ MMS</string>
   <string name="ConversationActivity_transport_signal"> Signal </string>
-  <string name="ConversationActivity_lets_switch_to_signal">آؤ Molly %1$s تے تبدیل کردئی اے</string>
+  <string name="ConversationActivity_lets_switch_to_signal">آؤ Signal-LTS %1$s تے تبدیل کردئی اے</string>
   <string name="ConversationActivity_specify_recipient">مہربانی کر کے اک رابطہ چنو </string>
   <!-- Removed by excludeNonTranslatables <string name="ConversationActivity_unblock_this_contact_question">ایس رابطے نوں ان بلاک کردئی اے ؟</string> -->
   <!-- Removed by excludeNonTranslatables <string name="ConversationActivity_unblock_this_group_question">ایس گروپ نوں ان بلاک کر دئی اے ؟</string> -->
@@ -192,14 +192,14 @@
   <!-- Removed by excludeNonTranslatables <string name="ConversationActivity_quick_camera_unavailable">کیمرا دستیاب نئیں</string> -->
   <string name="ConversationActivity_unable_to_record_audio">آڈیو ریکارڈ کرن دے قابل نئیں!</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">تہاڈے آلے تے ایس لنک نوں سنبھالن لئی کوئی ایپ دستیاب نئیں اے۔</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">آڈیو سنیہے گھلن لئی، Molly نوں اپنے مائیکروفون تائیں رسائی دی اجازت دیوو۔</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">آڈیو سنیہے گھلن لئی Molly نوں مائیکروفون دی اجازت دی لوڑھ ہندی اے، پر ایہدے توں ہمیشاں لئی منع کیتا گیا اے۔ مہربانی کر کے ایپ دیاں ترتیباں تے جاری رکھو، \"اجازتاں\" چنو، تے \"مائیکروفون\" فعال کرو۔</string>
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">%s نوں کال کرن لئی Molly نوں مائیکروفون تے کیمرا دی اجازت دی لوڑھ ہندی اے، پر ایناں توں ہمیشاں لئی منع کیتا گیا اے۔ مہربانی کر کے ایپ دیاں ترتیباں تے جاری رکھو، \"اجازتاں\" چنو، تے \"مائیکروفون\" تے \"کیمرہ\" فعال کرو۔</string>
-  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">تصویراں تے ویڈیوبنان لئی، Molly نوں کیمرے تائیں رسائی دی اجازت دیو۔</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">فوٹو یاں ویڈیو لین لئی Molly نوں کیمرہ دی اجازت دی لوڑھ ہندی اے، پر ایہدےتوں ہمیشاں لئی منع کیتا گیا اے۔ مہربانی کر کے ایپ دیاں ترتیباں تے جاری رکھو، \"اجازتاں\"چنو، تے \"کیمرہ\" فعال کرو۔</string>
-  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">تصویراں یاں ویڈیو لین لئی Molly نوں کیمرے دی جازت دی لوڑھ ہندی اے۔</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">آڈیو سنیہے گھلن لئی، Signal-LTS نوں اپنے مائیکروفون تائیں رسائی دی اجازت دیوو۔</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">آڈیو سنیہے گھلن لئی Signal-LTS نوں مائیکروفون دی اجازت دی لوڑھ ہندی اے، پر ایہدے توں ہمیشاں لئی منع کیتا گیا اے۔ مہربانی کر کے ایپ دیاں ترتیباں تے جاری رکھو، \"اجازتاں\" چنو، تے \"مائیکروفون\" فعال کرو۔</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">%s نوں کال کرن لئی Signal-LTS نوں مائیکروفون تے کیمرا دی اجازت دی لوڑھ ہندی اے، پر ایناں توں ہمیشاں لئی منع کیتا گیا اے۔ مہربانی کر کے ایپ دیاں ترتیباں تے جاری رکھو، \"اجازتاں\" چنو، تے \"مائیکروفون\" تے \"کیمرہ\" فعال کرو۔</string>
+  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">تصویراں تے ویڈیوبنان لئی، Signal-LTS نوں کیمرے تائیں رسائی دی اجازت دیو۔</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">فوٹو یاں ویڈیو لین لئی Signal-LTS نوں کیمرہ دی اجازت دی لوڑھ ہندی اے، پر ایہدےتوں ہمیشاں لئی منع کیتا گیا اے۔ مہربانی کر کے ایپ دیاں ترتیباں تے جاری رکھو، \"اجازتاں\"چنو، تے \"کیمرہ\" فعال کرو۔</string>
+  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">تصویراں یاں ویڈیو لین لئی Signal-LTS نوں کیمرے دی جازت دی لوڑھ ہندی اے۔</string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound"> اواز دے نال ویڈیوز بنان لئی مائیکروفون دی اجازت نوں فعال کرو۔</string>
-  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">ویڈیو ریکارڈ کرن لئی Molly نوں مایئکروفون دی اجازت دی لوڑھ ہندی اے، پر ایس توں منع کیتا گیا اے۔ مہربانی کر کے ایپ دیاں ترتیباں تے جاری رکھو، \"اجازتاں\" چنو، تے \"مائیکروفون\" تے \"کیمرہ\" فعال کرو۔</string>
+  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">ویڈیو ریکارڈ کرن لئی Signal-LTS نوں مایئکروفون دی اجازت دی لوڑھ ہندی اے، پر ایس توں منع کیتا گیا اے۔ مہربانی کر کے ایپ دیاں ترتیباں تے جاری رکھو، \"اجازتاں\" چنو، تے \"مائیکروفون\" تے \"کیمرہ\" فعال کرو۔</string>
   <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">ویڈیو ریکارڈ کرن لئی سگنل نوں مائیکروفون دی اجازت دی لوڑھ ہندی اے۔</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app"> Signal SMS/MMS سنیہے نئیں گھل سکدا کیوں جے ایہہ تہاڈی ڈیفالٹ SMS ایپ نئیں۔ کیہ تسیں اینوں اپنی اینڈرائیڈ ترتیباں اچ بدلنا چاہوو گے؟</string>
@@ -329,14 +329,14 @@
   <string name="DocumentView_unnamed_file"> بے نامی فائل</string>
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">رہ جان آلی پلے سروسز لئی احسن کاری کرو</string>
-  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">ایہہ آلہ پلے سروسز دی معاونت نئیں کر دا اے۔ سسٹم بیٹری دی احسن کاری نوں غیر فعال کرن لئی بٹن دباؤ جیہڑی Molly نوں غیر فعال ہون دے دوران سنیہے بازیافت کرن توں روکدی اے۔</string>
+  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">ایہہ آلہ پلے سروسز دی معاونت نئیں کر دا اے۔ سسٹم بیٹری دی احسن کاری نوں غیر فعال کرن لئی بٹن دباؤ جیہڑی Signal-LTS نوں غیر فعال ہون دے دوران سنیہے بازیافت کرن توں روکدی اے۔</string>
   <!--ShareActivity-->
   <string name="ShareActivity_share_with">ایہدے نال سانجھا کرو</string>
   <!--GcmBroadcastReceiver-->
   <!-- Removed by excludeNonTranslatables <string name="GcmBroadcastReceiver_retrieving_a_message">اک سنیہا بازیافت کر رئیا اے…</string> -->
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Signal مواصلت اچ مستقل ناکامی!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly گوگل پلے سروسز نال رجسٹر نئیں کر سکیا سی۔ Molly سنیہے تے کالاں غیر فعال کیتیاں گئیاں نیں، مہربانی کر کے ترتیباں تے ایڈوانسڈ اچ فیر رجسٹر کرن دی کوشش کرو۔</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal-LTS گوگل پلے سروسز نال رجسٹر نئیں کر سکیا سی۔ Signal-LTS سنیہے تے کالاں غیر فعال کیتیاں گئیاں نیں، مہربانی کر کے ترتیباں تے ایڈوانسڈ اچ فیر رجسٹر کرن دی کوشش کرو۔</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">مکمل ریزولوشن GIF بازیافت کرن اچ نقص</string>
   <!--GiphyFragmentPageAdapter-->
@@ -414,7 +414,7 @@
   <string name="InviteActivity_sending">گھل رئیا اے…</string>
   <!-- Removed by excludeNonTranslatables <string name="InviteActivity_heart_content_description">دل</string> -->
   <string name="InviteActivity_invitations_sent">دعوت نامے گھل دتے!</string>
-  <string name="InviteActivity_invite_to_signal">Molly تے سدھو</string>
+  <string name="InviteActivity_invite_to_signal">Signal-LTS تے سدھو</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">%d دوست نوں SMS گھلو</item>
     <item quantity="other">%d دوستاں نوں SMS گھلو</item>
@@ -423,7 +423,7 @@
     <item quantity="one">%d نوں SMS سدھا گھلیے؟</item>
     <item quantity="other">%d SMS سدھے گھلیے؟</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">آؤ Molly تے سوئچ کریے: %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">آؤ Signal-LTS تے سوئچ کریے: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">انج لگدا اے کہ سانجھا کرن لئی تہاڈے کول ایپ نئیں۔</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">دوست دوستاں دی چیٹ نوں بغیر خفیہ کیتے نئیں چھڈدے نیں۔</string>
   <!--Job-->
@@ -435,7 +435,7 @@
   <string name="LongMessageActivity_message_from_s">%1$s دا سنیہا</string>
   <string name="LongMessageActivity_your_message">تہاڈا سنیہا </string>
   <!--MessageRetrievalService-->
-  <string name="MessageRetrievalService_signal">Molly</string>
+  <string name="MessageRetrievalService_signal">Signal-LTS</string>
   <string name="MessageRetrievalService_background_connection_enabled">پس منظر کنکشن فعال ہو گیا اے </string>
   <!--MmsDownloader-->
   <string name="MmsDownloader_error_reading_mms_settings">وائرلیس فراہم کنندہ MMS دی ترتیباں پڑھن اچ نقص</string>
@@ -510,8 +510,8 @@
   <string name="MediaSendActivity_message_to_s">%s نوں سنیہا</string>
   <string name="MediaSendActivity_message"> سنیہا</string>
   <string name="MediaSendActivity_select_recipients">وصول کرن آلیاں نوں چنو</string>
-  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Molly نوں تہادے رابطے وکھان لئی اوہناں تائیں رسائی دی لوڑھ اے۔</string>
-  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">تہاڈے رابطے وکھان لئیMolly نوں رابطیاں دی اجازت دی لوڑھ اے، پرایہدے توں ہمیشاں لئی منع کیتا گیا اے۔ مہربانی کر کے ایپ دیاں ترتیباں تے جاری رکھو، \"اجازتاں\" چنو، تے \"رابطے\" فعال کرو۔</string>
+  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Signal-LTS نوں تہادے رابطے وکھان لئی اوہناں تائیں رسائی دی لوڑھ اے۔</string>
+  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">تہاڈے رابطے وکھان لئیSignal-LTS نوں رابطیاں دی اجازت دی لوڑھ اے، پرایہدے توں ہمیشاں لئی منع کیتا گیا اے۔ مہربانی کر کے ایپ دیاں ترتیباں تے جاری رکھو، \"اجازتاں\" چنو، تے \"رابطے\" فعال کرو۔</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="one">تسیں %d توں ودھ آئٹم سانجھیاں نئیں کرسکدے او۔</item>
     <item quantity="other">تسیں %d توں ودھ آئٹمز سانجھیاں نئیں کرسکدے او۔</item>
@@ -591,7 +591,7 @@
   <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">معذرت، ایہہ آلہ لنک کرن آلا QR کوڈ درست نئیں۔</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">اکSignal آلہ منسلک کردئی اے؟</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">اینج لگدا اے کہ تسیں کسے تیجے فریق اسکینر نوں ورتدے ہوئے اک Signal آلہ منسلک کرن دی کوشش کر رئے او۔ آپنے تحفظ لئی، مہربانی کر کے Signal دے اندر توں فیر کوڈ اسکین کرو۔</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code"> QR کوڈ اسکین کرن لئی Molly نوں کیمرا دی اجازت دی لوڑھ ہندی اے، پر ایہدے توں ہمیشاں لئی منع کیتا گیا اے۔ مہربانی کر کے ایپ دیاں ترتیباں تے جاری رکھو، \"اجازتاں\"چنو، تے \"کیمرہ\" فعال کرو۔</string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code"> QR کوڈ اسکین کرن لئی Signal-LTS نوں کیمرا دی اجازت دی لوڑھ ہندی اے، پر ایہدے توں ہمیشاں لئی منع کیتا گیا اے۔ مہربانی کر کے ایپ دیاں ترتیباں تے جاری رکھو، \"اجازتاں\"چنو، تے \"کیمرہ\" فعال کرو۔</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">کیمرے دی اجازت دے بغیر QR کوڈ اسکین نئیں کر سکدا</string>
   <!--ExpirationDialog-->
   <!-- Removed by excludeNonTranslatables <string name="ExpirationDialog_disappearing_messages">غائب ہون آلے سنیہے</string> -->
@@ -599,10 +599,10 @@
   <!-- Removed by excludeNonTranslatables <string name="ExpirationDialog_your_messages_will_disappear_s_after_they_have_been_seen">ایس گل بات اچ گھلے تے موصول کیتے سنیہے ویکھے جان توں بعد %s غائب ہوجان گے۔</string> -->
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">پاس فریز درج کرو</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Molly آئکن</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Signal-LTS آئکن</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">پاس فریز جمع کراؤ</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">غلط پاس فریز!</string>
-  <string name="PassphrasePromptActivity_unlock_signal">Molly غیرمقفل کرو</string>
+  <string name="PassphrasePromptActivity_unlock_signal">Signal-LTS غیرمقفل کرو</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">نقشہ</string>
   <!-- Removed by excludeNonTranslatables <string name="PlacePickerActivity_not_a_valid_address"> درست پتہ نئیں اے</string> -->
@@ -668,7 +668,7 @@
   <string name="RegistrationActivity_the_number_you_specified_s_is_invalid">تہاڈا دسیا نمبر (%s) ناقابل قبول اے۔
     </string>
   <string name="RegistrationActivity_missing_google_play_services"> گوگل پلے سروسز موجود نئیں</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">ایس آلے تے گوگل پلے سروسز موجود نئیں۔ تسیں فیر وی Mollyاستعمال کر سکدے او، پر ایس وضع دا نتیجہ گھٹ اعتماد یاں کارکردگی دی صورت اچ ہو سکدا اے\n\n تسیں اک اعلی درجے دے صارف نئیں او، اک بعد از مارکیٹ اینڈرائیڈ روم نئیں چلا رے او، یاں تہانوں یقین اے کہ اے سنیہا تہانوں نقص دی وجہ توں نظر آ رئیا اے، تے فیر مہربانی کر کے مسئلہ حل کرن اچ مدد لئی support@molly.im نال رابطہ کرو۔</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">ایس آلے تے گوگل پلے سروسز موجود نئیں۔ تسیں فیر وی Signal-LTSاستعمال کر سکدے او، پر ایس وضع دا نتیجہ گھٹ اعتماد یاں کارکردگی دی صورت اچ ہو سکدا اے\n\n تسیں اک اعلی درجے دے صارف نئیں او، اک بعد از مارکیٹ اینڈرائیڈ روم نئیں چلا رے او، یاں تہانوں یقین اے کہ اے سنیہا تہانوں نقص دی وجہ توں نظر آ رئیا اے، تے فیر مہربانی کر کے مسئلہ حل کرن اچ مدد لئی support@Signal-LTS.im نال رابطہ کرو۔</string>
   <string name="RegistrationActivity_i_understand">میں سمجھ گیا آں</string>
   <string name="RegistrationActivity_play_services_error">پلے سروسز اچ نقص</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">گوگل پلے سروسز اپ ڈیٹ ہو رئی اے یاں عارضی طور تے دستیاب نئی۔ مہربانی کرکے فیر کوشش کرو۔</string>
@@ -676,9 +676,9 @@
   <!-- Removed by excludeNonTranslatables <string name="RegistrationActivity_no_browser">ایس لنک نوں کھول نئیں سکدا ۔ کوئی ویب براؤزر نئیں لبھیا۔</string> -->
   <!-- Removed by excludeNonTranslatables <string name="RegistrationActivity_more_information">ہور معلومات</string> -->
   <!-- Removed by excludeNonTranslatables <string name="RegistrationActivity_less_information">گھٹ معلومات</string> -->
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">دوستاں نال رابطہ کرن، سنیہیاں دا تبادلہ کرن تے محفوظ کالاں کرن لئی Molly نوں تہاڈے رابطیاں تے میڈیا تائیں رسائی دی لوڑھ ہندی اے</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">دوستاں نال رابطہ کرن، سنیہیاں دا تبادلہ کرن تے محفوظ کالاں کرن لئی Signal-LTS نوں تہاڈے رابطیاں تے میڈیا تائیں رسائی دی لوڑھ ہندی اے</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">سروس نال نئیں جوڑ سکدا۔ مہربانی کر کے نیٹ ورک کنکشن دی جانچ کرو تے فیر کوشش کرو۔</string>
-  <!-- Removed by excludeNonTranslatables <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">آپنے فون نمبر دی اسانی نال توثیق کرن لئی،جے تسیںMolly نوں SMS سنیہے ویکھن دی اجازت دیندے او تاں سگنل آپوں آپ تہاڈے توثیقی کوڈ دا پتہ لا سکدا اے۔</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">آپنے فون نمبر دی اسانی نال توثیق کرن لئی،جے تسیںSignal-LTS نوں SMS سنیہے ویکھن دی اجازت دیندے او تاں سگنل آپوں آپ تہاڈے توثیقی کوڈ دا پتہ لا سکدا اے۔</string> -->
   <plurals name="RegistrationActivity_debug_log_hint">
     <item quantity="one">ہن تسیں اک ڈیبگ لاگ جمع کران توں %d قدم دور او۔</item>
     <item quantity="other"> ہن تسیں اک ڈیبگ لاگ جمع کران توں %d قدم دور او۔</item>
@@ -712,12 +712,12 @@
   <string name="SearchFragment_header_messages">سنیہے</string>
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">رابطیاں اچ شامل کرو</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Molly تے سدھو</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Signal-LTS تے سدھو</string>
   <string name="SharedContactDetailsActivity_signal_message">Signal سنیہا </string>
   <string name="SharedContactDetailsActivity_signal_call">Signal کال</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">رابطیاں اچ شامل کرو</string>
-  <string name="SharedContactView_invite_to_signal">Molly تے سدھو</string>
+  <string name="SharedContactView_invite_to_signal">Signal-LTS تے سدھو</string>
   <string name="SharedContactView_message">Signal سنیہا</string>
   <!--SignalPinReminders-->
   <!--Slide-->
@@ -791,8 +791,8 @@
   <string name="ThreadRecord_file">فائل</string>
   <string name="ThreadRecord_video">ویڈیو</string>
   <!--UpdateApkReadyListener-->
-  <string name="UpdateApkReadyListener_Signal_update">Molly اپ ڈیٹ</string>
-  <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Molly دا اک نواں ورژن دستیاب اے، اپ ڈیٹ کرن لئی بٹن دبو </string>
+  <string name="UpdateApkReadyListener_Signal_update">Signal-LTS اپ ڈیٹ</string>
+  <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Signal-LTS دا اک نواں ورژن دستیاب اے، اپ ڈیٹ کرن لئی بٹن دبو </string>
   <!--UnknownSenderView-->
   <!-- Removed by excludeNonTranslatables <string name="UnknownSenderView_block_s">%s نوںبلاک کرد‏‏ئی اے؟</string> -->
   <!-- Removed by excludeNonTranslatables <string name="UnknownSenderView_blocked_contacts_will_no_longer_be_able_to_send_you_messages_or_call_you"> بلاک کیتے رابطے تہانوں ہور سنیہے گھلن یا کال کرن دے قابل نئیں ہون گے۔</string> -->
@@ -827,7 +827,7 @@
   <string name="VerifyIdentityActivity_our_signal_safety_number">ساڈاSignal سیفٹی نمبر:</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">انج لگدا اے کہ سانجھا کرن لئی تہاڈے کول ایپ نئیں۔</string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">کلپ بورڈ اچ موازنہ کرن لئی سیفٹی نمبر نئیں لبھیا</string>
-  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">QR کوڈ اسکین کرن لئی Molly نوں کیمرا دی اجازت دی لوڑھ ہندی اے، پر ایہدے توں ہمیشاں لئی منع کیتا گیا اے۔&lt; مہربانی کر کے ایپ دیاں ترتیباں تے جاری رکھو، "اجازتاں"چنو، تے "کیمرہ" فعال کرو۔</string>
+  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">QR کوڈ اسکین کرن لئی Signal-LTS نوں کیمرا دی اجازت دی لوڑھ ہندی اے، پر ایہدے توں ہمیشاں لئی منع کیتا گیا اے۔&lt; مہربانی کر کے ایپ دیاں ترتیباں تے جاری رکھو، "اجازتاں"چنو، تے "کیمرہ" فعال کرو۔</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">کیمرے دی اجازت توں بغیر کیو آر کوڈ اسکین نئیں کر سکدا </string>
   <!--ViewOnceMessageActivity-->
   <!--AudioView-->
@@ -849,13 +849,13 @@
   <!--KeyCachingService-->
   <string name="KeyCachingService_signal_passphrase_cached">کھولن لئی ٹچ کرو۔</string>
   <!-- Removed by excludeNonTranslatables <string name="KeyCachingService_signal_passphrase_cached_with_lock">کھولن لئی ٹچ کرو، یا بند کرن لئی لاک نوں ٹچ کرو۔</string> -->
-  <string name="KeyCachingService_passphrase_cached">Molly غیرمقفل اے</string>
-  <string name="KeyCachingService_lock">Molly نوں لاک کرو</string>
+  <string name="KeyCachingService_passphrase_cached">Signal-LTS غیرمقفل اے</string>
+  <string name="KeyCachingService_lock">Signal-LTS نوں لاک کرو</string>
   <!--MediaPreviewActivity-->
   <string name="MediaPreviewActivity_you">تسیں</string>
   <string name="MediaPreviewActivity_unssuported_media_type">غیر معاونتی میڈیا قسم</string>
   <string name="MediaPreviewActivity_draft">مسودہ</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">بیرونی اسٹوریج اچ محفوط کرن لئیMolly نوں اسٹوریج دی اجازت دی لوڑھ ہندی اے، پر ایہدے توں ہمیشاں لئی منع کیتا گیا اے۔ مہربانی کر کے ایپ دی ترتیباں تے جاری رکھو، \"اجازتاں\" چنو ، تے \"اسٹوریج\" فعال کرو۔</string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">بیرونی اسٹوریج اچ محفوط کرن لئیSignal-LTS نوں اسٹوریج دی اجازت دی لوڑھ ہندی اے، پر ایہدے توں ہمیشاں لئی منع کیتا گیا اے۔ مہربانی کر کے ایپ دی ترتیباں تے جاری رکھو، \"اجازتاں\" چنو ، تے \"اسٹوریج\" فعال کرو۔</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">اجازت دے بغیر بیرونی اسٹوریج اچ محفوظ نئیں کر سکدا</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">سنیہا مٹا دئی اے؟</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">ایہدے نال سنیہا ہمیشاں لئی مٹ جاوے گا۔</string>
@@ -878,7 +878,7 @@
   <string name="MessageNotifier_signal_message">Signal سنیہا</string>
   <string name="MessageNotifier_unsecured_sms">غیر محفوظ SMS</string>
   <string name="MessageNotifier_you_may_have_new_messages">تہادے لئی نویں سنیہے ہوسکدے نیں</string>
-  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications"> نویاںاطلاعواں دی پڑتال لئیMolly کھولو۔</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications"> نویاںاطلاعواں دی پڑتال لئیSignal-LTS کھولو۔</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">رابطہ</string>
   <string name="MessageNotifier_reacted_s_to_s">نے %1$s تے ری ایکٹ کیتا اے: \"%2$s\".</string>
@@ -904,7 +904,7 @@
   <!-- Removed by excludeNonTranslatables <string name="ProfileEditNameFragment_successfully_set_profile_name">پروفائل ناں کامیابی نال ترتیب دیتا۔</string> -->
   <!-- Removed by excludeNonTranslatables <string name="ProfileEditNameFragment_encountered_a_network_error">نیٹ ورک نقص دا سامنا کرنا پیا اے۔</string> -->
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Molly مقفل ہون تے فوری جواب دستیاب نئیں ہندا اے!</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Signal-LTS مقفل ہون تے فوری جواب دستیاب نئیں ہندا اے!</string>
   <string name="QuickResponseService_problem_sending_message"> سنیہا گھلن اچ مسئلہ!</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">%s اچ محفوظ کیتا</string>
@@ -915,7 +915,7 @@
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">غلط شارٹ کٹ</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Signal-LTS</string>
   <string name="SingleRecipientNotificationBuilder_new_message">نواں سنیہا</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">ویڈیو چلاؤ</string>
@@ -931,8 +931,8 @@
   <!--VideoPlayer-->
   <!-- Removed by excludeNonTranslatables <string name="VideoPlayer_error_playing_video">ویڈیو چلان اچ نقص</string> -->
   <!--WebRtcCallActivity-->
-  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">%s دی کال دا جواب دین لئی، Molly نوں اپنے مائیکروفون تائیں رسائی دیو۔</string>
-  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">کال کرن یاں وصول کرن لئیMolly نوں مائیکروفون تے کیمرا دی اجازتاں دی لوڑھ ہندی اے، پر ایہناں توں ہمیشاں لئی منع کیتا گیا اے۔ مہربانی کر کے ایپ دیاں ترتیباں تے جاری رکھو، \"اجازتاں\" چنو، تے \"مائیکروفون\" تے \"کیمرہ\" فعال کرو۔</string>
+  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">%s دی کال دا جواب دین لئی، Signal-LTS نوں اپنے مائیکروفون تائیں رسائی دیو۔</string>
+  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">کال کرن یاں وصول کرن لئیSignal-LTS نوں مائیکروفون تے کیمرا دی اجازتاں دی لوڑھ ہندی اے، پر ایہناں توں ہمیشاں لئی منع کیتا گیا اے۔ مہربانی کر کے ایپ دیاں ترتیباں تے جاری رکھو، \"اجازتاں\" چنو، تے \"مائیکروفون\" تے \"کیمرہ\" فعال کرو۔</string>
   <!--WebRtcCallScreen-->
   <!-- Removed by excludeNonTranslatables <string name="WebRtcCallScreen_new_safety_numbers">%1$s نال تہادی گل بات دا سیفٹی نمبر بدل گیا اے۔ ایدا ایہہ مطلب ہوسکدا اے کہ کوئی تہاڈی مواصلت اچ مداخلت کرن دی کوشش کر رئیا اے، یاں فیر ایہ کہ %2$s نے Signal فیر انسٹال کیتا اے۔</string> -->
   <!-- Removed by excludeNonTranslatables <string name="WebRtcCallScreen_you_may_wish_to_verify_this_contact">ہو سکدا اے تسیں ایس رابطے نال اپنے حفاظتی نمبر دی تصدیق کرنا چاہوو ۔</string> -->
@@ -977,7 +977,7 @@
   <string name="change_passphrase_activity__repeat_new_passphrase">نواں پاس فریز دوہراؤ</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">ناں یا نمبر درج کرو</string>
-  <string name="contact_selection_activity__invite_to_signal">Molly تے سدھو</string>
+  <string name="contact_selection_activity__invite_to_signal">Signal-LTS تے سدھو</string>
   <string name="contact_selection_activity__new_group">نواں گروپ</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">داخل کیتا متن صاف کرو</string>
@@ -989,7 +989,7 @@
   <!--single_contact_selection_activity-->
   <string name="SingleContactSelectionActivity_contact_photo">رابطہ فوٹو</string>
   <!--ContactSelectionListFragment-->
-  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">تہاڈے رابطے وکھان لئی Molly نوں رابطے دی اجازت دی لوڑھ ہندی اے، پر ایہدے توں ہمیشاں لئی منع کیتا گیا اے۔ مہربانی کر کے ایپ دیاں ترتیباں دے مینیو تے جاری رکھو، \"اجازتاں\" چن، تے \"رابطے\" فعال کرو۔</string>
+  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">تہاڈے رابطے وکھان لئی Signal-LTS نوں رابطے دی اجازت دی لوڑھ ہندی اے، پر ایہدے توں ہمیشاں لئی منع کیتا گیا اے۔ مہربانی کر کے ایپ دیاں ترتیباں دے مینیو تے جاری رکھو، \"اجازتاں\" چن، تے \"رابطے\" فعال کرو۔</string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">رابطے بازیافت کرن اچ نقص، اپنے نیٹ ورک کنکشن دی جانچ کرو</string>
   <string name="ContactSelectionListFragment_username_not_found">صارف ناں نئیں لبھیا</string>
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">\"%1$s\" اکSignal صارف نئیں اے۔ مہربانی کر کے صارف ناں دی پڑتال کرو تے فیر کوشش کرو۔</string>
@@ -997,7 +997,7 @@
   <!--blocked_contacts_fragment-->
   <!-- Removed by excludeNonTranslatables <string name="blocked_contacts_fragment__no_blocked_contacts">کوئی مسدود کیتے رابطے نئیں</string> -->
   <!--contact_selection_list_fragment-->
-  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly نوں تہادے رابطے وکھان لئی اوہناں تائیں رسائی دی لوڑھ اے۔</string>
+  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Signal-LTS نوں تہادے رابطے وکھان لئی اوہناں تائیں رسائی دی لوڑھ اے۔</string>
   <string name="contact_selection_list_fragment__show_contacts">رابطے وکھاؤ</string>
   <!--contact_selection_list_item-->
   <!--conversation_activity-->
@@ -1689,7 +1689,7 @@
   <!-- Removed by excludeNonTranslatables <string name="RegistrationActivity_pin_incorrect">پن غلط</string> -->
   <!-- Removed by excludeNonTranslatables <string name="RegistrationActivity_you_have_d_tries_remaining">تہاڈیاں %d کوششاں باقی نیں</string> -->
   <string name="preferences_chats__backups">بیک اپس</string>
-  <string name="prompt_passphrase_activity__signal_is_locked">Molly مقفل اے</string>
+  <string name="prompt_passphrase_activity__signal_is_locked">Signal-LTS مقفل اے</string>
   <string name="prompt_passphrase_activity__tap_to_unlock">غیرمقفل کرن لئی بٹن دبو</string>
   <!-- Removed by excludeNonTranslatables <string name="RegistrationLockDialog_reminder">یاد دہانی:</string> -->
   <!-- Removed by excludeNonTranslatables <string name="recipient_preferences__about">متعلق</string> -->

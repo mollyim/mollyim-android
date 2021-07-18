@@ -10,17 +10,17 @@
   <string name="AbstractNotificationBuilder_new_message">ข้อความใหม่</string>
   <!--AlbumThumbnailView-->
   <!--ApplicationMigrationActivity-->
-  <string name="ApplicationMigrationActivity__signal_is_updating">Molly กำลังปรับรุ่น…</string>
+  <string name="ApplicationMigrationActivity__signal_is_updating">Signal-LTS กำลังปรับรุ่น…</string>
   <!--ApplicationPreferencesActivity-->
   <string name="ApplicationPreferencesActivity_currently_s">ขณะนี้: %s</string>
   <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">คุณยังไม่ได้ตั้งวลีรหัสผ่าน</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">ปิดใช้งานวลีรหัสผ่านหรือไม่?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">นี่จะปลดล็อก Molly และการแจ้งเตือนข้อความอย่างถาวร</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">นี่จะปลดล็อก Signal-LTS และการแจ้งเตือนข้อความอย่างถาวร</string>
   <string name="ApplicationPreferencesActivity_disable">ปิดใช้งาน</string>
   <string name="ApplicationPreferencesActivity_unregistering">ยกเลิกการลงทะเบียน</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">กำลังยกเลิกการลงทะเบียนการใช้งานข้อความ Molly และการโทร…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">ปิดใช้งานข้อความและการโทร Molly หรือไม่?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">ปิดใช้งานข้อความและการโทร Molly ด้วยการยกเลิกการลงทะเบียนจากเซิร์ฟเวอร์ คุณจะต้องลงทะเบียนหมายเลขโทรศัพท์ใหม่หากต้องการกลับมาใช้งานอีกในอนาคต</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">กำลังยกเลิกการลงทะเบียนการใช้งานข้อความ Signal-LTS และการโทร…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">ปิดใช้งานข้อความและการโทร Signal-LTS หรือไม่?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">ปิดใช้งานข้อความและการโทร Signal-LTS ด้วยการยกเลิกการลงทะเบียนจากเซิร์ฟเวอร์ คุณจะต้องลงทะเบียนหมายเลขโทรศัพท์ใหม่หากต้องการกลับมาใช้งานอีกในอนาคต</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">เปิดใช้งาน SMS</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">แตะเพื่อเปลี่ยนแอป SMS หลักของคุณ</string>
@@ -56,14 +56,14 @@
   <string name="AttachmentKeyboard_file">แฟ้ม</string>
   <string name="AttachmentKeyboard_contact">ผู้ติดต่อ</string>
   <string name="AttachmentKeyboard_location">ตำแหน่งที่ตั้ง</string>
-  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Molly จำเป็นต้องได้รับอนุญาต เพื่อจะแสดงรูปและวิดีโอของคุณ</string>
+  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Signal-LTS จำเป็นต้องได้รับอนุญาต เพื่อจะแสดงรูปและวิดีโอของคุณ</string>
   <string name="AttachmentKeyboard_give_access">อนุญาตให้เข้าถึง</string>
   <string name="AttachmentKeyboard_payment">การจ่ายเงิน</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">ไม่พบแอปสำหรับเลือกสื่อ</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">เพื่อที่จะแนบรูปภาพ วิดีโอ หรือเสียง Molly ต้องได้รับอนุญาตให้เข้าถึงที่เก็บข้อมูล แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ที่เก็บข้อมูล\"</string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">เพื่อที่จะแนบข้อมูลผู้ติดต่อ Molly ต้องได้รับอนุญาตให้เข้าถึงผู้ติดต่อ แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ผู้ติดต่อ\"</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">เพื่อที่จะแนบข้อมูลตำแหน่งที่ตั้ง Molly ต้องได้รับอนุญาตให้เข้าถึงตำแหน่งที่ตั้ง แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ตำแหน่งที่ตั้ง\"</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">เพื่อที่จะแนบรูปภาพ วิดีโอ หรือเสียง Signal-LTS ต้องได้รับอนุญาตให้เข้าถึงที่เก็บข้อมูล แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ที่เก็บข้อมูล\"</string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">เพื่อที่จะแนบข้อมูลผู้ติดต่อ Signal-LTS ต้องได้รับอนุญาตให้เข้าถึงผู้ติดต่อ แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ผู้ติดต่อ\"</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">เพื่อที่จะแนบข้อมูลตำแหน่งที่ตั้ง Signal-LTS ต้องได้รับอนุญาตให้เข้าถึงตำแหน่งที่ตั้ง แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ตำแหน่งที่ตั้ง\"</string>
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">กำลังอัปโหลดสื่อ…</string>
   <string name="AttachmentUploadJob_compressing_video_start">กำลังบีบอัดวิดีโอ…</string>
@@ -114,14 +114,14 @@
   <string name="CameraContacts_no_signal_contacts">ไม่มีรายชื่อใน Signal</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">คุณสามารถใช้ปุ่มกล้องสำหรับส่งรูปให้รายชื่อผู้ติดต่อใน Signal เท่านั้น</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">ไม่พบรายชื่อที่คุณมองหาหรือ?</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">ส่งคำเชิญให้รายชื่อผู้ติดต่อมาใช้ Molly</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">ส่งคำเชิญให้รายชื่อผู้ติดต่อมาใช้ Signal-LTS</string>
   <string name="CameraContacts__menu_search">ค้นหา</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">ลบ</string>
   <string name="ClearProfileActivity_remove_profile_photo">ลบรูปโปรไฟล์หรือไม่?</string>
   <string name="ClearProfileActivity_remove_group_photo">ลบภาพกลุ่มหรือไม่?</string>
   <!--ClientDeprecatedActivity-->
-  <string name="ClientDeprecatedActivity_update_signal">ปรับรุ่น Molly</string>
+  <string name="ClientDeprecatedActivity_update_signal">ปรับรุ่น Signal-LTS</string>
   <string name="ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported">แอปรุ่นนี้ไม่ได้รับการสนับสนุนอีกต่อไปแล้ว หากต้องการรับและส่งข้อความต่อ ให้ปรับรุ่นเป็นรุ่นล่าสุด</string>
   <string name="ClientDeprecatedActivity_update">ปรับรุ่น</string>
   <string name="ClientDeprecatedActivity_dont_update">ไม่ปรับรุ่น</string>
@@ -200,7 +200,7 @@
   <string name="ConversationActivity_transport_insecure_sms">SMS ที่ไม่ปลอดภัย</string>
   <string name="ConversationActivity_transport_insecure_mms">MMS ที่ไม่ปลอดภัย</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">เปลี่ยนมาใช้ Molly กันเถอะ %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">เปลี่ยนมาใช้ Signal-LTS กันเถอะ %1$s</string>
   <string name="ConversationActivity_specify_recipient">โปรดเลือกผู้ติดต่อ</string>
   <string name="ConversationActivity_unblock">เลิกปิดกั้น</string>
   <string name="ConversationActivity_attachment_exceeds_size_limits">แฟ้มแนบมีขนาดใหญ่เกินกำหนดสำหรับชนิดของข้อความที่คุณกำลังจะส่ง</string>
@@ -209,15 +209,15 @@
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">อุปกรณ์ของคุณไม่มีแอปที่สามารถจัดการกับลิงก์นี้ได้</string>
   <string name="ConversationActivity_your_request_to_join_has_been_sent_to_the_group_admin">คำขอเข้ากลุ่มของคุณถูกส่งไปยังผู้ดูแลกลุ่มแล้ว คุณจะได้รับแจ้งเมื่อผู้ดูแลดำเนินการ</string>
   <string name="ConversationActivity_cancel_request">ยกเลิกคำขอ</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">เพื่อจะส่งข้อความเสียง คุณต้องอนุญาตให้ Molly เข้าถึงไมโครโฟน</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">เพื่อจะส่งข้อความเสียง Molly ต้องได้รับอนุญาตให้เข้าถึงไมโครโฟน แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ไมโครโฟน\"</string>
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">เพื่อที่จะโทรหา %s Molly ต้องได้รับอนุญาตให้เข้าถึงไมโครโฟนและกล้อง แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ไมโครโฟน\" และ \"กล้อง\"</string>
-  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">อนุญาต Molly ให้ใช้กล้องเพื่อถ่ายรูปและวิดีโอ</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">เพื่อที่จะถ่ายรูปหรือวิดีโอ Molly ต้องได้รับอนุญาตให้เข้าถึงกล้อง แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"กล้อง\"</string>
-  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Molly ต้องได้รับอนุญาตให้เข้าถึงกล้องเพื่อถ่ายรูปและวิดีโอ</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">เพื่อจะส่งข้อความเสียง คุณต้องอนุญาตให้ Signal-LTS เข้าถึงไมโครโฟน</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">เพื่อจะส่งข้อความเสียง Signal-LTS ต้องได้รับอนุญาตให้เข้าถึงไมโครโฟน แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ไมโครโฟน\"</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">เพื่อที่จะโทรหา %s Signal-LTS ต้องได้รับอนุญาตให้เข้าถึงไมโครโฟนและกล้อง แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ไมโครโฟน\" และ \"กล้อง\"</string>
+  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">อนุญาต Signal-LTS ให้ใช้กล้องเพื่อถ่ายรูปและวิดีโอ</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">เพื่อที่จะถ่ายรูปหรือวิดีโอ Signal-LTS ต้องได้รับอนุญาตให้เข้าถึงกล้อง แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"กล้อง\"</string>
+  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signal-LTS ต้องได้รับอนุญาตให้เข้าถึงกล้องเพื่อถ่ายรูปและวิดีโอ</string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">อนุญาตให้เปิดใช้งานไมโครโฟนเพื่อถ่ายภาพวิดีโอพร้อมเสียง</string>
-  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">เพื่อจะอัดภาพวิดีโอ Molly ต้องได้รับอนุญาตให้เข้าถึงไมโครโฟน แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ไมโครโฟน\" และ \"กล้อง\"</string>
-  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Molly ต้องได้รับอนุญาตให้เข้าถึงไมโครโฟนเพื่ออัดภาพวิดีโอ</string>
+  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">เพื่อจะอัดภาพวิดีโอ Signal-LTS ต้องได้รับอนุญาตให้เข้าถึงไมโครโฟน แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ไมโครโฟน\" และ \"กล้อง\"</string>
+  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signal-LTS ต้องได้รับอนุญาตให้เข้าถึงไมโครโฟนเพื่ออัดภาพวิดีโอ</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">Signal ไม่สามารถส่งข้อความ SMS/MMS ได้ เนื่องจาก Signal ไม่ได้เป็นแอปหลักในการส่ง SMS ของคุณ คุณต้องการเปลี่ยนการตั้งค่าแอนดรอยด์ของคุณหรือไม่?</string>
   <string name="ConversationActivity_yes">ใช่</string>
@@ -233,7 +233,7 @@
   <string name="ConversationActivity_you_will_leave_this_group_and_it_will_be_deleted_from_all_of_your_devices">คุณจะออกจากกลุ่มนี้และมันจะถูกลบออกจากทุกอุปกรณ์ของคุณ</string>
   <string name="ConversationActivity_delete">ลบ</string>
   <string name="ConversationActivity_delete_and_leave">ลบและออก</string>
-  <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">เพื่อจะโทรหา %1$s Molly จำเป็นต้องเข้าถึงไมโครโฟนของคุณ</string>
+  <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">เพื่อจะโทรหา %1$s Signal-LTS จำเป็นต้องเข้าถึงไมโครโฟนของคุณ</string>
   <string name="ConversationActivity__more_options_now_in_group_settings">มีตัวเลือกอีกใน \"การตั้งค่ากลุ่ม\"</string>
   <string name="ConversationActivity_join">เข้าร่วม</string>
   <string name="ConversationActivity_full">เต็ม</string>
@@ -284,7 +284,7 @@
   <string name="ConversationFragment__d_group_members_have_the_same_name">สมาชิกกลุ่ม %1$d คนมีชื่อเหมือนกัน</string>
   <string name="ConversationFragment__tap_to_review">แตะเพื่อทบทวน</string>
   <string name="ConversationFragment__review_requests_carefully">พิจารณาคำขออย่างระวัง</string>
-  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Molly พบผู้ติดต่ออีกรายการที่มีชื่อเหมือนกัน</string>
+  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Signal-LTS พบผู้ติดต่ออีกรายการที่มีชื่อเหมือนกัน</string>
   <string name="ConversationFragment_contact_us">ติดต่อเรา</string>
   <string name="ConversationFragment_verify">ตรวจยืนยัน</string>
   <string name="ConversationFragment_not_now">ไม่ใช่ตอนนี้</string>
@@ -344,11 +344,11 @@
   <string name="BackupsPreferenceFragment__test_your_backup_passphrase">ทดสอบวลีรหัสผ่านสำหรับข้อมูลสำรองของคุณและตรวจยืนยันว่ามันตรงกัน</string>
   <string name="BackupsPreferenceFragment__turn_on">เปิด</string>
   <string name="BackupsPreferenceFragment__turn_off">ปิด</string>
-  <string name="BackupsPreferenceFragment__to_restore_a_backup">เพื่อกู้คืนข้อมูลสำรอง คุณต้องติดตั้ง Molly ใหม่ เปิดแอป แตะ \"กู้คืนข้อมูลสำรอง\" และระบุแฟ้มสำรองข้อมูล %1$s</string>
+  <string name="BackupsPreferenceFragment__to_restore_a_backup">เพื่อกู้คืนข้อมูลสำรอง คุณต้องติดตั้ง Signal-LTS ใหม่ เปิดแอป แตะ \"กู้คืนข้อมูลสำรอง\" และระบุแฟ้มสำรองข้อมูล %1$s</string>
   <string name="BackupsPreferenceFragment__learn_more">เรียนรู้เพิ่มเติม</string>
   <string name="BackupsPreferenceFragment__in_progress">อยู่ระหว่างดำเนินการ…</string>
   <string name="BackupsPreferenceFragment__d_so_far">%1$d แล้ว…</string>
-  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">เพื่อที่จะสำรองข้อมูล Molly ต้องได้รับอนุญาตให้เข้าถึงที่เก็บข้อมูลภายนอก แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ที่เก็บข้อมูล\"</string>
+  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">เพื่อที่จะสำรองข้อมูล Signal-LTS ต้องได้รับอนุญาตให้เข้าถึงที่เก็บข้อมูลภายนอก แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ที่เก็บข้อมูล\"</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">ใช้ค่าที่กำหนดเอง: %s</string>
   <string name="CustomDefaultPreference_using_default">ใช้ค่าเริ่มต้น: %s</string>
@@ -393,7 +393,7 @@
   <string name="GroupCallingMegaphone__open_a_new_group_to_start">เปิดกลุ่มแบบใหม่เพื่อเริ่มการโทรแบบกลุ่มที่เข้ารหัสลับ</string>
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">ปรับปรุงการทำงานให้รับกับการไม่มี Play Services</string>
-  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">อุปกรณ์นี้ไม่รองรับ Play Services แตะเพื่อปิดใช้งานการปรับประสิทธิภาพแบตเตอรีซึ่งจะทำให้ Molly ไม่สามารถรับข้อความได้ในขณะที่ไม่ได้เปิดแอปบนหน้าจอ</string>
+  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">อุปกรณ์นี้ไม่รองรับ Play Services แตะเพื่อปิดใช้งานการปรับประสิทธิภาพแบตเตอรีซึ่งจะทำให้ Signal-LTS ไม่สามารถรับข้อความได้ในขณะที่ไม่ได้เปิดแอปบนหน้าจอ</string>
   <!--ExpiredBuildReminder-->
   <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Signal รุ่นนี้หมดอายุแล้ว ปรับรุ่นเดี๋ยวนี้เพื่อรับและส่งข้อความ</string>
   <string name="ExpiredBuildReminder_update_now">ปรับรุ่นเดี๋ยวนี้</string>
@@ -407,7 +407,7 @@
   <string name="ShareActivity_multiple_attachments_are_only_supported">การแนบแฟ้มหลายชิ้นแนบได้เฉพาะรูปภาพและวิดีโอ</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">การสื่อสารของ Signal ล้มเหลวอย่างถาวร!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly ไม่สามารถลงทะเบียนกับ Google Play Services การใช้งานข้อความและการโทร Molly ได้ถูกปิดใช้งาน กรุณาลองลงทะเบียนอีกครั้งใน การตั้งค่า &gt; ขั้นสูง</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal-LTS ไม่สามารถลงทะเบียนกับ Google Play Services การใช้งานข้อความและการโทร Signal-LTS ได้ถูกปิดใช้งาน กรุณาลองลงทะเบียนอีกครั้งใน การตั้งค่า &gt; ขั้นสูง</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">เกิดข้อผิดพลาดระหว่างการดึงภาพ GIF ความละเอียดสูง</string>
   <!--GiphyFragmentPageAdapter-->
@@ -706,14 +706,14 @@
   <string name="InviteActivity_cancel">ยกเลิก</string>
   <string name="InviteActivity_sending">กำลังส่ง…</string>
   <string name="InviteActivity_invitations_sent">ส่งคำเชิญแล้ว!</string>
-  <string name="InviteActivity_invite_to_signal">เชิญมาใช้ Molly</string>
+  <string name="InviteActivity_invite_to_signal">เชิญมาใช้ Signal-LTS</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="other">ส่ง SMS ให้เพื่อน %d คน</item>
   </plurals>
   <plurals name="InviteActivity_send_sms_invites">
     <item quantity="other">ส่งคำเชิญทาง %dSMS หรือไม่?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">เปลี่ยนมาใช้ Molly กัน: %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">เปลี่ยนมาใช้ Signal-LTS กัน: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">ดูเหมือนว่าคุณไม่มีแอปอะไรที่จะแบ่งปันได้</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">เพื่อนต้องไม่ยอมให้เพื่อนคุยกันโดยไม่มีการเข้ารหัส</string>
   <!--LearnMoreTextView-->
@@ -723,7 +723,7 @@
   <string name="LongMessageActivity_message_from_s">ข้อความจาก %1$s</string>
   <string name="LongMessageActivity_your_message">ข้อความของคุณ</string>
   <!--MessageRetrievalService-->
-  <string name="MessageRetrievalService_signal">Molly</string>
+  <string name="MessageRetrievalService_signal">Signal-LTS</string>
   <string name="MessageRetrievalService_background_connection_enabled">เปิดใช้งานให้การเชื่อมต่อทำงานเบื้องหลัง</string>
   <!--MmsDownloader-->
   <string name="MmsDownloader_error_reading_mms_settings">เกิดข้อผิดพลาดระหว่างอ่านการตั้งค่า MMS ของผู้ให้บริการไร้สาย</string>
@@ -805,8 +805,8 @@
   <string name="MediaSendActivity_message_to_s">ข้อความถึง %s</string>
   <string name="MediaSendActivity_message">ข้อความ</string>
   <string name="MediaSendActivity_select_recipients">เลือกผู้รับ</string>
-  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Molly ต้องการเข้าถึงผู้ติดต่อของคุณ เพื่อที่จะแสดงข้อมูลเหล่านั้นได้</string>
-  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">เพื่อที่จะแสดงรายชื่อผู้ติดต่อ Molly ต้องได้รับอนุญาตให้เข้าถึงรายชื่อผู้ติดต่อ แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ผู้ติดต่อ\"</string>
+  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Signal-LTS ต้องการเข้าถึงผู้ติดต่อของคุณ เพื่อที่จะแสดงข้อมูลเหล่านั้นได้</string>
+  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">เพื่อที่จะแสดงรายชื่อผู้ติดต่อ Signal-LTS ต้องได้รับอนุญาตให้เข้าถึงรายชื่อผู้ติดต่อ แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ผู้ติดต่อ\"</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="other">คุณไม่สามารถแบ่งปันได้มากกว่า %d รายการ</item>
   </plurals>
@@ -1036,7 +1036,7 @@
   <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">ขออภัย นี่ไม่ใช่รหัส QR สำหรับเชื่อมโยงอุปกรณ์ที่ถูกต้อง</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">เชื่อมโยงกับอุปกรณ์ Signal หรือไม่?</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">ดูเหมือนคุณพยายามเชื่อมโยงอุปกรณ์ Signal โดยใช้แอปสแกนภายนอก กรุณาสแกนรหัสอีกครั้งจากภายในแอป Signal ทั้งนี้เพื่อการคุ้มครองตัวคุณเอง</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">เพื่อที่จะสแกนรหัส QR ได้ Molly ต้องได้รับอนุญาตให้เข้าถึงกล้อง แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป และเลือก \"การอนุญาต\" และเปิดใช้งาน \"กล้อง\"</string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">เพื่อที่จะสแกนรหัส QR ได้ Signal-LTS ต้องได้รับอนุญาตให้เข้าถึงกล้อง แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป และเลือก \"การอนุญาต\" และเปิดใช้งาน \"กล้อง\"</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">ไม่สามารถสแกนรหัส QR ได้หากไม่ได้รับอนุญาตให้เข้าถึงกล้อง</string>
   <!--OutdatedBuildReminder-->
   <string name="OutdatedBuildReminder_update_now">ปรับปรุงเดี๋ยวนี้</string>
@@ -1046,10 +1046,10 @@
   </plurals>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">ใส่วลีรหัสผ่าน</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">ไอคอน Molly</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">ไอคอน Signal-LTS</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">ส่งวลีรหัสผ่าน</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">วลีรหัสผ่านไม่ถูกต้อง!</string>
-  <string name="PassphrasePromptActivity_unlock_signal">ปลดล็อก Molly</string>
+  <string name="PassphrasePromptActivity_unlock_signal">ปลดล็อก Signal-LTS</string>
   <string name="PassphrasePromptActivity_signal_android_lock_screen">Signal Android - หน้าล็อก</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">แผนที่</string>
@@ -1095,7 +1095,7 @@
   <string name="ReactionsRecipientAdapter_you">คุณ</string>
   <!--RecaptchaRequiredBottomSheetFragment-->
   <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">ตรวจยืนยันเพื่อรับส่งข้อความต่อ</string>
-  <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">เพื่อช่วยป้องกันสแปมบน Molly โปรดตรวจยืนยันให้สำเร็จ</string>
+  <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">เพื่อช่วยป้องกันสแปมบน Signal-LTS โปรดตรวจยืนยันให้สำเร็จ</string>
   <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">หลังตรวจยืนยัน คุณจะรับส่งข้อความได้ต่อ ข้อความใดๆ ที่หยุดอยู่ชั่วคราว จะถูกส่งโดยอัตโนมัติ</string>
   <!--Recipient-->
   <string name="Recipient_you">คุณ</string>
@@ -1116,8 +1116,8 @@
   <string name="RedPhone_got_it">เข้าใจแล้ว</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">แตะเพื่อเปิดวิดีโอของคุณ</string>
-  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">เพื่อจะโทรหา %1$s Molly จำเป็นต้องเข้าถึงกล้องของคุณ</string>
-  <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
+  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">เพื่อจะโทรหา %1$s Signal-LTS จำเป็นต้องเข้าถึงกล้องของคุณ</string>
+  <string name="WebRtcCallActivity__signal_s">Signal-LTS %1$s</string>
   <string name="WebRtcCallActivity__calling">กำลังโทร…</string>
   <!--WebRtcCallView-->
   <string name="WebRtcCallView__signal_voice_call">โทรเสียง Signal…</string>
@@ -1178,13 +1178,13 @@
   <string name="RegistrationActivity_is_your_phone_number_above_correct">หมายเลขโทรศัพท์ข้างบนของท่านถูกต้องหรือไม่?</string>
   <string name="RegistrationActivity_edit_number">แก้ไขหมายเลข</string>
   <string name="RegistrationActivity_missing_google_play_services">ไม่พบ Google Play Services</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">อุปกรณ์นี้ไม่มี Google Play Services คุณยังสามารถใช้งาน Molly ได้ แต่ในการติดตั้งแบบนี้อาจมีเสถียรภาพหรือประสิทธิภาพที่ลดลง\n\nหากคุณไม่ได้เป็นผู้ใช้งานขั้นสูง หรือไม่ได้ใช้รอมแอนดรอยด์จากผู้ผลิตอื่น หรือเชื่อว่าคุณได้เห็นข้อความนี้เนื่องจากความผิดพลาด โปรดติดต่อ support@molly.im สำหรับความช่วยเหลือในการแก้ปัญหา</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">อุปกรณ์นี้ไม่มี Google Play Services คุณยังสามารถใช้งาน Signal-LTS ได้ แต่ในการติดตั้งแบบนี้อาจมีเสถียรภาพหรือประสิทธิภาพที่ลดลง\n\nหากคุณไม่ได้เป็นผู้ใช้งานขั้นสูง หรือไม่ได้ใช้รอมแอนดรอยด์จากผู้ผลิตอื่น หรือเชื่อว่าคุณได้เห็นข้อความนี้เนื่องจากความผิดพลาด โปรดติดต่อ support@Signal-LTS.im สำหรับความช่วยเหลือในการแก้ปัญหา</string>
   <string name="RegistrationActivity_i_understand">ฉันเข้าใจ</string>
   <string name="RegistrationActivity_play_services_error">ข้อผิดพลาดเกี่ยวกับ Play Services</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Services กำลังปรับรุ่นหรือใช้ไม่ได้ชั่วคราว โปรดลองอีกครั้ง</string>
   <string name="RegistrationActivity_terms_and_privacy">เงื่อนไขและนโยบายความเป็นส่วนตัว</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly ต้องการเข้าถึงสื่อและผู้ติดต่อที่คุณติดต่อด้วย เพื่อที่จะเชื่อมต่อคุณกับเพื่อน แลกเปลี่ยนข้อความ และโทรหากันแบบปลอดภัย</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Molly ต้องการเข้าถึงผู้ติดต่อที่คุณติดต่อด้วย เพื่อที่จะเชื่อมต่อคุณกับเพื่อน แลกเปลี่ยนข้อความ และโทรหากันแบบปลอดภัย</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Signal-LTS ต้องการเข้าถึงสื่อและผู้ติดต่อที่คุณติดต่อด้วย เพื่อที่จะเชื่อมต่อคุณกับเพื่อน แลกเปลี่ยนข้อความ และโทรหากันแบบปลอดภัย</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Signal-LTS ต้องการเข้าถึงผู้ติดต่อที่คุณติดต่อด้วย เพื่อที่จะเชื่อมต่อคุณกับเพื่อน แลกเปลี่ยนข้อความ และโทรหากันแบบปลอดภัย</string>
   <string name="RegistrationActivity_rate_limited_to_service">คุณได้พยายามลงทะเบียนด้วยหมายเลขนี้หลายครั้งเกินไป โปรดลองใหม่ในภายหลัง</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">ไม่สามารถเชื่อมต่อบริการได้ โปรดตรวจสอบการเชื่อมต่อเครือข่ายและลองอีกครั้ง</string>
   <plurals name="RegistrationActivity_debug_log_hint">
@@ -1221,12 +1221,12 @@
   <!--ShakeToReport-->
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">เพิ่มลงในรายชื่อผู้ติดต่อ</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">เชิญมาใช้ Molly</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">เชิญมาใช้ Signal-LTS</string>
   <string name="SharedContactDetailsActivity_signal_message">ข้อความ Signal</string>
   <string name="SharedContactDetailsActivity_signal_call">สาย Signal</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">เพิ่มลงในรายชื่อผู้ติดต่อ</string>
-  <string name="SharedContactView_invite_to_signal">เชิญมาใช้ Molly</string>
+  <string name="SharedContactView_invite_to_signal">เชิญมาใช้ Signal-LTS</string>
   <string name="SharedContactView_message">ข้อความ Signal</string>
   <!--SignalPinReminders-->
   <string name="SignalPinReminders_well_remind_you_again_later">เราจะเตือนคุณอีกครั้งในภายหลัง</string>
@@ -1283,8 +1283,8 @@
   <string name="SupportEmailUtil_filter">ตัวกรอง:</string>
   <string name="SupportEmailUtil_device_info">ข้อมูลอุปกรณ์:</string>
   <string name="SupportEmailUtil_android_version">รุ่นแอนดรอยด์:</string>
-  <string name="SupportEmailUtil_signal_version">รุ่น Molly:</string>
-  <string name="SupportEmailUtil_signal_package">แพคเกจ Molly:</string>
+  <string name="SupportEmailUtil_signal_version">รุ่น Signal-LTS:</string>
+  <string name="SupportEmailUtil_signal_package">แพคเกจ Signal-LTS:</string>
   <string name="SupportEmailUtil_registration_lock">กุญแจลงทะเบียน:</string>
   <string name="SupportEmailUtil_locale">ท้องถิ่น:</string>
   <!--ThreadRecord-->
@@ -1319,8 +1319,8 @@
   <string name="ThreadRecord_video">วิดีโอ</string>
   <string name="ThreadRecord_chat_session_refreshed">ข้อมูลสนทนาถูกเรียกขึ้นใหม่</string>
   <!--UpdateApkReadyListener-->
-  <string name="UpdateApkReadyListener_Signal_update">ปรับรุ่น Molly</string>
-  <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Molly รุ่นใหม่มาแล้ว แตะเพื่อปรับรุ่น</string>
+  <string name="UpdateApkReadyListener_Signal_update">ปรับรุ่น Signal-LTS</string>
+  <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Signal-LTS รุ่นใหม่มาแล้ว แตะเพื่อปรับรุ่น</string>
   <!--UntrustedSendDialog-->
   <string name="UntrustedSendDialog_send_message">ส่งข้อความหรือไม่?</string>
   <string name="UntrustedSendDialog_send">ส่ง</string>
@@ -1351,7 +1351,7 @@
   <string name="VerifyIdentityActivity_our_signal_safety_number">หมายเลขความปลอดภัยของ Signal ของเรา:</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">ดูเหมือนคุณไม่มีแอปอะไรที่จะแบ่งปันได้</string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">ไม่พบหมายเลขความปลอดภัยที่จะเปรียบเทียบในคลิปบอร์ด</string>
-  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">เพื่อที่จะสแกนรหัส QR ได้ Molly ต้องได้รับอนุญาตให้เข้าถึงกล้อง แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป และเลือก \"การอนุญาต\" และเปิดใช้งาน \"กล้อง\"</string>
+  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">เพื่อที่จะสแกนรหัส QR ได้ Signal-LTS ต้องได้รับอนุญาตให้เข้าถึงกล้อง แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป และเลือก \"การอนุญาต\" และเปิดใช้งาน \"กล้อง\"</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">สแกนรหัส QR ไม่ได้ หากไม่ได้รับอนุญาตให้เข้าถึงกล้อง</string>
   <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">คุณจะต้องแลกเปลี่ยนข้อความกันก่อนเพื่อที่จะดูหมายเลขความปลอดภัยของ %1$s</string>
   <!--ViewOnceMessageActivity-->
@@ -1370,13 +1370,13 @@
   <string name="ApplicationMigrationService_system_database_import_is_complete">การนำเข้าฐานข้อมูลของระบบเสร็จสมบูรณ์</string>
   <!--KeyCachingService-->
   <string name="KeyCachingService_signal_passphrase_cached">แตะเพื่อเปิด</string>
-  <string name="KeyCachingService_passphrase_cached">Molly ถูกปลดล็อก</string>
-  <string name="KeyCachingService_lock">ล็อก Molly</string>
+  <string name="KeyCachingService_passphrase_cached">Signal-LTS ถูกปลดล็อก</string>
+  <string name="KeyCachingService_lock">ล็อก Signal-LTS</string>
   <!--MediaPreviewActivity-->
   <string name="MediaPreviewActivity_you">คุณ</string>
   <string name="MediaPreviewActivity_unssuported_media_type">ชนิดสื่อที่ไม่รองรับ</string>
   <string name="MediaPreviewActivity_draft">ร่าง</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">เพื่อที่จะบันทึกข้อมูลลงที่เก็บข้อมูลภายนอก Molly ต้องได้รับอนุญาตให้เข้าถึงที่เก็บข้อมูล แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ที่เก็บข้อมูล\"</string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">เพื่อที่จะบันทึกข้อมูลลงที่เก็บข้อมูลภายนอก Signal-LTS ต้องได้รับอนุญาตให้เข้าถึงที่เก็บข้อมูล แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ที่เก็บข้อมูล\"</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">ไม่สามารถบันทึกลงที่เก็บข้อมูลภายนอกได้ หากไม่ได้รับอนุญาต</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">ลบข้อความหรือไม่?</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">นี่จะเป็นการลบข้อความนี้โดยถาวร</string>
@@ -1400,7 +1400,7 @@
   <string name="MessageNotifier_signal_message">ข้อความ Signal</string>
   <string name="MessageNotifier_unsecured_sms">SMS ที่ไม่ปลอดภัย</string>
   <string name="MessageNotifier_you_may_have_new_messages">คุณอาจมีข้อความใหม่</string>
-  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">เปิด Molly เพื่อตรวจสอบการแจ้งเตือนล่าสุด</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">เปิด Signal-LTS เพื่อตรวจสอบการแจ้งเตือนล่าสุด</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">ผู้ติดต่อ</string>
   <string name="MessageNotifier_reacted_s_to_s">ตอบสนอง %1$s ต่อ: \"%2$s\"</string>
@@ -1426,7 +1426,7 @@
   <string name="NotificationChannel_contact_joined_signal">มีผู้ติดต่อเริ่มใช้ Signal</string>
   <!--ProfileEditNameFragment-->
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">การตอบด่วนใช้ไม่ได้ถ้า Molly ถูกล็อคอยู่</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">การตอบด่วนใช้ไม่ได้ถ้า Signal-LTS ถูกล็อคอยู่</string>
   <string name="QuickResponseService_problem_sending_message">เกิดปัญหาในการส่งข้อความ!</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">บันทึกไปยัง %s</string>
@@ -1437,7 +1437,7 @@
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">ปุ่มลัดใช้ไม่ได้</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Signal-LTS</string>
   <string name="SingleRecipientNotificationBuilder_new_message">ข้อความใหม่</string>
   <string name="SingleRecipientNotificationBuilder_message_request">คำขอส่งข้อความ</string>
   <string name="SingleRecipientNotificationBuilder_you">คุณ</string>
@@ -1452,8 +1452,8 @@
   <string name="UnauthorizedReminder_device_no_longer_registered">อุปกรณ์นี้ไม่ได้ลงทะเบียนอีกต่อไป</string>
   <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">นี่น่าจะเป็นเพราะคุณเคยลงทะเบียนหมายเลขโทรศัพท์นี้กับ Signal บนอุปกรณ์อื่นแล้ว แตะเพื่อลงทะเบียนใหม่</string>
   <!--WebRtcCallActivity-->
-  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">เพื่อที่จะรับสายโทรเข้าจาก %s อนุญาตให้ Molly เข้าถึงไมโครโฟนของคุณ</string>
-  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">เพื่อที่จะโทรออกและรับสาย Molly ต้องได้รับอนุญาตให้เข้าถึงไมโครโฟนและกล้อง แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ไมโครโฟน\" และ \"กล้อง\"</string>
+  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">เพื่อที่จะรับสายโทรเข้าจาก %s อนุญาตให้ Signal-LTS เข้าถึงไมโครโฟนของคุณ</string>
+  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">เพื่อที่จะโทรออกและรับสาย Signal-LTS ต้องได้รับอนุญาตให้เข้าถึงไมโครโฟนและกล้อง แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ไมโครโฟน\" และ \"กล้อง\"</string>
   <string name="WebRtcCallActivity__answered_on_a_linked_device">มีการรับสายบนอุปกรณ์ที่เชื่อมโยงอยู่</string>
   <string name="WebRtcCallActivity__declined_on_a_linked_device">ถูกปฏิเสธสายบนอุปกรณ์ที่เชื่อมโยงอยู่</string>
   <string name="WebRtcCallActivity__busy_on_a_linked_device">ติดสายบนอุปกรณ์ที่เชื่อมโยงอยู่</string>
@@ -1477,7 +1477,7 @@
   <string name="change_passphrase_activity__repeat_new_passphrase">ใส่วลีรหัสผ่านใหม่อีกครั้ง</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">ใส่ชื่อหรือหมายเลข</string>
-  <string name="contact_selection_activity__invite_to_signal">เชิญมาใช้ Molly</string>
+  <string name="contact_selection_activity__invite_to_signal">เชิญมาใช้ Signal-LTS</string>
   <string name="contact_selection_activity__new_group">กลุ่มใหม่</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">ล้างข้อความที่พิมพ์เข้าไป</string>
@@ -1489,7 +1489,7 @@
   <!--single_contact_selection_activity-->
   <string name="SingleContactSelectionActivity_contact_photo">ภาพของผู้ติดต่อ</string>
   <!--ContactSelectionListFragment-->
-  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">เพื่อที่จะแสดงผู้ติดต่อของคุณ Molly ต้องได้รับอนุญาตให้เข้าถึงผู้ติดต่อ แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ผู้ติดต่อ\"</string>
+  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">เพื่อที่จะแสดงผู้ติดต่อของคุณ Signal-LTS ต้องได้รับอนุญาตให้เข้าถึงผู้ติดต่อ แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ผู้ติดต่อ\"</string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">เกิดข้อผิดพลาดระหว่างดึงผู้ติดต่อ ตรวจสอบการเชื่อมต่อเครือข่ายของคุณ</string>
   <string name="ContactSelectionListFragment_username_not_found">ไม่พบชื่อผู้ใช้</string>
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">%1$sไม่ใช่ผู้ใช้ Signal โปรดตรวจสอบชื่อผู้ใช้และลองอีกครั้ง</string>
@@ -1502,7 +1502,7 @@
     <item quantity="other">%1$d สมาชิก</item>
   </plurals>
   <!--contact_selection_list_fragment-->
-  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly ต้องการเข้าถึงผู้ติดต่อของคุณ เพื่อจะแสดงข้อมูลเหล่านั้นได้</string>
+  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Signal-LTS ต้องการเข้าถึงผู้ติดต่อของคุณ เพื่อจะแสดงข้อมูลเหล่านั้นได้</string>
   <string name="contact_selection_list_fragment__show_contacts">แสดงผู้ติดต่อ</string>
   <!--contact_selection_list_item-->
   <plurals name="contact_selection_list_item__number_of_members">
@@ -1846,7 +1846,7 @@
   <string name="preferences__slow">ช้า</string>
   <string name="preferences__help">ช่วยเหลือ</string>
   <string name="preferences__advanced">ขั้นสูง</string>
-  <string name="preferences__donate_to_signal">บริจาคให้ Molly</string>
+  <string name="preferences__donate_to_signal">บริจาคให้ Signal-LTS</string>
   <string name="preferences__privacy">ความเป็นส่วนตัว</string>
   <string name="preferences__mms_user_agent">MMS User Agent</string>
   <string name="preferences__advanced_mms_access_point_names">ตั้งค่า MMS เอง</string>
@@ -2379,7 +2379,7 @@
   <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">คุณได้พยายามหลายครั้งเกินไป โปรดลองใหม่ในภายหลัง</string>
   <string name="RegistrationActivity_error_connecting_to_service">เกิดข้อผิดพลาดในการเชื่อมต่อกับบริการ</string>
   <string name="preferences_chats__backups">ข้อมูลสำรอง</string>
-  <string name="prompt_passphrase_activity__signal_is_locked">Molly ได้ถูกล็อก</string>
+  <string name="prompt_passphrase_activity__signal_is_locked">Signal-LTS ได้ถูกล็อก</string>
   <string name="prompt_passphrase_activity__tap_to_unlock">แตะเพื่อปลดล็อก</string>
   <string name="Recipient_unknown">ไม่ทราบ</string>
   <!--TransferOrRestoreFragment-->
@@ -2402,18 +2402,18 @@
   <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">กำลังเตรียมเชื่อมต่อไปยังอุปกรณ์ Android เครื่องเก่า</string>
   <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">จะพร้อมในไม่ช้า กรุณารอสักครู่</string>
   <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">กำลังรอการเชื่อมต่อจากอุปกรณ์ Android เครื่องเก่า</string>
-  <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Molly จำเป็นต้องได้รับอนุญาตในการเข้าถึงตำแหน่งของคุณเพื่อค้นหาและเชื่อมต่ออุปรกณ์ Android เครื่องเก่าของคุณ</string>
-  <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Molly จำเป็นต้องเปิดใช้งานบริการการเข้าถึงตำแหน่งของคุณเพื่อค้นหาและเชื่อมต่ออุปรกณ์ Android เครื่องเก่าของคุณ</string>
-  <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Molly จำเป็นต้องเปิด Wi-Fi- เพื่อค้นหาและเชื่อมต่อกับอุปกรณ์ Android เครื่องเก่าของคุณ ซึ่ง Wi-Fi จำเป้นต้องเปิดไว้แต่ไม่จำเป็นต้องเชื่อมต่อกับเครือข่าย Wi-Fi</string>
-  <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">ขออภัย อุปกรณ์ของคุณไม่รองรับ Wi-Fi Direct โดย Molly จะใช้ Wi-Fi Direct เพื่อค้นหาและเชื่อมต่อกับอุปกรณ์ Android เครื่องเก่าของคุณ คุณจะยังสามารถกู้คืนข้อมูลสำรองเพื่อกู้คืนบัญชีผู้ใช้ของคุณจากอุปกรณ์ Android เครื่องเก่าของคุณ</string>
+  <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Signal-LTS จำเป็นต้องได้รับอนุญาตในการเข้าถึงตำแหน่งของคุณเพื่อค้นหาและเชื่อมต่ออุปรกณ์ Android เครื่องเก่าของคุณ</string>
+  <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Signal-LTS จำเป็นต้องเปิดใช้งานบริการการเข้าถึงตำแหน่งของคุณเพื่อค้นหาและเชื่อมต่ออุปรกณ์ Android เครื่องเก่าของคุณ</string>
+  <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Signal-LTS จำเป็นต้องเปิด Wi-Fi- เพื่อค้นหาและเชื่อมต่อกับอุปกรณ์ Android เครื่องเก่าของคุณ ซึ่ง Wi-Fi จำเป้นต้องเปิดไว้แต่ไม่จำเป็นต้องเชื่อมต่อกับเครือข่าย Wi-Fi</string>
+  <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">ขออภัย อุปกรณ์ของคุณไม่รองรับ Wi-Fi Direct โดย Signal-LTS จะใช้ Wi-Fi Direct เพื่อค้นหาและเชื่อมต่อกับอุปกรณ์ Android เครื่องเก่าของคุณ คุณจะยังสามารถกู้คืนข้อมูลสำรองเพื่อกู้คืนบัญชีผู้ใช้ของคุณจากอุปกรณ์ Android เครื่องเก่าของคุณ</string>
   <string name="NewDeviceTransferSetup__restore_a_backup">กู้คืนข้อมูลสำรอง</string>
   <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">เกิดความผิดพลาดที่ไม่คาดคิดขึ้นขณะที่พยายามจะเชื่อมต่อกับอุปกรณ์ Android เครื่องเก่าของคุณ</string>
   <!--OldDeviceTransferSetupFragment-->
   <string name="OldDeviceTransferSetup__searching_for_new_android_device">กำลังค้นหาอุปกรณ์ Android เครื่องใหม่…</string>
-  <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Molly จำเป็นต้องได้รับอนุญาตในการเข้าถึงตำแหน่งของคุณเพื่อค้นหาและเชื่อมต่ออุปรกณ์ Android เครื่องใหม่ของคุณ</string>
-  <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Molly จำเป็นต้องเปิดใช้งานบริการการเข้าถึงตำแหน่งของคุณเพื่อค้นหาและเชื่อมต่ออุปรกณ์ Android เครื่องใหม่ของคุณ</string>
-  <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Molly จำเป็นต้องเปิด Wi-Fi- เพื่อค้นหาและเชื่อมต่อกับอุปกรณ์ Android เครื่องใหม่ของคุณ ซึ่ง Wi-Fi จำเป้นต้องเปิดไว้แต่ไม่จำเป็นต้องเชื่อมต่อกับเครือข่าย Wi-Fi</string>
-  <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">ขออภัย อุปกรณ์ของคุณไม่รองรับ Wi-Fi Direct โดย Molly จะใช้ Wi-Fi Direct เพื่อค้นหาและเชื่อมต่อกับอุปกรณ์ Android เครื่องใหม่ของคุณ คุณจะยังสามารถกู้คืนข้อมูลสำรองเพื่อกู้คืนบัญชีผู้ใช้ของคุณจากอุปกรณ์ Android เครื่องใหม่ของคุณ</string>
+  <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Signal-LTS จำเป็นต้องได้รับอนุญาตในการเข้าถึงตำแหน่งของคุณเพื่อค้นหาและเชื่อมต่ออุปรกณ์ Android เครื่องใหม่ของคุณ</string>
+  <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Signal-LTS จำเป็นต้องเปิดใช้งานบริการการเข้าถึงตำแหน่งของคุณเพื่อค้นหาและเชื่อมต่ออุปรกณ์ Android เครื่องใหม่ของคุณ</string>
+  <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Signal-LTS จำเป็นต้องเปิด Wi-Fi- เพื่อค้นหาและเชื่อมต่อกับอุปกรณ์ Android เครื่องใหม่ของคุณ ซึ่ง Wi-Fi จำเป้นต้องเปิดไว้แต่ไม่จำเป็นต้องเชื่อมต่อกับเครือข่าย Wi-Fi</string>
+  <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">ขออภัย อุปกรณ์ของคุณไม่รองรับ Wi-Fi Direct โดย Signal-LTS จะใช้ Wi-Fi Direct เพื่อค้นหาและเชื่อมต่อกับอุปกรณ์ Android เครื่องใหม่ของคุณ คุณจะยังสามารถกู้คืนข้อมูลสำรองเพื่อกู้คืนบัญชีผู้ใช้ของคุณจากอุปกรณ์ Android เครื่องใหม่ของคุณ</string>
   <string name="OldDeviceTransferSetup__create_a_backup">สร้างข้อมูลสำรอง</string>
   <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">เกิดความผิดพลาดที่ไม่คาดคิดขึ้นขณะที่พยายามจะเชื่อมต่อกับอุปกรณ์ Android เครื่องใหม่ของคุณ</string>
   <!--DeviceTransferSetupFragment-->
@@ -2451,7 +2451,7 @@
   <string name="NewDeviceTransfer__cannot_transfer_from_a_newer_version_of_signal">ไม่สามารถถ่ายโอนจาก Signal รุ่นที่ใหม่กว่า</string>
   <!--DeviceTransferFragment-->
   <string name="DeviceTransfer__transferring_data">กำลังถ่ายโอนข้อมูล</string>
-  <string name="DeviceTransfer__keep_both_devices_near_each_other">ทำให้แน่ใจว่าอุปกรณ์ทั้งคู่อยู่ใกล้กัน อย่าปิดเครื่องใด และให้เปิด Molly อยู่ตลอดเวลา การถ่ายโอนนั้นจะถูกเข้ารหัสลับตั้งแต่ต้นทางถึงปลายทาง</string>
+  <string name="DeviceTransfer__keep_both_devices_near_each_other">ทำให้แน่ใจว่าอุปกรณ์ทั้งคู่อยู่ใกล้กัน อย่าปิดเครื่องใด และให้เปิด Signal-LTS อยู่ตลอดเวลา การถ่ายโอนนั้นจะถูกเข้ารหัสลับตั้งแต่ต้นทางถึงปลายทาง</string>
   <string name="DeviceTransfer__d_messages_so_far">%1$d ข้อความจนถึงตอนนี้…</string>
   <string name="DeviceTransfer__cancel">ยกเลิก</string>
   <string name="DeviceTransfer__try_again">ลองอีกครั้ง</string>
@@ -2464,7 +2464,7 @@
   <string name="OldDeviceTransferInstructions__transfer_account">ถ่ายโอนบัญชี</string>
   <string name="OldDeviceTransferInstructions__you_can_transfer_your_signal_account_when_setting_up_signal_on_a_new_android_device">คุณสามารถถ่ายโอนบัญชีผู้ใช้ Signal ของคุณเมื่อได้ติดตั้งแอป Signal บนอุปกรณ์ Android เครื่องใหม่ของคุณ ก่อนดำเนินการต่อ:</string>
   <string name="OldDeviceTransferInstructions__first_bullet">1.</string>
-  <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">ดาวน์โหลด Molly บนอุปกรณ์ Android เครื่องใหม่ของคุณ</string>
+  <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">ดาวน์โหลด Signal-LTS บนอุปกรณ์ Android เครื่องใหม่ของคุณ</string>
   <string name="OldDeviceTransferInstructions__second_bullet">2.</string>
   <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">แตะบน \"ถ่ายโอนหรือกู้คืนบัญชี\"</string>
   <string name="OldDeviceTransferInstructions__third_bullet">3.</string>
@@ -2528,7 +2528,7 @@
   <!--GroupLinkBottomSheetDialogFragment-->
   <string name="GroupLinkBottomSheet_share_hint_requiring_approval">ทุกคนที่มีลิงก์นี้สามารถมองเห็นชื่อกลุ่ม รูปกลุ่ม และสามารถขอเข้าร่วมกลุ่มได้ แบ่งปันลิงก์นี้ให้กับผู้คนที่คุณไว้ใจ</string>
   <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">ทุกคนที่มีลิงก์นี้สามารถมองเห็นชื่อกลุ่ม รูปกลุ่ม และสามารถขอเข้าร่วมกลุ่มได้ แบ่งปันลิงก์นี้ให้กับผู้คนที่คุณไว้ใจ</string>
-  <string name="GroupLinkBottomSheet_share_via_signal">แบ่งปันผ่าน Molly</string>
+  <string name="GroupLinkBottomSheet_share_via_signal">แบ่งปันผ่าน Signal-LTS</string>
   <string name="GroupLinkBottomSheet_copy">คัดลอก</string>
   <string name="GroupLinkBottomSheet_qr_code">รหัส QR</string>
   <string name="GroupLinkBottomSheet_share">แบ่งปัน</string>

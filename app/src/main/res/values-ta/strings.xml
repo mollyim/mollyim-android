@@ -10,17 +10,17 @@
   <string name="AbstractNotificationBuilder_new_message">புதிய செய்தி</string>
   <!--AlbumThumbnailView-->
   <!--ApplicationMigrationActivity-->
-  <string name="ApplicationMigrationActivity__signal_is_updating">Molly புதுப்பிக்கிறது …</string>
+  <string name="ApplicationMigrationActivity__signal_is_updating">Signal-LTS புதுப்பிக்கிறது …</string>
   <!--ApplicationPreferencesActivity-->
   <string name="ApplicationPreferencesActivity_currently_s">தற்போது: %s</string>
   <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet"> நீங்கள் இன்னும் ஒரு கடவுச்சொல்லை அமைக்கவில்லை!</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">கடவுச்சொல்லை முடக்கு?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">இது நிரந்தரமாக Molly செய்தி அறிவிப்புகளைத் திறக்கும்.</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">இது நிரந்தரமாக Signal-LTS செய்தி அறிவிப்புகளைத் திறக்கும்.</string>
   <string name="ApplicationPreferencesActivity_disable">முடக்கு</string>
   <string name="ApplicationPreferencesActivity_unregistering">பதிவுநீக்குதல்</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Molly குறுஞ்செய்தி மற்றும் அழைப்பு பதிவுநீக்கப்படுகிறது …</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Molly குறுஞ்செய்தி மற்றும் அழைப்பை முடக்கு ?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">சேவையகத்திலிருந்து பதிவுசெய்வதன் மூலம் Molly செய்திகள் மற்றும் அழைப்புகளை முடக்கு. எதிர்காலத்தில் மீண்டும் அவற்றைப் பயன்படுத்த நீங்கள் உங்கள் தொலைபேசி எண்ணை மீண்டும் பதிவு செய்ய வேண்டும்.</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Signal-LTS குறுஞ்செய்தி மற்றும் அழைப்பு பதிவுநீக்கப்படுகிறது …</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Signal-LTS குறுஞ்செய்தி மற்றும் அழைப்பை முடக்கு ?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">சேவையகத்திலிருந்து பதிவுசெய்வதன் மூலம் Signal-LTS செய்திகள் மற்றும் அழைப்புகளை முடக்கு. எதிர்காலத்தில் மீண்டும் அவற்றைப் பயன்படுத்த நீங்கள் உங்கள் தொலைபேசி எண்ணை மீண்டும் பதிவு செய்ய வேண்டும்.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">சர்வருடன் இணைவதில் பிழை!</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">SMS செயல்படுத்தப்பட்டது</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">இதை உங்கள் இயல்புநிலை SMS மென்பொருளாக்க தொடவும் </string>
@@ -55,13 +55,13 @@
   <string name="AttachmentKeyboard_file">கோப்பு</string>
   <string name="AttachmentKeyboard_contact">தொடர்பு</string>
   <string name="AttachmentKeyboard_location">இடம்</string>
-  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">புகைப்படங்கள் மற்றும் காணொளிகளை காட்ட Molly-க்கு அனுமதி தேவை.</string>
+  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">புகைப்படங்கள் மற்றும் காணொளிகளை காட்ட Signal-LTS-க்கு அனுமதி தேவை.</string>
   <string name="AttachmentKeyboard_give_access">அணுகல் கொடுங்கள்</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">மீடியாவை தேர்வுசெய்யும் ஒரு பயன்பாட்டை கண்டுபிடிக்க முடியவில்லை.</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">புகைப்படங்கள், காணொளிகள் அல்லது ஆடியோவை இணைக்கவும் Molly க்கு சேமிப்பக அனுமதி தேவைப்படுகிறது, ஆனால் அது நிரந்தரமாக மறுக்கப்பட்டது. பயன்பாடு அமைப்புகள் மெனுவில் தொடரவும், \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து \"சேமிப்பகத்தை\" இயக்கவும்.</string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">தொடர்பு தகவலை இணைக்கவும் Molly க்கு தொடர்புகளின் அனுமதி தேவைப்படுகிறது, ஆனால் அது நிரந்தரமாக மறுக்கப்பட்டது. பயன்பாடு அமைப்புகள் மெனுவில் தொடரவும், \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து, \"தொடர்புகளை\" இயக்கவும்.</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">இருப்பிடத்தை இணைக்கவும், Molly க்கு இருப்பிட அனுமதி தேவைப்படுகிறது, ஆனால் அது நிரந்தரமாக மறுக்கப்பட்டது. பயன்பாடு அமைப்புகள் மெனுவில் தொடரவும், \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து, \"இருப்பிடம்\" ஐ இயக்கவும்.</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">புகைப்படங்கள், காணொளிகள் அல்லது ஆடியோவை இணைக்கவும் Signal-LTS க்கு சேமிப்பக அனுமதி தேவைப்படுகிறது, ஆனால் அது நிரந்தரமாக மறுக்கப்பட்டது. பயன்பாடு அமைப்புகள் மெனுவில் தொடரவும், \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து \"சேமிப்பகத்தை\" இயக்கவும்.</string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">தொடர்பு தகவலை இணைக்கவும் Signal-LTS க்கு தொடர்புகளின் அனுமதி தேவைப்படுகிறது, ஆனால் அது நிரந்தரமாக மறுக்கப்பட்டது. பயன்பாடு அமைப்புகள் மெனுவில் தொடரவும், \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து, \"தொடர்புகளை\" இயக்கவும்.</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">இருப்பிடத்தை இணைக்கவும், Signal-LTS க்கு இருப்பிட அனுமதி தேவைப்படுகிறது, ஆனால் அது நிரந்தரமாக மறுக்கப்பட்டது. பயன்பாடு அமைப்புகள் மெனுவில் தொடரவும், \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து, \"இருப்பிடம்\" ஐ இயக்கவும்.</string>
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">மீடியா பதிவேற்றுகிறது …</string>
   <string name="AttachmentUploadJob_compressing_video_start">காணொளி சுறுக்கப்படுகிறது…</string>
@@ -111,14 +111,14 @@
   <string name="CameraContacts_no_signal_contacts">Signal தொடர்புகள் இல்லை</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">Signal தொடர்புகளுக்கு புகைப்படங்களை அனுப்ப கேமரா பொத்தானை மட்டுமே நீங்கள் பயன்படுத்த முடியும்.</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">நீங்கள் யாரைத் தேடுகிறீர்கள் என்று கண்டுபிடிக்க முடியவில்லையா?</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">Molly லில் சேர ஒரு தொடர்பை அழைக்கவும்</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">Signal-LTS லில் சேர ஒரு தொடர்பை அழைக்கவும்</string>
   <string name="CameraContacts__menu_search">தேடல்</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">நீக்கு</string>
   <string name="ClearProfileActivity_remove_profile_photo">சுயவிவர படத்தை நீக்கவா?</string>
   <string name="ClearProfileActivity_remove_group_photo">குழு புகைப்படத்தை அகற்றவா?</string>
   <!--ClientDeprecatedActivity-->
-  <string name="ClientDeprecatedActivity_update_signal">Molly லைப் புதுப்பிக்கவும்</string>
+  <string name="ClientDeprecatedActivity_update_signal">Signal-LTS லைப் புதுப்பிக்கவும்</string>
   <string name="ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported">பயன்பாட்டின் இந்த பதிப்பு இனி ஆதரிக்கப்படாது. செய்திகளை அனுப்புவதையும் பெறுவதையும் தொடர, சமீபத்திய பதிப்பிற்கு புதுப்பிக்கவும்.</string>
   <string name="ClientDeprecatedActivity_update">புதுப்பிக்கப்பட்டது</string>
   <string name="ClientDeprecatedActivity_dont_update">புதுப்பிக்க வேண்டாம்</string>
@@ -196,7 +196,7 @@
   <string name="ConversationActivity_transport_insecure_sms">பாதுகாப்பற்ற SMS</string>
   <string name="ConversationActivity_transport_insecure_mms">பாதுகாப்பற்ற MMS</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">%1$s நாம் Mollyக்கு மாறுவோம்</string>
+  <string name="ConversationActivity_lets_switch_to_signal">%1$s நாம் Signal-LTSக்கு மாறுவோம்</string>
   <string name="ConversationActivity_specify_recipient">தயவு செய்து ஒரு தொடர்பை தேர்ந்தெடு</string>
   <string name="ConversationActivity_unblock">தடுப்புநீக்க</string>
   <string name="ConversationActivity_attachment_exceeds_size_limits">நீங்கள் அனுப்பும் இணைப்பு செய்தி அளவு வரம்பை மீறுகிறது .</string>
@@ -205,15 +205,15 @@
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">உஙகள் சாதனத்தில் இந்த இணைப்பை பெறக்கூடிய  செயலி கிடைப்பில்  இல்லை  .</string>
   <string name="ConversationActivity_your_request_to_join_has_been_sent_to_the_group_admin">குழுவில் சேர உங்கள் கோரிக்கை குழு நிர்வாகிக்கு அனுப்பப்பட்டுள்ளது. அவர்கள் நடவடிக்கை எடுக்கும்போது உங்களுக்கு அறிவிக்கப்படும்.</string>
   <string name="ConversationActivity_cancel_request">கோரிக்கையை ரத்துசெய்</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">ஆடியோ செய்திகளை அனுப்ப, உங்கள் மைக்ரோஃபோனுக்கு Molly அணுகலை அனுமதிக்கவும்.</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">ஆடியோ செய்திகளை அனுப்ப Molly க்கு மைக்ரோஃபோன் அனுமதி தேவைப்படுகிறது, ஆனால் அது நிரந்தரமாக மறுக்கப்பட்டது. பயன்பாடு அமைப்புகளைத் தொடரவும், \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து, \"மைக்ரோஃபோனை\" இயக்கவும்.</string>
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly லை அழைக்க மைக்ரோஃபோன் மற்றும் கேமரா அனுமதிகள் தேவை%s, ஆனால் அவை நிரந்தரமாக மறுக்கப்பட்டுள்ளன. பயன்பாடு அமைப்புகளைத் தொடரவும், \"அனுமதி\" என்பதைத் தேர்ந்தெடுத்து, \"மைக்ரோஃபோன்\" மற்றும் \"கேமரா\" ஐ இயக்கவும்.</string>
-  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">புகைப்படங்கள் மற்றும் காணொளி பிடிக்க, Molly-ஐ கேமராவை அணுக அனுமதிக்கவும்.</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">புகைப்படங்கள் அல்லது வீடியோ எடுக்க Molly-க்கு கேமரா அனுமதி தேவை, ஆனால் அது நிரந்தரமாக மறுக்கப்பட்டது. செயலியின் அமைப்புகளுக்கு சென்று, \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து \"கேமரா\"-ஐ இயலச் செய்யவும்.</string>
-  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">புகைப்படங்கள் அல்லது காணொளி எடுக்க Molly-க்கு கேமரா அனுமதி தேவை</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">ஆடியோ செய்திகளை அனுப்ப, உங்கள் மைக்ரோஃபோனுக்கு Signal-LTS அணுகலை அனுமதிக்கவும்.</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">ஆடியோ செய்திகளை அனுப்ப Signal-LTS க்கு மைக்ரோஃபோன் அனுமதி தேவைப்படுகிறது, ஆனால் அது நிரந்தரமாக மறுக்கப்பட்டது. பயன்பாடு அமைப்புகளைத் தொடரவும், \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து, \"மைக்ரோஃபோனை\" இயக்கவும்.</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Signal-LTS லை அழைக்க மைக்ரோஃபோன் மற்றும் கேமரா அனுமதிகள் தேவை%s, ஆனால் அவை நிரந்தரமாக மறுக்கப்பட்டுள்ளன. பயன்பாடு அமைப்புகளைத் தொடரவும், \"அனுமதி\" என்பதைத் தேர்ந்தெடுத்து, \"மைக்ரோஃபோன்\" மற்றும் \"கேமரா\" ஐ இயக்கவும்.</string>
+  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">புகைப்படங்கள் மற்றும் காணொளி பிடிக்க, Signal-LTS-ஐ கேமராவை அணுக அனுமதிக்கவும்.</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">புகைப்படங்கள் அல்லது வீடியோ எடுக்க Signal-LTS-க்கு கேமரா அனுமதி தேவை, ஆனால் அது நிரந்தரமாக மறுக்கப்பட்டது. செயலியின் அமைப்புகளுக்கு சென்று, \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து \"கேமரா\"-ஐ இயலச் செய்யவும்.</string>
+  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">புகைப்படங்கள் அல்லது காணொளி எடுக்க Signal-LTS-க்கு கேமரா அனுமதி தேவை</string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">ஒலியுடன் காணொளிகளைப் பிடிக்க மைக்ரோஃபோன் அனுமதியை இயலச் செய்யவும்.</string>
-  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">காணொளிகளைப் பதிவு செய்ய Molly மைக்ரோஃபோன் அனுமதி தேவை, ஆனால் அது மறுக்கப்பட்டது. செயலியின் அமைப்புகளுக்கு சென்று, \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து  \"மைக்ரோஃபோன்\" மற்றும் \"கேமரா\" என்பவற்றை இயலச் செய்யவும்.</string>
-  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">காணொளிகளைப் பதிவு செய்ய Molly-க்கு மைக்ரோஃபோன் அனுமதி தேவை.</string>
+  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">காணொளிகளைப் பதிவு செய்ய Signal-LTS மைக்ரோஃபோன் அனுமதி தேவை, ஆனால் அது மறுக்கப்பட்டது. செயலியின் அமைப்புகளுக்கு சென்று, \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து  \"மைக்ரோஃபோன்\" மற்றும் \"கேமரா\" என்பவற்றை இயலச் செய்யவும்.</string>
+  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">காணொளிகளைப் பதிவு செய்ய Signal-LTS-க்கு மைக்ரோஃபோன் அனுமதி தேவை.</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">Signal SMS/MMS செய்திகளை அனுப்ப முடியாது, ஏனெனில் இது உங்கள் இயல்புநிலை SMS பயன்பாடு அல்ல. உங்கள் ஆண்ட்ராய்டு அமைப்புகளில் இதை மாற்ற விரும்புகிறீர்களா?</string>
   <string name="ConversationActivity_yes">ஆம்</string>
@@ -229,7 +229,7 @@
   <string name="ConversationActivity_you_will_leave_this_group_and_it_will_be_deleted_from_all_of_your_devices">நீங்கள் இந்த குழுவை விட்டு வெளியேறும், மற்றும் இது எல்லாவற்றிலிருந்தும் நீக்கப்படும் உங்கள் சாதனங்கள்.</string>
   <string name="ConversationActivity_delete">அழி</string>
   <string name="ConversationActivity_delete_and_leave">நீக்கி வெளியேறவும்</string>
-  <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">%1$sஐ அழைக்க, சிக்னலுக்கு உங்கள் மைக்ரோஃபோனுக்கு அனுமதி தேவை microphone access and permission for Molly</string>
+  <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">%1$sஐ அழைக்க, சிக்னலுக்கு உங்கள் மைக்ரோஃபோனுக்கு அனுமதி தேவை microphone access and permission for Signal-LTS</string>
   <string name="ConversationActivity__more_options_now_in_group_settings">கூடுதல் அம்சங்கள் இப்போது \"குழு அமைப்புகளில்\"</string>
   <string name="ConversationActivity_join">சேரவும்</string>
   <string name="ConversationActivity_full">நிரம்பியது</string>
@@ -281,7 +281,7 @@
   <string name="ConversationFragment__d_group_members_have_the_same_name">%1$dகுழு உறுப்பினர்களுக்கு ஒரே பெயர் உண்டு.</string>
   <string name="ConversationFragment__tap_to_review">மதிப்பாய்வு செய்ய தட்டவும்</string>
   <string name="ConversationFragment__review_requests_carefully">கோரிக்கைகளை கவனமாக மதிப்பாய்வு செய்யவும்</string>
-  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">அதே பெயருடன் மற்றொரு தொடர்பை Molly கண்டறிந்தது.</string>
+  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">அதே பெயருடன் மற்றொரு தொடர்பை Signal-LTS கண்டறிந்தது.</string>
   <string name="ConversationFragment_contact_us">எங்களை தொடர்பு கொள்ள</string>
   <string name="ConversationFragment_verify">சரிபார்க்கவும்</string>
   <string name="ConversationFragment_not_now">இப்போது இல்லை</string>
@@ -349,7 +349,7 @@
   <string name="BackupsPreferenceFragment__learn_more">மேலும் அறிக</string>
   <string name="BackupsPreferenceFragment__in_progress">செயல்நிலையில் உள்ளது…</string>
   <string name="BackupsPreferenceFragment__d_so_far">%1$dஇதுவரை…</string>
-  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">காப்புப்பிரதிகளை உருவாக்க Molly கு வெளிப்புற சேமிப்பக அனுமதி தேவைப்படுகிறது, ஆனால் அது நிரந்தரமாக மறுக்கப்பட்டது. பயன்பாடு அமைப்புகளைத் தொடரவும், \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து \"சேமிப்பகத்தை\" இயக்கவும்.</string>
+  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">காப்புப்பிரதிகளை உருவாக்க Signal-LTS கு வெளிப்புற சேமிப்பக அனுமதி தேவைப்படுகிறது, ஆனால் அது நிரந்தரமாக மறுக்கப்பட்டது. பயன்பாடு அமைப்புகளைத் தொடரவும், \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து \"சேமிப்பகத்தை\" இயக்கவும்.</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">பயன்படுத்தப்படும் வழக்கம் : %s</string>
   <string name="CustomDefaultPreference_using_default">பயன்படுத்தப்படும் இயல்புநிலை: %s</string>
@@ -394,7 +394,7 @@
   <string name="GroupCallingMegaphone__open_a_new_group_to_start">திற a புதிய குழு இலவசமாக தொடங்க மறையாக்கப்பட்ட குழு அழைப்பு</string>
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">காணாமல் போன விளையாட்டு சேவைகளை மேம்படுத்தவும்</string>
-  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">இந்த சாதனம் Play சேவைகளை ஆதரிக்காது. செயலற்ற நிலையில் செய்திகளை மீட்டெடுப்பதில் இருந்து Molly லைத் தடுக்கும் கணினி பேட்டரி மேம்படுத்தல்களை முடக்க தட்டவும்.</string>
+  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">இந்த சாதனம் Play சேவைகளை ஆதரிக்காது. செயலற்ற நிலையில் செய்திகளை மீட்டெடுப்பதில் இருந்து Signal-LTS லைத் தடுக்கும் கணினி பேட்டரி மேம்படுத்தல்களை முடக்க தட்டவும்.</string>
   <!--ExpiredBuildReminder-->
   <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Signal லின் இந்த பதிப்பு காலாவதியானது. செய்திகளை அனுப்ப மற்றும் பெற பயன்பாட்டைப் புதுப்பிக்கவும்.</string>
   <string name="ExpiredBuildReminder_update_now">இப்பொழுது மேம்படுத்து</string>
@@ -729,7 +729,7 @@
   <string name="InviteActivity_cancel">ரத்து செய் </string>
   <string name="InviteActivity_sending">அனுப்புகிறது …</string>
   <string name="InviteActivity_invitations_sent">அழைப்புகள் அனுப்பட்டது!</string>
-  <string name="InviteActivity_invite_to_signal">Mollyக்கு அழை</string>
+  <string name="InviteActivity_invite_to_signal">Signal-LTSக்கு அழை</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">%d நண்பருக்கு SMS அனுப்பவும்</item>
     <item quantity="other">%d  நண்பர்களுக்கு SMS அனுப்பவும்</item>
@@ -738,7 +738,7 @@
     <item quantity="one">%d  எஸ்எம்எஸ் அழைப்பை அனுப்பவா?</item>
     <item quantity="other">%d SMS அழைப்புகளை அனுப்பவா?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">%1$s: நாம் Mollyக்கு மாறுவோம்</string>
+  <string name="InviteActivity_lets_switch_to_signal">%1$s: நாம் Signal-LTSக்கு மாறுவோம்</string>
   <string name="InviteActivity_no_app_to_share_to">உங்களிடம் பகிர எந்த பயன்பாடுகளும் இல்லை என்று தெரிகிறது.</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">நண்பர்களே, மற்ற நண்பர்களை மறையாக்கப்படாத உரையாடல்கள் செய்யவிடாதீர்கள்.</string>
   <!--LearnMoreTextView-->
@@ -748,7 +748,7 @@
   <string name="LongMessageActivity_message_from_s">%1$s  இலிருந்து செய்தி</string>
   <string name="LongMessageActivity_your_message">உங்கள் தகவல்</string>
   <!--MessageRetrievalService-->
-  <string name="MessageRetrievalService_signal">Molly</string>
+  <string name="MessageRetrievalService_signal">Signal-LTS</string>
   <string name="MessageRetrievalService_background_connection_enabled">பின்னணி இணைப்பு இயக்கப்பட்டது</string>
   <!--MmsDownloader-->
   <string name="MmsDownloader_error_reading_mms_settings">வயர்லெஸ் வழங்குநர் எம்எம்எஸ் அமைப்புகளைப் படிப்பதில் பிழை</string>
@@ -833,8 +833,8 @@
   <string name="MediaSendActivity_message_to_s">%s க்கு செய்தி</string>
   <string name="MediaSendActivity_message">செய்தி</string>
   <string name="MediaSendActivity_select_recipients">பெறுநர்களைத் தேர்ந்தெடுக்கவும்</string>
-  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">உங்கள் தொடர்புகளைக் காண்பிக்க Molly அணுகல் தேவை.</string>
-  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">உங்கள் தொடர்புகளைக் காண்பிக்க Molly தொடர்புகளின் அனுமதி தேவை, ஆனால் அது நிரந்தரமாக மறுக்கப்பட்டது. பயன்பாடு அமைப்புகளைத் தொடரவும், \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து, \"தொடர்புகளை\" இயக்கவும்.</string>
+  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">உங்கள் தொடர்புகளைக் காண்பிக்க Signal-LTS அணுகல் தேவை.</string>
+  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">உங்கள் தொடர்புகளைக் காண்பிக்க Signal-LTS தொடர்புகளின் அனுமதி தேவை, ஆனால் அது நிரந்தரமாக மறுக்கப்பட்டது. பயன்பாடு அமைப்புகளைத் தொடரவும், \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து, \"தொடர்புகளை\" இயக்கவும்.</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="one">நீங்கள் %d ஐ விட அதிகமாக பகிர முடியாது.</item>
     <item quantity="other">நீங்கள் %d ஐ விட அதிகமாக பகிர முடியாது.</item>
@@ -1075,7 +1075,7 @@
   <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">மன்னிக்கவும், இது சரியான சாதன இணைப்பு QR குறியீடு அல்ல.</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">Signal சாதனத்தை இணைக்கவா?</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">3 வது தரப்பு ஸ்கேனரைப் பயன்படுத்தி Signal சாதனத்தை இணைக்க முயற்சிக்கிறீர்கள் என்று தெரிகிறது. உங்கள் பாதுகாப்பிற்காக, Signal இருந்து குறியீட்டை மீண்டும் ஸ்கேன் செய்யுங்கள்.</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">QR குறியீட்டை ஸ்கேன் செய்ய Molly கேமரா அனுமதி தேவை, ஆனால் அது நிரந்தரமாக மறுக்கப்பட்டது. பயன்பாடு அமைப்புகளைத் தொடரவும், \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து \"கேமரா\" ஐ இயக்கவும்.</string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">QR குறியீட்டை ஸ்கேன் செய்ய Signal-LTS கேமரா அனுமதி தேவை, ஆனால் அது நிரந்தரமாக மறுக்கப்பட்டது. பயன்பாடு அமைப்புகளைத் தொடரவும், \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து \"கேமரா\" ஐ இயக்கவும்.</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">கேமரா அனுமதியின்றி QR குறியீட்டை ஸ்கேன் செய்ய முடியவில்லை</string>
   <!--OutdatedBuildReminder-->
   <string name="OutdatedBuildReminder_update_now">இப்பொழுது மேம்படுத்து</string>
@@ -1086,10 +1086,10 @@
   </plurals>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">கடவுச்சொல்லை உள்ளிடவும். </string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Molly ஐகான்</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Signal-LTS ஐகான்</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">கடவுச்சொல்லை சமர்ப்பிக்க</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">தவறான கடவுச்சொல்!</string>
-  <string name="PassphrasePromptActivity_unlock_signal">Molly லைத் திற</string>
+  <string name="PassphrasePromptActivity_unlock_signal">Signal-LTS லைத் திற</string>
   <string name="PassphrasePromptActivity_signal_android_lock_screen">Signal ஆண்ட்ராய்டு - திரைப் பூட்டு</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">வரைபடம்</string>
@@ -1154,8 +1154,8 @@
   <string name="RedPhone_got_it">அறிந்துகொண்டேன் .</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">உங்கள் வீடியோவை இயக்க இங்கே தட்டவும்</string>
-  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">%1$s ஐ அழைக்க, சிக்னலுக்கு உங்கள் கேமரா அனுமதி தேவை Molly Camera permission</string>
-  <string name="WebRtcCallActivity__signal_s">சிக்னல் Molly %1$s</string>
+  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">%1$s ஐ அழைக்க, சிக்னலுக்கு உங்கள் கேமரா அனுமதி தேவை Signal-LTS Camera permission</string>
+  <string name="WebRtcCallActivity__signal_s">சிக்னல் Signal-LTS %1$s</string>
   <string name="WebRtcCallActivity__calling">அழைக்கிறது…</string>
   <!--WebRtcCallView-->
   <string name="WebRtcCallView__signal_voice_call">Signal குரல் அழைப்பு…</string>
@@ -1213,12 +1213,12 @@
   <string name="RegistrationActivity_is_your_phone_number_above_correct">மேலே உங்கள் தொலைபேசி எண் சரியானதா?</string>
   <string name="RegistrationActivity_edit_number">எண்ணை தொகுக்க</string>
   <string name="RegistrationActivity_missing_google_play_services">Google Play சேவைகளைக் காணவில்லை</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">இந்த சாதனத்தில்  Google Play சேவைகள் இல்லை . இருந்தும் நீங்கள் Molly ஐ பயன்படுத்தலாம் , ஆனால் இந்த உள்ளமைவு நம்பகத்தன்மை அல்லது செயல்திறனைக் குறைக்கலாம். \n\n நீங்கள் ஒரு மேம்பட்ட பயனராக இல்லாவிட்டால், சந்தைக்குப்பிறகான அண்ட்ராய்டு ROM ஐ இயக்கவில்லை அல்லது இதை பிழையாகப் பார்க்கிறீர்கள் என்று நம்பினால், தயவுசெய்து ஆதரவைத் தொடர்பு கொள்ளவும் @ சிக்கல்  support@molly.im.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">இந்த சாதனத்தில்  Google Play சேவைகள் இல்லை . இருந்தும் நீங்கள் Signal-LTS ஐ பயன்படுத்தலாம் , ஆனால் இந்த உள்ளமைவு நம்பகத்தன்மை அல்லது செயல்திறனைக் குறைக்கலாம். \n\n நீங்கள் ஒரு மேம்பட்ட பயனராக இல்லாவிட்டால், சந்தைக்குப்பிறகான அண்ட்ராய்டு ROM ஐ இயக்கவில்லை அல்லது இதை பிழையாகப் பார்க்கிறீர்கள் என்று நம்பினால், தயவுசெய்து ஆதரவைத் தொடர்பு கொள்ளவும் @ சிக்கல்  support@Signal-LTS.im.</string>
   <string name="RegistrationActivity_i_understand">எனக்கு புரிகிறது</string>
   <string name="RegistrationActivity_play_services_error">சேவைகளில் பிழை</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play சேவைகள் புதுப்பித்தல் அல்லது தற்காலிகமாக கிடைக்கவில்லை. தயவு செய்து மீண்டும் முயற்சிக்கவும்.</string>
   <string name="RegistrationActivity_terms_and_privacy">விதிமுறைகள் &amp; ஆம்ப்; தனியுரிமைக் கொள்கை</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">நண்பர்களுடன் இணைவதற்கும், செய்திகளைப் பரிமாறிக் கொள்வதற்கும், பாதுகாப்பான அழைப்புகளைச் செய்வதற்கும் Molly உங்கள் தொடர்புகள் மற்றும் ஊடகங்களுக்கான அணுகல் தேவை</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">நண்பர்களுடன் இணைவதற்கும், செய்திகளைப் பரிமாறிக் கொள்வதற்கும், பாதுகாப்பான அழைப்புகளைச் செய்வதற்கும் Signal-LTS உங்கள் தொடர்புகள் மற்றும் ஊடகங்களுக்கான அணுகல் தேவை</string>
   <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">உங்கள் நண்பர்களுடன் தொடர்புகொள்வதற்கும், செய்திகளைப் பரிமாறிக்கொள்வதற்கும், பாதுகாப்பான அழைப்புகளைச் செய்வதற்கும், சிக்னலுக்கு உங்கள் தொடர்புகள் பிரிவுக்கு அணுகல் அனுமதி தேவை.</string>
   <string name="RegistrationActivity_rate_limited_to_service">இந்த எண்ணை பதிவு செய்ய நீங்கள் பல முயற்சிகளை செய்துள்ளீர்கள். சிறிது நேரம் கழித்து மீண்டும் முயற்சிக்கவும்.</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">சேவையுடன் இணைக்க முடியவில்லை. பிணைய இணைப்பைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்.</string>
@@ -1257,12 +1257,12 @@
   <!--ShakeToReport-->
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">தொடர்பு பட்டியலில் சேர்க்க</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Mollyக்கு அழை</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Signal-LTSக்கு அழை</string>
   <string name="SharedContactDetailsActivity_signal_message">Signal செய்தி</string>
   <string name="SharedContactDetailsActivity_signal_call">Signal அழைப்பு</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">தொடர்பு பட்டியலில் சேர்க்க</string>
-  <string name="SharedContactView_invite_to_signal">Mollyக்கு அழை</string>
+  <string name="SharedContactView_invite_to_signal">Signal-LTSக்கு அழை</string>
   <string name="SharedContactView_message">Signal செய்தி</string>
   <!--SignalPinReminders-->
   <string name="SignalPinReminders_well_remind_you_again_later">பின்னர் உங்களுக்கு நினைவூட்டுவோம்.</string>
@@ -1317,8 +1317,8 @@
   <string name="SupportEmailUtil_filter">வடிகட்டி: </string>
   <string name="SupportEmailUtil_device_info">Device info: சாதனத் தகவல்:</string>
   <string name="SupportEmailUtil_android_version">Android version: Android பதிப்பு:</string>
-  <string name="SupportEmailUtil_signal_version">Molly version: Molly பதிப்பு:</string>
-  <string name="SupportEmailUtil_signal_package">Molly package: சிக்னல் தொகுப்பு:</string>
+  <string name="SupportEmailUtil_signal_version">Signal-LTS version: Signal-LTS பதிப்பு:</string>
+  <string name="SupportEmailUtil_signal_package">Signal-LTS package: சிக்னல் தொகுப்பு:</string>
   <string name="SupportEmailUtil_registration_lock">பதிவு பூட்டு:</string>
   <string name="SupportEmailUtil_locale">Locale: இடம்:</string>
   <!--ThreadRecord-->
@@ -1353,8 +1353,8 @@
   <string name="ThreadRecord_video">காணொளி</string>
   <string name="ThreadRecord_chat_session_refreshed">உரையாடல் அமர்வு புதுப்பிக்கப்பட்டது</string>
   <!--UpdateApkReadyListener-->
-  <string name="UpdateApkReadyListener_Signal_update">Molly புதுப்பிப்பு</string>
-  <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Molly புதிய பதிப்பு கிடைக்கும், புதுப்பிக்க தட்டவும்</string>
+  <string name="UpdateApkReadyListener_Signal_update">Signal-LTS புதுப்பிப்பு</string>
+  <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Signal-LTS புதிய பதிப்பு கிடைக்கும், புதுப்பிக்க தட்டவும்</string>
   <!--UntrustedSendDialog-->
   <string name="UntrustedSendDialog_send_message">செய்தி அனுப்ப?</string>
   <string name="UntrustedSendDialog_send">அனுப்புக</string>
@@ -1405,13 +1405,13 @@
   <string name="ApplicationMigrationService_system_database_import_is_complete">கணினி தரவுத்தள இறக்குமதி முடிந்தது.</string>
   <!--KeyCachingService-->
   <string name="KeyCachingService_signal_passphrase_cached">திறக்க தொடு.</string>
-  <string name="KeyCachingService_passphrase_cached">Molly  திறக்கப்பட்டது</string>
-  <string name="KeyCachingService_lock">Molly ஐ பூட்டு</string>
+  <string name="KeyCachingService_passphrase_cached">Signal-LTS  திறக்கப்பட்டது</string>
+  <string name="KeyCachingService_lock">Signal-LTS ஐ பூட்டு</string>
   <!--MediaPreviewActivity-->
   <string name="MediaPreviewActivity_you">நீங்கள்</string>
   <string name="MediaPreviewActivity_unssuported_media_type">ஆதரிக்கப்படாத மீடியா வகை</string>
   <string name="MediaPreviewActivity_draft">வரைவு</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">வெளிப்புற சேமிப்பகத்தில் சேமிக்க Molly சேமிப்பக அனுமதி தேவை, ஆனால் அது நிரந்தரமாக மறுக்கப்பட்டது. பயன்பாடு அமைப்புகளைத் தொடரவும், \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து, \"சேமிப்பகத்தை\" இயக்கவும்.</string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">வெளிப்புற சேமிப்பகத்தில் சேமிக்க Signal-LTS சேமிப்பக அனுமதி தேவை, ஆனால் அது நிரந்தரமாக மறுக்கப்பட்டது. பயன்பாடு அமைப்புகளைத் தொடரவும், \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து, \"சேமிப்பகத்தை\" இயக்கவும்.</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">அனுமதியின்றி வெளிப்புற சேமிப்பகத்தில் சேமிக்க முடியவில்லை</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">செய்தியை நீக்கவா?</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">இது இந்த செய்தியை நிரந்தரமாக நீக்கும்.</string>
@@ -1434,7 +1434,7 @@
   <string name="MessageNotifier_signal_message">Signal செய்தி</string>
   <string name="MessageNotifier_unsecured_sms">பாதுகாப்பற்ற SMS</string>
   <string name="MessageNotifier_you_may_have_new_messages">உங்களிடம் புதிய செய்திகள் இருக்கலாம்</string>
-  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">சமீபத்திய அறிவிப்புகளைச் சரிபார்க்க Molly திறக்கவும்.</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">சமீபத்திய அறிவிப்புகளைச் சரிபார்க்க Signal-LTS திறக்கவும்.</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">தொடர்பு</string>
   <string name="MessageNotifier_reacted_s_to_s">%1$s என வினைபுரிந்தார்: \"%2$s\" க்கு.</string>
@@ -1461,7 +1461,7 @@
   <string name="NotificationChannel_contact_joined_signal">தொடர்பு  Signal இல் இணைந்தது </string>
   <!--ProfileEditNameFragment-->
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Molly பூட்டப்பட்டிருக்கும் போது விரைவான பதில் கிடைக்காது!</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Signal-LTS பூட்டப்பட்டிருக்கும் போது விரைவான பதில் கிடைக்காது!</string>
   <string name="QuickResponseService_problem_sending_message">செய்தி அனுப்புவதில் பிரச்சணை!</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">%s இல் சேமிக்கப்பட்டது</string>
@@ -1472,7 +1472,7 @@
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">தவறான குறுக்குவழி</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Signal-LTS</string>
   <string name="SingleRecipientNotificationBuilder_new_message">புதிய செய்தி</string>
   <string name="SingleRecipientNotificationBuilder_you">நீங்கள்</string>
   <!--ThumbnailView-->
@@ -1487,8 +1487,8 @@
   <string name="UnauthorizedReminder_device_no_longer_registered">சாதனம் இனி பதிவு செய்யப்படவில்லை</string>
   <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">உங்கள் தொலைபேசி எண்ணை Signal வேறு சாதனத்தில் பதிவு செய்ததால் இது நிகழலாம். மீண்டும் பதிவு செய்ய தட்டவும்.</string>
   <!--WebRtcCallActivity-->
-  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">%s இலிருந்து அழைப்பிற்கு பதிலளிக்க, உங்கள் மைக்ரோஃபோனுக்கு Molly அணுகலை வழங்கவும்.</string>
-  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">அழைப்புகளைச் செய்ய அல்லது பெற Molly கு மைக்ரோஃபோன் மற்றும் கேமரா அனுமதிகள் தேவை, ஆனால் அவை நிரந்தரமாக மறுக்கப்பட்டுள்ளன. பயன்பாடு அமைப்புகளைத் தொடரவும், \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து, \"மைக்ரோஃபோன்\" மற்றும் \"கேமரா\" ஐ இயக்கவும்.</string>
+  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">%s இலிருந்து அழைப்பிற்கு பதிலளிக்க, உங்கள் மைக்ரோஃபோனுக்கு Signal-LTS அணுகலை வழங்கவும்.</string>
+  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">அழைப்புகளைச் செய்ய அல்லது பெற Signal-LTS கு மைக்ரோஃபோன் மற்றும் கேமரா அனுமதிகள் தேவை, ஆனால் அவை நிரந்தரமாக மறுக்கப்பட்டுள்ளன. பயன்பாடு அமைப்புகளைத் தொடரவும், \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து, \"மைக்ரோஃபோன்\" மற்றும் \"கேமரா\" ஐ இயக்கவும்.</string>
   <string name="WebRtcCallActivity__answered_on_a_linked_device">இணைக்கப்பட்ட சாதனத்தில் பதிலளிக்கப்பட்டது.</string>
   <string name="WebRtcCallActivity__declined_on_a_linked_device">இணைக்கப்பட்ட சாதனத்தில் மறுக்கப்பட்டது.</string>
   <string name="WebRtcCallActivity__busy_on_a_linked_device">இணைக்கப்பட்ட சாதனத்தில் பயனர் அழைப்பில் இருக்கிறார்.</string>
@@ -1512,7 +1512,7 @@
   <string name="change_passphrase_activity__repeat_new_passphrase">புதிய கடவுச்சொல்</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">பெயர் அல்லது எண்ணை உள்ளிடவும்</string>
-  <string name="contact_selection_activity__invite_to_signal">Mollyக்கு அழை</string>
+  <string name="contact_selection_activity__invite_to_signal">Signal-LTSக்கு அழை</string>
   <string name="contact_selection_activity__new_group">புதிய குழு</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">உள்ளிட்ட உரையை அழிக்கவும்</string>
@@ -1524,7 +1524,7 @@
   <!--single_contact_selection_activity-->
   <string name="SingleContactSelectionActivity_contact_photo">தொடர்பின் புகைப்படம்</string>
   <!--ContactSelectionListFragment-->
-  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">உங்கள் தொடர்புகளைக் காண்பிக்க Molly கு தொடர்புகளின் அனுமதி தேவைப்படுகிறது, ஆனால் அது நிரந்தரமாக மறுக்கப்பட்டது. பயன்பாடு அமைப்புகள் மெனுவில் தொடரவும், \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து, \"தொடர்புகளை\" இயக்கவும்.</string>
+  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">உங்கள் தொடர்புகளைக் காண்பிக்க Signal-LTS கு தொடர்புகளின் அனுமதி தேவைப்படுகிறது, ஆனால் அது நிரந்தரமாக மறுக்கப்பட்டது. பயன்பாடு அமைப்புகள் மெனுவில் தொடரவும், \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து, \"தொடர்புகளை\" இயக்கவும்.</string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">தொடர்புகளை மீட்டெடுப்பதில் பிழை, உங்கள் பிணைய இணைப்பைச் சரிபார்க்கவும்</string>
   <string name="ContactSelectionListFragment_username_not_found">பயனர்பெயர் கிடைக்கவில்லை</string>
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">\"%1$s\" Signal பயனர் அல்ல. தயவுசெய்து பயனர்பெயரை சரிபார்த்து மீண்டும் முயற்சிக்கவும்.</string>
@@ -1870,7 +1870,7 @@
   <string name="preferences__slow">மெதுவாக</string>
   <string name="preferences__help">உதவி</string>
   <string name="preferences__advanced">மேம்பட்ட</string>
-  <string name="preferences__donate_to_signal">Molly-க்கு நன்கொடை அளி</string>
+  <string name="preferences__donate_to_signal">Signal-LTS-க்கு நன்கொடை அளி</string>
   <string name="preferences__privacy">தனியுரிமை</string>
   <string name="preferences__mms_user_agent">எம்.எம்.எஸ் பயனர் முகவர்</string>
   <string name="preferences__advanced_mms_access_point_names">நீங்கள் செய்யவேண்டிய MMS அமைப்புகள்</string>
@@ -2329,7 +2329,7 @@
   <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">நீங்கள் பல முயற்சிகள் செய்துள்ளீர்கள். சிறிது நேரம் கழித்து மீண்டும் முயற்சிக்கவும்.</string>
   <string name="RegistrationActivity_error_connecting_to_service">சேவைக்கு இணைப்பதில் பிழை</string>
   <string name="preferences_chats__backups">காப்புப் பிரதிகள்</string>
-  <string name="prompt_passphrase_activity__signal_is_locked">Molly பூட்டப்பட்டுள்ளது</string>
+  <string name="prompt_passphrase_activity__signal_is_locked">Signal-LTS பூட்டப்பட்டுள்ளது</string>
   <string name="prompt_passphrase_activity__tap_to_unlock">திறக்க தட்டவும் </string>
   <string name="Recipient_unknown">தெரியாத</string>
   <!--TransferOrRestoreFragment-->
@@ -2389,7 +2389,7 @@
   <string name="GroupsLearnMore_paragraph_2">மரபு குழுக்களை புதிய குழுக்களாக மேம்படுத்த முடியாது, ஆனால் குழு உறுப்பினர்கள் சிக்னலின் சமீபத்திய பதிப்பில் இருந்தால் அதே உறுப்பினர்களுடன் புதிய குழுவை உருவாக்கலாம்.</string>
   <string name="GroupsLearnMore_paragraph_3">Signal எதிர்காலத்தில் மரபு குழுக்களை மேம்படுத்த ஒரு வழியை வழங்கும்.</string>
   <!--GroupLinkBottomSheetDialogFragment-->
-  <string name="GroupLinkBottomSheet_share_via_signal">சிக்னல் Molly வழியாக பகிரவும்</string>
+  <string name="GroupLinkBottomSheet_share_via_signal">சிக்னல் Signal-LTS வழியாக பகிரவும்</string>
   <string name="GroupLinkBottomSheet_copy">நகல்</string>
   <string name="GroupLinkBottomSheet_qr_code">QR குறியீடு</string>
   <string name="GroupLinkBottomSheet_share">பகிர்</string>

@@ -24,12 +24,12 @@
   </plurals> -->
   <!-- Removed by excludeNonTranslatables <string name="ApplicationPreferencesActivity_delete">Sil</string> -->
   <string name="ApplicationPreferencesActivity_disable_passphrase">Açar sözü deaktivə edirsən?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Bu daimi olaraq Molly və mesaj xəbərdarlıqlarının kilidini açacaq.</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Bu daimi olaraq Signal-LTS və mesaj xəbərdarlıqlarının kilidini açacaq.</string>
   <string name="ApplicationPreferencesActivity_disable">Deaktivə et</string>
   <string name="ApplicationPreferencesActivity_unregistering">Qeydiyyatdan çıxarma</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Molly-a aid mesaj və zənglərin qeydiyyatından çıxmaq…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Molly mesajlarını və zənglərini deaktivə edirsən?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Server qeydiyyatından çıxmaqla Molly mesajları və zənglərini deaktivə et. Gələcəkdə istifadə etmək üçün telefon nömrəni bir daha qeydiyyatdan keçirməli olacaqsan.</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Signal-LTS-a aid mesaj və zənglərin qeydiyyatından çıxmaq…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Signal-LTS mesajlarını və zənglərini deaktivə edirsən?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Server qeydiyyatından çıxmaqla Signal-LTS mesajları və zənglərini deaktivə et. Gələcəkdə istifadə etmək üçün telefon nömrəni bir daha qeydiyyatdan keçirməli olacaqsan.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">Serverə qoşulmada xəta var!</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">SMS Aktivləşdirildi</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">Mövcud SMS aplikasiyanı dəyişmək üçün kliklə</string>
@@ -61,9 +61,9 @@
   <string name="AttachmentKeyboard_location">Məkan</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">Seçilmiş media üçün aplikasiyanı tapa bilmirəm.</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly-ın normal işləməsi üçün şəkil, video və ya səsləri saxlamağa yaddaş lazımdır ki, bu da hal hazırda qadağa edilib. Davam edə bilmək üçün zəhmət olmasa aplikasiya parametrləri menyusuna, orada isə \"İcazələr\" bölməsinə keçərək \"Yaddaş\" hissəsini aktivləşdir.</string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Əlaqə məlumatlarını yükləyə bilməsi üçün Molly-ın Əlaqələr bölməsinə giriş icazəsi olmalıdır ki, o da hal hazırda qadağan edilmişdir. Davam edə bilmək üçün zəhmət olmasa aplikasiya parametrləri menyusuna, oradan isə \"İcazələr\" bölməsinə keçərək \"Əlaqələr\" hissəsini aktivləşdir.</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Məkanı yükləyə bilməsi üçün Molly-ın məkan seçimlərinə giriş icazəsi olmalıdır ki, o da hal hazırda qadağan edilmişdir. Davam edə bilmək üçün zəhmət olmasa aplikasiya parametrləri menyusuna, oradan isə \"İcazələr\" bölməsinə keçərək \"Məkan\" hissəsini aktivləşdir.</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signal-LTS-ın normal işləməsi üçün şəkil, video və ya səsləri saxlamağa yaddaş lazımdır ki, bu da hal hazırda qadağa edilib. Davam edə bilmək üçün zəhmət olmasa aplikasiya parametrləri menyusuna, orada isə \"İcazələr\" bölməsinə keçərək \"Yaddaş\" hissəsini aktivləşdir.</string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Əlaqə məlumatlarını yükləyə bilməsi üçün Signal-LTS-ın Əlaqələr bölməsinə giriş icazəsi olmalıdır ki, o da hal hazırda qadağan edilmişdir. Davam edə bilmək üçün zəhmət olmasa aplikasiya parametrləri menyusuna, oradan isə \"İcazələr\" bölməsinə keçərək \"Əlaqələr\" hissəsini aktivləşdir.</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Məkanı yükləyə bilməsi üçün Signal-LTS-ın məkan seçimlərinə giriş icazəsi olmalıdır ki, o da hal hazırda qadağan edilmişdir. Davam edə bilmək üçün zəhmət olmasa aplikasiya parametrləri menyusuna, oradan isə \"İcazələr\" bölməsinə keçərək \"Məkan\" hissəsini aktivləşdir.</string>
   <!-- Removed by excludeNonTranslatables <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">Şəkil çəkə bilməsi üçün Signal-ın Kamera seçimlərinə giriş icazəsi olmalıdır ki, o da hal hazırda qadağa edilmişdir. Davam edə bilmək üçün zəhmət olmasa aplikasiya parametrləri menyusuna, oradan isə \"İcazələr bölməsinə keçərək \"Kamera\" hissəsini aktivləşdir.</string> -->
   <!--AttachmentUploadJob-->
   <!--AudioSlidePlayer-->
@@ -149,7 +149,7 @@
   <string name="ConversationActivity_transport_insecure_sms">Zəmanətsiz SMS</string>
   <string name="ConversationActivity_transport_insecure_mms">Zəmanətsiz MMS</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">Gəl %1$s Molly-a keçək</string>
+  <string name="ConversationActivity_lets_switch_to_signal">Gəl %1$s Signal-LTS-a keçək</string>
   <!-- Removed by excludeNonTranslatables <string name="ConversationActivity_error_leaving_group">Qrupdan çıxarkən xəta</string> -->
   <string name="ConversationActivity_specify_recipient">Zəgmət olmasa əlaqəni seç</string>
   <!-- Removed by excludeNonTranslatables <string name="ConversationActivity_unblock_this_contact_question">Bi əlaqənin kilidini açırsan?</string> -->
@@ -161,13 +161,13 @@
   <!-- Removed by excludeNonTranslatables <string name="ConversationActivity_quick_camera_unavailable">Kameranı aça bilmirik</string> -->
   <string name="ConversationActivity_unable_to_record_audio">Səs yaza bilmirik!</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">Cihazında bu linkin öhdəsindən gələ biləcək aplikasiya yoxdur.</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Səsli mesaj göndərə bilmək üçün Molly-a icazə ver mikrofonunu istifadə edə bilsin.</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Səsli mesaj göndərə bilməsi üçün Molly-ın Mikrofon seçimlərinə giriş icazəsi olmalıdır ki, o da hal hazırda qadağa edilmişdir. Davam edə bilmək üçün zəhmət olmasa aplikasiya parametrləri menyusuna, oradan isə \"İcazələr bölməsinə keçərək \"Mikrofon\" hissəsini aktivləşdir.</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Səsli mesaj göndərə bilmək üçün Signal-LTS-a icazə ver mikrofonunu istifadə edə bilsin.</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Səsli mesaj göndərə bilməsi üçün Signal-LTS-ın Mikrofon seçimlərinə giriş icazəsi olmalıdır ki, o da hal hazırda qadağa edilmişdir. Davam edə bilmək üçün zəhmət olmasa aplikasiya parametrləri menyusuna, oradan isə \"İcazələr bölməsinə keçərək \"Mikrofon\" hissəsini aktivləşdir.</string>
   <!-- Removed by excludeNonTranslatables <string name="ConversationActivity_to_call_s_signal_needs_access_to_your_microphone_and_camera">%s əlaqəsinə zəng edə bilmək üçün Signal-ın sənin mikrofon və kamerana giriş icazəsi olmalıdır.</string> -->
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">%s əlaqəsinə zəng edə bilməsi üçün Molly-ın Mikrofon və Kamera seçimlərinə giriş icazəsi olmalıdır ki, o da hal hazırda qadağa edilmişdir. Davam edə bilmək üçün zəhmət olmasa aplikasiya parametrləri menyusuna, oradan isə \"İcazələr bölməsinə keçərək \"Mikrofon\" və \"Kamera\" hissələrini aktivləşdir.</string>
-  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Şəkil və video çəkə bilməsi üçün Molly-a Kamera seçimlərinə giriş icazəsi ver.</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Şəkil və ya Video çəkə bilməsi üçün Molly-ın Kamera seçimlərinə giriş icazəsi olmalıdır ki, o da hal hazırda qadağa edilmişdir. Davam edə bilmək üçün zəhmət olmasa aplikasiya parametrləri menyusuna, oradan isə \"İcazələr bölməsinə keçərək \"Kamera\" hissəsini aktivləşdir.</string>
-  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Şəkil və ya video çəkə bilməsi üçün Molly-ın Kamera seçimlərinə giriş icazəsi olmalıdır</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">%s əlaqəsinə zəng edə bilməsi üçün Signal-LTS-ın Mikrofon və Kamera seçimlərinə giriş icazəsi olmalıdır ki, o da hal hazırda qadağa edilmişdir. Davam edə bilmək üçün zəhmət olmasa aplikasiya parametrləri menyusuna, oradan isə \"İcazələr bölməsinə keçərək \"Mikrofon\" və \"Kamera\" hissələrini aktivləşdir.</string>
+  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Şəkil və video çəkə bilməsi üçün Signal-LTS-a Kamera seçimlərinə giriş icazəsi ver.</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Şəkil və ya Video çəkə bilməsi üçün Signal-LTS-ın Kamera seçimlərinə giriş icazəsi olmalıdır ki, o da hal hazırda qadağa edilmişdir. Davam edə bilmək üçün zəhmət olmasa aplikasiya parametrləri menyusuna, oradan isə \"İcazələr bölməsinə keçərək \"Kamera\" hissəsini aktivləşdir.</string>
+  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Şəkil və ya video çəkə bilməsi üçün Signal-LTS-ın Kamera seçimlərinə giriş icazəsi olmalıdır</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">Signal sənin əsas SMS aplikasiyan olmadığı üçün o SMS/MMS mesajları göndərə bilmir. Bu göstəricini Android parametrlərində dəyişmək istəyirsən?</string>
   <string name="ConversationActivity_yes">Bəli</string>
@@ -281,7 +281,7 @@
   <!--DocumentView-->
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">Çatışmayan Play Servisləri üçün optimallaşdır</string>
-  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Bu cihaz Play Servisi dəstəkləmir. Qeyri aktiv vaxtlarda Molly-ın mesajları bərpa edə bilməsinin qarşısını almaq üçün sistem akkumulyator optimallaşdırılmasını deaktivə et.</string>
+  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Bu cihaz Play Servisi dəstəkləmir. Qeyri aktiv vaxtlarda Signal-LTS-ın mesajları bərpa edə bilməsinin qarşısını almaq üçün sistem akkumulyator optimallaşdırılmasını deaktivə et.</string>
   <!--ShareActivity-->
   <string name="ShareActivity_share_with">Bölüş</string>
   <!--ExperienceUpgradeActivity-->
@@ -313,7 +313,7 @@
   <!-- Removed by excludeNonTranslatables <string name="GcmBroadcastReceiver_retrieving_a_message">Mesajın bərpası…</string> -->
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Həmişəlik Signal ünsiyyət xətası!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly Google Play Servisləri ilə qeydiyyatdan keçə bilmədi. Molly zəngləri və mesajları deaktivə edildi, lütfən Parametrlər &gt; Daha Geniş seçimlərində yenidən qeydiyyatdan keçməyə cəhd et.</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal-LTS Google Play Servisləri ilə qeydiyyatdan keçə bilmədi. Signal-LTS zəngləri və mesajları deaktivə edildi, lütfən Parametrlər &gt; Daha Geniş seçimlərində yenidən qeydiyyatdan keçməyə cəhd et.</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">GIF-in tam ölçüdə bərpası prosesində xəta</string>
   <!--GiphyFragmentPageAdapter-->
@@ -353,7 +353,7 @@
   <string name="InviteActivity_sending">Göndərilir…</string>
   <!-- Removed by excludeNonTranslatables <string name="InviteActivity_heart_content_description">Ürək</string> -->
   <string name="InviteActivity_invitations_sent">Dəvətnamələr göndərildi!</string>
-  <string name="InviteActivity_invite_to_signal">Molly-a dəvət et</string>
+  <string name="InviteActivity_invite_to_signal">Signal-LTS-a dəvət et</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">%d DOSTUNA SMS GÖNDƏR</item>
     <item quantity="other">%d DOSTUNA SMS GÖNDƏR</item>
@@ -362,7 +362,7 @@
     <item quantity="one">%d SMS dəvətnaməsi göndərirsən?</item>
     <item quantity="other">%d SMS dəvətnaməsi göndərirsən?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">Gəl Molly-a keçid edək: %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">Gəl Signal-LTS-a keçid edək: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Elə görünür ki, paylaşa biləcəyin aplikasiya yoxdur.</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Dostlar dostlara şifrələnməmiş yazışmaya icazə vermir.</string>
   <!--Job-->
@@ -375,7 +375,7 @@
   <string name="LongMessageActivity_message_from_s">%1$s tərəfindən mesaj</string>
   <string name="LongMessageActivity_your_message">Sənin mesajın</string>
   <!--MessageRetrievalService-->
-  <string name="MessageRetrievalService_signal">Molly</string>
+  <string name="MessageRetrievalService_signal">Signal-LTS</string>
   <string name="MessageRetrievalService_background_connection_enabled">Pərdə arxası əlaqə aktivləşdirildi</string>
   <!--MmsDownloader-->
   <string name="MmsDownloader_error_reading_mms_settings">Telsiz provayder MMS parametrlərinin oxunmasında xəta</string>
@@ -413,7 +413,7 @@
   <string name="MediaSendActivity_camera_unavailable">Kamera işə salına bimir</string>
   <string name="MediaSendActivity_message_to_s">%s istifadəçisinə mesaj</string>
   <string name="MediaSendActivity_message">Mesaj</string>
-  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Nümayiş edə bilməsi üçün Molly-ın sənin əlaqələrinə giriş icazəsi olmalıdır.</string>
+  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Nümayiş edə bilməsi üçün Signal-LTS-ın sənin əlaqələrinə giriş icazəsi olmalıdır.</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="one">%d fayldan artığını paylaşa bilməzsən.</item>
     <item quantity="other">%d fayldan artığını paylaşa bilməzsən.</item>
@@ -464,7 +464,7 @@
   <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">Üzr istəyirik, bu cihazla bağlantı qurmaq üçün uyğun QR şifrə deyil.</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">Signal cihazı ilə bağlantı qurulsun?</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Belə görünür ki, 3-cü tərəfin skanerini istifadə edərək Signal-a cihaz bağlamaq istəyirsən. Təhlükəsizliyin üçün şifrəni Signal daxilində skan et.</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">QR şifrəni skan edə bilməsi üçün Molly-ın Kamera seçimlərinə giriş icazəsi olmalıdır ki, o da hal hazırda qadağa edilmişdir. Davam edə bilmək üçün zəhmət olmasa aplikasiya parametrləri menyusuna, oradan isə \"İcazələr bölməsinə keçərək \"Kamera\" hissəsini aktivləşdir.</string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">QR şifrəni skan edə bilməsi üçün Signal-LTS-ın Kamera seçimlərinə giriş icazəsi olmalıdır ki, o da hal hazırda qadağa edilmişdir. Davam edə bilmək üçün zəhmət olmasa aplikasiya parametrləri menyusuna, oradan isə \"İcazələr bölməsinə keçərək \"Kamera\" hissəsini aktivləşdir.</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Kameraya giriş icazəsi olmadan QR şifrə skan olunmur</string>
   <!--ExpirationDialog-->
   <!-- Removed by excludeNonTranslatables <string name="ExpirationDialog_disappearing_messages">Yox olan mesajlar</string> -->
@@ -472,10 +472,10 @@
   <!-- Removed by excludeNonTranslatables <string name="ExpirationDialog_your_messages_will_disappear_s_after_they_have_been_seen">Bu söhbətləşmədəki göndərilən və qəbul edilən mesajlara baxıldıqdan %s sonra silinəcəkdir.</string> -->
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">Şifrə ifadəsini daxil et</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Molly ikonası</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Signal-LTS ikonası</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">Şifrə ifadəsini təqdim et</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Səhv şifrə ifadəsi!</string>
-  <string name="PassphrasePromptActivity_unlock_signal">Molly-ın Kilidini Aç</string>
+  <string name="PassphrasePromptActivity_unlock_signal">Signal-LTS-ın Kilidini Aç</string>
   <!--PlacePickerActivity-->
   <!--PlayServicesProblemFragment-->
   <string name="PlayServicesProblemFragment_the_version_of_google_play_services_you_have_installed_is_not_functioning">Quraşdırdığın Google Play Servis versiyası düzgün işləmir. Zəhmət olmasa Google Play Servisini yenidən quraşdır və sına.</string>
@@ -531,7 +531,7 @@
         nömrə (%s) səhvdir.
     </string>
   <string name="RegistrationActivity_missing_google_play_services">Google Play Xidməti Çatışmır</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Bu cihazda Google Play Xidməti yoxdur. Sən yenə də Molly-ı istifadə edə bilərsən, amma o daha az etibarlı olacaq və aşağı performans nümayiş etdirəcək.\n\nƏgər sən qabaqcıl istifadəçi deyilsənsə, ikinci əl Android ROM istifadə etmirsənsə, yaxud da bu xətanı gördüyünü düşünürsənsə, lütfən bizi məlumatlandırmaq üçün support@molly.im ünvanına yaz. </string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Bu cihazda Google Play Xidməti yoxdur. Sən yenə də Signal-LTS-ı istifadə edə bilərsən, amma o daha az etibarlı olacaq və aşağı performans nümayiş etdirəcək.\n\nƏgər sən qabaqcıl istifadəçi deyilsənsə, ikinci əl Android ROM istifadə etmirsənsə, yaxud da bu xətanı gördüyünü düşünürsənsə, lütfən bizi məlumatlandırmaq üçün support@Signal-LTS.im ünvanına yaz. </string>
   <string name="RegistrationActivity_i_understand">Anlayıram</string>
   <string name="RegistrationActivity_play_services_error">Play Xidmət Xətası</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Xidməti yenilənir və ya müvəqqəti işləmir: Zəhmət olmasa bir daha sına.</string>
@@ -539,9 +539,9 @@
   <!-- Removed by excludeNonTranslatables <string name="RegistrationActivity_no_browser">Bu linki aça bilmirik. Veb brauzer tapılmadı.</string> -->
   <!-- Removed by excludeNonTranslatables <string name="RegistrationActivity_more_information">Daha ətraflı məlumat</string> -->
   <!-- Removed by excludeNonTranslatables <string name="RegistrationActivity_less_information">Daha az məlumat</string> -->
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Dostlarınla əlaqəyə girmək, mesajlaşmaq və təhlükəsiz zənglər edə bilməsi üçün Molly sənin əlaqələrinə və mediana giriş icazəsi əldə etməlidir.</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Dostlarınla əlaqəyə girmək, mesajlaşmaq və təhlükəsiz zənglər edə bilməsi üçün Signal-LTS sənin əlaqələrinə və mediana giriş icazəsi əldə etməlidir.</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">Xidmətlə əlaqə yarada bilmədik. Zəhmət olmasa şəbəkə əlaqəni yoxla və bir daha sına.</string>
-  <!-- Removed by excludeNonTranslatables <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">Molly-ın sənin SMS mesajların giriş icazəsi olsa, o avtomatik olaraq sənin təsdiq şifrəni oxuyacaq və Molly sənin telefon nömrəni asanlıqla təsdiq edəcək.</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">Signal-LTS-ın sənin SMS mesajların giriş icazəsi olsa, o avtomatik olaraq sənin təsdiq şifrəni oxuyacaq və Signal-LTS sənin telefon nömrəni asanlıqla təsdiq edəcək.</string> -->
   <plurals name="RegistrationActivity_debug_log_hint">
     <item quantity="one">Xətanın aradan qaldırılması üçün sorğunu daxil etmək üçün %d cəmi addım qaldı.</item>
     <item quantity="other">Xətanın aradan qaldırılması üçün sorğunu daxil etmək üçün cəmi %d addım qaldı.</item>
@@ -622,8 +622,8 @@
   <string name="ThreadRecord_you_marked_verified">Sən təsdiqlənmiş kimi işarələnmisən</string>
   <string name="ThreadRecord_you_marked_unverified">Sən təsdiqlənməmiş kimi işarələnmisən.</string>
   <!--UpdateApkReadyListener-->
-  <string name="UpdateApkReadyListener_Signal_update">Molly yenilənməsi</string>
-  <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Molly-ın yeni versiyası hazırdır, yeniləmək üçün kliklə</string>
+  <string name="UpdateApkReadyListener_Signal_update">Signal-LTS yenilənməsi</string>
+  <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Signal-LTS-ın yeni versiyası hazırdır, yeniləmək üçün kliklə</string>
   <!--UnknownSenderView-->
   <!-- Removed by excludeNonTranslatables <string name="UnknownSenderView_block_s">%səlaqəsini kilidləyirsən?</string> -->
   <!-- Removed by excludeNonTranslatables <string name="UnknownSenderView_blocked_contacts_will_no_longer_be_able_to_send_you_messages_or_call_you"> Kilidlənmiş əlaqələr daha sənə mesaj göndərə və ya zəng edə bilməyəcək.</string> -->
@@ -648,7 +648,7 @@
   <string name="VerifyIdentityActivity_our_signal_safety_number">Bizim Signal təhlükəsizlik rəqəmimiz:</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">Elə görünür ki, paylaşa biləcəyin aplikasiya yoxdur.</string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">Mübadilə buferində müqayisə etmək üçün təhlükəsizlik rəqəmi tapılmadı</string>
-  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">QR şifrəni skan edə bilməsi üçün Molly-ın Kamera seçimlərinə giriş icazəsi olmalıdır ki, o da hal hazırda qadağa edilmişdir. Davam edə bilmək üçün zəhmət olmasa aplikasiya parametrləri menyusuna, oradan isə \"İcazələr bölməsinə keçərək \"Kamera\" hissəsini aktivləşdir.</string>
+  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">QR şifrəni skan edə bilməsi üçün Signal-LTS-ın Kamera seçimlərinə giriş icazəsi olmalıdır ki, o da hal hazırda qadağa edilmişdir. Davam edə bilmək üçün zəhmət olmasa aplikasiya parametrləri menyusuna, oradan isə \"İcazələr bölməsinə keçərək \"Kamera\" hissəsini aktivləşdir.</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">Kameraya giriş icazəsi olmadan QR şifrəni skan etmək mümkün deyil</string>
   <!--ViewOnceMessageActivity-->
   <!--MessageDisplayHelper-->
@@ -669,13 +669,13 @@
   <!--KeyCachingService-->
   <string name="KeyCachingService_signal_passphrase_cached">Açmaq üçün toxun.</string>
   <!-- Removed by excludeNonTranslatables <string name="KeyCachingService_signal_passphrase_cached_with_lock">Açmaq üçün toxun, yaxud bağlamaq üçün kilidə toxun.</string> -->
-  <string name="KeyCachingService_passphrase_cached">Molly-ın kilidi açıldı</string>
-  <string name="KeyCachingService_lock">Molly-ı kilidlə</string>
+  <string name="KeyCachingService_passphrase_cached">Signal-LTS-ın kilidi açıldı</string>
+  <string name="KeyCachingService_lock">Signal-LTS-ı kilidlə</string>
   <!--MediaPreviewActivity-->
   <string name="MediaPreviewActivity_you">Sən</string>
   <string name="MediaPreviewActivity_unssuported_media_type">Dəstəklənməyən media növü</string>
   <string name="MediaPreviewActivity_draft">Qaralama</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Xarici yaddaşa məlumat yaza bilməsi üçün Molly-ın Yaddaş seçimlərinə giriş icazəsi olmalıdır ki, o da hal hazırda qadağa edilmişdir. Davam edə bilmək üçün zəhmət olmasa aplikasiya parametrləri menyusuna, oradan isə \"İcazələr bölməsinə keçərək \"Yaddaş\" hissəsini aktivləşdir.</string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Xarici yaddaşa məlumat yaza bilməsi üçün Signal-LTS-ın Yaddaş seçimlərinə giriş icazəsi olmalıdır ki, o da hal hazırda qadağa edilmişdir. Davam edə bilmək üçün zəhmət olmasa aplikasiya parametrləri menyusuna, oradan isə \"İcazələr bölməsinə keçərək \"Yaddaş\" hissəsini aktivləşdir.</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">İcazəsiz xarici yaddaşa məlumat yaza bilmərik</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">Mesajı silirsən?</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">Bu addım mesajı həmişəlik siləcək.</string>
@@ -708,7 +708,7 @@
   <string name="NotificationChannel_missing_display_name">Naməlum</string>
   <!--ProfileEditNameFragment-->
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Molly kilidli olarkən sürətli cavamlar mümkün deyil!</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Signal-LTS kilidli olarkən sürətli cavamlar mümkün deyil!</string>
   <string name="QuickResponseService_problem_sending_message">Mesajın göndərilməsində problem var!</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">%s qovluğunda yadda saxlandı</string>
@@ -719,7 +719,7 @@
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">Xətalı qısa yol</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Signal-LTS</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Yeni ismarış</string>
   <!--ThumbnailView-->
   <!--TransferControlView-->
@@ -733,8 +733,8 @@
   <!--VideoPlayer-->
   <!-- Removed by excludeNonTranslatables <string name="VideoPlayer_error_playing_video">Videonun oxunmasında xəta</string> -->
   <!--WebRtcCallActivity-->
-  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">%s tərəfindən gələn zəngi cavablandırmaq üçün Molly üçün mikrofona giriş icazəsi ver.</string>
-  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Zəng qəbul edə bilməsi üçün Molly-ın Mikrofon və Kamera seçimlərinə giriş icazəsi olmalıdır ki, o da hal hazırda qadağa edilmişdir. Davam edə bilmək üçün zəhmət olmasa aplikasiya parametrləri menyusuna, oradan isə \"İcazələr bölməsinə keçərək \"Mikrofon\" və \"Kamera\" hissələrini aktivləşdir.</string>
+  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">%s tərəfindən gələn zəngi cavablandırmaq üçün Signal-LTS üçün mikrofona giriş icazəsi ver.</string>
+  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Zəng qəbul edə bilməsi üçün Signal-LTS-ın Mikrofon və Kamera seçimlərinə giriş icazəsi olmalıdır ki, o da hal hazırda qadağa edilmişdir. Davam edə bilmək üçün zəhmət olmasa aplikasiya parametrləri menyusuna, oradan isə \"İcazələr bölməsinə keçərək \"Mikrofon\" və \"Kamera\" hissələrini aktivləşdir.</string>
   <!--WebRtcCallScreen-->
   <!-- Removed by excludeNonTranslatables <string name="WebRtcCallScreen_new_safety_numbers">%1$s ilə söhbətin üçün təhlükəsizlik rəqəmin dəyişdi. Ola bilsin ki, kimsə sizin söhbətinizə müdaxilə etmək istəyir, ya da %2$s Signal-ı yenidən qeydiyyatdan keçirib.</string> -->
   <!-- Removed by excludeNonTranslatables <string name="WebRtcCallScreen_you_may_wish_to_verify_this_contact">Bu əlaqə ilə təhlükəsizlik rəqəmini təsdiqləmək arzun ola bilər.</string> -->
@@ -770,7 +770,7 @@
   <string name="change_passphrase_activity__repeat_new_passphrase">Yeni şifrə ifadəsini təkrarla</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">Ad və ya nömrəni yaz</string>
-  <string name="contact_selection_activity__invite_to_signal">Molly-a dəvət et</string>
+  <string name="contact_selection_activity__invite_to_signal">Signal-LTS-a dəvət et</string>
   <!--contact_filter_toolbar-->
   <!--contact_selection_group_activity-->
   <string name="contact_selection_group_activity__no_contacts">Əlaqə yoxdur.</string>
@@ -778,12 +778,12 @@
   <!--single_contact_selection_activity-->
   <string name="SingleContactSelectionActivity_contact_photo">Əlaqə Şəkli</string>
   <!--ContactSelectionListFragment-->
-  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Ələqələrini göstərə bilməsi üçün Molly-ın Əlaqələr seçimlərinə giriş icazəsi olmalıdır ki, o da hal hazırda qadağa edilmişdir. Davam edə bilmək üçün zəhmət olmasa aplikasiya parametrləri menyusuna, oradan isə \"İcazələr bölməsinə keçərək \"Əlaqələr\" hissəsini aktivləşdir.</string>
+  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Ələqələrini göstərə bilməsi üçün Signal-LTS-ın Əlaqələr seçimlərinə giriş icazəsi olmalıdır ki, o da hal hazırda qadağa edilmişdir. Davam edə bilmək üçün zəhmət olmasa aplikasiya parametrləri menyusuna, oradan isə \"İcazələr bölməsinə keçərək \"Əlaqələr\" hissəsini aktivləşdir.</string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Əlaqələrin bərpası alınmadı, şəbəkə əlaqəni yoxla</string>
   <!--blocked_contacts_fragment-->
   <!-- Removed by excludeNonTranslatables <string name="blocked_contacts_fragment__no_blocked_contacts">Kilidlənmiş əlaqə yoxdur</string> -->
   <!--contact_selection_list_fragment-->
-  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Nümayiş edə bilməsi üçün Molly-ın sənin əlaqələrinə giriş icazəsi olmalıdır.</string>
+  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Nümayiş edə bilməsi üçün Signal-LTS-ın sənin əlaqələrinə giriş icazəsi olmalıdır.</string>
   <string name="contact_selection_list_fragment__show_contacts">Əlaqələri Göstər</string>
   <!--conversation_activity-->
   <string name="conversation_activity__type_message_push">Signal mesajı</string>
@@ -1354,7 +1354,7 @@
   <!-- Removed by excludeNonTranslatables <string name="RegistrationLockDialog_disable_registration_lock_pin">Qeydiyyat Kilid PIN-ini deaktiv edirsən?</string> -->
   <!-- Removed by excludeNonTranslatables <string name="RegistrationLockDialog_disable">Söndür</string> -->
   <string name="preferences_chats__backups">Ehtiyat nüsxələr</string>
-  <string name="prompt_passphrase_activity__signal_is_locked">Molly kilidlidir</string>
+  <string name="prompt_passphrase_activity__signal_is_locked">Signal-LTS kilidlidir</string>
   <string name="prompt_passphrase_activity__tap_to_unlock">Açmaq üçün toxun</string>
   <!-- Removed by excludeNonTranslatables <string name="RegistrationLockDialog_reminder">Xatırlatma:</string> -->
   <!-- Removed by excludeNonTranslatables <string name="recipient_preferences__about">Haqqında</string> -->

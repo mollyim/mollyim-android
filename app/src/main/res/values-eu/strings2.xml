@@ -21,7 +21,7 @@
 \nIradokizuna: %3$s</string>
     <string name="ChangePassphraseDialogFragment_weak_passphrase">Pasahitzaren esaldia ahula!</string>
     <string name="PassphraseCreateActivity_turn_on_database_encryption">Datu-basearen enkriptazioa aktibatu</string>
-    <string name="PassphraseCreateActivity_require_passphrase_to_unlock_molly">Pasahitzezko esaldi bat behar duzu Molly desblokeatzeko\?</string>
+    <string name="PassphraseCreateActivity_require_passphrase_to_unlock_molly">Pasahitzezko esaldi bat behar duzu Signal-LTS desblokeatzeko\?</string>
     <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">Orain pasahitz-esaldi bat ezar dezakezu datu-basea enkriptatzeko. Desblokeatu arte, Mollyk ezin du jakinarazpenik edo deirik jaso. Horrek lagundu egiten du galdutako edo lapurtutako gailuen datuak babesten.</string>
     <string name="AppProtectionPreferenceFragment_instant">Momentu batean</string>
     <string name="WipeMemoryService_secure_wipe_in_progress">Garbiketa segurua aribidean</string>
@@ -48,11 +48,11 @@
     <string name="arrays__on_inactivity_timeout">Denbora-tarte bat zure gailua desblokeatu gabe igarotzen baduzu</string>
     <string name="NetworkPreferenceFragment_the_host_you_typed_is_not_valid">Idatzi duzun host horrek ez du balio</string>
     <string name="arrays__tor_via_orbot">Tor Orbot-ekin</string>
-    <string name="NetworkPreferenceFragment_molly_wont_connect_without_orbot_which_is_not_installed_on_this_device">Molly ez da konektatuko Orbot gabe, ez baitago instalatuta gailu honetan.</string>
+    <string name="NetworkPreferenceFragment_molly_wont_connect_without_orbot_which_is_not_installed_on_this_device">Signal-LTS ez da konektatuko Orbot gabe, ez baitago instalatuta gailu honetan.</string>
     <string name="NetworkPreferenceFragment_get_orbot">Lortu Orbot</string>
     <string name="NetworkPreferenceFragment_missing_orbot_app">Orbot aplikazioa falta da</string>
     <string name="ProxyManager_successfully_started_orbot">Orbot hasi</string>
     <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Aldian-aldian egiaztatu bertsio berririk dagoen eta instalatzeko eskatu.</string>
-    <string name="preferences__autoupdate_molly">Eguneratu Molly automatikoki</string>
+    <string name="preferences__autoupdate_molly">Eguneratu Signal-LTS automatikoki</string>
     <string name="BlockUnblockDialog_block_and_delete">Blokeatu eta ezabatu</string>
 </resources>

@@ -15,12 +15,12 @@
   <!-- Removed by excludeNonTranslatables <string name="ApplicationPreferencesActivity_delete_all_old_messages_now">Obubaka obukadde bwonna busangule kati?</string> -->
   <!-- Removed by excludeNonTranslatables <string name="ApplicationPreferencesActivity_delete">Sangula</string> -->
   <string name="ApplicationPreferencesActivity_disable_passphrase">Jako passiwadi nga yabigaambo ne namba?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Kino kijja kugulawo Molly n\'okutemezebwako kwobubaka nga bya nkalakalira</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Kino kijja kugulawo Signal-LTS n\'okutemezebwako kwobubaka nga bya nkalakalira</string>
   <string name="ApplicationPreferencesActivity_disable">gyako</string>
   <string name="ApplicationPreferencesActivity_unregistering">Okwewandukulula</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Okwewandukulula okuva mu bubaka bwa Molly n\'amasimu agakubwa</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Gyako obubaka bwa Molly n\'amasimu agakubwa</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Gyako obubaka bwa Molly n\'amasimu agakubwa nga oyita mu kwewandukulula ku saava. Oja kwetaga okudamu okuwandisa enamba y\'esimu yo gyebujja mu maaso.</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Okwewandukulula okuva mu bubaka bwa Signal-LTS n\'amasimu agakubwa</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Gyako obubaka bwa Signal-LTS n\'amasimu agakubwa</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Gyako obubaka bwa Signal-LTS n\'amasimu agakubwa nga oyita mu kwewandukulula ku saava. Oja kwetaga okudamu okuwandisa enamba y\'esimu yo gyebujja mu maaso.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">Ensobi kukuyungibwa  ku Ssava</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">Obubaka bukilizibbwa</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">Kwata okyuse default SMS app yyo</string>
@@ -87,7 +87,7 @@ a</string>
   <string name="ConversationActivity_transport_insecure_sms">Obubaka obutalina bukuumi</string>
   <string name="ConversationActivity_transport_insecure_mms">MMS terina bukumi</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">Katudde ku Molly %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">Katudde ku Signal-LTS %1$s</string>
   <!-- Removed by excludeNonTranslatables <string name="ConversationActivity_lets_use_this_to_chat">Katukozese emboozi eno: %1$s</string> -->
   <string name="ConversationActivity_specify_recipient">Bambi londa contact</string>
   <!-- Removed by excludeNonTranslatables <string name="ConversationActivity_unblock_this_contact_question">sumulula contact eno</string> -->
@@ -185,7 +185,7 @@ a</string>
   <!-- Removed by excludeNonTranslatables <string name="ExperienceUpgradeActivity_got_it">Nkyifunye</string> -->
   <!--GcmBroadcastReceiver-->
   <!--GcmRefreshJob-->
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly tasobodde kwewandisa ku mpereza ya Google Play store, Obubaka ku Molly n\'amasimu bigyiddwako, bambi gezaako oddemu wewandiise mu kweroboza &gt; Okwawaggulu</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal-LTS tasobodde kwewandisa ku mpereza ya Google Play store, Obubaka ku Signal-LTS n\'amasimu bigyiddwako, bambi gezaako oddemu wewandiise mu kweroboza &gt; Okwawaggulu</string>
   <!--GiphyActivity-->
   <!--GiphyFragmentPageAdapter-->
   <string name="GiphyFragmentPagerAdapter_gifs">Ekifananyi ekizanya</string>
@@ -215,8 +215,8 @@ a</string>
   <string name="InviteActivity_sending">Eweereza</string>
   <!-- Removed by excludeNonTranslatables <string name="InviteActivity_heart_content_description">Omutima</string> -->
   <string name="InviteActivity_invitations_sent">Okuyiitibwa kusindikiddwa</string>
-  <string name="InviteActivity_invite_to_signal">Muyite ku Molly</string>
-  <string name="InviteActivity_lets_switch_to_signal">Katudde ku Molly: %1$s</string>
+  <string name="InviteActivity_invite_to_signal">Muyite ku Signal-LTS</string>
+  <string name="InviteActivity_lets_switch_to_signal">Katudde ku Signal-LTS: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Kirabika toyina app za ku gabanya ne.</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Emikwaano tejibuzbuza mboozi yamikwaano</string>
   <!--Job-->
@@ -279,7 +279,7 @@ a</string>
   <!-- Removed by excludeNonTranslatables <string name="ExpirationDialog_your_messages_will_disappear_s_after_they_have_been_seen">Obubaka bwowereza ne bwofunye mu mbozi eno %s bujakubula bwomaliriza obulaba</string> -->
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">Yingiza passiwaddi nga yabigaambo ne namba</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Akabonero ka Molly</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Akabonero ka Signal-LTS</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">Waayo passiwaddi nga yabigaambo ne namba</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">passiwaddi y\'ebigambo ne namba sintuufu</string>
   <!--PlayServicesProblemFragment-->
@@ -327,10 +327,10 @@ gy\'olonze (%s) sintuufu.</string>
   <!--Search-->
   <!--SendJob-->
   <!--SharedContactDetailsActivity-->
-  <string name="SharedContactDetailsActivity_invite_to_signal">Muyite ku Molly</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Muyite ku Signal-LTS</string>
   <string name="SharedContactDetailsActivity_signal_call">Ssimu okuva ku Signal</string>
   <!--SharedContactView-->
-  <string name="SharedContactView_invite_to_signal">Muyite ku Molly</string>
+  <string name="SharedContactView_invite_to_signal">Muyite ku Signal-LTS</string>
   <!--Slide-->
   <string name="Slide_image">ekifaananyi</string>
   <string name="Slide_audio">edoboozi</string>
@@ -371,7 +371,7 @@ gy\'olonze (%s) sintuufu.</string>
   <!--KeyCachingService-->
   <string name="KeyCachingService_signal_passphrase_cached">Kwatako okugulawo</string>
   <!-- Removed by excludeNonTranslatables <string name="KeyCachingService_signal_passphrase_cached_with_lock">Kwatako okugulaaawo, oba kwataku kufulu okugalawo.</string> -->
-  <string name="KeyCachingService_passphrase_cached">Molly eggudwa</string>
+  <string name="KeyCachingService_passphrase_cached">Signal-LTS eggudwa</string>
   <!--MediaPreviewActivity-->
   <string name="MediaPreviewActivity_you">Gwe</string>
   <string name="MediaPreviewActivity_unssuported_media_type"> ekika kino ekya  Tekiwaniriddwa </string>

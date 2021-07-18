@@ -10,17 +10,17 @@
   <string name="AbstractNotificationBuilder_new_message">Nieuw bericht</string>
   <!--AlbumThumbnailView-->
   <!--ApplicationMigrationActivity-->
-  <string name="ApplicationMigrationActivity__signal_is_updating">Molly wordt nu bijgewerkt …</string>
+  <string name="ApplicationMigrationActivity__signal_is_updating">Signal-LTS wordt nu bijgewerkt …</string>
   <!--ApplicationPreferencesActivity-->
   <string name="ApplicationPreferencesActivity_currently_s">Momenteel: %s</string>
   <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">Je hebt nog geen wachtwoord ingesteld!</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">Wachtwoord uitschakelen?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Dit zal Molly en berichtmeldingen ontgrendelen en ontgrendeld houden.</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Dit zal Signal-LTS en berichtmeldingen ontgrendelen en ontgrendeld houden.</string>
   <string name="ApplicationPreferencesActivity_disable">Uitschakelen</string>
   <string name="ApplicationPreferencesActivity_unregistering">Aan het uitschrijven</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Je telefoonnummer wordt afgemeld voor Molly-berichten en -oproepen …</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Molly-berichten en -oproepen uitschakelen?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Dit zal je telefoonnummer uitschrijven bij de servers, je kunt dan niet langer Molly-berichten en -oproepen ontvangen of verzenden. Je zult je telefoonnummer opnieuw moeten registreren als je die functies weer wilt gebruiken.</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Je telefoonnummer wordt afgemeld voor Signal-LTS-berichten en -oproepen …</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Signal-LTS-berichten en -oproepen uitschakelen?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Dit zal je telefoonnummer uitschrijven bij de servers, je kunt dan niet langer Signal-LTS-berichten en -oproepen ontvangen of verzenden. Je zult je telefoonnummer opnieuw moeten registreren als je die functies weer wilt gebruiken.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">Fout bij verbinden met de server.</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">Sms is ingeschakeld</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">Tik hier als je je standaard-sms-applicatie wilt wijzigen</string>
@@ -59,14 +59,14 @@
   <string name="AttachmentKeyboard_file">Bestand</string>
   <string name="AttachmentKeyboard_contact">Contactpersoon</string>
   <string name="AttachmentKeyboard_location">Locatie</string>
-  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Molly heeft toegang nodig tot de externe opslagruimte om afbeeldingen en video\'s weer te kunnen geven.</string>
+  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Signal-LTS heeft toegang nodig tot de externe opslagruimte om afbeeldingen en video\'s weer te kunnen geven.</string>
   <string name="AttachmentKeyboard_give_access">Toestemming geven</string>
   <string name="AttachmentKeyboard_payment">Overschrijving</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">Er is geen app gevonden waarmee je media zou kunnen selecteren.</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly heeft toegang nodig tot de externe opslagruimte om afbeeldingen, video\'s of audio te kunnen verzenden, maar deze toestemming is pertinent geweigerd. Ga naar de instellingen, tik op  ‘Machtigingen’ en schakel ‘Opslagruimte’ in.</string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly heeft toegang nodig tot de contacten om contactinformatie in Molly weer te geven, maar deze toestemming is pertinent geweigerd. Ga naar de instellingen, tik op ‘Toestemmingen’ en schakel ‘Contacten’ in.</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly heeft toegang nodig tot de locatie om locaties te kunnen verzenden aan je gesprekspartners, maar deze toestemming is pertinent geweigerd. Ga naar de instellingen, tik op ‘Toestemmingen’ en schakel ‘Locatie’ in.</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signal-LTS heeft toegang nodig tot de externe opslagruimte om afbeeldingen, video\'s of audio te kunnen verzenden, maar deze toestemming is pertinent geweigerd. Ga naar de instellingen, tik op  ‘Machtigingen’ en schakel ‘Opslagruimte’ in.</string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Signal-LTS heeft toegang nodig tot de contacten om contactinformatie in Signal-LTS weer te geven, maar deze toestemming is pertinent geweigerd. Ga naar de instellingen, tik op ‘Toestemmingen’ en schakel ‘Contacten’ in.</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Signal-LTS heeft toegang nodig tot de locatie om locaties te kunnen verzenden aan je gesprekspartners, maar deze toestemming is pertinent geweigerd. Ga naar de instellingen, tik op ‘Toestemmingen’ en schakel ‘Locatie’ in.</string>
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">Media aan het uploaden …</string>
   <string name="AttachmentUploadJob_compressing_video_start">Video aan het comprimeren …</string>
@@ -118,14 +118,14 @@
   <string name="CameraContacts_no_signal_contacts">Geen Signal-gebuikers</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">Je kunt de cameraknop alleen gebruiken om foto\'s te verzenden aan Signal-gebruikers.</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">Kun je de persoon die je zoekt niet vinden?</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">Nodig een contactpersoon uit om ook Molly te gebruiken</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">Nodig een contactpersoon uit om ook Signal-LTS te gebruiken</string>
   <string name="CameraContacts__menu_search">Zoeken</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">Verwijderen</string>
   <string name="ClearProfileActivity_remove_profile_photo">Profielfoto verwijderen?</string>
   <string name="ClearProfileActivity_remove_group_photo">Groepsafbeelding verwijderen?</string>
   <!--ClientDeprecatedActivity-->
-  <string name="ClientDeprecatedActivity_update_signal">Molly bijwerken</string>
+  <string name="ClientDeprecatedActivity_update_signal">Signal-LTS bijwerken</string>
   <string name="ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported">Deze versie van de app wordt niet langer ondersteund. Om berichten te kunnen blijven verzenden en ontvangen moet je Signal bijwerken naar de meest recente versie.</string>
   <string name="ClientDeprecatedActivity_update">Bijwerken</string>
   <string name="ClientDeprecatedActivity_dont_update">Niet bijwerken</string>
@@ -204,7 +204,7 @@
   <string name="ConversationActivity_transport_insecure_sms">Onbeveiligde sms</string>
   <string name="ConversationActivity_transport_insecure_mms">Onbeveiligde mms</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">Laten we Molly gebruiken om een gesprek te voeren %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">Laten we Signal-LTS gebruiken om een gesprek te voeren %1$s</string>
   <string name="ConversationActivity_specify_recipient">Kies een gesprekspartner</string>
   <string name="ConversationActivity_unblock">Deblokkeren</string>
   <string name="ConversationActivity_attachment_exceeds_size_limits">Bijlage overschrijdt de maximale grootte voor het type bericht dat je wilt verzenden.</string>
@@ -213,15 +213,15 @@
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">Er is geen app beschikbaar op je apparaat om deze verwijzing te openen.</string>
   <string name="ConversationActivity_your_request_to_join_has_been_sent_to_the_group_admin">Je verzoek om lid te worden van de groep is doorgestuurd naar een beheerder. Je krijgt een melding zodra deze een besluit heeft genomen.</string>
   <string name="ConversationActivity_cancel_request">Verzoek annuleren</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Om audioberichten op te nemen, moet je Molly toegang geven tot je microfoon.</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly heeft toegang nodig tot de microfoon om audioberichten te kunnen opnemen, maar deze is pertinent geweigerd. Ga naar de instellingen voor deze app, tik op ‘Machtigingen’ en schakel ‘Microfoon’ in.</string>
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly heeft toegang nodig tot de microfoon en de camera om %s te kunnen bellen, maar deze is pertinent geweigerd. Ga naar de instellingen voor deze app, tik op ‘Machtigingen’ en schakel ‘Microfoon’ en ‘Camera’ in.</string>
-  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Geef Molly toegang tot de camera om foto\'s en video\'s te maken.</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Molly heeft toegang nodig tot de camera om foto’s en video’s te kunnen opnemen, maar deze is pertinent geweigerd. Ga naar de instellingen voor deze app, tik op ‘Machtigingen’ en schakel ‘Camera’ in.</string>
-  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Molly heeft toegang tot de camera nodig om foto’s en video’s te kunnen opnemen</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">Om audioberichten op te nemen, moet je Signal-LTS toegang geven tot je microfoon.</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Signal-LTS heeft toegang nodig tot de microfoon om audioberichten te kunnen opnemen, maar deze is pertinent geweigerd. Ga naar de instellingen voor deze app, tik op ‘Machtigingen’ en schakel ‘Microfoon’ in.</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Signal-LTS heeft toegang nodig tot de microfoon en de camera om %s te kunnen bellen, maar deze is pertinent geweigerd. Ga naar de instellingen voor deze app, tik op ‘Machtigingen’ en schakel ‘Microfoon’ en ‘Camera’ in.</string>
+  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">Geef Signal-LTS toegang tot de camera om foto\'s en video\'s te maken.</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signal-LTS heeft toegang nodig tot de camera om foto’s en video’s te kunnen opnemen, maar deze is pertinent geweigerd. Ga naar de instellingen voor deze app, tik op ‘Machtigingen’ en schakel ‘Camera’ in.</string>
+  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signal-LTS heeft toegang tot de camera nodig om foto’s en video’s te kunnen opnemen</string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Signal heeft toegang nodig tot de microfoon om video te kunnen opnemen met geluid.</string>
-  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Molly heeft toegang nodig tot de microfoon en camera om video te kunnen opnemen, maar deze is pertinent geweigerd. Ga naar de instellingen voor deze app, tik op ‘Machtigingen’ en schakel ‘Microfoon’ en ‘Camera’ in.</string>
-  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Molly heeft toegang nodig tot de microfoon om video te kunnen opnemen.</string>
+  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signal-LTS heeft toegang nodig tot de microfoon en camera om video te kunnen opnemen, maar deze is pertinent geweigerd. Ga naar de instellingen voor deze app, tik op ‘Machtigingen’ en schakel ‘Microfoon’ en ‘Camera’ in.</string>
+  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signal-LTS heeft toegang nodig tot de microfoon om video te kunnen opnemen.</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">Signal kan geen sms-/mms-bericht verzenden omdat Signal niet je standaard sms-app is. Wil je dit veranderen in je Android-instellingen?</string>
   <string name="ConversationActivity_yes">Ja</string>
@@ -237,7 +237,7 @@
   <string name="ConversationActivity_you_will_leave_this_group_and_it_will_be_deleted_from_all_of_your_devices">Je zult deze groep verlaten en het gesprek zal van al je apparaten worden gewist.</string>
   <string name="ConversationActivity_delete">Verwijderen</string>
   <string name="ConversationActivity_delete_and_leave">Verwijderen en verlaten</string>
-  <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">Molly heeft toegang nodig tot je microfoon om %1$s te bellen.</string>
+  <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">Signal-LTS heeft toegang nodig tot je microfoon om %1$s te bellen.</string>
   <string name="ConversationActivity__more_options_now_in_group_settings">Er zijn vanaf nu meer opties in de ‘Groepsgesprek-instellingen’</string>
   <string name="ConversationActivity_join">Deelnemen</string>
   <string name="ConversationActivity_full">Vol</string>
@@ -294,7 +294,7 @@
   <string name="ConversationFragment__d_group_members_have_the_same_name">%1$d groepsleden hebben dezelfde naam.</string>
   <string name="ConversationFragment__tap_to_review">Tik hier om te vergelijken</string>
   <string name="ConversationFragment__review_requests_carefully">Overweeg dit verzoek zorgvuldig</string>
-  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Molly heeft een ander contactpersoon gevonden met dezelfde naam.</string>
+  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Signal-LTS heeft een ander contactpersoon gevonden met dezelfde naam.</string>
   <string name="ConversationFragment_contact_us">Neem contact met ons op</string>
   <string name="ConversationFragment_verify">Verifiëren</string>
   <string name="ConversationFragment_not_now">Niet nu</string>
@@ -358,11 +358,11 @@
   <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Test je back-upwachtwoord om na te gaan of je het juiste wachtwoord onthouden hebt</string>
   <string name="BackupsPreferenceFragment__turn_on">Inschakelen</string>
   <string name="BackupsPreferenceFragment__turn_off">Uitschakelen</string>
-  <string name="BackupsPreferenceFragment__to_restore_a_backup">Om je gegevens uit een bestaand back-upbestand terug te plaatsen moet je Molly opnieuw installeren. Open dan de net geïnstalleerde Molly app en tik op “Back-upgegevens terugzetten”. %1$s</string>
+  <string name="BackupsPreferenceFragment__to_restore_a_backup">Om je gegevens uit een bestaand back-upbestand terug te plaatsen moet je Signal-LTS opnieuw installeren. Open dan de net geïnstalleerde Signal-LTS app en tik op “Back-upgegevens terugzetten”. %1$s</string>
   <string name="BackupsPreferenceFragment__learn_more">Meer leren hierover</string>
   <string name="BackupsPreferenceFragment__in_progress">Wordt nu uitgevoerd …</string>
   <string name="BackupsPreferenceFragment__d_so_far">Tot nu toe %1$d …</string>
-  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly heeft toegang nodig tot de externe opslagruimte om back-upbestanden te kunnen maken, maar deze is pertinent geweigerd. Ga naar de instellingen voor deze app, tik op ‘Machtigingen’ en schakel ‘Opslagruimte’ in.</string>
+  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal-LTS heeft toegang nodig tot de externe opslagruimte om back-upbestanden te kunnen maken, maar deze is pertinent geweigerd. Ga naar de instellingen voor deze app, tik op ‘Machtigingen’ en schakel ‘Opslagruimte’ in.</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Zelf ingesteld: %s</string>
   <string name="CustomDefaultPreference_using_default">Standaard in gebruik: %s</string>
@@ -407,7 +407,7 @@
   <string name="GroupCallingMegaphone__open_a_new_group_to_start">Je vindt de knop om een eind-tot-eind-versleutelde groepsoproep te starten rechts bovenin in een groepsgesprek</string>
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">Optimaliseren voor ontbrekende Google Play Services</string>
-  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Dit apparaat biedt geen ondersteuning voor Google Play Services. Tik hier om de optimalisaties m.b.t. stroomverbruik uit te schakelen, die Molly momenteel verhinderen om berichten te ontvangen op de achtergrond.</string>
+  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Dit apparaat biedt geen ondersteuning voor Google Play Services. Tik hier om de optimalisaties m.b.t. stroomverbruik uit te schakelen, die Signal-LTS momenteel verhinderen om berichten te ontvangen op de achtergrond.</string>
   <!--ExpiredBuildReminder-->
   <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Deze versie van Signal is verlopen. Werk Signal bij om weer berichten te kunnen verzenden en ontvangen.</string>
   <string name="ExpiredBuildReminder_update_now">Nu bijwerken</string>
@@ -422,7 +422,7 @@
   <string name="ShareActivity_multiple_attachments_are_only_supported">Het verzenden van meerdere bijlagen is alleen mogelijk voor afbeeldingen en video\'s</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Pertinente Signal-communicatiefout!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly was niet in staat zich bij de Google Play services op je telefoon te registreren. Molly-berichten en -oproepen zijn nu uitgeschakeld, probeer opnieuw te registreren via Instellingen &gt; Privacy &gt; Geavanceerd.</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal-LTS was niet in staat zich bij de Google Play services op je telefoon te registreren. Signal-LTS-berichten en -oproepen zijn nu uitgeschakeld, probeer opnieuw te registreren via Instellingen &gt; Privacy &gt; Geavanceerd.</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">Fout bij het ophalen van de GIF in volledige resolutie</string>
   <!--GiphyFragmentPageAdapter-->
@@ -747,7 +747,7 @@
   <string name="InviteActivity_cancel">Annuleren</string>
   <string name="InviteActivity_sending">Bezig met verzenden …</string>
   <string name="InviteActivity_invitations_sent">Uitnodigingen verzonden!</string>
-  <string name="InviteActivity_invite_to_signal">Uitnodigen voor Molly</string>
+  <string name="InviteActivity_invite_to_signal">Uitnodigen voor Signal-LTS</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">VERZEND SMS NAAR %d KENNIS</item>
     <item quantity="other">VERZEND SMS NAAR %d KENNISSEN</item>
@@ -756,7 +756,7 @@
     <item quantity="one">%d sms-uitnodiging verzenden?</item>
     <item quantity="other">%d sms-uitnodigingen verzenden?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">Laten we Molly gebruiken om een gesprek te voeren: %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">Laten we Signal-LTS gebruiken om een gesprek te voeren: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Het lijkt erop dat je geen apps hebt waarmee je een uitnodiging kan verzenden.</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Vrienden laten vrienden geen gesprekken onversleuteld voeren.</string>
   <!--LearnMoreTextView-->
@@ -766,7 +766,7 @@
   <string name="LongMessageActivity_message_from_s">Volledige bericht van %1$s</string>
   <string name="LongMessageActivity_your_message">Jouw volledige bericht</string>
   <!--MessageRetrievalService-->
-  <string name="MessageRetrievalService_signal">Molly</string>
+  <string name="MessageRetrievalService_signal">Signal-LTS</string>
   <string name="MessageRetrievalService_background_connection_enabled">Berichten ontvangen in de achtergrond is actief</string>
   <!--MmsDownloader-->
   <string name="MmsDownloader_error_reading_mms_settings">Fout bij het lezen van de mms-instellingen van de provider</string>
@@ -854,8 +854,8 @@
   <string name="MediaSendActivity_message_to_s">Bericht aan %s</string>
   <string name="MediaSendActivity_message">Bericht</string>
   <string name="MediaSendActivity_select_recipients">Selecteer Signal-gebruikers</string>
-  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Molly heeft toegang nodig tot je contacten om contactpersonen te kunnen weergeven.</string>
-  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Molly heeft toegang tot je lijst met contacten nodig om je contacten weer te kunnen geven, maar toestemming om contacten in te zien is pertinent geweigerd. Ga naar de instellingen voor deze app, tik op ‘Machtigingen’ en schakel ‘Contacten’ in.</string>
+  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Signal-LTS heeft toegang nodig tot je contacten om contactpersonen te kunnen weergeven.</string>
+  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Signal-LTS heeft toegang tot je lijst met contacten nodig om je contacten weer te kunnen geven, maar toestemming om contacten in te zien is pertinent geweigerd. Ga naar de instellingen voor deze app, tik op ‘Machtigingen’ en schakel ‘Contacten’ in.</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="one">Je kan niet meer dan %d item delen.</item>
     <item quantity="other">Je kunt niet meer dan %d items delen.</item>
@@ -1101,7 +1101,7 @@
   <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">Sorry, dit is geen geldige QR-code om een apparaat te koppelen.</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">Een Signal-apparaat koppelen?</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Het lijkt erop dat je een Signal-apparaat wilt koppelen met behulp van een externe scanner. Scan voor de veiligheid de code opnieuw vanuit Signal.</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly heeft toegang tot de camera nodig om een QR-code te scannen, maar deze is pertinent geweigerd. Ga naar de instellingen voor deze app, tik op ‘Machtigingen’ en schakel ‘Camera’ in.</string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Signal-LTS heeft toegang tot de camera nodig om een QR-code te scannen, maar deze is pertinent geweigerd. Ga naar de instellingen voor deze app, tik op ‘Machtigingen’ en schakel ‘Camera’ in.</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Kan geen QR-code scannen zonder toegang tot camera</string>
   <!--OutdatedBuildReminder-->
   <string name="OutdatedBuildReminder_update_now">Nu bijwerken</string>
@@ -1112,10 +1112,10 @@
   </plurals>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">Voer wachtwoord in</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Molly-pictogram</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Signal-LTS-pictogram</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">Wachtwoord instellen</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Ongeldig wachtwoord!</string>
-  <string name="PassphrasePromptActivity_unlock_signal">Molly ontgrendelen</string>
+  <string name="PassphrasePromptActivity_unlock_signal">Signal-LTS ontgrendelen</string>
   <string name="PassphrasePromptActivity_signal_android_lock_screen">Signal-Android - Vergrendelingsscherm</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">Kaart</string>
@@ -1162,7 +1162,7 @@
   <string name="ReactionsRecipientAdapter_you">Jij</string>
   <!--RecaptchaRequiredBottomSheetFragment-->
   <string name="RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging">Je moet je telefoonnummer verifiëren om door te kunnen gaan met het verzenden van berichten</string>
-  <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Om Molly te helpen spam te voorkomen is het nodig dat je je telefoonnummer verifieert.</string>
+  <string name="RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal">Om Signal-LTS te helpen spam te voorkomen is het nodig dat je je telefoonnummer verifieert.</string>
   <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">Je kunt doorgaan met het verzenden van berichten nadat je je telefoonnummer hebt geverifieerd. Enig bericht waarvan verzending is gepauzeerd zal dan automatisch verzonden worden.</string>
   <!--Recipient-->
   <string name="Recipient_you">Jij</string>
@@ -1183,8 +1183,8 @@
   <string name="RedPhone_got_it">Begrepen</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Tik hier om je camera aan te zetten</string>
-  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Molly heeft toegang nodig tot je camera om %1$s te bellen</string>
-  <string name="WebRtcCallActivity__signal_s">Molly-oproep %1$s</string>
+  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Signal-LTS heeft toegang nodig tot je camera om %1$s te bellen</string>
+  <string name="WebRtcCallActivity__signal_s">Signal-LTS-oproep %1$s</string>
   <string name="WebRtcCallActivity__calling">Oproep aan het starten …</string>
   <!--WebRtcCallView-->
   <string name="WebRtcCallView__signal_voice_call">Signal audio-oproep …</string>
@@ -1247,7 +1247,7 @@
   <string name="RegistrationActivity_is_your_phone_number_above_correct">Is je telefoonnummer hierboven correct?</string>
   <string name="RegistrationActivity_edit_number">Telefoonnummer wijzigen</string>
   <string name="RegistrationActivity_missing_google_play_services">De Google Play Services zijn niet aanwezig</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Dit apparaat bevat geen Google Play Services. Je kunt Molly nog steeds gebruiken, maar deze configuratie kan de betrouwbaarheid en prestaties verslechteren.\n\nAls je geen gevorderde gebruiker bent, geen aangepaste ROM gebruikt of denkt dat dit bericht onterecht wordt weergegeven, neem dan contact op met support@molly.im voor hulp met probleemoplossen.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Dit apparaat bevat geen Google Play Services. Je kunt Signal-LTS nog steeds gebruiken, maar deze configuratie kan de betrouwbaarheid en prestaties verslechteren.\n\nAls je geen gevorderde gebruiker bent, geen aangepaste ROM gebruikt of denkt dat dit bericht onterecht wordt weergegeven, neem dan contact op met support@Signal-LTS.im voor hulp met probleemoplossen.</string>
   <string name="RegistrationActivity_i_understand">Ik begrijp het</string>
   <string name="RegistrationActivity_play_services_error">Google Play Services fout</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">De Google Play Services is momenteel aan het updaten of is tijdelijk niet beschikbaar. Probeer het nog eens.</string>
@@ -1255,7 +1255,7 @@
   <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Signal zal je om een aantal toestemmingen vragen: Signal moet je contactenlijst lezen om je opgeslagen contactpersonen weer te geven als optie om berichten naar te verzenden en om beveiligde oproepen mee te beginnen.
 Signal moet ook bestanden kunnen lezen van en schrijven naar de externe opslag, om deze bij te kunnen voegen als bijlagen en om ontvangen bijlagen op te kunnen slaan.
 Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-oproepen je andere oproepen verstoren.</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Molly heeft toegang nodig tot de contactenlijst van je telefoon om je contactpersonen te kunnen weergeven als opties om beveiligde gesprekken mee te beginnen en om beveiligd mee te bellen</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Signal-LTS heeft toegang nodig tot de contactenlijst van je telefoon om je contactpersonen te kunnen weergeven als opties om beveiligde gesprekken mee te beginnen en om beveiligd mee te bellen</string>
   <string name="RegistrationActivity_rate_limited_to_service">Je hebt te veel pogingen ondernomen om Signal voor dit telefoonnummer te registreren. Probeer het later opnieuw.</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">Het lukt niet om te verbinden met Signals servers. Ga na dat je apparaat internetverbinding heeft en probeer het opnieuw.</string>
   <plurals name="RegistrationActivity_debug_log_hint">
@@ -1293,12 +1293,12 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <!--ShakeToReport-->
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">Aan contactenlijst toevoegen</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Uitnodigen voor Molly</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Uitnodigen voor Signal-LTS</string>
   <string name="SharedContactDetailsActivity_signal_message">Signal-gesprek openen</string>
   <string name="SharedContactDetailsActivity_signal_call">Signal-oproep</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">Aan contactenlijst toevoegen</string>
-  <string name="SharedContactView_invite_to_signal">Uitnodigen voor Molly</string>
+  <string name="SharedContactView_invite_to_signal">Uitnodigen voor Signal-LTS</string>
   <string name="SharedContactView_message">Signal-gesprek openen</string>
   <!--SignalPinReminders-->
   <string name="SignalPinReminders_well_remind_you_again_later">Correct! Signal zal je later opnieuw vragen of je je pincode nog weet.</string>
@@ -1356,8 +1356,8 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <string name="SupportEmailUtil_filter">Filter:</string>
   <string name="SupportEmailUtil_device_info">Apparaatinformatie:</string>
   <string name="SupportEmailUtil_android_version">Android-versie:</string>
-  <string name="SupportEmailUtil_signal_version">Molly-versie:</string>
-  <string name="SupportEmailUtil_signal_package">Molly-pakket:</string>
+  <string name="SupportEmailUtil_signal_version">Signal-LTS-versie:</string>
+  <string name="SupportEmailUtil_signal_package">Signal-LTS-pakket:</string>
   <string name="SupportEmailUtil_registration_lock">Registratievergrendeling:</string>
   <string name="SupportEmailUtil_locale">Taalgebied:</string>
   <!--ThreadRecord-->
@@ -1393,8 +1393,8 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <string name="ThreadRecord_video">Video</string>
   <string name="ThreadRecord_chat_session_refreshed">Gespreksessie vernieuwd</string>
   <!--UpdateApkReadyListener-->
-  <string name="UpdateApkReadyListener_Signal_update">Nieuwe versie van Molly</string>
-  <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Er is een nieuwe versie van Molly beschikbaar. Tik hier om bij te werken</string>
+  <string name="UpdateApkReadyListener_Signal_update">Nieuwe versie van Signal-LTS</string>
+  <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Er is een nieuwe versie van Signal-LTS beschikbaar. Tik hier om bij te werken</string>
   <!--UntrustedSendDialog-->
   <string name="UntrustedSendDialog_send_message">Bericht verzenden?</string>
   <string name="UntrustedSendDialog_send">Verzenden</string>
@@ -1426,7 +1426,7 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <string name="VerifyIdentityActivity_our_signal_safety_number">Ons Signal-veiligheidsnummer:</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">Het lijkt erop dat je geen apps hebt waarmee je je veiligheidsnummer kunt doorsturen.</string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">Geen veiligheidsnummer gevonden op het klembord</string>
-  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Molly heeft toegang tot de camera nodig om een QR-code te scannen, maar deze is pertinent geweigerd. Ga naar de instellingen voor deze app, tik op ‘Machtigingen’ en schakel ‘Camera’ in.</string>
+  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Signal-LTS heeft toegang tot de camera nodig om een QR-code te scannen, maar deze is pertinent geweigerd. Ga naar de instellingen voor deze app, tik op ‘Machtigingen’ en schakel ‘Camera’ in.</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">Kan QR-code niet scannen zonder toegang tot camera</string>
   <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">Om het veiligheidsnummer van %1$s te kunnen weergeven moet je eerst berichten met hem of haar uitwisselen.</string>
   <!--ViewOnceMessageActivity-->
@@ -1445,13 +1445,13 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <string name="ApplicationMigrationService_system_database_import_is_complete">Het importeren van de systeemdatabank is voltooid.</string>
   <!--KeyCachingService-->
   <string name="KeyCachingService_signal_passphrase_cached">Tik om te openen.</string>
-  <string name="KeyCachingService_passphrase_cached">Molly is ontgrendeld</string>
-  <string name="KeyCachingService_lock">Vergrendel Molly</string>
+  <string name="KeyCachingService_passphrase_cached">Signal-LTS is ontgrendeld</string>
+  <string name="KeyCachingService_lock">Vergrendel Signal-LTS</string>
   <!--MediaPreviewActivity-->
   <string name="MediaPreviewActivity_you">Door jou verzonden</string>
   <string name="MediaPreviewActivity_unssuported_media_type">Niet-ondersteund mediatype</string>
   <string name="MediaPreviewActivity_draft">Concept</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Molly heeft toegang tot externe opslagruimte nodig om iets op te slaan op de externe opslag, maar deze toegang is pertinent geweigerd. Ga naar de instellingen voor deze app, tik op ‘Machtigingen’ en schakel ‘Opslagruimte’ in.</string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Signal-LTS heeft toegang tot externe opslagruimte nodig om iets op te slaan op de externe opslag, maar deze toegang is pertinent geweigerd. Ga naar de instellingen voor deze app, tik op ‘Machtigingen’ en schakel ‘Opslagruimte’ in.</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">Kan niet opslaan naar externe opslag zonder machtiging</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">Bericht wissen?</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">Dit bericht zal alleen voor jou onherroepelijk gewist worden, maar dus niet voor je gesprekspartner(s).</string>
@@ -1466,7 +1466,7 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <string name="MessageNotifier_failed_to_deliver_message">Het bericht afleveren is mislukt.</string>
   <string name="MessageNotifier_error_delivering_message">Fout bij afleveren bericht.</string>
   <string name="MessageNotifier_message_delivery_paused">Berichten-aflevering is gepauzeerd.</string>
-  <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Verifieer je telefoonnummer om door te kunnen gaan met het verzenden en ontvangen van berichten via Molly.</string>
+  <string name="MessageNotifier_verify_to_continue_messaging_on_signal">Verifieer je telefoonnummer om door te kunnen gaan met het verzenden en ontvangen van berichten via Signal-LTS.</string>
   <string name="MessageNotifier_mark_all_as_read">Alles markeren als gelezen</string>
   <string name="MessageNotifier_mark_read">Markeren als gelezen</string>
   <string name="MessageNotifier_turn_off_these_notifications">Dit soort meldingen uitschakelen</string>
@@ -1476,7 +1476,7 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <string name="MessageNotifier_signal_message">Signal-bericht</string>
   <string name="MessageNotifier_unsecured_sms">Onbeveiligde sms</string>
   <string name="MessageNotifier_you_may_have_new_messages">Je hebt mogelijk nieuwe berichten</string>
-  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Open Molly om te zien of er recente meldingen zijn.</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Open Signal-LTS om te zien of er recente meldingen zijn.</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">Contactpersoon</string>
   <string name="MessageNotifier_reacted_s_to_s">reageerde met %1$s op “%2$s”.</string>
@@ -1503,7 +1503,7 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <string name="NotificationChannels__no_activity_available_to_open_notification_channel_settings">Geen ‘activiteit’ beschikbaar om instellingen voor meldingskanalen mee te openen.</string>
   <!--ProfileEditNameFragment-->
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Snel reageren niet beschikbaar wanneer Molly vergrendeld is!</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Snel reageren niet beschikbaar wanneer Signal-LTS vergrendeld is!</string>
   <string name="QuickResponseService_problem_sending_message">Fout bij verzenden van bericht!</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">Opgeslagen naar %s</string>
@@ -1514,7 +1514,7 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">Ongeldige snelkoppeling</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Signal-LTS</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Nieuw bericht</string>
   <string name="SingleRecipientNotificationBuilder_message_request">Gespreksverzoek</string>
   <string name="SingleRecipientNotificationBuilder_you">Jij</string>
@@ -1530,8 +1530,8 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <string name="UnauthorizedReminder_device_no_longer_registered">Apparaat niet langer geregistreerd</string>
   <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Dit komt waarschijnlijk doordat je je telefoonnummer met Signal op een ander apparaat hebt geregistreerd. Tik hier om opnieuw te registreren.</string>
   <!--WebRtcCallActivity-->
-  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Geef Molly toegang tot je microfoon om de oproep van %s te beantwoorden.</string>
-  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Molly heeft toegang nodig tot de microfoon en de camera om oproepen te maken of te ontvangen, maar deze toegang is pertinent geweigerd. Ga naar de instellingen voor deze app, tik op ‘Machtigingen’ en schakel ‘Microfoon’ en ‘Camera’ in.</string>
+  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Geef Signal-LTS toegang tot je microfoon om de oproep van %s te beantwoorden.</string>
+  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Signal-LTS heeft toegang nodig tot de microfoon en de camera om oproepen te maken of te ontvangen, maar deze toegang is pertinent geweigerd. Ga naar de instellingen voor deze app, tik op ‘Machtigingen’ en schakel ‘Microfoon’ en ‘Camera’ in.</string>
   <string name="WebRtcCallActivity__answered_on_a_linked_device">Beantwoord vanaf een gekoppeld apparaat.</string>
   <string name="WebRtcCallActivity__declined_on_a_linked_device">Geweigerd vanaf een gekoppeld apparaat.</string>
   <string name="WebRtcCallActivity__busy_on_a_linked_device">Bezet omdat je al een gesprek voerde via een van je gekoppelde apparaten.</string>
@@ -1555,7 +1555,7 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <string name="change_passphrase_activity__repeat_new_passphrase">Herhaal nieuw wachtwoord</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">Typ naam of nummer</string>
-  <string name="contact_selection_activity__invite_to_signal">Uitnodigen voor Molly</string>
+  <string name="contact_selection_activity__invite_to_signal">Uitnodigen voor Signal-LTS</string>
   <string name="contact_selection_activity__new_group">Nieuwe groep aanmaken</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">Ingevoerde tekst wissen</string>
@@ -1567,7 +1567,7 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <!--single_contact_selection_activity-->
   <string name="SingleContactSelectionActivity_contact_photo">Foto van contactpersoon</string>
   <!--ContactSelectionListFragment-->
-  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Molly heeft toegang tot je lijst met contacten nodig om je contacten weer te kunnen geven, maar toestemming om contacten in te zien is pertinent geweigerd. Ga naar de instellingen voor deze app, tik op ‘Machtigingen’ en schakel ‘Contacten’ in.</string>
+  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Signal-LTS heeft toegang tot je lijst met contacten nodig om je contacten weer te kunnen geven, maar toestemming om contacten in te zien is pertinent geweigerd. Ga naar de instellingen voor deze app, tik op ‘Machtigingen’ en schakel ‘Contacten’ in.</string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Fout bij het ophalen van contactpersonen, ga na dat je netwerkverbinding werkt</string>
   <string name="ContactSelectionListFragment_username_not_found">Gebruikersnaam niet gevonden</string>
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">“%1$s” is geen Signal-gebruiker. Kijk de gebruikersnaam na en probeer het opnieuw.</string>
@@ -1581,7 +1581,7 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
     <item quantity="other">%1$d personen</item>
   </plurals>
   <!--contact_selection_list_fragment-->
-  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly heeft toegang nodig tot je contacten om contactpersonen te kunnen weergeven.</string>
+  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Signal-LTS heeft toegang nodig tot je contacten om contactpersonen te kunnen weergeven.</string>
   <string name="contact_selection_list_fragment__show_contacts">Contactpersonen weergeven</string>
   <!--contact_selection_list_item-->
   <plurals name="contact_selection_list_item__number_of_members">
@@ -1946,7 +1946,7 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <string name="preferences__slow">Langzaam</string>
   <string name="preferences__help">Hulp</string>
   <string name="preferences__advanced">Geavanceerd</string>
-  <string name="preferences__donate_to_signal">Aan Molly doneren</string>
+  <string name="preferences__donate_to_signal">Aan Signal-LTS doneren</string>
   <string name="preferences__privacy">Privacy</string>
   <string name="preferences__mms_user_agent">Mms-gebruikersagent</string>
   <string name="preferences__advanced_mms_access_point_names">Handmatige mms-instellingen</string>
@@ -2075,7 +2075,7 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <string name="PaymentsAllActivityFragment__sent">Verzonden</string>
   <string name="PaymentsAllActivityFragment__received">Ontvangen</string>
   <string name="PaymentsHomeFragment__introducing_payments">Signal introduceert overschrijvingen (Bèta)</string>
-  <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Je kunt Molly ook gebruiken om een nieuw privacygericht betaalmiddel genaamd MobileCoin te verzenden en ontvangen. Als je dat wilt, schakel dan overschrijvingen in.</string>
+  <string name="PaymentsHomeFragment__use_signal_to_send_and_receive">Je kunt Signal-LTS ook gebruiken om een nieuw privacygericht betaalmiddel genaamd MobileCoin te verzenden en ontvangen. Als je dat wilt, schakel dan overschrijvingen in.</string>
   <string name="PaymentsHomeFragment__activate_payments">Overschrijvingen inschakelen</string>
   <string name="PaymentsHomeFragment__activating_payments">Overschrijvingen aan het inschakelen …</string>
   <string name="PaymentsHomeFragment__restore_payments_account">Overschrijvingen-account herstellen</string>
@@ -2109,10 +2109,10 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <string name="PaymentsHomeFragment__payments_deactivated">Overschrijvingen uitgeschakeld.</string>
   <string name="PaymentsHomeFragment__payment_failed">Overschrijving is mislukt</string>
   <string name="PaymentsHomeFragment__details">Details</string>
-  <string name="PaymentsHomeFragment__you_can_use_signal_to_send">Je kunt Molly gebruiken om MobileCoin te verzenden en ontvangen. De gebruiksvoorwaarden van MobileCoin en van de MobileCoin-portemonnee zijn op alle overschrijvingen van toepassing. Dit is een bèta-functionaliteit, dat betekent dat er fouten kunnen voorkomen en het kan voorkomen dat overschrijvingen en krediet verloren gaan en niet hersteld kunnen worden.</string>
+  <string name="PaymentsHomeFragment__you_can_use_signal_to_send">Je kunt Signal-LTS gebruiken om MobileCoin te verzenden en ontvangen. De gebruiksvoorwaarden van MobileCoin en van de MobileCoin-portemonnee zijn op alle overschrijvingen van toepassing. Dit is een bèta-functionaliteit, dat betekent dat er fouten kunnen voorkomen en het kan voorkomen dat overschrijvingen en krediet verloren gaan en niet hersteld kunnen worden.</string>
   <string name="PaymentsHomeFragment__activate">Inschakelen</string>
   <string name="PaymentsHomeFragment__view_mobile_coin_terms">De voorwaarden van MobileCoin weergeven</string>
-  <string name="PaymentsHomeFragment__payments_not_available">Overschrijvingen via Molly zijn niet langer mogelijk. Je kunt nog wel je krediet omzetten naar een andere valuta maar je kunt niet langer overschrijvingen verzenden of ontvangen of krediet toevoegen.</string>
+  <string name="PaymentsHomeFragment__payments_not_available">Overschrijvingen via Signal-LTS zijn niet langer mogelijk. Je kunt nog wel je krediet omzetten naar een andere valuta maar je kunt niet langer overschrijvingen verzenden of ontvangen of krediet toevoegen.</string>
   <!--PaymentsAddMoneyFragment-->
   <string name="PaymentsAddMoneyFragment__add_funds">Krediet toevoegen</string>
   <string name="PaymentsAddMoneyFragment__your_wallet_address">Het adres van je portemonnee</string>
@@ -2149,10 +2149,10 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <string name="PaymentsTransferFragment__next">Volgende</string>
   <string name="PaymentsTransferFragment__invalid_address">Adres ongeldig</string>
   <string name="PaymentsTransferFragment__check_the_wallet_address">Ga na dat het portemonnee-adres waarnaar je probeert over te schrijven juist is en probeer het opnieuw.</string>
-  <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">Je kunt niet vanuit Molly overschrijven naar je eigen Molly portemonnee-adres. Vul het portemonnee-adres van je account bij de beurs in.</string>
-  <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">Molly heeft toegang nodig tot de camera om een QR-code the kunnen scannen.</string>
-  <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Molly heeft toegang nodig tot je camera om QR-codes te scannen, maar deze toestemming is pertinent geweigerd. Ga naar het menu voor instellingen voor apps, tik op \"App-machtigingen\" en schakel \"Camera\" in.</string>
-  <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">Molly heeft toegang nodig tot de camera om een QR-code the kunnen scannen.</string>
+  <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">Je kunt niet vanuit Signal-LTS overschrijven naar je eigen Signal-LTS portemonnee-adres. Vul het portemonnee-adres van je account bij de beurs in.</string>
+  <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">Signal-LTS heeft toegang nodig tot de camera om een QR-code the kunnen scannen.</string>
+  <string name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Signal-LTS heeft toegang nodig tot je camera om QR-codes te scannen, maar deze toestemming is pertinent geweigerd. Ga naar het menu voor instellingen voor apps, tik op \"App-machtigingen\" en schakel \"Camera\" in.</string>
+  <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">Signal-LTS heeft toegang nodig tot de camera om een QR-code the kunnen scannen.</string>
   <string name="PaymentsTransferFragment__settings">Instellingen</string>
   <!--PaymentsTransferQrScanFragment-->
   <string name="PaymentsTransferQrScanFragment__scan_address_qr_code">Scan de QR-code van de portemonnee van de ontvanger</string>
@@ -2513,7 +2513,7 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">Je hebt te veel pogingen ondernomen. Probeer het later opnieuw.</string>
   <string name="RegistrationActivity_error_connecting_to_service">Fout bij het verbinden met Signals servers</string>
   <string name="preferences_chats__backups">Back-ups</string>
-  <string name="prompt_passphrase_activity__signal_is_locked">Molly is vergrendeld</string>
+  <string name="prompt_passphrase_activity__signal_is_locked">Signal-LTS is vergrendeld</string>
   <string name="prompt_passphrase_activity__tap_to_unlock">TIK OM TE ONTGRENDELEN</string>
   <string name="Recipient_unknown">Onbekend</string>
   <!--TransferOrRestoreFragment-->
@@ -2537,18 +2537,18 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">Aan het voorbereiden om verbinding te maken met je oude Android-apparaat …</string>
   <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">Een moment, dit duurt niet lang</string>
   <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">Aan het wachten tot je oude oude Android-apparaat verbinding maakt …</string>
-  <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Om je oude Android apparaat te kunnen detecteren en om er verbinding mee te maken heeft de Molly-app een machtiging nodig om je locatie te lezen.</string>
+  <string name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Om je oude Android apparaat te kunnen detecteren en om er verbinding mee te maken heeft de Signal-LTS-app een machtiging nodig om je locatie te lezen.</string>
   <string name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Om je oude Android apparaat te kunnen detecteren en om er verbinding mee te maken is het nodig dat locatiebepaling op dit apparaat is ingeschakeld.</string>
-  <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Molly heeft wifi op je apparaat nodig om verbinding te maken met je oude Android apparaat. Wifi moet zijn ingeschakeld, maar je hoeft niet verbonden te zijn met een wifi-netwerk.</string>
-  <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Sorry, het lijkt er op dat dit apparaat geen ondersteuning biedt voor wifi-direct. Molly heeft wifi-direct nodig om je oude Android-apparaat te detecteren en om er verbinding mee te maken. Je kunt nog wel je gegevens overzetten door op je oude Android-apparaat in Molly een back-upbestand te maken en vervolgens vanuit dat back-upbestand te herstellen op je nieuwe Android-apparaat.</string>
+  <string name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Signal-LTS heeft wifi op je apparaat nodig om verbinding te maken met je oude Android apparaat. Wifi moet zijn ingeschakeld, maar je hoeft niet verbonden te zijn met een wifi-netwerk.</string>
+  <string name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Sorry, het lijkt er op dat dit apparaat geen ondersteuning biedt voor wifi-direct. Signal-LTS heeft wifi-direct nodig om je oude Android-apparaat te detecteren en om er verbinding mee te maken. Je kunt nog wel je gegevens overzetten door op je oude Android-apparaat in Signal-LTS een back-upbestand te maken en vervolgens vanuit dat back-upbestand te herstellen op je nieuwe Android-apparaat.</string>
   <string name="NewDeviceTransferSetup__restore_a_backup">Back-upgegevens terugzetten</string>
   <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Er is een onverwachte fout opgetreden bij het proberen verbinding te maken met je oude Android-apparaat.</string>
   <!--OldDeviceTransferSetupFragment-->
   <string name="OldDeviceTransferSetup__searching_for_new_android_device">Er wordt gezocht naar je nieuwe Android-apparaat …</string>
-  <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Om je nieuwe Android apparaat te kunnen detecteren en om er verbinding mee te maken heeft de Molly-app een machtiging nodig om je locatie te lezen.</string>
+  <string name="OldDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_new_device">Om je nieuwe Android apparaat te kunnen detecteren en om er verbinding mee te maken heeft de Signal-LTS-app een machtiging nodig om je locatie te lezen.</string>
   <string name="OldDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_new_device">Om je nieuwe Android apparaat te kunnen detecteren en om er verbinding mee te maken is het nodig dat locatiebepaling op dit apparaat is ingeschakeld.</string>
-  <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Molly heeft wifi op je apparaat nodig om verbinding te maken met je nieuwe Android apparaat. Wifi moet zijn ingeschakeld, maar je hoeft niet verbonden te zijn met een wifi-netwerk.</string>
-  <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Sorry, het lijkt er op dat dit apparaat geen ondersteuning biedt voor wifi-direct. Molly heeft wifi-direct nodig om je nieuwe Android-apparaat te detecteren en om er verbinding mee te maken. Je kunt nog wel je gegevens overzetten door op je oude Android-apparaat in Molly een back-upbestand te maken en vervolgens vanuit dat back-upbestand te herstellen op je nieuwe Android-apparaat.</string>
+  <string name="OldDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_new_device">Signal-LTS heeft wifi op je apparaat nodig om verbinding te maken met je nieuwe Android apparaat. Wifi moet zijn ingeschakeld, maar je hoeft niet verbonden te zijn met een wifi-netwerk.</string>
+  <string name="OldDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Sorry, het lijkt er op dat dit apparaat geen ondersteuning biedt voor wifi-direct. Signal-LTS heeft wifi-direct nodig om je nieuwe Android-apparaat te detecteren en om er verbinding mee te maken. Je kunt nog wel je gegevens overzetten door op je oude Android-apparaat in Signal-LTS een back-upbestand te maken en vervolgens vanuit dat back-upbestand te herstellen op je nieuwe Android-apparaat.</string>
   <string name="OldDeviceTransferSetup__create_a_backup">Een back-upbestand maken</string>
   <string name="OldDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">Er is een onverwachte fout opgetreden bij het proberen verbinding te maken met je nieuwe Android-apparaat.</string>
   <!--DeviceTransferSetupFragment-->
@@ -2586,7 +2586,7 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <string name="NewDeviceTransfer__cannot_transfer_from_a_newer_version_of_signal">Je kunt gegevens niet overzetten vanuit een nieuwere versie van Signal</string>
   <!--DeviceTransferFragment-->
   <string name="DeviceTransfer__transferring_data">Gegevens aan het overzetten</string>
-  <string name="DeviceTransfer__keep_both_devices_near_each_other">Houd de apparaten bij elkaar in de buurt. Schakel ze niet uit, en laat houd de Molly-app open. Het overzetten is goed beveiligd, want dit gebeurd altijd over een eind-tot-eind-versleutelde verbinding.</string>
+  <string name="DeviceTransfer__keep_both_devices_near_each_other">Houd de apparaten bij elkaar in de buurt. Schakel ze niet uit, en laat houd de Signal-LTS-app open. Het overzetten is goed beveiligd, want dit gebeurd altijd over een eind-tot-eind-versleutelde verbinding.</string>
   <string name="DeviceTransfer__d_messages_so_far">%1$d berichten tot nu toe …</string>
   <string name="DeviceTransfer__cancel">Audio-opname annuleren</string>
   <string name="DeviceTransfer__try_again">Opnieuw proberen</string>
@@ -2599,7 +2599,7 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <string name="OldDeviceTransferInstructions__transfer_account">Instellingen overzetten</string>
   <string name="OldDeviceTransferInstructions__you_can_transfer_your_signal_account_when_setting_up_signal_on_a_new_android_device">Je kunt al je Signalgegevens en berichten overzetten wanneer je Signal in gebruik neemt op een nieuw apparaat. Volg daarvoor deze stappen:</string>
   <string name="OldDeviceTransferInstructions__first_bullet">1.</string>
-  <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Download en open Molly op je nieuwe Android-apparaat</string>
+  <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">Download en open Signal-LTS op je nieuwe Android-apparaat</string>
   <string name="OldDeviceTransferInstructions__second_bullet">2.</string>
   <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">Tik op ‘Signalgegevens herstellen of overzetten’</string>
   <string name="OldDeviceTransferInstructions__third_bullet">3.</string>
@@ -2665,7 +2665,7 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <!--GroupLinkBottomSheetDialogFragment-->
   <string name="GroupLinkBottomSheet_share_hint_requiring_approval">Ieder die over deze verwijzing beschikt kan de naam, afbeelding en het aantal leden van deze groep zien en kan ook een verzoek indienen om lid te mogen worden. Deel deze verwijzing alleen met personen die je vertrouwt.</string>
   <string name="GroupLinkBottomSheet_share_hint_not_requiring_approval">Ieder die over deze verwijzing beschikt kan de naam, afbeelding en het aantal leden van deze groep zien en kan direct lid worden. Deel deze verwijzing alleen met personen die je vertrouwt.</string>
-  <string name="GroupLinkBottomSheet_share_via_signal">Verzenden via Molly</string>
+  <string name="GroupLinkBottomSheet_share_via_signal">Verzenden via Signal-LTS</string>
   <string name="GroupLinkBottomSheet_copy">Kopiëren</string>
   <string name="GroupLinkBottomSheet_qr_code">QR-code</string>
   <string name="GroupLinkBottomSheet_share">Verzenden via andere app</string>
@@ -2792,7 +2792,7 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <string name="payment_info_card_about_mobilecoin">Over MobileCoin</string>
   <string name="payment_info_card_mobilecoin_is_a_new_privacy_focused_digital_currency">MobileCoin is een nieuw privacygericht digitaal betaalmiddel.</string>
   <string name="payment_info_card_adding_funds">Krediet toevoegen</string>
-  <string name="payment_info_card_you_can_add_funds_for_use_in">Je kunt krediet toevoegen aan Molly door MobileCoin te verzenden naar je portemonnee-adres.</string>
+  <string name="payment_info_card_you_can_add_funds_for_use_in">Je kunt krediet toevoegen aan Signal-LTS door MobileCoin te verzenden naar je portemonnee-adres.</string>
   <string name="payment_info_card_cashing_out">Uitbetalen</string>
   <string name="payment_info_card_you_can_cash_out_mobilecoin">Je kunt op elk moment je MobileCoin laten uitbetalen via een beurs die MobileCoin ondersteund. Je hoeft slechts over te schrijven naar jouw account bij die beurs.</string>
   <string name="payment_info_card_hide_this_card">Deze informatie verbergen?</string>
@@ -2806,12 +2806,12 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <!--DeactivateWalletFragment-->
   <string name="DeactivateWalletFragment__deactivate_wallet">Portemonnee uitschakelen</string>
   <string name="DeactivateWalletFragment__your_balance">Jouw krediet</string>
-  <string name="DeactivateWalletFragment__its_recommended_that_you">Het is raadzaam om je krediet eerst naar een ander portemonnee-adres over te schrijven voor je overschrijvingen uitschakelt. Als je er niet voor kiest om eerst je krediet over te schrijven dan blijft je krediet bestaan op het portemonnee-adres dat je aan Molly hebt gekoppeld. Je kunt het dan weer gebruiken als je overschrijvingen opnieuw inschakelt.</string>
+  <string name="DeactivateWalletFragment__its_recommended_that_you">Het is raadzaam om je krediet eerst naar een ander portemonnee-adres over te schrijven voor je overschrijvingen uitschakelt. Als je er niet voor kiest om eerst je krediet over te schrijven dan blijft je krediet bestaan op het portemonnee-adres dat je aan Signal-LTS hebt gekoppeld. Je kunt het dan weer gebruiken als je overschrijvingen opnieuw inschakelt.</string>
   <string name="DeactivateWalletFragment__transfer_remaining_balance">Resterend krediet overschrijven</string>
   <string name="DeactivateWalletFragment__deactivate_without_transferring">Uitschakelen zonder overschrijven</string>
   <string name="DeactivateWalletFragment__deactivate">Uitschakelen</string>
   <string name="DeactivateWalletFragment__deactivate_without_transferring_question">Uitschakelen zonder overschrijven?</string>
-  <string name="DeactivateWalletFragment__your_balance_will_remain">Je krediet is wanneer je overschrijvingen inschakelt weer beschikbaar in de portemonnee die aan Molly is gekoppeld.</string>
+  <string name="DeactivateWalletFragment__your_balance_will_remain">Je krediet is wanneer je overschrijvingen inschakelt weer beschikbaar in de portemonnee die aan Signal-LTS is gekoppeld.</string>
   <string name="DeactivateWalletFragment__error_deactivating_wallet">Fout bij het uitschakelen van je portemonnee</string>
   <!--PaymentsRecoveryStartFragment-->
   <string name="PaymentsRecoveryStartFragment__recovery_phrase">Herstel-zin</string>

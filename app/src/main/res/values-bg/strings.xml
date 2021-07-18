@@ -10,17 +10,17 @@
   <string name="AbstractNotificationBuilder_new_message">Ново съобщение</string>
   <!--AlbumThumbnailView-->
   <!--ApplicationMigrationActivity-->
-  <string name="ApplicationMigrationActivity__signal_is_updating">Molly се обновява…</string>
+  <string name="ApplicationMigrationActivity__signal_is_updating">Signal-LTS се обновява…</string>
   <!--ApplicationPreferencesActivity-->
   <string name="ApplicationPreferencesActivity_currently_s">В момента: %s</string>
   <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">Все още не сте заложили парола!</string>
   <string name="ApplicationPreferencesActivity_disable_passphrase">Изключи паролата?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Това ще отключи изцяло всички известия за съобщения и Molly.</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Това ще отключи изцяло всички известия за съобщения и Signal-LTS.</string>
   <string name="ApplicationPreferencesActivity_disable">Изключи</string>
   <string name="ApplicationPreferencesActivity_unregistering">Отписване</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Дерегистриране от Molly съобщения и обаждания…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Деактивирай Molly съобщения и обаждания?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Деактивирайте Molly съобщения и обаждания като се дерегистрирате от сървъра. Ще трябва да регистрирате своят номер отново, за да ползвате услугите в бъдеще.</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Дерегистриране от Signal-LTS съобщения и обаждания…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Деактивирай Signal-LTS съобщения и обаждания?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Деактивирайте Signal-LTS съобщения и обаждания като се дерегистрирате от сървъра. Ще трябва да регистрирате своят номер отново, за да ползвате услугите в бъдеще.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">Грешка при свързване със сървъра!</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">SMS-и активирани</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">Натисни, за да зададеш SMS програма по подразбиране</string>
@@ -55,13 +55,13 @@
   <string name="AttachmentKeyboard_file">Файл</string>
   <string name="AttachmentKeyboard_contact">Контакт</string>
   <string name="AttachmentKeyboard_location">Местоположение</string>
-  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Molly се нуждае от разрешение, за да показва снимките и видеотата ти.</string>
+  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">Signal-LTS се нуждае от разрешение, за да показва снимките и видеотата ти.</string>
   <string name="AttachmentKeyboard_give_access">Разрешаване на достъпа</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">Неуспешно откриване на папка за избор на файл.</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly се нуждае от достъп до вградения диск, за да може да прикачва снимки, видеота или аудио, но той му е отказан. Моля, отидете в настройки в менюто и изберете \"Разрешения\" и \"Дискове\".</string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly се нуждае от достъп до контактите Ви, за да може да прикачва информация за тях, но той му е отказан. Моля, отидете на настройки в менюто и изберете \"Разрешения\" и \"Контакти\".</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly се нуждае от достъп до местоположението Ви, за да може да го прикачва, но той му е отказан. Моля, отидете на настройки в менюто и изберете \"Разрешения\" и \"Местоположение\".</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Signal-LTS се нуждае от достъп до вградения диск, за да може да прикачва снимки, видеота или аудио, но той му е отказан. Моля, отидете в настройки в менюто и изберете \"Разрешения\" и \"Дискове\".</string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Signal-LTS се нуждае от достъп до контактите Ви, за да може да прикачва информация за тях, но той му е отказан. Моля, отидете на настройки в менюто и изберете \"Разрешения\" и \"Контакти\".</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Signal-LTS се нуждае от достъп до местоположението Ви, за да може да го прикачва, но той му е отказан. Моля, отидете на настройки в менюто и изберете \"Разрешения\" и \"Местоположение\".</string>
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">Качване на медия…</string>
   <string name="AttachmentUploadJob_compressing_video_start">Компресиране на видео…</string>
@@ -111,14 +111,14 @@
   <string name="CameraContacts_no_signal_contacts">Няма Signal контакти</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">Може да използваш камера бутонът за изпращане на снимки до Signal контактите.</string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">Не откирваш това, което търсиш?</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">Покани контакт да се присъедини в Molly</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">Покани контакт да се присъедини в Signal-LTS</string>
   <string name="CameraContacts__menu_search">Търсене</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">Премахни</string>
   <string name="ClearProfileActivity_remove_profile_photo">Премахване на снимката от профила?</string>
   <string name="ClearProfileActivity_remove_group_photo">Премахване на груповата снимка?</string>
   <!--ClientDeprecatedActivity-->
-  <string name="ClientDeprecatedActivity_update_signal">Обновяване на Molly</string>
+  <string name="ClientDeprecatedActivity_update_signal">Обновяване на Signal-LTS</string>
   <string name="ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported">Тази версия на приложението вече не е поддъражана. За да продължите да изпращате и получавате съобщения, обновете приложението до най-новата версият.</string>
   <string name="ClientDeprecatedActivity_update">Обновяване</string>
   <string name="ClientDeprecatedActivity_dont_update">Не обновявай</string>
@@ -196,7 +196,7 @@
   <string name="ConversationActivity_transport_insecure_sms">Некриптиран SMS</string>
   <string name="ConversationActivity_transport_insecure_mms">Некриптиран MMS</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">Да преминем към Molly %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">Да преминем към Signal-LTS %1$s</string>
   <string name="ConversationActivity_specify_recipient">Моля избери контакт</string>
   <string name="ConversationActivity_unblock">Отблокирване</string>
   <string name="ConversationActivity_attachment_exceeds_size_limits">Размерът на прикачения файл надминава допустимия лимит за типа съобщение, който изпращате.</string>
@@ -205,15 +205,15 @@
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">Нямате инсталирано приложение, което да може да използва тази препратка.</string>
   <string name="ConversationActivity_your_request_to_join_has_been_sent_to_the_group_admin">Заявката ви за присъединяване към групата е изпратена до администратора ѝ. Ще бъдете уведомени, когата те вземат решение.</string>
   <string name="ConversationActivity_cancel_request">Отказване на заявката</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">За да изпратите аудио съобщение, разрешете достъпа на Molly до микрофона.</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly се нуждае от достъп до микрофона Ви, за да може да изпраща аудио съобщения, но той му е отказан. Моля, отидете в настройки в менюто и изберете \"Разрешения\" и \"Микрофон\".</string>
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly се нуждае от достъп до микрофона и камерта Ви, за да може да се обади на %s, но той му е отказан. Моля, отидете на настройки в менюто и изберете \"Разрешения\" и \"Микрофон\" и \"Камера\".</string>
-  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">За прави снимки и видеота, Molly се нуждае от достъп до камерта Ви.</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Molly се нуждае от достъп до камерта Ви, за да може да прави снимки или видеота, но той му е отказан. Моля, отидете в настройки в менюто и изберете \"Разрешения\" и \"Камера\".</string>
-  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Molly се нуждае от достъп до камерата, за да прави снимки и видеота</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">За да изпратите аудио съобщение, разрешете достъпа на Signal-LTS до микрофона.</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Signal-LTS се нуждае от достъп до микрофона Ви, за да може да изпраща аудио съобщения, но той му е отказан. Моля, отидете в настройки в менюто и изберете \"Разрешения\" и \"Микрофон\".</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Signal-LTS се нуждае от достъп до микрофона и камерта Ви, за да може да се обади на %s, но той му е отказан. Моля, отидете на настройки в менюто и изберете \"Разрешения\" и \"Микрофон\" и \"Камера\".</string>
+  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">За прави снимки и видеота, Signal-LTS се нуждае от достъп до камерта Ви.</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Signal-LTS се нуждае от достъп до камерта Ви, за да може да прави снимки или видеота, но той му е отказан. Моля, отидете в настройки в менюто и изберете \"Разрешения\" и \"Камера\".</string>
+  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Signal-LTS се нуждае от достъп до камерата, за да прави снимки и видеота</string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Разреши използването на микрофона, за да правене на видео със звук.</string>
-  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Molly се нуждае от достъп за правене на видеота, но той е отказан. Моля, отидете в настройки и изберете \"Достъп\" и активирайте \"Микрофон\" и \"Камера\".</string>
-  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Molly се нуждае от достъп до микрофона за записване на видеота.</string>
+  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Signal-LTS се нуждае от достъп за правене на видеота, но той е отказан. Моля, отидете в настройки и изберете \"Достъп\" и активирайте \"Микрофон\" и \"Камера\".</string>
+  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Signal-LTS се нуждае от достъп до микрофона за записване на видеота.</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">Signal не може да изпраща SMS/MMS съобщения защото не е първо предназначена апликация за SMS. Желаетели да се промени това във вашите Android настройки ?</string>
   <string name="ConversationActivity_yes">Да</string>
@@ -229,7 +229,7 @@
   <string name="ConversationActivity_you_will_leave_this_group_and_it_will_be_deleted_from_all_of_your_devices">Ще напуснеш групата и тя ще бъде изтрита от всичките ти устройства.</string>
   <string name="ConversationActivity_delete">Изтрий</string>
   <string name="ConversationActivity_delete_and_leave">Изтрий и напусни</string>
-  <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">За да се обадите на %1$s, Molly се нуждае от достъп до микрофона ви</string>
+  <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">За да се обадите на %1$s, Signal-LTS се нуждае от достъп до микрофона ви</string>
   <string name="ConversationActivity__more_options_now_in_group_settings">Повече настройки в \"Групове настройки\"</string>
   <string name="ConversationActivity_join">Присъедини се</string>
   <string name="ConversationActivity_full">Пълно</string>
@@ -281,7 +281,7 @@
   <string name="ConversationFragment__d_group_members_have_the_same_name">%1$d членана групата имат същото име.</string>
   <string name="ConversationFragment__tap_to_review">Натиснете за преглед</string>
   <string name="ConversationFragment__review_requests_carefully">Прегледайте внимателно заявката</string>
-  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Molly откри друг контакт със същото име.</string>
+  <string name="ConversationFragment__signal_found_another_contact_with_the_same_name">Signal-LTS откри друг контакт със същото име.</string>
   <string name="ConversationFragment_contact_us">Свържете се с нас</string>
   <string name="ConversationFragment_verify">Валидиране</string>
   <string name="ConversationFragment_not_now">Не сега</string>
@@ -345,11 +345,11 @@
   <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Тествай паролата си за архивите и провери дали е правилна.</string>
   <string name="BackupsPreferenceFragment__turn_on">Включи</string>
   <string name="BackupsPreferenceFragment__turn_off">Отключи</string>
-  <string name="BackupsPreferenceFragment__to_restore_a_backup">За да възстановиш архива, инсталирай ново копие на Molly. Отвори приложението и натисни \"Възстановяване на архив\", след това избери файла с архива.%1$s</string>
+  <string name="BackupsPreferenceFragment__to_restore_a_backup">За да възстановиш архива, инсталирай ново копие на Signal-LTS. Отвори приложението и натисни \"Възстановяване на архив\", след това избери файла с архива.%1$s</string>
   <string name="BackupsPreferenceFragment__learn_more">Научете повече</string>
   <string name="BackupsPreferenceFragment__in_progress">Архивира се…</string>
   <string name="BackupsPreferenceFragment__d_so_far">%1$d архивирани до тук…</string>
-  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly изискава разрешение за достъп до външните хранлища, за да може да създаде архиви, но този достъп е парманентно отказан. Моля, продължете до настройки на приложенията и изберете \"Разрешения\" и активирайте \"Хранилище\"</string>
+  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Signal-LTS изискава разрешение за достъп до външните хранлища, за да може да създаде архиви, но този достъп е парманентно отказан. Моля, продължете до настройки на приложенията и изберете \"Разрешения\" и активирайте \"Хранилище\"</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Използване на специален:  %s</string>
   <string name="CustomDefaultPreference_using_default">Използване на подразбиращ се: %s</string>
@@ -394,7 +394,7 @@
   <string name="GroupCallingMegaphone__open_a_new_group_to_start">Отворете Нова Група, за да започнете безплатно криптирано групово обаждане</string>
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">Оптимизиране за липсващи Play услуги</string>
-  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Това устройство не поддържа Play услуги. Натиснете, за да изключите оптимизациите на батерият, за да преустановите опитите на Molly да изтегля съобщения, когато не е активен.</string>
+  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Това устройство не поддържа Play услуги. Натиснете, за да изключите оптимизациите на батерият, за да преустановите опитите на Signal-LTS да изтегля съобщения, когато не е активен.</string>
   <!--ExpiredBuildReminder-->
   <string name="ExpiredBuildReminder_this_version_of_signal_has_expired">Тази версия на Signal е изтекла. Обновете сега за да можете да получавате и изпращате съобщения.</string>
   <string name="ExpiredBuildReminder_update_now">Обнови сега</string>
@@ -409,7 +409,7 @@
   <string name="ShareActivity_multiple_attachments_are_only_supported">Можете да прикачвате повече от един файл само когато са картинки и видео.</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Перманентна Signal комуникационна грешка!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly не успя да се регистрира с Google Play Services. Molly съообщения и разговори са деактивирани, моля пререгистрирайте през менюто Настройки &gt; Допълнителние.</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal-LTS не успя да се регистрира с Google Play Services. Signal-LTS съообщения и разговори са деактивирани, моля пререгистрирайте през менюто Настройки &gt; Допълнителние.</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">Грешка при вземането на GIF в пълна резолюция</string>
   <!--GiphyFragmentPageAdapter-->
@@ -730,7 +730,7 @@
   <string name="InviteActivity_cancel">Отказ</string>
   <string name="InviteActivity_sending">Изпращане…</string>
   <string name="InviteActivity_invitations_sent">Поканите изпратени!</string>
-  <string name="InviteActivity_invite_to_signal">Покани в Molly</string>
+  <string name="InviteActivity_invite_to_signal">Покани в Signal-LTS</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">ИЗПРАЩАНЕ НА SMS НА %d ПРИЯТЕЛ</item>
     <item quantity="other">ИЗПРАЩАНЕ НА SMS НА %d ПРИТЯТЕЛЯ</item>
@@ -739,7 +739,7 @@
     <item quantity="one">Изпащане на %d SMS покана?</item>
     <item quantity="other">Изпащане на %d SMS покани?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">Да преминем към Molly %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">Да преминем към Signal-LTS %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Изглежда нямате приложения, с които да можете да сподялите.</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Приятелите не оставят приятелите си да чатят без криптиране.</string>
   <!--LearnMoreTextView-->
@@ -749,7 +749,7 @@
   <string name="LongMessageActivity_message_from_s">Съобщение от %1$s</string>
   <string name="LongMessageActivity_your_message">Вашето съобщение</string>
   <!--MessageRetrievalService-->
-  <string name="MessageRetrievalService_signal">Molly</string>
+  <string name="MessageRetrievalService_signal">Signal-LTS</string>
   <string name="MessageRetrievalService_background_connection_enabled">Връзката във фонов режим е активирана</string>
   <!--MmsDownloader-->
   <string name="MmsDownloader_error_reading_mms_settings">Грешка при четенето на MMS настройките на доставчика</string>
@@ -832,8 +832,8 @@
   <string name="MediaSendActivity_message_to_s">Изпрати на %s</string>
   <string name="MediaSendActivity_message">Съобщение</string>
   <string name="MediaSendActivity_select_recipients">Изберете получатели</string>
-  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Molly се нуждае от достъп до контактите Ви, за да може да ги покаже.</string>
-  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Molly се нуждае от разрешение за контакти, за да покаже вашите контакти, но то е отказано за постоянно. Моля, продължете към настройките на приложението, изберете „Разрешения“ и активирайте „Контакти“.</string>
+  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Signal-LTS се нуждае от достъп до контактите Ви, за да може да ги покаже.</string>
+  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Signal-LTS се нуждае от разрешение за контакти, за да покаже вашите контакти, но то е отказано за постоянно. Моля, продължете към настройките на приложението, изберете „Разрешения“ и активирайте „Контакти“.</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="one">Не можете да споделяте повече от %d елемент.</item>
     <item quantity="other">Не можете да споделяте повече от %d елементи.</item>
@@ -1073,7 +1073,7 @@
   <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">За съжаление това не е валидна QR връзка.</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">Свързване със Signal устройство?</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">Изглежда се опитвате да свържете Signal устройство с външна скенер програма. За Ваша сигурност, моля сканирайте кодът повторно използвайки Signal.</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly се нуждае от достъп до камерата Ви, за да може да сканирва QR кодове, но той му е отказан. Моля, отидете на настройки в менюто и изберете \"Разрешения\" и \"Камера\".</string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Signal-LTS се нуждае от достъп до камерата Ви, за да може да сканирва QR кодове, но той му е отказан. Моля, отидете на настройки в менюто и изберете \"Разрешения\" и \"Камера\".</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Неуспешно сканирване на QR код без разрешение за достъп до камерата</string>
   <!--OutdatedBuildReminder-->
   <string name="OutdatedBuildReminder_update_now">Обнови сега</string>
@@ -1084,10 +1084,10 @@
   </plurals>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">Въведете паролата</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Molly икона</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Signal-LTS икона</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">Задай паролата</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Грешна парола!</string>
-  <string name="PassphrasePromptActivity_unlock_signal">Отключи Molly</string>
+  <string name="PassphrasePromptActivity_unlock_signal">Отключи Signal-LTS</string>
   <string name="PassphrasePromptActivity_signal_android_lock_screen">Signal Android - Заключен екран</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">Карта</string>
@@ -1152,8 +1152,8 @@
   <string name="RedPhone_got_it">Ясно</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Докоснете тук, за да включите вашето видео</string>
-  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">За да се обадите на %1$s, Molly се нуждае от достъп до вашата камера</string>
-  <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
+  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">За да се обадите на %1$s, Signal-LTS се нуждае от достъп до вашата камера</string>
+  <string name="WebRtcCallActivity__signal_s">Signal-LTS %1$s</string>
   <string name="WebRtcCallActivity__calling">Обаждане</string>
   <!--WebRtcCallView-->
   <string name="WebRtcCallView__signal_voice_call">Гласов разговор чрез Signal</string>
@@ -1209,13 +1209,13 @@
   <string name="RegistrationActivity_is_your_phone_number_above_correct">Телефонният ви номер по-горе правилен ли е?</string>
   <string name="RegistrationActivity_edit_number">Редакция на номер</string>
   <string name="RegistrationActivity_missing_google_play_services">Google Play Services не са налични</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">На това устройство няма Google Play Services. Пак можете да използвате Molly, но тази конфигурация може да доведе до влошена надеждност или производителност.\n\nАко не сте напреднали потребители, не използвате модифицирана версия на Android или смятате, че виждате това съобщение по погрешка, моля, свържете се със support@molly.im за помощ.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">На това устройство няма Google Play Services. Пак можете да използвате Signal-LTS, но тази конфигурация може да доведе до влошена надеждност или производителност.\n\nАко не сте напреднали потребители, не използвате модифицирана версия на Android или смятате, че виждате това съобщение по погрешка, моля, свържете се със support@Signal-LTS.im за помощ.</string>
   <string name="RegistrationActivity_i_understand">Разбирам</string>
   <string name="RegistrationActivity_play_services_error">Грешка с Play Services</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Services се обновяват или временно не са достъпни. Моля, опитайте отново.</string>
   <string name="RegistrationActivity_terms_and_privacy">Условия и Политика за поверителност</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly се нуждае от достъп до контактите и мултимедията ви, за да можете да се свързвате с приятелите си, да разменяте съобщения и да провеждате защитени разговори</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Molly има нужда от достъп до контактите ви, за да можете да се свързвате с приятели, да разменяте съобщения и да провеждате защитени разговори</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Signal-LTS се нуждае от достъп до контактите и мултимедията ви, за да можете да се свързвате с приятелите си, да разменяте съобщения и да провеждате защитени разговори</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Signal-LTS има нужда от достъп до контактите ви, за да можете да се свързвате с приятели, да разменяте съобщения и да провеждате защитени разговори</string>
   <string name="RegistrationActivity_rate_limited_to_service">Направихте прекалено много опити за регистриране на този номер. Моля, опитайте отново по-късно.</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">Неуспешно свързване с услугата. Моля, проверете мрежовата връзка и опитайте отново.</string>
   <plurals name="RegistrationActivity_debug_log_hint">
@@ -1253,12 +1253,12 @@
   <!--ShakeToReport-->
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">Добавяне към контакти</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Покани в Molly</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Покани в Signal-LTS</string>
   <string name="SharedContactDetailsActivity_signal_message">Съобщение в Signal</string>
   <string name="SharedContactDetailsActivity_signal_call">Signal обаждане</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">Добавяне към контакти</string>
-  <string name="SharedContactView_invite_to_signal">Покани в Molly</string>
+  <string name="SharedContactView_invite_to_signal">Покани в Signal-LTS</string>
   <string name="SharedContactView_message">Съобщение в Signal</string>
   <!--SignalPinReminders-->
   <string name="SignalPinReminders_well_remind_you_again_later">Ще ви напомним отново по-късно.</string>
@@ -1314,8 +1314,8 @@
   <string name="SupportEmailUtil_filter">Филтър:</string>
   <string name="SupportEmailUtil_device_info">Информация за устройството:</string>
   <string name="SupportEmailUtil_android_version">Версия на Android:</string>
-  <string name="SupportEmailUtil_signal_version">Версия на Molly:</string>
-  <string name="SupportEmailUtil_signal_package">Пакет на Molly:</string>
+  <string name="SupportEmailUtil_signal_version">Версия на Signal-LTS:</string>
+  <string name="SupportEmailUtil_signal_package">Пакет на Signal-LTS:</string>
   <string name="SupportEmailUtil_registration_lock">Регистрационно заключване:</string>
   <string name="SupportEmailUtil_locale">Език:</string>
   <!--ThreadRecord-->
@@ -1350,8 +1350,8 @@
   <string name="ThreadRecord_video">Видео</string>
   <string name="ThreadRecord_chat_session_refreshed">Чат сесията е презаредена.</string>
   <!--UpdateApkReadyListener-->
-  <string name="UpdateApkReadyListener_Signal_update">Обновление на Molly</string>
-  <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Има нова версия на Molly, натиснете, за да обновите.</string>
+  <string name="UpdateApkReadyListener_Signal_update">Обновление на Signal-LTS</string>
+  <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Има нова версия на Signal-LTS, натиснете, за да обновите.</string>
   <!--UntrustedSendDialog-->
   <string name="UntrustedSendDialog_send_message">Изпращане на съобщение?</string>
   <string name="UntrustedSendDialog_send">Изпращане</string>
@@ -1383,7 +1383,7 @@
   <string name="VerifyIdentityActivity_our_signal_safety_number">Нашите Signal числа за сигурност:</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">Изглежда нямате приложения, с които да можете да сподялите.</string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">Не са открити копирани числа за сигурност</string>
-  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Molly се нуждае от достъп до камерата Ви, за да може да сканирва QR кодове, но той му е отказан. Моля, отидете на настройки в менюто и изберете \"Разрешения\" и \"Камера\".</string>
+  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Signal-LTS се нуждае от достъп до камерата Ви, за да може да сканирва QR кодове, но той му е отказан. Моля, отидете на настройки в менюто и изберете \"Разрешения\" и \"Камера\".</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">Неуспешно сканирване на QR код без разрешение за достъп до камерата</string>
   <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">Първо трябва да обменяте съобщения, за да видите %1$s номер за безопасност.</string>
   <!--ViewOnceMessageActivity-->
@@ -1402,13 +1402,13 @@
   <string name="ApplicationMigrationService_system_database_import_is_complete">Внасянето на системната база данни е завършено.</string>
   <!--KeyCachingService-->
   <string name="KeyCachingService_signal_passphrase_cached">Натиснете за отворяне.</string>
-  <string name="KeyCachingService_passphrase_cached">Molly е отключен</string>
-  <string name="KeyCachingService_lock">Заключване на Molly</string>
+  <string name="KeyCachingService_passphrase_cached">Signal-LTS е отключен</string>
+  <string name="KeyCachingService_lock">Заключване на Signal-LTS</string>
   <!--MediaPreviewActivity-->
   <string name="MediaPreviewActivity_you">Ти</string>
   <string name="MediaPreviewActivity_unssuported_media_type">Неподдържан медиен формат.</string>
   <string name="MediaPreviewActivity_draft">Чернова</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Molly се нуждае от достъп до вградения диск, за да може да запазва на  него, но той му е отказан. Моля, отидете в настройки в менюто и изберете \"Разрешения\" и \"Дискове\".</string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Signal-LTS се нуждае от достъп до вградения диск, за да може да запазва на  него, но той му е отказан. Моля, отидете в настройки в менюто и изберете \"Разрешения\" и \"Дискове\".</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">Неуспешно запазване на външен диск без нуждното разрешение за достъп</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">Изтриване на съобщението?</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">Това ще изтрие невъзвращаемо текущото съобщение.</string>
@@ -1431,7 +1431,7 @@
   <string name="MessageNotifier_signal_message">Съобщение в Signal</string>
   <string name="MessageNotifier_unsecured_sms">Некриптиран SMS</string>
   <string name="MessageNotifier_you_may_have_new_messages">Вие може да имате нови съобщения</string>
-  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Отворете Molly за да проверите за скорошни известия</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">Отворете Signal-LTS за да проверите за скорошни известия</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">Контакт</string>
   <string name="MessageNotifier_reacted_s_to_s">Реагира %1$s на: \"%2$s\".</string>
@@ -1457,7 +1457,7 @@
   <string name="NotificationChannel_contact_joined_signal">Един от контактите Ви се присъедини към Signal!</string>
   <!--ProfileEditNameFragment-->
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Бърз отговор не е възможен, когато Molly е заключен!</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Бърз отговор не е възможен, когато Signal-LTS е заключен!</string>
   <string name="QuickResponseService_problem_sending_message">Проблем при изпрашане на съобщение!</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">Запзване в %s</string>
@@ -1468,7 +1468,7 @@
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">Невалидена препратка</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Signal-LTS</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Ново съобщение</string>
   <string name="SingleRecipientNotificationBuilder_you">Ти</string>
   <!--ThumbnailView-->
@@ -1483,8 +1483,8 @@
   <string name="UnauthorizedReminder_device_no_longer_registered">Устройството вече не е регистрирано.</string>
   <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Това е вероятно, защото сте регистрирали номерът си със Signal на друго устройство. Натиснете, за да го дерегистрирате.</string>
   <!--WebRtcCallActivity-->
-  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">За да можете да провеждате разговор с %s, разрешете на Molly достъп до микрофона.</string>
-  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Molly се нуждае от достъп до микрофона и камерта Ви, за да може да получава обаждания, но той му е отказан. Моля, отидете на настройки в менюто и изберете \"Разрешения\" и \"Микрофон\" и \"Камера\".</string>
+  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">За да можете да провеждате разговор с %s, разрешете на Signal-LTS достъп до микрофона.</string>
+  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Signal-LTS се нуждае от достъп до микрофона и камерта Ви, за да може да получава обаждания, но той му е отказан. Моля, отидете на настройки в менюто и изберете \"Разрешения\" и \"Микрофон\" и \"Камера\".</string>
   <string name="WebRtcCallActivity__answered_on_a_linked_device">Отговорено на свързано устройство.</string>
   <string name="WebRtcCallActivity__declined_on_a_linked_device">Отказано на свързано устройство.</string>
   <string name="WebRtcCallActivity__busy_on_a_linked_device">Сигнал заетo на свързано устройство.</string>
@@ -1508,7 +1508,7 @@
   <string name="change_passphrase_activity__repeat_new_passphrase">Повторете новата парола</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">Въведете име или номер</string>
-  <string name="contact_selection_activity__invite_to_signal">Покани в Molly</string>
+  <string name="contact_selection_activity__invite_to_signal">Покани в Signal-LTS</string>
   <string name="contact_selection_activity__new_group">Нова група</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">Изчистване на въведения текст</string>
@@ -1520,7 +1520,7 @@
   <!--single_contact_selection_activity-->
   <string name="SingleContactSelectionActivity_contact_photo">Снимка на Контактът</string>
   <!--ContactSelectionListFragment-->
-  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Molly се нуждае от достъп до контактите Ви, за да може да Ви ги показва, но той му е отказан. Моля, отидете на настройки в менюто и изберете \"Разрешения\" и \"Контакти\".</string>
+  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">Signal-LTS се нуждае от достъп до контактите Ви, за да може да Ви ги показва, но той му е отказан. Моля, отидете на настройки в менюто и изберете \"Разрешения\" и \"Контакти\".</string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Грешка при получаване на конатактите, моля, проверете мобилната връзка</string>
   <string name="ContactSelectionListFragment_username_not_found">Потребителско име не е намерено</string>
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">\"%1$s\" не е потребител на Signal. Моля, проверете потребителското име и опитайте отново.</string>
@@ -1534,7 +1534,7 @@
     <item quantity="other">%1$d членове</item>
   </plurals>
   <!--contact_selection_list_fragment-->
-  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly се нуждае от достъп до контактите Ви, за да може да ги покаже.</string>
+  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Signal-LTS се нуждае от достъп до контактите Ви, за да може да ги покаже.</string>
   <string name="contact_selection_list_fragment__show_contacts">Показване на контактите</string>
   <!--contact_selection_list_item-->
   <plurals name="contact_selection_list_item__number_of_members">
@@ -1865,7 +1865,7 @@
   <string name="preferences__slow">Бавно</string>
   <string name="preferences__help">Помощ</string>
   <string name="preferences__advanced">Допълнителни</string>
-  <string name="preferences__donate_to_signal">Дари на Molly</string>
+  <string name="preferences__donate_to_signal">Дари на Signal-LTS</string>
   <string name="preferences__privacy">Поверителност</string>
   <string name="preferences__mms_user_agent">MMS User Agent</string>
   <string name="preferences__advanced_mms_access_point_names">Ръчни MMS настройки</string>
@@ -2319,7 +2319,7 @@
   <string name="RegistrationActivity_you_have_made_too_many_attempts_please_try_again_later">Направихте прекалено много опити. Моля, опитайте отново по-късно.</string>
   <string name="RegistrationActivity_error_connecting_to_service">Неуспешно свързване с услугата</string>
   <string name="preferences_chats__backups">Архиви</string>
-  <string name="prompt_passphrase_activity__signal_is_locked">Molly е заключен</string>
+  <string name="prompt_passphrase_activity__signal_is_locked">Signal-LTS е заключен</string>
   <string name="prompt_passphrase_activity__tap_to_unlock">НАТИСНЕТЕ ЗА ОТКЛЮЧВАНЕ</string>
   <string name="Recipient_unknown">Непознат</string>
   <!--TransferOrRestoreFragment-->
@@ -2375,7 +2375,7 @@
   <string name="GroupsLearnMore_paragraph_2">Стари Групи все още не могат да бъдат надстроени до Нови Групи, но можете да създадете нова група със същите членове, ако те са в най-новата версия на Signal.</string>
   <string name="GroupsLearnMore_paragraph_3">Signal ще предложи начин за надграждане на Стари Групи в бъдеще.</string>
   <!--GroupLinkBottomSheetDialogFragment-->
-  <string name="GroupLinkBottomSheet_share_via_signal">Споделяне през Molly</string>
+  <string name="GroupLinkBottomSheet_share_via_signal">Споделяне през Signal-LTS</string>
   <string name="GroupLinkBottomSheet_copy">Копирай</string>
   <string name="GroupLinkBottomSheet_qr_code">QR Код</string>
   <string name="GroupLinkBottomSheet_share">Споделяне</string>

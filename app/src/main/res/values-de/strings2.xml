@@ -11,8 +11,8 @@
     <string name="ChangePassphraseDialogFragment_estimated_time_to_crack_suggestion">%1$s\n\nGeschätzte Zeit zum Knacken: %2$s.\n\nVorschlag: %3$s</string>
     <string name="ChangePassphraseDialogFragment_weak_passphrase">Schwache Passwortsatz!</string>
     <string name="PassphraseCreateActivity_turn_on_database_encryption">Datenbankverschlüsselung einschalten</string>
-    <string name="PassphraseCreateActivity_require_passphrase_to_unlock_molly">Passwortsatz benötigen, um Molly freizuschalten\?</string>
-    <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">Jetzt kannst du eine Passwortsatz festlegen, um die Datenbank zu verschlüsseln. Bis zum Entsperren kann Molly keine Benachrichtigungen oder Anrufe empfangen. Dies schützt Daten auf verlorenen oder gestohlenen Geräten.</string>
+    <string name="PassphraseCreateActivity_require_passphrase_to_unlock_molly">Passwortsatz benötigen, um Signal-LTS freizuschalten\?</string>
+    <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">Jetzt kannst du eine Passwortsatz festlegen, um die Datenbank zu verschlüsseln. Bis zum Entsperren kann Signal-LTS keine Benachrichtigungen oder Anrufe empfangen. Dies schützt Daten auf verlorenen oder gestohlenen Geräten.</string>
     <string name="preferences__passphrase_changed">Passwortsatz geändert</string>
     <string name="preferences__device_lock_timeout">Zeitlimit für Gerätesperre</string>
     <string name="preferences__automatic_lockdown">Automatische Sperrung</string>
@@ -33,7 +33,7 @@
     <string name="preferences__map_hybrid">Hybrid</string>
     <string name="preferences__map_normal">Normal</string>
     <string name="ApplicationPreferencesActivity_network_summary">Proxy %1$s</string>
-    <string name="NetworkPreferenceFragment_molly_wont_connect_without_orbot_which_is_not_installed_on_this_device">Molly verbindet sich nicht ohne Orbot, das auf diesem Gerät nicht installiert ist.</string>
+    <string name="NetworkPreferenceFragment_molly_wont_connect_without_orbot_which_is_not_installed_on_this_device">Signal-LTS verbindet sich nicht ohne Orbot, das auf diesem Gerät nicht installiert ist.</string>
     <string name="NetworkPreferenceFragment_get_orbot">Orbot erhalten</string>
     <string name="NetworkPreferenceFragment_missing_orbot_app">Orbot-Anwendung fehlt</string>
     <string name="NetworkPreferenceFragment_the_host_you_typed_is_not_valid">Der eingegebene Host ist nicht gültig</string>
@@ -45,7 +45,7 @@
     <string name="preferences_network__proxy">Proxy</string>
     <string name="preferences__map_none">Keine</string>
     <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Regelmäßig nach neuen Versionen suchen und zur Installation auffordern.</string>
-    <string name="preferences__autoupdate_molly">Molly automatisch aktualisieren</string>
+    <string name="preferences__autoupdate_molly">Signal-LTS automatisch aktualisieren</string>
     <string name="arrays__tor_via_orbot">Tor über Orbot</string>
     <string name="arrays__none">Keine</string>
     <string name="preferences__block_users_youve_never_been_in_contact_with_and_who_are_not_saved_in_your_contacts">Benutzer blockieren, mit denen du noch nie in Kontakt warst, und die, die nicht als Kontakte gespeichert sind.</string>
@@ -54,9 +54,9 @@
     <string name="preferences_network__connecting">Verbinden …</string>
     <string name="preferences_network__check_connection">Verbindung überprüfen</string>
     <string name="Megaphones_automatic_check_for_updates">Automatisch auf Aktualisierungen prüfen</string>
-    <string name="DonateMegaphone_molly_is_free_software">Molly ist eine freie Software</string>
+    <string name="DonateMegaphone_molly_is_free_software">Signal-LTS ist eine freie Software</string>
     <string name="BlockUnblockDialog_block_and_delete">Blockieren und löschen</string>
-    <string name="DonateMegaphone_we_maintain_molly_with_your_support_consider_donating_at_open_collective">Wir entwickeln Molly mit deiner Unterstützung! Erwäge eine Spende bei Open Collective.</string>
+    <string name="DonateMegaphone_we_maintain_molly_with_your_support_consider_donating_at_open_collective">Wir entwickeln Signal-LTS mit deiner Unterstützung! Erwäge eine Spende bei Open Collective.</string>
     <string name="PrivacySettingsFragment_data_at_rest">Daten im Ruhezustand</string>
     <string name="BackupsPreferenceFragment__number_of_backups_to_retain">Anzahl der aufzubewahrenden Sicherungen</string>
     <string name="BackupsPreferenceFragment__change_schedule">Zeitplan ändern</string>

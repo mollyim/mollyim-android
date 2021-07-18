@@ -2,7 +2,7 @@
 <resources>
     <string name="preferences__enable_debug_log">Foutopsporingslog inschakelen</string>
     <string name="AppProtectionPreferenceFragment_instant">Onmiddellijk</string>
-    <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">Je kunt nu een wachtwoord instellen om de database te versleutelen. Totdat de database ontgrendeld is kan Molly geen berichten of oproepen ontvangen. Dit beschermt gegevens op verloren of gestolen apparaten.</string>
+    <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">Je kunt nu een wachtwoord instellen om de database te versleutelen. Totdat de database ontgrendeld is kan Signal-LTS geen berichten of oproepen ontvangen. Dit beschermt gegevens op verloren of gestolen apparaten.</string>
     <string name="ChangePassphraseDialogFragment_generating_keys_this_may_take_a_while">Sleutels aan het aanmaken. Dit kan even duren…</string>
     <string name="ChangePassphraseDialogFragment_please_choose_a_passphrase_that_will_be_used_to_locally_encrypt_your_data_this_should_be_a_strong_passphrase">Kies een wachtwoord dat gebruikt zal worden om je gegevens lokaal te versleutelen\n\nDit moet een sterk wachtwoord zijn.</string>
     <string name="ChangePassphraseDialogFragment_enable">Activeren</string>
@@ -10,13 +10,13 @@
     <string name="ChangePassphraseDialogFragment_estimated_time_to_crack_suggestion">%1$s\n\nVerwachte tijd om dit te kraken: %2$s.\n\nSuggestie: %3$s</string>
     <string name="ChangePassphraseDialogFragment_weak_passphrase">Zwak wachtwoord!</string>
     <string name="PassphraseCreateActivity_turn_on_database_encryption">Zet database versleuteling aan</string>
-    <string name="PassphraseCreateActivity_require_passphrase_to_unlock_molly">Wachtwoord instellen om Molly te ontgrendelen\?</string>
+    <string name="PassphraseCreateActivity_require_passphrase_to_unlock_molly">Wachtwoord instellen om Signal-LTS te ontgrendelen\?</string>
     <string name="WipeMemoryService_secure_wipe_in_progress">Bezig met veilig verwijderen</string>
     <string name="ApplicationPreferencesActivity_privacy_summary_passphrase_registration_locks">Database versleuteling %1$s, registratievergrendeling %2$s</string>
     <string name="preferences__passphrase_changed">Wachtwoord gewijzigd</string>
     <string name="preferences__device_lock_timeout">Inactiviteitsduur voor vergrendeling</string>
     <string name="preferences__automatic_lockdown">Automatische vergrendeling</string>
-    <string name="preferences__protect_molly_database_with_a_passphrase">Bescherm Molly\'s database met een wachtwoord</string>
+    <string name="preferences__protect_molly_database_with_a_passphrase">Bescherm Signal-LTS\'s database met een wachtwoord</string>
     <string name="preferences__passphrase_lock">Database versleuteling</string>
     <string name="arrays__on_inactivity_timeout">Als je gedurende een bepaalde tijd je apparaat niet vergrendelt</string>
     <string name="BlockUnblockDialog_deleted_contacts_are_still_able_to_call_you_or_send_you_messages">Verwijderde contacten kunnen je nog steeds bellen en berichten sturen tenzij ze ook geblokkeerd zijn.</string>
@@ -31,11 +31,11 @@
     <string name="preferences__map_normal">Normaal</string>
     <string name="BlockUnblockDialog_block_and_delete">Blokkeren en verwijderen</string>
     <string name="Megaphones_automatic_check_for_updates">Automatisch controleren op updates</string>
-    <string name="DonateMegaphone_we_maintain_molly_with_your_support_consider_donating_at_open_collective">We onderhouden Molly door jouw ondersteuning! Overweeg om te doneren aan Open Collective.</string>
-    <string name="DonateMegaphone_molly_is_free_software">Molly is vrije software</string>
+    <string name="DonateMegaphone_we_maintain_molly_with_your_support_consider_donating_at_open_collective">We onderhouden Signal-LTS door jouw ondersteuning! Overweeg om te doneren aan Open Collective.</string>
+    <string name="DonateMegaphone_molly_is_free_software">Signal-LTS is vrije software</string>
     <string name="RegistrationActivity_network_settings">Netwerk instellingen</string>
     <string name="ApplicationPreferencesActivity_network_summary">Proxy %1$s</string>
-    <string name="NetworkPreferenceFragment_molly_wont_connect_without_orbot_which_is_not_installed_on_this_device">Molly zal geen verbinding maken zonder Orbot, en die is niet geïnstalleerd op dit apparaat.</string>
+    <string name="NetworkPreferenceFragment_molly_wont_connect_without_orbot_which_is_not_installed_on_this_device">Signal-LTS zal geen verbinding maken zonder Orbot, en die is niet geïnstalleerd op dit apparaat.</string>
     <string name="NetworkPreferenceFragment_get_orbot">Installeer Orbot</string>
     <string name="NetworkPreferenceFragment_missing_orbot_app">Orbot app niet aanwezig</string>
     <string name="NetworkPreferenceFragment_the_host_you_typed_is_not_valid">De ingevoerde hoost is ongeldig</string>
@@ -55,7 +55,7 @@
     <string name="preferences__block_users_youve_never_been_in_contact_with_and_who_are_not_saved_in_your_contacts">Blokkeer gebruikers waar je nooit mee gecommuniceerd hebt en die net in de contactenlijst staan.</string>
     <string name="preferences__block_unknown">Onbekenden blokkeren</string>
     <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Check periodiek voor nieuwe versies en vraag of ze geinstalleerd moeten worden.</string>
-    <string name="preferences__autoupdate_molly">Molly automatisch updaten</string>
+    <string name="preferences__autoupdate_molly">Signal-LTS automatisch updaten</string>
     <string name="arrays__tor_via_orbot">Tor via Orbot</string>
     <string name="arrays__none">Geen</string>
 </resources>

@@ -6,7 +6,7 @@
     <string name="ChangePassphraseDialogFragment_generating_keys_this_may_take_a_while">キーを生成しています、少々お待ちください…</string>
     <string name="RegistrationActivity_network_settings">ネットワーク設定</string>
     <string name="ApplicationPreferencesActivity_network_summary">プロキシ %1$s</string>
-    <string name="NetworkPreferenceFragment_molly_wont_connect_without_orbot_which_is_not_installed_on_this_device">Mollyは、この端末にインストールされていないOrbotがないと接続できません。</string>
+    <string name="NetworkPreferenceFragment_molly_wont_connect_without_orbot_which_is_not_installed_on_this_device">Signal-LTSは、この端末にインストールされていないOrbotがないと接続できません。</string>
     <string name="NetworkPreferenceFragment_get_orbot">Orbotを入手</string>
     <string name="NetworkPreferenceFragment_missing_orbot_app">欠落Orbotアプリ</string>
     <string name="NetworkPreferenceFragment_a_valid_port_number_is_between_0_and_65535">有効なポート番号は0〜65535です</string>
@@ -27,8 +27,8 @@
 \n
 \n提案: %3$s</string>
     <string name="PassphraseCreateActivity_turn_on_database_encryption">データベースの暗号化をオンにする</string>
-    <string name="PassphraseCreateActivity_require_passphrase_to_unlock_molly">Mollyのロックを解除するためのパスフレーズを要求しますか？</string>
-    <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">これで、パスフレーズを設定してデータベースを暗号化することができます。ロックが解除されるまで、Mollyは通知や通話を受け取ることができません。これにより、紛失や盗難にあったデバイスのデータを保護することができます。</string>
+    <string name="PassphraseCreateActivity_require_passphrase_to_unlock_molly">Signal-LTSのロックを解除するためのパスフレーズを要求しますか？</string>
+    <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">これで、パスフレーズを設定してデータベースを暗号化することができます。ロックが解除されるまで、Signal-LTSは通知や通話を受け取ることができません。これにより、紛失や盗難にあったデバイスのデータを保護することができます。</string>
     <string name="WipeMemoryService_secure_wipe_in_progress">セキュアワイプ実施中</string>
     <string name="ApplicationPreferencesActivity_privacy_summary_passphrase_registration_locks">データベースの暗号化 %1$s、登録ロック %2$s</string>
     <string name="preferences_network__tunnels_network_traffic">ネットワークトラフィックのトンネリング</string>
@@ -44,12 +44,12 @@
     <string name="preferences__map_hybrid">ハイブリッド</string>
     <string name="preferences__map_normal">ノーマル</string>
     <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">定期的に新しいリリースをチェックし、インストールを依頼する</string>
-    <string name="preferences__autoupdate_molly">自動更新 Molly</string>
+    <string name="preferences__autoupdate_molly">自動更新 Signal-LTS</string>
     <string name="preferences__enable_debug_log">デバッグログの有効化</string>
     <string name="preferences__passphrase_changed">パスフレーズが変更</string>
     <string name="preferences__device_lock_timeout">デバイスロックタイムアウト</string>
     <string name="preferences__automatic_lockdown">自動ロックダウン</string>
-    <string name="preferences__protect_molly_database_with_a_passphrase">パスフレーズによるMollyのデータベースの保護</string>
+    <string name="preferences__protect_molly_database_with_a_passphrase">パスフレーズによるSignal-LTSのデータベースの保護</string>
     <string name="preferences__passphrase_lock">データベースの暗号化</string>
     <string name="arrays__tor_via_orbot">Orbot経由のTor</string>
     <string name="arrays__none">なし</string>

@@ -25,12 +25,12 @@
   </plurals> -->
   <!-- Removed by excludeNonTranslatables <string name="ApplicationPreferencesActivity_delete">মুছুন</string> -->
   <string name="ApplicationPreferencesActivity_disable_passphrase">পাসফ্রেজ নিষ্ক্রিয় করবেন?</string>
-  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">এটি স্থায়ীভাবে Molly এবং বার্তা বিজ্ঞপ্তিগুলি আনলক করবে।</string>
+  <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">এটি স্থায়ীভাবে Signal-LTS এবং বার্তা বিজ্ঞপ্তিগুলি আনলক করবে।</string>
   <string name="ApplicationPreferencesActivity_disable">নিষ্ক্রিয় করুন</string>
   <string name="ApplicationPreferencesActivity_unregistering">নিবন্ধন বাতিল করা হচ্ছে</string>
-  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Molly এর বার্তা ও কল সমূহ থেকে নিবন্ধন বাতিল করা হচ্ছে…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Molly বার্তা ও কল বন্ধ করবেন?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Molly বার্তা ও কল সমূহ বন্ধ করতে সার্ভার থেকে নিবন্ধন বাতিল করুন। ভবিষ্যতে পুনরায় ব্যাবহার করতে হলে আপনাকে আপনার ফোন নাম্বার পুনঃ নিবন্ধন করতে হবে।</string>
+  <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Signal-LTS এর বার্তা ও কল সমূহ থেকে নিবন্ধন বাতিল করা হচ্ছে…</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Signal-LTS বার্তা ও কল বন্ধ করবেন?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Signal-LTS বার্তা ও কল সমূহ বন্ধ করতে সার্ভার থেকে নিবন্ধন বাতিল করুন। ভবিষ্যতে পুনরায় ব্যাবহার করতে হলে আপনাকে আপনার ফোন নাম্বার পুনঃ নিবন্ধন করতে হবে।</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">সার্ভারের সাথে সংযোগ স্থাপনে ব্যর্থ!</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">SMS সক্রিয়</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">আপনার স্বাভাবিক SMS অ্যাপ পরিবর্তন করতে স্পর্শ করুন</string>
@@ -64,13 +64,13 @@
   <string name="AttachmentKeyboard_file">ফাইল</string>
   <string name="AttachmentKeyboard_contact">পরিচিতি</string>
   <string name="AttachmentKeyboard_location">স্থান</string>
-  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">ছবি বা ভিডিও দেখাতে Molly কে অনুমতি দিন।</string>
+  <string name="AttachmentKeyboard_Signal_needs_permission_to_show_your_photos_and_videos">ছবি বা ভিডিও দেখাতে Signal-LTS কে অনুমতি দিন।</string>
   <string name="AttachmentKeyboard_give_access">অ্যাক্সেসের অনুমতি দিন</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">মিডিয়া নির্বাচন করার জন্য কোন অ্যাপ খুঁজে পাওয়া যায়নি।</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">ছবি, ভিডিও অথবা অডিও সংযুক্ত করার জন্য Molly এর স্টোরেজ ব্যাবহারের অনুমতির প্রয়োজন কিন্তু এর উপর স্থায়ী নিষেধাজ্ঞা জারি করা হয়েছে। দয়া করে আ্যপ সেটিংস-এ যান, \"অনুমতি\" নির্বাচন করুন এবং \"স্টোরেজ\"  সক্ষম করুন।</string>
-  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">পরিচিতিসমূহের তথ্য সংযুক্ত করার জন্য Molly এর পরিচিতিসমূহ ব্যাবহারের অনুমতির প্রয়োজন কিন্তু এর উপর স্থায়ী নিষেধাজ্ঞা জারি করা হয়েছে। দয়া করে আ্যপ সেটিংসে যান, \"অনুমতি\" নির্বাচন করুন এবং \"পরিচিতিসমূহ\" সক্ষম করুন।</string>
-  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">স্থান সংযুক্ত করার জন্য Molly এর স্থান ব্যাবহারের অনুমতির প্রয়োজন কিন্তু এর উপর স্থায়ী নিষেধাজ্ঞা জারি করা হয়েছে। দয়া করে আ্যপ সেটিংসে যান, \"অনুমতি\" নির্বাচন করুন এবং \"স্থান\" সক্ষম করুন।</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">ছবি, ভিডিও অথবা অডিও সংযুক্ত করার জন্য Signal-LTS এর স্টোরেজ ব্যাবহারের অনুমতির প্রয়োজন কিন্তু এর উপর স্থায়ী নিষেধাজ্ঞা জারি করা হয়েছে। দয়া করে আ্যপ সেটিংস-এ যান, \"অনুমতি\" নির্বাচন করুন এবং \"স্টোরেজ\"  সক্ষম করুন।</string>
+  <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">পরিচিতিসমূহের তথ্য সংযুক্ত করার জন্য Signal-LTS এর পরিচিতিসমূহ ব্যাবহারের অনুমতির প্রয়োজন কিন্তু এর উপর স্থায়ী নিষেধাজ্ঞা জারি করা হয়েছে। দয়া করে আ্যপ সেটিংসে যান, \"অনুমতি\" নির্বাচন করুন এবং \"পরিচিতিসমূহ\" সক্ষম করুন।</string>
+  <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">স্থান সংযুক্ত করার জন্য Signal-LTS এর স্থান ব্যাবহারের অনুমতির প্রয়োজন কিন্তু এর উপর স্থায়ী নিষেধাজ্ঞা জারি করা হয়েছে। দয়া করে আ্যপ সেটিংসে যান, \"অনুমতি\" নির্বাচন করুন এবং \"স্থান\" সক্ষম করুন।</string>
   <!-- Removed by excludeNonTranslatables <string name="AttachmentManager_signal_requires_the_camera_permission_in_order_to_take_photos_but_it_has_been_permanently_denied">ছবি তোলার করার জন্য Signal এর ক্যামেরা ব্যাবহারের অনুমতির প্রয়োজন কিন্তু এর উপর স্থায়ী নিষেধাজ্ঞা জারি করা হয়েছে। দয়া করে আ্যপ সেটিংসে যান, \"অনুমতি\" নির্বাচন করুন এবং \"ক্যামেরা\" সক্ষম করুন।</string> -->
   <!--AttachmentUploadJob-->
   <string name="AttachmentUploadJob_uploading_media">মিডিয়া আপলোড হচ্ছে…</string>
@@ -117,14 +117,14 @@
   <string name="CameraContacts_no_signal_contacts">কোনও Signal পরিচিতি নেই</string>
   <string name="CameraContacts_you_can_only_use_the_camera_button">শুধুমাত্র Signal পরিচিতিদের ছবি পাঠাতে ক্যামেরা বোতাম ব্যবহার করতে পারবেন। </string>
   <string name="CameraContacts_cant_find_who_youre_looking_for">আপনি যাকে খুঁজছেন তাকে খুঁজে পাচ্ছেন না?</string>
-  <string name="CameraContacts_invite_a_contact_to_join_signal">Molly -এ যোগ দিতে একটি পরিচিতিকে আমন্ত্রণ জানান</string>
+  <string name="CameraContacts_invite_a_contact_to_join_signal">Signal-LTS -এ যোগ দিতে একটি পরিচিতিকে আমন্ত্রণ জানান</string>
   <string name="CameraContacts__menu_search">অনুসন্ধান</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">সরান</string>
   <string name="ClearProfileActivity_remove_profile_photo">প্রোফাইলের ছবিটি সরিয়ে ফেলবেন?</string>
   <string name="ClearProfileActivity_remove_group_photo">গ্রুপ ফটো সরাবেন?</string>
   <!--ClientDeprecatedActivity-->
-  <string name="ClientDeprecatedActivity_update_signal">Molly আপডেট করুন</string>
+  <string name="ClientDeprecatedActivity_update_signal">Signal-LTS আপডেট করুন</string>
   <string name="ClientDeprecatedActivity_update">আপডেট</string>
   <string name="ClientDeprecatedActivity_dont_update">আপডেট করবেন না</string>
   <string name="ClientDeprecatedActivity_warning">সতর্কতা</string>
@@ -198,7 +198,7 @@
   <string name="ConversationActivity_transport_insecure_sms">অনিরাপদ এসএমএস</string>
   <string name="ConversationActivity_transport_insecure_mms">অনিরাপদ এমএমএস</string>
   <string name="ConversationActivity_transport_signal">Signal</string>
-  <string name="ConversationActivity_lets_switch_to_signal">চলুন Molly এ যোগ দেই %1$s</string>
+  <string name="ConversationActivity_lets_switch_to_signal">চলুন Signal-LTS এ যোগ দেই %1$s</string>
   <string name="ConversationActivity_specify_recipient">দয়া করে একটি পরিচিতি চয়ন করুন</string>
   <!-- Removed by excludeNonTranslatables <string name="ConversationActivity_unblock_this_contact_question">এই পরিচিতিকে আনব্লক করতে চাচ্ছেন?</string> -->
   <!-- Removed by excludeNonTranslatables <string name="ConversationActivity_unblock_this_group_question">এই গ্রুপটিকে আনব্লক করতে চাচ্ছেন?</string> -->
@@ -210,15 +210,15 @@
   <string name="ConversationActivity_unable_to_record_audio">অডিও রেকর্ড করা যাচ্ছেনা!</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">আপনার ডিভাইসে এই লিঙ্কটি পরিচালনা করার মত কোনও অ্যাপ পাওয়া যাচ্ছে না।</string>
   <string name="ConversationActivity_cancel_request">অনুরোধ বাতিল করুন</string>
-  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">অডিও বার্তা পাঠাতে Molly কে আপনার মাইক্রোফোন ব্যাবহারের অনুমতি দিন।</string>
-  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">অডিও বার্তাগুলি প্রেরণের জন্য Molly এর মাইক্রোফোনের অনুমতি প্রয়োজন, কিন্তু এর উপর স্থায়ীভাবে নিষেধাজ্ঞা আরোপ করা হয়েছে। দয়া করে অ্যাপ্লিকেশন সেটিংসে যান, \"অনুমতিগুলি\" নির্বাচন করুন এবং \"মাইক্রোফোন\" সক্ষম করুন|</string>
-  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">%s  কে ফোন করতে Molly এর মাইক্রোফোন এবং ক্যামেরা ব্যাবহারের অনুমতির প্রয়োজন, কিন্তু এর উপর স্থায়ীভাবে নিষেধাজ্ঞা আরোপ করা হয়েছে। দয়া করে এপ সেটিংসে যান, \"অনুমতি\" নির্বাচন করুন এবং \"মাইক্রোফোন\" ও \"ক্যামেরা\" এর অনুমতি সক্ষম করুন।</string>
-  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">ছবি ও ভিডিও তুলতে Molly কে ক্যামেরা ব্যাবহারের অনুমতি দিন।</string>
-  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">ছবি অথবা ভিডিও তুলতে Molly এর ক্যামেরা ব্যাবহারের অনুমতির প্রয়োজন, কিন্তু এর উপর স্থায়ীভাবে নিষেধাজ্ঞা আরোপ করা হয়েছে। দয়া করে অ্যাপ সেটিংসে যান, \"অনুমতি\" নির্বাচন করুন এবং \"ক্যামেরা\" এর অনুমতি সক্ষম করুন।</string>
-  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">ছবি অথবা ভিডিও তুলতে Molly এর ক্যামেরা ব্যাবহারের অনুমতির প্রয়োজন।</string>
+  <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">অডিও বার্তা পাঠাতে Signal-LTS কে আপনার মাইক্রোফোন ব্যাবহারের অনুমতি দিন।</string>
+  <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">অডিও বার্তাগুলি প্রেরণের জন্য Signal-LTS এর মাইক্রোফোনের অনুমতি প্রয়োজন, কিন্তু এর উপর স্থায়ীভাবে নিষেধাজ্ঞা আরোপ করা হয়েছে। দয়া করে অ্যাপ্লিকেশন সেটিংসে যান, \"অনুমতিগুলি\" নির্বাচন করুন এবং \"মাইক্রোফোন\" সক্ষম করুন|</string>
+  <string name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">%s  কে ফোন করতে Signal-LTS এর মাইক্রোফোন এবং ক্যামেরা ব্যাবহারের অনুমতির প্রয়োজন, কিন্তু এর উপর স্থায়ীভাবে নিষেধাজ্ঞা আরোপ করা হয়েছে। দয়া করে এপ সেটিংসে যান, \"অনুমতি\" নির্বাচন করুন এবং \"মাইক্রোফোন\" ও \"ক্যামেরা\" এর অনুমতি সক্ষম করুন।</string>
+  <string name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">ছবি ও ভিডিও তুলতে Signal-LTS কে ক্যামেরা ব্যাবহারের অনুমতি দিন।</string>
+  <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">ছবি অথবা ভিডিও তুলতে Signal-LTS এর ক্যামেরা ব্যাবহারের অনুমতির প্রয়োজন, কিন্তু এর উপর স্থায়ীভাবে নিষেধাজ্ঞা আরোপ করা হয়েছে। দয়া করে অ্যাপ সেটিংসে যান, \"অনুমতি\" নির্বাচন করুন এবং \"ক্যামেরা\" এর অনুমতি সক্ষম করুন।</string>
+  <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">ছবি অথবা ভিডিও তুলতে Signal-LTS এর ক্যামেরা ব্যাবহারের অনুমতির প্রয়োজন।</string>
   <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">শব্দ সহ ভিডিও ধারন করতে মাইক্রোফোন অনুমতি সক্ষম করুন।</string>
-  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">ভিডিও রেকর্ড করতে Molly এর মাইক্রোফোনের অনুমতি প্রয়োজন, তবে সেগুলি অস্বীকার করা হয়েছে। দয়া করে অ্যাপ্লিকেশন সেটিংসে যান এবং, \"অনুমতিগুলি\" নির্বাচন করুন এবং \"মাইক্রোফোন\" এবং \"ক্যামেরা\" সক্ষম করুন|</string>
-  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">ভিডিও রেকর্ড করতে Molly এর ক্যামেরা ব্যাবহারের অনুমতির প্রয়োজন।</string>
+  <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">ভিডিও রেকর্ড করতে Signal-LTS এর মাইক্রোফোনের অনুমতি প্রয়োজন, তবে সেগুলি অস্বীকার করা হয়েছে। দয়া করে অ্যাপ্লিকেশন সেটিংসে যান এবং, \"অনুমতিগুলি\" নির্বাচন করুন এবং \"মাইক্রোফোন\" এবং \"ক্যামেরা\" সক্ষম করুন|</string>
+  <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">ভিডিও রেকর্ড করতে Signal-LTS এর ক্যামেরা ব্যাবহারের অনুমতির প্রয়োজন।</string>
   <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
   <string name="ConversationActivity_signal_cannot_sent_sms_mms_messages_because_it_is_not_your_default_sms_app">Signal এসএমএস / এমএমএস বার্তাগুলি প্রেরণ করতে পারে না কারণ এটি আপনার ডিফল্ট এসএমএস অ্যাপ নয়। আপনি কি আপনার অ্যানড্রয়েড সেটিংসে এটি পরিবর্তন করতে চান?</string>
   <string name="ConversationActivity_yes">হ্যাঁ</string>
@@ -234,8 +234,8 @@
   <string name="ConversationActivity_you_will_leave_this_group_and_it_will_be_deleted_from_all_of_your_devices">আপনি এই গ্রুপ ছেড়ে চলে যাবেন এবং এটি আপনার সমস্ত ডিভাইস থেকে মুছে ফেলা হবে।</string>
   <string name="ConversationActivity_delete">মুছে দিন</string>
   <string name="ConversationActivity_delete_and_leave">মুছুন এবং ছেড়ে যান</string>
-  <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">%1$s কে ফোন করতে Molly কে আপনার মাইক্রোফোন ব্যাবহার করতে হবে।</string>
-  <!-- Removed by excludeNonTranslatables <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone_and_camera">%1$s কে ফোন করতে Molly কে আপনার মাইক্রোফোন এবং ক্যামেরা ব্যাবহার করতে হবে।</string> -->
+  <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone">%1$s কে ফোন করতে Signal-LTS কে আপনার মাইক্রোফোন ব্যাবহার করতে হবে।</string>
+  <!-- Removed by excludeNonTranslatables <string name="ConversationActivity__to_call_s_signal_needs_access_to_your_microphone_and_camera">%1$s কে ফোন করতে Signal-LTS কে আপনার মাইক্রোফোন এবং ক্যামেরা ব্যাবহার করতে হবে।</string> -->
   <string name="ConversationActivity__more_options_now_in_group_settings">\"গ্রুপ সেটিংস\" এ এখন আরো অপশন আছে</string>
   <!--ConversationAdapter-->
   <plurals name="ConversationAdapter_n_unread_messages">
@@ -336,7 +336,7 @@
   <string name="BackupsPreferenceFragment__turn_on">চালু করুন</string>
   <string name="BackupsPreferenceFragment__turn_off">বন্ধ করুন</string>
   <string name="BackupsPreferenceFragment__learn_more">আরও জানুন</string>
-  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">ব্যাকআপগুলি তৈরি করতে Molly এর জন্য বাহ্যিক স্টোরেজ অনুমতি প্রয়োজন, তবে এটি স্থায়ীভাবে অস্বীকার করা হয়েছে। দয়া করে অ্যাপ্লিকেশন সেটিংস যান, \"অনুমতিগুলি\" নির্বাচন করুন এবং \"স্টোরেজ\" সক্ষম করুন।</string>
+  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">ব্যাকআপগুলি তৈরি করতে Signal-LTS এর জন্য বাহ্যিক স্টোরেজ অনুমতি প্রয়োজন, তবে এটি স্থায়ীভাবে অস্বীকার করা হয়েছে। দয়া করে অ্যাপ্লিকেশন সেটিংস যান, \"অনুমতিগুলি\" নির্বাচন করুন এবং \"স্টোরেজ\" সক্ষম করুন।</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">প্রথা ব্যবহৃত : %s</string>
   <string name="CustomDefaultPreference_using_default">ডিফল্ট ব্যবহৃত: %s</string>
@@ -373,7 +373,7 @@
   <string name="DocumentView_unnamed_file">নামহীন ফাইল</string>
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">অনুপস্থিত প্লে সার্ভিসের জন্য অনুকুল করা</string>
-  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">এই ডিভাইস প্লে সার্ভিস সমর্থন করে না। সিস্টেম ব্যাটারি অপ্টিমাইজেশন অক্ষম করতে আলতো চাপুন, যা নিষ্ক্রিয় অবস্থায় বার্তা পুনরুদ্ধার থেকে Molly -কে বাধা দেয়।</string>
+  <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">এই ডিভাইস প্লে সার্ভিস সমর্থন করে না। সিস্টেম ব্যাটারি অপ্টিমাইজেশন অক্ষম করতে আলতো চাপুন, যা নিষ্ক্রিয় অবস্থায় বার্তা পুনরুদ্ধার থেকে Signal-LTS -কে বাধা দেয়।</string>
   <!--ExpiredBuildReminder-->
   <string name="ExpiredBuildReminder_update_now">আপডেট করুন</string>
   <!--PendingGroupJoinRequestsReminder-->
@@ -385,7 +385,7 @@
   <!-- Removed by excludeNonTranslatables <string name="GcmBroadcastReceiver_retrieving_a_message">একটি বার্তা আনয়ন করা হচ্ছে…</string> -->
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Signal স্থায়ীভাবে যোগাযোগ স্থাপনে ব্যর্থ!</string>
-  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly গুগল প্লে পরিষেবাদিতে নিবন্ধন করতে অক্ষম ছিল। Molly বার্তা এবং কল সমূহ অক্ষম করা হয়েছে, দয়া করে পুনরায় নিবন্ধকরণ চেষ্টা করুন সেটিংস &gt;  উন্নত।</string>
+  <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal-LTS গুগল প্লে পরিষেবাদিতে নিবন্ধন করতে অক্ষম ছিল। Signal-LTS বার্তা এবং কল সমূহ অক্ষম করা হয়েছে, দয়া করে পুনরায় নিবন্ধকরণ চেষ্টা করুন সেটিংস &gt;  উন্নত।</string>
   <!--GiphyActivity-->
   <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">সম্পূর্ণ রেজোলিউশনে GIF পুনরুদ্ধার করার সময় ত্রুটি</string>
   <!--GiphyFragmentPageAdapter-->
@@ -537,7 +537,7 @@
   <string name="InviteActivity_sending">পাঠানো হচ্ছে</string>
   <!-- Removed by excludeNonTranslatables <string name="InviteActivity_heart_content_description">হৃদয়</string> -->
   <string name="InviteActivity_invitations_sent">আমন্ত্রণ পাঠানো হয়েছে!</string>
-  <string name="InviteActivity_invite_to_signal">Molly এ আমন্ত্রণ জানান</string>
+  <string name="InviteActivity_invite_to_signal">Signal-LTS এ আমন্ত্রণ জানান</string>
   <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">%d বন্ধুদের এসএমএস পাঠান</item>
     <item quantity="other">%d বন্ধুদের এসএমএস পাঠান</item>
@@ -546,7 +546,7 @@
     <item quantity="one"> %d টি নিমন্ত্রন এসএমএস পাঠান?</item>
     <item quantity="other">%d টি নিমন্ত্রন এসএমএস পাঠান?</item>
   </plurals>
-  <string name="InviteActivity_lets_switch_to_signal">চলুন Molly এ যোগ দেইঃ %1$s</string>
+  <string name="InviteActivity_lets_switch_to_signal">চলুন Signal-LTS এ যোগ দেইঃ %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">আপনার কাছে শেয়ার করতে পারবেন এমন কোন অ্যাপ নেই।</string>
   <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">বন্ধুরা কখনোই বন্ধুদের এনক্রিপ্ট না করে চ্যাট করতে দেয় না।</string>
   <!--Job-->
@@ -558,7 +558,7 @@
   <string name="LongMessageActivity_message_from_s">%1$s থেকে বার্তা</string>
   <string name="LongMessageActivity_your_message">আপনার বার্তা</string>
   <!--MessageRetrievalService-->
-  <string name="MessageRetrievalService_signal">Molly</string>
+  <string name="MessageRetrievalService_signal">Signal-LTS</string>
   <string name="MessageRetrievalService_background_connection_enabled">পটভূমির সংযোগ সক্ষম করা হয়েছে</string>
   <!--MmsDownloader-->
   <string name="MmsDownloader_error_reading_mms_settings">ওয়্যারলেস সরবরাহকারীর এমএমএস সেটিংস পড়তে ত্রুটি</string>
@@ -634,8 +634,8 @@
   <string name="MediaSendActivity_message_to_s">%s এর জন্য বার্তা</string>
   <string name="MediaSendActivity_message">বার্তা</string>
   <string name="MediaSendActivity_select_recipients">প্রাপক নির্বাচন করুন</string>
-  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Molly আপনার পরিচিতি সমূহ প্রদর্শন করতে তাদের প্রবেশাধিকার প্রয়োজন।</string>
-  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">আপনার পরিচিতি সমূহ দেখানোর জন্য Molly এর পরিচিতি পাঠের অনুমতি প্রয়োজন তবে এটি স্থায়ীভাবে অস্বীকার করা হয়েছে। দয়া করে অ্যাপ্লিকেশন সেটিংসে চলতে থাক, \"অনুমতিগুলি\" নির্বাচন করুন এবং \"পরিচিতি\" সক্ষম করুন।</string>
+  <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Signal-LTS আপনার পরিচিতি সমূহ প্রদর্শন করতে তাদের প্রবেশাধিকার প্রয়োজন।</string>
+  <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">আপনার পরিচিতি সমূহ দেখানোর জন্য Signal-LTS এর পরিচিতি পাঠের অনুমতি প্রয়োজন তবে এটি স্থায়ীভাবে অস্বীকার করা হয়েছে। দয়া করে অ্যাপ্লিকেশন সেটিংসে চলতে থাক, \"অনুমতিগুলি\" নির্বাচন করুন এবং \"পরিচিতি\" সক্ষম করুন।</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
     <item quantity="one">%d টার বেশী জিনিষ শেয়ার করতে পারবেন না।</item>
     <item quantity="other">%dটার বেশী জিনিষ শেয়ার করতে পারবেন না।</item>
@@ -767,7 +767,7 @@
   <string name="DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code">দুঃখিত, এটি কোনও বৈধ ডিভাইসের লিঙ্ক কিউআর কোড নয়।</string>
   <string name="DeviceProvisioningActivity_link_a_signal_device">একটি Signal ডিভাইস লিঙ্ক করবেন?</string>
   <string name="DeviceProvisioningActivity_it_looks_like_youre_trying_to_link_a_signal_device_using_a_3rd_party_scanner">দেখে মনে হচ্ছে আপনি ৩য় পক্ষের স্ক্যানার ব্যবহার করে একটি Signal  ডিভাইস লিঙ্ক করার চেষ্টা করছেন। আপনার সুরক্ষার জন্য, দয়া করে Signal এর মধ্যে থেকে আবার কোডটি স্ক্যান করুন।</string>
-  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">কোনও কিউআর কোড স্ক্যান করার জন্য Molly এর ক্যামেরা অনুমতি প্রয়োজন তবে এটি স্থায়ীভাবে অস্বীকার করা হয়েছে। দয়া করে অ্যাপ সেটিংসে যান, \"অনুমতিগুলি\" নির্বাচন করুন এবং \"ক্যামেরা\" সক্ষম করুন।</string>
+  <string name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">কোনও কিউআর কোড স্ক্যান করার জন্য Signal-LTS এর ক্যামেরা অনুমতি প্রয়োজন তবে এটি স্থায়ীভাবে অস্বীকার করা হয়েছে। দয়া করে অ্যাপ সেটিংসে যান, \"অনুমতিগুলি\" নির্বাচন করুন এবং \"ক্যামেরা\" সক্ষম করুন।</string>
   <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">ক্যামেরা অনুমতি ব্যতীত কোনও কিউআর কোড স্ক্যান করতে অক্ষম</string>
   <!--ExpirationDialog-->
   <!-- Removed by excludeNonTranslatables <string name="ExpirationDialog_disappearing_messages">অদৃশ্য বার্তা</string> -->
@@ -777,10 +777,10 @@
   <string name="OutdatedBuildReminder_update_now">আপডেট করুন</string>
   <!--PassphrasePromptActivity-->
   <string name="PassphrasePromptActivity_enter_passphrase">পাসফ্রেজ প্রবেশ করান</string>
-  <string name="PassphrasePromptActivity_watermark_content_description">Molly আইকন</string>
+  <string name="PassphrasePromptActivity_watermark_content_description">Signal-LTS আইকন</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">পাসফ্রেজ সাবমিট করুন</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">অকার্যকর পাসফ্রেজ!</string>
-  <string name="PassphrasePromptActivity_unlock_signal">Molly আনলক করুন</string>
+  <string name="PassphrasePromptActivity_unlock_signal">Signal-LTS আনলক করুন</string>
   <!--PlacePickerActivity-->
   <string name="PlacePickerActivity_title">ম্যাপ</string>
   <!-- Removed by excludeNonTranslatables <string name="PlacePickerActivity_not_a_valid_address">কোনও বৈধ ঠিকানা নয়</string> -->
@@ -838,8 +838,8 @@
   <string name="RedPhone_got_it">বুঝতে পেরেছি</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">আপনার ভিডিও চালু করতে এখানে আলতো চাপুন</string>
-  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">%1$s কে ফোন করতে Molly কে আপনার ক্যামেরা ব্যাবহার করতে হবে।</string>
-  <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
+  <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">%1$s কে ফোন করতে Signal-LTS কে আপনার ক্যামেরা ব্যাবহার করতে হবে।</string>
+  <string name="WebRtcCallActivity__signal_s">Signal-LTS %1$s</string>
   <string name="WebRtcCallActivity__calling">কল করা হচ্ছে…</string>
   <!--WebRtcCallView-->
   <string name="WebRtcCallView__signal_voice_call">Signal ভয়েস কল…</string>
@@ -855,7 +855,7 @@
   <string name="RegistrationActivity_the_number_you_specified_s_is_invalid">আপনি যে নাম্বার 
 নির্দিষ্ট করেছেন (%s) তা সঠিক নয়।</string>
   <string name="RegistrationActivity_missing_google_play_services">গুগল প্লে সার্ভিস নিখোজ</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">এই ডিভাইস টিতে গুগল প্লে পরিষেবাদি অনুপস্থিত। আপনি এখনও সিগন্যাল ব্যবহার করতে পারেন, তবে এই কনফিগারেশনের ফলে নির্ভরযোগ্যতা বা কার্যকারিতা হ্রাস পেতে পারে। \n\ আপনি যদি এ্যাডভান্স ব্যবহারকারী না হন,  তাছাড়া কোনও পরিবর্তিত অ্যানড্রয়েড রম চালিয়ে যাচ্ছেন না, বা মনে করছেন যে, আপনি এই ত্রুটি ভুল  করে দেখছেন। দয়া করে সমস্যা সমাধানের জন্য support@molly.im ঠিকানায় পরিচিতি করুন।</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">এই ডিভাইস টিতে গুগল প্লে পরিষেবাদি অনুপস্থিত। আপনি এখনও সিগন্যাল ব্যবহার করতে পারেন, তবে এই কনফিগারেশনের ফলে নির্ভরযোগ্যতা বা কার্যকারিতা হ্রাস পেতে পারে। \n\ আপনি যদি এ্যাডভান্স ব্যবহারকারী না হন,  তাছাড়া কোনও পরিবর্তিত অ্যানড্রয়েড রম চালিয়ে যাচ্ছেন না, বা মনে করছেন যে, আপনি এই ত্রুটি ভুল  করে দেখছেন। দয়া করে সমস্যা সমাধানের জন্য support@Signal-LTS.im ঠিকানায় পরিচিতি করুন।</string>
   <string name="RegistrationActivity_i_understand">আমি বুঝতে পেরেছি</string>
   <string name="RegistrationActivity_play_services_error">প্লে সার্ভিস সমস্যা</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">গুগল প্লে পরিষেবাদি আপডেট করছে বা অস্থায়ীভাবে অনুপলব্ধ। অনুগ্রহপূর্বক আবার চেষ্টা করুন।</string>
@@ -863,9 +863,9 @@
   <!-- Removed by excludeNonTranslatables <string name="RegistrationActivity_no_browser">এই লিংকে যাওয়া সম্ভব হচ্ছে না। কোন ব্রাউজার খুজে পাওয়া যায়নি।</string> -->
   <!-- Removed by excludeNonTranslatables <string name="RegistrationActivity_more_information">আরো তথ্য</string> -->
   <!-- Removed by excludeNonTranslatables <string name="RegistrationActivity_less_information">কম তথ্য দেখান</string> -->
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">বন্ধুদের সাথে সংযোগ করতে, বার্তা বিনিময় করতে এবং সুরক্ষিত কল সমূহ করার জন্য Molly এর আপনার পরিচিতি এবংমিডিয়া অ্যাক্সেস প্রয়োজন</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">বন্ধুদের সাথে সংযোগ করতে, বার্তা বিনিময় করতে এবং সুরক্ষিত কল সমূহ করার জন্য Signal-LTS এর আপনার পরিচিতি এবংমিডিয়া অ্যাক্সেস প্রয়োজন</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">পরিষেবাতে সংযোগ করতে অক্ষম। নেটওয়ার্ক সংযোগ পরীক্ষা করুন এবং আবার চেষ্টা করুন।</string>
-  <!-- Removed by excludeNonTranslatables <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">আপনার ফোন নাম্বার সহজে যাচাই করতে, আপনি Molly কে এসএমএস বার্তা দেখার অনুমতি দিলে Molly স্বয়ংক্রিয়ভাবে আপনার যাচাই কোডটি সনাক্ত করতে পারে।</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">আপনার ফোন নাম্বার সহজে যাচাই করতে, আপনি Signal-LTS কে এসএমএস বার্তা দেখার অনুমতি দিলে Signal-LTS স্বয়ংক্রিয়ভাবে আপনার যাচাই কোডটি সনাক্ত করতে পারে।</string> -->
   <plurals name="RegistrationActivity_debug_log_hint">
     <item quantity="one">আপনি এখন একটি ডিবাগ লগ জমা দেওয়ার থেকে %d পদক্ষেপ দূরে।</item>
     <item quantity="other">আপনি এখন একটি ডিবাগ লগ জমা দেওয়ার থেকে %d পদক্ষেপ দূরে।</item>
@@ -903,12 +903,12 @@
   <string name="SearchFragment_header_messages">বার্তা সমূহ</string>
   <!--SharedContactDetailsActivity-->
   <string name="SharedContactDetailsActivity_add_to_contacts">পরিচিতি যুক্ত করুন</string>
-  <string name="SharedContactDetailsActivity_invite_to_signal">Molly এ আমন্ত্রণ জানান</string>
+  <string name="SharedContactDetailsActivity_invite_to_signal">Signal-LTS এ আমন্ত্রণ জানান</string>
   <string name="SharedContactDetailsActivity_signal_message">Signal বার্তা</string>
   <string name="SharedContactDetailsActivity_signal_call">Signal কল</string>
   <!--SharedContactView-->
   <string name="SharedContactView_add_to_contacts">পরিচিতিতে যুক্ত করুন</string>
-  <string name="SharedContactView_invite_to_signal">Molly এ আমন্ত্রণ জানান</string>
+  <string name="SharedContactView_invite_to_signal">Signal-LTS এ আমন্ত্রণ জানান</string>
   <string name="SharedContactView_message">Signal বার্তা</string>
   <!--SignalPinReminders-->
   <string name="SignalPinReminders_well_remind_you_again_later">আমরা আপনাকে পরে আবারও মনে করিয়ে দেব।</string>
@@ -964,8 +964,8 @@
   <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_signal_android_support_request">Signal অ্যানড্রয়েড সহায়তা আবেদন</string> -->
   <string name="SupportEmailUtil_device_info">ডিভাইস এর তথ্যঃ</string>
   <string name="SupportEmailUtil_android_version">অ্যানড্রয়েড ভার্সনঃ</string>
-  <string name="SupportEmailUtil_signal_version">Molly ভার্সনঃ</string>
-  <string name="SupportEmailUtil_signal_package">Molly প্যাকেজঃ</string>
+  <string name="SupportEmailUtil_signal_version">Signal-LTS ভার্সনঃ</string>
+  <string name="SupportEmailUtil_signal_package">Signal-LTS প্যাকেজঃ</string>
   <string name="SupportEmailUtil_registration_lock">রেজিস্ট্রেশন লক</string>
   <!--ThreadRecord-->
   <string name="ThreadRecord_group_updated">গ্রুপ অাপডেট হয়েছে</string>
@@ -999,8 +999,8 @@
   <string name="ThreadRecord_file">ফাইল</string>
   <string name="ThreadRecord_video">ভিডিও</string>
   <!--UpdateApkReadyListener-->
-  <string name="UpdateApkReadyListener_Signal_update">Molly আপডেট</string>
-  <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Molly এর একটি নতুন ভার্সন পাওয়া যাচ্ছে, অাপডেট করতে ট্যাপ করুন</string>
+  <string name="UpdateApkReadyListener_Signal_update">Signal-LTS আপডেট</string>
+  <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Signal-LTS এর একটি নতুন ভার্সন পাওয়া যাচ্ছে, অাপডেট করতে ট্যাপ করুন</string>
   <!--UnknownSenderView-->
   <!-- Removed by excludeNonTranslatables <string name="UnknownSenderView_block_s">%s কে ব্লক করবেন?</string> -->
   <!-- Removed by excludeNonTranslatables <string name="UnknownSenderView_blocked_contacts_will_no_longer_be_able_to_send_you_messages_or_call_you">ব্লক করা পরিচিতিসমূহ আপনাকে আর বার্তা প্রেরণ বা কল করতে সক্ষম হবে না।</string> -->
@@ -1033,7 +1033,7 @@
   <string name="VerifyIdentityActivity_our_signal_safety_number">আমাদের Signal নিরাপত্তা নাম্বার:</string>
   <string name="VerifyIdentityActivity_no_app_to_share_to">আপনার কাছে শেয়ার করতে পারবেন এমন কোন অ্যাপ নেই।</string>
   <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">ক্লিপবোর্ডে তুলনার মতো কোনও নিরাপত্তা নাম্বার পাওয়া যায় নি</string>
-  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">কোনও কিউআর কোড স্ক্যান করার জন্য Molly এর ক্যামেরা অনুমতি প্রয়োজন তবে এটি স্থায়ীভাবে অস্বীকার করা হয়েছে। দয়া করে অ্যাপ সেটিংসে যান, \"অনুমতিগুলি\" নির্বাচন করুন এবং \"ক্যামেরা\" সক্ষম করুন।</string>
+  <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">কোনও কিউআর কোড স্ক্যান করার জন্য Signal-LTS এর ক্যামেরা অনুমতি প্রয়োজন তবে এটি স্থায়ীভাবে অস্বীকার করা হয়েছে। দয়া করে অ্যাপ সেটিংসে যান, \"অনুমতিগুলি\" নির্বাচন করুন এবং \"ক্যামেরা\" সক্ষম করুন।</string>
   <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">ক্যামেরা অনুমতি ছাড়া কিউআর কোড স্ক্যান করা সম্ভব নয়</string>
   <!--ViewOnceMessageActivity-->
   <!--AudioView-->
@@ -1053,13 +1053,13 @@
   <!--KeyCachingService-->
   <string name="KeyCachingService_signal_passphrase_cached">খোলার জন্য স্পর্শ করুন।</string>
   <!-- Removed by excludeNonTranslatables <string name="KeyCachingService_signal_passphrase_cached_with_lock">খুলতে স্পর্শ করুন বা বন্ধ করতে লক্ স্পর্শ করুন।</string> -->
-  <string name="KeyCachingService_passphrase_cached">Molly আনলক করা আছে</string>
-  <string name="KeyCachingService_lock">Molly লক্ করুন</string>
+  <string name="KeyCachingService_passphrase_cached">Signal-LTS আনলক করা আছে</string>
+  <string name="KeyCachingService_lock">Signal-LTS লক্ করুন</string>
   <!--MediaPreviewActivity-->
   <string name="MediaPreviewActivity_you">আপনি</string>
   <string name="MediaPreviewActivity_unssuported_media_type">অসমর্থিত ধরনের মিডিয়া</string>
   <string name="MediaPreviewActivity_draft">খসড়া</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">বাহ্যিক স্টোরেজে সংরক্ষণের জন্য Mollyএর স্টোরেজের অনুমতি প্রয়োজন তবে এটি স্থায়ীভাবে অস্বীকার করা হয়েছে। দয়া করে অ্যাপ্লিকেশন সেটিংসে যান, \"অনুমতিগুলি\" নির্বাচন করুন এবং \"স্টোরেজ\" সক্ষম করুন।</string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">বাহ্যিক স্টোরেজে সংরক্ষণের জন্য Signal-LTSএর স্টোরেজের অনুমতি প্রয়োজন তবে এটি স্থায়ীভাবে অস্বীকার করা হয়েছে। দয়া করে অ্যাপ্লিকেশন সেটিংসে যান, \"অনুমতিগুলি\" নির্বাচন করুন এবং \"স্টোরেজ\" সক্ষম করুন।</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">অনুমতি ব্যতীত বাহ্যিক স্টোরেজে সংরক্ষণ করতে অক্ষম</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">বার্তা মুছে দিন?</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">স্থায়ীভাবে এই বার্তাটি মুছে দিন।</string>
@@ -1082,7 +1082,7 @@
   <string name="MessageNotifier_signal_message">Signal বার্তা</string>
   <string name="MessageNotifier_unsecured_sms">অনিরাপদ এসএমএস</string>
   <string name="MessageNotifier_you_may_have_new_messages">আপনার কাছে নতুন বার্তা থাকতে পারে</string>
-  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">সাম্প্রতিক বিজ্ঞপ্তিগুলি দেখার জন্য Molly খুলুন।</string>
+  <string name="MessageNotifier_open_signal_to_check_for_recent_notifications">সাম্প্রতিক বিজ্ঞপ্তিগুলি দেখার জন্য Signal-LTS খুলুন।</string>
   <string name="MessageNotifier_contact_message">%1$s %2$s</string>
   <string name="MessageNotifier_unknown_contact_message">পরিচিতি</string>
   <string name="MessageNotifier_reacted_s_to_s"> \"%2$s\" তে %1$s প্রতিক্রিয়া|</string>
@@ -1108,7 +1108,7 @@
   <!-- Removed by excludeNonTranslatables <string name="ProfileEditNameFragment_successfully_set_profile_name">সফলভাবে প্রোফাইল নাম সেট করা হয়েছে।</string> -->
   <!-- Removed by excludeNonTranslatables <string name="ProfileEditNameFragment_encountered_a_network_error">একটি নেটওয়ার্ক ত্রুটি সম্মুখীন।</string> -->
   <!--QuickResponseService-->
-  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Molly লক্ করা থাকলে দ্রুত প্রত্যুত্তর দেওয়া সম্ভব নয়!</string>
+  <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Signal-LTS লক্ করা থাকলে দ্রুত প্রত্যুত্তর দেওয়া সম্ভব নয়!</string>
   <string name="QuickResponseService_problem_sending_message">বার্তা প্রেরণে সমস্যা!</string>
   <!--SaveAttachmentTask-->
   <string name="SaveAttachmentTask_saved_to">%sএ সংরক্ষন করা হয়েছে</string>
@@ -1119,7 +1119,7 @@
   <!--ShortcutLauncherActivity-->
   <string name="ShortcutLauncherActivity_invalid_shortcut">অকার্যকর শর্টকাট</string>
   <!--SingleRecipientNotificationBuilder-->
-  <string name="SingleRecipientNotificationBuilder_signal">Molly</string>
+  <string name="SingleRecipientNotificationBuilder_signal">Signal-LTS</string>
   <string name="SingleRecipientNotificationBuilder_new_message">নতুন বার্তা</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">ভিডিও চালান</string>
@@ -1135,8 +1135,8 @@
   <!--VideoPlayer-->
   <!-- Removed by excludeNonTranslatables <string name="VideoPlayer_error_playing_video">ভিডিও চালাতে ত্রুটি</string> -->
   <!--WebRtcCallActivity-->
-  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">%sএর থেকে কল উত্তর দিতে, Molly কে আপনার মাইক্রোফোনে অ্যাক্সেস দিন।</string>
-  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">কল সমূহ করতে বা গ্রহণের জন্য Molly এর মাইক্রোফোন এবং ক্যামেরা ব্যবহারের অনুমতি প্রয়োজন, তবে সেগুলি স্থায়ীভাবে অস্বীকার করা হয়েছে। দয়া করে অ্যাপ্লিকেশন সেটিংসে যান এবং \"অনুমতিগুলি\" নির্বাচন করুন এবং \"মাইক্রোফোন\" এবং \"ক্যামেরা\" সক্ষম করুন |</string>
+  <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">%sএর থেকে কল উত্তর দিতে, Signal-LTS কে আপনার মাইক্রোফোনে অ্যাক্সেস দিন।</string>
+  <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">কল সমূহ করতে বা গ্রহণের জন্য Signal-LTS এর মাইক্রোফোন এবং ক্যামেরা ব্যবহারের অনুমতি প্রয়োজন, তবে সেগুলি স্থায়ীভাবে অস্বীকার করা হয়েছে। দয়া করে অ্যাপ্লিকেশন সেটিংসে যান এবং \"অনুমতিগুলি\" নির্বাচন করুন এবং \"মাইক্রোফোন\" এবং \"ক্যামেরা\" সক্ষম করুন |</string>
   <string name="WebRtcCallActivity__answered_on_a_linked_device">সংযুক্ত ডিভাইসে উত্তর দেওয়া হয়েছে।</string>
   <string name="WebRtcCallActivity__declined_on_a_linked_device">সংযুক্ত ডিভাইসে অস্বীকার করা হয়েছে।</string>
   <string name="WebRtcCallActivity__busy_on_a_linked_device">সংযুক্ত ডিভাইসে ব্যাস্ত।</string>
@@ -1187,7 +1187,7 @@
   <string name="change_passphrase_activity__repeat_new_passphrase">নতুন পাসফ্রেজ পুনরাবৃত্তি করুন</string>
   <!--contact_selection_activity-->
   <string name="contact_selection_activity__enter_name_or_number">নাম বা নাম্বার লিখুন</string>
-  <string name="contact_selection_activity__invite_to_signal">Molly এ নিমন্ত্রণ করুন</string>
+  <string name="contact_selection_activity__invite_to_signal">Signal-LTS এ নিমন্ত্রণ করুন</string>
   <string name="contact_selection_activity__new_group">নতুন গ্রুপ</string>
   <!--contact_filter_toolbar-->
   <string name="contact_filter_toolbar__clear_entered_text_description">প্রবেশ করা লেখা মুছুন</string>
@@ -1199,14 +1199,14 @@
   <!--single_contact_selection_activity-->
   <string name="SingleContactSelectionActivity_contact_photo">পরিচিতির ছবি</string>
   <!--ContactSelectionListFragment-->
-  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">আপনার পরিচিতিসমূহ দেখানোর জন্য Molly এর পরিচিতি পাঠের অনুমতি প্রয়োজন তবে এটি স্থায়ীভাবে অস্বীকার করা হয়েছে। দয়া করে অ্যাপ্লিকেশন সেটিংসে যান এবং \"অনুমতিগুলি\" নির্বাচন করুন এবং \"পরিচিতি\" সক্ষম করুন।</string>
+  <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">আপনার পরিচিতিসমূহ দেখানোর জন্য Signal-LTS এর পরিচিতি পাঠের অনুমতি প্রয়োজন তবে এটি স্থায়ীভাবে অস্বীকার করা হয়েছে। দয়া করে অ্যাপ্লিকেশন সেটিংসে যান এবং \"অনুমতিগুলি\" নির্বাচন করুন এবং \"পরিচিতি\" সক্ষম করুন।</string>
   <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">পরিচিতি পুনরুদ্ধারে ত্রুটি, আপনার নেটওয়ার্ক সংযোগটি পরীক্ষা করুন</string>
   <string name="ContactSelectionListFragment_username_not_found">ব্যবহারকারীর নাম খুঁজে পাওয়া যায়নি</string>
   <string name="ContactSelectionListFragment_s_is_not_a_signal_user">\"%1$s\" কোনও Signal ব্যবহারকারী নয়। দয়া করে ব্যবহারকারীর নামটি পরীক্ষা করুন এবং আবার চেষ্টা করুন।</string>
   <!--blocked_contacts_fragment-->
   <!-- Removed by excludeNonTranslatables <string name="blocked_contacts_fragment__no_blocked_contacts">কোনও অবরুদ্ধ পরিচিতি নেই</string> -->
   <!--contact_selection_list_fragment-->
-  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly আপনার পরিচিতিসমূহ প্রদর্শন করতে তাদের প্রবেশাধিকার প্রয়োজন।</string>
+  <string name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Signal-LTS আপনার পরিচিতিসমূহ প্রদর্শন করতে তাদের প্রবেশাধিকার প্রয়োজন।</string>
   <string name="contact_selection_list_fragment__show_contacts">পরিচিতিসমূহ দেখান</string>
   <!--contact_selection_list_item-->
   <!--conversation_activity-->
@@ -1922,7 +1922,7 @@
   <!-- Removed by excludeNonTranslatables <string name="RegistrationActivity_pin_incorrect">পিন সঠিক নয়</string> -->
   <!-- Removed by excludeNonTranslatables <string name="RegistrationActivity_you_have_d_tries_remaining">আপনার %d টি প্রচেষ্টা বাকি আছে</string> -->
   <string name="preferences_chats__backups">ব্যাকআপ সমূহ</string>
-  <string name="prompt_passphrase_activity__signal_is_locked">Molly লক্ করা আছে</string>
+  <string name="prompt_passphrase_activity__signal_is_locked">Signal-LTS লক্ করা আছে</string>
   <string name="prompt_passphrase_activity__tap_to_unlock">লক্ খুলতে ট্যাপ করুন</string>
   <!-- Removed by excludeNonTranslatables <string name="RegistrationLockDialog_reminder">অনুস্মারক:</string> -->
   <!-- Removed by excludeNonTranslatables <string name="recipient_preferences__about">সম্বন্ধে</string> -->
