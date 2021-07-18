@@ -1,7 +1,7 @@
 package org.thoughtcrime.securesms.components.settings.app.help
 
 import android.content.Context
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import org.signal.core.util.logging.LogManager
 import org.thoughtcrime.securesms.BuildConfig
@@ -22,7 +22,7 @@ class HelpSettingsFragment : DSLSettingsFragment(R.string.preferences__help) {
   lateinit var viewModel: HelpSettingsViewModel
 
   override fun bindAdapter(adapter: DSLSettingsAdapter) {
-    viewModel = ViewModelProviders.of(this)[HelpSettingsViewModel::class.java]
+    viewModel = ViewModelProvider(this)[HelpSettingsViewModel::class.java]
 
     viewModel.state.observe(viewLifecycleOwner) { state ->
       adapter.submitList(getConfiguration(state).toMappingModelList())
