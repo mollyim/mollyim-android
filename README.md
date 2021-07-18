@@ -1,35 +1,18 @@
-# Molly
+# Signal-LTS
 
-[![Android CI](https://github.com/mollyim/mollyim-android/workflows/Android%20CI/badge.svg)](https://github.com/mollyim/mollyim-android/actions)
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/mollyim/mollyim-android.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/mollyim/mollyim-android/alerts/)
-[![Translation status](https://hosted.weblate.org/widgets/molly-instant-messenger/-/svg-badge.svg)](https://hosted.weblate.org/engage/molly-instant-messenger/?utm_source=widget)
-[![Financial contributors](https://opencollective.com/mollyim/tiers/badge.svg)](https://opencollective.com/mollyim#category-CONTRIBUTE)
+Signal-LTS is an unofficial Long Term Support version of Signal.
 
-> Molly is a hardened version of [Signal](https://github.com/signalapp/Signal-Android) for Android, the fast simple yet secure messaging app by [Signal Foundation](https://signal.org).
+The goal is to offer greater stability to signal users.
 
-## Introduction
-
-Back in 2018, Signal allowed the user to set a passphrase to secure the local message database. But this option was removed with the introduction of file-based encryption on Android. Molly brings it back again with additional security features.
-
-Molly connects to the Signal server, so you can chat with your Signal contacts seamlessly. Please remember to review their [Signal Terms & Privacy Policy](https://signal.org/legal/) before signing up.
-
-Every two weeks Molly is updated to include the latest features and bug fixes from Signal.
-
-## Download
-
-You can download the app from GitHub's [Releases](https://github.com/mollyim/mollyim-android/releases/latest) page or install it from the [Molly F-Droid Repo](https://molly.im/fdroid/):
-
-[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
-    alt="Get it on F-Droid"
-    height="80">](https://molly.im/fdroid/)
-
-There are two flavors to choose from download: **Molly** or **Molly-FOSS**. Learn the differences [below](#free-and-open-source) and download the right one for you.
-
-Pre-releases are also available to download for development or beta testing.
+Due to signals making sometimes quick, controversial, and generally unwanted updates. This fork will allow users who dislike these updates a refuge, while we take the time to listen to the community to find out what is truly wanted for the app.
 
 ## Features
 
-Molly has unique features compared to Signal:
+Signal-LTS has far more features than signal too!
+
+Signal-LTS is actually a fork of [Molly FOSS](https://molly.im), therefore inherits all its features.
+
+### Inherited from Molly.im
 
 - **Data encryption at rest** - Protect the database with [passphrase encryption](https://github.com/mollyim/mollyim-android/wiki/Data-Encryption-At-Rest)
 - **Secure RAM wiper** - Securely shred sensitive data from device memory
@@ -41,61 +24,57 @@ Molly has unique features compared to Signal:
 - **Custom backup scheduling** - Choose between daily or weekly interval and the number of backups to retain
 - **SOCKS proxy and Tor support** - Tunnel app network traffic via proxy and Orbot
 
-Besides that, you will find all the features of Signal plus some minor tweaks and improvements. The only exception is the SMS integration, that is incompatible with Molly security enhancements.
+### Features added on from Molly.im / Signal
 
-## Free and Open-Source
+- **Fully FOSS**
 
-Molly is open-source just like Signal. But both apps use Google's proprietary code to support some key features. Molly-FOSS is the community effort to make it 100% free and open-source.
+  [Molly](https://molly.im) offers two versions of Signal, one without any proprietary dependencies at all (100% FOSS), and one with proprietary dependencies. Signal-LTS is always built of Molly FOSS, meaning it is 100% Free Software.
 
-You can install the Molly flavor of your choice at any time, and it will replace any previously installed version. The data and settings will be preserved so that you do not have to re-register.
+- **LTS**
 
-This table lists the current status of the dependencies:
+  This fork will be recompiled and a new release added every 6 months, or when there is an update that would make Signal-LTS incompatible with Signal. This will offer Signal-LTS users far more stability, and allow us time to think about issues e.g. Signal randomly changing the chat message colours, and if we can revert them. The source code to this fork will be updated more than every 6 months, it is only the release that will occur every 6 months.
 
-| Feature                                | Molly-FOSS | Molly            | Signal          |
-| -------------------------------------- | ---------- | ---------------- | --------------- |
-| Push notifications <sup>(1)</sup>      | ✘          | ⚠️ (FCM)         | ⚠ (FCM)         |
-| Websocket notifications <sup>(2)</sup> | ✔️          | ✔️               | ✔️               |
-| Location provider                      | ✘          | ⚠ (Google Maps) | ⚠ (Google Maps) |
+- **Deleting messages time extension**
 
-<sup>(1)</sup> If you are running a custom ROM and the app fails to register with Play Services, try the FOSS flavor.<br/>
-<sup>(2)</sup> You may need to disable the system battery optimizations to receive notifications in background.
+  Messages must be deleted within 3 hours of sending on Signal and Molly. Signal-LTS has modified this to 24 hours (the limit the recipient will allow deleted messages up to).
 
-## Compatibility with Signal
+- **Does not compress images or video**
 
-Molly and Signal apps can be installed on the same device. If you need a 2nd number to chat, you can use Molly along with Signal.
+  This fork is modified to not compress messages or video. This means that you can now easily send images and video to friends etc, without worrying about extreme compression reducing the quality. We did however make a security trade off here. Images sent via Signal-LTS **DO** contain their original metadata. It is highly recommended to send images and video **ONLY** to people you trust, as the metadata could give away things such as your location when taking the image and the time you took it, phone model, etc etc.
 
-However, you cannot use the same phone number on both apps at the same time. Only the last app to register will remain active, and the other will go offline. Remember that you are not limited to use only your main phone number, but also any number on you can receive SMS or phone calls at registration.
+- **Refuses to send read receipts**
 
-## Backups
+  This fork has been modified to not send read receipts at all. Meaning you may be able to see someone else has read your message, but not vice versa.
 
-Backups are fully compatible. Signal [backups](https://support.signal.org/hc/en-us/articles/360007059752-Backup-and-Restore-Messages) can be restored in Molly, and the other way around, simply by choosing the backup folder and file.
+- **Refuses to send typing indicators**
 
-For older versions of Android, you might need to rename the backup file and copy it into the expected path, so the app can find the backup to restore during installation. Those are the locations within internal storage where backups are written by default:
-- `Signal/Backups/Signal-year-month-date-time.backup`
-- `Molly/Backups/Molly-year-month-date-time.backup`
+  Same as above but for typing indicators.
 
-## Feedback
+- **Removed Gif's**
 
-- [Submit bugs and feature requests](https://github.com/mollyim/mollyim-android/issues)
-- Join us on the chat room [#mollyim](https://matrix.to/#/#mollyim:matrix.org) at Matrix
-- For news and tips & tricks follow [@mollyimapp](https://twitter.com/mollyimapp) on Twitter
+  This fork has removed the Gif sending functionality from signal. Gif's were supplied by Giphy. Giphy is owned by Facebook. Signal has managed to implement the retrieval of gif's in a private way, however I personally do not want my Signal client to be fetching content from Facebook at all, in a private manor, or not.
 
-## Reproducible Builds
+- **Removed animations**
 
-Molly supports reproducible builds, so that anyone can run the build process again to reproduce the same APK as the original release.
+  Signal has many animations which as far as I am aware do not turn off even if you turn animations system wide. These animations can be slow and annoying. In Signal-LTS, most of the animations are removed, and those which remain are significantly sped up to save you time.
 
-Please check the guide in the [reproducible-builds](https://github.com/mollyim/mollyim-android/blob/master/reproducible-builds) directory.
+- **Remove unnecessary settings**
 
-## Changelog
+  Some signal settings which offer little utility and simply make the UI more complex have been removed.
 
-See the [Changelog](https://github.com/mollyim/mollyim-android/wiki/Changelog) to view recent changes.
+- **Colour Scheme**
 
-## License
+  Signal-LTS follows a green colour scheme rather than purple like Molly, or blue like Signal.
+
+## Upstream
+
+Signal --> Molly.im --> Signal-LTS
+
+### Why a fork of Molly not Signal?
+
+I personally think that [Molly](https://molly.im) offers some great extensions upon Signal. Molly has not made any changes which I disapprove of. Therefore, it felt natural to simply fork Molly and build upon it, rather than signal, due to it already having made some brilliant changes. I highly recommend [Molly](https://molly.im) as a Signal client.
+
+
+# License & Legal
 
 License and legal notices in the original [README](README-ORIG.md).
-
-## Disclaimer
-
-This project is *NOT* sponsored by Signal Messenger or Signal Foundation.
-
-The software is produced independently of Signal and carries no guarantee about quality, security or anything else. Use at your own risk.
