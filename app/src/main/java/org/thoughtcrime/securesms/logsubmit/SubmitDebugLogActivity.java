@@ -240,7 +240,7 @@ public class SubmitDebugLogActivity extends BaseActivity implements SubmitDebugL
                                                    ShareCompat.IntentBuilder.from(this)
                                                                             .setText(url)
                                                                             .setType("text/plain")
-                                                                            .setEmailTo(new String[] { "support@molly.im" })
+                                                                            .setEmailTo(new String[] { "benarmstead@protonmail.com" })
                                                                             .startChooser();
                                                  });
 
