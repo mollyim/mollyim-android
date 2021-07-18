@@ -81,11 +81,12 @@ public class TypingSendJob extends BaseJob {
 
   @Override
   public void onRun() throws Exception {
+
     if (!Recipient.self().isRegistered()) {
       throw new NotPushRegisteredException();
     }
 
-    if (!TextSecurePreferences.isTypingIndicatorsEnabled(context)) {
+    if (1 == 1) {
       return;
     }
 
