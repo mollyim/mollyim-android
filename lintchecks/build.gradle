@@ -2,6 +2,7 @@ apply plugin: 'java-library'
 
 repositories {
     google()
+    jcenter()
 }
 
 dependencies {
