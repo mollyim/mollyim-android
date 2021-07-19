@@ -3,6 +3,11 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        jcenter {
+            content {
+                includeVersion 'org.jetbrains.trove4j', 'trove4j', '20160824'
+            }
+        }
         maven {
             url "https://plugins.gradle.org/m2/"
             content {
@@ -11,8 +16,8 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.2.2'
-        classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.3.5'
+        classpath 'com.android.tools.build:gradle:4.1.1'
+        classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.1.0'
         classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.10'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jlleitschuh.gradle:ktlint-gradle:10.0.0"
@@ -21,7 +26,7 @@ buildscript {
 }
 
 ext {
-    BUILD_TOOL_VERSION = '30.0.3'
+    BUILD_TOOL_VERSION = '30.0.2'
 
     COMPILE_SDK = 30
     TARGET_SDK  = 30
@@ -37,7 +42,7 @@ wrapper {
 allprojects {
     repositories {
         google()
-        mavenCentral()
+        jcenter()
     }
 }
 
