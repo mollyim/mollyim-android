@@ -37,15 +37,17 @@ import org.signal.core.util.ThreadUtil;
 import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.logging.Log;
 import org.signal.core.util.logging.LogManager;
-import org.signal.core.util.logging.PersistentLogger;
 import org.signal.core.util.tracing.Tracer;
 import org.signal.glide.SignalGlideCodecs;
 import org.signal.ringrtc.CallManager;
+import org.thoughtcrime.securesms.avatar.AvatarPickerStorage;
 import org.thoughtcrime.securesms.crypto.IdentityKeyUtil;
 import org.thoughtcrime.securesms.crypto.InvalidPassphraseException;
 import org.thoughtcrime.securesms.crypto.MasterSecretUtil;
 import org.thoughtcrime.securesms.crypto.UnrecoverableKeyException;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
+import org.thoughtcrime.securesms.database.LogDatabase;
+import org.thoughtcrime.securesms.database.SqlCipherLibraryLoader;
 import org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencyProvider;
@@ -63,7 +65,7 @@ import org.thoughtcrime.securesms.jobs.RefreshPreKeysJob;
 import org.thoughtcrime.securesms.jobs.RetrieveProfileJob;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.logging.CustomSignalProtocolLogger;
-import org.thoughtcrime.securesms.logging.LogSecretProvider;
+import org.thoughtcrime.securesms.logging.PersistentLogger;
 import org.thoughtcrime.securesms.messageprocessingalarm.MessageProcessReceiver;
 import org.thoughtcrime.securesms.migrations.ApplicationMigrations;
 import org.thoughtcrime.securesms.net.NetworkManager;
@@ -84,7 +86,6 @@ import org.thoughtcrime.securesms.service.webrtc.WebRtcCallService;
 import org.thoughtcrime.securesms.storage.StorageSyncHelper;
 import org.thoughtcrime.securesms.util.AppForegroundObserver;
 import org.thoughtcrime.securesms.util.AppStartup;
-import org.thoughtcrime.securesms.util.ByteUnit;
 import org.thoughtcrime.securesms.util.DynamicTheme;
 import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.PlayServicesUtil;
@@ -99,6 +100,9 @@ import org.whispersystems.libsignal.logging.SignalProtocolLoggerProvider;
 
 import java.security.Security;
 import java.util.concurrent.TimeUnit;
+
+import io.reactivex.rxjava3.plugins.RxJavaPlugins;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 /**
  * Will be called once when the TextSecure process is created.
@@ -136,6 +140,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
     super.onCreate();
 
     initializeSecurityProvider();
+    SqlCipherLibraryLoader.load(this);
     if (Build.VERSION.SDK_INT < 21) {
       AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
@@ -159,7 +164,10 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
                                 Log.i(TAG, "onCreateUnlock()");
                             })
                             .addBlocking("crash-handling", this::initializeCrashHandling)
-                            .addBlocking("eat-db", () -> DatabaseFactory.getInstance(this))
+                            .addBlocking("rx-init", () -> {
+                              RxJavaPlugins.setInitIoSchedulerHandler(schedulerSupplier -> Schedulers.from(SignalExecutors.BOUNDED_IO, true, false));
+                              RxJavaPlugins.setInitComputationSchedulerHandler(schedulerSupplier -> Schedulers.from(SignalExecutors.BOUNDED, true, false));
+                            })
                             .addBlocking("app-dependencies", this::initializeAppDependencies)
                             .addBlocking("notification-channels", () -> NotificationChannels.create(this))
                             .addBlocking("first-launch", this::initializeFirstEverAppLaunch)
@@ -172,6 +180,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
                             .addBlocking("message-retriever", this::initializeMessageRetrieval)
                             .addBlocking("blob-provider", this::initializeBlobProvider)
                             .addBlocking("feature-flags", FeatureFlags::init)
+                            .addNonBlocking(this::cleanAvatarStorage)
                             .addNonBlocking(this::initializeRevealableMessageManager)
                             .addNonBlocking(this::initializePendingRetryReceiptManager)
                             .addNonBlocking(this::initializeSignedPreKeyCheck)
@@ -298,12 +307,14 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
   }
 
   private void initializeLogging() {
-    PersistentLogger persistentLogger = new PersistentLogger(this, LogSecretProvider.getOrCreateAttachmentSecret(this), BuildConfig.VERSION_NAME, FeatureFlags.internalUser() ? 15 : 7, ByteUnit.KILOBYTES.toBytes(300));
+    PersistentLogger persistentLogger = new PersistentLogger(this);
     LogManager.setInternalCheck(FeatureFlags::internalUser);
     LogManager.setPersistentLogger(persistentLogger);
     LogManager.setLogging(TextSecurePreferences.isLogEnabled(this));
 
     SignalProtocolLoggerProvider.setProvider(new CustomSignalProtocolLogger());
+
+    SignalExecutors.UNBOUNDED.execute(() -> LogDatabase.getInstance(this).trimToSize());
   }
 
   private void initializeCrashHandling() {
@@ -316,7 +327,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
   }
 
   public void initializeMessageRetrieval() {
-    ApplicationDependencies.getIncomingMessageObserver().start();
+    ApplicationDependencies.getIncomingMessageObserver();
   }
 
   public void finalizeMessageRetrieval() {
@@ -386,8 +397,8 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
       Log.i(TAG, "Play Services are newly-available. Updating to use FCM.");
       TextSecurePreferences.setFcmDisabled(this, false);
       ApplicationDependencies.getJobManager().startChain(new FcmRefreshJob())
-                                                         .then(new RefreshAttributesJob())
-                                                         .enqueue();
+                                             .then(new RefreshAttributesJob())
+                                             .enqueue();
     } else {
       long nextSetTime = TextSecurePreferences.getFcmTokenLastSetTime(this) + TimeUnit.HOURS.toMillis(6);
 
@@ -479,6 +490,11 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
   @WorkerThread
   private void initializeBlobProvider() {
     BlobProvider.getInstance().initialize(this);
+  }
+
+  @WorkerThread
+  private void cleanAvatarStorage() {
+    AvatarPickerStorage.cleanOrphans(this);
   }
 
   @WorkerThread

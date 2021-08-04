@@ -80,6 +80,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class MessageSender {
 
@@ -160,7 +161,7 @@ public class MessageSender {
       long allocatedThreadId;
 
       if (threadId == -1) {
-        allocatedThreadId = threadDatabase.getThreadIdFor(message.getRecipient(), message.getDistributionType());
+        allocatedThreadId = threadDatabase.getOrCreateThreadIdFor(message.getRecipient(), message.getDistributionType());
       } else {
         allocatedThreadId = threadId;
       }
@@ -203,7 +204,7 @@ public class MessageSender {
     mmsDatabase.beginTransaction();
     try {
       OutgoingSecureMediaMessage primaryMessage   = messages.get(0);
-      long                       primaryThreadId  = threadDatabase.getThreadIdFor(primaryMessage.getRecipient(), primaryMessage.getDistributionType());
+      long                       primaryThreadId  = threadDatabase.getOrCreateThreadIdFor(primaryMessage.getRecipient(), primaryMessage.getDistributionType());
       long                       primaryMessageId = mmsDatabase.insertMessageOutbox(applyUniversalExpireTimerIfNecessary(context, primaryMessage.getRecipient(), primaryMessage, primaryThreadId),
                                                                                     primaryThreadId,
                                                                                     false,
@@ -224,7 +225,7 @@ public class MessageSender {
         }
 
         for (OutgoingSecureMediaMessage secondaryMessage : secondaryMessages) {
-          long               allocatedThreadId = threadDatabase.getThreadIdFor(secondaryMessage.getRecipient(), secondaryMessage.getDistributionType());
+          long               allocatedThreadId = threadDatabase.getOrCreateThreadIdFor(secondaryMessage.getRecipient(), secondaryMessage.getDistributionType());
           long               messageId         = mmsDatabase.insertMessageOutbox(applyUniversalExpireTimerIfNecessary(context, secondaryMessage.getRecipient(), secondaryMessage, allocatedThreadId),
                                                                                  allocatedThreadId,
                                                                                  false,
@@ -369,14 +370,14 @@ public class MessageSender {
 
   private static @NonNull OutgoingTextMessage applyUniversalExpireTimerIfNecessary(@NonNull Context context, @NonNull Recipient recipient, @NonNull OutgoingTextMessage outgoingTextMessage, long threadId) {
     if (outgoingTextMessage.getExpiresIn() == 0 && RecipientUtil.setAndSendUniversalExpireTimerIfNecessary(context, recipient, threadId)) {
-      return new OutgoingTextMessage(outgoingTextMessage, SignalStore.settings().getUniversalExpireTimer() * 1000L);
+      return new OutgoingTextMessage(outgoingTextMessage, TimeUnit.SECONDS.toMillis(SignalStore.settings().getUniversalExpireTimer()));
     }
     return outgoingTextMessage;
   }
 
   private static @NonNull OutgoingMediaMessage applyUniversalExpireTimerIfNecessary(@NonNull Context context, @NonNull Recipient recipient, @NonNull OutgoingMediaMessage outgoingMediaMessage, long threadId) {
     if (!outgoingMediaMessage.isExpirationUpdate() && outgoingMediaMessage.getExpiresIn() == 0 && RecipientUtil.setAndSendUniversalExpireTimerIfNecessary(context, recipient, threadId)) {
-      return new OutgoingMediaMessage(outgoingMediaMessage, SignalStore.settings().getUniversalExpireTimer() * 1000L);
+      return new OutgoingMediaMessage(outgoingMediaMessage, TimeUnit.SECONDS.toMillis(SignalStore.settings().getUniversalExpireTimer()));
     }
     return outgoingMediaMessage;
   }
@@ -408,8 +409,7 @@ public class MessageSender {
   }
 
   private static void sendTextPush(Recipient recipient, long messageId) {
-    JobManager jobManager = ApplicationDependencies.getJobManager();
-    jobManager.add(new PushTextSendJob(messageId, recipient));
+    ApplicationDependencies.getJobManager().add(new PushTextSendJob(messageId, recipient));
   }
 
   private static void sendMediaPush(Context context, Recipient recipient, long messageId, @NonNull Collection<String> uploadJobIds) {

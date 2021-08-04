@@ -10,6 +10,7 @@ import org.thoughtcrime.securesms.KbsEnclave;
 import org.thoughtcrime.securesms.components.TypingStatusRepository;
 import org.thoughtcrime.securesms.components.TypingStatusSender;
 import org.thoughtcrime.securesms.database.DatabaseObserver;
+import org.thoughtcrime.securesms.database.PendingRetryReceiptCache;
 import org.thoughtcrime.securesms.groups.GroupsV2Authorization;
 import org.thoughtcrime.securesms.groups.GroupsV2AuthorizationMemoryValueCache;
 import org.thoughtcrime.securesms.groups.v2.processing.GroupsV2StateProcessor;
@@ -19,10 +20,8 @@ import org.thoughtcrime.securesms.megaphone.MegaphoneRepository;
 import org.thoughtcrime.securesms.messages.BackgroundMessageRetriever;
 import org.thoughtcrime.securesms.messages.IncomingMessageObserver;
 import org.thoughtcrime.securesms.messages.IncomingMessageProcessor;
-import org.thoughtcrime.securesms.database.PendingRetryReceiptCache;
 import org.thoughtcrime.securesms.net.Network;
 import org.thoughtcrime.securesms.net.NetworkManager;
-import org.thoughtcrime.securesms.net.PipeConnectivityListener;
 import org.thoughtcrime.securesms.net.StandardUserAgentInterceptor;
 import org.thoughtcrime.securesms.notifications.MessageNotifier;
 import org.thoughtcrime.securesms.payments.Payments;
@@ -39,11 +38,11 @@ import org.thoughtcrime.securesms.util.EarlyMessageCache;
 import org.thoughtcrime.securesms.util.FrameRateTracker;
 import org.thoughtcrime.securesms.util.Hex;
 import org.thoughtcrime.securesms.util.IasKeyStore;
-import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.whispersystems.signalservice.api.KeyBackupService;
 import org.whispersystems.signalservice.api.SignalServiceAccountManager;
 import org.whispersystems.signalservice.api.SignalServiceMessageReceiver;
 import org.whispersystems.signalservice.api.SignalServiceMessageSender;
+import org.whispersystems.signalservice.api.SignalWebSocket;
 import org.whispersystems.signalservice.api.groupsv2.GroupsV2Operations;
 
 import okhttp3.OkHttpClient;
@@ -64,7 +63,6 @@ public class ApplicationDependencies {
 
   // MOLLY: Rename provider to dependencyProvider
   private static Provider              dependencyProvider;
-  private static MessageNotifier       messageNotifier;
   private static AppForegroundObserver appForegroundObserver;
 
   private static volatile SignalServiceAccountManager  accountManager;
@@ -94,6 +92,8 @@ public class ApplicationDependencies {
   private static volatile OkHttpClient                 okHttpClient;
   private static volatile PendingRetryReceiptManager   pendingRetryReceiptManager;
   private static volatile PendingRetryReceiptCache     pendingRetryReceiptCache;
+  private static volatile SignalWebSocket              signalWebSocket;
+  private static volatile MessageNotifier              messageNotifier;
 
   @MainThread
   public static void init(@NonNull Provider provider) {
@@ -103,7 +103,6 @@ public class ApplicationDependencies {
       }
 
       ApplicationDependencies.dependencyProvider    = provider;
-      ApplicationDependencies.messageNotifier       = provider.provideMessageNotifier();
       ApplicationDependencies.appForegroundObserver = provider.provideAppForegroundObserver();
 
       ApplicationDependencies.appForegroundObserver.begin();
@@ -119,10 +118,6 @@ public class ApplicationDependencies {
 
   public static @NonNull Application getApplication() {
     return ApplicationContext.getInstance();
-  }
-
-  public static @NonNull PipeConnectivityListener getPipeListener() {
-    return getProvider().providePipeListener();
   }
 
   public static @NonNull SignalServiceAccountManager getSignalServiceAccountManager() {
@@ -194,12 +189,7 @@ public class ApplicationDependencies {
 
     synchronized (LOCK) {
       if (messageSender == null) {
-        messageSender = getProvider().provideSignalServiceMessageSender();
-      } else {
-        messageSender.update(
-            IncomingMessageObserver.getPipe(),
-            IncomingMessageObserver.getUnidentifiedPipe(),
-            TextSecurePreferences.isMultiDevice(getApplication()));
+        messageSender = getProvider().provideSignalServiceMessageSender(getSignalWebSocket());
       }
       return messageSender;
     }
@@ -237,18 +227,11 @@ public class ApplicationDependencies {
     }
   }
 
-  public static void resetNetworkConnectionsAfterProxyChange() {
+  public static void restartNetworkConnectionsAfterProxyChange() {
     synchronized (LOCK) {
-      getPipeListener().reset();
-
-      if (incomingMessageObserver != null) {
-        incomingMessageObserver.shutdown();
-      }
-
-      if (messageSender != null) {
-        messageSender.cancelInFlightRequests();
-      }
+      closeConnections();
     }
+    getIncomingMessageObserver();
   }
 
   public static @NonNull SignalServiceNetworkAccess getSignalServiceNetworkAccess() {
@@ -352,6 +335,13 @@ public class ApplicationDependencies {
   }
 
   public static @NonNull MessageNotifier getMessageNotifier() {
+    if (messageNotifier == null) {
+      synchronized (LOCK) {
+        if (messageNotifier == null) {
+          messageNotifier = getProvider().provideMessageNotifier();
+        }
+      }
+    }
     return messageNotifier;
   }
 
@@ -522,12 +512,21 @@ public class ApplicationDependencies {
     return pendingRetryReceiptCache;
   }
 
+  public static @NonNull SignalWebSocket getSignalWebSocket() {
+    if (signalWebSocket == null) {
+      synchronized (LOCK) {
+        if (signalWebSocket == null) {
+          signalWebSocket = getProvider().provideSignalWebSocket();
+        }
+      }
+    }
+    return signalWebSocket;
+  }
 
   public interface Provider {
-    @NonNull PipeConnectivityListener providePipeListener();
     @NonNull GroupsV2Operations provideGroupsV2Operations();
     @NonNull SignalServiceAccountManager provideSignalServiceAccountManager();
-    @NonNull SignalServiceMessageSender provideSignalServiceMessageSender();
+    @NonNull SignalServiceMessageSender provideSignalServiceMessageSender(@NonNull SignalWebSocket signalWebSocket);
     @NonNull SignalServiceMessageReceiver provideSignalServiceMessageReceiver();
     @NonNull SignalServiceNetworkAccess provideSignalServiceNetworkAccess();
     @NonNull NetworkManager provideNetworkManager();
@@ -552,5 +551,6 @@ public class ApplicationDependencies {
     @NonNull SignalCallManager provideSignalCallManager();
     @NonNull PendingRetryReceiptManager providePendingRetryReceiptManager();
     @NonNull PendingRetryReceiptCache providePendingRetryReceiptCache();
+    @NonNull SignalWebSocket provideSignalWebSocket();
   }
 }

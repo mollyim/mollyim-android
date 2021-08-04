@@ -169,8 +169,8 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
     process((s, p) -> p.handleUpdateRenderedResolutions(s));
   }
 
-  public void orientationChanged(int degrees) {
-    process((s, p) -> p.handleOrientationChanged(s, degrees));
+  public void orientationChanged(boolean isLandscapeEnabled, int degrees) {
+    process((s, p) -> p.handleOrientationChanged(s, isLandscapeEnabled, degrees));
   }
 
   public void setAudioSpeaker(boolean isSpeaker) {
@@ -288,18 +288,20 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
                                                         .toList();
 
         callManager.peekGroupCall(SignalStore.internalValues().groupCallingServer(), credential.getTokenBytes().toByteArray(), members, peekInfo -> {
-          long threadId = DatabaseFactory.getThreadDatabase(context).getThreadIdFor(group);
+          Long threadId = DatabaseFactory.getThreadDatabase(context).getThreadIdFor(group.getId());
 
-          DatabaseFactory.getSmsDatabase(context)
-                         .updatePreviousGroupCall(threadId,
-                                                  peekInfo.getEraId(),
-                                                  peekInfo.getJoinedMembers(),
-                                                  WebRtcUtil.isCallFull(peekInfo),
-                                                  group.getExpireMessagesInMillis());
+          if (threadId != null) {
+            DatabaseFactory.getSmsDatabase(context)
+                           .updatePreviousGroupCall(threadId,
+                                                    peekInfo.getEraId(),
+                                                    peekInfo.getJoinedMembers(),
+                                                    WebRtcUtil.isCallFull(peekInfo),
+                                                    group.getExpiresInMillis());
 
-          ApplicationDependencies.getMessageNotifier().updateNotification(context, threadId, true, 0, BubbleUtil.BubbleState.HIDDEN);
+            ApplicationDependencies.getMessageNotifier().updateNotification(context, threadId, true, 0, BubbleUtil.BubbleState.HIDDEN);
 
-          EventBus.getDefault().postSticky(new GroupCallPeekEvent(id, peekInfo.getEraId(), peekInfo.getDeviceCount(), peekInfo.getMaxDevices()));
+            EventBus.getDefault().postSticky(new GroupCallPeekEvent(id, peekInfo.getEraId(), peekInfo.getDeviceCount(), peekInfo.getMaxDevices()));
+          }
         });
       } catch (IOException | VerificationFailedException | CallException e) {
         Log.e(TAG, "error peeking from active conversation", e);
@@ -651,7 +653,7 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
 
   @Override
   public void onFullyInitialized() {
-    process((s, p) -> p.handleOrientationChanged(s, s.getLocalDeviceState().getOrientation().getDegrees()));
+    process((s, p) -> p.handleOrientationChanged(s, s.getLocalDeviceState().isLandscapeEnabled(), s.getLocalDeviceState().getDeviceOrientation().getDegrees()));
   }
 
   @Override
@@ -672,7 +674,7 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
   }
 
   public void insertMissedCall(@NonNull Recipient recipient, boolean signal, long timestamp, boolean isVideoOffer) {
-    long expiresIn = recipient.getExpireMessagesInMillis();
+    long expiresIn = recipient.getExpiresInMillis();
     Pair<Long, Long> messageAndThreadId = DatabaseFactory.getSmsDatabase(context)
                                                          .insertMissedCall(recipient.getId(), expiresIn, timestamp, isVideoOffer);
     ApplicationDependencies.getMessageNotifier()
@@ -680,13 +682,13 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
   }
 
   public void insertDeniedCall(@NonNull Recipient recipient, boolean isVideoOffer) {
-    long expiresIn = recipient.getExpireMessagesInMillis();
+    long expiresIn = recipient.getExpiresInMillis();
     DatabaseFactory.getSmsDatabase(context)
                    .insertMissedCall(recipient.getId(), expiresIn,  System.currentTimeMillis(), isVideoOffer);
   }
 
   public void insertOutgoingCall(@NonNull Recipient recipient, boolean isVideoOffer) {
-    long expiresIn = recipient.getExpireMessagesInMillis();
+    long expiresIn = recipient.getExpiresInMillis();
     MessageDatabase database = DatabaseFactory.getSmsDatabase(context);
     Pair<Long, Long> messageAndThreadId = database.insertOutgoingCall(recipient.getId(), expiresIn, isVideoOffer);
     if (expiresIn > 0) {
@@ -696,7 +698,7 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
   }
 
   public void insertReceivedCall(@NonNull Recipient recipient, boolean isVideoOffer) {
-    long expiresIn = recipient.getExpireMessagesInMillis();
+    long expiresIn = recipient.getExpiresInMillis();
     MessageDatabase database = DatabaseFactory.getSmsDatabase(context);
     Pair<Long, Long> messageAndThreadId = database.insertReceivedCall(recipient.getId(), expiresIn, isVideoOffer);
     if (expiresIn > 0) {

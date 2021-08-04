@@ -3,13 +3,11 @@ package org.thoughtcrime.securesms.util;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.Icon;
 import android.view.View;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.annotation.WorkerThread;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.content.ContextCompat;
@@ -100,20 +98,6 @@ public final class AvatarUtil {
     }
   }
 
-  @RequiresApi(ConversationUtil.CONVERSATION_SUPPORT_VERSION)
-  @WorkerThread
-  public static @NonNull Icon getIconForShortcut(@NonNull Context context, @NonNull Recipient recipient) {
-    try {
-      GlideRequest<Bitmap> glideRequest = GlideApp.with(context).asBitmap().load(new ConversationShortcutPhoto(recipient));
-      if (recipient.shouldBlurAvatar()) {
-        glideRequest = glideRequest.transform(new BlurTransformation(context, 0.25f, BlurTransformation.MAX_RADIUS));
-      }
-      return Icon.createWithAdaptiveBitmap(glideRequest.submit().get());
-    } catch (ExecutionException | InterruptedException e) {
-      throw new AssertionError("This call should not fail.", e);
-    }
-  }
-
   @WorkerThread
   public static @NonNull IconCompat getIconCompatForShortcut(@NonNull Context context, @NonNull Recipient recipient) {
     try {
@@ -170,6 +154,6 @@ public final class AvatarUtil {
   private static Drawable getFallback(@NonNull Context context, @NonNull Recipient recipient) {
     String name = Optional.fromNullable(recipient.getDisplayName(context)).or("");
 
-    return new GeneratedContactPhoto(name, R.drawable.ic_profile_outline_40).asDrawable(context, recipient.getAvatarColor().colorInt());
+    return new GeneratedContactPhoto(name, R.drawable.ic_profile_outline_40).asDrawable(context, recipient.getAvatarColor());
   }
 }

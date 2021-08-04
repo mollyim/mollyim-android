@@ -54,10 +54,6 @@ public final class Log {
     e(tag, message, null);
   }
 
-  public static void wtf(String tag, String message) {
-    wtf(tag, message, null);
-  }
-
   public static void v(String tag, Throwable t) {
     v(tag, null, t);
   }
@@ -78,32 +74,64 @@ public final class Log {
     e(tag, null, t);
   }
 
-  public static void wtf(String tag, Throwable t) {
-    wtf(tag, null, t);
-  }
-
   public static void v(String tag, String message, Throwable t) {
-    LogManager.getLogger().v(tag, redact(message), t);
+    v(tag, message, t, false);
   }
 
   public static void d(String tag, String message, Throwable t) {
-    LogManager.getLogger().d(tag, redact(message), t);
+    d(tag, message, t, false);
   }
 
   public static void i(String tag, String message, Throwable t) {
-    LogManager.getLogger().i(tag, redact(message), t);
+    i(tag, message, t, false);
   }
 
   public static void w(String tag, String message, Throwable t) {
-    LogManager.getLogger().w(tag, redact(message), t);
+    w(tag, message, t, false);
   }
 
   public static void e(String tag, String message, Throwable t) {
-    LogManager.getLogger().e(tag, redact(message), t);
+    e(tag, message, t, false);
   }
 
-  public static void wtf(String tag, String message, Throwable t) {
-    LogManager.getLogger().wtf(tag, redact(message), t);
+  public static void v(String tag, String message, boolean keepLonger) {
+    v(tag, message, null, keepLonger);
+  }
+
+  public static void d(String tag, String message, boolean keepLonger) {
+    d(tag, message, null, keepLonger);
+  }
+
+  public static void i(String tag, String message, boolean keepLonger) {
+    i(tag, message, null, keepLonger);
+  }
+
+  public static void w(String tag, String message, boolean keepLonger) {
+    w(tag, message, null, keepLonger);
+  }
+
+  public static void e(String tag, String message, boolean keepLonger) {
+    e(tag, message, null, keepLonger);
+  }
+
+  public static void v(String tag, String message, Throwable t, boolean keepLonger) {
+    LogManager.getLogger().v(tag, redact(message), t, keepLonger);
+  }
+
+  public static void d(String tag, String message, Throwable t, boolean keepLonger) {
+    LogManager.getLogger().d(tag, redact(message), t, keepLonger);
+  }
+
+  public static void i(String tag, String message, Throwable t, boolean keepLonger) {
+    LogManager.getLogger().i(tag, redact(message), t, keepLonger);
+  }
+
+  public static void w(String tag, String message, Throwable t, boolean keepLonger) {
+    LogManager.getLogger().w(tag, redact(message), t, keepLonger);
+  }
+
+  public static void e(String tag, String message, Throwable t, boolean keepLonger) {
+    LogManager.getLogger().e(tag, redact(message), t, keepLonger);
   }
 
   public static String tag(Class<?> clazz) {
@@ -125,18 +153,58 @@ public final class Log {
   }
 
   public static void blockUntilAllWritesFinished() {
-    LogManager.getLogger().blockUntilAllWritesFinished();
+    LogManager.getLogger().flush();
   }
 
   public static abstract class Logger {
-    public abstract void v(String tag, String message, Throwable t);
-    public abstract void d(String tag, String message, Throwable t);
-    public abstract void i(String tag, String message, Throwable t);
-    public abstract void w(String tag, String message, Throwable t);
-    public abstract void e(String tag, String message, Throwable t);
-    public abstract void wtf(String tag, String message, Throwable t);
-    public abstract void blockUntilAllWritesFinished();
+
+    public abstract void v(String tag, String message, Throwable t, boolean keepLonger);
+    public abstract void d(String tag, String message, Throwable t, boolean keepLonger);
+    public abstract void i(String tag, String message, Throwable t, boolean keepLonger);
+    public abstract void w(String tag, String message, Throwable t, boolean keepLonger);
+    public abstract void e(String tag, String message, Throwable t, boolean keepLonger);
+    public abstract void flush();
     public abstract void clear();
+
+    public void v(String tag, String message, boolean keepLonger) {
+      v(tag, message, null, keepLonger);
+    }
+
+    public void d(String tag, String message, boolean keepLonger) {
+      d(tag, message, null, keepLonger);
+    }
+
+    public void i(String tag, String message, boolean keepLonger) {
+      i(tag, message, null, keepLonger);
+    }
+
+    public void w(String tag, String message, boolean keepLonger) {
+      w(tag, message, null, keepLonger);
+    }
+
+    public void e(String tag, String message, boolean keepLonger) {
+      e(tag, message, null, keepLonger);
+    }
+
+    public void v(String tag, String message, Throwable t) {
+      v(tag, message, t, false);
+    }
+
+    public void d(String tag, String message, Throwable t) {
+      d(tag, message, t, false);
+    }
+
+    public void i(String tag, String message, Throwable t) {
+      i(tag, message, t, false);
+    }
+
+    public void w(String tag, String message, Throwable t) {
+      w(tag, message, t, false);
+    }
+
+    public void e(String tag, String message, Throwable t) {
+      e(tag, message, t, false);
+    }
 
     public void v(String tag, String message) {
       v(tag, message, null);
@@ -156,10 +224,6 @@ public final class Log {
 
     public void e(String tag, String message) {
       e(tag, message, null);
-    }
-
-    public void wtf(String tag, String message) {
-      wtf(tag, message, null);
     }
   }
 

@@ -9,7 +9,7 @@ public class LogManager {
   private static final NoopLogger    noopLogger    = new NoopLogger();
   private static final AndroidLogger androidLogger = new AndroidLogger();
 
-  private static PersistentLogger persistentLogger;
+  private static Log.Logger persistentLogger;
 
   private static Log.Logger compoundLogger = new CompoundLogger(androidLogger);
 
@@ -19,7 +19,7 @@ public class LogManager {
     return androidLogger;
   }
 
-  public static @Nullable PersistentLogger getPersistentLogger() {
+  public static @Nullable Log.Logger getPersistentLogger() {
     return persistentLogger;
   }
 
@@ -27,7 +27,7 @@ public class LogManager {
     LogManager.internalCheck = internalCheck;
   }
 
-  public static void setPersistentLogger(PersistentLogger persistentLogger) {
+  public static void setPersistentLogger(Log.Logger persistentLogger) {
     LogManager.persistentLogger = persistentLogger;
   }
 
@@ -41,7 +41,7 @@ public class LogManager {
 
   public static void wipeLogs() {
     getAndroidLogger().clear();
-    PersistentLogger local = getPersistentLogger();
+    Log.Logger local = getPersistentLogger();
     if (local != null) {
       local.clear();
     }

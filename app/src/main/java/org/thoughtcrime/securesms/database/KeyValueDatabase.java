@@ -10,6 +10,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 import net.sqlcipher.database.SQLiteDatabaseHook;
 import net.sqlcipher.database.SQLiteOpenHelper;
 
+import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.crypto.DatabaseSecret;
 import org.thoughtcrime.securesms.crypto.DatabaseSecretProvider;
@@ -53,6 +54,7 @@ public class KeyValueDatabase extends SQLiteOpenHelper implements SignalDatabase
     if (instance == null) {
       synchronized (KeyValueDatabase.class) {
         if (instance == null) {
+          SqlCipherLibraryLoader.load(context);
           instance = new KeyValueDatabase(context, DatabaseSecretProvider.getOrCreateDatabaseSecret(context));
         }
       }
@@ -60,7 +62,7 @@ public class KeyValueDatabase extends SQLiteOpenHelper implements SignalDatabase
     return instance;
   }
 
-  public KeyValueDatabase(@NonNull Application application, @NonNull DatabaseSecret databaseSecret) {
+  private KeyValueDatabase(@NonNull Application application, @NonNull DatabaseSecret databaseSecret) {
     super(application, DATABASE_NAME, null, DATABASE_VERSION, new SqlCipherDatabaseHook(), new SqlCipherErrorHandler(DATABASE_NAME));
 
     this.application    = application;
@@ -88,10 +90,12 @@ public class KeyValueDatabase extends SQLiteOpenHelper implements SignalDatabase
   public void onOpen(SQLiteDatabase db) {
     Log.i(TAG, "onOpen()");
 
-    if (DatabaseFactory.getInstance(application).hasTable("key_value")) {
-      Log.i(TAG, "Dropping original key_value table from the main database.");
-      DatabaseFactory.getInstance(application).getRawDatabase().rawExecSQL("DROP TABLE key_value");
-    }
+    SignalExecutors.BOUNDED.execute(() -> {
+      if (DatabaseFactory.getInstance(application).hasTable("key_value")) {
+        Log.i(TAG, "Dropping original key_value table from the main database.");
+        DatabaseFactory.getInstance(application).getRawDatabase().rawExecSQL("DROP TABLE key_value");
+      }
+    });
   }
 
   public @NonNull KeyValueDataSet getDataSet() {

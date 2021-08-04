@@ -137,7 +137,7 @@ public class NetworkPreferenceFragment extends ListSummaryPreferenceFragment {
   public void onPause() {
     super.onPause();
     if (networkManager.applyProxyConfig()) {
-      ApplicationDependencies.resetNetworkConnectionsAfterProxyChange();
+      ApplicationDependencies.restartNetworkConnectionsAfterProxyChange();
     }
   }
 
@@ -151,7 +151,7 @@ public class NetworkPreferenceFragment extends ListSummaryPreferenceFragment {
     }
 
     networkManager.applyProxyConfig();
-    ApplicationDependencies.resetNetworkConnectionsAfterProxyChange();
+    ApplicationDependencies.restartNetworkConnectionsAfterProxyChange();
 
     connected = new SettableFuture<>();
     connected.addListener(new ListenableFuture.Listener<Boolean>() {

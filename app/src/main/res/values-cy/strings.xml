@@ -57,7 +57,6 @@
   <string name="DraftDatabase_Draft_voice_note">(Neges llais)</string>
   <!--AttachmentKeyboard-->
   <string name="AttachmentKeyboard_gallery">Oriel</string>
-  <string name="AttachmentKeyboard_gif">GIF</string>
   <string name="AttachmentKeyboard_file">Ffeil</string>
   <string name="AttachmentKeyboard_contact">Cysylltiad</string>
   <string name="AttachmentKeyboard_location">Lleoliad</string>
@@ -213,6 +212,9 @@ Send neges heb ei ddiogelu?</string>
   <string name="ConversationActivity_attachment_exceeds_size_limits">Mae atodiad yn fwy na therfynau maint y math o neges rydych chi\'n ei hanfon.</string>
   <string name="ConversationActivity_unable_to_record_audio">Methu recordio sain!</string>
   <string name="ConversationActivity_you_cant_send_messages_to_this_group">Nid oes modd i chi anfon negeseuon i\'r grŵp hwn oherwydd nid ydych yn aelod mwyach.</string>
+  <string name="ConversationActivity_admins">gweinyddwyr</string>
+  <string name="ConversationActivity_message_an_admin">Anfon neges i weinyddwr</string>
+  <string name="ConversationActivity_only_admins_of_this_group_can_start_a_call">Gweinyddwyr y grŵp hwn yn unig gall ddechrau galwadau.</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">Nid oes ap ar gael i drin y ddolen hon ar eich dyfais.</string>
   <string name="ConversationActivity_your_request_to_join_has_been_sent_to_the_group_admin">Mae eich cais i ymuno wedi\'i anfon at weinyddiaeth y grŵp. Fe gewch hysbysiad pan fyddan nhw\'n gweithredu.</string>
   <string name="ConversationActivity_cancel_request">Diddymu\'r Cais</string>
@@ -246,9 +248,6 @@ Send neges heb ei ddiogelu?</string>
   <string name="ConversationActivity_full">Llawn</string>
   <string name="ConversationActivity_error_sending_media">Gwall wrth anfon cyfryngau</string>
   <string name="ConversationActivity__reported_as_spam_and_blocked">Adroddwyd fel sbam a\'i rwystro.</string>
-  <string name="ConversationActivity_gifs_have_moved">Mae GIFs wedi symud</string>
-  <string name="ConversationActivity_look_for_gifs_next_to_emoji_and_stickers">Chwiliwch am GIFs wrth ymyl emoji a sticeri.</string>
-  <string name="ConversationActivity__gifs_are_now_here">Mae\'r GIFs yma nawr.</string>
   <!--ConversationAdapter-->
   <plurals name="ConversationAdapter_n_unread_messages">
     <item quantity="one">%d neges heb ei ddarllen</item>
@@ -353,6 +352,7 @@ Send neges heb ei ddiogelu?</string>
   <string name="ConversationTypingView__plus_d">+%1$d</string>
   <!--CreateGroupActivity-->
   <string name="CreateGroupActivity_some_contacts_cannot_be_in_legacy_groups">Nid oes modd i rai cysylltiadau fod mewn hen grwpiau.</string>
+  <string name="CreateGroupActivity__select_members">Dewis aelodau</string>
   <!--CreateProfileActivity-->
   <string name="CreateProfileActivity__profile">Proffil</string>
   <string name="CreateProfileActivity_error_setting_profile_photo">Gwall gosod llun proffil</string>
@@ -461,6 +461,7 @@ Send neges heb ei ddiogelu?</string>
   <string name="AddToGroupActivity_add_to_groups">Ychwanegu i grwpiau</string>
   <string name="AddToGroupActivity_this_person_cant_be_added_to_legacy_groups">Nid oes modd ychwanegu\'r person hwn at hen grwpiau..</string>
   <string name="AddToGroupActivity_add">Ychwanegu</string>
+  <string name="AddToGroupActivity_add_to_a_group">Ychwanegu i grŵp</string>
   <!--ChooseNewAdminActivity-->
   <string name="ChooseNewAdminActivity_choose_new_admin">Dewiswch gweinyddwr newydd</string>
   <string name="ChooseNewAdminActivity_done">Wedi Gorffen</string>
@@ -623,6 +624,7 @@ Send neges heb ei ddiogelu?</string>
     <item quantity="other">Ychwanegu%3$d aelod i \"%2$s\"?</item>
   </plurals>
   <string name="AddMembersActivity__add">Ychwanegu</string>
+  <string name="AddMembersActivity__add_members">Ychwanegu aelodau</string>
   <!--AddGroupDetailsFragment-->
   <string name="AddGroupDetailsFragment__name_this_group">Enwi\'r grŵp hwn</string>
   <string name="AddGroupDetailsFragment__create_group">Creu grŵp</string>
@@ -910,6 +912,7 @@ Send neges heb ei ddiogelu?</string>
   <string name="Megaphones_invite_friends">Gwahodd ffrindiau</string>
   <string name="Megaphones_use_sms">Defnyddiwch SMS</string>
   <string name="Megaphones_appearance">Golwg</string>
+  <string name="Megaphones_add_photo">Ychwanegu llun</string>
   <!--NotificationBarManager-->
   <string name="NotificationBarManager_signal_call_in_progress">Ar ganol galwad Signal</string>
   <string name="NotificationBarManager__establishing_signal_call">Sicrhau galwad Signal</string>
@@ -1085,6 +1088,11 @@ Send neges heb ei ddiogelu?</string>
   <string name="MessageRecord_you_changed_who_can_edit_group_membership_to_s">Fe wnaethoch chi newid pwy all olygu aelodaeth grŵp i \"%1$s\".</string>
   <string name="MessageRecord_s_changed_who_can_edit_group_membership_to_s">Fe wnaeth %1$s newid pwy all olygu aelodaeth y grŵp i \"%2$s\".</string>
   <string name="MessageRecord_who_can_edit_group_membership_has_been_changed_to_s">Mae pwy all olygu manylion y grŵp wedi\'i newid i \"%1$s\".</string>
+  <!--GV2 announcement group change-->
+  <string name="MessageRecord_you_allow_all_members_to_send">Newidiasoch gosodiadau\'r grŵp i ganiatáu pob aelod i anfon negeseuon.</string>
+  <string name="MessageRecord_you_allow_only_admins_to_send">Newidiasoch gosodiadau\'r grŵp i ganiatáu gweinyddwyr un unig i anfon negeseuon.</string>
+  <string name="MessageRecord_allow_all_members_to_send">Newidiwyd gosodiadau\'r grŵp i ganiatáu pob aelod i anfon negeseuon.</string>
+  <string name="MessageRecord_allow_only_admins_to_send">Newidiwyd gosodiadau\'r grŵp i ganiatáu gweinyddwyr un unig i anfon negeseuon.</string>
   <!--GV2 group link invite access level change-->
   <string name="MessageRecord_you_turned_on_the_group_link_with_admin_approval_off">Galluogasoch y ddolen grŵp gyda chaniatâd gewinyddwr i ffwrdd.</string>
   <string name="MessageRecord_you_turned_on_the_group_link_with_admin_approval_on">Galluogasoch y ddolen grŵp gyda chaniatâd gewinyddwr ymlaen.</string>
@@ -1471,7 +1479,7 @@ Send neges heb ei ddiogelu?</string>
   <string name="SubmitDebugLogActivity_success">Llwyddiant!</string>
   <string name="SubmitDebugLogActivity_copy_this_url_and_add_it_to_your_issue">Copïwch yr URL hwn a\'i ychwanegu at eich adroddiad neu e-bost cymorth:\n\n<b>%1$s</b></string>
   <string name="SubmitDebugLogActivity_share">Rhannu</string>
-  <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online">Bydd y cofnod hwn yn cael ei bostio\'n gyhoeddus ar-lein i gyfranwyr ei weld. Gallwch ei archwilio a\'i olygu cyn ei lwytho i fyny.</string>
+  <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online_for_contributors">Bydd y cofnod hwn yn cael ei gofnodi\'n gyhoeddus ar-lein i gyfranwyr ei weld. Gallwch ei archwilio cyn ei lwytho.</string>
   <!--SupportEmailUtil-->
   <string name="SupportEmailUtil_filter">Hidl:</string>
   <string name="SupportEmailUtil_device_info">Manylion y ddyfais:</string>
@@ -1771,6 +1779,7 @@ Send neges heb ei ddiogelu?</string>
   <string name="conversation_fragment__scroll_to_the_bottom_content_description">Sgrolio i\'r gwaelod</string>
   <!--safety_number_change_dialog-->
   <string name="safety_number_change_dialog__safety_number_changes">Newidiadau Rhifau Diogelwch</string>
+  <string name="safety_number_change_dialog__accept">Derbyn</string>
   <string name="safety_number_change_dialog__send_anyway">Anfon beth bynnag</string>
   <string name="safety_number_change_dialog__call_anyway">Galw beth bynnag</string>
   <string name="safety_number_change_dialog__join_call">Ymuno â\'r alwad</string>
@@ -1860,8 +1869,6 @@ Send neges heb ei ddiogelu?</string>
   <string name="giphy_activity_toolbar__search_gifs">Chwilio drwy\'r GIFau</string>
   <!--giphy_fragment-->
   <string name="giphy_fragment__nothing_found">Heb ganfod dim</string>
-  <!--log_submit_activity-->
-  <string name="log_submit_activity__this_log_will_be_posted_online">Caiff y cofnod hwn ei bostio\'n gyhoeddus ar-lein i gyfranwyr ei weld, fe allwch ei archwilio a\'i olygu cyn ei gyflwyno.</string>
   <!--database_migration_activity-->
   <string name="database_migration_activity__would_you_like_to_import_your_existing_text_messages">Hoffech chi fewnforio eich negeseuon testun i gronfa ddata amgryptiedig Signal?</string>
   <string name="database_migration_activity__the_default_system_database_will_not_be_modified">Ni chaiff cronfa ddata\'r system rhagosodedig ei addasu neu ei newid mewn unrhyw ffordd.</string>
@@ -2830,6 +2837,7 @@ Send neges heb ei ddiogelu?</string>
   <string name="GroupLinkBottomSheet_copied_to_clipboard">Wedi\'i gopïo i\'r clipfwrdd</string>
   <string name="GroupLinkBottomSheet_the_link_is_not_currently_active">Nid yw\'r ddolen yn weithredol ar hyn o bryd</string>
   <!--VoiceNotePlaybackPreparer-->
+  <string name="VoiceNotePlaybackPreparer__failed_to_play_voice_message">Methu chware neges llais</string>
   <!--VoiceNoteMediaDescriptionCompatFactory-->
   <string name="VoiceNoteMediaDescriptionCompatFactory__voice_message">Neges llais · %1$s</string>
   <string name="VoiceNoteMediaDescriptionCompatFactory__s_to_s">%1$s i %2$s</string>
@@ -2900,6 +2908,12 @@ Send neges heb ei ddiogelu?</string>
   <string name="DeleteAccountCountryPickerFragment__search_countries">Chwilio Gwledydd</string>
   <!--CreateGroupActivity-->
   <string name="CreateGroupActivity__skip">Hepgor</string>
+  <plurals name="CreateGroupActivity__d_members">
+    <item quantity="one"> %1$d aelod</item>
+    <item quantity="two">%1$d  aelod</item>
+    <item quantity="many">%1$d aelod</item>
+    <item quantity="other">%1$d aelod</item>
+  </plurals>
   <!--ShareActivity-->
   <string name="ShareActivity__share">Rhannu</string>
   <string name="ShareActivity__send">Anfon</string>
@@ -3097,7 +3111,7 @@ Send neges heb ei ddiogelu?</string>
   <string name="HelpSettingsFragment__version">Fersiwn</string>
   <string name="HelpSettingsFragment__debug_log">Cofnod dadfygio</string>
   <string name="HelpSettingsFragment__terms_amp_privacy_policy">Telerau a Pholisi Preifatrwydd</string>
-  <string name="HelpFragment__copyright_signal_messenger">Hawlfraint Signal Messenger</string>
+  <string name="HelpFragment__copyright_signal_messenger">Hawlfraint Molly Messenger</string>
   <string name="HelpFragment__licenced_under_the_gplv3">Trwyddedig o dan y GPLv3</string>
   <!--DataAndStorageSettingsFragment-->
   <string name="DataAndStorageSettingsFragment__calls">Galwadau</string>
@@ -3145,6 +3159,11 @@ Send neges heb ei ddiogelu?</string>
   <string name="ChatColorsMegaphone__we_switched_up_chat_colors">Rydym wedi diwygio\'n lliwiau sgwrsio i roi mwy o ddewis i chi a gwneud sgyrsiau yn haws eu darllen.</string>
   <string name="ChatColorsMegaphone__appearance">Golwg</string>
   <string name="ChatColorsMegaphone__not_now">Nid nawr</string>
+  <!--AddAProfilePhotoMegaphone-->
+  <string name="AddAProfilePhotoMegaphone__add_a_profile_photo">Ychwanegu llun proffil</string>
+  <string name="AddAProfilePhotoMegaphone__choose_a_look_and_color">Dewiswch olwg a lliw neu gyfaddaswch eich llythrennau cyntaf.</string>
+  <string name="AddAProfilePhotoMegaphone__not_now">Nid nawr</string>
+  <string name="AddAProfilePhotoMegaphone__add_photo">Ychwanegu llun</string>
   <!--KeyboardPagerFragment-->
   <string name="KeyboardPagerFragment_emoji">Emoji</string>
   <string name="KeyboardPagerFragment_open_emoji_search">Agor chwilio emoji</string>
@@ -3214,7 +3233,36 @@ Send neges heb ei ddiogelu?</string>
   <string name="PlaybackSpeedToggleTextView__p5x">.5x</string>
   <string name="PlaybackSpeedToggleTextView__1x">1x</string>
   <string name="PlaybackSpeedToggleTextView__2x">2x</string>
+  <!--PaymentRecipientSelectionFragment-->
+  <string name="PaymentRecipientSelectionFragment__new_payment">Taliad newydd</string>
+  <!--NewConversationActivity-->
+  <string name="NewConversationActivity__new_message">Neges newydd</string>
+  <!--ContactFilterView-->
+  <string name="ContactFilterView__search_name_or_number">Chwilio am enw neu rif</string>
   <!--VoiceNotePlayerView-->
   <string name="VoiceNotePlayerView__s_dot_s">%1$s · %2$s</string>
+  <!--AvatarPickerFragment-->
+  <string name="AvatarPickerFragment__avatar_preview">Rhagolwg Afatar</string>
+  <string name="AvatarPickerFragment__camera">Camera</string>
+  <string name="AvatarPickerFragment__take_a_picture">Cymryd llun</string>
+  <string name="AvatarPickerFragment__choose_a_photo">Dewis llun</string>
+  <string name="AvatarPickerFragment__photo">Llun</string>
+  <string name="AvatarPickerFragment__text">Testun</string>
+  <string name="AvatarPickerFragment__save">Cadw</string>
+  <string name="AvatarPickerFragment__select_an_avatar">Dewis avatar</string>
+  <string name="AvatarPickerFragment__clear_avatar">Clirio\'r afatar</string>
+  <string name="AvatarPickerFragment__edit">Golygu</string>
+  <string name="AvatarPickerRepository__failed_to_save_avatar">Wedi methu cadw\'r avatar</string>
+  <!--TextAvatarCreationFragment-->
+  <string name="TextAvatarCreationFragment__preview">Rhagolwg</string>
+  <string name="TextAvatarCreationFragment__done">Wedi Gorffen</string>
+  <string name="TextAvatarCreationFragment__text">Testun</string>
+  <string name="TextAvatarCreationFragment__color">Lliw</string>
+  <!--VectorAvatarCreationFragment-->
+  <string name="VectorAvatarCreationFragment__select_a_color">Dewis lliw</string>
+  <!--ContactSelectionListItem-->
+  <string name="ContactSelectionListItem__sms">SMS</string>
+  <string name="ContactSelectionListItem__dot_s">· %1$s</string>
+  <!--DSLSettingsToolbar-->
   <!--EOF-->
 </resources>

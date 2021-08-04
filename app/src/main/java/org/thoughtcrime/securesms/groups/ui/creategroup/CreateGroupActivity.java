@@ -22,7 +22,6 @@ import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.contacts.ContactsCursorLoader;
 import org.thoughtcrime.securesms.contacts.sync.DirectoryHelper;
 import org.thoughtcrime.securesms.database.RecipientDatabase;
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.groups.GroupsV2CapabilityChecker;
 import org.thoughtcrime.securesms.groups.ui.creategroup.details.AddGroupDetailsActivity;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
@@ -40,6 +39,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class CreateGroupActivity extends ContactSelectionActivity {
 
@@ -98,24 +98,34 @@ public class CreateGroupActivity extends ContactSelectionActivity {
   }
 
   @Override
-  public boolean onBeforeContactSelected(Optional<RecipientId> recipientId, String number) {
+  public void onBeforeContactSelected(Optional<RecipientId> recipientId, String number, Consumer<Boolean> callback) {
     if (contactsFragment.hasQueryFilter()) {
-      getToolbar().clear();
+      getContactFilterView().clear();
     }
 
     shrinkSkip();
 
-    return true;
+    callback.accept(true);
   }
 
   @Override
   public void onContactDeselected(Optional<RecipientId> recipientId, String number) {
     if (contactsFragment.hasQueryFilter()) {
-      getToolbar().clear();
+      getContactFilterView().clear();
     }
 
     if (contactsFragment.getSelectedContactsCount() == 0) {
       extendSkip();
+    }
+  }
+
+  @Override
+  public void onSelectionChanged() {
+    int selectedContactsCount = contactsFragment.getTotalMemberCount();
+    if (selectedContactsCount == 0) {
+      getToolbar().setTitle(getString(R.string.CreateGroupActivity__select_members));
+    } else {
+      getToolbar().setTitle(getResources().getQuantityString(R.plurals.CreateGroupActivity__d_members, selectedContactsCount, selectedContactsCount));
     }
   }
 

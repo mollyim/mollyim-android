@@ -92,6 +92,7 @@ import org.thoughtcrime.securesms.conversation.ConversationMessage.ConversationM
 import org.thoughtcrime.securesms.conversation.colors.Colorizer;
 import org.thoughtcrime.securesms.conversation.colors.ColorizerView;
 import org.thoughtcrime.securesms.conversation.ui.error.EnableCallNotificationSettingsDialog;
+import org.thoughtcrime.securesms.conversation.ui.error.SafetyNumberChangeDialog;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.database.MessageDatabase;
 import org.thoughtcrime.securesms.database.MmsDatabase;
@@ -260,6 +261,10 @@ public class ConversationFragment extends LoggingFragment {
     list.setHasFixedSize(false);
     list.setLayoutManager(layoutManager);
     list.setItemAnimator(null);
+
+    if (Build.VERSION.SDK_INT >= 31) {
+      list.setOverScrollMode(View.OVER_SCROLL_NEVER);
+    }
 
     snapToTopDataObserver = new ConversationSnapToTopDataObserver(list, new ConversationScrollRequestValidator());
     conversationBanner    = (ConversationBannerView) inflater.inflate(R.layout.conversation_item_banner, container, false);
@@ -1081,8 +1086,8 @@ public class ConversationFragment extends LoggingFragment {
     return messageRecord.getId();
   }
 
-  public long stageOutgoingMessage(OutgoingTextMessage message) {
-    MessageRecord messageRecord = SmsDatabase.readerFor(message, threadId).getCurrent();
+  public long stageOutgoingMessage(OutgoingTextMessage message, long messageId) {
+    MessageRecord messageRecord = SmsDatabase.readerFor(message, threadId, messageId).getCurrent();
 
     if (getListAdapter() != null) {
       clearHeaderIfNotTyping(getListAdapter());
@@ -1581,6 +1586,11 @@ public class ConversationFragment extends LoggingFragment {
     @Override
     public void onMessageWithRecaptchaNeededClicked(@NonNull MessageRecord messageRecord) {
       RecaptchaProofBottomSheetFragment.show(getChildFragmentManager());
+    }
+
+    @Override
+    public void onIncomingIdentityMismatchClicked(@NonNull RecipientId recipientId) {
+      SafetyNumberChangeDialog.show(getParentFragmentManager(), recipientId);
     }
 
     @Override

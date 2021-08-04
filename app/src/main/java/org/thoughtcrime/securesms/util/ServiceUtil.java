@@ -8,7 +8,6 @@ import android.app.NotificationManager;
 import android.app.job.JobScheduler;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.pm.ShortcutManager;
 import android.hardware.SensorManager;
 import android.hardware.display.DisplayManager;
 import android.location.LocationManager;
@@ -31,11 +30,6 @@ import androidx.core.content.ContextCompat;
 public class ServiceUtil {
   public static InputMethodManager getInputMethodManager(Context context) {
     return (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
-  }
-
-  @RequiresApi(25)
-  public static @Nullable ShortcutManager getShortcutManager(@NonNull Context context) {
-    return ContextCompat.getSystemService(context, ShortcutManager.class);
   }
 
   public static WindowManager getWindowManager(Context context) {

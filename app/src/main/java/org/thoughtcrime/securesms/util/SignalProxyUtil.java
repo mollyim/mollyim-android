@@ -1,20 +1,21 @@
 package org.thoughtcrime.securesms.util;
 
 import androidx.annotation.WorkerThread;
-import androidx.lifecycle.Observer;
 
-import org.signal.core.util.ThreadUtil;
 import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
-import org.thoughtcrime.securesms.net.PipeConnectivityListener;
 import org.thoughtcrime.securesms.push.AccountManagerFactory;
 import org.whispersystems.signalservice.api.SignalServiceAccountManager;
+import org.whispersystems.signalservice.api.websocket.WebSocketConnectionState;
 
 import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
+
+import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public final class SignalProxyUtil {
 
@@ -36,30 +37,16 @@ public final class SignalProxyUtil {
       return testWebsocketConnectionUnregistered(timeout);
     }
 
-    CountDownLatch latch   = new CountDownLatch(1);
-    AtomicBoolean  success = new AtomicBoolean(false);
-
-    Observer<PipeConnectivityListener.State> observer = state -> {
-      if (state == PipeConnectivityListener.State.CONNECTED) {
-        success.set(true);
-        latch.countDown();
-      } else if (state == PipeConnectivityListener.State.FAILURE) {
-        success.set(false);
-        latch.countDown();
-      }
-    };
-
-    ThreadUtil.runOnMainSync(() -> ApplicationDependencies.getPipeListener().getState().observeForever(observer));
-
-    try {
-      latch.await(timeout, TimeUnit.MILLISECONDS);
-    } catch (InterruptedException e) {
-      Log.w(TAG, "Interrupted!", e);
-    } finally {
-      ThreadUtil.runOnMainSync(() -> ApplicationDependencies.getPipeListener().getState().removeObserver(observer));
-    }
-
-    return success.get();
+    return ApplicationDependencies.getSignalWebSocket()
+                                  .getWebSocketState()
+                                  .subscribeOn(Schedulers.trampoline())
+                                  .observeOn(Schedulers.trampoline())
+                                  .timeout(timeout, TimeUnit.MILLISECONDS)
+                                  .skipWhile(state -> state != WebSocketConnectionState.CONNECTED && !state.isFailure())
+                                  .firstOrError()
+                                  .flatMap(state -> Single.just(state == WebSocketConnectionState.CONNECTED))
+                                  .onErrorReturn(t -> false)
+                                  .blockingGet();
   }
 
   private static boolean testWebsocketConnectionUnregistered(long timeout) {

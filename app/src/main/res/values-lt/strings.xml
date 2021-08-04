@@ -57,7 +57,6 @@
   <string name="DraftDatabase_Draft_voice_note">(Balso žinutė)</string>
   <!--AttachmentKeyboard-->
   <string name="AttachmentKeyboard_gallery">Galerija</string>
-  <string name="AttachmentKeyboard_gif">GIF</string>
   <string name="AttachmentKeyboard_file">Failas</string>
   <string name="AttachmentKeyboard_contact">Adresatas</string>
   <string name="AttachmentKeyboard_location">Vieta</string>
@@ -211,6 +210,11 @@
   <string name="ConversationActivity_attachment_exceeds_size_limits">Priedas viršija jūsų siunčiamos žinutės tipui leidžiamą dydį.</string>
   <string name="ConversationActivity_unable_to_record_audio">Nepavyksta įrašyti garso!</string>
   <string name="ConversationActivity_you_cant_send_messages_to_this_group">Negalite siųsti žinučių į šią grupę, nes daugiau nebesate jos narys.</string>
+  <string name="ConversationActivity_only_s_can_send_messages">Tik %1$s gali siųsti žinutes.</string>
+  <string name="ConversationActivity_admins">administratoriai</string>
+  <string name="ConversationActivity_message_an_admin">Rašyti žinutę administratoriui</string>
+  <string name="ConversationActivity_cant_start_group_call">Negalima pradėti grupės skambučio</string>
+  <string name="ConversationActivity_only_admins_of_this_group_can_start_a_call">Tik šios grupės administratoriai gali pradėti skambutį.</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">Nėra prieinamos programėlės, kuri galėtų apdoroti šią nuorodą jūsų įrenginyje.</string>
   <string name="ConversationActivity_your_request_to_join_has_been_sent_to_the_group_admin">Jūsų prašymas prisijungti prie grupės buvo išsiųstas grupės administratoriui. Jums bus pranešta, kai jis atliks tam tikrus veiksmus.</string>
   <string name="ConversationActivity_cancel_request">Panaikinti prašymą</string>
@@ -244,9 +248,6 @@
   <string name="ConversationActivity_full">Pilnas</string>
   <string name="ConversationActivity_error_sending_media">Klaida siunčiant mediją</string>
   <string name="ConversationActivity__reported_as_spam_and_blocked">Pranešta apie brukalą ir užblokuota.</string>
-  <string name="ConversationActivity_gifs_have_moved">GIF atvaizdai perkelti</string>
-  <string name="ConversationActivity_look_for_gifs_next_to_emoji_and_stickers">GIF atvaizdų ieškokite šalia šypsenėlių ir lipdukų.</string>
-  <string name="ConversationActivity__gifs_are_now_here">Nuo šiol, GIF atvaizdai yra čia.</string>
   <!--ConversationAdapter-->
   <plurals name="ConversationAdapter_n_unread_messages">
     <item quantity="one">%d neskaityta žinutė</item>
@@ -351,6 +352,7 @@
   <string name="ConversationTypingView__plus_d">+%1$d</string>
   <!--CreateGroupActivity-->
   <string name="CreateGroupActivity_some_contacts_cannot_be_in_legacy_groups">Kai kurie adresatai negali būti pasenusiose grupėse.</string>
+  <string name="CreateGroupActivity__select_members">Pasirinkti narius</string>
   <!--CreateProfileActivity-->
   <string name="CreateProfileActivity__profile">Profilis</string>
   <string name="CreateProfileActivity_error_setting_profile_photo">Klaida, nustatant profilio nuotrauką</string>
@@ -364,6 +366,7 @@
   <string name="ChooseBackupFragment__icon_content_description">Atkūrimo iš atsarginės kopijos piktograma</string>
   <string name="ChooseBackupFragment__choose_backup">Pasirinkti atsarginę kopiją</string>
   <string name="ChooseBackupFragment__learn_more">Sužinoti daugiau</string>
+  <string name="ChooseBackupFragment__no_file_browser_available">Neprieinama jokia failų naršyklė</string>
   <!--RestoreBackupFragment-->
   <string name="RestoreBackupFragment__restore_complete">Atkūrimas užbaigtas</string>
   <string name="RestoreBackupFragment__to_continue_using_backups_please_choose_a_folder">Norėdami ir toliau naudoti atsargines kopijas, pasirinkite aplanką. Šioje vietoje bus įrašytos naujos atsarginės kopijos.</string>
@@ -443,6 +446,7 @@
   <!--ShareActivity-->
   <string name="ShareActivity_share_with">Bendrinti su</string>
   <string name="ShareActivity_multiple_attachments_are_only_supported">Keli priedai yra palaikomi tik paveikslams ir vaizdo įrašams</string>
+  <string name="ShareActivity_you_do_not_have_permission_to_send_to_this_group">Jūs neturite leidimo siųsti į šią grupę</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Ilgalaikė Signal susisiekimo triktis!</string>
   <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly nepavyko prisiregistruoti prie „Google Play“ paslaugų. Molly žinutės ir skambučiai buvo išjungti, prašome pabandyti iš naujo registruotis skyrelyje Nustatymai (angl. Settings) &gt; Išplėstiniai (angl. Advanced).</string>
@@ -459,6 +463,7 @@
   <string name="AddToGroupActivity_add_to_groups">Pridėti į grupes</string>
   <string name="AddToGroupActivity_this_person_cant_be_added_to_legacy_groups">Šis žmogus negali būti pridėtas į pasenusias grupes.</string>
   <string name="AddToGroupActivity_add">Pridėti</string>
+  <string name="AddToGroupActivity_add_to_a_group">Pridėti į grupę</string>
   <!--ChooseNewAdminActivity-->
   <string name="ChooseNewAdminActivity_choose_new_admin">Pasirinkti naują administratorių</string>
   <string name="ChooseNewAdminActivity_done">Atlikta</string>
@@ -562,7 +567,7 @@
   </plurals>
   <!--LeaveGroupDialog-->
   <string name="LeaveGroupDialog_leave_group">Išeiti iš grupės?</string>
-  <string name="LeaveGroupDialog_you_will_no_longer_be_able_to_send_or_receive_messages_in_this_group">Jūs daugiau šioje grupėje nebegalėsite siųsti ar gauti žinutes.</string>
+  <string name="LeaveGroupDialog_you_will_no_longer_be_able_to_send_or_receive_messages_in_this_group">Jūs daugiau šioje grupėje nebegalėsite siųsti ar gauti žinučių.</string>
   <string name="LeaveGroupDialog_leave">Išeiti</string>
   <string name="LeaveGroupDialog_choose_new_admin">Pasirinkti naują administratorių</string>
   <string name="LeaveGroupDialog_before_you_leave_you_must_choose_at_least_one_new_admin_for_this_group">Prieš išeidami, privalote pasirinkti šiai grupei bent vieną naują administratorių.</string>
@@ -614,6 +619,7 @@
   <!--AddMembersActivity-->
   <string name="AddMembersActivity__done">Atlikta</string>
   <string name="AddMembersActivity__this_person_cant_be_added_to_legacy_groups">Šis žmogus negali būti pridėtas į pasenusias grupes.</string>
+  <string name="AddMembersActivity__this_person_cant_be_added_to_announcement_groups">Šis žmogus negali būti pridėtas į skelbimų grupes.</string>
   <plurals name="AddMembersActivity__add_d_members_to_s">
     <item quantity="one">Pridėti „%1$s“ į „%2$s“?</item>
     <item quantity="few">Pridėti %3$d narius į „%2$s“?</item>
@@ -621,6 +627,7 @@
     <item quantity="other">Pridėti %3$d narį į „%2$s“?</item>
   </plurals>
   <string name="AddMembersActivity__add">Pridėti</string>
+  <string name="AddMembersActivity__add_members">Pridėti narius</string>
   <!--AddGroupDetailsFragment-->
   <string name="AddGroupDetailsFragment__name_this_group">Suteikti šiai grupei pavadinimą</string>
   <string name="AddGroupDetailsFragment__create_group">Sukurti grupę</string>
@@ -695,6 +702,7 @@
   <string name="ManageGroupActivity_only_admins_can_reset_the_sharable_group_link">Tik administratoriai gali atstatyti bendrinamą grupės nuorodą.</string>
   <string name="ManageGroupActivity_you_dont_have_the_rights_to_do_this">Jūs neturite teisių to daryti</string>
   <string name="ManageGroupActivity_not_capable">Kažkas iš jūsų pridėtų asmenų nepalaiko naujų grupių ir turi atsinaujinti Signal</string>
+  <string name="ManageGroupActivity_not_announcement_capable">Kažkas iš jūsų pridėtų žmonių nepalaiko skelbimų grupių ir turi atsinaujinti Signal programėlę</string>
   <string name="ManageGroupActivity_failed_to_update_the_group">Nepavyko atnaujinti grupės</string>
   <string name="ManageGroupActivity_youre_not_a_member_of_the_group">Jūs nesate šios grupės narys</string>
   <string name="ManageGroupActivity_failed_to_update_the_group_please_retry_later">Nepavyko atnaujinti grupės, vėliau bandykite dar kartą</string>
@@ -908,6 +916,7 @@
   <string name="Megaphones_invite_friends">Pakviesti draugus</string>
   <string name="Megaphones_use_sms">Naudokite SMS</string>
   <string name="Megaphones_appearance">Išvaizda</string>
+  <string name="Megaphones_add_photo">Pridėti nuotrauką</string>
   <!--NotificationBarManager-->
   <string name="NotificationBarManager_signal_call_in_progress">Signal skambutis yra eigoje</string>
   <string name="NotificationBarManager__establishing_signal_call">Užmezgiamas Signal skambutis</string>
@@ -1083,6 +1092,13 @@
   <string name="MessageRecord_you_changed_who_can_edit_group_membership_to_s">Jūs pakeitėte asmenis, kurie gali keisti grupės narystes į „%1$s“.</string>
   <string name="MessageRecord_s_changed_who_can_edit_group_membership_to_s">%1$s pakeitė asmenis, kurie gali keisti grupės narystes į „%2$s“.</string>
   <string name="MessageRecord_who_can_edit_group_membership_has_been_changed_to_s">Buvo pakeista, kad „%1$s“ gali keisti grupės narystes.</string>
+  <!--GV2 announcement group change-->
+  <string name="MessageRecord_you_allow_all_members_to_send">Jūs pakeitėte grupės nustatymus taip, kad visiems nariams būtų leista siųsti žinutes.</string>
+  <string name="MessageRecord_you_allow_only_admins_to_send">Jūs pakeitėte grupės nustatymus taip, kad tik administratoriams būtų leista siųsti žinutes.</string>
+  <string name="MessageRecord_s_allow_all_members_to_send">%1$s pakeitė grupės nustatymus taip, kad visiems nariams būtų leista siųsti žinutes.</string>
+  <string name="MessageRecord_s_allow_only_admins_to_send">%1$s pakeitė grupės nustatymus taip, kad tik administratoriams būtų leista siųsti žinutes.</string>
+  <string name="MessageRecord_allow_all_members_to_send">Grupės nustatymai buvo pakeisti taip, kad visiems nariams būtų leista siųsti žinutes.</string>
+  <string name="MessageRecord_allow_only_admins_to_send">Grupės nustatymai buvo pakeisti taip, kad tik administratoriams būtų leista siųsti žinutes.</string>
   <!--GV2 group link invite access level change-->
   <string name="MessageRecord_you_turned_on_the_group_link_with_admin_approval_off">Jūs įjungėte grupės nuorodą su išjungtais administratoriaus patvirtinimais.</string>
   <string name="MessageRecord_you_turned_on_the_group_link_with_admin_approval_on">Jūs įjungėte grupės nuorodą su įjungtais administratoriaus patvirtinimais.</string>
@@ -1469,7 +1485,7 @@
   <string name="SubmitDebugLogActivity_success">Įvykdyta!</string>
   <string name="SubmitDebugLogActivity_copy_this_url_and_add_it_to_your_issue">Nukopijuokite šį URL ir pridėkite jį į savo pranešimą apie klaidą ar palaikymo el. laišką:\n\n<b>%1$s</b></string>
   <string name="SubmitDebugLogActivity_share">Bendrinti</string>
-  <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online">Šis žurnalas bus viešai paskelbtas internete talkininkams peržiūrėti. Jūs galite jį išnagrinėti ir, prieš išsiųsdami, paredaguoti.</string>
+  <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online_for_contributors">Šis žurnalas bus viešai paskelbtas internete talkininkams peržiūrėti. Prieš išsiųsdami, galite jį panagrinėti.</string>
   <!--SupportEmailUtil-->
   <string name="SupportEmailUtil_filter">Filtras:</string>
   <string name="SupportEmailUtil_device_info">Įrenginio informacija:</string>
@@ -1769,6 +1785,7 @@
   <string name="conversation_fragment__scroll_to_the_bottom_content_description">Slinkti į apačią</string>
   <!--safety_number_change_dialog-->
   <string name="safety_number_change_dialog__safety_number_changes">Saugumo numerio pasikeitimai</string>
+  <string name="safety_number_change_dialog__accept">Priimti</string>
   <string name="safety_number_change_dialog__send_anyway">Vis tiek siųsti</string>
   <string name="safety_number_change_dialog__call_anyway">Vis tiek skambinti</string>
   <string name="safety_number_change_dialog__join_call">Prisijungti prie skambučio</string>
@@ -1858,8 +1875,6 @@
   <string name="giphy_activity_toolbar__search_gifs">Ieškoti GIF</string>
   <!--giphy_fragment-->
   <string name="giphy_fragment__nothing_found">Nieko nerasta</string>
-  <!--log_submit_activity-->
-  <string name="log_submit_activity__this_log_will_be_posted_online">Šis žurnalas bus viešai paskelbtas internete talkininkams peržiūrėti, prieš jį pateikdami, galite jį išnagrinėti ir redaguoti .</string>
   <!--database_migration_activity-->
   <string name="database_migration_activity__would_you_like_to_import_your_existing_text_messages">Ar norėtumėte importuoti savo esamas tekstines žinutes į užšifruotą Signal duomenų bazę?</string>
   <string name="database_migration_activity__the_default_system_database_will_not_be_modified">Numatytoji sistemos duomenų bazė jokiu būdu nebus pakeista ar modifikuota.</string>
@@ -2828,6 +2843,7 @@
   <string name="GroupLinkBottomSheet_copied_to_clipboard">Nukopijuota į iškarpinę</string>
   <string name="GroupLinkBottomSheet_the_link_is_not_currently_active">Šiuo metu nuoroda nėra aktyvi</string>
   <!--VoiceNotePlaybackPreparer-->
+  <string name="VoiceNotePlaybackPreparer__failed_to_play_voice_message">Nepavyko atkurti balso žinutės</string>
   <!--VoiceNoteMediaDescriptionCompatFactory-->
   <string name="VoiceNoteMediaDescriptionCompatFactory__voice_message">Balso žinutė · %1$s</string>
   <string name="VoiceNoteMediaDescriptionCompatFactory__s_to_s">%1$s naudotojui %2$s</string>
@@ -2898,6 +2914,12 @@
   <string name="DeleteAccountCountryPickerFragment__search_countries">Ieškoti šalių</string>
   <!--CreateGroupActivity-->
   <string name="CreateGroupActivity__skip">Praleisti</string>
+  <plurals name="CreateGroupActivity__d_members">
+    <item quantity="one">%1$d narys</item>
+    <item quantity="few">%1$d nariai</item>
+    <item quantity="many">%1$d narių</item>
+    <item quantity="other">%1$d narys</item>
+  </plurals>
   <!--ShareActivity-->
   <string name="ShareActivity__share">Bendrinti</string>
   <string name="ShareActivity__send">Siųsti</string>
@@ -3095,7 +3117,7 @@
   <string name="HelpSettingsFragment__version">Versija</string>
   <string name="HelpSettingsFragment__debug_log">Derinimo žurnalas</string>
   <string name="HelpSettingsFragment__terms_amp_privacy_policy">Sąlygos ir Privatumo politika</string>
-  <string name="HelpFragment__copyright_signal_messenger">Autorių teisės Signal pokalbių programėlė</string>
+  <string name="HelpFragment__copyright_signal_messenger">Autorių teisės Molly pokalbių programėlė</string>
   <string name="HelpFragment__licenced_under_the_gplv3">Licencijuota pagal GPLv3</string>
   <!--DataAndStorageSettingsFragment-->
   <string name="DataAndStorageSettingsFragment__calls">Skambučiai</string>
@@ -3143,6 +3165,11 @@
   <string name="ChatColorsMegaphone__we_switched_up_chat_colors">Mes perjungėme pokalbių spalvas, kad suteiktume jums daugiau parinkčių ir palengvintume pokalbių skaitymą.</string>
   <string name="ChatColorsMegaphone__appearance">Išvaizda</string>
   <string name="ChatColorsMegaphone__not_now">Ne dabar</string>
+  <!--AddAProfilePhotoMegaphone-->
+  <string name="AddAProfilePhotoMegaphone__add_a_profile_photo">Pridėkite profilio nuotrauką</string>
+  <string name="AddAProfilePhotoMegaphone__choose_a_look_and_color">Pasirinkite išvaizdą ir spalvą arba tinkinkite savo inicialus.</string>
+  <string name="AddAProfilePhotoMegaphone__not_now">Ne dabar</string>
+  <string name="AddAProfilePhotoMegaphone__add_photo">Pridėti nuotrauką</string>
   <!--KeyboardPagerFragment-->
   <string name="KeyboardPagerFragment_emoji">Šypsenėlės</string>
   <string name="KeyboardPagerFragment_open_emoji_search">Atverti šypsenėlių paiešką</string>
@@ -3165,11 +3192,11 @@
   <string name="ConversationSettingsFragment__start_video_call">Pradėti vaizdo skambutį</string>
   <string name="ConversationSettingsFragment__start_audio_call">Pradėti garso skambutį</string>
   <string name="ConversationSettingsFragment__message">Žinutė</string>
-  <string name="ConversationSettingsFragment__video">Vaizdo skambutis</string>
-  <string name="ConversationSettingsFragment__audio">Garso skambutis</string>
+  <string name="ConversationSettingsFragment__video">Vaizdo skamb.</string>
+  <string name="ConversationSettingsFragment__audio">Garso skamb.</string>
   <string name="ConversationSettingsFragment__call">Skambinti</string>
-  <string name="ConversationSettingsFragment__mute">Išjungti pranešimus</string>
-  <string name="ConversationSettingsFragment__muted">Pranešimai išjungti</string>
+  <string name="ConversationSettingsFragment__mute">Išj. pranešimus</string>
+  <string name="ConversationSettingsFragment__muted">Pranešimai išj.</string>
   <string name="ConversationSettingsFragment__search">Ieškoti</string>
   <string name="ConversationSettingsFragment__disappearing_messages">Išnykstančios žinutės</string>
   <string name="ConversationSettingsFragment__sounds_and_notifications">Garsai ir pranešimai</string>
@@ -3194,10 +3221,12 @@
   <!--PermissionsSettingsFragment-->
   <string name="PermissionsSettingsFragment__add_members">Pridėti narius</string>
   <string name="PermissionsSettingsFragment__edit_group_info">Taisyti grupės informaciją</string>
+  <string name="PermissionsSettingsFragment__send_messages">Siųsti žinutes</string>
   <string name="PermissionsSettingsFragment__all_members">Visi nariai</string>
   <string name="PermissionsSettingsFragment__only_admins">Tik administratoriai</string>
   <string name="PermissionsSettingsFragment__who_can_add_new_members">Kas gali pridėti naujus narius?</string>
   <string name="PermissionsSettingsFragment__who_can_edit_this_groups_info">Kas gali taisyti šios grupės informaciją?</string>
+  <string name="PermissionsSettingsFragment__who_can_send_messages">Kas gali siųsti žinutes?</string>
   <!--SoundsAndNotificationsSettingsFragment-->
   <string name="SoundsAndNotificationsSettingsFragment__mute_notifications">Išjungti pranešimus</string>
   <string name="SoundsAndNotificationsSettingsFragment__not_muted">Pranešimai neišjungti</string>
@@ -3212,7 +3241,37 @@
   <string name="PlaybackSpeedToggleTextView__p5x">0,5x</string>
   <string name="PlaybackSpeedToggleTextView__1x">1x</string>
   <string name="PlaybackSpeedToggleTextView__2x">2x</string>
+  <!--PaymentRecipientSelectionFragment-->
+  <string name="PaymentRecipientSelectionFragment__new_payment">Naujas mokėjimas</string>
+  <!--NewConversationActivity-->
+  <string name="NewConversationActivity__new_message">Nauja žinutė</string>
+  <!--ContactFilterView-->
+  <string name="ContactFilterView__search_name_or_number">Ieškoti vardo ar numerio</string>
   <!--VoiceNotePlayerView-->
   <string name="VoiceNotePlayerView__s_dot_s">%1$s · %2$s</string>
+  <!--AvatarPickerFragment-->
+  <string name="AvatarPickerFragment__avatar_preview">Avataro peržiūra</string>
+  <string name="AvatarPickerFragment__camera">Kamera</string>
+  <string name="AvatarPickerFragment__take_a_picture">Padaryti nuotrauką</string>
+  <string name="AvatarPickerFragment__choose_a_photo">Pasirinkti nuotrauką</string>
+  <string name="AvatarPickerFragment__photo">Nuotrauka</string>
+  <string name="AvatarPickerFragment__text">Tekstas</string>
+  <string name="AvatarPickerFragment__save">Įrašyti</string>
+  <string name="AvatarPickerFragment__select_an_avatar">Pasirinkti avatarą</string>
+  <string name="AvatarPickerFragment__clear_avatar">Išvalyti avatarą</string>
+  <string name="AvatarPickerFragment__edit">Taisyti</string>
+  <string name="AvatarPickerRepository__failed_to_save_avatar">Nepavyko įrašyti avataro</string>
+  <!--TextAvatarCreationFragment-->
+  <string name="TextAvatarCreationFragment__preview">Peržiūra</string>
+  <string name="TextAvatarCreationFragment__done">Atlikta</string>
+  <string name="TextAvatarCreationFragment__text">Tekstas</string>
+  <string name="TextAvatarCreationFragment__color">Spalva</string>
+  <!--VectorAvatarCreationFragment-->
+  <string name="VectorAvatarCreationFragment__select_a_color">Pasirinkti spalvą</string>
+  <!--ContactSelectionListItem-->
+  <string name="ContactSelectionListItem__sms">SMS</string>
+  <string name="ContactSelectionListItem__dot_s">· %1$s</string>
+  <!--DSLSettingsToolbar-->
+  <string name="DSLSettingsToolbar__navigate_up">Naršyti aukštyn</string>
   <!--EOF-->
 </resources>

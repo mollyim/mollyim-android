@@ -29,11 +29,13 @@ import org.thoughtcrime.securesms.jobmanager.migrations.RetrieveProfileJobMigrat
 import org.thoughtcrime.securesms.jobmanager.migrations.SendReadReceiptsJobMigration;
 import org.thoughtcrime.securesms.migrations.AccountRecordMigrationJob;
 import org.thoughtcrime.securesms.migrations.ApplyUnknownFieldsToSelfMigrationJob;
+import org.thoughtcrime.securesms.migrations.AttachmentCleanupMigrationJob;
 import org.thoughtcrime.securesms.migrations.AttributesMigrationJob;
 import org.thoughtcrime.securesms.migrations.AvatarIdRemovalMigrationJob;
 import org.thoughtcrime.securesms.migrations.BackupNotificationMigrationJob;
 import org.thoughtcrime.securesms.migrations.BlobStorageLocationMigrationJob;
 import org.thoughtcrime.securesms.migrations.DatabaseMigrationJob;
+import org.thoughtcrime.securesms.migrations.DeleteDeprecatedLogsMigrationJob;
 import org.thoughtcrime.securesms.migrations.DirectoryRefreshMigrationJob;
 import org.thoughtcrime.securesms.migrations.KbsEnclaveMigrationJob;
 import org.thoughtcrime.securesms.migrations.MigrationCompleteJob;
@@ -153,11 +155,13 @@ public final class JobManagerFactories {
       // Migrations
       put(AccountRecordMigrationJob.KEY,             new AccountRecordMigrationJob.Factory());
       put(ApplyUnknownFieldsToSelfMigrationJob.KEY,  new ApplyUnknownFieldsToSelfMigrationJob.Factory());
+      put(AttachmentCleanupMigrationJob.KEY,         new AttachmentCleanupMigrationJob.Factory());
       put(AttributesMigrationJob.KEY,                new AttributesMigrationJob.Factory());
       put(AvatarIdRemovalMigrationJob.KEY,           new AvatarIdRemovalMigrationJob.Factory());
       put(BackupNotificationMigrationJob.KEY,        new BackupNotificationMigrationJob.Factory());
       put(BlobStorageLocationMigrationJob.KEY,       new BlobStorageLocationMigrationJob.Factory());
       put(DatabaseMigrationJob.KEY,                  new DatabaseMigrationJob.Factory());
+      put(DeleteDeprecatedLogsMigrationJob.KEY,      new DeleteDeprecatedLogsMigrationJob.Factory());
       put(DirectoryRefreshMigrationJob.KEY,          new DirectoryRefreshMigrationJob.Factory());
       put(KbsEnclaveMigrationJob.KEY,                new KbsEnclaveMigrationJob.Factory());
       put(MigrationCompleteJob.KEY,                  new MigrationCompleteJob.Factory());

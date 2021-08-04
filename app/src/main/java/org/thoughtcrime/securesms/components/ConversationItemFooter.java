@@ -25,7 +25,6 @@ import com.airbnb.lottie.LottieProperty;
 import com.airbnb.lottie.model.KeyPath;
 
 import org.signal.core.util.concurrent.SignalExecutors;
-import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.animation.AnimationCompleteListener;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
@@ -144,7 +143,7 @@ public class ConversationItemFooter extends ConstraintLayout {
   }
 
   public void setAudioDuration(long totalDurationMillis, long currentPostionMillis) {
-    long remainingSecs = TimeUnit.MILLISECONDS.toSeconds(totalDurationMillis - currentPostionMillis);
+    long remainingSecs = Math.max(0, TimeUnit.MILLISECONDS.toSeconds(totalDurationMillis - currentPostionMillis));
     audioDuration.setText(getResources().getString(R.string.AudioView_duration, remainingSecs / 60, remainingSecs % 60));
   }
 
@@ -305,7 +304,7 @@ public class ConversationItemFooter extends ConstraintLayout {
     } else if (messageRecord.isRateLimited()) {
       dateView.setText(R.string.ConversationItem_send_paused);
     } else {
-      dateView.setText(DateUtils.getExtendedRelativeTimeSpanString(getContext(), locale, messageRecord.getTimestamp()));
+      dateView.setText(DateUtils.getSimpleRelativeTimeSpanString(getContext(), locale, messageRecord.getTimestamp()));
     }
   }
 

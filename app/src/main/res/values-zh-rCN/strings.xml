@@ -54,7 +54,6 @@
   <string name="DraftDatabase_Draft_voice_note">（语音消息）</string>
   <!--AttachmentKeyboard-->
   <string name="AttachmentKeyboard_gallery">相册</string>
-  <string name="AttachmentKeyboard_gif">GIF</string>
   <string name="AttachmentKeyboard_file">文件</string>
   <string name="AttachmentKeyboard_contact">联系人</string>
   <string name="AttachmentKeyboard_location">位置</string>
@@ -208,6 +207,8 @@
   <string name="ConversationActivity_attachment_exceeds_size_limits">附件超过当前消息类型的大小限制。</string>
   <string name="ConversationActivity_unable_to_record_audio">无法录音！</string>
   <string name="ConversationActivity_you_cant_send_messages_to_this_group">您已不是此群组成员，不能向其发送消息。</string>
+  <string name="ConversationActivity_admins">管理员</string>
+  <string name="ConversationActivity_only_admins_of_this_group_can_start_a_call">只有该群组的管理员可发起通话。</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">你的设备上没有处理该链接的应用。</string>
   <string name="ConversationActivity_your_request_to_join_has_been_sent_to_the_group_admin">您的入群申请已发送给群组管理员，您将在管理员作出决定后收到通知。</string>
   <string name="ConversationActivity_cancel_request">撤回申请</string>
@@ -241,9 +242,6 @@
   <string name="ConversationActivity_full">已满</string>
   <string name="ConversationActivity_error_sending_media">媒体发送失败</string>
   <string name="ConversationActivity__reported_as_spam_and_blocked">已举报为垃圾消息并屏蔽。</string>
-  <string name="ConversationActivity_gifs_have_moved">GIF 已转移</string>
-  <string name="ConversationActivity_look_for_gifs_next_to_emoji_and_stickers">在表情符号和贴纸旁查找 GIF。</string>
-  <string name="ConversationActivity__gifs_are_now_here">GIF 现在在此处。</string>
   <!--ConversationAdapter-->
   <plurals name="ConversationAdapter_n_unread_messages">
     <item quantity="other">%d 条未读消息</item>
@@ -318,6 +316,7 @@
   <string name="ConversationTypingView__plus_d">+%1$d</string>
   <!--CreateGroupActivity-->
   <string name="CreateGroupActivity_some_contacts_cannot_be_in_legacy_groups">部分联系人无法被置于旧版群组中。</string>
+  <string name="CreateGroupActivity__select_members">选择成员</string>
   <!--CreateProfileActivity-->
   <string name="CreateProfileActivity__profile">个人资料</string>
   <string name="CreateProfileActivity_error_setting_profile_photo">设置头像出错</string>
@@ -423,6 +422,7 @@
   <string name="AddToGroupActivity_add_to_groups">添加至群组</string>
   <string name="AddToGroupActivity_this_person_cant_be_added_to_legacy_groups">此用户不能被添加到旧版群组中。</string>
   <string name="AddToGroupActivity_add">添加</string>
+  <string name="AddToGroupActivity_add_to_a_group">添加至群组</string>
   <!--ChooseNewAdminActivity-->
   <string name="ChooseNewAdminActivity_choose_new_admin">选择新的管理员。</string>
   <string name="ChooseNewAdminActivity_done">完成</string>
@@ -537,6 +537,7 @@
     <item quantity="other">添%3$d位成员到“%2$s”？</item>
   </plurals>
   <string name="AddMembersActivity__add">添加</string>
+  <string name="AddMembersActivity__add_members">添加成员</string>
   <!--AddGroupDetailsFragment-->
   <string name="AddGroupDetailsFragment__name_this_group">命名该群组</string>
   <string name="AddGroupDetailsFragment__create_group">创建群组</string>
@@ -930,6 +931,11 @@
   <string name="MessageRecord_you_changed_who_can_edit_group_membership_to_s">你更改了能编辑群成员的权限为“%1$s”。</string>
   <string name="MessageRecord_s_changed_who_can_edit_group_membership_to_s">%1$s 更改了能编辑群成员的权限为“%2$s”。</string>
   <string name="MessageRecord_who_can_edit_group_membership_has_been_changed_to_s">能编辑群成员的权限已设为“%1$s”。</string>
+  <!--GV2 announcement group change-->
+  <string name="MessageRecord_you_allow_all_members_to_send">您已将群组设置更改为允许全部成员发送消息。</string>
+  <string name="MessageRecord_you_allow_only_admins_to_send">您已将群组设置更改为仅允许管理员发送消息。</string>
+  <string name="MessageRecord_allow_all_members_to_send">群组设置已更改为允许全部成员发送消息。</string>
+  <string name="MessageRecord_allow_only_admins_to_send">群组设置已更改为仅允许管理员发送消息。</string>
   <!--GV2 group link invite access level change-->
   <string name="MessageRecord_you_turned_on_the_group_link_with_admin_approval_off">您打开了无需管理员认证的群组链接。</string>
   <string name="MessageRecord_you_turned_on_the_group_link_with_admin_approval_on">你已打开了启用管理员认证的群组链接。</string>
@@ -1287,7 +1293,6 @@
   <string name="SubmitDebugLogActivity_copy_this_url_and_add_it_to_your_issue">复制此 URL 并将其添加到问题报告或支持电子邮件:\n\n<b>%1$s</b>
 </string>
   <string name="SubmitDebugLogActivity_share">分享</string>
-  <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online">该日志将在线公开发布，以供参与者查看。在上传之前，您可查看并编辑。</string>
   <!--SupportEmailUtil-->
   <string name="SupportEmailUtil_filter">筛选器：</string>
   <string name="SupportEmailUtil_device_info">设备信息：</string>
@@ -1575,6 +1580,7 @@
   <string name="conversation_fragment__scroll_to_the_bottom_content_description">滚动到底部</string>
   <!--safety_number_change_dialog-->
   <string name="safety_number_change_dialog__safety_number_changes">安全码更变</string>
+  <string name="safety_number_change_dialog__accept">接受</string>
   <string name="safety_number_change_dialog__send_anyway">仍要发送</string>
   <string name="safety_number_change_dialog__call_anyway">仍要呼叫</string>
   <string name="safety_number_change_dialog__join_call">加入通话</string>
@@ -1646,8 +1652,6 @@
   <string name="giphy_activity_toolbar__search_gifs">搜索 GIF 图片</string>
   <!--giphy_fragment-->
   <string name="giphy_fragment__nothing_found">未找到</string>
-  <!--log_submit_activity-->
-  <string name="log_submit_activity__this_log_will_be_posted_online">该日志将在线公开发布，用于参与者查看。提交之前，您可检查并编辑该日志。</string>
   <!--database_migration_activity-->
   <string name="database_migration_activity__would_you_like_to_import_your_existing_text_messages">是否将现有短信导入至 Signal 加密数据库？</string>
   <string name="database_migration_activity__the_default_system_database_will_not_be_modified">默认系统数据库不会发生任何形式的修改或变更。</string>
@@ -2589,6 +2593,7 @@
   <string name="GroupLinkBottomSheet_copied_to_clipboard">已复制到剪切板</string>
   <string name="GroupLinkBottomSheet_the_link_is_not_currently_active">此链接尚未激活</string>
   <!--VoiceNotePlaybackPreparer-->
+  <string name="VoiceNotePlaybackPreparer__failed_to_play_voice_message">无法播放语音消息</string>
   <!--VoiceNoteMediaDescriptionCompatFactory-->
   <string name="VoiceNoteMediaDescriptionCompatFactory__voice_message">语音消息 · %1$s</string>
   <string name="VoiceNoteMediaDescriptionCompatFactory__s_to_s">%1$s 至 %2$s</string>
@@ -2653,6 +2658,9 @@
   <string name="DeleteAccountCountryPickerFragment__search_countries">搜索国家</string>
   <!--CreateGroupActivity-->
   <string name="CreateGroupActivity__skip">跳过</string>
+  <plurals name="CreateGroupActivity__d_members">
+    <item quantity="other">%1$d 个成员</item>
+  </plurals>
   <!--ShareActivity-->
   <string name="ShareActivity__share">分享</string>
   <string name="ShareActivity__send">发送</string>
@@ -2850,7 +2858,7 @@
   <string name="HelpSettingsFragment__version">版本</string>
   <string name="HelpSettingsFragment__debug_log">调试日志</string>
   <string name="HelpSettingsFragment__terms_amp_privacy_policy">条款和隐私政策</string>
-  <string name="HelpFragment__copyright_signal_messenger">版权所有 Signal Messenger</string>
+  <string name="HelpFragment__copyright_signal_messenger">版权所有 Molly Messenger</string>
   <string name="HelpFragment__licenced_under_the_gplv3">根据 GPLv3 授权许可</string>
   <!--DataAndStorageSettingsFragment-->
   <string name="DataAndStorageSettingsFragment__calls">通话</string>
@@ -2892,6 +2900,8 @@
   <string name="ChatColorsMegaphone__we_switched_up_chat_colors">升级聊天颜色，提供更多选项，令聊天更易阅读。</string>
   <string name="ChatColorsMegaphone__appearance">外观</string>
   <string name="ChatColorsMegaphone__not_now">稍后再说</string>
+  <!--AddAProfilePhotoMegaphone-->
+  <string name="AddAProfilePhotoMegaphone__not_now">稍后再说</string>
   <!--KeyboardPagerFragment-->
   <string name="KeyboardPagerFragment_emoji">表情符号</string>
   <string name="KeyboardPagerFragment_open_emoji_search">打开表情符号搜索</string>
@@ -2961,7 +2971,29 @@
   <string name="PlaybackSpeedToggleTextView__p5x">.5x</string>
   <string name="PlaybackSpeedToggleTextView__1x">1x</string>
   <string name="PlaybackSpeedToggleTextView__2x">2x</string>
+  <!--PaymentRecipientSelectionFragment-->
+  <string name="PaymentRecipientSelectionFragment__new_payment">新付款</string>
+  <!--NewConversationActivity-->
+  <string name="NewConversationActivity__new_message">新消息</string>
+  <!--ContactFilterView-->
+  <string name="ContactFilterView__search_name_or_number">搜索名字或号码</string>
   <!--VoiceNotePlayerView-->
   <string name="VoiceNotePlayerView__s_dot_s">%1$s · %2$s</string>
+  <!--AvatarPickerFragment-->
+  <string name="AvatarPickerFragment__camera">相机</string>
+  <string name="AvatarPickerFragment__photo">图片</string>
+  <string name="AvatarPickerFragment__text">文本</string>
+  <string name="AvatarPickerFragment__save">保存</string>
+  <string name="AvatarPickerFragment__edit">编辑</string>
+  <!--TextAvatarCreationFragment-->
+  <string name="TextAvatarCreationFragment__preview">预览</string>
+  <string name="TextAvatarCreationFragment__done">完成</string>
+  <string name="TextAvatarCreationFragment__text">文本</string>
+  <string name="TextAvatarCreationFragment__color">颜色</string>
+  <!--VectorAvatarCreationFragment-->
+  <!--ContactSelectionListItem-->
+  <string name="ContactSelectionListItem__sms">短信</string>
+  <string name="ContactSelectionListItem__dot_s">· %1$s</string>
+  <!--DSLSettingsToolbar-->
   <!--EOF-->
 </resources>

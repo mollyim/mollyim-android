@@ -29,7 +29,6 @@ public class AttachmentKeyboard extends FrameLayout implements InputAwareLayout.
 
   private static final List<AttachmentKeyboardButton> DEFAULT_BUTTONS_NON_FREE = Arrays.asList(
       AttachmentKeyboardButton.GALLERY,
-      AttachmentKeyboardButton.GIF,
       AttachmentKeyboardButton.FILE,
       AttachmentKeyboardButton.PAYMENT,
       AttachmentKeyboardButton.CONTACT,
@@ -38,7 +37,6 @@ public class AttachmentKeyboard extends FrameLayout implements InputAwareLayout.
 
   private static final List<AttachmentKeyboardButton> DEFAULT_BUTTONS_FREE = Arrays.asList(
       AttachmentKeyboardButton.GALLERY,
-      AttachmentKeyboardButton.GIF,
       AttachmentKeyboardButton.FILE,
       AttachmentKeyboardButton.PAYMENT,
       AttachmentKeyboardButton.CONTACT

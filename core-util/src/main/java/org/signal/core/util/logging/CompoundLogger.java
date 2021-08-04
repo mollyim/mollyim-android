@@ -15,51 +15,44 @@ class CompoundLogger extends Log.Logger {
   }
 
   @Override
-  public void v(String tag, String message, Throwable t) {
+  public void v(String tag, String message, Throwable t, boolean keepLonger) {
     for (Log.Logger logger : loggers) {
-      logger.v(tag, message, t);
+      logger.v(tag, message, t, keepLonger);
     }
   }
 
   @Override
-  public void d(String tag, String message, Throwable t) {
+  public void d(String tag, String message, Throwable t, boolean keepLonger) {
     for (Log.Logger logger : loggers) {
-      logger.d(tag, message, t);
+      logger.d(tag, message, t, keepLonger);
     }
   }
 
   @Override
-  public void i(String tag, String message, Throwable t) {
+  public void i(String tag, String message, Throwable t, boolean keepLonger) {
     for (Log.Logger logger : loggers) {
-      logger.i(tag, message, t);
+      logger.i(tag, message, t, keepLonger);
     }
   }
 
   @Override
-  public void w(String tag, String message, Throwable t) {
+  public void w(String tag, String message, Throwable t, boolean keepLonger) {
     for (Log.Logger logger : loggers) {
-      logger.w(tag, message, t);
+      logger.w(tag, message, t, keepLonger);
     }
   }
 
   @Override
-  public void e(String tag, String message, Throwable t) {
+  public void e(String tag, String message, Throwable t, boolean keepLonger) {
     for (Log.Logger logger : loggers) {
-      logger.e(tag, message, t);
+      logger.e(tag, message, t, keepLonger);
     }
   }
 
   @Override
-  public void wtf(String tag, String message, Throwable t) {
+  public void flush() {
     for (Log.Logger logger : loggers) {
-      logger.wtf(tag, message, t);
-    }
-  }
-
-  @Override
-  public void blockUntilAllWritesFinished() {
-    for (Log.Logger logger : loggers) {
-      logger.blockUntilAllWritesFinished();
+      logger.flush();
     }
   }
 

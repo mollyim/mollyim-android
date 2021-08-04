@@ -14,6 +14,7 @@ import com.google.i18n.phonenumbers.ShortNumberInfo;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.groups.GroupId;
+import org.thoughtcrime.securesms.service.KeyCachingService;
 import org.thoughtcrime.securesms.util.SetUtil;
 import org.thoughtcrime.securesms.util.StringUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
@@ -48,7 +49,13 @@ public class PhoneNumberFormatter {
   private final Pattern         ALPHA_PATTERN   = Pattern.compile("[a-zA-Z]");
 
   public static @NonNull PhoneNumberFormatter get(Context context) {
-    String localNumber = TextSecurePreferences.getLocalNumber(context);
+    String localNumber;
+
+    if (!KeyCachingService.isLocked()) {
+      localNumber = TextSecurePreferences.getLocalNumber(context);
+    } else {
+      localNumber = "";
+    }
 
     if (!TextUtils.isEmpty(localNumber)) {
       Pair<String, PhoneNumberFormatter> cached = cachedFormatter.get();

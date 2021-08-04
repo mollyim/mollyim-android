@@ -53,7 +53,6 @@
   <string name="DraftDatabase_Draft_quote_snippet">(ပြန်လည်ပေးပို့လာသောစာတို)</string>
   <!--AttachmentKeyboard-->
   <string name="AttachmentKeyboard_gallery">ဓါတ်ပုံပြခန်း</string>
-  <string name="AttachmentKeyboard_gif">လှုပ်ရှားနေသောရုပ်ပုံ</string>
   <string name="AttachmentKeyboard_file">ဖိုင်</string>
   <string name="AttachmentKeyboard_contact">အဆက်အသွယ်</string>
   <string name="AttachmentKeyboard_location">တည်နေရာ</string>
@@ -416,6 +415,7 @@
   <string name="AddToGroupActivity_add_to_groups">အုပ်စုများထဲသို့ ထည့်ပါ။</string>
   <string name="AddToGroupActivity_this_person_cant_be_added_to_legacy_groups">ဤပုဂ္ဂိုလ်အား အမွေအဖွဲ့ထဲသို့ ထည့်၍မရပါ။</string>
   <string name="AddToGroupActivity_add">ထည့်သည်။</string>
+  <string name="AddToGroupActivity_add_to_a_group">အဖွဲ့တစ်ဖွဲ့ထဲသို့ ထည့်မယ်</string>
   <!--ChooseNewAdminActivity-->
   <string name="ChooseNewAdminActivity_choose_new_admin">အက်မင် အသစ် ရွေးချယ်ပါ။</string>
   <string name="ChooseNewAdminActivity_done">ပြီးပါပြီ။</string>
@@ -530,6 +530,7 @@
     <item quantity="other">\"%2$s\" ထဲသို့ အဖွဲ့ဝင် %3$d ဦးကို ပေါင်းထည့်မည်လား?</item>
   </plurals>
   <string name="AddMembersActivity__add">ပေါင်းထည့်မယ်</string>
+  <string name="AddMembersActivity__add_members">အဖွဲ့ဝင်များ ထည့်ပါ</string>
   <!--AddGroupDetailsFragment-->
   <string name="AddGroupDetailsFragment__name_this_group">၎င်းအဖွဲ့ကို အမည်ပေးပါ</string>
   <string name="AddGroupDetailsFragment__create_group">အဖွဲ့ ဖွဲ့မယ်</string>
@@ -913,6 +914,7 @@
   <string name="MessageRecord_you_changed_who_can_edit_group_membership_to_s">အဖွဲ့ဝင်ဖြစ်မှုအား မည်သူက ပြင်ဆင်ပြောင်းလဲနိုင်သည် ကို \"%1$s\" သို့ သင် ပြောင်းလိုက်သည်။</string>
   <string name="MessageRecord_s_changed_who_can_edit_group_membership_to_s">%1$s သည် အဖွဲ့ဝင်ဖြစ်မှုအား မည်သူက ပြင်ဆင်ပြောင်းလဲနိုင်သည် ကို \"%2$s\" သို့ ပြောင်းလိုက်သည်။</string>
   <string name="MessageRecord_who_can_edit_group_membership_has_been_changed_to_s">အဖွဲ့ဝင်ဖြစ်မှုအား မည်သူက ပြင်ဆင်ပြောင်းလဲနိုင်သည်ကို \"%1$s\" သို့ ပြောင်းလဲထားသည်။</string>
+  <!--GV2 announcement group change-->
   <!--GV2 group link invite access level change-->
   <string name="MessageRecord_you_turned_on_the_group_link_with_admin_approval_off">အက်မင်၏သဘောတူညီချက်ကို ပိတ်ထားပြီး အဖွဲ့လင့်ခ်ကို သင်ဖွင့်လိုက်သည်။</string>
   <string name="MessageRecord_you_turned_on_the_group_link_with_admin_approval_on">အက်မင်၏သဘောတူညီချက်ကို ဖွင့်ထားပြီး အဖွဲ့လင့်ခ်ကို သင်ဖွင့်လိုက်သည်။</string>
@@ -1539,6 +1541,7 @@
   <string name="conversation_fragment__scroll_to_the_bottom_content_description">အောက်သို့ ဆွဲလိုက်ပါ</string>
   <!--safety_number_change_dialog-->
   <string name="safety_number_change_dialog__safety_number_changes">လုံခြုံရေးနံပါတ်အပြောင်းအလဲများ</string>
+  <string name="safety_number_change_dialog__accept">လက်ခံမယ်</string>
   <string name="safety_number_change_dialog__send_anyway">ဘာပဲဖြစ်ဖြစ်ပို့ပါ</string>
   <string name="safety_number_change_dialog__call_anyway">ဘာပဲဖြစ်ဖြစ်ဖုန်းခေါ်ပါ</string>
   <string name="safety_number_change_dialog__join_call">ခေါ်ဆိုမှုထဲဝင်မယ်</string>
@@ -1610,8 +1613,6 @@
   <string name="giphy_activity_toolbar__search_gifs">GIF များရှာဖွေမယ်</string>
   <!--giphy_fragment-->
   <string name="giphy_fragment__nothing_found">ဘာမှ မတွေ့ဘူး</string>
-  <!--log_submit_activity-->
-  <string name="log_submit_activity__this_log_will_be_posted_online">ပံ့ပိုးသူများ ကြည့်ရှုနိုင်ရန် ဤမှတ်တမ်းကို အများကြည့်ရှုနိုင်ရန် အွန်လိုင်းပေါ်တင်ထားပါမည်။ သင်မတင်သွင်းမီ လေ့လာတည်းဖြတ်နိုင်ပါသည်။</string>
   <!--database_migration_activity-->
   <string name="database_migration_activity__would_you_like_to_import_your_existing_text_messages">သင်၏စာသားသတင်းစကားများကို Signal ၏encrypt အချက်အလက်အဖြစ်ကူးပြောင်းချင်ပါသလား?</string>
   <string name="database_migration_activity__the_default_system_database_will_not_be_modified">မူလဒေတာဘေ့စ်စနစ်ကို ပြောင်းလဲမည် မဟုတ်ပါ။</string>
@@ -2763,6 +2764,8 @@
   <!--ChatColorsMegaphone-->
   <string name="ChatColorsMegaphone__appearance">ပုံပန်းသဏ္ဌာန်</string>
   <string name="ChatColorsMegaphone__not_now">ယခု မလုပ်ဆောင်သေးပါ။</string>
+  <!--AddAProfilePhotoMegaphone-->
+  <string name="AddAProfilePhotoMegaphone__not_now">ယခု မလုပ်ဆောင်သေးပါ။</string>
   <!--KeyboardPagerFragment-->
   <string name="KeyboardPagerFragment_stickers">စတစ်ကာများ </string>
   <string name="KeyboardPagerFragment_backspace">Backspace</string>
@@ -2802,7 +2805,24 @@
   <string name="SoundsAndNotificationsSettingsFragment__custom_notifications">စိတ်ကြိုက်သတိပေးချက်များ</string>
   <!--StickerKeyboard-->
   <!--PlaybackSpeedToggleTextView-->
+  <!--PaymentRecipientSelectionFragment-->
+  <!--NewConversationActivity-->
+  <string name="NewConversationActivity__new_message">စာအသစ်</string>
+  <!--ContactFilterView-->
   <!--VoiceNotePlayerView-->
   <string name="VoiceNotePlayerView__s_dot_s">%1$s · %2$s</string>
+  <!--AvatarPickerFragment-->
+  <string name="AvatarPickerFragment__camera">ကင်မရာ</string>
+  <string name="AvatarPickerFragment__photo">ရုပ်ပုံ</string>
+  <string name="AvatarPickerFragment__save">သိမ်းမယ်</string>
+  <string name="AvatarPickerFragment__edit">ပြင်မယ်</string>
+  <!--TextAvatarCreationFragment-->
+  <string name="TextAvatarCreationFragment__preview">ကြိုတင်ကြည့်မယ်</string>
+  <string name="TextAvatarCreationFragment__done">ပြီးပါပြီ</string>
+  <string name="TextAvatarCreationFragment__color">အရောင်</string>
+  <!--VectorAvatarCreationFragment-->
+  <!--ContactSelectionListItem-->
+  <string name="ContactSelectionListItem__sms">SMS</string>
+  <!--DSLSettingsToolbar-->
   <!--EOF-->
 </resources>

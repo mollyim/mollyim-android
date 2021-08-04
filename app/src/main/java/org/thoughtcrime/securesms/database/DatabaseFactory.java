@@ -28,6 +28,7 @@ import org.thoughtcrime.securesms.crypto.AttachmentSecretProvider;
 import org.thoughtcrime.securesms.crypto.DatabaseSecret;
 import org.thoughtcrime.securesms.crypto.DatabaseSecretProvider;
 import org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper;
+import org.thoughtcrime.securesms.database.model.AvatarPickerDatabase;
 import org.thoughtcrime.securesms.util.SqlUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
@@ -66,6 +67,7 @@ public class DatabaseFactory {
   private final ChatColorsDatabase          chatColorsDatabase;
   private final EmojiSearchDatabase         emojiSearchDatabase;
   private final MessageSendLogDatabase      messageSendLogDatabase;
+  private final AvatarPickerDatabase        avatarPickerDatabase;
 
   public static DatabaseFactory getInstance(Context context) {
     if (instance == null) {
@@ -196,6 +198,10 @@ public class DatabaseFactory {
     return getInstance(context).messageSendLogDatabase;
   }
 
+  public static AvatarPickerDatabase getAvatarPickerDatabase(Context context) {
+    return getInstance(context).avatarPickerDatabase;
+  }
+
   public static SQLiteDatabase getBackupDatabase(Context context) {
     return getInstance(context).databaseHelper.getReadableDatabase().getSqlCipherDatabase();
   }
@@ -204,6 +210,8 @@ public class DatabaseFactory {
     synchronized (lock) {
       getInstance(context).databaseHelper.onUpgrade(database, database.getVersion(), -1);
       getInstance(context).databaseHelper.markCurrent(database);
+      getInstance(context).sms.deleteAbandonedMessages();
+      getInstance(context).mms.deleteAbandonedMessages();
       getInstance(context).mms.trimEntriesForExpiredMessages();
       getInstance(context).getRawDatabase().rawExecSQL("DROP TABLE IF EXISTS key_value");
       getInstance(context).getRawDatabase().rawExecSQL("DROP TABLE IF EXISTS megaphone");
@@ -221,7 +229,7 @@ public class DatabaseFactory {
   }
 
   private DatabaseFactory(@NonNull Context context) {
-    SQLiteDatabase.loadLibs(context);
+    SqlCipherLibraryLoader.load(context);
 
     DatabaseSecret   databaseSecret   = DatabaseSecretProvider.getOrCreateDatabaseSecret(context);
     AttachmentSecret attachmentSecret = AttachmentSecretProvider.getInstance(context).getOrCreateAttachmentSecret();
@@ -253,8 +261,9 @@ public class DatabaseFactory {
     this.mentionDatabase             = new MentionDatabase(context, databaseHelper);
     this.paymentDatabase             = new PaymentDatabase(context, databaseHelper);
     this.chatColorsDatabase          = new ChatColorsDatabase(context, databaseHelper);
-    this.emojiSearchDatabase    = new EmojiSearchDatabase(context, databaseHelper);
-    this.messageSendLogDatabase = new MessageSendLogDatabase(context, databaseHelper);
+    this.emojiSearchDatabase         = new EmojiSearchDatabase(context, databaseHelper);
+    this.messageSendLogDatabase      = new MessageSendLogDatabase(context, databaseHelper);
+    this.avatarPickerDatabase        = new AvatarPickerDatabase(context, databaseHelper);
   }
 
   public void triggerDatabaseAccess() {

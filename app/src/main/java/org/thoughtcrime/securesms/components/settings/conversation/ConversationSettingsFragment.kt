@@ -32,6 +32,8 @@ import org.thoughtcrime.securesms.PushContactSelectionActivity
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.VerifyIdentityActivity
 import org.thoughtcrime.securesms.components.AvatarImageView
+import org.thoughtcrime.securesms.components.recyclerview.OnScrollAnimationHelper
+import org.thoughtcrime.securesms.components.recyclerview.ToolbarShadowAnimationHelper
 import org.thoughtcrime.securesms.components.settings.DSLConfiguration
 import org.thoughtcrime.securesms.components.settings.DSLSettingsAdapter
 import org.thoughtcrime.securesms.components.settings.DSLSettingsFragment
@@ -250,11 +252,13 @@ class ConversationSettingsFragment : DSLSettingsFragment(
         AvatarPreference.Model(
           recipient = state.recipient,
           onAvatarClick = { avatar ->
-            requireActivity().apply {
-              startActivity(
-                AvatarPreviewActivity.intentFromRecipientId(this, state.recipient.id),
-                AvatarPreviewActivity.createTransitionBundle(this, avatar)
-              )
+            if (!state.recipient.isSelf) {
+              requireActivity().apply {
+                startActivity(
+                  AvatarPreviewActivity.intentFromRecipientId(this, state.recipient.id),
+                  AvatarPreviewActivity.createTransitionBundle(this, avatar)
+                )
+              }
             }
           }
         )
@@ -328,7 +332,15 @@ class ConversationSettingsFragment : DSLSettingsFragment(
         ButtonStripPreference.Model(
           state = state.buttonStripState,
           onVideoClick = {
-            CommunicationActions.startVideoCall(requireActivity(), state.recipient)
+            if (state.recipient.isPushV2Group && state.requireGroupSettingsState().isAnnouncementGroup && !state.requireGroupSettingsState().isSelfAdmin) {
+              MaterialAlertDialogBuilder(requireContext())
+                .setTitle(R.string.ConversationActivity_cant_start_group_call)
+                .setMessage(R.string.ConversationActivity_only_admins_of_this_group_can_start_a_call)
+                .setPositiveButton(android.R.string.ok) { d, _ -> d.dismiss() }
+                .show()
+            } else {
+              CommunicationActions.startVideoCall(requireActivity(), state.recipient)
+            }
           },
           onAudioClick = {
             CommunicationActions.startVoiceCall(requireActivity(), state.recipient)
@@ -698,6 +710,7 @@ class ConversationSettingsFragment : DSLSettingsFragment(
         ContactsCursorLoader.DisplayMode.FLAG_PUSH,
         addMembersToGroup.selectionWarning,
         addMembersToGroup.selectionLimit,
+        addMembersToGroup.isAnnouncementGroup,
         addMembersToGroup.groupMembersWithoutSelf
       ),
       REQUEST_CODE_ADD_MEMBERS_TO_GROUP

@@ -53,7 +53,6 @@
   <string name="DraftDatabase_Draft_quote_snippet">(ପ୍ରତିଉତ୍ତର ଦିଅନ୍ତୁ)</string>
   <!--AttachmentKeyboard-->
   <string name="AttachmentKeyboard_gallery">ଗ୍ୟାଲେରୀ</string>
-  <string name="AttachmentKeyboard_gif">ଜିଆଇଏଫ୍</string>
   <string name="AttachmentKeyboard_file">ଫାଇଲ୍</string>
   <string name="AttachmentKeyboard_contact">ଯୋଗାଯୋଗ</string>
   <string name="AttachmentKeyboard_location">ଅବସ୍ଥାନ</string>
@@ -427,6 +426,7 @@
   <string name="AddToGroupActivity_add_to_groups">ଗୋଷ୍ଠୀଗୁଡ଼ିକରେ ଯୋଡ଼ନ୍ତୁ</string>
   <string name="AddToGroupActivity_this_person_cant_be_added_to_legacy_groups">ଏହି ବ୍ୟକ୍ତି ପୁରୁଣା ଗୋଷ୍ଠୀରେ ଯୋଡି ହୋଇପାରିବ ନାହିଁ</string>
   <string name="AddToGroupActivity_add">ଯୋଡ଼ନ୍ତୁ</string>
+  <string name="AddToGroupActivity_add_to_a_group">ଏକ ଗୋଷ୍ଠୀରେ ଯୋଡ଼ନ୍ତୁ</string>
   <!--ChooseNewAdminActivity-->
   <string name="ChooseNewAdminActivity_choose_new_admin">ନୂଆ ବ୍ୟବସ୍ଥାପକ ବାଛନ୍ତୁ</string>
   <string name="ChooseNewAdminActivity_done">ହେଇଗଲା</string>
@@ -557,6 +557,7 @@
     <item quantity="other">\"%2$s\" ରେ \"%3$d\"ଜଣ ସଦସ୍ୟ ଯୋଡନ୍ତୁ?</item>
   </plurals>
   <string name="AddMembersActivity__add">ଯୋଡ଼ନ୍ତୁ</string>
+  <string name="AddMembersActivity__add_members">ସଦସ୍ୟ ଯୋଡ଼ନ୍ତୁ</string>
   <!--AddGroupDetailsFragment-->
   <string name="AddGroupDetailsFragment__name_this_group">ଏହି ଗୋଷ୍ଠୀର ନାମ ଦିଅନ୍ତୁ</string>
   <string name="AddGroupDetailsFragment__create_group">ଗୋଷ୍ଠୀ ସୃଷ୍ଟି କରନ୍ତୁ</string>
@@ -961,6 +962,7 @@
   <string name="MessageRecord_you_changed_who_can_edit_group_membership_to_s">ଆପଣ ଗୋଷ୍ଠୀ ସଦସ୍ୟତାକୁ କିଏ ସଂପାଦନ କରିପାରିବ \"%1$s\" ରେ  ପରିବର୍ତ୍ତନ କରିଛନ୍ତି</string>
   <string name="MessageRecord_s_changed_who_can_edit_group_membership_to_s">%1$s ଗୋଷ୍ଠୀ ସଦସ୍ୟତାକୁ କିଏ ସଂପାଦନ କରିପାରିବ \"%2$s\" ରେ ପରିବର୍ତ୍ତନ କରିଛନ୍ତି</string>
   <string name="MessageRecord_who_can_edit_group_membership_has_been_changed_to_s">ଗୋଷ୍ଠୀ ସଦସ୍ୟତାକୁ କିଏ ସଂପାଦନ କରିପାରିବ \"%1$s\" ରେ ପରିବର୍ତ୍ତନ କରାଯାଇଛି</string>
+  <!--GV2 announcement group change-->
   <!--GV2 group link invite access level change-->
   <string name="MessageRecord_you_turned_on_the_group_link_with_admin_approval_off">ଆପଣ ପରିଚାଳକ ଅନୁମୋଦନ ବନ୍ଦ କରି ଗୋଷ୍ଠି ଲିଙ୍କ୍ ଚାଲୁ କରିଛନ୍ତି</string>
   <string name="MessageRecord_you_turned_on_the_group_link_with_admin_approval_on">ଆପଣ ପରିଚାଳକ ଅନୁମୋଦନ ଚାଲୁ କରି ଗୋଷ୍ଠି ଲିଙ୍କ୍ ଚାଲୁ କରିଛନ୍ତି</string>
@@ -1597,6 +1599,7 @@
   <string name="conversation_fragment__scroll_to_the_bottom_content_description">ତଳକୁ ସ୍କ୍ରୋଲ୍ କରନ୍ତୁ</string>
   <!--safety_number_change_dialog-->
   <string name="safety_number_change_dialog__safety_number_changes">ସୁରକ୍ଷା ସଂଖ୍ୟା ପରିବର୍ତ୍ତନଗୁଡ଼ିକ</string>
+  <string name="safety_number_change_dialog__accept">ସ୍ୱୀକାର କରନ୍ତୁ</string>
   <string name="safety_number_change_dialog__send_anyway">ଯାହା ବି ହେଉ ପଠାନ୍ତୁ</string>
   <string name="safety_number_change_dialog__call_anyway">ଯାହା ହେଉ କଲ୍ କରନ୍ତୁ</string>
   <string name="safety_number_change_dialog__join_call">କଲ୍ ରେ ଯୋଗ ଦିଅନ୍ତୁ</string>
@@ -1667,8 +1670,6 @@
   <!--giphy_activity-->
   <!--giphy_fragment-->
   <string name="giphy_fragment__nothing_found">କିଛି ମିଳିଲା ନାହିଁ</string>
-  <!--log_submit_activity-->
-  <string name="log_submit_activity__this_log_will_be_posted_online">ଯୋଗଦାନକାରୀମାନେ ଦେଖିବା ପାଇଁ ଏହି ଲଗ୍ ସର୍ବସାଧାରଣରେ ଅନ୍ଲାଇନ୍ ରେ ପ୍ରକାଶିତ ହେବ, ଆପଣ ଦାଖଲ କରିବା ପୂର୍ବରୁ ଏହାକୁ ପରୀକ୍ଷା ଏବଂ ସଂପାଦନ କରିପାରିବେ</string>
   <!--database_migration_activity-->
   <string name="database_migration_activity__would_you_like_to_import_your_existing_text_messages">ତୁମର ବିଦ୍ୟମାନ ପାଠ୍ୟ ବାର୍ତ୍ତାଗୁଡ଼ିକୁ Signal ର ଏନକ୍ରିପ୍ଟ ହେଇଥିବା ଡାଟାବେସରେ ଆମଦାନୀ କରିବାକୁ ଚାହୁଁଛ କି?</string>
   <string name="database_migration_activity__the_default_system_database_will_not_be_modified">ଡିଫଲ୍ଟ ସିଷ୍ଟମ୍ ଡାଟାବେସ୍ କୌଣସି ପ୍ରକାରେ ପରିବର୍ତ୍ତିତ ହେବ ନାହିଁ</string>
@@ -2587,6 +2588,8 @@
   <!--ChatColorsMegaphone-->
   <string name="ChatColorsMegaphone__appearance">ଦୃଶ୍ୟ</string>
   <string name="ChatColorsMegaphone__not_now">ଏବେ ନୁହେଁ</string>
+  <!--AddAProfilePhotoMegaphone-->
+  <string name="AddAProfilePhotoMegaphone__not_now">ଏବେ ନୁହେଁ</string>
   <!--KeyboardPagerFragment-->
   <string name="KeyboardPagerFragment_stickers">ଷ୍ଟିକର୍</string>
   <!--StickerSearchDialogFragment-->
@@ -2622,7 +2625,23 @@
   <string name="SoundsAndNotificationsSettingsFragment__custom_notifications">କଷ୍ଟମ୍ ବିଜ୍ଞପ୍ତି</string>
   <!--StickerKeyboard-->
   <!--PlaybackSpeedToggleTextView-->
+  <!--PaymentRecipientSelectionFragment-->
+  <!--NewConversationActivity-->
+  <string name="NewConversationActivity__new_message">ନୂତନ ବାର୍ତ୍ତା</string>
+  <!--ContactFilterView-->
   <!--VoiceNotePlayerView-->
   <string name="VoiceNotePlayerView__s_dot_s">%1$s . %2$s</string>
+  <!--AvatarPickerFragment-->
+  <string name="AvatarPickerFragment__camera">କ୍ୟାମେରା</string>
+  <string name="AvatarPickerFragment__photo">ଛବି</string>
+  <string name="AvatarPickerFragment__save">ସଞ୍ଚୟ କରନ୍ତୁ</string>
+  <string name="AvatarPickerFragment__edit">ସମ୍ପାଦନ</string>
+  <!--TextAvatarCreationFragment-->
+  <string name="TextAvatarCreationFragment__preview">ପୂର୍ବାବଲୋକନ</string>
+  <string name="TextAvatarCreationFragment__done">ହେଇଗଲା</string>
+  <!--VectorAvatarCreationFragment-->
+  <!--ContactSelectionListItem-->
+  <string name="ContactSelectionListItem__sms">ଏସ୍ଏମ୍ଏସ୍</string>
+  <!--DSLSettingsToolbar-->
   <!--EOF-->
 </resources>

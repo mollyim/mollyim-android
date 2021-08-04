@@ -53,7 +53,6 @@
   <string name="DraftDatabase_Draft_quote_snippet">(err)</string>
   <!--AttachmentKeyboard-->
   <string name="AttachmentKeyboard_gallery">Tamsikent</string>
-  <string name="AttachmentKeyboard_gif">GIF</string>
   <string name="AttachmentKeyboard_file">Afaylu</string>
   <string name="AttachmentKeyboard_contact">Anermis</string>
   <string name="AttachmentKeyboard_location">Adig</string>
@@ -428,6 +427,7 @@
   <string name="AddToGroupActivity_add_to_groups">Rnu ɣer igrawen</string>
   <string name="AddToGroupActivity_this_person_cant_be_added_to_legacy_groups">Amdan-a ulamek i d-yettwarna ɣer igrawen iqburen.</string>
   <string name="AddToGroupActivity_add">Rnu</string>
+  <string name="AddToGroupActivity_add_to_a_group">Rnu ɣer ugraw</string>
   <!--ChooseNewAdminActivity-->
   <string name="ChooseNewAdminActivity_choose_new_admin">Fren anedbal amaynut</string>
   <string name="ChooseNewAdminActivity_done">Yemmed</string>
@@ -558,6 +558,7 @@
     <item quantity="other">Rnu %3$d n iɛeggalen ɣer \"%2$s\"?</item>
   </plurals>
   <string name="AddMembersActivity__add">Rnu</string>
+  <string name="AddMembersActivity__add_members">Rnu iɛeggalen</string>
   <!--AddGroupDetailsFragment-->
   <string name="AddGroupDetailsFragment__name_this_group">Efk isem i ugraw-agi</string>
   <string name="AddGroupDetailsFragment__create_group">Snulfu-d agraw</string>
@@ -965,6 +966,7 @@
   <string name="MessageRecord_you_changed_who_can_edit_group_membership_to_s">Tbeddleḍ d anwa i izemren ad yeẓreg attekki ɣer ugraw ɣer \"%1$s\".</string>
   <string name="MessageRecord_s_changed_who_can_edit_group_membership_to_s">%1$s ibeddel d anwa i izemren ad yeẓreg attekki ɣer ugraw ɣer \"%2$s\".</string>
   <string name="MessageRecord_who_can_edit_group_membership_has_been_changed_to_s">Win i izemren ad yeẓreg attekki ɣer ugraw yettubeddel ɣer \"%1$s\".</string>
+  <!--GV2 announcement group change-->
   <!--GV2 group link invite access level change-->
   <string name="MessageRecord_you_turned_on_the_group_link_with_admin_approval_off">Tremdeḍ aseɣwen n ugraw s usensi n uqbal n unedbal.</string>
   <string name="MessageRecord_you_turned_on_the_group_link_with_admin_approval_on">Tremdeḍ aseɣwen n ugraw s urmad n uqbal n unedbal.</string>
@@ -1607,6 +1609,7 @@ i d-tefkiḍ (%s) ur yeɣti ara.</string>
   <string name="conversation_fragment__scroll_to_the_bottom_content_description">Drurem d akessar</string>
   <!--safety_number_change_dialog-->
   <string name="safety_number_change_dialog__safety_number_changes">Amyibdel n WuṭṭunAɣellsan</string>
+  <string name="safety_number_change_dialog__accept">Qbel</string>
   <string name="safety_number_change_dialog__send_anyway">Azen akken ibɣu yili</string>
   <string name="safety_number_change_dialog__call_anyway">Siwel akken yebɣu yili</string>
   <string name="safety_number_change_dialog__join_call">Kcem ɣer usiwel</string>
@@ -1678,8 +1681,6 @@ i d-tefkiḍ (%s) ur yeɣti ara.</string>
   <string name="giphy_activity_toolbar__search_gifs">Nadi GIFs</string>
   <!--giphy_fragment-->
   <string name="giphy_fragment__nothing_found">Ulac tadfert</string>
-  <!--log_submit_activity-->
-  <string name="log_submit_activity__this_log_will_be_posted_online">Aɣmis-a ad d-yeffeɣ s wudem aziraz srid i yimttekkiyen i wakken ad t-walin, ilaq ad t-tesneqdeḍ syen ad t-tẓergeḍ send ad t-tazneḍ.</string>
   <!--database_migration_activity-->
   <string name="database_migration_activity__would_you_like_to_import_your_existing_text_messages">Tebɣiḍ ad tketreḍ iznan-ik·im n uḍris yellan deg taffa n yisefka yettwawgelhen n Signal?</string>
   <string name="database_migration_activity__the_default_system_database_will_not_be_modified">Taffa n yisefka n unagraw tamezwert ur d-yettili ara deg-s ubeddel neɣ uṣeggem akken yebɣu yili.</string>
@@ -2688,6 +2689,8 @@ i d-tefkiḍ (%s) ur yeɣti ara.</string>
   <!--ChatColorsMegaphone-->
   <string name="ChatColorsMegaphone__appearance">Askan</string>
   <string name="ChatColorsMegaphone__not_now">Mačči tura</string>
+  <!--AddAProfilePhotoMegaphone-->
+  <string name="AddAProfilePhotoMegaphone__not_now">Mačči tura</string>
   <!--KeyboardPagerFragment-->
   <string name="KeyboardPagerFragment_stickers">Astickers</string>
   <!--StickerSearchDialogFragment-->
@@ -2725,7 +2728,23 @@ i d-tefkiḍ (%s) ur yeɣti ara.</string>
   <string name="SoundsAndNotificationsSettingsFragment__custom_notifications">Sagen ilɣa</string>
   <!--StickerKeyboard-->
   <!--PlaybackSpeedToggleTextView-->
+  <!--PaymentRecipientSelectionFragment-->
+  <!--NewConversationActivity-->
+  <string name="NewConversationActivity__new_message">Izen amaynut</string>
+  <!--ContactFilterView-->
   <!--VoiceNotePlayerView-->
   <string name="VoiceNotePlayerView__s_dot_s">%1$s · %2$s</string>
+  <!--AvatarPickerFragment-->
+  <string name="AvatarPickerFragment__camera">Amḍiq n taɣdeft</string>
+  <string name="AvatarPickerFragment__photo">Tawlaft</string>
+  <string name="AvatarPickerFragment__save">Sekles</string>
+  <string name="AvatarPickerFragment__edit">Ẓreg</string>
+  <!--TextAvatarCreationFragment-->
+  <string name="TextAvatarCreationFragment__preview">Taskant</string>
+  <string name="TextAvatarCreationFragment__done">Yemmed</string>
+  <!--VectorAvatarCreationFragment-->
+  <!--ContactSelectionListItem-->
+  <string name="ContactSelectionListItem__sms">SMS</string>
+  <!--DSLSettingsToolbar-->
   <!--EOF-->
 </resources>

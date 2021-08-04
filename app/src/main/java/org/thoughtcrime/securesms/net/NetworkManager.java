@@ -14,10 +14,7 @@ import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.ApplicationContext;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
-import org.thoughtcrime.securesms.messages.IncomingMessageObserver;
-import org.whispersystems.signalservice.api.SignalServiceMessagePipe;
 
-import java.util.Arrays;
 import java.util.Objects;
 
 import info.guardianproject.netcipher.proxy.OrbotHelper;
@@ -154,7 +151,7 @@ public class NetworkManager {
         if (proxyOrbotPort != socksPort) {
           if (proxyType == ProxyType.ORBOT) {
             if (configureProxy(new SocksProxy(OrbotHelper.DEFAULT_PROXY_HOST, socksPort))) {
-              ApplicationDependencies.resetNetworkConnectionsAfterProxyChange();
+              ApplicationDependencies.restartNetworkConnectionsAfterProxyChange();
             }
           }
           proxyOrbotPort = socksPort;

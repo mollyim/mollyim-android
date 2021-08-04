@@ -55,7 +55,6 @@
   <string name="DraftDatabase_Draft_quote_snippet">(odgovor)</string>
   <!--AttachmentKeyboard-->
   <string name="AttachmentKeyboard_gallery">Galerija</string>
-  <string name="AttachmentKeyboard_gif">GIF</string>
   <string name="AttachmentKeyboard_file">Datoteka</string>
   <string name="AttachmentKeyboard_contact">Kontakt</string>
   <string name="AttachmentKeyboard_location">Lokacija</string>
@@ -242,9 +241,6 @@
   <string name="ConversationActivity_full">Puno</string>
   <string name="ConversationActivity_error_sending_media">Pogreška prilikom slanja medijskog sadržaja</string>
   <string name="ConversationActivity__reported_as_spam_and_blocked">Prijavljeno kao neželjeno i blokirano.</string>
-  <string name="ConversationActivity_gifs_have_moved">GIF-ovi su pomaknuti</string>
-  <string name="ConversationActivity_look_for_gifs_next_to_emoji_and_stickers">Potražite GIF-ove pored emotikona i naljepnica.</string>
-  <string name="ConversationActivity__gifs_are_now_here">GIF-ovi su sada ovdje.</string>
   <!--ConversationAdapter-->
   <plurals name="ConversationAdapter_n_unread_messages">
     <item quantity="one">%d nepročitana poruka</item>
@@ -446,6 +442,7 @@
   <string name="AddToGroupActivity_add_to_groups">Dodaj u grupe</string>
   <string name="AddToGroupActivity_this_person_cant_be_added_to_legacy_groups">Ovu osobu nije moguće dodati u naslijeđene grupe.</string>
   <string name="AddToGroupActivity_add">Dodaj</string>
+  <string name="AddToGroupActivity_add_to_a_group">Dodaj u grupu</string>
   <!--ChooseNewAdminActivity-->
   <string name="ChooseNewAdminActivity_choose_new_admin">Odaberite novog administratora</string>
   <string name="ChooseNewAdminActivity_done">Gotovo</string>
@@ -592,6 +589,7 @@
     <item quantity="other">Dodaj %3$d članova u \"%2$s\"?</item>
   </plurals>
   <string name="AddMembersActivity__add">Dodaj</string>
+  <string name="AddMembersActivity__add_members">Dodaj članove</string>
   <!--AddGroupDetailsFragment-->
   <string name="AddGroupDetailsFragment__name_this_group">Dodijelite naziv grupi</string>
   <string name="AddGroupDetailsFragment__create_group">Stvori grupu</string>
@@ -1027,6 +1025,7 @@
   <string name="MessageRecord_you_changed_who_can_edit_group_membership_to_s">Promijenili ste tko može uređivati članstvo grupe na \"%1$s\".</string>
   <string name="MessageRecord_s_changed_who_can_edit_group_membership_to_s">%1$s je promijenio/la tko može uređivati članstvo grupe na \"%2$s\".</string>
   <string name="MessageRecord_who_can_edit_group_membership_has_been_changed_to_s">Promijenjeno je tko sve može urediti članstvo grupe na \"%1$s\".</string>
+  <!--GV2 announcement group change-->
   <!--GV2 group link invite access level change-->
   <string name="MessageRecord_you_turned_on_the_group_link_with_admin_approval_off">Isključili ste grupnu poveznicu s administratorskim odobrenjem.</string>
   <string name="MessageRecord_you_turned_on_the_group_link_with_admin_approval_on">Uključili ste grupnu poveznicu s administratorskim odobrenjem.</string>
@@ -1400,7 +1399,6 @@ broj telefona</string>
   <string name="SubmitDebugLogActivity_success">Uspješno!</string>
   <string name="SubmitDebugLogActivity_copy_this_url_and_add_it_to_your_issue">Kopirajte ovaj URL i dodajte ga u izvješće o problemu ili u e-poštu za podršku:\n\n<b>%1$s</b></string>
   <string name="SubmitDebugLogActivity_share">Podijeli</string>
-  <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online">Ovaj će zapisnik biti javno objavljen na internetu kako bi ga mogli vidjeti suradnici. Možete ga pregledati i urediti prije učitavanja.</string>
   <!--SupportEmailUtil-->
   <string name="SupportEmailUtil_filter">Filtar:</string>
   <string name="SupportEmailUtil_device_info">Informacije o uređaju:</string>
@@ -1696,6 +1694,7 @@ broj telefona</string>
   <string name="conversation_fragment__scroll_to_the_bottom_content_description">Pomaknite se na dno</string>
   <!--safety_number_change_dialog-->
   <string name="safety_number_change_dialog__safety_number_changes">Promjene sigurnosnog broja</string>
+  <string name="safety_number_change_dialog__accept">Prihvati</string>
   <string name="safety_number_change_dialog__send_anyway">Svejedno pošalji</string>
   <string name="safety_number_change_dialog__call_anyway">Svejedno nazovi</string>
   <string name="safety_number_change_dialog__join_call">Pridruži se pozivu</string>
@@ -1779,8 +1778,6 @@ broj telefona</string>
   <string name="giphy_activity_toolbar__search_gifs">Pretraži GIF-ove</string>
   <!--giphy_fragment-->
   <string name="giphy_fragment__nothing_found">Nema rezultata</string>
-  <!--log_submit_activity-->
-  <string name="log_submit_activity__this_log_will_be_posted_online">Ovaj će zapisnik biti javno objavljen na internetu kako bi ga mogli vidjeti suradnici. Možete ga pregledati i urediti prije slanja.</string>
   <!--database_migration_activity-->
   <string name="database_migration_activity__would_you_like_to_import_your_existing_text_messages">Želite li uvesti postojeće tekstualne poruke u Signalovu šifriranu bazu podataka?</string>
   <string name="database_migration_activity__the_default_system_database_will_not_be_modified">Zadana baza podataka sustava neće biti izmjenjena na bilo koji način.</string>
@@ -3005,7 +3002,7 @@ broj telefona</string>
   <string name="HelpSettingsFragment__version">Verzija</string>
   <string name="HelpSettingsFragment__debug_log">Zapisnik pogreške</string>
   <string name="HelpSettingsFragment__terms_amp_privacy_policy">Uvjeti korištenja i Politika privatnosti</string>
-  <string name="HelpFragment__copyright_signal_messenger">Copyright Signal Messenger</string>
+  <string name="HelpFragment__copyright_signal_messenger">Copyright Molly Messenger</string>
   <string name="HelpFragment__licenced_under_the_gplv3">GPLv3 licenca</string>
   <!--DataAndStorageSettingsFragment-->
   <string name="DataAndStorageSettingsFragment__calls">Pozivi</string>
@@ -3050,6 +3047,8 @@ broj telefona</string>
   <string name="ChatColorsMegaphone__we_switched_up_chat_colors">Promijenili smo boje razgovora kako bismo vam pružili više mogućnosti i olakšali čitanje razgovora.</string>
   <string name="ChatColorsMegaphone__appearance">Izgled</string>
   <string name="ChatColorsMegaphone__not_now">Ne sada</string>
+  <!--AddAProfilePhotoMegaphone-->
+  <string name="AddAProfilePhotoMegaphone__not_now">Ne sada</string>
   <!--KeyboardPagerFragment-->
   <string name="KeyboardPagerFragment_emoji">Smajlić</string>
   <string name="KeyboardPagerFragment_open_emoji_search">Otvori pretragu emotikona</string>
@@ -3102,7 +3101,24 @@ broj telefona</string>
   <string name="SoundsAndNotificationsSettingsFragment__custom_notifications">Prilagođene obavijesti</string>
   <!--StickerKeyboard-->
   <!--PlaybackSpeedToggleTextView-->
+  <!--PaymentRecipientSelectionFragment-->
+  <!--NewConversationActivity-->
+  <string name="NewConversationActivity__new_message">Nova poruka</string>
+  <!--ContactFilterView-->
   <!--VoiceNotePlayerView-->
   <string name="VoiceNotePlayerView__s_dot_s">%1$s · %2$s</string>
+  <!--AvatarPickerFragment-->
+  <string name="AvatarPickerFragment__camera">Kamera</string>
+  <string name="AvatarPickerFragment__photo">Fotografija</string>
+  <string name="AvatarPickerFragment__save">Spremi</string>
+  <string name="AvatarPickerFragment__edit">Uredi</string>
+  <!--TextAvatarCreationFragment-->
+  <string name="TextAvatarCreationFragment__preview">Pregled</string>
+  <string name="TextAvatarCreationFragment__done">Gotovo</string>
+  <string name="TextAvatarCreationFragment__color">Boja</string>
+  <!--VectorAvatarCreationFragment-->
+  <!--ContactSelectionListItem-->
+  <string name="ContactSelectionListItem__sms">SMS</string>
+  <!--DSLSettingsToolbar-->
   <!--EOF-->
 </resources>
