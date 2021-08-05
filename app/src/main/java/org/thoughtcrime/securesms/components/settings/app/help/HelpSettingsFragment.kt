@@ -3,7 +3,7 @@ package org.thoughtcrime.securesms.components.settings.app.help
 import android.content.Context
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
-import org.signal.core.util.logging.LogManager
+import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.BuildConfig
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.DSLConfiguration
@@ -106,9 +106,9 @@ class HelpSettingsFragment : DSLSettingsFragment(R.string.preferences__help) {
 
   private fun setLogEnabled(enabled: Boolean) {
     TextSecurePreferences.setLogEnabled(requireContext(), enabled)
-    LogManager.setLogging(enabled)
+    Log.setLogging(enabled)
     if (!enabled) {
-      LogManager.wipeLogs()
+      Log.wipeLogs()
     }
     viewModel.refreshState()
   }

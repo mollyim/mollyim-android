@@ -13,7 +13,6 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
 import org.signal.core.util.logging.Log;
-import org.signal.core.util.logging.LogManager;
 import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.backup.BackupProtos;
@@ -302,8 +301,8 @@ public class TextSecurePreferences {
     }
 
     if (!isLogEnabled(context)) {
-      LogManager.setLogging(false);
-      LogManager.wipeLogs();
+      Log.setLogging(false);
+      Log.wipeLogs();
     }
 
     if (isUpdateApkEnabled(context)) {

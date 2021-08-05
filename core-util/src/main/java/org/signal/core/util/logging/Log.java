@@ -4,11 +4,20 @@ import android.annotation.SuppressLint;
 
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import org.signal.core.util.BuildConfig;
 
 @SuppressLint("LogNotSignal")
 public final class Log {
+
+  private static final Logger        NOOP_LOGGER    = new NoopLogger();
+  private static final AndroidLogger ANDROID_LOGGER = new AndroidLogger();
+
+  private static InternalCheck internalCheck = () -> false;
+
+  private static Logger logger = ANDROID_LOGGER;
+  private static Logger persistentLogger;
 
   /**
    * @param internalCheck A checker that will indicate if this is an internal user
@@ -16,12 +25,49 @@ public final class Log {
    */
   @MainThread
   public static void initialize(@NonNull InternalCheck internalCheck, Logger... loggers) {
-    LogManager.setInternalCheck(internalCheck);
-    LogManager.setLoggers(loggers);
+    setInternalCheck(internalCheck);
+    setLoggers(loggers);
   }
 
   public static void initialize(Logger... loggers) {
-    LogManager.setLoggers(loggers);
+    setLoggers(loggers);
+  }
+
+  public static void setInternalCheck(Log.InternalCheck internalCheck) {
+    Log.internalCheck = internalCheck;
+  }
+
+  public static AndroidLogger getAndroidLogger() {
+    return ANDROID_LOGGER;
+  }
+
+  public static @Nullable Logger getPersistentLogger() {
+    return persistentLogger;
+  }
+
+  public static void setPersistentLogger(Logger persistentLogger) {
+    Log.persistentLogger = persistentLogger;
+  }
+
+  public static void setLogging(boolean enabled) {
+    if (enabled) {
+      setLoggers(ANDROID_LOGGER, persistentLogger);
+    } else {
+      setLoggers(NOOP_LOGGER);
+    }
+  }
+
+  private static void setLoggers(Logger... loggers) {
+    Log.logger = new CompoundLogger(loggers);
+  }
+
+  public static void wipeLogs() {
+    getAndroidLogger().clear();
+    Logger local = getPersistentLogger();
+    if (local != null) {
+      local.flush();
+      local.clear();
+    }
   }
 
   private static String redact(final String message) {
@@ -115,23 +161,23 @@ public final class Log {
   }
 
   public static void v(String tag, String message, Throwable t, boolean keepLonger) {
-    LogManager.getLogger().v(tag, redact(message), t, keepLonger);
+    logger.v(tag, redact(message), t, keepLonger);
   }
 
   public static void d(String tag, String message, Throwable t, boolean keepLonger) {
-    LogManager.getLogger().d(tag, redact(message), t, keepLonger);
+    logger.d(tag, redact(message), t, keepLonger);
   }
 
   public static void i(String tag, String message, Throwable t, boolean keepLonger) {
-    LogManager.getLogger().i(tag, redact(message), t, keepLonger);
+    logger.i(tag, redact(message), t, keepLonger);
   }
 
   public static void w(String tag, String message, Throwable t, boolean keepLonger) {
-    LogManager.getLogger().w(tag, redact(message), t, keepLonger);
+    logger.w(tag, redact(message), t, keepLonger);
   }
 
   public static void e(String tag, String message, Throwable t, boolean keepLonger) {
-    LogManager.getLogger().e(tag, redact(message), t, keepLonger);
+    logger.e(tag, redact(message), t, keepLonger);
   }
 
   public static String tag(Class<?> clazz) {
@@ -149,11 +195,15 @@ public final class Log {
    * @return The normal logger if this is an internal user, or a no-op logger if it isn't.
    */
   public static Logger internal() {
-    return LogManager.getInternal();
+    if (internalCheck.isInternal()) {
+      return logger;
+    } else {
+      return NOOP_LOGGER;
+    }
   }
 
   public static void blockUntilAllWritesFinished() {
-    LogManager.getLogger().flush();
+    logger.flush();
   }
 
   public static abstract class Logger {

@@ -36,7 +36,6 @@ import org.signal.aesgcmprovider.AesGcmProvider;
 import org.signal.core.util.ThreadUtil;
 import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.logging.Log;
-import org.signal.core.util.logging.LogManager;
 import org.signal.core.util.tracing.Tracer;
 import org.signal.glide.SignalGlideCodecs;
 import org.signal.ringrtc.CallManager;
@@ -308,9 +307,9 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
 
   private void initializeLogging() {
     PersistentLogger persistentLogger = new PersistentLogger(this);
-    LogManager.setInternalCheck(FeatureFlags::internalUser);
-    LogManager.setPersistentLogger(persistentLogger);
-    LogManager.setLogging(TextSecurePreferences.isLogEnabled(this));
+    Log.setInternalCheck(FeatureFlags::internalUser);
+    Log.setPersistentLogger(persistentLogger);
+    Log.setLogging(TextSecurePreferences.isLogEnabled(this));
 
     SignalProtocolLoggerProvider.setProvider(new CustomSignalProtocolLogger());
 
