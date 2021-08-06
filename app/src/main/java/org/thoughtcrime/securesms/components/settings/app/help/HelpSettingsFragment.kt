@@ -32,6 +32,11 @@ class HelpSettingsFragment : DSLSettingsFragment(R.string.preferences__help) {
   private fun getConfiguration(state: HelpSettingsState): DSLConfiguration {
     return configure {
       externalLinkPref(
+        title = DSLSettingsText.from(R.string.HelpSettingsFragment__molly_im_website),
+        linkId = R.string.website_url
+      )
+
+      externalLinkPref(
         title = DSLSettingsText.from(R.string.HelpSettingsFragment__support_center),
         linkId = R.string.support_center_url
       )
