@@ -128,14 +128,14 @@ public class SubmitDebugLogRepository {
       }
     }
 
-    StringBuilder prefixStringBuilder = new StringBuilder();
+    StringBuilder bodyBuilder = new StringBuilder();
     for (LogLine line : prefixLines) {
       switch (line.getPlaceholderType()) {
         case NONE:
-          prefixStringBuilder.append(line.getText()).append('\n');
+          bodyBuilder.append(line.getText()).append('\n');
           break;
         case TRACE:
-          prefixStringBuilder.append(traceUrl).append('\n');
+          bodyBuilder.append(traceUrl).append('\n');
           break;
       }
     }
@@ -143,50 +143,18 @@ public class SubmitDebugLogRepository {
     try {
       Stopwatch stopwatch = new Stopwatch("log-upload");
 
-      ParcelFileDescriptor[] fds     = ParcelFileDescriptor.createPipe();
-      Uri                    gzipUri = BlobProvider.getInstance()
-                                                   .forData(new ParcelFileDescriptor.AutoCloseInputStream(fds[0]), 0)
-                                                   .withMimeType("application/gzip")
-                                                   .createForSingleSessionOnDiskAsync(context, null, null);
-
-      OutputStream gzipOutput = new GZIPOutputStream(new ParcelFileDescriptor.AutoCloseOutputStream(fds[1]));
-
-      gzipOutput.write(prefixStringBuilder.toString().getBytes());
-
-      stopwatch.split("front-matter");
-
       try (LogDatabase.Reader reader = LogDatabase.getInstance(context).getAllBeforeTime(untilTime)) {
         while (reader.hasNext()) {
-          gzipOutput.write(reader.next().getBytes());
-          gzipOutput.write("\n".getBytes());
+          bodyBuilder.append(reader.next()).append('\n');
         }
       } catch (IllegalStateException ignored) {}
 
-      StreamUtil.close(gzipOutput);
-
       stopwatch.split("body");
 
-      String logUrl = uploadContent("application/gzip", new RequestBody() {
-        @Override
-        public @NonNull MediaType contentType() {
-          return MediaType.get("application/gzip");
-        }
-
-        @Override public long contentLength() {
-          return BlobProvider.getInstance().calculateFileSize(context, gzipUri);
-        }
-
-        @Override
-        public void writeTo(@NonNull BufferedSink sink) throws IOException {
-          Source source = Okio.source(BlobProvider.getInstance().getStream(context, gzipUri));
-          sink.writeAll(source);
-        }
-      });
+      String logUrl = uploadContent("text/plain", RequestBody.create(MediaType.get("text/plain"), bodyBuilder.toString().getBytes()));
 
       stopwatch.split("upload");
       stopwatch.stop(TAG);
-
-      BlobProvider.getInstance().delete(context, gzipUri);
 
       return Optional.of(logUrl);
     } catch (IOException e) {
