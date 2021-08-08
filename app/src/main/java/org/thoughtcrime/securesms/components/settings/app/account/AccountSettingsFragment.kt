@@ -1,19 +1,8 @@
 package org.thoughtcrime.securesms.components.settings.app.account
 
-import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import android.graphics.Typeface
-import android.text.InputType
-import android.util.DisplayMetrics
-import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
-import androidx.autofill.HintConstants
-import androidx.core.app.DialogCompat
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.google.android.material.snackbar.Snackbar
@@ -23,15 +12,9 @@ import org.thoughtcrime.securesms.components.settings.DSLSettingsAdapter
 import org.thoughtcrime.securesms.components.settings.DSLSettingsFragment
 import org.thoughtcrime.securesms.components.settings.DSLSettingsText
 import org.thoughtcrime.securesms.components.settings.configure
-import org.thoughtcrime.securesms.contactshare.SimpleTextWatcher
 import org.thoughtcrime.securesms.keyvalue.SignalStore
-import org.thoughtcrime.securesms.lock.PinHashing
 import org.thoughtcrime.securesms.lock.v2.CreateKbsPinActivity
-import org.thoughtcrime.securesms.lock.v2.KbsConstants
-import org.thoughtcrime.securesms.lock.v2.PinKeyboardType
 import org.thoughtcrime.securesms.pin.RegistrationLockV2Dialog
-import org.thoughtcrime.securesms.util.ServiceUtil
-import org.thoughtcrime.securesms.util.ThemeUtil
 
 class AccountSettingsFragment : DSLSettingsFragment(R.string.AccountSettingsFragment__account) {
 
@@ -129,58 +112,7 @@ class AccountSettingsFragment : DSLSettingsFragment(R.string.AccountSettingsFrag
   }
 
   private fun setPinRemindersEnabled(enabled: Boolean) {
-    if (!enabled) {
-      val context: Context = requireContext()
-      val metrics: DisplayMetrics = resources.displayMetrics
-
-      val dialog: AlertDialog = AlertDialog.Builder(context, if (ThemeUtil.isDarkTheme(context)) R.style.Theme_Signal_AlertDialog_Dark_Cornered_ColoredAccent else R.style.Theme_Signal_AlertDialog_Light_Cornered_ColoredAccent)
-        .setView(R.layout.pin_disable_reminders_dialog)
-        .create()
-
-      dialog.show()
-      dialog.window!!.setLayout((metrics.widthPixels * .80).toInt(), ViewGroup.LayoutParams.WRAP_CONTENT)
-
-      val pinEditText = DialogCompat.requireViewById(dialog, R.id.reminder_disable_pin) as EditText
-      val statusText = DialogCompat.requireViewById(dialog, R.id.reminder_disable_status) as TextView
-      val cancelButton = DialogCompat.requireViewById(dialog, R.id.reminder_disable_cancel)
-      val turnOffButton = DialogCompat.requireViewById(dialog, R.id.reminder_disable_turn_off)
-
-      pinEditText.post {
-        if (pinEditText.requestFocus()) {
-          ServiceUtil.getInputMethodManager(pinEditText.context).showSoftInput(pinEditText, 0)
-        }
-      }
-
-      ViewCompat.setAutofillHints(pinEditText, HintConstants.AUTOFILL_HINT_PASSWORD)
-
-      when (SignalStore.pinValues().keyboardType) {
-        PinKeyboardType.NUMERIC -> pinEditText.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_VARIATION_PASSWORD
-        PinKeyboardType.ALPHA_NUMERIC -> pinEditText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-      }
-
-      pinEditText.addTextChangedListener(object : SimpleTextWatcher() {
-        override fun onTextChanged(text: String) {
-          turnOffButton.isEnabled = text.length >= KbsConstants.MINIMUM_PIN_LENGTH
-        }
-      })
-
-      pinEditText.typeface = Typeface.DEFAULT
-      turnOffButton.setOnClickListener {
-        val pin = pinEditText.text.toString()
-        val correct = PinHashing.verifyLocalPinHash(SignalStore.kbsValues().localPinHash!!, pin)
-        if (correct) {
-          SignalStore.pinValues().setPinRemindersEnabled(false)
-          viewModel.refreshState()
-          dialog.dismiss()
-        } else {
-          statusText.setText(R.string.preferences_app_protection__incorrect_pin_try_again)
-        }
-      }
-
-      cancelButton.setOnClickListener { dialog.dismiss() }
-    } else {
-      SignalStore.pinValues().setPinRemindersEnabled(true)
-      viewModel.refreshState()
-    }
+    SignalStore.pinValues().setPinRemindersEnabled(enabled)
+    viewModel.refreshState()
   }
 }
