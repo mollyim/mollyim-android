@@ -7,15 +7,11 @@ import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.push.AccountManagerFactory;
 import org.whispersystems.signalservice.api.SignalServiceAccountManager;
-import org.whispersystems.signalservice.api.websocket.WebSocketConnectionState;
 
 import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
-
-import io.reactivex.rxjava3.core.Single;
-import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public final class SignalProxyUtil {
 
@@ -32,21 +28,7 @@ public final class SignalProxyUtil {
    */
   @WorkerThread
   public static boolean testWebsocketConnection(long timeout) {
-    if (TextSecurePreferences.getLocalNumber(ApplicationDependencies.getApplication()) == null) {
-      Log.i(TAG, "User is unregistered! Doing simple check.");
-      return testWebsocketConnectionUnregistered(timeout);
-    }
-
-    return ApplicationDependencies.getSignalWebSocket()
-                                  .getWebSocketState()
-                                  .subscribeOn(Schedulers.trampoline())
-                                  .observeOn(Schedulers.trampoline())
-                                  .timeout(timeout, TimeUnit.MILLISECONDS)
-                                  .skipWhile(state -> state != WebSocketConnectionState.CONNECTED && !state.isFailure())
-                                  .firstOrError()
-                                  .flatMap(state -> Single.just(state == WebSocketConnectionState.CONNECTED))
-                                  .onErrorReturn(t -> false)
-                                  .blockingGet();
+    return testWebsocketConnectionUnregistered(timeout);
   }
 
   private static boolean testWebsocketConnectionUnregistered(long timeout) {
