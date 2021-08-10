@@ -50,7 +50,7 @@ public class IncomingMessageObserver {
   private final Application                context;
   private final SignalServiceNetworkAccess networkAccess;
   private final List<Runnable>             decryptionDrainedListeners;
-  private       BroadcastReceiver          connectionReceiver;
+  private final BroadcastReceiver          connectionReceiver;
 
   private boolean appVisible;
 

@@ -395,7 +395,7 @@ public final class ConversationUpdateItem extends FrameLayout
           eventListener.onBadDecryptLearnMoreClicked(conversationMessage.getMessageRecord().getRecipient().getId());
         }
       });
-    // MOLLY: unsure presentTimer for call logs
+    // MOLLY: ensure presentTimer for call logs
     } else {
       actionButton.setVisibility(GONE);
       actionButton.setOnClickListener(null);
