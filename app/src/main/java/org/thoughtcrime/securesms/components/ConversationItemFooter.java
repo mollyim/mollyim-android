@@ -344,8 +344,7 @@ public class ConversationItemFooter extends ConstraintLayout {
   }
 
   private void presentInsecureIndicator(@NonNull MessageRecord messageRecord) {
-    boolean isSecure = messageRecord.isSecure() || messageRecord.isPush();
-    insecureIndicatorView.setVisibility(isSecure ? View.GONE : View.VISIBLE);
+    insecureIndicatorView.setVisibility(messageRecord.isSecure() || messageRecord.isPending() ? View.GONE : View.VISIBLE);
   }
 
   private void presentDeliveryStatus(@NonNull MessageRecord messageRecord) {
