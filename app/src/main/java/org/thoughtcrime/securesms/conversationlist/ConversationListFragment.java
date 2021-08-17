@@ -128,6 +128,7 @@ import org.thoughtcrime.securesms.util.AppStartup;
 import org.thoughtcrime.securesms.util.AvatarUtil;
 import org.thoughtcrime.securesms.util.PlayStoreUtil;
 import org.thoughtcrime.securesms.util.ServiceUtil;
+import org.thoughtcrime.securesms.util.SignalLocalMetrics;
 import org.thoughtcrime.securesms.util.SnapToTopDataObserver;
 import org.thoughtcrime.securesms.util.StickyHeaderDecoration;
 import org.thoughtcrime.securesms.util.Stopwatch;
@@ -547,6 +548,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
       @Override
       public void onItemRangeInserted(int positionStart, int itemCount) {
         startupStopwatch.split("data-set");
+        SignalLocalMetrics.ColdStart.onConversationListDataLoaded();
         defaultAdapter.unregisterAdapterDataObserver(this);
         list.post(() -> {
           AppStartup.getInstance().onCriticalRenderEventEnd();
@@ -834,7 +836,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
     alert.setCancelable(true);
 
     alert.setPositiveButton(R.string.delete, (dialog, which) -> {
-      final Set<Long> selectedConversations = defaultAdapter.getBatchSelectionIds();
+      final Set<Long> selectedConversations = new HashSet<>(defaultAdapter.getBatchSelectionIds());
 
       if (!selectedConversations.isEmpty()) {
         new AsyncTask<Void, Void, Void>() {

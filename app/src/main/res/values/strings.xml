@@ -1082,7 +1082,7 @@
     <string name="MessageRecord_s_made_s_an_admin">%1$s made %2$s an admin.</string>
     <string name="MessageRecord_s_made_you_an_admin">%1$s made you an admin.</string>
     <string name="MessageRecord_you_revoked_admin_privileges_from_s">You revoked admin privileges from %1$s.</string>
-    <string name="MessageRecord_s_revoked_your_admin_privileges">%1$s revoked your admin privileges."</string>
+    <string name="MessageRecord_s_revoked_your_admin_privileges">%1$s revoked your admin privileges.</string>
     <string name="MessageRecord_s_revoked_admin_privileges_from_s">%1$s revoked admin privileges from %2$s.</string>
     <string name="MessageRecord_s_is_now_an_admin">%1$s is now an admin.</string>
     <string name="MessageRecord_you_are_now_an_admin">You are now an admin.</string>
@@ -1401,13 +1401,12 @@
     <string name="WebRtcCallActivity__calling">Calling…</string>
 
     <!-- WebRtcCallView -->
-    <string name="WebRtcCallView__signal_voice_call">Signal voice call…</string>
-    <string name="WebRtcCallView__signal_video_call">Signal video call…</string>
+    <string name="WebRtcCallView__signal_call">Signal Call</string>
+    <string name="WebRtcCallView__signal_video_call">Signal Video Call</string>
     <string name="WebRtcCallView__start_call">Start Call</string>
     <string name="WebRtcCallView__join_call">Join Call</string>
     <string name="WebRtcCallView__call_is_full">Call is full</string>
     <string name="WebRtcCallView__the_maximum_number_of_d_participants_has_been_Reached_for_this_call">The maximum number of %1$d participants has been reached for this call. Try again later.</string>
-    <string name="WebRtcCallView__s_group_call">\"%1$s\" Group Call</string>
     <string name="WebRtcCallView__view_participants_list">View participants</string>
     <string name="WebRtcCallView__your_video_is_off">Your video is off</string>
     <string name="WebRtcCallView__reconnecting">Reconnecting…</string>
@@ -1423,6 +1422,12 @@
         <item quantity="one">%1$s, %2$s, and %3$d other are in this call</item>
         <item quantity="other">%1$s, %2$s, and %3$d others are in this call</item>
     </plurals>
+
+    <string name="WebRtcCallView__flip">Flip</string>
+    <string name="WebRtcCallView__speaker">Speaker</string>
+    <string name="WebRtcCallView__camera">Camera</string>
+    <string name="WebRtcCallView__mute">Mute</string>
+    <string name="WebRtcCallView__end_call">End call</string>
 
     <!-- CallParticipantsListDialog -->
     <plurals name="CallParticipantsListDialog_in_this_call_d_people">
@@ -2483,6 +2488,9 @@
     <string name="preferences__internal_remove_the_requirement_that_you_need" translatable="false">Remove the requirement that you  need at least 2 recipients to use sender key.</string>
     <string name="preferences__internal_delay_resends" translatable="false">Delay resends</string>
     <string name="preferences__internal_delay_resending_messages_in_response_to_retry_receipts" translatable="false">Delay resending messages in response to retry receipts by 10 seconds.</string>
+    <string name="preferences__internal_local_metrics" translatable="false">Local Metrics</string>
+    <string name="preferences__internal_clear_local_metrics" translatable="false">Clear local metrics</string>
+    <string name="preferences__internal_click_to_clear_all_local_metrics_state" translatable="false">Click to clear all local metrics state.</string>
     <string name="preferences__internal_calling" translatable="false">Group call server</string>
     <string name="preferences__internal_calling_default" translatable="false">Default</string>
     <string name="preferences__internal_calling_s_server" translatable="false">%1$s server</string>
@@ -3647,6 +3655,12 @@
 
     <!-- VoiceNotePlayerView -->
     <string name="VoiceNotePlayerView__s_dot_s">%1$s · %2$s</string>
+    <string name="VoiceNotePlayerView__stop_voice_message">Stop voice message</string>
+    <string name="VoiceNotePlayerView__change_voice_message_speed">Change voice message speed</string>
+    <string name="VoiceNotePlayerView__pause_voice_message">Pause voice message</string>
+    <string name="VoiceNotePlayerView__play_voice_message">Play voice message</string>
+    <string name="VoiceNotePlayerView__navigate_to_voice_message">Navigate to voice message</string>
+
 
     <!-- AvatarPickerFragment -->
     <string name="AvatarPickerFragment__avatar_preview">Avatar preview</string>
@@ -3676,6 +3690,17 @@
 
     <!-- DSLSettingsToolbar -->
     <string name="DSLSettingsToolbar__navigate_up">Navigate up</string>
+    <string name="MultiselectForwardFragment__forward_to">Forward to</string>
+    <string name="MultiselectForwardFragment__add_a_message">Add a message</string>
+    <plurals name="MultiselectForwardFragment_messages_sent">
+        <item quantity="one">Message sent</item>
+        <item quantity="other">Messages sent</item>
+    </plurals>
+    <plurals name="MultiselectForwardFragment_messages_failed_to_send">
+        <item quantity="one">Message failed to send</item>
+        <item quantity="other">Messages failed to send</item>
+    </plurals>
+    <string name="MultiselectForwardFragment__limit_reached">Limit reached</string>
 
     <!-- EOF -->
 

@@ -653,7 +653,7 @@
   <string name="ManageGroupActivity_add_group_description">Adicionar descrição do grupo…</string>
   <!--GroupMentionSettingDialog-->
   <string name="GroupMentionSettingDialog_notify_me_for_mentions">Notificar-me quando for \'Mencionado\'</string>
-  <string name="GroupMentionSettingDialog_receive_notifications_when_youre_mentioned_in_muted_chats">Receber notificações quando for mencionado em chats silenciados?</string>
+  <string name="GroupMentionSettingDialog_receive_notifications_when_youre_mentioned_in_muted_chats">Receber notificações quando for mencionado em conversas silenciadas?</string>
   <string name="GroupMentionSettingDialog_always_notify_me">Notificar-me sempre</string>
   <string name="GroupMentionSettingDialog_dont_notify_me">Não me notificar</string>
   <!--ManageProfileFragment-->
@@ -1200,13 +1200,12 @@
   <string name="WebRtcCallActivity__signal_s">Chamada Molly %1$s</string>
   <string name="WebRtcCallActivity__calling">A chamar…</string>
   <!--WebRtcCallView-->
-  <string name="WebRtcCallView__signal_voice_call">Chamada de voz do Signal…</string>
-  <string name="WebRtcCallView__signal_video_call">Chamada de vídeo do Signal…</string>
+  <string name="WebRtcCallView__signal_call">Chamada do Signal</string>
+  <string name="WebRtcCallView__signal_video_call">Videochamada do Signal</string>
   <string name="WebRtcCallView__start_call">Iniciar chamada</string>
   <string name="WebRtcCallView__join_call">Entrar na chamada</string>
   <string name="WebRtcCallView__call_is_full">A chamada encontra-se cheia</string>
   <string name="WebRtcCallView__the_maximum_number_of_d_participants_has_been_Reached_for_this_call">Foi atingido o número máximo de %1$d participantes para esta chamada. Tente novamente mais tarde.</string>
-  <string name="WebRtcCallView__s_group_call">\"%1$s\"  - Chamada de grupo</string>
   <string name="WebRtcCallView__view_participants_list">Ver participantes</string>
   <string name="WebRtcCallView__your_video_is_off">O seu vídeo encontra-se desligado</string>
   <string name="WebRtcCallView__reconnecting">A ligar novamente…</string>
@@ -1220,6 +1219,11 @@
     <item quantity="one">%1$s, %2$s, e %3$d outro estão nesta chamada </item>
     <item quantity="other">%1$s, %2$s, e outros %3$d estão nesta chamada</item>
   </plurals>
+  <string name="WebRtcCallView__flip">Girar</string>
+  <string name="WebRtcCallView__speaker">Altifalante</string>
+  <string name="WebRtcCallView__camera">Câmara</string>
+  <string name="WebRtcCallView__mute">Silenciar</string>
+  <string name="WebRtcCallView__end_call">Terminar chamada</string>
   <!--CallParticipantsListDialog-->
   <plurals name="CallParticipantsListDialog_in_this_call_d_people">
     <item quantity="one">Nesta chamada · %1$d pessoa</item>
@@ -3078,6 +3082,11 @@
   <string name="ContactFilterView__search_name_or_number">Procurar nome ou número</string>
   <!--VoiceNotePlayerView-->
   <string name="VoiceNotePlayerView__s_dot_s">%1$s · %2$s</string>
+  <string name="VoiceNotePlayerView__stop_voice_message">Parar mensagem de voz</string>
+  <string name="VoiceNotePlayerView__change_voice_message_speed">Alterar a velocidade da mensagem de voz</string>
+  <string name="VoiceNotePlayerView__pause_voice_message">Pausar mensagem de voz</string>
+  <string name="VoiceNotePlayerView__play_voice_message">Reproduzir mensagem de voz</string>
+  <string name="VoiceNotePlayerView__navigate_to_voice_message">Navegar para a mensagem de voz</string>
   <!--AvatarPickerFragment-->
   <string name="AvatarPickerFragment__avatar_preview">Pré-visualização de avatar</string>
   <string name="AvatarPickerFragment__camera">Câmara</string>
@@ -3102,5 +3111,10 @@
   <string name="ContactSelectionListItem__dot_s">· %1$s</string>
   <!--DSLSettingsToolbar-->
   <string name="DSLSettingsToolbar__navigate_up">Ir para cima</string>
+  <string name="MultiselectForwardFragment__forward_to">Reencaminhar para</string>
+  <string name="MultiselectForwardFragment__add_a_message">Adicionar uma mensagem</string>
+  <!-- Removed by excludeNonTranslatables <string name="MultiselectForwardFragment__messages_sent">Mensagens enviadas</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="MultiselectForwardFragment__messages_failed_to_send">Mensagens com falha de envio</string> -->
+  <string name="MultiselectForwardFragment__limit_reached">Atingido o limite</string>
   <!--EOF-->
 </resources>

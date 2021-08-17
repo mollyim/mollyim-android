@@ -16,6 +16,8 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.emoji.EmojiFiles;
 import org.thoughtcrime.securesms.emoji.EmojiSource;
+import org.thoughtcrime.securesms.keyvalue.SignalStore;
+import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.service.KeyCachingService;
 import org.thoughtcrime.securesms.util.AppSignatureUtil;
 import org.thoughtcrime.securesms.util.ByteUnit;
@@ -32,6 +34,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Locale;
 import java.util.Map;
+import java.util.UUID;
 
 public class LogSectionSystemInfo implements LogSection {
 
@@ -63,6 +66,8 @@ public class LogSectionSystemInfo implements LogSection {
     builder.append("Memclass      : ").append(getMemoryClass(context)).append("\n");
     builder.append("MemInfo       : ").append(getMemoryInfo(context)).append("\n");
     builder.append("OS Host       : ").append(Build.HOST).append("\n");
+    builder.append("RecipientId   : ").append(locked ? "Unknown" : SignalStore.registrationValues().isRegistrationComplete() ? Recipient.self().getId() : "N/A").append("\n");
+    builder.append("UUID          : ").append(locked ? "Unknown" : getCensoredUuid(context)).append("\n");
     builder.append("Censored      : ").append(locked ? "Unknown" : CensorshipUtil.isCensored(context)).append("\n");
     builder.append("Play Services : ").append(getPlayServicesString(context)).append("\n");
     builder.append("FCM           : ").append(locked ? "Unknown" : !TextSecurePreferences.isFcmDisabled(context)).append("\n");
@@ -161,6 +166,19 @@ public class LogSectionSystemInfo implements LogSection {
       return "None";
     } else {
       return version.getVersion() + " (" + version.getDensity() + ")";
+    }
+  }
+
+  private static String getCensoredUuid(@NonNull Context context) {
+    UUID uuid = TextSecurePreferences.getLocalUuid(context);
+
+    if (uuid != null) {
+      String uuidString = uuid.toString();
+      String lastTwo    = uuidString.substring(uuidString.length() - 2);
+
+      return "********-****-****-****-**********" + lastTwo;
+    } else {
+      return "N/A";
     }
   }
 }

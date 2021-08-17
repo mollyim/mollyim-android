@@ -147,8 +147,7 @@ public class SmsDatabase extends MessageDatabase {
       REMOTE_DELETED, NOTIFIED_TIMESTAMP
   };
 
-  private static final long     IGNORABLE_TYPESMASK_WHEN_COUNTING = Types.END_SESSION_BIT | Types.KEY_EXCHANGE_IDENTITY_UPDATE_BIT | Types.KEY_EXCHANGE_IDENTITY_VERIFIED_BIT;
-  private static final String[] THREAD_SUMMARY_COUNT_PROJECTION   = new String[] { "SUM(1)", "SUM(CASE WHEN " + TYPE + " & " + IGNORABLE_TYPESMASK_WHEN_COUNTING + " OR " + TYPE + " = " + Types.PROFILE_CHANGE_TYPE + " THEN 1 ELSE 0 END)" };
+  private static final long IGNORABLE_TYPESMASK_WHEN_COUNTING = Types.END_SESSION_BIT | Types.KEY_EXCHANGE_IDENTITY_UPDATE_BIT | Types.KEY_EXCHANGE_IDENTITY_VERIFIED_BIT;
 
   private static final EarlyReceiptCache earlyDeliveryReceiptCache = new EarlyReceiptCache("SmsDelivery");
 
@@ -210,38 +209,12 @@ public class SmsDatabase extends MessageDatabase {
 
   @Override
   public long getThreadIdForMessage(long id) {
-    String sql        = "SELECT " + THREAD_ID + " FROM " + TABLE_NAME + " WHERE " + ID + " = ?";
-    String[] sqlArgs  = new String[] {id+""};
-    SQLiteDatabase db = databaseHelper.getReadableDatabase();
-
-    Cursor cursor = null;
-
-    try {
-      cursor = db.rawQuery(sql, sqlArgs);
-      if (cursor != null && cursor.moveToFirst())
-        return cursor.getLong(0);
-      else
-        return -1;
-    } finally {
-      if (cursor != null)
-        cursor.close();
-    }
-  }
-
-  @Override
-  int getMessageCountForThreadSummary(long threadId) {
-    SQLiteDatabase db = databaseHelper.getReadableDatabase();
-
-    try (Cursor cursor = db.query(TABLE_NAME, THREAD_SUMMARY_COUNT_PROJECTION, THREAD_ID_WHERE, SqlUtil.buildArgs(threadId), null, null, null)) {
+    try (Cursor cursor = databaseHelper.getReadableDatabase().query(TABLE_NAME, THREAD_ID_PROJECTION, ID_WHERE, SqlUtil.buildArgs(id), null, null, null)) {
       if (cursor.moveToFirst()) {
-        int allMessagesCount       = cursor.getInt(0);
-        int ignorableMessagesCount = cursor.getInt(1);
-
-        return allMessagesCount == ignorableMessagesCount ? 0 : allMessagesCount;
+        return CursorUtil.requireLong(cursor, THREAD_ID);
       }
     }
-
-    return 0;
+    return -1;
   }
 
   @Override
@@ -778,7 +751,7 @@ public class SmsDatabase extends MessageDatabase {
     }
 
     notifyConversationListeners(threadId);
-    ApplicationDependencies.getJobManager().add(new TrimThreadJob(threadId));
+    TrimThreadJob.enqueueAsync(threadId);
   }
 
   @Override
@@ -855,7 +828,7 @@ public class SmsDatabase extends MessageDatabase {
     }
 
     notifyConversationListeners(threadId);
-    ApplicationDependencies.getJobManager().add(new TrimThreadJob(threadId));
+    TrimThreadJob.enqueueAsync(threadId);
   }
 
   @Override
@@ -931,7 +904,7 @@ public class SmsDatabase extends MessageDatabase {
     }
 
     notifyConversationListeners(threadId);
-    ApplicationDependencies.getJobManager().add(new TrimThreadJob(threadId));
+    TrimThreadJob.enqueueAsync(threadId);
 
     return new Pair<>(messageId, threadId);
   }
@@ -1018,7 +991,7 @@ public class SmsDatabase extends MessageDatabase {
 
     Stream.of(threadIdsToUpdate)
           .withoutNulls()
-          .forEach(threadId -> ApplicationDependencies.getJobManager().add(new TrimThreadJob(threadId)));
+          .forEach(TrimThreadJob::enqueueAsync);
   }
 
   @Override
@@ -1033,7 +1006,7 @@ public class SmsDatabase extends MessageDatabase {
     }
 
     notifyConversationListeners(threadId);
-    ApplicationDependencies.getJobManager().add(new TrimThreadJob(threadId));
+    TrimThreadJob.enqueueAsync(threadId);
   }
 
   private void insertGroupV1MigrationNotification(@NonNull RecipientId recipientId, long threadId) {
@@ -1158,7 +1131,7 @@ public class SmsDatabase extends MessageDatabase {
       notifyConversationListeners(threadId);
 
       if (!silent) {
-        ApplicationDependencies.getJobManager().add(new TrimThreadJob(threadId));
+        TrimThreadJob.enqueueAsync(threadId);
       }
 
       return Optional.of(new InsertResult(messageId, threadId));
@@ -1195,7 +1168,7 @@ public class SmsDatabase extends MessageDatabase {
 
     notifyConversationListeners(threadId);
 
-    ApplicationDependencies.getJobManager().add(new TrimThreadJob(threadId));
+    TrimThreadJob.enqueueAsync(threadId);
 
     return new InsertResult(messageId, threadId);
   }
@@ -1219,7 +1192,7 @@ public class SmsDatabase extends MessageDatabase {
 
     notifyConversationListeners(threadId);
 
-    ApplicationDependencies.getJobManager().add(new TrimThreadJob(threadId));
+    TrimThreadJob.enqueueAsync(threadId);
   }
 
   @Override
@@ -1259,6 +1232,7 @@ public class SmsDatabase extends MessageDatabase {
     }
 
     if (!message.isIdentityVerified() && !message.isIdentityDefault()) {
+      DatabaseFactory.getThreadDatabase(context).setLastScrolled(threadId, 0);
       DatabaseFactory.getThreadDatabase(context).updateSilently(threadId, true);
       DatabaseFactory.getThreadDatabase(context).setLastSeenSilently(threadId);
     }
@@ -1323,6 +1297,7 @@ public class SmsDatabase extends MessageDatabase {
 
       db.delete(TABLE_NAME, ID_WHERE, new String[] { messageId + "" });
 
+      DatabaseFactory.getThreadDatabase(context).setLastScrolled(threadId, 0);
       threadDeleted = DatabaseFactory.getThreadDatabase(context).update(threadId, false, true);
 
       db.setTransactionSuccessful();
@@ -1387,11 +1362,11 @@ public class SmsDatabase extends MessageDatabase {
   }
 
   @Override
-  void deleteMessagesInThreadBeforeDate(long threadId, long date) {
+  int deleteMessagesInThreadBeforeDate(long threadId, long date) {
     SQLiteDatabase db    = databaseHelper.getWritableDatabase();
     String         where = THREAD_ID + " = ? AND " + DATE_RECEIVED + " < " + date;
 
-    db.delete(TABLE_NAME, where, SqlUtil.buildArgs(threadId));
+    return db.delete(TABLE_NAME, where, SqlUtil.buildArgs(threadId));
   }
 
   @Override
@@ -1399,7 +1374,10 @@ public class SmsDatabase extends MessageDatabase {
     SQLiteDatabase db    = databaseHelper.getWritableDatabase();
     String         where = THREAD_ID + " NOT IN (SELECT _id FROM " + ThreadDatabase.TABLE_NAME + ")";
 
-    db.delete(TABLE_NAME, where, null);
+    int deletes = db.delete(TABLE_NAME, where, null);
+    if (deletes > 0) {
+      Log.i(TAG, "Deleted " + deletes + " abandoned messages");
+    }
   }
 
   @Override

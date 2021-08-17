@@ -1259,13 +1259,12 @@
   <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
   <string name="WebRtcCallActivity__calling">Позивам…</string>
   <!--WebRtcCallView-->
-  <string name="WebRtcCallView__signal_voice_call">Signal гласовни позив…</string>
-  <string name="WebRtcCallView__signal_video_call">Сигнал видео позив</string>
+  <string name="WebRtcCallView__signal_call">Signal позив</string>
+  <string name="WebRtcCallView__signal_video_call">Signal видео позив</string>
   <string name="WebRtcCallView__start_call">Започети позив</string>
   <string name="WebRtcCallView__join_call">Придружи се позиву</string>
   <string name="WebRtcCallView__call_is_full">Позив је пун</string>
   <string name="WebRtcCallView__the_maximum_number_of_d_participants_has_been_Reached_for_this_call">За овај позив је достигнут максималан број %1$d учесника. Покушајте поново касније.</string>
-  <string name="WebRtcCallView__s_group_call">\"%1$s\" групни позив</string>
   <string name="WebRtcCallView__view_participants_list">Погледајте учеснике</string>
   <string name="WebRtcCallView__your_video_is_off">Ваш видео је искључен</string>
   <string name="WebRtcCallView__reconnecting">Обнављање везе…</string>
@@ -1280,6 +1279,11 @@
     <item quantity="few">%1$s, %2$s, и још %3$d су у овом позиву</item>
     <item quantity="other">%1$s, %2$s, и још %3$d су у овом позиву</item>
   </plurals>
+  <string name="WebRtcCallView__flip">Обрнути</string>
+  <string name="WebRtcCallView__speaker">Звучник</string>
+  <string name="WebRtcCallView__camera">Камера</string>
+  <string name="WebRtcCallView__mute">Утишај</string>
+  <string name="WebRtcCallView__end_call">Заврши позив</string>
   <!--CallParticipantsListDialog-->
   <plurals name="CallParticipantsListDialog_in_this_call_d_people">
     <item quantity="one">У овом позиву · %1$d особа</item>
@@ -3164,6 +3168,11 @@
   <string name="ContactFilterView__search_name_or_number">Претрага имена или броја</string>
   <!--VoiceNotePlayerView-->
   <string name="VoiceNotePlayerView__s_dot_s">%1$s · %2$s</string>
+  <string name="VoiceNotePlayerView__stop_voice_message">Заустави гласовну поруку</string>
+  <string name="VoiceNotePlayerView__change_voice_message_speed">Промени брзину гласовне поруке</string>
+  <string name="VoiceNotePlayerView__pause_voice_message">Паузирај гласовну поруку</string>
+  <string name="VoiceNotePlayerView__play_voice_message">Пусти гласовну поруку</string>
+  <string name="VoiceNotePlayerView__navigate_to_voice_message">Ићи до гласовне поруке</string>
   <!--AvatarPickerFragment-->
   <string name="AvatarPickerFragment__avatar_preview">Преглед аватара</string>
   <string name="AvatarPickerFragment__camera">Камера</string>
@@ -3187,5 +3196,11 @@
   <string name="ContactSelectionListItem__sms">СМС</string>
   <string name="ContactSelectionListItem__dot_s">· %1$s</string>
   <!--DSLSettingsToolbar-->
+  <string name="DSLSettingsToolbar__navigate_up">Ићи на горе</string>
+  <string name="MultiselectForwardFragment__forward_to">Напред на</string>
+  <string name="MultiselectForwardFragment__add_a_message">Додати поруку</string>
+  <!-- Removed by excludeNonTranslatables <string name="MultiselectForwardFragment__messages_sent">Поруке су послате</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="MultiselectForwardFragment__messages_failed_to_send">Поруке нису послате</string> -->
+  <string name="MultiselectForwardFragment__limit_reached">Достигнут лимит</string>
   <!--EOF-->
 </resources>

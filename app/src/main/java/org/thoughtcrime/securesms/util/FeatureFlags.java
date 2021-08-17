@@ -78,9 +78,11 @@ public final class FeatureFlags {
   private static final String MEDIA_QUALITY_LEVELS              = "android.mediaQuality.levels";
   private static final String RETRY_RECEIPT_LIFESPAN            = "android.retryReceiptLifespan";
   private static final String RETRY_RESPOND_MAX_AGE             = "android.retryRespondMaxAge";
-  private static final String SENDER_KEY                        = "android.senderKey.3";
+  private static final String SENDER_KEY                        = "android.senderKey.4";
+  private static final String RETRY_RECEIPTS                    = "android.retryReceipts";
   private static final String SUGGEST_SMS_BLACKLIST             = "android.suggestSmsBlacklist";
   private static final String ANNOUNCEMENT_GROUPS               = "android.announcementGroups";
+  private static final String FORWARD_MULTIPLE_MESSAGES         = "android.forward.multiple.messages";
 
   /**
    * We will only store remote values for flags in this set. If you want a flag to be controllable
@@ -113,8 +115,10 @@ public final class FeatureFlags {
       RETRY_RECEIPT_LIFESPAN,
       RETRY_RESPOND_MAX_AGE,
       SENDER_KEY,
+      RETRY_RECEIPTS,
       SUGGEST_SMS_BLACKLIST,
-      ANNOUNCEMENT_GROUPS
+      ANNOUNCEMENT_GROUPS,
+      FORWARD_MULTIPLE_MESSAGES
   );
 
   @VisibleForTesting
@@ -162,7 +166,9 @@ public final class FeatureFlags {
       MEDIA_QUALITY_LEVELS,
       RETRY_RECEIPT_LIFESPAN,
       RETRY_RESPOND_MAX_AGE,
-      SUGGEST_SMS_BLACKLIST
+      SUGGEST_SMS_BLACKLIST,
+      RETRY_RECEIPTS,
+      SENDER_KEY
   );
 
   /**
@@ -349,6 +355,11 @@ public final class FeatureFlags {
     return getString(MEDIA_QUALITY_LEVELS, "");
   }
 
+  /** Whether or not sending or responding to retry receipts is enabled. */
+  public static boolean retryReceipts() {
+    return getBoolean(RETRY_RECEIPTS, false);
+  }
+
   /** How long to wait before considering a retry to be a failure. */
   public static long retryReceiptLifespan() {
     return getLong(RETRY_RECEIPT_LIFESPAN, TimeUnit.HOURS.toMillis(1));
@@ -372,6 +383,11 @@ public final class FeatureFlags {
   /** A comma-delimited list of country codes that should not be told about SMS during onboarding. */
   public static @NonNull String suggestSmsBlacklist() {
     return getString(SUGGEST_SMS_BLACKLIST, "");
+  }
+
+  /** Whether the user is able to forward multiple messages at once */
+  public static boolean forwardMultipleMessages() {
+    return getBoolean(FORWARD_MULTIPLE_MESSAGES, false);
   }
 
   /** Only for rendering debug info. */

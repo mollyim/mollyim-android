@@ -756,7 +756,7 @@
   <string name="MediaOverviewActivity_Newest">最新到最舊</string>
   <string name="MediaOverviewActivity_Oldest">最舊到最新</string>
   <string name="MediaOverviewActivity_Storage_used">掗咗幾多空間</string>
-  <string name="MediaOverviewActivity_All_storage_use">所有掗咗啲空間</string>
+  <string name="MediaOverviewActivity_All_storage_use">所有掗咗嘅空間</string>
   <string name="MediaOverviewActivity_Grid_view_description">一格格顯示</string>
   <string name="MediaOverviewActivity_List_view_description">一行行顯示</string>
   <string name="MediaOverviewActivity_Selected_description">已揀選</string>
@@ -1143,13 +1143,12 @@
   <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
   <string name="WebRtcCallActivity__calling">打緊出去…</string>
   <!--WebRtcCallView-->
-  <string name="WebRtcCallView__signal_voice_call">Signal 語音通話…</string>
-  <string name="WebRtcCallView__signal_video_call">Signal 視像通話…</string>
+  <string name="WebRtcCallView__signal_call">Signal 通話</string>
+  <string name="WebRtcCallView__signal_video_call">Signal 視像通話</string>
   <string name="WebRtcCallView__start_call">開始通話</string>
   <string name="WebRtcCallView__join_call">加入通話</string>
   <string name="WebRtcCallView__call_is_full">通話已滿座</string>
   <string name="WebRtcCallView__the_maximum_number_of_d_participants_has_been_Reached_for_this_call">呢次通話已經頂到盡 %1$d 個參與者爆晒棚。陣間再試下啦。</string>
-  <string name="WebRtcCallView__s_group_call">「%1$s」成谷通話</string>
   <string name="WebRtcCallView__view_participants_list">睇下參與者</string>
   <string name="WebRtcCallView__your_video_is_off">您閂咗視像</string>
   <string name="WebRtcCallView__reconnecting">重新連緊線…</string>
@@ -1162,6 +1161,11 @@
   <plurals name="WebRtcCallView__s_s_and_d_others_are_in_this_call">
     <item quantity="other">%1$s、%2$s 同其餘 %3$d 人嚟到呢次通話</item>
   </plurals>
+  <string name="WebRtcCallView__flip">前後轉換</string>
+  <string name="WebRtcCallView__speaker">喇叭</string>
+  <string name="WebRtcCallView__camera">相機</string>
+  <string name="WebRtcCallView__mute">靜音</string>
+  <string name="WebRtcCallView__end_call">收線</string>
   <!--CallParticipantsListDialog-->
   <plurals name="CallParticipantsListDialog_in_this_call_d_people">
     <item quantity="other">嚟到呢次通話 · %1$d 人</item>
@@ -1817,7 +1821,7 @@
   <string name="arrays__name_and_message">個名同訊息</string>
   <string name="arrays__name_only">淨係個名</string>
   <string name="arrays__no_name_or_message">名同訊息都唔要</string>
-  <string name="arrays__images">圖</string>
+  <string name="arrays__images">圖片</string>
   <string name="arrays__audio">聲音</string>
   <string name="arrays__video">影片</string>
   <string name="arrays__documents">文件</string>
@@ -1937,7 +1941,7 @@
   <string name="preferences_chats__message_history">訊息紀錄</string>
   <string name="preferences_storage__storage_usage">儲存空間用量</string>
   <string name="preferences_storage__photos">相片</string>
-  <string name="preferences_storage__videos">片</string>
+  <string name="preferences_storage__videos">影片</string>
   <string name="preferences_storage__files">檔案</string>
   <string name="preferences_storage__audio">聲音</string>
   <string name="preferences_storage__review_storage">覆閱儲存空間</string>
@@ -2178,7 +2182,7 @@
   <!--conversation_list-->
   <string name="conversation_list_settings_shortcut">[設定] 捷徑</string>
   <string name="conversation_list_search_description">搜尋</string>
-  <string name="conversation_list__pinned">頂已置</string>
+  <string name="conversation_list__pinned">置頂</string>
   <string name="conversation_list__chats">傾偈</string>
   <string name="conversation_list__you_can_only_pin_up_to_d_chats">您淨係可以將最多 %1$d 個傾偈置頂</string>
   <!--conversation_list_item_view-->
@@ -2994,6 +2998,11 @@
   <string name="ContactFilterView__search_name_or_number">查名或者冧把</string>
   <!--VoiceNotePlayerView-->
   <string name="VoiceNotePlayerView__s_dot_s">%1$s · %2$s</string>
+  <string name="VoiceNotePlayerView__stop_voice_message">停止語音訊息</string>
+  <string name="VoiceNotePlayerView__change_voice_message_speed">調整語音訊息速度</string>
+  <string name="VoiceNotePlayerView__pause_voice_message">暫停語音訊息</string>
+  <string name="VoiceNotePlayerView__play_voice_message">播放語音訊息</string>
+  <string name="VoiceNotePlayerView__navigate_to_voice_message">跳去語音訊息嗰個位</string>
   <!--AvatarPickerFragment-->
   <string name="AvatarPickerFragment__avatar_preview">頭像預覽</string>
   <string name="AvatarPickerFragment__camera">相機</string>
@@ -3018,5 +3027,10 @@
   <string name="ContactSelectionListItem__dot_s">· %1$s</string>
   <!--DSLSettingsToolbar-->
   <string name="DSLSettingsToolbar__navigate_up">返番轉頭</string>
+  <string name="MultiselectForwardFragment__forward_to">轉寄畀</string>
+  <string name="MultiselectForwardFragment__add_a_message">寫番句訊息</string>
+  <!-- Removed by excludeNonTranslatables <string name="MultiselectForwardFragment__messages_sent">呢拃訊息已經送出</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="MultiselectForwardFragment__messages_failed_to_send">呢拃訊息傳送唔到</string> -->
+  <string name="MultiselectForwardFragment__limit_reached">頂晒櫳喇</string>
   <!--EOF-->
 </resources>

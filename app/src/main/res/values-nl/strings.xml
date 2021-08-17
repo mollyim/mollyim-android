@@ -1203,13 +1203,12 @@
   <string name="WebRtcCallActivity__signal_s">Molly-oproep %1$s</string>
   <string name="WebRtcCallActivity__calling">Oproep aan het starten …</string>
   <!--WebRtcCallView-->
-  <string name="WebRtcCallView__signal_voice_call">Signal audio-oproep …</string>
-  <string name="WebRtcCallView__signal_video_call">Signal video-oproep …</string>
+  <string name="WebRtcCallView__signal_call">Signal-oproep</string>
+  <string name="WebRtcCallView__signal_video_call">Signal video-oproep</string>
   <string name="WebRtcCallView__start_call">Oproep beginnen</string>
   <string name="WebRtcCallView__join_call">Aan oproep deelnemen</string>
   <string name="WebRtcCallView__call_is_full">De oproep is vol</string>
   <string name="WebRtcCallView__the_maximum_number_of_d_participants_has_been_Reached_for_this_call">Je kunt niet deelnemen omdat deze groepsoproep het maximale aantal van %1$d deelnemers heeft bereikt. Probeer het later opnieuw.</string>
-  <string name="WebRtcCallView__s_group_call">Groepsoproep met “%1$s”</string>
   <string name="WebRtcCallView__view_participants_list">Deelnemers weergeven</string>
   <string name="WebRtcCallView__your_video_is_off">Je camera staat uit</string>
   <string name="WebRtcCallView__reconnecting">Opnieuw aan het verbinden …</string>
@@ -1223,6 +1222,11 @@
     <item quantity="one">In dit gesprek zijn %1$s, %2$s en %3$d andere aanwezig.</item>
     <item quantity="other">In dit gesprek zijn %1$s, %2$s en %3$d anderen aanwezig.</item>
   </plurals>
+  <string name="WebRtcCallView__flip">Omdraaien</string>
+  <string name="WebRtcCallView__speaker">Luidspreker</string>
+  <string name="WebRtcCallView__camera">Camera</string>
+  <string name="WebRtcCallView__mute">Dempen</string>
+  <string name="WebRtcCallView__end_call">Oproep beëindigen</string>
   <!--CallParticipantsListDialog-->
   <plurals name="CallParticipantsListDialog_in_this_call_d_people">
     <item quantity="one">In deze oproep · %1$d persoon</item>
@@ -2897,9 +2901,9 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <string name="GroupDescriptionDialog__group_description">Groepsomschrijving</string>
   <!--QualitySelectorBottomSheetDialog-->
   <string name="QualitySelectorBottomSheetDialog__standard">Standaard</string>
-  <string name="QualitySelectorBottomSheetDialog__faster_less_data">Sneller, minder gegevensoverdracht</string>
+  <string name="QualitySelectorBottomSheetDialog__faster_less_data">Sneller, minder dataoverdracht</string>
   <string name="QualitySelectorBottomSheetDialog__high">Hoog</string>
-  <string name="QualitySelectorBottomSheetDialog__slower_more_data">Langzamer, meer gegevensoverdracht</string>
+  <string name="QualitySelectorBottomSheetDialog__slower_more_data">Langzamer, meer dataoverdracht</string>
   <string name="QualitySelectorBottomSheetDialog__photo_quality">Afbeeldingskwaliteit</string>
   <!--AppSettingsFragment-->
   <string name="AppSettingsFragment__invite_your_friends">Kennissen uitnodigingen</string>
@@ -3041,7 +3045,7 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <string name="ConversationSettingsFragment__unblock">Deblokkeren</string>
   <string name="ConversationSettingsFragment__unblock_group">Groep deblokkeren</string>
   <string name="ConversationSettingsFragment__add_to_a_group">Aan een groep toevoegen</string>
-  <string name="ConversationSettingsFragment__see_all">Alles weergeven</string>
+  <string name="ConversationSettingsFragment__see_all">Alle leden weergeven</string>
   <string name="ConversationSettingsFragment__add_members">Groepsleden toevoegen</string>
   <string name="ConversationSettingsFragment__permissions">Toestemmingen</string>
   <string name="ConversationSettingsFragment__requests_and_invites">Verzoeken &amp; uitnodiging</string>
@@ -3083,6 +3087,11 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <string name="ContactFilterView__search_name_or_number">Zoek op naam of telefoonnummer</string>
   <!--VoiceNotePlayerView-->
   <string name="VoiceNotePlayerView__s_dot_s">%1$s · %2$s</string>
+  <string name="VoiceNotePlayerView__stop_voice_message">Audiobericht afspelen stoppen</string>
+  <string name="VoiceNotePlayerView__change_voice_message_speed">Audioafspeelsnelheid aanpassen</string>
+  <string name="VoiceNotePlayerView__pause_voice_message">Audiobericht pauzeren</string>
+  <string name="VoiceNotePlayerView__play_voice_message">Audiobericht afspelen</string>
+  <string name="VoiceNotePlayerView__navigate_to_voice_message">Naar audiobericht navigeren</string>
   <!--AvatarPickerFragment-->
   <string name="AvatarPickerFragment__avatar_preview">Voorbeeld van profielafbeelding</string>
   <string name="AvatarPickerFragment__camera">Camera</string>
@@ -3107,5 +3116,10 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <string name="ContactSelectionListItem__dot_s">· %1$s</string>
   <!--DSLSettingsToolbar-->
   <string name="DSLSettingsToolbar__navigate_up">Omhoog navigeren</string>
+  <string name="MultiselectForwardFragment__forward_to">Doorsturen naar</string>
+  <string name="MultiselectForwardFragment__add_a_message">Een bericht bijvoegen</string>
+  <!-- Removed by excludeNonTranslatables <string name="MultiselectForwardFragment__messages_sent">Berichten verzonden</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="MultiselectForwardFragment__messages_failed_to_send">Het verzenden van de berichten is mislukt</string> -->
+  <string name="MultiselectForwardFragment__limit_reached">Limiet bereikt</string>
   <!--EOF-->
 </resources>

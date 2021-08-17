@@ -1142,13 +1142,12 @@
   <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
   <string name="WebRtcCallActivity__calling">呼び出しています…</string>
   <!--WebRtcCallView-->
-  <string name="WebRtcCallView__signal_voice_call">Signal音声通話…</string>
-  <string name="WebRtcCallView__signal_video_call">Signalビデオ通話…</string>
+  <string name="WebRtcCallView__signal_call">Signal通話</string>
+  <string name="WebRtcCallView__signal_video_call">Signalビデオ通話</string>
   <string name="WebRtcCallView__start_call">通話を開始する</string>
   <string name="WebRtcCallView__join_call">通話に参加する</string>
   <string name="WebRtcCallView__call_is_full">満席です</string>
   <string name="WebRtcCallView__the_maximum_number_of_d_participants_has_been_Reached_for_this_call">この通話の参加者が、上限の%1$d人に達しました。あとで再度試してください。</string>
-  <string name="WebRtcCallView__s_group_call">「%1$s」グループ通話</string>
   <string name="WebRtcCallView__view_participants_list">参加者を確認する</string>
   <string name="WebRtcCallView__your_video_is_off">あなたの映像はオフです</string>
   <string name="WebRtcCallView__reconnecting">再接続しています…</string>
@@ -1161,6 +1160,11 @@
   <plurals name="WebRtcCallView__s_s_and_d_others_are_in_this_call">
     <item quantity="other">%1$s, %2$s ほか%3$d人が参加中</item>
   </plurals>
+  <string name="WebRtcCallView__flip">切り替え</string>
+  <string name="WebRtcCallView__speaker">スピーカー</string>
+  <string name="WebRtcCallView__camera">カメラ</string>
+  <string name="WebRtcCallView__mute">ミュート</string>
+  <string name="WebRtcCallView__end_call">通話を終了</string>
   <!--CallParticipantsListDialog-->
   <plurals name="CallParticipantsListDialog_in_this_call_d_people">
     <item quantity="other">参加者 · %1$d人</item>
@@ -2984,6 +2988,11 @@
   <string name="ContactFilterView__search_name_or_number">名前か電話番号で検索</string>
   <!--VoiceNotePlayerView-->
   <string name="VoiceNotePlayerView__s_dot_s">%1$s · %2$s</string>
+  <string name="VoiceNotePlayerView__stop_voice_message">音声メッセージを停止</string>
+  <string name="VoiceNotePlayerView__change_voice_message_speed">音声メッセージの再生速度を変更</string>
+  <string name="VoiceNotePlayerView__pause_voice_message">音声メッセージを一時停止</string>
+  <string name="VoiceNotePlayerView__play_voice_message">音声メッセージを再生</string>
+  <string name="VoiceNotePlayerView__navigate_to_voice_message">音声メッセージへ</string>
   <!--AvatarPickerFragment-->
   <string name="AvatarPickerFragment__avatar_preview">アバターのプレビュー</string>
   <string name="AvatarPickerFragment__camera">カメラ</string>
@@ -3007,5 +3016,11 @@
   <string name="ContactSelectionListItem__sms">SMS</string>
   <string name="ContactSelectionListItem__dot_s">· %1$s</string>
   <!--DSLSettingsToolbar-->
+  <string name="DSLSettingsToolbar__navigate_up">上へ</string>
+  <string name="MultiselectForwardFragment__forward_to">転送先</string>
+  <string name="MultiselectForwardFragment__add_a_message">メッセージを追加してください</string>
+  <!-- Removed by excludeNonTranslatables <string name="MultiselectForwardFragment__messages_sent">メッセージ送信済み</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="MultiselectForwardFragment__messages_failed_to_send">メッセージ送信失敗</string> -->
+  <string name="MultiselectForwardFragment__limit_reached">制限に達しました</string>
   <!--EOF-->
 </resources>

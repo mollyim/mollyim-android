@@ -742,14 +742,13 @@ public class RecipientDatabase extends Database {
     return null;
   }
 
-  public void markNeedsSync(@NonNull Collection<RecipientId> recipientIds) {
+  public void markNeedsSyncWithoutRefresh(@NonNull Collection<RecipientId> recipientIds) {
     SQLiteDatabase db = databaseHelper.getWritableDatabase();
 
     db.beginTransaction();
     try {
       for (RecipientId recipientId : recipientIds) {
         rotateStorageId(recipientId);
-        Recipient.live(recipientId).refresh();
       }
       db.setTransactionSuccessful();
     } finally {
@@ -2966,6 +2965,7 @@ public class RecipientDatabase extends Database {
       db.update(MentionDatabase.TABLE_NAME, mentionThreadValues, MentionDatabase.THREAD_ID + " = ?", SqlUtil.buildArgs(threadMerge.previousThreadId));
     }
 
+    DatabaseFactory.getThreadDatabase(context).setLastScrolled(threadMerge.threadId, 0);
     DatabaseFactory.getThreadDatabase(context).update(threadMerge.threadId, false, false);
 
     return byUuid;

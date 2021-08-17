@@ -17,8 +17,6 @@
 
 package org.thoughtcrime.securesms;
 
-import static org.thoughtcrime.securesms.components.sensors.Orientation.PORTRAIT_BOTTOM_EDGE;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.PictureInPictureParams;
@@ -73,6 +71,7 @@ import org.thoughtcrime.securesms.sms.MessageSender;
 import org.thoughtcrime.securesms.util.EllapsedTimeFormatter;
 import org.thoughtcrime.securesms.util.FullscreenHelper;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
+import org.thoughtcrime.securesms.util.ThrottledDebouncer;
 import org.thoughtcrime.securesms.util.Util;
 import org.thoughtcrime.securesms.util.livedata.LiveDataUtil;
 import org.thoughtcrime.securesms.webrtc.CallParticipantsViewState;
@@ -81,6 +80,9 @@ import org.whispersystems.signalservice.api.messages.calls.HangupMessage;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
+
+import static org.thoughtcrime.securesms.components.sensors.Orientation.PORTRAIT_BOTTOM_EDGE;
 
 public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChangeDialog.Callback {
 
@@ -104,6 +106,7 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
   private boolean                       enableVideoIfAvailable;
   private androidx.window.WindowManager windowManager;
   private WindowLayoutInfoConsumer      windowLayoutInfoConsumer;
+  private ThrottledDebouncer            requestNewSizesThrottle;
 
   @Override
   protected void attachBaseContext(@NonNull Context newBase) {
@@ -143,6 +146,8 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
     windowLayoutInfoConsumer = new WindowLayoutInfoConsumer();
 
     windowManager.registerLayoutChangeCallback(SignalExecutors.BOUNDED, windowLayoutInfoConsumer);
+
+    requestNewSizesThrottle = new ThrottledDebouncer(TimeUnit.SECONDS.toMillis(1));
   }
 
   @Override
@@ -187,6 +192,7 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
 
     if (!isInPipMode() || isFinishing()) {
       EventBus.getDefault().unregister(this);
+      requestNewSizesThrottle.clear();
     }
 
     if (!viewModel.isCallStarting()) {
@@ -297,7 +303,7 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
       CallParticipantsState state = viewModel.getCallParticipantsState().getValue();
       if (state != null) {
         if (state.needsNewRequestSizes()) {
-          ApplicationDependencies.getSignalCallManager().updateRenderedResolutions();
+          requestNewSizesThrottle.publish(() -> ApplicationDependencies.getSignalCallManager().updateRenderedResolutions());
         }
       }
     });
@@ -772,7 +778,7 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
       setRequestedOrientation(feature.isPresent() ? ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED : ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
       if (feature.isPresent()) {
         FoldingFeature foldingFeature = (FoldingFeature) feature.get();
-        Rect bounds = foldingFeature.getBounds();
+        Rect           bounds         = foldingFeature.getBounds();
         if (foldingFeature.getState() == FoldingFeature.State.HALF_OPENED && bounds.top == bounds.bottom) {
           Log.d(TAG, "OnWindowLayoutInfo accepted: ensure call view is in table-top display mode");
           viewModel.setFoldableState(WebRtcControls.FoldableState.folded(bounds.top));

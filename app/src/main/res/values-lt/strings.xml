@@ -1317,13 +1317,12 @@
   <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
   <string name="WebRtcCallActivity__calling">Skambinama…</string>
   <!--WebRtcCallView-->
-  <string name="WebRtcCallView__signal_voice_call">Signal balso skambutis…</string>
-  <string name="WebRtcCallView__signal_video_call">Signal vaizdo skambutis…</string>
+  <string name="WebRtcCallView__signal_call">„Signal“ skambutis</string>
+  <string name="WebRtcCallView__signal_video_call">Signal vaizdo skambutis</string>
   <string name="WebRtcCallView__start_call">Pradėti skambutį</string>
   <string name="WebRtcCallView__join_call">Prisijungti prie skambučio</string>
   <string name="WebRtcCallView__call_is_full">Skambutis yra pilnas</string>
   <string name="WebRtcCallView__the_maximum_number_of_d_participants_has_been_Reached_for_this_call">Šiame skambutyje yra pasiektas didžiausias %1$d dalyvių skaičius. Vėliau bandykite dar kartą.</string>
-  <string name="WebRtcCallView__s_group_call">„%1$s“ grupės skambutis</string>
   <string name="WebRtcCallView__view_participants_list">Rodyti dalyvius</string>
   <string name="WebRtcCallView__your_video_is_off">Jūsų vaizdas yra išjungtas</string>
   <string name="WebRtcCallView__reconnecting">Jungiamasi iš naujo…</string>
@@ -1339,6 +1338,11 @@
     <item quantity="many">%1$s, %2$s ir dar %3$d žmonių yra šiame skambutyje</item>
     <item quantity="other">%1$s, %2$s ir dar %3$d žmogus yra šiame skambutyje</item>
   </plurals>
+  <string name="WebRtcCallView__flip">Apversti</string>
+  <string name="WebRtcCallView__speaker">Garsiakalbis</string>
+  <string name="WebRtcCallView__camera">Kamera</string>
+  <string name="WebRtcCallView__mute">Išj. pranešimus</string>
+  <string name="WebRtcCallView__end_call">Baigti skambutį</string>
   <!--CallParticipantsListDialog-->
   <plurals name="CallParticipantsListDialog_in_this_call_d_people">
     <item quantity="one">Šiame skambutyje · %1$d žmogus</item>
@@ -3249,6 +3253,11 @@
   <string name="ContactFilterView__search_name_or_number">Ieškoti vardo ar numerio</string>
   <!--VoiceNotePlayerView-->
   <string name="VoiceNotePlayerView__s_dot_s">%1$s · %2$s</string>
+  <string name="VoiceNotePlayerView__stop_voice_message">Stabdyti balso žinutę</string>
+  <string name="VoiceNotePlayerView__change_voice_message_speed">Keisti balso žinutės greitį</string>
+  <string name="VoiceNotePlayerView__pause_voice_message">Pristabdyti balso žinutę</string>
+  <string name="VoiceNotePlayerView__play_voice_message">Atkurti garso žinutę</string>
+  <string name="VoiceNotePlayerView__navigate_to_voice_message">Naršyti į garso žinutę</string>
   <!--AvatarPickerFragment-->
   <string name="AvatarPickerFragment__avatar_preview">Avataro peržiūra</string>
   <string name="AvatarPickerFragment__camera">Kamera</string>
@@ -3273,5 +3282,10 @@
   <string name="ContactSelectionListItem__dot_s">· %1$s</string>
   <!--DSLSettingsToolbar-->
   <string name="DSLSettingsToolbar__navigate_up">Naršyti aukštyn</string>
+  <string name="MultiselectForwardFragment__forward_to">Kam persiųsti</string>
+  <string name="MultiselectForwardFragment__add_a_message">Pridėti žinutę</string>
+  <!-- Removed by excludeNonTranslatables <string name="MultiselectForwardFragment__messages_sent">Žinutės išsiųstos</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="MultiselectForwardFragment__messages_failed_to_send">Nepavyko išsiųsti žinučių</string> -->
+  <string name="MultiselectForwardFragment__limit_reached">Pasiekta riba</string>
   <!--EOF-->
 </resources>

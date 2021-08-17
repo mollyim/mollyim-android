@@ -1201,13 +1201,12 @@
   <string name="WebRtcCallActivity__signal_s">%1$s سیگنال</string>
   <string name="WebRtcCallActivity__calling">در حال برقراری تماس…</string>
   <!--WebRtcCallView-->
-  <string name="WebRtcCallView__signal_voice_call">تماس صوتی سیگنال</string>
-  <string name="WebRtcCallView__signal_video_call">تماس تصویری سیگنال</string>
+  <string name="WebRtcCallView__signal_call">تماس سیگنال</string>
+  <string name="WebRtcCallView__signal_video_call">تماس ویدئویی سیگنال</string>
   <string name="WebRtcCallView__start_call">شروع تماس</string>
   <string name="WebRtcCallView__join_call">پیوستن به تماس</string>
   <string name="WebRtcCallView__call_is_full">ظرفیت تماس تکمیل است</string>
   <string name="WebRtcCallView__the_maximum_number_of_d_participants_has_been_Reached_for_this_call">به حداکثر تعداد %1$d شرکت‌کننده برای این تماس رسیده‌اید، بعد‌اً دوباره امتحان کنید. </string>
-  <string name="WebRtcCallView__s_group_call">تماس گروهی «%1$s»</string>
   <string name="WebRtcCallView__view_participants_list">مشاهدهٔ شرکت‌کنندگان</string>
   <string name="WebRtcCallView__your_video_is_off">ویدئوی شما خاموش است</string>
   <string name="WebRtcCallView__reconnecting">در حال اتصال دوباره…</string>
@@ -1221,6 +1220,11 @@
     <item quantity="one">%1$s، %2$s و %3$d نفر دیگر در این تماس حضور دارند</item>
     <item quantity="other">%1$s، %2$s و %3$d نفر دیگر در این تماس حضور دارند</item>
   </plurals>
+  <string name="WebRtcCallView__flip">برگرداندن</string>
+  <string name="WebRtcCallView__speaker">بلندگو</string>
+  <string name="WebRtcCallView__camera">دوربین</string>
+  <string name="WebRtcCallView__mute">بستن</string>
+  <string name="WebRtcCallView__end_call">پایان دادن به تماس</string>
   <!--CallParticipantsListDialog-->
   <plurals name="CallParticipantsListDialog_in_this_call_d_people">
     <item quantity="one">در این تماس · %1$d نفر</item>
@@ -1759,7 +1763,7 @@
   <string name="prompt_mms_activity__to_send_media_and_group_messages_tap_ok">برای ارسال رسانه و پیام‌های گروهی، روی \'قبول\' ضربه بزنید و تنظیمات خواسته شده را کامل کنید. تنظیمات فراپیام برای اپراتور شما معمولاً با جستجو برای \'APN اپراتور شما\' یافت می‌شود. شما فقط یکبار نیاز به انجام این کار دارید.</string>
   <!--BadDecryptLearnMoreDialog-->
   <string name="BadDecryptLearnMoreDialog_delivery_issue">اشکال تحویل</string>
-  <string name="BadDecryptLearnMoreDialog_couldnt_be_delivered_individual">یک پیام، استیکر، واکنش، یا رسید خوانده شدن از %s نتوانست به شما تحویل داده شود. ممکن است آن‌ها آن را به طور مستقیم، یا در یک گروه به شما ارسال کرده باشند.</string>
+  <string name="BadDecryptLearnMoreDialog_couldnt_be_delivered_individual">یک پیام، استیکر، واکنش، یا رسید خوانده شدن از %s نتوانست به شما تحویل داده شود. آن‌ها ممکن است آن را به طور مستقیم، یا در یک گروه به شما ارسال کرده باشند.</string>
   <string name="BadDecryptLearnMoreDialog_couldnt_be_delivered_group">یک پیام، استیکر، واکنش، یا رسید خوانده شدن از %s نتوانست به شما تحویل داده شود.</string>
   <!--profile_create_activity-->
   <string name="CreateProfileActivity_first_name_required">نام کوچک (الزامی)</string>
@@ -3077,6 +3081,11 @@
   <string name="ContactFilterView__search_name_or_number">نام یا شماره را جستجو کنید</string>
   <!--VoiceNotePlayerView-->
   <string name="VoiceNotePlayerView__s_dot_s">%1$s · %2$s</string>
+  <string name="VoiceNotePlayerView__stop_voice_message">توقف پیام صوتی</string>
+  <string name="VoiceNotePlayerView__change_voice_message_speed">تغییر سرعت پیام صوتی</string>
+  <string name="VoiceNotePlayerView__pause_voice_message">توقف موقت پیام صوتی</string>
+  <string name="VoiceNotePlayerView__play_voice_message">پخش پیام صوتی</string>
+  <string name="VoiceNotePlayerView__navigate_to_voice_message">رفتن به پیام صوتی</string>
   <!--AvatarPickerFragment-->
   <string name="AvatarPickerFragment__avatar_preview">پیش‌نمایش آواتار</string>
   <string name="AvatarPickerFragment__camera">دوربین</string>
@@ -3101,5 +3110,10 @@
   <string name="ContactSelectionListItem__dot_s">%1$s</string>
   <!--DSLSettingsToolbar-->
   <string name="DSLSettingsToolbar__navigate_up">حرکت به سمت بالا</string>
+  <string name="MultiselectForwardFragment__forward_to">بازارسال به</string>
+  <string name="MultiselectForwardFragment__add_a_message">افزودن یک پیام</string>
+  <!-- Removed by excludeNonTranslatables <string name="MultiselectForwardFragment__messages_sent">پیام‌ها ارسال شدند</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="MultiselectForwardFragment__messages_failed_to_send">ارسال پیام‌ها ناموفق بود</string> -->
+  <string name="MultiselectForwardFragment__limit_reached">به محدودیت رسیدید</string>
   <!--EOF-->
 </resources>

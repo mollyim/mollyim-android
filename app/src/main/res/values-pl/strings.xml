@@ -1316,13 +1316,12 @@
   <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
   <string name="WebRtcCallActivity__calling">Łączenie…</string>
   <!--WebRtcCallView-->
-  <string name="WebRtcCallView__signal_voice_call">Połączenie głosowe Signal…</string>
-  <string name="WebRtcCallView__signal_video_call">Połączenie wideo Signal…</string>
+  <string name="WebRtcCallView__signal_call">Połączenie audio Signal</string>
+  <string name="WebRtcCallView__signal_video_call">Połączenie wideo Signal</string>
   <string name="WebRtcCallView__start_call">Rozpocznij połączenie</string>
   <string name="WebRtcCallView__join_call">Dołącz do rozmowy</string>
   <string name="WebRtcCallView__call_is_full">Połączenie jest pełne</string>
   <string name="WebRtcCallView__the_maximum_number_of_d_participants_has_been_Reached_for_this_call">Osiągnięto maksymalną liczbę %1$d uczestników rozmowy. Spróbuj później.</string>
-  <string name="WebRtcCallView__s_group_call">\"%1$s\" Połączenie grupowe</string>
   <string name="WebRtcCallView__view_participants_list">Zobacz uczestników</string>
   <string name="WebRtcCallView__your_video_is_off">Twoje wideo jest wyłączone</string>
   <string name="WebRtcCallView__reconnecting">Ponowne łączenie…</string>
@@ -1338,6 +1337,11 @@
     <item quantity="many">%1$s, %2$s i %3$d innych uczestniczy w rozmowie</item>
     <item quantity="other">%1$s, %2$s i %3$d innych uczestniczy w rozmowie</item>
   </plurals>
+  <string name="WebRtcCallView__flip">Przełącz kamerę</string>
+  <string name="WebRtcCallView__speaker">Głośnik</string>
+  <string name="WebRtcCallView__camera">Kamera</string>
+  <string name="WebRtcCallView__mute">Wycisz</string>
+  <string name="WebRtcCallView__end_call">Zakończ rozmowę</string>
   <!--CallParticipantsListDialog-->
   <plurals name="CallParticipantsListDialog_in_this_call_d_people">
     <item quantity="one">W tej rozmowie · %1$d osoba</item>
@@ -3241,6 +3245,11 @@ Otrzymano wiadomość wymiany klucz dla niepoprawnej wersji protokołu.</string>
   <string name="ContactFilterView__search_name_or_number">Szukaj po nazwie lub numerze</string>
   <!--VoiceNotePlayerView-->
   <string name="VoiceNotePlayerView__s_dot_s">%1$s · %2$s</string>
+  <string name="VoiceNotePlayerView__stop_voice_message">Zatrzymaj odtwarzanie wiadomości głosowej</string>
+  <string name="VoiceNotePlayerView__change_voice_message_speed">Zmień szybkość odtwarzania wiadomości głosowej</string>
+  <string name="VoiceNotePlayerView__pause_voice_message">Wstrzymaj odtwarzanie wiadomości głosowej</string>
+  <string name="VoiceNotePlayerView__play_voice_message">Odtwórz wiadomość głosową</string>
+  <string name="VoiceNotePlayerView__navigate_to_voice_message">Przejdź do wiadomości głosowej</string>
   <!--AvatarPickerFragment-->
   <string name="AvatarPickerFragment__avatar_preview">Podgląd awatara</string>
   <string name="AvatarPickerFragment__camera">Aparat</string>
@@ -3265,5 +3274,10 @@ Otrzymano wiadomość wymiany klucz dla niepoprawnej wersji protokołu.</string>
   <string name="ContactSelectionListItem__dot_s">· %1$s</string>
   <!--DSLSettingsToolbar-->
   <string name="DSLSettingsToolbar__navigate_up">Przejdź do góry</string>
+  <string name="MultiselectForwardFragment__forward_to">Przekaż do</string>
+  <string name="MultiselectForwardFragment__add_a_message">Dodaj wiadomość</string>
+  <!-- Removed by excludeNonTranslatables <string name="MultiselectForwardFragment__messages_sent">Wiadomości wysłane</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="MultiselectForwardFragment__messages_failed_to_send">Nie udało się wysłać wiadomości</string> -->
+  <string name="MultiselectForwardFragment__limit_reached">Osiągnięto limit</string>
   <!--EOF-->
 </resources>

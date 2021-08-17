@@ -1298,7 +1298,7 @@ public final class MessageContentProcessor {
       }
 
       ApplicationDependencies.getMessageNotifier().updateNotification(context, insertResult.get().getThreadId());
-      ApplicationDependencies.getJobManager().add(new TrimThreadJob(insertResult.get().getThreadId()));
+      TrimThreadJob.enqueueAsync(insertResult.get().getThreadId());
 
       if (message.isViewOnce()) {
         ApplicationDependencies.getViewOnceMessageManager().scheduleIfNecessary();
@@ -1787,8 +1787,8 @@ public final class MessageContentProcessor {
   }
 
   private void handleRetryReceipt(@NonNull SignalServiceContent content, @NonNull DecryptionErrorMessage decryptionErrorMessage, @NonNull Recipient senderRecipient) {
-    if (!FeatureFlags.senderKey()) {
-      warn(String.valueOf(content.getTimestamp()), "[RetryReceipt] Sender key not enabled, skipping retry receipt.");
+    if (!FeatureFlags.retryReceipts()) {
+      warn(String.valueOf(content.getTimestamp()), "[RetryReceipt] Feature flag disabled, skipping retry receipt.");
       return;
     }
 

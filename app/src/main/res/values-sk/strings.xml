@@ -1316,13 +1316,12 @@
   <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
   <string name="WebRtcCallActivity__calling">Uskutočňovanie hovoru…</string>
   <!--WebRtcCallView-->
-  <string name="WebRtcCallView__signal_voice_call">Signal hlasový hovor…</string>
-  <string name="WebRtcCallView__signal_video_call">Signal videohovor…</string>
+  <string name="WebRtcCallView__signal_call">Signal hovor</string>
+  <string name="WebRtcCallView__signal_video_call">Videohovor Signal</string>
   <string name="WebRtcCallView__start_call">Začať hovor</string>
   <string name="WebRtcCallView__join_call">Pripojiť sa k hovoru</string>
   <string name="WebRtcCallView__call_is_full">Hovor je plne obsadený</string>
   <string name="WebRtcCallView__the_maximum_number_of_d_participants_has_been_Reached_for_this_call">Bol dosiahnutý maximálny počet %1$d účastníkov pre tento hovor. Skúste to znovu neskôr.</string>
-  <string name="WebRtcCallView__s_group_call">\"%1$s\" Skupinový hovor</string>
   <string name="WebRtcCallView__view_participants_list">Zobraziť účastníkov</string>
   <string name="WebRtcCallView__your_video_is_off">Vaše video je vypnuté</string>
   <string name="WebRtcCallView__reconnecting">Pripájanie…</string>
@@ -1338,6 +1337,11 @@
     <item quantity="many">%1$s, %2$s a %3$d ďalších je v tomto hovore</item>
     <item quantity="other">%1$s, %2$s a %3$d ďalších je v tomto hovore</item>
   </plurals>
+  <string name="WebRtcCallView__flip">Preklopiť</string>
+  <string name="WebRtcCallView__speaker">Reproduktor</string>
+  <string name="WebRtcCallView__camera">Fotoaparát</string>
+  <string name="WebRtcCallView__mute">Stlmiť</string>
+  <string name="WebRtcCallView__end_call">Ukončiť hovor</string>
   <!--CallParticipantsListDialog-->
   <plurals name="CallParticipantsListDialog_in_this_call_d_people">
     <item quantity="one">V tomto hovore · %1$d osoba</item>
@@ -3248,6 +3252,11 @@ Bola prijatá správa výmeny kľúčov s neplatnou verziou protokolu.
   <string name="ContactFilterView__search_name_or_number">Vyhľadajte meno, alebo číslo</string>
   <!--VoiceNotePlayerView-->
   <string name="VoiceNotePlayerView__s_dot_s">%1$s . %2$s</string>
+  <string name="VoiceNotePlayerView__stop_voice_message">Zastaviť hlasovú správu</string>
+  <string name="VoiceNotePlayerView__change_voice_message_speed">Zmeniť rýchlosť hlasových správ</string>
+  <string name="VoiceNotePlayerView__pause_voice_message">Pozastaviť hlasovú správu</string>
+  <string name="VoiceNotePlayerView__play_voice_message">Prehrať hlasovú správu</string>
+  <string name="VoiceNotePlayerView__navigate_to_voice_message">Prejdite na hlasovú správu</string>
   <!--AvatarPickerFragment-->
   <string name="AvatarPickerFragment__avatar_preview">Ukážka avataru</string>
   <string name="AvatarPickerFragment__camera">Fotoaparát</string>
@@ -3272,5 +3281,10 @@ Bola prijatá správa výmeny kľúčov s neplatnou verziou protokolu.
   <string name="ContactSelectionListItem__dot_s">· %1$s</string>
   <!--DSLSettingsToolbar-->
   <string name="DSLSettingsToolbar__navigate_up">Prejdite nahor</string>
+  <string name="MultiselectForwardFragment__forward_to">Preposlať</string>
+  <string name="MultiselectForwardFragment__add_a_message">Pridajte správu</string>
+  <!-- Removed by excludeNonTranslatables <string name="MultiselectForwardFragment__messages_sent">Správy odoslané</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="MultiselectForwardFragment__messages_failed_to_send">Správy sa nepodarilo odoslať</string> -->
+  <string name="MultiselectForwardFragment__limit_reached">Limit dosiahnutý</string>
   <!--EOF-->
 </resources>

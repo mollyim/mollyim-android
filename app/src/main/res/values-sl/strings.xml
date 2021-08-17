@@ -1313,13 +1313,12 @@
   <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
   <string name="WebRtcCallActivity__calling">Klicanje …</string>
   <!--WebRtcCallView-->
-  <string name="WebRtcCallView__signal_voice_call">Zvočni klic Signal …</string>
-  <string name="WebRtcCallView__signal_video_call">Video klic Signal …</string>
+  <string name="WebRtcCallView__signal_call">Signal klic</string>
+  <string name="WebRtcCallView__signal_video_call">Video klic Signal</string>
   <string name="WebRtcCallView__start_call">Začni klic</string>
   <string name="WebRtcCallView__join_call">Pridruži se klicu</string>
   <string name="WebRtcCallView__call_is_full">Klic je polno zaseden</string>
   <string name="WebRtcCallView__the_maximum_number_of_d_participants_has_been_Reached_for_this_call">Doseženo je bilo maksimalno število %1$d udeležencev v pogovoru. Poskusite znova kasneje.</string>
-  <string name="WebRtcCallView__s_group_call">\"%1$s\" Skupinski klic</string>
   <string name="WebRtcCallView__view_participants_list">Prikaži sodelujoče</string>
   <string name="WebRtcCallView__your_video_is_off">Vaš video je izključen</string>
   <string name="WebRtcCallView__reconnecting">Ponovno povezovanje …</string>
@@ -1335,6 +1334,11 @@
     <item quantity="few">Uporabnika/ci  %1$s, %2$s, in še %3$d drugi/e so v tem klicu</item>
     <item quantity="other">Uporabnika/ci %1$s, %2$s, in še %3$d drugih so v tem klicu</item>
   </plurals>
+  <string name="WebRtcCallView__flip">Obrni</string>
+  <string name="WebRtcCallView__speaker">Zvočnik</string>
+  <string name="WebRtcCallView__camera">Kamera</string>
+  <string name="WebRtcCallView__mute">Utišaj</string>
+  <string name="WebRtcCallView__end_call">Zaključi klic</string>
   <!--CallParticipantsListDialog-->
   <plurals name="CallParticipantsListDialog_in_this_call_d_people">
     <item quantity="one">Na tem klicu · %1$d človek</item>
@@ -2916,7 +2920,7 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
   <string name="QualitySelectorBottomSheetDialog__slower_more_data">Počasneje, več podatkov</string>
   <string name="QualitySelectorBottomSheetDialog__photo_quality">Kvaliteta fotografije</string>
   <!--AppSettingsFragment-->
-  <string name="AppSettingsFragment__invite_your_friends">Povabi svoje prijatelje/ice</string>
+  <string name="AppSettingsFragment__invite_your_friends">Povabite svoje prijatelje/ice</string>
   <!--AccountSettingsFragment-->
   <string name="AccountSettingsFragment__account">Račun</string>
   <string name="AccountSettingsFragment__youll_be_asked_less_frequently">Sčasoma boste opozorjeni manjkrat</string>
@@ -3101,6 +3105,11 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
   <string name="ContactFilterView__search_name_or_number">Iskanje po imenu ali številki</string>
   <!--VoiceNotePlayerView-->
   <string name="VoiceNotePlayerView__s_dot_s">%1$s · %2$s</string>
+  <string name="VoiceNotePlayerView__stop_voice_message">Zaustavi glasovno sporočilo</string>
+  <string name="VoiceNotePlayerView__change_voice_message_speed">Spremeni hitrost predvajanja</string>
+  <string name="VoiceNotePlayerView__pause_voice_message">Prekini glasovno sporočilo</string>
+  <string name="VoiceNotePlayerView__play_voice_message">Predvajaj glasovno sporočilo</string>
+  <string name="VoiceNotePlayerView__navigate_to_voice_message">Pojdi na glasovno sporočilo</string>
   <!--AvatarPickerFragment-->
   <string name="AvatarPickerFragment__avatar_preview">Predogled avatarja</string>
   <string name="AvatarPickerFragment__camera">Kamera</string>
@@ -3125,5 +3134,10 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
   <string name="ContactSelectionListItem__dot_s">· %1$s</string>
   <!--DSLSettingsToolbar-->
   <string name="DSLSettingsToolbar__navigate_up">Premik navzgor</string>
+  <string name="MultiselectForwardFragment__forward_to">Posreduj</string>
+  <string name="MultiselectForwardFragment__add_a_message">Dodaj sporočilo</string>
+  <!-- Removed by excludeNonTranslatables <string name="MultiselectForwardFragment__messages_sent">Poslana sporočila</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="MultiselectForwardFragment__messages_failed_to_send">Neuspešno poslana sporočila</string> -->
+  <string name="MultiselectForwardFragment__limit_reached">Dosežen je bil limit</string>
   <!--EOF-->
 </resources>

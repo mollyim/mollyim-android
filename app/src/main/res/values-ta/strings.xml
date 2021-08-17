@@ -1202,13 +1202,12 @@
   <string name="WebRtcCallActivity__signal_s">சிக்னல் Molly %1$s</string>
   <string name="WebRtcCallActivity__calling">அழைக்கிறது…</string>
   <!--WebRtcCallView-->
-  <string name="WebRtcCallView__signal_voice_call">Signal குரல் அழைப்பு…</string>
-  <string name="WebRtcCallView__signal_video_call">Signal காணொளி அழைப்பு…</string>
+  <string name="WebRtcCallView__signal_call">Signal  அழைப்பு</string>
+  <string name="WebRtcCallView__signal_video_call">Signal காணொளி அழைப்பு</string>
   <string name="WebRtcCallView__start_call">அழைப்பைத் தொடங்கு</string>
   <string name="WebRtcCallView__join_call">அழைப்பில் சேர்</string>
   <string name="WebRtcCallView__call_is_full">அழைப்பு நிரம்பியுள்ளது</string>
   <string name="WebRtcCallView__the_maximum_number_of_d_participants_has_been_Reached_for_this_call">அதிகபட்ச எண்ணிக்கை %1$d இந்த அழைப்பிற்கு பங்கேற்பாளர்கள் சென்றடைந்துள்ளனர். பின்னர் மீண்டும் முயற்சிக்கவும்.</string>
-  <string name="WebRtcCallView__s_group_call">\"%1$s\"  குழு அழைப்பு</string>
   <string name="WebRtcCallView__view_participants_list">பங்கேற்பாளர்களைக் காண்க</string>
   <string name="WebRtcCallView__your_video_is_off">உங்கள் வீடியோ முடக்கப்பட்டுள்ளது</string>
   <string name="WebRtcCallView__reconnecting">மீண்டும் இணைக்கிறது …</string>
@@ -1222,6 +1221,11 @@
     <item quantity="one">%1$s, %2$s, மற்றும் %3$dநபர்கள் அழைப்பில் உள்ளனர்</item>
     <item quantity="other">%1$s, %2$s, மற்றும் கூடுதலாக%3$d நபர்கள் அழைப்பில் உள்ளனர்</item>
   </plurals>
+  <string name="WebRtcCallView__flip">புரட்டவும்</string>
+  <string name="WebRtcCallView__speaker">ஒலி பெருக்கி</string>
+  <string name="WebRtcCallView__camera">புகைப்பட கருவி</string>
+  <string name="WebRtcCallView__mute">முடக்கு</string>
+  <string name="WebRtcCallView__end_call">அழைப்பை முடி </string>
   <!--CallParticipantsListDialog-->
   <plurals name="CallParticipantsListDialog_in_this_call_d_people">
     <item quantity="one">இந்த அழைப்பில் %1$d நபர் இருக்கிறார்</item>
@@ -1477,7 +1481,7 @@
   <string name="MessageNotifier_error_delivering_message">செய்தி விநியோகிப்பதில் பிழை.</string>
   <string name="MessageNotifier_message_delivery_paused">செய்தி டெலிவரி இடைநிறுத்தப்பட்டது.</string>
   <string name="MessageNotifier_verify_to_continue_messaging_on_signal">செய்தியைத் தொடர சரிபார்க்கவும் Molly.</string>
-  <string name="MessageNotifier_mark_all_as_read">அனைத்தையும் படித்தாக குறியிடு</string>
+  <string name="MessageNotifier_mark_all_as_read">அனைத்தையும் படித்ததாக குறியீடு</string>
   <string name="MessageNotifier_mark_read">படித்தாக குறியிடு</string>
   <string name="MessageNotifier_turn_off_these_notifications">இந்த அறிவிப்புகளை முடக்கு</string>
   <string name="MessageNotifier_view_once_photo">காண்க-ஒருமுறை புகைப்படம்</string>
@@ -3082,6 +3086,11 @@
   <string name="ContactFilterView__search_name_or_number">தேடல் பெயர் அல்லது எண்</string>
   <!--VoiceNotePlayerView-->
   <string name="VoiceNotePlayerView__s_dot_s">%1$s · %2$s</string>
+  <string name="VoiceNotePlayerView__stop_voice_message">குரல் செய்தியை நிறுத்து</string>
+  <string name="VoiceNotePlayerView__change_voice_message_speed">மாற்றம் குரல் செய்தி வேகம்</string>
+  <string name="VoiceNotePlayerView__pause_voice_message">குரல் செய்தியை இடைநிறுத்துங்கள்</string>
+  <string name="VoiceNotePlayerView__play_voice_message">குரல் செய்தியை இயக்கவும்</string>
+  <string name="VoiceNotePlayerView__navigate_to_voice_message">குரல் செய்திக்கு செல்லவும்</string>
   <!--AvatarPickerFragment-->
   <string name="AvatarPickerFragment__avatar_preview">அவதார் முன்னோட்டம்</string>
   <string name="AvatarPickerFragment__camera">புகைப்பட கருவி</string>
@@ -3106,5 +3115,10 @@
   <string name="ContactSelectionListItem__dot_s">· %1$s</string>
   <!--DSLSettingsToolbar-->
   <string name="DSLSettingsToolbar__navigate_up">மேலே செல்லவும்</string>
+  <string name="MultiselectForwardFragment__forward_to">முன்னோக்கி</string>
+  <string name="MultiselectForwardFragment__add_a_message">கூட்டு ஒரு செய்தி</string>
+  <!-- Removed by excludeNonTranslatables <string name="MultiselectForwardFragment__messages_sent">செய்திகள் அனுப்பப்பட்டன</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="MultiselectForwardFragment__messages_failed_to_send">செய்திகளை அனுப்ப முடியவில்லை</string> -->
+  <string name="MultiselectForwardFragment__limit_reached">வரம்பை எட்டியது</string>
   <!--EOF-->
 </resources>

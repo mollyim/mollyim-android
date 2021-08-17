@@ -59,8 +59,8 @@ protobuf {
     }
 }
 
-def canonicalVersionCode = 891
-def canonicalVersionName = "5.19.4"
+def canonicalVersionCode = 899
+def canonicalVersionName = "5.21.2"
 
 def postFixSize = 100
 def abiPostFix = ['universal'   : 0,
@@ -393,7 +393,7 @@ dependencies {
 
     implementation 'im.molly:argon2:13.1-1@aar'
 
-    implementation 'im.molly:ringrtc-android:2.10.7-1'
+    implementation 'im.molly:ringrtc-android:2.10.8-1'
 
     implementation "me.leolin:ShortcutBadger:1.1.22"
     implementation 'se.emilsjolander:stickylistheaders:2.7.0'

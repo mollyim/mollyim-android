@@ -2,9 +2,11 @@ package org.thoughtcrime.securesms.conversation;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.graphics.Point;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -19,6 +21,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.common.collect.Sets;
 
 import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.logging.Log;
@@ -27,6 +30,8 @@ import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.VerifyIdentityActivity;
 import org.thoughtcrime.securesms.components.ExpirationTimerView;
 import org.thoughtcrime.securesms.conversation.colors.Colorizer;
+import org.thoughtcrime.securesms.conversation.mutiselect.Multiselect;
+import org.thoughtcrime.securesms.conversation.mutiselect.MultiselectPart;
 import org.thoughtcrime.securesms.conversation.ui.error.EnableCallNotificationSettingsDialog;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.database.IdentityDatabase.IdentityRecord;
@@ -66,7 +71,7 @@ public final class ConversationUpdateItem extends FrameLayout
 {
   private static final String TAG = Log.tag(ConversationUpdateItem.class);
 
-  private Set<ConversationMessage> batchSelected;
+  private Set<MultiselectPart> batchSelected;
 
   private TextView                  body;
   private MaterialButton            actionButton;
@@ -79,6 +84,7 @@ public final class ConversationUpdateItem extends FrameLayout
   private LiveData<SpannableString> displayBody;
   private ExpirationTimerView       timer;
   private EventListener             eventListener;
+  private boolean                   hasWallpaper;
 
   private final UpdateObserver updateObserver = new UpdateObserver();
 
@@ -112,7 +118,7 @@ public final class ConversationUpdateItem extends FrameLayout
                    @NonNull Optional<MessageRecord> nextMessageRecord,
                    @NonNull GlideRequests glideRequests,
                    @NonNull Locale locale,
-                   @NonNull Set<ConversationMessage> batchSelected,
+                   @NonNull Set<MultiselectPart> batchSelected,
                    @NonNull Recipient conversationRecipient,
                    @Nullable String searchQuery,
                    boolean pulseMention,
@@ -145,6 +151,7 @@ public final class ConversationUpdateItem extends FrameLayout
                     boolean hasWallpaper,
                     boolean isMessageRequestAccepted)
   {
+    this.hasWallpaper             = hasWallpaper;
     this.conversationMessage      = conversationMessage;
     this.messageRecord            = conversationMessage.getMessageRecord();
     this.nextMessageRecord        = nextMessageRecord;
@@ -263,6 +270,26 @@ public final class ConversationUpdateItem extends FrameLayout
     }
   }
 
+  @Override
+  public @NonNull MultiselectPart getMultiselectPartForLatestTouch() {
+    return conversationMessage.getMultiselectCollection().asSingle().getSinglePart();
+  }
+
+  @Override
+  public int getTopBoundaryOfMultiselectPart(@NonNull MultiselectPart multiselectPart) {
+    return getTop();
+  }
+
+  @Override
+  public int getBottomBoundaryOfMultiselectPart(@NonNull MultiselectPart multiselectPart) {
+    return getBottom();
+  }
+
+  @Override
+  public boolean hasNonSelectableMedia() {
+    return false;
+  }
+
   private void observeDisplayBody(@NonNull LifecycleOwner lifecycleOwner, @Nullable LiveData<SpannableString> displayBody) {
     if (this.displayBody != displayBody) {
       if (this.displayBody != null) {
@@ -291,8 +318,9 @@ public final class ConversationUpdateItem extends FrameLayout
                        @NonNull Recipient conversationRecipient,
                        boolean isMessageRequestAccepted)
   {
-    if (batchSelected.contains(conversationMessage)) setSelected(true);
-    else                                             setSelected(false);
+    Set<MultiselectPart> multiselectParts = conversationMessage.getMultiselectCollection().toSet();
+
+    setSelected(!Sets.intersection(multiselectParts, batchSelected).isEmpty());
 
     if (conversationMessage.getMessageRecord().isGroupV1MigrationEvent() &&
         (!nextMessageRecord.isPresent() || !nextMessageRecord.get().isGroupV1MigrationEvent()))
