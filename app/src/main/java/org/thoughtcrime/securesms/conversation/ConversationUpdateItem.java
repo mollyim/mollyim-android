@@ -242,6 +242,11 @@ public final class ConversationUpdateItem extends FrameLayout
     return Collections.emptyList();
   }
 
+  @Override
+  public @Nullable View getHorizontalTranslationTarget() {
+    return background;
+  }
+
   static final class RecipientObserverManager {
 
     private final Observer<Recipient> recipientObserver;

@@ -68,7 +68,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -346,8 +345,8 @@ public class ConversationAdapter
 
     if (conversationMessage == null) return -1;
 
-    calendar.setTime(new Date(conversationMessage.getMessageRecord().getDateSent()));
-    return Util.hashCode(calendar.get(Calendar.YEAR), calendar.get(Calendar.DAY_OF_YEAR));
+    calendar.setTimeInMillis(conversationMessage.getMessageRecord().getDateReceived());
+    return calendar.get(Calendar.YEAR) * 1000L + calendar.get(Calendar.DAY_OF_YEAR);
   }
 
   @Override
@@ -565,6 +564,10 @@ public class ConversationAdapter
    */
   public Set<MultiselectPart> getSelectedItems() {
     return new HashSet<>(selected);
+  }
+
+  public void removeFromSelection(@NonNull Set<MultiselectPart> parts) {
+    selected.removeAll(parts);
   }
 
   /**
