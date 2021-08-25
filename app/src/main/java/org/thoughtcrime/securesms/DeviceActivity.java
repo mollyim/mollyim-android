@@ -43,6 +43,8 @@ import org.whispersystems.signalservice.internal.push.DeviceLimitExceededExcepti
 
 import java.io.IOException;
 
+import javax.annotation.Nullable;
+
 public class DeviceActivity extends PassphraseRequiredActivity
     implements Button.OnClickListener, ScanListener, DeviceLinkFragment.LinkClickedListener
 {
@@ -120,34 +122,43 @@ public class DeviceActivity extends PassphraseRequiredActivity
   }
 
   @Override
+  public void onNoScan() {
+    goToDeviceLink(null);
+  }
+
+  @Override
   public void onQrDataFound(final String data) {
     ThreadUtil.runOnMain(() -> {
       ((Vibrator)getSystemService(Context.VIBRATOR_SERVICE)).vibrate(50);
       Uri uri = Uri.parse(data);
-      deviceLinkFragment.setLinkClickedListener(uri, DeviceActivity.this);
-
-      if (Build.VERSION.SDK_INT >= 21) {
-        deviceAddFragment.setSharedElementReturnTransition(TransitionInflater.from(DeviceActivity.this).inflateTransition(R.transition.fragment_shared));
-        deviceAddFragment.setExitTransition(TransitionInflater.from(DeviceActivity.this).inflateTransition(android.R.transition.fade));
-
-        deviceLinkFragment.setSharedElementEnterTransition(TransitionInflater.from(DeviceActivity.this).inflateTransition(R.transition.fragment_shared));
-        deviceLinkFragment.setEnterTransition(TransitionInflater.from(DeviceActivity.this).inflateTransition(android.R.transition.fade));
-
-        getSupportFragmentManager().beginTransaction()
-                                   .addToBackStack(null)
-                                   .addSharedElement(deviceAddFragment.getDevicesImage(), "devices")
-                                   .replace(R.id.fragment_container, deviceLinkFragment)
-                                   .commit();
-
-      } else {
-        getSupportFragmentManager().beginTransaction()
-                                   .setCustomAnimations(R.anim.slide_from_bottom, R.anim.slide_to_bottom,
-                                                        R.anim.slide_from_bottom, R.anim.slide_to_bottom)
-                                   .replace(R.id.fragment_container, deviceLinkFragment)
-                                   .addToBackStack(null)
-                                   .commit();
-      }
+      goToDeviceLink(uri);
     });
+  }
+
+  private void goToDeviceLink(@Nullable Uri uri) {
+    deviceLinkFragment.setLinkClickedListener(uri, DeviceActivity.this);
+
+    if (Build.VERSION.SDK_INT >= 21) {
+      deviceAddFragment.setSharedElementReturnTransition(TransitionInflater.from(DeviceActivity.this).inflateTransition(R.transition.fragment_shared));
+      deviceAddFragment.setExitTransition(TransitionInflater.from(DeviceActivity.this).inflateTransition(android.R.transition.fade));
+
+      deviceLinkFragment.setSharedElementEnterTransition(TransitionInflater.from(DeviceActivity.this).inflateTransition(R.transition.fragment_shared));
+      deviceLinkFragment.setEnterTransition(TransitionInflater.from(DeviceActivity.this).inflateTransition(android.R.transition.fade));
+
+      getSupportFragmentManager().beginTransaction()
+                                 .addToBackStack(null)
+                                 .addSharedElement(deviceAddFragment.getDevicesImage(), "devices")
+                                 .replace(R.id.fragment_container, deviceLinkFragment)
+                                 .commit();
+
+    } else {
+      getSupportFragmentManager().beginTransaction()
+                                 .setCustomAnimations(R.anim.slide_from_bottom, R.anim.slide_to_bottom,
+                                                      R.anim.slide_from_bottom, R.anim.slide_to_bottom)
+                                 .replace(R.id.fragment_container, deviceLinkFragment)
+                                 .addToBackStack(null)
+                                 .commit();
+    }
   }
 
   @SuppressLint("MissingSuperCall")

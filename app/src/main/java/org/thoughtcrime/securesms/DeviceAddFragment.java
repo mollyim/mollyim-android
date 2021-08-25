@@ -36,6 +36,12 @@ public class DeviceAddFragment extends LoggingFragment {
     this.scannerView  = this.container.findViewById(R.id.scanner);
     this.devicesImage = this.container.findViewById(R.id.devices);
 
+    this.container.findViewById(R.id.device_add_enter_link).setOnClickListener(v -> {
+      if (scanListener != null) {
+        scanListener.onNoScan();
+      }
+    });
+
     if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
       this.overlay.setOrientation(LinearLayout.HORIZONTAL);
     } else {
