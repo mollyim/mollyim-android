@@ -18,6 +18,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.signal.core.util.concurrent.SignalExecutors;
@@ -81,7 +83,7 @@ public class ChangePassphraseDialogFragment extends DialogFragment {
   @NonNull
   @Override
   public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-    AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+    AlertDialog.Builder builder = new MaterialAlertDialogBuilder(requireContext());
 
     if (getArguments() != null) {
       mode = getArguments().getInt(KEY_MODE);
@@ -291,11 +293,11 @@ public class ChangePassphraseDialogFragment extends DialogFragment {
     if (!strength.isValid()) {
       String body = getString(R.string.ChangePassphraseDialogFragment_estimated_time_to_crack_suggestion,
               strength.getError(), strength.getTimeToCrack(), strength.getSuggestion());
-      new AlertDialog.Builder(requireActivity())
-              .setTitle(R.string.ChangePassphraseDialogFragment_weak_passphrase)
-              .setIcon(R.drawable.ic_warning)
-              .setMessage(body)
-              .setPositiveButton(android.R.string.ok, null).show();
+      new MaterialAlertDialogBuilder(requireActivity())
+          .setTitle(R.string.ChangePassphraseDialogFragment_weak_passphrase)
+          .setIcon(R.drawable.ic_warning)
+          .setMessage(body)
+          .setPositiveButton(android.R.string.ok, null).show();
       return;
     }
 

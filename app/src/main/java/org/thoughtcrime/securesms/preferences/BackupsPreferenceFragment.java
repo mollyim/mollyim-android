@@ -22,6 +22,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -275,12 +277,12 @@ public class BackupsPreferenceFragment extends Fragment {
 
   private void onMaxFilesClicked() {
     final View view = getLayoutInflater().inflate(R.layout.backup_max_files_selector_view, null);
-    final NumberPicker picker = (NumberPicker) view.findViewById(R.id.picker);
+    final NumberPicker picker = view.findViewById(R.id.picker);
     picker.setMinValue(1);
     picker.setMaxValue(10);
     picker.setValue(TextSecurePreferences.getBackupMaxFiles(requireContext()));
     picker.setWrapSelectorWheel(false);
-    new AlertDialog.Builder(requireContext())
+    new MaterialAlertDialogBuilder(requireContext())
         .setTitle(R.string.BackupsPreferenceFragment__number_of_backups_to_retain)
         .setView(view)
         .setNegativeButton(android.R.string.cancel, null)
