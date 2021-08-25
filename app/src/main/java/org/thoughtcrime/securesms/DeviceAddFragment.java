@@ -1,5 +1,6 @@
 package org.thoughtcrime.securesms;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.annotation.TargetApi;
 import android.content.res.Configuration;
@@ -12,10 +13,12 @@ import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
 import org.thoughtcrime.securesms.components.camera.CameraView;
+import org.thoughtcrime.securesms.permissions.Permissions;
 import org.thoughtcrime.securesms.qr.ScanListener;
 import org.thoughtcrime.securesms.qr.ScanningThread;
 import org.thoughtcrime.securesms.util.ViewUtil;
@@ -66,6 +69,17 @@ public class DeviceAddFragment extends LoggingFragment {
     }
 
     return this.container;
+  }
+
+  @Override
+  public void onStart() {
+    super.onStart();
+    Permissions.with(requireActivity())
+               .request(Manifest.permission.CAMERA)
+               .ifNecessary()
+               .withPermanentDenialDialog(getString(R.string.DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code))
+               .onAnyDenied(() -> Toast.makeText(requireContext(), R.string.DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission, Toast.LENGTH_LONG).show())
+               .execute();
   }
 
   @Override

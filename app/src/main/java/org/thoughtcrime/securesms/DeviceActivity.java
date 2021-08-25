@@ -1,6 +1,5 @@
 package org.thoughtcrime.securesms;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
@@ -107,18 +106,10 @@ public class DeviceActivity extends PassphraseRequiredActivity
 
   @Override
   public void onClick(View v) {
-    Permissions.with(this)
-               .request(Manifest.permission.CAMERA)
-               .ifNecessary()
-               .withPermanentDenialDialog(getString(R.string.DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code))
-               .onAllGranted(() -> {
-                 getSupportFragmentManager().beginTransaction()
-                                            .replace(R.id.fragment_container, deviceAddFragment)
-                                            .addToBackStack(null)
-                                            .commitAllowingStateLoss();
-               })
-               .onAnyDenied(() -> Toast.makeText(this, R.string.DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission, Toast.LENGTH_LONG).show())
-               .execute();
+    getSupportFragmentManager().beginTransaction()
+                               .replace(R.id.fragment_container, deviceAddFragment)
+                               .addToBackStack(null)
+                               .commitAllowingStateLoss();
   }
 
   @Override
