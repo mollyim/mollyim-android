@@ -25,9 +25,10 @@ You can download the app from GitHub's [Releases](https://github.com/mollyim/mol
 
 There are two flavors to choose from download: **Molly** or **Molly-FOSS**. Learn the differences [below](#free-and-open-source) and download the right one for you.
 
-Signing certificate fingerprint (SHA-256) to [verify](https://developer.android.com/studio/command-line/apksigner#usage-verify) the APK:
+Signing certificate fingerprints to [verify](https://developer.android.com/studio/command-line/apksigner#usage-verify) the APK:
 ```
-6A:A8:0F:DF:4A:8C:C1:37:37:CF:B4:34:FC:0C:DE:48:6F:09:CF:8F:CD:A2:1A:67:BE:A5:EE:1C:A2:70:08:86
+SHA-256: 6aa80fdf4a8cc13737cfb434fc0cde486f09cf8fcda21a67bea5ee1ca2700886
+SHA-1: 49ce310cdd0c09c8c34eb31a8005c6bf13f5a4f1
 ```
 
 Pre-releases are also available to download for development or beta testing.
