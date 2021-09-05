@@ -21,7 +21,7 @@ public final class SingleColorChatWallpaper implements ChatWallpaper, Parcelable
   public static final ChatWallpaper RAINFOREST = new SingleColorChatWallpaper(0xFF146148, 0f);
   public static final ChatWallpaper PACIFIC    = new SingleColorChatWallpaper(0xFF32C7E2, 0f);
   public static final ChatWallpaper FROST      = new SingleColorChatWallpaper(0xFF7C99B6, 0f);
-  public static final ChatWallpaper NAVY       = new SingleColorChatWallpaper(0xFF403B91, 0f);
+  public static final ChatWallpaper NAVY       = new SingleColorChatWallpaper(0xFF473B90, 0f);
   public static final ChatWallpaper LILAC      = new SingleColorChatWallpaper(0xFFC988E7, 0f);
   public static final ChatWallpaper PINK       = new SingleColorChatWallpaper(0xFFE297C3, 0f);
   public static final ChatWallpaper EGGPLANT   = new SingleColorChatWallpaper(0xFF624249, 0f);

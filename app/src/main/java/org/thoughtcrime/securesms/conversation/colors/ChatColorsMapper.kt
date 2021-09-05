@@ -37,7 +37,7 @@ object ChatColorsMapper {
     put(SingleColorChatWallpaper.RAINFOREST, ChatColorsPalette.Bubbles.WINTERGREEN)
     put(SingleColorChatWallpaper.PACIFIC, ChatColorsPalette.Bubbles.TEAL)
     put(SingleColorChatWallpaper.FROST, ChatColorsPalette.Bubbles.BLUE)
-    put(SingleColorChatWallpaper.NAVY, ChatColorsPalette.Bubbles.INDIGO)
+    put(SingleColorChatWallpaper.NAVY, ChatColorsPalette.Bubbles.ULTRAMARINE)
     put(SingleColorChatWallpaper.LILAC, ChatColorsPalette.Bubbles.VIOLET)
     put(SingleColorChatWallpaper.PINK, ChatColorsPalette.Bubbles.PLUM)
     put(SingleColorChatWallpaper.EGGPLANT, ChatColorsPalette.Bubbles.TAUPE)
