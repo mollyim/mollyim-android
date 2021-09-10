@@ -1,5 +1,7 @@
 package org.thoughtcrime.securesms.groups.v2;
 
+import static org.thoughtcrime.securesms.linkpreview.LinkPreviewUtil.MONERO_TX_PATTERN;
+
 import android.content.Context;
 import android.graphics.Typeface;
 import android.text.SpannableString;
@@ -40,6 +42,8 @@ public final class GroupDescriptionUtil {
     if (linkify) {
       int     linkPattern = Linkify.WEB_URLS | Linkify.EMAIL_ADDRESSES | Linkify.PHONE_NUMBERS;
       boolean hasLinks    = LinkifyCompat.addLinks(descriptionSpannable, linkPattern);
+
+      hasLinks |= LinkifyCompat.addLinks(descriptionSpannable, MONERO_TX_PATTERN, "monero");
 
       if (hasLinks) {
         Stream.of(descriptionSpannable.getSpans(0, descriptionSpannable.length(), URLSpan.class))

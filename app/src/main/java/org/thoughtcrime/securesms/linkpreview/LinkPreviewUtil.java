@@ -46,6 +46,7 @@ public final class LinkPreviewUtil {
   private static final Pattern TITLE_PATTERN              = Pattern.compile("<\\s*title[^>]*>(.*)<\\s*/title[^>]*>");
   private static final Pattern FAVICON_PATTERN            = Pattern.compile("<\\s*link[^>]*rel\\s*=\\s*\".*icon.*\"[^>]*>");
   private static final Pattern FAVICON_HREF_PATTERN       = Pattern.compile("href\\s*=\\s*\"([^\"]*)\"");
+  public  static final Pattern MONERO_TX_PATTERN          = Pattern.compile("\\bmonero:[^\\s/]+\\?\\S+\\b");
 
   private static final Set<String> INVALID_TOP_LEVEL_DOMAINS = SetUtil.newHashSet("onion", "i2p");
 

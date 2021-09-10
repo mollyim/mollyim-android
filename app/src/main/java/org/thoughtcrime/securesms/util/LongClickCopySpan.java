@@ -1,8 +1,11 @@
 package org.thoughtcrime.securesms.util;
 
 import android.annotation.TargetApi;
+import android.content.ActivityNotFoundException;
 import android.content.ClipData;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.text.TextPaint;
 import android.text.style.URLSpan;
 import android.view.View;
@@ -11,9 +14,13 @@ import android.widget.Toast;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 
+import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.R;
 
 public class LongClickCopySpan extends URLSpan {
+
+  private static final String TAG = Log.tag(LongClickCopySpan.class);
+
   private static final String PREFIX_MAILTO = "mailto:";
   private static final String PREFIX_TEL = "tel:";
 
@@ -71,5 +78,21 @@ public class LongClickCopySpan extends URLSpan {
       return url.substring(PREFIX_TEL.length());
     }
     return url;
+  }
+
+  @Override public void onClick(View widget) {
+    Uri uri = Uri.parse(getURL());
+    if ("monero".equals(uri.getScheme())) {
+      Context context = widget.getContext();
+      Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+      intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+      try {
+        context.startActivity(intent);
+      } catch (ActivityNotFoundException e) {
+        Log.w(TAG, "Activity was not found for Monero URI");
+      }
+    } else {
+      super.onClick(widget);
+    }
   }
 }

@@ -16,6 +16,7 @@
  */
 package org.thoughtcrime.securesms.conversation;
 
+import static org.thoughtcrime.securesms.linkpreview.LinkPreviewUtil.MONERO_TX_PATTERN;
 import static org.thoughtcrime.securesms.util.ThemeUtil.isDarkTheme;
 
 import android.animation.ValueAnimator;
@@ -1237,6 +1238,10 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
   {
     int     linkPattern = Linkify.WEB_URLS | Linkify.EMAIL_ADDRESSES | Linkify.PHONE_NUMBERS;
     boolean hasLinks    = LinkifyCompat.addLinks(messageBody, shouldLinkifyAllLinks ? linkPattern : 0);
+
+    if (shouldLinkifyAllLinks) {
+      hasLinks |= LinkifyCompat.addLinks(messageBody, MONERO_TX_PATTERN, "monero");
+    }
 
     if (hasLinks) {
       Stream.of(messageBody.getSpans(0, messageBody.length(), URLSpan.class))
