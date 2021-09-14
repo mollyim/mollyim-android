@@ -208,6 +208,7 @@
   <string name="ConversationActivity_attachment_exceeds_size_limits">జోడింపు మీరు పంపే సందేశం రకం పరిమాణ పరిమితి మించిపోయింది.</string>
   <string name="ConversationActivity_unable_to_record_audio">ఆడియో రికార్డ్ చేయడం సాధ్యపడలేదు!</string>
   <string name="ConversationActivity_you_cant_send_messages_to_this_group">మీరు ఇకపై ఈ సమూహం సభ్యులు కానందున మీరు ఈ సమూహంకు సందేశాలను పంపలేరు.</string>
+  <string name="ConversationActivity_only_s_can_send_messages">కేవలం %1$s మాత్రమే సందేశాలను పంపగలరు.</string>
   <string name="ConversationActivity_admins">నిర్వాహకులు</string>
   <string name="ConversationActivity_message_an_admin">నిర్వాహకుడికి సందేశం పంపండి</string>
   <string name="ConversationActivity_cant_start_group_call">ప్రారంభించలేము సమూహం కాల్</string>
@@ -612,7 +613,7 @@
   </plurals>
   <!--ManageGroupActivity-->
   <string name="ManageGroupActivity_member_requests_and_invites">సభ్యుల అభ్యర్థనలు &amp; ఆహ్వానిస్తుంది</string>
-  <string name="ManageGroupActivity_add_members">సభ్యులు జోడించు</string>
+  <string name="ManageGroupActivity_add_members">సభ్యులను జోడించండి</string>
   <string name="ManageGroupActivity_edit_group_info">సమూహ వివరణను సవరించండి</string>
   <string name="ManageGroupActivity_who_can_add_new_members">కొత్త సభ్యులను ఎవరు చేర్చగలరు?</string>
   <string name="ManageGroupActivity_who_can_edit_this_groups_info">ఈ గుంపు వివరణను ఎవరు సవరించగలరు?</string>
@@ -752,22 +753,17 @@
   <!--InviteActivity-->
   <string name="InviteActivity_share">పంచుకోండి</string>
   <string name="InviteActivity_share_with_contacts">పరిచయాలతో భాగస్వామ్యం చేయండి</string>
-  <string name="InviteActivity_choose_how_to_share">ఎలా భాగస్వామ్యం చేయాలో ఎంచుకోండి</string>
+  <string name="InviteActivity_share_via">ద్వారా పంచుకోండి…</string>
   <string name="InviteActivity_cancel">రద్దు</string>
   <string name="InviteActivity_sending">పంపుతోంది …</string>
   <string name="InviteActivity_invitations_sent">ఆహ్వనం పంపబడింది!</string>
   <string name="InviteActivity_invite_to_signal">Molly కు  ఆహ్వానించండి</string>
-  <plurals name="InviteActivity_send_sms_to_friends">
-    <item quantity="one">1%d స్నేహితులకు SMS పంపండి</item>
-    <item quantity="other">%d స్నేహితులకు SMS పంపండి</item>
-  </plurals>
   <plurals name="InviteActivity_send_sms_invites">
     <item quantity="one">1%d SMS ఆహ్వానాలను పంపాలా?</item>
     <item quantity="other">%d SMS ఆహ్వానాలను పంపాలా?</item>
   </plurals>
   <string name="InviteActivity_lets_switch_to_signal">మనం Molly కు మారుదాం: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">మీరు పంచుకొనడానికి మీ దగ్గర వేరే యాప్స్ లేనట్టు కనబడుతుంది.</string>
-  <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">స్నేహితులారా , ఎన్క్రిప్ట్ చేయకుండా స్నేహితులని సంభాషించనివ్వొద్దు.</string>
   <!--LearnMoreTextView-->
   <string name="LearnMoreTextView_learn_more">ఇంకా నేర్చుకో</string>
   <!--LongMessageActivity-->
@@ -837,10 +833,10 @@
   <string name="NotificationBarManager_signal_call_in_progress">పురోగతి లో Signal కాల్</string>
   <string name="NotificationBarManager__establishing_signal_call">స్థాపించబడుతున్న Signal కాల్</string>
   <string name="NotificationBarManager__incoming_signal_call">క్రొత్తగా వచ్చిన Signal కాల్</string>
-  <string name="NotificationBarManager__deny_call">కాల్ నిరాకరించండి</string>
   <string name="NotificationBarManager__answer_call">కాల్ ఆన్సర్ చేయండి</string>
   <string name="NotificationBarManager__end_call">కాల్ ముగించండి</string>
   <string name="NotificationBarManager__cancel_call">కాల్ రద్దుచేయండి</string>
+  <string name="NotificationBarManager__join_call">కాల్‌లో చేరండి</string>
   <!--NotificationsMegaphone-->
   <string name="NotificationsMegaphone_turn_on_notifications">నోటిఫికేషన్‌లను ప్రారంభించండి?</string>
   <string name="NotificationsMegaphone_never_miss_a_message">మీ పరిచయాలు మరియు సమూహాల నుండి సందేశాన్ని ఎప్పటికీ కోల్పోకండి.</string>
@@ -1194,6 +1190,7 @@
   <string name="WebRtcCallActivity__calling">కాలింగ్…</string>
   <!--WebRtcCallView-->
   <string name="WebRtcCallView__signal_call">Signal కాల్ </string>
+  <string name="WebRtcCallView__signal_video_call">Signal వీడియో కాల్</string>
   <string name="WebRtcCallView__start_call">కాల్ ప్రారంభించు</string>
   <string name="WebRtcCallView__join_call">కాల్‌లో చేరండి</string>
   <string name="WebRtcCallView__call_is_full">కాల్ నిండింది</string>
@@ -1616,6 +1613,7 @@
   <string name="ConversationUpdateItem_return_to_call">కాల్‌కు తిరిగి వెళ్ళు</string>
   <string name="ConversationUpdateItem_call_is_full">కాల్ నిండింది</string>
   <string name="ConversationUpdateItem_invite_friends">స్నేహితులను ఆహ్వానించండి</string>
+  <string name="ConversationUpdateItem_update_contact">పరిచయాన్ని నవీకరించండి</string>
   <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">సాధారణంగా సమూహాలు లేవు. అభ్యర్థనలను జాగ్రత్తగా సమీక్షించండి.</string>
   <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">సాధారణంగా సమూహాలు లేవు. అభ్యర్థనలను జాగ్రత్తగా సమీక్షించండి.</string>
   <string name="ConversationUpdateItem_view">వీక్షణ</string>
@@ -1762,21 +1760,17 @@
   <!--recipients_panel-->
   <string name="recipients_panel__to"><small>పేరు లేదా సంఖ్యను రాయండి</small></string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[మీరు మీ ఎన్క్రిప్షన్ యొక్క భద్రతను ధృవీకరించాలనుకుంటే %s, వారి పరికరంలో ఉన్న సంఖ్యతో ఉన్న సంఖ్యను సరిపోల్చండి. ప్రత్యామ్నాయంగా, మీరు వారి ఫోన్లో కోడ్ను స్కాన్ చేయవచ్చు లేదా మీ కోడ్ను స్కాన్ చేయమని అడగవచ్చు. <a href="https://signal.org/redirect/safety-numbers">ఇంకా నేర్చుకో.</a>]]></string>
   <string name="verify_display_fragment__tap_to_scan">స్కాన్ నొక్కండి</string>
   <string name="verify_display_fragment__loading">లోడ్…</string>
-  <string name="verify_display_fragment__verified">ధృవీకరించబడింది</string>
+  <string name="verify_display_fragment__mark_as_verified">ధృవీకరించినట్లు గుర్తించండి</string>
   <!--verify_identity-->
   <string name="verify_identity__share_safety_number">భద్రతా సంఖ్యను పంచు</string>
+  <!--verity_scan_fragment-->
   <!--webrtc_answer_decline_button-->
   <string name="webrtc_answer_decline_button__swipe_up_to_answer">సమాధానం ఇవ్వడానికి స్వైప్ అప్ చేయండి</string>
   <string name="webrtc_answer_decline_button__swipe_down_to_reject">తిరస్కరించడానికి క్రిందికి స్వైప్ చేయండి</string>
   <!--message_details_header-->
   <string name="message_details_header__issues_need_your_attention">కొన్ని సమస్యలకు మీ శ్రద్ధ అవసరం.</string>
-  <string name="message_details_header__sent">పంపిన</string>
-  <string name="message_details_header__received">అందుకున్న</string>
-  <string name="message_details_header__disappears">అదృశ్యమవుతుంది</string>
-  <string name="message_details_header__via">ద్వారా</string>
   <!--message_details_recipient_header-->
   <string name="message_details_recipient_header__pending_send">పెండింగ్‌లో ఉంది</string>
   <string name="message_details_recipient_header__sent_to">పంపాను</string>
@@ -2452,8 +2446,8 @@
   <string name="GroupLinkBottomSheet_the_link_is_not_currently_active">లింక్ ప్రస్తుతం సక్రియంగా లేదు</string>
   <!--VoiceNotePlaybackPreparer-->
   <!--VoiceNoteMediaDescriptionCompatFactory-->
-  <string name="VoiceNoteMediaDescriptionCompatFactory__voice_message">వాయిస్ సందేశం · %1$s</string>
-  <string name="VoiceNoteMediaDescriptionCompatFactory__s_to_s">%1$sకు%2$s</string>
+  <string name="VoiceNoteMediaItemFactory__voice_message">వాయిస్ సందేశం · %1$s</string>
+  <string name="VoiceNoteMediaItemFactory__s_to_s">%1$sకు%2$s</string>
   <!--StorageUtil-->
   <string name="StorageUtil__s_s">%1$s/%2$s</string>
   <string name="BlockedUsersActivity__s_has_been_blocked">\"%1$s\" బ్లాక్ చేయబడింది.</string>
@@ -2610,6 +2604,20 @@
   <!--AppSettingsFragment-->
   <!--AccountSettingsFragment-->
   <string name="AccountSettingsFragment__account">ఖాతా</string>
+  <!--ChangeNumberFragment-->
+  <string name="ChangeNumberFragment__continue">కొనసాగించు</string>
+  <!--ChangeNumberEnterPhoneNumberFragment-->
+  <string name="ChangeNumberEnterPhoneNumberFragment__the_phone_number_you_entered_doesnt_match_your_accounts">మీరు నమోదు చేసిన ఫోన్ నంబర్ మీ ఖాతాతో సరిపోలలేదు.</string>
+  <!--ChangeNumberVerifyFragment-->
+  <!--ChangeNumberConfirmFragment-->
+  <string name="ChangeNumberConfirmFragment__edit_number">సంఖ్య మార్చు</string>
+  <!--ChangeNumberRegistrationLockFragment-->
+  <!--ChangeNumberPinDiffersFragment-->
+  <string name="ChangeNumberPinDiffersFragment__update_pin">పిన్‌ను నవీకరించండి</string>
+  <!--ChangeNumberLockActivity-->
+  <string name="ChangeNumberLockActivity__retry">మళ్ళీ ప్రయత్నించు</string>
+  <string name="ChangeNumberLockActivity__leave">వదిలి</string>
+  <string name="ChangeNumberLockActivity__submit_debug_log">డీబగ్ సంఘటన లేకరి సమర్పించండి</string>
   <!--ChatsSettingsFragment-->
   <string name="ChatsSettingsFragment__enter_key_sends">ఎంటర్ కీ పంపుతుంది </string>
   <!--SmsSettingsFragment-->
@@ -2737,16 +2745,35 @@
   <string name="AvatarPickerFragment__photo">ఛాయాచిత్రం</string>
   <string name="AvatarPickerFragment__text">వచనం</string>
   <string name="AvatarPickerFragment__save">భద్రపరుచు</string>
+  <string name="AvatarPickerFragment__select_an_avatar">అవతార్‌ను ఎంచుకోండి</string>
+  <string name="AvatarPickerFragment__clear_avatar">అవతార్ తీసివేయండి</string>
   <string name="AvatarPickerFragment__edit">సరిచేయు</string>
   <!--TextAvatarCreationFragment-->
   <string name="TextAvatarCreationFragment__preview">పూర్వప్రదర్శన</string>
-  <string name="TextAvatarCreationFragment__done">పూర్తి</string>
+  <string name="TextAvatarCreationFragment__done">పూర్తయింది</string>
   <string name="TextAvatarCreationFragment__text">వచనం</string>
   <string name="TextAvatarCreationFragment__color">రంగు </string>
   <!--VectorAvatarCreationFragment-->
+  <string name="VectorAvatarCreationFragment__select_a_color">ఒక రంగును ఎంచుకోండి</string>
   <!--ContactSelectionListItem-->
   <string name="ContactSelectionListItem__sms">ఎస్సెమ్మెస్</string>
   <string name="ContactSelectionListItem__dot_s">· %1$s</string>
   <!--DSLSettingsToolbar-->
+  <plurals name="MultiselectForwardFragment_messages_sent">
+    <item quantity="one">సందేశాలు పంపబడ్డాయి</item>
+    <item quantity="other">సందేశాలు పంపబడ్డాయి</item>
+  </plurals>
+  <plurals name="MultiselectForwardFragment_messages_failed_to_send">
+    <item quantity="one">సందేశము పంపబడలేదు</item>
+    <item quantity="other">సందేశాలు పంపబడలేదు</item>
+  </plurals>
+  <string name="MultiselectForwardFragment__limit_reached">పరిమితి చేరుకుంది</string>
+  <!--Media V2-->
+  <string name="ImageEditorHud__cancel">రద్దు</string>
+  <string name="ImageEditorHud__undo">దిద్దుబాటు</string>
+  <string name="MediaCountIndicatorButton__send">పంపు</string>
+  <string name="MediaReviewSelectedItem__tap_to_select">ఎంచుకోవడానికి నొక్కండి</string>
+  <string name="MediaReviewImagePageFragment__discard">తీసివేయు</string>
+  <string name="ImageEditorHud__delete">తొలగించండి</string>
   <!--EOF-->
 </resources>

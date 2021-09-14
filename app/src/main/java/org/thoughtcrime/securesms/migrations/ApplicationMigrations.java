@@ -3,6 +3,7 @@ package org.thoughtcrime.securesms.migrations;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -40,7 +41,8 @@ public class ApplicationMigrations {
 
   private static final int LEGACY_CANONICAL_VERSION = 455;
 
-  private static final class Version {
+  @VisibleForTesting
+  static final class Version {
     static final int SWOON_STICKERS                = 10;
     static final int STORAGE_SERVICE               = 11;
     //static final int STORAGE_KEY_ROTATE   = 12;
@@ -73,9 +75,13 @@ public class ApplicationMigrations {
     static final int ATTACHMENT_CLEANUP_2          = 40;
     static final int ANNOUNCEMENT_GROUP_CAPABILITY = 41;
     static final int STICKER_MY_DAILY_LIFE         = 42;
+    static final int SENDER_KEY_3                  = 43;
+    static final int CHANGE_NUMBER_SYNC            = 44;
+    static final int CHANGE_NUMBER_CAPABILITY      = 45;
+    static final int CHANGE_NUMBER_CAPABILITY_2    = 46;
   }
 
-  public static final int CURRENT_VERSION = 42;
+  public static final int CURRENT_VERSION = 46;
 
   /**
    * This *must* be called after the {@link JobManager} has been instantiated, but *before* the call
@@ -314,6 +320,22 @@ public class ApplicationMigrations {
 
     if (lastSeenVersion < Version.STICKER_MY_DAILY_LIFE) {
       jobs.put(Version.STICKER_MY_DAILY_LIFE, new StickerMyDailyLifeMigrationJob());
+    }
+
+    if (lastSeenVersion < Version.SENDER_KEY_3) {
+      jobs.put(Version.SENDER_KEY_3, new AttributesMigrationJob());
+    }
+
+    if (lastSeenVersion < Version.CHANGE_NUMBER_SYNC) {
+      jobs.put(Version.CHANGE_NUMBER_SYNC, new AccountRecordMigrationJob());
+    }
+
+    if (lastSeenVersion < Version.CHANGE_NUMBER_CAPABILITY) {
+      jobs.put(Version.CHANGE_NUMBER_CAPABILITY, new AttributesMigrationJob());
+    }
+
+    if (lastSeenVersion < Version.CHANGE_NUMBER_CAPABILITY_2) {
+      jobs.put(Version.CHANGE_NUMBER_CAPABILITY_2, new AttributesMigrationJob());
     }
 
     return jobs;

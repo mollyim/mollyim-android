@@ -15,6 +15,8 @@ import org.thoughtcrime.securesms.components.settings.configure
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.lock.v2.CreateKbsPinActivity
 import org.thoughtcrime.securesms.pin.RegistrationLockV2Dialog
+import org.thoughtcrime.securesms.recipients.Recipient
+import org.thoughtcrime.securesms.util.FeatureFlags
 
 class AccountSettingsFragment : DSLSettingsFragment(R.string.AccountSettingsFragment__account) {
 
@@ -85,6 +87,15 @@ class AccountSettingsFragment : DSLSettingsFragment(R.string.AccountSettingsFrag
       dividerPref()
 
       sectionHeaderPref(R.string.AccountSettingsFragment__account)
+
+      if (FeatureFlags.changeNumber() && Recipient.self().changeNumberCapability == Recipient.Capability.SUPPORTED) {
+        clickPref(
+          title = DSLSettingsText.from(R.string.AccountSettingsFragment__change_phone_number),
+          onClick = {
+            Navigation.findNavController(requireView()).navigate(R.id.action_accountSettingsFragment_to_changePhoneNumberFragment)
+          }
+        )
+      }
 
       clickPref(
         title = DSLSettingsText.from(R.string.preferences_chats__transfer_account),

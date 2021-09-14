@@ -7,7 +7,6 @@ import org.thoughtcrime.securesms.database.model.MediaMmsMessageRecord;
 import org.thoughtcrime.securesms.database.model.MessageRecord;
 import org.thoughtcrime.securesms.database.model.MmsMessageRecord;
 import org.thoughtcrime.securesms.recipients.Recipient;
-import org.thoughtcrime.securesms.util.FeatureFlags;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -64,7 +63,8 @@ final class MenuState {
 
   static MenuState getMenuState(@NonNull Recipient conversationRecipient,
                                 @NonNull Set<MultiselectPart> selectedParts,
-                                boolean shouldShowMessageRequest)
+                                boolean shouldShowMessageRequest,
+                                boolean isNonAdminInAnnouncementGroup)
   {
     
     Builder builder         = new Builder();
@@ -116,7 +116,7 @@ final class MenuState {
                                       !viewOnce        &&
                                       !remoteDelete    &&
                                       !hasPendingMedia &&
-                                      ((FeatureFlags.forwardMultipleMessages() && selectedParts.size() <= MAX_FORWARDABLE_COUNT) || selectedParts.size() == 1);
+                                      selectedParts.size() <= MAX_FORWARDABLE_COUNT;
 
     int uniqueRecords = selectedParts.stream()
                                      .map(MultiselectPart::getMessageRecord)
@@ -143,7 +143,7 @@ final class MenuState {
                                              ((MediaMmsMessageRecord)messageRecord).getSlideDeck().getStickerSlide() == null)
              .shouldShowForwardAction(shouldShowForwardAction)
              .shouldShowDetailsAction(!actionMessage)
-             .shouldShowReplyAction(canReplyToMessage(conversationRecipient, actionMessage, messageRecord, shouldShowMessageRequest));
+             .shouldShowReplyAction(canReplyToMessage(conversationRecipient, actionMessage, messageRecord, shouldShowMessageRequest, isNonAdminInAnnouncementGroup));
     }
 
     return builder.shouldShowCopyAction(!actionMessage && !remoteDelete && hasText)
@@ -158,8 +158,14 @@ final class MenuState {
                            .allMatch(collection -> multiselectParts.containsAll(collection.toSet()));
   }
 
-  static boolean canReplyToMessage(@NonNull Recipient conversationRecipient, boolean actionMessage, @NonNull MessageRecord messageRecord, boolean isDisplayingMessageRequest) {
+  static boolean canReplyToMessage(@NonNull Recipient conversationRecipient,
+                                   boolean actionMessage,
+                                   @NonNull MessageRecord messageRecord,
+                                   boolean isDisplayingMessageRequest,
+                                   boolean isNonAdminInAnnouncementGroup)
+  {
     return !actionMessage                                                              &&
+           !isNonAdminInAnnouncementGroup                                              &&
            !messageRecord.isRemoteDelete()                                             &&
            !messageRecord.isPending()                                                  &&
            !messageRecord.isFailed()                                                   &&
@@ -181,7 +187,8 @@ final class MenuState {
            messageRecord.isProfileChange() ||
            messageRecord.isGroupV1MigrationEvent() ||
            messageRecord.isChatSessionRefresh() ||
-           messageRecord.isInMemoryMessageRecord();
+           messageRecord.isInMemoryMessageRecord() ||
+           messageRecord.isChangeNumber();
   }
 
   private final static class Builder {

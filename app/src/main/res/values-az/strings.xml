@@ -84,13 +84,13 @@
   <string name="BlockedUsersActivity__unblock">Əngəldən çıxart</string>
   <!--BlockUnblockDialog-->
   <string name="BlockUnblockDialog_block_and_leave_s">%1$s qrupunu əngəlləyərək tərk edirsiniz?</string>
-  <string name="BlockUnblockDialog_block_s">%1$səngəllənsin?</string>
+  <string name="BlockUnblockDialog_block_s">%1$s əngəllənsin?</string>
   <string name="BlockUnblockDialog_you_will_no_longer_receive_messages_or_updates">Artıq bu qrupdan mesaj və ya yeniləmələr almayacaqsınız və üzvlər sizi bu qrupa yenidən əlavə edə bilməyəcək.</string>
   <string name="BlockUnblockDialog_group_members_wont_be_able_to_add_you">Qrup üzvləri, sizi yenidən bu qrupa əlavə edə bilməyəcək.</string>
   <string name="BlockUnblockDialog_group_members_will_be_able_to_add_you">Qrup üzvləri, sizi bu qrupa yenidən əlavə edə biləcək.</string>
   <string name="BlockUnblockDialog_you_will_be_able_to_call_and_message_each_other">Bir-birinizə mesaj göndərə, zəng edə biləcəksiniz, foto və adınız onlarla paylaşılacaq.</string>
   <string name="BlockUnblockDialog_blocked_people_wont_be_able_to_call_you_or_send_you_messages">Əngəllənmiş şəxslər sizə zəng edə və ya mesaj göndərə bilməyəcək.</string>
-  <string name="BlockUnblockDialog_unblock_s">%1$səngəldən çıxarılsın?</string>
+  <string name="BlockUnblockDialog_unblock_s">%1$s əngəldən çıxarılsın?</string>
   <string name="BlockUnblockDialog_block">Əngəllə</string>
   <string name="BlockUnblockDialog_block_and_leave">Əngəllə və tərk et</string>
   <string name="BlockUnblockDialog_report_spam_and_block">Spam bildir və əngəllə</string>
@@ -253,7 +253,7 @@
   </plurals>
   <!--ConversationFragment-->
   <plurals name="ConversationFragment_delete_selected_messages">
-    <item quantity="one">Seçilmiş mesajı silirsən?</item>
+    <item quantity="one">Seçilmiş mesaj silinsin?</item>
     <item quantity="other">Seçilmiş mesajlar silinsin?</item>
   </plurals>
   <string name="ConversationFragment_save_to_sd_card">Anbarda saxlanılsın?</string>
@@ -693,7 +693,7 @@
   <string name="ShareableGroupLinkDialogFragment__reset_link">Bağlantını sıfırla</string>
   <string name="ShareableGroupLinkDialogFragment__member_requests">Üzv tələbləri</string>
   <string name="ShareableGroupLinkDialogFragment__approve_new_members">Yeni üzvləri təsdiqlə</string>
-  <string name="ShareableGroupLinkDialogFragment__require_an_admin_to_approve_new_members_joining_via_the_group_link">Qrup bağlantısı vasitəsilə qoşulan yeni üzvləri təsdiqləmək üçün bir admin tələb et.</string>
+  <string name="ShareableGroupLinkDialogFragment__require_an_admin_to_approve_new_members_joining_via_the_group_link">Qrup bağlantısı vasitəsilə qoşulan yeni üzvlərin admin tərəfindən təsdiqlənməsi tələb olunsun.</string>
   <string name="ShareableGroupLinkDialogFragment__are_you_sure_you_want_to_reset_the_group_link">Qrup bağlantısını sıfırlamaq istədiyinizə əminsiniz? İnsanlar, artıq hazırkı bağlantını istifadə edərək qrupa qoşula bilməyəcək.</string>
   <!--GroupLinkShareQrDialogFragment-->
   <string name="GroupLinkShareQrDialogFragment__qr_code">QR Kodu</string>
@@ -749,22 +749,18 @@
   <!--InviteActivity-->
   <string name="InviteActivity_share">Paylaş</string>
   <string name="InviteActivity_share_with_contacts">Əlaqələrlə paylaş</string>
-  <string name="InviteActivity_choose_how_to_share">Necə paylaşacağınızı seçin</string>
+  <string name="InviteActivity_share_via">Paylaş…</string>
   <string name="InviteActivity_cancel">İmtina</string>
   <string name="InviteActivity_sending">Göndərilir…</string>
   <string name="InviteActivity_invitations_sent">Dəvətlər göndərildi!</string>
   <string name="InviteActivity_invite_to_signal">Molly-a dəvət et</string>
-  <plurals name="InviteActivity_send_sms_to_friends">
-    <item quantity="one">%d DOSTUNA SMS GÖNDƏR</item>
-    <item quantity="other">%d DOSTUNA SMS GÖNDƏR</item>
-  </plurals>
+  <string name="InviteActivity_send_sms">SMS göndər (%d)</string>
   <plurals name="InviteActivity_send_sms_invites">
     <item quantity="one">%d SMS dəvətnaməsi göndərirsən?</item>
     <item quantity="other">%d SMS dəvəti göndərilsin?</item>
   </plurals>
   <string name="InviteActivity_lets_switch_to_signal">Gəlin Molly-a keçək: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Bunu paylaşmaq üçün heç bir tətbiqiniz yoxdur kimi görünür.</string>
-  <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Dostlar, dostlarının şifrəsiz söhbət etməsinə icazə vermir.</string>
   <!--LearnMoreTextView-->
   <string name="LearnMoreTextView_learn_more">Daha ətraflı</string>
   <!--LongMessageActivity-->
@@ -814,10 +810,10 @@
   <string name="MediaOverviewActivity_video">Video</string>
   <string name="MediaOverviewActivity_image">Təsvir</string>
   <string name="MediaOverviewActivity_voice_message">Səsyazmalı mesaj</string>
-  <string name="MediaOverviewActivity_sent_by_s">%1$s tərəfindən göndərilən</string>
-  <string name="MediaOverviewActivity_sent_by_you">Göndərdikləriniz</string>
+  <string name="MediaOverviewActivity_sent_by_s">%1$s göndərdi</string>
+  <string name="MediaOverviewActivity_sent_by_you">Siz göndərdiniz</string>
   <string name="MediaOverviewActivity_sent_by_s_to_s">%1$s, %2$s əlaqəsinə göndərdi</string>
-  <string name="MediaOverviewActivity_sent_by_you_to_s">%1$s əlaqəsinə göndərdikləriniz</string>
+  <string name="MediaOverviewActivity_sent_by_you_to_s">%1$s əlaqəsinə göndərdiniz</string>
   <!--Megaphones-->
   <string name="Megaphones_introducing_reactions">Budur, Reaksiyalar</string>
   <string name="Megaphones_tap_and_hold_any_message_to_quicky_share_how_you_feel">Necə hiss etdiyinizi cəld paylaşmaq üçün bir mesaja basıb saxlayın.</string>
@@ -835,11 +831,13 @@
   <string name="NotificationBarManager_signal_call_in_progress">Signal zəngi davam edir</string>
   <string name="NotificationBarManager__establishing_signal_call">Signal zəngi edilir</string>
   <string name="NotificationBarManager__incoming_signal_call">Gələn Signal zəngi</string>
+  <string name="NotificationBarManager__incoming_signal_group_call">Gələn Signal görüntülü zəngi</string>
   <string name="NotificationBarManager__stopping_signal_call_service">Signal zəng xidməti dayandırılır</string>
-  <string name="NotificationBarManager__deny_call">Zəngi rədd et</string>
+  <string name="NotificationBarManager__decline_call">Zəngi rədd et</string>
   <string name="NotificationBarManager__answer_call">Zəngi cavabla</string>
   <string name="NotificationBarManager__end_call">Zəngi bitir</string>
   <string name="NotificationBarManager__cancel_call">Zəngi ləğv et</string>
+  <string name="NotificationBarManager__join_call">Zəngə qoşul</string>
   <!--NotificationsMegaphone-->
   <string name="NotificationsMegaphone_turn_on_notifications">Bildirişlər açılsın?</string>
   <string name="NotificationsMegaphone_never_miss_a_message">Əlaqələrinizdən və qruplarınızdan gələn heç bir mesajı qaçırmayın.</string>
@@ -1037,11 +1035,12 @@
   <string name="MessageRecord_s_canceled_their_request_to_join_the_group">%1$s qrupa qoşulma tələbini ləğv etdi.</string>
   <!--End of GV2 specific update messages-->
   <string name="MessageRecord_your_safety_number_with_s_has_changed">%s ilə olan güvənlik nömrəniz dəyişdirildi.</string>
-  <string name="MessageRecord_you_marked_your_safety_number_with_s_verified">%s ilə güvənlik nömrənizi təsdiqləndi olaraq işalədiniz</string>
+  <string name="MessageRecord_you_marked_your_safety_number_with_s_verified">%s ilə güvənlik nömrənizi təsdiqləndi olaraq işarələdiniz</string>
   <string name="MessageRecord_you_marked_your_safety_number_with_s_verified_from_another_device">%s ilə güvənlik nömrənizi başqa cihazda təsdiqləndi olaraq işarələdiniz</string>
   <string name="MessageRecord_you_marked_your_safety_number_with_s_unverified">%s ilə güvənlik nömrənizi təsdiqlənmədi olaraq işarələdiniz</string>
   <string name="MessageRecord_you_marked_your_safety_number_with_s_unverified_from_another_device">%s ilə güvənlik nömrənizi başqa cihazda təsdiqlənmədi olaraq işarələdiniz</string>
   <string name="MessageRecord_a_message_from_s_couldnt_be_delivered">%s tərəfindən göndərilən bir mesaj çatdırıla bilmədi</string>
+  <string name="MessageRecord_s_changed_their_number_to_a_new_number">%1$s nömrəsini yenisi ilə dəyişdirdi.</string>
   <!--Group Calling update messages-->
   <string name="MessageRecord_s_started_a_group_call_s">%1$s bir qrup zəngi başlatdı · %2$s</string>
   <string name="MessageRecord_s_is_in_the_group_call_s">%1$s qrup zəngindədir · %2$s</string>
@@ -1200,6 +1199,7 @@
   <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Molly-ın, %1$s əlaqəsinə zəng etmək üçün kameranıza müraciətinə ehtiyacı var</string>
   <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
   <string name="WebRtcCallActivity__calling">Zəng edilir…</string>
+  <string name="WebRtcCallActivity__group_is_too_large_to_ring_the_participants">Qrup, iştirakçılara zəng etmək üçün çox böyükdür.</string>
   <!--WebRtcCallView-->
   <string name="WebRtcCallView__signal_call">Signal zəngi</string>
   <string name="WebRtcCallView__signal_video_call">Signal görüntülü zəngi</string>
@@ -1212,8 +1212,34 @@
   <string name="WebRtcCallView__reconnecting">Yenidən bağlantı qurulur…</string>
   <string name="WebRtcCallView__joining">Qoşulur…</string>
   <string name="WebRtcCallView__disconnected">Bağlantı kəsildi</string>
+  <string name="WebRtcCallView__signal_will_ring_s">Signal, %1$s üçün zəng edəcək</string>
+  <string name="WebRtcCallView__signal_will_ring_s_and_s">Signal, %1$s və %2$s əlaqələrinə zəng edəcək</string>
+  <plurals name="WebRtcCallView__signal_will_ring_s_s_and_d_others">
+    <item quantity="one">Signal, %1$s, %2$s və digər %3$d nəfərə zəng edəcək</item>
+    <item quantity="other">Signal, %1$s, %2$s və digər %3$d nəfərə zəng edəcək</item>
+  </plurals>
+  <string name="WebRtcCallView__s_will_be_notified">%1$s bildiriş alacaq</string>
+  <string name="WebRtcCallView__s_and_s_will_be_notified">%1$s və %2$s bildiriş alacaq</string>
+  <plurals name="WebRtcCallView__s_s_and_d_others_will_be_notified">
+    <item quantity="one">%1$s, %2$s və digər %3$d nəfər bildiriş alacaq</item>
+    <item quantity="other">%1$s, %2$s və digər %3$d nəfər bildiriş alacaq</item>
+  </plurals>
+  <string name="WebRtcCallView__ringing_s">%1$s üçün zəng edilir</string>
+  <string name="WebRtcCallView__ringing_s_and_s">%1$s və %2$s əlaqələrinə zəng edilir</string>
+  <plurals name="WebRtcCallView__ringing_s_s_and_d_others">
+    <item quantity="one">%1$s, %2$s və digər %3$d nəfərə zəng edilir</item>
+    <item quantity="other">%1$s, %2$s və digər %3$d nəfərə zəng edilir</item>
+  </plurals>
+  <string name="WebRtcCallView__s_is_calling_you">%1$s sizə zəng edir</string>
+  <string name="WebRtcCallView__s_is_calling_you_and_s">%1$s, sizə və %2$s əlaqəsinə zəng edir</string>
+  <string name="WebRtcCallView__s_is_calling_you_s_and_s">%1$s, sizə, %2$s və %3$s əlaqələrinə zəng edir</string>
+  <plurals name="WebRtcCallView__s_is_calling_you_s_s_and_d_others">
+    <item quantity="one">%1$s, sizə, %2$s, %3$s və digər %4$d nəfərə zəng edir</item>
+    <item quantity="other">%1$s, sizə, %2$s, %3$s və digər %4$d nəfərə zəng edir</item>
+  </plurals>
   <string name="WebRtcCallView__no_one_else_is_here">Burada heç kim yoxdur</string>
   <string name="WebRtcCallView__s_is_in_this_call">%1$s bu zəngdədir</string>
+  <string name="WebRtcCallView__s_are_in_this_call">%1$s bu zəngdədir</string>
   <string name="WebRtcCallView__s_and_s_are_in_this_call">%1$s və %2$s bu zəngdədir</string>
   <string name="WebRtcCallView__s_is_presenting">%1$s təqdim edir</string>
   <plurals name="WebRtcCallView__s_s_and_d_others_are_in_this_call">
@@ -1224,6 +1250,7 @@
   <string name="WebRtcCallView__speaker">Dinamik</string>
   <string name="WebRtcCallView__camera">Kamera</string>
   <string name="WebRtcCallView__mute">Səssizə al</string>
+  <string name="WebRtcCallView__ring">Zəng</string>
   <string name="WebRtcCallView__end_call">Zəngi bitir</string>
   <!--CallParticipantsListDialog-->
   <plurals name="CallParticipantsListDialog_in_this_call_d_people">
@@ -1274,6 +1301,7 @@
   <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Dostlarınızla əlaqə qurmaq, mesajlaşmaq və onlara güvənli zənglər edə bilmək üçün Molly-ın, əlaqələrinizə müraciətinə ehtiyacı var.</string>
   <string name="RegistrationActivity_rate_limited_to_service">Bu nömrəni qeydiyyatdan keçirmək üçün həddindən çox cəhd etdiniz. Zəhmət olmasa daha sonra yenidən sınayın.</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">Xidmətlə bağlantı qurula bilmir. Zəhmət olmasa şəbəkə bağlantınızı yoxlayıb yenidən sınayın.</string>
+  <string name="RegistrationActivity_call_requested">Zəng tələb olundu</string>
   <plurals name="RegistrationActivity_debug_log_hint">
     <item quantity="one">Xətanın aradan qaldırılması üçün sorğunu daxil etmək üçün %d cəmi addım qaldı.</item>
     <item quantity="other">Bir sazlama jurnalını göndərməyinizə %d addım qaldı.</item>
@@ -1640,6 +1668,7 @@
   <string name="ConversationUpdateItem_call_is_full">Zəng dolub</string>
   <string name="ConversationUpdateItem_invite_friends">Dostlarını dəvət et</string>
   <string name="ConversationUpdateItem_enable_call_notifications">Zəng bildirişlərini fəallaşdır</string>
+  <string name="ConversationUpdateItem_update_contact">Əlaqəni yenilə</string>
   <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">Heç bir ortaq qrup yoxdur. Tələbləri diqqətlə nəzərdən keçirin.</string>
   <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">Bu qrupda heç bir əlaqə yoxdur. Tələbləri diqqətlə nəzərdən keçirin.</string>
   <string name="ConversationUpdateItem_view">Bax</string>
@@ -1801,21 +1830,26 @@
   <!--recipients_panel-->
   <string name="recipients_panel__to"><small>Ad və ya nömrə daxil edin</small></string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[ %s  ilə şifrələmə güvənliyini təsdiqləmək istəyirsinizsə, yuxarıdakı nömrələri qarşı tərəfin cihazındakı nömrələrlə müqayisə edin. Alternativ olaraq, onun telefonundakı kodu skan edə və ya ondan telefonunuzdakı kodu skan etməsini xahiş edə bilərsiniz. <a href="https://signal.org/redirect/safety-numbers">Daha ətraflı.</a>]]></string>
+  <string name="verify_display_fragment__to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[%s ilə olan bir ucdan digərinə qədər şifrələmənin güvənliyini təsdiqləmək üçün yuxarıdakı nömrələri onun cihazındakı nömrələrlə müqayisə edin. Həmçinin onun telefonundakı kodu skan edə bilərsiniz. <a href="https://signal.org/redirect/safety-numbers">Daha ətraflı.</a>]]></string>
   <string name="verify_display_fragment__tap_to_scan">Skan etmək üçün toxunun</string>
+  <string name="verify_display_fragment__successful_match">Uğurlu</string>
+  <string name="verify_display_fragment__failed_to_verify_safety_number">Güvənlik nömrəsi təsdiqlənmədi</string>
   <string name="verify_display_fragment__loading">Yüklənir…</string>
-  <string name="verify_display_fragment__verified">Təsdiqləndi</string>
+  <string name="verify_display_fragment__mark_as_verified">Təsdiqləndi olaraq işarələ</string>
+  <string name="verify_display_fragment__clear_verification">Təsdiqləməni təmizlə</string>
   <!--verify_identity-->
   <string name="verify_identity__share_safety_number">Təhlükəsizlik nömrəsini paylaş</string>
+  <!--verity_scan_fragment-->
+  <string name="verify_scan_fragment__scan_the_qr_code_on_your_contact">Əlaqənizin cihazındakı QR kodu skan edin.</string>
   <!--webrtc_answer_decline_button-->
   <string name="webrtc_answer_decline_button__swipe_up_to_answer">Cavablamaq üçün yuxarı sürüşdürün</string>
   <string name="webrtc_answer_decline_button__swipe_down_to_reject">Rədd etmək üçün aşağı sürüşdürün</string>
   <!--message_details_header-->
   <string name="message_details_header__issues_need_your_attention">Bəzi problemlər diqqətinizi tələb edir.</string>
-  <string name="message_details_header__sent">Göndərildi</string>
-  <string name="message_details_header__received">Alındı</string>
-  <string name="message_details_header__disappears">Yox olacaq</string>
-  <string name="message_details_header__via">Vasitəsilə</string>
+  <string name="message_details_header__sent">Göndərildi:</string>
+  <string name="message_details_header__received">Alındı:</string>
+  <string name="message_details_header__disappears">Yox olacaq:</string>
+  <string name="message_details_header__via">Vasitəsilə:</string>
   <!--message_details_recipient_header-->
   <string name="message_details_recipient_header__pending_send">Gözləyir</string>
   <string name="message_details_recipient_header__sent_to">Göndərildi</string>
@@ -2103,7 +2137,7 @@
   <string name="PaymentsHomeFragment__sent_s">%1$s göndərildi</string>
   <string name="PaymentsHomeFragment__received_s">%1$s alındı</string>
   <string name="PaymentsHomeFragment__transfer_to_exchange">Mübadilə üçün köçürmə</string>
-  <string name="PaymentsHomeFragment__currency_conversion">Pul vahidi konversiyası</string>
+  <string name="PaymentsHomeFragment__currency_conversion">Pul vahidi çevirmə</string>
   <string name="PaymentsHomeFragment__deactivate_payments">Ödənişləri deaktiv et</string>
   <string name="PaymentsHomeFragment__recovery_phrase">Bərpa parolu</string>
   <string name="PaymentsHomeFragment__help">Kömək et</string>
@@ -2112,8 +2146,8 @@
   <string name="PaymentsHomeFragment__received_payment">Ödəniş alındı</string>
   <string name="PaymentsHomeFragment__processing_payment">Ödəniş emal olunur</string>
   <string name="PaymentsHomeFragment__unknown_amount">---</string>
-  <string name="PaymentsHomeFragment__currency_conversion_not_available">Pul vahidinin konversiyası əlçatmazdır</string>
-  <string name="PaymentsHomeFragment__cant_display_currency_conversion">Pul vahidinin konversiyası görüntülənə bilmir. Telefonunuzun bağlantısını yoxlayıb yenidən sınayın.</string>
+  <string name="PaymentsHomeFragment__currency_conversion_not_available">Pul vahidinin çevrilməsi əlçatmazdır</string>
+  <string name="PaymentsHomeFragment__cant_display_currency_conversion">Pul vahidinin çevrilməsi görüntülənə bilmir. Telefonunuzun bağlantısını yoxlayıb yenidən sınayın.</string>
   <string name="PaymentsHomeFragment__payments_is_not_available_in_your_region">Ödənişlər bölgənizdə əlçatmazdır.</string>
   <string name="PaymentsHomeFragment__could_not_enable_payments">Ödənişlər fəallaşdırıla bilmir. Daha sonra yenidən sınayın.</string>
   <string name="PaymentsHomeFragment__deactivate_payments_question">Ödənişlər deaktiv edilsin?</string>
@@ -2126,7 +2160,7 @@
   <string name="PaymentsHomeFragment__details">Təfsilatlar</string>
   <string name="PaymentsHomeFragment__you_can_use_signal_to_send">MobileCoin göndərmək və almaq üçün Molly-ı istifadə edə bilərsiniz. Bütün ödənişlər, MobileCoins və MobileCoin Wallet üçün İstifadə Şərtlərinə tabedir. Bu bir beta özəllikdir, buna görə də bəzi problemlər yaşaya bilərsiniz və itirə biləcəyiniz ödənişlər və ya balanslar bərpa edilə bilmir.</string>
   <string name="PaymentsHomeFragment__activate">Aktivləşdir</string>
-  <string name="PaymentsHomeFragment__view_mobile_coin_terms">MobileCoin  şərtlərinə bax</string>
+  <string name="PaymentsHomeFragment__view_mobile_coin_terms">MobileCoin şərtlərinə bax</string>
   <string name="PaymentsHomeFragment__payments_not_available">Ödənişlər, Molly-da artıq əlçatmazdır. Yenə də bir birjaya pul köçürə bilərsiniz, ancaq ödəniş göndərə və ala və ya pul əlavə edə bilməzsiniz.</string>
   <!--PaymentsAddMoneyFragment-->
   <string name="PaymentsAddMoneyFragment__add_funds">Pul əlavə et</string>
@@ -2191,7 +2225,7 @@
   <string name="CreatePaymentFragment__lt">&lt;</string>
   <string name="CreatePaymentFragment__backspace">Backspace</string>
   <string name="CreatePaymentFragment__add_note">Qeyd əlavə et</string>
-  <string name="CreatePaymentFragment__conversions_are_just_estimates">Konversiya sadəcə təxminidir və dəqiq olmaya bilər.</string>
+  <string name="CreatePaymentFragment__conversions_are_just_estimates">Çevrilmə sadəcə təxminidir və dəqiq olmaya bilər.</string>
   <!--EditNoteFragment-->
   <string name="EditNoteFragment_note">Qeyd</string>
   <!--ConfirmPaymentFragment-->
@@ -2493,6 +2527,7 @@
   <string name="RegistrationActivity_call_me_instead_available_in">Əvəzində mənə zəng edin \n (%1$02d:%2$02d ərzində əlçatan olacaq)</string>
   <string name="RegistrationActivity_contact_signal_support">Signal Dəstək komandası ilə əlaqə</string>
   <string name="RegistrationActivity_code_support_subject">Signal Qeydiyyatı - Android üçün Təsdiqləmə Kodu</string>
+  <string name="RegistrationActivity_incorrect_code">Yanlış kod</string>
   <string name="BackupUtil_never">Heç vaxt</string>
   <string name="BackupUtil_unknown">Bilinmir</string>
   <string name="preferences_app_protection__see_my_phone_number">Telefon nömrəmə baxa bilər</string>
@@ -2689,8 +2724,8 @@
   <!--VoiceNotePlaybackPreparer-->
   <string name="VoiceNotePlaybackPreparer__failed_to_play_voice_message">Səsli mesaj oxudulmadı</string>
   <!--VoiceNoteMediaDescriptionCompatFactory-->
-  <string name="VoiceNoteMediaDescriptionCompatFactory__voice_message">Səsli mesaj · %1$s</string>
-  <string name="VoiceNoteMediaDescriptionCompatFactory__s_to_s">%1$s, %2$s</string>
+  <string name="VoiceNoteMediaItemFactory__voice_message">Səsli mesaj · %1$s</string>
+  <string name="VoiceNoteMediaItemFactory__s_to_s">%1$s -  %2$s</string>
   <!--StorageUtil-->
   <string name="StorageUtil__s_s">%1$s/%2$s</string>
   <string name="BlockedUsersActivity__s_has_been_blocked">\"%1$s\" əngəlləndi.</string>
@@ -2907,6 +2942,47 @@
   <string name="AccountSettingsFragment__account">Hesab</string>
   <string name="AccountSettingsFragment__youll_be_asked_less_frequently">Vaxt keçdikcə daha az soruşulacaq</string>
   <string name="AccountSettingsFragment__require_your_signal_pin">Telefon nömrənizi Signal-da qeydiyyata salmaq üçün Signal PIN-inizi tələb edin</string>
+  <string name="AccountSettingsFragment__change_phone_number">Telefon nömrəsini dəyişdir</string>
+  <!--ChangeNumberFragment-->
+  <string name="ChangeNumberFragment__use_this_to_change_your_current_phone_number_to_a_new_phone_number">Mövcud telefon nömrəsini yenisi ilə dəyişdirmək üçün bunu istifadə edin. Bu dəyişikliyi geri ala bilməzsiniz.\n\nDavam etməzdən əvvəl, yeni nömrə ilə SMS və ya zəng ala bildiyinizə əmin olun.</string>
+  <string name="ChangeNumberFragment__continue">Davam et</string>
+  <string name="ChangeNumber__your_phone_number_has_been_changed">Telefon nömrəniz dəyişdirildi.</string>
+  <!--ChangeNumberEnterPhoneNumberFragment-->
+  <string name="ChangeNumberEnterPhoneNumberFragment__change_number">Nömrəni dəyişdir</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__your_old_number">Köhnə nömrəniz</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__old_phone_number">Köhnə nömrə</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__your_new_number">Yeni nömrəniz</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__new_phone_number">Yeni nömrə</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__the_phone_number_you_entered_doesnt_match_your_accounts">Daxil etdiyiniz telefon nömrəsi hesabınızla uyğunlaşmır.</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__you_must_specify_your_old_number_country_code">Köhnə nömrənizin ölkə kodunu daxil etməlisiniz</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__you_must_specify_your_old_phone_number">Köhnə nömrənizi qeyd etməlisiniz</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__you_must_specify_your_new_number_country_code">Yeni nömrənizin ölkə kodunu daxil etməlisiniz</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__you_must_specify_your_new_phone_number">Yeni nömrənizi daxil etməlisiniz</string>
+  <!--ChangeNumberVerifyFragment-->
+  <string name="ChangeNumberVerifyFragment__change_number">Nömrəni dəyişdir</string>
+  <string name="ChangeNumberVerifyFragment__verifying_s">%1$s təsdiqlənir</string>
+  <string name="ChangeNumberVerifyFragment__captcha_required">Captcha tələb olunur</string>
+  <!--ChangeNumberConfirmFragment-->
+  <string name="ChangeNumberConfirmFragment__change_number">Nömrəni dəyişdir</string>
+  <string name="ChangeNumberConfirmFragment__you_are_about_to_change_your_phone_number_from_s_to_s">%1$s olan nömrənizi %2$s ilə dəyişdirirsiniz.\n\nDavam etməzdən əvvəl, zəhmət olmasa aşağıdakı nömrənin doğru olduğunu təsdiqləyin.</string>
+  <string name="ChangeNumberConfirmFragment__edit_number">Nömrəyə düzəliş et</string>
+  <!--ChangeNumberRegistrationLockFragment-->
+  <string name="ChangeNumberRegistrationLockFragment__signal_change_number_need_help_with_pin_for_android_v2_pin">Signal nömrə dəyişdirmə - Android (v2 PIN) üçün PIN ilə bağlı kömək lazımdır</string>
+  <!--ChangeNumberPinDiffersFragment-->
+  <string name="ChangeNumberPinDiffersFragment__pins_do_not_match">PIN uyğun gəlmir</string>
+  <string name="ChangeNumberPinDiffersFragment__the_pin_associated_with_your_new_number_is_different_from_the_pin_associated_with_your_old_one">Yeni nömrənizə bağlı PIN, köhnə nömrənizə bağlı PIN-dən fərqlidir. Köhnə PIN-i saxlamaq və ya yeniləmək istəyirsiniz?</string>
+  <string name="ChangeNumberPinDiffersFragment__keep_old_pin">Köhnə PIN-i saxla</string>
+  <string name="ChangeNumberPinDiffersFragment__update_pin">PIN-i yenilə</string>
+  <string name="ChangeNumberPinDiffersFragment__keep_old_pin_question">Köhnə PIN saxlanılsın?</string>
+  <!--ChangeNumberLockActivity-->
+  <string name="ChangeNumberLockActivity__it_looks_like_you_tried_to_change_your_number_but_we_were_unable_to_determine_if_it_was_successful_rechecking_now">Nömrənizi dəyişdirməyə çalışırsınız kimi görünür, ancaq uğurlu olub-olmadığını müəyyənləşdirə bilmədik.\n\nİndi yenidən yoxlanılır…</string>
+  <string name="ChangeNumberLockActivity__change_status_confirmed">Dəyişiklik statusu təsdiqləndi</string>
+  <string name="ChangeNumberLockActivity__your_number_has_been_confirmed_as_s">Nömrəniz %1$s olaraq təsdiqləndi. Əgər bu yeni nömrəniz deyilsə, zəhmət olmasa nömrə dəyişdirmə prosesini yenidən başladın.</string>
+  <string name="ChangeNumberLockActivity__change_status_unconfirmed">Dəyişiklik statusu təsdiqlənmədi</string>
+  <string name="ChangeNumberLockActivity__we_could_not_determine_the_status_of_your_change_number_request">Nömrə dəyişdirmə tələbinizin statusunu müəyyənləşdirə bilmədik.\n\n(Xəta: %1$s)</string>
+  <string name="ChangeNumberLockActivity__retry">Yenidən sına</string>
+  <string name="ChangeNumberLockActivity__leave">Tərk et</string>
+  <string name="ChangeNumberLockActivity__submit_debug_log">Sazlama jurnalını göndər</string>
   <!--ChatsSettingsFragment-->
   <string name="ChatsSettingsFragment__keyboard">Klaviatura</string>
   <string name="ChatsSettingsFragment__enter_key_sends">Enter düyməsi göndərsin</string>
@@ -3133,5 +3209,28 @@
     <item quantity="other">Artıq mövcud olmadığı üçün mesajlar yönləndirilə bilmədi.</item>
   </plurals>
   <string name="MultiselectForwardFragment__limit_reached">Limitə çatıldı</string>
+  <!--Media V2-->
+  <string name="MediaReviewFragment__add_a_message">Bir mesaj əlavə et</string>
+  <string name="MediaReviewFragment__add_a_reply">Bir cavab əlavə et</string>
+  <string name="MediaReviewFragment__send_to">Göndər</string>
+  <string name="ImageEditorHud__cancel">İmtina</string>
+  <string name="ImageEditorHud__draw">Çək</string>
+  <string name="ImageEditorHud__write_text">Mətn yaz</string>
+  <string name="ImageEditorHud__add_a_sticker">Stiker əlavə et</string>
+  <string name="ImageEditorHud__blur">Bulanıqlıq</string>
+  <string name="ImageEditorHud__done_editing">Düzəlişi bitir</string>
+  <string name="ImageEditorHud__clear_all">Hamısını təmizlə</string>
+  <string name="ImageEditorHud__undo">Geri al</string>
+  <string name="ImageEditorHud__toggle_between_marker_and_highlighter">İşarələyici və vurğulayıcı arasında keçid</string>
+  <string name="MediaCountIndicatorButton__send">Göndər</string>
+  <string name="MediaReviewSelectedItem__tap_to_remove">Çıxartmaq üçün toxunun</string>
+  <string name="MediaReviewSelectedItem__tap_to_select">Seçmək üçün toxunun</string>
+  <string name="MediaReviewImagePageFragment__discard">Ləğv et</string>
+  <string name="MediaReviewImagePageFragment__discard_changes">Dəyişikliklər ləğv edilsin?</string>
+  <string name="MediaReviewFragment__view_once_message">Bir dəfə baxıla bilən mesaj</string>
+  <string name="MediaReviewImagePageFragment__youll_lose_any_changes">Bu foto üzərində etdiyiniz bütün dəyişiklikləri itirəcəksiniz.</string>
+  <string name="ImageEditorHud__delete">Sil</string>
+  <string name="CameraFragment__failed_to_open_camera">Kamera açılmadı</string>
+  <string name="ImageEditorHud__toggle_between_text_styles">Mətn stilləri arasında keçid</string>
   <!--EOF-->
 </resources>

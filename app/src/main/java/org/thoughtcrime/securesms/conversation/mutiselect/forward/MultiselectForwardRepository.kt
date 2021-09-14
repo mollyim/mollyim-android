@@ -2,16 +2,20 @@ package org.thoughtcrime.securesms.conversation.mutiselect.forward
 
 import android.content.Context
 import androidx.core.util.Consumer
+import io.reactivex.rxjava3.core.Single
 import org.signal.core.util.concurrent.SignalExecutors
 import org.thoughtcrime.securesms.database.DatabaseFactory
-import org.thoughtcrime.securesms.database.IdentityDatabase
 import org.thoughtcrime.securesms.database.ThreadDatabase
 import org.thoughtcrime.securesms.database.identity.IdentityRecordList
+import org.thoughtcrime.securesms.database.model.IdentityRecord
+import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
 import org.thoughtcrime.securesms.recipients.Recipient
+import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.sharing.MultiShareArgs
 import org.thoughtcrime.securesms.sharing.MultiShareSender
 import org.thoughtcrime.securesms.sharing.ShareContact
 import org.thoughtcrime.securesms.sharing.ShareContactAndThread
+import org.whispersystems.libsignal.util.guava.Optional
 
 class MultiselectForwardRepository(context: Context) {
 
@@ -23,13 +27,28 @@ class MultiselectForwardRepository(context: Context) {
     val onAllMessagesFailed: () -> Unit
   )
 
-  fun checkForBadIdentityRecords(shareContacts: List<ShareContact>, consumer: Consumer<List<IdentityDatabase.IdentityRecord>>) {
+  fun checkForBadIdentityRecords(shareContacts: List<ShareContact>, consumer: Consumer<List<IdentityRecord>>) {
     SignalExecutors.BOUNDED.execute {
-      val identityDatabase: IdentityDatabase = DatabaseFactory.getIdentityDatabase(context)
       val recipients: List<Recipient> = shareContacts.map { Recipient.resolved(it.recipientId.get()) }
-      val identityRecordList: IdentityRecordList = identityDatabase.getIdentities(recipients)
+      val identityRecordList: IdentityRecordList = ApplicationDependencies.getIdentityStore().getIdentityRecords(recipients)
 
       consumer.accept(identityRecordList.untrustedRecords)
+    }
+  }
+
+  fun canSelectRecipient(recipientId: Optional<RecipientId>): Single<Boolean> {
+    if (!recipientId.isPresent) {
+      return Single.just(true)
+    }
+
+    return Single.fromCallable {
+      val recipient = Recipient.resolved(recipientId.get())
+      if (recipient.isPushV2Group) {
+        val record = DatabaseFactory.getGroupDatabase(context).getGroup(recipient.requireGroupId())
+        !(record.isPresent && record.get().isAnnouncementGroup && !record.get().isAdmin(Recipient.self()))
+      } else {
+        true
+      }
     }
   }
 

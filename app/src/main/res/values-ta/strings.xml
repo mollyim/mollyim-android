@@ -749,22 +749,16 @@
   <!--InviteActivity-->
   <string name="InviteActivity_share">பகிர்</string>
   <string name="InviteActivity_share_with_contacts">தொடர்புகளுடன் பகிரவும்</string>
-  <string name="InviteActivity_choose_how_to_share">பகிர்வது எப்படி என்பதைத் தேர்வுசெய்க</string>
   <string name="InviteActivity_cancel">ரத்து செய் </string>
   <string name="InviteActivity_sending">அனுப்புகிறது …</string>
   <string name="InviteActivity_invitations_sent">அழைப்புகள் அனுப்பட்டது!</string>
   <string name="InviteActivity_invite_to_signal">Mollyக்கு அழை</string>
-  <plurals name="InviteActivity_send_sms_to_friends">
-    <item quantity="one">%d நண்பருக்கு SMS அனுப்பவும்</item>
-    <item quantity="other">%d  நண்பர்களுக்கு SMS அனுப்பவும்</item>
-  </plurals>
   <plurals name="InviteActivity_send_sms_invites">
     <item quantity="one">%d  எஸ்எம்எஸ் அழைப்பை அனுப்பவா?</item>
     <item quantity="other">%d SMS அழைப்புகளை அனுப்பவா?</item>
   </plurals>
   <string name="InviteActivity_lets_switch_to_signal">%1$s: நாம் Mollyக்கு மாறுவோம்</string>
   <string name="InviteActivity_no_app_to_share_to">உங்களிடம் பகிர எந்த பயன்பாடுகளும் இல்லை என்று தெரிகிறது.</string>
-  <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">நண்பர்களே, மற்ற நண்பர்களை மறையாக்கப்படாத உரையாடல்கள் செய்யவிடாதீர்கள்.</string>
   <!--LearnMoreTextView-->
   <string name="LearnMoreTextView_learn_more">மேலும் அறிக</string>
   <!--LongMessageActivity-->
@@ -836,10 +830,10 @@
   <string name="NotificationBarManager__establishing_signal_call">Signal அழைப்பு நிறுவுப்படுகிறது</string>
   <string name="NotificationBarManager__incoming_signal_call">உள்வரும் Signal அழைப்பு</string>
   <string name="NotificationBarManager__stopping_signal_call_service">Signal அழைப்பு சேவையை நிறுத்துதல்</string>
-  <string name="NotificationBarManager__deny_call">அழைப்பை மறுதளி</string>
   <string name="NotificationBarManager__answer_call">அழைப்பை எடு</string>
   <string name="NotificationBarManager__end_call">அழைப்பைத் துண்டி</string>
   <string name="NotificationBarManager__cancel_call">அழைப்பு ரத்து</string>
+  <string name="NotificationBarManager__join_call">அழைப்பில் சேரவும்</string>
   <!--NotificationsMegaphone-->
   <string name="NotificationsMegaphone_turn_on_notifications">அறிவிப்புகளை இயக்கவா?</string>
   <string name="NotificationsMegaphone_never_miss_a_message">உங்கள் தொடர்புகள் மற்றும் குழுக்களிடமிருந்து எந்த ஒரு செய்தியை ஒருபோதும் தவறவிடாதீர்கள்.</string>
@@ -991,13 +985,12 @@
   <string name="MessageRecord_s_changed_who_can_edit_group_membership_to_s"> குழு உறுப்பினர்களை தங்களுக்கு யார் திருத்தலாம் என்பதை %1$s அவர்கள் \"%2$s\" அவர்களுக்கு மாற்றினர்.</string>
   <string name="MessageRecord_who_can_edit_group_membership_has_been_changed_to_s">குழு உறுப்பினர்களை யார் திருத்தலாம் என்பது \"%1$s\" கு மாற்றப்பட்டுள்ளது</string>
   <!--GV2 announcement group change-->
-  <string name="MessageRecord_you_allow_all_members_to_send">நீங்கள் மாற்றினீர்கள் குழு அமைப்புகள் க்கு அனுமதிஅனைத்து உறுப்பினர்கள்அனுப்பு செய்திகள்.</string>
-  <string name="MessageRecord_you_allow_only_admins_to_send">நீங்கள் மாற்றினீர்கள் குழு அமைப்புகள் மட்டும் அனுமதி நிர்வாகிகள் க்கு அனுப்பு செய்திகள்.</string>
-  <string name="MessageRecord_s_allow_all_members_to_send">%1$s மாற்றப்பட்டது குழு அமைப்புகள் க்கு அனுமதி அனைத்து உறுப்பினர்களுக்கும் அனுப்பு செய்திகள்.</string>
-  <string name="MessageRecord_s_allow_only_admins_to_send">%1$s மாற்றப்பட்டது குழு அமைப்புகள் மட்டும் அனுமதி நிர்வாகிகள் க்கு அனுப்பு செய்திகள்.</string>
-  <string name="MessageRecord_allow_all_members_to_send">தி குழு அமைப்புகள் என மாற்றப்பட்டது அனுமதி அனைத்து உறுப்பினர்கள் அனுப்பு செய்திகள்.
- </string>
-  <string name="MessageRecord_allow_only_admins_to_send">தி குழு அமைப்புகள் மட்டுமே மாற்றப்பட்டது அனுமதி நிர்வாகிகள் க்கு அனுப்பு செய்திகள்.</string>
+  <string name="MessageRecord_you_allow_all_members_to_send">நீங்கள் குழு அமைப்பை அனைத்து உறுப்பினர்களும் செய்திகள் அனுப்ப அனுமதிக்கும்படி மாற்றினீர்கள்.</string>
+  <string name="MessageRecord_you_allow_only_admins_to_send">நீங்கள் குழு அமைப்பை நிர்வாகிகள் மட்டும் செய்திகள் அனுப்ப அனுமதிக்கும்படி மாற்றினீர்கள்.</string>
+  <string name="MessageRecord_s_allow_all_members_to_send">%1$s குழு அமைப்பை அனைத்து உறுப்பினர்களும் செய்திகள் அனுப்ப அனுமதிக்கும்படி மாற்றினார்கள்.</string>
+  <string name="MessageRecord_s_allow_only_admins_to_send">%1$s குழு அமைப்பை நிர்வாகிகள் மட்டும் செய்திகள் அனுப்ப அனுமதிக்கும்படி மாற்றினார்கள்.</string>
+  <string name="MessageRecord_allow_all_members_to_send">குழு அமைப்பு அனைத்து உறுப்பினர்களும் செய்திகள் அனுப்ப அனுமதிக்கும்படி மாற்றப்பட்டது.</string>
+  <string name="MessageRecord_allow_only_admins_to_send">குழு அமைப்பு நிர்வாகிகள் மட்டுமே செய்திகள் அனுப்ப அனுமதிக்கும்படி மாற்றப்பட்டது.</string>
   <!--GV2 group link invite access level change-->
   <string name="MessageRecord_you_turned_on_the_group_link_with_admin_approval_off">நிர்வாகி ஒப்புதல் இல்லாமல் குழு இணைப்பை இயக்கியுள்ளீர்கள்.</string>
   <string name="MessageRecord_you_turned_on_the_group_link_with_admin_approval_on">நிர்வாகி ஒப்புதலுடன் குழு இணைப்பை இயக்கியுள்ளீர்கள்.</string>
@@ -1639,6 +1632,7 @@
   <string name="ConversationUpdateItem_call_is_full">அழைப்பு நிரம்பியுள்ளது</string>
   <string name="ConversationUpdateItem_invite_friends">நண்பர்களை அழை</string>
   <string name="ConversationUpdateItem_enable_call_notifications">அழைப்பு அறிவிப்புகளை இயக்கு</string>
+  <string name="ConversationUpdateItem_update_contact">தொடர்பைப் புதுப்பிக்கவும்</string>
   <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">இல்லை குழுக்கள்பொதுவாக. கோரிக்கைகளை கவனமாக மதிப்பாய்வு செய்யவும்.</string>
   <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">இல்லை இதில் தொடர்புகள் குழு. கோரிக்கைகளை கவனமாக மதிப்பாய்வு செய்யவும்.</string>
   <string name="ConversationUpdateItem_view">காண்க</string>
@@ -1800,21 +1794,17 @@
   <!--recipients_panel-->
   <string name="recipients_panel__to"><small>ஒரு பெயர் அல்லது எண்ணை உள்ளிடவும்</small></string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[உங்கள் குறியாக்கத்தின் பாதுகாப்பை %s உடன் சரிபார்க்க விரும்பினால், மேலே உள்ள எண்ணை அவர்களின் சாதனத்தில் உள்ள எண்ணுடன் ஒப்பிடுக. மாற்றாக, நீங்கள் அவர்களின் தொலைபேசியில் குறியீட்டை ஸ்கேன் செய்யலாம் அல்லது உங்கள் குறியீட்டை ஸ்கேன் செய்யுமாறு அவர்களிடம் கேட்கலாம்.<a href="https://signal.org/redirect/safety-numbers">மேலும் அறிக .</a>]]></string>
   <string name="verify_display_fragment__tap_to_scan">ஸ்கேன் செய்ய தட்டவும்</string>
   <string name="verify_display_fragment__loading">ஏற்றுதல் …</string>
-  <string name="verify_display_fragment__verified">சரிபார்க்கப்பட்ட</string>
+  <string name="verify_display_fragment__mark_as_verified">சரிபார்க்கப்பட்டதாகக் குறிக்கவும்</string>
   <!--verify_identity-->
   <string name="verify_identity__share_safety_number">பாதுகாப்பு எண்ணைப் பகிரவும்</string>
+  <!--verity_scan_fragment-->
   <!--webrtc_answer_decline_button-->
   <string name="webrtc_answer_decline_button__swipe_up_to_answer">பதிலளிக்க மேலே ஸ்வைப் செய்யவும்</string>
   <string name="webrtc_answer_decline_button__swipe_down_to_reject">நிராகரிக்க கீழே ஸ்வைப் செய்யவும்</string>
   <!--message_details_header-->
   <string name="message_details_header__issues_need_your_attention">சில பிரச்சினைகளுக்கு உங்கள் கவனம் தேவைப்படுகிறது.</string>
-  <string name="message_details_header__sent">அனுப்பபட்டது</string>
-  <string name="message_details_header__received">பெறப்பட்டது</string>
-  <string name="message_details_header__disappears">மறைந்து</string>
-  <string name="message_details_header__via">வழியாக</string>
   <!--message_details_recipient_header-->
   <string name="message_details_recipient_header__pending_send">நிலுவையில் உள்ளது</string>
   <string name="message_details_recipient_header__sent_to">அனுப்பப்பட்டது</string>
@@ -2691,8 +2681,8 @@
   <!--VoiceNotePlaybackPreparer-->
   <string name="VoiceNotePlaybackPreparer__failed_to_play_voice_message">தோல்வி குரல் செய்தியை இயக்கு</string>
   <!--VoiceNoteMediaDescriptionCompatFactory-->
-  <string name="VoiceNoteMediaDescriptionCompatFactory__voice_message">குரல் செய்தி:%1$s</string>
-  <string name="VoiceNoteMediaDescriptionCompatFactory__s_to_s">%1$s to %2$s</string>
+  <string name="VoiceNoteMediaItemFactory__voice_message">குரல் செய்தி:%1$s</string>
+  <string name="VoiceNoteMediaItemFactory__s_to_s">%1$s to %2$s</string>
   <!--StorageUtil-->
   <string name="StorageUtil__s_s">%1$s/%2$s</string>
   <string name="BlockedUsersActivity__s_has_been_blocked">\"%1$s\"தடுக்கப்பட்டார்</string>
@@ -2910,6 +2900,20 @@
   <string name="AccountSettingsFragment__account">பயனர் கணக்கு</string>
   <string name="AccountSettingsFragment__youll_be_asked_less_frequently">காலப்போக்கில் உங்களிடம் குறைவாகக் கேட்கப்படும்</string>
   <string name="AccountSettingsFragment__require_your_signal_pin">உங்கள் தேவை Signal பின் பதிவு செய்ய தொலைபேசி உடன் எண் Signal மீண்டும்</string>
+  <!--ChangeNumberFragment-->
+  <string name="ChangeNumberFragment__continue">தொடர்ந்து செல் </string>
+  <!--ChangeNumberEnterPhoneNumberFragment-->
+  <string name="ChangeNumberEnterPhoneNumberFragment__the_phone_number_you_entered_doesnt_match_your_accounts">தி தொலைபேசி நீங்கள் உள்ளிட்ட எண் உங்களுடன் பொருந்தவில்லை கணக்கு.</string>
+  <!--ChangeNumberVerifyFragment-->
+  <!--ChangeNumberConfirmFragment-->
+  <string name="ChangeNumberConfirmFragment__edit_number">எண்ணை தொகுக்க</string>
+  <!--ChangeNumberRegistrationLockFragment-->
+  <!--ChangeNumberPinDiffersFragment-->
+  <string name="ChangeNumberPinDiffersFragment__update_pin">பின்னைப் புதுப்பிக்கவும்</string>
+  <!--ChangeNumberLockActivity-->
+  <string name="ChangeNumberLockActivity__retry">மீண்டும் முயற்சி செய்</string>
+  <string name="ChangeNumberLockActivity__leave">விலகு</string>
+  <string name="ChangeNumberLockActivity__submit_debug_log">பிழைத்திருத்த பதிவைச் சமர்ப்பிக்கவும்</string>
   <!--ChatsSettingsFragment-->
   <string name="ChatsSettingsFragment__keyboard">விசைப்பலகை</string>
   <string name="ChatsSettingsFragment__enter_key_sends">பதிவு விசை அனுப்பும்</string>
@@ -3126,5 +3130,14 @@
     <item quantity="other">செய்திகள் தோல்வி அனுப்பு</item>
   </plurals>
   <string name="MultiselectForwardFragment__limit_reached">வரம்பை எட்டியது</string>
+  <!--Media V2-->
+  <string name="MediaReviewFragment__add_a_message">கூட்டு ஒரு செய்தி</string>
+  <string name="ImageEditorHud__cancel">ரத்து</string>
+  <string name="ImageEditorHud__blur">தெளிவின்மை</string>
+  <string name="ImageEditorHud__undo">செயல்தவிர்</string>
+  <string name="MediaCountIndicatorButton__send">அனுப்புக</string>
+  <string name="MediaReviewSelectedItem__tap_to_select">தேர்ந்தெடுக்க தட்டவும்</string>
+  <string name="MediaReviewImagePageFragment__discard">புறந்தள்ளு</string>
+  <string name="ImageEditorHud__delete">நீக்கு</string>
   <!--EOF-->
 </resources>

@@ -1,6 +1,7 @@
 package org.whispersystems.signalservice.api.storage;
 
 import com.google.protobuf.ByteString;
+import com.google.protobuf.InvalidProtocolBufferException;
 
 import org.whispersystems.libsignal.logging.Log;
 import org.whispersystems.libsignal.util.guava.Optional;
@@ -18,6 +19,8 @@ import java.util.List;
 import java.util.Objects;
 
 public final class SignalAccountRecord implements SignalRecord {
+
+  private static final String TAG = SignalAccountRecord.class.getSimpleName();
 
   private final StorageId     id;
   private final AccountRecord proto;
@@ -135,6 +138,10 @@ public final class SignalAccountRecord implements SignalRecord {
         diff.add("PrimarySendsSms");
       }
 
+      if (!Objects.equals(this.getE164(), that.getE164())) {
+        diff.add("E164");
+      }
+
       if (!Objects.equals(this.hasUnknownFields(), that.hasUnknownFields())) {
         diff.add("UnknownFields");
       }
@@ -221,6 +228,10 @@ public final class SignalAccountRecord implements SignalRecord {
     return proto.getPrimarySendsSms();
   }
 
+  public String getE164() {
+    return proto.getE164();
+  }
+
   AccountRecord toProto() {
     return proto;
   }
@@ -268,7 +279,7 @@ public final class SignalAccountRecord implements SignalRecord {
 
     static PinnedConversation fromRemote(AccountRecord.PinnedConversation remote) {
       if (remote.hasContact()) {
-        return forContact(new SignalServiceAddress(UuidUtil.parseOrNull(remote.getContact().getUuid()), remote.getContact().getE164()));
+        return forContact(new SignalServiceAddress(UuidUtil.parseOrThrow(remote.getContact().getUuid()), remote.getContact().getE164()));
       } else if (!remote.getLegacyGroupId().isEmpty()) {
         return forGroupV1(remote.getLegacyGroupId().toByteArray());
       } else if (!remote.getGroupMasterKey().isEmpty()) {
@@ -297,9 +308,9 @@ public final class SignalAccountRecord implements SignalRecord {
     private AccountRecord.PinnedConversation toRemote() {
       if (contact.isPresent()) {
         AccountRecord.PinnedConversation.Contact.Builder contactBuilder = AccountRecord.PinnedConversation.Contact.newBuilder();
-        if (contact.get().getUuid().isPresent()) {
-          contactBuilder.setUuid(contact.get().getUuid().get().toString());
-        }
+
+        contactBuilder.setUuid(contact.get().getUuid().toString());
+
         if (contact.get().getNumber().isPresent()) {
           contactBuilder.setE164(contact.get().getNumber().get());
         }
@@ -485,11 +496,21 @@ public final class SignalAccountRecord implements SignalRecord {
       return this;
     }
 
+    public Builder setE164(String e164) {
+      builder.setE164(e164);
+      return this;
+    }
+
     public SignalAccountRecord build() {
       AccountRecord proto = builder.build();
 
       if (unknownFields != null) {
-        proto = ProtoUtil.combineWithUnknownFields(proto, unknownFields);
+        try {
+          proto = ProtoUtil.combineWithUnknownFields(proto, unknownFields);
+        } catch (InvalidProtocolBufferException e) {
+          Log.w(TAG, "Failed to combine unknown fields!", e);
+          throw new IllegalStateException(e);
+        }
       }
 
       return new SignalAccountRecord(id, proto);

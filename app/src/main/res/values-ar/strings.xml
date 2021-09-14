@@ -898,19 +898,12 @@
   <!--InviteActivity-->
   <string name="InviteActivity_share">شارك</string>
   <string name="InviteActivity_share_with_contacts">المشاركة مع جهات الاتصال</string>
-  <string name="InviteActivity_choose_how_to_share">اختر وسيلة المشاركة</string>
+  <string name="InviteActivity_share_via">المشاركة عبر…</string>
   <string name="InviteActivity_cancel">إلغاء</string>
   <string name="InviteActivity_sending">إرسال…</string>
   <string name="InviteActivity_invitations_sent">تم إرسال الدعوات!</string>
   <string name="InviteActivity_invite_to_signal">الدعوة إلى Molly</string>
-  <plurals name="InviteActivity_send_sms_to_friends">
-    <item quantity="zero">رسالة قصيرة إلى %d مِن أصدقائك</item>
-    <item quantity="one">رسالة قصيرة إلى %d مِن أصدقائك</item>
-    <item quantity="two">رسالة قصيرة إلى %d مِن أصدقائك</item>
-    <item quantity="few">رسالة قصيرة إلى %d مِن أصدقائك</item>
-    <item quantity="many">رسالة قصيرة إلى %d مِن أصادقائك</item>
-    <item quantity="other">إرسال رسالة SMS إلى %d مِن أصدقائك</item>
-  </plurals>
+  <string name="InviteActivity_send_sms">إرسال رسالة قصيرة (%d)</string>
   <plurals name="InviteActivity_send_sms_invites">
     <item quantity="zero">هل تريد إرسال %d دعوات عبر الرسائل القصيرة ؟</item>
     <item quantity="one">هل تريد إرسال %d دعوات عبر الرسائل القصيرة ؟</item>
@@ -921,7 +914,6 @@
   </plurals>
   <string name="InviteActivity_lets_switch_to_signal">هيا ننتقل إلى Molly %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">يبدو عدم وجود أي تطبيقات لديك للمشاركة من خلالها.</string>
-  <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">الأصدقاء لا يتركون بعضهم يجرون محادثات غير مُعمَّاة.</string>
   <!--LearnMoreTextView-->
   <string name="LearnMoreTextView_learn_more">لمعرفة المزيد</string>
   <!--LongMessageActivity-->
@@ -1008,11 +1000,13 @@
   <string name="NotificationBarManager_signal_call_in_progress">مكالمة Signal جارية</string>
   <string name="NotificationBarManager__establishing_signal_call">بدء مكالمة Signal</string>
   <string name="NotificationBarManager__incoming_signal_call">مكالمة Signal واردة</string>
+  <string name="NotificationBarManager__incoming_signal_group_call">مكالمة Signal واردة من مجموعة</string>
   <string name="NotificationBarManager__stopping_signal_call_service">يجري توقيف خدمة مكالمات Signal</string>
-  <string name="NotificationBarManager__deny_call">رفض المكالمة</string>
+  <string name="NotificationBarManager__decline_call">تجاهل المكالمة</string>
   <string name="NotificationBarManager__answer_call">الرد على المكالمة</string>
   <string name="NotificationBarManager__end_call">إنهاء المكالمة</string>
   <string name="NotificationBarManager__cancel_call">إلغاء المكالمة</string>
+  <string name="NotificationBarManager__join_call">الانضمام للمكالمة</string>
   <!--NotificationsMegaphone-->
   <string name="NotificationsMegaphone_turn_on_notifications">تفعيل الإشعارات؟</string>
   <string name="NotificationsMegaphone_never_miss_a_message">عدم تفويت أي رسالة من جهات اتصالك ومجموعاتك.</string>
@@ -1115,6 +1109,7 @@
   <string name="MessageRecord_s_made_s_an_admin">لقد جعل %1$s %2$s مشرفاً.</string>
   <string name="MessageRecord_s_made_you_an_admin">لقد جعلك %1$s مشرفاً.</string>
   <string name="MessageRecord_you_revoked_admin_privileges_from_s">لقد قمت بإلغاء امتيازات الإشراف على المجموعة من %1$s .</string>
+  <string name="MessageRecord_s_revoked_your_admin_privileges">لقد أبطل العضو %1$s امتيازات إشرافك على المجموعة.</string>
   <string name="MessageRecord_s_revoked_admin_privileges_from_s">قام العضو %1$s بإلغاء امتيازات الإشراف على المجموعة من %2$s.</string>
   <string name="MessageRecord_s_is_now_an_admin">أصبح العضو %1$s مشرفا.</string>
   <string name="MessageRecord_you_are_now_an_admin">أنت الآن هو المشرف.</string>
@@ -1246,6 +1241,7 @@
   <string name="MessageRecord_you_marked_your_safety_number_with_s_unverified">لقد قمت بالإشعار بأنّ رقم الأمان مع %s لم يتم التحقّق منه</string>
   <string name="MessageRecord_you_marked_your_safety_number_with_s_unverified_from_another_device">لقد قمت بالإشعار بأنّ رقم الأمان مع %s لم يتم التحقّق منه عن طريق جهاز آخر</string>
   <string name="MessageRecord_a_message_from_s_couldnt_be_delivered">تعذر توصيل رسالة من %s</string>
+  <string name="MessageRecord_s_changed_their_number_to_a_new_number">لقد استُبدِل رقم %1$s برقم جديد.</string>
   <!--Group Calling update messages-->
   <string name="MessageRecord_s_started_a_group_call_s">قام العضو %1$s ببدء مكالمة جماعية · %2$s</string>
   <string name="MessageRecord_s_is_in_the_group_call_s">العضو %1$s موجود في المكالمة الجماعية · %2$s</string>
@@ -1432,8 +1428,10 @@
   <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">للاتصال بـ%1$s، يحتاج Molly صلاحية الوصول إلى الكاميرا</string>
   <string name="WebRtcCallActivity__signal_s">Molly‏ %1$s</string>
   <string name="WebRtcCallActivity__calling">يتصل…</string>
+  <string name="WebRtcCallActivity__group_is_too_large_to_ring_the_participants">إن المجموعة كبيرة جدا لكي يرن التطبيق على المشاركين.</string>
   <!--WebRtcCallView-->
   <string name="WebRtcCallView__signal_call">مكالمة Signal</string>
+  <string name="WebRtcCallView__signal_video_call">مكالمة Signal بالفيديو</string>
   <string name="WebRtcCallView__start_call">بدء المكالمة</string>
   <string name="WebRtcCallView__join_call">الانضمام للمكالمة</string>
   <string name="WebRtcCallView__call_is_full">المكالمة ممتلئة</string>
@@ -1443,8 +1441,50 @@
   <string name="WebRtcCallView__reconnecting">إعادة الاتصال جارية…</string>
   <string name="WebRtcCallView__joining">قيد الانضمام…</string>
   <string name="WebRtcCallView__disconnected">غير متّصل</string>
+  <string name="WebRtcCallView__signal_will_ring_s">سوف يرن Signal على %1$s</string>
+  <string name="WebRtcCallView__signal_will_ring_s_and_s">سوف يرن Signal على %1$s و%2$s</string>
+  <plurals name="WebRtcCallView__signal_will_ring_s_s_and_d_others">
+    <item quantity="zero">سوف يرن Signal على %1$s و%2$s. %3$d</item>
+    <item quantity="one">سوف يرن Signal على %1$s و%2$s و%3$d آخر</item>
+    <item quantity="two">سوف يرن Signal على %1$s و%2$s و%3$d آخريْن</item>
+    <item quantity="few">سوف يرن Signal على %1$s و%2$s و%3$d آخرين</item>
+    <item quantity="many">سوف يرن Signal على %1$s و%2$s و%3$d آخرين</item>
+    <item quantity="other">سوف يرن Signal على %1$s و%2$s و%3$d آخرين</item>
+  </plurals>
+  <string name="WebRtcCallView__s_will_be_notified">سيتم إشعار %1$s</string>
+  <string name="WebRtcCallView__s_and_s_will_be_notified">سيتم إشعار %1$s و%2$s</string>
+  <plurals name="WebRtcCallView__s_s_and_d_others_will_be_notified">
+    <item quantity="zero">سيتم إشعار %1$s و%2$s. (%3$d)</item>
+    <item quantity="one">سيتم إشعار %1$s و%2$s و%3$d آخر</item>
+    <item quantity="two">سيتم إشعار %1$s و%2$s و%3$d آخريْن</item>
+    <item quantity="few">سيتم إشعار %1$s و%2$s و%3$d آخرين</item>
+    <item quantity="many">سيتم إشعار %1$s و%2$s و%3$d آخرين</item>
+    <item quantity="other">سيتم إشعار %1$s و%2$s و%3$d آخرين</item>
+  </plurals>
+  <string name="WebRtcCallView__ringing_s">يرن على  %1$s</string>
+  <string name="WebRtcCallView__ringing_s_and_s">يرن على %1$s و%2$s </string>
+  <plurals name="WebRtcCallView__ringing_s_s_and_d_others">
+    <item quantity="zero">يرن على %1$s و%2$s. (%3$d)</item>
+    <item quantity="one">يرن على %1$sو %2$s و%3$d آخر</item>
+    <item quantity="two">يرن على %1$s و%2$s و%3$d آخريْن</item>
+    <item quantity="few">يرن على %1$s و%2$s و%3$d آخرين</item>
+    <item quantity="many">يرن على %1$s و%2$s و%3$d آخرين</item>
+    <item quantity="other">يرن على %1$s و%2$s و%3$d آخرين</item>
+  </plurals>
+  <string name="WebRtcCallView__s_is_calling_you">يتصل بك %1$s</string>
+  <string name="WebRtcCallView__s_is_calling_you_and_s">إن %1$s يتصل بك وبـ %2$s</string>
+  <string name="WebRtcCallView__s_is_calling_you_s_and_s">إن %1$s يتصل بك وبـ%2$s وبـ %3$s</string>
+  <plurals name="WebRtcCallView__s_is_calling_you_s_s_and_d_others">
+    <item quantity="zero">إن %1$s يتصل بك وبـ%2$s وبـ %3$s. (%4$d)</item>
+    <item quantity="one">إن %1$s يتصل بك وبـ%2$s وبـ %3$s ويـ %4$d آخر</item>
+    <item quantity="two">إن %1$s يتصل بك وبـ%2$s وبـ %3$s و بـ %4$d آخريْن</item>
+    <item quantity="few">إن %1$s يتصل بك وبـ%2$s وبـ %3$s وبـ %4$d آخرين</item>
+    <item quantity="many">إن %1$s يتصل بك وبـ%2$s وبـ %3$s وبـ %4$d آخرين</item>
+    <item quantity="other">إن %1$s يتصل بك وبـ%2$s وبـ %3$s وبـ %4$d آخرين</item>
+  </plurals>
   <string name="WebRtcCallView__no_one_else_is_here">لا يوجد أحد هنا</string>
   <string name="WebRtcCallView__s_is_in_this_call">%1$s في هذه المكالمة</string>
+  <string name="WebRtcCallView__s_are_in_this_call">%1$s في هذه المكالمة</string>
   <string name="WebRtcCallView__s_and_s_are_in_this_call">العضوان %1$s و %2$s موجودان في هذه المكالمة</string>
   <string name="WebRtcCallView__s_is_presenting">يقوم %1$s بالعرض</string>
   <plurals name="WebRtcCallView__s_s_and_d_others_are_in_this_call">
@@ -1455,9 +1495,11 @@
     <item quantity="many">الأعضاء %1$s و%2$s و%3$d آخرون موجودون في هذه مكالمة جماعية</item>
     <item quantity="other">الأعضاء %1$s و %2$s و%3$d  آخرون موجودون في هذه مكالمة جماعية</item>
   </plurals>
+  <string name="WebRtcCallView__flip">ٱقلب</string>
   <string name="WebRtcCallView__speaker">مكبر الصوت</string>
   <string name="WebRtcCallView__camera">الكاميرا</string>
   <string name="WebRtcCallView__mute">كتم</string>
+  <string name="WebRtcCallView__ring">رنين الاتصال</string>
   <string name="WebRtcCallView__end_call">إنهاء المُكالمة</string>
   <!--CallParticipantsListDialog-->
   <plurals name="CallParticipantsListDialog_in_this_call_d_people">
@@ -1894,6 +1936,7 @@
   <string name="ConversationUpdateItem_call_is_full">المكالمة ممتلئة</string>
   <string name="ConversationUpdateItem_invite_friends">دعوة الأصدقاء</string>
   <string name="ConversationUpdateItem_enable_call_notifications">تفعيل إشعارات المكالمات</string>
+  <string name="ConversationUpdateItem_update_contact">تحديث جهة الاتصال</string>
   <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">لا وجود لمجموعات مشتركة. يُرجى مراجعة الطلبات بعناية.</string>
   <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">لا وجود لجهات الاتصال في هذه المجموعة. يُرجى مراجعة الطلبات بعناية.</string>
   <string name="ConversationUpdateItem_view">إظهار</string>
@@ -2083,21 +2126,26 @@
   <!--recipients_panel-->
   <string name="recipients_panel__to"><small>أدخل اسم أو رقم</small></string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[إذا رغبت بالتحقق من أمان التعمية مع %s، يجب مقارنة الأعداد بالأعلى مع الأعداد الموجودة في جهاز ذلك الشخص. بالمقابل، يكفي المسح الضوئي للرمز الموجود في هاتفه، أو الطلب منه المسح الضوئي لرمزك. <a href="https://signal.org/redirect/safety-numbers">لمعرفة المزيد</a>]]></string>
+  <string name="verify_display_fragment__to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[للتحقق من أمان تعميتك من الطرف للطرف مع %s، يُرجى مقارنة الأعداد الظاهرة على كل من جهازيكما أعلاه. يُمكنك التقاط صورة للرمز الذي في هاتف الشخص الآخر. <a href="https://signal.org/redirect/safety-numbers">التعرف على المزيد</a>]]></string>
   <string name="verify_display_fragment__tap_to_scan">المس للمسح</string>
+  <string name="verify_display_fragment__successful_match">تم التوافُق بنجاح</string>
+  <string name="verify_display_fragment__failed_to_verify_safety_number">لقد فشل التحقق من رقم الأمان</string>
   <string name="verify_display_fragment__loading">قيد التحميل…</string>
-  <string name="verify_display_fragment__verified"> تمّ التحقق </string>
+  <string name="verify_display_fragment__mark_as_verified">علِّم كمُتحقَّق منه</string>
+  <string name="verify_display_fragment__clear_verification">محو التحقق</string>
   <!--verify_identity-->
   <string name="verify_identity__share_safety_number">شارك رقم اﻷمان</string>
+  <!--verity_scan_fragment-->
+  <string name="verify_scan_fragment__scan_the_qr_code_on_your_contact">يُرجى تصوير الرمز المربع الذي في جهاز جهة اتصالك.</string>
   <!--webrtc_answer_decline_button-->
   <string name="webrtc_answer_decline_button__swipe_up_to_answer">إسحب للأعلى للإجابة</string>
   <string name="webrtc_answer_decline_button__swipe_down_to_reject">إسحب للأسفل لرفض المكالمة</string>
   <!--message_details_header-->
   <string name="message_details_header__issues_need_your_attention">بعض المشاكل تتطلب انتباهك.</string>
-  <string name="message_details_header__sent">أرسلت</string>
-  <string name="message_details_header__received">استلمت</string>
-  <string name="message_details_header__disappears">مُختفية </string>
-  <string name="message_details_header__via">بواسطة</string>
+  <string name="message_details_header__sent">مُرسَلة بتاريخ :</string>
+  <string name="message_details_header__received">‫مُستلَمة :</string>
+  <string name="message_details_header__disappears">‫مُختفية :</string>
+  <string name="message_details_header__via">عبر :</string>
   <!--message_details_recipient_header-->
   <string name="message_details_recipient_header__pending_send">مُعلَّق</string>
   <string name="message_details_recipient_header__sent_to">تمَّ الإرسال إلى</string>
@@ -2512,7 +2560,7 @@
   <string name="conversation_callable_insecure__menu_call">اتصل</string>
   <!--conversation_callable_secure-->
   <string name="conversation_callable_secure__menu_call">مكالمة Signal</string>
-  <string name="conversation_callable_secure__menu_video">مكالمة فيديو Signal</string>
+  <string name="conversation_callable_secure__menu_video">مكالمة Signal بالفيديو</string>
   <!--conversation_context-->
   <string name="conversation_context__menu_message_details">تفاصيل الرسالة</string>
   <string name="conversation_context__menu_copy_text">نسخ النص</string>
@@ -2807,6 +2855,7 @@
   <string name="RegistrationActivity_call_me_instead_available_in">اتصل بي أفضل  \n (متاح في %1$02d:%2$02d)</string>
   <string name="RegistrationActivity_contact_signal_support">الاتصال بخدمة دعم Signal</string>
   <string name="RegistrationActivity_code_support_subject">تسجيل Signal - رمز التّحقق لِ Android</string>
+  <string name="RegistrationActivity_incorrect_code">رمز غير صحيح</string>
   <string name="BackupUtil_never">أبداً</string>
   <string name="BackupUtil_unknown">مجهول</string>
   <string name="preferences_app_protection__see_my_phone_number">رؤية رقم هاتفي</string>
@@ -3003,8 +3052,8 @@
   <!--VoiceNotePlaybackPreparer-->
   <string name="VoiceNotePlaybackPreparer__failed_to_play_voice_message">فشل تشغيل الرسالة الصوتية</string>
   <!--VoiceNoteMediaDescriptionCompatFactory-->
-  <string name="VoiceNoteMediaDescriptionCompatFactory__voice_message">رسالة صوتية · %1$s</string>
-  <string name="VoiceNoteMediaDescriptionCompatFactory__s_to_s">%1$s إلى %2$s</string>
+  <string name="VoiceNoteMediaItemFactory__voice_message">رسالة صوتية · %1$s</string>
+  <string name="VoiceNoteMediaItemFactory__s_to_s">%1$s إلى %2$s</string>
   <!--StorageUtil-->
   <string name="StorageUtil__s_s">%1$s/%2$s</string>
   <string name="BlockedUsersActivity__s_has_been_blocked">تم حظر \"%1$s\".</string>
@@ -3233,6 +3282,46 @@
   <string name="AccountSettingsFragment__account">الحِساب</string>
   <string name="AccountSettingsFragment__youll_be_asked_less_frequently">سيُطلب منك مرات أقل بمرور الوقت</string>
   <string name="AccountSettingsFragment__require_your_signal_pin">إنه يتطلب ‫رقم Signal التعريفي الشخصي‬ لتسجيل رقم هاتفك في Signal مرة أخرى</string>
+  <string name="AccountSettingsFragment__change_phone_number">تغيير رقم الهاتف</string>
+  <!--ChangeNumberFragment-->
+  <string name="ChangeNumberFragment__use_this_to_change_your_current_phone_number_to_a_new_phone_number">يُرجى استخدام هذا لاستبدال رقم هاتفك الحالي بالجديد. لن يكون بإمكانك التراجع عن هذا اﻷمر.\n\nلذا، يجب عليك، قبل الاستمرار، التأكد من أن رقم هاتفك الجديد يستطيع تلقي المكالمات والرسائل القصيرة.</string>
+  <string name="ChangeNumberFragment__continue">الاِستِمرار</string>
+  <string name="ChangeNumber__your_phone_number_has_been_changed">لقد تغير رقم هاتفك.</string>
+  <!--ChangeNumberEnterPhoneNumberFragment-->
+  <string name="ChangeNumberEnterPhoneNumberFragment__change_number">تغيير الرقم</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__your_old_number">رقم هاتفك القديم</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__old_phone_number">رقم الهاتف القديم</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__your_new_number">رقم هاتفك الجديد</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__new_phone_number">رقم الهاتف الجديد</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__the_phone_number_you_entered_doesnt_match_your_accounts">رقم الهاتف الذي أُدخِل لا يطابق رقم حسابك.</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__you_must_specify_your_old_number_country_code">يجب عليك تحديد الرمز الدولي لرقم هاتفك القديم</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__you_must_specify_your_old_phone_number">يجب عليك تحديد رقم هاتفك القديم</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__you_must_specify_your_new_number_country_code">يجب عليك تحديد الرمز الدولي لرقم هاتفك الجديد</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__you_must_specify_your_new_phone_number">يجب عليك تحديد رقم هاتفك الجديد</string>
+  <!--ChangeNumberVerifyFragment-->
+  <string name="ChangeNumberVerifyFragment__change_number">تغيير الرقم</string>
+  <string name="ChangeNumberVerifyFragment__verifying_s">يجري التحقق من %1$s</string>
+  <string name="ChangeNumberVerifyFragment__captcha_required">كلمة التحقق ضرورية</string>
+  <!--ChangeNumberConfirmFragment-->
+  <string name="ChangeNumberConfirmFragment__change_number">تغيير الرقم</string>
+  <string name="ChangeNumberConfirmFragment__you_are_about_to_change_your_phone_number_from_s_to_s">إنك على وشك تغيير رقم هاتفك من %1$s إلى %2$s.\n\nيٌرجى التحقق من أن رقم الهاتف أسفله صحيح قبل الاستمرار.</string>
+  <string name="ChangeNumberConfirmFragment__edit_number">تعديل الرقم</string>
+  <!--ChangeNumberRegistrationLockFragment-->
+  <!--ChangeNumberPinDiffersFragment-->
+  <string name="ChangeNumberPinDiffersFragment__pins_do_not_match">رقما التعريف الشخصي غير متوافقان.</string>
+  <string name="ChangeNumberPinDiffersFragment__the_pin_associated_with_your_new_number_is_different_from_the_pin_associated_with_your_old_one">إن الرقم التعريفي الشخصي المرتبط برقم هاتف الجديد يختلف عن ذاك المرتبط بهاتفك القديم. أأقوم بالمحافظة على الرقم التعريفي الشخصي القديم أم أقوم بتحديثه ؟</string>
+  <string name="ChangeNumberPinDiffersFragment__keep_old_pin">حافظْ على الرقم التعريفي الشخصي القديم</string>
+  <string name="ChangeNumberPinDiffersFragment__update_pin">تحديث الرقم التعريفي الشخصي</string>
+  <string name="ChangeNumberPinDiffersFragment__keep_old_pin_question">أأحافظْ على الرقم التعريفي الشخصي القديم ؟</string>
+  <!--ChangeNumberLockActivity-->
+  <string name="ChangeNumberLockActivity__it_looks_like_you_tried_to_change_your_number_but_we_were_unable_to_determine_if_it_was_successful_rechecking_now">يبدو أنك حاولت تغيير رقم هاتفك، لكنه تعذر علينا تحديد نجاح ذلك\n\nتجري إعادة التحقق اﻵن…</string>
+  <string name="ChangeNumberLockActivity__change_status_confirmed">تغيير الحالة مؤكد</string>
+  <string name="ChangeNumberLockActivity__your_number_has_been_confirmed_as_s">لقد تم التأكد من أن رقم هاتفك هو %1$s. إن لم يكن هو رقم هاتفك الجديد، يُرجى إعادة البدء بعملية تغيير رقم الهاتف.</string>
+  <string name="ChangeNumberLockActivity__change_status_unconfirmed">تغيير الحالة غير مؤكد</string>
+  <string name="ChangeNumberLockActivity__we_could_not_determine_the_status_of_your_change_number_request">تعذر علينا تحديد حالة طلب تغير رقم هاتفك.\n\n(الخطأ : %1$s)</string>
+  <string name="ChangeNumberLockActivity__retry">إعادة المُحاولة</string>
+  <string name="ChangeNumberLockActivity__leave">غادِر</string>
+  <string name="ChangeNumberLockActivity__submit_debug_log">إرسال سِجل التصحيح</string>
   <!--ChatsSettingsFragment-->
   <string name="ChatsSettingsFragment__keyboard">لوحة المفاتيح</string>
   <string name="ChatsSettingsFragment__enter_key_sends">مفتاح الدخول يقوم بالإرسال</string>
@@ -3417,6 +3506,11 @@
   <string name="ContactFilterView__search_name_or_number">البحث باستخدام الاسم أو الرقم</string>
   <!--VoiceNotePlayerView-->
   <string name="VoiceNotePlayerView__s_dot_s">%1$s . %2$s</string>
+  <string name="VoiceNotePlayerView__stop_voice_message">إيقاف الرسالة الصوتية</string>
+  <string name="VoiceNotePlayerView__change_voice_message_speed">تغيير سرعة الرسالة الصوتية</string>
+  <string name="VoiceNotePlayerView__pause_voice_message">إيقاف الرسالة الصوتية مؤقتا</string>
+  <string name="VoiceNotePlayerView__play_voice_message">تشغيل الرسالة الصوتية</string>
+  <string name="VoiceNotePlayerView__navigate_to_voice_message">التصفح نحو الرسالة الصوتية</string>
   <!--AvatarPickerFragment-->
   <string name="AvatarPickerFragment__avatar_preview">معاينة صورة الحساب</string>
   <string name="AvatarPickerFragment__camera">الكاميرا</string>
@@ -3440,5 +3534,66 @@
   <string name="ContactSelectionListItem__sms">رسالة قصيرة</string>
   <string name="ContactSelectionListItem__dot_s">· %1$s</string>
   <!--DSLSettingsToolbar-->
+  <string name="DSLSettingsToolbar__navigate_up">التصفح نحو اﻷعلى</string>
+  <string name="MultiselectForwardFragment__forward_to">إعادة التوجيه نحو</string>
+  <string name="MultiselectForwardFragment__add_a_message">إضافة نص</string>
+  <string name="MultiselectForwardFragment__faster_forwards">إعادة توجيه أسرع</string>
+  <string name="MultiselectForwardFragment__forwarded_messages_are_now">لقد أُرسِلت اﻵن الرسائل الموجَّهة فورا.</string>
+  <plurals name="MultiselectForwardFragment_send_d_messages">
+    <item quantity="zero">لم تُرسَل أي رسالة. (%1$d)</item>
+    <item quantity="one">إرسال رسالة واحدة. (%1$d)</item>
+    <item quantity="two">إرسال رسالتين (%1$d)</item>
+    <item quantity="few">إرسال %1$d رسائل</item>
+    <item quantity="many">إرسال %1$d رسالة</item>
+    <item quantity="other">إرسال %1$d رسالة</item>
+  </plurals>
+  <plurals name="MultiselectForwardFragment_messages_sent">
+    <item quantity="zero">لم تُرسَل أي رسالة</item>
+    <item quantity="one">أُرسِلت رسالة واحدة</item>
+    <item quantity="two">أُرسِلت الرسالتان</item>
+    <item quantity="few">أُرسِلت الرسائل</item>
+    <item quantity="many">أُرسِلت الرسائل</item>
+    <item quantity="other">أُرسِلت الرسائل</item>
+  </plurals>
+  <plurals name="MultiselectForwardFragment_messages_failed_to_send">
+    <item quantity="zero">لم يفشل إرسال أي رسالة</item>
+    <item quantity="one">لقد فشل إرسال رسالتك</item>
+    <item quantity="two">لقد فشل إرسال رسالتيْك</item>
+    <item quantity="few">لقد فشل إرسال رسائلك</item>
+    <item quantity="many">لقد فشل إرسال رسائلك</item>
+    <item quantity="other">لقد فشل إرسال رسائلك</item>
+  </plurals>
+  <plurals name="MultiselectForwardFragment__couldnt_forward_messages">
+    <item quantity="zero">لم يحدث أي مشكل في إعادة توجيه رسائلك</item>
+    <item quantity="one">لقد تعذر إعادة توجيه رسالتك لأنها لم تعد متاحة.</item>
+    <item quantity="two">لقد تعذر إعادة توجيه رسالتيْك لأنها لم تعد متاحة.</item>
+    <item quantity="few">لقد تعذر إعادة توجيه رسائلك لأنها لم تعد متاحة.</item>
+    <item quantity="many">لقد تعذر إعادة توجيه رسائلك لأنها لم تعد متاحة.</item>
+    <item quantity="other">لقد تعذر إعادة توجيه رسائلك لأنها لم تعد متاحة.</item>
+  </plurals>
+  <string name="MultiselectForwardFragment__limit_reached">وصلت للحد الأقصى</string>
+  <!--Media V2-->
+  <string name="MediaReviewFragment__add_a_message">إضافة نص</string>
+  <string name="MediaReviewFragment__add_a_reply">إضافة رد</string>
+  <string name="MediaReviewFragment__send_to">إرسال إلى</string>
+  <string name="ImageEditorHud__cancel">إلغاء</string>
+  <string name="ImageEditorHud__draw">رسم</string>
+  <string name="ImageEditorHud__write_text">كتابة نص</string>
+  <string name="ImageEditorHud__add_a_sticker">إضافة ملصق</string>
+  <string name="ImageEditorHud__blur">ضبِّب</string>
+  <string name="ImageEditorHud__done_editing">انتهى التحرير</string>
+  <string name="ImageEditorHud__clear_all">محو الكل</string>
+  <string name="ImageEditorHud__undo">تراجع</string>
+  <string name="ImageEditorHud__toggle_between_marker_and_highlighter">التبديل بين قلم الوسم وبين قلم التمييز</string>
+  <string name="MediaCountIndicatorButton__send">أرسلْ</string>
+  <string name="MediaReviewSelectedItem__tap_to_remove">يُرجى اللمس للإزالة</string>
+  <string name="MediaReviewSelectedItem__tap_to_select">أنقر للاختيار</string>
+  <string name="MediaReviewImagePageFragment__discard">تجاهل</string>
+  <string name="MediaReviewImagePageFragment__discard_changes">تجاهل التغييرات ؟</string>
+  <string name="MediaReviewFragment__view_once_message">وسيط للعرض مرة واحدة</string>
+  <string name="MediaReviewImagePageFragment__youll_lose_any_changes">سوف تضيع كل تغييرات قمت بها على هذه الصورة.</string>
+  <string name="ImageEditorHud__delete">حذف  </string>
+  <string name="CameraFragment__failed_to_open_camera">فشل تشغيل الكاميرا</string>
+  <string name="ImageEditorHud__toggle_between_text_styles">التبديل بين أنماط النصوص</string>
   <!--EOF-->
 </resources>

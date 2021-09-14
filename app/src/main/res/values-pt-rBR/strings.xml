@@ -749,22 +749,18 @@
   <!--InviteActivity-->
   <string name="InviteActivity_share">Compartilhar</string>
   <string name="InviteActivity_share_with_contacts">Compartilhar com contatos</string>
-  <string name="InviteActivity_choose_how_to_share">Escolher como compartilhar</string>
+  <string name="InviteActivity_share_via">Compartilhar via…</string>
   <string name="InviteActivity_cancel">Cancelar</string>
   <string name="InviteActivity_sending">Enviando…</string>
   <string name="InviteActivity_invitations_sent">Convites enviados!</string>
   <string name="InviteActivity_invite_to_signal">Convidar para o Molly</string>
-  <plurals name="InviteActivity_send_sms_to_friends">
-    <item quantity="one">ENVIAR SMS PARA %d AMIGO</item>
-    <item quantity="other">ENVIAR SMS PARA %d AMIGOS</item>
-  </plurals>
+  <string name="InviteActivity_send_sms">Enviar SMS (%d)</string>
   <plurals name="InviteActivity_send_sms_invites">
     <item quantity="one">Enviar %d convite por SMS?</item>
     <item quantity="other">Enviar %d convites por SMS?</item>
   </plurals>
   <string name="InviteActivity_lets_switch_to_signal">Vamos mudar para o Molly: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Parece que você não tem aplicativos para onde compartilhar.</string>
-  <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Amigos não deixam amigos conversarem sem criptografia.</string>
   <!--LearnMoreTextView-->
   <string name="LearnMoreTextView_learn_more">Saiba mais</string>
   <!--LongMessageActivity-->
@@ -835,11 +831,13 @@
   <string name="NotificationBarManager_signal_call_in_progress">Chamada Signal em andamento</string>
   <string name="NotificationBarManager__establishing_signal_call">Estabelecendo chamada Signal</string>
   <string name="NotificationBarManager__incoming_signal_call">Recebendo chamada Signal</string>
+  <string name="NotificationBarManager__incoming_signal_group_call">Recebendo chamada de vídeo em grupo</string>
   <string name="NotificationBarManager__stopping_signal_call_service">Encerrando chamada Signal</string>
-  <string name="NotificationBarManager__deny_call">Recusar chamada</string>
+  <string name="NotificationBarManager__decline_call">Recusar chamada</string>
   <string name="NotificationBarManager__answer_call">Atender chamada</string>
   <string name="NotificationBarManager__end_call">Terminar chamada</string>
   <string name="NotificationBarManager__cancel_call">Cancelar chamada</string>
+  <string name="NotificationBarManager__join_call">Participar da chamada</string>
   <!--NotificationsMegaphone-->
   <string name="NotificationsMegaphone_turn_on_notifications">Habilitar notificações?</string>
   <string name="NotificationsMegaphone_never_miss_a_message">Nunca perca mensagens de seus contatos e grupos.</string>
@@ -1042,6 +1040,7 @@
   <string name="MessageRecord_you_marked_your_safety_number_with_s_unverified">Você marcou o seu número de segurança com %scomo não verificado</string>
   <string name="MessageRecord_you_marked_your_safety_number_with_s_unverified_from_another_device">Você marcou o seu número de segurança com %s como não verificado através de outro dispositivo</string>
   <string name="MessageRecord_a_message_from_s_couldnt_be_delivered">Uma mensagem de %s não pôde ser entregue</string>
+  <string name="MessageRecord_s_changed_their_number_to_a_new_number">%1$s alterou o número de telefone para um novo número.</string>
   <!--Group Calling update messages-->
   <string name="MessageRecord_s_started_a_group_call_s">%1$s começou uma chamada em grupo · %2$s</string>
   <string name="MessageRecord_s_is_in_the_group_call_s">%1$s está na chamada em grupo · %2$s</string>
@@ -1200,6 +1199,7 @@
   <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Para ligar para %1$s, Molly precisa ter acesso à sua câmera</string>
   <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
   <string name="WebRtcCallActivity__calling">Chamando…</string>
+  <string name="WebRtcCallActivity__group_is_too_large_to_ring_the_participants">O grupo é muito grande para ligar para todos os participantes.</string>
   <!--WebRtcCallView-->
   <string name="WebRtcCallView__signal_call">Chamada Signal</string>
   <string name="WebRtcCallView__signal_video_call">Chamada de vídeo do Signal</string>
@@ -1212,8 +1212,34 @@
   <string name="WebRtcCallView__reconnecting">Reconectando…</string>
   <string name="WebRtcCallView__joining">Entrando…</string>
   <string name="WebRtcCallView__disconnected">Desconectado</string>
+  <string name="WebRtcCallView__signal_will_ring_s">Signal ligará para %1$s</string>
+  <string name="WebRtcCallView__signal_will_ring_s_and_s">Signal ligará para %1$s e %2$s</string>
+  <plurals name="WebRtcCallView__signal_will_ring_s_s_and_d_others">
+    <item quantity="one">Signal ligará para %1$s, %2$s e %3$d outra pessoa</item>
+    <item quantity="other">Signal ligará para %1$s, %2$s e outros %3$d</item>
+  </plurals>
+  <string name="WebRtcCallView__s_will_be_notified">%1$s receberá uma notificação</string>
+  <string name="WebRtcCallView__s_and_s_will_be_notified">%1$s e %2$s receberão uma notificação</string>
+  <plurals name="WebRtcCallView__s_s_and_d_others_will_be_notified">
+    <item quantity="one">%1$s, %2$s e %3$d outra pessoa receberão uma notificação</item>
+    <item quantity="other">%1$s, %2$s e outros %3$d receberão uma notificação</item>
+  </plurals>
+  <string name="WebRtcCallView__ringing_s">Ligando para %1$s</string>
+  <string name="WebRtcCallView__ringing_s_and_s">Ligando para %1$s e %2$s</string>
+  <plurals name="WebRtcCallView__ringing_s_s_and_d_others">
+    <item quantity="one">Ligando para %1$s, %2$s e %3$d outra pessoa</item>
+    <item quantity="other">Ligando para %1$s, %2$s e outros %3$d</item>
+  </plurals>
+  <string name="WebRtcCallView__s_is_calling_you">%1$s está ligando para você</string>
+  <string name="WebRtcCallView__s_is_calling_you_and_s">%1$s está ligando para você e %2$s</string>
+  <string name="WebRtcCallView__s_is_calling_you_s_and_s">%1$s está ligando para você, %2$s e %3$s</string>
+  <plurals name="WebRtcCallView__s_is_calling_you_s_s_and_d_others">
+    <item quantity="one">%1$s está ligando para você, %2$s, %3$s e %4$d outra pessoa</item>
+    <item quantity="other">%1$s está ligando para você, %2$s, %3$s e outros %4$d</item>
+  </plurals>
   <string name="WebRtcCallView__no_one_else_is_here">Ninguém mais está aqui</string>
   <string name="WebRtcCallView__s_is_in_this_call">%1$s está nesta chamada</string>
+  <string name="WebRtcCallView__s_are_in_this_call">%1$s estão nesta chamada</string>
   <string name="WebRtcCallView__s_and_s_are_in_this_call">%1$s e %2$s estão nesta chamada</string>
   <string name="WebRtcCallView__s_is_presenting">%1$s está apresentando</string>
   <plurals name="WebRtcCallView__s_s_and_d_others_are_in_this_call">
@@ -1224,7 +1250,8 @@
   <string name="WebRtcCallView__speaker">Alto-falante</string>
   <string name="WebRtcCallView__camera">Câmera</string>
   <string name="WebRtcCallView__mute">Silenciar</string>
-  <string name="WebRtcCallView__end_call">Desligar</string>
+  <string name="WebRtcCallView__ring">Ligar</string>
+  <string name="WebRtcCallView__end_call">Encerrar</string>
   <!--CallParticipantsListDialog-->
   <plurals name="CallParticipantsListDialog_in_this_call_d_people">
     <item quantity="one">Nesta chamada · %1$d pessoa</item>
@@ -1274,6 +1301,7 @@
   <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">O Molly precisa acessar sua lista de contatos para você se conectar com outras pessoas, trocar mensagens e fazer chamadas seguras</string>
   <string name="RegistrationActivity_rate_limited_to_service">Você fez muitas tentativas de registrar este número. Por favor, tente novamente mais tarde.</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">Não é possível conectar ao serviço. Favor verificar a conexão à rede e tentar novamente.</string>
+  <string name="RegistrationActivity_call_requested">Ligação solicitada</string>
   <plurals name="RegistrationActivity_debug_log_hint">
     <item quantity="one">Agora você está a %d passo de enviar um registro de depuração.</item>
     <item quantity="other">Agora você está a %d passos de enviar um registro de depuração</item>
@@ -1640,6 +1668,7 @@
   <string name="ConversationUpdateItem_call_is_full">A chamada está lotada</string>
   <string name="ConversationUpdateItem_invite_friends">Convidar amigos(as)</string>
   <string name="ConversationUpdateItem_enable_call_notifications">Exibir notificações de chamadas</string>
+  <string name="ConversationUpdateItem_update_contact">Atualizar contato</string>
   <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">Nenhum grupo em comum. Analise o pedido com atenção.</string>
   <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">Nenhum contato neste grupo. Analise solicitações com atenção.</string>
   <string name="ConversationUpdateItem_view">Exibir</string>
@@ -1801,21 +1830,26 @@
   <!--recipients_panel-->
   <string name="recipients_panel__to"><small>Digite um nome ou um número</small></string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Se você quiser verificar a segurança da sua criptografia ponta a ponta com %s, compare os números acima com os números no dispositivo dessa pessoa. Outra opção é escanear o código QR no telefone dela, ou pedir que ela escaneie o código no seu dispositivo. <a href="https://signal.org/redirect/safety-numbers">Saiba mais.</a>]]></string>
+  <string name="verify_display_fragment__to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Para verificar a segurança da sua criptografia de ponta a ponta com %s, compare os números acima com os números no aparelho da outra pessoa. Você pode comparar número por número ou escaneando o código no telefone da outra pessoa. <a href="https://signal.org/redirect/safety-numbers">Saiba mais.</a>]]></string>
   <string name="verify_display_fragment__tap_to_scan">Toque para escanear</string>
+  <string name="verify_display_fragment__successful_match">Correspondência bem sucedida</string>
+  <string name="verify_display_fragment__failed_to_verify_safety_number">Falha ao verificar o número de segurança</string>
   <string name="verify_display_fragment__loading">Carregando…</string>
-  <string name="verify_display_fragment__verified">Verificado</string>
+  <string name="verify_display_fragment__mark_as_verified">Marcar como verificado</string>
+  <string name="verify_display_fragment__clear_verification">Limpar verificação</string>
   <!--verify_identity-->
   <string name="verify_identity__share_safety_number">Compartilhar número de segurança</string>
+  <!--verity_scan_fragment-->
+  <string name="verify_scan_fragment__scan_the_qr_code_on_your_contact">Escaneie o código QR no aparelho da outra pessoa.</string>
   <!--webrtc_answer_decline_button-->
   <string name="webrtc_answer_decline_button__swipe_up_to_answer">Deslize para cima para atender</string>
   <string name="webrtc_answer_decline_button__swipe_down_to_reject">Deslize para baixo para recusar</string>
   <!--message_details_header-->
   <string name="message_details_header__issues_need_your_attention">Alguns assuntos precisam de sua atenção.</string>
-  <string name="message_details_header__sent">Enviada</string>
-  <string name="message_details_header__received">Recebida</string>
-  <string name="message_details_header__disappears">Expira</string>
-  <string name="message_details_header__via">Via</string>
+  <string name="message_details_header__sent">Enviada:</string>
+  <string name="message_details_header__received">Recebida:</string>
+  <string name="message_details_header__disappears">Expira:</string>
+  <string name="message_details_header__via">Via:</string>
   <!--message_details_recipient_header-->
   <string name="message_details_recipient_header__pending_send">Pendente</string>
   <string name="message_details_recipient_header__sent_to">Enviada para</string>
@@ -2493,6 +2527,7 @@
   <string name="RegistrationActivity_call_me_instead_available_in">Me ligue \n (Disponível em %1$02d:%2$02d)</string>
   <string name="RegistrationActivity_contact_signal_support">Entre em contato com o Suporte do Signal</string>
   <string name="RegistrationActivity_code_support_subject">Registro Signal - Código de verificação para Android</string>
+  <string name="RegistrationActivity_incorrect_code">Código incorreto</string>
   <string name="BackupUtil_never">Nunca</string>
   <string name="BackupUtil_unknown">Desconhecida</string>
   <string name="preferences_app_protection__see_my_phone_number">Ver meu número de telefone</string>
@@ -2689,8 +2724,8 @@
   <!--VoiceNotePlaybackPreparer-->
   <string name="VoiceNotePlaybackPreparer__failed_to_play_voice_message">Falha ao reproduzir a mensagem de voz</string>
   <!--VoiceNoteMediaDescriptionCompatFactory-->
-  <string name="VoiceNoteMediaDescriptionCompatFactory__voice_message">Mensagem de voz · %1$s</string>
-  <string name="VoiceNoteMediaDescriptionCompatFactory__s_to_s">%1$s para %2$s</string>
+  <string name="VoiceNoteMediaItemFactory__voice_message">Mensagem de voz · %1$s</string>
+  <string name="VoiceNoteMediaItemFactory__s_to_s">%1$s para %2$s</string>
   <!--StorageUtil-->
   <string name="StorageUtil__s_s">%1$s/%2$s</string>
   <string name="BlockedUsersActivity__s_has_been_blocked">\"%1$s\" foi bloqueado.</string>
@@ -2907,6 +2942,47 @@
   <string name="AccountSettingsFragment__account">Conta</string>
   <string name="AccountSettingsFragment__youll_be_asked_less_frequently">Você será questionado com menos frequência ao longo do tempo</string>
   <string name="AccountSettingsFragment__require_your_signal_pin">Exigir o seu PIN do Signal ao registrar o seu número de telefone novamente no Signal</string>
+  <string name="AccountSettingsFragment__change_phone_number">Mudar número de telefone</string>
+  <!--ChangeNumberFragment-->
+  <string name="ChangeNumberFragment__use_this_to_change_your_current_phone_number_to_a_new_phone_number">Proceda para mudar o seu número de telefone atual para um novo número de telefone. Você não poderá desfazer esta mudança.\n\nAntes de continuar, certifique-se que o seu novo número está recebendo SMS ou ligações.</string>
+  <string name="ChangeNumberFragment__continue">Continuar</string>
+  <string name="ChangeNumber__your_phone_number_has_been_changed">O seu número de telefone foi alterado.</string>
+  <!--ChangeNumberEnterPhoneNumberFragment-->
+  <string name="ChangeNumberEnterPhoneNumberFragment__change_number">Mudar número</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__your_old_number">Seu número antigo</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__old_phone_number">Número de telefone antigo</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__your_new_number">Seu novo número</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__new_phone_number">Novo número de telefone</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__the_phone_number_you_entered_doesnt_match_your_accounts">O número de telefone que você inseriu não corresponde ao da sua conta.</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__you_must_specify_your_old_number_country_code">Informe o código do país do seu número antigo</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__you_must_specify_your_old_phone_number">Insira seu número de telefone antigo</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__you_must_specify_your_new_number_country_code">Informe o código do país do seu novo número</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__you_must_specify_your_new_phone_number">Insira seu novo número de telefone</string>
+  <!--ChangeNumberVerifyFragment-->
+  <string name="ChangeNumberVerifyFragment__change_number">Mudar número</string>
+  <string name="ChangeNumberVerifyFragment__verifying_s">Verificando %1$s</string>
+  <string name="ChangeNumberVerifyFragment__captcha_required">Captcha necessário</string>
+  <!--ChangeNumberConfirmFragment-->
+  <string name="ChangeNumberConfirmFragment__change_number">Mudar número</string>
+  <string name="ChangeNumberConfirmFragment__you_are_about_to_change_your_phone_number_from_s_to_s">Você está prestes a alterar o seu número de telefone de %1$s para %2$s.\n\nAntes de continuar, confirme se o número abaixo está correto.</string>
+  <string name="ChangeNumberConfirmFragment__edit_number">Editar número</string>
+  <!--ChangeNumberRegistrationLockFragment-->
+  <string name="ChangeNumberRegistrationLockFragment__signal_change_number_need_help_with_pin_for_android_v2_pin">Mudança de número no Signal - Preciso de ajuda com o PIN para Android (v2 PIN)</string>
+  <!--ChangeNumberPinDiffersFragment-->
+  <string name="ChangeNumberPinDiffersFragment__pins_do_not_match">Os PINs não correspondem</string>
+  <string name="ChangeNumberPinDiffersFragment__the_pin_associated_with_your_new_number_is_different_from_the_pin_associated_with_your_old_one">O PIN associado ao seu novo número é diferente do PIN associado ao número antigo. Deseja manter o seu PIN antigo ou criar um novo PIN?</string>
+  <string name="ChangeNumberPinDiffersFragment__keep_old_pin">Manter o PIN antigo</string>
+  <string name="ChangeNumberPinDiffersFragment__update_pin">Atualizar PIN</string>
+  <string name="ChangeNumberPinDiffersFragment__keep_old_pin_question">Manter o PIN antigo?</string>
+  <!--ChangeNumberLockActivity-->
+  <string name="ChangeNumberLockActivity__it_looks_like_you_tried_to_change_your_number_but_we_were_unable_to_determine_if_it_was_successful_rechecking_now">Parece que você tentou mudar o seu número. Aguardamos a confirmação de que a mudança foi bem-sucedida. \n\nVerificando agora…</string>
+  <string name="ChangeNumberLockActivity__change_status_confirmed">Mudança de número confirmada</string>
+  <string name="ChangeNumberLockActivity__your_number_has_been_confirmed_as_s">Seu número foi confirmado como %1$s. Se esse não for o seu novo número, refaça o processo de mudança de número, por favor.</string>
+  <string name="ChangeNumberLockActivity__change_status_unconfirmed">Mudança de número não confirmada</string>
+  <string name="ChangeNumberLockActivity__we_could_not_determine_the_status_of_your_change_number_request">Não foi possível determinar o progresso da sua solicitação de mudança de número.\n\n(Erro: %1$s)</string>
+  <string name="ChangeNumberLockActivity__retry">Tentar novamente</string>
+  <string name="ChangeNumberLockActivity__leave">Sair</string>
+  <string name="ChangeNumberLockActivity__submit_debug_log">Enviar registro de depuração</string>
   <!--ChatsSettingsFragment-->
   <string name="ChatsSettingsFragment__keyboard">Teclado</string>
   <string name="ChatsSettingsFragment__enter_key_sends">Tecla Enter envia</string>
@@ -3133,5 +3209,28 @@
     <item quantity="other">Não foi possível encaminhar as mensagens porque elas não estão mais disponíveis.</item>
   </plurals>
   <string name="MultiselectForwardFragment__limit_reached">Limite alcançado</string>
+  <!--Media V2-->
+  <string name="MediaReviewFragment__add_a_message">Adicionar uma mensagem</string>
+  <string name="MediaReviewFragment__add_a_reply">Responder</string>
+  <string name="MediaReviewFragment__send_to">Enviar para</string>
+  <string name="ImageEditorHud__cancel">Cancelar</string>
+  <string name="ImageEditorHud__draw">Desenhar</string>
+  <string name="ImageEditorHud__write_text">Escrever texto</string>
+  <string name="ImageEditorHud__add_a_sticker">Adicionar uma figurinha</string>
+  <string name="ImageEditorHud__blur">Desfocar</string>
+  <string name="ImageEditorHud__done_editing">Concluir a edição</string>
+  <string name="ImageEditorHud__clear_all">Limpar tudo</string>
+  <string name="ImageEditorHud__undo">Desfazer</string>
+  <string name="ImageEditorHud__toggle_between_marker_and_highlighter">Alternar entre marcador e marca-texto</string>
+  <string name="MediaCountIndicatorButton__send">Enviar</string>
+  <string name="MediaReviewSelectedItem__tap_to_remove">Toque para remover</string>
+  <string name="MediaReviewSelectedItem__tap_to_select">Toque para selecionar</string>
+  <string name="MediaReviewImagePageFragment__discard">Descartar</string>
+  <string name="MediaReviewImagePageFragment__discard_changes">Descartar alterações?</string>
+  <string name="MediaReviewFragment__view_once_message">Mensagem efêmera</string>
+  <string name="MediaReviewImagePageFragment__youll_lose_any_changes">Você perderá todas as alterações feitas nessa foto.</string>
+  <string name="ImageEditorHud__delete">Remover</string>
+  <string name="CameraFragment__failed_to_open_camera">Falha ao abrir a câmera</string>
+  <string name="ImageEditorHud__toggle_between_text_styles">Alternar entre estilos de texto</string>
   <!--EOF-->
 </resources>

@@ -823,17 +823,12 @@
   <!--InviteActivity-->
   <string name="InviteActivity_share">Sdílet</string>
   <string name="InviteActivity_share_with_contacts">Sdílet s kontakty</string>
-  <string name="InviteActivity_choose_how_to_share">Vybrat způsob sdílení</string>
+  <string name="InviteActivity_share_via">Sdílet přes…</string>
   <string name="InviteActivity_cancel">Storno</string>
   <string name="InviteActivity_sending">Odesílaní…</string>
   <string name="InviteActivity_invitations_sent">Pozvánka odeslána!</string>
   <string name="InviteActivity_invite_to_signal">Pozvat do Molly</string>
-  <plurals name="InviteActivity_send_sms_to_friends">
-    <item quantity="one">POSLAT SMS %d PŘÍTELI</item>
-    <item quantity="few">POSLAT SMS %d PŘÁTELŮM</item>
-    <item quantity="many">POSLAT SMS %d PŘÁTELŮM</item>
-    <item quantity="other">POSLAT SMS %d PŘÁTELŮM</item>
-  </plurals>
+  <string name="InviteActivity_send_sms">Poslat SMS (%d)</string>
   <plurals name="InviteActivity_send_sms_invites">
     <item quantity="one">Poslat %d SMS pozvánku?</item>
     <item quantity="few">Poslat %d SMS pozvánky?</item>
@@ -842,7 +837,6 @@
   </plurals>
   <string name="InviteActivity_lets_switch_to_signal">Přejít na Molly: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Zdá se, že nemáte žádnou aplikaci pro sdílení.</string>
-  <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Přátelé nenechávají přátele komunikovat nešifrovaně.</string>
   <!--LearnMoreTextView-->
   <string name="LearnMoreTextView_learn_more">Zjistit více</string>
   <!--LongMessageActivity-->
@@ -921,11 +915,13 @@
   <string name="NotificationBarManager_signal_call_in_progress">Probíhá hovor Signal</string>
   <string name="NotificationBarManager__establishing_signal_call">Navazuji hovor Signal</string>
   <string name="NotificationBarManager__incoming_signal_call">Příchozí hovor Signal</string>
+  <string name="NotificationBarManager__incoming_signal_group_call">Příchozí Signal skupinový hovor</string>
   <string name="NotificationBarManager__stopping_signal_call_service">Zastavuji službu hovorů Signal</string>
-  <string name="NotificationBarManager__deny_call">Zakázat volání</string>
+  <string name="NotificationBarManager__decline_call">Odmítnout hovor</string>
   <string name="NotificationBarManager__answer_call">Přijmout hovor</string>
   <string name="NotificationBarManager__end_call">Ukončit hovor</string>
   <string name="NotificationBarManager__cancel_call">Zrušit hovor</string>
+  <string name="NotificationBarManager__join_call">Připojit se k hovoru</string>
   <!--NotificationsMegaphone-->
   <string name="NotificationsMegaphone_turn_on_notifications">Zapnout Notifikace?</string>
   <string name="NotificationsMegaphone_never_miss_a_message">Nezmeškejte žádnou zprávu od svých kontaktů a skupin.</string>
@@ -1144,6 +1140,7 @@
   <string name="MessageRecord_you_marked_your_safety_number_with_s_unverified">Označili jste vaše bezpečnostní číslo pro komunikaci s %s jako neověřené.</string>
   <string name="MessageRecord_you_marked_your_safety_number_with_s_unverified_from_another_device">Označili jste na jiném zařízení vaše bezpečnostní číslo pro komunikaci s %s jako neověřené.</string>
   <string name="MessageRecord_a_message_from_s_couldnt_be_delivered">Zpráva od %s nemohla být doručena.</string>
+  <string name="MessageRecord_s_changed_their_number_to_a_new_number">%1$s změnil(a) své číslo na nové.</string>
   <!--Group Calling update messages-->
   <string name="MessageRecord_s_started_a_group_call_s">%1$s zahájil skupinový hovor · %2$s</string>
   <string name="MessageRecord_s_is_in_the_group_call_s">%1$s se účastní skupinového hovoru · %2$s</string>
@@ -1315,6 +1312,7 @@
   <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Molly potřebuje přístup k vašemu fotoaparátu pro volání %1$s</string>
   <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
   <string name="WebRtcCallActivity__calling">Volání…</string>
+  <string name="WebRtcCallActivity__group_is_too_large_to_ring_the_participants">Skupina je pro volání příliš velká</string>
   <!--WebRtcCallView-->
   <string name="WebRtcCallView__signal_call">Signal hovor</string>
   <string name="WebRtcCallView__signal_video_call">Signal video hovor</string>
@@ -1327,8 +1325,42 @@
   <string name="WebRtcCallView__reconnecting">Opětovné připojování…</string>
   <string name="WebRtcCallView__joining">Připojování…</string>
   <string name="WebRtcCallView__disconnected">Odpojen</string>
+  <string name="WebRtcCallView__signal_will_ring_s">Signal zavolá %1$s</string>
+  <string name="WebRtcCallView__signal_will_ring_s_and_s">Signal zavolá %1$s a %2$s</string>
+  <plurals name="WebRtcCallView__signal_will_ring_s_s_and_d_others">
+    <item quantity="one">Signal zavolá %1$s , %2$s a %3$d dalším</item>
+    <item quantity="few">Signal zavolá %1$s , %2$s a %3$d dalším</item>
+    <item quantity="many">Signal zavolá %1$s, %2$s a %3$d dalším</item>
+    <item quantity="other">Signal zavolá %1$s , %2$s a %3$d dalším</item>
+  </plurals>
+  <string name="WebRtcCallView__s_will_be_notified">%1$s uvidí oznámení</string>
+  <string name="WebRtcCallView__s_and_s_will_be_notified">%1$s a %2$s uvidí oznámení</string>
+  <plurals name="WebRtcCallView__s_s_and_d_others_will_be_notified">
+    <item quantity="one">%1$s, %2$s a %3$d další uvidí oznámení</item>
+    <item quantity="few">%1$s, %2$s a %3$d dalších uvidí oznámení</item>
+    <item quantity="many">%1$s, %2$s a %3$d dalších uvidí oznámení</item>
+    <item quantity="other">%1$s, %2$s a %3$d další uvidí oznámení</item>
+  </plurals>
+  <string name="WebRtcCallView__ringing_s">Volám %1$s</string>
+  <string name="WebRtcCallView__ringing_s_and_s">Volám %1$s a %2$s</string>
+  <plurals name="WebRtcCallView__ringing_s_s_and_d_others">
+    <item quantity="one">Volám %1$s, %2$s a %3$d dalšímu</item>
+    <item quantity="few">Volám %1$s, %2$s a %3$d dalším</item>
+    <item quantity="many">Volám %1$s, %2$s a %3$d dalším </item>
+    <item quantity="other">Volám %1$s, %2$s a %3$d další</item>
+  </plurals>
+  <string name="WebRtcCallView__s_is_calling_you">%1$s vám volá</string>
+  <string name="WebRtcCallView__s_is_calling_you_and_s">%1$s volá vám a %2$s</string>
+  <string name="WebRtcCallView__s_is_calling_you_s_and_s">%1$s volá vám, %2$s a %3$s</string>
+  <plurals name="WebRtcCallView__s_is_calling_you_s_s_and_d_others">
+    <item quantity="one">%1$s volá vám, %2$s, %3$s a %4$d dalšímu</item>
+    <item quantity="few">%1$s volá vám, %2$s, %3$s a %4$d dalším</item>
+    <item quantity="many">%1$s volá vám, %2$s, %3$s a %4$d dalším</item>
+    <item quantity="other">%1$s volá vám, %2$s, %3$s a %4$d další</item>
+  </plurals>
   <string name="WebRtcCallView__no_one_else_is_here">Nikdo další tady není</string>
   <string name="WebRtcCallView__s_is_in_this_call">%1$s se účastní tohoto hovoru</string>
+  <string name="WebRtcCallView__s_are_in_this_call">%1$s jsou v hovoru</string>
   <string name="WebRtcCallView__s_and_s_are_in_this_call">%1$s a %2$s se účastní tohoto hovoru</string>
   <string name="WebRtcCallView__s_is_presenting">%1$s prezentuje</string>
   <plurals name="WebRtcCallView__s_s_and_d_others_are_in_this_call">
@@ -1338,9 +1370,10 @@
     <item quantity="other">%1$s, %2$s a %3$d dalších se účastní tohoto hovoru</item>
   </plurals>
   <string name="WebRtcCallView__flip">Překlopit</string>
-  <string name="WebRtcCallView__speaker">Reproduktor</string>
-  <string name="WebRtcCallView__camera">Fotoaparát</string>
+  <string name="WebRtcCallView__speaker">Hlasitě</string>
+  <string name="WebRtcCallView__camera">Kamera</string>
   <string name="WebRtcCallView__mute">Ztlumit</string>
+  <string name="WebRtcCallView__ring">Volat</string>
   <string name="WebRtcCallView__end_call">Ukončit hovor</string>
   <!--CallParticipantsListDialog-->
   <plurals name="CallParticipantsListDialog_in_this_call_d_people">
@@ -1393,6 +1426,7 @@ telefonní číslo
   <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Molly potřebuje přístup k vašim kontaktům, aby bylo možné propojení s přáteli, vyměňování zpráv a uskutečňování zabezpečených hovorů. </string>
   <string name="RegistrationActivity_rate_limited_to_service">Učinili jste příliš mnoho pokusů zaregistrovat toto číslo. Zkuste to prosím znovu později.</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">Nelze se připojit k službě. Prosím zkontrolujte připojení k internetu a poté to zkuste znovu.</string>
+  <string name="RegistrationActivity_call_requested">Vyžádané volání</string>
   <plurals name="RegistrationActivity_debug_log_hint">
     <item quantity="one">Zbývá vám %d krok k odeslání ladícího logu.</item>
     <item quantity="few">Zbývají vám %d kroky k odeslání ladícího logu.</item>
@@ -1686,7 +1720,7 @@ Obdržen požadavek na výměnu klíčů pro neplatnou verzi protokolu.
   <!--WebRtcAudioOutputToggle-->
   <string name="WebRtcAudioOutputToggle__audio_output">Audio výstup</string>
   <string name="WebRtcAudioOutputToggle__phone_earpiece">Sluchátko</string>
-  <string name="WebRtcAudioOutputToggle__speaker">Reproduktor</string>
+  <string name="WebRtcAudioOutputToggle__speaker">Hlasitě</string>
   <string name="WebRtcAudioOutputToggle__bluetooth">Bluetooth</string>
   <string name="WebRtcCallControls_answer_call_description">Přijmout hovor</string>
   <string name="WebRtcCallControls_reject_call_description">Odmítnout hovor</string>
@@ -1769,6 +1803,7 @@ Obdržen požadavek na výměnu klíčů pro neplatnou verzi protokolu.
   <string name="ConversationUpdateItem_call_is_full">Hovor je plný</string>
   <string name="ConversationUpdateItem_invite_friends">Pozvat přátele</string>
   <string name="ConversationUpdateItem_enable_call_notifications">Povolit oznámení hovorů</string>
+  <string name="ConversationUpdateItem_update_contact">Aktualizovat kontakt</string>
   <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">Žádné společné skupiny. Požadavky pečlivě prověřte.</string>
   <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">Žádné kontakty v této skupině. Požadavky pečlivě prověřte.</string>
   <string name="ConversationUpdateItem_view">Zobrazit</string>
@@ -1944,21 +1979,26 @@ Obdržen požadavek na výměnu klíčů pro neplatnou verzi protokolu.
   <!--recipients_panel-->
   <string name="recipients_panel__to"><small>Zadejte jméno nebo číslo</small></string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Pokud chcete zkontrolovat bezpečnost šifrované komunikace s %s, porovnejte čísla nahoře na vašem zařízení s čísly na zařízení vašeho kontaktu. Můžete také oskenovat kód na jeho telefonu nebo jej požádat, aby oskenoval kód na vašem zařízení. <a href="https://signal.org/redirect/safety-numbers">Zjistěte více o bezpečnostních číslech.</a>]]></string>
+  <string name="verify_display_fragment__to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Chcete-li ověřit bezpečnost koncového šifrování s %s, porovnejte výše uvedená čísla s jejich zařízením. Můžete také naskenovat kód z jejich telefonu. <a href="https://signal.org/redirect/safety-numbers">Dozvědět se více.</a>]]></string>
   <string name="verify_display_fragment__tap_to_scan">Klepnutím skenovat</string>
+  <string name="verify_display_fragment__successful_match">Shoduje se</string>
+  <string name="verify_display_fragment__failed_to_verify_safety_number">Nepodařilo se ověřit bezpečnostní číslo</string>
   <string name="verify_display_fragment__loading">Načítání…</string>
-  <string name="verify_display_fragment__verified">Ověřeno</string>
+  <string name="verify_display_fragment__mark_as_verified">Označit jako ověřené</string>
+  <string name="verify_display_fragment__clear_verification">Vymazat ověření</string>
   <!--verify_identity-->
   <string name="verify_identity__share_safety_number">Sdílet bezpečnostní číslo</string>
+  <!--verity_scan_fragment-->
+  <string name="verify_scan_fragment__scan_the_qr_code_on_your_contact">Naskenujte QR kód ze zařízení vašeho kontaktu.</string>
   <!--webrtc_answer_decline_button-->
   <string name="webrtc_answer_decline_button__swipe_up_to_answer">Pro odpověď přejeďte prstem nahoru</string>
   <string name="webrtc_answer_decline_button__swipe_down_to_reject">Pro odmítnutí přejeďte prstem dolů</string>
   <!--message_details_header-->
   <string name="message_details_header__issues_need_your_attention">Některé problémy vyžadují vaši pozornost</string>
-  <string name="message_details_header__sent">Odesláno</string>
-  <string name="message_details_header__received">Přijato</string>
-  <string name="message_details_header__disappears">Zmizí</string>
-  <string name="message_details_header__via">Přes</string>
+  <string name="message_details_header__sent">Odesláno:</string>
+  <string name="message_details_header__received">Přijato:</string>
+  <string name="message_details_header__disappears">Zmizí:</string>
+  <string name="message_details_header__via">Kanál:</string>
   <!--message_details_recipient_header-->
   <string name="message_details_recipient_header__pending_send">Probíhá</string>
   <string name="message_details_recipient_header__sent_to">Odesláno pro</string>
@@ -2652,6 +2692,7 @@ Obdržen požadavek na výměnu klíčů pro neplatnou verzi protokolu.
   <string name="RegistrationActivity_call_me_instead_available_in">Raději mi zavolejte \n (V době %1$02d:%2$02d)</string>
   <string name="RegistrationActivity_contact_signal_support">Kontaktujte podporu Signal</string>
   <string name="RegistrationActivity_code_support_subject">Registrace Signal - ověřovací kód pro Android</string>
+  <string name="RegistrationActivity_incorrect_code">Špatný kód</string>
   <string name="BackupUtil_never">Nikdy</string>
   <string name="BackupUtil_unknown">Neznámý</string>
   <string name="preferences_app_protection__see_my_phone_number">Zobrazit mé telefonní číslo</string>
@@ -2848,8 +2889,8 @@ Obdržen požadavek na výměnu klíčů pro neplatnou verzi protokolu.
   <!--VoiceNotePlaybackPreparer-->
   <string name="VoiceNotePlaybackPreparer__failed_to_play_voice_message">Nepodařilo ze přehrát zvukovou zprávu</string>
   <!--VoiceNoteMediaDescriptionCompatFactory-->
-  <string name="VoiceNoteMediaDescriptionCompatFactory__voice_message">Hlasová zpráva · %1$s</string>
-  <string name="VoiceNoteMediaDescriptionCompatFactory__s_to_s">%1$s pro %2$s</string>
+  <string name="VoiceNoteMediaItemFactory__voice_message">Hlasová zpráva · %1$s</string>
+  <string name="VoiceNoteMediaItemFactory__s_to_s">%1$s pro %2$s</string>
   <!--StorageUtil-->
   <string name="StorageUtil__s_s">%1$s/%2$s</string>
   <string name="BlockedUsersActivity__s_has_been_blocked">\"%1$s\" byl zablokován.</string>
@@ -3072,6 +3113,47 @@ Obdržen požadavek na výměnu klíčů pro neplatnou verzi protokolu.
   <string name="AccountSettingsFragment__account">Účet</string>
   <string name="AccountSettingsFragment__youll_be_asked_less_frequently">Časem se vás budeme ptál méně často.</string>
   <string name="AccountSettingsFragment__require_your_signal_pin">Vyžadovat Signal PIN pro opětovnou registraci vašeho telefonního čísla v aplikaci Signal.</string>
+  <string name="AccountSettingsFragment__change_phone_number">Změnit telefonní číslo</string>
+  <!--ChangeNumberFragment-->
+  <string name="ChangeNumberFragment__use_this_to_change_your_current_phone_number_to_a_new_phone_number">Pomocí této funkce můžete změnit své aktuální telefonní číslo na nové. Tuto změnu nelze vrátit zpět.\n\nPřed pokračováním se ujistěte, že nové číslo může přijímat SMS nebo hovory.</string>
+  <string name="ChangeNumberFragment__continue">Pokračovat</string>
+  <string name="ChangeNumber__your_phone_number_has_been_changed">Vaše telefonní číslo bylo změněno.</string>
+  <!--ChangeNumberEnterPhoneNumberFragment-->
+  <string name="ChangeNumberEnterPhoneNumberFragment__change_number">Změnit číslo</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__your_old_number">Vaše staré číslo</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__old_phone_number">Staré telefonní číslo</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__your_new_number">Vaše nové číslo</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__new_phone_number">Nové telefonní číslo</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__the_phone_number_you_entered_doesnt_match_your_accounts">Zadané telefonní číslo neodpovídá vašemu účtu.</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__you_must_specify_your_old_number_country_code">Musíte zadat kód země svého starého čísla.</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__you_must_specify_your_old_phone_number">Musíte zadat své staré telefonní číslo.</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__you_must_specify_your_new_number_country_code">Musíte zadat kód země svého nového čísla.</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__you_must_specify_your_new_phone_number">Musíte zadat své nové telefonní číslo</string>
+  <!--ChangeNumberVerifyFragment-->
+  <string name="ChangeNumberVerifyFragment__change_number">Změnit číslo</string>
+  <string name="ChangeNumberVerifyFragment__verifying_s">Ověřuji %1$s</string>
+  <string name="ChangeNumberVerifyFragment__captcha_required">Vyžaduje se Captcha </string>
+  <!--ChangeNumberConfirmFragment-->
+  <string name="ChangeNumberConfirmFragment__change_number">Změnit číslo</string>
+  <string name="ChangeNumberConfirmFragment__you_are_about_to_change_your_phone_number_from_s_to_s">Chystáte se změnit vaše telefonní číslo z %1$s na %2$s.\n\nPředtím, než budete pokračovat, zkontrolujte prosím, že níže uvedené číslo je správné.</string>
+  <string name="ChangeNumberConfirmFragment__edit_number">Upravit číslo</string>
+  <!--ChangeNumberRegistrationLockFragment-->
+  <string name="ChangeNumberRegistrationLockFragment__signal_change_number_need_help_with_pin_for_android_v2_pin">Změna čísla Signal - Potřebujete pomoc s PIN pro Android (PIN v2)</string>
+  <!--ChangeNumberPinDiffersFragment-->
+  <string name="ChangeNumberPinDiffersFragment__pins_do_not_match">PIN se neshoduje</string>
+  <string name="ChangeNumberPinDiffersFragment__the_pin_associated_with_your_new_number_is_different_from_the_pin_associated_with_your_old_one">PIN přiřazený k novému číslu se liší od PIN přiřazeného k vašemu starému číslu. Chcete si ponechat svůj starý PIN nebo jej aktualizovat?</string>
+  <string name="ChangeNumberPinDiffersFragment__keep_old_pin">Zachovat starý PIN</string>
+  <string name="ChangeNumberPinDiffersFragment__update_pin">Aktualizovat PIN</string>
+  <string name="ChangeNumberPinDiffersFragment__keep_old_pin_question">Zachovat starý PIN?</string>
+  <!--ChangeNumberLockActivity-->
+  <string name="ChangeNumberLockActivity__it_looks_like_you_tried_to_change_your_number_but_we_were_unable_to_determine_if_it_was_successful_rechecking_now">Vypadá to, že jste se pokusili změnit své telefonní číslo, ale nepodařilo se nám ověřit, jestli změna proběhla úspěšně.\n\nKontroluji nyní…</string>
+  <string name="ChangeNumberLockActivity__change_status_confirmed">Změna stavu potvrzena</string>
+  <string name="ChangeNumberLockActivity__your_number_has_been_confirmed_as_s">Vaše číslo bylo potvrzeno jako %1$s. Pokud to není vaše číslo, opakujte prosím proces změny čísla.</string>
+  <string name="ChangeNumberLockActivity__change_status_unconfirmed">Změna stavu nepotvrzena</string>
+  <string name="ChangeNumberLockActivity__we_could_not_determine_the_status_of_your_change_number_request">Nemohli jsme ověřit status požadavku na změnu čísla.\n\n(Chyba: %1$s)</string>
+  <string name="ChangeNumberLockActivity__retry">Zkusit znovu</string>
+  <string name="ChangeNumberLockActivity__leave">Opustit</string>
+  <string name="ChangeNumberLockActivity__submit_debug_log">Odeslat ladicí log</string>
   <!--ChatsSettingsFragment-->
   <string name="ChatsSettingsFragment__keyboard">Klávesnice</string>
   <string name="ChatsSettingsFragment__enter_key_sends">Klávesa Enter odesílá</string>
@@ -3222,14 +3304,14 @@ Obdržen požadavek na výměnu klíčů pro neplatnou verzi protokolu.
   <string name="ConversationSettingsFragment__copied_phone_number_to_clipboard">Telefonní číslo zkopírováno do schránky.</string>
   <string name="ConversationSettingsFragment__phone_number">Telefonní číslo</string>
   <!--PermissionsSettingsFragment-->
-  <string name="PermissionsSettingsFragment__add_members">Přidat členy</string>
-  <string name="PermissionsSettingsFragment__edit_group_info">Upravit informace o skupině</string>
-  <string name="PermissionsSettingsFragment__send_messages">Odeslat zprávy</string>
+  <string name="PermissionsSettingsFragment__add_members">Přidávat členy</string>
+  <string name="PermissionsSettingsFragment__edit_group_info">Upravovat informace o skupině</string>
+  <string name="PermissionsSettingsFragment__send_messages">Odesílat zprávy</string>
   <string name="PermissionsSettingsFragment__all_members">Všichni členové</string>
   <string name="PermissionsSettingsFragment__only_admins">Pouze správci</string>
   <string name="PermissionsSettingsFragment__who_can_add_new_members">Kdo může přidávat nové členy?</string>
   <string name="PermissionsSettingsFragment__who_can_edit_this_groups_info">Kdo může upravovat informace o této skupině?</string>
-  <string name="PermissionsSettingsFragment__who_can_send_messages">Kdo může odeslat zprávy?</string>
+  <string name="PermissionsSettingsFragment__who_can_send_messages">Kdo může odesílat zprávy?</string>
   <!--SoundsAndNotificationsSettingsFragment-->
   <string name="SoundsAndNotificationsSettingsFragment__mute_notifications">Ztišit upozornění</string>
   <string name="SoundsAndNotificationsSettingsFragment__not_muted">Není ztlumeno</string>
@@ -3310,5 +3392,28 @@ Obdržen požadavek na výměnu klíčů pro neplatnou verzi protokolu.
     <item quantity="other">Zprávy nebylo možné přeposlat, protože již nejsou k dispozici.</item>
   </plurals>
   <string name="MultiselectForwardFragment__limit_reached">Dosažen limit</string>
+  <!--Media V2-->
+  <string name="MediaReviewFragment__add_a_message">Přidat zprávu</string>
+  <string name="MediaReviewFragment__add_a_reply">Přidat odpověď</string>
+  <string name="MediaReviewFragment__send_to">Odeslat</string>
+  <string name="ImageEditorHud__cancel">Zrušit</string>
+  <string name="ImageEditorHud__draw">Kreslit</string>
+  <string name="ImageEditorHud__write_text">Napsat text</string>
+  <string name="ImageEditorHud__add_a_sticker">Přidat nálepku</string>
+  <string name="ImageEditorHud__blur">Rozostřit</string>
+  <string name="ImageEditorHud__done_editing">Dokončení úprav</string>
+  <string name="ImageEditorHud__clear_all">Vše vymazat</string>
+  <string name="ImageEditorHud__undo">Zpět</string>
+  <string name="ImageEditorHud__toggle_between_marker_and_highlighter">Přepnout mezi značkovačem a zvýrazňovačem</string>
+  <string name="MediaCountIndicatorButton__send">Odeslat</string>
+  <string name="MediaReviewSelectedItem__tap_to_remove">Klepnutím odstranit</string>
+  <string name="MediaReviewSelectedItem__tap_to_select">Klepněte pro výběr</string>
+  <string name="MediaReviewImagePageFragment__discard">Zahodit</string>
+  <string name="MediaReviewImagePageFragment__discard_changes">Zrušit změny?</string>
+  <string name="MediaReviewFragment__view_once_message">Zpráva pro jednorázové zobrazení</string>
+  <string name="MediaReviewImagePageFragment__youll_lose_any_changes">Ztratíte všechny změny, které jste na této fotografii provedli.</string>
+  <string name="ImageEditorHud__delete">Smazat</string>
+  <string name="CameraFragment__failed_to_open_camera">Nepodařilo se otevřít kameru</string>
+  <string name="ImageEditorHud__toggle_between_text_styles">Přepínání mezi styly textu</string>
   <!--EOF-->
 </resources>

@@ -87,6 +87,7 @@ public abstract class MessageRecord extends DisplayRecord {
   private final long                      serverTimestamp;
   private final boolean                   remoteDelete;
   private final long                      notifiedTimestamp;
+  private final long                      receiptTimestamp;
 
   MessageRecord(long id, String body, Recipient conversationRecipient,
                 Recipient individualRecipient, int recipientDeviceId,
@@ -97,7 +98,7 @@ public abstract class MessageRecord extends DisplayRecord {
                 int subscriptionId, long expiresIn, long expireStarted,
                 int readReceiptCount, boolean unidentified,
                 @NonNull List<ReactionRecord> reactions, boolean remoteDelete, long notifiedTimestamp,
-                int viewedReceiptCount)
+                int viewedReceiptCount, long receiptTimestamp)
   {
     super(body, conversationRecipient, dateSent, dateReceived,
           threadId, deliveryStatus, deliveryReceiptCount, type,
@@ -115,6 +116,7 @@ public abstract class MessageRecord extends DisplayRecord {
     this.serverTimestamp     = dateServer;
     this.remoteDelete        = remoteDelete;
     this.notifiedTimestamp   = notifiedTimestamp;
+    this.receiptTimestamp    = receiptTimestamp;
   }
 
   public abstract boolean isMms();
@@ -185,6 +187,8 @@ public abstract class MessageRecord extends DisplayRecord {
       else              return fromRecipient(getIndividualRecipient(), r -> context.getString(R.string.MessageRecord_you_marked_your_safety_number_with_s_unverified_from_another_device, r.getDisplayName(context)), R.drawable.ic_update_info_16);
     } else if (isProfileChange()) {
       return staticUpdateDescription(getProfileChangeDescription(context), R.drawable.ic_update_profile_16);
+    } else if (isChangeNumber()) {
+      return fromRecipient(getIndividualRecipient(), r -> context.getString(R.string.MessageRecord_s_changed_their_number_to_a_new_number, r.getDisplayName(context)), R.drawable.ic_phone_16);
     } else if (isEndSession()) {
       if (isOutgoing()) return staticUpdateDescription(context.getString(R.string.SmsMessageRecord_secure_session_reset), R.drawable.ic_update_info_16);
       else              return fromRecipient(getIndividualRecipient(), r-> context.getString(R.string.SmsMessageRecord_secure_session_reset_s, r.getDisplayName(context)), R.drawable.ic_update_info_16);
@@ -254,7 +258,7 @@ public abstract class MessageRecord extends DisplayRecord {
         }
         return UpdateDescription.concatWithNewLines(newGroupDescriptions);
       }
-    } catch (IOException e) {
+    } catch (IOException | IllegalArgumentException e) {
       Log.w(TAG, "GV2 Message update detail could not be read", e);
       return staticUpdateDescription(context.getString(R.string.MessageRecord_group_updated), R.drawable.ic_update_group_16);
     }
@@ -482,7 +486,8 @@ public abstract class MessageRecord extends DisplayRecord {
   public boolean isUpdate() {
     return isGroupAction() || isJoined() || isExpirationTimerUpdate() || isCallLog() ||
            isEndSession() || isIdentityUpdate() || isIdentityVerified() || isIdentityDefault() ||
-           isProfileChange() || isGroupV1MigrationEvent() || isChatSessionRefresh() || isBadDecryptType();
+           isProfileChange() || isGroupV1MigrationEvent() || isChatSessionRefresh() || isBadDecryptType() ||
+           isChangeNumber();
   }
 
   public boolean isMediaPending() {
@@ -578,6 +583,14 @@ public abstract class MessageRecord extends DisplayRecord {
 
   public long getNotifiedTimestamp() {
     return notifiedTimestamp;
+  }
+
+  public long getReceiptTimestamp() {
+    if (!isOutgoing()) {
+      return getDateSent();
+    } else {
+      return receiptTimestamp;
+    }
   }
 
   public static final class InviteAddState {

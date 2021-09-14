@@ -786,16 +786,10 @@
   <!--InviteActivity-->
   <string name="InviteActivity_share">Dijeli</string>
   <string name="InviteActivity_share_with_contacts">Podijelite s kontaktima</string>
-  <string name="InviteActivity_choose_how_to_share">Odaberi način dijeljenja</string>
   <string name="InviteActivity_cancel">Poništi</string>
   <string name="InviteActivity_sending">Slanje…</string>
   <string name="InviteActivity_invitations_sent">Pozivnice su poslane!</string>
   <string name="InviteActivity_invite_to_signal">Pozovi u Molly</string>
-  <plurals name="InviteActivity_send_sms_to_friends">
-    <item quantity="one">POŠALJI SMS ZA %d PRIJATELJA</item>
-    <item quantity="few">POŠALJI SMS ZA %d PRIJATELJA</item>
-    <item quantity="other">POŠALJI SMS ZA %d PRIJATELJA</item>
-  </plurals>
   <plurals name="InviteActivity_send_sms_invites">
     <item quantity="one">Pošalji %d SMS pozivnicu?</item>
     <item quantity="few">Pošalji %d SMS pozivnice?</item>
@@ -803,7 +797,6 @@
   </plurals>
   <string name="InviteActivity_lets_switch_to_signal">Prebacimo se na Molly: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Izgleda da nemate nijednu aplikaciju za dijeljenje.</string>
-  <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Prijatelji ne dopuštaju prijateljima da razgovaraju bez šifriranja.</string>
   <!--LearnMoreTextView-->
   <string name="LearnMoreTextView_learn_more">Saznajte više</string>
   <!--LongMessageActivity-->
@@ -879,10 +872,10 @@
   <string name="NotificationBarManager__establishing_signal_call">Uspostavljanje Signal poziva</string>
   <string name="NotificationBarManager__incoming_signal_call">Dolazni Signal poziv</string>
   <string name="NotificationBarManager__stopping_signal_call_service">Zaustavljanje Signalove usluge za pozive</string>
-  <string name="NotificationBarManager__deny_call">Odbij poziv</string>
   <string name="NotificationBarManager__answer_call">Prihvati poziv</string>
   <string name="NotificationBarManager__end_call">Završi poziv</string>
   <string name="NotificationBarManager__cancel_call">Otkaži poziv</string>
+  <string name="NotificationBarManager__join_call">Pridruži se pozivu</string>
   <!--NotificationsMegaphone-->
   <string name="NotificationsMegaphone_turn_on_notifications">Uključiti obavijesti?</string>
   <string name="NotificationsMegaphone_never_miss_a_message">Nikad ne propustite poruku kontakata i grupa.</string>
@@ -1702,6 +1695,7 @@ broj telefona</string>
   <string name="ConversationUpdateItem_call_is_full">Poziv je pun</string>
   <string name="ConversationUpdateItem_invite_friends">Pozovi prijatelje</string>
   <string name="ConversationUpdateItem_enable_call_notifications">Omogući obavijesti za pozive</string>
+  <string name="ConversationUpdateItem_update_contact">Ažuriraj kontakt</string>
   <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">Nemate zajedničkih grupa. Pažljivo pregledajte zahtjeve.</string>
   <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">Ne kontakata u grupi. Pažljivo pregledajte zahtjeve.</string>
   <string name="ConversationUpdateItem_view">Pregledaj</string>
@@ -1870,21 +1864,17 @@ broj telefona</string>
   <!--recipients_panel-->
   <string name="recipients_panel__to"><small>Unesite ime ili broj</small></string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Ukoliko želite provjeriti sigurnost vašeg šifriranja s %s, usporedite brojeve koje vidite iznad s brojevima na drugom uređaju. Također možete skenirati kôd s drugog telefona ili zamoliti da skeniraju kôd s vašeg telefona. <a href="https://signal.org/redirect/safety-numbers">Saznajte više.</a>]]></string>
   <string name="verify_display_fragment__tap_to_scan">Pritisni za skeniranje</string>
   <string name="verify_display_fragment__loading">Učitavanje…</string>
-  <string name="verify_display_fragment__verified">Provjereno</string>
+  <string name="verify_display_fragment__mark_as_verified">Označi kao provjereno</string>
   <!--verify_identity-->
   <string name="verify_identity__share_safety_number">Podijeli sigurnosni broj</string>
+  <!--verity_scan_fragment-->
   <!--webrtc_answer_decline_button-->
   <string name="webrtc_answer_decline_button__swipe_up_to_answer">Povucite za odgovor</string>
   <string name="webrtc_answer_decline_button__swipe_down_to_reject">Povucite prema dolje za odbijanje</string>
   <!--message_details_header-->
   <string name="message_details_header__issues_need_your_attention">Neki problemi zahtjevaju vašu pozornost.</string>
-  <string name="message_details_header__sent">Poslano</string>
-  <string name="message_details_header__received">Primljeno</string>
-  <string name="message_details_header__disappears">Nestaje</string>
-  <string name="message_details_header__via">Putem</string>
   <!--message_details_recipient_header-->
   <string name="message_details_recipient_header__pending_send">U tijeku</string>
   <string name="message_details_recipient_header__sent_to">Poslano za</string>
@@ -2766,8 +2756,8 @@ broj telefona</string>
   <!--VoiceNotePlaybackPreparer-->
   <string name="VoiceNotePlaybackPreparer__failed_to_play_voice_message">Reprodukcija glasovne poruke nije uspjela</string>
   <!--VoiceNoteMediaDescriptionCompatFactory-->
-  <string name="VoiceNoteMediaDescriptionCompatFactory__voice_message">Glasovna poruka: %1$s</string>
-  <string name="VoiceNoteMediaDescriptionCompatFactory__s_to_s">%1$s za %2$s</string>
+  <string name="VoiceNoteMediaItemFactory__voice_message">Glasovna poruka: %1$s</string>
+  <string name="VoiceNoteMediaItemFactory__s_to_s">%1$s za %2$s</string>
   <!--StorageUtil-->
   <string name="StorageUtil__s_s">%1$s/%2$s</string>
   <string name="BlockedUsersActivity__s_has_been_blocked">\"%1$s\" je blokiran/a.</string>
@@ -2982,6 +2972,22 @@ broj telefona</string>
   <string name="AccountSettingsFragment__account">Račun</string>
   <string name="AccountSettingsFragment__youll_be_asked_less_frequently">S vremenom ćete biti sve rjeđe upitani</string>
   <string name="AccountSettingsFragment__require_your_signal_pin">Zahtjeva vaš Signal PIN za ponovnu registriraciju vašeg broja telefona na Signal</string>
+  <!--ChangeNumberFragment-->
+  <string name="ChangeNumberFragment__continue">Nastavi</string>
+  <!--ChangeNumberEnterPhoneNumberFragment-->
+  <string name="ChangeNumberEnterPhoneNumberFragment__change_number">Promijeni broj</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__the_phone_number_you_entered_doesnt_match_your_accounts">Broj telefona koji ste unijeli ne podudara se s vašim računima.</string>
+  <!--ChangeNumberVerifyFragment-->
+  <string name="ChangeNumberVerifyFragment__change_number">Promijeni broj</string>
+  <!--ChangeNumberConfirmFragment-->
+  <string name="ChangeNumberConfirmFragment__edit_number">Uredi broj</string>
+  <!--ChangeNumberRegistrationLockFragment-->
+  <!--ChangeNumberPinDiffersFragment-->
+  <string name="ChangeNumberPinDiffersFragment__update_pin">Ažuriraj PIN</string>
+  <!--ChangeNumberLockActivity-->
+  <string name="ChangeNumberLockActivity__retry">Pokušajte ponovno</string>
+  <string name="ChangeNumberLockActivity__leave">Napusti</string>
+  <string name="ChangeNumberLockActivity__submit_debug_log">Pošalji zapisnik pogreške</string>
   <!--ChatsSettingsFragment-->
   <string name="ChatsSettingsFragment__keyboard">Tipkovnica</string>
   <string name="ChatsSettingsFragment__enter_key_sends">Tipka Enter šalje poruku</string>
@@ -3192,5 +3198,14 @@ broj telefona</string>
   <string name="MultiselectForwardFragment__faster_forwards">Brzo prosljeđivanje</string>
   <string name="MultiselectForwardFragment__forwarded_messages_are_now">Proslijeđene poruke sada se šalju odmah.</string>
   <string name="MultiselectForwardFragment__limit_reached">Dosegnut je limit</string>
+  <!--Media V2-->
+  <string name="MediaReviewFragment__add_a_message">Dodaj poruku</string>
+  <string name="ImageEditorHud__cancel">Poništi</string>
+  <string name="ImageEditorHud__blur">Zamuti</string>
+  <string name="ImageEditorHud__undo">Poništi</string>
+  <string name="MediaCountIndicatorButton__send">Pošalji</string>
+  <string name="MediaReviewSelectedItem__tap_to_select">Pritisni za odabir slike profila</string>
+  <string name="MediaReviewImagePageFragment__discard">Poništi</string>
+  <string name="ImageEditorHud__delete">Izbriši</string>
   <!--EOF-->
 </resources>

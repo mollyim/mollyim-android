@@ -705,20 +705,15 @@
   <!--InviteActivity-->
   <string name="InviteActivity_share">Chia sẻ</string>
   <string name="InviteActivity_share_with_contacts">Chia sẻ với liên hệ</string>
-  <string name="InviteActivity_choose_how_to_share">Chọn cách chia sẻ</string>
   <string name="InviteActivity_cancel">Hủy bỏ</string>
   <string name="InviteActivity_sending">Đang gửi…</string>
   <string name="InviteActivity_invitations_sent">Đã gửi lời mời!</string>
   <string name="InviteActivity_invite_to_signal">Mời dùng Molly</string>
-  <plurals name="InviteActivity_send_sms_to_friends">
-    <item quantity="other">GỬI SMS ĐẾN %d BẠN</item>
-  </plurals>
   <plurals name="InviteActivity_send_sms_invites">
     <item quantity="other">GỬI %d LỜI MỜI QUA SMS?</item>
   </plurals>
   <string name="InviteActivity_lets_switch_to_signal">Hãy chuyển sang dùng Molly: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Có vẻ như bạn không có bất kỳ ứng dụng nào để chia sẻ.</string>
-  <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Một người bạn tốt không để bạn mình nhắn tin không mã hoá.</string>
   <!--LearnMoreTextView-->
   <string name="LearnMoreTextView_learn_more">Tìm hiểu thêm</string>
   <!--LongMessageActivity-->
@@ -785,10 +780,10 @@
   <string name="NotificationBarManager__establishing_signal_call">Đang thiết lập cuộc gọi Signal</string>
   <string name="NotificationBarManager__incoming_signal_call">Cuộc gọi đến Signal</string>
   <string name="NotificationBarManager__stopping_signal_call_service">Dừng dịch vụ gọi thoại Signal</string>
-  <string name="NotificationBarManager__deny_call">Từ chối cuộc gọi</string>
   <string name="NotificationBarManager__answer_call">Trả lời cuộc gọi</string>
   <string name="NotificationBarManager__end_call">Kết thúc cuộc gọi.</string>
   <string name="NotificationBarManager__cancel_call">Huỷ cuộc gọi</string>
+  <string name="NotificationBarManager__join_call">Tham gia cuộc gọi</string>
   <!--NotificationsMegaphone-->
   <string name="NotificationsMegaphone_turn_on_notifications">Bật thông báo?</string>
   <string name="NotificationsMegaphone_never_miss_a_message">Không bao giờ bỏ lỡ tin nhắn từ liên hệ và nhóm của bạn.</string>
@@ -1555,6 +1550,7 @@ Nhận thông tin trao đổi mã khóa về phiên bản giao thức không h�
   <string name="ConversationUpdateItem_call_is_full">Cuộc gọi đã đầy</string>
   <string name="ConversationUpdateItem_invite_friends">Mời bạn bè</string>
   <string name="ConversationUpdateItem_enable_call_notifications">Bật thông báo cuộc gọi</string>
+  <string name="ConversationUpdateItem_update_contact">Cập nhật liên hệ</string>
   <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">Không có nhóm chung. Hãy xem xét yêu cầu thật kĩ lưỡng.</string>
   <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">Không có liên hệ trong nhóm này. Hãy xem xét yêu cầu thật kĩ lưỡng.</string>
   <string name="ConversationUpdateItem_view">Xem</string>
@@ -1709,21 +1705,17 @@ Nhận thông tin trao đổi mã khóa về phiên bản giao thức không h�
   <!--recipients_panel-->
   <string name="recipients_panel__to"><small>Điền vào tên hoặc số</small></string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Nếu bạn muốn xác minh độ bảo mật của mã hoá với %s, so sánh dãy số trên với dãy số trên thiết bị của họ. Hoặc bạn có thể quét mã QR trên thiết bị của họ, hoặc yêu cầu họ quét mã của bạn. <a href="https://signal.org/redirect/safety-numbers">Tìm hiểu thêm.</a>]]></string>
   <string name="verify_display_fragment__tap_to_scan">Nhấn để quét</string>
   <string name="verify_display_fragment__loading">Đang tải…</string>
-  <string name="verify_display_fragment__verified">Đã xác minh</string>
+  <string name="verify_display_fragment__mark_as_verified">Đánh dấu đã xác minh</string>
   <!--verify_identity-->
   <string name="verify_identity__share_safety_number">Chia sẻ mã số an toàn</string>
+  <!--verity_scan_fragment-->
   <!--webrtc_answer_decline_button-->
   <string name="webrtc_answer_decline_button__swipe_up_to_answer">Vuốt lên để trả lời</string>
   <string name="webrtc_answer_decline_button__swipe_down_to_reject">Vuốt xuống để từ chối</string>
   <!--message_details_header-->
   <string name="message_details_header__issues_need_your_attention">Một số vấn đề cần bạn chú ý.</string>
-  <string name="message_details_header__sent">Đã gửi</string>
-  <string name="message_details_header__received">Đã nhận</string>
-  <string name="message_details_header__disappears">Tự hủy</string>
-  <string name="message_details_header__via">Qua</string>
   <!--message_details_recipient_header-->
   <string name="message_details_recipient_header__pending_send">Đang chờ</string>
   <string name="message_details_recipient_header__sent_to">Gửi từ</string>
@@ -2589,8 +2581,8 @@ Nhận thông tin trao đổi mã khóa về phiên bản giao thức không h�
   <!--VoiceNotePlaybackPreparer-->
   <string name="VoiceNotePlaybackPreparer__failed_to_play_voice_message">Không thể phát tin nhắn thoại</string>
   <!--VoiceNoteMediaDescriptionCompatFactory-->
-  <string name="VoiceNoteMediaDescriptionCompatFactory__voice_message">Tin nhắn thoại · %1$s</string>
-  <string name="VoiceNoteMediaDescriptionCompatFactory__s_to_s">%1$s đến %2$s</string>
+  <string name="VoiceNoteMediaItemFactory__voice_message">Tin nhắn thoại · %1$s</string>
+  <string name="VoiceNoteMediaItemFactory__s_to_s">%1$s đến %2$s</string>
   <!--StorageUtil-->
   <string name="StorageUtil__s_s">%1$s/%2$s</string>
   <string name="BlockedUsersActivity__s_has_been_blocked">\"%1$s\" đã bị chặn.</string>
@@ -2804,6 +2796,20 @@ Nhận thông tin trao đổi mã khóa về phiên bản giao thức không h�
   <string name="AccountSettingsFragment__account">Tài khoản</string>
   <string name="AccountSettingsFragment__youll_be_asked_less_frequently">Bạn sẽ dần được hỏi ít thường xuyên hơn qua thời gian</string>
   <string name="AccountSettingsFragment__require_your_signal_pin">Yêu cầu mã PIN Signal của bạn để đăng ký lại số điện thoại của bạn với Signal</string>
+  <!--ChangeNumberFragment-->
+  <string name="ChangeNumberFragment__continue">Tiếp tục</string>
+  <!--ChangeNumberEnterPhoneNumberFragment-->
+  <string name="ChangeNumberEnterPhoneNumberFragment__the_phone_number_you_entered_doesnt_match_your_accounts">Số điện thoại bạn nhập vào không khớp với số của tài khoản của bạn.</string>
+  <!--ChangeNumberVerifyFragment-->
+  <!--ChangeNumberConfirmFragment-->
+  <string name="ChangeNumberConfirmFragment__edit_number">Sửa số</string>
+  <!--ChangeNumberRegistrationLockFragment-->
+  <!--ChangeNumberPinDiffersFragment-->
+  <string name="ChangeNumberPinDiffersFragment__update_pin">Cập nhật mã PIN</string>
+  <!--ChangeNumberLockActivity-->
+  <string name="ChangeNumberLockActivity__retry">Thử lại</string>
+  <string name="ChangeNumberLockActivity__leave">Rời</string>
+  <string name="ChangeNumberLockActivity__submit_debug_log">Gửi nhật ký gỡ lỗi</string>
   <!--ChatsSettingsFragment-->
   <string name="ChatsSettingsFragment__keyboard">Bàn phím</string>
   <string name="ChatsSettingsFragment__enter_key_sends">Phím Enter gửi đi</string>
@@ -2989,5 +2995,12 @@ Nhận thông tin trao đổi mã khóa về phiên bản giao thức không h�
   <string name="ContactSelectionListItem__sms">SMS</string>
   <string name="ContactSelectionListItem__dot_s">. %1$s</string>
   <!--DSLSettingsToolbar-->
+  <!--Media V2-->
+  <string name="ImageEditorHud__cancel">Hủy</string>
+  <string name="ImageEditorHud__undo">Hoàn tác</string>
+  <string name="MediaCountIndicatorButton__send">Gửi</string>
+  <string name="MediaReviewSelectedItem__tap_to_select">Nhấn để chọn</string>
+  <string name="MediaReviewImagePageFragment__discard">Bỏ</string>
+  <string name="ImageEditorHud__delete">Xóa</string>
   <!--EOF-->
 </resources>

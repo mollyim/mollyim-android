@@ -823,17 +823,12 @@
   <!--InviteActivity-->
   <string name="InviteActivity_share">שתף</string>
   <string name="InviteActivity_share_with_contacts">שתף עם אנשי קשר</string>
-  <string name="InviteActivity_choose_how_to_share">בחר כיצד לשתף</string>
+  <string name="InviteActivity_share_via">שתף באמצעות…</string>
   <string name="InviteActivity_cancel">בטל</string>
   <string name="InviteActivity_sending">שולח…</string>
   <string name="InviteActivity_invitations_sent">הזמנות נשלחו!</string>
   <string name="InviteActivity_invite_to_signal">הזמן אל Molly</string>
-  <plurals name="InviteActivity_send_sms_to_friends">
-    <item quantity="one">שלח מסרון אל חבר %d</item>
-    <item quantity="two">שלח מסרון אל %d חברים</item>
-    <item quantity="many">שלח מסרון אל %d חברים</item>
-    <item quantity="other">שלח מסרון אל %d חברים</item>
-  </plurals>
+  <string name="InviteActivity_send_sms">שלח מסרון (%d)</string>
   <plurals name="InviteActivity_send_sms_invites">
     <item quantity="one">לשלוח הזמנה %d במסרון?</item>
     <item quantity="two">לשלוח %d הזמנות במסרון?</item>
@@ -842,7 +837,6 @@
   </plurals>
   <string name="InviteActivity_lets_switch_to_signal">בוא נחליף אל Molly: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">נראה שאין לך יישומים כלשהם לשתף בהם.</string>
-  <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">חברים לא נותנים לחברים להתכתב באופן בלתי מוצפן.</string>
   <!--LearnMoreTextView-->
   <string name="LearnMoreTextView_learn_more">למד עוד</string>
   <!--LongMessageActivity-->
@@ -921,11 +915,13 @@
   <string name="NotificationBarManager_signal_call_in_progress">שיחת Signal בתהליך</string>
   <string name="NotificationBarManager__establishing_signal_call">מקים שיחת Signal</string>
   <string name="NotificationBarManager__incoming_signal_call">שיחת Signal נכנסת</string>
+  <string name="NotificationBarManager__incoming_signal_group_call">שיחה קבוצתית נכנסת של Signal</string>
   <string name="NotificationBarManager__stopping_signal_call_service">עוצר את שירות השיחות של Signal</string>
-  <string name="NotificationBarManager__deny_call">דחה שיחה</string>
+  <string name="NotificationBarManager__decline_call">דחה שיחה</string>
   <string name="NotificationBarManager__answer_call">ענה לשיחה</string>
   <string name="NotificationBarManager__end_call">סיים שיחה</string>
   <string name="NotificationBarManager__cancel_call">בטל שיחה</string>
+  <string name="NotificationBarManager__join_call">הצטרף לשיחה</string>
   <!--NotificationsMegaphone-->
   <string name="NotificationsMegaphone_turn_on_notifications">להפעיל התראות?</string>
   <string name="NotificationsMegaphone_never_miss_a_message">לעולם לא תפספס הודעה מאנשי הקשר והקבוצות שלך.</string>
@@ -1144,6 +1140,7 @@
   <string name="MessageRecord_you_marked_your_safety_number_with_s_unverified">סימנת את מספר הביטחון שלך עם %s כבלתי מוודא</string>
   <string name="MessageRecord_you_marked_your_safety_number_with_s_unverified_from_another_device">סימנת את מספר הביטחון שלך עם %s כבלתי מוודא ממכשיר אחר</string>
   <string name="MessageRecord_a_message_from_s_couldnt_be_delivered">הודעה מאת %s לא יכלה להימסר</string>
+  <string name="MessageRecord_s_changed_their_number_to_a_new_number">%1$s שינה/שינתה את המספר שלו/שלה אל מספר חדש.</string>
   <!--Group Calling update messages-->
   <string name="MessageRecord_s_started_a_group_call_s">%1$s התחיל/ה שיחה קבוצתית · %2$s</string>
   <string name="MessageRecord_s_is_in_the_group_call_s">%1$s בשיחה הקבוצתית · %2$s</string>
@@ -1316,6 +1313,7 @@
   <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">כדי להתקשר אל %1$s, היישום Molly צריך גישה אל המצלמה שלך</string>
   <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
   <string name="WebRtcCallActivity__calling">מתקשר…</string>
+  <string name="WebRtcCallActivity__group_is_too_large_to_ring_the_participants">הקבוצה גדולה מדי כדי לצלצל אל המשתתפים.</string>
   <!--WebRtcCallView-->
   <string name="WebRtcCallView__signal_call">שיחת Signal</string>
   <string name="WebRtcCallView__signal_video_call">שיחת וידאו של Signal</string>
@@ -1328,8 +1326,42 @@
   <string name="WebRtcCallView__reconnecting">מתחבר מחדש…</string>
   <string name="WebRtcCallView__joining">מצטרף…</string>
   <string name="WebRtcCallView__disconnected">מנותק</string>
+  <string name="WebRtcCallView__signal_will_ring_s">Signal יצלצל אל %1$s</string>
+  <string name="WebRtcCallView__signal_will_ring_s_and_s">Signal יצלצל אל %1$s ואל %2$s</string>
+  <plurals name="WebRtcCallView__signal_will_ring_s_s_and_d_others">
+    <item quantity="one">Signal יצלצל אל %1$s, %2$s ואל %3$d אחר </item>
+    <item quantity="two">Signal יצלצל אל %1$s, %2$s ואל %3$d אחרים</item>
+    <item quantity="many">Signal יצלצל אל %1$s, %2$s ואל %3$d אחרים</item>
+    <item quantity="other">Signal יצלצל אל %1$s, %2$s ואל %3$d אחרים</item>
+  </plurals>
+  <string name="WebRtcCallView__s_will_be_notified">%1$s יוודע/תיוודע</string>
+  <string name="WebRtcCallView__s_and_s_will_be_notified">%1$s וגם %2$s יוודעו</string>
+  <plurals name="WebRtcCallView__s_s_and_d_others_will_be_notified">
+    <item quantity="one">%1$s, %2$s ועוד %3$d אחר יוודעו</item>
+    <item quantity="two">%1$s, %2$s ועוד %3$d אחרים יוודעו</item>
+    <item quantity="many">%1$s, %2$s ועוד %3$d אחרים יוודעו</item>
+    <item quantity="other">%1$s, %2$s ועוד %3$d אחרים יוודעו</item>
+  </plurals>
+  <string name="WebRtcCallView__ringing_s">מצלצל אל %1$s</string>
+  <string name="WebRtcCallView__ringing_s_and_s">מצלצל אל %1$s ואל %2$s</string>
+  <plurals name="WebRtcCallView__ringing_s_s_and_d_others">
+    <item quantity="one">מצלצל אל %1$s, %2$s ועוד %3$d אחר</item>
+    <item quantity="two">מצלצל אל %1$s, %2$s ועוד %3$d אחרים</item>
+    <item quantity="many">מצלצל אל %1$s, %2$s ועוד %3$d אחרים</item>
+    <item quantity="other">מצלצל אל %1$s, %2$s ועוד %3$d אחרים</item>
+  </plurals>
+  <string name="WebRtcCallView__s_is_calling_you">%1$s מתקשר/ת אליך</string>
+  <string name="WebRtcCallView__s_is_calling_you_and_s">%1$s מתקשר/ת אליך ואל %2$s</string>
+  <string name="WebRtcCallView__s_is_calling_you_s_and_s">%1$s מתקשר/ת אליך, %2$s ואל %3$s</string>
+  <plurals name="WebRtcCallView__s_is_calling_you_s_s_and_d_others">
+    <item quantity="one">%1$s מתקשר/ת אליך, %2$s, %3$s ואל %4$d אחר</item>
+    <item quantity="two">%1$s מתקשר/ת אליך, %2$s, %3$s ואל %4$d אחרים</item>
+    <item quantity="many">%1$s מתקשר/ת אליך, %2$s, %3$s ואל %4$d אחרים</item>
+    <item quantity="other">%1$s מתקשר/ת אליך, %2$s, %3$s ואל %4$d אחרים</item>
+  </plurals>
   <string name="WebRtcCallView__no_one_else_is_here">אף אחד אחר לא כאן</string>
   <string name="WebRtcCallView__s_is_in_this_call">%1$s בשיחה זו</string>
+  <string name="WebRtcCallView__s_are_in_this_call">%1$s בשיחה זו</string>
   <string name="WebRtcCallView__s_and_s_are_in_this_call">%1$s וגם %2$s בשיחה זו</string>
   <string name="WebRtcCallView__s_is_presenting">%1$s משתף/ת מסך</string>
   <plurals name="WebRtcCallView__s_s_and_d_others_are_in_this_call">
@@ -1342,6 +1374,7 @@
   <string name="WebRtcCallView__speaker">רמקול</string>
   <string name="WebRtcCallView__camera">מצלמה</string>
   <string name="WebRtcCallView__mute">השתק</string>
+  <string name="WebRtcCallView__ring">צלצל</string>
   <string name="WebRtcCallView__end_call">סיים שיחה</string>
   <!--CallParticipantsListDialog-->
   <plurals name="CallParticipantsListDialog_in_this_call_d_people">
@@ -1394,6 +1427,7 @@
   <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Molly צריך גישה אל אנשי הקשר שלך על מנת לחבור אל חברים, להחליף הודעות ולקיים שיחות מאובטחות</string>
   <string name="RegistrationActivity_rate_limited_to_service">עשית יותר מדי ניסיונות להירשם עם המספר הזה. אנא נסה שוב מאוחר יותר.</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">לא היה ניתן להתחבר אל השירות. אנא בדוק את חיבור האינטרנט ונסה שוב.</string>
+  <string name="RegistrationActivity_call_requested">שיחה התבקשה</string>
   <plurals name="RegistrationActivity_debug_log_hint">
     <item quantity="one">אתה כעת במרחק צעד %d מהגשת יומן ניפוי תקלים.</item>
     <item quantity="two">אתה כעת במרחק %d צעדים מהגשת יומן ניפוי תקלים.</item>
@@ -1770,6 +1804,7 @@
   <string name="ConversationUpdateItem_call_is_full">השיחה מלאה</string>
   <string name="ConversationUpdateItem_invite_friends">הזמן חברים</string>
   <string name="ConversationUpdateItem_enable_call_notifications">אפשר התראות שיחה</string>
+  <string name="ConversationUpdateItem_update_contact">עדכן איש קשר</string>
   <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">אין קבוצות במשותף. סקור בקשות בזהירות.</string>
   <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">אין אנשי קשר בקבוצה הזאת. סקור בקשות בזהירות.</string>
   <string name="ConversationUpdateItem_view">הצג</string>
@@ -1945,21 +1980,26 @@
   <!--recipients_panel-->
   <string name="recipients_panel__to"><small>הכנס שם או מספר</small></string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[אם אתה רוצה לוודא את אבטחת ההצפנה שלך עם %s, השווה את המספר לעיל עם המספר במכשיר שלו. לחלופין, אתה יכול לסרוק את הקוד בטלפון שלו, או לבקש ממנו לסרוק את הקוד שלך. <a href="https://signal.org/redirect/safety-numbers">למד עוד.</a>]]></string>
+  <string name="verify_display_fragment__to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[כדי לוודא את האבטחה של ההצפנה מקצה־אל־קצה שלך עם %s, השווה את המספרים לעיל עם המכשיר של הצד השני. אתה יכול גם לסרוק את הקוד במכשיר של הצד שני. <a href="https://signal.org/redirect/safety-numbers">למד עוד.</a>]]></string>
   <string name="verify_display_fragment__tap_to_scan">הקש כדי לסרוק</string>
+  <string name="verify_display_fragment__successful_match">התאמה מוצלחת</string>
+  <string name="verify_display_fragment__failed_to_verify_safety_number">נכשל בוידוא מספר ביטחון</string>
   <string name="verify_display_fragment__loading">טוען…</string>
-  <string name="verify_display_fragment__verified">מוודא</string>
+  <string name="verify_display_fragment__mark_as_verified">סמן כמוֻדא</string>
+  <string name="verify_display_fragment__clear_verification">נקה וידוא</string>
   <!--verify_identity-->
   <string name="verify_identity__share_safety_number">שתף מספר ביטחון</string>
+  <!--verity_scan_fragment-->
+  <string name="verify_scan_fragment__scan_the_qr_code_on_your_contact">סרוק את קוד ה־QR במכשיר של איש הקשר שלך.</string>
   <!--webrtc_answer_decline_button-->
   <string name="webrtc_answer_decline_button__swipe_up_to_answer">החלק למעלה כדי לענות</string>
   <string name="webrtc_answer_decline_button__swipe_down_to_reject">החלק למטה כדי לדחות</string>
   <!--message_details_header-->
   <string name="message_details_header__issues_need_your_attention">מספר סוגיות דורשות את תשומת לבך.</string>
-  <string name="message_details_header__sent">נשלח</string>
-  <string name="message_details_header__received">התקבל</string>
-  <string name="message_details_header__disappears">נעלם</string>
-  <string name="message_details_header__via">דרך</string>
+  <string name="message_details_header__sent">נשלח:</string>
+  <string name="message_details_header__received">התקבל:</string>
+  <string name="message_details_header__disappears">נעלם:</string>
+  <string name="message_details_header__via">באמצעות:</string>
   <!--message_details_recipient_header-->
   <string name="message_details_recipient_header__pending_send">ממתין</string>
   <string name="message_details_recipient_header__sent_to">נשלחה אל</string>
@@ -2653,6 +2693,7 @@
   <string name="RegistrationActivity_call_me_instead_available_in">התקשר אליי במקום \n (זמין ב־%1$02d:%2$02d)</string>
   <string name="RegistrationActivity_contact_signal_support">צור קשר עם תמיכת Signal</string>
   <string name="RegistrationActivity_code_support_subject">הרשמת Signal - קוד וידוא עבור Android</string>
+  <string name="RegistrationActivity_incorrect_code">קוד שגוי</string>
   <string name="BackupUtil_never">אף פעם</string>
   <string name="BackupUtil_unknown">בלתי ידוע</string>
   <string name="preferences_app_protection__see_my_phone_number">ראה את מספר הטלפון שלי</string>
@@ -2849,8 +2890,8 @@
   <!--VoiceNotePlaybackPreparer-->
   <string name="VoiceNotePlaybackPreparer__failed_to_play_voice_message">נכשל בניגון הודעה קולית</string>
   <!--VoiceNoteMediaDescriptionCompatFactory-->
-  <string name="VoiceNoteMediaDescriptionCompatFactory__voice_message">הודעה קולית · %1$s</string>
-  <string name="VoiceNoteMediaDescriptionCompatFactory__s_to_s">%1$s אל %2$s</string>
+  <string name="VoiceNoteMediaItemFactory__voice_message">הודעה קולית · %1$s</string>
+  <string name="VoiceNoteMediaItemFactory__s_to_s">%1$s אל %2$s</string>
   <!--StorageUtil-->
   <string name="StorageUtil__s_s">%1$s/%2$s</string>
   <string name="BlockedUsersActivity__s_has_been_blocked">\"%1$s\" נחסם.</string>
@@ -3073,6 +3114,47 @@
   <string name="AccountSettingsFragment__account">חשבון</string>
   <string name="AccountSettingsFragment__youll_be_asked_less_frequently">תישאל לעיתים פחות תכופות עם הזמן</string>
   <string name="AccountSettingsFragment__require_your_signal_pin">דרוש את ה־PIN של Signal שלך כדי להירשם שוב אל Signal עם מספר הטלפון שלך</string>
+  <string name="AccountSettingsFragment__change_phone_number">שנה מספר טלפון</string>
+  <!--ChangeNumberFragment-->
+  <string name="ChangeNumberFragment__use_this_to_change_your_current_phone_number_to_a_new_phone_number">השתמש בזה כדי לשנות את מספר הטלפון הנוכחי שלך אל מספר טלפון חדש. אתה לא יכול לבטל את השינוי הזה.\n\nלפני המשכה, וודא שהמספר החדש שלך יכול לקבל מסרונים או שיחות.</string>
+  <string name="ChangeNumberFragment__continue">המשך</string>
+  <string name="ChangeNumber__your_phone_number_has_been_changed">מספר הטלפון שלך השתנה.</string>
+  <!--ChangeNumberEnterPhoneNumberFragment-->
+  <string name="ChangeNumberEnterPhoneNumberFragment__change_number">שינוי המספר</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__your_old_number">המספר הישן שלך</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__old_phone_number">מספר טלפון ישן</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__your_new_number">המספר החדש שלך</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__new_phone_number">מספר טלפון חדש</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__the_phone_number_you_entered_doesnt_match_your_accounts">מספר הטלפון שהכנסת אינו תואם אל מספר הטלפון של החשבון שלך.</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__you_must_specify_your_old_number_country_code">אתה חייב לציין את קוד המדינה של המספר הישן שלך</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__you_must_specify_your_old_phone_number">אתה חייב לציין את מספר הטלפון הישן שלך</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__you_must_specify_your_new_number_country_code">אתה חייב לציין את קוד המדינה של המספר החדש שלך</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__you_must_specify_your_new_phone_number">אתה חייב לציין את מספר הטלפון החדש שלך</string>
+  <!--ChangeNumberVerifyFragment-->
+  <string name="ChangeNumberVerifyFragment__change_number">שינוי המספר</string>
+  <string name="ChangeNumberVerifyFragment__verifying_s">מוודא את %1$s</string>
+  <string name="ChangeNumberVerifyFragment__captcha_required">אתגר מענה דרוש</string>
+  <!--ChangeNumberConfirmFragment-->
+  <string name="ChangeNumberConfirmFragment__change_number">שנה מספר</string>
+  <string name="ChangeNumberConfirmFragment__you_are_about_to_change_your_phone_number_from_s_to_s">אתה עומד לשנות את מספר הטלפון שלך מן %1$s אל %2$s.\n\nלפני המשכה, אנא וודא שהמספר למטה נכון.</string>
+  <string name="ChangeNumberConfirmFragment__edit_number">עריכת המספר</string>
+  <!--ChangeNumberRegistrationLockFragment-->
+  <string name="ChangeNumberRegistrationLockFragment__signal_change_number_need_help_with_pin_for_android_v2_pin">שינוי מספר של Signal - צריך עזרה עם PIN עבור Android (v2 PIN)</string>
+  <!--ChangeNumberPinDiffersFragment-->
+  <string name="ChangeNumberPinDiffersFragment__pins_do_not_match">קודי PIN לא תואמים</string>
+  <string name="ChangeNumberPinDiffersFragment__the_pin_associated_with_your_new_number_is_different_from_the_pin_associated_with_your_old_one">ה־PIN שמשוייך עם המספר החדש שלך שונה מה־PIN שמשוייך עם המספר הישן שלך. האם אתה רוצה לשמור את ה‏־PIN הישן שלך או לעדכן אותו?</string>
+  <string name="ChangeNumberPinDiffersFragment__keep_old_pin">שמור PIN ישן</string>
+  <string name="ChangeNumberPinDiffersFragment__update_pin">עדכן PIN</string>
+  <string name="ChangeNumberPinDiffersFragment__keep_old_pin_question">לשמור PIN ישן?</string>
+  <!--ChangeNumberLockActivity-->
+  <string name="ChangeNumberLockActivity__it_looks_like_you_tried_to_change_your_number_but_we_were_unable_to_determine_if_it_was_successful_rechecking_now">נראה שניסית לשנות את המספר שלך אבל לא יכולנו לקבוע אם השינוי היה מוצלח.\n\nבודק מחדש עכשיו…</string>
+  <string name="ChangeNumberLockActivity__change_status_confirmed">מעמד שינוי מאושר</string>
+  <string name="ChangeNumberLockActivity__your_number_has_been_confirmed_as_s">המספר שלך מאושר בתור %1$s. אם זה לא המספר החדש שלך, אנא הפעל מחדש את תהליך שינוי המספר.</string>
+  <string name="ChangeNumberLockActivity__change_status_unconfirmed">מעמד שינוי בלתי מאושר</string>
+  <string name="ChangeNumberLockActivity__we_could_not_determine_the_status_of_your_change_number_request">לא יכולנו לקבוע את המעמד של בקשת שינוי המספר שלך.\n\n(שגיאה: %1$s)</string>
+  <string name="ChangeNumberLockActivity__retry">נסה שוב</string>
+  <string name="ChangeNumberLockActivity__leave">עזוב</string>
+  <string name="ChangeNumberLockActivity__submit_debug_log">הגש יומן ניפוי תקלים</string>
   <!--ChatsSettingsFragment-->
   <string name="ChatsSettingsFragment__keyboard">מקלדת</string>
   <string name="ChatsSettingsFragment__enter_key_sends">מקש Enter שולח</string>
@@ -3311,5 +3393,28 @@
     <item quantity="other">לא היה ניתן להעביר הלאה הודעות מאחר שהן לא זמינות יותר.</item>
   </plurals>
   <string name="MultiselectForwardFragment__limit_reached">מגבלה הושגה</string>
+  <!--Media V2-->
+  <string name="MediaReviewFragment__add_a_message">הוסף הודעה</string>
+  <string name="MediaReviewFragment__add_a_reply">הוסף תשובה</string>
+  <string name="MediaReviewFragment__send_to">שלח אל</string>
+  <string name="ImageEditorHud__cancel">בטל</string>
+  <string name="ImageEditorHud__draw">צייר</string>
+  <string name="ImageEditorHud__write_text">כתוב מלל</string>
+  <string name="ImageEditorHud__add_a_sticker">הוסף מדבקה</string>
+  <string name="ImageEditorHud__blur">טשטש</string>
+  <string name="ImageEditorHud__done_editing">סיים לערוך</string>
+  <string name="ImageEditorHud__clear_all">נקה הכול</string>
+  <string name="ImageEditorHud__undo">בטל עשייה</string>
+  <string name="ImageEditorHud__toggle_between_marker_and_highlighter">עורר בין סמן ודגשן</string>
+  <string name="MediaCountIndicatorButton__send">שלח</string>
+  <string name="MediaReviewSelectedItem__tap_to_remove">הקש כדי להסיר</string>
+  <string name="MediaReviewSelectedItem__tap_to_select">הקש כדי לבחור</string>
+  <string name="MediaReviewImagePageFragment__discard">השמט</string>
+  <string name="MediaReviewImagePageFragment__discard_changes">להשמיט שינויים?</string>
+  <string name="MediaReviewFragment__view_once_message">הודעה לצפייה חד־פעמית</string>
+  <string name="MediaReviewImagePageFragment__youll_lose_any_changes">תאבד שינויים כלשהם שעשית אל התמונה הזאת.</string>
+  <string name="ImageEditorHud__delete">מחק</string>
+  <string name="CameraFragment__failed_to_open_camera">נכשל בפתיחת מצלמה</string>
+  <string name="ImageEditorHud__toggle_between_text_styles">עורר בין סגנונות מלל</string>
   <!--EOF-->
 </resources>

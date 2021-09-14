@@ -24,7 +24,7 @@ import androidx.annotation.Nullable;
 
 import com.annimon.stream.Stream;
 
-import net.sqlcipher.database.SQLiteQueryBuilder;
+import net.zetetic.database.sqlcipher.SQLiteQueryBuilder;
 
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.database.MessageDatabase.SyncMessageId;
@@ -104,10 +104,11 @@ public class MmsSmsDatabase extends Database {
                                               MmsSmsColumns.REMOTE_DELETED,
                                               MmsDatabase.MENTIONS_SELF,
                                               MmsSmsColumns.NOTIFIED_TIMESTAMP,
-                                              MmsSmsColumns.VIEWED_RECEIPT_COUNT};
+                                              MmsSmsColumns.VIEWED_RECEIPT_COUNT,
+                                              MmsSmsColumns.RECEIPT_TIMESTAMP};
 
   private static final String SNIPPET_QUERY = "SELECT " + MmsSmsColumns.ID + ", 0 AS " + TRANSPORT + ", " + SmsDatabase.TYPE +        " AS " + MmsSmsColumns.NORMALIZED_TYPE + ", " + SmsDatabase.DATE_RECEIVED + " AS " + MmsSmsColumns.NORMALIZED_DATE_RECEIVED + " FROM " + SmsDatabase.TABLE_NAME + " " +
-                                              "WHERE " + MmsSmsColumns.THREAD_ID + " = ? AND " + SmsDatabase.TYPE + " NOT IN (" + SmsDatabase.Types.PROFILE_CHANGE_TYPE + ", " + SmsDatabase.Types.GV1_MIGRATION_TYPE + ") " +
+                                              "WHERE " + MmsSmsColumns.THREAD_ID + " = ? AND " + SmsDatabase.TYPE + " NOT IN (" + SmsDatabase.Types.PROFILE_CHANGE_TYPE + ", " + SmsDatabase.Types.GV1_MIGRATION_TYPE + ", " + SmsDatabase.Types.CHANGE_NUMBER_TYPE + ") " +
                                               "UNION ALL " +
                                               "SELECT " + MmsSmsColumns.ID + ", 1 AS " + TRANSPORT + ", " + MmsDatabase.MESSAGE_BOX + " AS " + MmsSmsColumns.NORMALIZED_TYPE + ", " + MmsDatabase.DATE_RECEIVED + " AS " + MmsSmsColumns.NORMALIZED_DATE_RECEIVED + " FROM " + MmsDatabase.TABLE_NAME + " " +
                                               "WHERE " + MmsSmsColumns.THREAD_ID + " = ? " +
@@ -192,7 +193,7 @@ public class MmsSmsDatabase extends Database {
 
 
   public Cursor getConversation(long threadId, long offset, long limit) {
-    SQLiteDatabase db        = databaseHelper.getReadableDatabase();
+    SQLiteDatabase db        = databaseHelper.getSignalReadableDatabase();
     String         order     = MmsSmsColumns.NORMALIZED_DATE_RECEIVED + " DESC";
     String         selection = MmsSmsColumns.THREAD_ID + " = " + threadId;
     String         limitStr  = limit > 0 || offset > 0 ? offset + ", " + limit : null;
@@ -219,7 +220,7 @@ public class MmsSmsDatabase extends Database {
   }
 
   public @NonNull MessageRecord getConversationSnippet(long threadId) throws NoSuchMessageException {
-    SQLiteDatabase db = databaseHelper.getReadableDatabase();
+    SQLiteDatabase db = databaseHelper.getSignalReadableDatabase();
     try (Cursor cursor = db.rawQuery(SNIPPET_QUERY, SqlUtil.buildArgs(threadId, threadId))) {
       if (cursor.moveToFirst()) {
         boolean isMms = CursorUtil.requireBoolean(cursor, TRANSPORT);
@@ -237,7 +238,7 @@ public class MmsSmsDatabase extends Database {
   }
 
   public long getConversationSnippetType(long threadId) throws NoSuchMessageException {
-    SQLiteDatabase db = databaseHelper.getReadableDatabase();
+    SQLiteDatabase db = databaseHelper.getSignalReadableDatabase();
     try (Cursor cursor = db.rawQuery(SNIPPET_QUERY, SqlUtil.buildArgs(threadId, threadId))) {
       if (cursor.moveToFirst()) {
         return CursorUtil.requireLong(cursor, MmsSmsColumns.NORMALIZED_TYPE);
@@ -415,7 +416,7 @@ public class MmsSmsDatabase extends Database {
    * @return Whether or not some thread was updated.
    */
   private boolean incrementReceiptCount(SyncMessageId syncMessageId, long timestamp, @NonNull MessageDatabase.ReceiptType receiptType) {
-    SQLiteDatabase    db             = databaseHelper.getWritableDatabase();
+    SQLiteDatabase    db             = databaseHelper.getSignalWritableDatabase();
     ThreadDatabase    threadDatabase = DatabaseFactory.getThreadDatabase(context);
     Set<ThreadUpdate> threadUpdates  = new HashSet<>();
 
@@ -449,7 +450,7 @@ public class MmsSmsDatabase extends Database {
    * @return All of the messages that didn't result in updates.
    */
   private @NonNull Collection<SyncMessageId> incrementReceiptCounts(@NonNull List<SyncMessageId> syncMessageIds, long timestamp, @NonNull MessageDatabase.ReceiptType receiptType) {
-    SQLiteDatabase            db             = databaseHelper.getWritableDatabase();
+    SQLiteDatabase            db             = databaseHelper.getSignalWritableDatabase();
     ThreadDatabase            threadDatabase = DatabaseFactory.getThreadDatabase(context);
     Set<ThreadUpdate>         threadUpdates  = new HashSet<>();
     Collection<SyncMessageId> unhandled      = new HashSet<>();
@@ -679,7 +680,8 @@ public class MmsSmsDatabase extends Database {
                               MmsSmsColumns.REMOTE_DELETED,
                               MmsDatabase.MENTIONS_SELF,
                               MmsSmsColumns.NOTIFIED_TIMESTAMP,
-                              MmsSmsColumns.VIEWED_RECEIPT_COUNT};
+                              MmsSmsColumns.VIEWED_RECEIPT_COUNT,
+                              MmsSmsColumns.RECEIPT_TIMESTAMP};
 
     String[] smsProjection = {SmsDatabase.DATE_SENT + " AS " + MmsSmsColumns.NORMALIZED_DATE_SENT,
                               SmsDatabase.DATE_RECEIVED + " AS " + MmsSmsColumns.NORMALIZED_DATE_RECEIVED,
@@ -712,7 +714,8 @@ public class MmsSmsDatabase extends Database {
                               MmsSmsColumns.REMOTE_DELETED,
                               MmsDatabase.MENTIONS_SELF,
                               MmsSmsColumns.NOTIFIED_TIMESTAMP,
-                              MmsSmsColumns.VIEWED_RECEIPT_COUNT};
+                              MmsSmsColumns.VIEWED_RECEIPT_COUNT,
+                              MmsSmsColumns.RECEIPT_TIMESTAMP};
 
     SQLiteQueryBuilder mmsQueryBuilder = new SQLiteQueryBuilder();
     SQLiteQueryBuilder smsQueryBuilder = new SQLiteQueryBuilder();
@@ -774,6 +777,7 @@ public class MmsSmsDatabase extends Database {
     mmsColumnsPresent.add(MmsDatabase.MENTIONS_SELF);
     mmsColumnsPresent.add(MmsSmsColumns.NOTIFIED_TIMESTAMP);
     mmsColumnsPresent.add(MmsSmsColumns.VIEWED_RECEIPT_COUNT);
+    mmsColumnsPresent.add(MmsSmsColumns.RECEIPT_TIMESTAMP);
 
     Set<String> smsColumnsPresent = new HashSet<>();
     smsColumnsPresent.add(MmsSmsColumns.ID);
@@ -801,6 +805,7 @@ public class MmsSmsDatabase extends Database {
     smsColumnsPresent.add(SmsDatabase.REACTIONS_LAST_SEEN);
     smsColumnsPresent.add(MmsDatabase.REMOTE_DELETED);
     smsColumnsPresent.add(MmsSmsColumns.NOTIFIED_TIMESTAMP);
+    smsColumnsPresent.add(MmsSmsColumns.RECEIPT_TIMESTAMP);
 
     String mmsGroupBy = includeAttachments ? MmsDatabase.TABLE_NAME + "." + MmsDatabase.ID : null;
 
@@ -819,7 +824,7 @@ public class MmsSmsDatabase extends Database {
   private Cursor queryTables(String[] projection, String selection, String order, String limit) {
     String query = buildQuery(projection, selection, order, limit, true);
 
-    return databaseHelper.getReadableDatabase().rawQuery(query, null);
+    return databaseHelper.getSignalReadableDatabase().rawQuery(query, null);
   }
 
   public static Reader readerFor(@NonNull Cursor cursor) {

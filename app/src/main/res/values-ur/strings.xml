@@ -209,8 +209,10 @@
   <string name="ConversationActivity_unable_to_record_audio">آڈیو ریکارڈ کرنے کے قابل نہیں ہے!
 ؐ</string>
   <string name="ConversationActivity_you_cant_send_messages_to_this_group">آپ اس گروپ کو پیغامات نہیں بھیج سکتے کیونکہ آپ اب ممبر نہیں رہیں۔</string>
+  <string name="ConversationActivity_only_s_can_send_messages">صرف %1$s ہی پیغامات بھیج سکتے ہیں.</string>
   <string name="ConversationActivity_admins">منتظمین</string>
   <string name="ConversationActivity_message_an_admin">کسی ایڈمن کو پیغام دیں</string>
+  <string name="ConversationActivity_cant_start_group_call">گروپ کال شروع نہیں کی جا سکتی۔</string>
   <string name="ConversationActivity_only_admins_of_this_group_can_start_a_call">صرف اس گروپ کے ایڈمن کال شروع کرسکتے ہیں۔</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">ایسی کوئی ایپ موجود نہیں ہے جو آپ کی اس ڈیوائس پر اس لنک کو استعمال کر سکے۔</string>
   <string name="ConversationActivity_your_request_to_join_has_been_sent_to_the_group_admin">آپ کی شمولیت کی درخواست گروپ منتظم کو بھیج دی گئی ہے۔ جب وہ کارروائی کریں گے تو آپ کو مطلع کیا جائے گا۔</string>
@@ -421,6 +423,7 @@
   <!--ShareActivity-->
   <string name="ShareActivity_share_with">کے ساتھ اشتراک کریں</string>
   <string name="ShareActivity_multiple_attachments_are_only_supported">متعدد منسلکات صرف تصاویر اور ویڈیوز کیلئے معاون ہیں</string>
+  <string name="ShareActivity_you_do_not_have_permission_to_send_to_this_group">آپ کو اس گروپ میں بھیجنے کی اجازت نہیں ہے۔</string>
   <!--GcmRefreshJob-->
   <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Signal مواصلات مستقل ہونے میں ناکامی!</string>
   <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Molly گوگل پلے سروسز کے ساتھ رجسٹر ہونے کے قابل نہیں تھا۔Molly پیغامات اور کالیں غیر فعال ہو چکے ہیں،براہ کرم ترتیبات میں دوبارہ رجسٹر کرنے کی کوشش کریں اور ایڈوانس میں جائیں۔</string>
@@ -563,6 +566,7 @@
   <!--AddMembersActivity-->
   <string name="AddMembersActivity__done">ہو گیا</string>
   <string name="AddMembersActivity__this_person_cant_be_added_to_legacy_groups">اس شخص کو میراثی گروپوں میں شامل نہیں کیا جاسکتا۔</string>
+  <string name="AddMembersActivity__this_person_cant_be_added_to_announcement_groups">اس شخص کو اعلانیا گروپوں میں شامل نہیں کیا جا سکتا۔</string>
   <plurals name="AddMembersActivity__add_d_members_to_s">
     <item quantity="one">\"%1$s\" ممبر کو \"%2$s\" میں شامل کریں؟</item>
     <item quantity="other">\"%2$s\" میں\"%3$d\" ممبروں کو شامل کریں؟</item>
@@ -745,22 +749,16 @@
   <!--InviteActivity-->
   <string name="InviteActivity_share">اشتراک کریں</string>
   <string name="InviteActivity_share_with_contacts">رابطوں کے ساتھ شیئر کریں</string>
-  <string name="InviteActivity_choose_how_to_share">اشتراک کرنے کا طریقہ منتخب کریں</string>
   <string name="InviteActivity_cancel">منسوخ کریں</string>
   <string name="InviteActivity_sending">بھیج رہا ہے۔۔۔</string>
   <string name="InviteActivity_invitations_sent">دعوت نامے بھیجے گئے ہیں!</string>
   <string name="InviteActivity_invite_to_signal">Molly میں مدعو کریں</string>
-  <plurals name="InviteActivity_send_sms_to_friends">
-    <item quantity="one">%d دوست کو ایس ایم ایس بھیجے</item>
-    <item quantity="other">%d دوستوں کو ایس ایم ایس بھیجے </item>
-  </plurals>
   <plurals name="InviteActivity_send_sms_invites">
     <item quantity="one">%d ایس ایم ایس دعوت نامہ بھیجے؟</item>
     <item quantity="other">%d ایس ایم ایس دعوت نامے بھیجے؟</item>
   </plurals>
   <string name="InviteActivity_lets_switch_to_signal">Molly میں سو ئچ کریں:%1$s</string>
   <string name="InviteActivity_no_app_to_share_to">ایسا لگتا ہے جیسے آپ کے پاس اشتراک کرنے کیلئے کوئی ایپ نہیں ہے۔</string>
-  <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">دوست دوست کو بغیر خفیہ گفتگو نہیں کرنے دیتے ہیں۔</string>
   <!--LearnMoreTextView-->
   <string name="LearnMoreTextView_learn_more">مزید پڑھیں</string>
   <!--LongMessageActivity-->
@@ -832,10 +830,10 @@
   <string name="NotificationBarManager__establishing_signal_call">Signal کال قائم ہو رہی ہے</string>
   <string name="NotificationBarManager__incoming_signal_call">signal کال آ رہی ہے</string>
   <string name="NotificationBarManager__stopping_signal_call_service">Signal کال سروس روکنا</string>
-  <string name="NotificationBarManager__deny_call">کال رد کریں</string>
   <string name="NotificationBarManager__answer_call">کال کا جواب دیں</string>
   <string name="NotificationBarManager__end_call">کال ختم کریں</string>
   <string name="NotificationBarManager__cancel_call">کال منسوخ کریں</string>
+  <string name="NotificationBarManager__join_call">کال میں شامل ہوں</string>
   <!--NotificationsMegaphone-->
   <string name="NotificationsMegaphone_turn_on_notifications">اطلاعات آن کریں؟</string>
   <string name="NotificationsMegaphone_never_miss_a_message">اپنے رابطوں اور گروپس کا پیغام کبھی بھی مت چھوڑیں۔</string>
@@ -1621,6 +1619,7 @@
   <string name="ConversationUpdateItem_call_is_full">کال پوری ہے</string>
   <string name="ConversationUpdateItem_invite_friends">دوستوں کو مدعو کریں</string>
   <string name="ConversationUpdateItem_enable_call_notifications">کال اطلاعات کو فعال کریں</string>
+  <string name="ConversationUpdateItem_update_contact">رابطہ اپ ڈیٹ کریں</string>
   <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">مشترکہ طور پر کوئی گروپ نہیں۔ درخواستوں کا بغور جائزہ لیں۔</string>
   <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">اس گروپ میں کوئی رابطہ نہیں ہے۔ درخواستوں کا بغور جائزہ لیں۔</string>
   <string name="ConversationUpdateItem_view">دیکھیں</string>
@@ -1782,21 +1781,17 @@
   <!--recipients_panel-->
   <string name="recipients_panel__to"><small>نام یا نمبر داخل کریں</small></string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[ اگر آپ اپنی خفیہ کاری کی حفاظت کی تصدیق کرنا چاہتے ہیں تو %s ، مندرجہ بالا نمبر کو ان کے آلے کے نمبر سے موازنہ کریں۔ متبادل کے طور پر ، آپ ان کے فون پر کوڈ اسکین کرسکتے ہیں ، یا ان سے اپنا کوڈ اسکین کرنے کے لئے کہہ سکتے ہیں۔ <a href="https://signal.org/redirect/safety-numbers">مزید معلومات حاصل کریں۔</a>]]></string>
   <string name="verify_display_fragment__tap_to_scan">اسکین کرنے کے لیے کلک کریں</string>
   <string name="verify_display_fragment__loading">لوڈ ہو رہا ہے۔۔۔</string>
-  <string name="verify_display_fragment__verified">تصدیق شدہ</string>
+  <string name="verify_display_fragment__mark_as_verified">تصدیق کے طور پر نشان لگائیں</string>
   <!--verify_identity-->
   <string name="verify_identity__share_safety_number">حفاظتی نمبر اشتراک کریں</string>
+  <!--verity_scan_fragment-->
   <!--webrtc_answer_decline_button-->
   <string name="webrtc_answer_decline_button__swipe_up_to_answer">جواب دینے کے لیے اوپر سوائپ کریں</string>
   <string name="webrtc_answer_decline_button__swipe_down_to_reject">مسترد کرنے کے لیے نیچے سوائپ کریں</string>
   <!--message_details_header-->
   <string name="message_details_header__issues_need_your_attention">کچھ مسائل کو آپ کی توجہ کی ضرورت ہے۔</string>
-  <string name="message_details_header__sent">بھیجا</string>
-  <string name="message_details_header__received">وصول ہو گیا ہے</string>
-  <string name="message_details_header__disappears">غائب ہونا</string>
-  <string name="message_details_header__via">کے ذریعے</string>
   <!--message_details_recipient_header-->
   <string name="message_details_recipient_header__pending_send">زیر التواء</string>
   <string name="message_details_recipient_header__sent_to">کو بھیجا</string>
@@ -2670,8 +2665,8 @@
   <!--VoiceNotePlaybackPreparer-->
   <string name="VoiceNotePlaybackPreparer__failed_to_play_voice_message">آڈیو پیغام چلانے میں ناکام</string>
   <!--VoiceNoteMediaDescriptionCompatFactory-->
-  <string name="VoiceNoteMediaDescriptionCompatFactory__voice_message">آڈیو پیغام · %1$s</string>
-  <string name="VoiceNoteMediaDescriptionCompatFactory__s_to_s">%1$sسے%2$s</string>
+  <string name="VoiceNoteMediaItemFactory__voice_message">آڈیو پیغام · %1$s</string>
+  <string name="VoiceNoteMediaItemFactory__s_to_s">%1$sسے%2$s</string>
   <!--StorageUtil-->
   <string name="StorageUtil__s_s">%1$s/%2$s</string>
   <string name="BlockedUsersActivity__s_has_been_blocked">\"%1$s\" کو مسدود کردیا گیا ہے۔</string>
@@ -2888,6 +2883,20 @@
   <string name="AccountSettingsFragment__account">اکاؤنٹ</string>
   <string name="AccountSettingsFragment__youll_be_asked_less_frequently">وقت کے ساتھ آپ سے کم پوچھا جائے گا</string>
   <string name="AccountSettingsFragment__require_your_signal_pin">اپنے فون نمبر کو دوبارہ Signal کے ساتھ رجسٹر کرنے کیلئے اپنے Signal پن کی ضرورت ہے</string>
+  <!--ChangeNumberFragment-->
+  <string name="ChangeNumberFragment__continue">جاری رکھیں</string>
+  <!--ChangeNumberEnterPhoneNumberFragment-->
+  <string name="ChangeNumberEnterPhoneNumberFragment__the_phone_number_you_entered_doesnt_match_your_accounts">آپ نے جو فون نمبر داخل کیا ہے وہ آپ کے اکاؤنٹ کے مماثل نہیں ہے۔</string>
+  <!--ChangeNumberVerifyFragment-->
+  <!--ChangeNumberConfirmFragment-->
+  <string name="ChangeNumberConfirmFragment__edit_number">نمبر ترتیب کرے</string>
+  <!--ChangeNumberRegistrationLockFragment-->
+  <!--ChangeNumberPinDiffersFragment-->
+  <string name="ChangeNumberPinDiffersFragment__update_pin">پن کو اپ ڈیٹ کریں</string>
+  <!--ChangeNumberLockActivity-->
+  <string name="ChangeNumberLockActivity__retry">دوبارہ کوشش کریں</string>
+  <string name="ChangeNumberLockActivity__leave">چھوڑ دیں</string>
+  <string name="ChangeNumberLockActivity__submit_debug_log">ڈی بَگ لاگ پیش کریں</string>
   <!--ChatsSettingsFragment-->
   <string name="ChatsSettingsFragment__keyboard">کی بورڈ</string>
   <string name="ChatsSettingsFragment__enter_key_sends">بھیجے گئے key داخل کریں</string>
@@ -3085,5 +3094,12 @@
   <string name="ContactSelectionListItem__sms">ایس ایم ایس</string>
   <string name="ContactSelectionListItem__dot_s">· %1$s</string>
   <!--DSLSettingsToolbar-->
+  <!--Media V2-->
+  <string name="ImageEditorHud__cancel">منسوخ کریں</string>
+  <string name="ImageEditorHud__undo">کالعدم کریں</string>
+  <string name="MediaCountIndicatorButton__send">بھیجیں</string>
+  <string name="MediaReviewSelectedItem__tap_to_select">منتخب کرنے کے لیے ٹیپ کریں</string>
+  <string name="MediaReviewImagePageFragment__discard">مسترد کیجئے</string>
+  <string name="ImageEditorHud__delete">حذف کریں</string>
   <!--EOF-->
 </resources>

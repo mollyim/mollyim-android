@@ -814,17 +814,17 @@
   <!--InviteActivity-->
   <string name="InviteActivity_share">Поділитися</string>
   <string name="InviteActivity_share_with_contacts">Поділитись з контактами</string>
-  <string name="InviteActivity_choose_how_to_share">Оберіть як поділитись</string>
+  <!-- Removed by excludeNonTranslatables <string name="InviteActivity_choose_how_to_share">Оберіть як поділитись</string> -->
   <string name="InviteActivity_cancel">Скасувати</string>
   <string name="InviteActivity_sending">Надсилання…</string>
   <string name="InviteActivity_invitations_sent">Запрошення надіслано!</string>
   <string name="InviteActivity_invite_to_signal">Запросити до Molly</string>
-  <plurals name="InviteActivity_send_sms_to_friends">
+  <!-- Removed by excludeNonTranslatables <plurals name="InviteActivity_send_sms_to_friends">
     <item quantity="one">НАДІСЛАТИ SMS ДО %d ДРУГА</item>
     <item quantity="few">НАДІСЛАТИ SMS ДО %d ДРУЗІВ</item>
     <item quantity="many">НАДІСЛАТИ SMS ДО %d ДРУЗІВ</item>
     <item quantity="other">НАДІСЛАТИ SMS ДО %d ДРУЗІВ</item>
-  </plurals>
+  </plurals> -->
   <plurals name="InviteActivity_send_sms_invites">
     <item quantity="one">Надіслати %d SMS запрошення?</item>
     <item quantity="few">Надіслати %d SMS запрошень?</item>
@@ -833,7 +833,7 @@
   </plurals>
   <string name="InviteActivity_lets_switch_to_signal">Давай перейдемо на Molly: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Схоже, що у вас немає програм, щоб поділитися.</string>
-  <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Друзі не мають дозволяти друзям незашифровано спілкуватися!</string>
+  <!-- Removed by excludeNonTranslatables <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">Друзі не мають дозволяти друзям незашифровано спілкуватися!</string> -->
   <!--LearnMoreTextView-->
   <string name="LearnMoreTextView_learn_more">Дізнатись більше</string>
   <!--LongMessageActivity-->
@@ -913,7 +913,7 @@
   <string name="NotificationBarManager__establishing_signal_call">Встановлення виклику Signal</string>
   <string name="NotificationBarManager__incoming_signal_call">Вхідний виклик Signal</string>
   <string name="NotificationBarManager__stopping_signal_call_service">Зупиняємо дзвінки сервісного центру Signal </string>
-  <string name="NotificationBarManager__deny_call">Відхилити виклик</string>
+  <!-- Removed by excludeNonTranslatables <string name="NotificationBarManager__deny_call">Відхилити виклик</string> -->
   <string name="NotificationBarManager__answer_call">Відповісти на виклик</string>
   <string name="NotificationBarManager__end_call">Завершити виклик</string>
   <string name="NotificationBarManager__cancel_call">Скасувати виклик</string>
@@ -1925,10 +1925,10 @@
   <!--recipients_panel-->
   <string name="recipients_panel__to"><small>Введіть ім\'я або номер</small></string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Якщо ви хочете перевірити безпеку вашого шифрування із %s, порівняйте номер вище із номером на його/її пристрої. Інший спосіб: ви можете сканувати код на його/її телефоні, або попросити його/її сканувати ваш код. <a href="https://signal.org/redirect/safety-numbers">Дізнатися більше про перевірку номерів безпеки</a>]]></string>
+  <!-- Removed by excludeNonTranslatables <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Якщо ви хочете перевірити безпеку вашого шифрування із %s, порівняйте номер вище із номером на його/її пристрої. Інший спосіб: ви можете сканувати код на його/її телефоні, або попросити його/її сканувати ваш код. <a href="https://signal.org/redirect/safety-numbers">Дізнатися більше про перевірку номерів безпеки</a>]]></string> -->
   <string name="verify_display_fragment__tap_to_scan">Натисніть, щоб сканувати</string>
   <string name="verify_display_fragment__loading">Завантаження…</string>
-  <string name="verify_display_fragment__verified">Перевірено</string>
+  <!-- Removed by excludeNonTranslatables <string name="verify_display_fragment__verified">Перевірено</string> -->
   <!--verify_identity-->
   <string name="verify_identity__share_safety_number">Поділитися номером безпеки</string>
   <!--webrtc_answer_decline_button-->
@@ -2610,7 +2610,7 @@
   <string name="GroupLinkBottomSheet_copied_to_clipboard">Скопійовано до буфера обміну</string>
   <!--VoiceNotePlaybackPreparer-->
   <!--VoiceNoteMediaDescriptionCompatFactory-->
-  <string name="VoiceNoteMediaDescriptionCompatFactory__s_to_s">%1$s до %2$s</string>
+  <string name="VoiceNoteMediaItemFactory__s_to_s">%1$s до %2$s</string>
   <!--StorageUtil-->
   <string name="BlockedUsersActivity__s_has_been_blocked">Заблоковано \"%1$s\"</string>
   <string name="BlockedUsersActivity__s_has_been_unblocked">Розблоковано \"%1$s\"</string>

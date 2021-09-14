@@ -115,6 +115,13 @@
         android:label="account_settings_fragment"
         tools:layout="@layout/dsl_settings_fragment">
         <action
+            android:id="@+id/action_accountSettingsFragment_to_changePhoneNumberFragment"
+            app:destination="@id/app_settings_change_number"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
+        <action
             android:id="@+id/action_accountSettingsFragment_to_deleteAccountFragment"
             app:destination="@id/deleteAccountFragment"
             app:enterAnim="@anim/fragment_open_enter"
@@ -136,6 +143,8 @@
             app:popEnterAnim="@anim/fragment_close_enter"
             app:popExitAnim="@anim/fragment_close_exit" />
     </fragment>
+
+    <include app:graph="@navigation/app_settings_change_number" />
 
     <fragment
         android:id="@+id/advancedPinSettingsFragment"
@@ -350,7 +359,8 @@
     <activity
         android:id="@+id/inviteActivity"
         android:name="org.thoughtcrime.securesms.InviteActivity"
-        android:label="invite_activity" />
+        android:label="invite_activity"
+        tools:layout="@layout/invite_activity" />
 
     <!-- region Direct-To-Page actions -->
 
@@ -389,6 +399,13 @@
         app:popEnterAnim="@anim/fragment_close_enter"
         app:popExitAnim="@anim/fragment_close_exit" />
 
+    <action
+        android:id="@+id/action_direct_to_changeNumberFragment"
+        app:destination="@id/app_settings_change_number"
+        app:enterAnim="@anim/fragment_open_enter"
+        app:exitAnim="@anim/fragment_open_exit"
+        app:popEnterAnim="@anim/fragment_close_enter"
+        app:popExitAnim="@anim/fragment_close_exit" />
 
     <!-- endregion -->
 

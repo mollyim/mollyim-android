@@ -1,6 +1,7 @@
 package org.thoughtcrime.securesms.logsubmit;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -26,7 +27,7 @@ public class SubmitDebugLogViewModel extends ViewModel {
 
   private final SubmitDebugLogRepository        repo;
   private final MutableLiveData<Mode>           mode;
-  private final ProxyPagingController           pagingController;
+  private final ProxyPagingController<Long>     pagingController;
   private final List<LogLine>                   staticLines;
   private final MediatorLiveData<List<LogLine>> lines;
   private final long                            firstViewTime;
@@ -37,7 +38,7 @@ public class SubmitDebugLogViewModel extends ViewModel {
     this.repo             = new SubmitDebugLogRepository();
     this.mode             = new MutableLiveData<>();
     this.trace            = Tracer.getInstance().serialize();
-    this.pagingController = new ProxyPagingController();
+    this.pagingController = new ProxyPagingController<>();
     this.firstViewTime    = System.currentTimeMillis();
     this.staticLines      = new ArrayList<>();
     this.lines            = new MediatorLiveData<>();
@@ -45,14 +46,14 @@ public class SubmitDebugLogViewModel extends ViewModel {
     repo.getPrefixLogLines(staticLines -> {
       this.staticLines.addAll(staticLines);
 
-      PagedDataSource<LogLine> dataSource;
+      PagedDataSource<Long, LogLine> dataSource;
 
       try {
         LogDatabase.getInstance(ApplicationDependencies.getApplication()).trimToSize();
 
         dataSource = new LogDataSource(ApplicationDependencies.getApplication(), staticLines, firstViewTime);
       } catch (IllegalStateException e) {
-        dataSource = new PagedDataSource<LogLine>() {
+        dataSource = new PagedDataSource<Long, LogLine>() {
           @Override
           public int size() {
             return staticLines.size();
@@ -62,6 +63,16 @@ public class SubmitDebugLogViewModel extends ViewModel {
           public @NotNull List<LogLine> load(int start, int length, @NotNull CancellationSignal cancellationSignal) {
             return staticLines.subList(start, start + length);
           }
+
+          @Override
+          public @Nullable LogLine load(Long aLong) {
+            return null;
+          }
+
+          @Override
+          public @NonNull Long getKey(@NonNull LogLine logLine) {
+            return logLine.getId();
+          }
         };
       }
 
@@ -70,7 +81,7 @@ public class SubmitDebugLogViewModel extends ViewModel {
                                                            .setStartIndex(0)
                                                            .build();
 
-      PagedData<LogLine> pagedData = PagedData.create(dataSource, config);
+      PagedData<Long, LogLine> pagedData = PagedData.create(dataSource, config);
 
       ThreadUtil.runOnMain(() -> {
         pagingController.set(pagedData.getController());

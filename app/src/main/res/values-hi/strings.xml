@@ -749,22 +749,16 @@
   <!--InviteActivity-->
   <string name="InviteActivity_share">साझा करें</string>
   <string name="InviteActivity_share_with_contacts">संपर्कों के साथ शेयर करें</string>
-  <string name="InviteActivity_choose_how_to_share">शेयर करने का तरीका चुनें</string>
   <string name="InviteActivity_cancel">रद्द करें</string>
   <string name="InviteActivity_sending">भेजा जा रहा है…</string>
   <string name="InviteActivity_invitations_sent">आमंत्रण भेजा गया</string>
   <string name="InviteActivity_invite_to_signal">Molly को आमंत्रित करें</string>
-  <plurals name="InviteActivity_send_sms_to_friends">
-    <item quantity="one">%d दोस्तों को एसएमएस भेजें</item>
-    <item quantity="other">%d दोस्तों को SMS भेजें</item>
-  </plurals>
   <plurals name="InviteActivity_send_sms_invites">
     <item quantity="one">%d एसएमएस आमंत्रण भेजें?</item>
     <item quantity="other">%d SMS आमंत्रण भेजें? </item>
   </plurals>
   <string name="InviteActivity_lets_switch_to_signal">चलो Molly पर स्विच करें: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">ऐसा लगता है कि आपके पास साझा करने के लिए कोई ऐप नहीं है।</string>
-  <string name="InviteActivity_friends_dont_let_friends_text_unencrypted">दोस्त अपने दोस्तों को अनएन्क्रिप्टेड चैट नहीं करने देते हैं।</string>
   <!--LearnMoreTextView-->
   <string name="LearnMoreTextView_learn_more">अधिक जानें</string>
   <!--LongMessageActivity-->
@@ -836,10 +830,10 @@
   <string name="NotificationBarManager__establishing_signal_call">Signal कॉल की स्थापना की जा रही है</string>
   <string name="NotificationBarManager__incoming_signal_call">आने वाली Signal कॉल</string>
   <string name="NotificationBarManager__stopping_signal_call_service">Signal कॉल सेवा बंद की जा रही है</string>
-  <string name="NotificationBarManager__deny_call">कॉल अस्वीकार करें</string>
   <string name="NotificationBarManager__answer_call">कॉल का उत्तर दें</string>
   <string name="NotificationBarManager__end_call">कॉल बंद</string>
   <string name="NotificationBarManager__cancel_call">कॉल रद्द करें</string>
+  <string name="NotificationBarManager__join_call">कॉल से जुड़ें</string>
   <!--NotificationsMegaphone-->
   <string name="NotificationsMegaphone_turn_on_notifications">सूचनाओं को चालू करना है?</string>
   <string name="NotificationsMegaphone_never_miss_a_message">अपने संपर्कों और ग्रुप्स से कभी भी कोई मेसेज न छूट पाएँ।</string>
@@ -1631,6 +1625,7 @@
   <string name="ConversationUpdateItem_call_is_full">कॉल पूर्ण है</string>
   <string name="ConversationUpdateItem_invite_friends">मित्रों को आमंत्रित करें</string>
   <string name="ConversationUpdateItem_enable_call_notifications">कॉल सूचनाएं चालू करें</string>
+  <string name="ConversationUpdateItem_update_contact">संपर्क जानकारी अपडेट करें </string>
   <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">कोई समूह सामान्य नहीं है। अनुरोधों की सावधानीपूर्वक समीक्षा करें।</string>
   <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">इस ग्रुप में कोई संपर्क नहीं है। अनुरोधों की सावधानीपूर्वक समीक्षा करें।</string>
   <string name="ConversationUpdateItem_view">देखना</string>
@@ -1792,21 +1787,17 @@
   <!--recipients_panel-->
   <string name="recipients_panel__to"><small>एक नाम या संख्या दर्ज करें</small></string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[अगर आप %s के साथ अपने एन्क्रिप्शन की सुरक्षा को सत्यापित करना चाहते हैं, तो उपरोक्त संख्या की तुलना उनके डिवाइस पर संख्या के साथ करें। वैकल्पिक रूप से, आप अपने फोन पर कोड स्कैन कर सकते हैं, या अपने कोड को स्कैन करने के लिए कह सकते हैं। <a href="https://signal.org/redirect/safety-numbers">और अधिक जानें</a>।]]></string>
   <string name="verify_display_fragment__tap_to_scan">स्कैन करने के लिए टैप करें</string>
   <string name="verify_display_fragment__loading">लोड हो रहा है</string>
-  <string name="verify_display_fragment__verified">सत्यापित</string>
+  <string name="verify_display_fragment__mark_as_verified">साटिपिट होने का मार्क कीजीये</string>
   <!--verify_identity-->
   <string name="verify_identity__share_safety_number">सुरक्षा संख्या साझा करें</string>
+  <!--verity_scan_fragment-->
   <!--webrtc_answer_decline_button-->
   <string name="webrtc_answer_decline_button__swipe_up_to_answer">उत्तर देने के लिए स्वाइप करें</string>
   <string name="webrtc_answer_decline_button__swipe_down_to_reject">अस्वीकार करने के लिए नीचे स्वाइप करें</string>
   <!--message_details_header-->
   <string name="message_details_header__issues_need_your_attention">कुछ मुद्दों पर ध्यान देना होगा</string>
-  <string name="message_details_header__sent"> भेजा गया </string>
-  <string name="message_details_header__received"> मिल गया </string>
-  <string name="message_details_header__disappears">गायब हो जाता है</string>
-  <string name="message_details_header__via">राह </string>
   <!--message_details_recipient_header-->
   <string name="message_details_recipient_header__pending_send">लंबित</string>
   <string name="message_details_recipient_header__sent_to">इनको भेजा गया</string>
@@ -2680,8 +2671,8 @@
   <!--VoiceNotePlaybackPreparer-->
   <string name="VoiceNotePlaybackPreparer__failed_to_play_voice_message">वॉइस संदेश चलाने में विफल रहा</string>
   <!--VoiceNoteMediaDescriptionCompatFactory-->
-  <string name="VoiceNoteMediaDescriptionCompatFactory__voice_message">ऑडियो संदेश · %1$s</string>
-  <string name="VoiceNoteMediaDescriptionCompatFactory__s_to_s">%1$sसे%2$s</string>
+  <string name="VoiceNoteMediaItemFactory__voice_message">ऑडियो संदेश · %1$s</string>
+  <string name="VoiceNoteMediaItemFactory__s_to_s">%1$sसे%2$s</string>
   <!--StorageUtil-->
   <string name="StorageUtil__s_s">%1$s/%2$s</string>
   <string name="BlockedUsersActivity__s_has_been_blocked">\"%1$s\" को ब्लॉक किया गया है </string>
@@ -2898,6 +2889,20 @@
   <string name="AccountSettingsFragment__account">खाता</string>
   <string name="AccountSettingsFragment__youll_be_asked_less_frequently">समय के साथ-साथ आपसे कम बार पूछा जाएगा</string>
   <string name="AccountSettingsFragment__require_your_signal_pin">आपके फ़ोन नंबर को Signal पर दोबारा रजिस्टर करने के लिए आपका Signal PIN आवश्यक होता है</string>
+  <!--ChangeNumberFragment-->
+  <string name="ChangeNumberFragment__continue">आगे </string>
+  <!--ChangeNumberEnterPhoneNumberFragment-->
+  <string name="ChangeNumberEnterPhoneNumberFragment__the_phone_number_you_entered_doesnt_match_your_accounts">आपने जो फोन नंबर दर्ज किया है, वह आपके खाते के फोन नंबर से मेल नहीं खाता।</string>
+  <!--ChangeNumberVerifyFragment-->
+  <!--ChangeNumberConfirmFragment-->
+  <string name="ChangeNumberConfirmFragment__edit_number">नंबर संपादित करें</string>
+  <!--ChangeNumberRegistrationLockFragment-->
+  <!--ChangeNumberPinDiffersFragment-->
+  <string name="ChangeNumberPinDiffersFragment__update_pin">पिन अपडेट करें</string>
+  <!--ChangeNumberLockActivity-->
+  <string name="ChangeNumberLockActivity__retry">दोबारा कोशिश करें</string>
+  <string name="ChangeNumberLockActivity__leave">छोङें</string>
+  <string name="ChangeNumberLockActivity__submit_debug_log">डीबग लॉग जमा करें</string>
   <!--ChatsSettingsFragment-->
   <string name="ChatsSettingsFragment__keyboard">कीबोर्ड</string>
   <string name="ChatsSettingsFragment__enter_key_sends">दर्ज की भेजता है</string>
@@ -3103,5 +3108,12 @@
   <string name="ContactSelectionListItem__dot_s">· %1$s</string>
   <!--DSLSettingsToolbar-->
   <string name="DSLSettingsToolbar__navigate_up">ऊपर जाएँ</string>
+  <!--Media V2-->
+  <string name="ImageEditorHud__cancel">रद्द करें</string>
+  <string name="ImageEditorHud__undo">पूर्ववत</string>
+  <string name="MediaCountIndicatorButton__send">भेजें</string>
+  <string name="MediaReviewSelectedItem__tap_to_select">चयन के लिए टैप करें</string>
+  <string name="MediaReviewImagePageFragment__discard">रद्द करें</string>
+  <string name="ImageEditorHud__delete">हटाए </string>
   <!--EOF-->
 </resources>

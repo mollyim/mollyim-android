@@ -47,7 +47,7 @@ public class PushTextSendJob extends PushSendJob {
 
   private static final String KEY_MESSAGE_ID = "message_id";
 
-  private long messageId;
+  private final long messageId;
 
   public PushTextSendJob(long messageId, @NonNull Recipient recipient) {
     this(constructParameters(recipient, false), messageId);
@@ -91,7 +91,7 @@ public class PushTextSendJob extends PushSendJob {
 
       RecipientUtil.shareProfileIfFirstSecureMessage(context, record.getRecipient());
 
-      Recipient              recipient  = record.getRecipient().fresh();
+      Recipient              recipient  = record.getRecipient().resolve();
       byte[]                 profileKey = recipient.getProfileKey();
       UnidentifiedAccessMode accessMode = recipient.getUnidentifiedAccessMode();
 
@@ -144,6 +144,12 @@ public class PushTextSendJob extends PushSendJob {
   }
 
   @Override
+  public void onRetry() {
+    SignalLocalMetrics.IndividualMessageSend.cancel(messageId);
+    super.onRetry();
+  }
+
+  @Override
   public void onFailure() {
     DatabaseFactory.getSmsDatabase(context).markAsSentFailed(messageId);
 
@@ -161,7 +167,12 @@ public class PushTextSendJob extends PushSendJob {
     try {
       rotateSenderCertificateIfNecessary();
 
-      Recipient                        messageRecipient   = message.getIndividualRecipient().fresh();
+      Recipient messageRecipient = message.getIndividualRecipient().resolve();
+
+      if (messageRecipient.isUnregistered()) {
+        throw new UndeliverableMessageException(messageRecipient.getId() + " not registered!");
+      }
+
       SignalServiceMessageSender       messageSender      = ApplicationDependencies.getSignalServiceMessageSender();
       SignalServiceAddress             address            = RecipientUtil.toSignalServiceAddress(context, messageRecipient);
       Optional<byte[]>                 profileKey         = getProfileKey(messageRecipient);
@@ -177,20 +188,18 @@ public class PushTextSendJob extends PushSendJob {
                                                                            .asEndSessionMessage(message.isEndSession())
                                                                            .build();
 
-      if (Util.equals(TextSecurePreferences.getLocalUuid(context), address.getUuid().orNull())) {
+      if (Util.equals(TextSecurePreferences.getLocalUuid(context), address.getUuid())) {
         Optional<UnidentifiedAccessPair> syncAccess  = UnidentifiedAccessUtil.getAccessForSync(context);
         SignalServiceSyncMessage         syncMessage = buildSelfSendSyncMessage(context, textSecureMessage, syncAccess);
 
-        SignalLocalMetrics.IndividualMessageSend.onNetworkStarted(messageId);
+        SignalLocalMetrics.IndividualMessageSend.onDeliveryStarted(messageId);
         SendMessageResult result = messageSender.sendSyncMessage(syncMessage, syncAccess);
-        SignalLocalMetrics.IndividualMessageSend.onNetworkFinished(messageId);
 
         DatabaseFactory.getMessageLogDatabase(context).insertIfPossible(messageRecipient.getId(), message.getDateSent(), result, ContentHint.RESENDABLE, new MessageId(messageId, false));
         return syncAccess.isPresent();
       } else {
-        SignalLocalMetrics.IndividualMessageSend.onNetworkStarted(messageId);
-        SendMessageResult result = messageSender.sendDataMessage(address, unidentifiedAccess, ContentHint.RESENDABLE, textSecureMessage);
-        SignalLocalMetrics.IndividualMessageSend.onNetworkFinished(messageId);
+        SignalLocalMetrics.IndividualMessageSend.onDeliveryStarted(messageId);
+        SendMessageResult result = messageSender.sendDataMessage(address, unidentifiedAccess, ContentHint.RESENDABLE, textSecureMessage, new MetricEventListener(messageId));
 
         DatabaseFactory.getMessageLogDatabase(context).insertIfPossible(messageRecipient.getId(), message.getDateSent(), result, ContentHint.RESENDABLE, new MessageId(messageId, false));
         return result.getSuccess().isUnidentified();
@@ -205,6 +214,29 @@ public class PushTextSendJob extends PushSendJob {
 
   public static long getMessageId(@NonNull Data data) {
     return data.getLong(KEY_MESSAGE_ID);
+  }
+
+  private static class MetricEventListener implements SignalServiceMessageSender.IndividualSendEvents {
+    private final long messageId;
+
+    private MetricEventListener(long messageId) {
+      this.messageId = messageId;
+    }
+
+    @Override
+    public void onMessageEncrypted() {
+      SignalLocalMetrics.IndividualMessageSend.onMessageEncrypted(messageId);
+    }
+
+    @Override
+    public void onMessageSent() {
+      SignalLocalMetrics.IndividualMessageSend.onMessageSent(messageId);
+    }
+
+    @Override
+    public void onSyncMessageSent() {
+      SignalLocalMetrics.IndividualMessageSend.onSyncMessageSent(messageId);
+    }
   }
 
   public static class Factory implements Job.Factory<PushTextSendJob> {
