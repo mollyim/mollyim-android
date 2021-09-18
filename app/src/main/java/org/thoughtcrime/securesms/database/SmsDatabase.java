@@ -664,7 +664,7 @@ public class SmsDatabase extends MessageDatabase {
 
     long threadId = getThreadIdForMessage(messageId);
 
-    ThreadUpdateJob.enqueue(threadId);
+    DatabaseFactory.getThreadDatabase(context).update(threadId, true);
     notifyConversationListeners(threadId);
 
     return new InsertResult(messageId, threadId);
@@ -749,7 +749,7 @@ public class SmsDatabase extends MessageDatabase {
         DatabaseFactory.getThreadDatabase(context).incrementUnread(threadId, 1);
       }
 
-      ThreadUpdateJob.enqueue(threadId);
+      DatabaseFactory.getThreadDatabase(context).update(threadId, true);
 
       db.setTransactionSuccessful();
     } finally {
@@ -826,7 +826,7 @@ public class SmsDatabase extends MessageDatabase {
         DatabaseFactory.getThreadDatabase(context).incrementUnread(threadId, 1);
       }
 
-      ThreadUpdateJob.enqueue(threadId);
+      DatabaseFactory.getThreadDatabase(context).update(threadId, true);
 
       db.setTransactionSuccessful();
     } finally {
@@ -908,7 +908,7 @@ public class SmsDatabase extends MessageDatabase {
       DatabaseFactory.getThreadDatabase(context).incrementUnread(threadId, 1);
     }
 
-    ThreadUpdateJob.enqueue(threadId);
+    DatabaseFactory.getThreadDatabase(context).update(threadId, true);
 
     notifyConversationListeners(threadId);
     TrimThreadJob.enqueueAsync(threadId);
@@ -1175,7 +1175,7 @@ public class SmsDatabase extends MessageDatabase {
       }
 
       if (!silent) {
-        ThreadUpdateJob.enqueue(threadId);
+        DatabaseFactory.getThreadDatabase(context).update(threadId, true);
       }
 
       if (message.getSubscriptionId() != -1) {
@@ -1218,7 +1218,7 @@ public class SmsDatabase extends MessageDatabase {
     long messageId = db.insert(TABLE_NAME, null, values);
 
     DatabaseFactory.getThreadDatabase(context).incrementUnread(threadId, 1);
-    ThreadUpdateJob.enqueue(threadId);
+    DatabaseFactory.getThreadDatabase(context).update(threadId, true);
 
     notifyConversationListeners(threadId);
 
@@ -1242,7 +1242,7 @@ public class SmsDatabase extends MessageDatabase {
     databaseHelper.getSignalWritableDatabase().insert(TABLE_NAME, null, values);
 
     DatabaseFactory.getThreadDatabase(context).incrementUnread(threadId, 1);
-    ThreadUpdateJob.enqueue(threadId);
+    DatabaseFactory.getThreadDatabase(context).update(threadId, true);
 
     notifyConversationListeners(threadId);
 
