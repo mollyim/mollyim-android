@@ -142,6 +142,7 @@ class LogDatabase private constructor(
     val db = writableDatabase
 
     db.delete(TABLE_NAME, null, null)
+    db.execSQL("VACUUM")
   }
 
   fun getAllBeforeTime(time: Long): Reader {
