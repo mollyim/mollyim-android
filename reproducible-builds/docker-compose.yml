@@ -9,3 +9,5 @@ services:
       - ./outputs:/molly/app/build/outputs
     environment:
       - BUILD_SCAN
+      - STAGING_KEYSTORE_PATH
+      - STAGING_KEYSTORE_PASSWORD

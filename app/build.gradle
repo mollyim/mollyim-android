@@ -111,8 +111,6 @@ static def getBuildTimestamp() {
     }
 }
 
-def keystores = [ 'debug'  : loadKeystoreProperties('keystore.debug.properties') ]
-
 def selectableVariants = [
         'internalProdFlipper',
         'internalProdPerf',
@@ -155,12 +153,13 @@ android {
     }
 
     signingConfigs {
-        if (keystores.debug != null) {
-            debug {
-                storeFile file("${project.rootDir}/${keystores.debug.storeFile}")
-                storePassword keystores.debug.storePassword
-                keyAlias keystores.debug.keyAlias
-                keyPassword keystores.debug.keyPassword
+        staging {
+            if (System.getenv('STAGING_KEYSTORE_PATH')) {
+                storeFile file("${System.env.STAGING_KEYSTORE_PATH}")
+                storePassword "${System.env.STAGING_KEYSTORE_PASSWORD}"
+                keyAlias "staging"
+                keyPassword "${System.env.STAGING_KEYSTORE_PASSWORD}"
+                enableV4Signing false
             }
         }
     }
@@ -252,44 +251,6 @@ android {
         exclude '/org/spongycastle/x509/CertPathReviewerMessages_de.properties'
     }
 
-    buildTypes {
-        debug {
-            if (keystores['debug'] != null) {
-                signingConfig signingConfigs.debug
-            }
-            isDefault true
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'),
-                    'proguard/proguard-firebase-messaging.pro',
-                    'proguard/proguard-google-play-services.pro',
-                    'proguard/proguard-jackson.pro',
-                    'proguard/proguard-sqlite.pro',
-                    'proguard/proguard-appcompat-v7.pro',
-                    'proguard/proguard-square-okhttp.pro',
-                    'proguard/proguard-square-okio.pro',
-                    'proguard/proguard-rounded-image-view.pro',
-                    'proguard/proguard-glide.pro',
-                    'proguard/proguard-shortcutbadger.pro',
-                    'proguard/proguard-retrofit.pro',
-                    'proguard/proguard-klinker.pro',
-                    'proguard/proguard-retrolambda.pro',
-                    'proguard/proguard-okhttp.pro',
-                    'proguard/proguard-ez-vcard.pro',
-                    'proguard/proguard.cfg'
-            testProguardFiles 'proguard/proguard-automation.pro',
-                    'proguard/proguard.cfg'
-
-            buildConfigField "String", "BUILD_VARIANT_TYPE", "\"Debug\""
-        }
-
-        release {
-            minifyEnabled true
-            shrinkResources true
-            proguardFiles = buildTypes.debug.proguardFiles
-            buildConfigField "String", "BUILD_VARIANT_TYPE", "\"Release\""
-        }
-    }
-
     productFlavors {
         prod {
             dimension 'environment'
@@ -337,14 +298,51 @@ android {
         }
     }
 
+    buildTypes {
+        debug {
+            isDefault true
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'),
+                    'proguard/proguard-firebase-messaging.pro',
+                    'proguard/proguard-google-play-services.pro',
+                    'proguard/proguard-jackson.pro',
+                    'proguard/proguard-sqlite.pro',
+                    'proguard/proguard-appcompat-v7.pro',
+                    'proguard/proguard-square-okhttp.pro',
+                    'proguard/proguard-square-okio.pro',
+                    'proguard/proguard-rounded-image-view.pro',
+                    'proguard/proguard-glide.pro',
+                    'proguard/proguard-shortcutbadger.pro',
+                    'proguard/proguard-retrofit.pro',
+                    'proguard/proguard-klinker.pro',
+                    'proguard/proguard-retrolambda.pro',
+                    'proguard/proguard-okhttp.pro',
+                    'proguard/proguard-ez-vcard.pro',
+                    'proguard/proguard.cfg'
+            testProguardFiles 'proguard/proguard-automation.pro',
+                    'proguard/proguard.cfg'
+
+            buildConfigField "String", "BUILD_VARIANT_TYPE", "\"Debug\""
+        }
+
+        release {
+            productFlavors.staging.signingConfig signingConfigs.staging.storeFile ? signingConfigs.staging : null
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles = buildTypes.debug.proguardFiles
+            buildConfigField "String", "BUILD_VARIANT_TYPE", "\"Release\""
+        }
+    }
+
     android.applicationVariants.all { variant ->
-        def isStaging = variant.productFlavors*.name.contains("staging");
+        def isStaging = variant.productFlavors*.name.contains("staging")
+        def hasSigningConfig = buildType.signingConfig || variant.signingConfig
 
         variant.resValue 'string', 'app_name', isStaging ? appName + " Staging" : appName
         variant.resValue "string", 'package_name', variant.applicationId
 
         variant.outputs.all {
-            def flavors = variant.baseName - ~/(free|nonFree)-/ + (buildType.signingConfig ? "" : "-unsigned")
+            def flavors = variant.baseName - ~/(free|nonFree)-/ + (hasSigningConfig ? "" : "-unsigned")
             outputFileName = "${appName}-${flavors}-${versionName}.apk"
         }
     }
@@ -525,21 +523,4 @@ tasks.withType(Test) {
         showExceptions true
         showStackTraces true
     }
-}
-
-def loadKeystoreProperties(filename) {
-    def keystorePropertiesFile = file("${project.rootDir}/${filename}")
-    if (keystorePropertiesFile.exists()) {
-        def keystoreProperties = new Properties()
-        keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
-        return keystoreProperties;
-    } else {
-        return null;
-    }
-}
-
-def getDateSuffix() {
-    def date = new Date()
-    def formattedDate = date.format('yyyy-MM-dd-HH:mm')
-    return formattedDate
 }

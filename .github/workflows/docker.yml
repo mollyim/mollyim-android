@@ -1,20 +1,22 @@
 name: Docker
 
 on:
-  pull_request:
   push:
-    paths-ignore:
-      - '**/README.md'
+    tags:
+      - 'v*'
 
 jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    env:
-      BUILD_SCAN: 1
 
     steps:
     - uses: actions/checkout@v2
+
+    - name: Create staging keystore
+      run: echo "$STAGING_KEYSTORE" | base64 -d > app/staging.keystore
+      env:
+        STAGING_KEYSTORE: ${{ secrets.STAGING_KEYSTORE }}
 
     - name: Build Docker image
       run: docker-compose build
@@ -23,6 +25,10 @@ jobs:
     - name: Build APKs
       run: docker-compose run reproducible-molly
       working-directory: reproducible-builds
+      env:
+        BUILD_SCAN: 1
+        STAGING_KEYSTORE_PATH: staging.keystore
+        STAGING_KEYSTORE_PASSWORD: ${{ secrets.STAGING_KEYSTORE_PASSWORD }}
 
     - name: Log checksums
       run: find reproducible-builds/outputs/apk -name "*.apk" -exec sha256sum '{}' \;
@@ -37,7 +43,6 @@ jobs:
   release:
     name: Release
     needs: build
-    if: startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
 
     steps:
@@ -56,7 +61,7 @@ jobs:
         with:
           tag_name: ${{ github.ref }}
           release_name: Molly Android ${{ steps.get-version.outputs.VERSION }}
-          draft: true
+          draft: ${{ !contains(steps.get-version.outputs.VERSION, 'rc') }}
           prerelease: ${{ contains(steps.get-version.outputs.VERSION, 'rc') }}
 
       - name: Upload APK staging
@@ -66,8 +71,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create-release.outputs.upload_url }}
-          asset_path: ./molly-apk-docker/nonFreeStaging/release/Molly-staging-release-unsigned-${{ steps.get-version.outputs.VERSION }}.apk
-          asset_name: Molly-staging-unsigned-${{ steps.get-version.outputs.VERSION }}.apk
+          asset_path: ./molly-apk-docker/nonFreeStaging/release/Molly-staging-release-${{ steps.get-version.outputs.VERSION }}.apk
+          asset_name: Molly-staging-${{ steps.get-version.outputs.VERSION }}.apk
           asset_content_type: application/zip
 
       - name: Upload APK production
@@ -88,8 +93,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create-release.outputs.upload_url }}
-          asset_path: ./molly-apk-docker/freeStaging/release/Molly-staging-release-unsigned-${{ steps.get-version.outputs.VERSION }}-FOSS.apk
-          asset_name: Molly-staging-unsigned-${{ steps.get-version.outputs.VERSION }}-FOSS.apk
+          asset_path: ./molly-apk-docker/freeStaging/release/Molly-staging-release-${{ steps.get-version.outputs.VERSION }}-FOSS.apk
+          asset_name: Molly-staging-${{ steps.get-version.outputs.VERSION }}-FOSS.apk
           asset_content_type: application/zip
 
       - name: Upload APK production FOSS
