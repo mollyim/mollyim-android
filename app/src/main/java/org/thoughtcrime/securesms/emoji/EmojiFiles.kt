@@ -5,8 +5,6 @@ import android.net.Uri
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
-import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import okio.HashingSink
 import okio.Okio
 import org.signal.core.util.logging.Log
@@ -124,7 +122,22 @@ object EmojiFiles {
     }
   }
 
-  class Version(@JsonProperty val version: Int, @JsonProperty val uuid: UUID, @JsonProperty val density: String) {
+  class Version() {
+
+    @JsonProperty
+    var version: Int = 0
+
+    @JsonProperty
+    lateinit var uuid: UUID
+
+    @JsonProperty
+    lateinit var density: String
+
+    constructor(version: Int, uuid: UUID, density: String) : this() {
+      this.version = version
+      this.uuid = uuid
+      this.density = density
+    }
 
     fun getFile(context: Context, uuid: UUID): File = File(getDirectory(context), uuid.toString())
 
@@ -132,7 +145,7 @@ object EmojiFiles {
 
     companion object {
 
-      private val objectMapper = ObjectMapper().registerKotlinModule()
+      private val objectMapper = ObjectMapper()
 
       @JvmStatic
       fun readVersion(context: Context): Version? {
@@ -195,23 +208,47 @@ object EmojiFiles {
     }
   }
 
-  class Name(@JsonProperty val name: String, @JsonProperty val uuid: UUID) {
+  class Name() {
+
+    @JsonProperty
+    lateinit var name: String
+
+    @JsonProperty
+    lateinit var uuid: UUID
+
+    constructor(name: String, uuid: UUID) : this() {
+      this.name = name
+      this.uuid = uuid
+    }
+
     companion object {
       @JvmStatic
       fun forEmojiDataJson(): Name = Name(EMOJI_JSON, UUID.randomUUID())
     }
   }
 
-  class NameCollection(@JsonProperty val versionUuid: UUID, @JsonProperty val names: List<Name>) {
+  class NameCollection() {
+
+    @JsonProperty
+    lateinit var versionUuid: UUID
+
+    @JsonProperty
+    lateinit var names: List<Name>
+
+    constructor(versionUuid: UUID, names: List<Name>) : this() {
+      this.versionUuid = versionUuid
+      this.names = names
+    }
+
     companion object {
 
-      private val objectMapper = ObjectMapper().registerKotlinModule()
+      private val objectMapper = ObjectMapper()
 
       @JvmStatic
       fun read(context: Context, version: Version): NameCollection {
         try {
           getInputStream(context, context.getNameFile(version.uuid)).use {
-            return objectMapper.readValue(it)
+            return objectMapper.readValue(it, NameCollection::class.java)
           }
         } catch (e: Exception) {
           return NameCollection(version.uuid, listOf())
