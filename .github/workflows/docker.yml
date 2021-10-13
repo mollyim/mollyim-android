@@ -61,7 +61,7 @@ jobs:
         with:
           tag_name: ${{ github.ref }}
           release_name: Molly Android ${{ steps.get-version.outputs.VERSION }}
-          draft: ${{ !contains(steps.get-version.outputs.VERSION, 'rc') }}
+          draft: true
           prerelease: ${{ contains(steps.get-version.outputs.VERSION, 'rc') }}
 
       - name: Upload APK staging
@@ -71,8 +71,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create-release.outputs.upload_url }}
-          asset_path: ./molly-apk-docker/nonFreeStaging/release/Molly-staging-release-${{ steps.get-version.outputs.VERSION }}.apk
-          asset_name: Molly-staging-${{ steps.get-version.outputs.VERSION }}.apk
+          asset_path: ./molly-apk-docker/nonFreeStaging/release/Molly-staging-release-unsigned-${{ steps.get-version.outputs.VERSION }}.apk
+          asset_name: Molly-staging-unsigned-${{ steps.get-version.outputs.VERSION }}.apk
           asset_content_type: application/zip
 
       - name: Upload APK production
@@ -93,8 +93,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create-release.outputs.upload_url }}
-          asset_path: ./molly-apk-docker/freeStaging/release/Molly-staging-release-${{ steps.get-version.outputs.VERSION }}-FOSS.apk
-          asset_name: Molly-staging-${{ steps.get-version.outputs.VERSION }}-FOSS.apk
+          asset_path: ./molly-apk-docker/freeStaging/release/Molly-staging-release-unsigned-${{ steps.get-version.outputs.VERSION }}-FOSS.apk
+          asset_name: Molly-staging-unsigned-${{ steps.get-version.outputs.VERSION }}-FOSS.apk
           asset_content_type: application/zip
 
       - name: Upload APK production FOSS

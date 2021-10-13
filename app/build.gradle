@@ -306,7 +306,6 @@ android {
         }
 
         release {
-            productFlavors.staging.signingConfig signingConfigs.staging.storeFile ? signingConfigs.staging : null
             minifyEnabled true
             shrinkResources true
             proguardFiles = buildTypes.debug.proguardFiles
