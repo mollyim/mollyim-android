@@ -12,6 +12,7 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.SeekBar
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.AppCompatSeekBar
 import androidx.constraintlayout.widget.Guideline
 import androidx.core.animation.doOnEnd
@@ -65,16 +66,18 @@ class ImageEditorHudV2 @JvmOverloads constructor(
   private val bottomGuideline: Guideline = findViewById(R.id.image_editor_bottom_guide)
   private val brushPreview: BrushWidthPreviewView = findViewById(R.id.image_editor_hud_brush_preview)
   private val textStyleToggle: ImageView = findViewById(R.id.image_editor_hud_text_style_button)
+  private val rotationDial: RotationDialView = findViewById(R.id.image_editor_hud_crop_rotation_dial)
 
   private val selectableSet: Set<View> = setOf(drawButton, textButton, stickerButton, blurButton)
 
   private val undoTools: Set<View> = setOf(undoButton, clearAllButton)
   private val drawTools: Set<View> = setOf(brushToggle, drawSeekBar, widthSeekBar)
   private val blurTools: Set<View> = setOf(blurToggleContainer, blurHelpText, widthSeekBar)
+  private val cropTools: Set<View> = setOf(rotationDial)
   private val drawButtonRow: Set<View> = setOf(cancelButton, doneButton, drawButton, textButton, stickerButton, blurButton)
   private val cropButtonRow: Set<View> = setOf(cancelButton, doneButton, cropRotateButton, cropFlipButton, cropAspectLockButton)
 
-  private val allModeTools: Set<View> = drawTools + blurTools + drawButtonRow + cropButtonRow + textStyleToggle
+  private val allModeTools: Set<View> = drawTools + blurTools + drawButtonRow + cropButtonRow + textStyleToggle + cropTools
 
   private val viewsToSlide: Set<View> = drawButtonRow + cropButtonRow
 
@@ -90,6 +93,8 @@ class ImageEditorHudV2 @JvmOverloads constructor(
   }
 
   private fun initializeViews() {
+    colorIndicator.background = AppCompatResources.getDrawable(context, R.drawable.ic_color_preview)
+
     undoButton.setOnClickListener { listener?.onUndo() }
     clearAllButton.setOnClickListener { listener?.onClearAll() }
     cancelButton.setOnClickListener { listener?.onCancel() }
@@ -150,6 +155,24 @@ class ImageEditorHudV2 @JvmOverloads constructor(
     blurToggle.setOnCheckedChangeListener { _, enabled -> listener?.onBlurFacesToggled(enabled) }
 
     setupWidthSeekBar()
+
+    rotationDial.listener = object : RotationDialView.Listener {
+      override fun onDegreeChanged(degrees: Float) {
+        listener?.onDialRotationChanged(degrees)
+      }
+
+      override fun onGestureStart() {
+        listener?.onDialRotationGestureStarted()
+      }
+
+      override fun onGestureEnd() {
+        listener?.onDialRotationGestureFinished()
+      }
+    }
+  }
+
+  fun setDialRotation(degrees: Float) {
+    rotationDial.setDegrees(degrees)
   }
 
   fun setBottomOfImageEditorView(bottom: Int) {
@@ -158,6 +181,7 @@ class ImageEditorHudV2 @JvmOverloads constructor(
 
   @SuppressLint("ClickableViewAccessibility")
   private fun setupWidthSeekBar() {
+    widthSeekBar.progressDrawable = AppCompatResources.getDrawable(context, R.drawable.ic_width_slider_bg)
     widthSeekBar.thumb = HSVColorSlider.createThumbDrawable(Color.WHITE)
     widthSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
       override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
@@ -326,7 +350,7 @@ class ImageEditorHudV2 @JvmOverloads constructor(
 
   private fun presentModeCrop() {
     animateModeChange(
-      inSet = cropButtonRow - if (isAvatarEdit) setOf(cropAspectLockButton) else setOf(),
+      inSet = cropTools + cropButtonRow - if (isAvatarEdit) setOf(cropAspectLockButton) else setOf(),
       outSet = allModeTools
     )
     animateInUndoTools()
@@ -523,6 +547,9 @@ class ImageEditorHudV2 @JvmOverloads constructor(
     fun onRotate90AntiClockwise()
     fun onCropAspectLock()
     fun onTextStyleToggle()
+    fun onDialRotationGestureStarted()
+    fun onDialRotationChanged(degrees: Float)
+    fun onDialRotationGestureFinished()
     val isCropAspectLocked: Boolean
 
     fun onRequestFullScreen(fullScreen: Boolean, hideKeyboard: Boolean)

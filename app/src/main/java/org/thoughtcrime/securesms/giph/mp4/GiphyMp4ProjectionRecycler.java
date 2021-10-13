@@ -39,7 +39,7 @@ public final class GiphyMp4ProjectionRecycler implements GiphyMp4PlaybackControl
 
     for (final GiphyMp4Playable holder : holders) {
       if (playbackSet.contains(holder.getAdapterPosition())) {
-        startPlayback(acquireHolderForPosition(holder.getAdapterPosition()), holder);
+        startPlayback(recyclerView, acquireHolderForPosition(holder.getAdapterPosition()), holder);
       } else {
         holder.showProjectionArea();
       }
@@ -95,7 +95,7 @@ public final class GiphyMp4ProjectionRecycler implements GiphyMp4PlaybackControl
     Projection projection = giphyMp4Playable.getGiphyMp4PlayableProjection(recyclerView);
 
     holder.getContainer().setX(projection.getX());
-    holder.getContainer().setY(projection.getY());
+    holder.getContainer().setY(projection.getY() + recyclerView.getTranslationY());
 
     ViewGroup.LayoutParams params = holder.getContainer().getLayoutParams();
     if (params.width != projection.getWidth() || params.height != projection.getHeight()) {
@@ -107,14 +107,22 @@ public final class GiphyMp4ProjectionRecycler implements GiphyMp4PlaybackControl
     holder.setCorners(projection.getCorners());
   }
 
-  private void startPlayback(@NonNull GiphyMp4ProjectionPlayerHolder holder, @NonNull GiphyMp4Playable giphyMp4Playable) {
+  private void startPlayback(@NonNull RecyclerView parent, @NonNull GiphyMp4ProjectionPlayerHolder holder, @NonNull GiphyMp4Playable giphyMp4Playable) {
     if (!Objects.equals(holder.getMediaItem(), giphyMp4Playable.getMediaItem())) {
       holder.setOnPlaybackReady(null);
       giphyMp4Playable.showProjectionArea();
 
       holder.show();
-      holder.setOnPlaybackReady(giphyMp4Playable::hideProjectionArea);
+      holder.setOnPlaybackReady(() -> {
+        giphyMp4Playable.hideProjectionArea();
+        parent.invalidateItemDecorations();
+      });
       holder.playContent(giphyMp4Playable.getMediaItem(), giphyMp4Playable.getPlaybackPolicyEnforcer());
+    } else {
+      holder.setOnPlaybackReady(() -> {
+        giphyMp4Playable.hideProjectionArea();
+        parent.invalidateItemDecorations();
+      });
     }
   }
 

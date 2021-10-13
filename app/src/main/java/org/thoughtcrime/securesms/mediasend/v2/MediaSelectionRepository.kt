@@ -9,11 +9,11 @@ import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import org.signal.core.util.ThreadUtil
 import org.signal.core.util.logging.Log
+import org.signal.imageeditor.core.model.EditorModel
 import org.thoughtcrime.securesms.TransportOption
 import org.thoughtcrime.securesms.database.AttachmentDatabase.TransformProperties
 import org.thoughtcrime.securesms.database.ThreadDatabase
 import org.thoughtcrime.securesms.database.model.Mention
-import org.thoughtcrime.securesms.imageeditor.model.EditorModel
 import org.thoughtcrime.securesms.mediasend.CompositeMediaTransform
 import org.thoughtcrime.securesms.mediasend.ImageEditorModelRenderMediaTransform
 import org.thoughtcrime.securesms.mediasend.Media
@@ -77,6 +77,10 @@ class MediaSelectionRepository(context: Context) {
       throw IllegalStateException("Provided recipients to send to, but this is SMS!")
     }
 
+    if (selectedMedia.isEmpty()) {
+      throw IllegalStateException("No selected media!")
+    }
+
     return Maybe.create<MediaSendActivityResult> { emitter ->
       val trimmedBody: String = if (isViewOnce) "" else message?.toString()?.trim() ?: ""
       val trimmedMentions: List<Mention> = if (isViewOnce) emptyList() else mentions
@@ -120,8 +124,11 @@ class MediaSelectionRepository(context: Context) {
             sendMessages(recipients, splitBody, uploadResults, trimmedMentions, isViewOnce)
             uploadRepository.deleteAbandonedAttachments()
             emitter.onComplete()
-          } else {
+          } else if (uploadResults.isNotEmpty()) {
             emitter.onSuccess(MediaSendActivityResult.forPreUpload(requireNotNull(singleRecipient).id, uploadResults, splitBody, transport, isViewOnce, trimmedMentions))
+          } else {
+            Log.w(TAG, "Got empty upload results! isSms: $isSms, updatedMedia.size(): ${updatedMedia.size}, isViewOnce: $isViewOnce, target: $singleRecipientId")
+            emitter.onSuccess(MediaSendActivityResult.forTraditionalSend(requireNotNull(singleRecipient).id, updatedMedia, trimmedBody, transport, isViewOnce, trimmedMentions))
           }
         }
       }
@@ -194,7 +201,7 @@ class MediaSelectionRepository(context: Context) {
         isViewOnce,
         ThreadDatabase.DistributionTypes.DEFAULT,
         null, emptyList(), emptyList(),
-        mentions, emptyList(), emptyList()
+        mentions, mutableSetOf(), mutableSetOf()
       )
       messages.add(OutgoingSecureMediaMessage(message))
 

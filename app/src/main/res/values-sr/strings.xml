@@ -697,6 +697,7 @@
   <string name="ManageProfileFragment_your_name">Ваше име</string>
   <string name="ManageProfileFragment_your_username">Твоје корисничко име</string>
   <string name="ManageProfileFragment_failed_to_set_avatar">Неуспех постављења аватара</string>
+  <string name="ManageProfileFragment_badges">Значке</string>
   <!--ManageRecipientActivity-->
   <string name="ManageRecipientActivity_no_groups_in_common">Нема заједничких група</string>
   <plurals name="ManageRecipientActivity_d_groups_in_common">
@@ -720,6 +721,7 @@
   <string name="CustomNotificationsDialogFragment__enabled">Укључено</string>
   <string name="CustomNotificationsDialogFragment__disabled">Искључено</string>
   <string name="CustomNotificationsDialogFragment__default">Подразумеван</string>
+  <string name="CustomNotificationsDialogFragment__unknown">Непознато</string>
   <!--ShareableGroupLinkDialogFragment-->
   <string name="ShareableGroupLinkDialogFragment__shareable_group_link">Линк за дељење групе</string>
   <string name="ShareableGroupLinkDialogFragment__manage_and_share">Управи &amp; дели</string>
@@ -1589,6 +1591,7 @@
   <string name="MessageNotifier_reacted_s_to_s">Реаговао %1$s на: „%2$s”.</string>
   <string name="MessageNotifier_reacted_s_to_your_video">Реакција %1$s на ваш видео.</string>
   <string name="MessageNotifier_reacted_s_to_your_image">Реакција %1$s на вашу слику.</string>
+  <string name="MessageNotifier_reacted_s_to_your_gif">Реакција %1$s на ваш GIF.</string>
   <string name="MessageNotifier_reacted_s_to_your_file">Реакција %1$s на вашу датотеку.</string>
   <string name="MessageNotifier_reacted_s_to_your_audio">Реакција %1$s на ваш звучни запис.</string>
   <string name="MessageNotifier_reacted_s_to_your_view_once_media">Реакција %1$s на ваш једнократни медиј.</string>
@@ -1747,6 +1750,7 @@
   <string name="QuoteView_audio">Звук</string>
   <string name="QuoteView_video">Видео</string>
   <string name="QuoteView_photo">Фотографија</string>
+  <string name="QuoteView_gif">GIF</string>
   <string name="QuoteView_view_once_media">Једнократни медиј</string>
   <string name="QuoteView_sticker">Налепница</string>
   <string name="QuoteView_you">Ви</string>
@@ -1914,7 +1918,7 @@
   <!--verify_identity-->
   <string name="verify_identity__share_safety_number">Подели безбедносни број</string>
   <!--verity_scan_fragment-->
-  <string name="verify_scan_fragment__scan_the_qr_code_on_your_contact">Скенирајте QR кôд на уређају вашег контакта.</string>
+  <string name="verify_scan_fragment__scan_the_qr_code_on_your_contact">Скенирајте QR кôд приказан на уређају вашег контакта.</string>
   <!--webrtc_answer_decline_button-->
   <string name="webrtc_answer_decline_button__swipe_up_to_answer">Превуците ка горе да се јавите</string>
   <string name="webrtc_answer_decline_button__swipe_down_to_reject">Превуците ка доле да одбијете</string>
@@ -3238,6 +3242,7 @@
   <!--PlaybackSpeedToggleTextView-->
   <string name="PlaybackSpeedToggleTextView__p5x">.5x</string>
   <string name="PlaybackSpeedToggleTextView__1x">1x</string>
+  <string name="PlaybackSpeedToggleTextView__1p5x">1.5x</string>
   <string name="PlaybackSpeedToggleTextView__2x">2x</string>
   <!--PaymentRecipientSelectionFragment-->
   <string name="PaymentRecipientSelectionFragment__new_payment">Нова уплата</string>
@@ -3305,6 +3310,7 @@
   <string name="MediaReviewFragment__add_a_message">Додати поруку</string>
   <string name="MediaReviewFragment__add_a_reply">Додај одговор</string>
   <string name="MediaReviewFragment__send_to">Пошаљи у</string>
+  <string name="MediaReviewFragment__view_once_message">Порука виђена једном</string>
   <string name="ImageEditorHud__cancel">Поништи</string>
   <string name="ImageEditorHud__draw">Нацртај</string>
   <string name="ImageEditorHud__write_text">Пиши текст</string>
@@ -3314,14 +3320,25 @@
   <string name="ImageEditorHud__clear_all">Очисти све</string>
   <string name="ImageEditorHud__undo">Опозови</string>
   <string name="ImageEditorHud__toggle_between_marker_and_highlighter">Пребаци маркер/најамнички</string>
+  <string name="ImageEditorHud__delete">Избриши</string>
+  <string name="ImageEditorHud__toggle_between_text_styles">Пребацити стил текста</string>
   <string name="MediaCountIndicatorButton__send">Пошаљи</string>
   <string name="MediaReviewSelectedItem__tap_to_remove">Пипнути за уклон</string>
   <string name="MediaReviewSelectedItem__tap_to_select">Додирни за избор</string>
   <string name="MediaReviewImagePageFragment__discard">Одбаци</string>
   <string name="MediaReviewImagePageFragment__discard_changes">Одбацити промене?</string>
-  <string name="MediaReviewFragment__view_once_message">Порука виђена једном</string>
   <string name="MediaReviewImagePageFragment__youll_lose_any_changes">Изгубићете све промене које сте направили на овој фотографији.</string>
-  <string name="ImageEditorHud__delete">Избриши</string>
   <string name="CameraFragment__failed_to_open_camera">Неуспешно отварање камере</string>
+  <string name="BadgesOverviewFragment__my_badges">Моје значке</string>
+  <string name="BadgesOverviewFragment__featured_badge">Способности значке</string>
+  <string name="BadgesOverviewFragment__display_badges_on_profile">Показати значке на прифилу</string>
+  <string name="BadgesOverviewFragment__failed_to_update_profile">Ажурирање профила није успело</string>
+  <string name="BadgeSelectionFragment__select_badges">Одабрати значке</string>
+  <string name="SelectFeaturedBadgeFragment__preview">Преглед</string>
+  <string name="SelectFeaturedBadgeFragment__select_a_badge">Одабрати значку</string>
+  <string name="SelectFeaturedBadgeFragment__you_must_select_a_badge">Морате одабрати значку</string>
+  <string name="SelectFeaturedBadgeFragment__failed_to_update_profile">Ажурирање профила није успело</string>
+  <string name="ViewBadgeBottomSheetDialogFragment__become_a_sustainer">Постати одрживач</string>
+  <string name="ImageView__badge">Значка</string>
   <!--EOF-->
 </resources>

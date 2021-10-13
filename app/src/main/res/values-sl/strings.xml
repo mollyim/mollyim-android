@@ -727,6 +727,7 @@
   <string name="ManageProfileFragment_your_name">Vaše ime</string>
   <string name="ManageProfileFragment_your_username">Vaše uporabniško ime</string>
   <string name="ManageProfileFragment_failed_to_set_avatar">Nastavitev avatarja ni uspela</string>
+  <string name="ManageProfileFragment_badges">Značke</string>
   <!--ManageRecipientActivity-->
   <string name="ManageRecipientActivity_no_groups_in_common">Nobene skupne skupine</string>
   <plurals name="ManageRecipientActivity_d_groups_in_common">
@@ -752,6 +753,7 @@
   <string name="CustomNotificationsDialogFragment__enabled">Izklopljena</string>
   <string name="CustomNotificationsDialogFragment__disabled">Vklopljena</string>
   <string name="CustomNotificationsDialogFragment__default">Privzeto</string>
+  <string name="CustomNotificationsDialogFragment__unknown">Neznano</string>
   <!--ShareableGroupLinkDialogFragment-->
   <string name="ShareableGroupLinkDialogFragment__shareable_group_link">Deljiva povezava do skupine</string>
   <string name="ShareableGroupLinkDialogFragment__manage_and_share">Upravljanje in delitev</string>
@@ -1644,6 +1646,7 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
   <string name="MessageNotifier_reacted_s_to_s">%1$s spremenjeno v: \"%2$s\".</string>
   <string name="MessageNotifier_reacted_s_to_your_video">%1$s spremenjeno v vaš video.</string>
   <string name="MessageNotifier_reacted_s_to_your_image">%1$s spremenjeno v vašo sliko.</string>
+  <string name="MessageNotifier_reacted_s_to_your_gif">Uporabnik/ca %1$s je reagiral/a na vaš GIF.</string>
   <string name="MessageNotifier_reacted_s_to_your_file">%1$s spremenjeno v vašo datoteko.</string>
   <string name="MessageNotifier_reacted_s_to_your_audio">%1$s spremenjeno v vaš zvok.</string>
   <string name="MessageNotifier_reacted_s_to_your_view_once_media">Reakcija %1$s na vaše medijsko sporočilo za enkraten ogled.</string>
@@ -1804,6 +1807,7 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
   <string name="QuoteView_audio">Zvok</string>
   <string name="QuoteView_video">Video</string>
   <string name="QuoteView_photo">Fotografija</string>
+  <string name="QuoteView_gif">GIF</string>
   <string name="QuoteView_view_once_media">Medijska datoteka za enkraten ogled</string>
   <string name="QuoteView_sticker">Nalepka</string>
   <string name="QuoteView_you">Vi</string>
@@ -2279,7 +2283,15 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
   <string name="PaymentsHomeFragment__transfer_to_exchange">Prenesi v menjalnico</string>
   <string name="PaymentsHomeFragment__currency_conversion">Pretvorba valut</string>
   <string name="PaymentsHomeFragment__deactivate_payments">Izklop Plačil</string>
+  <string name="PaymentsHomeFragment__recovery_phrase">Obnovitvena fraza</string>
   <string name="PaymentsHomeFragment__help">Pomoč</string>
+  <string name="PaymentsHomeFragment__sent_payment">Poslano plačilo</string>
+  <string name="PaymentsHomeFragment__received_payment">Prejeto plačilo</string>
+  <string name="PaymentsHomeFragment__processing_payment">Obdelovanje plačila</string>
+  <string name="PaymentsHomeFragment__currency_conversion_not_available">Preračun valut ni na voljo</string>
+  <string name="PaymentsHomeFragment__cant_display_currency_conversion">Preračuna valut ni mogoče pokazati. Preverite svojo internetno povezavo in poskusite znova.</string>
+  <string name="PaymentsHomeFragment__payments_is_not_available_in_your_region">Plačila v vaši regiji niso na voljo.</string>
+  <string name="PaymentsHomeFragment__could_not_enable_payments">Plačil ni bilo mogoče vključiti. Poskusite znova kasneje.</string>
   <string name="PaymentsHomeFragment__continue">Nadaljuj</string>
   <string name="PaymentsHomeFragment__details">Podrobnosti</string>
   <!--PaymentsAddMoneyFragment-->
@@ -2291,6 +2303,8 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
   <string name="PaymentsDetailsFragment__status">Status</string>
   <string name="PaymentsDetailsFragment__to">Naslovnik</string>
   <string name="PaymentsDetailsFragment__from">Pošiljatelj</string>
+  <string name="PaymentsDetailsFragment__sent_payment">Poslano plačilo</string>
+  <string name="PaymentsDetailsFragment__received_payment">Prejeto plačilo</string>
   <!--PaymentsTransferFragment-->
   <string name="PaymentsTransferFragment__scan_qr_code">Skeniraj kodo QR</string>
   <string name="PaymentsTransferFragment__next">Naprej</string>
@@ -2928,16 +2942,27 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
   <string name="payment_info_card_update_pin">Posodobite PIN</string>
   <!--DeactivateWalletFragment-->
   <!--PaymentsRecoveryStartFragment-->
+  <string name="PaymentsRecoveryStartFragment__recovery_phrase">Obnovitvena fraza</string>
+  <string name="PaymentsRecoveryStartFragment__view_recovery_phrase">Prikaži obnovitveno frazo</string>
+  <string name="PaymentsRecoveryStartFragment__enter_recovery_phrase">Vnesi obnovitveno frazo</string>
+  <string name="PaymentsRecoveryStartFragment__start">Začni</string>
+  <string name="PaymentsRecoveryStartFragment__enter_manually">Ročen vnos</string>
+  <string name="PaymentsRecoveryStartFragment__paste_from_clipboard">Prilepi iz odložišča</string>
   <!--PaymentsRecoveryPasteFragment-->
+  <string name="PaymentsRecoveryPasteFragment__paste_recovery_phrase">Prilepi obnovitveno frazo</string>
+  <string name="PaymentsRecoveryPasteFragment__recovery_phrase">Obnovitvena fraza</string>
   <string name="PaymentsRecoveryPasteFragment__next">Naprej</string>
+  <string name="PaymentsRecoveryPasteFragment__invalid_recovery_phrase">Neveljavna obnovitvena fraza</string>
   <!--PaymentsRecoveryPhraseFragment-->
   <string name="PaymentsRecoveryPhraseFragment__next">Naprej</string>
   <string name="PaymentsRecoveryPhraseFragment__edit">Uredi</string>
   <string name="PaymentsRecoveryPhraseFragment__previous">Nazaj</string>
+  <string name="PaymentsRecoveryPhraseFragment__invalid_recovery_phrase">Neveljavna obnovitvena fraza</string>
   <string name="PaymentsRecoveryPhraseFragment__copy">Kopiraj</string>
   <!--PaymentsRecoveryPhraseConfirmFragment-->
   <string name="PaymentRecoveryPhraseConfirmFragment__done">OK</string>
   <!--PaymentsRecoveryEntryFragment-->
+  <string name="PaymentsRecoveryEntryFragment__enter_recovery_phrase">Vnesi obnovitveno frazo</string>
   <string name="PaymentsRecoveryEntryFragment__next">Naprej</string>
   <!--ClearClipboardAlarmReceiver-->
   <!--PaymentNotificationsView-->
@@ -3178,6 +3203,7 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
   <!--PlaybackSpeedToggleTextView-->
   <string name="PlaybackSpeedToggleTextView__p5x">.5x</string>
   <string name="PlaybackSpeedToggleTextView__1x">1x</string>
+  <string name="PlaybackSpeedToggleTextView__1p5x">1.5x</string>
   <string name="PlaybackSpeedToggleTextView__2x">2x</string>
   <!--PaymentRecipientSelectionFragment-->
   <string name="PaymentRecipientSelectionFragment__new_payment">Novo plačilo</string>
@@ -3249,6 +3275,7 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
   <string name="MediaReviewFragment__add_a_message">Dodaj sporočilo</string>
   <string name="MediaReviewFragment__add_a_reply">Dodaj odgovor</string>
   <string name="MediaReviewFragment__send_to">Poslano uporabniku/ci</string>
+  <string name="MediaReviewFragment__view_once_message">Enkratni ogled sporočila</string>
   <string name="ImageEditorHud__cancel">Prekliči</string>
   <string name="ImageEditorHud__draw">Riši</string>
   <string name="ImageEditorHud__write_text">Dodaj tekst</string>
@@ -3258,15 +3285,25 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
   <string name="ImageEditorHud__clear_all">Izbriši vse</string>
   <string name="ImageEditorHud__undo">Razveljavi</string>
   <string name="ImageEditorHud__toggle_between_marker_and_highlighter">Izbira označevalnika</string>
+  <string name="ImageEditorHud__delete">Izbriši</string>
+  <string name="ImageEditorHud__toggle_between_text_styles">Zamenjava stilov pisave</string>
   <string name="MediaCountIndicatorButton__send">Pošlji</string>
   <string name="MediaReviewSelectedItem__tap_to_remove">Tapni za odstranitev</string>
   <string name="MediaReviewSelectedItem__tap_to_select">Tapnite za izbor</string>
   <string name="MediaReviewImagePageFragment__discard">Zavrzi</string>
   <string name="MediaReviewImagePageFragment__discard_changes">Želite zavreči spremembe?</string>
-  <string name="MediaReviewFragment__view_once_message">Enkratni ogled sporočila</string>
   <string name="MediaReviewImagePageFragment__youll_lose_any_changes">Vse spremembe, narejene na tej fotografiji, bodo izgubljene.</string>
-  <string name="ImageEditorHud__delete">Izbriši</string>
   <string name="CameraFragment__failed_to_open_camera">Odpiranje kamere ni uspelo</string>
-  <string name="ImageEditorHud__toggle_between_text_styles">Zamenjava stilov pisave</string>
+  <string name="BadgesOverviewFragment__my_badges">Moje značke</string>
+  <string name="BadgesOverviewFragment__featured_badge">Izpostavljene značke</string>
+  <string name="BadgesOverviewFragment__display_badges_on_profile">Prikaži značke na profilu</string>
+  <string name="BadgesOverviewFragment__failed_to_update_profile">Posodobitev profila ni uspela</string>
+  <string name="BadgeSelectionFragment__select_badges">Izberi značke</string>
+  <string name="SelectFeaturedBadgeFragment__preview">Predogled</string>
+  <string name="SelectFeaturedBadgeFragment__select_a_badge">Izberi značko</string>
+  <string name="SelectFeaturedBadgeFragment__you_must_select_a_badge">Morate izbrati značko</string>
+  <string name="SelectFeaturedBadgeFragment__failed_to_update_profile">Posodobitev profila ni uspela</string>
+  <string name="ViewBadgeBottomSheetDialogFragment__become_a_sustainer">Postani podpornik</string>
+  <string name="ImageView__badge">Značka</string>
   <!--EOF-->
 </resources>

@@ -63,7 +63,7 @@
   <string name="AttachmentKeyboard_payment">Overschrijving</string>
   <!--AttachmentManager-->
   <string name="AttachmentManager_cant_open_media_selection">Er is geen app gevonden waarmee je media zou kunnen selecteren.</string>
-  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly heeft toegang nodig tot de externe opslagruimte om afbeeldingen, video\'s of audio te kunnen verzenden, maar deze toestemming is pertinent geweigerd. Ga naar de instellingen, tik op  ‘Machtigingen’ en schakel ‘Opslagruimte’ in.</string>
+  <string name="AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio">Molly heeft toegang nodig tot de externe opslagruimte om afbeeldingen, video\'s of audio te kunnen verzenden, maar deze toestemming is permanent geweigerd. Ga naar de instellingen, tik op  ‘Machtigingen’ en schakel ‘Opslagruimte’ in.</string>
   <string name="AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information">Molly heeft toegang nodig tot de contacten om contactinformatie in Molly weer te geven, maar deze toestemming is pertinent geweigerd. Ga naar de instellingen, tik op ‘Toestemmingen’ en schakel ‘Contacten’ in.</string>
   <string name="AttachmentManager_signal_requires_location_information_in_order_to_attach_a_location">Molly heeft toegang nodig tot de locatie om locaties te kunnen verzenden aan je gesprekspartners, maar deze toestemming is pertinent geweigerd. Ga naar de instellingen, tik op ‘Toestemmingen’ en schakel ‘Locatie’ in.</string>
   <!--AttachmentUploadJob-->
@@ -260,13 +260,13 @@
   <string name="ConversationFragment_save_to_sd_card">Opslaan naar telefoonopslag?</string>
   <plurals name="ConversationFragment_saving_n_media_to_storage_warning">
     <item quantity="one">Als je dit bestand opslaat op de telefoonopslag wordt het niet versleuteld opgeslagen en hebben alle andere apps op je apparaat toegang tot dit bestand.\n\nDoorgaan?</item>
-    <item quantity="other">Als je deze %1$d bestanden opslaat op de telefoonopslag worden ze niet versleuteld opgeslagen en hebben alle andere apps op je apparaat ook toegang tot deze bestanden.\n\nDoorgaan?</item>
+    <item quantity="other">Als je deze %1$d bestanden opslaat op de telefoonopslag worden ze niet versleuteld en hebben alle andere apps op je apparaat ook toegang tot deze bestanden.\n\nDoorgaan?</item>
   </plurals>
   <plurals name="ConversationFragment_error_while_saving_attachments_to_sd_card">
     <item quantity="one">Fout tijdens het opslaan van de bijlage op de telefoonopslag!</item>
     <item quantity="other">Fout tijdens het opslaan van de bijlagen op de telefoonopslag!</item>
   </plurals>
-  <string name="ConversationFragment_unable_to_write_to_sd_card_exclamation">Kan niet schrijven naar telefoonopslag!</string>
+  <string name="ConversationFragment_unable_to_write_to_sd_card_exclamation">Kan niet schrijven naar opslag!</string>
   <plurals name="ConversationFragment_saving_n_attachments">
     <item quantity="one">Bijlage aan het opslaan</item>
     <item quantity="other">%1$d bijlagen aan het opslaan</item>
@@ -365,7 +365,7 @@
   <string name="BackupsPreferenceFragment__learn_more">Meer leren hierover</string>
   <string name="BackupsPreferenceFragment__in_progress">Wordt nu uitgevoerd …</string>
   <string name="BackupsPreferenceFragment__d_so_far">Tot nu toe %1$d …</string>
-  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly heeft toegang nodig tot de externe opslagruimte om back-upbestanden te kunnen maken, maar deze is pertinent geweigerd. Ga naar de instellingen voor deze app, tik op ‘Machtigingen’ en schakel ‘Opslagruimte’ in.</string>
+  <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly heeft toegang nodig tot de opslagruimte om back-upbestanden te kunnen maken, maar deze is permanent geweigerd. Ga naar de instellingen voor deze app, tik op ‘Machtigingen’ en schakel ‘Opslagruimte’ in.</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Zelf ingesteld: %s</string>
   <string name="CustomDefaultPreference_using_default">Standaard in gebruik: %s</string>
@@ -666,6 +666,7 @@
   <string name="ManageProfileFragment_your_name">Je naam</string>
   <string name="ManageProfileFragment_your_username">Je gebruikersnaam</string>
   <string name="ManageProfileFragment_failed_to_set_avatar">Instellen van profielfoto is mislukt</string>
+  <string name="ManageProfileFragment_badges">Badges</string>
   <!--ManageRecipientActivity-->
   <string name="ManageRecipientActivity_no_groups_in_common">Geen gemeenschappelijke groepen</string>
   <plurals name="ManageRecipientActivity_d_groups_in_common">
@@ -687,6 +688,7 @@
   <string name="CustomNotificationsDialogFragment__enabled">Ingeschakeld</string>
   <string name="CustomNotificationsDialogFragment__disabled">Uitgeschakeld</string>
   <string name="CustomNotificationsDialogFragment__default">Systeemstandaard</string>
+  <string name="CustomNotificationsDialogFragment__unknown">Onbekend</string>
   <!--ShareableGroupLinkDialogFragment-->
   <string name="ShareableGroupLinkDialogFragment__shareable_group_link">Deelbare groepsverwijzing</string>
   <string name="ShareableGroupLinkDialogFragment__manage_and_share">Beheren &amp; delen</string>
@@ -794,7 +796,7 @@
   <string name="MediaOverviewActivity_Sort_by">Sorteren op</string>
   <string name="MediaOverviewActivity_Newest">Nieuwste bovenaan</string>
   <string name="MediaOverviewActivity_Oldest">Oudste bovenaan</string>
-  <string name="MediaOverviewActivity_Storage_used">Hoeveelheid opslagruimte</string>
+  <string name="MediaOverviewActivity_Storage_used">Gebruikte opslagruimte</string>
   <string name="MediaOverviewActivity_All_storage_use">Alle opgeslagen bestanden</string>
   <string name="MediaOverviewActivity_Grid_view_description">Rasterweergave</string>
   <string name="MediaOverviewActivity_List_view_description">Lijstweergave</string>
@@ -1499,7 +1501,7 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <string name="MediaPreviewActivity_you">Door jou verzonden</string>
   <string name="MediaPreviewActivity_unssuported_media_type">Niet-ondersteund mediatype</string>
   <string name="MediaPreviewActivity_draft">Concept</string>
-  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Molly heeft toegang tot externe opslagruimte nodig om iets op te slaan op de externe opslag, maar deze toegang is pertinent geweigerd. Ga naar de instellingen voor deze app, tik op ‘Machtigingen’ en schakel ‘Opslagruimte’ in.</string>
+  <string name="MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied">Molly heeft toegang tot externe opslag nodig om iets op te slaan op de externe opslag, maar deze is permanent geweigerd. Ga naar de instellingen voor deze app, tik op ‘App-machtigingen’ en schakel ‘Opslagruimte’ in.</string>
   <string name="MediaPreviewActivity_unable_to_write_to_external_storage_without_permission">Kan niet opslaan naar externe opslag zonder machtiging</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_title">Bericht wissen?</string>
   <string name="MediaPreviewActivity_media_delete_confirmation_message">Dit bericht zal alleen voor jou onherroepelijk gewist worden, maar dus niet voor je gesprekspartner(s).</string>
@@ -1530,6 +1532,7 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <string name="MessageNotifier_reacted_s_to_s">reageerde met %1$s op “%2$s”.</string>
   <string name="MessageNotifier_reacted_s_to_your_video">reageerde met %1$s op je video.</string>
   <string name="MessageNotifier_reacted_s_to_your_image">reageerde met %1$s op je afbeelding.</string>
+  <string name="MessageNotifier_reacted_s_to_your_gif">Reageerde met %1$s op je GIF.</string>
   <string name="MessageNotifier_reacted_s_to_your_file">reageerde met %1$s op je bestand.</string>
   <string name="MessageNotifier_reacted_s_to_your_audio">reageerde met %1$s op je audio.</string>
   <string name="MessageNotifier_reacted_s_to_your_view_once_media">reageerde met %1$s op je eenmaligeweergave-media.</string>
@@ -1684,6 +1687,7 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <string name="QuoteView_audio">Audio</string>
   <string name="QuoteView_video">Video</string>
   <string name="QuoteView_photo">Afbeelding</string>
+  <string name="QuoteView_gif">GIF</string>
   <string name="QuoteView_view_once_media">Eenmaligeweergave-media</string>
   <string name="QuoteView_sticker">Sticker</string>
   <string name="QuoteView_you">Jij</string>
@@ -2186,7 +2190,7 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <string name="PaymentsDetailsFragment__s_on_s_at_s">%1$s op %2$s om %3$s</string>
   <string name="PaymentsDetailsFragment__to">Naar</string>
   <string name="PaymentsDetailsFragment__from">Van</string>
-  <string name="PaymentsDetailsFragment__information">Overschrijvingsdetails waaronder de hoeveelheid en het tijdstip van de betaling zijn onderdeel van het kasboek van MobileCoin.</string>
+  <string name="PaymentsDetailsFragment__information">Overschrijvingsdetails, waaronder de hoeveelheid en het tijdstip van de betaling, zijn onderdeel van het kasboek van MobileCoin.</string>
   <string name="PaymentsDetailsFragment__coin_cleanup_fee">Samenvoegingskosten</string>
   <string name="PaymentsDetailsFragment__coin_cleanup_information">Er worden “samenvoegingskosten” in rekening gebracht wanneer de munten die je bezit niet kunnen worden samengevoegd to de nieuwe gewenste overschrijving. Door deze samenvoegingskosten kunnen je toch een nieuwe overschrijvingen maken.</string>
   <string name="PaymentsDetailsFragment__no_details_available">Er is geen verdere informatie beschikbaar over deze overschrijving</string>
@@ -2484,7 +2488,7 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <string name="PushDecryptJob_new_locked_message">Nieuw vergrendeld bericht</string>
   <string name="PushDecryptJob_unlock_to_view_pending_messages">Ontgrendel om je berichten te lezen</string>
   <string name="enter_backup_passphrase_dialog__backup_passphrase">Back-upwachtwoord</string>
-  <string name="backup_enable_dialog__backups_will_be_saved_to_external_storage_and_encrypted_with_the_passphrase_below_you_must_have_this_passphrase_in_order_to_restore_a_backup">Back-upbestanden worden opgeslagen op het externe opslaggeheugen en versleuteld met het wachtwoord hieronder. Je hebt dit wachtwoord nodig om de back-upgegevens terug te zetten.</string>
+  <string name="backup_enable_dialog__backups_will_be_saved_to_external_storage_and_encrypted_with_the_passphrase_below_you_must_have_this_passphrase_in_order_to_restore_a_backup">Back-upbestanden worden opgeslagen op het externe opslaggeheugen en versleuteld met het wachtwoord hieronder. Je hebt dit wachtwoord nodig om de back-up te herstellen.</string>
   <string name="backup_enable_dialog__you_must_have_this_passphrase">Je hebt in de toekomst dit wachtwoord nodig om je gegevens vanuit een back-upbestand te kunnen herstellen.</string>
   <string name="backup_enable_dialog__folder">Opslaglocatie</string>
   <string name="backup_enable_dialog__i_have_written_down_this_passphrase">Ik heb dit wachtwoord opgeschreven. Zonder dit wachtwoord kan ik deze back-upbestanden niet gebruiken om gegevens terug te zetten.</string>
@@ -2838,7 +2842,7 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <string name="ChatWallpaperPreviewActivity__swipe_to_preview_more_wallpapers">Veeg om meer achtergronden weer te geven.</string>
   <string name="ChatWallpaperPreviewActivity__set_wallpaper_for_all_chats">Je staat op het punt om deze standaard achtergrond in te stellen voor al je gesprekken.</string>
   <string name="ChatWallpaperPreviewActivity__set_wallpaper_for_s">Deze standaard achtergrond instellen voor %1$s.</string>
-  <string name="ChatWallpaperPreviewActivity__viewing_your_gallery_requires_the_storage_permission">Om je gallerij weer te kunnen geven is toestemming om de opslag te gebruiken nodig.</string>
+  <string name="ChatWallpaperPreviewActivity__viewing_your_gallery_requires_the_storage_permission">Om je gallerij te bekijken is toestemming nodig om de opslag te gebruiken.</string>
   <!--WallpaperImageSelectionActivity-->
   <string name="WallpaperImageSelectionActivity__choose_wallpaper_image">Een achtergrond kiezen</string>
   <!--WallpaperCropActivity-->
@@ -3011,8 +3015,8 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <string name="AdvancedPrivacySettingsFragment__show_status_icon">Pictogram weergeven</string>
   <string name="AdvancedPrivacySettingsFragment__show_an_icon">Laat in de berichtdetails een pictogram zien bij berichten die zijn afgeleverd met een verzegelde afzender</string>
   <!--ExpireTimerSettingsFragment-->
-  <string name="ExpireTimerSettingsFragment__when_enabled_new_messages_sent_and_received_in_new_chats_started_by_you_will_disappear_after_they_have_been_seen">Voor alle nieuwe gesprekken die jij zelf begint zullen berichten voor iedereen die ze heeft gezien nadat de ingestelde tijd is verlopen worden gewist. — Gebruik dit niet ter beveiliging, want Signal kan niet garanderen dat berichten op het apparaat van een ander ook daadwerkelijk worden gewist.</string>
-  <string name="ExpireTimerSettingsFragment__when_enabled_new_messages_sent_and_received_in_this_chat_will_disappear_after_they_have_been_seen">Nieuwe berichten in dit gesprek zullen voor iedereen die ze heeft gezien nadat de ingestelde tijd is verlopen worden gewist. — Gebruik dit niet ter beveiliging, want Signal kan niet garanderen dat berichten op het apparaat van een ander ook daadwerkelijk worden gewist.</string>
+  <string name="ExpireTimerSettingsFragment__when_enabled_new_messages_sent_and_received_in_new_chats_started_by_you_will_disappear_after_they_have_been_seen">Voor alle nieuwe gesprekken die jij zelf begint zullen berichten voor iedereen worden gewist nadat de ingestelde tijd is verlopen. De tijdspanne begint voor iedere persoon individueel pas te lopen vanaf het moment dat hij of zij het bericht heeft gezien. — Gebruik dit niet ter beveiliging, want Signal kan niet garanderen dat berichten op het apparaat van een ander ook daadwerkelijk worden gewist.</string>
+  <string name="ExpireTimerSettingsFragment__when_enabled_new_messages_sent_and_received_in_this_chat_will_disappear_after_they_have_been_seen">Nieuwe berichten in dit gesprek zullen voor iedereen worden gewist nadat de ingestelde tijdspanne is verlopen. De tijdspanne begint voor iedere persoon individueel pas te lopen vanaf het moment dat hij of zij het bericht heeft gezien. — Gebruik dit niet ter beveiliging, want Signal kan niet garanderen dat berichten op het apparaat van een ander ook daadwerkelijk worden gewist.</string>
   <string name="ExpireTimerSettingsFragment__off">Uit</string>
   <string name="ExpireTimerSettingsFragment__4_weeks">4 weken</string>
   <string name="ExpireTimerSettingsFragment__1_week">1 week</string>
@@ -3152,8 +3156,9 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <!--StickerKeyboard-->
   <string name="StickerKeyboard__recently_used">Recentelijk gebruikt</string>
   <!--PlaybackSpeedToggleTextView-->
-  <string name="PlaybackSpeedToggleTextView__p5x">.5x</string>
+  <string name="PlaybackSpeedToggleTextView__p5x">0,5x</string>
   <string name="PlaybackSpeedToggleTextView__1x">1x</string>
+  <string name="PlaybackSpeedToggleTextView__1p5x">1,5x</string>
   <string name="PlaybackSpeedToggleTextView__2x">2x</string>
   <!--PaymentRecipientSelectionFragment-->
   <string name="PaymentRecipientSelectionFragment__new_payment">Nieuwe overschrijving</string>
@@ -3217,6 +3222,7 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <string name="MediaReviewFragment__add_a_message">Een bericht bijvoegen</string>
   <string name="MediaReviewFragment__add_a_reply">Een reactie toevoegen</string>
   <string name="MediaReviewFragment__send_to">Verzonden aan</string>
+  <string name="MediaReviewFragment__view_once_message">Eenmaligeweergave-bericht</string>
   <string name="ImageEditorHud__cancel">Annuleren</string>
   <string name="ImageEditorHud__draw">Tekenen</string>
   <string name="ImageEditorHud__write_text">Schrijf tekst</string>
@@ -3226,15 +3232,25 @@ Tot slot moet Signal de telefoonstatus kunnen lezen om te voorkomen dat Signal-o
   <string name="ImageEditorHud__clear_all">Alles wissen</string>
   <string name="ImageEditorHud__undo">Ongedaan maken</string>
   <string name="ImageEditorHud__toggle_between_marker_and_highlighter">Schakelen tussen stift en markeerstift</string>
+  <string name="ImageEditorHud__delete">Gesprek wissen</string>
+  <string name="ImageEditorHud__toggle_between_text_styles">Wisselen tussen tekststijlen</string>
   <string name="MediaCountIndicatorButton__send">Verzenden</string>
   <string name="MediaReviewSelectedItem__tap_to_remove">Tik om te verwijderen</string>
   <string name="MediaReviewSelectedItem__tap_to_select">Tik om te selecteren</string>
   <string name="MediaReviewImagePageFragment__discard">Verwerpen</string>
   <string name="MediaReviewImagePageFragment__discard_changes">Aanpassingen verwerpen?</string>
-  <string name="MediaReviewFragment__view_once_message">Eenmaligeweergave-bericht</string>
   <string name="MediaReviewImagePageFragment__youll_lose_any_changes">Veranderingen die je aan deze afbeelding hebt gemaakt zullen verloren gaan.</string>
-  <string name="ImageEditorHud__delete">Gesprek wissen</string>
   <string name="CameraFragment__failed_to_open_camera">Camera openen is mislukt</string>
-  <string name="ImageEditorHud__toggle_between_text_styles">Wisselen tussen tekststijlen</string>
+  <string name="BadgesOverviewFragment__my_badges">Jouw badges</string>
+  <string name="BadgesOverviewFragment__featured_badge">Weergegeven badges</string>
+  <string name="BadgesOverviewFragment__display_badges_on_profile">Maak badges zichtbaar op mijn profiel</string>
+  <string name="BadgesOverviewFragment__failed_to_update_profile">Profiel bijwerken mislukt</string>
+  <string name="BadgeSelectionFragment__select_badges">Badges selecteren</string>
+  <string name="SelectFeaturedBadgeFragment__preview">Voorbeeld</string>
+  <string name="SelectFeaturedBadgeFragment__select_a_badge">Kies een badge</string>
+  <string name="SelectFeaturedBadgeFragment__you_must_select_a_badge">Je moet een badge kiezen</string>
+  <string name="SelectFeaturedBadgeFragment__failed_to_update_profile">Profiel bijwerken mislukt</string>
+  <string name="ViewBadgeBottomSheetDialogFragment__become_a_sustainer">Wordt een ondersteuner</string>
+  <string name="ImageView__badge">Badge</string>
   <!--EOF-->
 </resources>

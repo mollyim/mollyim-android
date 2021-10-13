@@ -685,6 +685,7 @@
   <string name="CustomNotificationsDialogFragment__enabled">Virkt</string>
   <string name="CustomNotificationsDialogFragment__disabled">Óvirkt</string>
   <string name="CustomNotificationsDialogFragment__default">Sjálfgefið</string>
+  <string name="CustomNotificationsDialogFragment__unknown">Óþekkt</string>
   <!--ShareableGroupLinkDialogFragment-->
   <string name="ShareableGroupLinkDialogFragment__shareable_group_link">Deilanlegur tengill á hóp</string>
   <string name="ShareableGroupLinkDialogFragment__manage_and_share">Sýsla með og deila</string>
@@ -1040,6 +1041,7 @@
   <string name="MessageRecord_you_marked_your_safety_number_with_s_unverified">Þú merktir öryggisnúmer þitt með %s sem ekki sannreynt</string>
   <string name="MessageRecord_you_marked_your_safety_number_with_s_unverified_from_another_device">Þú merktir öryggisnúmer þitt með %s sem ekki sannreynt á öðru tæki</string>
   <string name="MessageRecord_a_message_from_s_couldnt_be_delivered">Skilaboð frá %s var ekki hægt að afhenda</string>
+  <string name="MessageRecord_s_changed_their_number_to_a_new_number">%1$s skipti yfir í nýtt símanúmer.</string>
   <!--Group Calling update messages-->
   <string name="MessageRecord_s_started_a_group_call_s">%1$s hóf hópsímtal · %2$s</string>
   <string name="MessageRecord_s_is_in_the_group_call_s">%1$s er í hópsímtalinu · %2$s</string>
@@ -1678,6 +1680,7 @@
   <string name="QuoteView_audio">Hljóð</string>
   <string name="QuoteView_video">Myndskeið</string>
   <string name="QuoteView_photo">Mynd</string>
+  <string name="QuoteView_gif">GIF-mynd</string>
   <string name="QuoteView_view_once_media">Skoða-einu-sinni margmiðlunarefni</string>
   <string name="QuoteView_sticker">Límmerki</string>
   <string name="QuoteView_you">Þú</string>
@@ -2956,6 +2959,7 @@ PIN-númerið þitt. Ef þú manst ekki PIN-númerið, geturðu endursannvottað
   <string name="ChangeNumberEnterPhoneNumberFragment__new_phone_number">Nýja símanúmerið</string>
   <string name="ChangeNumberEnterPhoneNumberFragment__the_phone_number_you_entered_doesnt_match_your_accounts">Símanúmerið sem þú settir inn samsvarar ekki því sem er á aðgangnum þínum.</string>
   <string name="ChangeNumberEnterPhoneNumberFragment__you_must_specify_your_old_number_country_code">Þú verður að tilgreina landskóða fyrir gamla símanúmerið   </string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__you_must_specify_your_old_phone_number">Þú verður að tilgreina gamla símanúmerið</string>
   <string name="ChangeNumberEnterPhoneNumberFragment__you_must_specify_your_new_number_country_code">Þú verður að tilgreina landskóða fyrir nýja símanúmerið   </string>
   <string name="ChangeNumberEnterPhoneNumberFragment__you_must_specify_your_new_phone_number">Þú verður að tilgreina nýja símanúmerið   </string>
   <!--ChangeNumberVerifyFragment-->
@@ -2975,6 +2979,8 @@ PIN-númerið þitt. Ef þú manst ekki PIN-númerið, geturðu endursannvottað
   <string name="ChangeNumberPinDiffersFragment__update_pin">Uppfæra PIN-númer</string>
   <string name="ChangeNumberPinDiffersFragment__keep_old_pin_question">Halda gamla PIN-númerinu?</string>
   <!--ChangeNumberLockActivity-->
+  <string name="ChangeNumberLockActivity__change_status_confirmed">Breytt staða staðfest</string>
+  <string name="ChangeNumberLockActivity__change_status_unconfirmed">Breytt staða ekki staðfest</string>
   <string name="ChangeNumberLockActivity__retry">Reyna aftur</string>
   <string name="ChangeNumberLockActivity__leave">Fara</string>
   <string name="ChangeNumberLockActivity__submit_debug_log">Senda inn villumeldingaskrá</string>
@@ -3145,6 +3151,7 @@ PIN-númerið þitt. Ef þú manst ekki PIN-númerið, geturðu endursannvottað
   <!--PlaybackSpeedToggleTextView-->
   <string name="PlaybackSpeedToggleTextView__p5x">.5x</string>
   <string name="PlaybackSpeedToggleTextView__1x">1x</string>
+  <string name="PlaybackSpeedToggleTextView__1p5x">1.5x</string>
   <string name="PlaybackSpeedToggleTextView__2x">2x</string>
   <!--PaymentRecipientSelectionFragment-->
   <string name="PaymentRecipientSelectionFragment__new_payment">Ný greiðsla</string>
@@ -3208,6 +3215,7 @@ PIN-númerið þitt. Ef þú manst ekki PIN-númerið, geturðu endursannvottað
   <string name="MediaReviewFragment__add_a_message">Bæta við skilaboðum</string>
   <string name="MediaReviewFragment__add_a_reply">Bæta við svari</string>
   <string name="MediaReviewFragment__send_to">Senda til</string>
+  <string name="MediaReviewFragment__view_once_message">Skoða-einu-sinni skilaboð</string>
   <string name="ImageEditorHud__cancel">Hætta við</string>
   <string name="ImageEditorHud__draw">Teikna</string>
   <string name="ImageEditorHud__write_text">Skrifa texta</string>
@@ -3217,13 +3225,15 @@ PIN-númerið þitt. Ef þú manst ekki PIN-númerið, geturðu endursannvottað
   <string name="ImageEditorHud__clear_all">Hreinsa allt</string>
   <string name="ImageEditorHud__undo">Afturkalla</string>
   <string name="ImageEditorHud__toggle_between_marker_and_highlighter">Víxla á milli tússpenna og áherslulitunar</string>
+  <string name="ImageEditorHud__delete">Eyða</string>
+  <string name="ImageEditorHud__toggle_between_text_styles">Víxla á milli textastíla</string>
   <string name="MediaCountIndicatorButton__send">Senda</string>
   <string name="MediaReviewSelectedItem__tap_to_remove">Ýttu til að fjarlægja</string>
   <string name="MediaReviewSelectedItem__tap_to_select">Ýttu til að velja</string>
   <string name="MediaReviewImagePageFragment__discard">Henda</string>
   <string name="MediaReviewImagePageFragment__discard_changes">Henda breytingum?</string>
-  <string name="MediaReviewFragment__view_once_message">Skoða-einu-sinni skilaboð</string>
   <string name="MediaReviewImagePageFragment__youll_lose_any_changes">Þú munt tapa öllum breytingum sem þú hefur gert á þessari mynd.</string>
-  <string name="ImageEditorHud__delete">Eyða</string>
+  <string name="CameraFragment__failed_to_open_camera">Mistókst að opna myndavél</string>
+  <string name="SelectFeaturedBadgeFragment__preview">Forskoða</string>
   <!--EOF-->
 </resources>

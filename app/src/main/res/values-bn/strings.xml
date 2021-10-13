@@ -685,6 +685,7 @@
   <string name="CustomNotificationsDialogFragment__enabled">সক্রিয়</string>
   <string name="CustomNotificationsDialogFragment__disabled">নিষ্ক্রিয়</string>
   <string name="CustomNotificationsDialogFragment__default">সচারচর</string>
+  <string name="CustomNotificationsDialogFragment__unknown">অজানা</string>
   <!--ShareableGroupLinkDialogFragment-->
   <string name="ShareableGroupLinkDialogFragment__shareable_group_link">শেয়ার করার উপযোগী গ্রুপের লিংক</string>
   <string name="ShareableGroupLinkDialogFragment__manage_and_share">ব্যাবস্থাপনা এবং শেয়ার</string>
@@ -1637,6 +1638,7 @@
   <string name="QuoteView_audio">অডিও</string>
   <string name="QuoteView_video">ভিডিও</string>
   <string name="QuoteView_photo">ছবি</string>
+  <string name="QuoteView_gif">GIF</string>
   <string name="QuoteView_view_once_media">একবার দেখা যাবে এমন মিডিয়া</string>
   <string name="QuoteView_sticker">স্টিকার</string>
   <string name="QuoteView_you">আপনি</string>
@@ -1793,6 +1795,7 @@
   <!--verify_identity-->
   <string name="verify_identity__share_safety_number">নিরাপত্তা নাম্বার শেয়ার করুন</string>
   <!--verity_scan_fragment-->
+  <string name="verify_scan_fragment__scan_the_qr_code_on_your_contact">আপনার পরিচিতি এর ডিভাইস থেকে প্রদর্শিত কিউআর কোডটি স্ক্যান করুন।</string>
   <!--webrtc_answer_decline_button-->
   <string name="webrtc_answer_decline_button__swipe_up_to_answer">উত্তর দেওয়ার জন্য সোয়াইপ করুন</string>
   <string name="webrtc_answer_decline_button__swipe_down_to_reject">প্রত্যাখ্যান করতে নীচে সোয়াইপ করুন</string>
@@ -3111,9 +3114,10 @@
   <!--Media V2-->
   <string name="ImageEditorHud__cancel">বাতিল করুন</string>
   <string name="ImageEditorHud__undo">পূর্বাবস্থায় ফিরে যান</string>
+  <string name="ImageEditorHud__delete">মুছুন</string>
   <string name="MediaCountIndicatorButton__send">পাঠান</string>
   <string name="MediaReviewSelectedItem__tap_to_select">নির্বাচন করতে চাপুন</string>
   <string name="MediaReviewImagePageFragment__discard">বাতিল করুন</string>
-  <string name="ImageEditorHud__delete">মুছুন</string>
+  <string name="SelectFeaturedBadgeFragment__preview">প্রিভিউ</string>
   <!--EOF-->
 </resources>

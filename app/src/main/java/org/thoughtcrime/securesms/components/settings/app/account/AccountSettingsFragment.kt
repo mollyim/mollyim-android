@@ -3,7 +3,7 @@ package org.thoughtcrime.securesms.components.settings.app.account
 import android.content.Intent
 import android.graphics.Color
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.google.android.material.snackbar.Snackbar
 import org.thoughtcrime.securesms.R
@@ -34,7 +34,7 @@ class AccountSettingsFragment : DSLSettingsFragment(R.string.AccountSettingsFrag
   }
 
   override fun bindAdapter(adapter: DSLSettingsAdapter) {
-    viewModel = ViewModelProviders.of(this)[AccountSettingsViewModel::class.java]
+    viewModel = ViewModelProvider(this)[AccountSettingsViewModel::class.java]
 
     viewModel.state.observe(viewLifecycleOwner) { state ->
       adapter.submitList(getConfiguration(state).toMappingModelList())
@@ -46,6 +46,7 @@ class AccountSettingsFragment : DSLSettingsFragment(R.string.AccountSettingsFrag
 
       sectionHeaderPref(R.string.preferences_app_protection__signal_pin)
 
+      @Suppress("DEPRECATION")
       clickPref(
         title = DSLSettingsText.from(if (state.hasPin) R.string.preferences_app_protection__change_your_pin else R.string.preferences_app_protection__create_a_pin),
         onClick = {

@@ -668,6 +668,7 @@ të përditësojnë Signal-in, ose t’i hiqni para krijimit të grupit.</item>
   <string name="ManageProfileFragment_your_name">Emri juaj</string>
   <string name="ManageProfileFragment_your_username">Emri juaj i përdoruesit</string>
   <string name="ManageProfileFragment_failed_to_set_avatar">S’u arrit të caktohej avatar</string>
+  <string name="ManageProfileFragment_badges">Stema</string>
   <!--ManageRecipientActivity-->
   <string name="ManageRecipientActivity_no_groups_in_common">S’ka grupe të përbashkët</string>
   <plurals name="ManageRecipientActivity_d_groups_in_common">
@@ -689,6 +690,7 @@ të përditësojnë Signal-in, ose t’i hiqni para krijimit të grupit.</item>
   <string name="CustomNotificationsDialogFragment__enabled">E aktivizuar</string>
   <string name="CustomNotificationsDialogFragment__disabled">E çaktivizuar</string>
   <string name="CustomNotificationsDialogFragment__default">Parazgjedhje</string>
+  <string name="CustomNotificationsDialogFragment__unknown">I panjohur</string>
   <!--ShareableGroupLinkDialogFragment-->
   <string name="ShareableGroupLinkDialogFragment__shareable_group_link">Lidhje grupi e ndashme</string>
   <string name="ShareableGroupLinkDialogFragment__manage_and_share">Administroni &amp; ndani me të tjerë</string>
@@ -1526,6 +1528,7 @@ të përditësojnë Signal-in, ose t’i hiqni para krijimit të grupit.</item>
   <string name="MessageNotifier_reacted_s_to_s">Reagoi me %1$s ndaj: \"%2$s\".</string>
   <string name="MessageNotifier_reacted_s_to_your_video">Reagoi me %1$s ndaj videos tuaj.</string>
   <string name="MessageNotifier_reacted_s_to_your_image">Reagoi me %1$s ndaj figurës tuaj.</string>
+  <string name="MessageNotifier_reacted_s_to_your_gif">Reagoi me %1$s ndaj GIF-it tuaj.</string>
   <string name="MessageNotifier_reacted_s_to_your_file">Reagoi me %1$s ndaj kartelës tuaj.</string>
   <string name="MessageNotifier_reacted_s_to_your_audio">Reagoi me %1$s ndaj audios tuaj.</string>
   <string name="MessageNotifier_reacted_s_to_your_view_once_media">Reagoi me %1$s te media juaj për një parje të vetme</string>
@@ -1680,6 +1683,7 @@ të përditësojnë Signal-in, ose t’i hiqni para krijimit të grupit.</item>
   <string name="QuoteView_audio">Audio</string>
   <string name="QuoteView_video">Video</string>
   <string name="QuoteView_photo">Foto</string>
+  <string name="QuoteView_gif">GIF</string>
   <string name="QuoteView_view_once_media">Media për t’u parë vetëm një herë</string>
   <string name="QuoteView_sticker">Ngjitës</string>
   <string name="QuoteView_you">Ju</string>
@@ -1840,7 +1844,7 @@ të përditësojnë Signal-in, ose t’i hiqni para krijimit të grupit.</item>
   <!--verify_identity-->
   <string name="verify_identity__share_safety_number">Ndajeni me të tjerët numrin tuaj të sigurisë</string>
   <!--verity_scan_fragment-->
-  <string name="verify_scan_fragment__scan_the_qr_code_on_your_contact">Skanoni Kodin QR te pajisja e kontaktit tuaj.</string>
+  <string name="verify_scan_fragment__scan_the_qr_code_on_your_contact">Skanoni kodin QR te pajisja e kontaktit tuaj.</string>
   <!--webrtc_answer_decline_button-->
   <string name="webrtc_answer_decline_button__swipe_up_to_answer">Për t\’u përgjigjur, fërkojeni për sipër</string>
   <string name="webrtc_answer_decline_button__swipe_down_to_reject">Për ta hedhur tej, fërkojeni për poshtë</string>
@@ -3154,6 +3158,7 @@ spastrohet dhe krejt lënda do të fshihet.</item>
   <!--PlaybackSpeedToggleTextView-->
   <string name="PlaybackSpeedToggleTextView__p5x">.5x</string>
   <string name="PlaybackSpeedToggleTextView__1x">1x</string>
+  <string name="PlaybackSpeedToggleTextView__1p5x">1.5x</string>
   <string name="PlaybackSpeedToggleTextView__2x">2x</string>
   <!--PaymentRecipientSelectionFragment-->
   <string name="PaymentRecipientSelectionFragment__new_payment">Pagesë e re</string>
@@ -3217,6 +3222,7 @@ spastrohet dhe krejt lënda do të fshihet.</item>
   <string name="MediaReviewFragment__add_a_message">Shtoni një mesazh</string>
   <string name="MediaReviewFragment__add_a_reply">Shtoni një përgjigje</string>
   <string name="MediaReviewFragment__send_to">Dërgoja</string>
+  <string name="MediaReviewFragment__view_once_message">Mesazh për parje vetëm një herë</string>
   <string name="ImageEditorHud__cancel">Anuloje</string>
   <string name="ImageEditorHud__draw">Vizatoni</string>
   <string name="ImageEditorHud__write_text">Shkruani tekst</string>
@@ -3225,15 +3231,25 @@ spastrohet dhe krejt lënda do të fshihet.</item>
   <string name="ImageEditorHud__done_editing">U mbarua së përpunuari</string>
   <string name="ImageEditorHud__clear_all">Spastroji krejt</string>
   <string name="ImageEditorHud__undo">Zhbëje</string>
+  <string name="ImageEditorHud__delete">Fshije</string>
+  <string name="ImageEditorHud__toggle_between_text_styles">Kaloni nga një stil teksti në tjetër</string>
   <string name="MediaCountIndicatorButton__send">Dërgoje</string>
   <string name="MediaReviewSelectedItem__tap_to_remove">Prekeni që të hiqet</string>
   <string name="MediaReviewSelectedItem__tap_to_select">Prekeni që të përzgjidhet</string>
   <string name="MediaReviewImagePageFragment__discard">Hidhe tej</string>
   <string name="MediaReviewImagePageFragment__discard_changes">Të hidhen tej ndryshimet?</string>
-  <string name="MediaReviewFragment__view_once_message">Mesazh për parje vetëm një herë</string>
   <string name="MediaReviewImagePageFragment__youll_lose_any_changes">Do të humbni çfarëdo ndryshimi që bëtë te kjo foto.</string>
-  <string name="ImageEditorHud__delete">Fshije</string>
   <string name="CameraFragment__failed_to_open_camera">S’u arrit të hapet kamera</string>
-  <string name="ImageEditorHud__toggle_between_text_styles">Kaloni nga një stil teksti në tjetër</string>
+  <string name="BadgesOverviewFragment__my_badges">Stemat e mia</string>
+  <string name="BadgesOverviewFragment__featured_badge">Stemë e zgjedhur</string>
+  <string name="BadgesOverviewFragment__display_badges_on_profile">Shfaq stema në profil</string>
+  <string name="BadgesOverviewFragment__failed_to_update_profile">S’u arrit të përditësohej profili</string>
+  <string name="BadgeSelectionFragment__select_badges">Përzgjidhni stema</string>
+  <string name="SelectFeaturedBadgeFragment__preview">Paraparje</string>
+  <string name="SelectFeaturedBadgeFragment__select_a_badge">Përzgjidhni një stemë</string>
+  <string name="SelectFeaturedBadgeFragment__you_must_select_a_badge">Duhet të përzgjidhni një stemë</string>
+  <string name="SelectFeaturedBadgeFragment__failed_to_update_profile">S’u arrit të përditësohej profili</string>
+  <string name="ViewBadgeBottomSheetDialogFragment__become_a_sustainer">Bëhuni një mbështetës</string>
+  <string name="ImageView__badge">Stemë</string>
   <!--EOF-->
 </resources>

@@ -9,7 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.widget.TextViewCompat
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.DSLConfiguration
@@ -67,7 +67,7 @@ class AdvancedPrivacySettingsFragment : DSLSettingsFragment(R.string.preferences
     val preferences = SecurePreferenceManager.getSecurePreferences(requireContext())
     val factory = AdvancedPrivacySettingsViewModel.Factory(preferences, repository)
 
-    viewModel = ViewModelProviders.of(this, factory)[AdvancedPrivacySettingsViewModel::class.java]
+    viewModel = ViewModelProvider(this, factory)[AdvancedPrivacySettingsViewModel::class.java]
 
     viewModel.state.observe(viewLifecycleOwner) {
       if (it.showProgressSpinner) {

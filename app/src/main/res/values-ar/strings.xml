@@ -826,6 +826,7 @@
   <string name="CustomNotificationsDialogFragment__enabled">مُفعَّل</string>
   <string name="CustomNotificationsDialogFragment__disabled">مُعطَّل</string>
   <string name="CustomNotificationsDialogFragment__default">افتراضي</string>
+  <string name="CustomNotificationsDialogFragment__unknown">غير معروف</string>
   <!--ShareableGroupLinkDialogFragment-->
   <string name="ShareableGroupLinkDialogFragment__shareable_group_link">وصلة المجموعة القابلة للمشاركة</string>
   <string name="ShareableGroupLinkDialogFragment__manage_and_share">الإدارة والمشاركة</string>
@@ -1551,6 +1552,7 @@
   <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">يحتاج Molly إلى إذن الوصول لجهات اتصالك والوسائط من أجل التواصل مع الأصدقاء، وتبادل الرسائل وإجراء مكالمات آمنة.</string>
   <string name="RegistrationActivity_rate_limited_to_service">لقد قمت بمحاولات كثيرة للتسجيل بهذا الرقم. الرجاء المحاولة لاحقاً.</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">لا يمكن الاتصال بالخدمة. الرجاء التأكد من الإتصال بالشبكة والمحاولة مرة أخرى.</string>
+  <string name="RegistrationActivity_call_requested">طُلبَت مكالمة</string>
   <plurals name="RegistrationActivity_debug_log_hint">
     <item quantity="zero">أنت الآن على بعد %d خطوة من إرسال سجل التصحيح.</item>
     <item quantity="one">أنت الآن على بعد %d خطوة من إرسال سجل التصحيح.</item>
@@ -1948,6 +1950,7 @@
   <string name="QuoteView_audio">صوت</string>
   <string name="QuoteView_video">فيديو</string>
   <string name="QuoteView_photo">صورة</string>
+  <string name="QuoteView_gif">صورة متحركة</string>
   <string name="QuoteView_view_once_media">ملف متعدّد الوسائط لمشاهدة-واحدة</string>
   <string name="QuoteView_sticker">ملصق</string>
   <string name="QuoteView_you">أنت</string>
@@ -2136,7 +2139,7 @@
   <!--verify_identity-->
   <string name="verify_identity__share_safety_number">شارك رقم اﻷمان</string>
   <!--verity_scan_fragment-->
-  <string name="verify_scan_fragment__scan_the_qr_code_on_your_contact">يُرجى تصوير الرمز المربع الذي في جهاز جهة اتصالك.</string>
+  <string name="verify_scan_fragment__scan_the_qr_code_on_your_contact">امسح رمز الاستجابة السريعة المعروض على جهاز جهة اتصالك.</string>
   <!--webrtc_answer_decline_button-->
   <string name="webrtc_answer_decline_button__swipe_up_to_answer">إسحب للأعلى للإجابة</string>
   <string name="webrtc_answer_decline_button__swipe_down_to_reject">إسحب للأسفل لرفض المكالمة</string>
@@ -3307,6 +3310,7 @@
   <string name="ChangeNumberConfirmFragment__you_are_about_to_change_your_phone_number_from_s_to_s">إنك على وشك تغيير رقم هاتفك من %1$s إلى %2$s.\n\nيٌرجى التحقق من أن رقم الهاتف أسفله صحيح قبل الاستمرار.</string>
   <string name="ChangeNumberConfirmFragment__edit_number">تعديل الرقم</string>
   <!--ChangeNumberRegistrationLockFragment-->
+  <string name="ChangeNumberRegistrationLockFragment__signal_change_number_need_help_with_pin_for_android_v2_pin">رقم التغيير لـ Signal - تلزم المساعدة بواسطة الرقم التعريفي الشخصي لأندرويد (الإصدار الثاني للرقم التعريفي الشخصي)</string>
   <!--ChangeNumberPinDiffersFragment-->
   <string name="ChangeNumberPinDiffersFragment__pins_do_not_match">رقما التعريف الشخصي غير متوافقان.</string>
   <string name="ChangeNumberPinDiffersFragment__the_pin_associated_with_your_new_number_is_different_from_the_pin_associated_with_your_old_one">إن الرقم التعريفي الشخصي المرتبط برقم هاتف الجديد يختلف عن ذاك المرتبط بهاتفك القديم. أأقوم بالمحافظة على الرقم التعريفي الشخصي القديم أم أقوم بتحديثه ؟</string>
@@ -3497,6 +3501,7 @@
   <!--PlaybackSpeedToggleTextView-->
   <string name="PlaybackSpeedToggleTextView__p5x">‎½ ×‎</string>
   <string name="PlaybackSpeedToggleTextView__1x">‎1 ×‎</string>
+  <string name="PlaybackSpeedToggleTextView__1p5x">1.5x</string>
   <string name="PlaybackSpeedToggleTextView__2x">‎2 ×‎</string>
   <!--PaymentRecipientSelectionFragment-->
   <string name="PaymentRecipientSelectionFragment__new_payment">دفع جديد</string>
@@ -3576,6 +3581,7 @@
   <string name="MediaReviewFragment__add_a_message">إضافة نص</string>
   <string name="MediaReviewFragment__add_a_reply">إضافة رد</string>
   <string name="MediaReviewFragment__send_to">إرسال إلى</string>
+  <string name="MediaReviewFragment__view_once_message">وسيط للعرض مرة واحدة</string>
   <string name="ImageEditorHud__cancel">إلغاء</string>
   <string name="ImageEditorHud__draw">رسم</string>
   <string name="ImageEditorHud__write_text">كتابة نص</string>
@@ -3585,15 +3591,15 @@
   <string name="ImageEditorHud__clear_all">محو الكل</string>
   <string name="ImageEditorHud__undo">تراجع</string>
   <string name="ImageEditorHud__toggle_between_marker_and_highlighter">التبديل بين قلم الوسم وبين قلم التمييز</string>
+  <string name="ImageEditorHud__delete">حذف  </string>
+  <string name="ImageEditorHud__toggle_between_text_styles">التبديل بين أنماط النصوص</string>
   <string name="MediaCountIndicatorButton__send">أرسلْ</string>
   <string name="MediaReviewSelectedItem__tap_to_remove">يُرجى اللمس للإزالة</string>
   <string name="MediaReviewSelectedItem__tap_to_select">أنقر للاختيار</string>
   <string name="MediaReviewImagePageFragment__discard">تجاهل</string>
   <string name="MediaReviewImagePageFragment__discard_changes">تجاهل التغييرات ؟</string>
-  <string name="MediaReviewFragment__view_once_message">وسيط للعرض مرة واحدة</string>
   <string name="MediaReviewImagePageFragment__youll_lose_any_changes">سوف تضيع كل تغييرات قمت بها على هذه الصورة.</string>
-  <string name="ImageEditorHud__delete">حذف  </string>
   <string name="CameraFragment__failed_to_open_camera">فشل تشغيل الكاميرا</string>
-  <string name="ImageEditorHud__toggle_between_text_styles">التبديل بين أنماط النصوص</string>
+  <string name="SelectFeaturedBadgeFragment__preview">مُعاينة</string>
   <!--EOF-->
 </resources>

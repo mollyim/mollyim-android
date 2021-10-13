@@ -151,7 +151,10 @@ public class SubmitDebugLogRepository {
         while (reader.hasNext()) {
           bodyBuilder.append(reader.next()).append('\n');
         }
-      } catch (IllegalStateException ignored) {}
+      } catch (IllegalStateException e) {
+        Log.e(TAG, "Failed to read row!", e);
+        return Optional.absent();
+      }
 
       stopwatch.split("body");
 

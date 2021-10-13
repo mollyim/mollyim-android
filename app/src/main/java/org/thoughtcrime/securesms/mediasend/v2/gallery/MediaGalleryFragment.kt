@@ -18,6 +18,7 @@ import org.thoughtcrime.securesms.mediasend.Media
 import org.thoughtcrime.securesms.mediasend.MediaRepository
 import org.thoughtcrime.securesms.mediasend.v2.MediaCountIndicatorButton
 import org.thoughtcrime.securesms.util.MappingAdapter
+import org.thoughtcrime.securesms.util.Stopwatch
 import org.thoughtcrime.securesms.util.ViewUtil
 import org.thoughtcrime.securesms.util.livedata.LiveDataUtil
 import org.thoughtcrime.securesms.util.visible
@@ -74,13 +75,17 @@ class MediaGalleryFragment : Fragment(R.layout.v2_media_gallery_fragment) {
       onBack()
     }
 
-    toolbar.setOnMenuItemClickListener { item ->
-      if (item.itemId == R.id.action_camera) {
-        callbacks.onNavigateToCamera()
-        true
-      } else {
-        false
+    if (callbacks.isCameraEnabled()) {
+      toolbar.setOnMenuItemClickListener { item ->
+        if (item.itemId == R.id.action_camera) {
+          callbacks.onNavigateToCamera()
+          true
+        } else {
+          false
+        }
       }
+    } else {
+      toolbar.menu.findItem(R.id.action_camera).isVisible = false
     }
 
     countButton.setOnClickListener {
@@ -115,7 +120,11 @@ class MediaGalleryFragment : Fragment(R.layout.v2_media_gallery_fragment) {
     viewStateLiveData.observe(viewLifecycleOwner) { state ->
       bottomBarGroup.visible = state.selectedMedia.isNotEmpty()
       countButton.setCount(state.selectedMedia.size)
+
+      val stopwatch = Stopwatch("mediaSubmit")
       selectedAdapter.submitList(state.selectedMedia.map { MediaGallerySelectedItem.Model(it) }) {
+        stopwatch.split("after-submit")
+        stopwatch.stop("MediaGalleryFragment")
         if (state.selectedMedia.isNotEmpty()) {
           selectedRecycler.smoothScrollToPosition(state.selectedMedia.size - 1)
         }
@@ -166,6 +175,7 @@ class MediaGalleryFragment : Fragment(R.layout.v2_media_gallery_fragment) {
   )
 
   interface Callbacks {
+    fun isCameraEnabled(): Boolean = true
     fun isMultiselectEnabled(): Boolean = false
     fun onMediaSelected(media: Media)
     fun onMediaUnselected(media: Media): Unit = throw UnsupportedOperationException()

@@ -730,6 +730,7 @@
   <string name="ManageProfileFragment_your_name">Vaše meno</string>
   <string name="ManageProfileFragment_your_username">Vaše používateľské meno</string>
   <string name="ManageProfileFragment_failed_to_set_avatar">Nepodarilo sa nastaviť profilový obrázok</string>
+  <string name="ManageProfileFragment_badges">Odznaky</string>
   <!--ManageRecipientActivity-->
   <string name="ManageRecipientActivity_no_groups_in_common">Žiadne spoločné skupiny</string>
   <plurals name="ManageRecipientActivity_d_groups_in_common">
@@ -755,6 +756,7 @@
   <string name="CustomNotificationsDialogFragment__enabled">Povolené</string>
   <string name="CustomNotificationsDialogFragment__disabled">Zakázané</string>
   <string name="CustomNotificationsDialogFragment__default">Predvolená</string>
+  <string name="CustomNotificationsDialogFragment__unknown">Neznámy</string>
   <!--ShareableGroupLinkDialogFragment-->
   <string name="ShareableGroupLinkDialogFragment__shareable_group_link">Zdieľateľný odkaz do skupiny</string>
   <string name="ShareableGroupLinkDialogFragment__manage_and_share">Spravovať a zdieľať</string>
@@ -1655,6 +1657,7 @@ Bola prijatá správa výmeny kľúčov s neplatnou verziou protokolu.
   <string name="MessageNotifier_reacted_s_to_s">reagoval/a na „%2$s“: %1$s.</string>
   <string name="MessageNotifier_reacted_s_to_your_video">reagoval/a na vaše video: %1$s.</string>
   <string name="MessageNotifier_reacted_s_to_your_image">reagoval/a na váš obrázok: %1$s.</string>
+  <string name="MessageNotifier_reacted_s_to_your_gif">%1$s reagoval na váš GIF.</string>
   <string name="MessageNotifier_reacted_s_to_your_file">reagoval/a na váš súbor: %1$s.</string>
   <string name="MessageNotifier_reacted_s_to_your_audio">reagoval/a na váš zvuk: %1$s.</string>
   <string name="MessageNotifier_reacted_s_to_your_view_once_media">Reagoval(a) %1$s na vaše médium na jedno zobrazenie</string>
@@ -1815,6 +1818,7 @@ Bola prijatá správa výmeny kľúčov s neplatnou verziou protokolu.
   <string name="QuoteView_audio">Zvuk</string>
   <string name="QuoteView_video">Video</string>
   <string name="QuoteView_photo">Fotka</string>
+  <string name="QuoteView_gif">GIF</string>
   <string name="QuoteView_view_once_media">Médiá na jedno zobrazenie</string>
   <string name="QuoteView_sticker">Nálepka</string>
   <string name="QuoteView_you">Vy</string>
@@ -1989,7 +1993,7 @@ Bola prijatá správa výmeny kľúčov s neplatnou verziou protokolu.
   <!--verify_identity-->
   <string name="verify_identity__share_safety_number">Zdieľať bezpečnostné číslo</string>
   <!--verity_scan_fragment-->
-  <string name="verify_scan_fragment__scan_the_qr_code_on_your_contact">Naskenujte QR kód na zariadení svojho kontaktu.</string>
+  <string name="verify_scan_fragment__scan_the_qr_code_on_your_contact">Naskenujte QR kód na zariadení vášho kontaktu.</string>
   <!--webrtc_answer_decline_button-->
   <string name="webrtc_answer_decline_button__swipe_up_to_answer">Posuňte smerom hore pre prijatie</string>
   <string name="webrtc_answer_decline_button__swipe_down_to_reject">Posuňte smerom dole pre odmietnutie</string>
@@ -3325,6 +3329,7 @@ Bola prijatá správa výmeny kľúčov s neplatnou verziou protokolu.
   <!--PlaybackSpeedToggleTextView-->
   <string name="PlaybackSpeedToggleTextView__p5x">.5x</string>
   <string name="PlaybackSpeedToggleTextView__1x">1x</string>
+  <string name="PlaybackSpeedToggleTextView__1p5x">1.5x</string>
   <string name="PlaybackSpeedToggleTextView__2x">2x</string>
   <!--PaymentRecipientSelectionFragment-->
   <string name="PaymentRecipientSelectionFragment__new_payment">Nová platba</string>
@@ -3396,6 +3401,7 @@ Bola prijatá správa výmeny kľúčov s neplatnou verziou protokolu.
   <string name="MediaReviewFragment__add_a_message">Pridajte správu</string>
   <string name="MediaReviewFragment__add_a_reply">Pridať odpoveď</string>
   <string name="MediaReviewFragment__send_to">Poslať</string>
+  <string name="MediaReviewFragment__view_once_message">Zobraziť správu raz</string>
   <string name="ImageEditorHud__cancel">Zrušiť</string>
   <string name="ImageEditorHud__draw">Nakreslite</string>
   <string name="ImageEditorHud__write_text">Napíšte text</string>
@@ -3405,15 +3411,25 @@ Bola prijatá správa výmeny kľúčov s neplatnou verziou protokolu.
   <string name="ImageEditorHud__clear_all">Vymazať všetko</string>
   <string name="ImageEditorHud__undo">Späť</string>
   <string name="ImageEditorHud__toggle_between_marker_and_highlighter">Prepínanie medzi značkovačom a zvýrazňovačom</string>
+  <string name="ImageEditorHud__delete">Vymazať</string>
+  <string name="ImageEditorHud__toggle_between_text_styles">Prepínanie medzi štýlmi textu</string>
   <string name="MediaCountIndicatorButton__send">Poslať</string>
   <string name="MediaReviewSelectedItem__tap_to_remove">Ťuknutím odstránite</string>
   <string name="MediaReviewSelectedItem__tap_to_select">Označte ťuknutím</string>
   <string name="MediaReviewImagePageFragment__discard">Zahodiť</string>
   <string name="MediaReviewImagePageFragment__discard_changes">Zrušiť zmeny?</string>
-  <string name="MediaReviewFragment__view_once_message">Zobraziť správu raz</string>
   <string name="MediaReviewImagePageFragment__youll_lose_any_changes">Prídete o všetky zmeny, ktoré ste urobili na tejto fotografii.</string>
-  <string name="ImageEditorHud__delete">Vymazať</string>
   <string name="CameraFragment__failed_to_open_camera">Nepodarilo sa otvoriť kameru</string>
-  <string name="ImageEditorHud__toggle_between_text_styles">Prepínanie medzi štýlmi textu</string>
+  <string name="BadgesOverviewFragment__my_badges">Moje odznaky</string>
+  <string name="BadgesOverviewFragment__featured_badge">Odporúčaný odznak</string>
+  <string name="BadgesOverviewFragment__display_badges_on_profile">Zobraziť odznaky v profile</string>
+  <string name="BadgesOverviewFragment__failed_to_update_profile">Aktualizácia profilu zlyhala</string>
+  <string name="BadgeSelectionFragment__select_badges">Vyberte odznaky</string>
+  <string name="SelectFeaturedBadgeFragment__preview">Náhľad</string>
+  <string name="SelectFeaturedBadgeFragment__select_a_badge">Vyberte odznak</string>
+  <string name="SelectFeaturedBadgeFragment__you_must_select_a_badge">Musíte vybrať odznak</string>
+  <string name="SelectFeaturedBadgeFragment__failed_to_update_profile">Aktualizácia profilu zlyhala</string>
+  <string name="ViewBadgeBottomSheetDialogFragment__become_a_sustainer">Staňte sa udržovateľom</string>
+  <string name="ImageView__badge">Odznak</string>
   <!--EOF-->
 </resources>

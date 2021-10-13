@@ -15,6 +15,7 @@ public final class SignalServiceConfiguration {
   private final SignalServiceUrl[]           signalServiceUrls;
   private final Map<Integer, SignalCdnUrl[]> signalCdnUrlMap;
   private final SignalContactDiscoveryUrl[]  signalContactDiscoveryUrls;
+  private final SignalCdshUrl[]              signalCdshUrls;
   private final SignalKeyBackupServiceUrl[]  signalKeyBackupServiceUrls;
   private final SignalStorageUrl[]           signalStorageUrls;
   private final List<Interceptor>            networkInterceptors;
@@ -27,6 +28,7 @@ public final class SignalServiceConfiguration {
                                     SignalContactDiscoveryUrl[] signalContactDiscoveryUrls,
                                     SignalKeyBackupServiceUrl[] signalKeyBackupServiceUrls,
                                     SignalStorageUrl[] signalStorageUrls,
+                                    SignalCdshUrl[] signalCdshUrls,
                                     List<Interceptor> networkInterceptors,
                                     SocketFactory socketFactory,
                                     Optional<Dns> dns,
@@ -35,6 +37,7 @@ public final class SignalServiceConfiguration {
     this.signalServiceUrls          = signalServiceUrls;
     this.signalCdnUrlMap            = signalCdnUrlMap;
     this.signalContactDiscoveryUrls = signalContactDiscoveryUrls;
+    this.signalCdshUrls             = signalCdshUrls;
     this.signalKeyBackupServiceUrls = signalKeyBackupServiceUrls;
     this.signalStorageUrls          = signalStorageUrls;
     this.networkInterceptors        = networkInterceptors;
@@ -53,6 +56,10 @@ public final class SignalServiceConfiguration {
 
   public SignalContactDiscoveryUrl[] getSignalContactDiscoveryUrls() {
     return signalContactDiscoveryUrls;
+  }
+
+  public SignalCdshUrl[] getSignalCdshUrls() {
+    return signalCdshUrls;
   }
 
   public SignalKeyBackupServiceUrl[] getSignalKeyBackupServiceUrls() {

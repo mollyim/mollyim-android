@@ -14,7 +14,7 @@ import com.annimon.stream.Stream;
 import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
 
-import net.zetetic.database.sqlcipher.SQLiteConstraintException;
+import net.sqlcipher.database.SQLiteConstraintException;
 
 import org.jetbrains.annotations.NotNull;
 import org.signal.core.util.logging.Log;
@@ -23,6 +23,7 @@ import org.signal.zkgroup.InvalidInputException;
 import org.signal.zkgroup.groups.GroupMasterKey;
 import org.signal.zkgroup.profiles.ProfileKey;
 import org.signal.zkgroup.profiles.ProfileKeyCredential;
+import org.thoughtcrime.securesms.badges.models.Badge;
 import org.thoughtcrime.securesms.color.MaterialColor;
 import org.thoughtcrime.securesms.conversation.colors.AvatarColor;
 import org.thoughtcrime.securesms.conversation.colors.ChatColors;
@@ -33,6 +34,7 @@ import org.thoughtcrime.securesms.database.IdentityDatabase.VerifiedStatus;
 import org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper;
 import org.thoughtcrime.securesms.database.model.IdentityRecord;
 import org.thoughtcrime.securesms.database.model.ThreadRecord;
+import org.thoughtcrime.securesms.database.model.databaseprotos.BadgeList;
 import org.thoughtcrime.securesms.database.model.databaseprotos.ChatColor;
 import org.thoughtcrime.securesms.database.model.databaseprotos.DeviceLastResetTime;
 import org.thoughtcrime.securesms.database.model.databaseprotos.ProfileKeyCredentialColumnData;
@@ -153,6 +155,7 @@ public class RecipientDatabase extends Database {
   private static final String GROUPS_IN_COMMON          = "groups_in_common";
   private static final String CHAT_COLORS               = "chat_colors";
   private static final String CUSTOM_CHAT_COLORS_ID     = "custom_chat_colors_id";
+  private static final String BADGES                    = "badges";
   // MOLLY: Add new fields to clearFieldsForDeletion
 
   public  static final String SEARCH_PROFILE_NAME      = "search_signal_profile";
@@ -189,7 +192,8 @@ public class RecipientDatabase extends Database {
       MENTION_SETTING,
       ABOUT, ABOUT_EMOJI,
       EXTRAS, GROUPS_IN_COMMON,
-      CHAT_COLORS, CUSTOM_CHAT_COLORS_ID
+      CHAT_COLORS, CUSTOM_CHAT_COLORS_ID,
+      BADGES
   };
 
   private static final String[] ID_PROJECTION              = new String[]{ID};
@@ -373,7 +377,8 @@ public class RecipientDatabase extends Database {
                                             EXTRAS                    + " BLOB DEFAULT NULL, " +
                                             GROUPS_IN_COMMON          + " INTEGER DEFAULT 0, " +
                                             CHAT_COLORS               + " BLOB DEFAULT NULL, " +
-                                            CUSTOM_CHAT_COLORS_ID     + " INTEGER DEFAULT 0);";
+                                            CUSTOM_CHAT_COLORS_ID     + " INTEGER DEFAULT 0, " +
+                                            BADGES                    + " BLOB DEFAULT NULL);";
 
   private static final String INSIGHTS_INVITEE_LIST = "SELECT " + TABLE_NAME + "." + ID +
       " FROM " + TABLE_NAME +
@@ -1209,49 +1214,52 @@ public class RecipientDatabase extends Database {
   }
 
   static @NonNull RecipientSettings getRecipientSettings(@NonNull Context context, @NonNull Cursor cursor, @NonNull String idColumnName) {
-    long    id                         = CursorUtil.requireLong(cursor, idColumnName);
-    UUID    uuid                       = UuidUtil.parseOrNull(CursorUtil.requireString(cursor, UUID));
-    String  username                   = CursorUtil.requireString(cursor, USERNAME);
-    String  e164                       = CursorUtil.requireString(cursor, PHONE);
-    String  email                      = CursorUtil.requireString(cursor, EMAIL);
-    GroupId groupId                    = GroupId.parseNullableOrThrow(CursorUtil.requireString(cursor, GROUP_ID));
-    int     groupType                  = CursorUtil.requireInt(cursor, GROUP_TYPE);
-    boolean blocked                    = CursorUtil.requireBoolean(cursor, BLOCKED);
-    String  messageRingtone            = CursorUtil.requireString(cursor, MESSAGE_RINGTONE);
-    String  callRingtone               = CursorUtil.requireString(cursor, CALL_RINGTONE);
-    int     messageVibrateState        = CursorUtil.requireInt(cursor, MESSAGE_VIBRATE);
-    int     callVibrateState           = CursorUtil.requireInt(cursor, CALL_VIBRATE);
-    long    muteUntil                  = cursor.getLong(cursor.getColumnIndexOrThrow(MUTE_UNTIL));
-    int     insightsBannerTier         = CursorUtil.requireInt(cursor, SEEN_INVITE_REMINDER);
-    int     defaultSubscriptionId      = CursorUtil.requireInt(cursor, DEFAULT_SUBSCRIPTION_ID);
-    int     expireMessages             = CursorUtil.requireInt(cursor, MESSAGE_EXPIRATION_TIME);
-    int     registeredState            = CursorUtil.requireInt(cursor, REGISTERED);
-    String  profileKeyString           = CursorUtil.requireString(cursor, PROFILE_KEY);
-    String  profileKeyCredentialString = CursorUtil.requireString(cursor, PROFILE_KEY_CREDENTIAL);
-    String  systemGivenName            = CursorUtil.requireString(cursor, SYSTEM_GIVEN_NAME);
-    String  systemFamilyName           = CursorUtil.requireString(cursor, SYSTEM_FAMILY_NAME);
-    String  systemDisplayName          = CursorUtil.requireString(cursor, SYSTEM_JOINED_NAME);
-    String  systemContactPhoto         = CursorUtil.requireString(cursor, SYSTEM_PHOTO_URI);
-    String  systemPhoneLabel           = CursorUtil.requireString(cursor, SYSTEM_PHONE_LABEL);
-    String  systemContactUri           = CursorUtil.requireString(cursor, SYSTEM_CONTACT_URI);
-    String  profileGivenName           = CursorUtil.requireString(cursor, PROFILE_GIVEN_NAME);
-    String  profileFamilyName          = CursorUtil.requireString(cursor, PROFILE_FAMILY_NAME);
-    String  signalProfileAvatar        = CursorUtil.requireString(cursor, SIGNAL_PROFILE_AVATAR);
-    boolean profileSharing             = CursorUtil.requireBoolean(cursor, PROFILE_SHARING);
-    long    lastProfileFetch           = cursor.getLong(cursor.getColumnIndexOrThrow(LAST_PROFILE_FETCH));
-    String  notificationChannel        = CursorUtil.requireString(cursor, NOTIFICATION_CHANNEL);
-    int     unidentifiedAccessMode     = CursorUtil.requireInt(cursor, UNIDENTIFIED_ACCESS_MODE);
-    boolean forceSmsSelection          = CursorUtil.requireBoolean(cursor, FORCE_SMS_SELECTION);
-    long    capabilities               = CursorUtil.requireLong(cursor, CAPABILITIES);
-    String  storageKeyRaw              = CursorUtil.requireString(cursor, STORAGE_SERVICE_ID);
-    int     mentionSettingId           = CursorUtil.requireInt(cursor, MENTION_SETTING);
-    byte[]  wallpaper                  = CursorUtil.requireBlob(cursor, WALLPAPER);
-    byte[]  serializedChatColors       = CursorUtil.requireBlob(cursor, CHAT_COLORS);
-    long    customChatColorsId         = CursorUtil.requireLong(cursor, CUSTOM_CHAT_COLORS_ID);
-    String  serializedAvatarColor      = CursorUtil.requireString(cursor, AVATAR_COLOR);
-    String  about                      = CursorUtil.requireString(cursor, ABOUT);
-    String  aboutEmoji                 = CursorUtil.requireString(cursor, ABOUT_EMOJI);
-    boolean hasGroupsInCommon          = CursorUtil.requireBoolean(cursor, GROUPS_IN_COMMON);
+    long      id                         = CursorUtil.requireLong(cursor, idColumnName);
+    UUID      uuid                       = UuidUtil.parseOrNull(CursorUtil.requireString(cursor, UUID));
+    String    username                   = CursorUtil.requireString(cursor, USERNAME);
+    String    e164                       = CursorUtil.requireString(cursor, PHONE);
+    String    email                      = CursorUtil.requireString(cursor, EMAIL);
+    GroupId   groupId                    = GroupId.parseNullableOrThrow(CursorUtil.requireString(cursor, GROUP_ID));
+    int       groupType                  = CursorUtil.requireInt(cursor, GROUP_TYPE);
+    boolean   blocked                    = CursorUtil.requireBoolean(cursor, BLOCKED);
+    String    messageRingtone            = CursorUtil.requireString(cursor, MESSAGE_RINGTONE);
+    String    callRingtone               = CursorUtil.requireString(cursor, CALL_RINGTONE);
+    int       messageVibrateState        = CursorUtil.requireInt(cursor, MESSAGE_VIBRATE);
+    int       callVibrateState           = CursorUtil.requireInt(cursor, CALL_VIBRATE);
+    long      muteUntil                  = cursor.getLong(cursor.getColumnIndexOrThrow(MUTE_UNTIL));
+    int       insightsBannerTier         = CursorUtil.requireInt(cursor, SEEN_INVITE_REMINDER);
+    int       defaultSubscriptionId      = CursorUtil.requireInt(cursor, DEFAULT_SUBSCRIPTION_ID);
+    int       expireMessages             = CursorUtil.requireInt(cursor, MESSAGE_EXPIRATION_TIME);
+    int       registeredState            = CursorUtil.requireInt(cursor, REGISTERED);
+    String    profileKeyString           = CursorUtil.requireString(cursor, PROFILE_KEY);
+    String    profileKeyCredentialString = CursorUtil.requireString(cursor, PROFILE_KEY_CREDENTIAL);
+    String    systemGivenName            = CursorUtil.requireString(cursor, SYSTEM_GIVEN_NAME);
+    String    systemFamilyName           = CursorUtil.requireString(cursor, SYSTEM_FAMILY_NAME);
+    String    systemDisplayName          = CursorUtil.requireString(cursor, SYSTEM_JOINED_NAME);
+    String    systemContactPhoto         = CursorUtil.requireString(cursor, SYSTEM_PHOTO_URI);
+    String    systemPhoneLabel           = CursorUtil.requireString(cursor, SYSTEM_PHONE_LABEL);
+    String    systemContactUri           = CursorUtil.requireString(cursor, SYSTEM_CONTACT_URI);
+    String    profileGivenName           = CursorUtil.requireString(cursor, PROFILE_GIVEN_NAME);
+    String    profileFamilyName          = CursorUtil.requireString(cursor, PROFILE_FAMILY_NAME);
+    String    signalProfileAvatar        = CursorUtil.requireString(cursor, SIGNAL_PROFILE_AVATAR);
+    boolean   profileSharing             = CursorUtil.requireBoolean(cursor, PROFILE_SHARING);
+    long      lastProfileFetch           = cursor.getLong(cursor.getColumnIndexOrThrow(LAST_PROFILE_FETCH));
+    String    notificationChannel        = CursorUtil.requireString(cursor, NOTIFICATION_CHANNEL);
+    int       unidentifiedAccessMode     = CursorUtil.requireInt(cursor, UNIDENTIFIED_ACCESS_MODE);
+    boolean   forceSmsSelection          = CursorUtil.requireBoolean(cursor, FORCE_SMS_SELECTION);
+    long      capabilities               = CursorUtil.requireLong(cursor, CAPABILITIES);
+    String    storageKeyRaw              = CursorUtil.requireString(cursor, STORAGE_SERVICE_ID);
+    int       mentionSettingId           = CursorUtil.requireInt(cursor, MENTION_SETTING);
+    byte[]    wallpaper                  = CursorUtil.requireBlob(cursor, WALLPAPER);
+    byte[]    serializedChatColors       = CursorUtil.requireBlob(cursor, CHAT_COLORS);
+    long      customChatColorsId         = CursorUtil.requireLong(cursor, CUSTOM_CHAT_COLORS_ID);
+    String    serializedAvatarColor      = CursorUtil.requireString(cursor, AVATAR_COLOR);
+    String    about                      = CursorUtil.requireString(cursor, ABOUT);
+    String    aboutEmoji                 = CursorUtil.requireString(cursor, ABOUT_EMOJI);
+    boolean   hasGroupsInCommon          = CursorUtil.requireBoolean(cursor, GROUPS_IN_COMMON);
+    byte[]    serializedBadgeList        = CursorUtil.requireBlob(cursor, BADGES);
+
+    List<Badge> badges = parseBadgeList(serializedBadgeList);
 
     byte[]               profileKey           = null;
     ProfileKeyCredential profileKeyCredential = null;
@@ -1344,7 +1352,40 @@ public class RecipientDatabase extends Database {
                                  aboutEmoji,
                                  getSyncExtras(cursor),
                                  getExtras(cursor),
-                                 hasGroupsInCommon);
+                                 hasGroupsInCommon,
+                                 badges);
+  }
+
+  private static @NonNull List<Badge> parseBadgeList(byte[] serializedBadgeList) {
+    BadgeList badgeList = null;
+    if (serializedBadgeList != null) {
+      try {
+        badgeList = BadgeList.parseFrom(serializedBadgeList);
+      } catch (InvalidProtocolBufferException e) {
+        Log.w(TAG, e);
+      }
+    }
+
+    List<Badge> badges;
+    if (badgeList != null) {
+      List<BadgeList.Badge> protoBadges = badgeList.getBadgesList();
+      badges = new ArrayList<>(protoBadges.size());
+      for (BadgeList.Badge protoBadge : protoBadges) {
+        badges.add(new Badge(
+            protoBadge.getId(),
+            Badge.Category.Companion.fromCode(protoBadge.getCategory()),
+            Uri.parse(protoBadge.getImageUrl()),
+            protoBadge.getName(),
+            protoBadge.getDescription(),
+            protoBadge.getExpiration(),
+            protoBadge.getVisible()
+        ));
+      }
+    } else {
+      badges = Collections.emptyList();
+    }
+
+    return badges;
   }
 
   private static @NonNull RecipientSettings.SyncExtras getSyncExtras(@NonNull Cursor cursor) {
@@ -1638,6 +1679,28 @@ public class RecipientDatabase extends Database {
     }
 
     return DeviceLastResetTime.newBuilder().build();
+  }
+
+  public void setBadges(@NonNull RecipientId id, @NonNull List<Badge> badges) {
+    BadgeList.Builder badgeListBuilder = BadgeList.newBuilder();
+
+    for (final Badge badge : badges) {
+      badgeListBuilder.addBadges(BadgeList.Badge.newBuilder()
+                                                .setId(badge.getId())
+                                                .setCategory(badge.getCategory().getCode())
+                                                .setDescription(badge.getDescription())
+                                                .setExpiration(badge.getExpirationTimestamp())
+                                                .setVisible(badge.getVisible())
+                                                .setName(badge.getName())
+                                                .setImageUrl(badge.getImageUrl().toString()));
+    }
+
+    ContentValues values = new ContentValues(1);
+    values.put(BADGES, badgeListBuilder.build().toByteArray());
+
+    if (update(id, values)) {
+      Recipient.live(id).refresh();
+    }
   }
 
   public void setCapabilities(@NonNull RecipientId id, @NonNull SignalServiceProfile.Capabilities capabilities) {
@@ -2137,6 +2200,7 @@ public class RecipientDatabase extends Database {
     valuesToSet.putNull(EXTRAS);
     valuesToSet.putNull(CHAT_COLORS);
     valuesToSet.put(CUSTOM_CHAT_COLORS_ID, 0);
+    valuesToSet.putNull(BADGES);
     if (update(id, valuesToSet)) {
       rotateStorageId(id);
       Recipient.live(id).refresh();
@@ -2535,6 +2599,24 @@ public class RecipientDatabase extends Database {
         return "ÝýÿŶ-ŸƔƳƴȲȳɎɏẎẏỲ-ỹỾỿẙ";
       case "z" :
         return "Ź-žƵƶɀẐ-ẕ";
+      case "α":
+        return "\u0386\u0391\u03AC\u03B1\u1F00-\u1F0F\u1F70\u1F71\u1F80-\u1F8F\u1FB0-\u1FB4\u1FB6-\u1FBC";
+      case "ε" :
+        return "\u0388\u0395\u03AD\u03B5\u1F10-\u1F15\u1F18-\u1F1D\u1F72\u1F73\u1FC8\u1FC9";
+      case "η" :
+        return "\u0389\u0397\u03AE\u03B7\u1F20-\u1F2F\u1F74\u1F75\u1F90-\u1F9F\u1F20-\u1F2F\u1F74\u1F75\u1F90-\u1F9F\u1fc2\u1fc3\u1fc4\u1fc6\u1FC7\u1FCA\u1FCB\u1FCC";
+      case "ι" :
+        return "\u038A\u0390\u0399\u03AA\u03AF\u03B9\u03CA\u1F30-\u1F3F\u1F76\u1F77\u1FD0-\u1FD3\u1FD6-\u1FDB";
+      case "ο" :
+        return "\u038C\u039F\u03BF\u03CC\u1F40-\u1F45\u1F48-\u1F4D\u1F78\u1F79\u1FF8\u1FF9";
+      case "σ" :
+        return "\u03A3\u03C2\u03C3";
+      case "ς" :
+        return "\u03A3\u03C2\u03C3";
+      case "υ" :
+        return "\u038E\u03A5\u03AB\u03C5\u03CB\u1F50-\u1F57\u1F59\u1F5B\u1F5D\u1F5F\u1F7A\u1F7B\u1FE0-\u1FE3\u1FE6-\u1FEB";
+      case "ω" :
+        return "\u038F\u03A9\u03C9\u03CE\u1F60-\u1F6F\u1F7C\u1F7D\u1FA0-\u1FAF\u1FF2-\u1FF4\u1FF6\u1FF7\u1FFA-\u1FFC";
       default :
         return "";
     }
@@ -3186,6 +3268,7 @@ public class RecipientDatabase extends Database {
     private final SyncExtras                      syncExtras;
     private final Recipient.Extras                extras;
     private final boolean                         hasGroupsInCommon;
+    private final List<Badge>                     badges;
 
     RecipientSettings(@NonNull RecipientId id,
                       @Nullable UUID uuid,
@@ -3229,7 +3312,8 @@ public class RecipientDatabase extends Database {
                       @Nullable String aboutEmoji,
                       @NonNull SyncExtras syncExtras,
                       @Nullable Recipient.Extras extras,
-                      boolean hasGroupsInCommon)
+                      boolean hasGroupsInCommon,
+                      @NonNull List<Badge> badges)
     {
       this.id                          = id;
       this.uuid                        = uuid;
@@ -3276,9 +3360,10 @@ public class RecipientDatabase extends Database {
       this.avatarColor                 = avatarColor;
       this.about                       = about;
       this.aboutEmoji                  = aboutEmoji;
-      this.syncExtras        = syncExtras;
-      this.extras            = extras;
-      this.hasGroupsInCommon = hasGroupsInCommon;
+      this.syncExtras                  = syncExtras;
+      this.extras                      = extras;
+      this.hasGroupsInCommon           = hasGroupsInCommon;
+      this.badges                      = badges;
     }
 
     public RecipientId getId() {
@@ -3467,6 +3552,10 @@ public class RecipientDatabase extends Database {
 
     public boolean hasGroupsInCommon() {
       return hasGroupsInCommon;
+    }
+
+    public @NonNull List<Badge> getBadges() {
+      return badges;
     }
 
     long getCapabilities() {

@@ -20,7 +20,7 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
-import net.zetetic.database.sqlcipher.SQLiteDatabase;
+import net.sqlcipher.database.SQLiteDatabase;
 
 import org.thoughtcrime.securesms.contacts.ContactsDatabase;
 import org.thoughtcrime.securesms.crypto.AttachmentSecret;
@@ -210,7 +210,7 @@ public class DatabaseFactory {
     return getInstance(context).groupCallRingDatabase;
   }
 
-  public static net.zetetic.database.sqlcipher.SQLiteDatabase getBackupDatabase(Context context) {
+  public static net.sqlcipher.database.SQLiteDatabase getBackupDatabase(Context context) {
     return getInstance(context).databaseHelper.getRawReadableDatabase();
   }
 
@@ -234,7 +234,7 @@ public class DatabaseFactory {
   }
 
   private DatabaseFactory(@NonNull Context context) {
-    SqlCipherLibraryLoader.load(context);
+    SqlCipherLibraryLoader.load();
 
     DatabaseSecret   databaseSecret   = DatabaseSecretProvider.getOrCreateDatabaseSecret(context);
     AttachmentSecret attachmentSecret = AttachmentSecretProvider.getInstance(context).getOrCreateAttachmentSecret();
@@ -276,7 +276,7 @@ public class DatabaseFactory {
     databaseHelper.getSignalWritableDatabase();
   }
 
-  public net.zetetic.database.sqlcipher.SQLiteDatabase getRawDatabase() {
+  public net.sqlcipher.database.SQLiteDatabase getRawDatabase() {
     return databaseHelper.getRawWritableDatabase();
   }
 

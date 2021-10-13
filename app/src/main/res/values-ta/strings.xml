@@ -685,6 +685,7 @@
   <string name="CustomNotificationsDialogFragment__enabled">இயக்கப்பட்டது</string>
   <string name="CustomNotificationsDialogFragment__disabled">முடக்கப்பட்டது</string>
   <string name="CustomNotificationsDialogFragment__default">இயல்புநிலை</string>
+  <string name="CustomNotificationsDialogFragment__unknown">தெரியாத</string>
   <!--ShareableGroupLinkDialogFragment-->
   <string name="ShareableGroupLinkDialogFragment__shareable_group_link">பகிரக்கூடிய குழு இணைப்பு</string>
   <string name="ShareableGroupLinkDialogFragment__manage_and_share">நிர்வகிக்கவும் மற்றும் பகிரவும்</string>
@@ -753,6 +754,7 @@
   <string name="InviteActivity_sending">அனுப்புகிறது …</string>
   <string name="InviteActivity_invitations_sent">அழைப்புகள் அனுப்பட்டது!</string>
   <string name="InviteActivity_invite_to_signal">Mollyக்கு அழை</string>
+  <string name="InviteActivity_send_sms">குறுஞ்செய்தியை அனுப்பு (%d)</string>
   <plurals name="InviteActivity_send_sms_invites">
     <item quantity="one">%d  எஸ்எம்எஸ் அழைப்பை அனுப்பவா?</item>
     <item quantity="other">%d SMS அழைப்புகளை அனுப்பவா?</item>
@@ -1644,6 +1646,7 @@
   <string name="QuoteView_audio">கேட்பொலி</string>
   <string name="QuoteView_video">காணொளி</string>
   <string name="QuoteView_photo">புகைப்பட</string>
+  <string name="QuoteView_gif">GIF</string>
   <string name="QuoteView_view_once_media">காண்க-ஒருமுறை ஊடகம் </string>
   <string name="QuoteView_sticker">ஒட்டி</string>
   <string name="QuoteView_you">நீங்கள்</string>
@@ -1800,6 +1803,7 @@
   <!--verify_identity-->
   <string name="verify_identity__share_safety_number">பாதுகாப்பு எண்ணைப் பகிரவும்</string>
   <!--verity_scan_fragment-->
+  <string name="verify_scan_fragment__scan_the_qr_code_on_your_contact">உங்கள் தொடர்பு சாதனத்தில் QR குறியீட்டை ஸ்கேன் செய்யுங்கள்.</string>
   <!--webrtc_answer_decline_button-->
   <string name="webrtc_answer_decline_button__swipe_up_to_answer">பதிலளிக்க மேலே ஸ்வைப் செய்யவும்</string>
   <string name="webrtc_answer_decline_button__swipe_down_to_reject">நிராகரிக்க கீழே ஸ்வைப் செய்யவும்</string>
@@ -3135,9 +3139,10 @@
   <string name="ImageEditorHud__cancel">ரத்து</string>
   <string name="ImageEditorHud__blur">தெளிவின்மை</string>
   <string name="ImageEditorHud__undo">செயல்தவிர்</string>
+  <string name="ImageEditorHud__delete">நீக்கு</string>
   <string name="MediaCountIndicatorButton__send">அனுப்புக</string>
   <string name="MediaReviewSelectedItem__tap_to_select">தேர்ந்தெடுக்க தட்டவும்</string>
   <string name="MediaReviewImagePageFragment__discard">புறந்தள்ளு</string>
-  <string name="ImageEditorHud__delete">நீக்கு</string>
+  <string name="SelectFeaturedBadgeFragment__preview">முன்னோட்டம்</string>
   <!--EOF-->
 </resources>

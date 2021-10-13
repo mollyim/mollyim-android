@@ -104,7 +104,7 @@ class MultiselectItemAnimator(
       selectedAnimations[selection] = animator
       animator.duration = 150L
       animator.addUpdateListener {
-        (selection.viewHolder.itemView.parent as RecyclerView).invalidateItemDecorations()
+        (selection.viewHolder.itemView.parent as RecyclerView?)?.invalidateItemDecorations()
       }
       animator.doOnEnd {
         dispatchAnimationFinished(selection.viewHolder)
@@ -131,12 +131,8 @@ class MultiselectItemAnimator(
   }
 
   override fun onAnimationFinished(viewHolder: RecyclerView.ViewHolder) {
-    dispatchItemDecorationRedraw(viewHolder)
-  }
-
-  private fun dispatchItemDecorationRedraw(viewHolder: RecyclerView.ViewHolder) {
-    val parent = (viewHolder.itemView.parent as RecyclerView)
-    parent.post { parent.invalidateItemDecorations() }
+    val parent = (viewHolder.itemView.parent as? RecyclerView)
+    parent?.post { parent.invalidateItemDecorations() }
   }
 
   private fun endSelectedAnimation(item: RecyclerView.ViewHolder) {

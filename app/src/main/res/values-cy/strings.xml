@@ -732,6 +732,7 @@ Send neges heb ei ddiogelu?</string>
   <string name="ManageProfileFragment_your_name">Eich enw</string>
   <string name="ManageProfileFragment_your_username">Eich enw defnyddiwr</string>
   <string name="ManageProfileFragment_failed_to_set_avatar">Wedi methu gosod afatar</string>
+  <string name="ManageProfileFragment_badges">Bathodynnau</string>
   <!--ManageRecipientActivity-->
   <string name="ManageRecipientActivity_no_groups_in_common">Dim grwpiau\'n gyffredin</string>
   <plurals name="ManageRecipientActivity_d_groups_in_common">
@@ -757,6 +758,7 @@ Send neges heb ei ddiogelu?</string>
   <string name="CustomNotificationsDialogFragment__enabled">Galluogwyd</string>
   <string name="CustomNotificationsDialogFragment__disabled">Analluogwyd</string>
   <string name="CustomNotificationsDialogFragment__default">Rhagosodedig</string>
+  <string name="CustomNotificationsDialogFragment__unknown">Anhysbys</string>
   <!--ShareableGroupLinkDialogFragment-->
   <string name="ShareableGroupLinkDialogFragment__shareable_group_link">Dolen grŵp rhanadwy</string>
   <string name="ShareableGroupLinkDialogFragment__manage_and_share">Rheoli a rhannu</string>
@@ -1658,6 +1660,7 @@ Send neges heb ei ddiogelu?</string>
   <string name="MessageNotifier_reacted_s_to_s">Ymatebodd %1$s i \"%2$s\".</string>
   <string name="MessageNotifier_reacted_s_to_your_video">Ymatebodd %1$s i\'ch fideo.</string>
   <string name="MessageNotifier_reacted_s_to_your_image">Ymatebodd %1$s i\'ch delwedd.</string>
+  <string name="MessageNotifier_reacted_s_to_your_gif">Ymatebodd %1$s i\'ch GIF.</string>
   <string name="MessageNotifier_reacted_s_to_your_file">Ymatebodd %1$s i\'ch ffeil.</string>
   <string name="MessageNotifier_reacted_s_to_your_audio">%1$si\'ch sain.</string>
   <string name="MessageNotifier_reacted_s_to_your_view_once_media">Wedi ymateb %1$s i\'ch cyfryngau gweld-unwaith.</string>
@@ -1818,6 +1821,7 @@ Send neges heb ei ddiogelu?</string>
   <string name="QuoteView_audio">Sain</string>
   <string name="QuoteView_video">Fideo</string>
   <string name="QuoteView_photo">Llun</string>
+  <string name="QuoteView_gif">GIF</string>
   <string name="QuoteView_view_once_media">Cyfrwng gweld unwaith</string>
   <string name="QuoteView_sticker">Sticer</string>
   <string name="QuoteView_you">Chi</string>
@@ -1992,7 +1996,7 @@ Send neges heb ei ddiogelu?</string>
   <!--verify_identity-->
   <string name="verify_identity__share_safety_number">Rhannu\'r rif diogelwch</string>
   <!--verity_scan_fragment-->
-  <string name="verify_scan_fragment__scan_the_qr_code_on_your_contact">Sganiwch y Cod QR ar ddyfais eich cyswllt.</string>
+  <string name="verify_scan_fragment__scan_the_qr_code_on_your_contact">Sganiwch y cod QR ar ddyfais eich cysylltiad.</string>
   <!--webrtc_answer_decline_button-->
   <string name="webrtc_answer_decline_button__swipe_up_to_answer">Llusgo i fyny i ateb</string>
   <string name="webrtc_answer_decline_button__swipe_down_to_reject">Llusgo i lawr i wrthod</string>
@@ -3328,6 +3332,7 @@ Send neges heb ei ddiogelu?</string>
   <!--PlaybackSpeedToggleTextView-->
   <string name="PlaybackSpeedToggleTextView__p5x">.5x</string>
   <string name="PlaybackSpeedToggleTextView__1x">1x</string>
+  <string name="PlaybackSpeedToggleTextView__1p5x">1.5x</string>
   <string name="PlaybackSpeedToggleTextView__2x">2x</string>
   <!--PaymentRecipientSelectionFragment-->
   <string name="PaymentRecipientSelectionFragment__new_payment">Taliad newydd</string>
@@ -3399,6 +3404,7 @@ Send neges heb ei ddiogelu?</string>
   <string name="MediaReviewFragment__add_a_message">Ychwanegu neges</string>
   <string name="MediaReviewFragment__add_a_reply">Ychwanegu ymateb:</string>
   <string name="MediaReviewFragment__send_to">Anfon at</string>
+  <string name="MediaReviewFragment__view_once_message">Gweld neges unwaith</string>
   <string name="ImageEditorHud__cancel">Canslo</string>
   <string name="ImageEditorHud__draw">Lluniadu</string>
   <string name="ImageEditorHud__write_text">Ysgrifennu testun</string>
@@ -3408,15 +3414,25 @@ Send neges heb ei ddiogelu?</string>
   <string name="ImageEditorHud__clear_all">Clirio\'r cyfan</string>
   <string name="ImageEditorHud__undo">Dadwneud</string>
   <string name="ImageEditorHud__toggle_between_marker_and_highlighter">Toglo rhwng y marciwr a\'r amlygwr</string>
+  <string name="ImageEditorHud__delete">Dileu</string>
+  <string name="ImageEditorHud__toggle_between_text_styles">Toglo rhwng arddulliau testun</string>
   <string name="MediaCountIndicatorButton__send">Anfon</string>
   <string name="MediaReviewSelectedItem__tap_to_remove">Tapio i dynnu</string>
   <string name="MediaReviewSelectedItem__tap_to_select">Tapio i ddewis</string>
   <string name="MediaReviewImagePageFragment__discard">Dileu</string>
   <string name="MediaReviewImagePageFragment__discard_changes">Dileu\'r newidiadau?</string>
-  <string name="MediaReviewFragment__view_once_message">Gweld neges unwaith</string>
   <string name="MediaReviewImagePageFragment__youll_lose_any_changes">Byddwch chi\'n colli unrhyw newidiadau rydych wedi\'u gwneud i\'r llun hwn.</string>
-  <string name="ImageEditorHud__delete">Dileu</string>
   <string name="CameraFragment__failed_to_open_camera">Wedi methu agor camera</string>
-  <string name="ImageEditorHud__toggle_between_text_styles">Toglo rhwng arddulliau testun</string>
+  <string name="BadgesOverviewFragment__my_badges">Fy mathodynnau</string>
+  <string name="BadgesOverviewFragment__featured_badge">Bathodyn nodwedd</string>
+  <string name="BadgesOverviewFragment__display_badges_on_profile">Dangos y bathodynnau ar y proffil</string>
+  <string name="BadgesOverviewFragment__failed_to_update_profile">Wedi methu â diweddaru\'r proffil</string>
+  <string name="BadgeSelectionFragment__select_badges">Dewis bathodynnau</string>
+  <string name="SelectFeaturedBadgeFragment__preview">Rhagolwg</string>
+  <string name="SelectFeaturedBadgeFragment__select_a_badge">Dewis bathodyn</string>
+  <string name="SelectFeaturedBadgeFragment__you_must_select_a_badge">Rhaid i chi ddewis bathodyn</string>
+  <string name="SelectFeaturedBadgeFragment__failed_to_update_profile">Wedi methu â diweddaru\'r proffil</string>
+  <string name="ViewBadgeBottomSheetDialogFragment__become_a_sustainer">Dod yn gynhaliwr</string>
+  <string name="ImageView__badge">Bathodyn</string>
   <!--EOF-->
 </resources>

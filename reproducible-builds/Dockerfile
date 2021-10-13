@@ -1,10 +1,10 @@
-ARG JAVA_UPDATE_RELEASE=8u292
+ARG JAVA_UPDATE_RELEASE=11.0.12
 ARG DEBIAN_RELEASE=buster
 
 FROM openjdk:${JAVA_UPDATE_RELEASE}-${DEBIAN_RELEASE}
 
-ARG ANDROID_SDK_DIST=commandlinetools-linux-6858069_latest.zip
-ARG ANDROID_SDK_SHA256=87f6dcf41d4e642e37ba03cb2e387a542aa0bd73cb689a9e7152aad40a6e7a08
+ARG ANDROID_SDK_DIST=commandlinetools-linux-7583922_latest.zip
+ARG ANDROID_SDK_SHA256=124f2d5115eee365df6cf3228ffbca6fc3911d16f8025bebd5b1c6e2fcfa7faf
 
 RUN apt-get update && apt-get install -y make file
 

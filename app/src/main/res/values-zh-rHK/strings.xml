@@ -631,6 +631,7 @@
   <string name="ManageProfileFragment_your_name">您的名稱</string>
   <string name="ManageProfileFragment_your_username">您的使用者名稱</string>
   <string name="ManageProfileFragment_failed_to_set_avatar">設定頭像失敗</string>
+  <string name="ManageProfileFragment_badges">徽章</string>
   <!--ManageRecipientActivity-->
   <string name="ManageRecipientActivity_no_groups_in_common">無共同群組</string>
   <plurals name="ManageRecipientActivity_d_groups_in_common">
@@ -650,6 +651,7 @@
   <string name="CustomNotificationsDialogFragment__enabled">已啟用</string>
   <string name="CustomNotificationsDialogFragment__disabled">已停用</string>
   <string name="CustomNotificationsDialogFragment__default">預設值</string>
+  <string name="CustomNotificationsDialogFragment__unknown">未知</string>
   <!--ShareableGroupLinkDialogFragment-->
   <string name="ShareableGroupLinkDialogFragment__shareable_group_link">可分享的群組連結</string>
   <string name="ShareableGroupLinkDialogFragment__manage_and_share">管理與分享</string>
@@ -1460,6 +1462,7 @@
   <string name="MessageNotifier_reacted_s_to_s">對「%2$s」表達了 %1$s 心情。</string>
   <string name="MessageNotifier_reacted_s_to_your_video">對您的影片表達了 %1$s 心情。</string>
   <string name="MessageNotifier_reacted_s_to_your_image">對您的圖片表達了 %1$s 心情。</string>
+  <string name="MessageNotifier_reacted_s_to_your_gif">對您的 GIF 表達了 %1$s 心情。</string>
   <string name="MessageNotifier_reacted_s_to_your_file">對您的檔案表達了 %1$s 心情。</string>
   <string name="MessageNotifier_reacted_s_to_your_audio">對您的音訊表達了 %1$s 心情。</string>
   <string name="MessageNotifier_reacted_s_to_your_view_once_media">對您的閱後即焚媒體表達了 %1$s 心情。</string>
@@ -1611,6 +1614,7 @@
   <string name="QuoteView_audio">音訊</string>
   <string name="QuoteView_video">影片</string>
   <string name="QuoteView_photo">照片</string>
+  <string name="QuoteView_gif">GIF</string>
   <string name="QuoteView_view_once_media">閱後即焚媒體</string>
   <string name="QuoteView_sticker">貼圖</string>
   <string name="QuoteView_you">您</string>
@@ -1730,7 +1734,7 @@
   <string name="CreateProfileActivity_group_descriptions_will_be_visible_to_members_of_this_group_and_people_who_have_been_invited">此群組中的成員，以及獲邀加入群組的人，將會見到群組描述。</string>
   <!--EditAboutFragment-->
   <string name="EditAboutFragment_about">關於</string>
-  <string name="EditAboutFragment_write_a_few_words_about_yourself">錯折中行過 尚有點忘我…</string>
+  <string name="EditAboutFragment_write_a_few_words_about_yourself">共你星光中看着瀑布…</string>
   <string name="EditAboutFragment_count">%1$d/%2$d</string>
   <string name="EditAboutFragment_speak_freely">☝️息尚存</string>
   <string name="EditAboutFragment_encrypted">清風不識字</string>
@@ -3061,6 +3065,7 @@
   <!--PlaybackSpeedToggleTextView-->
   <string name="PlaybackSpeedToggleTextView__p5x">.5x</string>
   <string name="PlaybackSpeedToggleTextView__1x">1x</string>
+  <string name="PlaybackSpeedToggleTextView__1p5x">1.5x</string>
   <string name="PlaybackSpeedToggleTextView__2x">2x</string>
   <!--PaymentRecipientSelectionFragment-->
   <string name="PaymentRecipientSelectionFragment__new_payment">新增付款</string>
@@ -3120,6 +3125,7 @@
   <string name="MediaReviewFragment__add_a_message">新增訊息</string>
   <string name="MediaReviewFragment__add_a_reply">新增回覆</string>
   <string name="MediaReviewFragment__send_to">傳送給</string>
+  <string name="MediaReviewFragment__view_once_message">閱後即焚訊息</string>
   <string name="ImageEditorHud__cancel">取消</string>
   <string name="ImageEditorHud__draw">繪畫</string>
   <string name="ImageEditorHud__write_text">寫字</string>
@@ -3129,15 +3135,25 @@
   <string name="ImageEditorHud__clear_all">全部清除</string>
   <string name="ImageEditorHud__undo">復原</string>
   <string name="ImageEditorHud__toggle_between_marker_and_highlighter">切換彩色筆與螢光筆</string>
+  <string name="ImageEditorHud__delete">刪除</string>
+  <string name="ImageEditorHud__toggle_between_text_styles">切換文字樣式</string>
   <string name="MediaCountIndicatorButton__send">傳送</string>
   <string name="MediaReviewSelectedItem__tap_to_remove">輕觸以移除</string>
   <string name="MediaReviewSelectedItem__tap_to_select">輕觸以選取</string>
   <string name="MediaReviewImagePageFragment__discard">捨棄</string>
   <string name="MediaReviewImagePageFragment__discard_changes">要捨棄變更嗎？</string>
-  <string name="MediaReviewFragment__view_once_message">閱後即焚訊息</string>
   <string name="MediaReviewImagePageFragment__youll_lose_any_changes">您對此照片所作的任何變更將會遺失。</string>
-  <string name="ImageEditorHud__delete">刪除</string>
   <string name="CameraFragment__failed_to_open_camera">無法開啟相機</string>
-  <string name="ImageEditorHud__toggle_between_text_styles">切換文字樣式</string>
+  <string name="BadgesOverviewFragment__my_badges">我的徽章</string>
+  <string name="BadgesOverviewFragment__featured_badge">別注徽章</string>
+  <string name="BadgesOverviewFragment__display_badges_on_profile">在個人資料中顯示徽章</string>
+  <string name="BadgesOverviewFragment__failed_to_update_profile">更新個人資料失敗</string>
+  <string name="BadgeSelectionFragment__select_badges">請選擇徽章</string>
+  <string name="SelectFeaturedBadgeFragment__preview">預覽</string>
+  <string name="SelectFeaturedBadgeFragment__select_a_badge">請選擇一個徽章</string>
+  <string name="SelectFeaturedBadgeFragment__you_must_select_a_badge">您必須選取一個徽章</string>
+  <string name="SelectFeaturedBadgeFragment__failed_to_update_profile">更新個人資料失敗</string>
+  <string name="ViewBadgeBottomSheetDialogFragment__become_a_sustainer">成為好心人</string>
+  <string name="ImageView__badge">徽章</string>
   <!--EOF-->
 </resources>

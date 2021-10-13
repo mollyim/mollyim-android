@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
+import com.mobilecoin.lib.exceptions.SerializationException;
 
 import org.signal.core.util.logging.Log;
 import org.signal.ringrtc.CallId;
@@ -238,7 +239,7 @@ public final class MessageContentProcessor {
       PendingRetryReceiptModel pending      = ApplicationDependencies.getPendingRetryReceiptCache().get(senderRecipient.getId(), content.getTimestamp());
       long                     receivedTime = handlePendingRetry(pending, content, threadRecipient);
 
-      log(String.valueOf(content.getTimestamp()), "Beginning message processing.");
+      log(String.valueOf(content.getTimestamp()), "Beginning message processing. Sender: " + senderRecipient.getId() + " | " + senderRecipient.requireServiceId());
 
       if (content.getDataMessage().isPresent()) {
         GroupDatabase            groupDatabase  = DatabaseFactory.getGroupDatabase(context);
@@ -309,7 +310,7 @@ public final class MessageContentProcessor {
         else if (syncMessage.getBlockedList().isPresent())            handleSynchronizeBlockedListMessage(syncMessage.getBlockedList().get());
         else if (syncMessage.getFetchType().isPresent())              handleSynchronizeFetchMessage(syncMessage.getFetchType().get());
         else if (syncMessage.getMessageRequestResponse().isPresent()) handleSynchronizeMessageRequestResponse(syncMessage.getMessageRequestResponse().get());
-        else if (syncMessage.getOutgoingPaymentMessage().isPresent()) handleSynchronizeOutgoingPayment(syncMessage.getOutgoingPaymentMessage().get());
+        else if (syncMessage.getOutgoingPaymentMessage().isPresent()) handleSynchronizeOutgoingPayment(content, syncMessage.getOutgoingPaymentMessage().get());
         else                                                          warn(String.valueOf(content.getTimestamp()), "Contains no known sync types...");
       } else if (content.getCallMessage().isPresent()) {
         log(String.valueOf(content.getTimestamp()), "Got call message...");
@@ -410,6 +411,8 @@ public final class MessageContentProcessor {
     } catch (PaymentDatabase.PublicKeyConflictException e) {
       warn(content.getTimestamp(), "Ignoring payment with public key already in database");
       return;
+    } catch (SerializationException e) {
+      warn(content.getTimestamp(), "Ignoring payment with bad data.", e);
     }
 
     ApplicationDependencies.getJobManager()
@@ -439,7 +442,7 @@ public final class MessageContentProcessor {
     Optional<GroupRecord> groupRecord = groupDatabase.getGroup(groupId);
 
     if (groupRecord.isPresent() && !groupRecord.get().getMembers().contains(senderRecipient.getId())) {
-      log(String.valueOf(content.getTimestamp()), "Ignoring GV2 message from member not in group " + groupId);
+      log(String.valueOf(content.getTimestamp()), "Ignoring GV2 message from member not in group " + groupId + ". Sender: " + senderRecipient.getId() + " | " + senderRecipient.requireServiceId());
       return true;
     }
 
@@ -1016,7 +1019,7 @@ public final class MessageContentProcessor {
     }
   }
 
-  private void handleSynchronizeOutgoingPayment(@NonNull OutgoingPaymentMessage outgoingPaymentMessage) {
+  private void handleSynchronizeOutgoingPayment(@NonNull SignalServiceContent content, @NonNull OutgoingPaymentMessage outgoingPaymentMessage) {
     RecipientId recipientId = outgoingPaymentMessage.getRecipient()
                                                     .transform(uuid -> RecipientId.from(uuid, null))
                                                     .orNull();
@@ -1027,23 +1030,27 @@ public final class MessageContentProcessor {
 
     Optional<MobileCoinPublicAddress> address = outgoingPaymentMessage.getAddress().transform(MobileCoinPublicAddress::fromBytes);
     if (!address.isPresent() && recipientId == null) {
-      log("Inserting defrag");
+      log(content.getTimestamp(), "Inserting defrag");
       address     = Optional.of(ApplicationDependencies.getPayments().getWallet().getMobileCoinPublicAddress());
       recipientId = Recipient.self().getId();
     }
 
     UUID uuid = UUID.randomUUID();
-    DatabaseFactory.getPaymentDatabase(context)
-                   .createSuccessfulPayment(uuid,
-                                            recipientId,
-                                            address.get(),
-                                            timestamp,
-                                            outgoingPaymentMessage.getBlockIndex(),
-                                            outgoingPaymentMessage.getNote().or(""),
-                                            outgoingPaymentMessage.getAmount(),
-                                            outgoingPaymentMessage.getFee(),
-                                            outgoingPaymentMessage.getReceipt().toByteArray(),
-                                            PaymentMetaDataUtil.fromKeysAndImages(outgoingPaymentMessage.getPublicKeys(), outgoingPaymentMessage.getKeyImages()));
+    try {
+      DatabaseFactory.getPaymentDatabase(context)
+                     .createSuccessfulPayment(uuid,
+                                              recipientId,
+                                              address.get(),
+                                              timestamp,
+                                              outgoingPaymentMessage.getBlockIndex(),
+                                              outgoingPaymentMessage.getNote().or(""),
+                                              outgoingPaymentMessage.getAmount(),
+                                              outgoingPaymentMessage.getFee(),
+                                              outgoingPaymentMessage.getReceipt().toByteArray(),
+                                              PaymentMetaDataUtil.fromKeysAndImages(outgoingPaymentMessage.getPublicKeys(), outgoingPaymentMessage.getKeyImages()));
+   } catch (SerializationException e) {
+      warn(content.getTimestamp(), "Ignoring synchronized outgoing payment with bad data.", e);
+    }
 
     log("Inserted synchronized payment " + uuid);
   }
@@ -1359,7 +1366,7 @@ public final class MessageContentProcessor {
         sharedContacts.or(Collections.emptyList()),
         previews.or(Collections.emptyList()),
         mentions.or(Collections.emptyList()),
-        Collections.emptyList(), Collections.emptyList());
+        Collections.emptySet(), Collections.emptySet());
 
     mediaMessage = new OutgoingSecureMediaMessage(mediaMessage);
 
@@ -1769,7 +1776,7 @@ public final class MessageContentProcessor {
       GroupId.Push groupId = GroupId.push(typingMessage.getGroupId().get());
 
       if (!DatabaseFactory.getGroupDatabase(context).isCurrentMember(groupId, senderRecipient.getId())) {
-        warn(String.valueOf(content.getTimestamp()), "Seen typing indicator for non-member");
+        warn(String.valueOf(content.getTimestamp()), "Seen typing indicator for non-member " + senderRecipient.getId());
         return;
       }
 
@@ -2255,6 +2262,10 @@ public final class MessageContentProcessor {
 
   protected void warn(long timestamp, @NonNull String message) {
     warn(String.valueOf(timestamp), message);
+  }
+
+  protected void warn(long timestamp, @NonNull String message, @Nullable Throwable t) {
+    warn(String.valueOf(timestamp), message, t);
   }
 
   protected void warn(@NonNull String message, @Nullable Throwable t) {

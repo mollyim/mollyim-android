@@ -267,8 +267,8 @@ dependencyVerification {
         ['com.codewaves.stickyheadergrid:stickyheadergrid:0.9.4',
          '5b4aa6a52a957cfd55f60f4220c11c0c371385a3cb9786cae03c260dcdef5794'],
 
-        ['com.davemorrissey.labs:subsampling-scale-image-view:3.6.0',
-         '550c5baa07e0bb4ff0a18b705e96d34436d22619248bd8c08c08c730b1f55cfe'],
+        ['com.davemorrissey.labs:subsampling-scale-image-view:3.10.0',
+         'c76e3d9796cd16ce9894063ea8c53be6903c7df4081f8adca63a6ac1651a019d'],
 
         ['com.fasterxml.jackson.core:jackson-annotations:2.9.0',
          '45d32ac61ef8a744b464c54c2b3414be571016dd46bfc2bec226761cf7ae457a'],
@@ -291,8 +291,8 @@ dependencyVerification {
         ['com.github.bumptech.glide:glide:4.11.0',
          '5c294e6a5f0f812cef876b8412954c1822da184af38e082a5b766e3c4f4fcd95'],
 
-        ['com.github.chrisbanes:PhotoView:2.1.3',
-         'ed06775308da260e1fd86d1d3288988fcd3d80db24ce0d7c9fcfedc39e622292'],
+        ['com.github.chrisbanes:PhotoView:2.3.0',
+         '6c8989f2945d50ab38b3e0300064f1f8d2d75bbcae1434fe535d9fb6898e9ad6'],
 
         ['com.github.dmytrodanylyk.circular-progress-button:library:1.1.3-S2',
          '8dc6a29a5a8db7b2ad5a9a7fda1dc9ae0893f4c8f0545732b2c63854ea693e8e'],
@@ -468,8 +468,8 @@ dependencyVerification {
         ['im.molly:argon2:13.1-1',
          '43542ba5be6540faee564f5f532564f062a02aacd76801dce8bdb931aad4d065'],
 
-        ['im.molly:ringrtc-android:2.11.1-1',
-         '03fa2623b6fcd60590cea0b53d10a0a99a9e4de32cb8374bf902d0418144dbf7'],
+        ['im.molly:ringrtc-android:2.13.2-1',
+         '9802e891bf24b28a251d2c1968e627f97faec7bce0c81e8daa08067a701669a1'],
 
         ['io.grpc:grpc-api:1.36.0',
          '3226c41a2d08a5158632001760dacb951165548d4a4248062aafa5bf2c00b10f'],
@@ -516,6 +516,9 @@ dependencyVerification {
         ['mobi.upod:time-duration-picker:1.1.3',
          'db469ce0f48dd96b892eac424ed76870e54bf00fe0a28cdcddfbe5f2a226a0e1'],
 
+        ['net.zetetic:android-database-sqlcipher:4.4.3',
+         '64cf472e3f6c3300fd7307aebb74dfff4eeb3805f138045c83362c7687e4af61'],
+
         ['org.apache.httpcomponents:httpclient-android:4.3.5',
          '6f56466a9bd0d42934b90bfbfe9977a8b654c058bf44a12bdc2877c4e1f033f1'],
 
@@ -534,11 +537,11 @@ dependencyVerification {
         ['org.jetbrains.kotlin:kotlin-stdlib-common:1.5.10',
          'd958ce94beda85f865829fb95012804866db7d5246615fd71a2f5aabca3e7994'],
 
-        ['org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.5.0',
-         'ac12f092f12b575c1f9e0ab5025b1e610b0fe95663e26371c16c328895711bae'],
+        ['org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.5.10',
+         '75ed5680aaacfd94b93c3695d8eb8bfa7cf83893d2e46ca9788345c52d393f8a'],
 
-        ['org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.0',
-         '15e6c81b9e845eefe58d51a04670bb90418046f458264ec0e61ee9bdbc1bfae7'],
+        ['org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.10',
+         '270b05aa3cc92f157a7ed71ff09cf136ee3fb18cbac94f71a12931009c49f550'],
 
         ['org.jetbrains.kotlin:kotlin-stdlib:1.5.10',
          'ca87c454cd3f2e60931f1803c59699d510d3b4b959cd7119296fb947581d722d'],
@@ -570,9 +573,6 @@ dependencyVerification {
         ['org.signal:aesgcmprovider:0.0.3',
          '6eb4422e8a618b3b76cb2096a3619d251f9e27989dc68307a1e5414c3710f2d1'],
 
-        ['org.signal:android-database-sqlcipher:4.4.3-S3',
-         'a9d66fea3ac68c2b7f9889eaaecc655df43072c3d9b4db9f8981bd24868fb009'],
-
         ['org.signal:zkgroup-android:0.7.0',
          '52b172565bd01526e93ebf1796b834bdc449d4fe3422c1b827e49cb8d4f13fbd'],
 
@@ -585,11 +585,11 @@ dependencyVerification {
         ['org.threeten:threetenbp:1.3.6',
          'f4c23ffaaed717c3b99c003e0ee02d6d66377fd47d866fec7d971bd8644fc1a7'],
 
-        ['org.whispersystems:signal-client-android:0.9.4',
-         '5b4d8e0b37701caefe6089bdf09667716fea5829f105373e4bfce3041e7c6387'],
+        ['org.whispersystems:signal-client-android:0.9.5',
+         'd63788841fe2c8d15a144c99abf188c1c3478d31701b5cdb4c19761676b9049d'],
 
-        ['org.whispersystems:signal-client-java:0.9.4',
-         '629fb84dbbf5663cbfda0cb87420b0f64ad9902088c575478b04009cce9cbf8a'],
+        ['org.whispersystems:signal-client-java:0.9.5',
+         'f00784bf49e75744e1d6c128136a8849b42551b2075cc392f7fe237793a13f7d'],
 
         ['pl.tajchert:waitingdots:0.1.0',
          '2835d49e0787dbcb606c5a60021ced66578503b1e9fddcd7a5ef0cd5f095ba2c'],

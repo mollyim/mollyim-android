@@ -24,6 +24,8 @@ import androidx.lifecycle.ViewModelProviders;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import org.thoughtcrime.securesms.R;
+import org.thoughtcrime.securesms.badges.BadgeImageView;
+import org.thoughtcrime.securesms.badges.view.ViewBadgeBottomSheetDialogFragment;
 import org.thoughtcrime.securesms.components.AvatarImageView;
 import org.thoughtcrime.securesms.components.settings.DSLSettingsIcon;
 import org.thoughtcrime.securesms.components.settings.conversation.preferences.ButtonStripPreference;
@@ -73,6 +75,7 @@ public final class RecipientBottomSheetDialogFragment extends BottomSheetDialogF
   private View                     noteToSelfDescription;
   private View                     buttonStrip;
   private View                     interactionsContainer;
+  private BadgeImageView           badgeImageView;
 
   public static BottomSheetDialogFragment create(@NonNull RecipientId recipientId,
                                                  @Nullable GroupId groupId)
@@ -118,6 +121,7 @@ public final class RecipientBottomSheetDialogFragment extends BottomSheetDialogF
     noteToSelfDescription  = view.findViewById(R.id.rbs_note_to_self_description);
     buttonStrip            = view.findViewById(R.id.button_strip);
     interactionsContainer  = view.findViewById(R.id.interactions_container);
+    badgeImageView         = view.findViewById(R.id.rbs_badge);
 
     return view;
   }
@@ -144,6 +148,7 @@ public final class RecipientBottomSheetDialogFragment extends BottomSheetDialogF
         }
       });
       avatar.setAvatar(recipient);
+      badgeImageView.setBadgeFromRecipient(recipient);
       if (recipient.isSelf()) {
         avatar.setOnClickListener(v -> {
           dismiss();
@@ -263,6 +268,11 @@ public final class RecipientBottomSheetDialogFragment extends BottomSheetDialogF
     avatar.setOnClickListener(view -> {
       dismiss();
       viewModel.onAvatarClicked(requireActivity());
+    });
+
+    badgeImageView.setOnClickListener(view -> {
+      dismiss();
+      ViewBadgeBottomSheetDialogFragment.show(getParentFragmentManager(), recipientId, null);
     });
 
     makeGroupAdminButton.setOnClickListener(view -> viewModel.onMakeGroupAdminClicked(requireActivity()));

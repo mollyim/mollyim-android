@@ -29,7 +29,7 @@ import com.annimon.stream.Stream;
 import com.google.android.mms.pdu.NotificationInd;
 import com.google.android.mms.pdu.PduHeaders;
 
-import net.zetetic.database.sqlcipher.SQLiteStatement;
+import net.sqlcipher.database.SQLiteStatement;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,9 +41,9 @@ import org.thoughtcrime.securesms.attachments.DatabaseAttachment;
 import org.thoughtcrime.securesms.attachments.MmsNotificationAttachment;
 import org.thoughtcrime.securesms.contactshare.Contact;
 import org.thoughtcrime.securesms.database.documents.IdentityKeyMismatch;
-import org.thoughtcrime.securesms.database.documents.IdentityKeyMismatchList;
+import org.thoughtcrime.securesms.database.documents.IdentityKeyMismatchSet;
 import org.thoughtcrime.securesms.database.documents.NetworkFailure;
-import org.thoughtcrime.securesms.database.documents.NetworkFailureList;
+import org.thoughtcrime.securesms.database.documents.NetworkFailureSet;
 import org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper;
 import org.thoughtcrime.securesms.database.model.MediaMmsMessageRecord;
 import org.thoughtcrime.securesms.database.model.Mention;
@@ -56,7 +56,6 @@ import org.thoughtcrime.securesms.database.model.SmsMessageRecord;
 import org.thoughtcrime.securesms.database.model.databaseprotos.BodyRangeList;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.groups.GroupMigrationMembershipChange;
-import org.thoughtcrime.securesms.jobs.ThreadUpdateJob;
 import org.thoughtcrime.securesms.jobs.TrimThreadJob;
 import org.thoughtcrime.securesms.linkpreview.LinkPreview;
 import org.thoughtcrime.securesms.mms.IncomingMediaMessage;
@@ -527,9 +526,9 @@ public class MmsDatabase extends MessageDatabase {
     SQLiteDatabase db = databaseHelper.getSignalReadableDatabase();
 
     String[] columns = new String[]{ID};
-    String   query   = ID + " = ? AND " + MESSAGE_BOX + " & ?";
-    long     type    = Types.getOutgoingEncryptedMessageType() | Types.GROUP_QUIT_BIT;
-    String[] args    = new String[]{String.valueOf(messageId), String.valueOf(type)};
+    long     type    = Types.getOutgoingEncryptedMessageType() | Types.GROUP_LEAVE_BIT;
+    String   query   = ID + " = ? AND " + MESSAGE_BOX + " & " + type + " = " + type + " AND " + MESSAGE_BOX + " & " + Types.GROUP_V2_BIT + " = 0";
+    String[] args    = SqlUtil.buildArgs(messageId);
 
     try (Cursor cursor = db.query(TABLE_NAME, columns, query, args, null, null, null, null)) {
       if (cursor.getCount() == 1) {
@@ -545,9 +544,9 @@ public class MmsDatabase extends MessageDatabase {
     SQLiteDatabase db = databaseHelper.getSignalReadableDatabase();
 
     String[] columns = new String[]{DATE_SENT};
-    String   query   = THREAD_ID + " = ? AND " + MESSAGE_BOX + " & ? AND " + DATE_SENT + " < ?";
-    long     type    = Types.getOutgoingEncryptedMessageType() | Types.GROUP_QUIT_BIT;
-    String[] args    = new String[]{String.valueOf(threadId), String.valueOf(type), String.valueOf(quitTimeBarrier)};
+    long     type    = Types.getOutgoingEncryptedMessageType() | Types.GROUP_LEAVE_BIT;
+    String   query   = THREAD_ID + " = ? AND " + MESSAGE_BOX + " & " + type + " = " + type + " AND " + MESSAGE_BOX + " & " + Types.GROUP_V2_BIT + " = 0 AND " + DATE_SENT + " < ?";
+    String[] args    = new String[]{String.valueOf(threadId), String.valueOf(quitTimeBarrier)};
     String   orderBy = DATE_SENT + " DESC";
     String   limit   = "1";
 
@@ -602,16 +601,16 @@ public class MmsDatabase extends MessageDatabase {
   @Override
   public void addFailures(long messageId, List<NetworkFailure> failure) {
     try {
-      addToDocument(messageId, NETWORK_FAILURE, failure, NetworkFailureList.class);
+      addToDocument(messageId, NETWORK_FAILURE, failure, NetworkFailureSet.class);
     } catch (IOException e) {
       Log.w(TAG, e);
     }
   }
 
   @Override
-  public void removeFailure(long messageId, NetworkFailure failure) {
+  public void setNetworkFailures(long messageId, Set<NetworkFailure> failures) {
     try {
-      removeFromDocument(messageId, NETWORK_FAILURE, failure, NetworkFailureList.class);
+      setDocument(databaseHelper.getSignalWritableDatabase(), messageId, NETWORK_FAILURE, new NetworkFailureSet(failures));
     } catch (IOException e) {
       Log.w(TAG, e);
     }
@@ -1174,10 +1173,10 @@ public class MmsDatabase extends MessageDatabase {
                                                                                .sorted(new DatabaseAttachment.DisplayOrderComparator())
                                                                                .map(a -> (Attachment)a).toList();
 
-        Recipient                 recipient       = Recipient.resolved(RecipientId.from(recipientId));
-        List<NetworkFailure>      networkFailures = new LinkedList<>();
-        List<IdentityKeyMismatch> mismatches      = new LinkedList<>();
-        QuoteModel                quote           = null;
+        Recipient                recipient       = Recipient.resolved(RecipientId.from(recipientId));
+        Set<NetworkFailure>      networkFailures = new HashSet<>();
+        Set<IdentityKeyMismatch> mismatches      = new HashSet<>();
+        QuoteModel               quote           = null;
 
         if (quoteId > 0 && quoteAuthor > 0 && (!TextUtils.isEmpty(quoteText) || !quoteAttachments.isEmpty())) {
           quote = new QuoteModel(quoteId, RecipientId.from(quoteAuthor), quoteText, quoteMissing, quoteAttachments, quoteMentions);
@@ -1185,7 +1184,7 @@ public class MmsDatabase extends MessageDatabase {
 
         if (!TextUtils.isEmpty(mismatchDocument)) {
           try {
-            mismatches = JsonUtils.fromJson(mismatchDocument, IdentityKeyMismatchList.class).getList();
+            mismatches = JsonUtils.fromJson(mismatchDocument, IdentityKeyMismatchSet.class).getItems();
           } catch (IOException e) {
             Log.w(TAG, e);
           }
@@ -1193,7 +1192,7 @@ public class MmsDatabase extends MessageDatabase {
 
         if (!TextUtils.isEmpty(networkDocument)) {
           try {
-            networkFailures = JsonUtils.fromJson(networkDocument, NetworkFailureList.class).getList();
+            networkFailures = JsonUtils.fromJson(networkDocument, NetworkFailureSet.class).getItems();
           } catch (IOException e) {
             Log.w(TAG, e);
           }
@@ -1489,10 +1488,13 @@ public class MmsDatabase extends MessageDatabase {
       OutgoingGroupUpdateMessage outgoingGroupUpdateMessage = (OutgoingGroupUpdateMessage) message;
       if (outgoingGroupUpdateMessage.isV2Group()) {
         type |= Types.GROUP_V2_BIT | Types.GROUP_UPDATE_BIT;
+        if (outgoingGroupUpdateMessage.isJustAGroupLeave()) {
+          type |= Types.GROUP_LEAVE_BIT;
+        }
       } else {
         MessageGroupContext.GroupV1Properties properties = outgoingGroupUpdateMessage.requireGroupV1Properties();
         if      (properties.isUpdate()) type |= Types.GROUP_UPDATE_BIT;
-        else if (properties.isQuit())   type |= Types.GROUP_QUIT_BIT;
+        else if (properties.isQuit())   type |= Types.GROUP_LEAVE_BIT;
       }
     }
 
@@ -1976,8 +1978,8 @@ public class MmsDatabase extends MessageDatabase {
                                        slideDeck,
                                        slideDeck.getSlides().size(),
                                        message.isSecure() ? MmsSmsColumns.Types.getOutgoingEncryptedMessageType() : MmsSmsColumns.Types.getOutgoingSmsMessageType(),
-                                       new LinkedList<>(),
-                                       new LinkedList<>(),
+                                       Collections.emptySet(),
+                                       Collections.emptySet(),
                                        message.getSubscriptionId(),
                                        message.getExpiresIn(),
                                        System.currentTimeMillis(),
@@ -2111,16 +2113,16 @@ public class MmsDatabase extends MessageDatabase {
         }
       }
 
-      Recipient                 recipient          = Recipient.live(RecipientId.from(recipientId)).get();
-      List<IdentityKeyMismatch> mismatches         = getMismatchedIdentities(mismatchDocument);
-      List<NetworkFailure>      networkFailures    = getFailures(networkDocument);
-      List<DatabaseAttachment>  attachments        = DatabaseFactory.getAttachmentDatabase(context).getAttachments(cursor);
-      List<Contact>             contacts           = getSharedContacts(cursor, attachments);
-      Set<Attachment>           contactAttachments = Stream.of(contacts).map(Contact::getAvatarAttachment).withoutNulls().collect(Collectors.toSet());
-      List<LinkPreview>         previews           = getLinkPreviews(cursor, attachments);
-      Set<Attachment>           previewAttachments = Stream.of(previews).filter(lp -> lp.getThumbnail().isPresent()).map(lp -> lp.getThumbnail().get()).collect(Collectors.toSet());
-      SlideDeck                 slideDeck          = buildSlideDeck(context, Stream.of(attachments).filterNot(contactAttachments::contains).filterNot(previewAttachments::contains).toList());
-      Quote                     quote              = getQuote(cursor);
+      Recipient                recipient          = Recipient.live(RecipientId.from(recipientId)).get();
+      Set<IdentityKeyMismatch> mismatches         = getMismatchedIdentities(mismatchDocument);
+      Set<NetworkFailure>      networkFailures    = getFailures(networkDocument);
+      List<DatabaseAttachment> attachments        = DatabaseFactory.getAttachmentDatabase(context).getAttachments(cursor);
+      List<Contact>            contacts           = getSharedContacts(cursor, attachments);
+      Set<Attachment>          contactAttachments = Stream.of(contacts).map(Contact::getAvatarAttachment).withoutNulls().collect(Collectors.toSet());
+      List<LinkPreview>        previews           = getLinkPreviews(cursor, attachments);
+      Set<Attachment>          previewAttachments = Stream.of(previews).filter(lp -> lp.getThumbnail().isPresent()).map(lp -> lp.getThumbnail().get()).collect(Collectors.toSet());
+      SlideDeck                slideDeck          = buildSlideDeck(context, Stream.of(attachments).filterNot(contactAttachments::contains).filterNot(previewAttachments::contains).toList());
+      Quote                    quote              = getQuote(cursor);
 
       return new MediaMmsMessageRecord(id, recipient, recipient,
                                        addressDeviceId, dateSent, dateReceived, dateServer, deliveryReceiptCount,
@@ -2130,28 +2132,28 @@ public class MmsDatabase extends MessageDatabase {
                                        remoteDelete, mentionsSelf, notifiedTimestamp, viewedReceiptCount, receiptTimestamp);
     }
 
-    private List<IdentityKeyMismatch> getMismatchedIdentities(String document) {
+    private Set<IdentityKeyMismatch> getMismatchedIdentities(String document) {
       if (!TextUtils.isEmpty(document)) {
         try {
-          return JsonUtils.fromJson(document, IdentityKeyMismatchList.class).getList();
+          return JsonUtils.fromJson(document, IdentityKeyMismatchSet.class).getItems();
         } catch (IOException e) {
           Log.w(TAG, e);
         }
       }
 
-      return new LinkedList<>();
+      return Collections.emptySet();
     }
 
-    private List<NetworkFailure> getFailures(String document) {
+    private Set<NetworkFailure> getFailures(String document) {
       if (!TextUtils.isEmpty(document)) {
         try {
-          return JsonUtils.fromJson(document, NetworkFailureList.class).getList();
+          return JsonUtils.fromJson(document, NetworkFailureSet.class).getItems();
         } catch (IOException ioe) {
           Log.w(TAG, ioe);
         }
       }
 
-      return new LinkedList<>();
+      return Collections.emptySet();
     }
 
     public static SlideDeck buildSlideDeck(@NonNull Context context, @NonNull List<DatabaseAttachment> attachments) {

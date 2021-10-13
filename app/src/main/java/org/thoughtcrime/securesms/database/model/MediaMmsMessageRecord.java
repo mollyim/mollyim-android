@@ -21,6 +21,7 @@ import android.text.SpannableString;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.WorkerThread;
 
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.R;
@@ -71,8 +72,8 @@ public class MediaMmsMessageRecord extends MmsMessageRecord {
                                @NonNull SlideDeck slideDeck,
                                int partCount,
                                long mailbox,
-                               List<IdentityKeyMismatch> mismatches,
-                               List<NetworkFailure> failures,
+                               Set<IdentityKeyMismatch> mismatches,
+                               Set<NetworkFailure> failures,
                                int subscriptionId,
                                long expiresIn,
                                long expireStarted,
@@ -108,6 +109,7 @@ public class MediaMmsMessageRecord extends MmsMessageRecord {
   }
 
   @Override
+  @WorkerThread
   public SpannableString getDisplayBody(@NonNull Context context) {
     if (MmsDatabase.Types.isChatSessionRefresh(type)) {
       return emphasisAdded(context.getString(R.string.MmsMessageRecord_bad_encrypted_mms_message));
