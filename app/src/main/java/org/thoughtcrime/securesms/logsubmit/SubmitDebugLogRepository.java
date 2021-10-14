@@ -25,6 +25,7 @@ import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.net.Network;
 import org.thoughtcrime.securesms.net.StandardUserAgentInterceptor;
 import org.thoughtcrime.securesms.providers.BlobProvider;
+import org.thoughtcrime.securesms.service.KeyCachingService;
 import org.thoughtcrime.securesms.util.ByteUnit;
 import org.thoughtcrime.securesms.util.Stopwatch;
 import org.thoughtcrime.securesms.util.Util;
@@ -152,8 +153,10 @@ public class SubmitDebugLogRepository {
           bodyBuilder.append(reader.next()).append('\n');
         }
       } catch (IllegalStateException e) {
-        Log.e(TAG, "Failed to read row!", e);
-        return Optional.absent();
+        if (!KeyCachingService.isLocked()) {
+          Log.e(TAG, "Failed to read row!", e);
+          return Optional.absent();
+        }
       }
 
       stopwatch.split("body");
