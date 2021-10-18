@@ -158,6 +158,9 @@ public final class EnterPhoneNumberFragment extends LoggingFragment implements R
       return;
     }
 
+    TextSecurePreferences.setHasSeenNetworkConfig(context, true);
+    ApplicationDependencies.getNetworkManager().setNetworkEnabled(true);
+
     PlayServicesUtil.PlayServicesStatus fcmStatus = PlayServicesUtil.getPlayServicesStatus(context);
 
     if (fcmStatus == PlayServicesUtil.PlayServicesStatus.SUCCESS) {

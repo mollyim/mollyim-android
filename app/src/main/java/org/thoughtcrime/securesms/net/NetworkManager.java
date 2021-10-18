@@ -9,11 +9,13 @@ import androidx.webkit.ProxyConfig;
 import androidx.webkit.ProxyController;
 import androidx.webkit.WebViewFeature;
 
+import org.greenrobot.eventbus.EventBus;
 import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.ApplicationContext;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.events.NetworkConnectivityEvent;
 
 import java.util.Objects;
 
@@ -25,6 +27,8 @@ public class NetworkManager {
 
   private final ApplicationContext application;
   private final OrbotHelper        orbotHelper;
+
+  private boolean networkEnabled;
 
   private OrbotStatusCallback orbotStatusCallback;
 
@@ -49,6 +53,17 @@ public class NetworkManager {
   @NonNull
   public static NetworkManager create(@NonNull Context context) {
     return new NetworkManager(ApplicationContext.getInstance(context), OrbotHelper.get(context));
+  }
+
+  public boolean isNetworkEnabled() {
+    return networkEnabled;
+  }
+
+  public void setNetworkEnabled(boolean enabled) {
+    networkEnabled = enabled;
+    if (enabled) {
+      onNetworkEnabled();
+    }
   }
 
   public boolean isProxyEnabled() {
@@ -177,5 +192,9 @@ public class NetworkManager {
       return status.getIntExtra(OrbotHelper.EXTRA_PROXY_PORT_SOCKS,
                                 OrbotHelper.DEFAULT_PROXY_SOCKS_PORT);
     }
+  }
+
+  static private void onNetworkEnabled() {
+    EventBus.getDefault().post(new NetworkConnectivityEvent());
   }
 }

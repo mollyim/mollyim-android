@@ -375,6 +375,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
 
   private void initializeNetworkSettings() {
     NetworkManager nm = ApplicationDependencies.getNetworkManager();
+    nm.setNetworkEnabled(TextSecurePreferences.hasSeenNetworkConfig(this));
     nm.setProxyChoice(TextSecurePreferences.getProxyType(this));
     nm.setProxySocksHost(TextSecurePreferences.getProxySocksHost(this));
     nm.setProxySocksPort(TextSecurePreferences.getProxySocksPort(this));

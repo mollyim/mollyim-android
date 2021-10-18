@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
+import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.jobmanager.Constraint;
 
 public class NetworkConstraint implements Constraint {
@@ -44,6 +45,10 @@ public class NetworkConstraint implements Constraint {
   }
 
   public static boolean isMet(@NonNull Context context) {
+    if (!ApplicationDependencies.getNetworkManager().isNetworkEnabled()) {
+      return false;
+    }
+
     ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
     NetworkInfo         activeNetworkInfo   = connectivityManager.getActiveNetworkInfo();
 

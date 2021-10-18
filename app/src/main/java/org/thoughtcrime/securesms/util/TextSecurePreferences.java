@@ -136,6 +136,8 @@ public class TextSecurePreferences {
   public  static final String PASSPHRASE_LOCK_TIMEOUT = "pref_passphrase_lock_timeout";
   public  static final String PASSPHRASE_LOCK_TRIGGER = "pref_passphrase_lock_trigger";
 
+  private static final String NETWORK_CONFIG_SEEN = "pref_network_config_seen";
+
   public  static final String PROXY_TYPE       = "pref_proxy_type";
   public  static final String PROXY_SOCKS_HOST = "pref_proxy_socks_host";
   public  static final String PROXY_SOCKS_PORT = "pref_proxy_socks_port";
@@ -331,6 +333,14 @@ public class TextSecurePreferences {
 
   public static long getPassphraseLockTimeout(@NonNull Context context) {
     return getLongPreference(context, PASSPHRASE_LOCK_TIMEOUT, 0);
+  }
+
+  public static void setHasSeenNetworkConfig(Context context, boolean value) {
+    setBooleanPreference(context, NETWORK_CONFIG_SEEN, value);
+  }
+
+  public static boolean hasSeenNetworkConfig(Context context) {
+    return getBooleanPreference(context, NETWORK_CONFIG_SEEN, false);
   }
 
   public static ProxyType getProxyType(@NonNull Context context) {

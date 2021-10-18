@@ -9,7 +9,11 @@ import android.net.ConnectivityManager;
 
 import androidx.annotation.NonNull;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.signal.core.util.logging.Log;
+import org.thoughtcrime.securesms.events.NetworkConnectivityEvent;
 import org.thoughtcrime.securesms.jobmanager.ConstraintObserver;
 
 public class NetworkConstraintObserver implements ConstraintObserver {
@@ -24,15 +28,24 @@ public class NetworkConstraintObserver implements ConstraintObserver {
 
   @Override
   public void register(@NonNull Notifier notifier) {
+    NetworkConstraint constraint = new NetworkConstraint.Factory(application).create();
+
     application.registerReceiver(new BroadcastReceiver() {
       @Override
       public void onReceive(Context context, Intent intent) {
-        NetworkConstraint constraint = new NetworkConstraint.Factory(application).create();
-
         if (constraint.isMet()) {
           notifier.onConstraintMet(REASON);
         }
       }
     }, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+
+    EventBus.getDefault().register(new Object() {
+      @Subscribe(threadMode = ThreadMode.MAIN)
+      public void onNetworkConnectivityEvent(@NonNull NetworkConnectivityEvent event) {
+        if (constraint.isMet()) {
+          notifier.onConstraintMet(REASON);
+        }
+      }
+    });
   }
 }
