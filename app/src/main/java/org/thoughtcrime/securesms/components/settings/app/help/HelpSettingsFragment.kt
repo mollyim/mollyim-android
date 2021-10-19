@@ -1,9 +1,8 @@
 package org.thoughtcrime.securesms.components.settings.app.help
 
-import android.content.Context
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
-import org.signal.core.util.logging.Log
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.thoughtcrime.securesms.BuildConfig
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.DSLConfiguration
@@ -11,11 +10,6 @@ import org.thoughtcrime.securesms.components.settings.DSLSettingsAdapter
 import org.thoughtcrime.securesms.components.settings.DSLSettingsFragment
 import org.thoughtcrime.securesms.components.settings.DSLSettingsText
 import org.thoughtcrime.securesms.components.settings.configure
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
-import org.thoughtcrime.securesms.jobs.UpdateApkJob
-import org.thoughtcrime.securesms.notifications.NotificationChannels
-import org.thoughtcrime.securesms.service.UpdateApkRefreshListener
-import org.thoughtcrime.securesms.util.TextSecurePreferences
 
 class HelpSettingsFragment : DSLSettingsFragment(R.string.preferences__help) {
 
@@ -60,7 +54,7 @@ class HelpSettingsFragment : DSLSettingsFragment(R.string.preferences__help) {
         summary = DSLSettingsText.from(R.string.preferences__periodically_check_for_new_releases_and_ask_to_install_them),
         isChecked = state.updateApkEnabled,
         onClick = {
-          setUpdateApkEnabled(!state.updateApkEnabled)
+          viewModel.setUpdateApkEnabled(!state.updateApkEnabled)
         }
       )
 
@@ -68,7 +62,18 @@ class HelpSettingsFragment : DSLSettingsFragment(R.string.preferences__help) {
         title = DSLSettingsText.from(R.string.preferences__enable_debug_log),
         isChecked = state.logEnabled,
         onClick = {
-          setLogEnabled(!state.logEnabled)
+          if (state.logEnabled) {
+            MaterialAlertDialogBuilder(requireContext())
+              .setMessage(R.string.HelpSettingsFragment_disable_and_delete_debug_log)
+              .setPositiveButton(android.R.string.ok) { dialog, _ ->
+                viewModel.setLogEnabled(false)
+                dialog.dismiss()
+              }
+              .setNegativeButton(android.R.string.cancel, null)
+              .show()
+          } else {
+            viewModel.setLogEnabled(true)
+          }
         }
       )
 
@@ -95,26 +100,5 @@ class HelpSettingsFragment : DSLSettingsFragment(R.string.preferences__help) {
         )
       )
     }
-  }
-
-  private fun setUpdateApkEnabled(enabled: Boolean) {
-    val context: Context = requireContext()
-
-    TextSecurePreferences.setUpdateApkEnabled(context, enabled)
-    NotificationChannels.create(context)
-    if (enabled) {
-      UpdateApkRefreshListener.schedule(context)
-      ApplicationDependencies.getJobManager().add(UpdateApkJob())
-    }
-    viewModel.refreshState()
-  }
-
-  private fun setLogEnabled(enabled: Boolean) {
-    TextSecurePreferences.setLogEnabled(requireContext(), enabled)
-    Log.setLogging(enabled)
-    if (!enabled) {
-      Log.wipeLogs()
-    }
-    viewModel.refreshState()
   }
 }
