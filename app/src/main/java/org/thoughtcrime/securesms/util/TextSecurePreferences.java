@@ -340,7 +340,7 @@ public class TextSecurePreferences {
   }
 
   public static boolean hasSeenNetworkConfig(Context context) {
-    return getBooleanPreference(context, NETWORK_CONFIG_SEEN, false);
+    return getBooleanPreference(context, NETWORK_CONFIG_SEEN, true);
   }
 
   public static ProxyType getProxyType(@NonNull Context context) {

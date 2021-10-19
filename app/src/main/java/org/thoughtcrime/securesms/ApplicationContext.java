@@ -375,11 +375,19 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
 
   private void initializeNetworkSettings() {
     NetworkManager nm = ApplicationDependencies.getNetworkManager();
-    nm.setNetworkEnabled(TextSecurePreferences.hasSeenNetworkConfig(this));
+
     nm.setProxyChoice(TextSecurePreferences.getProxyType(this));
     nm.setProxySocksHost(TextSecurePreferences.getProxySocksHost(this));
     nm.setProxySocksPort(TextSecurePreferences.getProxySocksPort(this));
     nm.applyProxyConfig();
+
+    if (TextSecurePreferences.getFirstInstallVersion(this) == -1) {
+      Log.i(TAG, "Network jobs will be disabled until registration begins");
+      nm.setNetworkEnabled(false);
+      TextSecurePreferences.setHasSeenNetworkConfig(this, false);
+    } else {
+      nm.setNetworkEnabled(TextSecurePreferences.hasSeenNetworkConfig(this));
+    }
   }
 
   private void initializeGcmCheck() {
