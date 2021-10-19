@@ -71,7 +71,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create-release.outputs.upload_url }}
-          asset_path: ./molly-apk-docker/nonFreeStaging/release/Molly-staging-release-unsigned-${{ steps.get-version.outputs.VERSION }}.apk
+          asset_path: ./molly-apk-docker/stagingNonFree/release/Molly-staging-release-unsigned-${{ steps.get-version.outputs.VERSION }}.apk
           asset_name: Molly-staging-unsigned-${{ steps.get-version.outputs.VERSION }}.apk
           asset_content_type: application/zip
 
@@ -82,7 +82,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create-release.outputs.upload_url }}
-          asset_path: ./molly-apk-docker/nonFreeProd/release/Molly-prod-release-unsigned-${{ steps.get-version.outputs.VERSION }}.apk
+          asset_path: ./molly-apk-docker/prodNonFree/release/Molly-prod-release-unsigned-${{ steps.get-version.outputs.VERSION }}.apk
           asset_name: Molly-unsigned-${{ steps.get-version.outputs.VERSION }}.apk
           asset_content_type: application/zip
 
@@ -93,7 +93,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create-release.outputs.upload_url }}
-          asset_path: ./molly-apk-docker/freeStaging/release/Molly-staging-release-unsigned-${{ steps.get-version.outputs.VERSION }}-FOSS.apk
+          asset_path: ./molly-apk-docker/stagingFree/release/Molly-staging-release-unsigned-${{ steps.get-version.outputs.VERSION }}-FOSS.apk
           asset_name: Molly-staging-unsigned-${{ steps.get-version.outputs.VERSION }}-FOSS.apk
           asset_content_type: application/zip
 
@@ -104,6 +104,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create-release.outputs.upload_url }}
-          asset_path: ./molly-apk-docker/freeProd/release/Molly-prod-release-unsigned-${{ steps.get-version.outputs.VERSION }}-FOSS.apk
+          asset_path: ./molly-apk-docker/prodFree/release/Molly-prod-release-unsigned-${{ steps.get-version.outputs.VERSION }}-FOSS.apk
           asset_name: Molly-unsigned-${{ steps.get-version.outputs.VERSION }}-FOSS.apk
           asset_content_type: application/zip

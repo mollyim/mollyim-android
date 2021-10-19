@@ -117,7 +117,7 @@ android {
     buildToolsVersion BUILD_TOOL_VERSION
     compileSdkVersion COMPILE_SDK
 
-    flavorDimensions 'distribution', 'environment'
+    flavorDimensions 'environment', 'distribution'
     useLibrary 'org.apache.http.legacy'
 
     kotlinOptions {
@@ -495,7 +495,7 @@ dependencies {
 }
 
 dependencyVerification {
-    configuration = '(free|nonFree)(Staging|Prod)(Debug|Release)RuntimeClasspath'
+    configuration = '(staging|prod)(Free|NonFree)(Debug|Release)RuntimeClasspath'
 }
 
 static def getCommitTag() {
