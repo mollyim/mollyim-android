@@ -155,7 +155,7 @@ android {
         buildConfigField "String", "SIGNAL_PACKAGE_NAME", "\"org.thoughtcrime.securesms\""
         buildConfigField "String", "CANONICAL_VERSION_NAME", "\"$canonicalVersionName\""
         buildConfigField "String", "FDROID_UPDATE_URL", "\"https://molly.im/fdroid/repo\""
-        buildConfigField "String", "BACKUP_FILENAME", "\"" + appName.toLowerCase() + "\""
+        buildConfigField "String", "BACKUP_FILENAME", "\"" + baseAppName.toLowerCase() + "\""
 
         vectorDrawables.useSupportLibrary = true
 
@@ -317,12 +317,12 @@ android {
         def isStaging = variant.productFlavors*.name.contains("staging")
         def hasSigningConfig = buildType.signingConfig || variant.signingConfig
 
-        variant.resValue 'string', 'app_name', isStaging ? appName + " Staging" : appName
+        variant.resValue 'string', 'app_name', baseAppName + (isStaging ? " Staging" : "")
         variant.resValue "string", 'package_name', variant.applicationId
 
         variant.outputs.all {
             def flavors = variant.baseName - ~/(free|nonFree)-/ + (hasSigningConfig ? "" : "-unsigned")
-            outputFileName = "${appName}-${flavors}-${versionName}.apk"
+            outputFileName = "${baseAppName}-${flavors}-${versionName}.apk"
         }
     }
 
