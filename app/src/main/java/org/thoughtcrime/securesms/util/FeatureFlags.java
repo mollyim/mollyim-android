@@ -397,15 +397,6 @@ public final class FeatureFlags {
     return getBoolean(CHANGE_NUMBER_ENABLED, false);
   }
 
-  /** Whether or not to show donor badges in the UI. */
-  public static boolean donorBadges() {
-    if (Environment.IS_STAGING) {
-      return  true;
-    } else {
-      return getBoolean(DONOR_BADGES, false);
-    }
-  }
-
   public static boolean cdsh() {
     return Environment.IS_STAGING && getBoolean(CDSH, false);
   }

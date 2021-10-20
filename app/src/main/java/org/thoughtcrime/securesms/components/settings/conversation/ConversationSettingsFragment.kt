@@ -34,7 +34,6 @@ import org.thoughtcrime.securesms.VerifyIdentityActivity
 import org.thoughtcrime.securesms.badges.Badges
 import org.thoughtcrime.securesms.badges.Badges.displayBadges
 import org.thoughtcrime.securesms.badges.models.Badge
-import org.thoughtcrime.securesms.badges.view.ViewBadgeBottomSheetDialogFragment
 import org.thoughtcrime.securesms.components.AvatarImageView
 import org.thoughtcrime.securesms.components.recyclerview.OnScrollAnimationHelper
 import org.thoughtcrime.securesms.components.recyclerview.ToolbarShadowAnimationHelper
@@ -209,8 +208,7 @@ class ConversationSettingsFragment : DSLSettingsFragment(
 
     val recipientId = args.recipientId
     if (recipientId != null) {
-      Badge.register(adapter) { badge, _ ->
-        ViewBadgeBottomSheetDialogFragment.show(parentFragmentManager, recipientId, badge)
+      Badge.register(adapter) { _, _ ->
       }
     }
 
@@ -275,8 +273,7 @@ class ConversationSettingsFragment : DSLSettingsFragment(
               }
             }
           },
-          onBadgeClick = { badge ->
-            ViewBadgeBottomSheetDialogFragment.show(parentFragmentManager, state.recipient.id, badge)
+          onBadgeClick = { _ ->
           }
         )
       )

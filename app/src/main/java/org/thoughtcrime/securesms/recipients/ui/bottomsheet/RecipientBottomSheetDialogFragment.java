@@ -25,7 +25,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.badges.BadgeImageView;
-import org.thoughtcrime.securesms.badges.view.ViewBadgeBottomSheetDialogFragment;
 import org.thoughtcrime.securesms.components.AvatarImageView;
 import org.thoughtcrime.securesms.components.settings.DSLSettingsIcon;
 import org.thoughtcrime.securesms.components.settings.conversation.preferences.ButtonStripPreference;
@@ -268,11 +267,6 @@ public final class RecipientBottomSheetDialogFragment extends BottomSheetDialogF
     avatar.setOnClickListener(view -> {
       dismiss();
       viewModel.onAvatarClicked(requireActivity());
-    });
-
-    badgeImageView.setOnClickListener(view -> {
-      dismiss();
-      ViewBadgeBottomSheetDialogFragment.show(getParentFragmentManager(), recipientId, null);
     });
 
     makeGroupAdminButton.setOnClickListener(view -> viewModel.onMakeGroupAdminClicked(requireActivity()));

@@ -109,13 +109,7 @@ public class ManageProfileFragment extends LoggingFragment {
       }
     });
 
-    if (FeatureFlags.donorBadges()) {
-      badgesContainer.setOnClickListener(v -> {
-        Navigation.findNavController(v).navigate(ManageProfileFragmentDirections.actionManageProfileFragmentToBadgeManageFragment());
-      });
-    } else {
-      badgesContainer.setVisibility(View.GONE);
-    }
+    badgesContainer.setVisibility(View.GONE);
   }
 
   private void initializeViewModel() {

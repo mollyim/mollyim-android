@@ -433,7 +433,7 @@ public class Recipient {
     this.systemContactName           = details.systemContactName;
     this.extras                      = details.extras;
     this.hasGroupsInCommon           = details.hasGroupsInCommon;
-    this.badges                      = FeatureFlags.donorBadges() ? details.badges : Collections.emptyList();
+    this.badges                      = Collections.emptyList();
   }
 
   public @NonNull RecipientId getId() {

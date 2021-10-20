@@ -3,23 +3,16 @@ package org.thoughtcrime.securesms.components.settings.app
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.navigation.NavDirections
 import org.thoughtcrime.securesms.MainActivity
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.DSLSettingsActivity
-import org.thoughtcrime.securesms.components.settings.app.subscription.DonationPaymentRepository
-import org.thoughtcrime.securesms.components.settings.app.subscription.SubscriptionsRepository
-import org.thoughtcrime.securesms.components.settings.app.subscription.boost.BoostRepository
-import org.thoughtcrime.securesms.components.settings.app.subscription.boost.BoostViewModel
-import org.thoughtcrime.securesms.components.settings.app.subscription.subscribe.SubscribeViewModel
 import org.thoughtcrime.securesms.help.HelpFragment
 import org.thoughtcrime.securesms.keyvalue.SettingsValues
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.service.KeyCachingService
 import org.thoughtcrime.securesms.util.CachedInflater
 import org.thoughtcrime.securesms.util.DynamicTheme
-import org.thoughtcrime.securesms.util.FeatureFlags
 
 private const val START_LOCATION = "app.settings.start.location"
 private const val NOTIFICATION_CATEGORY = "android.intent.category.NOTIFICATION_PREFERENCES"
@@ -29,23 +22,7 @@ class AppSettingsActivity : DSLSettingsActivity() {
 
   private var wasConfigurationUpdated = false
 
-  private val donationRepository: DonationPaymentRepository by lazy { DonationPaymentRepository(this) }
-  private val subscribeViewModel: SubscribeViewModel by viewModels(
-    factoryProducer = {
-      SubscribeViewModel.Factory(SubscriptionsRepository(), donationRepository, FETCH_SUBSCRIPTION_TOKEN_REQUEST_CODE)
-    }
-  )
-
-  private val boostViewModel: BoostViewModel by viewModels(
-    factoryProducer = {
-      BoostViewModel.Factory(BoostRepository(), donationRepository, FETCH_BOOST_TOKEN_REQUEST_CODE)
-    }
-  )
-
   override fun onCreate(savedInstanceState: Bundle?, ready: Boolean) {
-
-    warmDonationViewModels()
-
     if (intent?.hasExtra(ARG_NAV_GRAPH) != true) {
       intent?.putExtra(ARG_NAV_GRAPH, R.navigation.app_settings)
     }
@@ -104,8 +81,6 @@ class AppSettingsActivity : DSLSettingsActivity() {
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
-    subscribeViewModel.onActivityResult(requestCode, resultCode, data)
-    boostViewModel.onActivityResult(requestCode, resultCode, data)
   }
 
   companion object {
@@ -138,13 +113,6 @@ class AppSettingsActivity : DSLSettingsActivity() {
       return Intent(context, AppSettingsActivity::class.java)
         .putExtra(ARG_NAV_GRAPH, R.navigation.app_settings)
         .putExtra(START_LOCATION, startLocation.code)
-    }
-  }
-
-  private fun warmDonationViewModels() {
-    if (FeatureFlags.donorBadges()) {
-      subscribeViewModel
-      boostViewModel
     }
   }
 
