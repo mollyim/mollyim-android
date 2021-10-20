@@ -18,7 +18,7 @@ You can compile you own release of Molly inside a Docker container and compare t
 
 ```shell
 # Set the release version you want to check
-export VERSION=v4.76.3-1
+export VERSION=v5.24.17-1
 
 # Clone the source code repository
 git clone https://github.com/mollyim/mollyim-android.git
@@ -33,19 +33,19 @@ git checkout $VERSION
 docker-compose up --build
 
 # Download the official APK
-wget https://github.com/mollyim/mollyim-android/releases/download/$VERSION/Molly-production-$VERSION.apk
+wget https://github.com/mollyim/mollyim-android/releases/download/$VERSION/Molly-$VERSION.apk
 
 # Download the official APK (FOSS)
-wget https://github.com/mollyim/mollyim-android/releases/download/$VERSION/Molly-production-$VERSION-FOSS.apk
+wget https://github.com/mollyim/mollyim-android/releases/download/$VERSION/Molly-$VERSION-FOSS.apk
 
 # Run the diff script to compare the APKs
 python apkdiff/apkdiff.py \
-  Molly-production-$VERSION.apk \
+  Molly-$VERSION.apk \
   outputs/apk/prodNonFree/release/Molly-prod-release-unsigned-$VERSION.apk
 
 # Run the diff script to compare the APKs (FOSS)
 python apkdiff/apkdiff.py \
-  Molly-production-$VERSION-FOSS.apk \
+  Molly-$VERSION-FOSS.apk \
   outputs/apk/prodFree/release/Molly-prod-release-unsigned-$VERSION-FOSS.apk
 
 # Clean up the Docker environment
