@@ -52,8 +52,6 @@ class WitnessPlugin implements Plugin<Project> {
                         }
 
                         artifacts.forEach { dependency ->
-                            println "Verifying $group:$name"
-
                             if (dependency == null) {
                                 throw new InvalidUserDataException("No dependency for integrity assertion found: $group:$name")
                             }
