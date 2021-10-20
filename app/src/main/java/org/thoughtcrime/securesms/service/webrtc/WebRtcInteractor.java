@@ -120,7 +120,7 @@ public class WebRtcInteractor {
   }
 
   void insertReceivedCall(@NonNull RemotePeer remotePeer, boolean isVideoOffer) {
-    signalCallManager.insertReceivedCall(remotePeer.getRecipient(), isVideoOffer);
+    signalCallManager.insertReceivedCall(remotePeer.getRecipient(), true, isVideoOffer);
   }
 
   boolean startWebRtcCallActivityIfPossible() {

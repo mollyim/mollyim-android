@@ -25,6 +25,7 @@ import org.signal.zkgroup.profiles.ProfileKeyCredentialRequest;
 import org.signal.zkgroup.profiles.ProfileKeyCredentialRequestContext;
 import org.signal.zkgroup.profiles.ProfileKeyCredentialResponse;
 import org.signal.zkgroup.profiles.ProfileKeyVersion;
+import org.signal.zkgroup.receipts.ReceiptCredentialPresentation;
 import org.whispersystems.libsignal.IdentityKey;
 import org.whispersystems.libsignal.ecc.ECPublicKey;
 import org.whispersystems.libsignal.logging.Log;
@@ -132,7 +133,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.Future;
@@ -229,8 +229,12 @@ public class PushServiceSocket {
 
   private static final String PAYMENTS_CONVERSIONS      = "/v1/payments/conversions";
 
+
   private static final String SUBMIT_RATE_LIMIT_CHALLENGE       = "/v1/challenge";
   private static final String REQUEST_RATE_LIMIT_PUSH_CHALLENGE = "/v1/challenge/push";
+
+  private static final String DONATION_INTENT         = "/v1/donation/authorize-apple-pay";
+  private static final String DONATION_REDEEM_RECEIPT = "/v1/donation/redeem-receipt";
 
   private static final String REPORT_SPAM = "/v1/messages/report/%s/%s";
 
@@ -859,6 +863,20 @@ public class PushServiceSocket {
   public void submitRateLimitRecaptchaChallenge(String challenge, String recaptchaToken) throws IOException {
     String payload = JsonUtil.toJson(new SubmitRecaptchaChallengePayload(challenge, recaptchaToken));
     makeServiceRequest(SUBMIT_RATE_LIMIT_CHALLENGE, "PUT", payload);
+  }
+
+  public void redeemDonationReceipt(ReceiptCredentialPresentation receiptCredentialPresentation, boolean visible, boolean primary) throws IOException {
+    String payload = JsonUtil.toJson(new RedeemReceiptRequest(Base64.encodeBytesToBytes(receiptCredentialPresentation.serialize()), visible, primary));
+    makeServiceRequest(DONATION_REDEEM_RECEIPT, "PUT", payload);
+  }
+
+  /**
+   * @return The PaymentIntent id
+   */
+  public DonationIntentResult createDonationIntentWithAmount(String amount, String currencyCode) throws IOException {
+    String payload = JsonUtil.toJson(new DonationIntentPayload(Long.parseLong(amount), currencyCode.toLowerCase(Locale.ROOT)));
+    String result  = makeServiceRequest(DONATION_INTENT, "POST", payload);
+    return JsonUtil.fromJsonResponse(result, DonationIntentResult.class);
   }
 
   public List<ContactTokenDetails> retrieveDirectory(Set<String> contactTokens)

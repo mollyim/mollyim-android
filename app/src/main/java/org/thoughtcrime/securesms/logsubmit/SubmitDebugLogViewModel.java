@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import org.jetbrains.annotations.NotNull;
 import org.signal.core.util.ThreadUtil;
+import org.signal.core.util.logging.Log;
 import org.signal.core.util.tracing.Tracer;
 import org.signal.paging.PagedData;
 import org.signal.paging.PagedDataSource;
@@ -49,6 +50,7 @@ public class SubmitDebugLogViewModel extends ViewModel {
       PagedDataSource<Long, LogLine> dataSource;
 
       try {
+        Log.blockUntilAllWritesFinished();
         LogDatabase.getInstance(ApplicationDependencies.getApplication()).trimToSize();
 
         dataSource = new LogDataSource(ApplicationDependencies.getApplication(), staticLines, firstViewTime);

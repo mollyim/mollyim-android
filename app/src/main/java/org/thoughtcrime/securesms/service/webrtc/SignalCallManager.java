@@ -806,7 +806,7 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
     }
   }
 
-  public void insertReceivedCall(@NonNull Recipient recipient, boolean isVideoOffer) {
+  public void insertReceivedCall(@NonNull Recipient recipient, boolean signal, boolean isVideoOffer) {
     long expiresIn = recipient.getExpiresInMillis();
     MessageDatabase database = DatabaseFactory.getSmsDatabase(context);
     Pair<Long, Long> messageAndThreadId = database.insertReceivedCall(recipient.getId(), expiresIn, isVideoOffer);
@@ -814,6 +814,9 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
       database.markExpireStarted(messageAndThreadId.first());
       ApplicationDependencies.getExpiringMessageManager().scheduleDeletion(messageAndThreadId.first(), false, expiresIn);
     }
+
+    ApplicationDependencies.getMessageNotifier()
+                           .updateNotification(context, messageAndThreadId.second(), signal);
   }
 
   public void retrieveTurnServers(@NonNull RemotePeer remotePeer) {

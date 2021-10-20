@@ -9,6 +9,7 @@ apply from: 'translations.gradle'
 apply from: 'witness-verifications.gradle'
 apply plugin: 'org.jetbrains.kotlin.android'
 apply plugin: 'app.cash.exhaustive'
+apply plugin: 'kotlin-parcelize'
 
 repositories {
     maven {
@@ -78,8 +79,8 @@ protobuf {
     }
 }
 
-def canonicalVersionCode = 934
-def canonicalVersionName = "5.24.14"
+def canonicalVersionCode = 937
+def canonicalVersionName = "5.24.17"
 
 def postFixSize = 100
 def abiPostFix = ['universal'   : 0,
@@ -183,7 +184,7 @@ android {
                                                                      "\"a3baab19ef6ce6f34ab9ebb25ba722725ae44a8872dc0ff08ad6d83a9489de87\")";
         buildConfigField "KbsEnclave[]", "KBS_FALLBACKS", "new KbsEnclave[0]"
         buildConfigField "String", "UNIDENTIFIED_SENDER_TRUST_ROOT", "\"BXu6QIKVz5MA8gstzfOgRQGqyLqOwNKHL6INkv3IHWMF\""
-        buildConfigField "String", "ZKGROUP_SERVER_PUBLIC_PARAMS", "\"AMhf5ywVwITZMsff/eCyudZx9JDmkkkbV6PInzG4p8x3VqVJSFiMvnvlEKWuRob/1eaIetR31IYeAbm0NdOuHH8Qi+Rexi1wLlpzIo1gstHWBfZzy1+qHRV5A4TqPp15YzBPm0WSggW6PbSn+F4lf57VCnHF7p8SvzAA2ZZJPYJURt8X7bbg+H3i+PEjH9DXItNEqs2sNcug37xZQDLm7X0=\""
+        buildConfigField "String", "ZKGROUP_SERVER_PUBLIC_PARAMS", "\"AMhf5ywVwITZMsff/eCyudZx9JDmkkkbV6PInzG4p8x3VqVJSFiMvnvlEKWuRob/1eaIetR31IYeAbm0NdOuHH8Qi+Rexi1wLlpzIo1gstHWBfZzy1+qHRV5A4TqPp15YzBPm0WSggW6PbSn+F4lf57VCnHF7p8SvzAA2ZZJPYJURt8X7bbg+H3i+PEjH9DXItNEqs2sNcug37xZQDLm7X36nOoGPs54XsEGzPdEV+itQNGUFEjY6X9Uv+Acuks7NpyGvCoKxGwgKgE5XyJ+nNKlyHHOLb6N1NuHyBrZrgtY\""
         buildConfigField "String[]", "LANGUAGES", "new String[]{\"" + autoResConfig().collect { s -> s.replace('-r', '_') }.join('", "') + '"}'
         buildConfigField "int", "CANONICAL_VERSION_CODE", "$canonicalVersionCode"
         buildConfigField "String", "DEFAULT_CURRENCIES", "\"EUR,AUD,GBP,CAD,CNY\""
@@ -194,6 +195,8 @@ android {
         // MOLLY: Replace BUILD_DISTRIBUTION_TYPE by FLAVOR_distribution
         buildConfigField "String", "BUILD_ENVIRONMENT_TYPE", "\"unset\""
         buildConfigField "String", "BUILD_VARIANT_TYPE", "\"unset\""
+        buildConfigField "String", "BADGE_STATIC_ROOT", "\"https://updates2.signal.org/static/badges/\""
+        buildConfigField "String", "STRIPE_PUBLISHABLE_KEY", "\"pk_test_sngOd8FnXNkpce9nPXawKrJD00kIDngZkD\""
 
         ndk {
             abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86_64'
@@ -259,7 +262,7 @@ android {
                                                                          "\"a3baab19ef6ce6f34ab9ebb25ba722725ae44a8872dc0ff08ad6d83a9489de87\")"
             buildConfigField "KbsEnclave[]", "KBS_FALLBACKS", "new KbsEnclave[0]"
             buildConfigField "String", "UNIDENTIFIED_SENDER_TRUST_ROOT", "\"BbqY1DzohE4NUZoVF+L18oUPrK3kILllLEJh2UnPSsEx\""
-            buildConfigField "String", "ZKGROUP_SERVER_PUBLIC_PARAMS", "\"ABSY21VckQcbSXVNCGRYJcfWHiAMZmpTtTELcDmxgdFbtp/bWsSxZdMKzfCp8rvIs8ocCU3B37fT3r4Mi5qAemeGeR2X+/YmOGR5ofui7tD5mDQfstAI9i+4WpMtIe8KC3wU5w3Inq3uNWVmoGtpKndsNfwJrCg0Hd9zmObhypUnSkfYn2ooMOOnBpfdanRtrvetZUayDMSC5iSRcXKpdls=\""
+            buildConfigField "String", "ZKGROUP_SERVER_PUBLIC_PARAMS", "\"ABSY21VckQcbSXVNCGRYJcfWHiAMZmpTtTELcDmxgdFbtp/bWsSxZdMKzfCp8rvIs8ocCU3B37fT3r4Mi5qAemeGeR2X+/YmOGR5ofui7tD5mDQfstAI9i+4WpMtIe8KC3wU5w3Inq3uNWVmoGtpKndsNfwJrCg0Hd9zmObhypUnSkfYn2ooMOOnBpfdanRtrvetZUayDMSC5iSRcXKpdlukrpzzsCIvEwjwQlJYVPOQPj4V0F4UXXBdHSLK05uoPBCQG8G9rYIGedYsClJXnbrgGYG3eMTG5hnx4X4ntARB\""
             buildConfigField "String", "MOBILE_COIN_ENVIRONMENT", "\"testnet\""
             buildConfigField "String", "RECAPTCHA_PROOF_URL", "\"https://signalcaptchas.org/staging/challenge/generate.html\""
 
@@ -403,6 +406,7 @@ dependencies {
     implementation project(':video')
     implementation project(':device-transfer')
     implementation project(':image-editor')
+    implementation project(':donations')
 
     implementation libs.signal.zkgroup.android
     implementation libs.signal.client.android
@@ -487,6 +491,8 @@ dependencies {
 
     androidTestImplementation testLibs.androidx.test.ext.junit
     androidTestImplementation testLibs.espresso.core
+
+    testImplementation testLibs.espresso.core
 
     implementation libs.kotlin.stdlib.jdk8
 

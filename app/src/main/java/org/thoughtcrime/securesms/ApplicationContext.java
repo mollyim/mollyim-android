@@ -117,21 +117,10 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
 
   private static final String TAG = Log.tag(ApplicationContext.class);
 
-  private static ApplicationContext instance;
-
   private volatile boolean isAppInitialized;
 
-  public ApplicationContext() {
-    super();
-    instance = this;
-  }
-
-  public static @NonNull ApplicationContext getInstance(Context context) {
+  public static ApplicationContext getInstance(Context context) {
     return (ApplicationContext) context.getApplicationContext();
-  }
-
-  public static @NonNull ApplicationContext getInstance() {
-    return instance;
   }
 
   @Override
@@ -151,7 +140,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
   }
 
   private void onCreateUnlock() {
-    Tracer.getInstance().start("Application#onCreate()");
+    Tracer.getInstance().start("Application#onCreateUnlock()");
     AppStartup.getInstance().onApplicationCreate();
     SignalLocalMetrics.ColdStart.start();
 
@@ -162,8 +151,8 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
     }
 
     AppStartup.getInstance().addBlocking("logging", () -> {
-                                initializeLogging();
-                                Log.i(TAG, "onCreateUnlock()");
+                              initializeLogging();
+                              Log.i(TAG, "onCreateUnlock()");
                             })
                             .addBlocking("crash-handling", this::initializeCrashHandling)
                             .addBlocking("rx-init", () -> {
@@ -205,25 +194,24 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
                             .addPostRender(() -> DatabaseFactory.getMessageLogDatabase(this).trimOldMessages(System.currentTimeMillis(), FeatureFlags.retryRespondMaxAge()))
                             .execute();
 
-    Log.d(TAG, "onCreate() took " + (System.currentTimeMillis() - startTime) + " ms");
+    Log.d(TAG, "onCreateUnlock() took " + (System.currentTimeMillis() - startTime) + " ms");
     SignalLocalMetrics.ColdStart.onApplicationCreateFinished();
-    Tracer.getInstance().end("Application#onCreate()");
+    Tracer.getInstance().end("Application#onCreateUnlock()");
   }
 
   @Override
   public void onForeground() {
-    long startTime = System.currentTimeMillis();
     Log.i(TAG, "App is now visible.");
 
     if (!KeyCachingService.isLocked()) {
       onStartUnlock();
     }
-
-    Log.d(TAG, "onStart() took " + (System.currentTimeMillis() - startTime) + " ms");
   }
 
   private void onStartUnlock() {
-    ApplicationDependencies.getFrameRateTracker().begin();
+    long startTime = System.currentTimeMillis();
+
+    ApplicationDependencies.getFrameRateTracker().start();
     ApplicationDependencies.getMegaphoneRepository().onAppForegrounded();
 
     SignalExecutors.BOUNDED.execute(() -> {
@@ -234,7 +222,10 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
       executePendingContactSync();
       ApplicationDependencies.getShakeToReport().enable();
       checkBuildExpiration();
+      ApplicationDependencies.getDeadlockDetector().start();
     });
+
+    Log.d(TAG, "onStartUnlock() took " + (System.currentTimeMillis() - startTime) + " ms");
   }
 
   @Override
@@ -247,8 +238,9 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
 
   private void onStopUnlock() {
     ApplicationDependencies.getMessageNotifier().clearVisibleThread();
-    ApplicationDependencies.getFrameRateTracker().end();
+    ApplicationDependencies.getFrameRateTracker().stop();
     ApplicationDependencies.getShakeToReport().disable();
+    ApplicationDependencies.getDeadlockDetector().stop();
   }
 
   @MainThread
@@ -319,7 +311,10 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
 
     SignalProtocolLoggerProvider.setProvider(new CustomSignalProtocolLogger());
 
-    SignalExecutors.UNBOUNDED.execute(() -> LogDatabase.getInstance(this).trimToSize());
+    SignalExecutors.UNBOUNDED.execute(() -> {
+      Log.blockUntilAllWritesFinished();
+      LogDatabase.getInstance(this).trimToSize();
+    });
   }
 
   private void initializeCrashHandling() {
@@ -353,7 +348,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
   }
 
   private void initializeAppDependencies() {
-    ApplicationDependencies.init(new ApplicationDependencyProvider(this));
+    ApplicationDependencies.init(this, new ApplicationDependencyProvider(this));
   }
 
   private void initializeFirstEverAppLaunch() {
