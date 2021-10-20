@@ -71,7 +71,7 @@ public class BackgroundMessageRetriever {
           long         startTime    = System.currentTimeMillis();
           PowerManager powerManager = ServiceUtil.getPowerManager(context);
           boolean      doze         = PowerManagerCompat.isDeviceIdleMode(powerManager);
-          boolean      network      = new NetworkConstraint.Factory(ApplicationContext.getInstance(context)).create().isMet();
+          boolean      network      = new NetworkConstraint.Factory(ApplicationContext.getInstance()).create().isMet();
 
           if (doze || !network) {
             Log.w(TAG, "We may be operating in a constrained environment. Doze: " + doze + " Network: " + network);

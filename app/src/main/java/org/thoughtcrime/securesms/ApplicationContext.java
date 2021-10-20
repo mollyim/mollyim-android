@@ -117,11 +117,18 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
 
   private static final String TAG = Log.tag(ApplicationContext.class);
 
-  private volatile boolean isAppInitialized;
+  private static ApplicationContext instance;
 
-  public static ApplicationContext getInstance(Context context) {
-    return (ApplicationContext) context.getApplicationContext();
+  public ApplicationContext() {
+    super();
+    instance = this;
   }
+
+  public static @NonNull ApplicationContext getInstance() {
+    return instance;
+  }
+
+  private volatile boolean isAppInitialized;
 
   @Override
   public void onCreate() {
@@ -348,7 +355,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
   }
 
   private void initializeAppDependencies() {
-    ApplicationDependencies.init(this, new ApplicationDependencyProvider(this));
+    ApplicationDependencies.init(new ApplicationDependencyProvider(this));
   }
 
   private void initializeFirstEverAppLaunch() {

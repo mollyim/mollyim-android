@@ -6,6 +6,7 @@ import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 
 import org.signal.core.util.concurrent.DeadlockDetector;
+import org.thoughtcrime.securesms.ApplicationContext;
 import org.thoughtcrime.securesms.KbsEnclave;
 import org.thoughtcrime.securesms.components.TypingStatusRepository;
 import org.thoughtcrime.securesms.components.TypingStatusSender;
@@ -57,7 +58,7 @@ import okhttp3.OkHttpClient;
 
 /**
  * Location for storing and retrieving application-scoped singletons. Users must call
- * {@link #init(Application, Provider)} before using any of the methods, preferably early on in
+ * {@link #init(Provider)} before using any of the methods, preferably early on in
  * {@link Application#onCreate()}.
  *
  * All future application-scoped singletons should be written as normal objects, then placed here
@@ -114,13 +115,12 @@ public class ApplicationDependencies {
   private static volatile DeadlockDetector             deadlockDetector;
 
   @MainThread
-  public static void init(@NonNull Application application, @NonNull Provider provider) {
+  public static void init(@NonNull Provider provider) {
     synchronized (LOCK) {
-      if (ApplicationDependencies.application != null || ApplicationDependencies.dependencyProvider != null) {
+      if (ApplicationDependencies.dependencyProvider != null) {
         throw new IllegalStateException("Already initialized!");
       }
 
-      ApplicationDependencies.application           = application;
       ApplicationDependencies.dependencyProvider    = provider;
       ApplicationDependencies.appForegroundObserver = provider.provideAppForegroundObserver();
 
@@ -136,7 +136,8 @@ public class ApplicationDependencies {
   }
 
   public static @NonNull Application getApplication() {
-    return application;
+    // MOLLY: Always returns the Application instance even before ApplicationDependencies is initialized
+    return ApplicationContext.getInstance();
   }
 
   public static @NonNull SignalServiceAccountManager getSignalServiceAccountManager() {

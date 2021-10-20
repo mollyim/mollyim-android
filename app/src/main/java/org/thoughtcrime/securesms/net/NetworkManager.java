@@ -52,7 +52,7 @@ public class NetworkManager {
 
   @NonNull
   public static NetworkManager create(@NonNull Context context) {
-    return new NetworkManager(ApplicationContext.getInstance(context), OrbotHelper.get(context));
+    return new NetworkManager(ApplicationContext.getInstance(), OrbotHelper.get(context));
   }
 
   public boolean isNetworkEnabled() {
