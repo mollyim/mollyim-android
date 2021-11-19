@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.signal.zkgroup.InvalidInputException;
 import org.signal.zkgroup.profiles.ProfileKeyCredentialResponse;
 import org.whispersystems.libsignal.logging.Log;
+import org.whispersystems.signalservice.api.push.ACI;
 import org.whispersystems.signalservice.internal.util.JsonUtil;
 
 import java.math.BigDecimal;
@@ -54,9 +55,9 @@ public class SignalServiceProfile {
   private Capabilities capabilities;
 
   @JsonProperty
-  @JsonSerialize(using = JsonUtil.UuidSerializer.class)
-  @JsonDeserialize(using = JsonUtil.UuidDeserializer.class)
-  private UUID uuid;
+  @JsonSerialize(using = JsonUtil.AciSerializer.class)
+  @JsonDeserialize(using = JsonUtil.AciDeserializer.class)
+  private ACI uuid;
 
   @JsonProperty
   private byte[] credential;
@@ -109,7 +110,7 @@ public class SignalServiceProfile {
     return badges;
   }
 
-  public UUID getUuid() {
+  public ACI getAci() {
     return uuid;
   }
 
@@ -135,22 +136,7 @@ public class SignalServiceProfile {
     private String description;
 
     @JsonProperty
-    private String ldpi;
-
-    @JsonProperty
-    private String mdpi;
-
-    @JsonProperty
-    private String hdpi;
-
-    @JsonProperty
-    private String xhdpi;
-
-    @JsonProperty
-    private String xxhdpi;
-
-    @JsonProperty
-    private String xxxhdpi;
+    private List<String> sprites6;
 
     @JsonProperty
     private BigDecimal expiration;
@@ -174,28 +160,8 @@ public class SignalServiceProfile {
       return description;
     }
 
-    public String getLdpiUri() {
-      return ldpi;
-    }
-
-    public String getMdpiUri() {
-      return mdpi;
-    }
-
-    public String getHdpiUri() {
-      return hdpi;
-    }
-
-    public String getXhdpiUri() {
-      return xhdpi;
-    }
-
-    public String getXxhdpiUri() {
-      return xxhdpi;
-    }
-
-    public String getXxxhdpiUri() {
-      return xxxhdpi;
+    public List<String> getSprites6() {
+      return sprites6;
     }
 
     public BigDecimal getExpiration() {

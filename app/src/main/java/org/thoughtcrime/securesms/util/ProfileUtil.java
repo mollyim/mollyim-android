@@ -44,6 +44,7 @@ import org.whispersystems.signalservice.internal.push.SignalServiceProtos;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 import io.reactivex.rxjava3.core.Single;
@@ -100,7 +101,7 @@ public final class ProfileUtil {
     Optional<ProfileKey>         profileKey         = ProfileKeyUtil.profileKeyOptional(recipient.getProfileKey());
 
     return Single.fromCallable(() -> toSignalServiceAddress(context, recipient))
-                 .flatMap(address -> profileService.getProfile(address, profileKey, unidentifiedAccess, requestType).map(p -> new Pair<>(recipient, p)))
+                 .flatMap(address -> profileService.getProfile(address, profileKey, unidentifiedAccess, requestType, Locale.getDefault()).map(p -> new Pair<>(recipient, p)))
                  .onErrorReturn(t -> new Pair<>(recipient, ServiceResponse.forUnknownError(t)));
   }
 
@@ -187,23 +188,6 @@ public final class ProfileUtil {
 
   /**
    * Uploads the profile based on all state that's written to disk, except we'll use the provided
-   * list of badges instead. This is useful when you want to ensure that the profile has been uploaded
-   * successfully before persisting the change to disk.
-   */
-  public static void uploadProfileWithBadges(@NonNull Context context, @NonNull List<Badge> badges) throws IOException {
-    try (StreamDetails avatar = AvatarHelper.getSelfProfileAvatarStream(context)) {
-      uploadProfile(context,
-                    Recipient.self().getProfileName(),
-                    Optional.fromNullable(Recipient.self().getAbout()).or(""),
-                    Optional.fromNullable(Recipient.self().getAboutEmoji()).or(""),
-                    getSelfPaymentsAddressProtobuf(),
-                    avatar,
-                    badges);
-    }
-  }
-
-  /**
-   * Uploads the profile based on all state that's written to disk, except we'll use the provided
    * profile name instead. This is useful when you want to ensure that the profile has been uploaded
    * successfully before persisting the change to disk.
    */
@@ -283,7 +267,7 @@ public final class ProfileUtil {
 
     ProfileKey                  profileKey     = ProfileKeyUtil.getSelfProfileKey();
     SignalServiceAccountManager accountManager = ApplicationDependencies.getSignalServiceAccountManager();
-    String                      avatarPath     = accountManager.setVersionedProfile(Recipient.self().getUuid().get(),
+    String                      avatarPath     = accountManager.setVersionedProfile(Recipient.self().requireAci(),
                                                                                     profileKey,
                                                                                     profileName.serialize(),
                                                                                     about,
@@ -291,7 +275,7 @@ public final class ProfileUtil {
                                                                                     Optional.fromNullable(paymentsAddress),
                                                                                     avatar,
                                                                                     badgeIds).orNull();
-
+    SignalStore.registrationValues().markHasUploadedProfile();
     DatabaseFactory.getRecipientDatabase(context).setProfileAvatar(Recipient.self().getId(), avatarPath);
   }
 
@@ -320,8 +304,8 @@ public final class ProfileUtil {
 
   private static @NonNull SignalServiceAddress toSignalServiceAddress(@NonNull Context context, @NonNull Recipient recipient) throws IOException {
     if (recipient.getRegistered() == RecipientDatabase.RegisteredState.NOT_REGISTERED) {
-      if (recipient.hasUuid()) {
-        return new SignalServiceAddress(recipient.requireUuid(), recipient.getE164().orNull());
+      if (recipient.hasAci()) {
+        return new SignalServiceAddress(recipient.requireAci(), recipient.getE164().orNull());
       } else {
         throw new IOException(recipient.getId() + " not registered!");
       }

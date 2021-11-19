@@ -2,6 +2,7 @@ package org.thoughtcrime.securesms.util;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -121,12 +122,33 @@ public final class SpanUtil {
     return imageSpan;
   }
 
+  public static CharSequence buildCenteredImageSpan(@NonNull Drawable drawable) {
+    SpannableString imageSpan = new SpannableString(" ");
+    imageSpan.setSpan(new CenteredImageSpan(drawable), 0, imageSpan.length(), 0);
+    return imageSpan;
+  }
+
   public static CharSequence learnMore(@NonNull Context context,
                                        @ColorInt int color,
                                        @NonNull View.OnClickListener onLearnMoreClicked)
   {
     String learnMore = context.getString(R.string.LearnMoreTextView_learn_more);
     return clickSubstring(learnMore, learnMore, onLearnMoreClicked, color);
+  }
+
+  public static CharSequence readMore(@NonNull Context context,
+                                      @ColorInt int color,
+                                      @NonNull View.OnClickListener onLearnMoreClicked)
+  {
+    String readMore = context.getString(R.string.SpanUtil__read_more);
+    return clickSubstring(readMore, readMore, onLearnMoreClicked, color);
+  }
+
+  public static CharSequence clickable(@NonNull CharSequence text,
+                                       @ColorInt int color,
+                                       @NonNull View.OnClickListener onLearnMoreClicked)
+  {
+    return clickSubstring(text, text, onLearnMoreClicked, color);
   }
 
   /**

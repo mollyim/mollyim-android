@@ -30,7 +30,7 @@ import org.thoughtcrime.securesms.preferences.widgets.PassphraseLockTriggerPrefe
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.service.UpdateApkRefreshListener;
 import org.whispersystems.libsignal.util.Medium;
-import org.whispersystems.signalservice.api.util.UuidUtil;
+import org.whispersystems.signalservice.api.push.ACI;
 
 import java.io.IOException;
 import java.security.SecureRandom;
@@ -63,7 +63,7 @@ public class TextSecurePreferences {
   private static final String ENTER_SENDS_PREF                 = "pref_enter_sends";
   private static final String ENTER_PRESENT_PREF               = "pref_enter_key";
   private static final String LOCAL_NUMBER_PREF                = "pref_local_number";
-  private static final String LOCAL_UUID_PREF                  = "pref_local_uuid";
+  private static final String LOCAL_ACI_PREF                   = "pref_local_uuid";
   private static final String LOCAL_USERNAME_PREF              = "pref_local_username";
   public  static final String REGISTERED_GCM_PREF              = "pref_gcm_registered";
   private static final String GCM_PASSWORD_PREF                = "pref_gcm_password";
@@ -788,12 +788,12 @@ public class TextSecurePreferences {
     setStringPreference(context, LOCAL_NUMBER_PREF, localNumber);
   }
 
-  public static UUID getLocalUuid(Context context) {
-    return UuidUtil.parseOrNull(getStringPreference(context, LOCAL_UUID_PREF, null));
+  public static ACI getLocalAci(Context context) {
+    return ACI.parseOrNull(getStringPreference(context, LOCAL_ACI_PREF, null));
   }
 
-  public static void setLocalUuid(Context context, UUID uuid) {
-    setStringPreference(context, LOCAL_UUID_PREF, uuid.toString());
+  public static void setLocalAci(Context context, ACI aci) {
+    setStringPreference(context, LOCAL_ACI_PREF, aci.toString());
   }
 
   public static String getPushServerPassword(Context context) {

@@ -1,7 +1,9 @@
 package org.signal.core.util.concurrent
 
 import android.os.Handler
+import org.signal.core.util.ExceptionUtil
 import org.signal.core.util.logging.Log
+import java.util.concurrent.ExecutorService
 
 /**
  * A class that polls active threads at a set interval and logs when multiple threads are BLOCKED.
@@ -25,29 +27,42 @@ class DeadlockDetector(private val handler: Handler, private val pollingInterval
 
   private fun poll() {
     val threads: Map<Thread, Array<StackTraceElement>> = Thread.getAllStackTraces()
-    val blocked: Map<Thread, Array<StackTraceElement>> = threads.filter { entry ->
-      val thread: Thread = entry.key
-      val stack: Array<StackTraceElement> = entry.value
+    val blocked: Map<Thread, Array<StackTraceElement>> = threads
+      .filter { entry ->
+        val thread: Thread = entry.key
+        val stack: Array<StackTraceElement> = entry.value
 
-      thread.state == Thread.State.BLOCKED || (thread.state == Thread.State.WAITING && stack.any { it.methodName.startsWith("lock") })
-    }
+        thread.state == Thread.State.BLOCKED || (thread.state == Thread.State.WAITING && stack.any { it.methodName.startsWith("lock") })
+      }
+      .filter { entry -> !BLOCK_BLACKLIST.contains(entry.key.name) }
+
     val blockedIds: Set<Long> = blocked.keys.map(Thread::getId).toSet()
+    val stillBlocked: Set<Long> = blockedIds.intersect(previouslyBlocked)
 
     if (blocked.size > 1) {
       Log.w(TAG, buildLogString("Found multiple blocked threads! Possible deadlock.", blocked))
-    } else {
-      val stillBlocked: Set<Long> = blockedIds.intersect(previouslyBlocked)
+    } else if (stillBlocked.isNotEmpty()) {
+      val stillBlockedMap: Map<Thread, Array<StackTraceElement>> = stillBlocked
+        .map { blockedId ->
+          val key: Thread = blocked.keys.first { it.id == blockedId }
+          val value: Array<StackTraceElement> = blocked[key]!!
+          Pair(key, value)
+        }
+        .toMap()
 
-      if (stillBlocked.isNotEmpty()) {
-        val stillBlockedMap: Map<Thread, Array<StackTraceElement>> = stillBlocked
-          .map { blockedId ->
-            val key: Thread = blocked.keys.first { it.id == blockedId }
-            val value: Array<StackTraceElement> = blocked[key]!!
-            Pair(key, value)
-          }
+      Log.w(TAG, buildLogString("Found a long block! Blocked for at least $pollingInterval ms.", stillBlockedMap))
+    }
+
+    val fullExecutors: List<ExecutorInfo> = CHECK_FULLNESS_EXECUTORS.filter { isExecutorFull(it.executor) }
+
+    if (fullExecutors.isNotEmpty()) {
+      fullExecutors.forEach { executorInfo ->
+        val fullMap: Map<Thread, Array<StackTraceElement>> = threads
+          .filter { it.key.name.startsWith(executorInfo.namePrefix) }
           .toMap()
 
-        Log.w(TAG, buildLogString("Found a long block! Blocked for at least $pollingInterval ms.", stillBlockedMap))
+        val executor: TracingExecutorService = executorInfo.executor as TracingExecutorService
+        Log.w(TAG, buildLogString("Found a full executor! ${executor.activeCount}/${executor.maximumPoolSize} threads active with ${executor.queue.size} tasks queued.", fullMap))
       }
     }
 
@@ -59,8 +74,22 @@ class DeadlockDetector(private val handler: Handler, private val pollingInterval
     }
   }
 
+  private data class ExecutorInfo(
+    val executor: ExecutorService,
+    val namePrefix: String
+  )
+
   companion object {
     private val TAG = Log.tag(DeadlockDetector::class.java)
+
+    private val CHECK_FULLNESS_EXECUTORS: Set<ExecutorInfo> = setOf(
+      ExecutorInfo(SignalExecutors.BOUNDED, "signal-bounded-"),
+      ExecutorInfo(SignalExecutors.BOUNDED_IO, "signal-io-bounded")
+    )
+
+    private const val CONCERNING_QUEUE_THRESHOLD = 4
+
+    private val BLOCK_BLACKLIST = setOf("HeapTaskDaemon")
 
     private fun buildLogString(description: String, blocked: Map<Thread, Array<StackTraceElement>>): String {
       val stringBuilder = StringBuilder()
@@ -69,7 +98,15 @@ class DeadlockDetector(private val handler: Handler, private val pollingInterval
       for (entry in blocked) {
         stringBuilder.append("-- [${entry.key.id}] ${entry.key.name} | ${entry.key.state}\n")
 
-        for (element in entry.value) {
+
+        val callerThrowable: Throwable? = TracedThreads.callerStackTraces[entry.key.id]
+        val stackTrace: Array<StackTraceElement> = if (callerThrowable != null) {
+          ExceptionUtil.joinStackTrace(entry.value, callerThrowable.stackTrace)
+        } else {
+          entry.value
+        }
+
+        for (element in stackTrace) {
           stringBuilder.append("$element\n")
         }
 
@@ -77,6 +114,14 @@ class DeadlockDetector(private val handler: Handler, private val pollingInterval
       }
 
       return stringBuilder.toString()
+    }
+
+    private fun isExecutorFull(executor: ExecutorService): Boolean {
+      return if (executor is TracingExecutorService) {
+        executor.queue.size > CONCERNING_QUEUE_THRESHOLD
+      } else {
+        false
+      }
     }
   }
 }

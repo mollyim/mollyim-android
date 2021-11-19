@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 
 import org.signal.core.util.concurrent.DeadlockDetector;
 import org.signal.core.util.concurrent.SignalExecutors;
+import org.signal.zkgroup.receipts.ClientZkReceiptOperations;
 import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.components.TypingStatusRepository;
 import org.thoughtcrime.securesms.components.TypingStatusSender;
@@ -72,13 +73,13 @@ import org.whispersystems.signalservice.api.SignalServiceMessageSender;
 import org.whispersystems.signalservice.api.SignalWebSocket;
 import org.whispersystems.signalservice.api.groupsv2.ClientZkOperations;
 import org.whispersystems.signalservice.api.groupsv2.GroupsV2Operations;
+import org.whispersystems.signalservice.api.push.ACI;
 import org.whispersystems.signalservice.api.util.CredentialsProvider;
 import org.whispersystems.signalservice.api.util.SleepTimer;
 import org.whispersystems.signalservice.api.util.UptimeSleepTimer;
 import org.whispersystems.signalservice.api.websocket.WebSocketFactory;
 import org.whispersystems.signalservice.internal.websocket.WebSocketConnection;
 
-import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -120,7 +121,7 @@ public class ApplicationDependencyProvider implements ApplicationDependencies.Pr
                                             signalWebSocket,
                                             Optional.of(new SecurityEventListener(context)),
                                             provideClientZkOperations().getProfileOperations(),
-                                            SignalExecutors.newCachedBoundedExecutor("signal-messages", 1, 16),
+                                            SignalExecutors.newCachedBoundedExecutor("signal-messages", 1, 16, 30),
                                             ByteUnit.KILOBYTES.toBytes(512),
                                             FeatureFlags.okHttpAutomaticRetry());
   }
@@ -318,6 +319,11 @@ public class ApplicationDependencyProvider implements ApplicationDependencies.Pr
     return new DeadlockDetector(new Handler(handlerThread.getLooper()), TimeUnit.SECONDS.toMillis(5));
   }
 
+  @Override
+  public @NonNull ClientZkReceiptOperations provideClientZkReceiptOperations() {
+    return provideClientZkOperations().getReceiptOperations();
+  }
+
   private @NonNull WebSocketFactory provideWebSocketFactory(@NonNull SignalWebSocketHealthMonitor healthMonitor) {
     return new WebSocketFactory() {
       @Override
@@ -349,8 +355,8 @@ public class ApplicationDependencyProvider implements ApplicationDependencies.Pr
     }
 
     @Override
-    public UUID getUuid() {
-      return TextSecurePreferences.getLocalUuid(context);
+    public ACI getAci() {
+      return TextSecurePreferences.getLocalAci(context);
     }
 
     @Override

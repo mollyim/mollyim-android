@@ -59,7 +59,7 @@ public class JobManager implements ConstraintObserver.Notifier {
   public JobManager(@NonNull Application application, @NonNull Configuration configuration) {
     this.application   = application;
     this.configuration = configuration;
-    this.executor      = new FilteredExecutor(configuration.getExecutorFactory().newSingleThreadExecutor("signal-JobManager"), ThreadUtil::isMainThread);
+    this.executor      = ThreadUtil.trace(new FilteredExecutor(configuration.getExecutorFactory().newSingleThreadExecutor("signal-JobManager"), ThreadUtil::isMainThread));
     this.jobTracker    = configuration.getJobTracker();
     this.jobController = new JobController(application,
                                            configuration.getJobStorage(),
@@ -152,6 +152,14 @@ public class JobManager implements ConstraintObserver.Notifier {
    */
   public void removeListener(@NonNull JobTracker.JobListener listener) {
     jobTracker.removeListener(listener);
+  }
+
+  /**
+   * Returns the state of the first Job that matches the provided filter. Note that there will always be races here, and the result you get back may not be
+   * valid anymore by the time you get it. Use with caution.
+   */
+  public @Nullable JobTracker.JobState getFirstMatchingJobState(@NonNull JobTracker.JobFilter filter) {
+    return jobTracker.getFirstMatchingJobState(filter);
   }
 
   /**
@@ -492,6 +500,14 @@ public class JobManager implements ConstraintObserver.Notifier {
 
     public void enqueue() {
       jobManager.enqueueChain(this);
+    }
+
+    public void enqueue(@NonNull JobTracker.JobListener listener) {
+      List<Job> lastChain          = jobs.get(jobs.size() - 1);
+      Job       lastJobInLastChain = lastChain.get(lastChain.size() - 1);
+
+      jobManager.addListener(lastJobInLastChain.getId(), listener);
+      enqueue();
     }
 
     private List<List<Job>> getJobListChain() {

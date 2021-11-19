@@ -19,7 +19,7 @@ import org.thoughtcrime.securesms.util.MappingViewHolder
 import org.thoughtcrime.securesms.util.ThemeUtil
 import java.security.MessageDigest
 
-typealias OnBadgeClicked = (Badge, Boolean) -> Unit
+typealias OnBadgeClicked = (Badge, Boolean, Boolean) -> Unit
 
 /**
  * A Badge that can be collected and displayed by a user.
@@ -36,7 +36,8 @@ data class Badge(
   val visible: Boolean,
 ) : Parcelable, Key {
 
-  fun isExpired(): Boolean = expirationTimestamp < System.currentTimeMillis()
+  fun isExpired(): Boolean = expirationTimestamp < System.currentTimeMillis() && expirationTimestamp > 0
+  fun isBoost(): Boolean = id == BOOST_BADGE_ID
 
   override fun updateDiskCacheKey(messageDigest: MessageDigest) {
     messageDigest.update(id.toByteArray(Key.CHARSET))
@@ -70,14 +71,18 @@ data class Badge(
 
   class Model(
     val badge: Badge,
-    val isSelected: Boolean = false
+    val isSelected: Boolean = false,
+    val isFaded: Boolean = false
   ) : PreferenceModel<Model>() {
     override fun areItemsTheSame(newItem: Model): Boolean {
       return newItem.badge.id == badge.id
     }
 
     override fun areContentsTheSame(newItem: Model): Boolean {
-      return super.areContentsTheSame(newItem) && badge == newItem.badge && isSelected == newItem.isSelected
+      return super.areContentsTheSame(newItem) &&
+        badge == newItem.badge &&
+        isSelected == newItem.isSelected &&
+        isFaded == newItem.isFaded
     }
 
     override fun getChangePayload(newItem: Model): Any? {
@@ -103,7 +108,7 @@ data class Badge(
 
     override fun bind(model: Model) {
       itemView.setOnClickListener {
-        onBadgeClicked(model.badge, model.isSelected)
+        onBadgeClicked(model.badge, model.isSelected, model.isFaded)
       }
 
       checkAnimator?.cancel()
@@ -117,14 +122,14 @@ data class Badge(
         return
       }
 
-      badge.alpha = if (model.badge.isExpired()) 0.5f else 1f
+      badge.alpha = if (model.badge.isExpired() || model.isFaded) 0.5f else 1f
 
       GlideApp.with(badge)
         .load(model.badge)
         .downsample(DownsampleStrategy.NONE)
         .diskCacheStrategy(DiskCacheStrategy.NONE)
         .transform(
-          BadgeSpriteTransformation(BadgeSpriteTransformation.Size.XLARGE, model.badge.imageDensity, ThemeUtil.isDarkTheme(context)),
+          BadgeSpriteTransformation(BadgeSpriteTransformation.Size.BADGE_64, model.badge.imageDensity, ThemeUtil.isDarkTheme(context)),
         )
         .into(badge)
 
@@ -155,33 +160,13 @@ data class Badge(
   }
 
   companion object {
+    const val BOOST_BADGE_ID = "BOOST"
+
     private val SELECTION_CHANGED = Any()
 
     fun register(mappingAdapter: MappingAdapter, onBadgeClicked: OnBadgeClicked) {
       mappingAdapter.registerFactory(Model::class.java, MappingAdapter.LayoutFactory({ ViewHolder(it, onBadgeClicked) }, R.layout.badge_preference_view))
       mappingAdapter.registerFactory(EmptyModel::class.java, MappingAdapter.LayoutFactory({ EmptyViewHolder(it) }, R.layout.badge_preference_view))
-    }
-  }
-
-  @Parcelize
-  data class ImageSet(
-    val ldpi: String,
-    val mdpi: String,
-    val hdpi: String,
-    val xhdpi: String,
-    val xxhdpi: String,
-    val xxxhdpi: String
-  ) : Parcelable {
-    fun getByDensity(density: String): String {
-      return when (density) {
-        "ldpi" -> ldpi
-        "mdpi" -> mdpi
-        "hdpi" -> hdpi
-        "xhdpi" -> xhdpi
-        "xxhdpi" -> xxhdpi
-        "xxxhdpi" -> xxxhdpi
-        else -> xhdpi
-      }
     }
   }
 }

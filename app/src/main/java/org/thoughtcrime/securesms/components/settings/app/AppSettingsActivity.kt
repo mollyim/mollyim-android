@@ -84,10 +84,6 @@ class AppSettingsActivity : DSLSettingsActivity() {
   }
 
   companion object {
-
-    private const val FETCH_SUBSCRIPTION_TOKEN_REQUEST_CODE = 1000
-    private const val FETCH_BOOST_TOKEN_REQUEST_CODE = 2000
-
     @JvmStatic
     fun home(context: Context): Intent = getIntentForStartLocation(context, StartLocation.HOME)
 
@@ -123,6 +119,8 @@ class AppSettingsActivity : DSLSettingsActivity() {
     PROXY(3),
     NOTIFICATIONS(4),
     CHANGE_NUMBER(5);
+    // SUBSCRIPTIONS(6),
+    // MANAGE_SUBSCRIPTIONS(7);
 
     companion object {
       fun fromCode(code: Int?): StartLocation {

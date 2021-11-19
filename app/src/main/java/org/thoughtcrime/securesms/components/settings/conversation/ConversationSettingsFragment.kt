@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
@@ -31,6 +32,7 @@ import org.thoughtcrime.securesms.MuteDialog
 import org.thoughtcrime.securesms.PushContactSelectionActivity
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.VerifyIdentityActivity
+import org.thoughtcrime.securesms.badges.BadgeImageView
 import org.thoughtcrime.securesms.badges.Badges
 import org.thoughtcrime.securesms.badges.Badges.displayBadges
 import org.thoughtcrime.securesms.badges.models.Badge
@@ -140,7 +142,9 @@ class ConversationSettingsFragment : DSLSettingsFragment(
   private lateinit var callback: Callback
 
   private lateinit var toolbar: Toolbar
+  private lateinit var toolbarAvatarContainer: FrameLayout
   private lateinit var toolbarAvatar: AvatarImageView
+  private lateinit var toolbarBadge: BadgeImageView
   private lateinit var toolbarTitle: TextView
   private lateinit var toolbarBackground: View
 
@@ -154,7 +158,9 @@ class ConversationSettingsFragment : DSLSettingsFragment(
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     toolbar = view.findViewById(R.id.toolbar)
+    toolbarAvatarContainer = view.findViewById(R.id.toolbar_avatar_container)
     toolbarAvatar = view.findViewById(R.id.toolbar_avatar)
+    toolbarBadge = view.findViewById(R.id.toolbar_badge)
     toolbarTitle = view.findViewById(R.id.toolbar_title)
     toolbarBackground = view.findViewById(R.id.toolbar_background)
 
@@ -178,7 +184,7 @@ class ConversationSettingsFragment : DSLSettingsFragment(
   }
 
   override fun getOnScrollAnimationHelper(toolbarShadow: View): OnScrollAnimationHelper {
-    return ConversationSettingsOnUserScrolledAnimationHelper(toolbarAvatar, toolbarTitle, toolbarBackground, toolbarShadow)
+    return ConversationSettingsOnUserScrolledAnimationHelper(toolbarAvatarContainer, toolbarTitle, toolbarBackground, toolbarShadow)
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -208,7 +214,7 @@ class ConversationSettingsFragment : DSLSettingsFragment(
 
     val recipientId = args.recipientId
     if (recipientId != null) {
-      Badge.register(adapter) { _, _ ->
+      Badge.register(adapter) { _, _, _ ->
       }
     }
 
@@ -500,6 +506,12 @@ class ConversationSettingsFragment : DSLSettingsFragment(
           sectionHeaderPref(R.string.ManageProfileFragment_badges)
 
           displayBadges(requireContext(), state.recipient.badges)
+
+          textPref(
+            summary = DSLSettingsText.from(
+              R.string.ConversationSettingsFragment__get_badges
+            )
+          )
         }
 
         if (recipientSettingsState.selfHasGroups) {

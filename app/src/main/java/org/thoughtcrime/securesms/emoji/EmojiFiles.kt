@@ -6,7 +6,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.ObjectMapper
 import okio.HashingSink
-import okio.Okio
+import okio.blackholeSink
+import okio.buffer
+import okio.source
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.crypto.AttachmentSecretProvider
 import org.thoughtcrime.securesms.crypto.ModernDecryptingPartInputStream
@@ -95,11 +97,11 @@ object EmojiFiles {
     val file = version.getFile(context, uuid)
 
     try {
-      HashingSink.md5(Okio.blackhole()).use { hashingSink ->
-        Okio.buffer(Okio.source(getInputStream(context, file))).use { source ->
+      HashingSink.md5(blackholeSink()).use { hashingSink ->
+        getInputStream(context, file).source().buffer().use { source ->
           source.readAll(hashingSink)
 
-          return hashingSink.hash().toByteArray()
+          return hashingSink.hash.toByteArray()
         }
       }
     } catch (e: Exception) {

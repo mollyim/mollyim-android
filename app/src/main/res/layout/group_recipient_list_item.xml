@@ -19,6 +19,17 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/avatars" />
 
+    <org.thoughtcrime.securesms.badges.BadgeImageView
+        android:id="@+id/recipient_badge"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="22dp"
+        android:contentDescription="@string/ImageView__badge"
+        app:badge_size="medium"
+        app:layout_constraintStart_toStartOf="@id/recipient_avatar"
+        app:layout_constraintTop_toTopOf="@id/recipient_avatar" />
+
     <androidx.appcompat.widget.AppCompatCheckBox
         android:id="@+id/recipient_selected"
         android:layout_width="22dp"
@@ -27,6 +38,7 @@
         android:button="@null"
         android:clickable="false"
         android:focusable="false"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/recipient_avatar"
         app:layout_constraintEnd_toEndOf="@+id/recipient_avatar"
         tools:checked="true" />
@@ -78,12 +90,12 @@
         android:textAppearance="@style/TextAppearance.Signal.Body2"
         android:textColor="@color/signal_text_secondary"
         android:visibility="gone"
-        app:layout_goneMarginEnd="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/popupMenuProgressContainer"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toEndOf="@+id/recipient_name"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_goneMarginEnd="0dp"
         tools:visibility="visible" />
 
     <FrameLayout

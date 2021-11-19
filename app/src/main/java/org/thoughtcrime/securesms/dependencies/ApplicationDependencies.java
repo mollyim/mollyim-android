@@ -6,6 +6,7 @@ import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 
 import org.signal.core.util.concurrent.DeadlockDetector;
+import org.signal.zkgroup.receipts.ClientZkReceiptOperations;
 import org.thoughtcrime.securesms.ApplicationContext;
 import org.thoughtcrime.securesms.KbsEnclave;
 import org.thoughtcrime.securesms.components.TypingStatusRepository;
@@ -111,6 +112,7 @@ public class ApplicationDependencies {
   private static volatile SimpleExoPlayerPool          exoPlayerPool;
   private static volatile AudioManagerCompat           audioManagerCompat;
   private static volatile DeadlockDetector             deadlockDetector;
+  private static volatile ClientZkReceiptOperations    clientZkReceiptOperations;
 
   @MainThread
   public static void init(@NonNull Provider provider) {
@@ -618,6 +620,17 @@ public class ApplicationDependencies {
     return audioManagerCompat;
   }
 
+  public static @NonNull ClientZkReceiptOperations getClientZkReceiptOperations() {
+    if (clientZkReceiptOperations == null) {
+      synchronized (LOCK) {
+        if (clientZkReceiptOperations == null) {
+          clientZkReceiptOperations = getProvider().provideClientZkReceiptOperations();
+        }
+      }
+    }
+    return clientZkReceiptOperations;
+  }
+
   public static @NonNull DeadlockDetector getDeadlockDetector() {
     if (deadlockDetector == null) {
       synchronized (LOCK) {
@@ -666,5 +679,6 @@ public class ApplicationDependencies {
     @NonNull SimpleExoPlayerPool provideExoPlayerPool();
     @NonNull AudioManagerCompat provideAndroidCallAudioManager();
     @NonNull DeadlockDetector provideDeadlockDetector();
+    @NonNull ClientZkReceiptOperations provideClientZkReceiptOperations();
   }
 }

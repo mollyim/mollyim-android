@@ -185,9 +185,6 @@
   <string name="ConversationItem_this_message_was_deleted">Ez az üzenet ki lett törölve.</string>
   <string name="ConversationItem_you_deleted_this_message">Általad törölt üzenet.</string>
   <!--ConversationActivity-->
-  <string name="ConversationActivity_reset_secure_session_question">Újraindítod a biztonsági munkamenetet?</string>
-  <string name="ConversationActivity_this_may_help_if_youre_having_encryption_problems">Ez akkor segíthet, ha titkosítással kapcsolatos problémák léptek fel ebben a beszélgetésben. Az üzeneteid meg lesznek tartva.</string>
-  <string name="ConversationActivity_reset">Alaphelyzetbe állítás</string>
   <string name="ConversationActivity_add_attachment">Melléklet csatolása</string>
   <string name="ConversationActivity_select_contact_info">Válassz kontakt infót</string>
   <string name="ConversationActivity_compose_message">Üzenetírás</string>
@@ -319,6 +316,24 @@
   <plurals name="ConversationListFragment_moved_conversations_to_inbox">
     <item quantity="one">Beszélgetés áthelyezve a bejövőbe</item>
     <item quantity="other">%d db beszélgetés áthelyezve a bejövő üzenetek közé</item>
+  </plurals>
+  <plurals name="ConversationListFragment_read_plural">
+    <item quantity="one">Olvasott</item>
+    <item quantity="other">Olvasott</item>
+  </plurals>
+  <plurals name="ConversationListFragment_unread_plural">
+    <item quantity="one">Olvasatlan</item>
+    <item quantity="other">Olvasatlan</item>
+  </plurals>
+  <string name="ConversationListFragment_select">Kiválasztás</string>
+  <plurals name="ConversationListFragment_delete_plural">
+    <item quantity="one">Törlés</item>
+    <item quantity="other">Törlés</item>
+  </plurals>
+  <string name="ConversationListFragment_select_all">Összes kiválasztása</string>
+  <plurals name="ConversationListFragment_s_selected">
+    <item quantity="one">%d kiválasztva</item>
+    <item quantity="other">%d kiválasztva</item>
   </plurals>
   <!--ConversationListItem-->
   <string name="ConversationListItem_key_exchange_message">Kulcs-csere üzenet</string>
@@ -800,13 +815,14 @@
   <string name="MediaOverviewActivity_Grid_view_description">Rácsos nézet</string>
   <string name="MediaOverviewActivity_List_view_description">Listanézet</string>
   <string name="MediaOverviewActivity_Selected_description">Kiválasztott</string>
-  <plurals name="MediaOverviewActivity_d_items_s">
-    <item quantity="one">%1$d db elem %2$s</item>
-    <item quantity="other">%1$d db elem %2$s</item>
+  <string name="MediaOverviewActivity_select_all">Összes kiválasztása</string>
+  <plurals name="MediaOverviewActivity_save_plural">
+    <item quantity="one">Mentés</item>
+    <item quantity="other">Mentés</item>
   </plurals>
-  <plurals name="MediaOverviewActivity_d_items">
-    <item quantity="one">%1$d db elem</item>
-    <item quantity="other">%1$d db elem</item>
+  <plurals name="MediaOverviewActivity_delete_plural">
+    <item quantity="one">Törlés</item>
+    <item quantity="other">Törlés</item>
   </plurals>
   <string name="MediaOverviewActivity_file">Fájl</string>
   <string name="MediaOverviewActivity_audio">Hang</string>
@@ -1340,6 +1356,8 @@ szám (%s) érvénytelen.
   <string name="SharedContactView_add_to_contacts">Hozzáadás a névjegyzékhez</string>
   <string name="SharedContactView_invite_to_signal">Meghívás a Molly-ba</string>
   <string name="SharedContactView_message">Signal üzenet</string>
+  <!--SignalBottomActionBar-->
+  <string name="SignalBottomActionBar_more">Továbbiak</string>
   <!--SignalPinReminders-->
   <string name="SignalPinReminders_well_remind_you_again_later">Később újra emlékeztetünk.</string>
   <string name="SignalPinReminders_well_remind_you_again_tomorrow">Holnap újra emlékeztetni fogunk.</string>
@@ -1886,15 +1904,6 @@ Kulcs-csere üzenet érkezett érvénytelen protokoll verzióhoz.
   <string name="HelpFragment__debug_log">Hibakeresési napló:</string>
   <string name="HelpFragment__could_not_upload_logs">Nem sikerült feltölteni a naplót</string>
   <string name="HelpFragment__please_be_as_descriptive_as_possible">Hogy megérthessük a problémát, fogalmazz olyan pontosan, amennyire csak lehetséges!</string>
-  <string-array name="HelpFragment__categories">
-    <item>-- válassz a lehetőségek közül --</item>
-    <item>Valami nem működik</item>
-    <item>Funkció kérés</item>
-    <item>Kérdés</item>
-    <item>Visszajelzés</item>
-    <item>Egyéb</item>
-    <item>Fizetések</item>
-  </string-array>
   <!--ReactWithAnyEmojiBottomSheetDialogFragment-->
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__this_message">Jelenlegi üzenet</string>
   <string name="ReactWithAnyEmojiBottomSheetDialogFragment__recently_used">Nemrég használt</string>
@@ -1991,6 +2000,7 @@ Kulcs-csere üzenet érkezett érvénytelen protokoll verzióhoz.
   <string name="preferences__help">Súgó</string>
   <string name="preferences__advanced">Haladó</string>
   <string name="preferences__donate_to_signal">Adomány a Molly számára</string>
+  <string name="preferences__subscription">Előfizetés</string>
   <string name="preferences__privacy">Adatvédelem</string>
   <string name="preferences__mms_user_agent">MMS User Agent</string>
   <string name="preferences__advanced_mms_access_point_names">Manuális MMS beállítások</string>
@@ -3019,6 +3029,8 @@ Kulcs-csere üzenet érkezett érvénytelen protokoll verzióhoz.
   <string name="HelpFragment__copyright_signal_messenger">Copyright Molly Messenger</string>
   <string name="HelpFragment__licenced_under_the_gplv3">Szoftverlicenc: GPLv3 </string>
   <!--DataAndStorageSettingsFragment-->
+  <string name="DataAndStorageSettingsFragment__media_quality">Média minőség</string>
+  <string name="DataAndStorageSettingsFragment__sent_media_quality">Elküldött média minősége</string>
   <string name="DataAndStorageSettingsFragment__sending_high_quality_media_will_use_more_data">A nagyfelbontású média nagyobb adathasználatot igényel.</string>
   <string name="DataAndStorageSettingsFragment__high">Magas</string>
   <string name="DataAndStorageSettingsFragment__standard">Normál</string>
@@ -3220,12 +3232,21 @@ Kulcs-csere üzenet érkezett érvénytelen protokoll verzióhoz.
   <string name="SelectFeaturedBadgeFragment__failed_to_update_profile">Nem sikerült a profil frissítése</string>
   <string name="ImageView__badge">Jelvény</string>
   <string name="SubscribeFragment__signal_is_powered_by_people_like_you">A Signalt hozzád hasonló emberek működtetik.</string>
-  <string name="SubscribeFragment__donation_amount">Adomány összege</string>
+  <!-- Removed by excludeNonTranslatables <string name="SubscribeFragment__donation_amount">Adomány összege</string> -->
+  <string name="SubscribeFragment__more_payment_options">További fizetési lehetőség</string>
   <string name="SubscribeFragment__not_now">Később</string>
   <string name="SubscribeFragment__confirm">Megerősítés</string>
+  <string name="SubscribeFragment__update">Frissítés</string>
+  <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__thanks_for_your_support">Köszönjük a támogatásodat!</string>
   <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__done">Befejezés</string>
+  <string name="ManageDonationsFragment__manage_subscription">Előfizetés kezelése</string>
   <string name="ManageDonationsFragment__badges">Jelvények</string>
+  <string name="ManageDonationsFragment__subscription_faq">Előfizetés GYIK</string>
   <string name="Boost__enter_custom_amount">Egyedi összeg</string>
+  <!-- Removed by excludeNonTranslatables <string name="ExpiredBadgeBottomSheetDialogFragment__become_a_subscriber">Legyél előfizető</string> -->
   <string name="ExpiredBadgeBottomSheetDialogFragment__not_now">Később</string>
+  <string name="Subscription__contact_support">Kapcsolatfelvétel a támogatással</string>
+  <string name="SubscribeFragment__processing_payment">Fizetés feldolgozása…</string>
+  <string name="DonationsErrors__payment_failed">Fizetés sikertelen</string>
   <!--EOF-->
 </resources>

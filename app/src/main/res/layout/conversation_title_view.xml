@@ -35,12 +35,10 @@
             android:layout_height="16dp"
             android:layout_alignStart="@id/contact_photo_image"
             android:layout_alignTop="@id/contact_photo_image"
-            android:layout_marginStart="22dp"
-            android:layout_marginTop="22dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="23dp"
             android:contentDescription="@string/ImageView__badge"
-            android:visibility="gone"
-            app:badge_size="small"
-            tools:visibility="visible" />
+            app:badge_size="small" />
     </RelativeLayout>
 
     <LinearLayout

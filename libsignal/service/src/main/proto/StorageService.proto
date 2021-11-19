@@ -148,4 +148,7 @@ message AccountRecord {
            bool                   primarySendsSms        = 18;
            string                 e164                   = 19;
   repeated string                 preferredReactionEmoji = 20;
+           bytes                  subscriberId           = 21;
+           string                 subscriberCurrencyCode = 22;
+           bool                   displayBadgesOnProfile = 23;
 }

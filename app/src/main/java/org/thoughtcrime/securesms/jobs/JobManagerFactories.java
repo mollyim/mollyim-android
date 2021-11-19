@@ -175,7 +175,7 @@ public final class JobManagerFactories {
       put(RegistrationPinV2MigrationJob.KEY,         new RegistrationPinV2MigrationJob.Factory());
       put(StickerAdditionMigrationJob.KEY,           new StickerAdditionMigrationJob.Factory());
       put(StickerDayByDayMigrationJob.KEY,           new StickerDayByDayMigrationJob.Factory());
-      put(StickerMyDailyLifeMigrationJob.KEY, new StickerMyDailyLifeMigrationJob.Factory());
+      put(StickerMyDailyLifeMigrationJob.KEY,        new StickerMyDailyLifeMigrationJob.Factory());
       put(StorageCapabilityMigrationJob.KEY,         new StorageCapabilityMigrationJob.Factory());
       put(StorageServiceMigrationJob.KEY,            new StorageServiceMigrationJob.Factory());
       put(TrimByLengthSettingsMigrationJob.KEY,      new TrimByLengthSettingsMigrationJob.Factory());
@@ -184,11 +184,18 @@ public final class JobManagerFactories {
       // Dead jobs
       put(FailingJob.KEY,                            new FailingJob.Factory());
       put(PassingMigrationJob.KEY,                   new PassingMigrationJob.Factory());
-      put("MmsReceiveJob",                           new FailingJob.Factory());
-      put("MmsSendJobV2",                            new FailingJob.Factory());
-      put("SmsReceiveJob",                           new FailingJob.Factory());
-      put("SmsSendJob",                              new FailingJob.Factory());
-      put("SmsSentJob",                              new FailingJob.Factory());
+
+      // MOLLY: Removed jobs
+      put("MmsReceiveJob",                               new FailingJob.Factory());
+      put("MmsSendJobV2",                                new FailingJob.Factory());
+      put("SmsReceiveJob",                               new FailingJob.Factory());
+      put("SmsSendJob",                                  new FailingJob.Factory());
+      put("SmsSentJob",                                  new FailingJob.Factory());
+      put("SubscriptionKeepAliveJob",                    new FailingJob.Factory());
+      put("SubscriptionReceiptCredentialsSubmissionJob", new FailingJob.Factory());
+      put("BoostReceiptCredentialsSubmissionJob",        new FailingJob.Factory());
+      put("DonationReceiptRedemptionJob",                new FailingJob.Factory());
+
       put("PushContentReceiveJob",                   new FailingJob.Factory());
       put("AttachmentUploadJob",                     new FailingJob.Factory());
       put("MmsSendJob",                              new FailingJob.Factory());
