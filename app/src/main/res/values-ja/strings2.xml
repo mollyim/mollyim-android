@@ -43,7 +43,7 @@
     <string name="preferences__map_satellite">サテライト</string>
     <string name="preferences__map_hybrid">ハイブリッド</string>
     <string name="preferences__map_normal">ノーマル</string>
-    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">定期的に新しいリリースをチェックし、インストールを依頼する</string>
+    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">定期的に新しいリリースをチェックし、インストールを要求する。</string>
     <string name="preferences__autoupdate_molly">自動更新 Molly</string>
     <string name="preferences__enable_debug_log">デバッグログの有効化</string>
     <string name="preferences__passphrase_changed">パスフレーズが変更</string>
@@ -55,4 +55,24 @@
     <string name="arrays__none">なし</string>
     <string name="arrays__on_inactivity_timeout">端末のロックを解除せずに一定時間が経過すると</string>
     <string name="BlockUnblockDialog_block_and_delete">ブロックして削除</string>
+    <string name="preferences_network__connecting">接続中…</string>
+    <string name="PrivacySettingsFragment_data_at_rest">静止画データ</string>
+    <string name="preferences__block_unknown">ブロック不明</string>
+    <string name="preferences__block_users_youve_never_been_in_contact_with_and_who_are_not_saved_in_your_contacts">一度も連絡を取ったことのないユーザーや、連絡先として保存されていないユーザーをブロックする。</string>
+    <string name="preferences_network__online">オンライン</string>
+    <string name="DeviceAddFragment__set_up_without_scanning">スキャンしないでセットアップ</string>
+    <string name="arrays__weekly">毎週</string>
+    <string name="Megaphones_automatic_check_for_updates">アップデートの自動チェック</string>
+    <string name="BackupsPreferenceFragment__schedule">スケジュール</string>
+    <string name="BackupsPreferenceFragment__change_schedule">スケジュールを変更</string>
+    <string name="arrays__daily">毎日</string>
+    <string name="BackupsPreferenceFragment__number_of_backups_to_retain">保持するバックアップの数</string>
+    <string name="MessageRetrievalService_ready_to_receive_messages">メッセージ受信の準備完了</string>
+    <string name="HelpSettingsFragment__molly_im_website">Molly.imのウェブサイト</string>
+    <string name="WipeMemoryService_clearing_unencrypted_data_from_ram">RAMから暗号化されていないデータを削除中</string>
+    <string name="preferences_network__check_connection">接続の確認</string>
+    <string name="DonateMegaphone_molly_is_free_software">Mollyはフリーソフトウェアです</string>
+    <string name="DonateMegaphone_we_maintain_molly_with_your_support_consider_donating_at_open_collective">皆さんのご支援でMollyを維持することができています！Open Collectiveでの寄付をご検討ください。</string>
+    <string name="enter_device_link_dialog__if_your_phone_cant_scan_the_qr_code_you_can_manually_enter_the_link_encoded_in_the_qr_code">お使いの携帯電話でQRコードを読み取れない場合は、QRコードにエンコードされたリンクを手動で入力することができます。</string>
+    <string name="HelpSettingsFragment_disable_and_delete_debug_log">デバッグログを削除し無効化しますか？</string>
 </resources>
