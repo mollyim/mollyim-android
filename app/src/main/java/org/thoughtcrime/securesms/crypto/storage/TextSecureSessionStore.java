@@ -173,8 +173,4 @@ public class TextSecureSessionStore implements SignalServiceSessionStore {
            record.hasSenderChain() &&
            record.getSessionVersion() == CiphertextMessage.CURRENT_VERSION;
   }
-
-  private static boolean isValidRegistrationId(int registrationId) {
-    return (registrationId & 0x3fff) == registrationId;
-  }
 }

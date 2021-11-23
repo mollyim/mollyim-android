@@ -333,27 +333,6 @@ private static final String[] GROUP_PROJECTION = {
     }
   }
 
-  public GroupId.Mms getOrCreateMmsGroupForMembers(List<RecipientId> members) {
-    Collections.sort(members);
-
-    Cursor cursor = databaseHelper.getSignalReadableDatabase().query(TABLE_NAME, new String[] { GROUP_ID},
-                                                               MEMBERS + " = ? AND " + MMS + " = ?",
-                                                                     new String[] {RecipientId.toSerializedList(members), "1"},
-                                                                     null, null, null);
-    try {
-      if (cursor != null && cursor.moveToNext()) {
-        return GroupId.parseOrThrow(cursor.getString(cursor.getColumnIndexOrThrow(GROUP_ID)))
-                      .requireMms();
-      } else {
-        GroupId.Mms groupId = GroupId.createMms(new SecureRandom());
-        create(groupId, null, members);
-        return groupId;
-      }
-    } finally {
-      if (cursor != null) cursor.close();
-    }
-  }
-
   @WorkerThread
   public List<String> getPushGroupNamesContainingMember(@NonNull RecipientId recipientId) {
     return Stream.of(getPushGroupsContainingMember(recipientId))
