@@ -417,11 +417,6 @@
   <string name="DeviceListItem_today">Hari ini</string>
   <!--DocumentView-->
   <string name="DocumentView_unnamed_file">Fail tidak dinamakan</string>
-  <!--DonateMegaphone-->
-  <string name="DonateMegaphone_donate_to_signal">Sumbang kepada Signal</string>
-  <string name="DonateMegaphone_Signal_is_powered_by_people_like_you_show_your_support_today">Signal dihebatkan oleh pengguna seperti anda. Tunjukkan sokongan anda hari ini!</string>
-  <string name="DonateMegaphone_donate">Derma</string>
-  <string name="DonateMegaphone_no_thanks">Tidak Terima Kasih</string>
   <!--GroupCallingMegaphone-->
   <string name="GroupCallingMegaphone__introducing_group_calls">Memperkenalkan Panggilan Berkumpulan</string>
   <string name="GroupCallingMegaphone__open_a_new_group_to_start">Buka Kumpulan Baharu untuk memulakan panggilan kumpulan disulitkan percuma</string>
@@ -757,6 +752,7 @@
   <string name="InviteActivity_no_app_to_share_to">Nampaknya anda tidak mempunyai sebarang aplikasi untuk dikongsi.</string>
   <!--LearnMoreTextView-->
   <string name="LearnMoreTextView_learn_more">Ketahui lebih lanjut</string>
+  <string name="SpanUtil__read_more">Baca lagi</string>
   <!--LongMessageActivity-->
   <string name="LongMessageActivity_unable_to_find_message">Mesej tidak dapat mencari</string>
   <string name="LongMessageActivity_message_from_s">Mesej daripada %1$s</string>
@@ -2299,7 +2295,6 @@ Menerima mesej pertukaran kunci untuk versi protokol yang tidak sah.</string>
   <string name="Insights__title">Wawasan</string>
   <string name="InsightsDashboardFragment__title">Wawasan</string>
   <string name="InsightsDashboardFragment__signal_protocol_automatically_protected">Signal Protocol telah melindungi %1$d%% daripada mesej keluar anda secara automatik selama %2$d hari yang lepas. Perbualan antara pengguna Signal selalu disulitkan dari hujung ke hujung.</string>
-  <string name="InsightsDashboardFragment__boost_your_signal">Tingkatkan Signal</string>
   <string name="InsightsDashboardFragment__not_enough_data">Data tidak mencukupi</string>
   <string name="InsightsDashboardFragment__your_insights_percentage_is_calculated_based_on">Peratusan Insights anda dikira berdasarkan mesej keluar selama %1$d hari yang lalu yang belum hilang atau dipadamkan.</string>
   <string name="InsightsDashboardFragment__start_a_conversation">Mulakan perbualan</string>
@@ -3020,6 +3015,8 @@ Menerima mesej pertukaran kunci untuk versi protokol yang tidak sah.</string>
   <string name="AddAProfilePhotoMegaphone__choose_a_look_and_color">Pilih rupa dan warna atau sesuaikan parap anda.</string>
   <string name="AddAProfilePhotoMegaphone__not_now">Bukan sekarang</string>
   <string name="AddAProfilePhotoMegaphone__add_photo">Tambah foto</string>
+  <!--BecomeASustainerMegaphone-->
+  <string name="BecomeASustainerMegaphone__no_thanks">Tidak, terima kasih</string>
   <!--KeyboardPagerFragment-->
   <string name="KeyboardPagerFragment_emoji">Emoji</string>
   <string name="KeyboardPagerFragment_open_emoji_search">Buka carian emoji</string>
@@ -3185,7 +3182,6 @@ Menerima mesej pertukaran kunci untuk versi protokol yang tidak sah.</string>
   <string name="ImageView__badge">Lencana</string>
   <string name="SubscribeFragment__signal_is_powered_by_people_like_you">Signal dikuasakan oleh orang seperti anda.</string>
   <string name="SubscribeFragment__support_technology_that_is_built_for_you">Teknologi sokongan yang dibina untuk anda—bukan untuk data anda—dengan menyertai komuniti orang yang mengekalkannya.</string>
-  <!-- Removed by excludeNonTranslatables <string name="SubscribeFragment__donation_amount">Jumlah derma</string> -->
   <string name="SubscribeFragment__more_payment_options">Lebih Banyak Pilihan Pembayaran</string>
   <string name="SubscribeFragment__cancel_subscription">Batal Langganan</string>
   <string name="SubscribeFragment__confirm_cancellation">Sahkan Pembatalan?</string>
@@ -3202,11 +3198,8 @@ Menerima mesej pertukaran kunci untuk versi protokol yang tidak sah.</string>
   <string name="Subscription__s_per_month_dot_expires_s">%1$s/bulan · Luput pada %2$s</string>
   <string name="SubscribeLearnMoreBottomSheetDialogFragment__signal_is_a_non_profit_with_no">Signal ialah organisasi bukan untung tanpa pengiklan atau pelabur, hanya dikekalkan oleh orang yang menggunakannya dan menghargainya. Buat sumbangan bulanan berulang dan terima lencana profil untuk berkongsi sokongan anda.</string>
   <string name="SubscribeLearnMoreBottomSheetDialogFragment__why_contribute">Mengapa Menyumbang?</string>
-  <!-- Removed by excludeNonTranslatables <string name="SubscribeLearnMoreBottomSheetDialogFragment__the_team_at_signal_is_committed">Pasukan di Signal komited terhadap misi membangunkan teknologi privasi sumber terbuka yang melindungi kebebasan bersuara dan membolehkan komunikasi global yang selamat. Sumbangan anda menyemarakkan tujuan ini. Tiada iklan. Tiada penjejak. Bukan main-main.</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="SubscribeLearnMoreBottomSheetDialogFragment__your_contribution_helps_pay">Sumbangan anda membantu membayar untuk pembangunan, pelayan dan lebar jalur aplikasi yang digunakan oleh jutaan orang di seluruh dunia untuk komunikasi peribadi dan serta-merta.</string> -->
   <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__thanks_for_your_support">Terima kasih atas Sokongan anda!</string>
   <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__thanks_for_the_boost">Terima kasih untuk Boost!</string>
-  <!-- Removed by excludeNonTranslatables <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__youve_earned_a_s_badge">Anda telah memperoleh lencana %s. Dengan mempamerkan lencana, anda akan menunjukkan kepada rakan sembang anda bahawa anda menyokong Signal.</string> -->
   <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__display_on_profile">Pamerkan di Profil</string>
   <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__make_featured_badge">Buat lencana untuk ditampilkan</string>
   <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__done">Selesai</string>
@@ -3222,23 +3215,20 @@ Menerima mesej pertukaran kunci untuk versi protokol yang tidak sah.</string>
   <string name="MySupportPreference__add_a_signal_boost">Tambah Signal Boost</string>
   <string name="MySupportPreference__s_per_month">%1$s/bulan</string>
   <string name="MySupportPreference__renews_s">Memperbaharui %1$s</string>
+  <!--Displayed on "My Support" screen when user badge failed to be added to their account-->
   <string name="ExpiredBadgeBottomSheetDialogFragment__your_badge_has_expired">Lencana anda telah luput</string>
-  <!-- Removed by excludeNonTranslatables <string name="ExpiredBadgeBottomSheetDialogFragment__your_s_badge_has_expired">Lencana %1$s anda telah luput, dan tidak lagi dipamerkan kepada orang lain di profil anda.</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="ExpiredBadgeBottomSheetDialogFragment__to_continue_supporting">Untuk terus menyokong teknologi yang dibina untuk anda—bukan untuk data anda—sila pertimbangkan untuk menjadi pelanggan bulanan.</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="ExpiredBadgeBottomSheetDialogFragment__become_a_subscriber">Jadi pelanggan</string> -->
   <string name="ExpiredBadgeBottomSheetDialogFragment__not_now">Bukan sekarang</string>
-  <string name="Subscription__verification_failed">Pengesahan Langganan Gagal</string>
   <string name="Subscription__please_contact_support_for_more_information">Sila hubungi bantuan untuk maklumat lebih lanjut</string>
   <string name="Subscription__contact_support">Hubungi Sokongan</string>
   <string name="Subscription__earn_a_s_badge">Dapatkan lencana %1$s</string>
   <string name="SubscribeFragment__processing_payment">Memproses pembayaran…</string>
-  <string name="DonationsErrors__payment_failed">Pembayaran telah gagal</string>
+  <!--Displayed in notification when user payment fails to process on Stripe-->
+  <!--Displayed on "My Support" screen when user subscription payment method failed.-->
   <string name="DonationsErrors__your_payment">Pembayaran anda tidak dapat diproses dan anda belum dicaj. Sila cuba lagi.</string>
-  <!-- Removed by excludeNonTranslatables <string name="DonationsErrors__redemption_still_pending">Penebusan masih belum selesai</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="DonationsErrors__you_might_not_see_your_badge_right_away">Anda mungkin tidak melihat lencana anda serta-merta, tetapi kami sedang menyiapkannya!</string> -->
   <string name="DonationsErrors__google_pay_unavailable">Google Pay Tidak Tersedia</string>
   <string name="DonationsErrors__you_have_to_set_up_google_pay_to_donate_in_app">Anda perlu memasang Google Pay untuk menderma dalam aplikasi.</string>
   <string name="DonationsErrors__failed_to_cancel_subscription">Gagal membatalkan langganan</string>
   <string name="DonationsErrors__subscription_cancellation_requires_an_internet_connection">Pembatalan langganan memerlukan sambungan internet.</string>
+  <string name="NetworkFailure__retry">Cuba Semula</string>
   <!--EOF-->
 </resources>

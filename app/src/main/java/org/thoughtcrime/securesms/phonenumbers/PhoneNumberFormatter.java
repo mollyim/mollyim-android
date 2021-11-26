@@ -14,10 +14,10 @@ import com.google.i18n.phonenumbers.ShortNumberInfo;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.groups.GroupId;
+import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.service.KeyCachingService;
 import org.thoughtcrime.securesms.util.SetUtil;
 import org.thoughtcrime.securesms.util.StringUtil;
-import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.Util;
 import org.whispersystems.libsignal.util.Pair;
 import org.whispersystems.libsignal.util.guava.Optional;
@@ -52,12 +52,12 @@ public class PhoneNumberFormatter {
     String localNumber;
 
     if (!KeyCachingService.isLocked()) {
-      localNumber = TextSecurePreferences.getLocalNumber(context);
+      localNumber = SignalStore.account().getE164();
     } else {
       localNumber = "";
     }
 
-    if (!TextUtils.isEmpty(localNumber)) {
+    if (!Util.isEmpty(localNumber)) {
       Pair<String, PhoneNumberFormatter> cached = cachedFormatter.get();
 
       if (cached != null && cached.first().equals(localNumber)) return cached.second();

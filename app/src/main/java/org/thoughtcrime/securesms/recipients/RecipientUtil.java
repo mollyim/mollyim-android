@@ -10,9 +10,9 @@ import com.annimon.stream.Stream;
 
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.contacts.sync.DirectoryHelper;
-import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.database.GroupDatabase;
 import org.thoughtcrime.securesms.database.RecipientDatabase.RegisteredState;
+import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.database.ThreadDatabase;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.groups.GroupChangeBusyException;
@@ -158,11 +158,11 @@ public class RecipientUtil {
       GroupManager.leaveGroupFromBlockOrMessageRequest(context, recipient.getGroupId().get().requirePush());
     }
 
-    DatabaseFactory.getRecipientDatabase(context).setBlocked(recipient.getId(), true);
+    SignalDatabase.recipients().setBlocked(recipient.getId(), true);
 
     if (recipient.isSystemContact() || recipient.isProfileSharing() || isProfileSharedViaGroup(context, recipient)) {
       ApplicationDependencies.getJobManager().add(new RotateProfileKeyJob());
-      DatabaseFactory.getRecipientDatabase(context).setProfileSharing(recipient.getId(), false);
+      SignalDatabase.recipients().setProfileSharing(recipient.getId(), false);
     }
 
     ApplicationDependencies.getJobManager().add(new MultiDeviceBlockedUpdateJob());
@@ -175,8 +175,8 @@ public class RecipientUtil {
       throw new AssertionError("Recipient is not blockable!");
     }
 
-    DatabaseFactory.getRecipientDatabase(context).setBlocked(recipient.getId(), false);
-    DatabaseFactory.getRecipientDatabase(context).setProfileSharing(recipient.getId(), true);
+    SignalDatabase.recipients().setBlocked(recipient.getId(), false);
+    SignalDatabase.recipients().setProfileSharing(recipient.getId(), true);
     ApplicationDependencies.getJobManager().add(new MultiDeviceBlockedUpdateJob());
     StorageSyncHelper.scheduleSyncForDataChange();
 
@@ -189,18 +189,18 @@ public class RecipientUtil {
   public static void delete(@NonNull Context context, @NonNull Recipient recipient) {
     Recipient resolved = recipient.resolve();
 
-    ThreadDatabase threadDatabase = DatabaseFactory.getThreadDatabase(context);
+    ThreadDatabase threadDatabase = SignalDatabase.threads();
     long existingThread = threadDatabase.getThreadIdIfExistsFor(resolved.getId());
     if (existingThread > -1) {
       threadDatabase.deleteConversation(existingThread);
       ApplicationDependencies.getMessageNotifier().updateNotification(context);
     }
 
-    if (recipient.isSystemContact()) {
-      DatabaseFactory.getContactsDatabase(context).lookupAndDeleteContact(recipient.getContactUri());
+    if (recipient.isSystemContact() && recipient.getContactUri() != null) {
+      SignalDatabase.contacts().lookupAndDeleteContact(recipient.getContactUri());
     }
 
-    DatabaseFactory.getRecipientDatabase(context).clearFieldsForDeletion(resolved.getId());
+    SignalDatabase.recipients().clearFieldsForDeletion(resolved.getId());
     NotificationChannels.deleteChannelFor(context, resolved);
 
     if (!resolved.isBlocked()) {
@@ -225,7 +225,7 @@ public class RecipientUtil {
       return true;
     }
 
-    ThreadDatabase threadDatabase  = DatabaseFactory.getThreadDatabase(context);
+    ThreadDatabase threadDatabase  = SignalDatabase.threads();
     Recipient      threadRecipient = threadDatabase.getRecipientForThreadId(threadId);
 
     if (threadRecipient == null) {
@@ -244,7 +244,7 @@ public class RecipientUtil {
       return true;
     }
 
-    Long threadId = DatabaseFactory.getThreadDatabase(context).getThreadIdFor(threadRecipient.getId());
+    Long threadId = SignalDatabase.threads().getThreadIdFor(threadRecipient.getId());
     return isMessageRequestAccepted(context, threadId, threadRecipient);
   }
 
@@ -258,7 +258,7 @@ public class RecipientUtil {
       return true;
     }
 
-    Long threadId = DatabaseFactory.getThreadDatabase(context).getThreadIdFor(threadRecipient.getId());
+    Long threadId = SignalDatabase.threads().getThreadIdFor(threadRecipient.getId());
     return isCallRequestAccepted(context, threadId, threadRecipient);
   }
 
@@ -268,7 +268,7 @@ public class RecipientUtil {
   @WorkerThread
   public static boolean isPreMessageRequestThread(@NonNull Context context, @Nullable Long threadId) {
     long beforeTime = SignalStore.misc().getMessageRequestEnableTime();
-    return threadId != null && DatabaseFactory.getMmsSmsDatabase(context).getConversationCount(threadId, beforeTime) > 0;
+    return threadId != null && SignalDatabase.mmsSms().getConversationCount(threadId, beforeTime) > 0;
   }
 
   @WorkerThread
@@ -277,16 +277,16 @@ public class RecipientUtil {
       return;
     }
 
-    long threadId = DatabaseFactory.getThreadDatabase(context).getThreadIdIfExistsFor(recipient.getId());
+    long threadId = SignalDatabase.threads().getThreadIdIfExistsFor(recipient.getId());
 
     if (isPreMessageRequestThread(context, threadId)) {
       return;
     }
 
-    boolean firstMessage = DatabaseFactory.getMmsSmsDatabase(context).getOutgoingSecureConversationCount(threadId) == 0;
+    boolean firstMessage = SignalDatabase.mmsSms().getOutgoingSecureConversationCount(threadId) == 0;
 
     if (firstMessage) {
-      DatabaseFactory.getRecipientDatabase(context).setProfileSharing(recipient.getId(), true);
+      SignalDatabase.recipients().setProfileSharing(recipient.getId(), true);
     }
   }
 
@@ -309,7 +309,7 @@ public class RecipientUtil {
     if (recipient.isProfileSharing()) {
       return true;
     } else {
-      GroupDatabase groupDatabase = DatabaseFactory.getGroupDatabase(context);
+      GroupDatabase groupDatabase = SignalDatabase.groups();
       return groupDatabase.getPushGroupsContainingMember(recipient.getId())
                           .stream()
                           .anyMatch(GroupDatabase.GroupRecord::isV2Group);
@@ -328,10 +328,10 @@ public class RecipientUtil {
       return false;
     }
 
-    if (threadId == -1 || !DatabaseFactory.getMmsSmsDatabase(context).hasMeaningfulMessage(threadId)) {
-      DatabaseFactory.getRecipientDatabase(context).setExpireMessages(recipient.getId(), defaultTimer);
+    if (threadId == -1 || !SignalDatabase.mmsSms().hasMeaningfulMessage(threadId)) {
+      SignalDatabase.recipients().setExpireMessages(recipient.getId(), defaultTimer);
       OutgoingExpirationUpdateMessage outgoingMessage = new OutgoingExpirationUpdateMessage(recipient, System.currentTimeMillis(), defaultTimer * 1000L);
-      MessageSender.send(context, outgoingMessage, DatabaseFactory.getThreadDatabase(context).getOrCreateThreadIdFor(recipient), false, null, null);
+      MessageSender.send(context, outgoingMessage, SignalDatabase.threads().getOrCreateThreadIdFor(recipient), false, null, null);
       return true;
     }
     return false;
@@ -360,7 +360,7 @@ public class RecipientUtil {
 
   @WorkerThread
   public static boolean hasSentMessageInThread(@NonNull Context context, @Nullable Long threadId) {
-    return threadId != null && DatabaseFactory.getMmsSmsDatabase(context).getOutgoingSecureConversationCount(threadId) != 0;
+    return threadId != null && SignalDatabase.mmsSms().getOutgoingSecureConversationCount(threadId) != 0;
   }
 
   @WorkerThread
@@ -369,13 +369,13 @@ public class RecipientUtil {
       return true;
     }
 
-    return DatabaseFactory.getMmsSmsDatabase(context).getSecureConversationCount(threadId) == 0 &&
-           !DatabaseFactory.getThreadDatabase(context).hasReceivedAnyCallsSince(threadId, 0);
+    return SignalDatabase.mmsSms().getSecureConversationCount(threadId) == 0 &&
+           !SignalDatabase.threads().hasReceivedAnyCallsSince(threadId, 0);
   }
 
   @WorkerThread
   private static boolean isProfileSharedViaGroup(@NonNull Context context, @NonNull Recipient recipient) {
-    return Stream.of(DatabaseFactory.getGroupDatabase(context).getPushGroupsContainingMember(recipient.getId()))
+    return Stream.of(SignalDatabase.groups().getPushGroupsContainingMember(recipient.getId()))
                  .anyMatch(group -> Recipient.resolved(group.getRecipientId()).isProfileSharing());
   }
 }

@@ -12,8 +12,8 @@ import org.thoughtcrime.securesms.backup.BackupFileIOError;
 import org.thoughtcrime.securesms.backup.BackupPassphrase;
 import org.thoughtcrime.securesms.backup.FullBackupExporter;
 import org.thoughtcrime.securesms.crypto.AttachmentSecretProvider;
-import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.database.NoExternalStorageException;
+import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.jobmanager.Data;
 import org.thoughtcrime.securesms.jobmanager.Job;
@@ -114,7 +114,7 @@ public final class LocalBackupJob extends BaseJob {
       try {
         FullBackupExporter.export(context,
                                   AttachmentSecretProvider.getInstance(context).getOrCreateAttachmentSecret(),
-                                  DatabaseFactory.getBackupDatabase(context),
+                                  SignalDatabase.getBackupDatabase(),
                                   tempFile,
                                   backupPassword,
                                   this::isCanceled);

@@ -14,13 +14,13 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 
 import org.thoughtcrime.securesms.BuildConfig;
+import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.emoji.EmojiFiles;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.service.KeyCachingService;
 import org.thoughtcrime.securesms.util.AppSignatureUtil;
 import org.thoughtcrime.securesms.util.ByteUnit;
-import org.thoughtcrime.securesms.util.CensorshipUtil;
 import org.thoughtcrime.securesms.util.DeviceProperties;
 import org.thoughtcrime.securesms.util.ScreenDensity;
 import org.thoughtcrime.securesms.util.ServiceUtil;
@@ -32,7 +32,6 @@ import org.whispersystems.signalservice.api.push.ACI;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Locale;
-import java.util.UUID;
 
 public class LogSectionSystemInfo implements LogSection {
 
@@ -66,9 +65,9 @@ public class LogSectionSystemInfo implements LogSection {
     builder.append("OS Host       : ").append(Build.HOST).append("\n");
     builder.append("RecipientId   : ").append(locked ? "Unknown" : SignalStore.registrationValues().isRegistrationComplete() ? Recipient.self().getId() : "N/A").append("\n");
     builder.append("ACI           : ").append(locked ? "Unknown" : getCensoredAci(context)).append("\n");
-    builder.append("Censored      : ").append(locked ? "Unknown" : CensorshipUtil.isCensored(context)).append("\n");
+    builder.append("Censored      : ").append(locked ? "Unknown" : ApplicationDependencies.getSignalServiceNetworkAccess().isCensored()).append("\n");
     builder.append("Play Services : ").append(getPlayServicesString(context)).append("\n");
-    builder.append("FCM           : ").append(locked ? "Unknown" : !TextSecurePreferences.isFcmDisabled(context)).append("\n");
+    builder.append("FCM           : ").append(locked ? "Unknown" : SignalStore.account().isFcmEnabled()).append("\n");
     builder.append("BkgRestricted : ").append(Build.VERSION.SDK_INT >= 28 ? DeviceProperties.isBackgroundRestricted(context) : "N/A").append("\n");
     builder.append("Locale        : ").append(Locale.getDefault().toString()).append("\n");
     builder.append("Linked Devices: ").append(locked ? "Unknown" : !TextSecurePreferences.isMultiDevice(context)).append("\n");
@@ -168,7 +167,7 @@ public class LogSectionSystemInfo implements LogSection {
   }
 
   private static String getCensoredAci(@NonNull Context context) {
-    ACI aci = TextSecurePreferences.getLocalAci(context);
+    ACI aci = SignalStore.account().getAci();
 
     if (aci != null) {
       String aciString = aci.toString();

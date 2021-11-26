@@ -52,6 +52,7 @@ import org.whispersystems.signalservice.api.profiles.ProfileAndCredential;
 import org.whispersystems.signalservice.api.profiles.SignalServiceProfile;
 import org.whispersystems.signalservice.api.profiles.SignalServiceProfileWrite;
 import org.whispersystems.signalservice.api.push.ACI;
+import org.whispersystems.signalservice.api.push.AccountIdentifier;
 import org.whispersystems.signalservice.api.push.ContactTokenDetails;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
 import org.whispersystems.signalservice.api.push.SignedPreKeyEntity;
@@ -85,7 +86,6 @@ import org.whispersystems.signalservice.api.subscriptions.SubscriptionClientSecr
 import org.whispersystems.signalservice.api.subscriptions.SubscriptionLevels;
 import org.whispersystems.signalservice.api.util.CredentialsProvider;
 import org.whispersystems.signalservice.api.util.Tls12SocketFactory;
-import org.whispersystems.signalservice.api.util.UuidUtil;
 import org.whispersystems.signalservice.internal.configuration.SignalCdnUrl;
 import org.whispersystems.signalservice.internal.configuration.SignalServiceConfiguration;
 import org.whispersystems.signalservice.internal.configuration.SignalUrl;
@@ -177,20 +177,21 @@ public class PushServiceSocket {
 
   private static final String TAG = PushServiceSocket.class.getSimpleName();
 
-  private static final String CREATE_ACCOUNT_SMS_PATH   = "/v1/accounts/sms/code/%s?client=%s";
-  private static final String CREATE_ACCOUNT_VOICE_PATH = "/v1/accounts/voice/code/%s";
-  private static final String VERIFY_ACCOUNT_CODE_PATH  = "/v1/accounts/code/%s";
-  private static final String REGISTER_GCM_PATH         = "/v1/accounts/gcm/";
-  private static final String TURN_SERVER_INFO          = "/v1/accounts/turn";
-  private static final String SET_ACCOUNT_ATTRIBUTES    = "/v1/accounts/attributes/";
-  private static final String PIN_PATH                  = "/v1/accounts/pin/";
-  private static final String REGISTRATION_LOCK_PATH    = "/v1/accounts/registration_lock";
-  private static final String REQUEST_PUSH_CHALLENGE    = "/v1/accounts/fcm/preauth/%s/%s";
-  private static final String WHO_AM_I                  = "/v1/accounts/whoami";
-  private static final String SET_USERNAME_PATH         = "/v1/accounts/username/%s";
-  private static final String DELETE_USERNAME_PATH      = "/v1/accounts/username";
-  private static final String DELETE_ACCOUNT_PATH       = "/v1/accounts/me";
-  private static final String CHANGE_NUMBER_PATH        = "/v1/accounts/number";
+  private static final String CREATE_ACCOUNT_SMS_PATH    = "/v1/accounts/sms/code/%s?client=%s";
+  private static final String CREATE_ACCOUNT_VOICE_PATH  = "/v1/accounts/voice/code/%s";
+  private static final String VERIFY_ACCOUNT_CODE_PATH   = "/v1/accounts/code/%s";
+  private static final String REGISTER_GCM_PATH          = "/v1/accounts/gcm/";
+  private static final String TURN_SERVER_INFO           = "/v1/accounts/turn";
+  private static final String SET_ACCOUNT_ATTRIBUTES     = "/v1/accounts/attributes/";
+  private static final String PIN_PATH                   = "/v1/accounts/pin/";
+  private static final String REGISTRATION_LOCK_PATH     = "/v1/accounts/registration_lock";
+  private static final String REQUEST_PUSH_CHALLENGE     = "/v1/accounts/fcm/preauth/%s/%s";
+  private static final String WHO_AM_I                   = "/v1/accounts/whoami";
+  private static final String SET_USERNAME_PATH          = "/v1/accounts/username/%s";
+  private static final String DELETE_USERNAME_PATH       = "/v1/accounts/username";
+  private static final String DELETE_ACCOUNT_PATH        = "/v1/accounts/me";
+  private static final String CHANGE_NUMBER_PATH         = "/v1/accounts/number";
+  private static final String IDENTIFIER_REGISTERED_PATH = "/v1/accounts/account/%s";
 
   private static final String PREKEY_METADATA_PATH      = "/v2/keys/";
   private static final String PREKEY_PATH               = "/v2/keys/%s";
@@ -256,6 +257,8 @@ public class PushServiceSocket {
   private static final String CREATE_BOOST_PAYMENT_INTENT         = "/v1/subscription/boost/create";
   private static final String BOOST_RECEIPT_CREDENTIALS           = "/v1/subscription/boost/receipt_credentials";
   private static final String BOOST_BADGES                        = "/v1/subscription/boost/badges";
+
+  private static final String CDSH_AUTH = "/v2/directory/auth";
 
   private static final String REPORT_SPAM = "/v1/messages/report/%s/%s";
 
@@ -329,7 +332,7 @@ public class PushServiceSocket {
   public ACI getOwnAci() throws IOException {
     String         body     = makeServiceRequest(WHO_AM_I, "GET", null);
     WhoAmIResponse response = JsonUtil.fromJson(body, WhoAmIResponse.class);
-    Optional<ACI>  aci      = ACI.parse(response.getUuid());
+    Optional<ACI>  aci      = ACI.parse(response.getAci());
 
     if (aci.isPresent()) {
       return aci.get();
@@ -340,6 +343,20 @@ public class PushServiceSocket {
 
   public WhoAmIResponse getWhoAmI() throws IOException {
     return JsonUtil.fromJson(makeServiceRequest(WHO_AM_I, "GET", null), WhoAmIResponse.class);
+  }
+
+  public boolean isIdentifierRegistered(AccountIdentifier identifier) throws IOException {
+    try {
+      makeServiceRequestWithoutAuthentication(String.format(IDENTIFIER_REGISTERED_PATH, identifier.toString()), "HEAD", null);
+      return true;
+    } catch (NotFoundException e) {
+      return false;
+    }
+  }
+
+  public CdshAuthResponse getCdshAuth() throws IOException {
+    String body = makeServiceRequest(CDSH_AUTH, "GET", null);
+    return JsonUtil.fromJsonResponse(body, CdshAuthResponse.class);
   }
 
   public VerifyAccountResponse verifyAccountCode(String verificationCode, String signalingKey, int registrationId, boolean fetchesMessages,
@@ -520,22 +537,23 @@ public class PushServiceSocket {
   }
 
   public SignalServiceMessagesResult getMessages() throws IOException {
-    Response response = makeServiceRequest(String.format(MESSAGE_PATH, ""), "GET", (RequestBody) null, NO_HEADERS, NO_HANDLER, Optional.absent());
-    validateServiceResponse(response);
+    try (Response response = makeServiceRequest(String.format(MESSAGE_PATH, ""), "GET", (RequestBody) null, NO_HEADERS, NO_HANDLER, Optional.absent())) {
+      validateServiceResponse(response);
 
-    List<SignalServiceEnvelopeEntity> envelopes = readBodyJson(response.body(), SignalServiceEnvelopeEntityList.class).getMessages();
+      List<SignalServiceEnvelopeEntity> envelopes = readBodyJson(response.body(), SignalServiceEnvelopeEntityList.class).getMessages();
 
-    long serverDeliveredTimestamp = 0;
-    try {
-      String stringValue = response.header(SERVER_DELIVERED_TIMESTAMP_HEADER);
-      stringValue = stringValue != null ? stringValue : "0";
+      long serverDeliveredTimestamp = 0;
+      try {
+        String stringValue = response.header(SERVER_DELIVERED_TIMESTAMP_HEADER);
+        stringValue = stringValue != null ? stringValue : "0";
 
-      serverDeliveredTimestamp = Long.parseLong(stringValue);
-    } catch (NumberFormatException e) {
-      Log.w(TAG, e);
+        serverDeliveredTimestamp = Long.parseLong(stringValue);
+      } catch (NumberFormatException e) {
+        Log.w(TAG, e);
+      }
+
+      return new SignalServiceMessagesResult(envelopes, serverDeliveredTimestamp);
     }
-
-    return new SignalServiceMessagesResult(envelopes, serverDeliveredTimestamp);
   }
 
   public void acknowledgeMessage(String sender, long timestamp) throws IOException {
@@ -1086,7 +1104,7 @@ public class PushServiceSocket {
 
   public Optional<StorageManifest> writeStorageContacts(String authToken, WriteOperation writeOperation) throws IOException {
     try {
-      makeStorageRequest(authToken, "/v1/storage", "PUT", protobufRequestBody(writeOperation));
+      makeAndCloseStorageRequest(authToken, "/v1/storage", "PUT", protobufRequestBody(writeOperation));
       return Optional.absent();
     } catch (ContactManifestMismatchException e) {
       return Optional.of(StorageManifest.parseFrom(e.getResponseBody()));
@@ -1094,7 +1112,7 @@ public class PushServiceSocket {
   }
 
   public void pingStorageService() throws IOException {
-    makeStorageRequest(null, "/ping", "GET", null);
+    makeAndCloseStorageRequest(null, "/ping", "GET", null);
   }
 
   public RemoteConfigResponse getRemoteConfig() throws IOException {
@@ -1615,7 +1633,8 @@ public class PushServiceSocket {
     call.enqueue(new Callback() {
       @Override
       public void onResponse(Call call, Response response) {
-        try (ResponseBody body = validateServiceResponse(response).body()) {
+        try (ResponseBody body = response.body()) {
+          validateServiceResponse(response);
           bodyFuture.set(readBodyString(body));
         } catch (IOException e) {
           bodyFuture.setException(e);
@@ -1664,9 +1683,17 @@ public class PushServiceSocket {
   {
     Response response = getServiceConnection(urlFragment, method, body, headers, unidentifiedAccessKey, doNotAddAuthenticationOrUnidentifiedAccessKey);
 
-    responseCodeHandler.handle(response.code(), response.body());
+    ResponseBody responseBody = response.body();
+    try {
+      responseCodeHandler.handle(response.code(), responseBody);
 
-    return validateServiceResponse(response);
+      return validateServiceResponse(response);
+    } catch (NonSuccessfulResponseCodeException | PushNetworkException | MalformedResponseException e) {
+      if (responseBody != null) {
+        responseBody.close();
+      }
+      throw e;
+    }
   }
 
   private Response validateServiceResponse(Response response)
@@ -1887,6 +1914,21 @@ public class PushServiceSocket {
     throw new NonSuccessfulResponseCodeException(response.code(), "Response: " + response);
   }
 
+  private void makeAndCloseStorageRequest(String authorization, String path, String method, RequestBody body)
+      throws PushNetworkException, NonSuccessfulResponseCodeException
+  {
+    makeAndCloseStorageRequest(authorization, path, method, body, NO_HANDLER);
+  }
+
+  private void makeAndCloseStorageRequest(String authorization, String path, String method, RequestBody body, ResponseCodeHandler responseCodeHandler)
+      throws PushNetworkException, NonSuccessfulResponseCodeException
+  {
+    ResponseBody responseBody = makeStorageRequest(authorization, path, method, body, responseCodeHandler);
+    if (responseBody != null) {
+      responseBody.close();
+    }
+  }
+
   private ResponseBody makeStorageRequest(String authorization, String path, String method, RequestBody body)
       throws PushNetworkException, NonSuccessfulResponseCodeException
   {
@@ -1944,29 +1986,37 @@ public class PushServiceSocket {
       }
     }
 
-    responseCodeHandler.handle(response.code(), response.body());
+    ResponseBody responseBody = response.body();
+    try {
+      responseCodeHandler.handle(response.code(), responseBody);
 
-    switch (response.code()) {
-      case 204:
-        throw new NoContentException("No content!");
-      case 401:
-      case 403:
-        throw new AuthorizationFailedException(response.code(), "Authorization failed!");
-      case 404:
-        throw new NotFoundException("Not found");
-      case 409:
-        if (response.body() != null) {
-          throw new ContactManifestMismatchException(readBodyBytes(response.body()));
-        } else {
-          throw new ConflictException();
-        }
-      case 429:
-        throw new RateLimitException("Rate limit exceeded: " + response.code());
-      case 499:
-        throw new DeprecatedVersionException();
+      switch (response.code()) {
+        case 204:
+          throw new NoContentException("No content!");
+        case 401:
+        case 403:
+          throw new AuthorizationFailedException(response.code(), "Authorization failed!");
+        case 404:
+          throw new NotFoundException("Not found");
+        case 409:
+          if (responseBody != null) {
+            throw new ContactManifestMismatchException(readBodyBytes(responseBody));
+          } else {
+            throw new ConflictException();
+          }
+        case 429:
+          throw new RateLimitException("Rate limit exceeded: " + response.code());
+        case 499:
+          throw new DeprecatedVersionException();
+      }
+
+      throw new NonSuccessfulResponseCodeException(response.code(), "Response: " + response);
+    } catch (NonSuccessfulResponseCodeException | PushNetworkException e) {
+      if (responseBody != null) {
+        responseBody.close();
+      }
+      throw e;
     }
-
-    throw new NonSuccessfulResponseCodeException(response.code(), "Response: " + response);
   }
 
   public CallingResponse makeCallingRequest(long requestId, String url, String httpMethod, List<Pair<String, String>> headers, byte[] body) {
@@ -2299,11 +2349,11 @@ public class PushServiceSocket {
   public void putNewGroupsV2Group(Group group, GroupsV2AuthorizationString authorization)
       throws NonSuccessfulResponseCodeException, PushNetworkException
   {
-      makeStorageRequest(authorization.toString(),
-                         GROUPSV2_GROUP,
-                         "PUT",
-                         protobufRequestBody(group),
-                         GROUPS_V2_PUT_RESPONSE_HANDLER);
+    makeAndCloseStorageRequest(authorization.toString(),
+                               GROUPSV2_GROUP,
+                               "PUT",
+                               protobufRequestBody(group),
+                               GROUPS_V2_PUT_RESPONSE_HANDLER);
   }
 
   public Group getGroupsV2Group(GroupsV2AuthorizationString authorization)
@@ -2364,8 +2414,8 @@ public class PushServiceSocket {
     }
 
     GroupChanges groupChanges;
-    try {
-      groupChanges = GroupChanges.parseFrom(response.body().byteStream());
+    try (InputStream input = response.body().byteStream()) {
+      groupChanges = GroupChanges.parseFrom(input);
     } catch (IOException e) {
       throw new PushNetworkException(e);
     }

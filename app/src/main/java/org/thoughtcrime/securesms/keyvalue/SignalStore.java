@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 import androidx.preference.PreferenceDataStore;
 
+import org.thoughtcrime.securesms.database.KeyValueDatabase;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.util.SignalUncaughtExceptionHandler;
 
@@ -15,9 +16,9 @@ import java.util.List;
  */
 public final class SignalStore {
 
-  private static volatile SignalStore instance;
+  private KeyValueStore store;
 
-  private final KeyValueStore            store;
+  private final AccountValues            accountValues;
   private final KbsValues                kbsValues;
   private final RegistrationValues       registrationValues;
   private final PinValues                pinValues;
@@ -40,8 +41,23 @@ public final class SignalStore {
   private final ChatColorsValues         chatColorsValues;
   private final ImageEditorValues        imageEditorValues;
 
-  private SignalStore() {
-    this.store                    = new KeyValueStore(ApplicationDependencies.getApplication());
+  private static volatile SignalStore instance;
+
+  private static @NonNull SignalStore getInstance() {
+    if (instance == null) {
+      synchronized (SignalStore.class) {
+        if (instance == null) {
+          instance = new SignalStore(new KeyValueStore(KeyValueDatabase.getInstance(ApplicationDependencies.getApplication())));
+        }
+      }
+    }
+
+    return instance;
+  }
+
+  private SignalStore(@NonNull KeyValueStore store) {
+    this.store                    = store;
+    this.accountValues            = new AccountValues(store);
     this.kbsValues                = new KbsValues(store);
     this.registrationValues       = new RegistrationValues(store);
     this.pinValues                = new PinValues(store);
@@ -65,18 +81,8 @@ public final class SignalStore {
     this.imageEditorValues        = new ImageEditorValues(store);
   }
 
-  public static SignalStore getInstance() {
-    if (instance == null) {
-      synchronized (SignalStore.class) {
-        if (instance == null) {
-          instance = new SignalStore();
-        }
-      }
-    }
-    return instance;
-  }
-
   public static void onFirstEverAppLaunch() {
+    account().onFirstEverAppLaunch();
     kbsValues().onFirstEverAppLaunch();
     registrationValues().onFirstEverAppLaunch();
     pinValues().onFirstEverAppLaunch();
@@ -102,6 +108,7 @@ public final class SignalStore {
 
   public static List<String> getKeysToIncludeInBackup() {
     List<String> keys = new ArrayList<>();
+    keys.addAll(account().getKeysToIncludeInBackup());
     keys.addAll(kbsValues().getKeysToIncludeInBackup());
     keys.addAll(registrationValues().getKeysToIncludeInBackup());
     keys.addAll(pinValues().getKeysToIncludeInBackup());
@@ -133,6 +140,10 @@ public final class SignalStore {
   @VisibleForTesting
   public static void resetCache() {
     getInstance().store.resetCache();
+  }
+
+  public static @NonNull AccountValues account() {
+    return getInstance().accountValues;
   }
 
   public static @NonNull KbsValues kbsValues() {
@@ -237,5 +248,13 @@ public final class SignalStore {
 
   private static @NonNull KeyValueStore getStore() {
     return getInstance().store;
+  }
+
+  /**
+   * Allows you to set a custom KeyValueStore to read from. Only for testing!
+   */
+  @VisibleForTesting
+  public static void inject(@NonNull KeyValueStore store) {
+    instance = new SignalStore(store);
   }
 }

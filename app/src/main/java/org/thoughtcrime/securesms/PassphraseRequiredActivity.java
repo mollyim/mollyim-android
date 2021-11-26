@@ -89,7 +89,7 @@ public abstract class PassphraseRequiredActivity extends PassphraseActivity impl
   protected void onResume() {
     super.onResume();
 
-    if (networkAccess != null && networkAccess.isCensored(this)) {
+    if (networkAccess != null && networkAccess.isCensored()) {
       ApplicationDependencies.getJobManager().add(new PushNotificationReceiveJob());
     }
   }

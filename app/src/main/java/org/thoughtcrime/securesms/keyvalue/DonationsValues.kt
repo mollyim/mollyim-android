@@ -1,5 +1,6 @@
 package org.thoughtcrime.securesms.keyvalue
 
+import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.payments.currency.CurrencyUtil
 import org.thoughtcrime.securesms.subscription.Subscriber
 import org.whispersystems.signalservice.api.subscriptions.SubscriberId
@@ -8,12 +9,15 @@ import java.util.Currency
 internal class DonationsValues internal constructor(store: KeyValueStore) : SignalStoreValues(store) {
 
   companion object {
+    private val TAG = Log.tag(DonationsValues::class.java)
+
     private const val KEY_SUBSCRIPTION_CURRENCY_CODE = "donation.currency.code"
     private const val KEY_CURRENCY_CODE_BOOST = "donation.currency.code.boost"
     private const val KEY_SUBSCRIBER_ID_PREFIX = "donation.subscriber.id."
     private const val KEY_LAST_KEEP_ALIVE_LAUNCH = "donation.last.successful.ping"
-    private const val KEY_LAST_END_OF_PERIOD = "donation.last.end.of.period"
+    private const val KEY_LAST_END_OF_PERIOD_SECONDS = "donation.last.end.of.period"
     private const val DISPLAY_BADGES_ON_PROFILE = "donation.display.badges.on.profile"
+    private const val SHOULD_CANCEL_SUBSCRIPTION_BEFORE_NEXT_SUBSCRIBE_ATTEMPT = "donation.should.cancel.subscription.before.next.subscribe.attempt"
   }
 
   override fun onFirstEverAppLaunch() = Unit
@@ -21,7 +25,8 @@ internal class DonationsValues internal constructor(store: KeyValueStore) : Sign
   override fun getKeysToIncludeInBackup(): MutableList<String> = mutableListOf(
     KEY_CURRENCY_CODE_BOOST,
     KEY_LAST_KEEP_ALIVE_LAUNCH,
-    KEY_LAST_END_OF_PERIOD
+    KEY_LAST_END_OF_PERIOD_SECONDS,
+    SHOULD_CANCEL_SUBSCRIPTION_BEFORE_NEXT_SUBSCRIBE_ATTEMPT
   )
 
   private fun getSubscriptionCurrency(): Currency {

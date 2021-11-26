@@ -66,6 +66,12 @@ class AppSettingsActivity : DSLSettingsActivity() {
     }
   }
 
+  override fun onNewIntent(intent: Intent?) {
+    super.onNewIntent(intent)
+    finish()
+    startActivity(intent)
+  }
+
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
     outState.putBoolean(STATE_WAS_CONFIGURATION_UPDATED, wasConfigurationUpdated)
@@ -120,7 +126,8 @@ class AppSettingsActivity : DSLSettingsActivity() {
     NOTIFICATIONS(4),
     CHANGE_NUMBER(5);
     // SUBSCRIPTIONS(6),
-    // MANAGE_SUBSCRIPTIONS(7);
+    // BOOST(7),
+    // MANAGE_SUBSCRIPTIONS(8);
 
     companion object {
       fun fromCode(code: Int?): StartLocation {

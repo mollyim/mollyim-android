@@ -3,9 +3,9 @@ package org.thoughtcrime.securesms.push;
 
 import android.content.Context;
 
-import com.annimon.stream.Stream;
-
 import androidx.annotation.Nullable;
+
+import com.annimon.stream.Stream;
 
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.BuildConfig;
@@ -16,7 +16,6 @@ import org.thoughtcrime.securesms.net.Network;
 import org.thoughtcrime.securesms.net.RemoteDeprecationDetectorInterceptor;
 import org.thoughtcrime.securesms.net.StandardUserAgentInterceptor;
 import org.thoughtcrime.securesms.util.Base64;
-import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.whispersystems.libsignal.util.guava.Optional;
 import org.whispersystems.signalservice.api.push.TrustStore;
 import org.whispersystems.signalservice.internal.configuration.SignalCdnUrl;
@@ -305,8 +304,8 @@ public class SignalServiceNetworkAccess {
     this.censoredCountries = this.censorshipConfiguration.keySet().toArray(new String[0]);
   }
 
-  public SignalServiceConfiguration getConfiguration(Context context) {
-    String localNumber = TextSecurePreferences.getLocalNumber(context);
+  public SignalServiceConfiguration getConfiguration() {
+    String localNumber = SignalStore.account().getE164();
     return getConfiguration(localNumber);
   }
 
@@ -328,8 +327,8 @@ public class SignalServiceNetworkAccess {
     return this.uncensoredConfiguration;
   }
 
-  public boolean isCensored(Context context) {
-    return getConfiguration(context) != this.uncensoredConfiguration;
+  public boolean isCensored() {
+    return getConfiguration() != this.uncensoredConfiguration;
   }
 
   public boolean isCensored(String number) {

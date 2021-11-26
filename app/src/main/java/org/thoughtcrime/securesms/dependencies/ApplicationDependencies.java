@@ -4,6 +4,7 @@ import android.app.Application;
 
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 
 import org.signal.core.util.concurrent.DeadlockDetector;
 import org.signal.zkgroup.receipts.ClientZkReceiptOperations;
@@ -70,7 +71,6 @@ public class ApplicationDependencies {
   private static final Object FRAME_RATE_TRACKER_LOCK = new Object();
   private static final Object JOB_MANAGER_LOCK        = new Object();
 
-  private static Application           application;
   // MOLLY: Rename provider to dependencyProvider
   private static Provider              dependencyProvider;
   private static AppForegroundObserver appForegroundObserver;
@@ -133,6 +133,11 @@ public class ApplicationDependencies {
       throw new IllegalStateException("ApplicationDependencies not initialized yet");
     }
     return dependencyProvider;
+  }
+
+  @VisibleForTesting
+  public static boolean isInitialized() {
+    return ApplicationDependencies.dependencyProvider != null;
   }
 
   public static @NonNull Application getApplication() {

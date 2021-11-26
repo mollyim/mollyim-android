@@ -22,12 +22,12 @@ import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.jobmanager.impl.BackoffUtil;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
 import org.thoughtcrime.securesms.jobs.PushDecryptDrainedJob;
+import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.messages.IncomingMessageProcessor.Processor;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.push.SignalServiceNetworkAccess;
 import org.thoughtcrime.securesms.service.KeyCachingService;
 import org.thoughtcrime.securesms.util.AppForegroundObserver;
-import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.whispersystems.libsignal.util.guava.Optional;
 import org.whispersystems.signalservice.api.SignalWebSocket;
 import org.whispersystems.signalservice.api.messages.SignalServiceEnvelope;
@@ -40,6 +40,11 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * The application-level manager of our websocket connection.
+ *
+ * This class is responsible for opening/closing the websocket based on the app's state and observing new inbound messages received on the websocket.
+ */
 public class IncomingMessageObserver {
 
   private static final String TAG = Log.tag(IncomingMessageObserver.class);
@@ -65,7 +70,7 @@ public class IncomingMessageObserver {
 
     new MessageRetrievalThread().start();
 
-    if (TextSecurePreferences.isFcmDisabled(context)) {
+    if (!SignalStore.account().isFcmEnabled()) {
       ContextCompat.startForegroundService(context, new Intent(context, ForegroundService.class));
     }
 
@@ -115,7 +120,7 @@ public class IncomingMessageObserver {
   }
 
   public boolean isDecryptionDrained() {
-    return decryptionDrained || networkAccess.isCensored(context);
+    return decryptionDrained || networkAccess.isCensored();
   }
 
   public void notifyDecryptionsDrained() {
@@ -149,20 +154,18 @@ public class IncomingMessageObserver {
       return false;
     }
 
-    boolean registered          = TextSecurePreferences.isPushRegistered(context);
-    boolean websocketRegistered = TextSecurePreferences.isWebsocketRegistered(context);
-    boolean isGcmDisabled       = TextSecurePreferences.isFcmDisabled(context);
-    boolean hasNetwork          = NetworkConstraint.isMet(context);
-    boolean hasProxy            = ApplicationDependencies.getNetworkManager().isProxyEnabled();
+    boolean registered = SignalStore.account().isRegistered();
+    boolean fcmEnabled = SignalStore.account().isFcmEnabled();
+    boolean hasNetwork = NetworkConstraint.isMet(context);
+    boolean hasProxy   = ApplicationDependencies.getNetworkManager().isProxyEnabled();
 
-    Log.d(TAG, String.format("Network: %s, Foreground: %s, FCM: %s, Censored: %s, Registered: %s, Websocket Registered: %s, Proxy: %s",
-                             hasNetwork, appVisible, !isGcmDisabled, networkAccess.isCensored(context), registered, websocketRegistered, hasProxy));
+    Log.d(TAG, String.format("Network: %s, Foreground: %s, FCM: %s, Censored: %s, Registered: %s, Proxy: %s",
+                             hasNetwork, appVisible, fcmEnabled, networkAccess.isCensored(), registered, hasProxy));
 
-    return registered                    &&
-           websocketRegistered           &&
-           (appVisible || isGcmDisabled) &&
-           hasNetwork                    &&
-           !networkAccess.isCensored(context);
+    return registered                  &&
+           (appVisible || !fcmEnabled) &&
+           hasNetwork                  &&
+           !networkAccess.isCensored();
   }
 
   private synchronized void waitForConnectionNecessary() {

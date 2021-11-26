@@ -105,8 +105,8 @@ import org.thoughtcrime.securesms.components.voice.VoiceNotePlayerView;
 import org.thoughtcrime.securesms.conversation.ConversationFragment;
 import org.thoughtcrime.securesms.conversationlist.model.Conversation;
 import org.thoughtcrime.securesms.conversationlist.model.UnreadPayments;
-import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.database.MessageDatabase.MarkedMessageInfo;
+import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.database.ThreadDatabase;
 import org.thoughtcrime.securesms.database.model.ThreadRecord;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
@@ -424,7 +424,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
   @Override
   public void onContactClicked(@NonNull Recipient contact) {
     SimpleTask.run(getViewLifecycleOwner().getLifecycle(), () -> {
-      return DatabaseFactory.getThreadDatabase(getContext()).getThreadIdIfExistsFor(contact.getId());
+      return SignalDatabase.threads().getThreadIdIfExistsFor(contact.getId());
     }, threadId -> {
       hideKeyboard();
       getNavigator().goToConversation(contact.getId(),
@@ -437,7 +437,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
   @Override
   public void onMessageClicked(@NonNull MessageResult message) {
     SimpleTask.run(getViewLifecycleOwner().getLifecycle(), () -> {
-      int startingPosition = DatabaseFactory.getMmsSmsDatabase(getContext()).getMessagePositionInConversation(message.getThreadId(), message.getReceivedTimestampMs());
+      int startingPosition = SignalDatabase.mmsSms().getMessagePositionInConversation(message.getThreadId(), message.getReceivedTimestampMs());
       return Math.max(0, startingPosition);
     }, startingPosition -> {
       hideKeyboard();
@@ -657,9 +657,10 @@ public class ConversationListFragment extends MainFragment implements ActionMode
     int                 firstVisibleItem = layoutManager != null ? layoutManager.findFirstCompletelyVisibleItemPosition() : -1;
 
     defaultAdapter.submitList(conversations, () -> {
-     if (firstVisibleItem == 0) {
-       list.scrollToPosition(0);
-     }
+      if (firstVisibleItem == 0) {
+        list.scrollToPosition(0);
+      }
+      onPostSubmitList(conversations.size());
     });
   }
 
@@ -775,7 +776,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
     Context context = requireContext();
 
     SignalExecutors.BOUNDED.execute(() -> {
-      List<MarkedMessageInfo> messageIds = DatabaseFactory.getThreadDatabase(context).setAllThreadsRead();
+      List<MarkedMessageInfo> messageIds = SignalDatabase.threads().setAllThreadsRead();
 
       ApplicationDependencies.getMessageNotifier().updateNotification(context);
       MarkReadReceiver.process(context, messageIds);
@@ -786,7 +787,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
     Context context = requireContext();
 
     SimpleTask.run(getViewLifecycleOwner().getLifecycle(), () -> {
-      List<MarkedMessageInfo> messageIds = DatabaseFactory.getThreadDatabase(context).setRead(ids, false);
+      List<MarkedMessageInfo> messageIds = SignalDatabase.threads().setRead(ids, false);
 
       ApplicationDependencies.getMessageNotifier().updateNotification(context);
       MarkReadReceiver.process(context, messageIds);
@@ -801,7 +802,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
     Context context = requireContext();
 
     SimpleTask.run(getViewLifecycleOwner().getLifecycle(), () -> {
-      DatabaseFactory.getThreadDatabase(context).setForcedUnread(ids);
+      SignalDatabase.threads().setForcedUnread(ids);
       StorageSyncHelper.scheduleSyncForDataChange();
       return null;
     }, none -> {
@@ -875,7 +876,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
 
           @Override
           protected Void doInBackground(Void... params) {
-            DatabaseFactory.getThreadDatabase(getActivity()).deleteConversations(selectedConversations);
+            SignalDatabase.threads().deleteConversations(selectedConversations);
             ApplicationDependencies.getMessageNotifier().updateNotification(requireActivity());
             return null;
           }
@@ -910,7 +911,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
     }
 
     SimpleTask.run(SignalExecutors.BOUNDED, () -> {
-      ThreadDatabase db = DatabaseFactory.getThreadDatabase(ApplicationDependencies.getApplication());
+      ThreadDatabase db = SignalDatabase.threads();
 
       db.pinConversations(toPin);
 
@@ -922,7 +923,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
 
   private void handleUnpin(@NonNull Collection<Long> ids) {
     SimpleTask.run(SignalExecutors.BOUNDED, () -> {
-      ThreadDatabase db = DatabaseFactory.getThreadDatabase(ApplicationDependencies.getApplication());
+      ThreadDatabase db = SignalDatabase.threads();
 
       db.unpinConversations(ids);
 
@@ -951,7 +952,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
                                                     .filter(r -> r.getMuteUntil() != until)
                                                     .map(Recipient::getId)
                                                     .collect(Collectors.toList());
-      DatabaseFactory.getRecipientDatabase(requireContext()).setMuted(recipientIds, until);
+      SignalDatabase.recipients().setMuted(recipientIds, until);
       return null;
     }, unused -> {
       endActionModeIfActive();
@@ -993,11 +994,6 @@ public class ConversationListFragment extends MainFragment implements ActionMode
     if (megaphoneContainer.resolved()) {
       ViewUtil.fadeIn(megaphoneContainer.get(), 250);
     }
-  }
-
-  private void onSubmitList(@NonNull List<Conversation> conversationList) {
-    defaultAdapter.submitList(conversationList);
-    onPostSubmitList(conversationList.size());
   }
 
   void updateEmptyState(boolean isConversationEmpty) {
@@ -1234,12 +1230,12 @@ public class ConversationListFragment extends MainFragment implements ActionMode
 
   @WorkerThread
   protected void archiveThreads(Set<Long> threadIds) {
-    DatabaseFactory.getThreadDatabase(getActivity()).setArchived(threadIds, true);
+    SignalDatabase.threads().setArchived(threadIds, true);
   }
 
   @WorkerThread
   protected void reverseArchiveThreads(Set<Long> threadIds) {
-    DatabaseFactory.getThreadDatabase(getActivity()).setArchived(threadIds, false);
+    SignalDatabase.threads().setArchived(threadIds, false);
   }
 
   @SuppressLint("StaticFieldLeak")
@@ -1255,7 +1251,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
                                 Snackbar.LENGTH_LONG,
                                 false)
     {
-      private final ThreadDatabase threadDatabase = DatabaseFactory.getThreadDatabase(getActivity());
+      private final ThreadDatabase threadDatabase = SignalDatabase.threads();
 
       private List<Long> pinnedThreadIds;
 

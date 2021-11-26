@@ -30,7 +30,7 @@ import org.thoughtcrime.securesms.components.ExpirationTimerView;
 import org.thoughtcrime.securesms.conversation.colors.Colorizer;
 import org.thoughtcrime.securesms.conversation.mutiselect.MultiselectPart;
 import org.thoughtcrime.securesms.conversation.ui.error.EnableCallNotificationSettingsDialog;
-import org.thoughtcrime.securesms.database.DatabaseFactory;
+import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.database.model.IdentityRecord;
 import org.thoughtcrime.securesms.database.model.GroupCallUpdateDetailsUtil;
 import org.thoughtcrime.securesms.database.model.InMemoryMessageRecord;
@@ -46,7 +46,6 @@ import org.thoughtcrime.securesms.util.DateUtils;
 import org.thoughtcrime.securesms.util.IdentityUtil;
 import org.thoughtcrime.securesms.util.Projection;
 import org.thoughtcrime.securesms.util.ProjectionList;
-import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.ThemeUtil;
 import org.thoughtcrime.securesms.util.Util;
 import org.thoughtcrime.securesms.util.ViewUtil;
@@ -358,7 +357,7 @@ public final class ConversationUpdateItem extends FrameLayout
 
       int text = 0;
       if (Util.hasItems(acis)) {
-        if (acis.contains(TextSecurePreferences.getLocalAci(getContext()))) {
+        if (acis.contains(Recipient.self().requireAci())) {
           text = R.string.ConversationUpdateItem_return_to_call;
         } else if (GroupCallUpdateDetailsUtil.parse(conversationMessage.getMessageRecord().getBody()).getIsCallFull()) {
           text = R.string.ConversationUpdateItem_call_is_full;
@@ -463,7 +462,7 @@ public final class ConversationUpdateItem extends FrameLayout
           long id        = messageRecord.getId();
           long expiresIn = messageRecord.getExpiresIn();
 
-          DatabaseFactory.getSmsDatabase(getContext()).markExpireStarted(id);
+          SignalDatabase.sms().markExpireStarted(id);
 
           expirationManager.scheduleDeletion(id, false, expiresIn);
         });

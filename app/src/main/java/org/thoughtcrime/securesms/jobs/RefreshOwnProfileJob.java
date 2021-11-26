@@ -9,8 +9,8 @@ import org.signal.core.util.logging.Log;
 import org.signal.zkgroup.profiles.ProfileKey;
 import org.signal.zkgroup.profiles.ProfileKeyCredential;
 import org.thoughtcrime.securesms.crypto.ProfileKeyUtil;
-import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.database.RecipientDatabase;
+import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.jobmanager.Data;
 import org.thoughtcrime.securesms.jobmanager.Job;
@@ -19,7 +19,6 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.profiles.ProfileName;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.util.ProfileUtil;
-import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.Util;
 import org.whispersystems.libsignal.util.guava.Optional;
 import org.whispersystems.signalservice.api.crypto.InvalidCiphertextException;
@@ -42,14 +41,17 @@ public class RefreshOwnProfileJob extends BaseJob {
   private static final String TAG = Log.tag(RefreshOwnProfileJob.class);
 
   public RefreshOwnProfileJob() {
-    this(new Parameters.Builder()
-                       .addConstraint(NetworkConstraint.KEY)
-                       .setQueue(ProfileUploadJob.QUEUE)
-                       .setMaxInstancesForFactory(1)
-                       .setMaxAttempts(10)
-                       .build());
+    this(ProfileUploadJob.QUEUE);
   }
 
+  private RefreshOwnProfileJob(@NonNull String queue) {
+    this(new Parameters.Builder()
+             .addConstraint(NetworkConstraint.KEY)
+             .setQueue(queue)
+             .setMaxInstancesForFactory(1)
+             .setMaxAttempts(10)
+             .build());
+  }
 
   private RefreshOwnProfileJob(@NonNull Parameters parameters) {
     super(parameters);
@@ -67,7 +69,7 @@ public class RefreshOwnProfileJob extends BaseJob {
 
   @Override
   protected void onRun() throws Exception {
-    if (!TextSecurePreferences.isPushRegistered(context) || TextUtils.isEmpty(TextSecurePreferences.getLocalNumber(context))) {
+    if (!SignalStore.account().isRegistered() || TextUtils.isEmpty(SignalStore.account().getE164())) {
       Log.w(TAG, "Not yet registered!");
       return;
     }
@@ -100,7 +102,7 @@ public class RefreshOwnProfileJob extends BaseJob {
                                        @NonNull ProfileKey recipientProfileKey,
                                        @NonNull ProfileKeyCredential credential)
   {
-    RecipientDatabase recipientDatabase = DatabaseFactory.getRecipientDatabase(context);
+    RecipientDatabase recipientDatabase = SignalDatabase.recipients();
     recipientDatabase.setProfileKeyCredential(recipient.getId(), recipientProfileKey, credential);
   }
 
@@ -125,7 +127,7 @@ public class RefreshOwnProfileJob extends BaseJob {
       ProfileName profileName   = ProfileName.fromSerialized(plaintextName);
 
       Log.d(TAG, "Saving " + (!Util.isEmpty(plaintextName) ? "non-" : "") + "empty name.");
-      DatabaseFactory.getRecipientDatabase(context).setProfileName(Recipient.self().getId(), profileName);
+      SignalDatabase.recipients().setProfileName(Recipient.self().getId(), profileName);
     } catch (InvalidCiphertextException | IOException e) {
       Log.w(TAG, e);
     }
@@ -140,7 +142,7 @@ public class RefreshOwnProfileJob extends BaseJob {
       Log.d(TAG, "Saving " + (!Util.isEmpty(plaintextAbout) ? "non-" : "") + "empty about.");
       Log.d(TAG, "Saving " + (!Util.isEmpty(plaintextEmoji) ? "non-" : "") + "empty emoji.");
 
-      DatabaseFactory.getRecipientDatabase(context).setAbout(Recipient.self().getId(), plaintextAbout, plaintextEmoji);
+      SignalDatabase.recipients().setAbout(Recipient.self().getId(), plaintextAbout, plaintextEmoji);
     } catch (InvalidCiphertextException | IOException e) {
       Log.w(TAG, e);
     }
@@ -156,7 +158,7 @@ public class RefreshOwnProfileJob extends BaseJob {
       return;
     }
 
-    DatabaseFactory.getRecipientDatabase(context).setCapabilities(Recipient.self().getId(), capabilities);
+    SignalDatabase.recipients().setCapabilities(Recipient.self().getId(), capabilities);
   }
 
   public static final class Factory implements Job.Factory<RefreshOwnProfileJob> {
