@@ -100,11 +100,17 @@ import org.thoughtcrime.securesms.util.VersionTracker;
 import org.thoughtcrime.securesms.util.dynamiclanguage.DynamicLanguageContextWrapper;
 import org.whispersystems.libsignal.logging.SignalProtocolLoggerProvider;
 
+import java.io.IOException;
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
 import java.security.Security;
 import java.util.concurrent.TimeUnit;
 
+import io.reactivex.rxjava3.exceptions.OnErrorNotImplementedException;
+import io.reactivex.rxjava3.exceptions.UndeliverableException;
 import io.reactivex.rxjava3.plugins.RxJavaPlugins;
 import io.reactivex.rxjava3.schedulers.Schedulers;
+import rxdogtag2.RxDogTag;
 
 /**
  * Will be called once when the TextSecure process is created.
@@ -166,10 +172,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
                               Log.i(TAG, "onCreateUnlock()");
                             })
                             .addBlocking("crash-handling", this::initializeCrashHandling)
-                            .addBlocking("rx-init", () -> {
-                              RxJavaPlugins.setInitIoSchedulerHandler(schedulerSupplier -> Schedulers.from(SignalExecutors.BOUNDED_IO, true, false));
-                              RxJavaPlugins.setInitComputationSchedulerHandler(schedulerSupplier -> Schedulers.from(SignalExecutors.BOUNDED, true, false));
-                            })
+                            .addBlocking("rx-init", this::initializeRx)
                             .addBlocking("event-bus", () -> EventBus.builder().logNoSubscriberMessages(false).installDefaultEventBus())
                             .addBlocking("app-dependencies", this::initializeAppDependencies)
                             .addBlocking("notification-channels", () -> NotificationChannels.create(this))
@@ -334,6 +337,30 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
     Thread.setDefaultUncaughtExceptionHandler(new SignalUncaughtExceptionHandler(originalHandler));
   }
 
+  private void initializeRx() {
+    RxDogTag.install();
+    RxJavaPlugins.setInitIoSchedulerHandler(schedulerSupplier -> Schedulers.from(SignalExecutors.BOUNDED_IO, true, false));
+    RxJavaPlugins.setInitComputationSchedulerHandler(schedulerSupplier -> Schedulers.from(SignalExecutors.BOUNDED, true, false));
+    RxJavaPlugins.setErrorHandler(e -> {
+      boolean wasWrapped = false;
+      while ((e instanceof UndeliverableException || e instanceof AssertionError || e instanceof OnErrorNotImplementedException) && e.getCause() != null) {
+        wasWrapped = true;
+        e = e.getCause();
+      }
+
+      if (wasWrapped && (e instanceof SocketException || e instanceof SocketTimeoutException || e instanceof InterruptedException)) {
+        return;
+      }
+
+      Thread.UncaughtExceptionHandler uncaughtExceptionHandler = Thread.currentThread().getUncaughtExceptionHandler();
+      if (uncaughtExceptionHandler == null) {
+        uncaughtExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
+      }
+
+      uncaughtExceptionHandler.uncaughtException(Thread.currentThread(), e);
+    });
+  }
+
   private void initializeApplicationMigrations() {
     ApplicationMigrations.onApplicationCreate(this, ApplicationDependencies.getJobManager());
   }
@@ -405,12 +432,14 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
     PlayServicesUtil.PlayServicesStatus fcmStatus = PlayServicesUtil.getPlayServicesStatus(this);
 
     if (fcmStatus == PlayServicesUtil.PlayServicesStatus.DISABLED) {
-      SignalStore.account().setFcmTokenLastSetTime(-1);
       if (SignalStore.account().isFcmEnabled()) {
         Log.i(TAG, "Play Services are disabled. Disabling FCM.");
         SignalStore.account().setFcmEnabled(false);
         SignalStore.account().setFcmToken(null);
+        SignalStore.account().setFcmTokenLastSetTime(-1);
         ApplicationDependencies.getJobManager().add(new RefreshAttributesJob());
+      } else {
+        SignalStore.account().setFcmTokenLastSetTime(-1);
       }
     } else if (fcmStatus == PlayServicesUtil.PlayServicesStatus.SUCCESS &&
                !SignalStore.account().isFcmEnabled() &&

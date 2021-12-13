@@ -16,8 +16,6 @@ internal class AccountValues internal constructor(store: KeyValueStore) : Signal
 
   companion object {
     private val TAG = Log.tag(AccountValues::class.java)
-    private const val KEY_ACI = "account.aci"
-    private const val KEY_PNI = "account.pni"
     private const val KEY_SERVICE_PASSWORD = "account.service_password"
     private const val KEY_IS_REGISTERED = "account.is_registered"
     private const val KEY_REGISTRATION_ID = "account.registration_id"
@@ -28,6 +26,10 @@ internal class AccountValues internal constructor(store: KeyValueStore) : Signal
 
     @VisibleForTesting
     const val KEY_E164 = "account.e164"
+    @VisibleForTesting
+    const val KEY_ACI = "account.aci"
+    @VisibleForTesting
+    const val KEY_PNI = "account.pni"
   }
 
   init {
@@ -106,7 +108,7 @@ internal class AccountValues internal constructor(store: KeyValueStore) : Signal
   /** When we last set the [fcmToken] */
   var fcmTokenLastSetTime: Long
     get() = getLong(KEY_FCM_TOKEN_LAST_SET_TIME, 0)
-    set(value)  = putLong(KEY_FCM_TOKEN_LAST_SET_TIME, value)
+    set(value) = putLong(KEY_FCM_TOKEN_LAST_SET_TIME, value)
 
   /** Whether or not the user is registered with the Signal service. */
   val isRegistered: Boolean

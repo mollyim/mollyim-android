@@ -42,6 +42,7 @@ import org.thoughtcrime.securesms.migrations.MigrationCompleteJob;
 import org.thoughtcrime.securesms.migrations.PassingMigrationJob;
 import org.thoughtcrime.securesms.migrations.PinOptOutMigration;
 import org.thoughtcrime.securesms.migrations.PinReminderMigrationJob;
+import org.thoughtcrime.securesms.migrations.PniMigrationJob;
 import org.thoughtcrime.securesms.migrations.ProfileMigrationJob;
 import org.thoughtcrime.securesms.migrations.ProfileSharingUpdateMigrationJob;
 import org.thoughtcrime.securesms.migrations.RegistrationPinV2MigrationJob;
@@ -101,6 +102,7 @@ public final class JobManagerFactories {
       put(MultiDeviceStickerPackOperationJob.KEY,    new MultiDeviceStickerPackOperationJob.Factory());
       put(MultiDeviceStickerPackSyncJob.KEY,         new MultiDeviceStickerPackSyncJob.Factory());
       put(MultiDeviceStorageSyncRequestJob.KEY,      new MultiDeviceStorageSyncRequestJob.Factory());
+      put(MultiDeviceSubscriptionSyncRequestJob.KEY, new MultiDeviceSubscriptionSyncRequestJob.Factory());
       put(MultiDeviceVerifiedUpdateJob.KEY,          new MultiDeviceVerifiedUpdateJob.Factory());
       put(MultiDeviceViewOnceOpenJob.KEY,            new MultiDeviceViewOnceOpenJob.Factory());
       put(MultiDeviceViewedUpdateJob.KEY,            new MultiDeviceViewedUpdateJob.Factory());
@@ -170,6 +172,7 @@ public final class JobManagerFactories {
       put(MigrationCompleteJob.KEY,                  new MigrationCompleteJob.Factory());
       put(PinOptOutMigration.KEY,                    new PinOptOutMigration.Factory());
       put(PinReminderMigrationJob.KEY,               new PinReminderMigrationJob.Factory());
+      put(PniMigrationJob.KEY,                       new PniMigrationJob.Factory());
       put(ProfileMigrationJob.KEY,                   new ProfileMigrationJob.Factory());
       put(ProfileSharingUpdateMigrationJob.KEY,      new ProfileSharingUpdateMigrationJob.Factory());
       put(RegistrationPinV2MigrationJob.KEY,         new RegistrationPinV2MigrationJob.Factory());

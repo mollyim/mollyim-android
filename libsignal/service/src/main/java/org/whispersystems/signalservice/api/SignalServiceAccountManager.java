@@ -176,10 +176,6 @@ public class SignalServiceAccountManager {
     this.pushServiceSocket.removeRegistrationLockV1();
   }
 
-  public ACI getOwnAci() throws IOException {
-    return this.pushServiceSocket.getOwnAci();
-  }
-
   public WhoAmIResponse getWhoAmI() throws IOException {
     return this.pushServiceSocket.getWhoAmI();
   }
@@ -414,44 +410,6 @@ public class SignalServiceAccountManager {
    */
   public boolean isIdentifierRegistered(AccountIdentifier identifier) throws IOException {
     return pushServiceSocket.isIdentifierRegistered(identifier);
-  }
-
-  /**
-   * Checks whether a contact is currently registered with the server.
-   *
-   * @param e164number The contact to check.
-   * @return An optional ContactTokenDetails, present if registered, absent if not.
-   * @throws IOException
-   */
-  public Optional<ContactTokenDetails> getContact(String e164number) throws IOException {
-    String              contactToken        = createDirectoryServerToken(e164number, true);
-    ContactTokenDetails contactTokenDetails = this.pushServiceSocket.getContactTokenDetails(contactToken);
-
-    if (contactTokenDetails != null) {
-      contactTokenDetails.setNumber(e164number);
-    }
-
-    return Optional.fromNullable(contactTokenDetails);
-  }
-
-  /**
-   * Checks which contacts in a set are registered with the server.
-   *
-   * @param e164numbers The contacts to check.
-   * @return A list of ContactTokenDetails for the registered users.
-   * @throws IOException
-   */
-  public List<ContactTokenDetails> getContacts(Set<String> e164numbers)
-      throws IOException
-  {
-    Map<String, String>       contactTokensMap = createDirectoryServerTokenMap(e164numbers);
-    List<ContactTokenDetails> activeTokens     = this.pushServiceSocket.retrieveDirectory(contactTokensMap.keySet());
-
-    for (ContactTokenDetails activeToken : activeTokens) {
-      activeToken.setNumber(contactTokensMap.get(activeToken.getToken()));
-    }
-
-    return activeTokens;
   }
 
   @SuppressWarnings("SameParameterValue")

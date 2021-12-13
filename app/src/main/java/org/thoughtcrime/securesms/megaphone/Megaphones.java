@@ -108,6 +108,7 @@ public final class Megaphones {
       put(Event.NOTIFICATIONS, shouldShowNotificationsMegaphone(context) ? RecurringSchedule.every(TimeUnit.DAYS.toMillis(30)) : NEVER);
       put(Event.CHAT_COLORS, ALWAYS);
       put(Event.ADD_A_PROFILE_PHOTO, shouldShowAddAProfilePhotoMegaphone(context) ? ALWAYS : NEVER);
+      put(Event.NOTIFICATION_PROFILES, ShowForDurationSchedule.showForDays(7));
     }};
   }
 
@@ -139,6 +140,8 @@ public final class Megaphones {
         return buildChatColorsMegaphone(context);
       case ADD_A_PROFILE_PHOTO:
         return buildAddAProfilePhotoMegaphone(context);
+      case NOTIFICATION_PROFILES:
+        return buildNotificationProfilesMegaphone(context);
       default:
         throw new IllegalArgumentException("Event not handled!");
     }
@@ -340,6 +343,21 @@ public final class Megaphones {
                         .build();
   }
 
+  private static @NonNull Megaphone buildNotificationProfilesMegaphone(@NonNull Context context) {
+    return new Megaphone.Builder(Event.NOTIFICATION_PROFILES, Megaphone.Style.BASIC)
+        .setTitle(R.string.NotificationProfilesMegaphone__notification_profiles)
+        .setImage(R.drawable.ic_notification_profiles_megaphone)
+        .setBody(R.string.NotificationProfilesMegaphone__only_get_notifications_from_the_people_and_groups_you_choose)
+        .setActionButton(R.string.NotificationProfilesMegaphone__create_a_profile, (megaphone, listener) -> {
+          listener.onMegaphoneNavigationRequested(AppSettingsActivity.notificationProfiles(context));
+          listener.onMegaphoneCompleted(Event.NOTIFICATION_PROFILES);
+        })
+        .setSecondaryButton(R.string.NotificationProfilesMegaphone__not_now, (megaphone, listener) -> {
+          listener.onMegaphoneCompleted(Event.NOTIFICATION_PROFILES);
+        })
+        .build();
+  }
+
   private static boolean shouldShowMessageRequestsMegaphone() {
     return Recipient.self().getProfileName() == ProfileName.EMPTY;
   }
@@ -349,7 +367,7 @@ public final class Megaphones {
   }
 
   private static boolean shouldShowDonateMegaphone(@NonNull Context context) {
-    return VersionTracker.getDaysSinceFirstInstalled(context) > 7 && LocaleFeatureFlags.isInDonateMegaphone();
+    return VersionTracker.getDaysSinceFirstInstalled(context) > 3 && LocaleFeatureFlags.isInDonateMegaphone();
   }
 
   private static boolean shouldShowLinkPreviewsMegaphone(@NonNull Context context) {
@@ -410,7 +428,8 @@ public final class Megaphones {
     ONBOARDING("onboarding"),
     NOTIFICATIONS("notifications"),
     CHAT_COLORS("chat_colors"),
-    ADD_A_PROFILE_PHOTO("add_a_profile_photo");
+    ADD_A_PROFILE_PHOTO("add_a_profile_photo"),
+    NOTIFICATION_PROFILES("notification_profiles");
 
     private final String key;
 
