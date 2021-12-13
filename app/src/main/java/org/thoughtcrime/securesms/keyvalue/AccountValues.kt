@@ -14,6 +14,8 @@ import org.whispersystems.signalservice.api.push.PNI
 
 internal class AccountValues internal constructor(store: KeyValueStore) : SignalStoreValues(store) {
 
+  val context = ApplicationDependencies.getApplication()
+
   companion object {
     private val TAG = Log.tag(AccountValues::class.java)
     private const val KEY_SERVICE_PASSWORD = "account.service_password"
@@ -33,9 +35,9 @@ internal class AccountValues internal constructor(store: KeyValueStore) : Signal
   }
 
   init {
-    if (!store.containsKey(KEY_ACI)) {
-      migrateFromSharedPrefs(ApplicationDependencies.getApplication())
-    }
+//    if (!store.containsKey(KEY_ACI)) {
+//      migrateFromSharedPrefs(ApplicationDependencies.getApplication())
+//    }
   }
 
   public override fun onFirstEverAppLaunch() = Unit
@@ -46,10 +48,10 @@ internal class AccountValues internal constructor(store: KeyValueStore) : Signal
 
   /** The local user's [ACI]. */
   val aci: ACI?
-    get() = ACI.parseOrNull(getString(KEY_ACI, null))
+    get() = ACI.parseOrNull(TextSecurePreferences.getStringPreference(context, "pref_local_uuid", null))
 
   fun setAci(aci: ACI) {
-    putString(KEY_ACI, aci.toString())
+    TextSecurePreferences.setStringPreference(context, "pref_local_uuid", aci.toString())
   }
 
   /** The local user's [PNI]. */
@@ -62,64 +64,62 @@ internal class AccountValues internal constructor(store: KeyValueStore) : Signal
 
   /** The local user's E164. */
   val e164: String?
-    get() = getString(KEY_E164, null)
+    get() = TextSecurePreferences.getStringPreference(context, "pref_local_number", null)
 
   fun setE164(e164: String) {
-    putString(KEY_E164, e164)
+    TextSecurePreferences.setStringPreference(context, "pref_local_number", e164)
   }
 
   /** The password for communicating with the Signal service. */
   val servicePassword: String?
-    get() = getString(KEY_SERVICE_PASSWORD, null)
+    get() = TextSecurePreferences.getStringPreference(context, "pref_gcm_password", null)
 
   fun setServicePassword(servicePassword: String) {
-    putString(KEY_SERVICE_PASSWORD, servicePassword)
+    TextSecurePreferences.setStringPreference(context, "pref_gcm_password", servicePassword)
   }
 
   /** A randomly-generated value that represents this registration instance. Helps the server know if you reinstalled. */
   var registrationId: Int
-    get() = getInteger(KEY_REGISTRATION_ID, 0)
-    set(value) = putInteger(KEY_REGISTRATION_ID, value)
+    get() = TextSecurePreferences.getIntegerPreference(context, "pref_local_registration_id", 0)
+    set(value) = TextSecurePreferences.setIntegerPrefrence(context, "pref_local_registration_id", value)
 
   /** Indicates whether the user has the ability to receive FCM messages. Largely coupled to whether they have Play Service. */
   var fcmEnabled: Boolean
     @JvmName("isFcmEnabled")
-    get() = getBoolean(KEY_FCM_ENABLED, false)
-    set(value) = putBoolean(KEY_FCM_ENABLED, value)
+    get() = !TextSecurePreferences.getBooleanPreference(context, "pref_gcm_disabled", false)
+    set(value) = TextSecurePreferences.setBooleanPreference(context, "pref_gcm_disabled", !value)
 
   /** The FCM token, which allows the server to send us FCM messages. */
   var fcmToken: String?
     get() {
-      val tokenVersion: Int = getInteger(KEY_FCM_TOKEN_VERSION, 0)
+      val tokenVersion: Int = TextSecurePreferences.getIntegerPreference(context, "pref_gcm_registration_id_version", 0)
       return if (tokenVersion == Util.getCanonicalVersionCode()) {
-        getString(KEY_FCM_TOKEN, null)
+        TextSecurePreferences.getStringPreference(context, "pref_gcm_registration_id", null)
       } else {
         null
       }
     }
     set(value) {
-      store.beginWrite()
-        .putString(KEY_FCM_TOKEN, value)
-        .putInteger(KEY_FCM_TOKEN_VERSION, Util.getCanonicalVersionCode())
-        .putLong(KEY_FCM_TOKEN_LAST_SET_TIME, System.currentTimeMillis())
-        .apply()
+      TextSecurePreferences.setStringPreference(context, "pref_gcm_registration_id", value)
+      TextSecurePreferences.setIntegerPrefrence(context, "pref_gcm_registration_id_version", Util.getCanonicalVersionCode())
+      TextSecurePreferences.setLongPreference(context, "pref_gcm_registration_id_last_set_time", System.currentTimeMillis())
     }
 
   /** When we last set the [fcmToken] */
   var fcmTokenLastSetTime: Long
-    get() = getLong(KEY_FCM_TOKEN_LAST_SET_TIME, 0)
-    set(value) = putLong(KEY_FCM_TOKEN_LAST_SET_TIME, value)
+    get() = TextSecurePreferences.getLongPreference(context, "pref_gcm_registration_id_last_set_time", 0)
+    set(value) = TextSecurePreferences.setLongPreference(context, "pref_gcm_registration_id_last_set_time", value)
 
   /** Whether or not the user is registered with the Signal service. */
   val isRegistered: Boolean
-    get() = getBoolean(KEY_IS_REGISTERED, false)
+    get() = TextSecurePreferences.getBooleanPreference(context, "pref_gcm_registered", false)
 
   fun setRegistered(registered: Boolean) {
     Log.i(TAG, "Setting push registered: $registered", Throwable())
 
     val previous = isRegistered
 
-    putBoolean(KEY_IS_REGISTERED, registered)
+    TextSecurePreferences.setBooleanPreference(context, "pref_gcm_registered", registered)
 
     ApplicationDependencies.getIncomingMessageObserver().notifyRegistrationChanged()
 
@@ -133,7 +133,7 @@ internal class AccountValues internal constructor(store: KeyValueStore) : Signal
   }
 
   private fun clearLocalCredentials(context: Context) {
-    putString(KEY_SERVICE_PASSWORD, Util.getSecret(18))
+    TextSecurePreferences.setStringPreference(context, "pref_gcm_password", Util.getSecret(18))
 
     val newProfileKey = ProfileKeyUtil.createNew()
     val self = Recipient.self()
@@ -142,17 +142,17 @@ internal class AccountValues internal constructor(store: KeyValueStore) : Signal
     ApplicationDependencies.getGroupsV2Authorization().clear()
   }
 
-  private fun migrateFromSharedPrefs(context: Context) {
-    Log.i(TAG, "Migrating account values from shared prefs.")
-
-    putString(KEY_ACI, TextSecurePreferences.getStringPreference(context, "pref_local_uuid", null))
-    putString(KEY_E164, TextSecurePreferences.getStringPreference(context, "pref_local_number", null))
-    putString(KEY_SERVICE_PASSWORD, TextSecurePreferences.getStringPreference(context, "pref_gcm_password", null))
-    putBoolean(KEY_IS_REGISTERED, TextSecurePreferences.getBooleanPreference(context, "pref_gcm_registered", false))
-    putInteger(KEY_REGISTRATION_ID, TextSecurePreferences.getIntegerPreference(context, "pref_local_registration_id", 0))
-    putBoolean(KEY_FCM_ENABLED, !TextSecurePreferences.getBooleanPreference(context, "pref_gcm_disabled", false))
-    putString(KEY_FCM_TOKEN, TextSecurePreferences.getStringPreference(context, "pref_gcm_registration_id", null))
-    putInteger(KEY_FCM_TOKEN_VERSION, TextSecurePreferences.getIntegerPreference(context, "pref_gcm_registration_id_version", 0))
-    putLong(KEY_FCM_TOKEN_LAST_SET_TIME, TextSecurePreferences.getLongPreference(context, "pref_gcm_registration_id_last_set_time", 0))
-  }
+//  private fun migrateFromSharedPrefs(context: Context) {
+//    Log.i(TAG, "Migrating account values from shared prefs.")
+//
+//    putString(KEY_ACI, TextSecurePreferences.getStringPreference(context, "pref_local_uuid", null))
+//    putString(KEY_E164, TextSecurePreferences.getStringPreference(context, "pref_local_number", null))
+//    putString(KEY_SERVICE_PASSWORD, TextSecurePreferences.getStringPreference(context, "pref_gcm_password", null))
+//    putBoolean(KEY_IS_REGISTERED, TextSecurePreferences.getBooleanPreference(context, "pref_gcm_registered", false))
+//    putInteger(KEY_REGISTRATION_ID, TextSecurePreferences.getIntegerPreference(context, "pref_local_registration_id", 0))
+//    putBoolean(KEY_FCM_ENABLED, !TextSecurePreferences.getBooleanPreference(context, "pref_gcm_disabled", false))
+//    putString(KEY_FCM_TOKEN, TextSecurePreferences.getStringPreference(context, "pref_gcm_registration_id", null))
+//    putInteger(KEY_FCM_TOKEN_VERSION, TextSecurePreferences.getIntegerPreference(context, "pref_gcm_registration_id_version", 0))
+//    putLong(KEY_FCM_TOKEN_LAST_SET_TIME, TextSecurePreferences.getLongPreference(context, "pref_gcm_registration_id_last_set_time", 0))
+//  }
 }

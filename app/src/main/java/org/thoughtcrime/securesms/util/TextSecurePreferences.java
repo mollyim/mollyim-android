@@ -1035,11 +1035,11 @@ public class TextSecurePreferences {
     return SecurePreferenceManager.getSecurePreferences(context).getInt(key, defaultValue);
   }
 
-  private static void setIntegerPrefrence(Context context, String key, int value) {
+  public static void setIntegerPrefrence(Context context, String key, int value) {
     SecurePreferenceManager.getSecurePreferences(context).edit().putInt(key, value).apply();
   }
 
-  private static boolean setIntegerPrefrenceBlocking(Context context, String key, int value) {
+  public static boolean setIntegerPrefrenceBlocking(Context context, String key, int value) {
     return SecurePreferenceManager.getSecurePreferences(context).edit().putInt(key, value).commit();
   }
 
@@ -1047,7 +1047,7 @@ public class TextSecurePreferences {
     return SecurePreferenceManager.getSecurePreferences(context).getLong(key, defaultValue);
   }
 
-  private static void setLongPreference(Context context, String key, long value) {
+  public static void setLongPreference(Context context, String key, long value) {
     SecurePreferenceManager.getSecurePreferences(context).edit().putLong(key, value).apply();
   }
 
