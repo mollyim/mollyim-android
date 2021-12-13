@@ -101,7 +101,6 @@ public final class Megaphones {
       put(Event.MESSAGE_REQUESTS, shouldShowMessageRequestsMegaphone() ? ALWAYS : NEVER);
       put(Event.LINK_PREVIEWS, shouldShowLinkPreviewsMegaphone(context) ? ALWAYS : NEVER);
       put(Event.CLIENT_DEPRECATED, SignalStore.misc().isClientDeprecated() ? ALWAYS : NEVER);
-      put(Event.RESEARCH, shouldShowResearchMegaphone(context) ? ShowForDurationSchedule.showForDays(7) : NEVER);
       put(Event.DONATE_MOLLY, shouldShowDonateMegaphone(context) ? ShowForDurationSchedule.showForDays(7) : NEVER);
       put(Event.GROUP_CALLING, shouldShowGroupCallingMegaphone() ? ALWAYS : NEVER);
       put(Event.ONBOARDING, shouldShowOnboardingMegaphone(context) ? ALWAYS : NEVER);
@@ -126,8 +125,6 @@ public final class Megaphones {
         return buildLinkPreviewsMegaphone();
       case CLIENT_DEPRECATED:
         return buildClientDeprecatedMegaphone(context);
-      case RESEARCH:
-        return buildResearchMegaphone(context);
       case DONATE_MOLLY:
         return buildDonateMegaphone(context);
       case GROUP_CALLING:
@@ -235,21 +232,6 @@ public final class Megaphones {
                         .disableSnooze()
                         .setPriority(Megaphone.Priority.HIGH)
                         .setOnVisibleListener((megaphone, listener) -> listener.onMegaphoneNavigationRequested(new Intent(context, ClientDeprecatedActivity.class)))
-                        .build();
-  }
-
-  private static @NonNull Megaphone buildResearchMegaphone(@NonNull Context context) {
-    return new Megaphone.Builder(Event.RESEARCH, Megaphone.Style.BASIC)
-                        .disableSnooze()
-                        .setTitle(R.string.ResearchMegaphone_tell_signal_what_you_think)
-                        .setBody(R.string.ResearchMegaphone_to_make_signal_the_best_messaging_app_on_the_planet)
-                        .setImage(R.drawable.ic_research_megaphone)
-                        .setActionButton(R.string.ResearchMegaphone_learn_more, (megaphone, controller) -> {
-                          controller.onMegaphoneCompleted(megaphone.getEvent());
-                          controller.onMegaphoneDialogFragmentRequested(new ResearchMegaphoneDialog());
-                        })
-                        .setSecondaryButton(R.string.ResearchMegaphone_dismiss, (megaphone, controller) -> controller.onMegaphoneCompleted(megaphone.getEvent()))
-                        .setPriority(Megaphone.Priority.DEFAULT)
                         .build();
   }
 
@@ -362,10 +344,6 @@ public final class Megaphones {
     return Recipient.self().getProfileName() == ProfileName.EMPTY;
   }
 
-  private static boolean shouldShowResearchMegaphone(@NonNull Context context) {
-    return VersionTracker.getDaysSinceFirstInstalled(context) > 7 && LocaleFeatureFlags.isInResearchMegaphone();
-  }
-
   private static boolean shouldShowDonateMegaphone(@NonNull Context context) {
     return VersionTracker.getDaysSinceFirstInstalled(context) > 3 && LocaleFeatureFlags.isInDonateMegaphone();
   }
@@ -422,7 +400,6 @@ public final class Megaphones {
     MESSAGE_REQUESTS("message_requests"),
     LINK_PREVIEWS("link_previews"),
     CLIENT_DEPRECATED("client_deprecated"),
-    RESEARCH("research"),
     DONATE_MOLLY("donate_molly"),
     GROUP_CALLING("group_calling"),
     ONBOARDING("onboarding"),
