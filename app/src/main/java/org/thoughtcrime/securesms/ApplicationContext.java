@@ -387,7 +387,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
   }
 
   private void initializeAppDependencies() {
-    ApplicationDependencies.init(new ApplicationDependencyProvider(this));
+    ApplicationDependencies.init(this, new ApplicationDependencyProvider(this));
   }
 
   private void initializeFirstEverAppLaunch() {

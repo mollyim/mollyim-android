@@ -71,6 +71,7 @@ public class ApplicationDependencies {
   private static final Object FRAME_RATE_TRACKER_LOCK = new Object();
   private static final Object JOB_MANAGER_LOCK        = new Object();
 
+  private static Application           application;
   // MOLLY: Rename provider to dependencyProvider
   private static Provider              dependencyProvider;
   private static AppForegroundObserver appForegroundObserver;
@@ -115,24 +116,18 @@ public class ApplicationDependencies {
   private static volatile ClientZkReceiptOperations    clientZkReceiptOperations;
 
   @MainThread
-  public static void init(@NonNull Provider provider) {
+  public static void init(@NonNull Application application, @NonNull Provider provider) {
     synchronized (LOCK) {
       if (ApplicationDependencies.dependencyProvider != null) {
         throw new IllegalStateException("Already initialized!");
       }
 
+      ApplicationDependencies.application           = application;
       ApplicationDependencies.dependencyProvider    = provider;
       ApplicationDependencies.appForegroundObserver = provider.provideAppForegroundObserver();
 
       ApplicationDependencies.appForegroundObserver.begin();
     }
-  }
-
-  public static @NonNull Provider getProvider() {
-    if (dependencyProvider == null) {
-      throw new IllegalStateException("ApplicationDependencies not initialized yet");
-    }
-    return dependencyProvider;
   }
 
   @VisibleForTesting
@@ -141,8 +136,19 @@ public class ApplicationDependencies {
   }
 
   public static @NonNull Application getApplication() {
-    // MOLLY: Always returns the Application instance even before ApplicationDependencies is initialized
-    return ApplicationContext.getInstance();
+    if (application == null) {
+      // MOLLY: Always returns the app instance for non-test runs,
+      // even before ApplicationDependencies is initialized
+      return ApplicationContext.getInstance();
+    }
+    return application;
+  }
+
+  public static @NonNull Provider getProvider() {
+    if (dependencyProvider == null) {
+      throw new IllegalStateException("ApplicationDependencies not initialized yet");
+    }
+    return dependencyProvider;
   }
 
   public static @NonNull SignalServiceAccountManager getSignalServiceAccountManager() {

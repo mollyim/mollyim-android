@@ -1,5 +1,6 @@
 package org.thoughtcrime.securesms
 
+import androidx.test.core.app.ApplicationProvider
 import org.junit.rules.TestRule
 import org.junit.runner.Description
 import org.junit.runners.model.Statement
@@ -27,7 +28,7 @@ class SignalStoreRule @JvmOverloads constructor(private val defaultValues: KeyVa
       @Throws(Throwable::class)
       override fun evaluate() {
         if (!ApplicationDependencies.isInitialized()) {
-          ApplicationDependencies.init(MockApplicationDependencyProvider())
+          ApplicationDependencies.init(ApplicationProvider.getApplicationContext(), MockApplicationDependencyProvider())
         }
 
         dataSet = KeyValueDataSet()

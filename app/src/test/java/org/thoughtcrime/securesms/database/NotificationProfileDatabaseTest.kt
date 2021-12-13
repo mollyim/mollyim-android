@@ -37,7 +37,7 @@ class NotificationProfileDatabaseTest {
     }
 
     if (!ApplicationDependencies.isInitialized()) {
-      ApplicationDependencies.init(MockApplicationDependencyProvider())
+      ApplicationDependencies.init(ApplicationProvider.getApplicationContext(), MockApplicationDependencyProvider())
     }
 
     db = sqlCipher.writableDatabase
