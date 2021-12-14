@@ -87,7 +87,7 @@ internal class PaymentsValues internal constructor(store: KeyValueStore) : Signa
   /**
    * Applies feature flags and region restrictions to return an enum which describes the available feature set for the user.
    */
-  val paymentsAvailability: PaymentsAvailability = PaymentsAvailability.NOT_IN_REGION;
+  val paymentsAvailability: PaymentsAvailability = PaymentsAvailability.NOT_IN_REGION
 
   @WorkerThread
   fun setMobileCoinPaymentsEnabled(isMobileCoinPaymentsEnabled: Boolean) {
