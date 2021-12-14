@@ -13,7 +13,7 @@ Back in 2018, Signal allowed the user to set a passphrase to secure the local me
 
 Molly connects to the Signal server, so you can chat with your Signal contacts seamlessly. Please remember to review their [Signal Terms & Privacy Policy](https://signal.org/legal/) before signing up.
 
-Every two weeks Molly is updated to include the latest features and bug fixes from Signal.
+We update Molly every two weeks to include the latest features and bug fixes from Signal. The exception are security issues, that are patched as soon as the fix become available.
 
 ## Download
 
