@@ -2,10 +2,7 @@ package org.thoughtcrime.securesms.logsubmit;
 
 import android.app.Application;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Build;
-import android.os.ParcelFileDescriptor;
-import android.os.SystemClock;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,7 +12,6 @@ import com.annimon.stream.Stream;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.signal.core.util.StreamUtil;
 import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.logging.Log;
 import org.signal.core.util.logging.Scrubber;
@@ -24,24 +20,17 @@ import org.thoughtcrime.securesms.database.LogDatabase;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.net.Network;
 import org.thoughtcrime.securesms.net.StandardUserAgentInterceptor;
-import org.thoughtcrime.securesms.providers.BlobProvider;
 import org.thoughtcrime.securesms.service.KeyCachingService;
-import org.thoughtcrime.securesms.util.ByteUnit;
 import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.Stopwatch;
-import org.thoughtcrime.securesms.util.Util;
 import org.whispersystems.libsignal.util.guava.Optional;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
-import java.util.zip.GZIPOutputStream;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -50,9 +39,6 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
-import okio.BufferedSink;
-import okio.Okio;
-import okio.Source;
 
 /**
  * Handles retrieving, scrubbing, and uploading of all debug logs.
@@ -94,6 +80,7 @@ public class SubmitDebugLogRepository {
     add(new LogSectionRemappedRecords());
     add(new LogSectionLogcat());
     add(new LogSectionLoggerHeader());
+    // MOLLY: Think of the default implementation of isInitialized() for new sections
   }};
 
   private final Application     context;
@@ -261,14 +248,10 @@ public class SubmitDebugLogRepository {
     List<LogLine> out = new ArrayList<>();
     out.add(new SimpleLogLine(formatTitle(section.getTitle(), maxTitleLength), LogLine.Style.NONE, LogLine.Placeholder.NONE));
 
-    if (section.hasContent()) {
-      CharSequence content;
-
-      try {
-        content = Scrubber.scrub(section.getContent(context));
-      } catch (IllegalStateException e) {
-        content = "Not initialized yet";
-      }
+    if (!section.isInitialized()) {
+      out.add(new SimpleLogLine("Not initialized yet", LogLine.Style.INFO, LogLine.Placeholder.NONE));
+    } else if (section.hasContent()) {
+      CharSequence content = Scrubber.scrub(section.getContent(context));
 
       List<LogLine> lines = Stream.of(Pattern.compile("\\n").split(content))
                                   .map(s -> new SimpleLogLine(s, LogStyleParser.parseStyle(s), LogStyleParser.parsePlaceholderType(s)))
