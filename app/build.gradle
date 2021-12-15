@@ -37,7 +37,16 @@ repositories {
         }
     }
     maven {
+        url "https://raw.github.com/mollyim/maven/master/native-utils/releases/"
+        content {
+            includeModule 'im.molly', 'native-utils'
+        }
+    }
+    maven {
         url "https://www.jitpack.io"
+        content {
+            includeModule 'com.github.chrisbanes', 'PhotoView'
+        }
     }
 
     google()
@@ -190,8 +199,6 @@ android {
 
         resConfigs autoResConfig()
 
-        ndkVersion "21.4.7075529"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments clearPackageData: 'true'
     }
@@ -207,12 +214,6 @@ android {
 
         androidTest {
             java.srcDirs += "$projectDir/src/testShared"
-        }
-    }
-
-    externalNativeBuild {
-        ndkBuild {
-            path file("jni/Android.mk")
         }
     }
 
@@ -469,6 +470,7 @@ dependencies {
     implementation libs.dnsjava
 
     implementation libs.gosimple.nbvcxz
+    implementation libs.molly.native.utils
 
     testImplementation testLibs.junit.junit
     testImplementation testLibs.assertj.core

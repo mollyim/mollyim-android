@@ -76,6 +76,7 @@ dependencyResolutionManagement {
 
             // MOLLY
             alias('gosimple-nbvcxz').to('me.gosimple:nbvcxz:1.5.0')
+            alias('molly-native-utils').to('im.molly:native-utils:1.0.0')
 
             // Third Party
             alias('greenrobot-eventbus').to('org.greenrobot:eventbus:3.0.0')
