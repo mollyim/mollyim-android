@@ -25,6 +25,9 @@ RUN sdkmanager \
     "extras;google;m2repository" \
     "extras;android;m2repository"
 
+RUN sdkmanager "platforms;android-30"
+RUN sdkmanager "build-tools;30.0.2"
+
 COPY gradlew /molly/
 COPY gradle /molly/gradle/
 RUN /molly/gradlew --version
