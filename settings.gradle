@@ -10,26 +10,26 @@ include ':libfakegms'
 include ':libnetcipher'
 include ':lintchecks'
 include ':paging'
-include ':paging-app'
+//include ':paging-app'
 include ':core-util'
 include ':glide-config'
 include ':video'
 include ':device-transfer'
-include ':device-transfer-app'
+//include ':device-transfer-app'
 include ':image-editor'
-include ':image-editor-app'
+//include ':image-editor-app'
 
 project(':app').name = 'mollyim-android'
 project(':paging').projectDir = file('paging/lib')
-project(':paging-app').projectDir = file('paging/app')
+//project(':paging-app').projectDir = file('paging/app')
 
 project(':device-transfer').projectDir = file('device-transfer/lib')
-project(':device-transfer-app').projectDir = file('device-transfer/app')
+//project(':device-transfer-app').projectDir = file('device-transfer/app')
 
 project(':libsignal-service').projectDir = file('libsignal/service')
 
 project(':image-editor').projectDir = file('image-editor/lib')
-project(':image-editor-app').projectDir = file('image-editor/app')
+//project(':image-editor-app').projectDir = file('image-editor/app')
 
 rootProject.name='Molly'
 
