@@ -229,6 +229,37 @@ public class TextSecurePreferences {
       BLOCK_UNKNOWN,
   };
 
+  public static long getPreferencesToSaveToBackupCount(@NonNull Context context) {
+    SharedPreferences preferences = SecurePreferenceManager.getSecurePreferences(context);
+    long              count       = 0;
+
+    for (String booleanPreference : booleanPreferencesToBackup) {
+      if (preferences.contains(booleanPreference)) {
+        count++;
+      }
+    }
+
+    for (String stringPreference : stringPreferencesToBackup) {
+      if (preferences.contains(stringPreference)) {
+        count++;
+      }
+    }
+
+    for (String stringSetPreference : stringSetPreferencesToBackup) {
+      if (preferences.contains(stringSetPreference)) {
+        count++;
+      }
+    }
+
+    for (String booleanPreference : booleanPreferencesToBackupMolly) {
+      if (preferences.contains(booleanPreference)) {
+        count++;
+      }
+    }
+
+    return count;
+  }
+
   public static List<BackupProtos.SharedPreference> getPreferencesToSaveToBackup(@NonNull Context context) {
     SharedPreferences                   preferences  = SecurePreferenceManager.getSecurePreferences(context);
     List<BackupProtos.SharedPreference> backupProtos = new ArrayList<>();

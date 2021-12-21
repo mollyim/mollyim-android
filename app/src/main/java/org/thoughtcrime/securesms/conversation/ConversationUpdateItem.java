@@ -25,7 +25,7 @@ import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.BindableConversationItem;
 import org.thoughtcrime.securesms.R;
-import org.thoughtcrime.securesms.VerifyIdentityActivity;
+import org.thoughtcrime.securesms.verify.VerifyIdentityActivity;
 import org.thoughtcrime.securesms.components.ExpirationTimerView;
 import org.thoughtcrime.securesms.conversation.colors.Colorizer;
 import org.thoughtcrime.securesms.conversation.mutiselect.MultiselectPart;
@@ -58,7 +58,6 @@ import java.util.Collection;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
-import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 public final class ConversationUpdateItem extends FrameLayout

@@ -36,6 +36,7 @@ import org.thoughtcrime.securesms.mediasend.Media;
 import org.thoughtcrime.securesms.profiles.ProfileName;
 import org.thoughtcrime.securesms.profiles.manage.ManageProfileViewModel.AvatarState;
 import org.thoughtcrime.securesms.util.NameUtil;
+import org.thoughtcrime.securesms.util.navigation.SafeNavigation;
 import org.thoughtcrime.securesms.util.views.SimpleProgressDialog;
 import org.whispersystems.libsignal.util.guava.Optional;
 
@@ -91,15 +92,15 @@ public class ManageProfileFragment extends LoggingFragment {
     editAvatar.setOnClickListener(v -> onEditAvatarClicked());
 
     this.profileNameContainer.setOnClickListener(v -> {
-      Navigation.findNavController(v).navigate(ManageProfileFragmentDirections.actionManageProfileName());
+      SafeNavigation.safeNavigate(Navigation.findNavController(v), ManageProfileFragmentDirections.actionManageProfileName());
     });
 
     this.usernameContainer.setOnClickListener(v -> {
-      Navigation.findNavController(v).navigate(ManageProfileFragmentDirections.actionManageUsername());
+      SafeNavigation.safeNavigate(Navigation.findNavController(v), ManageProfileFragmentDirections.actionManageUsername());
     });
 
     this.aboutContainer.setOnClickListener(v -> {
-      Navigation.findNavController(v).navigate(ManageProfileFragmentDirections.actionManageAbout());
+      SafeNavigation.safeNavigate(Navigation.findNavController(v), ManageProfileFragmentDirections.actionManageAbout());
     });
 
     getParentFragmentManager().setFragmentResultListener(AvatarPickerFragment.REQUEST_KEY_SELECT_AVATAR, getViewLifecycleOwner(), (key, bundle) -> {
@@ -243,6 +244,6 @@ public class ManageProfileFragment extends LoggingFragment {
   }
 
   private void onEditAvatarClicked() {
-    Navigation.findNavController(requireView()).navigate(ManageProfileFragmentDirections.actionManageProfileFragmentToAvatarPicker(null, null));
+    SafeNavigation.safeNavigate(Navigation.findNavController(requireView()), ManageProfileFragmentDirections.actionManageProfileFragmentToAvatarPicker(null, null));
   }
 }

@@ -16,6 +16,7 @@ internal class DonationsValues internal constructor(store: KeyValueStore) : Sign
     private const val KEY_SUBSCRIBER_ID_PREFIX = "donation.subscriber.id."
     private const val KEY_LAST_KEEP_ALIVE_LAUNCH = "donation.last.successful.ping"
     private const val KEY_LAST_END_OF_PERIOD_SECONDS = "donation.last.end.of.period"
+    private const val USER_MANUALLY_CANCELLED = "donation.user.manually.cancelled"
     private const val DISPLAY_BADGES_ON_PROFILE = "donation.display.badges.on.profile"
     private const val SHOULD_CANCEL_SUBSCRIPTION_BEFORE_NEXT_SUBSCRIBE_ATTEMPT = "donation.should.cancel.subscription.before.next.subscribe.attempt"
   }
@@ -51,6 +52,8 @@ internal class DonationsValues internal constructor(store: KeyValueStore) : Sign
     }
   }
 
+  // MOLLY: Functions below are only required for storage sync
+
   fun getSubscriberStorageSync(): Subscriber? {
     return getSubscriber(getSubscriptionCurrency())
   }
@@ -69,5 +72,17 @@ internal class DonationsValues internal constructor(store: KeyValueStore) : Sign
 
   fun getDisplayBadgesOnProfileStorageSync(): Boolean {
     return getBoolean(DISPLAY_BADGES_ON_PROFILE, false)
+  }
+
+  fun isUserManuallyCancelledSync(): Boolean {
+    return getBoolean(USER_MANUALLY_CANCELLED, false)
+  }
+
+  fun markUserManuallyCancelledSync() {
+    putBoolean(USER_MANUALLY_CANCELLED, true)
+  }
+
+  fun clearUserManuallyCancelledSync() {
+    remove(USER_MANUALLY_CANCELLED)
   }
 }

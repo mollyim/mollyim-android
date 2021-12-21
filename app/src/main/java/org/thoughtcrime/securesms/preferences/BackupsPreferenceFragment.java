@@ -41,6 +41,7 @@ import org.thoughtcrime.securesms.util.BackupUtil;
 import org.thoughtcrime.securesms.util.StorageUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
+import java.text.NumberFormat;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -64,6 +65,8 @@ public class BackupsPreferenceFragment extends Fragment {
   private TextView    maxFilesSummary;
   private ProgressBar progress;
   private TextView    progressSummary;
+
+  private final NumberFormat formatter = NumberFormat.getInstance();
 
   @Override
   public @Nullable View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -91,6 +94,9 @@ public class BackupsPreferenceFragment extends Fragment {
     schedule.setOnClickListener(unused -> onScheduleClicked());
     maxFiles.setOnClickListener(unused -> onMaxFilesClicked());
     verify.setOnClickListener(unused -> BackupDialog.showVerifyBackupPassphraseDialog(requireContext()));
+
+    formatter.setMinimumFractionDigits(1);
+    formatter.setMaximumFractionDigits(1);
 
     EventBus.getDefault().register(this);
   }
@@ -139,8 +145,19 @@ public class BackupsPreferenceFragment extends Fragment {
       create.setEnabled(false);
       summary.setText(getString(R.string.BackupsPreferenceFragment__in_progress));
       progress.setVisibility(View.VISIBLE);
-      progressSummary.setVisibility(View.VISIBLE);
-      progressSummary.setText(getString(R.string.BackupsPreferenceFragment__d_so_far, event.getCount()));
+      progressSummary.setVisibility(event.getCount() > 0 ? View.VISIBLE : View.GONE);
+
+      if (event.getEstimatedTotalCount() == 0) {
+        progress.setIndeterminate(true);
+        progressSummary.setText(getString(R.string.BackupsPreferenceFragment__d_so_far, event.getCount()));
+      } else {
+        double completionPercentage = event.getCompletionPercentage();
+
+        progress.setIndeterminate(false);
+        progress.setMax(100);
+        progress.setProgress((int) completionPercentage);
+        progressSummary.setText(getString(R.string.BackupsPreferenceFragment__s_so_far, formatter.format(completionPercentage)));
+      }
     } else if (event.getType() == FullBackupBase.BackupEvent.Type.FINISHED) {
       create.setEnabled(true);
       progress.setVisibility(View.GONE);

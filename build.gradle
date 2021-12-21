@@ -79,13 +79,3 @@ gradleEnterprise {
         publishAlwaysIf(System.getenv("BUILD_SCAN") != null)
     }
 }
-
-task qa {
-    group 'Verification'
-    description 'Quality Assurance. Run before pushing.'
-    dependsOn ':libsignal-service:test',
-              ':mollyim-android:testProdNonFreeReleaseUnitTest',
-              ':mollyim-android:lintProdNonFreeRelease',
-              ':mollyim-android:ktlintCheck',
-              ':mollyim-android:assemble'
-}

@@ -26,7 +26,7 @@ jobs:
       run: $ANDROID_HOME/tools/bin/sdkmanager --uninstall "platforms;android-31"
 
     - name: Build with Gradle
-      run: ./gradlew qa
+      run: ./gradlew build
 
     - name: Archive reports for failed build
       if: ${{ failure() }}

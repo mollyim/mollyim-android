@@ -333,7 +333,7 @@
             android:launchMode="singleTop"
             android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
 
-    <activity android:name=".VerifyIdentityActivity"
+    <activity android:name=".verify.VerifyIdentityActivity"
               android:theme="@style/Signal.DayNight.NoActionBar"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
 

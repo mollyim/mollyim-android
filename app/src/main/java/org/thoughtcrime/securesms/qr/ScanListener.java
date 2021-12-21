@@ -1,6 +1,8 @@
 package org.thoughtcrime.securesms.qr;
 
+import androidx.annotation.NonNull;
+
 public interface ScanListener {
-  void onQrDataFound(String data);
+  void onQrDataFound(@NonNull String data);
   default void onNoScan() {}
 }

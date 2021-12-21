@@ -8,6 +8,7 @@ import org.thoughtcrime.securesms.components.settings.DSLSettingsAdapter
 import org.thoughtcrime.securesms.components.settings.DSLSettingsFragment
 import org.thoughtcrime.securesms.components.settings.DSLSettingsText
 import org.thoughtcrime.securesms.components.settings.configure
+import org.thoughtcrime.securesms.util.navigation.safeNavigate
 
 class ChatsSettingsFragment : DSLSettingsFragment(R.string.preferences_chats__chats) {
 
@@ -72,7 +73,7 @@ class ChatsSettingsFragment : DSLSettingsFragment(R.string.preferences_chats__ch
         title = DSLSettingsText.from(R.string.preferences_chats__chat_backups),
         summary = DSLSettingsText.from(if (state.chatBackupsEnabled) R.string.arrays__enabled else R.string.arrays__disabled),
         onClick = {
-          Navigation.findNavController(requireView()).navigate(R.id.action_chatsSettingsFragment_to_backupsPreferenceFragment)
+          Navigation.findNavController(requireView()).safeNavigate(R.id.action_chatsSettingsFragment_to_backupsPreferenceFragment)
         }
       )
     }

@@ -45,7 +45,12 @@ public class ContactsSyncAdapter extends AbstractThreadedSyncAdapter {
 
     if (KeyCachingService.isLocked()) {
       Log.i(TAG, "Scheduling directory refresh job at next startup.");
-      TextSecurePreferences.removeDirectoryRefreshTime(getContext());
+      TextSecurePreferences.removeDirectoryRefreshTime(context);
+      return;
+    }
+
+    if (SignalStore.account().getE164() == null) {
+      Log.i(TAG, "No local number set, skipping all sync operations.");
       return;
     }
 

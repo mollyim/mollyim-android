@@ -1,12 +1,9 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
 apply plugin: 'com.google.protobuf'
 apply plugin: 'androidx.navigation.safeargs'
-apply plugin: 'witness'
 apply plugin: 'org.jlleitschuh.gradle.ktlint'
 apply from: 'translations.gradle'
-apply from: 'witness-verifications.gradle'
 apply plugin: 'org.jetbrains.kotlin.android'
 apply plugin: 'app.cash.exhaustive'
 apply plugin: 'kotlin-parcelize'
@@ -81,8 +78,8 @@ protobuf {
     }
 }
 
-def canonicalVersionCode = 978
-def canonicalVersionName = "5.28.5"
+def canonicalVersionCode = 979
+def canonicalVersionName = "5.28.6"
 
 def postFixSize = 100
 def abiPostFix = ['universal'   : 0,
@@ -403,11 +400,12 @@ dependencies {
     implementation project(':libsignal-service')
     implementation project(':paging')
     implementation project(':core-util')
-    freeImplementation project(':libfakegms')
-    implementation project(":libnetcipher")
+    implementation project(':glide-config')
     implementation project(':video')
     implementation project(':device-transfer')
     implementation project(':image-editor')
+    freeImplementation project(':libfakegms')
+    implementation project(":libnetcipher")
 
     implementation libs.signal.client.android
     implementation libs.google.protobuf.javalite
@@ -430,8 +428,6 @@ dependencies {
     implementation libs.apache.httpclient.android
     implementation libs.photoview
     implementation libs.glide.glide
-    kapt libs.glide.compiler
-    kapt libs.androidx.annotation
     implementation libs.roundedimageview
     implementation libs.materialish.progress
     implementation libs.greenrobot.eventbus
@@ -501,10 +497,6 @@ dependencies {
     implementation libs.rxdogtag
 
     androidTestUtil 'androidx.test:orchestrator:1.4.0'
-}
-
-dependencyVerification {
-    configuration = '(staging|prod)(Free|NonFree)(Debug|Release)RuntimeClasspath'
 }
 
 static def getCommitTag() {
