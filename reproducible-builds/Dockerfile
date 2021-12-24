@@ -20,11 +20,7 @@ ENV PATH="${PATH}:${ANDROID_HOME}/cmdline-tools/latest/bin"
 RUN mkdir /root/.android && touch /root/.android/repositories.cfg
 RUN yes | sdkmanager --licenses
 
-RUN sdkmanager \
-    "platform-tools" \
-    "extras;google;m2repository" \
-    "extras;android;m2repository"
-
+RUN sdkmanager "platform-tools"
 RUN sdkmanager "platforms;android-30"
 RUN sdkmanager "build-tools;30.0.2"
 
