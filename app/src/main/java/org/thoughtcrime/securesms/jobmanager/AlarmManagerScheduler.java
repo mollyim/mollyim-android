@@ -3,7 +3,6 @@ package org.thoughtcrime.securesms.jobmanager;
 import android.app.AlarmManager;
 import android.app.Application;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
@@ -14,7 +13,7 @@ import com.annimon.stream.Stream;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
-import org.thoughtcrime.securesms.service.KeyCachingService;
+import org.thoughtcrime.securesms.service.ExportedBroadcastReceiver;
 
 import java.util.List;
 import java.util.UUID;
@@ -58,17 +57,11 @@ public class AlarmManagerScheduler implements Scheduler {
     Log.i(TAG, "Set an alarm to retry a job in " + (time - System.currentTimeMillis()) + " ms.");
   }
 
-  public static class RetryReceiver extends BroadcastReceiver {
+  public static class RetryReceiver extends ExportedBroadcastReceiver {
 
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onReceiveUnlock(Context context, Intent intent) {
       Log.i(TAG, "Received an alarm to retry a job.");
-
-      if (KeyCachingService.isLocked()) {
-        Log.d(TAG, "JobManager will not wake up: app is locked.");
-        return;
-      }
-
       ApplicationDependencies.getJobManager().wakeUp();
     }
   }

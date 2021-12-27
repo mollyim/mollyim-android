@@ -14,5 +14,5 @@ public abstract class ExportedBroadcastReceiver extends BroadcastReceiver {
     onReceiveUnlock(context, intent);
   }
 
-  protected void onReceiveUnlock(Context context, Intent intent) {}
+  protected abstract void onReceiveUnlock(Context context, Intent intent);
 }
