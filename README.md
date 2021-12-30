@@ -70,13 +70,13 @@ This table lists the current status of the dependencies:
 
 Molly and Signal apps can be installed on the same device. If you need a 2nd number to chat, you can use Molly along with Signal.
 
-However, you cannot use the same phone number on both apps at the same time. Only the last app to register will remain active, and the other will go offline. Remember that you are not limited to use only your main phone number, but also any number on you can receive SMS or phone calls at registration.
+However, you cannot use the same phone number on both apps at the same time. Only the last app to register will remain active, and the other will go offline. Remember that you are not limited to use only your main phone number, but also any number on which you can receive SMS or phone calls at registration.
 
 ## Backups
 
-Backups are fully compatible. Signal [backups](https://support.signal.org/hc/en-us/articles/360007059752-Backup-and-Restore-Messages) can be restored in Molly, and the other way around, simply by choosing the backup folder and file.
+Backups are fully compatible. Signal [backups](https://support.signal.org/hc/en-us/articles/360007059752-Backup-and-Restore-Messages) can be restored in Molly, and the other way around, simply by choosing the backup folder and file. To import from Signal use a matching or newer version of Molly.
 
-For older versions of Android, you might need to rename the backup file and copy it into the expected path, so the app can find the backup to restore during installation. Those are the locations within internal storage where backups are written by default:
+For older releases of Android, you might need to rename the backup file and copy it into the expected path, so the app can find the backup to restore during installation. Those are the locations within internal storage where backups are written by default:
 - `Signal/Backups/Signal-year-month-date-time.backup`
 - `Molly/Backups/Molly-year-month-date-time.backup`
 
