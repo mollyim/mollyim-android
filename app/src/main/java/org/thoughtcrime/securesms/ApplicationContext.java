@@ -404,8 +404,8 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
         IdentityKeyUtil.generateIdentityKeys(this);
       }
 
-      Log.i(TAG, "Setting first install version to " + Util.getCanonicalVersionCode());
-      TextSecurePreferences.setFirstInstallVersion(this, Util.getCanonicalVersionCode());
+      Log.i(TAG, "Setting first install version to " + Util.getSignalCanonicalVersionCode());
+      TextSecurePreferences.setFirstInstallVersion(this, Util.getSignalCanonicalVersionCode());
     }
   }
 

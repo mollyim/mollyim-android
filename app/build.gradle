@@ -80,31 +80,9 @@ protobuf {
 
 def canonicalVersionCode = 979
 def canonicalVersionName = "5.28.6"
+def mollyRevision = 0
 
 def postFixSize = 100
-def abiPostFix = ['universal'   : 0,
-                  'armeabi-v7a' : 1,
-                  'arm64-v8a'   : 2,
-                  'x86'         : 3,
-                  'x86_64'      : 4]
-
-def selectableVariants = [
-        'nightlyProdFlipper',
-        'nightlyProdPerf',
-        'nightlyProdRelease',
-        'playProdDebug',
-        'playProdFlipper',
-        'playProdPerf',
-        'playProdRelease',
-        'playStagingDebug',
-        'playStagingFlipper',
-        'playStagingPerf',
-        'playStagingRelease',
-        'studyProdMock',
-        'studyProdPerf',
-        'websiteProdFlipper',
-        'websiteProdRelease',
-]
 
 android {
     buildToolsVersion BUILD_TOOL_VERSION
@@ -123,19 +101,23 @@ android {
     }
 
     signingConfigs {
-        staging {
-            if (System.getenv('STAGING_KEYSTORE_PATH')) {
-                storeFile file("${System.env.STAGING_KEYSTORE_PATH}")
-                storePassword "${System.env.STAGING_KEYSTORE_PASSWORD}"
-                keyAlias "staging"
-                keyPassword "${System.env.STAGING_KEYSTORE_PASSWORD}"
+        ci {
+            if (System.getenv('CI_KEYSTORE_PATH')) {
+                storeFile file("${System.env.CI_KEYSTORE_PATH}")
+                storePassword "${System.env.CI_KEYSTORE_PASSWORD}"
+                keyAlias "${System.env.CI_KEYSTORE_ALIAS}"
+                keyPassword "${System.env.CI_KEYSTORE_PASSWORD}"
                 enableV4Signing false
             }
         }
     }
 
+    if (mollyRevision < 0 || mollyRevision >= postFixSize) {
+        throw new GradleException("Molly revision $mollyRevision out of range")
+    }
+
     defaultConfig {
-        versionCode canonicalVersionCode * postFixSize + abiPostFix['universal']
+        versionCode canonicalVersionCode * postFixSize + mollyRevision
         versionName project.hasProperty('ci') ? getCommitTag() : canonicalVersionName
 
         minSdkVersion MINIMUM_SDK
@@ -146,9 +128,10 @@ android {
         applicationId basePackageId
 
         buildConfigField "String", "SIGNAL_PACKAGE_NAME", "\"org.thoughtcrime.securesms\""
-        buildConfigField "String", "CANONICAL_VERSION_NAME", "\"$canonicalVersionName\""
+        buildConfigField "String", "SIGNAL_CANONICAL_VERSION_NAME", "\"$canonicalVersionName\""
+        buildConfigField "int", "SIGNAL_CANONICAL_VERSION_CODE", "$canonicalVersionCode"
         buildConfigField "String", "FDROID_UPDATE_URL", "\"https://molly.im/fdroid/repo\""
-        buildConfigField "String", "BACKUP_FILENAME", "\"" + baseAppName.toLowerCase() + "\""
+        buildConfigField "String", "BACKUP_FILENAME", "\"" + baseApkFileName.toLowerCase() + "\""
 
         vectorDrawables.useSupportLibrary = true
 
@@ -178,7 +161,6 @@ android {
         buildConfigField "String", "UNIDENTIFIED_SENDER_TRUST_ROOT", "\"BXu6QIKVz5MA8gstzfOgRQGqyLqOwNKHL6INkv3IHWMF\""
         buildConfigField "String", "ZKGROUP_SERVER_PUBLIC_PARAMS", "\"AMhf5ywVwITZMsff/eCyudZx9JDmkkkbV6PInzG4p8x3VqVJSFiMvnvlEKWuRob/1eaIetR31IYeAbm0NdOuHH8Qi+Rexi1wLlpzIo1gstHWBfZzy1+qHRV5A4TqPp15YzBPm0WSggW6PbSn+F4lf57VCnHF7p8SvzAA2ZZJPYJURt8X7bbg+H3i+PEjH9DXItNEqs2sNcug37xZQDLm7X36nOoGPs54XsEGzPdEV+itQNGUFEjY6X9Uv+Acuks7NpyGvCoKxGwgKgE5XyJ+nNKlyHHOLb6N1NuHyBrZrgtY/JYJHRooo5CEqYKBqdFnmbTVGEkCvJKxLnjwKWf+fEPoWeQFj5ObDjcKMZf2Jm2Ae69x+ikU5gBXsRmoF94GXQ==\""
         buildConfigField "String[]", "LANGUAGES", "new String[]{\"" + autoResConfig().collect { s -> s.replace('-r', '_') }.join('", "') + '"}'
-        buildConfigField "int", "CANONICAL_VERSION_CODE", "$canonicalVersionCode"
         buildConfigField "String", "DEFAULT_CURRENCIES", "\"EUR,AUD,GBP,CAD,CNY\""
         buildConfigField "int[]", "MOBILE_COIN_BLACKLIST", "new int[]{98,963,53,850,7}"
         buildConfigField "String", "GIPHY_API_KEY", "\"3o6ZsYH6U6Eri53TXy\""
@@ -308,6 +290,7 @@ android {
         }
 
         release {
+            signingConfig signingConfigs.ci.storeFile ? signingConfigs.ci : null
             minifyEnabled true
             shrinkResources true
             proguardFiles = buildTypes.debug.proguardFiles
@@ -319,12 +302,12 @@ android {
         def isStaging = variant.productFlavors*.name.contains("staging")
         def hasSigningConfig = buildType.signingConfig || variant.signingConfig
 
-        variant.resValue 'string', 'app_name', baseAppName + (isStaging ? " Staging" : "")
+        variant.resValue 'string', 'app_name', baseAppTitle + (isStaging ? " Staging" : "")
         variant.resValue "string", 'package_name', variant.applicationId
 
         variant.outputs.all {
-            def flavors = variant.baseName - ~/(free|nonFree)-/ + (hasSigningConfig ? "" : "-unsigned")
-            outputFileName = "${baseAppName}-${flavors}-${versionName}.apk"
+            def flavors = variant.baseName - ~/-(free|nonFree)/ - ~/-release/ + (hasSigningConfig ? "" : "-unsigned")
+            outputFileName = "${baseApkFileName}-${flavors}-${versionName}.apk"
         }
     }
 

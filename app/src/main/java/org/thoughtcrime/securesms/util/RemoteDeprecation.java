@@ -24,7 +24,7 @@ public final class RemoteDeprecation {
    *         there's no pending expiration.
    */
   public static long getTimeUntilDeprecation() {
-    return getTimeUntilDeprecation(FeatureFlags.clientExpiration(), System.currentTimeMillis(), BuildConfig.VERSION_NAME);
+    return getTimeUntilDeprecation(FeatureFlags.clientExpiration(), System.currentTimeMillis(), Util.getSignalCanonicalVersionName());
   }
 
   /**

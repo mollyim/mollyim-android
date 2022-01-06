@@ -338,31 +338,30 @@ public class Util {
 
   /**
    * The app version.
-   * <p>
-   * This code should be used in all places that compare app versions rather than
-   * {@link #getManifestApkVersion(Context)} or {@link BuildConfig#VERSION_CODE}.
    */
-  public static int getCanonicalVersionCode() {
-    return BuildConfig.CANONICAL_VERSION_CODE;
+  public static int getMollyVersionCode() {
+    return BuildConfig.VERSION_CODE;
   }
 
-  public static String getCanonicalVersionName() {
-    return BuildConfig.CANONICAL_VERSION_NAME;
+  public static int getSignalCanonicalVersionCode() {
+    return BuildConfig.SIGNAL_CANONICAL_VERSION_CODE;
   }
 
-  /**
-   * {@link BuildConfig#VERSION_CODE} may not be the actual version due to ABI split code adding a
-   * postfix after BuildConfig is generated.
-   * <p>
-   * However, in most cases you want to use {@link BuildConfig#CANONICAL_VERSION_CODE} via
-   * {@link #getCanonicalVersionCode()}
-   */
+  // MOLLY: No ABI splits. APK version matches Molly version code
   public static int getManifestApkVersion(Context context) {
     try {
       return context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionCode;
     } catch (PackageManager.NameNotFoundException e) {
       throw new AssertionError(e);
     }
+  }
+
+  public static String getMollyVersionName() {
+    return BuildConfig.VERSION_NAME;
+  }
+
+  public static String getSignalCanonicalVersionName() {
+    return BuildConfig.SIGNAL_CANONICAL_VERSION_NAME;
   }
 
   public static String getSecret(int size) {

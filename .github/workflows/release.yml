@@ -1,0 +1,81 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Build Docker image
+      run: docker-compose build
+      working-directory: reproducible-builds
+
+    - name: Build release APKs
+      if: "!contains(github.ref_name, 'alpha')"
+      run: docker-compose run assemble
+      working-directory: reproducible-builds
+
+    - name: Extract alpha keystore
+      if: "contains(github.ref_name, 'alpha')"
+      run: echo "$ALPHA_KEYSTORE" | base64 -d > reproducible-builds/certs/alpha.jks
+      env:
+        ALPHA_KEYSTORE: ${{ secrets.ALPHA_KEYSTORE }}
+
+    - name: Build alpha release APKs
+      if: "contains(github.ref_name, 'alpha')"
+      run: docker-compose run assemble-alpha
+      working-directory: reproducible-builds
+      env:
+        CI_KEYSTORE_PATH: certs/alpha.jks
+        CI_KEYSTORE_ALIAS: alpha
+        CI_KEYSTORE_PASSWORD: ${{ secrets.ALPHA_KEYSTORE_PASSWORD }}
+
+    - name: Clean up keystores
+      if: "always()"
+      run: rm -f reproducible-builds/certs/alpha.jks
+
+    - name: Log checksums
+      run: find reproducible-builds/outputs/apk -name "*.apk" -exec sha256sum '{}' \;
+
+    - name: Upload APKs
+      uses: actions/upload-artifact@v2
+      with:
+        name: molly-apk-docker
+        path: reproducible-builds/outputs/apk/**/release/*.apk
+        if-no-files-found: error
+
+  publish:
+    name: Publish
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+
+      - name: Create stable release draft
+        if: "!contains(github.ref_name, 'alpha') && !contains(github.ref_name, 'beta')"
+        run: gh release create -d -t "Molly $GITHUB_REF_NAME" "$GITHUB_REF_NAME"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create beta release draft
+        if: "contains(github.ref_name, 'beta')"
+        run: gh release create -d -p -t "Molly $GITHUB_REF_NAME" "$GITHUB_REF_NAME"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create alpha release
+        if: "contains(github.ref_name, 'alpha')"
+        run: gh release create -p -t "Molly Insider $GITHUB_REF_NAME" "$GITHUB_REF_NAME" ./molly-apk-docker/*/release/*.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

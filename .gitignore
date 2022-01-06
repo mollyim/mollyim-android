@@ -1,8 +1,6 @@
 .classpath
 captures/
 project.properties
-keystore.debug.properties
-keystore.staging.properties
 .project
 .settings
 bin/
@@ -25,6 +23,6 @@ ffpr
 test/androidTestEspresso/res/values/arrays.xml
 obj/
 .cxx
+reproducible-builds/certs/
 reproducible-builds/outputs/
-pkcs11.password
-dev.keystore
+reproducible-builds/test-reports/

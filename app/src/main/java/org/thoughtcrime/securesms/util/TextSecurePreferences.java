@@ -763,11 +763,11 @@ public class TextSecurePreferences {
     return getBooleanPreference(context, SCREEN_SECURITY_PREF, true);
   }
 
-  public static int getLastVersionCode(Context context) {
-    return getIntegerPreference(context, LAST_VERSION_CODE_PREF, Util.getCanonicalVersionCode());
+  public static int getSignalLastVersionCode(Context context) {
+    return getIntegerPreference(context, LAST_VERSION_CODE_PREF, Util.getSignalCanonicalVersionCode());
   }
 
-  public static void setLastVersionCode(Context context, int versionCode) throws IOException {
+  public static void setSignalLastVersionCode(Context context, int versionCode) throws IOException {
     if (!setIntegerPrefrenceBlocking(context, LAST_VERSION_CODE_PREF, versionCode)) {
       throw new IOException("couldn't write version code to sharedpreferences");
     }

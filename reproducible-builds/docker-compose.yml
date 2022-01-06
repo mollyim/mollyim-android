@@ -1,13 +1,45 @@
 version: '3.2'
 services:
-  reproducible-molly:
+  assemble:
+    image: reproducible-molly
     build:
       context: ..
       dockerfile: reproducible-builds/Dockerfile
-    command: ./gradlew -Pci :mollyim-android:assembleRelease
+    command: ./gradlew -Pci :app:assembleProdNonFreeRelease :app:assembleProdFreeRelease
     volumes:
+      - ./certs:/molly/app/certs:ro
       - ./outputs:/molly/app/build/outputs
     environment:
-      - BUILD_SCAN
-      - STAGING_KEYSTORE_PATH
-      - STAGING_KEYSTORE_PASSWORD
+      - CI_KEYSTORE_PATH
+      - CI_KEYSTORE_PASSWORD
+      - CI_KEYSTORE_ALIAS
+  assemble-alpha:
+    image: reproducible-molly
+    build:
+      context: ..
+      dockerfile: reproducible-builds/Dockerfile
+    command: ./gradlew -Pci :app:assembleRelease
+    volumes:
+      - ./certs:/molly/app/certs:ro
+      - ./outputs:/molly/app/build/outputs
+    environment:
+      - CI_KEYSTORE_PATH
+      - CI_KEYSTORE_PASSWORD
+      - CI_KEYSTORE_ALIAS
+      - ORG_GRADLE_PROJECT_baseAppTitle=Molly Insider
+      - ORG_GRADLE_PROJECT_baseApkFileName=Molly-Insider
+      - ORG_GRADLE_PROJECT_basePackageId=im.molly.insider
+    profiles:
+      - alpha
+  test:
+    image: reproducible-molly
+    build:
+      context: ..
+      dockerfile: reproducible-builds/Dockerfile
+    command: ./gradlew build
+    volumes:
+      - ./test-reports:/molly/app/build/reports
+    environment:
+      - BUILD_SCAN=1
+    profiles:
+      - test

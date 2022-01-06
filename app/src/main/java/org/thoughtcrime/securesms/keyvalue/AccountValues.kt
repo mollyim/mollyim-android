@@ -93,7 +93,7 @@ internal class AccountValues internal constructor(store: KeyValueStore) : Signal
   var fcmToken: String?
     get() {
       val tokenVersion: Int = TextSecurePreferences.getIntegerPreference(context, "pref_gcm_registration_id_version", 0)
-      return if (tokenVersion == Util.getCanonicalVersionCode()) {
+      return if (tokenVersion == Util.getSignalCanonicalVersionCode()) {
         TextSecurePreferences.getStringPreference(context, "pref_gcm_registration_id", null)
       } else {
         null
@@ -101,7 +101,7 @@ internal class AccountValues internal constructor(store: KeyValueStore) : Signal
     }
     set(value) {
       TextSecurePreferences.setStringPreference(context, "pref_gcm_registration_id", value)
-      TextSecurePreferences.setIntegerPrefrence(context, "pref_gcm_registration_id_version", Util.getCanonicalVersionCode())
+      TextSecurePreferences.setIntegerPrefrence(context, "pref_gcm_registration_id_version", Util.getSignalCanonicalVersionCode())
       TextSecurePreferences.setLongPreference(context, "pref_gcm_registration_id_last_set_time", System.currentTimeMillis())
     }
 

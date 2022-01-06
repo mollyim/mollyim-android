@@ -18,18 +18,18 @@ public class VersionTracker {
   private static final String TAG = Log.tag(VersionTracker.class);
 
   public static int getLastSeenVersion(@NonNull Context context) {
-    return TextSecurePreferences.getLastVersionCode(context);
+    return TextSecurePreferences.getSignalLastVersionCode(context);
   }
 
   public static void updateLastSeenVersion(@NonNull Context context) {
     try {
-      int currentVersionCode = Util.getCanonicalVersionCode();
-      int lastVersionCode    = TextSecurePreferences.getLastVersionCode(context);
+      int currentVersionCode = Util.getSignalCanonicalVersionCode();
+      int lastVersionCode    = TextSecurePreferences.getSignalLastVersionCode(context);
 
       if (currentVersionCode != lastVersionCode) {
         Log.i(TAG, "Upgraded from " + lastVersionCode + " to " + currentVersionCode);
         SignalStore.misc().clearClientDeprecated();
-        TextSecurePreferences.setLastVersionCode(context, currentVersionCode);
+        TextSecurePreferences.setSignalLastVersionCode(context, currentVersionCode);
         ApplicationDependencies.getJobManager().add(new RemoteConfigRefreshJob());
         LocalMetrics.getInstance().clear();
       }

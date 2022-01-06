@@ -81,7 +81,7 @@ public class LogSectionSystemInfo implements LogSection {
              .append(" ")
              .append(pm.getPackageInfo(context.getPackageName(), 0).versionName)
              .append(" (")
-             .append(BuildConfig.CANONICAL_VERSION_CODE)
+             .append(Util.getSignalCanonicalVersionCode())
              .append(", ")
              .append(Util.getManifestApkVersion(context))
              .append(") (")

@@ -11,7 +11,6 @@ import com.annimon.stream.Stream;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.signal.core.util.logging.Log;
-import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.groups.SelectionLimits;
 import org.thoughtcrime.securesms.jobs.RefreshAttributesJob;
@@ -531,7 +530,7 @@ public final class FeatureFlags {
       return VersionFlag.OFF;
     }
 
-    if (BuildConfig.CANONICAL_VERSION_CODE >= versionFromKey) {
+    if (Util.getSignalCanonicalVersionCode() >= versionFromKey) {
       return VersionFlag.ON;
     } else {
       return VersionFlag.ON_IN_FUTURE_VERSION;
