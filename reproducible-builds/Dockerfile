@@ -28,3 +28,4 @@ RUN /molly/gradlew --version
 
 COPY . /molly/
 WORKDIR /molly
+RUN git clean -df
