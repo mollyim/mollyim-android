@@ -19,7 +19,6 @@ include ':device-transfer'
 include ':image-editor'
 //include ':image-editor-app'
 
-project(':app').name = 'mollyim-android'
 project(':paging').projectDir = file('paging/lib')
 //project(':paging-app').projectDir = file('paging/app')
 
