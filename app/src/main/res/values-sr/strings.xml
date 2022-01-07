@@ -432,6 +432,8 @@
   <string name="BackupsPreferenceFragment__learn_more">Сазнај више</string>
   <string name="BackupsPreferenceFragment__in_progress">У току…</string>
   <string name="BackupsPreferenceFragment__d_so_far">%1$d досад…</string>
+  <!--Show percentage of completion of backup-->
+  <string name="BackupsPreferenceFragment__s_so_far">%1$s%% за сада…</string>
   <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Апликација Molly захтева дозволу спољној меморији да би правила резервне копије, али је трајно одбијено. Наставите до подешавања апликације, одаберите „Дозволе“ и омогућите ставку „Меморија“.</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Користим посебно: %s</string>
@@ -468,8 +470,8 @@
   <!--DocumentView-->
   <string name="DocumentView_unnamed_file">Датотека без имена</string>
   <!--GroupCallingMegaphone-->
-  <string name="GroupCallingMegaphone__introducing_group_calls">Представљамо групне позиве</string>
-  <string name="GroupCallingMegaphone__open_a_new_group_to_start">Отворите нову групу да бисте започели бесплатан шифровани групни позив</string>
+  <!-- Removed by excludeNonTranslatables <string name="GroupCallingMegaphone__introducing_group_calls">Представљамо групне позиве</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="GroupCallingMegaphone__open_a_new_group_to_start">Отворите нову групу да бисте започели бесплатан шифровани групни позив</string> -->
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">Оптимизуј за недостајуће Плеј сервисе</string>
   <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Овај уређај не подржава Плеј сервисе. Тапните да искључите системску оптимизацију потрошње батерије која спречава добављање порука док је Molly неактиван.</string>
@@ -601,9 +603,9 @@
   <string name="LeaveGroupDialog_before_you_leave_you_must_choose_at_least_one_new_admin_for_this_group">Пре него што напустите, морате да изаберете барем једног администратора за ову групу.</string>
   <string name="LeaveGroupDialog_choose_admin">Изаберите администратора</string>
   <!--LinkPreviewsMegaphone-->
-  <string name="LinkPreviewsMegaphone_disable">Онемогући</string>
-  <string name="LinkPreviewsMegaphone_preview_any_link">Прикажи било коју везу</string>
-  <string name="LinkPreviewsMegaphone_you_can_now_retrieve_link_previews_directly_from_any_website">Сада можете да видите преглед линка са сваког веб сајта у порукама које шаљете.</string>
+  <!-- Removed by excludeNonTranslatables <string name="LinkPreviewsMegaphone_disable">Онемогући</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="LinkPreviewsMegaphone_preview_any_link">Прикажи било коју везу</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="LinkPreviewsMegaphone_you_can_now_retrieve_link_previews_directly_from_any_website">Сада можете да видите преглед линка са сваког веб сајта у порукама које шаљете.</string> -->
   <!--LinkPreviewView-->
   <string name="LinkPreviewView_no_link_preview_available">Преглед веза није доступан</string>
   <string name="LinkPreviewView_this_group_link_is_not_active">Веза до групе није активна</string>
@@ -919,8 +921,8 @@
   <string name="MediaOverviewActivity_sent_by_s_to_s">Послао %1$s за %2$s</string>
   <string name="MediaOverviewActivity_sent_by_you_to_s">ви сте послали за %1$s</string>
   <!--Megaphones-->
-  <string name="Megaphones_introducing_reactions">Представљамо реакције</string>
-  <string name="Megaphones_tap_and_hold_any_message_to_quicky_share_how_you_feel">Пипните и држите било коју поруку за брзо дељење шта мислите о томе.</string>
+  <!-- Removed by excludeNonTranslatables <string name="Megaphones_introducing_reactions">Представљамо реакције</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="Megaphones_tap_and_hold_any_message_to_quicky_share_how_you_feel">Пипните и држите било коју поруку за брзо дељење шта мислите о томе.</string> -->
   <string name="Megaphones_remind_me_later">Подсети ме касније</string>
   <string name="Megaphones_verify_your_signal_pin">Проверите ваш Signal PIN</string>
   <string name="Megaphones_well_occasionally_ask_you_to_verify_your_pin">Повремено ћемо вас питати да унесете ваш PIN, како бисте га запамтили.</string>
@@ -1422,6 +1424,8 @@
   <string name="RegistrationActivity_play_services_error">Грешка Play сервиса</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play сервиси се ажурирају или су привремено недоступни. Покушајте поново касније.</string>
   <string name="RegistrationActivity_terms_and_privacy">Услови и политика приватности</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Signal-у су потребна дозволе за контакте и медије да би се лакше прикачили са пријатељима и слали поруке. Ваши контакти су послани са Signal-ом, што знаћи са си шифровани и невидљиви са стране Signal сервиса.</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Signal-у су потребна дозволе за контакте да би се лакше прикачили са пријатељима. Ваши контакти су послани са Signal-ом, што знаћи са си шифровани и невидљиви са стране Signal сервиса.</string>
   <string name="RegistrationActivity_rate_limited_to_service">Превише пута сте покушали да региструјете овај број. Покушајте поново касније.</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">Није могуће успоставити везу са сервисом. Проверите да ли сте повезани на интернет и покушајте поново.</string>
   <string name="RegistrationActivity_non_standard_number_format">Не стандардни формат цифре</string>
@@ -1704,6 +1708,7 @@
   <string name="UnauthorizedReminder_device_no_longer_registered">Уређај више није регистрован</string>
   <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Могуће је да је ваш број телефона регистрован на Signal на другом уређају. Кликнути овде за понављање регистрације.</string>
   <!--WebRtcCallActivity-->
+  <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">Да би одговорили, Дајте Molly-у приступ микрофону.</string>
   <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Да бисте одговорили на позив од %s, „Molly“-у је потребан приступ Вашем микрофону.</string>
   <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Molly захтева приступ микрофону и камери да би успоставио или примио позив, али су му дозволе трајно забрањене. Молимо вас да у апликацији за подешавање телефона Molly-у дозволите пруиступ микрофону и камери.</string>
   <string name="WebRtcCallActivity__answered_on_a_linked_device">Одговорено на другом уређају.</string>
@@ -2618,15 +2623,15 @@
   <string name="KbsMegaphone__pins_keep_information_thats_stored_with_signal_encrytped">Употребом PIN-а се подаци које Signal складишти енкриптују</string>
   <string name="KbsMegaphone__create_pin">Направите PIN</string>
   <!--Research Megaphone-->
-  <string name="ResearchMegaphone_tell_signal_what_you_think">Реците Signal-у шта мислите</string>
-  <string name="ResearchMegaphone_to_make_signal_the_best_messaging_app_on_the_planet">Да бисмо Signal учинили најбољом апликацијом за размену порука на планети, волели бисмо да чујемо ваше повратне информације.</string>
-  <string name="ResearchMegaphone_learn_more">Сазнај више</string>
-  <string name="ResearchMegaphone_dismiss">Одбаци</string>
-  <string name="ResearchMegaphoneDialog_signal_research">Signal Истраживање</string>
-  <string name="ResearchMegaphoneDialog_we_believe_in_privacy"><![CDATA[<p><b>Верујемо у приватност.</b></p><p>Signal вас не прати нити прикупља ваше податке. Да бисмо побољшали Signal за све, ослањамо се на повратне информације корисника, <b>и ми бисмо волели Ваше.</b></p><p>Водимо анкету како бисмо разумели како користите Signal. Наша анкета не прикупља податке који ће вас идентификовати. Ако сте заинтересовани за дељење повратних информација, имаћете могућност да наведете контакт информације.</p><p>Ако имате неколико минута и повратне информације да поделите, желели бисмо да нам пишете.</p>]]></string>
-  <string name="ResearchMegaphoneDialog_take_the_survey">Попуните анкету</string>
-  <string name="ResearchMegaphoneDialog_no_thanks">Не, хвала</string>
-  <string name="ResearchMegaphoneDialog_the_survey_is_hosted_by_alchemer_at_the_secure_domain">Домаћин анкете је Alchemer на сигурносном домену surveys.signalusers.org</string>
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphone_tell_signal_what_you_think">Реците Signal-у шта мислите</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphone_to_make_signal_the_best_messaging_app_on_the_planet">Да бисмо Signal учинили најбољом апликацијом за размену порука на планети, волели бисмо да чујемо ваше повратне информације.</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphone_learn_more">Сазнај више</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphone_dismiss">Одбаци</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphoneDialog_signal_research">Signal Истраживање</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphoneDialog_we_believe_in_privacy"><![CDATA[<p><b>Верујемо у приватност.</b></p><p>Signal вас не прати нити прикупља ваше податке. Да бисмо побољшали Signal за све, ослањамо се на повратне информације корисника, <b>и ми бисмо волели Ваше.</b></p><p>Водимо анкету како бисмо разумели како користите Signal. Наша анкета не прикупља податке који ће вас идентификовати. Ако сте заинтересовани за дељење повратних информација, имаћете могућност да наведете контакт информације.</p><p>Ако имате неколико минута и повратне информације да поделите, желели бисмо да нам пишете.</p>]]></string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphoneDialog_take_the_survey">Попуните анкету</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphoneDialog_no_thanks">Не, хвала</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphoneDialog_the_survey_is_hosted_by_alchemer_at_the_secure_domain">Домаћин анкете је Alchemer на сигурносном домену surveys.signalusers.org</string> -->
   <!--transport_selection_list_item-->
   <string name="transport_selection_list_item__transport_icon">Икона преноса</string>
   <string name="ConversationListFragment_loading">Учитавање…</string>
@@ -2676,7 +2681,7 @@
   <string name="BackupDialog_verify">Овери</string>
   <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">Успешно сте унели фразу за резервну копију</string>
   <string name="BackupDialog_passphrase_was_not_correct">Фраза није тачна</string>
-  <!-- Removed by excludeNonTranslatables <string name="LocalBackupJob_creating_backup">Прављење бекапа…</string> -->
+  <string name="LocalBackupJob_creating_signal_backup">Креација бекапа Molly-а…</string>
   <string name="LocalBackupJobApi29_backup_failed">Резервна копија није успела</string>
   <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">Ваша фасцикла за резервне копије је избрисана или премештена.</string>
   <string name="LocalBackupJobApi29_your_backup_file_is_too_large">Датотека ваше резервне копије је превелика за чување на овом волумену.</string>
@@ -2799,6 +2804,8 @@
   <string name="DeviceTransfer__keep_both_devices_near_each_other">Keep both devices near each other. Do not turn off the devices and keep Signal open. Transfers are end-to-end encrypted.
 Држите оба уређаја близу једни другима. Не искључујте уређаје и одржавајте Signal отворен. Преноси су потпуно енкриптовани.</string>
   <string name="DeviceTransfer__d_messages_so_far">%1$d порука до сад…</string>
+  <!--Filled in with total percentage of messages transferred-->
+  <string name="DeviceTransfer__s_of_messages_so_far">%1$s%% од порука за сада…</string>
   <string name="DeviceTransfer__cancel">Поништи</string>
   <string name="DeviceTransfer__try_again">Покушај поново</string>
   <string name="DeviceTransfer__stop_transfer_question">Заустави пренос?</string>
@@ -3508,6 +3515,7 @@
   <string name="ExpiredBadgeBottomSheetDialogFragment__badge_expired">Значка је истекла</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__subscription_cancelled">Претплата поништена</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__your_boost_badge_has_expired">Ваша Boost значка је истекла, и не може више де се види на вашем профилу.</string>
+  <string name="ExpiredBadgeBottomSheetDialogFragment__you_can_reactivate">Можете поново активирати своју Boost значку још 30 дана са једнократним доприносом.</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__to_continue_supporting_technology">За наставак пратеће технологије која је изграђена за вас, размислите да постанете месечни претплатник.</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__become_a_sustainer">Постати одрживач</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__add_a_boost">Додајте Буст</string>
@@ -3573,6 +3581,7 @@
   <!--Call to action button on contact picker for adding to profile-->
   <string name="SelectRecipientsFragment__add">Додај</string>
   <!--Notification profiles home fragment, shown when no profiles have been created yet-->
+  <string name="NotificationProfilesFragment__create_a_profile_to_receive_notifications_and_calls_only_from_the_people_and_groups_you_want_to_hear_from">Креирајте профил да бисте примили обавештења и позиве само од људи и група које желите да чујете.</string>
   <!--Header shown above list of all notification profiles-->
   <string name="NotificationProfilesFragment__profiles">Профили</string>
   <!--Button that starts the create new notification profile flow-->
@@ -3650,8 +3659,11 @@
   <!--Call to action button to press to close the created screen and move to the profile details screen-->
   <string name="NotificationProfileCreated__done">Готово</string>
   <!--Descriptor text shown to indicate how to manually turn a profile on/off-->
+  <string name="NotificationProfileCreated__you_can_turn_your_profile_on_or_off_manually_via_the_menu_on_the_chat_list">Можете да ручно укључите или искључите профил путем менија на листи за ћаскање.</string>
   <!--Descriptor text shown to indicate you can add a schedule later since you did not add one during create flow-->
+  <string name="NotificationProfileCreated__add_a_schedule_in_settings_to_automate_your_profile">Додајте распоред у подешавањима да бисте аутоматизовали свој профил.</string>
   <!--Descriptor text shown to indicate your profile will follow the schedule set during create flow-->
+  <string name="NotificationProfileCreated__your_profile_will_turn_on_and_off_automatically_according_to_your_schedule">Ваш профил ће се аутоматски укључити и искључити у складу са вашим распоредом.</string>
   <!--Button text shown in profile selection bottom sheet to create a new profile-->
   <string name="NotificationProfileSelection__new_profile">Нови профил</string>
   <!--Manual enable option to manually enable a profile for 1 hour-->
@@ -3671,5 +3683,6 @@
   <!--Button to dismiss notification profile megaphone-->
   <string name="NotificationProfilesMegaphone__not_now">Не сада</string>
   <!--Displayed in a toast when we fail to open the ringtone picker-->
+  <string name="NotificationSettingsFragment__failed_to_open_picker">Неуспешно отварање бирача.</string>
   <!--EOF-->
 </resources>

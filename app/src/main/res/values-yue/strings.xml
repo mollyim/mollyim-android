@@ -390,6 +390,8 @@
   <string name="BackupsPreferenceFragment__learn_more">講多啲畀我聽</string>
   <string name="BackupsPreferenceFragment__in_progress">幫緊您幫緊您…</string>
   <string name="BackupsPreferenceFragment__d_so_far">暫時去到 %1$d…</string>
+  <!--Show percentage of completion of backup-->
+  <string name="BackupsPreferenceFragment__s_so_far">暫時去到 %1$s%%…</string>
   <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly 要攞外部儲存裝置權限，先可以建立備份，但權限已被永久拒絕。請到呢個 app 嘅應用程式設定，揀選「權限」，然後啟用「儲存裝置」。</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">用緊自訂：%s</string>
@@ -426,8 +428,8 @@
   <!--DocumentView-->
   <string name="DocumentView_unnamed_file">無名嘅檔案</string>
   <!--GroupCallingMegaphone-->
-  <string name="GroupCallingMegaphone__introducing_group_calls">同您介紹成谷通話</string>
-  <string name="GroupCallingMegaphone__open_a_new_group_to_start">開一個新版嘅谷，開始免費嘅加密成谷通話</string>
+  <!-- Removed by excludeNonTranslatables <string name="GroupCallingMegaphone__introducing_group_calls">同您介紹成谷通話</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="GroupCallingMegaphone__open_a_new_group_to_start">開一個新版嘅谷，開始免費嘅加密成谷通話</string> -->
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">針對無 Play 服務嘅優化</string>
   <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">呢部機唔支援 Play 服務。撳一下以停用系統嘅電量優化，以免 Molly 喺部機閒置嘅時候冇得去攞訊息。</string>
@@ -533,9 +535,9 @@
   <string name="LeaveGroupDialog_before_you_leave_you_must_choose_at_least_one_new_admin_for_this_group">您退谷之前，必須為呢個谷揀定至少一個新嘅話事人接您手。</string>
   <string name="LeaveGroupDialog_choose_admin">揀選話事人</string>
   <!--LinkPreviewsMegaphone-->
-  <string name="LinkPreviewsMegaphone_disable">停用</string>
-  <string name="LinkPreviewsMegaphone_preview_any_link">連結而家有預覽喇</string>
-  <string name="LinkPreviewsMegaphone_you_can_now_retrieve_link_previews_directly_from_any_website">而家您傳送嘅訊息如果有條拎，可以幫您直接喺網站度攞嗰條拎嘅預覽。</string>
+  <!-- Removed by excludeNonTranslatables <string name="LinkPreviewsMegaphone_disable">停用</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="LinkPreviewsMegaphone_preview_any_link">連結而家有預覽喇</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="LinkPreviewsMegaphone_you_can_now_retrieve_link_previews_directly_from_any_website">而家您傳送嘅訊息如果有條拎，可以幫您直接喺網站度攞嗰條拎嘅預覽。</string> -->
   <!--LinkPreviewView-->
   <string name="LinkPreviewView_no_link_preview_available">條拎未有預覽</string>
   <string name="LinkPreviewView_this_group_link_is_not_active">呢條谷拎未有生效</string>
@@ -813,8 +815,8 @@
   <string name="MediaOverviewActivity_sent_by_s_to_s">由 %1$s 傳送畀 %2$s</string>
   <string name="MediaOverviewActivity_sent_by_you_to_s">由您傳送畀 %1$s</string>
   <!--Megaphones-->
-  <string name="Megaphones_introducing_reactions">推介心情</string>
-  <string name="Megaphones_tap_and_hold_any_message_to_quicky_share_how_you_feel">撳住任何訊息可快速分享您嘅心情。</string>
+  <!-- Removed by excludeNonTranslatables <string name="Megaphones_introducing_reactions">推介心情</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="Megaphones_tap_and_hold_any_message_to_quicky_share_how_you_feel">撳住任何訊息可快速分享您嘅心情。</string> -->
   <string name="Megaphones_remind_me_later">遲啲先提醒我</string>
   <string name="Megaphones_verify_your_signal_pin">驗證您嘅 Signal PIN 碼</string>
   <string name="Megaphones_well_occasionally_ask_you_to_verify_your_pin">我哋間唔中會問下您個 PIN 碼，等您唔使唔記得。</string>
@@ -1554,6 +1556,7 @@
   <string name="UnauthorizedReminder_device_no_longer_registered">部機嘅註冊已失效</string>
   <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">通常係因為您用咗另一部機嚟喺 Signal 度註冊您個電話冧把。撳一下去重新註冊。</string>
   <!--WebRtcCallActivity-->
+  <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">如果要接聽通話，請允許 Molly 存取您部機個咪。</string>
   <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">如果要接聽 %s 打嚟嘅通話，請允許 Molly 存取您部機個咪。</string>
   <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Molly 要攞「麥克風」同「相機」權限，先可以撥打同接聽通話，但權限已被永久拒絕。請到呢個 app 嘅應用程式設定，揀選「權限」，然後啟用「麥克風」同「相機」。</string>
   <string name="WebRtcCallActivity__answered_on_a_linked_device">已用連結咗嘅機接聽。</string>
@@ -2433,15 +2436,15 @@
   <string name="KbsMegaphone__pins_keep_information_thats_stored_with_signal_encrytped">有 PIN 碼，儲存喺 Signal 嘅資訊就安心加密。</string>
   <string name="KbsMegaphone__create_pin">建立 PIN 碼</string>
   <!--Research Megaphone-->
-  <string name="ResearchMegaphone_tell_signal_what_you_think">您點諗，同 Signal 有得 say</string>
-  <string name="ResearchMegaphone_to_make_signal_the_best_messaging_app_on_the_planet">抱歉我要話你知，Signal 想做宇宙最強嘅通訊軟件。所以想想你都講我聽，聽聽您嘅意見反映。</string>
-  <string name="ResearchMegaphone_learn_more">講多啲畀我聽</string>
-  <string name="ResearchMegaphone_dismiss">收到</string>
-  <string name="ResearchMegaphoneDialog_signal_research">Signal 問卷調查</string>
-  <string name="ResearchMegaphoneDialog_we_believe_in_privacy"><![CDATA[<p><b>我哋篤信私隱。</b></p><p>Signal 唔會追蹤您或者收集您嘅資料。為咗改進 Signal 造福人群，我哋依賴使用者嘅意見反映，<b>因此想想您都講我聽。</b></p><p>我哋而家做緊一項問卷調查，想了解下您係點樣使用 Signal。我哋嘅問卷調查唔會收集任何識別您嘅資料。若果您有興趣反映進一步嘅意見，喺之後可以揀留低您嘅聯絡資訊。</p><p>假如您有幾分鐘嘅時間，亦都有意見想反映，當我哋徹夜去諗，想想您都講我哋聽。</p>]]></string>
-  <string name="ResearchMegaphoneDialog_take_the_survey">做問卷</string>
-  <string name="ResearchMegaphoneDialog_no_thanks">唔使住喇</string>
-  <string name="ResearchMegaphoneDialog_the_survey_is_hosted_by_alchemer_at_the_secure_domain">是次問卷調查，係由 Alchemer 喺安全網域 surveys.signalusers.org 架構</string>
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphone_tell_signal_what_you_think">您點諗，同 Signal 有得 say</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphone_to_make_signal_the_best_messaging_app_on_the_planet">抱歉我要話你知，Signal 想做宇宙最強嘅通訊軟件。所以想想你都講我聽，聽聽您嘅意見反映。</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphone_learn_more">講多啲畀我聽</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphone_dismiss">收到</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphoneDialog_signal_research">Signal 問卷調查</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphoneDialog_we_believe_in_privacy"><![CDATA[<p><b>我哋篤信私隱。</b></p><p>Signal 唔會追蹤您或者收集您嘅資料。為咗改進 Signal 造福人群，我哋依賴使用者嘅意見反映，<b>因此想想您都講我聽。</b></p><p>我哋而家做緊一項問卷調查，想了解下您係點樣使用 Signal。我哋嘅問卷調查唔會收集任何識別您嘅資料。若果您有興趣反映進一步嘅意見，喺之後可以揀留低您嘅聯絡資訊。</p><p>假如您有幾分鐘嘅時間，亦都有意見想反映，當我哋徹夜去諗，想想您都講我哋聽。</p>]]></string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphoneDialog_take_the_survey">做問卷</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphoneDialog_no_thanks">唔使住喇</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphoneDialog_the_survey_is_hosted_by_alchemer_at_the_secure_domain">是次問卷調查，係由 Alchemer 喺安全網域 surveys.signalusers.org 架構</string> -->
   <!--transport_selection_list_item-->
   <string name="transport_selection_list_item__transport_icon">物流公仔</string>
   <string name="ConversationListFragment_loading">載入緊…</string>
@@ -2491,7 +2494,7 @@
   <string name="BackupDialog_verify">驗證</string>
   <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">您輸入嘅備份密碼正確無誤</string>
   <string name="BackupDialog_passphrase_was_not_correct">密碼有誤</string>
-  <!-- Removed by excludeNonTranslatables <string name="LocalBackupJob_creating_backup">建立緊備份…</string> -->
+  <string name="LocalBackupJob_creating_signal_backup">建立緊 Molly 備份…</string>
   <string name="LocalBackupJobApi29_backup_failed">備份唔到</string>
   <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">您嘅備份目錄已經刪除或移動咗。</string>
   <string name="LocalBackupJobApi29_your_backup_file_is_too_large">您個備份檔案大得滯，裝唔落呢一度喎。</string>
@@ -2613,6 +2616,8 @@
   <string name="DeviceTransfer__transferring_data">轉移緊資料</string>
   <string name="DeviceTransfer__keep_both_devices_near_each_other">將兩部機保持靠近。唔好熄機，並且開住 Molly。轉移係經端對端加密。</string>
   <string name="DeviceTransfer__d_messages_so_far">目前為止 %1$d 個訊息…</string>
+  <!--Filled in with total percentage of messages transferred-->
+  <string name="DeviceTransfer__s_of_messages_so_far">啲訊息暫時整咗 %1$s%%…</string>
   <string name="DeviceTransfer__cancel">取消</string>
   <string name="DeviceTransfer__try_again">再試一次</string>
   <string name="DeviceTransfer__stop_transfer_question">係咪要停止轉移？</string>
@@ -3376,7 +3381,7 @@
   <!--Button that starts the create new notification profile flow-->
   <string name="NotificationProfilesFragment__new_profile">新揀單</string>
   <!--Profile active status, indicating the current profile is on for an unknown amount of time-->
-  <string name="NotificationProfilesFragment__on">用緊</string>
+  <string name="NotificationProfilesFragment__on">濟渡中</string>
   <!--Button use to permanently delete a notification profile-->
   <string name="NotificationProfileDetails__delete_profile">刪除吾揀單</string>
   <!--Snakbar message shown when removing a recipient from a profile-->
@@ -3398,7 +3403,7 @@
   <!--Description of hours for schedule (start to end) times-->
   <string name="NotificationProfileDetails__s_to_s">由 %1$s 到 %2$s</string>
   <!--Section header for exceptions to the notification profile-->
-  <string name="NotificationProfileDetails__exceptions">唔係清一色</string>
+  <string name="NotificationProfileDetails__exceptions">吾系青一色</string>
   <!--Profile exception to allow all calls through the profile restrictions-->
   <string name="NotificationProfileDetails__allow_all_calls">批准所有通話入閘</string>
   <!--Profile exception to allow all @mentions through the profile restrictions-->

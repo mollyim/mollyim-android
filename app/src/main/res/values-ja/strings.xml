@@ -390,6 +390,8 @@
   <string name="BackupsPreferenceFragment__learn_more">詳しく見る</string>
   <string name="BackupsPreferenceFragment__in_progress">実行しています…</string>
   <string name="BackupsPreferenceFragment__d_so_far">これまで %1$d…</string>
+  <!--Show percentage of completion of backup-->
+  <string name="BackupsPreferenceFragment__s_so_far">%1$s%%完了</string>
   <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">バックアップを作成するには、Mollyに外部ストレージへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「ストレージ」を有効にしてください。</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">カスタマイズ: %s</string>
@@ -426,8 +428,8 @@
   <!--DocumentView-->
   <string name="DocumentView_unnamed_file">無名のファイル</string>
   <!--GroupCallingMegaphone-->
-  <string name="GroupCallingMegaphone__introducing_group_calls">グループ通話のご紹介</string>
-  <string name="GroupCallingMegaphone__open_a_new_group_to_start">新しいグループで暗号化されたグループ通話を始めましょう</string>
+  <!-- Removed by excludeNonTranslatables <string name="GroupCallingMegaphone__introducing_group_calls">グループ通話のご紹介</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="GroupCallingMegaphone__open_a_new_group_to_start">新しいグループで暗号化されたグループ通話を始めましょう</string> -->
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">Google Play開発者サービスの不在に対応する</string>
   <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">この端末はGoogle Play開発者サービスをサポートしていません。Mollyがいつでもメッセージを受信できるよう、タップしてバッテリー最適化機能を無効にしてください。</string>
@@ -533,9 +535,9 @@
   <string name="LeaveGroupDialog_before_you_leave_you_must_choose_at_least_one_new_admin_for_this_group">グループから抜ける前に、新しい管理者を1人以上選択する必要があります。</string>
   <string name="LeaveGroupDialog_choose_admin">管理者を選択する</string>
   <!--LinkPreviewsMegaphone-->
-  <string name="LinkPreviewsMegaphone_disable">無効にする</string>
-  <string name="LinkPreviewsMegaphone_preview_any_link">どんなリンクもプレビュー</string>
-  <string name="LinkPreviewsMegaphone_you_can_now_retrieve_link_previews_directly_from_any_website">送信メッセージにて、どのウェヴサイトからでも直接リンクプレビューを取得できるようになりました。</string>
+  <!-- Removed by excludeNonTranslatables <string name="LinkPreviewsMegaphone_disable">無効にする</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="LinkPreviewsMegaphone_preview_any_link">どんなリンクもプレビュー</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="LinkPreviewsMegaphone_you_can_now_retrieve_link_previews_directly_from_any_website">送信メッセージにて、どのウェヴサイトからでも直接リンクプレビューを取得できるようになりました。</string> -->
   <!--LinkPreviewView-->
   <string name="LinkPreviewView_no_link_preview_available">リンクプレビューは使用できません</string>
   <string name="LinkPreviewView_this_group_link_is_not_active">このグループリンクは利用できません</string>
@@ -813,8 +815,8 @@
   <string name="MediaOverviewActivity_sent_by_s_to_s">%1$s が %2$s に送信</string>
   <string name="MediaOverviewActivity_sent_by_you_to_s">あなたが %1$s に送信</string>
   <!--Megaphones-->
-  <string name="Megaphones_introducing_reactions">リアクションのご紹介</string>
-  <string name="Megaphones_tap_and_hold_any_message_to_quicky_share_how_you_feel">メッセージを長押しして、手軽にリアクションできます。</string>
+  <!-- Removed by excludeNonTranslatables <string name="Megaphones_introducing_reactions">リアクションのご紹介</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="Megaphones_tap_and_hold_any_message_to_quicky_share_how_you_feel">メッセージを長押しして、手軽にリアクションできます。</string> -->
   <string name="Megaphones_remind_me_later">あとで通知</string>
   <string name="Megaphones_verify_your_signal_pin">Signal PINの確認</string>
   <string name="Megaphones_well_occasionally_ask_you_to_verify_your_pin">PINを忘れないよう、確認をお願いします。</string>
@@ -1544,6 +1546,7 @@
   <string name="UnauthorizedReminder_device_no_longer_registered">この端末はもう登録されていません</string>
   <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">これはおそらく別の端末でSignalに登録されたことが原因です。タップして再登録します。</string>
   <!--WebRtcCallActivity-->
+  <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">着信に出るには、Mollyにマイクへのアクセスを許可してください。</string>
   <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">%s からの着信に出るには、Mollyにマイクへのアクセスを許可してください。</string>
   <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">通話するには、Mollyにマイクとカメラへのアクセス許可が必要ですが、無効になっています。アプリ設定メニューの「アプリの権限」で「マイク」と「カメラ」を有効にしてください。</string>
   <string name="WebRtcCallActivity__answered_on_a_linked_device">リンクした端末で応答しました。</string>
@@ -2423,15 +2426,15 @@
   <string name="KbsMegaphone__pins_keep_information_thats_stored_with_signal_encrytped">Signalで保管される情報はPINで暗号化されます。</string>
   <string name="KbsMegaphone__create_pin">PINを作成</string>
   <!--Research Megaphone-->
-  <string name="ResearchMegaphone_tell_signal_what_you_think">Signalへご意見ください</string>
-  <string name="ResearchMegaphone_to_make_signal_the_best_messaging_app_on_the_planet">Signalを地上最高のメッセージアプリにするため、皆様からのフィードバックをお待ちしています。</string>
-  <string name="ResearchMegaphone_learn_more">詳しく見る</string>
-  <string name="ResearchMegaphone_dismiss">キャンセル</string>
-  <string name="ResearchMegaphoneDialog_signal_research">Signalリサーチ</string>
-  <string name="ResearchMegaphoneDialog_we_believe_in_privacy"><![CDATA[<p><b>私たちはプライバシーを尊重しています。</b></p><p>Signalはあなたのデータを収集したり追跡することはありません。Signalをより良いものにするために、ユーザーの皆様からのフィードバックを<b>お待ちしています。</b></p><p>私たちは、あなたのSignalの使用方法についてアンケート調査を行っています。この調査では、あなたを特定するデータを収集することはありません。追加のフィードバックを共有されたい場合は、連絡先情報を提供することもできます。</p><p>お時間とご意見をお持ちの方は、ぜひご連絡ください。</p>]]></string>
-  <string name="ResearchMegaphoneDialog_take_the_survey">アンケートに参加する</string>
-  <string name="ResearchMegaphoneDialog_no_thanks">参加しない</string>
-  <string name="ResearchMegaphoneDialog_the_survey_is_hosted_by_alchemer_at_the_secure_domain">このアンケートは、Alchemerが安全なドメイン (surveys.signalusers.org) でホストしています。</string>
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphone_tell_signal_what_you_think">Signalへご意見ください</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphone_to_make_signal_the_best_messaging_app_on_the_planet">Signalを地上最高のメッセージアプリにするため、皆様からのフィードバックをお待ちしています。</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphone_learn_more">詳しく見る</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphone_dismiss">キャンセル</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphoneDialog_signal_research">Signalリサーチ</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphoneDialog_we_believe_in_privacy"><![CDATA[<p><b>私たちはプライバシーを尊重しています。</b></p><p>Signalはあなたのデータを収集したり追跡することはありません。Signalをより良いものにするために、ユーザーの皆様からのフィードバックを<b>お待ちしています。</b></p><p>私たちは、あなたのSignalの使用方法についてアンケート調査を行っています。この調査では、あなたを特定するデータを収集することはありません。追加のフィードバックを共有されたい場合は、連絡先情報を提供することもできます。</p><p>お時間とご意見をお持ちの方は、ぜひご連絡ください。</p>]]></string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphoneDialog_take_the_survey">アンケートに参加する</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphoneDialog_no_thanks">参加しない</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphoneDialog_the_survey_is_hosted_by_alchemer_at_the_secure_domain">このアンケートは、Alchemerが安全なドメイン (surveys.signalusers.org) でホストしています。</string> -->
   <!--transport_selection_list_item-->
   <string name="transport_selection_list_item__transport_icon">転送アイコン</string>
   <string name="ConversationListFragment_loading">読み込んでいます…</string>
@@ -2481,7 +2484,7 @@
   <string name="BackupDialog_verify">確認する</string>
   <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">正しいバックアップ用パスフレーズが入力されました</string>
   <string name="BackupDialog_passphrase_was_not_correct">パスフレーズが違います</string>
-  <!-- Removed by excludeNonTranslatables <string name="LocalBackupJob_creating_backup">バックアップを作成しています…</string> -->
+  <string name="LocalBackupJob_creating_signal_backup">Mollyのバックアップを作成しています…</string>
   <string name="LocalBackupJobApi29_backup_failed">バックアップに失敗しました</string>
   <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">バックアップディレクトリは削除または移動されています。</string>
   <string name="LocalBackupJobApi29_your_backup_file_is_too_large">あなたのバックアップファイルは、このボリュームに保存するには大きすぎます。</string>
@@ -2603,6 +2606,8 @@
   <string name="DeviceTransfer__transferring_data">データを移行しています</string>
   <string name="DeviceTransfer__keep_both_devices_near_each_other">端末同士を近づけてください。どちらの端末も電源を切らず、Mollyを開いたままにしてください。転送はエンドツーエンドで暗号化されます。</string>
   <string name="DeviceTransfer__d_messages_so_far">%1$d件のメッセージ…</string>
+  <!--Filled in with total percentage of messages transferred-->
+  <string name="DeviceTransfer__s_of_messages_so_far">%1$s%%転送完了</string>
   <string name="DeviceTransfer__cancel">キャンセル</string>
   <string name="DeviceTransfer__try_again">もう一度試す</string>
   <string name="DeviceTransfer__stop_transfer_question">移行を停止しますか？</string>

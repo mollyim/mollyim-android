@@ -192,7 +192,7 @@ object SignalDatabaseMigrations {
     }
 
     if (oldVersion < PROFILE_KEY_TO_DB) {
-      val localNumber = SignalStore.account().e164
+      val localNumber = SecurePreferenceManager.getSecurePreferences(context).getString("pref_local_number", null)
       if (!TextUtils.isEmpty(localNumber)) {
         val encodedProfileKey = SecurePreferenceManager.getSecurePreferences(context).getString("pref_profile_key", null)
         val profileKey = if (encodedProfileKey != null) Base64.decodeOrThrow(encodedProfileKey) else Util.getSecretBytes(32)
@@ -253,7 +253,7 @@ object SignalDatabaseMigrations {
     }
 
     if (oldVersion < PROFILE_DATA_MIGRATION) {
-      val localNumber = SignalStore.account().e164
+      val localNumber = SecurePreferenceManager.getSecurePreferences(context).getString("pref_local_number", null)
       if (localNumber != null) {
         val encodedProfileName = SecurePreferenceManager.getSecurePreferences(context).getString("pref_profile_name", null)
         val profileName = ProfileName.fromSerialized(encodedProfileName)

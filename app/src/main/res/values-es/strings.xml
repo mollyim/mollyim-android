@@ -278,7 +278,7 @@
   <string name="ConversationFragment_deleting">Eliminar</string>
   <string name="ConversationFragment_deleting_messages">Eliminando mensajes …</string>
   <string name="ConversationFragment_delete_for_me">Eliminar sólo para mi</string>
-  <string name="ConversationFragment_delete_for_everyone">Eliminar en el chat</string>
+  <string name="ConversationFragment_delete_for_everyone">Eliminar del chat</string>
   <string name="ConversationFragment_this_message_will_be_deleted_for_everyone_in_the_conversation">Este mensaje se eliminará para tod@s en el chat, si usan una versión reciente de Signal. En el chat se mostrará que lo has eliminado. </string>
   <string name="ConversationFragment_quoted_message_not_found">No se encuentra el mensaje original </string>
   <string name="ConversationFragment_quoted_message_no_longer_available">El mensaje original ya no está disponible</string>
@@ -411,6 +411,8 @@
   <string name="BackupsPreferenceFragment__learn_more">Saber más</string>
   <string name="BackupsPreferenceFragment__in_progress">En curso …</string>
   <string name="BackupsPreferenceFragment__d_so_far">%1$d por el momento …</string>
+  <!--Show percentage of completion of backup-->
+  <string name="BackupsPreferenceFragment__s_so_far">%1$s de %% de momento …</string>
   <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly necesita acceso al almacenamiento para crear copias de seguridad. Por favor, ve a la aplicación «Ajustes», selecciona Molly en el menú «Aplicaciones y notificaciones» y en «Permisos» activa «Almacenamiento».</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Usar personalizado: %s</string>
@@ -447,8 +449,8 @@
   <!--DocumentView-->
   <string name="DocumentView_unnamed_file">Archivo sin nombre</string>
   <!--GroupCallingMegaphone-->
-  <string name="GroupCallingMegaphone__introducing_group_calls">¡Las llamadas en grupo están aquí!</string>
-  <string name="GroupCallingMegaphone__open_a_new_group_to_start">Entra en un grupo del nuevo sistema para iniciar una llamada en grupo cifrada</string>
+  <!-- Removed by excludeNonTranslatables <string name="GroupCallingMegaphone__introducing_group_calls">¡Las llamadas en grupo están aquí!</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="GroupCallingMegaphone__open_a_new_group_to_start">Entra en un grupo del nuevo sistema para iniciar una llamada en grupo cifrada</string> -->
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">Optimizar sin servicios de Google Play</string>
   <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Este dispositivo no dispone de los servicios de Google Play. Toca para desactivar las optimizaciones de batería del sistema que impiden a Molly obtener mensajes mientras está inactivo.</string>
@@ -567,9 +569,9 @@
   <string name="LeaveGroupDialog_before_you_leave_you_must_choose_at_least_one_new_admin_for_this_group">Antes de abandonar, selecciona un@ nuev@ admin para este grupo.</string>
   <string name="LeaveGroupDialog_choose_admin">Seleccionar admin</string>
   <!--LinkPreviewsMegaphone-->
-  <string name="LinkPreviewsMegaphone_disable">Desactivar</string>
-  <string name="LinkPreviewsMegaphone_preview_any_link">Envía enlaces con vista previa</string>
-  <string name="LinkPreviewsMegaphone_you_can_now_retrieve_link_previews_directly_from_any_website">Ahora se puede adjuntar la imagen para la vista previa de enlaces en los mensajes que envíes, trasmitida directamente desde la propia página web.</string>
+  <!-- Removed by excludeNonTranslatables <string name="LinkPreviewsMegaphone_disable">Desactivar</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="LinkPreviewsMegaphone_preview_any_link">Envía enlaces con vista previa</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="LinkPreviewsMegaphone_you_can_now_retrieve_link_previews_directly_from_any_website">Ahora se puede adjuntar la imagen para la vista previa de enlaces en los mensajes que envíes, trasmitida directamente desde la propia página web.</string> -->
   <!--LinkPreviewView-->
   <string name="LinkPreviewView_no_link_preview_available">Vista previa no disponible</string>
   <string name="LinkPreviewView_this_group_link_is_not_active">El enlace al grupo no está disponible</string>
@@ -866,8 +868,8 @@
   <string name="MediaOverviewActivity_sent_by_s_to_s">Enviado por %1$s a %2$s</string>
   <string name="MediaOverviewActivity_sent_by_you_to_s">Enviado por ti a %1$s</string>
   <!--Megaphones-->
-  <string name="Megaphones_introducing_reactions">Las reacciones a mensajes han llegado</string>
-  <string name="Megaphones_tap_and_hold_any_message_to_quicky_share_how_you_feel">Mantén pulsado un mensaje para mostrar cómo te sientes.</string>
+  <!-- Removed by excludeNonTranslatables <string name="Megaphones_introducing_reactions">Las reacciones a mensajes han llegado</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="Megaphones_tap_and_hold_any_message_to_quicky_share_how_you_feel">Mantén pulsado un mensaje para mostrar cómo te sientes.</string> -->
   <string name="Megaphones_remind_me_later">Recordar más tarde</string>
   <string name="Megaphones_verify_your_signal_pin">Verifica tu PIN de Signal</string>
   <string name="Megaphones_well_occasionally_ask_you_to_verify_your_pin">Te preguntaremos ocasionalmente verificar tu PIN para que así lo puedas recordar.</string>
@@ -1631,6 +1633,7 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="UnauthorizedReminder_device_no_longer_registered">El dispositivo ya no está registrado</string>
   <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Probablemente se debe a que se registró el número en Signal con un dispositivo distinto. Toca para volver a registrar.</string>
   <!--WebRtcCallActivity-->
+  <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">Para atender la llamada, permite a Molly el acceso al micrófono.</string>
   <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Para atender la llamada de %s, permite a Molly el acceso al micrófono.</string>
   <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Molly necesita acceso al micrófono y cámara para hacer o atender llamadas. Por favor, ve a la aplicación «Ajustes», selecciona Molly en el menú «Aplicaciones y notificaciones» y en «Permisos» activa «Micrófono» y «Cámara».</string>
   <string name="WebRtcCallActivity__answered_on_a_linked_device">Atendida en dispositivo enlazado.</string>
@@ -2527,15 +2530,15 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="KbsMegaphone__pins_keep_information_thats_stored_with_signal_encrytped">El PIN permite activar el bloqueo de registro de tu número y almacena tu cuenta cifrada en el servidor de Signal de forma que solo tú puedes acceder a ella. Ni siquiera la gente de Signal tiene acceso.</string>
   <string name="KbsMegaphone__create_pin">Crea tu PIN</string>
   <!--Research Megaphone-->
-  <string name="ResearchMegaphone_tell_signal_what_you_think">Cuéntanos qué piensas de Signal</string>
-  <string name="ResearchMegaphone_to_make_signal_the_best_messaging_app_on_the_planet">Para hacer de Signal la mejor aplicación de chat del mundo, nos gustaría saber tu opinión (encuesta en inglés).</string>
-  <string name="ResearchMegaphone_learn_more">Saber más</string>
-  <string name="ResearchMegaphone_dismiss">Ignorar</string>
-  <string name="ResearchMegaphoneDialog_signal_research">Encuesta de uso de Signal</string>
-  <string name="ResearchMegaphoneDialog_we_believe_in_privacy"><![CDATA[<p><b>Creemos en la privacidad.</b></p><p>Signal no analiza el uso que le das, ni recopila tus datos. Para mejorar Signal para tod@s, necesitamos la opinión de l@s usuari@s <b>y especialmente la tuya.</b></p><p>Hemos preparado una encuesta en inglés para entender mejor cómo usas Signal. Nuestra encuesta no recopila ningún detalle que te pueda identificar. Si te interesa incluir información adicional (en inglés), tienes la opción de dejar tus datos de contacto.</p><p>Si tienes unos pocos minutos para ofrecernos tu opinión (en inglés), nos encantaría escucharla.</p>]]></string>
-  <string name="ResearchMegaphoneDialog_take_the_survey">Hacer la encuesta</string>
-  <string name="ResearchMegaphoneDialog_no_thanks">No gracias</string>
-  <string name="ResearchMegaphoneDialog_the_survey_is_hosted_by_alchemer_at_the_secure_domain">La encuesta en inglés está alojada en Alchemer en el dominio seguro surveys.signalusers.org</string>
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphone_tell_signal_what_you_think">Cuéntanos qué piensas de Signal</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphone_to_make_signal_the_best_messaging_app_on_the_planet">Para hacer de Signal la mejor aplicación de chat del mundo, nos gustaría saber tu opinión (encuesta en inglés).</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphone_learn_more">Saber más</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphone_dismiss">Ignorar</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphoneDialog_signal_research">Encuesta de uso de Signal</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphoneDialog_we_believe_in_privacy"><![CDATA[<p><b>Creemos en la privacidad.</b></p><p>Signal no analiza el uso que le das, ni recopila tus datos. Para mejorar Signal para tod@s, necesitamos la opinión de l@s usuari@s <b>y especialmente la tuya.</b></p><p>Hemos preparado una encuesta en inglés para entender mejor cómo usas Signal. Nuestra encuesta no recopila ningún detalle que te pueda identificar. Si te interesa incluir información adicional (en inglés), tienes la opción de dejar tus datos de contacto.</p><p>Si tienes unos pocos minutos para ofrecernos tu opinión (en inglés), nos encantaría escucharla.</p>]]></string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphoneDialog_take_the_survey">Hacer la encuesta</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphoneDialog_no_thanks">No gracias</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphoneDialog_the_survey_is_hosted_by_alchemer_at_the_secure_domain">La encuesta en inglés está alojada en Alchemer en el dominio seguro surveys.signalusers.org</string> -->
   <!--transport_selection_list_item-->
   <string name="transport_selection_list_item__transport_icon">Icono de transporte</string>
   <string name="ConversationListFragment_loading">Cargando …</string>
@@ -2585,7 +2588,7 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="BackupDialog_verify">Verificar</string>
   <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">La clave es correcta</string>
   <string name="BackupDialog_passphrase_was_not_correct">La clave es incorrecta</string>
-  <!-- Removed by excludeNonTranslatables <string name="LocalBackupJob_creating_backup">Creando copia de seguridad …</string> -->
+  <string name="LocalBackupJob_creating_signal_backup">Creando copia de seguridad …</string>
   <string name="LocalBackupJobApi29_backup_failed">Fallo en la copia</string>
   <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">Parece que tu carpeta de copias de seguridad se ha eliminado o movido.</string>
   <string name="LocalBackupJobApi29_your_backup_file_is_too_large">La copia de seguridad es demasiado grande para guardarla en este dispositivo.</string>
@@ -2707,6 +2710,8 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="DeviceTransfer__transferring_data">Transfiriendo datos</string>
   <string name="DeviceTransfer__keep_both_devices_near_each_other">Mantén próximos ambos dispositivos. Conéctalos a su cargador y mantén Molly abierto. La transferencia entre ambos dispositivos está cifrada de extremo a extremo.</string>
   <string name="DeviceTransfer__d_messages_so_far">%1$d mensajes de momento …</string>
+  <!--Filled in with total percentage of messages transferred-->
+  <string name="DeviceTransfer__s_of_messages_so_far">%1$s de %% mensajes de momento …</string>
   <string name="DeviceTransfer__cancel">Cancelar</string>
   <string name="DeviceTransfer__try_again">Inténtalo de nuevo</string>
   <string name="DeviceTransfer__stop_transfer_question">¿Detener transferencia?</string>
@@ -3382,7 +3387,7 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__you_can_also">También puedes</string>
   <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__become_a_montly_sustainer">contribuir mensualmente.</string>
   <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__display_on_profile">Mostrar en mi perfil</string>
-  <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__make_featured_badge">Crear distintivo especial</string>
+  <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__make_featured_badge">Distintivo a mostrar</string>
   <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__done">Hecho</string>
   <string name="ThanksForYourSupportBottomSheetFragment__when_you_have_more">Si tienes más de un distintivo, puedes seleccionar cuál mostrar en tu perfil a otras personas.</string>
   <string name="BecomeASustainerFragment__get_badges">conseguir distintivos para tu perfil al sostener Signal.</string>
@@ -3406,13 +3411,13 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="ExpiredBadgeBottomSheetDialogFragment__your_badge_has_expired">Tu distintivo ha caducado</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__badge_expired">Distintivo caducado</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__subscription_cancelled">Suscripción cancelada</string>
-  <string name="ExpiredBadgeBottomSheetDialogFragment__your_boost_badge_has_expired">Tu distintivo de impulso ha caducado y ya no es visible para otr@s en tu perfil.</string>
+  <string name="ExpiredBadgeBottomSheetDialogFragment__your_boost_badge_has_expired">Tu distintivo de impulso ha caducado y ya no es visible en tu perfil.</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__you_can_reactivate">Puedes reactivar tu distintivo de impulso por otros 30 días al hacer otra contribución.</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__to_continue_supporting_technology">Para continuar apoyando la tecnología desarrollada para ti, considera una suscripción mensual.</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__become_a_sustainer">Sostén Signal</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__add_a_boost">Danos un impulso</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__not_now">Ahora no</string>
-  <string name="ExpiredBadgeBottomSheetDialogFragment__your_sustainer">Tu suscripción mensual se ha cancelado automáticamente por cuenta inactiva. Tu distintivo %1$s ya no es visible en tu perfil.</string>
+  <string name="ExpiredBadgeBottomSheetDialogFragment__your_sustainer">Tu suscripción mensual se ha cancelado automáticamente por cuenta inactiva. Tu distintivo «%1$s» ya no es visible en tu perfil.</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__you_can">Puedes continuar usando la aplicación, pero para apoyar a Signal, reactiva tu distintivo. Renuévalo ahora.</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__renew_subscription">Renovar suscripción</string>
   <string name="Subscription__please_contact_support_for_more_information">Por favor, contacta con el soporte técnico para más información.</string>

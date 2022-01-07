@@ -273,7 +273,7 @@ public class MessageSender {
         } else if (isGroupPushSend(recipient)) {
           jobManager.add(new PushGroupSendJob(messageId, recipient.getId(), null, true), messageDependsOnIds, recipient.getId().toQueueKey());
         } else {
-          jobManager.add(new PushMediaSendJob(messageId, recipient), messageDependsOnIds, recipient.getId().toQueueKey());
+          jobManager.add(new PushMediaSendJob(messageId, recipient, true), messageDependsOnIds, recipient.getId().toQueueKey());
         }
       }
 
@@ -426,7 +426,7 @@ public class MessageSender {
     JobManager jobManager = ApplicationDependencies.getJobManager();
 
     if (uploadJobIds.size() > 0) {
-      Job mediaSend = new PushMediaSendJob(messageId, recipient);
+      Job mediaSend = new PushMediaSendJob(messageId, recipient, true);
       jobManager.add(mediaSend, uploadJobIds);
     } else {
       PushMediaSendJob.enqueue(context, jobManager, messageId, recipient);

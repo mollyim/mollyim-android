@@ -455,6 +455,8 @@ Send neges heb ei ddiogelu?</string>
   <string name="BackupsPreferenceFragment__learn_more">Dysgu rhagor</string>
   <string name="BackupsPreferenceFragment__in_progress">Cynnydd…</string>
   <string name="BackupsPreferenceFragment__d_so_far">%1$d hyd yn hyn…</string>
+  <!--Show percentage of completion of backup-->
+  <string name="BackupsPreferenceFragment__s_so_far">%1$s%% hyd yn hyn…</string>
   <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Mae ar Molly angen caniatâd storio allanol er mwyn creu copïau wrth gefn, ond fe’i rwystrwyd yn barhaol. Ewch i ddewislen gosodiadau’r ap, dewis "Caniatâd", a galluogi "Storio".</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Defnyddio\'r cyfaddas: %s</string>
@@ -491,8 +493,8 @@ Send neges heb ei ddiogelu?</string>
   <!--DocumentView-->
   <string name="DocumentView_unnamed_file">Ffeil dienw</string>
   <!--GroupCallingMegaphone-->
-  <string name="GroupCallingMegaphone__introducing_group_calls">Yn Cyflwyno Galwadau Grŵp</string>
-  <string name="GroupCallingMegaphone__open_a_new_group_to_start">Agorwch Grŵp Newydd i gychwyn galwad grŵp amgrypiedig am ddim</string>
+  <!-- Removed by excludeNonTranslatables <string name="GroupCallingMegaphone__introducing_group_calls">Yn Cyflwyno Galwadau Grŵp</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="GroupCallingMegaphone__open_a_new_group_to_start">Agorwch Grŵp Newydd i gychwyn galwad grŵp amgrypiedig am ddim</string> -->
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">Optimeiddio ar gyfer Play Services coll</string>
   <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Nid yw\'r ddyfais hon yn cefnogi Play Services Tapiwch i analluogi gwelliannau batri system sy\'n atal Molly rhag adfer negeseuon tra\'n anweithredol.</string>
@@ -637,9 +639,9 @@ Send neges heb ei ddiogelu?</string>
   <string name="LeaveGroupDialog_before_you_leave_you_must_choose_at_least_one_new_admin_for_this_group">Cyn i chi adael, rhaid i chi ddewis o leiaf un gweinyddwr newydd ar gyfer y grŵp hwn.</string>
   <string name="LeaveGroupDialog_choose_admin">Dewiswch weinyddwr</string>
   <!--LinkPreviewsMegaphone-->
-  <string name="LinkPreviewsMegaphone_disable">Analluogi</string>
-  <string name="LinkPreviewsMegaphone_preview_any_link">Rhagolwg o unrhyw ddolen</string>
-  <string name="LinkPreviewsMegaphone_you_can_now_retrieve_link_previews_directly_from_any_website">Gallwch nawr estyn rhagolygon dolenni yn syth o unrhyw wefan ar gyfer negeseuon rydych yn eu hanfon.</string>
+  <!-- Removed by excludeNonTranslatables <string name="LinkPreviewsMegaphone_disable">Analluogi</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="LinkPreviewsMegaphone_preview_any_link">Rhagolwg o unrhyw ddolen</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="LinkPreviewsMegaphone_you_can_now_retrieve_link_previews_directly_from_any_website">Gallwch nawr estyn rhagolygon dolenni yn syth o unrhyw wefan ar gyfer negeseuon rydych yn eu hanfon.</string> -->
   <!--LinkPreviewView-->
   <string name="LinkPreviewView_no_link_preview_available">Dim rhagolygon dolenni ar gael</string>
   <string name="LinkPreviewView_this_group_link_is_not_active">Nid yw\'r ddolen grŵp hwn yn weithredol</string>
@@ -974,8 +976,8 @@ Send neges heb ei ddiogelu?</string>
   <string name="MediaOverviewActivity_sent_by_s_to_s">Anfonwyd gan %1$s i %2$s</string>
   <string name="MediaOverviewActivity_sent_by_you_to_s">Anfonwyd gennych chi i %1$s</string>
   <!--Megaphones-->
-  <string name="Megaphones_introducing_reactions">Yn Cyflwyno Adweithiau</string>
-  <string name="Megaphones_tap_and_hold_any_message_to_quicky_share_how_you_feel">Tapiwch a dal unrhyw neges i rannu\'n sydyn eich teimladau.</string>
+  <!-- Removed by excludeNonTranslatables <string name="Megaphones_introducing_reactions">Yn Cyflwyno Adweithiau</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="Megaphones_tap_and_hold_any_message_to_quicky_share_how_you_feel">Tapiwch a dal unrhyw neges i rannu\'n sydyn eich teimladau.</string> -->
   <string name="Megaphones_remind_me_later">Atgoffwch fi\'n hwyrach</string>
   <string name="Megaphones_verify_your_signal_pin">Dilyswch eich PIN Signal</string>
   <string name="Megaphones_well_occasionally_ask_you_to_verify_your_pin">Byddwn yn gofyn i chi o bryd i\'w gilydd i ddilysu eich PIN fel eich bod yn ei gofio.</string>
@@ -1787,6 +1789,7 @@ Send neges heb ei ddiogelu?</string>
   <string name="UnauthorizedReminder_device_no_longer_registered">Nid yw\'r ddyfais wedi\'i chofrestru bellach</string>
   <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Mae hyn yn debygol oherwydd eich bod wedi cofrestru\'ch rhif ffôn gyda Signal ar ddyfais wahanol. Tapiwch i ailgofrestru.</string>
   <!--WebRtcCallActivity-->
+  <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">I ateb yr alwad, rhowch fynediad i\'ch meicroffon i Molly.</string>
   <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">I ateb yr alwad o %s, rhowch fynediad i\'ch meicroffon i Molly.</string>
   <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Mae Molly yn gofyn am ganiatâd Microffon a Chamera er mwyn gwneud neu dderbyn galwadau, ond fe\'i rwystrwyd yn barhaol. Ewch i ddewislen gosodiadau\'r ap, dewis "Caniatâd", a galluogi "Microffon" a "Camera".</string>
   <string name="WebRtcCallActivity__answered_on_a_linked_device">Wedi\'i ateb ar ddyfais gysylltiedig.</string>
@@ -2717,15 +2720,15 @@ Send neges heb ei ddiogelu?</string>
   <string name="KbsMegaphone__pins_keep_information_thats_stored_with_signal_encrytped">Mae PINs yn cadw gwybodaeth sydd wedi\'i storio gyda Signal wedi\'i hamgryptio.</string>
   <string name="KbsMegaphone__create_pin">Crëwch PIN</string>
   <!--Research Megaphone-->
-  <string name="ResearchMegaphone_tell_signal_what_you_think">Dywedwch wrth Signal beth you eich barn</string>
-  <string name="ResearchMegaphone_to_make_signal_the_best_messaging_app_on_the_planet">I wneud Signal yr ap negeseuon gorau ar y blaned, byddem wrth ein bodd yn clywed eich adborth.</string>
-  <string name="ResearchMegaphone_learn_more">Dysgu rhagor</string>
-  <string name="ResearchMegaphone_dismiss">Diddymu</string>
-  <string name="ResearchMegaphoneDialog_signal_research">Ymchwil Signal</string>
-  <string name="ResearchMegaphoneDialog_we_believe_in_privacy"><![CDATA[<p><b>Rydym yn credu mewn preifatrwydd.</b></p><p>Nid yw Signal yn eich tracio nac yn casglu\'ch data. Er mwyn gwella Signal i bawb, rydym yn dibynnu ar adborth defnyddwyr, <b>a byddem wrth ein bodd â\'ch adborth chi.</b></p><p> Rydyn ni\'n cynnal arolwg i ddeall sut rydych chi\'n defnyddio Signal. Nid yw ein harolwg yn casglu unrhyw ddata a fydd yn eich adnabod chi. Os oes gennych ddiddordeb mewn rhannu adborth ychwanegol, bydd gennych yr opsiwn i ddarparu gwybodaeth gyswllt.</p><p>Os oes gennych ychydig funudau ac adborth i\'w gynnig, byddem wrth ein bodd yn clywed gennych.</p>]]></string>
-  <string name="ResearchMegaphoneDialog_take_the_survey">Cymryd yr Arolwg</string>
-  <string name="ResearchMegaphoneDialog_no_thanks">Dim diolch</string>
-  <string name="ResearchMegaphoneDialog_the_survey_is_hosted_by_alchemer_at_the_secure_domain">Mae Alchemer yn cynnal yr arolwg yn yr arolygon parth diogel.signalusers.org</string>
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphone_tell_signal_what_you_think">Dywedwch wrth Signal beth you eich barn</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphone_to_make_signal_the_best_messaging_app_on_the_planet">I wneud Signal yr ap negeseuon gorau ar y blaned, byddem wrth ein bodd yn clywed eich adborth.</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphone_learn_more">Dysgu rhagor</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphone_dismiss">Diddymu</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphoneDialog_signal_research">Ymchwil Signal</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphoneDialog_we_believe_in_privacy"><![CDATA[<p><b>Rydym yn credu mewn preifatrwydd.</b></p><p>Nid yw Signal yn eich tracio nac yn casglu\'ch data. Er mwyn gwella Signal i bawb, rydym yn dibynnu ar adborth defnyddwyr, <b>a byddem wrth ein bodd â\'ch adborth chi.</b></p><p> Rydyn ni\'n cynnal arolwg i ddeall sut rydych chi\'n defnyddio Signal. Nid yw ein harolwg yn casglu unrhyw ddata a fydd yn eich adnabod chi. Os oes gennych ddiddordeb mewn rhannu adborth ychwanegol, bydd gennych yr opsiwn i ddarparu gwybodaeth gyswllt.</p><p>Os oes gennych ychydig funudau ac adborth i\'w gynnig, byddem wrth ein bodd yn clywed gennych.</p>]]></string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphoneDialog_take_the_survey">Cymryd yr Arolwg</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphoneDialog_no_thanks">Dim diolch</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphoneDialog_the_survey_is_hosted_by_alchemer_at_the_secure_domain">Mae Alchemer yn cynnal yr arolwg yn yr arolygon parth diogel.signalusers.org</string> -->
   <!--transport_selection_list_item-->
   <string name="transport_selection_list_item__transport_icon">Eicon trafnidiaeth</string>
   <string name="ConversationListFragment_loading">Llwytho…</string>
@@ -2775,7 +2778,7 @@ Send neges heb ei ddiogelu?</string>
   <string name="BackupDialog_verify">Dilysu</string>
   <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">Rydych wedi cyflwyno eich cyfrinymadrodd wrth gefn yn llwyddiannus</string>
   <string name="BackupDialog_passphrase_was_not_correct">Nid oedd y cyfrinymadrodd yn gywir</string>
-  <!-- Removed by excludeNonTranslatables <string name="LocalBackupJob_creating_backup">Creu copi wrth gefn…</string> -->
+  <string name="LocalBackupJob_creating_signal_backup">Creu copi wrth gefn o Molly…</string>
   <string name="LocalBackupJobApi29_backup_failed">Methodd y copïo wrth gefn</string>
   <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">Mae eich cyfeiriadur wrth gefn wedi\'i ddileu neu ei symud.</string>
   <string name="LocalBackupJobApi29_your_backup_file_is_too_large">Mae\'ch ffeil wrth gefn yn rhy fawr i\'w storio ar y gyfrol hon.</string>
@@ -2897,6 +2900,8 @@ Send neges heb ei ddiogelu?</string>
   <string name="DeviceTransfer__transferring_data">Yn trosglwyddo data</string>
   <string name="DeviceTransfer__keep_both_devices_near_each_other">Cadwch y ddwy ddyfais yn agos at ei gilydd. Peidiwch â diffodd y dyfeisiau a chadwch Molly ar agor. Mae trosglwyddiadau wedi\'u hamgryptio o\'r dechrau i\'r diwedd.</string>
   <string name="DeviceTransfer__d_messages_so_far">%1$d neges hyd yma…</string>
+  <!--Filled in with total percentage of messages transferred-->
+  <string name="DeviceTransfer__s_of_messages_so_far">%1$s %% neges hyd yma…</string>
   <string name="DeviceTransfer__cancel">Canslo</string>
   <string name="DeviceTransfer__try_again">Ceisio eto</string>
   <string name="DeviceTransfer__stop_transfer_question">Stopio\'r trosglwyddo?</string>

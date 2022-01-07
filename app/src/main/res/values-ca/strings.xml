@@ -411,6 +411,8 @@
   <string name="BackupsPreferenceFragment__learn_more">Més informació</string>
   <string name="BackupsPreferenceFragment__in_progress">En curs…</string>
   <string name="BackupsPreferenceFragment__d_so_far">%1$d fins ara…</string>
+  <!--Show percentage of completion of backup-->
+  <string name="BackupsPreferenceFragment__s_so_far">%1$s%% fins ara…</string>
   <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">El Molly necessita el permís de l\'emmagatzematge extern per tal de crear còpies de seguretat. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi l\'emmagatzematge.</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Ús de la personalització: %s</string>
@@ -447,8 +449,8 @@
   <!--DocumentView-->
   <string name="DocumentView_unnamed_file">Fitxer sense nom</string>
   <!--GroupCallingMegaphone-->
-  <string name="GroupCallingMegaphone__introducing_group_calls">S\'introdueixen les trucades de grup</string>
-  <string name="GroupCallingMegaphone__open_a_new_group_to_start">Obriu un grup nou per iniciar una trucada de grup encriptada</string>
+  <!-- Removed by excludeNonTranslatables <string name="GroupCallingMegaphone__introducing_group_calls">S\'introdueixen les trucades de grup</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="GroupCallingMegaphone__open_a_new_group_to_start">Obriu un grup nou per iniciar una trucada de grup encriptada</string> -->
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">Optimitza per a la no presència dels Play Services</string>
   <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">El dispositiu no és compatible amb Play Services. Toqueu per desactivar les optimitzacions de la bateria que impedeixen que el Molly rebi missatges quan estigui inactiu.</string>
@@ -567,9 +569,9 @@
   <string name="LeaveGroupDialog_before_you_leave_you_must_choose_at_least_one_new_admin_for_this_group">Abans d\'abandonar-lo, heu de triar almenys un administrador nou per a aquest grup.</string>
   <string name="LeaveGroupDialog_choose_admin">Trieu un administrador</string>
   <!--LinkPreviewsMegaphone-->
-  <string name="LinkPreviewsMegaphone_disable">Desactiva</string>
-  <string name="LinkPreviewsMegaphone_preview_any_link">Previsualitza qualsevol enllaç</string>
-  <string name="LinkPreviewsMegaphone_you_can_now_retrieve_link_previews_directly_from_any_website">Ara podeu recuperar les previsualitzacions d’enllaços directament des de qualsevol lloc web per als missatges que envieu.</string>
+  <!-- Removed by excludeNonTranslatables <string name="LinkPreviewsMegaphone_disable">Desactiva</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="LinkPreviewsMegaphone_preview_any_link">Previsualitza qualsevol enllaç</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="LinkPreviewsMegaphone_you_can_now_retrieve_link_previews_directly_from_any_website">Ara podeu recuperar les previsualitzacions d’enllaços directament des de qualsevol lloc web per als missatges que envieu.</string> -->
   <!--LinkPreviewView-->
   <string name="LinkPreviewView_no_link_preview_available">No hi ha previsualització d\'enllaç disponible.</string>
   <string name="LinkPreviewView_this_group_link_is_not_active">Aquest enllaç de grup no està actiu.</string>
@@ -866,8 +868,8 @@
   <string name="MediaOverviewActivity_sent_by_s_to_s">Enviat per %1$s a %2$s</string>
   <string name="MediaOverviewActivity_sent_by_you_to_s">Ho heu enviat a %1$s</string>
   <!--Megaphones-->
-  <string name="Megaphones_introducing_reactions">S\'introdueixen les reaccions</string>
-  <string name="Megaphones_tap_and_hold_any_message_to_quicky_share_how_you_feel">Mantingueu un toc sobre qualsevol missatge per compartir com us sentiu.</string>
+  <!-- Removed by excludeNonTranslatables <string name="Megaphones_introducing_reactions">S\'introdueixen les reaccions</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="Megaphones_tap_and_hold_any_message_to_quicky_share_how_you_feel">Mantingueu un toc sobre qualsevol missatge per compartir com us sentiu.</string> -->
   <string name="Megaphones_remind_me_later">Recorda-m\'ho més tard.</string>
   <string name="Megaphones_verify_your_signal_pin">Verifiqueu el PIN del Signal</string>
   <string name="Megaphones_well_occasionally_ask_you_to_verify_your_pin">De tant en tant us demanarem de verificar el PIN perquè el recordeu.</string>
@@ -1625,6 +1627,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="UnauthorizedReminder_device_no_longer_registered">El dispositiu ja no està registrat.</string>
   <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Potser és així perquè vau registrar el número de telèfon al Signal des d\'un dispositiu diferent. Feu un toc per a tornar a registrar-lo.</string>
   <!--WebRtcCallActivity-->
+  <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">Per respondre la trucada, permeteu que el Molly accedeixi al micròfon.</string>
   <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Per respondre una trucada de %s, permeteu que el Molly tingui accés al micròfon.</string>
   <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">El Molly necessita el permís del micròfon i de la càmera per tal de fer o rebre trucades, però s\'han denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi el micròfon i la càmera.</string>
   <string name="WebRtcCallActivity__answered_on_a_linked_device">S\'ha respost en un dispositiu enllaçat.</string>
@@ -2521,15 +2524,15 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="KbsMegaphone__pins_keep_information_thats_stored_with_signal_encrytped">Els PIN mantenen encriptada la informació desada amb el Signal.</string>
   <string name="KbsMegaphone__create_pin">Crea un PIN</string>
   <!--Research Megaphone-->
-  <string name="ResearchMegaphone_tell_signal_what_you_think">Expliqueu a Signal què en penseu</string>
-  <string name="ResearchMegaphone_to_make_signal_the_best_messaging_app_on_the_planet">Per fer del Signal la millor aplicació de missatgeria del planeta, ens agradaria rebre\'n els vostres comentaris.</string>
-  <string name="ResearchMegaphone_learn_more">Més informació</string>
-  <string name="ResearchMegaphone_dismiss">Descarta</string>
-  <string name="ResearchMegaphoneDialog_signal_research">Recerca del Signal</string>
-  <string name="ResearchMegaphoneDialog_we_believe_in_privacy"><![CDATA[ <p><b>Creiem en la privadesa.</b></p><p> El Signal no us fa un seguiment ni recopila les vostres dades. Per millorar el Signal per a tothom, confiem en els comentaris dels usuaris i <b>ens encantaria rebre el vostre.</b></p><p> Estem fent una enquesta per entendre com useu el Signal. La nostra enquesta no recull cap dada que us identifiqui. Si esteu interessats a compartir comentaris addicionals, podreu proporcionar la informació de contacte.</p><p> Si teniu uns quants minuts i comentaris a oferir, ens encantaria rebre notícies vostres.</p>]]></string>
-  <string name="ResearchMegaphoneDialog_take_the_survey">Feu l\'enquesta</string>
-  <string name="ResearchMegaphoneDialog_no_thanks">No, gràcies.</string>
-  <string name="ResearchMegaphoneDialog_the_survey_is_hosted_by_alchemer_at_the_secure_domain">Alchemer en fa el seguiment al domini segur surveys.signalusers.org.</string>
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphone_tell_signal_what_you_think">Expliqueu a Signal què en penseu</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphone_to_make_signal_the_best_messaging_app_on_the_planet">Per fer del Signal la millor aplicació de missatgeria del planeta, ens agradaria rebre\'n els vostres comentaris.</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphone_learn_more">Més informació</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphone_dismiss">Descarta</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphoneDialog_signal_research">Recerca del Signal</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphoneDialog_we_believe_in_privacy"><![CDATA[ <p><b>Creiem en la privadesa.</b></p><p> El Signal no us fa un seguiment ni recopila les vostres dades. Per millorar el Signal per a tothom, confiem en els comentaris dels usuaris i <b>ens encantaria rebre el vostre.</b></p><p> Estem fent una enquesta per entendre com useu el Signal. La nostra enquesta no recull cap dada que us identifiqui. Si esteu interessats a compartir comentaris addicionals, podreu proporcionar la informació de contacte.</p><p> Si teniu uns quants minuts i comentaris a oferir, ens encantaria rebre notícies vostres.</p>]]></string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphoneDialog_take_the_survey">Feu l\'enquesta</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphoneDialog_no_thanks">No, gràcies.</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphoneDialog_the_survey_is_hosted_by_alchemer_at_the_secure_domain">Alchemer en fa el seguiment al domini segur surveys.signalusers.org.</string> -->
   <!--transport_selection_list_item-->
   <string name="transport_selection_list_item__transport_icon">Icona de trànsit</string>
   <string name="ConversationListFragment_loading">Es carrega…</string>
@@ -2579,7 +2582,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="BackupDialog_verify">Verificació</string>
   <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">Heu escrit correctament la contrasenya de còpia de seguretat.</string>
   <string name="BackupDialog_passphrase_was_not_correct">La contrasenya no és correcta.</string>
-  <!-- Removed by excludeNonTranslatables <string name="LocalBackupJob_creating_backup">Es crea una còpia de seguretat…</string> -->
+  <string name="LocalBackupJob_creating_signal_backup">Es crea una còpia de seguretat del Molly…</string>
   <string name="LocalBackupJobApi29_backup_failed">Ha fallat la còpia de seguretat.</string>
   <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">El directori de còpia de seguretat s\'ha suprimit o s\'ha canviat de lloc.</string>
   <string name="LocalBackupJobApi29_your_backup_file_is_too_large">El fitxer de còpia de seguretat és massa gros per desar-lo en aquest volum.</string>
@@ -2701,6 +2704,8 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="DeviceTransfer__transferring_data">Es transfereixen dades</string>
   <string name="DeviceTransfer__keep_both_devices_near_each_other">Mantingueu els dos dispositius a prop l’un de l’altre. No els apagueu i mantingueu el Molly obert. Les transferències estan encriptades d\'extrem a extrem.</string>
   <string name="DeviceTransfer__d_messages_so_far">%1$d missatges fins ara…</string>
+  <!--Filled in with total percentage of messages transferred-->
+  <string name="DeviceTransfer__s_of_messages_so_far">%1$s%% de missatges fins ara…</string>
   <string name="DeviceTransfer__cancel">Cancel·la</string>
   <string name="DeviceTransfer__try_again">Torna a provar-ho</string>
   <string name="DeviceTransfer__stop_transfer_question">Aturo la transferència?</string>

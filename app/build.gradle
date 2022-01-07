@@ -65,7 +65,7 @@ repositories {
 
 protobuf {
     protoc {
-        artifact = 'com.google.protobuf:protoc:3.11.4'
+        artifact = 'com.google.protobuf:protoc:3.18.0'
     }
     generateProtoTasks {
         all().each { task ->
@@ -78,8 +78,8 @@ protobuf {
     }
 }
 
-def canonicalVersionCode = 979
-def canonicalVersionName = "5.28.6"
+def canonicalVersionCode = 984
+def canonicalVersionName = "5.29.0"
 def mollyRevision = 0
 
 def postFixSize = 100

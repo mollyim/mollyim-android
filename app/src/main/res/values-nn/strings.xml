@@ -412,6 +412,8 @@ Viss kontoen din har lenka einingar, så vil nye notat bli synkroniserte.</strin
   <string name="BackupsPreferenceFragment__learn_more">Lær meir</string>
   <string name="BackupsPreferenceFragment__in_progress">I gang …</string>
   <string name="BackupsPreferenceFragment__d_so_far">%1$d så langt …</string>
+  <!--Show percentage of completion of backup-->
+  <string name="BackupsPreferenceFragment__s_so_far">%1$s%% så langt …</string>
   <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly treng tilgang til ekstern lagring for å laga reservekopiar, men tilgangen er permanent avslått. Opna app-innstillingsmenyen og vel «Tilgang» – eventuelt «Tillatelser» – og skru på «Lagring».</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Bruker sjølvvald: %s</string>
@@ -448,8 +450,8 @@ Viss kontoen din har lenka einingar, så vil nye notat bli synkroniserte.</strin
   <!--DocumentView-->
   <string name="DocumentView_unnamed_file">Fil utan namn</string>
   <!--GroupCallingMegaphone-->
-  <string name="GroupCallingMegaphone__introducing_group_calls">Her kjem gruppesamtalar</string>
-  <string name="GroupCallingMegaphone__open_a_new_group_to_start">Opna ei Ny gruppe for å starta ein kryptert gruppesamtale</string>
+  <!-- Removed by excludeNonTranslatables <string name="GroupCallingMegaphone__introducing_group_calls">Her kjem gruppesamtalar</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="GroupCallingMegaphone__open_a_new_group_to_start">Opna ei Ny gruppe for å starta ein kryptert gruppesamtale</string> -->
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">Optimaliser for manglande Play-tenester</string>
   <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Denne eininga støttar ikkje Play-tenester. Trykk for å skru av batterioptimaliseringane i systemet som hindrar Molly frå å henta meldingar når programmet ikkje er aktivt. </string>
@@ -572,9 +574,9 @@ Dei er invitert inn, og ser inga gruppemeldingar før dei godtek.</string>
   <string name="LeaveGroupDialog_before_you_leave_you_must_choose_at_least_one_new_admin_for_this_group">Før du forlèt gruppa, må du velja minst éin ny administrator.</string>
   <string name="LeaveGroupDialog_choose_admin">Vel administrator.</string>
   <!--LinkPreviewsMegaphone-->
-  <string name="LinkPreviewsMegaphone_disable">Slå av</string>
-  <string name="LinkPreviewsMegaphone_preview_any_link">Førehandsvis alle lenker</string>
-  <string name="LinkPreviewsMegaphone_you_can_now_retrieve_link_previews_directly_from_any_website">Du kan no henta lenkesniktittar direkte frå nettstader for meldingar du sender.</string>
+  <!-- Removed by excludeNonTranslatables <string name="LinkPreviewsMegaphone_disable">Slå av</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="LinkPreviewsMegaphone_preview_any_link">Førehandsvis alle lenker</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="LinkPreviewsMegaphone_you_can_now_retrieve_link_previews_directly_from_any_website">Du kan no henta lenkesniktittar direkte frå nettstader for meldingar du sender.</string> -->
   <!--LinkPreviewView-->
   <string name="LinkPreviewView_no_link_preview_available">Inga lenkesniktitt tilgjengeleg</string>
   <string name="LinkPreviewView_this_group_link_is_not_active">Denne gruppelenka er ikkje aktiv</string>
@@ -871,8 +873,8 @@ Dei er invitert inn, og ser inga gruppemeldingar før dei godtek.</string>
   <string name="MediaOverviewActivity_sent_by_s_to_s">Sent frå %1$s til %2$s</string>
   <string name="MediaOverviewActivity_sent_by_you_to_s">Sent frå deg til %1$s</string>
   <!--Megaphones-->
-  <string name="Megaphones_introducing_reactions">Her kjem Reaksjonar</string>
-  <string name="Megaphones_tap_and_hold_any_message_to_quicky_share_how_you_feel">Trykk og hold på ei melding for å raskt visa korleis du kjenner deg.</string>
+  <!-- Removed by excludeNonTranslatables <string name="Megaphones_introducing_reactions">Her kjem Reaksjonar</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="Megaphones_tap_and_hold_any_message_to_quicky_share_how_you_feel">Trykk og hold på ei melding for å raskt visa korleis du kjenner deg.</string> -->
   <string name="Megaphones_remind_me_later">Minn meg på det seinare</string>
   <string name="Megaphones_verify_your_signal_pin">Godkjenn Signal-PIN-koden din</string>
   <string name="Megaphones_well_occasionally_ask_you_to_verify_your_pin">Me vil innimellom be deg om å stadfesta PIN-koden din slik at du hugsar han.</string>
@@ -1637,6 +1639,7 @@ Mottok nøkkelutvekslingsmelding for ugyldig protokollversjon.</string>
   <string name="UnauthorizedReminder_device_no_longer_registered">Eininga er ikkje lenger registrert</string>
   <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Dette er sannsynlegvis fordi du registrerte telefonnummeret ditt med Signal på ei anna eining. Trykk for å omregistrera.</string>
   <!--WebRtcCallActivity-->
+  <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">Gi Molly tilgang til mikrofonen for å ta imot oppringinga.</string>
   <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Gi Molly tilgang til mikrofonen for å ta imot oppringinga frå %s.</string>
   <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Molly treng tilgang til mikrofon og kamera for å ringa eller ta imot samtalar, men tilgangen er permanent avslått. Opna app-innstillingsmenyen og vel «Tilgang» – eventuelt «Tillatelser» – og skru på «Mikrofon» og «Kamera».</string>
   <string name="WebRtcCallActivity__answered_on_a_linked_device">Svarte på ei tilkopla eining.</string>
@@ -2534,15 +2537,15 @@ Kom i gang ved å senda ei melding til ein venn.</string>
   <string name="KbsMegaphone__pins_keep_information_thats_stored_with_signal_encrytped">PIN-ar held informasjonen som signal Signal lagrar kryptert.</string>
   <string name="KbsMegaphone__create_pin">Opprett PIN</string>
   <!--Research Megaphone-->
-  <string name="ResearchMegaphone_tell_signal_what_you_think">Fortel Signal kva du synst</string>
-  <string name="ResearchMegaphone_to_make_signal_the_best_messaging_app_on_the_planet">For at me skal gjera Signal til den beste meldingsappen på planeten vil me gjerne høyra kva du synst.</string>
-  <string name="ResearchMegaphone_learn_more">Lær meir</string>
-  <string name="ResearchMegaphone_dismiss">Avslå</string>
-  <string name="ResearchMegaphoneDialog_signal_research">Signal-undersøking</string>
-  <string name="ResearchMegaphoneDialog_we_believe_in_privacy"><![CDATA[<p><b>Me trur på personvern.</b></p><p>Signal sporer deg ikkje og hentar ikkje data om deg. For å gjera Signal betre for alle, er me avhengig av at brukarar vel å fortelja kva dei synst, <b>og me vil gjerne høyra kva nettopp du synst.</b></p><p>Me har ei spørreundersøking på gang for å forstå korleis du bruker Signal. Undersøkinga hentar ikkje data som vil identifisera deg. Viss du vil gi tilleggsinformasjon, så har du moglegheita til å oppgi kontaktinfo.</p><p>Om du har eit par minutt til overs og litt tilbakemelding å gi, så vil me gjerne høyra frå deg.</p>]]></string>
-  <string name="ResearchMegaphoneDialog_take_the_survey">Ta undersøkinga</string>
-  <string name="ResearchMegaphoneDialog_no_thanks">Nei takk</string>
-  <string name="ResearchMegaphoneDialog_the_survey_is_hosted_by_alchemer_at_the_secure_domain">Denne undersøkinga er administrert av Alchemer på det trygge domenet surveys.signalusers.org</string>
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphone_tell_signal_what_you_think">Fortel Signal kva du synst</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphone_to_make_signal_the_best_messaging_app_on_the_planet">For at me skal gjera Signal til den beste meldingsappen på planeten vil me gjerne høyra kva du synst.</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphone_learn_more">Lær meir</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphone_dismiss">Avslå</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphoneDialog_signal_research">Signal-undersøking</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphoneDialog_we_believe_in_privacy"><![CDATA[<p><b>Me trur på personvern.</b></p><p>Signal sporer deg ikkje og hentar ikkje data om deg. For å gjera Signal betre for alle, er me avhengig av at brukarar vel å fortelja kva dei synst, <b>og me vil gjerne høyra kva nettopp du synst.</b></p><p>Me har ei spørreundersøking på gang for å forstå korleis du bruker Signal. Undersøkinga hentar ikkje data som vil identifisera deg. Viss du vil gi tilleggsinformasjon, så har du moglegheita til å oppgi kontaktinfo.</p><p>Om du har eit par minutt til overs og litt tilbakemelding å gi, så vil me gjerne høyra frå deg.</p>]]></string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphoneDialog_take_the_survey">Ta undersøkinga</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphoneDialog_no_thanks">Nei takk</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphoneDialog_the_survey_is_hosted_by_alchemer_at_the_secure_domain">Denne undersøkinga er administrert av Alchemer på det trygge domenet surveys.signalusers.org</string> -->
   <!--transport_selection_list_item-->
   <string name="transport_selection_list_item__transport_icon">Transport-ikon</string>
   <string name="ConversationListFragment_loading">Lastar …</string>
@@ -2592,7 +2595,7 @@ Kom i gang ved å senda ei melding til ein venn.</string>
   <string name="BackupDialog_verify">Stadfest</string>
   <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">Du skreiv inn rett passordfrase for reservekopiane dine</string>
   <string name="BackupDialog_passphrase_was_not_correct">Feil passordfrase</string>
-  <!-- Removed by excludeNonTranslatables <string name="LocalBackupJob_creating_backup">Opprettar reservekopi …</string> -->
+  <string name="LocalBackupJob_creating_signal_backup">Opprettar Molly-reservekopi …</string>
   <string name="LocalBackupJobApi29_backup_failed">Reservekopiering feila</string>
   <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">Mappa for reservekopiar er sletta eller flytta.</string>
   <string name="LocalBackupJobApi29_your_backup_file_is_too_large">Reservekopi-fila er for stor til å lagra på denne plasseringa.</string>
@@ -2715,6 +2718,8 @@ Kom i gang ved å senda ei melding til ein venn.</string>
   <string name="DeviceTransfer__transferring_data">Overfører data</string>
   <string name="DeviceTransfer__keep_both_devices_near_each_other">Hald einingane nær kvarandre. Ikkje skru av einingane, men la Molly stå open. Overføringa er ende-til-ende-kryptert.</string>
   <string name="DeviceTransfer__d_messages_so_far">%1$d meldingar så langt …</string>
+  <!--Filled in with total percentage of messages transferred-->
+  <string name="DeviceTransfer__s_of_messages_so_far">%1$s%% meldingar så langt …</string>
   <string name="DeviceTransfer__cancel">Avbryt</string>
   <string name="DeviceTransfer__try_again">Prøv igjen</string>
   <string name="DeviceTransfer__stop_transfer_question">Stopp overføringa?</string>

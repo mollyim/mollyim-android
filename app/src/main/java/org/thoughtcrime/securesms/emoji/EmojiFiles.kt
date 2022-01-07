@@ -45,11 +45,13 @@ private const val TAG = "EmojiFiles"
 private const val EMOJI_DIRECTORY = "emoji"
 private const val VERSION_FILE = ".version"
 private const val NAME_FILE = ".names"
+private const val JUMBO_FILE = ".jumbos"
 private const val EMOJI_JSON = "emoji_data.json"
 
 private fun Context.getEmojiDirectory(): File = getDir(EMOJI_DIRECTORY, Context.MODE_PRIVATE)
 private fun Context.getVersionFile(): File = File(getEmojiDirectory(), VERSION_FILE)
 private fun Context.getNameFile(versionUuid: UUID): File = File(File(getEmojiDirectory(), versionUuid.toString()).apply { mkdir() }, NAME_FILE)
+private fun Context.getJumboFile(versionUuid: UUID): File = File(File(getEmojiDirectory(), versionUuid.toString()).apply { mkdir() }, JUMBO_FILE)
 
 @Suppress("UNUSED_PARAMETER")
 private fun getFilesUri(name: String, format: String): Uri = PartAuthority.getEmojiUri(name)
@@ -81,6 +83,13 @@ object EmojiFiles {
   fun openForReading(context: Context, name: String): InputStream {
     val version: Version = Version.readVersion(context) ?: throw IOException("No emoji version is present on disk")
     val names: NameCollection = NameCollection.read(context, version)
+    val dataUuid: UUID = names.getUUIDForName(name) ?: throw IOException("Could not get UUID for name $name")
+    val file: File = version.getFile(context, dataUuid)
+
+    return getInputStream(context, file)
+  }
+
+  fun openForReadingJumbo(context: Context, version: Version, names: JumboCollection, name: String): InputStream {
     val dataUuid: UUID = names.getUUIDForName(name) ?: throw IOException("Could not get UUID for name $name")
     val file: File = version.getFile(context, dataUuid)
 
@@ -150,7 +159,8 @@ object EmojiFiles {
       private val objectMapper = ObjectMapper()
 
       @JvmStatic
-      fun readVersion(context: Context): Version? {
+      @JvmOverloads
+      fun readVersion(context: Context, skipValidation: Boolean = false): Version? {
         val version = try {
           getInputStream(context, context.getVersionFile()).use {
             objectMapper.readValue(it, Version::class.java)
@@ -160,7 +170,7 @@ object EmojiFiles {
           null
         }
 
-        return if (isVersionValid(context, version)) {
+        return if (skipValidation || isVersionValid(context, version)) {
           version
         } else {
           null
@@ -269,6 +279,48 @@ object EmojiFiles {
 
     @JsonIgnore
     fun getUUIDForEmojiData(): UUID? = getUUIDForName(EMOJI_JSON)
+
+    @JsonIgnore
+    fun getUUIDForName(name: String): UUID? = names.firstOrNull { it.name == name }?.uuid
+  }
+
+  class JumboCollection() {
+
+    @JsonProperty
+    lateinit var versionUuid: UUID
+
+    @JsonProperty
+    lateinit var names: List<Name>
+
+    constructor(versionUuid: UUID, names: List<Name>) : this() {
+      this.versionUuid = versionUuid
+      this.names = names
+    }
+
+    companion object {
+
+      private val objectMapper = ObjectMapper()
+
+      @JvmStatic
+      fun read(context: Context, version: Version): JumboCollection {
+        try {
+          getInputStream(context, context.getJumboFile(version.uuid)).use {
+            return objectMapper.readValue(it, JumboCollection::class.java)
+          }
+        } catch (e: Exception) {
+          return JumboCollection(version.uuid, listOf())
+        }
+      }
+
+      @JvmStatic
+      fun append(context: Context, nameCollection: JumboCollection, name: Name): JumboCollection {
+        val collection = JumboCollection(nameCollection.versionUuid, nameCollection.names + name)
+        getOutputStream(context, context.getJumboFile(nameCollection.versionUuid)).use {
+          objectMapper.writeValue(it, collection)
+        }
+        return collection
+      }
+    }
 
     @JsonIgnore
     fun getUUIDForName(name: String): UUID? = names.firstOrNull { it.name == name }?.uuid

@@ -13,6 +13,7 @@ import android.text.TextDirectionHeuristic;
 import android.text.TextDirectionHeuristics;
 import android.text.TextUtils;
 import android.text.method.TransformationMethod;
+import android.text.style.MetricAffectingSpan;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.ViewGroup;
@@ -56,6 +57,7 @@ public class EmojiTextView extends AppCompatTextView {
   private int                    lastLineWidth = -1;
   private TextDirectionHeuristic textDirection;
   private boolean                isJumbomoji;
+  private boolean                forceJumboEmoji;
 
   private MentionRendererDelegate mentionRendererDelegate;
 
@@ -76,6 +78,7 @@ public class EmojiTextView extends AppCompatTextView {
     forceCustom     = a.getBoolean(R.styleable.EmojiTextView_emoji_forceCustom, false);
     renderMentions  = a.getBoolean(R.styleable.EmojiTextView_emoji_renderMentions, true);
     measureLastLine = a.getBoolean(R.styleable.EmojiTextView_measureLastLine, false);
+    forceJumboEmoji = a.getBoolean(R.styleable.EmojiTextView_emoji_forceJumbo, false);
     a.recycle();
 
     a = context.obtainStyledAttributes(attrs, new int[]{android.R.attr.textSize});
@@ -111,10 +114,9 @@ public class EmojiTextView extends AppCompatTextView {
       int   emojis = candidates.size();
       float scale  = 1.0f;
 
-      if (emojis <= 8) scale += 0.25f;
-      if (emojis <= 6) scale += 0.25f;
-      if (emojis <= 4) scale += 0.25f;
-      if (emojis <= 2) scale += 0.25f;
+      if (emojis <= 5) scale += 0.9f;
+      if (emojis <= 4) scale += 0.9f;
+      if (emojis <= 2) scale += 0.9f;
 
       isJumbomoji = scale > 1.0f;
       super.setTextSize(TypedValue.COMPLEX_UNIT_PX, originalFontSize * scale);
@@ -136,7 +138,7 @@ public class EmojiTextView extends AppCompatTextView {
     if (useSystemEmoji || candidates == null || candidates.size() == 0) {
       super.setText(new SpannableStringBuilder(Optional.fromNullable(text).or("")), BufferType.SPANNABLE);
     } else {
-      CharSequence emojified = EmojiProvider.emojify(candidates, text, this);
+      CharSequence emojified = EmojiProvider.emojify(candidates, text, this, isJumbomoji || forceJumboEmoji);
       super.setText(new SpannableStringBuilder(emojified), BufferType.SPANNABLE);
     }
 
@@ -156,9 +158,16 @@ public class EmojiTextView extends AppCompatTextView {
   }
 
   @Override protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+    int originalWidthMode = MeasureSpec.getMode(widthMeasureSpec);
     widthMeasureSpec = applyWidthMeasureRoundingFix(widthMeasureSpec);
 
     super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+    widthMeasureSpec = getPreciseWidthForMaxLines(originalWidthMode);
+    if (widthMeasureSpec != 0) {
+      super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
+
     CharSequence text = getText();
     if (getLayout() == null || !measureLastLine || text == null || text.length() == 0) {
       lastLineWidth = -1;
@@ -191,10 +200,12 @@ public class EmojiTextView extends AppCompatTextView {
     if (Build.VERSION.SDK_INT >= 30 && Math.abs(getResources().getConfiguration().fontScale - 1f) > 0.01f) {
       CharSequence text = getText();
       if (text != null) {
-        int widthSpecMode     = MeasureSpec.getMode(widthMeasureSpec);
-        int widthSpecSize     = MeasureSpec.getSize(widthMeasureSpec);
-        int measuredTextWidth = (int) getPaint().measureText(text, 0, text.length());
-        int desiredWidth      = measuredTextWidth + getPaddingLeft() + getPaddingRight();
+        int widthSpecMode = MeasureSpec.getMode(widthMeasureSpec);
+        int widthSpecSize = MeasureSpec.getSize(widthMeasureSpec);
+
+        float measuredTextWidth = hasMetricAffectingSpan(text) ? Layout.getDesiredWidth(text, getPaint()) : getPaint().measureText(text, 0, text.length());
+        int   desiredWidth      = (int) measuredTextWidth + getPaddingLeft() + getPaddingRight();
+
         if (widthSpecMode == MeasureSpec.AT_MOST && desiredWidth < widthSpecSize) {
           return MeasureSpec.makeMeasureSpec(desiredWidth + 1, MeasureSpec.EXACTLY);
         }
@@ -202,6 +213,37 @@ public class EmojiTextView extends AppCompatTextView {
     }
 
     return widthMeasureSpec;
+  }
+
+  /**
+   * Determines the width to use for this view based on the lines of text that will be shown, as
+   * opposed to the default behavior which will consider lines after the max lines constraint.
+   *
+   * @param originalWidthMode the original mode passed for the width measure spec in {@link #onMeasure(int, int)}
+   * @return the new measure spec to use for the width. 0 if the existing measurement should be used.
+   */
+  private int getPreciseWidthForMaxLines(int originalWidthMode) {
+    if (originalWidthMode != MeasureSpec.EXACTLY && getLineCount() > getMaxLines() && getLayout() != null) {
+      float maxWidth = 0;
+      for (int i = 0; i < getMaxLines(); i++) {
+        maxWidth = Math.max(maxWidth, getLayout().getLineWidth(i));
+      }
+
+      double desiredWidth = Math.ceil(maxWidth);
+      if (desiredWidth < getMeasuredWidth()) {
+        return MeasureSpec.makeMeasureSpec((int) desiredWidth, MeasureSpec.AT_MOST);
+      }
+    }
+
+    return 0;
+  }
+
+  private boolean hasMetricAffectingSpan(@NonNull CharSequence text) {
+    if (!(text instanceof Spanned)) {
+      return false;
+    }
+
+    return ((Spanned) text).nextSpanTransition(-1, text.length(), MetricAffectingSpan.class) != text.length();
   }
 
   public int getLastLineWidth() {
@@ -250,7 +292,7 @@ public class EmojiTextView extends AppCompatTextView {
       if (useSystemEmoji || newCandidates == null || newCandidates.size() == 0) {
         super.setText(newContent, BufferType.SPANNABLE);
       } else {
-        CharSequence emojified = EmojiProvider.emojify(newCandidates, newContent, this);
+        CharSequence emojified = EmojiProvider.emojify(newCandidates, newContent, this, isJumbomoji || forceJumboEmoji);
         super.setText(emojified, BufferType.SPANNABLE);
       }
     }
@@ -281,7 +323,7 @@ public class EmojiTextView extends AppCompatTextView {
                   .append(Optional.fromNullable(overflowText).or(""));
 
         EmojiParser.CandidateList newCandidates = isInEditMode() ? null : EmojiProvider.getCandidates(newContent);
-        CharSequence              emojified     = EmojiProvider.emojify(newCandidates, newContent, this);
+        CharSequence              emojified     = EmojiProvider.emojify(newCandidates, newContent, this, isJumbomoji || forceJumboEmoji);
 
         super.setText(emojified, BufferType.SPANNABLE);
       }

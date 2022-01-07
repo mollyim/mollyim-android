@@ -453,6 +453,8 @@
   <string name="BackupsPreferenceFragment__learn_more">Узнать больше</string>
   <string name="BackupsPreferenceFragment__in_progress">В процессе…</string>
   <string name="BackupsPreferenceFragment__d_so_far">Уже %1$d…</string>
+  <!--Show percentage of completion of backup-->
+  <string name="BackupsPreferenceFragment__s_so_far">Уже %1$s%%…</string>
   <string name="BackupsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">Molly требуется разрешение на доступ к хранилищу для создания резервных копий, но оно было вами отклонено. Нажмите «Продолжить», чтобы перейти в настройки приложения, откройте «Разрешения» и включите «Хранилище».</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Пользовательское: %s</string>
@@ -489,8 +491,8 @@
   <!--DocumentView-->
   <string name="DocumentView_unnamed_file">Безымянный файл</string>
   <!--GroupCallingMegaphone-->
-  <string name="GroupCallingMegaphone__introducing_group_calls">Представляем групповые звонки</string>
-  <string name="GroupCallingMegaphone__open_a_new_group_to_start">Откройте любую Новую группу, чтобы начать бесплатный зашифрованный групповой звонок</string>
+  <!-- Removed by excludeNonTranslatables <string name="GroupCallingMegaphone__introducing_group_calls">Представляем групповые звонки</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="GroupCallingMegaphone__open_a_new_group_to_start">Откройте любую Новую группу, чтобы начать бесплатный зашифрованный групповой звонок</string> -->
   <!--DozeReminder-->
   <string name="DozeReminder_optimize_for_missing_play_services">Оптимизация при отсутствии Служб Google Play</string>
   <string name="DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery">Это устройство не поддерживает Службы Google Play. Нажмите для отключения оптимизации энергопотребления, которая не позволяет Molly получать сообщения, когда он неактивен.</string>
@@ -635,9 +637,9 @@
   <string name="LeaveGroupDialog_before_you_leave_you_must_choose_at_least_one_new_admin_for_this_group">Прежде чем покинуть эту группу, вы должны назначить для неё как минимум одного нового администратора.</string>
   <string name="LeaveGroupDialog_choose_admin">Выбрать администратора</string>
   <!--LinkPreviewsMegaphone-->
-  <string name="LinkPreviewsMegaphone_disable">Отключить</string>
-  <string name="LinkPreviewsMegaphone_preview_any_link">Предпросмотр любой ссылки</string>
-  <string name="LinkPreviewsMegaphone_you_can_now_retrieve_link_previews_directly_from_any_website">Теперь вы можете добавлять в свои сообщения предпросмотры ссылок, которые будут скачиваться напрямую с любого сайта.</string>
+  <!-- Removed by excludeNonTranslatables <string name="LinkPreviewsMegaphone_disable">Отключить</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="LinkPreviewsMegaphone_preview_any_link">Предпросмотр любой ссылки</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="LinkPreviewsMegaphone_you_can_now_retrieve_link_previews_directly_from_any_website">Теперь вы можете добавлять в свои сообщения предпросмотры ссылок, которые будут скачиваться напрямую с любого сайта.</string> -->
   <!--LinkPreviewView-->
   <string name="LinkPreviewView_no_link_preview_available">Нет предпросмотра ссылки</string>
   <string name="LinkPreviewView_this_group_link_is_not_active">Эта ссылка на группу неактивна</string>
@@ -972,8 +974,8 @@
   <string name="MediaOverviewActivity_sent_by_s_to_s">%1$s отправил(-а) %2$s</string>
   <string name="MediaOverviewActivity_sent_by_you_to_s">Вы отправили %1$s</string>
   <!--Megaphones-->
-  <string name="Megaphones_introducing_reactions">Представляем реакции</string>
-  <string name="Megaphones_tap_and_hold_any_message_to_quicky_share_how_you_feel">Нажмите и удерживайте любое сообщение, чтобы быстро ответить вашими чувствами.</string>
+  <!-- Removed by excludeNonTranslatables <string name="Megaphones_introducing_reactions">Представляем реакции</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="Megaphones_tap_and_hold_any_message_to_quicky_share_how_you_feel">Нажмите и удерживайте любое сообщение, чтобы быстро ответить вашими чувствами.</string> -->
   <string name="Megaphones_remind_me_later">Напомните мне позже</string>
   <string name="Megaphones_verify_your_signal_pin">Подтвердите свой PIN-код Signal</string>
   <string name="Megaphones_well_occasionally_ask_you_to_verify_your_pin">Иногда мы будем просить вас подтвердить свой PIN-код, чтобы вы его не забывали.</string>
@@ -1778,6 +1780,7 @@
   <string name="UnauthorizedReminder_device_no_longer_registered">Устройство больше не зарегистрировано</string>
   <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Это может быть вызвано тем, что вы зарегистрировали свой номер телефона в Signal на другом устройстве. Нажмите для повторной регистрации.</string>
   <!--WebRtcCallActivity-->
+  <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">Для ответа на звонок разрешите Molly доступ к микрофону.</string>
   <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">Для ответа на звонок от %s разрешите Molly доступ к микрофону.</string>
   <string name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Molly требуются разрешения на доступ к микрофону и камере для совершения или принятия звонков, но они были вами отклонены. Нажмите «Продолжить», чтобы перейти в настройки приложения, откройте «Разрешения» и включите «Микрофон» и «Камера».</string>
   <string name="WebRtcCallActivity__answered_on_a_linked_device">Принят на привязанном устройстве.</string>
@@ -2708,15 +2711,15 @@
   <string name="KbsMegaphone__pins_keep_information_thats_stored_with_signal_encrytped">PIN-коды шифруют информацию, хранящуюся в сервисе Signal.</string>
   <string name="KbsMegaphone__create_pin">Создать PIN-код</string>
   <!--Research Megaphone-->
-  <string name="ResearchMegaphone_tell_signal_what_you_think">Расскажите Signal, что вы думаете</string>
-  <string name="ResearchMegaphone_to_make_signal_the_best_messaging_app_on_the_planet">Чтобы сделать Signal лучшим мессенджером на свете, мы были бы рады услышать ваши комментарии.</string>
-  <string name="ResearchMegaphone_learn_more">Узнать больше</string>
-  <string name="ResearchMegaphone_dismiss">Закрыть</string>
-  <string name="ResearchMegaphoneDialog_signal_research">Исследование Signal</string>
-  <string name="ResearchMegaphoneDialog_we_believe_in_privacy"><![CDATA[<p><b>Мы верим в конфиденциальность.</b></p><p>Signal не следит за вами и не собирает ваши данные. Чтобы улучшать Signal для всех, мы полагаемся на обратную связь от пользователей, <b>и были бы рады услышать ваши комментарии.</b></p><p>Мы проводим опрос, чтобы понять, как вы используете Signal. Наш опрос не собирает никакой информации, которая идентифицирует вас. Если вам интересно поделиться дополнительными комментариями, вы сможете оставить свою контактную информацию.</p><p>Если у вас есть несколько минут и комментарии, которыми вы хотите поделиться, мы были бы рады вас услышать.</p>]]></string>
-  <string name="ResearchMegaphoneDialog_take_the_survey">Пройти опрос</string>
-  <string name="ResearchMegaphoneDialog_no_thanks">Нет, спасибо</string>
-  <string name="ResearchMegaphoneDialog_the_survey_is_hosted_by_alchemer_at_the_secure_domain">Опрос размещён Alchemer на безопасном домене surveys.signalusers.org</string>
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphone_tell_signal_what_you_think">Расскажите Signal, что вы думаете</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphone_to_make_signal_the_best_messaging_app_on_the_planet">Чтобы сделать Signal лучшим мессенджером на свете, мы были бы рады услышать ваши комментарии.</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphone_learn_more">Узнать больше</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphone_dismiss">Закрыть</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphoneDialog_signal_research">Исследование Signal</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphoneDialog_we_believe_in_privacy"><![CDATA[<p><b>Мы верим в конфиденциальность.</b></p><p>Signal не следит за вами и не собирает ваши данные. Чтобы улучшать Signal для всех, мы полагаемся на обратную связь от пользователей, <b>и были бы рады услышать ваши комментарии.</b></p><p>Мы проводим опрос, чтобы понять, как вы используете Signal. Наш опрос не собирает никакой информации, которая идентифицирует вас. Если вам интересно поделиться дополнительными комментариями, вы сможете оставить свою контактную информацию.</p><p>Если у вас есть несколько минут и комментарии, которыми вы хотите поделиться, мы были бы рады вас услышать.</p>]]></string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphoneDialog_take_the_survey">Пройти опрос</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphoneDialog_no_thanks">Нет, спасибо</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ResearchMegaphoneDialog_the_survey_is_hosted_by_alchemer_at_the_secure_domain">Опрос размещён Alchemer на безопасном домене surveys.signalusers.org</string> -->
   <!--transport_selection_list_item-->
   <string name="transport_selection_list_item__transport_icon">Значок транспорта</string>
   <string name="ConversationListFragment_loading">Загружаем…</string>
@@ -2766,7 +2769,7 @@
   <string name="BackupDialog_verify">Подтверждение</string>
   <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">Вы успешно ввели парольную фразу своей резервной копии</string>
   <string name="BackupDialog_passphrase_was_not_correct">Парольная фраза была неправильной</string>
-  <!-- Removed by excludeNonTranslatables <string name="LocalBackupJob_creating_backup">Создаём резервную копию…</string> -->
+  <string name="LocalBackupJob_creating_signal_backup">Создаём резервную копию Molly…</string>
   <string name="LocalBackupJobApi29_backup_failed">Резервное копирование не удалось</string>
   <string name="LocalBackupJobApi29_your_backup_directory_has_been_deleted_or_moved">Ваша папка для резервных копий была удалена или перемещена.</string>
   <string name="LocalBackupJobApi29_your_backup_file_is_too_large">Ваш файл резервной копии слишком большой для хранения на этом носителе.</string>
@@ -2888,6 +2891,8 @@
   <string name="DeviceTransfer__transferring_data">Перенос данных</string>
   <string name="DeviceTransfer__keep_both_devices_near_each_other">Держите оба устройства рядом друг с другом. Не выключайте устройства и оставьте Molly открытым. Переносы защищены сквозным шифрованием.</string>
   <string name="DeviceTransfer__d_messages_so_far">Уже %1$d сообщений…</string>
+  <!--Filled in with total percentage of messages transferred-->
+  <string name="DeviceTransfer__s_of_messages_so_far">Уже %1$s%% сообщений…</string>
   <string name="DeviceTransfer__cancel">Отменить</string>
   <string name="DeviceTransfer__try_again">Попробовать ещё раз</string>
   <string name="DeviceTransfer__stop_transfer_question">Остановить перенос?</string>
@@ -3549,7 +3554,7 @@
   <string name="SelectFeaturedBadgeFragment__select_a_badge">Выберите значок</string>
   <string name="SelectFeaturedBadgeFragment__you_must_select_a_badge">Вы должны выбрать значок</string>
   <string name="SelectFeaturedBadgeFragment__failed_to_update_profile">Не удалось обновить профиль</string>
-  <string name="ViewBadgeBottomSheetDialogFragment__become_a_sustainer">Стать поддерживающим</string>
+  <string name="ViewBadgeBottomSheetDialogFragment__become_a_sustainer">Стать Поддерживающим</string>
   <string name="ImageView__badge">Значок</string>
   <string name="SubscribeFragment__signal_is_powered_by_people_like_you">Signal существует благодаря таким людям, как вы.</string>
   <string name="SubscribeFragment__support_technology_that_is_built_for_you">Поддержите технологию, которая создана для вас, а не ради ваших данных, присоединившись к сообществу людей, которые её поддерживают.</string>
@@ -3607,7 +3612,7 @@
   <string name="ExpiredBadgeBottomSheetDialogFragment__subscription_cancelled">Подписка отменена</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__your_boost_badge_has_expired">Ваш значок «Ускорение» истёк и больше не виден другим людям в вашем профиле.</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__you_can_reactivate">Вы можете заново активировать свой значок «Ускорение» ещё на 30 дней, сделав одноразовое пожертвование.</string>
-  <string name="ExpiredBadgeBottomSheetDialogFragment__to_continue_supporting_technology">Чтобы продолжить поддерживать технологию, сделанную для вас, а не для ваших данных, пожалуйста, подумайте о том, чтобы стать ежемесячным Поддерживающим.</string>
+  <string name="ExpiredBadgeBottomSheetDialogFragment__to_continue_supporting_technology">Чтобы продолжить поддерживать технологию, сделанную для вас, пожалуйста, подумайте о том, чтобы стать ежемесячным Поддерживающим.</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__become_a_sustainer">Стать Поддерживающим</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__add_a_boost">Добавить Ускорение</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__not_now">Не сейчас</string>
