@@ -22,6 +22,14 @@ jobs:
     - name: Validate Gradle Wrapper
       uses: gradle/wrapper-validation-action@master
 
+    - name: Increase swap space
+      run: |
+        sudo fallocate -l 8G /swapB
+        sudo chmod 600 /swapB
+        sudo mkswap /swapB
+        sudo swapon /swapB
+        swapon --show
+
     - name: Build Docker image
       run: docker-compose build
       working-directory: reproducible-builds

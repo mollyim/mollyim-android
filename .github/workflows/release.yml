@@ -13,6 +13,14 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Increase swap space
+      run: |
+        sudo fallocate -l 8G /swapB
+        sudo chmod 600 /swapB
+        sudo mkswap /swapB
+        sudo swapon /swapB
+        swapon --show
+
     - name: Build Docker image
       run: docker-compose build
       working-directory: reproducible-builds
