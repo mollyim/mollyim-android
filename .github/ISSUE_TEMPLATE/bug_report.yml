@@ -1,0 +1,66 @@
+name: 🛠️ Bug report
+description: Let us know that something isn't working as intended
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+  - type: checkboxes
+    attributes:
+      label: Is there an existing issue for this?
+      description: Please search to see if an issue already exists to avoid creating duplicates.
+      options:
+        - label: I have searched the existing issues
+          required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug description
+      description: |
+        Describe here the issue that you're experiencing.
+
+        Tip: You can attach images by clicking this area to highlight it and then dragging files in.
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: Steps to reproduce
+      description: Share the steps needed to reliably reproduce the problem. Please include actual and expected results.
+      value: |
+        1.
+        2.
+    validations:
+      required: false
+  - type: input
+    id: version
+    attributes:
+      label: Molly version
+      description: What version of Molly are you running?
+      placeholder: v0.0.0-0-FOSS
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: Android version
+      description: What version of Android you have on your device?
+      placeholder: Android 12
+    validations:
+      required: false
+  - type: input
+    id: device
+    attributes:
+      label: Device
+      description: What device are you seeing the problem on?
+      placeholder: Manufacturer Model
+    validations:
+      required: false
+  - type: input
+    id: debuglog
+    attributes:
+      label: Link to debug log
+      description: Immediately after the bug has happened submit a debug log via Molly's settings (Help -> Debug log) and paste the link below.
+      placeholder: https://debuglogs.org/
+    validations:
+      required: false

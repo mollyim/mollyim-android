@@ -5,6 +5,8 @@ on:
   push:
     paths-ignore:
       - '**/README*.md'
+      - '.github/FUNDING.yml'
+      - '.github/ISSUE_TEMPLATE/**'
 
 jobs:
   test:

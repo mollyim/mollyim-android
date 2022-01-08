@@ -1,0 +1,18 @@
+name: Feature request
+description: Suggest an idea for Molly
+title: "[Feature Request] "
+labels: [ "feature-request" ]
+body:
+  - type: checkboxes
+    attributes:
+      label: Is there an existing request for this?
+      description: Please search to see if there are already any open or closed issues to avoid creating duplicates.
+      options:
+        - label: I have searched the existing issues
+          required: true
+  - type: textarea
+    attributes:
+      label: Feature description
+      description: Describe the feature you'd like to see.
+    validations:
+      required: true
