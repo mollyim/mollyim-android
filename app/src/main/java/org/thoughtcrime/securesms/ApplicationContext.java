@@ -146,6 +146,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
 
     initializeSecurityProvider();
     SqlCipherLibraryLoader.load();
+    EventBus.builder().logNoSubscriberMessages(false).installDefaultEventBus();
     if (Build.VERSION.SDK_INT < 21) {
       AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
@@ -174,7 +175,6 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
                             })
                             .addBlocking("crash-handling", this::initializeCrashHandling)
                             .addBlocking("rx-init", this::initializeRx)
-                            .addBlocking("event-bus", () -> EventBus.builder().logNoSubscriberMessages(false).installDefaultEventBus())
                             .addBlocking("app-dependencies", this::initializeAppDependencies)
                             .addBlocking("notification-channels", () -> NotificationChannels.create(this))
                             .addBlocking("network-settings", this::initializeNetworkSettings)
