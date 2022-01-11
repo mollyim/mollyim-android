@@ -131,7 +131,7 @@ public final class InternalValues extends SignalStoreValues {
    * Whether or not "shake to report" is enabled.
    */
   public synchronized boolean shakeToReport() {
-    return FeatureFlags.internalUser() && getBoolean(SHAKE_TO_REPORT, true);
+    return FeatureFlags.internalUser() && getBoolean(SHAKE_TO_REPORT, false);
   }
 
   /**
