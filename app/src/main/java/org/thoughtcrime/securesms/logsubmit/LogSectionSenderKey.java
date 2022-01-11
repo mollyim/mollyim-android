@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 
 import org.signal.core.util.AsciiArt;
 import org.thoughtcrime.securesms.database.SignalDatabase;
+import org.thoughtcrime.securesms.keyvalue.SignalStore;
 
 /**
  * Renders data pertaining to sender key. While all private info is obfuscated, this is still only intended to be printed for internal users.
@@ -33,5 +34,10 @@ public class LogSectionSenderKey implements LogSection {
     }
 
     return builder;
+  }
+
+  @Override
+  public boolean isInitialized() {
+    return LogSection.super.isInitialized() && SignalStore.account().isRegistered();
   }
 }
