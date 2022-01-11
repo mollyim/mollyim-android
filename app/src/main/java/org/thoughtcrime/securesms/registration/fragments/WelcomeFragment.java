@@ -68,8 +68,8 @@ public final class WelcomeFragment extends LoggingFragment {
                                                        Manifest.permission.READ_PHONE_STATE,
                                                        Manifest.permission.READ_PHONE_NUMBERS };
 
-  private static final @StringRes int   RATIONALE        = R.string.RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends;
-  private static final @StringRes int   RATIONALE_API_29 = R.string.RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends;
+  private static final @StringRes int   RATIONALE        = R.string.RegistrationActivity_molly_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends;
+  private static final @StringRes int   RATIONALE_API_29 = R.string.RegistrationActivity_molly_needs_access_to_your_contacts_in_order_to_connect_with_friends;
   private static final            int[] HEADERS          = { R.drawable.ic_contacts_white_48dp, R.drawable.ic_folder_white_48dp };
   private static final            int[] HEADERS_API_29   = { R.drawable.ic_contacts_white_48dp };
 
