@@ -18,13 +18,14 @@ import com.google.android.gms.common.api.Status;
 
 import org.greenrobot.eventbus.EventBus;
 import org.signal.core.util.logging.Log;
+import org.thoughtcrime.securesms.PassphraseRequiredActivity;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.registration.viewmodel.RegistrationViewModel;
 import org.thoughtcrime.securesms.service.VerificationCodeParser;
 import org.thoughtcrime.securesms.util.CommunicationActions;
 import org.whispersystems.libsignal.util.guava.Optional;
 
-public final class RegistrationNavigationActivity extends AppCompatActivity {
+public final class RegistrationNavigationActivity extends PassphraseRequiredActivity {
 
   private static final String TAG = Log.tag(RegistrationNavigationActivity.class);
 
@@ -57,8 +58,7 @@ public final class RegistrationNavigationActivity extends AppCompatActivity {
   }
 
   @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
+  protected void onCreate(Bundle savedInstanceState, boolean ready) {
     viewModel = new ViewModelProvider(this, new RegistrationViewModel.Factory(this, isReregister(getIntent()))).get(RegistrationViewModel.class);
 
     setContentView(R.layout.activity_registration_navigation);

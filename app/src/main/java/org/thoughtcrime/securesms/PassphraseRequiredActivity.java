@@ -144,10 +144,11 @@ public abstract class PassphraseRequiredActivity extends PassphraseActivity impl
 
   private void routeApplicationState(boolean locked) {
     Intent intent = getIntentForState(getApplicationState(locked));
-    if (intent != null) {
-      startActivity(intent);
-      finish();
+    if (intent == null || (intent.getComponent() != null && getLocalClassName().equals(intent.getComponent().getClassName()))) {
+      return;
     }
+    startActivity(intent);
+    finish();
   }
 
   private Intent getIntentForState(int state) {
