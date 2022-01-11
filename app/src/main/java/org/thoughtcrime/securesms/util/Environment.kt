@@ -9,4 +9,5 @@ object Environment {
 object Release {
   const val IS_DEBUGGABLE: Boolean = BuildConfig.BUILD_VARIANT_TYPE == "Debug"
   const val IS_INSIDER: Boolean = BuildConfig.APPLICATION_ID == "im.molly.insider"
+  const val IS_FOSS: Boolean = BuildConfig.FLAVOR_distribution == "free"
 }

@@ -20,6 +20,7 @@ import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.components.InputAwareLayout;
 import org.thoughtcrime.securesms.mediasend.Media;
 import org.thoughtcrime.securesms.mms.GlideApp;
+import org.thoughtcrime.securesms.util.Release;
 import org.thoughtcrime.securesms.util.StorageUtil;
 
 import java.util.Arrays;
@@ -63,7 +64,7 @@ public class AttachmentKeyboard extends FrameLayout implements InputAwareLayout.
 
   private List<AttachmentKeyboardButton> getDefaultButtons() {
     //noinspection ConstantConditions
-    if (BuildConfig.FLAVOR_distribution.equals("free")) {
+    if (Release.IS_FOSS) {
       return DEFAULT_BUTTONS_FREE;
     }
     return DEFAULT_BUTTONS_NON_FREE;
