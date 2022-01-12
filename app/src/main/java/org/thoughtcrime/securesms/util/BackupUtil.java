@@ -14,6 +14,7 @@ import androidx.annotation.RequiresApi;
 import androidx.documentfile.provider.DocumentFile;
 
 import org.signal.core.util.logging.Log;
+import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.backup.BackupPassphrase;
 import org.thoughtcrime.securesms.database.NoExternalStorageException;
@@ -234,10 +235,11 @@ public class BackupUtil {
   }
 
   private static long getBackupTimestamp(@NonNull String backupName) {
-    String[] prefixSuffix = backupName.split("[.]");
-
-    if (prefixSuffix.length == 2) {
-      String[] parts = prefixSuffix[0].split("\\-");
+    if (backupName.startsWith(BuildConfig.BACKUP_FILENAME) &&
+        backupName.endsWith(".backup")) {
+      String ts = backupName.substring(BuildConfig.BACKUP_FILENAME.length(),
+                                       backupName.length() - ".backup".length());
+      String[] parts = ts.split("\\-");
 
       if (parts.length == 7) {
         try {
