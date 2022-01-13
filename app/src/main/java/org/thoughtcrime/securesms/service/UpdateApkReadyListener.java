@@ -10,11 +10,13 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.R;
+import org.thoughtcrime.securesms.notifications.NotificationCancellationHelper;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.util.FileProviderUtil;
 import org.thoughtcrime.securesms.util.FileUtils;
@@ -30,6 +32,12 @@ import java.security.MessageDigest;
 public class UpdateApkReadyListener extends BroadcastReceiver {
 
   private static final String TAG = Log.tag(UpdateApkReadyListener.class);
+
+  private static final short UPDATE_APK_READY_ID = 666;
+
+  public static void clearNotification(@NonNull Context context) {
+    NotificationCancellationHelper.cancelLegacy(context, UPDATE_APK_READY_ID);
+  }
 
   @Override
   public void onReceive(Context context, Intent intent) {
@@ -75,7 +83,7 @@ public class UpdateApkReadyListener extends BroadcastReceiver {
         .setContentIntent(pendingIntent)
         .build();
 
-    ServiceUtil.getNotificationManager(context).notify(666, notification);
+    ServiceUtil.getNotificationManager(context).notify(UPDATE_APK_READY_ID, notification);
   }
 
   private @Nullable Uri getLocalUriForDownloadId(Context context, long downloadId) {

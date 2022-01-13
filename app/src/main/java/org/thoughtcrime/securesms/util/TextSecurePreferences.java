@@ -63,6 +63,7 @@ public class TextSecurePreferences {
   private static final String PROMPTED_OPTIMIZE_DOZE_PREF      = "pref_prompted_optimize_doze";
   public  static final String DIRECTORY_FRESH_TIME_PREF        = "pref_directory_refresh_time";
   public  static final String UPDATE_APK_ENABLED               = "pref_update_apk_enabled";
+  public  static final String UPDATE_APK_INCLUDE_BETA          = "pref_update_apk_include_beta";
   private static final String UPDATE_APK_SHOW_ONBOARDING       = "pref_update_apk_onboarding";
   private static final String UPDATE_APK_REFRESH_TIME_PREF     = "pref_update_apk_refresh_time";
   private static final String UPDATE_APK_DOWNLOAD_ID           = "pref_update_apk_download_id";
@@ -226,6 +227,7 @@ public class TextSecurePreferences {
   private static final String[] booleanPreferencesToBackupMolly = {
       LOG_ENABLED,
       UPDATE_APK_ENABLED,
+      UPDATE_APK_INCLUDE_BETA,
       BLOCK_UNKNOWN,
   };
 
@@ -736,6 +738,14 @@ public class TextSecurePreferences {
 
   public static void setUpdateApkEnabled(@NonNull Context context, boolean value) {
     setBooleanPreference(context, UPDATE_APK_ENABLED, value);
+  }
+
+  public static boolean isUpdateApkIncludeBetaEnabled(@NonNull Context context) {
+    return getBooleanPreference(context, UPDATE_APK_INCLUDE_BETA, false);
+  }
+
+  public static void setUpdateApkIncludeBetaEnabled(@NonNull Context context, boolean value) {
+    setBooleanPreference(context, UPDATE_APK_INCLUDE_BETA, value);
   }
 
   public static boolean isUpdateApkShowOnboardingEnabled(@NonNull Context context) {

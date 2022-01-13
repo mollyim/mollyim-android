@@ -60,6 +60,16 @@ class HelpSettingsFragment : DSLSettingsFragment(R.string.preferences__help) {
       )
 
       switchPref(
+        title = DSLSettingsText.from(R.string.preferences__include_beta_updates),
+        summary = DSLSettingsText.from(R.string.preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs),
+        isChecked = state.includeBetaEnabled,
+        isEnabled = state.updateApkEnabled,
+        onClick = {
+          viewModel.setIncludeBetaEnabled(!state.includeBetaEnabled)
+        }
+      )
+
+      switchPref(
         title = DSLSettingsText.from(R.string.preferences__enable_debug_log),
         isChecked = state.logEnabled,
         onClick = {

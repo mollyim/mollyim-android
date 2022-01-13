@@ -30,7 +30,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.MessageDigest;
-import java.util.Collections;
 import java.util.List;
 
 import okhttp3.OkHttpClient;
@@ -71,7 +70,9 @@ public class UpdateApkJob extends BaseJob {
       return;
     }
 
-    Log.i(TAG, "Checking for APK update...");
+    boolean includeBeta = TextSecurePreferences.isUpdateApkIncludeBetaEnabled(context);
+
+    Log.i(TAG, "Checking for APK update [stable" + (includeBeta ? ", beta" : "") + "]...");
 
     OkHttpClient client = new OkHttpClient.Builder()
                                           .socketFactory(Network.getSocketFactory())
@@ -84,17 +85,28 @@ public class UpdateApkJob extends BaseJob {
     if (!response.isSuccessful()) {
       throw new IOException("Bad response: " + response.message());
     }
+    if (response.body() == null) {
+      throw new IOException("Missing body!");
+    }
 
-    RepoIndex repoIndex = JsonUtils.fromJson(response.body().string(), RepoIndex.class);
-    if (repoIndex.packages == null ||
-        repoIndex.packages.appReleases == null ||
-        repoIndex.packages.appReleases.isEmpty()) {
+    RepoIndex repoIndex = JsonUtils.fromJson(response.body().bytes(), RepoIndex.class);
+    if (repoIndex.packages == null || repoIndex.packages.appReleases == null) {
       return;
     }
-    Collections.sort(repoIndex.packages.appReleases);
 
-    UpdateDescriptor updateDescriptor = repoIndex.packages.appReleases.get(0);
-    byte[]           digest           = Hex.fromStringCondensed(updateDescriptor.getDigest());
+    List<UpdateDescriptor> releases = repoIndex.packages.appReleases;
+
+    UpdateDescriptor updateDescriptor = releases.stream()
+                                                .filter(r -> r.versionName != null)
+                                                .filter(r -> includeBeta || !r.versionName.contains("beta"))
+                                                .sorted()
+                                                .findFirst()
+                                                .orElse(null);
+    if (updateDescriptor == null) {
+      return;
+    }
+
+    byte[] digest = Hex.fromStringCondensed(updateDescriptor.getDigest());
 
     Log.i(TAG, "Got descriptor: " + updateDescriptor);
 
@@ -173,6 +185,7 @@ public class UpdateApkJob extends BaseJob {
   }
 
   private void handleDownloadStart(Uri uri, String versionName, byte[] digest) {
+    UpdateApkReadyListener.clearNotification(context);
     clearPreviousDownloads(context);
 
     DownloadManager         downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
