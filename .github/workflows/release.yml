@@ -56,7 +56,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: molly-apk-docker
-        path: reproducible-builds/outputs/apk/**/release/*.apk
+        path: reproducible-builds/outputs/apk/*/release/*.apk
         if-no-files-found: error
 
   publish:
@@ -69,6 +69,20 @@ jobs:
 
       - name: Download artifacts
         uses: actions/download-artifact@v2
+
+      - name: Check version for upgrade compatibility
+        if: "github.repository == 'mollyim/mollyim-android'"
+        run: |
+          gh release download --pattern '*.apk' --dir latest
+          latest_apks=(latest/*.apk)
+          build_apks=(molly-apk-docker/*/release/*.apk)
+          version_code() {
+            local aapt=($ANDROID_HOME/build-tools/30.*/aapt)
+            $aapt d badging "$1" | gawk 'match($0, /^package:.*versionCode=.([0-9]+)/, v) {print v[1]}'
+          }
+          test $(version_code "$build_apks") -gt $(version_code "$latest_apks")
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create stable release draft
         if: "!contains(github.ref_name, 'alpha') && !contains(github.ref_name, 'beta')"
