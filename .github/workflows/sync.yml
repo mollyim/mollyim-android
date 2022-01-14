@@ -1,0 +1,25 @@
+name: Sync upstream
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 4 * * *'
+
+jobs:
+  sync:
+    name: Sync
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: upstream
+
+      - name: Fetch and merge upstream
+        run: |
+          git remote add upstream https://github.com/signalapp/Signal-Android.git
+          git fetch upstream
+          git merge --ff-only upstream/master
+
+      - name: Push changes
+        run: git push --tags
