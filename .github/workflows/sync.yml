@@ -22,4 +22,4 @@ jobs:
           git merge --ff-only upstream/master
 
       - name: Push changes
-        run: git push --tags
+        run: git push --tags origin upstream
