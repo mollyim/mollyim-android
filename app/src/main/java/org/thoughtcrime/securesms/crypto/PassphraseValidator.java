@@ -14,6 +14,8 @@ public class PassphraseValidator {
 
   private final Nbvcxz nbvcxz;
 
+  private static final int MAX_LENGTH = 32;
+
   public PassphraseValidator(Locale locale) {
     Configuration configuration = new ConfigurationBuilder()
         .setLocale(locale)
@@ -22,7 +24,16 @@ public class PassphraseValidator {
   }
 
   public Strength estimate(final char[] passphrase) {
-    return new Strength(nbvcxz.estimate(new String(passphrase)));
+    return new Strength(nbvcxz.estimate(getTruncatedPassphrase(passphrase)));
+  }
+
+  /**
+   * Returns the truncated password based on the max length.
+   *
+   * It can be removed when nbvcxz supports this configuration.
+   */
+  private static String getTruncatedPassphrase(final char[] passphrase) {
+    return new String(passphrase, 0, Math.min(passphrase.length, MAX_LENGTH));
   }
 
   public static class Strength {
