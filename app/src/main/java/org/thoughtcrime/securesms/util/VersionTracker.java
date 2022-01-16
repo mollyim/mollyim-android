@@ -22,20 +22,17 @@ public class VersionTracker {
   }
 
   public static void updateLastSeenVersion(@NonNull Context context) {
-    try {
-      int currentVersionCode = Util.getSignalCanonicalVersionCode();
-      int lastVersionCode    = TextSecurePreferences.getSignalLastVersionCode(context);
+    int currentVersionCode = Util.getSignalCanonicalVersionCode();
+    int lastVersionCode    = TextSecurePreferences.getSignalLastVersionCode(context);
 
-      if (currentVersionCode != lastVersionCode) {
-        Log.i(TAG, "Upgraded from " + lastVersionCode + " to " + currentVersionCode);
-        SignalStore.misc().clearClientDeprecated();
-        TextSecurePreferences.setSignalLastVersionCode(context, currentVersionCode);
-        ApplicationDependencies.getJobManager().add(new RemoteConfigRefreshJob());
-        LocalMetrics.getInstance().clear();
-      }
-    } catch (IOException ioe) {
-      throw new AssertionError(ioe);
+    if (currentVersionCode != lastVersionCode) {
+      Log.i(TAG, "Upgraded from " + lastVersionCode + " to " + currentVersionCode);
+      SignalStore.misc().clearClientDeprecated();
+      ApplicationDependencies.getJobManager().add(new RemoteConfigRefreshJob());
+      LocalMetrics.getInstance().clear();
     }
+
+    TextSecurePreferences.setSignalLastVersionCode(context, currentVersionCode);
   }
 
   public static long getDaysSinceFirstInstalled(Context context) {

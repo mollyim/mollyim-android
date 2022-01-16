@@ -777,9 +777,9 @@ public class TextSecurePreferences {
     return getIntegerPreference(context, LAST_VERSION_CODE_PREF, Util.getSignalCanonicalVersionCode());
   }
 
-  public static void setSignalLastVersionCode(Context context, int versionCode) throws IOException {
+  public static void setSignalLastVersionCode(Context context, int versionCode) {
     if (!setIntegerPrefrenceBlocking(context, LAST_VERSION_CODE_PREF, versionCode)) {
-      throw new IOException("couldn't write version code to sharedpreferences");
+      throw new AssertionError("couldn't write version code to sharedpreferences");
     }
   }
 
