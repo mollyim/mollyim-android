@@ -160,7 +160,7 @@ public class RecipientUtil {
 
     SignalDatabase.recipients().setBlocked(recipient.getId(), true);
 
-    if (recipient.isSystemContact() || recipient.isProfileSharing() || isProfileSharedViaGroup(context, recipient)) {
+    if (recipient.isSystemContact() || recipient.isProfileSharing() || isProfileSharedViaGroup(recipient)) {
       ApplicationDependencies.getJobManager().add(new RotateProfileKeyJob());
       SignalDatabase.recipients().setProfileSharing(recipient.getId(), false);
     }
@@ -374,7 +374,7 @@ public class RecipientUtil {
   }
 
   @WorkerThread
-  private static boolean isProfileSharedViaGroup(@NonNull Context context, @NonNull Recipient recipient) {
+  public static boolean isProfileSharedViaGroup(@NonNull Recipient recipient) {
     return Stream.of(SignalDatabase.groups().getPushGroupsContainingMember(recipient.getId()))
                  .anyMatch(group -> Recipient.resolved(group.getRecipientId()).isProfileSharing());
   }

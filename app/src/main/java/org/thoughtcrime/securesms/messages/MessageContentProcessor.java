@@ -2187,9 +2187,6 @@ public final class MessageContentProcessor {
   private boolean shouldIgnore(@NonNull SignalServiceContent content, @NonNull Recipient from, @NonNull Recipient conversation)
       throws BadGroupIdException
   {
-    boolean isKnownSender = from.isSystemContact() || from.isProfileSharing();
-    boolean isBlocked     = from.isBlocked() || (!isKnownSender && TextSecurePreferences.isBlockUnknownEnabled(context));
-
     if (content.getDataMessage().isPresent()) {
       SignalServiceDataMessage message = content.getDataMessage().get();
 
@@ -2209,7 +2206,7 @@ public final class MessageContentProcessor {
         }
 
         if (groupId.isPresent() && groupDatabase.isUnknownGroup(groupId.get())) {
-          return isBlocked;
+          return shouldBlockSender(from);
         }
 
         boolean isTextMessage    = message.getBody().isPresent();
@@ -2220,14 +2217,14 @@ public final class MessageContentProcessor {
         boolean isGroupActive    = groupId.isPresent() && groupDatabase.isActive(groupId.get());
         boolean isLeaveMessage   = message.getGroupContext().isPresent() && message.getGroupContext().get().getGroupV1Type() == SignalServiceGroup.Type.QUIT;
 
-        return (isContentMessage && !isGroupActive) || (isBlocked && !isLeaveMessage && !isGv2Update);
+        return (isContentMessage && !isGroupActive) || (shouldBlockSender(from) && !isLeaveMessage && !isGv2Update);
       } else {
-        return isBlocked;
+        return shouldBlockSender(from);
       }
     } else if (content.getCallMessage().isPresent()) {
-      return isBlocked;
+      return shouldBlockSender(from);
     } else if (content.getTypingMessage().isPresent()) {
-      if (isBlocked) {
+      if (shouldBlockSender(from)) {
         return true;
       }
 
@@ -2245,6 +2242,19 @@ public final class MessageContentProcessor {
     }
 
     return false;
+  }
+
+  private boolean shouldBlockSender(@NonNull Recipient sender) {
+    if (sender.isBlocked()) {
+      return true;
+    }
+    if (sender.isSystemContact() || sender.isProfileSharing()) {
+      return false;
+    }
+    if (!TextSecurePreferences.isBlockUnknownEnabled(context)) {
+      return false;
+    }
+    return !RecipientUtil.isProfileSharedViaGroup(sender);
   }
 
   private void resetRecipientToPush(@NonNull Recipient recipient) {
