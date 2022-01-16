@@ -46,7 +46,7 @@
     <string name="NetworkPreferenceFragment_missing_orbot_app">Orbot uygulaması yok</string>
     <string name="ProxyManager_successfully_started_orbot">Orbot başlatıldı</string>
     <string name="arrays__tor_via_orbot">Orbot aracılığıyla Tor</string>
-    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Düzenli aralıklarla yeni sürümleri denetle ve kurmayı iste.</string>
+    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Düzenli aralıklarla yeni sürümleri denetle ve kurmayı iste</string>
     <string name="preferences__autoupdate_molly">Molly\'i otomatik güncelle</string>
     <string name="preferences__block_users_youve_never_been_in_contact_with_and_who_are_not_saved_in_your_contacts">Hiç iletişim kurmadığınız ve kişi olarak kaydedilmeyen kullanıcıları engelleyin.</string>
     <string name="preferences__block_unknown">Bilinmeyenleri engelle</string>
@@ -71,4 +71,11 @@
     <string name="HelpSettingsFragment_disable_and_delete_debug_log">Hata ayıklama günlüğü silinsin ve devre dışı bırakılsın mı\?</string>
     <string name="DonateMegaphone_no_thanks">Hayır teşekkürler</string>
     <string name="DonateMegaphone_donate">Bağış yap</string>
+    <string name="DeviceAddFragment__link_without_scanning">Tarama olmadan bağla</string>
+    <string name="RegistrationActivity_molly_needs_access_to_your_contacts_in_order_to_connect_with_friends">Molly\'nin arkadaşlarınızla bağlantı kurmanıza yardımcı olması için kişiler iznine ihtiyacı var. Kişileriniz Signal\'in özel kişi keşfi kullanılarak karşıya yüklenir, bu da onların uçtan uca şifrelendiği ve Signal hizmeti tarafından hiçbir zaman görülemeyeceği anlamına gelir.</string>
+    <string name="DozeReminder_optimize_for_timely_notifications">Zamanında bildirimler için iyileştir</string>
+    <string name="RegistrationActivity_molly_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly\'nin arkadaşlarınızla bağlantı kurmanıza ve mesaj göndermenize yardımcı olması için kişiler ve ortam izinlerine ihtiyacı var. Kişileriniz Signal\'in özel kişi keşfi kullanılarak karşıya yüklenir, bu da onların uçtan uca şifrelendiği ve Signal hizmeti tarafından hiçbir zaman görülemeyeceği anlamına gelir.</string>
+    <string name="DozeReminder_tap_to_allow_molly_to_retrieve_messages_while_the_device_is_in_standby">Aygıt bekleme modundayken Molly\'nin mesajları almasına izin vermek için dokunun.</string>
+    <string name="preferences__include_beta_updates">Beta güncellemelerini dahil et</string>
+    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">Beta sürümleri test amaçlıdır ve hatalar içerebilir</string>
 </resources>

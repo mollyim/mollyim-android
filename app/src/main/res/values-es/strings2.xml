@@ -45,7 +45,7 @@
     <string name="NetworkPreferenceFragment_get_orbot">Descargar Orbot</string>
     <string name="NetworkPreferenceFragment_missing_orbot_app">Falta la aplicación Orbot</string>
     <string name="ProxyManager_successfully_started_orbot">Orbot iniciado</string>
-    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Comprobar periódicamente si hay nuevas versiones y pedir que las instalen.</string>
+    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Comprobar periódicamente si hay nuevas versiones y pedir que las instalen</string>
     <string name="preferences__autoupdate_molly">Actualizar Molly automáticamente</string>
     <string name="arrays__tor_via_orbot">Tor mediante Orbot</string>
     <string name="preferences_network__online">En línea</string>
@@ -71,4 +71,11 @@
     <string name="HelpSettingsFragment_disable_and_delete_debug_log">¿Borrar y desactivar el registro de depuración\?</string>
     <string name="DonateMegaphone_donate">Donar</string>
     <string name="DonateMegaphone_no_thanks">No, gracias</string>
+    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">Las versiones beta están destinadas a las pruebas y pueden contener errores</string>
+    <string name="preferences__include_beta_updates">Incluir actualizaciones beta</string>
+    <string name="DeviceAddFragment__link_without_scanning">Enlazar sin escanear</string>
+    <string name="RegistrationActivity_molly_needs_access_to_your_contacts_in_order_to_connect_with_friends">Molly necesita el permiso de los contactos para ayudarte a conectar con tus amigos. Tus contactos se cargan utilizando el descubrimiento de contactos privados de Signal, lo que significa que están cifrados de extremo a extremo y nunca son visibles para el servicio de Signal.</string>
+    <string name="RegistrationActivity_molly_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly necesita los permisos de contactos y medios para ayudarte a conectar con tus amigos y enviar mensajes. Tus contactos se cargan utilizando el descubrimiento de contactos privados de Signal, lo que significa que están cifrados de extremo a extremo y nunca son visibles para el servicio de Signal.</string>
+    <string name="DozeReminder_optimize_for_timely_notifications">Optimizar las notificaciones a tiempo</string>
+    <string name="DozeReminder_tap_to_allow_molly_to_retrieve_messages_while_the_device_is_in_standby">Pulse para permitir que Molly recupere los mensajes mientras el dispositivo está en espera.</string>
 </resources>

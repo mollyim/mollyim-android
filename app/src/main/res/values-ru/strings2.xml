@@ -46,7 +46,7 @@
     <string name="NetworkPreferenceFragment_missing_orbot_app">Отсутствует приложение Orbot</string>
     <string name="ProxyManager_successfully_started_orbot">Orbot запущен</string>
     <string name="arrays__tor_via_orbot">Tor через Orbot</string>
-    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Периодически проверять новые релизы и предлагать их установить.</string>
+    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Периодически проверять новые релизы и предлагать их установить</string>
     <string name="preferences__autoupdate_molly">Автообновление Molly</string>
     <string name="preferences__block_unknown">Блокировать неизвестных</string>
     <string name="preferences__block_users_youve_never_been_in_contact_with_and_who_are_not_saved_in_your_contacts">Блокировать пользователей, с которыми вы никогда не общались и отсутствующих в списке контактов.</string>
@@ -71,4 +71,11 @@
     <string name="HelpSettingsFragment_disable_and_delete_debug_log">Удалить и отключить лог отладки\?</string>
     <string name="DonateMegaphone_no_thanks">Нет, спасибо</string>
     <string name="DonateMegaphone_donate">Пожертвовать</string>
+    <string name="DeviceAddFragment__link_without_scanning">Связать без сканирования</string>
+    <string name="RegistrationActivity_molly_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Для того чтобы вы могли общаться с друзьями и отправлять сообщения, Molly необходимы разрешения на доступ к контактам и медиафайлам. Ваши контакты загружаются с помощью приватного обнаружения контактов Signal, что означает, что они зашифрованы сквозным шифрованием и никогда не видны сервисам Signal.</string>
+    <string name="RegistrationActivity_molly_needs_access_to_your_contacts_in_order_to_connect_with_friends">Чтобы помочь вам связаться с друзьями, Molly необходимо разрешение на доступ к контактам. Ваши контакты загружаются с помощью приватного обнаружения контактов Signal, что означает, что они зашифрованы сквозным шифрованием и никогда не видны сервисам Signal.</string>
+    <string name="DozeReminder_tap_to_allow_molly_to_retrieve_messages_while_the_device_is_in_standby">Нажмите, чтобы разрешить Molly получать сообщения, когда устройство находится в режиме ожидания.</string>
+    <string name="DozeReminder_optimize_for_timely_notifications">Оптимизация для своевременных уведомлений</string>
+    <string name="preferences__include_beta_updates">Включить бета-версии обновлений</string>
+    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">Бета-версии предназначены для тестирования и могут содержать баги</string>
 </resources>

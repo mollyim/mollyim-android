@@ -39,7 +39,7 @@
     <string name="arrays__on_inactivity_timeout">După o perioadă de timp în care nu ai deblocat dispozitivul</string>
     <string name="preferences__protect_molly_database_with_a_passphrase">Protejează baza de date Molly cu o parolă</string>
     <string name="preferences__passphrase_changed">Parola a fost schimbată</string>
-    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Verifică periodic dacă există versiuni noi și solicită să le instalezi.</string>
+    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Verifică periodic dacă există versiuni noi și solicită să le instalezi</string>
     <string name="preferences__block_users_youve_never_been_in_contact_with_and_who_are_not_saved_in_your_contacts">Blochează utilizatori cu care nu ai intrat niciodată în contact sau care nu sunt persoane de contact.</string>
     <string name="preferences__map_normal">Normal</string>
     <string name="preferences_network__hostname_or_ip_address">Nume gazdă sau adresă IP</string>
@@ -69,4 +69,11 @@
     <string name="BlockUnblockDialog_deleted_contacts_are_still_able_to_call_you_or_send_you_messages">Contactele șterse pot în continuare să te apeleze sau să-ți trimită mesaje, dacă nu le blochezi.</string>
     <string name="NetworkPreferenceFragment_missing_orbot_app">Aplicația Orbot lipsește</string>
     <string name="NetworkPreferenceFragment_a_valid_port_number_is_between_0_and_65535">Un număr de port valid este între 0 și 65535</string>
+    <string name="DeviceAddFragment__link_without_scanning">Asociază fără scanare</string>
+    <string name="RegistrationActivity_molly_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly are nevoie de permisiunea pentru contacte și media să te ajute să iei legătura cu prietenii și să trimiți mesaje. Contactele tale sunt încărcate utilizând descoperirea privată a contactelor de la Signal, ceea ce înseamnă că sunt criptate integral și nu sunt niciodată vizibile pentru serviciul Signal.</string>
+    <string name="RegistrationActivity_molly_needs_access_to_your_contacts_in_order_to_connect_with_friends">Molly are nevoie de permisiunea pentru contacte să te ajute să iei legătura cu prietenii. Contactele tale sunt încărcate utilizând descoperirea privată a contactelor de la Signal, ceea ce înseamnă că sunt criptate integral și nu sunt niciodată vizibile pentru serviciul Signal.</string>
+    <string name="DozeReminder_optimize_for_timely_notifications">Optimizare pentru notificări în timp util</string>
+    <string name="DozeReminder_tap_to_allow_molly_to_retrieve_messages_while_the_device_is_in_standby">Atinge pentru a permite lui Molly să preia mesaje în timp ce dispozitivul este în standby.</string>
+    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">Versiunile beta sunt versiuni de test și pot conține erori</string>
+    <string name="preferences__include_beta_updates">Include și versiuni beta</string>
 </resources>

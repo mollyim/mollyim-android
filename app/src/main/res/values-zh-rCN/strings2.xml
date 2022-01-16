@@ -44,7 +44,7 @@
     <string name="preferences__map_satellite">卫星</string>
     <string name="preferences__map_hybrid">混合型</string>
     <string name="preferences__map_normal">正常</string>
-    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">定期检查新版本并请求安装它们。</string>
+    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">定期检查新版本并请求安装它们</string>
     <string name="preferences__autoupdate_molly">自动更新Molly</string>
     <string name="arrays__tor_via_orbot">Tor通过Orbot</string>
     <string name="arrays__none">无</string>
@@ -71,4 +71,11 @@
     <string name="HelpSettingsFragment_disable_and_delete_debug_log">删除并禁用调试日志？</string>
     <string name="DonateMegaphone_no_thanks">不用，谢谢</string>
     <string name="DonateMegaphone_donate">捐赠</string>
+    <string name="DeviceAddFragment__link_without_scanning">未扫描的链接</string>
+    <string name="RegistrationActivity_molly_needs_access_to_your_contacts_in_order_to_connect_with_friends">Molly 需要联系人和媒体权限来帮助你与朋友联系和发送信息。你的联系人使用 Signal 的“私人联系人发现”上传，这意味着它们是端到端加密的，对 Signal 服务永远不可见。</string>
+    <string name="RegistrationActivity_molly_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly 需要联系人和媒体权限来帮助你与朋友联系和发送信息。你的联系人使用 Signal 的“私人联系人发现”上传，这意味着它们是端到端加密的，对 Signal 服务永远不可见。</string>
+    <string name="DozeReminder_optimize_for_timely_notifications">优化以及时获取通知</string>
+    <string name="DozeReminder_tap_to_allow_molly_to_retrieve_messages_while_the_device_is_in_standby">轻按允许 Molly 当设备处于待机状态时获取信息。</string>
+    <string name="preferences__include_beta_updates">包括测试版更新</string>
+    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">Beta 版本用于测试目的，可能包含 bug</string>
 </resources>
