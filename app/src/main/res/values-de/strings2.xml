@@ -3,10 +3,8 @@
     <string name="preferences__enable_debug_log">Diagnoseprotokoll aktivieren</string>
     <string name="AppProtectionPreferenceFragment_instant">Sofort</string>
     <string name="WipeMemoryService_secure_wipe_in_progress">Sicherheitswischen läuft</string>
-    <string name="ApplicationPreferencesActivity_privacy_summary_passphrase_registration_locks">Datenbankverschlüsselung %1$s, Registrierungssperre %2$s</string>
     <string name="ChangePassphraseDialogFragment_generating_keys_this_may_take_a_while">Generierung von Schlüsseln. Dies kann eine Weile dauern …</string>
     <string name="ChangePassphraseDialogFragment_please_choose_a_passphrase_that_will_be_used_to_locally_encrypt_your_data_this_should_be_a_strong_passphrase">Bitte wähle einen Passwortsatz, mit dem deine Daten lokal verschlüsselt werden.\n\nDies sollte ein starker Passwortsatz sein.</string>
-    <string name="ChangePassphraseDialogFragment_enable">Aktivieren</string>
     <string name="ChangePassphraseDialogFragment_passphrase">Passwortsatz</string>
     <string name="ChangePassphraseDialogFragment_estimated_time_to_crack_suggestion">%1$s\n\nGeschätzte Zeit zum Knacken: %2$s.\n\nVorschlag: %3$s</string>
     <string name="ChangePassphraseDialogFragment_weak_passphrase">Schwache Passwortsatz!</string>
@@ -44,7 +42,7 @@
     <string name="preferences_network__port">Port</string>
     <string name="preferences_network__proxy">Proxy</string>
     <string name="preferences__map_none">Keine</string>
-    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Regelmäßig nach neuen Versionen suchen und zur Installation auffordern.</string>
+    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Regelmäßig nach neuen Versionen suchen und zur Installation auffordern</string>
     <string name="preferences__autoupdate_molly">Molly automatisch aktualisieren</string>
     <string name="arrays__tor_via_orbot">Tor über Orbot</string>
     <string name="arrays__none">Keine</string>
@@ -67,7 +65,6 @@
     <string name="MessageRetrievalService_ready_to_receive_messages">Bereit, Nachrichten zu empfangen</string>
     <string name="HelpSettingsFragment__molly_im_website">Molly.im-Website</string>
     <string name="enter_device_link_dialog__if_your_phone_cant_scan_the_qr_code_you_can_manually_enter_the_link_encoded_in_the_qr_code">Wenn dein Telefon den QR-Code nicht scannen kann, kannst du den im QR-Code verschlüsselten Link manuell eingeben.</string>
-    <string name="DeviceAddFragment__set_up_without_scanning">Einrichten ohne Scannen</string>
     <string name="HelpSettingsFragment_disable_and_delete_debug_log">Fehlerbehebungsprotokoll löschen und deaktivieren\?</string>
     <string name="DonateMegaphone_donate">Spenden</string>
     <string name="DonateMegaphone_no_thanks">Nein danke</string>
@@ -76,4 +73,6 @@
     <string name="RegistrationActivity_molly_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly benötigt die Kontakte und Medienberechtigungen, damit Sie sich mit Freunden verbinden und Nachrichten senden können. Ihre Kontakte werden über die private Kontaktsuche von Signal hochgeladen, d. h. sie sind Ende-zu-Ende verschlüsselt und für den Signal-Dienst nie sichtbar.</string>
     <string name="DozeReminder_optimize_for_timely_notifications">Für rechtzeitige Benachrichtigungen optimieren</string>
     <string name="DozeReminder_tap_to_allow_molly_to_retrieve_messages_while_the_device_is_in_standby">Tippen Sie auf, um Molly das Abrufen von Nachrichten zu ermöglichen, während sich das Gerät im Standby-Modus befindet.</string>
+    <string name="preferences__include_beta_updates">Beta-Aktualisierungen einbeziehen</string>
+    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">Beta-Versionen sind für Testzwecke bestimmt und können Fehler enthalten</string>
 </resources>

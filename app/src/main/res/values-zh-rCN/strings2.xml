@@ -4,12 +4,10 @@
     <string name="preferences__passphrase_lock">版权加密</string>
     <string name="ChangePassphraseDialogFragment_generating_keys_this_may_take_a_while">正在生成密钥。可能要花费一些时间…</string>
     <string name="ChangePassphraseDialogFragment_please_choose_a_passphrase_that_will_be_used_to_locally_encrypt_your_data_this_should_be_a_strong_passphrase">请选择一个将用于本地加密数据的密码。\n\n这应该是一个强密码。</string>
-    <string name="ChangePassphraseDialogFragment_enable">启用</string>
     <string name="ChangePassphraseDialogFragment_passphrase">密码</string>
     <string name="ChangePassphraseDialogFragment_estimated_time_to_crack_suggestion">%1$s\n\n估计破解时间: %2$s.\n\n建议: %3$s</string>
     <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">现在可以设置密码来加密数据库。在解锁之前，Molly 无法接收通知或电话。这有助于保护丢失或被盗设备上的数据。</string>
     <string name="WipeMemoryService_secure_wipe_in_progress">正在进行安全擦除</string>
-    <string name="ApplicationPreferencesActivity_privacy_summary_passphrase_registration_locks">数据库加密 %1$s，注册锁 %2$s</string>
     <string name="preferences__enable_debug_log">启用调试日志</string>
     <string name="preferences__passphrase_changed">密码已更改</string>
     <string name="preferences__device_lock_timeout">设备锁定超时</string>
@@ -67,7 +65,6 @@
     <string name="MessageRetrievalService_ready_to_receive_messages">准备好接收消息</string>
     <string name="HelpSettingsFragment__molly_im_website">Molly.im 网站</string>
     <string name="enter_device_link_dialog__if_your_phone_cant_scan_the_qr_code_you_can_manually_enter_the_link_encoded_in_the_qr_code">如果您的手机无法扫描二维码，您可以手动输入编码存储在二维码中的链接。</string>
-    <string name="DeviceAddFragment__set_up_without_scanning">无需扫描即可设置</string>
     <string name="HelpSettingsFragment_disable_and_delete_debug_log">删除并禁用调试日志？</string>
     <string name="DonateMegaphone_no_thanks">不用，谢谢</string>
     <string name="DonateMegaphone_donate">捐赠</string>

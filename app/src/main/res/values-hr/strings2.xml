@@ -4,7 +4,6 @@
     <string name="AppProtectionPreferenceFragment_instant">Odmah</string>
     <string name="ChangePassphraseDialogFragment_generating_keys_this_may_take_a_while">Generiranje ključeva. Ovo može potrajati …</string>
     <string name="ChangePassphraseDialogFragment_please_choose_a_passphrase_that_will_be_used_to_locally_encrypt_your_data_this_should_be_a_strong_passphrase">Odaberi lozinku koja će se koristiti za lokalno šifriranje podataka.\n\nOvo bi trebala biti jaka lozinka.</string>
-    <string name="ChangePassphraseDialogFragment_enable">Aktiviraj</string>
     <string name="ChangePassphraseDialogFragment_passphrase">Lozinka</string>
     <string name="ChangePassphraseDialogFragment_estimated_time_to_crack_suggestion">%1$s\n\nProcijenjeno vrijeme za pogađanje lozinke: %2$s.\n\nPrijedlog: %3$s</string>
     <string name="ChangePassphraseDialogFragment_weak_passphrase">Slaba lozinka!</string>
@@ -12,7 +11,6 @@
     <string name="PassphraseCreateActivity_require_passphrase_to_unlock_molly">Je li potrebna lozinka za otključavanje Mollya\?</string>
     <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">Sada možeš postaviti lozinku za šifriranje baze podataka. Dok se ne otključa, Molly ne može primati obavijesti ili pozive. To pomaže zaštiti podatke na izgubljenim ili ukradenim uređajima.</string>
     <string name="WipeMemoryService_secure_wipe_in_progress">U tijeku je sigurno brisanje</string>
-    <string name="ApplicationPreferencesActivity_privacy_summary_passphrase_registration_locks">Šifriranje baze podataka %1$s, zaključavanje registracije %2$s</string>
     <string name="preferences__passphrase_changed">Lozinka promijenjena</string>
     <string name="preferences__device_lock_timeout">Vrijeme isteka zaključavanja uređaja</string>
     <string name="preferences__automatic_lockdown">Automatsko zaključavanje</string>
@@ -46,7 +44,7 @@
     <string name="NetworkPreferenceFragment_missing_orbot_app">Nedostaje program Orbot</string>
     <string name="ProxyManager_successfully_started_orbot">Orbot je pokrenut</string>
     <string name="arrays__tor_via_orbot">Tor preko Orbota</string>
-    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Periodično traži i instaliraj nova izdanja.</string>
+    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Periodično traži nova izdanja i zatraži njihovo istaliranje</string>
     <string name="preferences__autoupdate_molly">Automatski aktualiziraj Molly</string>
     <string name="preferences__block_users_youve_never_been_in_contact_with_and_who_are_not_saved_in_your_contacts">Blokiraj korisnike s kojima nisi komunicirao/la i one koji nisu spremljeni kao kontakti.</string>
     <string name="preferences__block_unknown">Blokiraj nepoznate</string>
@@ -67,8 +65,11 @@
     <string name="MessageRetrievalService_ready_to_receive_messages">Spremno za primanje poruka</string>
     <string name="HelpSettingsFragment__molly_im_website">Molly.im web-stranica</string>
     <string name="enter_device_link_dialog__if_your_phone_cant_scan_the_qr_code_you_can_manually_enter_the_link_encoded_in_the_qr_code">Ako tvoj mobitel ne može snimiti QR kod, upiši u QR kodu kodiranu poveznicu.</string>
-    <string name="DeviceAddFragment__set_up_without_scanning">Postavi bez snimanja</string>
     <string name="HelpSettingsFragment_disable_and_delete_debug_log">Izbrisati i deaktivirati dnevnik otklanjanja grešaka\?</string>
     <string name="DonateMegaphone_donate">Doniraj</string>
     <string name="DonateMegaphone_no_thanks">Ne, hvala</string>
+    <string name="preferences__include_beta_updates">Uključi beta verzije</string>
+    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">Beta verzije su namijenjene za testiranje i mogu sadržavati greške</string>
+    <string name="DozeReminder_optimize_for_timely_notifications">Optimiraj za pravovremene obavijesti</string>
+    <string name="DeviceAddFragment__link_without_scanning">Poveži bez snimanja</string>
 </resources>

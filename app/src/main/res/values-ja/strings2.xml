@@ -18,13 +18,11 @@
     <string name="BlockUnblockDialog_delete_this_contact">この連絡先を削除？</string>
     <string name="ConversationSettingsFragment__add_to_your_phones_contacts">電話の連絡先に追加する</string>
     <string name="ChangePassphraseDialogFragment_please_choose_a_passphrase_that_will_be_used_to_locally_encrypt_your_data_this_should_be_a_strong_passphrase">データをローカルに暗号化するために使用するパスフレーズを選択してください。\n\nこれは強力なパスフレーズでなければなりません。</string>
-    <string name="ChangePassphraseDialogFragment_enable">イネーブル</string>
     <string name="ChangePassphraseDialogFragment_estimated_time_to_crack_suggestion">%1$s\n\nクラックされるまでの推定時間: %2$s。\n\n提案: %3$s</string>
     <string name="PassphraseCreateActivity_turn_on_database_encryption">データベースの暗号化をオンにする</string>
     <string name="PassphraseCreateActivity_require_passphrase_to_unlock_molly">Mollyのロックを解除するためのパスフレーズを要求しますか？</string>
     <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">これで、パスフレーズを設定してデータベースを暗号化することができます。ロックが解除されるまで、Mollyは通知や通話を受け取ることができません。これにより、紛失や盗難にあったデバイスのデータを保護することができます。</string>
     <string name="WipeMemoryService_secure_wipe_in_progress">セキュアワイプ実施中</string>
-    <string name="ApplicationPreferencesActivity_privacy_summary_passphrase_registration_locks">データベースの暗号化 %1$s、登録ロック %2$s</string>
     <string name="preferences_network__tunnels_network_traffic">ネットワークトラフィックのトンネリング</string>
     <string name="preferences_network__hostname_or_ip_address">ホスト名またはIPアドレス</string>
     <string name="preferences_network__port">ポート</string>
@@ -54,7 +52,6 @@
     <string name="preferences__block_unknown">ブロック不明</string>
     <string name="preferences__block_users_youve_never_been_in_contact_with_and_who_are_not_saved_in_your_contacts">一度も連絡を取ったことのないユーザーや、連絡先として保存されていないユーザーをブロックする。</string>
     <string name="preferences_network__online">オンライン</string>
-    <string name="DeviceAddFragment__set_up_without_scanning">スキャンしないでセットアップ</string>
     <string name="arrays__weekly">毎週</string>
     <string name="Megaphones_automatic_check_for_updates">アップデートの自動チェック</string>
     <string name="BackupsPreferenceFragment__schedule">スケジュール</string>
