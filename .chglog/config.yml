@@ -1,0 +1,11 @@
+style: github
+template: CHANGELOG.tpl.md
+info:
+  title: CHANGELOG
+  repository_url: https://github.com/mollyim/mollyim-android
+options:
+  tag_filter_pattern: '^v\d+(?:\.\d+)+-\d+'
+  header:
+    pattern: "^(.*)$"
+    pattern_maps:
+      - Subject

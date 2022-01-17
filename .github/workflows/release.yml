@@ -66,6 +66,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: "1.17"
 
       - name: Download artifacts
         uses: actions/download-artifact@v2
@@ -96,8 +103,14 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Generate alpha release notes
+        if: "contains(github.ref_name, 'alpha')"
+        run: |
+          go install github.com/git-chglog/git-chglog/cmd/git-chglog@latest
+          git-chglog -o release-notes.md "$GITHUB_REF_NAME"
+
       - name: Create alpha release
         if: "contains(github.ref_name, 'alpha')"
-        run: gh release create -p -t "Molly Insider $GITHUB_REF_NAME" "$GITHUB_REF_NAME" ./molly-apk-docker/*/release/*.apk
+        run: gh release create -p -t "Molly Insider $GITHUB_REF_NAME" -F release-notes.md "$GITHUB_REF_NAME" ./molly-apk-docker/*/release/*.apk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
