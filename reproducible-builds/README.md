@@ -1,6 +1,6 @@
 # Reproducible Builds
 
-[![Docker](https://github.com/mollyim/mollyim-android/actions/workflows/docker.yml/badge.svg)](https://github.com/mollyim/mollyim-android/actions/workflows/docker.yml)
+[![Reproducible build](https://github.com/mollyim/mollyim-android/actions/workflows/reprocheck.yml/badge.svg)](https://github.com/mollyim/mollyim-android/actions/workflows/reprocheck.yml)
 
 Follow these instructions to verify that this source code is exactly the same code that was used to compile the APK distributed on the website.
 

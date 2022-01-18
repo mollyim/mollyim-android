@@ -13,8 +13,10 @@ class ApkDiff:
 
         if self.compareManifests(sourceZip, destinationZip) and self.compareEntries(sourceZip, destinationZip) == True:
             print("APKs match!")
+            return True
         else:
             print("APKs don't match!")
+            return False
 
     def isIncluded(self, filepath):
         for ignoreFile in self.IGNORE_FILES:
@@ -77,4 +79,6 @@ if __name__ == '__main__':
         print("Usage: apkdiff <pathToFirstApk> <pathToSecondApk>")
         sys.exit(1)
 
-    ApkDiff().compare(sys.argv[1], sys.argv[2])
+    match = ApkDiff().compare(sys.argv[1], sys.argv[2])
+    if not match:
+        sys.exit(2)

@@ -95,13 +95,13 @@ jobs:
         if: "!contains(github.ref_name, 'alpha') && !contains(github.ref_name, 'beta')"
         run: gh release create -d -t "Molly $GITHUB_REF_NAME" "$GITHUB_REF_NAME"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PUBLISH_PAT }}
 
       - name: Create beta release draft
         if: "contains(github.ref_name, 'beta')"
         run: gh release create -d -p -t "Molly $GITHUB_REF_NAME" "$GITHUB_REF_NAME"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PUBLISH_PAT }}
 
       - name: Generate alpha release notes
         if: "contains(github.ref_name, 'alpha')"
@@ -113,4 +113,4 @@ jobs:
         if: "contains(github.ref_name, 'alpha')"
         run: gh release create -p -t "Molly Insider $GITHUB_REF_NAME" -F release-notes.md "$GITHUB_REF_NAME" ./build/*/release/*.apk
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PUBLISH_PAT }}

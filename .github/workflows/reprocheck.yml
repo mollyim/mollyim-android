@@ -1,0 +1,128 @@
+name: Reproducible build
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: "Enter the release tag"
+        required: true
+  release:
+    types:
+      - published
+
+env:
+  TAG_NAME: "${{ github.event.inputs.tag_name || github.event.release.tag_name }}"
+
+jobs:
+  build:
+    name: Build new
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: "${{ env.TAG_NAME }}"
+
+      - name: Build Docker image
+        run: docker-compose build
+        working-directory: reproducible-builds
+
+      - name: Build release APKs
+        if: "!contains(env.TAG_NAME, 'alpha')"
+        run: docker-compose run assemble
+        working-directory: reproducible-builds
+
+      - name: Build alpha release APKs
+        if: "contains(env.TAG_NAME, 'alpha')"
+        run: docker-compose run assemble-alpha
+        working-directory: reproducible-builds
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: new
+          path: |
+            reproducible-builds/apks/*/release/*.apk
+            reproducible-builds/apkdiff/apkdiff.py
+          if-no-files-found: error
+          retention-days: 5
+
+  download:
+    name: Download original
+    runs-on: ubuntu-latest
+    outputs:
+      app: "${{ steps.set.outputs.app }}"
+      tag: "${{ steps.set.outputs.tag }}"
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: "${{ env.TAG_NAME }}"
+
+      - name: Download published APKs
+        run: gh release download --pattern '*.apk' "$TAG_NAME"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: original
+          path: "*.apk"
+          if-no-files-found: error
+          retention-days: 5
+
+      - id: set
+        run: |
+          if [[ "$TAG_NAME" != *alpha* ]]; then
+            echo ::set-output name=app::Molly
+          else
+            echo ::set-output name=app::Molly-Insider
+          fi
+          echo ::set-output name=tag::"$TAG_NAME"
+
+  compare:
+    name: Compare
+    runs-on: ubuntu-latest
+    needs:
+      - build
+      - download
+    strategy:
+      fail-fast: false
+      matrix:
+        app:
+          - "${{ needs.download.outputs.app }}"
+        version:
+          - "${{ needs.download.outputs.tag }}"
+          - "${{ needs.download.outputs.tag }}-FOSS"
+        environment:
+          - prod
+          - staging
+        exclude:
+          - app: Molly
+            environment: staging
+
+    steps:
+      - uses: actions/download-artifact@v2
+
+      - name: Install diffuse
+        run: |
+          curl -o diffuse.jar -L https://github.com/JakeWharton/diffuse/releases/download/0.1.0/diffuse-0.1.0-binary.jar
+          echo "$SHA256" diffuse.jar | sha256sum -c -
+        env:
+          SHA256: 60d619373c46a5d06b8126c1d61e0adc18b72f2cbb9245ef920d3387e44b86cf
+
+      - name: Normalize APK filenames
+        run: |
+          mv -v original/"${APP}-${VERSION}.apk" original.apk ||
+          mv -v original/"${APP}-${ENVIRONMENT}-${VERSION}.apk" original.apk
+          mv -v new/apks/*/release/"${APP}-${ENVIRONMENT}-unsigned-${VERSION}.apk" new.apk
+        env:
+          APP: "${{ matrix.app }}"
+          VERSION: "${{ matrix.version }}"
+          ENVIRONMENT: "${{ matrix.environment }}"
+
+      - name: Check for reproducibility
+        run: python new/apkdiff/apkdiff.py original.apk new.apk
+
+      - name: Log diffuse full output
+        if: always()
+        run: java -jar diffuse.jar diff original.apk new.apk
