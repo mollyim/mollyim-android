@@ -50,13 +50,13 @@ jobs:
       run: rm -f reproducible-builds/certs/alpha.jks
 
     - name: Log checksums
-      run: find reproducible-builds/outputs/apk -name "*.apk" -exec sha256sum '{}' \;
+      run: find reproducible-builds/apks -name "*.apk" -exec sha256sum '{}' \;
 
     - name: Upload APKs
       uses: actions/upload-artifact@v2
       with:
-        name: molly-apk-docker
-        path: reproducible-builds/outputs/apk/*/release/*.apk
+        name: build
+        path: reproducible-builds/apks/*/release/*.apk
         if-no-files-found: error
 
   publish:
@@ -82,7 +82,7 @@ jobs:
         run: |
           gh release download --pattern '*.apk' --dir latest
           latest_apks=(latest/*.apk)
-          build_apks=(molly-apk-docker/*/release/*.apk)
+          build_apks=(build/*/release/*.apk)
           version_code() {
             local aapt=($ANDROID_HOME/build-tools/30.*/aapt)
             $aapt d badging "$1" | gawk 'match($0, /^package:.*versionCode=.([0-9]+)/, v) {print v[1]}'
@@ -111,6 +111,6 @@ jobs:
 
       - name: Create alpha release
         if: "contains(github.ref_name, 'alpha')"
-        run: gh release create -p -t "Molly Insider $GITHUB_REF_NAME" -F release-notes.md "$GITHUB_REF_NAME" ./molly-apk-docker/*/release/*.apk
+        run: gh release create -p -t "Molly Insider $GITHUB_REF_NAME" -F release-notes.md "$GITHUB_REF_NAME" ./build/*/release/*.apk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -8,7 +8,7 @@ services:
     command: ./gradlew -Pci :app:assembleProdNonFreeRelease :app:assembleProdFreeRelease
     volumes:
       - ./certs:/molly/app/certs:ro
-      - ./outputs:/molly/app/build/outputs
+      - ./apks:/molly/app/build/outputs/apk
     environment:
       - CI_KEYSTORE_PATH
       - CI_KEYSTORE_PASSWORD
@@ -21,7 +21,7 @@ services:
     command: ./gradlew -Pci :app:assembleRelease
     volumes:
       - ./certs:/molly/app/certs:ro
-      - ./outputs:/molly/app/build/outputs
+      - ./apks:/molly/app/build/outputs/apk
     environment:
       - CI_KEYSTORE_PATH
       - CI_KEYSTORE_PASSWORD

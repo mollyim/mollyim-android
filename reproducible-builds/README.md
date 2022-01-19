@@ -39,14 +39,10 @@ wget https://github.com/mollyim/mollyim-android/releases/download/$VERSION/Molly
 wget https://github.com/mollyim/mollyim-android/releases/download/$VERSION/Molly-$VERSION-FOSS.apk
 
 # Run the diff script to compare the APKs
-python apkdiff/apkdiff.py \
-  Molly-$VERSION.apk \
-  outputs/apk/prodNonFree/release/Molly-prod-unsigned-$VERSION.apk
+python apkdiff/apkdiff.py Molly-$VERSION.apk apks/prodNonFree/release/Molly-prod-unsigned-$VERSION.apk
 
 # Run the diff script to compare the APKs (FOSS)
-python apkdiff/apkdiff.py \
-  Molly-$VERSION-FOSS.apk \
-  outputs/apk/prodFree/release/Molly-prod-unsigned-$VERSION-FOSS.apk
+python apkdiff/apkdiff.py Molly-$VERSION-FOSS.apk apks/prodFree/release/Molly-prod-unsigned-$VERSION-FOSS.apk
 
 # Clean up the Docker environment
 docker-compose down
