@@ -24,3 +24,5 @@ jobs:
 
       - name: Push changes
         run: git push --tags origin upstream
+        env:
+          GITHUB_TOKEN: ${{ secrets.PUBLISH_PAT }}
