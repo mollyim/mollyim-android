@@ -15,6 +15,7 @@ jobs:
         with:
           ref: upstream
           fetch-depth: 0
+          token: ${{ secrets.PUBLISH_PAT }}
 
       - name: Fetch and merge upstream
         run: |
@@ -24,5 +25,3 @@ jobs:
 
       - name: Push changes
         run: git push --tags origin upstream
-        env:
-          GITHUB_TOKEN: ${{ secrets.PUBLISH_PAT }}
