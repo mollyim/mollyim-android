@@ -25,7 +25,7 @@ import java.util.Map;
  * Manages application-level migrations.
  *
  * Migrations can be slotted to occur based on changes in the canonical version code
- * (see {@link Util#getCanonicalVersionCode()}).
+ * (see {@link Util#getSignalCanonicalVersionCode()}).
  *
  * Migrations are performed via {@link MigrationJob}s. These jobs are durable and are run before any
  * other job, allowing you to schedule safe migrations. Furthermore, you may specify that a
@@ -84,9 +84,11 @@ public class ApplicationMigrations {
     //static final int CHANGE_NUMBER_CAPABILITY_3  = 49;
     static final int PNI                           = 50;
     static final int FIX_DEPRECATION               = 51; // Only used to trigger clearing the 'client deprecated' flag
+    //static final int JUMBOMOJI_DOWNLOAD          = 52;
+    static final int FIX_EMOJI_QUALITY             = 53;
   }
 
-  public static final int CURRENT_VERSION = 51;
+  public static final int CURRENT_VERSION = 53;
 
   /**
    * This *must* be called after the {@link JobManager} has been instantiated, but *before* the call
@@ -353,6 +355,10 @@ public class ApplicationMigrations {
 
     if (lastSeenVersion < Version.PNI) {
       jobs.put(Version.PNI, new PniMigrationJob());
+    }
+
+    if (lastSeenVersion < Version.FIX_EMOJI_QUALITY) {
+      jobs.put(Version.FIX_EMOJI_QUALITY, new EmojiDownloadMigrationJob());
     }
 
     return jobs;
