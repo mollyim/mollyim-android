@@ -24,4 +24,6 @@ jobs:
           git merge --ff-only upstream/master
 
       - name: Push changes
-        run: git push --tags origin upstream
+        run: |
+          git push origin upstream
+          git tag | grep -xP 'v\d+(?:\.\d+){2}' | xargs -r git push origin
