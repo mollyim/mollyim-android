@@ -83,8 +83,8 @@ ktlint {
     version = "0.43.2"
 }
 
-def canonicalVersionCode = 990
-def canonicalVersionName = "5.29.6"
+def canonicalVersionCode = 996
+def canonicalVersionName = "5.30.5"
 def mollyRevision = 0
 
 def postFixSize = 100
@@ -220,7 +220,53 @@ android {
         exclude '/org/spongycastle/x509/CertPathReviewerMessages_de.properties'
     }
 
+    buildTypes {
+        debug {
+            isDefault true
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'),
+                    'proguard/proguard-firebase-messaging.pro',
+                    'proguard/proguard-google-play-services.pro',
+                    'proguard/proguard-jackson.pro',
+                    'proguard/proguard-sqlite.pro',
+                    'proguard/proguard-appcompat-v7.pro',
+                    'proguard/proguard-square-okhttp.pro',
+                    'proguard/proguard-square-okio.pro',
+                    'proguard/proguard-rounded-image-view.pro',
+                    'proguard/proguard-glide.pro',
+                    'proguard/proguard-shortcutbadger.pro',
+                    'proguard/proguard-retrofit.pro',
+                    'proguard/proguard-klinker.pro',
+                    'proguard/proguard-retrolambda.pro',
+                    'proguard/proguard-okhttp.pro',
+                    'proguard/proguard-ez-vcard.pro',
+                    'proguard/proguard.cfg'
+            testProguardFiles 'proguard/proguard-automation.pro',
+                    'proguard/proguard.cfg'
+
+            buildConfigField "String", "BUILD_VARIANT_TYPE", "\"Debug\""
+        }
+        release {
+            signingConfig signingConfigs.ci.storeFile ? signingConfigs.ci : null
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles = buildTypes.debug.proguardFiles
+            buildConfigField "String", "BUILD_VARIANT_TYPE", "\"Release\""
+        }
+    }
+
     productFlavors {
+        free {
+            dimension 'distribution'
+            versionNameSuffix '-FOSS'
+            buildConfigField "String", "FDROID_UPDATE_URL", "\"https://molly.im/fdroid/foss/repo\""
+        }
+
+        nonFree {
+            dimension 'distribution'
+            isDefault true
+        }
+
         prod {
             dimension 'environment'
 
@@ -253,53 +299,6 @@ android {
             buildConfigField "String", "RECAPTCHA_PROOF_URL", "\"https://signalcaptchas.org/staging/challenge/generate.html\""
 
             buildConfigField "String", "BUILD_ENVIRONMENT_TYPE", "\"Staging\""
-        }
-
-        free {
-            dimension 'distribution'
-            versionNameSuffix '-FOSS'
-            buildConfigField "String", "FDROID_UPDATE_URL", "\"https://molly.im/fdroid/foss/repo\""
-        }
-
-        nonFree {
-            dimension 'distribution'
-            isDefault true
-        }
-    }
-
-    buildTypes {
-        debug {
-            isDefault true
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'),
-                    'proguard/proguard-firebase-messaging.pro',
-                    'proguard/proguard-google-play-services.pro',
-                    'proguard/proguard-jackson.pro',
-                    'proguard/proguard-sqlite.pro',
-                    'proguard/proguard-appcompat-v7.pro',
-                    'proguard/proguard-square-okhttp.pro',
-                    'proguard/proguard-square-okio.pro',
-                    'proguard/proguard-rounded-image-view.pro',
-                    'proguard/proguard-glide.pro',
-                    'proguard/proguard-shortcutbadger.pro',
-                    'proguard/proguard-retrofit.pro',
-                    'proguard/proguard-klinker.pro',
-                    'proguard/proguard-retrolambda.pro',
-                    'proguard/proguard-okhttp.pro',
-                    'proguard/proguard-ez-vcard.pro',
-                    'proguard/proguard.cfg'
-            testProguardFiles 'proguard/proguard-automation.pro',
-                    'proguard/proguard.cfg'
-
-            buildConfigField "String", "BUILD_VARIANT_TYPE", "\"Debug\""
-        }
-
-        release {
-            signingConfig signingConfigs.ci.storeFile ? signingConfigs.ci : null
-            minifyEnabled true
-            shrinkResources true
-            proguardFiles = buildTypes.debug.proguardFiles
-            buildConfigField "String", "BUILD_VARIANT_TYPE", "\"Release\""
         }
     }
 

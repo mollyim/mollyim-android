@@ -383,11 +383,6 @@ public class Util {
     return TimeUnit.DAYS.toMillis(1000);
   }
 
-  @TargetApi(VERSION_CODES.LOLLIPOP)
-  public static boolean isMmsCapable(Context context) {
-    return false;
-  }
-
   public static <T> T getRandomElement(T[] elements) {
     return elements[new SecureRandom().nextInt(elements.length)];
   }

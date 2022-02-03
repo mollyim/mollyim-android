@@ -63,7 +63,6 @@ public final class MultiShareSender {
   public static MultiShareSendResultCollection sendSync(@NonNull MultiShareArgs multiShareArgs) {
     List<MultiShareSendResult> results      = new ArrayList<>(multiShareArgs.getShareContactAndThreads().size());
     Context                    context      = ApplicationDependencies.getApplication();
-    boolean                    isMmsEnabled = Util.isMmsCapable(context);
     String                     message      = multiShareArgs.getDraftText();
     SlideDeck                  slideDeck;
 
@@ -99,7 +98,7 @@ public final class MultiShareSender {
                                        !mentions.isEmpty()                                                               ||
                                        needsSplit;
 
-      if ((recipient.isMmsGroup() || recipient.getEmail().isPresent()) && !isMmsEnabled) {
+      if ((recipient.isMmsGroup() || recipient.getEmail().isPresent())) {
         results.add(new MultiShareSendResult(shareContactAndThread, MultiShareSendResult.Type.MMS_NOT_ENABLED));
       } else if (isMediaMessage) {
         sendMediaMessage(context, multiShareArgs, recipient, slideDeck, transport, shareContactAndThread.getThreadId(), forceSms, expiresIn, multiShareArgs.isViewOnce(), subscriptionId, mentions);

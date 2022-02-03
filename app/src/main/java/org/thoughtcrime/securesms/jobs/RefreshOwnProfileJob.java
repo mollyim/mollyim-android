@@ -79,7 +79,7 @@ public class RefreshOwnProfileJob extends BaseJob {
       return;
     }
 
-    if (!SignalStore.registrationValues().hasUploadedProfile()) {
+    if (!SignalStore.registrationValues().hasUploadedProfile() && SignalStore.account().isPrimaryDevice()) {
       Log.i(TAG, "Registered but haven't uploaded profile yet.");
       return;
     }

@@ -86,9 +86,11 @@ public class ApplicationMigrations {
     static final int FIX_DEPRECATION               = 51; // Only used to trigger clearing the 'client deprecated' flag
     //static final int JUMBOMOJI_DOWNLOAD          = 52;
     static final int FIX_EMOJI_QUALITY             = 53;
+    static final int CHANGE_NUMBER_CAPABILITY_4    = 54;
+    static final int KBS_MIGRATION                 = 55;
   }
 
-  public static final int CURRENT_VERSION = 53;
+  public static final int CURRENT_VERSION = 55;
 
   /**
    * This *must* be called after the {@link JobManager} has been instantiated, but *before* the call
@@ -359,6 +361,14 @@ public class ApplicationMigrations {
 
     if (lastSeenVersion < Version.FIX_EMOJI_QUALITY) {
       jobs.put(Version.FIX_EMOJI_QUALITY, new EmojiDownloadMigrationJob());
+    }
+
+    if (lastSeenVersion < Version.CHANGE_NUMBER_CAPABILITY_4) {
+      jobs.put(Version.CHANGE_NUMBER_CAPABILITY_4,new AttributesMigrationJob());
+    }
+
+    if (lastSeenVersion < Version.KBS_MIGRATION) {
+      jobs.put(Version.KBS_MIGRATION, new KbsEnclaveMigrationJob());
     }
 
     return jobs;
