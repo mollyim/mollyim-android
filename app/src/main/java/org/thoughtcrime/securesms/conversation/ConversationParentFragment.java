@@ -416,7 +416,6 @@ public class ConversationParentFragment extends Fragment
   private boolean       isSecureText;
   private final boolean isDefaultSms                  = false;
   private int           reactWithAnyEmojiStartPage    = -1;
-  private final boolean isMmsEnabled                  = false;
   private boolean       isSearchRequested             = false;
 
   private volatile boolean screenInitialized = false;
@@ -1412,7 +1411,7 @@ public class ConversationParentFragment extends Fragment
   }
 
   private void handleAddAttachment() {
-    if (this.isMmsEnabled || isSecureText) {
+    if (isSecureText) {
       viewModel.getRecentMedia().removeObservers(this);
 
       if (attachmentKeyboardStub.resolved() && container.isInputOpen() && container.getCurrentInput() == attachmentKeyboardStub.get()) {
@@ -1428,8 +1427,6 @@ public class ConversationParentFragment extends Fragment
 
         viewModel.onAttachmentKeyboardOpen();
       }
-    } else {
-      handleManualMmsRequired();
     }
   }
 
@@ -1451,8 +1448,6 @@ public class ConversationParentFragment extends Fragment
       attachmentKeyboardStub.get().filterAttachmentKeyboardButtons(btn -> btn != AttachmentKeyboardButton.PAYMENT);
     }
   }
-
-  private void handleManualMmsRequired() {}
 
   private void handleRecentSafetyNumberChange() {
     List<IdentityRecord> records = identityRecords.getUnverifiedRecords();
@@ -2762,9 +2757,7 @@ public class ConversationParentFragment extends Fragment
 
       Log.i(TAG, "[sendMessage] recipient: " + recipient.getId() + ", threadId: " + threadId + ",  forceSms: " + forceSms + ", isManual: " + sendButton.isManualSelection());
 
-      if ((recipient.isMmsGroup() || recipient.getEmail().isPresent()) && !isMmsEnabled) {
-        handleManualMmsRequired();
-      } else if (!forceSms && (identityRecords.isUnverified(true) || identityRecords.isUntrusted(true))) {
+      if (!forceSms && (identityRecords.isUnverified(true) || identityRecords.isUntrusted(true))) {
         handleRecentSafetyNumberChange();
       } else if (isMediaMessage) {
         sendMediaMessage(forceSms, expiresIn, false, subscriptionId, initiating, metricId);

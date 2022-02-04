@@ -173,7 +173,7 @@ internal class AccountValues internal constructor(store: KeyValueStore) : Signal
       putInteger(KEY_FCM_TOKEN_VERSION, sharedPreferences.getInt("pref_gcm_registration_id_version", 0))
       putLong(KEY_FCM_TOKEN_LAST_SET_TIME, sharedPreferences.getLong("pref_gcm_registration_id_last_set_time", 0))
 
-      sharedPreferences.edit().remove("pref_local_uuid").apply();
+      sharedPreferences.edit().remove("pref_local_uuid").apply()
     }
   }
 }
