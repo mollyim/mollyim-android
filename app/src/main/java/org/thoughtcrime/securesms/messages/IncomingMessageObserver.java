@@ -272,6 +272,11 @@ public class IncomingMessageObserver {
     public int onStartCommand(Intent intent, int flags, int startId) {
       super.onStartCommand(intent, flags, startId);
 
+      if (intent == null) {
+        stopForeground(true);
+        return Service.START_STICKY;
+      }
+
       NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), NotificationChannels.OTHER);
       builder.setContentTitle(getApplicationContext().getString(R.string.MessageRetrievalService_signal));
       builder.setContentText(getApplicationContext().getString(R.string.MessageRetrievalService_ready_to_receive_messages));
