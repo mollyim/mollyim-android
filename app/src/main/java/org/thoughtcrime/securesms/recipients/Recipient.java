@@ -129,6 +129,7 @@ public class Recipient {
   private final Optional<Extras>       extras;
   private final boolean                hasGroupsInCommon;
   private final List<Badge>            badges;
+  private final boolean                isReleaseNotesRecipient;
 
   /**
    * Returns a {@link LiveRecipient}, which contains a {@link Recipient} that may or may not be
@@ -383,6 +384,7 @@ public class Recipient {
     this.extras                      = Optional.absent();
     this.hasGroupsInCommon           = false;
     this.badges                      = Collections.emptyList();
+    this.isReleaseNotesRecipient     = false;
   }
 
   public Recipient(@NonNull RecipientId id, @NonNull RecipientDetails details, boolean resolved) {
@@ -438,6 +440,7 @@ public class Recipient {
     this.extras                      = details.extras;
     this.hasGroupsInCommon           = details.hasGroupsInCommon;
     this.badges                      = Collections.emptyList();
+    this.isReleaseNotesRecipient     = details.isReleaseChannel;
   }
 
   public @NonNull RecipientId getId() {
@@ -1107,6 +1110,10 @@ public class Recipient {
 
   public @NonNull MentionSetting getMentionSetting() {
     return mentionSetting;
+  }
+
+  public boolean isReleaseNotes() {
+    return isReleaseNotesRecipient;
   }
 
   @Override

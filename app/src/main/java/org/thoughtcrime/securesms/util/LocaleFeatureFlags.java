@@ -40,6 +40,10 @@ public final class LocaleFeatureFlags {
     return Optional.ofNullable(PushMediaConstraints.MediaConfig.forLevel(level));
   }
 
+  public static boolean shouldShowReleaseNote(@NonNull String releaseNoteUuid, @NonNull String countries) {
+    return isEnabled(releaseNoteUuid, countries);
+  }
+
   /**
    * Parses a comma-separated list of country codes colon-separated from how many buckets out of 1 million
    * should be enabled to see this megaphone in that country code. At the end of the list, an optional

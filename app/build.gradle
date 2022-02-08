@@ -83,8 +83,8 @@ ktlint {
     version = "0.43.2"
 }
 
-def canonicalVersionCode = 996
-def canonicalVersionName = "5.30.6"
+def canonicalVersionCode = 1002
+def canonicalVersionName = "5.31.6"
 def mollyRevision = 0
 
 def postFixSize = 100
@@ -216,8 +216,6 @@ android {
         exclude 'META-INF/NOTICE'
         exclude 'META-INF/proguard/androidx-annotations.pro'
         exclude '**/*.proto'
-        exclude '/org/spongycastle/x509/CertPathReviewerMessages.properties'
-        exclude '/org/spongycastle/x509/CertPathReviewerMessages_de.properties'
     }
 
     buildTypes {
@@ -468,6 +466,9 @@ dependencies {
         exclude group: 'com.google.protobuf', module: 'protobuf-java'
     }
     testImplementation testLibs.robolectric.shadows.multidex
+    testImplementation (testLibs.bouncycastle.bcprov.jdk15on) {
+        force = true
+    }
     testImplementation testLibs.hamcrest.hamcrest
 
     testImplementation(testFixtures(project(":libsignal-service")))

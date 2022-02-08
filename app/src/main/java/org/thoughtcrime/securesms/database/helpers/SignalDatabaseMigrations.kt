@@ -134,8 +134,10 @@ object SignalDatabaseMigrations {
   private const val REACTION_BACKUP_CLEANUP = 125
   private const val REACTION_REMOTE_DELETE_CLEANUP = 126
   private const val PNI_CLEANUP = 127
+  private const val MESSAGE_RANGES = 128
+  private const val REACTION_TRIGGER_FIX = 129
 
-  const val DATABASE_VERSION = 127
+  const val DATABASE_VERSION = 129
 
   @JvmStatic
   fun migrate(context: Context, db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
@@ -1661,6 +1663,26 @@ object SignalDatabaseMigrations {
 
     if (oldVersion < PNI_CLEANUP) {
       db.execSQL("UPDATE recipient SET pni = NULL WHERE phone IS NULL")
+    }
+
+    if (oldVersion < MESSAGE_RANGES) {
+      db.execSQL("ALTER TABLE mms ADD COLUMN ranges BLOB DEFAULT NULL")
+    }
+
+    if (oldVersion < REACTION_TRIGGER_FIX) {
+      db.execSQL("DROP TRIGGER reactions_mms_delete")
+      db.execSQL("CREATE TRIGGER reactions_mms_delete AFTER DELETE ON mms BEGIN DELETE FROM reaction WHERE message_id = old._id AND is_mms = 1; END")
+
+      db.execSQL(
+        // language=sql
+        """
+          DELETE FROM reaction
+          WHERE
+            (is_mms = 0 AND message_id NOT IN (SELECT _id from sms))
+            OR
+            (is_mms = 1 AND message_id NOT IN (SELECT _id from mms))
+        """.trimIndent()
+      )
     }
   }
 
