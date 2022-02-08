@@ -15,7 +15,7 @@ import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.ApplicationContext;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
-import org.thoughtcrime.securesms.events.NetworkConnectivityEvent;
+import org.thoughtcrime.securesms.events.NetworkAvailableEvent;
 
 import java.util.Objects;
 
@@ -195,6 +195,6 @@ public class NetworkManager {
   }
 
   static private void onNetworkEnabled() {
-    EventBus.getDefault().post(new NetworkConnectivityEvent());
+    EventBus.getDefault().post(new NetworkAvailableEvent());
   }
 }

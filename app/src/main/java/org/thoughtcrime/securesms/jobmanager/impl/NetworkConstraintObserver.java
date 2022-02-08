@@ -17,7 +17,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.signal.core.util.logging.Log;
+import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.events.NetworkAvailableEvent;
 import org.thoughtcrime.securesms.jobmanager.ConstraintObserver;
 
 import java.util.HashSet;
@@ -31,7 +36,8 @@ public class NetworkConstraintObserver implements ConstraintObserver {
   private final Application application;
 
   private volatile Notifier notifier;
-  private volatile boolean  hasInternet;
+  // MOLLY: Apply additional constraint on hasInternet() controlled by NetworkManager
+  private volatile boolean  connected;
 
   private final Set<NetworkListener> networkListeners = new HashSet<>();
 
@@ -56,6 +62,7 @@ public class NetworkConstraintObserver implements ConstraintObserver {
   public void register(@NonNull Notifier notifier) {
     this.notifier = notifier;
     requestNetwork(0);
+    EventBus.getDefault().register(this);
   }
 
   @TargetApi(19)
@@ -68,17 +75,12 @@ public class NetworkConstraintObserver implements ConstraintObserver {
 
   private void requestNetwork(int retryCount) {
     if (Build.VERSION.SDK_INT < 24 || retryCount > 5) {
-      hasInternet = isActiveNetworkConnected(application);
+      triggerOnNetworkChanged(isActiveNetworkConnected(application));
 
       application.registerReceiver(new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-          hasInternet = isActiveNetworkConnected(context);
-
-          if (hasInternet) {
-            notifier.onConstraintMet(REASON);
-          }
-          notifyListeners();
+          triggerOnNetworkChanged(isActiveNetworkConnected(context));
         }
       }, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
     } else {
@@ -90,8 +92,21 @@ public class NetworkConstraintObserver implements ConstraintObserver {
     }
   }
 
+  @Subscribe(threadMode = ThreadMode.MAIN)
+  public void onNetworkReadyEvent(@NonNull NetworkAvailableEvent event) {
+    triggerOnNetworkChanged(connected);
+  }
+
+  private void triggerOnNetworkChanged(boolean connected) {
+    this.connected = connected;
+    if (hasInternet()) {
+      notifier.onConstraintMet(REASON);
+    }
+    notifyListeners();
+  }
+
   public boolean hasInternet() {
-    return hasInternet;
+    return connected && ApplicationDependencies.getNetworkManager().isNetworkEnabled();
   }
 
   public void addListener(@Nullable NetworkListener networkListener) {
@@ -122,16 +137,13 @@ public class NetworkConstraintObserver implements ConstraintObserver {
     @Override
     public void onAvailable(@NonNull Network network) {
       Log.i(REASON, "Network available: " + network.hashCode());
-      hasInternet = true;
-      notifier.onConstraintMet(REASON);
-      notifyListeners();
+      triggerOnNetworkChanged(true);
     }
 
     @Override
     public void onLost(@NonNull Network network) {
       Log.i(REASON, "Network loss: " + network.hashCode());
-      hasInternet = false;
-      notifyListeners();
+      triggerOnNetworkChanged(false);
     }
   }
 

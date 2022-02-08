@@ -1,4 +1,4 @@
 package org.thoughtcrime.securesms.events;
 
-public class NetworkConnectivityEvent {
+public class NetworkAvailableEvent {
 }
