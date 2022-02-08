@@ -123,7 +123,7 @@ class RetrieveReleaseChannelJob private constructor(private val force: Boolean, 
       MessageDigest.isEqual(manifestMd5, values.previousManifestMd5) -> {
         Log.i(TAG, "Manifest has not changed since last fetch.")
       }
-      else -> updateReleaseNotes(manifestMd5)
+      else -> Unit /*updateReleaseNotes(manifestMd5)*/
     }
 
     values.previousManifestMd5 = manifestMd5
