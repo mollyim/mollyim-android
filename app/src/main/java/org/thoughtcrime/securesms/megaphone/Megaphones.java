@@ -7,6 +7,7 @@ import android.provider.Settings;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.WorkerThread;
 
 import com.annimon.stream.Stream;
 
@@ -14,7 +15,6 @@ import org.signal.core.util.TranslationDetection;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.components.settings.app.AppSettingsActivity;
-import org.thoughtcrime.securesms.conversationlist.ConversationListFragment;
 import org.thoughtcrime.securesms.database.model.MegaphoneRecord;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
@@ -23,37 +23,38 @@ import org.thoughtcrime.securesms.lock.SignalPinReminderDialog;
 import org.thoughtcrime.securesms.lock.SignalPinReminders;
 import org.thoughtcrime.securesms.lock.v2.CreateKbsPinActivity;
 import org.thoughtcrime.securesms.lock.v2.KbsMigrationActivity;
-import org.thoughtcrime.securesms.messagerequests.MessageRequestMegaphoneActivity;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.profiles.AvatarHelper;
-import org.thoughtcrime.securesms.profiles.ProfileName;
 import org.thoughtcrime.securesms.profiles.manage.ManageProfileActivity;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.util.CommunicationActions;
 import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.LocaleFeatureFlags;
-import org.thoughtcrime.securesms.util.TextSecurePreferences;
+import org.thoughtcrime.securesms.util.SetUtil;
 import org.thoughtcrime.securesms.util.VersionTracker;
 import org.thoughtcrime.securesms.util.dynamiclanguage.DynamicLanguageContextWrapper;
 import org.thoughtcrime.securesms.wallpaper.ChatWallpaperActivity;
 
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
  * Creating a new megaphone:
  * - Add an enum to {@link Event}
  * - Return a megaphone in {@link #forRecord(Context, MegaphoneRecord)}
- * - Include the event in {@link #buildDisplayOrder(Context)}
+ * - Include the event in {@link #buildDisplayOrder(Context, Map)}
  *
  * Common patterns:
  * - For events that have a snooze-able recurring display schedule, use a {@link RecurringSchedule}.
  * - For events guarded by feature flags, set a {@link ForeverSchedule} with false in
- *   {@link #buildDisplayOrder(Context)}.
+ *   {@link #buildDisplayOrder(Context, Map)}.
  * - For events that change, return different megaphones in {@link #forRecord(Context, MegaphoneRecord)}
  *   based on whatever properties you're interested in.
  */
@@ -64,12 +65,16 @@ public final class Megaphones {
   private static final MegaphoneSchedule ALWAYS = new ForeverSchedule(true);
   private static final MegaphoneSchedule NEVER  = new ForeverSchedule(false);
 
+  private static final Set<Event> DONATE_EVENTS                      = SetUtil.newHashSet(Event.VALENTINES_DONATIONS_2022, Event.DONATE_MOLLY);
+  private static final long       MIN_TIME_BETWEEN_DONATE_MEGAPHONES = TimeUnit.DAYS.toMillis(30);
+
   private Megaphones() {}
 
+  @WorkerThread
   static @Nullable Megaphone getNextMegaphone(@NonNull Context context, @NonNull Map<Event, MegaphoneRecord> records) {
     long currentTime = System.currentTimeMillis();
 
-    List<Megaphone> megaphones = Stream.of(buildDisplayOrder(context))
+    List<Megaphone> megaphones = Stream.of(buildDisplayOrder(context, records))
                                        .filter(e -> {
                                          MegaphoneRecord   record = Objects.requireNonNull(records.get(e.getKey()));
                                          MegaphoneSchedule schedule = e.getValue();
@@ -94,13 +99,14 @@ public final class Megaphones {
    *
    * This is also when you would hide certain megaphones based on things like {@link FeatureFlags}.
    */
-  private static Map<Event, MegaphoneSchedule> buildDisplayOrder(@NonNull Context context) {
+  private static Map<Event, MegaphoneSchedule> buildDisplayOrder(@NonNull Context context, @NonNull Map<Event, MegaphoneRecord> records) {
     return new LinkedHashMap<Event, MegaphoneSchedule>() {{
       put(Event.PINS_FOR_ALL, new PinsForAllSchedule());
       put(Event.CLIENT_DEPRECATED, SignalStore.misc().isClientDeprecated() ? ALWAYS : NEVER);
       put(Event.NOTIFICATIONS, shouldShowNotificationsMegaphone(context) ? RecurringSchedule.every(TimeUnit.DAYS.toMillis(30)) : NEVER);
       put(Event.ONBOARDING, shouldShowOnboardingMegaphone(context) ? ALWAYS : NEVER);
-      put(Event.DONATE_MOLLY, shouldShowDonateMegaphone(context) ? ShowForDurationSchedule.showForDays(7) : NEVER);
+      put(Event.DONATE_MOLLY, shouldShowDonateMegaphone(context, records) ? ShowForDurationSchedule.showForDays(7) : NEVER);
+      put(Event.VALENTINES_DONATIONS_2022, shouldShowValentinesDonationsMegaphone(context, records) ? ShowForDurationSchedule.showForDays(1) : NEVER);
       put(Event.PIN_REMINDER, new SignalPinReminderSchedule());
 
       // Feature-introduction megaphones should *probably* be added below this divider
@@ -128,6 +134,8 @@ public final class Megaphones {
         return buildAddAProfilePhotoMegaphone(context);
       case DONATE_MOLLY:
         return buildDonateMegaphone(context);
+      case VALENTINES_DONATIONS_2022:
+        return buildValentinesDonationsMegaphone(context);
       case NOTIFICATION_PROFILES:
         return buildNotificationProfilesMegaphone(context);
       default:
@@ -265,12 +273,27 @@ public final class Megaphones {
         .setTitle(R.string.DonateMegaphone_molly_is_free_software)
         .setBody(R.string.DonateMegaphone_we_maintain_molly_with_your_support_consider_donating_at_open_collective)
         .setImage(R.drawable.ic_donate_megaphone)
-        .setActionButton(R.string.DonateMegaphone_donate, (megaphone, controller) -> {
-          controller.onMegaphoneCompleted(megaphone.getEvent());
-          CommunicationActions.openBrowserLink(controller.getMegaphoneActivity(), context.getString(R.string.donate_url));
+        .setActionButton(R.string.DonateMegaphone_donate, (megaphone, listener) -> {
+          CommunicationActions.openBrowserLink(listener.getMegaphoneActivity(), context.getString(R.string.donate_url));
+          listener.onMegaphoneCompleted(megaphone.getEvent());
         })
         .setSecondaryButton(R.string.DonateMegaphone_no_thanks, (megaphone, controller) -> controller.onMegaphoneCompleted(megaphone.getEvent()))
         .build();
+  }
+
+  private static @NonNull Megaphone buildValentinesDonationsMegaphone(@NonNull Context context) {
+    return new Megaphone.Builder(Event.VALENTINES_DONATIONS_2022, Megaphone.Style.BASIC)
+                        .setTitle(R.string.ValentinesDayMegaphone_happy_heart_day)
+                        .setImage(R.drawable.ic_valentines_donor_megaphone_64)
+                        .setBody(R.string.ValentinesDayMegaphone_show_your_affection)
+                        .setActionButton(R.string.BecomeASustainerMegaphone__contribute, (megaphone, listener) -> {
+                          CommunicationActions.openBrowserLink(listener.getMegaphoneActivity(), context.getString(R.string.donate_url));
+                          listener.onMegaphoneCompleted(Event.VALENTINES_DONATIONS_2022);
+                        })
+                        .setSecondaryButton(R.string.BecomeASustainerMegaphone__no_thanks, (megaphone, listener) -> {
+                          listener.onMegaphoneCompleted(Event.VALENTINES_DONATIONS_2022);
+                        })
+                        .build();
   }
 
   private static @NonNull Megaphone buildNotificationProfilesMegaphone(@NonNull Context context) {
@@ -288,9 +311,23 @@ public final class Megaphones {
         .build();
   }
 
-  private static boolean shouldShowDonateMegaphone(@NonNull Context context) {
-    return VersionTracker.getDaysSinceFirstInstalled(context) >= 7 &&
+  private static boolean shouldShowDonateMegaphone(@NonNull Context context, @NonNull Map<Event, MegaphoneRecord> records) {
+    long timeSinceLastDonatePrompt = timeSinceLastDonatePrompt(records);
+
+    return timeSinceLastDonatePrompt > MIN_TIME_BETWEEN_DONATE_MEGAPHONES &&
+           VersionTracker.getDaysSinceFirstInstalled(context) >= 7 &&
            LocaleFeatureFlags.isInDonateMegaphone();
+  }
+
+  private static boolean shouldShowValentinesDonationsMegaphone(@NonNull Context context, @NonNull Map<Event, MegaphoneRecord> records) {
+    LocalDateTime now                       = LocalDateTime.now();
+    long          timeSinceLastDonatePrompt = timeSinceLastDonatePrompt(records);
+
+    return timeSinceLastDonatePrompt > MIN_TIME_BETWEEN_DONATE_MEGAPHONES &&
+           VersionTracker.getDaysSinceFirstInstalled(context) >= 7 &&
+           now.getMonth() == Month.FEBRUARY &&
+           now.getDayOfMonth() == 14 &&
+           now.getYear() == 2022;
   }
 
   private static boolean shouldShowOnboardingMegaphone(@NonNull Context context) {
@@ -308,7 +345,8 @@ public final class Megaphones {
                .textExistsInUsersLanguage(R.string.NotificationsMegaphone_turn_on_notifications,
                                           R.string.NotificationsMegaphone_never_miss_a_message,
                                           R.string.NotificationsMegaphone_turn_on,
-                                          R.string.NotificationsMegaphone_not_now)) {
+                                          R.string.NotificationsMegaphone_not_now))
+      {
         Log.i(TAG, "Would show NotificationsMegaphone but is not yet translated in " + locale);
         return false;
       }
@@ -330,6 +368,23 @@ public final class Megaphones {
     return true;
   }
 
+  /**
+   * Unfortunately lastSeen is only set today upon snoozing, which never happens to donate prompts.
+   * So we use firstVisible as a proxy.
+   */
+  private static long timeSinceLastDonatePrompt(@NonNull Map<Event, MegaphoneRecord> records) {
+    long lastSeenDonatePrompt = records.entrySet()
+                                       .stream()
+                                       .filter(e -> DONATE_EVENTS.contains(e.getKey()))
+                                       .map(e -> e.getValue().getFirstVisible())
+                                       .filter(t -> t > 0)
+                                       .sorted()
+                                       .findFirst()
+                                       .orElse(0L);
+    return System.currentTimeMillis() - lastSeenDonatePrompt;
+  }
+
+
   public enum Event {
     PINS_FOR_ALL("pins_for_all"),
     PIN_REMINDER("pin_reminder"),
@@ -339,6 +394,7 @@ public final class Megaphones {
     CHAT_COLORS("chat_colors"),
     ADD_A_PROFILE_PHOTO("add_a_profile_photo"),
     DONATE_MOLLY("donate_molly"),
+    VALENTINES_DONATIONS_2022("valentines_donations_2022"),
     NOTIFICATION_PROFILES("notification_profiles");
 
     private final String key;
