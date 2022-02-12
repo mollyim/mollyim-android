@@ -388,7 +388,9 @@ public class JobManager implements ConstraintObserver.Notifier {
    * Pokes the system to take another pass at the job queue.
    */
   void wakeUp() {
-    runOnExecutor(jobController::wakeUp);
+    if (initialized) {
+      runOnExecutor(jobController::wakeUp);
+    }
   }
 
   private void enqueueChain(@NonNull Chain chain) {
