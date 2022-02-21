@@ -71,3 +71,7 @@ subprojects {
         reproducibleFileOrder = true
     }
 }
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

@@ -88,7 +88,7 @@ public class MockApplicationDependencyProvider implements ApplicationDependencie
 
   @Override
   public @NonNull JobManager provideJobManager() {
-    return null;
+    return mock(JobManager.class);
   }
 
   @Override

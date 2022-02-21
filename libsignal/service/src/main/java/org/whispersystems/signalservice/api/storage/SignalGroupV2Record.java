@@ -74,6 +74,10 @@ public final class SignalGroupV2Record implements SignalRecord {
         diff.add("MuteUntil");
       }
 
+      if (!Objects.equals(this.notifyForMentionsWhenMuted(), that.notifyForMentionsWhenMuted())) {
+        diff.add("NotifyForMentionsWhenMuted");
+      }
+
       if (!Objects.equals(this.hasUnknownFields(), that.hasUnknownFields())) {
         diff.add("UnknownFields");
       }
@@ -124,6 +128,10 @@ public final class SignalGroupV2Record implements SignalRecord {
     return proto.getMutedUntilTimestamp();
   }
 
+  public boolean notifyForMentionsWhenMuted() {
+    return !proto.getDontNotifyForMentionsIfMuted();
+  }
+
 
   GroupV2Record toProto() {
     return proto;
@@ -147,22 +155,20 @@ public final class SignalGroupV2Record implements SignalRecord {
     private final StorageId             id;
     private final GroupV2Record.Builder builder;
 
-    private byte[] unknownFields;
-
-    public Builder(byte[] rawId, GroupMasterKey masterKey) {
-      this(rawId, masterKey.serialize());
+    public Builder(byte[] rawId, GroupMasterKey masterKey, byte[] serializedUnknowns) {
+      this(rawId, masterKey.serialize(), serializedUnknowns);
     }
 
-    public Builder(byte[] rawId, byte[] masterKey) {
-      this.id      = StorageId.forGroupV2(rawId);
-      this.builder = GroupV2Record.newBuilder();
+    public Builder(byte[] rawId, byte[] masterKey, byte[] serializedUnknowns) {
+      this.id = StorageId.forGroupV2(rawId);
+
+      if (serializedUnknowns != null) {
+        this.builder = parseUnknowns(serializedUnknowns);
+      } else {
+        this.builder = GroupV2Record.newBuilder();
+      }
 
       builder.setMasterKey(ByteString.copyFrom(masterKey));
-    }
-
-    public Builder setUnknownFields(byte[] serializedUnknowns) {
-      this.unknownFields = serializedUnknowns;
-      return this;
     }
 
     public Builder setBlocked(boolean blocked) {
@@ -190,18 +196,22 @@ public final class SignalGroupV2Record implements SignalRecord {
       return this;
     }
 
-    public SignalGroupV2Record build() {
-      GroupV2Record proto = builder.build();
+    public Builder setNotifyForMentionsWhenMuted(boolean value) {
+      builder.setDontNotifyForMentionsIfMuted(!value);
+      return this;
+    }
 
-      if (unknownFields != null) {
-        try {
-          proto = ProtoUtil.combineWithUnknownFields(proto, unknownFields);
-        } catch (InvalidProtocolBufferException e) {
-          Log.w(TAG, "Failed to combine unknown fields!", e);
-        }
+    private static GroupV2Record.Builder parseUnknowns(byte[] serializedUnknowns) {
+      try {
+        return GroupV2Record.parseFrom(serializedUnknowns).toBuilder();
+      } catch (InvalidProtocolBufferException e) {
+        Log.w(TAG, "Failed to combine unknown fields!", e);
+        return GroupV2Record.newBuilder();
       }
+    }
 
-      return new SignalGroupV2Record(id, proto);
+    public SignalGroupV2Record build() {
+      return new SignalGroupV2Record(id, builder.build());
     }
   }
 }

@@ -26,6 +26,8 @@ include ':device-transfer'
 //include ':device-transfer-app'
 include ':image-editor'
 //include ':image-editor-app'
+include ':spinner'
+//include ':spinner-app'
 
 project(':paging').projectDir = file('paging/lib')
 //project(':paging-app').projectDir = file('paging/app')
@@ -37,6 +39,9 @@ project(':libsignal-service').projectDir = file('libsignal/service')
 
 project(':image-editor').projectDir = file('image-editor/lib')
 //project(':image-editor-app').projectDir = file('image-editor/app')
+
+project(':spinner').projectDir = file('spinner/lib')
+//project(':spinner-app').projectDir = file('spinner/app')
 
 rootProject.name='Molly'
 

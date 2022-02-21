@@ -1317,6 +1317,7 @@
   <string name="RedPhone_got_it">Skaidrīte</string>
   <!--Valentine\'s Day Megaphone-->
   <!--Title text for the Valentine\'s Day donation megaphone. The placeholder will always be a heart emoji. Needs to be a placeholder for Android reasons.-->
+  <string name="ValentinesDayMegaphone_happy_heart_day">Laimīgu 💜 dienu!</string>
   <!--Body text for the Valentine\'s Day donation megaphone.-->
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Pieskarieties, lai ieslēgtu video</string>
@@ -1378,6 +1379,7 @@
   <string name="WebRtcCallView__flip">Pārslēgt</string>
   <string name="WebRtcCallView__speaker">Skaļrunis</string>
   <string name="WebRtcCallView__camera">Kamera</string>
+  <string name="WebRtcCallView__unmute">Ieslēgt</string>
   <string name="WebRtcCallView__mute">Izslēgt</string>
   <string name="WebRtcCallView__ring">Zvanīt</string>
   <string name="WebRtcCallView__end_call">Beigt zvanu</string>
@@ -3537,9 +3539,14 @@ Saņemts nederīgas protokola versijas atslēgas apmaiņas ziņojums.
   <string name="ExpiredBadgeBottomSheetDialogFragment__become_a_sustainer">Kļūstiet par Uzturētāju</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__add_a_boost">Pievienot Atbalstu</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__not_now">Ne tagad</string>
-  <string name="ExpiredBadgeBottomSheetDialogFragment__your_sustainer">Jūsu Uzturētāja abonements tika automātiski atcelts, jo jūs pārāk ilgi bijāt neaktīvs. Jūsu %1$s nozīmīte vairs nav redzama uz jūsu profila.</string>
+  <!--Copy displayed when badge expires after user inactivity-->
+  <string name="ExpiredBadgeBottomSheetDialogFragment__your_sustainer_subscription_was_automatically">Jūsu Uzturētāja abonements tika automātiski atcelts, jo jūs pārāk ilgi bijāt neaktīvs. Jūsu %1$s nozīmīte vairs nav redzama uz jūsu profila.</string>
+  <!--Copy displayed when badge expires after payment failure-->
+  <string name="ExpiredBadgeBottomSheetDialogFragment__your_sustainer_subscription_was_canceled">Jūsu Uzturētāja abonements tika atcelts, jo mēs nevarējām apstrādāt jūsu maksājumu. Jūsu nozīmīte vairs nav redzama uz jūsu profila.</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__you_can">Jūs varat turpināt izmantot Signal, bet lai atbalstītu aplikāciju un atkārtoti aktivizētu jūsu nozīmīti, atjaunojiet tagad.</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__renew_subscription">Atjaunot abonementu</string>
+  <string name="CantProcessSubscriptionPaymentBottomSheetDialogFragment__cant_process_subscription_payment">Nevar apstrādāt abonementa maksājumu</string>
+  <string name="CantProcessSubscriptionPaymentBottomSheetDialogFragment__dont_show_this_again">Nerādīt šo atkārtoti</string>
   <string name="Subscription__please_contact_support_for_more_information">Lūdzu, sazinieties ar tehnisko atbalstu, lai saņemtu vairāk informācijas.</string>
   <string name="Subscription__contact_support">Sazināties ar atbalstu</string>
   <string name="Subscription__earn_a_s_badge">Iegūsti %1$s nozīmīti</string>
@@ -3561,6 +3568,23 @@ Saņemts nederīgas protokola versijas atslēgas apmaiņas ziņojums.
   <string name="ViewBadgeBottomSheetDialogFragment__your_device_doesn_t_support_google_pay_so_you_can_t_subscribe_to_earn_a_badge_you_can_still_support_signal_by_making_a_donation_on_our_website">Jūsu ierīce neatbalsta Google Pay, tāpēc jūs nevarat pieteikties abonementam, lai iegūtu nozīmīti. Jūs vēl arvien varat atbalstīt Signal, ziedojot mūsu mājaslapā.</string>
   <string name="NetworkFailure__network_error_check_your_connection_and_try_again">Tīkla kļūda. Pārbaudiet savienojumu un mēģiniet vēlreiz.</string>
   <string name="NetworkFailure__retry">Mēģināt vēlreiz</string>
+  <!--Stripe decline code generic_failure-->
+  <!--Stripe decline code verify on Google Pay and try again-->
+  <!--Stripe decline code learn more action label-->
+  <string name="DeclineCode__learn_more">Lasīt vairāk</string>
+  <!--Stripe decline code contact issuer-->
+  <!--Stripe decline code purchase not supported-->
+  <!--Stripe decline code your card has expired-->
+  <!--Stripe decline code go to google pay action label-->
+  <string name="DeclineCode__go_to_google_pay">Doties uz Google Pay</string>
+  <!--Stripe decline code incorrect card number-->
+  <!--Stripe decline code incorrect cvc-->
+  <string name="DeclineCode__your_cards_cvc_number_is_incorrect">Jūsu kartes CVC kods ir nepareizs. Atjauniniet to Google Pay un mēģniet vēlreiz.</string>
+  <!--Stripe decline code insufficient funds-->
+  <!--Stripe decline code incorrect expiration month-->
+  <!--Stripe decline code incorrect expiration year-->
+  <!--Stripe decline code issuer not available-->
+  <!--Stripe decline code processing error-->
   <!--Title of create notification profile screen-->
   <string name="EditNotificationProfileFragment__name_your_profile">Dodiet profilam nosaukumu</string>
   <!--Hint text for create/edit notification profile name-->

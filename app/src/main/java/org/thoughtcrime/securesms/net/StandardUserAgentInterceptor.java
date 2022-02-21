@@ -9,8 +9,10 @@ import org.thoughtcrime.securesms.util.Util;
  */
 public class StandardUserAgentInterceptor extends UserAgentInterceptor {
 
+  // MOLLY: Replace BuildConfig.VERSION_NAME by Util.getSignalCanonicalVersionName()
+  public static final String USER_AGENT = "Signal-Android/" + Util.getSignalCanonicalVersionName() + " Android/" + Build.VERSION.SDK_INT;
+
   public StandardUserAgentInterceptor() {
-    // MOLLY: Replace BuildConfig.VERSION_NAME by Util.getSignalCanonicalVersionName()
-    super("Signal-Android/" + Util.getSignalCanonicalVersionName() + " Android/" + Build.VERSION.SDK_INT);
+    super(USER_AGENT);
   }
 }

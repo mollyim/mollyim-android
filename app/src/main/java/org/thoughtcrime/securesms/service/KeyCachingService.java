@@ -273,18 +273,26 @@ public class KeyCachingService extends Service {
   private PendingIntent buildLockIntent() {
     Intent intent = new Intent(this, KeyCachingService.class);
     intent.setAction(PASSPHRASE_EXPIRED_EVENT);
-    return PendingIntent.getService(getApplicationContext(), 0, intent, 0);
+    return PendingIntent.getService(getApplicationContext(), 0, intent, getPendingIntentFlags());
   }
 
   private PendingIntent buildLaunchIntent() {
     // TODO [greyson] Navigation
-    return PendingIntent.getActivity(getApplicationContext(), 0, MainActivity.clearTop(this), 0);
+    return PendingIntent.getActivity(getApplicationContext(), 0, MainActivity.clearTop(this), getPendingIntentFlags());
   }
 
   private PendingIntent buildExpirationIntent() {
     Intent intent = new Intent(this, KeyCachingService.class);
     intent.setAction(PASSPHRASE_EXPIRED_EVENT);
-    return PendingIntent.getService(getApplicationContext(), 0, intent, 0);
+    return PendingIntent.getService(getApplicationContext(), 0, intent, getPendingIntentFlags());
+  }
+
+  private static int getPendingIntentFlags() {
+    if (Build.VERSION.SDK_INT >= 23) {
+      return PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT;
+    } else {
+      return PendingIntent.FLAG_UPDATE_CURRENT;
+    }
   }
 
   @Override

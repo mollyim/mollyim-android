@@ -23,12 +23,12 @@ import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.contacts.ContactAccessor;
 import org.thoughtcrime.securesms.contacts.ContactsDatabase;
-import org.thoughtcrime.securesms.crypto.SessionUtil;
 import org.thoughtcrime.securesms.database.MessageDatabase.InsertResult;
 import org.thoughtcrime.securesms.database.RecipientDatabase;
 import org.thoughtcrime.securesms.database.RecipientDatabase.BulkOperationsHandle;
 import org.thoughtcrime.securesms.database.RecipientDatabase.RegisteredState;
 import org.thoughtcrime.securesms.database.SignalDatabase;
+import org.whispersystems.libsignal.SignalProtocolAddress;
 import org.whispersystems.signalservice.api.push.ACI;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.jobs.MultiDeviceContactUpdateJob;
@@ -54,6 +54,7 @@ import org.whispersystems.libsignal.util.Pair;
 import org.whispersystems.libsignal.util.guava.Optional;
 import org.whispersystems.signalservice.api.profiles.ProfileAndCredential;
 import org.whispersystems.signalservice.api.profiles.SignalServiceProfile;
+import org.whispersystems.signalservice.api.push.SignalServiceAddress;
 import org.whispersystems.signalservice.api.services.ProfileService;
 import org.whispersystems.signalservice.api.util.UuidUtil;
 import org.whispersystems.signalservice.internal.ServiceResponse;
@@ -111,9 +112,9 @@ public class DirectoryHelper {
     RecipientDatabase recipientDatabase = SignalDatabase.recipients();
 
     for (Recipient recipient : recipients) {
-      if (recipient.hasAci() && !recipient.hasE164()) {
-        if (ApplicationDependencies.getSignalServiceAccountManager().isIdentifierRegistered(recipient.requireAci())) {
-          recipientDatabase.markRegistered(recipient.getId(), recipient.requireAci());
+      if (recipient.hasServiceId() && !recipient.hasE164()) {
+        if (ApplicationDependencies.getSignalServiceAccountManager().isIdentifierRegistered(recipient.requireServiceId())) {
+          recipientDatabase.markRegistered(recipient.getId(), recipient.requireServiceId());
         } else {
           recipientDatabase.markUnregistered(recipient.getId());
         }
@@ -135,11 +136,11 @@ public class DirectoryHelper {
     RegisteredState   originalRegisteredState = recipient.resolve().getRegistered();
     RegisteredState   newRegisteredState;
 
-    if (recipient.hasAci() && !recipient.hasE164()) {
-      boolean isRegistered = ApplicationDependencies.getSignalServiceAccountManager().isIdentifierRegistered(recipient.requireAci());
+    if (recipient.hasServiceId() && !recipient.hasE164()) {
+      boolean isRegistered = ApplicationDependencies.getSignalServiceAccountManager().isIdentifierRegistered(recipient.requireServiceId());
       stopwatch.split("aci-network");
       if (isRegistered) {
-        boolean idChanged = recipientDatabase.markRegistered(recipient.getId(), recipient.requireAci());
+        boolean idChanged = recipientDatabase.markRegistered(recipient.getId(), recipient.requireServiceId());
         if (idChanged) {
           Log.w(TAG, "ID changed during refresh by UUID.");
         }
@@ -172,14 +173,14 @@ public class DirectoryHelper {
       if (aci != null) {
         boolean idChanged = recipientDatabase.markRegistered(recipient.getId(), aci);
         if (idChanged) {
-          recipient = Recipient.resolved(recipientDatabase.getByAci(aci).get());
+          recipient = Recipient.resolved(recipientDatabase.getByServiceId(aci).get());
         }
       } else {
         Log.w(TAG, "Registered number set had a null ACI!");
       }
-    } else if (recipient.hasAci() && recipient.isRegistered() && hasCommunicatedWith(context, recipient)) {
-      if (ApplicationDependencies.getSignalServiceAccountManager().isIdentifierRegistered(recipient.requireAci())) {
-        recipientDatabase.markRegistered(recipient.getId(), recipient.requireAci());
+    } else if (recipient.hasServiceId() && recipient.isRegistered() && hasCommunicatedWith(recipient)) {
+      if (ApplicationDependencies.getSignalServiceAccountManager().isIdentifierRegistered(recipient.requireServiceId())) {
+        recipientDatabase.markRegistered(recipient.getId(), recipient.requireServiceId());
       } else {
         recipientDatabase.markUnregistered(recipient.getId());
       }
@@ -464,9 +465,9 @@ public class DirectoryHelper {
 
     for (RecipientId newUser: newUsers) {
       Recipient recipient = Recipient.resolved(newUser);
-      if (!SessionUtil.hasSession(recipient.getId()) &&
-          !recipient.isSelf()                        &&
-          recipient.hasAUserSetDisplayName(context))
+      if (!recipient.isSelf() &&
+          recipient.hasAUserSetDisplayName(context) &&
+          !hasSession(recipient.getId()))
       {
         IncomingJoinedMessage  message      = new IncomingJoinedMessage(recipient.getId());
         Optional<InsertResult> insertResult = SignalDatabase.sms().insertMessageInbox(message);
@@ -481,6 +482,19 @@ public class DirectoryHelper {
         }
       }
     }
+  }
+
+  public static boolean hasSession(@NonNull RecipientId id) {
+    Recipient recipient = Recipient.resolved(id);
+
+    if (!recipient.hasServiceId()) {
+      return false;
+    }
+
+    SignalProtocolAddress protocolAddress = Recipient.resolved(id).requireServiceId().toProtocolAddress(SignalServiceAddress.DEFAULT_DEVICE_ID);
+
+    return ApplicationDependencies.getProtocolStore().aci().containsSession(protocolAddress) ||
+           ApplicationDependencies.getProtocolStore().pni().containsSession(protocolAddress);
   }
 
   private static Set<String> sanitizeNumbers(@NonNull Set<String> numbers) {
@@ -503,8 +517,8 @@ public class DirectoryHelper {
     List<Recipient> possiblyUnlisted = Stream.of(inactiveIds)
                                              .map(Recipient::resolved)
                                              .filter(Recipient::isRegistered)
-                                             .filter(Recipient::hasAci)
-                                             .filter(r -> hasCommunicatedWith(context, r))
+                                             .filter(Recipient::hasServiceId)
+                                             .filter(DirectoryHelper::hasCommunicatedWith)
                                              .toList();
 
     ProfileService profileService = new ProfileService(ApplicationDependencies.getGroupsV2Operations().getProfileOperations(),
@@ -537,10 +551,10 @@ public class DirectoryHelper {
                      .blockingGet();
   }
 
-  private static boolean hasCommunicatedWith(@NonNull Context context, @NonNull Recipient recipient) {
-    return SignalDatabase.threads().hasThread(recipient.getId()) ||
-           (recipient.hasAci() && SignalDatabase.sessions().hasSessionFor(recipient.requireAci().toString())) ||
-           (recipient.hasE164() && SignalDatabase.sessions().hasSessionFor(recipient.requireE164()));
+  private static boolean hasCommunicatedWith(@NonNull Recipient recipient) {
+    ACI localAci = SignalStore.account().requireAci();
+
+    return SignalDatabase.threads().hasThread(recipient.getId()) || (recipient.hasServiceId() && SignalDatabase.sessions().hasSessionFor(localAci, recipient.requireServiceId().toString()));
   }
 
   static class DirectoryResult {

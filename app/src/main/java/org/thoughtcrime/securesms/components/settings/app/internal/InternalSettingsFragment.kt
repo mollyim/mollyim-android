@@ -23,11 +23,14 @@ import org.thoughtcrime.securesms.jobs.DownloadLatestEmojiDataJob
 import org.thoughtcrime.securesms.jobs.RefreshAttributesJob
 import org.thoughtcrime.securesms.jobs.RefreshOwnProfileJob
 import org.thoughtcrime.securesms.jobs.RemoteConfigRefreshJob
+import org.thoughtcrime.securesms.jobs.RetrieveReleaseChannelJob
 import org.thoughtcrime.securesms.jobs.RotateProfileKeyJob
 import org.thoughtcrime.securesms.jobs.StorageForcePushJob
+import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.payments.DataExportUtil
 import org.thoughtcrime.securesms.util.ConversationUtil
 import org.thoughtcrime.securesms.util.concurrent.SimpleTask
+import kotlin.math.max
 
 class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__internal_preferences) {
 
@@ -327,6 +330,25 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
         selected = CallManager.AudioProcessingMethod.values().indexOf(state.audioProcessingMethod),
         onSelected = {
           viewModel.setInternalAudioProcessingMethod(CallManager.AudioProcessingMethod.values()[it])
+        }
+      )
+
+      dividerPref()
+
+      sectionHeaderPref(R.string.preferences__internal_release_channel)
+
+      clickPref(
+        title = DSLSettingsText.from(R.string.preferences__internal_fetch_release_channel),
+        onClick = {
+          SignalStore.releaseChannelValues().previousManifestMd5 = ByteArray(0)
+          RetrieveReleaseChannelJob.enqueue(force = true)
+        }
+      )
+
+      clickPref(
+        title = DSLSettingsText.from(R.string.preferences__internal_release_channel_set_last_version),
+        onClick = {
+          SignalStore.releaseChannelValues().highestVersionNoteReceived = max(SignalStore.releaseChannelValues().highestVersionNoteReceived - 10, 0)
         }
       )
     }

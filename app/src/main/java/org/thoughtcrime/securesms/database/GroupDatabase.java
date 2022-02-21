@@ -25,6 +25,7 @@ import org.thoughtcrime.securesms.crypto.SenderKeyUtil;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.groups.v2.processing.GroupsV2StateProcessor;
 import org.thoughtcrime.securesms.jobs.RequestGroupV2InfoJob;
+import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.whispersystems.signalservice.api.push.ACI;
 import org.whispersystems.signalservice.api.push.DistributionId;
 import org.thoughtcrime.securesms.groups.GroupAccessControl;
@@ -40,6 +41,7 @@ import org.whispersystems.libsignal.util.guava.Optional;
 import org.whispersystems.signalservice.api.groupsv2.DecryptedGroupUtil;
 import org.whispersystems.signalservice.api.groupsv2.GroupChangeReconstruct;
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachmentPointer;
+import org.whispersystems.signalservice.api.push.ServiceId;
 import org.whispersystems.signalservice.api.util.UuidUtil;
 
 import java.io.Closeable;
@@ -58,7 +60,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-public final class GroupDatabase extends Database {
+public class GroupDatabase extends Database {
 
   private static final String TAG = Log.tag(GroupDatabase.class);
 
@@ -560,7 +562,7 @@ private static final String[] GROUP_PROJECTION = {
         throw new AssertionError("V2 master key but no group state");
       }
       groupId.requireV2();
-      groupMembers = getV2GroupMembers(context, groupState, true);
+      groupMembers = getV2GroupMembers(groupState, true);
       contentValues.put(V2_MASTER_KEY, groupMasterKey.serialize());
       contentValues.put(V2_REVISION, groupState.getRevision());
       contentValues.put(V2_DECRYPTED_GROUP, groupState.toByteArray());
@@ -699,7 +701,7 @@ private static final String[] GROUP_PROJECTION = {
       contentValues.put(UNMIGRATED_V1_MEMBERS, unmigratedV1Members.isEmpty() ? null : RecipientId.toSerializedList(unmigratedV1Members));
     }
 
-    List<RecipientId> groupMembers = getV2GroupMembers(context, decryptedGroup, true);
+    List<RecipientId> groupMembers = getV2GroupMembers(decryptedGroup, true);
     contentValues.put(TITLE, title);
     contentValues.put(V2_REVISION, decryptedGroup.getRevision());
     contentValues.put(V2_DECRYPTED_GROUP, decryptedGroup.toByteArray());
@@ -800,7 +802,7 @@ private static final String[] GROUP_PROJECTION = {
   }
 
   private static boolean gv2GroupActive(@NonNull DecryptedGroup decryptedGroup) {
-    ACI aci = Recipient.self().requireAci();
+    ACI aci = SignalStore.account().requireAci();
 
     return DecryptedGroupUtil.findMemberByUuid(decryptedGroup.getMembersList(), aci.uuid()).isPresent() ||
            DecryptedGroupUtil.findPendingByUuid(decryptedGroup.getPendingMembersList(), aci.uuid()).isPresent();
@@ -864,7 +866,15 @@ private static final String[] GROUP_PROJECTION = {
       if (UuidUtil.UNKNOWN_UUID.equals(uuid)) {
         Log.w(TAG, "Seen unknown UUID in members list");
       } else {
-        groupMembers.add(RecipientId.from(ACI.from(uuid), null));
+        RecipientId           id       = RecipientId.from(ACI.from(uuid), null);
+        Optional<RecipientId> remapped = RemappedRecords.getInstance().getRecipient(id);
+
+        if (remapped.isPresent()) {
+          Log.w(TAG, "Saw that " + id + " remapped to " + remapped + ". Using the mapping.");
+          groupMembers.add(remapped.get());
+        } else {
+          groupMembers.add(id);
+        }
       }
     }
 
@@ -873,7 +883,7 @@ private static final String[] GROUP_PROJECTION = {
     return groupMembers;
   }
 
-  private static @NonNull List<RecipientId> getV2GroupMembers(@NonNull Context context, @NonNull DecryptedGroup decryptedGroup, boolean shouldRetry) {
+  private static @NonNull List<RecipientId> getV2GroupMembers(@NonNull DecryptedGroup decryptedGroup, boolean shouldRetry) {
     List<UUID>        uuids = DecryptedGroupUtil.membersToUuidList(decryptedGroup.getMembersList());
     List<RecipientId> ids   = uuidsToRecipientIds(uuids);
 
@@ -881,7 +891,8 @@ private static final String[] GROUP_PROJECTION = {
       if (shouldRetry) {
         Log.w(TAG, "Found remapped records where we shouldn't. Clearing cache and trying again.");
         RecipientId.clearCache();
-        return getV2GroupMembers(context, decryptedGroup, false);
+        RemappedRecords.getInstance().resetCache();
+        return getV2GroupMembers(decryptedGroup, false);
       } else {
         throw new IllegalStateException("Remapped records in group membership!");
       }
@@ -1202,9 +1213,9 @@ private static final String[] GROUP_PROJECTION = {
      */
     public boolean isPendingMember(@NonNull Recipient recipient) {
       if (isV2Group()) {
-        Optional<ACI> aci = recipient.getAci();
-        if (aci.isPresent()) {
-          return DecryptedGroupUtil.findPendingByUuid(requireV2GroupProperties().getDecryptedGroup().getPendingMembersList(), aci.get().uuid())
+        Optional<ServiceId> serviceId = recipient.getServiceId();
+        if (serviceId.isPresent()) {
+          return DecryptedGroupUtil.findPendingByUuid(requireV2GroupProperties().getDecryptedGroup().getPendingMembersList(), serviceId.get().uuid())
                                    .isPresent();
         }
       }
@@ -1245,13 +1256,13 @@ private static final String[] GROUP_PROJECTION = {
     }
 
     public boolean isAdmin(@NonNull Recipient recipient) {
-      Optional<ACI> aci = recipient.getAci();
+      Optional<ServiceId> serviceId = recipient.getServiceId();
 
-      if (!aci.isPresent()) {
+      if (!serviceId.isPresent()) {
         return false;
       }
 
-      return DecryptedGroupUtil.findMemberByUuid(getDecryptedGroup().getMembersList(), aci.get().uuid())
+      return DecryptedGroupUtil.findMemberByUuid(getDecryptedGroup().getMembersList(), serviceId.get().uuid())
                                .transform(t -> t.getRole() == Member.Role.ADMINISTRATOR)
                                .or(false);
     }
@@ -1261,21 +1272,21 @@ private static final String[] GROUP_PROJECTION = {
     }
 
     public MemberLevel memberLevel(@NonNull Recipient recipient) {
-      Optional<ACI> aci = recipient.getAci();
+      Optional<ServiceId> serviceId = recipient.getServiceId();
 
-      if (!aci.isPresent()) {
+      if (!serviceId.isPresent()) {
         return MemberLevel.NOT_A_MEMBER;
       }
 
       DecryptedGroup decryptedGroup = getDecryptedGroup();
 
-      return DecryptedGroupUtil.findMemberByUuid(decryptedGroup.getMembersList(), aci.get().uuid())
+      return DecryptedGroupUtil.findMemberByUuid(decryptedGroup.getMembersList(), serviceId.get().uuid())
                                .transform(member -> member.getRole() == Member.Role.ADMINISTRATOR
                                                     ? MemberLevel.ADMINISTRATOR
                                                     : MemberLevel.FULL_MEMBER)
-                               .or(() -> DecryptedGroupUtil.findPendingByUuid(decryptedGroup.getPendingMembersList(), aci.get().uuid())
+                               .or(() -> DecryptedGroupUtil.findPendingByUuid(decryptedGroup.getPendingMembersList(), serviceId.get().uuid())
                                                            .transform(m -> MemberLevel.PENDING_MEMBER)
-                                                           .or(() -> DecryptedGroupUtil.findRequestingByUuid(decryptedGroup.getRequestingMembersList(), aci.get().uuid())
+                                                           .or(() -> DecryptedGroupUtil.findRequestingByUuid(decryptedGroup.getRequestingMembersList(), serviceId.get().uuid())
                                                                                        .transform(m -> MemberLevel.REQUESTING_MEMBER)
                                                                                        .or(MemberLevel.NOT_A_MEMBER)));
     }
@@ -1287,7 +1298,7 @@ private static final String[] GROUP_PROJECTION = {
     public List<RecipientId> getMemberRecipientIds(@NonNull MemberSet memberSet) {
       boolean           includeSelf    = memberSet.includeSelf;
       DecryptedGroup    groupV2        = getDecryptedGroup();
-      UUID              selfUuid       = Recipient.self().requireAci().uuid();
+      UUID              selfUuid       = Recipient.self().requireServiceId().uuid();
       List<RecipientId> recipients     = new ArrayList<>(groupV2.getMembersCount() + groupV2.getPendingMembersCount());
       int               unknownMembers = 0;
       int               unknownPending = 0;

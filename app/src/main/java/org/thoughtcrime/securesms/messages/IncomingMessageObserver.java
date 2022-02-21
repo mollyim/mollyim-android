@@ -270,8 +270,8 @@ public class IncomingMessageObserver {
         return Service.START_STICKY;
       }
 
-      NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), NotificationChannels.OTHER);
-      builder.setContentTitle(getApplicationContext().getString(R.string.MessageRetrievalService_signal));
+      NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), NotificationChannels.BACKGROUND);
+      builder.setContentTitle(getApplicationContext().getString(R.string.app_name));
       builder.setContentText(getApplicationContext().getString(R.string.MessageRetrievalService_ready_to_receive_messages));
       builder.setPriority(NotificationCompat.PRIORITY_MIN);
       builder.setCategory(NotificationCompat.CATEGORY_SERVICE);
