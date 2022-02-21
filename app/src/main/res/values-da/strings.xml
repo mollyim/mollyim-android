@@ -586,7 +586,7 @@
   <string name="PendingMembersActivity_you_have_no_pending_invites">Du har ingen afventende invitationer.</string>
   <string name="PendingMembersActivity_invites_by_other_group_members">Invitationer fra andre medlemmer af gruppen</string>
   <string name="PendingMembersActivity_no_pending_invites_by_other_group_members">Ingen afventende invitationer fra andre gruppemedlemmer.</string>
-  <string name="PendingMembersActivity_missing_detail_explanation">Detaljer om personer inviteret af andre medlemmer af gruppen, vises ikke. Hvis de inviterede accepterer at deltage, vil deres information blive delt med gruppen derefter. De vil ingen beskeder se fra gruppen, før de tilmelder sig.</string>
+  <string name="PendingMembersActivity_missing_detail_explanation">Detaljer om personer inviteret af andre medlemmer af gruppen vises ikke. Hvis de inviterede accepterer at deltage, vil deres information blive delt med gruppen derefter. De vil ingen beskeder se fra gruppen, før de tilmelder sig.</string>
   <string name="PendingMembersActivity_revoke_invite">Tilbagetræk invitation</string>
   <string name="PendingMembersActivity_revoke_invites">Tilbagetræk invitationer</string>
   <plurals name="PendingMembersActivity_revoke_d_invites">
@@ -1609,6 +1609,10 @@ nummer (%s) er ugyldigt</string>
   <string name="NotificationChannel_voice_notes">Stemmenoter</string>
   <string name="NotificationChannel_contact_joined_signal">Kontakt bruger nu Signal</string>
   <string name="NotificationChannels__no_activity_available_to_open_notification_channel_settings">Ingen aktivitet tilgængelig for at åbne indstillinger for notifikationsskanal.</string>
+  <!--Notification channel name for showing persistent background connection on devices without push notifications-->
+  <string name="NotificationChannel_background_connection">Forbindelse i baggrunden</string>
+  <!--Notification channel name for showing call status information (like connection, ongoing, etc.) Not ringing.-->
+  <string name="NotificationChannel_call_status">Opkaldsstatus</string>
   <!--ProfileEditNameFragment-->
   <!--QuickResponseService-->
   <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Hurtig svar utilgængelig når Molly er låst!</string>
@@ -3402,8 +3406,8 @@ nummer (%s) er ugyldigt</string>
   <string name="Subscription__s_per_month_dot_expires_s">%1$s/måned · Udløber %2$s</string>
   <string name="SubscribeLearnMoreBottomSheetDialogFragment__signal_is_a_non_profit_with_no">Signal er en non-profit uden annoncører eller investorer, som kun støttes af de mennesker, der bruger og værdsætter den. Giv et fast månedligt bidrag og få et profilemblem til at vise din støtte.</string>
   <string name="SubscribeLearnMoreBottomSheetDialogFragment__why_contribute">Hvorfor bidrage?</string>
-  <string name="SubscribeLearnMoreBottomSheetDialogFragment__signal_is_committed_to_developing">Signal er dedikeret til udviklingen af open source-privatlivsteknologi, der beskytter ytringsfrihed og muliggør sikker global kommunikation.</string>
-  <string name="SubscribeLearnMoreBottomSheetDialogFragment__your_contribution">Dit bidrag støtter denne sag og betaler for udviklingen og driften af en app, der bruges af millioner til privat kommunikation. Ingen reklamer. Ingen trackere. Ingen spøg.</string>
+  <string name="SubscribeLearnMoreBottomSheetDialogFragment__signal_is_committed_to_developing">Signal er dedikeret til udviklingen af open source-privatlivsteknologi, der beskytter ytringsfriheden og muliggør sikker global kommunikation.</string>
+  <string name="SubscribeLearnMoreBottomSheetDialogFragment__your_contribution">Dit bidrag støtter denne sag og betaler for udviklingen og driften af en app, der bruges af millioner til privat kommunikation. Ingen reklamer. Ingen trackere. Helt seriøst.</string>
   <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__thanks_for_your_support">Tak for din støtte!</string>
   <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__thanks_for_the_boost">Tak for boostet!</string>
   <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__youve_earned_s_badge_help_signal">Du har gjort dig fortjent til et %s-emblem! Hjælp Signal med at skabe opmærksomhed ved at vise dette emblem på din profil.</string>

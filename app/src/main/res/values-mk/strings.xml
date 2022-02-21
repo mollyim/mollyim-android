@@ -651,7 +651,7 @@
   <!--ManageGroupActivity-->
   <string name="ManageGroupActivity_member_requests_and_invites">Барања за членство и покани</string>
   <string name="ManageGroupActivity_add_members">Додај членови</string>
-  <string name="ManageGroupActivity_edit_group_info">Уреди информации за група</string>
+  <string name="ManageGroupActivity_edit_group_info">Уреди информации за групата</string>
   <string name="ManageGroupActivity_who_can_add_new_members">Кој може да додава нови членови?</string>
   <string name="ManageGroupActivity_who_can_edit_this_groups_info">Кој може да ги уредува информациите за групата?</string>
   <string name="ManageGroupActivity_group_link">Групен линк</string>
@@ -669,11 +669,11 @@
   <string name="ManageGroupActivity_view_all_members">Види ги сите членови</string>
   <string name="ManageGroupActivity_see_all">Види сѐ</string>
   <plurals name="ManageGroupActivity_added">
-    <item quantity="one">%d член е додаден.</item>
-    <item quantity="other">%d членови се додадени.</item>
+    <item quantity="one">Додаден е %d член.</item>
+    <item quantity="other">Додадени се %d членови.</item>
   </plurals>
   <string name="ManageGroupActivity_only_admins_can_enable_or_disable_the_sharable_group_link">Само администратори можат да го вклучат или исклучат групниот линк.</string>
-  <string name="ManageGroupActivity_only_admins_can_enable_or_disable_the_option_to_approve_new_members">Само администратор можат да ја вклучат или исклучат опцијата за одобрување на нови членови.</string>
+  <string name="ManageGroupActivity_only_admins_can_enable_or_disable_the_option_to_approve_new_members">Само администратори можат да ја вклучат или исклучат опцијата за одобрување на нови членови.</string>
   <string name="ManageGroupActivity_only_admins_can_reset_the_sharable_group_link">Само администратори можат да го ресетираат групниот линк.</string>
   <string name="ManageGroupActivity_you_dont_have_the_rights_to_do_this">Немате права да го правите ова</string>
   <string name="ManageGroupActivity_not_capable">Некој од луѓето што ги додадовте немаат поддршка за нови групи и треба да го ажурираат Signal.</string>
@@ -801,7 +801,7 @@
   <string name="InviteActivity_send_sms">Испрати SMS (%d)</string>
   <plurals name="InviteActivity_send_sms_invites">
     <item quantity="one">Испрати %d SMS покана?</item>
-    <item quantity="other">Испрати %d SMS пораки?</item>
+    <item quantity="other">Испрати %d SMS покани?</item>
   </plurals>
   <string name="InviteActivity_lets_switch_to_signal">Ајде да се префрлиме на Molly: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Изгледа дека немате апликации преку кои може да споделите.</string>
@@ -1308,7 +1308,7 @@
   <string name="WebRtcCallView__flip">Сврти</string>
   <string name="WebRtcCallView__speaker">Звучник</string>
   <string name="WebRtcCallView__camera">Камера</string>
-  <string name="WebRtcCallView__unmute">Вклучи известувања</string>
+  <string name="WebRtcCallView__unmute">Вклучи </string>
   <string name="WebRtcCallView__mute">Исклучи</string>
   <string name="WebRtcCallView__ring">Ѕвони</string>
   <string name="WebRtcCallView__end_call">Спушти</string>
@@ -1374,7 +1374,7 @@
   <string name="RegistrationActivity_enter_your_phone_number">Внесете го Вашиот телефонски број</string>
   <string name="RegistrationActivity_you_will_receive_a_verification_code">Ќе добиете код за проверка. Можно е да важат цените од операторот.</string>
   <string name="RegistrationActivity_enter_the_code_we_sent_to_s">Внесете го кодот што Ви го испративме на %s</string>
-  <string name="RegistrationActivity_make_sure_your_phone_has_a_cellular_signal">Осигурајте се дека Вашиот телефон има мобилен сигнал за да ја примите вашата SMS порака или повик</string>
+  <string name="RegistrationActivity_make_sure_your_phone_has_a_cellular_signal">Осигурајте се дека Вашиот телефон има мобилен сигнал за да примите SMS или повик</string>
   <string name="RegistrationActivity_phone_number_description">Телефонски број</string>
   <string name="RegistrationActivity_country_code_description">Повикувачки број на земјата </string>
   <string name="RegistrationActivity_call">Повикај</string>
@@ -1427,7 +1427,7 @@
   <string name="SmsMessageRecord_secure_session_reset">Ја ресетиравте безбедната сесија.</string>
   <string name="SmsMessageRecord_secure_session_reset_s">%s ја ресетираше безбедната сесија.</string>
   <string name="SmsMessageRecord_duplicate_message">Дупла порака.</string>
-  <string name="SmsMessageRecord_this_message_could_not_be_processed_because_it_was_sent_from_a_newer_version">Оваа порака не може да биде процесирана бидејќи беше испратена од понова верзија на Signal. Можете да го прашате Вашиот контакт да ја испрати пораката повторно откако ќе ажурирате.</string>
+  <string name="SmsMessageRecord_this_message_could_not_be_processed_because_it_was_sent_from_a_newer_version">Оваа порака не може да биде процесирана бидејќи е испратена од понова верзија на Signal. Можете да го прашате Вашиот контакт да ја испрати пораката повторно откако ќе ја ажурирате апликацијата.</string>
   <string name="SmsMessageRecord_error_handling_incoming_message">Грешка при справување со доаѓачка порака.</string>
   <!--StickerManagementActivity-->
   <string name="StickerManagementActivity_stickers">Стикери</string>
@@ -1606,6 +1606,10 @@
   <string name="NotificationChannel_voice_notes">Гласовни белешки</string>
   <string name="NotificationChannel_contact_joined_signal">Кога контакт ќе се приклучи на Signal</string>
   <string name="NotificationChannels__no_activity_available_to_open_notification_channel_settings">Нема достапна активност за отворање на поставките на каналот за известувања.</string>
+  <!--Notification channel name for showing persistent background connection on devices without push notifications-->
+  <string name="NotificationChannel_background_connection">Врска во позадина</string>
+  <!--Notification channel name for showing call status information (like connection, ongoing, etc.) Not ringing.-->
+  <string name="NotificationChannel_call_status">Статус на повик</string>
   <!--ProfileEditNameFragment-->
   <!--QuickResponseService-->
   <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Брз одговор е недостапен кога Molly е заклучен</string>
@@ -1633,7 +1637,7 @@
   </plurals>
   <!--UnauthorizedReminder-->
   <string name="UnauthorizedReminder_device_no_longer_registered">Уредот повеќе не е регистриран</string>
-  <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Ова е најверојатно бидејќи го регистриравте Вашиот телефон на Signal со друг уред. Допрете за да се регистрирате повторно.</string>
+  <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Ова е веројатно бидејќи Вашиот телефонскиот број сте го регистрирале на Signal со друг уред. Допрете за повторно да се регистрирате.</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">За да одговорите на повикот, дозволете му на Molly пристап до Вашиот микрофон.</string>
   <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">За да одговорите на повикот од %s, дозволете му на Molly пристап до Вашиот микрофонот.</string>
@@ -1919,7 +1923,7 @@
   <string name="webrtc_answer_decline_button__swipe_up_to_answer">Повлечете нагоре за одговор</string>
   <string name="webrtc_answer_decline_button__swipe_down_to_reject">Повлечете надолу за одбивање</string>
   <!--message_details_header-->
-  <string name="message_details_header__issues_need_your_attention">Некои проблеми барааат Ваше внимание.</string>
+  <string name="message_details_header__issues_need_your_attention">Некои проблеми бараат Ваше внимание.</string>
   <string name="message_details_header__sent">Испратено:</string>
   <string name="message_details_header__received">Примено:</string>
   <string name="message_details_header__disappears">Исчезнува за:</string>
@@ -1933,7 +1937,7 @@
   <string name="message_details_recipient_header__not_sent">Не е испратено на</string>
   <string name="message_details_recipient_header__viewed">Видено од</string>
   <!--message_Details_recipient-->
-  <string name="message_details_recipient__failed_to_send">Неуспешно праќање</string>
+  <string name="message_details_recipient__failed_to_send">Неуспешно испраќање</string>
   <string name="message_details_recipient__new_safety_number">Нов сигурносен број</string>
   <!--AndroidManifest.xml-->
   <string name="AndroidManifest__create_passphrase">Создај лозинка</string>
@@ -3059,7 +3063,7 @@
   <string name="ChangeNumberEnterPhoneNumberFragment__you_must_specify_your_old_number_country_code">Мора да наведете повикувачки број на државата за Вашиот стар број</string>
   <string name="ChangeNumberEnterPhoneNumberFragment__you_must_specify_your_old_phone_number">Мора да го наведете Вашиот стар телефонски број</string>
   <string name="ChangeNumberEnterPhoneNumberFragment__you_must_specify_your_new_number_country_code">Мора да наведете повикувачки број на државата за Вашиот нов број</string>
-  <string name="ChangeNumberEnterPhoneNumberFragment__you_must_specify_your_new_phone_number">Мора да го наведете Вашиот нов број</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__you_must_specify_your_new_phone_number">Мора да го наведете Вашиот нов телефонски број</string>
   <!--ChangeNumberVerifyFragment-->
   <string name="ChangeNumberVerifyFragment__change_number">Смени го бројот</string>
   <string name="ChangeNumberVerifyFragment__verifying_s">Проверувам %1$s</string>
@@ -3444,6 +3448,8 @@
   <string name="ExpiredBadgeBottomSheetDialogFragment__your_sustainer_subscription_was_canceled">Вашата претплата за поддршка е откажана бидејќи не можевме да го обработиме Вашето плаќање. Вашиот беџ повеќе не е видлив на Вашиот профил.</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__you_can">Можете да продолжите да го користите Signal, но за да ја поддржите апликацијата реактивирајте го беџот, обновете сега.</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__renew_subscription">Обнови претплата</string>
+  <string name="CantProcessSubscriptionPaymentBottomSheetDialogFragment__cant_process_subscription_payment">Не може да се обработи плаќањето</string>
+  <string name="CantProcessSubscriptionPaymentBottomSheetDialogFragment__were_having_trouble">Наидовме на проблем со прибирање на Вашите средства за Signal поддржувач. Осигурајте се дека Вашиот начин на плаќање е ажуриран. Ако не е, ажурирајте го во Google Pay. Signal ќе се обиде повторно да го обработи плаќањето за неколку дена.</string>
   <string name="CantProcessSubscriptionPaymentBottomSheetDialogFragment__dont_show_this_again">Не го прикажувај ова повторно</string>
   <string name="Subscription__please_contact_support_for_more_information">Ве молиме контактирајте со тимот за поддршка за повеќе информации.</string>
   <string name="Subscription__contact_support">Контакт за поддршка</string>
@@ -3635,6 +3641,6 @@
   <!--Displayed in a toast when we fail to open the ringtone picker-->
   <string name="NotificationSettingsFragment__failed_to_open_picker">Не успеа да се отвори менито за избор.</string>
   <!--Description shown for the Signal Release Notes channel-->
-  <string name="ReleaseNotes__signal_release_notes_and_news">Белешки за изданието на Signal; Вести</string>
+  <string name="ReleaseNotes__signal_release_notes_and_news">Белешки за нова верзија на Signal и новости</string>
   <!--EOF-->
 </resources>
