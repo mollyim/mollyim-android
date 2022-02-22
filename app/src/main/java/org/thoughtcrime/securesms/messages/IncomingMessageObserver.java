@@ -276,7 +276,7 @@ public class IncomingMessageObserver {
       builder.setPriority(NotificationCompat.PRIORITY_MIN);
       builder.setCategory(NotificationCompat.CATEGORY_SERVICE);
       builder.setWhen(0);
-      builder.setSmallIcon(R.drawable.ic_notification);
+      builder.setSmallIcon(R.drawable.ic_molly_background_connection);
       startForeground(FOREGROUND_ID, builder.build());
 
       return Service.START_STICKY;
