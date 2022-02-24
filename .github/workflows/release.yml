@@ -78,7 +78,7 @@ jobs:
         uses: actions/download-artifact@v2
 
       - name: Check version for upgrade compatibility
-        if: "github.repository == 'mollyim/mollyim-android'"
+        if: "github.repository_owner == 'mollyim'"
         run: |
           gh release download --pattern '*.apk' --dir latest
           latest_apks=(latest/*.apk)
