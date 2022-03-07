@@ -80,6 +80,16 @@ public final class SettingsValues extends SignalStoreValues {
                 .putBoolean(LINK_PREVIEWS, true)
                 .apply();
     }
+    // MOLLY: These settings are saved in shared prefs too. Sync with the stored values.
+    if (getStore().containsKey(THEME)) {
+      setTheme(getStore().getString(THEME, null));
+    }
+    if (getStore().containsKey(PREFER_SYSTEM_EMOJI)) {
+      setPreferSystemEmoji(getStore().getBoolean(PREFER_SYSTEM_EMOJI, false));
+    }
+    if (getStore().containsKey(LANGUAGE)) {
+      setLanguage(getStore().getString(LANGUAGE, null));
+    }
   }
 
   @Override
@@ -182,11 +192,12 @@ public final class SettingsValues extends SignalStoreValues {
   }
 
   public @NonNull String getTheme() {
-    return getString(THEME, TextSecurePreferences.getTheme(ApplicationDependencies.getApplication()));
+    return TextSecurePreferences.getTheme(ApplicationDependencies.getApplication());
   }
 
   public void setTheme(@NonNull String theme) {
     putString(THEME, theme);
+    // MOLLY: Store the value unencrypted to be able to read it back when app is locked
     TextSecurePreferences.setTheme(ApplicationDependencies.getApplication(), theme);
     onConfigurationSettingChanged.postValue(THEME);
   }
@@ -210,11 +221,12 @@ public final class SettingsValues extends SignalStoreValues {
   }
 
   public boolean isPreferSystemEmoji() {
-    return getBoolean(PREFER_SYSTEM_EMOJI, TextSecurePreferences.isSystemEmojiPreferred(ApplicationDependencies.getApplication()));
+    return TextSecurePreferences.isSystemEmojiPreferred(ApplicationDependencies.getApplication());
   }
 
   public void setPreferSystemEmoji(boolean useSystemEmoji) {
     putBoolean(PREFER_SYSTEM_EMOJI, useSystemEmoji);
+    // MOLLY: Store the value unencrypted to be able to read it back when app is locked
     TextSecurePreferences.setSystemEmojiPreferred(ApplicationDependencies.getApplication(), useSystemEmoji);
   }
 

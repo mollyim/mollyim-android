@@ -29,10 +29,7 @@ import org.thoughtcrime.securesms.preferences.widgets.NotificationPrivacyPrefere
 import org.thoughtcrime.securesms.preferences.widgets.PassphraseLockTriggerPreference;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.service.UpdateApkRefreshListener;
-import org.whispersystems.libsignal.util.Medium;
 
-import java.io.IOException;
-import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -304,10 +301,6 @@ public class TextSecurePreferences {
   }
 
   public static void onPostBackupRestore(@NonNull Context context) {
-    setTheme(context, SignalStore.settings().getTheme());
-    setLanguage(context, SignalStore.settings().getLanguage());
-    setSystemEmojiPreferred(context, SignalStore.settings().isPreferSystemEmoji());
-
     if (NotificationChannels.supported()) {
       NotificationChannels.updateMessageVibrate(context, SignalStore.settings().isMessageVibrateEnabled());
     }
