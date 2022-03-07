@@ -61,7 +61,7 @@ internal class AccountValues internal constructor(store: KeyValueStore) : Signal
   }
 
   init {
-    if (!hasPniIdentityKey()) {
+    if (!store.containsKey(KEY_ACI_IDENTITY_PUBLIC_KEY)) {
       migrateFromSharedPrefs()
     }
   }
@@ -161,15 +161,15 @@ internal class AccountValues internal constructor(store: KeyValueStore) : Signal
     return store.containsKey(KEY_PNI_IDENTITY_PUBLIC_KEY)
   }
 
-  fun hasPniIdentityKey(): Boolean {
-    return store.containsKey(KEY_PNI_IDENTITY_PUBLIC_KEY)
-  }
-
-  /** Generates and saves an identity key pair for the PNI identity. Should only be done once. */
-  fun generatePniIdentityKey() {
+  /** Generates and saves an identity key pair for the PNI identity if one doesn't already exist. */
+  fun generatePniIdentityKeyIfNecessary() {
     synchronized(this) {
+      if (store.containsKey(KEY_PNI_IDENTITY_PUBLIC_KEY)) {
+        Log.w(TAG, "Tried to generate a PNI identity, but one was already set!", Throwable())
+        return
+      }
+
       Log.i(TAG, "Generating a new PNI identity key pair.")
-      require(!store.containsKey(KEY_PNI_IDENTITY_PUBLIC_KEY)) { "Already generated!" }
 
       val key: IdentityKeyPair = IdentityKeyUtil.generateIdentityKeyPair()
       store
@@ -297,14 +297,17 @@ internal class AccountValues internal constructor(store: KeyValueStore) : Signal
   }
 
   private fun migrateFromSharedPrefs() {
-    Log.i(TAG, "Migrating account 1 values from shared prefs.")
+    Log.i(TAG, "Migrating account 1 values from shared prefs:")
 
     val context = ApplicationDependencies.getApplication()
     val sharedPrefs = SecurePreferenceManager.getSecurePreferences(context)
     val identitySharedPrefs = EncryptedPreferences.create(context, "SecureSMS-Preferences")
 
     if (sharedPrefs.contains("pref_local_uuid")) {
-      store.beginWrite()
+      Log.i(TAG, "Migrating ACI.")
+
+      store
+        .beginWrite()
         .putString(KEY_ACI, sharedPrefs.getString("pref_local_uuid", null))
         .putString(KEY_E164, sharedPrefs.getString("pref_local_number", null))
         .putString(KEY_SERVICE_PASSWORD, sharedPrefs.getString("pref_gcm_password", null))
@@ -320,14 +323,20 @@ internal class AccountValues internal constructor(store: KeyValueStore) : Signal
         .edit()
         .remove("pref_local_uuid")
         .apply()
+    } else {
+      Log.w(TAG, "No pre-existing ACI! No migration.")
     }
 
     if (identitySharedPrefs.contains("pref_identity_public_v3")) {
       Log.i(TAG, "Migrating modern identity key.")
 
-      store.beginWrite()
-        .putBlob(KEY_ACI_IDENTITY_PUBLIC_KEY, Base64.decode(identitySharedPrefs.getString("pref_identity_public_v3", null)!!))
-        .putBlob(KEY_ACI_IDENTITY_PRIVATE_KEY, Base64.decode(identitySharedPrefs.getString("pref_identity_private_v3", null)!!))
+      val identityPublic = Base64.decode(identitySharedPrefs.getString("pref_identity_public_v3", null)!!)
+      val identityPrivate = Base64.decode(identitySharedPrefs.getString("pref_identity_private_v3", null)!!)
+
+      store
+        .beginWrite()
+        .putBlob(KEY_ACI_IDENTITY_PUBLIC_KEY, identityPublic)
+        .putBlob(KEY_ACI_IDENTITY_PRIVATE_KEY, identityPrivate)
         .putInteger(KEY_ACI_NEXT_SIGNED_PREKEY_ID, sharedPrefs.getInt("pref_next_signed_pre_key_id", SecureRandom().nextInt(Medium.MAX_VALUE)))
         .putInteger(KEY_ACI_ACTIVE_SIGNED_PREKEY_ID, sharedPrefs.getInt("pref_active_signed_pre_key_id", -1))
         .putInteger(KEY_ACI_NEXT_ONE_TIME_PREKEY_ID, sharedPrefs.getInt("pref_next_pre_key_id", SecureRandom().nextInt(Medium.MAX_VALUE)))

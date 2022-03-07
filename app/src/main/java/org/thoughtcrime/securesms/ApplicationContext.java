@@ -404,7 +404,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
       if (!SignalStore.account().hasPniIdentityKey()) {
         Log.i(TAG, "Generating new identity keys...");
         SignalStore.account().generateAciIdentityKey();
-        SignalStore.account().generatePniIdentityKey();
+        SignalStore.account().generatePniIdentityKeyIfNecessary();
       }
 
       Log.i(TAG, "Setting first install version to " + Util.getSignalCanonicalVersionCode());

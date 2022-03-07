@@ -127,7 +127,7 @@ public class ApplicationDependencyProvider implements ApplicationDependencies.Pr
                                             Optional.of(new SecurityEventListener(context)),
                                             provideClientZkOperations().getProfileOperations(),
                                             SignalExecutors.newCachedBoundedExecutor("signal-messages", 1, 16, 30),
-                                            ByteUnit.KILOBYTES.toBytes(512),
+                                            ByteUnit.KILOBYTES.toBytes(256),
                                             FeatureFlags.okHttpAutomaticRetry());
   }
 
@@ -296,7 +296,7 @@ public class ApplicationDependencyProvider implements ApplicationDependencies.Pr
     }
 
     if (!SignalStore.account().hasPniIdentityKey()) {
-      SignalStore.account().generatePniIdentityKey();
+      SignalStore.account().generatePniIdentityKeyIfNecessary();
       CreateSignedPreKeyJob.enqueueIfNeeded();
     }
 

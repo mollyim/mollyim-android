@@ -123,6 +123,13 @@
   <string name="CameraContacts_cant_find_who_youre_looking_for">Neatradāt, ko jūs meklējāt?</string>
   <string name="CameraContacts_invite_a_contact_to_join_signal">Uzaicināt kontaktpersonu pievienoties Molly</string>
   <string name="CameraContacts__menu_search">Meklēt</string>
+  <!--Censorship Circumvention Megaphone-->
+  <!--Title for an alert that shows at the bottom of the chat list letting people know that circumvention is no longer needed-->
+  <!--Body for an alert that shows at the bottom of the chat list letting people know that circumvention is no longer needed-->
+  <!--Action to prompt the user to disable circumvention since it is no longer needed-->
+  <string name="CensorshipCircumventionMegaphone_turn_off">Izslēgt</string>
+  <!--Action to prompt the user to dismiss the alert at the bottom of the chat list-->
+  <string name="CensorshipCircumventionMegaphone_no_thanks">Nē, paldies</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">Noņemt</string>
   <string name="ClearProfileActivity_remove_profile_photo">Vai noņemt profila attēlu?</string>
@@ -1319,7 +1326,7 @@
   <!--Title text for the Valentine\'s Day donation megaphone. The placeholder will always be a heart emoji. Needs to be a placeholder for Android reasons.-->
   <string name="ValentinesDayMegaphone_happy_heart_day">Laimīgu 💜 dienu!</string>
   <!--Body text for the Valentine\'s Day donation megaphone.-->
-  <string name="ValentinesDayMegaphone_show_your_affection">Parādi savu pieķeršanos kļūstot par Signal uzturētāju.</string>
+  <string name="ValentinesDayMegaphone_show_your_affection">Parādi savu pieķeršanos kļūstot par Molly uzturētāju.</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Pieskarieties, lai ieslēgtu video</string>
   <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Lai zvanītu %1$s, Molly ir nepieciešama piekļuve jūsu kamerai</string>
@@ -2260,6 +2267,17 @@ Saņemts nederīgas protokola versijas atslēgas apmaiņas ziņojums.
   <string name="preferences_chats__message_text_size">Ziņu fonta lielums</string>
   <string name="preferences_events__contact_joined_signal">Kontaktpersona pievienojās Signal</string>
   <string name="preferences_notifications__priority">Prioritāte</string>
+  <!--Heading for the \'censorship circumvention\' section of privacy preferences-->
+  <!--Title of the \'censorship circumvention\' toggle switch-->
+  <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">Ja šī funkcija ir iespējota, Signal mēģinās apiet cenzūru. Neieslēdziet šo funkciju, ja atrodaties vietā, kur Signal tiek cenzēta.</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that we automatically enabled it because we believe you\'re in a censored country-->
+  <string name="preferences_communication__censorship_circumvention_has_been_activated_based_on_your_accounts_phone_number">Cenzūras apiešana ir aktivizēta, pamatojoties uz jūsu konta tālruņa numuru.</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that you disabled it even though we believe you\'re in a censored country-->
+  <string name="preferences_communication__censorship_circumvention_you_have_manually_disabled">Jūs manuāli atspējojāt cenzūras apiešanu.</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that you cannot use it because you\'re already connected to the Signal service-->
+  <string name="preferences_communication__censorship_circumvention_is_not_necessary_you_are_already_connected">Cenzūras apiešana nav nepieciešama; jūs jau izveidojāt savienojumu ar Signal pakalpojumu.</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that you cannot use it because you\'re not connected to the internet-->
+  <string name="preferences_communication__censorship_circumvention_can_only_be_activated_when_connected_to_the_internet">Cenzūras apiešanu var aktivizēt tikai tad, kad ir izveidots savienojums ar internetu.</string>
   <string name="preferences_communication__category_sealed_sender">Aizzīmogots sūtītājs</string>
   <string name="preferences_communication__sealed_sender_display_indicators">Parādīt indikatorus</string>
   <string name="preferences_communication__sealed_sender_display_indicators_description">Kad izvēlaties “Ziņas info”  ziņām, kuras tika piegādātas, izmantojot aizzīmogotu sūtītāju, parādīt statusa ikonu.</string>
