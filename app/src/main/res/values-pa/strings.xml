@@ -120,6 +120,13 @@
   <string name="CameraContacts_cant_find_who_youre_looking_for">ਨਹੀਂ ਲੱਭ ਰਿਹਾ ਕਿ ਤੁਸੀਂ ਕਿਸ ਦੀ ਭਾਲ ਕਰ ਰਹੇ ਹੋ?</string>
   <string name="CameraContacts_invite_a_contact_to_join_signal">ਸੰਪਰਕ ਨੂੰ Molly ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਣ ਲਈ ਸੱਦਾ ਦਿਓ</string>
   <string name="CameraContacts__menu_search">ਖੋਜੋ</string>
+  <!--Censorship Circumvention Megaphone-->
+  <!--Title for an alert that shows at the bottom of the chat list letting people know that circumvention is no longer needed-->
+  <!--Body for an alert that shows at the bottom of the chat list letting people know that circumvention is no longer needed-->
+  <!--Action to prompt the user to disable circumvention since it is no longer needed-->
+  <string name="CensorshipCircumventionMegaphone_turn_off">ਬੰਦ ਕਰੋ</string>
+  <!--Action to prompt the user to dismiss the alert at the bottom of the chat list-->
+  <string name="CensorshipCircumventionMegaphone_no_thanks">ਨਹੀਂ ਧੰਨਵਾਦ</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">ਹਟਾਓ </string>
   <string name="ClearProfileActivity_remove_profile_photo">ਪ੍ਰੋਫ਼ਾਈਲ ਫੋਟੋ ਨੂੰ ਹਟਾਉਣਾ ਹੈ?</string>
@@ -1273,6 +1280,7 @@
   <string name="WebRtcCallView__flip">ਪਲਟੋ</string>
   <string name="WebRtcCallView__speaker">ਸਪੀਕਰ</string>
   <string name="WebRtcCallView__camera">ਕੈਮਰਾ </string>
+  <string name="WebRtcCallView__unmute">ਅਣ-ਮਿਊਟ ਕਰੋ</string>
   <string name="WebRtcCallView__mute">ਚੁੱਪ</string>
   <string name="WebRtcCallView__ring">ਰਿੰਗ</string>
   <string name="WebRtcCallView__end_call">ਕਾਲ ਖਤਮ ਕਰੋ</string>
@@ -1572,6 +1580,8 @@
   <string name="NotificationChannel_voice_notes">ਅਵਾਜ਼ ਵਾਲੇ ਸੁਨੇਹੇ</string>
   <string name="NotificationChannel_contact_joined_signal">ਸੰਪਰਕ Signal ਦਾ ਹਿੱਸਾ ਬਣਿਆ</string>
   <string name="NotificationChannels__no_activity_available_to_open_notification_channel_settings">ਸੂਚਨਾ ਚੈਨਲ ਸੈਟਿੰਗਾਂ ਖੋਲ੍ਹਣ ਲਈ ਕੋਈ ਗਤੀਵਿਧੀ ਉਪਲਬਧ ਨਹੀਂ ਹੈ। </string>
+  <!--Notification channel name for showing persistent background connection on devices without push notifications-->
+  <!--Notification channel name for showing call status information (like connection, ongoing, etc.) Not ringing.-->
   <!--ProfileEditNameFragment-->
   <!--QuickResponseService-->
   <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Molly ਲੌਕ ਹੋਣ ਕਰਕੇ ਫ਼ੌਰੀ ਜਵਾਬ ਉਪਲਬਧ ਨਹੀਂ!</string>
@@ -2135,6 +2145,17 @@
   <string name="preferences_chats__message_text_size">ਸੁਨੇਹਾ ਫ਼ੌਂਟ ਦਾ ਆਕਾਰ</string>
   <string name="preferences_events__contact_joined_signal">ਸੰਪਰਕ Signal ਨਾਲ ਜੁੜਿਆ</string>
   <string name="preferences_notifications__priority">ਤਰਜੀਹ</string>
+  <!--Heading for the \'censorship circumvention\' section of privacy preferences-->
+  <!--Title of the \'censorship circumvention\' toggle switch-->
+  <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">ਸਮਰੱਥ ਕੀਤੇ ਹੋਣ \'ਤੇ, Signal ਸੈਂਸਸ਼ਿਪ ਨੂੰ ਝਾਂਸਾ ਦੇਣ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੇਗੀ. ਇਸ ਫੀਚਰ ਨੂੰ ਸਮਰੱਥ ਨਾ ਕਰੋ ਜਦੋਂ ਤੱਕ ਕਿ ਤੁਸੀਂ ਕਿਸੇ ਅਜਿਹੇ ਟਿਕਾਣੇ \'ਤੇ ਨਾ ਹੋਵੋ ਜਿੱਥੇ Signal ਸੈਂਸਰਡ ਹੋਵੇ.</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that we automatically enabled it because we believe you\'re in a censored country-->
+  <string name="preferences_communication__censorship_circumvention_has_been_activated_based_on_your_accounts_phone_number">ਤੁਹਾਡੇ ਮੌਜੂਦਾ ਫੋਨ ਨੰਬਰ ਦੇ ਅਧਾਰ \'ਤੇ ਸੈਂਸਰਸ਼ਿਪ ਤਰਤੀਬ ਨੂੰ ਐਕਟੀਵੇਟ ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ.</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that you disabled it even though we believe you\'re in a censored country-->
+  <string name="preferences_communication__censorship_circumvention_you_have_manually_disabled">ਤੁਸੀਂ ਮੈਨੁਅਲ ਤੌਰ \'ਤੇ ਸੈਂਸਰਸ਼ਿਪ ਤਰਤੀਬ ਨੂੰ ਅਸਮਰੱਥ ਕਰ ਦਿੱਤਾ ਹੈ.</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that you cannot use it because you\'re already connected to the Signal service-->
+  <string name="preferences_communication__censorship_circumvention_is_not_necessary_you_are_already_connected">ਸੈਂਸਰਸ਼ਿਪ ਤਰਤੀਬ ਲਾਜ਼ਮੀ ਨਹੀਂ ਹੈ; ਤੁਸੀਂ ਪਹਿਲਾਂ ਤੋਂ ਹੀ Signal ਦੀ ਸੇਵਾ ਦੇ ਨਾਲ ਕਨੈਕਟ ਹੋ.</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that you cannot use it because you\'re not connected to the internet-->
+  <string name="preferences_communication__censorship_circumvention_can_only_be_activated_when_connected_to_the_internet">ਸੈਂਸਰਸ਼ਿਪ ਤਰਤੀਬ ਨੂੰ ਸਿਰਫ ਇੰਟਰਨੈੱਟ ਦੇ ਨਾਲ ਕਨੈਕਟ ਹੋਣ \'ਤੇ ਹੀ ਐਕਟੀਵੇਟ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ.</string>
   <string name="preferences_communication__category_sealed_sender">ਸੀਲਡ ਪ੍ਰੇਸ਼ਕ</string>
   <string name="preferences_communication__sealed_sender_display_indicators">ਡਿਸਪਲੇ ਸੰਕੇਤ</string>
   <string name="preferences_communication__sealed_sender_display_indicators_description">ਜਦੋਂ ਤੁਸੀਂ ਸੁਨੇਹਿਆਂ ਤੇ \"ਸੰਦੇਸ਼ ਵੇਰਵੇ\" ਚੁਣਦੇ ਹੋ ਜੋ ਸੀਲਡ ਪ੍ਰੇਸ਼ਕ ਦੁਆਰਾ ਦਿੱਤੇ ਗਏ ਸਨ ਤਾਂ ਇੱਕ ਸਟੇਟਸ ਆਈਕਨ ਦਿਖਾਓ.</string>
@@ -3396,7 +3417,9 @@
   <string name="ExpiredBadgeBottomSheetDialogFragment__become_a_sustainer">ਸਹਾਇਕ ਬਣੋ</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__add_a_boost">ਬੂਸਟ ਜੋੜੋ</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__not_now">ਹੁਣੇ ਨਹੀਂ</string>
-  <string name="ExpiredBadgeBottomSheetDialogFragment__your_sustainer">ਤੁਹਾਡੇ ਬਹੁਤ ਜ਼ਿਆਦਾ ਦੇਰ ਨਾ-ਸਰਗਰਮ ਰਹਿਣ ਕਰਕੇ ਤੁਹਾਡੀ ਸਹਿਯੋਗ ਮੈਂਬਰੀ ਨੂੰ ਆਪਣੇ-ਆਪ ਹਟਾ ਦਿੱਤਾ ਗਿਆ ਸੀ। ਤੁਹਾਡਾ %1$s ਬਿੱਲਾ ਤੁਹਾਡੇ ਪ੍ਰੋਫ਼ਾਈਲ ਉੱਤੇ ਦਿਖਾਈ ਨਹੀਂ ਦੇਵੇਗਾ।</string>
+  <!--Copy displayed when badge expires after user inactivity-->
+  <string name="ExpiredBadgeBottomSheetDialogFragment__your_sustainer_subscription_was_automatically">ਤੁਹਾਡੇ ਬਹੁਤ ਜ਼ਿਆਦਾ ਦੇਰ ਨਾ-ਸਰਗਰਮ ਰਹਿਣ ਕਰਕੇ ਤੁਹਾਡੀ ਸਹਿਯੋਗ ਮੈਂਬਰੀ ਨੂੰ ਆਪਣੇ-ਆਪ ਹਟਾ ਦਿੱਤਾ ਗਿਆ ਸੀ। ਤੁਹਾਡਾ %1$s ਬਿੱਲਾ ਤੁਹਾਡੇ ਪ੍ਰੋਫ਼ਾਈਲ ਉੱਤੇ ਦਿਖਾਈ ਨਹੀਂ ਦੇਵੇਗਾ।</string>
+  <!--Copy displayed when badge expires after payment failure-->
   <string name="ExpiredBadgeBottomSheetDialogFragment__you_can">ਤੁਸੀਂ Signal ਵਰਤਣਾ ਜਾਰੀ ਰੱਖ ਸਕਦੇ ਹੋ, ਪਰ ਐਪ ਨੂੰ ਸਹਿਯੋਗ ਦੇਣ ਤੇ ਆਪਣੇ ਬਿੱਲੇ ਨੂੰ ਮੁੜ-ਸਰਗਰਮ ਕਰਨ ਲਈ ਹੁਣੇ ਨਵਿਆਓ।</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__renew_subscription">ਮੈਂਬਰੀ ਨੂੰ ਨਵਿਆਓ</string>
   <string name="Subscription__please_contact_support_for_more_information">ਹੋਰ ਜਾਣਕਾਰੀ ਲਈ ਮਦਦ ਨਾਲ ਸੰਪਰਕ ਕਰੋ।</string>
@@ -3419,6 +3442,21 @@
   <string name="ViewBadgeBottomSheetDialogFragment__your_device_doesn_t_support_google_pay_so_you_can_t_subscribe_to_earn_a_badge_you_can_still_support_signal_by_making_a_donation_on_our_website">ਤੁਹਾਡਾ ਡਿਵਾਈਸ Google Pay ਲਈ ਸਹਾਇਕ ਨਹੀਂ ਹੈ, ਇਸਕਰਕੇ ਤੁਹਾਨੂੰ ਬਿੱਲਾ ਨਹੀਂ ਮਿਲ ਸਕਦਾ ਹੈ। ਫੇਰ ਵੀ ਤੁਸੀਂ ਸਾਡੀ ਵੈੱਬਸਾਈਟ ਉੱਤੇ ਦਾਨ ਕਰਕੇ Signal ਨੂੰ ਸਹਿਯੋਗ ਕਰ ਸਕਦੇ ਹੋ।</string>
   <string name="NetworkFailure__network_error_check_your_connection_and_try_again">ਨੈੱਟਵਰਕ ਗਲਤੀ। ਆਪਣੇ ਕਨੈਕਸ਼ਨ ਦੀ ਜਾਂਚ ਕਰਕੇ ਫੇਰ ਕੋਸ਼ਿਸ਼ ਕਰੋ।</string>
   <string name="NetworkFailure__retry">ਮੁੜ-ਕੋਸ਼ਿਸ਼ ਕਰੋ</string>
+  <!--Stripe decline code generic_failure-->
+  <!--Stripe decline code verify on Google Pay and try again-->
+  <!--Stripe decline code learn more action label-->
+  <string name="DeclineCode__learn_more">ਹੋਰ ਜਾਣੋ</string>
+  <!--Stripe decline code contact issuer-->
+  <!--Stripe decline code purchase not supported-->
+  <!--Stripe decline code your card has expired-->
+  <!--Stripe decline code go to google pay action label-->
+  <!--Stripe decline code incorrect card number-->
+  <!--Stripe decline code incorrect cvc-->
+  <!--Stripe decline code insufficient funds-->
+  <!--Stripe decline code incorrect expiration month-->
+  <!--Stripe decline code incorrect expiration year-->
+  <!--Stripe decline code issuer not available-->
+  <!--Stripe decline code processing error-->
   <!--Title of create notification profile screen-->
   <string name="EditNotificationProfileFragment__name_your_profile">ਆਪਣੇ ਪ੍ਰੋਫ਼ਾਈਲ ਨੂੰ ਨਾਂ ਦਿਓ</string>
   <!--Hint text for create/edit notification profile name-->

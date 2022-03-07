@@ -721,11 +721,11 @@ public class SmsDatabase extends MessageDatabase {
 
       if (!peerEraIdSameAsPrevious && !Util.isEmpty(peekGroupCallEraId)) {
         Recipient self     = Recipient.self();
-        boolean   markRead = peekJoinedUuids.contains(self.requireAci().uuid()) || self.getId().equals(sender);
+        boolean   markRead = peekJoinedUuids.contains(self.requireServiceId().uuid()) || self.getId().equals(sender);
 
         byte[] updateDetails = GroupCallUpdateDetails.newBuilder()
                                                      .setEraId(Util.emptyIfNull(peekGroupCallEraId))
-                                                     .setStartedCallUuid(Recipient.resolved(sender).requireAci().toString())
+                                                     .setStartedCallUuid(Recipient.resolved(sender).requireServiceId().toString())
                                                      .setStartedCallTimestamp(timestamp)
                                                      .addAllInCallUuids(Stream.of(peekJoinedUuids).map(UUID::toString).toList())
                                                      .setIsCallFull(isCallFull)
@@ -802,7 +802,7 @@ public class SmsDatabase extends MessageDatabase {
       if (!sameEraId && !Util.isEmpty(messageGroupCallEraId)) {
         byte[] updateDetails = GroupCallUpdateDetails.newBuilder()
                                                      .setEraId(Util.emptyIfNull(messageGroupCallEraId))
-                                                     .setStartedCallUuid(Recipient.resolved(sender).requireAci().toString())
+                                                     .setStartedCallUuid(Recipient.resolved(sender).requireServiceId().toString())
                                                      .setStartedCallTimestamp(timestamp)
                                                      .addAllInCallUuids(Collections.emptyList())
                                                      .setIsCallFull(false)
@@ -851,7 +851,7 @@ public class SmsDatabase extends MessageDatabase {
       }
 
       GroupCallUpdateDetails groupCallUpdateDetails = GroupCallUpdateDetailsUtil.parse(record.getBody());
-      boolean                containsSelf           = peekJoinedUuids.contains(Recipient.self().requireAci().uuid());
+      boolean                containsSelf           = peekJoinedUuids.contains(Recipient.self().requireServiceId().uuid());
 
       sameEraId = groupCallUpdateDetails.getEraId().equals(peekGroupCallEraId) && !Util.isEmpty(peekGroupCallEraId);
 

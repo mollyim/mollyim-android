@@ -119,6 +119,13 @@
   <string name="CameraContacts_cant_find_who_youre_looking_for">Tidak dapat mencari siapa yang anda sedang cari?</string>
   <string name="CameraContacts_invite_a_contact_to_join_signal">Jemput kenalan untuk sertai Molly</string>
   <string name="CameraContacts__menu_search">Cari</string>
+  <!--Censorship Circumvention Megaphone-->
+  <!--Title for an alert that shows at the bottom of the chat list letting people know that circumvention is no longer needed-->
+  <!--Body for an alert that shows at the bottom of the chat list letting people know that circumvention is no longer needed-->
+  <!--Action to prompt the user to disable circumvention since it is no longer needed-->
+  <string name="CensorshipCircumventionMegaphone_turn_off">Matikan</string>
+  <!--Action to prompt the user to dismiss the alert at the bottom of the chat list-->
+  <string name="CensorshipCircumventionMegaphone_no_thanks">Tidak, terima kasih</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">Alih keluar</string>
   <string name="ClearProfileActivity_remove_profile_photo">Alih keluar foto profil?</string>
@@ -1221,6 +1228,7 @@
   <string name="WebRtcCallView__flip">Selak</string>
   <string name="WebRtcCallView__speaker">Pembesar suara</string>
   <string name="WebRtcCallView__camera">Kamera</string>
+  <string name="WebRtcCallView__unmute">Nyahredam</string>
   <string name="WebRtcCallView__mute">Bisukan</string>
   <string name="WebRtcCallView__ring">Panggil</string>
   <string name="WebRtcCallView__end_call">Tamatkan panggilan</string>
@@ -1511,6 +1519,8 @@ Menerima mesej pertukaran kunci untuk versi protokol yang tidak sah.</string>
   <string name="NotificationChannel_voice_notes">Nota Suara</string>
   <string name="NotificationChannel_contact_joined_signal">Kenalan menyertai Signal</string>
   <string name="NotificationChannels__no_activity_available_to_open_notification_channel_settings">Tidak ada aktiviti yang tersedia untuk membuka tetapan pemberitahuan.</string>
+  <!--Notification channel name for showing persistent background connection on devices without push notifications-->
+  <!--Notification channel name for showing call status information (like connection, ongoing, etc.) Not ringing.-->
   <!--ProfileEditNameFragment-->
   <!--QuickResponseService-->
   <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Respons pantas tidak tersedia apabila Molly dikunci!</string>
@@ -2063,6 +2073,17 @@ Menerima mesej pertukaran kunci untuk versi protokol yang tidak sah.</string>
   <string name="preferences_chats__message_text_size">Saiz huruf mesej</string>
   <string name="preferences_events__contact_joined_signal">Kenalan menyertai Signal</string>
   <string name="preferences_notifications__priority">Keutamaan</string>
+  <!--Heading for the \'censorship circumvention\' section of privacy preferences-->
+  <!--Title of the \'censorship circumvention\' toggle switch-->
+  <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">Jika didayakan, Signal akan cuba memintas penapisan. Jangan mendayakan ciri ini melainkan jika anda berada di lokasi di mana Signal ditapis.</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that we automatically enabled it because we believe you\'re in a censored country-->
+  <string name="preferences_communication__censorship_circumvention_has_been_activated_based_on_your_accounts_phone_number">Pemintasan penapisan telah diaktifkan berdasarkan nombor telefon akaun anda.</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that you disabled it even though we believe you\'re in a censored country-->
+  <string name="preferences_communication__censorship_circumvention_you_have_manually_disabled">Anda telah menyahdayakan pemintasan penapisan secara manual.</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that you cannot use it because you\'re already connected to the Signal service-->
+  <string name="preferences_communication__censorship_circumvention_is_not_necessary_you_are_already_connected">Pemintasan penapisan tidak perlu; anda sudah disambungkan ke perkhidmatan Signal.</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that you cannot use it because you\'re not connected to the internet-->
+  <string name="preferences_communication__censorship_circumvention_can_only_be_activated_when_connected_to_the_internet">Pemintasan penapisan hanya boleh diaktifkan semasa menyambung ke internet.</string>
   <string name="preferences_communication__category_sealed_sender">Penghantar dimeretai</string>
   <string name="preferences_communication__sealed_sender_display_indicators">Penunjuk paparan</string>
   <string name="preferences_communication__sealed_sender_display_indicators_description">Memaparkan ikon status apabila anda memilih \"Butiran mesej\" pada mesej yang dihantar menggunakan penghantar terlindung.</string>
@@ -3294,7 +3315,9 @@ Menerima mesej pertukaran kunci untuk versi protokol yang tidak sah.</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__become_a_sustainer">Menjadi Sustainer</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__add_a_boost">Tambah Boost</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__not_now">Bukan sekarang</string>
-  <string name="ExpiredBadgeBottomSheetDialogFragment__your_sustainer">Langganan Sustainer anda telah dibatalkan secara automatik kerana anda terlalu lama tidak aktif. Lencana %1$s anda tidak lagi dipaparkan di profil anda. </string>
+  <!--Copy displayed when badge expires after user inactivity-->
+  <string name="ExpiredBadgeBottomSheetDialogFragment__your_sustainer_subscription_was_automatically">Langganan Sustainer anda telah dibatalkan secara automatik kerana anda terlalu lama tidak aktif. Lencana %1$s anda tidak lagi dipaparkan di profil anda. </string>
+  <!--Copy displayed when badge expires after payment failure-->
   <string name="ExpiredBadgeBottomSheetDialogFragment__you_can">Anda boleh terus menggunakan Signal tetapi untuk menyokong aplikasi dan mengaktifkan semula lencana anda, sila perbaharui sekarang.</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__renew_subscription">Perbaharui langganan</string>
   <string name="Subscription__please_contact_support_for_more_information">Sila hubungi bantuan untuk maklumat lebih lanjut</string>
@@ -3318,6 +3341,21 @@ Menerima mesej pertukaran kunci untuk versi protokol yang tidak sah.</string>
   <string name="ViewBadgeBottomSheetDialogFragment__your_device_doesn_t_support_google_pay_so_you_can_t_subscribe_to_earn_a_badge_you_can_still_support_signal_by_making_a_donation_on_our_website">Peranti anda tidak menyokong penggunaan Google Pay, oleh itu anda tidak boleh melanggan untuk mendapatkan lencana. Anda masih boleh menyokong Signal dengan memberikan derma di halaman web kami. </string>
   <string name="NetworkFailure__network_error_check_your_connection_and_try_again">Ralat rangkaian. Periksa sambungan anda dan cuba lagi.</string>
   <string name="NetworkFailure__retry">Cuba Semula</string>
+  <!--Stripe decline code generic_failure-->
+  <!--Stripe decline code verify on Google Pay and try again-->
+  <!--Stripe decline code learn more action label-->
+  <string name="DeclineCode__learn_more">Ketahui lebih lanjut</string>
+  <!--Stripe decline code contact issuer-->
+  <!--Stripe decline code purchase not supported-->
+  <!--Stripe decline code your card has expired-->
+  <!--Stripe decline code go to google pay action label-->
+  <!--Stripe decline code incorrect card number-->
+  <!--Stripe decline code incorrect cvc-->
+  <!--Stripe decline code insufficient funds-->
+  <!--Stripe decline code incorrect expiration month-->
+  <!--Stripe decline code incorrect expiration year-->
+  <!--Stripe decline code issuer not available-->
+  <!--Stripe decline code processing error-->
   <!--Title of create notification profile screen-->
   <!--Hint text for create/edit notification profile name-->
   <string name="EditNotificationProfileFragment__profile_name">Nama profil</string>

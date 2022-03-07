@@ -124,6 +124,13 @@
   <string name="CameraContacts_cant_find_who_youre_looking_for">אינך מוצא מה שאתה מחפש?</string>
   <string name="CameraContacts_invite_a_contact_to_join_signal">הזמן איש קשר להצטרף אל Molly</string>
   <string name="CameraContacts__menu_search">חפש</string>
+  <!--Censorship Circumvention Megaphone-->
+  <!--Title for an alert that shows at the bottom of the chat list letting people know that circumvention is no longer needed-->
+  <!--Body for an alert that shows at the bottom of the chat list letting people know that circumvention is no longer needed-->
+  <!--Action to prompt the user to disable circumvention since it is no longer needed-->
+  <string name="CensorshipCircumventionMegaphone_turn_off">כבה</string>
+  <!--Action to prompt the user to dismiss the alert at the bottom of the chat list-->
+  <string name="CensorshipCircumventionMegaphone_no_thanks">לא תודה</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">הסר</string>
   <string name="ClearProfileActivity_remove_profile_photo">להסיר תמונת פרופיל?</string>
@@ -1385,7 +1392,9 @@
   <string name="RedPhone_got_it">הבנתי</string>
   <!--Valentine\'s Day Megaphone-->
   <!--Title text for the Valentine\'s Day donation megaphone. The placeholder will always be a heart emoji. Needs to be a placeholder for Android reasons.-->
+  <string name="ValentinesDayMegaphone_happy_heart_day">יום 💜 שמח!</string>
   <!--Body text for the Valentine\'s Day donation megaphone.-->
+  <string name="ValentinesDayMegaphone_show_your_affection">הראה את החיבה שלך ע״י הפיכה אל מחזיק Molly.</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">הקש כאן כדי להפעיל את צילום הוידאו שלך</string>
   <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">כדי להתקשר אל %1$s, היישום Molly צריך גישה אל המצלמה שלך</string>
@@ -1451,6 +1460,7 @@
   <string name="WebRtcCallView__flip">החלף</string>
   <string name="WebRtcCallView__speaker">רמקול</string>
   <string name="WebRtcCallView__camera">מצלמה</string>
+  <string name="WebRtcCallView__unmute">בטל השתקה</string>
   <string name="WebRtcCallView__mute">השתק</string>
   <string name="WebRtcCallView__ring">צלצל</string>
   <string name="WebRtcCallView__end_call">סיים שיחה</string>
@@ -1759,6 +1769,10 @@
   <string name="NotificationChannel_voice_notes">הערות קוליות</string>
   <string name="NotificationChannel_contact_joined_signal">איש קשר הצטרף אל Signal</string>
   <string name="NotificationChannels__no_activity_available_to_open_notification_channel_settings">אין פעילות זמינה כדי לפתוח הגדרות של ערוץ התראות.</string>
+  <!--Notification channel name for showing persistent background connection on devices without push notifications-->
+  <string name="NotificationChannel_background_connection">חיבור רקע</string>
+  <!--Notification channel name for showing call status information (like connection, ongoing, etc.) Not ringing.-->
+  <string name="NotificationChannel_call_status">מעמד שיחה</string>
   <!--ProfileEditNameFragment-->
   <!--QuickResponseService-->
   <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">תגובה מהירה אינה זמינה כאשר Molly נעול!</string>
@@ -1861,7 +1875,7 @@
   <string name="conversation_activity__sim_n">SIM %1$d</string>
   <string name="conversation_activity__send">שלח</string>
   <string name="conversation_activity__compose_description">חיבור הודעה</string>
-  <string name="conversation_activity__emoji_toggle_description">עורר מקלדת אימוג\'י</string>
+  <string name="conversation_activity__emoji_toggle_description">עורר מקלדת אימוג’י</string>
   <string name="conversation_activity__attachment_thumbnail">תמונה ממוזערת של צרופה</string>
   <string name="conversation_activity__quick_attachment_drawer_toggle_camera_description">עורר מגירת צרופות מהירות של מצלמה</string>
   <string name="conversation_activity__quick_attachment_drawer_record_and_send_audio_description">הקלט ושלח צרופת שמע</string>
@@ -2320,8 +2334,8 @@
   <string name="preferences_storage__none">אין</string>
   <string name="preferences_storage__s_messages">%1$s הודעות</string>
   <string name="preferences_storage__custom">מותאם אישית</string>
-  <string name="preferences_advanced__use_system_emoji">השתמש באימוג\'י של מערכת</string>
-  <string name="preferences_advanced__disable_signal_built_in_emoji_support">השבת תמיכת אימוג\'י מובנית של Signal</string>
+  <string name="preferences_advanced__use_system_emoji">השתמש באימוג’י של מערכת</string>
+  <string name="preferences_advanced__disable_signal_built_in_emoji_support">השבת תמיכת אימוג’י מובנית של Signal</string>
   <string name="preferences_advanced__relay_all_calls_through_the_signal_server_to_avoid_revealing_your_ip_address">שדר את כל השיחות דרך שרת Signal כדי להימנע מחשיפת כתובת ה־IP שלך לאיש הקשר שלך. אפשור יפחית איכות שיחה.</string>
   <string name="preferences_advanced__always_relay_calls">שדר מחדש שיחות תמיד</string>
   <string name="preferences_app_protection__who_can">מי יכול…</string>
@@ -2346,6 +2360,17 @@
   <string name="preferences_chats__message_text_size">גודל גופן הודעה</string>
   <string name="preferences_events__contact_joined_signal">איש קשר הצטרף אל Signal</string>
   <string name="preferences_notifications__priority">עדיפות</string>
+  <!--Heading for the \'censorship circumvention\' section of privacy preferences-->
+  <!--Title of the \'censorship circumvention\' toggle switch-->
+  <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">אם מאופשר, Signal ינסה לעקוף צנזורה. אל תאפשר מאפיין זה אלא אם אתה במיקום שבו Signal מצונזר.</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that we automatically enabled it because we believe you\'re in a censored country-->
+  <string name="preferences_communication__censorship_circumvention_has_been_activated_based_on_your_accounts_phone_number">עקיפת צנזורה הופעלה על סמך מספר הטלפון של החשבון שלך.</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that you disabled it even though we believe you\'re in a censored country-->
+  <string name="preferences_communication__censorship_circumvention_you_have_manually_disabled">הִשְׁבַּתָּ באופן ידני עקיפת צנזורה.</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that you cannot use it because you\'re already connected to the Signal service-->
+  <string name="preferences_communication__censorship_circumvention_is_not_necessary_you_are_already_connected">עקיפת צנזורה אינה הכרחית; אתה מחובר כבר אל שירות Signal.</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that you cannot use it because you\'re not connected to the internet-->
+  <string name="preferences_communication__censorship_circumvention_can_only_be_activated_when_connected_to_the_internet">עקיפת צנזורה יכולה להיפעל בעת התחברות אל האינטרנט.</string>
   <string name="preferences_communication__category_sealed_sender">שולח אטום</string>
   <string name="preferences_communication__sealed_sender_display_indicators">הצג מחוונים</string>
   <string name="preferences_communication__sealed_sender_display_indicators_description">הראה איקון מעמד כאשר אתה בוחר \"פרטי הודעה\" בהודעות שנמסרו ע״י שימוש בשולח אטום.</string>
@@ -3391,7 +3416,7 @@
   <string name="ChatColorGradientTool_bottom_edge_selector">בוחר קצה תחתון</string>
   <!--EditReactionsFragment-->
   <string name="EditReactionsFragment__customize_reactions">התאם אישית תגובות</string>
-  <string name="EditReactionsFragment__tap_to_replace_an_emoji">הקש כדי להחליף אימוג\'י</string>
+  <string name="EditReactionsFragment__tap_to_replace_an_emoji">הקש כדי להחליף אימוג’י</string>
   <string name="EditReactionsFragment__reset">אפס</string>
   <string name="EditReactionsFragment_save">שמור</string>
   <string name="ChatColorSelectionFragment__auto_matches_the_color_to_the_wallpaper">מתאים באופן אוטומטי את הצבע אל הטפט</string>
@@ -3412,15 +3437,15 @@
   <string name="BecomeASustainerMegaphone__no_thanks">לא תודה</string>
   <string name="BecomeASustainerMegaphone__contribute">תרום</string>
   <!--KeyboardPagerFragment-->
-  <string name="KeyboardPagerFragment_emoji">אמוג\'י</string>
-  <string name="KeyboardPagerFragment_open_emoji_search">פתח חיפוש אימוג\'י</string>
+  <string name="KeyboardPagerFragment_emoji">אימוג’י</string>
+  <string name="KeyboardPagerFragment_open_emoji_search">פתח חיפוש אימוג’י</string>
   <string name="KeyboardPagerFragment_open_sticker_search">פתח חיפוש מדבקות</string>
   <string name="KeyboardPagerFragment_open_gif_search">פתח חיפוש GIF</string>
   <string name="KeyboardPagerFragment_stickers">מדבקות</string>
   <string name="KeyboardPagerFragment_backspace">מקש חזרה</string>
   <string name="KeyboardPagerFragment_gifs">קבצי GIF</string>
-  <string name="KeyboardPagerFragment_search_emoji">חפש אימוג\'י</string>
-  <string name="KeyboardPagerfragment_back_to_emoji">חזור אל אימוג\'י</string>
+  <string name="KeyboardPagerFragment_search_emoji">חפש אימוג’י</string>
+  <string name="KeyboardPagerfragment_back_to_emoji">חזור אל אימוג’י</string>
   <string name="KeyboardPagerfragment_clear_search_entry">נקה רשומת חיפוש</string>
   <string name="KeyboardPagerFragment_search_giphy">חפש GIPHY</string>
   <!--StickerSearchDialogFragment-->
@@ -3647,9 +3672,15 @@
   <string name="ExpiredBadgeBottomSheetDialogFragment__become_a_sustainer">הפוך אל מחזיק</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__add_a_boost">הוסף תמריץ</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__not_now">לא עכשיו</string>
-  <string name="ExpiredBadgeBottomSheetDialogFragment__your_sustainer">מינוי התמריץ שלך בוטל באופן אוטומטי מאחר שהיית בלתי פעיל למשך זמן רב. תג ה%1$s שלך אינו גלוי יותר בפרופיל שלך.</string>
+  <!--Copy displayed when badge expires after user inactivity-->
+  <string name="ExpiredBadgeBottomSheetDialogFragment__your_sustainer_subscription_was_automatically">מינוי התמריץ שלך בוטל באופן אוטומטי מאחר שהיית בלתי פעיל למשך זמן רב. תג ה%1$s שלך אינו גלוי יותר בפרופיל שלך.</string>
+  <!--Copy displayed when badge expires after payment failure-->
+  <string name="ExpiredBadgeBottomSheetDialogFragment__your_sustainer_subscription_was_canceled">מינוי המחזיק שלך בוטל מאחר שלא יכולנו לעבד את התשלום שלך. התג שלך אינו גלוי יותר בפרופיל שלך.</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__you_can">אתה יכול להמשיך להשתמש ב־Signal אבל כדי לתמוך ביישום ולהפעיל מחדש את התג שלך, חדש עכשיו.</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__renew_subscription">חדש מינוי</string>
+  <string name="CantProcessSubscriptionPaymentBottomSheetDialogFragment__cant_process_subscription_payment">לא ניתן לעבד תשלום מינוי</string>
+  <string name="CantProcessSubscriptionPaymentBottomSheetDialogFragment__were_having_trouble">אנחנו נתקלים בבעיה באיסוף תשלום מחזיק Signal שלך. וודא ששיטת התשלום שלך מעודכנת. אם היא לא, עדכן אותה ב־Google Pay. יישום Signal ינסה לעבד את התשלום שוב עוד מספר ימים.</string>
+  <string name="CantProcessSubscriptionPaymentBottomSheetDialogFragment__dont_show_this_again">אל תראה את זה שוב</string>
   <string name="Subscription__please_contact_support_for_more_information">אנא צור קשר עם התמיכה לעוד מידע.</string>
   <string name="Subscription__contact_support">צור קשר עם תמיכה</string>
   <string name="Subscription__earn_a_s_badge">הרווח תג %1$s</string>
@@ -3671,6 +3702,34 @@
   <string name="ViewBadgeBottomSheetDialogFragment__your_device_doesn_t_support_google_pay_so_you_can_t_subscribe_to_earn_a_badge_you_can_still_support_signal_by_making_a_donation_on_our_website">המכשיר שלך לא תומך ב־Google Pay, כך שאתה לא יכול להירשם כמנוי כדי להרוויח תג. אתה עדין יכול לתמוך ב־Signal ע״י ביצוע תרומה באתר שלנו.</string>
   <string name="NetworkFailure__network_error_check_your_connection_and_try_again">שגיאת רשת. בדוק את החיבור שלך ונסה שוב.</string>
   <string name="NetworkFailure__retry">נסה שוב</string>
+  <!--Stripe decline code generic_failure-->
+  <string name="DeclineCode__try_another_payment_method_or_contact_your_bank">נסה שיטת תשלום אחרת או צור קשר עם הבנק שלך בשביל עוד מידע.</string>
+  <!--Stripe decline code verify on Google Pay and try again-->
+  <string name="DeclineCode__verify_your_payment_method_is_up_to_date_in_google_pay_and_try_again">וודא ששיטת התשלום שלך מעודכנת ב־Google Pay ונסה שוב.</string>
+  <!--Stripe decline code learn more action label-->
+  <string name="DeclineCode__learn_more">למד עוד</string>
+  <!--Stripe decline code contact issuer-->
+  <string name="DeclineCode__verify_your_payment_method_is_up_to_date_in_google_pay_and_try_again_if_the_problem">וודא ששיטת התשלום שלך מעודכנת ב־Google Pay ונסה שוב. אם הבעיה ממשיכה, צור קשר עם הבנק שלך.</string>
+  <!--Stripe decline code purchase not supported-->
+  <string name="DeclineCode__your_card_does_not_support_this_type_of_purchase">הכרטיס שלך לא תומך בסוג זה של רכישה. נסה שיטת תשלום אחרת.</string>
+  <!--Stripe decline code your card has expired-->
+  <string name="DeclineCode__your_card_has_expired">הכרטיס שלך פג. עדכן את שיטת התשלום שלך ב־Google Pay ונסה שוב.</string>
+  <!--Stripe decline code go to google pay action label-->
+  <string name="DeclineCode__go_to_google_pay">לך אל Google Pay</string>
+  <!--Stripe decline code incorrect card number-->
+  <string name="DeclineCode__your_card_number_is_incorrect">מספר הכרטיס שלך שגוי. עדכן אותו ב־Google Pay ונסה שוב.</string>
+  <!--Stripe decline code incorrect cvc-->
+  <string name="DeclineCode__your_cards_cvc_number_is_incorrect">מספר CVC של הכרטיס שלך שגוי. עדכן אותו ב־Google Pay ונסה שוב.</string>
+  <!--Stripe decline code insufficient funds-->
+  <string name="DeclineCode__your_card_does_not_have_sufficient_funds">לכרטיס שלך אין מספיק כספים להשלים את הרכישה הזאת. נסה שיטת תשלום אחרת.</string>
+  <!--Stripe decline code incorrect expiration month-->
+  <string name="DeclineCode__the_expiration_month">חודש התפוגה בשיטת התשלום שלך שגוי. עדכן אותו ב־Google Pay ונסה שוב.</string>
+  <!--Stripe decline code incorrect expiration year-->
+  <string name="DeclineCode__the_expiration_year">שנת התפוגה בשיטת התשלום שלך שגויה. עדכן אותה ב־Google Pay ונסה שוב.</string>
+  <!--Stripe decline code issuer not available-->
+  <string name="DeclineCode__try_completing_the_payment_again">נסה להשלים את התשלום שוב או צור קשר עם הבנק שלך בשביל עוד מידע.</string>
+  <!--Stripe decline code processing error-->
+  <string name="DeclineCode__try_again">נסה שוב או צור קשר עם הבנק שלך בשביל עוד מידע.</string>
   <!--Title of create notification profile screen-->
   <string name="EditNotificationProfileFragment__name_your_profile">תן שם לפרופיל שלך</string>
   <!--Hint text for create/edit notification profile name-->

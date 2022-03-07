@@ -123,6 +123,13 @@
   <string name="CameraContacts_cant_find_who_youre_looking_for">Neatradāt, ko jūs meklējāt?</string>
   <string name="CameraContacts_invite_a_contact_to_join_signal">Uzaicināt kontaktpersonu pievienoties Molly</string>
   <string name="CameraContacts__menu_search">Meklēt</string>
+  <!--Censorship Circumvention Megaphone-->
+  <!--Title for an alert that shows at the bottom of the chat list letting people know that circumvention is no longer needed-->
+  <!--Body for an alert that shows at the bottom of the chat list letting people know that circumvention is no longer needed-->
+  <!--Action to prompt the user to disable circumvention since it is no longer needed-->
+  <string name="CensorshipCircumventionMegaphone_turn_off">Izslēgt</string>
+  <!--Action to prompt the user to dismiss the alert at the bottom of the chat list-->
+  <string name="CensorshipCircumventionMegaphone_no_thanks">Nē, paldies</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">Noņemt</string>
   <string name="ClearProfileActivity_remove_profile_photo">Vai noņemt profila attēlu?</string>
@@ -1317,7 +1324,9 @@
   <string name="RedPhone_got_it">Skaidrīte</string>
   <!--Valentine\'s Day Megaphone-->
   <!--Title text for the Valentine\'s Day donation megaphone. The placeholder will always be a heart emoji. Needs to be a placeholder for Android reasons.-->
+  <string name="ValentinesDayMegaphone_happy_heart_day">Laimīgu 💜 dienu!</string>
   <!--Body text for the Valentine\'s Day donation megaphone.-->
+  <string name="ValentinesDayMegaphone_show_your_affection">Parādi savu pieķeršanos kļūstot par Molly uzturētāju.</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Pieskarieties, lai ieslēgtu video</string>
   <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Lai zvanītu %1$s, Molly ir nepieciešama piekļuve jūsu kamerai</string>
@@ -1378,6 +1387,7 @@
   <string name="WebRtcCallView__flip">Pārslēgt</string>
   <string name="WebRtcCallView__speaker">Skaļrunis</string>
   <string name="WebRtcCallView__camera">Kamera</string>
+  <string name="WebRtcCallView__unmute">Ieslēgt</string>
   <string name="WebRtcCallView__mute">Izslēgt</string>
   <string name="WebRtcCallView__ring">Zvanīt</string>
   <string name="WebRtcCallView__end_call">Beigt zvanu</string>
@@ -1677,6 +1687,10 @@ Saņemts nederīgas protokola versijas atslēgas apmaiņas ziņojums.
   <string name="NotificationChannel_voice_notes">Balss piezīmes</string>
   <string name="NotificationChannel_contact_joined_signal">Kontakts pievienojās Signal</string>
   <string name="NotificationChannels__no_activity_available_to_open_notification_channel_settings">Paziņojumu kanāla iestatījumu atvēršanai nav pieejama neviena darbība.</string>
+  <!--Notification channel name for showing persistent background connection on devices without push notifications-->
+  <string name="NotificationChannel_background_connection">Fona savienojums</string>
+  <!--Notification channel name for showing call status information (like connection, ongoing, etc.) Not ringing.-->
+  <string name="NotificationChannel_call_status">Zvana statuss</string>
   <!--ProfileEditNameFragment-->
   <!--QuickResponseService-->
   <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Ātrās atbildes nav pieejamas, kad Molly ir bloķēts!</string>
@@ -2253,6 +2267,17 @@ Saņemts nederīgas protokola versijas atslēgas apmaiņas ziņojums.
   <string name="preferences_chats__message_text_size">Ziņu fonta lielums</string>
   <string name="preferences_events__contact_joined_signal">Kontaktpersona pievienojās Signal</string>
   <string name="preferences_notifications__priority">Prioritāte</string>
+  <!--Heading for the \'censorship circumvention\' section of privacy preferences-->
+  <!--Title of the \'censorship circumvention\' toggle switch-->
+  <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">Ja šī funkcija ir iespējota, Signal mēģinās apiet cenzūru. Neieslēdziet šo funkciju, ja atrodaties vietā, kur Signal tiek cenzēta.</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that we automatically enabled it because we believe you\'re in a censored country-->
+  <string name="preferences_communication__censorship_circumvention_has_been_activated_based_on_your_accounts_phone_number">Cenzūras apiešana ir aktivizēta, pamatojoties uz jūsu konta tālruņa numuru.</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that you disabled it even though we believe you\'re in a censored country-->
+  <string name="preferences_communication__censorship_circumvention_you_have_manually_disabled">Jūs manuāli atspējojāt cenzūras apiešanu.</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that you cannot use it because you\'re already connected to the Signal service-->
+  <string name="preferences_communication__censorship_circumvention_is_not_necessary_you_are_already_connected">Cenzūras apiešana nav nepieciešama; jūs jau izveidojāt savienojumu ar Signal pakalpojumu.</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that you cannot use it because you\'re not connected to the internet-->
+  <string name="preferences_communication__censorship_circumvention_can_only_be_activated_when_connected_to_the_internet">Cenzūras apiešanu var aktivizēt tikai tad, kad ir izveidots savienojums ar internetu.</string>
   <string name="preferences_communication__category_sealed_sender">Aizzīmogots sūtītājs</string>
   <string name="preferences_communication__sealed_sender_display_indicators">Parādīt indikatorus</string>
   <string name="preferences_communication__sealed_sender_display_indicators_description">Kad izvēlaties “Ziņas info”  ziņām, kuras tika piegādātas, izmantojot aizzīmogotu sūtītāju, parādīt statusa ikonu.</string>
@@ -3537,9 +3562,15 @@ Saņemts nederīgas protokola versijas atslēgas apmaiņas ziņojums.
   <string name="ExpiredBadgeBottomSheetDialogFragment__become_a_sustainer">Kļūstiet par Uzturētāju</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__add_a_boost">Pievienot Atbalstu</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__not_now">Ne tagad</string>
-  <string name="ExpiredBadgeBottomSheetDialogFragment__your_sustainer">Jūsu Uzturētāja abonements tika automātiski atcelts, jo jūs pārāk ilgi bijāt neaktīvs. Jūsu %1$s nozīmīte vairs nav redzama uz jūsu profila.</string>
+  <!--Copy displayed when badge expires after user inactivity-->
+  <string name="ExpiredBadgeBottomSheetDialogFragment__your_sustainer_subscription_was_automatically">Jūsu Uzturētāja abonements tika automātiski atcelts, jo jūs pārāk ilgi bijāt neaktīvs. Jūsu %1$s nozīmīte vairs nav redzama uz jūsu profila.</string>
+  <!--Copy displayed when badge expires after payment failure-->
+  <string name="ExpiredBadgeBottomSheetDialogFragment__your_sustainer_subscription_was_canceled">Jūsu Uzturētāja abonements tika atcelts, jo mēs nevarējām apstrādāt jūsu maksājumu. Jūsu nozīmīte vairs nav redzama uz jūsu profila.</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__you_can">Jūs varat turpināt izmantot Signal, bet lai atbalstītu aplikāciju un atkārtoti aktivizētu jūsu nozīmīti, atjaunojiet tagad.</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__renew_subscription">Atjaunot abonementu</string>
+  <string name="CantProcessSubscriptionPaymentBottomSheetDialogFragment__cant_process_subscription_payment">Nevar apstrādāt abonementa maksājumu</string>
+  <string name="CantProcessSubscriptionPaymentBottomSheetDialogFragment__were_having_trouble">Mums ir grūtības iekasēt jūsu Signal Uzturētāja maksājumu. Pārliecinieties, ka maksājuma veids ir atjaunināts. Ja ne, atjauniniet to Google Pay. Signal mēģinās dažu dienu laikā to apstrādāt vēlreiz.</string>
+  <string name="CantProcessSubscriptionPaymentBottomSheetDialogFragment__dont_show_this_again">Nerādīt šo atkārtoti</string>
   <string name="Subscription__please_contact_support_for_more_information">Lūdzu, sazinieties ar tehnisko atbalstu, lai saņemtu vairāk informācijas.</string>
   <string name="Subscription__contact_support">Sazināties ar atbalstu</string>
   <string name="Subscription__earn_a_s_badge">Iegūsti %1$s nozīmīti</string>
@@ -3561,6 +3592,34 @@ Saņemts nederīgas protokola versijas atslēgas apmaiņas ziņojums.
   <string name="ViewBadgeBottomSheetDialogFragment__your_device_doesn_t_support_google_pay_so_you_can_t_subscribe_to_earn_a_badge_you_can_still_support_signal_by_making_a_donation_on_our_website">Jūsu ierīce neatbalsta Google Pay, tāpēc jūs nevarat pieteikties abonementam, lai iegūtu nozīmīti. Jūs vēl arvien varat atbalstīt Signal, ziedojot mūsu mājaslapā.</string>
   <string name="NetworkFailure__network_error_check_your_connection_and_try_again">Tīkla kļūda. Pārbaudiet savienojumu un mēģiniet vēlreiz.</string>
   <string name="NetworkFailure__retry">Mēģināt vēlreiz</string>
+  <!--Stripe decline code generic_failure-->
+  <string name="DeclineCode__try_another_payment_method_or_contact_your_bank">Mēģiniet citu maksājuma veidu vai sazinieties ar savu banku, lai iegūtu vairāk informācijas.</string>
+  <!--Stripe decline code verify on Google Pay and try again-->
+  <string name="DeclineCode__verify_your_payment_method_is_up_to_date_in_google_pay_and_try_again">Pārliecinieties, ka jūsu maksājuma veids ir atjaunināts Google Pay un mēģiniet vēlreiz.</string>
+  <!--Stripe decline code learn more action label-->
+  <string name="DeclineCode__learn_more">Lasīt vairāk</string>
+  <!--Stripe decline code contact issuer-->
+  <string name="DeclineCode__verify_your_payment_method_is_up_to_date_in_google_pay_and_try_again_if_the_problem">Pārliecinieties, ka jūsu maksājuma veids ir atjaunināts Google Pay un mēģiniet vēlreiz. Ja problēma turpinās, sazinieties ar savu banku.</string>
+  <!--Stripe decline code purchase not supported-->
+  <string name="DeclineCode__your_card_does_not_support_this_type_of_purchase">Jūsu karte neatbalsta šo pirkuma veidu. Mēģiniet citu maksājuma veidu.</string>
+  <!--Stripe decline code your card has expired-->
+  <string name="DeclineCode__your_card_has_expired">Jūsu kartes derīguma termiņš ir beidzies. Atjauniniet savu maksājuma veidu Google Pay un mēģiniet vēlreiz.</string>
+  <!--Stripe decline code go to google pay action label-->
+  <string name="DeclineCode__go_to_google_pay">Doties uz Google Pay</string>
+  <!--Stripe decline code incorrect card number-->
+  <string name="DeclineCode__your_card_number_is_incorrect">Jūsu kartes numurs ir nepareizs. Atjauniniet to Google Pay un mēģniet vēlreiz.</string>
+  <!--Stripe decline code incorrect cvc-->
+  <string name="DeclineCode__your_cards_cvc_number_is_incorrect">Jūsu kartes CVC kods ir nepareizs. Atjauniniet to Google Pay un mēģniet vēlreiz.</string>
+  <!--Stripe decline code insufficient funds-->
+  <string name="DeclineCode__your_card_does_not_have_sufficient_funds">Jūsu kartē nav pietiekami daudz līdzekļu šim pirkumam. Mēģiniet citu maksājuma veidu.</string>
+  <!--Stripe decline code incorrect expiration month-->
+  <string name="DeclineCode__the_expiration_month">Jūsu maksājuma veida derīguma termiņa mēneša skaitlis ir nepareizs. Atjauniniet to Google Pay un mēģiniet vēlreiz.</string>
+  <!--Stripe decline code incorrect expiration year-->
+  <string name="DeclineCode__the_expiration_year">Jūsu maksājuma veida derīguma termiņa gada skaitlis ir nepareizs. Atjauniniet to Google Pay un mēģiniet vēlreiz.</string>
+  <!--Stripe decline code issuer not available-->
+  <string name="DeclineCode__try_completing_the_payment_again">Mēģiniet pabeigt maksājumu vēlreiz vai sazinieties ar savu banku, lai iegūtu vairāk informācijas.</string>
+  <!--Stripe decline code processing error-->
+  <string name="DeclineCode__try_again">Mēģiniet vēlreiz vai sazinieties ar savu banku, lai iegūtu vairāk informācijas.</string>
   <!--Title of create notification profile screen-->
   <string name="EditNotificationProfileFragment__name_your_profile">Dodiet profilam nosaukumu</string>
   <!--Hint text for create/edit notification profile name-->

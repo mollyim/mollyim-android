@@ -117,6 +117,13 @@
   <string name="CameraContacts_cant_find_who_youre_looking_for">Finner du ikke den du leter etter?</string>
   <string name="CameraContacts_invite_a_contact_to_join_signal">Inviter en kontakt for å bli med i Molly</string>
   <string name="CameraContacts__menu_search">Søk</string>
+  <!--Censorship Circumvention Megaphone-->
+  <!--Title for an alert that shows at the bottom of the chat list letting people know that circumvention is no longer needed-->
+  <!--Body for an alert that shows at the bottom of the chat list letting people know that circumvention is no longer needed-->
+  <!--Action to prompt the user to disable circumvention since it is no longer needed-->
+  <string name="CensorshipCircumventionMegaphone_turn_off">Skru av</string>
+  <!--Action to prompt the user to dismiss the alert at the bottom of the chat list-->
+  <string name="CensorshipCircumventionMegaphone_no_thanks">Nei takk</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">Fjern</string>
   <string name="ClearProfileActivity_remove_profile_photo">Vil du fjerne profilbildet?</string>
@@ -1200,6 +1207,7 @@
   </plurals>
   <string name="WebRtcCallView__speaker">Høyttaler</string>
   <string name="WebRtcCallView__camera">Kamera</string>
+  <string name="WebRtcCallView__unmute">Slå lyd på</string>
   <string name="WebRtcCallView__mute">Demping</string>
   <string name="WebRtcCallView__end_call">Avslutt samtale</string>
   <!--CallParticipantsListDialog-->
@@ -1488,6 +1496,8 @@ Mottok nøkkelutvekslingsmelding for ugyldig protokollversion.</string>
   <string name="NotificationChannel_voice_notes">Talenotater</string>
   <string name="NotificationChannel_contact_joined_signal">Når kontakt installerer Signal</string>
   <string name="NotificationChannels__no_activity_available_to_open_notification_channel_settings">No activity available to open notification channel settings.</string>
+  <!--Notification channel name for showing persistent background connection on devices without push notifications-->
+  <!--Notification channel name for showing call status information (like connection, ongoing, etc.) Not ringing.-->
   <!--ProfileEditNameFragment-->
   <!--QuickResponseService-->
   <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Hurtigsvar er utilgjengelig når Molly er låst.</string>
@@ -2027,6 +2037,17 @@ Mottok nøkkelutvekslingsmelding for ugyldig protokollversion.</string>
   <string name="preferences_chats__message_text_size">Skriftstørrelse i meldinger</string>
   <string name="preferences_events__contact_joined_signal">Når kontakt installerer Signal</string>
   <string name="preferences_notifications__priority">Prioritet</string>
+  <!--Heading for the \'censorship circumvention\' section of privacy preferences-->
+  <!--Title of the \'censorship circumvention\' toggle switch-->
+  <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">Når slått på, vil Signal forsøke å unngå sensurforsøk. Ikke skru på denne funksjonen om du ikke er i et område hvor Signal blir forsøkt sensurert.</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that we automatically enabled it because we believe you\'re in a censored country-->
+  <string name="preferences_communication__censorship_circumvention_has_been_activated_based_on_your_accounts_phone_number">Sensur-omgåelse har blitt aktivert basert på telefonnummeret som kontoen er registrert med.</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that you disabled it even though we believe you\'re in a censored country-->
+  <string name="preferences_communication__censorship_circumvention_you_have_manually_disabled">Du har manuelt deaktivert censur kringgående.</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that you cannot use it because you\'re already connected to the Signal service-->
+  <string name="preferences_communication__censorship_circumvention_is_not_necessary_you_are_already_connected">Omgåelse av sensur er ikke nødvendig; du er allerede koblet til Signal tjenesten.</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that you cannot use it because you\'re not connected to the internet-->
+  <string name="preferences_communication__censorship_circumvention_can_only_be_activated_when_connected_to_the_internet">Sensur-omgåelse kan bare bli skrudd på når telefonen er koblet til internett.</string>
   <string name="preferences_communication__category_sealed_sender">Forseglet Avsender</string>
   <string name="preferences_communication__sealed_sender_display_indicators">Visningsindikatorer</string>
   <string name="preferences_communication__sealed_sender_display_indicators_description">Vis et statusikon når du velger \"Meldingsdetaljer\" på meldinger som ble levert ved bruk av forseglet avsender.</string>
@@ -3018,11 +3039,28 @@ Mottok nøkkelutvekslingsmelding for ugyldig protokollversion.</string>
   <string name="Boost__enter_custom_amount">Angi tilpasset beløp</string>
   <!--Displayed on "My Support" screen when user badge failed to be added to their account-->
   <string name="ExpiredBadgeBottomSheetDialogFragment__not_now">Ikke nå</string>
+  <!--Copy displayed when badge expires after user inactivity-->
+  <!--Copy displayed when badge expires after payment failure-->
   <string name="Subscription__contact_support">Kontakt brukerstøtte</string>
   <string name="SubscribeFragment__processing_payment">Behandler betaling …</string>
   <!--Displayed in notification when user payment fails to process on Stripe-->
   <!--Displayed on "My Support" screen when user subscription payment method failed.-->
   <string name="NetworkFailure__retry">Prøv på nytt</string>
+  <!--Stripe decline code generic_failure-->
+  <!--Stripe decline code verify on Google Pay and try again-->
+  <!--Stripe decline code learn more action label-->
+  <string name="DeclineCode__learn_more">Lær mer</string>
+  <!--Stripe decline code contact issuer-->
+  <!--Stripe decline code purchase not supported-->
+  <!--Stripe decline code your card has expired-->
+  <!--Stripe decline code go to google pay action label-->
+  <!--Stripe decline code incorrect card number-->
+  <!--Stripe decline code incorrect cvc-->
+  <!--Stripe decline code insufficient funds-->
+  <!--Stripe decline code incorrect expiration month-->
+  <!--Stripe decline code incorrect expiration year-->
+  <!--Stripe decline code issuer not available-->
+  <!--Stripe decline code processing error-->
   <!--Title of create notification profile screen-->
   <!--Hint text for create/edit notification profile name-->
   <string name="EditNotificationProfileFragment__profile_name">Profil navn</string>

@@ -119,6 +119,13 @@
   <string name="CameraContacts_cant_find_who_youre_looking_for">未找到联系人？</string>
   <string name="CameraContacts_invite_a_contact_to_join_signal">邀请联系人加入 Molly</string>
   <string name="CameraContacts__menu_search">搜索</string>
+  <!--Censorship Circumvention Megaphone-->
+  <!--Title for an alert that shows at the bottom of the chat list letting people know that circumvention is no longer needed-->
+  <!--Body for an alert that shows at the bottom of the chat list letting people know that circumvention is no longer needed-->
+  <!--Action to prompt the user to disable circumvention since it is no longer needed-->
+  <string name="CensorshipCircumventionMegaphone_turn_off">关闭</string>
+  <!--Action to prompt the user to dismiss the alert at the bottom of the chat list-->
+  <string name="CensorshipCircumventionMegaphone_no_thanks">不，谢谢。</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">删除</string>
   <string name="ClearProfileActivity_remove_profile_photo">删除头像</string>
@@ -1140,6 +1147,7 @@
   </plurals>
   <string name="WebRtcCallView__speaker">扬声器</string>
   <string name="WebRtcCallView__camera">相机</string>
+  <string name="WebRtcCallView__unmute">取消静音</string>
   <string name="WebRtcCallView__mute">静音</string>
   <string name="WebRtcCallView__end_call">结束呼叫</string>
   <!--CallParticipantsListDialog-->
@@ -1431,6 +1439,8 @@
   <string name="NotificationChannel_voice_notes">语音笔记</string>
   <string name="NotificationChannel_contact_joined_signal">联系人加入 Signal</string>
   <string name="NotificationChannels__no_activity_available_to_open_notification_channel_settings">无可用活动以打开通知渠道设置。</string>
+  <!--Notification channel name for showing persistent background connection on devices without push notifications-->
+  <!--Notification channel name for showing call status information (like connection, ongoing, etc.) Not ringing.-->
   <!--ProfileEditNameFragment-->
   <!--QuickResponseService-->
   <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Molly 锁定时不可使用快速回复。</string>
@@ -1960,6 +1970,17 @@
   <string name="preferences_chats__message_text_size">消息字体大小</string>
   <string name="preferences_events__contact_joined_signal">联系人加入 Signal</string>
   <string name="preferences_notifications__priority">优先级</string>
+  <!--Heading for the \'censorship circumvention\' section of privacy preferences-->
+  <!--Title of the \'censorship circumvention\' toggle switch-->
+  <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">若启用，Signal 会尝试规避审查。除非 Signal 在您所在地受到审查，否则不要打开该功能。</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that we automatically enabled it because we believe you\'re in a censored country-->
+  <string name="preferences_communication__censorship_circumvention_has_been_activated_based_on_your_accounts_phone_number">已根据您的电话号码启动审查规避。</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that you disabled it even though we believe you\'re in a censored country-->
+  <string name="preferences_communication__censorship_circumvention_you_have_manually_disabled">您已手动禁用了审查规避功能</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that you cannot use it because you\'re already connected to the Signal service-->
+  <string name="preferences_communication__censorship_circumvention_is_not_necessary_you_are_already_connected">不需要规避审查；您已连接上了 Signal 服务。</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that you cannot use it because you\'re not connected to the internet-->
+  <string name="preferences_communication__censorship_circumvention_can_only_be_activated_when_connected_to_the_internet">审查规避只能在联网时启动。</string>
   <string name="preferences_communication__category_sealed_sender">密封发送人</string>
   <string name="preferences_communication__sealed_sender_display_indicators">显示状态</string>
   <string name="preferences_communication__sealed_sender_display_indicators_description">对于使用密封发送人送达的消息，在“消息详情”内显示状态图标。</string>
@@ -3045,11 +3066,28 @@
   <string name="Boost__enter_custom_amount">输入自定义金额</string>
   <!--Displayed on "My Support" screen when user badge failed to be added to their account-->
   <string name="ExpiredBadgeBottomSheetDialogFragment__not_now">稍后再说</string>
+  <!--Copy displayed when badge expires after user inactivity-->
+  <!--Copy displayed when badge expires after payment failure-->
   <string name="Subscription__contact_support">联系支持</string>
   <string name="SubscribeFragment__processing_payment">正在处理付款…</string>
   <!--Displayed in notification when user payment fails to process on Stripe-->
   <!--Displayed on "My Support" screen when user subscription payment method failed.-->
   <string name="NetworkFailure__retry">重试</string>
+  <!--Stripe decline code generic_failure-->
+  <!--Stripe decline code verify on Google Pay and try again-->
+  <!--Stripe decline code learn more action label-->
+  <string name="DeclineCode__learn_more">了解更多</string>
+  <!--Stripe decline code contact issuer-->
+  <!--Stripe decline code purchase not supported-->
+  <!--Stripe decline code your card has expired-->
+  <!--Stripe decline code go to google pay action label-->
+  <!--Stripe decline code incorrect card number-->
+  <!--Stripe decline code incorrect cvc-->
+  <!--Stripe decline code insufficient funds-->
+  <!--Stripe decline code incorrect expiration month-->
+  <!--Stripe decline code incorrect expiration year-->
+  <!--Stripe decline code issuer not available-->
+  <!--Stripe decline code processing error-->
   <!--Title of create notification profile screen-->
   <!--Hint text for create/edit notification profile name-->
   <string name="EditNotificationProfileFragment__profile_name">个人资料名称</string>

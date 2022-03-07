@@ -19,6 +19,8 @@ internal class DonationsValues internal constructor(store: KeyValueStore) : Sign
     private const val USER_MANUALLY_CANCELLED = "donation.user.manually.cancelled"
     private const val DISPLAY_BADGES_ON_PROFILE = "donation.display.badges.on.profile"
     private const val SHOULD_CANCEL_SUBSCRIPTION_BEFORE_NEXT_SUBSCRIBE_ATTEMPT = "donation.should.cancel.subscription.before.next.subscribe.attempt"
+    private const val SUBSCRIPTION_CANCELATION_REASON = "donation.subscription.cancelation.reason"
+    private const val SHOW_CANT_PROCESS_DIALOG = "show.cant.process.dialog"
   }
 
   override fun onFirstEverAppLaunch() = Unit
@@ -27,7 +29,9 @@ internal class DonationsValues internal constructor(store: KeyValueStore) : Sign
     KEY_CURRENCY_CODE_BOOST,
     KEY_LAST_KEEP_ALIVE_LAUNCH,
     KEY_LAST_END_OF_PERIOD_SECONDS,
-    SHOULD_CANCEL_SUBSCRIPTION_BEFORE_NEXT_SUBSCRIBE_ATTEMPT
+    SHOULD_CANCEL_SUBSCRIPTION_BEFORE_NEXT_SUBSCRIBE_ATTEMPT,
+    SUBSCRIPTION_CANCELATION_REASON,
+    SHOW_CANT_PROCESS_DIALOG
   )
 
   private fun getSubscriptionCurrency(): Currency {
@@ -85,4 +89,6 @@ internal class DonationsValues internal constructor(store: KeyValueStore) : Sign
   fun clearUserManuallyCancelledSync() {
     remove(USER_MANUALLY_CANCELLED)
   }
+
+  var unexpectedSubscriptionCancelationReasonSync: String? by stringValue(SUBSCRIPTION_CANCELATION_REASON, null)
 }

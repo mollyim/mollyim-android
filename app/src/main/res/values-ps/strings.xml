@@ -120,6 +120,13 @@
   <string name="CameraContacts_cant_find_who_youre_looking_for">د هغه کس په لټه کې چې یاست هغه مو پیدا نه کړ؟</string>
   <string name="CameraContacts_invite_a_contact_to_join_signal">د مخاطبینو له لیست څخه یو کس په Molly کې د یو ځای کېدو لپاره راوبولئ</string>
   <string name="CameraContacts__menu_search">پلټنه</string>
+  <!--Censorship Circumvention Megaphone-->
+  <!--Title for an alert that shows at the bottom of the chat list letting people know that circumvention is no longer needed-->
+  <!--Body for an alert that shows at the bottom of the chat list letting people know that circumvention is no longer needed-->
+  <!--Action to prompt the user to disable circumvention since it is no longer needed-->
+  <string name="CensorshipCircumventionMegaphone_turn_off">خاموشه یې کړئ</string>
+  <!--Action to prompt the user to dismiss the alert at the bottom of the chat list-->
+  <string name="CensorshipCircumventionMegaphone_no_thanks">نه مننه</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">ایسته کول</string>
   <string name="ClearProfileActivity_remove_profile_photo">غواړئ د پروفایل انځور لري کړئ؟</string>
@@ -1240,6 +1247,7 @@
   <string name="WebRtcCallView__flip">ګرځول</string>
   <string name="WebRtcCallView__speaker">سپیکر</string>
   <string name="WebRtcCallView__camera">کیمره</string>
+  <string name="WebRtcCallView__unmute">بیرته خلاصول</string>
   <string name="WebRtcCallView__mute">صامت</string>
   <string name="WebRtcCallView__ring">زنګ</string>
   <string name="WebRtcCallView__end_call"> د زنګ پای ته رسول</string>
@@ -1537,6 +1545,8 @@
   <string name="NotificationChannel_voice_notes">غږیز یاددښتونه</string>
   <string name="NotificationChannel_contact_joined_signal">مخاطب Signal سره یو ځای شو</string>
   <string name="NotificationChannels__no_activity_available_to_open_notification_channel_settings">د چاینل د تنظیماتو د خبرتیاوو د پرانیستلو لپاره هېڅ راز فعالیت نشته.</string>
+  <!--Notification channel name for showing persistent background connection on devices without push notifications-->
+  <!--Notification channel name for showing call status information (like connection, ongoing, etc.) Not ringing.-->
   <!--ProfileEditNameFragment-->
   <!--QuickResponseService-->
   <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">کله چې Molly قفل شوی وي نو چټک ځواب موجود نه وي!</string>
@@ -2088,6 +2098,17 @@
   <string name="preferences_chats__message_text_size">د پیغام د فونټ اندازه</string>
   <string name="preferences_events__contact_joined_signal">مخاطب Signal سره یو ځای شو</string>
   <string name="preferences_notifications__priority">لومړیتوب</string>
+  <!--Heading for the \'censorship circumvention\' section of privacy preferences-->
+  <!--Title of the \'censorship circumvention\' toggle switch-->
+  <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">که چیرته فعال شي، نو Signal به هڅه وکړي چې سانسور ودروي. دا ځانګړنه مه فعاله کوئ، مګر دا چې تاسې په داسې یوه موقعیت کې یاست چیرته چې Signal سانسور وي.</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that we automatically enabled it because we believe you\'re in a censored country-->
+  <string name="preferences_communication__censorship_circumvention_has_been_activated_based_on_your_accounts_phone_number">د سانسور بندول ستاسې د اکاونټ د ټلیفون شمېرې له مخې فعال شوی دی.</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that you disabled it even though we believe you\'re in a censored country-->
+  <string name="preferences_communication__censorship_circumvention_you_have_manually_disabled">تاسې په لاسي ډول د سانسور بندول غیرفعال کړی دی.</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that you cannot use it because you\'re already connected to the Signal service-->
+  <string name="preferences_communication__censorship_circumvention_is_not_necessary_you_are_already_connected">د سانسور د بندولو کار ته اړتیا نشته؛ تاسې له پخوا څخه د Signal خدماتو سره وصل شوي یاست.</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that you cannot use it because you\'re not connected to the internet-->
+  <string name="preferences_communication__censorship_circumvention_can_only_be_activated_when_connected_to_the_internet">د سانسور بندول یوازې هغه وخت فعاله کېدای شي کله چې له انټرنېټ سره وصل شي.</string>
   <string name="preferences_communication__category_sealed_sender">ناپیژانده لیږونکی</string>
   <string name="preferences_communication__sealed_sender_display_indicators">د شاخصونو ښودل</string>
   <string name="preferences_communication__sealed_sender_display_indicators_description">کله چې تاسې پر هغو پیغامونو باندې د \"پیغام جزئیات\" ټاکئ کوم چې مو د ناپیژانده لیږونکي په توګه لیږلي، نو د وضعیت ایکن یې وښیئ.</string>
@@ -3306,11 +3327,28 @@
   <!--Displayed on "My Support" screen when user badge failed to be added to their account-->
   <string name="ExpiredBadgeBottomSheetDialogFragment__your_badge_has_expired">ستاسې بج منقضي شوی دی</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__not_now">اوس نه</string>
+  <!--Copy displayed when badge expires after user inactivity-->
+  <!--Copy displayed when badge expires after payment failure-->
   <string name="Subscription__contact_support">مرستې سره اړیکه ونیسئ</string>
   <string name="SubscribeFragment__processing_payment">پرداخت د پروسیس په حال کې دی…</string>
   <!--Displayed in notification when user payment fails to process on Stripe-->
   <!--Displayed on "My Support" screen when user subscription payment method failed.-->
   <string name="NetworkFailure__retry">بیا هڅه وکړئ</string>
+  <!--Stripe decline code generic_failure-->
+  <!--Stripe decline code verify on Google Pay and try again-->
+  <!--Stripe decline code learn more action label-->
+  <string name="DeclineCode__learn_more">لا زیات زده کړئ </string>
+  <!--Stripe decline code contact issuer-->
+  <!--Stripe decline code purchase not supported-->
+  <!--Stripe decline code your card has expired-->
+  <!--Stripe decline code go to google pay action label-->
+  <!--Stripe decline code incorrect card number-->
+  <!--Stripe decline code incorrect cvc-->
+  <!--Stripe decline code insufficient funds-->
+  <!--Stripe decline code incorrect expiration month-->
+  <!--Stripe decline code incorrect expiration year-->
+  <!--Stripe decline code issuer not available-->
+  <!--Stripe decline code processing error-->
   <!--Title of create notification profile screen-->
   <!--Hint text for create/edit notification profile name-->
   <string name="EditNotificationProfileFragment__profile_name">د پروفایل نوم</string>

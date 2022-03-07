@@ -14,7 +14,7 @@
   <!--ApplicationPreferencesActivity-->
   <string name="ApplicationPreferencesActivity_currently_s">Núna: %s</string>
   <string name="ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet">Þú hefur ekki valið lykilorð!</string>
-  <string name="ApplicationPreferencesActivity_disable_passphrase">Gera lykilsetningu (passphrase) óvirka?</string>
+  <string name="ApplicationPreferencesActivity_disable_passphrase">Gera lykilorð óvirkt?</string>
   <string name="ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications">Þessi aðgerð mun varanlega aflæsa Molly og tilkynningar frá Molly.</string>
   <string name="ApplicationPreferencesActivity_disable">Gera óvirkt</string>
   <string name="ApplicationPreferencesActivity_unregistering">Verið er að afskrá þig</string>
@@ -122,6 +122,15 @@
   <string name="CameraContacts_cant_find_who_youre_looking_for">Finnurðu ekki það sem þú leitar að?</string>
   <string name="CameraContacts_invite_a_contact_to_join_signal">Bjóddu tengilið að koma á Molly</string>
   <string name="CameraContacts__menu_search">Leita</string>
+  <!--Censorship Circumvention Megaphone-->
+  <!--Title for an alert that shows at the bottom of the chat list letting people know that circumvention is no longer needed-->
+  <string name="CensorshipCircumventionMegaphone_turn_off_censorship_circumvention">Slökkva á leiðum framhjá ritskoðun?</string>
+  <!--Body for an alert that shows at the bottom of the chat list letting people know that circumvention is no longer needed-->
+  <string name="CensorshipCircumventionMegaphone_you_can_now_connect_to_the_signal_service">Núna er hægt að tengjast Signal-þjónustum beint.</string>
+  <!--Action to prompt the user to disable circumvention since it is no longer needed-->
+  <string name="CensorshipCircumventionMegaphone_turn_off">Slökkva</string>
+  <!--Action to prompt the user to dismiss the alert at the bottom of the chat list-->
+  <string name="CensorshipCircumventionMegaphone_no_thanks">Nei, takk</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">Fjarlægja</string>
   <string name="ClearProfileActivity_remove_profile_photo">Fjarlægja auðkennismynd?</string>
@@ -403,12 +412,12 @@
   <string name="RestoreBackupFragment__not_now">Ekki núna</string>
   <!--BackupsPreferenceFragment-->
   <string name="BackupsPreferenceFragment__chat_backups">Öryggisafrit af spjalli</string>
-  <string name="BackupsPreferenceFragment__backups_are_encrypted_with_a_passphrase">Öryggisafrit eru dulrituð með aðgangskóða og geymd á tækinu þínu.</string>
+  <string name="BackupsPreferenceFragment__backups_are_encrypted_with_a_passphrase">Öryggisafrit eru dulrituð með lykilorði og geymd á tækinu þínu.</string>
   <string name="BackupsPreferenceFragment__create_backup">Útbúa öryggisafrit</string>
   <string name="BackupsPreferenceFragment__last_backup">Síðasta öryggisafrit: %1$s</string>
   <string name="BackupsPreferenceFragment__backup_folder">Mappa fyrir öryggisafrit</string>
   <string name="BackupsPreferenceFragment__verify_backup_passphrase">Sannreyna lykilorð öryggisafritsins</string>
-  <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Prófaðu aðgangskóða öryggisafritsins til að staðfesta að hann sé réttur</string>
+  <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Prófaðu lykilorð öryggisafritsins til að staðfesta að það sé rétt</string>
   <string name="BackupsPreferenceFragment__turn_on">Kveikja</string>
   <string name="BackupsPreferenceFragment__turn_off">Slökkva</string>
   <string name="BackupsPreferenceFragment__to_restore_a_backup">Til að endurheimta öryggisafrit, skaltu setja upp nýtt tilvik af Molly. Opnaðu forritið og ýttu á \"Endurheimta öryggisafrit\", síðan skaltu finna skrá með öryggisafriti. %1$s</string>
@@ -1177,7 +1186,7 @@
     <item quantity="other">Þessi útgáfa Signal rennur út eftir %d daga. Uppfærðu í nýjustu útgáfuna.</item>
   </plurals>
   <!--PassphrasePromptActivity-->
-  <string name="PassphrasePromptActivity_enter_passphrase">Settu inn lykilsetningu (passphrase)</string>
+  <string name="PassphrasePromptActivity_enter_passphrase">Settu inn lykilorð</string>
   <string name="PassphrasePromptActivity_watermark_content_description">Molly-táknmynd</string>
   <string name="PassphrasePromptActivity_ok_button_content_description">Senda inn lykilorð</string>
   <string name="PassphrasePromptActivity_invalid_passphrase_exclamation">Ógilt lykilorð!</string>
@@ -1249,7 +1258,9 @@
   <string name="RedPhone_got_it">Náði því</string>
   <!--Valentine\'s Day Megaphone-->
   <!--Title text for the Valentine\'s Day donation megaphone. The placeholder will always be a heart emoji. Needs to be a placeholder for Android reasons.-->
+  <string name="ValentinesDayMegaphone_happy_heart_day">Gleðilegan 💜 daginn!</string>
   <!--Body text for the Valentine\'s Day donation megaphone.-->
+  <string name="ValentinesDayMegaphone_show_your_affection">Sýndu áhuga þinn með því að gerast stuðningsaðili Molly.</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Ýta hér til að virkja myndmerkið þitt</string>
   <string name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">Svo hægt sé að hringja í %1$s, þarf Molly að fá aðgang að myndavélinni þinni.</string>
@@ -1305,6 +1316,7 @@
   <string name="WebRtcCallView__flip">Fletta</string>
   <string name="WebRtcCallView__speaker">Hátalari</string>
   <string name="WebRtcCallView__camera">Myndavél</string>
+  <string name="WebRtcCallView__unmute">Ekki þagga</string>
   <string name="WebRtcCallView__mute">Hljóð af</string>
   <string name="WebRtcCallView__ring">Hringja</string>
   <string name="WebRtcCallView__end_call">Ljúka símtali</string>
@@ -1606,6 +1618,10 @@
   <string name="NotificationChannel_voice_notes">Tal-minnispunktar</string>
   <string name="NotificationChannel_contact_joined_signal">Tengiliður skráði sig á Signal</string>
   <string name="NotificationChannels__no_activity_available_to_open_notification_channel_settings">Engin virkni tiltæk til að opna stillingar á tilkynningarásum.</string>
+  <!--Notification channel name for showing persistent background connection on devices without push notifications-->
+  <string name="NotificationChannel_background_connection">Bakgrunnstenging</string>
+  <!--Notification channel name for showing call status information (like connection, ongoing, etc.) Not ringing.-->
+  <string name="NotificationChannel_call_status">Staða samtals</string>
   <!--ProfileEditNameFragment-->
   <!--QuickResponseService-->
   <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Flýtisvar ekki tiltækt á meðan Molly er læst!</string>
@@ -2171,6 +2187,19 @@
   <string name="preferences_chats__message_text_size">Leturstærð skilaboða</string>
   <string name="preferences_events__contact_joined_signal">Tengiliður skráði sig á Signal</string>
   <string name="preferences_notifications__priority">Forgangur</string>
+  <!--Heading for the \'censorship circumvention\' section of privacy preferences-->
+  <string name="preferences_communication__category_censorship_circumvention">Leiðir framhjá ritskoðun</string>
+  <!--Title of the \'censorship circumvention\' toggle switch-->
+  <string name="preferences_communication__censorship_circumvention">Leiðir framhjá ritskoðun</string>
+  <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">Ef þetta er virkt, mun Signal reyna að fara framhjá ritskoðun. Ekki virkja þetta nema þú sért á slóðum þar sem ritskoðun Signal fer fram.</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that we automatically enabled it because we believe you\'re in a censored country-->
+  <string name="preferences_communication__censorship_circumvention_has_been_activated_based_on_your_accounts_phone_number">Leið framhjá ritskoðun var virkjuð út frá símanúmerinu sem tengt er notandaaðgangnum þínum.</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that you disabled it even though we believe you\'re in a censored country-->
+  <string name="preferences_communication__censorship_circumvention_you_have_manually_disabled">Þú hefur handvirkt gert leiðir framhjá ritskoðun óvirkar.</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that you cannot use it because you\'re already connected to the Signal service-->
+  <string name="preferences_communication__censorship_circumvention_is_not_necessary_you_are_already_connected">Það þarf engar leiðir framhjá ritskoðun; þú ert þegar með tengingu við Signal-þjónustu.</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that you cannot use it because you\'re not connected to the internet-->
+  <string name="preferences_communication__censorship_circumvention_can_only_be_activated_when_connected_to_the_internet">Hjáleiðir vegna ritskoðunar er aðeins hægt að virkja þegar tengt er við internetið.</string>
   <string name="preferences_communication__category_sealed_sender">Innsiglaður sendandi</string>
   <string name="preferences_communication__sealed_sender_display_indicators">Skjámerki</string>
   <string name="preferences_communication__sealed_sender_display_indicators_description">Birta stöðutákn þegar þú velur \"Nánar um skilaboð\" á skilaboðum sem borist hafa frá innsigluðum notanda (sealed sender).</string>
@@ -2566,10 +2595,10 @@ PIN-númerið þitt. Ef þú manst ekki PIN-númerið, geturðu endursannvottað
   <string name="PushDecryptJob_new_locked_message">Ný læst skilaboð</string>
   <string name="PushDecryptJob_unlock_to_view_pending_messages">Aflæsa til að skoða skilaboð í bið</string>
   <string name="enter_backup_passphrase_dialog__backup_passphrase">Lykilorð öryggisafritunar</string>
-  <string name="backup_enable_dialog__backups_will_be_saved_to_external_storage_and_encrypted_with_the_passphrase_below_you_must_have_this_passphrase_in_order_to_restore_a_backup">Öryggisafrit verða vistuð yfir á ytri gagnageymslu og dulrituð með aðgangskóðanum hér fyrir neðan. Þú verður að hafa þennan aðgangskóða til að endurheimta öryggisafrit.</string>
-  <string name="backup_enable_dialog__you_must_have_this_passphrase">Þú verður að hafa þennan aðgangskóða til að endurheimta öryggisafrit.</string>
+  <string name="backup_enable_dialog__backups_will_be_saved_to_external_storage_and_encrypted_with_the_passphrase_below_you_must_have_this_passphrase_in_order_to_restore_a_backup">Öryggisafrit verða vistuð yfir á ytri gagnageymslu og dulrituð með lykilorðinu hér fyrir neðan. Þú verður að hafa þetta lykilorð til að endurheimta öryggisafrit.</string>
+  <string name="backup_enable_dialog__you_must_have_this_passphrase">Þú verður að hafa þetta lykilorð til að endurheimta öryggisafrit.</string>
   <string name="backup_enable_dialog__folder">Mappa</string>
-  <string name="backup_enable_dialog__i_have_written_down_this_passphrase">Ég hef skrifað niður þennan aðgangskóða. Án hans mun ég ekki getað endurheimt öryggisafrit.</string>
+  <string name="backup_enable_dialog__i_have_written_down_this_passphrase">Ég hef skrifað niður þetta lykilorð. Án þess mun ég ekki geta endurheimt öryggisafrit.</string>
   <string name="registration_activity__restore_backup">Endurheimta úr öryggisafriti</string>
   <string name="registration_activity__transfer_or_restore_account">Yfirfæra eða endurheimta aðgang</string>
   <string name="registration_activity__transfer_account">Flytja aðgang</string>
@@ -2598,9 +2627,9 @@ PIN-númerið þitt. Ef þú manst ekki PIN-númerið, geturðu endursannvottað
   <string name="BackupDialog_choose_folder">Veldu möppu</string>
   <string name="BackupDialog_copied_to_clipboard">Afritað á klippispjald</string>
   <string name="BackupDialog_no_file_picker_available">Ekkert skráaval tiltækt.</string>
-  <string name="BackupDialog_enter_backup_passphrase_to_verify">Settu inn aðgangskóða öryggisafritsins til að staðfesta</string>
+  <string name="BackupDialog_enter_backup_passphrase_to_verify">Settu inn lykilorð öryggisafritsins til að staðfesta</string>
   <string name="BackupDialog_verify">Sannreyna</string>
-  <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">Þér tókst að setja inn aðgangskóða öryggisafritsins</string>
+  <string name="BackupDialog_you_successfully_entered_your_backup_passphrase">Þér tókst að setja inn lykilorð öryggisafritsins</string>
   <string name="BackupDialog_passphrase_was_not_correct">Lykilorðið var ekki rétt</string>
   <string name="LocalBackupJob_creating_signal_backup">Útbý öryggisafrit af Molly…</string>
   <string name="LocalBackupJobApi29_backup_failed">Öryggisafritun mistókst</string>
@@ -3372,13 +3401,13 @@ PIN-númerið þitt. Ef þú manst ekki PIN-númerið, geturðu endursannvottað
   <string name="CameraFragment__failed_to_open_camera">Mistókst að opna myndavél</string>
   <string name="BadgesOverviewFragment__my_badges">Merkin mín</string>
   <string name="BadgesOverviewFragment__featured_badge">Áberandi merki</string>
-  <string name="BadgesOverviewFragment__display_badges_on_profile">Birta merki á persónusniði</string>
-  <string name="BadgesOverviewFragment__failed_to_update_profile">Mistókst að uppfæra persónusnið</string>
+  <string name="BadgesOverviewFragment__display_badges_on_profile">Birta merki á notandasniði</string>
+  <string name="BadgesOverviewFragment__failed_to_update_profile">Mistókst að uppfæra notandasnið</string>
   <string name="BadgeSelectionFragment__select_badges">Veldu merki</string>
   <string name="SelectFeaturedBadgeFragment__preview">Forskoða</string>
   <string name="SelectFeaturedBadgeFragment__select_a_badge">Veldu merki</string>
   <string name="SelectFeaturedBadgeFragment__you_must_select_a_badge">Þú þarft að velja merki</string>
-  <string name="SelectFeaturedBadgeFragment__failed_to_update_profile">Mistókst að uppfæra persónusnið</string>
+  <string name="SelectFeaturedBadgeFragment__failed_to_update_profile">Mistókst að uppfæra notandasnið</string>
   <string name="ViewBadgeBottomSheetDialogFragment__become_a_sustainer">Gerstu stuðningsaðili</string>
   <string name="ImageView__badge">Merki</string>
   <string name="SubscribeFragment__signal_is_powered_by_people_like_you">Signal er drifið áfram af fólki eins og þér.</string>
@@ -3388,7 +3417,7 @@ PIN-númerið þitt. Ef þú manst ekki PIN-númerið, geturðu endursannvottað
   <string name="SubscribeFragment__more_payment_options">Fleiri greiðslumátar</string>
   <string name="SubscribeFragment__cancel_subscription">Segja upp áskrift</string>
   <string name="SubscribeFragment__confirm_cancellation">Staðfesta uppsögn?</string>
-  <string name="SubscribeFragment__you_wont_be_charged_again">Þú færð ekki rukkun oftar. Merkið verður fjarlægt úr persónusniðinu þínu eftir að greiðslutímabilinu lýkur.</string>
+  <string name="SubscribeFragment__you_wont_be_charged_again">Þú færð ekki rukkun oftar. Merkið verður fjarlægt úr notandasniðinu þínu eftir að greiðslutímabilinu lýkur.</string>
   <string name="SubscribeFragment__not_now">Ekki núna</string>
   <string name="SubscribeFragment__confirm">Staðfesta</string>
   <string name="SubscribeFragment__update_subscription">Uppfæra áskrift</string>
@@ -3410,7 +3439,7 @@ PIN-númerið þitt. Ef þú manst ekki PIN-númerið, geturðu endursannvottað
   <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__youve_earned_a_boost_badge_help_signal">Þú vannst þér inn hvatningarmerki! Hjálpaðu Signal að byggja upp samstöðu með því að birta þetta merki á auðkennismyndinni þinni.</string>
   <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__you_can_also">Þú getur líka</string>
   <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__become_a_montly_sustainer">orðið stuðningsaðili Signal mánaðarlega</string>
-  <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__display_on_profile">Birta á persónusniði</string>
+  <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__display_on_profile">Birta á notandasniði</string>
   <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__make_featured_badge">Gera merki áberandi</string>
   <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__done">Lokið</string>
   <string name="ThanksForYourSupportBottomSheetFragment__when_you_have_more">Þegar þú átt fleiri en eitt merki, geturðu valið eitt þeirra sem aðrir sjá á auðkennismyndinni þinni.</string>
@@ -3441,9 +3470,15 @@ PIN-númerið þitt. Ef þú manst ekki PIN-númerið, geturðu endursannvottað
   <string name="ExpiredBadgeBottomSheetDialogFragment__become_a_sustainer">Gerstu stuðningsaðili</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__add_a_boost">Bæta við hvatningu</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__not_now">Ekki núna</string>
-  <string name="ExpiredBadgeBottomSheetDialogFragment__your_sustainer">Stuðningsaðilaáskriftin þín var sjálfvirkt felld niður því þú hefur verið óvirk/ur of lengi. %1$s merkið þitt er ekki lengur sýnilegt á auðkennismyndinni þinni.</string>
+  <!--Copy displayed when badge expires after user inactivity-->
+  <string name="ExpiredBadgeBottomSheetDialogFragment__your_sustainer_subscription_was_automatically">Stuðningsaðilaáskriftin þín var sjálfvirkt felld niður því þú hefur verið óvirk/ur of lengi. %1$s merkið þitt er ekki lengur sýnilegt á auðkennismyndinni þinni.</string>
+  <!--Copy displayed when badge expires after payment failure-->
+  <string name="ExpiredBadgeBottomSheetDialogFragment__your_sustainer_subscription_was_canceled">Stuðningsaðilaáskriftin þín var felld niður því við gátum ekki unnið úr greiðslunni þinni. Skjaldmerkið þitt er ekki lengur sýnilegt á auðkennismyndinni þinni.</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__you_can">Þú getur haldið áfram að nota Signal, en til að styðja við hugbúnaðinn og endurvirkja merkið þitt ættirðu að endurnýja núna.</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__renew_subscription">Endurnýja áskrift</string>
+  <string name="CantProcessSubscriptionPaymentBottomSheetDialogFragment__cant_process_subscription_payment">Get ekki meðhöndlað greiðslu vegna áskriftar</string>
+  <string name="CantProcessSubscriptionPaymentBottomSheetDialogFragment__were_having_trouble">Við eigum í vandræðum með að gjaldfæra greiðsluna þína fyrir Signal Sustainer stuðningsaðild. Gakktu úr skugga um að greiðslumátinn þinn sé uppfærður. Ef ekki, skaltu uppfæra hann í Google Pay. Signal mun reyna aftur innan örfárra daga að gjaldfæra greiðsluna þína.</string>
+  <string name="CantProcessSubscriptionPaymentBottomSheetDialogFragment__dont_show_this_again">Ekki sýna þetta aftur</string>
   <string name="Subscription__please_contact_support_for_more_information">Hafðu samband við aðstoðarteymið til að fá nánari upplýsingar.</string>
   <string name="Subscription__contact_support">Hafa samband við hjálparteymi</string>
   <string name="Subscription__earn_a_s_badge">Fáðu %1$s merki</string>
@@ -3465,10 +3500,38 @@ PIN-númerið þitt. Ef þú manst ekki PIN-númerið, geturðu endursannvottað
   <string name="ViewBadgeBottomSheetDialogFragment__your_device_doesn_t_support_google_pay_so_you_can_t_subscribe_to_earn_a_badge_you_can_still_support_signal_by_making_a_donation_on_our_website">Tækið þitt styður ekki Google Pay, þannig að þú getur ekki orðið áskrifandi og unnið þér inn merki. Þú getur samt stutt Signal með styrk í gegnum vefsvæðið okkar.</string>
   <string name="NetworkFailure__network_error_check_your_connection_and_try_again">Villa í netkerfi. Athugaðu nettenginguna þína og prófaðu svo aftur.</string>
   <string name="NetworkFailure__retry">Reyna aftur</string>
+  <!--Stripe decline code generic_failure-->
+  <string name="DeclineCode__try_another_payment_method_or_contact_your_bank">Reyndu annan greiðslumáta eða hafðu samband við bankann þinn til að fá frekari upplýsingar.</string>
+  <!--Stripe decline code verify on Google Pay and try again-->
+  <string name="DeclineCode__verify_your_payment_method_is_up_to_date_in_google_pay_and_try_again">Yfirfarðu hvort greiðslumátinn þinn sé uppfærður í Google Pay og reyndu svo aftur.</string>
+  <!--Stripe decline code learn more action label-->
+  <string name="DeclineCode__learn_more">Kanna nánar</string>
+  <!--Stripe decline code contact issuer-->
+  <string name="DeclineCode__verify_your_payment_method_is_up_to_date_in_google_pay_and_try_again_if_the_problem">Yfirfarðu hvort greiðslumátinn þinn sé uppfærður í Google Pay og reyndu svo aftur. Ef vandamálið er viðvarandi, ættirðu að hafa samband við bankann þinn.</string>
+  <!--Stripe decline code purchase not supported-->
+  <string name="DeclineCode__your_card_does_not_support_this_type_of_purchase">Greiðslukortið þitt styður ekki þessa tegund innkaupa. Prófaðu annan greiðslumáta.</string>
+  <!--Stripe decline code your card has expired-->
+  <string name="DeclineCode__your_card_has_expired">Kortið þitt er útrunnið. Uppfærðu greiðslumátann þinn í Google Pay og reyndu svo aftur.</string>
+  <!--Stripe decline code go to google pay action label-->
+  <string name="DeclineCode__go_to_google_pay">Fara í Google Pay</string>
+  <!--Stripe decline code incorrect card number-->
+  <string name="DeclineCode__your_card_number_is_incorrect">Kortanúmerið þitt er rangt. Uppfærðu það í Google Pay og reyndu svo aftur.</string>
+  <!--Stripe decline code incorrect cvc-->
+  <string name="DeclineCode__your_cards_cvc_number_is_incorrect">CVC-númer kortsins þíns er rangt. Uppfærðu það í Google Pay og reyndu svo aftur.</string>
+  <!--Stripe decline code insufficient funds-->
+  <string name="DeclineCode__your_card_does_not_have_sufficient_funds">Greiðslukortið þitt er ekki með nægilega inneign til að ljúka þessum innkaupum. Prófaðu annan greiðslumáta.</string>
+  <!--Stripe decline code incorrect expiration month-->
+  <string name="DeclineCode__the_expiration_month">Mánuður gildistíma kortsins í greiðslumátanum þínum er rangt. Uppfærðu þetta í Google Pay og reyndu svo aftur.</string>
+  <!--Stripe decline code incorrect expiration year-->
+  <string name="DeclineCode__the_expiration_year">Ártal gildistíma kortsins í greiðslumátanum þínum er rangt. Uppfærðu þetta í Google Pay og reyndu svo aftur.</string>
+  <!--Stripe decline code issuer not available-->
+  <string name="DeclineCode__try_completing_the_payment_again">Reyndu aftur að ljúka greiðsluferlinu eða hafðu samband við bankann þinn til að fá frekari upplýsingar.</string>
+  <!--Stripe decline code processing error-->
+  <string name="DeclineCode__try_again">Reyndu aftur eða hafðu samband við bankann þinn til að fá frekari upplýsingar.</string>
   <!--Title of create notification profile screen-->
   <string name="EditNotificationProfileFragment__name_your_profile">Gefðu tilkynningasniðinu nafn</string>
   <!--Hint text for create/edit notification profile name-->
-  <string name="EditNotificationProfileFragment__profile_name">Heiti notandasniðs</string>
+  <string name="EditNotificationProfileFragment__profile_name">Heiti tilkynningasniðs</string>
   <!--Name has a max length, this shows how many characters are used out of the max-->
   <string name="EditNotificationProfileFragment__count">%1$d/%2$d</string>
   <!--Call to action button to continue to the next step-->

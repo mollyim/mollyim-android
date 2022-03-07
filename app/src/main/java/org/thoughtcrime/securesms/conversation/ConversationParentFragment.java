@@ -207,7 +207,7 @@ import org.thoughtcrime.securesms.mediaoverview.MediaOverviewActivity;
 import org.thoughtcrime.securesms.mediasend.Media;
 import org.thoughtcrime.securesms.mediasend.MediaSendActivityResult;
 import org.thoughtcrime.securesms.mediasend.v2.MediaSelectionActivity;
-import org.thoughtcrime.securesms.messagedetails.MessageDetailsActivity;
+import org.thoughtcrime.securesms.messagedetails.MessageDetailsFragment;
 import org.thoughtcrime.securesms.messagerequests.MessageRequestState;
 import org.thoughtcrime.securesms.messagerequests.MessageRequestViewModel;
 import org.thoughtcrime.securesms.messagerequests.MessageRequestsBottomView;
@@ -910,15 +910,10 @@ public class ConversationParentFragment extends Fragment
     boolean isActiveV2Group           = groupActiveState != null && groupActiveState.isActiveV2Group();
     boolean isInActiveGroup           = groupActiveState != null && !groupActiveState.isActiveGroup();
 
-    if (isInMessageRequest()) {
+    if (isInMessageRequest() && recipient != null && !recipient.get().isBlocked()) {
       if (isActiveGroup) {
         inflater.inflate(R.menu.conversation_message_requests_group, menu);
       }
-
-      inflater.inflate(R.menu.conversation_message_requests, menu);
-
-      if (recipient != null && recipient.get().isMuted()) inflater.inflate(R.menu.conversation_muted, menu);
-      else                                                inflater.inflate(R.menu.conversation_unmuted, menu);
 
       super.onCreateOptionsMenu(menu, inflater);
     }
@@ -1882,6 +1877,12 @@ public class ConversationParentFragment extends Fragment
   private ListenableFuture<Boolean> initializeIdentityRecords() {
     final SettableFuture<Boolean> future  = new SettableFuture<>();
     final Context                 context = requireContext().getApplicationContext();
+
+    if (SignalStore.account().getAci() == null || SignalStore.account().getPni() == null) {
+      Log.w(TAG, "Not registered! Skipping initializeIdentityRecords()");
+      future.set(false);
+      return future;
+    }
 
     new AsyncTask<Recipient, Void, Pair<IdentityRecordList, String>>() {
       @Override
@@ -2901,7 +2902,7 @@ public class ConversationParentFragment extends Fragment
                                                   final boolean clearComposeBox,
                                                   final @Nullable String metricId)
   {
-    final boolean sendPush = (isSecureText && !forceSms) || recipient.get().isAciOnly();
+    final boolean sendPush = (isSecureText && !forceSms) || recipient.get().isServiceIdOnly();
     final long    thread   = this.threadId;
 
     if (sendPush) {
@@ -2959,7 +2960,7 @@ public class ConversationParentFragment extends Fragment
     final long    thread      = this.threadId;
     final Context context     = requireContext().getApplicationContext();
     final String  messageBody = getMessage();
-    final boolean sendPush    = (isSecureText && !forceSms) || recipient.get().isAciOnly();
+    final boolean sendPush    = (isSecureText && !forceSms) || recipient.get().isServiceIdOnly();
 
     OutgoingTextMessage message;
 
@@ -3419,7 +3420,7 @@ public class ConversationParentFragment extends Fragment
     public boolean onKey(View v, int keyCode, KeyEvent event) {
       if (event.getAction() == KeyEvent.ACTION_DOWN) {
         if (keyCode == KeyEvent.KEYCODE_ENTER) {
-          if (SignalStore.settings().isEnterKeySends()) {
+          if (SignalStore.settings().isEnterKeySends() || event.isCtrlPressed()) {
             sendButton.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER));
             sendButton.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_ENTER));
             return true;
@@ -3605,7 +3606,7 @@ public class ConversationParentFragment extends Fragment
   @Override
   public void onMessageWithErrorClicked(@NonNull MessageRecord messageRecord) {
     if (messageRecord.isIdentityMismatchFailure()) {
-      SafetyNumberChangeDialog.show(requireActivity(), messageRecord);
+      SafetyNumberChangeDialog.show(requireContext(), getChildFragmentManager(), messageRecord);
     } else if (messageRecord.hasFailedWithNetworkFailures()) {
       new AlertDialog.Builder(requireContext())
                      .setMessage(R.string.conversation_activity__message_could_not_be_sent)
@@ -3613,7 +3614,7 @@ public class ConversationParentFragment extends Fragment
                      .setPositiveButton(R.string.conversation_activity__send, (dialog, which) -> MessageSender.resend(requireContext(), messageRecord))
                      .show();
     } else {
-      startActivity(MessageDetailsActivity.getIntentForMessageDetails(requireContext(), messageRecord, messageRecord.getRecipient().getId(), messageRecord.getThreadId()));
+      MessageDetailsFragment.create(messageRecord, recipient.getId()).show(getChildFragmentManager(), null);
     }
   }
 

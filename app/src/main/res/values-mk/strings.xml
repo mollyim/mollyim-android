@@ -89,9 +89,11 @@
   <string name="BlockUnblockDialog_group_members_wont_be_able_to_add_you">Членовите на групата нема да можат повторно да Ве додадат во оваа група.</string>
   <string name="BlockUnblockDialog_group_members_will_be_able_to_add_you">Членовите на групата ќе можат повторно да Ве додадат во оваа група.</string>
   <string name="BlockUnblockDialog_you_will_be_able_to_call_and_message_each_other">Ќе можете да испраќате пораки и да се јавувате и Вашето име и слика ќе бидат споделени со нив.</string>
-  <string name="BlockUnblockDialog_blocked_people_wont_be_able_to_call_you_or_send_you_messages">Блокирани луѓе нема да можат да Ви се јават или да Ви испраќаат пораки.</string>
+  <string name="BlockUnblockDialog_blocked_people_wont_be_able_to_call_you_or_send_you_messages">Блокираните луѓе нема да можат да Ви се јават и да Ви испраќаат пораки.</string>
   <!--Message shown on block dialog when blocking the Signal release notes recipient-->
+  <string name="BlockUnblockDialog_block_getting_signal_updates_and_news">Блокирај вести од Signal.</string>
   <!--Message shown on unblock dialog when unblocking the Signal release notes recipient-->
+  <string name="BlockUnblockDialog_resume_getting_signal_updates_and_news">Продолжи со примање вести од Signal</string>
   <string name="BlockUnblockDialog_unblock_s">Одблокирај го/ја %1$s?</string>
   <string name="BlockUnblockDialog_block">Блокирај</string>
   <string name="BlockUnblockDialog_block_and_leave">Блокирај и напушти</string>
@@ -120,6 +122,13 @@
   <string name="CameraContacts_cant_find_who_youre_looking_for">Не можете да го најдете контактот што го барате?</string>
   <string name="CameraContacts_invite_a_contact_to_join_signal">Поканете контакт да се приклучи на Molly</string>
   <string name="CameraContacts__menu_search">Барај</string>
+  <!--Censorship Circumvention Megaphone-->
+  <!--Title for an alert that shows at the bottom of the chat list letting people know that circumvention is no longer needed-->
+  <!--Body for an alert that shows at the bottom of the chat list letting people know that circumvention is no longer needed-->
+  <!--Action to prompt the user to disable circumvention since it is no longer needed-->
+  <string name="CensorshipCircumventionMegaphone_turn_off">Исклучи</string>
+  <!--Action to prompt the user to dismiss the alert at the bottom of the chat list-->
+  <string name="CensorshipCircumventionMegaphone_no_thanks">Не, благодарам</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">Отстрани</string>
   <string name="ClearProfileActivity_remove_profile_photo">Да отстранам профилна слика?</string>
@@ -142,7 +151,7 @@
   <string name="CommunicationActions_carrier_charges_may_apply">Можно е да важат трошоци од операторот. Бројот кој што го повикувате не е регистриран на Signal. Овој повик ќе биде направен преку мобилниот оператор, не преку интернет.</string>
   <!--ConfirmIdentityDialog-->
   <string name="ConfirmIdentityDialog_your_safety_number_with_s_has_changed">Вашиот сигурносен број со %1$s е променет. Ова може да значи дека некој се обидува да ја пресретне Вашата комуникација, или пак дека %2$s го има реинсталирано Signal.</string>
-  <string name="ConfirmIdentityDialog_you_may_wish_to_verify_your_safety_number_with_this_contact">Можеби сакате да го потврдите Вашиот безбедносен број со овој контакт.</string>
+  <string name="ConfirmIdentityDialog_you_may_wish_to_verify_your_safety_number_with_this_contact">Можеби сакате да го проверите Вашиот сигурносен број со овој контакт.</string>
   <string name="ConfirmIdentityDialog_accept">Прифати</string>
   <!--ContactsCursorLoader-->
   <string name="ContactsCursorLoader_recent_chats">Скорешни разговори</string>
@@ -180,10 +189,10 @@
   <string name="ConversationItem_copied_text">Ископирано %s</string>
   <string name="ConversationItem_from_s">од %s</string>
   <string name="ConversationItem_to_s">до %s</string>
-  <string name="ConversationItem_read_more"> Прочитај повеќе</string>
+  <string name="ConversationItem_read_more">  Прочитај повеќе</string>
   <string name="ConversationItem_download_more">  Преземи повеќе</string>
-  <string name="ConversationItem_pending">  Во тек</string>
-  <string name="ConversationItem_this_message_was_deleted">Оваа порака беше избришана.</string>
+  <string name="ConversationItem_pending">  На чекање</string>
+  <string name="ConversationItem_this_message_was_deleted">Оваа порака е избришана.</string>
   <string name="ConversationItem_you_deleted_this_message">Ја избришавте оваа порака.</string>
   <!--ConversationActivity-->
   <string name="ConversationActivity_add_attachment">Додај прилог</string>
@@ -288,7 +297,7 @@
   <string name="ConversationFragment_you_can_swipe_to_the_right_reply">Можете да повлечете на десно на било која порака за брз одговор</string>
   <string name="ConversationFragment_you_can_swipe_to_the_left_reply">Можете да повлечете на лево на било која порака за брз одговор</string>
   <string name="ConversationFragment_outgoing_view_once_media_files_are_automatically_removed">Испратени еднократно видливи медија датотеки автоматски се отстрануваат откога ќе се испратат</string>
-  <string name="ConversationFragment_you_already_viewed_this_message">Веќе ја видовте оваа порака</string>
+  <string name="ConversationFragment_you_already_viewed_this_message">Веќе сте ја виделе оваа порака</string>
   <string name="ConversationFragment__you_can_add_notes_for_yourself_in_this_conversation">Можете да додадате белешки во овој разговор.\nАко Вашата сметка има поврзани уреди, новите белешки ќе бидат синхронизирани.</string>
   <string name="ConversationFragment__d_group_members_have_the_same_name">%1$d членови на групата го имаат истото име.</string>
   <string name="ConversationFragment__tap_to_review">Допрете за преглед</string>
@@ -458,8 +467,8 @@
   <string name="ExpiredBuildReminder_update_now">Ажурирај веднаш</string>
   <!--PendingGroupJoinRequestsReminder-->
   <plurals name="PendingGroupJoinRequestsReminder_d_pending_member_requests">
-    <item quantity="one">%d барање за член во листата на чекање.</item>
-    <item quantity="other">%d барања за членови во листата на чекање.</item>
+    <item quantity="one">%d барање за членство во листата на чекање.</item>
+    <item quantity="other">%d барања за членство во листата на чекање.</item>
   </plurals>
   <string name="PendingGroupJoinRequestsReminder_view">Преглед</string>
   <!--ShareActivity-->
@@ -499,20 +508,20 @@
     <item quantity="one">Поканата е испратена</item>
     <item quantity="other">%d покани се испратени</item>
   </plurals>
-  <string name="GroupManagement_invite_single_user">„%1$s“ не може да бидат автоматски додадени во оваа група од Вас.\n\nТие се поканети да се приклучат и нема да гледаат групни пораки додека не прифатат.</string>
-  <string name="GroupManagement_invite_multiple_users">Овие корисници не можат да бидат автоматски додадени во групата од Вас.\n\nТие се поканети да се приклучат и нема да гледаат групни пораки додека не прифатат.</string>
+  <string name="GroupManagement_invite_single_user">„%1$s“ не може автоматски да се додаде во оваа група од Вас.\n\nПоканет/а е да се приклучи и нема да гледа групни пораки додека не прифати.</string>
+  <string name="GroupManagement_invite_multiple_users">Овие корисници не можат да бидат автоматски додадени во оваа група од Вас.\n\nТие се поканети да се приклучат и нема да гледаат групни пораки додека не прифатат.</string>
   <!--GroupsV1MigrationLearnMoreBottomSheetDialogFragment-->
   <string name="GroupsV1MigrationLearnMore_what_are_new_groups">Што се тоа нови групи?</string>
   <string name="GroupsV1MigrationLearnMore_new_groups_have_features_like_mentions">Нови групи доаѓаат со опции како @спомнувања и администратори на групи. Исто така ќе поддржуваат повеќе опции во иднина.</string>
   <string name="GroupsV1MigrationLearnMore_all_message_history_and_media_has_been_kept">Цела историја на пораки и медија беа зачувани од пред надградбата.</string>
-  <string name="GroupsV1MigrationLearnMore_you_will_need_to_accept_an_invite_to_join_this_group_again">Ќе треба да прифатите покана за да и се приклучите на оваа група повторно. Нема да добивате пораки од групата додека не прифатите.</string>
+  <string name="GroupsV1MigrationLearnMore_you_will_need_to_accept_an_invite_to_join_this_group_again">Ќе треба да прифатите покана за повторно да се приклучите на оваа група и нема да примате групни пораки додека не прифатите.</string>
   <plurals name="GroupsV1MigrationLearnMore_these_members_will_need_to_accept_an_invite">
-    <item quantity="one">Овoj член ќе треба да ја прифати поканата за да се приклучи на групата повторно и нема да гледа групни пораки додека не прифати:</item>
-    <item quantity="other">Овие членови ќе треба да ја прифатат поканата за да се приклучат на групата повторно и нема да гледаат групни пораки додека не прифатат:</item>
+    <item quantity="one">Овoj член ќе треба да ја прифати поканата за повторно да се приклучи на оваа група и нема да прима групни пораки додека не прифати:</item>
+    <item quantity="other">Овие членови ќе треба да ја прифатат поканата за повторно да се приклучат на оваа група и нема да примаат групни пораки додека не прифатат:</item>
   </plurals>
   <plurals name="GroupsV1MigrationLearnMore_these_members_were_removed_from_the_group">
-    <item quantity="one">Овој член беше отстранет од групата и нема да можат да се приклучи повторно додека не надгради:</item>
-    <item quantity="other">Овие членови беа отстранети од групата и нема да можат да се приклучат повторно додека не надградат:</item>
+    <item quantity="one">Овој член беше отстранет од групата и нема да може да се приклучи повторно додека не ја надгради апликацијата:</item>
+    <item quantity="other">Овие членови беа отстранети од групата и нема да можат да се приклучат повторно додека не ја надградат апликацијата:</item>
   </plurals>
   <!--GroupsV1MigrationInitiationBottomSheetDialogFragment-->
   <string name="GroupsV1MigrationInitiation_upgrade_to_new_group">Наградба кон нови групи</string>
@@ -522,8 +531,8 @@
   <string name="GroupsV1MigrationInitiation_encountered_a_network_error">Се случи мрежна грешка. Обидете се повторно подоцна.</string>
   <string name="GroupsV1MigrationInitiation_failed_to_upgrade">Неуспешна надградба.</string>
   <plurals name="GroupsV1MigrationInitiation_these_members_will_need_to_accept_an_invite">
-    <item quantity="one">Овој член ќе треба да ја прифати поканата за да се приклучи на групата повторно и нема да добива групни пораки додека не прифати:</item>
-    <item quantity="other">Овие членови ќе треба да ја прифатат поканата за да се приклучат на групата повторно и нема да добиваат групни пораки додека не прифатат:</item>
+    <item quantity="one">Овој член ќе треба да ја прифати поканата за повторно да се приклучи на оваа група и нема да прима групни пораки додека не прифати:</item>
+    <item quantity="other">Овие членови ќе треба да ја прифатат поканата за повторно да се приклучат на оваа група и нема да примаат групни пораки додека не прифатат:</item>
   </plurals>
   <plurals name="GroupsV1MigrationInitiation_these_members_are_not_capable_of_joining_new_groups">
     <item quantity="one">Овој член не е во можност да се приклучи на нови групи и ќе биде отстранет од групата:</item>
@@ -557,15 +566,15 @@
     <item quantity="other">Не успеа да се додадат членови. Обидете се повторно подоцна.</item>
   </plurals>
   <plurals name="GroupsV1MigrationSuggestionsDialog_cannot_add_members">
-    <item quantity="one">Не можам да додадам член.</item>
-    <item quantity="other">Не можам да додадам членови.</item>
+    <item quantity="one">Не може да се додаде член.</item>
+    <item quantity="other">Не може да се додадат членови.</item>
   </plurals>
   <!--LeaveGroupDialog-->
   <string name="LeaveGroupDialog_leave_group">Напушти група?</string>
-  <string name="LeaveGroupDialog_you_will_no_longer_be_able_to_send_or_receive_messages_in_this_group">Нема да можете да праќате и да примате пораки во оваа група.</string>
+  <string name="LeaveGroupDialog_you_will_no_longer_be_able_to_send_or_receive_messages_in_this_group">Повеќе нема да можете да испраќате и примате пораки во оваа група.</string>
   <string name="LeaveGroupDialog_leave">Напушти</string>
   <string name="LeaveGroupDialog_choose_new_admin">Избери нов администратор</string>
-  <string name="LeaveGroupDialog_before_you_leave_you_must_choose_at_least_one_new_admin_for_this_group">Пред да ја напуштите групата мора да изберете барем еден администратор за оваа група.</string>
+  <string name="LeaveGroupDialog_before_you_leave_you_must_choose_at_least_one_new_admin_for_this_group">Пред да ја напуштите групата, мора да изберете барем еден администратор за оваа група.</string>
   <string name="LeaveGroupDialog_choose_admin">Избери администратор</string>
   <!--LinkPreviewView-->
   <string name="LinkPreviewView_no_link_preview_available">Не е достапен преглед за линкот</string>
@@ -577,13 +586,13 @@
     <item quantity="other">%1$d членови</item>
   </plurals>
   <!--PendingMembersActivity-->
-  <string name="PendingMembersActivity_pending_group_invites">Групни покани во тек</string>
+  <string name="PendingMembersActivity_pending_group_invites">Групни покани на чекање</string>
   <string name="PendingMembersActivity_requests">Барања</string>
   <string name="PendingMembersActivity_invites">Покани</string>
   <string name="PendingMembersActivity_people_you_invited">Луѓе кои ги поканивте</string>
-  <string name="PendingMembersActivity_you_have_no_pending_invites">Немате покани што чекаат.</string>
+  <string name="PendingMembersActivity_you_have_no_pending_invites">Немате покани на чекање.</string>
   <string name="PendingMembersActivity_invites_by_other_group_members">Покани од други членови на групата</string>
-  <string name="PendingMembersActivity_no_pending_invites_by_other_group_members">Нема покани што чекаат од други членови на групата.</string>
+  <string name="PendingMembersActivity_no_pending_invites_by_other_group_members">Нема покани на чекање од други членови на групата.</string>
   <string name="PendingMembersActivity_missing_detail_explanation">Деталите од луѓе поканети од други членови на групата не се прикажани. Ако поканетите изберат да се приклучат, нивните информации ќе бидат споделени во групата во моментот на прифаќање. Тие нема да видат ниту една порака во групата додека не се приклучат.</string>
   <string name="PendingMembersActivity_revoke_invite">Повлечи покана</string>
   <string name="PendingMembersActivity_revoke_invites">Повлечи покани</string>
@@ -596,20 +605,20 @@
     <item quantity="other">Грешка при повлекување на покани</item>
   </plurals>
   <!--RequestingMembersFragment-->
-  <string name="RequestingMembersFragment_pending_member_requests">Барања од членови</string>
-  <string name="RequestingMembersFragment_no_member_requests_to_show">Нема барања од членови за приказ.</string>
-  <string name="RequestingMembersFragment_explanation">Луѓе на оваа листа пробуваат да се приклучат на групата преку групниот линк.</string>
-  <string name="RequestingMembersFragment_added_s">„%1$s“ е додаден/а.</string>
+  <string name="RequestingMembersFragment_pending_member_requests">Барања за членство на чекање</string>
+  <string name="RequestingMembersFragment_no_member_requests_to_show">Нема барања за членство.</string>
+  <string name="RequestingMembersFragment_explanation">Луѓето на оваа листа пробуваат да се приклучат на групата преку групниот линк.</string>
+  <string name="RequestingMembersFragment_added_s">„%1$s“ е додаден/а</string>
   <string name="RequestingMembersFragment_denied_s">„%1$s“ е одбиен/а</string>
   <!--AddMembersActivity-->
   <string name="AddMembersActivity__done">Готово</string>
-  <string name="AddMembersActivity__this_person_cant_be_added_to_legacy_groups">Оваа личност не може да биде додадена во стари групи.</string>
+  <string name="AddMembersActivity__this_person_cant_be_added_to_legacy_groups">Оваа личност не може да биде додадена во застарени групи.</string>
   <string name="AddMembersActivity__this_person_cant_be_added_to_announcement_groups">Оваа личност не може да биде додадена во групата за известувања.</string>
   <plurals name="AddMembersActivity__add_d_members_to_s">
     <item quantity="one">Да го/ја додадам %1$s во %2$s?</item>
     <item quantity="other">Да ги додадам %3$d членови во \"%2$s\"?</item>
   </plurals>
-  <string name="AddMembersActivity__add">Додадете…</string>
+  <string name="AddMembersActivity__add">Додај</string>
   <string name="AddMembersActivity__add_members">Додај членови</string>
   <!--AddGroupDetailsFragment-->
   <string name="AddGroupDetailsFragment__name_this_group">Именувајте ја оваа група</string>
@@ -623,7 +632,7 @@
   <string name="AddGroupDetailsFragment__group_creation_failed">Создавањето на групата е неуспешно.</string>
   <string name="AddGroupDetailsFragment__try_again_later">Обидете се повторно подоцна.</string>
   <string name="AddGroupDetailsFragment__youve_selected_a_contact_that_doesnt">Избравте контакт кој што нема поддршка за Signal групи, па затоа оваа група ќе биде MMS.</string>
-  <string name="AddGroupDetailsFragment_custom_mms_group_names_and_photos_will_only_be_visible_to_you">Сопствените имиња на MMS групите и сликите ќе Ви бидат достапни само на Вас.</string>
+  <string name="AddGroupDetailsFragment_custom_mms_group_names_and_photos_will_only_be_visible_to_you">Сопствените имиња на MMS групите и сликите ќе Ви бидат видливи само на Вас.</string>
   <string name="AddGroupDetailsFragment__remove">Отстрани</string>
   <string name="AddGroupDetailsFragment__sms_contact">SMS контакт</string>
   <string name="AddGroupDetailsFragment__remove_s_from_this_group">Да го/ја отстранам %1$s од оваа група?</string>
@@ -632,24 +641,24 @@
     <item quantity="other">%d членови немаат поддршка за нови групи, оваа група ќе биде застарена група.</item>
   </plurals>
   <plurals name="AddGroupDetailsFragment__d_members_do_not_support_new_groups_so_this_group_cannot_be_created">
-    <item quantity="one">%d члено нема поддршка за нови групи, оваа група нема да биде креирана.</item>
+    <item quantity="one">%d член нема поддршка за нови групи, оваа група нема да биде создадена.</item>
     <item quantity="other">%d членови немаат поддршка за нови групи, оваа група нема да биде создадена.</item>
   </plurals>
   <!--NonGv2MemberDialog-->
-  <string name="NonGv2MemberDialog_single_users_are_non_gv2_capable">Бидејќи %1$s користи стара верзија на Signal, ќе биде создадена застарена група. Можете да создадете нов стил на група со оваа личност откако ќе го ажурира Signal или пак можете да ја отстраните пред да ја создадете групата.</string>
+  <string name="NonGv2MemberDialog_single_users_are_non_gv2_capable">Застарена група ќе биде содадена бидејќи “%1$s” кориси стара верзија на Signal. Можете да создадете нов стил на група со оваа личност откако ќе го ажурира Signal или да ја отстраните пред да ја создадете групата.</string>
   <plurals name="NonGv2MemberDialog_d_users_are_non_gv2_capable">
-    <item quantity="one">Застарена група ќе биде создадена бидејќи %1$d член кориси стара верзија на Signal. Можете да креирате нов стил на група со оваа личност откако ќе го ажурира Signal или пак може да ја отстраните пред да ја создадете групата.</item>
+    <item quantity="one">Застарена група ќе биде создадена бидејќи %1$d член кориси стара верзија на Signal. Можете да создадете нов стил на група со оваа личност откако ќе го ажурира Signal или да ја отстраните пред да ја создадете групата.</item>
     <item quantity="other">Застарена група ќе биде создадена бидејќи %1$d членови користат стара верзија на Signal. Можете да создадете нов стил на група со нив откако ќе го ажурираат Signal или да ги отстраните пред да ја создадете групата.</item>
   </plurals>
   <string name="NonGv2MemberDialog_single_users_are_non_gv2_capable_forced_migration">Оваа група не може да биде создадена бидејќи „%1$s“ користи стара верзија на Signal. Морате да ја отстраните оваа личност пред да ја создадете групата.</string>
   <plurals name="NonGv2MemberDialog_d_users_are_non_gv2_capable_forced_migration">
-    <item quantity="one">Оваа група не може да биде создадена бидејќи %1$d член користи стара верзија на Signal. Можете да ја отстраните оваа личност пред да ја создадете групата.</item>
-    <item quantity="other">Оваа група не може да биде создадена бидејќи %1$d членови користат стара верзија на Signal. Можете да ги отстраните пред да ја создадете групата.</item>
+    <item quantity="one">Оваа група не може да биде создадена бидејќи %1$d член користи стара верзија на Signal. Морате да ја отстраните оваа личност пред да ја создадете групата.</item>
+    <item quantity="other">Оваа група не може да биде создадена бидејќи %1$d членови користат стара верзија на Signal. Морате да ги отстраните пред да ја создадете групата.</item>
   </plurals>
   <!--ManageGroupActivity-->
-  <string name="ManageGroupActivity_member_requests_and_invites">Барања од членови и покани</string>
+  <string name="ManageGroupActivity_member_requests_and_invites">Барања за членство и покани</string>
   <string name="ManageGroupActivity_add_members">Додај членови</string>
-  <string name="ManageGroupActivity_edit_group_info">Уреди информации за група</string>
+  <string name="ManageGroupActivity_edit_group_info">Уреди информации за групата</string>
   <string name="ManageGroupActivity_who_can_add_new_members">Кој може да додава нови членови?</string>
   <string name="ManageGroupActivity_who_can_edit_this_groups_info">Кој може да ги уредува информациите за групата?</string>
   <string name="ManageGroupActivity_group_link">Групен линк</string>
@@ -667,42 +676,42 @@
   <string name="ManageGroupActivity_view_all_members">Види ги сите членови</string>
   <string name="ManageGroupActivity_see_all">Види сѐ</string>
   <plurals name="ManageGroupActivity_added">
-    <item quantity="one">%d член е додаден.</item>
-    <item quantity="other">%d членови се додадени.</item>
+    <item quantity="one">Додаден е %d член.</item>
+    <item quantity="other">Додадени се %d членови.</item>
   </plurals>
   <string name="ManageGroupActivity_only_admins_can_enable_or_disable_the_sharable_group_link">Само администратори можат да го вклучат или исклучат групниот линк.</string>
-  <string name="ManageGroupActivity_only_admins_can_enable_or_disable_the_option_to_approve_new_members">Само администратор можат да ја вклучат или исклучат опцијата за одобрување на нови членови.</string>
+  <string name="ManageGroupActivity_only_admins_can_enable_or_disable_the_option_to_approve_new_members">Само администратори можат да ја вклучат или исклучат опцијата за одобрување на нови членови.</string>
   <string name="ManageGroupActivity_only_admins_can_reset_the_sharable_group_link">Само администратори можат да го ресетираат групниот линк.</string>
   <string name="ManageGroupActivity_you_dont_have_the_rights_to_do_this">Немате права да го правите ова</string>
   <string name="ManageGroupActivity_not_capable">Некој од луѓето што ги додадовте немаат поддршка за нови групи и треба да го ажурираат Signal.</string>
-  <string name="ManageGroupActivity_not_announcement_capable">Некој од тие што ги додадовте нема поддршка за групи за известувања и треба да го ажурира Signal</string>
-  <string name="ManageGroupActivity_failed_to_update_the_group">Не успеав да ја ажурирам групата</string>
+  <string name="ManageGroupActivity_not_announcement_capable">Некој од луѓето што ги додадовте нема поддршка за групи за известувања и треба да го ажурира Signal</string>
+  <string name="ManageGroupActivity_failed_to_update_the_group">Не успеа да се ажурира групата</string>
   <string name="ManageGroupActivity_youre_not_a_member_of_the_group">Не сте член на групата</string>
-  <string name="ManageGroupActivity_failed_to_update_the_group_please_retry_later">Не успеав да ја ажурирам групата, пробајте повторно подоцна</string>
-  <string name="ManageGroupActivity_failed_to_update_the_group_due_to_a_network_error_please_retry_later">Не успеав да ја ажрурирам групата поради мрежна грешка, Ве молиме пробајте повторно</string>
+  <string name="ManageGroupActivity_failed_to_update_the_group_please_retry_later">Не успеа да се ажурира групата, обидете се повторно подоцна</string>
+  <string name="ManageGroupActivity_failed_to_update_the_group_due_to_a_network_error_please_retry_later">Не успеа да се ажурира групата поради мрежна грешка, обидете се повторно подоцна</string>
   <string name="ManageGroupActivity_edit_name_and_picture">Уреди име и слика</string>
   <string name="ManageGroupActivity_legacy_group">Застарена група</string>
-  <string name="ManageGroupActivity_legacy_group_learn_more">Ова е застарена група. Опции како групни администратори не се достапни само со нови групи.</string>
+  <string name="ManageGroupActivity_legacy_group_learn_more">Ова е застарена група. Опции како администратори на групи се достапни само со нови групи.</string>
   <string name="ManageGroupActivity_legacy_group_upgrade">Ова е застарена група. За пристап до нови опции како @спомнувања и администратори,</string>
-  <string name="ManageGroupActivity_legacy_group_too_large">Ова е застарена група и не може да биде надградена во нова група бидејќи е преголема. Максималната големина за група е %1$d.</string>
-  <string name="ManageGroupActivity_upgrade_this_group">ажурирај ја оваа група.</string>
+  <string name="ManageGroupActivity_legacy_group_too_large">Ова е застарена група и не може да биде надградена во нова група бидејќи е преголема. Максималната големина на група е %1$d.</string>
+  <string name="ManageGroupActivity_upgrade_this_group">надградете ја оваа група.</string>
   <string name="ManageGroupActivity_this_is_an_insecure_mms_group">Ова е небезбедна MMS група. За да разговарате приватно, поканете ги Вашите контакти на Signal.</string>
   <string name="ManageGroupActivity_invite_now">Покани сега</string>
   <string name="ManageGroupActivity_more">повеќе</string>
   <string name="ManageGroupActivity_add_group_description">Додадете опис на групата…</string>
   <!--GroupMentionSettingDialog-->
   <string name="GroupMentionSettingDialog_notify_me_for_mentions">Извести кога некој ќе ме спомне</string>
-  <string name="GroupMentionSettingDialog_receive_notifications_when_youre_mentioned_in_muted_chats">Дали да добиете известување кога некој ќе Ве спомне во исклучени разговори?</string>
+  <string name="GroupMentionSettingDialog_receive_notifications_when_youre_mentioned_in_muted_chats">Дали да добиете известување кога некој ќе Ве спомне во разговори со исклучени известувања?</string>
   <string name="GroupMentionSettingDialog_always_notify_me">Извести ме секогаш</string>
   <string name="GroupMentionSettingDialog_dont_notify_me">Не ме известувај</string>
   <!--ManageProfileFragment-->
   <string name="ManageProfileFragment_profile_name">Име на профил </string>
   <string name="ManageProfileFragment_username">Корисничко име</string>
   <string name="ManageProfileFragment_about">За</string>
-  <string name="ManageProfileFragment_write_a_few_words_about_yourself">Напишете неколку зборови за Вас…</string>
+  <string name="ManageProfileFragment_write_a_few_words_about_yourself">Напишете неколку зборови за себе</string>
   <string name="ManageProfileFragment_your_name">Вашето име</string>
   <string name="ManageProfileFragment_your_username">Вашето корисничко име</string>
-  <string name="ManageProfileFragment_failed_to_set_avatar">Не успеав да поставам аватар</string>
+  <string name="ManageProfileFragment_failed_to_set_avatar">Не успеа да се постави аватар</string>
   <string name="ManageProfileFragment_badges">Беџови</string>
   <string name="ManageProfileFragment__edit_photo">Уреди фотографија</string>
   <!--ManageRecipientActivity-->
@@ -719,8 +728,8 @@
   <string name="CustomNotificationsDialogFragment__custom_notifications">Прилагодени известувања</string>
   <string name="CustomNotificationsDialogFragment__messages">Пораки</string>
   <string name="CustomNotificationsDialogFragment__use_custom_notifications">Користи прилагодени известувања</string>
-  <string name="CustomNotificationsDialogFragment__notification_sound">Звук на известување </string>
-  <string name="CustomNotificationsDialogFragment__vibrate">Вибрирај</string>
+  <string name="CustomNotificationsDialogFragment__notification_sound">Звук за известувања</string>
+  <string name="CustomNotificationsDialogFragment__vibrate">Вибрации</string>
   <string name="CustomNotificationsDialogFragment__call_settings">Поставувања за повици</string>
   <string name="CustomNotificationsDialogFragment__ringtone">Звук за ѕвонење</string>
   <string name="CustomNotificationsDialogFragment__enabled">Овозможено</string>
@@ -733,13 +742,13 @@
   <string name="ShareableGroupLinkDialogFragment__group_link">Групен линк</string>
   <string name="ShareableGroupLinkDialogFragment__share">Сподели</string>
   <string name="ShareableGroupLinkDialogFragment__reset_link">Ресетирај линк</string>
-  <string name="ShareableGroupLinkDialogFragment__member_requests">Барања од членови</string>
+  <string name="ShareableGroupLinkDialogFragment__member_requests">Барања за членство</string>
   <string name="ShareableGroupLinkDialogFragment__approve_new_members">Одобри нови членови</string>
-  <string name="ShareableGroupLinkDialogFragment__require_an_admin_to_approve_new_members_joining_via_the_group_link">Администраторот мора да ги одобри новите членови кои што се приклучуваат преку групниот линк.</string>
+  <string name="ShareableGroupLinkDialogFragment__require_an_admin_to_approve_new_members_joining_via_the_group_link">Администраторот мора да ги одобри новите членови кои се приклучуваат преку групниот линк.</string>
   <string name="ShareableGroupLinkDialogFragment__are_you_sure_you_want_to_reset_the_group_link">Дали сте сигурни дека сакате да го ресетирате групниот линк? Луѓето повеќе нема да можат да се приклучат на групата со употреба на тековниот линк.</string>
   <!--GroupLinkShareQrDialogFragment-->
   <string name="GroupLinkShareQrDialogFragment__qr_code">QR код</string>
-  <string name="GroupLinkShareQrDialogFragment__people_who_scan_this_code_will">Луѓе кои го скенираат кодот ќе можат да се приклучат на Вашата група. Администраторите сѐ уште ќе треба да ги одобрат новите членови ако ја имате вклучено таа опција.</string>
+  <string name="GroupLinkShareQrDialogFragment__people_who_scan_this_code_will">Луѓе кои го скенираат овој код ќе можат да се приклучат на Вашата група. Администраторите сепак ќе треба да ги одобрат новите членови ако е вклучена таа опција.</string>
   <string name="GroupLinkShareQrDialogFragment__share_code">Сподели код</string>
   <!--GV2 Invite Revoke confirmation dialog-->
   <string name="InviteRevokeConfirmationDialog_revoke_own_single_invite">Дали сакате да ја повлечете поканата испратена на %1$s?</string>
@@ -751,14 +760,14 @@
   <string name="GroupJoinBottomSheetDialogFragment_you_are_already_a_member">Веќе сте член</string>
   <string name="GroupJoinBottomSheetDialogFragment_join">Приклучи сѐ</string>
   <string name="GroupJoinBottomSheetDialogFragment_request_to_join">Побарајте да се приклучите</string>
-  <string name="GroupJoinBottomSheetDialogFragment_unable_to_join_group_please_try_again_later">Не успеав да се приклучам на групата. Ве молиме пробајте повторно подоцна.</string>
+  <string name="GroupJoinBottomSheetDialogFragment_unable_to_join_group_please_try_again_later">Не успеав да се приклучам на групата. Ве молиме, обидете се повторно подоцна</string>
   <string name="GroupJoinBottomSheetDialogFragment_encountered_a_network_error">Се случи мрежна грешка.</string>
   <string name="GroupJoinBottomSheetDialogFragment_this_group_link_is_not_active">Групниот линк не е активен</string>
   <string name="GroupJoinBottomSheetDialogFragment_unable_to_get_group_information_please_try_again_later">Не може да се добијат информации за групата, Ве молиме обидете се повторно подоцна</string>
   <string name="GroupJoinBottomSheetDialogFragment_direct_join">Дали сакате да се приклучите на оваа група и да го споделите Вашето име и слика со нејзините членови?</string>
   <string name="GroupJoinBottomSheetDialogFragment_admin_approval_needed">Администраторот на ова група мора да го одобри Вашето барање пред да се приклучите. Кога барате да се приклучите, Вашето име и слика ќе бидат споделени со членовите.</string>
   <plurals name="GroupJoinBottomSheetDialogFragment_group_dot_d_members">
-    <item quantity="one">Група · %1$d членови</item>
+    <item quantity="one">Група · %1$d член</item>
     <item quantity="other">Група · %1$d членови</item>
   </plurals>
   <!--GroupJoinUpdateRequiredBottomSheetDialogFragment-->
@@ -769,12 +778,12 @@
   <string name="GroupJoinUpdateRequiredBottomSheetDialogFragment_group_link_is_not_valid">Групниот линк не е валиден</string>
   <!--GroupInviteLinkEnableAndShareBottomSheetDialogFragment-->
   <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_invite_friends">Покани пријатели</string>
-  <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_share_a_link_with_friends_to_let_them_quickly_join_this_group">Споделете линк со пријателите за да им овозможите да се приклучат брзо на оваа група.</string>
+  <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_share_a_link_with_friends_to_let_them_quickly_join_this_group">Споделете линк со пријателите за да им овозможите брзо да се приклучат на оваа група.</string>
   <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_enable_and_share_link">Вклучи и сподели линк</string>
   <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_share_link">Сподели линк</string>
-  <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_unable_to_enable_group_link_please_try_again_later">Не може да се овозможи групен линк. Ве молиме обидете се повторно подоцна</string>
+  <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_unable_to_enable_group_link_please_try_again_later">Не може да се вклучи групниот линк. Ве молиме обидете се повторно подоцна</string>
   <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_encountered_a_network_error">Се случи мрежна грешка.</string>
-  <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_you_dont_have_the_right_to_enable_group_link">Немата права да вклучите групен линк. Ве молиме прашајте го администраторот.</string>
+  <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_you_dont_have_the_right_to_enable_group_link">Немате права да вклучите групен линк. Ве молиме прашајте го администраторот.</string>
   <string name="GroupInviteLinkEnableAndShareBottomSheetDialogFragment_you_are_not_currently_a_member_of_the_group">Моментално не сте член на групата.</string>
   <!--GV2 Request confirmation dialog-->
   <string name="RequestConfirmationDialog_add_s_to_the_group">Да го/ја додадам „%1$s“ во групата?</string>
@@ -783,23 +792,23 @@
   <string name="RequestConfirmationDialog_deny">Одбиј</string>
   <!--ImageEditorHud-->
   <string name="ImageEditorHud_blur_faces">Замагли лица</string>
-  <string name="ImageEditorHud_new_blur_faces_or_draw_anywhere_to_blur">Ново: Замаглувајте лица или цртајте било каде за замаглување.</string>
-  <string name="ImageEditorHud_draw_anywhere_to_blur">Нацртајте било каде за замаглување</string>
-  <string name="ImageEditorHud_draw_to_blur_additional_faces_or_areas">Нацртајте за да замаглите доплнителни лица или области</string>
+  <string name="ImageEditorHud_new_blur_faces_or_draw_anywhere_to_blur">Ново: Замаглувајте лица или цртајте било каде за замаглување</string>
+  <string name="ImageEditorHud_draw_anywhere_to_blur">Цртајте било каде за замаглување</string>
+  <string name="ImageEditorHud_draw_to_blur_additional_faces_or_areas">Цртајте за да замаглите доплнителни лица или области</string>
   <!--InputPanel-->
-  <string name="InputPanel_tap_and_hold_to_record_a_voice_message_release_to_send">Допри и држи да снимиш гласовна порака, пушти да пратиш</string>
+  <string name="InputPanel_tap_and_hold_to_record_a_voice_message_release_to_send">Допри и држи за да снимиш гласовна порака, пушти за да пратиш</string>
   <!--InviteActivity-->
   <string name="InviteActivity_share">Сподели</string>
   <string name="InviteActivity_share_with_contacts">Сподели со контакти</string>
-  <string name="InviteActivity_share_via">Споделете преку…</string>
+  <string name="InviteActivity_share_via">Сподели преку…</string>
   <string name="InviteActivity_cancel">Откажи</string>
-  <string name="InviteActivity_sending">Испраќа…</string>
-  <string name="InviteActivity_invitations_sent">Покани испратени!</string>
+  <string name="InviteActivity_sending">Се испраќа…</string>
+  <string name="InviteActivity_invitations_sent">Поканите се испратени!</string>
   <string name="InviteActivity_invite_to_signal">Поканете на Molly</string>
   <string name="InviteActivity_send_sms">Испрати SMS (%d)</string>
   <plurals name="InviteActivity_send_sms_invites">
     <item quantity="one">Испрати %d SMS покана?</item>
-    <item quantity="other">Испрати %d SMS пораки?</item>
+    <item quantity="other">Испрати %d SMS покани?</item>
   </plurals>
   <string name="InviteActivity_lets_switch_to_signal">Ајде да се префрлиме на Molly: %1$s</string>
   <string name="InviteActivity_no_app_to_share_to">Изгледа дека немате апликации преку кои може да споделите.</string>
@@ -809,7 +818,7 @@
   <!--LongMessageActivity-->
   <string name="LongMessageActivity_unable_to_find_message">Не успеав да ја најдам пораката</string>
   <string name="LongMessageActivity_message_from_s">Порака од %1$s</string>
-  <string name="LongMessageActivity_your_message">Вашата порака</string>
+  <string name="LongMessageActivity_your_message">Вашата целосна порака</string>
   <!--MessageRetrievalService-->
   <string name="MessageRetrievalService_signal">Molly</string>
   <string name="MessageRetrievalService_background_connection_enabled">Позадинската врска е вклучена</string>
@@ -821,17 +830,17 @@
   <string name="MediaOverviewActivity_Audio">Аудио</string>
   <string name="MediaOverviewActivity_All">Сите</string>
   <plurals name="MediaOverviewActivity_Media_delete_confirm_title">
-    <item quantity="one">Избриши го избраниот предмет?</item>
-    <item quantity="other">Избриши ги избраните предмети?</item>
+    <item quantity="one">Да се избрише избраниот предмет?</item>
+    <item quantity="other">Да се избришат избраните предмети?</item>
   </plurals>
   <plurals name="MediaOverviewActivity_Media_delete_confirm_message">
-    <item quantity="one">Ова перманетно ќе ја отстрани избраната датотека. Било кој текст од порака поврзан со овој предмет ќе биде исто така избришан.</item>
-    <item quantity="other">Ова перманетно ќе ги отстрани сите %1$d избрани датотеки. Било кој текст од порака поврзан со овие предмети ќе биде исто така избришан.</item>
+    <item quantity="one">Ова трајно ќе ја избрише избраната датотека. Секој текст од порака поврзан со овој предмет ќе биде исто така избришан.</item>
+    <item quantity="other">Ова трајно ќе ги избрише сите %1$d избрани датотеки. Секој текст од порака поврзан со овие предмети ќе биде исто така избришан.</item>
   </plurals>
   <string name="MediaOverviewActivity_Media_delete_progress_title">Бришење</string>
   <string name="MediaOverviewActivity_Media_delete_progress_message">Бришење на пораките… </string>
   <string name="MediaOverviewActivity_Select_all">Избери сѐ</string>
-  <string name="MediaOverviewActivity_collecting_attachments">Собирам прилози…</string>
+  <string name="MediaOverviewActivity_collecting_attachments">Собирање на прилози…</string>
   <string name="MediaOverviewActivity_Sort_by">Сортирај по</string>
   <string name="MediaOverviewActivity_Newest">Најново</string>
   <string name="MediaOverviewActivity_Oldest">Најстаро</string>
@@ -859,9 +868,9 @@
   <string name="MediaOverviewActivity_image">Слика</string>
   <string name="MediaOverviewActivity_voice_message">Гласовна порака</string>
   <string name="MediaOverviewActivity_sent_by_s">Испратено од %1$s</string>
-  <string name="MediaOverviewActivity_sent_by_you">Испратено од тебе</string>
+  <string name="MediaOverviewActivity_sent_by_you">Испратено од вас</string>
   <string name="MediaOverviewActivity_sent_by_s_to_s">Испратено од %1$s до %2$s</string>
-  <string name="MediaOverviewActivity_sent_by_you_to_s">Испратено од тебе до %1$s</string>
+  <string name="MediaOverviewActivity_sent_by_you_to_s">Испратено од вас до %1$s</string>
   <!--Megaphones-->
   <string name="Megaphones_remind_me_later">Потсети ме подоцна</string>
   <string name="Megaphones_verify_your_signal_pin">Проверете го Вашиот Signal PIN</string>
@@ -875,13 +884,13 @@
   <string name="Megaphones_add_photo">Додај слика</string>
   <!--NotificationBarManager-->
   <string name="NotificationBarManager_signal_call_in_progress">Signal повик во тек</string>
-  <string name="NotificationBarManager__establishing_signal_call">Воспоставување на повик на Signal</string>
-  <string name="NotificationBarManager__incoming_signal_call">Доаѓачки повик на Signal</string>
+  <string name="NotificationBarManager__establishing_signal_call">Воспоставување Signal повик</string>
+  <string name="NotificationBarManager__incoming_signal_call">Дојдовен Signal повик</string>
   <string name="NotificationBarManager__incoming_signal_group_call">Дојдовен групен Signal повик</string>
   <string name="NotificationBarManager__stopping_signal_call_service">Го стопирам Signal сервисот за повикување</string>
   <string name="NotificationBarManager__decline_call">Одбиј повик</string>
-  <string name="NotificationBarManager__answer_call">Одговори на повикот</string>
-  <string name="NotificationBarManager__end_call">Заврши го повикот</string>
+  <string name="NotificationBarManager__answer_call">Одговори на повик</string>
+  <string name="NotificationBarManager__end_call">Заврши повик</string>
   <string name="NotificationBarManager__cancel_call">Откажи повик</string>
   <string name="NotificationBarManager__join_call">Приклучи сѐ на повик</string>
   <!--NotificationsMegaphone-->
@@ -891,10 +900,10 @@
   <string name="NotificationsMegaphone_not_now">Не сега</string>
   <!--NotificationMmsMessageRecord-->
   <string name="NotificationMmsMessageRecord_multimedia_message">Мултимедијална порака</string>
-  <string name="NotificationMmsMessageRecord_downloading_mms_message">Преземам MMS порака</string>
-  <string name="NotificationMmsMessageRecord_error_downloading_mms_message">Грешка при преземање на MMS порака, допрете за да пробате повоторно</string>
+  <string name="NotificationMmsMessageRecord_downloading_mms_message">Преземање на MMS порака</string>
+  <string name="NotificationMmsMessageRecord_error_downloading_mms_message">Грешка при преземање на MMS порака, допрете за да се обидете повторно</string>
   <!--MediaPickerActivity-->
-  <string name="MediaPickerActivity_send_to">Испрати  на %s</string>
+  <string name="MediaPickerActivity_send_to">Испрати на %s</string>
   <string name="MediaPickerActivity__menu_open_camera">Отвори камера</string>
   <!--MediaSendActivity-->
   <string name="MediaSendActivity_add_a_caption">Додај наслов…</string>
@@ -917,18 +926,18 @@
   <string name="MediaRepository_all_media">Цела медија</string>
   <string name="MediaRepository__camera">Камера</string>
   <!--MessageDecryptionUtil-->
-  <string name="MessageDecryptionUtil_failed_to_decrypt_message">Не успеав да ја декриптирам пораката</string>
+  <string name="MessageDecryptionUtil_failed_to_decrypt_message">Не успеа да се дешифрира пораката</string>
   <string name="MessageDecryptionUtil_tap_to_send_a_debug_log">Допрете да испратите запис за дебагирање</string>
   <!--MessageRecord-->
   <string name="MessageRecord_unknown">Непознато</string>
   <string name="MessageRecord_message_encrypted_with_a_legacy_protocol_version_that_is_no_longer_supported">Добивте порака која е шифрирана користејќи стара верзија на Signal која веќе не е поддржана. Ве молиме замолете го испраќачот да ја ажурира апликацијата на најновата верзија и повторно да ја испрати пораката.</string>
   <string name="MessageRecord_left_group">Ја напуштивте групата.</string>
-  <string name="MessageRecord_you_updated_group">Ја уредивте групата.</string>
+  <string name="MessageRecord_you_updated_group">Ја ажуриравте групата.</string>
   <string name="MessageRecord_the_group_was_updated">Групата беше ажурирана.</string>
   <string name="MessageRecord_you_called_date">Вие повикавте · %1$s</string>
   <string name="MessageRecord_missed_audio_call_date">Испуштен аудио повик · %1$s</string>
   <string name="MessageRecord_missed_video_call_date">Испуштен видео повик · %1$s</string>
-  <string name="MessageRecord_s_updated_group">%s ја уреди групата.</string>
+  <string name="MessageRecord_s_updated_group">%s ја ажурираше групата.</string>
   <string name="MessageRecord_s_called_you_date">%1$s Ве повика · %2$s</string>
   <string name="MessageRecord_s_joined_signal">%s е на Signal!</string>
   <string name="MessageRecord_you_disabled_disappearing_messages">Исклучивте исчезнувачки пораки.</string>
@@ -937,14 +946,14 @@
   <string name="MessageRecord_s_set_disappearing_message_time_to_s">%1$s го постави времето за исчезнувачки пораки на %2$s.</string>
   <string name="MessageRecord_disappearing_message_time_set_to_s">Времето за исчезнувачки пораки е поставено на %1$s.</string>
   <string name="MessageRecord_this_group_was_updated_to_a_new_group">Оваа група е ажурирана во нова група.</string>
-  <string name="MessageRecord_you_couldnt_be_added_to_the_new_group_and_have_been_invited_to_join">Не можевте да бидете додадени во новата група но поканети сте да се приклучите,</string>
+  <string name="MessageRecord_you_couldnt_be_added_to_the_new_group_and_have_been_invited_to_join">Не можевте да бидете додадени во новата група но поканети сте да се приклучите.</string>
   <string name="MessageRecord_chat_session_refreshed">Сесијата со разговорот е освежена</string>
   <plurals name="MessageRecord_members_couldnt_be_added_to_the_new_group_and_have_been_invited">
-    <item quantity="one">Член не можеше да биде додаден во нови група иако беше поканет да се приклучи.</item>
+    <item quantity="one">Член не можеше да биде додаден во нова група иако беше поканет да се приклучи.</item>
     <item quantity="other">%1$s членови не можеа да бидат додадени во нова група иако беа поканети да се приклучат.</item>
   </plurals>
   <plurals name="MessageRecord_members_couldnt_be_added_to_the_new_group_and_have_been_removed">
-    <item quantity="one">Член не можете да биде додаден во нова група и е отстранет.</item>
+    <item quantity="one">Член не можеше да биде додаден во нова група и е отстранет.</item>
     <item quantity="other">%1$s членови не можеа да бидат додадени во нова група и се отстранети.</item>
   </plurals>
   <!--Profile change updates-->
@@ -956,10 +965,10 @@
   <string name="MessageRecord_group_updated">Групата е ажурирана.</string>
   <string name="MessageRecord_invite_friends_to_this_group">Поканете пријатели во групата преку групниот линк</string>
   <!--GV2 member additions-->
-  <string name="MessageRecord_you_added_s">Додадовте %1$s.</string>
+  <string name="MessageRecord_you_added_s">Го/ја додадовте %1$s.</string>
   <string name="MessageRecord_s_added_s">%1$s го/ја додаде %2$s.</string>
   <string name="MessageRecord_s_added_you">%1$s Ве додаде во групата.</string>
-  <string name="MessageRecord_you_joined_the_group">Вие и се приклучивте на групата.</string>
+  <string name="MessageRecord_you_joined_the_group">Се приклучивте на групата.</string>
   <string name="MessageRecord_s_joined_the_group">%1$s се приклучија на групата.</string>
   <!--GV2 member removals-->
   <string name="MessageRecord_you_removed_s">Го/ја отстранивте %1$s.</string>
@@ -970,14 +979,14 @@
   <string name="MessageRecord_you_are_no_longer_in_the_group">Повеќе не сте во групата.</string>
   <string name="MessageRecord_s_is_no_longer_in_the_group">%1$s повеќе не е во групата.</string>
   <!--GV2 role change-->
-  <string name="MessageRecord_you_made_s_an_admin">Го направивте %1$s aдминистратор.</string>
-  <string name="MessageRecord_s_made_s_an_admin">%1$s го направи %2$s администратор.</string>
-  <string name="MessageRecord_s_made_you_an_admin">%1$s Ве направи администратор.</string>
+  <string name="MessageRecord_you_made_s_an_admin">Поставивте %1$s да биде aдминистратор.</string>
+  <string name="MessageRecord_s_made_s_an_admin">%1$s постави %2$s да биде администратор.</string>
+  <string name="MessageRecord_s_made_you_an_admin">%1$s Ве постави за администратор.</string>
   <string name="MessageRecord_you_revoked_admin_privileges_from_s">Ги повлековте администраторските привилегии на %1$s.</string>
-  <string name="MessageRecord_s_revoked_your_admin_privileges">%1$s ги укина вашите администраторски привилегии.</string>
+  <string name="MessageRecord_s_revoked_your_admin_privileges">%1$s ги повлече Вашите администраторски привилегии.</string>
   <string name="MessageRecord_s_revoked_admin_privileges_from_s">%1$s ги повлече администраторските привилегии на %2$s.</string>
-  <string name="MessageRecord_s_is_now_an_admin">%1$s е администратор сега.</string>
-  <string name="MessageRecord_you_are_now_an_admin">Вие сте сега Администратор.</string>
+  <string name="MessageRecord_s_is_now_an_admin">%1$s сега е администратор.</string>
+  <string name="MessageRecord_you_are_now_an_admin">Вие сте сега администратор.</string>
   <string name="MessageRecord_s_is_no_longer_an_admin">%1$s повеќе не е администратор.</string>
   <string name="MessageRecord_you_are_no_longer_an_admin">Повеќе не сте администратор.</string>
   <!--GV2 invitations-->
@@ -999,18 +1008,18 @@
   </plurals>
   <plurals name="MessageRecord_s_revoked_invites">
     <item quantity="one">%1$s ја повлече поканата за групата.</item>
-    <item quantity="other">%1$s ги повлече %2$d поканите за групата.</item>
+    <item quantity="other">%1$s повлече %2$d покани за групата.</item>
   </plurals>
   <string name="MessageRecord_someone_declined_an_invitation_to_the_group">Некој ја одби поканата за групата.</string>
-  <string name="MessageRecord_you_declined_the_invitation_to_the_group">Вие ја одбивте поканата за групата.</string>
-  <string name="MessageRecord_s_revoked_your_invitation_to_the_group">%1$s ја повлече поканата за групата.</string>
-  <string name="MessageRecord_an_admin_revoked_your_invitation_to_the_group">Администратор ја повлече поканата за групата.</string>
+  <string name="MessageRecord_you_declined_the_invitation_to_the_group">Ја одбивте поканата за групата.</string>
+  <string name="MessageRecord_s_revoked_your_invitation_to_the_group">%1$s ја повлече Вашата поканата за групата.</string>
+  <string name="MessageRecord_an_admin_revoked_your_invitation_to_the_group">Администратор ја повлече Вашата поканата за групата.</string>
   <plurals name="MessageRecord_d_invitations_were_revoked">
     <item quantity="one">Поканата за групата беше повлечена.</item>
     <item quantity="other">%1$d покани за групата беа повлечени.</item>
   </plurals>
   <!--GV2 invitation acceptance-->
-  <string name="MessageRecord_you_accepted_invite">Вие ја прифативте поканата за групата.</string>
+  <string name="MessageRecord_you_accepted_invite">Ја прифативте поканата за групата.</string>
   <string name="MessageRecord_s_accepted_invite">%1$s ја прифати поканата за групата.</string>
   <string name="MessageRecord_you_added_invited_member_s">Го додадовте поканетиот член %1$s.</string>
   <string name="MessageRecord_s_added_invited_member_s">%1$s го/ја додаде %2$s.</string>
@@ -1031,16 +1040,16 @@
   <string name="MessageRecord_s_changed_who_can_edit_group_info_to_s">%1$s промени кој може да ги уредува информациите за групата во „%2$s“.</string>
   <string name="MessageRecord_who_can_edit_group_info_has_been_changed_to_s">Кој може да ги уредува информациите за групата е променето во „%1$s“.</string>
   <!--GV2 membership access level change-->
-  <string name="MessageRecord_you_changed_who_can_edit_group_membership_to_s">Променивте кој може да ги уредува информациите за групата во „%1$s“.</string>
+  <string name="MessageRecord_you_changed_who_can_edit_group_membership_to_s">Променивте кој може да го уредува членството во групата во „%1$s“.</string>
   <string name="MessageRecord_s_changed_who_can_edit_group_membership_to_s">%1$s промени кој може да го уредува членството во групата во „%2$s“.</string>
   <string name="MessageRecord_who_can_edit_group_membership_has_been_changed_to_s">Кој може да го уредува членството во групата е променето во „%1$s“.</string>
   <!--GV2 announcement group change-->
-  <string name="MessageRecord_you_allow_all_members_to_send">Ги сменивте поставувањата на групата за да дозволите сите членови да испраќаат пораки.</string>
-  <string name="MessageRecord_you_allow_only_admins_to_send">Ги сменивте поставувањата на групата за да дозволите само администраторите да испраќаат пораки.</string>
-  <string name="MessageRecord_s_allow_all_members_to_send">%1$s ги смени поставувањата на групата за да дозволи сите членови да испраќаат пораки.</string>
-  <string name="MessageRecord_s_allow_only_admins_to_send">%1$s ги смени поставувањата на групата за да дозволи само администраторите да испраќаат пораки.</string>
-  <string name="MessageRecord_allow_all_members_to_send">Поставувањата на групата беа изменети за да им се дозволи на сите членови да испраќаат пораки.</string>
-  <string name="MessageRecord_allow_only_admins_to_send">Поставувањата на групата беа изменети за да им се дозволи само на администраторите да испраќаат пораки.</string>
+  <string name="MessageRecord_you_allow_all_members_to_send">Ги променивте поставувањата на групата за да дозволите сите членови да испраќаат пораки.</string>
+  <string name="MessageRecord_you_allow_only_admins_to_send">Ги променивте поставувањата на групата за да дозволите само администраторите да испраќаат пораки.</string>
+  <string name="MessageRecord_s_allow_all_members_to_send">%1$s ги промени поставувањата на групата за да дозволи сите членови да испраќаат пораки.</string>
+  <string name="MessageRecord_s_allow_only_admins_to_send">%1$s ги промени поставувањата на групата за да дозволи само администраторите да испраќаат пораки.</string>
+  <string name="MessageRecord_allow_all_members_to_send">Поставувањата на групата беа променети за да им се дозволи на сите членови да испраќаат пораки.</string>
+  <string name="MessageRecord_allow_only_admins_to_send">Поставувањата на групата беа променети за да им се дозволи само на администраторите да испраќаат пораки.</string>
   <!--GV2 group link invite access level change-->
   <string name="MessageRecord_you_turned_on_the_group_link_with_admin_approval_off">Го вклучивте групниот линк. Администраторското одобрување е исклучено.</string>
   <string name="MessageRecord_you_turned_on_the_group_link_with_admin_approval_on">Го вклучивте групниот линк. Администраторското одобрување е вклучено.</string>
@@ -1048,7 +1057,7 @@
   <string name="MessageRecord_s_turned_on_the_group_link_with_admin_approval_off">%1$s го вклучи групниот линк. Администраторското одобрување е исклучено.</string>
   <string name="MessageRecord_s_turned_on_the_group_link_with_admin_approval_on">%1$s го вклучи групниот линк. Администраторското одобрување е вклучено.</string>
   <string name="MessageRecord_s_turned_off_the_group_link">%1$s го исклучи групниот линк.</string>
-  <string name="MessageRecord_the_group_link_has_been_turned_on_with_admin_approval_off">Групниот линк е исклучен. Администраторското одобрување е исклучено.</string>
+  <string name="MessageRecord_the_group_link_has_been_turned_on_with_admin_approval_off">Групниот линк е вклучен. Администраторското одобрување е исклучено.</string>
   <string name="MessageRecord_the_group_link_has_been_turned_on_with_admin_approval_on">Групниот линк е вклучен. Администраторското одобрување е вклучено.</string>
   <string name="MessageRecord_the_group_link_has_been_turned_off">Групниот линк е исклучен.</string>
   <string name="MessageRecord_you_turned_off_admin_approval_for_the_group_link">Го исклучивте администраторското одобрување за групниот линк.</string>
@@ -1063,31 +1072,32 @@
   <string name="MessageRecord_the_group_link_has_been_reset">Групниот линк е ресетиран.</string>
   <!--GV2 group link joins-->
   <string name="MessageRecord_you_joined_the_group_via_the_group_link">Сѐ приклучивте на групата преку групниот линк.</string>
-  <string name="MessageRecord_s_joined_the_group_via_the_group_link">%1$s и се приклучи на групата преку групниот линк. </string>
+  <string name="MessageRecord_s_joined_the_group_via_the_group_link">%1$s се приклучи на групата преку групниот линк. </string>
   <!--GV2 group link requests-->
   <string name="MessageRecord_you_sent_a_request_to_join_the_group">Испративте барање за приклучување во група.</string>
-  <string name="MessageRecord_s_requested_to_join_via_the_group_link">%1$s побара да се вклучи преку групниот линк.</string>
+  <string name="MessageRecord_s_requested_to_join_via_the_group_link">%1$s побара да се приклучи преку групниот линк.</string>
   <!--GV2 group link approvals-->
   <string name="MessageRecord_s_approved_your_request_to_join_the_group">%1$s го одобри Вашето барање за да се приклучите на групата.</string>
-  <string name="MessageRecord_s_approved_a_request_to_join_the_group_from_s">%1$s го одобри барањето на%2$s за приклучување на групата.</string>
+  <string name="MessageRecord_s_approved_a_request_to_join_the_group_from_s">%1$s го одобри барањето на %2$s за приклучување на групата.</string>
   <string name="MessageRecord_you_approved_a_request_to_join_the_group_from_s">Го одобривте барањето на %1$s за приклучување на групата.</string>
   <string name="MessageRecord_your_request_to_join_the_group_has_been_approved">Вашето барање за приклучување во групата е одобрено.</string>
-  <string name="MessageRecord_a_request_to_join_the_group_from_s_has_been_approved">Барањето за приклучување на групата од %1$s е одобрено.</string>
+  <string name="MessageRecord_a_request_to_join_the_group_from_s_has_been_approved">Барањето на %1$s за приклучување на групата е одобрено.</string>
   <!--GV2 group link deny-->
-  <string name="MessageRecord_your_request_to_join_the_group_has_been_denied_by_an_admin">Вашето барање да се приклучите на група е одбиено од администраторот.</string>
+  <string name="MessageRecord_your_request_to_join_the_group_has_been_denied_by_an_admin">Вашето барање да се приклучите на групата е одбиено од администраторот.</string>
   <string name="MessageRecord_s_denied_a_request_to_join_the_group_from_s">%1$s го одби барањето на %2$s за приклучување на групата.</string>
   <string name="MessageRecord_a_request_to_join_the_group_from_s_has_been_denied">Барањето на %1$s за приклучување на групата е одбиено.</string>
-  <string name="MessageRecord_you_canceled_your_request_to_join_the_group">Го откажавте барањето за приклучување во група.</string>
+  <string name="MessageRecord_you_canceled_your_request_to_join_the_group">Го откажавте барањето за приклучување во групата.</string>
   <string name="MessageRecord_s_canceled_their_request_to_join_the_group">%1$s го откажа барањето за приклучување во групата.</string>
   <!--End of GV2 specific update messages-->
   <string name="MessageRecord_your_safety_number_with_s_has_changed">Вашиот сигурносен број со %s е променет.</string>
   <string name="MessageRecord_you_marked_your_safety_number_with_s_verified">Го обележавте сигурносниот број со %s како проверен</string>
   <string name="MessageRecord_you_marked_your_safety_number_with_s_verified_from_another_device">Го обележавте сигурносниот број со %s како проверен од друг уред</string>
   <string name="MessageRecord_you_marked_your_safety_number_with_s_unverified">Го обележавте сигурносниот број со %s како непроверен</string>
-  <string name="MessageRecord_you_marked_your_safety_number_with_s_unverified_from_another_device">Го обележавте Вашиот сигурносен број со %s како непроверен од друг уред.</string>
+  <string name="MessageRecord_you_marked_your_safety_number_with_s_unverified_from_another_device">Го обележавте сигурносен број со %s како непроверен од друг уред</string>
   <string name="MessageRecord_a_message_from_s_couldnt_be_delivered">Порака од %s не може да биде испорачана</string>
   <string name="MessageRecord_s_changed_their_phone_number">%1$s го промени телефонскиот број</string>
   <!--Update item message shown in the release channel when someone is already a sustainer so we ask them if they want to boost.-->
+  <string name="MessageRecord_like_this_new_feature_say_thanks_with_a_boost">Ви се допаѓа оваа нова опција? Речете благодарам со „Поттик“.</string>
   <!--Update item message shown in the release channel when someone is not a sustainer so we ask them to consider becoming one-->
   <string name="MessageRecord_signal_is_powered_by_people_like_you_become_a_sustainer_today">Signal е овозможен од луѓе како тебе. Стани поддржувач денес.</string>
   <!--Group Calling update messages-->
@@ -1305,6 +1315,7 @@
   <string name="WebRtcCallView__flip">Сврти</string>
   <string name="WebRtcCallView__speaker">Звучник</string>
   <string name="WebRtcCallView__camera">Камера</string>
+  <string name="WebRtcCallView__unmute">Вклучи </string>
   <string name="WebRtcCallView__mute">Исклучи</string>
   <string name="WebRtcCallView__ring">Ѕвони</string>
   <string name="WebRtcCallView__end_call">Спушти</string>
@@ -1370,7 +1381,7 @@
   <string name="RegistrationActivity_enter_your_phone_number">Внесете го Вашиот телефонски број</string>
   <string name="RegistrationActivity_you_will_receive_a_verification_code">Ќе добиете код за проверка. Можно е да важат цените од операторот.</string>
   <string name="RegistrationActivity_enter_the_code_we_sent_to_s">Внесете го кодот што Ви го испративме на %s</string>
-  <string name="RegistrationActivity_make_sure_your_phone_has_a_cellular_signal">Осигурајте се дека Вашиот телефон има мобилен сигнал за да ја примите вашата SMS порака или повик</string>
+  <string name="RegistrationActivity_make_sure_your_phone_has_a_cellular_signal">Осигурајте се дека Вашиот телефон има мобилен сигнал за да примите SMS или повик</string>
   <string name="RegistrationActivity_phone_number_description">Телефонски број</string>
   <string name="RegistrationActivity_country_code_description">Повикувачки број на земјата </string>
   <string name="RegistrationActivity_call">Повикај</string>
@@ -1423,7 +1434,7 @@
   <string name="SmsMessageRecord_secure_session_reset">Ја ресетиравте безбедната сесија.</string>
   <string name="SmsMessageRecord_secure_session_reset_s">%s ја ресетираше безбедната сесија.</string>
   <string name="SmsMessageRecord_duplicate_message">Дупла порака.</string>
-  <string name="SmsMessageRecord_this_message_could_not_be_processed_because_it_was_sent_from_a_newer_version">Оваа порака не може да биде процесирана бидејќи беше испратена од понова верзија на Signal. Можете да го прашате Вашиот контакт да ја испрати пораката повторно откако ќе ажурирате.</string>
+  <string name="SmsMessageRecord_this_message_could_not_be_processed_because_it_was_sent_from_a_newer_version">Оваа порака не може да биде процесирана бидејќи е испратена од понова верзија на Signal. Можете да го прашате Вашиот контакт да ја испрати пораката повторно откако ќе ја ажурирате апликацијата.</string>
   <string name="SmsMessageRecord_error_handling_incoming_message">Грешка при справување со доаѓачка порака.</string>
   <!--StickerManagementActivity-->
   <string name="StickerManagementActivity_stickers">Стикери</string>
@@ -1474,7 +1485,7 @@
   <string name="ThreadRecord_view_once_photo">Еднократно видлива фотографија</string>
   <string name="ThreadRecord_view_once_video">Еднократно видливо видео </string>
   <string name="ThreadRecord_view_once_media">Еднократно видлива медија</string>
-  <string name="ThreadRecord_this_message_was_deleted">Оваа порака беше избришана.</string>
+  <string name="ThreadRecord_this_message_was_deleted">Оваа порака е избришана.</string>
   <string name="ThreadRecord_you_deleted_this_message">Ја избришавте оваа порака.</string>
   <string name="ThreadRecord_s_is_on_signal">%s е на Signal!</string>
   <string name="ThreadRecord_disappearing_messages_disabled">Исчезнувачките пораки се исклучени</string>
@@ -1587,7 +1598,7 @@
   <string name="MessageNotifier_reacted_s_to_your_audio">Реагираше со %1$s на Вашето аудио.</string>
   <string name="MessageNotifier_reacted_s_to_your_view_once_media">Реагираше со %1$s на Вашата еднократно видлива медија.</string>
   <string name="MessageNotifier_reacted_s_to_your_sticker">Реагираше со %1$s на Вашиот стикер.</string>
-  <string name="MessageNotifier_this_message_was_deleted">Оваа порака беше избришана.</string>
+  <string name="MessageNotifier_this_message_was_deleted">Оваа порака е избришана.</string>
   <string name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Дали да исклучам известувања за луѓе што се приклучуваат на Signal? Можете да ги вклучите пак во Signal &gt; Поставувања &gt; Известувања.</string>
   <!--Notification Channels-->
   <string name="NotificationChannel_channel_messages">Пораки</string>
@@ -1602,6 +1613,10 @@
   <string name="NotificationChannel_voice_notes">Гласовни белешки</string>
   <string name="NotificationChannel_contact_joined_signal">Кога контакт ќе се приклучи на Signal</string>
   <string name="NotificationChannels__no_activity_available_to_open_notification_channel_settings">Нема достапна активност за отворање на поставките на каналот за известувања.</string>
+  <!--Notification channel name for showing persistent background connection on devices without push notifications-->
+  <string name="NotificationChannel_background_connection">Врска во позадина</string>
+  <!--Notification channel name for showing call status information (like connection, ongoing, etc.) Not ringing.-->
+  <string name="NotificationChannel_call_status">Статус на повик</string>
   <!--ProfileEditNameFragment-->
   <!--QuickResponseService-->
   <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Брз одговор е недостапен кога Molly е заклучен</string>
@@ -1629,7 +1644,7 @@
   </plurals>
   <!--UnauthorizedReminder-->
   <string name="UnauthorizedReminder_device_no_longer_registered">Уредот повеќе не е регистриран</string>
-  <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Ова е најверојатно бидејќи го регистриравте Вашиот телефон на Signal со друг уред. Допрете за да се регистрирате повторно.</string>
+  <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Ова е веројатно бидејќи Вашиот телефонскиот број сте го регистрирале на Signal со друг уред. Допрете за повторно да се регистрирате.</string>
   <!--WebRtcCallActivity-->
   <string name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">За да одговорите на повикот, дозволете му на Molly пристап до Вашиот микрофон.</string>
   <string name="WebRtcCallActivity_to_answer_the_call_from_s_give_signal_access_to_your_microphone">За да одговорите на повикот од %s, дозволете му на Molly пристап до Вашиот микрофонот.</string>
@@ -1876,7 +1891,7 @@
   <string name="CreateProfileActivity_group_descriptions_will_be_visible_to_members_of_this_group_and_people_who_have_been_invited">Описот на групата ќе им биде видлив на членовите на оваа група и луѓето кои што се поканети.</string>
   <!--EditAboutFragment-->
   <string name="EditAboutFragment_about">За</string>
-  <string name="EditAboutFragment_write_a_few_words_about_yourself">Неколку зборови за Вас…</string>
+  <string name="EditAboutFragment_write_a_few_words_about_yourself">Напишете неколку зборови за себе…</string>
   <string name="EditAboutFragment_count">%1$d/%2$d</string>
   <string name="EditAboutFragment_speak_freely">Тука сум, кажи</string>
   <string name="EditAboutFragment_encrypted">Шифрирано</string>
@@ -1915,7 +1930,7 @@
   <string name="webrtc_answer_decline_button__swipe_up_to_answer">Повлечете нагоре за одговор</string>
   <string name="webrtc_answer_decline_button__swipe_down_to_reject">Повлечете надолу за одбивање</string>
   <!--message_details_header-->
-  <string name="message_details_header__issues_need_your_attention">Некои проблеми барааат Ваше внимание.</string>
+  <string name="message_details_header__issues_need_your_attention">Некои проблеми бараат Ваше внимание.</string>
   <string name="message_details_header__sent">Испратено:</string>
   <string name="message_details_header__received">Примено:</string>
   <string name="message_details_header__disappears">Исчезнува за:</string>
@@ -1929,7 +1944,7 @@
   <string name="message_details_recipient_header__not_sent">Не е испратено на</string>
   <string name="message_details_recipient_header__viewed">Видено од</string>
   <!--message_Details_recipient-->
-  <string name="message_details_recipient__failed_to_send">Неуспешно праќање</string>
+  <string name="message_details_recipient__failed_to_send">Неуспешно испраќање</string>
   <string name="message_details_recipient__new_safety_number">Нов сигурносен број</string>
   <!--AndroidManifest.xml-->
   <string name="AndroidManifest__create_passphrase">Создај лозинка</string>
@@ -2167,6 +2182,17 @@
   <string name="preferences_chats__message_text_size">Големина на фонт за пораки</string>
   <string name="preferences_events__contact_joined_signal">Кога контакт ќе се приклучи на Signal</string>
   <string name="preferences_notifications__priority">Приоритет</string>
+  <!--Heading for the \'censorship circumvention\' section of privacy preferences-->
+  <!--Title of the \'censorship circumvention\' toggle switch-->
+  <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">Ако е овозможено, Signal ќе се обиде да ја заобиколи цензурата. Не ја овозможувајте оваа можност освен ако сте на локација каде Signal е цензуриран.</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that we automatically enabled it because we believe you\'re in a censored country-->
+  <string name="preferences_communication__censorship_circumvention_has_been_activated_based_on_your_accounts_phone_number">Заобиколувањето на цензурата беше активирано врз база на вашиот телефонски број на сметката.</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that you disabled it even though we believe you\'re in a censored country-->
+  <string name="preferences_communication__censorship_circumvention_you_have_manually_disabled">Рачно го оневозможивте заобиколувањето на цензурата.</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that you cannot use it because you\'re already connected to the Signal service-->
+  <string name="preferences_communication__censorship_circumvention_is_not_necessary_you_are_already_connected">Заобиколувањето на цензурата не е неопходно; вие сте веќе поврзани на Signal сервисот.</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that you cannot use it because you\'re not connected to the internet-->
+  <string name="preferences_communication__censorship_circumvention_can_only_be_activated_when_connected_to_the_internet">Заобиколувањето на цензурата може да биде активирано само кога сте поврзани на Интернет.</string>
   <string name="preferences_communication__category_sealed_sender">Запечатен испраќач</string>
   <string name="preferences_communication__sealed_sender_display_indicators">Индикатори за приказ</string>
   <string name="preferences_communication__sealed_sender_display_indicators_description">Покажува икона за статус кога ќе изберете „Детали за порака“ на пораки испорачани со употреба на запечатен испраќач.</string>
@@ -2557,7 +2583,7 @@
   <string name="conversation_activity__enable_signal_messages">ОВОЗМОЖИ SIGNAL ПОРАКИ</string>
   <string name="SQLCipherMigrationHelper_migrating_signal_database">Ја мигрирам базата на Signal</string>
   <string name="PushDecryptJob_new_locked_message">Нова заклучена порака</string>
-  <string name="PushDecryptJob_unlock_to_view_pending_messages">Отклучете за да ги видите пораките што чекаат</string>
+  <string name="PushDecryptJob_unlock_to_view_pending_messages">Отклучете за да ги видите пораките на чекање</string>
   <string name="enter_backup_passphrase_dialog__backup_passphrase">Лозинка за резервната копија</string>
   <string name="backup_enable_dialog__backups_will_be_saved_to_external_storage_and_encrypted_with_the_passphrase_below_you_must_have_this_passphrase_in_order_to_restore_a_backup">Резервните копии ќе бидат зачувани на надворешен склад и шифрирани со лозинката подолу. Морате да ја имате оваа лозинка за да ја вратите резервната копија.</string>
   <string name="backup_enable_dialog__you_must_have_this_passphrase">Мора да ја имате оваа лозинка за да ја вратите резервната копија.</string>
@@ -2584,7 +2610,7 @@
   <string name="BackupDialog_enable_local_backups">Да вклучам локална резервна копија?</string>
   <string name="BackupDialog_enable_backups">Вклучи резервна копија</string>
   <string name="BackupDialog_please_acknowledge_your_understanding_by_marking_the_confirmation_check_box">Ве молиме потврдете дека разбирате со означување на полето за потврда.</string>
-  <string name="BackupDialog_delete_backups">Избриши резервни копии?</string>
+  <string name="BackupDialog_delete_backups">Да ги избришам резервните копии?</string>
   <string name="BackupDialog_disable_and_delete_all_local_backups">Да ги исклучам и избришам сите локални резервни копии?</string>
   <string name="BackupDialog_delete_backups_statement">Избриши резервни копии</string>
   <string name="BackupDialog_to_enable_backups_choose_a_folder">За да вклучите резервни копии, изберете папка. Резервните копии ќе бидат зачувани на таа локација.</string>
@@ -2650,7 +2676,7 @@
   <string name="TransferOrRestoreFragment__if_you_have_previously_registered_a_signal_account">Ако имате претходно регистрирана Signal сметка, можета да ја префрлите или вратите Вашата сметка и пораки</string>
   <string name="TransferOrRestoreFragment__transfer_from_android_device">Префрли од Android уред</string>
   <string name="TransferOrRestoreFragment__transfer_your_account_and_messages_from_your_old_android_device">Префрлете ја Вашата сметка и пораки од Вашиот стар Android уред. Потребен ви е пристап до стариот уред.</string>
-  <string name="TransferOrRestoreFragment__you_need_access_to_your_old_device">Ви треба пристап до стариот уред.</string>
+  <string name="TransferOrRestoreFragment__you_need_access_to_your_old_device">Потребен ви е пристап до стариот уред.</string>
   <string name="TransferOrRestoreFragment__restore_from_backup">Врати од резервна копија</string>
   <string name="TransferOrRestoreFragment__restore_your_messages_from_a_local_backup">Вратете ги Вашите пораки од локална резервна копија. Ако не ги вратите сега нема да можете да го направите тоа подоцна.</string>
   <!--NewDeviceTransferInstructionsFragment-->
@@ -2990,7 +3016,7 @@
   <string name="PaymentsRecoveryPhraseFragment__invalid_recovery_phrase">Невалидна резервна фраза</string>
   <string name="PaymentsRecoveryPhraseFragment__make_sure_youve_entered_your_phrase_correctly_and_try_again">Осигурајте се дека сте ја внеле фразата точно и пробајте пак.</string>
   <string name="PaymentsRecoveryPhraseFragment__copy_to_clipboard">Да копирам на таблата со исечоци?</string>
-  <string name="PaymentsRecoveryPhraseFragment__if_you_choose_to_store">Ако изберете да ја зачувате резервната фраза дигитално, осигурајте се дека сте 100% сигурни дека е зачувана на безбедно место.</string>
+  <string name="PaymentsRecoveryPhraseFragment__if_you_choose_to_store">Ако изберете да ја зачувате резервната фраза дигитално, осигурајте се да биде зачувана на безбедно место.</string>
   <string name="PaymentsRecoveryPhraseFragment__copy">Копирај</string>
   <!--PaymentsRecoveryPhraseConfirmFragment-->
   <string name="PaymentRecoveryPhraseConfirmFragment__confirm_recovery_phrase">Потврди резервна фраза</string>
@@ -3037,7 +3063,7 @@
   <string name="AccountSettingsFragment__account">Сметка</string>
   <string name="AccountSettingsFragment__youll_be_asked_less_frequently">Ќе бидете прашувани се поретко</string>
   <string name="AccountSettingsFragment__require_your_signal_pin">Барај го Signal PIN-от за повторна регистрација на Вашиот телефонски број на Signal</string>
-  <string name="AccountSettingsFragment__change_phone_number">Променете го телефонскиот број</string>
+  <string name="AccountSettingsFragment__change_phone_number">Промени телефонски број</string>
   <!--ChangeNumberFragment-->
   <string name="ChangeNumberFragment__use_this_to_change_your_current_phone_number_to_a_new_phone_number">Користете го ова за да го промените сегашниот телефонски број во нов телефонски број. Не можете да ја поништите оваа промена.\n\nПред да продолжите, проверете дали Вашиот нов број може да прима SMS или повици. </string>
   <string name="ChangeNumberFragment__continue">Продолжи</string>
@@ -3055,7 +3081,7 @@
   <string name="ChangeNumberEnterPhoneNumberFragment__you_must_specify_your_old_number_country_code">Мора да наведете повикувачки број на државата за Вашиот стар број</string>
   <string name="ChangeNumberEnterPhoneNumberFragment__you_must_specify_your_old_phone_number">Мора да го наведете Вашиот стар телефонски број</string>
   <string name="ChangeNumberEnterPhoneNumberFragment__you_must_specify_your_new_number_country_code">Мора да наведете повикувачки број на државата за Вашиот нов број</string>
-  <string name="ChangeNumberEnterPhoneNumberFragment__you_must_specify_your_new_phone_number">Мора да го наведете Вашиот нов број</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__you_must_specify_your_new_phone_number">Мора да го наведете Вашиот нов телефонски број</string>
   <!--ChangeNumberVerifyFragment-->
   <string name="ChangeNumberVerifyFragment__change_number">Смени го бројот</string>
   <string name="ChangeNumberVerifyFragment__verifying_s">Проверувам %1$s</string>
@@ -3165,8 +3191,8 @@
   <string name="ChatColorSelectionFragment__delete">Избриши</string>
   <string name="ChatColorSelectionFragment__delete_color">Избриши боја</string>
   <plurals name="ChatColorSelectionFragment__this_custom_color_is_used">
-    <item quantity="one">Оваа боја се користи во %1$d разговори. Дали сакате да ги зачувате промените за сите разговори?</item>
-    <item quantity="other">Оваа прилагодена боја се користи во %1$d разговори. Дали сакате да ја избришете од сите разговори?</item>
+    <item quantity="one">Оваа боја се користи во %1$d разговор. Дали сакате да ја избришете од разговорот?</item>
+    <item quantity="other">Оваа боја се користи во %1$d разговори. Дали сакате да ја избришете од сите разговори?</item>
   </plurals>
   <string name="ChatColorSelectionFragment__delete_chat_color">Да се избрише бојата на разговорот?</string>
   <!--CustomChatColorCreatorFragment-->
@@ -3178,7 +3204,7 @@
   <string name="CustomChatColorCreatorFragmentPage__save">Зачувај</string>
   <string name="CustomChatColorCreatorFragmentPage__edit_color">Уреди боја</string>
   <plurals name="CustomChatColorCreatorFragmentPage__this_color_is_used">
-    <item quantity="one">Оваа боја се користи во %1$d разговори. Дали сакате да ги зачувате промените за сите разговори?</item>
+    <item quantity="one">Оваа боја се користи во %1$d разговор. Дали сакате да ги зачувате промените за овој разговори?</item>
     <item quantity="other">Оваа боја се користи во %1$d разговори. Дали сакате да ги зачувате промените за сите разговори?</item>
   </plurals>
   <!--ChatColorGradientTool-->
@@ -3250,7 +3276,7 @@
   <string name="ConversationSettingsFragment__group_link">Групен линк</string>
   <string name="ConversationSettingsFragment__add_as_a_contact">Додај како контакт</string>
   <string name="ConversationSettingsFragment__unmute">Вклучи известувања</string>
-  <string name="ConversationSettingsFragment__conversation_muted_until_s">Разговорот исклучен до %1$s</string>
+  <string name="ConversationSettingsFragment__conversation_muted_until_s">Известувањата се исклучени до %1$s</string>
   <string name="ConversationSettingsFragment__conversation_muted_forever">Известувањата се исклучени засекогаш</string>
   <string name="ConversationSettingsFragment__copied_phone_number_to_clipboard">Телефонски број копиран на таблата со исечоци.</string>
   <string name="ConversationSettingsFragment__phone_number">Телефонски број</string>
@@ -3406,7 +3432,7 @@
   <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__display_on_profile">Прикажи на профил</string>
   <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__make_featured_badge">Постави како истакнат беџ</string>
   <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__done">Готово</string>
-  <string name="ThanksForYourSupportBottomSheetFragment__when_you_have_more">Кога имате повеќе од еден беџ, можете да изберете еден главен беџ за другите да го видат на Вашиот профил.</string>
+  <string name="ThanksForYourSupportBottomSheetFragment__when_you_have_more">Кога имате повеќе од еден беџ, можете да изберете еден беџ што ќе го истакнете за другите да го видат на Вашиот профил.</string>
   <string name="BecomeASustainerFragment__get_badges">Добијте беџ за Вашиот профил со поддршка на Signal.</string>
   <string name="BecomeASustainerFragment__signal_is_a_non_profit">Signal е непрофитна организација без реклами и инвеститори, поддржана само од луѓе како Вас.</string>
   <string name="ManageDonationsFragment__my_support">Моја поддршка</string>
@@ -3434,9 +3460,15 @@
   <string name="ExpiredBadgeBottomSheetDialogFragment__become_a_sustainer">Станете поддржувач</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__add_a_boost">Додај поттик</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__not_now">Не сега</string>
-  <string name="ExpiredBadgeBottomSheetDialogFragment__your_sustainer">Вашата претплата за поддршка беше автоматски откажана затоа што бевте неактивни премногу долго. Вашиот беџ %1$s повеќе не е видлив на Вашиот профил.</string>
+  <!--Copy displayed when badge expires after user inactivity-->
+  <string name="ExpiredBadgeBottomSheetDialogFragment__your_sustainer_subscription_was_automatically">Вашата претплата за поддршка беше автоматски откажана затоа што бевте премногу долго неактивни. Вашиот беџ %1$s повеќе не е видлив на Вашиот профил.</string>
+  <!--Copy displayed when badge expires after payment failure-->
+  <string name="ExpiredBadgeBottomSheetDialogFragment__your_sustainer_subscription_was_canceled">Вашата претплата за поддршка е откажана бидејќи не можевме да го обработиме Вашето плаќање. Вашиот беџ повеќе не е видлив на Вашиот профил.</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__you_can">Можете да продолжите да го користите Signal, но за да ја поддржите апликацијата реактивирајте го беџот, обновете сега.</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__renew_subscription">Обнови претплата</string>
+  <string name="CantProcessSubscriptionPaymentBottomSheetDialogFragment__cant_process_subscription_payment">Не може да се обработи плаќањето</string>
+  <string name="CantProcessSubscriptionPaymentBottomSheetDialogFragment__were_having_trouble">Наидовме на проблем со прибирање на Вашите средства за Signal поддржувач. Осигурајте се дека Вашиот начин на плаќање е ажуриран. Ако не е, ажурирајте го во Google Pay. Signal ќе се обиде повторно да го обработи плаќањето за неколку дена.</string>
+  <string name="CantProcessSubscriptionPaymentBottomSheetDialogFragment__dont_show_this_again">Не го прикажувај ова повторно</string>
   <string name="Subscription__please_contact_support_for_more_information">Ве молиме контактирајте со тимот за поддршка за повеќе информации.</string>
   <string name="Subscription__contact_support">Контакт за поддршка</string>
   <string name="Subscription__earn_a_s_badge">Добијте %1$s беџ</string>
@@ -3450,7 +3482,7 @@
   <string name="DonationsErrors__still_processing">Сѐ уште се обработува</string>
   <string name="DonationsErrors__couldnt_add_badge">Не може да се додаде беџ</string>
   <string name="DonationsErrors__your_badge_could_not">Вашиот беџ не може да се додаде на Вашата сметка, но можеби Ви е наплатено. Ве молиме контактирајте со тимот за поддршка.</string>
-  <string name="DonationsErrors__your_payment_is_still">Вашето плаќање сѐ уште се обработува. Ова може да потрае неколку минути, во зависност од Вашата врска.</string>
+  <string name="DonationsErrors__your_payment_is_still">Вашето плаќање сѐ уште се обработува. Ова може да потрае неколку минути, во зависност од Вашата интернет конекција.</string>
   <string name="DonationsErrors__google_pay_unavailable">Google Pay недостапен</string>
   <string name="DonationsErrors__you_have_to_set_up_google_pay_to_donate_in_app">Мора да го поставите Google Pay за да донирате во апликацијата.</string>
   <string name="DonationsErrors__failed_to_cancel_subscription">Не успеав да ја откажам претплатата</string>
@@ -3458,6 +3490,34 @@
   <string name="ViewBadgeBottomSheetDialogFragment__your_device_doesn_t_support_google_pay_so_you_can_t_subscribe_to_earn_a_badge_you_can_still_support_signal_by_making_a_donation_on_our_website">Вашиот уред не поддржува Google Pay, затоа не можете да се претплатите за да добиете беџ. Сѐ уште можете да го поддржите Signal преку донација на нашиот веб сајт.</string>
   <string name="NetworkFailure__network_error_check_your_connection_and_try_again">Грешка во мрежата. Проверете ја Вашата интернет врска и обидете се повторно.</string>
   <string name="NetworkFailure__retry">Пробај пак</string>
+  <!--Stripe decline code generic_failure-->
+  <string name="DeclineCode__try_another_payment_method_or_contact_your_bank">Обидете се со друг начин на плаќање или контактирајте со Вашата банка за повеќе информации.</string>
+  <!--Stripe decline code verify on Google Pay and try again-->
+  <string name="DeclineCode__verify_your_payment_method_is_up_to_date_in_google_pay_and_try_again">Проверете дали Вашиот начин на плаќање е ажуриран во Google Pay и обидете се повторно.</string>
+  <!--Stripe decline code learn more action label-->
+  <string name="DeclineCode__learn_more">Дознајте повеќе</string>
+  <!--Stripe decline code contact issuer-->
+  <string name="DeclineCode__verify_your_payment_method_is_up_to_date_in_google_pay_and_try_again_if_the_problem">Проверете дали Вашиот начин на плаќање е ажуриран во Google Pay и обидете се повторно. Ако проблемот продолжи, контактирајте со Вашата банка.</string>
+  <!--Stripe decline code purchase not supported-->
+  <string name="DeclineCode__your_card_does_not_support_this_type_of_purchase">Вашата картичка не поддржува ваков вид на плаќање. Обидете се со друг начин на плаќање.</string>
+  <!--Stripe decline code your card has expired-->
+  <string name="DeclineCode__your_card_has_expired">Вашата картичка е истечена. Ажурирајте го Вашиот начин на плаќање во Google Pay и обидете се повторно.</string>
+  <!--Stripe decline code go to google pay action label-->
+  <string name="DeclineCode__go_to_google_pay">Одете на Google Pay</string>
+  <!--Stripe decline code incorrect card number-->
+  <string name="DeclineCode__your_card_number_is_incorrect">Бројот на Вашата картичка е неточен. Ажурирајте го во Google Pay и обидете се повторно.</string>
+  <!--Stripe decline code incorrect cvc-->
+  <string name="DeclineCode__your_cards_cvc_number_is_incorrect">CVC-бројот на Вашата картичка е неточен. Ажурирајте го во Google Pay и обидете се повторно.</string>
+  <!--Stripe decline code insufficient funds-->
+  <string name="DeclineCode__your_card_does_not_have_sufficient_funds">На Вашата картичка нема доволно средства за да се заврши плаќањето. Обидете се со друг начин на плаќање.</string>
+  <!--Stripe decline code incorrect expiration month-->
+  <string name="DeclineCode__the_expiration_month">Месецот на истекување на Вашиот начин на плаќање е неточен. Ажурирајте го во Google Pay и обидете се повторно.</string>
+  <!--Stripe decline code incorrect expiration year-->
+  <string name="DeclineCode__the_expiration_year">Годината на истекување на Вашиот начин на плаќање е неточна. Ажурирајте ја во Google Pay и обидете се повторно.</string>
+  <!--Stripe decline code issuer not available-->
+  <string name="DeclineCode__try_completing_the_payment_again">Обидете се повторно да го завршите плаќањето или контактирајте со Вашата банка за повеќе информации.</string>
+  <!--Stripe decline code processing error-->
+  <string name="DeclineCode__try_again">Обидете се повторно или контактирајте со Вашата банка за повеќе информации.</string>
   <!--Title of create notification profile screen-->
   <string name="EditNotificationProfileFragment__name_your_profile">Именувајте го профилот</string>
   <!--Hint text for create/edit notification profile name-->
@@ -3501,7 +3561,7 @@
   <!--Button that starts the create new notification profile flow-->
   <string name="NotificationProfilesFragment__new_profile">Нов профил</string>
   <!--Profile active status, indicating the current profile is on for an unknown amount of time-->
-  <string name="NotificationProfilesFragment__on">Вклучи</string>
+  <string name="NotificationProfilesFragment__on">Вклучено</string>
   <!--Button use to permanently delete a notification profile-->
   <string name="NotificationProfileDetails__delete_profile">Избриши профил</string>
   <!--Snakbar message shown when removing a recipient from a profile-->
@@ -3517,7 +3577,7 @@
   <!--Schedule description if all days are selected-->
   <string name="NotificationProfileDetails__everyday">Секој ден</string>
   <!--Profile status on if it is the active profile-->
-  <string name="NotificationProfileDetails__on">Вклучи</string>
+  <string name="NotificationProfileDetails__on">Вклучено</string>
   <!--Profile status on if it is not the active profile-->
   <string name="NotificationProfileDetails__off">Исклучено</string>
   <!--Description of hours for schedule (start to end) times-->
@@ -3599,5 +3659,6 @@
   <!--Displayed in a toast when we fail to open the ringtone picker-->
   <string name="NotificationSettingsFragment__failed_to_open_picker">Не успеа да се отвори менито за избор.</string>
   <!--Description shown for the Signal Release Notes channel-->
+  <string name="ReleaseNotes__signal_release_notes_and_news">Белешки за нова верзија на Signal и новости</string>
   <!--EOF-->
 </resources>

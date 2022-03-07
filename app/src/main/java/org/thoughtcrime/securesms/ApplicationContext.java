@@ -99,11 +99,9 @@ import org.thoughtcrime.securesms.util.SignalLocalMetrics;
 import org.thoughtcrime.securesms.util.SignalUncaughtExceptionHandler;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.Util;
-import org.thoughtcrime.securesms.util.VersionTracker;
 import org.thoughtcrime.securesms.util.dynamiclanguage.DynamicLanguageContextWrapper;
 import org.whispersystems.libsignal.logging.SignalProtocolLoggerProvider;
 
-import java.io.IOException;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.security.Security;
@@ -193,7 +191,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
                             .addNonBlocking(this::cleanAvatarStorage)
                             .addNonBlocking(this::initializeRevealableMessageManager)
                             .addNonBlocking(this::initializePendingRetryReceiptManager)
-                            .addNonBlocking(this::initializeSignedPreKeyCheck)
+                            .addNonBlocking(CreateSignedPreKeyJob::enqueueIfNeeded)
                             .addNonBlocking(this::initializePeriodicTasks)
                             .addNonBlocking(this::initializeCircumvention)
                             .addNonBlocking(this::initializePendingMessages)
@@ -398,14 +396,15 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
 
   private void initializeFirstEverAppLaunch() {
     if (TextSecurePreferences.getFirstInstallVersion(this) == -1) {
-      if (!SignalDatabase.databaseFileExists(this) || VersionTracker.getDaysSinceFirstInstalled(this) < 365) {
+      if (!SignalDatabase.databaseFileExists(this)) {
         Log.i(TAG, "First ever app launch!");
         AppInitialization.onFirstEverAppLaunch(this);
       }
 
-      if (!IdentityKeyUtil.hasIdentityKey(this)) {
+      if (!SignalStore.account().hasPniIdentityKey()) {
         Log.i(TAG, "Generating new identity keys...");
-        IdentityKeyUtil.generateIdentityKeys(this);
+        SignalStore.account().generateAciIdentityKey();
+        SignalStore.account().generatePniIdentityKeyIfNecessary();
       }
 
       Log.i(TAG, "Setting first install version to " + Util.getSignalCanonicalVersionCode());
@@ -461,12 +460,6 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
       if (SignalStore.account().getFcmToken() == null || nextSetTime <= System.currentTimeMillis()) {
         ApplicationDependencies.getJobManager().add(new FcmRefreshJob());
       }
-    }
-  }
-
-  private void initializeSignedPreKeyCheck() {
-    if (!TextSecurePreferences.isSignedPreKeyRegistered(this)) {
-      ApplicationDependencies.getJobManager().add(new CreateSignedPreKeyJob(this));
     }
   }
 

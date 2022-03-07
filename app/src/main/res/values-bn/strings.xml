@@ -120,6 +120,13 @@
   <string name="CameraContacts_cant_find_who_youre_looking_for">আপনি যাকে খুঁজছেন তাকে খুঁজে পাচ্ছেন না?</string>
   <string name="CameraContacts_invite_a_contact_to_join_signal">Molly -এ যোগ দিতে একটি পরিচিতিকে আমন্ত্রণ জানান</string>
   <string name="CameraContacts__menu_search">খুঁজুন</string>
+  <!--Censorship Circumvention Megaphone-->
+  <!--Title for an alert that shows at the bottom of the chat list letting people know that circumvention is no longer needed-->
+  <!--Body for an alert that shows at the bottom of the chat list letting people know that circumvention is no longer needed-->
+  <!--Action to prompt the user to disable circumvention since it is no longer needed-->
+  <string name="CensorshipCircumventionMegaphone_turn_off">বন্ধ করুন</string>
+  <!--Action to prompt the user to dismiss the alert at the bottom of the chat list-->
+  <string name="CensorshipCircumventionMegaphone_no_thanks">না ধন্যবাদ</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">সরান</string>
   <string name="ClearProfileActivity_remove_profile_photo">প্রোফাইলের ছবিটি সরিয়ে ফেলবেন?</string>
@@ -1293,6 +1300,7 @@
   <string name="WebRtcCallView__flip">ফ্লিপ</string>
   <string name="WebRtcCallView__speaker">স্পিকার</string>
   <string name="WebRtcCallView__camera">ক্যামেরা</string>
+  <string name="WebRtcCallView__unmute">আনমিউট করুন</string>
   <string name="WebRtcCallView__mute">নিরব</string>
   <string name="WebRtcCallView__ring">রিং</string>
   <string name="WebRtcCallView__end_call">কল শেষ করুন</string>
@@ -1590,6 +1598,8 @@
   <string name="NotificationChannel_voice_notes">ভয়েস নোট</string>
   <string name="NotificationChannel_contact_joined_signal">পরিচিতি Signal এ যোগ দিয়েছে</string>
   <string name="NotificationChannels__no_activity_available_to_open_notification_channel_settings">নোটিফিকেশন চ্যানেল সেটিংস খোলার কোন কার্যকলাপ উপলভ্য নেই।</string>
+  <!--Notification channel name for showing persistent background connection on devices without push notifications-->
+  <!--Notification channel name for showing call status information (like connection, ongoing, etc.) Not ringing.-->
   <!--ProfileEditNameFragment-->
   <!--QuickResponseService-->
   <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Molly লক্ করা থাকলে দ্রুত প্রত্যুত্তর দেওয়া সম্ভব নয়!</string>
@@ -2143,6 +2153,17 @@
   <string name="preferences_chats__message_text_size">বার্তার হরফের আকার</string>
   <string name="preferences_events__contact_joined_signal">পরিচিতি Signal এ যোগ দিয়েছে</string>
   <string name="preferences_notifications__priority">অগ্রাধিকার</string>
+  <!--Heading for the \'censorship circumvention\' section of privacy preferences-->
+  <!--Title of the \'censorship circumvention\' toggle switch-->
+  <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">যদি সক্ষম করা থাকে তবে Signal সেন্সরশিপকে ছিন্ন করার চেষ্টা করবে। আপনি যদি এমন কোনও স্থানে না থাকেন যেখানে Signal সেন্সর করা রয়েছে তবে এই বৈশিষ্ট্যটি সচল করবেন না।</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that we automatically enabled it because we believe you\'re in a censored country-->
+  <string name="preferences_communication__censorship_circumvention_has_been_activated_based_on_your_accounts_phone_number">আপনার অ্যাকাউন্ট ফোন নাম্বার এর ভিত্তিতে সেন্সরশিপ এড়ানো সক্রিয় করা হয়েছে।</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that you disabled it even though we believe you\'re in a censored country-->
+  <string name="preferences_communication__censorship_circumvention_you_have_manually_disabled">আপনি ম্যানুয়ালি সেন্সরশিপ এড়ানো অচল করেছেন।</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that you cannot use it because you\'re already connected to the Signal service-->
+  <string name="preferences_communication__censorship_circumvention_is_not_necessary_you_are_already_connected">সেন্সরশিপ এড়ানো প্রয়োজনীয় নয়; আপনি ইতিমধ্যে Signal পরিষেবাতে সংযুক্ত আছেন।</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that you cannot use it because you\'re not connected to the internet-->
+  <string name="preferences_communication__censorship_circumvention_can_only_be_activated_when_connected_to_the_internet">সেন্সরশিপ এড়ানো কেবলমাত্র ইন্টারনেটে সংযুক্ত থাকা অবস্থায় সক্রিয় করা যায়।</string>
   <string name="preferences_communication__category_sealed_sender">সিলযুক্ত প্রেরক</string>
   <string name="preferences_communication__sealed_sender_display_indicators">প্রদর্শন সূচকসমূহ</string>
   <string name="preferences_communication__sealed_sender_display_indicators_description">যখন আপনি সিলযুক্ত প্রেরক ব্যবহার করে পৌছে দেয়া হয়েছে এমন বার্তাগুলিতে \"বার্তা খুঁটিনাটি\" নির্বাচন করেন তখন একটি স্থিতি আইকন দেখান।</string>
@@ -3392,7 +3413,9 @@
   <string name="ExpiredBadgeBottomSheetDialogFragment__become_a_sustainer">একজন সাসটেইনার হোন</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__add_a_boost">একটি বুস্ট যোগ করুন</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__not_now">এখন না</string>
-  <string name="ExpiredBadgeBottomSheetDialogFragment__your_sustainer">আপনার সাসটেইনার সাবস্ক্রিপশন স্বয়ংক্রিয়ভাবে বাতিল হয়ে গেছে কারণ আপনি অনেক দিন ধরে নিষ্ক্রিয় ছিলেন। আপনার %1$s ব্যাজ আপনার প্রোফাইলে আর দৃশ্যমান নয়।</string>
+  <!--Copy displayed when badge expires after user inactivity-->
+  <string name="ExpiredBadgeBottomSheetDialogFragment__your_sustainer_subscription_was_automatically">আপনার সাসটেইনার সাবস্ক্রিপশন স্বয়ংক্রিয়ভাবে বাতিল হয়ে গেছে কারণ আপনি অনেক দিন ধরে নিষ্ক্রিয় ছিলেন। আপনার %1$s ব্যাজ আপনার প্রোফাইলে আর দৃশ্যমান নয়।</string>
+  <!--Copy displayed when badge expires after payment failure-->
   <string name="ExpiredBadgeBottomSheetDialogFragment__you_can">আপনি সিগন্যাল ব্যবহার চালিয়ে যেতে পারেন তবে অ্যাপটিকে সমর্থন করতে এবং আপনার ব্যাজ পুনরায় সক্রিয় করতে, এখনই নবায়ন করুন।</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__renew_subscription">সদস্যতা নবায়ন করুন</string>
   <string name="Subscription__please_contact_support_for_more_information">আরও তথ্যের জন্য সাপোর্টে যোগাযোগ করুন।</string>
@@ -3416,6 +3439,21 @@
   <string name="ViewBadgeBottomSheetDialogFragment__your_device_doesn_t_support_google_pay_so_you_can_t_subscribe_to_earn_a_badge_you_can_still_support_signal_by_making_a_donation_on_our_website">আপনার ডিভাইস গুগল পে সমর্থন করে না, তাই আপনি ব্যাজ অর্জন করতে সদস্যতা নিতে পারবেন না। আপনি এখনও আমাদের ওয়েবসাইটে অনুদান দিয়ে সিগন্যাল সমর্থন করতে পারেন।</string>
   <string name="NetworkFailure__network_error_check_your_connection_and_try_again">নেটওয়ার্ক ত্রুটি। আপনার সংযোগ পরীক্ষা করুন এবং আবার চেষ্টা করুন।</string>
   <string name="NetworkFailure__retry">পুনরায় চেষ্টা করুন</string>
+  <!--Stripe decline code generic_failure-->
+  <!--Stripe decline code verify on Google Pay and try again-->
+  <!--Stripe decline code learn more action label-->
+  <string name="DeclineCode__learn_more">আরও জানুন</string>
+  <!--Stripe decline code contact issuer-->
+  <!--Stripe decline code purchase not supported-->
+  <!--Stripe decline code your card has expired-->
+  <!--Stripe decline code go to google pay action label-->
+  <!--Stripe decline code incorrect card number-->
+  <!--Stripe decline code incorrect cvc-->
+  <!--Stripe decline code insufficient funds-->
+  <!--Stripe decline code incorrect expiration month-->
+  <!--Stripe decline code incorrect expiration year-->
+  <!--Stripe decline code issuer not available-->
+  <!--Stripe decline code processing error-->
   <!--Title of create notification profile screen-->
   <!--Hint text for create/edit notification profile name-->
   <string name="EditNotificationProfileFragment__profile_name">প্রোফাইল নাম</string>

@@ -1,7 +1,10 @@
+// IMPORTANT: After changing a dependency, please run:
+// ./gradlew --write-verification-metadata sha256 qa --rerun-tasks
+
 dependencyResolutionManagement {
     versionCatalogs {
         libs {
-            version('signal-client', '0.11.0')
+            version('signal-client', '0.12.3')
             version('exoplayer', '2.15.0')
             version('androidx-camera', '1.0.0-beta11')
             version('androidx-lifecycle', '2.3.1')
@@ -50,11 +53,11 @@ dependencyResolutionManagement {
 
             // Google
             alias('google-protobuf-javalite').to('com.google.protobuf:protobuf-javalite:3.11.4')
-            alias('google-libphonenumber').to('com.googlecode.libphonenumber:libphonenumber:8.12.33')
+            alias('google-libphonenumber').to('com.googlecode.libphonenumber:libphonenumber:8.12.42')
             alias('google-play-services-maps').to('com.google.android.gms:play-services-maps:17.0.0')
             alias('google-play-services-auth').to('com.google.android.gms:play-services-auth:16.0.1')
-            alias('google-zxing-android-integration').to('com.google.zxing:android-integration:3.1.0')
-            alias('google-zxing-core').to('com.google.zxing:core:3.2.1')
+            alias('google-zxing-android-integration').to('com.google.zxing:android-integration:3.3.0')
+            alias('google-zxing-core').to('com.google.zxing:core:3.4.1')
             alias('google-ez-vcard').to('com.googlecode.ez-vcard:ez-vcard:0.9.11')
 
             // Exoplayer
@@ -71,7 +74,7 @@ dependencyResolutionManagement {
             alias('signal-client-android').to('org.whispersystems', 'signal-client-android').versionRef('signal-client')
             alias('signal-aesgcmprovider').to('org.signal:aesgcmprovider:0.0.3')
             alias('molly-argon2').to('im.molly:argon2:13.1-1')
-            alias('molly-ringrtc').to('im.molly:ringrtc-android:2.17.0-1')
+            alias('molly-ringrtc').to('im.molly:ringrtc-android:2.18.0-1')
             alias('signal-android-database-sqlcipher').to('org.signal:android-database-sqlcipher:4.4.3-S8')
 
             // MOLLY
@@ -113,6 +116,8 @@ dependencyResolutionManagement {
             alias('stickyheadergrid').to('com.codewaves.stickyheadergrid:stickyheadergrid:0.9.4')
             alias('circular-progress-button').to('com.github.dmytrodanylyk.circular-progress-button:library:1.1.3-S2')
             alias('dnsjava').to('dnsjava:dnsjava:2.1.9')
+            alias('facebook-flipper').to('com.facebook.flipper:flipper:0.91.0')
+            alias('facebook-soloader').to('com.facebook.soloader:soloader:0.10.1')
 
             // Mp4Parser
             alias('mp4parser-isoparser').to('org.mp4parser', 'isoparser').versionRef('mp4parser')

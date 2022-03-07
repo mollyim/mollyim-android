@@ -76,6 +76,7 @@ public class IncomingCallActionProcessor extends DeviceAwareActionProcessor {
                                                 WebRtcUtil.getProxyInfo(),
                                                 hideIp,
                                                 NetworkUtil.getCallingBandwidthMode(context),
+                                                null,
                                                 false);
     } catch (CallException e) {
       return callFailure(currentState, "Unable to proceed with call: ", e);
@@ -146,7 +147,6 @@ public class IncomingCallActionProcessor extends DeviceAwareActionProcessor {
       }
     }
 
-    webRtcInteractor.initializeAudioForCall();
     if (shouldDisturbUserWithCall && SignalStore.settings().isCallNotificationsEnabled()) {
       Uri                            ringtone     = recipient.resolve().getCallRingtone();
       RecipientDatabase.VibrateState vibrateState = recipient.resolve().getCallVibrate();

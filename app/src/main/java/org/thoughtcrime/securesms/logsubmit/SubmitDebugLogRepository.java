@@ -14,10 +14,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.logging.Log;
-import org.signal.core.util.logging.Scrubber;
 import org.signal.core.util.tracing.Tracer;
 import org.thoughtcrime.securesms.database.LogDatabase;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.signal.core.util.logging.Scrubber;
 import org.thoughtcrime.securesms.net.Network;
 import org.thoughtcrime.securesms.net.StandardUserAgentInterceptor;
 import org.thoughtcrime.securesms.service.KeyCachingService;
@@ -81,7 +81,7 @@ public class SubmitDebugLogRepository {
     add(new LogSectionRemappedRecords());
     add(new LogSectionLogcat());
     add(new LogSectionLoggerHeader());
-    // MOLLY: Think of the default implementation of isInitialized() for new sections
+    // MOLLY: Review default implementation of isInitialized() for new sections
   }};
 
   private final Application     context;

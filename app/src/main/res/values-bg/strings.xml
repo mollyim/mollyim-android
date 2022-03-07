@@ -117,6 +117,13 @@
   <string name="CameraContacts_cant_find_who_youre_looking_for">Не откирваш това, което търсиш?</string>
   <string name="CameraContacts_invite_a_contact_to_join_signal">Покани контакт да се присъедини в Molly</string>
   <string name="CameraContacts__menu_search">Търсене</string>
+  <!--Censorship Circumvention Megaphone-->
+  <!--Title for an alert that shows at the bottom of the chat list letting people know that circumvention is no longer needed-->
+  <!--Body for an alert that shows at the bottom of the chat list letting people know that circumvention is no longer needed-->
+  <!--Action to prompt the user to disable circumvention since it is no longer needed-->
+  <string name="CensorshipCircumventionMegaphone_turn_off">Изключване</string>
+  <!--Action to prompt the user to dismiss the alert at the bottom of the chat list-->
+  <string name="CensorshipCircumventionMegaphone_no_thanks">Не, благодаря</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">Премахни</string>
   <string name="ClearProfileActivity_remove_profile_photo">Премахване на снимката от профила?</string>
@@ -1262,6 +1269,7 @@
   <string name="WebRtcCallView__flip">Обърни</string>
   <string name="WebRtcCallView__speaker">Говорител</string>
   <string name="WebRtcCallView__camera">Камера</string>
+  <string name="WebRtcCallView__unmute">Изключи тих режим</string>
   <string name="WebRtcCallView__mute">Заглуши</string>
   <string name="WebRtcCallView__ring">Звънни</string>
   <string name="WebRtcCallView__end_call">Прекрати обаждането</string>
@@ -1553,6 +1561,8 @@
   <string name="NotificationChannel_missing_display_name">Непознат</string>
   <string name="NotificationChannel_voice_notes">Гласови бележки</string>
   <string name="NotificationChannel_contact_joined_signal">Един от контактите Ви се присъедини към Signal!</string>
+  <!--Notification channel name for showing persistent background connection on devices without push notifications-->
+  <!--Notification channel name for showing call status information (like connection, ongoing, etc.) Not ringing.-->
   <!--ProfileEditNameFragment-->
   <!--QuickResponseService-->
   <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Бърз отговор не е възможен, когато Molly е заключен!</string>
@@ -1991,6 +2001,7 @@
   <string name="preferences__help">Помощ</string>
   <string name="preferences__advanced">Допълнителни</string>
   <string name="preferences__donate_to_signal">Дари на Molly</string>
+  <string name="preferences__subscription">Абонамент</string>
   <string name="preferences__privacy">Поверителност</string>
   <string name="preferences__mms_user_agent">MMS User Agent</string>
   <string name="preferences__advanced_mms_access_point_names">Ръчни MMS настройки</string>
@@ -2086,6 +2097,17 @@
   <string name="preferences_chats__message_text_size">Размер на текста</string>
   <string name="preferences_events__contact_joined_signal">Един от контактите Ви се присъедини към Signal!</string>
   <string name="preferences_notifications__priority">Приоритет</string>
+  <!--Heading for the \'censorship circumvention\' section of privacy preferences-->
+  <!--Title of the \'censorship circumvention\' toggle switch-->
+  <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">Ако е активирано, Signal ще се опита да заобиколи цензурата. Не разрешавайте тази функция, освен ако не сте на място, където Signal е цензуриран.</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that we automatically enabled it because we believe you\'re in a censored country-->
+  <string name="preferences_communication__censorship_circumvention_has_been_activated_based_on_your_accounts_phone_number">Заобикалянето на цензурата е активирано въз основа на телефонния номер на профила Ви.</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that you disabled it even though we believe you\'re in a censored country-->
+  <string name="preferences_communication__censorship_circumvention_you_have_manually_disabled">Вие ръчно забранихте заобикалянето на цензура.</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that you cannot use it because you\'re already connected to the Signal service-->
+  <string name="preferences_communication__censorship_circumvention_is_not_necessary_you_are_already_connected">Не е необходимо заобикаляне на цензурата; вече сте свързани към услугата за Signal.</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that you cannot use it because you\'re not connected to the internet-->
+  <string name="preferences_communication__censorship_circumvention_can_only_be_activated_when_connected_to_the_internet">Заобикалянето на цензура може да се активира само когато е свързано към интернет.</string>
   <string name="preferences_communication__category_sealed_sender">Скрит изпращач</string>
   <string name="preferences_communication__sealed_sender_display_indicators">Показване на индикатори</string>
   <string name="preferences_communication__sealed_sender_display_indicators_description">Показвай статус икона когато натиснете \"Допълнителна информация\" на съобщения, които са доставени посредством скрит изпращач. </string>
@@ -2112,6 +2134,7 @@
   <string name="configurable_single_select__customize_option">Опция за персонализиране</string>
   <!--Internal only preferences-->
   <!--Payments-->
+  <string name="PaymentsActivityFragment__all_activity">Всички дейности</string>
   <string name="PaymentsAllActivityFragment__all">Всички</string>
   <string name="PaymentsAllActivityFragment__sent">Изпратен</string>
   <string name="PaymentsAllActivityFragment__received">Получен</string>
@@ -2153,6 +2176,7 @@
   <string name="PaymentsDetailsFragment__from">От</string>
   <string name="PaymentsDetailsFragment__sent_payment">Плащането беше изпратено</string>
   <string name="PaymentsDetailsFragment__received_payment">Плащането беше получено</string>
+  <string name="PaymentsDetailsFragment__block_number">Блокиране на номер</string>
   <!--PaymentsTransferFragment-->
   <string name="PaymentsTransferFragment__transfer">Прехвърли</string>
   <string name="PaymentsTransferFragment__scan_qr_code">Сканирай QR Код</string>
@@ -2164,7 +2188,9 @@
   <string name="CreatePaymentFragment__request">Искай</string>
   <string name="CreatePaymentFragment__pay">Плати</string>
   <!--EditNoteFragment-->
+  <string name="EditNoteFragment_note">Бележка</string>
   <!--ConfirmPaymentFragment-->
+  <string name="ConfirmPayment__confirm_payment">Потвърди плащане</string>
   <string name="ConfirmPayment__to">До</string>
   <string name="ConfirmPayment__payment_failed">Грешка при плащане</string>
   <!--CurrencyAmountFormatter_s_at_s-->
@@ -2823,6 +2849,8 @@
   <string name="ChangeNumber__okay">Добре</string>
   <!--ChangeNumberEnterPhoneNumberFragment-->
   <string name="ChangeNumberEnterPhoneNumberFragment__change_number">Промени Номер</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__your_old_number">Вашият стар номер</string>
+  <string name="ChangeNumberEnterPhoneNumberFragment__old_phone_number">Стар телефонен номер</string>
   <string name="ChangeNumberEnterPhoneNumberFragment__the_phone_number_you_entered_doesnt_match_your_accounts">Въведеният от вас телефонен номер не съответства на вашия акаунт.</string>
   <!--ChangeNumberVerifyFragment-->
   <string name="ChangeNumberVerifyFragment__change_number">Промени Номер</string>
@@ -3056,10 +3084,27 @@
   <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__done">Готово</string>
   <!--Displayed on "My Support" screen when user badge failed to be added to their account-->
   <string name="ExpiredBadgeBottomSheetDialogFragment__not_now">Не сега</string>
+  <!--Copy displayed when badge expires after user inactivity-->
+  <!--Copy displayed when badge expires after payment failure-->
   <string name="Subscription__contact_support">Връзка с отдела за поддръжка</string>
   <!--Displayed in notification when user payment fails to process on Stripe-->
   <!--Displayed on "My Support" screen when user subscription payment method failed.-->
   <string name="NetworkFailure__retry">Опитай Отново</string>
+  <!--Stripe decline code generic_failure-->
+  <!--Stripe decline code verify on Google Pay and try again-->
+  <!--Stripe decline code learn more action label-->
+  <string name="DeclineCode__learn_more">Научете повече</string>
+  <!--Stripe decline code contact issuer-->
+  <!--Stripe decline code purchase not supported-->
+  <!--Stripe decline code your card has expired-->
+  <!--Stripe decline code go to google pay action label-->
+  <!--Stripe decline code incorrect card number-->
+  <!--Stripe decline code incorrect cvc-->
+  <!--Stripe decline code insufficient funds-->
+  <!--Stripe decline code incorrect expiration month-->
+  <!--Stripe decline code incorrect expiration year-->
+  <!--Stripe decline code issuer not available-->
+  <!--Stripe decline code processing error-->
   <!--Title of create notification profile screen-->
   <!--Hint text for create/edit notification profile name-->
   <string name="EditNotificationProfileFragment__profile_name">Име на профила</string>

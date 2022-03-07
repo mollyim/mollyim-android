@@ -119,6 +119,13 @@
   <string name="CameraContacts_cant_find_who_youre_looking_for">သင်ရှာတဲ့သူကို မတွေ့ဘူးလား</string>
   <string name="CameraContacts_invite_a_contact_to_join_signal">Molly အသုံးပြုရန် ဖိတ်ခေါ်ပါ</string>
   <string name="CameraContacts__menu_search">ရှာရန်</string>
+  <!--Censorship Circumvention Megaphone-->
+  <!--Title for an alert that shows at the bottom of the chat list letting people know that circumvention is no longer needed-->
+  <!--Body for an alert that shows at the bottom of the chat list letting people know that circumvention is no longer needed-->
+  <!--Action to prompt the user to disable circumvention since it is no longer needed-->
+  <string name="CensorshipCircumventionMegaphone_turn_off">ပိတ်မည်</string>
+  <!--Action to prompt the user to dismiss the alert at the bottom of the chat list-->
+  <string name="CensorshipCircumventionMegaphone_no_thanks">မလုပ်လိုပါ။</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">ဖယ်ရှားသည် </string>
   <string name="ClearProfileActivity_remove_profile_photo">ဓါတ်ပုံ ဖယ်ရှားမှာလား ?</string>
@@ -1119,6 +1126,7 @@
   </plurals>
   <string name="WebRtcCallView__speaker">စပီကာ </string>
   <string name="WebRtcCallView__camera">ကင်မရာ</string>
+  <string name="WebRtcCallView__unmute">အသံပြန်ဖွင့်မယ်</string>
   <string name="WebRtcCallView__mute">အသံတိတ်ထားမည်</string>
   <string name="WebRtcCallView__end_call">ဖုန်းချမည်</string>
   <!--CallParticipantsListDialog-->
@@ -1397,6 +1405,8 @@
   <string name="NotificationChannel_voice_notes">အသံမှတ်စုများ</string>
   <string name="NotificationChannel_contact_joined_signal">အဆက်အသွယ်သည် Signal ပေါ်တက်ရောက်လာပါပြီ</string>
   <string name="NotificationChannels__no_activity_available_to_open_notification_channel_settings">အသိပေးချက်လိုင်း၏ အပြင်အဆင်များကို ဖွင့်ရန် လှုပ်ရှားမှုမရှိပါ။</string>
+  <!--Notification channel name for showing persistent background connection on devices without push notifications-->
+  <!--Notification channel name for showing call status information (like connection, ongoing, etc.) Not ringing.-->
   <!--ProfileEditNameFragment-->
   <!--QuickResponseService-->
   <string name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Molly လော့ခ်ကျသွားသည့်အခါ ချက်ချင်းမတုံ့ပြန်နိုင်ပါ!</string>
@@ -1915,6 +1925,17 @@
   <string name="preferences_chats__message_text_size">စာလုံးအရွယ်အစား</string>
   <string name="preferences_events__contact_joined_signal">Signal ကို လာသုံးနေပြီ</string>
   <string name="preferences_notifications__priority">ဦးစားပေး</string>
+  <!--Heading for the \'censorship circumvention\' section of privacy preferences-->
+  <!--Title of the \'censorship circumvention\' toggle switch-->
+  <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">ဒါကိုဖွင့်ထားပါက signal အနေဖြင့် ပိတ်ထားခြင်းများကို ကျော်သွားရန်ကြိုးစားပါလိမ့်မည်။ Signal အားပိတ်ထားသောနေရာတွင်အသုံးပြုနေခြင်းမဟုတ်ပါက ဒါကိုသုံးရန်မလိုပါ။</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that we automatically enabled it because we believe you\'re in a censored country-->
+  <string name="preferences_communication__censorship_circumvention_has_been_activated_based_on_your_accounts_phone_number">သင့်ကိုယ်ပိုင်စာရင်း ၏ဖုန်းနံပါတ်အပေါ် မူတည်၍ ဆင်ဆာဖြတ်တောက်မှုရှောင်ကွင်းခြင်းကို ပြုလုပ်ပြီး ဖြစ်သည်။</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that you disabled it even though we believe you\'re in a censored country-->
+  <string name="preferences_communication__censorship_circumvention_you_have_manually_disabled">သင်ကိုယ်တိုင် ဆင်ဆာခံခြင်းကို ရှောင်ကျင်ရန် ပိတ်ထားခဲ့ပါသည်။</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that you cannot use it because you\'re already connected to the Signal service-->
+  <string name="preferences_communication__censorship_circumvention_is_not_necessary_you_are_already_connected">Signal ကို ချိတ်ဆက်ပြီးသား ဖြစ်သောကြောင့် ဆင်ဆာဖြတ်တောက်မှု ရှောင်ကွင်းခြင်းကို မလိုအပ်ပါ။</string>
+  <!--Summary text for \'censorship circumvention\' toggle. Indicates that you cannot use it because you\'re not connected to the internet-->
+  <string name="preferences_communication__censorship_circumvention_can_only_be_activated_when_connected_to_the_internet">ဆင်ဆာဖြတ်တောက်မှု ရှောင်ကွင်းခြင်းကို အင်တာနက် ချိတ်ထားမှသာ သုံးလို့ရမည်။</string>
   <string name="preferences_communication__category_sealed_sender">ဖုံးကွယ်ထားသော ပေးပို့သူ</string>
   <string name="preferences_communication__sealed_sender_display_indicators">ပြသမှု ညွှန်ကိန်းများ</string>
   <string name="preferences_communication__sealed_sender_display_indicators_description">ဖုံးကွယ်ထားသော ပေးပို့သူ ကိုသုံး၍ ပေးပို့သော မက်ဆေ့ချ်များအတွက် \"မက်ဆေ့ချ် အချက်အလက်များ\" ကိုရွေးလျှင် အခြေအနေအိုင်ကွန် ကိုပြသပါ။</string>
@@ -2890,11 +2911,28 @@
   <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__done">ပြီးပါပြီ</string>
   <!--Displayed on "My Support" screen when user badge failed to be added to their account-->
   <string name="ExpiredBadgeBottomSheetDialogFragment__not_now">ယခု မလုပ်ဆောင်သေးပါ။</string>
+  <!--Copy displayed when badge expires after user inactivity-->
+  <!--Copy displayed when badge expires after payment failure-->
   <string name="Subscription__contact_support">ပံ့ပိုးမှုစင်တာသို့ ဆက်သွယ်ပါ</string>
   <string name="SubscribeFragment__processing_payment">ငွေပေးချေမှု လုပ်ဆောင်နေသည်…</string>
   <!--Displayed in notification when user payment fails to process on Stripe-->
   <!--Displayed on "My Support" screen when user subscription payment method failed.-->
   <string name="NetworkFailure__retry">ထပ်ကြိုးစားပါ</string>
+  <!--Stripe decline code generic_failure-->
+  <!--Stripe decline code verify on Google Pay and try again-->
+  <!--Stripe decline code learn more action label-->
+  <string name="DeclineCode__learn_more">ထပ်မံလေ့လာရန်</string>
+  <!--Stripe decline code contact issuer-->
+  <!--Stripe decline code purchase not supported-->
+  <!--Stripe decline code your card has expired-->
+  <!--Stripe decline code go to google pay action label-->
+  <!--Stripe decline code incorrect card number-->
+  <!--Stripe decline code incorrect cvc-->
+  <!--Stripe decline code insufficient funds-->
+  <!--Stripe decline code incorrect expiration month-->
+  <!--Stripe decline code incorrect expiration year-->
+  <!--Stripe decline code issuer not available-->
+  <!--Stripe decline code processing error-->
   <!--Title of create notification profile screen-->
   <!--Hint text for create/edit notification profile name-->
   <string name="EditNotificationProfileFragment__profile_name">ပရိုဖိုင်း အမည်</string>

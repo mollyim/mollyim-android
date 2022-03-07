@@ -104,7 +104,7 @@ final class GroupManagerV2 {
     this.groupsV2Operations     = ApplicationDependencies.getGroupsV2Operations();
     this.authorization          = ApplicationDependencies.getGroupsV2Authorization();
     this.groupsV2StateProcessor = ApplicationDependencies.getGroupsV2StateProcessor();
-    this.selfAci                = Recipient.self().requireAci();
+    this.selfAci                = SignalStore.account().requireAci();
     this.groupCandidateHelper   = new GroupCandidateHelper(context);
   }
 
@@ -142,7 +142,7 @@ final class GroupManagerV2 {
 
     Map<UUID, UuidCiphertext> uuidCipherTexts = new HashMap<>();
     for (Recipient recipient : recipients) {
-      uuidCipherTexts.put(recipient.requireAci().uuid(), clientZkGroupCipher.encryptUuid(recipient.requireAci().uuid()));
+      uuidCipherTexts.put(recipient.requireServiceId().uuid(), clientZkGroupCipher.encryptUuid(recipient.requireServiceId().uuid()));
     }
 
     return uuidCipherTexts;
@@ -389,7 +389,7 @@ final class GroupManagerV2 {
         throws GroupChangeFailedException, GroupInsufficientRightsException, IOException, GroupNotAMemberException
     {
       Set<UUID> uuids = Stream.of(recipientIds)
-                              .map(r -> Recipient.resolved(r).requireAci().uuid())
+                              .map(r -> Recipient.resolved(r).requireServiceId().uuid())
                               .collect(Collectors.toSet());
 
       return commitChangeWithConflictResolution(groupOperations.createApproveGroupJoinRequest(uuids));
@@ -400,7 +400,7 @@ final class GroupManagerV2 {
         throws GroupChangeFailedException, GroupInsufficientRightsException, IOException, GroupNotAMemberException
     {
       Set<UUID> uuids = Stream.of(recipientIds)
-                              .map(r -> Recipient.resolved(r).requireAci().uuid())
+                              .map(r -> Recipient.resolved(r).requireServiceId().uuid())
                               .collect(Collectors.toSet());
 
       return commitChangeWithConflictResolution(groupOperations.createRefuseGroupJoinRequest(uuids));
@@ -412,7 +412,7 @@ final class GroupManagerV2 {
         throws GroupChangeFailedException, GroupInsufficientRightsException, IOException, GroupNotAMemberException
     {
       Recipient recipient = Recipient.resolved(recipientId);
-      return commitChangeWithConflictResolution(groupOperations.createChangeMemberRole(recipient.requireAci().uuid(), admin ? Member.Role.ADMINISTRATOR : Member.Role.DEFAULT));
+      return commitChangeWithConflictResolution(groupOperations.createChangeMemberRole(recipient.requireServiceId().uuid(), admin ? Member.Role.ADMINISTRATOR : Member.Role.DEFAULT));
     }
 
     @WorkerThread
@@ -431,17 +431,17 @@ final class GroupManagerV2 {
           throw new AssertionError(e);
         }
       } else {
-        return ejectMember(self.getId());
+        return ejectMember(self.getId(), true);
       }
     }
 
     @WorkerThread
-    @NonNull GroupManager.GroupActionResult ejectMember(@NonNull RecipientId recipientId)
+    @NonNull GroupManager.GroupActionResult ejectMember(@NonNull RecipientId recipientId, boolean allowWhenBlocked)
         throws GroupChangeFailedException, GroupInsufficientRightsException, IOException, GroupNotAMemberException
     {
       Recipient recipient = Recipient.resolved(recipientId);
 
-      return commitChangeWithConflictResolution(groupOperations.createRemoveMembersChange(Collections.singleton(recipient.requireAci().uuid())));
+      return commitChangeWithConflictResolution(groupOperations.createRemoveMembersChange(Collections.singleton(recipient.requireServiceId().uuid())), allowWhenBlocked);
     }
 
     @WorkerThread
@@ -449,7 +449,7 @@ final class GroupManagerV2 {
         throws GroupChangeFailedException, GroupNotAMemberException, GroupInsufficientRightsException, IOException
     {
       Recipient  self               = Recipient.self();
-      List<UUID> newAdminRecipients = Stream.of(newAdmins).map(id -> Recipient.resolved(id).requireAci().uuid()).toList();
+      List<UUID> newAdminRecipients = Stream.of(newAdmins).map(id -> Recipient.resolved(id).requireServiceId().uuid()).toList();
 
       return commitChangeWithConflictResolution(groupOperations.createLeaveAndPromoteMembersToAdmin(selfAci.uuid(),
                                                                                                     newAdminRecipients));
@@ -555,11 +555,17 @@ final class GroupManagerV2 {
     private @NonNull GroupManager.GroupActionResult commitChangeWithConflictResolution(@NonNull GroupChange.Actions.Builder change)
         throws GroupChangeFailedException, GroupNotAMemberException, GroupInsufficientRightsException, IOException
     {
+      return commitChangeWithConflictResolution(change, false);
+    }
+
+    private @NonNull GroupManager.GroupActionResult commitChangeWithConflictResolution(@NonNull GroupChange.Actions.Builder change, boolean allowWhenBlocked)
+        throws GroupChangeFailedException, GroupNotAMemberException, GroupInsufficientRightsException, IOException
+    {
       change.setSourceUuid(UuidUtil.toByteString(selfAci.uuid()));
 
       for (int attempt = 0; attempt < 5; attempt++) {
         try {
-          return commitChange(change);
+          return commitChange(change, allowWhenBlocked);
         } catch (GroupPatchNotAcceptedException e) {
           throw new GroupChangeFailedException(e);
         } catch (ConflictException e) {
@@ -611,7 +617,7 @@ final class GroupManagerV2 {
       }
     }
 
-    private GroupManager.GroupActionResult commitChange(@NonNull GroupChange.Actions.Builder change)
+    private GroupManager.GroupActionResult commitChange(@NonNull GroupChange.Actions.Builder change, boolean allowWhenBlocked)
         throws GroupNotAMemberException, GroupChangeFailedException, IOException, GroupInsufficientRightsException
     {
       final GroupDatabase.GroupRecord       groupRecord         = groupDatabase.requireGroup(groupId);
@@ -622,7 +628,7 @@ final class GroupManagerV2 {
       final DecryptedGroup                  decryptedGroupState;
       final DecryptedGroup                  previousGroupState;
 
-      if (Recipient.externalGroupExact(context, groupId).isBlocked()) {
+      if (!allowWhenBlocked && Recipient.externalGroupExact(context, groupId).isBlocked()) {
         throw new GroupChangeFailedException("Group is blocked.");
       }
 

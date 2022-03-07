@@ -7,8 +7,6 @@ import android.database.Cursor;
 import androidx.annotation.AnyThread;
 import androidx.annotation.NonNull;
 
-import net.zetetic.database.sqlcipher.SQLiteDatabase;
-
 import org.signal.core.util.ThreadUtil;
 import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.logging.Log;
@@ -152,16 +150,20 @@ public final class LiveRecipientCache {
       ACI    localAci  = SignalStore.account().getAci();
       String localE164 = SignalStore.account().getE164();
 
-      if (localAci != null) {
-        selfId = recipientDatabase.getByAci(localAci).or(recipientDatabase.getByE164(localE164)).orNull();
-      } else if (localE164 != null) {
-        selfId = recipientDatabase.getByE164(localE164).orNull();
-      } else {
+      if (localAci == null && localE164 == null) {
         throw new IllegalStateException("Tried to call getSelf() before local data was set!");
       }
 
+      if (localAci != null) {
+        selfId = recipientDatabase.getByServiceId(localAci).orNull();
+      }
+
+      if (selfId == null && localE164 != null) {
+        selfId = recipientDatabase.getByE164(localE164).orNull();
+      }
+
       if (selfId == null) {
-        selfId = recipientDatabase.getAndPossiblyMerge(localAci, localE164, false);
+        selfId = recipientDatabase.getAndPossiblyMerge(localAci, localE164, true);
       }
 
       synchronized (localRecipientId) {
@@ -235,6 +237,6 @@ public final class LiveRecipientCache {
   }
 
   private boolean isValidForCache(@NonNull Recipient recipient) {
-    return !recipient.getId().isUnknown() && (recipient.hasServiceIdentifier() || recipient.getGroupId().isPresent() || recipient.hasSmsAddress());
+    return !recipient.getId().isUnknown() && (recipient.hasServiceId() || recipient.getGroupId().isPresent() || recipient.hasSmsAddress());
   }
 }
