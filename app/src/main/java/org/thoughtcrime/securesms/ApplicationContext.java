@@ -401,11 +401,12 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
         AppInitialization.onFirstEverAppLaunch(this);
       }
 
-      if (!SignalStore.account().hasPniIdentityKey()) {
+      if (!SignalStore.account().hasAciIdentityKey()) {
         Log.i(TAG, "Generating new identity keys...");
         SignalStore.account().generateAciIdentityKey();
-        SignalStore.account().generatePniIdentityKeyIfNecessary();
       }
+
+      SignalStore.account().generatePniIdentityKeyIfNecessary();
 
       Log.i(TAG, "Setting first install version to " + Util.getSignalCanonicalVersionCode());
       TextSecurePreferences.setFirstInstallVersion(this, Util.getSignalCanonicalVersionCode());

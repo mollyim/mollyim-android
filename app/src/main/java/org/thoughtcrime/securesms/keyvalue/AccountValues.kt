@@ -142,6 +142,10 @@ internal class AccountValues internal constructor(store: KeyValueStore) : Signal
       )
     }
 
+  fun hasAciIdentityKey(): Boolean {
+    return store.containsKey(KEY_ACI_IDENTITY_PUBLIC_KEY)
+  }
+
   /** Generates and saves an identity key pair for the ACI identity. Should only be done once. */
   fun generateAciIdentityKey() {
     synchronized(this) {
@@ -333,7 +337,7 @@ internal class AccountValues internal constructor(store: KeyValueStore) : Signal
         .beginWrite()
         .putString("account.1.pni", store.getString("account.pni", null))
         .remove("account.pni")
-        .apply();
+        .apply()
     }
 
     if (identitySharedPrefs.contains("pref_identity_public_v3")) {
