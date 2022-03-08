@@ -88,7 +88,7 @@ public class ApplicationMigrations {
     static final int FIX_EMOJI_QUALITY             = 53;
     static final int CHANGE_NUMBER_CAPABILITY_4    = 54;
     static final int KBS_MIGRATION                 = 55;
-    //static final int PNI_IDENTITY                = 56;
+    static final int KBS_MIGRATION_2               = 56;
     //static final int PNI_IDENTITY_2              = 57;
     static final int PNI_IDENTITY_3                = 58;
   }
@@ -372,6 +372,11 @@ public class ApplicationMigrations {
 
     if (lastSeenVersion < Version.KBS_MIGRATION) {
       jobs.put(Version.KBS_MIGRATION, new KbsEnclaveMigrationJob());
+    }
+
+    // MOLLY: Previous job failed because KBS_ENCLAVE had pre-migration values due to a bad merge
+    if (lastSeenVersion < Version.KBS_MIGRATION_2) {
+      jobs.put(Version.KBS_MIGRATION_2, new KbsEnclaveMigrationJob());
     }
 
     if (lastSeenVersion < Version.PNI_IDENTITY_3) {
