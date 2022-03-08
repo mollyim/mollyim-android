@@ -327,6 +327,15 @@ internal class AccountValues internal constructor(store: KeyValueStore) : Signal
       Log.w(TAG, "No pre-existing ACI! No migration.")
     }
 
+    // MOLLY: Key for PNI hadn't account number before 5.31.6-1
+    if (store.containsKey("account.pni") && store.getString("account.1.pni", null) == null) {
+      store
+        .beginWrite()
+        .putString("account.1.pni", store.getString("account.pni", null))
+        .remove("account.pni")
+        .apply();
+    }
+
     if (identitySharedPrefs.contains("pref_identity_public_v3")) {
       Log.i(TAG, "Migrating modern identity key.")
 
