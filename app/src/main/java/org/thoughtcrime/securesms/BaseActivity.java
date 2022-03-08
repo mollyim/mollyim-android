@@ -1,5 +1,6 @@
 package org.thoughtcrime.securesms;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -19,9 +21,11 @@ import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.service.KeyCachingService;
 import org.thoughtcrime.securesms.util.AppStartup;
 import org.thoughtcrime.securesms.util.ConfigurationUtil;
+import org.thoughtcrime.securesms.util.ServiceUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.dynamiclanguage.DynamicLanguageContextWrapper;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -72,6 +76,18 @@ public abstract class BaseActivity extends AppCompatActivity {
       getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
     } else {
       getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
+    }
+  }
+
+  @RequiresApi(21)
+  protected void setExcludeFromRecents(boolean exclude) {
+    int taskId = getTaskId();
+
+    List<ActivityManager.AppTask> tasks = ServiceUtil.getActivityManager(this).getAppTasks();
+    for (ActivityManager.AppTask task : tasks) {
+      if (task.getTaskInfo().id == taskId) {
+        task.setExcludeFromRecents(exclude);
+      }
     }
   }
 

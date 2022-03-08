@@ -103,10 +103,10 @@ public abstract class PassphraseRequiredActivity extends PassphraseActivity impl
   @Override
   public void onMasterSecretCleared() {
     Log.d(TAG, "[" + Log.tag(getClass()) + "] onMasterSecretCleared()");
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-      finishAndRemoveTask();
+    if (Build.VERSION.SDK_INT < 21) {
+      finishAffinity();
     } else {
-      finish();
+      finishAndRemoveTask();
     }
   }
 

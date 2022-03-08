@@ -299,7 +299,6 @@
 
     <activity android:name=".PassphrasePromptActivity"
               android:launchMode="singleTask"
-              android:noHistory="true"
               android:theme="@style/TextSecure.LightIntroTheme"
               android:windowSoftInputMode="stateVisible"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
