@@ -166,9 +166,11 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
       Tracer.getInstance().setMaxBufferSize(35_000);
     }
 
-    AppStartup.getInstance().addBlocking("sqlcipher-init", () -> SignalDatabase.init(this,
-                                                                                     DatabaseSecretProvider.getOrCreateDatabaseSecret(this),
-                                                                                     AttachmentSecretProvider.getInstance(this).getOrCreateAttachmentSecret()))
+    AppStartup.getInstance().addBlocking("sqlcipher-init", () -> {
+                              SignalDatabase.init(this,
+                                                  DatabaseSecretProvider.getOrCreateDatabaseSecret(this),
+                                                  AttachmentSecretProvider.getInstance(this).getOrCreateAttachmentSecret());
+                            })
                             .addBlocking("logging", () -> {
                               initializeLogging();
                               Log.i(TAG, "onCreateUnlock()");
@@ -396,13 +398,11 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
 
   private void initializeFirstEverAppLaunch() {
     if (TextSecurePreferences.getFirstInstallVersion(this) == -1) {
-      if (!SignalDatabase.databaseFileExists(this)) {
-        Log.i(TAG, "First ever app launch!");
-        AppInitialization.onFirstEverAppLaunch(this);
-      }
+      Log.i(TAG, "First ever app launch!");
+      AppInitialization.onFirstEverAppLaunch(this);
 
+      Log.i(TAG, "Generating new identity keys...");
       if (!SignalStore.account().hasAciIdentityKey()) {
-        Log.i(TAG, "Generating new identity keys...");
         SignalStore.account().generateAciIdentityKey();
       }
 
