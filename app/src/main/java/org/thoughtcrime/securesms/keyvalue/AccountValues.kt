@@ -301,7 +301,7 @@ internal class AccountValues internal constructor(store: KeyValueStore) : Signal
   }
 
   private fun migrateFromSharedPrefs() {
-    Log.i(TAG, "Migrating account 1 values from shared prefs:")
+    Log.i(TAG, "Migrating account values from shared prefs:")
 
     val context = ApplicationDependencies.getApplication()
     val sharedPrefs = SecurePreferenceManager.getSecurePreferences(context)
@@ -310,6 +310,8 @@ internal class AccountValues internal constructor(store: KeyValueStore) : Signal
     if (sharedPrefs.contains("pref_local_uuid")) {
       Log.i(TAG, "Migrating ACI.")
 
+      // MOLLY: This migration is always run in Signal, so migrateFromSharedPrefsV1()
+      // might set FCM to true before registration.
       store
         .beginWrite()
         .putString(KEY_ACI, sharedPrefs.getString("pref_local_uuid", null))

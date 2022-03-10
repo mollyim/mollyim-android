@@ -55,6 +55,7 @@ public class IncomingMessageObserver {
   private final NetworkConstraintObserver.NetworkListener networkListener;
 
   private boolean appVisible;
+  private boolean isForegroundService;
 
   private volatile boolean networkDrained;
   private volatile boolean decryptionDrained;
@@ -66,10 +67,6 @@ public class IncomingMessageObserver {
     this.decryptionDrainedListeners = new CopyOnWriteArrayList<>();
 
     new MessageRetrievalThread().start();
-
-    if (!SignalStore.account().isFcmEnabled()) {
-      ContextCompat.startForegroundService(context, new Intent(context, ForegroundService.class));
-    }
 
     ApplicationDependencies.getAppForegroundObserver().addListener(new AppForegroundObserver.Listener() {
       @Override
@@ -144,6 +141,7 @@ public class IncomingMessageObserver {
 
   private synchronized boolean isConnectionNecessary() {
     if (KeyCachingService.isLocked()) {
+      Log.i(TAG, "Don't connect anymore. App is locked.");
       return false;
     }
 
@@ -151,6 +149,11 @@ public class IncomingMessageObserver {
     boolean fcmEnabled = SignalStore.account().isFcmEnabled();
     boolean hasNetwork = NetworkConstraint.isMet(context);
     boolean hasProxy   = ApplicationDependencies.getNetworkManager().isProxyEnabled();
+
+    if (!fcmEnabled && registered && !isForegroundService) {
+      ContextCompat.startForegroundService(context, new Intent(context, ForegroundService.class));
+      isForegroundService = true;
+    }
 
     Log.d(TAG, String.format("Network: %s, Foreground: %s, FCM: %s, Censored: %s, Registered: %s, Proxy: %s",
                              hasNetwork, appVisible, fcmEnabled, networkAccess.isCensored(), registered, hasProxy));
