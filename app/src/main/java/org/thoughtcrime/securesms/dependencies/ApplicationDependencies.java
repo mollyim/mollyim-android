@@ -4,7 +4,6 @@ import android.app.Application;
 
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
-import androidx.annotation.VisibleForTesting;
 
 import org.signal.core.util.concurrent.DeadlockDetector;
 import org.signal.zkgroup.receipts.ClientZkReceiptOperations;
@@ -125,7 +124,6 @@ public class ApplicationDependencies {
     }
   }
 
-  @VisibleForTesting
   public static boolean isInitialized() {
     return ApplicationDependencies.dependencyProvider != null;
   }

@@ -53,9 +53,9 @@ public abstract class BaseActivity extends AppCompatActivity {
   @Override
   protected void onStart() {
     logEvent("onStart()");
-    try {
+    if (ApplicationDependencies.isInitialized()) {
       ApplicationDependencies.getShakeToReport().registerActivity(this);
-    } catch (IllegalStateException ignored) {}
+    }
     super.onStart();
   }
 
