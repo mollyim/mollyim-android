@@ -24,17 +24,17 @@
     <string name="preferences__map_terrain">Місцевість</string>
     <string name="preferences__map_none" translatable="false">None</string>
     <string name="preferences__network">Мережа</string>
-    <string name="preferences_network__connection">З\'єднання</string>
+    <string name="preferences_network__connection">З’єднання</string>
     <string name="preferences_network__proxy">Проксі</string>
     <string name="preferences_network__host">Хост</string>
     <string name="preferences_network__port">Порт</string>
-    <string name="preferences_network__hostname_or_ip_address">Ім\'я хосту чи IP-адреса</string>
+    <string name="preferences_network__hostname_or_ip_address">Ім’я хоста чи IP-адреса</string>
     <string name="preferences_network__tunnels_network_traffic">Тунелювання мережевого трафіку</string>
-    <string name="preferences_network__check_connection">Перевірити з\'єднання</string>
-    <string name="preferences_network__connecting">З\'єднання…</string>
+    <string name="preferences_network__check_connection">Перевірити з’єднання</string>
+    <string name="preferences_network__connecting">З’єднання…</string>
     <string name="preferences_network__online">У мережі</string>
     <string name="WipeMemoryService_secure_wipe_in_progress">Триває безпечне видалення</string>
-    <string name="WipeMemoryService_clearing_unencrypted_data_from_ram">Видалення незашифрованих даних із оперативної пам\'яті</string>
+    <string name="WipeMemoryService_clearing_unencrypted_data_from_ram">Видалення незашифрованих даних із оперативної пам’яті</string>
     <string name="PrivacySettingsFragment_data_at_rest">Дані в режимі очікування</string>
     <string name="AppProtectionPreferenceFragment_instant">Негайно</string>
     <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">Ви можете встановити парольну фразу для шифрування бази даних. Доки її не розблоковано, Molly не зможе отримувати сповіщення чи дзвінки. Це допомагає захистити дані на втрачених чи викрадених пристроях.</string>
@@ -52,13 +52,13 @@
     <string name="BlockUnblockDialog_deleted_contacts_are_still_able_to_call_you_or_send_you_messages">Видалені контакти все одно зможуть телефонувати вам чи відправляти повідомлення, якщо вони незаблоковані.</string>
     <string name="ProxyManager_successfully_started_orbot">Orbot запущено</string>
     <string name="NetworkPreferenceFragment_a_valid_port_number_is_between_0_and_65535">Правильний номер порту від 0 до 65535</string>
-    <string name="NetworkPreferenceFragment_the_host_you_typed_is_not_valid">Вказаний вами хост не є дійсним</string>
+    <string name="NetworkPreferenceFragment_the_host_you_typed_is_not_valid">Вказаний вами хост недійсний</string>
     <string name="NetworkPreferenceFragment_missing_orbot_app">Застосунок Orbot відсутній</string>
     <string name="NetworkPreferenceFragment_get_orbot">Отримати Orbot</string>
     <string name="NetworkPreferenceFragment_molly_wont_connect_without_orbot_which_is_not_installed_on_this_device">Molly не підключиться без Orbot, який не встановлено на цьому пристрої.</string>
     <string name="ApplicationPreferencesActivity_network_summary">Проксі %1$s</string>
     <string name="RegistrationActivity_network_settings">Налаштування мережі</string>
-    <string name="DonateMegaphone_molly_is_free_software">Molly - це вільне програмне забезпечення</string>
+    <string name="DonateMegaphone_molly_is_free_software">Molly — це вільне програмне забезпечення</string>
     <string name="DonateMegaphone_we_maintain_molly_with_your_support_consider_donating_at_open_collective">Ми працюємо над Molly завдяки вашій підтримці! Розгляньте можливість внеску через платформу Open Collective.</string>
     <string name="DonateMegaphone_donate">Зробити внесок</string>
     <string name="DonateMegaphone_no_thanks">Ні, дякую</string>
@@ -71,12 +71,12 @@
     <string name="BackupsPreferenceFragment__number_of_backups_to_retain">Кількість резервних копій для збереження</string>
     <string name="MessageRetrievalService_ready_to_receive_messages">Готова отримувати повідомлення</string>
     <string name="HelpSettingsFragment__molly_im_website">Вебсторінка molly.im</string>
-    <string name="DeviceAddFragment__link_without_scanning">Прив\'язати без сканування</string>
+    <string name="DeviceAddFragment__link_without_scanning">Прив’язати без сканування</string>
     <string name="enter_device_link_dialog__if_your_phone_cant_scan_the_qr_code_you_can_manually_enter_the_link_encoded_in_the_qr_code">Якщо ваш телефон неможе зчитати QR-код, можете ввести закодоване у QR-коді посилання.</string>
     <string name="enter_device_link_dialog__url" translatable="false">tsdevice:/?uuid=UUID&amp;pub_key=PUBKEY</string>
     <string name="HelpSettingsFragment_disable_and_delete_debug_log">Видалити й вимкнути ведення журналу налагодження?</string>
-    <string name="RegistrationActivity_molly_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly потрібен доступ до контактів і медіо, щоб допомагати вам зв\'язуватися з друзями та надсилати повідомлення. Ваші контакти завантажуються за допомогою приватного виявлення контактів Signal, що означає наскрізьне їх шифрування, а також невидімість для сервісу Signal.</string>
-    <string name="RegistrationActivity_molly_needs_access_to_your_contacts_in_order_to_connect_with_friends">Molly потрібен доступ до контактів, щоб допомагати вам зв\'язуватися з друзями. Ваші контакти завантажуються за допомогою приватного виявлення контактів Signal, що означає наскрізьне їх шифрування, а також невидимість для сервісу Signal.</string>
+    <string name="RegistrationActivity_molly_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly потрібен доступ до контактів і медіа, щоб допомагати вам зв’язуватися з друзями та надсилати повідомлення. Ваші контакти завантажуються за допомогою приватного виявлення контактів Signal, що означає наскрізьне їх шифрування, а також невидимість для сервісу Signal.</string>
+    <string name="RegistrationActivity_molly_needs_access_to_your_contacts_in_order_to_connect_with_friends">Molly потрібен доступ до контактів, щоб допомагати вам зв’язуватися з друзями. Ваші контакти завантажуються за допомогою приватного виявлення контактів Signal, що означає наскрізьне їх шифрування, а також невидимість для сервісу Signal.</string>
     <string name="DozeReminder_optimize_for_timely_notifications">Оптимізація для своєчасних сповіщень</string>
     <string name="DozeReminder_tap_to_allow_molly_to_retrieve_messages_while_the_device_is_in_standby">Торкніться, щоб дозволити Molly отримувати повідомлення, коли пристрій перебуває в режимі очікування.</string>
 </resources>
