@@ -28,8 +28,6 @@ public class NetworkManager {
   private final ApplicationContext application;
   private final OrbotHelper        orbotHelper;
 
-  private boolean networkEnabled;
-
   private OrbotStatusCallback orbotStatusCallback;
 
   private ProxyType proxyType;
@@ -56,11 +54,11 @@ public class NetworkManager {
   }
 
   public boolean isNetworkEnabled() {
-    return networkEnabled;
+    return Network.isEnabled();
   }
 
   public void setNetworkEnabled(boolean enabled) {
-    networkEnabled = enabled;
+    Network.setEnabled(enabled);
     if (enabled) {
       onNetworkEnabled();
     }

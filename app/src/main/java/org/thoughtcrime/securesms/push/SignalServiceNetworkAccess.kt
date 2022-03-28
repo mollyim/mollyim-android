@@ -35,6 +35,8 @@ class SignalServiceNetworkAccess(context: Context) {
   companion object {
     private val TAG = Log.tag(SignalServiceNetworkAccess::class.java)
 
+    // MOLLY: DNS moved to Network.dns
+
     private const val COUNTRY_CODE_EGYPT = 20
     private const val COUNTRY_CODE_UAE = 971
     private const val COUNTRY_CODE_OMAN = 968
@@ -146,8 +148,8 @@ class SignalServiceNetworkAccess(context: Context) {
     fUrls.map { SignalStorageUrl(it, F_STORAGE_HOST, fTrustStore, APP_CONNECTION_SPEC) }.toTypedArray(),
     arrayOf(SignalCdshUrl(BuildConfig.SIGNAL_CDSH_URL, serviceTrustStore)),
     interceptors,
-    Network.getSocketFactory(),
-    Optional.of(Network.getDns()),
+    Network.socketFactory,
+    Network.dns,
     zkGroupServerPublicParams
   )
 
@@ -197,8 +199,8 @@ class SignalServiceNetworkAccess(context: Context) {
     arrayOf(SignalStorageUrl(BuildConfig.STORAGE_URL, serviceTrustStore)),
     arrayOf(SignalCdshUrl(BuildConfig.SIGNAL_CDSH_URL, serviceTrustStore)),
     interceptors,
-    Network.getSocketFactory(),
-    Optional.of(Network.getDns()),
+    Network.socketFactory,
+    Network.dns,
     zkGroupServerPublicParams
   )
 
@@ -264,8 +266,8 @@ class SignalServiceNetworkAccess(context: Context) {
       storageUrls,
       cdshUrls,
       interceptors,
-      Network.getSocketFactory(),
-      Optional.of(Network.getDns()),
+      Network.socketFactory,
+      Network.dns,
       zkGroupServerPublicParams
     )
   }

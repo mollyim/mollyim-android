@@ -31,7 +31,6 @@ import javax.net.ssl.X509TrustManager;
 
 import io.reactivex.rxjava3.core.Observable;
 import okhttp3.ConnectionSpec;
-import okhttp3.Dns;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -66,7 +65,7 @@ final class CdshSocket {
                                             .connectionSpecs(Util.immutableList(ConnectionSpec.RESTRICTED_TLS))
                                             .readTimeout(30, TimeUnit.SECONDS)
                                             .connectTimeout(30, TimeUnit.SECONDS)
-                                            .dns(configuration.getDns().or(Dns.SYSTEM))
+                                            .dns(configuration.getDns())
                                             .build();
 
 

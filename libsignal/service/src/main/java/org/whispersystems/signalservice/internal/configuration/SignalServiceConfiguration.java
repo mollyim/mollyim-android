@@ -21,7 +21,7 @@ public final class SignalServiceConfiguration {
   private final SignalStorageUrl[]           signalStorageUrls;
   private final List<Interceptor>            networkInterceptors;
   private final SocketFactory                socketFactory;
-  private final Optional<Dns>                dns;
+  private final Dns                          dns;
   private final byte[]                       zkGroupServerPublicParams;
 
   public SignalServiceConfiguration(SignalServiceUrl[] signalServiceUrls,
@@ -32,7 +32,7 @@ public final class SignalServiceConfiguration {
                                     SignalCdshUrl[] signalCdshUrls,
                                     List<Interceptor> networkInterceptors,
                                     SocketFactory socketFactory,
-                                    Optional<Dns> dns,
+                                    Dns dns,
                                     byte[] zkGroupServerPublicParams)
   {
     this.signalServiceUrls          = signalServiceUrls;
@@ -79,7 +79,7 @@ public final class SignalServiceConfiguration {
     return socketFactory;
   }
 
-  public Optional<Dns> getDns() {
+  public Dns getDns() {
     return dns;
   }
 

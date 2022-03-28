@@ -70,7 +70,7 @@ public class WebSocketConnection extends WebSocketListener {
   private final String                        signalAgent;
   private final HealthMonitor                             healthMonitor;
   private final List<Interceptor>                         interceptors;
-  private final Optional<Dns>                             dns;
+  private final Dns                                       dns;
   private final SocketFactory                             socketFactory;
   private final BehaviorSubject<WebSocketConnectionState> webSocketState;
 
@@ -137,7 +137,7 @@ public class WebSocketConnection extends WebSocketListener {
                                                                                        sslSocketFactory.second())
                                                                      .connectionSpecs(Util.immutableList(ConnectionSpec.RESTRICTED_TLS))
                                                                      .readTimeout(KEEPALIVE_TIMEOUT_SECONDS + 10, TimeUnit.SECONDS)
-                                                                     .dns(dns.orElse(Dns.SYSTEM))
+                                                                     .dns(dns)
                                                                      .connectTimeout(KEEPALIVE_TIMEOUT_SECONDS + 10, TimeUnit.SECONDS);
 
       for (Interceptor interceptor : interceptors) {
