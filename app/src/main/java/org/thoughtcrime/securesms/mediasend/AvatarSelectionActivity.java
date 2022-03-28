@@ -15,8 +15,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LiveData;
 
-import org.thoughtcrime.securesms.R;
 import org.signal.imageeditor.core.model.EditorModel;
+import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.mediasend.v2.gallery.MediaGalleryFragment;
 import org.thoughtcrime.securesms.mms.MediaConstraints;
 import org.thoughtcrime.securesms.profiles.AvatarHelper;
@@ -24,10 +24,10 @@ import org.thoughtcrime.securesms.providers.BlobProvider;
 import org.thoughtcrime.securesms.scribbles.ImageEditorFragment;
 import org.thoughtcrime.securesms.util.DefaultValueLiveData;
 import org.thoughtcrime.securesms.util.MediaUtil;
-import org.whispersystems.libsignal.util.guava.Optional;
 
 import java.io.FileDescriptor;
 import java.util.Collections;
+import java.util.Optional;
 
 public class AvatarSelectionActivity extends AppCompatActivity implements CameraFragment.Controller, ImageEditorFragment.Controller, MediaGalleryFragment.Callbacks {
 
@@ -94,8 +94,8 @@ public class AvatarSelectionActivity extends AppCompatActivity implements Camera
                               false,
                               false,
                               Optional.of(Media.ALL_MEDIA_BUCKET_ID),
-                              Optional.absent(),
-                              Optional.absent()));
+                              Optional.empty(),
+                              Optional.empty()));
   }
 
   @Override
@@ -137,7 +137,7 @@ public class AvatarSelectionActivity extends AppCompatActivity implements Camera
 
   @Override
   public @NonNull LiveData<Optional<Media>> getMostRecentMediaItem() {
-    return new DefaultValueLiveData<>(Optional.absent());
+    return new DefaultValueLiveData<>(Optional.empty());
   }
 
   @Override

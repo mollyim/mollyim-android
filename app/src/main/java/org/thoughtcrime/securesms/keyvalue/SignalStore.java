@@ -35,13 +35,14 @@ public final class SignalStore {
   private final OnboardingValues          onboardingValues;
   private final WallpaperValues           wallpaperValues;
   private final PaymentsValues            paymentsValues;
-  private final DonationsValues           donationsValues;
+  private final DonationsValues           signalDonationsValues;
   private final ProxyValues               proxyValues;
   private final RateLimitValues           rateLimitValues;
   private final ChatColorsValues          chatColorsValues;
   private final ImageEditorValues         imageEditorValues;
   private final NotificationProfileValues notificationProfileValues;
   private final ReleaseChannelValues      releaseChannelValues;
+  private final StoryValues               storyValues;
 
   private static volatile SignalStore instance;
 
@@ -76,13 +77,14 @@ public final class SignalStore {
     this.onboardingValues          = new OnboardingValues(store);
     this.wallpaperValues           = new WallpaperValues(store);
     this.paymentsValues            = new PaymentsValues(store);
-    this.donationsValues           = new DonationsValues(store);
+    this.signalDonationsValues     = new DonationsValues(store);
     this.proxyValues               = new ProxyValues(store);
     this.rateLimitValues           = new RateLimitValues(store);
     this.chatColorsValues          = new ChatColorsValues(store);
     this.imageEditorValues         = new ImageEditorValues(store);
     this.notificationProfileValues = new NotificationProfileValues(store);
     this.releaseChannelValues      = new ReleaseChannelValues(store);
+    this.storyValues               = new StoryValues(store);
   }
 
   public static void onFirstEverAppLaunch() {
@@ -103,13 +105,14 @@ public final class SignalStore {
     onboarding().onFirstEverAppLaunch();
     wallpaper().onFirstEverAppLaunch();
     paymentsValues().onFirstEverAppLaunch();
-    donationsValues().onFirstEverAppLaunch();
+    signalDonationsValues().onFirstEverAppLaunch();
     proxy().onFirstEverAppLaunch();
     rateLimit().onFirstEverAppLaunch();
     chatColorsValues().onFirstEverAppLaunch();
     imageEditorValues().onFirstEverAppLaunch();
     notificationProfileValues().onFirstEverAppLaunch();
     releaseChannelValues().onFirstEverAppLaunch();
+    storyValues().onFirstEverAppLaunch();
   }
 
   public static List<String> getKeysToIncludeInBackup() {
@@ -131,13 +134,14 @@ public final class SignalStore {
     keys.addAll(onboarding().getKeysToIncludeInBackup());
     keys.addAll(wallpaper().getKeysToIncludeInBackup());
     keys.addAll(paymentsValues().getKeysToIncludeInBackup());
-    keys.addAll(donationsValues().getKeysToIncludeInBackup());
+    keys.addAll(signalDonationsValues().getKeysToIncludeInBackup());
     keys.addAll(proxy().getKeysToIncludeInBackup());
     keys.addAll(rateLimit().getKeysToIncludeInBackup());
     keys.addAll(chatColorsValues().getKeysToIncludeInBackup());
     keys.addAll(imageEditorValues().getKeysToIncludeInBackup());
     keys.addAll(notificationProfileValues().getKeysToIncludeInBackup());
     keys.addAll(releaseChannelValues().getKeysToIncludeInBackup());
+    keys.addAll(storyValues().getKeysToIncludeInBackup());
     return keys;
   }
 
@@ -225,8 +229,8 @@ public final class SignalStore {
     return getInstance().paymentsValues;
   }
 
-  public static @NonNull DonationsValues donationsValues() {
-    return getInstance().donationsValues;
+  public static @NonNull DonationsValues signalDonationsValues() {
+    return getInstance().signalDonationsValues;
   }
 
   public static @NonNull ProxyValues proxy() {
@@ -251,6 +255,10 @@ public final class SignalStore {
 
   public static @NonNull ReleaseChannelValues releaseChannelValues() {
     return getInstance().releaseChannelValues;
+  }
+
+  public static @NonNull StoryValues storyValues() {
+    return getInstance().storyValues;
   }
 
   public static @NonNull GroupsV2AuthorizationSignalStoreCache groupsV2AuthorizationCache() {

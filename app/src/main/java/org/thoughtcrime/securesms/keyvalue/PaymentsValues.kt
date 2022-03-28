@@ -1,5 +1,6 @@
 package org.thoughtcrime.securesms.keyvalue
 
+import androidx.annotation.VisibleForTesting
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -20,8 +21,6 @@ import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.storage.StorageSyncHelper
 import org.thoughtcrime.securesms.util.Util
 import org.whispersystems.signalservice.api.payments.Money
-import java.lang.AssertionError
-import java.lang.IllegalStateException
 import java.math.BigDecimal
 import java.util.Arrays
 import java.util.Currency
@@ -33,7 +32,6 @@ internal class PaymentsValues internal constructor(store: KeyValueStore) : Signa
     private val TAG = Log.tag(PaymentsValues::class.java)
 
     private const val PAYMENTS_ENTROPY = "payments_entropy"
-    private const val MOB_PAYMENTS_ENABLED = "mob_payments_enabled"
     private const val MOB_LEDGER = "mob_ledger"
     private const val PAYMENTS_CURRENT_CURRENCY = "payments_current_currency"
     private const val DEFAULT_CURRENCY_CODE = "GBP"
@@ -45,6 +43,9 @@ internal class PaymentsValues internal constructor(store: KeyValueStore) : Signa
     private const val SHOW_UPDATE_PIN_INFO_CARD = "mob_payments_show_update_pin_info_card"
 
     private val LARGE_BALANCE_THRESHOLD = Money.mobileCoin(BigDecimal.valueOf(500))
+
+    @VisibleForTesting
+    const val MOB_PAYMENTS_ENABLED = "mob_payments_enabled"
   }
 
   private val liveCurrentCurrency: MutableLiveData<Currency> by lazy { MutableLiveData(currentCurrency()) }

@@ -15,6 +15,12 @@ import org.thoughtcrime.securesms.crypto.UnidentifiedAccessUtil;
 import org.thoughtcrime.securesms.database.RecipientDatabase;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.jobmanager.Job;
+import org.thoughtcrime.securesms.jobs.GroupV2UpdateSelfProfileKeyJob;
+import org.thoughtcrime.securesms.jobs.MultiDeviceProfileKeyUpdateJob;
+import org.thoughtcrime.securesms.jobs.ProfileUploadJob;
+import org.thoughtcrime.securesms.jobs.RefreshAttributesJob;
+import org.thoughtcrime.securesms.jobs.RefreshOwnProfileJob;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.payments.MobileCoinPublicAddress;
 import org.thoughtcrime.securesms.payments.MobileCoinPublicAddressProfileUtil;
@@ -27,12 +33,12 @@ import org.whispersystems.libsignal.IdentityKey;
 import org.whispersystems.libsignal.IdentityKeyPair;
 import org.whispersystems.libsignal.InvalidKeyException;
 import org.whispersystems.libsignal.util.Pair;
-import org.whispersystems.libsignal.util.guava.Optional;
 import org.whispersystems.signalservice.api.SignalServiceAccountManager;
 import org.whispersystems.signalservice.api.crypto.InvalidCiphertextException;
 import org.whispersystems.signalservice.api.crypto.ProfileCipher;
 import org.whispersystems.signalservice.api.crypto.UnidentifiedAccess;
 import org.whispersystems.signalservice.api.crypto.UnidentifiedAccessPair;
+import org.whispersystems.signalservice.api.profiles.AvatarUploadParams;
 import org.whispersystems.signalservice.api.profiles.ProfileAndCredential;
 import org.whispersystems.signalservice.api.profiles.SignalServiceProfile;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
@@ -44,6 +50,7 @@ import org.whispersystems.signalservice.internal.push.SignalServiceProtos;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import io.reactivex.rxjava3.core.Single;
@@ -56,6 +63,28 @@ public final class ProfileUtil {
   private static final String TAG = Log.tag(ProfileUtil.class);
 
   private ProfileUtil() {
+  }
+
+  /**
+   * Should be called after a change to our own profile key as been persisted to the database.
+   */
+  @WorkerThread
+  public static void handleSelfProfileKeyChange() {
+    List<Job> gv2UpdateJobs = SignalDatabase.groups()
+                                            .getAllGroupV2Ids()
+                                            .stream()
+                                            .map(GroupV2UpdateSelfProfileKeyJob::withoutLimits)
+                                            .collect(Collectors.toList());
+
+    Log.w(TAG, "[handleSelfProfileKeyChange] Scheduling jobs, including " + gv2UpdateJobs.size() + " group update jobs.");
+
+    ApplicationDependencies.getJobManager()
+                           .startChain(new RefreshAttributesJob())
+                           .then(new ProfileUploadJob())
+                           .then(new RefreshOwnProfileJob())
+                           .then(new MultiDeviceProfileKeyUpdateJob())
+                           .then(gv2UpdateJobs)
+                           .enqueue();
   }
 
   @WorkerThread
@@ -96,7 +125,7 @@ public final class ProfileUtil {
                                                                                                 @NonNull ProfileService profileService,
                                                                                                 boolean allowUnidentifiedAccess)
   {
-    Optional<UnidentifiedAccess> unidentifiedAccess = allowUnidentifiedAccess ? getUnidentifiedAccess(context, recipient) : Optional.absent();
+    Optional<UnidentifiedAccess> unidentifiedAccess = allowUnidentifiedAccess ? getUnidentifiedAccess(context, recipient) : Optional.empty();
     Optional<ProfileKey>         profileKey         = ProfileKeyUtil.profileKeyOptional(recipient.getProfileKey());
 
     return Single.fromCallable(() -> toSignalServiceAddress(context, recipient))
@@ -193,12 +222,11 @@ public final class ProfileUtil {
   public static void uploadProfileWithName(@NonNull Context context, @NonNull ProfileName profileName) throws IOException {
     Log.d(TAG, "uploadProfileWithName()");
     try (StreamDetails avatar = AvatarHelper.getSelfProfileAvatarStream(context)) {
-      uploadProfile(context,
-                    profileName,
-                    Optional.fromNullable(Recipient.self().getAbout()).or(""),
-                    Optional.fromNullable(Recipient.self().getAboutEmoji()).or(""),
+      uploadProfile(profileName,
+                    Optional.ofNullable(Recipient.self().getAbout()).orElse(""),
+                    Optional.ofNullable(Recipient.self().getAboutEmoji()).orElse(""),
                     getSelfPaymentsAddressProtobuf(),
-                    avatar,
+                    AvatarUploadParams.unchanged(AvatarHelper.hasAvatar(context, Recipient.self().getId())),
                     Recipient.self().getBadges());
     }
   }
@@ -211,12 +239,11 @@ public final class ProfileUtil {
   public static void uploadProfileWithAbout(@NonNull Context context, @NonNull String about, @NonNull String emoji) throws IOException {
     Log.d(TAG, "uploadProfileWithAbout()");
     try (StreamDetails avatar = AvatarHelper.getSelfProfileAvatarStream(context)) {
-      uploadProfile(context,
-                    Recipient.self().getProfileName(),
+      uploadProfile(Recipient.self().getProfileName(),
                     about,
                     emoji,
                     getSelfPaymentsAddressProtobuf(),
-                    avatar,
+                    AvatarUploadParams.unchanged(AvatarHelper.hasAvatar(context, Recipient.self().getId())),
                     Recipient.self().getBadges());
     }
   }
@@ -227,7 +254,7 @@ public final class ProfileUtil {
   public static void uploadProfile(@NonNull Context context) throws IOException {
     Log.d(TAG, "uploadProfile()");
     try (StreamDetails avatar = AvatarHelper.getSelfProfileAvatarStream(context)) {
-      uploadProfileWithAvatar(context, avatar);
+      uploadProfileWithAvatar(avatar);
     }
   }
 
@@ -236,27 +263,24 @@ public final class ProfileUtil {
    * avatar instead. This is useful when you want to ensure that the profile has been uploaded
    * successfully before persisting the change to disk.
    */
-  public static void uploadProfileWithAvatar(@NonNull Context context, @Nullable StreamDetails avatar) throws IOException {
+  public static void uploadProfileWithAvatar(@Nullable StreamDetails avatar) throws IOException {
     Log.d(TAG, "uploadProfileWithAvatar()");
-    uploadProfile(context,
-                  Recipient.self().getProfileName(),
-                  Optional.fromNullable(Recipient.self().getAbout()).or(""),
-                  Optional.fromNullable(Recipient.self().getAboutEmoji()).or(""),
+    uploadProfile(Recipient.self().getProfileName(),
+                  Optional.ofNullable(Recipient.self().getAbout()).orElse(""),
+                  Optional.ofNullable(Recipient.self().getAboutEmoji()).orElse(""),
                   getSelfPaymentsAddressProtobuf(),
-                  avatar,
+                  AvatarUploadParams.forAvatar(avatar),
                   Recipient.self().getBadges());
   }
 
-  private static void uploadProfile(@NonNull Context context,
-                                    @NonNull ProfileName profileName,
+  private static void uploadProfile(@NonNull ProfileName profileName,
                                     @Nullable String about,
                                     @Nullable String aboutEmoji,
                                     @Nullable SignalServiceProtos.PaymentAddress paymentsAddress,
-                                    @Nullable StreamDetails avatar,
+                                    @NonNull AvatarUploadParams avatar,
                                     @NonNull List<Badge> badges)
       throws IOException
   {
-
     List<String> badgeIds = badges.stream()
                                   .filter(Badge::getVisible)
                                   .map(Badge::getId)
@@ -266,8 +290,13 @@ public final class ProfileUtil {
     Log.d(TAG, "Uploading " + (!Util.isEmpty(about) ? "non-" : "") + "empty about.");
     Log.d(TAG, "Uploading " + (!Util.isEmpty(aboutEmoji) ? "non-" : "") + "empty emoji.");
     Log.d(TAG, "Uploading " + (paymentsAddress != null ? "non-" : "") + "empty payments address.");
-    Log.d(TAG, "Uploading " + (avatar != null && avatar.getLength() != 0 ? "non-" : "") + "empty avatar.");
-    Log.d(TAG, "Uploading " + ((!badgeIds.isEmpty()) ? "non-" : "") + "empty badge list");
+    Log.d(TAG, "Uploading " + ((!badgeIds.isEmpty()) ? "non-" : "") + "empty badge list.");
+
+    if (avatar.keepTheSame) {
+      Log.d(TAG, "Leaving avatar unchanged. We think we " + (avatar.hasAvatar ? "" : "do not ") + "have one.");
+    } else {
+      Log.d(TAG, "Uploading " + (avatar.stream != null && avatar.stream.getLength() != 0 ? "non-" : "") + "empty avatar.");
+    }
 
     ProfileKey                  profileKey     = ProfileKeyUtil.getSelfProfileKey();
     SignalServiceAccountManager accountManager = ApplicationDependencies.getSignalServiceAccountManager();
@@ -276,11 +305,14 @@ public final class ProfileUtil {
                                                                                     profileName.serialize(),
                                                                                     about,
                                                                                     aboutEmoji,
-                                                                                    Optional.fromNullable(paymentsAddress),
+                                                                                    Optional.ofNullable(paymentsAddress),
                                                                                     avatar,
-                                                                                    badgeIds).orNull();
+                                                                                    badgeIds).orElse(null);
     SignalStore.registrationValues().markHasUploadedProfile();
-    SignalDatabase.recipients().setProfileAvatar(Recipient.self().getId(), avatarPath);
+    if (!avatar.keepTheSame) {
+      SignalDatabase.recipients().setProfileAvatar(Recipient.self().getId(), avatarPath);
+    }
+    ApplicationDependencies.getJobManager().add(new RefreshOwnProfileJob());
   }
 
   private static @Nullable SignalServiceProtos.PaymentAddress getSelfPaymentsAddressProtobuf() {
@@ -303,13 +335,13 @@ public final class ProfileUtil {
       return unidentifiedAccess.get().getTargetUnidentifiedAccess();
     }
 
-    return Optional.absent();
+    return Optional.empty();
   }
 
   private static @NonNull SignalServiceAddress toSignalServiceAddress(@NonNull Context context, @NonNull Recipient recipient) throws IOException {
     if (recipient.getRegistered() == RecipientDatabase.RegisteredState.NOT_REGISTERED) {
       if (recipient.hasServiceId()) {
-        return new SignalServiceAddress(recipient.requireServiceId(), recipient.getE164().orNull());
+        return new SignalServiceAddress(recipient.requireServiceId(), recipient.getE164().orElse(null));
       } else {
         throw new IOException(recipient.getId() + " not registered!");
       }

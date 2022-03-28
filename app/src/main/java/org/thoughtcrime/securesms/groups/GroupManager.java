@@ -6,6 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 
+import com.google.protobuf.ByteString;
+
 import org.signal.core.util.logging.Log;
 import org.signal.storageservice.protos.groups.GroupExternalCredential;
 import org.signal.storageservice.protos.groups.local.DecryptedGroup;
@@ -22,9 +24,11 @@ import org.thoughtcrime.securesms.profiles.AvatarHelper;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.whispersystems.signalservice.api.groupsv2.GroupLinkNotActiveException;
+import org.whispersystems.signalservice.api.util.UuidUtil;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -157,11 +161,11 @@ public final class GroupManager {
   }
 
   @WorkerThread
-  public static void ejectFromGroup(@NonNull Context context, @NonNull GroupId.V2 groupId, @NonNull Recipient recipient)
+  public static void ejectAndBanFromGroup(@NonNull Context context, @NonNull GroupId.V2 groupId, @NonNull Recipient recipient)
       throws GroupChangeBusyException, GroupChangeFailedException, GroupInsufficientRightsException, GroupNotAMemberException, IOException
   {
     try (GroupManagerV2.GroupEditor edit = new GroupManagerV2(context).edit(groupId.requireV2())) {
-      edit.ejectMember(recipient.getId(), false);
+      edit.ejectMember(recipient.requireServiceId(), false, true);
       Log.i(TAG, "Member removed from group " + groupId);
     }
   }
@@ -274,6 +278,39 @@ public final class GroupManager {
   }
 
   @WorkerThread
+  public static void ban(@NonNull Context context,
+                         @NonNull GroupId.V2 groupId,
+                         @NonNull RecipientId recipientId)
+      throws GroupChangeBusyException, IOException, GroupChangeFailedException, GroupNotAMemberException, GroupInsufficientRightsException
+  {
+    GroupDatabase.GroupRecord groupRecord = SignalDatabase.groups().requireGroup(groupId);
+    Recipient                 recipient   = Recipient.resolved(recipientId);
+
+    if (groupRecord.requireV2GroupProperties().getBannedMembers().contains(recipient.requireServiceId().uuid())) {
+      Log.i(TAG, "Attempt to ban already banned recipient: " + recipientId);
+      return;
+    }
+
+    ByteString uuid              = UuidUtil.toByteString(recipient.requireServiceId().uuid());
+    boolean    rejectJoinRequest = groupRecord.requireV2GroupProperties().getDecryptedGroup().getRequestingMembersList().stream().anyMatch(m -> m.getUuid().equals(uuid));
+
+    try (GroupManagerV2.GroupEditor editor = new GroupManagerV2(context).edit(groupId.requireV2())) {
+      editor.ban(Collections.singleton(recipient.requireServiceId().uuid()), rejectJoinRequest);
+    }
+  }
+
+  @WorkerThread
+  public static void unban(@NonNull Context context,
+                           @NonNull GroupId.V2 groupId,
+                           @NonNull RecipientId recipientId)
+      throws GroupChangeBusyException, IOException, GroupChangeFailedException, GroupNotAMemberException, GroupInsufficientRightsException
+  {
+    try (GroupManagerV2.GroupEditor editor = new GroupManagerV2(context).edit(groupId.requireV2())) {
+      editor.unban(Collections.singleton(Recipient.resolved(recipientId).requireServiceId().uuid()));
+    }
+  }
+
+  @WorkerThread
   public static void applyMembershipAdditionRightsChange(@NonNull Context context,
                                                          @NonNull GroupId.V2 groupId,
                                                          @NonNull GroupAccessControl newRights)
@@ -356,8 +393,10 @@ public final class GroupManager {
       throws GroupChangeFailedException, GroupInsufficientRightsException, IOException, GroupNotAMemberException, GroupChangeBusyException, MembershipNotSuitableForV2Exception
   {
     if (groupId.isV2()) {
+      GroupDatabase.GroupRecord groupRecord  = SignalDatabase.groups().requireGroup(groupId);
+
       try (GroupManagerV2.GroupEditor editor = new GroupManagerV2(context).edit(groupId.requireV2())) {
-        return editor.addMembers(newMembers);
+        return editor.addMembers(newMembers, groupRecord.requireV2GroupProperties().getBannedMembers());
       }
     } else {
       GroupDatabase.GroupRecord groupRecord  = SignalDatabase.groups().requireGroup(groupId);

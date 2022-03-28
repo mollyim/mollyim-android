@@ -16,10 +16,8 @@ import com.annimon.stream.Stream;
 import org.thoughtcrime.securesms.groups.ui.GroupMemberEntry;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.mediasend.Media;
-import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.util.DefaultValueLiveData;
-import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.SingleLiveEvent;
 import org.thoughtcrime.securesms.util.livedata.LiveDataUtil;
 
@@ -41,7 +39,6 @@ public final class AddGroupDetailsViewModel extends ViewModel {
   private final LiveData<Boolean>                                  isMms;
   private final LiveData<Boolean>                                  canSubmitForm;
   private final AddGroupDetailsRepository                          repository;
-  private final LiveData<List<Recipient>>                          nonGv2CapableMembers;
 
   private Media avatarMedia;
 
@@ -64,10 +61,7 @@ public final class AddGroupDetailsViewModel extends ViewModel {
       }
     });
 
-    nonGv2CapableMembers = LiveDataUtil.mapAsync(membersToCheckGv2CapabilityOf, memberList -> repository.checkCapabilities(Stream.of(memberList).map(newGroupCandidate -> newGroupCandidate.getMember().getId()).toList()));
-    canSubmitForm        = LiveDataUtil.combineLatest(LiveDataUtil.combineLatest(isMms, isValidName, (mms, validName) -> mms || validName),
-                                                      nonGv2CapableMembers,
-                                                      (canSubmit, nonGv2) -> canSubmit && nonGv2.isEmpty());
+    canSubmitForm = LiveDataUtil.combineLatest(isMms, isValidName, (mms, validName) -> mms || validName);
 
     repository.resolveMembers(recipientIds, initialMembers::postValue);
   }
@@ -90,10 +84,6 @@ public final class AddGroupDetailsViewModel extends ViewModel {
 
   @NonNull LiveData<Boolean> getIsMms() {
     return isMms;
-  }
-
-  @NonNull LiveData<List<Recipient>> getNonGv2CapableMembers() {
-    return nonGv2CapableMembers;
   }
 
   @NonNull LiveData<Integer> getDisappearingMessagesTimer() {

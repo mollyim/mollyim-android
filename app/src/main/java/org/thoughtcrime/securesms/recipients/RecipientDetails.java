@@ -12,24 +12,24 @@ import org.thoughtcrime.securesms.conversation.colors.AvatarColor;
 import org.thoughtcrime.securesms.conversation.colors.ChatColors;
 import org.thoughtcrime.securesms.database.RecipientDatabase.InsightsBannerTier;
 import org.thoughtcrime.securesms.database.RecipientDatabase.MentionSetting;
-import org.thoughtcrime.securesms.database.model.RecipientRecord;
 import org.thoughtcrime.securesms.database.RecipientDatabase.RegisteredState;
 import org.thoughtcrime.securesms.database.RecipientDatabase.UnidentifiedAccessMode;
 import org.thoughtcrime.securesms.database.RecipientDatabase.VibrateState;
+import org.thoughtcrime.securesms.database.model.DistributionListId;
+import org.thoughtcrime.securesms.database.model.RecipientRecord;
 import org.thoughtcrime.securesms.groups.GroupId;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.profiles.ProfileName;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.Util;
 import org.thoughtcrime.securesms.wallpaper.ChatWallpaper;
-import org.whispersystems.libsignal.util.guava.Optional;
-import org.whispersystems.signalservice.api.push.ACI;
 import org.whispersystems.signalservice.api.push.PNI;
 import org.whispersystems.signalservice.api.push.ServiceId;
 
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 public class RecipientDetails {
 
@@ -39,6 +39,7 @@ public class RecipientDetails {
   final String                     e164;
   final String                     email;
   final GroupId                    groupId;
+  final DistributionListId         distributionListId;
   final String                     groupName;
   final String                     systemContactName;
   final String                     customLabel;
@@ -67,11 +68,11 @@ public class RecipientDetails {
   final String                     notificationChannel;
   final UnidentifiedAccessMode     unidentifiedAccessMode;
   final boolean                    forceSmsSelection;
-  final Recipient.Capability       groupsV2Capability;
   final Recipient.Capability       groupsV1MigrationCapability;
   final Recipient.Capability       senderKeyCapability;
   final Recipient.Capability       announcementGroupCapability;
   final Recipient.Capability       changeNumberCapability;
+  final Recipient.Capability       storiesCapability;
   final InsightsBannerTier         insightsBannerTier;
   final byte[]                     storageId;
   final MentionSetting             mentionSetting;
@@ -106,6 +107,7 @@ public class RecipientDetails {
     this.e164                        = record.getE164();
     this.email                       = record.getEmail();
     this.groupId                     = record.getGroupId();
+    this.distributionListId          = record.getDistributionListId();
     this.messageRingtone             = record.getMessageRingtone();
     this.callRingtone                = record.getCallRingtone();
     this.mutedUntil                  = record.getMuteUntil();
@@ -128,11 +130,11 @@ public class RecipientDetails {
     this.notificationChannel         = record.getNotificationChannel();
     this.unidentifiedAccessMode      = record.getUnidentifiedAccessMode();
     this.forceSmsSelection           = record.isForceSmsSelection();
-    this.groupsV2Capability          = record.getGroupsV2Capability();
     this.groupsV1MigrationCapability = record.getGroupsV1MigrationCapability();
     this.senderKeyCapability         = record.getSenderKeyCapability();
     this.announcementGroupCapability = record.getAnnouncementGroupCapability();
     this.changeNumberCapability      = record.getChangeNumberCapability();
+    this.storiesCapability           = record.getStoriesCapability();
     this.insightsBannerTier          = record.getInsightsBannerTier();
     this.storageId                   = record.getStorageId();
     this.mentionSetting              = record.getMentionSetting();
@@ -144,26 +146,24 @@ public class RecipientDetails {
     this.systemProfileName           = record.getSystemProfileName();
     this.groupName                   = groupName;
     this.systemContactName           = systemContactName;
-    this.extras                      = Optional.fromNullable(record.getExtras());
+    this.extras                      = Optional.ofNullable(record.getExtras());
     this.hasGroupsInCommon           = record.hasGroupsInCommon();
     this.badges                      = record.getBadges();
     this.isReleaseChannel            = isReleaseChannel;
   }
 
-  /**
-   * Only used for {@link Recipient#UNKNOWN}.
-   */
-  RecipientDetails() {
+  private RecipientDetails() {
     this.groupAvatarId               = null;
     this.systemContactPhoto          = null;
     this.customLabel                 = null;
-    this.contactUri = null;
-    this.serviceId  = null;
-    this.pni        = null;
+    this.contactUri                  = null;
+    this.serviceId                   = null;
+    this.pni                         = null;
     this.username                    = null;
     this.e164                        = null;
     this.email                       = null;
     this.groupId                     = null;
+    this.distributionListId          = null;
     this.messageRingtone             = null;
     this.callRingtone                = null;
     this.mutedUntil                  = 0;
@@ -174,7 +174,7 @@ public class RecipientDetails {
     this.participants                = new LinkedList<>();
     this.profileName                 = ProfileName.EMPTY;
     this.insightsBannerTier          = InsightsBannerTier.TIER_TWO;
-    this.defaultSubscriptionId       = Optional.absent();
+    this.defaultSubscriptionId       = Optional.empty();
     this.registered                  = RegisteredState.UNKNOWN;
     this.profileKey                  = null;
     this.profileKeyCredential        = null;
@@ -188,11 +188,11 @@ public class RecipientDetails {
     this.unidentifiedAccessMode      = UnidentifiedAccessMode.UNKNOWN;
     this.forceSmsSelection           = false;
     this.groupName                   = null;
-    this.groupsV2Capability          = Recipient.Capability.UNKNOWN;
     this.groupsV1MigrationCapability = Recipient.Capability.UNKNOWN;
     this.senderKeyCapability         = Recipient.Capability.UNKNOWN;
     this.announcementGroupCapability = Recipient.Capability.UNKNOWN;
     this.changeNumberCapability      = Recipient.Capability.UNKNOWN;
+    this.storiesCapability           = Recipient.Capability.UNKNOWN;
     this.storageId                   = null;
     this.mentionSetting              = MentionSetting.ALWAYS_NOTIFY;
     this.wallpaper                   = null;
@@ -202,7 +202,7 @@ public class RecipientDetails {
     this.aboutEmoji                  = null;
     this.systemProfileName           = ProfileName.EMPTY;
     this.systemContactName           = null;
-    this.extras                      = Optional.absent();
+    this.extras                      = Optional.empty();
     this.hasGroupsInCommon           = false;
     this.badges                      = Collections.emptyList();
     this.isReleaseChannel            = false;
@@ -224,6 +224,14 @@ public class RecipientDetails {
       }
     }
 
-    return new RecipientDetails(null, settings.getSystemDisplayName(), Optional.absent(), systemContact, isSelf, registeredState, settings, null, isReleaseChannel);
+    return new RecipientDetails(null, settings.getSystemDisplayName(), Optional.empty(), systemContact, isSelf, registeredState, settings, null, isReleaseChannel);
+  }
+
+  public static @NonNull RecipientDetails forDistributionList(String title, @Nullable List<Recipient> members, @NonNull RecipientRecord record) {
+    return new RecipientDetails(title, null, Optional.empty(), false, false, record.getRegistered(), record, members, false);
+  }
+
+  public static @NonNull RecipientDetails forUnknown() {
+    return new RecipientDetails();
   }
 }

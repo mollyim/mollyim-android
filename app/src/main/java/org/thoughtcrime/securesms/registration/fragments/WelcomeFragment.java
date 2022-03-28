@@ -40,7 +40,8 @@ import org.thoughtcrime.securesms.util.CommunicationActions;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.Util;
 import org.thoughtcrime.securesms.util.navigation.SafeNavigation;
-import org.whispersystems.libsignal.util.guava.Optional;
+
+import java.util.Optional;
 
 import static org.thoughtcrime.securesms.registration.fragments.RegistrationViewDelegate.setDebugLogSubmitMultiTapView;
 import static org.thoughtcrime.securesms.util.CircularProgressButtonUtil.cancelSpinning;
@@ -102,7 +103,7 @@ public final class WelcomeFragment extends LoggingFragment {
 
       Log.i(TAG, "Skipping restore because this is a reregistration.");
       viewModel.setWelcomeSkippedOnRestore();
-      SafeNavigation.safeNavigate(Navigation.findNavController(view),
+      SafeNavigation.safeNavigate(NavHostFragment.findNavController(this),
                                   WelcomeFragmentDirections.actionSkipRestore());
     } else {
 
@@ -178,10 +179,10 @@ public final class WelcomeFragment extends LoggingFragment {
 
       if (backup == null) {
         Log.i(TAG, "Skipping backup. No backup found, or no permission to look.");
-        SafeNavigation.safeNavigate(Navigation.findNavController(view),
+        SafeNavigation.safeNavigate(NavHostFragment.findNavController(this),
                                     WelcomeFragmentDirections.actionSkipRestore());
       } else {
-        SafeNavigation.safeNavigate(Navigation.findNavController(view),
+        SafeNavigation.safeNavigate(NavHostFragment.findNavController(this),
                                     WelcomeFragmentDirections.actionRestore());
       }
     });
@@ -190,13 +191,13 @@ public final class WelcomeFragment extends LoggingFragment {
   private void gatherInformationAndChooseBackup(@NonNull View view) {
     initializeNumber();
 
-    SafeNavigation.safeNavigate(Navigation.findNavController(view),
+    SafeNavigation.safeNavigate(NavHostFragment.findNavController(this),
                                 WelcomeFragmentDirections.actionTransferOrRestore());
   }
 
   @SuppressLint("MissingPermission")
   private void initializeNumber() {
-    Optional<Phonenumber.PhoneNumber> localNumber = Optional.absent();
+    Optional<Phonenumber.PhoneNumber> localNumber = Optional.empty();
 
     if (Permissions.hasAll(requireContext(), Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_PHONE_NUMBERS)) {
       localNumber = Util.getDeviceNumber(requireContext());

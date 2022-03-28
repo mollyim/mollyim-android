@@ -12,7 +12,8 @@ import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.mms.MmsException;
 import org.thoughtcrime.securesms.service.KeyCachingService;
-import org.whispersystems.libsignal.util.guava.Optional;
+
+import java.util.Optional;
 
 public class MmsDownloadJob extends BaseJob {
 

@@ -19,10 +19,10 @@ import org.thoughtcrime.securesms.groups.SelectionLimits;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.util.Util;
-import org.whispersystems.libsignal.util.guava.Optional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 public class AddMembersActivity extends PushContactSelectionActivity {
@@ -79,7 +79,7 @@ public class AddMembersActivity extends PushContactSelectionActivity {
   }
 
   @Override
-  public void onBeforeContactSelected(Optional<RecipientId> recipientId, String number, Consumer<Boolean> callback) {
+  public void onBeforeContactSelected(@NonNull Optional<RecipientId> recipientId, String number, @NonNull Consumer<Boolean> callback) {
     if (getGroupId().isV1() && recipientId.isPresent() && !Recipient.resolved(recipientId.get()).hasE164()) {
       Toast.makeText(this, R.string.AddMembersActivity__this_person_cant_be_added_to_legacy_groups, Toast.LENGTH_SHORT).show();
       callback.accept(false);
@@ -96,7 +96,7 @@ public class AddMembersActivity extends PushContactSelectionActivity {
   }
 
   @Override
-  public void onContactDeselected(Optional<RecipientId> recipientId, String number) {
+  public void onContactDeselected(@NonNull Optional<RecipientId> recipientId, String number) {
     if (contactsFragment.hasQueryFilter()) {
       getContactFilterView().clear();
     }

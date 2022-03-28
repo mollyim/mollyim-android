@@ -7,19 +7,19 @@ import androidx.annotation.Nullable;
 
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.database.RecipientDatabase;
-import org.thoughtcrime.securesms.database.model.RecipientRecord;
 import org.thoughtcrime.securesms.database.SignalDatabase;
+import org.thoughtcrime.securesms.database.model.RecipientRecord;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
-import org.whispersystems.libsignal.util.guava.Optional;
-import org.whispersystems.signalservice.api.push.ACI;
 import org.whispersystems.signalservice.api.push.ServiceId;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
 import org.whispersystems.signalservice.api.storage.SignalContactRecord;
+import org.whispersystems.signalservice.api.util.OptionalUtil;
 import org.whispersystems.signalservice.internal.storage.protos.ContactRecord.IdentityState;
 
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.Optional;
 
 public class ContactRecordProcessor extends DefaultStorageRecordProcessor<SignalContactRecord> {
 
@@ -68,21 +68,22 @@ public class ContactRecordProcessor extends DefaultStorageRecordProcessor<Signal
   @NonNull Optional<SignalContactRecord> getMatching(@NonNull SignalContactRecord remote, @NonNull StorageKeyGenerator keyGenerator) {
     SignalServiceAddress  address = remote.getAddress();
     Optional<RecipientId> byUuid  = recipientDatabase.getByServiceId(address.getServiceId());
-    Optional<RecipientId> byE164  = address.getNumber().isPresent() ? recipientDatabase.getByE164(address.getNumber().get()) : Optional.absent();
+    Optional<RecipientId> byE164  = address.getNumber().isPresent() ? recipientDatabase.getByE164(address.getNumber().get()) : Optional.empty();
 
-    return byUuid.or(byE164).transform(recipientDatabase::getRecordForSync)
-                            .transform(settings -> {
-                              if (settings.getStorageId() != null) {
-                                return StorageSyncModels.localToRemoteRecord(settings);
-                              } else {
-                                Log.w(TAG, "Newly discovering a registered user via storage service. Saving a storageId for them.");
-                                recipientDatabase.updateStorageId(settings.getId(), keyGenerator.generate());
+    return OptionalUtil.or(byUuid, byE164)
+                       .map(recipientDatabase::getRecordForSync)
+                       .map(settings -> {
+                         if (settings.getStorageId() != null) {
+                           return StorageSyncModels.localToRemoteRecord(settings);
+                         } else {
+                           Log.w(TAG, "Newly discovering a registered user via storage service. Saving a storageId for them.");
+                           recipientDatabase.updateStorageId(settings.getId(), keyGenerator.generate());
 
-                                RecipientRecord updatedSettings = Objects.requireNonNull(recipientDatabase.getRecordForSync(settings.getId()));
-                                return StorageSyncModels.localToRemoteRecord(updatedSettings);
-                              }
-                            })
-                            .transform(r -> r.getContact().get());
+                           RecipientRecord updatedSettings = Objects.requireNonNull(recipientDatabase.getRecordForSync(settings.getId()));
+                           return StorageSyncModels.localToRemoteRecord(updatedSettings);
+                         }
+                       })
+                       .map(r -> r.getContact().get());
   }
 
   @NonNull SignalContactRecord merge(@NonNull SignalContactRecord remote, @NonNull SignalContactRecord local, @NonNull StorageKeyGenerator keyGenerator) {
@@ -90,28 +91,29 @@ public class ContactRecordProcessor extends DefaultStorageRecordProcessor<Signal
     String familyName;
 
     if (remote.getGivenName().isPresent() || remote.getFamilyName().isPresent()) {
-      givenName  = remote.getGivenName().or("");
-      familyName = remote.getFamilyName().or("");
+      givenName  = remote.getGivenName().orElse("");
+      familyName = remote.getFamilyName().orElse("");
     } else {
-      givenName  = local.getGivenName().or("");
-      familyName = local.getFamilyName().or("");
+      givenName  = local.getGivenName().orElse("");
+      familyName = local.getFamilyName().orElse("");
     }
 
     byte[]               unknownFields  = remote.serializeUnknownFields();
     ServiceId            serviceId      = local.getAddress().getServiceId() == ServiceId.UNKNOWN ? remote.getAddress().getServiceId() : local.getAddress().getServiceId();
-    String               e164           = remote.getAddress().getNumber().or(local.getAddress().getNumber()).orNull();
+    String               e164           = OptionalUtil.or(remote.getAddress().getNumber(), local.getAddress().getNumber()).orElse(null);
     SignalServiceAddress address        = new SignalServiceAddress(serviceId, e164);
-    byte[]               profileKey     = remote.getProfileKey().or(local.getProfileKey()).orNull();
-    String               username       = remote.getUsername().or(local.getUsername()).or("");
+    byte[]               profileKey     = OptionalUtil.or(remote.getProfileKey(), local.getProfileKey()).orElse(null);
+    String               username       = OptionalUtil.or(remote.getUsername(), local.getUsername()).orElse("");
     IdentityState        identityState  = remote.getIdentityState();
-    byte[]               identityKey    = remote.getIdentityKey().or(local.getIdentityKey()).orNull();
+    byte[]               identityKey    = OptionalUtil.or(remote.getIdentityKey(), local.getIdentityKey()).orElse(null);
     boolean              blocked        = remote.isBlocked();
     boolean              profileSharing = remote.isProfileSharingEnabled();
     boolean              archived       = remote.isArchived();
     boolean              forcedUnread   = remote.isForcedUnread();
     long                 muteUntil      = remote.getMuteUntil();
-    boolean              matchesRemote  = doParamsMatch(remote, unknownFields, address, givenName, familyName, profileKey, username, identityState, identityKey, blocked, profileSharing, archived, forcedUnread, muteUntil);
-    boolean              matchesLocal   = doParamsMatch(local, unknownFields, address, givenName, familyName, profileKey, username, identityState, identityKey, blocked, profileSharing, archived, forcedUnread, muteUntil);
+    boolean              hideStory      = remote.shouldHideStory();
+    boolean              matchesRemote  = doParamsMatch(remote, unknownFields, address, givenName, familyName, profileKey, username, identityState, identityKey, blocked, profileSharing, archived, forcedUnread, muteUntil, hideStory);
+    boolean              matchesLocal   = doParamsMatch(local, unknownFields, address, givenName, familyName, profileKey, username, identityState, identityKey, blocked, profileSharing, archived, forcedUnread, muteUntil, hideStory);
 
     if (matchesRemote) {
       return remote;
@@ -130,6 +132,7 @@ public class ContactRecordProcessor extends DefaultStorageRecordProcessor<Signal
                                     .setArchived(archived)
                                     .setForcedUnread(forcedUnread)
                                     .setMuteUntil(muteUntil)
+                                    .setHideStory(hideStory)
                                     .build();
     }
   }
@@ -168,20 +171,22 @@ public class ContactRecordProcessor extends DefaultStorageRecordProcessor<Signal
                                        boolean profileSharing,
                                        boolean archived,
                                        boolean forcedUnread,
-                                       long muteUntil)
+                                       long muteUntil,
+                                       boolean hideStory)
   {
     return Arrays.equals(contact.serializeUnknownFields(), unknownFields) &&
            Objects.equals(contact.getAddress(), address)                  &&
-           Objects.equals(contact.getGivenName().or(""), givenName)       &&
-           Objects.equals(contact.getFamilyName().or(""), familyName)     &&
-           Arrays.equals(contact.getProfileKey().orNull(), profileKey)    &&
-           Objects.equals(contact.getUsername().or(""), username)         &&
+           Objects.equals(contact.getGivenName().orElse(""), givenName)       &&
+           Objects.equals(contact.getFamilyName().orElse(""), familyName)     &&
+           Arrays.equals(contact.getProfileKey().orElse(null), profileKey)    &&
+           Objects.equals(contact.getUsername().orElse(""), username)         &&
            Objects.equals(contact.getIdentityState(), identityState)      &&
-           Arrays.equals(contact.getIdentityKey().orNull(), identityKey)  &&
+           Arrays.equals(contact.getIdentityKey().orElse(null), identityKey)  &&
            contact.isBlocked() == blocked                                 &&
            contact.isProfileSharingEnabled() == profileSharing            &&
            contact.isArchived() == archived                               &&
            contact.isForcedUnread() == forcedUnread                       &&
-           contact.getMuteUntil() == muteUntil;
+           contact.getMuteUntil() == muteUntil                            &&
+           contact.shouldHideStory() == hideStory;
   }
 }

@@ -45,11 +45,11 @@ public abstract class SendJob extends BaseJob {
 
   protected abstract void onSend() throws Exception;
 
-  protected void markAttachmentsUploaded(long messageId, @NonNull OutgoingMediaMessage message) {
+  protected static void markAttachmentsUploaded(long messageId, @NonNull OutgoingMediaMessage message) {
     List<Attachment> attachments = new LinkedList<>();
 
     attachments.addAll(message.getAttachments());
-    attachments.addAll(Stream.of(message.getLinkPreviews()).map(lp -> lp.getThumbnail().orNull()).withoutNulls().toList());
+    attachments.addAll(Stream.of(message.getLinkPreviews()).map(lp -> lp.getThumbnail().orElse(null)).withoutNulls().toList());
     attachments.addAll(Stream.of(message.getSharedContacts()).map(Contact::getAvatarAttachment).withoutNulls().toList());
 
     if (message.getOutgoingQuote() != null) {

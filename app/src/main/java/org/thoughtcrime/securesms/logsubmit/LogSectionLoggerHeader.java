@@ -18,7 +18,7 @@ public class LogSectionLoggerHeader implements LogSection {
 
   @Override
   public @NonNull CharSequence getContent(@NonNull Context context) {
-    return "Not initialized yet";
+    return "<not available>";
   }
 
   @Override

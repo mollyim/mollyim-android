@@ -11,10 +11,9 @@ import androidx.annotation.Nullable;
 
 import com.annimon.stream.Stream;
 
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.database.model.DatabaseId;
 import org.thoughtcrime.securesms.util.DelimiterUtil;
 import org.thoughtcrime.securesms.util.Util;
-import org.whispersystems.signalservice.api.push.ACI;
 import org.whispersystems.signalservice.api.push.ServiceId;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
 import org.whispersystems.signalservice.api.util.UuidUtil;
@@ -24,7 +23,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public class RecipientId implements Parcelable, Comparable<RecipientId> {
+public class RecipientId implements Parcelable, Comparable<RecipientId>, DatabaseId {
 
   private static final long UNKNOWN_ID = -1;
   private static final char DELIMITER  = ',';
@@ -55,7 +54,7 @@ public class RecipientId implements Parcelable, Comparable<RecipientId> {
 
   @AnyThread
   public static @NonNull RecipientId from(@NonNull SignalServiceAddress address) {
-    return from(address.getServiceId(), address.getNumber().orNull(), false);
+    return from(address.getServiceId(), address.getNumber().orElse(null), false);
   }
 
   /**
@@ -66,7 +65,7 @@ public class RecipientId implements Parcelable, Comparable<RecipientId> {
   @AnyThread
   public static @NonNull RecipientId fromExternalPush(@NonNull String identifier) {
     if (UuidUtil.isUuid(identifier)) {
-      return from(ACI.parseOrThrow(identifier), null);
+      return from(ServiceId.parseOrThrow(identifier), null);
     } else {
       return from(null, identifier);
     }
@@ -78,7 +77,7 @@ public class RecipientId implements Parcelable, Comparable<RecipientId> {
    */
   @AnyThread
   public static @NonNull RecipientId fromHighTrust(@NonNull SignalServiceAddress address) {
-    return from(address.getServiceId(), address.getNumber().orNull(), true);
+    return from(address.getServiceId(), address.getNumber().orElse(null), true);
   }
 
   /**
@@ -86,17 +85,17 @@ public class RecipientId implements Parcelable, Comparable<RecipientId> {
    */
   @AnyThread
   @SuppressLint("WrongThread")
-  public static @NonNull RecipientId from(@Nullable ServiceId aci, @Nullable String e164) {
-    return from(aci, e164, false);
+  public static @NonNull RecipientId from(@Nullable ServiceId serviceId, @Nullable String e164) {
+    return from(serviceId, e164, false);
   }
 
   @AnyThread
   @SuppressLint("WrongThread")
-  private static @NonNull RecipientId from(@Nullable ServiceId aci, @Nullable String e164, boolean highTrust) {
-    RecipientId recipientId = RecipientIdCache.INSTANCE.get(aci, e164);
+  private static @NonNull RecipientId from(@Nullable ServiceId serviceId, @Nullable String e164, boolean highTrust) {
+    RecipientId recipientId = RecipientIdCache.INSTANCE.get(serviceId, e164);
 
     if (recipientId == null) {
-      Recipient recipient = Recipient.externalPush(aci, e164, highTrust);
+      Recipient recipient = Recipient.externalPush(serviceId, e164, highTrust);
       RecipientIdCache.INSTANCE.put(recipient);
       recipientId = recipient.getId();
     }
@@ -143,6 +142,7 @@ public class RecipientId implements Parcelable, Comparable<RecipientId> {
     return id == UNKNOWN_ID;
   }
 
+  @Override
   public @NonNull String serialize() {
     return String.valueOf(id);
   }

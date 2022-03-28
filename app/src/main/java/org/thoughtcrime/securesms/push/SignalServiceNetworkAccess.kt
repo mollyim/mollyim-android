@@ -16,7 +16,6 @@ import org.thoughtcrime.securesms.net.RemoteDeprecationDetectorInterceptor
 import org.thoughtcrime.securesms.net.StandardUserAgentInterceptor
 import org.thoughtcrime.securesms.phonenumbers.PhoneNumberFormatter
 import org.thoughtcrime.securesms.util.Base64
-import org.whispersystems.libsignal.util.guava.Optional
 import org.whispersystems.signalservice.api.push.TrustStore
 import org.whispersystems.signalservice.internal.configuration.SignalCdnUrl
 import org.whispersystems.signalservice.internal.configuration.SignalCdshUrl
@@ -26,6 +25,7 @@ import org.whispersystems.signalservice.internal.configuration.SignalServiceConf
 import org.whispersystems.signalservice.internal.configuration.SignalServiceUrl
 import org.whispersystems.signalservice.internal.configuration.SignalStorageUrl
 import java.io.IOException
+import java.util.Optional
 
 /**
  * Provides a [SignalServiceConfiguration] to be used with our service layer.
@@ -186,7 +186,7 @@ class SignalServiceNetworkAccess(context: Context) {
     COUNTRY_CODE_UZBEKISTAN,
   )
 
-  private val uncensoredConfiguration: SignalServiceConfiguration = SignalServiceConfiguration(
+  val uncensoredConfiguration: SignalServiceConfiguration = SignalServiceConfiguration(
     arrayOf(SignalServiceUrl(BuildConfig.SIGNAL_URL, serviceTrustStore)),
     mapOf(
       0 to arrayOf(SignalCdnUrl(BuildConfig.SIGNAL_CDN_URL, serviceTrustStore)),

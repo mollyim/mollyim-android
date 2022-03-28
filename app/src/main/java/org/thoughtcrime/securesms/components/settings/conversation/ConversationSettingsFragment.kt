@@ -274,8 +274,12 @@ class ConversationSettingsFragment : DSLSettingsFragment(
       customPref(
         AvatarPreference.Model(
           recipient = state.recipient,
+          storyViewState = state.storyViewState,
           onAvatarClick = { avatar ->
             if (!state.recipient.isSelf) {
+              // startActivity(StoryViewerActivity.createIntent(requireContext(), state.recipient.id))
+
+              // TODO [stories] -- If recipient has a story, go to story viewer.
               requireActivity().apply {
                 startActivity(
                   AvatarPreviewActivity.intentFromRecipientId(this, state.recipient.id),

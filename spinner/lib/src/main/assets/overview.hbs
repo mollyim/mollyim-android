@@ -1,15 +1,18 @@
 <html>
-  {{> head title="Home" }}
+  {{> partials/head title="Home" }}
 
   <style type="text/css">
-    h2 {
-      font-size: 1.25rem;
+    h1.collapse-header {
+      font-size: 1.35rem;
+    }
+    h2.collapse-header {
+      font-size: 1.15rem;
     }
   </style>
 
   <body>
 
-    {{> prefix isOverview=true}}
+    {{> partials/prefix isOverview=true}}
 
     <h1 class="collapse-header active" data-for="table-creates">Tables</h1>
     <div id="table-creates">
@@ -47,6 +50,6 @@
       {{/if}}
     </div>
 
-  {{> suffix }}
+  {{> partials/suffix }}
   </body>
 </html>

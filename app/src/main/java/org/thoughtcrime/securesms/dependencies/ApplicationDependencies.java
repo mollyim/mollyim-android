@@ -32,6 +32,7 @@ import org.thoughtcrime.securesms.push.SignalServiceNetworkAccess;
 import org.thoughtcrime.securesms.recipients.LiveRecipientCache;
 import org.thoughtcrime.securesms.revealable.ViewOnceMessageManager;
 import org.thoughtcrime.securesms.service.ExpiringMessageManager;
+import org.thoughtcrime.securesms.service.ExpiringStoriesManager;
 import org.thoughtcrime.securesms.service.PendingRetryReceiptManager;
 import org.thoughtcrime.securesms.service.TrimThreadsByDateManager;
 import org.thoughtcrime.securesms.service.webrtc.SignalCallManager;
@@ -41,8 +42,8 @@ import org.thoughtcrime.securesms.util.EarlyMessageCache;
 import org.thoughtcrime.securesms.util.FrameRateTracker;
 import org.thoughtcrime.securesms.util.Hex;
 import org.thoughtcrime.securesms.util.IasKeyStore;
-import org.thoughtcrime.securesms.video.exo.SimpleExoPlayerPool;
 import org.thoughtcrime.securesms.video.exo.GiphyMp4Cache;
+import org.thoughtcrime.securesms.video.exo.SimpleExoPlayerPool;
 import org.thoughtcrime.securesms.webrtc.audio.AudioManagerCompat;
 import org.whispersystems.signalservice.api.KeyBackupService;
 import org.whispersystems.signalservice.api.SignalServiceAccountManager;
@@ -51,12 +52,13 @@ import org.whispersystems.signalservice.api.SignalServiceMessageReceiver;
 import org.whispersystems.signalservice.api.SignalServiceMessageSender;
 import org.whispersystems.signalservice.api.SignalWebSocket;
 import org.whispersystems.signalservice.api.groupsv2.GroupsV2Operations;
+import org.whispersystems.signalservice.api.services.DonationsService;
 
 import okhttp3.OkHttpClient;
 
 /**
  * Location for storing and retrieving application-scoped singletons. Users must call
- * {@link #init(Provider)} before using any of the methods, preferably early on in
+ * {@link #init(Application, Provider)} before using any of the methods, preferably early on in
  * {@link Application#onCreate()}.
  *
  * All future application-scoped singletons should be written as normal objects, then placed here
@@ -93,6 +95,7 @@ public class ApplicationDependencies {
   private static volatile DatabaseObserver             databaseObserver;
   private static volatile TrimThreadsByDateManager     trimThreadsByDateManager;
   private static volatile ViewOnceMessageManager       viewOnceMessageManager;
+  private static volatile ExpiringStoriesManager       expiringStoriesManager;
   private static volatile ExpiringMessageManager       expiringMessageManager;
   private static volatile Payments                     payments;
   private static volatile SignalCallManager            signalCallManager;
@@ -106,6 +109,7 @@ public class ApplicationDependencies {
   private static volatile GiphyMp4Cache                giphyMp4Cache;
   private static volatile SimpleExoPlayerPool          exoPlayerPool;
   private static volatile AudioManagerCompat           audioManagerCompat;
+  private static volatile DonationsService             donationsService;
   private static volatile DeadlockDetector             deadlockDetector;
   private static volatile ClientZkReceiptOperations    clientZkReceiptOperations;
 
@@ -408,6 +412,18 @@ public class ApplicationDependencies {
     return viewOnceMessageManager;
   }
 
+  public static @NonNull ExpiringStoriesManager getExpireStoriesManager() {
+    if (expiringStoriesManager == null) {
+      synchronized (LOCK) {
+        if (expiringStoriesManager == null) {
+          expiringStoriesManager = getProvider().provideExpiringStoriesManager();
+        }
+      }
+    }
+
+    return expiringStoriesManager;
+  }
+
   public static @NonNull PendingRetryReceiptManager getPendingRetryReceiptManager() {
     if (pendingRetryReceiptManager == null) {
       synchronized (LOCK) {
@@ -592,6 +608,17 @@ public class ApplicationDependencies {
     return audioManagerCompat;
   }
 
+  public static @NonNull DonationsService getSignalDonationsService() {
+    if (donationsService == null) {
+      synchronized (LOCK) {
+        if (donationsService == null) {
+          donationsService = getProvider().provideSignalDonationsService();
+        }
+      }
+    }
+    return donationsService;
+  }
+
   public static @NonNull ClientZkReceiptOperations getClientZkReceiptOperations() {
     if (clientZkReceiptOperations == null) {
       synchronized (LOCK) {
@@ -632,6 +659,7 @@ public class ApplicationDependencies {
     @NonNull IncomingMessageObserver provideIncomingMessageObserver();
     @NonNull TrimThreadsByDateManager provideTrimThreadsByDateManager();
     @NonNull ViewOnceMessageManager provideViewOnceMessageManager();
+    @NonNull ExpiringStoriesManager provideExpiringStoriesManager();
     @NonNull ExpiringMessageManager provideExpiringMessageManager();
     @NonNull TypingStatusRepository provideTypingStatusRepository();
     @NonNull TypingStatusSender provideTypingStatusSender();
@@ -647,6 +675,7 @@ public class ApplicationDependencies {
     @NonNull GiphyMp4Cache provideGiphyMp4Cache();
     @NonNull SimpleExoPlayerPool provideExoPlayerPool();
     @NonNull AudioManagerCompat provideAndroidCallAudioManager();
+    @NonNull DonationsService provideSignalDonationsService();
     @NonNull DeadlockDetector provideDeadlockDetector();
     @NonNull ClientZkReceiptOperations provideClientZkReceiptOperations();
   }

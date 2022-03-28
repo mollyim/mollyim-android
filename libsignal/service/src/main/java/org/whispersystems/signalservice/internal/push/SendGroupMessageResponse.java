@@ -2,31 +2,33 @@ package org.whispersystems.signalservice.internal.push;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import org.whispersystems.libsignal.util.guava.Optional;
-import org.whispersystems.signalservice.api.push.ACI;
-import org.whispersystems.signalservice.api.util.UuidUtil;
+import org.whispersystems.libsignal.logging.Log;
+import org.whispersystems.signalservice.api.push.ServiceId;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 public class SendGroupMessageResponse {
+
+  private static final String TAG = SendGroupMessageResponse.class.getSimpleName();
 
   @JsonProperty
   private String[] uuids404;
 
   public SendGroupMessageResponse() {}
 
-  public Set<ACI> getUnsentTargets() {
-    Set<ACI> acis = new HashSet<>(uuids404.length);
+  public Set<ServiceId> getUnsentTargets() {
+    Set<ServiceId> serviceIds = new HashSet<>(uuids404.length);
 
     for (String raw : uuids404) {
-      ACI parsed = ACI.parseOrNull(raw);
+      ServiceId parsed = ServiceId.parseOrNull(raw);
       if (parsed != null) {
-        acis.add(parsed);
+        serviceIds.add(parsed);
+      } else {
+        Log.w(TAG, "Failed to parse ServiceId!");
       }
     }
 
-    return acis;
+    return serviceIds;
   }
 }

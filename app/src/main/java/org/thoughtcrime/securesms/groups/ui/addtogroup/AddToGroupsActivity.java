@@ -19,12 +19,12 @@ import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.contacts.ContactsCursorLoader;
 import org.thoughtcrime.securesms.groups.ui.addtogroup.AddToGroupViewModel.Event;
 import org.thoughtcrime.securesms.recipients.RecipientId;
-import org.whispersystems.libsignal.util.guava.Optional;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 /**
@@ -113,7 +113,7 @@ public final class AddToGroupsActivity extends ContactSelectionActivity {
   }
 
   @Override
-  public void onBeforeContactSelected(Optional<RecipientId> recipientId, String number, Consumer<Boolean> callback) {
+  public void onBeforeContactSelected(@NonNull Optional<RecipientId> recipientId, String number, @NonNull Consumer<Boolean> callback) {
     if (contactsFragment.isMulti()) {
       throw new UnsupportedOperationException("Not yet built to handle multi-select.");
 //      if (contactsFragment.hasQueryFilter()) {
@@ -133,7 +133,7 @@ public final class AddToGroupsActivity extends ContactSelectionActivity {
   }
 
   @Override
-  public void onContactDeselected(Optional<RecipientId> recipientId, String number) {
+  public void onContactDeselected(@NonNull Optional<RecipientId> recipientId, String number) {
     if (contactsFragment.hasQueryFilter()) {
       getContactFilterView().clear();
     }

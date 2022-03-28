@@ -12,15 +12,15 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.annimon.stream.Stream;
 
+import org.signal.paging.LivePagedData;
 import org.signal.paging.PagedData;
 import org.signal.paging.PagingConfig;
 import org.signal.paging.PagingController;
 import org.thoughtcrime.securesms.giph.model.GiphyImage;
 import org.thoughtcrime.securesms.util.DefaultValueLiveData;
-import org.thoughtcrime.securesms.util.adapter.mapping.MappingModelList;
 import org.thoughtcrime.securesms.util.SingleLiveEvent;
+import org.thoughtcrime.securesms.util.adapter.mapping.MappingModelList;
 
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -29,12 +29,12 @@ import java.util.Objects;
  */
 public final class GiphyMp4ViewModel extends ViewModel {
 
-  private final GiphyMp4Repository                             repository;
-  private final MutableLiveData<PagedData<String, GiphyImage>> pagedData;
-  private final LiveData<MappingModelList>                     images;
-  private final LiveData<PagingController<String>>             pagingController;
-  private final SingleLiveEvent<GiphyMp4SaveResult>            saveResultEvents;
-  private final boolean                                        isForMms;
+  private final GiphyMp4Repository                                 repository;
+  private final MutableLiveData<LivePagedData<String, GiphyImage>> pagedData;
+  private final LiveData<MappingModelList>                         images;
+  private final LiveData<PagingController<String>>                 pagingController;
+  private final SingleLiveEvent<GiphyMp4SaveResult>                saveResultEvents;
+  private final boolean                                            isForMms;
 
   private String query;
 
@@ -53,7 +53,7 @@ public final class GiphyMp4ViewModel extends ViewModel {
                                                                                                                 .collect(MappingModelList.toMappingModelList())));
   }
 
-  LiveData<PagedData<String, GiphyImage>> getPagedData() {
+  LiveData<LivePagedData<String, GiphyImage>> getPagedData() {
     return pagedData;
   }
 
@@ -82,9 +82,9 @@ public final class GiphyMp4ViewModel extends ViewModel {
     return pagingController;
   }
 
-  private PagedData<String, GiphyImage> getGiphyImagePagedData(@Nullable String query) {
-    return PagedData.create(new GiphyMp4PagedDataSource(query),
-                            new PagingConfig.Builder().setPageSize(20)
+  private LivePagedData<String, GiphyImage> getGiphyImagePagedData(@Nullable String query) {
+    return PagedData.createForLiveData(new GiphyMp4PagedDataSource(query),
+                                       new PagingConfig.Builder().setPageSize(20)
                                                       .setBufferPages(1)
                                                       .build());
   }

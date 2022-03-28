@@ -6,7 +6,6 @@ import androidx.annotation.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * A nice interface for {@link LocalMetrics} that gives us a place to define string constants and nicer method names.
@@ -73,8 +72,11 @@ public final class SignalLocalMetrics {
   public static final class ConversationOpen {
     private static final String NAME = "conversation-open";
 
-    private static final String SPLIT_DATA_LOADED = "data-loaded";
-    private static final String SPLIT_RENDER      = "render";
+    private static final String SPLIT_VIEWMODEL_INIT  = "viewmodel-init";
+    private static final String SPLIT_METADATA_LOADED = "metadata-loaded";
+    private static final String SPLIT_DATA_LOADED     = "data-loaded";
+    private static final String SPLIT_DATA_POSTED     = "data-posted";
+    private static final String SPLIT_RENDER          = "render";
 
     private static String id;
 
@@ -83,8 +85,20 @@ public final class SignalLocalMetrics {
       LocalMetrics.getInstance().start(id, NAME);
     }
 
+    public static void onMetadataLoadStarted() {
+      LocalMetrics.getInstance().split(id, SPLIT_VIEWMODEL_INIT);
+    }
+
+    public static void onMetadataLoaded() {
+      LocalMetrics.getInstance().split(id, SPLIT_METADATA_LOADED);
+    }
+
     public static void onDataLoaded() {
       LocalMetrics.getInstance().split(id, SPLIT_DATA_LOADED);
+    }
+
+    public static void onDataPostedToMain() {
+      LocalMetrics.getInstance().split(id, SPLIT_DATA_POSTED);
     }
 
     public static void onRenderFinished() {

@@ -36,7 +36,6 @@ import org.whispersystems.libsignal.state.PreKeyBundle;
 import org.whispersystems.libsignal.state.PreKeyRecord;
 import org.whispersystems.libsignal.state.SignedPreKeyRecord;
 import org.whispersystems.libsignal.util.Pair;
-import org.whispersystems.libsignal.util.guava.Optional;
 import org.whispersystems.signalservice.api.account.AccountAttributes;
 import org.whispersystems.signalservice.api.account.ChangePhoneNumberRequest;
 import org.whispersystems.signalservice.api.crypto.UnidentifiedAccess;
@@ -144,10 +143,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
-import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 
 import javax.net.SocketFactory;
 import javax.net.ssl.SSLContext;
@@ -526,17 +526,8 @@ public class PushServiceSocket {
     }
   }
 
-  public Future<SendMessageResponse> submitMessage(OutgoingPushMessageList bundle, Optional<UnidentifiedAccess> unidentifiedAccess) {
-    ListenableFuture<String> response = submitServiceRequest(String.format(MESSAGE_PATH, bundle.getDestination()), "PUT", JsonUtil.toJson(bundle), NO_HEADERS, unidentifiedAccess);
-
-    return FutureTransformers.map(response, body -> {
-      return body == null ? new SendMessageResponse(false, unidentifiedAccess.isPresent())
-          : JsonUtil.fromJson(body, SendMessageResponse.class);
-    });
-  }
-
   public SignalServiceMessagesResult getMessages() throws IOException {
-    try (Response response = makeServiceRequest(String.format(MESSAGE_PATH, ""), "GET", (RequestBody) null, NO_HEADERS, NO_HANDLER, Optional.absent())) {
+    try (Response response = makeServiceRequest(String.format(MESSAGE_PATH, ""), "GET", (RequestBody) null, NO_HEADERS, NO_HANDLER, Optional.empty())) {
       validateServiceResponse(response);
 
       List<SignalServiceEnvelopeEntity> envelopes = readBodyJson(response.body(), SignalServiceEnvelopeEntityList.class).getMessages();
@@ -788,10 +779,10 @@ public class PushServiceSocket {
         ProfileKeyCredential profileKeyCredential = signalServiceProfile.getProfileKeyCredentialResponse() != null
                                                       ? clientZkProfileOperations.receiveProfileKeyCredential(requestContext, signalServiceProfile.getProfileKeyCredentialResponse())
                                                       : null;
-        return new ProfileAndCredential(signalServiceProfile, SignalServiceProfile.RequestType.PROFILE_AND_CREDENTIAL, Optional.fromNullable(profileKeyCredential));
+        return new ProfileAndCredential(signalServiceProfile, SignalServiceProfile.RequestType.PROFILE_AND_CREDENTIAL, Optional.ofNullable(profileKeyCredential));
       } catch (VerificationFailedException e) {
         Log.w(TAG, "Failed to verify credential.", e);
-        return new ProfileAndCredential(signalServiceProfile, SignalServiceProfile.RequestType.PROFILE_AND_CREDENTIAL, Optional.absent());
+        return new ProfileAndCredential(signalServiceProfile, SignalServiceProfile.RequestType.PROFILE_AND_CREDENTIAL, Optional.empty());
       }
     } catch (IOException e) {
       Log.w(TAG, e);
@@ -840,7 +831,7 @@ public class PushServiceSocket {
                                          requestBody,
                                          NO_HEADERS,
                                          PaymentsRegionException::responseCodeHandler,
-                                         Optional.absent());
+                                         Optional.empty());
 
     if (signalServiceProfileWrite.hasAvatar() && profileAvatar != null) {
       try {
@@ -860,7 +851,7 @@ public class PushServiceSocket {
        return Optional.of(formAttributes.getKey());
     }
 
-    return Optional.absent();
+    return Optional.empty();
   }
 
   public void setUsername(String username) throws IOException {
@@ -869,7 +860,7 @@ public class PushServiceSocket {
         case 400: throw new UsernameMalformedException();
         case 409: throw new UsernameTakenException();
       }
-    }, Optional.<UnidentifiedAccess>absent());
+    }, Optional.empty());
   }
 
   public void deleteUsername() throws IOException {
@@ -1087,7 +1078,7 @@ public class PushServiceSocket {
   public Optional<StorageManifest> writeStorageContacts(String authToken, WriteOperation writeOperation) throws IOException {
     try {
       makeAndCloseStorageRequest(authToken, "/v1/storage", "PUT", protobufRequestBody(writeOperation));
-      return Optional.absent();
+      return Optional.empty();
     } catch (ContactManifestMismatchException e) {
       return Optional.of(StorageManifest.parseFrom(e.getResponseBody()));
     }
@@ -1344,6 +1335,7 @@ public class PushServiceSocket {
                                                         .newBuilder()
                                                         .connectTimeout(soTimeoutMillis, TimeUnit.MILLISECONDS)
                                                         .readTimeout(soTimeoutMillis, TimeUnit.MILLISECONDS)
+                                                        .eventListener(new LoggingOkhttpEventListener())
                                                         .build();
 
     Request.Builder request = new Request.Builder().url(buildConfiguredUrl(connectionHolder, signedUrl))
@@ -1541,7 +1533,7 @@ public class PushServiceSocket {
   private String makeServiceRequestWithoutAuthentication(String urlFragment, String method, String jsonBody, Map<String, String> headers, ResponseCodeHandler responseCodeHandler)
       throws NonSuccessfulResponseCodeException, PushNetworkException, MalformedResponseException
   {
-    ResponseBody responseBody = makeServiceRequest(urlFragment, method, jsonRequestBody(jsonBody), headers, responseCodeHandler, Optional.absent(), true).body();
+    ResponseBody responseBody = makeServiceRequest(urlFragment, method, jsonRequestBody(jsonBody), headers, responseCodeHandler, Optional.empty(), true).body();
     try {
       return responseBody.string();
     } catch (IOException e) {
@@ -1552,19 +1544,19 @@ public class PushServiceSocket {
   private String makeServiceRequest(String urlFragment, String method, String jsonBody)
       throws NonSuccessfulResponseCodeException, PushNetworkException, MalformedResponseException
   {
-    return makeServiceRequest(urlFragment, method, jsonBody, NO_HEADERS, NO_HANDLER, Optional.<UnidentifiedAccess>absent());
+    return makeServiceRequest(urlFragment, method, jsonBody, NO_HEADERS, NO_HANDLER, Optional.empty());
   }
 
   private String makeServiceRequest(String urlFragment, String method, String jsonBody, Map<String, String> headers)
       throws NonSuccessfulResponseCodeException, PushNetworkException, MalformedResponseException
   {
-    return makeServiceRequest(urlFragment, method, jsonBody, headers, NO_HANDLER, Optional.<UnidentifiedAccess>absent());
+    return makeServiceRequest(urlFragment, method, jsonBody, headers, NO_HANDLER, Optional.empty());
   }
 
   private String makeServiceRequest(String urlFragment, String method, String jsonBody, Map<String, String> headers, ResponseCodeHandler responseCodeHandler)
       throws NonSuccessfulResponseCodeException, PushNetworkException, MalformedResponseException
   {
-    return makeServiceRequest(urlFragment, method, jsonBody, headers, responseCodeHandler, Optional.<UnidentifiedAccess>absent());
+    return makeServiceRequest(urlFragment, method, jsonBody, headers, responseCodeHandler, Optional.empty());
   }
 
   private String makeServiceRequest(String urlFragment, String method, String jsonBody, Map<String, String> headers, Optional<UnidentifiedAccess> unidentifiedAccessKey)
@@ -1685,7 +1677,11 @@ public class PushServiceSocket {
 
     switch (responseCode) {
       case 413:
-        throw new RateLimitException("Rate limit exceeded: " + responseCode);
+      case 429: {
+        long           retryAfterLong = Util.parseLong(response.header("Retry-After"), -1);
+        Optional<Long> retryAfter     = retryAfterLong != -1 ? Optional.of(TimeUnit.SECONDS.toMillis(retryAfterLong)) : Optional.empty();
+        throw new RateLimitException(responseCode, "Rate limit exceeded: " + responseCode, retryAfter);
+      }
       case 401:
       case 403:
         throw new AuthorizationFailedException(responseCode, "Authorization failed!");
@@ -1890,7 +1886,7 @@ public class PushServiceSocket {
       case 409:
         throw new RemoteAttestationResponseExpiredException("Remote attestation response expired");
       case 429:
-        throw new RateLimitException("Rate limit exceeded: " + response.code());
+        throw new RateLimitException(response.code(), "Rate limit exceeded: " + response.code());
     }
 
     throw new NonSuccessfulResponseCodeException(response.code(), "Response: " + response);
@@ -1970,7 +1966,7 @@ public class PushServiceSocket {
 
     ResponseBody responseBody = response.body();
     try {
-      responseCodeHandler.handle(response.code(), responseBody);
+      responseCodeHandler.handle(response.code(), responseBody, response::header);
 
       switch (response.code()) {
         case 204:
@@ -1987,7 +1983,7 @@ public class PushServiceSocket {
             throw new ConflictException();
           }
         case 429:
-          throw new RateLimitException("Rate limit exceeded: " + response.code());
+          throw new RateLimitException(response.code(), "Rate limit exceeded: " + response.code());
         case 499:
           throw new DeprecatedVersionException();
       }
@@ -2106,11 +2102,11 @@ public class PushServiceSocket {
       OkHttpClient.Builder builder = new OkHttpClient.Builder()
                                                      .socketFactory(socketFactory)
                                                      .sslSocketFactory(new Tls12SocketFactory(context.getSocketFactory()), (X509TrustManager)trustManagers[0])
-                                                     .connectionSpecs(url.getConnectionSpecs().or(Util.immutableList(ConnectionSpec.RESTRICTED_TLS)))
-                                                     .dns(dns.or(Dns.SYSTEM));
+                                                     .connectionSpecs(url.getConnectionSpecs().orElse(Util.immutableList(ConnectionSpec.RESTRICTED_TLS)))
+                                                     .dns(dns.orElse(Dns.SYSTEM));
 
       builder.sslSocketFactory(new Tls12SocketFactory(context.getSocketFactory()), (X509TrustManager)trustManagers[0])
-             .connectionSpecs(url.getConnectionSpecs().or(Util.immutableList(ConnectionSpec.RESTRICTED_TLS)))
+             .connectionSpecs(url.getConnectionSpecs().orElse(Util.immutableList(ConnectionSpec.RESTRICTED_TLS)))
              .build();
 
       builder.connectionPool(new ConnectionPool(5, 45, TimeUnit.SECONDS));
@@ -2292,6 +2288,10 @@ public class PushServiceSocket {
 
   private interface ResponseCodeHandler {
     void handle(int responseCode, ResponseBody body) throws NonSuccessfulResponseCodeException, PushNetworkException;
+
+    default void handle(int responseCode, ResponseBody body, Function<String, String> getHeader) throws NonSuccessfulResponseCodeException, PushNetworkException {
+      handle(responseCode, body);
+    }
   }
 
   private static class EmptyResponseCodeHandler implements ResponseCodeHandler {
@@ -2309,7 +2309,7 @@ public class PushServiceSocket {
                                            "GET",
                                            null,
                                            NO_HEADERS,
-                                           Optional.absent());
+                                           Optional.empty());
 
     return JsonUtil.fromJson(response, CredentialResponse.class);
   }
@@ -2327,8 +2327,18 @@ public class PushServiceSocket {
   private static final ResponseCodeHandler GROUPS_V2_PATCH_RESPONSE_HANDLER = (responseCode, body) -> {
     if (responseCode == 400) throw new GroupPatchNotAcceptedException();
   };
-  private static final ResponseCodeHandler GROUPS_V2_GET_JOIN_INFO_HANDLER  = (responseCode, body) -> {
-    if (responseCode == 403) throw new ForbiddenException();
+  private static final ResponseCodeHandler GROUPS_V2_GET_JOIN_INFO_HANDLER  = new ResponseCodeHandler() {
+    @Override
+    public void handle(int responseCode, ResponseBody body) throws NonSuccessfulResponseCodeException {
+      if (responseCode == 403) throw new ForbiddenException();
+    }
+
+    @Override
+    public void handle(int responseCode, ResponseBody body, Function<String, String> getHeader) throws NonSuccessfulResponseCodeException {
+      if (responseCode == 403) {
+        throw new ForbiddenException(Optional.ofNullable(getHeader.apply("X-Signal-Forbidden-Reason")));
+      }
+    }
   };
 
   public void putNewGroupsV2Group(Group group, GroupsV2AuthorizationString authorization)
@@ -2418,13 +2428,13 @@ public class PushServiceSocket {
       }
     }
 
-    return new GroupHistory(groupChanges, Optional.absent());
+    return new GroupHistory(groupChanges, Optional.empty());
   }
 
   public GroupJoinInfo getGroupJoinInfo(Optional<byte[]> groupLinkPassword, GroupsV2AuthorizationString authorization)
       throws NonSuccessfulResponseCodeException, PushNetworkException, InvalidProtocolBufferException
   {
-    String       passwordParam = groupLinkPassword.transform(Base64UrlSafe::encodeBytesWithoutPadding).or("");
+    String       passwordParam = groupLinkPassword.map(Base64UrlSafe::encodeBytesWithoutPadding).orElse("");
     ResponseBody response      = makeStorageRequest(authorization.toString(),
                                                     String.format(GROUPSV2_GROUP_JOIN, passwordParam),
                                                     "GET",

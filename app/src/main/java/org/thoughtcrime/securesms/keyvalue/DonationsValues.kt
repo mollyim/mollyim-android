@@ -56,13 +56,17 @@ internal class DonationsValues internal constructor(store: KeyValueStore) : Sign
     }
   }
 
-  // MOLLY: Functions below are only required for storage sync
+  // MOLLY: Functions below are only required for storage sync and account deletion
 
-  fun getSubscriberStorageSync(): Subscriber? {
+  fun getSubscriber(): Subscriber? {
     return getSubscriber(getSubscriptionCurrency())
   }
 
-  fun setSubscriberStorageSync(subscriber: Subscriber) {
+  fun requireSubscriber(): Subscriber {
+    return getSubscriber() ?: throw Exception("Subscriber ID is not set.")
+  }
+
+  fun setSubscriber(subscriber: Subscriber) {
     val currencyCode = subscriber.currencyCode
     store.beginWrite()
       .putBlob("$KEY_SUBSCRIBER_ID_PREFIX$currencyCode", subscriber.subscriberId.bytes)
@@ -70,25 +74,25 @@ internal class DonationsValues internal constructor(store: KeyValueStore) : Sign
       .apply()
   }
 
-  fun setDisplayBadgesOnProfileStorageSync(enabled: Boolean) {
-    putBoolean(DISPLAY_BADGES_ON_PROFILE, enabled)
-  }
-
-  fun getDisplayBadgesOnProfileStorageSync(): Boolean {
-    return getBoolean(DISPLAY_BADGES_ON_PROFILE, false)
-  }
-
-  fun isUserManuallyCancelledSync(): Boolean {
+  fun isUserManuallyCancelled(): Boolean {
     return getBoolean(USER_MANUALLY_CANCELLED, false)
   }
 
-  fun markUserManuallyCancelledSync() {
+  fun markUserManuallyCancelled() {
     putBoolean(USER_MANUALLY_CANCELLED, true)
   }
 
-  fun clearUserManuallyCancelledSync() {
+  fun clearUserManuallyCancelled() {
     remove(USER_MANUALLY_CANCELLED)
   }
 
-  var unexpectedSubscriptionCancelationReasonSync: String? by stringValue(SUBSCRIPTION_CANCELATION_REASON, null)
+  fun setDisplayBadgesOnProfile(enabled: Boolean) {
+    putBoolean(DISPLAY_BADGES_ON_PROFILE, enabled)
+  }
+
+  fun getDisplayBadgesOnProfile(): Boolean {
+    return getBoolean(DISPLAY_BADGES_ON_PROFILE, false)
+  }
+
+  var unexpectedSubscriptionCancelationReason: String? by stringValue(SUBSCRIPTION_CANCELATION_REASON, null)
 }

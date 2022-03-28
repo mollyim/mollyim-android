@@ -8,15 +8,14 @@ package org.whispersystems.signalservice.api.messages;
 
 import org.signal.zkgroup.groups.GroupSecretParams;
 import org.whispersystems.libsignal.InvalidMessageException;
-import org.whispersystems.libsignal.util.guava.Optional;
 import org.whispersystems.signalservice.api.messages.shared.SharedContact;
-import org.whispersystems.signalservice.api.push.ACI;
 import org.whispersystems.signalservice.api.push.ServiceId;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
 import org.whispersystems.signalservice.api.util.OptionalUtil;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Represents a decrypted Signal Service data message.
@@ -34,7 +33,7 @@ public class SignalServiceDataMessage {
   private final boolean                                 profileKeyUpdate;
   private final Optional<Quote>                         quote;
   private final Optional<List<SharedContact>>           contacts;
-  private final Optional<List<Preview>>                 previews;
+  private final Optional<List<SignalServicePreview>>    previews;
   private final Optional<List<Mention>>                 mentions;
   private final Optional<Sticker>                       sticker;
   private final boolean                                 viewOnce;
@@ -67,7 +66,7 @@ public class SignalServiceDataMessage {
                            boolean profileKeyUpdate,
                            Quote quote,
                            List<SharedContact> sharedContacts,
-                           List<Preview> previews,
+                           List<SignalServicePreview> previews,
                            List<Mention> mentions,
                            Sticker sticker,
                            boolean viewOnce,
@@ -88,39 +87,39 @@ public class SignalServiceDataMessage {
     this.endSession       = endSession;
     this.expiresInSeconds = expiresInSeconds;
     this.expirationUpdate = expirationUpdate;
-    this.profileKey       = Optional.fromNullable(profileKey);
+    this.profileKey       = Optional.ofNullable(profileKey);
     this.profileKeyUpdate = profileKeyUpdate;
-    this.quote            = Optional.fromNullable(quote);
-    this.sticker          = Optional.fromNullable(sticker);
+    this.quote            = Optional.ofNullable(quote);
+    this.sticker          = Optional.ofNullable(sticker);
     this.viewOnce         = viewOnce;
-    this.reaction         = Optional.fromNullable(reaction);
-    this.remoteDelete     = Optional.fromNullable(remoteDelete);
-    this.groupCallUpdate  = Optional.fromNullable(groupCallUpdate);
-    this.payment          = Optional.fromNullable(payment);
-    this.storyContext     = Optional.fromNullable(storyContext);
+    this.reaction         = Optional.ofNullable(reaction);
+    this.remoteDelete     = Optional.ofNullable(remoteDelete);
+    this.groupCallUpdate  = Optional.ofNullable(groupCallUpdate);
+    this.payment          = Optional.ofNullable(payment);
+    this.storyContext     = Optional.ofNullable(storyContext);
 
     if (attachments != null && !attachments.isEmpty()) {
       this.attachments = Optional.of(attachments);
     } else {
-      this.attachments = Optional.absent();
+      this.attachments = Optional.empty();
     }
 
     if (sharedContacts != null && !sharedContacts.isEmpty()) {
       this.contacts = Optional.of(sharedContacts);
     } else {
-      this.contacts = Optional.absent();
+      this.contacts = Optional.empty();
     }
 
     if (previews != null && !previews.isEmpty()) {
       this.previews = Optional.of(previews);
     } else {
-      this.previews = Optional.absent();
+      this.previews = Optional.empty();
     }
 
     if (mentions != null && !mentions.isEmpty()) {
       this.mentions = Optional.of(mentions);
     } else {
-      this.mentions = Optional.absent();
+      this.mentions = Optional.empty();
     }
   }
 
@@ -218,7 +217,7 @@ public class SignalServiceDataMessage {
     return contacts;
   }
 
-  public Optional<List<Preview>> getPreviews() {
+  public Optional<List<SignalServicePreview>> getPreviews() {
     return previews;
   }
 
@@ -265,14 +264,14 @@ public class SignalServiceDataMessage {
                                  .serialize();
     }
 
-    return Optional.fromNullable(groupId);
+    return Optional.ofNullable(groupId);
   }
 
   public static class Builder {
 
     private List<SignalServiceAttachment> attachments    = new LinkedList<>();
     private List<SharedContact>           sharedContacts = new LinkedList<>();
-    private List<Preview>                 previews       = new LinkedList<>();
+    private List<SignalServicePreview>    previews       = new LinkedList<>();
     private List<Mention>                 mentions       = new LinkedList<>();
 
     private long                 timestamp;
@@ -379,7 +378,7 @@ public class SignalServiceDataMessage {
       return this;
     }
 
-    public Builder withPreviews(List<Preview> previews) {
+    public Builder withPreviews(List<SignalServicePreview> previews) {
       this.previews.addAll(previews);
       return this;
     }
@@ -496,42 +495,6 @@ public class SignalServiceDataMessage {
     }
   }
 
-  public static class Preview {
-    private final String                            url;
-    private final String                            title;
-    private final String                            description;
-    private final long                              date;
-    private final Optional<SignalServiceAttachment> image;
-
-    public Preview(String url, String title, String description, long date, Optional<SignalServiceAttachment> image) {
-      this.url         = url;
-      this.title       = title;
-      this.description = description;
-      this.date        = date;
-      this.image       = image;
-    }
-
-    public String getUrl() {
-      return url;
-    }
-
-    public String getTitle() {
-      return title;
-    }
-
-    public String getDescription() {
-      return description;
-    }
-
-    public long getDate() {
-      return date;
-    }
-
-    public Optional<SignalServiceAttachment> getImage() {
-      return image;
-    }
-  }
-
   public static class Sticker {
     private final byte[]                  packId;
     private final byte[]                  packKey;
@@ -611,18 +574,18 @@ public class SignalServiceDataMessage {
   }
 
   public static class Mention {
-    private final ServiceId aci;
+    private final ServiceId serviceId;
     private final int       start;
     private final int       length;
 
-    public Mention(ServiceId aci, int start, int length) {
-      this.aci    = aci;
-      this.start  = start;
-      this.length = length;
+    public Mention(ServiceId serviceId, int start, int length) {
+      this.serviceId = serviceId;
+      this.start     = start;
+      this.length    = length;
     }
 
-    public ServiceId getAci() {
-      return aci;
+    public ServiceId getServiceId() {
+      return serviceId;
     }
 
     public int getStart() {
@@ -678,16 +641,16 @@ public class SignalServiceDataMessage {
   }
 
   public static class StoryContext {
-    private final ACI  authorAci;
-    private final long sentTimestamp;
+    private final ServiceId authorServiceId;
+    private final long      sentTimestamp;
 
-    public StoryContext(ACI authorAci, long sentTimestamp) {
-      this.authorAci     = authorAci;
-      this.sentTimestamp = sentTimestamp;
+    public StoryContext(ServiceId authorServiceId, long sentTimestamp) {
+      this.authorServiceId = authorServiceId;
+      this.sentTimestamp   = sentTimestamp;
     }
 
-    public ACI getAuthorAci() {
-      return authorAci;
+    public ServiceId getAuthorServiceId() {
+      return authorServiceId;
     }
 
     public long getSentTimestamp() {

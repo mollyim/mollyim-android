@@ -47,16 +47,16 @@ import org.thoughtcrime.securesms.util.MediaUtil;
 import org.thoughtcrime.securesms.util.OkHttpUtil;
 import org.whispersystems.libsignal.InvalidMessageException;
 import org.whispersystems.libsignal.util.Pair;
-import org.whispersystems.libsignal.util.guava.Optional;
 import org.whispersystems.signalservice.api.SignalServiceMessageReceiver;
 import org.whispersystems.signalservice.api.groupsv2.GroupLinkNotActiveException;
 import org.whispersystems.signalservice.api.messages.SignalServiceStickerManifest;
 import org.whispersystems.signalservice.api.messages.SignalServiceStickerManifest.StickerInfo;
+import org.whispersystems.signalservice.api.util.OptionalUtil;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.IDN;
+import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
 import okhttp3.CacheControl;
@@ -115,7 +115,7 @@ public class LinkPreviewRepository {
         }
 
         if (!metadata.getImageUrl().isPresent()) {
-          callback.onSuccess(new LinkPreview(url, metadata.getTitle().or(""), metadata.getDescription().or(""), metadata.getDate(), Optional.absent()));
+          callback.onSuccess(new LinkPreview(url, metadata.getTitle().orElse(""), metadata.getDescription().orElse(""), metadata.getDate(), Optional.empty()));
           return;
         }
 
@@ -123,7 +123,7 @@ public class LinkPreviewRepository {
           if (!metadata.getTitle().isPresent() && !attachment.isPresent()) {
             callback.onError(Error.PREVIEW_NOT_AVAILABLE);
           } else {
-            callback.onSuccess(new LinkPreview(url, metadata.getTitle().or(""), metadata.getDescription().or(""), metadata.getDate(), attachment));
+            callback.onSuccess(new LinkPreview(url, metadata.getTitle().orElse(""), metadata.getDescription().orElse(""), metadata.getDate(), attachment));
           }
         });
 
@@ -166,7 +166,7 @@ public class LinkPreviewRepository {
 
         if (imageUrl.isPresent() && !LinkPreviewUtil.isValidPreviewUrl(imageUrl.get())) {
           Log.i(TAG, "Image URL was invalid or for a non-whitelisted domain. Skipping.");
-          imageUrl = Optional.absent();
+          imageUrl = Optional.empty();
         }
 
         callback.accept(new Metadata(title, description, date, imageUrl));
@@ -200,7 +200,7 @@ public class LinkPreviewRepository {
       } catch (IOException | IllegalArgumentException e) {
         Log.w(TAG, "Exception during link preview image retrieval.", e);
         controller.cancel();
-        callback.accept(Optional.absent());
+        callback.accept(Optional.empty());
       }
     });
 
@@ -213,7 +213,7 @@ public class LinkPreviewRepository {
   {
     SignalExecutors.UNBOUNDED.execute(() -> {
       try {
-        Pair<String, String> stickerParams = StickerUrl.parseShareLink(packUrl).or(new Pair<>("", ""));
+        Pair<String, String> stickerParams = StickerUrl.parseShareLink(packUrl).orElse(new Pair<>("", ""));
         String               packIdString  = stickerParams.first();
         String               packKeyString = stickerParams.second();
         byte[]               packIdBytes   = Hex.fromStringCondensed(packIdString);
@@ -222,9 +222,9 @@ public class LinkPreviewRepository {
         SignalServiceMessageReceiver receiver = ApplicationDependencies.getSignalServiceMessageReceiver();
         SignalServiceStickerManifest manifest = receiver.retrieveStickerManifest(packIdBytes, packKeyBytes);
 
-        String                title        = manifest.getTitle().or(manifest.getAuthor()).or("");
-        Optional<StickerInfo> firstSticker = Optional.fromNullable(manifest.getStickers().size() > 0 ? manifest.getStickers().get(0) : null);
-        Optional<StickerInfo> cover        = manifest.getCover().or(firstSticker);
+        String                title        = OptionalUtil.or(manifest.getTitle(), manifest.getAuthor()).orElse("");
+        Optional<StickerInfo> firstSticker = Optional.ofNullable(manifest.getStickers().size() > 0 ? manifest.getStickers().get(0) : null);
+        Optional<StickerInfo> cover        = OptionalUtil.or(manifest.getCover(), firstSticker);
 
         if (cover.isPresent()) {
           Bitmap bitmap = GlideApp.with(context).asBitmap()
@@ -272,7 +272,7 @@ public class LinkPreviewRepository {
           String                    title       = groupRecord.getTitle();
           int                       memberCount = groupRecord.getMembers().size();
           String                    description = getMemberCountDescription(context, memberCount);
-          Optional<Attachment>      thumbnail   = Optional.absent();
+          Optional<Attachment>      thumbnail   = Optional.empty();
 
           if (AvatarHelper.hasAvatar(context, groupRecord.getRecipientId())) {
             Recipient recipient = Recipient.resolved(groupRecord.getRecipientId());
@@ -287,7 +287,7 @@ public class LinkPreviewRepository {
 
           DecryptedGroupJoinInfo joinInfo    = GroupManager.getGroupJoinInfoFromServer(context, groupMasterKey, groupInviteLinkUrl.getPassword());
           String                 description = getMemberCountDescription(context, joinInfo.getMemberCount());
-          Optional<Attachment>   thumbnail   = Optional.absent();
+          Optional<Attachment>   thumbnail   = Optional.empty();
           byte[]                 avatarBytes = AvatarGroupsV2DownloadJob.downloadGroupAvatarBytes(context, groupMasterKey, joinInfo.getAvatar());
 
           if (avatarBytes != null) {
@@ -327,7 +327,7 @@ public class LinkPreviewRepository {
                                                          @NonNull String contentType)
   {
     if (bitmap == null) {
-      return Optional.absent();
+      return Optional.empty();
     }
 
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -370,7 +370,7 @@ public class LinkPreviewRepository {
     }
 
     static Metadata empty() {
-      return new Metadata(Optional.absent(), Optional.absent(), 0, Optional.absent());
+      return new Metadata(Optional.empty(), Optional.empty(), 0, Optional.empty());
     }
 
     Optional<String> getTitle() {

@@ -28,6 +28,7 @@ import androidx.core.app.RemoteInput;
 import org.signal.core.util.concurrent.SignalExecutors;
 import org.thoughtcrime.securesms.database.MessageDatabase.MarkedMessageInfo;
 import org.thoughtcrime.securesms.database.SignalDatabase;
+import org.thoughtcrime.securesms.database.model.StoryType;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.mms.OutgoingMediaMessage;
 import org.thoughtcrime.securesms.notifications.v2.MessageNotifierV2;
@@ -73,7 +74,7 @@ public class RemoteReplyReceiver extends BroadcastReceiver {
         long threadId;
 
         Recipient recipient      = Recipient.resolved(recipientId);
-        int       subscriptionId = recipient.getDefaultSubscriptionId().or(-1);
+        int       subscriptionId = recipient.getDefaultSubscriptionId().orElse(-1);
         long      expiresIn      = TimeUnit.SECONDS.toMillis(recipient.getExpiresInSeconds());
 
         switch (replyMethod) {
@@ -86,6 +87,9 @@ public class RemoteReplyReceiver extends BroadcastReceiver {
                                                                   expiresIn,
                                                                   false,
                                                                   0,
+                                                                  StoryType.NONE,
+                                                                  null,
+                                                                  false,
                                                                   null,
                                                                   Collections.emptyList(),
                                                                   Collections.emptyList(),

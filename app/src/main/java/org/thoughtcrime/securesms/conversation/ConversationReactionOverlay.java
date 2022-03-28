@@ -177,8 +177,7 @@ public final class ConversationReactionOverlay extends FrameLayout {
       bottomNavigationBarHeight = ViewUtil.getNavigationBarHeight(this);
     }
 
-    boolean isLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
-    if (isLandscape) {
+    if (zeroNavigationBarHeightForConfiguration()) {
       bottomNavigationBarHeight = 0;
     }
 
@@ -421,6 +420,20 @@ public final class ConversationReactionOverlay extends FrameLayout {
     return bottomPanel.getHeight() + (emojiDrawer != null && emojiDrawer.getVisibility() == VISIBLE ? emojiDrawer.getHeight() : 0);
   }
 
+  /**
+   * Returns true when the device is in a configuration where the navigation bar doesn't take up
+   * space at the bottom of the screen.
+   */
+  private boolean zeroNavigationBarHeightForConfiguration() {
+    boolean isLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+
+    if (Build.VERSION.SDK_INT >= 29) {
+      return getRootWindowInsets().getSystemGestureInsets().bottom == 0 && isLandscape;
+    } else {
+      return isLandscape;
+    }
+  }
+
   @RequiresApi(api = 21)
   private void updateSystemUiOnShow(@NonNull Activity activity) {
     Window window   = activity.getWindow();
@@ -641,6 +654,10 @@ public final class ConversationReactionOverlay extends FrameLayout {
 
   private int getSelectedIndexViaMotionEvent(@NonNull MotionEvent motionEvent, @NonNull Boundary boundary) {
     int selected = -1;
+
+    if (backgroundView.getVisibility() != View.VISIBLE) {
+      return selected;
+    }
 
     for (int i = 0; i < emojiViews.length; i++) {
       final float emojiLeft = (segmentSize * i) + emojiStripViewBounds.left;

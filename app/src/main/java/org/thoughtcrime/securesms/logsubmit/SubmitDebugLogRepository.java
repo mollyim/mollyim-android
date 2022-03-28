@@ -14,21 +14,21 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.logging.Log;
+import org.signal.core.util.logging.Scrubber;
 import org.signal.core.util.tracing.Tracer;
 import org.thoughtcrime.securesms.database.LogDatabase;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
-import org.signal.core.util.logging.Scrubber;
 import org.thoughtcrime.securesms.net.Network;
 import org.thoughtcrime.securesms.net.StandardUserAgentInterceptor;
 import org.thoughtcrime.securesms.service.KeyCachingService;
 import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.Stopwatch;
-import org.whispersystems.libsignal.util.guava.Optional;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.regex.Pattern;
 
@@ -123,7 +123,7 @@ public class SubmitDebugLogRepository {
         traceUrl = uploadContent("application/octet-stream", RequestBody.create(MediaType.get("application/octet-stream"), trace));
       } catch (IOException e) {
         Log.w(TAG, "Error during trace upload.", e);
-        return Optional.absent();
+        return Optional.empty();
       }
     }
 
@@ -149,7 +149,7 @@ public class SubmitDebugLogRepository {
       } catch (IllegalStateException e) {
         if (!KeyCachingService.isLocked()) {
           Log.e(TAG, "Failed to read row!", e);
-          return Optional.absent();
+          return Optional.empty();
         }
       }
 
@@ -163,7 +163,7 @@ public class SubmitDebugLogRepository {
       return Optional.of(logUrl);
     } catch (IOException e) {
       Log.w(TAG, "Error during log upload.", e);
-      return Optional.absent();
+      return Optional.empty();
     }
   }
 
@@ -250,7 +250,7 @@ public class SubmitDebugLogRepository {
     out.add(new SimpleLogLine(formatTitle(section.getTitle(), maxTitleLength), LogLine.Style.NONE, LogLine.Placeholder.NONE));
 
     if (!section.isInitialized()) {
-      out.add(new SimpleLogLine("Not initialized yet", LogLine.Style.INFO, LogLine.Placeholder.NONE));
+      out.add(new SimpleLogLine("<not available>", LogLine.Style.INFO, LogLine.Placeholder.NONE));
     } else if (section.hasContent()) {
       CharSequence content = Scrubber.scrub(section.getContent(context));
 

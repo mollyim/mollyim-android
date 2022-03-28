@@ -40,7 +40,6 @@ import org.thoughtcrime.securesms.util.Util;
 import org.whispersystems.libsignal.IdentityKey;
 import org.whispersystems.libsignal.InvalidKeyException;
 import org.whispersystems.libsignal.util.Pair;
-import org.whispersystems.libsignal.util.guava.Optional;
 import org.whispersystems.signalservice.api.crypto.InvalidCiphertextException;
 import org.whispersystems.signalservice.api.crypto.ProfileCipher;
 import org.whispersystems.signalservice.api.profiles.ProfileAndCredential;
@@ -56,6 +55,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -290,7 +290,7 @@ public class RetrieveProfileJob extends BaseJob {
                                                         .map(Pair::first)
                                                         .filterNot(Recipient::isRegistered)
                                                         .collect(Collectors.toMap(Recipient::getId,
-                                                                                  r -> r.getServiceId().orNull()));
+                                                                                  r -> r.getServiceId().orElse(null)));
 
 
     //noinspection SimplifyStreamApiCallChains

@@ -7,10 +7,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
-import org.whispersystems.libsignal.util.guava.Optional;
 import org.whispersystems.signalservice.api.SignalServiceAccountManager;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.lessThan;
@@ -18,13 +18,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.any;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.verifyZeroInteractions;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(manifest = Config.NONE, application = Application.class)
@@ -75,7 +75,7 @@ public final class PushChallengeRequestTest {
     SignalServiceAccountManager signal = mock(SignalServiceAccountManager.class);
 
     long startTime = System.currentTimeMillis();
-    PushChallengeRequest.getPushChallengeBlocking(signal, Optional.absent(), "+123456", 500L);
+    PushChallengeRequest.getPushChallengeBlocking(signal, Optional.empty(), "+123456", 500L);
     long duration = System.currentTimeMillis() - startTime;
 
     assertThat(duration, lessThan(500L));
@@ -85,9 +85,9 @@ public final class PushChallengeRequestTest {
   public void getPushChallengeBlocking_returns_absent_if_no_fcm_token_supplied() {
     SignalServiceAccountManager signal = mock(SignalServiceAccountManager.class);
 
-    Optional<String> challenge = PushChallengeRequest.getPushChallengeBlocking(signal, Optional.absent(), "+123456", 500L);
+    Optional<String> challenge = PushChallengeRequest.getPushChallengeBlocking(signal, Optional.empty(), "+123456", 500L);
 
-    verifyZeroInteractions(signal);
+    verifyNoInteractions(signal);
     assertFalse(challenge.isPresent());
   }
 

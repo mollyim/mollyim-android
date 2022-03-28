@@ -47,6 +47,7 @@ import org.thoughtcrime.securesms.PassphraseRequiredActivity;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.components.SearchToolbar;
 import org.thoughtcrime.securesms.contacts.ContactsCursorLoader.DisplayMode;
+import org.thoughtcrime.securesms.contacts.paged.ContactSearchKey;
 import org.thoughtcrime.securesms.conversation.ConversationIntents;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.database.ThreadDatabase;
@@ -55,6 +56,9 @@ import org.thoughtcrime.securesms.mediasend.v2.MediaSelectionActivity;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.sharing.interstitial.ShareInterstitialActivity;
+import org.thoughtcrime.securesms.stories.Stories;
+import org.thoughtcrime.securesms.stories.dialogs.StoryDialogs;
+import org.thoughtcrime.securesms.stories.settings.hide.HideStoryFromDialogFragment;
 import org.thoughtcrime.securesms.util.ConversationUtil;
 import org.thoughtcrime.securesms.util.DynamicLanguage;
 import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme;
@@ -65,17 +69,19 @@ import org.thoughtcrime.securesms.util.Util;
 import org.thoughtcrime.securesms.util.ViewUtil;
 import org.thoughtcrime.securesms.util.concurrent.SimpleTask;
 import org.thoughtcrime.securesms.util.views.SimpleProgressDialog;
-import org.whispersystems.libsignal.util.guava.Optional;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.schedulers.Schedulers;
+import kotlin.Unit;
 
 /**
  * Entry point for sharing content into the app.
@@ -188,7 +194,7 @@ public class ShareActivity extends PassphraseRequiredActivity
   }
 
   @Override
-  public void onBeforeContactSelected(Optional<RecipientId> recipientId, String number, java.util.function.Consumer<Boolean> callback) {
+  public void onBeforeContactSelected(@NonNull Optional<RecipientId> recipientId, String number, @NonNull java.util.function.Consumer<Boolean> callback) {
     if (disallowMultiShare) {
       Toast.makeText(this, R.string.ShareActivity__sharing_to_multiple_chats_is, Toast.LENGTH_LONG).show();
       callback.accept(false);
@@ -378,11 +384,30 @@ public class ShareActivity extends PassphraseRequiredActivity
                                .commit();
 
     shareConfirm.setOnClickListener(unused -> {
+      shareConfirm.setEnabled(false);
+
       Set<ShareContact> shareContacts = viewModel.getShareContacts();
 
-      if (shareContacts.isEmpty())        throw new AssertionError();
-      else if (shareContacts.size() == 1) onConfirmSingleDestination(shareContacts.iterator().next());
-      else                                onConfirmMultipleDestinations(shareContacts);
+      StoryDialogs.INSTANCE.guardWithAddToYourStoryDialog(this,
+                                                          shareContacts.stream()
+                                                                       .filter(contact -> contact.getRecipientId().isPresent())
+                                                                       .map(contact -> Recipient.resolved(contact.getRecipientId().get()))
+                                                                       .filter(Recipient::isMyStory)
+                                                                       .map(myStory -> new ContactSearchKey.Story(myStory.getId()))
+                                                                       .collect(java.util.stream.Collectors.toList()),
+                                                          () -> {
+                                                            performSend(shareContacts);
+                                                            return Unit.INSTANCE;
+                                                          },
+                                                          () -> {
+                                                            shareConfirm.setEnabled(true);
+                                                            new HideStoryFromDialogFragment().show(getSupportFragmentManager(), null);
+                                                            return Unit.INSTANCE;
+                                                          },
+                                                          () -> {
+                                                            shareConfirm.setEnabled(true);
+                                                            return Unit.INSTANCE;
+                                                          });
     });
 
     viewModel.getSelectedContactModels().observe(this, models -> {
@@ -434,6 +459,12 @@ public class ShareActivity extends PassphraseRequiredActivity
 
       validateAvailableRecipients();
     });
+  }
+
+  private void performSend(Set<ShareContact> shareContacts) {
+    if (shareContacts.isEmpty())        throw new AssertionError();
+    else if (shareContacts.size() == 1) onConfirmSingleDestination(shareContacts.iterator().next());
+    else                                onConfirmMultipleDestinations(shareContacts);
   }
 
   private void initializeArgs() {
@@ -501,6 +532,11 @@ public class ShareActivity extends PassphraseRequiredActivity
   }
 
   private void onConfirmSingleDestination(@NonNull ShareContact shareContact) {
+    if (shareContact.getRecipientId().isPresent() && Recipient.resolved(shareContact.getRecipientId().get()).isDistributionList()) {
+      onConfirmMultipleDestinations(Collections.singleton(shareContact));
+      return;
+    }
+
     shareConfirm.setClickable(false);
     SimpleTask.run(this.getLifecycle(),
                    () -> resolveShareContact(shareContact),
@@ -517,8 +553,8 @@ public class ShareActivity extends PassphraseRequiredActivity
   private Set<ShareContactAndThread> resolvedShareContacts(@NonNull Set<ShareContact> sharedContacts) {
     Set<Recipient> recipients = Stream.of(sharedContacts)
                                       .map(contact -> contact.getRecipientId()
-                                                             .transform(Recipient::resolved)
-                                                             .or(() -> Recipient.external(this, contact.getNumber())))
+                                                             .map(Recipient::resolved)
+                                                             .orElseGet(() -> Recipient.external(this, contact.getNumber())))
                                       .collect(Collectors.toSet());
 
     Map<RecipientId, Long> existingThreads = SignalDatabase.threads()
@@ -527,7 +563,7 @@ public class ShareActivity extends PassphraseRequiredActivity
                                                                                           .toArray(RecipientId[]::new));
 
     return Stream.of(recipients)
-                 .map(recipient -> new ShareContactAndThread(recipient.getId(), Util.getOrDefault(existingThreads, recipient.getId(), -1L), recipient.isForceSmsSelection() || !recipient.isRegistered()))
+                 .map(recipient -> new ShareContactAndThread(recipient.getId(), Util.getOrDefault(existingThreads, recipient.getId(), -1L), recipient.isForceSmsSelection() || !recipient.isRegistered(), recipient.isDistributionList()))
                  .collect(Collectors.toSet());
   }
 
@@ -542,7 +578,7 @@ public class ShareActivity extends PassphraseRequiredActivity
     }
 
     long existingThread = SignalDatabase.threads().getThreadIdIfExistsFor(recipient.getId());
-    return new ShareContactAndThread(recipient.getId(), existingThread, recipient.isForceSmsSelection() || !recipient.isRegistered());
+    return new ShareContactAndThread(recipient.getId(), existingThread, recipient.isForceSmsSelection() || !recipient.isRegistered(), recipient.isDistributionList());
   }
 
   private void validateAvailableRecipients() {
@@ -552,8 +588,10 @@ public class ShareActivity extends PassphraseRequiredActivity
       if (mode == -1) return;
 
       boolean isMmsOrSmsSupported = data != null ? data.isMmsOrSmsSupported() : Util.isDefaultSmsProvider(this);
+      boolean isStoriesSupported = Stories.isFeatureEnabled() && data != null && data.isStoriesSupported();
 
       mode = isMmsOrSmsSupported ? mode | DisplayMode.FLAG_SMS : mode & ~DisplayMode.FLAG_SMS;
+      mode = isStoriesSupported ? mode | DisplayMode.FLAG_STORIES : mode & ~DisplayMode.FLAG_STORIES;
       getIntent().putExtra(ContactSelectionListFragment.DISPLAY_MODE, mode);
 
       contactsFragment.reset();
@@ -582,7 +620,7 @@ public class ShareActivity extends PassphraseRequiredActivity
         return;
       }
 
-      onResolved.accept(data.orNull());
+      onResolved.accept(data.orElse(null));
     });
   }
 
@@ -672,9 +710,9 @@ public class ShareActivity extends PassphraseRequiredActivity
                               0,
                               false,
                               false,
-                              Optional.absent(),
-                              Optional.absent(),
-                              Optional.absent()));
+                              Optional.empty(),
+                              Optional.empty(),
+                              Optional.empty()));
         }
 
         Intent intent = MediaSelectionActivity.share(this,

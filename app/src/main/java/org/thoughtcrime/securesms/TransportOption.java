@@ -9,7 +9,9 @@ import androidx.annotation.NonNull;
 
 import org.thoughtcrime.securesms.util.CharacterCalculator;
 import org.thoughtcrime.securesms.util.CharacterCalculator.CharacterState;
-import org.whispersystems.libsignal.util.guava.Optional;
+
+import java.util.Optional;
+
 
 public class TransportOption implements Parcelable {
 
@@ -17,8 +19,8 @@ public class TransportOption implements Parcelable {
     TEXTSECURE
   }
 
-  private final int                             drawable;
-  private final int                             backgroundColor;
+  private final          int                    drawable;
+  private final          int                    backgroundColor;
   private final @NonNull String                 text;
   private final @NonNull Type                   type;
   private final @NonNull String                 composeHint;
@@ -34,7 +36,7 @@ public class TransportOption implements Parcelable {
                          @NonNull CharacterCalculator characterCalculator)
   {
     this(type, drawable, backgroundColor, text, composeHint, characterCalculator,
-         Optional.<CharSequence>absent(), Optional.<Integer>absent());
+         Optional.empty(), Optional.empty());
   }
 
   public TransportOption(@NonNull  Type type,
@@ -63,8 +65,8 @@ public class TransportOption implements Parcelable {
          in.readString(),
          in.readString(),
          CharacterCalculator.readFromParcel(in),
-         Optional.fromNullable(TextUtils.CHAR_SEQUENCE_CREATOR.createFromParcel(in)),
-         in.readInt() == 1 ? Optional.of(in.readInt()) : Optional.absent());
+         Optional.ofNullable(TextUtils.CHAR_SEQUENCE_CREATOR.createFromParcel(in)),
+         in.readInt() == 1 ? Optional.of(in.readInt()) : Optional.empty());
   }
 
   public @NonNull Type getType() {
@@ -122,7 +124,7 @@ public class TransportOption implements Parcelable {
     dest.writeString(text);
     dest.writeString(composeHint);
     CharacterCalculator.writeToParcel(dest, characterCalculator);
-    TextUtils.writeToParcel(simName.orNull(), dest, flags);
+    TextUtils.writeToParcel(simName.orElse(null), dest, flags);
 
     if (simSubscriptionId.isPresent()) {
       dest.writeInt(1);

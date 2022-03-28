@@ -40,7 +40,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.exoplayer2.MediaItem;
 
-import org.signal.core.util.DimensionUnit;
 import org.signal.core.util.ThreadUtil;
 import org.signal.core.util.logging.Log;
 import org.signal.paging.PagingController;
@@ -63,7 +62,6 @@ import org.thoughtcrime.securesms.util.ProjectionList;
 import org.thoughtcrime.securesms.util.StickyHeaderDecoration;
 import org.thoughtcrime.securesms.util.ThemeUtil;
 import org.thoughtcrime.securesms.util.ViewUtil;
-import org.whispersystems.libsignal.util.guava.Optional;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -74,6 +72,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -280,8 +279,8 @@ public class ConversationAdapter
 
         conversationViewHolder.getBindable().bind(lifecycleOwner,
                                                   conversationMessage,
-                                                  Optional.fromNullable(previousMessage != null ? previousMessage.getMessageRecord() : null),
-                                                  Optional.fromNullable(nextMessage != null ? nextMessage.getMessageRecord() : null),
+                                                  Optional.ofNullable(previousMessage != null ? previousMessage.getMessageRecord() : null),
+                                                  Optional.ofNullable(nextMessage != null ? nextMessage.getMessageRecord() : null),
                                                   glideRequests,
                                                   locale,
                                                   selected,
@@ -330,7 +329,7 @@ public class ConversationAdapter
 
     if (conversationMessage == null) return -1;
 
-    calendar.setTimeInMillis(conversationMessage.getMessageRecord().getDateReceived());
+    calendar.setTimeInMillis(conversationMessage.getMessageRecord().getDateSent());
     return calendar.get(Calendar.YEAR) * 1000L + calendar.get(Calendar.DAY_OF_YEAR);
   }
 
@@ -344,7 +343,7 @@ public class ConversationAdapter
     Context             context             = viewHolder.itemView.getContext();
     ConversationMessage conversationMessage = Objects.requireNonNull(getItem(position));
 
-    viewHolder.setText(DateUtils.getConversationDateHeaderString(viewHolder.itemView.getContext(), locale, conversationMessage.getMessageRecord().getDateReceived()));
+    viewHolder.setText(DateUtils.getConversationDateHeaderString(viewHolder.itemView.getContext(), locale, conversationMessage.getMessageRecord().getDateSent()));
 
     if (type == HEADER_TYPE_POPOVER_DATE) {
       if (hasWallpaper) {
@@ -417,7 +416,7 @@ public class ConversationAdapter
   }
 
   boolean hasNoConversationMessages() {
-    return getItemCount() + fastRecords.size() == 0;
+    return super.getItemCount() + fastRecords.size() == 0;
   }
 
   /**

@@ -124,7 +124,9 @@
   <string name="CameraContacts__menu_search">Buscar</string>
   <!--Censorship Circumvention Megaphone-->
   <!--Title for an alert that shows at the bottom of the chat list letting people know that circumvention is no longer needed-->
+  <string name="CensorshipCircumventionMegaphone_turn_off_censorship_circumvention">Desligar a driblagem de censura?</string>
   <!--Body for an alert that shows at the bottom of the chat list letting people know that circumvention is no longer needed-->
+  <string name="CensorshipCircumventionMegaphone_you_can_now_connect_to_the_signal_service">A partir de agora, você pode se conectar ao serviço Signal diretamente, sem driblagem de censura, para receber uma melhor experiência.</string>
   <!--Action to prompt the user to disable circumvention since it is no longer needed-->
   <string name="CensorshipCircumventionMegaphone_turn_off">Desativar</string>
   <!--Action to prompt the user to dismiss the alert at the bottom of the chat list-->
@@ -159,6 +161,8 @@
   <string name="ContactsCursorLoader_groups">Grupos</string>
   <string name="ContactsCursorLoader_phone_number_search">Pesquisa por número de telefone</string>
   <string name="ContactsCursorLoader_username_search">Pesquisa por usuário</string>
+  <!--Label for my stories when selecting who to send media to-->
+  <!--Action for creating a new story-->
   <!--ContactsDatabase-->
   <string name="ContactsDatabase_message_s">Mensagem %s</string>
   <string name="ContactsDatabase_signal_call_s">Chamada Signal %s</string>
@@ -310,6 +314,13 @@
   <string name="ConversationFragment_your_safety_number_with_s_changed_likey_because_they_reinstalled_signal">Seu número de segurança com %s mudou, provavelmente porque ela/ele reinstalou o Signal ou mudou de aparelho. Toque em Verificar para confirmar o novo número de segurança. Isso é opcional.</string>
   <!--Message shown to indicate which notification profile is on/active-->
   <string name="ConversationFragment__s_on">%1$s está ligado</string>
+  <!--Dialog title for block group link join requests-->
+  <!--Dialog message for block group link join requests-->
+  <!--Dialog confirm block request button-->
+  <!--Dialog cancel block request button-->
+  <string name="ConversationFragment__cancel">Cancelar</string>
+  <!--Message shown after successfully blocking join requests for a user-->
+  <string name="ConversationFragment__blocked">Bloqueados</string>
   <plurals name="ConversationListFragment_delete_selected_conversations">
     <item quantity="one">Excluir conversa selecionada?</item>
     <item quantity="other">Excluir conversas selecionadas?</item>
@@ -387,7 +398,6 @@
   <!--ConversationTypingView-->
   <string name="ConversationTypingView__plus_d">+ %1$d</string>
   <!--CreateGroupActivity-->
-  <string name="CreateGroupActivity_some_contacts_cannot_be_in_legacy_groups">Alguns contatos não podem estar em grupos legados.</string>
   <string name="CreateGroupActivity__select_members">Selecionar membros</string>
   <!--CreateProfileActivity-->
   <string name="CreateProfileActivity__profile">Perfil</string>
@@ -408,6 +418,9 @@
   <string name="RestoreBackupFragment__to_continue_using_backups_please_choose_a_folder">Para continuar usando os backups, por favor, escolha uma pasta. Novos backups serão salvos neste local.</string>
   <string name="RestoreBackupFragment__choose_folder">Escolher pasta</string>
   <string name="RestoreBackupFragment__not_now">Agora não</string>
+  <!--Couldn\'t find the selected backup-->
+  <!--Couldn\'t read the selected backup-->
+  <!--Backup has an unsupported file extension-->
   <!--BackupsPreferenceFragment-->
   <string name="BackupsPreferenceFragment__chat_backups">Backup de conversas</string>
   <string name="BackupsPreferenceFragment__backups_are_encrypted_with_a_passphrase">Os backups são criptografados com uma senha e armazenados no seu dispositivo.</string>
@@ -636,25 +649,6 @@
   <string name="AddGroupDetailsFragment__remove">Remover</string>
   <string name="AddGroupDetailsFragment__sms_contact">Contato de SMS</string>
   <string name="AddGroupDetailsFragment__remove_s_from_this_group">Remover %1$s desse grupo?</string>
-  <plurals name="AddGroupDetailsFragment__d_members_do_not_support_new_groups">
-    <item quantity="one">%d membro não tem suporte aos Novos Grupos, portanto, este será um Grupo Legado.</item>
-    <item quantity="other">%d membros não têm suporte aos Novos Grupos, portanto, este grupo será um Grupo Legado.</item>
-  </plurals>
-  <plurals name="AddGroupDetailsFragment__d_members_do_not_support_new_groups_so_this_group_cannot_be_created">
-    <item quantity="one">%d membro não tem suporte para Novos Grupos, portanto este grupo não pode ser criado.</item>
-    <item quantity="other">%d membros não têm suporte para Novos Grupos, portanto este grupo não pode ser criado.</item>
-  </plurals>
-  <!--NonGv2MemberDialog-->
-  <string name="NonGv2MemberDialog_single_users_are_non_gv2_capable">Um Grupo Legado será criado porque \"%1$s\" está usando uma versão desatualizada do Signal. Você pode criar um Novo Grupo com ele depois dele atualizar o Signal, ou remova-o antes de criar o grupo.</string>
-  <plurals name="NonGv2MemberDialog_d_users_are_non_gv2_capable">
-    <item quantity="one">Um Grupo Legado será criado porque %1$d está usando uma versão desatualizada do Signal. Você poderá criar um Novo Grupo com ele depois de ter atualizado o Signal, ou remova-o antes de criar o grupo.</item>
-    <item quantity="other">Um Grupo Legado será criado porque %1$d membros estão usando uma versão desatualizada do Signal. Você poderá criar um Novo Grupo com eles depois de terem atualizado o Signal, ou remova-os antes de criar o grupo.</item>
-  </plurals>
-  <string name="NonGv2MemberDialog_single_users_are_non_gv2_capable_forced_migration">Este grupo não pode ser criado porque \"%1$s\" está usando uma versão desatualizada do Signal. Você deverá remover essa pessoa antes de criar o grupo.</string>
-  <plurals name="NonGv2MemberDialog_d_users_are_non_gv2_capable_forced_migration">
-    <item quantity="one">Este grupo não pode ser criado porque %1$d membro está usando uma versão desatualizada do Signal. Você deverá removê-lo antes de criar o grupo.</item>
-    <item quantity="other">Este grupo não pode ser criado porque %1$d membros estão usando versões desatualizadas do Signal. Você deverá removê-los antes de criar o grupo.</item>
-  </plurals>
   <!--ManageGroupActivity-->
   <string name="ManageGroupActivity_member_requests_and_invites">Pedidos de membros e convites</string>
   <string name="ManageGroupActivity_add_members">Adicionar membros</string>
@@ -763,7 +757,13 @@
   <string name="GroupJoinBottomSheetDialogFragment_unable_to_join_group_please_try_again_later">Não foi possível entrar no grupo. Por favor, tente novamente mais tarde</string>
   <string name="GroupJoinBottomSheetDialogFragment_encountered_a_network_error">Ocorreu um erro de rede.</string>
   <string name="GroupJoinBottomSheetDialogFragment_this_group_link_is_not_active">Este link do grupo não está ativo</string>
-  <string name="GroupJoinBottomSheetDialogFragment_unable_to_get_group_information_please_try_again_later">Não foi possível obter informação do grupo. Por favor, tente novamente mais tarde</string>
+  <!--Title shown when there was an known issue getting group information from a group link-->
+  <!--Message shown when you try to get information for a group via link but an admin has removed you-->
+  <!--Message shown when you try to get information for a group via link but the link is no longer valid-->
+  <string name="GroupJoinBottomSheetDialogFragment_this_group_link_is_no_longer_valid">Este link de grupo não é mais válido.</string>
+  <!--Title shown when there was an unknown issue getting group information from a group link-->
+  <!--Message shown when you try to get information for a group via link but an unknown issue occurred-->
+  <string name="GroupJoinBottomSheetDialogFragment_joining_via_this_link_failed_try_joining_again_later">Não foi possível entrar usando este link. Tente novamente mais tarde.</string>
   <string name="GroupJoinBottomSheetDialogFragment_direct_join">Você quer entrar neste grupo e exibir seu nome e foto para os membros?</string>
   <string name="GroupJoinBottomSheetDialogFragment_admin_approval_needed">Um administrador deste grupo deve aprovar seu pedido antes que você possa participar. Quando você solicita seu pedido, seu nome e foto serão compartilhados com os membros do grupo.</string>
   <plurals name="GroupJoinBottomSheetDialogFragment_group_dot_d_members">
@@ -788,6 +788,7 @@
   <!--GV2 Request confirmation dialog-->
   <string name="RequestConfirmationDialog_add_s_to_the_group">Adicionar “%1$s” ao grupo?</string>
   <string name="RequestConfirmationDialog_deny_request_from_s">Recusar solicitação de “%1$s”?</string>
+  <!--Confirm dialog message shown when deny a group link join request and group link is enabled.-->
   <string name="RequestConfirmationDialog_add">Adicionar</string>
   <string name="RequestConfirmationDialog_deny">Recusar</string>
   <!--ImageEditorHud-->
@@ -1076,6 +1077,7 @@
   <!--GV2 group link requests-->
   <string name="MessageRecord_you_sent_a_request_to_join_the_group">Você enviou um pedido para entrar no grupo.</string>
   <string name="MessageRecord_s_requested_to_join_via_the_group_link">%1$s solicitou entrar via link do grupo.</string>
+  <!--Update message shown when someone requests to join via group link and cancels the request back to back-->
   <!--GV2 group link approvals-->
   <string name="MessageRecord_s_approved_your_request_to_join_the_group">%1$s aprovou o seu pedido para entrar no grupo.</string>
   <string name="MessageRecord_s_approved_a_request_to_join_the_group_from_s">%1$s aprovou o pedido de %2$s para entrar no grupo.</string>
@@ -1239,6 +1241,7 @@
   <string name="RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging">Depois de verificar, você pode continuar a enviar mensagens. Quaisquer mensagens pendentes serão enviadas automaticamente.</string>
   <!--Recipient-->
   <string name="Recipient_you">Você</string>
+  <!--Name of recipient representing user\'s \'My Story\'-->
   <!--RecipientPreferencesActivity-->
   <string name="RecipientPreferenceActivity_block">Bloquear</string>
   <string name="RecipientPreferenceActivity_unblock">Desbloquear</string>
@@ -1256,7 +1259,7 @@
   <string name="RedPhone_got_it">Entendi</string>
   <!--Valentine\'s Day Megaphone-->
   <!--Title text for the Valentine\'s Day donation megaphone. The placeholder will always be a heart emoji. Needs to be a placeholder for Android reasons.-->
-  <string name="ValentinesDayMegaphone_happy_heart_day">Feliz dia 💜!</string>
+  <string name="ValentinesDayMegaphone_happy_heart_day">Feliz dia dos 💜!</string>
   <!--Body text for the Valentine\'s Day donation megaphone.-->
   <string name="ValentinesDayMegaphone_show_your_affection">Mostre o seu carinho ao tornar-se um apoiador recorrente do Molly.</string>
   <!--WebRtcCallActivity-->
@@ -1709,6 +1712,7 @@
     <item quantity="one">%1$d membro</item>
     <item quantity="other">%1$d membros</item>
   </plurals>
+  <!--Displays number of viewers for a story-->
   <!--conversation_activity-->
   <string name="conversation_activity__type_message_push">Mensagem no Signal</string>
   <string name="conversation_activity__type_message_sms_insecure">SMS inseguro</string>
@@ -1746,6 +1750,7 @@
   <string name="ConversationUpdateItem_invite_friends">Convidar amigos(as)</string>
   <string name="ConversationUpdateItem_enable_call_notifications">Exibir notificações de chamadas</string>
   <string name="ConversationUpdateItem_update_contact">Atualizar contato</string>
+  <!--Update item button text to show to block a recipient from requesting to join via group link-->
   <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">Nenhum grupo em comum. Analise o pedido com atenção.</string>
   <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">Nenhum contato neste grupo. Analise solicitações com atenção.</string>
   <string name="ConversationUpdateItem_view">Exibir</string>
@@ -1766,6 +1771,8 @@
   <string name="QuoteView_sticker">Figurinha</string>
   <string name="QuoteView_you">Você</string>
   <string name="QuoteView_original_missing">Mensagem original não encontrada</string>
+  <!--Author formatting for group stories-->
+  <!--Label indicating that a quote is for a reply to a story you created-->
   <!--conversation_fragment-->
   <string name="conversation_fragment__scroll_to_the_bottom_content_description">Rolar para o final</string>
   <!--BubbleOptOutTooltip-->
@@ -1947,6 +1954,7 @@
   <string name="message_details_recipient_header__read_by">Lida por</string>
   <string name="message_details_recipient_header__not_sent">Não enviada</string>
   <string name="message_details_recipient_header__viewed">Visto por</string>
+  <string name="message_details_recipient_header__skipped">Ignorada</string>
   <!--message_Details_recipient-->
   <string name="message_details_recipient__failed_to_send">Falha no envio</string>
   <string name="message_details_recipient__new_safety_number">Novo número de segurança</string>
@@ -2187,7 +2195,9 @@
   <string name="preferences_events__contact_joined_signal">O contato entrou no Signal!</string>
   <string name="preferences_notifications__priority">Prioridade</string>
   <!--Heading for the \'censorship circumvention\' section of privacy preferences-->
+  <string name="preferences_communication__category_censorship_circumvention">Driblagem de censura</string>
   <!--Title of the \'censorship circumvention\' toggle switch-->
+  <string name="preferences_communication__censorship_circumvention">Driblagem de censura</string>
   <string name="preferences_communication__censorship_circumvention_if_enabled_signal_will_attempt_to_circumvent_censorship">Se ativado, Signal tentará contornar a censura. Não habilite esta função ao menos que você esteja em um lugar onde Signal é censurado. </string>
   <!--Summary text for \'censorship circumvention\' toggle. Indicates that we automatically enabled it because we believe you\'re in a censored country-->
   <string name="preferences_communication__censorship_circumvention_has_been_activated_based_on_your_accounts_phone_number">A driblagem de censura foi ativada tendo como base o número de telefone da sua conta.</string>
@@ -2813,6 +2823,7 @@
   <string name="RecipientBottomSheet_remove_s_as_group_admin">Remover %1$s da lista de admins do grupo?</string>
   <string name="RecipientBottomSheet_s_will_be_able_to_edit_group">\"%1$s\" poderá editar este grupo e os seus membros.</string>
   <string name="RecipientBottomSheet_remove_s_from_the_group">Remover %1$s do grupo?</string>
+  <!--Dialog message shown when removing someone from a group with group link being active to indicate they will not be able to rejoin-->
   <string name="RecipientBottomSheet_remove">Remover</string>
   <string name="RecipientBottomSheet_copied_to_clipboard">Copiado para a área de transferência</string>
   <string name="GroupRecipientListItem_admin">Admin</string>
@@ -2902,6 +2913,7 @@
   <string name="DeleteAccountFragment__leaving_groups">Saindo dos grupos…</string>
   <!--Title of progress dialog shown when a user deletes their account and the process has left all groups-->
   <string name="DeleteAccountFragment__deleting_account">Excluindo a conta…</string>
+  <!--Message of progress dialog shown when a user deletes their account and the process is canceling their subscription-->
   <!--Message of progress dialog shown when a user deletes their account and the process is leaving groups-->
   <string name="DeleteAccountFragment__depending_on_the_number_of_groups">Dependendo do número de grupos em que você participa, a exclusão pode demorar alguns minutos</string>
   <!--Message of progress dialog shown when a user deletes their account and the process has left all groups-->
@@ -3441,6 +3453,7 @@
   <string name="BecomeASustainerFragment__signal_is_a_non_profit">Signal é uma organização sem fins lucrativos, sem anunciantes ou investidores, sustentada apenas por pessoas como você.</string>
   <string name="ManageDonationsFragment__my_support">Meu apoio</string>
   <string name="ManageDonationsFragment__manage_subscription">Ajustar doação</string>
+  <!--Label for Tax Receipts button-->
   <string name="ManageDonationsFragment__badges">Selos</string>
   <string name="ManageDonationsFragment__subscription_faq">Perguntas frequentes sobre doação</string>
   <string name="ManageDonationsFragment__error_getting_subscription">Ocorreu um erro ao carregar informações sobre a doação mensal.</string>
@@ -3471,7 +3484,7 @@
   <string name="ExpiredBadgeBottomSheetDialogFragment__you_can">Você ainda pode usar o Signal, mas para apoiar o aplicativo e ter esse selo novamente, faça uma doação mensal.</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__renew_subscription">Fazer doação mensal</string>
   <string name="CantProcessSubscriptionPaymentBottomSheetDialogFragment__cant_process_subscription_payment">Não foi possível processar o pagamento da assinatura</string>
-  <string name="CantProcessSubscriptionPaymentBottomSheetDialogFragment__were_having_trouble">Estamos tendo problemas para receber seu pagamento do Colaborador do Signal. Certifique-se de que seu método de pagamento esteja atualizado. Se não estiver, atualize-o no Google Pay. O Signal tentará processar o pagamento novamente dentro de alguns dias.</string>
+  <string name="CantProcessSubscriptionPaymentBottomSheetDialogFragment__were_having_trouble">Estamos tendo problemas para receber seu pagamento de Colaborador do Signal. Certifique-se de que seu método de pagamento esteja atualizado. Se não estiver, atualize-o no Google Pay. O Signal tentará processar o pagamento novamente dentro de alguns dias.</string>
   <string name="CantProcessSubscriptionPaymentBottomSheetDialogFragment__dont_show_this_again">Não mostrar novamente esta mensagem</string>
   <string name="Subscription__please_contact_support_for_more_information">Entre em contato com o suporte para obter mais informações, por favor.</string>
   <string name="Subscription__contact_support">Entre em contato com o suporte</string>
@@ -3664,5 +3677,169 @@
   <string name="NotificationSettingsFragment__failed_to_open_picker">Falha ao abrir o selecionador de toques.</string>
   <!--Description shown for the Signal Release Notes channel-->
   <string name="ReleaseNotes__signal_release_notes_and_news">Notas de lançamento e notícias do Signal</string>
+  <!--Donation receipts activity title-->
+  <string name="DonationReceiptListFragment__all_activity">Todas as atividades</string>
+  <!--Donation receipts all tab label-->
+  <string name="DonationReceiptListFragment__all">Todos</string>
+  <!--Donation receipts recurring tab label-->
+  <!--Donation receipts one time tab label-->
+  <string name="DonationReceiptListFragment__one_time">Uma vez</string>
+  <!--Donation receipts boost row label-->
+  <!--Donation receipts details title-->
+  <string name="DonationReceiptDetailsFragment__details">Detalhes</string>
+  <!--Donation receipts donation type heading-->
+  <!--Donation receipts date paid heading-->
+  <!--Donation receipts share PNG-->
+  <!--Donation receipts list end note-->
+  <!--Donation receipts document title-->
+  <!--Donation receipts amount title-->
+  <!--Donation receipts thanks-->
+  <!--Donation receipt type-->
+  <!--region "Stories Tab"-->
+  <!--Label for Chats tab in home app screen-->
+  <string name="ConversationListTabs__chats">Conversas</string>
+  <!--Label for Stories tab in home app screen-->
+  <!--String for counts above 99 in conversation list tabs-->
+  <!--Title for "My Stories" row item in Stories landing page-->
+  <!--Subtitle for "My Stories" row item when user has not added stories-->
+  <!--Displayed when there are no stories to display-->
+  <!--Context menu option to hide a story-->
+  <!--Context menu option to unhide a story-->
+  <!--Context menu option to forward a story-->
+  <string name="StoriesLandingItem__forward">Encaminhar</string>
+  <!--Context menu option to share a story-->
+  <!--Context menu option to go to story chat-->
+  <string name="StoriesLandingItem__go_to_chat">Ir para a conversa</string>
+  <!--Label when a story is pending sending-->
+  <string name="StoriesLandingItem__sending">Enviando…</string>
+  <!--Label when a story fails to send-->
+  <!--Title of dialog confirming decision to hide a story-->
+  <!--Message of dialog confirming decision to hide a story-->
+  <!--Positive action of dialog confirming decision to hide a story-->
+  <string name="StoriesLandingFragment__hide">Ocultar</string>
+  <!--Displayed in Snackbar after story is hidden-->
+  <!--Section header for hidden stories-->
+  <!--Displayed on each sent story under My Stories-->
+  <!--Forward story label, displayed in My Stories context menu-->
+  <string name="MyStories_forward">Encaminhar</string>
+  <!--Label for stories for a single user. Format is {given name}\'s Story-->
+  <!--Title of dialog to confirm deletion of story-->
+  <!--Message of dialog to confirm deletion of story-->
+  <!--Displayed at bottom of story viewer when current item has views-->
+  <!--Displayed at bottom of story viewer when current item has replies-->
+  <!--Used to join views and replies when both exist on a story item-->
+  <string name="StoryViewerFragment__s_s">%1$s %2$s</string>
+  <!--Displayed when viewing a post you sent-->
+  <string name="StoryViewerPageFragment__you">Você</string>
+  <!--Displayed when viewing a post displayed to a group-->
+  <string name="StoryViewerPageFragment__s_to_s">%1$s até %2$s</string>
+  <!--Displayed when viewing a post from another user with no replies-->
+  <string name="StoryViewerPageFragment__reply">Responder</string>
+  <!--Displayed when a story has no views-->
+  <!--Displayed when a story has no replies yet-->
+  <!--Displayed for each user that reacted to a story when viewing replies-->
+  <!--Label for story views tab-->
+  <string name="StoryViewsAndRepliesDialogFragment__views">Visualizações</string>
+  <!--Label for story replies tab-->
+  <string name="StoryViewsAndRepliesDialogFragment__replies">Respostas</string>
+  <!--Description of action for reaction button-->
+  <!--Displayed when the user is replying privately to someone who replied to one of their stories-->
+  <!--Context menu item to privately reply to a story response-->
+  <!--Context menu item to copy a story response-->
+  <string name="StoryGroupReplyItem__copy">Copiar</string>
+  <!--Context menu item to delete a story response-->
+  <string name="StoryGroupReplyItem__delete">Apagar</string>
+  <!--Story settings page title-->
+  <!--Story settings private stories heading-->
+  <!--Option label for creating a new private story-->
+  <!--Page title for My Story options-->
+  <!--Section heading for story visibility-->
+  <!--Clickable option for selecting people to hide your story from-->
+  <!--Summary of clickable option displaying how many people you have hidden your story from-->
+  <!--Section header for options related to replies and reactions-->
+  <!--Switchable option for allowing replies and reactions on your stories-->
+  <!--Summary for switchable option allowing replies and reactions on your story-->
+  <!--Note about default sharing-->
+  <!--Signal connections linked text that opens the Signal Connections sheet-->
+  <!--Displayed at the top of the signal connections sheet. Please remember to insert strong tag as required.-->
+  <!--Signal connections sheet bullet point 1-->
+  <!--Signal connections sheet bullet point 2-->
+  <!--Signal connections sheet bullet point 3-->
+  <!--Note at the bottom of the Signal connections sheet-->
+  <!--Clickable option to add a viewer to a private story-->
+  <!--Clickable option to delete a custom story-->
+  <!--Dialog title when attempting to remove someone from a private story-->
+  <!--Dialog message when attempting to remove someone from a private story-->
+  <!--Positive action label when attempting to remove someone from a private story-->
+  <string name="PrivateStorySettingsFragment__remove">Remover</string>
+  <!--Dialog title when deleting a private story-->
+  <!--Dialog message when deleting a private story-->
+  <!--Page title for editing a private story name-->
+  <!--Input field hint when editing a private story name-->
+  <!--Save button label when editing a private story name-->
+  <string name="EditPrivateStoryNameFragment__save">Salvar</string>
+  <!--Displayed in text post creator before user enters text-->
+  <!--Button label for changing font when creating a text post-->
+  <!--Displayed in text post creator when prompting user to enter text-->
+  <string name="TextStoryPostTextEntryFragment__add_text">Adicionar texto</string>
+  <!--Content description for \'done\' button when adding text to a story post-->
+  <!--Text label for media selection toggle-->
+  <string name="MediaSelectionActivity__text">Texto</string>
+  <!--Camera label for media selection toggle-->
+  <string name="MediaSelectionActivity__camera">Câmera</string>
+  <!--Hint for entering a URL for a text post-->
+  <!--Displayed prior to the user entering a URL for a text post-->
+  <!--Hint text for searching for a story text post recipient.-->
+  <string name="TextStoryPostSendFragment__search">Pesquisar</string>
+  <!--Title for screen allowing user to hide "My Story" entries from specific people-->
+  <!--Done button label for hide story from screen-->
+  <string name="HideStoryFromFragment__done">Pronto</string>
+  <!--Dialog title for first time adding something to a story-->
+  <!--Dialog message for first time adding something to a story-->
+  <!--First time share to story dialog: Positive action to go ahead and add to story-->
+  <!--First time share to story dialog: Neutral action to edit who can view "My Story"-->
+  <!--Privacy Settings toggle title for stories-->
+  <!--Privacy Settings toggle summary for stories-->
+  <!--New story viewer selection screen title-->
+  <!--New story viewer selection action button label-->
+  <string name="CreateStoryViewerSelectionFragment__next">Próximo</string>
+  <!--New story viewer selection screen title as recipients are selected-->
+  <!--Name story screen title-->
+  <!--Name story screen label hint-->
+  <!--Name story screen viewers subheading-->
+  <!--Name story screen create button label-->
+  <string name="CreateStoryWithViewersFragment__create">Criar</string>
+  <!--Name story screen error when save attempted with no label-->
+  <string name="CreateStoryWithViewersFragment__this_field_is_required">Este campo é obrigatório.</string>
+  <!--Name story screen error when save attempted but label is duplicate-->
+  <!--Text for select all action when editing recipients for a story-->
+  <string name="BaseStoryRecipientSelectionFragment__select_all">Selecionar todas</string>
+  <!--Choose story type bottom sheet title-->
+  <!--Choose story type bottom sheet new story row title-->
+  <!--Choose story type bottom sheet new story row summary-->
+  <!--Choose story type bottom sheet group story title-->
+  <!--Choose story type bottom sheet group story summary-->
+  <!--Choose groups bottom sheet title-->
+  <!--Displayed when copying group story reply text to clipboard-->
+  <string name="StoryGroupReplyFragment__copied_to_clipboard">Copiado para a área de transferência</string>
+  <!--Displayed in story caption when content is longer than 5 lines-->
+  <!--Displayed in toast after sending a direct reply-->
+  <!--Displayed in toast after sending a direct reaction-->
+  <!--Displayed in the viewer when a story is no longer available-->
+  <!--Displayed in the viewer when the network is not available-->
+  <string name="StorySlateView__no_internet_connection">Sem conexão a Internet</string>
+  <!--Displayed in the viewer when network is available but content could not be downloaded-->
+  <!--Title for a notification at the bottom of the chat list suggesting that the user disable censorship circumvention because the service has become reachable-->
+  <string name="TurnOffCircumventionMegaphone_turn_off_censorship_circumvention">Desligar a driblagem de censura?</string>
+  <!--Body for a notification at the bottom of the chat list suggesting that the user disable censorship circumvention because the service has become reachable-->
+  <string name="TurnOffCircumventionMegaphone_you_can_now_connect_to_the_signal_service_directly">A partir de agora, você pode se conectar ao serviço Signal diretamente, sem driblagem de censura, para receber uma melhor experiência.</string>
+  <!--Label for a button to dismiss a notification at the bottom of the chat list suggesting that the user disable censorship circumvention because the service has become reachable-->
+  <string name="TurnOffCircumventionMegaphone_no_thanks">Não, obrigado</string>
+  <!--Label for a button in a notification at the bottom of the chat list to turn off censorship circumvention-->
+  <string name="TurnOffCircumventionMegaphone_turn_off">Desativar</string>
+  <!--Conversation Item label for reactions to a story-->
+  <!--Conversation Item label for reactions to an unavailable story-->
+  <!--endregion-->
+  <!--Content description for expand contacts chevron-->
   <!--EOF-->
 </resources>

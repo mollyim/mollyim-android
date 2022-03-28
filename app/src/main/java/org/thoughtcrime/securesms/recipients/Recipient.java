@@ -33,6 +33,7 @@ import org.thoughtcrime.securesms.database.RecipientDatabase.RegisteredState;
 import org.thoughtcrime.securesms.database.RecipientDatabase.UnidentifiedAccessMode;
 import org.thoughtcrime.securesms.database.RecipientDatabase.VibrateState;
 import org.thoughtcrime.securesms.database.SignalDatabase;
+import org.thoughtcrime.securesms.database.model.DistributionListId;
 import org.thoughtcrime.securesms.database.model.databaseprotos.RecipientExtras;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.groups.GroupId;
@@ -46,12 +47,11 @@ import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.StringUtil;
 import org.thoughtcrime.securesms.util.Util;
 import org.thoughtcrime.securesms.wallpaper.ChatWallpaper;
-import org.whispersystems.libsignal.util.guava.Optional;
-import org.whispersystems.libsignal.util.guava.Preconditions;
-import org.whispersystems.signalservice.api.push.ACI;
-import org.whispersystems.signalservice.api.push.ServiceId;
 import org.whispersystems.signalservice.api.push.PNI;
+import org.whispersystems.signalservice.api.push.ServiceId;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
+import org.whispersystems.signalservice.api.util.OptionalUtil;
+import org.whispersystems.signalservice.api.util.Preconditions;
 import org.whispersystems.signalservice.api.util.UuidUtil;
 
 import java.util.ArrayList;
@@ -63,6 +63,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -72,7 +73,7 @@ public class Recipient {
 
   private static final String TAG = Log.tag(Recipient.class);
 
-  public static final Recipient UNKNOWN = new Recipient(RecipientId.UNKNOWN, new RecipientDetails(), true);
+  public static final Recipient UNKNOWN = new Recipient(RecipientId.UNKNOWN, RecipientDetails.forUnknown(), true);
 
   public static final FallbackPhotoProvider DEFAULT_FALLBACK_PHOTO_PROVIDER = new FallbackPhotoProvider();
 
@@ -86,6 +87,7 @@ public class Recipient {
   private final String                 e164;
   private final String                 email;
   private final GroupId                groupId;
+  private final DistributionListId     distributionListId;
   private final List<Recipient>        participants;
   private final Optional<Long>         groupAvatarId;
   private final boolean                isSelf;
@@ -112,11 +114,11 @@ public class Recipient {
   private final String                 notificationChannel;
   private final UnidentifiedAccessMode unidentifiedAccessMode;
   private final boolean                forceSmsSelection;
-  private final Capability             groupsV2Capability;
   private final Capability             groupsV1MigrationCapability;
   private final Capability             senderKeyCapability;
   private final Capability             announcementGroupCapability;
   private final Capability             changeNumberCapability;
+  private final Capability             storiesCapability;
   private final InsightsBannerTier     insightsBannerTier;
   private final byte[]                 storageId;
   private final MentionSetting         mentionSetting;
@@ -164,6 +166,12 @@ public class Recipient {
     return recipients;
   }
 
+  @WorkerThread
+  public static @NonNull Recipient distributionList(@NonNull DistributionListId distributionListId) {
+    RecipientId id = SignalDatabase.recipients().getOrInsertFromDistributionListId(distributionListId);
+    return resolved(id);
+  }
+
   /**
    * Returns a fully-populated {@link Recipient} and associates it with the provided username.
    */
@@ -181,7 +189,7 @@ public class Recipient {
    */
   @WorkerThread
   public static @NonNull Recipient externalPush(@NonNull SignalServiceAddress signalServiceAddress) {
-    return externalPush(signalServiceAddress.getServiceId(), signalServiceAddress.getNumber().orNull(), false);
+    return externalPush(signalServiceAddress.getServiceId(), signalServiceAddress.getNumber().orElse(null), false);
   }
 
   /**
@@ -209,7 +217,7 @@ public class Recipient {
    */
   @WorkerThread
   public static @NonNull Recipient externalHighTrustPush(@NonNull Context context, @NonNull SignalServiceAddress signalServiceAddress) {
-    return externalPush(signalServiceAddress.getServiceId(), signalServiceAddress.getNumber().orNull(), true);
+    return externalPush(signalServiceAddress.getServiceId(), signalServiceAddress.getNumber().orElse(null), true);
   }
 
   /**
@@ -318,8 +326,8 @@ public class Recipient {
     RecipientId       id = null;
 
     if (UuidUtil.isUuid(identifier)) {
-      ACI uuid = ACI.parseOrThrow(identifier);
-      id = db.getOrInsertFromServiceId(uuid);
+      ServiceId serviceId = ServiceId.parseOrThrow(identifier);
+      id = db.getOrInsertFromServiceId(serviceId);
     } else if (GroupId.isEncodedGroup(identifier)) {
       id = db.getOrInsertFromGroupId(GroupId.parseOrThrow(identifier));
     } else if (NumberUtil.isValidEmail(identifier)) {
@@ -345,8 +353,9 @@ public class Recipient {
     this.e164                        = null;
     this.email                       = null;
     this.groupId                     = null;
+    this.distributionListId          = null;
     this.participants                = Collections.emptyList();
-    this.groupAvatarId               = Optional.absent();
+    this.groupAvatarId               = Optional.empty();
     this.isSelf                      = false;
     this.blocked                     = false;
     this.muteUntil                   = 0;
@@ -355,7 +364,7 @@ public class Recipient {
     this.messageRingtone             = null;
     this.callRingtone                = null;
     this.insightsBannerTier          = InsightsBannerTier.TIER_TWO;
-    this.defaultSubscriptionId       = Optional.absent();
+    this.defaultSubscriptionId       = Optional.empty();
     this.expireMessages              = 0;
     this.registered                  = RegisteredState.UNKNOWN;
     this.profileKey                  = null;
@@ -372,11 +381,11 @@ public class Recipient {
     this.notificationChannel         = null;
     this.unidentifiedAccessMode      = UnidentifiedAccessMode.DISABLED;
     this.forceSmsSelection           = false;
-    this.groupsV2Capability          = Capability.UNKNOWN;
     this.groupsV1MigrationCapability = Capability.UNKNOWN;
     this.senderKeyCapability         = Capability.UNKNOWN;
     this.announcementGroupCapability = Capability.UNKNOWN;
     this.changeNumberCapability      = Capability.UNKNOWN;
+    this.storiesCapability           = Capability.UNKNOWN;
     this.storageId                   = null;
     this.mentionSetting              = MentionSetting.ALWAYS_NOTIFY;
     this.wallpaper                   = null;
@@ -386,7 +395,7 @@ public class Recipient {
     this.aboutEmoji                  = null;
     this.systemProfileName           = ProfileName.EMPTY;
     this.systemContactName           = null;
-    this.extras                      = Optional.absent();
+    this.extras                      = Optional.empty();
     this.hasGroupsInCommon           = false;
     this.badges                      = Collections.emptyList();
     this.isReleaseNotesRecipient     = false;
@@ -394,13 +403,14 @@ public class Recipient {
 
   public Recipient(@NonNull RecipientId id, @NonNull RecipientDetails details, boolean resolved) {
     this.id                          = id;
-    this.resolving = !resolved;
-    this.serviceId = details.serviceId;
-    this.pni       = details.pni;
+    this.resolving                   = !resolved;
+    this.serviceId                   = details.serviceId;
+    this.pni                         = details.pni;
     this.username                    = details.username;
     this.e164                        = details.e164;
     this.email                       = details.email;
     this.groupId                     = details.groupId;
+    this.distributionListId          = details.distributionListId;
     this.participants                = details.participants;
     this.groupAvatarId               = details.groupAvatarId;
     this.isSelf                      = details.isSelf;
@@ -428,11 +438,11 @@ public class Recipient {
     this.notificationChannel         = details.notificationChannel;
     this.unidentifiedAccessMode      = details.unidentifiedAccessMode;
     this.forceSmsSelection           = details.forceSmsSelection;
-    this.groupsV2Capability          = details.groupsV2Capability;
     this.groupsV1MigrationCapability = details.groupsV1MigrationCapability;
     this.senderKeyCapability         = details.senderKeyCapability;
     this.announcementGroupCapability = details.announcementGroupCapability;
     this.changeNumberCapability      = details.changeNumberCapability;
+    this.storiesCapability           = details.storiesCapability;
     this.storageId                   = details.storageId;
     this.mentionSetting              = details.mentionSetting;
     this.wallpaper                   = details.wallpaper;
@@ -494,6 +504,8 @@ public class Recipient {
       }
 
       return Util.join(names, ", ");
+    } else if (!resolving && isMyStory()) {
+      return context.getString(R.string.Recipient_my_story);
     } else {
       return this.groupName;
     }
@@ -611,41 +623,45 @@ public class Recipient {
                                         getSystemProfileName().getGivenName(),
                                         getProfileName().getGivenName(),
                                         getDisplayName(context),
-                                        getUsername().orNull());
+                                        getUsername().orElse(null));
 
     return StringUtil.isolateBidi(name);
   }
 
   public @NonNull Optional<ServiceId> getServiceId() {
-    return Optional.fromNullable(serviceId);
+    return Optional.ofNullable(serviceId);
   }
 
   public @NonNull Optional<PNI> getPni() {
-    return Optional.fromNullable(pni);
+    return Optional.ofNullable(pni);
   }
 
   public @NonNull Optional<String> getUsername() {
     if (FeatureFlags.usernames()) {
-      return Optional.fromNullable(username);
+      return Optional.ofNullable(username);
     } else {
-      return Optional.absent();
+      return Optional.empty();
     }
   }
 
   public @NonNull Optional<String> getE164() {
-    return Optional.fromNullable(e164);
+    return Optional.ofNullable(e164);
   }
 
   public @NonNull Optional<String> getEmail() {
-    return Optional.fromNullable(email);
+    return Optional.ofNullable(email);
   }
 
   public @NonNull Optional<GroupId> getGroupId() {
-    return Optional.fromNullable(groupId);
+    return Optional.ofNullable(groupId);
+  }
+
+  public @NonNull Optional<DistributionListId> getDistributionListId() {
+    return Optional.ofNullable(distributionListId);
   }
 
   public @NonNull Optional<String> getSmsAddress() {
-    return Optional.fromNullable(e164).or(Optional.fromNullable(email));
+    return OptionalUtil.or(Optional.ofNullable(e164), Optional.ofNullable(email));
   }
 
   public @NonNull PNI requirePni() {
@@ -691,7 +707,7 @@ public class Recipient {
   }
 
   public boolean hasSmsAddress() {
-    return getE164().or(getEmail()).isPresent();
+    return OptionalUtil.or(getE164(), getEmail()).isPresent();
   }
 
   public boolean hasE164() {
@@ -706,8 +722,22 @@ public class Recipient {
     return hasServiceId() && !hasSmsAddress();
   }
 
+  public boolean shouldHideStory() {
+    return extras.map(Extras::hideStory).orElse(false);
+  }
+
   public @NonNull GroupId requireGroupId() {
     GroupId resolved = resolving ? resolve().groupId : groupId;
+
+    if (resolved == null) {
+      throw new MissingAddressError(id);
+    }
+
+    return resolved;
+  }
+
+  public @NonNull DistributionListId requireDistributionListId() {
+    DistributionListId resolved = resolving ? resolve().distributionListId : distributionListId;
 
     if (resolved == null) {
       throw new MissingAddressError(id);
@@ -798,6 +828,14 @@ public class Recipient {
     return groupId != null && groupId.isV2();
   }
 
+  public boolean isDistributionList() {
+    return resolve().distributionListId != null;
+  }
+
+  public boolean isMyStory() {
+    return Objects.equals(resolve().distributionListId, DistributionListId.from(DistributionListId.MY_STORY_ID));
+  }
+
   public boolean isActiveGroup() {
     return Stream.of(getParticipants()).anyMatch(Recipient::isSelf);
   }
@@ -837,6 +875,7 @@ public class Recipient {
   public @NonNull FallbackContactPhoto getFallbackContactPhoto(@NonNull FallbackPhotoProvider fallbackPhotoProvider, int targetSize) {
     if      (isSelf)                                return fallbackPhotoProvider.getPhotoForLocalNumber();
     else if (isResolving())                         return fallbackPhotoProvider.getPhotoForResolvingRecipient();
+    else if (isDistributionList())                  return fallbackPhotoProvider.getPhotoForDistributionList();
     else if (isGroupInternal())                     return fallbackPhotoProvider.getPhotoForGroup();
     else if (isGroup())                             return fallbackPhotoProvider.getPhotoForGroup();
     else if (!TextUtils.isEmpty(groupName))         return fallbackPhotoProvider.getPhotoForRecipientWithName(groupName, targetSize);
@@ -933,10 +972,6 @@ public class Recipient {
     return forceSmsSelection;
   }
 
-  public @NonNull Capability getGroupsV2Capability() {
-    return groupsV2Capability;
-  }
-
   public @NonNull Capability getGroupsV1MigrationCapability() {
     return groupsV1MigrationCapability;
   }
@@ -951,6 +986,10 @@ public class Recipient {
 
   public @NonNull Capability getChangeNumberCapability() {
     return changeNumberCapability;
+  }
+
+  public @NonNull Capability getStoriesCapability() {
+    return storiesCapability;
   }
 
   /**
@@ -1176,17 +1215,21 @@ public class Recipient {
       return recipientExtras.getManuallyShownAvatar();
     }
 
+    public boolean hideStory() {
+      return recipientExtras.getHideStory();
+    }
+
     @Override
     public boolean equals(Object o) {
       if (this == o) return true;
       if (o == null || getClass() != o.getClass()) return false;
       final Extras that = (Extras) o;
-      return manuallyShownAvatar() == that.manuallyShownAvatar();
+      return manuallyShownAvatar() == that.manuallyShownAvatar() && hideStory() == that.hideStory();
     }
 
     @Override
     public int hashCode() {
-      return Objects.hash(manuallyShownAvatar());
+      return Objects.hash(manuallyShownAvatar(), hideStory());
     }
   }
 
@@ -1225,7 +1268,6 @@ public class Recipient {
            Objects.equals(profileAvatar, other.profileAvatar) &&
            Objects.equals(notificationChannel, other.notificationChannel) &&
            unidentifiedAccessMode == other.unidentifiedAccessMode &&
-           groupsV2Capability == other.groupsV2Capability &&
            groupsV1MigrationCapability == other.groupsV1MigrationCapability &&
            insightsBannerTier == other.insightsBannerTier &&
            Arrays.equals(storageId, other.storageId) &&
@@ -1274,6 +1316,10 @@ public class Recipient {
 
     public @NonNull FallbackContactPhoto getPhotoForRecipientWithoutName() {
       return new ResourceContactPhoto(R.drawable.ic_profile_outline_40, R.drawable.ic_profile_outline_20, R.drawable.ic_profile_outline_48);
+    }
+
+    public @NonNull FallbackContactPhoto getPhotoForDistributionList() {
+      return new ResourceContactPhoto(R.drawable.ic_group_outline_34, R.drawable.ic_group_outline_20, R.drawable.ic_group_outline_48);
     }
   }
 

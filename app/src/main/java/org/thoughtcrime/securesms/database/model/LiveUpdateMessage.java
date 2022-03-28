@@ -12,8 +12,10 @@ import android.text.SpannableStringBuilder;
 
 import androidx.annotation.AnyThread;
 import androidx.annotation.ColorInt;
+import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Transformations;
 
 import com.annimon.stream.Stream;
 
@@ -24,9 +26,9 @@ import org.thoughtcrime.securesms.util.SpanUtil;
 import org.thoughtcrime.securesms.util.ThemeUtil;
 import org.thoughtcrime.securesms.util.ViewUtil;
 import org.thoughtcrime.securesms.util.livedata.LiveDataUtil;
-import org.whispersystems.libsignal.util.guava.Function;
 
 import java.util.List;
+import java.util.function.Function;
 
 public final class LiveUpdateMessage {
 
@@ -34,11 +36,12 @@ public final class LiveUpdateMessage {
    * Creates a live data that observes the recipients mentioned in the {@link UpdateDescription} and
    * recreates the string asynchronously when they change.
    */
-  @AnyThread
+  @MainThread
   public static LiveData<SpannableString> fromMessageDescription(@NonNull Context context,
                                                                  @NonNull UpdateDescription updateDescription,
                                                                  @ColorInt int defaultTint,
-                                                                 boolean adjustPosition) {
+                                                                 boolean adjustPosition)
+  {
     if (updateDescription.isStringStatic()) {
       return LiveDataUtil.just(toSpannable(context, updateDescription, updateDescription.getStaticString(), defaultTint, adjustPosition));
     }
@@ -50,16 +53,17 @@ public final class LiveUpdateMessage {
     LiveData<?> mentionedRecipientChangeStream = allMentionedRecipients.isEmpty() ? LiveDataUtil.just(new Object())
                                                                                   : LiveDataUtil.merge(allMentionedRecipients);
 
-    return LiveDataUtil.mapAsync(mentionedRecipientChangeStream, event -> toSpannable(context, updateDescription, updateDescription.getString(), defaultTint, adjustPosition));
+    return Transformations.map(mentionedRecipientChangeStream, event -> toSpannable(context, updateDescription, updateDescription.getString(), defaultTint, adjustPosition));
   }
 
   /**
    * Observes a single recipient and recreates the string asynchronously when they change.
    */
+  @MainThread
   public static LiveData<SpannableString> recipientToStringAsync(@NonNull RecipientId recipientId,
                                                                  @NonNull Function<Recipient, SpannableString> createStringInBackground)
   {
-    return LiveDataUtil.mapAsync(Recipient.live(recipientId).getLiveDataResolved(), createStringInBackground);
+    return Transformations.map(Recipient.live(recipientId).getLiveDataResolved(), createStringInBackground::apply);
   }
 
   public static int getMessageThemedColor(@NonNull Context context, @NonNull UpdateDescription updateDescription, @ColorInt int defaultTint) {

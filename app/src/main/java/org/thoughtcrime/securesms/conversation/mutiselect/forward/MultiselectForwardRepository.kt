@@ -1,40 +1,25 @@
 package org.thoughtcrime.securesms.conversation.mutiselect.forward
 
 import android.content.Context
-import androidx.core.util.Consumer
 import io.reactivex.rxjava3.core.Single
 import org.signal.core.util.concurrent.SignalExecutors
+import org.thoughtcrime.securesms.contacts.paged.ContactSearchKey
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.database.ThreadDatabase
-import org.thoughtcrime.securesms.database.identity.IdentityRecordList
-import org.thoughtcrime.securesms.database.model.IdentityRecord
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.sharing.MultiShareArgs
 import org.thoughtcrime.securesms.sharing.MultiShareSender
-import org.thoughtcrime.securesms.sharing.ShareContact
 import org.thoughtcrime.securesms.sharing.ShareContactAndThread
-import org.whispersystems.libsignal.util.guava.Optional
+import java.util.Optional
 
 class MultiselectForwardRepository(context: Context) {
-
-  private val context = context.applicationContext
 
   class MultiselectForwardResultHandlers(
     val onAllMessageSentSuccessfully: () -> Unit,
     val onSomeMessagesFailed: () -> Unit,
     val onAllMessagesFailed: () -> Unit
   )
-
-  fun checkForBadIdentityRecords(shareContacts: List<ShareContact>, consumer: Consumer<List<IdentityRecord>>) {
-    SignalExecutors.BOUNDED.execute {
-      val recipients: List<Recipient> = shareContacts.map { Recipient.resolved(it.recipientId.get()) }
-      val identityRecordList: IdentityRecordList = ApplicationDependencies.getProtocolStore().aci().identities().getIdentityRecords(recipients)
-
-      consumer.accept(identityRecordList.untrustedRecords)
-    }
-  }
 
   fun canSelectRecipient(recipientId: Optional<RecipientId>): Single<Boolean> {
     if (!recipientId.isPresent) {
@@ -55,7 +40,7 @@ class MultiselectForwardRepository(context: Context) {
   fun send(
     additionalMessage: String,
     multiShareArgs: List<MultiShareArgs>,
-    shareContacts: List<ShareContact>,
+    shareContacts: Set<ContactSearchKey>,
     resultHandlers: MultiselectForwardResultHandlers
   ) {
     SignalExecutors.BOUNDED.execute {
@@ -63,23 +48,30 @@ class MultiselectForwardRepository(context: Context) {
 
       val sharedContactsAndThreads: Set<ShareContactAndThread> = shareContacts
         .asSequence()
-        .distinct()
-        .filter { it.recipientId.isPresent }
-        .map { Recipient.resolved(it.recipientId.get()) }
-        .map { ShareContactAndThread(it.id, threadDatabase.getOrCreateThreadIdFor(it), it.isForceSmsSelection) }
+        .filter { it is ContactSearchKey.Story || it is ContactSearchKey.KnownRecipient }
+        .map {
+          val recipient = Recipient.resolved(it.requireShareContact().recipientId.get())
+          val isStory = it is ContactSearchKey.Story || recipient.isDistributionList
+          val thread = if (isStory) -1L else threadDatabase.getOrCreateThreadIdFor(recipient)
+          ShareContactAndThread(recipient.id, thread, recipient.isForceSmsSelection, it is ContactSearchKey.Story)
+        }
         .toSet()
 
       val mappedArgs: List<MultiShareArgs> = multiShareArgs.map { it.buildUpon(sharedContactsAndThreads).build() }
       val results = mappedArgs.sortedBy { it.timestamp }.map { MultiShareSender.sendSync(it) }
 
       if (additionalMessage.isNotEmpty()) {
-        val additional = MultiShareArgs.Builder(sharedContactsAndThreads)
+        val additional = MultiShareArgs.Builder(sharedContactsAndThreads.filterNot { it.isStory }.toSet())
           .withDraftText(additionalMessage)
           .build()
 
-        val additionalResult: MultiShareSender.MultiShareSendResultCollection = MultiShareSender.sendSync(additional)
+        if (additional.shareContactAndThreads.isNotEmpty()) {
+          val additionalResult: MultiShareSender.MultiShareSendResultCollection = MultiShareSender.sendSync(additional)
 
-        handleResults(results + additionalResult, resultHandlers)
+          handleResults(results + additionalResult, resultHandlers)
+        } else {
+          handleResults(results, resultHandlers)
+        }
       } else {
         handleResults(results, resultHandlers)
       }

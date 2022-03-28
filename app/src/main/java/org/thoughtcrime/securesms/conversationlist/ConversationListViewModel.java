@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import org.signal.core.util.logging.Log;
+import org.signal.paging.LivePagedData;
 import org.signal.paging.PagedData;
 import org.signal.paging.PagingConfig;
 import org.signal.paging.PagingController;
@@ -33,13 +34,13 @@ import org.thoughtcrime.securesms.util.Debouncer;
 import org.thoughtcrime.securesms.util.ThrottledDebouncer;
 import org.thoughtcrime.securesms.util.livedata.LiveDataUtil;
 import org.thoughtcrime.securesms.util.paging.Invalidator;
-import org.whispersystems.libsignal.util.guava.Optional;
 import org.whispersystems.signalservice.api.websocket.WebSocketConnectionState;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -56,24 +57,24 @@ class ConversationListViewModel extends ViewModel {
 
   private static boolean coldStart = true;
 
-  private final MutableLiveData<Megaphone>       megaphone;
-  private final MutableLiveData<SearchResult>    searchResult;
-  private final MutableLiveData<ConversationSet> selectedConversations;
-  private final Set<Conversation>                internalSelection;
-  private final ConversationListDataSource       conversationListDataSource;
-  private final PagedData<Long, Conversation>    pagedData;
-  private final LiveData<Boolean>                hasNoConversations;
-  private final SearchRepository                 searchRepository;
-  private final MegaphoneRepository              megaphoneRepository;
-  private final Debouncer                        messageSearchDebouncer;
-  private final Debouncer                        contactSearchDebouncer;
-  private final ThrottledDebouncer               updateDebouncer;
-  private final DatabaseObserver.Observer        observer;
-  private final Invalidator                      invalidator;
-  private final CompositeDisposable              disposables;
-  private final UnreadPaymentsLiveData           unreadPaymentsLiveData;
-  private final UnreadPaymentsRepository         unreadPaymentsRepository;
-  private final NotificationProfilesRepository   notificationProfilesRepository;
+  private final MutableLiveData<Megaphone>        megaphone;
+  private final MutableLiveData<SearchResult>     searchResult;
+  private final MutableLiveData<ConversationSet>  selectedConversations;
+  private final Set<Conversation>                 internalSelection;
+  private final ConversationListDataSource        conversationListDataSource;
+  private final LivePagedData<Long, Conversation> pagedData;
+  private final LiveData<Boolean>                 hasNoConversations;
+  private final SearchRepository                  searchRepository;
+  private final MegaphoneRepository               megaphoneRepository;
+  private final Debouncer                         messageSearchDebouncer;
+  private final Debouncer                         contactSearchDebouncer;
+  private final ThrottledDebouncer                updateDebouncer;
+  private final DatabaseObserver.Observer         observer;
+  private final Invalidator                       invalidator;
+  private final CompositeDisposable               disposables;
+  private final UnreadPaymentsLiveData            unreadPaymentsLiveData;
+  private final UnreadPaymentsRepository          unreadPaymentsRepository;
+  private final NotificationProfilesRepository    notificationProfilesRepository;
 
   private String       activeQuery;
   private SearchResult activeSearchResult;
@@ -95,8 +96,8 @@ class ConversationListViewModel extends ViewModel {
     this.invalidator                    = new Invalidator();
     this.disposables                    = new CompositeDisposable();
     this.conversationListDataSource     = ConversationListDataSource.create(application, isArchived);
-    this.pagedData                      = PagedData.create(conversationListDataSource,
-                                                           new PagingConfig.Builder()
+    this.pagedData                      = PagedData.createForLiveData(conversationListDataSource,
+                                                                      new PagingConfig.Builder()
                                                                            .setPageSize(15)
                                                                            .setBufferPages(2)
                                                                            .build());

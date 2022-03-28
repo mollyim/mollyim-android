@@ -1,7 +1,9 @@
 package org.whispersystems.signalservice.internal;
 
-import org.whispersystems.libsignal.util.guava.Preconditions;
+
 import org.whispersystems.signalservice.api.push.exceptions.NonSuccessfulResponseCodeException;
+import org.whispersystems.signalservice.api.util.OptionalUtil;
+import org.whispersystems.signalservice.api.util.Preconditions;
 
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
@@ -58,7 +60,7 @@ public abstract class ServiceResponseProcessor<T> {
   }
 
   protected Throwable getError() {
-    return response.getApplicationError().or(response.getExecutionError()).orNull();
+    return OptionalUtil.or(response.getApplicationError(), response.getExecutionError()).orElse(null);
   }
 
   protected boolean authorizationFailed() {
@@ -86,7 +88,7 @@ public abstract class ServiceResponseProcessor<T> {
   }
 
   protected boolean rateLimit() {
-    return response.getStatus() == 413;
+    return response.getStatus() == 413 || response.getStatus() == 429;
   }
 
   protected boolean expectationFailed() {

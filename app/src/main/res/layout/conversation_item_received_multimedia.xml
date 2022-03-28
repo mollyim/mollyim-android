@@ -183,7 +183,6 @@
             android:layout_marginTop="@dimen/message_bubble_top_padding"
             android:layout_marginEnd="@dimen/message_bubble_horizontal_padding"
             android:layout_marginBottom="@dimen/message_bubble_bottom_padding"
-            android:ellipsize="end"
             android:textColor="@color/signal_text_primary"
             android:textColorLink="@color/signal_text_primary"
             app:emoji_maxLength="1000"
@@ -235,6 +234,18 @@
             app:footer_text_color="@color/signal_text_secondary" />
 
     </org.thoughtcrime.securesms.conversation.ConversationItemBodyBubble>
+
+    <org.thoughtcrime.securesms.components.emoji.EmojiImageView
+        android:id="@+id/story_reaction_emoji"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignEnd="@id/body_bubble"
+        android:layout_alignBottom="@id/body_bubble"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="24dp"
+        android:visibility="gone"
+        tools:src="@drawable/ic_emoji"
+        tools:visibility="visible" />
 
     <org.thoughtcrime.securesms.components.AlertView
         android:id="@+id/indicators_parent"

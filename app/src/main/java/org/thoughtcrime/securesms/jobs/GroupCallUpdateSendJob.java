@@ -58,7 +58,6 @@ public class GroupCallUpdateSendJob extends BaseJob {
 
     List<RecipientId> recipients = Stream.of(RecipientUtil.getEligibleForSending(conversationRecipient.getParticipants()))
                                          .filterNot(Recipient::isSelf)
-                                         .filterNot(Recipient::isBlocked)
                                          .map(Recipient::getId)
                                          .toList();
 
@@ -168,7 +167,7 @@ public class GroupCallUpdateSendJob extends BaseJob {
       results.add(ApplicationDependencies.getSignalServiceMessageSender().sendSyncMessage(dataMessage));
     }
 
-    return GroupSendJobHelper.getCompletedSends(destinations, results);
+    return GroupSendJobHelper.getCompletedSends(destinations, results).completed;
   }
 
   public static class Factory implements Job.Factory<GroupCallUpdateSendJob> {

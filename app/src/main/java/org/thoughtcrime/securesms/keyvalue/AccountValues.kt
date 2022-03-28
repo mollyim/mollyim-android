@@ -28,7 +28,6 @@ internal class AccountValues internal constructor(store: KeyValueStore) : Signal
     private val TAG = Log.tag(AccountValues::class.java)
     // MOLLY: Ensure all keys below are parametrized with the account number
     private const val KEY_SERVICE_PASSWORD = "account.1.service_password"
-    private const val KEY_IS_REGISTERED = "account.1.is_registered"
     private const val KEY_REGISTRATION_ID = "account.1.registration_id"
     private const val KEY_FCM_ENABLED = "account.1.fcm_enabled"
     private const val KEY_FCM_TOKEN = "account.1.fcm_token"
@@ -52,6 +51,8 @@ internal class AccountValues internal constructor(store: KeyValueStore) : Signal
     const val KEY_ACI = "account.1.aci"
     @VisibleForTesting
     const val KEY_PNI = "account.1.pni"
+    @VisibleForTesting
+    const val KEY_IS_REGISTERED = "account.1.is_registered"
 
     // MOLLY: Leave these keys untouched to preserve compatibility with Signal backups
     private const val KEY_ACI_IDENTITY_PUBLIC_KEY = "account.aci_identity_public_key"
@@ -147,10 +148,14 @@ internal class AccountValues internal constructor(store: KeyValueStore) : Signal
   }
 
   /** Generates and saves an identity key pair for the ACI identity. Should only be done once. */
-  fun generateAciIdentityKey() {
+  fun generateAciIdentityKeyIfNecessary() {
     synchronized(this) {
+      if (store.containsKey(KEY_ACI_IDENTITY_PUBLIC_KEY)) {
+        Log.w(TAG, "Tried to generate an ANI identity, but one was already set!", Throwable())
+        return
+      }
+
       Log.i(TAG, "Generating a new ACI identity key pair.")
-      require(!store.containsKey(KEY_ACI_IDENTITY_PUBLIC_KEY)) { "Already generated!" }
 
       val key: IdentityKeyPair = IdentityKeyUtil.generateIdentityKeyPair()
       store

@@ -44,7 +44,6 @@ import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.sms.IncomingGroupUpdateMessage;
 import org.thoughtcrime.securesms.sms.IncomingTextMessage;
-import org.whispersystems.libsignal.util.guava.Optional;
 import org.whispersystems.signalservice.api.groupsv2.DecryptedGroupHistoryEntry;
 import org.whispersystems.signalservice.api.groupsv2.DecryptedGroupUtil;
 import org.whispersystems.signalservice.api.groupsv2.GroupHistoryPage;
@@ -53,6 +52,7 @@ import org.whispersystems.signalservice.api.groupsv2.InvalidGroupStateException;
 import org.whispersystems.signalservice.api.groupsv2.NotAbleToApplyGroupV2ChangeException;
 import org.whispersystems.signalservice.api.groupsv2.PartialDecryptedGroup;
 import org.whispersystems.signalservice.api.push.ACI;
+import org.whispersystems.signalservice.api.push.ServiceId;
 import org.whispersystems.signalservice.api.util.UuidUtil;
 import org.whispersystems.signalservice.internal.push.exceptions.GroupNotFoundException;
 import org.whispersystems.signalservice.internal.push.exceptions.NotInGroupException;
@@ -63,6 +63,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -70,7 +71,7 @@ import java.util.stream.Collectors;
 /**
  * Advances a groups state to a specified revision.
  */
-public final class GroupsV2StateProcessor {
+public class GroupsV2StateProcessor {
 
   private static final String TAG = Log.tag(GroupsV2StateProcessor.class);
 
@@ -192,7 +193,7 @@ public final class GroupsV2StateProcessor {
       GlobalGroupState inputGroupState = null;
 
       Optional<GroupRecord> localRecord = groupDatabase.getGroup(groupId);
-      DecryptedGroup        localState  = localRecord.transform(g -> g.requireV2GroupProperties().getDecryptedGroup()).orNull();
+      DecryptedGroup        localState  = localRecord.map(g -> g.requireV2GroupProperties().getDecryptedGroup()).orElse(null);
 
       if (signedGroupChange != null &&
           localState != null &&
@@ -314,7 +315,7 @@ public final class GroupsV2StateProcessor {
         throw new IOException(e);
       }
 
-      if (localState != null && localState.getRevision() >= latestServerGroup.getRevision()) {
+      if (localState != null && localState.getRevision() >= latestServerGroup.getRevision() && GroupProtoUtil.isMember(selfAci.uuid(), localState.getMembersList())) {
         Log.i(TAG, "Local state is at or later than server");
         return new GroupUpdateResult(GroupState.GROUP_CONSISTENT_OR_AHEAD, null);
       }
@@ -328,6 +329,8 @@ public final class GroupsV2StateProcessor {
         boolean includeFirstState   = forceIncludeFirst ||
                                       localState == null ||
                                       localState.getRevision() < 0 ||
+                                      localState.getRevision() == revisionWeWereAdded ||
+                                      !GroupProtoUtil.isMember(selfAci.uuid(), localState.getMembersList()) ||
                                       (revision == LATEST && localState.getRevision() + 1 < latestServerGroup.getRevision());
 
         Log.i(TAG,
@@ -426,7 +429,7 @@ public final class GroupsV2StateProcessor {
                           .getResults()
                           .get(0)
                           .getGroup()
-                          .orNull();
+                          .orElse(null);
       } catch (GroupNotFoundException e) {
         throw new GroupDoesNotExistException(e);
       } catch (NotInGroupException e) {
@@ -527,8 +530,8 @@ public final class GroupsV2StateProcessor {
         }
 
         for (DecryptedGroupHistoryEntry entry : groupHistoryPage.getResults()) {
-          DecryptedGroup       group  = entry.getGroup().orNull();
-          DecryptedGroupChange change = ignoreServerChanges ? null : entry.getChange().orNull();
+          DecryptedGroup       group  = entry.getGroup().orElse(null);
+          DecryptedGroupChange change = ignoreServerChanges ? null : entry.getChange().orElse(null);
 
           if (group != null || change != null) {
             history.add(new ServerGroupLogEntry(group, change));
@@ -578,9 +581,9 @@ public final class GroupsV2StateProcessor {
                                                     .map(ServerGroupLogEntry::getChange)
                                                     .filter(c -> c != null && c.getRevision() == revisionJoinedAt)
                                                     .findFirst()
-                                                    .map(c -> Optional.fromNullable(UuidUtil.fromByteStringOrNull(c.getEditor()))
-                                                                      .transform(a -> Recipient.externalPush(ACI.fromByteStringOrNull(c.getEditor()), null, false)))
-                                                    .orElse(Optional.absent());
+                                                    .map(c -> Optional.ofNullable(UuidUtil.fromByteStringOrNull(c.getEditor()))
+                                                                      .map(a -> Recipient.externalPush(ServiceId.fromByteStringOrNull(c.getEditor()), null, false)))
+                                                    .orElse(Optional.empty());
 
         if (addedByOptional.isPresent()) {
           Recipient addedBy = addedByOptional.get();
@@ -609,6 +612,8 @@ public final class GroupsV2StateProcessor {
       for (LocalGroupLogEntry entry : processedLogEntries) {
         if (entry.getChange() != null && DecryptedGroupUtil.changeIsEmptyExceptForProfileKeyChanges(entry.getChange()) && !DecryptedGroupUtil.changeIsEmpty(entry.getChange())) {
           Log.d(TAG, "Skipping profile key changes only update message");
+        } else if (entry.getChange() != null && DecryptedGroupUtil.changeIsEmptyExceptForBanChangesAndOptionalProfileKeyChanges(entry.getChange())) {
+          Log.d(TAG, "Skipping ban changes only update message");
         } else {
           if (entry.getChange() != null && DecryptedGroupUtil.changeIsEmpty(entry.getChange()) && previousGroupState != null) {
             Log.w(TAG, "Empty group update message seen. Not inserting.");
@@ -650,7 +655,7 @@ public final class GroupsV2StateProcessor {
     }
 
     void storeMessage(@NonNull DecryptedGroupV2Context decryptedGroupV2Context, long timestamp) {
-      Optional<ACI> editor = getEditor(decryptedGroupV2Context).transform(ACI::from);
+      Optional<ServiceId> editor = getEditor(decryptedGroupV2Context).map(ServiceId::from);
 
       boolean outgoing = !editor.isPresent() || selfAci.equals(editor.get());
 
@@ -692,10 +697,10 @@ public final class GroupsV2StateProcessor {
       } else {
         Optional<DecryptedPendingMember> pendingByUuid = DecryptedGroupUtil.findPendingByUuid(decryptedGroupV2Context.getGroupState().getPendingMembersList(), selfAci.uuid());
         if (pendingByUuid.isPresent()) {
-          return Optional.fromNullable(UuidUtil.fromByteStringOrNull(pendingByUuid.get().getAddedByUuid()));
+          return Optional.ofNullable(UuidUtil.fromByteStringOrNull(pendingByUuid.get().getAddedByUuid()));
         }
       }
-      return Optional.absent();
+      return Optional.empty();
     }
   }
 }

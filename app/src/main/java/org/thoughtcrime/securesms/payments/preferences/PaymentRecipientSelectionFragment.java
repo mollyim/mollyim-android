@@ -24,8 +24,8 @@ import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.util.ViewUtil;
 import org.thoughtcrime.securesms.util.concurrent.SimpleTask;
 import org.thoughtcrime.securesms.util.navigation.SafeNavigation;
-import org.whispersystems.libsignal.util.guava.Optional;
 
+import java.util.Optional;
 import java.util.function.Consumer;
 
 
@@ -70,7 +70,7 @@ public class PaymentRecipientSelectionFragment extends LoggingFragment implement
   }
 
   @Override
-  public void onBeforeContactSelected(@NonNull Optional<RecipientId> recipientId, @Nullable String number, Consumer<Boolean> callback) {
+  public void onBeforeContactSelected(@NonNull Optional<RecipientId> recipientId, @Nullable String number, @NonNull Consumer<Boolean> callback) {
     if (recipientId.isPresent()) {
       SimpleTask.run(getViewLifecycleOwner().getLifecycle(),
                      () -> Recipient.resolved(recipientId.get()),

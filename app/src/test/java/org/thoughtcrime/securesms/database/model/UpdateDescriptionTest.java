@@ -1,12 +1,7 @@
 package org.thoughtcrime.securesms.database.model;
 
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
-import org.signal.core.util.ThreadUtil;
-import org.whispersystems.signalservice.api.push.ACI;
+import org.whispersystems.signalservice.api.push.ServiceId;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -17,16 +12,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.thoughtcrime.securesms.testutil.MainThreadUtil.setMainThread;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(ThreadUtil.class)
 public final class UpdateDescriptionTest {
-
-  @Before
-  public void setup() {
-    setMainThread(true);
-  }
 
   @Test
   public void staticDescription_byGetStaticString() {
@@ -49,18 +36,9 @@ public final class UpdateDescriptionTest {
     assertEquals("update", description.getString());
   }
 
-  @Test(expected = AssertionError.class)
-  public void stringFactory_cannot_run_on_main_thread() {
-    UpdateDescription description = UpdateDescription.mentioning(Collections.singletonList(ACI.from(UUID.randomUUID())), () -> "update", 0);
-
-    setMainThread(true);
-
-    description.getString();
-  }
-
   @Test(expected = UnsupportedOperationException.class)
   public void stringFactory_cannot_call_static_string() {
-    UpdateDescription description = UpdateDescription.mentioning(Collections.singletonList(ACI.from(UUID.randomUUID())), () -> "update", 0);
+    UpdateDescription description = UpdateDescription.mentioning(Collections.singletonList(ServiceId.from(UUID.randomUUID())), () -> "update", 0);
 
     description.getStaticString();
   }
@@ -74,11 +52,9 @@ public final class UpdateDescriptionTest {
       return "update";
     };
 
-    UpdateDescription description = UpdateDescription.mentioning(Collections.singletonList(ACI.from(UUID.randomUUID())), stringFactory, 0);
+    UpdateDescription description = UpdateDescription.mentioning(Collections.singletonList(ServiceId.from(UUID.randomUUID())), stringFactory, 0);
 
     assertEquals(0, factoryCalls.get());
-
-    setMainThread(false);
 
     String string = description.getString();
 
@@ -90,9 +66,7 @@ public final class UpdateDescriptionTest {
   public void stringFactory_reevaluated_on_every_call() {
     AtomicInteger                   factoryCalls  = new AtomicInteger();
     UpdateDescription.StringFactory stringFactory = () -> "call" + factoryCalls.incrementAndGet();
-    UpdateDescription               description   = UpdateDescription.mentioning(Collections.singletonList(ACI.from(UUID.randomUUID())), stringFactory, 0);
-
-    setMainThread(false);
+    UpdateDescription               description   = UpdateDescription.mentioning(Collections.singletonList(ServiceId.from(UUID.randomUUID())), stringFactory, 0);
 
     assertEquals("call1", description.getString());
     assertEquals("call2", description.getString());
@@ -126,8 +100,8 @@ public final class UpdateDescriptionTest {
     AtomicInteger                   factoryCalls2  = new AtomicInteger();
     UpdateDescription.StringFactory stringFactory1 = () -> "update." + factoryCalls1.incrementAndGet();
     UpdateDescription.StringFactory stringFactory2 = () -> "update." + factoryCalls2.incrementAndGet();
-    UpdateDescription               description1   = UpdateDescription.mentioning(Collections.singletonList(ACI.from(UUID.randomUUID())), stringFactory1, 0);
-    UpdateDescription               description2   = UpdateDescription.mentioning(Collections.singletonList(ACI.from(UUID.randomUUID())), stringFactory2, 0);
+    UpdateDescription               description1   = UpdateDescription.mentioning(Collections.singletonList(ServiceId.from(UUID.randomUUID())), stringFactory1, 0);
+    UpdateDescription               description2   = UpdateDescription.mentioning(Collections.singletonList(ServiceId.from(UUID.randomUUID())), stringFactory2, 0);
 
     factoryCalls1.set(10);
     factoryCalls2.set(20);
@@ -135,8 +109,6 @@ public final class UpdateDescriptionTest {
     UpdateDescription description = UpdateDescription.concatWithNewLines(Arrays.asList(description1, description2));
 
     assertFalse(description.isStringStatic());
-
-    setMainThread(false);
 
     assertEquals("update.11\nupdate.21", description.getString());
     assertEquals("update.12\nupdate.22", description.getString());
@@ -149,9 +121,9 @@ public final class UpdateDescriptionTest {
     AtomicInteger                   factoryCalls2  = new AtomicInteger();
     UpdateDescription.StringFactory stringFactory1 = () -> "update." + factoryCalls1.incrementAndGet();
     UpdateDescription.StringFactory stringFactory2 = () -> "update." + factoryCalls2.incrementAndGet();
-    UpdateDescription               description1   = UpdateDescription.mentioning(Collections.singletonList(ACI.from(UUID.randomUUID())), stringFactory1, 0);
+    UpdateDescription               description1   = UpdateDescription.mentioning(Collections.singletonList(ServiceId.from(UUID.randomUUID())), stringFactory1, 0);
     UpdateDescription               description2   = UpdateDescription.staticDescription("static", 0);
-    UpdateDescription               description3   = UpdateDescription.mentioning(Collections.singletonList(ACI.from(UUID.randomUUID())), stringFactory2, 0);
+    UpdateDescription               description3   = UpdateDescription.mentioning(Collections.singletonList(ServiceId.from(UUID.randomUUID())), stringFactory2, 0);
 
     factoryCalls1.set(100);
     factoryCalls2.set(200);
@@ -159,8 +131,6 @@ public final class UpdateDescriptionTest {
     UpdateDescription description = UpdateDescription.concatWithNewLines(Arrays.asList(description1, description2, description3));
 
     assertFalse(description.isStringStatic());
-
-    setMainThread(false);
 
     assertEquals("update.101\nstatic\nupdate.201", description.getString());
     assertEquals("update.102\nstatic\nupdate.202", description.getString());

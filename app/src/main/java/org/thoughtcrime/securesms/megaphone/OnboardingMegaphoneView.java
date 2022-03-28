@@ -65,6 +65,7 @@ public class OnboardingMegaphoneView extends FrameLayout {
 
     private static final int TYPE_GROUP      = 0;
     private static final int TYPE_INVITE     = 1;
+    // MOLLY: SMS onboarding card is replaced by check-for-updates card
     private static final int TYPE_UPDATE     = 2;
     private static final int TYPE_APPEARANCE = 3;
     private static final int TYPE_ADD_PHOTO  = 4;

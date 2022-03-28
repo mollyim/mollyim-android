@@ -60,7 +60,7 @@ class InternalConversationSettingsFragment : DSLSettingsFragment(
       )
 
       if (!recipient.isGroup) {
-        val serviceId = recipient.serviceId.transform(ServiceId::toString).or("null")
+        val serviceId = recipient.serviceId.map(ServiceId::toString).orElse("null")
         longClickPref(
           title = DSLSettingsText.from("ServiceId"),
           summary = DSLSettingsText.from(serviceId),
@@ -157,7 +157,7 @@ class InternalConversationSettingsFragment : DSLSettingsFragment(
       if (recipient.isSelf) {
         sectionHeaderPref(DSLSettingsText.from("Donations"))
 
-        val subscriber: Subscriber? = SignalStore.donationsValues().getSubscriberStorageSync()
+        val subscriber: Subscriber? = SignalStore.signalDonationsValues().getSubscriber()
         val summary = if (subscriber != null) {
           """currency code: ${subscriber.currencyCode}
             |subscriber id: ${subscriber.subscriberId.serialize()}
@@ -186,8 +186,6 @@ class InternalConversationSettingsFragment : DSLSettingsFragment(
 
   private fun buildCapabilitySpan(recipient: Recipient): CharSequence {
     return TextUtils.concat(
-      colorize("GV2", recipient.groupsV2Capability),
-      ", ",
       colorize("GV1Migration", recipient.groupsV1MigrationCapability),
       ", ",
       colorize("AnnouncementGroup", recipient.announcementGroupCapability),
@@ -195,6 +193,8 @@ class InternalConversationSettingsFragment : DSLSettingsFragment(
       colorize("SenderKey", recipient.senderKeyCapability),
       ", ",
       colorize("ChangeNumber", recipient.changeNumberCapability),
+      ", ",
+      colorize("Stories", recipient.storiesCapability),
     )
   }
 
@@ -226,7 +226,7 @@ class InternalConversationSettingsFragment : DSLSettingsFragment(
 
       SignalExecutors.BOUNDED.execute {
         val threadId: Long? = SignalDatabase.threads.getThreadIdFor(recipientId)
-        val groupId: GroupId? = SignalDatabase.groups.getGroup(recipientId).transform { it.id }.orNull()
+        val groupId: GroupId? = SignalDatabase.groups.getGroup(recipientId).map { it.id }.orElse(null)
         store.update { state -> state.copy(threadId = threadId, groupId = groupId) }
       }
     }

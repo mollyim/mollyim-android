@@ -81,6 +81,8 @@
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT"/>
 
+    <uses-permission android:name="android.permission.MANAGE_OWN_CALLS"/>
+
     <application android:name=".ApplicationContext"
                  android:icon="@mipmap/ic_launcher"
                  android:label="@string/app_name"
@@ -338,6 +340,24 @@
         </intent-filter>
     </activity>
 
+    <activity
+        android:name=".stories.my.MyStoriesActivity"
+        android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+        android:theme="@style/Signal.DayNight.NoActionBar"
+        android:windowSoftInputMode="stateAlwaysHidden" />
+
+    <activity
+        android:name=".stories.settings.StorySettingsActivity"
+        android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+        android:theme="@style/Signal.DayNight.NoActionBar"
+        android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+
+    <activity
+        android:name=".stories.viewer.StoryViewerActivity"
+        android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+        android:theme="@style/TextSecure.DarkNoActionBar"
+        android:windowSoftInputMode="stateAlwaysHidden|adjustNothing" />
+
         <activity android:name=".components.settings.app.changenumber.ChangeNumberLockActivity"
             android:theme="@style/Signal.DayNight.NoActionBar"
             android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
@@ -570,6 +590,13 @@
     <service android:enabled="true" android:exported="false" android:name=".service.KeyCachingService"/>
     <service android:enabled="true" android:exported="false" android:name=".service.WipeMemoryService"/>
     <service android:enabled="true" android:name=".messages.IncomingMessageObserver$ForegroundService"/>
+    <service android:name=".service.webrtc.AndroidCallConnectionService"
+        android:permission="android.permission.BIND_TELECOM_CONNECTION_SERVICE"
+        android:exported="true">
+        <intent-filter>
+            <action android:name="android.telecom.ConnectionService" />
+        </intent-filter>
+    </service>
 
     <service android:name=".components.voice.VoiceNotePlaybackService">
         <intent-filter>
@@ -621,6 +648,8 @@
     </receiver>
 
     <receiver android:name=".service.ExpirationListener" />
+
+    <receiver android:name=".service.ExpiringStoriesManager$ExpireStoriesAlarm" />
 
     <receiver android:name=".revealable.ViewOnceMessageManager$ViewOnceAlarm" />
 

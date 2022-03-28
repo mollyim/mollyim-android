@@ -16,6 +16,7 @@ import org.thoughtcrime.securesms.database.NoSuchMessageException;
 import org.thoughtcrime.securesms.database.RecipientDatabase.UnidentifiedAccessMode;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.database.model.MessageId;
+import org.thoughtcrime.securesms.database.model.MessageRecord;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.jobmanager.Data;
 import org.thoughtcrime.securesms.jobmanager.Job;
@@ -31,7 +32,6 @@ import org.thoughtcrime.securesms.transport.InsecureFallbackApprovalException;
 import org.thoughtcrime.securesms.transport.RetryLaterException;
 import org.thoughtcrime.securesms.transport.UndeliverableMessageException;
 import org.thoughtcrime.securesms.util.Util;
-import org.whispersystems.libsignal.util.guava.Optional;
 import org.whispersystems.signalservice.api.SignalServiceMessageSender;
 import org.whispersystems.signalservice.api.SignalServiceMessageSender.IndividualSendEvents;
 import org.whispersystems.signalservice.api.crypto.ContentHint;
@@ -40,7 +40,7 @@ import org.whispersystems.signalservice.api.crypto.UntrustedIdentityException;
 import org.whispersystems.signalservice.api.messages.SendMessageResult;
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachment;
 import org.whispersystems.signalservice.api.messages.SignalServiceDataMessage;
-import org.whispersystems.signalservice.api.messages.SignalServiceDataMessage.Preview;
+import org.whispersystems.signalservice.api.messages.SignalServicePreview;
 import org.whispersystems.signalservice.api.messages.shared.SharedContact;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
 import org.whispersystems.signalservice.api.push.exceptions.ProofRequiredException;
@@ -50,6 +50,7 @@ import org.whispersystems.signalservice.api.push.exceptions.UnregisteredUserExce
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 public class PushMediaSendJob extends PushSendJob {
@@ -176,7 +177,7 @@ public class PushMediaSendJob extends PushSendJob {
       database.markAsSentFailed(messageId);
       RetrieveProfileJob.enqueue(recipientId);
     } catch (ProofRequiredException e) {
-      handleProofRequiredException(e, SignalDatabase.threads().getRecipientForThreadId(threadId), threadId, messageId, true);
+      handleProofRequiredException(context, e, SignalDatabase.threads().getRecipientForThreadId(threadId), threadId, messageId, true);
     }
   }
 
@@ -202,28 +203,48 @@ public class PushMediaSendJob extends PushSendJob {
         throw new UndeliverableMessageException(messageRecipient.getId() + " not registered!");
       }
 
-      SignalServiceMessageSender                 messageSender      = ApplicationDependencies.getSignalServiceMessageSender();
-      SignalServiceAddress                       address            = RecipientUtil.toSignalServiceAddress(context, messageRecipient);
-      List<Attachment>                           attachments        = Stream.of(message.getAttachments()).filterNot(Attachment::isSticker).toList();
-      List<SignalServiceAttachment>              serviceAttachments = getAttachmentPointersFor(attachments);
-      Optional<byte[]>                           profileKey         = getProfileKey(messageRecipient);
-      Optional<SignalServiceDataMessage.Quote>   quote              = getQuoteFor(message);
-      Optional<SignalServiceDataMessage.Sticker> sticker            = getStickerFor(message);
-      List<SharedContact>                        sharedContacts     = getSharedContactsFor(message);
-      List<Preview>                              previews           = getPreviewsFor(message);
-      SignalServiceDataMessage                   mediaMessage       = SignalServiceDataMessage.newBuilder()
-                                                                                            .withBody(message.getBody())
-                                                                                            .withAttachments(serviceAttachments)
-                                                                                            .withTimestamp(message.getSentTimeMillis())
-                                                                                            .withExpiration((int)(message.getExpiresIn() / 1000))
-                                                                                            .withViewOnce(message.isViewOnce())
-                                                                                            .withProfileKey(profileKey.orNull())
-                                                                                            .withQuote(quote.orNull())
-                                                                                            .withSticker(sticker.orNull())
-                                                                                            .withSharedContacts(sharedContacts)
-                                                                                            .withPreviews(previews)
-                                                                                            .asExpirationUpdate(message.isExpirationUpdate())
-                                                                                            .build();
+      SignalServiceMessageSender                 messageSender       = ApplicationDependencies.getSignalServiceMessageSender();
+      SignalServiceAddress                       address             = RecipientUtil.toSignalServiceAddress(context, messageRecipient);
+      List<Attachment>                           attachments         = Stream.of(message.getAttachments()).filterNot(Attachment::isSticker).toList();
+      List<SignalServiceAttachment>              serviceAttachments  = getAttachmentPointersFor(attachments);
+      Optional<byte[]>                           profileKey          = getProfileKey(messageRecipient);
+      Optional<SignalServiceDataMessage.Sticker> sticker             = getStickerFor(message);
+      List<SharedContact>                        sharedContacts      = getSharedContactsFor(message);
+      List<SignalServicePreview>                 previews            = getPreviewsFor(message);
+      SignalServiceDataMessage.Builder           mediaMessageBuilder = SignalServiceDataMessage.newBuilder()
+                                                                                               .withBody(message.getBody())
+                                                                                               .withAttachments(serviceAttachments)
+                                                                                               .withTimestamp(message.getSentTimeMillis())
+                                                                                               .withExpiration((int)(message.getExpiresIn() / 1000))
+                                                                                               .withViewOnce(message.isViewOnce())
+                                                                                               .withProfileKey(profileKey.orElse(null))
+                                                                                               .withSticker(sticker.orElse(null))
+                                                                                               .withSharedContacts(sharedContacts)
+                                                                                               .withPreviews(previews)
+                                                                                               .asExpirationUpdate(message.isExpirationUpdate());
+
+      if (message.getParentStoryId() != null) {
+        try {
+          MessageRecord storyRecord = SignalDatabase.mms().getMessageRecord(message.getParentStoryId().asMessageId().getId());
+
+          SignalServiceDataMessage.StoryContext storyContext = new SignalServiceDataMessage.StoryContext(address.getServiceId(), storyRecord.getDateSent());
+          mediaMessageBuilder.withStoryContext(storyContext);
+
+          Optional<SignalServiceDataMessage.Reaction> reaction = getStoryReactionFor(message, storyContext);
+          if (reaction.isPresent()) {
+            mediaMessageBuilder.withReaction(reaction.get());
+            mediaMessageBuilder.withBody(null);
+          }
+        } catch (NoSuchMessageException e) {
+          // The story has probably expired
+          // TODO [stories] check what should happen in this case
+          throw new UndeliverableMessageException(e);
+        }
+      } else {
+        mediaMessageBuilder.withQuote(getQuoteFor(message).orElse(null));
+      }
+
+      SignalServiceDataMessage mediaMessage = mediaMessageBuilder.build();
 
       if (Util.equals(SignalStore.account().getAci(), address.getServiceId())) {
         Optional<UnidentifiedAccessPair> syncAccess = UnidentifiedAccessUtil.getAccessForSync(context);

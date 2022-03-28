@@ -55,7 +55,6 @@ import org.thoughtcrime.securesms.webrtc.audio.SignalAudioManager;
 import org.thoughtcrime.securesms.webrtc.locks.LockManager;
 import org.webrtc.PeerConnection;
 import org.whispersystems.libsignal.util.Pair;
-import org.whispersystems.libsignal.util.guava.Optional;
 import org.whispersystems.signalservice.api.SignalServiceAccountManager;
 import org.whispersystems.signalservice.api.SignalServiceMessageSender;
 import org.whispersystems.signalservice.api.crypto.UntrustedIdentityException;
@@ -65,7 +64,7 @@ import org.whispersystems.signalservice.api.messages.calls.OfferMessage;
 import org.whispersystems.signalservice.api.messages.calls.OpaqueMessage;
 import org.whispersystems.signalservice.api.messages.calls.SignalServiceCallMessage;
 import org.whispersystems.signalservice.api.messages.calls.TurnServerInfo;
-import org.whispersystems.signalservice.api.push.ACI;
+import org.whispersystems.signalservice.api.push.ServiceId;
 import org.whispersystems.signalservice.api.push.exceptions.UnregisteredUserException;
 
 import java.io.IOException;
@@ -73,6 +72,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.Executor;
@@ -154,7 +154,7 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
     serviceExecutor.execute(() -> {
       if (needsToSetSelfUuid) {
         try {
-          callManager.setSelfUuid(Recipient.self().requireServiceId().uuid());
+          callManager.setSelfUuid(SignalStore.account().requireAci().uuid());
           needsToSetSelfUuid = false;
         } catch (CallException e) {
           Log.w(TAG, "Unable to set self UUID on CallManager", e);
@@ -295,6 +295,14 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
     process((s, p) -> p.handleSetUserAudioDevice(s, desiredDevice));
   }
 
+  public void setTelecomApproved(long callId) {
+    process((s, p) -> p.handleSetTelecomApproved(s, callId));
+  }
+
+  public void dropCall(long callId) {
+    process((s, p) -> p.handleDropCall(s, callId));
+  }
+
   public void peekGroupCall(@NonNull RecipientId id) {
     if (callManager == null) {
       Log.i(TAG, "Unable to peekGroupCall, call manager is null");
@@ -402,7 +410,7 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
       if (isOutgoing) {
         return p.handleStartOutgoingCall(s, remotePeer, WebRtcUtil.getOfferTypeFromCallMediaType(callMediaType));
       } else {
-        return p.handleStartIncomingCall(s, remotePeer);
+        return p.handleStartIncomingCall(s, remotePeer, WebRtcUtil.getOfferTypeFromCallMediaType(callMediaType));
       }
     });
   }
@@ -611,13 +619,13 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
     SignalServiceCallMessage callMessage   = SignalServiceCallMessage.forOpaque(opaqueMessage, true, null);
 
     networkExecutor.execute(() -> {
-      Recipient recipient = Recipient.resolved(RecipientId.from(ACI.from(uuid), null));
+      Recipient recipient = Recipient.resolved(RecipientId.from(ServiceId.from(uuid), null));
       if (recipient.isBlocked()) {
         return;
       }
       try {
         messageSender.sendCallMessage(RecipientUtil.toSignalServiceAddress(context, recipient),
-                                      recipient.isSelf() ? Optional.absent() : UnidentifiedAccessUtil.getAccessFor(context, recipient),
+                                      recipient.isSelf() ? Optional.empty() : UnidentifiedAccessUtil.getAccessFor(context, recipient),
                                       callMessage);
       } catch (UntrustedIdentityException e) {
         Log.i(TAG, "sendOpaqueCallMessage onFailure: ", e);
@@ -641,7 +649,6 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
 
         recipients = RecipientUtil.getEligibleForSending((recipients.stream()
                                                                     .map(Recipient::resolve)
-                                                                    .filter(r -> !r.isBlocked())
                                                                     .collect(Collectors.toList())));
 
         OpaqueMessage            opaqueMessage = new OpaqueMessage(message, getUrgencyFromCallUrgency(urgency));
@@ -905,13 +912,13 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
                                                      (s, p) -> p.handleMessageSentError(s,
                                                                                         remotePeer.getCallId(),
                                                                                         UNTRUSTED_IDENTITY,
-                                                                                        Optional.fromNullable(e.getIdentityKey())));
+                                                                                        Optional.ofNullable(e.getIdentityKey())));
       } catch (IOException e) {
         processSendMessageFailureWithChangeDetection(remotePeer,
                                                      (s, p) -> p.handleMessageSentError(s,
                                                                                         remotePeer.getCallId(),
                                                                                         e instanceof UnregisteredUserException ? NO_SUCH_USER : NETWORK_FAILURE,
-                                                                                        Optional.absent()));
+                                                                                        Optional.empty()));
       }
     });
   }

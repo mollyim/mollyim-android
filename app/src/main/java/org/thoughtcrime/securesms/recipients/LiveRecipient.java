@@ -13,19 +13,23 @@ import com.annimon.stream.Stream;
 
 import org.signal.core.util.ThreadUtil;
 import org.signal.core.util.logging.Log;
+import org.thoughtcrime.securesms.database.DistributionListDatabase;
 import org.thoughtcrime.securesms.database.GroupDatabase;
 import org.thoughtcrime.securesms.database.GroupDatabase.GroupRecord;
 import org.thoughtcrime.securesms.database.RecipientDatabase;
-import org.thoughtcrime.securesms.database.model.RecipientRecord;
 import org.thoughtcrime.securesms.database.SignalDatabase;
+import org.thoughtcrime.securesms.database.model.DistributionListRecord;
+import org.thoughtcrime.securesms.database.model.RecipientRecord;
 import org.thoughtcrime.securesms.util.livedata.LiveDataUtil;
-import org.whispersystems.libsignal.util.guava.Optional;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.atomic.AtomicReference;
+
+import io.reactivex.rxjava3.core.Observable;
 
 public final class LiveRecipient {
 
@@ -40,16 +44,18 @@ public final class LiveRecipient {
   private final AtomicReference<Recipient>    recipient;
   private final RecipientDatabase             recipientDatabase;
   private final GroupDatabase                 groupDatabase;
+  private final DistributionListDatabase      distributionListDatabase;
   private final MutableLiveData<Object>       refreshForceNotify;
 
   LiveRecipient(@NonNull Context context, @NonNull Recipient defaultRecipient) {
-    this.context           = context.getApplicationContext();
-    this.liveData          = new MutableLiveData<>(defaultRecipient);
-    this.recipient         = new AtomicReference<>(defaultRecipient);
-    this.recipientDatabase = SignalDatabase.recipients();
-    this.groupDatabase     = SignalDatabase.groups();
-    this.observers         = new CopyOnWriteArraySet<>();
-    this.foreverObserver   = recipient -> {
+    this.context                  = context.getApplicationContext();
+    this.liveData                 = new MutableLiveData<>(defaultRecipient);
+    this.recipient                = new AtomicReference<>(defaultRecipient);
+    this.recipientDatabase        = SignalDatabase.recipients();
+    this.groupDatabase            = SignalDatabase.groups();
+    this.distributionListDatabase = SignalDatabase.distributionLists();
+    this.observers                = new CopyOnWriteArraySet<>();
+    this.foreverObserver          = recipient -> {
       ThreadUtil.postToMain(() -> {
         for (RecipientForeverObserver o : observers) {
           o.onRecipientChanged(recipient);
@@ -89,6 +95,19 @@ public final class LiveRecipient {
    */
   public void removeObservers(@NonNull LifecycleOwner owner) {
     ThreadUtil.runOnMain(() -> observableLiveData.removeObservers(owner));
+  }
+
+  public Observable<Recipient> asObservable() {
+    return Observable.create(emitter -> {
+      Recipient current = recipient.get();
+      if (current != null && current.getId() != RecipientId.UNKNOWN) {
+        emitter.onNext(current);
+      }
+
+      RecipientForeverObserver foreverObserver = emitter::onNext;
+      observeForever(foreverObserver);
+      emitter.setCancellable(() -> removeForeverObserver(foreverObserver));
+    });
   }
 
   /**
@@ -192,9 +211,15 @@ public final class LiveRecipient {
   }
 
   private @NonNull Recipient fetchAndCacheRecipientFromDisk(@NonNull RecipientId id) {
-    RecipientRecord settings = recipientDatabase.getRecord(id);
-    RecipientDetails  details  = settings.getGroupId() != null ? getGroupRecipientDetails(settings)
-                                                               : RecipientDetails.forIndividual(context, settings);
+    RecipientRecord  record  = recipientDatabase.getRecord(id);
+    RecipientDetails details;
+    if (record.getGroupId() != null) {
+      details = getGroupRecipientDetails(record);
+    } else if (record.getDistributionListId() != null) {
+      details = getDistributionListRecipientDetails(record);
+    } else {
+      details = RecipientDetails.forIndividual(context, record);
+    }
 
     Recipient recipient = new Recipient(id, details, true);
     RecipientIdCache.INSTANCE.put(recipient);
@@ -202,22 +227,37 @@ public final class LiveRecipient {
   }
 
   @WorkerThread
-  private @NonNull RecipientDetails getGroupRecipientDetails(@NonNull RecipientRecord settings) {
-    Optional<GroupRecord> groupRecord = groupDatabase.getGroup(settings.getId());
+  private @NonNull RecipientDetails getGroupRecipientDetails(@NonNull RecipientRecord record) {
+    Optional<GroupRecord> groupRecord = groupDatabase.getGroup(record.getId());
 
     if (groupRecord.isPresent()) {
       String          title    = groupRecord.get().getTitle();
       List<Recipient> members  = Stream.of(groupRecord.get().getMembers()).filterNot(RecipientId::isUnknown).map(this::fetchAndCacheRecipientFromDisk).toList();
-      Optional<Long>  avatarId = Optional.absent();
+      Optional<Long>  avatarId = Optional.empty();
 
       if (groupRecord.get().hasAvatar()) {
         avatarId = Optional.of(groupRecord.get().getAvatarId());
       }
 
-      return new RecipientDetails(title, null,  avatarId, false, false, settings.getRegistered(), settings, members, false);
+      return new RecipientDetails(title, null,  avatarId, false, false, record.getRegistered(), record, members, false);
     }
 
-    return new RecipientDetails(null, null, Optional.absent(), false, false, settings.getRegistered(), settings, null, false);
+    return new RecipientDetails(null, null, Optional.empty(), false, false, record.getRegistered(), record, null, false);
+  }
+
+  @WorkerThread
+  private @NonNull RecipientDetails getDistributionListRecipientDetails(@NonNull RecipientRecord record) {
+    DistributionListRecord groupRecord = distributionListDatabase.getList(Objects.requireNonNull(record.getDistributionListId()));
+
+    // TODO [stories] We'll have to see what the perf is like for very large distribution lists. We may not be able to support fetching all the members.
+    if (groupRecord != null) {
+      String          title    = groupRecord.getName();
+      List<Recipient> members  = Stream.of(groupRecord.getMembers()).filterNot(RecipientId::isUnknown).map(this::fetchAndCacheRecipientFromDisk).toList();
+
+      return RecipientDetails.forDistributionList(title, members, record);
+    }
+
+    return RecipientDetails.forDistributionList(null, null, record);
   }
 
   synchronized void set(@NonNull Recipient recipient) {

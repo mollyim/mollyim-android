@@ -3,7 +3,6 @@ package org.thoughtcrime.securesms.util;
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.annotation.WorkerThread;
 
@@ -62,7 +61,6 @@ public final class FeatureFlags {
   private static final String PHONE_NUMBER_PRIVACY_VERSION      = "android.phoneNumberPrivacyVersion";
   private static final String CLIENT_EXPIRATION                 = "android.clientExpiration";
   public  static final String DONATE_MEGAPHONE                  = "android.donate.2";
-  public  static final String VALENTINES_DONATE_MEGAPHONE       = "android.donate.valentines.2022";
   private static final String CUSTOM_VIDEO_MUXER                = "android.customVideoMuxer";
   private static final String CDS_REFRESH_INTERVAL              = "cds.syncInterval.seconds";
   private static final String AUTOMATIC_SESSION_RESET           = "android.automaticSessionReset.2";
@@ -84,12 +82,17 @@ public final class FeatureFlags {
   private static final String SUGGEST_SMS_BLACKLIST             = "android.suggestSmsBlacklist";
   private static final String MAX_GROUP_CALL_RING_SIZE          = "global.calling.maxGroupCallRingSize";
   private static final String GROUP_CALL_RINGING                = "android.calling.groupCallRinging";
-  private static final String CHANGE_NUMBER_ENABLED             = "android.changeNumber.3";
   private static final String DONOR_BADGES                      = "android.donorBadges.6";
   private static final String DONOR_BADGES_DISPLAY              = "android.donorBadges.display.4";
   private static final String CDSH                              = "android.cdsh";
-  private static final String HARDWARE_AEC_MODELS               = "android.calling.hardwareAecModels";
-  private static final String FORCE_DEFAULT_AEC                 = "android.calling.forceDefaultAec";
+  private static final String STORIES                           = "android.stories.2";
+  private static final String STORIES_TEXT_FUNCTIONS            = "android.stories.text.functions";
+  private static final String STORIES_TEXT_POSTS                = "android.stories.text.posts.2";
+  private static final String HARDWARE_AEC_BLOCKLIST_MODELS     = "android.calling.hardwareAecBlockList";
+  private static final String SOFTWARE_AEC_BLOCKLIST_MODELS     = "android.calling.softwareAecBlockList";
+  private static final String USE_HARDWARE_AEC_IF_OLD           = "android.calling.useHardwareAecIfOlderThanApi29";
+  private static final String USE_AEC3                          = "android.calling.useAec3";
+  private static final String PAYMENTS_COUNTRY_BLOCKLIST        = "android.payments.blocklist";
 
   /**
    * We will only store remote values for flags in this set. If you want a flag to be controllable
@@ -129,10 +132,14 @@ public final class FeatureFlags {
       SENDER_KEY_MAX_AGE,
       DONOR_BADGES,
       DONOR_BADGES_DISPLAY,
-      CHANGE_NUMBER_ENABLED,
-      HARDWARE_AEC_MODELS,
-      FORCE_DEFAULT_AEC,
-      VALENTINES_DONATE_MEGAPHONE
+      STORIES,
+      STORIES_TEXT_FUNCTIONS,
+      STORIES_TEXT_POSTS,
+      HARDWARE_AEC_BLOCKLIST_MODELS,
+      SOFTWARE_AEC_BLOCKLIST_MODELS,
+      USE_HARDWARE_AEC_IF_OLD,
+      USE_AEC3,
+      PAYMENTS_COUNTRY_BLOCKLIST
   );
 
   @VisibleForTesting
@@ -187,8 +194,11 @@ public final class FeatureFlags {
       CDSH,
       SENDER_KEY_MAX_AGE,
       DONATE_MEGAPHONE,
-      FORCE_DEFAULT_AEC,
-      VALENTINES_DONATE_MEGAPHONE
+      HARDWARE_AEC_BLOCKLIST_MODELS,
+      SOFTWARE_AEC_BLOCKLIST_MODELS,
+      USE_HARDWARE_AEC_IF_OLD,
+      USE_AEC3,
+      PAYMENTS_COUNTRY_BLOCKLIST
   );
 
   /**
@@ -207,12 +217,13 @@ public final class FeatureFlags {
    * These can be called on any thread, including the main thread, so be careful!
    *
    * Also note that this doesn't play well with {@link #FORCED_VALUES} -- changes there will not
-   * trigger changes in this map, so you'll have to do some manually hacking to get yourself in the
+   * trigger changes in this map, so you'll have to do some manual hacking to get yourself in the
    * desired test state.
    */
   private static final Map<String, OnFlagChange> FLAG_CHANGE_LISTENERS = new HashMap<String, OnFlagChange>() {{
     put(MESSAGE_PROCESSOR_ALARM_INTERVAL, change -> MessageProcessReceiver.startOrUpdateAlarm(ApplicationDependencies.getApplication()));
     put(SENDER_KEY, change -> ApplicationDependencies.getJobManager().add(new RefreshAttributesJob()));
+    put(STORIES, change -> ApplicationDependencies.getJobManager().add(new RefreshAttributesJob()));
   }};
 
   private static final Map<String, Object> REMOTE_VALUES = new TreeMap<>();
@@ -302,11 +313,6 @@ public final class FeatureFlags {
   /** The raw donate megaphone CSV string */
   public static String donateMegaphone() {
     return getString(DONATE_MEGAPHONE, "*:1000000");
-  }
-
-  /** The raw valentine's day donate megaphone CSV string */
-  public static String valentinesDonateMegaphone() {
-    return getString(VALENTINES_DONATE_MEGAPHONE, "");
   }
 
   /**
@@ -411,23 +417,60 @@ public final class FeatureFlags {
     return getBoolean(GROUP_CALL_RINGING, false);
   }
 
-  /** Whether or not to show change number in the UI. */
-  public static boolean changeNumber() {
-    return getBoolean(CHANGE_NUMBER_ENABLED, false);
+  /** A comma-separated list of country codes where payments should be disabled. */
+  public static String paymentsCountryBlocklist() {
+    return getString(PAYMENTS_COUNTRY_BLOCKLIST, "98,963,53,850,7");
+  }
+
+  /**
+   * Whether or not stories are available
+   *
+   * NOTE: This feature is still under ongoing development, do not enable.
+   */
+  public static boolean stories() {
+    return getBoolean(STORIES, false);
+  }
+
+  /**
+   * Whether users can apply alignment and scale to text posts
+   *
+   * NOTE: This feature is still under ongoing development, do not enable.
+   */
+  public static boolean storiesTextFunctions() {
+    return getBoolean(STORIES_TEXT_FUNCTIONS, false);
+  }
+
+  /**
+   * Whether the user supports sending Story text posts
+   *
+   * NOTE: This feature is still under ongoing development, do not enable.
+   */
+  public static boolean storiesTextPosts() {
+    return getBoolean(STORIES_TEXT_POSTS, false);
   }
 
   public static boolean cdsh() {
     return Environment.IS_STAGING && getBoolean(CDSH, false);
   }
 
-  /** A comma-separated list of models that should use hardware AEC for calling. */
-  public static @NonNull String hardwareAecModels() {
-    return getString(HARDWARE_AEC_MODELS, "");
+  /** A comma-separated list of models that should *not* use hardware AEC for calling. */
+  public static @NonNull String hardwareAecBlocklistModels() {
+    return getString(HARDWARE_AEC_BLOCKLIST_MODELS, "");
   }
 
-  /** Whether or not all devices should be forced into using default AEC for calling. */
-  public static boolean forceDefaultAec() {
-    return getBoolean(FORCE_DEFAULT_AEC, false);
+  /** A comma-separated list of models that should *not* use software AEC for calling. */
+  public static @NonNull String softwareAecBlocklistModels() {
+    return getString(SOFTWARE_AEC_BLOCKLIST_MODELS, "");
+  }
+
+  /** Whether or not hardware AEC should be used for calling on devices older than API 29. */
+  public static boolean useHardwareAecIfOlderThanApi29() {
+    return getBoolean(USE_HARDWARE_AEC_IF_OLD, false);
+  }
+
+  /** Whether or not {@link org.signal.ringrtc.CallManager.AudioProcessingMethod#ForceSoftwareAec3} can be used */
+  public static boolean useAec3() {
+    return getBoolean(USE_AEC3, true);
   }
 
   /** Only for rendering debug info. */

@@ -6,6 +6,8 @@ import androidx.annotation.Nullable;
 import org.thoughtcrime.securesms.attachments.Attachment;
 import org.thoughtcrime.securesms.contactshare.Contact;
 import org.thoughtcrime.securesms.database.model.Mention;
+import org.thoughtcrime.securesms.database.model.ParentStoryId;
+import org.thoughtcrime.securesms.database.model.StoryType;
 import org.thoughtcrime.securesms.linkpreview.LinkPreview;
 import org.thoughtcrime.securesms.recipients.Recipient;
 
@@ -14,18 +16,22 @@ import java.util.List;
 
 public class OutgoingSecureMediaMessage extends OutgoingMediaMessage {
 
-  public OutgoingSecureMediaMessage(Recipient recipient, String body,
+  public OutgoingSecureMediaMessage(Recipient recipient,
+                                    String body,
                                     List<Attachment> attachments,
                                     long sentTimeMillis,
                                     int distributionType,
                                     long expiresIn,
                                     boolean viewOnce,
+                                    @NonNull StoryType storyType,
+                                    @Nullable ParentStoryId parentStoryId,
+                                    boolean isStoryReaction,
                                     @Nullable QuoteModel quote,
                                     @NonNull List<Contact> contacts,
                                     @NonNull List<LinkPreview> previews,
                                     @NonNull List<Mention> mentions)
   {
-    super(recipient, body, attachments, sentTimeMillis, -1, expiresIn, viewOnce, distributionType, quote, contacts, previews, mentions, Collections.emptySet(), Collections.emptySet());
+    super(recipient, body, attachments, sentTimeMillis, -1, expiresIn, viewOnce, distributionType, storyType, parentStoryId, isStoryReaction, quote, contacts, previews, mentions, Collections.emptySet(), Collections.emptySet());
   }
 
   public OutgoingSecureMediaMessage(OutgoingMediaMessage base) {
@@ -46,6 +52,26 @@ public class OutgoingSecureMediaMessage extends OutgoingMediaMessage {
                                           getDistributionType(),
                                           expiresIn,
                                           isViewOnce(),
+                                          getStoryType(),
+                                          getParentStoryId(),
+                                          isStoryReaction(),
+                                          getOutgoingQuote(),
+                                          getSharedContacts(),
+                                          getLinkPreviews(),
+                                          getMentions());
+  }
+
+  public @NonNull OutgoingSecureMediaMessage withSentTimestamp(long sentTimestamp) {
+    return new OutgoingSecureMediaMessage(getRecipient(),
+                                          getBody(),
+                                          getAttachments(),
+                                          sentTimestamp,
+                                          getDistributionType(),
+                                          getExpiresIn(),
+                                          isViewOnce(),
+                                          getStoryType(),
+                                          getParentStoryId(),
+                                          isStoryReaction(),
                                           getOutgoingQuote(),
                                           getSharedContacts(),
                                           getLinkPreviews(),

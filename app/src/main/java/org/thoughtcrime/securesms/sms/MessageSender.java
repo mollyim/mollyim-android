@@ -44,6 +44,7 @@ import org.thoughtcrime.securesms.database.SmsDatabase;
 import org.thoughtcrime.securesms.database.ThreadDatabase;
 import org.thoughtcrime.securesms.database.model.MessageId;
 import org.thoughtcrime.securesms.database.model.MessageRecord;
+import org.thoughtcrime.securesms.database.model.MmsMessageRecord;
 import org.thoughtcrime.securesms.database.model.ReactionRecord;
 import org.thoughtcrime.securesms.database.model.SmsMessageRecord;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
@@ -54,6 +55,7 @@ import org.thoughtcrime.securesms.jobs.AttachmentCopyJob;
 import org.thoughtcrime.securesms.jobs.AttachmentMarkUploadedJob;
 import org.thoughtcrime.securesms.jobs.AttachmentUploadJob;
 import org.thoughtcrime.securesms.jobs.ProfileKeySendJob;
+import org.thoughtcrime.securesms.jobs.PushDistributionListSendJob;
 import org.thoughtcrime.securesms.jobs.PushGroupSendJob;
 import org.thoughtcrime.securesms.jobs.PushMediaSendJob;
 import org.thoughtcrime.securesms.jobs.PushTextSendJob;
@@ -72,8 +74,7 @@ import org.thoughtcrime.securesms.service.ExpiringMessageManager;
 import org.thoughtcrime.securesms.util.ParcelUtil;
 import org.thoughtcrime.securesms.util.SignalLocalMetrics;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
-import org.whispersystems.libsignal.util.guava.Optional;
-import org.whispersystems.libsignal.util.guava.Preconditions;
+import org.whispersystems.signalservice.api.util.Preconditions;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -82,6 +83,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 public class MessageSender {
@@ -270,8 +273,10 @@ public class MessageSender {
 
         if (isLocalSelfSend(context, recipient, false)) {
           sendLocalMediaSelf(context, messageId);
-        } else if (isGroupPushSend(recipient)) {
+        } else if (recipient.isPushGroup()) {
           jobManager.add(new PushGroupSendJob(messageId, recipient.getId(), null, true), messageDependsOnIds, recipient.getId().toQueueKey());
+        } else if (recipient.isDistributionList()) {
+          jobManager.add(new PushDistributionListSendJob(messageId, recipient.getId(), true), messageDependsOnIds, recipient.getId().toQueueKey());
         } else {
           jobManager.add(new PushMediaSendJob(messageId, recipient, true), messageDependsOnIds, recipient.getId().toQueueKey());
         }
@@ -396,8 +401,10 @@ public class MessageSender {
   {
     if (isLocalSelfSend(context, recipient, forceSms)) {
       sendLocalMediaSelf(context, messageId);
-    } else if (isGroupPushSend(recipient)) {
+    } else if (recipient.isPushGroup()) {
       sendGroupPush(context, recipient, messageId, null, uploadJobIds);
+    } else if (recipient.isDistributionList()) {
+      sendDistributionList(context, recipient, messageId, uploadJobIds);
     } else if (!forceSms && isPushMediaSend(context, recipient)) {
       sendMediaPush(context, recipient, messageId, uploadJobIds);
     } else {
@@ -444,6 +451,17 @@ public class MessageSender {
     }
   }
 
+  private static void sendDistributionList(Context context, Recipient recipient, long messageId, @NonNull Collection<String> uploadJobIds) {
+    JobManager jobManager = ApplicationDependencies.getJobManager();
+
+    if (uploadJobIds.size() > 0) {
+      Job groupSend = new PushDistributionListSendJob(messageId, recipient.getId(), !uploadJobIds.isEmpty());
+      jobManager.add(groupSend, uploadJobIds, uploadJobIds.isEmpty() ? null : recipient.getId().toQueueKey());
+    } else {
+      PushDistributionListSendJob.enqueue(context, jobManager, messageId, recipient.getId());
+    }
+  }
+
   private static void sendSms(Recipient recipient, long messageId) {
     // MOLLY: Noop
   }
@@ -474,10 +492,6 @@ public class MessageSender {
     }
 
     return isPushDestination(context, recipient);
-  }
-
-  private static boolean isGroupPushSend(Recipient recipient) {
-    return recipient.isGroup() && !recipient.isMmsGroup();
   }
 
   private static boolean isPushDestination(Context context, Recipient destination) {

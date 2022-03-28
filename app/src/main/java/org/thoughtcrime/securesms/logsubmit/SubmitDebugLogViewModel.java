@@ -12,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import org.signal.core.util.ThreadUtil;
 import org.signal.core.util.logging.Log;
 import org.signal.core.util.tracing.Tracer;
+import org.signal.paging.LivePagedData;
 import org.signal.paging.PagedData;
 import org.signal.paging.PagedDataSource;
 import org.signal.paging.PagingConfig;
@@ -19,10 +20,10 @@ import org.signal.paging.PagingController;
 import org.signal.paging.ProxyPagingController;
 import org.thoughtcrime.securesms.database.LogDatabase;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
-import org.whispersystems.libsignal.util.guava.Optional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class SubmitDebugLogViewModel extends ViewModel {
 
@@ -83,7 +84,7 @@ public class SubmitDebugLogViewModel extends ViewModel {
                                                            .setStartIndex(0)
                                                            .build();
 
-      PagedData<Long, LogLine> pagedData = PagedData.create(dataSource, config);
+      LivePagedData<Long, LogLine> pagedData = PagedData.createForLiveData(dataSource, config);
 
       ThreadUtil.runOnMain(() -> {
         pagingController.set(pagedData.getController());

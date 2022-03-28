@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.AppCapabilities;
-import org.thoughtcrime.securesms.crypto.IdentityKeyUtil;
 import org.thoughtcrime.securesms.crypto.ProfileKeyUtil;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.jobmanager.Data;
@@ -111,6 +110,7 @@ public class RefreshAttributesJob extends BaseJob {
                "\n    Sender Key? " + capabilities.isSenderKey() +
                "\n    Announcement Groups? " + capabilities.isAnnouncementGroup() +
                "\n    Change Number? " + capabilities.isChangeNumber() +
+               "\n    Stories? " + capabilities.isStories() +
                "\n    UUID? " + capabilities.isUuid());
 
     SignalServiceAccountManager signalAccountManager = ApplicationDependencies.getSignalServiceAccountManager();
@@ -120,8 +120,6 @@ public class RefreshAttributesJob extends BaseJob {
                                               capabilities,
                                               phoneNumberDiscoverable,
                                               encryptedDeviceName);
-
-    ApplicationDependencies.getJobManager().add(new RefreshOwnProfileJob());
 
     hasRefreshedThisAppCycle = true;
   }

@@ -2,7 +2,6 @@ package org.whispersystems.signalservice.api.profiles;
 
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -11,12 +10,11 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.signal.zkgroup.InvalidInputException;
 import org.signal.zkgroup.profiles.ProfileKeyCredentialResponse;
 import org.whispersystems.libsignal.logging.Log;
-import org.whispersystems.signalservice.api.push.ACI;
+import org.whispersystems.signalservice.api.push.ServiceId;
 import org.whispersystems.signalservice.internal.util.JsonUtil;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.UUID;
 
 public class SignalServiceProfile {
 
@@ -55,9 +53,9 @@ public class SignalServiceProfile {
   private Capabilities capabilities;
 
   @JsonProperty
-  @JsonSerialize(using = JsonUtil.AciSerializer.class)
-  @JsonDeserialize(using = JsonUtil.AciDeserializer.class)
-  private ACI uuid;
+  @JsonSerialize(using = JsonUtil.ServiceIdSerializer.class)
+  @JsonDeserialize(using = JsonUtil.ServiceIdDeserializer.class)
+  private ServiceId uuid;
 
   @JsonProperty
   private byte[] credential;
@@ -110,7 +108,7 @@ public class SignalServiceProfile {
     return badges;
   }
 
-  public ACI getAci() {
+  public ServiceId getServiceId() {
     return uuid;
   }
 
@@ -175,9 +173,6 @@ public class SignalServiceProfile {
 
   public static class Capabilities {
     @JsonProperty
-    private boolean gv2;
-
-    @JsonProperty
     private boolean storage;
 
     @JsonProperty("gv1-migration")
@@ -192,12 +187,11 @@ public class SignalServiceProfile {
     @JsonProperty
     private boolean changeNumber;
 
+    @JsonProperty
+    private boolean stories;
+
     @JsonCreator
     public Capabilities() {}
-
-    public boolean isGv2() {
-      return gv2;
-    }
 
     public boolean isStorage() {
       return storage;
@@ -217,6 +211,10 @@ public class SignalServiceProfile {
 
     public boolean isChangeNumber() {
       return changeNumber;
+    }
+
+    public boolean isStories() {
+      return stories;
     }
   }
 

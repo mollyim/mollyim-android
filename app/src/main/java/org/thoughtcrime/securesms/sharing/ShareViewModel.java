@@ -21,11 +21,11 @@ import org.thoughtcrime.securesms.providers.BlobProvider;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.util.DefaultValueLiveData;
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingModelList;
-import org.whispersystems.libsignal.util.guava.Optional;
 
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import io.reactivex.rxjava3.core.Single;
@@ -76,8 +76,7 @@ public class ShareViewModel extends ViewModel {
           if (record.isPresent() && record.get().isAnnouncementGroup() && !record.get().isAdmin(Recipient.self())) {
             return ContactSelectResult.FALSE_AND_SHOW_PERMISSION_TOAST;
           }
-        } else if (SmsShareRestriction.DISALLOW_SMS_CONTACTS.equals(smsShareRestriction.getValue()) &&
-                   (!recipient.isRegistered() || recipient.isForceSmsSelection())) {
+        } else if (SmsShareRestriction.DISALLOW_SMS_CONTACTS.equals(smsShareRestriction.getValue()) && isRecipientAnSmsContact(recipient)) {
           return ContactSelectResult.FALSE_AND_SHOW_SMS_MULTISELECT_TOAST;
         }
       }
@@ -119,7 +118,7 @@ public class ShareViewModel extends ViewModel {
   }
 
   void onNonExternalShare() {
-    shareData.setValue(Optional.absent());
+    shareData.setValue(Optional.empty());
     externalShare = false;
   }
 
@@ -137,7 +136,7 @@ public class ShareViewModel extends ViewModel {
 
   @Override
   protected void onCleared() {
-    ShareData data = shareData.getValue() != null ? shareData.getValue().orNull() : null;
+    ShareData data = shareData.getValue() != null ? shareData.getValue().orElse(null) : null;
 
     if (data != null && data.isExternal()  && data.isForIntent() && !mediaUsed) {
       Log.i(TAG, "Clearing out unused data.");
@@ -154,7 +153,7 @@ public class ShareViewModel extends ViewModel {
       if (shareContact.getRecipientId().isPresent()) {
         Recipient recipient = Recipient.live(shareContact.getRecipientId().get()).get();
 
-        if (!recipient.isRegistered() || recipient.isForceSmsSelection()) {
+        if (isRecipientAnSmsContact(recipient)) {
           return SmsShareRestriction.DISALLOW_MULTI_SHARE;
         } else {
           return SmsShareRestriction.DISALLOW_SMS_CONTACTS;
@@ -165,6 +164,10 @@ public class ShareViewModel extends ViewModel {
     } else {
       return SmsShareRestriction.DISALLOW_SMS_CONTACTS;
     }
+  }
+
+  private static boolean isRecipientAnSmsContact(@NonNull Recipient recipient) {
+    return !recipient.isDistributionList() && (!recipient.isRegistered() || recipient.isForceSmsSelection());
   }
 
   enum ContactSelectResult {

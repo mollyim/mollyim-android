@@ -36,9 +36,12 @@ import org.thoughtcrime.securesms.mediasend.Media;
 import org.thoughtcrime.securesms.profiles.ProfileName;
 import org.thoughtcrime.securesms.profiles.manage.ManageProfileViewModel.AvatarState;
 import org.thoughtcrime.securesms.util.NameUtil;
+import org.thoughtcrime.securesms.util.livedata.LiveDataUtil;
 import org.thoughtcrime.securesms.util.navigation.SafeNavigation;
 import org.thoughtcrime.securesms.util.views.SimpleProgressDialog;
-import org.whispersystems.libsignal.util.guava.Optional;
+
+import java.util.Arrays;
+import java.util.Optional;
 
 public class ManageProfileFragment extends LoggingFragment {
 
@@ -124,7 +127,8 @@ public class ManageProfileFragment extends LoggingFragment {
   private void initializeViewModel() {
     viewModel = ViewModelProviders.of(this, new ManageProfileViewModel.Factory()).get(ManageProfileViewModel.class);
 
-    LiveData<Optional<byte[]>> avatarImage = Transformations.distinctUntilChanged(Transformations.map(viewModel.getAvatar(), avatar -> Optional.fromNullable(avatar.getAvatar())));
+    LiveData<Optional<byte[]>> avatarImage = Transformations.map(LiveDataUtil.distinctUntilChanged(viewModel.getAvatar(), (b1, b2) -> Arrays.equals(b1.getAvatar(), b2.getAvatar())),
+                                                                 b -> Optional.ofNullable(b.getAvatar()));
     avatarImage.observe(getViewLifecycleOwner(), this::presentAvatarImage);
 
     viewModel.getAvatar().observe(getViewLifecycleOwner(), this::presentAvatarPlaceholder);
@@ -148,7 +152,7 @@ public class ManageProfileFragment extends LoggingFragment {
            .circleCrop()
            .into(avatarView);
     } else {
-      avatarView.setImageDrawable(null);
+      Glide.with(this).load((Drawable) null).into(avatarView);
     }
   }
 
@@ -226,7 +230,7 @@ public class ManageProfileFragment extends LoggingFragment {
 
   private void presentBadge(@NonNull Optional<Badge> badge) {
     if (badge.isPresent() && badge.get().getVisible() && !badge.get().isExpired()) {
-      badgeView.setBadge(badge.orNull());
+      badgeView.setBadge(badge.orElse(null));
     } else {
       badgeView.setBadge(null);
     }

@@ -7,6 +7,7 @@ import org.thoughtcrime.securesms.attachments.Attachment;
 import org.thoughtcrime.securesms.contactshare.Contact;
 import org.thoughtcrime.securesms.database.ThreadDatabase;
 import org.thoughtcrime.securesms.database.model.Mention;
+import org.thoughtcrime.securesms.database.model.StoryType;
 import org.thoughtcrime.securesms.database.model.databaseprotos.DecryptedGroupV2Context;
 import org.thoughtcrime.securesms.linkpreview.LinkPreview;
 import org.thoughtcrime.securesms.recipients.Recipient;
@@ -31,8 +32,20 @@ public final class OutgoingGroupUpdateMessage extends OutgoingSecureMediaMessage
                                     @NonNull List<LinkPreview> previews,
                                     @NonNull List<Mention> mentions)
   {
-    super(recipient, groupContext.getEncodedGroupContext(), avatar, sentTimeMillis,
-          ThreadDatabase.DistributionTypes.CONVERSATION, expiresIn, viewOnce, quote, contacts, previews, mentions);
+    super(recipient,
+          groupContext.getEncodedGroupContext(),
+          avatar,
+          sentTimeMillis,
+          ThreadDatabase.DistributionTypes.CONVERSATION,
+          expiresIn,
+          viewOnce,
+          StoryType.NONE,
+          null,
+          false,
+          quote,
+          contacts,
+          previews,
+          mentions);
 
     this.messageGroupContext = groupContext;
   }

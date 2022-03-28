@@ -21,6 +21,7 @@ import org.thoughtcrime.securesms.push.SignalServiceNetworkAccess;
 import org.thoughtcrime.securesms.recipients.LiveRecipientCache;
 import org.thoughtcrime.securesms.revealable.ViewOnceMessageManager;
 import org.thoughtcrime.securesms.service.ExpiringMessageManager;
+import org.thoughtcrime.securesms.service.ExpiringStoriesManager;
 import org.thoughtcrime.securesms.service.PendingRetryReceiptManager;
 import org.thoughtcrime.securesms.service.TrimThreadsByDateManager;
 import org.thoughtcrime.securesms.service.webrtc.SignalCallManager;
@@ -127,6 +128,11 @@ public class MockApplicationDependencyProvider implements ApplicationDependencie
   }
 
   @Override
+  public @NonNull ExpiringStoriesManager provideExpiringStoriesManager() {
+    return null;
+  }
+
+  @Override
   public @NonNull ExpiringMessageManager provideExpiringMessageManager() {
     return null;
   }
@@ -198,6 +204,11 @@ public class MockApplicationDependencyProvider implements ApplicationDependencie
 
   @Override
   public @NonNull AudioManagerCompat provideAndroidCallAudioManager() {
+    return null;
+  }
+
+  @Override
+  public @NonNull DonationsService provideSignalDonationsService() {
     return null;
   }
 

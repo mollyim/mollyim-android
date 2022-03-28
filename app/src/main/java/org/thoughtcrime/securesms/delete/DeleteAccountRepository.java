@@ -12,9 +12,13 @@ import org.thoughtcrime.securesms.database.GroupDatabase;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.groups.GroupManager;
+import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.pin.KbsEnclaves;
+import org.thoughtcrime.securesms.subscription.Subscriber;
 import org.thoughtcrime.securesms.util.ServiceUtil;
 import org.whispersystems.signalservice.api.util.PhoneNumberFormatter;
+import org.whispersystems.signalservice.internal.EmptyResponse;
+import org.whispersystems.signalservice.internal.ServiceResponse;
 import org.whispersystems.signalservice.internal.contacts.crypto.UnauthenticatedResponseException;
 
 import java.io.IOException;
@@ -33,7 +37,7 @@ class DeleteAccountRepository {
   }
 
   @NonNull String getRegionDisplayName(@NonNull String region) {
-    return PhoneNumberFormatter.getRegionDisplayName(region).or("");
+    return PhoneNumberFormatter.getRegionDisplayName(region).orElse("");
   }
 
   int getRegionCountryCode(@NonNull String region) {
@@ -42,6 +46,35 @@ class DeleteAccountRepository {
 
   void deleteAccount(@NonNull Consumer<DeleteAccountEvent> onDeleteAccountEvent) {
     SignalExecutors.BOUNDED.execute(() -> {
+      if (SignalStore.signalDonationsValues().getSubscriber() != null) {
+        Log.i(TAG, "deleteAccount: attempting to cancel subscription");
+        onDeleteAccountEvent.accept(DeleteAccountEvent.CancelingSubscription.INSTANCE);
+
+        Subscriber                     subscriber                 = SignalStore.signalDonationsValues().requireSubscriber();
+        ServiceResponse<EmptyResponse> cancelSubscriptionResponse = ApplicationDependencies.getSignalDonationsService()
+                                                                                           .cancelSubscription(subscriber.getSubscriberId())
+                                                                                           .blockingGet();
+
+        if (cancelSubscriptionResponse.getExecutionError().isPresent()) {
+          Log.w(TAG, "deleteAccount: failed attempt to cancel subscription");
+          onDeleteAccountEvent.accept(DeleteAccountEvent.CancelSubscriptionFailed.INSTANCE);
+          return;
+        }
+
+        switch (cancelSubscriptionResponse.getStatus()) {
+          case 404:
+            Log.i(TAG, "deleteAccount: subscription does not exist. Continuing deletion...");
+            break;
+          case 200:
+            Log.i(TAG, "deleteAccount: successfully cancelled subscription. Continuing deletion...");
+            break;
+          default:
+            Log.w(TAG, "deleteAccount: an unexpected error occurred. " + cancelSubscriptionResponse.getStatus());
+            onDeleteAccountEvent.accept(DeleteAccountEvent.CancelSubscriptionFailed.INSTANCE);
+            return;
+        }
+      }
+
       Log.i(TAG, "deleteAccount: attempting to leave groups...");
 
       int groupsLeft = 0;
@@ -99,7 +132,7 @@ class DeleteAccountRepository {
   }
 
   private static @NonNull Country getCountryForRegion(@NonNull String region) {
-    return new Country(PhoneNumberFormatter.getRegionDisplayName(region).or(""),
+    return new Country(PhoneNumberFormatter.getRegionDisplayName(region).orElse(""),
                        PhoneNumberUtil.getInstance().getCountryCodeForRegion(region),
                        region);
   }

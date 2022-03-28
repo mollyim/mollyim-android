@@ -9,7 +9,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
-import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -17,6 +16,8 @@ import org.signal.storageservice.protos.groups.local.DecryptedGroup
 import org.signal.storageservice.protos.groups.local.DecryptedMember
 import org.signal.zkgroup.groups.GroupMasterKey
 import org.thoughtcrime.securesms.conversation.colors.AvatarColor
+import org.thoughtcrime.securesms.database.model.DistributionListId
+import org.thoughtcrime.securesms.database.model.DistributionListRecord
 import org.thoughtcrime.securesms.database.model.Mention
 import org.thoughtcrime.securesms.database.model.MessageId
 import org.thoughtcrime.securesms.database.model.MessageRecord
@@ -32,10 +33,10 @@ import org.thoughtcrime.securesms.util.CursorUtil
 import org.whispersystems.libsignal.IdentityKey
 import org.whispersystems.libsignal.SignalProtocolAddress
 import org.whispersystems.libsignal.state.SessionRecord
-import org.whispersystems.libsignal.util.guava.Optional
 import org.whispersystems.signalservice.api.push.ACI
 import org.whispersystems.signalservice.api.push.PNI
 import org.whispersystems.signalservice.api.util.UuidUtil
+import java.util.Optional
 import java.util.UUID
 
 @RunWith(AndroidJUnit4::class)
@@ -52,6 +53,7 @@ class RecipientDatabaseTest_merges {
   private lateinit var mentionDatabase: MentionDatabase
   private lateinit var reactionDatabase: ReactionDatabase
   private lateinit var notificationProfileDatabase: NotificationProfileDatabase
+  private lateinit var distributionListDatabase: DistributionListDatabase
 
   private val localAci = ACI.from(UUID.randomUUID())
   private val localPni = PNI.from(UUID.randomUUID())
@@ -69,11 +71,10 @@ class RecipientDatabaseTest_merges {
     mentionDatabase = SignalDatabase.mentions
     reactionDatabase = SignalDatabase.reactions
     notificationProfileDatabase = SignalDatabase.notificationProfiles
+    distributionListDatabase = SignalDatabase.distributionLists
 
     SignalStore.account().setAci(localAci)
     SignalStore.account().setPni(localPni)
-
-    ensureDbEmpty()
   }
 
   /** High trust lets you merge two different users into one. You should prefer the ACI user. Not shown: merging threads, dropping e164 sessions, etc. */
@@ -119,6 +120,8 @@ class RecipientDatabaseTest_merges {
     notificationProfileDatabase.addAllowedRecipient(profileId = profile1.id, recipientId = recipientIdE164)
     notificationProfileDatabase.addAllowedRecipient(profileId = profile2.id, recipientId = recipientIdE164)
     notificationProfileDatabase.addAllowedRecipient(profileId = profile2.id, recipientId = recipientIdAciB)
+
+    val distributionListId: DistributionListId = distributionListDatabase.createList("testlist", listOf(recipientIdE164, recipientIdAciB))!!
 
     // Merge
     val retrievedId: RecipientId = recipientDatabase.getAndPossiblyMerge(ACI_A, E164_A, true)
@@ -201,24 +204,22 @@ class RecipientDatabaseTest_merges {
 
     assertThat("Notification Profile 1 should now only contain ACI $recipientIdAci", updatedProfile1.allowedMembers, Matchers.containsInAnyOrder(recipientIdAci))
     assertThat("Notification Profile 2 should now contain ACI A ($recipientIdAci) and ACI B ($recipientIdAciB)", updatedProfile2.allowedMembers, Matchers.containsInAnyOrder(recipientIdAci, recipientIdAciB))
+
+    // Distribution List validation
+    val updatedList: DistributionListRecord = distributionListDatabase.getList(distributionListId)!!
+
+    assertThat("Distribution list should have updated $recipientIdE164 to $recipientIdAci", updatedList.members, Matchers.containsInAnyOrder(recipientIdAci, recipientIdAciB))
   }
 
   private val context: Application
     get() = InstrumentationRegistry.getInstrumentation().targetContext.applicationContext as Application
 
-  private fun ensureDbEmpty() {
-    SignalDatabase.rawDatabase.rawQuery("SELECT COUNT(*) FROM ${RecipientDatabase.TABLE_NAME}", null).use { cursor ->
-      assertTrue(cursor.moveToFirst())
-      assertEquals(0, cursor.getLong(0))
-    }
-  }
-
-  private fun smsMessage(sender: RecipientId, time: Long = 0, body: String = "", groupId: Optional<GroupId> = Optional.absent()): IncomingTextMessage {
+  private fun smsMessage(sender: RecipientId, time: Long = 0, body: String = "", groupId: Optional<GroupId> = Optional.empty()): IncomingTextMessage {
     return IncomingTextMessage(sender, 1, time, time, time, body, groupId, 0, true, null)
   }
 
-  private fun mmsMessage(sender: RecipientId, time: Long = 0, body: String = "", groupId: Optional<GroupId> = Optional.absent()): IncomingMediaMessage {
-    return IncomingMediaMessage(sender, groupId, body, time, time, time, emptyList(), 0, 0, false, false, true, Optional.absent())
+  private fun mmsMessage(sender: RecipientId, time: Long = 0, body: String = "", groupId: Optional<GroupId> = Optional.empty()): IncomingMediaMessage {
+    return IncomingMediaMessage(sender, groupId, body, time, time, time, emptyList(), 0, 0, false, false, true, Optional.empty())
   }
 
   private fun identityKey(value: Byte): IdentityKey {

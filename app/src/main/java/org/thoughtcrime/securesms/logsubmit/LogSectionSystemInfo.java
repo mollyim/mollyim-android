@@ -20,6 +20,7 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.net.StandardUserAgentInterceptor;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.service.KeyCachingService;
+import org.thoughtcrime.securesms.service.webrtc.AndroidTelecomUtil;
 import org.thoughtcrime.securesms.util.AppSignatureUtil;
 import org.thoughtcrime.securesms.util.ByteUnit;
 import org.thoughtcrime.securesms.util.DeviceProperties;
@@ -77,6 +78,7 @@ public class LogSectionSystemInfo implements LogSection {
     builder.append("Days Installed: ").append(VersionTracker.getDaysSinceFirstInstalled(context)).append("\n");
     builder.append("Build Variant : ").append(BuildConfig.FLAVOR_distribution).append(BuildConfig.BUILD_ENVIRONMENT_TYPE).append(BuildConfig.BUILD_VARIANT_TYPE).append("\n");
     builder.append("Emoji Version : ").append(getEmojiVersionString(context)).append("\n");
+    builder.append("Telecom       : ").append(AndroidTelecomUtil.getTelecomSupported()).append("\n");
     builder.append("User-Agent    : ").append(StandardUserAgentInterceptor.USER_AGENT).append("\n");
     builder.append("App           : ");
     try {
@@ -151,7 +153,7 @@ public class LogSectionSystemInfo implements LogSection {
   }
 
   private static String getSigningString(@NonNull Context context) {
-    return AppSignatureUtil.getAppSignature(context).or("Unknown");
+    return AppSignatureUtil.getAppSignature(context).orElse("Unknown");
   }
 
   private static String getPlayServicesString(@NonNull Context context) {

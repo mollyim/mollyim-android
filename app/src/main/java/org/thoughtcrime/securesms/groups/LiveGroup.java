@@ -27,13 +27,13 @@ import org.thoughtcrime.securesms.recipients.LiveRecipient;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.util.livedata.LiveDataUtil;
-import org.whispersystems.signalservice.api.push.ACI;
 import org.whispersystems.signalservice.api.push.ServiceId;
-import org.whispersystems.signalservice.api.util.UuidUtil;
 
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 public final class LiveGroup {
 
@@ -59,7 +59,7 @@ public final class LiveGroup {
 
     this.groupDatabase     = SignalDatabase.groups();
     this.recipient         = Transformations.switchMap(liveRecipient, LiveRecipient::getLiveData);
-    this.groupRecord       = LiveDataUtil.filterNotNull(LiveDataUtil.mapAsync(recipient, groupRecipient -> groupDatabase.getGroup(groupRecipient.getId()).orNull()));
+    this.groupRecord       = LiveDataUtil.filterNotNull(LiveDataUtil.mapAsync(recipient, groupRecipient -> groupDatabase.getGroup(groupRecipient.getId()).orElse(null)));
     this.fullMembers       = mapToFullMembers(this.groupRecord);
     this.requestingMembers = mapToRequestingMembers(this.groupRecord);
 
@@ -141,6 +141,10 @@ public final class LiveGroup {
 
   public LiveData<Boolean> isSelfAdmin() {
     return Transformations.map(groupRecord, g -> g.isAdmin(Recipient.self()));
+  }
+
+  public LiveData<Set<UUID>> getBannedMembers() {
+    return Transformations.map(groupRecord, g -> g.isV2Group() ? g.requireV2GroupProperties().getBannedMembers() : Collections.emptySet());
   }
 
   public LiveData<Boolean> isActive() {

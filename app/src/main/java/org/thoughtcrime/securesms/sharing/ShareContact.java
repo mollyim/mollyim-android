@@ -4,13 +4,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.thoughtcrime.securesms.recipients.RecipientId;
-import org.whispersystems.libsignal.util.guava.Optional;
 
 import java.util.Objects;
+import java.util.Optional;
 
 public final class ShareContact {
   private final Optional<RecipientId> recipientId;
   private final String                number;
+
+  public ShareContact(@NonNull RecipientId recipientId) {
+    this.recipientId = Optional.of(recipientId);
+    this.number      = null;
+  }
 
   public ShareContact(@NonNull Optional<RecipientId> recipientId, @Nullable String number) {
     this.recipientId = recipientId;

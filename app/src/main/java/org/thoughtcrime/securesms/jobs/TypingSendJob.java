@@ -16,13 +16,13 @@ import org.thoughtcrime.securesms.net.NotPushRegisteredException;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
-import org.whispersystems.libsignal.util.guava.Optional;
 import org.whispersystems.signalservice.api.CancelationException;
 import org.whispersystems.signalservice.api.messages.SignalServiceTypingMessage;
 import org.whispersystems.signalservice.api.messages.SignalServiceTypingMessage.Action;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 public class TypingSendJob extends BaseJob {
@@ -112,8 +112,8 @@ public class TypingSendJob extends BaseJob {
       return;
     }
 
-    List<Recipient>  recipients     = Collections.singletonList(recipient);
-    Optional<byte[]> groupId        = Optional.absent();
+    List<Recipient>  recipients = Collections.singletonList(recipient);
+    Optional<byte[]> groupId    = Optional.empty();
 
     if (recipient.isGroup()) {
       recipients = SignalDatabase.groups().getGroupMembers(recipient.requireGroupId(), GroupDatabase.MemberSet.FULL_MEMBERS_EXCLUDING_SELF);
@@ -122,14 +122,13 @@ public class TypingSendJob extends BaseJob {
 
     recipients = RecipientUtil.getEligibleForSending(Stream.of(recipients)
                                                            .map(Recipient::resolve)
-                                                           .filter(r -> !r.isBlocked())
                                                            .toList());
 
     SignalServiceTypingMessage typingMessage = new SignalServiceTypingMessage(typing ? Action.STARTED : Action.STOPPED, System.currentTimeMillis(), groupId);
 
     try {
       GroupSendUtil.sendTypingMessage(context,
-                                      recipient.getGroupId().transform(GroupId::requireV2).orNull(),
+                                      recipient.getGroupId().map(GroupId::requireV2).orElse(null),
                                       recipients,
                                       typingMessage,
                                       this::isCanceled);

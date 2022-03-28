@@ -237,7 +237,7 @@ public class ReactionSendJob extends BaseJob {
     List<Recipient>          nonSelfDestinations = destinations.stream().filter(r -> !r.isSelf()).collect(Collectors.toList());
     boolean                  includesSelf        = nonSelfDestinations.size() != destinations.size();
     List<SendMessageResult>  results             = GroupSendUtil.sendResendableDataMessage(context,
-                                                                                           conversationRecipient.getGroupId().transform(GroupId::requireV2).orNull(),
+                                                                                           conversationRecipient.getGroupId().map(GroupId::requireV2).orElse(null),
                                                                                            nonSelfDestinations,
                                                                                            false,
                                                                                            ContentHint.RESENDABLE,
@@ -248,7 +248,7 @@ public class ReactionSendJob extends BaseJob {
       results.add(ApplicationDependencies.getSignalServiceMessageSender().sendSyncMessage(dataMessage));
     }
 
-    return GroupSendJobHelper.getCompletedSends(destinations, results);
+    return GroupSendJobHelper.getCompletedSends(destinations, results).completed;
   }
 
   private static SignalServiceDataMessage.Reaction buildReaction(@NonNull Context context,

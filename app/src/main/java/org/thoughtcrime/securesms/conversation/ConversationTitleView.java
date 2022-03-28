@@ -17,8 +17,9 @@ import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 
 import org.thoughtcrime.securesms.R;
+import org.thoughtcrime.securesms.avatar.view.AvatarView;
 import org.thoughtcrime.securesms.badges.BadgeImageView;
-import org.thoughtcrime.securesms.components.AvatarImageView;
+import org.thoughtcrime.securesms.database.model.StoryViewState;
 import org.thoughtcrime.securesms.mms.GlideRequests;
 import org.thoughtcrime.securesms.recipients.LiveRecipient;
 import org.thoughtcrime.securesms.recipients.Recipient;
@@ -29,7 +30,7 @@ import org.thoughtcrime.securesms.util.ViewUtil;
 
 public class ConversationTitleView extends RelativeLayout {
 
-  private AvatarImageView avatar;
+  private AvatarView      avatar;
   private BadgeImageView  badge;
   private TextView        title;
   private TextView        subtitle;
@@ -111,7 +112,7 @@ public class ConversationTitleView extends RelativeLayout {
     title.setCompoundDrawablesRelativeWithIntrinsicBounds(startDrawable, null, endDrawable, null);
 
     if (recipient != null) {
-      this.avatar.setAvatar(glideRequests, recipient, false);
+      this.avatar.displayChatAvatar(glideRequests, recipient, false);
     }
 
     if (recipient == null || recipient.isSelf()) {
@@ -121,6 +122,10 @@ public class ConversationTitleView extends RelativeLayout {
     }
 
     updateVerifiedSubtitleVisibility();
+  }
+
+  public void setStoryRingFromState(@NonNull StoryViewState storyViewState) {
+    avatar.setStoryRingFromState(storyViewState);
   }
 
   public void setVerified(boolean verified) {
