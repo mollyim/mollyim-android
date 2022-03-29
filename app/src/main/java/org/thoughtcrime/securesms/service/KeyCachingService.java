@@ -175,9 +175,9 @@ public class KeyCachingService extends Service {
 
     cancelTimeout();
 
-    if (ApplicationMigrations.isUpdate(this) ||
-        EventBus.getDefault().getStickyEvent(TransferStatus.class) != null) {
-      Log.w(TAG, "Cannot clear key during update or device transfer.");
+    if ((ApplicationMigrations.isUpdate(this) && ApplicationMigrations.isUiBlockingMigrationRunning()) ||
+        (EventBus.getDefault().getStickyEvent(TransferStatus.class) != null)) {
+      Log.w(TAG, "Cannot lock during app migration or device transfer.");
       return;
     }
 
