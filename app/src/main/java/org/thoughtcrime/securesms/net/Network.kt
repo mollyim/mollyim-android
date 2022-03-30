@@ -1,7 +1,6 @@
 package org.thoughtcrime.securesms.net
 
 import okhttp3.Dns
-import org.thoughtcrime.securesms.BuildConfig
 import java.io.IOException
 import java.net.Proxy
 import javax.net.SocketFactory
@@ -42,22 +41,6 @@ object Network {
 
   private val sequentialDns: Dns = SequentialDns(
     Dns.SYSTEM,
-    CustomDns("1.1.1.1"),
-    StaticDns(
-      mapOf(
-        BuildConfig.SIGNAL_URL.stripProtocol() to BuildConfig.SIGNAL_SERVICE_IPS.toSet(),
-        BuildConfig.STORAGE_URL.stripProtocol() to BuildConfig.SIGNAL_STORAGE_IPS.toSet(),
-        BuildConfig.SIGNAL_CDN_URL.stripProtocol() to BuildConfig.SIGNAL_CDN_IPS.toSet(),
-        BuildConfig.SIGNAL_CDN2_URL.stripProtocol() to BuildConfig.SIGNAL_CDN2_IPS.toSet(),
-        BuildConfig.SIGNAL_CONTACT_DISCOVERY_URL.stripProtocol() to BuildConfig.SIGNAL_CDS_IPS.toSet(),
-        BuildConfig.SIGNAL_KEY_BACKUP_URL.stripProtocol() to BuildConfig.SIGNAL_KBS_IPS.toSet(),
-        BuildConfig.SIGNAL_SFU_URL.stripProtocol() to BuildConfig.SIGNAL_SFU_IPS.toSet(),
-        BuildConfig.CONTENT_PROXY_HOST.stripProtocol() to BuildConfig.SIGNAL_CONTENT_PROXY_IPS.toSet(),
-      )
-    )
+    dnsOverHttps,
   )
-
-  private fun String.stripProtocol(): String {
-    return this.removePrefix("https://")
-  }
 }
