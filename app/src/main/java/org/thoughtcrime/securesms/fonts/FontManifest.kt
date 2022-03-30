@@ -13,9 +13,10 @@ import java.io.File
  *
  * @param scripts A collection of supported scripts
  */
-data class FontManifest(
-  val scripts: FontScripts
-) {
+class FontManifest {
+  @JsonProperty
+  lateinit var scripts: FontScripts
+
   /**
    * A collection of supported scripts
    *
@@ -26,27 +27,51 @@ data class FontManifest(
    * @param chineseTraditional Hant Script Fonts
    * @param chineseSimplified Hans Script Fonts
    */
-  data class FontScripts(
-    @JsonProperty("latin-extended") val latinExtended: FontScript,
-    @JsonProperty("cyrillic-extended") val cyrillicExtended: FontScript,
-    val devanagari: FontScript,
-    @JsonProperty("chinese-traditional-hk") val chineseTraditionalHk: FontScript,
-    @JsonProperty("chinese-traditional") val chineseTraditional: FontScript,
-    @JsonProperty("chinese-simplified") val chineseSimplified: FontScript,
-    val arabic: FontScript,
-    val japanese: FontScript,
-  )
+  class FontScripts {
+    @JsonProperty("latin-extended")
+    lateinit var latinExtended: FontScript
+
+    @JsonProperty("cyrillic-extended")
+    lateinit var cyrillicExtended: FontScript
+
+    @JsonProperty
+    lateinit var devanagari: FontScript
+
+    @JsonProperty("chinese-traditional-hk")
+    lateinit var chineseTraditionalHk: FontScript
+
+    @JsonProperty("chinese-traditional")
+    lateinit var chineseTraditional: FontScript
+
+    @JsonProperty("chinese-simplified")
+    lateinit var chineseSimplified: FontScript
+
+    @JsonProperty
+    lateinit var arabic: FontScript
+
+    @JsonProperty
+    lateinit var japanese: FontScript
+  }
 
   /**
    * A collection of fonts for a specific script
    */
-  data class FontScript(
-    val regular: String,
-    val bold: String,
-    val serif: String,
-    val script: String,
-    val condensed: String
-  )
+  class FontScript {
+    @JsonProperty
+    lateinit var regular: String
+
+    @JsonProperty
+    lateinit var bold: String
+
+    @JsonProperty
+    lateinit var serif: String
+
+    @JsonProperty
+    lateinit var script: String
+
+    @JsonProperty
+    lateinit var condensed: String
+  }
 
   companion object {
 

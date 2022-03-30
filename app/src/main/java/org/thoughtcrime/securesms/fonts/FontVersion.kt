@@ -2,6 +2,7 @@ package org.thoughtcrime.securesms.fonts
 
 import android.content.Context
 import androidx.annotation.WorkerThread
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.keyvalue.SignalStore
@@ -16,7 +17,17 @@ import java.util.concurrent.TimeUnit
  * @param id The numeric ID of this version, retrieved from the server
  * @param path The UUID path of this version on disk, where supporting files will be stored.
  */
-data class FontVersion(val id: Long, val path: String) {
+class FontVersion() {
+  @JsonProperty
+  var id: Long = -1
+
+  @JsonProperty
+  lateinit var path: String
+
+  constructor(id: Long, path: String) : this() {
+    this.id = id
+    this.path = path
+  }
 
   companion object {
     val NONE = FontVersion(-1, "")

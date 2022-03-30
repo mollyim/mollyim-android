@@ -2,6 +2,7 @@ package org.thoughtcrime.securesms.fonts
 
 import android.content.Context
 import androidx.annotation.WorkerThread
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.util.EncryptedStreamUtils
@@ -11,7 +12,14 @@ import java.io.File
  * FontFileMap links a network font name (e.g. Inter-Bold.ttf) to a UUID used as an on-disk filename.
  * These mappings are encoded into JSON and stored on disk in a file called .map
  */
-data class FontFileMap(val map: Map<String, String>) {
+class FontFileMap() {
+
+  @JsonProperty
+  lateinit var map: Map<String, String>
+
+  constructor(map: Map<String, String>) : this() {
+    this.map = map
+  }
 
   companion object {
 
@@ -37,7 +45,7 @@ data class FontFileMap(val map: Map<String, String>) {
         FontFileMap(mapOf(nameOnNetwork to nameOnDisk))
       } else {
         Log.d(TAG, "Modifying existing font file map.")
-        fontFileMap.copy(map = fontFileMap.map.plus(nameOnNetwork to nameOnDisk))
+        FontFileMap(fontFileMap.map.plus(nameOnNetwork to nameOnDisk))
       }
 
       setMap(context, fontVersion, newMap)
