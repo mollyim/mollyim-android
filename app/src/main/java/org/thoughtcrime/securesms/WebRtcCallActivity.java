@@ -49,6 +49,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.logging.Log;
+import org.signal.libsignal.protocol.IdentityKey;
 import org.thoughtcrime.securesms.components.TooltipPopup;
 import org.thoughtcrime.securesms.components.sensors.DeviceOrientationMonitor;
 import org.thoughtcrime.securesms.components.webrtc.CallParticipantsListUpdatePopupWindow;
@@ -75,10 +76,10 @@ import org.thoughtcrime.securesms.util.FullscreenHelper;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.ThrottledDebouncer;
 import org.thoughtcrime.securesms.util.Util;
+import org.thoughtcrime.securesms.util.VibrateUtil;
 import org.thoughtcrime.securesms.util.livedata.LiveDataUtil;
 import org.thoughtcrime.securesms.webrtc.CallParticipantsViewState;
 import org.thoughtcrime.securesms.webrtc.audio.SignalAudioManager;
-import org.whispersystems.libsignal.IdentityKey;
 import org.whispersystems.signalservice.api.messages.calls.HangupMessage;
 
 import java.util.List;
@@ -92,6 +93,7 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
   private static final String TAG = Log.tag(WebRtcCallActivity.class);
 
   private static final int STANDARD_DELAY_FINISH = 1000;
+  private static final int VIBRATE_DURATION      = 50;
 
   public static final String ANSWER_ACTION   = WebRtcCallActivity.class.getCanonicalName() + ".ANSWER_ACTION";
   public static final String DENY_ACTION     = WebRtcCallActivity.class.getCanonicalName() + ".DENY_ACTION";
@@ -501,6 +503,11 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
     }
   }
 
+  private void handleCallReconnecting() {
+    callScreen.setStatus(getString(R.string.WebRtcCallActivity__reconnecting));
+    VibrateUtil.vibrate(this, VIBRATE_DURATION);
+  }
+
   private void handleRecipientUnavailable() {
     EventBus.getDefault().removeStickyEvent(WebRtcViewModel.class);
     callScreen.setStatus(getString(R.string.RedPhone_recipient_unavailable));
@@ -623,6 +630,8 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
         handleCallPreJoin(event); break;
       case CALL_CONNECTED:
         handleCallConnected(event); break;
+      case CALL_RECONNECTING:
+        handleCallReconnecting(); break;
       case NETWORK_FAILURE:
         handleServerFailure(); break;
       case CALL_RINGING:

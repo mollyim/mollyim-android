@@ -36,7 +36,10 @@ import net.zetetic.database.sqlcipher.SQLiteStatement;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.signal.core.util.CursorUtil;
+import org.signal.core.util.SqlUtil;
 import org.signal.core.util.logging.Log;
+import org.signal.libsignal.protocol.util.Pair;
 import org.thoughtcrime.securesms.attachments.Attachment;
 import org.thoughtcrime.securesms.attachments.AttachmentId;
 import org.thoughtcrime.securesms.attachments.DatabaseAttachment;
@@ -78,13 +81,10 @@ import org.thoughtcrime.securesms.revealable.ViewOnceUtil;
 import org.thoughtcrime.securesms.sms.IncomingTextMessage;
 import org.thoughtcrime.securesms.sms.OutgoingTextMessage;
 import org.thoughtcrime.securesms.stories.Stories;
-import org.thoughtcrime.securesms.util.CursorUtil;
 import org.thoughtcrime.securesms.util.JsonUtils;
 import org.thoughtcrime.securesms.util.MediaUtil;
-import org.thoughtcrime.securesms.util.SqlUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.Util;
-import org.whispersystems.libsignal.util.Pair;
 import org.whispersystems.signalservice.api.push.ServiceId;
 
 import java.io.IOException;
@@ -133,7 +133,7 @@ public class MmsDatabase extends MessageDatabase {
           static final String MESSAGE_RANGES  = "ranges";
 
   public  static final String VIEW_ONCE       = "reveal_duration";
-          static final String STORY_TYPE      = "is_story";
+  public  static final String STORY_TYPE      = "is_story";
           static final String PARENT_STORY_ID = "parent_story_id";
 
   public static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " (" + ID                     + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -929,9 +929,25 @@ public class MmsDatabase extends MessageDatabase {
       if (messageUpdates.size() > 0 && receiptType == ReceiptType.DELIVERY) {
         earlyDeliveryReceiptCache.increment(messageId.getTimetamp(), messageId.getRecipientId(), timestamp);
       }
-
-      return messageUpdates;
     }
+
+    String columnName = receiptType.getColumnName();
+    for (MessageId storyMessageId : SignalDatabase.storySends().getStoryMessagesFor(messageId)) {
+      database.execSQL("UPDATE " + TABLE_NAME + " SET " +
+                       columnName + " = " + columnName + " + 1, " +
+                       RECEIPT_TIMESTAMP + " = CASE " +
+                         "WHEN " + columnName + " = 0 THEN MAX(" + RECEIPT_TIMESTAMP + ", ?) " +
+                         "ELSE " + RECEIPT_TIMESTAMP + " " +
+                       "END " +
+                       "WHERE " + ID + " = ?",
+                       SqlUtil.buildArgs(timestamp, storyMessageId.getId()));
+
+      SignalDatabase.groupReceipts().update(messageId.getRecipientId(), storyMessageId.getId(), receiptType.getGroupStatus(), timestamp);
+
+      messageUpdates.add(new MessageUpdate(-1, storyMessageId));
+    }
+
+    return messageUpdates;
   }
 
   @Override
@@ -1875,6 +1891,15 @@ public class MmsDatabase extends MessageDatabase {
       } else {
         members.addAll(Stream.of(SignalDatabase.groups().getGroupMembers(message.getRecipient().requireGroupId(), GroupDatabase.MemberSet.FULL_MEMBERS_EXCLUDING_SELF)).map(Recipient::getId).toList());
       }
+
+      receiptDatabase.insert(members, messageId, defaultReceiptStatus, message.getSentTimeMillis());
+
+      for (RecipientId recipientId : earlyDeliveryReceipts.keySet()) {
+        receiptDatabase.update(recipientId, messageId, GroupReceiptDatabase.STATUS_DELIVERED, -1);
+      }
+    } else if (message.getRecipient().isDistributionList()) {
+      GroupReceiptDatabase receiptDatabase = SignalDatabase.groupReceipts();
+      List<RecipientId>    members         = SignalDatabase.distributionLists().getMembers(message.getRecipient().requireDistributionListId());
 
       receiptDatabase.insert(members, messageId, defaultReceiptStatus, message.getSentTimeMillis());
 

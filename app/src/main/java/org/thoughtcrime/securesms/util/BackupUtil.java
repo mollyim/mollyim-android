@@ -14,6 +14,7 @@ import androidx.annotation.VisibleForTesting;
 import androidx.documentfile.provider.DocumentFile;
 
 import org.signal.core.util.logging.Log;
+import org.signal.libsignal.protocol.util.ByteUtil;
 import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.backup.BackupPassphrase;
@@ -21,7 +22,6 @@ import org.thoughtcrime.securesms.database.NoExternalStorageException;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.permissions.Permissions;
-import org.whispersystems.libsignal.util.ByteUtil;
 
 import java.io.File;
 import java.security.SecureRandom;

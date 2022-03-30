@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 
 import org.signal.core.util.concurrent.DeadlockDetector;
 import org.signal.core.util.concurrent.SignalExecutors;
-import org.signal.zkgroup.receipts.ClientZkReceiptOperations;
+import org.signal.libsignal.zkgroup.receipts.ClientZkReceiptOperations;
 import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.components.TypingStatusRepository;
 import org.thoughtcrime.securesms.components.TypingStatusSender;
@@ -106,7 +106,7 @@ public class ApplicationDependencyProvider implements ApplicationDependencies.Pr
 
   @Override
   public @NonNull GroupsV2Operations provideGroupsV2Operations() {
-    return new GroupsV2Operations(provideClientZkOperations());
+    return new GroupsV2Operations(provideClientZkOperations(), FeatureFlags.groupLimits().getHardLimit());
   }
 
   @Override

@@ -10,7 +10,6 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModelProvider;
 
 import org.thoughtcrime.securesms.components.voice.VoiceNoteMediaController;
@@ -19,7 +18,6 @@ import org.thoughtcrime.securesms.devicetransfer.olddevice.OldDeviceTransferLock
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.stories.Stories;
 import org.thoughtcrime.securesms.stories.tabs.ConversationListTabRepository;
-import org.thoughtcrime.securesms.stories.tabs.ConversationListTabsState;
 import org.thoughtcrime.securesms.stories.tabs.ConversationListTabsViewModel;
 import org.thoughtcrime.securesms.util.AppStartup;
 import org.thoughtcrime.securesms.util.CachedInflater;
@@ -60,26 +58,12 @@ public class MainActivity extends PassphraseRequiredActivity implements VoiceNot
     ConversationListTabRepository         repository = new ConversationListTabRepository();
     ConversationListTabsViewModel.Factory factory    = new ConversationListTabsViewModel.Factory(repository);
 
-    navigator.onCreate(savedInstanceState);
-
     handleGroupLinkInIntent(getIntent());
     handleSignalMeIntent(getIntent());
 
     CachedInflater.from(this).clear();
 
     conversationListTabsViewModel = new ViewModelProvider(this, factory).get(ConversationListTabsViewModel.class);
-    Transformations.distinctUntilChanged(Transformations.map(conversationListTabsViewModel.getState(), ConversationListTabsState::getTab))
-                   .observe(this, tab -> {
-                     switch (tab) {
-                       case CHATS:
-                         getSupportFragmentManager().popBackStack();
-                         break;
-                       case STORIES:
-                         navigator.goToStories();
-                         break;
-                     }
-                   });
-
     updateTabVisibility();
   }
 
@@ -132,11 +116,11 @@ public class MainActivity extends PassphraseRequiredActivity implements VoiceNot
   private void updateTabVisibility() {
     if (Stories.isFeatureEnabled()) {
       findViewById(R.id.conversation_list_tabs).setVisibility(View.VISIBLE);
-      WindowUtil.setNavigationBarColor(getWindow(), ContextCompat.getColor(this, R.color.signal_background_secondary));
+      WindowUtil.setNavigationBarColor(getWindow(), ContextCompat.getColor(this, R.color.signal_colorSecondaryContainer));
     } else {
       findViewById(R.id.conversation_list_tabs).setVisibility(View.GONE);
       WindowUtil.setNavigationBarColor(getWindow(), ContextCompat.getColor(this, R.color.signal_background_primary));
-      navigator.goToChats();
+      conversationListTabsViewModel.onChatsSelected();
     }
   }
 

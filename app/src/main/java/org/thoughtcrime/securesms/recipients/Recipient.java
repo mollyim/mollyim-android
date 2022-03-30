@@ -13,7 +13,7 @@ import androidx.annotation.WorkerThread;
 import com.annimon.stream.Stream;
 
 import org.signal.core.util.logging.Log;
-import org.signal.zkgroup.profiles.ProfileKeyCredential;
+import org.signal.libsignal.zkgroup.profiles.ProfileKeyCredential;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.badges.models.Badge;
 import org.thoughtcrime.securesms.contacts.avatars.ContactPhoto;
@@ -1152,6 +1152,10 @@ public class Recipient {
 
   public boolean isReleaseNotes() {
     return isReleaseNotesRecipient;
+  }
+
+  public boolean showVerified() {
+    return isReleaseNotesRecipient || isSelf;
   }
 
   @Override

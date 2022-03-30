@@ -165,6 +165,7 @@
   <!--Label for my stories when selecting who to send media to-->
   <string name="ContactsCursorLoader_my_stories">Poveștile mele</string>
   <!--Action for creating a new story-->
+  <string name="ContactsCursorLoader_new_story">Poveste nouă</string>
   <!--ContactsDatabase-->
   <string name="ContactsDatabase_message_s">Mesaj %s</string>
   <string name="ContactsDatabase_signal_call_s">Apel Signal %s</string>
@@ -323,8 +324,11 @@
   <!--Message shown to indicate which notification profile is on/active-->
   <string name="ConversationFragment__s_on">%1$s activ</string>
   <!--Dialog title for block group link join requests-->
+  <string name="ConversationFragment__block_request">Blochez cererea?</string>
   <!--Dialog message for block group link join requests-->
+  <string name="ConversationFragment__s_will_not_be_able_to_join_or_request_to_join_this_group_via_the_group_link">%1$s nu se va mai putea alătura grupului folosind linkul acestuia. Dar vei putea în continuare să-i adaugi manual.</string>
   <!--Dialog confirm block request button-->
+  <string name="ConversationFragment__block_request_button">Blochează cererea</string>
   <!--Dialog cancel block request button-->
   <string name="ConversationFragment__cancel">Anulare</string>
   <!--Message shown after successfully blocking join requests for a user-->
@@ -441,8 +445,11 @@
   <string name="RestoreBackupFragment__choose_folder">Alege directorul</string>
   <string name="RestoreBackupFragment__not_now">Nu acum</string>
   <!--Couldn\'t find the selected backup-->
+  <string name="RestoreBackupFragment__backup_not_found">Backup-ul  nu a fost găsit.</string>
   <!--Couldn\'t read the selected backup-->
+  <string name="RestoreBackupFragment__backup_could_not_be_read">Backup-ul nu a putut fi citit.</string>
   <!--Backup has an unsupported file extension-->
+  <string name="RestoreBackupFragment__backup_has_a_bad_extension">Backup-ul are o extensie greșită.</string>
   <!--BackupsPreferenceFragment-->
   <string name="BackupsPreferenceFragment__chat_backups">Backup-uri pt. conversații</string>
   <string name="BackupsPreferenceFragment__backups_are_encrypted_with_a_passphrase">Backup-urile sunt criptate cu o parolă și sunt stocate pe dispozitivul tău.</string>
@@ -801,11 +808,15 @@
   <string name="GroupJoinBottomSheetDialogFragment_encountered_a_network_error">A apărut o eroare de rețea.</string>
   <string name="GroupJoinBottomSheetDialogFragment_this_group_link_is_not_active">Acest link de grup nu este activ</string>
   <!--Title shown when there was an known issue getting group information from a group link-->
+  <string name="GroupJoinBottomSheetDialogFragment_cant_join_group">Nu se poate realiza alăturarea la grup.</string>
   <!--Message shown when you try to get information for a group via link but an admin has removed you-->
+  <string name="GroupJoinBottomSheetDialogFragment_you_cant_join_this_group_via_the_group_link_because_an_admin_removed_you">Nu te poți alătura acestui grup prin linkul grupului deoarece un administrator te-a eliminat.</string>
   <!--Message shown when you try to get information for a group via link but the link is no longer valid-->
   <string name="GroupJoinBottomSheetDialogFragment_this_group_link_is_no_longer_valid">Acest link de grup nu mai este valid.</string>
   <!--Title shown when there was an unknown issue getting group information from a group link-->
+  <string name="GroupJoinBottomSheetDialogFragment_link_error">Eroare de link</string>
   <!--Message shown when you try to get information for a group via link but an unknown issue occurred-->
+  <string name="GroupJoinBottomSheetDialogFragment_joining_via_this_link_failed_try_joining_again_later">Alăturarea cu acest link a eșuat. Încearcă din nou mai târziu.</string>
   <string name="GroupJoinBottomSheetDialogFragment_direct_join">Dorești să te alături acestui grup și să îți împărtășești numele și fotografia cu membrii săi?</string>
   <string name="GroupJoinBottomSheetDialogFragment_admin_approval_needed">Un administrator al acestui grup trebuie să îți aprobe solicitarea înainte de a te putea alătura grupului. Când soliciți să te înscrii, numele și fotografia ta vor fi distribuite membrilor săi.</string>
   <plurals name="GroupJoinBottomSheetDialogFragment_group_dot_d_members">
@@ -832,6 +843,7 @@
   <string name="RequestConfirmationDialog_add_s_to_the_group">Adaugi pe „%1$s” la grup?</string>
   <string name="RequestConfirmationDialog_deny_request_from_s">Respingi cererea de la „%1$s”?</string>
   <!--Confirm dialog message shown when deny a group link join request and group link is enabled.-->
+  <string name="RequestConfirmationDialog_deny_request_from_s_they_will_not_be_able_to_request">Refuzi cererea de la ”%1$s”? Nu vor mai putea cere din nou să se alăture, folosind linkul grupului.</string>
   <string name="RequestConfirmationDialog_add">Adaugă</string>
   <string name="RequestConfirmationDialog_deny">Refuză</string>
   <!--ImageEditorHud-->
@@ -1135,6 +1147,11 @@
   <string name="MessageRecord_you_sent_a_request_to_join_the_group">Ai trimis o cerere de alăturare la grup.</string>
   <string name="MessageRecord_s_requested_to_join_via_the_group_link">%1$s a solicitat să se alăture prin linkul grupului.</string>
   <!--Update message shown when someone requests to join via group link and cancels the request back to back-->
+  <plurals name="MessageRecord_s_requested_and_cancelled_their_request_to_join_via_the_group_link">
+    <item quantity="one">%1$s a solicitat și apoi a anulat solicitarea sa de alăturare folosind linkul grupului.</item>
+    <item quantity="few">%1$s a solicitat și apoi a anulat %2$d solicitări de alăturare folosind linkul grupului.</item>
+    <item quantity="other">%1$s a solicitat și apoi a anulat %2$d de solicitări de alăturare folosind linkul grupului.</item>
+  </plurals>
   <!--GV2 group link approvals-->
   <string name="MessageRecord_s_approved_your_request_to_join_the_group">%1$s a aprobat solicitarea ta de a te alătura grupului.</string>
   <string name="MessageRecord_s_approved_a_request_to_join_the_group_from_s">%1$s a aprobat o cerere de alăturare la grup de la %2$s.</string>
@@ -1306,6 +1323,7 @@
   <!--Recipient-->
   <string name="Recipient_you">Tu</string>
   <!--Name of recipient representing user\'s \'My Story\'-->
+  <string name="Recipient_my_story">Povestea mea</string>
   <!--RecipientPreferencesActivity-->
   <string name="RecipientPreferenceActivity_block">Blochează</string>
   <string name="RecipientPreferenceActivity_unblock">Deblochează</string>
@@ -1784,6 +1802,11 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
     <item quantity="other">%1$d de membri</item>
   </plurals>
   <!--Displays number of viewers for a story-->
+  <plurals name="contact_selection_list_item__number_of_viewers">
+    <item quantity="one">%1$d spectator</item>
+    <item quantity="few">%1$d spectatori</item>
+    <item quantity="other">%1$d de spectatori</item>
+  </plurals>
   <!--conversation_activity-->
   <string name="conversation_activity__type_message_push">Mesaj Signal</string>
   <string name="conversation_activity__type_message_sms_insecure">SMS nesecurizat</string>
@@ -1822,6 +1845,7 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <string name="ConversationUpdateItem_enable_call_notifications">Activare notificări pentru apeluri</string>
   <string name="ConversationUpdateItem_update_contact">Actualizează contactul</string>
   <!--Update item button text to show to block a recipient from requesting to join via group link-->
+  <string name="ConversationUpdateItem_block_request">Blochează cererea</string>
   <string name="ConversationUpdateItem_no_groups_in_common_review_requests_carefully">Niciun grup în comun. Examinează cu atenție solicitările.</string>
   <string name="ConversationUpdateItem_no_contacts_in_this_group_review_requests_carefully">Nu există contacte în acest grup. Examinează cu atenție solicitările.</string>
   <string name="ConversationUpdateItem_view">Vizualizare</string>
@@ -1843,7 +1867,9 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <string name="QuoteView_you">Tu</string>
   <string name="QuoteView_original_missing">Mesajul original nu a fost găsit</string>
   <!--Author formatting for group stories-->
+  <string name="QuoteView_s_story">%1$s Poveste</string>
   <!--Label indicating that a quote is for a reply to a story you created-->
+  <string name="QuoteView_your_story">Povestea ta</string>
   <!--conversation_fragment-->
   <string name="conversation_fragment__scroll_to_the_bottom_content_description">Derulează până jos</string>
   <!--BubbleOptOutTooltip-->
@@ -2911,6 +2937,7 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <string name="RecipientBottomSheet_s_will_be_able_to_edit_group">\"%1$s\" va putea edita acest grup și membrii acestuia.</string>
   <string name="RecipientBottomSheet_remove_s_from_the_group">Elimini pe %1$s din grup?</string>
   <!--Dialog message shown when removing someone from a group with group link being active to indicate they will not be able to rejoin-->
+  <string name="RecipientBottomSheet_remove_s_from_the_group_they_will_not_be_able_to_rejoin">Elimini pe %1$s din grup? Nu se vor mai putea alătura din nou folosind linkul grupului.</string>
   <string name="RecipientBottomSheet_remove">Elimină</string>
   <string name="RecipientBottomSheet_copied_to_clipboard">S-a copiat în clipboard</string>
   <string name="GroupRecipientListItem_admin">Administrator</string>
@@ -3003,6 +3030,7 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <!--Title of progress dialog shown when a user deletes their account and the process has left all groups-->
   <string name="DeleteAccountFragment__deleting_account">Se șterge contul…</string>
   <!--Message of progress dialog shown when a user deletes their account and the process is canceling their subscription-->
+  <string name="DeleteAccountFragment__canceling_your_subscription">Se anulează abonamentul…</string>
   <!--Message of progress dialog shown when a user deletes their account and the process is leaving groups-->
   <string name="DeleteAccountFragment__depending_on_the_number_of_groups">În funcție de numărul de grupuri în care te afli, acest lucru poate dura câteva minute</string>
   <!--Message of progress dialog shown when a user deletes their account and the process has left all groups-->
@@ -3550,6 +3578,7 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <string name="ManageDonationsFragment__my_support">Sprijinul meu</string>
   <string name="ManageDonationsFragment__manage_subscription">Gestionare abonament</string>
   <!--Label for Tax Receipts button-->
+  <string name="ManageDonationsFragment__tax_receipts">Bonuri fiscale</string>
   <string name="ManageDonationsFragment__badges">Insigne</string>
   <string name="ManageDonationsFragment__subscription_faq">FAQ Abonament</string>
   <string name="ManageDonationsFragment__error_getting_subscription">Eroare la obținerea abonamentului.</string>
@@ -3778,55 +3807,92 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <!--Donation receipts all tab label-->
   <string name="DonationReceiptListFragment__all">Toate</string>
   <!--Donation receipts recurring tab label-->
+  <string name="DonationReceiptListFragment__recurring">Recurente</string>
   <!--Donation receipts one time tab label-->
   <string name="DonationReceiptListFragment__one_time">O dată</string>
   <!--Donation receipts boost row label-->
+  <string name="DonationReceiptListFragment__boost">Boost</string>
   <!--Donation receipts details title-->
   <string name="DonationReceiptDetailsFragment__details">Detalii</string>
   <!--Donation receipts donation type heading-->
+  <string name="DonationReceiptDetailsFragment__donation_type">Tip donație</string>
   <!--Donation receipts date paid heading-->
+  <string name="DonationReceiptDetailsFragment__date_paid">Data plății</string>
   <!--Donation receipts share PNG-->
+  <string name="DonationReceiptDetailsFragment__share_receipt">Partajează chitanța</string>
   <!--Donation receipts list end note-->
+  <string name="DonationReceiptListFragment__if_you_have">Dacă ai reinstalat Signal, bonurile fiscale ale donațiilor precedente nu vor mai fi disponibile.</string>
   <!--Donation receipts document title-->
+  <string name="DonationReceiptDetailsFragment__donation_receipt">Chitanță donație</string>
   <!--Donation receipts amount title-->
+  <string name="DonationReceiptDetailsFragment__amount">Suma</string>
   <!--Donation receipts thanks-->
+  <string name="DonationReceiptDetailsFragment__thank_you_for_supporting">Mulțumim pentru că susții Signal. Contribuția ta ajută la dezvoltarea tehnologiilor open source pentru confidențialitate care protejează libertatea de exprimare și facilitează o comunicare globală sigură pentru milioane de oameni din întreaga lume. Dacă ești rezident al Statelor Unite, te rugăm să păstrezi acest bon pentru dosarul tău fiscal. Signal Technology Foundation este o organizație non-profit scutită de impozit în Statele Unite, conform secțiunii 501c3 din Codul fiscal intern. Numărul nostru de identificare fiscală este 82-4506840.</string>
   <!--Donation receipt type-->
+  <string name="DonationReceiptDetailsFragment__s_dash_s">%1$s - %2$s</string>
   <!--region "Stories Tab"-->
   <!--Label for Chats tab in home app screen-->
   <string name="ConversationListTabs__chats">Conversații</string>
   <!--Label for Stories tab in home app screen-->
   <string name="ConversationListTabs__stories">Povești</string>
   <!--String for counts above 99 in conversation list tabs-->
+  <string name="ConversationListTabs__99p">99+</string>
   <!--Title for "My Stories" row item in Stories landing page-->
   <string name="StoriesLandingFragment__my_stories">Poveștile mele</string>
   <!--Subtitle for "My Stories" row item when user has not added stories-->
   <string name="StoriesLandingFragment__add_a_story">Adaugă o poveste</string>
   <!--Displayed when there are no stories to display-->
+  <string name="StoriesLandingFragment__no_recent_updates">Nu există actualizări recente de afișat în acest moment.</string>
   <!--Context menu option to hide a story-->
   <string name="StoriesLandingItem__hide_story">Ascunde povestea</string>
   <!--Context menu option to unhide a story-->
+  <string name="StoriesLandingItem__unhide_story">Afișează povestea</string>
   <!--Context menu option to forward a story-->
   <string name="StoriesLandingItem__forward">Redirecționează</string>
   <!--Context menu option to share a story-->
+  <string name="StoriesLandingItem__share">Distribuie…</string>
   <!--Context menu option to go to story chat-->
   <string name="StoriesLandingItem__go_to_chat">Arată conversația</string>
   <!--Label when a story is pending sending-->
   <string name="StoriesLandingItem__sending">Se trimite…</string>
   <!--Label when a story fails to send-->
+  <string name="StoriesLandingItem__couldnt_send">Nu s-a putut trimite</string>
   <!--Title of dialog confirming decision to hide a story-->
+  <string name="StoriesLandingFragment__hide_story">Ascunzi povestea?</string>
   <!--Message of dialog confirming decision to hide a story-->
+  <string name="StoriesLandingFragment__new_story_updates">Actualizări despre povești noi de la %1$s nu vor mai fi afișate la începutul listei.</string>
   <!--Positive action of dialog confirming decision to hide a story-->
   <string name="StoriesLandingFragment__hide">Ascunde</string>
   <!--Displayed in Snackbar after story is hidden-->
+  <string name="StoriesLandingFragment__story_hidden">Poveste ascunsă</string>
   <!--Section header for hidden stories-->
+  <string name="StoriesLandingFragment__hidden_stories">Povești ascunse</string>
   <!--Displayed on each sent story under My Stories-->
+  <plurals name="MyStories__d_views">
+    <item quantity="one">%1$d vizualizare</item>
+    <item quantity="few">%1$d vizualizări</item>
+    <item quantity="other">%1$d vizualizări</item>
+  </plurals>
   <!--Forward story label, displayed in My Stories context menu-->
   <string name="MyStories_forward">Redirecționează</string>
   <!--Label for stories for a single user. Format is {given name}\'s Story-->
+  <string name="MyStories__ss_story">Povestea lui %1$s</string>
   <!--Title of dialog to confirm deletion of story-->
+  <string name="MyStories__delete_story">Ștergi povestea?</string>
   <!--Message of dialog to confirm deletion of story-->
+  <string name="MyStories__this_story_will_be_deleted">Această poveste va fi ștearsă pentru tine și toți cei care au primit-o.</string>
   <!--Displayed at bottom of story viewer when current item has views-->
+  <plurals name="StoryViewerFragment__d_views">
+    <item quantity="one">%1$d vizualizare</item>
+    <item quantity="few">%1$d vizualizări</item>
+    <item quantity="other">%1$d vizualizări</item>
+  </plurals>
   <!--Displayed at bottom of story viewer when current item has replies-->
+  <plurals name="StoryViewerFragment__d_replies">
+    <item quantity="one">%1$d răspuns</item>
+    <item quantity="few">%1$d răspunsuri</item>
+    <item quantity="other">%1$d răspunsuri</item>
+  </plurals>
   <!--Used to join views and replies when both exist on a story item-->
   <string name="StoryViewerFragment__s_s">%1$s %2$s</string>
   <!--Displayed when viewing a post you sent-->
@@ -3836,7 +3902,9 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <!--Displayed when viewing a post from another user with no replies-->
   <string name="StoryViewerPageFragment__reply">Răspunde</string>
   <!--Displayed when a story has no views-->
+  <string name="StoryViewsFragment__no_views_yet">Nicio vizualizare încă</string>
   <!--Displayed when a story has no replies yet-->
+  <string name="StoryGroupReplyFragment__no_replies_yet">Niciun răspuns încă</string>
   <!--Displayed for each user that reacted to a story when viewing replies-->
   <string name="StoryGroupReactionReplyItem__reacted_to_the_story">Ai reacționat la poveste</string>
   <!--Label for story views tab-->
@@ -3844,92 +3912,153 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <!--Label for story replies tab-->
   <string name="StoryViewsAndRepliesDialogFragment__replies">Răspunsuri</string>
   <!--Description of action for reaction button-->
+  <string name="StoryReplyComposer__react_to_this_story">Reacționează la această poveste</string>
   <!--Displayed when the user is replying privately to someone who replied to one of their stories-->
+  <string name="StoryReplyComposer__replying_privately_to_s">Răspuns privat către %1$s</string>
   <!--Context menu item to privately reply to a story response-->
+  <string name="StoryGroupReplyItem__private_reply">Răspuns privat</string>
   <!--Context menu item to copy a story response-->
   <string name="StoryGroupReplyItem__copy">Copiere</string>
   <!--Context menu item to delete a story response-->
   <string name="StoryGroupReplyItem__delete">Șterge</string>
   <!--Story settings page title-->
+  <string name="StorySettingsFragment__story_settings">Setări poveste</string>
   <!--Story settings private stories heading-->
+  <string name="StorySettingsFragment__private_stories">Povești private</string>
   <!--Option label for creating a new private story-->
+  <string name="StorySettingsFragment__new_private_story">Poveste privată nouă</string>
   <!--Page title for My Story options-->
+  <string name="MyStorySettingsFragment__my_story">Povestea mea</string>
   <!--Section heading for story visibility-->
+  <string name="MyStorySettingsFragment__who_can_see_this_story">Cine poate vedea această poveste</string>
   <!--Clickable option for selecting people to hide your story from-->
+  <string name="MyStorySettingsFragment__hide_story_from">Ascunde povestea de</string>
   <!--Summary of clickable option displaying how many people you have hidden your story from-->
+  <plurals name="MyStorySettingsFragment__d_people">
+    <item quantity="one">%1$d persoană</item>
+    <item quantity="few">%1$d persoane</item>
+    <item quantity="other">%1$d persoane</item>
+  </plurals>
   <!--Section header for options related to replies and reactions-->
+  <string name="MyStorySettingsFragment__replies_amp_reactions">Răspunsuri &amp; reacții</string>
   <!--Switchable option for allowing replies and reactions on your stories-->
+  <string name="MyStorySettingsFragment__allow_replies_amp_reactions">Permite răspunsuri &amp; reacții</string>
   <!--Summary for switchable option allowing replies and reactions on your story-->
+  <string name="MyStorySettingsFragment__let_people_who_can_view_your_story_react_and_reply">Permite oamenilor care îți pot vedea povestea să reacționeze și să răspundă</string>
   <!--Note about default sharing-->
+  <string name="MyStorySettingsFragment__hide_your_story_from">Ascunde-ți povestea de anumite persoane. În mod implicit povestea ta este distribuită %1$s</string>
   <!--Signal connections linked text that opens the Signal Connections sheet-->
+  <string name="MyStorySettingsFragment__signal_connections">Conexiuni Signal.</string>
   <!--Displayed at the top of the signal connections sheet. Please remember to insert strong tag as required.-->
+  <string name="SignalConnectionsBottomSheet__signal_connections_are_people"><strong>Conexiunile Signal</strong> sunt oameni în care ai ales să ai încredere, fie de către:</string>
   <!--Signal connections sheet bullet point 1-->
+  <string name="SignalConnectionsBottomSheet__starting_a_conversation">Începi o conversație</string>
   <!--Signal connections sheet bullet point 2-->
+  <string name="SignalConnectionsBottomSheet__accepting_a_message_request">Acceptă o solicitare de mesaj</string>
   <!--Signal connections sheet bullet point 3-->
   <!--Note at the bottom of the Signal connections sheet-->
   <!--Clickable option to add a viewer to a private story-->
+  <string name="PrivateStorySettingsFragment__add_viewer">Adaugă spectator</string>
   <!--Clickable option to delete a custom story-->
+  <string name="PrivateStorySettingsFragment__delete_private_story">Șterge povestea privată</string>
   <!--Dialog title when attempting to remove someone from a private story-->
+  <string name="PrivateStorySettingsFragment__remove_s">Elimin pe %1$s?</string>
   <!--Dialog message when attempting to remove someone from a private story-->
+  <string name="PrivateStorySettingsFragment__this_person_will_no_longer">Această persoană nu va mai vedea povestea ta.</string>
   <!--Positive action label when attempting to remove someone from a private story-->
   <string name="PrivateStorySettingsFragment__remove">Elimină</string>
   <!--Dialog title when deleting a private story-->
+  <string name="PrivateStorySettingsFragment__are_you_sure">Ești sigur?</string>
   <!--Dialog message when deleting a private story-->
+  <string name="PrivateStorySettingsFragment__this_action_cannot">Această acțiune este ireversibilă.</string>
   <!--Page title for editing a private story name-->
+  <string name="EditPrivateStoryNameFragment__edit_story_name">Modifică numele poveștii</string>
   <!--Input field hint when editing a private story name-->
+  <string name="EditPrivateStoryNameFragment__story_name">Numele poveștii</string>
   <!--Save button label when editing a private story name-->
   <string name="EditPrivateStoryNameFragment__save">Salvează</string>
   <!--Displayed in text post creator before user enters text-->
+  <string name="TextStoryPostCreationFragment__tap_to_add_text">Atinge pentru a adăuga text</string>
   <!--Button label for changing font when creating a text post-->
+  <string name="TextStoryPostTextEntryFragment__aa">Aa</string>
   <!--Displayed in text post creator when prompting user to enter text-->
   <string name="TextStoryPostTextEntryFragment__add_text">Adăugare text</string>
   <!--Content description for \'done\' button when adding text to a story post-->
+  <string name="TextStoryPostTextEntryFragment__done_adding_text">Am terminat de adăugat text</string>
   <!--Text label for media selection toggle-->
   <string name="MediaSelectionActivity__text">Text</string>
   <!--Camera label for media selection toggle-->
   <string name="MediaSelectionActivity__camera">Cameră foto</string>
   <!--Hint for entering a URL for a text post-->
+  <string name="TextStoryPostLinkEntryFragment__type_or_paste_a_url">Tastează sau lipește un URL</string>
   <!--Displayed prior to the user entering a URL for a text post-->
+  <string name="TextStoryPostLinkEntryFragment__share_a_link_with_viewers_of_your_story">Distribuie un link cu spectatorii poveștii tale</string>
   <!--Hint text for searching for a story text post recipient.-->
   <string name="TextStoryPostSendFragment__search">Caută</string>
   <!--Title for screen allowing user to hide "My Story" entries from specific people-->
+  <string name="HideStoryFromFragment__hide_story_from">Ascunde povestea de …</string>
   <!--Done button label for hide story from screen-->
   <string name="HideStoryFromFragment__done">Gata</string>
   <!--Dialog title for first time adding something to a story-->
+  <string name="StoryDialogs__add_to_story_q">Adaugi la poveste?</string>
   <!--Dialog message for first time adding something to a story-->
   <!--First time share to story dialog: Positive action to go ahead and add to story-->
+  <string name="StoryDialogs__add_to_story">Adaugă la poveste</string>
   <!--First time share to story dialog: Neutral action to edit who can view "My Story"-->
+  <string name="StoryDialogs__edit_viewers">Editare spectatori</string>
   <!--Privacy Settings toggle title for stories-->
+  <string name="PrivacySettingsFragment__share_and_view_stories">Distribuie &amp; vezi povești</string>
   <!--Privacy Settings toggle summary for stories-->
   <!--New story viewer selection screen title-->
+  <string name="CreateStoryViewerSelectionFragment__choose_viewers">Alege spectatorii</string>
   <!--New story viewer selection action button label-->
   <string name="CreateStoryViewerSelectionFragment__next">Următorul</string>
   <!--New story viewer selection screen title as recipients are selected-->
+  <plurals name="SelectViewersFragment__d_viewers">
+    <item quantity="one">%1$d spectator</item>
+    <item quantity="few">%1$d spectatori</item>
+    <item quantity="other">%1$d spectatori</item>
+  </plurals>
   <!--Name story screen title-->
+  <string name="CreateStoryWithViewersFragment__name_story">Numește povestea</string>
   <!--Name story screen label hint-->
+  <string name="CreateStoryWithViewersFragment__story_name_required">Numele poveștii (obligatoriu)</string>
   <!--Name story screen viewers subheading-->
+  <string name="CreateStoryWithViewersFragment__viewers">Spectatori</string>
   <!--Name story screen create button label-->
   <string name="CreateStoryWithViewersFragment__create">Creează</string>
   <!--Name story screen error when save attempted with no label-->
   <string name="CreateStoryWithViewersFragment__this_field_is_required">Acest câmp este obligatoriu.</string>
   <!--Name story screen error when save attempted but label is duplicate-->
+  <string name="CreateStoryWithViewersFragment__there_is_already_a_story_with_this_name">Există deja o poveste cu acest nume.</string>
   <!--Text for select all action when editing recipients for a story-->
   <string name="BaseStoryRecipientSelectionFragment__select_all">Selectează tot</string>
   <!--Choose story type bottom sheet title-->
+  <string name="ChooseStoryTypeBottomSheet__choose_your_story_type">Alege tipul de poveste</string>
   <!--Choose story type bottom sheet new story row title-->
+  <string name="ChooseStoryTypeBottomSheet__new_private_story">Poveste privată nouă</string>
   <!--Choose story type bottom sheet new story row summary-->
+  <string name="ChooseStoryTypeBottomSheet__visible_only_to">Vizibil doar la persoane specifice</string>
   <!--Choose story type bottom sheet group story title-->
+  <string name="ChooseStoryTypeBottomSheet__group_story">Poveste de grup</string>
   <!--Choose story type bottom sheet group story summary-->
+  <string name="ChooseStoryTypeBottomSheet__share_to_an_existing_group">Distribuie la un grup existent</string>
   <!--Choose groups bottom sheet title-->
+  <string name="ChooseGroupStoryBottomSheet__choose_groups">Alege grupurile</string>
   <!--Displayed when copying group story reply text to clipboard-->
   <string name="StoryGroupReplyFragment__copied_to_clipboard">S-a copiat în clipboard</string>
   <!--Displayed in story caption when content is longer than 5 lines-->
+  <string name="StoryViewerPageFragment__see_more">… Află mai multe</string>
   <!--Displayed in toast after sending a direct reply-->
+  <string name="StoryDirectReplyDialogFragment__reply_sent">Răspunsul a fost trimis</string>
   <!--Displayed in toast after sending a direct reaction-->
+  <string name="StoryDirectReplyDialogFragment__reaction_sent">Reacția a fost trimisă</string>
   <!--Displayed in the viewer when a story is no longer available-->
+  <string name="StorySlateView__this_story_is_no_longer_available">Acestă poveste nu mai este disponibilă.</string>
   <!--Displayed in the viewer when the network is not available-->
   <string name="StorySlateView__no_internet_connection">Lipsește Conexiunea cu Internetul</string>
   <!--Displayed in the viewer when network is available but content could not be downloaded-->
+  <string name="StorySlateView__couldnt_load_content">Conținutul nu a putut fi încărcat</string>
   <!--Title for a notification at the bottom of the chat list suggesting that the user disable censorship circumvention because the service has become reachable-->
   <string name="TurnOffCircumventionMegaphone_turn_off_censorship_circumvention">Dezactivezi ocolirea cenzurii?</string>
   <!--Body for a notification at the bottom of the chat list suggesting that the user disable censorship circumvention because the service has become reachable-->
@@ -3939,8 +4068,12 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <!--Label for a button in a notification at the bottom of the chat list to turn off censorship circumvention-->
   <string name="TurnOffCircumventionMegaphone_turn_off">Dezactivare</string>
   <!--Conversation Item label for reactions to a story-->
+  <string name="ConversationItem__s_dot_story">%1$s · Poveste</string>
   <!--Conversation Item label for reactions to an unavailable story-->
+  <string name="ConversationItem__reacted_to_a_story">Ai reacționat la poveste</string>
   <!--endregion-->
   <!--Content description for expand contacts chevron-->
+  <string name="ExpandModel__view_more">Vezi mai multe</string>
+  <string name="StoriesLinkPopup__visit_link">Vezi linkul</string>
   <!--EOF-->
 </resources>

@@ -5,6 +5,7 @@ import android.view.View
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.drawToBitmap
+import androidx.core.view.postDelayed
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -20,7 +21,6 @@ import org.thoughtcrime.securesms.util.navigation.safeNavigate
 class TextStoryPostCreationFragment : Fragment(R.layout.stories_text_post_creation_fragment), TextStoryPostTextEntryFragment.Callback {
 
   private lateinit var scene: ConstraintLayout
-  private lateinit var linkButton: View
   private lateinit var backgroundButton: AppCompatImageView
   private lateinit var send: View
   private lateinit var storyTextPostView: StoryTextPostView
@@ -52,10 +52,12 @@ class TextStoryPostCreationFragment : Fragment(R.layout.stories_text_post_creati
     super.onViewCreated(view, savedInstanceState)
 
     scene = view.findViewById(R.id.scene)
-    linkButton = view.findViewById(R.id.add_link)
     backgroundButton = view.findViewById(R.id.background_selector)
     send = view.findViewById(R.id.send)
     storyTextPostView = view.findViewById(R.id.story_text_post)
+
+    val backgroundProtection: View = view.findViewById(R.id.background_protection)
+    val addLinkProtection: View = view.findViewById(R.id.add_link_protection)
 
     storyTextPostView.showCloseButton()
 
@@ -92,14 +94,15 @@ class TextStoryPostCreationFragment : Fragment(R.layout.stories_text_post_creati
 
     storyTextPostView.setTextViewClickListener {
       storyTextPostView.hidePostContent()
+      storyTextPostView.isEnabled = false
       TextStoryPostTextEntryFragment().show(childFragmentManager, null)
     }
 
-    backgroundButton.setOnClickListener {
+    backgroundProtection.setOnClickListener {
       viewModel.cycleBackgroundColor()
     }
 
-    linkButton.setOnClickListener {
+    addLinkProtection.setOnClickListener {
       TextStoryPostLinkEntryFragment().show(childFragmentManager, null)
     }
 
@@ -120,6 +123,9 @@ class TextStoryPostCreationFragment : Fragment(R.layout.stories_text_post_creati
   }
 
   override fun onTextStoryPostTextEntryDismissed() {
-    storyTextPostView.showPostContent()
+    storyTextPostView.postDelayed(resources.getInteger(R.integer.text_entry_exit_duration).toLong()) {
+      storyTextPostView.showPostContent()
+      storyTextPostView.isEnabled = true
+    }
   }
 }

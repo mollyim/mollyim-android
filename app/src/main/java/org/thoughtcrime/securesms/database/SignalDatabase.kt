@@ -3,16 +3,14 @@ package org.thoughtcrime.securesms.database
 import android.app.Application
 import android.content.Context
 import net.zetetic.database.sqlcipher.SQLiteOpenHelper
+import org.signal.core.util.SqlUtil
 import org.signal.core.util.logging.Log
-import org.thoughtcrime.securesms.contacts.ContactsDatabase
 import org.thoughtcrime.securesms.crypto.AttachmentSecret
 import org.thoughtcrime.securesms.crypto.DatabaseSecret
-import org.thoughtcrime.securesms.database.helpers.ClassicOpenHelper
 import org.thoughtcrime.securesms.database.helpers.SignalDatabaseMigrations
 import org.thoughtcrime.securesms.database.helpers.SignalDatabaseMigrations.migrate
 import org.thoughtcrime.securesms.database.helpers.SignalDatabaseMigrations.migratePostTransaction
 import org.thoughtcrime.securesms.database.model.AvatarPickerDatabase
-import org.thoughtcrime.securesms.util.SqlUtil
 import java.io.File
 import java.lang.AssertionError
 
@@ -40,7 +38,6 @@ open class SignalDatabase(private val context: Application, databaseSecret: Data
   val pushDatabase: PushDatabase = PushDatabase(context, this)
   val groupDatabase: GroupDatabase = GroupDatabase(context, this)
   val recipientDatabase: RecipientDatabase = RecipientDatabase(context, this)
-  val contactsDatabase: ContactsDatabase = ContactsDatabase(context)
   val groupReceiptDatabase: GroupReceiptDatabase = GroupReceiptDatabase(context, this)
   val preKeyDatabase: OneTimePreKeyDatabase = OneTimePreKeyDatabase(context, this)
   val signedPreKeyDatabase: SignedPreKeyDatabase = SignedPreKeyDatabase(context, this)
@@ -63,6 +60,7 @@ open class SignalDatabase(private val context: Application, databaseSecret: Data
   val notificationProfileDatabase: NotificationProfileDatabase = NotificationProfileDatabase(context, this)
   val signalDonationReceiptDatabase: DonationReceiptDatabase = DonationReceiptDatabase(context, this)
   val distributionListDatabase: DistributionListDatabase = DistributionListDatabase(context, this)
+  val storySendsDatabase: StorySendsDatabase = StorySendsDatabase(context, this)
 
   override fun onOpen(db: net.zetetic.database.sqlcipher.SQLiteDatabase) {
     db.enableWriteAheadLogging()
@@ -96,6 +94,7 @@ open class SignalDatabase(private val context: Application, databaseSecret: Data
     db.execSQL(GroupCallRingDatabase.CREATE_TABLE)
     db.execSQL(ReactionDatabase.CREATE_TABLE)
     db.execSQL(DonationReceiptDatabase.CREATE_TABLE)
+    db.execSQL(StorySendsDatabase.CREATE_TABLE)
     executeStatements(db, SearchDatabase.CREATE_TABLE)
     executeStatements(db, RemappedRecordsDatabase.CREATE_TABLE)
     executeStatements(db, MessageSendLogDatabase.CREATE_TABLE)
@@ -118,13 +117,14 @@ open class SignalDatabase(private val context: Application, databaseSecret: Data
     executeStatements(db, GroupCallRingDatabase.CREATE_INDEXES)
     executeStatements(db, NotificationProfileDatabase.CREATE_INDEXES)
     executeStatements(db, DonationReceiptDatabase.CREATE_INDEXS)
+    db.execSQL(StorySendsDatabase.CREATE_INDEX)
 
     executeStatements(db, MessageSendLogDatabase.CREATE_TRIGGERS)
     executeStatements(db, ReactionDatabase.CREATE_TRIGGERS)
 
     DistributionListDatabase.insertInitialDistributionListAtCreationTime(db)
 
-    if (context.getDatabasePath(ClassicOpenHelper.NAME).exists()) {
+    if (context.getDatabasePath("messages.db").exists()) {
       throw AssertionError("Unsupported Signal database: version is too old")
     }
   }
@@ -285,11 +285,6 @@ open class SignalDatabase(private val context: Application, databaseSecret: Data
       get() = instance!!.chatColorsDatabase
 
     @get:JvmStatic
-    @get:JvmName("contacts")
-    val contacts: ContactsDatabase
-      get() = instance!!.contactsDatabase
-
-    @get:JvmStatic
     @get:JvmName("distributionLists")
     val distributionLists: DistributionListDatabase
       get() = instance!!.distributionListDatabase
@@ -439,5 +434,10 @@ open class SignalDatabase(private val context: Application, databaseSecret: Data
     @get:JvmName("donationReceipts")
     val signalDonationReceipts: DonationReceiptDatabase
       get() = instance!!.signalDonationReceiptDatabase
+
+    @get:JvmStatic
+    @get:JvmName("storySends")
+    val storySends: StorySendsDatabase
+      get() = instance!!.storySendsDatabase
   }
 }

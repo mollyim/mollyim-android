@@ -26,9 +26,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.annotation.WorkerThread;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
 import androidx.appcompat.widget.Toolbar;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -44,6 +44,7 @@ import java.util.Set;
 
 public class ConversationListArchiveFragment extends ConversationListFragment implements ActionMode.Callback
 {
+  private View                        coordinator;
   private RecyclerView                list;
   private Stub<View>                  emptyState;
   private PulsingFloatingActionButton fab;
@@ -62,17 +63,17 @@ public class ConversationListArchiveFragment extends ConversationListFragment im
 
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-    toolbar = new Stub<>(view.findViewById(R.id.toolbar_basic));
+    toolbar = requireCallback().getBasicToolbar();
 
     super.onViewCreated(view, savedInstanceState);
 
-    list       = view.findViewById(R.id.list);
-    fab        = view.findViewById(R.id.fab);
-    cameraFab  = view.findViewById(R.id.camera_fab);
-    emptyState = new Stub<>(view.findViewById(R.id.empty_state));
+    coordinator = view.findViewById(R.id.coordinator);
+    list        = view.findViewById(R.id.list);
+    fab         = view.findViewById(R.id.fab);
+    cameraFab   = view.findViewById(R.id.camera_fab);
+    emptyState  = new Stub<>(view.findViewById(R.id.empty_state));
 
-    ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    toolbar.get().setNavigationOnClickListener(v -> requireActivity().onBackPressed());
+    toolbar.get().setNavigationOnClickListener(v -> NavHostFragment.findNavController(this).popBackStack());
     toolbar.get().setTitle(R.string.AndroidManifest_archived_conversations);
 
     fab.hide();
@@ -127,7 +128,7 @@ public class ConversationListArchiveFragment extends ConversationListFragment im
     itemAnimator.enable();
 
     new SnackbarAsyncTask<Long>(getViewLifecycleOwner().getLifecycle(),
-                                requireView(),
+                                coordinator,
                                 getResources().getQuantityString(R.plurals.ConversationListFragment_moved_conversations_to_inbox, 1, 1),
                                 getString(R.string.ConversationListFragment_undo),
                                 getResources().getColor(R.color.amber_500),

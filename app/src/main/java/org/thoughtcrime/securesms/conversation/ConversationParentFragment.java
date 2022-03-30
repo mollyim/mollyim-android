@@ -100,6 +100,8 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.signal.core.util.ThreadUtil;
 import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.logging.Log;
+import org.signal.libsignal.protocol.InvalidMessageException;
+import org.signal.libsignal.protocol.util.Pair;
 import org.thoughtcrime.securesms.BlockUnblockDialog;
 import org.thoughtcrime.securesms.GroupMembersDialog;
 import org.thoughtcrime.securesms.MainActivity;
@@ -108,6 +110,7 @@ import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.ShortcutLauncherActivity;
 import org.thoughtcrime.securesms.TransportOption;
 import org.thoughtcrime.securesms.components.emoji.RecentEmojiPageModel;
+import org.thoughtcrime.securesms.contacts.sync.ContactDiscovery;
 import org.thoughtcrime.securesms.util.Debouncer;
 import org.thoughtcrime.securesms.util.LifecycleDisposable;
 import org.thoughtcrime.securesms.verify.VerifyIdentityActivity;
@@ -127,7 +130,6 @@ import org.thoughtcrime.securesms.components.TypingStatusSender;
 import org.thoughtcrime.securesms.components.emoji.EmojiEventListener;
 import org.thoughtcrime.securesms.components.emoji.EmojiStrings;
 import org.thoughtcrime.securesms.components.emoji.MediaKeyboard;
-import org.thoughtcrime.securesms.components.emoji.RecentEmojiPageModel;
 import org.thoughtcrime.securesms.components.identity.UnverifiedBannerView;
 import org.thoughtcrime.securesms.components.location.SignalPlace;
 import org.thoughtcrime.securesms.components.mention.MentionAnnotation;
@@ -145,7 +147,6 @@ import org.thoughtcrime.securesms.components.voice.VoiceNotePlaybackState;
 import org.thoughtcrime.securesms.components.voice.VoiceNotePlayerView;
 import org.thoughtcrime.securesms.contacts.ContactAccessor;
 import org.thoughtcrime.securesms.contacts.ContactAccessor.ContactData;
-import org.thoughtcrime.securesms.contacts.sync.DirectoryHelper;
 import org.thoughtcrime.securesms.contactshare.Contact;
 import org.thoughtcrime.securesms.contactshare.ContactShareEditActivity;
 import org.thoughtcrime.securesms.contactshare.ContactUtil;
@@ -289,11 +290,8 @@ import org.thoughtcrime.securesms.util.concurrent.ListenableFuture;
 import org.thoughtcrime.securesms.util.concurrent.SettableFuture;
 import org.thoughtcrime.securesms.util.concurrent.SimpleTask;
 import org.thoughtcrime.securesms.util.views.Stub;
-import org.thoughtcrime.securesms.verify.VerifyIdentityActivity;
 import org.thoughtcrime.securesms.wallpaper.ChatWallpaper;
 import org.thoughtcrime.securesms.wallpaper.ChatWallpaperDimLevelUtil;
-import org.whispersystems.libsignal.InvalidMessageException;
-import org.whispersystems.libsignal.util.Pair;
 import org.whispersystems.signalservice.api.SignalSessionLock;
 
 import java.io.IOException;
@@ -766,7 +764,7 @@ public class ConversationParentFragment extends Fragment
     case ADD_CONTACT:
       SimpleTask.run(() -> {
         try {
-          DirectoryHelper.refreshDirectoryFor(requireContext(), recipient.get(), false);
+          ContactDiscovery.refresh(requireContext(), recipient.get(), false);
         } catch (IOException e) {
           Log.w(TAG, "Failed to refresh user after adding to contacts.");
         }
@@ -1088,6 +1086,8 @@ public class ConversationParentFragment extends Fragment
       }
     });
 
+    searchView.setMaxWidth(Integer.MAX_VALUE);
+
     if (isSearchRequested) {
       if (searchViewItem.expandActionView()) {
           searchViewModel.onSearchOpened();
@@ -1143,7 +1143,9 @@ public class ConversationParentFragment extends Fragment
     } else if (container.isInputOpen()) {
       container.hideCurrentInput(composeText);
     } else if (isSearchRequested) {
-      searchViewItem.collapseActionView();
+      if (searchViewItem != null) {
+        searchViewItem.collapseActionView();
+      }
     } else {
       requireActivity().finish();
     }
@@ -1804,7 +1806,7 @@ public class ConversationParentFragment extends Fragment
         if (registeredState == RegisteredState.UNKNOWN) {
           try {
             Log.i(TAG, "Refreshing directory for user: " + recipient.getId().serialize());
-            registeredState = DirectoryHelper.refreshDirectoryFor(context, recipient, false);
+            registeredState = ContactDiscovery.refresh(context, recipient, false);
           } catch (IOException e) {
             Log.w(TAG, e);
           }

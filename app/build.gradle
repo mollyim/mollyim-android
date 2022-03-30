@@ -84,8 +84,8 @@ ktlint {
     version = "0.43.2"
 }
 
-def canonicalVersionCode = 1028
-def canonicalVersionName = "5.34.2"
+def canonicalVersionCode = 1032
+def canonicalVersionName = "5.34.6"
 def mollyRevision = 0
 
 def postFixSize = 100
@@ -436,8 +436,9 @@ dependencies {
     implementation project(':image-editor')
     freeImplementation project(':libfakegms')
     implementation project(":libnetcipher")
+    implementation project(':contacts')
 
-    implementation libs.signal.client.android
+    implementation libs.libsignal.android
     implementation libs.google.protobuf.javalite
 
     implementation(libs.mobilecoin) {
@@ -529,7 +530,7 @@ dependencies {
     implementation libs.rxjava3.rxkotlin
     implementation libs.rxdogtag
 
-    androidTestUtil 'androidx.test:orchestrator:1.4.0'
+    androidTestUtil 'androidx.test:orchestrator:1.4.1'
 }
 
 static def getCommitTag() {

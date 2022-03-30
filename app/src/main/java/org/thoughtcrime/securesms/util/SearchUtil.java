@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 
 import com.annimon.stream.Stream;
 
-import org.whispersystems.libsignal.util.Pair;
+import org.signal.libsignal.protocol.util.Pair;
 
 import java.security.InvalidParameterException;
 import java.util.Collections;
@@ -65,11 +65,6 @@ public class SearchUtil {
         break;
       default:
         throw new InvalidParameterException("match mode must be STRICT or MATCH_ALL: " + matchMode);
-    }
-    if (matchMode == STRICT) {
-      ranges = getStrictHighlightRanges(locale, text.toString(), highlight);
-    } else {
-      ranges = getHighlightRanges(locale, text.toString(), highlight);
     }
 
     for (Pair<Integer, Integer> range : ranges) {

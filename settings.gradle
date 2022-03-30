@@ -28,6 +28,8 @@ include ':image-editor'
 //include ':image-editor-app'
 include ':spinner'
 //include ':spinner-app'
+include ':contacts'
+//include ':contacts-app'
 
 project(':paging').projectDir = file('paging/lib')
 //project(':paging-app').projectDir = file('paging/app')
@@ -42,6 +44,9 @@ project(':image-editor').projectDir = file('image-editor/lib')
 
 project(':spinner').projectDir = file('spinner/lib')
 //project(':spinner-app').projectDir = file('spinner/app')
+
+project(':contacts').projectDir = file('contacts/lib')
+//project(':contacts-app').projectDir = file('contacts/app')
 
 rootProject.name='Molly'
 

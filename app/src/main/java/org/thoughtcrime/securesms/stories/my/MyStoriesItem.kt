@@ -32,7 +32,7 @@ object MyStoriesItem {
 
   class Model(
     val distributionStory: ConversationMessage,
-    val onClick: (Model) -> Unit,
+    val onClick: (Model, View) -> Unit,
     val onSaveClick: (Model) -> Unit,
     val onDeleteClick: (Model) -> Unit,
     val onForwardClick: (Model) -> Unit,
@@ -81,15 +81,15 @@ object MyStoriesItem {
 
     override fun bind(model: Model) {
       storyPreview.isClickable = false
-      itemView.setOnClickListener { model.onClick(model) }
+      itemView.setOnClickListener { model.onClick(model, storyPreview) }
       downloadTarget.setOnClickListener { model.onSaveClick(model) }
       moreTarget.setOnClickListener { showContextMenu(model) }
       presentDateOrStatus(model)
 
       viewCount.text = context.resources.getQuantityString(
         R.plurals.MyStories__d_views,
-        model.distributionStory.messageRecord.readReceiptCount,
-        model.distributionStory.messageRecord.readReceiptCount
+        model.distributionStory.messageRecord.viewedReceiptCount,
+        model.distributionStory.messageRecord.viewedReceiptCount
       )
 
       if (STATUS_CHANGE in payload) {
@@ -103,9 +103,9 @@ object MyStoriesItem {
       if (record.storyType.isTextStory) {
         storyPreview.setImageResource(GlideApp.with(storyPreview), StoryTextPostModel.parseFrom(record), 0, 0)
       } else if (thumbnail != null) {
-        storyPreview.setImageResource(GlideApp.with(itemView), thumbnail, false, true)
+        storyPreview.setImageResource(GlideApp.with(storyPreview), thumbnail, false, true)
       } else {
-        storyPreview.clear(GlideApp.with(itemView))
+        storyPreview.clear(GlideApp.with(storyPreview))
       }
     }
 

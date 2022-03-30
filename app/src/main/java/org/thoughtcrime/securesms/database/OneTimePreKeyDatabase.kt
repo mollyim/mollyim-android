@@ -2,13 +2,14 @@ package org.thoughtcrime.securesms.database
 
 import android.content.Context
 import androidx.core.content.contentValuesOf
+import org.signal.core.util.SqlUtil
 import org.signal.core.util.logging.Log
+import org.signal.core.util.requireNonNullString
+import org.signal.libsignal.protocol.InvalidKeyException
+import org.signal.libsignal.protocol.ecc.Curve
+import org.signal.libsignal.protocol.ecc.ECKeyPair
+import org.signal.libsignal.protocol.state.PreKeyRecord
 import org.thoughtcrime.securesms.util.Base64
-import org.thoughtcrime.securesms.util.SqlUtil
-import org.whispersystems.libsignal.InvalidKeyException
-import org.whispersystems.libsignal.ecc.Curve
-import org.whispersystems.libsignal.ecc.ECKeyPair
-import org.whispersystems.libsignal.state.PreKeyRecord
 import org.whispersystems.signalservice.api.push.ServiceId
 import java.io.IOException
 

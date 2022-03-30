@@ -1486,6 +1486,8 @@
     <string name="WebRtcCallActivity__signal_s">Molly %1$s</string>
     <string name="WebRtcCallActivity__calling">Calling…</string>
     <string name="WebRtcCallActivity__group_is_too_large_to_ring_the_participants">Group is too large to ring the participants.</string>
+    <!-- Call status shown when an active call was disconnected (e.g., network hiccup) and is trying to reconnect -->
+    <string name="WebRtcCallActivity__reconnecting">Reconnecting…</string>
 
     <!-- WebRtcCallView -->
     <string name="WebRtcCallView__signal_call">Signal Call</string>
@@ -1666,12 +1668,12 @@
     <string name="SignalBottomActionBar_more">More</string>
 
     <!-- SignalPinReminders -->
-    <string name="SignalPinReminders_well_remind_you_again_later">We\'ll remind you again later.</string>
-    <string name="SignalPinReminders_well_remind_you_again_tomorrow">We\'ll remind you again tomorrow.</string>
-    <string name="SignalPinReminders_well_remind_you_again_in_a_few_days">We\'ll remind you again in a few days.</string>
-    <string name="SignalPinReminders_well_remind_you_again_in_a_week">We\'ll remind you again in a week.</string>
-    <string name="SignalPinReminders_well_remind_you_again_in_a_couple_weeks">We\'ll remind you again in a couple weeks.</string>
-    <string name="SignalPinReminders_well_remind_you_again_in_a_month">We\'ll remind you again in a month.</string>
+    <string name="SignalPinReminders_well_remind_you_again_later">PIN verified successfully. We\'ll remind you again later.</string>
+    <string name="SignalPinReminders_well_remind_you_again_tomorrow">PIN verified successfully. We\'ll remind you again tomorrow.</string>
+    <string name="SignalPinReminders_well_remind_you_again_in_a_few_days">PIN verified successfully. We\'ll remind you again in a few days.</string>
+    <string name="SignalPinReminders_well_remind_you_again_in_a_week">PIN verified successfully. We\'ll remind you again in a week.</string>
+    <string name="SignalPinReminders_well_remind_you_again_in_a_couple_weeks">PIN verified successfully. We\'ll remind you again in a couple weeks.</string>
+    <string name="SignalPinReminders_well_remind_you_again_in_a_month">PIN verified successfully. We\'ll remind you again in a month.</string>
 
     <!-- Slide -->
     <string name="Slide_image">Image</string>
@@ -1846,6 +1848,10 @@
     <string name="MediaPreviewActivity_media_delete_confirmation_title">Delete message?</string>
     <string name="MediaPreviewActivity_media_delete_confirmation_message">This will permanently delete this message.</string>
     <string name="MediaPreviewActivity_s_to_s">%1$s to %2$s</string>
+    <!-- All media preview title when viewing media send by you to another recipient (allows changing of \'You\' based on context) -->
+    <string name="MediaPreviewActivity_you_to_s">You to %1$s</string>
+    <!-- All media preview title when viewing media sent by another recipient to you (allows changing of \'You\' based on context) -->
+    <string name="MediaPreviewActivity_s_to_you">%1$s to you</string>
     <string name="MediaPreviewActivity_media_no_longer_available">Media no longer available.</string>
     <string name="MediaPreviewActivity_cant_find_an_app_able_to_share_this_media">Can\'t find an app able to share this media.</string>
 
@@ -2082,9 +2088,11 @@
     <string name="QuoteView_you">You</string>
     <string name="QuoteView_original_missing">Original message not found</string>
     <!-- Author formatting for group stories -->
-    <string name="QuoteView_s_story">%1$s Story</string>
+    <string name="QuoteView_s_story">%1$s · Story</string>
     <!-- Label indicating that a quote is for a reply to a story you created -->
-    <string name="QuoteView_your_story">Your Story</string>
+    <string name="QuoteView_your_story">You · Story</string>
+    <!-- Label indicating that the story being replied to no longer exists -->
+    <string name="QuoteView_no_longer_available">No longer available</string>
 
     <!-- conversation_fragment -->
     <string name="conversation_fragment__scroll_to_the_bottom_content_description">Scroll to the bottom</string>
@@ -2637,6 +2645,8 @@
     <string name="preferences__internal_account" translatable="false">Account</string>
     <string name="preferences__internal_refresh_attributes" translatable="false">Refresh attributes</string>
     <string name="preferences__internal_refresh_attributes_description" translatable="false">Forces a write of capabilities on to the server followed by a read.</string>
+    <string name="preferences__internal_refresh_profile" translatable="false">Refresh profile</string>
+    <string name="preferences__internal_refresh_profile_description" translatable="false">Forces a refresh of your own profile.</string>
     <string name="preferences__internal_rotate_profile_key" translatable="false">Rotate profile key</string>
     <string name="preferences__internal_rotate_profile_key_description" translatable="false">Creates a new versioned profile, and triggers an update of any GV2 group you belong to.</string>
     <string name="preferences__internal_refresh_remote_config" translatable="false">Refresh remote config</string>

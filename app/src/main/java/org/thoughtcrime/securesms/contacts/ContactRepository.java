@@ -10,13 +10,13 @@ import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.annotation.WorkerThread;
 
+import org.signal.libsignal.protocol.util.Pair;
 import org.thoughtcrime.securesms.database.RecipientDatabase;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.phonenumbers.PhoneNumberFormatter;
 import org.thoughtcrime.securesms.recipients.Recipient;
-import org.thoughtcrime.securesms.util.CursorUtil;
+import org.signal.core.util.CursorUtil;
 import org.thoughtcrime.securesms.util.Util;
-import org.whispersystems.libsignal.util.Pair;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,8 +27,8 @@ import java.util.Map;
  * Repository for all contacts. Allows you to filter them via queries.
  *
  * Currently this is implemented to return cursors. This is to ease the migration between this class
- * and the previous way we'd query contacts: {@link ContactsDatabase}. It's much easier in the
- * short-term to mock the cursor interface rather than try to switch everything over to models.
+ * and the previous way we'd query contacts. It's much easier in the short-term to mock the cursor
+ * interface rather than try to switch everything over to models.
  */
 public class ContactRepository {
 

@@ -38,6 +38,7 @@ import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.scribbles.ImageEditorFragment
 import org.thoughtcrime.securesms.sms.MessageSender
 import org.thoughtcrime.securesms.sms.MessageSender.PreUploadResult
+import org.thoughtcrime.securesms.sms.OutgoingStoryMessage
 import org.thoughtcrime.securesms.util.MessageUtil
 import java.util.Collections
 import java.util.concurrent.TimeUnit
@@ -93,6 +94,7 @@ class MediaSelectionRepository(context: Context) {
 
       for (media in updatedMedia) {
         Log.w(TAG, media.uri.toString() + " : " + media.transformProperties.map { t: TransformProperties -> "" + t.isVideoTrim }.orElse("null"))
+        media.setCaption(trimmedBody)
       }
 
       val singleRecipient: Recipient? = singleContact?.let { Recipient.resolved(it.recipientId) }
@@ -199,6 +201,7 @@ class MediaSelectionRepository(context: Context) {
   private fun sendMessages(contacts: List<RecipientSearchKey>, body: String, preUploadResults: Collection<PreUploadResult>, mentions: List<Mention>, isViewOnce: Boolean) {
     val broadcastMessages: MutableList<OutgoingSecureMediaMessage> = ArrayList(contacts.size)
     val storyMessages: MutableMap<PreUploadResult, MutableList<OutgoingSecureMediaMessage>> = mutableMapOf()
+    val distributionListSentTimestamps: MutableMap<PreUploadResult, Long> = mutableMapOf()
 
     for (contact in contacts) {
       val recipient = Recipient.resolved(contact.recipientId)
@@ -218,7 +221,7 @@ class MediaSelectionRepository(context: Context) {
         recipient,
         body,
         emptyList(),
-        System.currentTimeMillis(),
+        if (recipient.isDistributionList) distributionListSentTimestamps.getOrPut(preUploadResults.first()) { System.currentTimeMillis() } else System.currentTimeMillis(),
         -1,
         TimeUnit.SECONDS.toMillis(recipient.expiresInSeconds.toLong()),
         isViewOnce,
@@ -237,7 +240,7 @@ class MediaSelectionRepository(context: Context) {
       if (isStory && preUploadResults.size > 1) {
         preUploadResults.forEach {
           val list = storyMessages[it] ?: mutableListOf()
-          list.add(OutgoingSecureMediaMessage(message).withSentTimestamp(System.currentTimeMillis()))
+          list.add(OutgoingSecureMediaMessage(message).withSentTimestamp(if (recipient.isDistributionList) distributionListSentTimestamps.getOrPut(it) { System.currentTimeMillis() } else System.currentTimeMillis()))
           storyMessages[it] = list
 
           // XXX We must do this to avoid sending out messages to the same recipient with the same
@@ -253,12 +256,19 @@ class MediaSelectionRepository(context: Context) {
       }
     }
 
-    storyMessages.forEach { (preUploadResult, messages) ->
-      MessageSender.sendMediaBroadcast(context, messages, Collections.singleton(preUploadResult))
-    }
-
     if (broadcastMessages.isNotEmpty()) {
-      MessageSender.sendMediaBroadcast(context, broadcastMessages, preUploadResults)
+      MessageSender.sendMediaBroadcast(
+        context,
+        broadcastMessages,
+        preUploadResults,
+        storyMessages.flatMap { (preUploadResult, messages) ->
+          messages.map { OutgoingStoryMessage(it, preUploadResult) }
+        }
+      )
+    } else {
+      storyMessages.forEach { (preUploadResult, messages) ->
+        MessageSender.sendMediaBroadcast(context, messages, Collections.singleton(preUploadResult), Collections.emptyList())
+      }
     }
   }
 }

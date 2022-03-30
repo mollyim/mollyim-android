@@ -35,7 +35,7 @@ object StoriesLandingItem {
 
   class Model(
     val data: StoriesLandingItemData,
-    val onRowClick: (Model) -> Unit,
+    val onRowClick: (Model, View) -> Unit,
     val onHideStory: (Model) -> Unit,
     val onForwardStory: (Model) -> Unit,
     val onShareStory: (Model) -> Unit,
@@ -112,6 +112,7 @@ object StoriesLandingItem {
 
       avatarView.setStoryRingFromState(model.data.storyViewState)
 
+      @Suppress("CascadeIf")
       if (record.storyType.isTextStory) {
         storyPreview.setImageResource(GlideApp.with(storyPreview), StoryTextPostModel.parseFrom(record), 0, 0)
       } else if (record.slideDeck.thumbnailSlide != null) {
@@ -123,13 +124,19 @@ object StoriesLandingItem {
       if (model.data.secondaryStory != null) {
         val secondaryRecord = model.data.secondaryStory.messageRecord as MediaMmsMessageRecord
 
+        @Suppress("CascadeIf")
         if (secondaryRecord.storyType.isTextStory) {
           storyMulti.setImageResource(GlideApp.with(storyPreview), StoryTextPostModel.parseFrom(secondaryRecord), 0, 0)
-        } else {
+          storyMulti.visible = true
+        } else if (secondaryRecord.slideDeck.thumbnailSlide != null) {
           storyMulti.setImageResource(GlideApp.with(storyPreview), secondaryRecord.slideDeck.thumbnailSlide!!, false, true)
+          storyMulti.visible = true
+        } else {
+          storyMulti.clear(GlideApp.with(storyPreview))
+          storyMulti.visible = false
         }
-        storyMulti.visible = true
       } else {
+        storyMulti.clear(GlideApp.with(storyPreview))
         storyMulti.visible = false
       }
 
@@ -160,7 +167,7 @@ object StoriesLandingItem {
     }
 
     private fun setUpClickListeners(model: Model) {
-      itemView.setOnClickListener { model.onRowClick(model) }
+      itemView.setOnClickListener { model.onRowClick(model, storyPreview) }
 
       if (model.data.storyRecipient.isMyStory) {
         itemView.setOnLongClickListener(null)

@@ -7,9 +7,9 @@ import android.database.Cursor;
 
 import androidx.annotation.NonNull;
 
+import org.signal.libsignal.protocol.util.Pair;
 import org.thoughtcrime.securesms.recipients.RecipientId;
-import org.thoughtcrime.securesms.util.SqlUtil;
-import org.whispersystems.libsignal.util.Pair;
+import org.signal.core.util.SqlUtil;
 
 import java.util.ArrayList;
 import java.util.Collection;

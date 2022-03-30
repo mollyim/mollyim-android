@@ -2,12 +2,12 @@ package org.whispersystems.signalservice.api.groupsv2;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.signal.libsignal.zkgroup.InvalidInputException;
+import org.signal.libsignal.zkgroup.groups.GroupMasterKey;
+import org.signal.libsignal.zkgroup.groups.GroupSecretParams;
 import org.signal.storageservice.protos.groups.AccessControl;
 import org.signal.storageservice.protos.groups.GroupJoinInfo;
 import org.signal.storageservice.protos.groups.local.DecryptedGroupJoinInfo;
-import org.signal.zkgroup.InvalidInputException;
-import org.signal.zkgroup.groups.GroupMasterKey;
-import org.signal.zkgroup.groups.GroupSecretParams;
 import org.whispersystems.signalservice.internal.util.Util;
 import org.whispersystems.signalservice.testutil.LibSignalLibraryUtil;
 
@@ -28,7 +28,7 @@ public final class GroupsV2Operations_decrypt_groupJoinInfo_Test {
     ClientZkOperations clientZkOperations = new ClientZkOperations(server.getServerPublicParams());
     GroupSecretParams  groupSecretParams  = GroupSecretParams.deriveFromMasterKey(new GroupMasterKey(Util.getSecretBytes(32)));
 
-    groupOperations   = new GroupsV2Operations(clientZkOperations).forGroup(groupSecretParams);
+    groupOperations   = new GroupsV2Operations(clientZkOperations, 1000).forGroup(groupSecretParams);
   }
 
   /**

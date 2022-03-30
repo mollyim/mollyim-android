@@ -8,8 +8,9 @@ import androidx.annotation.WorkerThread;
 
 import com.annimon.stream.Stream;
 
+import org.signal.contacts.SystemContactsRepository;
 import org.signal.core.util.logging.Log;
-import org.thoughtcrime.securesms.contacts.sync.DirectoryHelper;
+import org.thoughtcrime.securesms.contacts.sync.ContactDiscovery;
 import org.thoughtcrime.securesms.database.GroupDatabase;
 import org.thoughtcrime.securesms.database.RecipientDatabase.RegisteredState;
 import org.thoughtcrime.securesms.database.SignalDatabase;
@@ -58,7 +59,7 @@ public class RecipientUtil {
 
     if (!recipient.getServiceId().isPresent()) {
       Log.i(TAG, recipient.getId() + " is missing a UUID...");
-      RegisteredState state = DirectoryHelper.refreshDirectoryFor(context, recipient, false);
+      RegisteredState state = ContactDiscovery.refresh(context, recipient, false);
 
       recipient = Recipient.resolved(recipient.getId());
       Log.i(TAG, "Successfully performed a UUID fetch for " + recipient.getId() + ". Registered: " + state);
@@ -100,7 +101,7 @@ public class RecipientUtil {
                                                    .toList();
 
     if (recipientsWithoutUuids.size() > 0) {
-      DirectoryHelper.refreshDirectoryFor(context, recipientsWithoutUuids, false);
+      ContactDiscovery.refresh(context, recipientsWithoutUuids, false);
 
       if (recipients.stream().map(Recipient::resolve).anyMatch(Recipient::isUnregistered)) {
         throw new NotFoundException("1 or more recipients are not registered!");
@@ -202,7 +203,7 @@ public class RecipientUtil {
     }
 
     if (recipient.isSystemContact() && recipient.getContactUri() != null) {
-      SignalDatabase.contacts().lookupAndDeleteContact(recipient.getContactUri());
+      SystemContactsRepository.lookupAndDeleteContact(context, recipient.getContactUri());
     }
 
     SignalDatabase.recipients().clearFieldsForDeletion(resolved.getId());

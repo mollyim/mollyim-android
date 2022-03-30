@@ -10,15 +10,18 @@
         android:id="@+id/story_content_card_touch_interceptor"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="9:16"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/story_content_card"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:transitionName="story"
             app:cardCornerRadius="18dp"
             app:cardElevation="0dp">
 
@@ -242,5 +245,10 @@
         app:segmentStrokeColor="@color/core_white"
         app:totalSegments="0"
         tools:totalSegments="5" />
+
+    <org.thoughtcrime.securesms.stories.viewer.reply.reaction.OnReactionSentView
+        android:id="@+id/on_reaction_sent_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

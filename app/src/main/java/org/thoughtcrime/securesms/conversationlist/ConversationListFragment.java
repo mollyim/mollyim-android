@@ -44,6 +44,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.IdRes;
@@ -54,15 +55,12 @@ import androidx.annotation.WorkerThread;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.view.ActionMode;
-import androidx.appcompat.widget.ActionMenuView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.widget.TooltipCompat;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -84,10 +82,7 @@ import org.thoughtcrime.securesms.MainNavigator;
 import org.thoughtcrime.securesms.MuteDialog;
 import org.thoughtcrime.securesms.NewConversationActivity;
 import org.thoughtcrime.securesms.R;
-import org.thoughtcrime.securesms.badges.BadgeImageView;
-import org.thoughtcrime.securesms.badges.models.Badge;
 import org.thoughtcrime.securesms.components.SearchToolbar;
-import org.thoughtcrime.securesms.components.TooltipPopup;
 import org.thoughtcrime.securesms.components.UnreadPaymentsView;
 import org.thoughtcrime.securesms.components.menu.ActionItem;
 import org.thoughtcrime.securesms.components.menu.SignalBottomActionBar;
@@ -101,7 +96,6 @@ import org.thoughtcrime.securesms.components.reminder.Reminder;
 import org.thoughtcrime.securesms.components.reminder.ReminderView;
 import org.thoughtcrime.securesms.components.reminder.ServiceOutageReminder;
 import org.thoughtcrime.securesms.components.reminder.UnauthorizedReminder;
-import org.thoughtcrime.securesms.components.settings.app.AppSettingsActivity;
 import org.thoughtcrime.securesms.components.settings.app.notifications.manual.NotificationProfileSelectionFragment;
 import org.thoughtcrime.securesms.components.voice.VoiceNoteMediaControllerOwner;
 import org.thoughtcrime.securesms.components.voice.VoiceNotePlayerView;
@@ -125,7 +119,6 @@ import org.thoughtcrime.securesms.megaphone.Megaphones;
 import org.thoughtcrime.securesms.mms.GlideApp;
 import org.thoughtcrime.securesms.notifications.MarkReadReceiver;
 import org.thoughtcrime.securesms.notifications.profiles.NotificationProfile;
-import org.thoughtcrime.securesms.notifications.profiles.NotificationProfiles;
 import org.thoughtcrime.securesms.payments.preferences.PaymentsActivity;
 import org.thoughtcrime.securesms.payments.preferences.details.PaymentDetailsFragmentArgs;
 import org.thoughtcrime.securesms.payments.preferences.details.PaymentDetailsParcelable;
@@ -140,8 +133,6 @@ import org.thoughtcrime.securesms.sms.MessageSender;
 import org.thoughtcrime.securesms.storage.StorageSyncHelper;
 import org.thoughtcrime.securesms.util.AppForegroundObserver;
 import org.thoughtcrime.securesms.util.AppStartup;
-import org.thoughtcrime.securesms.util.AvatarUtil;
-import org.thoughtcrime.securesms.util.BottomSheetUtil;
 import org.thoughtcrime.securesms.util.PlayStoreUtil;
 import org.thoughtcrime.securesms.util.ServiceUtil;
 import org.thoughtcrime.securesms.util.SignalLocalMetrics;
@@ -149,8 +140,6 @@ import org.thoughtcrime.securesms.util.SnapToTopDataObserver;
 import org.thoughtcrime.securesms.util.StickyHeaderDecoration;
 import org.thoughtcrime.securesms.util.Stopwatch;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
-import org.thoughtcrime.securesms.util.TopToastPopup;
-import org.thoughtcrime.securesms.util.Util;
 import org.thoughtcrime.securesms.util.ViewUtil;
 import org.thoughtcrime.securesms.util.WindowUtil;
 import org.thoughtcrime.securesms.util.concurrent.SimpleTask;
@@ -175,13 +164,11 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static android.app.Activity.RESULT_OK;
-import static org.thoughtcrime.securesms.components.TooltipPopup.POSITION_BELOW;
 
 
 public class ConversationListFragment extends MainFragment implements ActionMode.Callback,
                                                                       ConversationListAdapter.OnConversationClickListener,
                                                                       ConversationListSearchAdapter.EventListener,
-                                                                      MainNavigator.BackHandler,
                                                                       MegaphoneActionController
 {
   public static final short MESSAGE_REQUESTS_REQUEST_CODE_CREATE_NAME = 32562;
@@ -192,7 +179,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
   private static final int MAXIMUM_PINNED_CONVERSATIONS = 4;
 
   private ActionMode                     actionMode;
-  private ConstraintLayout               constraintLayout;
+  private View                           coordinator;
   private RecyclerView                   list;
   private Stub<ReminderView>             reminderView;
   private Stub<UnreadPaymentsView>       paymentNotificationView;
@@ -200,12 +187,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
   private TextView                       searchEmptyState;
   private PulsingFloatingActionButton    fab;
   private PulsingFloatingActionButton    cameraFab;
-  private Stub<SearchToolbar>            searchToolbar;
-  private ImageView                      notificationProfileStatus;
-  private ImageView                      proxyStatus;
-  private ImageView                      searchAction;
   private View                           toolbarShadow;
-  private View                           unreadPaymentsDot;
   private ConversationListViewModel      viewModel;
   private RecyclerView.Adapter           activeAdapter;
   private ConversationListAdapter        defaultAdapter;
@@ -219,7 +201,6 @@ public class ConversationListFragment extends MainFragment implements ActionMode
   private Stub<FrameLayout>              voiceNotePlayerViewStub;
   private VoiceNotePlayerView            voiceNotePlayerView;
   private SignalBottomActionBar          bottomActionBar;
-  private TopToastPopup                  previousTopToastPopup;
 
   protected ConversationListArchiveItemDecoration archiveDecoration;
   protected ConversationListItemAnimator          itemAnimator;
@@ -254,30 +235,21 @@ public class ConversationListFragment extends MainFragment implements ActionMode
 
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-    constraintLayout          = view.findViewById(R.id.constraint_layout);
+    coordinator               = view.findViewById(R.id.coordinator);
     list                      = view.findViewById(R.id.list);
     fab                       = view.findViewById(R.id.fab);
     cameraFab                 = view.findViewById(R.id.camera_fab);
     searchEmptyState          = view.findViewById(R.id.search_no_results);
-    searchAction              = view.findViewById(R.id.search_action);
     toolbarShadow             = view.findViewById(R.id.conversation_list_toolbar_shadow);
-    notificationProfileStatus = view.findViewById(R.id.conversation_list_notification_profile_status);
-    proxyStatus               = view.findViewById(R.id.conversation_list_proxy_status);
-    unreadPaymentsDot         = view.findViewById(R.id.unread_payments_indicator);
     bottomActionBar           = view.findViewById(R.id.conversation_list_bottom_action_bar);
     reminderView              = new Stub<>(view.findViewById(R.id.reminder));
     emptyState                = new Stub<>(view.findViewById(R.id.empty_state));
-    searchToolbar             = new Stub<>(view.findViewById(R.id.search_toolbar));
     megaphoneContainer        = new Stub<>(view.findViewById(R.id.megaphone_container));
     paymentNotificationView   = new Stub<>(view.findViewById(R.id.payments_notification));
     voiceNotePlayerViewStub   = new Stub<>(view.findViewById(R.id.voice_note_player));
 
     Toolbar toolbar = getToolbar(view);
     toolbar.setVisibility(View.VISIBLE);
-    ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
-
-    notificationProfileStatus.setOnClickListener(v -> handleNotificationProfile());
-    proxyStatus.setOnClickListener(v -> onProxyStatusClicked());
 
     fab.show();
     cameraFab.show();
@@ -313,13 +285,18 @@ public class ConversationListFragment extends MainFragment implements ActionMode
     initializeSearchListener();
     initializeVoiceNotePlayer();
 
-    TooltipCompat.setTooltipText(searchAction, getText(R.string.SearchToolbar_search_for_conversations_contacts_and_messages));
-  }
+    TooltipCompat.setTooltipText(requireCallback().getSearchAction(), getText(R.string.SearchToolbar_search_for_conversations_contacts_and_messages));
 
-  @Override
-  public void onDestroyView() {
-    previousTopToastPopup = null;
-    super.onDestroyView();
+    requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+      @Override
+      public void handleOnBackPressed() {
+        if (!closeSearchIfOpen()) {
+          if (!NavHostFragment.findNavController(ConversationListFragment.this).popBackStack()) {
+            requireActivity().finish();
+          }
+        }
+      }
+    });
   }
 
   @Override
@@ -330,17 +307,13 @@ public class ConversationListFragment extends MainFragment implements ActionMode
     EventBus.getDefault().register(this);
     itemAnimator.disable();
 
-    SimpleTask.run(getViewLifecycleOwner().getLifecycle(), Recipient::self, this::initializeProfileIcon);
-
-    initializeSettingsTouchTarget();
-
-    if ((!searchToolbar.resolved() || !searchToolbar.get().isVisible()) && list.getAdapter() != defaultAdapter) {
+    if ((!requireCallback().getSearchToolbar().resolved() || !requireCallback().getSearchToolbar().get().isVisible()) && list.getAdapter() != defaultAdapter) {
       list.removeItemDecoration(searchAdapterDecoration);
       setAdapter(defaultAdapter);
     }
 
     if (activeAdapter != null) {
-      activeAdapter.notifyDataSetChanged();
+      activeAdapter.notifyItemRangeChanged(0, activeAdapter.getItemCount());
     }
 
     if (SignalStore.rateLimit().needsRecaptcha()) {
@@ -399,16 +372,12 @@ public class ConversationListFragment extends MainFragment implements ActionMode
     return false;
   }
 
-  @Override
-  public boolean onBackPressed() {
-    return closeSearchIfOpen();
-  }
-
   private boolean closeSearchIfOpen() {
-    if ((searchToolbar.resolved() && searchToolbar.get().isVisible()) || activeAdapter == searchAdapter) {
+    if ((requireCallback().getSearchToolbar().resolved() && requireCallback().getSearchToolbar().get().isVisible()) || activeAdapter == searchAdapter) {
       list.removeItemDecoration(searchAdapterDecoration);
       setAdapter(defaultAdapter);
-      searchToolbar.get().collapse();
+      requireCallback().getSearchToolbar().get().collapse();
+      requireCallback().onSearchClosed();
       return true;
     }
 
@@ -443,7 +412,8 @@ public class ConversationListFragment extends MainFragment implements ActionMode
 
   @Override
   public void onShowArchiveClick() {
-    getNavigator().goToArchiveList();
+    NavHostFragment.findNavController(this)
+                   .navigate(ConversationListFragmentDirections.actionConversationListFragmentToConversationListArchiveFragment());
   }
 
   @Override
@@ -526,26 +496,13 @@ public class ConversationListFragment extends MainFragment implements ActionMode
     imm.hideSoftInputFromWindow(requireView().getWindowToken(), 0);
   }
 
-  private void initializeProfileIcon(@NonNull Recipient recipient) {
-    ImageView icon = requireView().findViewById(R.id.toolbar_icon);
-
-    BadgeImageView imageView = requireView().findViewById(R.id.toolbar_badge);
-    imageView.setBadgeFromRecipient(recipient);
-
-    AvatarUtil.loadIconIntoImageView(recipient, icon, getResources().getDimensionPixelSize(R.dimen.toolbar_avatar_size));
-  }
-
-  private void initializeSettingsTouchTarget() {
-    View touchArea = requireView().findViewById(R.id.toolbar_settings_touch_area);
-    touchArea.setOnClickListener(v -> getNavigator().goToAppSettings());
-  }
-
   private void initializeSearchListener() {
-    searchAction.setOnClickListener(v -> {
-      searchToolbar.get().display(searchAction.getX() + (searchAction.getWidth() / 2.0f),
-                                  searchAction.getY() + (searchAction.getHeight() / 2.0f));
+    requireCallback().getSearchAction().setOnClickListener(v -> {
+      requireCallback().onSearchOpened();
+      requireCallback().getSearchToolbar().get().display(requireCallback().getSearchAction().getX() + (requireCallback().getSearchAction().getWidth() / 2.0f),
+                                                         requireCallback().getSearchAction().getY() + (requireCallback().getSearchAction().getHeight() / 2.0f));
 
-      searchToolbar.get().setListener(new SearchToolbar.SearchListener() {
+      requireCallback().getSearchToolbar().get().setListener(new SearchToolbar.SearchListener() {
         @Override
         public void onSearchTextChange(String text) {
           String trimmed = text.trim();
@@ -570,6 +527,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
         public void onSearchClosed() {
           list.removeItemDecoration(searchAdapterDecoration);
           setAdapter(defaultAdapter);
+          requireCallback().onSearchClosed();
         }
       });
     });
@@ -665,8 +623,8 @@ public class ConversationListFragment extends MainFragment implements ActionMode
     viewModel.getMegaphone().observe(getViewLifecycleOwner(), this::onMegaphoneChanged);
     viewModel.getConversationList().observe(getViewLifecycleOwner(), this::onConversationListChanged);
     viewModel.hasNoConversations().observe(getViewLifecycleOwner(), this::updateEmptyState);
-    viewModel.getNotificationProfiles().observe(getViewLifecycleOwner(), this::updateNotificationProfileStatus);
-    viewModel.getPipeState().observe(getViewLifecycleOwner(), this::updateProxyStatus);
+    viewModel.getNotificationProfiles().observe(getViewLifecycleOwner(), profiles -> requireCallback().updateNotificationProfileStatus(profiles));
+    viewModel.getPipeState().observe(getViewLifecycleOwner(), pipeState -> requireCallback().updateProxyStatus(pipeState));
 
     appForegroundObserver = new AppForegroundObserver.Listener() {
       @Override
@@ -710,7 +668,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
 
   private void animatePaymentUnreadStatusIn() {
     paymentNotificationView.get().setVisibility(View.VISIBLE);
-    unreadPaymentsDot.animate().alpha(1);
+    requireCallback().getUnreadPaymentsDot().animate().alpha(1);
   }
 
   private void animatePaymentUnreadStatusOut() {
@@ -718,7 +676,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
       paymentNotificationView.get().setVisibility(View.GONE);
     }
 
-    unreadPaymentsDot.animate().alpha(0);
+    requireCallback().getUnreadPaymentsDot().animate().alpha(0);
   }
 
   private void onSearchResultChanged(@Nullable SearchResult result) {
@@ -859,7 +817,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
     String    snackBarTitle         = getResources().getQuantityString(getArchivedSnackbarTitleRes(), count, count);
 
     new SnackbarAsyncTask<Void>(getViewLifecycleOwner().getLifecycle(),
-                                requireView(),
+                                coordinator,
                                 snackBarTitle,
                                 getString(R.string.ConversationListFragment_undo),
                                 getResources().getColor(R.color.amber_500),
@@ -1055,90 +1013,6 @@ public class ConversationListFragment extends MainFragment implements ActionMode
     }
   }
 
-  private void updateNotificationProfileStatus(@NonNull List<NotificationProfile> notificationProfiles) {
-    NotificationProfile activeProfile = NotificationProfiles.getActiveProfile(notificationProfiles);
-
-    if (activeProfile != null) {
-      if (activeProfile.getId() != SignalStore.notificationProfileValues().getLastProfilePopup()) {
-        requireView().postDelayed(() -> {
-          SignalStore.notificationProfileValues().setLastProfilePopup(activeProfile.getId());
-          SignalStore.notificationProfileValues().setLastProfilePopupTime(System.currentTimeMillis());
-
-          if (previousTopToastPopup != null && previousTopToastPopup.isShowing()) {
-            previousTopToastPopup.dismiss();
-          }
-
-          ViewGroup view = ((ViewGroup) requireView());
-          Fragment fragment = getParentFragmentManager().findFragmentByTag(BottomSheetUtil.STANDARD_BOTTOM_SHEET_FRAGMENT_TAG);
-          if (fragment != null && fragment.isAdded() && fragment.getView() != null) {
-            view = ((ViewGroup) fragment.requireView());
-          }
-
-          try {
-            previousTopToastPopup = TopToastPopup.show(view, R.drawable.ic_moon_16, getString(R.string.ConversationListFragment__s_on, activeProfile.getName()));
-          } catch (Exception e) {
-            Log.w(TAG, "Unable to show toast popup", e);
-          }
-        }, 500L);
-      }
-
-      notificationProfileStatus.setVisibility(View.VISIBLE);
-    } else {
-      notificationProfileStatus.setVisibility(View.GONE);
-    }
-
-    if (!SignalStore.notificationProfileValues().getHasSeenTooltip() && Util.hasItems(notificationProfiles)) {
-      View target = findOverflowMenuButton(getToolbar(requireView()));
-      if (target != null) {
-        TooltipPopup.forTarget(target)
-                    .setText(R.string.ConversationListFragment__turn_your_notification_profile_on_or_off_here)
-                    .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.signal_button_primary))
-                    .setTextColor(ContextCompat.getColor(requireContext(), R.color.signal_button_primary_text))
-                    .setOnDismissListener(() -> SignalStore.notificationProfileValues().setHasSeenTooltip(true))
-                    .show(POSITION_BELOW);
-      } else {
-        Log.w(TAG, "Unable to find overflow menu to show Notification Profile tooltip");
-      }
-    }
-  }
-
-  private @Nullable View findOverflowMenuButton(@NonNull Toolbar viewGroup) {
-    for (int i = 0, count = viewGroup.getChildCount(); i < count; i++) {
-      View v = viewGroup.getChildAt(i);
-      if (v instanceof ActionMenuView) {
-        return v;
-      }
-    }
-    return null;
-  }
-
-  private void updateProxyStatus(@NonNull WebSocketConnectionState state) {
-    if (ApplicationDependencies.getNetworkManager().isProxyEnabled()) {
-      proxyStatus.setVisibility(View.VISIBLE);
-
-      switch (state) {
-        case CONNECTING:
-        case DISCONNECTING:
-        case DISCONNECTED:
-          proxyStatus.setImageResource(R.drawable.ic_proxy_connecting_24);
-          break;
-        case CONNECTED:
-          proxyStatus.setImageResource(R.drawable.ic_proxy_connected_24);
-          break;
-        case AUTHENTICATION_FAILED:
-        case FAILED:
-          proxyStatus.setImageResource(R.drawable.ic_proxy_failed_24);
-          break;
-      }
-    } else {
-      proxyStatus.setVisibility(View.GONE);
-    }
-  }
-
-  private void onProxyStatusClicked() {
-    startActivity(AppSettingsActivity.proxy(requireContext()));
-  }
-
   protected void onPostSubmitList(int conversationCount) {
     if (conversationCount >= 6 && (SignalStore.onboarding().shouldShowInviteFriends() || SignalStore.onboarding().shouldShowNewGroup())) {
       SignalStore.onboarding().clearAll();
@@ -1322,8 +1196,12 @@ public class ConversationListFragment extends MainFragment implements ActionMode
     bottomActionBar.setItems(items);
   }
 
+  protected Callback requireCallback() {
+    return ((Callback) getParentFragment().getParentFragment());
+  }
+
   protected Toolbar getToolbar(@NonNull View rootView) {
-    return rootView.findViewById(R.id.toolbar);
+    return requireCallback().getToolbar();
   }
 
   protected @PluralsRes int getArchivedSnackbarTitleRes() {
@@ -1350,7 +1228,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
     itemAnimator.enable();
 
     new SnackbarAsyncTask<Long>(getViewLifecycleOwner().getLifecycle(),
-                                requireView(),
+                                coordinator,
                                 getResources().getQuantityString(R.plurals.ConversationListFragment_conversations_archived, 1, 1),
                                 getString(R.string.ConversationListFragment_undo),
                                 getResources().getColor(R.color.amber_500),
@@ -1629,4 +1507,19 @@ public class ConversationListFragment extends MainFragment implements ActionMode
       MainNavigator.get(requireActivity()).goToConversation(threadRecipientId, threadId, ThreadDatabase.DistributionTypes.DEFAULT, (int) messagePositionInThread);
     }
   }
+
+  public interface Callback {
+    @NonNull Toolbar getToolbar();
+    @NonNull ImageView getSearchAction();
+    @NonNull Stub<SearchToolbar> getSearchToolbar();
+    @NonNull View getUnreadPaymentsDot();
+    @NonNull Stub<Toolbar> getBasicToolbar();
+
+    void updateNotificationProfileStatus(@NonNull List<NotificationProfile> notificationProfiles);
+    void updateProxyStatus(@NonNull WebSocketConnectionState state);
+    void onSearchOpened();
+    void onSearchClosed();
+  }
 }
+
+

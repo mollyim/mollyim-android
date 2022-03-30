@@ -6,8 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.signal.core.util.logging.Log;
-import org.signal.zkgroup.profiles.ProfileKey;
-import org.signal.zkgroup.profiles.ProfileKeyCredential;
+import org.signal.libsignal.zkgroup.profiles.ProfileKey;
+import org.signal.libsignal.zkgroup.profiles.ProfileKeyCredential;
 import org.thoughtcrime.securesms.crypto.ProfileKeyUtil;
 import org.thoughtcrime.securesms.database.RecipientDatabase;
 import org.thoughtcrime.securesms.database.SignalDatabase;
@@ -18,9 +18,12 @@ import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.profiles.ProfileName;
 import org.thoughtcrime.securesms.recipients.Recipient;
+import org.thoughtcrime.securesms.util.Base64;
 import org.thoughtcrime.securesms.util.ProfileUtil;
+import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.Util;
 import org.whispersystems.signalservice.api.crypto.InvalidCiphertextException;
+import org.whispersystems.signalservice.api.crypto.ProfileCipher;
 import org.whispersystems.signalservice.api.profiles.ProfileAndCredential;
 import org.whispersystems.signalservice.api.profiles.SignalServiceProfile;
 import org.whispersystems.signalservice.api.push.exceptions.PushNetworkException;
@@ -91,6 +94,8 @@ public class RefreshOwnProfileJob extends BaseJob {
     setProfileAbout(profile.getAbout(), profile.getAboutEmoji());
     setProfileAvatar(profile.getAvatar());
     setProfileCapabilities(profile.getCapabilities());
+    ensureUnidentifiedAccessCorrect(profile.getUnidentifiedAccess(), profile.isUnrestrictedUnidentifiedAccess());
+
     Optional<ProfileKeyCredential> profileKeyCredential = profileAndCredential.getProfileKeyCredential();
     if (profileKeyCredential.isPresent()) {
       setProfileKeyCredential(self, ProfileKeyUtil.getSelfProfileKey(), profileKeyCredential.get());
@@ -158,6 +163,36 @@ public class RefreshOwnProfileJob extends BaseJob {
     }
 
     SignalDatabase.recipients().setCapabilities(Recipient.self().getId(), capabilities);
+  }
+
+  private void ensureUnidentifiedAccessCorrect(@Nullable String unidentifiedAccessVerifier, boolean universalUnidentifiedAccess) {
+    if (unidentifiedAccessVerifier == null) {
+      Log.w(TAG, "No unidentified access is set remotely! Refreshing attributes.");
+      ApplicationDependencies.getJobManager().add(new RefreshAttributesJob());
+      return;
+    }
+
+    if (TextSecurePreferences.isUniversalUnidentifiedAccess(context) != universalUnidentifiedAccess) {
+      Log.w(TAG, "The universal access flag doesn't match our local value (local: " + TextSecurePreferences.isUniversalUnidentifiedAccess(context) + ", remote: " + universalUnidentifiedAccess + ")! Refreshing attributes.");
+      ApplicationDependencies.getJobManager().add(new RefreshAttributesJob());
+      return;
+    }
+
+    ProfileKey    profileKey = ProfileKeyUtil.getSelfProfileKey();
+    ProfileCipher cipher     = new ProfileCipher(profileKey);
+
+    boolean verified;
+    try {
+      verified = cipher.verifyUnidentifiedAccess(Base64.decode(unidentifiedAccessVerifier));
+    } catch (IOException e) {
+      Log.w(TAG, "Failed to decode unidentified access!", e);
+      verified = false;
+    }
+
+    if (!verified) {
+      Log.w(TAG, "Unidentified access failed to verify! Refreshing attributes.");
+      ApplicationDependencies.getJobManager().add(new RefreshAttributesJob());
+    }
   }
 
   public static final class Factory implements Job.Factory<RefreshOwnProfileJob> {

@@ -3,14 +3,19 @@ package org.thoughtcrime.securesms.stories.landing
 import android.Manifest
 import android.content.Intent
 import android.graphics.Color
+import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.viewModels
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
-import org.thoughtcrime.securesms.MainNavigator
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.DSLConfiguration
 import org.thoughtcrime.securesms.components.settings.DSLSettingsAdapter
@@ -34,13 +39,7 @@ import org.thoughtcrime.securesms.util.visible
 /**
  * The "landing page" for Stories.
  */
-class StoriesLandingFragment :
-  DSLSettingsFragment(
-    layoutId = R.layout.stories_landing_fragment,
-    menuId = R.menu.story_landing_menu,
-    titleId = R.string.ConversationListTabs__stories
-  ),
-  MainNavigator.BackHandler {
+class StoriesLandingFragment : DSLSettingsFragment(layoutId = R.layout.stories_landing_fragment) {
 
   private lateinit var emptyNotice: View
   private lateinit var cameraFab: View
@@ -54,6 +53,16 @@ class StoriesLandingFragment :
   )
 
   private val tabsViewModel: ConversationListTabsViewModel by viewModels(ownerProducer = { requireActivity() })
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setHasOptionsMenu(true)
+  }
+
+  override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+    menu.clear()
+    inflater.inflate(R.menu.story_landing_menu, menu)
+  }
 
   override fun bindAdapter(adapter: DSLSettingsAdapter) {
     StoriesLandingItem.register(adapter)
@@ -79,6 +88,15 @@ class StoriesLandingFragment :
       adapter.submitList(getConfiguration(it).toMappingModelList())
       emptyNotice.visible = it.hasNoStories
     }
+
+    requireActivity().onBackPressedDispatcher.addCallback(
+      viewLifecycleOwner,
+      object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+          tabsViewModel.onChatsSelected()
+        }
+      }
+    )
   }
 
   private fun getConfiguration(state: StoriesLandingState): DSLConfiguration {
@@ -124,14 +142,15 @@ class StoriesLandingFragment :
   private fun createStoryLandingItem(data: StoriesLandingItemData): StoriesLandingItem.Model {
     return StoriesLandingItem.Model(
       data = data,
-      onRowClick = {
-        if (it.data.storyRecipient.isMyStory) {
+      onRowClick = { model, preview ->
+        if (model.data.storyRecipient.isMyStory) {
           startActivity(Intent(requireContext(), MyStoriesActivity::class.java))
-        } else if (it.data.primaryStory.messageRecord.isOutgoing && it.data.primaryStory.messageRecord.isFailed) {
-          lifecycleDisposable += viewModel.resend(it.data.primaryStory.messageRecord).subscribe()
+        } else if (model.data.primaryStory.messageRecord.isOutgoing && model.data.primaryStory.messageRecord.isFailed) {
+          lifecycleDisposable += viewModel.resend(model.data.primaryStory.messageRecord).subscribe()
           Toast.makeText(requireContext(), R.string.message_recipients_list_item__resend, Toast.LENGTH_SHORT).show()
         } else {
-          startActivity(StoryViewerActivity.createIntent(requireContext(), it.data.storyRecipient.id))
+          val options = ActivityOptionsCompat.makeSceneTransitionAnimation(requireActivity(), preview, ViewCompat.getTransitionName(preview) ?: "")
+          startActivity(StoryViewerActivity.createIntent(requireContext(), model.data.storyRecipient.id), options.toBundle())
         }
       },
       onForwardStory = {
@@ -150,7 +169,7 @@ class StoriesLandingFragment :
         }
       },
       onShareStory = {
-        StoryContextMenu.share(this@StoriesLandingFragment, it.data.primaryStory as MediaMmsMessageRecord)
+        StoryContextMenu.share(this@StoriesLandingFragment, it.data.primaryStory.messageRecord as MediaMmsMessageRecord)
       },
       onSave = {
         StoryContextMenu.save(requireContext(), it.data.primaryStory.messageRecord)
@@ -180,11 +199,6 @@ class StoriesLandingFragment :
       }
       .setNegativeButton(android.R.string.cancel) { _, _ -> }
       .show()
-  }
-
-  override fun onBackPressed(): Boolean {
-    tabsViewModel.onChatsSelected()
-    return true
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {

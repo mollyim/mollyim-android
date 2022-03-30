@@ -32,8 +32,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.jsoup.helper.StringUtil;
 import org.signal.core.util.logging.Log;
-import org.signal.zkgroup.InvalidInputException;
-import org.signal.zkgroup.groups.GroupMasterKey;
+import org.signal.libsignal.zkgroup.InvalidInputException;
+import org.signal.libsignal.zkgroup.groups.GroupMasterKey;
 import org.thoughtcrime.securesms.database.MessageDatabase.MarkedMessageInfo;
 import org.thoughtcrime.securesms.database.model.MediaMmsMessageRecord;
 import org.thoughtcrime.securesms.database.model.MessageRecord;
@@ -52,9 +52,9 @@ import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.recipients.RecipientUtil;
 import org.thoughtcrime.securesms.storage.StorageSyncHelper;
 import org.thoughtcrime.securesms.util.ConversationUtil;
-import org.thoughtcrime.securesms.util.CursorUtil;
+import org.signal.core.util.CursorUtil;
 import org.thoughtcrime.securesms.util.JsonUtils;
-import org.thoughtcrime.securesms.util.SqlUtil;
+import org.signal.core.util.SqlUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.Util;
 import org.whispersystems.signalservice.api.push.ServiceId;
@@ -722,6 +722,29 @@ public class ThreadDatabase extends Database {
     }
 
     return positions;
+  }
+
+  public long getTabBarUnreadCount() {
+    String[] countProjection = SqlUtil.buildArgs("COUNT(*)");
+    String[] sumProjection   = SqlUtil.buildArgs("SUM(" + UNREAD_COUNT + ")");
+    String   where           = ARCHIVED + " = 0 AND " + MEANINGFUL_MESSAGES + " != 0 AND " + READ + " = ?";
+    String[] countArgs       = SqlUtil.buildArgs(ReadStatus.FORCED_UNREAD.serialize());
+    String[] sumArgs         = SqlUtil.buildArgs(ReadStatus.UNREAD.serialize());
+    long     total           = 0;
+
+    try (Cursor cursor = getReadableDatabase().query(TABLE_NAME, countProjection, where, countArgs, null, null, null)) {
+      if (cursor != null && cursor.moveToFirst()) {
+        total += cursor.getLong(0);
+      }
+    }
+
+    try (Cursor cursor = getReadableDatabase().query(TABLE_NAME, sumProjection, where, sumArgs, null, null, null)) {
+      if (cursor != null && cursor.moveToFirst()) {
+        total += cursor.getLong(0);
+      }
+    }
+
+    return total;
   }
 
   public Cursor getArchivedConversationList(long offset, long limit) {

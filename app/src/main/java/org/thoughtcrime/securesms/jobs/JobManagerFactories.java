@@ -128,6 +128,7 @@ public final class JobManagerFactories {
       put(PushGroupUpdateJob.KEY,                    new PushGroupUpdateJob.Factory());
       put(PushMediaSendJob.KEY,                      new PushMediaSendJob.Factory());
       put(PushNotificationReceiveJob.KEY,            new PushNotificationReceiveJob.Factory());
+      put(PushProcessEarlyMessagesJob.KEY,           new PushProcessEarlyMessagesJob.Factory());
       put(PushProcessMessageJob.KEY,                 new PushProcessMessageJob.Factory());
       put(PushTextSendJob.KEY,                       new PushTextSendJob.Factory());
       put(ReactionSendJob.KEY,                       new ReactionSendJob.Factory());
@@ -237,7 +238,7 @@ public final class JobManagerFactories {
   public static List<ConstraintObserver> getConstraintObservers(@NonNull Application application) {
     return Arrays.asList(new MasterSecretConstraintObserver(application),
                          new ChargingConstraintObserver(application),
-                         NetworkConstraintObserver.getInstance(application),
+                         new NetworkConstraintObserver(application),
                          new DecryptionsDrainedConstraintObserver(),
                          new NotInCallConstraintObserver());
   }

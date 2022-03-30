@@ -30,9 +30,9 @@ buildscript {
 }
 
 ext {
+    BUILD_TOOL_VERSION = '31.0.0'
     // MOLLY: Edit Dockerfile to download the same SDK packages
-    BUILD_TOOL_VERSION = '30.0.2'
-    COMPILE_SDK = 30
+    COMPILE_SDK = 31
     TARGET_SDK  = 30
     MINIMUM_SDK = 19
 

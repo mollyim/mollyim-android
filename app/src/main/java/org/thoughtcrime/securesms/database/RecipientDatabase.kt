@@ -10,12 +10,27 @@ import androidx.core.content.contentValuesOf
 import com.google.protobuf.ByteString
 import com.google.protobuf.InvalidProtocolBufferException
 import net.zetetic.database.sqlcipher.SQLiteConstraintException
+import org.signal.core.util.Bitmask
+import org.signal.core.util.CursorUtil
+import org.signal.core.util.SqlUtil
 import org.signal.core.util.logging.Log
+import org.signal.core.util.optionalBlob
+import org.signal.core.util.optionalBoolean
+import org.signal.core.util.optionalInt
+import org.signal.core.util.optionalString
 import org.signal.core.util.or
+import org.signal.core.util.requireBlob
+import org.signal.core.util.requireBoolean
+import org.signal.core.util.requireInt
+import org.signal.core.util.requireLong
+import org.signal.core.util.requireNonNullString
+import org.signal.core.util.requireString
+import org.signal.libsignal.protocol.IdentityKey
+import org.signal.libsignal.protocol.InvalidKeyException
+import org.signal.libsignal.zkgroup.InvalidInputException
+import org.signal.libsignal.zkgroup.profiles.ProfileKey
+import org.signal.libsignal.zkgroup.profiles.ProfileKeyCredential
 import org.signal.storageservice.protos.groups.local.DecryptedGroup
-import org.signal.zkgroup.InvalidInputException
-import org.signal.zkgroup.profiles.ProfileKey
-import org.signal.zkgroup.profiles.ProfileKeyCredential
 import org.thoughtcrime.securesms.badges.Badges
 import org.thoughtcrime.securesms.badges.Badges.toDatabaseBadge
 import org.thoughtcrime.securesms.badges.models.Badge
@@ -36,6 +51,7 @@ import org.thoughtcrime.securesms.database.SignalDatabase.Companion.notification
 import org.thoughtcrime.securesms.database.SignalDatabase.Companion.reactions
 import org.thoughtcrime.securesms.database.SignalDatabase.Companion.runPostSuccessfulTransaction
 import org.thoughtcrime.securesms.database.SignalDatabase.Companion.sessions
+import org.thoughtcrime.securesms.database.SignalDatabase.Companion.storySends
 import org.thoughtcrime.securesms.database.SignalDatabase.Companion.threads
 import org.thoughtcrime.securesms.database.model.DistributionListId
 import org.thoughtcrime.securesms.database.model.RecipientRecord
@@ -65,19 +81,14 @@ import org.thoughtcrime.securesms.storage.StorageRecordUpdate
 import org.thoughtcrime.securesms.storage.StorageSyncHelper
 import org.thoughtcrime.securesms.storage.StorageSyncModels
 import org.thoughtcrime.securesms.util.Base64
-import org.thoughtcrime.securesms.util.Bitmask
 import org.thoughtcrime.securesms.util.GroupUtil
 import org.thoughtcrime.securesms.util.IdentityUtil
 import org.thoughtcrime.securesms.util.ProfileUtil
-import org.thoughtcrime.securesms.util.SqlUtil
 import org.thoughtcrime.securesms.util.StringUtil
 import org.thoughtcrime.securesms.util.Util
 import org.thoughtcrime.securesms.wallpaper.ChatWallpaper
 import org.thoughtcrime.securesms.wallpaper.ChatWallpaperFactory
 import org.thoughtcrime.securesms.wallpaper.WallpaperStorage
-import org.whispersystems.libsignal.IdentityKey
-import org.whispersystems.libsignal.InvalidKeyException
-import org.whispersystems.libsignal.util.Pair
 import org.whispersystems.signalservice.api.profiles.SignalServiceProfile
 import org.whispersystems.signalservice.api.push.ACI
 import org.whispersystems.signalservice.api.push.PNI
@@ -158,11 +169,11 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
     private const val CHAT_COLORS = "chat_colors"
     private const val CUSTOM_CHAT_COLORS_ID = "custom_chat_colors_id"
     private const val BADGES = "badges"
-    // MOLLY: Add new fields to clearFieldsForDeletion
     const val SEARCH_PROFILE_NAME = "search_signal_profile"
     private const val SORT_NAME = "sort_name"
     private const val IDENTITY_STATUS = "identity_status"
     private const val IDENTITY_KEY = "identity_key"
+    // MOLLY: Add new fields to clearFieldsForDeletion
 
     @JvmField
     val CREATE_TABLE =
@@ -472,8 +483,8 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
         }
 
         if (remapped != null) {
-          Recipient.live(remapped.first()).refresh(remapped.second())
-          ApplicationDependencies.getRecipientCache().remap(remapped.first(), remapped.second())
+          Recipient.live(remapped.first).refresh(remapped.second)
+          ApplicationDependencies.getRecipientCache().remap(remapped.first, remapped.second)
         }
 
         if (recipientsNeedingRefresh.isNotEmpty() || remapped != null) {
@@ -587,6 +598,17 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
         put(PROFILE_SHARING, 1)
       }
     ).recipientId
+  }
+
+  fun getDistributionListRecipientIds(): List<RecipientId> {
+    val recipientIds = mutableListOf<RecipientId>()
+    readableDatabase.query(TABLE_NAME, arrayOf(ID), "$DISTRIBUTION_LIST_ID is not NULL", null, null, null, null).use { cursor ->
+      while (cursor != null && cursor.moveToNext()) {
+        recipientIds.add(RecipientId.from(CursorUtil.requireLong(cursor, ID)))
+      }
+    }
+
+    return recipientIds
   }
 
   fun getOrInsertFromGroupId(groupId: GroupId): RecipientId {
@@ -1690,9 +1712,9 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
       val rowsUpdated = database.update(TABLE_NAME, values, where, null)
       if (rowsUpdated == idWithWallpaper.size) {
         for (pair in idWithWallpaper) {
-          ApplicationDependencies.getDatabaseObserver().notifyRecipientChanged(pair.first())
-          if (pair.second() != null) {
-            WallpaperStorage.onWallpaperDeselected(context, Uri.parse(pair.second()))
+          ApplicationDependencies.getDatabaseObserver().notifyRecipientChanged(pair.first)
+          if (pair.second != null) {
+            WallpaperStorage.onWallpaperDeselected(context, Uri.parse(pair.second))
           }
         }
       } else {
@@ -1925,7 +1947,7 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
     }
   }
 
-  fun getAllPhoneNumbers(): Set<String> {
+  fun getAllE164s(): Set<String> {
     val results: MutableSet<String> = HashSet()
     readableDatabase.query(TABLE_NAME, arrayOf(PHONE), null, null, null, null, null).use { cursor ->
       while (cursor != null && cursor.moveToNext()) {
@@ -2663,6 +2685,9 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
 
     // DistributionLists
     distributionLists.remapRecipient(byE164, byAci)
+
+    // Story Sends
+    storySends.remapRecipient(byE164, byAci)
 
     // Recipient
     Log.w(TAG, "Deleting recipient $byE164", true)

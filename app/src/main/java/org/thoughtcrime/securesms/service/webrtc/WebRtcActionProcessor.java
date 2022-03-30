@@ -9,6 +9,8 @@ import androidx.annotation.Nullable;
 import com.annimon.stream.Stream;
 
 import org.signal.core.util.logging.Log;
+import org.signal.libsignal.protocol.IdentityKey;
+import org.signal.libsignal.protocol.InvalidKeyException;
 import org.signal.ringrtc.CallException;
 import org.signal.ringrtc.CallId;
 import org.signal.ringrtc.CallManager;
@@ -43,8 +45,6 @@ import org.thoughtcrime.securesms.util.TelephonyUtil;
 import org.thoughtcrime.securesms.webrtc.audio.SignalAudioManager;
 import org.thoughtcrime.securesms.webrtc.locks.LockManager;
 import org.webrtc.PeerConnection;
-import org.whispersystems.libsignal.IdentityKey;
-import org.whispersystems.libsignal.InvalidKeyException;
 import org.whispersystems.signalservice.api.messages.calls.AnswerMessage;
 import org.whispersystems.signalservice.api.messages.calls.BusyMessage;
 import org.whispersystems.signalservice.api.messages.calls.HangupMessage;
@@ -444,10 +444,6 @@ public abstract class WebRtcActionProcessor {
              .callState(WebRtcViewModel.State.UNTRUSTED_IDENTITY)
              .putParticipant(activePeer.getRecipient(), untrusted)
              .commit();
-    } else {
-      builder.changeCallInfoState()
-             .callState(errorCallState)
-             .commit();
     }
 
     return builder.build();
@@ -460,6 +456,11 @@ public abstract class WebRtcActionProcessor {
 
   protected @NonNull WebRtcServiceState handleSetUserAudioDevice(@NonNull WebRtcServiceState currentState, @NonNull SignalAudioManager.AudioDevice userDevice) {
     Log.i(tag, "handleSetUserAudioDevice not processed");
+    return currentState;
+  }
+
+  public @NonNull WebRtcServiceState handleCallReconnect(@NonNull WebRtcServiceState currentState, @NonNull CallManager.CallEvent event) {
+    Log.i(tag, "handleCallReconnect not processed");
     return currentState;
   }
 

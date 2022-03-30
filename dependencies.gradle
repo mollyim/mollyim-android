@@ -4,7 +4,7 @@
 dependencyResolutionManagement {
     versionCatalogs {
         libs {
-            version('signal-client', '0.14.0')
+            version('libsignal-client', '0.15.0')
             version('exoplayer', '2.15.0')
             version('androidx-camera', '1.0.0-beta11')
             version('androidx-lifecycle', '2.3.1')
@@ -49,7 +49,7 @@ dependencyResolutionManagement {
             alias('androidx-sqlite').to('androidx.sqlite:sqlite:2.1.0')
 
             // Material
-            alias('material-material').to('com.google.android.material:material:1.3.0')
+            alias('material-material').to('com.google.android.material:material:1.5.0')
 
             // Google
             alias('google-protobuf-javalite').to('com.google.protobuf:protobuf-javalite:3.11.4')
@@ -70,11 +70,11 @@ dependencyResolutionManagement {
             alias('firebase-messaging').to('com.google.firebase:firebase-messaging:22.0.0')
 
             // 1st Party
-            alias('signal-client-java').to('org.whispersystems', 'signal-client-java').versionRef('signal-client')
-            alias('signal-client-android').to('org.whispersystems', 'signal-client-android').versionRef('signal-client')
+            alias('libsignal-client').to('org.signal', 'libsignal-client').versionRef('libsignal-client')
+            alias('libsignal-android').to('org.signal', 'libsignal-android').versionRef('libsignal-client')
             alias('signal-aesgcmprovider').to('org.signal:aesgcmprovider:0.0.3')
             alias('molly-argon2').to('im.molly:argon2:13.1-1')
-            alias('molly-ringrtc').to('im.molly:ringrtc-android:2.19.2-1')
+            alias('molly-ringrtc').to('im.molly:ringrtc-android:2.20.0-1')
             alias('signal-android-database-sqlcipher').to('org.signal:android-database-sqlcipher:4.4.3-S8')
 
             // MOLLY

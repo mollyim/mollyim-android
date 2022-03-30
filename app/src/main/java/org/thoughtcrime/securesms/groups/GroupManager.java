@@ -9,12 +9,12 @@ import androidx.annotation.WorkerThread;
 import com.google.protobuf.ByteString;
 
 import org.signal.core.util.logging.Log;
+import org.signal.libsignal.zkgroup.VerificationFailedException;
+import org.signal.libsignal.zkgroup.groups.GroupMasterKey;
+import org.signal.libsignal.zkgroup.groups.UuidCiphertext;
 import org.signal.storageservice.protos.groups.GroupExternalCredential;
 import org.signal.storageservice.protos.groups.local.DecryptedGroup;
 import org.signal.storageservice.protos.groups.local.DecryptedGroupJoinInfo;
-import org.signal.zkgroup.VerificationFailedException;
-import org.signal.zkgroup.groups.GroupMasterKey;
-import org.signal.zkgroup.groups.UuidCiphertext;
 import org.thoughtcrime.securesms.database.GroupDatabase;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.groups.v2.GroupInviteLinkUrl;
@@ -283,19 +283,16 @@ public final class GroupManager {
                          @NonNull RecipientId recipientId)
       throws GroupChangeBusyException, IOException, GroupChangeFailedException, GroupNotAMemberException, GroupInsufficientRightsException
   {
-    GroupDatabase.GroupRecord groupRecord = SignalDatabase.groups().requireGroup(groupId);
-    Recipient                 recipient   = Recipient.resolved(recipientId);
+    GroupDatabase.V2GroupProperties groupProperties = SignalDatabase.groups().requireGroup(groupId).requireV2GroupProperties();
+    Recipient                       recipient       = Recipient.resolved(recipientId);
 
-    if (groupRecord.requireV2GroupProperties().getBannedMembers().contains(recipient.requireServiceId().uuid())) {
+    if (groupProperties.getBannedMembers().contains(recipient.requireServiceId().uuid())) {
       Log.i(TAG, "Attempt to ban already banned recipient: " + recipientId);
       return;
     }
 
-    ByteString uuid              = UuidUtil.toByteString(recipient.requireServiceId().uuid());
-    boolean    rejectJoinRequest = groupRecord.requireV2GroupProperties().getDecryptedGroup().getRequestingMembersList().stream().anyMatch(m -> m.getUuid().equals(uuid));
-
     try (GroupManagerV2.GroupEditor editor = new GroupManagerV2(context).edit(groupId.requireV2())) {
-      editor.ban(Collections.singleton(recipient.requireServiceId().uuid()), rejectJoinRequest);
+      editor.ban(recipient.requireServiceId().uuid());
     }
   }
 
