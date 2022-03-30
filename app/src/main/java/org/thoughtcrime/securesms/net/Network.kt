@@ -13,19 +13,19 @@ object Network {
     if (!isEnabled) throw IOException("Network is disabled")
   }
 
-  private val proxyProvider: ProxyProvider = ProxyProvider {
+  @JvmStatic
+  val socketFactory: SocketFactory = ProxySocketFactory(ProxyProvider {
     throwIfDisabled()
     proxy ?: throw IOException("Proxy address not available yet")
-  }
-
-  @JvmStatic
-  val socketFactory: SocketFactory = ProxySocketFactory(proxyProvider)
+  })
 
   @JvmStatic
   var socksProxy: SocksProxy? = null
 
   @JvmStatic
-  val proxy: Proxy? = socksProxy?.makeProxy() ?: Proxy.NO_PROXY
+  val proxy get(): Proxy? {
+    return socksProxy?.makeProxy() ?: Proxy.NO_PROXY
+  }
 
   @JvmStatic
   val dns = Dns { hostname ->
