@@ -136,7 +136,14 @@ public class NetworkPreferenceFragment extends ListSummaryPreferenceFragment {
   @Override
   public void onPause() {
     super.onPause();
-    if (networkManager.applyProxyConfig()) {
+    TextSecurePreferences.setHasSeenNetworkConfig(requireContext(), true);
+    applyProxyChanges(false);
+  }
+
+  private void applyProxyChanges(boolean alwaysRestart) {
+    final boolean changed = networkManager.applyProxyConfig();
+    if (changed || alwaysRestart) {
+      networkManager.setNetworkEnabled(true);
       ApplicationDependencies.restartNetworkConnectionsAfterProxyChange();
     }
   }
@@ -150,8 +157,7 @@ public class NetworkPreferenceFragment extends ListSummaryPreferenceFragment {
       preference.setSummary(R.string.preferences_network__connecting);
     }
 
-    networkManager.applyProxyConfig();
-    ApplicationDependencies.restartNetworkConnectionsAfterProxyChange();
+    applyProxyChanges(true);
 
     connected = new SettableFuture<>();
     connected.addListener(new ListenableFuture.Listener<Boolean>() {

@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 
 import org.signal.ringrtc.CallManager;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
+import org.thoughtcrime.securesms.net.Network;
 import org.webrtc.PeerConnection;
 
 public final class NetworkUtil {
@@ -100,7 +101,8 @@ public final class NetworkUtil {
     }
   }
 
-  private static NetworkInfo getNetworkInfo(@NonNull Context context) {
+  public static NetworkInfo getNetworkInfo(@NonNull Context context) {
+    if (!Network.isEnabled()) return null;
     return ServiceUtil.getConnectivityManager(context).getActiveNetworkInfo();
   }
 }

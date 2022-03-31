@@ -425,12 +425,11 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
     nm.setProxySocksPort(TextSecurePreferences.getProxySocksPort(this));
     nm.applyProxyConfig();
 
-    if (TextSecurePreferences.getFirstInstallVersion(this) == -1) {
-      Log.i(TAG, "Network jobs will be disabled until registration begins");
-      nm.setNetworkEnabled(false);
-      TextSecurePreferences.setHasSeenNetworkConfig(this, false);
-    } else {
+    if (TextSecurePreferences.getFirstInstallVersion(this) != -1) {
       nm.setNetworkEnabled(TextSecurePreferences.hasSeenNetworkConfig(this));
+    } else {
+      Log.i(TAG, "Network will be disabled until registration begins");
+      TextSecurePreferences.setHasSeenNetworkConfig(this, false);
     }
   }
 
