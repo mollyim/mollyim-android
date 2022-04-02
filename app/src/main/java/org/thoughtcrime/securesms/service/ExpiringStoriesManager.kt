@@ -1,7 +1,6 @@
 package org.thoughtcrime.securesms.service
 
 import android.app.Application
-import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import androidx.annotation.WorkerThread

@@ -25,7 +25,6 @@ import org.whispersystems.signalservice.internal.configuration.SignalServiceConf
 import org.whispersystems.signalservice.internal.configuration.SignalServiceUrl
 import org.whispersystems.signalservice.internal.configuration.SignalStorageUrl
 import java.io.IOException
-import java.util.Optional
 
 /**
  * Provides a [SignalServiceConfiguration] to be used with our service layer.
