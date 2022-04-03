@@ -21,7 +21,7 @@ public class SequentialDns implements Dns {
 
   private static final String TAG = Log.tag(SequentialDns.class);
 
-  private List<Dns> dnsList;
+  private final List<Dns> dnsList;
 
   public SequentialDns(Dns... dns) {
     this.dnsList = Arrays.asList(dns);

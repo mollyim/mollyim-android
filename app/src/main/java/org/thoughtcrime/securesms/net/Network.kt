@@ -34,16 +34,24 @@ object Network {
   val dns = Dns { hostname ->
     throwIfDisabled()
     if (socksProxy == null) {
-      sequentialDns.lookup(hostname)
+      systemResolver.lookup(hostname)
     } else {
-      dnsOverHttps.lookup(hostname)
+      dohResolver.lookup(hostname)
     }
   }
 
-  private val dnsOverHttps: Dns = DohClient("https://1.1.1.1/dns-query", socketFactory)
+  private val cloudflare: Dns = DohClient("https://1.1.1.1/dns-query", socketFactory)
 
-  private val sequentialDns: Dns = SequentialDns(
+  private val quad9: Dns = DohClient("https://9.9.9.9/dns-query", socketFactory)
+
+  private val systemResolver: Dns = SequentialDns(
     Dns.SYSTEM,
-    dnsOverHttps,
+    cloudflare,
+    quad9,
+  )
+
+  private val dohResolver: Dns = SequentialDns(
+    cloudflare,
+    quad9,
   )
 }
