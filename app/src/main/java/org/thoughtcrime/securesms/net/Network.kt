@@ -27,7 +27,11 @@ object Network {
   @JvmStatic
   val proxy
     get(): Proxy? {
-      return socksProxy?.makeProxy() ?: Proxy.NO_PROXY
+      if (socksProxy != null) {
+        return socksProxy?.makeProxy()
+      } else {
+        return Proxy.NO_PROXY
+      }
     }
 
   @JvmStatic
