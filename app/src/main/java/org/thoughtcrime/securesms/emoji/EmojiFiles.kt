@@ -2,6 +2,7 @@ package org.thoughtcrime.securesms.emoji
 
 import android.content.Context
 import android.net.Uri
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -133,22 +134,7 @@ object EmojiFiles {
     }
   }
 
-  class Version() {
-
-    @JsonProperty
-    var version: Int = 0
-
-    @JsonProperty
-    lateinit var uuid: UUID
-
-    @JsonProperty
-    lateinit var density: String
-
-    constructor(version: Int, uuid: UUID, density: String) : this() {
-      this.version = version
-      this.uuid = uuid
-      this.density = density
-    }
+  class Version @JsonCreator constructor(@JsonProperty("version") val version: Int, @JsonProperty("uuid") val uuid: UUID, @JsonProperty("density") val density: String) {
 
     fun getFile(context: Context, uuid: UUID): File = File(getDirectory(context), uuid.toString())
 
@@ -220,38 +206,14 @@ object EmojiFiles {
     }
   }
 
-  class Name() {
-
-    @JsonProperty
-    lateinit var name: String
-
-    @JsonProperty
-    lateinit var uuid: UUID
-
-    constructor(name: String, uuid: UUID) : this() {
-      this.name = name
-      this.uuid = uuid
-    }
-
+  class Name @JsonCreator constructor(@JsonProperty("name") val name: String, @JsonProperty("uuid") val uuid: UUID) {
     companion object {
       @JvmStatic
       fun forEmojiDataJson(): Name = Name(EMOJI_JSON, UUID.randomUUID())
     }
   }
 
-  class NameCollection() {
-
-    @JsonProperty
-    lateinit var versionUuid: UUID
-
-    @JsonProperty
-    lateinit var names: List<Name>
-
-    constructor(versionUuid: UUID, names: List<Name>) : this() {
-      this.versionUuid = versionUuid
-      this.names = names
-    }
-
+  class NameCollection @JsonCreator constructor(@JsonProperty("versionUuid") val versionUuid: UUID, @JsonProperty("names") val names: List<Name>) {
     companion object {
 
       private val objectMapper = ObjectMapper()
@@ -284,19 +246,7 @@ object EmojiFiles {
     fun getUUIDForName(name: String): UUID? = names.firstOrNull { it.name == name }?.uuid
   }
 
-  class JumboCollection() {
-
-    @JsonProperty
-    lateinit var versionUuid: UUID
-
-    @JsonProperty
-    lateinit var names: List<Name>
-
-    constructor(versionUuid: UUID, names: List<Name>) : this() {
-      this.versionUuid = versionUuid
-      this.names = names
-    }
-
+  class JumboCollection @JsonCreator constructor(@JsonProperty("versionUuid") val versionUuid: UUID, @JsonProperty("names") val names: List<Name>) {
     companion object {
 
       private val objectMapper = ObjectMapper()

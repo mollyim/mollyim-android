@@ -2,6 +2,7 @@ package org.thoughtcrime.securesms.fonts
 
 import android.content.Context
 import androidx.annotation.WorkerThread
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.signal.core.util.logging.Log
@@ -13,10 +14,9 @@ import java.io.File
  *
  * @param scripts A collection of supported scripts
  */
-class FontManifest {
-  @JsonProperty
-  lateinit var scripts: FontScripts
-
+data class FontManifest @JsonCreator constructor(
+  @JsonProperty("scripts") val scripts: FontScripts
+) {
   /**
    * A collection of supported scripts
    *
@@ -27,51 +27,27 @@ class FontManifest {
    * @param chineseTraditional Hant Script Fonts
    * @param chineseSimplified Hans Script Fonts
    */
-  class FontScripts {
-    @JsonProperty("latin-extended")
-    lateinit var latinExtended: FontScript
-
-    @JsonProperty("cyrillic-extended")
-    lateinit var cyrillicExtended: FontScript
-
-    @JsonProperty
-    lateinit var devanagari: FontScript
-
-    @JsonProperty("chinese-traditional-hk")
-    lateinit var chineseTraditionalHk: FontScript
-
-    @JsonProperty("chinese-traditional")
-    lateinit var chineseTraditional: FontScript
-
-    @JsonProperty("chinese-simplified")
-    lateinit var chineseSimplified: FontScript
-
-    @JsonProperty
-    lateinit var arabic: FontScript
-
-    @JsonProperty
-    lateinit var japanese: FontScript
-  }
+  data class FontScripts @JsonCreator constructor(
+    @JsonProperty("latin-extended") val latinExtended: FontScript,
+    @JsonProperty("cyrillic-extended") val cyrillicExtended: FontScript,
+    @JsonProperty("devanagari") val devanagari: FontScript,
+    @JsonProperty("chinese-traditional-hk") val chineseTraditionalHk: FontScript,
+    @JsonProperty("chinese-traditional") val chineseTraditional: FontScript,
+    @JsonProperty("chinese-simplified") val chineseSimplified: FontScript,
+    @JsonProperty("arabic") val arabic: FontScript,
+    @JsonProperty("japanese") val japanese: FontScript,
+  )
 
   /**
    * A collection of fonts for a specific script
    */
-  class FontScript {
-    @JsonProperty
-    lateinit var regular: String
-
-    @JsonProperty
-    lateinit var bold: String
-
-    @JsonProperty
-    lateinit var serif: String
-
-    @JsonProperty
-    lateinit var script: String
-
-    @JsonProperty
-    lateinit var condensed: String
-  }
+  data class FontScript @JsonCreator constructor(
+    @JsonProperty("regular") val regular: String,
+    @JsonProperty("bold") val bold: String,
+    @JsonProperty("serif") val serif: String,
+    @JsonProperty("script") val script: String,
+    @JsonProperty("condensed") val condensed: String,
+  )
 
   companion object {
 

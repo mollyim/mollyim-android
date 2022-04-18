@@ -1,6 +1,7 @@
 package org.thoughtcrime.securesms.jobs
 
 import androidx.core.os.LocaleListCompat
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import org.signal.core.util.Hex
 import org.signal.core.util.ThreadUtil
@@ -241,25 +242,25 @@ class RetrieveReleaseChannelJob private constructor(private val force: Boolean, 
 
   data class FullReleaseNote(val releaseNote: ReleaseNote, val translation: TranslatedReleaseNote)
 
-  data class ReleaseNotes(@JsonProperty val announcements: List<ReleaseNote>)
+  data class ReleaseNotes @JsonCreator constructor(@JsonProperty("announcements") val announcements: List<ReleaseNote>)
 
-  data class ReleaseNote(
-    @JsonProperty val uuid: String,
-    @JsonProperty val countries: String?,
-    @JsonProperty val androidMinVersion: String?,
-    @JsonProperty val link: String?,
-    @JsonProperty val ctaId: String?
+  data class ReleaseNote @JsonCreator constructor(
+    @JsonProperty("uuid") val uuid: String,
+    @JsonProperty("countries") val countries: String?,
+    @JsonProperty("androidMinVersion") val androidMinVersion: String?,
+    @JsonProperty("link") val link: String?,
+    @JsonProperty("ctaId") val ctaId: String?
   )
 
-  data class TranslatedReleaseNote(
-    @JsonProperty val uuid: String,
-    @JsonProperty val image: String?,
-    @JsonProperty val imageWidth: String?,
-    @JsonProperty val imageHeight: String?,
-    @JsonProperty val linkText: String?,
-    @JsonProperty val title: String,
-    @JsonProperty val body: String,
-    @JsonProperty val callToActionText: String?,
+  data class TranslatedReleaseNote @JsonCreator constructor(
+    @JsonProperty("uuid") val uuid: String,
+    @JsonProperty("image") val image: String?,
+    @JsonProperty("imageWidth") val imageWidth: String?,
+    @JsonProperty("imageHeight") val imageHeight: String?,
+    @JsonProperty("linkText") val linkText: String?,
+    @JsonProperty("title") val title: String,
+    @JsonProperty("body") val body: String,
+    @JsonProperty("callToActionText") val callToActionText: String?,
   )
 
   class Factory : Job.Factory<RetrieveReleaseChannelJob> {
