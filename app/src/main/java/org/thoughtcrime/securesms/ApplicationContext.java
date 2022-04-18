@@ -217,7 +217,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
                             .addPostRender(() -> JumboEmoji.updateCurrentVersion(this))
                             .addPostRender(RetrieveReleaseChannelJob::enqueue)
                             .addPostRender(() -> AndroidTelecomUtil.registerPhoneAccount())
-                            //.addPostRender(() -> ApplicationDependencies.getJobManager().add(new FontDownloaderJob()))
+                            .addPostRender(() -> ApplicationDependencies.getJobManager().add(new FontDownloaderJob()))
                             .addPostRender(CheckServiceReachabilityJob::enqueueIfNecessary)
                             .addPostRender(GroupV2UpdateSelfProfileKeyJob::enqueueForGroupsIfNecessary)
                             .execute();
