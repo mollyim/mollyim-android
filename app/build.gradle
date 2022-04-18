@@ -252,7 +252,7 @@ android {
 
         resConfigs autoResConfig()
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner 'org.thoughtcrime.securesms.AppTestRunner'
         testInstrumentationRunnerArguments clearPackageData: 'true'
     }
 
