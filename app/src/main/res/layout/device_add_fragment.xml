@@ -24,12 +24,10 @@
             android:layout_height="match_parent"/>
 
 
-        <LinearLayout android:orientation="vertical"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
             android:background="?android:windowBackground"
             android:gravity="center">
 
@@ -37,27 +35,42 @@
                 android:id="@+id/devices"
                 android:src="@drawable/ic_devices_white"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:tint="@color/core_grey_25"
                 android:transitionName="devices"
-                android:layout_marginBottom="16dp"/>
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintHeight_max="160dp"
+                app:layout_constraintBottom_toTopOf="@+id/text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView android:text="@string/device_add_fragment__scan_the_qr_code_displayed_on_the_device_to_link"
+                      android:id="@+id/text"
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:textStyle="bold"
-                      android:layout_marginBottom="16dp"
-                      android:textColor="?android:textColorSecondary"/>
+                      android:textColor="?android:textColorSecondary"
+                      android:gravity="center"
+                      app:layout_constraintEnd_toEndOf="parent"
+                      app:layout_constraintStart_toStartOf="parent"
+                      app:layout_constraintTop_toBottomOf="@+id/devices"
+                      app:layout_constraintBottom_toTopOf="@id/device_add_enter_link"
+                />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/device_add_enter_link"
                 style="@style/Signal.Widget.Button.Medium.Secondary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:text="@string/DeviceAddFragment__link_without_scanning" />
+                android:minHeight="48dp"
+                android:text="@string/DeviceAddFragment__link_without_scanning"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
 </FrameLayout>
