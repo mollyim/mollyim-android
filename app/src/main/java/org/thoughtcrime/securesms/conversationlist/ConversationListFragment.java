@@ -133,6 +133,7 @@ import org.thoughtcrime.securesms.sms.MessageSender;
 import org.thoughtcrime.securesms.storage.StorageSyncHelper;
 import org.thoughtcrime.securesms.util.AppForegroundObserver;
 import org.thoughtcrime.securesms.util.AppStartup;
+import org.thoughtcrime.securesms.util.ConversationUtil;
 import org.thoughtcrime.securesms.util.PlayStoreUtil;
 import org.thoughtcrime.securesms.util.ServiceUtil;
 import org.thoughtcrime.securesms.util.SignalLocalMetrics;
@@ -142,7 +143,7 @@ import org.thoughtcrime.securesms.util.Stopwatch;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.ViewUtil;
 import org.thoughtcrime.securesms.util.WindowUtil;
-import org.thoughtcrime.securesms.util.concurrent.SimpleTask;
+import org.signal.core.util.concurrent.SimpleTask;
 import org.thoughtcrime.securesms.util.task.SnackbarAsyncTask;
 import org.thoughtcrime.securesms.util.views.SimpleProgressDialog;
 import org.thoughtcrime.securesms.util.views.Stub;
@@ -910,6 +911,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
       ThreadDatabase db = SignalDatabase.threads();
 
       db.pinConversations(toPin);
+      ConversationUtil.refreshRecipientShortcuts();
 
       return null;
     }, unused -> {
@@ -922,6 +924,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
       ThreadDatabase db = SignalDatabase.threads();
 
       db.unpinConversations(ids);
+      ConversationUtil.refreshRecipientShortcuts();
 
       return null;
     }, unused -> {
@@ -976,6 +979,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
     if (megaphoneContainer.resolved()) {
       ViewUtil.fadeOut(megaphoneContainer.get(), 250);
     }
+    requireCallback().onMultiSelectStarted();
   }
 
   private void endActionModeIfActive() {
@@ -993,6 +997,7 @@ public class ConversationListFragment extends MainFragment implements ActionMode
     if (megaphoneContainer.resolved()) {
       ViewUtil.fadeIn(megaphoneContainer.get(), 250);
     }
+    requireCallback().onMultiSelectFinished();
   }
 
   void updateEmptyState(boolean isConversationEmpty) {
@@ -1251,6 +1256,8 @@ public class ConversationListFragment extends MainFragment implements ActionMode
           ApplicationDependencies.getMessageNotifier().updateNotification(context);
           MarkReadReceiver.process(context, messageIds);
         }
+
+        ConversationUtil.refreshRecipientShortcuts();
       }
 
       @Override
@@ -1264,6 +1271,8 @@ public class ConversationListFragment extends MainFragment implements ActionMode
           threadDatabase.incrementUnread(threadId, unreadCount);
           ApplicationDependencies.getMessageNotifier().updateNotification(context);
         }
+
+        ConversationUtil.refreshRecipientShortcuts();
       }
     }.executeOnExecutor(SignalExecutors.BOUNDED, threadId);
   }
@@ -1519,6 +1528,8 @@ public class ConversationListFragment extends MainFragment implements ActionMode
     void updateProxyStatus(@NonNull WebSocketConnectionState state);
     void onSearchOpened();
     void onSearchClosed();
+    void onMultiSelectStarted();
+    void onMultiSelectFinished();
   }
 }
 

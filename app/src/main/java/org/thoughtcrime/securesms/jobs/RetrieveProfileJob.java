@@ -38,7 +38,7 @@ import org.thoughtcrime.securesms.transport.RetryLaterException;
 import org.thoughtcrime.securesms.util.Base64;
 import org.thoughtcrime.securesms.util.IdentityUtil;
 import org.thoughtcrime.securesms.util.ProfileUtil;
-import org.thoughtcrime.securesms.util.SetUtil;
+import org.signal.core.util.SetUtil;
 import org.thoughtcrime.securesms.util.Stopwatch;
 import org.thoughtcrime.securesms.util.Util;
 import org.whispersystems.signalservice.api.crypto.InvalidCiphertextException;
@@ -484,7 +484,9 @@ public class RetrieveProfileJob extends BaseJob {
     if (recipient.getProfileKey() == null) return;
     if (!Util.equals(profileAvatar, recipient.getProfileAvatar())) {
       SignalDatabase.runPostSuccessfulTransaction(DEDUPE_KEY_RETRIEVE_AVATAR + recipient.getId(), () -> {
-        ApplicationDependencies.getJobManager().add(new RetrieveProfileAvatarJob(recipient, profileAvatar));
+        SignalExecutors.BOUNDED.execute(() -> {
+          ApplicationDependencies.getJobManager().add(new RetrieveProfileAvatarJob(recipient, profileAvatar));
+        });
       });
     }
   }

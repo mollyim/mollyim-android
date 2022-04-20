@@ -17,6 +17,7 @@ import androidx.preference.EditTextPreference;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 
+import org.signal.core.util.concurrent.SimpleTask;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.net.NetworkManager;
@@ -26,7 +27,6 @@ import org.thoughtcrime.securesms.util.SignalProxyUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.concurrent.ListenableFuture;
 import org.thoughtcrime.securesms.util.concurrent.SettableFuture;
-import org.thoughtcrime.securesms.util.concurrent.SimpleTask;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -173,7 +173,7 @@ public class NetworkPreferenceFragment extends ListSummaryPreferenceFragment {
     });
 
     SimpleTask.run(getViewLifecycleOwner().getLifecycle(),
-        () -> SignalProxyUtil.testWebsocketConnection(TimeUnit.SECONDS.toMillis(10))
+                   () -> SignalProxyUtil.testWebsocketConnection(TimeUnit.SECONDS.toMillis(10))
         , result -> {
       connected.set(result);
       preference.setOnPreferenceClickListener(this::onTestConnectionClicked);

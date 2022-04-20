@@ -930,8 +930,8 @@
   <string name="MediaSendActivity_signal_needs_access_to_your_contacts">Molly benötigt Zugriff auf deine Kontakte, um sie anzeigen zu können.</string>
   <string name="MediaSendActivity_signal_needs_contacts_permission_in_order_to_show_your_contacts_but_it_has_been_permanently_denied">Molly benötigt die Berechtigung »Kontakte« für das Anzeigen deiner Kontakte, diese wurde jedoch dauerhaft abgelehnt. Bitte öffne die App-Einstellungen, wähle »Berechtigungen« und aktiviere »Kontakte«.</string>
   <plurals name="MediaSendActivity_cant_share_more_than_n_items">
-    <item quantity="one">Du kannst nicht mehr als %d Element teilen.</item>
-    <item quantity="other">Du kannst nicht mehr als %d Elemente teilen.</item>
+    <item quantity="one">Du kannst maximal %d Element teilen.</item>
+    <item quantity="other">Du kannst maximal %d Elemente teilen.</item>
   </plurals>
   <string name="MediaSendActivity_select_recipients_description">Empfänger auswählen</string>
   <string name="MediaSendActivity_tap_here_to_make_this_message_disappear_after_it_is_viewed">Hier antippen, um diese Nachricht nach dem Ansehen verschwinden zu lassen.</string>
@@ -1377,8 +1377,8 @@
   <string name="RegistrationActivity_play_services_error">Fehler bei den Google-Play-Diensten</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google-Play-Dienste werden aktualisiert oder sind vorübergehend nicht verfügbar. Bitte versuche es erneut.</string>
   <string name="RegistrationActivity_terms_and_privacy">Nutzungsbedingungen und Datenschutzerklärung</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Signal benötigt Zugriff auf deine Kontakte und Medien, um dir das Kontaktieren deiner Freunde und das Senden von Nachrichten zu erleichtern.  Deine Kontakte werden mit Signals privater Kontaktfindung auf die Signal-Server hochgeladen. Das heißt, sie sind Ende-zu-Ende verschlüsselt und somit zu keiner Zeit dem Signal-Dienst bekannt.</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Signal benötigt Zugriff auf deine Kontakte, damit du deine Freunde leichter erreichen kannst. Deine Kontakte werden über Signals vertrauliche Kontaktfindung auf die Signal-Server hochgeladen. Das heißt, sie sind Ende-zu-Ende verschlüsselt und somit zu keiner Zeit dem Signal-Dienst bekannt.</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Signal benötigt die Berechtigungen »Kontakte« und »Speicher«, um dir das Kontaktieren deiner Freunde und das Senden von Nachrichten zu erleichtern. Deine Kontakte werden mittels Signals vertraulicher Kontaktfindung auf die Signal-Server hochgeladen. Das heißt, sie sind Ende-zu-Ende-verschlüsselt und somit zu keiner Zeit dem Signal-Dienst bekannt.</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Signal benötigt die Berechtigung »Kontakte«, um dir das Kontaktieren deiner Freunde zu erleichtern. Deine Kontakte werden mittels Signals vertraulicher Kontaktfindung auf die Signal-Server hochgeladen. Das heißt, sie sind Ende-zu-Ende-verschlüsselt und somit zu keiner Zeit dem Signal-Dienst bekannt.</string>
   <string name="RegistrationActivity_rate_limited_to_service">Du hast zu oft versucht, diese Rufnummer zu registrieren. Bitte versuche es später erneut.</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">Keine Verbindung zum Dienst möglich. Bitte überprüfe deine Netzverbindung und versuche es erneut.</string>
   <string name="RegistrationActivity_non_standard_number_format">Nicht standardisiertes Zahlenformat</string>
@@ -1898,6 +1898,10 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   <!--message_recipients_list_item-->
   <string name="message_recipients_list_item__view">ANZEIGEN</string>
   <string name="message_recipients_list_item__resend">ERNEUT SENDEN</string>
+  <!--Displayed in a toast when user long presses an item in MyStories-->
+  <string name="MyStoriesFragment__copied_sent_timestamp_to_clipboard">Gesendet-Zeitstempel in Zwischenablage kopiert.</string>
+  <!--Displayed when there are no outgoing stories-->
+  <string name="MyStoriesFragment__updates_to_your_story_will_show_up_here">Hier erscheinen Aktualisierungen deiner Story.</string>
   <!--GroupUtil-->
   <plurals name="GroupUtil_joined_the_group">
     <item quantity="one">%1$s ist der Gruppe beigetreten.</item>
@@ -2594,8 +2598,8 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
     <item quantity="other">Falls du alle Versuche aufbrauchst, wird dein Konto für %1$d Tage gesperrt. Nach %1$d Tagen ohne Aktivität kannst du dich ohne deine PIN erneut registrieren. Dein Konto wird dabei zurückgesetzt und alle Inhalte werden gelöscht.</item>
   </plurals>
   <plurals name="RegistrationLockFragment__you_have_d_attempts_remaining">
-    <item quantity="one">Du hast noch %1$d Versuch.</item>
-    <item quantity="other">Du hast noch %1$d Versuche.</item>
+    <item quantity="one">Du hast noch %1$d verbleibenden Versuch.</item>
+    <item quantity="other">Du hast noch %1$d verbleibende Versuche.</item>
   </plurals>
   <plurals name="RegistrationLockFragment__d_attempts_remaining">
     <item quantity="one">%1$d verbleibender Versuch.</item>
@@ -3476,8 +3480,8 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   <string name="BecomeASustainerFragment__signal_is_a_non_profit">Signal ist eine gemeinnützige Organisation ohne Werbekunden oder Investoren, die nur von Menschen wie dir unterstützt wird.</string>
   <string name="ManageDonationsFragment__my_support">Meine Unterstützung</string>
   <string name="ManageDonationsFragment__manage_subscription">Regelmäßige Spende verwalten</string>
-  <!--Label for Tax Receipts button-->
-  <string name="ManageDonationsFragment__tax_receipts">Steuerbescheinigungen</string>
+  <!--Label for Donation Receipts button-->
+  <string name="ManageDonationsFragment__donation_receipts">Spendenbescheinigungen</string>
   <string name="ManageDonationsFragment__badges">Abzeichen</string>
   <string name="ManageDonationsFragment__subscription_faq">FAQ für regelmäßige Spenden</string>
   <string name="ManageDonationsFragment__error_getting_subscription">Die regelmäßige Spende konnte nicht abgerufen werden.</string>
@@ -3507,7 +3511,7 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   <string name="ExpiredBadgeBottomSheetDialogFragment__your_sustainer_subscription_was_canceled">Deine regelmäßige Unterstützerspende wurde gekündigt, da wir deine Zahlung nicht verarbeiten konnten. Dein Abzeichen ist nicht mehr in deinem Profil sichtbar.</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__you_can">Du kannst Signal weiterhin nutzen, aber um die App zu unterstützen und dein Abzeichen zu reaktivieren, solltest du deine Spende verlängern.</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__renew_subscription">Regelmäßige Spende verlängern</string>
-  <string name="CantProcessSubscriptionPaymentBottomSheetDialogFragment__cant_process_subscription_payment">Zahlung für regelmäßige Spende konnte nicht verarbeitet werden</string>
+  <string name="CantProcessSubscriptionPaymentBottomSheetDialogFragment__cant_process_subscription_payment">Zahlung für regelmäßige Spende kann nicht verarbeitet werden</string>
   <string name="CantProcessSubscriptionPaymentBottomSheetDialogFragment__were_having_trouble">Wir haben Probleme mit dem Einzug deiner Signal-Unterstützer-Zahlung. Stelle sicher, dass deine Zahlungsmethode auf dem neuesten Stand ist. Wenn dies nicht der Fall ist, aktualisiere sie in Google Pay. Signal wird versuchen, die Zahlung in ein paar Tagen erneut abzuwickeln.</string>
   <string name="CantProcessSubscriptionPaymentBottomSheetDialogFragment__dont_show_this_again">Nicht mehr anzeigen</string>
   <string name="Subscription__please_contact_support_for_more_information">Bitte kontaktiere für weitere Informationen den Support.</string>
@@ -3726,7 +3730,7 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   <!--Donation receipts amount title-->
   <string name="DonationReceiptDetailsFragment__amount">Betrag</string>
   <!--Donation receipts thanks-->
-  <string name="DonationReceiptDetailsFragment__thank_you_for_supporting">Vielen Dank, dass du Signal unterstützt. Deine Spende trägt dazu bei, die Entwicklung von Open-Source-Datenschutztechnologien voranzutreiben, die die freie Meinungsäußerung schützen und eine sichere globale Kommunikation für Millionen von Menschen auf der ganzen Welt ermöglichen. Wenn du deinen Wohnsitz in den Vereinigten Staaten hast, bewahre bitte diese Quittung für deine Steuerunterlagen auf. Die Signal Technology Foundation ist eine steuerbefreite gemeinnützige Organisation in den Vereinigten Staaten gemäß Abschnitt 501c3 des Internal Revenue Code. Unsere Federal Tax ID lautet 82-4506840.</string>
+  <string name="DonationReceiptDetailsFragment__thank_you_for_supporting">Vielen Dank, dass du Signal unterstützt. Deine Spende trägt dazu bei, die Entwicklung von Open-Source-Datenschutztechnologien voranzutreiben, die die freie Meinungsäußerung schützen und eine sichere globale Kommunikation für Millionen von Menschen auf der ganzen Welt ermöglichen. Falls du deinen Wohnsitz in den USA hast, bewahre bitte diese Quittung für deine Steuerunterlagen auf. Die Signal Technology Foundation ist eine steuerbefreite gemeinnützige Organisation in den USA gemäß Abschnitt 501c3 des Internal Revenue Code. Unsere Federal Tax ID lautet 82-4506840.</string>
   <!--Donation receipt type-->
   <string name="DonationReceiptDetailsFragment__s_dash_s">%1$s - %2$s</string>
   <!--region "Stories Tab"-->
@@ -3741,7 +3745,7 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   <!--Subtitle for "My Stories" row item when user has not added stories-->
   <string name="StoriesLandingFragment__add_a_story">Story hinzufügen</string>
   <!--Displayed when there are no stories to display-->
-  <string name="StoriesLandingFragment__no_recent_updates">Keine kürzlichen Aktualisierungen vorhanden.</string>
+  <string name="StoriesLandingFragment__no_recent_updates_to_show_right_now_tap_plus_to_add_to_your_story">Derzeit keine kürzlichen Aktualisierungen. Tippe auf »+«, um deiner Story etwas hinzuzufügen.</string>
   <!--Context menu option to hide a story-->
   <string name="StoriesLandingItem__hide_story">Story ausblenden</string>
   <!--Context menu option to unhide a story-->
@@ -3751,7 +3755,7 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   <!--Context menu option to share a story-->
   <string name="StoriesLandingItem__share">Teilen …</string>
   <!--Context menu option to go to story chat-->
-  <string name="StoriesLandingItem__go_to_chat">Zu Unterhaltungen gehen</string>
+  <string name="StoriesLandingItem__go_to_chat">Zur Unterhaltung</string>
   <!--Label when a story is pending sending-->
   <string name="StoriesLandingItem__sending">Wird versendet …</string>
   <!--Label when a story fails to send-->
@@ -3847,9 +3851,9 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   <!--Displayed at the top of the signal connections sheet. Please remember to insert strong tag as required.-->
   <string name="SignalConnectionsBottomSheet__signal_connections_are_people"><strong>Signal-Beziehungen</strong> sind Personen, denen du vertraust, entweder durch:</string>
   <!--Signal connections sheet bullet point 1-->
-  <string name="SignalConnectionsBottomSheet__starting_a_conversation">eine begonnene Unterhaltung</string>
+  <string name="SignalConnectionsBottomSheet__starting_a_conversation">Beginnen einer Unterhaltung</string>
   <!--Signal connections sheet bullet point 2-->
-  <string name="SignalConnectionsBottomSheet__accepting_a_message_request">eine angenommene Unterhaltungsanfrage</string>
+  <string name="SignalConnectionsBottomSheet__accepting_a_message_request">Annehmen einer Unterhaltungsanfrage</string>
   <!--Signal connections sheet bullet point 3-->
   <string name="SignalConnectionsBottomSheet__having_them_in_your_system_contacts">Speicherung in den Systemkontakten</string>
   <!--Note at the bottom of the Signal connections sheet-->
@@ -3899,7 +3903,7 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   <!--Dialog title for first time adding something to a story-->
   <string name="StoryDialogs__add_to_story_q">Zu Story hinzufügen?</string>
   <!--Dialog message for first time adding something to a story-->
-  <string name="StoryDialogs__adding_content">Das Hinzufügen von Inhalten zu deiner Story erlaubt deinen Signal-Beziehungen diesen für 24 Stunden anzusehen. Du kannst in den Einstellungen ändern, wer deine Story sehen kann.</string>
+  <string name="StoryDialogs__adding_content">Wenn du deiner Story Inhalte hinzufügst, können deine Signal-Beziehungen diese 24 Stunden lang ansehen. Du kannst in den Einstellungen ändern, wer deine Story sehen kann.</string>
   <!--First time share to story dialog: Positive action to go ahead and add to story-->
   <string name="StoryDialogs__add_to_story">Zu Story hinzufügen</string>
   <!--First time share to story dialog: Neutral action to edit who can view "My Story"-->
@@ -3965,8 +3969,10 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   <string name="TurnOffCircumventionMegaphone_no_thanks">Nein danke</string>
   <!--Label for a button in a notification at the bottom of the chat list to turn off censorship circumvention-->
   <string name="TurnOffCircumventionMegaphone_turn_off">Ausschalten</string>
-  <!--Conversation Item label for reactions to a story-->
-  <string name="ConversationItem__s_dot_story">%1$s · Story</string>
+  <!--Conversation Item label for when you react to someone else\'s story-->
+  <string name="ConversationItem__you_reacted_to_s_story">Du hast auf die Story von %1$s reagiert</string>
+  <!--Conversation Item label for reactions to your story-->
+  <string name="ConversationItem__reacted_to_your_story">Auf deine Story reagiert</string>
   <!--Conversation Item label for reactions to an unavailable story-->
   <string name="ConversationItem__reacted_to_a_story">Auf eine Story reagiert</string>
   <!--endregion-->

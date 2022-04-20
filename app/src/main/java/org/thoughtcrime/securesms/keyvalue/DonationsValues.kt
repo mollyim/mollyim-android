@@ -20,6 +20,8 @@ internal class DonationsValues internal constructor(store: KeyValueStore) : Sign
     private const val DISPLAY_BADGES_ON_PROFILE = "donation.display.badges.on.profile"
     private const val SHOULD_CANCEL_SUBSCRIPTION_BEFORE_NEXT_SUBSCRIBE_ATTEMPT = "donation.should.cancel.subscription.before.next.subscribe.attempt"
     private const val SUBSCRIPTION_CANCELATION_REASON = "donation.subscription.cancelation.reason"
+    private const val SUBSCRIPTION_CANCELATION_TIMESTAMP = "donation.subscription.cancelation.timestamp"
+    private const val SUBSCRIPTION_CANCELATION_WATERMARK = "donation.subscription.cancelation.watermark"
     private const val SHOW_CANT_PROCESS_DIALOG = "show.cant.process.dialog"
   }
 
@@ -31,6 +33,8 @@ internal class DonationsValues internal constructor(store: KeyValueStore) : Sign
     KEY_LAST_END_OF_PERIOD_SECONDS,
     SHOULD_CANCEL_SUBSCRIPTION_BEFORE_NEXT_SUBSCRIBE_ATTEMPT,
     SUBSCRIPTION_CANCELATION_REASON,
+    SUBSCRIPTION_CANCELATION_TIMESTAMP,
+    SUBSCRIPTION_CANCELATION_WATERMARK,
     SHOW_CANT_PROCESS_DIALOG
   )
 
@@ -96,4 +100,6 @@ internal class DonationsValues internal constructor(store: KeyValueStore) : Sign
   }
 
   var unexpectedSubscriptionCancelationReason: String? by stringValue(SUBSCRIPTION_CANCELATION_REASON, null)
+  var unexpectedSubscriptionCancelationTimestamp: Long by longValue(SUBSCRIPTION_CANCELATION_TIMESTAMP, 0L)
+  var unexpectedSubscriptionCancelationWatermark: Long by longValue(SUBSCRIPTION_CANCELATION_WATERMARK, 0L)
 }

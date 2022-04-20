@@ -1438,6 +1438,12 @@
   <!--SignalBottomActionBar-->
   <string name="SignalBottomActionBar_more">Altro</string>
   <!--SignalPinReminders-->
+  <string name="SignalPinReminders_well_remind_you_again_later">PIN verificato con successo. Te lo ricorderemo di nuovo più tardi.</string>
+  <string name="SignalPinReminders_well_remind_you_again_tomorrow">PIN verificato con successo. Te lo ricorderemo di nuovo domani.</string>
+  <string name="SignalPinReminders_well_remind_you_again_in_a_few_days">PIN verificato con successo. Te lo ricorderemo di nuovo tra qualche giorno.</string>
+  <string name="SignalPinReminders_well_remind_you_again_in_a_week">PIN verificato con successo. Te lo ricorderemo di nuovo tra una settimana.</string>
+  <string name="SignalPinReminders_well_remind_you_again_in_a_couple_weeks">PIN verificato con successo. Te lo ricorderemo di nuovo tra un paio di settimane.</string>
+  <string name="SignalPinReminders_well_remind_you_again_in_a_month">PIN verificato con successo. Te lo ricorderemo di nuovo tra un mese.</string>
   <!--Slide-->
   <string name="Slide_image">Immagini</string>
   <string name="Slide_sticker">Adesivo</string>
@@ -1588,7 +1594,9 @@
   <string name="MediaPreviewActivity_media_delete_confirmation_message">Questo messaggio verrà eliminato definitivamente.</string>
   <string name="MediaPreviewActivity_s_to_s">%1$s a %2$s</string>
   <!--All media preview title when viewing media send by you to another recipient (allows changing of \'You\' based on context)-->
+  <string name="MediaPreviewActivity_you_to_s">Tu a %1$s</string>
   <!--All media preview title when viewing media sent by another recipient to you (allows changing of \'You\' based on context)-->
+  <string name="MediaPreviewActivity_s_to_you">%1$s a te</string>
   <string name="MediaPreviewActivity_media_no_longer_available">Media non più disponibile.</string>
   <string name="MediaPreviewActivity_cant_find_an_app_able_to_share_this_media">Impossibile trovare un\'app per condividere questo media.</string>
   <!--MessageNotifier-->
@@ -1794,7 +1802,9 @@
   <!--Author formatting for group stories-->
   <string name="QuoteView_s_story">%1$s · Storia</string>
   <!--Label indicating that a quote is for a reply to a story you created-->
+  <string name="QuoteView_your_story">Tu · Storia</string>
   <!--Label indicating that the story being replied to no longer exists-->
+  <string name="QuoteView_no_longer_available">Non più disponibile</string>
   <!--conversation_fragment-->
   <string name="conversation_fragment__scroll_to_the_bottom_content_description">Salta alla fine</string>
   <!--BubbleOptOutTooltip-->
@@ -1899,6 +1909,10 @@
   <!--message_recipients_list_item-->
   <string name="message_recipients_list_item__view">VEDI</string>
   <string name="message_recipients_list_item__resend">REINVIA</string>
+  <!--Displayed in a toast when user long presses an item in MyStories-->
+  <string name="MyStoriesFragment__copied_sent_timestamp_to_clipboard">Orario di invio copiato negli appunti.</string>
+  <!--Displayed when there are no outgoing stories-->
+  <string name="MyStoriesFragment__updates_to_your_story_will_show_up_here">Gli aggiornamenti alla tua storia appariranno qui.</string>
   <!--GroupUtil-->
   <plurals name="GroupUtil_joined_the_group">
     <item quantity="one">%1$s fa ora parte del gruppo.</item>
@@ -3477,8 +3491,8 @@
   <string name="BecomeASustainerFragment__signal_is_a_non_profit">Signal è una non-profit senza inserzionisti o investitori, sostenuta solo da persone come te.</string>
   <string name="ManageDonationsFragment__my_support">Il mio supporto</string>
   <string name="ManageDonationsFragment__manage_subscription">Gestisci contributo</string>
-  <!--Label for Tax Receipts button-->
-  <string name="ManageDonationsFragment__tax_receipts">Ricevute fiscali</string>
+  <!--Label for Donation Receipts button-->
+  <string name="ManageDonationsFragment__donation_receipts">Ricevute donazioni</string>
   <string name="ManageDonationsFragment__badges">Badge</string>
   <string name="ManageDonationsFragment__subscription_faq">Domande frequenti sul contributo</string>
   <string name="ManageDonationsFragment__error_getting_subscription">Errore durante il recupero del contributo.</string>
@@ -3742,7 +3756,7 @@
   <!--Subtitle for "My Stories" row item when user has not added stories-->
   <string name="StoriesLandingFragment__add_a_story">Aggiungi una storia</string>
   <!--Displayed when there are no stories to display-->
-  <string name="StoriesLandingFragment__no_recent_updates">Nessun aggiornamento recente da mostrare al momento.</string>
+  <string name="StoriesLandingFragment__no_recent_updates_to_show_right_now_tap_plus_to_add_to_your_story">Non ci sono aggiornamenti recenti da mostrare al momento. Tocca + per aggiungere alla tua storia.</string>
   <!--Context menu option to hide a story-->
   <string name="StoriesLandingItem__hide_story">Nascondi storia</string>
   <!--Context menu option to unhide a story-->
@@ -3966,8 +3980,10 @@
   <string name="TurnOffCircumventionMegaphone_no_thanks">No grazie</string>
   <!--Label for a button in a notification at the bottom of the chat list to turn off censorship circumvention-->
   <string name="TurnOffCircumventionMegaphone_turn_off">Disattiva</string>
-  <!--Conversation Item label for reactions to a story-->
-  <string name="ConversationItem__s_dot_story">%1$s · Storia</string>
+  <!--Conversation Item label for when you react to someone else\'s story-->
+  <string name="ConversationItem__you_reacted_to_s_story">Hai reagito alla storia di %1$s</string>
+  <!--Conversation Item label for reactions to your story-->
+  <string name="ConversationItem__reacted_to_your_story">Ha reagito alla tua storia</string>
   <!--Conversation Item label for reactions to an unavailable story-->
   <string name="ConversationItem__reacted_to_a_story">Ha reagito alla storia</string>
   <!--endregion-->

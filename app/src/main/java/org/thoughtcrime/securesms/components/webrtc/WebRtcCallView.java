@@ -46,7 +46,7 @@ import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.ringrtc.CameraState;
 import org.thoughtcrime.securesms.util.BlurTransformation;
-import org.thoughtcrime.securesms.util.SetUtil;
+import org.signal.core.util.SetUtil;
 import org.thoughtcrime.securesms.util.ThrottledDebouncer;
 import org.thoughtcrime.securesms.util.ViewUtil;
 import org.thoughtcrime.securesms.util.views.Stub;
@@ -292,7 +292,7 @@ public class WebRtcCallView extends ConstraintLayout {
     rotatableControls.add(videoToggle);
     rotatableControls.add(cameraDirectionToggle);
     rotatableControls.add(decline);
-    rotatableControls.add(smallLocalRender.findViewById(R.id.call_participant_mic_muted));
+    rotatableControls.add(smallLocalRender.findViewById(R.id.call_participant_audio_indicator));
     rotatableControls.add(ringToggle);
 
     largeHeaderConstraints = new ConstraintSet();
@@ -782,15 +782,23 @@ public class WebRtcCallView extends ConstraintLayout {
       dimens = new Point(ViewUtil.dpToPx(90), ViewUtil.dpToPx(160));
     }
 
-    ResizeAnimation animation = new ResizeAnimation(smallLocalRenderFrame, dimens.x, dimens.y);
-    animation.setDuration(PIP_RESIZE_DURATION);
-    animation.setAnimationListener(new SimpleAnimationListener() {
+    SimpleAnimationListener animationListener = new SimpleAnimationListener() {
       @Override
       public void onAnimationEnd(Animation animation) {
         pictureInPictureGestureHelper.enableCorners();
         pictureInPictureGestureHelper.adjustPip();
       }
-    });
+    };
+
+    ViewGroup.LayoutParams layoutParams = smallLocalRenderFrame.getLayoutParams();
+    if (layoutParams.width == dimens.x && layoutParams.height == dimens.y) {
+      animationListener.onAnimationEnd(null);
+      return;
+    }
+
+    ResizeAnimation animation = new ResizeAnimation(smallLocalRenderFrame, dimens.x, dimens.y);
+    animation.setDuration(PIP_RESIZE_DURATION);
+    animation.setAnimationListener(animationListener);
 
     smallLocalRenderFrame.startAnimation(animation);
   }

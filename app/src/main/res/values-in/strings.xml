@@ -717,6 +717,7 @@
   <string name="GroupJoinBottomSheetDialogFragment_this_group_link_is_not_active">Tautan grup ini tidak aktif</string>
   <!--Title shown when there was an known issue getting group information from a group link-->
   <!--Message shown when you try to get information for a group via link but an admin has removed you-->
+  <string name="GroupJoinBottomSheetDialogFragment_you_cant_join_this_group_via_the_group_link_because_an_admin_removed_you">Anda tidak dapat bergabung dengan grup ini melalui tautan grup karena seorang admin mengeluarkan Anda.</string>
   <!--Message shown when you try to get information for a group via link but the link is no longer valid-->
   <string name="GroupJoinBottomSheetDialogFragment_this_group_link_is_no_longer_valid">Tautan grup ini tidak lagi valid.</string>
   <!--Title shown when there was an unknown issue getting group information from a group link-->
@@ -1795,6 +1796,8 @@ Menerima pesan pertukaran kunci untuk versi protokol yang tidak valid.
   <!--message_recipients_list_item-->
   <string name="message_recipients_list_item__view">LIHAT</string>
   <string name="message_recipients_list_item__resend">KIRIM ULANG</string>
+  <!--Displayed in a toast when user long presses an item in MyStories-->
+  <!--Displayed when there are no outgoing stories-->
   <!--GroupUtil-->
   <plurals name="GroupUtil_joined_the_group">
     <item quantity="other">%1$s bergabung dengan grup</item>
@@ -3352,7 +3355,7 @@ Menerima pesan pertukaran kunci untuk versi protokol yang tidak valid.
   <string name="BecomeASustainerFragment__signal_is_a_non_profit">Signal adalah lembaga nirlaba tanpa pengiklan dan investor, didukung hanya oleh orang seperti Anda.</string>
   <string name="ManageDonationsFragment__my_support">Dukungan saya</string>
   <string name="ManageDonationsFragment__manage_subscription">Kelola langganan</string>
-  <!--Label for Tax Receipts button-->
+  <!--Label for Donation Receipts button-->
   <string name="ManageDonationsFragment__badges">Lencana</string>
   <string name="ManageDonationsFragment__subscription_faq">Pertanyaan Populer Langganan</string>
   <string name="ManageDonationsFragment__error_getting_subscription">Eror mengambil langganan.</string>
@@ -3598,6 +3601,7 @@ Menerima pesan pertukaran kunci untuk versi protokol yang tidak valid.
   <!--Label for Chats tab in home app screen-->
   <string name="ConversationListTabs__chats">Percakapan</string>
   <!--Label for Stories tab in home app screen-->
+  <string name="ConversationListTabs__stories">Cerita</string>
   <!--String for counts above 99 in conversation list tabs-->
   <!--Title for "My Stories" row item in Stories landing page-->
   <!--Subtitle for "My Stories" row item when user has not added stories-->
@@ -3734,9 +3738,11 @@ Menerima pesan pertukaran kunci untuk versi protokol yang tidak valid.
   <string name="TurnOffCircumventionMegaphone_no_thanks">Tidak, terima kasih</string>
   <!--Label for a button in a notification at the bottom of the chat list to turn off censorship circumvention-->
   <string name="TurnOffCircumventionMegaphone_turn_off">Matikan</string>
-  <!--Conversation Item label for reactions to a story-->
+  <!--Conversation Item label for when you react to someone else\'s story-->
+  <!--Conversation Item label for reactions to your story-->
   <!--Conversation Item label for reactions to an unavailable story-->
   <!--endregion-->
   <!--Content description for expand contacts chevron-->
+  <string name="StoriesLinkPopup__visit_link">Kunjungi tautan</string>
   <!--EOF-->
 </resources>

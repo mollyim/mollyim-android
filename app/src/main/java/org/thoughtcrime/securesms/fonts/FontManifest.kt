@@ -28,25 +28,25 @@ data class FontManifest @JsonCreator constructor(
    * @param chineseSimplified Hans Script Fonts
    */
   data class FontScripts @JsonCreator constructor(
-    @JsonProperty("latin-extended") val latinExtended: FontScript,
-    @JsonProperty("cyrillic-extended") val cyrillicExtended: FontScript,
-    @JsonProperty("devanagari") val devanagari: FontScript,
-    @JsonProperty("chinese-traditional-hk") val chineseTraditionalHk: FontScript,
-    @JsonProperty("chinese-traditional") val chineseTraditional: FontScript,
-    @JsonProperty("chinese-simplified") val chineseSimplified: FontScript,
-    @JsonProperty("arabic") val arabic: FontScript,
-    @JsonProperty("japanese") val japanese: FontScript,
+    @JsonProperty("latin-extended") val latinExtended: FontScript?,
+    @JsonProperty("cyrillic-extended") val cyrillicExtended: FontScript?,
+    @JsonProperty("devanagari") val devanagari: FontScript?,
+    @JsonProperty("chinese-traditional-hk") val chineseTraditionalHk: FontScript?,
+    @JsonProperty("chinese-traditional") val chineseTraditional: FontScript?,
+    @JsonProperty("chinese-simplified") val chineseSimplified: FontScript?,
+    @JsonProperty("arabic") val arabic: FontScript?,
+    @JsonProperty("japanese") val japanese: FontScript?,
   )
 
   /**
    * A collection of fonts for a specific script
    */
   data class FontScript @JsonCreator constructor(
-    @JsonProperty("regular") val regular: String,
-    @JsonProperty("bold") val bold: String,
-    @JsonProperty("serif") val serif: String,
-    @JsonProperty("script") val script: String,
-    @JsonProperty("condensed") val condensed: String,
+    @JsonProperty("regular") val regular: String?,
+    @JsonProperty("bold") val bold: String?,
+    @JsonProperty("serif") val serif: String?,
+    @JsonProperty("script") val script: String?,
+    @JsonProperty("condensed") val condensed: String?,
   )
 
   companion object {
@@ -76,7 +76,7 @@ data class FontManifest @JsonCreator constructor(
           objectMapper.readValue(it, FontManifest::class.java)
         }
       } catch (e: Exception) {
-        Log.w(TAG, "Failed to load manifest from disk")
+        Log.w(TAG, "Failed to load manifest from disk", e)
         return null
       }
     }

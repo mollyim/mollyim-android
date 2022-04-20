@@ -164,7 +164,7 @@ public final class RecipientBottomSheetDialogFragment extends BottomSheetDialogF
       if (recipient.isSelf()) {
         avatar.setOnClickListener(v -> {
           dismiss();
-          viewModel.onMessageClicked(requireActivity());
+          viewModel.onNoteToSelfClicked(requireActivity());
         });
       }
 

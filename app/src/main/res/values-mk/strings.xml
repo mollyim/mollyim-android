@@ -143,7 +143,7 @@
   <string name="ClientDeprecatedActivity_warning">Предупредување</string>
   <string name="ClientDeprecatedActivity_your_version_of_signal_has_expired_you_can_view_your_message_history">Вашата верзија на Signal е истечена. Можете да ја видите историјата на пораки, но нема да можете да испраќате и примате пораки додека не ажурирате.</string>
   <!--CommunicationActions-->
-  <string name="CommunicationActions_no_browser_found">Не беше најден веб прелистувач</string>
+  <string name="CommunicationActions_no_browser_found">Не е пронајден веб прелистувач.</string>
   <string name="CommunicationActions_send_email">Испрати е-пошта</string>
   <string name="CommunicationActions_a_cellular_call_is_already_in_progress">Веќе е во тек мобилен повик.</string>
   <string name="CommunicationActions_start_voice_call">Да започнам гласовен повик?</string>
@@ -1090,6 +1090,10 @@
   <string name="MessageRecord_you_sent_a_request_to_join_the_group">Испративте барање за приклучување во група.</string>
   <string name="MessageRecord_s_requested_to_join_via_the_group_link">%1$s побара да се приклучи преку групниот линк.</string>
   <!--Update message shown when someone requests to join via group link and cancels the request back to back-->
+  <plurals name="MessageRecord_s_requested_and_cancelled_their_request_to_join_via_the_group_link">
+    <item quantity="one">%1$s побара и  го откажа своето барање за да се приклучи преку групниот линк.</item>
+    <item quantity="other">%1$s побара и откажа %2$d барања за да се приклучи преку групниот линк.</item>
+  </plurals>
   <!--GV2 group link approvals-->
   <string name="MessageRecord_s_approved_your_request_to_join_the_group">%1$s го одобри Вашето барање за да се приклучите на групата.</string>
   <string name="MessageRecord_s_approved_a_request_to_join_the_group_from_s">%1$s го одобри барањето на %2$s за приклучување на групата.</string>
@@ -1523,8 +1527,8 @@
   <string name="ThreadRecord_video">Видео</string>
   <string name="ThreadRecord_chat_session_refreshed">Сесијата со разговорот е освежена</string>
   <!--UpdateApkReadyListener-->
-  <string name="UpdateApkReadyListener_Signal_update">Molly надградба</string>
-  <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Нова верзија од Molly е достапна, допрете за надградба</string>
+  <string name="UpdateApkReadyListener_Signal_update">Molly ажурирање</string>
+  <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Достапна е нова верзија на Molly, допрете за ажурирање</string>
   <!--UntrustedSendDialog-->
   <string name="UntrustedSendDialog_send_message">Да ја испратам пораката?</string>
   <string name="UntrustedSendDialog_send">Испрати</string>
@@ -1902,6 +1906,10 @@
   <!--message_recipients_list_item-->
   <string name="message_recipients_list_item__view">ВИДИ</string>
   <string name="message_recipients_list_item__resend">ИСПРАТИ ПОВТОРНО</string>
+  <!--Displayed in a toast when user long presses an item in MyStories-->
+  <string name="MyStoriesFragment__copied_sent_timestamp_to_clipboard">Го ископирав пратеното време во таблата со исечоци</string>
+  <!--Displayed when there are no outgoing stories-->
+  <string name="MyStoriesFragment__updates_to_your_story_will_show_up_here">Новостите за Вашата приказна ќе бидат прикажани овде.</string>
   <!--GroupUtil-->
   <plurals name="GroupUtil_joined_the_group">
     <item quantity="one">%1$s се приклучи на групата.</item>
@@ -2531,7 +2539,7 @@
   <string name="BaseKbsPinFragment__create_numeric_pin">Создај нумерички PIN</string>
   <!--CreateKbsPinFragment-->
   <plurals name="CreateKbsPinFragment__pin_must_be_at_least_characters">
-    <item quantity="one">PIN-от мора да е најмалку %1$d знак</item>
+    <item quantity="one">PIN-от мора да се состои од најмалку %1$d знак</item>
     <item quantity="other">PIN-от мора да се состои од најмалку %1$d знаци</item>
   </plurals>
   <plurals name="CreateKbsPinFragment__pin_must_be_at_least_digits">
@@ -2767,7 +2775,7 @@
   <string name="DeviceTransferSetup__location_permission">Дозвола за локација</string>
   <string name="DeviceTransferSetup__location_services">Локациски сервиси</string>
   <string name="DeviceTransferSetup__wifi">Wi-Fi</string>
-  <string name="DeviceTransferSetup__on_the_wifi_direct_screen_remove_all_remembered_groups_and_unlink_any_invited_or_connected_devices">На WiFi Direct екранот, отстранете ги сите запаметени групи и откачете ги сите поканети или поврзани уреди.</string>
+  <string name="DeviceTransferSetup__on_the_wifi_direct_screen_remove_all_remembered_groups_and_unlink_any_invited_or_connected_devices">На WiFi Direct екранот, отстранете ги сите запомнети групи и откачете ги сите поканети и поврзани уреди.</string>
   <string name="DeviceTransferSetup__wifi_direct_screen">Директен екран за Wi-Fi</string>
   <string name="DeviceTransferSetup__try_turning_wifi_off_and_on_on_both_devices">Пробајте да го исклучите и вклучите Wi-Fi и на двата уреда.</string>
   <string name="DeviceTransferSetup__make_sure_both_devices_are_in_transfer_mode">Осигурајте се дека и двата уреда се во режим за префрлување.</string>
@@ -3020,7 +3028,7 @@
   <string name="payment_info_card_your_recovery_phrase_gives_you">Вашата резервна фраза Ви овозможува друг начин за да ја повратите Вашата сметка за плаќање.</string>
   <string name="payment_info_card_record_your_phrase">Снимете ја Вашата фраза</string>
   <string name="payment_info_card_update_your_pin">Ажурирајте го Вашиот PIN</string>
-  <string name="payment_info_card_with_a_high_balance">Со висок баланс, можеби ќе сакате да надградите на алфанумерички PIN за да додадете повеќе заштита на Вашата сметка.</string>
+  <string name="payment_info_card_with_a_high_balance">Со висок баланс, можеби ќе сакате да ажурирате на алфанумерички PIN за да додадете поголема заштита на Вашата сметка.</string>
   <string name="payment_info_card_update_pin">Ажурирај PIN</string>
   <!--DeactivateWalletFragment-->
   <string name="DeactivateWalletFragment__deactivate_wallet">Деактивирај го паричникот</string>
@@ -3063,7 +3071,7 @@
   <string name="PaymentsRecoveryPhraseFragment__copy">Копирај</string>
   <!--PaymentsRecoveryPhraseConfirmFragment-->
   <string name="PaymentRecoveryPhraseConfirmFragment__confirm_recovery_phrase">Потврди резервна фраза</string>
-  <string name="PaymentRecoveryPhraseConfirmFragment__enter_the_following_words">Внесете ги следните зборови од Вашата резервна фраза</string>
+  <string name="PaymentRecoveryPhraseConfirmFragment__enter_the_following_words">Внесете ги следните зборови од Вашата резервна фраза.</string>
   <string name="PaymentRecoveryPhraseConfirmFragment__word_d">Збор %1$d</string>
   <string name="PaymentRecoveryPhraseConfirmFragment__see_phrase_again">Види фраза повторно</string>
   <string name="PaymentRecoveryPhraseConfirmFragment__done">Готово</string>
@@ -3137,7 +3145,7 @@
   <string name="ChangeNumberRegistrationLockFragment__signal_change_number_need_help_with_pin_for_android_v2_pin">Signal промена на број - Потребна Ви е помош со PIN кодот за Android (v2 PIN)</string>
   <!--ChangeNumberPinDiffersFragment-->
   <string name="ChangeNumberPinDiffersFragment__pins_do_not_match">PIN-кодовите не се совпаѓаат</string>
-  <string name="ChangeNumberPinDiffersFragment__the_pin_associated_with_your_new_number_is_different_from_the_pin_associated_with_your_old_one">PIN-от поврзан со Вашиот нов број е различен од PIN-от поврзан со Вашиот стар. Дали сакате да го задржите стариот PIN или да го ажурирате? </string>
+  <string name="ChangeNumberPinDiffersFragment__the_pin_associated_with_your_new_number_is_different_from_the_pin_associated_with_your_old_one">PIN-от поврзан со Вашиот нов број се разликува од PIN-от поврзан со Вашиот стар број. Дали сакате да го задржите стариот PIN или да го ажурирате? </string>
   <string name="ChangeNumberPinDiffersFragment__keep_old_pin">Задржи го стариот PIN</string>
   <string name="ChangeNumberPinDiffersFragment__update_pin">Ажурирај PIN</string>
   <string name="ChangeNumberPinDiffersFragment__keep_old_pin_question">Да го задржам стариот PIN?</string>
@@ -3480,8 +3488,8 @@
   <string name="BecomeASustainerFragment__signal_is_a_non_profit">Signal е непрофитна организација без реклами и инвеститори, поддржана само од луѓе како Вас.</string>
   <string name="ManageDonationsFragment__my_support">Моја поддршка</string>
   <string name="ManageDonationsFragment__manage_subscription">Управување со претплатата</string>
-  <!--Label for Tax Receipts button-->
-  <string name="ManageDonationsFragment__tax_receipts">Даночни потврди</string>
+  <!--Label for Donation Receipts button-->
+  <string name="ManageDonationsFragment__donation_receipts">Потврди за донации</string>
   <string name="ManageDonationsFragment__badges">Беџови</string>
   <string name="ManageDonationsFragment__subscription_faq">ЧПП за претплата</string>
   <string name="ManageDonationsFragment__error_getting_subscription">Грешка при добивање на претплата.</string>
@@ -3745,7 +3753,7 @@
   <!--Subtitle for "My Stories" row item when user has not added stories-->
   <string name="StoriesLandingFragment__add_a_story">Додај приказна</string>
   <!--Displayed when there are no stories to display-->
-  <string name="StoriesLandingFragment__no_recent_updates">Нема скорешни ажурирања за прикажување во моментов.</string>
+  <string name="StoriesLandingFragment__no_recent_updates_to_show_right_now_tap_plus_to_add_to_your_story">Нема скорешни новости за прикажување во моментов. Допрете на + за да ја додадете Вашата приказна.</string>
   <!--Context menu option to hide a story-->
   <string name="StoriesLandingItem__hide_story">Сокриј приказна</string>
   <!--Context menu option to unhide a story-->
@@ -3969,8 +3977,10 @@
   <string name="TurnOffCircumventionMegaphone_no_thanks">Не, благодарам</string>
   <!--Label for a button in a notification at the bottom of the chat list to turn off censorship circumvention-->
   <string name="TurnOffCircumventionMegaphone_turn_off">Исклучи</string>
-  <!--Conversation Item label for reactions to a story-->
-  <string name="ConversationItem__s_dot_story">%1$s · Приказна</string>
+  <!--Conversation Item label for when you react to someone else\'s story-->
+  <string name="ConversationItem__you_reacted_to_s_story">Реагиравте на приказната на %1$s</string>
+  <!--Conversation Item label for reactions to your story-->
+  <string name="ConversationItem__reacted_to_your_story">Реагираше на Вашата приказна</string>
   <!--Conversation Item label for reactions to an unavailable story-->
   <string name="ConversationItem__reacted_to_a_story">Реагираше на приказна</string>
   <!--endregion-->

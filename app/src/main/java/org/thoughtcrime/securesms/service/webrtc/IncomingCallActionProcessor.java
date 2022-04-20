@@ -107,7 +107,7 @@ public class IncomingCallActionProcessor extends DeviceAwareActionProcessor {
                                                 WebRtcUtil.getProxyInfo(),
                                                 hideIp,
                                                 NetworkUtil.getCallingBandwidthMode(context),
-                                                null,
+                                                AUDIO_LEVELS_INTERVAL,
                                                 false);
     } catch (CallException e) {
       return callFailure(currentState, "Unable to proceed with call: ", e);
