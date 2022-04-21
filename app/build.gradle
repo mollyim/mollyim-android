@@ -117,10 +117,6 @@ android {
         freeCompilerArgs = ["-Xallow-result-return-type"]
     }
 
-    dexOptions {
-        javaMaxHeapSize "4g"
-    }
-
     signingConfigs {
         ci {
             if (System.getenv('CI_KEYSTORE_PATH')) {
