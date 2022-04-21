@@ -2,7 +2,6 @@ package org.thoughtcrime.securesms.devicetransfer.olddevice;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -26,10 +25,6 @@ public class OldDeviceExitActivity extends AppCompatActivity {
   }
 
   private static void finishAll(@NonNull Activity activity) {
-    if (Build.VERSION.SDK_INT < 21) {
-      activity.finishAffinity();
-    } else {
-      activity.finishAndRemoveTask();
-    }
+    activity.finishAndRemoveTask();
   }
 }

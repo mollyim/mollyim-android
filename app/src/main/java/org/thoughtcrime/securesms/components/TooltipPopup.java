@@ -2,7 +2,6 @@ package org.thoughtcrime.securesms.components;
 
 import android.content.Context;
 import android.graphics.PorterDuff;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -90,9 +89,7 @@ public class TooltipPopup extends PopupWindow {
       GlideApp.with(anchor.getContext()).load(iconGlideModel).into(iconView);
     }
 
-    if (Build.VERSION.SDK_INT >= 21) {
-      setElevation(10);
-    }
+    setElevation(10);
 
     getContentView().setOnClickListener(v -> dismiss());
 

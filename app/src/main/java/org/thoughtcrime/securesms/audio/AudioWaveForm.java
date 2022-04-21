@@ -5,7 +5,6 @@ import android.media.MediaCodec;
 import android.media.MediaExtractor;
 import android.media.MediaFormat;
 import android.net.Uri;
-import android.os.Build;
 import android.util.LruCache;
 
 import androidx.annotation.AnyThread;
@@ -35,7 +34,7 @@ import java.util.Locale;
 import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 
-@RequiresApi(api = Build.VERSION_CODES.M)
+@RequiresApi(api = 23)
 public final class AudioWaveForm {
 
   private static final String TAG = Log.tag(AudioWaveForm.class);

@@ -125,7 +125,7 @@ public abstract class BaseActivity extends AppCompatActivity {
   // this class and thus does not override the configuration.
   @Override
   public AssetManager getAssets() {
-    if (Build.VERSION.SDK_INT >= 21 && Build.VERSION.SDK_INT <= 25) {
+    if (Build.VERSION.SDK_INT <= 25) {
       return getResources().getAssets();  // Ignore overridden configuration
     } else {
       return super.getAssets();

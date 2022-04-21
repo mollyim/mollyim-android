@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
@@ -179,8 +178,7 @@ public final class PlacePickerActivity extends AppCompatActivity {
   }
 
   private void enableMyLocationButtonIfHaveThePermission(GoogleMap googleMap) {
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M ||
-        checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)   == PackageManager.PERMISSION_GRANTED ||
+    if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)   == PackageManager.PERMISSION_GRANTED ||
         checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
     {
       googleMap.setMyLocationEnabled(true);

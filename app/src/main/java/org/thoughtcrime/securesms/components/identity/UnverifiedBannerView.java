@@ -2,7 +2,6 @@ package org.thoughtcrime.securesms.components.identity;
 
 
 import android.content.Context;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,13 +37,13 @@ public class UnverifiedBannerView extends LinearLayout {
     initialize();
   }
 
-  @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
+  @RequiresApi(api = 11)
   public UnverifiedBannerView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
     super(context, attrs, defStyleAttr);
     initialize();
   }
 
-  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+  @RequiresApi(api = 21)
   public UnverifiedBannerView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
     super(context, attrs, defStyleAttr, defStyleRes);
     initialize();

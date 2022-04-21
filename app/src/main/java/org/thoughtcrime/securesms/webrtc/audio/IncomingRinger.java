@@ -6,7 +6,6 @@ import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Vibrator;
 import android.provider.Settings;
 
@@ -114,13 +113,9 @@ public class IncomingRinger {
       mediaPlayer.setOnErrorListener(new MediaPlayerErrorListener());
       mediaPlayer.setLooping(true);
 
-      if (Build.VERSION.SDK_INT <= 21) {
-        mediaPlayer.setAudioStreamType(AudioManager.STREAM_RING);
-      } else {
-        mediaPlayer.setAudioAttributes(new AudioAttributes.Builder().setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                                                                    .setUsage(AudioAttributes.USAGE_NOTIFICATION_RINGTONE)
-                                                                    .build());
-      }
+      mediaPlayer.setAudioAttributes(new AudioAttributes.Builder().setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                                                                  .setUsage(AudioAttributes.USAGE_NOTIFICATION_RINGTONE)
+                                                                  .build());
 
       return mediaPlayer;
     } catch (IOException e) {

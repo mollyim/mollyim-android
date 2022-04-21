@@ -3,7 +3,6 @@ package org.thoughtcrime.securesms.profiles.edit;
 import android.animation.Animator;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.InputType;
@@ -298,25 +297,13 @@ public class EditProfileFragment extends LoggingFragment {
   private void handleUpload() {
     viewModel.getUploadResult().observe(getViewLifecycleOwner(), uploadResult -> {
       if (uploadResult == EditProfileRepository.UploadResult.SUCCESS) {
-        if (Build.VERSION.SDK_INT >= 21) {
-          handleFinishedLollipop();
-        }
-        else {
-          handleFinishedLegacy();
-        }
+        handleFinishedLollipop();
       } else {
         Toast.makeText(requireContext(), R.string.CreateProfileActivity_problem_setting_profile, Toast.LENGTH_LONG).show();
       }
     });
 
     viewModel.submitProfile();
-  }
-
-  private void handleFinishedLegacy() {
-    finishButton.setProgress(0);
-    if (nextIntent != null) startActivity(nextIntent);
-
-    controller.onProfileNameUploadCompleted();
   }
 
   @RequiresApi(api = 21)

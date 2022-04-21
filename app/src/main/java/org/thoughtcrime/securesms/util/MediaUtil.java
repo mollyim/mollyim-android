@@ -7,7 +7,6 @@ import android.media.MediaDataSource;
 import android.media.MediaMetadataRetriever;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
-import android.os.Build;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Pair;
@@ -349,7 +348,7 @@ public class MediaUtil {
       return false;
     }
 
-    if (BlobProvider.isAuthority(uri) && MediaUtil.isVideo(BlobProvider.getMimeType(uri)) && Build.VERSION.SDK_INT >= 23) {
+    if (BlobProvider.isAuthority(uri) && MediaUtil.isVideo(BlobProvider.getMimeType(uri))) {
       return true;
     }
 
@@ -393,8 +392,7 @@ public class MediaUtil {
                MediaUtil.isVideo(URLConnection.guessContentTypeFromName(uri.toString()))) {
       return ThumbnailUtils.createVideoThumbnail(uri.toString().replace("file://", ""),
                                                  MediaStore.Video.Thumbnails.MINI_KIND);
-    } else if (Build.VERSION.SDK_INT >= 23   &&
-               BlobProvider.isAuthority(uri) &&
+    } else if (BlobProvider.isAuthority(uri) &&
                MediaUtil.isVideo(BlobProvider.getMimeType(uri)))
     {
       try {
@@ -403,8 +401,7 @@ public class MediaUtil {
       } catch (IOException e) {
         Log.w(TAG, "Failed to extract frame for URI: " + uri, e);
       }
-    } else if (Build.VERSION.SDK_INT >= 23        &&
-               PartAuthority.isAttachmentUri(uri) &&
+    } else if (PartAuthority.isAttachmentUri(uri) &&
                MediaUtil.isVideoType(PartAuthority.getAttachmentContentType(context, uri)))
     {
       try {

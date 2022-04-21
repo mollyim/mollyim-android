@@ -6,7 +6,6 @@ import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Color;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -191,10 +190,8 @@ public final class WebRtcAnswerDeclineButton extends LinearLayout implements Acc
           swipeDownText.setAlpha(1);
           answer.setRotation(0);
 
-          if (Build.VERSION.SDK_INT >= 21) {
-            answer.getDrawable().setTint(getResources().getColor(R.color.green_600));
-            answer.getBackground().setTint(Color.WHITE);
-          }
+          answer.getDrawable().setTint(getResources().getColor(R.color.green_600));
+          answer.getBackground().setTint(Color.WHITE);
 
           animating = true;
           animateElements(0);
@@ -252,10 +249,8 @@ public final class WebRtcAnswerDeclineButton extends LinearLayout implements Acc
             }
           }
 
-          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            answer.getBackground().setTint(backgroundColor);
-            answer.getDrawable().setTint(foregroundColor);
-          }
+          answer.getBackground().setTint(backgroundColor);
+          answer.getDrawable().setTint(foregroundColor);
 
           break;
       }

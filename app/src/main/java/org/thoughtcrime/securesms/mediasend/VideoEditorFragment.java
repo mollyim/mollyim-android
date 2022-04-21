@@ -1,7 +1,6 @@
 package org.thoughtcrime.securesms.mediasend;
 
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -193,7 +192,7 @@ public class VideoEditorFragment extends Fragment implements VideoEditorHud.Even
   }
 
   private void startPositionUpdates() {
-    if (hud != null && Build.VERSION.SDK_INT >= 23) {
+    if (hud != null) {
       stopPositionUpdates();
       updatePosition = new Runnable() {
         @Override
@@ -244,9 +243,7 @@ public class VideoEditorFragment extends Fragment implements VideoEditorHud.Even
   public void restoreState(@NonNull Object state) {
     if (state instanceof Data) {
       data = (Data) state;
-      if (Build.VERSION.SDK_INT >= 23) {
-        updateHud(data);
-      }
+      updateHud(data);
     } else {
       Log.w(TAG, "Received a bad saved state. Received class: " + state.getClass().getName());
     }

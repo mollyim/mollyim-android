@@ -7,7 +7,6 @@ import android.content.IntentFilter
 import android.media.AudioManager
 import android.media.SoundPool
 import android.net.Uri
-import android.os.Build
 import org.signal.core.util.concurrent.SignalExecutors
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.R
@@ -154,7 +153,7 @@ class FullSignalAudioManager(context: Context, eventListener: EventListener?) : 
       updateAudioDeviceState()
 
       wiredHeadsetReceiver = WiredHeadsetReceiver()
-      context.registerReceiver(wiredHeadsetReceiver, IntentFilter(if (Build.VERSION.SDK_INT >= 21) AudioManager.ACTION_HEADSET_PLUG else Intent.ACTION_HEADSET_PLUG))
+      context.registerReceiver(wiredHeadsetReceiver, IntentFilter(AudioManager.ACTION_HEADSET_PLUG))
 
       state = State.PREINITIALIZED
 

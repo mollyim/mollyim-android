@@ -1,7 +1,6 @@
 package org.thoughtcrime.securesms.jobs;
 
 import android.graphics.Bitmap;
-import android.os.Build;
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
@@ -224,11 +223,6 @@ public final class AttachmentUploadJob extends BaseJob {
   private @Nullable String getVideoBlurHash(@NonNull Attachment attachment) throws IOException {
     if (attachment.getBlurHash() != null) {
       return attachment.getBlurHash().getHash();
-    }
-
-    if (Build.VERSION.SDK_INT < 23) {
-      Log.w(TAG, "Video thumbnails not supported...");
-      return null;
     }
 
     Bitmap bitmap = MediaUtil.getVideoThumbnail(context, Objects.requireNonNull(attachment.getUri()), 1000);

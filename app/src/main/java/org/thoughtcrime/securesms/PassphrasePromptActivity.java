@@ -21,7 +21,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.SpannableString;
@@ -92,9 +91,7 @@ public class PassphrasePromptActivity extends PassphraseActivity {
     setContentView(R.layout.prompt_passphrase_activity);
     initializeResources();
 
-    if (Build.VERSION.SDK_INT >= 21) {
-      setExcludeFromRecents(true);
-    }
+    setExcludeFromRecents(true);
   }
 
   @Override
@@ -258,9 +255,7 @@ public class PassphrasePromptActivity extends PassphraseActivity {
       }
     });;
 
-    if (Build.VERSION.SDK_INT >= 21) {
-      setExcludeFromRecents(false);
-    }
+    setExcludeFromRecents(false);
   }
 
   @SuppressLint("StaticFieldLeak")
