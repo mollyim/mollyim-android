@@ -8,6 +8,7 @@ import android.text.TextUtils
 import androidx.annotation.StringRes
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.R
+import org.thoughtcrime.securesms.ScreenLockController
 import org.thoughtcrime.securesms.contactshare.Contact
 import org.thoughtcrime.securesms.contactshare.ContactUtil
 import org.thoughtcrime.securesms.database.MentionUtil
@@ -173,7 +174,7 @@ class MessageNotification(threadRecipient: Recipient, record: MessageRecord) : N
   override val isNewNotification: Boolean = notifiedTimestamp == 0L
 
   override fun getPrimaryTextActual(context: Context): CharSequence {
-    return if (KeyCachingService.isLocked(context)) {
+    return if (KeyCachingService.isLocked()) {
       SpanUtil.italic(context.getString(R.string.MessageNotifier_locked_message))
     } else if (record.isMms && (record as MmsMessageRecord).sharedContacts.isNotEmpty()) {
       val contact = record.sharedContacts[0]
@@ -214,7 +215,7 @@ class MessageNotification(threadRecipient: Recipient, record: MessageRecord) : N
   }
 
   override fun getThumbnailInfo(context: Context): ThumbnailInfo {
-    return if (SignalStore.settings().messageNotificationsPrivacy.isDisplayMessage && !KeyCachingService.isLocked(context)) {
+    return if (SignalStore.settings().messageNotificationsPrivacy.isDisplayMessage && !KeyCachingService.isLocked()) {
       val thumbnailSlide: Slide? = slideDeck?.thumbnailSlide
       ThumbnailInfo(thumbnailSlide?.publicUri, thumbnailSlide?.contentType)
     } else {
@@ -223,11 +224,12 @@ class MessageNotification(threadRecipient: Recipient, record: MessageRecord) : N
   }
 
   override fun canReply(context: Context): Boolean {
-    if (KeyCachingService.isLocked(context) ||
+    if (
       record.isRemoteDelete ||
       record.isGroupCall ||
       record.isViewOnce ||
-      record.isJoined
+      record.isJoined ||
+      ScreenLockController.lockScreenAtStart
     ) {
       return false
     }
@@ -253,7 +255,7 @@ class ReactionNotification(threadRecipient: Recipient, record: MessageRecord, va
   override val isNewNotification: Boolean = timestamp > notifiedTimestamp
 
   override fun getPrimaryTextActual(context: Context): CharSequence {
-    return if (KeyCachingService.isLocked(context)) {
+    return if (KeyCachingService.isLocked()) {
       SpanUtil.italic(context.getString(R.string.MessageNotifier_locked_message))
     } else {
       val text: String = SpanUtil.italic(getReactionMessageBody(context)).toString()

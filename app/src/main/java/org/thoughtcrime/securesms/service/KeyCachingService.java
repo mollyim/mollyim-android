@@ -78,10 +78,6 @@ public class KeyCachingService extends Service {
 
   public KeyCachingService() {}
 
-  public static boolean isLocked(Context context) {
-    return isLocked();
-  }
-
   public static synchronized boolean isLocked() {
     return masterSecret == null || locking;
   }

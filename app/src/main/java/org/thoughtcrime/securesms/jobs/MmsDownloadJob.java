@@ -63,7 +63,7 @@ public class MmsDownloadJob extends BaseJob {
 
   @Override
   public void onAdded() {
-    if (automatic && KeyCachingService.isLocked(context)) {
+    if (automatic && KeyCachingService.isLocked()) {
       SignalDatabase.mms().markIncomingNotificationReceived(threadId);
       ApplicationDependencies.getMessageNotifier().updateNotification(context);
     }

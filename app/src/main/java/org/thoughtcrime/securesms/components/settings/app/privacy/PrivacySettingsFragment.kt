@@ -23,6 +23,7 @@ import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.ChangePassphraseDialogFragment
 import org.thoughtcrime.securesms.PassphraseActivity
 import org.thoughtcrime.securesms.R
+import org.thoughtcrime.securesms.biometric.BiometricDialogFragment
 import org.thoughtcrime.securesms.components.settings.ClickPreference
 import org.thoughtcrime.securesms.components.settings.ClickPreferenceViewHolder
 import org.thoughtcrime.securesms.components.settings.DSLConfiguration
@@ -244,6 +245,15 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
       sectionHeaderPref(R.string.PrivacySettingsFragment__app_security)
 
       switchPref(
+        title = DSLSettingsText.from(R.string.preferences_app_protection__screen_lock),
+        summary = DSLSettingsText.from(R.string.PrivacySettingsFragment__lock_molly_access_with_fingerprint_or_face_recognition),
+        isChecked = state.biometricScreenLock,
+        onClick = {
+          onBiometricScreenLockClicked(!state.biometricScreenLock)
+        }
+      )
+
+      switchPref(
         title = DSLSettingsText.from(R.string.preferences__screen_security),
         summary = DSLSettingsText.from(R.string.PrivacySettingsFragment__block_screenshots_in_the_recents_list_and_inside_the_app),
         isChecked = state.screenSecurity,
@@ -329,6 +339,29 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
           Navigation.findNavController(requireView()).safeNavigate(R.id.action_privacySettingsFragment_to_advancedPrivacySettingsFragment)
         }
       )
+    }
+  }
+
+  private fun onBiometricScreenLockClicked(enabled: Boolean) {
+    if (enabled) {
+      BiometricDialogFragment.authenticate(
+      requireActivity(),
+        object : BiometricDialogFragment.Listener {
+          override fun onResult(authenticationSucceeded: Boolean): Boolean {
+            if (authenticationSucceeded) {
+              viewModel.setBiometricScreenLock(true)
+            }
+            return true
+          }
+
+          override fun onError(errString: CharSequence): Boolean {
+            Toast.makeText(context, errString, Toast.LENGTH_LONG).show()
+            return true
+          }
+        }
+      )
+    } else {
+      viewModel.setBiometricScreenLock(false)
     }
   }
 

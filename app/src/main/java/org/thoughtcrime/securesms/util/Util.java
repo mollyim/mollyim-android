@@ -49,7 +49,6 @@ import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.components.ComposeText;
-import org.thoughtcrime.securesms.keyvalue.SignalStore;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

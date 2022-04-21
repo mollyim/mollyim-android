@@ -112,6 +112,7 @@ public class TextSecurePreferences {
   public  static final String PASSPHRASE_LOCK         = "pref_passphrase_lock";
   public  static final String PASSPHRASE_LOCK_TIMEOUT = "pref_passphrase_lock_timeout";
   public  static final String PASSPHRASE_LOCK_TRIGGER = "pref_passphrase_lock_trigger";
+  public  static final String BIOMETRIC_SCREEN_LOCK   = "pref_biometric_screen_lock";
 
   private static final String NETWORK_CONFIG_SEEN = "pref_network_config_seen";
 
@@ -218,6 +219,7 @@ public class TextSecurePreferences {
       UPDATE_APK_ENABLED,
       UPDATE_APK_INCLUDE_BETA,
       BLOCK_UNKNOWN,
+      BIOMETRIC_SCREEN_LOCK,
   };
 
   public static long getPreferencesToSaveToBackupCount(@NonNull Context context) {
@@ -316,10 +318,6 @@ public class TextSecurePreferences {
     }
   }
 
-  public static boolean isScreenLockEnabled(@NonNull Context context) {
-    return isPassphraseLockEnabled(context);
-  }
-
   public static boolean isPassphraseLockEnabled(@NonNull Context context) {
     return getBooleanPreference(context, PASSPHRASE_LOCK, true);
   }
@@ -356,6 +354,14 @@ public class TextSecurePreferences {
 
   public static int getProxySocksPort(@NonNull Context context) {
     return Integer.parseInt(getStringPreference(context, PROXY_SOCKS_PORT, "9050"));
+  }
+
+  public static boolean isBiometricScreenLockEnabled(@NonNull Context context) {
+    return getBooleanPreference(context, BIOMETRIC_SCREEN_LOCK, false);
+  }
+
+  public static void setBiometricScreenLockEnabled(@NonNull Context context, boolean value) {
+    setBooleanPreference(context, BIOMETRIC_SCREEN_LOCK, value);
   }
 
   public static boolean isV1RegistrationLockEnabled(@NonNull Context context) {

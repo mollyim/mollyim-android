@@ -75,6 +75,11 @@ public class SubmitDebugLogActivity extends BaseActivity implements SubmitDebugL
   }
 
   @Override
+  public boolean useScreenLock() {
+    return false;
+  }
+
+  @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.submit_debug_log_normal, menu);
 

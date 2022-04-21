@@ -149,6 +149,7 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
     SqlCipherLibraryLoader.load();
     EventBus.builder().logNoSubscriberMessages(false).installDefaultEventBus();
     DynamicTheme.setDefaultDayNightMode(this);
+    ScreenLockController.enableAutoLock(TextSecurePreferences.isBiometricScreenLockEnabled(this));
 
     initializePassphraseLock();
   }
@@ -253,6 +254,8 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
   @Override
   public void onBackground() {
     Log.i(TAG, "App is no longer visible.");
+
+    ScreenLockController.onAppBackgrounded(this);
     if (!KeyCachingService.isLocked()) {
       onStopUnlock();
     }

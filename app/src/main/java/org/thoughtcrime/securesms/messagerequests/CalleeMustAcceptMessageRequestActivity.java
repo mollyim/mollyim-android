@@ -77,8 +77,14 @@ public class CalleeMustAcceptMessageRequestActivity extends BaseActivity {
   @Override
   public void onResume() {
     super.onResume();
+  }
 
-    handler.postDelayed(finisher, TIMEOUT_MS);
+  @Override
+  protected void onPostResume(boolean screenLocked) {
+    super.onPostResume(screenLocked);
+    if (!screenLocked) {
+      handler.postDelayed(finisher, TIMEOUT_MS);
+    }
   }
 
   @Override

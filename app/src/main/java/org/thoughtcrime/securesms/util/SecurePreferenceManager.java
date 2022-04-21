@@ -20,6 +20,7 @@ public class SecurePreferenceManager {
         case TextSecurePreferences.THEME_PREF:
         case TextSecurePreferences.LANGUAGE_PREF:
         case TextSecurePreferences.PASSPHRASE_LOCK:
+        case TextSecurePreferences.BIOMETRIC_SCREEN_LOCK:
         case TextSecurePreferences.FIRST_INSTALL_VERSION:
         case TextSecurePreferences.SYSTEM_EMOJI_PREF:
         case TextSecurePreferences.DIRECTORY_FRESH_TIME_PREF:

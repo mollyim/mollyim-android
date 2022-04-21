@@ -73,7 +73,6 @@ import org.thoughtcrime.securesms.sms.MessageSender;
 import org.thoughtcrime.securesms.util.EllapsedTimeFormatter;
 import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.FullscreenHelper;
-import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.ThrottledDebouncer;
 import org.thoughtcrime.securesms.util.Util;
 import org.thoughtcrime.securesms.util.VibrateUtil;
@@ -183,6 +182,16 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
   }
 
   @Override
+  protected void onPostResume(boolean screenLocked) {
+    super.onPostResume(screenLocked);
+    if (!screenLocked) {
+      if (ANSWER_ACTION.equals(getIntent().getAction())) {
+        handleAnswerWithAudio();
+      }
+    }
+  }
+
+  @Override
   public void onNewIntent(Intent intent) {
     Log.i(TAG, "onNewIntent");
     super.onNewIntent(intent);
@@ -276,7 +285,8 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
 
   private void processIntent(@NonNull Intent intent) {
     if (ANSWER_ACTION.equals(intent.getAction())) {
-      handleAnswerWithAudio();
+      // MOLLY: Hold this action until activity's screen is unlocked
+      setIntent(intent);
     } else if (DENY_ACTION.equals(intent.getAction())) {
       handleDenyCall();
     } else if (END_CALL_ACTION.equals(intent.getAction())) {

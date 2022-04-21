@@ -46,7 +46,7 @@ private const val BIG_PICTURE_DIMEN = 500
 sealed class NotificationBuilder(protected val context: Context) {
 
   private val privacy: NotificationPrivacyPreference = SignalStore.settings().messageNotificationsPrivacy
-  private val isNotLocked: Boolean = !KeyCachingService.isLocked(context)
+  private val isNotLocked: Boolean = !KeyCachingService.isLocked()
 
   abstract fun setSmallIcon(@DrawableRes drawable: Int)
   abstract fun setColor(@ColorInt color: Int)
