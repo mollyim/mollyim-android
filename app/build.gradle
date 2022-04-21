@@ -168,6 +168,10 @@ android {
         exclude 'META-INF/NOTICE'
         exclude 'META-INF/proguard/androidx-annotations.pro'
         exclude '**/*.proto'
+        jniLibs {
+            // MOLLY: Compress native libs by default as APK is not split on ABIs
+            useLegacyPackaging true
+        }
     }
 
     if (mollyRevision < 0 || mollyRevision >= postFixSize) {
