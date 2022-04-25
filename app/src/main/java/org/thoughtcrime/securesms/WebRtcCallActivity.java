@@ -176,7 +176,6 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
   public void onResume() {
     Log.i(TAG, "onResume()");
     super.onResume();
-    initializeScreenshotSecurity();
 
     if (!EventBus.getDefault().isRegistered(this)) {
       EventBus.getDefault().register(this);
@@ -282,14 +281,6 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
       handleDenyCall();
     } else if (END_CALL_ACTION.equals(intent.getAction())) {
       handleEndCall();
-    }
-  }
-
-  private void initializeScreenshotSecurity() {
-    if (TextSecurePreferences.isScreenSecurityEnabled(this)) {
-      getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
-    } else {
-      getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
     }
   }
 
