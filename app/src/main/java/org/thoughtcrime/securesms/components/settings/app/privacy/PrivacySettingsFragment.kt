@@ -2,6 +2,9 @@ package org.thoughtcrime.securesms.components.settings.app.privacy
 
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
+import android.os.Build
+import android.provider.Settings
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.TextAppearanceSpan
@@ -9,7 +12,10 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
+import androidx.biometric.BiometricManager
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
@@ -342,27 +348,53 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
     }
   }
 
+  private val biometricEnrollment = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+    onBiometricEnrollFinished()
+  }
+
   private fun onBiometricScreenLockClicked(enabled: Boolean) {
     if (enabled) {
-      BiometricDialogFragment.authenticate(
-      requireActivity(),
-        object : BiometricDialogFragment.Listener {
-          override fun onResult(authenticationSucceeded: Boolean): Boolean {
-            if (authenticationSucceeded) {
-              viewModel.setBiometricScreenLock(true)
-            }
-            return true
-          }
-
-          override fun onError(errString: CharSequence): Boolean {
-            Toast.makeText(context, errString, Toast.LENGTH_LONG).show()
-            return true
+      val biometricManager = BiometricManager.from(requireContext())
+      when (biometricManager.canAuthenticate(BiometricDialogFragment.BIOMETRIC_AUTHENTICATORS_ALLOWED)) {
+        BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE ->
+          Toast.makeText(context, R.string.PrivacySettingsFragment__no_biometric_features_available_on_this_device, Toast.LENGTH_LONG).show()
+        BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> {
+          if (Build.VERSION.SDK_INT >= 30) {
+            biometricEnrollment.launch(getIntentForBiometricEnrollment())
+          } else {
+            Toast.makeText(context, R.string.PrivacySettingsFragment__please_first_setup_your_biometrics_in_android_settings, Toast.LENGTH_LONG).show()
           }
         }
-      )
+        else -> onBiometricEnrollFinished()
+      }
     } else {
       viewModel.setBiometricScreenLock(false)
     }
+  }
+
+  @RequiresApi(30)
+  private fun getIntentForBiometricEnrollment(): Intent =
+    Intent(Settings.ACTION_BIOMETRIC_ENROLL).apply {
+      putExtra(Settings.EXTRA_BIOMETRIC_AUTHENTICATORS_ALLOWED, BiometricDialogFragment.BIOMETRIC_AUTHENTICATORS_ALLOWED)
+    }
+
+  private fun onBiometricEnrollFinished() {
+    BiometricDialogFragment.authenticate(
+      requireActivity(),
+      object : BiometricDialogFragment.Listener {
+        override fun onResult(authenticationSucceeded: Boolean): Boolean {
+          if (authenticationSucceeded) {
+            viewModel.setBiometricScreenLock(true)
+          }
+          return true
+        }
+
+        override fun onError(errString: CharSequence): Boolean {
+          Toast.makeText(context, errString, Toast.LENGTH_LONG).show()
+          return true
+        }
+      }
+    )
   }
 
   private fun getDeviceLockTimeoutSummary(timeoutSeconds: Long): String {
