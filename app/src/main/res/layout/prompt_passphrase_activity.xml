@@ -1,89 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/prompt_layout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/password_auth_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:orientation="vertical">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize">
-
-    </androidx.appcompat.widget.Toolbar>
-
-    <LinearLayout
-        android:id="@+id/password_auth_container"
+    <TextView
+        android:id="@+id/header_text"
+        style="@style/Signal.Text.Headline"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_margin="8dp">
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="36dp"
+        android:gravity="center_horizontal"
+        android:text="@string/prompt_passphrase_activity__signal_is_locked"
+        android:textStyle="bold" />
 
-        <TextView
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/passphrase_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="16dp"
+        app:errorEnabled="false"
+        app:hintEnabled="false"
+        app:passwordToggleEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/passphrase_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:layout_marginBottom="36dp"
-            android:text="@string/prompt_passphrase_activity__signal_is_locked"
-            style="@style/Signal.Text.Headline"
-            android:textStyle="bold"
-            android:gravity="center_horizontal" />
+            android:imeOptions="actionGo"
+            android:inputType="textPassword"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/passphrase_layout"
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.dd.CircularProgressButton
+            android:id="@+id/ok_button"
+            style="@style/Button.Registration"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="16dp"
-            app:hintEnabled="false"
-            app:errorEnabled="false"
-            app:passwordToggleEnabled="true">
+            app:cpb_colorIndicator="@color/signal_accent_primary"
+            app:cpb_colorProgress="@color/transparent"
+            app:cpb_cornerRadius="4dp"
+            app:cpb_selectorIdle="@drawable/progress_button_state"
+            app:cpb_textIdle="@string/prompt_passphrase_activity__unlock"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/passphrase_input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:imeOptions="actionGo"
-                android:inputType="textPassword"/>
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/success"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center_horizontal"
+            android:tint="@color/signal_accent_primary"
+            android:visibility="gone"
+            app:srcCompat="@drawable/ic_check_outline_22" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+    </FrameLayout>
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.dd.CircularProgressButton
-                android:id="@+id/ok_button"
-                style="@style/Button.Registration"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginBottom="16dp"
-                app:cpb_textIdle="@string/prompt_passphrase_activity__unlock"
-                app:cpb_cornerRadius="4dp"
-                app:cpb_selectorIdle="@drawable/progress_button_state"
-                app:cpb_colorIndicator="@color/signal_accent_primary"
-                app:cpb_colorProgress="@color/transparent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/success"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_gravity="center_horizontal"
-                android:tint="@color/signal_accent_primary"
-                app:srcCompat="@drawable/ic_check_outline_22"
-                android:visibility="gone" />
-
-        </FrameLayout>
-
-    </LinearLayout>
 </LinearLayout>

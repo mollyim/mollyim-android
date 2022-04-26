@@ -45,7 +45,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 
 import org.signal.core.util.ThreadUtil;
 import org.signal.core.util.logging.Log;
@@ -56,8 +55,6 @@ import org.thoughtcrime.securesms.crypto.MasterSecret;
 import org.thoughtcrime.securesms.crypto.MasterSecretUtil;
 import org.thoughtcrime.securesms.logsubmit.SubmitDebugLogActivity;
 import org.thoughtcrime.securesms.util.CommunicationActions;
-import org.thoughtcrime.securesms.util.DynamicIntroTheme;
-import org.thoughtcrime.securesms.util.DynamicLanguage;
 import org.thoughtcrime.securesms.util.SupportEmailUtil;
 import org.thoughtcrime.securesms.util.ServiceUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
@@ -76,10 +73,8 @@ public class PassphrasePromptActivity extends PassphraseActivity {
 
   private static final String TAG = PassphrasePromptActivity.class.getSimpleName();
 
-  private final DynamicIntroTheme dynamicTheme    = new DynamicIntroTheme();
-  private final DynamicLanguage   dynamicLanguage = new DynamicLanguage();
-
   private View                   passphraseAuthContainer;
+  private View                   headerText;
   private TextInputLayout        passphraseLayout;
   private EditText               passphraseInput;
   private CircularProgressButton okButton;
@@ -88,9 +83,9 @@ public class PassphrasePromptActivity extends PassphraseActivity {
   @Override
   public void onCreate(Bundle savedInstanceState) {
     Log.i(TAG, "onCreate()");
-    dynamicTheme.onCreate(this);
-    dynamicLanguage.onCreate(this);
     super.onCreate(savedInstanceState);
+
+    requireSupportActionBar().setTitle("");
 
     setContentView(R.layout.prompt_passphrase_activity);
     initializeResources();
@@ -101,8 +96,6 @@ public class PassphrasePromptActivity extends PassphraseActivity {
   @Override
   public void onResume() {
     super.onResume();
-    dynamicTheme.onResume(this);
-    dynamicLanguage.onResume(this);
     passphraseInput.requestFocus();
 
     // Manually lock the screen since the app lifecycle observer is not running yet
@@ -223,16 +216,12 @@ public class PassphrasePromptActivity extends PassphraseActivity {
   }
 
   private void initializeResources() {
-    Toolbar toolbar = findViewById(R.id.toolbar);
-
     passphraseAuthContainer = findViewById(R.id.password_auth_container);
+    headerText              = findViewById(R.id.header_text);
     passphraseLayout        = findViewById(R.id.passphrase_layout);
     passphraseInput         = findViewById(R.id.passphrase_input);
     okButton                = findViewById(R.id.ok_button);
     successView             = findViewById(R.id.success);
-
-    toolbar.setTitle("");
-    setSupportActionBar(toolbar);
 
     SpannableString hint = new SpannableString(getString(R.string.PassphrasePromptActivity_enter_passphrase));
     hint.setSpan(new RelativeSizeSpan(0.9f), 0, hint.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
@@ -281,6 +270,7 @@ public class PassphrasePromptActivity extends PassphraseActivity {
     passphraseLayout.setEnabled(enabled);
     passphraseLayout.setEndIconMode(enabled ? END_ICON_PASSWORD_TOGGLE : END_ICON_NONE);
     okButton.setClickable(enabled);
+    headerText.setEnabled(enabled);
   }
 
   private void showProgress(float x) {

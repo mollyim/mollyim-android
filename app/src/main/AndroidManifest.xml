@@ -302,7 +302,7 @@
 
     <activity android:name=".PassphrasePromptActivity"
               android:launchMode="singleTask"
-              android:theme="@style/TextSecure.LightIntroTheme"
+              android:theme="@style/Signal.DayNight"
               android:windowSoftInputMode="stateVisible"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
 
