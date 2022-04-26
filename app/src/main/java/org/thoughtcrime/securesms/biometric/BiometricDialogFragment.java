@@ -143,6 +143,7 @@ public class BiometricDialogFragment extends DialogFragment {
         .setSubtitle(getString(R.string.BiometricDialogFragment__please_confirm_its_really_you_to_access_molly))
         .setNegativeButtonText(getString(android.R.string.cancel))
         .setAllowedAuthenticators(BIOMETRIC_AUTHENTICATORS_ALLOWED)
+        .setConfirmationRequired(false)
         .build();
 
     getParentFragmentManager().setFragmentResultListener(
