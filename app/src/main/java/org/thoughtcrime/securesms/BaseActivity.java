@@ -165,9 +165,6 @@ public abstract class BaseActivity extends AppCompatActivity {
   @Override
   protected void onStart() {
     logEvent("onStart()");
-    if (ApplicationDependencies.isInitialized()) {
-      ApplicationDependencies.getShakeToReport().registerActivity(this);
-    }
     super.onStart();
 
     screenLocked = ScreenLockController.shouldLockScreenAtStart();

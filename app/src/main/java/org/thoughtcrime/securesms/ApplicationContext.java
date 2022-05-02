@@ -244,7 +244,6 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
       ApplicationDependencies.getRecipientCache().warmUp();
       RetrieveProfileJob.enqueueRoutineFetchIfNecessary(this);
       executePendingContactSync();
-      ApplicationDependencies.getShakeToReport().enable();
       checkBuildExpiration();
     });
 
@@ -264,7 +263,6 @@ public class ApplicationContext extends MultiDexApplication implements AppForegr
   private void onStopUnlock() {
     ApplicationDependencies.getMessageNotifier().clearVisibleThread();
     ApplicationDependencies.getFrameRateTracker().stop();
-    ApplicationDependencies.getShakeToReport().disable();
     ApplicationDependencies.getDeadlockDetector().stop();
   }
 

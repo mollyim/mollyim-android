@@ -26,11 +26,6 @@ class InternalSettingsViewModel(private val repository: InternalSettingsReposito
     refresh()
   }
 
-  fun setShakeToReport(enabled: Boolean) {
-    preferenceDataStore.putBoolean(InternalValues.SHAKE_TO_REPORT, enabled)
-    refresh()
-  }
-
   fun setDisableStorageService(enabled: Boolean) {
     preferenceDataStore.putBoolean(InternalValues.DISABLE_STORAGE_SERVICE, enabled)
     refresh()
@@ -117,7 +112,6 @@ class InternalSettingsViewModel(private val repository: InternalSettingsReposito
 
   private fun getState() = InternalSettingsState(
     seeMoreUserDetails = SignalStore.internalValues().recipientDetails(),
-    shakeToReport = SignalStore.internalValues().shakeToReport(),
     gv2doNotCreateGv2Groups = SignalStore.internalValues().gv2DoNotCreateGv2Groups(),
     gv2forceInvites = SignalStore.internalValues().gv2ForceInvites(),
     gv2ignoreServerChanges = SignalStore.internalValues().gv2IgnoreServerChanges(),

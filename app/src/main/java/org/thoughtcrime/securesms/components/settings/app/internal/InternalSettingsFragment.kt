@@ -102,15 +102,6 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
         }
       )
 
-      switchPref(
-        title = DSLSettingsText.from(R.string.preferences__internal_shake_to_report),
-        summary = DSLSettingsText.from(R.string.preferences__internal_shake_to_report_description),
-        isChecked = state.shakeToReport,
-        onClick = {
-          viewModel.setShakeToReport(!state.shakeToReport)
-        }
-      )
-
       clickPref(
         title = DSLSettingsText.from(R.string.preferences__internal_clear_keep_longer_logs),
         onClick = {
