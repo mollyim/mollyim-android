@@ -187,8 +187,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     super.onDestroy();
   }
 
-  private void initializeScreenshotSecurity() {
-    if (KeyCachingService.isLocked() || TextSecurePreferences.isScreenSecurityEnabled(this)) {
+  public void initializeScreenshotSecurity() {
+    boolean forceFlag = ScreenLockController.getAlwaysSetSecureFlagOnResume();
+    if (forceFlag || KeyCachingService.isLocked() || TextSecurePreferences.isScreenSecurityEnabled(this)) {
       getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
     } else {
       getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SECURE);

@@ -41,6 +41,12 @@ object ScreenLockController {
   @JvmStatic
   fun unBlankScreen() = setScreenContentVisibility(true)
 
+  // Cannot set FLAG_SECURE only at onPause() due to a bug in gesture navigation:
+  // https://issuetracker.google.com/issues/123205795
+  @JvmStatic
+  val alwaysSetSecureFlagOnResume: Boolean
+    get() = autoLock
+
   @JvmStatic
   fun shouldLockScreenAtStart(): Boolean {
     if (lockScreenAtStart) {

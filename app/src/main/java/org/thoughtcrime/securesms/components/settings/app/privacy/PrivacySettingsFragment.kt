@@ -9,7 +9,6 @@ import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.TextAppearanceSpan
 import android.view.View
-import android.view.WindowManager
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -26,9 +25,11 @@ import mobi.upod.timedurationpicker.TimeDurationPicker
 import mobi.upod.timedurationpicker.TimeDurationPickerDialog
 import org.signal.core.util.DimensionUnit
 import org.signal.core.util.logging.Log
+import org.thoughtcrime.securesms.BaseActivity
 import org.thoughtcrime.securesms.ChangePassphraseDialogFragment
 import org.thoughtcrime.securesms.PassphraseActivity
 import org.thoughtcrime.securesms.R
+import org.thoughtcrime.securesms.ScreenLockController
 import org.thoughtcrime.securesms.biometric.BiometricDialogFragment
 import org.thoughtcrime.securesms.components.settings.ClickPreference
 import org.thoughtcrime.securesms.components.settings.ClickPreferenceViewHolder
@@ -53,7 +54,6 @@ import org.thoughtcrime.securesms.util.ExpirationUtil
 import org.thoughtcrime.securesms.util.FeatureFlags
 import org.thoughtcrime.securesms.util.SecurePreferenceManager
 import org.thoughtcrime.securesms.util.SpanUtil
-import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.thoughtcrime.securesms.util.adapter.mapping.LayoutFactory
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
 import java.util.Locale
@@ -262,15 +262,11 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
       switchPref(
         title = DSLSettingsText.from(R.string.preferences__screen_security),
         summary = DSLSettingsText.from(R.string.PrivacySettingsFragment__block_screenshots_in_the_recents_list_and_inside_the_app),
-        isChecked = state.screenSecurity,
+        isChecked = state.screenSecurity || ScreenLockController.alwaysSetSecureFlagOnResume,
+        isEnabled = !ScreenLockController.alwaysSetSecureFlagOnResume,
         onClick = {
           viewModel.setScreenSecurityEnabled(!state.screenSecurity)
-
-          if (TextSecurePreferences.isScreenSecurityEnabled(requireContext())) {
-            requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_SECURE)
-          } else {
-            requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
-          }
+          (activity as BaseActivity).initializeScreenshotSecurity()
         }
       )
 
@@ -368,7 +364,7 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
         else -> onBiometricEnrollFinished()
       }
     } else {
-      viewModel.setBiometricScreenLock(false)
+      setBiometricScreenLock(false)
     }
   }
 
@@ -384,7 +380,7 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
       object : BiometricDialogFragment.Listener {
         override fun onResult(authenticationSucceeded: Boolean): Boolean {
           if (authenticationSucceeded) {
-            viewModel.setBiometricScreenLock(true)
+            setBiometricScreenLock(true)
           }
           return true
         }
@@ -395,6 +391,11 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
         }
       }
     )
+  }
+
+  private fun setBiometricScreenLock(enabled: Boolean) {
+    viewModel.setBiometricScreenLock(enabled)
+    (activity as BaseActivity).initializeScreenshotSecurity()
   }
 
   private fun getDeviceLockTimeoutSummary(timeoutSeconds: Long): String {
