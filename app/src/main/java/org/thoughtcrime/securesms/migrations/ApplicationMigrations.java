@@ -39,8 +39,6 @@ public class ApplicationMigrations {
 
   private static final MutableLiveData<Boolean> UI_BLOCKING_MIGRATION_RUNNING = new MutableLiveData<>();
 
-  private static final int LEGACY_CANONICAL_VERSION = 455;
-
   @VisibleForTesting
   static final class Version {
     static final int SWOON_STICKERS                = 10;
@@ -397,6 +395,6 @@ public class ApplicationMigrations {
   }
 
   private static boolean isLegacyUpdate(@NonNull Context context) {
-    return VersionTracker.getLastSeenVersion(context) < LEGACY_CANONICAL_VERSION;
+    return false;
   }
 }
