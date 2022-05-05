@@ -22,7 +22,7 @@ jobs:
         run: |
           git remote add upstream https://github.com/signalapp/Signal-Android.git
           git fetch upstream
-          git merge --ff-only upstream/master
+          git merge --ff-only upstream/main
 
       - name: Push changes
         run: |
