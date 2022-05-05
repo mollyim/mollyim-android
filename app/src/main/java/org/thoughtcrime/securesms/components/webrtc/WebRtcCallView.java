@@ -8,6 +8,7 @@ import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowInsets;
 import android.view.animation.Animation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -20,6 +21,9 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.constraintlayout.widget.Guideline;
 import androidx.core.util.Consumer;
+import androidx.core.view.ViewKt;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.transition.AutoTransition;
 import androidx.transition.Transition;
@@ -33,6 +37,8 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.google.android.material.button.MaterialButton;
 import com.google.common.collect.Sets;
 
+import org.signal.core.util.DimensionUnit;
+import org.signal.core.util.SetUtil;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.animation.ResizeAnimation;
 import org.thoughtcrime.securesms.components.AccessibleToggleButton;
@@ -46,7 +52,6 @@ import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.ringrtc.CameraState;
 import org.thoughtcrime.securesms.util.BlurTransformation;
-import org.signal.core.util.SetUtil;
 import org.thoughtcrime.securesms.util.ThrottledDebouncer;
 import org.thoughtcrime.securesms.util.ViewUtil;
 import org.thoughtcrime.securesms.util.views.Stub;
@@ -119,6 +124,7 @@ public class WebRtcCallView extends ConstraintLayout {
   private ConstraintSet                 largeHeaderConstraints;
   private ConstraintSet                 smallHeaderConstraints;
   private Guideline                     statusBarGuideline;
+  private int                           navBarBottomInset;
   private View                          fullScreenShade;
 
   private WebRtcCallParticipantsPagerAdapter    pagerAdapter;
@@ -138,6 +144,8 @@ public class WebRtcCallView extends ConstraintLayout {
   private final Runnable           fadeOutRunnable    = () -> {
     if (isAttachedToWindow() && controls.isFadeOutEnabled()) fadeOutControls();
   };
+
+  private CallParticipantsViewState lastState;
 
   public WebRtcCallView(@NonNull Context context) {
     this(context, null);
@@ -211,6 +219,10 @@ public class WebRtcCallView extends ConstraintLayout {
     callParticipantsPager.setAdapter(pagerAdapter);
     callParticipantsRecycler.setAdapter(recyclerAdapter);
 
+    DefaultItemAnimator animator = new DefaultItemAnimator();
+    animator.setSupportsChangeAnimations(false);
+    callParticipantsRecycler.setItemAnimator(animator);
+
     callParticipantsPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
       @Override
       public void onPageSelected(int position) {
@@ -266,6 +278,11 @@ public class WebRtcCallView extends ConstraintLayout {
       }
     });
 
+    View smallLocalAudioIndicator = smallLocalRender.findViewById(R.id.call_participant_audio_indicator);
+    int  audioIndicatorMargin     = (int) DimensionUnit.DP.toPixels(8f);
+    ViewUtil.setLeftMargin(smallLocalAudioIndicator, audioIndicatorMargin);
+    ViewUtil.setBottomMargin(smallLocalAudioIndicator, audioIndicatorMargin);
+
     startCall.setOnClickListener(v -> {
       if (controlsListener != null) {
         startCall.setEnabled(false);
@@ -292,7 +309,7 @@ public class WebRtcCallView extends ConstraintLayout {
     rotatableControls.add(videoToggle);
     rotatableControls.add(cameraDirectionToggle);
     rotatableControls.add(decline);
-    rotatableControls.add(smallLocalRender.findViewById(R.id.call_participant_audio_indicator));
+    rotatableControls.add(smallLocalAudioIndicator);
     rotatableControls.add(ringToggle);
 
     largeHeaderConstraints = new ConstraintSet();
@@ -319,6 +336,19 @@ public class WebRtcCallView extends ConstraintLayout {
     navigationBarGuideline.setGuidelineEnd(insets.bottom);
 
     return true;
+  }
+
+  @Override
+  public WindowInsets onApplyWindowInsets(WindowInsets insets) {
+    if (android.os.Build.VERSION.SDK_INT >= 20) {
+      navBarBottomInset = WindowInsetsCompat.toWindowInsetsCompat(insets).getInsets(WindowInsetsCompat.Type.navigationBars()).bottom;
+
+      if (lastState != null) {
+        updateCallParticipants(lastState);
+      }
+    }
+
+    return super.onApplyWindowInsets(insets);
   }
 
   @Override
@@ -359,13 +389,15 @@ public class WebRtcCallView extends ConstraintLayout {
   }
 
   public void updateCallParticipants(@NonNull CallParticipantsViewState callParticipantsViewState) {
+    lastState = callParticipantsViewState;
+
     CallParticipantsState            state              = callParticipantsViewState.getCallParticipantsState();
     boolean                          isPortrait         = callParticipantsViewState.isPortrait();
     boolean                          isLandscapeEnabled = callParticipantsViewState.isLandscapeEnabled();
     List<WebRtcCallParticipantsPage> pages              = new ArrayList<>(2);
 
     if (!state.getGridParticipants().isEmpty()) {
-      pages.add(WebRtcCallParticipantsPage.forMultipleParticipants(state.getGridParticipants(), state.getFocusedParticipant(), state.isInPipMode(), isPortrait, isLandscapeEnabled, state.isIncomingRing()));
+      pages.add(WebRtcCallParticipantsPage.forMultipleParticipants(state.getGridParticipants(), state.getFocusedParticipant(), state.isInPipMode(), isPortrait, isLandscapeEnabled, state.isIncomingRing(), navBarBottomInset));
     }
 
     if (state.getFocusedParticipant() != CallParticipant.EMPTY && state.getAllRemoteParticipants().size() > 1) {
@@ -425,6 +457,7 @@ public class WebRtcCallView extends ConstraintLayout {
 
     if (state == WebRtcLocalRenderState.EXPANDED) {
       expandPip(localCallParticipant, focusedParticipant);
+      smallLocalRender.setCallParticipant(focusedParticipant);
       return;
     } else if ((state == WebRtcLocalRenderState.SMALL_RECTANGLE || state == WebRtcLocalRenderState.GONE) && pictureInPictureExpansionHelper.isExpandedOrExpanding()) {
       shrinkPip(localCallParticipant);
@@ -860,6 +893,11 @@ public class WebRtcCallView extends ConstraintLayout {
   }
 
   private void layoutParticipants() {
+    int desiredMargin = ViewUtil.dpToPx(withControlsHeight(pagerBottomMarginDp));
+    if (ViewKt.getMarginBottom(callParticipantsPager) == desiredMargin) {
+      return;
+    }
+
     Transition transition = new AutoTransition().setDuration(TRANSITION_DURATION_MILLIS);
 
     TransitionManager.beginDelayedTransition(participantsParent, transition);
@@ -867,7 +905,7 @@ public class WebRtcCallView extends ConstraintLayout {
     ConstraintSet constraintSet = new ConstraintSet();
     constraintSet.clone(participantsParent);
 
-    constraintSet.setMargin(R.id.call_screen_participants_pager, ConstraintSet.BOTTOM, ViewUtil.dpToPx(withControlsHeight(pagerBottomMarginDp)));
+    constraintSet.setMargin(R.id.call_screen_participants_pager, ConstraintSet.BOTTOM, desiredMargin);
     constraintSet.applyTo(participantsParent);
   }
 

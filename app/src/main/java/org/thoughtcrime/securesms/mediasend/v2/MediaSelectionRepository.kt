@@ -7,12 +7,12 @@ import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
+import org.signal.core.util.BreakIteratorCompat
 import org.signal.core.util.ThreadUtil
 import org.signal.core.util.logging.Log
 import org.signal.imageeditor.core.model.EditorModel
 import org.thoughtcrime.securesms.TransportOption
 import org.thoughtcrime.securesms.contacts.paged.ContactSearchKey
-import org.thoughtcrime.securesms.contacts.paged.RecipientSearchKey
 import org.thoughtcrime.securesms.database.AttachmentDatabase.TransformProperties
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.database.ThreadDatabase
@@ -39,6 +39,7 @@ import org.thoughtcrime.securesms.scribbles.ImageEditorFragment
 import org.thoughtcrime.securesms.sms.MessageSender
 import org.thoughtcrime.securesms.sms.MessageSender.PreUploadResult
 import org.thoughtcrime.securesms.sms.OutgoingStoryMessage
+import org.thoughtcrime.securesms.stories.Stories
 import org.thoughtcrime.securesms.util.MessageUtil
 import java.util.Collections
 import java.util.concurrent.TimeUnit
@@ -54,11 +55,11 @@ class MediaSelectionRepository(context: Context) {
   val uploadRepository = MediaUploadRepository(this.context)
   val isMetered: Observable<Boolean> = MeteredConnectivity.isMetered(this.context)
 
-  fun populateAndFilterMedia(media: List<Media>, mediaConstraints: MediaConstraints, maxSelection: Int): Single<MediaValidator.FilterResult> {
+  fun populateAndFilterMedia(media: List<Media>, mediaConstraints: MediaConstraints, maxSelection: Int, isStory: Boolean): Single<MediaValidator.FilterResult> {
     return Single.fromCallable {
       val populatedMedia = mediaRepository.getPopulatedMedia(context, media)
 
-      MediaValidator.filterMedia(context, populatedMedia, mediaConstraints, maxSelection)
+      MediaValidator.filterMedia(context, populatedMedia, mediaConstraints, maxSelection, isStory)
     }.subscribeOn(Schedulers.io())
   }
 
@@ -72,8 +73,8 @@ class MediaSelectionRepository(context: Context) {
     message: CharSequence?,
     isSms: Boolean,
     isViewOnce: Boolean,
-    singleContact: RecipientSearchKey?,
-    contacts: List<RecipientSearchKey>,
+    singleContact: ContactSearchKey.RecipientSearchKey?,
+    contacts: List<ContactSearchKey.RecipientSearchKey>,
     mentions: List<Mention>,
     transport: TransportOption
   ): Maybe<MediaSendActivityResult> {
@@ -86,7 +87,7 @@ class MediaSelectionRepository(context: Context) {
     }
 
     return Maybe.create<MediaSendActivityResult> { emitter ->
-      val trimmedBody: String = if (isViewOnce) "" else message?.toString()?.trim() ?: ""
+      val trimmedBody: String = if (isViewOnce) "" else getTruncatedBody(message?.toString()?.trim()) ?: ""
       val trimmedMentions: List<Mention> = if (isViewOnce) emptyList() else mentions
       val modelsToTransform: Map<Media, MediaTransform> = buildModelsToTransform(selectedMedia, stateMap, quality)
       val oldToNewMediaMap: Map<Media, Media> = MediaRepository.transformMediaSync(context, selectedMedia, modelsToTransform)
@@ -94,7 +95,6 @@ class MediaSelectionRepository(context: Context) {
 
       for (media in updatedMedia) {
         Log.w(TAG, media.uri.toString() + " : " + media.transformProperties.map { t: TransformProperties -> "" + t.isVideoTrim }.orElse("null"))
-        media.setCaption(trimmedBody)
       }
 
       val singleRecipient: Recipient? = singleContact?.let { Recipient.resolved(it.recipientId) }
@@ -143,6 +143,16 @@ class MediaSelectionRepository(context: Context) {
         }
       }
     }.subscribeOn(Schedulers.io()).cast(MediaSendActivityResult::class.java)
+  }
+
+  private fun getTruncatedBody(body: String?): String? {
+    return if (body.isNullOrEmpty()) {
+      body
+    } else {
+      val iterator = BreakIteratorCompat.getInstance()
+      iterator.setText(body)
+      iterator.take(Stories.MAX_BODY_SIZE).toString()
+    }
   }
 
   fun deleteBlobs(media: List<Media>) {
@@ -198,14 +208,14 @@ class MediaSelectionRepository(context: Context) {
   }
 
   @WorkerThread
-  private fun sendMessages(contacts: List<RecipientSearchKey>, body: String, preUploadResults: Collection<PreUploadResult>, mentions: List<Mention>, isViewOnce: Boolean) {
+  private fun sendMessages(contacts: List<ContactSearchKey.RecipientSearchKey>, body: String, preUploadResults: Collection<PreUploadResult>, mentions: List<Mention>, isViewOnce: Boolean) {
     val broadcastMessages: MutableList<OutgoingSecureMediaMessage> = ArrayList(contacts.size)
     val storyMessages: MutableMap<PreUploadResult, MutableList<OutgoingSecureMediaMessage>> = mutableMapOf()
     val distributionListSentTimestamps: MutableMap<PreUploadResult, Long> = mutableMapOf()
 
     for (contact in contacts) {
       val recipient = Recipient.resolved(contact.recipientId)
-      val isStory = contact is ContactSearchKey.Story || recipient.isDistributionList
+      val isStory = contact.isStory || recipient.isDistributionList
 
       if (isStory && recipient.isActiveGroup) {
         SignalDatabase.groups.markDisplayAsStory(recipient.requireGroupId())

@@ -548,7 +548,7 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
   }
 
   private int getDefaultTopMarginForRecord(@NonNull MessageRecord messageRecord, int defaultTopMargin, int defaultBottomMargin) {
-    if (isStoryReaction(messageRecord)) {
+    if (isStoryReaction(messageRecord) && !messageRecord.isRemoteDelete()) {
       return defaultBottomMargin;
     } else {
       return defaultTopMargin;
@@ -1433,9 +1433,15 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
       }
 
       //noinspection ConstantConditions
-      CharSequence body = isStoryReaction(current) ? current.getBody() : quote.getDisplayText();
-      //noinspection ConstantConditions
-      quoteView.setQuote(glideRequests, quote.getId(), Recipient.live(quote.getAuthor()).get(), body, quote.isOriginalMissing(), quote.getAttachment(), chatColors, isStoryReaction(current));
+      quoteView.setQuote(glideRequests,
+                         quote.getId(),
+                         Recipient.live(quote.getAuthor()).get(),
+                         quote.getDisplayText(),
+                         quote.isOriginalMissing(),
+                         quote.getAttachment(),
+                         chatColors,
+                         isStoryReaction(current) ? current.getBody() : null);
+
       quoteView.setVisibility(View.VISIBLE);
       quoteView.setTextSize(TypedValue.COMPLEX_UNIT_SP, SignalStore.settings().getMessageFontSize());
       quoteView.getLayoutParams().width = ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -1558,7 +1564,7 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
   }
 
   private void setStoryReactionLabel(@NonNull MessageRecord record) {
-    if (isStoryReaction(record)) {
+    if (isStoryReaction(record) && !record.isRemoteDelete()) {
       storyReactionLabelWrapper.setVisibility(View.VISIBLE);
       storyReactionLabel.setTextColor(record.isOutgoing() ? colorizer.getOutgoingBodyTextColor(context) : ContextCompat.getColor(context, R.color.signal_text_primary));
       storyReactionLabel.setText(getStoryReactionLabelText(messageRecord));

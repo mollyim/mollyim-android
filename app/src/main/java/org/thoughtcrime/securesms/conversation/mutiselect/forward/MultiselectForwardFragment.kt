@@ -1,9 +1,11 @@
 package org.thoughtcrime.securesms.conversation.mutiselect.forward
 
+import android.graphics.Rect
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
+import android.view.TouchDelegate
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
@@ -11,7 +13,9 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.PluralsRes
+import androidx.core.view.doOnNextLayout
 import androidx.core.view.isVisible
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.setFragmentResultListener
@@ -44,9 +48,24 @@ import org.thoughtcrime.securesms.util.FeatureFlags
 import org.thoughtcrime.securesms.util.LifecycleDisposable
 import org.thoughtcrime.securesms.util.Util
 import org.thoughtcrime.securesms.util.fragments.findListener
+import org.thoughtcrime.securesms.util.fragments.requireListener
 import org.thoughtcrime.securesms.util.views.SimpleProgressDialog
 import org.thoughtcrime.securesms.util.visible
 
+/**
+ * Allows selection and optional sending to one or more users.
+ *
+ * This fragment is designed to be displayed in a Dialog fragment, and thus has two available constructors to display as a bottom sheet or full screen dialog.
+ *
+ * To customize the available recipients, a parent must implement `SearchConfigurationProvider`
+ *
+ * This fragment will emit one of two possible result values at the same key, `RESULT_KEY`:
+ *
+ * - If the arguments contain a non-empty list of MultiShareArgs, then messages will be sent when the selection is confirmed. This will result in `RESULT_SENT` being true.
+ * - If the arguments contain an empty list of MultiShareArgs, then the selection will be returned on confirmation. This will result in `RESULT_SELECTION` being set.
+ *
+ * It is up to the user of this fragment to handle the result accordingly utilizing a fragment result listener.
+ */
 class MultiselectForwardFragment :
   Fragment(R.layout.multiselect_forward_fragment),
   SafetyNumberChangeDialog.Callback,
@@ -64,10 +83,16 @@ class MultiselectForwardFragment :
   private var handler: Handler? = null
 
   private fun createViewModelFactory(): MultiselectForwardViewModel.Factory {
-    return MultiselectForwardViewModel.Factory(getMultiShareArgs(), MultiselectForwardRepository(requireContext()))
+    return MultiselectForwardViewModel.Factory(getMultiShareArgs(), isSelectionOnly, MultiselectForwardRepository(requireContext()))
   }
 
   private fun getMultiShareArgs(): ArrayList<MultiShareArgs> = requireNotNull(requireArguments().getParcelableArrayList(ARG_MULTISHARE_ARGS))
+
+  private val forceDisableAddMessage: Boolean
+    get() = requireArguments().getBoolean(ARG_FORCE_DISABLE_ADD_MESSAGE, false)
+
+  private val isSelectionOnly: Boolean
+    get() = requireArguments().getBoolean(ARG_FORCE_SELECTION_ONLY, false)
 
   override fun onGetLayoutInflater(savedInstanceState: Bundle?): LayoutInflater {
     return if (parentFragment != null) {
@@ -98,11 +123,12 @@ class MultiselectForwardFragment :
       contactSearchMediator.onFilterChanged(it)
     }
 
-    val title: TextView? = view.findViewById(R.id.title)
     val container = callback.getContainer()
+    val title: TextView? = container.findViewById(R.id.title)
     val bottomBar = LayoutInflater.from(requireContext()).inflate(R.layout.multiselect_forward_fragment_bottom_bar, container, false)
     val shareSelectionRecycler: RecyclerView = bottomBar.findViewById(R.id.selected_list)
     val shareSelectionAdapter = ShareSelectionAdapter()
+    val sendButtonFrame: View = bottomBar.findViewById(R.id.share_confirm_frame)
     val sendButton: View = bottomBar.findViewById(R.id.share_confirm)
     val backgroundHelper: View = bottomBar.findViewById(R.id.background_helper)
 
@@ -111,6 +137,16 @@ class MultiselectForwardFragment :
     title?.setText(requireArguments().getInt(ARG_TITLE))
 
     addMessage = bottomBar.findViewById(R.id.add_message)
+
+    sendButton.doOnNextLayout {
+      val rect = Rect()
+      sendButton.getHitRect(rect)
+      rect.top -= sendButtonFrame.paddingTop
+      rect.left -= sendButtonFrame.paddingStart
+      rect.right += sendButtonFrame.paddingEnd
+      rect.bottom += sendButtonFrame.paddingBottom
+      sendButtonFrame.touchDelegate = TouchDelegate(rect, sendButton)
+    }
 
     sendButton.setOnClickListener {
       sendButton.isEnabled = false
@@ -140,7 +176,7 @@ class MultiselectForwardFragment :
     contactSearchMediator.getSelectionState().observe(viewLifecycleOwner) { contactSelection ->
       shareSelectionAdapter.submitList(contactSelection.mapIndexed { index, key -> ShareSelectionMappingModel(key.requireShareContact(), index == 0) })
 
-      addMessage.visible = contactSelection.any { key -> key !is ContactSearchKey.Story } && getMultiShareArgs().isNotEmpty()
+      addMessage.visible = !forceDisableAddMessage && contactSelection.any { key -> key !is ContactSearchKey.RecipientSearchKey.Story } && getMultiShareArgs().isNotEmpty()
 
       if (contactSelection.isNotEmpty() && !bottomBar.isVisible) {
         bottomBar.animation = AnimationUtils.loadAnimation(requireContext(), R.anim.slide_fade_from_bottom)
@@ -162,9 +198,9 @@ class MultiselectForwardFragment :
           dismissibleDialog?.dismiss()
           dismissibleDialog = SimpleProgressDialog.showDelayed(requireContext())
         }
-        MultiselectForwardState.Stage.SomeFailed -> dismissAndShowToast(R.plurals.MultiselectForwardFragment_messages_sent)
+        MultiselectForwardState.Stage.SomeFailed -> dismissWithSuccess(R.plurals.MultiselectForwardFragment_messages_sent)
         MultiselectForwardState.Stage.AllFailed -> dismissAndShowToast(R.plurals.MultiselectForwardFragment_messages_failed_to_send)
-        MultiselectForwardState.Stage.Success -> dismissAndShowToast(R.plurals.MultiselectForwardFragment_messages_sent)
+        MultiselectForwardState.Stage.Success -> dismissWithSuccess(R.plurals.MultiselectForwardFragment_messages_sent)
         is MultiselectForwardState.Stage.SelectionConfirmed -> dismissWithSelection(it.stage.selectedContacts)
       }
 
@@ -173,13 +209,13 @@ class MultiselectForwardFragment :
 
     setFragmentResultListener(CreateStoryWithViewersFragment.REQUEST_KEY) { _, bundle ->
       val recipientId: RecipientId = bundle.getParcelable(CreateStoryWithViewersFragment.STORY_RECIPIENT)!!
-      contactSearchMediator.setKeysSelected(setOf(ContactSearchKey.Story(recipientId)))
+      contactSearchMediator.setKeysSelected(setOf(ContactSearchKey.RecipientSearchKey.Story(recipientId)))
       contactFilterView.clear()
     }
 
     setFragmentResultListener(ChooseGroupStoryBottomSheet.GROUP_STORY) { _, bundle ->
       val groups: Set<RecipientId> = bundle.getParcelableArrayList<RecipientId>(ChooseGroupStoryBottomSheet.RESULT_SET)?.toSet() ?: emptySet()
-      val keys: Set<ContactSearchKey.Story> = groups.map { ContactSearchKey.Story(it) }.toSet()
+      val keys: Set<ContactSearchKey.RecipientSearchKey.Story> = groups.map { ContactSearchKey.RecipientSearchKey.Story(it) }.toSet()
       contactSearchMediator.addToVisibleGroupStories(keys)
       contactSearchMediator.setKeysSelected(keys)
       contactFilterView.clear()
@@ -242,6 +278,16 @@ class MultiselectForwardFragment :
     SafetyNumberChangeDialog.show(childFragmentManager, identityRecords)
   }
 
+  private fun dismissWithSuccess(@PluralsRes toastTextResId: Int) {
+    requireListener<Callback>().setResult(
+      Bundle().apply {
+        putBoolean(RESULT_SENT, true)
+      }
+    )
+
+    dismissAndShowToast(toastTextResId)
+  }
+
   private fun dismissAndShowToast(@PluralsRes toastTextResId: Int) {
     val argCount = getMessageCount()
 
@@ -265,7 +311,7 @@ class MultiselectForwardFragment :
     dismissibleDialog?.dismiss()
 
     val resultsBundle = Bundle().apply {
-      putParcelableArrayList(RESULT_SELECTION_RECIPIENTS, ArrayList(selectedContacts.map { it.requireParcelable() }))
+      putParcelableArrayList(RESULT_SELECTION, ArrayList(selectedContacts.map { it.requireParcelable() }))
     }
 
     callback.setResult(resultsBundle)
@@ -339,7 +385,7 @@ class MultiselectForwardFragment :
   }
 
   private fun isSelectedMediaValidForStories(): Boolean {
-    return getMultiShareArgs().all { it.isValidForStories }
+    return requireListener<Callback>().canSendMediaToStories() && getMultiShareArgs().all { it.isValidForStories }
   }
 
   private fun isSelectedMediaValidForNonStories(): Boolean {
@@ -361,39 +407,54 @@ class MultiselectForwardFragment :
     fun setResult(bundle: Bundle)
     fun getContainer(): ViewGroup
     fun getDialogBackgroundColor(): Int
+    fun canSendMediaToStories(): Boolean = true
   }
 
   companion object {
     const val ARG_MULTISHARE_ARGS = "multiselect.forward.fragment.arg.multishare.args"
     const val ARG_CAN_SEND_TO_NON_PUSH = "multiselect.forward.fragment.arg.can.send.to.non.push"
     const val ARG_TITLE = "multiselect.forward.fragment.title"
-    const val RESULT_SELECTION = "result_selection"
-    const val RESULT_SELECTION_RECIPIENTS = "result_selection_recipients"
+    const val ARG_FORCE_DISABLE_ADD_MESSAGE = "multiselect.forward.fragment.force.disable.add.message"
+    const val ARG_FORCE_SELECTION_ONLY = "multiselect.forward.fragment.force.disable.add.message"
+    const val RESULT_KEY = "result_key"
+    const val RESULT_SELECTION = "result_selection_recipients"
+    const val RESULT_SENT = "result_sent"
 
     @JvmStatic
     fun showBottomSheet(supportFragmentManager: FragmentManager, multiselectForwardFragmentArgs: MultiselectForwardFragmentArgs) {
       val fragment = MultiselectForwardBottomSheet()
 
-      fragment.arguments = Bundle().apply {
-        putParcelableArrayList(ARG_MULTISHARE_ARGS, ArrayList(multiselectForwardFragmentArgs.multiShareArgs))
-        putBoolean(ARG_CAN_SEND_TO_NON_PUSH, multiselectForwardFragmentArgs.canSendToNonPush)
-        putInt(ARG_TITLE, multiselectForwardFragmentArgs.title)
-      }
-
-      fragment.show(supportFragmentManager, BottomSheetUtil.STANDARD_BOTTOM_SHEET_FRAGMENT_TAG)
+      showDialogFragment(supportFragmentManager, fragment, multiselectForwardFragmentArgs)
     }
 
     @JvmStatic
     fun showFullScreen(supportFragmentManager: FragmentManager, multiselectForwardFragmentArgs: MultiselectForwardFragmentArgs) {
       val fragment = MultiselectForwardFullScreenDialogFragment()
 
-      fragment.arguments = Bundle().apply {
+      showDialogFragment(supportFragmentManager, fragment, multiselectForwardFragmentArgs)
+    }
+
+    @JvmStatic
+    fun create(multiselectForwardFragmentArgs: MultiselectForwardFragmentArgs): Fragment {
+      return MultiselectForwardFragment().apply {
+        arguments = createArgumentsBundle(multiselectForwardFragmentArgs)
+      }
+    }
+
+    private fun showDialogFragment(supportFragmentManager: FragmentManager, fragment: DialogFragment, multiselectForwardFragmentArgs: MultiselectForwardFragmentArgs) {
+      fragment.arguments = createArgumentsBundle(multiselectForwardFragmentArgs)
+
+      fragment.show(supportFragmentManager, BottomSheetUtil.STANDARD_BOTTOM_SHEET_FRAGMENT_TAG)
+    }
+
+    private fun createArgumentsBundle(multiselectForwardFragmentArgs: MultiselectForwardFragmentArgs): Bundle {
+      return Bundle().apply {
         putParcelableArrayList(ARG_MULTISHARE_ARGS, ArrayList(multiselectForwardFragmentArgs.multiShareArgs))
         putBoolean(ARG_CAN_SEND_TO_NON_PUSH, multiselectForwardFragmentArgs.canSendToNonPush)
         putInt(ARG_TITLE, multiselectForwardFragmentArgs.title)
+        putBoolean(ARG_FORCE_DISABLE_ADD_MESSAGE, multiselectForwardFragmentArgs.forceDisableAddMessage)
+        putBoolean(ARG_FORCE_SELECTION_ONLY, multiselectForwardFragmentArgs.forceSelectionOnly)
       }
-
-      fragment.show(supportFragmentManager, BottomSheetUtil.STANDARD_BOTTOM_SHEET_FRAGMENT_TAG)
     }
   }
 }

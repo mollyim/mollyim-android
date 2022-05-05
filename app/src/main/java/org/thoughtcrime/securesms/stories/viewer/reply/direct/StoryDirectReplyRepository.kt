@@ -14,6 +14,7 @@ import org.thoughtcrime.securesms.mms.QuoteModel
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.sms.MessageSender
+import java.util.concurrent.TimeUnit
 
 class StoryDirectReplyRepository(context: Context) {
 
@@ -36,7 +37,6 @@ class StoryDirectReplyRepository(context: Context) {
       }
 
       val quoteAuthor: Recipient = when {
-        groupDirectReplyRecipientId != null -> message.recipient
         message.isOutgoing -> Recipient.self()
         else -> message.individualRecipient
       }
@@ -49,7 +49,7 @@ class StoryDirectReplyRepository(context: Context) {
           emptyList(),
           System.currentTimeMillis(),
           0,
-          0L,
+          TimeUnit.SECONDS.toMillis(recipient.expiresInSeconds.toLong()),
           false,
           0,
           StoryType.NONE,

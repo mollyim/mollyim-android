@@ -94,6 +94,8 @@ public final class FeatureFlags {
   private static final String USE_HARDWARE_AEC_IF_OLD           = "android.calling.useHardwareAecIfOlderThanApi29";
   private static final String USE_AEC3                          = "android.calling.useAec3";
   private static final String PAYMENTS_COUNTRY_BLOCKLIST        = "android.payments.blocklist";
+  private static final String PNP_CDS                           = "android.pnp.cds";
+  private static final String USE_FCM_FOREGROUND_SERVICE        = "android.useFcmForegroundService";
 
   /**
    * We will only store remote values for flags in this set. If you want a flag to be controllable
@@ -140,13 +142,16 @@ public final class FeatureFlags {
       SOFTWARE_AEC_BLOCKLIST_MODELS,
       USE_HARDWARE_AEC_IF_OLD,
       USE_AEC3,
-      PAYMENTS_COUNTRY_BLOCKLIST
+      PAYMENTS_COUNTRY_BLOCKLIST,
+      USE_FCM_FOREGROUND_SERVICE
   );
 
   @VisibleForTesting
   static final Set<String> NOT_REMOTE_CAPABLE = SetUtil.newHashSet(
+      // MOLLY: Donate megaphone value is hardcoded in the client
       DONATE_MEGAPHONE,
-      PHONE_NUMBER_PRIVACY_VERSION
+      PHONE_NUMBER_PRIVACY_VERSION,
+      PNP_CDS
   );
 
   /**
@@ -199,7 +204,8 @@ public final class FeatureFlags {
       SOFTWARE_AEC_BLOCKLIST_MODELS,
       USE_HARDWARE_AEC_IF_OLD,
       USE_AEC3,
-      PAYMENTS_COUNTRY_BLOCKLIST
+      PAYMENTS_COUNTRY_BLOCKLIST,
+      USE_FCM_FOREGROUND_SERVICE
   );
 
   /**
@@ -472,6 +478,19 @@ public final class FeatureFlags {
   /** Whether or not {@link org.signal.ringrtc.CallManager.AudioProcessingMethod#ForceSoftwareAec3} can be used */
   public static boolean useAec3() {
     return getBoolean(USE_AEC3, true);
+  }
+
+  /**
+   * Whether or not to use the phone number privacy CDS flow. Only currently works in staging.
+   *
+   * Note: This feature is in very early stages of development and *will* break your contacts.
+   */
+  public static boolean usePnpCds() {
+    return Environment.IS_STAGING && getBoolean(PNP_CDS, false);
+  }
+
+  public static boolean useFcmForegroundService() {
+    return getBoolean(USE_FCM_FOREGROUND_SERVICE, false);
   }
 
   /** Only for rendering debug info. */

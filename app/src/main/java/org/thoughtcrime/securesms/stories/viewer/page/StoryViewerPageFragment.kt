@@ -248,7 +248,7 @@ class StoryViewerPageFragment :
       viewModel.setIsUserScrollingParent(isScrolling)
     }
 
-    LiveDataReactiveStreams.fromPublisher(sharedViewModel.state.distinct()).observe(viewLifecycleOwner) { parentState ->
+    LiveDataReactiveStreams.fromPublisher(sharedViewModel.state.distinctUntilChanged()).observe(viewLifecycleOwner) { parentState ->
       if (parentState.pages.size <= parentState.page) {
         viewModel.setIsSelectedPage(false)
       } else if (storyRecipientId == parentState.pages[parentState.page]) {
@@ -260,7 +260,7 @@ class StoryViewerPageFragment :
         viewModel.setIsSelectedPage(true)
         when (parentState.crossfadeSource) {
           is StoryViewerState.CrossfadeSource.TextModel -> storyCrossfader.setSourceView(parentState.crossfadeSource.storyTextPostModel)
-          is StoryViewerState.CrossfadeSource.ImageUri -> storyCrossfader.setSourceView(parentState.crossfadeSource.imageUri)
+          is StoryViewerState.CrossfadeSource.ImageUri -> storyCrossfader.setSourceView(parentState.crossfadeSource.imageUri, parentState.crossfadeSource.imageBlur)
           else -> onReadyToAnimate()
         }
       } else {
@@ -424,6 +424,8 @@ class StoryViewerPageFragment :
   private fun animateChrome(alphaTarget: Float) {
     animatorSet?.cancel()
     animatorSet = AnimatorSet().apply {
+      duration = 100
+      interpolator = StoryGestureListener.INTERPOLATOR
       playTogether(
         chrome.map {
           ObjectAnimator.ofFloat(it, View.ALPHA, alphaTarget)
@@ -539,6 +541,8 @@ class StoryViewerPageFragment :
   }
 
   private fun presentSlate(post: StoryPost) {
+    storySlate.setBackground((post.conversationMessage.messageRecord as? MediaMmsMessageRecord)?.slideDeck?.thumbnailSlide?.placeholderBlur)
+
     when (post.content.transferState) {
       AttachmentDatabase.TRANSFER_PROGRESS_DONE -> {
         storySlate.moveToState(StorySlateView.State.HIDDEN, post.id)

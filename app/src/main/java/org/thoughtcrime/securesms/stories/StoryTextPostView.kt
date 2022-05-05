@@ -10,6 +10,7 @@ import android.widget.ImageView
 import androidx.annotation.ColorInt
 import androidx.annotation.Px
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.graphics.ColorUtils
 import androidx.core.view.doOnNextLayout
 import androidx.core.view.isVisible
 import org.thoughtcrime.securesms.R
@@ -59,38 +60,42 @@ class StoryTextPostView @JvmOverloads constructor(
     textView.typeface = typeface
   }
 
-  fun setPostBackground(drawable: Drawable) {
+  private fun setPostBackground(drawable: Drawable) {
     backgroundView.setImageDrawable(drawable)
   }
 
-  fun setTextColor(@ColorInt color: Int) {
-    textView.setTextColor(color)
+  private fun setTextColor(@ColorInt color: Int, isPlaceholder: Boolean) {
+    if (isPlaceholder) {
+      textView.setTextColor(ColorUtils.setAlphaComponent(color, 0x99))
+    } else {
+      textView.setTextColor(color)
+    }
   }
 
-  fun setText(text: CharSequence, isPlaceholder: Boolean) {
+  private fun setText(text: CharSequence, isPlaceholder: Boolean) {
     this.isPlaceholder = isPlaceholder
     textView.text = text
   }
 
-  fun setTextSize(@Px textSize: Float) {
+  private fun setTextSize(@Px textSize: Float) {
     textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
   }
 
-  fun setTextGravity(textAlignment: TextAlignment) {
+  private fun setTextGravity(textAlignment: TextAlignment) {
     textView.gravity = textAlignment.gravity
   }
 
-  fun setTextScale(scalePercent: Int) {
+  private fun setTextScale(scalePercent: Int) {
     val scale = TextStoryScale.convertToScale(scalePercent)
     textView.scaleX = scale
     textView.scaleY = scale
   }
 
-  fun setTextVisible(visible: Boolean) {
+  private fun setTextVisible(visible: Boolean) {
     textView.visible = visible
   }
 
-  fun setTextBackgroundColor(@ColorInt color: Int) {
+  private fun setTextBackgroundColor(@ColorInt color: Int) {
     textView.setWrappedBackgroundColor(color)
   }
 
@@ -111,7 +116,7 @@ class StoryTextPostView @JvmOverloads constructor(
       state.body.isEmpty()
     )
 
-    setTextColor(state.textForegroundColor)
+    setTextColor(state.textForegroundColor, state.body.isEmpty())
     setTextBackgroundColor(state.textBackgroundColor)
     setTextGravity(state.textAlignment)
     setTextScale(state.textScale)
@@ -120,6 +125,7 @@ class StoryTextPostView @JvmOverloads constructor(
   }
 
   fun bindFromStoryTextPost(storyTextPost: StoryTextPost) {
+    visible = true
     linkPreviewView.visible = false
 
     textAlignment = TextAlignment.CENTER
@@ -133,7 +139,7 @@ class StoryTextPostView @JvmOverloads constructor(
       setText(storyTextPost.body, false)
     }
 
-    setTextColor(storyTextPost.textForegroundColor)
+    setTextColor(storyTextPost.textForegroundColor, false)
     setTextBackgroundColor(storyTextPost.textBackgroundColor)
     setTextGravity(TextAlignment.CENTER)
 

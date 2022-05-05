@@ -1,5 +1,6 @@
 package org.thoughtcrime.securesms.gcm;
 
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -8,18 +9,27 @@ import android.os.IBinder;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
 
 import com.google.firebase.messaging.RemoteMessage;
 
+import org.signal.core.util.ThreadUtil;
 import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.logging.Log;
+import org.thoughtcrime.securesms.MainActivity;
+import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.jobs.PushNotificationReceiveJob;
 import org.thoughtcrime.securesms.messages.BackgroundMessageRetriever;
 import org.thoughtcrime.securesms.messages.RestStrategy;
+import org.thoughtcrime.securesms.notifications.NotificationChannels;
+import org.thoughtcrime.securesms.notifications.NotificationIds;
+import org.thoughtcrime.securesms.service.GenericForegroundService;
+import org.thoughtcrime.securesms.service.NotificationController;
 import org.thoughtcrime.securesms.util.concurrent.SerialMonoLifoExecutor;
 
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * This service does the actual network fetch in response to an FCM message.
@@ -43,9 +53,18 @@ public class FcmFetchService extends Service {
 
   private static final String TAG = Log.tag(FcmFetchService.class);
 
+  static final String KEY_FOREGROUND = "is_foreground";
+
   private static final SerialMonoLifoExecutor EXECUTOR = new SerialMonoLifoExecutor(SignalExecutors.UNBOUNDED);
 
-  private final AtomicInteger activeCount = new AtomicInteger(0);
+  private final AtomicInteger                           activeCount          = new AtomicInteger(0);
+  private final AtomicReference<NotificationController> foregroundController = new AtomicReference<>();
+
+  public static @NonNull Intent buildIntent(@NonNull Context context, boolean foreground) {
+    Intent intent = new Intent(context, FcmFetchService.class);
+    intent.putExtra(KEY_FOREGROUND, foreground);
+    return intent;
+  }
 
   @Override
   public int onStartCommand(Intent intent, int flags, int startId) {
@@ -56,6 +75,20 @@ public class FcmFetchService extends Service {
     } else {
       int count = activeCount.incrementAndGet();
       Log.i(TAG, "Incrementing active count to " + count);
+    }
+
+    synchronized (foregroundController) {
+      boolean useForeground = intent.getBooleanExtra(KEY_FOREGROUND, false);
+      boolean hasController = foregroundController.get() != null;
+      
+      if (useForeground && !hasController) {
+        Log.i(TAG, "Launching in the foreground.");
+        NotificationController controller = GenericForegroundService.startForegroundTask(this, getString(R.string.BackgroundMessageRetriever_checking_for_messages), NotificationChannels.OTHER);
+        controller.setIndeterminateProgress();
+        foregroundController.set(controller);
+      } else {
+        Log.i(TAG, "Launching in the background. (useForeground: " + useForeground + ", hasController: " + hasController + ")");
+      }
     }
 
     return START_NOT_STICKY;
@@ -77,6 +110,15 @@ public class FcmFetchService extends Service {
     if (activeCount.decrementAndGet() == 0) {
       Log.d(TAG, "No more active. Stopping.");
       stopSelf();
+
+      synchronized (foregroundController) {
+        NotificationController activeController = foregroundController.get();
+        if (activeController != null) {
+          Log.d(TAG, "Stopping foreground notification.");
+          activeController.close();
+          foregroundController.set(null);
+        }
+      }
     }
   }
 

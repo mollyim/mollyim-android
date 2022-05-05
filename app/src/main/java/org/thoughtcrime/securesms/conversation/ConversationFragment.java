@@ -153,6 +153,7 @@ import org.thoughtcrime.securesms.sms.MessageSender;
 import org.thoughtcrime.securesms.sms.OutgoingTextMessage;
 import org.thoughtcrime.securesms.stickers.StickerLocator;
 import org.thoughtcrime.securesms.stickers.StickerPackPreviewActivity;
+import org.thoughtcrime.securesms.stories.viewer.StoryViewerActivity;
 import org.thoughtcrime.securesms.util.CachedInflater;
 import org.thoughtcrime.securesms.util.CommunicationActions;
 import org.thoughtcrime.securesms.util.HtmlUtil;
@@ -1356,6 +1357,11 @@ public class ConversationFragment extends LoggingFragment implements Multiselect
   public void onDismissForwardSheet() {
   }
 
+  @Override
+  public boolean canSendMediaToStories() {
+    return true;
+  }
+
   public interface ConversationFragmentListener extends VoiceNoteMediaControllerOwner {
     boolean isKeyboardOpen();
     void    setThreadId(long threadId);
@@ -1596,6 +1602,21 @@ public class ConversationFragment extends LoggingFragment implements Multiselect
       if (messageRecord.getQuote().isOriginalMissing()) {
         Log.i(TAG, "Clicked on a quote whose original message we never had.");
         Toast.makeText(getContext(), R.string.ConversationFragment_quoted_message_not_found, Toast.LENGTH_SHORT).show();
+        return;
+      }
+
+      if (messageRecord.getParentStoryId() != null) {
+        startActivity(StoryViewerActivity.createIntent(
+            requireContext(),
+            messageRecord.getQuote().getAuthor(),
+            messageRecord.getParentStoryId().serialize(),
+            Recipient.resolved(messageRecord.getQuote().getAuthor()).shouldHideStory(),
+            null,
+            null,
+            null,
+            Collections.emptyList()
+        ));
+
         return;
       }
 
@@ -1909,6 +1930,13 @@ public class ConversationFragment extends LoggingFragment implements Multiselect
                                                       .setNegativeButton(R.string.ConversationFragment__cancel, null)
                                                       .setPositiveButton(R.string.ConversationFragment__block_request_button, (d, w) -> handleBlockJoinRequest(recipient))
                                                       .show();
+    }
+
+    @Override
+    public void onRecipientNameClicked(@NonNull RecipientId target) {
+      if (getParentFragment() == null) return;
+
+      RecipientBottomSheetDialogFragment.create(target, recipient.get().getGroupId().orElse(null)).show(getParentFragmentManager(), "BOTTOM");
     }
   }
 

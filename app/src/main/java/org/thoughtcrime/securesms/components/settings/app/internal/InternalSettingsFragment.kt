@@ -19,6 +19,7 @@ import org.thoughtcrime.securesms.components.settings.DSLSettingsFragment
 import org.thoughtcrime.securesms.components.settings.DSLSettingsText
 import org.thoughtcrime.securesms.components.settings.configure
 import org.thoughtcrime.securesms.database.LocalMetricsDatabase
+import org.thoughtcrime.securesms.database.LogDatabase
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
 import org.thoughtcrime.securesms.jobmanager.JobTracker
@@ -107,6 +108,13 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
         isChecked = state.shakeToReport,
         onClick = {
           viewModel.setShakeToReport(!state.shakeToReport)
+        }
+      )
+
+      clickPref(
+        title = DSLSettingsText.from(R.string.preferences__internal_clear_keep_longer_logs),
+        onClick = {
+          clearKeepLongerLogs()
         }
       )
 
@@ -329,10 +337,10 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
 
       dividerPref()
 
-      sectionHeaderPref(R.string.preferences__internal_calling)
+      sectionHeaderPref(R.string.preferences__internal_calling_server)
 
       radioPref(
-        title = DSLSettingsText.from(R.string.preferences__internal_calling_default),
+        title = DSLSettingsText.from(R.string.preferences__internal_calling_server_default),
         summary = DSLSettingsText.from(BuildConfig.SIGNAL_SFU_URL),
         isChecked = state.callingServer == BuildConfig.SIGNAL_SFU_URL,
         onClick = {
@@ -343,7 +351,7 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
       BuildConfig.SIGNAL_SFU_INTERNAL_NAMES.zip(BuildConfig.SIGNAL_SFU_INTERNAL_URLS)
         .forEach { (name, server) ->
           radioPref(
-            title = DSLSettingsText.from(requireContext().getString(R.string.preferences__internal_calling_s_server, name)),
+            title = DSLSettingsText.from(requireContext().getString(R.string.preferences__internal_calling_server_s, name)),
             summary = DSLSettingsText.from(server),
             isChecked = state.callingServer == server,
             onClick = {
@@ -352,14 +360,23 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
           )
         }
 
-      sectionHeaderPref(R.string.preferences__internal_audio)
+      sectionHeaderPref(R.string.preferences__internal_calling)
 
       radioListPref(
-        title = DSLSettingsText.from(R.string.preferences__internal_audio_processing_method),
+        title = DSLSettingsText.from(R.string.preferences__internal_calling_audio_processing_method),
         listItems = CallManager.AudioProcessingMethod.values().map { it.name }.toTypedArray(),
-        selected = CallManager.AudioProcessingMethod.values().indexOf(state.audioProcessingMethod),
+        selected = CallManager.AudioProcessingMethod.values().indexOf(state.callingAudioProcessingMethod),
         onSelected = {
-          viewModel.setInternalAudioProcessingMethod(CallManager.AudioProcessingMethod.values()[it])
+          viewModel.setInternalCallingAudioProcessingMethod(CallManager.AudioProcessingMethod.values()[it])
+        }
+      )
+
+      radioListPref(
+        title = DSLSettingsText.from(R.string.preferences__internal_calling_bandwidth_mode),
+        listItems = CallManager.BandwidthMode.values().map { it.name }.toTypedArray(),
+        selected = CallManager.BandwidthMode.values().indexOf(state.callingBandwidthMode),
+        onSelected = {
+          viewModel.setInternalCallingBandwidthMode(CallManager.BandwidthMode.values()[it])
         }
       )
 
@@ -391,7 +408,36 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
 
       dividerPref()
 
+      sectionHeaderPref(R.string.preferences__internal_cds)
+
+      clickPref(
+        title = DSLSettingsText.from(R.string.preferences__internal_clear_history),
+        summary = DSLSettingsText.from(R.string.preferences__internal_clear_history_description),
+        onClick = {
+          clearCdsHistory()
+        }
+      )
+
+      clickPref(
+        title = DSLSettingsText.from(R.string.preferences__internal_clear_all_service_ids),
+        summary = DSLSettingsText.from(R.string.preferences__internal_clear_all_service_ids_description),
+        onClick = {
+          clearAllServiceIds()
+        }
+      )
+
+      clickPref(
+        title = DSLSettingsText.from(R.string.preferences__internal_clear_all_profile_keys),
+        summary = DSLSettingsText.from(R.string.preferences__internal_clear_all_profile_keys_description),
+        onClick = {
+          clearAllProfileKeys()
+        }
+      )
+
+      dividerPref()
+
       sectionHeaderPref(R.string.ConversationListTabs__stories)
+
       switchPref(
         title = DSLSettingsText.from(R.string.preferences__internal_disable_stories),
         isChecked = state.disableStories,
@@ -498,5 +544,47 @@ class InternalSettingsFragment : DSLSettingsFragment(R.string.preferences__inter
   private fun clearAllLocalMetricsState() {
     LocalMetricsDatabase.getInstance(ApplicationDependencies.getApplication()).clear()
     Toast.makeText(context, "Cleared all local metrics state.", Toast.LENGTH_SHORT).show()
+  }
+
+  private fun clearCdsHistory() {
+    SignalDatabase.cds.clearAll()
+    SignalStore.misc().cdsToken = null
+    Toast.makeText(context, "Cleared all CDS history.", Toast.LENGTH_SHORT).show()
+  }
+
+  private fun clearAllServiceIds() {
+    MaterialAlertDialogBuilder(requireContext())
+      .setTitle("Clear all serviceIds?")
+      .setMessage("Are you sure? Never do this on a non-test device.")
+      .setPositiveButton(android.R.string.ok) { _, _ ->
+        SignalDatabase.recipients.debugClearServiceIds()
+        Toast.makeText(context, "Cleared all service IDs.", Toast.LENGTH_SHORT).show()
+      }
+      .setNegativeButton(android.R.string.cancel) { d, _ ->
+        d.dismiss()
+      }
+      .show()
+  }
+
+  private fun clearAllProfileKeys() {
+    MaterialAlertDialogBuilder(requireContext())
+      .setTitle("Clear all profile keys?")
+      .setMessage("Are you sure? Never do this on a non-test device.")
+      .setPositiveButton(android.R.string.ok) { _, _ ->
+        SignalDatabase.recipients.debugClearServiceIds()
+        Toast.makeText(context, "Cleared all profile keys.", Toast.LENGTH_SHORT).show()
+      }
+      .setNegativeButton(android.R.string.cancel) { d, _ ->
+        d.dismiss()
+      }
+      .show()
+  }
+
+  private fun clearKeepLongerLogs() {
+    SimpleTask.run({
+      LogDatabase.getInstance(requireActivity().application).clearKeepLonger()
+    }) {
+      Toast.makeText(requireContext(), "Cleared keep longer logs", Toast.LENGTH_SHORT).show()
+    }
   }
 }

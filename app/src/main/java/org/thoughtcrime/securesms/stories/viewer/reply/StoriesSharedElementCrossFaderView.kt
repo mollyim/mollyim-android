@@ -1,36 +1,50 @@
 package org.thoughtcrime.securesms.stories.viewer.reply
 
+import android.animation.FloatEvaluator
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.util.AttributeSet
 import android.widget.ImageView
-import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.cardview.widget.CardView
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
+import org.signal.core.util.DimensionUnit
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.animation.transitions.CrossfaderTransition
+import org.thoughtcrime.securesms.blurhash.BlurHash
 import org.thoughtcrime.securesms.database.model.MmsMessageRecord
 import org.thoughtcrime.securesms.mms.DecryptableStreamUriLoader
 import org.thoughtcrime.securesms.mms.GlideApp
 import org.thoughtcrime.securesms.stories.StoryTextPostModel
+import kotlin.reflect.KProperty
 
 class StoriesSharedElementCrossFaderView @JvmOverloads constructor(
   context: Context,
   attrs: AttributeSet? = null
-) : ConstraintLayout(context, attrs), CrossfaderTransition.Crossfadeable {
+) : CardView(context, attrs), CrossfaderTransition.Crossfadeable {
+
+  companion object {
+    val CORNER_RADIUS_START = DimensionUnit.DP.toPixels(12f)
+    val CORNER_RADIUS_END = DimensionUnit.DP.toPixels(18f)
+    val CORNER_RADIUS_EVALUATOR = FloatEvaluator()
+  }
 
   init {
     inflate(context, R.layout.stories_shared_element_crossfader, this)
   }
 
   private val sourceView: ImageView = findViewById(R.id.source_image)
+  private val sourceBlurView: ImageView = findViewById(R.id.source_image_blur)
   private val targetView: ImageView = findViewById(R.id.target_image)
+  private val targetBlurView: ImageView = findViewById(R.id.target_image_blur)
 
-  private var isSourceReady: Boolean = false
-  private var isTargetReady: Boolean = false
+  private var isSourceReady: Boolean by NotifyIfReadyDelegate(false)
+  private var isSourceBlurReady: Boolean by NotifyIfReadyDelegate(false)
+  private var isTargetReady: Boolean by NotifyIfReadyDelegate(false)
+  private var isTargetBlurReady: Boolean by NotifyIfReadyDelegate(false)
 
   private var latestSource: Any? = null
   private var latestTarget: Any? = null
@@ -49,16 +63,18 @@ class StoriesSharedElementCrossFaderView @JvmOverloads constructor(
       .addListener(
         OnReadyListener {
           isSourceReady = true
-          notifyIfReady()
         }
       )
       .placeholder(storyTextPostModel.getPlaceholder())
       .dontAnimate()
       .centerCrop()
       .into(sourceView)
+
+    GlideApp.with(sourceBlurView).clear(sourceBlurView)
+    isSourceBlurReady = true
   }
 
-  fun setSourceView(uri: Uri) {
+  fun setSourceView(uri: Uri, blur: BlurHash?) {
     if (latestSource == uri) {
       return
     }
@@ -70,19 +86,35 @@ class StoriesSharedElementCrossFaderView @JvmOverloads constructor(
       .addListener(
         OnReadyListener {
           isSourceReady = true
-          notifyIfReady()
         }
       )
       .dontAnimate()
       .centerCrop()
       .into(sourceView)
+
+    if (blur == null) {
+      GlideApp.with(sourceBlurView).clear(sourceBlurView)
+      isSourceBlurReady = true
+    } else {
+      GlideApp.with(sourceBlurView)
+        .load(blur)
+        .addListener(
+          OnReadyListener {
+            isSourceBlurReady = true
+          }
+        )
+        .dontAnimate()
+        .centerCrop()
+        .into(sourceBlurView)
+    }
   }
 
   fun setTargetView(messageRecord: MmsMessageRecord): Boolean {
     val thumbUri = messageRecord.slideDeck.thumbnailSlide?.uri
+    val thumbBlur: BlurHash? = messageRecord.slideDeck.thumbnailSlide?.placeholderBlur
     when {
       messageRecord.storyType.isTextStory -> setTargetView(StoryTextPostModel.parseFrom(messageRecord))
-      thumbUri != null -> setTargetView(thumbUri)
+      thumbUri != null -> setTargetView(thumbUri, thumbBlur)
       else -> return false
     }
 
@@ -101,16 +133,18 @@ class StoriesSharedElementCrossFaderView @JvmOverloads constructor(
       .addListener(
         OnReadyListener {
           isTargetReady = true
-          notifyIfReady()
         }
       )
       .dontAnimate()
       .placeholder(storyTextPostModel.getPlaceholder())
       .centerCrop()
       .into(targetView)
+
+    GlideApp.with(targetBlurView).clear(targetBlurView)
+    isTargetBlurReady = true
   }
 
-  private fun setTargetView(uri: Uri) {
+  private fun setTargetView(uri: Uri, blur: BlurHash?) {
     if (latestTarget == uri) {
       return
     }
@@ -122,16 +156,31 @@ class StoriesSharedElementCrossFaderView @JvmOverloads constructor(
       .addListener(
         OnReadyListener {
           isTargetReady = true
-          notifyIfReady()
         }
       )
       .dontAnimate()
-      .centerCrop()
+      .fitCenter()
       .into(targetView)
+
+    if (blur == null) {
+      GlideApp.with(targetBlurView).clear(targetBlurView)
+      isTargetBlurReady = true
+    } else {
+      GlideApp.with(targetBlurView)
+        .load(blur)
+        .addListener(
+          OnReadyListener {
+            isTargetBlurReady = true
+          }
+        )
+        .dontAnimate()
+        .centerCrop()
+        .into(targetBlurView)
+    }
   }
 
   private fun notifyIfReady() {
-    if (isSourceReady && isTargetReady) {
+    if (isSourceReady && isTargetReady && isSourceBlurReady && isTargetBlurReady) {
       callback?.onReadyToAnimate()
     }
   }
@@ -151,10 +200,16 @@ class StoriesSharedElementCrossFaderView @JvmOverloads constructor(
   override fun onCrossfadeAnimationUpdated(progress: Float, reverse: Boolean) {
     if (reverse) {
       sourceView.alpha = progress
+      sourceBlurView.alpha = progress
       targetView.alpha = 1f - progress
+      targetBlurView.alpha = 1f - progress
+      radius = CORNER_RADIUS_EVALUATOR.evaluate(progress, CORNER_RADIUS_END, CORNER_RADIUS_START)
     } else {
       sourceView.alpha = 1f - progress
+      sourceBlurView.alpha = 1f - progress
       targetView.alpha = progress
+      targetBlurView.alpha = progress
+      radius = CORNER_RADIUS_EVALUATOR.evaluate(progress, CORNER_RADIUS_START, CORNER_RADIUS_END)
     }
   }
 
@@ -162,7 +217,11 @@ class StoriesSharedElementCrossFaderView @JvmOverloads constructor(
     alpha = 1f
 
     sourceView.alpha = if (reverse) 0f else 1f
+    sourceBlurView.alpha = if (reverse) 0f else 1f
     targetView.alpha = if (reverse) 1f else 0f
+    targetBlurView.alpha = if (reverse) 1f else 0f
+
+    radius = if (reverse) CORNER_RADIUS_END else CORNER_RADIUS_START
 
     callback?.onAnimationStarted()
   }
@@ -175,6 +234,17 @@ class StoriesSharedElementCrossFaderView @JvmOverloads constructor(
     animate().alpha(0f)
 
     callback?.onAnimationFinished()
+  }
+
+  private inner class NotifyIfReadyDelegate(var value: Boolean) {
+    operator fun getValue(storiesSharedElementCrossFaderView: StoriesSharedElementCrossFaderView, property: KProperty<*>): Boolean {
+      return value
+    }
+
+    operator fun setValue(storiesSharedElementCrossFaderView: StoriesSharedElementCrossFaderView, property: KProperty<*>, b: Boolean) {
+      value = b
+      notifyIfReady()
+    }
   }
 
   interface Callback {

@@ -11,6 +11,7 @@ import org.thoughtcrime.securesms.database.model.ParentStoryId
 import org.thoughtcrime.securesms.database.model.StoryType
 import org.thoughtcrime.securesms.mediasend.v2.UntrustedRecords
 import org.thoughtcrime.securesms.mms.OutgoingMediaMessage
+import org.thoughtcrime.securesms.mms.OutgoingSecureMediaMessage
 import org.thoughtcrime.securesms.sms.MessageSender
 
 /**
@@ -35,30 +36,31 @@ object StoryGroupReplySender {
     }
 
     return messageAndRecipient.flatMapCompletable { (message, recipient) ->
-      UntrustedRecords.checkForBadIdentityRecords(setOf(ContactSearchKey.KnownRecipient(recipient.id)))
+      UntrustedRecords.checkForBadIdentityRecords(setOf(ContactSearchKey.RecipientSearchKey.KnownRecipient(recipient.id)))
         .andThen(
           Completable.create {
-
             MessageSender.send(
               context,
-              OutgoingMediaMessage(
-                recipient,
-                body.toString(),
-                emptyList(),
-                System.currentTimeMillis(),
-                0,
-                0L,
-                false,
-                0,
-                StoryType.NONE,
-                ParentStoryId.GroupReply(message.id),
-                isReaction,
-                null,
-                emptyList(),
-                emptyList(),
-                mentions,
-                emptySet(),
-                emptySet()
+              OutgoingSecureMediaMessage(
+                OutgoingMediaMessage(
+                  recipient,
+                  body.toString(),
+                  emptyList(),
+                  System.currentTimeMillis(),
+                  0,
+                  0L,
+                  false,
+                  0,
+                  StoryType.NONE,
+                  ParentStoryId.GroupReply(message.id),
+                  isReaction,
+                  null,
+                  emptyList(),
+                  emptyList(),
+                  mentions,
+                  emptySet(),
+                  emptySet()
+                )
               ),
               message.threadId,
               false,

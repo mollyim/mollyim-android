@@ -21,6 +21,7 @@ import org.thoughtcrime.securesms.database.model.MmsMessageRecord
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.stories.StoryTextPostModel
 import org.thoughtcrime.securesms.stories.dialogs.StoryContextMenu
+import org.thoughtcrime.securesms.stories.dialogs.StoryDialogs
 import org.thoughtcrime.securesms.stories.viewer.StoryViewerActivity
 import org.thoughtcrime.securesms.util.LifecycleDisposable
 import org.thoughtcrime.securesms.util.Util
@@ -80,8 +81,9 @@ class MyStoriesFragment : DSLSettingsFragment(
                     if (it.distributionStory.messageRecord.isIdentityMismatchFailure) {
                       SafetyNumberChangeDialog.show(requireContext(), childFragmentManager, it.distributionStory.messageRecord)
                     } else {
-                      lifecycleDisposable += viewModel.resend(it.distributionStory.messageRecord).subscribe()
-                      Toast.makeText(requireContext(), R.string.message_recipients_list_item__resend, Toast.LENGTH_SHORT).show()
+                      StoryDialogs.resendStory(requireContext()) {
+                        lifecycleDisposable += viewModel.resend(it.distributionStory.messageRecord).subscribe()
+                      }
                     }
                   } else {
                     val recipient = if (it.distributionStory.messageRecord.recipient.isGroup) {
@@ -91,6 +93,7 @@ class MyStoriesFragment : DSLSettingsFragment(
                     }
 
                     val record = it.distributionStory.messageRecord as MmsMessageRecord
+                    val blur = record.slideDeck.thumbnailSlide?.placeholderBlur
                     val (text: StoryTextPostModel?, image: Uri?) = if (record.storyType.isTextStory) {
                       StoryTextPostModel.parseFrom(record) to null
                     } else {
@@ -98,7 +101,7 @@ class MyStoriesFragment : DSLSettingsFragment(
                     }
 
                     val options = ActivityOptionsCompat.makeSceneTransitionAnimation(requireActivity(), preview, ViewCompat.getTransitionName(preview) ?: "")
-                    startActivity(StoryViewerActivity.createIntent(requireContext(), recipient.id, conversationMessage.messageRecord.id, recipient.shouldHideStory(), text, image), options.toBundle())
+                    startActivity(StoryViewerActivity.createIntent(requireContext(), recipient.id, conversationMessage.messageRecord.id, recipient.shouldHideStory(), text, image, blur), options.toBundle())
                   }
                 },
                 onLongClick = {

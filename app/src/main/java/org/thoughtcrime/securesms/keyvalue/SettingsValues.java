@@ -1,6 +1,5 @@
 package org.thoughtcrime.securesms.keyvalue;
 
-import android.content.Context;
 import android.net.Uri;
 import android.provider.Settings;
 import android.text.TextUtils;
@@ -9,14 +8,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 
-import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.logging.Log;
-import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.mms.SentMediaQuality;
 import org.thoughtcrime.securesms.preferences.widgets.NotificationPrivacyPreference;
-import org.thoughtcrime.securesms.recipients.Recipient;
-import org.thoughtcrime.securesms.storage.StorageSyncHelper;
 import org.thoughtcrime.securesms.util.SingleLiveEvent;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.webrtc.CallBandwidthMode;
@@ -62,7 +57,6 @@ public final class SettingsValues extends SignalStoreValues {
   public static final  String CALL_RINGTONE                           = "settings.call.ringtone";
   public static final  String CALL_VIBRATE_ENABLED                    = "settings.call.vibrate.enabled";
   public static final  String NOTIFY_WHEN_CONTACT_JOINS_SIGNAL        = "settings.notify.when.contact.joins.signal";
-  private static final String DEFAULT_SMS                             = "settings.default_sms";
   private static final String UNIVERSAL_EXPIRE_TIMER                  = "settings.universal.expire.timer";
   private static final String SENT_MEDIA_QUALITY                      = "settings.sentMediaQuality";
   private static final String CENSORSHIP_CIRCUMVENTION_ENABLED        = "settings.censorshipCircumventionEnabled";
@@ -368,26 +362,6 @@ public final class SettingsValues extends SignalStoreValues {
 
   public void setNotifyWhenContactJoinsSignal(boolean notifyWhenContactJoinsSignal) {
     putBoolean(NOTIFY_WHEN_CONTACT_JOINS_SIGNAL, notifyWhenContactJoinsSignal);
-  }
-
-  /**
-   * We need to keep track of when the default status changes so we can sync to storage service.
-   * So call this when you think it might have changed, but *don't* rely on it for knowing if we
-   * *are* the default SMS. For that, continue to use
-   * {@link org.thoughtcrime.securesms.util.Util#isDefaultSmsProvider(Context)}.
-   */
-  public void setDefaultSms(boolean value) {
-    boolean lastKnown = getBoolean(DEFAULT_SMS, false);
-
-    if (value != lastKnown && SignalStore.registrationValues().isRegistrationComplete()) {
-      Log.i(TAG, "Default SMS state changed! Scheduling a storage sync.");
-      putBoolean(DEFAULT_SMS, value);
-
-      SignalExecutors.BOUNDED.execute(() -> {
-        SignalDatabase.recipients().markNeedsSync(Recipient.self().getId());
-        StorageSyncHelper.scheduleSyncForDataChange();
-      });
-    }
   }
 
   public void setUniversalExpireTimer(int seconds) {

@@ -59,6 +59,7 @@ public final class LocaleFeatureFlags {
       return false;
     }
 
+    // MOLLY: FeatureFlags.donateMegaphone() expects 1 million buckets
     long countEnabled      = getCountryValue(countryCodeValues, self.getE164().orElse(""), 0);
     long currentUserBucket = BucketingUtil.bucket(flag, self.requireServiceId().uuid(), 1_000_000);
 

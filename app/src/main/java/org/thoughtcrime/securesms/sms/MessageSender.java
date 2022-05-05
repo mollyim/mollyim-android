@@ -72,7 +72,6 @@ import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.recipients.RecipientUtil;
 import org.thoughtcrime.securesms.service.ExpiringMessageManager;
-import org.thoughtcrime.securesms.stories.Stories;
 import org.thoughtcrime.securesms.util.ParcelUtil;
 import org.thoughtcrime.securesms.util.SignalLocalMetrics;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
@@ -234,6 +233,11 @@ public class MessageSender {
                                                                                     null);
 
       attachmentDatabase.updateMessageId(preUploadAttachmentIds, primaryMessageId, primaryMessage.getStoryType().isStory());
+      if (primaryMessage.getStoryType() != StoryType.NONE) {
+        for (final AttachmentId preUploadAttachmentId : preUploadAttachmentIds) {
+          attachmentDatabase.updateAttachmentCaption(preUploadAttachmentId, primaryMessage.getBody());
+        }
+      }
       messageIds.add(primaryMessageId);
 
       List<DatabaseAttachment> preUploadAttachments = Stream.of(preUploadAttachmentIds)
@@ -263,6 +267,12 @@ public class MessageSender {
           }
 
           attachmentDatabase.updateMessageId(attachmentIds, messageId, secondaryMessage.getStoryType().isStory());
+          if (primaryMessage.getStoryType() != StoryType.NONE) {
+            for (final AttachmentId preUploadAttachmentId : preUploadAttachmentIds) {
+              attachmentDatabase.updateAttachmentCaption(preUploadAttachmentId, primaryMessage.getBody());
+            }
+          }
+
           messageIds.add(messageId);
         }
 
@@ -292,6 +302,7 @@ public class MessageSender {
         } else {
           AttachmentId attachmentCopyId = attachmentDatabase.insertAttachmentForPreUpload(preUploadAttachment.get()).getAttachmentId();
           attachmentDatabase.updateMessageId(Collections.singletonList(attachmentCopyId), messageId, true);
+          attachmentDatabase.updateAttachmentCaption(attachmentCopyId, storyMessage.getOutgoingSecureMediaMessage().getBody());
           messageIds.add(messageId);
           messages.add(storyMessage.getOutgoingSecureMediaMessage());
 
