@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,6 +18,7 @@ import androidx.fragment.app.FragmentManager;
 import org.signal.core.util.StringUtil;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.R;
+import org.thoughtcrime.securesms.ScreenLockController;
 import org.whispersystems.signalservice.api.util.Preconditions;
 
 import static androidx.biometric.BiometricPrompt.ERROR_CANCELED;
@@ -49,13 +51,17 @@ public class BiometricDialogFragment extends DialogFragment {
     findOrAddFragment(activity, false).authenticate(listener);
   }
 
-  public static BiometricDialogFragment findOrAddFragment(@NonNull FragmentActivity activity, boolean fullScreen) {
+  public static void authenticate(@NonNull FragmentActivity activity, boolean fullscreen, @NonNull Listener listener) {
+    findOrAddFragment(activity, fullscreen).authenticate(listener);
+  }
+
+  private static BiometricDialogFragment findOrAddFragment(@NonNull FragmentActivity activity, boolean fullScreen) {
     final FragmentManager fragmentManager = activity.getSupportFragmentManager();
 
     BiometricDialogFragment fragment = (BiometricDialogFragment) fragmentManager.findFragmentByTag(TAG);
     if (fragment == null) {
       fragment = newInstance(fullScreen);
-      fragment.showNow(fragmentManager, TAG);
+      fragment.show(fragmentManager, TAG);
     } else {
       Log.i(TAG, "Biometric dialog already being shown");
       Preconditions.checkArgument(fullScreen == fragment.getFullScreen());
@@ -92,8 +98,11 @@ public class BiometricDialogFragment extends DialogFragment {
 
   @Override
   public @Nullable View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    Window window = requireDialog().getWindow();
+
     if (fullScreen) {
-      requireDialog().getWindow().setWindowAnimations(R.style.ScreenLockAnimation);
+      ScreenLockController.setShowWhenLocked(window, true);
+      window.setWindowAnimations(R.style.ScreenLockAnimation);
     }
 
     return null;

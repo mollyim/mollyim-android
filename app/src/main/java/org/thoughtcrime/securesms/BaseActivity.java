@@ -107,14 +107,8 @@ public abstract class BaseActivity extends AppCompatActivity {
   private void unlockScreenByBiometricPrompt() {
     logEvent("Prompt for biometric authentication");
 
-    BiometricDialogFragment fragment = BiometricDialogFragment.findOrAddFragment(this, true);
-    if (fragment.getDialog() == null) {
-      logError("Biometric prompt has gone away");
-      return;
-    }
-
-    ScreenLockController.setShowWhenLocked(fragment.requireDialog().getWindow(), true);
-    fragment.authenticate(
+    BiometricDialogFragment.authenticate(
+        this, true,
         new BiometricDialogFragment.Listener() {
           @Override
           public boolean onResult(boolean authenticationSucceeded) {
