@@ -96,7 +96,7 @@ public class PassphrasePromptActivity extends PassphraseActivity {
   @Override
   public void onResume() {
     super.onResume();
-    passphraseInput.requestFocus();
+    setInputEnabled(true);
 
     // Manually lock the screen since the app lifecycle observer is not running yet
     ScreenLockController.setLockScreenAtStart(ScreenLockController.getAutoLock());
@@ -163,21 +163,23 @@ public class PassphrasePromptActivity extends PassphraseActivity {
         BiometricDialogFragment.authenticate(
             this, new BiometricDialogFragment.Listener() {
               @Override
-              public boolean onResult(boolean authenticationSucceeded) {
-                if (authenticationSucceeded) {
-                  ScreenLockController.setLockScreenAtStart(false);
-                  handlePassphrase(passphrase);
-                } else {
-                  setInputEnabled(true);
-                  showFailure(false);
-                }
+              public boolean onSuccess() {
+                ScreenLockController.setLockScreenAtStart(false);
+                handlePassphrase(passphrase);
                 return true;
               }
 
               @Override
+              public boolean onFailure(boolean canceledFromUser) {
+                if (canceledFromUser) {
+                  showFailureAndEnableInput(false);
+                }
+                return canceledFromUser;
+              }
+
+              @Override
               public boolean onError(@NonNull CharSequence errString) {
-                setInputEnabled(true);
-                showFailure(false);
+                showFailureAndEnableInput(false);
                 Toast.makeText(PassphrasePromptActivity.this, errString, Toast.LENGTH_LONG).show();
                 return true;
               }
@@ -196,7 +198,7 @@ public class PassphrasePromptActivity extends PassphraseActivity {
         handlePassphrase(passphrase);
       }
     } else {
-      showFailure(true);
+      showFailureAndEnableInput(true);
     }
   }
 
@@ -264,6 +266,7 @@ public class PassphrasePromptActivity extends PassphraseActivity {
   private void setInputEnabled(boolean enabled) {
     if (enabled) {
       passphraseInput.selectAll();
+      passphraseInput.requestFocus();
     } else {
       passphraseInput.clearFocus();
     }
@@ -278,7 +281,9 @@ public class PassphrasePromptActivity extends PassphraseActivity {
     okButton.setProgress((int) (y * 99));
   }
 
-  private void showFailure(boolean focusOnInput) {
+  private void showFailureAndEnableInput(boolean focusOnInput) {
+    setInputEnabled(true);
+
     if (focusOnInput && passphraseInput.requestFocus()) {
       InputMethodManager imm = ServiceUtil.getInputMethodManager(this);
       imm.showSoftInput(passphraseInput, InputMethodManager.SHOW_IMPLICIT);
@@ -353,9 +358,8 @@ public class PassphrasePromptActivity extends PassphraseActivity {
       if (masterSecret != null) {
         onSuccessfulPassphrase(masterSecret);
       } else {
-        setInputEnabled(true);
         showProgress(0f);
-        showFailure(true);
+        showFailureAndEnableInput(true);
       }
     }
 

@@ -37,9 +37,6 @@ import java.util.Objects;
 public abstract class BaseActivity extends AppCompatActivity {
   private static final String TAG = Log.tag(BaseActivity.class);
 
-  private boolean screenLocked;
-  private boolean biometricPromptLaunched;
-
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     AppStartup.getInstance().onCriticalRenderEventStart();
@@ -65,13 +62,20 @@ public abstract class BaseActivity extends AppCompatActivity {
 
   @Override
   protected void onPostResume() {
-    logEvent("onPostResume()");
     super.onPostResume();
 
+    boolean screenLocked = ScreenLockController.getLockScreenAtStart();
+
+    if (!screenLocked) {
+      BiometricDialogFragment.cancelFullScreenAuthentication(this);
+      ScreenLockController.unBlankScreen();
+    }
+
+    logEvent("onPostResume(" + screenLocked + ")");
     onPostResume(screenLocked);
 
-    if (Build.VERSION.SDK_INT < 29) {
-      onTopResumedActivityChanged(true);
+    if (screenLocked && useScreenLock() && !isFinishing()) {
+      showBiometricPromptForAuthentication();
     }
   }
 
@@ -82,43 +86,45 @@ public abstract class BaseActivity extends AppCompatActivity {
   }
 
   @Override
-  public void onTopResumedActivityChanged(boolean isTopResumedActivity) {
-    boolean isTopOfTask = isTopResumedActivity && !isFinishing();
-
-    if (isTopOfTask && screenLocked && !biometricPromptLaunched && useScreenLock()) {
-      biometricPromptLaunched = true;
-      unlockScreenByBiometricPrompt();
-    }
-  }
-
-  @Override
   public void onAttachedToWindow() {
-    if (useScreenLock()) {
-      ScreenLockController.setShowWhenLocked(getWindow(), false);
-    } else {
+    boolean alwaysVisible = !useScreenLock();
+    ScreenLockController.setShowWhenLocked(getWindow(), alwaysVisible);
+    if (alwaysVisible) {
       logEvent("Window excluded from screen lock");
-      ScreenLockController.setShowWhenLocked(getWindow(), true);
     }
-    if (screenLocked) {
+
+    if (ScreenLockController.getLockScreenAtStart()) {
+      logEvent("Screen locked");
       ScreenLockController.blankScreen();
     }
   }
 
-  private void unlockScreenByBiometricPrompt() {
+  private void showBiometricPromptForAuthentication() {
     logEvent("Prompt for biometric authentication");
 
     BiometricDialogFragment.authenticate(
         this, true,
         new BiometricDialogFragment.Listener() {
           @Override
-          public boolean onResult(boolean authenticationSucceeded) {
-            if (authenticationSucceeded) {
-              unlockScreen();
-            } else {
-              moveTaskToBack(true);
-            }
-            biometricPromptLaunched = false;
+          public boolean onSuccess() {
+            ScreenLockController.setLockScreenAtStart(false);
+            ScreenLockController.unBlankScreen();
+            onPostResume(false);
             return true;
+          }
+
+          @Override
+          public boolean onFailure(boolean canceledFromUser) {
+            if (!ScreenLockController.getLockScreenAtStart()) {
+              logEvent("Screen already unlocked by another activity. Ignore the canceled event.");
+              return true;
+            }
+            if (canceledFromUser) {
+              logEvent("Authentication canceled from user");
+              moveTaskToBack(true);
+              return true;
+            }
+            return false;
           }
 
           @Override
@@ -130,27 +136,21 @@ public abstract class BaseActivity extends AppCompatActivity {
 
           @Override
           public boolean onNotEnrolled(@NonNull CharSequence errString) {
-            Toast.makeText(BaseActivity.this, errString, Toast.LENGTH_LONG).show();
             logError("No biometrics. Screen lock will be disabled.");
+            Toast.makeText(BaseActivity.this, errString, Toast.LENGTH_LONG).show();
+            // If passphrase is available, PassphrasePromptActivity will disable the screen lock
+            // after authenticating the user with the passphrase. Otherwise it cannot be helped.
             if (TextSecurePreferences.isPassphraseLockEnabled(BaseActivity.this)) {
-              // PassphrasePromptActivity will disable the screen lock after authenticating
-              // the user with the passphrase.
               Intent lockIntent = new Intent(BaseActivity.this, KeyCachingService.class);
               lockIntent.setAction(KeyCachingService.CLEAR_KEY_ACTION);
               startService(lockIntent);
-              return false;
             } else {
               TextSecurePreferences.setBiometricScreenLockEnabled(BaseActivity.this, false);
-              unlockScreen();
-              return true;
+              ScreenLockController.enableAutoLock(false);
+              onSuccess();
+              recreate();
             }
-          }
-
-          private void unlockScreen() {
-            screenLocked = false;
-            ScreenLockController.setLockScreenAtStart(false);
-            ScreenLockController.unBlankScreen();
-            onPostResume(false);
+            return false;
           }
         }
     );
@@ -161,11 +161,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     logEvent("onStart()");
     super.onStart();
 
-    screenLocked = ScreenLockController.shouldLockScreenAtStart();
-    if (screenLocked) {
+    if (ScreenLockController.shouldLockScreenAtStart()) {
+      logEvent("Screen locked");
       ScreenLockController.blankScreen();
-    } else {
-      ScreenLockController.unBlankScreen();
     }
   }
 

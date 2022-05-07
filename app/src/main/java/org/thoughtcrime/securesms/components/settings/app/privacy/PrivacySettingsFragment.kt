@@ -378,11 +378,13 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
     BiometricDialogFragment.authenticate(
       requireActivity(),
       object : BiometricDialogFragment.Listener {
-        override fun onResult(authenticationSucceeded: Boolean): Boolean {
-          if (authenticationSucceeded) {
-            setBiometricScreenLock(true)
-          }
+        override fun onSuccess(): Boolean {
+          setBiometricScreenLock(true)
           return true
+        }
+
+        override fun onFailure(canceledFromUser: Boolean): Boolean {
+          return canceledFromUser
         }
 
         override fun onError(errString: CharSequence): Boolean {

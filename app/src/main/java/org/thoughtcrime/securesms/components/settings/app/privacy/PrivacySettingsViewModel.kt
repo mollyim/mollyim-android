@@ -72,7 +72,8 @@ class PrivacySettingsViewModel(
 
   fun setBiometricScreenLock(enabled: Boolean) {
     TextSecurePreferences.setBiometricScreenLockEnabled(application, enabled)
-    ScreenLockController.autoLock = enabled
+    ScreenLockController.enableAutoLock(enabled)
+    ScreenLockController.lockScreenAtStart = false
     refresh()
   }
 
