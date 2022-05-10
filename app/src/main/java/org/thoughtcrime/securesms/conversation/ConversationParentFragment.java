@@ -1536,9 +1536,7 @@ public class ConversationParentFragment extends Fragment
 
     this.isSecureText = isSecureText;
 
-    boolean isMediaMessage = recipient.get().isMmsGroup() || attachmentManager.isAttachmentPresent();
-
-    sendButton.resetAvailableTransports(isMediaMessage);
+    sendButton.resetAvailableTransports();
 
     calculateCharactersRemaining();
     invalidateOptionsMenu();
@@ -1607,7 +1605,7 @@ public class ConversationParentFragment extends Fragment
 
       if (selfMembership == null) {
         leftGroup        = false;
-        canSendMessages  = isSecureText || isDefaultSms;
+        canSendMessages  = isSecureText;
         canCancelRequest = false;
         if (cannotSendInAnnouncementGroupBanner.resolved()) {
           cannotSendInAnnouncementGroupBanner.get().setVisibility(View.GONE);
@@ -2653,8 +2651,7 @@ public class ConversationParentFragment extends Fragment
     } else if (!isSecureText && !isDefaultSms && recipient.hasSmsAddress()) {
       unblockButton.setVisibility(View.GONE);
       inputPanel.setHideForBlockedState(true);
-      boolean canInvite = SignalStore.account().isRegistered() && recipient.getRegistered() != RegisteredState.UNKNOWN;
-      inviteButton.setVisibility(canInvite ? View.VISIBLE : View.GONE);
+      inviteButton.setVisibility(SignalStore.account().isRegistered() ? View.VISIBLE : View.GONE);
       registerButton.setVisibility(View.GONE);
     } else if (recipient.isReleaseNotes() && !recipient.isBlocked()) {
       unblockButton.setVisibility(View.GONE);
@@ -2673,7 +2670,6 @@ public class ConversationParentFragment extends Fragment
     } else {
       boolean inactivePushGroup = isPushGroupConversation() && !recipient.isActiveGroup();
       inputPanel.setHideForBlockedState(inactivePushGroup);
-      inputPanel.setEnabled(!inactivePushGroup);
       unblockButton.setVisibility(View.GONE);
       inviteButton.setVisibility(View.GONE);
       registerButton.setVisibility(View.GONE);

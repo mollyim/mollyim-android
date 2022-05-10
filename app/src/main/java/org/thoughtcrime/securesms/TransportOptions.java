@@ -25,7 +25,7 @@ public class TransportOptions {
     this.pushTransport = getPushTransportOption(context);
   }
 
-  public void reset(boolean media) {
+  public void reset() {
     notifyTransportChangeListeners();
   }
 
