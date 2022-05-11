@@ -13,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
-import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.database.NoExternalStorageException;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
@@ -113,27 +112,15 @@ public class StorageUtil {
   }
 
   public static @NonNull Uri getVideoUri() {
-    if (Build.VERSION.SDK_INT < 21) {
-      return getLegacyUri(Environment.DIRECTORY_MOVIES);
-    } else {
-      return MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
-    }
+    return MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
   }
 
   public static @NonNull Uri getAudioUri() {
-    if (Build.VERSION.SDK_INT < 21) {
-      return getLegacyUri(Environment.DIRECTORY_MUSIC);
-    } else {
-      return MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-    }
+    return MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
   }
 
   public static @NonNull Uri getImageUri() {
-    if (Build.VERSION.SDK_INT < 21) {
-      return getLegacyUri(Environment.DIRECTORY_PICTURES);
-    } else {
-      return MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-    }
+    return MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
   }
 
   public static @NonNull Uri getDownloadUri() {

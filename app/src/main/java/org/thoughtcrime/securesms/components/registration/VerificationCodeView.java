@@ -1,7 +1,6 @@
 package org.thoughtcrime.securesms.components.registration;
 
 import android.content.Context;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -48,7 +47,7 @@ public final class VerificationCodeView extends FrameLayout {
     initialize(context);
   }
 
-  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+  @RequiresApi(api = 21)
   public VerificationCodeView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
     super(context, attrs, defStyleAttr, defStyleRes);
     initialize(context);

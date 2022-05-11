@@ -4,7 +4,6 @@ import android.Manifest;
 import android.animation.Animator;
 import android.annotation.TargetApi;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,22 +50,20 @@ public class DeviceAddFragment extends LoggingFragment {
       this.overlay.setOrientation(LinearLayout.VERTICAL);
     }
 
-    if (Build.VERSION.SDK_INT >= 21) {
-      this.container.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-        @TargetApi(21)
-        @Override
-        public void onLayoutChange(View v, int left, int top, int right, int bottom,
-                                   int oldLeft, int oldTop, int oldRight, int oldBottom)
-        {
-          v.removeOnLayoutChangeListener(this);
+    this.container.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+      @TargetApi(21)
+      @Override
+      public void onLayoutChange(View v, int left, int top, int right, int bottom,
+                                 int oldLeft, int oldTop, int oldRight, int oldBottom)
+      {
+        v.removeOnLayoutChangeListener(this);
 
-          Animator reveal = ViewAnimationUtils.createCircularReveal(v, right, bottom, 0, (int) Math.hypot(right, bottom));
-          reveal.setInterpolator(new DecelerateInterpolator(2f));
-          reveal.setDuration(800);
-          reveal.start();
-        }
-      });
-    }
+        Animator reveal = ViewAnimationUtils.createCircularReveal(v, right, bottom, 0, (int) Math.hypot(right, bottom));
+        reveal.setInterpolator(new DecelerateInterpolator(2f));
+        reveal.setDuration(800);
+        reveal.start();
+      }
+    });
 
     return this.container;
   }

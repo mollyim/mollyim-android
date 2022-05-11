@@ -24,7 +24,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Binder;
-import android.os.Build;
 import android.os.IBinder;
 import android.os.SystemClock;
 
@@ -78,10 +77,6 @@ public class KeyCachingService extends Service {
   private static volatile boolean locking;
 
   public KeyCachingService() {}
-
-  public static boolean isLocked(Context context) {
-    return isLocked();
-  }
 
   public static synchronized boolean isLocked() {
     return masterSecret == null || locking;
@@ -218,11 +213,7 @@ public class KeyCachingService extends Service {
     long at = SystemClock.elapsedRealtime() + TimeUnit.SECONDS.toMillis(timeoutSeconds);
 
     AlarmManager alarmManager = ServiceUtil.getAlarmManager(this);
-    if (Build.VERSION.SDK_INT >= 23) {
-      alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, at, buildExpirationIntent());
-    } else {
-      alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, at, buildExpirationIntent());
-    }
+    alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, at, buildExpirationIntent());
 
     pendingAlarm = true;
   }
@@ -288,11 +279,7 @@ public class KeyCachingService extends Service {
   }
 
   private static int getPendingIntentFlags() {
-    if (Build.VERSION.SDK_INT >= 23) {
-      return PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT;
-    } else {
-      return PendingIntent.FLAG_UPDATE_CURRENT;
-    }
+    return PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT;
   }
 
   @Override

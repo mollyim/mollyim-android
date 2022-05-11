@@ -2,7 +2,6 @@ package org.thoughtcrime.securesms.conversationlist;
 
 
 import android.content.Context;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
@@ -31,7 +30,7 @@ public class ConversationListItemInboxZero extends LinearLayout implements Binda
     super(context, attrs, defStyleAttr);
   }
 
-  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+  @RequiresApi(api = 21)
   public ConversationListItemInboxZero(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
     super(context, attrs, defStyleAttr, defStyleRes);
   }

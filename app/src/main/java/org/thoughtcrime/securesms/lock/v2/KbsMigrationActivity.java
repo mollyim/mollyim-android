@@ -27,7 +27,7 @@ public class KbsMigrationActivity extends BaseActivity {
   public void onCreate(Bundle bundle) {
     super.onCreate(bundle);
 
-    if (KeyCachingService.isLocked(this)) {
+    if (KeyCachingService.isLocked()) {
       startActivity(getPromptPassphraseIntent());
       finish();
       return;

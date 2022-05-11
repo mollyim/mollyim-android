@@ -21,7 +21,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.SpannableString;
@@ -42,22 +41,23 @@ import com.google.android.material.textfield.TextInputLayout;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 
+import org.signal.core.util.ThreadUtil;
 import org.signal.core.util.logging.Log;
+import org.thoughtcrime.securesms.biometric.BiometricDialogFragment;
 import org.thoughtcrime.securesms.crypto.InvalidPassphraseException;
 import org.thoughtcrime.securesms.crypto.UnrecoverableKeyException;
 import org.thoughtcrime.securesms.crypto.MasterSecret;
 import org.thoughtcrime.securesms.crypto.MasterSecretUtil;
 import org.thoughtcrime.securesms.logsubmit.SubmitDebugLogActivity;
 import org.thoughtcrime.securesms.util.CommunicationActions;
-import org.thoughtcrime.securesms.util.DynamicIntroTheme;
-import org.thoughtcrime.securesms.util.DynamicLanguage;
 import org.thoughtcrime.securesms.util.SupportEmailUtil;
 import org.thoughtcrime.securesms.util.ServiceUtil;
+import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
 import java.util.Arrays;
 
@@ -73,10 +73,8 @@ public class PassphrasePromptActivity extends PassphraseActivity {
 
   private static final String TAG = PassphrasePromptActivity.class.getSimpleName();
 
-  private final DynamicIntroTheme dynamicTheme    = new DynamicIntroTheme();
-  private final DynamicLanguage   dynamicLanguage = new DynamicLanguage();
-
   private View                   passphraseAuthContainer;
+  private View                   headerText;
   private TextInputLayout        passphraseLayout;
   private EditText               passphraseInput;
   private CircularProgressButton okButton;
@@ -85,24 +83,33 @@ public class PassphrasePromptActivity extends PassphraseActivity {
   @Override
   public void onCreate(Bundle savedInstanceState) {
     Log.i(TAG, "onCreate()");
-    dynamicTheme.onCreate(this);
-    dynamicLanguage.onCreate(this);
     super.onCreate(savedInstanceState);
+
+    requireSupportActionBar().setTitle("");
 
     setContentView(R.layout.prompt_passphrase_activity);
     initializeResources();
 
-    if (Build.VERSION.SDK_INT >= 21) {
-      setExcludeFromRecents(true);
-    }
+    setExcludeFromRecents(true);
   }
 
   @Override
   public void onResume() {
     super.onResume();
-    dynamicTheme.onResume(this);
-    dynamicLanguage.onResume(this);
-    passphraseInput.requestFocus();
+    setInputEnabled(true);
+
+    // Manually lock the screen since the app lifecycle observer is not running yet
+    ScreenLockController.setLockScreenAtStart(ScreenLockController.getAutoLock());
+  }
+
+  @Override
+  protected void onPause() {
+    super.onPause();
+  }
+
+  @Override
+  public boolean useScreenLock() {
+    return false;
   }
 
   @Override
@@ -148,18 +155,61 @@ public class PassphrasePromptActivity extends PassphraseActivity {
     return sourceIntent;
   }
 
-  private void handlePassphrase() {
+  private void onOkClicked(View view) {
     char[] passphrase = getEnteredPassphrase(passphraseInput);
     if (passphrase.length > 0) {
-      SetMasterSecretTask task = new SetMasterSecretTask(passphrase);
-      task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+      setInputEnabled(false);
+      if (ScreenLockController.getLockScreenAtStart()) {
+        BiometricDialogFragment.authenticate(
+            this, new BiometricDialogFragment.Listener() {
+              @Override
+              public boolean onSuccess() {
+                ScreenLockController.setLockScreenAtStart(false);
+                handlePassphrase(passphrase);
+                return true;
+              }
+
+              @Override
+              public boolean onFailure(boolean canceledFromUser) {
+                if (canceledFromUser) {
+                  showFailureAndEnableInput(false);
+                }
+                return canceledFromUser;
+              }
+
+              @Override
+              public boolean onError(@NonNull CharSequence errString) {
+                showFailureAndEnableInput(false);
+                Toast.makeText(PassphrasePromptActivity.this, errString, Toast.LENGTH_LONG).show();
+                return true;
+              }
+
+              @Override
+              public boolean onNotEnrolled(@NonNull CharSequence errString) {
+                Toast.makeText(PassphrasePromptActivity.this, errString, Toast.LENGTH_LONG).show();
+                TextSecurePreferences.setBiometricScreenLockEnabled(PassphrasePromptActivity.this, false);
+                ScreenLockController.enableAutoLock(false);
+                handlePassphrase(passphrase);
+                return true;
+              }
+            }
+        );
+      } else {
+        handlePassphrase(passphrase);
+      }
     } else {
-      showFailure();
+      showFailureAndEnableInput(true);
     }
+  }
+
+  private void handlePassphrase(char[] passphrase) {
+    SetMasterSecretTask task = new SetMasterSecretTask(passphrase);
+    task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
   }
 
   private char[] getEnteredPassphrase(final EditText editText) {
     int len = editText.length();
+
     char[] passphrase = new char[len];
     if (editText.getText() != null) {
       editText.getText().getChars(0, len, passphrase, 0);
@@ -168,16 +218,12 @@ public class PassphrasePromptActivity extends PassphraseActivity {
   }
 
   private void initializeResources() {
-    Toolbar toolbar  = findViewById(R.id.toolbar);
-
     passphraseAuthContainer = findViewById(R.id.password_auth_container);
+    headerText              = findViewById(R.id.header_text);
     passphraseLayout        = findViewById(R.id.passphrase_layout);
     passphraseInput         = findViewById(R.id.passphrase_input);
     okButton                = findViewById(R.id.ok_button);
     successView             = findViewById(R.id.success);
-
-    toolbar.setTitle("");
-    setSupportActionBar(toolbar);
 
     SpannableString hint = new SpannableString(getString(R.string.PassphrasePromptActivity_enter_passphrase));
     hint.setSpan(new RelativeSizeSpan(0.9f), 0, hint.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
@@ -186,7 +232,7 @@ public class PassphrasePromptActivity extends PassphraseActivity {
     passphraseInput.setHint(hint);
     passphraseInput.setOnEditorActionListener(new PassphraseActionListener());
 
-    okButton.setOnClickListener(v -> handlePassphrase());
+    okButton.setOnClickListener(this::onOkClicked);
   }
 
   private void sendEmailToSupport() {
@@ -205,26 +251,29 @@ public class PassphrasePromptActivity extends PassphraseActivity {
     public boolean onEditorAction(TextView exampleView, int actionId, KeyEvent keyEvent) {
       if ((keyEvent == null && actionId == EditorInfo.IME_ACTION_DONE) ||
           (keyEvent != null && keyEvent.getAction() == KeyEvent.ACTION_DOWN &&
-           (actionId == EditorInfo.IME_NULL))) {
+           (actionId == EditorInfo.IME_NULL)))
+      {
         if (okButton.isClickable()) {
           okButton.performClick();
         }
         return true;
       }
       return keyEvent != null && keyEvent.getAction() == KeyEvent.ACTION_UP
-              && actionId == EditorInfo.IME_NULL;
+             && actionId == EditorInfo.IME_NULL;
     }
   }
 
   private void setInputEnabled(boolean enabled) {
     if (enabled) {
       passphraseInput.selectAll();
+      passphraseInput.requestFocus();
     } else {
       passphraseInput.clearFocus();
     }
     passphraseLayout.setEnabled(enabled);
     passphraseLayout.setEndIconMode(enabled ? END_ICON_PASSWORD_TOGGLE : END_ICON_NONE);
     okButton.setClickable(enabled);
+    headerText.setEnabled(enabled);
   }
 
   private void showProgress(float x) {
@@ -232,8 +281,10 @@ public class PassphrasePromptActivity extends PassphraseActivity {
     okButton.setProgress((int) (y * 99));
   }
 
-  private void showFailure() {
-    if (passphraseInput.requestFocus()) {
+  private void showFailureAndEnableInput(boolean focusOnInput) {
+    setInputEnabled(true);
+
+    if (focusOnInput && passphraseInput.requestFocus()) {
       InputMethodManager imm = ServiceUtil.getInputMethodManager(this);
       imm.showSoftInput(passphraseInput, InputMethodManager.SHOW_IMPLICIT);
     }
@@ -244,7 +295,7 @@ public class PassphrasePromptActivity extends PassphraseActivity {
     passphraseAuthContainer.startAnimation(shake);
   }
 
-  private void handleSuccessfulPassphrase(MasterSecret masterSecret) {
+  private void onSuccessfulPassphrase(MasterSecret masterSecret) {
     int shortAnimationDuration = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
     successView.setAlpha(0f);
@@ -254,13 +305,14 @@ public class PassphrasePromptActivity extends PassphraseActivity {
     okButton.animate().alpha(0f).setDuration(shortAnimationDuration).setListener(new AnimatorListenerAdapter() {
       @Override
       public void onAnimationEnd(Animator animation) {
-        setMasterSecret(masterSecret);
+        ThreadUtil.postToMain(() -> {
+          setMasterSecret(masterSecret);
+          launchRoutedActivity();
+        });
       }
-    });;
+    });
 
-    if (Build.VERSION.SDK_INT >= 21) {
-      setExcludeFromRecents(false);
-    }
+    setExcludeFromRecents(false);
   }
 
   @SuppressLint("StaticFieldLeak")
@@ -276,7 +328,6 @@ public class PassphrasePromptActivity extends PassphraseActivity {
 
     @Override
     protected void onPreExecute() {
-      setInputEnabled(false);
       initializeProgressTimer();
     }
 
@@ -305,11 +356,10 @@ public class PassphrasePromptActivity extends PassphraseActivity {
     @Override
     protected void onPostExecute(MasterSecret masterSecret) {
       if (masterSecret != null) {
-        handleSuccessfulPassphrase(masterSecret);
+        onSuccessfulPassphrase(masterSecret);
       } else {
-        setInputEnabled(true);
         showProgress(0f);
-        showFailure();
+        showFailureAndEnableInput(true);
       }
     }
 

@@ -19,6 +19,7 @@
     <uses-feature android:name="android.hardware.portrait" android:required="false"/>
     <uses-feature android:name="android.hardware.touchscreen" android:required="false"/>
 
+    <uses-permission android:name="android.permission.USE_BIOMETRIC"/>
     <uses-permission android:name="${applicationId}.ACCESS_SECRETS"/>
     <uses-permission android:name="android.permission.READ_PROFILE"/>
     <uses-permission android:name="android.permission.WRITE_PROFILE"/>
@@ -302,7 +303,7 @@
 
     <activity android:name=".PassphrasePromptActivity"
               android:launchMode="singleTask"
-              android:theme="@style/TextSecure.LightIntroTheme"
+              android:theme="@style/Signal.DayNight"
               android:windowSoftInputMode="stateVisible"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
 

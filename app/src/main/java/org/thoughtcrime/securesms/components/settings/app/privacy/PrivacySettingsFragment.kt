@@ -2,14 +2,19 @@ package org.thoughtcrime.securesms.components.settings.app.privacy
 
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
+import android.os.Build
+import android.provider.Settings
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.TextAppearanceSpan
 import android.view.View
-import android.view.WindowManager
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
+import androidx.biometric.BiometricManager
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
@@ -20,9 +25,12 @@ import mobi.upod.timedurationpicker.TimeDurationPicker
 import mobi.upod.timedurationpicker.TimeDurationPickerDialog
 import org.signal.core.util.DimensionUnit
 import org.signal.core.util.logging.Log
+import org.thoughtcrime.securesms.BaseActivity
 import org.thoughtcrime.securesms.ChangePassphraseDialogFragment
 import org.thoughtcrime.securesms.PassphraseActivity
 import org.thoughtcrime.securesms.R
+import org.thoughtcrime.securesms.ScreenLockController
+import org.thoughtcrime.securesms.biometric.BiometricDialogFragment
 import org.thoughtcrime.securesms.components.settings.ClickPreference
 import org.thoughtcrime.securesms.components.settings.ClickPreferenceViewHolder
 import org.thoughtcrime.securesms.components.settings.DSLConfiguration
@@ -46,7 +54,6 @@ import org.thoughtcrime.securesms.util.ExpirationUtil
 import org.thoughtcrime.securesms.util.FeatureFlags
 import org.thoughtcrime.securesms.util.SecurePreferenceManager
 import org.thoughtcrime.securesms.util.SpanUtil
-import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.thoughtcrime.securesms.util.adapter.mapping.LayoutFactory
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
 import java.util.Locale
@@ -244,17 +251,22 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
       sectionHeaderPref(R.string.PrivacySettingsFragment__app_security)
 
       switchPref(
+        title = DSLSettingsText.from(R.string.preferences_app_protection__screen_lock),
+        summary = DSLSettingsText.from(R.string.PrivacySettingsFragment__lock_molly_access_with_fingerprint_or_face_recognition),
+        isChecked = state.biometricScreenLock,
+        onClick = {
+          onBiometricScreenLockClicked(!state.biometricScreenLock)
+        }
+      )
+
+      switchPref(
         title = DSLSettingsText.from(R.string.preferences__screen_security),
         summary = DSLSettingsText.from(R.string.PrivacySettingsFragment__block_screenshots_in_the_recents_list_and_inside_the_app),
-        isChecked = state.screenSecurity,
+        isChecked = state.screenSecurity || ScreenLockController.alwaysSetSecureFlagOnResume,
+        isEnabled = !ScreenLockController.alwaysSetSecureFlagOnResume,
         onClick = {
           viewModel.setScreenSecurityEnabled(!state.screenSecurity)
-
-          if (TextSecurePreferences.isScreenSecurityEnabled(requireContext())) {
-            requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_SECURE)
-          } else {
-            requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
-          }
+          (activity as BaseActivity).initializeScreenshotSecurity()
         }
       )
 
@@ -330,6 +342,62 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
         }
       )
     }
+  }
+
+  private val biometricEnrollment = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+    onBiometricEnrollFinished()
+  }
+
+  private fun onBiometricScreenLockClicked(enabled: Boolean) {
+    if (enabled) {
+      val biometricManager = BiometricManager.from(requireContext())
+      when (biometricManager.canAuthenticate(BiometricDialogFragment.BIOMETRIC_AUTHENTICATORS_ALLOWED)) {
+        BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE ->
+          Toast.makeText(context, R.string.PrivacySettingsFragment__no_biometric_features_available_on_this_device, Toast.LENGTH_LONG).show()
+        BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> {
+          if (Build.VERSION.SDK_INT >= 30) {
+            biometricEnrollment.launch(getIntentForBiometricEnrollment())
+          } else {
+            Toast.makeText(context, R.string.PrivacySettingsFragment__please_first_setup_your_biometrics_in_android_settings, Toast.LENGTH_LONG).show()
+          }
+        }
+        else -> onBiometricEnrollFinished()
+      }
+    } else {
+      setBiometricScreenLock(false)
+    }
+  }
+
+  @RequiresApi(30)
+  private fun getIntentForBiometricEnrollment(): Intent =
+    Intent(Settings.ACTION_BIOMETRIC_ENROLL).apply {
+      putExtra(Settings.EXTRA_BIOMETRIC_AUTHENTICATORS_ALLOWED, BiometricDialogFragment.BIOMETRIC_AUTHENTICATORS_ALLOWED)
+    }
+
+  private fun onBiometricEnrollFinished() {
+    BiometricDialogFragment.authenticate(
+      requireActivity(),
+      object : BiometricDialogFragment.Listener {
+        override fun onSuccess(): Boolean {
+          setBiometricScreenLock(true)
+          return true
+        }
+
+        override fun onFailure(canceledFromUser: Boolean): Boolean {
+          return canceledFromUser
+        }
+
+        override fun onError(errString: CharSequence): Boolean {
+          Toast.makeText(context, errString, Toast.LENGTH_LONG).show()
+          return true
+        }
+      }
+    )
+  }
+
+  private fun setBiometricScreenLock(enabled: Boolean) {
+    viewModel.setBiometricScreenLock(enabled)
+    (activity as BaseActivity).initializeScreenshotSecurity()
   }
 
   private fun getDeviceLockTimeoutSummary(timeoutSeconds: Long): String {

@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat
 import me.leolin.shortcutbadger.ShortcutBadger
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.R
+import org.thoughtcrime.securesms.ScreenLockController
 import org.thoughtcrime.securesms.database.MessageDatabase
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
@@ -48,7 +49,8 @@ class MessageNotifierV2(context: Application) : MessageNotifier {
   @Volatile private var lastDesktopActivityTimestamp: Long = -1
   @Volatile private var lastAudibleNotification: Long = -1
   @Volatile private var lastScheduledReminder: Long = 0
-  @Volatile private var previousLockedStatus: Boolean = KeyCachingService.isLocked(context)
+  @Volatile private var previousLockedStatus: Boolean = KeyCachingService.isLocked()
+  @Volatile private var previousScreenLockState: Boolean = ScreenLockController.lockScreenAtStart
   @Volatile private var previousPrivacyPreference: NotificationPrivacyPreference = SignalStore.settings().messageNotificationsPrivacy
   @Volatile private var previousState: NotificationStateV2 = NotificationStateV2.EMPTY
 
@@ -118,10 +120,14 @@ class MessageNotifierV2(context: Application) : MessageNotifier {
     reminderCount: Int,
     defaultBubbleState: BubbleState
   ) {
-    val currentLockStatus: Boolean = KeyCachingService.isLocked(context)
+    val currentLockStatus: Boolean = KeyCachingService.isLocked()
+    val currentScreenLockState: Boolean = ScreenLockController.lockScreenAtStart
     val currentPrivacyPreference: NotificationPrivacyPreference = SignalStore.settings().messageNotificationsPrivacy
-    val notificationConfigurationChanged: Boolean = currentLockStatus != previousLockedStatus || currentPrivacyPreference != previousPrivacyPreference
+    val notificationConfigurationChanged: Boolean = currentLockStatus != previousLockedStatus ||
+      currentPrivacyPreference != previousPrivacyPreference ||
+      currentScreenLockState != previousScreenLockState
     previousLockedStatus = currentLockStatus
+    previousScreenLockState = currentScreenLockState
     previousPrivacyPreference = currentPrivacyPreference
 
     if (notificationConfigurationChanged) {

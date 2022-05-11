@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.IdRes;
@@ -63,7 +62,7 @@ public abstract class PassphraseRequiredActivity extends PassphraseActivity impl
     AppStartup.getInstance().onCriticalRenderEventStart();
     onPreCreate();
 
-    final boolean locked = KeyCachingService.isLocked(this);
+    final boolean locked = KeyCachingService.isLocked();
     routeApplicationState(locked);
 
     if (!locked) {
@@ -103,11 +102,7 @@ public abstract class PassphraseRequiredActivity extends PassphraseActivity impl
   @Override
   public void onMasterSecretCleared() {
     Log.d(TAG, "[" + Log.tag(getClass()) + "] onMasterSecretCleared()");
-    if (Build.VERSION.SDK_INT < 21) {
-      finishAffinity();
-    } else {
-      finishAndRemoveTask();
-    }
+    finishAndRemoveTask();
   }
 
   protected <T extends Fragment> T initFragment(@IdRes int target,

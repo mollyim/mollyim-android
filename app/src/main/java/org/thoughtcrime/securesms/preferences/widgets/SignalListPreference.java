@@ -2,7 +2,6 @@ package org.thoughtcrime.securesms.preferences.widgets;
 
 
 import android.content.Context;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
@@ -18,13 +17,13 @@ public class SignalListPreference extends ListPreference {
   private CharSequence              summary;
   private OnPreferenceClickListener clickListener;
 
-  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+  @RequiresApi(api = 21)
   public SignalListPreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
     super(context, attrs, defStyleAttr, defStyleRes);
     initialize();
   }
 
-  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+  @RequiresApi(api = 21)
   public SignalListPreference(Context context, AttributeSet attrs, int defStyleAttr) {
     super(context, attrs, defStyleAttr);
     initialize();

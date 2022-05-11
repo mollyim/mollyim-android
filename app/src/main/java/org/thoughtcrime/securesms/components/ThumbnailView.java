@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.net.Uri;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -461,10 +460,8 @@ public class ThumbnailView extends FrameLayout {
                                           .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                                           .transition(withCrossFade()), fit);
 
-    boolean doNotShowMissingThumbnailImage = Build.VERSION.SDK_INT < 23;
-
-    if (slide.isInProgress() || doNotShowMissingThumbnailImage) return request;
-    else                                                        return request.apply(RequestOptions.errorOf(R.drawable.ic_missing_thumbnail_picture));
+    if (slide.isInProgress()) return request;
+    else                      return request.apply(RequestOptions.errorOf(R.drawable.ic_missing_thumbnail_picture));
   }
 
   private RequestBuilder buildPlaceholderGlideRequest(@NonNull GlideRequests glideRequests, @NonNull Slide slide) {

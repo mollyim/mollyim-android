@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.os.Build;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
@@ -116,7 +115,7 @@ public class QuoteView extends FrameLayout implements RecipientForeverObserver {
     initialize(attrs);
   }
 
-  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+  @RequiresApi(api = 21)
   public QuoteView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
     super(context, attrs, defStyleAttr, defStyleRes);
     initialize(attrs);
@@ -221,11 +220,7 @@ public class QuoteView extends FrameLayout implements RecipientForeverObserver {
     setQuoteAttachment(glideRequests, body, attachments, originalMissing);
     setQuoteMissingFooter(originalMissing);
 
-    if (Build.VERSION.SDK_INT < 21 && messageType == MessageType.INCOMING && chatColors != null) {
-      this.setBackgroundColor(chatColors.asSingleColor());
-    } else {
-      this.setBackground(null);
-    }
+    this.setBackground(null);
   }
 
   public void setTopCornerSizes(boolean topLeftLarge, boolean topRightLarge) {

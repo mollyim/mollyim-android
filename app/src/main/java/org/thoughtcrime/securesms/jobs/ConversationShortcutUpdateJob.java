@@ -58,8 +58,8 @@ public class ConversationShortcutUpdateJob extends BaseJob {
 
   @Override
   protected void onRun() throws Exception {
-    if (TextSecurePreferences.isScreenLockEnabled(context)) {
-      Log.i(TAG, "Screen lock enabled. Clearing shortcuts.");
+    if (TextSecurePreferences.isPassphraseLockEnabled(context)) {
+      Log.i(TAG, "Passphrase lock enabled. Clearing shortcuts.");
       ConversationUtil.clearAllShortcuts(context);
       return;
     }

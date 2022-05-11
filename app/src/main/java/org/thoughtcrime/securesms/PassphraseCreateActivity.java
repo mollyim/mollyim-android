@@ -52,6 +52,11 @@ public class PassphraseCreateActivity extends PassphraseActivity {
     initializeResources();
   }
 
+  @Override
+  public boolean useScreenLock() {
+    return false;
+  }
+
   private void initializeResources() {
     yesButton = findViewById(R.id.yes_button);
     noButton  = findViewById(R.id.no_button);
@@ -80,5 +85,6 @@ public class PassphraseCreateActivity extends PassphraseActivity {
   private void generateSecrets(MasterSecret masterSecret) {
     MasterSecretUtil.generateAsymmetricMasterSecret(this, masterSecret);
     setMasterSecret(masterSecret);
+    launchRoutedActivity();
   }
 }

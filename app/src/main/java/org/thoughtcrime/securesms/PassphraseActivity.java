@@ -37,7 +37,9 @@ public abstract class PassphraseActivity extends BaseActivity {
     startService(new Intent(this, KeyCachingService.class));
 
     ApplicationContext.getInstance().onUnlock();
+  }
 
+  void launchRoutedActivity() {
     Intent nextIntent = getIntent().getParcelableExtra("next_intent");
     if (nextIntent != null) {
       try {

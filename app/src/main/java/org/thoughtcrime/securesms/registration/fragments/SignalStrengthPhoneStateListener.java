@@ -1,7 +1,6 @@
 package org.thoughtcrime.securesms.registration.fragments;
 
 import android.content.Context;
-import android.os.Build;
 import android.telephony.PhoneStateListener;
 import android.telephony.SignalStrength;
 import android.telephony.TelephonyManager;
@@ -43,12 +42,7 @@ final class SignalStrengthPhoneStateListener extends PhoneStateListener
   }
 
   private boolean isLowLevel(@NonNull SignalStrength signalStrength) {
-    if (Build.VERSION.SDK_INT >= 23) {
-      return signalStrength.getLevel() == 0;
-    } else {
-      //noinspection deprecation: False lint warning, deprecated by 29, but this else block is for < 23
-      return signalStrength.getGsmSignalStrength() == 0;
-    }
+    return signalStrength.getLevel() == 0;
   }
 
   interface Callback {

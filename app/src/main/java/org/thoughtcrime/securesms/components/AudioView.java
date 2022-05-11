@@ -202,23 +202,16 @@ public final class AudioView extends FrameLayout {
     if (seekBar instanceof WaveFormSeekBarView) {
       WaveFormSeekBarView waveFormView = (WaveFormSeekBarView) seekBar;
       waveFormView.setColors(waveFormPlayedBarsColor, waveFormUnplayedBarsColor, waveFormThumbTint);
-      if (android.os.Build.VERSION.SDK_INT >= 23) {
-        new AudioWaveForm(getContext(), audio).getWaveForm(
-          data -> {
-            durationMillis = data.getDuration(TimeUnit.MILLISECONDS);
-            updateProgress(0, 0);
-            if (!forceHideDuration && duration != null) {
-              duration.setVisibility(VISIBLE);
-            }
-            waveFormView.setWaveData(data.getWaveForm());
-          },
-          () -> waveFormView.setWaveMode(false));
-      } else {
-        waveFormView.setWaveMode(false);
-        if (duration != null) {
-          duration.setVisibility(GONE);
-        }
-      }
+      new AudioWaveForm(getContext(), audio).getWaveForm(
+        data -> {
+          durationMillis = data.getDuration(TimeUnit.MILLISECONDS);
+          updateProgress(0, 0);
+          if (!forceHideDuration && duration != null) {
+            duration.setVisibility(VISIBLE);
+          }
+          waveFormView.setWaveData(data.getWaveForm());
+        },
+        () -> waveFormView.setWaveMode(false));
     }
 
     if (forceHideDuration && duration != null) {

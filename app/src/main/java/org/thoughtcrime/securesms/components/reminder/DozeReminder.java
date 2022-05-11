@@ -5,7 +5,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.PowerManager;
 import android.provider.Settings;
 
@@ -20,7 +19,7 @@ import org.thoughtcrime.securesms.util.TextSecurePreferences;
 @SuppressLint("BatteryLife")
 public class DozeReminder extends Reminder {
 
-  @RequiresApi(api = Build.VERSION_CODES.M)
+  @RequiresApi(api = 23)
   public DozeReminder(@NonNull final Context context) {
     super(getDozeTitle(context),
           getDozeText(context));
@@ -38,7 +37,6 @@ public class DozeReminder extends Reminder {
   public static boolean isEligible(Context context) {
     return !SignalStore.account().isFcmEnabled()                   &&
            !TextSecurePreferences.hasPromptedOptimizeDoze(context) &&
-           Build.VERSION.SDK_INT >= 23                             &&
            !((PowerManager)context.getSystemService(Context.POWER_SERVICE)).isIgnoringBatteryOptimizations(context.getPackageName());
   }
 

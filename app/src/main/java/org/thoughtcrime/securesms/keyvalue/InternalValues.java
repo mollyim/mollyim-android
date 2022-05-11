@@ -26,7 +26,6 @@ public final class InternalValues extends SignalStoreValues {
   public static final String CALLING_SERVER                       = "internal.calling_server";
   public static final String CALLING_AUDIO_PROCESSING_METHOD      = "internal.calling_audio_processing_method";
   public static final String CALLING_BANDWIDTH_MODE               = "internal.calling_bandwidth_mode";
-  public static final String SHAKE_TO_REPORT                      = "internal.shake_to_report";
   public static final String DISABLE_STORAGE_SERVICE              = "internal.disable_storage_service";
 
   InternalValues(KeyValueStore store) {
@@ -126,13 +125,6 @@ public final class InternalValues extends SignalStoreValues {
    */
   public synchronized boolean disableGv1AutoMigrateNotification() {
     return FeatureFlags.internalUser() && getBoolean(GV2_DISABLE_AUTOMIGRATE_NOTIFICATION, false);
-  }
-
-  /**
-   * Whether or not "shake to report" is enabled.
-   */
-  public synchronized boolean shakeToReport() {
-    return FeatureFlags.internalUser() && getBoolean(SHAKE_TO_REPORT, false);
   }
 
   /**

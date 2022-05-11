@@ -36,7 +36,6 @@ import org.thoughtcrime.securesms.service.ExpiringStoriesManager;
 import org.thoughtcrime.securesms.service.PendingRetryReceiptManager;
 import org.thoughtcrime.securesms.service.TrimThreadsByDateManager;
 import org.thoughtcrime.securesms.service.webrtc.SignalCallManager;
-import org.thoughtcrime.securesms.shakereport.ShakeToReport;
 import org.thoughtcrime.securesms.util.AppForegroundObserver;
 import org.thoughtcrime.securesms.util.EarlyMessageCache;
 import org.thoughtcrime.securesms.util.FrameRateTracker;
@@ -99,7 +98,6 @@ public class ApplicationDependencies {
   private static volatile ExpiringMessageManager       expiringMessageManager;
   private static volatile Payments                     payments;
   private static volatile SignalCallManager            signalCallManager;
-  private static volatile ShakeToReport                shakeToReport;
   private static volatile OkHttpClient                 okHttpClient;
   private static volatile PendingRetryReceiptManager   pendingRetryReceiptManager;
   private static volatile PendingRetryReceiptCache     pendingRetryReceiptCache;
@@ -496,18 +494,6 @@ public class ApplicationDependencies {
     return payments;
   }
 
-  public static @NonNull ShakeToReport getShakeToReport() {
-    if (shakeToReport == null) {
-      synchronized (LOCK) {
-        if (shakeToReport == null) {
-          shakeToReport = getProvider().provideShakeToReport();
-        }
-      }
-    }
-
-    return shakeToReport;
-  }
-
   public static @NonNull SignalCallManager getSignalCallManager() {
     if (signalCallManager == null) {
       synchronized (LOCK) {
@@ -665,7 +651,6 @@ public class ApplicationDependencies {
     @NonNull TypingStatusSender provideTypingStatusSender();
     @NonNull DatabaseObserver provideDatabaseObserver();
     @NonNull Payments providePayments(@NonNull SignalServiceAccountManager signalServiceAccountManager);
-    @NonNull ShakeToReport provideShakeToReport();
     @NonNull AppForegroundObserver provideAppForegroundObserver();
     @NonNull SignalCallManager provideSignalCallManager();
     @NonNull PendingRetryReceiptManager providePendingRetryReceiptManager();

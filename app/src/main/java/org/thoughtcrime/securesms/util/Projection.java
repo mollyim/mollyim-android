@@ -3,7 +3,6 @@ package org.thoughtcrime.securesms.util;
 import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -86,11 +85,7 @@ public final class Projection {
     if (corners == null) {
       path.addRect(rect, Path.Direction.CW);
     } else {
-      if (Build.VERSION.SDK_INT >= 21) {
-        path.addRoundRect(rect, corners.toRadii(), Path.Direction.CW);
-      } else {
-        path.op(path, Path.Op.UNION);
-      }
+      path.addRoundRect(rect, corners.toRadii(), Path.Direction.CW);
     }
   }
 

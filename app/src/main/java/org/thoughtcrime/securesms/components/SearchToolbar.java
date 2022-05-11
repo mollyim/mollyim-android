@@ -4,7 +4,6 @@ package org.thoughtcrime.securesms.components;
 import android.animation.Animator;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.view.MenuItem;
 import android.view.View;
@@ -102,15 +101,11 @@ public class SearchToolbar extends LinearLayout {
 
       searchItem.expandActionView();
 
-      if (Build.VERSION.SDK_INT >= 21) {
-        Animator animator = ViewAnimationUtils.createCircularReveal(this, (int)x, (int)y, 0, getWidth());
-        animator.setDuration(400);
+      Animator animator = ViewAnimationUtils.createCircularReveal(this, (int)x, (int)y, 0, getWidth());
+      animator.setDuration(400);
 
-        setVisibility(View.VISIBLE);
-        animator.start();
-      } else {
-        setVisibility(View.VISIBLE);
-      }
+      setVisibility(View.VISIBLE);
+      animator.start();
     }
   }
 
@@ -125,19 +120,15 @@ public class SearchToolbar extends LinearLayout {
 
       if (listener != null) listener.onSearchClosed();
 
-      if (Build.VERSION.SDK_INT >= 21) {
-        Animator animator = ViewAnimationUtils.createCircularReveal(this, (int)x, (int)y, getWidth(), 0);
-        animator.setDuration(400);
-        animator.addListener(new AnimationCompleteListener() {
-          @Override
-          public void onAnimationEnd(Animator animation) {
-            setVisibility(View.INVISIBLE);
-          }
-        });
-        animator.start();
-      } else {
-        setVisibility(View.INVISIBLE);
-      }
+      Animator animator = ViewAnimationUtils.createCircularReveal(this, (int)x, (int)y, getWidth(), 0);
+      animator.setDuration(400);
+      animator.addListener(new AnimationCompleteListener() {
+        @Override
+        public void onAnimationEnd(Animator animation) {
+          setVisibility(View.INVISIBLE);
+        }
+      });
+      animator.start();
     }
   }
 

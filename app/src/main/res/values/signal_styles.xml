@@ -123,6 +123,7 @@
     <style name="Signal.DayNight.TitleTextStyle" parent="@style/TextSecure.TitleTextStyle" />
 
     <style name="Signal.DayNight.Dialog.FullScreen" parent="Signal.DayNight">
+        <!-- MOLLY: Style also used by BiometricDialogFragment -->
         <item name="android:windowAnimationStyle">@style/TextSecure.Animation.FullScreenDialog</item>
     </style>
 

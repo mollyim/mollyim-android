@@ -85,21 +85,16 @@ public abstract class AudioManagerCompat {
 
   @SuppressLint("WrongConstant")
   public boolean isWiredHeadsetOn() {
-    if (Build.VERSION.SDK_INT < 23) {
-      //noinspection deprecation
-      return audioManager.isWiredHeadsetOn();
-    } else {
-      AudioDeviceInfo[] devices = audioManager.getDevices(AudioManager.GET_DEVICES_ALL);
-      for (AudioDeviceInfo device : devices) {
-        final int type = device.getType();
-        if (type == AudioDeviceInfo.TYPE_WIRED_HEADSET) {
-          return true;
-        } else if (type == AudioDeviceInfo.TYPE_USB_DEVICE) {
-          return true;
-        }
+    AudioDeviceInfo[] devices = audioManager.getDevices(AudioManager.GET_DEVICES_ALL);
+    for (AudioDeviceInfo device : devices) {
+      final int type = device.getType();
+      if (type == AudioDeviceInfo.TYPE_WIRED_HEADSET) {
+        return true;
+      } else if (type == AudioDeviceInfo.TYPE_USB_DEVICE) {
+        return true;
       }
-      return false;
     }
+    return false;
   }
 
   public float ringVolumeWithMinimum() {
@@ -124,10 +119,8 @@ public abstract class AudioManagerCompat {
   public static AudioManagerCompat create(@NonNull Context context) {
     if (Build.VERSION.SDK_INT >= 26) {
       return new Api26AudioManagerCompat(context);
-    } else if (Build.VERSION.SDK_INT >= 21) {
-      return new Api21AudioManagerCompat(context);
     } else {
-      return new Api19AudioManagerCompat(context);
+      return new Api21AudioManagerCompat(context);
     }
   }
 

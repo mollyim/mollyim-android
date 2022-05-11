@@ -1,9 +1,11 @@
 package org.thoughtcrime.securesms.components.settings.app.privacy
 
+import android.app.Application
 import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import org.thoughtcrime.securesms.ScreenLockController
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
 import org.thoughtcrime.securesms.jobs.RefreshAttributesJob
 import org.thoughtcrime.securesms.jobs.RefreshOwnProfileJob
@@ -17,6 +19,8 @@ class PrivacySettingsViewModel(
   private val sharedPreferences: SharedPreferences,
   private val repository: PrivacySettingsRepository
 ) : ViewModel() {
+
+  private val application: Application = ApplicationDependencies.getApplication()
 
   private val store = Store(getState())
 
@@ -35,7 +39,7 @@ class PrivacySettingsViewModel(
   }
 
   fun setBlockUnknownEnabled(enabled: Boolean) {
-    TextSecurePreferences.setBlockUnknownEnabled(ApplicationDependencies.getApplication(), enabled)
+    TextSecurePreferences.setBlockUnknownEnabled(application, enabled)
     refresh()
   }
 
@@ -52,7 +56,7 @@ class PrivacySettingsViewModel(
   }
 
   fun setPassphraseLockEnabled(enabled: Boolean) {
-    TextSecurePreferences.setPassphraseLockEnabled(ApplicationDependencies.getApplication(), enabled)
+    TextSecurePreferences.setPassphraseLockEnabled(application, enabled)
     refresh()
   }
 
@@ -63,6 +67,13 @@ class PrivacySettingsViewModel(
 
   fun setPassphraseLockTimeout(seconds: Long) {
     sharedPreferences.edit().putLong(TextSecurePreferences.PASSPHRASE_LOCK_TIMEOUT, seconds).apply()
+    refresh()
+  }
+
+  fun setBiometricScreenLock(enabled: Boolean) {
+    TextSecurePreferences.setBiometricScreenLockEnabled(application, enabled)
+    ScreenLockController.enableAutoLock(enabled)
+    ScreenLockController.lockScreenAtStart = false
     refresh()
   }
 
@@ -101,14 +112,15 @@ class PrivacySettingsViewModel(
   private fun getState(): PrivacySettingsState {
     return PrivacySettingsState(
       blockedCount = 0,
-      blockUnknown = TextSecurePreferences.isBlockUnknownEnabled(ApplicationDependencies.getApplication()),
-      readReceipts = TextSecurePreferences.isReadReceiptsEnabled(ApplicationDependencies.getApplication()),
-      typingIndicators = TextSecurePreferences.isTypingIndicatorsEnabled(ApplicationDependencies.getApplication()),
-      passphraseLock = TextSecurePreferences.isPassphraseLockEnabled(ApplicationDependencies.getApplication()),
-      passphraseLockTriggerValues = TextSecurePreferences.getPassphraseLockTrigger(ApplicationDependencies.getApplication()).triggers,
-      passphraseLockTimeout = TextSecurePreferences.getPassphraseLockTimeout(ApplicationDependencies.getApplication()),
-      screenSecurity = TextSecurePreferences.isScreenSecurityEnabled(ApplicationDependencies.getApplication()),
-      incognitoKeyboard = TextSecurePreferences.isIncognitoKeyboardEnabled(ApplicationDependencies.getApplication()),
+      blockUnknown = TextSecurePreferences.isBlockUnknownEnabled(application),
+      readReceipts = TextSecurePreferences.isReadReceiptsEnabled(application),
+      typingIndicators = TextSecurePreferences.isTypingIndicatorsEnabled(application),
+      passphraseLock = TextSecurePreferences.isPassphraseLockEnabled(application),
+      passphraseLockTriggerValues = TextSecurePreferences.getPassphraseLockTrigger(application).triggers,
+      passphraseLockTimeout = TextSecurePreferences.getPassphraseLockTimeout(application),
+      biometricScreenLock = TextSecurePreferences.isBiometricScreenLockEnabled(application),
+      screenSecurity = TextSecurePreferences.isScreenSecurityEnabled(application),
+      incognitoKeyboard = TextSecurePreferences.isIncognitoKeyboardEnabled(application),
       seeMyPhoneNumber = SignalStore.phoneNumberPrivacy().phoneNumberSharingMode,
       findMeByPhoneNumber = SignalStore.phoneNumberPrivacy().phoneNumberListingMode,
       universalExpireTimer = SignalStore.settings().universalExpireTimer,

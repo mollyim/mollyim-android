@@ -168,6 +168,10 @@ android {
         exclude 'META-INF/NOTICE'
         exclude 'META-INF/proguard/androidx-annotations.pro'
         exclude '**/*.proto'
+        jniLibs {
+            // MOLLY: Compress native libs by default as APK is not split on ABIs
+            useLegacyPackaging true
+        }
     }
 
     if (mollyRevision < 0 || mollyRevision >= postFixSize) {
@@ -406,8 +410,9 @@ dependencies {
     implementation libs.androidx.camera.view
     implementation libs.androidx.concurrent.futures
     implementation libs.androidx.autofill
-    implementation libs.androidx.webkit
+    implementation libs.androidx.biometric
     implementation libs.androidx.sharetarget
+    implementation libs.androidx.webkit
 
     nonFreeImplementation (libs.firebase.messaging) {
         exclude group: 'com.google.firebase', module: 'firebase-core'

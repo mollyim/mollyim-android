@@ -87,10 +87,8 @@ public class MasterSecretUtil {
 
       kdf.findParameters(Util.getAvailMemory(context) / 2);
 
-      if (Build.VERSION.SDK_INT >= 23) {
-        keyStoreAlias = UUID.randomUUID().toString();
-        kdf.setHmacKey(KeyStoreHelper.createKeyStoreEntryHmac(keyStoreAlias, hasStrongBox(context)));
-      }
+      keyStoreAlias = UUID.randomUUID().toString();
+      kdf.setHmacKey(KeyStoreHelper.createKeyStoreEntryHmac(keyStoreAlias, hasStrongBox(context)));
 
       byte[] passphraseSalt = generateSalt();
 
@@ -119,7 +117,7 @@ public class MasterSecretUtil {
       throw new AssertionError("failed to save preferences in MasterSecretUtil");
     }
 
-    if (Build.VERSION.SDK_INT >= 23 && savedKeyStoreAlias != null) {
+    if (savedKeyStoreAlias != null) {
       KeyStoreHelper.deleteKeyStoreEntry(savedKeyStoreAlias);
     }
   }
@@ -155,9 +153,6 @@ public class MasterSecretUtil {
       kdf.setParameters(serializedParams);
 
       if (hasKeyStoreSecret) {
-        if (Build.VERSION.SDK_INT < 23) {
-          throw new UnrecoverableKeyException("OS downgrade not supported. KeyStore secret exists on platform < M!");
-        }
         try {
           kdf.setHmacKey(KeyStoreHelper.getKeyStoreEntryHmac(keyStoreAlias));
         } catch (UnrecoverableEntryException e) {
@@ -180,7 +175,8 @@ public class MasterSecretUtil {
       Arrays.fill(encryptionSecret, (byte) 0);
       Arrays.fill(macSecret, (byte) 0);
 
-      if (!hasKeyStoreSecret && Build.VERSION.SDK_INT >= 23 && !isUnencryptedPassphrase(passphrase)) {
+      if (!hasKeyStoreSecret && !isUnencryptedPassphrase(passphrase)) {
+        // OS upgraded to API 23 or above
         Log.i(TAG, "KeyStore is available. Forcing master secret re-encryption to use it.");
         changeMasterSecretPassphrase(context, masterSecret, passphrase);
       }

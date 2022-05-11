@@ -296,6 +296,23 @@ public final class StringUtil {
     return (startIndex > 0 || length < text.length()) ? text.subSequence(startIndex, length) : text;
   }
 
+  public static CharSequence trimEndPeriodInSingleSentence(@Nullable CharSequence text) {
+    if (text == null || text.length() < 2) {
+      return text;
+    }
+    int len = text.length();
+    for (int i = 0; i < len; i++) {
+      if (text.charAt(i) == '.') {
+        if (i + 1 < len) {
+          // Multiple sentences
+          break;
+        }
+        return text.subSequence(0, i);
+      }
+    }
+    return text;
+  }
+
   /**
    * If the {@param text} exceeds the {@param maxChars} it is trimmed in the middle so that the result is exactly {@param maxChars} long including an added
    * ellipsis character.

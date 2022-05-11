@@ -73,7 +73,6 @@ import org.thoughtcrime.securesms.sms.MessageSender;
 import org.thoughtcrime.securesms.util.EllapsedTimeFormatter;
 import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.FullscreenHelper;
-import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.ThrottledDebouncer;
 import org.thoughtcrime.securesms.util.Util;
 import org.thoughtcrime.securesms.util.VibrateUtil;
@@ -176,10 +175,19 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
   public void onResume() {
     Log.i(TAG, "onResume()");
     super.onResume();
-    initializeScreenshotSecurity();
 
     if (!EventBus.getDefault().isRegistered(this)) {
       EventBus.getDefault().register(this);
+    }
+  }
+
+  @Override
+  protected void onPostResume(boolean screenLocked) {
+    super.onPostResume(screenLocked);
+    if (!screenLocked) {
+      if (ANSWER_ACTION.equals(getIntent().getAction())) {
+        handleAnswerWithAudio();
+      }
     }
   }
 
@@ -277,19 +285,12 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
 
   private void processIntent(@NonNull Intent intent) {
     if (ANSWER_ACTION.equals(intent.getAction())) {
-      handleAnswerWithAudio();
+      // MOLLY: Hold this action until activity's screen is unlocked
+      setIntent(intent);
     } else if (DENY_ACTION.equals(intent.getAction())) {
       handleDenyCall();
     } else if (END_CALL_ACTION.equals(intent.getAction())) {
       handleEndCall();
-    }
-  }
-
-  private void initializeScreenshotSecurity() {
-    if (TextSecurePreferences.isScreenSecurityEnabled(this)) {
-      getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
-    } else {
-      getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
     }
   }
 

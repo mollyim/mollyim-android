@@ -30,7 +30,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -1164,22 +1163,18 @@ public class ConversationListFragment extends MainFragment implements ActionMode
   public void onDestroyActionMode(ActionMode mode) {
     viewModel.endSelection();
 
-    if (Build.VERSION.SDK_INT >= 21) {
-      TypedArray color = getActivity().getTheme().obtainStyledAttributes(new int[] {android.R.attr.statusBarColor});
-      WindowUtil.setStatusBarColor(getActivity().getWindow(), color.getColor(0, Color.BLACK));
-      color.recycle();
-    }
+    TypedArray color = getActivity().getTheme().obtainStyledAttributes(new int[] {android.R.attr.statusBarColor});
+    WindowUtil.setStatusBarColor(getActivity().getWindow(), color.getColor(0, Color.BLACK));
+    color.recycle();
 
-    if (Build.VERSION.SDK_INT >= 23) {
-      TypedArray lightStatusBarAttr = getActivity().getTheme().obtainStyledAttributes(new int[] {android.R.attr.windowLightStatusBar});
-      int        current            = getActivity().getWindow().getDecorView().getSystemUiVisibility();
-      int        statusBarMode      = lightStatusBarAttr.getBoolean(0, false) ? current | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-                                                                              : current & ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+    TypedArray lightStatusBarAttr = getActivity().getTheme().obtainStyledAttributes(new int[] {android.R.attr.windowLightStatusBar});
+    int        current            = getActivity().getWindow().getDecorView().getSystemUiVisibility();
+    int        statusBarMode      = lightStatusBarAttr.getBoolean(0, false) ? current | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                                                                            : current & ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
 
-      getActivity().getWindow().getDecorView().setSystemUiVisibility(statusBarMode);
+    getActivity().getWindow().getDecorView().setSystemUiVisibility(statusBarMode);
 
-      lightStatusBarAttr.recycle();
-    }
+    lightStatusBarAttr.recycle();
 
     endActionModeIfActive();
   }
