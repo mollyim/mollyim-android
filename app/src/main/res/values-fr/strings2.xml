@@ -9,10 +9,10 @@
     <string name="ChangePassphraseDialogFragment_weak_passphrase">Phrase secrète faible !</string>
     <string name="PassphraseCreateActivity_turn_on_database_encryption">Activer le chiffrement de la base de données</string>
     <string name="PassphraseCreateActivity_require_passphrase_to_unlock_molly">Exiger une phrase secrète pour déverrouiller Molly \?</string>
-    <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">Vous pouvez maintenant définir une phrase secrète pour chiffrer la base de données. Tant qu’elle n’est pas déverrouillée, Molly ne peut pas recevoir de notifications ni d’appels. Ceci permet de protéger les données sur les appareils perdus ou volés.</string>
+    <string name="PassphraseCreateActivity_now_you_can_set_a_passphrase_to_encrypt_the_database">Vous pouvez maintenant définir une phrase secrète pour chiffrer la base de données. Tant qu\'elle n\'est pas déverrouillée, Molly ne peut pas recevoir de notifications ni d\'appels. Ceci permet de protéger les données sur les appareils perdus ou volés.</string>
     <string name="WipeMemoryService_secure_wipe_in_progress">Effacement de sécurité en cours</string>
     <string name="preferences__passphrase_changed">Phrase secrète changée</string>
-    <string name="preferences__device_lock_timeout">Délai de verrouillage de l’appareil</string>
+    <string name="preferences__device_lock_timeout">Délai de verrouillage de l\'appareil</string>
     <string name="preferences__automatic_lockdown">Verrouillage automatique</string>
     <string name="preferences__protect_molly_database_with_a_passphrase">Protéger la base de données de Molly avec une phrase secrète</string>
     <string name="preferences__passphrase_lock">Chiffrement de la base de données</string>
@@ -73,4 +73,9 @@
     <string name="DozeReminder_tap_to_allow_molly_to_retrieve_messages_while_the_device_is_in_standby">Appuyez pour permettre à Molly de récupérer des messages quand l\'appareil est en veille.</string>
     <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">Les versions bêta sont destinées à des fins de test et peuvent contenir des bogues</string>
     <string name="preferences__include_beta_updates">Inclure les mises à jour bêta</string>
+    <string name="BiometricDialogFragment__biometric_verification">Vérification biométrique</string>
+    <string name="BiometricDialogFragment__please_confirm_it_is_really_you_to_access_molly">Veuillez confirmer qu\'il s\'agit bien de vous pour utiliser Molly</string>
+    <string name="PrivacySettingsFragment__lock_molly_access_with_fingerprint_or_face_recognition">Verrouillage de l\'accès à Molly par empreinte digitale ou reconnaissance faciale</string>
+    <string name="PrivacySettingsFragment__please_first_setup_your_biometrics_in_android_settings">Veuillez d\'abord configurer vos données biométriques dans les paramètres Android</string>
+    <string name="PrivacySettingsFragment__no_biometric_features_available_on_this_device">Aucune fonction biométrique disponible sur cet appareil</string>
 </resources>
