@@ -1,5 +1,6 @@
 package org.thoughtcrime.securesms.biometric;
 
+import android.content.DialogInterface;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.os.Build;
@@ -21,11 +22,11 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
 import org.signal.core.util.StringUtil;
+import org.signal.core.util.ThreadUtil;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.R;
-import org.whispersystems.signalservice.api.util.Preconditions;
 
-public class BiometricDialogFragment extends DialogFragment implements View.OnAttachStateChangeListener {
+public class BiometricDialogFragment extends DialogFragment {
 
   private static final String TAG = Log.tag(BiometricDialogFragment.class);
 
@@ -38,38 +39,29 @@ public class BiometricDialogFragment extends DialogFragment implements View.OnAt
 
   private boolean fullScreen;
   private boolean showPrompt;
-  private boolean isWaitingResult;
 
   private BiometricPrompt            biometricPrompt;
   private BiometricPrompt.PromptInfo biometricPromptInfo;
-
-  private Listener listener;
+  private AuthenticationCallback     biometricCallback;
 
   public static void authenticate(@NonNull FragmentActivity activity, @NonNull Listener listener) {
-    findOrAddFragment(activity, false).authenticate(listener);
+    findOrAddFragment(activity.getSupportFragmentManager(), false).showPrompt(activity, listener);
   }
 
-  public static void authenticate(@NonNull FragmentActivity activity, boolean fullscreen, @NonNull Listener listener) {
-    findOrAddFragment(activity, fullscreen).authenticate(listener);
-  }
-
-  public static void cancelFullScreenAuthentication(@NonNull FragmentActivity activity) {
-    BiometricDialogFragment fragment = findFragment((activity.getSupportFragmentManager()));
-    if (fragment != null && fragment.fullScreen) {
+  public static void cancelAuthentication(@NonNull FragmentActivity activity) {
+    BiometricDialogFragment fragment = findFragment(activity.getSupportFragmentManager());
+    if (fragment != null) {
       fragment.dismissAllowingStateLoss();
     }
   }
 
-  private static BiometricDialogFragment findOrAddFragment(@NonNull FragmentActivity activity, boolean fullScreen) {
-    final FragmentManager fragmentManager = activity.getSupportFragmentManager();
-
+  public static BiometricDialogFragment findOrAddFragment(@NonNull FragmentManager fragmentManager, boolean fullScreen) {
     BiometricDialogFragment fragment = findFragment((fragmentManager));
     if (fragment == null) {
       fragment = newInstance(fullScreen);
       fragment.show(fragmentManager, TAG);
     } else {
       Log.i(TAG, "Biometric dialog already being shown");
-      Preconditions.checkArgument(fullScreen == fragment.fullScreen);
     }
 
     return fragment;
@@ -88,17 +80,20 @@ public class BiometricDialogFragment extends DialogFragment implements View.OnAt
     return instance;
   }
 
-  public static boolean isDialogAttachedTo(@Nullable View container) {
+  public static boolean isDialogViewAttachedTo(@Nullable View container) {
     if (!(container instanceof ViewGroup)) {
       return false;
     }
     View layout = ((ViewGroup) container).getChildAt(0);
     if (layout != null && layout.getId() == R.id.biometric_dialog_background) {
       return true;
-    } else if (isUsingFingerprintDialog() && (layout instanceof AlertDialogLayout)) {
+    } else if (isUsingFingerprintDialog()) {
       if (alertTitleId == 0) {
         alertTitleId   = container.getResources().getIdentifier("alertTitle", "id", container.getContext().getPackageName());
         alertTitleText = container.getResources().getText(R.string.BiometricDialogFragment__biometric_verification).toString();
+      }
+      if (!(layout instanceof AlertDialogLayout)) {
+        return false;
       }
       TextView alertTitle = layout.findViewById(alertTitleId);
       return alertTitle != null && alertTitleText.contentEquals(alertTitle.getText());
@@ -119,9 +114,8 @@ public class BiometricDialogFragment extends DialogFragment implements View.OnAt
       fullScreen = getArguments().getBoolean(KEY_FULL_SCREEN, false);
     }
 
-    int theme = fullScreen ? R.style.Signal_DayNight_Dialog_FullScreen : 0;
-    setStyle(STYLE_NO_INPUT, theme);
-    setCancelable(!fullScreen);
+    int theme = fullScreen ? R.style.Signal_DayNight_BiometricDialog_FullScreen : 0;
+    setStyle(STYLE_NO_FRAME, theme);
 
     biometricPromptInfo = new BiometricPrompt.PromptInfo.Builder()
         .setTitle(getString(R.string.BiometricDialogFragment__biometric_verification))
@@ -134,18 +128,15 @@ public class BiometricDialogFragment extends DialogFragment implements View.OnAt
 
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-    View view = inflater.inflate(R.layout.biometric_dialog_background, container, false);
-
-    final ImageView logo = view.findViewById(R.id.logo);
+    View backgroundView = inflater.inflate(R.layout.biometric_dialog_background, container, false);
 
     if (fullScreen) {
-      view.setVisibility(View.VISIBLE);
-      requireDialog().getWindow().setWindowAnimations(R.style.ScreenLockAnimation);
+      final ImageView logo = backgroundView.findViewById(R.id.logo);
 
       // Display the logo dimmed and in greyscale
       final ColorMatrix greyScaleMatrix = new ColorMatrix();
       greyScaleMatrix.setSaturation(0);
-      logo.setAlpha(0.8f);
+      logo.setAlpha(0.9f);
       logo.setColorFilter(new ColorMatrixColorFilter(greyScaleMatrix));
 
       if (isUsingFingerprintDialog()) {
@@ -155,131 +146,137 @@ public class BiometricDialogFragment extends DialogFragment implements View.OnAt
       }
     }
 
-    view.addOnAttachStateChangeListener(this);
+    backgroundView.setVisibility(fullScreen ? View.VISIBLE : View.GONE);
 
-    return view;
+    return backgroundView;
   }
 
   @Override
-  public void onDestroyView() {
-    if (getView() != null) {
-      getView().removeOnAttachStateChangeListener(this);
-    }
-    super.onDestroyView();
-  }
+  public void onResume() {
+    super.onResume();
 
-  @Override
-  public void onViewAttachedToWindow(View v) {
     if (showPrompt) {
-      showPrompt = false;
-      showBiometricPrompt();
+      scheduleAuthentication();
     }
-  }
-
-  @Override
-  public void onViewDetachedFromWindow(View v) {
   }
 
   @Override
   public void onPause() {
     super.onPause();
 
-    if (isWaitingResult) {
-      Log.i(TAG, "onPause(): aborting" + " (" + getActivityName() + ")");
+    if (biometricCallback != null) {
+      biometricCallback.onHostActivityPaused();
+    }
 
-      isWaitingResult = false;
+    biometricPrompt   = null;
+    biometricCallback = null;
+  }
+
+  @Override
+  public void onDismiss(@NonNull DialogInterface dialog) {
+    super.onDismiss(dialog);
+
+    showPrompt = false;
+
+    if (biometricPrompt != null) {
       biometricPrompt.cancelAuthentication();
-      biometricPrompt = null;
-
-      // Make sure the host activity is notified. The fingerprint dialog
-      // might not call back our listener.
-      listener.onFailure(false);
-      listener = null;
     }
   }
 
-  public void authenticate(@NonNull Listener listener) {
-    this.listener = listener;
+  public void showPrompt(@NonNull FragmentActivity activity, @NonNull Listener listener) {
+    Log.v(TAG, "showPrompt");
 
-    if (getView() == null || !getView().isAttachedToWindow()) {
+    biometricCallback = new AuthenticationCallback(listener);
+    biometricPrompt   = new BiometricPrompt(activity, biometricCallback);
+
+    if (!isAdded()) {
       showPrompt = true;
       return;
     }
 
     showPrompt = false;
-    showBiometricPrompt();
+    scheduleAuthentication();
   }
 
-  private void showBiometricPrompt() {
-    isWaitingResult = true;
-    biometricPrompt = new BiometricPrompt(this, new BiometricPromptListener(listener));
-    biometricPrompt.authenticate(biometricPromptInfo);
+  private void scheduleAuthentication() {
+    ThreadUtil.postToMain(() -> {
+      if (biometricPrompt != null) {
+        biometricPrompt.authenticate(biometricPromptInfo);
+      } else {
+        Log.e(TAG, "biometricPrompt was null");
+      }
+    });
   }
 
-  private class BiometricPromptListener extends BiometricPrompt.AuthenticationCallback {
+  private class AuthenticationCallback extends BiometricPrompt.AuthenticationCallback {
 
     private final Listener listener;
 
-    private BiometricPromptListener(Listener listener) {
+    private boolean isCanceled;
+
+    private AuthenticationCallback(Listener listener) {
       this.listener = listener;
     }
 
     @Override
     public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
-      Log.i(TAG, "BiometricPrompt succeeded" + " (" + getActivityName() + ")");
-      if (isWaitingResult) {
-        dispatchResult(true);
+      Log.i(TAG, "onAuthenticationSucceeded" + " (" + getActivityName() + ")");
+      if (!isCanceled) {
+        dispatchSuccess();
       }
     }
 
     @Override
     public void onAuthenticationFailed() {
-      Log.i(TAG, "BiometricPrompt failed" + " (" + getActivityName() + ")");
-      if (isWaitingResult) {
-        dispatchResult(false);
-      }
+      Log.i(TAG, "onAuthenticationFailed" + " (" + getActivityName() + ")");
     }
 
     @Override
     public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
-      Log.w(TAG, "BiometricPrompt error: " + errString + " (" + getActivityName() + ")");
-      if (isWaitingResult) {
+      Log.w(TAG, "onAuthenticationError: " + errString + " (" + getActivityName() + ")");
+      if (!isCanceled) {
         dispatchError(errorCode, errString);
       }
     }
 
-    private void dispatchResult(boolean succeeded) {
-      boolean dismissible = succeeded ?
-                            listener.onSuccess() :
-                            listener.onFailure(false);
+    public void onHostActivityPaused() {
+      Log.i(TAG, "onHostActivityPaused" + " (" + getActivityName() + ")");
+      if (!isCanceled) {
+        // Make sure the host activity is notified. The fingerprint dialog
+        // might not call our listener back.
+        isCanceled = listener.onCancel(false);
+        if (isCanceled) {
+          dismissAllowingStateLoss();
+        }
+      }
+    }
 
-      if (dismissible) {
-        isWaitingResult = false;
+    private void dispatchSuccess() {
+      isCanceled = listener.onSuccess();
+      if (isCanceled) {
         dismissAllowingStateLoss();
       }
     }
 
     private void dispatchError(int errorCode, @NonNull CharSequence errString) {
-      boolean dismissible;
-
       switch (errorCode) {
         case BiometricPrompt.ERROR_NEGATIVE_BUTTON:
         case BiometricPrompt.ERROR_USER_CANCELED:
-          dismissible = listener.onFailure(true);
+          isCanceled = listener.onCancel(true);
           break;
         case BiometricPrompt.ERROR_CANCELED:
-          dismissible = listener.onFailure(false);
+        case BiometricPrompt.ERROR_TIMEOUT:
+          isCanceled = listener.onCancel(false);
           break;
         case BiometricPrompt.ERROR_HW_NOT_PRESENT:
         case BiometricPrompt.ERROR_NO_BIOMETRICS:
-          dismissible = listener.onNotEnrolled(getErrorMessage(errString));
+          isCanceled = listener.onNotEnrolled(getErrorMessage(errString));
           break;
         default:
-          dismissible = listener.onError(getErrorMessage(errString));
+          isCanceled = listener.onError(getErrorMessage(errString));
       }
 
-      if (dismissible) {
-        isWaitingResult = false;
+      if (isCanceled) {
         dismissAllowingStateLoss();
       }
     }
@@ -301,7 +298,9 @@ public class BiometricDialogFragment extends DialogFragment implements View.OnAt
   public interface Listener {
     boolean onSuccess();
 
-    boolean onFailure(boolean canceledFromUser);
+    default boolean onCancel(boolean fromUser) {
+      return true;
+    }
 
     boolean onError(@NonNull CharSequence errString);
 

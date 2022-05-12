@@ -123,8 +123,18 @@
     <style name="Signal.DayNight.TitleTextStyle" parent="@style/TextSecure.TitleTextStyle" />
 
     <style name="Signal.DayNight.Dialog.FullScreen" parent="Signal.DayNight">
-        <!-- MOLLY: Style also used by BiometricDialogFragment -->
         <item name="android:windowAnimationStyle">@style/TextSecure.Animation.FullScreenDialog</item>
+    </style>
+
+    <style name="Signal.DayNight.BiometricDialog.FullScreen" parent="">
+        <item name="android:windowAnimationStyle">@style/BiometricDialogAnimation</item>
+        <item name="android:windowBackground">@color/signal_background_primary</item>
+        <item name="android:colorBackgroundCacheHint">@color/signal_background_primary</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowIsTranslucent">false</item>
     </style>
 
     <style name="Signal.Media.Dialog.AddMessageDialog" parent="TextSecure.MediaPreview">

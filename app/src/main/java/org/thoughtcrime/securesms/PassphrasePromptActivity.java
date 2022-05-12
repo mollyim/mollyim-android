@@ -170,11 +170,13 @@ public class PassphrasePromptActivity extends PassphraseActivity {
               }
 
               @Override
-              public boolean onFailure(boolean canceledFromUser) {
-                if (canceledFromUser) {
+              public boolean onCancel(boolean fromUser) {
+                if (fromUser) {
                   showFailureAndEnableInput(false);
+                } else {
+                  setInputEnabled(true);
                 }
-                return canceledFromUser;
+                return true;
               }
 
               @Override

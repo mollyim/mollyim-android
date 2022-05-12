@@ -383,10 +383,6 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
           return true
         }
 
-        override fun onFailure(canceledFromUser: Boolean): Boolean {
-          return canceledFromUser
-        }
-
         override fun onError(errString: CharSequence): Boolean {
           Toast.makeText(context, errString, Toast.LENGTH_LONG).show()
           return true

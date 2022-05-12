@@ -25,7 +25,7 @@
         <item name="android:windowExitAnimation">@anim/shrink_fade_out</item>
     </style>
 
-    <style name="ScreenLockAnimation" parent="@android:style/Animation">
+    <style name="BiometricDialogAnimation" parent="@android:style/Animation">
         <item name="android:windowEnterAnimation">@null</item>
         <item name="android:windowExitAnimation">@anim/fade_out</item>
     </style>

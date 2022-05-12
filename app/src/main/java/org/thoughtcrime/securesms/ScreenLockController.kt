@@ -20,13 +20,10 @@ private val TAG = Log.tag(ScreenLockController.javaClass)
 
 object ScreenLockController {
 
-  private const val SCREEN_LOCK_TIMEOUT_SHORT = 5_000
-  private const val SCREEN_LOCK_TIMEOUT_LONG = 60_000
+  private const val SCREEN_LOCK_TIMEOUT_SHORT_MS = 5_000
+  private const val SCREEN_LOCK_TIMEOUT_LONG_MS = 60_000
 
   private const val APP_BACKGROUNDED_EVENT_DELAY_MS = 700
-
-  private const val VIEW_ALWAYS_VISIBLE = 1
-  private const val VIEW_VISIBILITY_CHANGED = 2
 
   private var graceTimeElapsed: Long = 0
 
@@ -88,8 +85,8 @@ object ScreenLockController {
   private fun timeoutFor(context: Context): Int {
     val activities = activitiesRunningOnTopOfTasks(context)
     return when {
-      activities.any { context.packageName != it.packageName } -> SCREEN_LOCK_TIMEOUT_LONG
-      else -> SCREEN_LOCK_TIMEOUT_SHORT
+      activities.any { context.packageName != it.packageName } -> SCREEN_LOCK_TIMEOUT_LONG_MS
+      else -> SCREEN_LOCK_TIMEOUT_SHORT_MS
     }
   }
 
@@ -111,51 +108,48 @@ object ScreenLockController {
 
   private fun setAllViewsWithContentHidden(hidden: Boolean) {
     getGlobalWindowViews()
-      .filterNotNull()
-      .filter { !hidden || !it.alwaysVisible }
-      .filter { !BiometricDialogFragment.isDialogAttachedTo(it.findContent) }
+      .mapNotNull { it?.findContent }
+      .filter { !BiometricDialogFragment.isDialogViewAttachedTo(it) }
       .forEach {
-        it.findContent?.overrideVisibleFlag = hidden
+        synchronized(this) {
+          if (it.visibility == View.VISIBLE) {
+            if (hidden && !it.alwaysVisible) {
+              it.visibility = View.INVISIBLE
+              it.overrideVisibleFlag = true
+            } else {
+              it.overrideVisibleFlag = false
+            }
+          } else if (!hidden && it.overrideVisibleFlag) {
+            it.visibility = View.VISIBLE
+            it.overrideVisibleFlag = false
+          }
+        }
       }
   }
 
   @JvmStatic
-  fun setShowWhenLocked(window: Window?, showWhenLocked: Boolean) {
-    window?.decorView?.let {
-      it.alwaysVisible = showWhenLocked
-      if (showWhenLocked) {
-        it.findContent?.overrideVisibleFlag = false
-      }
-    }
+  fun showWhenLocked(window: Window?) {
+    window?.decorView?.findContent?.alwaysVisible = true
+  }
+
+  @JvmStatic
+  fun hideWhenLocked(window: Window?) {
+    window?.decorView?.findContent?.alwaysVisible = false
   }
 
   private val View.findContent: View?
     get() = rootView.findViewById(android.R.id.content)
 
   private var View.overrideVisibleFlag: Boolean
-    get() = getTag(R.id.screen_lock_view_tag) == VIEW_VISIBILITY_CHANGED
-    @Synchronized
-    set(enabled) {
-      if (visibility == View.VISIBLE) {
-        if (enabled) {
-          visibility = View.INVISIBLE
-          setTag(R.id.screen_lock_view_tag, VIEW_VISIBILITY_CHANGED)
-        } else {
-          setTag(R.id.screen_lock_view_tag, null)
-        }
-      } else if (!enabled && overrideVisibleFlag) {
-        visibility = View.VISIBLE
-        setTag(R.id.screen_lock_view_tag, null)
-      }
+    get() = (getTag(R.id.screen_lock_visibility_changed_tag) ?: false) as Boolean
+    set(value) {
+      setTag(R.id.screen_lock_visibility_changed_tag, value)
     }
 
   private var View.alwaysVisible: Boolean
-    get() {
-      val tag = getTag(R.id.screen_lock_view_tag)
-      return tag == VIEW_ALWAYS_VISIBLE
-    }
-    set(enabled) {
-      setTag(R.id.screen_lock_view_tag, if (enabled) VIEW_ALWAYS_VISIBLE else null)
+    get() = (getTag(R.id.screen_lock_always_visible_tag) ?: false) as Boolean
+    set(value) {
+      setTag(R.id.screen_lock_always_visible_tag, value)
     }
 
   private fun getGlobalWindowViews(): List<View?> =

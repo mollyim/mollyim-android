@@ -102,6 +102,7 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
 
   public static final String ANSWER_ACTION   = WebRtcCallActivity.class.getCanonicalName() + ".ANSWER_ACTION";
   public static final String DENY_ACTION     = WebRtcCallActivity.class.getCanonicalName() + ".DENY_ACTION";
+  public static final String NO_ACTION       = WebRtcCallActivity.class.getCanonicalName() + ".NO_ACTION";
   public static final String END_CALL_ACTION = WebRtcCallActivity.class.getCanonicalName() + ".END_CALL_ACTION";
 
   public static final String EXTRA_ENABLE_VIDEO_IF_AVAILABLE = WebRtcCallActivity.class.getCanonicalName() + ".ENABLE_VIDEO_IF_AVAILABLE";
@@ -264,6 +265,11 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
   }
 
   @Override
+  protected void onAuthenticationCancel() {
+    onBackPressed();
+  }
+
+  @Override
   public void onPictureInPictureModeChanged(boolean isInPictureInPictureMode, Configuration newConfig) {
     viewModel.setIsInPipMode(isInPictureInPictureMode);
     participantUpdateWindow.setEnabled(!isInPictureInPictureMode);
@@ -287,7 +293,7 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
   }
 
   private void processIntent(@NonNull Intent intent) {
-    if (ANSWER_ACTION.equals(intent.getAction())) {
+    if (ANSWER_ACTION.equals(intent.getAction()) || NO_ACTION.equals(intent.getAction())) {
       // MOLLY: Hold this action until activity's screen is unlocked
       setIntent(intent);
     } else if (DENY_ACTION.equals(intent.getAction())) {
