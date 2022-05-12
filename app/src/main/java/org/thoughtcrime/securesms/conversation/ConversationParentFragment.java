@@ -1605,7 +1605,7 @@ public class ConversationParentFragment extends Fragment
 
       if (selfMembership == null) {
         leftGroup        = false;
-        canSendMessages  = isSecureText;
+        canSendMessages  = true;
         canCancelRequest = false;
         if (cannotSendInAnnouncementGroupBanner.resolved()) {
           cannotSendInAnnouncementGroupBanner.get().setVisibility(View.GONE);
