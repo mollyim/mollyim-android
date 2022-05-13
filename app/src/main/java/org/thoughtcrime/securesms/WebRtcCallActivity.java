@@ -19,6 +19,7 @@ package org.thoughtcrime.securesms;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AppOpsManager;
 import android.app.PictureInPictureParams;
 import android.content.Context;
 import android.content.Intent;
@@ -35,6 +36,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
@@ -73,6 +75,7 @@ import org.thoughtcrime.securesms.sms.MessageSender;
 import org.thoughtcrime.securesms.util.EllapsedTimeFormatter;
 import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.FullscreenHelper;
+import org.thoughtcrime.securesms.util.ServiceUtil;
 import org.thoughtcrime.securesms.util.ThrottledDebouncer;
 import org.thoughtcrime.securesms.util.Util;
 import org.thoughtcrime.securesms.util.VibrateUtil;
@@ -267,7 +270,7 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
   }
 
   private boolean enterPipModeIfPossible() {
-    if (viewModel.canEnterPipMode() && isSystemPipEnabledAndAvailable()) {
+    if (viewModel.canEnterPipMode() && isSystemPipEnabledAndAvailable() && isEnterPipAllowed()) {
       PictureInPictureParams params = new PictureInPictureParams.Builder()
           .setAspectRatio(new Rational(9, 16))
           .build();
@@ -629,6 +632,20 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
   private boolean isSystemPipEnabledAndAvailable() {
     return Build.VERSION.SDK_INT >= 26 &&
            getPackageManager().hasSystemFeature(PackageManager.FEATURE_PICTURE_IN_PICTURE);
+  }
+
+  @RequiresApi(26)
+  private boolean isEnterPipAllowed() {
+    if (ServiceUtil.getKeyguardManager(this).isKeyguardLocked()) {
+      return false;
+    }
+    final AppOpsManager appOps = ServiceUtil.getAppOpsManager(this);
+    try {
+      int uid = getPackageManager().getPackageUid(getPackageName(), 0);
+      return appOps.checkOpNoThrow(AppOpsManager.OPSTR_PICTURE_IN_PICTURE, uid, getPackageName()) == AppOpsManager.MODE_ALLOWED;
+    } catch (PackageManager.NameNotFoundException e) {
+      return false;
+    }
   }
 
   private void delayedFinish() {

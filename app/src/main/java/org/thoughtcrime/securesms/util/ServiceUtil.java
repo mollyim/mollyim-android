@@ -3,6 +3,7 @@ package org.thoughtcrime.securesms.util;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.AlarmManager;
+import android.app.AppOpsManager;
 import android.app.KeyguardManager;
 import android.app.NotificationManager;
 import android.app.job.JobScheduler;
@@ -104,5 +105,9 @@ public class ServiceUtil {
 
   public static KeyguardManager getKeyguardManager(@NonNull Context context) {
     return ContextCompat.getSystemService(context, KeyguardManager.class);
+  }
+
+  public static AppOpsManager getAppOpsManager(@NonNull Context context) {
+    return ContextCompat.getSystemService(context, AppOpsManager.class);
   }
 }
