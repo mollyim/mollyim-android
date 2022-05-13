@@ -175,12 +175,7 @@ public class BiometricDialogFragment extends DialogFragment {
   @Override
   public void onDismiss(@NonNull DialogInterface dialog) {
     super.onDismiss(dialog);
-
-    showPrompt = false;
-
-    if (biometricPrompt != null) {
-      biometricPrompt.cancelAuthentication();
-    }
+    hidePrompt();
   }
 
   public void showPrompt(@NonNull FragmentActivity activity, @NonNull Listener listener) {
@@ -208,11 +203,19 @@ public class BiometricDialogFragment extends DialogFragment {
     });
   }
 
+  private void hidePrompt() {
+    showPrompt = false;
+
+    if (biometricPrompt != null) {
+      biometricPrompt.cancelAuthentication();
+    }
+  }
+
   private class AuthenticationCallback extends BiometricPrompt.AuthenticationCallback {
 
     private final Listener listener;
 
-    private boolean isCanceled;
+    private boolean isDismissed;
 
     private AuthenticationCallback(Listener listener) {
       this.listener = listener;
@@ -221,7 +224,7 @@ public class BiometricDialogFragment extends DialogFragment {
     @Override
     public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
       Log.i(TAG, "onAuthenticationSucceeded" + " (" + getActivityName() + ")");
-      if (!isCanceled) {
+      if (!isDismissed) {
         dispatchSuccess();
       }
     }
@@ -234,26 +237,28 @@ public class BiometricDialogFragment extends DialogFragment {
     @Override
     public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
       Log.w(TAG, "onAuthenticationError: " + errString + " (" + getActivityName() + ")");
-      if (!isCanceled) {
+      if (!isDismissed) {
         dispatchError(errorCode, errString);
       }
     }
 
     public void onHostActivityPaused() {
       Log.i(TAG, "onHostActivityPaused" + " (" + getActivityName() + ")");
-      if (!isCanceled) {
+      if (!isDismissed) {
         // Make sure the host activity is notified. The fingerprint dialog
         // might not call our listener back.
-        isCanceled = listener.onCancel(false);
-        if (isCanceled) {
+        isDismissed = listener.onCancel(false);
+        if (isDismissed) {
           dismissAllowingStateLoss();
+        } else {
+          hidePrompt();
         }
       }
     }
 
     private void dispatchSuccess() {
-      isCanceled = listener.onSuccess();
-      if (isCanceled) {
+      isDismissed = listener.onSuccess();
+      if (isDismissed) {
         dismissAllowingStateLoss();
       }
     }
@@ -262,21 +267,21 @@ public class BiometricDialogFragment extends DialogFragment {
       switch (errorCode) {
         case BiometricPrompt.ERROR_NEGATIVE_BUTTON:
         case BiometricPrompt.ERROR_USER_CANCELED:
-          isCanceled = listener.onCancel(true);
+          isDismissed = listener.onCancel(true);
           break;
         case BiometricPrompt.ERROR_CANCELED:
         case BiometricPrompt.ERROR_TIMEOUT:
-          isCanceled = listener.onCancel(false);
+          isDismissed = listener.onCancel(false);
           break;
         case BiometricPrompt.ERROR_HW_NOT_PRESENT:
         case BiometricPrompt.ERROR_NO_BIOMETRICS:
-          isCanceled = listener.onNotEnrolled(getErrorMessage(errString));
+          isDismissed = listener.onNotEnrolled(getErrorMessage(errString));
           break;
         default:
-          isCanceled = listener.onError(getErrorMessage(errString));
+          isDismissed = listener.onError(getErrorMessage(errString));
       }
 
-      if (isCanceled) {
+      if (isDismissed) {
         dismissAllowingStateLoss();
       }
     }
