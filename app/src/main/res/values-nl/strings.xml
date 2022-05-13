@@ -72,10 +72,10 @@
   <!--BackgroundMessageRetriever-->
   <string name="BackgroundMessageRetriever_checking_for_messages">Aan het nagaan of er nieuwe berichten zijn …</string>
   <!--BlockedUsersActivity-->
-  <string name="BlockedUsersActivity__blocked_users">Geblokkeerde personen</string>
+  <string name="BlockedUsersActivity__blocked_users">Geblokkeerde personen &amp; groepen</string>
   <string name="BlockedUsersActivity__add_blocked_user">Contactpersoon aan blokkeerlijst toevoegen</string>
   <string name="BlockedUsersActivity__blocked_users_will">Tik hier om handmatig een persoon toe te voegen aan de lijst van geblokkeerde personen. Geblokkeerde personen kunnen niet zien dat ze geblokkeerd zijn: het lijkt voor hen alsof je telefoon over gaat, en alsof berichten worden afgeleverd. Je huidige profielnaam en -foto blijven voor geblokkeerde personen zichtbaar maar worden niet bijgewerkt als je een nieuwe foto of naam instelt. In groepen zullen jouw berichten niet zichtbaar zijn voor personen die je hebt geblokkeerd.</string>
-  <string name="BlockedUsersActivity__no_blocked_users">Je hebt geen personen geblokkeerd</string>
+  <string name="BlockedUsersActivity__no_blocked_users">Je hebt geen personen of groepen geblokkeerd</string>
   <string name="BlockedUsersActivity__block_user">Persoon blokkeren?</string>
   <string name="BlockedUserActivity__s_will_not_be_able_to">“%1$s” kan jou nog steeds bellen of berichten sturen en weet dus niet dat hij of zijn geblokkeerd is, maar je zult die oproepen en berichten niet zien.</string>
   <string name="BlockedUsersActivity__block">Blokkeren</string>
@@ -184,7 +184,7 @@ In groepen zullen jouw berichten niet zichtbaar zijn voor personen die je hebt g
   <string name="ContactShareEditActivity_invalid_contact">De geselecteerde contactpersoon was ongeldig</string>
   <!--ConversationItem-->
   <string name="ConversationItem_error_not_sent_tap_for_details">Niet verzonden, tik hier voor details</string>
-  <string name="ConversationItem_error_partially_not_delivered">Gedeeltelijk verzonden, tik hier voor details</string>
+  <string name="ConversationItem_error_partially_not_delivered">Deels verzonden, tik voor details</string>
   <string name="ConversationItem_error_network_not_delivered">Verzenden is mislukt</string>
   <string name="ConversationItem_received_key_exchange_message_tap_to_process">Sleuteluitwisselingsbericht ontvangen, tik hier om het te verwerken.</string>
   <string name="ConversationItem_group_action_left">%1$s heeft de groep verlaten.</string>
@@ -227,7 +227,7 @@ In groepen zullen jouw berichten niet zichtbaar zijn voor personen die je hebt g
   <string name="ConversationActivity_only_s_can_send_messages">Alleen %1$s kunnen berichten verzenden.</string>
   <string name="ConversationActivity_admins">beheerders</string>
   <string name="ConversationActivity_message_an_admin">Bericht verzenden naar een beheerder</string>
-  <string name="ConversationActivity_cant_start_group_call">Kan groepsgesprek niet beginnen</string>
+  <string name="ConversationActivity_cant_start_group_call">Je kunt geen groepsoproep beginnen</string>
   <string name="ConversationActivity_only_admins_of_this_group_can_start_a_call">Alleen beheerders kunnen in deze groep oproepen beginnen.</string>
   <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">Er is geen app beschikbaar op je apparaat om deze verwijzing te openen.</string>
   <string name="ConversationActivity_your_request_to_join_has_been_sent_to_the_group_admin">Je verzoek om lid te worden van de groep is doorgestuurd naar een beheerder. Je krijgt een melding zodra deze een besluit heeft genomen.</string>
@@ -377,8 +377,8 @@ In groepen zullen jouw berichten niet zichtbaar zijn voor personen die je hebt g
     <item quantity="other">Archiveren</item>
   </plurals>
   <plurals name="ConversationListFragment_unarchive_plural">
-    <item quantity="one">Dearchiveren</item>
-    <item quantity="other">Dearchiveren</item>
+    <item quantity="one">Dearchi­veren</item>
+    <item quantity="other">Dearchi­veren</item>
   </plurals>
   <plurals name="ConversationListFragment_delete_plural">
     <item quantity="one">Wissen</item>
@@ -559,7 +559,7 @@ In groepen zullen jouw berichten niet zichtbaar zijn voor personen die je hebt g
   </plurals>
   <!--GroupsV1MigrationSuggestionsReminder-->
   <plurals name="GroupsV1MigrationSuggestionsReminder_members_couldnt_be_added_to_the_new_group">
-    <item quantity="one">%1$d groepslid kon bij het omzetten van de groep in een nieuwe-stijl groep niet automatisch opnieuw worden toegevoegd. Wil je ze hem of haar nu alsnog toevoegen?</item>
+    <item quantity="one">%1$d groepslid kon bij het omzetten van de groep in een nieuwe-stijl groep niet automatisch opnieuw worden toegevoegd. Wil je hem of haar nu alsnog toevoegen?</item>
     <item quantity="other">%1$d groepsleden konden bij het omzetten van de groep in een nieuwe-stijl groep niet automatisch opnieuw worden toegevoegd. Wil je ze nu alsnog toevoegen?</item>
   </plurals>
   <plurals name="GroupsV1MigrationSuggestionsReminder_add_members">
@@ -659,8 +659,8 @@ In groepen zullen jouw berichten niet zichtbaar zijn voor personen die je hebt g
   <string name="ManageGroupActivity_member_requests_and_invites">Lidmaatschapsverzoeken &amp; -uitnodigingen</string>
   <string name="ManageGroupActivity_add_members">Leden toevoegen</string>
   <string name="ManageGroupActivity_edit_group_info">Groepsinformatie aanpassen</string>
-  <string name="ManageGroupActivity_who_can_add_new_members">Wie mag nieuwe leden toevoegen?</string>
-  <string name="ManageGroupActivity_who_can_edit_this_groups_info">Wie mag de groepsinformatie aanpassen?</string>
+  <string name="ManageGroupActivity_who_can_add_new_members">Wie mogen nieuwe leden toevoegen?</string>
+  <string name="ManageGroupActivity_who_can_edit_this_groups_info">Wie mogen de groepsinformatie aanpassen?</string>
   <string name="ManageGroupActivity_group_link">Groepsverwijzing</string>
   <string name="ManageGroupActivity_block_group">Groep blokkeren en verlaten</string>
   <string name="ManageGroupActivity_unblock_group">Groep deblokkeren</string>
@@ -1055,12 +1055,12 @@ In groepen zullen jouw berichten niet zichtbaar zijn voor personen die je hebt g
   <string name="MessageRecord_s_changed_who_can_edit_group_membership_to_s">%1$s heeft de instelling voor wie de groepslidmaatschap kan aanpassen op ‘%2$s’ ingesteld.</string>
   <string name="MessageRecord_who_can_edit_group_membership_has_been_changed_to_s">De instelling voor wie de groepslidmaatschap kan aanpassen is op ‘%1$s’ ingesteld.</string>
   <!--GV2 announcement group change-->
-  <string name="MessageRecord_you_allow_all_members_to_send">Je hebt de groepsinstellingen aangepast om alle groepsleden de mogelijkheid te geven om berichten te verzenden.</string>
-  <string name="MessageRecord_you_allow_only_admins_to_send">Je hebt de groepsinstellingen aangepast om alleen beheerders de mogelijkheid te geven om berichten te verzenden.</string>
-  <string name="MessageRecord_s_allow_all_members_to_send">%1$s heeft de groepsinstellingen aangepast om alle groepsleden de mogelijkheid te geven om berichten te verzenden.</string>
-  <string name="MessageRecord_s_allow_only_admins_to_send">%1$s heeft de groepsinstellingen aangepast om alleen beheerders de mogelijkheid te geven om berichten te verzenden.</string>
-  <string name="MessageRecord_allow_all_members_to_send">De groepsinstellingen zijn aangepast om alle groepsleden de mogelijkheid te geven om berichten te verzenden.</string>
-  <string name="MessageRecord_allow_only_admins_to_send">De groepsinstellingen zijn aangepast om alleen beheerders de mogelijkheid te geven om berichten te verzenden.</string>
+  <string name="MessageRecord_you_allow_all_members_to_send">Je hebt de groepsinstellingen aangepast om alle groepsleden de mogelijkheid te geven om berichten te verzenden en oproepen te beginnen.</string>
+  <string name="MessageRecord_you_allow_only_admins_to_send">Je hebt de groepsinstellingen aangepast om uitsluitend beheerders de mogelijkheid te geven om berichten te verzenden en oproepen te beginnen.</string>
+  <string name="MessageRecord_s_allow_all_members_to_send">%1$s heeft de groepsinstellingen aangepast om alle groepsleden de mogelijkheid te geven om berichten te verzenden en oproepen te beginnen.</string>
+  <string name="MessageRecord_s_allow_only_admins_to_send">%1$s heeft de groepsinstellingen aangepast om uitsluitend beheerders de mogelijkheid te geven om berichten te verzenden en oproepen te beginnen.</string>
+  <string name="MessageRecord_allow_all_members_to_send">De groepsinstellingen zijn aangepast om alle groepsleden de mogelijkheid te geven om berichten te verzenden en oproepen te beginnen.</string>
+  <string name="MessageRecord_allow_only_admins_to_send">De groepsinstellingen zijn aangepast om uitsluitend beheerders de mogelijkheid te geven om berichten te verzenden en oproepen te beginnen.</string>
   <!--GV2 group link invite access level change-->
   <string name="MessageRecord_you_turned_on_the_group_link_with_admin_approval_off">Je hebt de groepsverwijzingen ingeschakeld zonder beheerderstoestemming-vereiste om lid te mogen worden.</string>
   <string name="MessageRecord_you_turned_on_the_group_link_with_admin_approval_on">Je hebt de groepsverwijzing ingeschakeld met beheerderstoestemming-vereiste om lid te mogen worden ook ingeschakeld.</string>
@@ -1107,7 +1107,7 @@ In groepen zullen jouw berichten niet zichtbaar zijn voor personen die je hebt g
   <!--End of GV2 specific update messages-->
   <string name="MessageRecord_your_safety_number_with_s_has_changed">Je veiligheidsnummer met %s is veranderd.</string>
   <string name="MessageRecord_you_marked_your_safety_number_with_s_verified">Je hebt je veiligheidsnummer met %s gemarkeerd als ‘geverifieerd’</string>
-  <string name="MessageRecord_you_marked_your_safety_number_with_s_verified_from_another_device">Je hebt je veiligheidsnummer met %s gemarkeerd als ‘geverifieerd’ vanaf een ander apparaat</string>
+  <string name="MessageRecord_you_marked_your_safety_number_with_s_verified_from_another_device">Je hebt je veiligheidsnummer met %s vanaf een ander apparaat gemarkeerd als ‘geverifieerd’</string>
   <string name="MessageRecord_you_marked_your_safety_number_with_s_unverified">Je hebt je veiligheidsnummer met %s gemarkeerd als ‘niet geverifieerd’</string>
   <string name="MessageRecord_you_marked_your_safety_number_with_s_unverified_from_another_device">Je hebt je veiligheidsnummer met %s vanaf een ander apparaat gemarkeerd als ‘niet geverifieerd’</string>
   <string name="MessageRecord_a_message_from_s_couldnt_be_delivered">Een bericht van %s kan niet worden afgeleverd</string>
@@ -1160,9 +1160,15 @@ In groepen zullen jouw berichten niet zichtbaar zijn voor personen die je hebt g
     <item quantity="one">%1$d lid</item>
     <item quantity="other">%1$d leden</item>
   </plurals>
+  <!--Describes the number of members in a group. The string MessageRequestProfileView_invited is nested in the parentheses.-->
   <plurals name="MessageRequestProfileView_members_and_invited">
-    <item quantity="one">%1$d lid (+%2$d genodigden)</item>
-    <item quantity="other">%1$d leden (+%2$d genodigden)</item>
+    <item quantity="one">%1$d lid (%2$s)</item>
+    <item quantity="other">%1$d leden (%2$s)</item>
+  </plurals>
+  <!--Describes the number of people invited to a group. Nested inside of the string MessageRequestProfileView_members_and_invited-->
+  <plurals name="MessageRequestProfileView_invited">
+    <item quantity="one">+%1$d genodigde</item>
+    <item quantity="other">+%1$d genodigden</item>
   </plurals>
   <plurals name="MessageRequestProfileView_member_of_d_additional_groups">
     <item quantity="one">%d extra groep</item>
@@ -1384,10 +1390,10 @@ In groepen zullen jouw berichten niet zichtbaar zijn voor personen die je hebt g
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">De Google Play Services is momenteel aan het updaten of is tijdelijk niet beschikbaar. Probeer het nog eens.</string>
   <string name="RegistrationActivity_terms_and_privacy">Gebruiksvoorwaarden &amp; privacybeleid</string>
   <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Signal zal een aantal toestemmingen vragen:
-1. Je contactenlijst lezen om personen weer te geven naar wie je berichten kunt verzenden. Je contactenlijst blijft altijd onleesbaar voor Signal\'s servers.
+1. Je contactenlijst lezen om personen weer te geven naar wie je berichten kunt verzenden. Je contactenlijst blijft altijd onleesbaar voor Signals servers.
 2. Bestanden lezen van en schrijven naar de externe opslag, om bestanden bij te voegen als bijlagen en om ontvangen bijlagen op te kunnen slaan.
 3. De telefoonstatus lezen om te voorkomen dat Signal-oproepen je andere oproepen verstoren.</string>
-  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Signal moet je contactenlijst lezen om personen weer te geven naar wie je berichten kunt sturen en met wie je oproepen kunt beginnen. Je contactenlijst blijft altijd onleesbaar voor Signal\'s servers.</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Signal moet je contactenlijst lezen om personen weer te geven naar wie je berichten kunt sturen en met wie je oproepen kunt beginnen. Je contactenlijst blijft altijd onleesbaar voor Signals servers.</string>
   <string name="RegistrationActivity_rate_limited_to_service">Je hebt te veel pogingen ondernomen om Signal voor dit telefoonnummer te registreren. Probeer het later opnieuw.</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">Het lukt niet om te verbinden met Signals servers. Ga na dat je apparaat met het internet is verbonden en probeer het opnieuw.</string>
   <string name="RegistrationActivity_non_standard_number_format">Afwijkend telefoonnummerformaat</string>
@@ -1476,9 +1482,9 @@ In groepen zullen jouw berichten niet zichtbaar zijn voor personen die je hebt g
   <!--StickerPackPreviewActivity-->
   <string name="StickerPackPreviewActivity_untitled">Zonder titel</string>
   <string name="StickerPackPreviewActivity_unknown">Onbekend</string>
-  <string name="StickerPackPreviewActivity_install">Installeren</string>
-  <string name="StickerPackPreviewActivity_remove">Verwijderen</string>
-  <string name="StickerPackPreviewActivity_stickers">Stickers</string>
+  <string name="StickerPackPreviewActivity_install">Stickerpakket installeren</string>
+  <string name="StickerPackPreviewActivity_remove">Stickerpakket verwijderen</string>
+  <string name="StickerPackPreviewActivity_stickers">Stickerpakket</string>
   <string name="StickerPackPreviewActivity_failed_to_load_sticker_pack">Laden van stickerpakket mislukt</string>
   <!--SubmitDebugLogActivity-->
   <string name="SubmitDebugLogActivity_edit">Aanpassen</string>
@@ -1487,9 +1493,9 @@ In groepen zullen jouw berichten niet zichtbaar zijn voor personen die je hebt g
   <string name="SubmitDebugLogActivity_submit">Uploaden</string>
   <string name="SubmitDebugLogActivity_failed_to_submit_logs">Uploaden van foutlogs is mislukt</string>
   <string name="SubmitDebugLogActivity_success">Succesvol geüpload!</string>
-  <string name="SubmitDebugLogActivity_copy_this_url_and_add_it_to_your_issue">Kopieer deze URL (door deze aan te tikken en vast te houden) en voeg die toe aan je foutrapport op GitHub of aan een e-mail aan onze ondersteuning:\n\n<b>%1$s</b></string>
+  <string name="SubmitDebugLogActivity_copy_this_url_and_add_it_to_your_issue">Kopieer deze verwijzing (door deze aan te tikken en vast te houden) en voeg die toe aan je foutrapport op GitHub of aan een e-mail naar ondersteuning:\n\n<b>%1$s</b></string>
   <string name="SubmitDebugLogActivity_share">Doorsturen via andere app</string>
-  <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online_for_contributors">Dit logbestand wordt publiekelijk beschikbaar gesteld op internet zodat de ontwikkelaars en vrijwilligers het kunnen bestuderen. Je kunt het bekijken voor je het upload.</string>
+  <string name="SubmitDebugLogActivity_this_log_will_be_posted_publicly_online_for_contributors">Dit log bevat geen persoonlijke details zoals telefoonnummers. Als je op uploaden klikt dan wordt dit log 30 dagen lang online beschikbaar gesteld op een unieke nergens onthulde verwijzing. Die verwijzing kun je zelf naar de ontwikkelaars sturen.</string>
   <!--SupportEmailUtil-->
   <string name="SupportEmailUtil_filter">Filter:</string>
   <string name="SupportEmailUtil_device_info">Apparaatinformatie:</string>
@@ -2012,7 +2018,7 @@ In groepen zullen jouw berichten niet zichtbaar zijn voor personen die je hebt g
   <string name="MessageRequestsMegaphone__users_can_now_choose_to_accept">Je kunt vanaf nu kiezen of je een nieuw gesprek wilt aanvaarden. Door profielnamen weet men van wie men een bericht krijgt.</string>
   <string name="MessageRequestsMegaphone__add_profile_name">Een profielnaam toevoegen</string>
   <!--HelpFragment-->
-  <string name="HelpFragment__have_you_read_our_faq_yet">Heb je onze antwoorden op veelgestelde vragen al gelezen?</string>
+  <string name="HelpFragment__have_you_read_our_faq_yet">Heb je onze antwoorden op vaakgestelde vragen al gelezen?</string>
   <string name="HelpFragment__next">Volgende</string>
   <string name="HelpFragment__contact_us">Neem contact met ons op</string>
   <string name="HelpFragment__tell_us_whats_going_on">Vertel ons wat er aan de hand is</string>
@@ -2098,7 +2104,7 @@ In groepen zullen jouw berichten niet zichtbaar zijn voor personen die je hebt g
   <string name="preferences__enable_passphrase">Appvergrendeling met wachtwoord inschakelen</string>
   <string name="preferences__lock_signal_and_message_notifications_with_a_passphrase">Vergrendel de Signal-app en -meldingen met een wachtwoord</string>
   <string name="preferences__screen_security">Meekijkpreventie</string>
-  <string name="preferences__disable_screen_security_to_allow_screen_shots">Bescherm op je eigen telefoon je gesprekken tegen stiekeme schermopnames vanuit spionerende apps, door Signals inhoud te verbergen in het overzicht van recent geopende apps en door schermafdrukken te blokkeren.</string>
+  <string name="preferences__disable_screen_security_to_allow_screen_shots">Verberg Signal in de lijst van recent geopende apps en blokkeer schermafdrukken op je eigen apparaat, om je gesprekken te beschermen tegen stiekeme schermopnames vanuit spionerende apps.</string>
   <string name="preferences__auto_lock_signal_after_a_specified_time_interval_of_inactivity">Signal automatisch vergrendelen na een bepaalde periode van inactiviteit</string>
   <string name="preferences__inactivity_timeout_passphrase">Vergrendeling bij inactiviteit</string>
   <string name="preferences__inactivity_timeout_interval">Inactiviteitsduur voor vergrendeling</string>
@@ -2131,16 +2137,12 @@ In groepen zullen jouw berichten niet zichtbaar zijn voor personen die je hebt g
   <string name="preferences__help">Hulp</string>
   <string name="preferences__advanced">Geavanceerd</string>
   <string name="preferences__donate_to_signal">Aan Molly doneren</string>
-  <!--Preference label when someone is already a subscriber-->
-  <string name="preferences__subscription">Maandelijkse donaties</string>
-  <!--Preference label for making a monthly donation to Signal-->
-  <string name="preferences__monthly_donation">Maandelijkse donatie</string>
   <!--Preference label for making one-time donations to Signal-->
   <string name="preferences__one_time_donation">Eenmalige donatie</string>
   <string name="preferences__privacy">Privacy</string>
   <string name="preferences__mms_user_agent">Mms-gebruikersagent</string>
   <string name="preferences__advanced_mms_access_point_names">Handmatige mms-instellingen</string>
-  <string name="preferences__mmsc_url">MMSC-URL</string>
+  <string name="preferences__mmsc_url">MMSC-verwijzing</string>
   <string name="preferences__mms_proxy_host">Mms-proxyserver</string>
   <string name="preferences__mms_proxy_port">Mms-proxypoort</string>
   <string name="preferences__mmsc_username">MMSC-gebruikersnaam</string>
@@ -2180,7 +2182,7 @@ In groepen zullen jouw berichten niet zichtbaar zijn voor personen die je hebt g
   <string name="preferences__typing_indicators">Typindicatoren</string>
   <string name="preferences__if_typing_indicators_are_disabled_you_wont_be_able_to_see_typing_indicators">Als typindicatoren zijn uitgeschakeld kunnen anderen niet zien of je aan het typen bent, maar je zult ook niet kunnen zien wanneer anderen aan het typen zijn.</string>
   <string name="preferences__request_keyboard_to_disable">Probeer gepersonaliseerd leren door het toetsenbord te voorkomen</string>
-  <string name="preferences__this_setting_is_not_a_guarantee">Let op: we kunnen niet garanderen dat gepersonaliseerd leren door het toetsenbord ook daadwerkelijk wordt voorkomen, omdat dit alleen werkt als je toetsenbord app daaraan meewerkt.</string>
+  <string name="preferences__this_setting_is_not_a_guarantee">Let op: Signal kan niet garanderen dat gepersonaliseerd leren door het toetsenbord ook daadwerkelijk wordt voorkomen, omdat dit alleen werkt als je toetsenbord-app daaraan meewerkt.</string>
   <string name="preferences_app_protection__blocked_users">Geblokkeerde personen</string>
   <string name="preferences_chats__when_using_mobile_data">Bij mobiele-dataoverdracht</string>
   <string name="preferences_chats__when_using_wifi">Bij wifi-verbinding</string>
@@ -2212,7 +2214,7 @@ In groepen zullen jouw berichten niet zichtbaar zijn voor personen die je hebt g
   <string name="preferences_advanced__disable_signal_built_in_emoji_support">Gebruik de systeem-emoji in plaats van de ingebouwde emoji-ondersteuning van Signal</string>
   <string name="preferences_advanced__relay_all_calls_through_the_signal_server_to_avoid_revealing_your_ip_address">Om te voorkomen dat je gesprekspartner je IP-adres kan achterhalen worden Signal-oproepen met niet-contactpersonen altijd al omgeleid via de Signal-servers. Door deze optie in te schakelen wordt dat ook gedaan voor Signal-oproepen met contacten die wel in je contactenlijst staan. Dit leidt echter tot een verminderde geluids- en videokwaliteit.</string>
   <string name="preferences_advanced__always_relay_calls">Alle oproepen omleiden</string>
-  <string name="preferences_app_protection__who_can">Wie mag …</string>
+  <string name="preferences_app_protection__who_can">Wie mogen …</string>
   <string name="preferences_app_protection__app_access">Toegang tot app</string>
   <string name="preferences_app_protection__communication">Communicatie</string>
   <string name="preferences_chats__chats">Gesprekken</string>
@@ -2955,7 +2957,7 @@ In groepen zullen jouw berichten niet zichtbaar zijn voor personen die je hebt g
   <!--Title of progress dialog shown when a user deletes their account and the process has left all groups-->
   <string name="DeleteAccountFragment__deleting_account">Registratie aan het opzeggen en alle gegevens aan het wissen …</string>
   <!--Message of progress dialog shown when a user deletes their account and the process is canceling their subscription-->
-  <string name="DeleteAccountFragment__canceling_your_subscription">Doorlopende donaties aan het afzeggen …</string>
+  <string name="DeleteAccountFragment__canceling_your_subscription">Maandelijkse donaties aan het stopzetten …</string>
   <!--Message of progress dialog shown when a user deletes their account and the process is leaving groups-->
   <string name="DeleteAccountFragment__depending_on_the_number_of_groups">Afhankelijk van het aantal groepen waarvan je lid bent kan dit een aantal minuten duren</string>
   <!--Message of progress dialog shown when a user deletes their account and the process has left all groups-->
@@ -3049,7 +3051,7 @@ In groepen zullen jouw berichten niet zichtbaar zijn voor personen die je hebt g
   <string name="PaymentsRecoveryStartFragment__recovery_phrase">Herstel-zin</string>
   <string name="PaymentsRecoveryStartFragment__view_recovery_phrase">Herstel-zin weergeven</string>
   <string name="PaymentsRecoveryStartFragment__enter_recovery_phrase">Vul je herstel-zin in</string>
-  <string name="PaymentsRecoveryStartFragment__your_balance_will_automatically_restore">Je krediet wordt automatisch hersteld wanneer je Signal opnieuw installeert en daarbij je Signal-pincode invoert. Je kunt je krediet ook herstellen middels een unieke herstel-zin, die bestaat uit %1$d woorden. Schrijf die zin op en bewaar hem op een veilige plaats.</string>
+  <string name="PaymentsRecoveryStartFragment__your_balance_will_automatically_restore">Je krediet wordt automatisch hersteld als je bij het opnieuw installeren van de Signal-app je Signal-pincode invoert. Je kunt je krediet ook herstellen middels een unieke herstel-zin, die bestaat uit %1$d woorden. Schrijf die zin op en bewaar hem op een veilige plaats.</string>
   <string name="PaymentsRecoveryStartFragment__your_recovery_phrase_is_a">De herstel-zin is voor iedereen uniek en bestaat uit %1$d woorden. Je kunt deze zin gebruiken om je krediet te herstellen als je toegang hebt verloren.</string>
   <string name="PaymentsRecoveryStartFragment__start">Beginnen</string>
   <string name="PaymentsRecoveryStartFragment__enter_manually">Handmatig invullen</string>
@@ -3115,6 +3117,7 @@ In groepen zullen jouw berichten niet zichtbaar zijn voor personen die je hebt g
   <string name="QualitySelectorBottomSheetDialog__photo_quality">Afbeeldingskwaliteit</string>
   <!--AppSettingsFragment-->
   <string name="AppSettingsFragment__invite_your_friends">Kennissen uitnodigingen</string>
+  <string name="AppSettingsFragment__copied_subscriber_id_to_clipboard">AbonnementsID naar klembord gekopieerd</string>
   <!--AccountSettingsFragment-->
   <string name="AccountSettingsFragment__account">Jouw registratie</string>
   <string name="AccountSettingsFragment__youll_be_asked_less_frequently">Herinneringen helpen je om je Signal-pincode te onthouden. Dit is belangrijk, omdat je je pincode later niet kunt veranderen of teruglezen en omdat je de pincode nodig zult hebben om je gegevens te herstellen wanneer je je telefoonnummer opnieuw registreert.</string>
@@ -3193,11 +3196,11 @@ In groepen zullen jouw berichten niet zichtbaar zijn voor personen die je hebt g
   <string name="NotificationProfilesFragment__create_profile">Meldingsprofiel aanmaken</string>
   <!--PrivacySettingsFragment-->
   <string name="PrivacySettingsFragment__blocked">Geblokkeerd</string>
-  <string name="PrivacySettingsFragment__d_contacts">%1$d personen</string>
+  <string name="PrivacySettingsFragment__d_contacts">%1$d personen &amp; groepen</string>
   <string name="PrivacySettingsFragment__messaging">Berichten</string>
   <string name="PrivacySettingsFragment__disappearing_messages">Verlopende berichten</string>
   <string name="PrivacySettingsFragment__app_security">App-beveiliging</string>
-  <string name="PrivacySettingsFragment__block_screenshots_in_the_recents_list_and_inside_the_app">Bescherm je gesprekken op je eigen telefoon tegen schermopnames vanuit andere apps door Signals inhoud te verbergen in de lijst van recent geopende apps en door schermafdrukken te blokkeren</string>
+  <string name="PrivacySettingsFragment__block_screenshots_in_the_recents_list_and_inside_the_app">Verberg Signal in de lijst van recent geopende apps en blokkeer schermafdrukken op je eigen apparaat, om je gesprekken te beschermen tegen stiekeme schermopnames vanuit spionerende apps.</string>
   <string name="PrivacySettingsFragment__signal_message_and_calls">Signal-berichten en -oproepen, alle omroepen omleiden en verzegelde afzender</string>
   <string name="PrivacySettingsFragment__default_timer_for_new_changes">Standaard-tijdspanne voor alle nieuwe gesprekken</string>
   <string name="PrivacySettingsFragment__set_a_default_disappearing_message_timer_for_all_new_chats_started_by_you">Stel in dat berichten in alle nieuwe gesprekken die jij zelf begint een bepaalde tijd nadat ze gezien zijn voor zowel jou als je gesprekspartner vanzelf worden gewist.</string>
@@ -3341,12 +3344,12 @@ In groepen zullen jouw berichten niet zichtbaar zijn voor personen die je hebt g
   <!--PermissionsSettingsFragment-->
   <string name="PermissionsSettingsFragment__add_members">Groepsleden toevoegen</string>
   <string name="PermissionsSettingsFragment__edit_group_info">Groepsinformatie aanpassen</string>
-  <string name="PermissionsSettingsFragment__send_messages">Berichten verzenden</string>
+  <string name="PermissionsSettingsFragment__send_messages">Berichten verzenden &amp; oproepen beginnen</string>
   <string name="PermissionsSettingsFragment__all_members">Alle groepsleden</string>
   <string name="PermissionsSettingsFragment__only_admins">Uitsluitend beheerders</string>
-  <string name="PermissionsSettingsFragment__who_can_add_new_members">Wie mag nieuwe leden toevoegen?</string>
-  <string name="PermissionsSettingsFragment__who_can_edit_this_groups_info">Wie mag de groepsinformatie aanpassen?</string>
-  <string name="PermissionsSettingsFragment__who_can_send_messages">Wie kunnen berichten verzenden?</string>
+  <string name="PermissionsSettingsFragment__who_can_add_new_members">Wie mogen nieuwe leden toevoegen?</string>
+  <string name="PermissionsSettingsFragment__who_can_edit_this_groups_info">Wie mogen de groepsinformatie aanpassen?</string>
+  <string name="PermissionsSettingsFragment__who_can_send_messages">Wie mogen berichten verzenden en oproepen beginnen?</string>
   <!--SoundsAndNotificationsSettingsFragment-->
   <string name="SoundsAndNotificationsSettingsFragment__mute_notifications">Meldingen dempen</string>
   <string name="SoundsAndNotificationsSettingsFragment__not_muted">Niet gedempt</string>
@@ -3404,7 +3407,7 @@ In groepen zullen jouw berichten niet zichtbaar zijn voor personen die je hebt g
   <string name="MultiselectForwardFragment__forward_to">Doorsturen naar</string>
   <!--Displayed when sharing content via the fragment-->
   <string name="MultiselectForwardFragment__share_with">Doorsturen naar</string>
-  <string name="MultiselectForwardFragment__add_a_message">Een bericht bijvoegen</string>
+  <string name="MultiselectForwardFragment__add_a_message">Berichttekst toevoegen</string>
   <string name="MultiselectForwardFragment__faster_forwards">Sneller doorsturen</string>
   <string name="MultiselectForwardFragment__forwarded_messages_are_now">Doorgestuurde berichten worden vanaf nu onmiddelijk verzonden.</string>
   <plurals name="MultiselectForwardFragment_send_d_messages">
@@ -3425,7 +3428,7 @@ In groepen zullen jouw berichten niet zichtbaar zijn voor personen die je hebt g
   </plurals>
   <string name="MultiselectForwardFragment__limit_reached">Limiet bereikt</string>
   <!--Media V2-->
-  <string name="MediaReviewFragment__add_a_message">Een bericht bijvoegen</string>
+  <string name="MediaReviewFragment__add_a_message">Berichttekst toevoegen</string>
   <string name="MediaReviewFragment__add_a_reply">Een reactie toevoegen</string>
   <string name="MediaReviewFragment__send_to">Verzonden aan</string>
   <string name="MediaReviewFragment__view_once_message">Eenmaligeweergave-bericht</string>
@@ -3497,17 +3500,28 @@ In groepen zullen jouw berichten niet zichtbaar zijn voor personen die je hebt g
   <string name="ThanksForYourSupportBottomSheetFragment__when_you_have_more">Als je meerdere badges hebt dan kun je er één kiezen om voor anderen op je profiel weer te geven.</string>
   <string name="BecomeASustainerFragment__get_badges">Door Signal te ondersteunen verdien je badges om op je profiel weer te geven.</string>
   <string name="BecomeASustainerFragment__signal_is_a_non_profit">Signal is een organisatie zonder winstoogmerk, zonder advertenties en zonder investeerders. Signal wordt uitsluitend mogelijk gemaakt door donaties van mensen zoals jij.</string>
-  <string name="ManageDonationsFragment__my_support">Mijn bijdrage</string>
+  <!--Button label for creating a monthly donation-->
+  <string name="ManageDonationsFragment__make_a_monthly_donation">Maandelijks doneren</string>
+  <!--Heading for more area of manage subscriptions page-->
+  <string name="ManageDonationsFragment__more">Meer</string>
+  <!--Heading for receipts area of manage subscriptions page-->
+  <string name="ManageDonationsFragment__receipts">Afschriften</string>
+  <!--Heading for my subscription area of manage subscriptions page-->
+  <string name="ManageDonationsFragment__my_subscription">Mijn maandelijkse donaties</string>
   <string name="ManageDonationsFragment__manage_subscription">Maandelijkse donaties beheren</string>
   <!--Label for Donation Receipts button-->
   <string name="ManageDonationsFragment__donation_receipts">Donatie-afschriften</string>
   <string name="ManageDonationsFragment__badges">Badges</string>
   <string name="ManageDonationsFragment__subscription_faq">Informatie over maandelijkse donaties</string>
   <string name="ManageDonationsFragment__error_getting_subscription">Fout bij het ophalen van informatie over maandelijkse donaties.</string>
+  <!--Preference heading for other ways to donate-->
+  <string name="ManageDonationsFragment__other_ways_to_give">Andere manieren om bij te dragen</string>
+  <!--Preference label to launch badge gifting-->
+  <string name="ManageDonationsFragment__gift_a_badge">Een badge cadeau geven</string>
   <string name="BoostFragment__give_signal_a_boost">Help Signal met een eenmalige bijdrage</string>
   <!--Description text in boost sheet-->
   <string name="BoostFragment__make_a_one_time">Doneer eenmalig en verdien de ‘Eenmalige donateur’-badge voor %1$d dagen.</string>
-  <string name="Boost__enter_custom_amount">Vul een zelfgekozen bedrag in</string>
+  <string name="Boost__enter_custom_amount">Een zelfgekozen bedrag invullen</string>
   <string name="Boost__one_time_contribution">Eenmalige bijdrage</string>
   <string name="MySupportPreference__add_a_signal_boost">Geef Signal een oppepper</string>
   <string name="MySupportPreference__s_per_month">%1$s/maand</string>
@@ -3549,6 +3563,14 @@ In groepen zullen jouw berichten niet zichtbaar zijn voor personen die je hebt g
   <string name="DonationsErrors__your_payment">Je overschrijving kon niet worden verwerkt, daarom is er geen geld overgemaakt. Probeer het opnieuw.</string>
   <string name="DonationsErrors__still_processing">Wordt nog verwerkt</string>
   <string name="DonationsErrors__couldnt_add_badge">Kan badge niet toevoegen</string>
+  <!--Displayed when badge credential couldn\'t be verified-->
+  <string name="DonationsErrors__failed_to_validate_badge">Kon badge-echtheid niet nagaan</string>
+  <!--Displayed when badge credential couldn\'t be verified-->
+  <string name="DonationsErrors__could_not_validate">Kon de reactie-echtheid van de server niet nagaan. Neem contact op met ondersteuning. </string>
+  <!--Displayed as title when some generic error happens during gift badge sending-->
+  <string name="DonationsErrors__failed_to_send_gift_badge">Het verzenden van een cadeau-badge is mislukt</string>
+  <!--Displayed as message when some generic error happens during gift badge sending-->
+  <string name="DonationsErrors__could_not_send_gift_badge">Kon een cadeau-badge niet verzenden. Neem contact op met ondersteuning.</string>
   <string name="DonationsErrors__your_badge_could_not">Het is niet gelukt om de badge toe te voegen aan je profiel, maar je hebt misschien al wel betaald. Neem contact op met ondersteuning.</string>
   <string name="DonationsErrors__your_payment_is_still">Je overschrijving wordt nog verwerkt. Dit kan een paar minuten duren afhankelijk van je internetverbinding.</string>
   <string name="DonationsErrors__google_pay_unavailable">Google-pay is niet beschikbaar</string>
@@ -3558,6 +3580,23 @@ In groepen zullen jouw berichten niet zichtbaar zijn voor personen die je hebt g
   <string name="ViewBadgeBottomSheetDialogFragment__your_device_doesn_t_support_google_pay_so_you_can_t_subscribe_to_earn_a_badge_you_can_still_support_signal_by_making_a_donation_on_our_website">Je apparaat biedt geen ondersteuning voor Google Play, daarom kun je via de app geen maandelijkse donaties maken en kun je geen badge verdienen. Je kunt nog wel doneren via Signals website.</string>
   <string name="NetworkFailure__network_error_check_your_connection_and_try_again">Netwerkfout. Ga na dat je apparaat met het internet is verbonden en probeer het opnieuw.</string>
   <string name="NetworkFailure__retry">Opnieuw proberen</string>
+  <string name="DonationsErrors__recipient_verification_failed">Het nagaan van de ontvanger-echtheid is mislukt</string>
+  <string name="DonationsErrors__target_does_not_support_gifting">De bedoelde persoon ondersteunt het ontvangen van cadeau-badges niet.</string>
+  <!--Gift message view title-->
+  <string name="GiftMessageView__gift_badge">Cadeau-badge</string>
+  <!--Gift message view expiry information-->
+  <plurals name="GiftMessageView__lasts_for_d_months">
+    <item quantity="one">Geldig voor %1$d maand</item>
+    <item quantity="other">Geldig voor %1$d maanden</item>
+  </plurals>
+  <!--Gift badge redeem action label-->
+  <string name="GiftMessageView__redeem">In ontvangst nemen</string>
+  <!--Gift badge view action label-->
+  <string name="GiftMessageView__view">Weergeven</string>
+  <!--Gift badge redeeming action label-->
+  <string name="GiftMessageView__redeeming">In ontvangst aan het nemen …</string>
+  <!--Gift badge redeemed label-->
+  <string name="GiftMessageView__redeemed">In ontvangst genomen</string>
   <!--Stripe decline code generic_failure-->
   <string name="DeclineCode__try_another_payment_method_or_contact_your_bank">Probeer het via een andere betalingsmethode of neem contact op met je bank om hen om meer informatie te vragen.</string>
   <!--Stripe decline code verify on Google Pay and try again-->
@@ -3716,14 +3755,6 @@ In groepen zullen jouw berichten niet zichtbaar zijn voor personen die je hebt g
   <string name="NotificationProfileSelection__view_settings">Instellingen weergeven</string>
   <!--Descriptor text indicating how long a profile will be on when there is a time component associated with it-->
   <string name="NotificationProfileSelection__on_until_s">Ingeschakeld tot %1$s</string>
-  <!--Title for notification profile megaphone-->
-  <string name="NotificationProfilesMegaphone__notification_profiles">Meldingsprofielen</string>
-  <!--Description for notification profile megaphone-->
-  <string name="NotificationProfilesMegaphone__only_get_notifications_from_the_people_and_groups_you_choose">Ontvang alleen meldingen van personen en groepen van wie jij dat wilt, wanneer jij dat wilt.</string>
-  <!--Call to action button to create a profile from megaphone-->
-  <string name="NotificationProfilesMegaphone__create_a_profile">Meldingsprofiel aanmaken</string>
-  <!--Button to dismiss notification profile megaphone-->
-  <string name="NotificationProfilesMegaphone__not_now">Niet nu</string>
   <!--Displayed in a toast when we fail to open the ringtone picker-->
   <string name="NotificationSettingsFragment__failed_to_open_picker">Het openen van het belgeluid-keuzemenu is mislukt.</string>
   <!--Description shown for the Signal Release Notes channel-->
@@ -3733,9 +3764,11 @@ In groepen zullen jouw berichten niet zichtbaar zijn voor personen die je hebt g
   <!--Donation receipts all tab label-->
   <string name="DonationReceiptListFragment__all">Alles</string>
   <!--Donation receipts recurring tab label-->
-  <string name="DonationReceiptListFragment__recurring">Doorlopend</string>
+  <string name="DonationReceiptListFragment__recurring">Maandelijks</string>
   <!--Donation receipts one-time tab label-->
   <string name="DonationReceiptListFragment__one_time">Eenmalig</string>
+  <!--Donation receipts gift tab label-->
+  <string name="DonationReceiptListFragment__gift">Cadeau</string>
   <!--Donation receipts boost row label-->
   <string name="DonationReceiptListFragment__boost">Eenmalig</string>
   <!--Donation receipts details title-->
@@ -3852,12 +3885,14 @@ In groepen zullen jouw berichten niet zichtbaar zijn voor personen die je hebt g
   <string name="StorySettingsFragment__story_settings">Verhaalinstellingen</string>
   <!--Story settings private stories heading-->
   <string name="StorySettingsFragment__private_stories">Privéverhalen</string>
+  <!--Note at bottom of story settings regarding who can see private stories.-->
+  <string name="StorySettingsFragment__private_stories_can_only_be_viewed">Privéverhalen kunnen alleen worden gezien door personen voor wie jij ze zichtbaar maakt. De naam van het verhaal kun je alleen zelf zien.</string>
   <!--Option label for creating a new private story-->
   <string name="StorySettingsFragment__new_private_story">Nieuw privéverhaal</string>
   <!--Page title for My Story options-->
   <string name="MyStorySettingsFragment__my_story">Mijn verhaal</string>
   <!--Section heading for story visibility-->
-  <string name="MyStorySettingsFragment__who_can_see_this_story">Wie mag dit vehaal zien</string>
+  <string name="MyStorySettingsFragment__who_can_see_this_story">Wie mogen dit verhaal zien</string>
   <!--Clickable option for selecting people to hide your story from-->
   <string name="MyStorySettingsFragment__hide_story_from">Verberg dit verhaal van</string>
   <!--Summary of clickable option displaying how many people you have hidden your story from-->
@@ -3918,7 +3953,7 @@ In groepen zullen jouw berichten niet zichtbaar zijn voor personen die je hebt g
   <!--Camera label for media selection toggle-->
   <string name="MediaSelectionActivity__camera">Camera</string>
   <!--Hint for entering a URL for a text post-->
-  <string name="TextStoryPostLinkEntryFragment__type_or_paste_a_url">Typ of plak een URL</string>
+  <string name="TextStoryPostLinkEntryFragment__type_or_paste_a_url">Typ of plak een verwijzing</string>
   <!--Displayed prior to the user entering a URL for a text post-->
   <string name="TextStoryPostLinkEntryFragment__share_a_link_with_viewers_of_your_story">Een verwijzing delen met de personen die je verhaal bekijken</string>
   <!--Hint text for searching for a story text post recipient.-->
@@ -3996,6 +4031,10 @@ In groepen zullen jouw berichten niet zichtbaar zijn voor personen die je hebt g
   <string name="TextStoryPostCreationFragment__sent_story">Verhaal is geupload</string>
   <!--Toasted when the user external share to a text story fails-->
   <string name="TextStoryPostCreationFragment__failed_to_send_story">Verhaal uploaden is mislukt</string>
+  <!--Displayed in a dialog to let the user select a given users story-->
+  <string name="StoryDialogs__view_story">Verhaal weergeven</string>
+  <!--Displayed in a dialog to let the user select a given users profile photo-->
+  <string name="StoryDialogs__view_profile_photo">Profielfoto weergeven</string>
   <!--Title for a notification at the bottom of the chat list suggesting that the user disable censorship circumvention because the service has become reachable-->
   <string name="TurnOffCircumventionMegaphone_turn_off_censorship_circumvention">Censuuromzeiling uitschakelen?</string>
   <!--Body for a notification at the bottom of the chat list suggesting that the user disable censorship circumvention because the service has become reachable-->
@@ -4014,5 +4053,53 @@ In groepen zullen jouw berichten niet zichtbaar zijn voor personen die je hebt g
   <!--Content description for expand contacts chevron-->
   <string name="ExpandModel__view_more">Meer weergeven</string>
   <string name="StoriesLinkPopup__visit_link">Verwijzing volgen</string>
+  <!--Tagline for gift row items-->
+  <string name="GiftRowItem__send_a_gift_badge">Een cadeau-badge verzenden</string>
+  <!--Headline text on start fragment for gifting a badge-->
+  <string name="GiftFlowStartFragment__gift_a_badge">Geef een badge cadeau</string>
+  <!--Description text on start fragment for gifting a badge-->
+  <string name="GiftFlowStartFragment__gift_someone_a_badge">Je kunt iemand een badge cadeau doen door voor hem of haar een donatie te doen. Hij of zij krijgt dan een badge en kan zelf kiezen of hij of zij die op zijn of haar profiel wil weergeven.</string>
+  <!--Action button label for start fragment for gifting a badge-->
+  <string name="GiftFlowStartFragment__next">Volgende</string>
+  <!--Title text on choose recipient page for badge gifting-->
+  <string name="GiftFlowRecipientSelectionFragment__choose_recipient">Kies een ontvanger</string>
+  <!--Title text on confirm gift page-->
+  <string name="GiftFlowConfirmationFragment__confirm_gift">Cadeau bevestigen</string>
+  <!--Heading text specifying who the gift will be sent to-->
+  <string name="GiftFlowConfirmationFragment__send_to">Verzonden aan</string>
+  <!--Text explaining that gift will be sent to the chosen recipient-->
+  <string name="GiftFlowConfirmationFragment__your_gift_will_be_sent_in">Je cadeau zal als een één-op-één-bericht naar de ontvanger worden verzonden. Voeg hieronder een berichttekst toe.</string>
+  <!--Text explaining that this gift is a one time donation-->
+  <string name="GiftFlowConfirmationFragment__one_time_donation">Een eenmalige donatie</string>
+  <!--Hint for add message input-->
+  <string name="GiftFlowConfirmationFragment__add_a_message">Berichttekst toevoegen</string>
+  <!--Title for sheet shown when opening a redeemed gift-->
+  <string name="ViewReceivedGiftBottomSheet__s_sent_you_a_gift">%1$s heeft je een cadeau toegestuurd.</string>
+  <!--Title for sheet shown when opening a sent gift-->
+  <string name="ViewSentGiftBottomSheet__thanks_for_your_support">Bedankt voor je steun!</string>
+  <!--Description for sheet shown when opening a redeemed gift-->
+  <string name="ViewReceivedGiftBottomSheet__youve_received_a_gift_badge">Je hebt een cadeau-badge gekregen van %1$s. Je kunt er voor kiezen deze naast je profielfoto weer te geven om te helpen bewustwording te creëren voor het feit dat Signal mogelijk wordt gemaakt door donaties.</string>
+  <!--Description for sheet shown when opening a sent gift-->
+  <string name="ViewSentGiftBottomSheet__youve_gifted_a_badge">Je hebt een badge cadeau gedaan aan %1$s. Als hij of zij de badge in ontvangt neemt dan kan hij of zij kiezen of hij of zij die wil weergeven op zijn of haar profiel.</string>
+  <!--Primary action for pending gift sheet to redeem badge now-->
+  <string name="ViewReceivedGiftSheet__redeem">In ontvangst nemen</string>
+  <!--Primary action for pending gift sheet to redeem badge later-->
+  <string name="ViewReceivedGiftSheet__not_now">Niet nu</string>
+  <!--Dialog text while redeeming a gift-->
+  <string name="ViewReceivedGiftSheet__redeeming_gift">Cadeau in ontvangst aan het nemen …</string>
+  <!--Snackbar text when user presses "not now" on redemption sheet-->
+  <string name="ConversationFragment__you_can_redeem_your_badge_later">Je kunt je badge later in ontvangt nemen.</string>
+  <!--Description text in gift thanks sheet-->
+  <string name="GiftThanksSheet__youve_gifted_a_badge_to_s">Je hebt een badge cadeau gedaan aan %1$s. Als hij of zij de badge in ontvangt neemt dan kan hij of zij kiezen of hij of zij die wil weergeven op zijn of haar profiel.</string>
+  <!--Expired gift sheet title-->
+  <string name="ExpiredGiftSheetConfiguration__your_gift_badge_has_expired">Je cadeau-badge is verlopen</string>
+  <!--Expired gift sheet top description text-->
+  <string name="ExpiredGiftSheetConfiguration__your_gift_badge_has_expired_and_is">Je cadeau-badge is verlopen en is daarom niet langer voor anderen te zien op je profiel.</string>
+  <!--Expired gift sheet bottom description text-->
+  <string name="ExpiredGiftSheetConfiguration__to_continue">Overweeg maandelijkse donaties in te stellen om technologie die is gemaakt voor jou in plaats van voor het verzamelen van gegevens te blijven ondersteunen.</string>
+  <!--Expired gift sheet make a monthly donation button-->
+  <string name="ExpiredGiftSheetConfiguration__make_a_monthly_donation">Maandelijks doneren</string>
+  <!--Expired gift sheet not now button-->
+  <string name="ExpiredGiftSheetConfiguration__not_now">Niet nu</string>
   <!--EOF-->
 </resources>

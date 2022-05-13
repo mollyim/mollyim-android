@@ -110,7 +110,6 @@ public final class Megaphones {
       // Feature-introduction megaphones should *probably* be added below this divider
       put(Event.CHAT_COLORS, ALWAYS);
       put(Event.ADD_A_PROFILE_PHOTO, shouldShowAddAProfilePhotoMegaphone(context) ? ALWAYS : NEVER);
-      put(Event.NOTIFICATION_PROFILES, ShowForDurationSchedule.showForDays(7));
     }};
   }
 
@@ -132,8 +131,6 @@ public final class Megaphones {
         return buildAddAProfilePhotoMegaphone(context);
       case DONATE_MOLLY:
         return buildDonateMegaphone(context);
-      case NOTIFICATION_PROFILES:
-        return buildNotificationProfilesMegaphone(context);
       case TURN_OFF_CENSORSHIP_CIRCUMVENTION:
         return buildTurnOffCircumventionMegaphone(context);
       default:
@@ -279,21 +276,6 @@ public final class Megaphones {
         .build();
   }
 
-  private static @NonNull Megaphone buildNotificationProfilesMegaphone(@NonNull Context context) {
-    return new Megaphone.Builder(Event.NOTIFICATION_PROFILES, Megaphone.Style.BASIC)
-        .setTitle(R.string.NotificationProfilesMegaphone__notification_profiles)
-        .setImage(R.drawable.ic_notification_profiles_megaphone)
-        .setBody(R.string.NotificationProfilesMegaphone__only_get_notifications_from_the_people_and_groups_you_choose)
-        .setActionButton(R.string.NotificationProfilesMegaphone__create_a_profile, (megaphone, listener) -> {
-          listener.onMegaphoneNavigationRequested(AppSettingsActivity.notificationProfiles(context));
-          listener.onMegaphoneCompleted(Event.NOTIFICATION_PROFILES);
-        })
-        .setSecondaryButton(R.string.NotificationProfilesMegaphone__not_now, (megaphone, listener) -> {
-          listener.onMegaphoneCompleted(Event.NOTIFICATION_PROFILES);
-        })
-        .build();
-  }
-
   private static @NonNull Megaphone buildTurnOffCircumventionMegaphone(@NonNull Context context) {
     return new Megaphone.Builder(Event.TURN_OFF_CENSORSHIP_CIRCUMVENTION, Megaphone.Style.BASIC)
         .setTitle(R.string.CensorshipCircumventionMegaphone_turn_off_censorship_circumvention)
@@ -387,7 +369,6 @@ public final class Megaphones {
     ADD_A_PROFILE_PHOTO("add_a_profile_photo"),
     DONATE_MOLLY("donate_molly"),
     VALENTINES_DONATIONS_2022("valentines_donations_2022"),
-    NOTIFICATION_PROFILES("notification_profiles"),
     TURN_OFF_CENSORSHIP_CIRCUMVENTION("turn_off_censorship_circumvention");
 
     private final String key;

@@ -1158,9 +1158,15 @@
     <item quantity="one">%1$d meðlimur</item>
     <item quantity="other">%1$d meðlimir</item>
   </plurals>
+  <!--Describes the number of members in a group. The string MessageRequestProfileView_invited is nested in the parentheses.-->
   <plurals name="MessageRequestProfileView_members_and_invited">
-    <item quantity="one">%1$d meðlimur (+%2$d boðið)</item>
-    <item quantity="other">%1$d meðlimir (+%2$d boðið)</item>
+    <item quantity="one">%1$d meðlimur (%2$s)</item>
+    <item quantity="other">%1$d meðlimir (%2$s)</item>
+  </plurals>
+  <!--Describes the number of people invited to a group. Nested inside of the string MessageRequestProfileView_members_and_invited-->
+  <plurals name="MessageRequestProfileView_invited">
+    <item quantity="one">Fleiri en %1$d boðið</item>
+    <item quantity="other">Fleiri en %1$d boðið</item>
   </plurals>
   <plurals name="MessageRequestProfileView_member_of_d_additional_groups">
     <item quantity="one">%d hópur í viðbót</item>
@@ -1917,7 +1923,7 @@
   <!--prompt_passphrase_activity-->
   <string name="prompt_passphrase_activity__unlock">Aflæsa</string>
   <!--prompt_mms_activity-->
-  <string name="prompt_mms_activity__signal_requires_mms_settings_to_deliver_media_and_group_messages">Signal þarfnast stilliga fyrir MMS til að geta afhent margmiðlunarefni og hópskilaboð í gegnum farsímakerfi þjónustuaðilans þíns. Tækið þitt veitir ekki þessar upplýsingar, sem kemur fyrir þegar um tæki læst við tiltekinn þjónustuaðila og aðrar skilyrtar uppsetningar er að ræða.</string>
+  <string name="prompt_mms_activity__signal_requires_mms_settings_to_deliver_media_and_group_messages">Signal þarfnast stillinga fyrir MMS til að geta afhent margmiðlunarefni og hópskilaboð í gegnum farsímakerfi þjónustuaðilans þíns. Tækið þitt veitir ekki þessar upplýsingar, sem kemur fyrir þegar um tæki læst við tiltekinn þjónustuaðila og aðrar skilyrtar uppsetningar er að ræða.</string>
   <string name="prompt_mms_activity__to_send_media_and_group_messages_tap_ok">Til að senda margmiðlunarefni og hópskilaboð, skaltu ýta á \'Í lagi\' og ljúka við umbeðnar stillingar. MMS-stillingarnar fyrir símaþjónustuna þína er venjulega hægt að finna með því að leita að \'nafn símaþjónustufyrirtækis APN\'. Þú þarft aðeins að gera þetta einu sinni.</string>
   <!--BadDecryptLearnMoreDialog-->
   <string name="BadDecryptLearnMoreDialog_delivery_issue">Vandamál með afhendingu</string>
@@ -2125,10 +2131,8 @@
   <string name="preferences__help">Hjálp</string>
   <string name="preferences__advanced">Meira</string>
   <string name="preferences__donate_to_signal">Gefa til Molly</string>
-  <!--Preference label when someone is already a subscriber-->
-  <string name="preferences__subscription">Áskrift</string>
-  <!--Preference label for making a monthly donation to Signal-->
   <!--Preference label for making one-time donations to Signal-->
+  <string name="preferences__one_time_donation">Eins-skiptis styrkur</string>
   <string name="preferences__privacy">Gagnaleynd</string>
   <string name="preferences__mms_user_agent">MMS-kennistrengur</string>
   <string name="preferences__advanced_mms_access_point_names">Handvirkar MMS-stillingar</string>
@@ -3110,6 +3114,7 @@ PIN-númerið þitt. Ef þú manst ekki PIN-númerið, geturðu endursannvottað
   <string name="QualitySelectorBottomSheetDialog__photo_quality">Gæði ljósmynda</string>
   <!--AppSettingsFragment-->
   <string name="AppSettingsFragment__invite_your_friends">Bjóddu vinum þínum</string>
+  <string name="AppSettingsFragment__copied_subscriber_id_to_clipboard">Afritaði auðkenni áskrifanda á klippispjald</string>
   <!--AccountSettingsFragment-->
   <string name="AccountSettingsFragment__account">Notandaaðgangur</string>
   <string name="AccountSettingsFragment__youll_be_asked_less_frequently">Spurt verður sjaldnar eftir því sem tímar líða</string>
@@ -3281,6 +3286,7 @@ PIN-númerið þitt. Ef þú manst ekki PIN-númerið, geturðu endursannvottað
   <!--BecomeASustainerMegaphone-->
   <string name="BecomeASustainerMegaphone__become_a_sustainer">Gerstu stuðningsaðili</string>
   <!--Displayed in the Become a Sustainer megaphone-->
+  <string name="BecomeASustainerMegaphone__signal_is_powered_by">Signal er keyrt áfram af fólki eins og þér. Sýndu stuðning þinn í verki og fáðu merki.</string>
   <string name="BecomeASustainerMegaphone__not_now">Ekki núna</string>
   <string name="BecomeASustainerMegaphone__donate">Styrkja</string>
   <!--KeyboardPagerFragment-->
@@ -3458,6 +3464,8 @@ PIN-númerið þitt. Ef þú manst ekki PIN-númerið, geturðu endursannvottað
   <string name="SubscribeFragment__signal_is_powered_by_people_like_you">Signal er drifið áfram af fólki eins og þér.</string>
   <string name="SubscribeFragment__support_technology_that_is_built_for_you">Styddu við tækni sem er hönnuð fyrir þig - ekki til að grafast fyrir um hegðun þína - með því að ganga til liðs við fólkið sem stendur að hugbúnaðnum.</string>
   <string name="SubscribeFragment__support_technology_that_is_built_for_you_not">Styddu við tækni sem er hönnuð fyrir þig, ekki til að grafast fyrir um hegðun þína, með því að ganga til liðs við fólkið sem stendur að Signal.</string>
+  <string name="SubscribeFragment__make_a_recurring_monthly_donation">Styrktu Signal með mánaðarlegum enduteknum greiðslum og styddu þannig við tækni sem er hönnuð fyrir þig - ekki til að grafast fyrir um 
+hegðun þína.</string>
   <string name="SubscribeFragment__currency">Gjaldmiðill</string>
   <string name="SubscribeFragment__more_payment_options">Fleiri greiðslumátar</string>
   <string name="SubscribeFragment__cancel_subscription">Segja upp áskrift</string>
@@ -3474,10 +3482,14 @@ PIN-númerið þitt. Ef þú manst ekki PIN-númerið, geturðu endursannvottað
   <string name="Subscription__s_per_month_dot_renews_s">%1$s/mánuði · Endurnýjast %2$s</string>
   <string name="Subscription__s_per_month_dot_expires_s">%1$s/mánuði · Rennur út %2$s</string>
   <!--First small text blurb on learn more sheet-->
+  <string name="SubscribeLearnMoreBottomSheetDialogFragment__signal_is_a_nonprofit_with_no">Signal er samtök án hagnaðarmarkmiða, auglýsenda eða fjárfesta, einungis drifið áfram af fólkinu sem notar það og meta gildi þess. Styrktu verkefnið mánaðarlega og fáðu merki á auðkennismyndina þina til að sýna stuðning þinn.</string>
   <string name="SubscribeLearnMoreBottomSheetDialogFragment__why_donate">Af hverju styrkja?</string>
   <string name="SubscribeLearnMoreBottomSheetDialogFragment__signal_is_committed_to_developing">Signal hefur að markmiði að þróa opna og frjálsa tækni til verndar einkalífinu og sem styður frjálsa tjáningu ásamt þvú að styðja við hnattræn samskipti.</string>
+  <string name="SubscribeLearnMoreBottomSheetDialogFragment__your_donation">Framlag þitt styður við þessi markmið og greiðir fyrir þróun og rekstur hugbúnaðar sem nýtist milljónum manna við einkasamskipti. Engar auglýsingar. Engar njósnir. Ekki að grínast.</string>
   <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__thanks_for_your_support">Þakka þér fyrir stuðninginn!</string>
   <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__thanks_for_the_boost">Þakka þér fyrir hvatninguna!</string>
+  <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__youve_earned_s_badge_display">Þú hefur unnið þér inn %s-merki! Birtu þetta merki á auðkenninu þínu til að stuðla að meðvitundu um að það sé hægt að styrkja Signal.</string>
+  <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__youve_earned_a_boost_badge_display">Þú hefur unnið þér inn hvatningar-merki! Birtu þetta merki á auðkenninu þínu til að stuðla að meðvitundu um að það sé hægt að styrkja Signal.</string>
   <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__you_can_also">Þú getur líka</string>
   <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__become_a_montly_sustainer">orðið stuðningsaðili Signal mánaðarlega</string>
   <string name="SubscribeThanksForYourSupportBottomSheetDialogFragment__display_on_profile">Birta á notandasniði</string>
@@ -3486,15 +3498,27 @@ PIN-númerið þitt. Ef þú manst ekki PIN-númerið, geturðu endursannvottað
   <string name="ThanksForYourSupportBottomSheetFragment__when_you_have_more">Þegar þú átt fleiri en eitt merki, geturðu valið eitt þeirra sem aðrir sjá á auðkennismyndinni þinni.</string>
   <string name="BecomeASustainerFragment__get_badges">Fáðu merki á notandaauðkennið þitt með því að styrkja Signal.</string>
   <string name="BecomeASustainerFragment__signal_is_a_non_profit">Signal er samtök án hagnaðarsjónarmiða, auglýsenda eða fjárfesta og er drifið áfram af fólki eins og þér.</string>
-  <string name="ManageDonationsFragment__my_support">Stuðningur minn</string>
+  <!--Button label for creating a monthly donation-->
+  <string name="ManageDonationsFragment__make_a_monthly_donation">Veita mánaðarlegan styrk</string>
+  <!--Heading for more area of manage subscriptions page-->
+  <string name="ManageDonationsFragment__more">Meira</string>
+  <!--Heading for receipts area of manage subscriptions page-->
+  <string name="ManageDonationsFragment__receipts">Kvittanir</string>
+  <!--Heading for my subscription area of manage subscriptions page-->
+  <string name="ManageDonationsFragment__my_subscription">Áskriftin mín</string>
   <string name="ManageDonationsFragment__manage_subscription">Sýsla með áskrift</string>
   <!--Label for Donation Receipts button-->
   <string name="ManageDonationsFragment__donation_receipts">Kvittanir vegna styrkja</string>
   <string name="ManageDonationsFragment__badges">Merki</string>
   <string name="ManageDonationsFragment__subscription_faq">Spurningar varðandi áskrift</string>
   <string name="ManageDonationsFragment__error_getting_subscription">Villa við að ná í áskrift</string>
+  <!--Preference heading for other ways to donate-->
+  <string name="ManageDonationsFragment__other_ways_to_give">Aðrar leiðir til að styrkja</string>
+  <!--Preference label to launch badge gifting-->
+  <string name="ManageDonationsFragment__gift_a_badge">Gefðu gjafamerki</string>
   <string name="BoostFragment__give_signal_a_boost">Gefðu Signal hvatningu</string>
   <!--Description text in boost sheet-->
+  <string name="BoostFragment__make_a_one_time">Styrktu einu sinni og vinndu þér inn hvatningarmerki í %1$d daga.</string>
   <string name="Boost__enter_custom_amount">Settu inn sérsniðna upphæð</string>
   <string name="Boost__one_time_contribution">Eins-skiptis styrkur</string>
   <string name="MySupportPreference__add_a_signal_boost">Bæta við Signal-hvatningu</string>
@@ -3505,15 +3529,21 @@ PIN-númerið þitt. Ef þú manst ekki PIN-númerið, geturðu endursannvottað
   <string name="MySupportPreference__couldnt_add_badge_s">Gat ekki bætt við merki. %1$s</string>
   <string name="MySupportPreference__please_contact_support">Hafðu samband við aðstoðarteymið.</string>
   <!--Title of expiry sheet when boost badge falls off profile unexpectedly.-->
+  <string name="ExpiredBadgeBottomSheetDialogFragment__boost_badge_expired">Hvatningarmerki útrunnið</string>
   <!--Displayed in the bottom sheet if a monthly donation badge unexpectedly falls off the user\'s profile-->
+  <string name="ExpiredBadgeBottomSheetDialogFragment__monthly_donation_cancelled">Hætt við mánaðarlegan styrk</string>
   <!--Displayed in the bottom sheet when a boost badge expires-->
+  <string name="ExpiredBadgeBottomSheetDialogFragment__your_boost_badge_has_expired_and">Hvatningarmerkið þitt er útrunnið og því ekki lengur sýnilegt á auðkenninu þínu.</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__you_can_reactivate">Þú getur endurvirkjað hvatningarmerkið þitt í 30 daga til viðbótar með eins-skiptis framlagi.</string>
   <!--Displayed when we do not think the user is a subscriber when their boost expires-->
+  <string name="ExpiredBadgeBottomSheetDialogFragment__you_can_keep">Þú getur haldið áfram að nota Signal, en til að styðja við verkefnið í þína þágu, ættirðu að íhuga að gerast mánaðarlegur stuðningsaðili.</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__become_a_sustainer">Gerstu stuðningsaðili</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__add_a_boost">Bæta við hvatningu</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__not_now">Ekki núna</string>
   <!--Copy displayed when badge expires after user inactivity-->
+  <string name="ExpiredBadgeBottomSheetDialogFragment__your_recurring_monthly_donation_was_automatically">Endurtekinn mánaðarlegur styrkur þinn var sjálfvirkt felldur niður því þú hefur verið óvirk/ur of lengi. %1$s merkið þitt er ekki lengur sýnilegt á auðkennismyndinni þinni.</string>
   <!--Copy displayed when badge expires after payment failure-->
+  <string name="ExpiredBadgeBottomSheetDialogFragment__your_recurring_monthly_donation_was_canceled">Endurtekinn mánaðarlegur styrkur þinn var felldur niður því við gátum ekki unnið úr greiðslunni þinni. Skjaldmerkið þitt er ekki lengur sýnilegt á auðkennismyndinni þinni.</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__you_can">Þú getur haldið áfram að nota Signal, en til að styðja við hugbúnaðinn og endurvirkja merkið þitt ættirðu að endurnýja núna.</string>
   <string name="ExpiredBadgeBottomSheetDialogFragment__renew_subscription">Endurnýja áskrift</string>
   <string name="CantProcessSubscriptionPaymentBottomSheetDialogFragment__cant_process_subscription_payment">Get ekki meðhöndlað greiðslu vegna áskriftar</string>
@@ -3531,6 +3561,14 @@ PIN-númerið þitt. Ef þú manst ekki PIN-númerið, geturðu endursannvottað
   <string name="DonationsErrors__your_payment">Ekki var hægt að meðhöndla greiðsluna þína og þú hefur því ekki greitt kröfuna. Endilega reyndu aftur.</string>
   <string name="DonationsErrors__still_processing">Enn í vinnslu</string>
   <string name="DonationsErrors__couldnt_add_badge">Gat ekki bætt við merki</string>
+  <!--Displayed when badge credential couldn\'t be verified-->
+  <string name="DonationsErrors__failed_to_validate_badge">Mistókst að fullgilda merki</string>
+  <!--Displayed when badge credential couldn\'t be verified-->
+  <string name="DonationsErrors__could_not_validate">Mistókst að fullgilda svar frá netþjóni. Hafðu samband við aðstoðarteymið.</string>
+  <!--Displayed as title when some generic error happens during gift badge sending-->
+  <string name="DonationsErrors__failed_to_send_gift_badge">Mistókst að senda gjafamerki</string>
+  <!--Displayed as message when some generic error happens during gift badge sending-->
+  <string name="DonationsErrors__could_not_send_gift_badge">Mistókst að senda gjafamerki. Hafðu samband við aðstoðarteymið.</string>
   <string name="DonationsErrors__your_badge_could_not">Ekki var hægt að bæta merkinu við aðganginn þinn, en mögulega hefur þú samt fengið rukkun. Hafðu samband við aðstoðarteymið.</string>
   <string name="DonationsErrors__your_payment_is_still">Greiðslan þín er ennþá í vinnslu. Þetta getur tekið nokkrar mínútur, eftir ástandi tengingarinnar þinnar.</string>
   <string name="DonationsErrors__google_pay_unavailable">Google Pay ekki aðgengilegt</string>
@@ -3540,6 +3578,23 @@ PIN-númerið þitt. Ef þú manst ekki PIN-númerið, geturðu endursannvottað
   <string name="ViewBadgeBottomSheetDialogFragment__your_device_doesn_t_support_google_pay_so_you_can_t_subscribe_to_earn_a_badge_you_can_still_support_signal_by_making_a_donation_on_our_website">Tækið þitt styður ekki Google Pay, þannig að þú getur ekki orðið áskrifandi og unnið þér inn merki. Þú getur samt stutt Signal með styrk í gegnum vefsvæðið okkar.</string>
   <string name="NetworkFailure__network_error_check_your_connection_and_try_again">Villa í netkerfi. Athugaðu nettenginguna þína og prófaðu svo aftur.</string>
   <string name="NetworkFailure__retry">Reyna aftur</string>
+  <string name="DonationsErrors__recipient_verification_failed">Staðfesting viðtakanda mistókst.</string>
+  <string name="DonationsErrors__target_does_not_support_gifting">Kerfi viðtakanda styður ekki gjafir.</string>
+  <!--Gift message view title-->
+  <string name="GiftMessageView__gift_badge">Gjafamerki</string>
+  <!--Gift message view expiry information-->
+  <plurals name="GiftMessageView__lasts_for_d_months">
+    <item quantity="one">Endist í %1$d mánuð</item>
+    <item quantity="other">Endist í %1$d mánuði</item>
+  </plurals>
+  <!--Gift badge redeem action label-->
+  <string name="GiftMessageView__redeem">Leysa út</string>
+  <!--Gift badge view action label-->
+  <string name="GiftMessageView__view">Skoða</string>
+  <!--Gift badge redeeming action label-->
+  <string name="GiftMessageView__redeeming">Leysi út…</string>
+  <!--Gift badge redeemed label-->
+  <string name="GiftMessageView__redeemed">Búið að leysa út</string>
   <!--Stripe decline code generic_failure-->
   <string name="DeclineCode__try_another_payment_method_or_contact_your_bank">Reyndu annan greiðslumáta eða hafðu samband við bankann þinn til að fá frekari upplýsingar.</string>
   <!--Stripe decline code verify on Google Pay and try again-->
@@ -3698,14 +3753,6 @@ PIN-númerið þitt. Ef þú manst ekki PIN-númerið, geturðu endursannvottað
   <string name="NotificationProfileSelection__view_settings">Skoða stillingar</string>
   <!--Descriptor text indicating how long a profile will be on when there is a time component associated with it-->
   <string name="NotificationProfileSelection__on_until_s">Eða til %1$s</string>
-  <!--Title for notification profile megaphone-->
-  <string name="NotificationProfilesMegaphone__notification_profiles">Snið tilkynninga</string>
-  <!--Description for notification profile megaphone-->
-  <string name="NotificationProfilesMegaphone__only_get_notifications_from_the_people_and_groups_you_choose">Fáðu aðeins tilkynningar frá fólki og hópum sem þú kýst.</string>
-  <!--Call to action button to create a profile from megaphone-->
-  <string name="NotificationProfilesMegaphone__create_a_profile">Útbúa tilkynningasnið</string>
-  <!--Button to dismiss notification profile megaphone-->
-  <string name="NotificationProfilesMegaphone__not_now">Ekki núna</string>
   <!--Displayed in a toast when we fail to open the ringtone picker-->
   <string name="NotificationSettingsFragment__failed_to_open_picker">Mistókst að opna veljara.</string>
   <!--Description shown for the Signal Release Notes channel-->
@@ -3717,6 +3764,9 @@ PIN-númerið þitt. Ef þú manst ekki PIN-númerið, geturðu endursannvottað
   <!--Donation receipts recurring tab label-->
   <string name="DonationReceiptListFragment__recurring">Endurtekið</string>
   <!--Donation receipts one-time tab label-->
+  <string name="DonationReceiptListFragment__one_time">Eins-skiptis</string>
+  <!--Donation receipts gift tab label-->
+  <string name="DonationReceiptListFragment__gift">Gjöf</string>
   <!--Donation receipts boost row label-->
   <string name="DonationReceiptListFragment__boost">Hvatning</string>
   <!--Donation receipts details title-->
@@ -3763,9 +3813,11 @@ PIN-númerið þitt. Ef þú manst ekki PIN-númerið, geturðu endursannvottað
   <!--Label when a story is pending sending-->
   <string name="StoriesLandingItem__sending">Sendi…</string>
   <!--Label when multiple stories are pending sending-->
+  <string name="StoriesLandingItem__sending_d">Sendi %1$d…</string>
   <!--Label when a story fails to send-->
   <string name="StoriesLandingItem__send_failed">Sending mistókst</string>
   <!--Status label when a story fails to send indicating user action to retry-->
+  <string name="StoriesLandingItem__tap_to_retry">Ýttu til að reyna aftur</string>
   <!--Title of dialog confirming decision to hide a story-->
   <string name="StoriesLandingFragment__hide_story">Fela sögu?</string>
   <!--Message of dialog confirming decision to hide a story-->
@@ -3831,6 +3883,8 @@ PIN-númerið þitt. Ef þú manst ekki PIN-númerið, geturðu endursannvottað
   <string name="StorySettingsFragment__story_settings">Stillingar sögu</string>
   <!--Story settings private stories heading-->
   <string name="StorySettingsFragment__private_stories">Einkasögur</string>
+  <!--Note at bottom of story settings regarding who can see private stories.-->
+  <string name="StorySettingsFragment__private_stories_can_only_be_viewed">Einkasögur geta aðeins skoðað þeir sem þú bætir við þær. Aðeins þú getur séð heiti sögunnar.</string>
   <!--Option label for creating a new private story-->
   <string name="StorySettingsFragment__new_private_story">Ný einkasaga</string>
   <!--Page title for My Story options-->
@@ -3915,6 +3969,7 @@ PIN-númerið þitt. Ef þú manst ekki PIN-númerið, geturðu endursannvottað
   <!--First time share to story dialog: Neutral action to edit who can view "My Story"-->
   <string name="StoryDialogs__edit_viewers">Breyta lesendum</string>
   <!--Error message shown when a failure occurs during story send-->
+  <string name="StoryDialogs__story_could_not_be_sent">Ekki var hægt að senda sögu. Athugaðu netsambandið þitt og prófaðu aftur.</string>
   <!--Error message dialog button to resend a previously failed story send-->
   <string name="StoryDialogs__send">Senda</string>
   <!--Privacy Settings toggle title for stories-->
@@ -3971,7 +4026,13 @@ PIN-númerið þitt. Ef þú manst ekki PIN-númerið, geturðu endursannvottað
   <!--Displayed in the viewer when network is available but content could not be downloaded-->
   <string name="StorySlateView__couldnt_load_content">Gat ekki hlaðið inn efni</string>
   <!--Toasted when the user externally shares to a text story successfully-->
+  <string name="TextStoryPostCreationFragment__sent_story">Sendi sögu</string>
   <!--Toasted when the user external share to a text story fails-->
+  <string name="TextStoryPostCreationFragment__failed_to_send_story">Mistókst að senda sögu</string>
+  <!--Displayed in a dialog to let the user select a given users story-->
+  <string name="StoryDialogs__view_story">Skoða sögu</string>
+  <!--Displayed in a dialog to let the user select a given users profile photo-->
+  <string name="StoryDialogs__view_profile_photo">Skoða auðkennismynd</string>
   <!--Title for a notification at the bottom of the chat list suggesting that the user disable censorship circumvention because the service has become reachable-->
   <string name="TurnOffCircumventionMegaphone_turn_off_censorship_circumvention">Slökkva á leiðum framhjá ritskoðun?</string>
   <!--Body for a notification at the bottom of the chat list suggesting that the user disable censorship circumvention because the service has become reachable-->
@@ -3990,5 +4051,53 @@ PIN-númerið þitt. Ef þú manst ekki PIN-númerið, geturðu endursannvottað
   <!--Content description for expand contacts chevron-->
   <string name="ExpandModel__view_more">Sjá meira</string>
   <string name="StoriesLinkPopup__visit_link">Skoða tengil</string>
+  <!--Tagline for gift row items-->
+  <string name="GiftRowItem__send_a_gift_badge">Senda gjafamerki</string>
+  <!--Headline text on start fragment for gifting a badge-->
+  <string name="GiftFlowStartFragment__gift_a_badge">Gefðu gjafamerki</string>
+  <!--Description text on start fragment for gifting a badge-->
+  <string name="GiftFlowStartFragment__gift_someone_a_badge">Gefðu einhverjum merki með því að styrkja Signal í þeirra nafni. Viðkomandi fær þá gjafamerki til að birta á auðkennismyndinni sinni.</string>
+  <!--Action button label for start fragment for gifting a badge-->
+  <string name="GiftFlowStartFragment__next">Næsta</string>
+  <!--Title text on choose recipient page for badge gifting-->
+  <string name="GiftFlowRecipientSelectionFragment__choose_recipient">Veldu viðtakanda</string>
+  <!--Title text on confirm gift page-->
+  <string name="GiftFlowConfirmationFragment__confirm_gift">Staðfestu gjöfina</string>
+  <!--Heading text specifying who the gift will be sent to-->
+  <string name="GiftFlowConfirmationFragment__send_to">Senda til</string>
+  <!--Text explaining that gift will be sent to the chosen recipient-->
+  <string name="GiftFlowConfirmationFragment__your_gift_will_be_sent_in">Gjöfin þín verður send í maður-á-mann skilaboðum til viðtakandans. Bættu við þínum eigin skilaboðum hér fyrir neðan.</string>
+  <!--Text explaining that this gift is a one time donation-->
+  <string name="GiftFlowConfirmationFragment__one_time_donation">Eins-skiptis styrkur</string>
+  <!--Hint for add message input-->
+  <string name="GiftFlowConfirmationFragment__add_a_message">Bæta við skilaboðum</string>
+  <!--Title for sheet shown when opening a redeemed gift-->
+  <string name="ViewReceivedGiftBottomSheet__s_sent_you_a_gift">%1$s sendi þér gjöf</string>
+  <!--Title for sheet shown when opening a sent gift-->
+  <string name="ViewSentGiftBottomSheet__thanks_for_your_support">Þakka þér fyrir stuðninginn!</string>
+  <!--Description for sheet shown when opening a redeemed gift-->
+  <string name="ViewReceivedGiftBottomSheet__youve_received_a_gift_badge">Þú fékkst gjafarmerki frá %1$s! Hjálpaðu Signal að byggja upp samstöðu með því að birta þetta merki á auðkennismyndinni þinni.</string>
+  <!--Description for sheet shown when opening a sent gift-->
+  <string name="ViewSentGiftBottomSheet__youve_gifted_a_badge">Þú hefur gefið %1$s merki. Þegar viðkomandi samþykkir, gefst honum kostur á að birta eða fela merkið sitt.</string>
+  <!--Primary action for pending gift sheet to redeem badge now-->
+  <string name="ViewReceivedGiftSheet__redeem">Leysa út</string>
+  <!--Primary action for pending gift sheet to redeem badge later-->
+  <string name="ViewReceivedGiftSheet__not_now">Ekki núna</string>
+  <!--Dialog text while redeeming a gift-->
+  <string name="ViewReceivedGiftSheet__redeeming_gift">Leysi út gjöf…</string>
+  <!--Snackbar text when user presses "not now" on redemption sheet-->
+  <string name="ConversationFragment__you_can_redeem_your_badge_later">Þú getur leyst út gjafamerkið þitt síðar.</string>
+  <!--Description text in gift thanks sheet-->
+  <string name="GiftThanksSheet__youve_gifted_a_badge_to_s">Þú hefur gefið %1$s merki. Þegar viðkomandi samþykkir, gefst honum kostur á að birta eða fela merkið sitt.</string>
+  <!--Expired gift sheet title-->
+  <string name="ExpiredGiftSheetConfiguration__your_gift_badge_has_expired">Gjafamerkið þitt er útrunnið</string>
+  <!--Expired gift sheet top description text-->
+  <string name="ExpiredGiftSheetConfiguration__your_gift_badge_has_expired_and_is">Gjafamerkið þitt er útrunnið og því ekki lengur sýnilegt öðrum á auðkenninu þínu.</string>
+  <!--Expired gift sheet bottom description text-->
+  <string name="ExpiredGiftSheetConfiguration__to_continue">Til að halda áfram að styðja við tækni sem er hönnuð fyrir þig, skaltu íhuga að gerast mánaðarlegur stuðningsaðili.</string>
+  <!--Expired gift sheet make a monthly donation button-->
+  <string name="ExpiredGiftSheetConfiguration__make_a_monthly_donation">Veita mánaðarlegan styrk</string>
+  <!--Expired gift sheet not now button-->
+  <string name="ExpiredGiftSheetConfiguration__not_now">Ekki núna</string>
   <!--EOF-->
 </resources>

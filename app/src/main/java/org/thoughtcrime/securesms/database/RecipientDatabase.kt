@@ -613,14 +613,15 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
     return getOrInsertByColumn(EMAIL, email).recipientId
   }
 
-  fun getOrInsertFromDistributionListId(distributionListId: DistributionListId): RecipientId {
+  @JvmOverloads
+  fun getOrInsertFromDistributionListId(distributionListId: DistributionListId, storageId: ByteArray? = null): RecipientId {
     return getOrInsertByColumn(
       DISTRIBUTION_LIST_ID,
       distributionListId.serialize(),
       ContentValues().apply {
         put(GROUP_TYPE, GroupType.DISTRIBUTION_LIST.id)
         put(DISTRIBUTION_LIST_ID, distributionListId.serialize())
-        put(STORAGE_SERVICE_ID, Base64.encodeBytes(StorageSyncHelper.generateKey()))
+        put(STORAGE_SERVICE_ID, Base64.encodeBytes(storageId ?: StorageSyncHelper.generateKey()))
         put(PROFILE_SHARING, 1)
       }
     ).recipientId
@@ -952,6 +953,7 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
 
     Log.i(TAG, "Creating restore placeholder for $groupId")
     groups.create(
+      null,
       masterKey,
       DecryptedGroup.newBuilder()
         .setRevision(GroupsV2StateProcessor.RESTORE_PLACEHOLDER_REVISION)
@@ -1161,15 +1163,23 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
     return out
   }
 
-  fun beginBulkSystemContactUpdate(): BulkOperationsHandle {
-    val db = writableDatabase
-    val contentValues = ContentValues(1).apply {
-      put(SYSTEM_INFO_PENDING, 1)
+  /**
+   * @param clearInfoForMissingContacts If true, this will clear any saved contact details for any recipient that hasn't been updated
+   *                                    by the time finish() is called. Basically this should be true for full syncs and false for
+   *                                    partial syncs.
+   */
+  fun beginBulkSystemContactUpdate(clearInfoForMissingContacts: Boolean): BulkOperationsHandle {
+    writableDatabase.beginTransaction()
+
+    if (clearInfoForMissingContacts) {
+      writableDatabase
+        .update(TABLE_NAME)
+        .values(SYSTEM_INFO_PENDING to 1)
+        .where("$SYSTEM_CONTACT_URI NOT NULL")
+        .run()
     }
 
-    db.beginTransaction()
-    db.update(TABLE_NAME, contentValues, "$SYSTEM_CONTACT_URI NOT NULL", null)
-    return BulkOperationsHandle(db)
+    return BulkOperationsHandle(writableDatabase)
   }
 
   fun onUpdatedChatColors(chatColors: ChatColors) {
@@ -1368,7 +1378,7 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
 
     db.beginTransaction()
     try {
-      val query = SqlUtil.buildCollectionQuery(ID, ids)
+      val query = SqlUtil.buildSingleCollectionQuery(ID, ids)
       val values = ContentValues().apply {
         put(MUTE_UNTIL, until)
       }
@@ -1480,6 +1490,7 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
     value = Bitmask.update(value, Capabilities.ANNOUNCEMENT_GROUPS, Capabilities.BIT_LENGTH, Recipient.Capability.fromBoolean(capabilities.isAnnouncementGroup).serialize().toLong())
     value = Bitmask.update(value, Capabilities.CHANGE_NUMBER, Capabilities.BIT_LENGTH, Recipient.Capability.fromBoolean(capabilities.isChangeNumber).serialize().toLong())
     value = Bitmask.update(value, Capabilities.STORIES, Capabilities.BIT_LENGTH, Recipient.Capability.fromBoolean(capabilities.isStories).serialize().toLong())
+    value = Bitmask.update(value, Capabilities.GIFT_BADGES, Capabilities.BIT_LENGTH, Recipient.Capability.fromBoolean(capabilities.isGiftBadges).serialize().toLong())
 
     val values = ContentValues(1).apply {
       put(CAPABILITIES, value)
@@ -1588,9 +1599,11 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
     return updated
   }
 
-  private fun clearProfileKeyCredential(id: RecipientId) {
+  fun clearProfileKeyCredential(id: RecipientId) {
     val values = ContentValues(1)
     values.putNull(PROFILE_KEY_CREDENTIAL)
+    values.putNull(PROFILE_KEY)
+    values.put(PROFILE_SHARING, 0)
     if (update(id, values)) {
       rotateStorageId(id)
       ApplicationDependencies.getDatabaseObserver().notifyRecipientChanged(id)
@@ -1961,6 +1974,10 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
   fun setHideStory(id: RecipientId, hideStory: Boolean) {
     updateExtras(id) { it.setHideStory(hideStory) }
     StorageSyncHelper.scheduleSyncForDataChange()
+  }
+
+  fun updateLastStoryViewTimestamp(id: RecipientId) {
+    updateExtras(id) { it.setLastStoryView(System.currentTimeMillis()) }
   }
 
   fun clearUsernameIfExists(username: String) {
@@ -2481,7 +2498,7 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
     }
 
     if (Util.hasItems(idsToUpdate)) {
-      val query = SqlUtil.buildCollectionQuery(ID, idsToUpdate)
+      val query = SqlUtil.buildSingleCollectionQuery(ID, idsToUpdate)
       val values = ContentValues(1).apply {
         put(PROFILE_SHARING, 1)
       }
@@ -2499,7 +2516,7 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
       return
     }
 
-    var query = SqlUtil.buildCollectionQuery(ID, recipientIds)
+    var query = SqlUtil.buildSingleCollectionQuery(ID, recipientIds)
     val db = writableDatabase
 
     db.query(TABLE_NAME, arrayOf(ID), "${query.where} AND $GROUPS_IN_COMMON = 0", query.whereArgs, null, null, null).use { cursor ->
@@ -2510,7 +2527,7 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
       }
 
       if (Util.hasItems(idsToUpdate)) {
-        query = SqlUtil.buildCollectionQuery(ID, idsToUpdate)
+        query = SqlUtil.buildSingleCollectionQuery(ID, idsToUpdate)
         val values = ContentValues().apply {
           put(GROUPS_IN_COMMON, 1)
         }
@@ -2904,28 +2921,45 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
   /**
    * Should only be used for debugging! A very destructive action that clears all known serviceIds.
    */
-  fun debugClearServiceIds() {
+  fun debugClearServiceIds(recipientId: RecipientId? = null) {
     writableDatabase
       .update(TABLE_NAME)
       .values(
         SERVICE_ID to null,
         PNI_COLUMN to null
       )
-      .where("$ID != ?", Recipient.self().id)
+      .run {
+        if (recipientId == null) {
+          where("$ID != ?", Recipient.self().id)
+        } else {
+          where("$ID = ?", recipientId)
+        }
+      }
       .run()
   }
 
   /**
    * Should only be used for debugging! A very destructive action that clears all known profile keys and credentials.
    */
-  fun debugClearProfileKeys() {
+  fun debugClearProfileData(recipientId: RecipientId? = null) {
     writableDatabase
       .update(TABLE_NAME)
       .values(
         PROFILE_KEY to null,
-        PROFILE_KEY_CREDENTIAL to null
+        PROFILE_KEY_CREDENTIAL to null,
+        PROFILE_GIVEN_NAME to null,
+        PROFILE_FAMILY_NAME to null,
+        PROFILE_JOINED_NAME to null,
+        LAST_PROFILE_FETCH to 0,
+        SIGNAL_PROFILE_AVATAR to null
       )
-      .where("$ID != ?", Recipient.self().id)
+      .run {
+        if (recipientId == null) {
+          where("$ID != ?", Recipient.self().id)
+        } else {
+          where("$ID = ?", recipientId)
+        }
+      }
       .run()
   }
 
@@ -3031,6 +3065,7 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
       announcementGroupCapability = Recipient.Capability.deserialize(Bitmask.read(capabilities, Capabilities.ANNOUNCEMENT_GROUPS, Capabilities.BIT_LENGTH).toInt()),
       changeNumberCapability = Recipient.Capability.deserialize(Bitmask.read(capabilities, Capabilities.CHANGE_NUMBER, Capabilities.BIT_LENGTH).toInt()),
       storiesCapability = Recipient.Capability.deserialize(Bitmask.read(capabilities, Capabilities.STORIES, Capabilities.BIT_LENGTH).toInt()),
+      giftBadgesCapability = Recipient.Capability.deserialize(Bitmask.read(capabilities, Capabilities.GIFT_BADGES, Capabilities.BIT_LENGTH).toInt()),
       insightsBannerTier = InsightsBannerTier.fromId(cursor.requireInt(SEEN_INVITE_REMINDER)),
       storageId = Base64.decodeNullableOrThrow(cursor.requireString(STORAGE_SERVICE_ID)),
       mentionSetting = MentionSetting.fromId(cursor.requireInt(MENTION_SETTING)),
@@ -3186,19 +3221,18 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
     }
 
     private fun clearSystemDataForPendingInfo() {
-      val query = "$SYSTEM_INFO_PENDING = ?"
-      val args = arrayOf("1")
-      val values = ContentValues(5).apply {
-        put(SYSTEM_INFO_PENDING, 0)
-        put(SYSTEM_GIVEN_NAME, null as String?)
-        put(SYSTEM_FAMILY_NAME, null as String?)
-        put(SYSTEM_JOINED_NAME, null as String?)
-        put(SYSTEM_PHOTO_URI, null as String?)
-        put(SYSTEM_PHONE_LABEL, null as String?)
-        put(SYSTEM_CONTACT_URI, null as String?)
-      }
-
-      database.update(TABLE_NAME, values, query, args)
+      database.update(TABLE_NAME)
+        .values(
+          SYSTEM_INFO_PENDING to 0,
+          SYSTEM_GIVEN_NAME to null,
+          SYSTEM_FAMILY_NAME to null,
+          SYSTEM_JOINED_NAME to null,
+          SYSTEM_PHOTO_URI to null,
+          SYSTEM_PHONE_LABEL to null,
+          SYSTEM_CONTACT_URI to null
+        )
+        .where("$SYSTEM_INFO_PENDING = ?", 1)
+        .run()
     }
   }
 
@@ -3349,6 +3383,7 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
     const val ANNOUNCEMENT_GROUPS = 3
     const val CHANGE_NUMBER = 4
     const val STORIES = 5
+    const val GIFT_BADGES = 6
   }
 
   enum class VibrateState(val id: Int) {

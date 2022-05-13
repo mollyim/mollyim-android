@@ -26,6 +26,7 @@ public final class InternalValues extends SignalStoreValues {
   public static final String CALLING_SERVER                       = "internal.calling_server";
   public static final String CALLING_AUDIO_PROCESSING_METHOD      = "internal.calling_audio_processing_method";
   public static final String CALLING_BANDWIDTH_MODE               = "internal.calling_bandwidth_mode";
+  public static final String CALLING_DISABLE_TELECOM              = "internal.calling_disable_telecom";
   public static final String DISABLE_STORAGE_SERVICE              = "internal.disable_storage_service";
 
   InternalValues(KeyValueStore store) {
@@ -168,6 +169,17 @@ public final class InternalValues extends SignalStoreValues {
       return CallManager.BandwidthMode.values()[getInteger(CALLING_BANDWIDTH_MODE, CallManager.BandwidthMode.NORMAL.ordinal())];
     } else {
       return CallManager.BandwidthMode.NORMAL;
+    }
+  }
+
+  /**
+   * Whether or not Telecom integration is manually disabled.
+   */
+  public synchronized boolean callingDisableTelecom() {
+    if (FeatureFlags.internalUser()) {
+      return getBoolean(CALLING_DISABLE_TELECOM, false);
+    } else {
+      return true;
     }
   }
 }

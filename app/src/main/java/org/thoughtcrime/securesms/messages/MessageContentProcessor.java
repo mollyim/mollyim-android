@@ -9,8 +9,10 @@ import androidx.annotation.Nullable;
 
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
+import com.google.protobuf.ByteString;
 import com.mobilecoin.lib.exceptions.SerializationException;
 
+import org.signal.core.util.Hex;
 import org.signal.core.util.logging.Log;
 import org.signal.libsignal.protocol.SignalProtocolAddress;
 import org.signal.libsignal.protocol.ecc.ECPublicKey;
@@ -56,6 +58,7 @@ import org.thoughtcrime.securesms.database.model.StickerRecord;
 import org.thoughtcrime.securesms.database.model.StoryType;
 import org.thoughtcrime.securesms.database.model.ThreadRecord;
 import org.thoughtcrime.securesms.database.model.databaseprotos.ChatColor;
+import org.thoughtcrime.securesms.database.model.databaseprotos.GiftBadge;
 import org.thoughtcrime.securesms.database.model.databaseprotos.StoryTextPost;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.groups.BadGroupIdException;
@@ -125,8 +128,8 @@ import org.thoughtcrime.securesms.stories.Stories;
 import org.thoughtcrime.securesms.util.Base64;
 import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.GroupUtil;
-import org.signal.core.util.Hex;
 import org.thoughtcrime.securesms.util.IdentityUtil;
+import org.thoughtcrime.securesms.util.LinkUtil;
 import org.thoughtcrime.securesms.util.MediaUtil;
 import org.thoughtcrime.securesms.util.RemoteDeleteUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
@@ -167,6 +170,7 @@ import org.whispersystems.signalservice.api.messages.multidevice.ViewedMessage;
 import org.whispersystems.signalservice.api.messages.shared.SharedContact;
 import org.whispersystems.signalservice.api.payments.Money;
 import org.whispersystems.signalservice.api.push.DistributionId;
+import org.whispersystems.signalservice.api.push.ServiceId;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
 
 import java.io.IOException;
@@ -176,12 +180,14 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -280,16 +286,18 @@ public final class MessageContentProcessor {
 
         MessageId messageId = null;
 
-        if      (isInvalidMessage(message))                                               handleInvalidMessage(content.getSender(), content.getSenderDevice(), groupId, content.getTimestamp(), smsMessageId);
-        else if (message.isEndSession())                                                  messageId = handleEndSessionMessage(content, smsMessageId, senderRecipient);
-        else if (message.isGroupV1Update())                                               handleGroupV1Message(content, message, smsMessageId, groupId.get().requireV1(), senderRecipient, threadRecipient, receivedTime);
-        else if (message.isExpirationUpdate())                                            messageId = handleExpirationUpdate(content, message, smsMessageId, groupId, senderRecipient, threadRecipient, receivedTime);
-        else if (message.getReaction().isPresent())                                       messageId = handleReaction(content, message, senderRecipient);
-        else if (message.getRemoteDelete().isPresent())                                   messageId = handleRemoteDelete(content, message, senderRecipient);
-        else if (message.getPayment().isPresent())                                        handlePayment(content, message, senderRecipient);
-        else if (message.getStoryContext().isPresent())                                   messageId = handleStoryReply(content, message, senderRecipient);
-        else if (isMediaMessage)                                                          messageId = handleMediaMessage(content, message, smsMessageId, senderRecipient, threadRecipient, receivedTime);
-        else if (message.getBody().isPresent())                                           messageId = handleTextMessage(content, message, smsMessageId, groupId, senderRecipient, threadRecipient, receivedTime);
+        if      (isInvalidMessage(message))                                                  handleInvalidMessage(content.getSender(), content.getSenderDevice(), groupId, content.getTimestamp(), smsMessageId);
+        else if (message.isEndSession())                                                     messageId = handleEndSessionMessage(content, smsMessageId, senderRecipient);
+        else if (message.isGroupV1Update())                                                  handleGroupV1Message(content, message, smsMessageId, groupId.get().requireV1(), senderRecipient, threadRecipient, receivedTime);
+        else if (message.isExpirationUpdate())                                               messageId = handleExpirationUpdate(content, message, smsMessageId, groupId, senderRecipient, threadRecipient, receivedTime, false);
+        else if (message.getReaction().isPresent() && message.getStoryContext().isPresent()) messageId = handleStoryReaction(content, message, senderRecipient);
+        else if (message.getReaction().isPresent())                                          messageId = handleReaction(content, message, senderRecipient);
+        else if (message.getRemoteDelete().isPresent())                                      messageId = handleRemoteDelete(content, message, senderRecipient);
+        else if (message.getPayment().isPresent())                                           handlePayment(content, message, senderRecipient);
+        else if (message.getStoryContext().isPresent())                                      messageId = handleStoryReply(content, message, senderRecipient, receivedTime);
+        else if (message.getGiftBadge().isPresent())                                         messageId = handleGiftMessage(content, message, senderRecipient, threadRecipient, receivedTime);
+        else if (isMediaMessage)                                                             messageId = handleMediaMessage(content, message, smsMessageId, senderRecipient, threadRecipient, receivedTime);
+        else if (message.getBody().isPresent())                                              messageId = handleTextMessage(content, message, smsMessageId, groupId, senderRecipient, threadRecipient, receivedTime);
         else if (message.getGroupCallUpdate().isPresent())                                handleGroupCallUpdateMessage(content, message, groupId, senderRecipient);
 
         if (groupId.isPresent() && groupDatabase.isUnknownGroup(groupId.get())) {
@@ -327,9 +335,9 @@ public final class MessageContentProcessor {
 
         if      (syncMessage.getSent().isPresent())                   handleSynchronizeSentMessage(content, syncMessage.getSent().get(), senderRecipient);
         else if (syncMessage.getRequest().isPresent())                handleSynchronizeRequestMessage(syncMessage.getRequest().get(), content.getTimestamp());
-        else if (syncMessage.getRead().isPresent())                   handleSynchronizeReadMessage(syncMessage.getRead().get(), content.getTimestamp(), senderRecipient);
+        else if (syncMessage.getRead().isPresent())                   handleSynchronizeReadMessage(content, syncMessage.getRead().get(), content.getTimestamp(), senderRecipient);
         else if (syncMessage.getViewed().isPresent())                 handleSynchronizeViewedMessage(syncMessage.getViewed().get(), content.getTimestamp());
-        else if (syncMessage.getViewOnceOpen().isPresent())           handleSynchronizeViewOnceOpenMessage(syncMessage.getViewOnceOpen().get(), content.getTimestamp());
+        else if (syncMessage.getViewOnceOpen().isPresent())           handleSynchronizeViewOnceOpenMessage(content, syncMessage.getViewOnceOpen().get(), content.getTimestamp());
         else if (syncMessage.getVerified().isPresent())               handleSynchronizeVerifiedMessage(syncMessage.getVerified().get());
         else if (syncMessage.getStickerPackOperations().isPresent())  handleSynchronizeStickerPackOperation(syncMessage.getStickerPackOperations().get(), content.getTimestamp());
         else if (syncMessage.getConfiguration().isPresent())          handleSynchronizeConfigurationMessage(syncMessage.getConfiguration().get(), content.getTimestamp());
@@ -528,7 +536,13 @@ public final class MessageContentProcessor {
       throws IOException, GroupChangeBusyException
   {
     try {
-      GroupManager.updateGroupFromServer(context, groupV2.getMasterKey(), groupV2.getRevision(), content.getTimestamp(), groupV2.getSignedGroupChange());
+      ServiceId authServiceId = ServiceId.parseOrNull(content.getDestinationUuid());
+      if (authServiceId == null) {
+        warn(content.getTimestamp(), "Group message missing destination uuid, defaulting to ACI");
+        authServiceId = SignalStore.account().requireAci();
+      }
+      long      timestamp     = groupV2.getSignedGroupChange() != null ? content.getTimestamp() : content.getTimestamp() - 1;
+      GroupManager.updateGroupFromServer(context, authServiceId, groupV2.getMasterKey(), groupV2.getRevision(), timestamp, groupV2.getSignedGroupChange());
       return true;
     } catch (GroupNotAMemberException e) {
       warn(String.valueOf(content.getTimestamp()), "Ignoring message for a group we're not in");
@@ -786,9 +800,7 @@ public final class MessageContentProcessor {
 
     GroupV1MessageProcessor.process(context, content, message, false);
 
-    if (message.getExpiresInSeconds() != 0 && message.getExpiresInSeconds() != threadRecipient.getExpiresInSeconds()) {
-      handleExpirationUpdate(content, message, Optional.empty(), Optional.of(groupId), senderRecipient, threadRecipient, receivedTime);
-    }
+    handlePossibleExpirationUpdate(content, message, Optional.of(groupId), senderRecipient, threadRecipient, receivedTime);
 
     if (smsMessageId.isPresent()) {
       SignalDatabase.sms().deleteMessage(smsMessageId.get());
@@ -811,19 +823,47 @@ public final class MessageContentProcessor {
       }
     } else if (group.getGroupV2().isPresent()) {
       warn(content.getTimestamp(), "Received a GV2 message for a group we have no knowledge of -- attempting to fix this state.");
-      SignalDatabase.groups().fixMissingMasterKey(group.getGroupV2().get().getMasterKey());
+      ServiceId authServiceId = ServiceId.parseOrNull(content.getDestinationUuid());
+      if (authServiceId == null) {
+        warn(content.getTimestamp(), "Group message missing destination uuid, defaulting to ACI");
+        authServiceId = SignalStore.account().requireAci();
+      }
+      SignalDatabase.groups().fixMissingMasterKey(authServiceId, group.getGroupV2().get().getMasterKey());
     } else {
       warn(content.getTimestamp(), "Received a message for a group we don't know about without a group context. Ignoring.");
     }
   }
 
+  /**
+   * Inserts an expiration update if the message timer doesn't match the thread timer.
+   */
+  private void handlePossibleExpirationUpdate(@NonNull SignalServiceContent content,
+                                              @NonNull SignalServiceDataMessage message,
+                                              Optional<GroupId> groupId,
+                                              @NonNull Recipient senderRecipient,
+                                              @NonNull Recipient threadRecipient,
+                                              long receivedTime)
+      throws StorageFailedException
+  {
+    if (message.getExpiresInSeconds() != threadRecipient.getExpiresInSeconds()) {
+      warn(content.getTimestamp(), "Message expire time didn't match thread expire time. Handling timer update.");
+      handleExpirationUpdate(content, message, Optional.empty(), groupId, senderRecipient, threadRecipient, receivedTime, true);
+    }
+  }
+
+
+  /**
+   * @param sideEffect True if the event is side effect of a different message, false if the message itself was an expiration update.
+   * @throws StorageFailedException
+   */
   private @Nullable MessageId handleExpirationUpdate(@NonNull SignalServiceContent content,
                                                      @NonNull SignalServiceDataMessage message,
                                                      @NonNull Optional<Long> smsMessageId,
                                                      @NonNull Optional<GroupId> groupId,
                                                      @NonNull Recipient senderRecipient,
                                                      @NonNull Recipient threadRecipient,
-                                                     long receivedTime)
+                                                     long receivedTime,
+                                                     boolean sideEffect)
       throws StorageFailedException
   {
     log(content.getTimestamp(), "Expiration update.");
@@ -844,7 +884,7 @@ public final class MessageContentProcessor {
     try {
       MessageDatabase      database     = SignalDatabase.mms();
       IncomingMediaMessage mediaMessage = new IncomingMediaMessage(senderRecipient.getId(),
-                                                                   content.getTimestamp(),
+                                                                   content.getTimestamp() - (sideEffect ? 1 : 0),
                                                                    content.getServerReceivedTimestamp(),
                                                                    receivedTime,
                                                                    StoryType.NONE,
@@ -863,7 +903,8 @@ public final class MessageContentProcessor {
                                                                    Optional.empty(),
                                                                    Optional.empty(),
                                                                    Optional.empty(),
-                                                                   content.getServerUuid());
+                                                                   content.getServerUuid(),
+                                                                   null);
 
       Optional<InsertResult> insertResult = database.insertSecureDecryptedMessageInbox(mediaMessage, -1);
 
@@ -885,11 +926,6 @@ public final class MessageContentProcessor {
 
   private @Nullable MessageId handleReaction(@NonNull SignalServiceContent content, @NonNull SignalServiceDataMessage message, @NonNull Recipient senderRecipient) throws StorageFailedException {
     log(content.getTimestamp(), "Handle reaction for message " + message.getReaction().get().getTargetSentTimestamp());
-
-    if (message.getStoryContext().isPresent()) {
-      log(content.getTimestamp(), "Reaction has a story context. Treating as a story reaction.");
-      return handleStoryReaction(content, message, senderRecipient);
-    }
 
     SignalServiceDataMessage.Reaction reaction = message.getReaction().get();
 
@@ -1191,6 +1227,8 @@ public final class MessageContentProcessor {
         warn(content.getTimestamp(), "Empty GV2 message! Doing nothing.");
       } else if (message.getMessage().isExpirationUpdate()) {
         threadId = handleSynchronizeSentExpirationUpdate(message);
+      } else if (message.getMessage().getStoryContext().isPresent()) {
+        threadId = handleSynchronizeSentStoryReply(message, content.getTimestamp());
       } else if (message.getMessage().getReaction().isPresent()) {
         handleReaction(content, message.getMessage(), senderRecipient);
         threadId = SignalDatabase.threads().getOrCreateThreadIdFor(getSyncMessageDestination(message));
@@ -1198,8 +1236,6 @@ public final class MessageContentProcessor {
         handleRemoteDelete(content, message.getMessage(), senderRecipient);
       } else if (message.getMessage().getAttachments().isPresent() || message.getMessage().getQuote().isPresent() || message.getMessage().getPreviews().isPresent() || message.getMessage().getSticker().isPresent() || message.getMessage().isViewOnce() || message.getMessage().getMentions().isPresent()) {
         threadId = handleSynchronizeSentMediaMessage(message, content.getTimestamp());
-      } else if (message.getMessage().getStoryContext().isPresent()) {
-        handleStoryReply(content, message.getMessage(), senderRecipient);
       } else {
         threadId = handleSynchronizeSentTextMessage(message, content.getTimestamp());
       }
@@ -1284,19 +1320,33 @@ public final class MessageContentProcessor {
     }
   }
 
-  private void handleSynchronizeReadMessage(@NonNull List<ReadMessage> readMessages, long envelopeTimestamp, @NonNull Recipient senderRecipient)
+  private void handleSynchronizeReadMessage(@NonNull SignalServiceContent content,
+                                            @NonNull List<ReadMessage> readMessages,
+                                            long envelopeTimestamp,
+                                            @NonNull Recipient senderRecipient)
   {
     log(envelopeTimestamp, "Synchronize read message. Count: " + readMessages.size() + ", Timestamps: " + Stream.of(readMessages).map(ReadMessage::getTimestamp).toList());
 
     Map<Long, Long> threadToLatestRead = new HashMap<>();
 
-    SignalDatabase.mmsSms().setTimestampRead(senderRecipient, readMessages, envelopeTimestamp, threadToLatestRead);
+    Collection<SyncMessageId> unhandled = SignalDatabase.mmsSms().setTimestampRead(senderRecipient, readMessages, envelopeTimestamp, threadToLatestRead);
 
     List<MessageDatabase.MarkedMessageInfo> markedMessages = SignalDatabase.threads().setReadSince(threadToLatestRead, false);
 
     if (Util.hasItems(markedMessages)) {
       Log.i(TAG, "Updating past messages: " + markedMessages.size());
       MarkReadReceiver.process(context, markedMessages);
+    }
+
+    for (SyncMessageId id : unhandled) {
+      warn(String.valueOf(content.getTimestamp()), "[handleSynchronizeReadMessage] Could not find matching message! timestamp: " + id.getTimetamp() + "  author: " + id.getRecipientId());
+      if (!processingEarlyContent) {
+        ApplicationDependencies.getEarlyMessageCache().store(id.getRecipientId(), id.getTimetamp(), content);
+      }
+    }
+
+    if (unhandled.size() > 0 && !processingEarlyContent) {
+      PushProcessEarlyMessagesJob.enqueue();
     }
 
     MessageNotifier messageNotifier = ApplicationDependencies.getMessageNotifier();
@@ -1325,7 +1375,7 @@ public final class MessageContentProcessor {
     messageNotifier.updateNotification(context);
   }
 
-  private void handleSynchronizeViewOnceOpenMessage(@NonNull ViewOnceOpenMessage openMessage, long envelopeTimestamp) {
+  private void handleSynchronizeViewOnceOpenMessage(@NonNull SignalServiceContent content, @NonNull ViewOnceOpenMessage openMessage, long envelopeTimestamp) {
     log(envelopeTimestamp, "Handling a view-once open for message: " + openMessage.getTimestamp());
 
     RecipientId   author    = Recipient.externalPush(openMessage.getSender()).getId();
@@ -1336,6 +1386,11 @@ public final class MessageContentProcessor {
       SignalDatabase.attachments().deleteAttachmentFilesForViewOnceMessage(record.getId());
     } else {
       warn(String.valueOf(envelopeTimestamp), "Got a view-once open message for a message we don't have!");
+
+      if (!processingEarlyContent) {
+        ApplicationDependencies.getEarlyMessageCache().store(author, timestamp, content);
+        PushProcessEarlyMessagesJob.enqueue();
+      }
     }
 
     MessageNotifier messageNotifier = ApplicationDependencies.getMessageNotifier();
@@ -1392,7 +1447,8 @@ public final class MessageContentProcessor {
                                                                                    true),
                                                                    Optional.empty(),
                                                                    Optional.empty(),
-                                                                   content.getServerUuid());
+                                                                   content.getServerUuid(),
+                                                                   null);
 
       insertResult = database.insertSecureDecryptedMessageInbox(mediaMessage, -1);
 
@@ -1406,13 +1462,7 @@ public final class MessageContentProcessor {
     }
 
     if (insertResult.isPresent()) {
-      List<DatabaseAttachment> allAttachments = SignalDatabase.attachments().getAttachmentsForMessage(insertResult.get().getMessageId());
-      List<DatabaseAttachment> attachments    = Stream.of(allAttachments).filterNot(Attachment::isSticker).toList();
-
-      for (DatabaseAttachment attachment : attachments) {
-        ApplicationDependencies.getJobManager().add(new AttachmentDownloadJob(insertResult.get().getMessageId(), attachment.getAttachmentId(), false));
-      }
-
+      Stories.enqueueNextStoriesForDownload(threadRecipient.getId(), false);
       ApplicationDependencies.getExpireStoriesManager().scheduleIfNecessary();
     }
   }
@@ -1508,8 +1558,13 @@ public final class MessageContentProcessor {
         } else if (SignalDatabase.storySends().canReply(senderRecipient.getId(), storyContext.getSentTimestamp())) {
           MmsMessageRecord story = (MmsMessageRecord) database.getMessageRecord(storyMessageId.getId());
 
+          String displayText = "";
+          if (story.getStoryType().isTextStory()) {
+            displayText = story.getBody();
+          }
+
           parentStoryId   = new ParentStoryId.DirectReply(storyMessageId.getId());
-          quoteModel      = new QuoteModel(storyContext.getSentTimestamp(), storyAuthorRecipient, "", false, story.getSlideDeck().asAttachments(), Collections.emptyList());
+          quoteModel      = new QuoteModel(storyContext.getSentTimestamp(), storyAuthorRecipient, displayText, false, story.getSlideDeck().asAttachments(), Collections.emptyList());
           expiresInMillis = TimeUnit.SECONDS.toMillis(message.getExpiresInSeconds());
         } else {
           warn(content.getTimestamp(), "Story has reactions disabled. Dropping reaction.");
@@ -1540,7 +1595,8 @@ public final class MessageContentProcessor {
                                                                    Optional.empty(),
                                                                    Optional.empty(),
                                                                    Optional.empty(),
-                                                                   content.getServerUuid());
+                                                                   content.getServerUuid(),
+                                                                   null);
 
       Optional<InsertResult> insertResult = database.insertSecureDecryptedMessageInbox(mediaMessage, -1);
 
@@ -1562,7 +1618,7 @@ public final class MessageContentProcessor {
     }
   }
 
-  private @Nullable MessageId handleStoryReply(@NonNull SignalServiceContent content, @NonNull SignalServiceDataMessage message, @NonNull Recipient senderRecipient) throws StorageFailedException {
+  private @Nullable MessageId handleStoryReply(@NonNull SignalServiceContent content, @NonNull SignalServiceDataMessage message, @NonNull Recipient senderRecipient, long receivedTime) throws StorageFailedException {
     log(content.getTimestamp(), "Story reply.");
 
     if (!Stories.isFeatureAvailable()) {
@@ -1584,14 +1640,22 @@ public final class MessageContentProcessor {
       try {
         MessageId        storyMessageId  = database.getStoryId(storyAuthorRecipient, storyContext.getSentTimestamp());
         MmsMessageRecord story           = (MmsMessageRecord) database.getMessageRecord(storyMessageId.getId());
-        Recipient        threadRecipient = SignalDatabase.threads().getRecipientForThreadId(story.getThreadId());
-        boolean          groupStory      = threadRecipient != null && threadRecipient.isActiveGroup();
+        Recipient        threadRecipient = Objects.requireNonNull(SignalDatabase.threads().getRecipientForThreadId(story.getThreadId()));
+        boolean          groupStory      = threadRecipient.isActiveGroup();
+
+        handlePossibleExpirationUpdate(content, message, threadRecipient.getGroupId(), senderRecipient, threadRecipient, receivedTime);
 
         if (message.getGroupContext().isPresent() ) {
           parentStoryId = new ParentStoryId.GroupReply(storyMessageId.getId());
         } else if (groupStory || SignalDatabase.storySends().canReply(senderRecipient.getId(), storyContext.getSentTimestamp())) {
           parentStoryId   = new ParentStoryId.DirectReply(storyMessageId.getId());
-          quoteModel      = new QuoteModel(storyContext.getSentTimestamp(), storyAuthorRecipient, "", false, story.getSlideDeck().asAttachments(), Collections.emptyList());
+
+          String displayText = "";
+          if (story.getStoryType().isTextStory()) {
+            displayText = story.getBody();
+          }
+
+          quoteModel      = new QuoteModel(storyContext.getSentTimestamp(), storyAuthorRecipient, displayText, false, story.getSlideDeck().asAttachments(), Collections.emptyList());
           expiresInMillis = TimeUnit.SECONDS.toMillis(message.getExpiresInSeconds());
         } else {
           warn(content.getTimestamp(), "Story has replies disabled. Dropping reply.");
@@ -1622,7 +1686,8 @@ public final class MessageContentProcessor {
                                                                    Optional.empty(),
                                                                    getMentions(message.getMentions()),
                                                                    Optional.empty(),
-                                                                   content.getServerUuid());
+                                                                   content.getServerUuid(),
+                                                                   null);
 
       Optional<InsertResult> insertResult = database.insertSecureDecryptedMessageInbox(mediaMessage, -1);
 
@@ -1641,6 +1706,71 @@ public final class MessageContentProcessor {
       throw new StorageFailedException(e, content.getSender().getIdentifier(), content.getSenderDevice());
     } finally {
       database.endTransaction();
+    }
+  }
+
+  private @Nullable MessageId handleGiftMessage(@NonNull SignalServiceContent content,
+                                                @NonNull SignalServiceDataMessage message,
+                                                @NonNull Recipient senderRecipient,
+                                                @NonNull Recipient threadRecipient,
+                                                long receivedTime)
+      throws StorageFailedException
+  {
+    log(message.getTimestamp(), "Gift message.");
+
+    if (!FeatureFlags.giftBadges()) {
+      warn(message.getTimestamp(), "Dropping unsupported gift badge message.");
+      return null;
+    }
+
+    notifyTypingStoppedFromIncomingMessage(senderRecipient, threadRecipient, content.getSenderDevice());
+
+    Optional<InsertResult> insertResult;
+
+    MessageDatabase database = SignalDatabase.mms();
+
+    byte[]    token     = message.getGiftBadge().get().getReceiptCredentialPresentation().serialize();
+    GiftBadge giftBadge = GiftBadge.newBuilder()
+                                   .setRedemptionToken(ByteString.copyFrom(token))
+                                   .setRedemptionState(GiftBadge.RedemptionState.PENDING)
+                                   .build();
+
+    try {
+      IncomingMediaMessage mediaMessage = new IncomingMediaMessage(senderRecipient.getId(),
+                                                                   message.getTimestamp(),
+                                                                   content.getServerReceivedTimestamp(),
+                                                                   receivedTime,
+                                                                   StoryType.NONE,
+                                                                   null,
+                                                                   false,
+                                                                   -1,
+                                                                   TimeUnit.SECONDS.toMillis(message.getExpiresInSeconds()),
+                                                                   false,
+                                                                   false,
+                                                                   content.isNeedsReceipt(),
+                                                                   Optional.of(Base64.encodeBytes(giftBadge.toByteArray())),
+                                                                   Optional.empty(),
+                                                                   Optional.empty(),
+                                                                   Optional.empty(),
+                                                                   Optional.empty(),
+                                                                   Optional.empty(),
+                                                                   Optional.empty(),
+                                                                   Optional.empty(),
+                                                                   content.getServerUuid(),
+                                                                   giftBadge);
+
+      insertResult = database.insertSecureDecryptedMessageInbox(mediaMessage, -1);
+    } catch (MmsException e) {
+      throw new StorageFailedException(e, content.getSender().getIdentifier(), content.getSenderDevice());
+    }
+
+    if (insertResult.isPresent()) {
+      ApplicationDependencies.getMessageNotifier().updateNotification(context, insertResult.get().getThreadId());
+      TrimThreadJob.enqueueAsync(insertResult.get().getThreadId());
+
+      return new MessageId(insertResult.get().getMessageId(), true);
+    } else {
+      return null;
     }
   }
 
@@ -1668,6 +1798,8 @@ public final class MessageContentProcessor {
       Optional<List<Mention>>     mentions       = getMentions(message.getMentions());
       Optional<Attachment>        sticker        = getStickerAttachment(message.getSticker());
 
+      handlePossibleExpirationUpdate(content, message, Optional.empty(), senderRecipient, threadRecipient, receivedTime);
+
       IncomingMediaMessage mediaMessage = new IncomingMediaMessage(senderRecipient.getId(),
                                                                    message.getTimestamp(),
                                                                    content.getServerReceivedTimestamp(),
@@ -1688,7 +1820,8 @@ public final class MessageContentProcessor {
                                                                    linkPreviews,
                                                                    mentions,
                                                                    sticker,
-                                                                   content.getServerUuid());
+                                                                   content.getServerUuid(),
+                                                                   null);
 
       insertResult = database.insertSecureDecryptedMessageInbox(mediaMessage, -1);
 
@@ -1751,6 +1884,124 @@ public final class MessageContentProcessor {
     return threadId;
   }
 
+  /**
+   * Handles both story replies and reactions.
+   */
+  private long handleSynchronizeSentStoryReply(@NonNull SentTranscriptMessage message, long envelopeTimestamp)
+    throws MmsException, BadGroupIdException {
+
+    if (!Stories.isFeatureAvailable()) {
+      warn(envelopeTimestamp, "Dropping unsupported story reply sync message.");
+      return -1L;
+    }
+
+    log(envelopeTimestamp, "Synchronize sent story reply for " + message.getTimestamp());
+
+    try {
+      Optional<SignalServiceDataMessage.Reaction> reaction             = message.getMessage().getReaction();
+      ParentStoryId                               parentStoryId;
+      SignalServiceDataMessage.StoryContext       storyContext         = message.getMessage().getStoryContext().get();
+      MessageDatabase                             database             = SignalDatabase.mms();
+      Recipient                                   recipient            = getSyncMessageDestination(message);
+      QuoteModel                                  quoteModel           = null;
+      long                                        expiresInMillis      = 0L;
+      RecipientId                                 storyAuthorRecipient = RecipientId.from(storyContext.getAuthorServiceId(), null);
+      MessageId                                   storyMessageId       = database.getStoryId(storyAuthorRecipient, storyContext.getSentTimestamp());
+      MmsMessageRecord                            story                = (MmsMessageRecord) database.getMessageRecord(storyMessageId.getId());
+      Recipient                                   threadRecipient      = SignalDatabase.threads().getRecipientForThreadId(story.getThreadId());
+      boolean                                     groupStory           = threadRecipient != null && threadRecipient.isActiveGroup();
+      String                                      body;
+
+      if (reaction.isPresent() && EmojiUtil.isEmoji(reaction.get().getEmoji())) {
+        body = reaction.get().getEmoji();
+      } else {
+        body = message.getMessage().getBody().orElse(null);
+      }
+
+      if (message.getMessage().getGroupContext().isPresent()) {
+        parentStoryId = new ParentStoryId.GroupReply(storyMessageId.getId());
+      } else if (groupStory || SignalDatabase.storySends().canReply(storyAuthorRecipient, storyContext.getSentTimestamp())) {
+        parentStoryId   = new ParentStoryId.DirectReply(storyMessageId.getId());
+
+        String quoteBody = "";
+        if (story.getStoryType().isTextStory()) {
+          quoteBody = story.getBody();
+        }
+
+        quoteModel      = new QuoteModel(storyContext.getSentTimestamp(), storyAuthorRecipient, quoteBody, false, story.getSlideDeck().asAttachments(), Collections.emptyList());
+        expiresInMillis = TimeUnit.SECONDS.toMillis(message.getExpirationStartTimestamp());
+      } else {
+        warn(envelopeTimestamp, "Story has replies disabled. Dropping reply.");
+        return -1L;
+      }
+
+      OutgoingMediaMessage mediaMessage = new OutgoingMediaMessage(recipient,
+                                                                   body,
+                                                                   Collections.emptyList(),
+                                                                   message.getTimestamp(),
+                                                                   -1,
+                                                                   expiresInMillis,
+                                                                   false,
+                                                                   ThreadDatabase.DistributionTypes.DEFAULT,
+                                                                   StoryType.NONE,
+                                                                   parentStoryId,
+                                                                   message.getMessage().getReaction().isPresent(),
+                                                                   quoteModel,
+                                                                   Collections.emptyList(),
+                                                                   Collections.emptyList(),
+                                                                   getMentions(message.getMessage().getMentions()).orElse(Collections.emptyList()),
+                                                                   Collections.emptySet(),
+                                                                   Collections.emptySet(),
+                                                                   null);
+
+      mediaMessage = new OutgoingSecureMediaMessage(mediaMessage);
+
+      if (recipient.getExpiresInSeconds() != message.getMessage().getExpiresInSeconds()) {
+        handleSynchronizeSentExpirationUpdate(message);
+      }
+
+      long threadId = SignalDatabase.threads().getOrCreateThreadIdFor(recipient);
+      long messageId;
+
+      database.beginTransaction();
+      try {
+        messageId = database.insertMessageOutbox(mediaMessage, threadId, false, GroupReceiptDatabase.STATUS_UNKNOWN, null);
+
+        if (recipient.isGroup()) {
+          updateGroupReceiptStatus(message, messageId, recipient.requireGroupId());
+        } else {
+          database.markUnidentified(messageId, isUnidentified(message, recipient));
+        }
+
+        database.markAsSent(messageId, true);
+
+        if (message.getMessage().getExpiresInSeconds() > 0) {
+          database.markExpireStarted(messageId, message.getExpirationStartTimestamp());
+          ApplicationDependencies.getExpiringMessageManager()
+                                 .scheduleDeletion(messageId,
+                                                   true,
+                                                   message.getExpirationStartTimestamp(),
+                                                   TimeUnit.SECONDS.toMillis(message.getMessage().getExpiresInSeconds()));
+        }
+
+        if (recipient.isSelf()) {
+          SyncMessageId id = new SyncMessageId(recipient.getId(), message.getTimestamp());
+          SignalDatabase.mmsSms().incrementDeliveryReceiptCount(id, System.currentTimeMillis());
+          SignalDatabase.mmsSms().incrementReadReceiptCount(id, System.currentTimeMillis());
+        }
+
+        database.setTransactionSuccessful();
+      } finally {
+        database.endTransaction();
+      }
+
+      return threadId;
+    } catch (NoSuchMessageException e) {
+      warn(envelopeTimestamp, "Couldn't find story for reply.", e);
+      return -1L;
+    }
+  }
+
   private long handleSynchronizeSentMediaMessage(@NonNull SentTranscriptMessage message, long envelopeTimestamp)
       throws MmsException, BadGroupIdException
   {
@@ -1763,6 +2014,7 @@ public final class MessageContentProcessor {
     Optional<List<Contact>>     sharedContacts  = getContacts(message.getMessage().getSharedContacts());
     Optional<List<LinkPreview>> previews        = getLinkPreviews(message.getMessage().getPreviews(), message.getMessage().getBody().orElse(""), false);
     Optional<List<Mention>>     mentions        = getMentions(message.getMessage().getMentions());
+    Optional<GiftBadge>         giftBadge       = getGiftBadge(message.getMessage().getGiftBadge());
     boolean                     viewOnce        = message.getMessage().isViewOnce();
     List<Attachment>            syncAttachments = viewOnce ? Collections.singletonList(new TombstoneAttachment(MediaUtil.VIEW_ONCE, false))
         : PointerAttachment.forPointers(message.getMessage().getAttachments());
@@ -1787,7 +2039,8 @@ public final class MessageContentProcessor {
                                                                  previews.orElse(Collections.emptyList()),
                                                                  mentions.orElse(Collections.emptyList()),
                                                                  Collections.emptySet(),
-                                                                 Collections.emptySet());
+                                                                 Collections.emptySet(),
+                                                                 giftBadge.orElse(null));
 
     mediaMessage = new OutgoingSecureMediaMessage(mediaMessage);
 
@@ -1910,9 +2163,7 @@ public final class MessageContentProcessor {
     MessageDatabase database = SignalDatabase.sms();
     String          body     = message.getBody().isPresent() ? message.getBody().get() : "";
 
-    if (message.getExpiresInSeconds() != threadRecipient.getExpiresInSeconds()) {
-      handleExpirationUpdate(content, message, Optional.empty(), groupId, senderRecipient, threadRecipient, receivedTime);
-    }
+    handlePossibleExpirationUpdate(content, message, groupId, senderRecipient, threadRecipient, receivedTime);
 
     Optional<InsertResult> insertResult;
 
@@ -1980,7 +2231,8 @@ public final class MessageContentProcessor {
                                                                            null,
                                                                            Collections.emptyList(),
                                                                            Collections.emptyList(),
-                                                                           Collections.emptyList());
+                                                                           Collections.emptyList(),
+                                                                           null);
       outgoingMediaMessage = new OutgoingSecureMediaMessage(outgoingMediaMessage);
 
       messageId = SignalDatabase.mms().insertMessageOutbox(outgoingMediaMessage, threadId, false, GroupReceiptDatabase.STATUS_UNKNOWN, null);
@@ -2163,10 +2415,15 @@ public final class MessageContentProcessor {
     Collection<SyncMessageId> unhandled = shouldOnlyProcessStories ? SignalDatabase.mmsSms().incrementViewedStoryReceiptCounts(ids, content.getTimestamp())
                                                                    : SignalDatabase.mmsSms().incrementViewedReceiptCounts(ids, content.getTimestamp());
 
+    Set<SyncMessageId> handled = new HashSet<>(ids);
+    handled.removeAll(unhandled);
+
+    SignalDatabase.mmsSms().updateViewedStories(handled);
+
     for (SyncMessageId id : unhandled) {
-      warn(String.valueOf(content.getTimestamp()), "[handleViewedReceipt] Could not find matching message! timestamp: " + id.getTimetamp() + "  author: " + senderRecipient.getId());
+      warn(String.valueOf(content.getTimestamp()), "[handleViewedReceipt] Could not find matching message! timestamp: " + id.getTimetamp() + "  author: " + id.getRecipientId());
       if (!processingEarlyContent) {
-        ApplicationDependencies.getEarlyMessageCache().store(senderRecipient.getId(), id.getTimetamp(), content);
+        ApplicationDependencies.getEarlyMessageCache().store(id.getRecipientId(), id.getTimetamp(), content);
       }
     }
 
@@ -2189,7 +2446,7 @@ public final class MessageContentProcessor {
     Collection<SyncMessageId> unhandled = SignalDatabase.mmsSms().incrementDeliveryReceiptCounts(ids, System.currentTimeMillis());
 
     for (SyncMessageId id : unhandled) {
-      warn(String.valueOf(content.getTimestamp()), "[handleDeliveryReceipt] Could not find matching message! timestamp: " + id.getTimetamp() + "  author: " + senderRecipient.getId());
+      warn(String.valueOf(content.getTimestamp()), "[handleDeliveryReceipt] Could not find matching message! timestamp: " + id.getTimetamp() + "  author: " + id.getRecipientId());
       // Early delivery receipts are special-cased in the database methods
     }
 
@@ -2219,9 +2476,9 @@ public final class MessageContentProcessor {
     Collection<SyncMessageId> unhandled = SignalDatabase.mmsSms().incrementReadReceiptCounts(ids, content.getTimestamp());
 
     for (SyncMessageId id : unhandled) {
-      warn(String.valueOf(content.getTimestamp()), "[handleReadReceipt] Could not find matching message! timestamp: " + id.getTimetamp() + "  author: " + senderRecipient.getId());
+      warn(String.valueOf(content.getTimestamp()), "[handleReadReceipt] Could not find matching message! timestamp: " + id.getTimetamp() + "  author: " + id.getRecipientId());
       if (!processingEarlyContent) {
-        ApplicationDependencies.getEarlyMessageCache().store(senderRecipient.getId(), id.getTimetamp(), content);
+        ApplicationDependencies.getEarlyMessageCache().store(id.getRecipientId(), id.getTimetamp(), content);
       }
     }
 
@@ -2545,7 +2802,7 @@ public final class MessageContentProcessor {
       Optional<String>     description   = Optional.ofNullable(preview.getDescription());
       boolean              hasTitle      = !TextUtils.isEmpty(title.orElse(""));
       boolean              presentInBody = url.isPresent() && urlsInMessage.containsUrl(url.get());
-      boolean              validDomain   = url.isPresent() && LinkPreviewUtil.isValidPreviewUrl(url.get());
+      boolean              validDomain   = url.isPresent() && LinkUtil.isValidPreviewUrl(url.get());
 
       if (hasTitle && (presentInBody || isStoryEmbed) && validDomain) {
         LinkPreview linkPreview = new LinkPreview(url.get(), title.orElse(""), description.orElse(""), preview.getDate(), thumbnail);
@@ -2576,6 +2833,14 @@ public final class MessageContentProcessor {
     }
 
     return mentions;
+  }
+
+  private Optional<GiftBadge> getGiftBadge(Optional<SignalServiceDataMessage.GiftBadge> giftBadge) {
+    if (!giftBadge.isPresent()) return Optional.empty();
+
+    return Optional.of(GiftBadge.newBuilder()
+                                .setRedemptionToken(ByteString.copyFrom(giftBadge.get().getReceiptCredentialPresentation().serialize()))
+                                .build());
   }
 
   private Optional<InsertResult> insertPlaceholder(@NonNull String sender, int senderDevice, long timestamp) {

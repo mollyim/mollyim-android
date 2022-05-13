@@ -12,7 +12,7 @@ internal class DonationsValues internal constructor(store: KeyValueStore) : Sign
     private val TAG = Log.tag(DonationsValues::class.java)
 
     private const val KEY_SUBSCRIPTION_CURRENCY_CODE = "donation.currency.code"
-    private const val KEY_CURRENCY_CODE_BOOST = "donation.currency.code.boost"
+    private const val KEY_CURRENCY_CODE_ONE_TIME = "donation.currency.code.boost"
     private const val KEY_SUBSCRIBER_ID_PREFIX = "donation.subscriber.id."
     private const val KEY_LAST_KEEP_ALIVE_LAUNCH = "donation.last.successful.ping"
     private const val KEY_LAST_END_OF_PERIOD_SECONDS = "donation.last.end.of.period"
@@ -28,7 +28,7 @@ internal class DonationsValues internal constructor(store: KeyValueStore) : Sign
   override fun onFirstEverAppLaunch() = Unit
 
   override fun getKeysToIncludeInBackup(): MutableList<String> = mutableListOf(
-    KEY_CURRENCY_CODE_BOOST,
+    KEY_CURRENCY_CODE_ONE_TIME,
     KEY_LAST_KEEP_ALIVE_LAUNCH,
     KEY_LAST_END_OF_PERIOD_SECONDS,
     SHOULD_CANCEL_SUBSCRIPTION_BEFORE_NEXT_SUBSCRIBE_ATTEMPT,

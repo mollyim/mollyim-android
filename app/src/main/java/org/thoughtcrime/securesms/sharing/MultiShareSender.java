@@ -47,6 +47,7 @@ import org.thoughtcrime.securesms.util.Util;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -77,6 +78,7 @@ public final class MultiShareSender {
     Context                    context      = ApplicationDependencies.getApplication();
     String                     message      = multiShareArgs.getDraftText();
     SlideDeck                  slideDeck;
+    List<OutgoingMediaMessage> storiesBatch      = new LinkedList<>();
 
     try {
       slideDeck = buildSlideDeck(context, multiShareArgs);
@@ -117,7 +119,7 @@ public final class MultiShareSender {
       if ((recipient.isMmsGroup() || recipient.getEmail().isPresent())) {
         results.add(new MultiShareSendResult(recipientSearchKey, MultiShareSendResult.Type.MMS_NOT_ENABLED));
       } else if (hasMmsMedia && transport.isSms() || hasPushMedia && !transport.isSms() || canSendAsTextStory) {
-        sendMediaMessage(context, multiShareArgs, recipient, slideDeck, transport, threadId, forceSms, expiresIn, multiShareArgs.isViewOnce(), subscriptionId, mentions, recipientSearchKey.isStory(), sentTimestamp, canSendAsTextStory);
+        sendMediaMessageOrCollectStoryToBatch(context, multiShareArgs, recipient, slideDeck, transport, threadId, forceSms, expiresIn, multiShareArgs.isViewOnce(), subscriptionId, mentions, recipientSearchKey.isStory(), sentTimestamp, canSendAsTextStory, storiesBatch);
         results.add(new MultiShareSendResult(recipientSearchKey, MultiShareSendResult.Type.SUCCESS));
       } else if (recipientSearchKey.isStory()) {
         results.add(new MultiShareSendResult(recipientSearchKey, MultiShareSendResult.Type.INVALID_SHARE_TO_STORY));
@@ -129,6 +131,15 @@ public final class MultiShareSender {
       // XXX We must do this to avoid sending out messages to the same recipient with the same
       //     sentTimestamp. If we do this, they'll be considered dupes by the receiver.
       ThreadUtil.sleep(5);
+    }
+
+    if (!storiesBatch.isEmpty()) {
+      MessageSender.sendStories(context,
+                                storiesBatch.stream()
+                                            .map(OutgoingSecureMediaMessage::new)
+                                            .collect(Collectors.toList()),
+                                null,
+                                null);
     }
 
     return new MultiShareSendResultCollection(results);
@@ -153,20 +164,21 @@ public final class MultiShareSender {
     return TransportOptions.getPushTransportOption(context);
   }
 
-  private static void sendMediaMessage(@NonNull Context context,
-                                       @NonNull MultiShareArgs multiShareArgs,
-                                       @NonNull Recipient recipient,
-                                       @NonNull SlideDeck slideDeck,
-                                       @NonNull TransportOption transportOption,
-                                       long threadId,
-                                       boolean forceSms,
-                                       long expiresIn,
-                                       boolean isViewOnce,
-                                       int subscriptionId,
-                                       @NonNull List<Mention> validatedMentions,
-                                       boolean isStory,
-                                       long sentTimestamp,
-                                       boolean canSendAsTextStory)
+  private static void sendMediaMessageOrCollectStoryToBatch(@NonNull Context context,
+                                                            @NonNull MultiShareArgs multiShareArgs,
+                                                            @NonNull Recipient recipient,
+                                                            @NonNull SlideDeck slideDeck,
+                                                            @NonNull TransportOption transportOption,
+                                                            long threadId,
+                                                            boolean forceSms,
+                                                            long expiresIn,
+                                                            boolean isViewOnce,
+                                                            int subscriptionId,
+                                                            @NonNull List<Mention> validatedMentions,
+                                                            boolean isStory,
+                                                            long sentTimestamp,
+                                                            boolean canSendAsTextStory,
+                                                            @NonNull List<OutgoingMediaMessage> storiesToBatchSend)
   {
     String body = multiShareArgs.getDraftText();
     if (transportOption.isType(TransportOption.Type.TEXTSECURE) && !forceSms && body != null) {
@@ -208,7 +220,8 @@ public final class MultiShareSender {
                                                                              Collections.emptyList(),
                                                                              multiShareArgs.getLinkPreview() != null ? Collections.singletonList(multiShareArgs.getLinkPreview())
                                                                                                                      : Collections.emptyList(),
-                                                                             Collections.emptyList());
+                                                                             Collections.emptyList(),
+                                                                             null);
 
         outgoingMessages.add(outgoingMediaMessage);
       } else if (canSendAsTextStory) {
@@ -237,7 +250,8 @@ public final class MultiShareSender {
                                                                                null,
                                                                                Collections.emptyList(),
                                                                                Collections.emptyList(),
-                                                                               validatedMentions);
+                                                                               validatedMentions,
+                                                                               null);
 
           outgoingMessages.add(outgoingMediaMessage);
         }
@@ -258,13 +272,15 @@ public final class MultiShareSender {
                                                                            Collections.emptyList(),
                                                                            multiShareArgs.getLinkPreview() != null ? Collections.singletonList(multiShareArgs.getLinkPreview())
                                                                                                                    : Collections.emptyList(),
-                                                                           validatedMentions);
+                                                                           validatedMentions,
+                                                                           null);
 
       outgoingMessages.add(outgoingMediaMessage);
     }
 
-    if (shouldSendAsPush(recipient, forceSms))
-    {
+    if (isStory) {
+      storiesToBatchSend.addAll(outgoingMessages);
+    } else if (shouldSendAsPush(recipient, forceSms)) {
       for (final OutgoingMediaMessage outgoingMessage : outgoingMessages) {
         MessageSender.send(context, new OutgoingSecureMediaMessage(outgoingMessage), threadId, false, null, null);
       }
@@ -324,7 +340,8 @@ public final class MultiShareSender {
                                                 : Collections.emptyList(),
         Collections.emptyList(),
         Collections.emptySet(),
-        Collections.emptySet());
+        Collections.emptySet(),
+        null);
   }
 
   private static @NonNull String getBodyForTextStory(@Nullable String draftText, @Nullable LinkPreview linkPreview) {

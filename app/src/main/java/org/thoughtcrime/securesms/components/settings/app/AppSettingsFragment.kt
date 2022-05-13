@@ -2,7 +2,7 @@ package org.thoughtcrime.securesms.components.settings.app
 
 import android.view.View
 import android.widget.TextView
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.badges.BadgeImageView
@@ -25,11 +25,11 @@ import org.thoughtcrime.securesms.util.navigation.safeNavigate
 
 class AppSettingsFragment : DSLSettingsFragment(R.string.text_secure_normal__menu_settings) {
 
+  private val viewModel: AppSettingsViewModel by viewModels()
+
   override fun bindAdapter(adapter: DSLSettingsAdapter) {
     adapter.registerFactory(BioPreference::class.java, LayoutFactory(::BioPreferenceViewHolder, R.layout.bio_preference_item))
     adapter.registerFactory(PaymentsPreference::class.java, LayoutFactory(::PaymentsPreferenceViewHolder, R.layout.dsl_payments_preference))
-
-    val viewModel = ViewModelProvider(this)[AppSettingsViewModel::class.java]
 
     viewModel.state.observe(viewLifecycleOwner) { state ->
       adapter.submitList(getConfiguration(state).toMappingModelList())
@@ -61,15 +61,11 @@ class AppSettingsFragment : DSLSettingsFragment(R.string.text_secure_normal__men
         }
       )
 
-      if (SignalStore.paymentsValues().paymentsAvailability.showPaymentsMenu()) {
-        customPref(
-          PaymentsPreference(
-            unreadCount = state.unreadPaymentsCount
-          ) {
-            findNavController().safeNavigate(R.id.action_appSettingsFragment_to_paymentsActivity)
-          }
-        )
-      }
+      externalLinkPref(
+        title = DSLSettingsText.from(R.string.preferences__donate_to_signal),
+        icon = DSLSettingsIcon.from(R.drawable.ic_heart_24),
+        linkId = R.string.donate_url
+      )
 
       dividerPref()
 
@@ -123,6 +119,18 @@ class AppSettingsFragment : DSLSettingsFragment(R.string.text_secure_normal__men
 
       dividerPref()
 
+      if (SignalStore.paymentsValues().paymentsAvailability.showPaymentsMenu()) {
+        customPref(
+          PaymentsPreference(
+            unreadCount = state.unreadPaymentsCount
+          ) {
+            findNavController().safeNavigate(R.id.action_appSettingsFragment_to_paymentsActivity)
+          }
+        )
+
+        dividerPref()
+      }
+
       clickPref(
         title = DSLSettingsText.from(R.string.preferences__help),
         icon = DSLSettingsIcon.from(R.drawable.ic_help_24),
@@ -137,12 +145,6 @@ class AppSettingsFragment : DSLSettingsFragment(R.string.text_secure_normal__men
         onClick = {
           findNavController().safeNavigate(R.id.action_appSettingsFragment_to_inviteActivity)
         }
-      )
-
-      externalLinkPref(
-        title = DSLSettingsText.from(R.string.preferences__donate_to_signal),
-        icon = DSLSettingsIcon.from(R.drawable.ic_heart_24),
-        linkId = R.string.donate_url
       )
 
       if (FeatureFlags.internalUser()) {

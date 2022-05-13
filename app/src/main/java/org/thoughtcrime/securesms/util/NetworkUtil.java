@@ -2,6 +2,8 @@ package org.thoughtcrime.securesms.util;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.telephony.TelephonyManager;
 
@@ -9,7 +11,6 @@ import androidx.annotation.NonNull;
 
 import org.signal.ringrtc.CallManager;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
-import org.thoughtcrime.securesms.net.Network;
 import org.webrtc.PeerConnection;
 
 public final class NetworkUtil {
@@ -39,7 +40,7 @@ public final class NetworkUtil {
     if (SignalStore.internalValues().callingBandwidthMode() != CallManager.BandwidthMode.NORMAL) {
       return SignalStore.internalValues().callingBandwidthMode();
     }
-    
+
     return useLowBandwidthCalling(context, networkAdapter) ? CallManager.BandwidthMode.LOW : CallManager.BandwidthMode.NORMAL;
   }
 
@@ -79,6 +80,18 @@ public final class NetworkUtil {
     }
   }
 
+  public static @NonNull NetworkStatus getNetworkStatus(@NonNull Context context) {
+    ConnectivityManager connectivityManager = ServiceUtil.getConnectivityManager(context);
+
+    Network             network      = connectivityManager.getActiveNetwork();
+    NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(network);
+
+    boolean onVpn        = capabilities != null && capabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN);
+    boolean isNotMetered = capabilities == null || capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED);
+
+    return new NetworkStatus(onVpn, !isNotMetered);
+  }
+
   private static boolean useLowBandwidthCalling(@NonNull Context context, @NonNull PeerConnection.AdapterType networkAdapter) {
     switch (SignalStore.settings().getCallBandwidthMode()) {
       case HIGH_ON_WIFI:
@@ -106,7 +119,7 @@ public final class NetworkUtil {
   }
 
   public static NetworkInfo getNetworkInfo(@NonNull Context context) {
-    if (!Network.isEnabled()) return null;
+    if (!org.thoughtcrime.securesms.net.Network.isEnabled()) return null;
     return ServiceUtil.getConnectivityManager(context).getActiveNetworkInfo();
   }
 }

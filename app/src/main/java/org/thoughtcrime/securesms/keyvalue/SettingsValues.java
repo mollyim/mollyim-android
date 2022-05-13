@@ -76,7 +76,7 @@ public final class SettingsValues extends SignalStoreValues {
     }
     // MOLLY: These settings are saved in shared prefs too. Sync with the stored values.
     if (getStore().containsKey(THEME)) {
-      setTheme(getStore().getString(THEME, null));
+      setTheme(Theme.deserialize(getStore().getString(THEME, null)));
     }
     if (getStore().containsKey(PREFER_SYSTEM_EMOJI)) {
       setPreferSystemEmoji(getStore().getBoolean(PREFER_SYSTEM_EMOJI, false));
@@ -185,14 +185,14 @@ public final class SettingsValues extends SignalStoreValues {
     return CallBandwidthMode.fromCode(getInteger(CALL_BANDWIDTH_MODE, CallBandwidthMode.HIGH_ALWAYS.getCode()));
   }
 
-  public @NonNull String getTheme() {
-    return TextSecurePreferences.getTheme(ApplicationDependencies.getApplication());
+  public @NonNull Theme getTheme() {
+    return Theme.deserialize(TextSecurePreferences.getTheme(ApplicationDependencies.getApplication()));
   }
 
-  public void setTheme(@NonNull String theme) {
-    putString(THEME, theme);
+  public void setTheme(@NonNull Theme theme) {
+    putString(THEME, theme.serialize());
     // MOLLY: Store the value unencrypted to be able to read it back when app is locked
-    TextSecurePreferences.setTheme(ApplicationDependencies.getApplication(), theme);
+    TextSecurePreferences.setTheme(ApplicationDependencies.getApplication(), theme.serialize());
     onConfigurationSettingChanged.postValue(THEME);
   }
 
@@ -419,6 +419,29 @@ public final class SettingsValues extends SignalStoreValues {
 
     public int serialize() {
       return value;
+    }
+  }
+
+  public enum Theme {
+    SYSTEM("system"), LIGHT("light"), DARK("dark");
+
+    private final String value;
+
+    Theme(String value) {
+      this.value = value;
+    }
+
+    public @NonNull String serialize() {
+      return value;
+    }
+
+    public static @NonNull Theme deserialize(@NonNull String value) {
+      switch (value) {
+        case "system": return SYSTEM;
+        case "light":  return LIGHT;
+        case "dark":   return DARK;
+        default:       throw new IllegalArgumentException("Unrecognized value " + value);
+      }
     }
   }
 }

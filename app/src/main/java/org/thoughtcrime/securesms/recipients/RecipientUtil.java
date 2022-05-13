@@ -154,10 +154,11 @@ public class RecipientUtil {
     if (!isBlockable(recipient)) {
       throw new AssertionError("Recipient is not blockable!");
     }
+    Log.w(TAG, "Blocking " + recipient.getId() + " (group: " + recipient.isGroup() + ")");
 
     recipient = recipient.resolve();
 
-    if (recipient.isGroup() && recipient.getGroupId().get().isPush() && recipient.isActiveGroup()) {
+    if (recipient.isGroup() && recipient.getGroupId().get().isPush()) {
       GroupManager.leaveGroupFromBlockOrMessageRequest(context, recipient.getGroupId().get().requirePush());
     }
 
@@ -180,6 +181,7 @@ public class RecipientUtil {
     if (!isBlockable(recipient)) {
       throw new AssertionError("Recipient is not blockable!");
     }
+    Log.i(TAG, "Unblocking " + recipient.getId() + " (group: " + recipient.isGroup() + ")");
 
     SignalDatabase.recipients().setBlocked(recipient.getId(), false);
     SignalDatabase.recipients().setProfileSharing(recipient.getId(), true);

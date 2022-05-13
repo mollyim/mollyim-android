@@ -12,6 +12,7 @@ import androidx.annotation.WorkerThread;
 
 import com.annimon.stream.Stream;
 
+import org.signal.core.util.StringUtil;
 import org.signal.core.util.logging.Log;
 import org.signal.libsignal.zkgroup.profiles.ProfileKeyCredential;
 import org.thoughtcrime.securesms.R;
@@ -44,7 +45,6 @@ import org.thoughtcrime.securesms.phonenumbers.PhoneNumberFormatter;
 import org.thoughtcrime.securesms.profiles.ProfileName;
 import org.thoughtcrime.securesms.util.AvatarUtil;
 import org.thoughtcrime.securesms.util.FeatureFlags;
-import org.signal.core.util.StringUtil;
 import org.thoughtcrime.securesms.util.Util;
 import org.thoughtcrime.securesms.wallpaper.ChatWallpaper;
 import org.whispersystems.signalservice.api.push.PNI;
@@ -66,6 +66,9 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
+
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 import static org.thoughtcrime.securesms.database.RecipientDatabase.InsightsBannerTier;
 
@@ -119,6 +122,7 @@ public class Recipient {
   private final Capability             announcementGroupCapability;
   private final Capability             changeNumberCapability;
   private final Capability             storiesCapability;
+  private final Capability             giftBadgesCapability;
   private final InsightsBannerTier     insightsBannerTier;
   private final byte[]                 storageId;
   private final MentionSetting         mentionSetting;
@@ -143,6 +147,25 @@ public class Recipient {
   public static @NonNull LiveRecipient live(@NonNull RecipientId id) {
     Preconditions.checkNotNull(id, "ID cannot be null.");
     return ApplicationDependencies.getRecipientCache().getLive(id);
+  }
+
+  /**
+   * Returns a live recipient wrapped in an Observable. All work is done on the IO threadpool.
+   */
+  @AnyThread
+  public static @NonNull Observable<Recipient> observable(@NonNull RecipientId id) {
+    Preconditions.checkNotNull(id, "ID cannot be null");
+    return Observable.<Recipient>create(emitter -> {
+      LiveRecipient live = live(id);
+      emitter.onNext(live.resolve());
+
+      RecipientForeverObserver observer = emitter::onNext;
+
+      live.observeForever(observer);
+      emitter.setCancellable(() -> {
+        live.removeForeverObserver(observer);
+      });
+    }).subscribeOn(Schedulers.io());
   }
 
   /**
@@ -386,6 +409,7 @@ public class Recipient {
     this.announcementGroupCapability = Capability.UNKNOWN;
     this.changeNumberCapability      = Capability.UNKNOWN;
     this.storiesCapability           = Capability.UNKNOWN;
+    this.giftBadgesCapability        = Capability.UNKNOWN;
     this.storageId                   = null;
     this.mentionSetting              = MentionSetting.ALWAYS_NOTIFY;
     this.wallpaper                   = null;
@@ -443,6 +467,7 @@ public class Recipient {
     this.announcementGroupCapability = details.announcementGroupCapability;
     this.changeNumberCapability      = details.changeNumberCapability;
     this.storiesCapability           = details.storiesCapability;
+    this.giftBadgesCapability        = details.giftBadgesCapability;
     this.storageId                   = details.storageId;
     this.mentionSetting              = details.mentionSetting;
     this.wallpaper                   = details.wallpaper;
@@ -726,6 +751,10 @@ public class Recipient {
     return extras.map(Extras::hideStory).orElse(false);
   }
 
+  public boolean hasViewedStory() {
+    return extras.map(Extras::hasViewedStory).orElse(false);
+  }
+
   public @NonNull GroupId requireGroupId() {
     GroupId resolved = resolving ? resolve().groupId : groupId;
 
@@ -992,6 +1021,10 @@ public class Recipient {
     return storiesCapability;
   }
 
+  public @NonNull Capability getGiftBadgesCapability() {
+    return giftBadgesCapability;
+  }
+
   /**
    * True if this recipient supports the message retry system, or false if we should use the legacy session reset system.
    */
@@ -1223,17 +1256,21 @@ public class Recipient {
       return recipientExtras.getHideStory();
     }
 
+    public boolean hasViewedStory() {
+      return recipientExtras.getLastStoryView() > 0L;
+    }
+
     @Override
     public boolean equals(Object o) {
       if (this == o) return true;
       if (o == null || getClass() != o.getClass()) return false;
       final Extras that = (Extras) o;
-      return manuallyShownAvatar() == that.manuallyShownAvatar() && hideStory() == that.hideStory();
+      return manuallyShownAvatar() == that.manuallyShownAvatar() && hideStory() == that.hideStory() && hasViewedStory() == that.hasViewedStory();
     }
 
     @Override
     public int hashCode() {
-      return Objects.hash(manuallyShownAvatar(), hideStory());
+      return Objects.hash(manuallyShownAvatar(), hideStory(), hasViewedStory());
     }
   }
 

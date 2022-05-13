@@ -11,14 +11,11 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.R;
+import org.thoughtcrime.securesms.keyvalue.SettingsValues.Theme;
 
 public class DynamicTheme {
 
   private static final String TAG = Log.tag(DynamicTheme.class);
-
-  public static final String DARK   = "dark";
-  public static final String LIGHT  = "light";
-  public static final String SYSTEM = "system";
 
   private static int globalNightModeConfiguration;
 
@@ -54,9 +51,9 @@ public class DynamicTheme {
   }
 
   public static void setDefaultDayNightMode(@NonNull Context context) {
-    String theme = TextSecurePreferences.getTheme(context);
+    Theme theme = Theme.deserialize(TextSecurePreferences.getTheme(context));
 
-    if (theme.equals(SYSTEM)) {
+    if (theme == Theme.SYSTEM) {
       Log.d(TAG, "Setting to follow system expecting: " + ConfigurationUtil.getNightModeConfiguration(context.getApplicationContext()));
       AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
     } else if (DynamicTheme.isDarkTheme(context)) {
@@ -74,12 +71,12 @@ public class DynamicTheme {
    * Takes the system theme into account.
    */
   public static boolean isDarkTheme(@NonNull Context context) {
-    String theme = TextSecurePreferences.getTheme(context);
+    Theme theme = Theme.deserialize(TextSecurePreferences.getTheme(context));
 
-    if (theme.equals(SYSTEM) && systemThemeAvailable()) {
+    if (theme == Theme.SYSTEM && systemThemeAvailable()) {
       return isSystemInDarkTheme(context);
     } else {
-      return theme.equals(DARK);
+      return theme == Theme.DARK;
     }
   }
 
