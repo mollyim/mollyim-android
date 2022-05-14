@@ -25,6 +25,7 @@ import org.signal.core.util.StringUtil;
 import org.signal.core.util.ThreadUtil;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.R;
+import org.thoughtcrime.securesms.util.ThemeUtil;
 
 public class BiometricDialogFragment extends DialogFragment {
 
@@ -133,15 +134,16 @@ public class BiometricDialogFragment extends DialogFragment {
     if (fullScreen) {
       final ImageView logo = backgroundView.findViewById(R.id.logo);
 
-      // Display the logo dimmed and in greyscale
-      final ColorMatrix greyScaleMatrix = new ColorMatrix();
-      greyScaleMatrix.setSaturation(0);
-      logo.setAlpha(0.9f);
-      logo.setColorFilter(new ColorMatrixColorFilter(greyScaleMatrix));
+      if (!ThemeUtil.isDarkTheme(this.requireContext())) {
+        // Display the logo in greyscale
+        final ColorMatrix greyScaleMatrix = new ColorMatrix();
+        greyScaleMatrix.setSaturation(0);
+        logo.setColorFilter(new ColorMatrixColorFilter(greyScaleMatrix));
+      }
 
       if (isUsingFingerprintDialog()) {
         ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) logo.getLayoutParams();
-        params.verticalBias /= 2;
+        params.verticalBias /= 3;
         logo.setLayoutParams(params);
       }
     }

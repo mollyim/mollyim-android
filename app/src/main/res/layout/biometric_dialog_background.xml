@@ -7,15 +7,15 @@
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="200dp"
-        android:layout_height="80dp"
+        android:layout_width="132dp"
+        android:layout_height="132dp"
         android:layout_centerHorizontal="true"
         android:importantForAccessibility="no"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.27"
+        app:layout_constraintVertical_bias="0.36"
         app:srcCompat="@drawable/ic_molly_logo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
