@@ -45,10 +45,10 @@
     <string name="ChangePassphraseDialogFragment_passphrase">Passphrase</string>
     <string name="ChangePassphraseDialogFragment_please_choose_a_passphrase_that_will_be_used_to_locally_encrypt_your_data_this_should_be_a_strong_passphrase">Please choose a passphrase that will be used to locally encrypt your data.\n\nThis should be a strong passphrase.</string>
     <string name="ChangePassphraseDialogFragment_generating_keys_this_may_take_a_while">Generating keys. This may take a while…</string>
-    <string name="ConversationSettingsFragment__add_to_your_phones_contacts">Add to your phone\'s contacts</string>
+    <string name="ConversationSettingsFragment__add_to_your_phones_contacts">Add to your device contacts</string>
     <string name="BlockUnblockDialog_delete_this_contact">Delete this contact?</string>
     <string name="BlockUnblockDialog_your_chat_history_with_s_will_be_deleted">Your chat with %1$s will be deleted.</string>
-    <string name="BlockUnblockDialog_your_chat_history_with_s_will_be_deleted_and_s_will_be_removed_from_your_phone_contacts">Your chat with %1$s will be deleted and %1$s will be removed from your phone contacts.</string>
+    <string name="BlockUnblockDialog_your_chat_history_with_s_will_be_deleted_and_s_will_be_removed_from_your_phone_contacts">Your chat with %1$s will be deleted and %1$s will be removed from your device contacts.</string>
     <string name="BlockUnblockDialog_deleted_contacts_are_still_able_to_call_you_or_send_you_messages">Deleted contacts are still able to call you or send you messages, unless they are also blocked.</string>
     <string name="ProxyManager_successfully_started_orbot">Orbot started</string>
     <string name="NetworkPreferenceFragment_a_valid_port_number_is_between_0_and_65535">A valid port number is between 0 and 65535</string>
@@ -70,16 +70,16 @@
     <string name="MessageRetrievalService_ready_to_receive_messages">Ready to receive messages</string>
     <string name="HelpSettingsFragment__molly_im_website">Molly.im website</string>
     <string name="DeviceAddFragment__link_without_scanning">Link without scanning</string>
-    <string name="enter_device_link_dialog__if_your_phone_cant_scan_the_qr_code_you_can_manually_enter_the_link_encoded_in_the_qr_code">If your phone can’t scan the QR code, you can manually enter the link encoded in the QR code.</string>
+    <string name="enter_device_link_dialog__if_your_phone_cant_scan_the_qr_code_you_can_manually_enter_the_link_encoded_in_the_qr_code">If your device can’t scan the QR code, you can manually enter the link encoded in the QR code.</string>
     <string name="enter_device_link_dialog__url" translatable="false">tsdevice:/?uuid=UUID&amp;pub_key=PUBKEY</string>
     <string name="HelpSettingsFragment_disable_and_delete_debug_log">Delete and disable debug log?</string>
-    <string name="RegistrationActivity_molly_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly needs the contacts and media permissions to help you connect with friends and send messages. Your contacts are uploaded using Signal\'s private contact discovery, which means they are end-to-end encrypted and never visible to the Signal service.</string>
-    <string name="RegistrationActivity_molly_needs_access_to_your_contacts_in_order_to_connect_with_friends">Molly needs the contacts permission to help you connect with friends. Your contacts are uploaded using Signal\'s private contact discovery, which means they are end-to-end encrypted and never visible to the Signal service.</string>
+    <string name="RegistrationActivity_molly_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly needs the contacts and media permissions to help you find your friends and send messages. Your contacts are uploaded using Signal\'s private contact discovery, which means they are end-to-end encrypted and never visible to the Signal service.</string>
+    <string name="RegistrationActivity_molly_needs_access_to_your_contacts_in_order_to_connect_with_friends">Molly needs the contacts permission to help you find your friends. Your contacts are uploaded using Signal\'s private contact discovery, which means they are end-to-end encrypted and never visible to the Signal service.</string>
     <string name="DozeReminder_optimize_for_timely_notifications">Optimize for timely notifications</string>
     <string name="DozeReminder_tap_to_allow_molly_to_retrieve_messages_while_the_device_is_in_standby">Tap to allow Molly to retrieve messages while the device is in standby.</string>
     <string name="BiometricDialogFragment__biometric_verification">Biometric verification</string>
     <string name="BiometricDialogFragment__please_confirm_it_is_really_you_to_access_molly">Please confirm it is really you to use Molly</string>
     <string name="PrivacySettingsFragment__lock_molly_access_with_fingerprint_or_face_recognition">Lock Molly access with fingerprint or face recognition</string>
     <string name="PrivacySettingsFragment__no_biometric_features_available_on_this_device">No biometric features available on this device</string>
-    <string name="PrivacySettingsFragment__please_first_setup_your_biometrics_in_android_settings">Please first setup your biometrics in Android settings</string>
+    <string name="PrivacySettingsFragment__please_first_setup_your_biometrics_in_android_settings">Please set up your biometrics in Android settings first</string>
 </resources>
