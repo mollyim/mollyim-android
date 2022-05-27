@@ -52,6 +52,7 @@ data class FontVersion @JsonCreator constructor(@JsonProperty("id") val id: Long
             writeVersionToDisk(context, fromNetwork) ?: NONE
           } else {
             Log.i(TAG, "Network version is the same as our local version.")
+            SignalStore.storyValues().lastFontVersionCheck = System.currentTimeMillis()
             fromDisk
           }
         } else {

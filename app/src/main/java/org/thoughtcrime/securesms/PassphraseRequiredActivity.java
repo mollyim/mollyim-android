@@ -175,6 +175,8 @@ public abstract class PassphraseRequiredActivity extends PassphraseActivity impl
       return STATE_WELCOME_PUSH_SCREEN;
     } else if (SignalStore.storageService().needsAccountRestore()) {
       return STATE_ENTER_SIGNAL_PIN;
+    } else if (userHasSkippedOrForgottenPin()) {
+      return STATE_CREATE_SIGNAL_PIN;
     } else if (userMustSetProfileName()) {
       return STATE_CREATE_PROFILE_NAME;
     } else if (userMustCreateSignalPin()) {
@@ -192,6 +194,10 @@ public abstract class PassphraseRequiredActivity extends PassphraseActivity impl
 
   private boolean userMustCreateSignalPin() {
     return !SignalStore.registrationValues().isRegistrationComplete() && !SignalStore.kbsValues().hasPin() && !SignalStore.kbsValues().lastPinCreateFailed() && !SignalStore.kbsValues().hasOptedOut();
+  }
+
+  private boolean userHasSkippedOrForgottenPin() {
+    return !SignalStore.registrationValues().isRegistrationComplete() && !SignalStore.kbsValues().hasPin() && !SignalStore.kbsValues().hasOptedOut() && SignalStore.kbsValues().isPinForgottenOrSkipped();
   }
 
   private boolean userMustSetProfileName() {

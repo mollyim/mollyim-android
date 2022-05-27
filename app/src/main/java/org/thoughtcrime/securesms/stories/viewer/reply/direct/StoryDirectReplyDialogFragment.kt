@@ -74,7 +74,7 @@ class StoryDirectReplyDialogFragment :
         lifecycleDisposable += viewModel.sendReply(composer.consumeInput().first)
           .observeOn(AndroidSchedulers.mainThread())
           .subscribe {
-            Toast.makeText(requireContext(), R.string.StoryDirectReplyDialogFragment__reply_sent, Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), R.string.StoryDirectReplyDialogFragment__sending_reply, Toast.LENGTH_LONG).show()
             dismissAllowingStateLoss()
           }
       }
@@ -110,8 +110,10 @@ class StoryDirectReplyDialogFragment :
     }
 
     viewModel.state.observe(viewLifecycleOwner) { state ->
-      if (state.recipient != null) {
-        composer.displayPrivacyChrome(state.recipient)
+      if (state.groupDirectReplyRecipient != null) {
+        composer.displayPrivacyChrome(state.groupDirectReplyRecipient)
+      } else if (state.storyRecord != null) {
+        composer.displayPrivacyChrome(state.storyRecord.recipient)
       }
 
       if (state.storyRecord != null) {
@@ -195,7 +197,6 @@ class StoryDirectReplyDialogFragment :
             putString(REQUEST_EMOJI, emoji)
           }
         )
-        Toast.makeText(requireContext(), R.string.StoryDirectReplyDialogFragment__reaction_sent, Toast.LENGTH_LONG).show()
         dismissAllowingStateLoss()
       }
   }

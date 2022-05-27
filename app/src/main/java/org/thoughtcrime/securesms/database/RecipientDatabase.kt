@@ -119,8 +119,8 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
     const val TABLE_NAME = "recipient"
 
     const val ID = "_id"
-    private const val SERVICE_ID = "uuid"
-    private const val PNI_COLUMN = "pni"
+    const val SERVICE_ID = "uuid"
+    const val PNI_COLUMN = "pni"
     private const val USERNAME = "username"
     const val PHONE = "phone"
     const val EMAIL = "email"
@@ -402,6 +402,14 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
     return getByColumn(SERVICE_ID, serviceId.toString())
   }
 
+  /**
+   * Will return a recipient matching the PNI, but only in the explicit [PNI_COLUMN]. This should only be checked in conjunction with [getByServiceId] as a way
+   * to avoid creating a recipient we already merged.
+   */
+  fun getByPni(pni: PNI): Optional<RecipientId> {
+    return getByColumn(PNI_COLUMN, pni.toString())
+  }
+
   fun getByUsername(username: String): Optional<RecipientId> {
     return getByColumn(USERNAME, username)
   }
@@ -439,7 +447,7 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
           fetch.id
         }
         is RecipientFetch.MatchAndReassignE164 -> {
-          removePhoneNumber(fetch.e164Id, db)
+          removePhoneNumber(fetch.e164Id)
           setPhoneNumberOrThrowSilent(fetch.id, fetch.e164)
           recipientsNeedingRefresh = listOf(fetch.id, fetch.e164Id)
           recipientChangedNumber = fetch.changedNumber
@@ -466,7 +474,7 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
           RecipientId.from(id)
         }
         is RecipientFetch.InsertAndReassignE164 -> {
-          removePhoneNumber(fetch.e164Id, db)
+          removePhoneNumber(fetch.e164Id)
           recipientsNeedingRefresh = listOf(fetch.e164Id)
           val id = db.insert(TABLE_NAME, null, buildContentValuesForNewUser(fetch.e164, fetch.serviceId))
           RecipientId.from(id)
@@ -1897,7 +1905,7 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
     }
   }
 
-  private fun removePhoneNumber(recipientId: RecipientId, db: SQLiteDatabase) {
+  private fun removePhoneNumber(recipientId: RecipientId) {
     val values = ContentValues().apply {
       putNull(PHONE)
       putNull(PNI_COLUMN)
@@ -2073,7 +2081,7 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
   fun markRegisteredOrThrow(id: RecipientId, serviceId: ServiceId) {
     val contentValues = ContentValues(2).apply {
       put(REGISTERED, RegisteredState.REGISTERED.id)
-      put(SERVICE_ID, serviceId.toString().toLowerCase())
+      put(SERVICE_ID, serviceId.toString().lowercase())
     }
     if (update(id, contentValues)) {
       setStorageIdIfNotSet(id)
@@ -2100,7 +2108,7 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
         val values = ContentValues(2).apply {
           put(REGISTERED, RegisteredState.REGISTERED.id)
           if (aci != null) {
-            put(SERVICE_ID, aci.toString().toLowerCase())
+            put(SERVICE_ID, aci.toString().lowercase())
           }
         }
 
@@ -2165,7 +2173,11 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
   }
 
   /**
-   * A dumb implementation of processing CDSv2 results. Suitable only for testing and not for actual use.
+   * Processes CDSv2 results, merging recipients as necessary.
+   *
+   * Important: This is under active development and is not suitable for actual use.
+   *
+   * @return A set of [RecipientId]s that were updated/inserted.
    */
   fun bulkProcessCdsV2Result(mapping: Map<String, CdsV2Result>): Set<RecipientId> {
     val ids: MutableSet<RecipientId> = mutableSetOf()
@@ -2174,7 +2186,7 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
     db.beginTransaction()
     try {
       for ((e164, result) in mapping) {
-        ids += getAndPossiblyMerge(result.bestServiceId(), e164, true)
+        ids += processCdsV2Result(e164, result.pni, result.aci)
       }
 
       db.setTransactionSuccessful()
@@ -2183,6 +2195,47 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
     }
 
     return ids
+  }
+
+  @VisibleForTesting
+  fun processCdsV2Result(e164: String, pni: PNI, aci: ACI?): RecipientId {
+    val byE164: RecipientId? = getByE164(e164).orElse(null)
+    val byPni: RecipientId? = getByServiceId(pni).orElse(null)
+    val byPniOnly: RecipientId? = getByPni(pni).orElse(null)
+    val byAci: RecipientId? = aci?.let { getByServiceId(it).orElse(null) }
+
+    val commonId: RecipientId? = listOf(byE164, byPni, byPniOnly, byAci).commonId()
+    val allRequiredDbFields: List<RecipientId?> = if (aci != null) listOf(byE164, byAci, byPniOnly) else listOf(byE164, byPni, byPniOnly)
+    val allRequiredDbFieldPopulated: Boolean = allRequiredDbFields.all { it != null }
+
+    // All ID's agree and the database is up-to-date
+    if (commonId != null && allRequiredDbFieldPopulated) {
+      return commonId
+    }
+
+    // All ID's agree but we need to update the database
+    if (commonId != null && !allRequiredDbFieldPopulated) {
+      writableDatabase
+        .update(TABLE_NAME)
+        .values(
+          PHONE to e164,
+          SERVICE_ID to (aci ?: pni).toString(),
+          PNI_COLUMN to pni.toString(),
+          REGISTERED to RegisteredState.REGISTERED.id,
+          STORAGE_SERVICE_ID to Base64.encodeBytes(StorageSyncHelper.generateKey())
+        )
+        .where("$ID = ?", commonId)
+        .run()
+      return commonId
+    }
+
+    // Nothing matches
+    if (byE164 == null && byPni == null && byAci == null) {
+      val id: Long = writableDatabase.insert(TABLE_NAME, null, buildContentValuesForCdsInsert(e164, pni, aci))
+      return RecipientId.from(id)
+    }
+
+    throw NotImplementedError("Handle cases where IDs map to different individuals")
   }
 
   fun getUninvitedRecipientsForInsights(): List<RecipientId> {
@@ -2408,7 +2461,7 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
       .toList()
 
     val blockedUuid = blocked
-      .map { b: SignalServiceAddress -> b.serviceId.toString().toLowerCase() }
+      .map { b: SignalServiceAddress -> b.serviceId.toString().lowercase() }
       .toList()
 
     val db = writableDatabase
@@ -2835,12 +2888,24 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
     val values = ContentValues()
     values.put(PHONE, e164)
     if (serviceId != null) {
-      values.put(SERVICE_ID, serviceId.toString().toLowerCase())
+      values.put(SERVICE_ID, serviceId.toString().lowercase())
       values.put(REGISTERED, RegisteredState.REGISTERED.id)
       values.put(STORAGE_SERVICE_ID, Base64.encodeBytes(StorageSyncHelper.generateKey()))
       values.put(AVATAR_COLOR, AvatarColor.random().serialize())
     }
     return values
+  }
+
+  private fun buildContentValuesForCdsInsert(e164: String, pni: PNI, aci: ACI?): ContentValues {
+    val serviceId: ServiceId = aci ?: pni
+    return ContentValues().apply {
+      put(PHONE, e164)
+      put(SERVICE_ID, serviceId.toString())
+      put(PNI_COLUMN, pni.toString())
+      put(REGISTERED, RegisteredState.REGISTERED.id)
+      put(STORAGE_SERVICE_ID, Base64.encodeBytes(StorageSyncHelper.generateKey()))
+      put(AVATAR_COLOR, AvatarColor.random().serialize())
+    }
   }
 
   private fun getValuesForStorageContact(contact: SignalContactRecord, isInsert: Boolean): ContentValues {
@@ -2915,6 +2980,22 @@ open class RecipientDatabase(context: Context, databaseHelper: SignalDatabase) :
       if (isInsert) {
         put(AVATAR_COLOR, AvatarColor.random().serialize())
       }
+    }
+  }
+
+  /**
+   * @return The common id if all non-null ids are equal, or null if all are null or at least one non-null pair doesn't match.
+   */
+  private fun Collection<RecipientId?>.commonId(): RecipientId? {
+    val nonNull = this.filterNotNull()
+    if (nonNull.isEmpty()) {
+      return null
+    }
+
+    return if (nonNull.all { it.equals(nonNull[0]) }) {
+      nonNull[0]
+    } else {
+      null
     }
   }
 

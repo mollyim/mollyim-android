@@ -76,7 +76,8 @@ public class MessageRequestsBottomView extends ConstraintLayout {
     switch (messageData.getMessageState()) {
       case BLOCKED_INDIVIDUAL:
         int message = recipient.isReleaseNotes() ? R.string.MessageRequestBottomView_get_updates_and_news_from_s_you_wont_receive_any_updates_until_you_unblock_them
-                                                 : R.string.MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them;
+                                                 : recipient.isRegistered() ? R.string.MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them
+                                                                            : R.string.MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them_SMS;
 
         question.setText(HtmlCompat.fromHtml(getContext().getString(message,
                                                                     HtmlUtil.bold(recipient.getShortDisplayName(getContext()))), 0));
@@ -111,8 +112,12 @@ public class MessageRequestsBottomView extends ConstraintLayout {
         gv1Continue.setVisibility(GONE);
         break;
       case GROUP_V1:
-      case GROUP_V2_INVITE:
         question.setText(R.string.MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept);
+        setActiveInactiveGroups(normalButtons, blockedButtons, gv1MigrationButtons);
+        accept.setText(R.string.MessageRequestBottomView_accept);
+        break;
+      case GROUP_V2_INVITE:
+        question.setText(R.string.MessageRequestBottomView_do_you_want_to_join_this_group_you_wont_see_their_messages);
         setActiveInactiveGroups(normalButtons, blockedButtons, gv1MigrationButtons);
         accept.setText(R.string.MessageRequestBottomView_accept);
         break;

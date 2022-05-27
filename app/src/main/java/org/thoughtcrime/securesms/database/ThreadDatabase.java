@@ -31,6 +31,8 @@ import com.annimon.stream.Stream;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.jsoup.helper.StringUtil;
+import org.signal.core.util.CursorUtil;
+import org.signal.core.util.SqlUtil;
 import org.signal.core.util.logging.Log;
 import org.signal.libsignal.zkgroup.InvalidInputException;
 import org.signal.libsignal.zkgroup.groups.GroupMasterKey;
@@ -46,15 +48,14 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.mms.Slide;
 import org.thoughtcrime.securesms.mms.SlideDeck;
 import org.thoughtcrime.securesms.mms.StickerSlide;
+import org.thoughtcrime.securesms.notifications.v2.ConversationId;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientDetails;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.recipients.RecipientUtil;
 import org.thoughtcrime.securesms.storage.StorageSyncHelper;
 import org.thoughtcrime.securesms.util.ConversationUtil;
-import org.signal.core.util.CursorUtil;
 import org.thoughtcrime.securesms.util.JsonUtils;
-import org.signal.core.util.SqlUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.Util;
 import org.whispersystems.signalservice.api.push.ServiceId;
@@ -402,12 +403,32 @@ public class ThreadDatabase extends Database {
     return setReadSince(Collections.singletonMap(threadId, -1L), lastSeen);
   }
 
+  public List<MarkedMessageInfo> setRead(@NonNull ConversationId conversationId, boolean lastSeen) {
+    if (conversationId.getGroupStoryId() == null) {
+      return setRead(conversationId.getThreadId(), lastSeen);
+    } else {
+      return setGroupStoryReadSince(conversationId.getThreadId(), conversationId.getGroupStoryId(), System.currentTimeMillis());
+    }
+  }
+
+  public List<MarkedMessageInfo> setReadSince(@NonNull ConversationId conversationId, boolean lastSeen, long sinceTimestamp) {
+    if (conversationId.getGroupStoryId() != null) {
+      return setGroupStoryReadSince(conversationId.getThreadId(), conversationId.getGroupStoryId(), sinceTimestamp);
+    } else {
+      return setReadSince(conversationId.getThreadId(), lastSeen, sinceTimestamp);
+    }
+  }
+
   public List<MarkedMessageInfo> setReadSince(long threadId, boolean lastSeen, long sinceTimestamp) {
     return setReadSince(Collections.singletonMap(threadId, sinceTimestamp), lastSeen);
   }
 
   public List<MarkedMessageInfo> setRead(Collection<Long> threadIds, boolean lastSeen) {
     return setReadSince(Stream.of(threadIds).collect(Collectors.toMap(t -> t, t -> -1L)), lastSeen);
+  }
+
+  public List<MarkedMessageInfo> setGroupStoryReadSince(long threadId, long groupStoryId, long sinceTimestamp) {
+    return SignalDatabase.mms().setGroupStoryMessagesReadSince(threadId, groupStoryId, sinceTimestamp);
   }
 
   public List<MarkedMessageInfo> setReadSince(Map<Long, Long> threadIdToSinceTimestamp, boolean lastSeen) {
@@ -573,10 +594,10 @@ public class ThreadDatabase extends Database {
   }
 
   public Cursor getRecentConversationList(int limit, boolean includeInactiveGroups, boolean hideV1Groups) {
-    return getRecentConversationList(limit, includeInactiveGroups, false, false, hideV1Groups, false);
+    return getRecentConversationList(limit, includeInactiveGroups, false, false, hideV1Groups, false, false);
   }
 
-  public Cursor getRecentConversationList(int limit, boolean includeInactiveGroups, boolean individualsOnly, boolean groupsOnly, boolean hideV1Groups, boolean hideSms) {
+  public Cursor getRecentConversationList(int limit, boolean includeInactiveGroups, boolean individualsOnly, boolean groupsOnly, boolean hideV1Groups, boolean hideSms, boolean hideSelf) {
     SQLiteDatabase db    = databaseHelper.getSignalReadableDatabase();
     String         query = !includeInactiveGroups ? MEANINGFUL_MESSAGES + " != 0 AND (" + GroupDatabase.TABLE_NAME + "." + GroupDatabase.ACTIVE + " IS NULL OR " + GroupDatabase.TABLE_NAME + "." + GroupDatabase.ACTIVE + " = 1)"
                                                   : MEANINGFUL_MESSAGES + " != 0";
@@ -597,6 +618,10 @@ public class ThreadDatabase extends Database {
       query += " AND ((" + RecipientDatabase.TABLE_NAME + "." + RecipientDatabase.GROUP_ID + " NOT NULL AND " + RecipientDatabase.TABLE_NAME + "." + RecipientDatabase.GROUP_TYPE + " != " + RecipientDatabase.GroupType.MMS.getId() + ")" +
                " OR " + RecipientDatabase.TABLE_NAME + "." + RecipientDatabase.REGISTERED + " = " + RecipientDatabase.RegisteredState.REGISTERED.getId() + ")";
       query += " AND " + RecipientDatabase.TABLE_NAME + "." + RecipientDatabase.FORCE_SMS_SELECTION + " = 0";
+    }
+
+    if (hideSelf) {
+      query += " AND " + RECIPIENT_ID + " != " + Recipient.self().getId().toLong();
     }
 
     query += " AND " + ARCHIVED + " = 0";
@@ -1252,7 +1277,7 @@ public class ThreadDatabase extends Database {
 
         pinnedPosition++;
       }
-      
+
       db.setTransactionSuccessful();
     } finally {
       db.endTransaction();
@@ -1300,19 +1325,23 @@ public class ThreadDatabase extends Database {
   private boolean update(long threadId, boolean unarchive, boolean allowDeletion, boolean notifyListeners) {
     MmsSmsDatabase mmsSmsDatabase     = SignalDatabase.mmsSms();
     boolean        meaningfulMessages = mmsSmsDatabase.hasMeaningfulMessage(threadId);
+    boolean        isPinned           = getPinnedThreadIds().contains(threadId);
+    boolean        shouldDelete       = allowDeletion && !isPinned && !SignalDatabase.mms().containsStories(threadId);
 
     if (!meaningfulMessages) {
-      if (allowDeletion) {
+      if (shouldDelete) {
         deleteConversation(threadId);
+        return true;
+      } else if (!isPinned) {
+        return false;
       }
-      return true;
     }
 
     MessageRecord record;
     try {
       record = mmsSmsDatabase.getConversationSnippet(threadId);
     } catch (NoSuchMessageException e) {
-      if (allowDeletion && !SignalDatabase.mms().containsStories(threadId)) {
+      if (shouldDelete) {
         deleteConversation(threadId);
       }
       return true;

@@ -139,6 +139,7 @@ public class KeyboardAwareLinearLayout extends LinearLayoutCompat {
     if (getRootWindowInsets() != null) {
       int          bottomInset;
       WindowInsets windowInsets = getRootWindowInsets();
+
       if (Build.VERSION.SDK_INT >= 30) {
         bottomInset = windowInsets.getInsets(WindowInsets.Type.navigationBars()).bottom;
       } else {

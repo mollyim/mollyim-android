@@ -11,6 +11,7 @@ import android.os.Parcel
 import android.os.Parcelable
 import androidx.annotation.ColorInt
 import com.google.common.base.Objects
+import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 import org.signal.core.util.ColorUtil
 import org.thoughtcrime.securesms.components.RotatableGradientDrawable
@@ -59,6 +60,7 @@ class ChatColors(
   /**
    * Returns the ColorFilter to apply to a conversation bubble or other relevant piece of UI.
    */
+  @IgnoredOnParcel
   val chatBubbleColorFilter: ColorFilter =
     PorterDuffColorFilter(Color.TRANSPARENT, PorterDuff.Mode.SRC_IN)
 

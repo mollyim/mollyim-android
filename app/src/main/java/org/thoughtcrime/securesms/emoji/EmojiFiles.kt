@@ -152,7 +152,7 @@ object EmojiFiles {
             objectMapper.readValue(it, Version::class.java)
           }
         } catch (e: Exception) {
-          Log.w(TAG, "Could not read current emoji version from disk.")
+          Log.w(TAG, "Could not read current emoji version from disk.", e)
           null
         }
 

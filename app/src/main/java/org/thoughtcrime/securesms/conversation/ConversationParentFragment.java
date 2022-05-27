@@ -234,6 +234,7 @@ import org.thoughtcrime.securesms.mms.SlideFactory.MediaType;
 import org.thoughtcrime.securesms.mms.StickerSlide;
 import org.thoughtcrime.securesms.mms.VideoSlide;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
+import org.thoughtcrime.securesms.notifications.v2.ConversationId;
 import org.thoughtcrime.securesms.payments.CanNotSendPaymentDialog;
 import org.thoughtcrime.securesms.permissions.Permissions;
 import org.thoughtcrime.securesms.profiles.spoofing.ReviewBannerView;
@@ -260,6 +261,7 @@ import org.thoughtcrime.securesms.stickers.StickerLocator;
 import org.thoughtcrime.securesms.stickers.StickerManagementActivity;
 import org.thoughtcrime.securesms.stickers.StickerPackInstallEvent;
 import org.thoughtcrime.securesms.stickers.StickerSearchRepository;
+import org.thoughtcrime.securesms.stories.StoryViewerArgs;
 import org.thoughtcrime.securesms.stories.viewer.StoryViewerActivity;
 import org.thoughtcrime.securesms.util.AsynchronousCallback;
 import org.thoughtcrime.securesms.util.Base64;
@@ -275,6 +277,7 @@ import org.thoughtcrime.securesms.util.FullscreenHelper;
 import org.thoughtcrime.securesms.util.IdentityUtil;
 import org.thoughtcrime.securesms.util.LifecycleDisposable;
 import org.thoughtcrime.securesms.util.MediaUtil;
+import org.thoughtcrime.securesms.util.MessageRecordUtil;
 import org.thoughtcrime.securesms.util.MessageUtil;
 import org.thoughtcrime.securesms.util.PlayStoreUtil;
 import org.thoughtcrime.securesms.util.ServiceUtil;
@@ -866,7 +869,7 @@ public class ConversationParentFragment extends Fragment
   private void setVisibleThread(long threadId) {
     if (!isInBubble()) {
       // TODO [alex] LargeScreenSupport -- Inform MainActivityViewModel that the conversation was opened.
-      ApplicationDependencies.getMessageNotifier().setVisibleThread(threadId);
+      ApplicationDependencies.getMessageNotifier().setVisibleThread(ConversationId.forConversation(threadId));
     }
   }
 
@@ -1149,6 +1152,12 @@ public class ConversationParentFragment extends Fragment
   @Override
   public void onKeyboardShown() {
     inputPanel.onKeyboardShown();
+    if (emojiDrawerStub.resolved() && emojiDrawerStub.get().isShowing() && !emojiDrawerStub.get().isEmojiSearchMode()) {
+      emojiDrawerStub.get().hide(true);
+    }
+    if (attachmentKeyboardStub.resolved() && attachmentKeyboardStub.get().isShowing()) {
+      attachmentKeyboardStub.get().hide(true);
+    }
   }
 
   @Subscribe(threadMode = ThreadMode.MAIN)
@@ -1230,7 +1239,10 @@ public class ConversationParentFragment extends Fragment
   }
 
   private void handleStoryRingClick() {
-    startActivity(StoryViewerActivity.createIntent(requireContext(), recipient.getId(), -1L, recipient.get().shouldHideStory(), null, null, null, Collections.emptyList()));
+    startActivity(StoryViewerActivity.createIntent(
+                  requireContext(),
+                  new StoryViewerArgs.Builder(recipient.getId(), recipient.get().shouldHideStory())
+                                     .build()));
   }
 
   private void handleConversationSettings() {
@@ -3145,13 +3157,10 @@ public class ConversationParentFragment extends Fragment
   @Override
   public void onEmojiToggle() {
     if (!emojiDrawerStub.resolved()) {
-      Boolean stickersAvailable = stickerViewModel.getStickersAvailability().getValue();
-
       initializeMediaKeyboardProviders();
-
-      inputPanel.setMediaKeyboard(emojiDrawerStub.get());
     }
 
+    inputPanel.setMediaKeyboard(emojiDrawerStub.get());
     emojiDrawerStub.get().setFragmentManager(getChildFragmentManager());
 
     if (container.getCurrentInput() == emojiDrawerStub.get()) {
@@ -3737,7 +3746,8 @@ public class ConversationParentFragment extends Fragment
                           messageRecord.getDateSent(),
                           author,
                           body,
-                          slideDeck);
+                          slideDeck,
+                          MessageRecordUtil.getRecordQuoteType(messageRecord));
 
     } else if (messageRecord.isMms() && !((MmsMessageRecord) messageRecord).getLinkPreviews().isEmpty()) {
       LinkPreview linkPreview = ((MmsMessageRecord) messageRecord).getLinkPreviews().get(0);
@@ -3751,7 +3761,8 @@ public class ConversationParentFragment extends Fragment
                           messageRecord.getDateSent(),
                           author,
                           conversationMessage.getDisplayBody(requireContext()),
-                          slideDeck);
+                          slideDeck,
+                          MessageRecordUtil.getRecordQuoteType(messageRecord));
     } else {
       SlideDeck slideDeck = messageRecord.isMms() ? ((MmsMessageRecord) messageRecord).getSlideDeck() : new SlideDeck();
 
@@ -3765,7 +3776,8 @@ public class ConversationParentFragment extends Fragment
                           messageRecord.getDateSent(),
                           author,
                           conversationMessage.getDisplayBody(requireContext()),
-                          slideDeck);
+                          slideDeck,
+                          MessageRecordUtil.getRecordQuoteType(messageRecord));
     }
 
     inputPanel.clickOnComposeInput();

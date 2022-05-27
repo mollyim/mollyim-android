@@ -90,7 +90,9 @@
   <string name="BlockUnblockDialog_you_will_no_longer_receive_messages_or_updates">Do silst net langer berjochten of meldingen fan dizze groep ûntfange, en de leden kinne dy net opnij oan de groep tafoegje.</string>
   <string name="BlockUnblockDialog_group_members_wont_be_able_to_add_you">Groepsleden sille dy net langer oan dizze groep tafoegje kinne.</string>
   <string name="BlockUnblockDialog_group_members_will_be_able_to_add_you">Groepsleden sille dy wer oan dizze groep tafoegje kinne.</string>
+  <!--Text that is shown when unblocking a Signal contact-->
   <string name="BlockUnblockDialog_you_will_be_able_to_call_and_message_each_other">Jimme sille wer berjochten nei inoar ferstjoere kinne, belje kinne, en dyn profylnamme, -foto en -omskriuwing sille foar de oar wer bywurke wurde.</string>
+  <!--Text that is shown when unblocking an SMS contact-->
   <string name="BlockUnblockDialog_blocked_people_wont_be_able_to_call_you_or_send_you_messages">Blokkearre persoanen kinne net sjen dat se blokkearre binne: it liket foar harren as oft dyn telefoan oer giet en as oft berjochten ôflevere wurde. Dy aktuele profylnamme en -foto bliuwe foar blokkearre persoanen sichtber, mar wurde net bywurke asto in nije foto of namme ynstelst.</string>
   <!--Message shown on block dialog when blocking the Signal release notes recipient-->
   <string name="BlockUnblockDialog_block_getting_signal_updates_and_news">Signal-fernijingen en -nijs blokkearje.</string>
@@ -730,6 +732,9 @@
   <string name="CustomNotificationsDialogFragment__use_custom_notifications">Oanpaste meldingen brûke</string>
   <string name="CustomNotificationsDialogFragment__notification_sound">Meldingslûd</string>
   <string name="CustomNotificationsDialogFragment__vibrate">Trille</string>
+  <!--Button text for customizing notification options-->
+  <string name="CustomNotificationsDialogFragment__customize">Oanpasse</string>
+  <string name="CustomNotificationsDialogFragment__change_sound_and_vibration">Lûd en trillen wizigje</string>
   <string name="CustomNotificationsDialogFragment__call_settings">Opropynstellingen</string>
   <string name="CustomNotificationsDialogFragment__ringtone">Oproplûd</string>
   <string name="CustomNotificationsDialogFragment__enabled">Ynskeakele</string>
@@ -772,6 +777,7 @@
   <!--Title shown when there was an unknown issue getting group information from a group link-->
   <string name="GroupJoinBottomSheetDialogFragment_link_error">Flater by groepsferwizing</string>
   <!--Message shown when you try to get information for a group via link but an unknown issue occurred-->
+  <string name="GroupJoinBottomSheetDialogFragment_joining_via_this_link_failed_try_joining_again_later">Lid wurde fia dizze ferwizing is mislearre. Probearje it letter opnij.</string>
   <string name="GroupJoinBottomSheetDialogFragment_direct_join">Wolsto lid wurde fan dizze groep en dyn namme en foto mei de oare leden diele?</string>
   <string name="GroupJoinBottomSheetDialogFragment_admin_approval_needed">In behearder fan dizze groep moat earst dyn fersyk om lid te wurden goedkarre eardatsto lid wurde kinst fan dizze groep. Wannear\'tsto fersikest om lid te wurden sille dyn profylnamme, -foto en -omskriuwing daliks sichtber wêze foar de groepsleden.</string>
   <plurals name="GroupJoinBottomSheetDialogFragment_group_dot_d_members">
@@ -797,6 +803,7 @@
   <string name="RequestConfirmationDialog_add_s_to_the_group">‘%1$s’ oan de groep tafoegje?</string>
   <string name="RequestConfirmationDialog_deny_request_from_s">Fersyk fan ‘%1$s’ ôfwize?</string>
   <!--Confirm dialog message shown when deny a group link join request and group link is enabled.-->
+  <string name="RequestConfirmationDialog_deny_request_from_s_they_will_not_be_able_to_request">Wolsto it lidmaatskipsfersyk fan ‘%1$s’ ôfwize? Asto dit dochst dan kin dyjinge net opnij fia de groepsferwizing fersykje om lid te wurden fan de groep.</string>
   <string name="RequestConfirmationDialog_add">Tafoegje</string>
   <string name="RequestConfirmationDialog_deny">Ofwize</string>
   <!--ImageEditorHud-->
@@ -1086,6 +1093,10 @@
   <string name="MessageRecord_you_sent_a_request_to_join_the_group">Do hast in fersyk ferstjoerd om lid te wurden fan de groep.</string>
   <string name="MessageRecord_s_requested_to_join_via_the_group_link">%1$s hat fia de groepskeppeling fersocht lid te wurden.</string>
   <!--Update message shown when someone requests to join via group link and cancels the request back to back-->
+  <plurals name="MessageRecord_s_requested_and_cancelled_their_request_to_join_via_the_group_link">
+    <item quantity="one">%1$s hat fersocht om lid te wurden fan de groep en hat dat fersyk wer ynlutsen.</item>
+    <item quantity="other">%1$s hat %2$d kear fersocht om lid te wurden fan de groep en dy fersiken wer ynlutsen.</item>
+  </plurals>
   <!--GV2 group link approvals-->
   <string name="MessageRecord_s_approved_your_request_to_join_the_group">%1$s hat dyn fersyk om lid te wurden fan de groep goedkard.</string>
   <string name="MessageRecord_s_approved_a_request_to_join_the_group_from_s">%1$s hat it fersyk fan %2$s om lid te wurden fan de groep goedkard.</string>
@@ -1137,7 +1148,9 @@
   <string name="MessageRequestBottomView_block">Blokkearje</string>
   <string name="MessageRequestBottomView_unblock">Deblokkearje</string>
   <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_they_wont_know_youve_seen_their_messages_until_you_accept">Wolsto berjochten fan %1$s ûntfange, en stiesto ta dat dyn profylnamme, -foto en -omskriuwing te sjen is? Asto lêsbefêstigingen ynskeakele hast kin de oar dy noch net sjen oant datsto de útnûging akseptearre hast.</string>
+  <!--Shown in message request flow. Describes what will happen if you unblock a Signal user-->
   <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them">Wolsto berjochten fan %1$s ûntfange, en stiesto ta dat dyn profylnamme, -foto en -omskriuwing te sjen is? Do silst gjin berjochten ûntfange en dyn profyl sil foar dyjinge net mear bywurke wurde oant datsto dyjinge deblokkearre hast.</string>
+  <!--Shown in message request flow. Describes what will happen if you unblock an SMS user-->
   <string name="MessageRequestBottomView_get_updates_and_news_from_s_you_wont_receive_any_updates_until_you_unblock_them">Fernijingen en nijs ûntfange fan %1$s? Do silst gjin fernijingen krije oant do se deblokkearrest.</string>
   <string name="MessageRequestBottomView_continue_your_conversation_with_this_group_and_share_your_name_and_photo">Wolsto dyn profylnamme, -foto en -omskriuwing foar dizze groep sichtber meitsje om dyn petear mei de groep trochsette te kinnen?</string>
   <string name="MessageRequestBottomView_upgrade_this_group_to_activate_new_features">Set dizze groep om om nije funksjonaliteiten brûke te kinnen, lykas  @fermeldingen en behearders. Groepsleden dy’t harren profylnamme, -foto en -omskriuwing net foar dizze groep sichtber makke hawwe, sille útnûge wurde om ta dizze groep ta te treden.</string>
@@ -1155,7 +1168,15 @@
     <item quantity="other">%1$d leden</item>
   </plurals>
   <!--Describes the number of members in a group. The string MessageRequestProfileView_invited is nested in the parentheses.-->
+  <plurals name="MessageRequestProfileView_members_and_invited">
+    <item quantity="one">%1$d lid (%2$s)</item>
+    <item quantity="other">%1$d leden (%2$s)</item>
+  </plurals>
   <!--Describes the number of people invited to a group. Nested inside of the string MessageRequestProfileView_members_and_invited-->
+  <plurals name="MessageRequestProfileView_invited">
+    <item quantity="one">+%1$d útnûge</item>
+    <item quantity="other">+%1$d útnûgen</item>
+  </plurals>
   <plurals name="MessageRequestProfileView_member_of_d_additional_groups">
     <item quantity="one">%d ekstra groep</item>
     <item quantity="other">%d ekstra groepen</item>
@@ -1248,6 +1269,7 @@
   <!--Recipient-->
   <string name="Recipient_you">Do</string>
   <!--Name of recipient representing user\'s \'My Story\'-->
+  <string name="Recipient_my_story">Myn ferhaal</string>
   <!--RecipientPreferencesActivity-->
   <string name="RecipientPreferenceActivity_block">Blokkearje</string>
   <string name="RecipientPreferenceActivity_unblock">Deblokkearje</string>
@@ -1276,6 +1298,11 @@
   <string name="WebRtcCallActivity__group_is_too_large_to_ring_the_participants">De groep is te grut om de leden te bellen.</string>
   <!--Call status shown when an active call was disconnected (e.g., network hiccup) and is trying to reconnect-->
   <string name="WebRtcCallActivity__reconnecting">Opnij oan it ferbinen…</string>
+  <!--Title for dialog warning about lacking bluetooth permissions during a call-->
+  <!--Message for dialog warning about lacking bluetooth permissions during a call and references the permission needed by name-->
+  <!--Positive action for bluetooth warning dialog to open settings-->
+  <!--Negative aciton for bluetooth warning dialog to dismiss dialog-->
+  <string name="WebRtcCallActivity__not_now">No net</string>
   <!--WebRtcCallView-->
   <string name="WebRtcCallView__signal_call">Signal-oprop</string>
   <string name="WebRtcCallView__signal_video_call">Signal fideo-oprop</string>
@@ -1430,6 +1457,12 @@
   <!--SignalBottomActionBar-->
   <string name="SignalBottomActionBar_more">Mear opsjes</string>
   <!--SignalPinReminders-->
+  <string name="SignalPinReminders_well_remind_you_again_later">Pinkoade mei sukses ferifiearre. Signal sil it letter opnij freegje.</string>
+  <string name="SignalPinReminders_well_remind_you_again_tomorrow">Pinkoade mei sukses ferifiearre. Signal sil it moarn opnij freegje.</string>
+  <string name="SignalPinReminders_well_remind_you_again_in_a_few_days">Pinkoade mei sukses ferifiearre. Signal sil it oer in pear dagen opnij freegje.</string>
+  <string name="SignalPinReminders_well_remind_you_again_in_a_week">Pinkoade mei sukses ferifiearre. Signal sil it oer in wike opnij freegje.</string>
+  <string name="SignalPinReminders_well_remind_you_again_in_a_couple_weeks">Pinkoade mei sukses ferifiearre. Signal sil it oer in pear wiken opnij freegje.</string>
+  <string name="SignalPinReminders_well_remind_you_again_in_a_month">Pinkoade mei sukses ferifiearre. Signal sil it oer in moanne opnij freegje.</string>
   <!--Slide-->
   <string name="Slide_image">Ofbylding</string>
   <string name="Slide_sticker">Stikker</string>
@@ -1515,6 +1548,11 @@
   <string name="ThreadRecord_file">Bestân</string>
   <string name="ThreadRecord_video">Fideo</string>
   <string name="ThreadRecord_chat_session_refreshed">Petearsesje fernijd</string>
+  <!--Displayed in the notification when the user is sent a gift-->
+  <string name="ThreadRecord__you_received_a_gift">Do hast in kado ûntfongen</string>
+  <!--Displayed in the notification when the user sends a gift-->
+  <string name="ThreadRecord__you_sent_a_gift">Do hast in kado ferstjoerd</string>
+  <!--Displayed in the notification when the user has opened a received gift-->
   <!--UpdateApkReadyListener-->
   <string name="UpdateApkReadyListener_Signal_update">Nije ferzje fan Molly</string>
   <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Der is in nije ferzje fan Molly beskikber. Tik hjir om by te wurkjen</string>
@@ -1580,7 +1618,9 @@
   <string name="MediaPreviewActivity_media_delete_confirmation_message">Dit berjocht sil allinnich foar dy ûnûntkomber wiske wurde, mar dus net foar dyn petearpartner(s).</string>
   <string name="MediaPreviewActivity_s_to_s">%1$s nei %2$s</string>
   <!--All media preview title when viewing media send by you to another recipient (allows changing of \'You\' based on context)-->
+  <string name="MediaPreviewActivity_you_to_s">Do nei %1$s</string>
   <!--All media preview title when viewing media sent by another recipient to you (allows changing of \'You\' based on context)-->
+  <string name="MediaPreviewActivity_s_to_you">%1$s oan dy</string>
   <string name="MediaPreviewActivity_media_no_longer_available">Media net langer beskikber.</string>
   <string name="MediaPreviewActivity_cant_find_an_app_able_to_share_this_media">Gjin app fûn wêrmei’t dit bestân mei oaren dield wurde kin.</string>
   <!--MessageNotifier-->
@@ -1648,6 +1688,7 @@
   <string name="SingleRecipientNotificationBuilder_new_message">Nij berjocht</string>
   <string name="SingleRecipientNotificationBuilder_message_request">Petearfersyk</string>
   <string name="SingleRecipientNotificationBuilder_you">Do</string>
+  <!--Notification subtext for group stories-->
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">Fideo ôfspylje</string>
   <string name="ThumbnailView_Has_a_caption_description">Hat in byskrift</string>
@@ -1720,6 +1761,10 @@
     <item quantity="other">%1$d persoanen</item>
   </plurals>
   <!--Displays number of viewers for a story-->
+  <plurals name="contact_selection_list_item__number_of_viewers">
+    <item quantity="one">Troch %1$d persoan sjoen</item>
+    <item quantity="other">Troch %1$d persoanen sjoen</item>
+  </plurals>
   <!--conversation_activity-->
   <string name="conversation_activity__type_message_push">Signal-berjocht</string>
   <string name="conversation_activity__type_message_sms_insecure">Unbefeilige sms</string>
@@ -1780,8 +1825,13 @@
   <string name="QuoteView_you">Do</string>
   <string name="QuoteView_original_missing">Oarspronklik berjocht net fûn</string>
   <!--Author formatting for group stories-->
+  <string name="QuoteView_s_story">Ferhaal fan %1$s</string>
   <!--Label indicating that a quote is for a reply to a story you created-->
+  <string name="QuoteView_your_story">Dyn ferhaal</string>
   <!--Label indicating that the story being replied to no longer exists-->
+  <string name="QuoteView_no_longer_available">Net langer beskikber</string>
+  <!--Label for quoted gift-->
+  <string name="QuoteView__gift">Kado</string>
   <!--conversation_fragment-->
   <string name="conversation_fragment__scroll_to_the_bottom_content_description">Skow nei ûnderen ta</string>
   <!--BubbleOptOutTooltip-->
@@ -2079,6 +2129,8 @@
   <string name="preferences__led_color">Melding-LED-kleur</string>
   <string name="preferences__led_color_unknown">Unbekend</string>
   <string name="preferences__pref_led_blink_title">Melding-LED-knipperpatroan</string>
+  <string name="preferences__customize">Oanpasse</string>
+  <string name="preferences__change_sound_and_vibration">Lûd en trillen wizigje</string>
   <string name="preferences__sound">Berjochtlûd</string>
   <string name="preferences__silent">Stil</string>
   <string name="preferences__default">Systeemstandert</string>
@@ -3232,6 +3284,12 @@
   <!--ChatColorGradientTool-->
   <string name="ChatColorGradientTool_top_edge_selector">Skowknop foar de bopperâne</string>
   <string name="ChatColorGradientTool_bottom_edge_selector">Skowknop foar de ûnderrâne</string>
+  <!--Title text for prompt to donate. Shown in a popup at the bottom of the chat list.-->
+  <string name="Donate2022Q2Megaphone_donate_to_signal">Oan Signal donearje</string>
+  <!--Body text for prompt to donate. Shown in a popup at the bottom of the chat list.-->
+  <!--Button label that brings a user to the donate screen. Shown in a popup at the bottom of the chat list.-->
+  <!--Button label that dismissed a prompt to donate. Shown in a popup at the bottom of the chat list.-->
+  <string name="Donate2022Q2Megaphone_not_now">No net</string>
   <!--EditReactionsFragment-->
   <string name="EditReactionsFragment__customize_reactions">Reaksje-balke personalisearje</string>
   <string name="EditReactionsFragment__tap_to_replace_an_emoji">Tik op in emoji om dy te ferfangen</string>
@@ -3239,11 +3297,6 @@
   <string name="EditReactionsFragment_save">Opslaan</string>
   <string name="ChatColorSelectionFragment__auto_matches_the_color_to_the_wallpaper">‘Auto’ betsjut dat der automatysk in kleur keazen wurdt dy’t past by de eftergrûn</string>
   <string name="CustomChatColorCreatorFragment__drag_to_change_the_direction_of_the_gradient">Sleep om de rjochting fan it ferrin te wizigjen</string>
-  <!--ChatColorsMegaphone-->
-  <string name="ChatColorsMegaphone__new_chat_colors">Nije petearkleuren</string>
-  <string name="ChatColorsMegaphone__we_switched_up_chat_colors">Wy hawwe de kleuren fan berjochtebubbels omwiksele, sadatsto mear mooglikheden hast om sels kleuren te kiezen en sadat petearen makliker te lêzen binne.</string>
-  <string name="ChatColorsMegaphone__appearance">Uterlik</string>
-  <string name="ChatColorsMegaphone__not_now">No net</string>
   <!--AddAProfilePhotoMegaphone-->
   <string name="AddAProfilePhotoMegaphone__add_a_profile_photo">Profylfoto tafoegje</string>
   <string name="AddAProfilePhotoMegaphone__choose_a_look_and_color">Meitsje dysels werkenber troch in profylfoto yn te stellen of pas de kleur of tekst oan.</string>
@@ -3518,6 +3571,10 @@
   <string name="ViewBadgeBottomSheetDialogFragment__your_device_doesn_t_support_google_pay_so_you_can_t_subscribe_to_earn_a_badge_you_can_still_support_signal_by_making_a_donation_on_our_website">Dyn apparaat biedt gjin stipe foar Google Play, dêrom kinsto fia de app gjin moanlikse donaasje meitsje en kinsto gjin badge fertsjinje. Do kinst noch wel donearje fia de Signal-website.</string>
   <string name="NetworkFailure__network_error_check_your_connection_and_try_again">Netwurkflater. Kontrolearje dat dyn apparaat mei it ynternet ferbûn is en probearje it opnij.</string>
   <string name="NetworkFailure__retry">Opnij probearje</string>
+  <!--Displayed as a dialog title when the selected recipient for a gift doesn\'t support gifting-->
+  <!--Displayed as a dialog message when the selected recipient for a gift doesn\'t support gifting-->
+  <!--Displayed as a dialog title when the user\'s profile could not be fetched, likely due to lack of internet-->
+  <!--Displayed as a dialog message when the user\'s profile could not be fetched, likely due to lack of internet-->
   <!--Gift message view title-->
   <!--Gift message view expiry information-->
   <!--Gift badge redeem action label-->
@@ -3694,6 +3751,7 @@
   <!--Donation receipts recurring tab label-->
   <!--Donation receipts one-time tab label-->
   <!--Donation receipts gift tab label-->
+  <string name="DonationReceiptListFragment__gift">Kado</string>
   <!--Donation receipts boost row label-->
   <!--Donation receipts details title-->
   <string name="DonationReceiptDetailsFragment__details">Details</string>
@@ -3706,6 +3764,7 @@
   <!--Donation receipts thanks-->
   <!--Donation receipt type-->
   <string name="DonationReceiptDetailsFragment__s_dash_s">%1$s - %2$s</string>
+  <!--Donation reciepts screen empty state title-->
   <!--region "Stories Tab"-->
   <!--Label for Chats tab in home app screen-->
   <string name="ConversationListTabs__chats">Petearen</string>
@@ -3757,6 +3816,7 @@
   <string name="StoryViewerPageFragment__s_to_s">%1$s nei %2$s</string>
   <!--Displayed when viewing a post from another user with no replies-->
   <string name="StoryViewerPageFragment__reply">Reagearje</string>
+  <!--Displayed when viewing a group post from another user with no replies-->
   <!--Displayed when a story has no views-->
   <!--Displayed when a story has no replies yet-->
   <!--Displayed for each user that reacted to a story when viewing replies-->
@@ -3774,6 +3834,7 @@
   <!--Note at bottom of story settings regarding who can see private stories.-->
   <!--Option label for creating a new private story-->
   <!--Page title for My Story options-->
+  <string name="MyStorySettingsFragment__my_story">Myn ferhaal</string>
   <!--Section heading for story visibility-->
   <!--Clickable option for selecting people to hide your story from-->
   <!--Summary of clickable option displaying how many people you have hidden your story from-->
@@ -3853,7 +3914,6 @@
   <string name="StoryGroupReplyFragment__copied_to_clipboard">Kopiearre nei klamboerd</string>
   <!--Displayed in story caption when content is longer than 5 lines-->
   <!--Displayed in toast after sending a direct reply-->
-  <!--Displayed in toast after sending a direct reaction-->
   <!--Displayed in the viewer when a story is no longer available-->
   <!--Displayed in the viewer when the network is not available-->
   <!--Displayed in the viewer when network is available but content could not be downloaded-->
@@ -3874,6 +3934,7 @@
   <!--Conversation Item label for reactions to an unavailable story-->
   <!--endregion-->
   <!--Content description for expand contacts chevron-->
+  <!--Duration and price information-->
   <!--Tagline for gift row items-->
   <!--Headline text on start fragment for gifting a badge-->
   <!--Description text on start fragment for gifting a badge-->
@@ -3887,6 +3948,7 @@
   <!--Text explaining that this gift is a one time donation-->
   <!--Hint for add message input-->
   <string name="GiftFlowConfirmationFragment__add_a_message">In berjocht tafoegje</string>
+  <!--Displayed in the dialog while verifying the chosen recipient-->
   <!--Title for sheet shown when opening a redeemed gift-->
   <!--Title for sheet shown when opening a sent gift-->
   <!--Description for sheet shown when opening a redeemed gift-->
@@ -3904,5 +3966,11 @@
   <!--Expired gift sheet make a monthly donation button-->
   <!--Expired gift sheet not now button-->
   <string name="ExpiredGiftSheetConfiguration__not_now">No net</string>
+  <!--Label under name for private stories-->
+  <!--Label under name for group stories-->
+  <!--Gift expiry days remaining-->
+  <!--Gift expiry hours remaining-->
+  <!--Gift expiry minutes remaining-->
+  <!--Gift expiry expired-->
   <!--EOF-->
 </resources>

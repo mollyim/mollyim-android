@@ -90,8 +90,12 @@
   <string name="BlockUnblockDialog_you_will_no_longer_receive_messages_or_updates">Вы больше не будете получать сообщения и обновления от этой группы, и участники группы не смогут снова добавить вас в неё.</string>
   <string name="BlockUnblockDialog_group_members_wont_be_able_to_add_you">Участники группы не смогут снова добавить вас в неё.</string>
   <string name="BlockUnblockDialog_group_members_will_be_able_to_add_you">Участники группы смогут снова добавить вас в неё.</string>
+  <!--Text that is shown when unblocking a Signal contact-->
   <string name="BlockUnblockDialog_you_will_be_able_to_call_and_message_each_other">Вы сможете отправлять сообщения и звонить друг другу, а ваши имя и фото станут доступны этому контакту.</string>
+  <!--Text that is shown when unblocking an SMS contact-->
+  <string name="BlockUnblockDialog_you_will_be_able_to_message_each_other">Вы сможете отправлять сообщения друг другу.</string>
   <string name="BlockUnblockDialog_blocked_people_wont_be_able_to_call_you_or_send_you_messages">Заблокированные люди не смогут звонить вам или отправлять вам сообщения.</string>
+  <string name="BlockUnblockDialog_blocked_people_wont_be_able_to_send_you_messages">Заблокированные люди не смогут отправлять вам сообщения.</string>
   <!--Message shown on block dialog when blocking the Signal release notes recipient-->
   <string name="BlockUnblockDialog_block_getting_signal_updates_and_news">Прекратить получение обновлений и новостей от Signal.</string>
   <!--Message shown on unblock dialog when unblocking the Signal release notes recipient-->
@@ -810,6 +814,9 @@
   <string name="CustomNotificationsDialogFragment__use_custom_notifications">Использовать индивидуальные уведомления</string>
   <string name="CustomNotificationsDialogFragment__notification_sound">Звук уведомления</string>
   <string name="CustomNotificationsDialogFragment__vibrate">Вибрация</string>
+  <!--Button text for customizing notification options-->
+  <string name="CustomNotificationsDialogFragment__customize">Настроить</string>
+  <string name="CustomNotificationsDialogFragment__change_sound_and_vibration">Изменить звук и вибрацию</string>
   <string name="CustomNotificationsDialogFragment__call_settings">Настройки звонков</string>
   <string name="CustomNotificationsDialogFragment__ringtone">Мелодия</string>
   <string name="CustomNotificationsDialogFragment__enabled">Включено</string>
@@ -1261,13 +1268,17 @@
   <string name="MessageRequestBottomView_block">Заблокировать</string>
   <string name="MessageRequestBottomView_unblock">Разблокировать</string>
   <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_they_wont_know_youve_seen_their_messages_until_you_accept">Разрешить %1$s отправлять вам сообщения и открыть ваше имя и фото этому человеку? Он не узнает, что вы видели его сообщение, пока вы не примете запрос.</string>
+  <!--Shown in message request flow. Describes what will happen if you unblock a Signal user-->
   <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them">Разрешить %1$s отправлять вам сообщения и открыть ваше имя и фото этому человеку? Вы не получите никаких сообщений, пока не разблокируете его.</string>
+  <!--Shown in message request flow. Describes what will happen if you unblock an SMS user-->
+  <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them_SMS">Разрешить %1$s отправлять вам сообщения? Вы не получите никаких сообщений, пока не разблокируете этого человека.</string>
   <string name="MessageRequestBottomView_get_updates_and_news_from_s_you_wont_receive_any_updates_until_you_unblock_them">Получать обновления и новости от %1$s? Вы не будете получать никаких сообщений, пока не разблокируете.</string>
   <string name="MessageRequestBottomView_continue_your_conversation_with_this_group_and_share_your_name_and_photo">Продолжить ваш разговор с этой группой и открыть ваше имя и фото её участникам?</string>
   <string name="MessageRequestBottomView_upgrade_this_group_to_activate_new_features">Обновите эту группу, чтобы активировать такие новые функции, как @упоминания и администраторы групп. Участники, которые ещё не открыли свои имена или фото этой группе получат приглашение присоединиться.</string>
   <string name="MessageRequestBottomView_this_legacy_group_can_no_longer_be_used">Эта Старая группа больше не может быть использована, потому что она слишком большая. Максимальный размер группы — %1$d.</string>
   <string name="MessageRequestBottomView_continue_your_conversation_with_s_and_share_your_name_and_photo">Продолжить ваш разговор с %1$s и открыть ваше имя и фото этому человеку?</string>
   <string name="MessageRequestBottomView_do_you_want_to_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Присоединиться к этой группе и открыть ваше имя и фото её участникам? Они не узнают, что вы видели их сообщения, пока вы не примете запрос.</string>
+  <string name="MessageRequestBottomView_do_you_want_to_join_this_group_you_wont_see_their_messages">Присоединиться к этой группе и открыть ваше имя и фото её участникам? Вы не увидите их сообщения, пока не примете запрос.</string>
   <string name="MessageRequestBottomView_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Присоединиться к этой группе? Её участники не узнают, что вы видели их сообщения, пока вы не примете запрос.</string>
   <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">Разблокировать эту группу и открыть ваше имя и фото её участникам? Вы не будете получать сообщений, пока не разблокируете эту группу.</string>
   <string name="MessageRequestProfileView_view">Просмотреть</string>
@@ -1420,6 +1431,14 @@
   <string name="WebRtcCallActivity__group_is_too_large_to_ring_the_participants">Невозможно звонить участникам: группа слишком большая.</string>
   <!--Call status shown when an active call was disconnected (e.g., network hiccup) and is trying to reconnect-->
   <string name="WebRtcCallActivity__reconnecting">Переподключаемся…</string>
+  <!--Title for dialog warning about lacking bluetooth permissions during a call-->
+  <string name="WebRtcCallActivity__bluetooth_permission_denied">Разрешение Bluetooth отключено</string>
+  <!--Message for dialog warning about lacking bluetooth permissions during a call and references the permission needed by name-->
+  <string name="WebRtcCallActivity__please_enable_the_nearby_devices_permission_to_use_bluetooth_during_a_call">Пожалуйста, включите разрешение «Устройства Bluetooth поблизости», чтобы использовать Bluetooth во время звонка.</string>
+  <!--Positive action for bluetooth warning dialog to open settings-->
+  <string name="WebRtcCallActivity__open_settings">Открыть настройки</string>
+  <!--Negative aciton for bluetooth warning dialog to dismiss dialog-->
+  <string name="WebRtcCallActivity__not_now">Не сейчас</string>
   <!--WebRtcCallView-->
   <string name="WebRtcCallView__signal_call">Звонок Signal</string>
   <string name="WebRtcCallView__signal_video_call">Видеозвонок Signal</string>
@@ -1670,6 +1689,12 @@
   <string name="ThreadRecord_file">Файл</string>
   <string name="ThreadRecord_video">Видео</string>
   <string name="ThreadRecord_chat_session_refreshed">Сессия чата обновлена</string>
+  <!--Displayed in the notification when the user is sent a gift-->
+  <string name="ThreadRecord__you_received_a_gift">Вы получили подарок</string>
+  <!--Displayed in the notification when the user sends a gift-->
+  <string name="ThreadRecord__you_sent_a_gift">Вы отправили подарок</string>
+  <!--Displayed in the notification when the user has opened a received gift-->
+  <string name="ThreadRecord__you_redeemed_a_gift_badge">Вы приняли значок, полученный в подарок</string>
   <!--UpdateApkReadyListener-->
   <string name="UpdateApkReadyListener_Signal_update">Обновление Molly</string>
   <string name="UpdateApkReadyListener_a_new_version_of_signal_is_available_tap_to_update">Доступна новая версия Molly. Обновиться?</string>
@@ -1807,6 +1832,8 @@
   <string name="SingleRecipientNotificationBuilder_new_message">Новое сообщение</string>
   <string name="SingleRecipientNotificationBuilder_message_request">Запрос на общение</string>
   <string name="SingleRecipientNotificationBuilder_you">Вы</string>
+  <!--Notification subtext for group stories-->
+  <string name="SingleRecipientNotificationBuilder__s_dot_story">%1$s • История</string>
   <!--ThumbnailView-->
   <string name="ThumbnailView_Play_video_description">Воспроизвести видео</string>
   <string name="ThumbnailView_Has_a_caption_description">Есть подпись</string>
@@ -1956,6 +1983,8 @@
   <string name="QuoteView_your_story">Вы · история</string>
   <!--Label indicating that the story being replied to no longer exists-->
   <string name="QuoteView_no_longer_available">Больше не доступна</string>
+  <!--Label for quoted gift-->
+  <string name="QuoteView__gift">Подарок</string>
   <!--conversation_fragment-->
   <string name="conversation_fragment__scroll_to_the_bottom_content_description">Прокрутить вниз</string>
   <!--BubbleOptOutTooltip-->
@@ -2272,6 +2301,8 @@
   <string name="preferences__led_color">Цвет светодиода</string>
   <string name="preferences__led_color_unknown">Неизвестный</string>
   <string name="preferences__pref_led_blink_title">Мигание светодиода</string>
+  <string name="preferences__customize">Настроить</string>
+  <string name="preferences__change_sound_and_vibration">Изменить звук и вибрацию</string>
   <string name="preferences__sound">Мелодия</string>
   <string name="preferences__silent">Без звука</string>
   <string name="preferences__default">По умолчанию</string>
@@ -3455,6 +3486,14 @@
   <!--ChatColorGradientTool-->
   <string name="ChatColorGradientTool_top_edge_selector">Выбор верхней грани</string>
   <string name="ChatColorGradientTool_bottom_edge_selector">Выбор нижней грани</string>
+  <!--Title text for prompt to donate. Shown in a popup at the bottom of the chat list.-->
+  <string name="Donate2022Q2Megaphone_donate_to_signal">Поддержите Signal</string>
+  <!--Body text for prompt to donate. Shown in a popup at the bottom of the chat list.-->
+  <string name="Donate2022Q2Megaphone_signal_is_powered_by_people_like_you">Signal существует благодаря таким людям, как вы. Сделайте ежемесячное пожертвование и получите значок.</string>
+  <!--Button label that brings a user to the donate screen. Shown in a popup at the bottom of the chat list.-->
+  <string name="Donate2022Q2Megaphone_donate">Пожертвовать</string>
+  <!--Button label that dismissed a prompt to donate. Shown in a popup at the bottom of the chat list.-->
+  <string name="Donate2022Q2Megaphone_not_now">Не сейчас</string>
   <!--EditReactionsFragment-->
   <string name="EditReactionsFragment__customize_reactions">Настроить реакции</string>
   <string name="EditReactionsFragment__tap_to_replace_an_emoji">Нажмите, чтобы заменить эмодзи</string>
@@ -3462,11 +3501,6 @@
   <string name="EditReactionsFragment_save">Сохранить</string>
   <string name="ChatColorSelectionFragment__auto_matches_the_color_to_the_wallpaper">«Авто» выбирает цвет, соответствующий обоям</string>
   <string name="CustomChatColorCreatorFragment__drag_to_change_the_direction_of_the_gradient">Перетащите для изменения направления градиента</string>
-  <!--ChatColorsMegaphone-->
-  <string name="ChatColorsMegaphone__new_chat_colors">Новые цвета чатов</string>
-  <string name="ChatColorsMegaphone__we_switched_up_chat_colors">Мы изменили цвета чата, чтобы предоставить вам больше возможностей и повысить удобность чтения чатов.</string>
-  <string name="ChatColorsMegaphone__appearance">Внешний вид</string>
-  <string name="ChatColorsMegaphone__not_now">Не сейчас</string>
   <!--AddAProfilePhotoMegaphone-->
   <string name="AddAProfilePhotoMegaphone__add_a_profile_photo">Добавьте фото профиля</string>
   <string name="AddAProfilePhotoMegaphone__choose_a_look_and_color">Выберите вид и цвет или настройте свои инициалы.</string>
@@ -3774,8 +3808,14 @@
   <string name="ViewBadgeBottomSheetDialogFragment__your_device_doesn_t_support_google_pay_so_you_can_t_subscribe_to_earn_a_badge_you_can_still_support_signal_by_making_a_donation_on_our_website">Ваше устройство не поддерживает Google Pay, поэтому вы не можете подписаться, чтобы получить значок. Вы всё равно можете поддержать Signal, сделав пожертвование на нашем сайте.</string>
   <string name="NetworkFailure__network_error_check_your_connection_and_try_again">Ошибка сети. Проверьте ваше подключение к интернету и попробуйте ещё раз.</string>
   <string name="NetworkFailure__retry">Повторить попытку</string>
+  <!--Displayed as a dialog title when the selected recipient for a gift doesn\'t support gifting-->
   <string name="DonationsErrors__recipient_verification_failed">Не удалось проверить получателя.</string>
+  <!--Displayed as a dialog message when the selected recipient for a gift doesn\'t support gifting-->
   <string name="DonationsErrors__target_does_not_support_gifting">Получатель не поддерживает получение подарков.</string>
+  <!--Displayed as a dialog title when the user\'s profile could not be fetched, likely due to lack of internet-->
+  <string name="DonationsErrors__could_not_verify_recipient">Не удалось проверить получателя.</string>
+  <!--Displayed as a dialog message when the user\'s profile could not be fetched, likely due to lack of internet-->
+  <string name="DonationsErrors__please_check_your_network_connection">Пожалуйста, проверьте ваше подключение к интернету и попробуйте ещё раз.</string>
   <!--Gift message view title-->
   <string name="GiftMessageView__gift_badge">Значок в подарок</string>
   <!--Gift message view expiry information-->
@@ -3985,6 +4025,8 @@
   <string name="DonationReceiptDetailsFragment__thank_you_for_supporting">Спасибо, что поддерживаете Signal. Ваш вклад помогает поддерживать миссию по разработке технологии конфиденциальности с открытым исходным кодом, которая защищает свободу слова и делает возможным безопасное общение между миллионами людей по всему миру. Если вы проживаете в США, пожалуйста, сохраните эту квитанцию для своего налогового учёта. Signal Technology Foundation — это некоммерческая организация, освобождённая от налогов в США со статусом 501c3. Наш ИНН: 82–4506840.</string>
   <!--Donation receipt type-->
   <string name="DonationReceiptDetailsFragment__s_dash_s">%1$s - %2$s</string>
+  <!--Donation reciepts screen empty state title-->
+  <string name="DonationReceiptListFragment__no_receipts">Нет квитанций</string>
   <!--region "Stories Tab"-->
   <!--Label for Chats tab in home app screen-->
   <string name="ConversationListTabs__chats">Чаты</string>
@@ -4063,6 +4105,8 @@
   <string name="StoryViewerPageFragment__s_to_s">%1$s в %2$s</string>
   <!--Displayed when viewing a post from another user with no replies-->
   <string name="StoryViewerPageFragment__reply">Ответить</string>
+  <!--Displayed when viewing a group post from another user with no replies-->
+  <string name="StoryViewerPageFragment__reply_to_group">Ответить группе</string>
   <!--Displayed when a story has no views-->
   <string name="StoryViewsFragment__no_views_yet">Ещё нет просмотров</string>
   <!--Displayed when a story has no replies yet-->
@@ -4224,9 +4268,7 @@
   <!--Displayed in story caption when content is longer than 5 lines-->
   <string name="StoryViewerPageFragment__see_more">… Увидеть больше</string>
   <!--Displayed in toast after sending a direct reply-->
-  <string name="StoryDirectReplyDialogFragment__reply_sent">Ответ отправлен</string>
-  <!--Displayed in toast after sending a direct reaction-->
-  <string name="StoryDirectReplyDialogFragment__reaction_sent">Реакция отправлена</string>
+  <string name="StoryDirectReplyDialogFragment__sending_reply">Отправляем ответ…</string>
   <!--Displayed in the viewer when a story is no longer available-->
   <string name="StorySlateView__this_story_is_no_longer_available">Эта история больше не доступна.</string>
   <!--Displayed in the viewer when the network is not available-->
@@ -4259,6 +4301,8 @@
   <!--Content description for expand contacts chevron-->
   <string name="ExpandModel__view_more">Просмотреть больше</string>
   <string name="StoriesLinkPopup__visit_link">Посетить ссылку</string>
+  <!--Duration and price information-->
+  <string name="GiftRowItem__s_dot_d_day_duration">%1$s · действует %2$d дней</string>
   <!--Tagline for gift row items-->
   <string name="GiftRowItem__send_a_gift_badge">Отправить значок в подарок</string>
   <!--Headline text on start fragment for gifting a badge-->
@@ -4279,6 +4323,8 @@
   <string name="GiftFlowConfirmationFragment__one_time_donation">Одноразовое пожертвование</string>
   <!--Hint for add message input-->
   <string name="GiftFlowConfirmationFragment__add_a_message">Добавьте сообщение</string>
+  <!--Displayed in the dialog while verifying the chosen recipient-->
+  <string name="GiftFlowConfirmationFragment__verifying_recipient">Проверяем получателя…</string>
   <!--Title for sheet shown when opening a redeemed gift-->
   <string name="ViewReceivedGiftBottomSheet__s_sent_you_a_gift">%1$s отправил(-а) вам подарок</string>
   <!--Title for sheet shown when opening a sent gift-->
@@ -4307,5 +4353,42 @@
   <string name="ExpiredGiftSheetConfiguration__make_a_monthly_donation">Сделать ежемесячное пожертвование</string>
   <!--Expired gift sheet not now button-->
   <string name="ExpiredGiftSheetConfiguration__not_now">Не сейчас</string>
+  <!--Label under name for private stories-->
+  <plurals name="ContactSearchItems__private_story_d_viewers">
+    <item quantity="one">Частная история · %1$d зритель</item>
+    <item quantity="few">Частная история · %1$d зрителя</item>
+    <item quantity="many">Частная история · %1$d зрителей</item>
+    <item quantity="other">Частная история · %1$d зрителя</item>
+  </plurals>
+  <!--Label under name for group stories-->
+  <plurals name="ContactSearchItems__group_story_d_viewers">
+    <item quantity="one">История группы · %1$d зритель</item>
+    <item quantity="few">История группы · %1$d зрителя</item>
+    <item quantity="many">История группы · %1$d зрителей</item>
+    <item quantity="other">История группы · %1$d зрителя</item>
+  </plurals>
+  <!--Gift expiry days remaining-->
+  <plurals name="Gifts__d_days_remaining">
+    <item quantity="one">Остался %1$d день</item>
+    <item quantity="few">Осталось %1$d дня</item>
+    <item quantity="many">Осталось %1$d дней</item>
+    <item quantity="other">Осталось %1$d дня</item>
+  </plurals>
+  <!--Gift expiry hours remaining-->
+  <plurals name="Gifts__d_hours_remaining">
+    <item quantity="one">Остался %1$d час</item>
+    <item quantity="few">Осталось %1$d часа</item>
+    <item quantity="many">Осталось %1$d часов</item>
+    <item quantity="other">Осталось %1$d часа</item>
+  </plurals>
+  <!--Gift expiry minutes remaining-->
+  <plurals name="Gifts__d_minutes_remaining">
+    <item quantity="one">Осталась %1$d минута</item>
+    <item quantity="few">Осталось %1$d минуты</item>
+    <item quantity="many">Осталось %1$d минут</item>
+    <item quantity="other">Осталось %1$d минуты</item>
+  </plurals>
+  <!--Gift expiry expired-->
+  <string name="Gifts__expired">Истёк</string>
   <!--EOF-->
 </resources>

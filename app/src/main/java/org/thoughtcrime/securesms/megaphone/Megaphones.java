@@ -17,6 +17,7 @@ import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.components.settings.app.AppSettingsActivity;
 import org.thoughtcrime.securesms.database.model.MegaphoneRecord;
+import org.thoughtcrime.securesms.database.model.RemoteMegaphoneRecord;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
@@ -24,6 +25,7 @@ import org.thoughtcrime.securesms.lock.SignalPinReminderDialog;
 import org.thoughtcrime.securesms.lock.SignalPinReminders;
 import org.thoughtcrime.securesms.lock.v2.CreateKbsPinActivity;
 import org.thoughtcrime.securesms.lock.v2.KbsMigrationActivity;
+import org.thoughtcrime.securesms.mms.GlideApp;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.profiles.AvatarHelper;
 import org.thoughtcrime.securesms.profiles.manage.ManageProfileActivity;
@@ -33,7 +35,6 @@ import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.LocaleFeatureFlags;
 import org.thoughtcrime.securesms.util.VersionTracker;
 import org.thoughtcrime.securesms.util.dynamiclanguage.DynamicLanguageContextWrapper;
-import org.thoughtcrime.securesms.wallpaper.ChatWallpaperActivity;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -104,11 +105,11 @@ public final class Megaphones {
       put(Event.NOTIFICATIONS, shouldShowNotificationsMegaphone(context) ? RecurringSchedule.every(TimeUnit.DAYS.toMillis(30)) : NEVER);
       put(Event.ONBOARDING, shouldShowOnboardingMegaphone(context) ? ALWAYS : NEVER);
       put(Event.TURN_OFF_CENSORSHIP_CIRCUMVENTION, shouldShowTurnOffCircumventionMegaphone() ? RecurringSchedule.every(TimeUnit.DAYS.toMillis(7)) : NEVER);
-      put(Event.DONATE_MOLLY, shouldShowDonateMegaphone(context, records) ? ShowForDurationSchedule.showForDays(7) : NEVER);
+      put(Event.DONATE_MOLLY, shouldShowDonateMegaphone(context, Event.DONATE_MOLLY, records) ? ShowForDurationSchedule.showForDays(7) : NEVER);
+      put(Event.REMOTE_MEGAPHONE, shouldShowRemoteMegaphone(records) ? RecurringSchedule.every(TimeUnit.DAYS.toMillis(3)) : NEVER);
       put(Event.PIN_REMINDER, new SignalPinReminderSchedule());
 
       // Feature-introduction megaphones should *probably* be added below this divider
-      put(Event.CHAT_COLORS, ALWAYS);
       put(Event.ADD_A_PROFILE_PHOTO, shouldShowAddAProfilePhotoMegaphone(context) ? ALWAYS : NEVER);
     }};
   }
@@ -125,14 +126,14 @@ public final class Megaphones {
         return buildOnboardingMegaphone();
       case NOTIFICATIONS:
         return buildNotificationsMegaphone(context);
-      case CHAT_COLORS:
-        return buildChatColorsMegaphone(context);
       case ADD_A_PROFILE_PHOTO:
         return buildAddAProfilePhotoMegaphone(context);
       case DONATE_MOLLY:
-        return buildDonateMegaphone(context);
+        return buildDonateQ2Megaphone(context);
       case TURN_OFF_CENSORSHIP_CIRCUMVENTION:
         return buildTurnOffCircumventionMegaphone(context);
+      case REMOTE_MEGAPHONE:
+        return buildRemoteMegaphone(context);
       default:
         throw new IllegalArgumentException("Event not handled!");
     }
@@ -232,21 +233,6 @@ public final class Megaphones {
                         .build();
   }
 
-  private static @NonNull Megaphone buildChatColorsMegaphone(@NonNull Context context) {
-    return new Megaphone.Builder(Event.CHAT_COLORS, Megaphone.Style.BASIC)
-                        .setTitle(R.string.ChatColorsMegaphone__new_chat_colors)
-                        .setBody(R.string.ChatColorsMegaphone__we_switched_up_chat_colors)
-                        .setLottie(R.raw.color_bubble_64)
-                        .setActionButton(R.string.ChatColorsMegaphone__appearance, (megaphone, listener) -> {
-                          listener.onMegaphoneNavigationRequested(ChatWallpaperActivity.createIntent(context));
-                          listener.onMegaphoneCompleted(Event.CHAT_COLORS);
-                        })
-                        .setSecondaryButton(R.string.ChatColorsMegaphone__not_now, (megaphone, listener) -> {
-                          listener.onMegaphoneCompleted(Event.CHAT_COLORS);
-                        })
-                        .build();
-  }
-
   private static @NonNull Megaphone buildAddAProfilePhotoMegaphone(@NonNull Context context) {
     return new Megaphone.Builder(Event.ADD_A_PROFILE_PHOTO, Megaphone.Style.BASIC)
                         .setTitle(R.string.AddAProfilePhotoMegaphone__add_a_profile_photo)
@@ -262,9 +248,8 @@ public final class Megaphones {
                         .build();
   }
 
-  private static @NonNull Megaphone buildDonateMegaphone(@NonNull Context context) {
+  private static @NonNull Megaphone buildDonateQ2Megaphone(@NonNull Context context) {
     return new Megaphone.Builder(Event.DONATE_MOLLY, Megaphone.Style.BASIC)
-        .disableSnooze()
         .setTitle(R.string.DonateMegaphone_molly_is_free_software)
         .setBody(R.string.DonateMegaphone_we_maintain_molly_with_your_support_consider_donating_at_open_collective)
         .setImage(R.drawable.ic_donate_megaphone)
@@ -291,8 +276,46 @@ public final class Megaphones {
         .build();
   }
 
-  private static boolean shouldShowDonateMegaphone(@NonNull Context context, @NonNull Map<Event, MegaphoneRecord> records) {
-    long timeSinceLastDonatePrompt = timeSinceLastDonatePrompt(records);
+  private static @NonNull Megaphone buildRemoteMegaphone(@NonNull Context context) {
+    RemoteMegaphoneRecord record = RemoteMegaphoneRepository.getRemoteMegaphoneToShow();
+
+    if (record != null) {
+      Megaphone.Builder builder = new Megaphone.Builder(Event.REMOTE_MEGAPHONE, Megaphone.Style.BASIC)
+          .setTitle(record.getTitle())
+          .setBody(record.getBody());
+
+      if (record.getImageUri() != null) {
+        builder.setImageRequest(GlideApp.with(context).asDrawable().load(record.getImageUri()));
+      }
+
+      if (record.hasPrimaryAction()) {
+        //noinspection ConstantConditions
+        builder.setActionButton(record.getPrimaryActionText(), (megaphone, controller) -> {
+          RemoteMegaphoneRepository.getAction(Objects.requireNonNull(record.getPrimaryActionId()))
+                                   .run(context, controller, record);
+        });
+      }
+
+      if (record.hasSecondaryAction()) {
+        //noinspection ConstantConditions
+        builder.setSecondaryButton(record.getSecondaryActionText(), (megaphone, controller) -> {
+          RemoteMegaphoneRepository.getAction(Objects.requireNonNull(record.getSecondaryActionId()))
+                                   .run(context, controller, record);
+        });
+      }
+
+      builder.setOnVisibleListener((megaphone, controller) -> {
+        RemoteMegaphoneRepository.markShown(record.getUuid());
+      });
+
+      return builder.build();
+    } else {
+      throw new IllegalStateException("No record to show");
+    }
+  }
+
+  private static boolean shouldShowDonateMegaphone(@NonNull Context context, @NonNull Event event, @NonNull Map<Event, MegaphoneRecord> records) {
+    long timeSinceLastDonatePrompt = timeSinceLastDonatePrompt(event, records);
 
     return timeSinceLastDonatePrompt > MIN_TIME_BETWEEN_DONATE_MEGAPHONES &&
            VersionTracker.getDaysSinceFirstInstalled(context) >= 7 &&
@@ -342,14 +365,21 @@ public final class Megaphones {
     return true;
   }
 
+  @WorkerThread
+  private static boolean shouldShowRemoteMegaphone(@NonNull Map<Event, MegaphoneRecord> records) {
+    boolean canShowLocalDonate = timeSinceLastDonatePrompt(Event.REMOTE_MEGAPHONE, records) > MIN_TIME_BETWEEN_DONATE_MEGAPHONES;
+    return RemoteMegaphoneRepository.hasRemoteMegaphoneToShow(canShowLocalDonate);
+  }
+
   /**
    * Unfortunately lastSeen is only set today upon snoozing, which never happens to donate prompts.
    * So we use firstVisible as a proxy.
    */
-  private static long timeSinceLastDonatePrompt(@NonNull Map<Event, MegaphoneRecord> records) {
+  private static long timeSinceLastDonatePrompt(@NonNull Event excludeEvent, @NonNull Map<Event, MegaphoneRecord> records) {
     long lastSeenDonatePrompt = records.entrySet()
                                        .stream()
                                        .filter(e -> DONATE_EVENTS.contains(e.getKey()))
+                                       .filter(e -> !e.getKey().equals(excludeEvent))
                                        .map(e -> e.getValue().getFirstVisible())
                                        .filter(t -> t > 0)
                                        .sorted()
@@ -365,11 +395,10 @@ public final class Megaphones {
     CLIENT_DEPRECATED("client_deprecated"),
     ONBOARDING("onboarding"),
     NOTIFICATIONS("notifications"),
-    CHAT_COLORS("chat_colors"),
     ADD_A_PROFILE_PHOTO("add_a_profile_photo"),
     DONATE_MOLLY("donate_molly"),
-    VALENTINES_DONATIONS_2022("valentines_donations_2022"),
-    TURN_OFF_CENSORSHIP_CIRCUMVENTION("turn_off_censorship_circumvention");
+    TURN_OFF_CENSORSHIP_CIRCUMVENTION("turn_off_censorship_circumvention"),
+    REMOTE_MEGAPHONE("remote_megaphone");
 
     private final String key;
 

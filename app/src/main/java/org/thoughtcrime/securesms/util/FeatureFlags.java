@@ -59,7 +59,6 @@ public final class FeatureFlags {
   private static final String GROUP_NAME_MAX_LENGTH             = "global.groupsv2.maxNameLength";
   private static final String INTERNAL_USER                     = "android.internalUser";
   private static final String VERIFY_V2                         = "android.verifyV2";
-  private static final String PHONE_NUMBER_PRIVACY_VERSION      = "android.phoneNumberPrivacyVersion";
   private static final String CLIENT_EXPIRATION                 = "android.clientExpiration";
   public  static final String DONATE_MEGAPHONE                  = "android.donate.2";
   private static final String CUSTOM_VIDEO_MUXER                = "android.customVideoMuxer";
@@ -88,16 +87,15 @@ public final class FeatureFlags {
   private static final String CDSH                              = "android.cdsh";
   private static final String STORIES                           = "android.stories.2";
   private static final String STORIES_TEXT_FUNCTIONS            = "android.stories.text.functions";
-  private static final String STORIES_TEXT_POSTS                = "android.stories.text.posts.2";
   private static final String HARDWARE_AEC_BLOCKLIST_MODELS     = "android.calling.hardwareAecBlockList";
   private static final String SOFTWARE_AEC_BLOCKLIST_MODELS     = "android.calling.softwareAecBlockList";
   private static final String USE_HARDWARE_AEC_IF_OLD           = "android.calling.useHardwareAecIfOlderThanApi29";
   private static final String USE_AEC3                          = "android.calling.useAec3";
   private static final String PAYMENTS_COUNTRY_BLOCKLIST        = "android.payments.blocklist";
-  private static final String PNP_CDS                           = "android.pnp.cds";
-  private static final String USE_FCM_FOREGROUND_SERVICE        = "android.useFcmForegroundService.2";
+  private static final String PHONE_NUMBER_PRIVACY              = "android.pnp";
+  private static final String USE_FCM_FOREGROUND_SERVICE        = "android.useFcmForegroundService.3";
   private static final String STORIES_AUTO_DOWNLOAD_MAXIMUM     = "android.stories.autoDownloadMaximum";
-  private static final String GIFT_BADGES                       = "android.giftBadges";
+  private static final String GIFT_BADGES                       = "android.giftBadges.2";
 
   /**
    * We will only store remote values for flags in this set. If you want a flag to be controllable
@@ -139,7 +137,6 @@ public final class FeatureFlags {
       DONOR_BADGES_DISPLAY,
       STORIES,
       STORIES_TEXT_FUNCTIONS,
-      STORIES_TEXT_POSTS,
       HARDWARE_AEC_BLOCKLIST_MODELS,
       SOFTWARE_AEC_BLOCKLIST_MODELS,
       USE_HARDWARE_AEC_IF_OLD,
@@ -154,8 +151,7 @@ public final class FeatureFlags {
   static final Set<String> NOT_REMOTE_CAPABLE = SetUtil.newHashSet(
       // MOLLY: Donate megaphone value is hardcoded in the client
       DONATE_MEGAPHONE,
-      PHONE_NUMBER_PRIVACY_VERSION,
-      PNP_CDS
+      PHONE_NUMBER_PRIVACY
   );
 
   /**
@@ -203,6 +199,7 @@ public final class FeatureFlags {
       GROUP_CALL_RINGING,
       CDSH,
       SENDER_KEY_MAX_AGE,
+      //DONOR_BADGES_DISPLAY,
       DONATE_MEGAPHONE,
       HARDWARE_AEC_BLOCKLIST_MODELS,
       SOFTWARE_AEC_BLOCKLIST_MODELS,
@@ -328,11 +325,11 @@ public final class FeatureFlags {
   }
 
   /**
-   * Whether the user can choose phone number privacy settings, and;
-   * Whether to fetch and store the secondary certificate
+   * Whether phone number privacy is enabled.
+   * IMPORTANT: This is under active development. Enabling this *will* break your contacts in terrible, irreversible ways.
    */
   public static boolean phoneNumberPrivacy() {
-    return getVersionFlag(PHONE_NUMBER_PRIVACY_VERSION) == VersionFlag.ON;
+    return getBoolean(PHONE_NUMBER_PRIVACY, false) && Environment.IS_STAGING;
   }
 
   /** Whether to use the custom streaming muxer or built in android muxer. */
@@ -452,15 +449,6 @@ public final class FeatureFlags {
     return getBoolean(STORIES_TEXT_FUNCTIONS, false);
   }
 
-  /**
-   * Whether the user supports sending Story text posts
-   *
-   * NOTE: This feature is still under ongoing development, do not enable.
-   */
-  public static boolean storiesTextPosts() {
-    return getBoolean(STORIES_TEXT_POSTS, false);
-  }
-
   public static boolean cdsh() {
     return Environment.IS_STAGING && getBoolean(CDSH, false);
   }
@@ -483,15 +471,6 @@ public final class FeatureFlags {
   /** Whether or not {@link org.signal.ringrtc.CallManager.AudioProcessingMethod#ForceSoftwareAec3} can be used */
   public static boolean useAec3() {
     return getBoolean(USE_AEC3, true);
-  }
-
-  /**
-   * Whether or not to use the phone number privacy CDS flow. Only currently works in staging.
-   *
-   * Note: This feature is in very early stages of development and *will* break your contacts.
-   */
-  public static boolean usePnpCds() {
-    return Environment.IS_STAGING && getBoolean(PNP_CDS, false);
   }
 
   public static boolean useFcmForegroundService() {

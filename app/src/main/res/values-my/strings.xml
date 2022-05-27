@@ -997,9 +997,6 @@
   <plurals name="MessageRequestProfileView_members">
     <item quantity="other">အဖွဲ့ဝင် %1$d ဦး</item>
   </plurals>
-  <plurals name="MessageRequestProfileView_members_and_invited">
-    <item quantity="other">အဖွဲ့ဝင် %1$d ဦး (+%2$d ဦးကို ဖိတ်ခေါ်ထားပြီး) </item>
-  </plurals>
   <plurals name="MessageRequestProfileView_member_of_d_additional_groups">
     <item quantity="other">%d နောက်ထပ်အဖွဲ့များ</item>
   </plurals>
@@ -2832,8 +2829,8 @@
   <string name="EditReactionsFragment__reset">ရီဆက်ချမည်</string>
   <string name="EditReactionsFragment_save">သိမ်းမယ်</string>
   <!--ChatColorsMegaphone-->
-  <string name="ChatColorsMegaphone__appearance">ပုံပန်းသဏ္ဌာန်</string>
-  <string name="ChatColorsMegaphone__not_now">ယခု မလုပ်ဆောင်သေးပါ။</string>
+  <!-- Removed by excludeNonTranslatables <string name="ChatColorsMegaphone__appearance">ပုံပန်းသဏ္ဌာန်</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="ChatColorsMegaphone__not_now">ယခု မလုပ်ဆောင်သေးပါ။</string> -->
   <!--AddAProfilePhotoMegaphone-->
   <string name="AddAProfilePhotoMegaphone__not_now">ယခု မလုပ်ဆောင်သေးပါ။</string>
   <!--BecomeASustainerMegaphone-->

@@ -4,12 +4,12 @@
 dependencyResolutionManagement {
     versionCatalogs {
         libs {
-            version('libsignal-client', '0.16.0')
+            version('libsignal-client', '0.17.0')
             version('exoplayer', '2.15.0')
             version('androidx-camera', '1.0.0-beta11')
             version('androidx-lifecycle', '2.3.1')
             version('mp4parser', '1.9.39')
-            version('kotlin', '1.5.10')
+            version('kotlin', '1.6.21')
 
             // Desugaring
             alias('android-tools-desugar').to('com.android.tools:desugar_jdk_libs:1.1.5')
@@ -54,7 +54,7 @@ dependencyResolutionManagement {
 
             // Google
             alias('google-protobuf-javalite').to('com.google.protobuf:protobuf-javalite:3.11.4')
-            alias('google-libphonenumber').to('com.googlecode.libphonenumber:libphonenumber:8.12.42')
+            alias('google-libphonenumber').to('com.googlecode.libphonenumber:libphonenumber:8.12.48')
             alias('google-play-services-maps').to('com.google.android.gms:play-services-maps:17.0.0')
             alias('google-play-services-auth').to('com.google.android.gms:play-services-auth:16.0.1')
             alias('google-zxing-android-integration').to('com.google.zxing:android-integration:3.3.0')
@@ -130,7 +130,9 @@ dependencyResolutionManagement {
 
             alias('junit-junit').to('junit:junit:4.13.2')
             alias('androidx-test-core').to('androidx.test:core:1.2.0')
+            alias('androidx-test-core-ktx').to('androidx.test:core-ktx:1.2.0')
             alias('androidx-test-ext-junit').to('androidx.test.ext:junit:1.1.1')
+            alias('androidx-test-ext-junit-ktx').to('androidx.test.ext:junit-ktx:1.1.1')
             alias('espresso-core').to('androidx.test.espresso:espresso-core:3.2.0')
             alias('mockito-core').to('org.mockito:mockito-inline:4.4.0')
             alias('mockito-kotlin').to('org.mockito.kotlin:mockito-kotlin:4.0.0')

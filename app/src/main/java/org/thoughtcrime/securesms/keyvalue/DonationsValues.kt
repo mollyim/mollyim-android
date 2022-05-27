@@ -1,5 +1,6 @@
 package org.thoughtcrime.securesms.keyvalue
 
+import androidx.annotation.WorkerThread
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.payments.currency.CurrencyUtil
 import org.thoughtcrime.securesms.subscription.Subscriber
@@ -102,4 +103,13 @@ internal class DonationsValues internal constructor(store: KeyValueStore) : Sign
   var unexpectedSubscriptionCancelationReason: String? by stringValue(SUBSCRIPTION_CANCELATION_REASON, null)
   var unexpectedSubscriptionCancelationTimestamp: Long by longValue(SUBSCRIPTION_CANCELATION_TIMESTAMP, 0L)
   var unexpectedSubscriptionCancelationWatermark: Long by longValue(SUBSCRIPTION_CANCELATION_WATERMARK, 0L)
+
+  @WorkerThread
+  fun updateLocalStateForManualCancellation() {
+    Log.d(TAG, "[updateLocalStateForManualCancellation] Clearing donation values.")
+
+    markUserManuallyCancelled()
+    unexpectedSubscriptionCancelationReason = null
+    unexpectedSubscriptionCancelationTimestamp = 0L
+  }
 }

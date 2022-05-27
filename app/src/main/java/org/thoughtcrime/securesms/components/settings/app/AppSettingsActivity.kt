@@ -55,6 +55,8 @@ class AppSettingsActivity : DSLSettingsActivity() {
       }
     }
 
+    intent = intent.putExtra(START_LOCATION, StartLocation.HOME)
+
     if (startingAction == null && savedInstanceState != null) {
       wasConfigurationUpdated = savedInstanceState.getBoolean(STATE_WAS_CONFIGURATION_UPDATED)
     }

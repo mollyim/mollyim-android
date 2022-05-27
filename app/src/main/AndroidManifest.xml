@@ -356,9 +356,17 @@
 
     <activity
         android:name=".stories.viewer.StoryViewerActivity"
+        android:screenOrientation="portrait"
         android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
         android:theme="@style/TextSecure.DarkNoActionBar.StoryViewer"
-        android:windowSoftInputMode="stateAlwaysHidden|adjustNothing" />
+        android:launchMode="singleTask"
+        android:windowSoftInputMode="stateAlwaysHidden|adjustNothing"
+        android:parentActivityName=".MainActivity">
+
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="org.thoughtcrime.securesms.MainActivity" />
+    </activity>
 
         <activity android:name=".components.settings.app.changenumber.ChangeNumberLockActivity"
             android:theme="@style/Signal.DayNight.NoActionBar"
@@ -477,6 +485,7 @@
 
     <activity android:name=".blocked.BlockedUsersActivity"
               android:theme="@style/TextSecure.LightTheme"
+              android:windowSoftInputMode="stateHidden"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
 
     <activity android:name=".scribbles.ImageEditorStickerSelectActivity"
@@ -628,7 +637,9 @@
 
     <service android:name=".service.GenericForegroundService"/>
 
-    <service android:name=".gcm.FcmFetchService" />
+    <service android:name=".gcm.FcmFetchBackgroundService" />
+
+    <service android:name=".gcm.FcmFetchForegroundService" />
 
     <!-- MOLLY: FcmReceiveService moved to nonFree/AndroidManifest.xml -->
 

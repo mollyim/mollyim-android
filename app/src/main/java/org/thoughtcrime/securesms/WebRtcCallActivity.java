@@ -46,6 +46,8 @@ import androidx.window.DisplayFeature;
 import androidx.window.FoldingFeature;
 import androidx.window.WindowLayoutInfo;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -115,6 +117,7 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
   private TooltipPopup                  videoTooltip;
   private WebRtcCallViewModel           viewModel;
   private boolean                       enableVideoIfAvailable;
+  private boolean                       hasWarnedAboutBluetooth;
   private androidx.window.WindowManager windowManager;
   private WindowLayoutInfoConsumer      windowLayoutInfoConsumer;
   private ThrottledDebouncer            requestNewSizesThrottle;
@@ -709,6 +712,17 @@ public class WebRtcCallActivity extends BaseActivity implements SafetyNumberChan
     if (enableVideo) {
       enableVideoIfAvailable = false;
       handleSetMuteVideo(false);
+    }
+
+    if (event.getBluetoothPermissionDenied() && !hasWarnedAboutBluetooth && !isFinishing()) {
+      new MaterialAlertDialogBuilder(this)
+          .setTitle(R.string.WebRtcCallActivity__bluetooth_permission_denied)
+          .setMessage(R.string.WebRtcCallActivity__please_enable_the_nearby_devices_permission_to_use_bluetooth_during_a_call)
+          .setPositiveButton(R.string.WebRtcCallActivity__open_settings, (d, w) -> startActivity(Permissions.getApplicationSettingsIntent(this)))
+          .setNegativeButton(R.string.WebRtcCallActivity__not_now, null)
+          .show();
+
+      hasWarnedAboutBluetooth = true;
     }
   }
 

@@ -23,7 +23,7 @@ import androidx.core.view.doOnNextLayout
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.LiveDataReactiveStreams
+import com.google.android.material.button.MaterialButton
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import org.signal.core.util.DimensionUnit
@@ -82,7 +82,7 @@ class StoryViewerPageFragment :
 
   private lateinit var progressBar: SegmentedProgressBar
   private lateinit var storySlate: StorySlateView
-  private lateinit var viewsAndReplies: TextView
+  private lateinit var viewsAndReplies: MaterialButton
   private lateinit var storyCrossfader: StoriesSharedElementCrossFaderView
   private lateinit var blurContainer: ImageView
   private lateinit var storyCaptionContainer: FrameLayout
@@ -113,6 +113,12 @@ class StoryViewerPageFragment :
 
   private val initialStoryId: Long
     get() = requireArguments().getLong(ARG_STORY_ID, -1L)
+
+  private val isFromNotification: Boolean
+    get() = requireArguments().getBoolean(ARG_IS_FROM_NOTIFICATION, false)
+
+  private val groupReplyStartPosition: Int
+    get() = requireArguments().getInt(ARG_GROUP_REPLY_START_POSITION, -1)
 
   @SuppressLint("ClickableViewAccessibility")
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -248,7 +254,7 @@ class StoryViewerPageFragment :
       viewModel.setIsUserScrollingParent(isScrolling)
     }
 
-    LiveDataReactiveStreams.fromPublisher(sharedViewModel.state.distinctUntilChanged()).observe(viewLifecycleOwner) { parentState ->
+    lifecycleDisposable += sharedViewModel.state.distinctUntilChanged().observeOn(AndroidSchedulers.mainThread()).subscribe { parentState ->
       if (parentState.pages.size <= parentState.page) {
         viewModel.setIsSelectedPage(false)
       } else if (storyRecipientId == parentState.pages[parentState.page]) {
@@ -257,6 +263,7 @@ class StoryViewerPageFragment :
           progressBar.setPosition(viewModel.getRestartIndex())
           videoControlsDelegate.restart()
         }
+        viewModel.setIsFirstPage(parentState.page == 0)
         viewModel.setIsSelectedPage(true)
         when (parentState.crossfadeSource) {
           is StoryViewerState.CrossfadeSource.TextModel -> storyCrossfader.setSourceView(parentState.crossfadeSource.storyTextPostModel)
@@ -268,50 +275,53 @@ class StoryViewerPageFragment :
       }
     }
 
-    LiveDataReactiveStreams
-      .fromPublisher(viewModel.state.observeOn(AndroidSchedulers.mainThread()))
-      .observe(viewLifecycleOwner) { state ->
-        if (state.posts.isNotEmpty() && state.selectedPostIndex in state.posts.indices) {
-          val post = state.posts[state.selectedPostIndex]
+    lifecycleDisposable += viewModel.state.observeOn(AndroidSchedulers.mainThread()).subscribe { state ->
+      if (state.posts.isNotEmpty() && state.selectedPostIndex in state.posts.indices) {
+        val post = state.posts[state.selectedPostIndex]
 
-          presentViewsAndReplies(post, state.replyState)
-          presentSenderAvatar(senderAvatar, post)
-          presentGroupAvatar(groupAvatar, post)
-          presentFrom(from, post)
-          presentDate(date, post)
-          presentDistributionList(distributionList, post)
-          presentCaption(caption, largeCaption, largeCaptionOverlay, post)
-          presentBlur(blurContainer, post)
+        presentViewsAndReplies(post, state.replyState)
+        presentSenderAvatar(senderAvatar, post)
+        presentGroupAvatar(groupAvatar, post)
+        presentFrom(from, post)
+        presentDate(date, post)
+        presentDistributionList(distributionList, post)
+        presentCaption(caption, largeCaption, largeCaptionOverlay, post)
+        presentBlur(blurContainer, post)
 
-          val durations: Map<Int, Long> = state.posts
-            .mapIndexed { index, storyPost ->
-              index to when {
-                storyPost.content.isVideo() -> -1L
-                storyPost.content is StoryPost.Content.TextContent -> calculateDurationForText(storyPost.content)
-                else -> DEFAULT_DURATION
-              }
+        val durations: Map<Int, Long> = state.posts
+          .mapIndexed { index, storyPost ->
+            index to when {
+              storyPost.content.isVideo() -> -1L
+              storyPost.content is StoryPost.Content.TextContent -> calculateDurationForText(storyPost.content)
+              else -> DEFAULT_DURATION
             }
-            .toMap()
-
-          if (progressBar.segmentCount != state.posts.size || progressBar.segmentDurations != durations) {
-            progressBar.segmentCount = state.posts.size
-            progressBar.segmentDurations = durations
           }
+          .toMap()
 
-          presentStory(post, state.selectedPostIndex)
-          presentSlate(post)
-
-          if (!storyCrossfader.setTargetView(post.conversationMessage.messageRecord as MmsMessageRecord)) {
-            onReadyToAnimate()
-          }
-
-          viewModel.setAreSegmentsInitialized(true)
-        } else if (state.selectedPostIndex >= state.posts.size) {
-          callback.onFinishedPosts(storyRecipientId)
-        } else if (state.selectedPostIndex < 0) {
-          callback.onGoToPreviousStory(storyRecipientId)
+        if (progressBar.segmentCount != state.posts.size || progressBar.segmentDurations != durations) {
+          progressBar.segmentCount = state.posts.size
+          progressBar.segmentDurations = durations
         }
+
+        presentStory(post, state.selectedPostIndex)
+        presentSlate(post)
+
+        if (!storyCrossfader.setTargetView(post.conversationMessage.messageRecord as MmsMessageRecord)) {
+          onReadyToAnimate()
+        }
+
+        viewModel.setAreSegmentsInitialized(true)
+      } else if (state.selectedPostIndex >= state.posts.size) {
+        callback.onFinishedPosts(storyRecipientId)
+      } else if (state.selectedPostIndex < 0) {
+        callback.onGoToPreviousStory(storyRecipientId)
       }
+
+      if (state.isDisplayingInitialState && isFromNotification && !sharedViewModel.hasConsumedInitialState) {
+        sharedViewModel.consumeInitialState()
+        startReply(isFromNotification = true, groupReplyStartPosition = groupReplyStartPosition)
+      }
+    }
 
     viewModel.storyViewerPlaybackState.observe(viewLifecycleOwner) { state ->
       if (state.isPaused) {
@@ -482,13 +492,25 @@ class StoryViewerPageFragment :
     videoControlsDelegate.pause()
   }
 
-  private fun startReply() {
+  private fun startReply(isFromNotification: Boolean = false, groupReplyStartPosition: Int = -1) {
+    val storyPostId: Long = viewModel.getPost().id
     val replyFragment: DialogFragment = when (viewModel.getSwipeToReplyState()) {
       StoryViewerPageState.ReplyState.NONE -> return
-      StoryViewerPageState.ReplyState.SELF -> StoryViewsBottomSheetDialogFragment.create(viewModel.getPost().id)
-      StoryViewerPageState.ReplyState.GROUP -> StoryGroupReplyBottomSheetDialogFragment.create(viewModel.getPost().id, viewModel.getPost().group!!.id)
-      StoryViewerPageState.ReplyState.PRIVATE -> StoryDirectReplyDialogFragment.create(viewModel.getPost().id)
-      StoryViewerPageState.ReplyState.GROUP_SELF -> StoryViewsAndRepliesDialogFragment.create(viewModel.getPost().id, viewModel.getPost().group!!.id, getViewsAndRepliesDialogStartPage())
+      StoryViewerPageState.ReplyState.SELF -> StoryViewsBottomSheetDialogFragment.create(storyPostId)
+      StoryViewerPageState.ReplyState.GROUP -> StoryGroupReplyBottomSheetDialogFragment.create(
+        storyPostId,
+        viewModel.getPost().group!!.id,
+        isFromNotification,
+        groupReplyStartPosition
+      )
+      StoryViewerPageState.ReplyState.PRIVATE -> StoryDirectReplyDialogFragment.create(storyPostId)
+      StoryViewerPageState.ReplyState.GROUP_SELF -> StoryViewsAndRepliesDialogFragment.create(
+        storyPostId,
+        viewModel.getPost().group!!.id,
+        if (isFromNotification) StoryViewsAndRepliesDialogFragment.StartPage.REPLIES else getViewsAndRepliesDialogStartPage(),
+        isFromNotification,
+        groupReplyStartPosition
+      )
     }
 
     if (viewModel.getSwipeToReplyState() == StoryViewerPageState.ReplyState.PRIVATE) {
@@ -713,14 +735,25 @@ class StoryViewerPageFragment :
 
     if (Recipient.self() == post.sender) {
       if (post.replyCount == 0) {
+        viewsAndReplies.setIconResource(R.drawable.ic_chevron_end_24)
+        viewsAndReplies.iconGravity = MaterialButton.ICON_GRAVITY_TEXT_END
         viewsAndReplies.text = views
       } else {
+        viewsAndReplies.setIconResource(R.drawable.ic_chevron_end_24)
+        viewsAndReplies.iconGravity = MaterialButton.ICON_GRAVITY_TEXT_END
         viewsAndReplies.text = getString(R.string.StoryViewerFragment__s_s, views, replies)
       }
     } else if (post.replyCount > 0) {
+      viewsAndReplies.setIconResource(R.drawable.ic_chevron_end_24)
+      viewsAndReplies.iconGravity = MaterialButton.ICON_GRAVITY_TEXT_END
       viewsAndReplies.text = replies
+    } else if (post.group != null) {
+      viewsAndReplies.setIconResource(R.drawable.ic_reply_24_outline)
+      viewsAndReplies.iconGravity = MaterialButton.ICON_GRAVITY_TEXT_START
+      viewsAndReplies.setText(R.string.StoryViewerPageFragment__reply_to_group)
     } else {
-
+      viewsAndReplies.setIconResource(R.drawable.ic_reply_24_outline)
+      viewsAndReplies.iconGravity = MaterialButton.ICON_GRAVITY_TEXT_START
       viewsAndReplies.setText(R.string.StoryViewerPageFragment__reply)
     }
   }
@@ -792,12 +825,16 @@ class StoryViewerPageFragment :
 
     private const val ARG_STORY_RECIPIENT_ID = "arg.story.recipient.id"
     private const val ARG_STORY_ID = "arg.story.id"
+    private const val ARG_IS_FROM_NOTIFICATION = "is_from_notification"
+    private const val ARG_GROUP_REPLY_START_POSITION = "group_reply_start_position"
 
-    fun create(recipientId: RecipientId, initialStoryId: Long): Fragment {
+    fun create(recipientId: RecipientId, initialStoryId: Long, isFromNotification: Boolean, groupReplyStartPosition: Int): Fragment {
       return StoryViewerPageFragment().apply {
         arguments = Bundle().apply {
           putParcelable(ARG_STORY_RECIPIENT_ID, recipientId)
           putLong(ARG_STORY_ID, initialStoryId)
+          putBoolean(ARG_IS_FROM_NOTIFICATION, isFromNotification)
+          putInt(ARG_GROUP_REPLY_START_POSITION, groupReplyStartPosition)
         }
       }
     }

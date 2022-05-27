@@ -11,6 +11,7 @@ import org.thoughtcrime.securesms.jobmanager.Data;
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.mms.MmsException;
+import org.thoughtcrime.securesms.notifications.v2.ConversationId;
 import org.thoughtcrime.securesms.service.KeyCachingService;
 
 import java.util.Optional;
@@ -111,7 +112,7 @@ public class MmsDownloadJob extends BaseJob {
 
     if (automatic) {
       database.markIncomingNotificationReceived(threadId);
-      ApplicationDependencies.getMessageNotifier().updateNotification(context, threadId);
+      ApplicationDependencies.getMessageNotifier().updateNotification(context, ConversationId.forConversation(threadId));
     }
   }
 
@@ -128,7 +129,7 @@ public class MmsDownloadJob extends BaseJob {
 
     if (automatic) {
       db.markIncomingNotificationReceived(threadId);
-      ApplicationDependencies.getMessageNotifier().updateNotification(context, threadId);
+      ApplicationDependencies.getMessageNotifier().updateNotification(context, ConversationId.forConversation(threadId));
     }
   }
 
