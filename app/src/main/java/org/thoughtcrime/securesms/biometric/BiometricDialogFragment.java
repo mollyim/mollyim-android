@@ -158,7 +158,7 @@ public class BiometricDialogFragment extends DialogFragment {
     super.onResume();
 
     if (showPrompt) {
-      scheduleAuthentication();
+      requestAuthentication();
     }
   }
 
@@ -181,7 +181,7 @@ public class BiometricDialogFragment extends DialogFragment {
   }
 
   public void showPrompt(@NonNull FragmentActivity activity, @NonNull Listener listener) {
-    Log.v(TAG, "showPrompt");
+    Log.d(TAG, "showPrompt: canAuthenticate returned " + getAuthenticationStatus(activity));
 
     biometricCallback = new AuthenticationCallback(listener);
     biometricPrompt   = new BiometricPrompt(activity, biometricCallback);
@@ -192,10 +192,10 @@ public class BiometricDialogFragment extends DialogFragment {
     }
 
     showPrompt = false;
-    scheduleAuthentication();
+    requestAuthentication();
   }
 
-  private void scheduleAuthentication() {
+  private void requestAuthentication() {
     ThreadUtil.postToMain(() -> {
       if (biometricPrompt != null) {
         biometricPrompt.authenticate(biometricPromptInfo);
@@ -211,6 +211,10 @@ public class BiometricDialogFragment extends DialogFragment {
     if (biometricPrompt != null) {
       biometricPrompt.cancelAuthentication();
     }
+  }
+
+  private int getAuthenticationStatus(@NonNull FragmentActivity activity) {
+    return BiometricManager.from(activity).canAuthenticate(BIOMETRIC_AUTHENTICATORS_ALLOWED);
   }
 
   private class AuthenticationCallback extends BiometricPrompt.AuthenticationCallback {
@@ -296,7 +300,7 @@ public class BiometricDialogFragment extends DialogFragment {
   private @NonNull String getActivityName() {
     FragmentActivity activity = getActivity();
     if (activity == null) {
-      return "Activity is null";
+      return "null";
     } else {
       return activity.getLocalClassName();
     }
