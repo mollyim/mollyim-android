@@ -33,7 +33,7 @@ public class BiometricDialogFragment extends DialogFragment {
 
   private static final String KEY_FULL_SCREEN = "fullscreen";
 
-  public static final int BIOMETRIC_AUTHENTICATORS_ALLOWED = BiometricManager.Authenticators.BIOMETRIC_WEAK;
+  public static final int BIOMETRIC_AUTHENTICATORS_ALLOWED = BiometricManager.Authenticators.BIOMETRIC_STRONG;
 
   private static int    alertTitleId;
   private static String alertTitleText;
