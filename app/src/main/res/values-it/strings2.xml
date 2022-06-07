@@ -27,10 +27,10 @@
     <string name="NetworkPreferenceFragment_a_valid_port_number_is_between_0_and_65535">Un numero di porta valido è compreso tra 0 e 65535</string>
     <string name="ProxyManager_successfully_started_orbot">Orbot ha iniziato</string>
     <string name="BlockUnblockDialog_deleted_contacts_are_still_able_to_call_you_or_send_you_messages">I contatti eliminati possono comunque chiamarti o inviarti messaggi, a meno che siano bloccati.</string>
-    <string name="BlockUnblockDialog_your_chat_history_with_s_will_be_deleted_and_s_will_be_removed_from_your_phone_contacts">La discussione con %1$s verrà eliminata e %1$s verrà rimossa dai contatti del telefono.</string>
+    <string name="BlockUnblockDialog_your_chat_history_with_s_will_be_deleted_and_s_will_be_removed_from_your_phone_contacts">La discussione con %1$s verrà eliminata e %1$s verrà rimossa dai contatti del dispositivo.</string>
     <string name="BlockUnblockDialog_your_chat_history_with_s_will_be_deleted">La tua discussione con %1$s verrà eliminata.</string>
     <string name="BlockUnblockDialog_delete_this_contact">Eliminare questo contatto\?</string>
-    <string name="ConversationSettingsFragment__add_to_your_phones_contacts">Aggiungi ai contatti del tuo telefono</string>
+    <string name="ConversationSettingsFragment__add_to_your_phones_contacts">Aggiungi ai contatti del dispositivo</string>
     <string name="preferences_network__hostname_or_ip_address">Nome host o indirizzo IP</string>
     <string name="preferences_network__port">Porta</string>
     <string name="preferences_network__host">Host</string>
@@ -64,11 +64,11 @@
     <string name="WipeMemoryService_clearing_unencrypted_data_from_ram">Cancellazione dei dati non crittografati dalla RAM</string>
     <string name="MessageRetrievalService_ready_to_receive_messages">Pronto a ricevere messaggi</string>
     <string name="HelpSettingsFragment__molly_im_website">Sito web Molly.im</string>
-    <string name="enter_device_link_dialog__if_your_phone_cant_scan_the_qr_code_you_can_manually_enter_the_link_encoded_in_the_qr_code">Se il tuo telefono non può scansionare il codice QR, puoi inserire manualmente il collegamento codificato nel codice QR.</string>
+    <string name="enter_device_link_dialog__if_your_phone_cant_scan_the_qr_code_you_can_manually_enter_the_link_encoded_in_the_qr_code">Se il tuo dispositivo non può scansionare il codice QR, puoi inserire manualmente il collegamento codificato nel codice QR.</string>
     <string name="HelpSettingsFragment_disable_and_delete_debug_log">Eliminare e disabilitare il registro di debug\?</string>
     <string name="DeviceAddFragment__link_without_scanning">Collega senza scansione</string>
-    <string name="RegistrationActivity_molly_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly ha bisogno dei permessi dei contatti e dei media per aiutarti a connetterti con gli amici e inviare messaggi. I tuoi contatti sono caricati utilizzando Signal\'individuazione dei contatti privati, il che significa che sono crittografati dall\'inizio alla fine e mai visibili al servizio Signal.</string>
-    <string name="RegistrationActivity_molly_needs_access_to_your_contacts_in_order_to_connect_with_friends">Molly ha bisogno dell\'autorizzazione dei contatti per aiutarti a connetterti con gli amici. I tuoi contatti sono caricati utilizzando Signal\'individuazione dei contatti privati, il che significa che sono crittografati dall\'inizio alla fine e mai visibili al servizio Signal.</string>
+    <string name="RegistrationActivity_molly_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly ha bisogno delle autorizzazioni per i contatti e i media per aiutarti a trovare i tuoi amici e inviare messaggi. I contatti vengono caricati utilizzando la funzione di scoperta privata dei contatti di Signal, il che significa che sono crittografati dall\'inizio alla fine e non sono mai visibili al servizio Signal.</string>
+    <string name="RegistrationActivity_molly_needs_access_to_your_contacts_in_order_to_connect_with_friends">Molly ha bisogno dell\'autorizzazione dei contatti per aiutarti a trovare gli amici. I tuoi contatti sono caricati utilizzando Signal\'individuazione dei contatti privati, il che significa che sono crittografati dall\'inizio alla fine e mai visibili al servizio Signal.</string>
     <string name="DozeReminder_optimize_for_timely_notifications">Ottimizza per notifiche tempestive</string>
     <string name="DozeReminder_tap_to_allow_molly_to_retrieve_messages_while_the_device_is_in_standby">Tocca per permettere a Molly di recuperare i messaggi mentre il dispositivo è in standby.</string>
     <string name="preferences__include_beta_updates">Includi gli aggiornamenti beta</string>

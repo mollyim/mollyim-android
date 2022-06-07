@@ -45,10 +45,10 @@
     <string name="ChangePassphraseDialogFragment_passphrase">Парольна фраза</string>
     <string name="ChangePassphraseDialogFragment_please_choose_a_passphrase_that_will_be_used_to_locally_encrypt_your_data_this_should_be_a_strong_passphrase">Введіть парольну фразу, що використовуватиметься для локального шифрування ваших даних.\n\nЦе повинна бути сильна парольна фраза.</string>
     <string name="ChangePassphraseDialogFragment_generating_keys_this_may_take_a_while">Генерація ключів. Це може тривати певний час…</string>
-    <string name="ConversationSettingsFragment__add_to_your_phones_contacts">Додати до контактів</string>
+    <string name="ConversationSettingsFragment__add_to_your_phones_contacts">Додати до контактів вашого пристрою</string>
     <string name="BlockUnblockDialog_delete_this_contact">Видалити цей контакт?</string>
     <string name="BlockUnblockDialog_your_chat_history_with_s_will_be_deleted">Вашу бесіду з %1$s буде видалено.</string>
-    <string name="BlockUnblockDialog_your_chat_history_with_s_will_be_deleted_and_s_will_be_removed_from_your_phone_contacts">Вашу бесіду з %1$s буде видалено. Контакт %1$s буде видалений із вашого теефону.</string>
+    <string name="BlockUnblockDialog_your_chat_history_with_s_will_be_deleted_and_s_will_be_removed_from_your_phone_contacts">Вашу бесіду з %1$s буде видалено. Контакт %1$s буде видалений із вашого пристрою.</string>
     <string name="BlockUnblockDialog_deleted_contacts_are_still_able_to_call_you_or_send_you_messages">Видалені контакти все одно зможуть телефонувати вам чи відправляти повідомлення, якщо вони незаблоковані.</string>
     <string name="ProxyManager_successfully_started_orbot">Orbot запущено</string>
     <string name="NetworkPreferenceFragment_a_valid_port_number_is_between_0_and_65535">Правильний номер порту від 0 до 65535</string>
@@ -70,16 +70,16 @@
     <string name="MessageRetrievalService_ready_to_receive_messages">Готова отримувати повідомлення</string>
     <string name="HelpSettingsFragment__molly_im_website">Вебсторінка molly.im</string>
     <string name="DeviceAddFragment__link_without_scanning">Прив’язати без сканування</string>
-    <string name="enter_device_link_dialog__if_your_phone_cant_scan_the_qr_code_you_can_manually_enter_the_link_encoded_in_the_qr_code">Якщо ваш телефон неможе зчитати QR-код, можете ввести закодоване у QR-коді посилання.</string>
+    <string name="enter_device_link_dialog__if_your_phone_cant_scan_the_qr_code_you_can_manually_enter_the_link_encoded_in_the_qr_code">Якщо ваш пристрій не може зчитати QR-код, можете ввести закодоване у QR-коді посилання.</string>
     <string name="enter_device_link_dialog__url" translatable="false">tsdevice:/?uuid=UUID&amp;pub_key=PUBKEY</string>
     <string name="HelpSettingsFragment_disable_and_delete_debug_log">Видалити й вимкнути ведення журналу налагодження?</string>
-    <string name="RegistrationActivity_molly_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly потрібен доступ до контактів і медіа, щоб допомагати вам зв’язуватися з друзями та надсилати повідомлення. Ваші контакти завантажуються за допомогою приватного виявлення контактів Signal, що означає наскрізьне їх шифрування, а також невидимість для сервісу Signal.</string>
-    <string name="RegistrationActivity_molly_needs_access_to_your_contacts_in_order_to_connect_with_friends">Molly потрібен доступ до контактів, щоб допомагати вам зв’язуватися з друзями. Ваші контакти завантажуються за допомогою приватного виявлення контактів Signal, що означає наскрізьне їх шифрування, а також невидимість для сервісу Signal.</string>
+    <string name="RegistrationActivity_molly_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly потрібен доступ до контактів і медіа, щоб допомагати вам знаходити ваших друзів та надсилати повідомлення. Ваші контакти завантажуються за допомогою приватного виявлення контактів Signal, що означає наскрізьне їх шифрування, а також невидимість для сервісу Signal.</string>
+    <string name="RegistrationActivity_molly_needs_access_to_your_contacts_in_order_to_connect_with_friends">Molly потрібен доступ до контактів, щоб допомагати вам знаходити ваших друзів. Ваші контакти завантажуються за допомогою приватного виявлення контактів Signal, що означає наскрізьне їх шифрування, а також невидимість для сервісу Signal.</string>
     <string name="DozeReminder_optimize_for_timely_notifications">Оптимізація для своєчасних сповіщень</string>
     <string name="DozeReminder_tap_to_allow_molly_to_retrieve_messages_while_the_device_is_in_standby">Торкніться, щоб дозволити Molly отримувати повідомлення, коли пристрій перебуває в режимі очікування.</string>
     <string name="BiometricDialogFragment__biometric_verification">Біометрична верифікація</string>
     <string name="BiometricDialogFragment__please_confirm_it_is_really_you_to_access_molly">Будь ласка, підтвердьте, що це справді ви використовуєте Моллі</string>
     <string name="PrivacySettingsFragment__lock_molly_access_with_fingerprint_or_face_recognition">Заблокувати доступ до Моллі за допомогою відбитка пальця або розпізнавання обличчя</string>
     <string name="PrivacySettingsFragment__no_biometric_features_available_on_this_device">Біометричні функції недоступні на цьому пристрої</string>
-    <string name="PrivacySettingsFragment__please_first_setup_your_biometrics_in_android_settings">Спершу налаштуйте біометричні дані в налаштуваннях Android</string>
+    <string name="PrivacySettingsFragment__please_first_setup_your_biometrics_in_android_settings">Будь ласка, спершу налаштуйте біометричні дані в налаштуваннях Android</string>
 </resources>

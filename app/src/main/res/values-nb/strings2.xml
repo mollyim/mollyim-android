@@ -22,10 +22,10 @@
     <string name="NetworkPreferenceFragment_the_host_you_typed_is_not_valid">Verten du har skrevet inn er ikke gyldig</string>
     <string name="NetworkPreferenceFragment_a_valid_port_number_is_between_0_and_65535">Et gyldig portnummer mellom 0 og 65535</string>
     <string name="BlockUnblockDialog_deleted_contacts_are_still_able_to_call_you_or_send_you_messages">Slettede kontakter kan fremdeles ringe deg eller sende meldinger, med mindre de også er blokkert.</string>
-    <string name="BlockUnblockDialog_your_chat_history_with_s_will_be_deleted_and_s_will_be_removed_from_your_phone_contacts">Din sludring med %1$s vil bli slettet og %1$s vil bli fjernet fra dine telefonkontakter.</string>
+    <string name="BlockUnblockDialog_your_chat_history_with_s_will_be_deleted_and_s_will_be_removed_from_your_phone_contacts">Din sludring med %1$s vil bli slettet og %1$s vil bli fjernet fra dine enhetskontakter.</string>
     <string name="BlockUnblockDialog_your_chat_history_with_s_will_be_deleted">Din sludring med %1$s vil bli slettet.</string>
     <string name="BlockUnblockDialog_delete_this_contact">Slett denne kontakten\?</string>
-    <string name="ConversationSettingsFragment__add_to_your_phones_contacts">Legg til i telefonkontakter</string>
+    <string name="ConversationSettingsFragment__add_to_your_phones_contacts">Legg til i enhetens kontakter</string>
     <string name="preferences_network__tunnels_network_traffic">Sender nettverkstrafikk i tunnel</string>
     <string name="preferences_network__hostname_or_ip_address">Vertsnavn eller IP-adresse</string>
     <string name="preferences_network__port">Port</string>
@@ -41,7 +41,7 @@
     <string name="arrays__none">Ingen</string>
     <string name="ProxyManager_successfully_started_orbot">Orbot startet</string>
     <string name="preferences__autoupdate_molly">Installer nye versjoner av Molly automatisk</string>
-    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Sjekk om det er nye utgivelser periodisk, forespør installasjon.</string>
+    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Sjekk om det er nye utgivelser periodisk, og forespør installasjon</string>
     <string name="NetworkPreferenceFragment_molly_wont_connect_without_orbot_which_is_not_installed_on_this_device">Molly vil ikke koble til uten Orbot, som ikke er installert på denne enheten.</string>
     <string name="NetworkPreferenceFragment_get_orbot">Hent Orbot</string>
     <string name="NetworkPreferenceFragment_missing_orbot_app">Mangler Orbot-programmet</string>
@@ -77,5 +77,5 @@
     <string name="BiometricDialogFragment__please_confirm_it_is_really_you_to_access_molly">Bekreft at det faktisk er deg for å bruke Molly</string>
     <string name="PrivacySettingsFragment__lock_molly_access_with_fingerprint_or_face_recognition">Lås Molly-tilgang med fingeravtrykk og ansiktsgjenkjennelse</string>
     <string name="PrivacySettingsFragment__no_biometric_features_available_on_this_device">Ingen biometriske funksjoner tilgjengelig på denne enheten</string>
-    <string name="PrivacySettingsFragment__please_first_setup_your_biometrics_in_android_settings">Set opp biometriske metoder i Android-innstillingene først</string>
+    <string name="PrivacySettingsFragment__please_first_setup_your_biometrics_in_android_settings">Sett opp biometriske metoder i Android-innstillingene først</string>
 </resources>
